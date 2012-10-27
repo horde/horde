@@ -1,7 +1,6 @@
 <?php
 /**
- * The IMP_Ui_Message:: class is designed to provide a place to store common
- * code shared among IMP's various UI views for the message page.
+ * Common code shared among IMP's various UI views for the message page.
  *
  * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
  *

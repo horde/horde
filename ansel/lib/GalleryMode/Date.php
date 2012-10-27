@@ -454,9 +454,9 @@ class Ansel_GalleryMode_Date extends Ansel_GalleryMode_Base
     public function moveImagesTo($images, $gallery)
     {
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied moving photos to \"%s\"."), $newGallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied moving photos to this gallery."));
         } elseif (!$this->_gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-            throw new Horde_Exception_PermissionDenied(sprintf(_("Access denied removing photos from \"%s\"."), $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied removing photos from this gallery."));
         }
 
         /* Sanitize image ids, and see if we're removing our key image. */

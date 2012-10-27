@@ -9,25 +9,35 @@
 
 var TurbaMinisearch = {
 
-    mini_search: function()
+    // Vars set by block code: abooks, URI_AJAX
+
+    miniSearch: function(e)
     {
-        $('turba_minisearch_searching', 'turba_minisearch_close', 'turba_minisearch_iframe').invoke('show');
+        $('turba_minisearch_searching', 'turba_minisearch_close', 'turba_minisearch_results').invoke('show');
+        HordeCore.doAction('minisearch', {
+            abooks: Object.toJSON(this.abooks),
+            search: $F('turba_minisearch_search')
+        }, {
+            callback: function(r) {
+                $('turba_minisearch_results').update(r.html);
+                $('turba_minisearch_searching').hide();
+            },
+            uri: this.URI_AJAX
+        });
+        e.stop();
     },
 
-    hide_mini_search: function(e)
+    hideMiniSearch: function(e)
     {
         $('turba_minisearch_searching', 'turba_minisearch_close').invoke('hide');
-        var d = $('turba_minisearch_iframe').hide().contentWindow.document;
-        d.open();
-        d.close();
-
+        $('turba_minisearch_results').update().hide();
         e.stop();
     },
 
     onDomLoad: function()
     {
-        $('turba_minisearch').observe('submit', this.mini_search.bind(this));
-        $('turba_minisearch_close').observe('click', this.hide_mini_search.bindAsEventListener(this));
+        $('turba_minisearch').observe('submit', this.miniSearch.bindAsEventListener(this));
+        $('turba_minisearch_close').observe('click', this.hideMiniSearch.bindAsEventListener(this));
     }
 
 };

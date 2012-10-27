@@ -48,12 +48,30 @@ $help_app = $registry->get('name', ($module == 'admin') ? 'horde' : $module);
 $fileroot = ($module == 'admin')
     ? $registry->get('fileroot') . '/admin'
     : $registry->get('fileroot', $module);
+$fileroots = array(
+    $fileroot . '/locale/' . $language . '/',
+    $fileroot . '/locale/' . substr($language, 0, 2) . '/',
+    $fileroot . '/locale/en/'
+);
+foreach ($fileroots as $val) {
+    $fname = $val . 'help.xml';
+    if (@is_file($fname)) {
+        break;
+    }
+}
 
-$help = new Horde_Help(Horde_Help::SOURCE_FILE, array(
-    $fileroot . '/locale/' . $language . '/help.xml',
-    $fileroot . '/locale/' . substr($language, 0, 2) . '/help.xml',
-    $fileroot . '/locale/en/help.xml'
-));
+$views = array();
+switch ($registry->getView()) {
+case $registry::VIEW_BASIC:
+    $views[] = 'basic';
+    break;
+
+case $registry::VIEW_DYNAMIC:
+    $views[] = 'dynamic';
+    break;
+}
+
+$help = new Horde_Help(Horde_Help::SOURCE_FILE, $fname, $views);
 
 $page_output->sidebar = $page_output->topbar = false;
 $page_output->header(array(
@@ -83,7 +101,7 @@ case 'sidebar':
         $topics = $help->topics();
         $added_nodes = array();
         $node_params_master = array(
-            'icon' => strval(Horde_Themes::img('help.png')),
+            'icon' => '',
             'target' => 'help_main'
         );
 
@@ -100,23 +118,21 @@ case 'sidebar':
 
             /* Split title in multiple levels */
             $levels = preg_split('/:\s/', $title);
-            if (count($levels) == 1) {
-                $levels = array(1 => $title);
-            }
 
             $idx = '';
+            $lcount = count($levels) - 1;
             $node_params = $node_params_master;
             $parent = null;
 
             foreach ($levels as $key => $name) {
                 $idx .= '|' . $name;
                 if (empty($added_nodes[$idx])) {
-                    $added_nodes[$idx] = true;
-                    if ($key) {
+                    if ($key == $lcount) {
                         $node_params['url'] = $base_url->copy()->setRaw(true)->add(array(
                             'show' => 'entry',
                             'topic' => $id
                         ));
+                        $added_nodes[$idx] = true;
                     }
                     $tree->addNode(array(
                         'id' => $idx,
@@ -136,6 +152,7 @@ case 'sidebar':
         $searchForm = new Horde_Form($vars, null, 'search');
         $searchForm->setButtons(_("Search"));
 
+        $searchForm->addHidden('sidebar', 'show', 'text', false);
         $searchForm->addHidden('', 'module', 'text', false);
         $searchForm->addHidden('', 'side_show', 'text', false);
         $searchForm->addVariable(_("Keyword"), 'keyword', 'text', false, false, null, array(null, 20));

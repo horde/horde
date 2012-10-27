@@ -30,7 +30,7 @@ class Nag_Form_Task extends Horde_Form
 
         $tasklist_enums = array();
         foreach (Nag::listTasklists(false, Horde_Perms::EDIT) as $tl_id => $tl) {
-            $tasklist_enums[$tl_id] = $tl->get('name');
+            $tasklist_enums[$tl_id] = Nag::getLabel($tl);
         }
         $tasklist = $vars->get('tasklist_id');
         if (empty($tasklist)) {

@@ -8,9 +8,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Transport_Timsieved extends Ingo_Transport
 {
@@ -27,13 +29,14 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
     public function __construct(array $params = array())
     {
         $default_params = array(
+            'admin'      => '',
+            'debug'      => false,
+            'euser'      => '',
             'hostspec'   => 'localhost',
             'logintype'  => 'PLAIN',
             'port'       => 4190,
             'scriptname' => 'ingo',
-            'admin'      => '',
-            'usetls'     => true,
-            'debug'      => false
+            'usetls'     => true
         );
 
         $this->_supportShares = true;
@@ -62,12 +65,13 @@ class Ingo_Transport_Timsieved extends Ingo_Transport
             $this->_params['hostspec'],
             $this->_params['port'],
             $this->_params['logintype'],
-            Ingo::getUser(false),
+            $this->_params['euser'],
             $this->_params['debug'],
             false,
             $this->_params['usetls'],
             null,
-            array($this, 'debug'));
+            array($this, 'debug')
+        );
 
         $res = $this->_sieve->getError();
         if ($res instanceof PEAR_Error) {

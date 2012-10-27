@@ -154,8 +154,7 @@ class Horde_ActiveSync_Imap_Adapter
      * @return boolean  True if changes were detected, otherwise false.
      * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_FolderGone
      */
-    public function ping(
-        Horde_ActiveSync_Folder_Imap $folder)
+    public function ping(Horde_ActiveSync_Folder_Imap $folder)
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());

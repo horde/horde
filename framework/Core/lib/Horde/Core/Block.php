@@ -202,9 +202,10 @@ abstract class Horde_Core_Block
      */
     protected function _ajaxUpdateUrl()
     {
-        $ajax_url = $GLOBALS['registry']->getServiceLink('ajax');
+        $ajax_url = $GLOBALS['registry']->getServiceLink('ajax')
+            ->add(array('app' => $this->getApp(),
+                        'blockid' => get_class($this)));
         $ajax_url->pathInfo = 'blockUpdate';
-        $ajax_url->add('blockid', get_class($this));
 
         return $ajax_url;
     }
@@ -232,7 +233,7 @@ abstract class Horde_Core_Block
         try {
             $ret = is_null($args)
                 ? $this->$name()
-                : call_user_func($name, $args);
+                : call_user_func(array($this, $name), $args);
         } catch (Horde_Exception $e) {
             $ret = $default;
         }

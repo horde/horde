@@ -14,30 +14,28 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
     /**
      * Return the driver instance.
      *
-     * @param string    $tasklist   The name of the tasklist to load.
-     *
-     * @param string    $driver     The type of concrete Nag_Driver subclass
-     *                              to return.  The is based on the storage
-     *                              driver ($driver).  The code is dynamically
-     *                              included.
-     *
-     * @param array     $params     (optional) A hash containing any additional
-     *                              configuration or connection parameters a
-     *                              subclass might need.
+     * @param string $tasklist   The name of the tasklist to load.
      *
      * @return Nag_Driver
      * @throws Nag_Exception
      */
-    public function create($tasklist = '')
+    public function create($tasklist)
     {
+        $driver = null;
+        $params = array();
+
         if (!empty($tasklist)) {
             $signature = $tasklist;
-            $share = $GLOBALS['nag_shares']->getShare($tasklist);
-            if ($share->get('issmart')) {
-                $driver = 'Smartlist';
+            try {
+                $share = $GLOBALS['nag_shares']->getShare($tasklist);
+                if ($share->get('issmart')) {
+                    $driver = 'Smartlist';
+                }
+            } catch (Horde_Exception $e) {
+                throw new Nag_Exception($e);
             }
         }
-        if (empty($driver)) {
+        if (!$driver) {
             $driver = $GLOBALS['conf']['storage']['driver'];
             $params = Horde::getDriverConfig('storage', $driver);
             $signature = serialize(array($tasklist, $driver, $params));
@@ -59,7 +57,7 @@ class Nag_Factory_Driver extends Horde_Core_Factory_Base
             $params['kolab'] = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage');
             break;
         case 'Smartlist':
-            $params['driver'] = $this->create();
+            $params['driver'] = $this->create('');
         }
 
         if (class_exists($class)) {

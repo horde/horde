@@ -12,8 +12,8 @@
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author Robert E. Coyle <robertecoyle@hotmail.com>
- * @author  Ben Klang <ben@alkaloid.net>
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Ben Klang <ben@alkaloid.net>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Hermes
  */
 
@@ -39,6 +39,12 @@ class Hermes_Application extends Horde_Registry_Application
 {
     /**
      */
+    public $features = array(
+        'dynamicView' => true
+    );
+
+    /**
+     */
     public $version = 'H5 (2.0-git)';
 
     /**
@@ -46,6 +52,15 @@ class Hermes_Application extends Horde_Registry_Application
     protected function _bootstrap()
     {
         $GLOBALS['injector']->bindFactory('Hermes_Driver', 'Hermes_Factory_Driver', 'create');
+    }
+
+    /**
+     */
+    protected function _init()
+    {
+        if (!$GLOBALS['prefs']->getValue('dynamic_view')) {
+            $this->features['dynamicView'] = false;
+        }
     }
 
     /**
@@ -66,6 +81,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
+     * Responsible for building the top left menu entries of the sideBar in
+     * Basic view.
      */
     public function menu($menu)
     {
@@ -79,14 +96,15 @@ class Hermes_Application extends Horde_Registry_Application
             null,
             Horde::popupJs(Horde::url('start.php'), array('height' => 200, 'width' => 410)) . 'return false;'
         );
-        if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
-            $entry = Horde::url('entry.php');
-            foreach ($timers as $i => $timer) {
-                $hours = round((float)(time() - $i) / 3600, 2);
-                $menu->add($entry->add('timer', $i),
-                           $timer['name'] . sprintf(" (%s)", $hours),
-                           'hermes-stop', null, '', null, '__noselection');
-            }
+
+        // Timers
+        $timers = Hermes::listTimers();
+        $entry = Horde::url('entry.php');
+        foreach ($timers as $i => $timer) {
+            $menu->add($entry->add('timer', $i),
+                       $timer['name'] . sprintf(" (%s)", $timer['e']),
+                       'hermes-stop', null, '', null, '__noselection'
+            );
         }
 
         $menu->add(Horde::url('search.php'), _("_Search"), 'hermes-search');
@@ -112,7 +130,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the sidebar.
+     * Add additional items to the sidebar. This is for the Basic view. For the
+     * Dynamic view @see Hermes_View_Sidebar
      *
      * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
@@ -128,8 +147,8 @@ class Hermes_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                 array $params = array())
+    public function topbarCreate(
+        Horde_Tree_Renderer_Base $tree, $parent = null, array $params = array())
     {
         switch ($params['id']) {
         case 'menu':
@@ -169,23 +188,20 @@ class Hermes_Application extends Horde_Registry_Application
                 )
             ));
 
-            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
-                $entry = Horde::url('entry.php');
-                foreach ($timers as $i => $timer) {
-                    $hours = round((float)(time() - $i) / 3600, 2);
-                    $tree->addNode(array(
-                        'id' => $parent . '__timer_' . $i,
-                        'parent' => $parent,
-                        'label' => $timer['name'] . sprintf(" (%s)", $hours),
-                        'expanded' => false,
-                        'params' => array(
-                            'icon' => Horde_Themes::img('timer-stop.png'),
-                            'url' => $entry->add('timer', $i)
-                        )
-                    ));
-                }
+            $timers = Hermes::listTimers();
+            $entry = Horde::url('entry.php');
+            foreach ($timers as $i => $timer) {
+                $tree->addNode(array(
+                    'id' => $parent . '__timer_' . $i,
+                    'parent' => $parent,
+                    'label' => $timer['name'] . sprintf(" (%s)", $timer['e']),
+                    'expanded' => false,
+                    'params' => array(
+                        'icon' => Horde_Themes::img('timer-stop.png'),
+                        'url' => $entry->add('timer', $i)
+                    )
+                ));
             }
-            break;
         }
     }
 

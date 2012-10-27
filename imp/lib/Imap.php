@@ -124,7 +124,6 @@ class IMP_Imap implements Serializable
             'password' => $password,
             'port' => isset($server['port']) ? $server['port'] : null,
             'secure' => isset($server['secure']) ? $server['secure'] : false,
-            'statuscache' => true,
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
         );
@@ -196,11 +195,12 @@ class IMP_Imap implements Serializable
     {
         if ($this->imap) {
             $special = IMP_Mailbox::getSpecialMailboxes();
-
-            $this->ob->fetchCacheIgnore(array_filter(array(
+            $cache = $this->ob->getParam('cache');
+            $cache['fetch_ignore'] = array_filter(array(
                 strval($special[IMP_Mailbox::SPECIAL_SPAM]),
                 strval($special[IMP_Mailbox::SPECIAL_TRASH])
-            )));
+            ));
+            $this->ob->setParam('cache', $cache);
         }
     }
 
@@ -236,7 +236,7 @@ class IMP_Imap implements Serializable
     public function getNamespaceList()
     {
         try {
-            return $this->ob->getNamespaces($GLOBALS['session']->get('imp', 'imap_namespace', Horde_Session::TYPE_ARRAY));
+            return $this->getNamespaces($GLOBALS['session']->get('imp', 'imap_namespace', Horde_Session::TYPE_ARRAY));
         } catch (Horde_Imap_Client_Exception $e) {
             return array();
         }
@@ -302,18 +302,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Return the Horde_Imap_Client_Utils object.
-     *
-     * @return Horde_Imap_Client_Utils  The utility object.
-     */
-    public function getUtils()
-    {
-        return $this->ob
-            ? $this->ob->utils
-            : $GLOBALS['injector']->createInstance('Horde_Imap_Client_Utils');
-    }
-
-    /**
      * All other calls to this class are routed to the underlying
      * Horde_Imap_Client_Base object.
      *
@@ -340,7 +328,6 @@ class IMP_Imap implements Serializable
         case 'deleteMailbox':
         case 'expunge':
         case 'fetch':
-        case 'fetchFromSectionString':
         case 'getACL':
         case 'getCacheId':
         case 'getMetadata':

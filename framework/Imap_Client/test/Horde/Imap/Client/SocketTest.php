@@ -43,10 +43,6 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
     {
         // Test file is base64 encoded to obfuscate the data.
         $fetch_data = base64_decode(file_get_contents(__DIR__ . '/fixtures/bug_10503.txt'));
-        $this->test_ob = new Horde_Imap_Client_Stub_Socket(array(
-            'password' => 'foo',
-            'username' => 'bar'
-        ));
 
         $sorted = $this->test_ob->getClientSort(
             explode("\n", $fetch_data),

@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:08:23</time>
+ <date>2012-10-26</date>
+ <time>23:58:05</time>
  <version>
-  <release>6.0.0beta5</release>
+  <release>6.0.0RC2</release>
   <api>6.0.0beta1</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).
-* [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
-* [mms] Load folders list on-demand in smartmobile view.
-* [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
-* [mms] Display message range when dragging slider on dynamic mailbox page.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -968,13 +964,11 @@
       <file name="forward.png" role="horde" />
       <file name="forwarded.png" role="horde" />
       <file name="gallery.png" role="horde" />
-      <file name="help.png" role="horde" />
       <file name="ico_message_off.png" role="horde" />
       <file name="imp.png" role="horde" />
       <file name="info_icon.png" role="horde" />
       <file name="innocent.png" role="horde" />
-      <file name="key_down.png" role="horde" />
-      <file name="key_up.png" role="horde" />
+      <file name="locked-inv.png" role="horde" />
       <file name="locked.png" role="horde" />
       <file name="logo.png" role="horde" />
       <file name="logout.png" role="horde" />
@@ -1833,13 +1827,11 @@
    <install as="imp/themes/default/graphics/forward.png" name="themes/default/graphics/forward.png" />
    <install as="imp/themes/default/graphics/forwarded.png" name="themes/default/graphics/forwarded.png" />
    <install as="imp/themes/default/graphics/gallery.png" name="themes/default/graphics/gallery.png" />
-   <install as="imp/themes/default/graphics/help.png" name="themes/default/graphics/help.png" />
    <install as="imp/themes/default/graphics/ico_message_off.png" name="themes/default/graphics/ico_message_off.png" />
    <install as="imp/themes/default/graphics/imp.png" name="themes/default/graphics/imp.png" />
    <install as="imp/themes/default/graphics/info_icon.png" name="themes/default/graphics/info_icon.png" />
    <install as="imp/themes/default/graphics/innocent.png" name="themes/default/graphics/innocent.png" />
-   <install as="imp/themes/default/graphics/key_down.png" name="themes/default/graphics/key_down.png" />
-   <install as="imp/themes/default/graphics/key_up.png" name="themes/default/graphics/key_up.png" />
+   <install as="imp/themes/default/graphics/locked-inv.png" name="themes/default/graphics/locked-inv.png" />
    <install as="imp/themes/default/graphics/locked.png" name="themes/default/graphics/locked.png" />
    <install as="imp/themes/default/graphics/logo.png" name="themes/default/graphics/logo.png" />
    <install as="imp/themes/default/graphics/logout.png" name="themes/default/graphics/logout.png" />
@@ -2582,6 +2574,8 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Catch failure to add attachments because PHP&apos;s maximum allowed POST size was exceeded.
+* [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
 * [mms] Fix sending MDN notifications in traditional view (Bug #11311).
 * [mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
@@ -2755,19 +2749,36 @@
   </release>
   <release>
    <version>
-    <release>6.0.0beta5</release>
+    <release>6.0.0RC1</release>
     <api>6.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Attach as many files as possible instead of aborting on first failed attachment add.
+* [mms] Fix determining first/last unseen message in a mailbox (use message date instead of arrival date).
+* [jan] Don&apos;t show application menus in iTip MIME viewer popups.
+* [mms] Hide subfolder creation option in dynamic view if IMAP server indicates that child mailboxes cannot be created.
 * [mms] Correctly send deleted flag information to browser cache when using dynamic/smartmobile view (Bug #11362).
 * [mms] Auto-update folders list in smartmobile view if special mailbox is auto-created (Request #11482).
 * [mms] Load folders list on-demand in smartmobile view.
 * [mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
 * [mms] Display message range when dragging slider on dynamic mailbox page.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.0RC2</release>
+    <api>6.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

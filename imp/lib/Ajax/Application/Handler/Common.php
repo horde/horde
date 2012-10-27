@@ -463,7 +463,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
 
-        $sm_displayed = !empty($GLOBALS['conf']['user']['select_sentmail_folder']) && !$GLOBALS['prefs']->isLocked('sent_mail_folder');
+        $sm_displayed = !$GLOBALS['prefs']->isLocked('sent_mail_folder');
 
         $options = array(
             'add_signature' => $identity->getDefault(),

@@ -2907,22 +2907,21 @@ class Whups_Driver_Sql extends Whups_Driver
         foreach ($attributes as $attribute) {
             $id = $attribute['attribute_id'];
             $results[$id] = $attribute;
-            if (empty($type)) {
-                $results[$id]['attribute_name'] =
-                    $attribute['attribute_name']
-                    . ' (' . $attribute['type_name'] . ')';
-            }
-            $results[$id]['attribute_name']        =
+            $results[$id]['attribute_name'] =
                 $this->_fromBackend($attribute['attribute_name']);
+            if (empty($type)) {
+                $results[$id]['attribute_name'] .=
+                    ' (' . $attribute['type_name'] . ')';
+            }
             $results[$id]['attribute_description'] =
                 $this->_fromBackend($attribute['attribute_description']);
-            $results[$id]['attribute_type']        =
+            $results[$id]['attribute_type'] =
                 empty($attribute['attribute_type'])
                     ? 'text'
                     : $attribute['attribute_type'];
-            $results[$id]['attribute_params']      =
+            $results[$id]['attribute_params'] =
                 $this->_fromBackend(@unserialize($attribute['attribute_params']));
-            $results[$id]['attribute_required']    =
+            $results[$id]['attribute_required'] =
                 (bool)$attribute['attribute_required'];
         }
 

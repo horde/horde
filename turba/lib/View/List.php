@@ -191,7 +191,7 @@ class Turba_View_List implements Countable
             $max = $min + $perpage;
             $start = ($page * $perpage) + 1;
             $end = min($numitem, $start + $perpage - 1);
-            $listHtml = $this->getPage($numDisplayed, $min, $max);
+            $listHtml = $this->getPage($numDisplayed, $min, $max, $vars->get('page'));
             $crit = array();
             if ($session->get('turba', 'search_mode') == 'advanced') {
                 $map = $driver->getCriteria();
@@ -261,16 +261,18 @@ class Turba_View_List implements Countable
      *                               rendered.
      * @param integer $min           Minimum number of rows to display.
      * @param integer $max           Maximum number of rows to display.
+     * @param string $page           The currently displayed page.
      *
      * @return string  HTML to echo.
      */
-    public function getPage(&$numDisplayed, $min = 0, $max = null)
+    public function getPage(&$numDisplayed, $min = 0, $max = null, $page = 0)
     {
         if (is_null($max)) {
             $max = count($this);
         }
         return $this->_get($numDisplayed,
-                           new Turba_View_List_PageFilter($min, $max));
+                           new Turba_View_List_PageFilter($min, $max),
+                           $page);
     }
 
     /**
@@ -285,7 +287,8 @@ class Turba_View_List implements Countable
     public function getAlpha(&$numDisplayed, $alpha)
     {
         return $this->_get($numDisplayed,
-                           new Turba_View_List_AlphaFilter($alpha));
+                           new Turba_View_List_AlphaFilter($alpha),
+                           $alpha);
     }
 
     /**
@@ -399,12 +402,13 @@ class Turba_View_List implements Countable
     }
 
     /**
-     * @param integer $numDisplayed
-     * @param object $filter         A Turba_View_List filter object
+     * @param integer $numDisplayed  Set to the number of displayed contacts.
+     * @param object $filter         A Turba_View_List filter object.
+     * @param string $page           The currently displayed page.
      *
      * @return string
      */
-    protected function _get(&$numDisplayed, $filter)
+    protected function _get(&$numDisplayed, $filter, $page)
     {
         ob_start();
         $width = floor(90 / (count($this->columns) + 1));
@@ -416,7 +420,6 @@ class Turba_View_List implements Countable
         }
 
         $vars = Horde_Variables::getDefaultVariables();
-        $page = $vars->get('page', 'A');
 
         include TURBA_TEMPLATES . '/browse/column_headers.inc';
 

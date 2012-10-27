@@ -65,7 +65,8 @@ class Hermes
 
     /**
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
-     * @return <type>
+     *
+     * @return string
      */
     public static function getJobTypeSelect($id)
     {
@@ -311,7 +312,44 @@ class Hermes
     }
 
     /**
-     * Create a new timer and save it to storage.
+     * Return list of current timers.
+     *
+     * @param boolean $running_only  Only return running timers if true.
+     *
+     * @return array  An array of timer hashes.
+     */
+    public static function listTimers($running_only = false)
+    {
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
+        if (!empty($timers)) {
+            $timers = @unserialize($timers);
+        } else {
+            $timers = array();
+        }
+        $return = array();
+        foreach ($timers as $id => $timer) {
+            if ($running_only && $timer['paused']) {
+                continue;
+            }
+            $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+            $timer['e'] = round((float)$elapsed / 3600, 2);
+            $timer['id'] = $id;
+            unset($timer['elapsed']);
+            $return[] = $timer;
+        }
+
+        return $return;
+    }
+
+    /**
+     * Create a new timer and save it to storage. Timers contain the following
+     * values:
+     *  - name: (string) The descriptive name of the timer.
+     *  - time: (integer) Contains the timestamp of the last time this timer
+     *          was started. Contains zero if paused.
+     *  - paused: (boolean)  Flag to indicate the timer is paused.
+     *  - elapsed: (integer) Total elapsed time since the timer was CREATED.
+     *             Updated when timer is paused.
      *
      * @param string $description  The timer description.
      *
@@ -331,11 +369,17 @@ class Hermes
         return $now;
     }
 
+    /**
+     * Return a specific timer.
+     *
+     * @param integer  The timer id.
+     *
+     * @return array  The timer hash.
+     * @throws Horde_Exception_NotFound
+     */
     public static function getTimer($id)
     {
-        global $prefs;
-
-        $timers = $prefs->getValue('running_timers');
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
         } else {
@@ -343,16 +387,20 @@ class Hermes
         }
 
         if (empty($timers[$id])) {
-            return false;
+            throw new Horde_Exception_NotFound(_("The requested timer was not found."));
         }
 
         return $timers[$id];
     }
 
+    /**
+     * Clear a timer
+     *
+     * @param integer $id  The timer id to clear/remove.
+     */
     public static function clearTimer($id)
     {
         global $prefs;
-
         $timers = @unserialize($prefs->getValue('running_timers'));
          if (!is_array($timers)) {
             $timers = array();
@@ -362,6 +410,12 @@ class Hermes
         $prefs->setValue('running_timers', serialize($timers));
     }
 
+    /**
+     * Update an existing timer.
+     *
+     * @param integer $id   The timer id.
+     * @param array $timer  The timer hash.
+     */
     public static function updateTimer($id, $timer)
     {
          global $prefs;

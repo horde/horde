@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>23:16:32</time>
+ <date>2012-10-27</date>
+ <time>00:06:37</time>
  <version>
-  <release>4.0.0beta3</release>
+  <release>4.0.0RC2</release>
   <api>4.0.0beta1</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix listing tasks from Kolab backends.
-* [jan] Fix sending alarm e-mail messages.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -480,6 +479,9 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="graphics">
       <file name="add.png" role="horde" />
       <file name="alarm.png" role="horde" />
@@ -916,6 +918,7 @@
    <install as="Nag/Unit/Nag/Sql/Base.php" name="test/Nag/Unit/Nag/Sql/Base.php" />
    <install as="Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" name="test/Nag/Unit/Nag/Sql/Pdo/SqliteTest.php" />
    <install as="nag/themes/default/screen.css" name="themes/default/screen.css" />
+   <install as="nag/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="nag/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="nag/themes/default/graphics/alarm.png" name="themes/default/graphics/alarm.png" />
    <install as="nag/themes/default/graphics/alarm_small.png" name="themes/default/graphics/alarm_small.png" />
@@ -1194,16 +1197,34 @@
   </release>
   <release>
    <version>
-    <release>4.0.0beta3</release>
+    <release>4.0.0RC1</release>
     <api>4.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix export links for tasklists (Bug #11576).
+* [mjr] Fix various issues with importing CSV files.
+* [mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
+* [jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
+* [jan] Fix toggling tasklists (Bug #11511).
 * [jan] Fix listing tasks from Kolab backends.
 * [jan] Fix sending alarm e-mail messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC2</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

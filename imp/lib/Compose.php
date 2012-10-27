@@ -236,14 +236,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if ($this->_replytype) {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
-                $imap_url = $imp_imap->getUtils()->createUrl(array(
-                    'type' => $imp_imap->pop3 ? 'pop' : 'imap',
-                    'username' => $imp_imap->getParam('username'),
-                    'hostspec' => $imp_imap->getParam('hostspec'),
-                    'mailbox' => $this->getMetadata('mailbox'),
-                    'uid' => $this->getMetadata('uid'),
-                    'uidvalidity' => $this->getMetadata('mailbox')->uidvalid
-                ));
+                $imap_url = new Horde_Imap_Client_Url();
+                $imap_url->hostspec = $imp_imap->getParam('hostspec');
+                $imap_url->mailbox = $this->getMetadata('mailbox');
+                $imap_url->protocol = $imp_imap->pop3 ? 'pop' : 'imap';
+                $imap_url->uid = $this->getMetadata('uid');
+                $imap_url->uidvalidity = $this->getMetadata('mailbox')->uidvalid;
+                $imap_url->username = $imp_imap->getParam('username');
 
                 switch ($this->replyType(true)) {
                 case self::FORWARD:
@@ -538,20 +537,19 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             if ($draft_url) {
-                $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-                $imap_url = $imp_imap->getUtils()->parseUrl(rtrim(ltrim($draft_url, '<'), '>'));
+                $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
                 $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
                 try {
-                    if (($imap_url['type'] == $protocol) &&
-                        ($imap_url['username'] == $imp_imap->getParam('username')) &&
+                    if (($imap_url->protocol == $protocol) &&
+                        ($imap_url->username == $injector->getInstance('IMP_Factory_Imap')->create()->getParam('username')) &&
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
-                        (IMP_Mailbox::get($imap_url['mailbox'])->uidvalid == $imap_url['uidvalidity']) &&
-                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url['mailbox'], $imap_url['uid']))) {
-                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url['mailbox']);
-                        $this->_metadata['uid'] = $imap_url['uid'];
+                        (IMP_Mailbox::get($imap_url->mailbox)->uidvalid == $imap_url->uidvalidity) &&
+                        $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url->mailbox, $imap_url->uid))) {
+                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url->mailbox);
+                        $this->_metadata['uid'] = $imap_url->uid;
                         $this->_replytype = $type;
                     }
                 } catch (Exception $e) {}
@@ -1578,7 +1576,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $subject = $h->getValue('subject');
         $header['subject'] = empty($subject)
             ? 'Re: '
-            : 'Re: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($subject, array('keepblob' => true));
+            : 'Re: ' . strval(new Horde_Imap_Client_Data_BaseSubject($subject, array('keepblob' => true)));
 
         $force = false;
         if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
@@ -1930,7 +1928,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $header['subject'] = $h->getValue('subject');
         if (!empty($header['subject'])) {
-            $subject = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($header['subject'], array('keepblob' => true));
+            $subject = strval(new Horde_Imap_Client_Data_BaseSubject($header['subject'], array('keepblob' => true)));
             $header['title'] = _("Forward") . ': ' . $subject;
             $header['subject'] = 'Fwd: ' . $subject;
         } else {
@@ -2190,7 +2188,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $name = _("[No Subject]");
         }
 
-        return 'Fwd: ' . $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->getBaseSubject($name, array('keepblob' => true));
+        return 'Fwd: ' . strval(new Horde_Imap_Client_Data_BaseSubject($name, array('keepblob' => true)));
     }
 
     /**
@@ -2236,75 +2234,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         return $text;
-    }
-
-    /**
-     * Adds an attachment to a Horde_Mime_Part from an uploaded file.
-     *
-     * @param string $name  The input field name from the form.
-     *
-     * @return string  The filename.
-     *
-     * @throws IMP_Compose_Exception
-     */
-    public function addUploadAttachment($name)
-    {
-        global $conf;
-
-        try {
-            $GLOBALS['browser']->wasFileUploaded($name, _("attachment"));
-        } catch (Horde_Browser_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        $filename = Horde_Util::dispelMagicQuotes($_FILES[$name]['name']);
-        $tempfile = $_FILES[$name]['tmp_name'];
-
-        /* Check for filesize limitations. */
-        if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $_FILES[$name]['size']) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename));
-        }
-
-        /* Determine the MIME type of the data. */
-        $type = empty($_FILES[$name]['type'])
-            ? 'application/octet-stream'
-            : $_FILES[$name]['type'];
-
-        /* User hook to do file scanning/MIME magic determinations. */
-        try {
-            $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {}
-
-        $part = new Horde_Mime_Part();
-        $part->setType($type);
-        if ($part->getPrimaryType() == 'text') {
-            if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
-                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
-            } else {
-                $part->setCharset('UTF-8');
-            }
-        } else {
-            $part->setHeaderCharset('UTF-8');
-        }
-        $part->setName($filename);
-        $part->setBytes($_FILES[$name]['size']);
-        $part->setDisposition('attachment');
-
-        if ($conf['compose']['use_vfs']) {
-            $attachment = $tempfile;
-        } else {
-            $attachment = Horde::getTempFile('impatt', false);
-            if (move_uploaded_file($tempfile, $attachment) === false) {
-                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
-            }
-        }
-
-        /* Store the data. */
-        $this->_storeAttachment($part, $attachment);
-
-        return $filename;
     }
 
     /**
@@ -3006,48 +2935,85 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param boolean $notify  Add a notification message for each successful
      *                         attachment?
      *
-     * @return boolean  Returns false if any file was unsuccessfully added.
+     * @return boolean  Returns true if at least one file was successfully
+     *                  added.
      */
     public function addFilesFromUpload($field, $notify = false)
     {
-        $success = true;
+        global $browser, $conf, $notification;
+
+        $success = false;
 
         /* Add new attachments. */
         for ($i = 1, $fcount = count($_FILES); $i <= $fcount; ++$i) {
             $key = $field . $i;
-            if (isset($_FILES[$key]) && ($_FILES[$key]['error'] != 4)) {
-                $filename = Horde_Util::dispelMagicQuotes($_FILES[$key]['name']);
-                if (!empty($_FILES[$key]['error'])) {
-                    switch ($_FILES[$key]['error']) {
-                    case UPLOAD_ERR_INI_SIZE:
-                    case UPLOAD_ERR_FORM_SIZE:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the maximum allowed upload size has been exceeded."), $filename), 'horde.warning');
-                        break;
 
-                    case UPLOAD_ERR_PARTIAL:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as it was only partially uploaded."), $filename), 'horde.warning');
-                        break;
+            try {
+                $browser->wasFileUploaded($key, _("attachment"));
+            } catch (Horde_Browser_Exception $e) {
+                if ($notify) {
+                    $notification->push($e, 'horde.error');
+                }
+                continue;
+            }
 
-                    default:
-                        $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the server configuration did not allow the file to be uploaded."), $filename), 'horde.warning');
-                        break;
-                    }
-                    $success = false;
-                } elseif ($_FILES[$key]['size'] == 0) {
-                    $GLOBALS['notification']->push(sprintf(_("Did not attach \"%s\" as the file was empty."), $filename), 'horde.warning');
-                    $success = false;
+            $finfo = $_FILES[$key];
+            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
+            $tempfile = $finfo['tmp_name'];
+
+            /* Check for filesize limitations. */
+            if (!empty($conf['compose']['attach_size_limit']) &&
+                (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $finfo['size']) < 0)) {
+                if ($notify) {
+                    $notification->push(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename), 'horde.error');
+                }
+                continue;
+            }
+
+            /* Determine the MIME type of the data. */
+            $type = empty($finfo['type'])
+                ? 'application/octet-stream'
+                : $finfo['type'];
+
+            /* User hook to do file scanning/MIME magic determinations. */
+            try {
+                $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {}
+
+            $part = new Horde_Mime_Part();
+            $part->setType($type);
+            if ($part->getPrimaryType() == 'text') {
+                if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
+                    $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
+                    $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
                 } else {
-                    try {
-                        $result = $this->addUploadAttachment($key);
-                        if ($notify) {
-                            $GLOBALS['notification']->push(sprintf(_("Added \"%s\" as an attachment."), $result), 'horde.success');
-                        }
-                    } catch (IMP_Compose_Exception $e) {
-                        $GLOBALS['notification']->push($e, 'horde.error');
-                        $success = false;
-                    }
+                    $part->setCharset('UTF-8');
+                }
+            } else {
+                $part->setHeaderCharset('UTF-8');
+            }
+            $part->setName($filename);
+            $part->setBytes($finfo['size']);
+            $part->setDisposition('attachment');
+
+            if ($conf['compose']['use_vfs']) {
+                $attachment = $tempfile;
+            } else {
+                $attachment = Horde::getTempFile('impatt', false);
+                if (move_uploaded_file($tempfile, $attachment) === false) {
+                    throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
+                    continue;
                 }
             }
+
+            /* Store the data. */
+            $this->_storeAttachment($part, $attachment);
+
+            if ($notify) {
+                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+            }
+
+            $success = true;
         }
 
         return $success;

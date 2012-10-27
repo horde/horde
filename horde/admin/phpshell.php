@@ -60,7 +60,11 @@ if ($command) {
     $pretty = $injector->getInstance('Horde_Core_Factory_MimeViewer')->create($part)->render('inline');
     $view->pretty = $pretty[1]['data'];
     Horde::startBuffer();
-    eval($command);
+    try {
+        eval($command);
+    } catch (Exception $e) {
+        echo $e;
+    }
     $view->command_exec = Horde::endBuffer();
 
     if ($pushed) {

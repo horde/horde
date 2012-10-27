@@ -32,7 +32,7 @@ class Trean_TagBrowser extends Horde_Core_TagBrowser
      *
      * @return Array  An array of Trean_Bookmark objects.
      */
-    public function getSlice($page, $perpage)
+    public function getSlice($page = 0, $perpage = null)
     {
         global $injector;
 

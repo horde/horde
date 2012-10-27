@@ -4,6 +4,19 @@ v4.0.0-git
 
 
 
+---------
+v4.0.0RC1
+---------
+
+[jan] Allow searching for 'emails' attributes (Bug #11185).
+[jan] Fix LIKE matching of attributes in Kolab driver.
+[mms] Convert turba minisearch block to the Horde AJAX framework.
+[jan] Support 'emails' attribute in smartphone view (Bug #11544).
+[jan] Attach share owner to all address book titles (Bug #11528).
+[jan] Fix exporting from browse view (Bug #11526).
+[jan] Return to the same page after running actions from the browse view.
+
+
 -----------
 v4.0.0beta3
 -----------
@@ -41,7 +54,6 @@ v4.0.0beta1
 v4.0.0alpha1
 ------------
 
-First alpha release for Horde 5.
 [mms] Import API call now throws an ObjectExists exception when a duplicate is
       found.
 [jan] Add parameters to specify field size of phone and email fields.
@@ -51,6 +63,9 @@ First alpha release for Horde 5.
 v3.0.15-git
 -----------
 
+[jan] Fix sorting of columns in preferences (Bug #10795).
+[jan] Remove user's address books when removing users, independent from address
+      book permissions.
 [mms] Fix infinite loop if array was passed to delete API call.
 [mms] Fix descending sorting of result lists.
 [mms] Return to same page when deleting contact from browse view.

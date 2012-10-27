@@ -226,9 +226,9 @@ if (!empty($GLOBALS['conf']['user']['select_view'])) {
                 'selected' => $view_cookie == 'auto',
             ),
             'spacer' => null,
-            'traditional' => array(
-                'name' => _("Traditional"),
-                'selected' => $view_cookie == 'traditional'
+            'basic' => array(
+                'name' => _("Basic"),
+                'selected' => $view_cookie == 'basic'
             ),
             'dynamic' => array(
                 'name' => _("Dynamic"),
@@ -354,11 +354,16 @@ if ($reason) {
     $notification->push(str_replace('<br />', ' ', $reason), 'horde.message');
 }
 
+$loginurl = Horde::url('login.php', false, array(
+    'append_session' => ($is_auth ? 0 : -1),
+    'force_ssl' => true
+));
+
 $page_output->topbar = $page_output->sidebar = false;
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
-     !in_array($conf['user']['force_view'], array('dynamic', 'traditional')))) {
+     !in_array($conf['user']['force_view'], array('basic', 'dynamic')))) {
     $view = new Horde_View(array(
         'templatePath' => HORDE_TEMPLATES . '/login'
     ));
@@ -384,7 +389,7 @@ if ($browser->isMobile() &&
     $view->app = $vars->app;
     $view->loginparams_auth = array_intersect_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
     $view->loginparams_other = array_diff_key($loginparams, array('horde_user' => 1, 'horde_pass' => 1));
-    $view->loginurl = Horde::url('login.php');
+    $view->loginurl = $loginurl;
     $view->title = $title;
     $view->url = $vars->url;
 
@@ -407,10 +412,8 @@ if ($browser->isMobile() &&
     $notification->notify(array('listeners' => 'status'));
     echo $view->render('smartmobile');
 } else {
-    if (!empty($js_files)) {
-        foreach ($js_files as $val) {
-            $page_output->addScriptFile($val[0], $val[1]);
-        }
+    foreach ($js_files as $val) {
+        $page_output->addScriptFile($val[0], $val[1]);
     }
 
     $page_output->addInlineJsVars($js_code);

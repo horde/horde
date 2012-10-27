@@ -55,11 +55,16 @@ $app_fields = array(
     'estimate'       => _("Estimated Time"),
     'completed'      => _("Completion Status"),
     'completed_date' => _("Completion Date"),
-    'uid'            => _("Unique ID")
+    'uid'            => _("Unique ID"),
+    'tags'           => _("Tags")
 );
 
 /* Date/time fields. */
-$time_fields = array('due' => 'datetime');
+$time_fields = array(
+    'due' => 'datetime',
+    'start' => 'datetime',
+    'completed_date' => 'datetime'
+);
 
 /* Initial values. */
 $param = array('time_fields' => $time_fields,
@@ -73,7 +78,7 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 /* Loop through the action handlers. */
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->set('target', Horde_Util::getFormData('tasklist_target'));
+    $storage->set('target', Horde_Util::getFormData('tasklist_target', $prefs->getValue('default_tasklist')));
     break;
 }
 
@@ -97,7 +102,7 @@ if ($import_format) {
 if (is_array($next_step)) {
 
     /* Create a Nag storage instance. */
-    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($storage->set('target'));
+    $nag_storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($storage->get('target'));
     $max_tasks = $perms->hasAppPermission('max_tasks');
     $num_tasks = Nag::countTasks();
     $result = null;
@@ -118,19 +123,32 @@ if (is_array($next_step)) {
             $task = new Nag_Task();
             $task->fromiCalendar($row);
             $row = $task->toHash();
-            foreach ($app_fields as $field => $null) {
+            foreach (array_keys($app_fields) as $field) {
                 if (!isset($row[$field])) {
                     $row[$field] = '';
                 }
             }
         }
-
+        $row['owner'] = $GLOBALS['registry']->getAuth();
+        foreach (array('start', 'due', 'completed_date') as $field) {
+            if (!empty($row[$field])) {
+                try {
+                    $date = new Horde_Date($row[$field]);
+                    $row[$field] = $date->timestamp();
+                } catch (Horde_Date_Exception $e) {
+                    unset($row[$field]);
+                }
+            } else {
+                $row[$field] = 0;
+            }
+        }
         try {
-            $storage->add($row);
+            $nag_storage->add($row);
         } catch (Nag_Exception $e) {
             $haveError = true;
-            $notification->push(sprintf(_("There was an error importing the data: %s"),
-                                        $result->getMessage()), 'horde.error');
+            $notification->push(sprintf(
+                _("There was an error importing the data: %s"), $e->getMessage()),
+                'horde.error');
             break;
         }
 

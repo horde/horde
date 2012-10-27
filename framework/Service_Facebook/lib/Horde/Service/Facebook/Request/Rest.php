@@ -22,7 +22,7 @@ class Horde_Service_Facebook_Request_Rest extends Horde_Service_Facebook_Request
         $data = $this->_postRequest($this->_method, $this->_params);
 
         if (defined('JSON_BIGINT_AS_STRING')) {
-            $result = json_decode($data, true, constant('JSON_BIGINT_AS_STRING'));
+            $result = json_decode($data, true, 512, constant('JSON_BIGINT_AS_STRING'));
         } else {
             if (is_numeric($data)) {
                 $result = $data;

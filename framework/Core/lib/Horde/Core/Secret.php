@@ -19,21 +19,21 @@ class Horde_Core_Secret extends Horde_Secret
 
     /**
      */
-    public function setKey($keyname = 'generic')
+    public function setKey($keyname = self::DEFAULT_KEY)
     {
         return parent::setKey(self::HORDE_KEYNAME);
     }
 
     /**
      */
-    public function getKey($keyname = 'generic')
+    public function getKey($keyname = self::DEFAULT_KEY)
     {
         return parent::getKey(self::HORDE_KEYNAME);
     }
 
     /**
      */
-    public function clearKey($keyname = 'generic')
+    public function clearKey($keyname = self::DEFAULT_KEY)
     {
         return parent::clearKey(self::HORDE_KEYNAME);
     }

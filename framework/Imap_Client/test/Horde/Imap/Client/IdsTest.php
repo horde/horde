@@ -102,4 +102,93 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testRangeGeneration()
+    {
+        $ids = new Horde_Imap_Client_Ids('100,200,300');
+
+        $this->assertEquals(
+            '100:300',
+            $ids->range_string
+        );
+
+        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+
+        $this->assertEquals(
+            '',
+            $ids->range_string
+        );
+    }
+
+    public function testSorting()
+    {
+        $ids = new Horde_Imap_Client_Ids('14,12,10');
+
+        $this->assertEquals(
+            '14,12,10',
+            $ids->tostring
+        );
+        $this->assertEquals(
+            '10,12,14',
+            $ids->tostring_sort
+        );
+    }
+
+    public function testSpecialIdValueStringRepresentations()
+    {
+        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::ALL);
+
+        $this->assertEquals(
+            '1:*',
+            $ids->tostring
+        );
+
+        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::SEARCH_RES);
+
+        $this->assertEquals(
+            '$',
+            $ids->tostring
+        );
+
+        $ids = new Horde_Imap_Client_Ids(Horde_Imap_Client_Ids::LARGEST);
+
+        $this->assertEquals(
+            '*',
+            $ids->tostring
+        );
+    }
+
+    public function testPop3SequenceStringGenerate()
+    {
+        $this->assertEquals(
+            'ABCDEFGHIJ ABCDE',
+            strval(new Horde_Imap_Client_Ids_Pop3(array('ABCDEFGHIJ', 'ABCDE')))
+        );
+
+        $this->assertEquals(
+            'ABCDEFGHIJ',
+            strval(new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ'))
+        );
+    }
+
+    public function testPop3SequenceStringParse()
+    {
+        $ids = new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ ABCDE');
+        $this->assertEquals(
+            array('ABCDEFGHIJ', 'ABCDE'),
+            $ids->ids
+        );
+
+        $ids = new Horde_Imap_Client_Ids_Pop3('ABCDEFGHIJ ABC ABCDE');
+        $this->assertEquals(
+            array('ABCDEFGHIJ', 'ABC', 'ABCDE'),
+            $ids->ids
+        );
+
+        $ids = new Horde_Imap_Client_Ids_Pop3('10:12');
+        $this->assertEquals(
+            array('10:12'),
+            $ids->ids
+        );
+    }
+
 }

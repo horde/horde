@@ -15,7 +15,31 @@
 class Horde_Imap_Client_Ids_Pop3 extends Horde_Imap_Client_Ids
 {
     /**
+     * Create a POP3 message sequence string.
+     *
+     * Index Format: UID1[SPACE]UID2...
+     *
+     * @param boolean $sort  Not used in this class.
+     *
+     * @return string  The POP3 message sequence string.
      */
-    protected $_utilsClass = 'Horde_Imap_Client_Utils_Pop3';
+    protected function _toSequenceString($sort = true)
+    {
+        /* Use space as delimiter as it is the only printable ASCII character
+         * that is not allowed as part of the UID (RFC 1939 [7]). */
+        return implode(' ', array_keys(array_flip($this->_ids)));
+    }
+
+    /**
+     * Parse a POP3 message sequence string into a list of indices.
+     *
+     * @param string $str  The POP3 message sequence string.
+     *
+     * @return array  An array of UIDs.
+     */
+    protected function _fromSequenceString($str)
+    {
+        return explode(' ', trim($str));
+    }
 
 }

@@ -14,7 +14,7 @@
 <?php if ($this->searchMenu): ?>
       <div class="horde-fake-input">
         <span id="horde-search-dropdown">
-          <span class="iconImg popdownImg"></span>
+          <span class="iconImg horde-popdown"></span>
         </span>
         <input autocomplete="off" id="horde-search-input" type="text" />
       </div>

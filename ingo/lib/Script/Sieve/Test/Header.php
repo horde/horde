@@ -3,11 +3,15 @@
  * The Ingo_Script_Sieve_Test_Header class represents a test on the contents
  * of one or more headers in a message.
  *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Ingo
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Sieve_Test_Header extends Ingo_Script_Sieve_Test
 {

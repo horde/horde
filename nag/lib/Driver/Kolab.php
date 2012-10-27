@@ -154,7 +154,14 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function getByUID($uid)
     {
-        return $this->_wrapper->getByUID($uid);
+        foreach (array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)) as $tasklist) {
+            $this->_tasklist = $tasklist;
+            try {
+                return $this->get($uid);
+            } catch (Horde_Exception_NotFound $e) {
+            }
+        }
+        throw new Horde_Exception_NotFound();
     }
 
     /**
@@ -272,10 +279,10 @@ class Nag_Driver_Kolab extends Nag_Driver
             'priority' => $task['priority'],
             'parent' => $task['parent'],
         );
-        if ($task['start'] !== 0) {
+        if (!empty($task['start'])) {
             $object['start-date'] = new DateTime('@' . $task['start']);
         }
-        if ($task['due'] !== 0) {
+        if (!empty($task['due'])) {
             $object['due-date'] = new DateTime('@' . $task['due']);
         }
         if ($task['recurrence']) {
@@ -289,7 +296,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             $object['status'] = 'not-started';
         }
         if ($task['alarm'] !== 0) {
-            $object['alarm'] = $task['alarm'];
+            $object['alarm'] = (int)$task['alarm'];
         }
         if ($task['private']) {
             $object['sensitivity'] = 'private';
@@ -317,11 +324,8 @@ class Nag_Driver_Kolab extends Nag_Driver
                 'smtp-address' => $task['assignee'],
             );
         }
-        if (!is_array($task['tags'])) {
-            $task['tags'] = Nag::getTagger()->split($task['tags']);
-        }
-        if ($task['tags']) {
-            $object['categories'] = $task['tags'];
+        if ($task['tags'] && !is_array($task['tags'])) {
+            $object['categories'] = Nag::getTagger()->split($task['tags']);
             usort($object['categories'], 'strcoll');
         }
         return $object;
@@ -430,7 +434,7 @@ class Nag_Driver_Kolab extends Nag_Driver
      *
      * @param integer $date  The unix epoch time to check for alarms.
      *
-     * @return array  An array of tasks that have alarms that match.
+     * @return array  An array of Nag_Task objects that have alarms that match.
      */
     public function listAlarms($date)
     {

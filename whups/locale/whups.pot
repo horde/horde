@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -116,7 +116,7 @@ msgstr ""
 msgid "<Prev"
 msgstr ""
 
-#: lib/Application.php:193 view.php:45
+#: lib/Application.php:189 view.php:45
 #, php-format
 msgid "Access denied to %s"
 msgstr ""
@@ -129,11 +129,11 @@ msgstr ""
 msgid "Add Attribute Criterion"
 msgstr ""
 
-#: mybugs.php:42
+#: mybugs.php:44
 msgid "Add Content"
 msgstr ""
 
-#: query/index.php:234
+#: query/index.php:226
 msgid "Add Criterion"
 msgstr ""
 
@@ -203,7 +203,7 @@ msgstr ""
 msgid "Address Books"
 msgstr ""
 
-#: admin/index.php:49 lib/Application.php:66
+#: admin/index.php:49 lib/Application.php:62
 msgid "Administration"
 msgstr ""
 
@@ -227,12 +227,12 @@ msgstr ""
 msgid "Ascending"
 msgstr ""
 
-#: lib/Application.php:87
+#: lib/Application.php:83
 msgid "Assign"
 msgstr ""
 
 #: config/prefs.php:57 lib/Api.php:660 lib/Driver.php:270
-#: lib/Form/Renderer/Query.php:160 lib/Form/TicketDetails.php:127
+#: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:848
 msgid "Assigned"
 msgstr ""
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Attachments"
 msgstr ""
 
-#: query/index.php:155
+#: query/index.php:147
 msgid "Attri_bute Criteria"
 msgstr ""
 
@@ -350,11 +350,11 @@ msgstr ""
 msgid "Change preferences for email notifications of ticket activity."
 msgstr ""
 
-#: query/index.php:158
+#: query/index.php:150
 msgid "Choose Action:"
 msgstr ""
 
-#: lib/Query.php:696
+#: lib/Query.php:702
 msgid "Choose New Query instead of deleting the root node."
 msgstr ""
 
@@ -457,7 +457,7 @@ msgstr ""
 msgid "Create Ticket - Step 4"
 msgstr ""
 
-#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:145
+#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:846
 msgid "Created"
 msgstr ""
@@ -474,7 +474,7 @@ msgstr ""
 msgid "Created to"
 msgstr ""
 
-#: query/index.php:224 query/index.php:241
+#: query/index.php:216 query/index.php:233
 msgid "Current Query"
 msgstr ""
 
@@ -515,7 +515,7 @@ msgstr ""
 msgid "Default sorting direction:"
 msgstr ""
 
-#: query/index.php:159
+#: query/index.php:151
 msgid "Delete"
 msgstr ""
 
@@ -626,7 +626,7 @@ msgstr ""
 msgid "Download these results as: "
 msgstr ""
 
-#: lib/Api.php:669 lib/Form/Renderer/Query.php:165
+#: lib/Api.php:669 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:680 lib/Ticket.php:879
 #: lib/Whups.php:849
 msgid "Due"
@@ -653,7 +653,7 @@ msgstr ""
 msgid "E_xecute Query"
 msgstr ""
 
-#: query/index.php:160
+#: query/index.php:152
 msgid "Edit"
 msgstr ""
 
@@ -809,7 +809,7 @@ msgstr ""
 msgid "Entry deleted."
 msgstr ""
 
-#: query/index.php:192
+#: query/index.php:184
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr ""
@@ -818,7 +818,7 @@ msgstr ""
 msgid "Exact Match"
 msgstr ""
 
-#: query/run.php:109
+#: query/run.php:110
 msgid "Execute Query"
 msgstr ""
 
@@ -830,7 +830,7 @@ msgstr ""
 msgid "For tickets which are"
 msgstr ""
 
-#: lib/Application.php:75
+#: lib/Application.php:71
 msgid "Form Replies"
 msgstr ""
 
@@ -874,15 +874,15 @@ msgstr ""
 msgid "Here is a summary of your open tickets:"
 msgstr ""
 
-#: lib/Application.php:69
+#: lib/Application.php:65
 msgid "Hidden Comments"
 msgstr ""
 
-#: ticket/index.php:40
+#: ticket/index.php:41
 msgid "History"
 msgstr ""
 
-#: query/index.php:161
+#: query/index.php:153
 msgid "Hoist Children"
 msgstr ""
 
@@ -898,7 +898,7 @@ msgid ""
 "email to?"
 msgstr ""
 
-#: query/index.php:162
+#: query/index.php:154
 msgid "Insert And"
 msgstr ""
 
@@ -906,11 +906,11 @@ msgstr ""
 msgid "Insert Branch"
 msgstr ""
 
-#: query/index.php:164
+#: query/index.php:156
 msgid "Insert Not"
 msgstr ""
 
-#: query/index.php:163
+#: query/index.php:155
 msgid "Insert Or"
 msgstr ""
 
@@ -982,11 +982,11 @@ msgstr ""
 msgid "Make this comment visible only to members of a group?"
 msgstr ""
 
-#: lib/Form/Query/AttributeCriterion.php:33
+#: lib/Form/Query/AttributeCriterion.php:28
 msgid "Match"
 msgstr ""
 
-#: lib/Form/Query/AttributeCriterion.php:35
+#: lib/Form/Query/AttributeCriterion.php:30
 #: lib/Form/Query/TextCriterion.php:17 lib/Form/Query/UserCriterion.php:31
 msgid "Match Operator"
 msgstr ""
@@ -1016,7 +1016,7 @@ msgstr ""
 msgid "Moved ticket %d to \"%s\""
 msgstr ""
 
-#: mybugs.php:44
+#: mybugs.php:46
 #, php-format
 msgid "My %s"
 msgstr ""
@@ -1026,7 +1026,7 @@ msgstr ""
 msgid "My %s :: Add Content"
 msgstr ""
 
-#: search.php:171
+#: search.php:172
 msgid "My Queries"
 msgstr ""
 
@@ -1084,7 +1084,7 @@ msgstr ""
 msgid "New Queue"
 msgstr ""
 
-#: lib/Application.php:138 ticket/create.php:62
+#: lib/Application.php:134 ticket/create.php:62
 msgid "New Ticket"
 msgstr ""
 
@@ -1212,7 +1212,7 @@ msgstr ""
 msgid "Open Tickets in %s"
 msgstr ""
 
-#: queue/index.php:44 queue/index.php:56 queue/rss.php:111
+#: queue/index.php:45 queue/index.php:57 queue/rss.php:111
 #, php-format
 msgid "Open tickets in %s"
 msgstr ""
@@ -1294,11 +1294,11 @@ msgstr ""
 msgid "Priority Name"
 msgstr ""
 
-#: search.php:171
+#: search.php:172
 msgid "Public Queries"
 msgstr ""
 
-#: query/index.php:173
+#: query/index.php:165
 msgid "Query Builder"
 msgstr ""
 
@@ -1310,7 +1310,7 @@ msgstr ""
 msgid "Query Parameters"
 msgstr ""
 
-#: lib/Block/Query.php:19 query/rss.php:57 query/run.php:79
+#: lib/Block/Query.php:19 query/rss.php:57 query/run.php:80
 msgid "Query Results"
 msgstr ""
 
@@ -1377,7 +1377,7 @@ msgstr ""
 msgid "Queue/Type Matrix"
 msgstr ""
 
-#: lib/Api.php:31 lib/Application.php:72
+#: lib/Api.php:31 lib/Application.php:68
 msgid "Queues"
 msgstr ""
 
@@ -1428,7 +1428,7 @@ msgstr ""
 msgid "Received message:"
 msgstr ""
 
-#: search.php:156
+#: search.php:157
 msgid "Refine Search"
 msgstr ""
 
@@ -1467,7 +1467,7 @@ msgid "Required Attribute?"
 msgstr ""
 
 #: config/prefs.php:58 lib/Api.php:674 lib/Driver.php:271
-#: lib/Form/Renderer/Query.php:155 lib/Form/TicketDetails.php:133
+#: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:850
 msgid "Resolved"
 msgstr ""
@@ -1496,7 +1496,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: query/index.php:234
+#: query/index.php:226
 msgid "Save Criterion"
 msgstr ""
 
@@ -1512,16 +1512,16 @@ msgstr ""
 msgid "Saved Queries"
 msgstr ""
 
-#: lib/Application.php:149 search.php:149
+#: lib/Application.php:145 search.php:150
 msgid "Search"
 msgstr ""
 
-#: lib/Form/Query/AttributeCriterion.php:40
+#: lib/Form/Query/AttributeCriterion.php:35
 #, php-format
 msgid "Search %s Attribute"
 msgstr ""
 
-#: lib/Form/Query/AttributeCriterion.php:29
+#: lib/Form/Query/AttributeCriterion.php:40
 #: lib/Form/Query/AttributeCriterion.php:45
 msgid "Search Attribute"
 msgstr ""
@@ -1600,7 +1600,7 @@ msgstr ""
 msgid "Set Queue for %s"
 msgstr ""
 
-#: lib/Application.php:88
+#: lib/Application.php:84
 msgid "Set Requester"
 msgstr ""
 
@@ -1700,7 +1700,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: query/run.php:93 query/run.php:94
+#: query/run.php:94 query/run.php:95
 msgid "Subscribe to this query"
 msgstr ""
 
@@ -1747,7 +1747,7 @@ msgstr ""
 msgid "The Requester's Email Address"
 msgstr ""
 
-#: lib/Application.php:184 lib/Ticket.php:467 lib/Ticket.php:520 view.php:39
+#: lib/Application.php:180 lib/Ticket.php:467 lib/Ticket.php:520 view.php:39
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 
@@ -1842,7 +1842,7 @@ msgstr ""
 msgid "The queue was not deleted."
 msgstr ""
 
-#: lib/Application.php:201
+#: lib/Application.php:197
 msgid "The requested template does not exist."
 msgstr ""
 
@@ -1905,7 +1905,7 @@ msgstr ""
 msgid "There are no attribute types to edit"
 msgstr ""
 
-#: lib/Form/Query/AttributeCriterion.php:46
+#: lib/Form/Query/AttributeCriterion.php:41
 msgid "There are no attributes defined."
 msgstr ""
 
@@ -2058,7 +2058,7 @@ msgstr ""
 msgid "There was an error listing users: %s; %s"
 msgstr ""
 
-#: queue/index.php:64
+#: queue/index.php:65
 #, php-format
 msgid "There was an error locating tickets in this queue: %s"
 msgstr ""
@@ -2097,11 +2097,11 @@ msgid ""
 "tickets."
 msgstr ""
 
-#: lib/Application.php:204
+#: lib/Application.php:200
 msgid "This is not a search results template."
 msgstr ""
 
-#: lib/Query.php:453 lib/Query.php:686
+#: lib/Query.php:453 lib/Query.php:692
 msgid "This query element cannot be edited."
 msgstr ""
 
@@ -2141,7 +2141,7 @@ msgstr ""
 msgid "Ticket %s was not found."
 msgstr ""
 
-#: search.php:164
+#: search.php:165
 msgid "Ticket Search"
 msgstr ""
 
@@ -2223,12 +2223,12 @@ msgstr ""
 msgid "Unconfirmed"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:171 lib/Form/Renderer/Query.php:211
+#: lib/Form/Renderer/Query.php:175 lib/Form/Renderer/Query.php:215
 #, php-format
 msgid "Unknown node type %s"
 msgstr ""
 
-#: lib/Application.php:89
+#: lib/Application.php:85
 msgid "Update"
 msgstr ""
 
@@ -2241,7 +2241,7 @@ msgstr ""
 msgid "Update Associations"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:150 lib/Form/TicketDetails.php:121
+#: lib/Form/Renderer/Query.php:154 lib/Form/TicketDetails.php:121
 #: lib/Whups.php:847
 msgid "Updated"
 msgstr ""
@@ -2337,7 +2337,7 @@ msgstr ""
 msgid "Yes"
 msgstr ""
 
-#: lib/Application.php:178 view.php:33
+#: lib/Application.php:174 view.php:33
 #, php-format
 msgid "You are not allowed to view ticket %d."
 msgstr ""
@@ -2386,7 +2386,7 @@ msgstr ""
 msgid "[No Subject]"
 msgstr ""
 
-#: lib/Application.php:124
+#: lib/Application.php:120
 msgid "_Admin"
 msgstr ""
 
@@ -2394,7 +2394,7 @@ msgstr ""
 msgid "_Comment"
 msgstr ""
 
-#: query/index.php:153
+#: query/index.php:145
 msgid "_Date Criteria"
 msgstr ""
 
@@ -2418,7 +2418,7 @@ msgstr ""
 msgid "_Go"
 msgstr ""
 
-#: query/index.php:152
+#: query/index.php:144
 msgid "_Group Criteria"
 msgstr ""
 
@@ -2430,32 +2430,32 @@ msgstr ""
 msgid "_Load Query"
 msgstr ""
 
-#: lib/Application.php:116
+#: lib/Application.php:112
 #, php-format
 msgid "_My %s"
 msgstr ""
 
-#: lib/Application.php:118
+#: lib/Application.php:114
 msgid "_New Ticket"
 msgstr ""
 
-#: query/index.php:150
+#: query/index.php:142
 msgid "_Property Criteria"
 msgstr ""
 
-#: lib/Application.php:119
+#: lib/Application.php:115
 msgid "_Query Builder"
 msgstr ""
 
-#: lib/Application.php:120
+#: lib/Application.php:116
 msgid "_Reports"
 msgstr ""
 
-#: lib/Application.php:117
+#: lib/Application.php:113
 msgid "_Search"
 msgstr ""
 
-#: query/index.php:154
+#: query/index.php:146
 msgid "_Text Criteria"
 msgstr ""
 
@@ -2463,7 +2463,7 @@ msgstr ""
 msgid "_Update"
 msgstr ""
 
-#: query/index.php:151
+#: query/index.php:143
 msgid "_User Criteria"
 msgstr ""
 
@@ -2471,15 +2471,15 @@ msgstr ""
 msgid "_Watch"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:191
+#: lib/Form/Renderer/Query.php:195
 msgid "contains (case insensitive) substring"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:195
+#: lib/Form/Renderer/Query.php:199
 msgid "contains (case sensitive) substring"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:199
+#: lib/Form/Renderer/Query.php:203
 msgid "contains the word"
 msgstr ""
 
@@ -2487,19 +2487,19 @@ msgstr ""
 msgid "estimated time"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:187
+#: lib/Form/Renderer/Query.php:191
 msgid "is"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:179
+#: lib/Form/Renderer/Query.php:183
 msgid "is greater than"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:183
+#: lib/Form/Renderer/Query.php:187
 msgid "is less than"
 msgstr ""
 
-#: lib/Form/Renderer/Query.php:203
+#: lib/Form/Renderer/Query.php:207
 msgid "matches the pattern"
 msgstr ""
 

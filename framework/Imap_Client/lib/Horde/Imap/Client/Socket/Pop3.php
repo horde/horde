@@ -85,10 +85,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
-    protected $_utilsClass = 'Horde_Imap_Client_Utils_Pop3';
-
-    /**
-     */
     public function __construct(array $params = array())
     {
         parent::__construct($params);
@@ -263,7 +259,9 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         switch ($this->_params['secure']) {
         case 'ssl':
-            $conn = 'ssl://';
+        case 'sslv2':
+        case 'sslv3':
+            $conn = $this->_params['secure'] . '://';
             $this->_isSecure = true;
             break;
 
@@ -312,8 +310,10 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             // RFC 5034: CRAM-MD5
             // CRAM-SHA1 & CRAM-SHA256 supported by Courier SASL library
             $challenge = $this->_sendLine('AUTH ' . $method);
-            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower($method, 5), $this->getParam('password'), base64_decode(substr($challenge['line'], 2)), true));
-            $this->_sendLine($response, array('debug' => '[' . $method . ' Response]'));
+            $response = base64_encode($this->_params['username'] . ' ' . hash_hmac(strtolower(substr($method, 5)), base64_decode(substr($challenge['line'], 2)), $this->getParam('password'), true));
+            $this->_sendLine($response, array(
+                'debug' => '[' . $method . ' Response]'
+            ));
             break;
 
         case 'DIGEST-MD5':
@@ -518,6 +518,8 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $ret['recent'] = $res['msgs'];
         }
 
+        // No need for STATUS_UIDNEXT_FORCE handling since STATUS_UIDNEXT will
+        // always return a value.
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT) {
             $res = $this->_pop3Cache('stat');
             $ret['uidnext'] = $res['msgs'] + 1;

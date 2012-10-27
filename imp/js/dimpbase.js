@@ -93,7 +93,6 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             DimpCore.toggleCheck(tmp, true);
-            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -762,6 +761,14 @@ var DimpBase = {
             if (this._getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
+                    $('previewInfo').highlight({
+                        duration: 2.0,
+                        keepBackgroundImage: true,
+                        queue: {
+                            limit: 1,
+                            scope: 'previewInfo'
+                        }
+                    })
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
@@ -1091,10 +1098,6 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
-        case 'ctx_oa_help':
-            this.toggleHelp();
-            break;
-
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
         case 'ctx_sortopts_to':
@@ -1208,6 +1211,10 @@ var DimpBase = {
                 } else {
                     elts.invoke('show');
                 }
+            }
+
+            if (baseelt.retrieve('nc')) {
+                $('ctx_mbox_create').hide();
             }
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
@@ -2735,11 +2742,6 @@ var DimpBase = {
             e.memo.stop();
             break;
 
-        case 'helptext_close':
-            this.toggleHelp();
-            e.memo.stop();
-            break;
-
         case 'send_mdn_link':
             tmp = {};
             tmp[this.pp.mbox] = [ this.pp.uid ];
@@ -2814,18 +2816,6 @@ var DimpBase = {
         var range = this.viewport.currentViewableRange();
 
         $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
-    },
-
-    toggleHelp: function()
-    {
-        Effect.toggle($('helptext').down('DIV'), 'blind', {
-            duration: 0.75,
-            queue: {
-                position: 'end',
-                scope: 'DimpHelp',
-                limit: 2
-            }
-        });
     },
 
     _mailboxPromptCallback: function(type, elt, r)
@@ -3262,6 +3252,11 @@ var DimpBase = {
         // Check for unseen messages
         if (ob.po) {
             li.store('u', '');
+        }
+
+        // Check for mailboxes that don't allow children
+        if (ob.nc) {
+            li.store('nc', true);
         }
 
         switch (ftype) {

@@ -10,7 +10,7 @@ class Horde_Block_Vatid extends Horde_Core_Block
     {
         parent::__construct($app, $params);
 
-        $this->enabled = class_exists('SOAP_Client');
+        $this->enabled = Horde_Util::loadExtension('soap');
         $this->_name = _("EU VAT identification");
     }
 
@@ -62,14 +62,39 @@ class Horde_Block_Vatid extends Horde_Core_Block
             return;
         }
 
-        $client = new SOAP_Client('http://ec.europa.eu/taxation_customs/vies/api/checkVatPort?wsdl', true, false, array(), Horde::getTempDir());
-        $params = array(
-            'countryCode' => $matches[1],
-            'vatNumber' => $matches[2]
-        );
-        $result = $client->call('checkVat', $params);
-        if ($result instanceof SOAP_Fault) {
-            $error = $result->getMessage();
+        try {
+            $client = new SoapClient(
+                'http://ec.europa.eu/taxation_customs/vies/checkVatService.wsdl',
+                array('exceptions' => true));
+            $result = $client->checkVat(array(
+                'countryCode' => $matches[1],
+                'vatNumber' => $matches[2]
+            ));
+
+            if ($result->valid) {
+                $html .= '<span style="color:green;font-weight:bold">'
+                    . _("This VAT identification number is valid.")
+                    . '</span><br />';
+            } else {
+                $html .= $this->_error(_("This VAT identification number is invalid.")) . '<br />';
+            }
+
+            $html .= '<em>' . _("Country") . ':</em> '
+                . $result->countryCode . '<br /><em>'
+                . _("VAT number") . ':</em> ' . $result->vatNumber
+                . '<br /><em>' . _("Date") . ':</em> '
+                . strftime($GLOBALS['prefs']->getValue('date_format'), strtotime($result->requestDate))
+                . '<br />';
+
+            if (!empty($result->name)) {
+                $html .= '<em>' . _("Name") . ':</em> ' . $result->name . '<br />';
+            }
+
+            if (!empty($result->address)) {
+                $html .= '<em>' . _("Address") . ':</em> ' . $result->address . '<br />';
+            }
+        } catch (SoapFault $e) {
+            $error = $e->getMessage();
 
             switch (true) {
             case strpos($error, 'INVALID_INPUT'):
@@ -94,29 +119,6 @@ class Horde_Block_Vatid extends Horde_Core_Block
             }
 
             $html .= $this->_error($error);
-        } else {
-            if ($result['valid']) {
-                $html .= '<span style="color:green;font-weight:bold">'
-                    . _("This VAT identification number is valid.")
-                    . '</span><br />';
-            } else {
-                $html .= $this->_error(_("This VAT identification number is invalid.")) . '<br />';
-            }
-
-            $html .= '<em>' . _("Country") . ':</em> '
-                . $result['countryCode'] . '<br /><em>'
-                . _("VAT number") . ':</em> ' . $result['vatNumber']
-                . '<br /><em>' . _("Date") . ':</em> '
-                . strftime($GLOBALS['prefs']->getValue('date_format'), strtotime($result['requestDate']))
-                . '<br />';
-
-            if (!empty($result['name'])) {
-                $html .= '<em>' . _("Name") . ':</em> ' . $result['name'] . '<br />';
-            }
-
-            if (!empty($result['address'])) {
-                $html .= '<em>' . _("Address") . ':</em> ' . $result['address'] . '<br />';
-            }
         }
 
         return $html;

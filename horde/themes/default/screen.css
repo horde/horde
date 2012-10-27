@@ -120,9 +120,6 @@ a {
 a:hover {
     text-decoration: underline;
 }
-.horde-block-links a, a.horde-block-links {
-    display: block;
-}
 
 .selected {
     background: #bbcbff;
@@ -444,9 +441,32 @@ div.nicetitle {
     background: #f00;
 }
 
+/* Quick add popup styles */
+.quickAdd {
+    width: 30em;
+    padding: 1em;
+    border: 1px solid #ccc;
+    background: #ffc;
+}
+.quickAdd textarea {
+    width: 100%;
+    height: 10em;
+    margin-top: .5em;
+}
+.quickAdd p {
+    margin-top: .5em;
+    margin-bottom: .5em;
+}
+.quickAdd label {
+    font-weight: bold;
+}
+
 /* Tree styles. */
-.horde-tree-icon {
+img.horde-tree-icon {
     padding-right: 5px;
+}
+span.horde-tree-icon {
+    padding: 3px 20px 3px 0;
 }
 .horde-tree-row {
     min-height: 20px;
@@ -738,18 +758,6 @@ div.prefsError {
 .blockHeader:hover .blockIcons {
     display: block;
 }
-#googlesearch {
-    padding: .3em;
-}
-table.horde-block-weather {
-    width: 100%;
-    border-collapse: collapse;
-    border: 1px solid transparent;
-}
-table.horde-block-weather td {
-    border: 1px solid #ddd;
-    text-align:center;
-}
 
 /* Help styles. */
 body.help_about, body.help_entry {
@@ -791,6 +799,31 @@ body.help_about, body.help_entry {
 .help em.helpWarn {
     color: #900;
     background: #f0e0e0;
+}
+
+/* Keyboard key style */
+.kbd {
+    background: #eee;
+    color: #000;
+    white-space: nowrap;
+    padding: 1px 2px;
+    border: 1px solid #888;
+    font-size: 90%;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+span.keydownImg {
+    background-image: url("graphics/keys/down.png");
+}
+span.keyleftImg {
+    background-image: url("graphics/keys/left.png");
+}
+span.keyrightImg {
+    background-image: url("graphics/keys/right.png");
+}
+span.keyupImg {
+    background-image: url("graphics/keys/up.png");
 }
 
 /* Source markup styles. */
@@ -989,8 +1022,8 @@ ul.sound-list {
     padding: 5px 7px;
     cursor: pointer;
     -moz-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 #color-picker .north div:hover {
     color: #fff;
@@ -999,8 +1032,8 @@ ul.sound-list {
     margin: 32px 0 0 10px;
     cursor: crosshair;
     -moz-user-select: none;
-    -khtml-user-select: none;
-    user-select: none;
+    -ms-user-select: none;
+    -webkit-user-select: none;
 }
 #color-picker .south img {
     height: 100%;
@@ -1397,57 +1430,6 @@ a.contextSelected:hover {
     padding-right: 8px;
 }
 
-/* Social Media Related CSS */
-.hordeSmStreamstory {
-    margin-bottom: 7px;
-    padding-top: 7px;
-    position: relative;
-}
-.hordeSmStreambody {
-    min-height: 70px;
-}
-.hordeSmStreamMessage {
-    margin-top: 7px;
-    margin-left: 78px;
-    overflow: auto;
-}
-.hordeSmStreaminfo {
-    color: #777777;
-    padding: 2px 0 0;
-    font-style: italic;
-    font-size: 90%;
-    margin-left: 78px;
-}
-.hordeSmGetmore {
-    text-align: center;
-}
-.hordeSmCurrent {
-    font-style: italic;
-    color: gray;
-}
-.hordeSmAvatar {
-    float: left;
-    text-align: center;
-    height: 73px;
-    width: 73px;
-    margin-right: 5px;
-    padding-top: 5px;
-}
-.hordeSmNew {
-    color: red;
-}
-.hordeSmPreview {
-    text-align: center;
-    position: absolute;
-    z-index: 10000;
-}
-.hordeSmOverlay {
-    position: absolute;
-    opacity: 0.8;
-    z-index: 9000;
-    background-color: #000000;
-}
-
 /* Uploader */
 .hordeUploaderHeaderContent {
     font-size: 18px;
@@ -1786,9 +1768,11 @@ left.horde-point-right {
     margin: 0;
     float: none;
 }
-#horde-search span.popdownImg {
+#horde-search span.horde-popdown {
     cursor: pointer;
+    float: none;
     height: 20px;
+    margin-top: -2px;
     width: 16px;
 }
 #horde-search-icon {

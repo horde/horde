@@ -11,7 +11,8 @@ div.olMapViewport {
 
 div.olLayerDiv {
    -moz-user-select: none;
-   -khtml-user-select: none;
+   -ms-user-select: none;
+   -webkit-user-select: none;
 }
 
 .olLayerGoogleCopyright {
@@ -23,16 +24,16 @@ div.olLayerDiv {
 }
 .olLayerGooglePoweredBy {
     left: 2px;
-    bottom: 15px;   
+    bottom: 15px;
 }
 .olLayerGoogleV3.olLayerGooglePoweredBy {
     bottom: 15px !important;
 }
 .olControlAttribution {
-    font-size: smaller; 
-    right: 3px; 
-    bottom: 4.5em; 
-    position: absolute; 
+    font-size: smaller;
+    right: 3px;
+    bottom: 4.5em;
+    position: absolute;
     display: block;
 }
 .olControlScale {
@@ -67,7 +68,7 @@ div.olLayerDiv {
     display: block;
     position: absolute;
     font-size: smaller;
-} 
+}
 
 div.olControlMousePosition {
     bottom: 0em;
@@ -94,7 +95,7 @@ div.olControlMousePosition {
     right: 0;
     bottom: 80px;
     cursor: pointer;
-}    
+}
 
 .olControlOverviewMapMaximizeButton {
     right: 0;
@@ -136,7 +137,7 @@ div.olControlMousePosition {
 .olPopupContent {
     padding:5px;
     overflow: auto;
-}    
+}
 
 .olControlNavigationHistory {
    background-image: url("img/navigation_history.png");
@@ -145,25 +146,25 @@ div.olControlMousePosition {
    height: 24px;
 
 }
-.olControlNavigationHistoryPreviousItemActive { 
+.olControlNavigationHistoryPreviousItemActive {
   background-position: 0 0;
 }
-.olControlNavigationHistoryPreviousItemInactive { 
+.olControlNavigationHistoryPreviousItemInactive {
    background-position: 0 -24px;
 }
-.olControlNavigationHistoryNextItemActive { 
+.olControlNavigationHistoryNextItemActive {
    background-position: -24px 0;
 }
-.olControlNavigationHistoryNextItemInactive { 
+.olControlNavigationHistoryNextItemInactive {
    background-position: -24px -24px;
 }
 
-div.olControlSaveFeaturesItemActive { 
+div.olControlSaveFeaturesItemActive {
     background-image: url(img/save_features_on.png);
     background-repeat: no-repeat;
     background-position: 0 1px;
 }
-div.olControlSaveFeaturesItemInactive { 
+div.olControlSaveFeaturesItemInactive {
     background-image: url(img/save_features_off.png);
     background-repeat: no-repeat;
     background-position: 0 1px;
@@ -184,12 +185,12 @@ div.olControlSaveFeaturesItemInactive {
     opacity: 0.50;
     font-size: 1px;
     filter: alpha(opacity=50);
-}   
+}
 
 .olControlPanPanel {
     top: 10px;
     left: 5px;
-}  
+}
 
 .olControlPanPanel div {
     background-image: url(img/pan-panel.png);
@@ -224,7 +225,7 @@ div.olControlSaveFeaturesItemInactive {
 .olControlZoomPanel {
     top: 71px;
     left: 14px;
-} 
+}
 
 .olControlZoomPanel div {
     background-image: url(img/zoom-panel.png);
@@ -252,9 +253,9 @@ div.olControlSaveFeaturesItemInactive {
     background-position: 0 18px;
 }
 
-/* 
+/*
  * When a potential text is bigger than the image it move the image
- * with some headers (closes #3154) 
+ * with some headers (closes #3154)
  */
 .olControlPanZoomBar div {
     font-size: 1px;
@@ -271,8 +272,9 @@ div.olControlSaveFeaturesItemInactive {
 }
 
 .olControlNoSelect {
- -moz-user-select: none;
- -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   -webkit-user-select: none;
 }
 
 .olImageLoadError {

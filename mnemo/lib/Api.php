@@ -70,7 +70,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         // Set notepad for listMemos.
@@ -121,7 +121,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-           throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+           throw new Horde_Exception_PermissionDenied();
         }
 
         $filter = array(array('op' => '=', 'field' => 'action', 'value' => $action));
@@ -153,7 +153,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $history = $GLOBALS['injector']->getInstance('Horde_History');
@@ -184,7 +184,7 @@ class Mnemo_Api extends Horde_Registry_Api
         }
 
         if (!array_key_exists($notepad, Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         /* Create a Mnemo_Driver instance. */
@@ -272,7 +272,7 @@ class Mnemo_Api extends Horde_Registry_Api
             }
         }
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::READ))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         switch ($contentType) {
@@ -317,7 +317,7 @@ class Mnemo_Api extends Horde_Registry_Api
         if (!$GLOBALS['registry']->isAdmin() &&
             !array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::DELETE))) {
 
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         $storage->delete($memo['memo_id']);
@@ -340,7 +340,7 @@ class Mnemo_Api extends Horde_Registry_Api
         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create();
         $memo = $storage->getByUID($uid);
         if (!array_key_exists($memo['memolist_id'], Mnemo::listNotepads(false, Horde_Perms::EDIT))) {
-            throw new Horde_Exception_PermissionDenied(_("Permission Denied"));
+            throw new Horde_Exception_PermissionDenied();
         }
 
         switch ($contentType) {

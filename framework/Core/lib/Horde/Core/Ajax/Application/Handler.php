@@ -24,6 +24,14 @@ class Horde_Core_Ajax_Application_Handler
     protected $_base;
 
     /**
+     * A list of public method names that can be accessed externally (i.e.
+     * outside of the Horde framework).
+     *
+     * @var array
+     */
+    protected $_external = array();
+
+    /**
      * A list of public method names to ignore as actions.
      *
      * @var array
@@ -56,6 +64,18 @@ class Horde_Core_Ajax_Application_Handler
         case 'vars':
             return $this->_base->vars;
         }
+    }
+
+    /**
+     * Is the action accessible externally?
+     *
+     * @param string $action  An AJAX action.
+     *
+     * @return boolean  True if the action is acessible externally.
+     */
+    final public function external($action)
+    {
+        return in_array($action, $this->_external);
     }
 
     /**

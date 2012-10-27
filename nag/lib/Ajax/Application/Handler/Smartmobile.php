@@ -80,22 +80,42 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     {
         if (!$this->vars->task_id) {
             $GLOBALS['notification']->push(_("Missing required task id"), 'horde.error');
-            return;
+            return $results;
+        }
+        if (!$this->vars->tasklist) {
+            $GLOBALS['notification']->push(_("Missing required tasklist"), 'horde.error');
+            return $results;
         }
 
         $results = new stdClass();
         $storage = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create();
-        $task = $storage->get($this->vars->task_id);
-        $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+            ->create($this->vars->tasklist);
+        try {
+            $task = $storage->get($this->vars->task_id);
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
+        try {
+            $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
+        } catch (Horde_Share_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
         if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
             $GLOBALS['notification']->push(_("You are not allowed to delete this task."), 'horde.error');
-            return;
+            return $results;
         }
-        $storage->delete($this->vars->task_id);
+        try {
+            $storage->delete($this->vars->task_id);
+        } catch (Nag_Exception $e) {
+            $GLOBALS['notification']->push($e);
+            return $results;
+        }
         $GLOBALS['notification']->push(_("Successfully deleted"), 'horde.success');
         $results->deleted = $this->vars->task_id;
+        $results->l = $this->vars->tasklist;
         return $results;
     }
 
@@ -142,7 +162,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 ->getInstance('Nag_Factory_Driver')
                 ->create($tasklist);
         } catch (Nag_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
+            $GLOBALS['notification']->push($e);
             return $results;
         }
 
@@ -154,7 +174,10 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 $existing_task->save();
                 $results->task = $existing_task->toJson(true);
             } catch (Nag_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $GLOBALS['notification']->push($e);
+                return $results;
+            } catch (Horde_Exception_NotFound $e) {
+                $GLOBALS['notification']->push($e);
                 return $results;
             }
         } else {
@@ -162,7 +185,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
                 $ids = $storage->add($task);
                 $results->task = $storage->get($ids[0])->toJson(true);
             } catch (Nag_Exception $e) {
-                $GLOBALS['notification']->push($e, 'horde.error');
+                $GLOBALS['notification']->push($e);
                 return $results;
             }
         }

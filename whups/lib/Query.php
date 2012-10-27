@@ -633,6 +633,9 @@ class Whups_Query
                     array_pop($path);
                     $vars->set('path', Whups_Query::pathToString($path));
                 }
+            } else {
+                $operator = $qobj['operator'];
+                $value = $qobj['value'];
             }
             if (!$criteria) {
                 $criteria = array($qobj['criterion']);
@@ -671,6 +674,9 @@ class Whups_Query
                     array_pop($path);
                     $vars->set('path', Whups_Query::pathToString($path));
                 }
+            } else {
+                $operator = $qobj['operator'];
+                $value = $qobj['value'];
             }
             if (!$criteria) {
                 $criteria = array($qobj['cvalue']);

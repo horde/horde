@@ -91,10 +91,7 @@ class Mnemo_Block_Summary extends Horde_Core_Block
             }
 
             if (!empty($this->_params['show_notepad'])) {
-                $owner = $memo['memolist_id'];
-                $share = $shares->getShare($owner);
-                $owner = $share->get('name');
-                $html .= '<td>' . htmlspecialchars($owner) . '</td>';
+                $html .= '<td>' . htmlspecialchars(Mnemo::getLabel($shares->getShare($memo['memolist_id']))) . '</td>';
             }
 
             $viewurl = Horde::url('view.php')->add(

@@ -16,7 +16,7 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
 {
     /**
      * URL Parameters:
-     *   - actionID: (string) Action ID.
+     *   - a: (string) Action ID.
      *   - checkbox: TODO
      *   - indices: TODO
      *   - mt: TODO

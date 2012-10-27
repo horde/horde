@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,11 +71,11 @@ msgstr ""
 msgid "Bookmarks"
 msgstr ""
 
-#: lib/Application.php:71
+#: lib/Trean.php:82
 msgid "Bookmarks Feed"
 msgstr ""
 
-#: browse.php:24
+#: browse.php:25
 msgid "Browse"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: lib/Application.php:81
+#: lib/Application.php:71
 msgid "Maximum Number of Bookmarks"
 msgstr ""
 
@@ -219,7 +219,7 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: lib/Forms/Search.php:11 search.php:18
+#: lib/Forms/Search.php:11 search.php:19
 msgid "Search"
 msgstr ""
 
@@ -227,7 +227,7 @@ msgstr ""
 msgid "Search Bookmarks"
 msgstr ""
 
-#: search.php:35
+#: search.php:36
 #, php-format
 msgid "Search Results (%s)"
 msgstr ""
@@ -295,15 +295,15 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr ""
 
-#: lib/Application.php:91
+#: lib/Application.php:81
 msgid "_Browse"
 msgstr ""
 
-#: lib/Application.php:92
+#: lib/Application.php:82
 msgid "_New Bookmark"
 msgstr ""
 
-#: lib/Application.php:93
+#: lib/Application.php:83
 msgid "_Search"
 msgstr ""
 

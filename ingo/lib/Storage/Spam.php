@@ -3,11 +3,15 @@
  * Ingo_Storage_Spam is an object used to hold default spam-rule filtering
  * information.
  *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Jason M. Felice <jason.m.felice@gmail.com>
- * @package Ingo
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Storage_Spam extends Ingo_Storage_Rule
 {

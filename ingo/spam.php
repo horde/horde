@@ -7,8 +7,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Jason Felice <jason.m.felice@gmail.com>
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jason Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';
@@ -114,7 +117,7 @@ if (!$form->isSubmitted()) {
 /* Set form title. */
 $form_title = _("Spam Filtering");
 if (!empty($spam_rule['disable'])) {
-    $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
+    $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
 }
 $form_title .= ' ' . Horde_Help::link('ingo', 'spam');
 $form->setTitle($form_title);

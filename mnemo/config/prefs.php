@@ -80,8 +80,8 @@ $_prefs['default_notepad'] = array(
     'desc' => _("Your default notepad:"),
     'on_init' => function($ui) {
         $enum = array();
-        foreach (Mnemo::listNotepads() as $key => $val) {
-            $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $key => $val) {
+            $enum[$key] = Mnemo::getLabel($val);
         }
         $ui->prefs['default_notepad']['enum'] = $enum;
     },

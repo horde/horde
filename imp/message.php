@@ -1,6 +1,6 @@
 <?php
 /**
- * View a message in Traditional (imp) mode.
+ * Basic view message page.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *

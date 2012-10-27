@@ -68,7 +68,7 @@ if ($memo_id) {
      foreach (array_keys($notepads) as $id) {
          $sel = ($id == $memolist_id) ? ' selected="selected"' : '';
          printf('<option value="%s"%s>%s</option>',
-                htmlspecialchars($id), $sel, htmlspecialchars($notepads[$id]->get('name'))) . "\n";
+                htmlspecialchars($id), $sel, htmlspecialchars(Mnemo::getLabel($notepads[$id]))) . "\n";
      }
      ?>
     </select>

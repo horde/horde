@@ -1,7 +1,7 @@
 <?php
 /**
- * THis class provices a place to share common code relating to IMP's
- * setup and configuration of the browser HTML editor.
+ * Common code relating to IMP's setup and configuration of the browser HTML
+ * editor.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -22,7 +22,7 @@ class IMP_Ui_Editor
      * @param string $id      The DOM ID to load. If null, won't start editor
      *                        on page load.
      */
-    static public function init($basic = false, $id = null)
+    public function init($basic = false, $id = null)
     {
         global $injector, $page_output, $language, $prefs;
 

@@ -5,9 +5,8 @@
  * Path Info:
  * ----------
  * http://example.com/horde/services/ajax.php/APP/ACTION
- *
- * 'ACTION' - (string) The AJAX action identifier.
- * 'APP' - (string) The application name.
+ *   - ACTION: (string) The AJAX action identifier.
+ *   - APP: (string) The application name.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -41,19 +40,18 @@ try {
     exit;
 }
 
-// Token checking.
-$vars = $injector->getInstance('Horde_Variables');
-try {
-    $session->checkToken($vars->token);
-} catch (Horde_Exception $e) {
-    exit;
-}
-
 // Open an output buffer to ensure that we catch errors that might break JSON
 // encoding.
 Horde::startBuffer();
 
-$ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action);
+// Token checking occurs in constructor.
+$vars = $injector->getInstance('Horde_Variables');
+try {
+    $ajax = $injector->getInstance('Horde_Core_Factory_Ajax')->create($app, $vars, $action, $vars->token);
+} catch (Horde_Exception $e) {
+    exit;
+}
+
 try {
     $ajax->doAction();
 

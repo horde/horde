@@ -428,7 +428,7 @@ class Ansel_Faces_Base
             ->getInstance('Ansel_Storage')
             ->getGallery($image->gallery);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
+            throw new Horde_Exception_PermissionDenied(_("Access denied editing the photo."));
         }
 
         // Store face id db
@@ -516,7 +516,7 @@ class Ansel_Faces_Base
                 ->getGallery($image->gallery);
 
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                throw new Horde_Exception_PermissionDenied('Access denied editing the photo.');
+                throw new Horde_Exception_PermissionDenied(_("Access denied editing the photo."));
             }
         }
 
@@ -705,7 +705,7 @@ class Ansel_Faces_Base
             ->getInstance('Ansel_Storage')
             ->getGallery($gallery_id);
         if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            throw new Horde_Exception_PermissionDenied(sprintf("Access denied editing gallery \"%s\".", $gallery->get('name')));
+            throw new Horde_Exception_PermissionDenied(_("Access denied editing this gallery."));
         }
 
         $images = $gallery->getImages();

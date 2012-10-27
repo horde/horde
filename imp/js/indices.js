@@ -34,9 +34,7 @@ var ImpIndices = {
             }
 
             if (opts.pop3) {
-                o.value.each(function(u) {
-                    str += '{P' + u.length + '}' + u;
-                });
+                str = o.value.join(' ');
             } else {
                 var u = (opts.raw ? o.value.clone() : o.value.numericSort()),
                     first = u.shift(),
@@ -72,7 +70,7 @@ var ImpIndices = {
      */
     parseUIDString: function(str, opts)
     {
-        var arr, end, i, initial, j, len, mbox, size, uidstr,
+        var arr, end, i, j, len, mbox, size, uidstr,
             mlist = {},
             uids = [];
 
@@ -80,49 +78,41 @@ var ImpIndices = {
         str = str.replace(/^\s+/, '').replace(/\s+$/, '');
 
         if (opts.pop3) {
-            initial = '{P';
-            mlist[this.INBOX] = [];
-        } else {
-            initial = '{';
+            mlist[this.INBOX] = str.split(" ");
+            return mlist;
         }
 
         while (str.length) {
-            if (str.lastIndexOf(initial, 0) !== 0) {
+            if (str.lastIndexOf('{', 0) !== 0) {
                 break;
             }
             i = str.indexOf('}');
-            size = Number(str.substring(initial.length, i));
+            size = Number(str.substring(1, i));
             mbox = str.substr(i + 1, size);
 
-            if (opts.pop3) {
-                mlist[this.INBOX].push(mbox);
-                str = str.substr(i + 1 + size);
+            i += size + 1;
+            end = str.indexOf('{', i);
+            if (end == -1) {
+                uidstr = str.substr(i);
+                str = '';
             } else {
-                i += size + 1;
-                end = str.indexOf('{', i);
-                if (end == -1) {
-                    uidstr = str.substr(i);
-                    str = '';
-                } else {
-                    uidstr = str.substr(i, end - i);
-                    str = str.substr(end);
-                }
+                uidstr = str.substr(i, end - i);
+                str = str.substr(end);
+            }
 
-                arr = uidstr.split(',');
-                for (j = 0, len = arr.length; j < len; ++j) {
-                    var k, r = arr[j].split(':');
-                    if (r.length == 1) {
-                        uids.push(Number(arr[j]));
-                    } else {
-                        // POP3 will never exist in range here.
-                        for (k = Number(r[0]); k <= Number(r[1]); ++k) {
-                            uids.push(k);
-                        }
+            arr = uidstr.split(',');
+            for (j = 0, len = arr.length; j < len; ++j) {
+                var k, r = arr[j].split(':');
+                if (r.length == 1) {
+                    uids.push(Number(arr[j]));
+                } else {
+                    for (k = Number(r[0]); k <= Number(r[1]); ++k) {
+                        uids.push(k);
                     }
                 }
-
-                mlist[mbox] = uids;
             }
+
+            mlist[mbox] = uids;
         }
 
         return mlist;

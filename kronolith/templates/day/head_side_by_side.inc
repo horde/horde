@@ -6,7 +6,7 @@
 <?php endif; ?>
 <?php foreach ($this->_currentCalendars as $cid => $cal): ?>
   <th colspan="<?php echo $this->span[$cid] ?>">
-   <?php echo htmlspecialchars($cal->get('name')) ?>
+   <?php echo htmlspecialchars(Kronolith::getLabel($cal)) ?>
   </th>
 <?php endforeach; ?>
  </tr>

@@ -1222,10 +1222,10 @@ class Horde_Icalendar
 
         $change_times = array();
         foreach ($vtimezone->getComponents() as $o) {
-            $t = $vtimezone->parseChild($o, $date['year']);
-            if ($t !== false) {
-                $change_times[] = $t;
-            }
+            $change_times = array_merge(
+                $change_times,
+                $vtimezone->parseChild($o, $date['year'])
+            );
         }
 
         if (!$change_times) {

@@ -182,8 +182,7 @@ class Ansel_View_GalleryProperties
         }
 
         if (!$parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $GLOBALS['notification']->push(sprintf(_("Access denied adding a gallery to \"%s\"."),
-                                $parent->get('name')), 'horde.error');
+            $GLOBALS['notification']->push(_("Access denied adding a sub gallery to this gallery."), 'horde.error');
             Horde::url('view.php?view=List', true)->redirect();
             exit;
         }
@@ -286,7 +285,7 @@ class Ansel_View_GalleryProperties
             // Modifying an existing gallery.
             $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
             if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                $GLOBALS['notification']->push(sprintf(_("Access denied saving gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+                $GLOBALS['notification']->push(_("Access denied saving this gallery."), 'horde.error');
             } else {
                 // Don't allow the display name to be nulled out.
                 if ($gallery_name) {
@@ -343,9 +342,9 @@ class Ansel_View_GalleryProperties
                     exit;
                 }
                 if (!$parent->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-                    $GLOBALS['notification']->push(sprintf(
-                        _("You do not have permission to add children to %s."),
-                        $parent->get('name')), 'horde.error');
+                    $GLOBALS['notification']->push(
+                        _("You do not have permission to add sub galleries to this gallery."),
+                        'horde.error');
 
                     Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
                     exit;

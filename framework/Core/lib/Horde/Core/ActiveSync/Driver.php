@@ -1325,7 +1325,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folder = array_pop($folder);
             }
 
-            return $folder->basename;
+            return $folder->value;
         } else {
             return $folder;
         }

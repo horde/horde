@@ -487,19 +487,19 @@ class IMP_Message
         $message = $contents->getMIMEMessage();
         $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 
-        $url_array = array(
-            'mailbox' => $mbox,
-            'uid' => $uid ,
-            'uidvalidity' => $uidvalidity
-        );
+        $url = new Horde_Imap_Client_Url();
+        $url->mailbox = $mbox;
+        $url->uid = $uid;
+        $url->uidvalidity = $uidvalidity;
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         /* Always add the header to output. */
+        $url->section = 'HEADER';
         $parts = array(
             array(
                 't' => 'url',
-                'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => 'HEADER')))
+                'v' => strval($url)
             )
         );
 
@@ -531,13 +531,16 @@ class IMP_Message
                     ))
                 );
             } else {
+                $url->section = $id . '.MIME';
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id . '.MIME')))
+                    'v' => strval($url)
                 );
+
+                $url->section = $id;
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id)))
+                    'v' => strval($url)
                 );
             }
         }

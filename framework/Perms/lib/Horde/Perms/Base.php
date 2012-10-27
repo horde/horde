@@ -143,7 +143,9 @@ abstract class Horde_Perms_Base
             try {
                 $permission = $this->getPermission($permission);
             } catch (Horde_Perms_Exception $e) {
-                if ($this->_logger) {
+                /* Ignore not exists errors. */
+                if ($this->_logger &&
+                    ($e->getCode() != Horde_Perms_Exception::NOT_EXIST)) {
                     $this->_logger->log($e, 'DEBUG');
                 }
                 return false;

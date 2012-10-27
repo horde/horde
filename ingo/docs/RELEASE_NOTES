@@ -10,37 +10,31 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the last beta release of the Ingo Email
-Filter Rules Manager version H5 (3.0.0).
+The Horde Team is pleased to announce the first release candidate of the Ingo
+Email Filter Rules Manager version H5 (3.0.0).
 
 Ingo is an email-filter management application. It is fully internationalized,
 integrated with Horde and the IMP Webmail client, and supports both server-side
 (Sieve, Procmail, Maildrop) and client-side (IMAP) message filtering. For more
 information on Ingo, visit http://www.horde.org/apps/ingo.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is feature complete but there are likely to be bugs. You
-should not use this preview version with existing production data.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome. Strings are not going
+to change until the final release.
 
-The major changes compared to the Ingo version H5 (3.0.0beta1) are:
-    * Added initial implementation of a smartphone view.
-    * Added hook to customize authentication parameters.
-    * Small bugfixes and improvements.
+The final release of Ingo H5 (3.0.0) is expected on October 30.
+
+The major changes compared to the Ingo version H5 (3.0.0beta2) are:
+    * Small improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Added initial implementation of a smartphone view.
-Added hook to customize authentication parameters.
-Small bugfixes and improvements.
+Small improvements.
 FM;
 
 $this->notes['name'] = 'Ingo';

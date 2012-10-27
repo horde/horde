@@ -12,7 +12,7 @@ Horde_Registry::appInit('nag');
 /* We can either have a UID or a taskId and a tasklist. Check for
  * UID first. */
 if ($uid = Horde_Util::getFormData('uid')) {
-    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
+    $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create('');
     try {
         $task = $storage->getByUID($uid);
     } catch (Nag_Exception $e) {

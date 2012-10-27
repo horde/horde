@@ -302,6 +302,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         return array(
             'memolist_id' => $this->_notepad,
             'memo_id' => $note['uid'],
+            'uid' => $note['uid'],
             'category' => empty($note['categories']) ? '' : $note['categories'][0],
             'desc' => $note['summary'],
             'encrypted' => $encrypted,

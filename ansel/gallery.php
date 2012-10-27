@@ -37,7 +37,7 @@ case 'downloadzip':
     if (!$registry->getAuth() ||
         !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
-        $notification->push(sprintf(_("Access denied downloading photos from \"%s\"."), $gallery->get('name')), 'horde.error');
+        $notification->push(_("Access denied downloading photos from this gallery."), 'horde.error');
         Horde::url('view.php?view=List', true)->redirect();
         exit;
     }

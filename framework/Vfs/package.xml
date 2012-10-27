@@ -27,11 +27,16 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>21:02:03</time>
+ <date>2012-10-26</date>
+ <time>23:30:58</time>
  <version>
+<<<<<<< HEAD
   <release>2.1.0</release>
   <api>2.1.0</api>
+=======
+  <release>2.0.0RC2</release>
+  <api>2.0.0beta1</api>
+>>>>>>> master
  </version>
  <stability>
   <release>stable</release>
@@ -389,7 +394,7 @@ Reading, writing and listing of files are all supported.</description>
  <dependencies>
   <required>
    <php>
-    <min>5.2.2</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -1050,7 +1055,20 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-12</date>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix check whether quota limit is set (Bug #11455).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -1,11 +1,9 @@
 /* Block styles. */
-table.ingoBlockSummary th, table.ingoBlockSummary td {
+table.ingoBlockSummary td {
     padding: 0 8px;
-    text-align: center;
 }
-table.ingoBlockSummary tr > th:first-child, table.ingoBlockSummary tr > td:first-child {
+table.ingoBlockSummary tr > td:first-child {
     padding: 0;
-    text-align: left;
 }
 
 .blacklistImg {

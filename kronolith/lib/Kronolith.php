@@ -1448,6 +1448,25 @@ class Kronolith
     }
 
     /**
+     * Returns the label to be used for a calendar.
+     *
+     * Attaches the owner name of shared calendars if necessary.
+     *
+     * @param Horde_Share_Object  A calendar.
+     *
+     * @return string  The calendar's label.
+     */
+    public static function getLabel($calendar)
+    {
+        $label = $calendar->get('name');
+        if ($calendar->get('owner') &&
+            $calendar->get('owner') != $GLOBALS['registry']->getAuth()) {
+            $label .= ' [' . $GLOBALS['registry']->convertUsername($calendar->get('owner'), false) . ']';
+        }
+        return $label;
+    }
+
+    /**
      * Returns whether the current user has certain permissions on a calendar.
      *
      * @param string $calendar  A calendar id.
@@ -1999,6 +2018,9 @@ class Kronolith
                     $notification->push($e, 'horde.error');
                     continue;
                 }
+                $name = $newAttendee->label != $newAttendee->bare_address ? $newAttendee->label : '';
+            } else {
+                $name = $newAttendee->bare_address;
             }
 
             // Avoid overwriting existing attendees with the default
@@ -2006,7 +2028,7 @@ class Kronolith
             $attendees[$newAttendee->bare_address] = array(
                 'attendance' => self::PART_REQUIRED,
                 'response'   => self::RESPONSE_NONE,
-                'name'       => $newAttendee->label
+                'name'       => $name
             );
         }
 
@@ -2155,8 +2177,17 @@ class Kronolith
             $ics->setCharset('UTF-8');
             $ics->setEOL("\r\n");
 
-            $multipart = self::buildMimeMessage($view, 'notification', $image);
-            $multipart->addPart($ics);
+            /* application/ics part */
+            $ics2 = clone $ics;
+            $ics2->setType('application/ics');
+
+            /* multipart/mixed part */
+            $multipart = new Horde_Mime_Part();
+            $multipart->setType('multipart/mixed');
+            $inner = self::buildMimeMessage($view, 'notification', $image);
+            $inner->addPart($ics);
+            $multipart->addPart($inner);
+            $multipart->addPart($ics2);
 
             $recipient = new Horde_Mail_Rfc822_Address($email);
             if (!empty($status['name'])) {
@@ -2294,7 +2325,7 @@ class Kronolith
                     $message = "\n"
                         . sprintf($notification_message,
                                   $event->title,
-                                  $share->get('name'),
+                                  Kronolith::getLabel($share),
                                   $event->start->strftime($df),
                                   $event->start->strftime($tf ? '%R' : '%I:%M%p'))
                         . "\n\n" . $event->description;

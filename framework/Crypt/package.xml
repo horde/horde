@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-08-29</date>
- <time>15:15:48</time>
+ <date>2012-10-26</date>
+ <time>23:13:46</time>
  <version>
-  <release>2.0.0beta3</release>
+  <release>2.0.0RC2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -737,6 +737,20 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
+    <release>1.1.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-05-01</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Throw exception if parsing of S/MIME certificates fails (Bug #11530).
+* [mms] Improvements in obtaining GPG keys from a keyserver (Bug #11380) (o+horde@immerda.ch).
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>2.0.0alpha1</release>
     <api>1.1.0</api></version>
    <stability>
@@ -776,12 +790,25 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.0.0beta3</release>
+    <release>2.0.0RC1</release>
     <api>1.1.0</api></version>
    <stability>
     <release>beta</release>
     <api>stable</api></stability>
-   <date>2012-08-29</date>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Throw exception if parsing of S/MIME certificates fails (Bug #11530).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api></stability>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

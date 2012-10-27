@@ -1122,9 +1122,7 @@ var ImpMobile = {
             }
 
             if (IMP.conf.pop3) {
-                $.each(value, function(pk, pv) {
-                    str += '{P' + pv.length + '}' + pv;
-                });
+                str = value.join(' ');
             } else {
                 var u = value.numericSort(),
                     first = u.shift(),

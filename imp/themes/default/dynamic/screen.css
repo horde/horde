@@ -391,8 +391,9 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions .horde-popdown {
     display: inline-block;
     float: none;
+    height: 16px;
+    margin-top: -2px;
     padding-left: 4px;
-    height: 14px;
     width: 16px;
 }
 
@@ -605,11 +606,15 @@ div.dimpActionsMsg #windowclose {
 .msgwrite .dimpOptions {
     padding: 8px 8px 0 0;
 }
-.msgwrite .dimpOptions div {
-    padding-bottom: 0;
-}
 .msgwrite .dimpOptions label {
     cursor: pointer;
+}
+.msgwrite .dimpOptions input {
+    min-height: 0px;
+}
+.msgwrite .dimpOptions .horde-popdown {
+    height: 18px;
+    margin-top: -6px;
 }
 #noticerow li span.closeImg {
     float: right;
@@ -797,19 +802,6 @@ span.attachmentImg {
     margin-top: 6px;
 }
 
-/* Keyboard key style */
-.kbd {
-    background: #eee;
-    color: #000;
-    white-space: nowrap;
-    padding: 1px 2px;
-    border: 1px solid #888;
-    font-size: 90%;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-    border-radius: 3px;
-}
-
 /* Images */
 span.iconImg {
     margin-right: 4px;
@@ -919,9 +911,6 @@ span.logoutIcon {
 #ctx_oa_layout_vert span.iconImg {
     background-image: url("../graphics/application_tile_horizontal.png");
 }
-#ctx_oa_help span.iconImg {
-    background-image: url("../graphics/help.png");
-}
 #ctx_mbox_create span.iconImg, #ctx_container_create span.iconImg, #ctx_folderopts_new span.iconImg {
     background-image: url("../graphics/folders/create.png");
 }
@@ -1016,20 +1005,9 @@ div.msgSubject span.horde-tree-image {
     margin-top: 2px;
 }
 
-span.popdownImg, span.spellcheckPopdownImg {
-    background-image: url("../graphics/popdown.png");
-    margin-right: 0;
-    margin-left: 0;
-}
-span.keyupImg {
-    background-image: url("../graphics/key_up.png");
-}
-span.keydownImg {
-    background-image: url("../graphics/key_down.png");
-}
 span.readonlyImg {
-    background-color: white;
-    margin-top: -1px 0 0 3px;
+    background-image: url("../graphics/locked-inv.png");
+    margin: -1px 0 0 3px;
 }
 
 /* Growler notification styles. */
@@ -1041,26 +1019,6 @@ span.readonlyImg {
 }
 .imp-forward, .imp-redirect {
     background-image: url("../graphics/forwarded.png");
-}
-
-/* Help screen */
-#helptext {
-    bottom: 0;
-    left: 0;
-    line-height: 18px;
-    position: fixed;
-    width: 100%;
-    z-index: 10001;
-}
-#helptext div {
-    background: lightgrey;
-    border: 1px solid grey;
-    line-height: 18px;
-    padding: 10px 30px 15px;
-}
-#helptext_close {
-    cursor: pointer;
-    float: right;
 }
 
 @media print {

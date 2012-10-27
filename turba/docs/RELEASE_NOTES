@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the last beta release of the Turba
+The Horde Team is pleased to announce the first release candidate of the Turba
 Contact Manager version H5 (4.0.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
@@ -23,31 +23,23 @@ applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books. For more information on Turba, visit
 http://www.horde.org/apps/turba.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is feature complete but there are likely to be bugs. You
-should not use this preview version with existing production data.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome. Strings are not going
+to change until the final release.
 
-The major changes compared to the Turba version H5 (4.0.0beta2) are:
-    * Added initial implementation of a smartphone view.
-    * Completed interface redesign.
+The final release of Turba H5 (4.0.0) is expected on October 30.
+
+The major changes compared to the Turba version H5 (4.0.0beta3) are:
     * Improved support for email fields with multiple addresses.
     * Improved Kolab support.
-    * Dropped preference which address books to display.
-    * Further bugfixes and improvements.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added initial implementation of a smartphone view.
-Completed interface redesign.
 Improved support for email fields with multiple addresses.
 Improved Kolab support.
-Dropped preference which address books to display.
-Further bugfixes and improvements.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Turba';

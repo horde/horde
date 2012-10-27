@@ -78,8 +78,7 @@ foreach (array(true, false) as $my) {
             $tasklist->get('owner') == $GLOBALS['registry']->getAuth();
         if (($my && $owner) || (!$my && !$owner)) {
             $code['conf']['calendars']['tasklists']['tasks/' . $id] = array(
-                'name' => ($owner || !$tasklist->get('owner') ? '' : '[' . $GLOBALS['registry']->convertUsername($tasklist->get('owner'), false) . '] ')
-                    . $tasklist->get('name'),
+                'name' => Kronolith::getLabel($tasklist),
                 'desc' => $tasklist->get('desc'),
                 'owner' => $owner,
                 'fg' => Kronolith::foregroundColor($tasklist),

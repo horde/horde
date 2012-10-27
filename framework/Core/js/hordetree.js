@@ -362,9 +362,13 @@ var Horde_Tree = Class.create({
             node = this.nodes[nodeId];
 
         // Image.
-        if (node.icon) {
-            // Node has a user defined icon.
-            img = new Element('IMG', { id: 'horde-node-icon-' + nodeId, src: (node.iconopen && node.expanded ? node.iconopen : node.icon) }).addClassName('horde-tree-icon');
+        if (!Object.isUndefined(node.icon)) {
+            if (!node.icon) {
+                return '';
+            } else {
+                // Node has a user defined icon.
+                img = new Element('IMG', { id: 'horde-node-icon-' + nodeId, src: (node.iconopen && node.expanded ? node.iconopen : node.icon) }).addClassName('horde-tree-icon');
+            }
         } else {
             img = new Element('SPAN', { id: 'horde-node-icon-' + nodeId }).addClassName('horde-tree-icon');
             if (node.children) {

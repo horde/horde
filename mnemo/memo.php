@@ -144,7 +144,7 @@ case 'save_memo':
     }
 
     if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
+        $notification->push(_("Access denied saving note to this notepad."), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
         if (empty($memo_id)) {
