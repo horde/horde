@@ -253,6 +253,11 @@ div.hermesTimeSliceOptions {
 #hermesTimeListControls input[disabled] {
   cursor: default;
 }
+
+.hermesDatePicker {
+  cursor: pointer;
+}
+
 .horde-splitbar-horiz {
     cursor: default;
 }
