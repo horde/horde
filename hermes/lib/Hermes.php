@@ -393,10 +393,14 @@ class Hermes
         return $timers[$id];
     }
 
+    /**
+     * Clear a timer
+     *
+     * @param integer $id  The timer id to clear/remove.
+     */
     public static function clearTimer($id)
     {
         global $prefs;
-
         $timers = @unserialize($prefs->getValue('running_timers'));
          if (!is_array($timers)) {
             $timers = array();
@@ -406,6 +410,12 @@ class Hermes
         $prefs->setValue('running_timers', serialize($timers));
     }
 
+    /**
+     * Update an existing timer.
+     *
+     * @param integer $id   The timer id.
+     * @param array $timer  The timer hash.
+     */
     public static function updateTimer($id, $timer)
     {
          global $prefs;
