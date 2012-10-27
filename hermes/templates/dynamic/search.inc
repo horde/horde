@@ -1,5 +1,6 @@
 <!-- Main Search Container -->
 <div id="hermesViewSearch" style="display:none">
+
   <!-- Search Form -->
   <div class="header"><?php echo _("Search") ?></div>
   <form id="hermesSearchForm" action="">
@@ -39,6 +40,10 @@
         <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormBeforePicker" class="hermesDatePicker"') ?>
       </label><span class="hermesSeparator">|</span>
     </div>
+    <div class="horde-form-buttons">
+      <input id="hermesSearch" class="horde-default" type="submit" value="<?php echo _("Search")?>" />
+      <input id="hermesTimeReset" type="reset" value ="<?php echo _("Reset") ?>" />
+    </div>
   </form>
   <!-- End Search Form -->
 
@@ -75,7 +80,8 @@
     <div id="hermesSearchListInternal"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
   </div>
+  <!-- @TODO
   <div id="hermesTimeListControls" class="horde-form-buttons">
     <a id="hermesSearchListSubmit" class="horde-default"><?php echo _("Export Time") ?></a>
-  </div>
+  </div> -->
 </div>
