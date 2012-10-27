@@ -65,7 +65,8 @@ class Hermes
 
     /**
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
-     * @return <type>
+     *
+     * @return string
      */
     public static function getJobTypeSelect($id)
     {
@@ -310,6 +311,13 @@ class Hermes
         return $tabs->render($GLOBALS['session']->get('hermes', 'search_mode'));
     }
 
+    /**
+     * Return list of current timers.
+     *
+     * @param boolean $running_only  Only return running timers if true.
+     *
+     * @return array  An array of timer hashes.
+     */
     public static function listTimers($running_only = false)
     {
         $timers = $GLOBALS['prefs']->getValue('running_timers');
@@ -361,11 +369,17 @@ class Hermes
         return $now;
     }
 
+    /**
+     * Return a specific timer.
+     *
+     * @param integer  The timer id.
+     *
+     * @return array  The timer hash.
+     * @throws Horde_Exception_NotFound
+     */
     public static function getTimer($id)
     {
-        global $prefs;
-
-        $timers = $prefs->getValue('running_timers');
+        $timers = $GLOBALS['prefs']->getValue('running_timers');
         if (!empty($timers)) {
             $timers = @unserialize($timers);
         } else {
