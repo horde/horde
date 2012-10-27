@@ -331,7 +331,7 @@ class Hermes
             if ($running_only && $timer['paused']) {
                 continue;
             }
-            $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
+            $elapsed = (!$timer['paused'] ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
             $timer['e'] = round((float)$elapsed / 3600, 2);
             $timer['id'] = $id;
             unset($timer['elapsed']);
