@@ -185,23 +185,20 @@ class Hermes_Application extends Horde_Registry_Application
                 )
             ));
 
-            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
-                $entry = Horde::url('entry.php');
-                foreach ($timers as $i => $timer) {
-                    $hours = round((float)(time() - $i) / 3600, 2);
-                    $tree->addNode(array(
-                        'id' => $parent . '__timer_' . $i,
-                        'parent' => $parent,
-                        'label' => $timer['name'] . sprintf(" (%s)", $hours),
-                        'expanded' => false,
-                        'params' => array(
-                            'icon' => Horde_Themes::img('timer-stop.png'),
-                            'url' => $entry->add('timer', $i)
-                        )
-                    ));
-                }
+            $timers = Hermes::listTimers();
+            $entry = Horde::url('entry.php');
+            foreach ($timers as $i => $timer) {
+                $tree->addNode(array(
+                    'id' => $parent . '__timer_' . $i,
+                    'parent' => $parent,
+                    'label' => $timer['name'] . sprintf(" (%s)", $timer['e']),
+                    'expanded' => false,
+                    'params' => array(
+                        'icon' => Horde_Themes::img('timer-stop.png'),
+                        'url' => $entry->add('timer', $i)
+                    )
+                ));
             }
-            break;
         }
     }
 
