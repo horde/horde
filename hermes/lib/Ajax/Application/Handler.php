@@ -179,7 +179,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         global $prefs;
 
-        if (!$timer = Hermes::getTimer($this->vars->t)) {
+        try {
+            $timer = Hermes::getTimer($this->vars->t);
+        } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
@@ -208,9 +210,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function pauseTimer()
     {
-        global $prefs;
-
-        if (!$timer = Hermes::getTimer($this->vars->t)) {
+        try {
+            $timer = Hermes::getTimer($this->vars->t);
+        } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
@@ -235,9 +237,9 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      */
     public function startTimer()
     {
-        global $prefs;
-
-        if (!$timer = Hermes::getTimer($this->vars->t)) {
+        try {
+            $timer = Hermes::getTimer($this->vars->t);
+        } catch (Horde_Exception_NotFound $e) {
             $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }

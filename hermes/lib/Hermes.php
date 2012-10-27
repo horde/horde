@@ -373,7 +373,7 @@ class Hermes
         }
 
         if (empty($timers[$id])) {
-            return false;
+            throw new Horde_Exception_NotFound(_("The requested timer was not found."));
         }
 
         return $timers[$id];
