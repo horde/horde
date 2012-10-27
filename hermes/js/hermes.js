@@ -234,6 +234,12 @@ HermesCore = {
                 this.closeRedBox();
                 e.stop();
                 return;
+
+            /* Search Form */
+            case 'hermesSearch':
+                this.search();
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -524,6 +530,22 @@ HermesCore = {
         this.reverseSort = false;
         this.updateView(this.view);
         this.buildTimeTable();
+    },
+
+    search: function()
+    {
+        var params = $H($('hermesSearchForm').serialize({ hash: true }));
+
+        $('hermesLoadingSearch').show();
+        HordeCore.doAction('search',
+            params,
+            { 'callback': this.searchCallback.bind(this) }
+        );
+    },
+
+    searchCallback: function(r)
+    {
+        $('hermesLoadingSearch').hide();
     },
 
     /**

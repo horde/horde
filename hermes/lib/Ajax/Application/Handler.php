@@ -35,7 +35,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         try {
             $slices = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->getHours($params, array(), $this->vars->sort, $this->vars->dir);
+                ->getHours($params);
             foreach ($slices as $slice) {
                 $json[] = $slice->toJson();
             }
@@ -262,6 +262,21 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         return Hermes::listTimers($running_only);
     }
 
+    public function search()
+    {
+        $criteria = $this->_readSearchForm();
+
+        $slices = $GLOBALS['injector']
+            ->getInstance('Hermes_Driver')
+            ->getHours($criteria);
+        $json = array();
+
+        foreach ($slices as $slice) {
+            $json[] = $slice->toJson();
+        }
+        return $json;
+    }
+
     /**
      * Poll the server. Currently also returns the list of current timer data
      * so the UI can be updated periodically.
@@ -272,6 +287,49 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         // Return any elapsed time for timers
         return $this->listTimers(true);
+    }
+
+    /**
+     * Reads the search form submitted and return the search criteria
+     *
+     */
+    protected function _readSearchForm()
+    {
+        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
+        $vars = $this->vars;
+
+        $criteria = array();
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+            if (!empty($vars->employees)) {
+                $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
+                if (!$auth->hasCapability('list')) {
+                    $criteria['employee'] = explode(',', $vars->employees);
+                } else {
+                    $criteria['employee'] = $vars->employees;
+                }
+            }
+        } else {
+            $criteria['employee'] = $GLOBALS['registry']->getAuth();
+        }
+        if (!empty($vars->client)) {
+            $criteria['client'] = $vars->client;
+        }
+        if (!empty($vars->type)) {
+            $criteria['jobtype'] = $vars->type;
+        }
+        if (!empty($vars->costobjects)) {
+            $criteria['costobject'] = $vars->costobjects;
+        }
+        if (!empty($vars->start)) {
+            $dt = new Horde_Date($vars->start);
+            $criteria['start'] = $dt->timestamp();
+        }
+        if (!empty($vars->end)) {
+            $dt = new Horde_Date($vars->end);
+            $criteria['end'] = $dt->add(86400)->timestamp();
+        }
+
+        return $criteria;
     }
 
 }
