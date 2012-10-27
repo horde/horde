@@ -2020,9 +2020,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - relevancy: (array) The list of relevancy scores. Returned if
      *                Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY is set and
      *                the server supports FUZZY search matching.
-     *   - save: (boolean) Whether the search results were saved. This value
-     *           is meant for internal use only. Returned if 'sort' is false
-     *           and Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
+     *   - save: (boolean) Whether the search results were saved. Returned if
+     *           Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
      *
      * @throws Horde_Imap_Client_Exception
      */
