@@ -295,7 +295,7 @@ class Horde_Test
             'error' => 'The Net_SMTP package is necessary if you want to use SMTP to send e-mails in Horded.',
         ),
         'Services_Weather' => array(
-            'error' => 'Services_Weather is used by the weather applet/block on the portal page.'
+            'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),
         'XML_Serializer' => array(
             'error' => 'XML_Serializer is used by the Services_Weather module on the weather applet/block on the portal page.'
