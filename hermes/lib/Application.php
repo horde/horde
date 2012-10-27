@@ -81,6 +81,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
+     * Responsible for building the top left menu entries of the sideBar in
+     * Basic view.
      */
     public function menu($menu)
     {
@@ -128,7 +130,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the sidebar.
+     * Add additional items to the sidebar. This is for the Basic view. For the
+     * Dynamic view @see Hermes_View_Sidebar
      *
      * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
@@ -144,8 +147,8 @@ class Hermes_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                 array $params = array())
+    public function topbarCreate(
+        Horde_Tree_Renderer_Base $tree, $parent = null, array $params = array())
     {
         switch ($params['id']) {
         case 'menu':
