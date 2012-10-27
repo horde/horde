@@ -706,7 +706,8 @@ HermesCore = {
      */
     submitSlices: function()
     {
-        var sliceIds = slices = [];
+        var sliceIds = [],
+        slices = [];
 
         $('hermesLoadingTime').show();
         $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
