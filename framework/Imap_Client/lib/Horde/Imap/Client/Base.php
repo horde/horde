@@ -2606,6 +2606,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($opts['ids'])) {
             $opts['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
+        } elseif ($opts['ids']->isEmpty()) {
+            return $this->getIdsOb();
         } elseif ($opts['ids']->sequence) {
             throw new InvalidArgumentException('Vanished requires UIDs.');
         }
