@@ -3803,7 +3803,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {
-                $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, max($this->_temp['modseqs']));
+                $modseq = max($this->_temp['modseqs']);
+                $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
+                $this->_updateModSeq($modseq);
             }
 
             /* Update cache items. */
