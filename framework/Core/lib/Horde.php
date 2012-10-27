@@ -1672,7 +1672,10 @@ class Horde
             $language = 'en-US';
         }
         $params['conf'] = array(
-            'language' => $language
+            'language' => $language,
+            'markerImage' => (string)Horde_Themes::img('map/marker.png'),
+            'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png'),
+            'useMarkerLayer' => true,
         );
 
         $params['driver'] = 'Horde';
