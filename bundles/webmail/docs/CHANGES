@@ -1,7 +1,676 @@
 ----------
-v4.0.9-git
+v5.0.0-git
 ----------
 
+[jan] Remove optional dependency on Horde_DataTree.
+[jan] Remove DataTree support.
+
+Horde Changes
+-------------
+[jan] Port VAT identification block to use SOAP extension.
+[jan] Fix dynamic updating of portal blocks.
+[mms] Allow view-specific help files to inherit from base application help
+      file.
+[mms] Allow application basic/dynamic views to have different help source
+      files.
+[mms] Show non-javascript enhanced login screen for non-smartmobile mobile
+      browsers (Bug #11215).
+[mms] Add version parameter to CSS/javascript file URLs to help with cache
+      busting when these files change between releases.
+[mms] Add configuration option for maximum allowed session times.
+[jan] Fix cancelling problem report.
+[jan] Fix audio notification path printed in page output.
+[jan] Fix logging in without JavaScript (Bug #11328).
+[mms] Fix sidebar element wrapping.
+[mms] Better handling of backend authentication errors when returning AJAX data
+      (Bug #11297).
+[mjr] Fix autocompletion of tags in ajax views.
+[jan] Fix dependency on Horde_Service_Weather.
+[mjr] Request SSL connection from map providers if using SSL (Bug #11193).
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
+[jan] Update icon set.
+[rla] Retrieve more detailed message from Horde_Auth when a user is temporarily
+      or permanently locked out (Request #11254).
+[jan] Implement new user interface.
+[mms] Add 'suppress' option to prefs.php group entries.
+[mms] Add 'on_change', 'on_init', 'requires', 'requires_nolock', and
+      'suppress' options to prefs.php preference entries.
+[mms] Remove support for IE 6.
+[mms] Token protect all AJAX actions.
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
+[mms] Implement growler-like notifications for smartmobile view.
+[mms] Modified pushapp hook behavior.
+[mms] Removed pushapp_post hook.
+[mms] AJAX core features now contained within Horde_Core.
+[mms] E-mail sending charset now defaults to UTF-8.
+[mms] Add post-install script for the Horde application
+[mms] Portal blocks can now load just the CSS necessary to display an
+      application's blocks.
+[jan] Show notifications during logging into Smartphone mode.
+
+Mail Changes
+------------
+[mms] Attach as many files as possible instead of aborting on first failed
+      attachment add.
+[mms] Fix determining first/last unseen message in a mailbox (use message date
+      instead of arrival date).
+[jan] Don't show application menus in iTip MIME viewer popups.
+[mms] Hide subfolder creation option in dynamic view if IMAP server indicates
+      that child mailboxes cannot be created.
+[mms] Correctly send deleted flag information to browser cache when using
+      dynamic/smartmobile view (Bug #11362).
+[mms] Auto-update folders list in smartmobile view if special mailbox is
+      auto-created (Request #11482).
+[mms] Load folders list on-demand in smartmobile view.
+[mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
+[mms] Display message range when dragging slider on dynamic mailbox page.
+[mms] Add predefined templates to ACL management screen (Request #10648).
+[mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
+      HTML message data (Bug #11428).
+[mms] All IMP templates now use Horde_View.
+[mms] Add swipe action buttons to the smartmobile mailbox page.
+[mms] Optimize loading of message bodies when using dynamic view.
+[mms] Load new mailbox when renaming current mailbox in dynamic view (Request
+      #11394).
+[mms] Add simple address autocompleter to smartmobile compose page.
+[mms] Add refresh button to smartmobile folder page.
+[jan] Fix popdown positioning in mailbox table header (Bug #11384).
+[mms] Allow certain iCalendar events to be configured to automatically update
+      the local user's calendar (Request #11376).
+[mms] Remember message selections when changing mailboxes in dynamic view.
+[mms] Add ability to edit list of safe addresses used with the
+      image_replacement preference.
+[mms] Add attachment download links to smartmobile view (Request #11379).
+[mms] Indicate deleted messages with strikethrough in smartmobile mailbox
+      listing (Request #11362).
+[mms] Show polled children in smartmobile folder list when parent mailbox is
+      not polled (Bug #11238).
+[mms] More complete handling of linked data in subject header across views
+      (Bug #11372).
+[mms] Add Top link to smartmobile mailbox page.
+[mms] Fixes to the iTip Request handler (Bug #11264).
+[mms] Fix searching in smartmobile view (Bug #11365).
+[mms] Tweak smartmobile mailbox page to use mobile-style list clicking
+      (Request #11364).
+[mms] Fix regression in updating dynamic folder list when deleting parent
+      mailboxes that contain children (Bug #11296).
+[mms] Fix regression preventing compose messages from being sent in the
+      smartmobile view (Bug #11342).
+[jan] Allow to reset flag colors and to specify as HTML colors.
+[mjr] The mailboxList API call now returns delimiter and attribute information.
+[jan] Fix polling for new mail from other applications.
+[jan] Highlight quota level in dynamic mode.
+[mms] Add keyboard shortcuts to dynamic compose page (Michael Wing
+      <marsfurrycreature@gmail.com>).
+[mms] Fix sidebar element wrapping.
+[mms] Fix regression preventing contacts popup window from working (Bug
+      #11324).
+[mms] Fix regression in select all checkbox on traditional mailbox page (Bug
+      #11317).
+[mms] Fix regression in altering sort direction in dynamic mailbox view (Bug
+      #11300).
+[mms] Hide empty MIME parts when displaying inline.
+[mms] Fix expanding all mailboxes in dynamic view (Bug #11289).
+[mms] Fix handling of identity tie-to addresses when searching for matching
+      identities.
+[mms] Fix recursive mailbox delete in dynamic view (Bug #11288).
+[mms] Fix regression in sorting of special mailboxes (Bug #11241).
+[mms] Fix mailbox sorting in traditional view (Bug #11278).
+[mms] Fix regression in IMAP cache query script preventing stats in all mailbox
+      reports (Bug #11265).
+[mms] Fix regression in creating submailboxes in dynamic view.
+[jan] Fix displaying messages in a popup (Bug #11251).
+[jan] Fix automatic selection of the default identity if other identities
+      contain the same address(es).
+[jan] Fix editing mailbox ACLs (Bug #11247).
+[jan] Fix using admin users and passwords for quota or mailbox management.
+[mms] Fix browser-based AJAX autocompletion (Bug #11233).
+[mms] Only show Inbox, special mailboxes, and polled mailboxes by default in
+      smartmobile view.
+[mms] Add 'reply_strip_sig' preference (Request #11056).
+[mms] Move attachment strip icon to MIME part tree display.
+[mms] Convert dynamic view to Horde_View.
+[mms] Convert minimal view to Horde_View.
+[mms] Honor initial_page preference in smartmobile view (Request #11165).
+[mms] Lock mailbox sort to descending date when using minimal view.
+[mms] Pre-fetch unseen messages in polled mailboxes in dynamic view.
+[mms] Allow Edit As New to be used as the default forward action (Request
+      #11135).
+[mms] Improved handling of messages with multiple From addresses in mailbox
+      views.
+[mms] Replying to a multipart/related message in HTML mode now correctly
+      attaches data from the original message.
+[mms] Allow deletion of all subfolders at once in dynamic view.
+[mms] Provide details of when search results were last refreshed.
+[mms] Dynamically update unseen message counts in folder list in smartmobile
+      view.
+[mms] Add mailbox caching to the smartmobile view.
+[mms] Cache last seen message in smartmobile view.
+[mms] Viewing a mailbox in smartmobile mode no longer resets the sortpref
+      preference.
+[mms] Allow all SMTP configuration parameters to be overridden in the backends
+      configuration file (Request #11051).
+[mms] Block images in HTML messages that appear to be sent from you by default,
+      to prevent spammers form easily circumventing the block.
+[mms] Add 'Edit As New' to Forward button dropdown menu in dynamic view.
+[mms] Allow identifying addresses to always display images for without
+      requiring to add them to the addressbook.
+[mms] Disable text selection in dynamic view for everything but
+      compose/message bodies.
+[mms] Rewritten vCal/iCal attachment viewer/handler.
+[mms] S/MIME certificate import from message data no longer requires popup
+      window.
+[mms] PGP key import from message attachment no longer requires popup window.
+[mms] Improve PGP key import screen.
+[mms] Truncate large address lists (50+) by default in dynamic message views.
+[mms] Moved AJAX core features to Horde_Core package.
+[jan] Add reporting as spam/innocent to smartphone view.
+[mms] Workaround overquota error when deleting messages and using Trash
+      mailbox.
+[jan] Add basic search to smartphone view.
+[jan] Add resume and "edit as new" to smartphone view.
+[mms] Hide deleted now works with threaded mailboxes.
+[mms] Threaded sorts now work in all search mailboxes (Request #9700).
+[mms] Improved threading performance.
+[mms] Improved date searching to search by range.
+[mms] Added 'mbox_sort' hook.
+[mms] Make mailbox columns the same order in traditional view as in dynamic
+      view.
+[jan] Add mailbox paging to smartphone view.
+[jan] Add copy and move to smartphone view.
+[jan] Add deleting messages to smartphone view.
+[jan] Add reply, forward and redirect to smartphone view.
+[jan] Add compose functionality to smartphone view.
+[mms] Accurately track changes to virtual folders in dynamic folder tree (Bug
+      #10886).
+[mms] Traditional mode now requires javascript on the browser.
+[mms] Added 'mbox_special' hook (rsalmon@mbpgroup.com, Request #10801).
+[mms] Converted stationery to the Templates special mailbox (Request #9296).
+[mms] Hide inactive buttons in dynamic view instead of dimming them.
+[mms] Added config option to limit size of messages with linked attachments
+      (Request #6247).
+[mms] Allow expiration date to be provided when creating personal PGP key
+      (Request #5754).
+[mms] Always use Horde default for sending charset unless reply_charset
+      preference is active.
+[mms] Add ability to view all message parts in dynamic view (Request #9827).
+[mms] Remove signature from compose UI; signature is now added automatically
+      when sending (Request #10487).
+[mms] Fix accessing mailboxes containing ampersands (Bug #10093).
+[mms] Size of sidebar now saved in dynamic view.
+[mms] Browser-specific UI elements in dynamic view now saved in browser storage
+      (Request #10723).
+
+Filters Changes
+---------------
+[mms] Add 'euser' option to 'transport_auth' hook allowing the effective user
+      to be provided for the timsieved transport driver.
+[mms] Add 'transport_auth' hook to handle defining authentication parameters
+      for transport backends.
+[mms] Remove session caching of rules.
+[mms] Initial implementation of smartmobile view.
+[mms] Disable blacklist, vacation, and whitelist API methods if the preference
+      is locked.
+[jan] Update icon set.
+[mms] Fix javascript actions on the vacation page.
+[mms] When adding to blacklist/whitelist, remove added addresses from the
+      other list.
+[jan] Allow to use placeholder variables in vacation messages (Request #10316).
+[mjr] Add ability to retrieve vacation message details from the API.
+[jan] Validate start and end dates of vacation rules (Request #10879).
+
+Address Book Changes
+--------------------
+[jan] Allow searching for 'emails' attributes (Bug #11185).
+[jan] Fix LIKE matching of attributes in Kolab driver.
+[mms] Convert turba minisearch block to the Horde AJAX framework.
+[jan] Support 'emails' attribute in smartphone view (Bug #11544).
+[jan] Attach share owner to all address book titles (Bug #11528).
+[jan] Fix exporting from browse view (Bug #11526).
+[jan] Return to the same page after running actions from the browse view.
+[jan] Support importing contacts via API if using 'emails' attributes (Bug
+      #8358).
+[jan] Support 'emails' attribute with ActiveSync.
+[jan] Fix marking contacts as deleted in the history if deleting shared address
+      books (Bug #11480).
+[jan] Set gender field values literally to 'male' or 'female'.
+[jan] Drop preference which address books to display.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default addressbook.
+[mms] Initial implementation of smartmobile view.
+[jan] Use Horde 5 action bar.
+[jan] Add configuration example for Kolab/IMAP address books.
+[jan] Update icon set.
+[jan] Fix searching multiple names via the API.
+[jan] Fix searching and listing clients via the API.
+[mms] Import API call now throws an ObjectExists exception when a duplicate is
+      found.
+[jan] Add parameters to specify field size of phone and email fields.
+
+Calendar Changes
+----------------
+[jan] Show completed future tasks in complete category, not in future category
+      (Bug #11562).
+[jan] Fix exporting of recurring events with exceptions from Kolab backends.
+[jan] Fix export links for calendars (Bug #11576).
+[jan] Fix broken Apple iCal behavior with exception dates (Evert Pot
+      <evert@rooftopsolutions.nl>).
+[jan] Use more compatible message format for iTip notifications (Bug #9854).
+[jan] Fix free/busy retrieval on Kolab.
+[jan] Synchronize tags with Kolab categories.
+[mjr] Improvements to resource calendar handling.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default calendar.
+[jan] Fix attendees button in traditional view.
+[jan] Fix sending alarm emails.
+[jan] Add quick task adding to dynamic view.
+[rla] Fix sender of appointment notification (Bug #11198)
+[mjr] Fix tagging in traditional interface.
+[rla] Make system shares browseable in WebDAV (Request #10998).
+[jan] Make calendar lists collapsible (Request #10865).
+[jan] Delay calendar list loading to speed up initial display.
+[mjr] Implement resource scheduling in dynamic view (Request #9774).
+[mjr] Fix issue that could cause incorrect freebusy data to be displayed in
+      certain circumstances.
+[mjr] Prompt to send updates when modifying an event with attendees (Request
+      #10724).
+[mjr] Add heatmap to year view (Request #10658).
+[mjr] Implement proper editing and deleting of recurrence series and exceptions
+      in ajax view (Request #9926).
+[jan] Remove print buttons.
+[jan] Add work week view to dynamic interface (rsalmon@mbpgroup.com, Request
+      #10519).
+[jan] Support importing of iCalendar events with non-local timezones (Request
+      #7156).
+[jan] Include timezone information when exporting events to iCalendar (Request
+      #7156).
+[jan] Allow to set individual timezones for each event (Request #10727).
+
+Tasks Changes
+-------------
+[jan] Fix export links for tasklists (Bug #11576).
+[mjr] Fix various issues with importing CSV files.
+[mjr] Format datetime fields when exporting a task as a hash (Bug #11537).
+[jan] Fix retrieving tasks from Kolab backend by UID (Bug #11532).
+[jan] Fix toggling tasklists (Bug #11511).
+[jan] Fix listing tasks from Kolab backends.
+[jan] Fix sending alarm e-mail messages.
+[jan] Synchronize tags with Kolab categories.
+[mjr] Fix deleting tasks from the task form.
+[mjr] Implement Purge Completed Tasks LoginTask (Request #2520).
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Always mark the initial share as default tasklist.
+[jan] Move complete task list management into the sidebar.
+[jan] Allow to edit task list color in traditional view.
+[mjr] Tweak display of smartlist links in list view.
+[mjr] Fix fatal recursion error when searching with smartlists were present.
+[mjr] Add support for smart tasklists.
+[mjr] Migrate categories to tags.
+[jan] Fix fatal error if the task form doesn't validate.
+[jan] Add recurring tasks (Request #2150).
+
+Notes Changes
+-------------
+[jan] Fix client-side sorting by date.
+[jan] Fix exporting (Bug #11507).
+[gwr] Always mark the initial share as default notepad.
+[gwr] Mark the initial default share as such with the Kolab backend.
+[gwr] Fixed deletion of shares with the Kolab driver.
+[jan] Fix display of note title (Bug #11275).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix issue causing FOLDERSYNC to fail on postgres.
+[mjr] Fix erroneous truncation of CC addresses (Bug #11446).
+[mjr] SyncKey is no longer incremented when there are no imported or exported
+      changes after the initial SYNC.
+[mjr] No longer send unnecessary SYNC_COMMANDS tag.
+[mjr] Build a proper nested folder hierarchy when appropriate.
+[mjr] Properly send 401 responses in certain circumstances.
+[mjr] Improvements to autoconfigure support.
+[mjr] Fix some issues that were causing infinite loops on iOS
+[jan] Fix finding locale directory if installed with PEAR.
+[mjr] Fix issue where FILTERTYPE parameter was not being honored on some
+      clients.
+[mjr] Add support for ActiveSync native meeting requests and responses.
+[mjr] Security policy support now allows for per user configuration.
+[mjr] Add basic Autoconfigure support.
+[mjr] Add EAS version 12.1 support.
+[mjr] Add EAS version 12.0 support.
+[mjr] Add email support.
+
+Alarm
+[mjr] Fix a bug that broke Desktop Notifications.
+[jan] Fix Desktop notifications (Bug #10810).
+
+Auth
+[jan] Fix setting IMAP ACLs in IMAP and Cyrsql drivers.
+[mms] Fix user management in Passwd driver.
+[mms] Fix setting soft expiration in SQL driver.
+[rla] Use constant for permanent lock and provide more verbose feedback
+      (Request #11254).
+[mms] Removed charset parameter for Imap and Cyrsql drivers.
+
+Browser
+[mms] Fix error message displaying the maximimum allowed file upload size.
+[mms] Improved detection of mobile browsers (leena.heino@uta.fi, Request
+      #11328).
+
+Cache
+[mms] Correctly invalidate cache when write error occurs while using the stack
+      driver.
+[mms] Add Horde_Cache#testReadWrite().
+
+Cli
+[jan] Include file and line when calling Horde_Cli#fatal() with an exception.
+[jan] Use late static binding in init() for easier extension of Horde_Cli.
+
+Compress
+[mms] Fix parsing UTF-16 data in TNEF driver (Bug #11390)
+      (andrey012@gmail.com).
+
+Controller
+[jan] Fix superglobals access (Bug #11277).
+
+Core
+[jan] Fix dynamic updating of portal blocks.
+[mms] Allow AJAX handler methods to be marked externally accessible (i.e. no
+      session token checking) (Bug #11538).
+[mjr] Fix copying ActiveSync email to sent folder in certain cases (Bug
+      #11529).
+[jan] Catch exceptions from Horde_Crypt (Bug #11530).
+[jan] Support non-padding operators in JavaScript date formatting (Bug #10435).
+[mms] Add generic CSS class insertion to Help system.
+[mms] Fix handling active error reporting codes in Horde_ErrorHandler.
+[mms] Send spellcheck parameters using AJAX object, not in URL (Bug #11467).
+[mms] Add View helpers to provide access to accesskey methods, Horde::img(),
+      Horde::label(), and Horde_Help::link().
+[mjr] Fix adding Bcc recipients when sending mail from ActiveSync.
+[mjr] Fix issue saving sent mail from ActiveSync (Bug #11410).
+[mms] Added Horde_Core_Smartmobile_Url class.
+[jan] Make Horde::widget() take a single hash parameter.
+[mms] Allow application API interface to dynamically alter properties (Bug
+      #11388).
+[mms] Force IE <= 7 to minimal view (Bug #11327).
+[mms] Add loading triggers to HordeCore JS framework.
+[mjr] Send dummy INBOX, Sent, and Trash folders to client when email sync
+      support is not enabled.
+[mjr] Fix broken ActiveSync behaviour when Email sync is not enabled.
+[mjr] Only subscribed mailboxes are returned by the ActiveSync imap factory.
+[jan] Set HTML 5 "multiple" attribute on email fields if necessary (Bug
+      #11304).
+[mms] Add a no authentication AJAX handler (Bug #11297).
+[mms] Fix HordeCore javascript download action (Bug #11294).
+[mms] Fix upgrade logintasks for pre-release major releases.
+[mjr] Add Horde_Core_Tagger.
+[mjr] Fix autocompletion of tags in ajax views.
+[jan] Fix dependency on Horde_Routes.
+[jan] Fix dependency on Horde_ElasticSearch.
+[jan] Fix default values for LDAP and SQL configuration.
+[jan] Fix hiding empty top menu entries in multi-level hierarchies.
+[jan] Allow to override configuration details of meta-configuration tags like
+      <configsql> in custom configuration XML files.
+[jan] Allow to configure encryption in global IMAP configuration (Request
+      #11272).
+[mms] Upgrade jQuery Mobile to v1.1.1 RC1.
+[mms] Fix browser-based AJAX autocompletion (Bug #11233).
+[jan] Update classes for the new user interface.
+[mms] Move output compression code into Horde_PageOutput.
+[mms] Removed Horde::ajaxAvailable().
+[mms] Move Horde::getServiceLink() to Horde_Registry#getServiceLink().
+[jan] Allow to use IMAP storage for shares and groupware data without a
+      complete Kolab server.
+[mms] Moved smartmobile core javascript from the Horde application.
+[mms] Added Horde_PageOutput.
+[mms] Added Horde_Core_Ajax_Imple_ContactAutoCompleter.
+[mjr] Use local member storage when no session is available (Bug #9733).
+[mms] Added AJAX core features.
+[mms] Added view determination to Horde_Registry.
+[mms] Performance improvements when initializing Alarm system.
+[mms] Performance improvements to Alarm checking.
+[mms] Performance improvements when initializing Notification system.
+[mjr] Allow restricting pretty autocompleter to available choices.
+[mms] Add language detection to AJAX spellchecker if no language is selected by
+      the user (Request #7137).
+[mms] Add Horde_Core_Block_Layout_View::getStylesheets().
+
+Crypt
+[jan] Throw exception if parsing of S/MIME certificates fails (Bug #11530).
+[mms] Improvements in obtaining GPG keys from a keyserver (Bug #11380)
+      (o+horde@immerda.ch).
+
+Data
+[mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+
+Date
+[jan] Support non-padding operators in strftime() formatting (Bug #10435).
+[mjr] Fix adding completed recurrence exceptions.
+[jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+[jan] Rename fromHash()/toHash() to fromKolab()/toKolab().
+
+Db
+[mms] Fix resetting postgresql error reporting.
+[mms] Fix Horde_Db_Adapter_Base_Table#offsetExists().
+[mms] Fix addLock() command.
+[jan] Allow for nested transactions.
+
+Editor
+[mms] Update CKEditor to v2.6.5.
+
+ElasticSearch
+[cjh] First release.
+
+Exception
+[mms] Added log level setting to Horde_Exception.
+[mms] Added $logged property to Horde_Exception class.
+
+Form
+[mjr] Fixed autoloading of some field actions.
+[jan] Allow to pass button attribute hashes to setButtons().
+[jan] Allow to set CSS class for 'link' form fields.
+[jan] Add Horde_Form_Type_email#allowMultiple().
+
+Group
+[mms] Remove Contactlists driver.
+
+Http
+[jan] Add verifyPeer request option to disable verification of certification
+      peers during SSL request.
+[jan] Fix error handling in Fopen driver if a custom error handler is
+      installed.
+
+Icalendar
+[jan] Fix parsing of VTIMEZONE components that use RDATE properties.
+
+Imap_Client
+[mms] Fix CONDSTORE synchronization of deleted messages since last mailbox
+      access.
+[mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or
+      else we may lose flag change information.
+[mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
+[mms] Remove statuscache configuration option.
+[mms] Optimize generation of POP3 sequence string.
+[mms] Abstract forced determination of UIDNEXT value from cache method to a
+      status() flag.
+[mms] Remove Horde_Imap_Client_Base#fetchFromSectionString().
+[mms] Horde_Imap_Client_Base#listMailboxes() now supports 'status' return even
+      if server does not server LIST-STATUS.
+[mms] Remove Horde_Imap_Client_Base#fetchCacheIgnore().
+[mms] Move IMAP/POP URL parsing to new Horde_Imap_Client_Url object.
+[mms] Move base subject parsing to new Horde_Imap_Client_Data_BaseSubject
+      class.
+[mms] Move IMAP sequence string generation/parsing to the Horde_Imap_Client_Ids
+      object.
+[mms] Remove Horde_Imap_Client_Utils#escape().
+[mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
+[mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List
+      class.
+[mms] Correctly handle determination of highestmodseq in currently selected
+      mailbox if CONDSTORE, but not QRESYNC, is active.
+[mms] Optimize APPEND so that we don't send large amounts of data to server if
+      the server is not going to accept the data.
+[mms] Don't expunge mailbox when it is labeled as read-only.
+[mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
+[mms] Fix quoting empty astrings (Bug #11505).
+[jan] Fix Horde_Stream dependency.
+[jan] Add deleteACL().
+[jan] Make setACL() work more similar to the SETACL IMAP command.
+[mms] Fix determination of HIGHESTMODSEQ value from FETCH data.
+[mms] Store command that caused NO/BAD error in Exception, if it can be
+      determined.
+[mms] Limit FETCH ENVELOPE data sizes.
+[mms] Improved parsing of incoming IMAP server stream.
+[mms] Improved parsing of IMAP threading data.
+[mms] Improved IMAP tokenizer of server response data using PHP temporary
+      streams.
+[mms] Add standalone IMAP command tokenizer.
+[mms] Rewritten handling for processing outgoing IMAP commands.
+[mms] Improved debugging efficiency.
+[mms] Added data objects for the various IMAP data types.
+[mms] Added the Horde_Imap_Client_Data_Format objects.
+[mms] Correctly handle any resource key supported by the QUOTA extension.
+[mms] Allow auto-escaping of mailbox names in listMailboxes().
+[mms] Add list_escape property to Horde_Imap_Client_Mailbox.
+[mms] Remove public cache variable from IMAP driver.
+[mms] Internally workaround IMAP servers that don't support text searches other
+      than US-ASCII.
+[mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP
+      DateTime object (Request #11074).
+[mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+
+Imsp
+[jan] Fix finding locale directory if installed with PEAR.
+
+Kolab_Format
+[jan] Write custom Horde attributes to task objects.
+[jan] Categories attributes are returned and passed as an array now.
+
+Kolab_Server
+[jan] Reduce logging level of debug messages.
+
+Kolab_Session
+[jan] Reduce logging level of debug messages.
+
+Kolab_Storage
+[gwr] Corrected fix for modifying Kolab objects.
+[gwr] Allow setting the default folder.
+[gwr] Reactivate folder list caching.
+[gwr] Avoid overwriting unknown XML elements (Bug #11309)
+[jan] Fix renaming of shares (Bug #11281).
+[jan] Fix moving objects to a different folder (Bug #11280).
+[jan] Fix listing and loading data from IMAP server (Bug #11273).
+
+Lock
+[rla] add handling of permanent locks.
+
+Mail
+[mms] Add Horde_Mail_Rfc822_Address#matchDomain().
+[mms] Add Horde_Mail_Rfc822_Address#matchInsensitive().
+[mms] Fix parsing Return-Path header when using sendmail driver (Bug #11361).
+[mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+
+Mime
+[mjr] Add method for returning the message's base MIME part.
+[mms] Update MIME mapping file.
+[mms] Catch/fix malformed undisclosed-recipients address headers.
+[mjr] Fix issue that could cause outputting of duplicate data from a parsed
+      mulitpart mime message.
+[mms] Added Horde_Mime_Related class.
+[mms] Implement new 2.0 API. See UPGRADING for full details of changes.
+
+Perms
+[mms] Don't log permission not exists errors.
+[jan] Use new Horde_Tree API.
+
+Rpc
+[jan] Use Horde's temporary directory for SyncML logs.
+[mjr] Allow autodiscover requests sent as OPTIONS requests.
+
+Secret
+[mms] If secret key is changed, change the associated  key or else key change
+      may not be recognized in the current page access (Bug #11570).
+[mms] Limit decryption/encryption key to 56 bytes (Bug #11566).
+[mms] Mark secret cookie data as HttpOnly.
+[mms] Add Exception code constants.
+[mms] Use Horde_Support_Randomid class to generate secret key.
+
+Service_Facebook
+[jan] Fix parsing JSON responses with PHP 5.4.
+[mjr] Remove fields from FQL statement that are no longer available.
+[mjr] Update API to use the Graph API wherever possible.
+[mjr] Removed the deprecated OFFLINE permission.
+
+Service_Weather
+[mjr] Catch XML parsing errors.
+
+SessionHandler
+[jan] Fix track_lifetime setting for Memcache driver (Bug #11444).
+
+Share
+[jan] Fix sorting of Kolab shares (Bug #11509).
+[gwr] Propagate setting the default attribute to the Kolab backend.
+
+Stream
+[mms] First release for Horde 5.
+
+Stream_Filter
+[jan] Add htmlspecialchars() filter.
+
+Support
+[jan] If creating Horde_Support_Backtrace from an Exception, include any
+      previous exceptions.
+[jan] Make Horde_Support_Backtrace#backtrace a public property.
+[mms] Add Horde_Support_ObjectStub.
+
+SyncMl
+[jan] Fix session handling (Bug #11242).
+[jan] Fix finding locale directory if installed with PEAR.
+
+Text_Filter
+[mms] Merge upstream changes to jsmin filter that caused broken compression of
+      jQuery Mobile file.
+
+Text_Filter_Csstidy
+[mms] Fix cloning of csstidy objects.
+
+Timezone
+[jan] First release for Horde 5.
+
+Tree
+[jan] Tweak CSS names.
+[jan] Separate tree object from tree renderers.
+
+Url
+[mms] Fix copying all parameters when cloning a Horde_Url object in the
+      constructor.
+[mms] Make parameter generation extendable.
+[mms] Add Horde_Url::setScheme().
+[jan] Make constructor parameters optional for empty URLs.
+
+Util
+[mms] Remove Horde_Util::addParameter() and Horde_Util::removeParameter().
+[mms] Remove Horde_Util::cloneObject().
+[mms] Removed e-mail array manipulation methods (Horde_Mail package now
+      provides this feature).
+[mms] Removed Horde_Util::getCsv() (moved to Horde_Data package).
+[mms] Add iteration to Horde_Domhtml object.
+[jan] Remove Horde_Util::getTempDir().
+[jan] Remove Horde_Array::replaceRecursive().
+
+Vfs
+[jan] Fix check whether quota limit is set (Bug #11455).
+[jan] Fix sending and reading files in SSH2 driver if vfsroot is not set (Bug
+      #11451).
+[jan] Fix finding locale directory if installed with PEAR.
+[jan] Add hasFeature().
+[jan] Drop listFolders() method.
+[jan] Remove Horde_Vfs_Browser, Horde_Vfs_ListItem, Horde_Vfs_Object classes.
+
+View
+[mms] Added Horde_View_Helper_FormTag#optionTag().
 
 
 ------

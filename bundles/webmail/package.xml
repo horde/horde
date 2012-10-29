@@ -13,16 +13,16 @@
  <date>2012-05-29</date>
  <time>19:16:35</time>
  <version>
-  <release>4.0.9</release>
-  <api>4.0.0</api>
+  <release>5.0.0RC1</release>
+  <api>5.0.0RC1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* First release candidate of Horde Groupware Webmail Edition 5.0.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -75,7 +75,7 @@
  <dependencies>
   <required>
    <php>
-    <min>5.2.0</min>
+    <min>5.3.0</min>
    </php>
    <pearinstaller>
     <min>1.7.0</min>
@@ -88,72 +88,65 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.3</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.15</min>
-    <max>5.0.0</max>
-    <exclude>5.0.0</exclude>
+    <min>5.0.0RC1</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.21</min>
-    <max>6.0.0</max>
-    <exclude>6.0.0</exclude>
+    <min>6.0.0RC1</min>
+    <max>7.0.0alpha1</max>
+    <exclude>7.0.0alpha1</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.8</min>
-    <max>3.0.0</max>
-    <exclude>3.0.0</exclude>
+    <min>3.0.0RC1</min>
+    <max>4.0.0alpha1</max>
+    <exclude>4.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.17</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
+    <min>4.0.0RC1</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.6</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
+    <min>4.0.0RC1</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.8</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
+    <min>4.0.0RC1</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.7</min>
-    <max>2.0.0</max>
-    <exclude>2.0.0</exclude>
+    <min>2.0.0beta1</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.14</min>
-    <max>4.0.0</max>
-    <exclude>4.0.0</exclude>
-   </package>
-   <package>
-    <name>Horde_Core</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0alpha1</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
+    <min>4.0.0RC1</min>
+    <max>5.0.0alpha1</max>
+    <exclude>5.0.0alpha1</exclude>
    </package>
   </required>
  </dependencies>
@@ -334,6 +327,22 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <date>2012-05-29</date>
+   <time>19:16:35</time>
+   <version>
+    <release>5.0.0RC1</release>
+    <api>5.0.0RC1</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * 

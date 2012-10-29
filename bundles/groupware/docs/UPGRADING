@@ -38,6 +38,97 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Horde Groupware from 4.x to 5.x
+=========================================
+
+Configuration Options (config/conf.php)
+---------------------------------------
+
+The $conf['session']['max_time'] option was added. The default is no maximum
+session time, the same behavior as in Horde Groupware 4.
+
+The $conf['cachecssparams']['url_version_param'] option was added. This option
+is only used if no CSScaching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to CSS server URLs, which is altered behavior from Horde Groupware
+4.
+
+The $conf['cachejsparams']['url_version_param'] option was added. This option
+is only used if no javascript caching is selected (a configuration that is NOT
+recommended for production servers). The new default is to add version
+information to javascript server URLs, which is altered behavior from Horde
+Groupware 4.
+
+
+Hooks (config/hooks.php)
+------------------------
+
+The 'appauthenticated' hook has been added.
+
+The behavior of the 'pushapp' hook has changed - it is now called a maximum of
+one time per page access for an application.
+
+The 'appinitialized' hook was removed (replaced by the 'appauthenticated'
+hook).
+
+The 'pushapp_post' hook was removed.
+
+See ``config/hooks.php.dist`` for further details.
+
+
+Preferences (config/prefs.php)
+------------------------------
+
+The 'sending_charset' preference now defaults to 'UTF-8'.
+
+The 'menu_view' and 'show_sidebar' preferences have been removed.
+
+
+ActiveSync (EAS) Integration
+----------------------------
+
+Support for the EAS 12.0 and 12.1 protocol versions has been added. New
+configuration options have been added to support this.  You MUST update Horde
+Groupware's ActiveSync configuration.
+
+The Custom logging option has been changed to ALWAYS be a path to a directory,
+and not a specific filename.
+
+The security policy settings have been moved out of the global configuration and
+into the permissions system for greater per user control over policies.
+
+New database migrations have been added, you MUST run these migrations for
+ActiveSync to work.
+
+
+Address Book Module
+-------------------
+
+Attribute Changes
+~~~~~~~~~~~~~~~~~
+
+  - The "gender" attribute sets values of (literally) "male" or "female" now,
+    and no longer 0 or 1.
+
+
+Preference Changes
+~~~~~~~~~~~~~~~~~~
+
+  - The "addressbooks" preference has been removed.
+
+
+API Changes
+~~~~~~~~~~~
+
+  - search
+
+    The $sources, $fields, $matchBegin, $forceSource and $returnFields
+    parameters have been removed and replaced by the $opts parameter.
+
+    Added a 'rfc822Return' option to return a Horde_Mail_Rfc822_List object
+    instead of the search results array (which remains the default).
+
+
 Upgrading Horde Groupware from 4.0.x to 4.0.4
 =============================================
 

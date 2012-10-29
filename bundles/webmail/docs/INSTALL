@@ -1,5 +1,5 @@
 ================================================
- Installing Horde Groupware Webmail Edition 4.0
+ Installing Horde Groupware Webmail Edition 5.0
 ================================================
 
 :Contact: horde@lists.horde.org
@@ -47,7 +47,7 @@ detailed instructions, start reading below at Prerequisites_.
 
 5. Install Horde Groupware Webmail Edition::
 
-     pear install -a -B horde/webmail
+     pear install -a -B horde/webmail-beta
 
 6. Run installation script::
 
@@ -246,6 +246,21 @@ Edition to function properly.
       See http://www.php.net/openssl for information on compiling OpenSSL
       into PHP.
 
+   g. fileinfo
+
+      Allows Horde modules to guess the MIME type of files by analyzing
+      their contents.
+
+      This module is automatically enabled by default.
+
+   h. intl
+
+      The intl module is required to handle display of Internationalized
+      Domain Names (see RFC 3490), e.g in e-mail addresses.
+
+      This module can be enabled by adding the ``--enable-intl`` option when
+      compiling PHP.
+
 4. Additional PECL Modules
 
    PECL is short for "PHP Extension Community Library".  The goal of PECL is
@@ -266,33 +281,10 @@ Edition to function properly.
 
    After that, restart your webserver.
 
-   These PECL modules are **RECOMMENDED** to be installed:
-
-   a. fileinfo
-
-      Allows Horde Groupware Webmail Edition modules to guess the MIME type of
-      files by analyzing their contents.
-
-      If not enabled, Horde Groupware Webmail Edition will use its own PHP
-      code to perform MIME magic lookups. However, this lookup is slower,
-      less accurate, and detects fewer MIME types than the PECL extension
-      will.
-
-      To install, enter the following at the command prompt::
-
-        pecl install fileinfo
-
-      As of PHP 5.3.0, this module is automatically enabled by default.
-
    These PECL modules are **RECOMMENDED** to be installed if you need
    advanced functionality:
 
-   a. idn
-
-      idn is required in order to handle Internationalized Domain Names
-      (see RFC 3490).
-
-   b. imagick
+   a. imagick
 
       The imagick module can be used by Horde's image library to provide all
       kind of image manipulations.
@@ -301,7 +293,7 @@ Edition to function properly.
 
         pecl install imagick
 
-   c. lzf
+   b. lzf
 
       If the lzf module is available, Horde Groupware Webmail Edition can
       compress some cached data in the current session, thus reducing the size
@@ -311,7 +303,7 @@ Edition to function properly.
 
         pecl install lzf
 
-   d. memcache
+   c. memcache
 
       If using the memcached SessionHandler, the memcache PECL extension must
       be installed.
@@ -349,9 +341,9 @@ Edition to function properly.
    The POP server MUST support POP3 (RFC 1939/STD 53).
 
    .. Note:: If using a POP server, it MUST support the UIDL capability.
+             POP3 support is limited to performing only basic mail actions;
              Caching, on-demand filtering, searching, and sorting will be
-             disabled; POP3 support is limited to performing only basic mail
-             actions.
+             disabled.
 
 6. Sendmail or SMTP server.
 
@@ -402,18 +394,18 @@ too. If you want to install Horde Groupware Webmail Edition with all optional
 dependencies, but without the binary PECL packages that have to be compiled,
 specify both the ``-a`` and the ``-B`` flag::
 
-   pear install -a -B horde/webmail
+   pear install -a -B horde/webmail-beta
 
 By default, only the required dependencies will be installed::
 
-   pear install horde/webmail
+   pear install horde/webmail-beta
 
 If you want to install Horde Groupware Webmail Edition even with all binary
 dependencies, you need to remove the ``-B`` flag. Please note that this might
 also try to install PHP extensions through PECL that might need further
 configuration or activation in your PHP configuration::
 
-   pear install -a horde/webmail
+   pear install -a horde/webmail-beta
 
 
 Installing into separate PEAR
