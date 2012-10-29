@@ -16,6 +16,13 @@
 class Horde_Imap_Client_Base_Mailbox
 {
     /**
+     * List of UIDs where flag changes were seen.
+     *
+     * @var Horde_Imap_Client_Ids
+     */
+    public $flagchange;
+
+    /**
      * Mapping object.
      *
      * @var Horde_Imap_Client_Ids_Map
@@ -23,11 +30,18 @@ class Horde_Imap_Client_Base_Mailbox
     public $map;
 
     /**
+     * The original cached MODSEQ value when opening the mailbox.
+     *
+     * @var integer
+     */
+    public $origModseq;
+
+    /**
      * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
      *
      * @var boolean
      */
-    public $sync = false;
+    public $sync;
 
     /**
      * Status information.
@@ -41,7 +55,7 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function __construct()
     {
-        $this->map = new Horde_Imap_Client_Ids_Map();
+        $this->reset();
     }
 
     /**
@@ -112,7 +126,9 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function reset()
     {
+        $this->flagchange = new Horde_Imap_Client_Ids();
         $this->map = new Horde_Imap_Client_Ids_Map();
+        $this->origModseq = 0;
         $this->sync = false;
     }
 
