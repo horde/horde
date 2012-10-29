@@ -2,6 +2,8 @@
 v6.0.0-git
 ----------
 
+[mms] Fix regression causing large amounts of whitespace padding to be added to
+      compose text in basic view.
 [mms] Fix regression in sending messages in basic/minimal mode if no attachment
       is added (Bug #11582).
 [jan] Fix key navigation in message view of basic mode.

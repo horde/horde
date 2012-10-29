@@ -197,9 +197,7 @@
     <strong><?php echo $this->hordeLabel('composeMessage', _("Te_xt")) ?></strong>
    </td>
    <td class="item" id="composeMessageParent">
-    <textarea class="fixed composebody" tabindex="<?php echo ++$this->tabindex ?>" name="message" id="composeMessage" rows="20" cols="80">
-     <?php echo $this->h($this->message) ?>
-    </textarea>
+    <textarea class="fixed composebody" tabindex="<?php echo ++$this->tabindex ?>" name="message" id="composeMessage" rows="20" cols="80"><?php echo $this->h($this->message) ?></textarea>
    </td>
   </tr>
 
