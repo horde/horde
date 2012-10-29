@@ -1,6 +1,6 @@
-----------
-v5.0.0-git
-----------
+---------
+v5.0.0RC1
+---------
 
 [jan] Remove optional dependency on Horde_DataTree.
 [jan] Remove DataTree support.
