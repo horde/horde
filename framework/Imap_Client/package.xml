@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-29</date>
- <time>21:59:21</time>
+ <time>21:59:50</time>
  <version>
-  <release>2.0.0RC2</release>
+  <release>2.0.0RC3</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix invalid class name usage (Bug #11586).
-* [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1157,6 +1156,19 @@
    <notes>
 * [mms] Fix invalid class name usage (Bug #11586).
 * [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
