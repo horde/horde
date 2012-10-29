@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>23:19:03</time>
+ <date>2012-10-29</date>
+ <time>21:59:21</time>
  <version>
   <release>2.0.0RC2</release>
   <api>2.0.0beta1</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix invalid class name usage (Bug #11586).
 * [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
  </notes>
  <contents>
@@ -1151,9 +1152,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix invalid class name usage (Bug #11586).
 * [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
    </notes>
   </release>
