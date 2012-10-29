@@ -1451,36 +1451,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   </ul>
      *  </li>
      *  <li>
-     *   Horde_Imap_Client::STATUS_LASTMODSEQ
-     *   <ul>
-     *    <li>
-     *     Return key: lastmodseq
-     *    </li>
-     *    <li>
-     *     Return format: (integer) If the server supports the CONDSTORE
-     *     IMAP extension, this will be the cached mod-sequence value of the
-     *     mailbox when it was first opened if HIGHESTMODSEQ changed. Else 0
-     *     if CONDSTORE not available, the mailbox does not support
-     *     mod-sequences, or the mod-sequence did not change.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   Horde_Imap_Client::STATUS_LASTMODSEQUIDS
-     *   <ul>
-     *    <li>
-     *     Return key: lastmodsequids
-     *    </li>
-     *    <li>
-     *     Return format: (Horde_Imap_Client_Ids) If the server supports the
-     *     CONDSTORE IMAP extension, this will be the list of UIDs changed in
-     *     the mailbox when it was first opened if HIGHESTMODSEQ changed. The
-     *     list will be empty if QRESYNC is not available, the mailbox does
-     *     not support mod-sequences, or the mod-sequence did not change.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
      *   Horde_Imap_Client::STATUS_UIDNOTSTICKY
      *   <ul>
      *    <li>
@@ -1542,23 +1512,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             !$this->queryCapability('UIDPLUS')) {
             $ret['uidnotsticky'] = false;
             $flags &= ~Horde_Imap_Client::STATUS_UIDNOTSTICKY;
-        }
-
-        /* Handle LASTMODSEQ related options. */
-        if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQ) {
-            $ret['lastmodseq'] = 0;
-            if (isset($this->_init['enabled']['CONDSTORE']) &&
-                isset($this->_temp['lastmodseq'][$smailbox])) {
-                $ret['lastmodseq'] = $this->_temp['lastmodseq'][$smailbox];
-            }
-            $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQ;
-        }
-
-        if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQUIDS) {
-            $ret['lastmodsequids'] = (isset($this->_init['enabled']['CONDSTORE']) && isset($this->_temp['lastmodsequids'][$smailbox]))
-                ? $this->_temp['lastmodsequids'][$smailbox]
-                : $this->getIdsOb();
-            $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQUIDS;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) {
@@ -3532,12 +3485,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $metadata = $this->_cache->getMetaData($mailbox, $uidvalid, array(self::CACHE_MODSEQ));
             if (!isset($metadata[self::CACHE_MODSEQ]) ||
                 ($metadata[self::CACHE_MODSEQ] != $modseq)) {
-                $this->_temp['lastmodseq'][strval($mailbox)] = isset($metadata[self::CACHE_MODSEQ])
-                    ? $metadata[self::CACHE_MODSEQ]
-                    : 0;
-                if (count($tocache)) {
-                    $this->_temp['lastmodsequids'][strval($mailbox)] = $this->getIdsOb(array_keys($tocache));
-                }
                 $this->_updateMetaData($mailbox, array(self::CACHE_MODSEQ => $modseq), $uidvalid);
             }
         }

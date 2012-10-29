@@ -173,8 +173,8 @@ logging any errors.
       - status()
 
         The $mailbox parameter can no longer be a UTF7-IMAP string.
-        The 'lastmodsequids' now returns a Horde_Imap_Client_Ids object
-        instead of an array.
+        The STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options have
+        been removed.
 
       - statusMultiple()
 
