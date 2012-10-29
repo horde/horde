@@ -207,8 +207,10 @@ v6.0.0alpha1
 v5.0.24-git
 -----------
 
-[mms] Catch failure to add attachments because PHP's maximum allowed POST size
-      was exceeded.
+[mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
+      the browser's local filesystem that has a filename that contains HTML.
+[mms] Catch failure to add attachments in dynamic view because PHP's maximum
+      allowed POST size was exceeded.
 [jan] Fix search link from portal if using dynamic view (Bug #11314).
 [mms] Fix regression in using Virtual Trash (Bug #11478;
       tonyb@go-concepts.com).
