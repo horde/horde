@@ -87,7 +87,7 @@ class IMP
             ), array('top' => true));
 
             $page_output->addLinkTag(array(
-                'href' => Horde::url('search.php'),
+                'href' => Horde::url('search.php', true),
                 'rel' => 'search',
                 'type' => null
             ));

@@ -392,7 +392,8 @@ $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_head
 /* Generate previous/next links. */
 $prev_msg = $imp_mailbox->getIMAPIndex(-1);
 if ($prev_msg) {
-    $prev_url = IMP::mailbox()->url('message.php', $prev_msg['uid'], $prev_msg['mailbox']);
+    $prev_url = IMP::mailbox()
+        ->url('message.php', $prev_msg['uid'], $prev_msg['mailbox'], false);
     $page_output->addLinkTag(array(
         'href' => $prev_url,
         'id' => 'prev',
@@ -402,7 +403,8 @@ if ($prev_msg) {
 }
 $next_msg = $imp_mailbox->getIMAPIndex(1);
 if ($next_msg) {
-    $next_url = IMP::mailbox()->url('message.php', $next_msg['uid'], $next_msg['mailbox']);
+    $next_url = IMP::mailbox()
+        ->url('message.php', $next_msg['uid'], $next_msg['mailbox'], false);
     $page_output->addLinkTag(array(
         'href' => $next_url,
         'id' => 'next',

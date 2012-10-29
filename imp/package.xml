@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix key navigation in message view of basic mode.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2778,7 +2778,7 @@
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix key navigation in message view of basic mode.
    </notes>
   </release>
  </changelog>
