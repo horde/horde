@@ -282,7 +282,7 @@ class Horde_Imap_Client_Search_Query implements Serializable
                 $cmds->add('NOT');
             }
             $cmds->add('MODSEQ');
-            if (!is_null($ptr['modseq']['name'])) {
+            if (isset($ptr['modseq']['name'])) {
                 $cmds->add(array(
                     new Horde_Imap_Client_Data_Format_String($ptr['modseq']['name']),
                     $ptr['modseq']['type']

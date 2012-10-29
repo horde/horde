@@ -234,6 +234,12 @@ HermesCore = {
                 this.closeRedBox();
                 e.stop();
                 return;
+
+            /* Search Form */
+            case 'hermesSearch':
+                this.search();
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -526,6 +532,22 @@ HermesCore = {
         this.buildTimeTable();
     },
 
+    search: function()
+    {
+        var params = $H($('hermesSearchForm').serialize({ hash: true }));
+
+        $('hermesLoadingSearch').show();
+        HordeCore.doAction('search',
+            params,
+            { 'callback': this.searchCallback.bind(this) }
+        );
+    },
+
+    searchCallback: function(r)
+    {
+        $('hermesLoadingSearch').hide();
+    },
+
     /**
      * Callback from the updateSlice action called when updating an EXISTING
      * slice.
@@ -706,7 +728,8 @@ HermesCore = {
      */
     submitSlices: function()
     {
-        var sliceIds = slices = [];
+        var sliceIds = [],
+        slices = [];
 
         $('hermesLoadingTime').show();
         $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
@@ -1035,7 +1058,7 @@ HermesCore = {
     pollCallback: function(r)
     {
         // Update timers.
-        if(r) {
+        if (r) {
             for (var i = 0; i < r.length; i++) {
                 var t = r[i];
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
@@ -1063,7 +1086,7 @@ HermesCore = {
         // Default the date field to today
         $('hermesTimeFormStartDate').setValue(new Date().toString(Hermes.conf.date_format));
 
-        /* Initialize the starting page. */
+        // Initialize the starting page.
         var tmp = location.hash;
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
@@ -1085,29 +1108,14 @@ HermesCore = {
             }
         }.bindAsEventListener(this));
 
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'horde.error':
-            case 'horde.warning':
-            case 'horde.message':
-            case 'horde.success':
-                var notify = $('hermesNotifications'),
-                    className = e.memo.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,hermesNotifications',
-                    open = notify.hasClassName('hermesClose');
-                notify.removeClassName('hermesClose');
-                if (order.indexOf(notify.className) > order.indexOf(className)) {
-                    notify.className = className;
-                }
-                if (open) {
-                    notify.addClassName('hermesClose');
-                }
-                break;
-            }
-        });
-
+        // List active timers
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
+
+        // Populate the deliverables with the default list.
+        HordeCore.doAction('listDeliverables',
+            { },
+            { 'callback': this.listDeliverablesCallback.bind(this) }
+        );
         new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }
 };

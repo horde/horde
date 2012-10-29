@@ -81,6 +81,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
+     * Responsible for building the top left menu entries of the sideBar in
+     * Basic view.
      */
     public function menu($menu)
     {
@@ -128,7 +130,8 @@ class Hermes_Application extends Horde_Registry_Application
     }
 
     /**
-     * Add additional items to the sidebar.
+     * Add additional items to the sidebar. This is for the Basic view. For the
+     * Dynamic view @see Hermes_View_Sidebar
      *
      * @param Horde_View_Sidebar $sidebar  The sidebar object.
      */
@@ -144,8 +147,8 @@ class Hermes_Application extends Horde_Registry_Application
 
     /**
      */
-    public function topbarCreate(Horde_Tree_Renderer_Base $tree, $parent = null,
-                                 array $params = array())
+    public function topbarCreate(
+        Horde_Tree_Renderer_Base $tree, $parent = null, array $params = array())
     {
         switch ($params['id']) {
         case 'menu':
@@ -185,23 +188,20 @@ class Hermes_Application extends Horde_Registry_Application
                 )
             ));
 
-            if ($timers = @unserialize($GLOBALS['prefs']->getValue('running_timers'))) {
-                $entry = Horde::url('entry.php');
-                foreach ($timers as $i => $timer) {
-                    $hours = round((float)(time() - $i) / 3600, 2);
-                    $tree->addNode(array(
-                        'id' => $parent . '__timer_' . $i,
-                        'parent' => $parent,
-                        'label' => $timer['name'] . sprintf(" (%s)", $hours),
-                        'expanded' => false,
-                        'params' => array(
-                            'icon' => Horde_Themes::img('timer-stop.png'),
-                            'url' => $entry->add('timer', $i)
-                        )
-                    ));
-                }
+            $timers = Hermes::listTimers();
+            $entry = Horde::url('entry.php');
+            foreach ($timers as $i => $timer) {
+                $tree->addNode(array(
+                    'id' => $parent . '__timer_' . $i,
+                    'parent' => $parent,
+                    'label' => $timer['name'] . sprintf(" (%s)", $timer['e']),
+                    'expanded' => false,
+                    'params' => array(
+                        'icon' => Horde_Themes::img('timer-stop.png'),
+                        'url' => $entry->add('timer', $i)
+                    )
+                ));
             }
-            break;
         }
     }
 

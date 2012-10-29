@@ -11,7 +11,6 @@
  *
  * Global parameters (in viewport parameter):
  *   - force: (integer) If set, always return viewport information if changed.
- *                     changed.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *

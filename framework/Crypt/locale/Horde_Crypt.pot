@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -128,12 +128,17 @@ msgstr ""
 msgid "Email Address"
 msgstr ""
 
+#: lib/Horde/Crypt/Smime.php:551
+#, php-format
+msgid "Error parsing S/MIME certficate: %s"
+msgstr ""
+
 #: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
 msgid "Error while talking to pgp binary."
 msgstr ""
 
-#: lib/Horde/Crypt/Smime.php:718 lib/Horde/Crypt/Smime.php:736
-#: lib/Horde/Crypt/Smime.php:751
+#: lib/Horde/Crypt/Smime.php:721 lib/Horde/Crypt/Smime.php:739
+#: lib/Horde/Crypt/Smime.php:754
 msgid "Error while talking to smime binary."
 msgstr ""
 
@@ -203,7 +208,7 @@ msgstr ""
 msgid "Never"
 msgstr ""
 
-#: lib/Horde/Crypt/Smime.php:684
+#: lib/Horde/Crypt/Smime.php:687
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
@@ -249,7 +254,7 @@ msgstr ""
 msgid "PGP Signed/Encrypted Data"
 msgstr ""
 
-#: lib/Horde/Crypt/Smime.php:723
+#: lib/Horde/Crypt/Smime.php:726
 msgid "Password incorrect"
 msgstr ""
 
@@ -306,7 +311,7 @@ msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
 
-#: lib/Horde/Crypt/Smime.php:613
+#: lib/Horde/Crypt/Smime.php:616
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr ""
 
@@ -351,6 +356,6 @@ msgstr ""
 msgid "X509v3 extensions"
 msgstr ""
 
-#: lib/Horde/Crypt/Smime.php:602
+#: lib/Horde/Crypt/Smime.php:605
 msgid "not yet implemented"
 msgstr ""

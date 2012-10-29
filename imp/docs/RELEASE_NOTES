@@ -14,8 +14,8 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the last beta release of the Internet
-Mail Program (IMP) version H5 (6.0.0).
+The Horde Team is pleased to announce the first release candidate of the
+Internet Mail Program (IMP) version H5 (6.0.0).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,27 +23,21 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-IMPORTANT! This is a preview version that should not be used on production
-systems. This version is feature complete but there are likely to be bugs. You
-should not use this preview version with existing production data.
-
 We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome, though some strings
-might still change before the release candidates are prepared.
+tracking system. Updated translations are very welcome. Strings are not going
+to change until the final release.
 
-The major changes compared to the IMP version H5 (6.0.0beta3) are:
-    * Added address autocompletion to smartphone mode.
-    * Added swipe actions to the smartphone mailbox.
-    * Simplified ACL management.
-    * Many bugfixes and improvements.
+The final release of IMP H5 (6.0.0) is expected on October 30.
+
+The major changes compared to the IMP version H5 (6.0.0beta4) are:
+    * Display message range when dragging slider on dynamic mailbox page.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Added address autocompletion to smartphone mode.
-Added swipe actions to the smartphone mailbox.
-Simplified ACL management.
-Many bugfixes and improvements.
+Display message range when dragging slider on dynamic mailbox page.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';

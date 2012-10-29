@@ -843,7 +843,7 @@ abstract class Kronolith_Event
             // no replacement.
             $exceptions = $this->recurrence->getExceptions();
             $kronolith_driver = Kronolith::getDriver(null, $this->calendar);
-            $search = new StdClass();
+            $search = new stdClass();
             $search->baseid = $this->uid;
             $results = $kronolith_driver->search($search);
             foreach ($results as $days) {

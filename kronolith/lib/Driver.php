@@ -178,9 +178,11 @@ class Kronolith_Driver
                     (empty($query->description) ||
                      stristr($event->description, $query->description)) &&
                     (empty($query->creator) ||
-                     stristr($event->creator, $query->creator))  &&
+                     stristr($event->creator, $query->creator)) &&
                     (!isset($query->status) ||
-                     $event->status == $query->status)) {
+                     $event->status == $query->status) &&
+                    (empty($query->baseid) ||
+                     $event->baseid == $query->baseid)) {
                     Kronolith::addEvents($results, $event, $event->start, $event->end, false, $json, false);
                 }
             }

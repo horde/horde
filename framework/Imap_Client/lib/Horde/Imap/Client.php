@@ -37,8 +37,6 @@ class Horde_Imap_Client
     const STATUS_FLAGS = 128;
     const STATUS_PERMFLAGS = 256;
     const STATUS_HIGHESTMODSEQ = 512;
-    const STATUS_LASTMODSEQ = 1024;
-    const STATUS_LASTMODSEQUIDS = 2048;
     const STATUS_UIDNOTSTICKY = 4096;
     const STATUS_UIDNEXT_FORCE = 8192;
 

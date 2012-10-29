@@ -1504,36 +1504,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   </ul>
      *  </li>
      *  <li>
-     *   Horde_Imap_Client::STATUS_LASTMODSEQ
-     *   <ul>
-     *    <li>
-     *     Return key: lastmodseq
-     *    </li>
-     *    <li>
-     *     Return format: (integer) If the server supports the CONDSTORE
-     *     IMAP extension, this will be the cached mod-sequence value of the
-     *     mailbox when it was first opened if HIGHESTMODSEQ changed. Else 0
-     *     if CONDSTORE not available, the mailbox does not support
-     *     mod-sequences, or the mod-sequence did not change.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
-     *   Horde_Imap_Client::STATUS_LASTMODSEQUIDS
-     *   <ul>
-     *    <li>
-     *     Return key: lastmodsequids
-     *    </li>
-     *    <li>
-     *     Return format: (Horde_Imap_Client_Ids) If the server supports the
-     *     CONDSTORE IMAP extension, this will be the list of UIDs changed in
-     *     the mailbox when it was first opened if HIGHESTMODSEQ changed. The
-     *     list will be empty if QRESYNC is not available, the mailbox does
-     *     not support mod-sequences, or the mod-sequence did not change.
-     *    </li>
-     *   </ul>
-     *  </li>
-     *  <li>
      *   Horde_Imap_Client::STATUS_UIDNOTSTICKY
      *   <ul>
      *    <li>
@@ -1595,17 +1565,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             !$this->queryCapability('UIDPLUS')) {
             $ret['uidnotsticky'] = false;
             $flags &= ~Horde_Imap_Client::STATUS_UIDNOTSTICKY;
-        }
-
-        /* Handle LASTMODSEQ related options. */
-        if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQ) {
-            $ret['lastmodseq'] = $this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQ);
-            $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQ;
-        }
-
-        if ($flags & Horde_Imap_Client::STATUS_LASTMODSEQUIDS) {
-            $ret['lastmodsequids'] = $this->getIdsOb($this->_mailboxOb(false, $smailbox)->getStatus(Horde_Imap_Client::STATUS_LASTMODSEQUIDS));
-            $flags &= ~Horde_Imap_Client::STATUS_LASTMODSEQUIDS;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) {
@@ -2064,9 +2023,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   - relevancy: (array) The list of relevancy scores. Returned if
      *                Horde_Imap_Client::SEARCH_RESULTS_RELEVANCY is set and
      *                the server supports FUZZY search matching.
-     *   - save: (boolean) Whether the search results were saved. This value
-     *           is meant for internal use only. Returned if 'sort' is false
-     *           and Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
+     *   - save: (boolean) Whether the search results were saved. Returned if
+     *           Horde_Imap_Client::SEARCH_RESULTS_SAVE is set.
      *
      * @throws Horde_Imap_Client_Exception
      */
@@ -2651,6 +2609,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (empty($opts['ids'])) {
             $opts['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
+        } elseif ($opts['ids']->isEmpty()) {
+            return $this->getIdsOb();
         } elseif ($opts['ids']->sequence) {
             throw new InvalidArgumentException('Vanished requires UIDs.');
         }

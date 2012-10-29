@@ -388,7 +388,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             : array('action' => 'add');
 
         if (!$event->uid) {
-            $event->uid = $this->_data->generateUID();
+            $event->id = $event->uid = $this->_data->generateUID();
         }
 
         $object = $event->toKolab();

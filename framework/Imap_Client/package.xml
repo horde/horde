@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-24</date>
- <time>21:59:27</time>
+ <date>2012-10-26</date>
+ <time>23:19:03</time>
  <version>
-  <release>2.0.0beta5</release>
+  <release>2.0.0RC2</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -28,27 +28,6 @@
 * [mms] Now that we have accurate sequence numbers for our cached values, we can utilize the known UID set parameter to a QRESYNC EXAMINE/SELECT command.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
 * [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
-* [mms] Fix CONDSTORE synchronization of deleted messages since last mailbox access.
-* [mms] Need to immediately synchronize mailbox on mailbox load with CONDSTORE or else we may lose flag change information.
-* [mms] Fixes/improvements to CONDSTORE capability sniffing and enabling.
-* [mms] Remove statuscache configuration option.
-* [mms] Optimize generation of POP3 sequence string.
-* [mms] Abstract forced determination of UIDNEXT value from cache method to a status() flag.
-* [mms] Remove Horde_Imap_Client_Base#fetchFromSectionString().
-* [mms] Horde_Imap_Client_Base#listMailboxes() now supports &apos;status&apos; return even if server does not server LIST-STATUS.
-* [mms] Remove Horde_Imap_Client_Base#fetchCacheIgnore().
-* [mms] Move IMAP/POP URL parsing to new Horde_Imap_Client_Url object.
-* [mms] Move base subject parsing to new Horde_Imap_Client_Data_BaseSubject class.
-* [mms] Move IMAP sequence string generation/parsing to the Horde_Imap_Client_Ids object.
-* [mms] Remove Horde_Imap_Client_Utils#escape().
-* [mms] Remove Horde_Imap_Client_Utils#removeBareNewlines().
-* [mms] Move IMAP mailboxes sorting into new Horde_Imap_Client_Mailbox_List class.
-* [mms] Correctly handle determination of highestmodseq in currently selected mailbox if CONDSTORE, but not QRESYNC, is active.
-* [mms] Optimize APPEND so that we don&apos;t send large amounts of data to server if the server is not going to accept the data.
-* [mms] Don&apos;t expunge mailbox when it is labeled as read-only.
-* [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
-* [mms] Fix quoting empty astrings (Bug #11505).
-* [jan] Fix Horde_Stream dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1147,12 +1126,12 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta5</release>
+    <release>2.0.0RC1</release>
     <api>2.0.0beta1</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-24</date>
+   <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Improved handling of server write errors in the Socket driver.
@@ -1182,6 +1161,19 @@
 * [mms] Fix regression in FETCH/COPY with sequence numbers (Bug #11521).
 * [mms] Fix quoting empty astrings (Bug #11505).
 * [jan] Fix Horde_Stream dependency.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC2</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-26</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
    </notes>
   </release>
  </changelog>

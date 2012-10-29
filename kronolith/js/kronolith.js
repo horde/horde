@@ -2306,9 +2306,7 @@ KronolithCore = {
             $H(tasks).each(function(task) {
                 switch (tasktype) {
                 case 'complete':
-                    if (!task.value.cp ||
-                        (!Object.isUndefined(task.value.start) &&
-                         task.value.start.isAfter(now))) {
+                    if (!task.value.cp) {
                         return;
                     }
                     break;
@@ -2320,7 +2318,8 @@ KronolithCore = {
                     }
                     break;
                 case 'future':
-                    if (Object.isUndefined(task.value.start) ||
+                    if (task.value.cp ||
+                        Object.isUndefined(task.value.start) ||
                         !task.value.start.isAfter(now)) {
                         return;
                     }
@@ -2330,7 +2329,7 @@ KronolithCore = {
             }, this);
         }, this);
 
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
@@ -2372,7 +2371,7 @@ KronolithCore = {
             col.insert(new Element('span', { className: 'kronolithInfo' }).update(task.value.sd.escapeHTML()));
         }
 
-        if (!Object.isUndefined(task.value.t) && task.value.t.size() > 0) {
+        if (task.value.t && task.value.t.size() > 0) {
             tagc = new Element('ul', { className: 'horde-tags' });
             task.value.t.each(function(x) {
                 tagc.insert(new Element('li').update(x.escapeHTML()));
@@ -2736,7 +2735,7 @@ KronolithCore = {
                 (!task || el.retrieve('taskid') == task);
         }).invoke('remove');
         this.removeEvent('tasklists|tasks/' + list, task ? '_tasks' + task : null);
-        if ($('kronolithViewTasksBody').select('tr').length > 3) {
+        if ($('kronolithViewTasksBody').select('tr').length > 2) {
             $('kronolithTasksNoItems').hide();
         } else {
             $('kronolithTasksNoItems').show();
@@ -2996,8 +2995,8 @@ KronolithCore = {
                 $('kronolithCalendar' + type + 'Description').setValue(info.desc);
                 $('kronolithCalendar' + type + 'LinkExport').up('span').show();
                 $('kronolithCalendar' + type + 'Export').href = type == 'internal'
-                    ? Kronolith.conf.URI_CALENDAR_EXPORT + calendar
-                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT + '=' + calendar.substring(6);
+                    ? Kronolith.conf.URI_CALENDAR_EXPORT.interpolate({ calendar: calendar })
+                    : Kronolith.conf.tasks.URI_TASKLIST_EXPORT.interpolate({ tasklist: calendar.substring(6) });
                 $('kronolithCalendar' + type + 'LinkUrls').up().show();
                 $('kronolithCalendar' + type + 'UrlSub').setValue(info.sub);
                 break;

@@ -20,7 +20,7 @@
  * @property boolean $search_res  Does this represent a search result?
  * @property boolean $sequence  Are these sequence IDs? If false, these are
  *                              UIDs.
- * @property boolean $special  True if his is a "special" ID representation.
+ * @property boolean $special  True if this is a "special" ID representation.
  * @property string $tostring  Return the non-sorted string representation.
  * @property string $tostring_sort  Return the sorted string representation.
  */
@@ -133,7 +133,8 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
         if (!is_null($ids)) {
             $add = array();
 
-            if (is_string($ids) && in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
+            if (is_string($ids) &&
+                in_array($ids, array(self::ALL, self::SEARCH_RES, self::LARGEST))) {
                 $this->_ids = $ids;
                 $this->_sorted = false;
                 return;
