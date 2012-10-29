@@ -39,9 +39,7 @@ The major changes compared to the Horde Groupware version 4.0 are:
 General changes:
     * Completely redesigned user interface.
     * Completed and improved smartphone modes.
-    * Much improved ActiveSync library including version 12.1 support and email
-      synchronization.
-    * Default to UTF-8 for all e-mail messages.
+    * Much improved ActiveSync library including version 12.1 support.
     * IMAP groupware storage without dedicated Kolab server.
     * Improved support for Kolab 2.
     * Dropped support for Internet Explorer 6.
