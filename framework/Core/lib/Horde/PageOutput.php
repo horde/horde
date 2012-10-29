@@ -490,7 +490,10 @@ class Horde_PageOutput
     }
 
     /**
-     * Add a LINK tag.
+     * Adds a LINK tag.
+     *
+     * All attributes are HTML-encoded. Only pass raw, unencoded attribute
+     * values to avoid double escaping.
      *
      * @param array $opts  Non-default tag elements.
      */
