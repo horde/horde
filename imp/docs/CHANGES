@@ -1,6 +1,6 @@
-----------
-v6.0.0-git
-----------
+---------
+v6.0.0RC2
+---------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
 [mms] Fix regression causing large amounts of whitespace padding to be added to

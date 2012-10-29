@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>23:58:05</time>
+ <date>2012-10-29</date>
+ <time>22:00:31</time>
  <version>
   <release>6.0.0RC2</release>
   <api>6.0.0beta1</api>
@@ -2778,7 +2778,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
