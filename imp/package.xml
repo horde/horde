@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix regression in adding an attachment in minimal view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2794,7 +2794,7 @@
    <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix regression in adding an attachment in minimal view.
    </notes>
   </release>
  </changelog>
