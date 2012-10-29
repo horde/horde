@@ -65,12 +65,6 @@ class Horde_Imap_Client_Base_Mailbox
                 ? false
                 : null;
 
-        case Horde_Imap_Client::STATUS_LASTMODSEQ:
-            return 0;
-
-        case Horde_Imap_Client::STATUS_LASTMODSEQUIDS:
-            return array();
-
         case Horde_Imap_Client::STATUS_PERMFLAGS:
             /* If PERMFLAGS is not returned by server, must assume that all
              * flags can be change permanently (RFC 3501 [6.3.1]). */
@@ -110,23 +104,6 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function setStatus($entry, $value)
     {
-        switch ($entry) {
-        case Horde_Imap_Client::STATUS_LASTMODSEQ:
-            /* This can only be set once per access. */
-            if (isset($this->_status[Horde_Imap_Client::STATUS_LASTMODSEQ])) {
-                return;
-            }
-            unset($this->_status[Horde_Imap_Client::STATUS_LASTMODSEQUIDS]);
-            break;
-
-        case Horde_Imap_Client::STATUS_LASTMODSEQUIDS:
-            if (!isset($this->_status[$entry])) {
-                $this->_status[$entry] = array();
-            }
-            $this->_status[$entry] = array_merge($this->_status[$entry], $value);
-            return;
-        }
-
         $this->_status[$entry] = $value;
     }
 
@@ -135,15 +112,6 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function reset()
     {
-        $keep = array(
-            Horde_Imap_Client::STATUS_LASTMODSEQ,
-            Horde_Imap_Client::STATUS_LASTMODSEQUIDS
-        );
-
-        foreach (array_diff(array_keys($this->_status), $keep) as $val) {
-            unset($this->_status[$val]);
-        }
-
         $this->map = new Horde_Imap_Client_Ids_Map();
         $this->sync = false;
     }

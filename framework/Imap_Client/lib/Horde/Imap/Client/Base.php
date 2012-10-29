@@ -3519,7 +3519,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!empty($modseq)) {
             $this->_updateModSeq(max(array_merge($modseq, array($highestmodseq))));
-            $mbox_ob->setStatus(Horde_Imap_Client::STATUS_LASTMODSEQUIDS, array_keys($modseq));
         }
     }
 
@@ -3696,7 +3695,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $set = false;
                 $sync = 0;
             }
-            $mbox_ob->setStatus(Horde_Imap_Client::STATUS_LASTMODSEQ, $md[self::CACHE_MODSEQ]);
         } else {
             $set = true;
             $sync = 0;
