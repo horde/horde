@@ -126,8 +126,54 @@ div.msgActions, #fmanager div.folderActions {
 }
 
 #mailboxLabel .iconImg {
+    margin-top: -2px;
     margin-left: 4px;
     vertical-align: top;
+}
+#mailboxLabel .msgflags.flagPersonal {
+    background-image: url("../graphics/flags/personal-inv.png");
+}
+#mailboxLabel .msgflags.flagHighpriority {
+    background-image: url("../graphics/flags/priority_high-inv.png");
+}
+#mailboxLabel .msgflags.flagLowpriority {
+    background-image: url("../graphics/flags/priority_low-inv.png");
+}
+#mailboxLabel .msgflags.flagSignedmsg {
+    background-image: url("../graphics/flags/signed-inv.png");
+}
+#mailboxLabel .msgflags.flagEncryptmsg {
+    background-image: url("../graphics/flags/encrypted-inv.png");
+}
+#mailboxLabel .msgflags.flagAttachmsg {
+    background-image: url("../graphics/flags/attachment-inv.png");
+}
+#mailboxLabel .msgflags.flagList {
+    background-image: url("../graphics/flags/group-inv.png");
+}
+#mailboxLabel .msgflags.flagJunk {
+    background-image: url("../graphics/flags/spam-inv.png");
+}
+#mailboxLabel .msgflags.flagNotJunk {
+    background-image: url("../graphics/flags/innocent-inv.png");
+}
+#mailboxLabel .msgflags.flagUnseen {
+    background-image: url("../graphics/flags/unseen-inv.png");
+}
+#mailboxLabel .msgflags.flagAnswered {
+    background-image: url("../graphics/flags/answered-inv.png");
+}
+#mailboxLabel .msgflags.flagDraft {
+    background-image: url("../graphics/flags/draft-inv.png");
+}
+#mailboxLabel .msgflags.flagForwarded {
+    background-image: url("../graphics/flags/forwarded-inv.png");
+}
+#mailboxLabel .msgflags.flagFlagged {
+    background-image: url("../graphics/flags/flagged-inv.png");
+}
+#mailboxLabel .msgflags.flagDeleted {
+    background-image: url("../graphics/flags/deleted-inv.png");
 }
 
 /* Message headers styling. */
