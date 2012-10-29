@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: 2012-05-24 14:14:21+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -100,8 +100,7 @@ msgstr "Liitetyt tiedostot: %s"
 msgid "Attachment Name"
 msgstr "Liitteen nimi"
 
-#: templates/display/standard.inc:80 templates/display/standard.inc:81
-#: templates/display/standard.inc:120
+#: templates/display/standard.inc:81 templates/display/standard.inc:122
 msgid "Attachments"
 msgstr "Liitteet"
 
@@ -116,17 +115,9 @@ msgstr "Sivulle ei voi sisällyttää liitteittä, joissa on välilyöntejä."
 msgid "Author"
 msgstr "Tekijä"
 
-#: templates/display/standard.inc:107
+#: templates/display/standard.inc:109
 msgid "Ba_ck to"
 msgstr "Pa_laa"
-
-#: templates/display/standard.inc:107
-msgid "Back to"
-msgstr "Palaa"
-
-#: templates/display/standard.inc:70
-msgid "Backlinks"
-msgstr "Paluulinkit"
 
 #: lib/Page/BackLinks.php:66
 #, php-format
@@ -151,7 +142,7 @@ msgstr "Ei voida palauttaa tuntemattomaan versioon."
 msgid "Can't update \"%s\": no such attachment."
 msgstr "Ei voi päivittää \"%s\": ei sellaista liitettä."
 
-#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
+#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:153
 #: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
 #: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
 msgid "Cancel"
@@ -175,7 +166,7 @@ msgstr "Muuta lokimerkintää"
 msgid "Change references to this page from:"
 msgstr "Muuta viitteitä tälle sivulle lähteestä:"
 
-#: lib/Page/MergeOrRename.php:239
+#: lib/Page/MergeOrRename.php:240
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr "Muutettu viitteet %s - %s"
@@ -230,11 +221,6 @@ msgstr "Päiväys"
 msgid "Delete"
 msgstr "Poista"
 
-#: templates/display/standard.inc:55
-#, php-format
-msgid "Delete %s"
-msgstr "Poista %s"
-
 #: lib/Page/DeletePage.php:88 lib/Page/DeletePage.php:110
 msgid "Delete Page"
 msgstr "Poista sivu"
@@ -261,7 +247,7 @@ msgstr "Eroavaisuudet lähteeseen"
 msgid "Diff To"
 msgstr "Erovaisuudet kohteeseen"
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr "Eroavaisuudet %s välillä %s ja %s"
@@ -284,7 +270,7 @@ msgstr "Näytä versio %s"
 msgid "Download"
 msgstr "Tallenna"
 
-#: templates/display/standard.inc:139
+#: templates/display/standard.inc:141
 msgid "Download this page as:"
 msgstr "Tallenna tämä sivu nimellä:"
 
@@ -304,7 +290,7 @@ msgstr "Ajuri"
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "Muokkaa %s"
@@ -317,7 +303,7 @@ msgstr "Muokkaa sivua"
 msgid "Edit Version"
 msgstr "Muokkaa versiota"
 
-#: templates/history/summary.inc:16
+#: templates/history/summary.inc:18
 #, php-format
 msgid "Edit Version %s"
 msgstr "Muokkaa versiota %s"
@@ -336,7 +322,7 @@ msgstr ""
 "Anna nimi tälle tiedostolle (Jos tyhjä, niin käytetään tiedoston nykyistä "
 "nimeä)"
 
-#: lib/Page/MergeOrRename.php:233
+#: lib/Page/MergeOrRename.php:234
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Virhe haettaessa %s: %s"
@@ -367,7 +353,7 @@ msgstr "Löytyi samaa sisältöä historiasta"
 msgid "Guest"
 msgstr "Vieras"
 
-#: templates/display/standard.inc:141
+#: templates/display/standard.inc:143
 msgid "HTML"
 msgstr "HTML"
 
@@ -375,16 +361,11 @@ msgstr "HTML"
 msgid "Hi_story"
 msgstr "Hi_storia"
 
-#: templates/display/standard.inc:87
-#, php-format
-msgid "History of %s"
-msgstr "Historia %s"
-
 #: lib/Page/StandardHistoryPage.php:45
 msgid "History page not found"
 msgstr "Historia sivua ei löytynyt"
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:27 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr "Historia: %s"
@@ -419,7 +400,7 @@ msgstr "Viimeksi muokannut %s, %s"
 msgid "Last Update"
 msgstr "Viimeksi päivitetty"
 
-#: templates/display/standard.inc:142
+#: templates/display/standard.inc:144
 msgid "Latex"
 msgstr "Latex"
 
@@ -436,36 +417,27 @@ msgstr "Paikallinen"
 msgid "Location"
 msgstr "Paikka"
 
-#: templates/display/standard.inc:43
-#, php-format
-msgid "Lock %s"
-msgstr "Lukitse %s"
-
 #: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
 #: templates/display/title.inc:33 templates/edit/standard.inc:21
 msgid "Locked"
 msgstr "Lukittu"
 
-#: templates/display/standard.inc:63
-msgid "Merge/Rename"
-msgstr "Yhdistä/Uudelleennimeä"
-
-#: lib/Page/MergeOrRename.php:137
+#: lib/Page/MergeOrRename.php:138
 #, php-format
 msgid "Merge/Rename: %s"
 msgstr "Yhdistä/Uudelleennimeä: %s"
 
-#: lib/Page/MergeOrRename.php:198
+#: lib/Page/MergeOrRename.php:199
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
 msgstr "Yhdistetty \"%s\" - \"%s\"."
 
-#: lib/Page/MergeOrRename.php:201
+#: lib/Page/MergeOrRename.php:202
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
 msgstr "Yhdistetty \"%s\" - \"%s\". Uusi sivu: %s\n"
 
-#: lib/Page/MergeOrRename.php:194
+#: lib/Page/MergeOrRename.php:195
 #, php-format
 msgid "Merged from %s"
 msgstr "Yhdistetty %s"
@@ -500,7 +472,7 @@ msgstr "Uusi liite \"%s\" sivulle \"%s\"."
 msgid "New name"
 msgstr "Uusi nimi"
 
-#: lib/Page/MergeOrRename.php:162
+#: lib/Page/MergeOrRename.php:163
 msgid "New name is the same as old name."
 msgstr "Uusi nimi on sama kuin vanha nimi"
 
@@ -530,7 +502,7 @@ msgstr "Ei sivuja synkronoitavaksi"
 msgid "Page"
 msgstr "Sivu"
 
-#: lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:185
 #, php-format
 msgid "Page \"%s\" already exists."
 msgstr "Sivu \"%s\" on jo olemassa."
@@ -590,7 +562,7 @@ msgstr "Sivun nimi ei saa olla tyhjä"
 msgid "Page unlocked"
 msgstr "Sivun lukitus on poistettu"
 
-#: lib/Application.php:59
+#: lib/Application.php:93
 msgid "Pages"
 msgstr "Sivut"
 
@@ -606,7 +578,7 @@ msgstr "Synkronoitavat sivut"
 msgid "Password"
 msgstr "Salasana"
 
-#: templates/display/standard.inc:103
+#: templates/display/standard.inc:104
 msgid "Permissio_ns"
 msgstr "Oikeu_det"
 
@@ -614,7 +586,7 @@ msgstr "Oikeu_det"
 msgid "Permission denied."
 msgstr "Ei oikeuksia."
 
-#: templates/display/standard.inc:140
+#: templates/display/standard.inc:142
 msgid "Plain Text"
 msgstr "Pelkkä teksti"
 
@@ -661,12 +633,12 @@ msgstr "Etä"
 msgid "Remove login info"
 msgstr "Poista käyttäjätunnustiedot"
 
-#: lib/Page/MergeOrRename.php:207
+#: lib/Page/MergeOrRename.php:208
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
 msgstr "Uudelleen nimettiin \"%s\" - \"%s\"."
 
-#: lib/Page/MergeOrRename.php:210
+#: lib/Page/MergeOrRename.php:211
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "Uudelleen nimettiin \"%s\" - \"%s\". Uusi sivu: %s\n"
@@ -692,7 +664,7 @@ msgstr "Palauta"
 msgid "Revert Page"
 msgstr "Palauta sivu"
 
-#: templates/history/summary.inc:26
+#: templates/history/summary.inc:28
 #, php-format
 msgid "Revert to version %s"
 msgstr "Palauta versioon %s"
@@ -718,7 +690,7 @@ msgstr "Tallenna"
 msgid "Save login info"
 msgstr "Tallenna sivun tiedot"
 
-#: lib/Page/Search.php:195 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:16
 msgid "Search"
 msgstr "Haku"
 
@@ -735,11 +707,6 @@ msgstr "Valitse liitettävä tiedosto:"
 msgid "Select the file to update"
 msgstr "Valitse tiedosto päivitettäväksi"
 
-#: templates/display/standard.inc:102
-#, php-format
-msgid "Set permissions for %s"
-msgstr "Aseta oikeudet %s"
-
 #: templates/sync/list.inc:79
 msgid "Show changes"
 msgstr "Näytä muutokset"
@@ -753,10 +720,6 @@ msgstr "Näytä %s muutokset"
 #, php-format
 msgid "Show version %s"
 msgstr "Näytä versio %s"
-
-#: templates/display/standard.inc:75
-msgid "Similar Pages"
-msgstr "Samankaltaiset sivut"
 
 #: lib/Page/LikePages.php:67
 #, php-format
@@ -826,7 +789,7 @@ msgstr "Sivu on jo lukittu."
 msgid "There is already an attachment named \"%s\"."
 msgstr "On jo olemassa liite nimeltään \"%s\"."
 
-#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#: lib/Page/MergeOrRename.php:161 lib/Page/MergeOrRename.php:167
 msgid "This is a required field."
 msgstr "Tämä on pakollinen kenttä"
 
@@ -839,12 +802,12 @@ msgstr "Tällä sivulla ei ole historiaa"
 msgid "This page is locked by %s for %d Minutes."
 msgstr "Tämän sivun lukitsi %s %d minuutiksi."
 
-#: lib/Page/MergeOrRename.php:112
+#: lib/Page/MergeOrRename.php:113
 #, php-format
 msgid "This page is referenced from %d other page(s)."
 msgstr "Tälle sivulle on viittauksia %d muulta sivulta."
 
-#: templates/display/standard.inc:35
+#: templates/display/standard.inc:33
 msgid "Un_lock"
 msgstr "Poista _lukitus"
 
@@ -856,11 +819,6 @@ msgstr "Ei voida luota: %s"
 #: lib/Page/StandardPage.php:82
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "Ei voida luoda Wiki/Home:a. Wikiä ei ole asennettu käyttöön."
-
-#: templates/display/standard.inc:34
-#, php-format
-msgid "Unlock %s"
-msgstr "Poista lukitus %s"
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
 #: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
@@ -937,8 +895,8 @@ msgstr "Sinulla ei ole oikeuksia poista lukitusta tältä sivulta"
 msgid "You do not have permission to delete attachments from this page."
 msgstr "Sinulla ei ole oikeuksia poistaa liitteitä tältä sivulta."
 
-#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
-#: lib/Page/MergeOrRename.php:188
+#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:176
+#: lib/Page/MergeOrRename.php:189
 #, php-format
 msgid "You do not have permission to edit \"%s\""
 msgstr "Sinulla ei ole oikeuksia muokata \"%s\""
@@ -971,39 +929,39 @@ msgstr "Sinun pitää muuttaa kuvausta liittääksesi tämän tiedoston."
 msgid "You must provide a change log."
 msgstr "Sinun täytyy antaa muutosloki."
 
-#: lib/Wicked.php:106
+#: lib/Application.php:65
 msgid "_All Pages"
 msgstr "_Kaikki sivut"
 
-#: templates/display/standard.inc:70
+#: templates/display/standard.inc:69
 msgid "_Backlinks"
 msgstr "_Paluulinkit"
 
-#: templates/display/standard.inc:56
+#: templates/display/standard.inc:54
 msgid "_Delete"
 msgstr "P_oista"
 
-#: templates/display/standard.inc:25
+#: templates/display/standard.inc:24
 msgid "_Edit"
 msgstr "_Muokkaa %s"
 
-#: lib/Wicked.php:103
+#: lib/Application.php:62
 msgid "_Home"
 msgstr "_Koti"
 
-#: templates/display/standard.inc:44
+#: templates/display/standard.inc:41
 msgid "_Lock"
 msgstr "_Lukitse"
 
-#: templates/display/standard.inc:64
+#: templates/display/standard.inc:62
 msgid "_Merge/Rename"
 msgstr "Yhdistä/Uudelleennimeä"
 
-#: lib/Wicked.php:105
+#: lib/Application.php:64
 msgid "_Recent Changes"
 msgstr "_Viimeisimmät muutokset"
 
-#: lib/Wicked.php:104
+#: lib/Application.php:63
 msgid "_Usage"
 msgstr "_Käyttö"
 
@@ -1015,6 +973,6 @@ msgstr "vieras"
 msgid "attachment"
 msgstr "liite"
 
-#: templates/display/standard.inc:143
+#: templates/display/standard.inc:145
 msgid "reStructuredText"
 msgstr "reStructuredText"

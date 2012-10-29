@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
 "PO-Revision-Date: 2012-05-04 10:16:43+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -17,12 +17,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Prefs/Identity.php:334
+#: lib/Horde/Prefs/Identity.php:335
 #, php-format
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" ei ole kelvollinen sähköpostiosoite."
 
-#: lib/Horde/Prefs/Identity.php:112
+#: lib/Horde/Prefs/Identity.php:110
 msgid "Default Identity"
 msgstr "Oletusprofiili"
 
@@ -42,7 +42,7 @@ msgstr "Asetukset"
 msgid "Unfiled"
 msgstr "Luokittelematon"
 
-#: lib/Horde/Prefs/Identity.php:322
+#: lib/Horde/Prefs/Identity.php:324
 msgid "Unnamed"
 msgstr "Nimetön"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Folks H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-22 15:00:36+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -209,11 +209,11 @@ msgstr ""
 msgid "Approve"
 msgstr "Hyväksy"
 
-#: lib/Folks.php:140 lib/Folks.php:144
+#: lib/Folks.php:137 lib/Folks.php:141
 msgid "Aquarius"
 msgstr "Vesimies"
 
-#: lib/Folks.php:148 lib/Folks.php:152
+#: lib/Folks.php:145 lib/Folks.php:149
 msgid "Aries"
 msgstr "Oinas"
 
@@ -250,7 +250,7 @@ msgstr "Viesti"
 msgid "Cancel"
 msgstr "Peru"
 
-#: lib/Folks.php:160 lib/Folks.php:164
+#: lib/Folks.php:157 lib/Folks.php:161
 msgid "Cancer"
 msgstr "Rapu"
 
@@ -262,11 +262,11 @@ msgstr "Ei voitu autentikoida postipalvelimelle:"
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr "Ei voida resetoida salasanaa automaattisesti, ota yhteyttä ylläpitoon."
 
-#: lib/Folks.php:286
+#: lib/Folks.php:283
 msgid "Cannot retrieve user email."
 msgstr "Ei voida hakea käyttäjän sähköpostia."
 
-#: lib/Folks.php:140 lib/Folks.php:184
+#: lib/Folks.php:137 lib/Folks.php:181
 msgid "Capricorn"
 msgstr "Kauris"
 
@@ -295,7 +295,7 @@ msgstr "Napsauta tästä kirjautuaksesi."
 msgid "Close"
 msgstr "Sulje"
 
-#: lib/Api.php:81
+#: lib/Api.php:83
 #, php-format
 msgid "Commented user %s."
 msgstr "Kommentoi käyttäjää %s."
@@ -437,7 +437,7 @@ msgstr "Muokkaa kavereitani"
 msgid "Edit my profile"
 msgstr "Muokkaa profiiliani"
 
-#: lib/Folks.php:300
+#: lib/Application.php:53
 msgid "Edit profile"
 msgstr "Muokkaa profiilia"
 
@@ -509,13 +509,13 @@ msgid "Friend's e-mail"
 msgstr "Kavereiden sähköpostiosoite"
 
 #: edit/friends/friends.php:16 edit/tabs.php:21 friends.php:19
-#: lib/Block/Friends.php:14 lib/Folks.php:299 lib/Friends/prefs.php:161
+#: lib/Application.php:52 lib/Block/Friends.php:14 lib/Friends/prefs.php:161
 #: lib/Friends/sql.php:191 templates/edit/header.php:1
 #: templates/user/user.php:122
 msgid "Friends"
 msgstr "Kaverit"
 
-#: lib/Api.php:234
+#: lib/Api.php:236
 msgid "Friends Birthdays"
 msgstr "Kavereiden syntymäpäivät"
 
@@ -524,7 +524,7 @@ msgstr "Kavereiden syntymäpäivät"
 msgid "Friends activities"
 msgstr "Kavereiden aktiviteetit"
 
-#: lib/Application.php:37 templates/edit/header.php:46
+#: lib/Application.php:35 templates/edit/header.php:46
 msgid "Friends activity"
 msgstr "Kavereiden aktiviteetti"
 
@@ -532,7 +532,7 @@ msgstr "Kavereiden aktiviteetti"
 msgid "Friends we are waiting approval from"
 msgstr "Kaverit, joiden hyväksyntää odotamme"
 
-#: lib/Folks.php:156 lib/Folks.php:160
+#: lib/Folks.php:153 lib/Folks.php:157
 msgid "Gemini"
 msgstr "Kaksonen"
 
@@ -621,11 +621,11 @@ msgstr "Viimeisimmät kommentit profiilissani"
 msgid "Last time online"
 msgstr "Viimeksi ollut paikalla"
 
-#: lib/Folks.php:164 lib/Folks.php:168
+#: lib/Folks.php:161 lib/Folks.php:165
 msgid "Leo"
 msgstr "Leijona"
 
-#: lib/Folks.php:172 lib/Folks.php:176
+#: lib/Folks.php:169 lib/Folks.php:173
 msgid "Libra"
 msgstr "Vaaka"
 
@@ -633,7 +633,7 @@ msgstr "Vaaka"
 msgid "Limit"
 msgstr "Rajoita"
 
-#: lib/Folks.php:303 list.php:14 templates/list/list.php:10
+#: lib/Application.php:56 list.php:14 templates/list/list.php:10
 msgid "List"
 msgstr "Listaa"
 
@@ -710,7 +710,7 @@ msgstr "Aktiivisimmat käyttäjät"
 msgid "Most popular users"
 msgstr "Suosituimmat käyttäjät"
 
-#: lib/Folks.php:298
+#: lib/Application.php:51
 msgid "My profile"
 msgstr "Profiilini"
 
@@ -810,11 +810,11 @@ msgstr "Vanha nimi"
 msgid "Online"
 msgstr "Paikalla"
 
-#: lib/Application.php:36 rss/friends.php:46 templates/edit/header.php:45
+#: lib/Application.php:34 rss/friends.php:46 templates/edit/header.php:45
 msgid "Online friends"
 msgstr "Kaverit paikalla"
 
-#: lib/Application.php:34 rss/online.php:22 templates/edit/header.php:44
+#: lib/Application.php:32 rss/online.php:22 templates/edit/header.php:44
 msgid "Online users"
 msgstr "Käyttäjät paikalla"
 
@@ -857,7 +857,7 @@ msgstr "Salasana"
 msgid "Password changed."
 msgstr "Salasana muutettu."
 
-#: edit/friends/know.php:15 lib/Application.php:38 lib/Block/Know.php:14
+#: edit/friends/know.php:15 lib/Application.php:36 lib/Block/Know.php:14
 #: rss/know.php:59 templates/edit/header.php:47
 #: templates/friends/friends.php:19
 msgid "People you might know"
@@ -871,7 +871,7 @@ msgstr "Oikeudet"
 msgid "Picture"
 msgstr "Kuva"
 
-#: lib/Folks.php:144 lib/Folks.php:148
+#: lib/Folks.php:141 lib/Folks.php:145
 msgid "Pisces"
 msgstr "Kalat"
 
@@ -981,7 +981,7 @@ msgstr "Resetoi"
 msgid "Reset Your Password"
 msgstr "Resetoi salasana"
 
-#: lib/Folks.php:180 lib/Folks.php:184
+#: lib/Folks.php:177 lib/Folks.php:181
 msgid "Sagittarius"
 msgstr "Jousimies"
 
@@ -993,11 +993,11 @@ msgstr "Tallenna"
 msgid "Save search criteria"
 msgstr "Tallenna hakukriteerit"
 
-#: lib/Folks.php:176 lib/Folks.php:180
+#: lib/Folks.php:173 lib/Folks.php:177
 msgid "Scorpio"
 msgstr "Skorppiooni"
 
-#: lib/Folks.php:302 lib/Forms/Search.php:25 search.php:15
+#: lib/Application.php:55 lib/Forms/Search.php:25 search.php:15
 msgid "Search"
 msgstr "Etsi"
 
@@ -1046,7 +1046,7 @@ msgstr "Lähetä yksityinen viesti"
 msgid "Send this profile to a friend"
 msgstr "Lähetä tämä profiili kaverille"
 
-#: lib/Folks.php:301
+#: lib/Application.php:54
 msgid "Services"
 msgstr "Palvelut"
 
@@ -1070,7 +1070,7 @@ msgstr "Asetukset"
 msgid "Show friends that are"
 msgstr "Näytä kaverit, jotka ovat"
 
-#: account/signup.php:50
+#: account/signup.php:51
 msgid "Sign up"
 msgstr "Kirjaudu"
 
@@ -1132,7 +1132,7 @@ msgstr ""
 "Lähetettiin pyyntö lisätä \"%s\" järjestelmään. Et voi kirjautua sisään "
 "ennenkuin pyyntösi on hyväksytty."
 
-#: lib/Folks.php:152 lib/Folks.php:156
+#: lib/Folks.php:149 lib/Folks.php:153
 msgid "Taurus"
 msgstr "Härkä"
 
@@ -1412,7 +1412,7 @@ msgstr "Video"
 msgid "View profile"
 msgstr "Katso profiili"
 
-#: lib/Folks.php:168 lib/Folks.php:172
+#: lib/Folks.php:165 lib/Folks.php:169
 msgid "Virgo"
 msgstr "Neitsyt"
 
@@ -1500,7 +1500,7 @@ msgstr "Et voi lisätä itseäsi kaveriksi."
 msgid "You cannot add yourself to your blacklist."
 msgstr "Et voi lisätä itseaäsi mustalle listalle."
 
-#: lib/Api.php:302
+#: lib/Api.php:304
 msgid "You cannot log activities for other users."
 msgstr "Et voi lokittaa muiden käyttäjien aktiviteetteja."
 

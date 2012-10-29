@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Kolab H4 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
 "PO-Revision-Date: 2012-03-12 23:27:51+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -29,6 +29,6 @@ msgstr "Esimerkkiosio"
 msgid "List"
 msgstr "Lista"
 
-#: index.php:16
+#: index.php:17
 msgid "Overview"
 msgstr "Yleiskuva"

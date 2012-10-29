@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Facebook\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2012-03-07 15:10:11+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Service/Facebook/Request.php:102
+#: lib/Horde/Service/Facebook/Request/Rest.php:70
 msgid "Facebook service is unavailable. Please try again later."
 msgstr "Facebook-palvelu ei ole käytettävissä. Yritä myöhemmin uudestaan."
 
-#: lib/Horde/Service/Facebook/UploadRequest.php:93
+#: lib/Horde/Service/Facebook/Request/Graph.php:106
 #, php-format
 msgid "Upload failed: %s"
 msgstr "Vienti epäonnistui: %s"

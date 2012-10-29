@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Sesha H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-02-22 11:20+0100\n"
-"PO-Revision-Date: 2012-03-12 22:35:57+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-29 07:16:26+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -16,19 +16,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-
-#: templates/menu.inc:6
-msgid "#Stock"
-msgstr "#Osake"
-
-#: list.php:86
-#, php-format
-msgid "%d Items"
-msgstr "%d tuotetta"
-
-#: list.php:85
-msgid "1 Item"
-msgstr "1 tuote"
 
 #: lib/Application.php:54
 msgid "Add Stock"
@@ -46,7 +33,7 @@ msgstr "Lisää kategoria"
 msgid "Add a new category"
 msgstr "Lisää uusi kategoria"
 
-#: admin.php:198 admin.php:256
+#: admin.php:198 admin.php:255
 msgid "Add a new property"
 msgstr "Lisää uusi omistus"
 
@@ -54,11 +41,7 @@ msgstr "Lisää uusi omistus"
 msgid "Add a property"
 msgstr "Lisää omistus"
 
-#: lib/Sesha.php:255
-msgid "Admin"
-msgstr "Hallinta"
-
-#: lib/Application.php:51
+#: lib/Application.php:51 lib/Application.php:73
 msgid "Administration"
 msgstr "Hallinnointi"
 
@@ -66,20 +49,20 @@ msgstr "Hallinnointi"
 msgid "Ascending"
 msgstr "Nouseva"
 
-#: list.php:54
+#: lib/View/List.php:34
 msgid "Available Inventory"
 msgstr "Olemassaoleva inventaari"
 
-#: list.php:54
+#: lib/View/List.php:32
 #, php-format
 msgid "Available Inventory in %s"
 msgstr "Olemassaoleva inventaari %s"
 
-#: lib/Forms/CategoryList.php:36 lib/Forms/Stock.php:65
+#: lib/Form/CategoryList.php:36 lib/Form/Stock.php:64
 msgid "Category"
 msgstr "Kategoria"
 
-#: lib/Forms/Category.php:53
+#: lib/Form/Category.php:53
 msgid "Category Name"
 msgstr "Kategorian nimi"
 
@@ -87,11 +70,11 @@ msgstr "Kategorian nimi"
 msgid "Change your inventory sorting and display options."
 msgstr "Muuta inventaarin järjestystä ja näkymän asetuksia."
 
-#: lib/Forms/Type/Client.php:45
+#: lib/Form/Type/Client.php:45
 msgid "Client"
 msgstr "Asiakas"
 
-#: lib/Forms/CategoryDelete.php:25 lib/Forms/PropertyDelete.php:25
+#: lib/Form/CategoryDelete.php:25 lib/Form/PropertyDelete.php:25
 msgid "Confirm"
 msgstr "Varmista"
 
@@ -124,11 +107,7 @@ msgstr "Ei voitu päivittää omistuksia tähän kategoriaan."
 msgid "Could not update property details."
 msgstr "Ei voitu päivittää omistuksen yksityiskohtia"
 
-#: list.php:18
-msgid "Current Inventory"
-msgstr "Nykyinen inventaari"
-
-#: lib/Forms/Property.php:35
+#: lib/Form/Property.php:35
 msgid "Data Type"
 msgstr "Datatyyppi"
 
@@ -140,7 +119,7 @@ msgstr "Oletusjärjestys:"
 msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
-#: admin.php:108 lib/Forms/CategoryDelete.php:18 lib/Forms/CategoryList.php:20
+#: admin.php:108 lib/Form/CategoryDelete.php:18 lib/Form/CategoryList.php:20
 msgid "Delete Category"
 msgstr "Poista kategoria"
 
@@ -149,11 +128,11 @@ msgstr "Poista kategoria"
 msgid "Delete Category \"%s\""
 msgstr "Poista kategoria \"%s\""
 
-#: list.php:82 list.php:133
+#: lib/View/List.php:154 lib/View/List.php:172
 msgid "Delete Item"
 msgstr "Poista tuote"
 
-#: admin.php:143 lib/Forms/PropertyDelete.php:18 lib/Forms/PropertyList.php:20
+#: admin.php:143 lib/Form/PropertyDelete.php:18 lib/Form/PropertyList.php:20
 msgid "Delete Property"
 msgstr "Poista omistus"
 
@@ -166,7 +145,7 @@ msgstr "Poista omistus \"%s\""
 msgid "Descending"
 msgstr "Laskeva"
 
-#: lib/Forms/Category.php:54 lib/Forms/Property.php:40
+#: lib/Form/Category.php:54 lib/Form/Property.php:40
 msgid "Description"
 msgstr "Kuvaus"
 
@@ -174,35 +153,35 @@ msgstr "Kuvaus"
 msgid "Display Options"
 msgstr "Näkymän asetukset"
 
-#: stock.php:134
+#: stock.php:133
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: admin.php:77 lib/Forms/CategoryList.php:19
+#: admin.php:77 lib/Form/CategoryList.php:19
 msgid "Edit Category"
 msgstr "Muokkaa kategoriaa"
 
-#: stock.php:132
+#: stock.php:131
 msgid "Edit Inventory Item"
 msgstr "Muokkaa inventaarituotetta"
 
-#: list.php:80 list.php:130
+#: lib/View/List.php:152 lib/View/List.php:166
 msgid "Edit Item"
 msgstr "Muokkaa tuotetta"
 
-#: lib/Forms/PropertyList.php:20
+#: lib/Form/PropertyList.php:20
 msgid "Edit Property"
 msgstr "Muokkaa omistusta"
 
-#: lib/Forms/CategoryList.php:26
+#: lib/Form/CategoryList.php:26
 msgid "Edit a category"
 msgstr "Muokkaa kategoriaa"
 
-#: lib/Forms/PropertyList.php:26
+#: lib/Form/PropertyList.php:26
 msgid "Edit a property"
 msgstr "Muokkaa omistusta"
 
-#: lib/Forms/Search.php:35
+#: lib/Form/Search.php:35
 msgid "For this value"
 msgstr "tällä hinnalla"
 
@@ -210,19 +189,23 @@ msgstr "tällä hinnalla"
 msgid "General Options"
 msgstr "Yleiset asetukset"
 
-#: templates/menu.inc:7
+#: templates/menu.inc:6
 msgid "Go"
 msgstr "Mene"
 
-#: config/prefs.php:29 lib/Forms/Search.php:32 list.php:102
+#: lib/View/List.php:37
+msgid "Inventory List"
+msgstr "Inventaariolista"
+
+#: config/prefs.php:29 lib/Form/Search.php:32 lib/View/List.php:100
 msgid "Item Name"
 msgstr "Tuotteen nimi"
 
-#: lib/Forms/Search.php:33
+#: lib/Form/Search.php:33
 msgid "Item Note"
 msgstr "Tuotteen lisätieto"
 
-#: stock.php:83
+#: stock.php:82
 #, php-format
 msgid "Item number %d was successfully deleted"
 msgstr "Tuoteen numero %d poisto onnistui"
@@ -239,7 +222,7 @@ msgstr "Hallinnoi kategorioita"
 msgid "Manage Properties"
 msgstr "Hallinnoi omistuksia"
 
-#: list.php:51
+#: lib/View/List.php:29
 msgid "Matching Inventory"
 msgstr "Täsmäävät inventaarit"
 
@@ -253,7 +236,7 @@ msgstr "Muokataan %s"
 msgid "Modifying property \"%s\""
 msgstr "Muokataan omistusta \"%s\""
 
-#: lib/Forms/Stock.php:58
+#: lib/Form/Stock.php:57
 msgid "Name"
 msgstr "Nimi"
 
@@ -265,53 +248,54 @@ msgstr "Uuden kategorian lisäys onnistui."
 msgid "New property added successfully."
 msgstr "Uuden omistuksen lisäys onnistui."
 
-#: lib/Forms/CategoryDelete.php:20 lib/Forms/PropertyDelete.php:20
+#: lib/Form/CategoryDelete.php:20 lib/Form/PropertyDelete.php:20
 msgid "No"
 msgstr "Ei"
 
-#: lib/Forms/Stock.php:61
+#: lib/Form/Stock.php:60
 msgid ""
-"No categories are currently configured. Click 'Admin' (above) to add some."
+"No categories are currently configured. Click \"Administration\" on the left "
+"to add some."
 msgstr ""
-"Ei kategorioita määriteltynä. Napsauta 'Hallinnoin' (yläpuolella) "
-"lisätäksesi joitakin."
+"Ei kategorioita määriteltynä. Napsauta \"Hallinnoi\" vasemmalla lisätäksesi "
+"joitakin."
 
-#: lib/Forms/CategoryList.php:32
+#: lib/Form/CategoryList.php:32
 msgid "No categories are currently configured. Use the form below to add one."
 msgstr ""
 "Ei kategorioita määriteltynä. Käytä alla olevaa lomaketta lisätäksesi "
 "joitakin."
 
-#: lib/Forms/Category.php:58
+#: lib/Form/Category.php:58
 msgid ""
-"No properties are currently configured. Use the 'Manage Properties' tab "
-"(above) to add some."
+"No properties are currently configured. Use the \"Manage Properties\" tab "
+"above to add some."
 msgstr ""
-"Ei omistuksia määriteltynä. Käytä yllä olevaa 'Hallinnoi omistuksia' tabia "
+"Ei omistuksia määriteltynä. Käytä yllä olevaa \"Hallinnoi omistuksia\" tabia "
 "lisätäksesi joitakin."
 
-#: lib/Forms/PropertyList.php:32
+#: lib/Form/PropertyList.php:32
 msgid "No properties are currently configured. Use the form below to add one."
 msgstr ""
 "Ei omistuksia määriteltynä. Käytä alla olevaa lomaketta lisätäksesi joitakin."
 
-#: config/prefs.php:30 lib/Forms/Stock.php:99 list.php:116
+#: config/prefs.php:30 lib/Form/Stock.php:96 lib/View/List.php:114
 msgid "Note"
 msgstr "Lisätieto"
 
-#: lib/Forms/Category.php:62
+#: lib/Form/Category.php:62
 msgid "Properties"
 msgstr "Omistukset"
 
-#: lib/Forms/PropertyList.php:36
+#: lib/Form/PropertyList.php:36
 msgid "Property"
 msgstr "Omistus"
 
-#: lib/Forms/Property.php:32
+#: lib/Form/Property.php:32
 msgid "Property Name"
 msgstr "Omistuksen nimi"
 
-#: lib/Forms/Search.php:34
+#: lib/Form/Search.php:34
 msgid "Property Value"
 msgstr "Omistuksen arvo"
 
@@ -319,76 +303,76 @@ msgstr "Omistuksen arvo"
 msgid "Property not found"
 msgstr "Omistusta ei löytynyt"
 
-#: lib/Forms/CategoryDelete.php:21
+#: lib/Form/CategoryDelete.php:21
 msgid "Really delete this category?"
 msgstr "Poistetaanko oikeasti tämä kategoria?"
 
-#: lib/Forms/PropertyDelete.php:21
+#: lib/Form/PropertyDelete.php:21
 msgid "Really delete this property?"
 msgstr "Poistetaanko oikeasti tämä omistus?"
 
-#: admin.php:78 lib/Forms/Category.php:19
+#: admin.php:78 lib/Form/Category.php:19
 msgid "Save Category"
 msgstr "Tallenna kategoria"
 
-#: lib/Forms/Stock.php:31
+#: lib/Form/Stock.php:31
 msgid "Save Item"
 msgstr "Tallenna tuote"
 
-#: lib/Forms/Property.php:17
+#: lib/Form/Property.php:17
 msgid "Save Property"
 msgstr "Tallenna omistus"
 
-#: config/prefs.php:51 lib/Forms/Search.php:26
+#: config/prefs.php:51 lib/Form/Search.php:26
 msgid "Search"
 msgstr "Hae"
 
-#: list.php:50 search.php:18
+#: lib/View/List.php:28 search.php:18
 msgid "Search Inventory"
 msgstr "Hae inventaarista"
 
-#: lib/Forms/Search.php:24
+#: lib/Form/Search.php:24
 msgid "Search The Inventory"
 msgstr "Hae inventaarista"
 
-#: lib/Forms/Search.php:29
+#: lib/Form/Search.php:29
 msgid "Search these properties"
 msgstr "Hae näitä omistuksia"
 
 #: config/prefs.php:64
 msgid ""
-"Select properties that you would like to see in the list view (all other "
-"properties are only shown on individual item screens):"
+"Select properties that you would like to see in the list view. All other "
+"properties are only shown on individual item screens:"
 msgstr ""
-"Valitse omistukset, joka haluaisit nähdä listanäkymässä (kaikki muut "
-"omistuksen näytetään vain yksittäisten tuotteiden näkymissä):"
+"Valitse omistukset, joka haluaisit nähdä listanäkymässä. Kaikki muut "
+"omistuksen näytetään vain yksittäisten tuotteiden näkymissä:"
 
 #: config/prefs.php:54
 msgid "Select the view to display after login:"
 msgstr "Valitse sisäänkirjautumisen jälkeen näytettävä näkymä:"
 
-#: templates/list.html:12
+#: templates/view/list.php:11
 msgid "Show Category:"
 msgstr "Näytä kategoria:"
 
-#: lib/Forms/Category.php:55 lib/Forms/Property.php:41
+#: lib/Form/Category.php:55 lib/Form/Property.php:41
 msgid "Sort Weight"
 msgstr "Järjestä painoarvolla"
 
-#: list.php:109
+#: lib/View/List.php:107
 #, php-format
 msgid "Sort by %s"
 msgstr "Järjestä - %s"
 
-#: list.php:102
+#: lib/View/List.php:100
 msgid "Sort by item name"
 msgstr "Järjestä tuotteen nimellä"
 
-#: list.php:116
+#: lib/View/List.php:114
 msgid "Sort by note"
 msgstr "Järjestä lisätiedolla"
 
-#: list.php:98
+#: lib/View/List.php:96
 msgid "Sort by stock ID"
 msgstr "Järjestä osake ID:llä"
 
@@ -396,10 +380,15 @@ msgstr "Järjestä osake ID:llä"
 msgid "Stock"
 msgstr "Osake"
 
-#: config/prefs.php:28 lib/Forms/Search.php:31 lib/Forms/Stock.php:52
-#: lib/Forms/Stock.php:54 list.php:98
+#: config/prefs.php:28 lib/Form/Search.php:31 lib/Form/Stock.php:51
+#: lib/Form/Stock.php:53 lib/View/List.php:96 templates/menu.inc:5
 msgid "Stock ID"
 msgstr "Osake ID"
+
+#: lib/Driver/Rdo.php:223
+#, php-format
+msgid "The category %d could not be found"
+msgstr "Kategoriaa %d ei löytynyt"
 
 #: admin.php:126
 msgid "The category was deleted."
@@ -409,7 +398,7 @@ msgstr "Tämä kategoria poistettiin."
 msgid "The category was not deleted."
 msgstr "Tätä kategoriaa ei poistettu."
 
-#: lib/Forms/Property.php:93
+#: lib/Form/Property.php:93
 #, php-format
 msgid "The form field type \"%s\" doesn't exist."
 msgstr "Lomakkeen kenttätyyppiä \"%s\" ei ole olemassa."
@@ -417,6 +406,16 @@ msgstr "Lomakkeen kenttätyyppiä \"%s\" ei ole olemassa."
 #: stock.php:57
 msgid "The item was added succcessfully."
 msgstr "Tuotteen lisäys onnistui."
+
+#: lib/Driver/Rdo.php:296
+#, php-format
+msgid "The property %d could not be found"
+msgstr "Omistusta %d ei löytynyt"
+
+#: lib/Driver/Rdo.php:255
+#, php-format
+msgid "The property %d could not be loaded"
+msgstr "Omistusta %d ei voitu ladata"
 
 #: admin.php:185
 msgid "The property was deleted."
@@ -426,29 +425,21 @@ msgstr "Omistus poistettiin."
 msgid "The property was not deleted."
 msgstr "Omistusta ei poistettu."
 
-#: stock.php:161
+#: stock.php:160
 msgid "The stock item was successfully updated."
 msgstr "Osaketuotteen päivitys onnistui."
-
-#: list.php:34
-msgid "There are no categories"
-msgstr "Ei ole kategorioita"
-
-#: templates/list.html:66
-msgid "There are no stocked items matching the criteria"
-msgstr "Ei ole kriteeriä vastaavia varastoituja tuotteita"
 
 #: stock.php:51
 #, php-format
 msgid "There was a problem adding the item: %s"
 msgstr "Ongelmia poistettaessa tuotetta: %s"
 
-#: stock.php:145
+#: stock.php:144
 #, php-format
 msgid "There was a problem updating the inventory: %s"
 msgstr "Ongelmia poistettaessa inventaaria: %s"
 
-#: stock.php:79
+#: stock.php:78
 #, php-format
 msgid "There was a problem with the driver while deleting: %s"
 msgstr "Ongelmia ajurien kanssa poistettaessa: %s"
@@ -461,11 +452,11 @@ msgstr "Tapahtui virhe poistettaessa kategoriaa."
 msgid "There was an error removing the property."
 msgstr "Tapahtui virhe poistettaessa omistusta."
 
-#: lib/Forms/Property.php:39
+#: lib/Form/Property.php:39
 msgid "Unit"
 msgstr "Yksikkö"
 
-#: lib/Forms/Stock.php:85
+#: lib/Form/Stock.php:83
 msgid "Unit: "
 msgstr "Yksikkö: "
 
@@ -477,15 +468,15 @@ msgstr "Kategorian päivitys onnistui"
 msgid "Updated property successfully."
 msgstr "Omistuksen päivitys onnistui."
 
-#: stock.php:95
+#: stock.php:94
 msgid "View Inventory Item"
 msgstr "Näytä inventaarituote"
 
-#: list.php:138 list.php:141
+#: lib/View/List.php:183 lib/View/List.php:191
 msgid "View Item"
 msgstr "Näytä tuote"
 
-#: lib/Forms/Category.php:55
+#: lib/Form/Category.php:55
 msgid ""
 "When categories are displayed, they will be shown in weight order from "
 "highest to lowest"
@@ -493,7 +484,7 @@ msgstr ""
 "Kun kategoriat näytetään, niin ne näytetään painotetussa järjestyksessä "
 "suurimmasta pienimpään"
 
-#: lib/Forms/Property.php:41
+#: lib/Form/Property.php:41
 msgid ""
 "When properties are displayed, they will be shown in weight order from "
 "highest to lowest"
@@ -501,7 +492,7 @@ msgstr ""
 "Kun omistukset näytetään, niin ne näytetään painotetussa järjestyksessä "
 "suurimmasta pienimpään"
 
-#: lib/Forms/CategoryDelete.php:19 lib/Forms/PropertyDelete.php:19
+#: lib/Form/CategoryDelete.php:19 lib/Form/PropertyDelete.php:19
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -509,22 +500,18 @@ msgstr "Kyllä"
 msgid "You are no administrator"
 msgstr "Et ole ylläpitäjä"
 
-#: stock.php:85
+#: stock.php:84
 msgid "You do not have sufficient permissions to delete."
 msgstr "Sinulla ei ole riittäviä oikeuksia poistaa."
 
-#: lib/Sesha.php:254
+#: lib/Application.php:88
 msgid "_Add Stock"
 msgstr "Lisää _osake"
 
-#: lib/Sesha.php:252
+#: lib/Application.php:67
 msgid "_List Stock"
 msgstr "_Listaa osake"
 
-#: lib/Sesha.php:261
-msgid "_Print"
-msgstr "_Tulosta"
-
-#: lib/Sesha.php:257
+#: lib/Application.php:70
 msgid "_Search"
 msgstr "_Haku"

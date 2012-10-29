@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd 3.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-28 19:36:08+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -45,24 +45,24 @@ msgstr "Ei voitu vaihtaa salasanaa"
 msgid "Cannot send command to server."
 msgstr "Komento lähetettiin palvelimelle."
 
-#: index.php:226 templates/index.html.php:84
+#: index.php:221 templates/index.html.php:84
 msgid "Change Password"
 msgstr "Vaihda salasanasi"
 
-#: index.php:187
+#: index.php:184
 msgid "Change password for:"
 msgstr "Vaihda salasana:"
 
-#: index.php:203
+#: index.php:200
 msgid "Change your password"
 msgstr "Vaihda salasanasi"
 
-#: index.php:205
+#: index.php:202
 #, php-format
 msgid "Changing password for %s"
 msgstr "Vaihdetaan salasanaa %s"
 
-#: index.php:186
+#: index.php:183
 msgid "Confirm new password:"
 msgstr "Vahvista uusi salasana"
 
@@ -111,7 +111,7 @@ msgstr "Tapahtui virhe lähetettäessä tietoa smbpasswd-ohjelmalle."
 msgid "Failed to verify old password."
 msgstr "Vanha salasana on väärä."
 
-#: index.php:147 lib/Driver/Composite.php:100
+#: index.php:144 lib/Driver/Composite.php:100
 #, php-format
 msgid "Failure in changing password for %s: %s"
 msgstr "Salasanan vaihto epäonnistui %s: %s"
@@ -140,7 +140,7 @@ msgstr ""
 "Uusi salasana ei kelpaa (liian lynyt, huono salasana, liian "
 "samankaltainen, ...)"
 
-#: index.php:185
+#: index.php:182
 msgid "New password:"
 msgstr "Uusi salasana:"
 
@@ -156,7 +156,7 @@ msgstr "Taustajärjestelmiä ei ole asennettu tiedostossa backends.php"
 msgid "No prompt returned from server."
 msgstr "Palvelin ei palauttanut kehoitetta."
 
-#: index.php:184
+#: index.php:181
 msgid "Old password:"
 msgstr "Vanha salasana:"
 
@@ -164,11 +164,11 @@ msgstr "Vanha salasana:"
 msgid "Passwd is not properly configured."
 msgstr "Password-ohjelmisto ei ole asennettu oikein."
 
-#: lib/Application.php:47
+#: lib/Application.php:46
 msgid "Password"
 msgstr "Salasana"
 
-#: index.php:134
+#: index.php:131
 #, php-format
 msgid "Password changed on %s."
 msgstr "Salasana vaihdettu %s."
@@ -185,19 +185,19 @@ msgstr "Password-moduulilta puuttuu tarvittavia parametrejä."
 msgid "Password module is missing target parameter."
 msgstr "Password-moduulille ei ole määritelty target parametria."
 
-#: index.php:115
+#: index.php:112
 msgid "Password module is not properly configured"
 msgstr "Password-moduuli ei ole asennettu oikein"
 
-#: index.php:220
+#: index.php:214
 msgid "Please provide a new password"
 msgstr "Sinun täytyy antaa uusi salasanasi"
 
-#: index.php:219
+#: index.php:213
 msgid "Please provide your current password"
 msgstr "Sinun täytyy antaa nykyinen salasanasi"
 
-#: index.php:221
+#: index.php:215
 msgid "Please verify your new password"
 msgstr "Sinun täytyy vahvistaa uusi salasanasi"
 
@@ -253,32 +253,32 @@ msgstr "Käyttäjää ei löytynyt"
 msgid "User not found."
 msgstr "Käyttäjää ei löytynyt."
 
-#: index.php:183
+#: index.php:180
 msgid "Username:"
 msgstr "Käyttäjätunnus:"
 
-#: index.php:58
+#: index.php:55
 #, php-format
 msgid "You can't change password for user %s"
 msgstr "Et voi vaihtaa käyttäjän %s salasanaa"
 
-#: index.php:66
+#: index.php:63
 msgid "You must give your current password"
 msgstr "Sinun täytyy antaa nykyinen salasanasi"
 
-#: index.php:75
+#: index.php:72
 msgid "You must give your new password"
 msgstr "Sinun täytyy antaa haluamasi uusi salasana"
 
-#: index.php:79
+#: index.php:76
 msgid "You must verify your new password"
 msgstr "Sinun täytyy vahvistaa uusi salasanasi"
 
-#: index.php:87
+#: index.php:84
 msgid "Your new password must be different from your current password"
 msgstr "Uusi salasana ei saa olla sama kuin nykyinen salasanasi"
 
-#: index.php:83
+#: index.php:80
 msgid "Your new passwords didn't match"
 msgstr "Antamasi uudet salasanat eivät täsmää"
 
@@ -286,7 +286,7 @@ msgstr "Antamasi uudet salasanat eivät täsmää"
 msgid "Your password could not be changed."
 msgstr "Salasanaasii ei voitu vaihtaa."
 
-#: index.php:222
+#: index.php:216
 msgid "Your passwords do not match"
 msgstr "Antamasi salasanat eivät täsmää"
 

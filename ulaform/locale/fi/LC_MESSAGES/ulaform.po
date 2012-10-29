@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ulaform 0.1-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-28 19:41:20+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -105,7 +105,7 @@ msgstr "Muokkaa kenttää"
 msgid "Edit Form"
 msgstr "Muokkaa lomaketta"
 
-#: edit.php:106
+#: edit.php:107
 msgid "Edit Forms"
 msgstr "Muokkaa lomakkeita"
 
@@ -181,7 +181,7 @@ msgstr "Lomake"
 msgid "Form Details"
 msgstr "Lomakkeen tiedot"
 
-#: fields.php:122
+#: fields.php:123
 msgid "Form Fields"
 msgstr "Lomakkeen kentät"
 
@@ -217,7 +217,7 @@ msgstr "Lähetettäessä käytettävä muoto"
 msgid "Forms"
 msgstr "Lomakkeet"
 
-#: forms.php:37
+#: forms.php:38
 msgid "Forms List"
 msgstr "Lomake lista"
 
@@ -311,7 +311,7 @@ msgstr "Pakollinen"
 msgid "Rows"
 msgstr "Rivit"
 
-#: lib/Action/Sql.php:115
+#: lib/Action/Sql.php:114
 msgid "SQL"
 msgstr "SQL"
 
@@ -363,7 +363,7 @@ msgstr "Alkamisvuosi"
 msgid "Subject"
 msgstr "Otsikko"
 
-#: lib/Action/Sql.php:130
+#: lib/Action/Sql.php:129
 msgid "Table"
 msgstr "Taulukko"
 
@@ -380,7 +380,7 @@ msgstr ""
 "Tämä ajuri mahdollistaa lomakkeen tulosten lähettämisen sähköpostitse "
 "yhdelle tai usealle vastaanottajalle."
 
-#: lib/Action/Sql.php:116
+#: lib/Action/Sql.php:115
 msgid "This driver allows to insertion of form results into a database."
 msgstr "Tämä ajuri mahdollistaa tulosten tallettamisen tietokantaan."
 
@@ -413,11 +413,11 @@ msgstr "Kyllä"
 msgid "You don't have the right permission to access this form."
 msgstr "Sinulla ei ole tarpeellisia oikeuksia käyttää tätä lomaketta."
 
-#: lib/Application.php:77
+#: lib/Application.php:75
 msgid "_List Forms"
 msgstr "_Listaa lomakkeet"
 
-#: lib/Application.php:78
+#: lib/Application.php:76
 msgid "_New Form"
 msgstr "_Uusi lomake"
 

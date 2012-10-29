@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-07 17:23:54+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -66,7 +66,7 @@ msgstr "Lisää uusi artikkeli"
 msgid "Add story"
 msgstr "Lisää artikkeli"
 
-#: lib/Application.php:54
+#: lib/Application.php:61
 msgid "Administrator"
 msgstr "ylläpitäjä"
 
@@ -110,7 +110,7 @@ msgstr "Kanavaa id \"%s\" ei löydy."
 msgid "Channel refreshed."
 msgstr "Kanava päivitetty."
 
-#: lib/Application.php:60
+#: lib/Application.php:67
 msgid "Channels"
 msgstr "kanavat"
 
@@ -215,7 +215,7 @@ msgstr "Tämän kanavatyypin lisätietoja"
 msgid "Feed"
 msgstr "Syöte"
 
-#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:64
+#: lib/Block/Delivery.php:20 lib/View/ChannelList.php:69
 msgid "Feeds"
 msgstr "Syötteet"
 
@@ -315,11 +315,11 @@ msgstr "Suosituimmat artikkelit"
 msgid "Name"
 msgstr "Nimi"
 
-#: lib/Application.php:93 lib/Form/Feed.php:24
+#: lib/Application.php:100 lib/Form/Feed.php:24
 msgid "New Feed"
 msgstr "Uusi syöte"
 
-#: lib/Application.php:57
+#: lib/Application.php:64
 msgid "News"
 msgstr "Uutiset"
 
@@ -327,7 +327,7 @@ msgstr "Uutiset"
 msgid "News Source"
 msgstr "Uutislähde"
 
-#: channels/index.php:24
+#: channels/index.php:21
 msgid "News is not enabled."
 msgstr "Uutiset eivät ole päällä."
 
@@ -449,7 +449,7 @@ msgstr "Tallenna"
 msgid "Search"
 msgstr "Haku"
 
-#: templates/delivery/html.html:10
+#: templates/delivery/html.html:9
 msgid "Select a format:"
 msgstr "Valitse muoto:"
 
@@ -497,7 +497,7 @@ msgstr "Artikkelit tagatty %s - %s"
 msgid "Story"
 msgstr "Artikkeli"
 
-#: stories/share.php:113
+#: stories/share.php:112
 msgid "Story Link"
 msgstr "Artikkelilinkki"
 
@@ -587,7 +587,7 @@ msgstr "Artikkeli \"%s\" on tallennettu."
 msgid "The story has been deleted."
 msgstr "Artikkeli on poistettu."
 
-#: stories/share.php:124
+#: stories/share.php:123
 msgid "The story was sent successfully."
 msgstr "Artikkelin lähetys onnistui."
 
@@ -623,7 +623,7 @@ msgstr "Tyyppi"
 msgid "Ultracompact"
 msgstr "Ultrapieni"
 
-#: stories/share.php:122
+#: stories/share.php:121
 #, php-format
 msgid "Unable to send story: %s"
 msgstr "Artikkelia ei voitu lähettää: %s"
@@ -632,18 +632,17 @@ msgstr "Artikkelia ei voitu lähettää: %s"
 msgid "View"
 msgstr "Näytä"
 
-#: channels/index.php:18 lib/Api.php:111 lib/View/ChannelDelete.php:47
-#: lib/View/ChannelEdit.php:41 lib/View/StoryDelete.php:39
-#: lib/View/StoryEdit.php:46 lib/View/StoryList.php:32
-#: lib/View/TagSearchList.php:34
+#: lib/Api.php:111 lib/View/ChannelDelete.php:47 lib/View/ChannelEdit.php:41
+#: lib/View/StoryDelete.php:39 lib/View/StoryEdit.php:46
+#: lib/View/StoryList.php:32 lib/View/TagSearchList.php:34
 msgid "You are not authorised for this action."
 msgstr "Sinulla ei ole oikeuksia suorittaa tätä toimenpidettä."
 
-#: lib/Application.php:85
+#: lib/Application.php:92
 msgid "_Feeds"
 msgstr "_Syötteet"
 
-#: lib/Application.php:106
+#: lib/Application.php:113
 msgid "_New Story"
 msgstr "_Uusi artikkeli"
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-03-28 20:08:36+0300\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"PO-Revision-Date: 2012-10-28 20:36:20+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -60,15 +60,15 @@ msgid_plural "%d items"
 msgstr[0] "%d objekti"
 msgstr[1] "%d objektia"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/View/Results.php:256
-#: lib/Widget/Tags.php:91 templates/faces/search.inc:12
+#: lib/Ajax/Application/Handler.php:352 lib/View/Results.php:256
+#: lib/Widget/Tags.php:86 templates/faces/search.inc:12
 #, php-format
 msgid "%d photo"
 msgid_plural "%d photos"
 msgstr[0] "%d valokuva"
 msgstr[1] "%d valokuvaa"
 
-#: lib/View/Upload.php:248
+#: lib/View/Upload.php:249
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -95,7 +95,7 @@ msgstr "%d - %d / %d Objektista"
 msgid "%d to %d of %d items"
 msgstr "%d - %d / %d Objektista"
 
-#: gallery/sort.php:65
+#: gallery/sort.php:64
 #, php-format
 msgid "%s :: Sort"
 msgstr "%s :: Järjestä"
@@ -110,7 +110,7 @@ msgstr "%s - %s"
 msgid "%s on %s"
 msgstr "%s @ %s"
 
-#: lib/Ansel.php:552 lib/Ansel.php:557 lib/View/List.php:178
+#: lib/Ansel.php:562 lib/Ansel.php:567 lib/View/List.php:178
 #: lib/View/List.php:183 lib/Widget/OtherGalleries.php:28
 #: templates/group/owner.inc:17 templates/group/owner.inc:22
 #, php-format
@@ -122,7 +122,7 @@ msgstr "%s Galleriat"
 msgid "%s: faces %s"
 msgstr "%s: kasvot %s"
 
-#: lib/Image.php:1074
+#: lib/Image.php:1076
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -143,107 +143,94 @@ msgstr "Lightboxin innoittama tyyli (Taustan kanssa)"
 msgid "A gallery to add this photo to is required."
 msgstr "Sinun pitää antaa galleria mihin tämä valokuva lisätään."
 
-#: lib/View/GalleryProperties.php:180
-#, php-format
-msgid "Access denied adding a gallery to \"%s\"."
-msgstr "Galleriaan \"%s\" lisääminen on kielletty."
+#: lib/View/GalleryProperties.php:185
+msgid "Access denied adding a sub gallery to this gallery."
+msgstr "Aligallerioiden lisääminen tähän galleriaan on kielletty."
 
-#: lib/Api.php:198 lib/Api.php:350 xppublish.php:175
-#, php-format
-msgid "Access denied adding photos to \"%s\"."
-msgstr "Kuvatekstin laittaminen %s on kielletty."
+#: lib/Api.php:198 lib/Api.php:350 xppublish.php:178
+msgid "Access denied adding photos to this gallery."
+msgstr "Kuvien lisääminen tähän galleriaan on kielletty."
 
-#: lib/Gallery.php:862
+#: lib/Gallery.php:871
 msgid "Access denied adding tags to this gallery."
 msgstr "Tagien lisääminen tähän galleriaan on kielletty."
 
-#: lib/Image.php:1222
+#: lib/Image.php:1224
 msgid "Access denied adding tags to this photo."
 msgstr "Tagien lisääminen tähän valokuvaan on kielletty."
 
-#: lib/Gallery.php:468
-#, php-format
-msgid "Access denied copying photos to \"%s\"."
-msgstr "Valokuvien kopionti \"%s\" on kielletty."
+#: lib/Gallery.php:478
+msgid "Access denied copying photos to this gallery."
+msgstr "Kuvien kopiointi tähän galleriaan on kielletty."
 
 #: lib/Api.php:457
 msgid "Access denied creating new galleries."
-msgstr "Uusien gallerioiden luomine on kielletty."
+msgstr "Uusien gallerioiden luominen on kielletty."
 
 #: lib/Api.php:417 lib/Api.php:503
 msgid "Access denied deleting galleries."
 msgstr "Gallerioiden poistaminen on kielletty."
 
-#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
-#, php-format
-msgid "Access denied deleting gallery \"%s\"."
-msgstr "Gallerian \"%s\" poistaminen on kielletty."
+#: image.php:665 lib/Api.php:428 lib/View/Results.php:86
+msgid "Access denied deleting photos from this gallery."
+msgstr "Kuvien poistaminen tästä galleriasta on kielletty."
 
-#: image.php:660 lib/Api.php:428 lib/View/Results.php:86
-#, php-format
-msgid "Access denied deleting photos from \"%s\"."
-msgstr "Kuvien poisto \"%s\" on kielletty."
+#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
+msgid "Access denied deleting this gallery."
+msgstr "Tämän gallerian poistaminen on kielletty."
 
 #: lib/Api.php:663
-#, php-format
-msgid "Access denied downloading full sized photos from \"%s\"."
-msgstr "Täysikokoisten kuvien tallentaminen \"%s\" on kielletty."
+msgid "Access denied downloading full sized photos from this gallery."
+msgstr "Täysikokoisten kuvien tallentaminen tästä galleriasta on kielletty."
 
-#: gallery.php:40 image.php:796 lib/Image.php:907
-#, php-format
-msgid "Access denied downloading photos from \"%s\"."
-msgstr "Kuvien tallentaminen \"%s\" on kielletty."
+#: gallery.php:40 image.php:802 lib/Image.php:909
+msgid "Access denied downloading photos from this gallery."
+msgstr "Kuvien tallentaminen tästä galleriasta on kielletty."
 
-#: lib/View/GalleryProperties.php:240
+#: lib/View/GalleryProperties.php:244
 msgid "Access denied editing galleries."
 msgstr "Gallerioiden muokkaaminen on kielletty."
 
-#: faces/gallery.php:32 gallery/sort.php:30
-#, php-format
-msgid "Access denied editing gallery \"%s\"."
-msgstr "Gallerian \"%s\" muokkaaminen on kielletty."
-
-#: faces/custom.php:36 image.php:342 image.php:823
+#: faces/custom.php:36 image.php:344 image.php:830 lib/Faces/Base.php:431
+#: lib/Faces/Base.php:519
 msgid "Access denied editing the photo."
 msgstr "Valokuvan muokkaaminen on kielletty."
 
-#: lib/GalleryMode/Date.php:457 lib/GalleryMode/Normal.php:161
-#, php-format
-msgid "Access denied moving photos to \"%s\"."
-msgstr "Valokuvan siirto \"%s\" on kielletty."
+#: faces/gallery.php:32 gallery/sort.php:30 lib/Faces/Base.php:708
+msgid "Access denied editing this gallery."
+msgstr "Tämän gallerian muokkaus on kielletty."
+
+#: lib/GalleryMode/Date.php:457
+msgid "Access denied moving photos to this gallery."
+msgstr "Kuvien siirtäminen tähän galleriaan on kielletty."
 
 #: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:163
-#, php-format
-msgid "Access denied removing photos from \"%s\"."
-msgstr "Valokuvia poista \"%s\" on kielletty."
+msgid "Access denied removing photos from this gallery."
+msgstr "Valokuvia poistaminen tästä galleriasta  on kielletty."
 
-#: lib/View/GalleryProperties.php:284
-#, php-format
-msgid "Access denied saving gallery \"%s\"."
-msgstr "Tallennus gallerigaan \"%s\" on kielletty."
+#: image.php:190 image.php:401 image.php:445
+msgid "Access denied saving photo to this gallery."
+msgstr "Kuvien tallentaminen tähän galleriaan on kielletty."
 
-#: image.php:188 image.php:399 image.php:443
-#, php-format
-msgid "Access denied saving photo to \"%s\"."
-msgstr "Valokuvan tallentaminen \"%s\" on kielletty."
+#: lib/View/GalleryProperties.php:288
+msgid "Access denied saving this gallery."
+msgstr "Tämän gallerian tallentaminen on kielletty."
 
 #: gallery/captions.php:33
-#, php-format
-msgid "Access denied setting captions for %s."
-msgstr "Kuvatekstin laittaminen %s on estetty."
+msgid "Access denied setting captions for this gallery."
+msgstr "Kuvatekstin laittaminen tähän galleriaan on kielletty."
 
 #: lib/View/Base.php:142
-#, php-format
-msgid "Access denied to gallery \"%s\"."
-msgstr "Gallerian \"%s\" käyttö on kielletty."
+msgid "Access denied to this gallery."
+msgstr "Tämän gallerian katselu on kielletty."
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:204 lib/Gallery.php:829
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:838
 msgid "Access denied viewing this gallery."
 msgstr "Tämän gallerian katselu on kielletty."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1184
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1186
 msgid "Access denied viewing this photo."
 msgstr "Tämän valokuvan katselu on kielletty."
 
@@ -255,7 +242,7 @@ msgstr "Toiminto peruutettiin."
 msgid "Actions: "
 msgstr "Toiminnot: "
 
-#: lib/Widget/Tags.php:55
+#: lib/Widget/Tags.php:50
 msgid "Add"
 msgstr "Lisää"
 
@@ -263,11 +250,11 @@ msgstr "Lisää"
 msgid "Add Content"
 msgstr "Lisää sisältö"
 
-#: lib/View/Upload.php:81
+#: lib/View/Upload.php:84
 msgid "Add Images"
 msgstr "Lisää kuvat"
 
-#: img/upload.php:54
+#: img/upload.php:55
 msgid "Add Photo"
 msgstr "Lisää valokuva"
 
@@ -275,7 +262,7 @@ msgstr "Lisää valokuva"
 msgid "Add a custom face range"
 msgstr "Lisää muokattu kasvojen alue"
 
-#: lib/View/Upload.php:84
+#: lib/View/Upload.php:87
 msgid "Add files to the upload queue and click the start button."
 msgstr "Lisää tiedostot tuontijonoon ja napsauta aloita."
 
@@ -283,20 +270,20 @@ msgstr "Lisää tiedostot tuontijonoon ja napsauta aloita."
 msgid "Add to bookmarks"
 msgstr "Lisää kirjanmerkkeihin"
 
-#: lib/View/GalleryProperties.php:356
+#: lib/View/GalleryProperties.php:360
 msgid "Adding A New Gallery"
 msgstr "Lisätään uuteen galleriaan"
 
-#: lib/View/GalleryProperties.php:189
+#: lib/View/GalleryProperties.php:193
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr "Lisätään aligalleria %s"
 
-#: lib/View/GalleryProperties.php:155
+#: lib/View/GalleryProperties.php:160
 msgid "Adding a New Gallery"
 msgstr "Lisätään uusi galleria"
 
-#: lib/Application.php:85
+#: lib/Application.php:91
 msgid "Administrators"
 msgstr "Ylläpitäjät"
 
@@ -325,17 +312,17 @@ msgstr "Kaikki kasvot"
 msgid "Allow all ages"
 msgstr "Salli kaiken ikäisille"
 
-#: lib/View/Results.php:237 map_edit.php:25
+#: lib/View/Results.php:237 map_edit.php:26
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr ""
 "Tapahtui virhe haettaessa kuvaa. Tarkemmat tiedot on tallennettu ylläpidon "
 "käsiteltäväksi."
 
-#: config/prefs.php:199 templates/gallery/properties.html.php:110
+#: config/prefs.php:200 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr "Kaikki"
 
-#: templates/mobile/galleries.html.php:4
+#: templates/smartmobile/galleries.html.php:4
 msgid "Applications"
 msgstr "Ohjelmat"
 
@@ -352,15 +339,15 @@ msgstr "Nouseva"
 msgid "Attempt to edit a non-existent share."
 msgstr "Yritettiin muokata olematonta jakoa."
 
-#: config/prefs.php:200 templates/gallery/properties.html.php:111
+#: config/prefs.php:201 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr "Autentikoituneet käyttäjät"
 
-#: config/prefs.php:192
+#: config/prefs.php:193
 msgid "Automatically watermark photos?"
 msgstr "Vesileimataan kuvat automaattisesti?"
 
-#: lib/Application.php:209 templates/mobile/image.html.php:3
+#: templates/smartmobile/image.html.php:3
 msgid "Back"
 msgstr "Takaisin"
 
@@ -375,7 +362,7 @@ msgstr "Takaisin galleriaan"
 msgid "Background Color"
 msgstr "Taustan väri"
 
-#: image.php:718 image.php:767 lib/View/Results.php:136
+#: image.php:724 image.php:773 lib/View/Results.php:136
 #: lib/View/Results.php:176
 msgid "Bad input."
 msgstr "Epäkelpo syöte."
@@ -384,7 +371,7 @@ msgstr "Epäkelpo syöte."
 msgid "Basic Thumbnails"
 msgstr "Perus pienoiskuvat"
 
-#: config/prefs.php:171 lib/Form/Watermark.php:49
+#: config/prefs.php:172 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr "Alin"
 
@@ -392,7 +379,7 @@ msgstr "Alin"
 msgid "Browse"
 msgstr "Selaa"
 
-#: lib/Ansel.php:622
+#: lib/Ansel.php:632
 msgid "Browse Tags"
 msgstr "Selaa tagejä"
 
@@ -400,15 +387,14 @@ msgstr "Selaa tagejä"
 msgid "By"
 msgstr "lähettäjänä"
 
-#: lib/Ansel.php:436
+#: lib/Ansel.php:446
 #, php-format
 msgid "Can't get unknown file type \"%s\"."
 msgstr "Ei voi tuoda tuntematonta tiedostotyyppiä \"%s\"."
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
-#: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:249 report.php:43
-#: templates/faces/custom.inc:52 templates/faces/define.inc:38
+#: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:250
+#: report.php:43 templates/faces/custom.inc:53 templates/faces/define.inc:39
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
 #: templates/image/resize_image.inc:38
@@ -437,7 +423,7 @@ msgstr "Ei voida tallentaa etsittävää valokuvaa"
 msgid "Caption"
 msgstr "Kuvateksti"
 
-#: gallery/captions.php:69
+#: gallery/captions.php:70
 msgid "Caption Editor"
 msgstr "Kuvatekstieditori"
 
@@ -449,7 +435,7 @@ msgstr "Kuvatekstit tallennettu."
 msgid "Category"
 msgstr "Kategoria"
 
-#: config/prefs.php:159 config/prefs.php:170 lib/Form/Watermark.php:41
+#: config/prefs.php:160 config/prefs.php:171 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr "Keskitetty"
@@ -494,10 +480,6 @@ msgstr "Vaatia"
 msgid "Click on a thumbnail to locate at the same point."
 msgstr "Napsauta pienoiskuvaa paikantaaksesi samaan pisteeseen."
 
-#: lib/Ajax/Imple/EditCaption.php:43
-msgid "Click to add caption..."
-msgstr "Napsauta lisätäksesi kuvatekstin..."
-
 #: lib/Form/Ecard.php:33
 msgid "Comments:"
 msgstr "Kommentit:"
@@ -523,14 +505,14 @@ msgid_plural "Copied %d photos from %s to %s"
 msgstr[0] "Kopioitiin %d valokuva %s %s"
 msgstr[1] "Kopioitiin %d valokuvaa %s %s"
 
-#: image.php:761
+#: image.php:767
 #, php-format
 msgid "Copied %d photo to %s"
 msgid_plural "Copied %d photos to %s"
 msgstr[0] "Kopioitiin %d valokuva %s"
 msgstr[1] "Kopioitiin %d valokuvaa %s"
 
-#: lib/View/GalleryRenderer/Gallery.php:128
+#: lib/View/GalleryRenderer/Gallery.php:127
 #: templates/view/gallerylightbox.inc:166 templates/view/results.inc:88
 msgid "Copy"
 msgstr "Kopioi"
@@ -539,11 +521,11 @@ msgstr "Kopioi"
 msgid "Copyright infringement"
 msgstr "Tekijänoikeusrikkomus"
 
-#: lib/View/Upload.php:494
+#: lib/View/Upload.php:497
 msgid "Could not extract image data from zip archive."
 msgstr "Ei voitu saada kuvatietoja zip-tiedostosta."
 
-#: lib/View/Upload.php:480
+#: lib/View/Upload.php:483
 msgid "Could not open zip archive."
 msgstr "Ei voitu avata zip-tiedostoa"
 
@@ -562,7 +544,7 @@ msgstr ""
 msgid "Create"
 msgstr "Luo"
 
-#: faces/custom.php:67 faces/search/image_define.php:23
+#: faces/custom.php:77 faces/search/image_define.php:23
 msgid "Create a new face"
 msgstr "Luo uusi kasvo"
 
@@ -582,7 +564,7 @@ msgstr "Luo uusi aligalleria"
 msgid "Created:"
 msgstr "Luotu:"
 
-#: image.php:836 templates/image/crop_image.inc:113
+#: image.php:844 templates/image/crop_image.inc:113
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:60
 msgid "Crop"
 msgstr "Leikkaa"
@@ -599,11 +581,11 @@ msgstr ""
 "Muokattu teksti, joka kuvaa galleriaasi. Tämä näkyy käyttäjätunnuksen "
 "tilalla kun galleriat järjestetään käyttäjänimen perusteella."
 
-#: config/prefs.php:114 config/prefs.php:151
+#: config/prefs.php:114 config/prefs.php:152
 msgid "Custom watermark to use for photos"
 msgstr "Muokattu vesileima käytettäväksi kuvissa"
 
-#: lib/Block/RecentComments.php:122 lib/Block/RecentlyAdded.php:117
+#: lib/Block/RecentComments.php:122 lib/Block/RecentlyAdded.php:118
 #: templates/view/list.inc:19
 msgid "Date"
 msgstr "Päivämäärä"
@@ -612,11 +594,11 @@ msgstr "Päivämäärä"
 msgid "Default"
 msgstr "Oletuksia"
 
-#: lib/Application.php:175
+#: lib/Prefs/Special/GallerySelect.php:27
 msgid "Default style for galleries"
 msgstr "Gallerioiden oletustyyli"
 
-#: lib/View/GalleryRenderer/Gallery.php:122
+#: lib/View/GalleryRenderer/Gallery.php:121
 #: templates/view/gallerylightbox.inc:160 templates/view/image.inc:64
 #: templates/view/results.inc:83 templates/view/slideshow.inc:21
 msgid "Delete"
@@ -634,11 +616,11 @@ msgstr "Poista koko galleria"
 msgid "Delete face"
 msgstr "Poista kasvo"
 
-#: lib/Widget/Geotag.php:92
+#: lib/Widget/Geotag.php:95
 msgid "Delete geotag"
 msgstr "Poista geotag"
 
-#: image.php:665 lib/View/Results.php:90
+#: image.php:671 lib/View/Results.php:90
 msgid "Deleted the photo."
 msgstr "Poistetiin valokuva."
 
@@ -658,7 +640,7 @@ msgstr "Näkymän tila"
 msgid "Display Preferences"
 msgstr "Näytön asetukset"
 
-#: config/prefs.php:254
+#: config/prefs.php:259
 msgid ""
 "Do not use the ajax-enabled uploader? Select this if your browser is having "
 "trouble uploading images with the ajax uploader."
@@ -695,7 +677,7 @@ msgstr "Tallenna alkuperäinen valokuva"
 msgid "Download as zip file"
 msgstr "Tallenna kaikki kuvat zip-tiedostona"
 
-#: lib/View/GalleryRenderer/Gallery.php:116
+#: lib/View/GalleryRenderer/Gallery.php:115
 msgid "Download selected images"
 msgstr "Tallenna valitut kuvat"
 
@@ -703,7 +685,7 @@ msgstr "Tallenna valitut kuvat"
 msgid "Download selected photos"
 msgstr "Tallenna valitut valokuvat"
 
-#: lib/Ansel.php:726
+#: lib/Ansel.php:736
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr ""
@@ -718,7 +700,7 @@ msgstr "Raahaa valokuvat haluttuun järjestykseen."
 msgid "Drop Shadows"
 msgstr "Pudotusvarjot"
 
-#: xppublish.php:207
+#: xppublish.php:210
 #, php-format
 msgid "ERROR: %s"
 msgstr "VIRHE: %s"
@@ -732,12 +714,12 @@ msgstr "Ecard -"
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: image.php:355
+#: image.php:357
 #, php-format
 msgid "Edit %s :: %s"
 msgstr "Muokkaa %s :: %s"
 
-#: edit_dates.php:44 lib/View/GalleryRenderer/Gallery.php:119
+#: edit_dates.php:44 lib/View/GalleryRenderer/Gallery.php:118
 #: templates/view/gallerylightbox.inc:157
 msgid "Edit Dates"
 msgstr "Muokkaa päivämääriä"
@@ -751,11 +733,11 @@ msgstr "Muokkaa oikeuksia"
 msgid "Edit Permissions for %s"
 msgstr "Muokkaa %s oikeuksia"
 
-#: image.php:588
+#: image.php:592
 msgid "Edit Photo"
 msgstr "Muokkaa valokuvaa"
 
-#: image.php:209
+#: image.php:211
 msgid "Edit a photo"
 msgstr "Muokkaa valokuva"
 
@@ -789,7 +771,7 @@ msgstr "Virhe avattaessa %s: %s"
 msgid "Error retrieving feed"
 msgstr "Virhe haettaessa syötettä"
 
-#: templates/mobile/javascript_defs.php:29
+#: templates/smartmobile/javascript_defs.php:28
 msgid "Error when communicating with the server."
 msgstr "Virhe yhteydessä palvelimelle."
 
@@ -797,7 +779,7 @@ msgstr "Virhe yhteydessä palvelimelle."
 msgid "Existing galleries:"
 msgstr "Olemassaolevat galleriat:"
 
-#: faces/claim.php:50 faces/face.php:29 faces/report.php:53
+#: faces/claim.php:50 faces/face.php:32 faces/report.php:53
 msgid "Face"
 msgstr "Kasvo"
 
@@ -830,7 +812,7 @@ msgstr "Etsittävä kasvo"
 msgid "Faces"
 msgstr "Kasvot"
 
-#: map_edit.php:66
+#: map_edit.php:67
 msgid "Fetching location"
 msgstr "Haetaan paikkatietoja"
 
@@ -843,7 +825,7 @@ msgstr "Tiedosto %s"
 msgid "File not found."
 msgstr "Tiedostoa ei löytynyt."
 
-#: lib/View/Upload.php:85
+#: lib/View/Upload.php:88
 msgid "File size error."
 msgstr "Tiedostokoko virhe"
 
@@ -851,7 +833,7 @@ msgstr "Tiedostokoko virhe"
 msgid "File to upload"
 msgstr "Palvelimelle tuotava tiedosto"
 
-#: lib/View/Upload.php:86
+#: lib/View/Upload.php:89
 msgid "File type error."
 msgstr "Tiedostyyppi virhe"
 
@@ -859,7 +841,7 @@ msgstr "Tiedostyyppi virhe"
 msgid "Filename"
 msgstr "Tiedostonnimi"
 
-#: map_edit.php:65
+#: map_edit.php:66
 msgid "Find"
 msgstr "Etsi"
 
@@ -898,7 +880,7 @@ msgstr "Järjestelmän gallerioista"
 msgid "From: "
 msgstr "Lähettäjä:"
 
-#: config/prefs.php:62 lib/Ansel.php:619
+#: config/prefs.php:62 lib/Ansel.php:629
 msgid "Galleries"
 msgstr "Galleriat"
 
@@ -910,7 +892,7 @@ msgstr "Galleriat ryhmiteltynä %s mukaan"
 #: lib/Block/Gallery.php:26 lib/Block/Gallery.php:35
 #: lib/Block/RecentComments.php:40 lib/Block/RecentComments.php:68
 #: lib/Block/RecentlyAdded.php:33 lib/Block/RecentlyAdded.php:74
-#: lib/Block/RecentlyAdded.php:117 templates/faces/face.inc:30
+#: lib/Block/RecentlyAdded.php:118 templates/faces/face.inc:30
 msgid "Gallery"
 msgstr "Galleria"
 
@@ -973,7 +955,7 @@ msgstr "Gallerian tagit"
 msgid "Gallery does not exist."
 msgstr "Galleriaa ei ole olemassa."
 
-#: lib/Block/RecentlyAdded.php:202
+#: lib/Block/RecentlyAdded.php:203
 msgid "Gallery not found."
 msgstr "Galleriaa ei löytynyt."
 
@@ -994,7 +976,7 @@ msgstr "Galleria raportoitiin."
 msgid "General Preferences"
 msgstr "Yleisest asetukset"
 
-#: config/prefs.php:184 lib/Form/Watermark.php:35
+#: config/prefs.php:185 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr "Jättiläismäinen"
 
@@ -1019,7 +1001,7 @@ msgstr "Ryhmitä galleriat mukaan"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Kartan korkeus (leveys asetetaan automaattisesti)"
 
-#: config/prefs.php:162 lib/Form/Watermark.php:43
+#: config/prefs.php:163 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Horisontaalinen tasaus"
 
@@ -1031,7 +1013,7 @@ msgstr "Tiedän kuka esiintyy yhdessä valokuvassasi"
 msgid "Image"
 msgstr "kuva"
 
-#: lib/Gallery.php:493
+#: lib/Gallery.php:502
 msgid "Image already has existing attributes."
 msgstr "Kuvalla on jo olemassaolevia atribuutteja."
 
@@ -1047,11 +1029,11 @@ msgstr "Kuvia ei löytynyt"
 msgid "Incorrect password"
 msgstr "Väärä salasana"
 
-#: xppublish.php:83 xppublish.php:170
+#: xppublish.php:86 xppublish.php:173
 msgid "Invalid gallery specified."
 msgstr "Epäkelpo galleriamääritys."
 
-#: lib/Ajax/Imple/TagActions.php:52
+#: lib/Ajax/Application/Handler.php:271 lib/Ajax/Application/Handler.php:316
 #, php-format
 msgid "Invalid input %s"
 msgstr "Kelvoton syöte %s."
@@ -1060,7 +1042,7 @@ msgstr "Kelvoton syöte %s."
 msgid "Landscape"
 msgstr "Maisema"
 
-#: config/prefs.php:183 lib/Form/Watermark.php:34
+#: config/prefs.php:184 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr "Suuri"
 
@@ -1072,7 +1054,7 @@ msgstr "Viimeksi muokattu"
 msgid "Learn how to publish photos directly from Windows."
 msgstr "Opi miten voit julkaista kuvia suoraan Windowsista"
 
-#: config/prefs.php:158 lib/Form/Watermark.php:40
+#: config/prefs.php:159 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr "Vasen"
 
@@ -1092,13 +1074,12 @@ msgstr "Linkit"
 msgid "Loading ..."
 msgstr "Ladataan ..."
 
-#: lib/Ajax/Imple/EditFaces.php:25 lib/Ajax/Imple/EditGalleryFaces.php:24
-#: map_edit.php:83 templates/faces/gallery.inc:28
-#: templates/faces/gallery.inc:39
+#: lib/Ajax/Imple/EditFaces.php:20 map_edit.php:83
+#: templates/faces/gallery.inc:28 templates/faces/gallery.inc:39
 msgid "Loading..."
 msgstr "Ladataan..."
 
-#: map_edit.php:67
+#: map_edit.php:68
 msgid "Locate image at:"
 msgstr "Paikanna kuva:"
 
@@ -1110,7 +1091,7 @@ msgstr "Paikkatieto"
 msgid "Locked galleries are not viewable via the api."
 msgstr "Lukittuja gallerioita ei voi katsoa api:n kautta."
 
-#: templates/mobile/galleries.html.php:6
+#: templates/smartmobile/galleries.html.php:6
 msgid "Log out"
 msgstr "Poistu"
 
@@ -1160,7 +1141,7 @@ msgstr "Valokuvan maksimikoko:"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Valokuvan maksimokoko: %s; yhteensä: %s"
 
-#: config/prefs.php:182 lib/Form/Watermark.php:33
+#: config/prefs.php:183 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr "Keskikokoinen"
 
@@ -1169,7 +1150,7 @@ msgstr "Keskikokoinen"
 msgid "Mirror"
 msgstr "Peilikuva"
 
-#: lib/View/GalleryProperties.php:201
+#: lib/View/GalleryProperties.php:205
 msgid "Missing gallery parameter"
 msgstr "Gallerian parametreja puuttuu"
 
@@ -1181,7 +1162,7 @@ msgstr "Mobiilinäkymä"
 msgid "Modified"
 msgstr "Muutettu"
 
-#: lib/View/GalleryProperties.php:221
+#: lib/View/GalleryProperties.php:225
 #, php-format
 msgid "Modifying: %s"
 msgstr "Muutetaan: %s"
@@ -1194,12 +1175,12 @@ msgstr ""
 "Kuvasta löytyi useampi kasvo. Huomaathan, että voit hakea vain yhtä kasvoa "
 "kerrallaan."
 
-#: lib/View/GalleryRenderer/Gallery.php:125
+#: lib/View/GalleryRenderer/Gallery.php:124
 #: templates/view/gallerylightbox.inc:163 templates/view/results.inc:85
 msgid "Move"
 msgstr "Siirrä"
 
-#: image.php:712 lib/View/Results.php:125
+#: image.php:718 lib/View/Results.php:125
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
@@ -1210,13 +1191,13 @@ msgstr[1] "Siirrettiin %d kuvaa \"%s\" \"%s\""
 msgid "Multiple Photos"
 msgstr "Monia kuvia"
 
-#: config/prefs.php:63 lib/Ansel.php:533 lib/Block/MyGalleries.php:19
+#: config/prefs.php:63 lib/Ansel.php:543 lib/Block/MyGalleries.php:19
 #: lib/Block/MyGalleries.php:45 lib/View/List.php:162
-#: templates/group/owner.inc:3 templates/mobile/galleries.html.php:3
+#: templates/group/owner.inc:3 templates/smartmobile/galleries.html.php:3
 msgid "My Galleries"
 msgstr "Omat galleriat"
 
-#: browse_edit.php:27
+#: browse_edit.php:28
 msgid "My Photos :: Add Content"
 msgstr "Omat valokuvat :: Lisää sisältö"
 
@@ -1224,7 +1205,8 @@ msgstr "Omat valokuvat :: Lisää sisältö"
 msgid "Name"
 msgstr "Nimi"
 
-#: faces/search/named.php:14 faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37
+#: faces/search/tabs.php:23
 msgid "Named faces"
 msgstr "Muokkaa kasvoja"
 
@@ -1236,22 +1218,21 @@ msgstr "Uuden gallerian kuvaus"
 msgid "New Gallery Title"
 msgstr "Uuden gallerian nimi"
 
-#: lib/Ajax/Imple/UploadNotification.php:45
+#: lib/Ajax/Application/Handler.php:65
 #, php-format
 msgid "New images uploaded to %s. %s"
 msgstr "Uusia kuvia tuotu %s. %s"
 
-#: templates/mobile/image.html.php:10 templates/view/image.inc:95
+#: templates/smartmobile/image.html.php:10 templates/view/image.inc:95
 #: templates/view/image.inc:96 templates/view/image.inc:122
 #: templates/view/image.inc:123 templates/view/slideshow.inc:41
 #: templates/view/slideshow.inc:42
 msgid "Next"
 msgstr "Seuraava"
 
-#: faces/image.php:42 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:66 lib/Ajax/Imple/EditGalleryFaces.php:43
-#: lib/Ajax/Imple/EditGalleryFaces.php:84 lib/Widget/GalleryFaces.php:57
-#: lib/Widget/ImageFaces.php:89 templates/faces/faces.inc:10
+#: faces/image.php:47 faces/search/image.php:71
+#: lib/Ajax/Imple/EditFaces.php:54 lib/Widget/GalleryFaces.php:57
+#: lib/Widget/ImageFaces.php:88 templates/faces/faces.inc:10
 #: templates/faces/index.inc:14 templates/faces/search.inc:23
 msgid "No faces found"
 msgstr "Ei löytynyt kasvoja"
@@ -1260,7 +1241,7 @@ msgstr "Ei löytynyt kasvoja"
 msgid "No faces found. Define you own."
 msgstr "Ei löytynyt kasvoja. Muokkaa omasi."
 
-#: xppublish.php:184
+#: xppublish.php:187
 msgid "No file specified"
 msgstr "Tiedostoa ei määritelty"
 
@@ -1281,7 +1262,7 @@ msgstr ""
 "Paikkatietoa ei ole saatavilla. Aseta %s kartalle %s tai napsauta kuvaa "
 "laittaaksesi sen samaan paikkaan."
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:82
+#: lib/Ajax/Application/Handler.php:180
 #, php-format
 msgid ""
 "No location data present. Place using %smap%s or click on image to place at "
@@ -1290,18 +1271,18 @@ msgstr ""
 "Paikkatietoa ei ole saatavilla. Aseta %s kartalle %s tai napsauta kuvaa "
 "laittaaksesi sen samaan paikkaan."
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:198
 #, php-format
 msgid "No location data present. You may add some %s."
 msgstr "Paikkatietoja ei ole saatavilla. Voit lisätä niitä %s"
 
-#: config/prefs.php:74 config/prefs.php:210 config/prefs.php:231
-#: lib/Application.php:162 templates/view/gallery.inc:134
+#: config/prefs.php:74 config/prefs.php:211 config/prefs.php:232
+#: config/prefs.php:251 templates/view/gallery.inc:134
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "None"
 msgstr "Ei mitään"
 
-#: config/prefs.php:221
+#: config/prefs.php:222
 msgid "None (Owner only)"
 msgstr "Ei mitään (Vain omistaja)"
 
@@ -1309,14 +1290,10 @@ msgstr "Ei mitään (Vain omistaja)"
 msgid "Normal"
 msgstr "Normaali"
 
-#: map_edit.php:35
+#: map_edit.php:36
 msgid "Not Authorized. Details have been logged for the server administrator."
 msgstr ""
 "Käyttö estetty. Tarkemmat tiedot on tallennettu ylläpidon käsiteltäväksi."
-
-#: templates/mobile/notice.html.php:3
-msgid "Notice"
-msgstr "Huomatus"
 
 #: config/prefs.php:96
 msgid "Number of faces per page"
@@ -1342,10 +1319,6 @@ msgstr "Tiilien määrä rivillä"
 msgid "Offensive content"
 msgstr "Loukkaavaa sisältöä"
 
-#: lib/Ajax/Imple/EditCaption.php:46
-msgid "Ok"
-msgstr "Ok"
-
 #: perms.php:70
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
@@ -1362,7 +1335,7 @@ msgstr "Asento:"
 msgid "Original Date"
 msgstr "Alkuperäinen päivämäärä"
 
-#: lib/Widget/Geotag.php:94
+#: lib/Widget/Geotag.php:97
 msgid "Other images in this gallery"
 msgstr "Muut kuvat tässä galleriassa"
 
@@ -1380,7 +1353,7 @@ msgstr "Omistaja: %s"
 msgid "Owner"
 msgstr "Omistaja"
 
-#: lib/Gallery.php:337
+#: lib/Gallery.php:347
 #, php-format
 msgid "Page %d"
 msgstr "Sivu %d"
@@ -1418,8 +1391,8 @@ msgstr "Henkilö"
 msgid "Person in photo"
 msgstr "Henkilö valokuvassa"
 
-#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:146
+#: lib/Block/RecentlyAdded.php:118 lib/View/EmbeddedRenderer/Mini.php:192
+#: lib/View/GalleryRenderer/GalleryLightbox.php:148
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
 msgstr "Valokuva"
@@ -1428,7 +1401,7 @@ msgstr "Valokuva"
 msgid "Photo Count"
 msgstr "Valokuvien määrä"
 
-#: browse.php:19 mobile.php:18
+#: browse.php:23 smartmobile.php:18
 msgid "Photo Galleries"
 msgstr "Valokuvagalleriat"
 
@@ -1456,7 +1429,7 @@ msgstr "Valokuvaa ei löytynyt"
 msgid "Photo not found."
 msgstr "Valokuvaa ei löytynyt"
 
-#: faces/search/image_search.php:42
+#: faces/search/image_search.php:54
 msgid "Photo search"
 msgstr "Valokuvan haku"
 
@@ -1485,7 +1458,7 @@ msgid ""
 "etc..."
 msgstr "Kuvaile syitä. Esimerkiksi, et halua tulla mainituksi jne..."
 
-#: xppublish.php:50
+#: xppublish.php:53
 msgid "Please enter your username and password."
 msgstr "Anna käyttäjätunnus ja salasanasi."
 
@@ -1509,7 +1482,7 @@ msgstr "Polaroidit"
 msgid "Portrait"
 msgstr "Muotokuva"
 
-#: xppublish.php:95 xppublish.php:145
+#: xppublish.php:98 xppublish.php:148
 msgid "Press the \"Back\" button and try again."
 msgstr "Napsauta \"Takaisin\"-painiketta ja yritä uudestaan."
 
@@ -1517,12 +1490,12 @@ msgstr "Napsauta \"Takaisin\"-painiketta ja yritä uudestaan."
 msgid "Preview"
 msgstr "Esikatsele"
 
-#: image.php:594 image.php:843
+#: image.php:598 image.php:851
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr "Esikatse muutokset %s :: %s"
 
-#: templates/mobile/image.html.php:9 templates/view/image.inc:93
+#: templates/smartmobile/image.html.php:9 templates/view/image.inc:93
 #: templates/view/image.inc:94 templates/view/image.inc:120
 #: templates/view/image.inc:121 templates/view/slideshow.inc:39
 #: templates/view/slideshow.inc:40
@@ -1538,7 +1511,7 @@ msgstr "Ominaisuudet"
 msgid "Publish Photos to:"
 msgstr "Julkaise kuvat:"
 
-#: xppublish.php:31
+#: xppublish.php:34
 #, php-format
 msgid "Publish to %s"
 msgstr "Julkaise %s"
@@ -1560,15 +1533,15 @@ msgstr "Satunnainen galleria"
 msgid "Random photo"
 msgstr "Satunnainen valokuva"
 
-#: config/prefs.php:212 config/prefs.php:233
+#: config/prefs.php:213 config/prefs.php:234
 msgid "Read and write"
 msgstr "Luku ja kirjoitus"
 
-#: config/prefs.php:234
+#: config/prefs.php:235
 msgid "Read, write, and delete"
 msgstr "Luku, kirjoitus ja poisto"
 
-#: config/prefs.php:211 config/prefs.php:222 config/prefs.php:232
+#: config/prefs.php:212 config/prefs.php:223 config/prefs.php:233
 msgid "Read-only"
 msgstr "Vain luku"
 
@@ -1677,7 +1650,7 @@ msgstr "Hae uudestaan kasvot tästä kuvasta"
 msgid "Related Tags"
 msgstr "Valitut tagit"
 
-#: lib/Widget/Geotag.php:91
+#: lib/Widget/Geotag.php:94
 msgid "Relocate this image"
 msgstr "Vaihda tämän kuvan paikkatietoja"
 
@@ -1686,7 +1659,7 @@ msgstr "Vaihda tämän kuvan paikkatietoja"
 msgid "Remove %s from search"
 msgstr "Poista %s hakuehdoista"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/Widget/Tags.php:91
+#: lib/Ajax/Application/Handler.php:352 lib/Widget/Tags.php:86
 msgid "Remove Tag"
 msgstr "Poista tagi"
 
@@ -1725,7 +1698,7 @@ msgstr "Raportin syy"
 msgid "Report type"
 msgstr "Raportin tyyppi"
 
-#: templates/faces/custom.inc:53 templates/faces/define.inc:39
+#: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/image/crop_image.inc:165 templates/image/resize_image.inc:75
 msgid "Reset"
 msgstr "Nollaa"
@@ -1743,11 +1716,11 @@ msgstr "Nollaa oletusvalokuva"
 msgid "Resize"
 msgstr "Muuta kokoa"
 
-#: map_edit.php:64
+#: map_edit.php:65
 msgid "Return to Image View"
 msgstr "Palaa kuvankatseluun"
 
-#: config/prefs.php:160 lib/Form/Watermark.php:42
+#: config/prefs.php:161 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr "Oikea"
 
@@ -1779,7 +1752,7 @@ msgid "Rounded Thumbnails (White Background)"
 msgstr "Varjostetut pienoiskuvat (valkoinen tausta)"
 
 #: lib/Form/Image.php:21 lib/Form/ImageDate.php:21 lib/Form/Watermark.php:21
-#: map_edit.php:63 templates/faces/custom.inc:51
+#: map_edit.php:64 templates/faces/custom.inc:51
 #: templates/image/resize_image.inc:74
 msgid "Save"
 msgstr "Tallenna"
@@ -1798,7 +1771,7 @@ msgstr "Tallenna muutokset"
 msgid "Save Gallery"
 msgstr "Tallenna galleria"
 
-#: image.php:185
+#: image.php:187
 msgid "Save Photo"
 msgstr "Tallenna valokuva"
 
@@ -1810,7 +1783,11 @@ msgstr "Tallenna kasvojen nimi"
 msgid "Search"
 msgstr "Haku"
 
-#: faces/search/name.php:43 faces/search/tabs.php:24
+#: gallery/sort.php:66
+msgid "Search Forums"
+msgstr "Haku foorumeista"
+
+#: faces/search/name.php:44 faces/search/tabs.php:24
 msgid "Search by name"
 msgstr "Hae nimen mukaan"
 
@@ -1891,7 +1868,7 @@ msgstr "Aseta oikeudet"
 msgid "Shadowed Thumbnails (White Background)"
 msgstr "Varjostetut pienoiskuvat (valkoinen tausta)"
 
-#: config/prefs.php:248
+#: config/prefs.php:253
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1933,7 +1910,7 @@ msgstr ""
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr "Luoti mahdollistaa suoran pääsyn tähän galleriaan osoitteessa:"
 
-#: config/prefs.php:181 lib/Form/Watermark.php:32
+#: config/prefs.php:182 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr "Pieni"
 
@@ -1967,7 +1944,7 @@ msgstr "Aihe"
 msgid "Successfully deleted %s."
 msgstr "Poistettiin onnistuneesti %s."
 
-#: gallery/delete.php:74
+#: gallery/delete.php:73
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr "Tyhjennettiin onnistuneesti \"%s\"."
@@ -1977,7 +1954,7 @@ msgstr "Tyhjennettiin onnistuneesti \"%s\"."
 msgid "Successfully modified the date on %d photos."
 msgstr "Muokattiin onnistuneesti päivämääriä %d kuvassa."
 
-#: lib/Ansel.php:531
+#: lib/Ansel.php:541
 msgid "System Galleries"
 msgstr "Järjestelmän galleriat"
 
@@ -2001,12 +1978,12 @@ msgstr "Kerro meille kuka on tässä kuvassa"
 msgid "Terms and conditions infringement"
 msgstr "Käyttörikkomusten määreet"
 
-#: lib/Ansel.php:425
+#: lib/Ansel.php:435
 #, php-format
 msgid "The file \"%s\" doesn't exist."
 msgstr "Tiedosto \"%s\" ei ole olemassa."
 
-#: image.php:221 lib/Api.php:337 lib/View/Upload.php:204
+#: image.php:223 lib/Api.php:337 lib/View/Upload.php:213
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr ""
 "Palvelimelle tuotava tiedosto ei vaikuta kelvolliselta kuvatiedostolta."
@@ -2016,29 +1993,29 @@ msgstr ""
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr "Galleriaa \"%s\" ei voitu luoda: %s"
 
-#: lib/View/GalleryProperties.php:382 xppublish.php:123
+#: lib/View/GalleryProperties.php:386 xppublish.php:126
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr "Galleriaa \"%s\" ei voitu luoda: %s"
 
-#: lib/View/GalleryProperties.php:377 xppublish.php:120
+#: lib/View/GalleryProperties.php:381 xppublish.php:123
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr "Gallerian \"%s\" luonti onnistui."
 
-#: lib/View/GalleryProperties.php:325
+#: lib/View/GalleryProperties.php:329
 msgid "The gallery was saved."
 msgstr "Galleria tallennettiin"
 
-#: gallery.php:76
+#: gallery.php:75
 msgid "The gallery's default photo has successfully been reset."
 msgstr "Gallerian oletuskuvan nollaus onnistui."
 
-#: gallery.php:96
+#: gallery.php:95
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr "Gallerian pienoiskuvien nollaus onnistui."
 
-#: gallery.php:111
+#: gallery.php:110
 msgid "The gallery's views have successfully been reset."
 msgstr "Gallerian näkymien nollaus onnistui."
 
@@ -2056,7 +2033,7 @@ msgstr ""
 msgid "The slug \"%s\" already exists."
 msgstr "Luoti \"%s\" on jo olemassa."
 
-#: lib/View/Upload.php:176
+#: lib/View/Upload.php:186
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr ""
@@ -2067,7 +2044,7 @@ msgstr ""
 msgid "There are no photo galleries available."
 msgstr "Valokuvagallerioita ei ole saatavilla."
 
-#: lib/Ansel.php:744
+#: lib/Ansel.php:754
 #, php-format
 msgid "There are no photos in %s to download."
 msgstr "%s ei ole kuvia vietäväksi."
@@ -2082,30 +2059,30 @@ msgstr "Tässä galleriassa ei ole kuvia."
 msgid "There was a problem deleting %s: %s"
 msgstr "Tapahtui virhe poistettaessa %s: %s"
 
-#: image.php:668 lib/View/Results.php:93
+#: image.php:674 lib/View/Results.php:93
 #, php-format
 msgid "There was a problem deleting photos: %s"
 msgstr "Tapahtui virhe poistettaessa valokuvia: %s"
 
-#: lib/View/Upload.php:222
+#: lib/View/Upload.php:231
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr "Tapahtui virhe tallennettaessa valokuvaa: %s"
 
-#: xppublish.php:199
+#: xppublish.php:202
 msgid "There was a problem uploading the photo."
 msgstr "Tapahtui virhe tuotaessa palvelimelle valokuvaa."
 
-#: lib/View/Upload.php:173
+#: lib/View/Upload.php:183
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr "Tapahtui virhe tuotaessa palvelimelle valokuvaa: %s"
 
-#: xppublish.php:89
+#: xppublish.php:92
 msgid "There was an error accessing the gallery"
 msgstr "Tapahtui virhe käytettäessä galleriaa"
 
-#: gallery/sort.php:24 xppublish.php:180
+#: gallery/sort.php:24 xppublish.php:183
 msgid "There was an error accessing the gallery."
 msgstr "Tapahtui virhe käytettäessä galleriaa."
 
@@ -2114,17 +2091,17 @@ msgstr "Tapahtui virhe käytettäessä galleriaa."
 msgid "There was an error editing the dates: %s"
 msgstr "Tapahtui virhe muokattaessa päivämääriä: %s"
 
-#: lib/Widget/Tags.php:38
+#: lib/Widget/Tags.php:36
 #, php-format
 msgid "There was an error fetching tags: %s"
 msgstr "Tapahtui virhe haettaessa tageja: %s"
 
-#: lib/View/Upload.php:403
+#: lib/View/Upload.php:404
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr "Tapahtui virhe käsiteltäessä vietyä arkistoa: %s"
 
-#: image.php:242
+#: image.php:244
 msgid "There was an error replacing the photo."
 msgstr "Tapahtui virhe korvattaessa valokuvaa."
 
@@ -2138,7 +2115,7 @@ msgid "This gallery is protected by a password. Please enter it below."
 msgstr ""
 "Tämä galleria on suojattu salasanalla. Anna salasana alla olevaan kentään."
 
-#: lib/Widget/Geotag.php:93
+#: lib/Widget/Geotag.php:96
 msgid "This image"
 msgstr "Tämä kuva"
 
@@ -2153,11 +2130,11 @@ msgstr "Tämä asennus ei tue piirrettä %s. Ota yhteyttä ylläpitäjiin."
 msgid "Thumbnail Style"
 msgstr "Pienoiskuvien tyyli"
 
-#: config/prefs.php:180 lib/Form/Watermark.php:31
+#: config/prefs.php:181 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr "Pieni"
 
-#: config/prefs.php:169 lib/Form/Watermark.php:47
+#: config/prefs.php:170 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr "Ylös"
 
@@ -2169,7 +2146,7 @@ msgstr "Ylimmän tason galleria"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: map_edit.php:68
+#: map_edit.php:69
 msgid "Unable to find location. Error code:"
 msgstr "Paikkatietoja ei löytynyt: Virhekoodi:"
 
@@ -2186,7 +2163,7 @@ msgstr "Ei voitu hakea pyydettyä syötettä"
 msgid "Undo Changes"
 msgstr "Peru muutokset"
 
-#: lib/View/GalleryProperties.php:223
+#: lib/View/GalleryProperties.php:227
 msgid "Unknown Gallery"
 msgstr "Tuntematon galleria"
 
@@ -2198,11 +2175,11 @@ msgstr "Nimetön"
 msgid "Unsupported"
 msgstr "Ei tuettu"
 
-#: xppublish.php:131
+#: xppublish.php:134
 msgid "Untitled"
 msgstr "Nimetön"
 
-#: map_edit.php:157
+#: map_edit.php:152
 #, php-format
 msgid "Update position of %s"
 msgstr "Päivitä %s paikkatiedot"
@@ -2212,7 +2189,7 @@ msgstr "Päivitä %s paikkatiedot"
 msgid "Updated %s."
 msgstr "Päivitettiin %s."
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:80
+#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:83
 msgid "Upload"
 msgstr "Tuo palvelimelle"
 
@@ -2221,15 +2198,15 @@ msgstr "Tuo palvelimelle"
 msgid "Upload Photos to %s"
 msgstr "Tuo palvelimelle valokuvat %s"
 
-#: faces/search/image.php:61
+#: faces/search/image.php:62
 msgid "Upload face photo"
 msgstr "Tuo palvelimelle kasvojen valokuva"
 
-#: lib/View/Upload.php:147 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:157 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr "Tuo palvelimelle valokuvat"
 
-#: lib/View/Upload.php:82
+#: lib/View/Upload.php:85
 msgid "Upload to gallery"
 msgstr "Tuo galleriaan"
 
@@ -2250,15 +2227,15 @@ msgstr "Käyttäjän pitää olla yli %d"
 msgid "Username"
 msgstr "Käyttäjätunnus"
 
-#: xppublish.php:46
+#: xppublish.php:49
 msgid "Username or password are incorrect."
 msgstr "Käyttäjätunnus ja salasana ovat väärin."
 
-#: config/prefs.php:201 templates/gallery/properties.html.php:112
+#: config/prefs.php:202 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr "Käyttäjät muokkaa oikeuksilla"
 
-#: config/prefs.php:173 config/prefs.php:186 lib/Form/Watermark.php:50
+#: config/prefs.php:174 config/prefs.php:187 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr "Vertikaalinen tasaus"
 
@@ -2271,7 +2248,7 @@ msgstr "Näytä %s"
 msgid "View All Results"
 msgstr "Näytä kaikki tulokset"
 
-#: lib/View/Upload.php:83
+#: lib/View/Upload.php:86
 msgid "View Gallery"
 msgstr "Näytä galleria"
 
@@ -2295,7 +2272,7 @@ msgstr "Näytä tai jätä kommentteja"
 msgid "View to display by default"
 msgstr "Oletusnäkymä"
 
-#: image.php:541 image.php:553 templates/image/crop_image.inc:110
+#: image.php:543 image.php:555 templates/image/crop_image.inc:110
 #: templates/image/edit_image.inc:26 templates/image/resize_image.inc:56
 msgid "Watermark"
 msgstr "Vesileima"
@@ -2308,7 +2285,7 @@ msgstr "Vesileiman kirjasin"
 msgid "Watermark Preferences"
 msgstr "Vesileiman asetukset"
 
-#: config/prefs.php:236
+#: config/prefs.php:237
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
@@ -2316,7 +2293,7 @@ msgstr ""
 "Kun uusi galleria on luotu, niin mitkä oikeudet pitäisi antaa oletuksena "
 "niille ryhmille joissa käyttäjä on jäsenenä?"
 
-#: config/prefs.php:214
+#: config/prefs.php:215
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
@@ -2324,7 +2301,7 @@ msgstr ""
 "Kun uusi galleria on luotu, niin mitkä oikeudet pitäisi antaa oletuksena "
 "autentikoiduille käyttäjille?"
 
-#: config/prefs.php:224
+#: config/prefs.php:225
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
@@ -2332,7 +2309,7 @@ msgstr ""
 "Kun uusia galleria on luotu, niin mitä oikeudet pitäisi antaa oletuksena "
 "vierailijoille?"
 
-#: config/prefs.php:242
+#: config/prefs.php:244
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
@@ -2340,7 +2317,7 @@ msgstr ""
 "Mitkä metatieto-kentät pitäisi automaattisesti lisätä kuvan tageihin "
 "tuotaessa kuvia palvelimelle?"
 
-#: config/prefs.php:203
+#: config/prefs.php:204
 msgid "Who should be allowed to download original photos"
 msgstr "Kuka saa tallentaa alkuperäiset valokuvat"
 
@@ -2356,14 +2333,13 @@ msgstr "Sinulla ei ole oikeuksia muuttaa tätä valokuvaa."
 msgid "You are not authorized to upload photos to this gallery."
 msgstr "Sinulla ei ole oikeuksia tuoda valokuvia tähän galleriaan."
 
-#: lib/View/Upload.php:250
+#: lib/View/Upload.php:251
 msgid "You did not select any photos to upload."
 msgstr "Et valinnut ainuttakaan kuvaa tuotavaksi palvelimelle."
 
-#: lib/View/GalleryProperties.php:342
-#, php-format
-msgid "You do not have permission to add children to %s."
-msgstr "Sinulla ei ole oikeuksia lisätä alitasoja %s."
+#: lib/View/GalleryProperties.php:346
+msgid "You do not have permission to add sub galleries to this gallery."
+msgstr "Sinulla ei ole oikeuksia lisätä aligallerioita tähän galleriaan."
 
 #: img/ecard.php:42
 msgid ""
@@ -2380,7 +2356,7 @@ msgstr ""
 msgid "You have no photo galleries, add one!"
 msgstr "Sinulla ei ole valokuvagallerioita, lisää itsellesi!"
 
-#: lib/Ajax/Imple/UploadNotification.php:62
+#: lib/Ajax/Application/Handler.php:70
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -2411,7 +2387,7 @@ msgstr "Sinun pitää antaa sähköpostiosoite, johon viesti lähetetään"
 msgid "You must enter your e-mail address."
 msgstr "Sinun pitää antaa sähköpostiosoite"
 
-#: lib/View/GalleryProperties.php:353
+#: lib/View/GalleryProperties.php:357
 msgid "You must provide a display name for your new gallery."
 msgstr "Sinun pitää antaa näkymän nimi galleriallesi."
 
@@ -2419,7 +2395,7 @@ msgstr "Sinun pitää antaa näkymän nimi galleriallesi."
 msgid "You must select at least on photo to edit."
 msgstr "Sinun pitää valita ainakin yksi valokuva muokattavaksi."
 
-#: image.php:804
+#: image.php:811
 msgid "You must select images to download."
 msgstr "Et valinnut ainuttakaan kuvaa tallennettavaksi."
 
@@ -2428,7 +2404,7 @@ msgstr "Et valinnut ainuttakaan kuvaa tallennettavaksi."
 msgid "You must upload the search photo first"
 msgstr "Sinun pitää ensin tuoda palvelimelle etsittävä valokuva"
 
-#: lib/View/GalleryProperties.php:120
+#: lib/View/GalleryProperties.php:127
 msgid ""
 "Your server does not support thumbnails with transparent backgrounds.  "
 "Either select a background color or use the 'Basic Thumbnail' type. Please "
@@ -2442,27 +2418,27 @@ msgstr ""
 msgid "Zip File Upload"
 msgstr "Zip-tiedoston tuonti palvelimelle"
 
-#: lib/Application.php:97
+#: lib/Application.php:103
 msgid "_Browse"
 msgstr "_Selaa"
 
-#: lib/Application.php:138
+#: lib/Application.php:144
 msgid "_Faces"
 msgstr "_Kasvot"
 
-#: lib/Application.php:105
+#: lib/Application.php:111
 msgid "_Galleries"
 msgstr "_Galleriat"
 
-#: lib/Application.php:118
+#: lib/Application.php:124
 msgid "_My Galleries"
 msgstr "_Omat galleriat"
 
-#: lib/Application.php:130
+#: lib/Application.php:136
 msgid "_New Gallery"
 msgstr "_Uusi galleria"
 
-#: lib/Application.php:144
+#: lib/Application.php:150
 msgid "_Print"
 msgstr "_Tulosta"
 
@@ -2475,20 +2451,16 @@ msgstr "lähde"
 msgid "height"
 msgstr "Korkeus"
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:198
 msgid "here"
 msgstr "tässä"
-
-#: lib/Application.php:210
-msgid "loading"
-msgstr "ladataan"
 
 #: group.php:82
 msgid "none"
 msgstr "ei mitään"
 
-#: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:147
+#: lib/View/EmbeddedRenderer/Mini.php:193
+#: lib/View/GalleryRenderer/GalleryLightbox.php:149
 msgid "of"
 msgstr " / "
 
@@ -2496,11 +2468,11 @@ msgstr " / "
 msgid "owner"
 msgstr "omistaja"
 
-#: xppublish.php:187
+#: xppublish.php:190
 msgid "photo"
 msgstr "valokuva"
 
-#: lib/Ajax/Imple/UploadNotification.php:62
+#: lib/Ajax/Application/Handler.php:70
 msgid "preferences"
 msgstr "asetukset"
 

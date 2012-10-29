@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Klutz 1.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-05-24 14:13:33+0300\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 
-#: comics.php:301 templates/comics/comic.inc:5 templates/comics/comic.inc:8
-#: templates/comics/main.inc:45 templates/comics/missing.inc:5
+#: comics.php:307 templates/comics/comic.inc:5 templates/comics/comic.inc:8
+#: templates/comics/main.inc:42 templates/comics/missing.inc:5
 #: templates/comics/missing.inc:8
 #, php-format
 msgid "%s by %s"
@@ -34,7 +34,7 @@ msgstr "Kaikki sarjakuvat"
 msgid "All Dates"
 msgstr "Kaikki päivät"
 
-#: backend.php:256
+#: backend.php:255
 #, php-format
 msgid "An error occurred removing %s for %s<br />\n"
 msgstr "Tapahtui virhe poistettaessa %s %s />\n"
@@ -63,7 +63,7 @@ msgstr "Sarjakuvat"
 msgid "Comics Update"
 msgstr "Sarjakuvien päivitys"
 
-#: backend.php:255
+#: backend.php:254
 #, php-format
 msgid "Could not find %s for %s<br />\n"
 msgstr "Ei löytynyt %s %s />\n"
@@ -96,7 +96,7 @@ msgstr "Näkymän asetukset"
 msgid "Don't check for uniqueness"
 msgstr "Älä tarkista yksikäsitteisyyttä"
 
-#: backend.php:225
+#: backend.php:224
 msgid "Done"
 msgstr "Valmis"
 
@@ -108,7 +108,7 @@ msgstr "Anna kuvaus tälle sarjakuvalle"
 msgid "Enter any tags for this image"
 msgstr "Anna tagejä tälle kuvalle"
 
-#: backend.php:231
+#: backend.php:230
 msgid "Error storing the image"
 msgstr "Tapahtui virhe kuvan talletuksessa"
 
@@ -120,12 +120,12 @@ msgstr "Hae"
 msgid "Fetch Comics"
 msgstr "Hae sarjakuvat"
 
-#: backend.php:209
+#: backend.php:208
 #, php-format
 msgid "Fetching %s for date %s..."
 msgstr "Haetaan %s päivämäärälle %s..."
 
-#: backend.php:227
+#: backend.php:226
 #, php-format
 msgid "Fetching %s for date %s...Done"
 msgstr "Haetaan %s päivämäärälle %s...Valmis"
@@ -162,11 +162,11 @@ msgstr "Kirjoita olemassaolevien sarjakuvien päälle."
 msgid "Rebuild Unique Identifiers file."
 msgstr "Rakenna uudestaan yksikäsitteisten tunnisteiden tiedosto."
 
-#: comics.php:216 comics.php:218 comics.php:313 comics.php:315
+#: comics.php:220 comics.php:222 comics.php:320 comics.php:322
 msgid "Save Comic to Gallery"
 msgstr "Tallenna sarjakuva galleriaan"
 
-#: savecomic.php:63
+#: savecomic.php:64
 msgid "Save Image"
 msgstr "Tallenna kuva"
 
@@ -190,12 +190,12 @@ msgstr "Näytä kaikki valitsemasi sarjakuvat yhteenvetonäkymässä."
 msgid "Show comics you haven't selected on the browse page?"
 msgstr "Näytä selaussivulla ne sarjakuvat, joita et ole valinnut."
 
-#: backend.php:234
+#: backend.php:233
 #, php-format
 msgid "Skipping %s for %s"
 msgstr "Ohita %s - %s"
 
-#: backend.php:206
+#: backend.php:205
 #, php-format
 msgid "Skipping %s for %s - no historical fetching"
 msgstr "Ohitetaan %s - %s - ei historia hakuja"
@@ -204,7 +204,7 @@ msgstr "Ohitetaan %s - %s - ei historia hakuja"
 msgid "Submit"
 msgstr "Suorita"
 
-#: backend.php:254
+#: backend.php:253
 #, php-format
 msgid "Successfully removed %s for %s<br />\n"
 msgstr "%s poistaminen %s onnistui<br />\n"
@@ -213,7 +213,7 @@ msgstr "%s poistaminen %s onnistui<br />\n"
 msgid "Tags"
 msgstr "Tagit"
 
-#: backend.php:216 backend.php:218
+#: backend.php:215 backend.php:217
 msgid "The image doesn't exist or can't be retrieved"
 msgstr "Kuvaa ei ole olemassa tai sitä ei voida hakea"
 
@@ -225,11 +225,11 @@ msgstr "Yksikäsitteisten tunnisteiden taulu on rakennettu uudestaan."
 msgid "There was an error retrieving the comic."
 msgstr "Tapahtui virhe haettaessa sarjakuvaa."
 
-#: comics.php:242
+#: comics.php:246
 msgid "This comic doesn't exist or is disabled."
 msgstr "Tätä sarjakuvaa ei ole olemassa tai sen näyttö on estetty."
 
-#: backend.php:222
+#: backend.php:221
 #, php-format
 msgid "This image appears to be a repeat (%s)"
 msgstr "Tämä kuva vaikuttaisi olevan uusinta (%s)"
@@ -254,7 +254,7 @@ msgstr "Tämänpäiväiset sarjakuvat"
 msgid "Try to fetch this comic"
 msgstr "Yritä hakea tämä sarjakuva"
 
-#: templates/comics/main.inc:32
+#: templates/comics/main.inc:31
 msgid "View by comic"
 msgstr "Näytä sarjakuvittain"
 
@@ -269,27 +269,27 @@ msgstr ""
 "Sinun pitää määritellä talletuksen taustajärjestelmä, jotta voisit käyttää "
 "ylläpitoliittymää."
 
-#: lib/Application.php:74
+#: lib/Application.php:72
 msgid "_Browse"
 msgstr "_Selaa"
 
-#: lib/Application.php:77
+#: lib/Application.php:75
 msgid "_Today"
 msgstr "_Tänään"
 
-#: lib/Application.php:81
+#: lib/Application.php:79
 msgid "_Update"
 msgstr "_Päivitä"
 
-#: backend.php:275 backend.php:277
+#: backend.php:274 backend.php:276
 msgid "all comics"
 msgstr "kaikki sarjakuvat"
 
-#: backend.php:271
+#: backend.php:270
 msgid "any comics"
 msgstr "mikä tahansa sarjakuva"
 
-#: backend.php:271
+#: backend.php:270
 msgid "any dates"
 msgstr "mikä tahansa päivämäärä"
 
