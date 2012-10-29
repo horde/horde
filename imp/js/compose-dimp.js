@@ -864,7 +864,7 @@ var DimpCompose = {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
         u.up().hide().next().hide();
-        $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u) + ')').show();
+        $('upload_wait').update(DIMP.text_compose.uploading + ' (' + $F(u).escapeHTML() + ')').show();
     },
 
     attachmentComplete: function()
