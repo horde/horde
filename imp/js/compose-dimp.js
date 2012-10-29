@@ -786,9 +786,9 @@ var DimpCompose = {
 
         if (this.rte_loaded) {
             this.rte.resize('99%', mah - 1, false);
-        } else if (!ImpComposeBase.editor_on) {
-            $('composeMessage').setStyle({ height: mah + 'px' });
         }
+
+        $('composeMessage').setStyle({ height: mah + 'px' });
 
         if ($('rteloading') && $('rteloading').visible()) {
             this.RTELoading();
