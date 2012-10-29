@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix regression in sending messages in basic/minimal mode if no attachment is added (Bug #11582).
 * [jan] Fix key navigation in message view of basic mode.
  </notes>
  <contents>
@@ -2778,6 +2779,7 @@
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix regression in sending messages in basic/minimal mode if no attachment is added (Bug #11582).
 * [jan] Fix key navigation in message view of basic mode.
    </notes>
   </release>

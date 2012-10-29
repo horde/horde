@@ -97,9 +97,17 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         /* Add attachment. */
         if ($session->get('imp', 'file_upload') &&
-            !$imp_compose->addFilesFromUpload('upload_', $this->vars->a == _("Expand Names")) &&
-            ($this->vars->a != _("Expand Names"))) {
-            $this->vars->a = null;
+            isset($_FILES['upload_1']) &&
+            strlen($_FILES['upload_1']['name'])) {
+            try {
+                $filename = $imp_compose->addFileFromUpload('upload_1');
+                if ($this->vars->a == _("Expand Names")) {
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                }
+            } catch (IMP_Compose_Exception $e) {
+                $this->vars->a = null;
+                $notification->push($e, 'horde.error');
+            }
         }
 
         /* Run through the action handlers. */
