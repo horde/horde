@@ -1451,6 +1451,50 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *   </ul>
      *  </li>
      *  <li>
+     *   Horde_Imap_Client::STATUS_SYNCMODSEQ
+     *   <ul>
+     *    <li>
+     *     Return key: syncmodseq
+     *    </li>
+     *    <li>
+     *     Return format: (integer) If caching, and the server supports the
+     *     CONDSTORE IMAP extension, this is the cached mod-sequence value of
+     *     the mailbox when it was opened for the first time in this access.
+     *     Will be null if not caching, CONDSTORE not available, or the
+     *     mailbox does not support mod-sequences.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_SYNCFLAGUIDS
+     *   <ul>
+     *    <li>
+     *     Return key: syncflaguids
+     *    </li>
+     *    <li>
+     *     Return format: (Horde_Imap_Client_Ids) If caching, the server
+     *     supports the CONDSTORE IMAP extension, and the mailbox contained
+     *     cached data when opened for the first time in this access, this is
+     *     the list of UIDs in which flags have changed since
+     *     STATUS_SYNCMODSEQ.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
+     *   Horde_Imap_Client::STATUS_SYNCVANISHED
+     *   <ul>
+     *    <li>
+     *     Return key: syncvanished
+     *    </li>
+     *    <li>
+     *     Return format: (Horde_Imap_Client_Ids) If caching, the server
+     *     supports the CONDSTORE IMAP extension, and the mailbox contained
+     *     cached data when opened for the first time in this access, this is
+     *     the list of UIDs which have been deleted since STATUS_SYNCMODSEQ.
+     *    </li>
+     *   </ul>
+     *  </li>
+     *  <li>
      *   Horde_Imap_Client::STATUS_UIDNOTSTICKY
      *   <ul>
      *    <li>
@@ -1514,6 +1558,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $flags &= ~Horde_Imap_Client::STATUS_UIDNOTSTICKY;
         }
 
+        /* Handle SYNC related return options. */
+        if ($flags & Horde_Imap_Client::STATUS_SYNCMODSEQ) {
+            $ret['syncmodseq'] = null;
+            $flags &= ~Horde_Imap_Client::STATUS_SYNCMODSEQ;
+        }
+
+        if ($flags & Horde_Imap_Client::STATUS_SYNCFLAGUIDS) {
+            $ret['syncflaguids'] = $this->getIdsOb();
+            $flags &= ~Horde_Imap_Client::STATUS_SYNCFLAGUIDS;
+        }
+
+        if ($flags & Horde_Imap_Client::STATUS_SYNCVANISHED) {
+            $ret['syncvanished'] = $this->getIdsOb();
+            $flags &= ~Horde_Imap_Client::STATUS_SYNCVANISHED;
+        }
+
+        /* UIDNEXT return options. */
         if ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) {
             $flags |= Horde_Imap_Client::STATUS_UIDNEXT;
         }

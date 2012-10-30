@@ -37,8 +37,11 @@ class Horde_Imap_Client
     const STATUS_FLAGS = 128;
     const STATUS_PERMFLAGS = 256;
     const STATUS_HIGHESTMODSEQ = 512;
+    const STATUS_SYNCMODSEQ = 1024;
+    const STATUS_SYNCFLAGUIDS = 2048;
     const STATUS_UIDNOTSTICKY = 4096;
     const STATUS_UIDNEXT_FORCE = 8192;
+    const STATUS_SYNCVANISHED = 16384;
 
     /* Constants for search() */
     const SORT_ARRIVAL = 1;

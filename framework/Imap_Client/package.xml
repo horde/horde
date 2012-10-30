@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED return options to Horde_Imap_Client_Base#status().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1168,7 +1168,7 @@
    <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED return options to Horde_Imap_Client_Base#status().
    </notes>
   </release>
  </changelog>
