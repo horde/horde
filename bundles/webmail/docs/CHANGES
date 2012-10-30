@@ -2,6 +2,33 @@
 v5.0.0-git
 ----------
 
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
+
+Mail Changes
+------------
+[mms] Fix regression in adding an attachment in minimal view.
+[mms] Fix regression causing large amounts of whitespace padding to be added to
+      compose text in basic view.
+[mms] Fix regression in sending messages in basic/minimal mode if no attachment
+      is added (Bug #11582).
+[jan] Fix key navigation in message view of basic mode.
+
+Library Changes
+---------------
+Core
+[mms] Confirmation link for new identity requires the full URL as it is
+      intended to be accessed outside of the Horde application (Bug #11593).
+[mms] Need to unescape JSON data returned in a text/html response.
+
+Imap_Client
+[mms] Fix regression in Horde_Imap_Client_Base#listMailboxes() return when both
+      the 'flat' and 'sort' options are active.
+[mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED
+      return options to Horde_Imap_Client_Base#status().
+[mms] Fix invalid class name usage (Bug #11586).
+[mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from
+      status().
 
 
 ---------
