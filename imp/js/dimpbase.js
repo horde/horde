@@ -93,7 +93,6 @@ var DimpBase = {
         } else {
             this.viewport.select($A($R(1, this.viewport.getMetaData('total_rows'))), { right: true });
             DimpCore.toggleCheck(tmp, true);
-            $('previewInfo').highlight({ queue: 'end', keepBackgroundImage: true, duration: 2.0 })
         }
     },
 
@@ -525,8 +524,14 @@ var DimpBase = {
             pane_data: 'previewPane',
             pane_mode: this._getPref('preview'),
             pane_width: this._getPref('splitbar_vert'),
-            split_bar_class: { horiz: 'horde-splitbar-horiz', vert: 'horde-splitbar-vert' },
-            split_bar_handle_class: { horiz: 'horde-splitbar-horiz-handle', vert: 'horde-splitbar-vert-handle' },
+            split_bar_class: {
+                horiz: 'horde-splitbar-horiz',
+                vert: 'horde-splitbar-vert'
+            },
+            split_bar_handle_class: {
+                horiz: 'horde-splitbar-horiz-handle',
+                vert: 'horde-splitbar-vert-handle'
+            },
 
             // Callbacks
             onAjaxRequest: function(params) {
@@ -578,8 +583,7 @@ var DimpBase = {
                 }
 
                 return offset;
-            }.bind(this),
-            onSlide: this.setMessageListTitle.bind(this)
+            }.bind(this)
         });
 
         /* Custom ViewPort events. */
@@ -757,6 +761,14 @@ var DimpBase = {
             if (this._getPref('preview')) {
                 if (e.memo.opts.right) {
                     this.clearPreviewPane();
+                    $('previewInfo').highlight({
+                        duration: 2.0,
+                        keepBackgroundImage: true,
+                        queue: {
+                            limit: 1,
+                            scope: 'previewInfo'
+                        }
+                    })
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
@@ -764,6 +776,30 @@ var DimpBase = {
                 }
             }
         }.bindAsEventListener(this));
+
+        container.observe('ViewPort:sliderEnd', function() {
+            $('slider_count').hide();
+        });
+
+        container.observe('ViewPort:sliderSlide', this.updateSliderCount.bind(this));
+
+        container.observe('ViewPort:sliderStart', function() {
+            var sc = $('slider_count'),
+                sb = $('msgSplitPane').down('.vpScroll'),
+                s = sb.viewportOffset();
+
+            if (!sc) {
+                sc = new Element('DIV', { id: 'slider_count' });
+                $(document.body).insert(sc);
+            }
+
+            this.updateSliderCount();
+
+            sc.setStyle({
+                top: (s.top + sb.getHeight() - sc.getHeight()) + 'px',
+                right: (document.viewport.getWidth() - s.left) + 'px'
+            }).show();
+        }.bind(this));
 
         container.observe('ViewPort:splitBarChange', function(e) {
             switch (e.memo) {
@@ -1062,10 +1098,6 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
-        case 'ctx_oa_help':
-            this.toggleHelp();
-            break;
-
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
         case 'ctx_sortopts_to':
@@ -1179,6 +1211,10 @@ var DimpBase = {
                 } else {
                     elts.invoke('show');
                 }
+            }
+
+            if (baseelt.retrieve('nc')) {
+                $('ctx_mbox_create').hide();
             }
 
             tmp = Object.isUndefined(baseelt.retrieve('u'));
@@ -2706,11 +2742,6 @@ var DimpBase = {
             e.memo.stop();
             break;
 
-        case 'helptext_close':
-            this.toggleHelp();
-            e.memo.stop();
-            break;
-
         case 'send_mdn_link':
             tmp = {};
             tmp[this.pp.mbox] = [ this.pp.uid ];
@@ -2780,16 +2811,11 @@ var DimpBase = {
         this.loadingImg(e.memo, false);
     },
 
-    toggleHelp: function()
+    updateSliderCount: function()
     {
-        Effect.toggle($('helptext').down('DIV'), 'blind', {
-            duration: 0.75,
-            queue: {
-                position: 'end',
-                scope: 'DimpHelp',
-                limit: 2
-            }
-        });
+        var range = this.viewport.currentViewableRange();
+
+        $('slider_count').update(DimpCore.text.slidertext.sub('%d', range.first).sub('%d', range.last));
     },
 
     _mailboxPromptCallback: function(type, elt, r)
@@ -3226,6 +3252,11 @@ var DimpBase = {
         // Check for unseen messages
         if (ob.po) {
             li.store('u', '');
+        }
+
+        // Check for mailboxes that don't allow children
+        if (ob.nc) {
+            li.store('nc', true);
         }
 
         switch (ftype) {

@@ -62,8 +62,11 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector
             $instance = new IMP_Imap_Tree();
         }
 
-        if ($registry->getView() == Horde_Registry::VIEW_DYNAMIC) {
+        switch ($registry->getView()) {
+        case $registry::VIEW_DYNAMIC:
+        case $registry::VIEW_SMARTMOBILE:
             $instance->track = true;
+            break;
         }
 
         register_shutdown_function(array($this, 'shutdown'), $instance, $injector);

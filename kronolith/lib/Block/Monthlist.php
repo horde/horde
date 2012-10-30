@@ -154,7 +154,7 @@ class Kronolith_Block_Monthlist extends Horde_Core_Block
                 if ($firstevent || $isMultiDay) {
                     $html .= '<tr';
                     if ($current_month == $day->month) {
-                        $html .= ' class="block-upcomingday"';
+                        $html .= ' class="upcomingday"';
                     }
                     $html .= '><td class="text" valign="top" align="right"><strong>';
                     if ($day->isToday()) {

@@ -5,19 +5,21 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('nologintasks' => true));
 
 $cid = Horde_Util::getFormData('cid');
-if (empty($cid)) {
+if (!strlen($cid)) {
     exit;
 }
 
-$cache = $injector->getInstance('Horde_Cache');
-$cdata = @unserialize($cache->get($cid, $conf['cache']['default_lifetime']));
+$cdata = @unserialize($injector->getInstance('Horde_Cache')->get($cid, $conf['cache']['default_lifetime']));
 if (!$cdata) {
     exit;
 }

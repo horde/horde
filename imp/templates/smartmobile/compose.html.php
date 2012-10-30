@@ -37,9 +37,6 @@
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
   <a href="#compose-submit"><?php echo _("Send Message") ?></a>
-<?php if ($this->abook): ?>
-  <a href="<?php echo $this->abook ?>" data-ajax="false"><?php echo _("Address Book") ?></a>
-<?php endif; ?>
   <a href="#compose-cancel"><?php echo _("Cancel") ?></a>
  </div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Traditional (imp) mailbox display page.
+ * Basic view mailbox display page.
  *
  * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
  *
@@ -327,7 +327,7 @@ if (IMP::mailbox()->inbox) {
 
 if (!is_null($rss_box)) {
     $page_output->addLinkTag(array(
-        'href' => Horde::url('rss.php') . $rss_box
+        'href' => Horde::url('rss.php', true, -1) . $rss_box
     ));
 }
 
@@ -374,18 +374,21 @@ if (IMP::mailbox()->editvfolder) {
 
 /* Generate mailbox summary string. */
 $subinfo = $injector->getInstance('IMP_View_Subinfo');
-$subinfo->value = $pagetitle . ' (';
+$subinfo->value = $pagetitle;
 if (empty($pageOb['end'])) {
     $subinfo->value .= _("No Messages");
-} elseif ($pageOb['pagecount'] > 1) {
-    $subinfo->value .=
-          sprintf(_("%d Messages"), $pageOb['msgcount'])
-        . ' / '
-        .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
 } else {
-    $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
+    $subinfo->value .= ' (';
+    if ($pageOb['pagecount'] > 1) {
+        $subinfo->value .=
+              sprintf(_("%d Messages"), $pageOb['msgcount'])
+            . ' / '
+            .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
+    } else {
+        $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
+    }
+    $subinfo->value .= ')';
 }
-$subinfo->value .= ')';
 $injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 $page_output->addScriptFile('hordecore.js', 'horde');
@@ -971,7 +974,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Set up threading tree now. */
     if ($thread_sort) {
-        $t_ob = $imp_mailbox[$ob['idx']]['t'];
+        $t_ob = $imp_mailbox->getThreadOb($ob['idx']);
         $msg['subject'] = ($sortpref->sortdir ? $t_ob->reverse_img : $t_ob->img) . ' ' . $msg['subject'];
     }
 

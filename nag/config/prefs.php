@@ -239,7 +239,7 @@ $_prefs['default_tasklist'] = array(
     'on_init' => function($ui) {
         $enum = array();
         foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $key => $val) {
-            $enum[htmlspecialchars($key)] = htmlspecialchars($val->get('name'));
+            $enum[$key] = Nag::getLabel($val);
         }
         $ui->prefs['default_tasklist']['enum'] = $enum;
     },
@@ -279,7 +279,7 @@ $_prefs['sync_lists'] = array(
         }
         foreach (Nag::listTasklists(false, Horde_Perms::EDIT, false) as $key => $list) {
             if ($list->getName() != Nag::getDefaultTasklist(Horde_Perms::EDIT)) {
-                $enum[$key] = $list->get('name');
+                $enum[$key] = Nag::getLabel($list);
             }
         }
         $ui->prefs['sync_lists']['enum'] = $enum;

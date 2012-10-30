@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Mime_Viewer\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
 "PO-Revision-Date: 2012-03-07 15:08:57+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -94,7 +94,7 @@ msgstr "Vastaanottaja"
 msgid "Unable to translate this RTF document"
 msgstr "RTF-dokumenttia ei saatu näytettävään muotoon"
 
-#: lib/Horde/Mime/Viewer/Msword.php:76
+#: lib/Horde/Mime/Viewer/Msword.php:82
 msgid "Unable to translate this Word document"
 msgstr "Word-dokumenttia ei saatu näytettävään muotoon"
 

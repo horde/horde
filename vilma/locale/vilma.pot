@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,7 +56,7 @@ msgid_plural "Account is the target of %d forwards."
 msgstr[0] ""
 msgstr[1] ""
 
-#: templates/users/index.html:11
+#: templates/users/index.html:7
 msgid "Address"
 msgstr ""
 
@@ -113,11 +113,11 @@ msgstr ""
 msgid "Delete %s \"%s\"?"
 msgstr ""
 
-#: domains/index.php:48 lib/Form/DeleteDomain.php:15
+#: domains/index.php:44 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr ""
 
-#: users/index.php:115 virtuals/index.php:61
+#: users/index.php:109 virtuals/index.php:61
 msgid "Delete User"
 msgstr ""
 
@@ -135,7 +135,7 @@ msgstr ""
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr ""
 
-#: virtuals/edit.php:58 templates/virtuals/index.html:18
+#: virtuals/edit.php:58 templates/virtuals/index.html:14
 msgid "Destination"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Do not delete"
 msgstr ""
 
-#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:10
 msgid "Domain"
 msgstr ""
 
@@ -181,7 +181,7 @@ msgstr ""
 msgid "Edit Alias \"%s\" for \"%s\""
 msgstr ""
 
-#: domains/index.php:49 lib/Form/EditDomain.php:18
+#: domains/index.php:45 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr ""
 
@@ -200,7 +200,7 @@ msgstr ""
 msgid "Edit Group for \"%s\""
 msgstr ""
 
-#: users/index.php:116 virtuals/index.php:62
+#: users/index.php:110 virtuals/index.php:62
 msgid "Edit User"
 msgstr ""
 
@@ -353,7 +353,7 @@ msgstr ""
 msgid "Forwards"
 msgstr ""
 
-#: lib/Form/EditUser.php:51 templates/users/index.html:14
+#: lib/Form/EditUser.php:51 templates/users/index.html:10
 msgid "Full Name"
 msgstr ""
 
@@ -387,7 +387,7 @@ msgstr ""
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr ""
 
-#: templates/domains/index.html:17
+#: templates/domains/index.html:13
 msgid "Max Users"
 msgstr ""
 
@@ -493,7 +493,7 @@ msgstr ""
 msgid "Set default display parameters."
 msgstr ""
 
-#: templates/users/index.html:20
+#: templates/users/index.html:16
 msgid "Status"
 msgstr ""
 
@@ -526,7 +526,7 @@ msgstr ""
 msgid "Transport"
 msgstr ""
 
-#: templates/users/index.html:17
+#: templates/users/index.html:13
 msgid "Type"
 msgstr ""
 
@@ -605,7 +605,7 @@ msgstr ""
 msgid "Virtual Email"
 msgstr ""
 
-#: templates/virtuals/index.html:15
+#: templates/virtuals/index.html:11
 msgid "Virtual Email Address"
 msgstr ""
 

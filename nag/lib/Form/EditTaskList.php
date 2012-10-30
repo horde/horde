@@ -62,7 +62,7 @@ class Nag_Form_EditTaskList extends Horde_Form
         $this->addVariable(_("Color"), 'color', 'colorpicker', false);
         if ($GLOBALS['registry']->isAdmin()) {
             $this->addVariable(
-                _("System List"), 'system', 'boolean', false, false,
+                _("System Task List"), 'system', 'boolean', false, false,
                 _("System task lists don't have an owner. Only administrators can change the task list settings and permissions.")
             );
         }

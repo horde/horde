@@ -7,8 +7,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Mike Cochrane <mike@graftonhall.co.nz>
- * @author Michael Slusarz <slusarz@horde.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';
@@ -62,6 +65,8 @@ case 'rule_delete':
     $valid = true;
     foreach (array_filter($vars->field) as $key => $val) {
         $condition = array();
+        $f_label = null;
+
         if ($val == Ingo::USER_HEADER) {
             $condition['field'] = empty($vars->userheader[$key])
                 ? ''
@@ -72,6 +77,7 @@ case 'rule_delete':
             $condition['type'] = Ingo_Storage::TYPE_HEADER;
         } else {
             $condition['field'] = $val;
+            $f_label = $ingo_fields[$val]['label'];
             $condition['type'] = $ingo_fields[$val]['type'];
         }
         $condition['match'] = isset($vars->match[$key])
@@ -81,7 +87,7 @@ case 'rule_delete':
         if (($vars->actionID == 'rule_save') &&
             empty($vars->value[$key]) &&
             !in_array($condition['match'], array('exists', 'not exist'))) {
-            $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), $condition['field']), 'horde.error');
+            $notification->push(sprintf(_("You cannot create empty conditions. Please fill in a value for \"%s\"."), is_null($f_label) ? $condition['field'] : $f_label), 'horde.error');
             $valid = false;
         }
 

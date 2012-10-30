@@ -69,9 +69,12 @@ class Turba_Smartmobile
                         continue;
                     }
 
-                    $contacts = $driver->search(array(), null, 'AND', array('__key', 'name'));
-                    $contacts->reset();
-
+                    try {
+                        $contacts = $driver->search(array(), null, 'AND', array('__key', 'name'));
+                        $contacts->reset();
+                    } catch (Turba_Exception $e) {
+                        continue;
+                    }
                     $url = new Horde_Core_Smartmobile_Url();
                     $url->add('source', $key);
                     $url->setAnchor('entry');

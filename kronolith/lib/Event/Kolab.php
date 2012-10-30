@@ -107,7 +107,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $exceptions = array();
                 foreach($event['recurrence']['exclusion'] as $exclusion) {
                     if (!empty($exclusion)) {
-                        $exceptions[] = join('', explode('-', $exclusion));
+                        $exceptions[] = $exclusion->format('Ymd');
                     }
                 }
                 $event['recurrence']['exceptions'] = $exceptions;
@@ -116,13 +116,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 $completions = array();
                 foreach($event['recurrence']['complete'] as $complete) {
                     if (!empty($complete)) {
-                        $completions[] = join('', explode('-', $complete));
+                        $completions[] = $complete->format('Ymd');
                     }
                 }
                 $event['recurrence']['completions'] = $completions;
             }
             $this->recurrence = new Horde_Date_Recurrence($this->start);
-            $this->recurrence->fromHash($event['recurrence']);
+            $this->recurrence->fromKolab($event['recurrence']);
         }
 
         // Attendees
@@ -234,29 +234,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $event['recurrence'] = $this->recurrence->toHash();
-            if (!empty($event['recurrence']['exceptions'])) {
-                $exclusions = array();
-                foreach($event['recurrence']['exceptions'] as $exclusion) {
-                    if (!empty($exclusion)) {
-                        $exclusions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($exclusion, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['exclusion'] = $exclusions;
-            }
-            if (!empty($event['recurrence']['completions'])) {
-                $completions = array();
-                foreach($event['recurrence']['completions'] as $complete) {
-                    if (!empty($complete)) {
-                        $completions[] = vsprintf(
-                            '%04d-%02d-%02d', sscanf($complete, '%04d%02d%02d')
-                        );
-                    }
-                }
-                $event['recurrence']['complete'] = $completions;
-            }
+            $event['recurrence'] = $this->recurrence->toKolab();
         }
 
         // Attendees
@@ -287,7 +265,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
                 break;
             }
 
-            $new_attendee['request-response'] = '0';
+            $new_attendee['request-response'] = 'false';
 
             switch ($attendee['response']) {
             case Kronolith::RESPONSE_ACCEPTED:
@@ -313,8 +291,7 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         // Tags
         if (!is_array($this->tags)) {
-            $this->tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($this->tags);
+            $this->tags = Kronolith::getTagger()->split($this->tags);
         }
         if ($this->tags) {
             $event['categories'] = $this->tags;

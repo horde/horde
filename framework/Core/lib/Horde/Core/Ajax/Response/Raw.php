@@ -45,9 +45,9 @@ class Horde_Core_Ajax_Response_Raw extends Horde_Core_Ajax_Response
      */
     public function send()
     {
-        $type = trim($this->type);
+        $type = trim($this->_type);
         if (stripos($type, 'text/') === 0) {
-            $type .= '; charset=' . $this->charset;
+            $type .= '; charset=' . $this->_charset;
         }
 
         header('Content-Type: ' . $type);

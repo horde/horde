@@ -13,6 +13,9 @@ var ImpMobile = {
     // /* Attachment data for the current message. */
     // atc,
     //
+    // /* Has the folders list been loaded? */
+    // foldersLoaded,
+    //
     // /* Header data for the current message. */
     // headers,
     //
@@ -111,21 +114,19 @@ var ImpMobile = {
             // Fall-through
 
         case 'folders':
-            HordeMobile.doAction('poll', {
-                poll: JSON.stringify([])
-            });
+            if (ImpMobile.foldersLoaded) {
+                HordeMobile.doAction('poll', {
+                    poll: JSON.stringify([])
+                });
+            } else {
+                ImpMobile.loadFolders();
+            }
             break;
 
         case 'folders-showall':
         case 'folders-showpoll':
             $('#folders :jqmData(role=footer) a[href*="folders-show"]').toggle();
-            HordeMobile.doAction(
-                'smartmobileFolderTree',
-                { all: ImpMobile.showAllFolders() },
-                function(r) {
-                    $('#imp-folders-list').html(r).listview('refresh');
-                }
-            );
+            ImpMobile.loadFolders();
             e.preventDefault();
             break;
 
@@ -263,19 +264,6 @@ var ImpMobile = {
             $('#imp-message-more').show().siblings(':jqmData(more)').hide();
 
             $('#imp-message-headers,#imp-message-atc').trigger('collapse');
-
-            tmp = $('#message .smartmobile-back');
-            if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-                tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                    mbox: IMP.conf.qsearchid
-                }));
-                tmp.find('.ui-btn-text').text(IMP.text.searchresults);
-            } else {
-                tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                    mbox: ImpMobile.mailbox
-                }));
-                tmp.find('.ui-btn-text').text(ImpMobile.cache[ImpMobile.mailbox].label);
-            }
             break;
         }
     },
@@ -579,7 +567,7 @@ var ImpMobile = {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
             args = { mbox: data.mbox, uid: data.uid },
-            rownum;
+            rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
         // showMessage request.
@@ -593,6 +581,19 @@ var ImpMobile = {
 
         $('#message .smartmobile-title').text(data.title);
         document.title = $('#message .smartmobile-title').text();
+
+        tmp = $('#message .smartmobile-back');
+        if (ImpMobile.mailbox == IMP.conf.qsearchid) {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: IMP.conf.qsearchid
+            }));
+            tmp.find('.ui-btn-text').text(IMP.text.searchresults);
+        } else {
+            tmp.attr('href', HordeMobile.createUrl('mailbox', {
+                mbox: ImpMobile.mailbox
+            }));
+            tmp.find('.ui-btn-text').text(cache.label);
+        }
 
         if (!data.from) {
             $('#imp-message-from').text(IMP.text.nofrom);
@@ -885,6 +886,21 @@ var ImpMobile = {
         HordeMobile.changePage('compose', data);
     },
 
+    /**
+     * Load the folders list.
+     */
+    loadFolders: function()
+    {
+        HordeMobile.doAction(
+            'smartmobileFolderTree',
+            { all: ImpMobile.showAllFolders() },
+            function(r) {
+                ImpMobile.foldersLoaded = true;
+                $('#imp-folders-list').html(r).listview('refresh');
+            }
+        );
+    },
+
     uniqueSubmit: function(action)
     {
         var form = (action == 'redirectMessage')
@@ -1106,9 +1122,7 @@ var ImpMobile = {
             }
 
             if (IMP.conf.pop3) {
-                $.each(value, function(pk, pv) {
-                    str += '{P' + pv.length + '}' + pv;
-                });
+                str = value.join(' ');
             } else {
                 var u = value.numericSort(),
                     first = u.shift(),
@@ -1155,25 +1169,29 @@ var ImpMobile = {
      */
     runTasks: function(e, d)
     {
-        $.each(d, function(key, value) {
-            switch (key) {
-            case 'imp:flag':
-                ImpMobile.updateFlags(value);
-                break;
+        var v;
 
-            case 'imp:message':
-                ImpMobile.message = value.shift();
-                break;
+        if (v = d['imp:flag']) {
+            ImpMobile.updateFlags(v);
+            // Force a viewport update.
+            ImpMobile.mailboxCache = null;
+        }
 
-            case 'imp:poll':
-                ImpMobile.updateFolders(value);
-                break;
+        if (v = d['imp:message']) {
+            ImpMobile.message = v.shift();
+        }
 
-            case 'imp:viewport':
-                ImpMobile.viewport(value);
-                break;
-            }
-        });
+        if (d['imp:mailbox']) {
+             ImpMobile.foldersLoaded = false;
+        }
+
+        if (v = d['imp:poll']) {
+            ImpMobile.updateFolders(v);
+        }
+
+        if (v = d['imp:viewport']) {
+            ImpMobile.viewport(v);
+        }
     },
 
     /**

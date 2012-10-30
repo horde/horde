@@ -32,6 +32,8 @@ class Mnemo_Form_CreateNotepad extends Horde_Form
             $notepad = $GLOBALS['mnemo_shares']->newShare($GLOBALS['registry']->getAuth(), strval(new Horde_Support_Uuid()), $this->_vars->get('name'));
             $notepad->set('desc', $this->_vars->get('description'));
             $GLOBALS['mnemo_shares']->addShare($notepad);
+            $GLOBALS['display_notepads'][] = $notepad->getName();
+            $GLOBALS['prefs']->setValue('display_notepads', serialize($GLOBALS['display_notepads']));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             throw new Mnemo_Exception($e);

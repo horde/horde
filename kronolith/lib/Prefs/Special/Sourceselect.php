@@ -18,13 +18,13 @@ class Kronolith_Prefs_Special_Sourceselect implements Horde_Core_Prefs_Ui_Specia
      */
     public function init(Horde_Core_Prefs_Ui $ui)
     {
-        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
     }
 
     /**
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
+        Horde_Core_Prefs_Ui_Widgets::addressbooksInit();
         $search = Kronolith::getAddressbookSearchParams();
         return Horde_Core_Prefs_Ui_Widgets::addressbooks(array(
             'fields' => $search['fields'],

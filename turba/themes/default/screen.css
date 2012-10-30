@@ -105,7 +105,7 @@ table#addressbook-list th.sortdown {
 }
 
 .turba-browse-icon {
-    align: center;
+    text-align: center;
 }
 
 /* Duplicates */

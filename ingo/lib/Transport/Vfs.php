@@ -7,9 +7,11 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Brent J. Nordquist <bjn@horde.org>
- * @author  Jan Schneider <jan@horde.org>
- * @package Ingo
+ * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Transport_Vfs extends Ingo_Transport
 {
@@ -89,7 +91,9 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     {
         $this->_connect();
         try {
-            return $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename']);
+            return $this->_vfs->exists($this->_params['vfs_path'], $this->_params['filename'])
+                ? $this->_vfs->read($this->_params['vfs_path'], $this->_params['filename'])
+                : '';
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
         }

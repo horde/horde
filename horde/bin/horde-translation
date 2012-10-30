@@ -5,6 +5,10 @@
  *
  * For usage information call:
  * ./translation help
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 /**
@@ -1404,7 +1408,15 @@ class Horde_Translation_Script
                 $date = date('Y-m-d');
                 $xpath = new DOMXPath($doc_loc);
                 foreach ($doc_en->getElementsByTagName('entry') as $entry) {
-                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    $view = $entry->parentNode;
+                    while ($view->tagName != 'view' && $view != $doc_en) {
+                         $view = $view->parentNode;
+                    }
+                    $query = '//entry[@id="' . $entry->getAttribute('id') . '"]';
+                    if ($view->tagName == 'view') {
+                        $query = '//view[@id="' . $view->getAttribute('id') . '"]'. $query;
+                    }
+                    $list = $xpath->query($query);
                     if ($list->length) {
                         $entry_loc = $doc_en->importNode($list->item(0), true);
                         if ($entry_loc->hasAttribute('md5') &&
@@ -1527,7 +1539,15 @@ class Horde_Translation_Script
                         }
                     }
                     $count_all++;
-                    $list = $xpath->query('//entry[@id="' . $entry->getAttribute('id') . '"]');
+                    $view = $entry->parentNode;
+                    while ($view->tagName != 'view' && $view != $doc_en) {
+                         $view = $view->parentNode;
+                    }
+                    $query = '//entry[@id="' . $entry->getAttribute('id') . '"]';
+                    if ($view->tagName == 'view') {
+                        $query = '//view[@id="' . $view->getAttribute('id') . '"]'. $query;
+                    }
+                    $list = $xpath->query($query);
                     if ($list->length) {
                         $entry->setAttribute('md5', md5($list->item(0)->textContent));
                         $entry->setAttribute('state', 'uptodate');

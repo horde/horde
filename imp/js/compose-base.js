@@ -62,8 +62,13 @@ var ImpComposeBase = {
         var v = $F(elt).strip(),
             pos = v.lastIndexOf(',');
 
-        if (pos != -1) {
-            v = v.substring(0, pos) + ', ';
+        if (v.empty()) {
+            v = '';
+        } else {
+            if (pos != -1) {
+                v = v.substring(0, pos);
+            }
+            v += ', ';
         }
 
         elt.setValue(v + address + ', ');

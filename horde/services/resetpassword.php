@@ -6,20 +6,23 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
+
+$vars = $injector->getInstance('Horde_Variables');
 
 // Make sure auth backend allows passwords to be reset.
 $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 if (empty($conf['auth']['resetpassword']) ||
     !$auth->hasCapability('resetpassword')) {
     $notification->push(_("Cannot reset password automatically, contact your administrator."), 'horde.error');
-    $registry->getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+    $registry->getServiceLink('login')->add('url', $vars->url)->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
 
 $title = _("Reset your password");
 $form = new Horde_Form($vars, $title);
@@ -49,7 +52,7 @@ if ($username = $vars->get('username')) {
         $form->addVariable(_("Answer"), 'answer', 'text', true);
         if (!$question) {
             $notification->push(_("No security question has been set. Please contact your administrator."), 'horde.error');
-            $registry->getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
+            $registry->getServiceLink('login')->add('url', $vars->url)->redirect();
         }
     } else {
         $notification->push(_("Incorrect username or alternate address. Try again or contact your administrator if you need further help."), 'horde.error');
@@ -83,7 +86,7 @@ if ($can_validate && $form->validate($vars)) {
                                           'from' => $email,
                                           'charset' => 'UTF-8'));
         try {
-            $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'));
+            $mail->send($injector->getInstance('Horde_Mail'));
             $notification->push(_("Your password has been reset, check your email and log in with your new password."), 'horde.success');
             $registry->getServiceLink('login')->add('url', $info['url'])->redirect();
             exit;

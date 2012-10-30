@@ -1,7 +1,18 @@
+/**
+ * hermes.js - Base Hermes application logic.
+ *
+ * Copyright 2010 - 2012 Horde LLC (http://www.horde.org)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ */
+
+ /* Hermes Object. */
 HermesCore = {
     view: '',
     viewLoading: [],
-    inPrefs: false,
     effectDur: 0.4,
     loading: 0,
     inAjaxCallback: false,
@@ -12,16 +23,14 @@ HermesCore = {
     sortbyfield: 'sortDate',
     reverseSort: false,
     sortDir: 'up',
-    selectedSlices: [],
     today: null,
     redBoxLoading: false,
 
     onException: function(parentfunc, r, e)
     {
-        /* Make sure loading images are closed. */
         this.loading--;
         if (!this.loading) {
-            $('hermesLoading').hide();
+            $('.hermesLoading').hide();
         }
         this.closeRedBox();
         HordeCore.notify(HordeCore.text.ajax_error, 'horde.error');
@@ -53,13 +62,9 @@ HermesCore = {
             this.viewLoading.push([ fullloc, data ]);
             return;
         }
-        var locParts = fullloc.split(':');
-        var loc = locParts.shift();
+        var locParts = fullloc.split(':'),
+            loc = locParts.shift();
 
-        if (this.inPrefs && loc != 'prefs') {
-            this.redirect(fullloc, true);
-            return;
-        }
         if (this.openLocation == fullloc) {
             return;
         }
@@ -71,7 +76,7 @@ HermesCore = {
         case 'search':
             this.closeView(loc);
             var locCap = loc.capitalize();
-            $('hermesNav' + locCap).addClassName('on');
+            $('hermesNav' + locCap).up().addClassName('horde-active');
             switch (loc) {
             case 'time':
                 this.updateView(loc);
@@ -110,33 +115,14 @@ HermesCore = {
      */
     loadNextView: function()
     {
-        var current = this.viewLoading.shift();
+        var current = this.viewLoading.shift(),
+            next;
         if (this.viewLoading.size()) {
-            var next = this.viewLoading.pop();
+            next = this.viewLoading.pop();
             this.viewLoading = [];
             if (current[0] != next[0] || current[1] || next[1]) {
                 this.go(next[0], next[1]);
             }
-        }
-    },
-
-    /**
-     * Closes the currently active view.
-     */
-    closeView: function(loc)
-    {
-        $w('Time').each(function(a) {
-            a = $('hermesNav' + a);
-            if (a) {
-                a.removeClassName('on');
-            }
-        });
-        if (this.view && this.view != loc) {
-            $('hermesView' + this.view.capitalize()).fade({
-                duration: this.effectDur,
-                queue: 'end'
-            });
-            this.view = null;
         }
     },
 
@@ -173,32 +159,38 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
-            case 'hermesLogo':
-                if (Hermes.conf.URI_HOME) {
-                    this.redirect(Hermes.conf.URI_HOME);
-                } else {
-                    this.go(Hermes.conf.login_view);
-                }
-                e.stop();
-                return;
+            /* Main navigation links */
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();
                 return;
+
             case 'hermesNavSearch':
                 this.go('search');
                 e.stop();
                 return;
+
+            /* Time entry form actions */
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
                 this.saveTime();
                 e.stop();
                 return;
+
+            case 'hermesTimeReset':
+                $('hermesTimeSaveAsNew').hide();
+                $('hermesTimeForm').reset();
+                $('hermesTimeFormId').value = 0;
+                e.stop();
+                return;
+
+            /* Slice list actions */
             case 'hermesTimeListSubmit':
                 this.submitSlices();
                 e.stop();
                 return;
+
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' ||
@@ -213,20 +205,12 @@ HermesCore = {
                     e.stop();
                 }
                 return;
-            case 'hermesOptions':
-                this.go('prefs');
-                e.stop();
-                return;
-            case 'hermesLogout':
-                HordeCore.logout();
-                e.stop();
-                return;
+
             case 'hermesTimeFormCollapse':
                 if ($('hermesTimeForm').visible()) {
                     $('hermesTimeForm').slideUp({ duration: this.effectDur });
                     $('hermesTimeFormCollapse').removeClassName('hermesTimeFormShown');
                     $('hermesTimeFormCollapse').addClassName('hermesTimeFormHidden');
-                    $()
                 } else {
                     $('hermesTimeForm').slideDown({ duration: this.effectDur });
                     $('hermesTimeFormCollapse').addClassName('hermesTimeFormShown');
@@ -234,13 +218,28 @@ HermesCore = {
                 }
                 e.stop();
                 return;
+
+            /* Timer form */
+            case 'hermesAddTimer':
+                RedBox.showHtml($('hermesTimerDialog').show());
+                return;
+
             case 'hermesTimerSave':
                 this.newTimer();
+                this.closeRedBox();
                 e.stop();
                 return;
-            case 'hermesNotifications':
-                HordeCore.Growler.toggleLog();
-                break;
+
+            case 'hermesTimerCancel':
+                this.closeRedBox();
+                e.stop();
+                return;
+
+            /* Search Form */
+            case 'hermesSearch':
+                this.search();
+                e.stop();
+                return;
             }
 
             switch (elt.className) {
@@ -249,43 +248,8 @@ HermesCore = {
                 Horde_Calendar.open(id, Date.parseExact($F(id.replace(/Picker$/, 'Date')), Hermes.conf.date_format));
                 e.stop();
                 return;
-            case 'hermesTimeFormCancel':
-                if ($('hermesTimeSaveAsNew').visible()) {
-                    $('hermesTimeSaveAsNew').toggle();
-                }
-                $('hermesTimeForm').reset();
-                // fallthrough
-            case 'hermesFormCancel':
-                this.closeRedBox();
-                e.stop();
-                return;
-            case 'hermesAdd':
-                $('hermesTimerDialog').appear({
-                    duration: this.effectDur,
-                    afterFinish: function() {
-                        $('hermesTimerTitle').focus();
-                    }
-                });
-                return;
-            case 'hermesTimerCancel':
-                $('hermesTimerDialog').fade({
-                    duration: this.effectDur
-                });
-                e.stop();
-                return;
-            case 'hermesStopTimer':
-                this.stopTimer(elt);
-                e.stop();
-                return;
-            case 'hermesPauseTimer':
-                this.pauseTimer(elt);
-                e.stop();
-                return;
-            case 'hermesPlayTimer':
-                this.playTimer(elt);
-                e.stop();
-                return;
             }
+
             if (elt.hasClassName('hermesTimeListSelect')) {
                 if (elt.up().identify() == 'hermesTimeListHeader') {
                     this.toggleAllRows(elt);
@@ -295,6 +259,7 @@ HermesCore = {
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
+                this.checkSelected();
                 e.stop();
                 return;
             } else if (elt.hasClassName('sliceDelete')) {
@@ -305,6 +270,18 @@ HermesCore = {
                 slice = elt.up().up();
                 sid = slice.retrieve('sid');
                 this.populateSliceForm(sid);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-saveable')) {
+                this.stopTimer(elt);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-running')) {
+                this.pauseTimer(elt);
+                e.stop();
+                return;
+            } else if (elt.hasClassName('timer-paused')) {
+                this.playTimer(elt);
                 e.stop();
                 return;
             }
@@ -326,27 +303,50 @@ HermesCore = {
             var c = e.down();
             if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
+                c.up().addClassName('hermesSelectedRow');
                 c.removeClassName('hermesUnselectedSlice');
             } else {
+                c.up().removeClassName('hermesSelectedRow');
                 c.removeClassName('hermesSelectedSlice');
                 c.addClassName('hermesUnselectedSlice');
             }
         });
         elt.toggleClassName('hermesUnselectedSlice');
         elt.toggleClassName('hermesSelectedSlice');
+        this.checkSelected();
     },
 
+    /**
+     * Check that we have selected slices and [dis|en]able the submit button
+     * accordingly.
+     */
+    checkSelected: function()
+    {
+        var haveSelected = false;
+        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+            haveSelected = true;
+            throw $break;
+        }.bind(this));
+        if (haveSelected) {
+            $('hermesTimeListSubmit').enable()
+        } else {
+            $('hermesTimeListSubmit').disable();
+        }
+    },
+
+    /**
+     * Populate the slice form with the selected time slice from the slice list.
+     *
+     * @param sid  The slice id.
+     */
     populateSliceForm: function(sid)
     {
-        var d, slice;
-        if (!$('hermesTimeSaveAsNew').visible()) {
-            $('hermesTimeSaveAsNew').toggle();
-        }
-        slice = this.getSliceFromCache(sid);
+        var slice = this.getSliceFromCache(sid),
+            d = this.parseDate(slice.d);
+
+        $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
-        // Manually update the client list, and wait for the callback to continue
-        // TODO: Cache the deliverable list for each client to avoid hitting
-        //       the server for each edit.
+
         HordeCore.doAction('listDeliverables',
               { 'c': $F('hermesTimeFormClient') },
               { 'callback': function(r) {
@@ -355,7 +355,6 @@ HermesCore = {
                 }.bind(this)
               }
         );
-        d = this.parseDate(slice.d);
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
         $('hermesTimeFormHours').setValue(slice.h);
         $('hermesTimeFormJobtype').setValue(slice.t);
@@ -365,33 +364,55 @@ HermesCore = {
         $('hermesTimeFormBillable').setValue(slice.b == 1);
     },
 
+    /**
+     * Permanently delete a time slice
+     *
+     * @param slice  The DOM element of the slice in the slice list to remove.
+     */
     deleteSlice: function(slice)
     {
-        $('hermesLoading').show();
-        sid = slice.retrieve('sid');
+        var sid = slice.retrieve('sid');
+        $('hermesLoadingTime').show();
         HordeCore.doAction('deleteSlice',
             { 'id': sid },
-            { 'callback': this.deletesliceCallback.curry(slice, sid).bind(this) }
+            { 'callback': this.deletesliceCallback.curry(slice).bind(this) }
         );
     },
 
-    deletesliceCallback: function(elt, sid, r)
+    /**
+     * Callback for the deleteSlice action. Hides the spinner, removes the
+     * slice's DOM element from the UI and updates time summary.
+     */
+    deletesliceCallback: function(elt)
     {
-        $('hermesLoading').hide();
-        this.removeSliceFromUI(elt, sid);
+        $('hermesLoadingTime').hide();
+        this.removeSliceFromUI(elt);
         this.updateTimeSummary();
     },
 
-    removeSliceFromUI: function(elt, sid)
+    /**
+     * Removes the slice's DOM element from the UI.
+     *
+     * @param elt  The DOM element of the slice in the slice list.
+     */
+    removeSliceFromUI: function(elt)
     {
         elt.fade({ duration: this.effectDur, queue: 'end' });
-        this.removeSliceFromCache(sid);
+        this.removeSliceFromCache(elt.retrieve('sid'));
         this.updateTimeSummary();
     },
 
+    /**
+     * Retrieve a slice from the cache
+     *
+     * @param sid  The slice id.
+     *
+     * @return The slice entry from the cache.
+     */
     getSliceFromCache: function(sid)
     {
-        s = this.slices.length;
+        var s = this.slices.length;
+
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
                 return this.slices[i];
@@ -399,17 +420,26 @@ HermesCore = {
         }
     },
 
-    // Replaces current sid entry with slice
+    /**
+     * Replaces current sid entry in the cache with slice
+     *
+     * @param sid    The slice id to replace.
+     * @param slice  The slice data to replace it with.
+     */
     replaceSliceInCache: function(sid, slice)
     {
         this.removeSliceFromCache(sid);
         this.slices.push(slice);
     },
 
-    // Removes sid's slice from cache
+    /**
+     * Removes sid's slice from cache
+     *
+     * @param sid  The slice id
+     */
     removeSliceFromCache: function(sid)
     {
-        s = this.slices.length;
+        var s = this.slices.length;
         for (var i = 0; i <= (s - 1); i++) {
             if (this.slices[i].i == sid) {
                 this.slices.splice(i, 1);
@@ -433,7 +463,7 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         HordeCore.doAction('listDeliverables',
             { 'c': $F('hermesTimeFormClient') },
             { 'callback': this.listDeliverablesCallback.bind(this) }
@@ -445,17 +475,20 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
-        $('hermesLoading').hide();
+        var h = $H(r);
+
+        $('hermesLoadingTime').hide();
         $('hermesTimeFormCostobject').childElements().each(function(el) {
             el.remove();
         });
-        var h = $H(r);
         h.each(function(i) {
-           new Element('option', {'value': i.key});
-           $('hermesTimeFormCostobject').insert(new Element('option', {'value': i.key}).insert(i.value));
+           $('hermesTimeFormCostobject').insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
     },
 
+    /**
+     * Save a slice entry.
+     */
     saveTime: function()
     {
         if (!$F('hermesTimeFormDesc') ||
@@ -465,8 +498,10 @@ HermesCore = {
             HordeCore.notify(Hermes.text.fix_form_values, 'horde.warning');
             return;
         }
-        $('hermesLoading').show();
-        params = $H($('hermesTimeForm').serialize({ hash: true }));
+
+        var params = $H($('hermesTimeForm').serialize({ hash: true }));
+
+        $('hermesLoadingTime').show();
         // New or Edit?
         if ($F('hermesTimeFormId') > 0) {
             HordeCore.doAction('updateSlice',
@@ -482,21 +517,47 @@ HermesCore = {
         $('hermesTimeSaveAsNew').hide();
     },
 
+    /**
+     * Callback for the enterTime action called when adding a NEW slice.
+     * Just pushes the new slice on the stack, and rerenders the view.
+     *
+     * @param r  The results from the Ajax call.
+     */
     saveTimeCallback: function(r)
     {
-        $('hermesLoading').hide();
-        // Just push the new slice on the stack, and rerender the view.
+        $('hermesLoadingTime').hide();
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
         this.buildTimeTable();
     },
 
-    // Handles rerendering view after updating a slice.
-    // TODO: Need to probably optimise this and saveTimeCallback()
+    search: function()
+    {
+        var params = $H($('hermesSearchForm').serialize({ hash: true }));
+
+        $('hermesLoadingSearch').show();
+        HordeCore.doAction('search',
+            params,
+            { 'callback': this.searchCallback.bind(this) }
+        );
+    },
+
+    searchCallback: function(r)
+    {
+        $('hermesLoadingSearch').hide();
+    },
+
+    /**
+     * Callback from the updateSlice action called when updating an EXISTING
+     * slice.
+     *
+     * @param sid  The slice id
+     * @param r    The results from the Ajax call.
+     */
     editTimeCallback: function(sid, r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         this.replaceSliceInCache(sid, r);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -506,6 +567,9 @@ HermesCore = {
         $('hermesTimeSaveAsNew').hide();
     },
 
+    /**
+     * Stores a new timer in the backend.
+     */
     newTimer: function()
     {
         HordeCore.doAction('addTimer',
@@ -514,6 +578,12 @@ HermesCore = {
         );
     },
 
+    /**
+     * Callback for adding a new timer. Closes the timer dialog and inserts the
+     * timer's details in the sideBar.
+     *
+     * @param r  The data returned from the Ajax method.
+     */
     newTimerCallback: function(r)
     {
         if (!r.id) {
@@ -523,24 +593,32 @@ HermesCore = {
         this.insertTimer({ 'id': r.id, 'e': 0, 'paused': false }, $F('hermesTimerTitle'));
     },
 
+    /**
+     * Inserts a new timer in the sideBar.
+     *
+     * @param r  The timer's data.
+     * @param d  The timer's description.
+     */
     insertTimer: function(r, d)
     {
-        var title = new Element('div', { 'class': 'hermesTimerLabel' }).update(
-            d + ' (' + r.e + ' hours)'
-        );
-        var stop = new Element('span', { 'class': 'hermesTimerControls' }).update(
-            new Element('img', { 'class': 'hermesStopTimer', 'src': Hermes.conf.images.timerlog })
-        ).store('tid', r.id);;
+        var title = new Element('div').update(d + ' (' + r.e + ' hours)'),
+            controls = new Element('span', { 'class': 'timerControls' }),
+            stop = new Element('span', { 'class': 'timerControls timer-saveable' }),
+            timer = new Element('div', { 'class': 'horde-resource-none' }).store('tid', r.id),
+            wrapper, wrapperClass;
 
         if (r.paused) {
-            stop.insert(new Element('img', { 'class': 'hermesPlayTimer', 'src' : Hermes.conf.images.timerplay }));
+            controls.addClassName('timer-paused');
+            wrapperClass = 'inactive-timer';
         } else {
-            stop.insert(new Element('img', { 'class': 'hermesPauseTimer', 'src' : Hermes.conf.images.timerpause }));
+            controls.addClassName('timer-running');
+            wrapperClass = 'active-timer';
         }
 
-        var timer = new Element('div', { 'class': 'hermesMenuItem hermesTimer rounded' });
-        timer.insert(stop).insert(title);
-        $('hermesMenuTimers').insert({ 'top': timer });
+        wrapper = new Element('div', { 'class': wrapperClass }).insert(
+            timer.insert(stop).insert(controls).insert(title)
+        );
+        $('hermesMenuTimers').insert({ 'top': wrapper });
         $('hermesTimerDialog').fade({
             duration: this.effectDur,
             afterFinish: function() {
@@ -549,72 +627,111 @@ HermesCore = {
         });
     },
 
+    /**
+     * Callback for the initial listTimers call.
+     *
+     * @param r  The data returned from the Ajax method.
+     */
     listTimersCallback: function(r)
     {
-        var timers = r;
-        for (var i = 0; i < timers.length; i++) {
-            this.insertTimer(timers[i], timers[i].name);
+        for (var i = 0; i < r.length; i++) {
+            this.insertTimer(r[i], r[i].name);
         };
     },
 
+    /**
+     * Stops and permanently deletes a timer.
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     stopTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('stopTimer',
-            { 't': t },
-            { 'callback': this.closeTimerCallback.curry(elt).bind(this) }
+            { 't': elt.up().retrieve('tid') },
+            { 'callback': this.stopTimerCallback.curry(elt).bind(this) }
         );
     },
 
+    /**
+     * Pauses a timer
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     pauseTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('pauseTimer',
-            { 't': t },
+            { 't': elt.up().retrieve('tid') },
             { 'callback': this.pauseTimerCallback.curry(elt).bind(this) }
         );
     },
 
+    /**
+     * Restarts a paused timer.
+     *
+     * @param elt  The DOM elt of the timer in the sideBar.
+     */
     playTimer: function(elt)
     {
-        var t = elt.up().retrieve('tid');
         HordeCore.doAction('startTimer',
-            { 't': t },
+            { 't': elt.up().retrieve('tid') },
             { 'callback': this.playTimerCallback.curry(elt).bind(this) }
         );
     },
 
-    closeTimerCallback: function(elt, r)
+    /**
+     * Callback for the stopTimer call.
+     * Populates the time form with values from the timer and removes timer
+     * from the sideBar.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     * @param r    The Ajax response.
+     */
+    stopTimerCallback: function(elt, r)
     {
         if (r) {
             $('hermesTimeFormHours').setValue(r.h);
             $('hermesTimeFormNotes').setValue(r.n);
         }
-        elt.up().up().fade({
+        elt.up().fade({
             duration: this.effectDur,
         });
     },
 
-    pauseTimerCallback: function(elt, r)
+    /**
+     * Callback for the pauseTimer call.
+     * Updates the timer's UI to reflect it's paused status.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     */
+    pauseTimerCallback: function(elt)
     {
-        elt.src = Hermes.conf.images.timerplay;
-        elt.removeClassName('hermesPauseTimer');
-        elt.addClassName('hermesPlayTimer');
+        elt.removeClassName('timer-running');
+        elt.addClassName('timer-paused');
+        elt.up().up().addClassName('inactive-timer').removeClassName('active-timer');
     },
 
-    playTimerCallback: function(elt, r)
+    /**
+     * Callback for the playTimer call.
+     * Updates the timer's UI to reflect it's running status.
+     *
+     * @param elt  The timer's sideBar DOM element.
+     */
+    playTimerCallback: function(elt)
     {
-        elt.src = Hermes.conf.images.timerpause;
-        elt.removeClassName('hermesPlayTimer');
-        elt.addClassName('hermesPauseTimer');
+        elt.removeClassName('timer-paused');
+        elt.addClassName('timer-running');
+        elt.up().up().addClassName('active-timer').removeClassName('inactive-timer');
     },
 
-    //removeTimer: function(t)
+    /**
+     * Submit a group of slices.
+     */
     submitSlices: function()
     {
-        $('hermesLoading').show();
-        var sliceIds = [];
-        var slices = [];
+        var sliceIds = [],
+        slices = [];
+
+        $('hermesLoadingTime').show();
         $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
@@ -625,14 +742,24 @@ HermesCore = {
         );
     },
 
-    submitSlicesCallback: function(ids, r)
+    /**
+     * Callback for the submitSlices call.
+     * Responsible for hiding the spinner and removing the submitted slices from
+     * the slice list.
+     *
+     * @param slices  The DOM elements of the slices that have been submitted.
+     */
+    submitSlicesCallback: function(slices)
     {
-        $('hermesLoading').hide();
-        ids.each(function(i) { this.removeSliceFromUI(i, i.retrieve('sid'), null); }.bind(this));
+        $('hermesLoadingTime').hide();
+        slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        this.checkSelected();
     },
 
     /**
      * Perform any tasks needed to update a view.
+     *
+     * @param view  The view to update.
      */
     updateView: function(view)
     {
@@ -658,7 +785,7 @@ HermesCore = {
      */
     loadSlices: function()
     {
-        $('hermesLoading').show();
+        $('hermesLoadingTime').show();
         this.slices = [];
         HordeCore.doAction('getTimeSlices',
             { 'e': Hermes.conf.user, 's': false },
@@ -671,15 +798,18 @@ HermesCore = {
      */
     loadSlicesCallback: function(r)
     {
-        $('hermesLoading').hide();
+        $('hermesLoadingTime').hide();
         this.slices = r;
         this.buildTimeTable();
-        this.updateMinical(new Date());
     },
 
+    /**
+     * Updates the sideBar's unsubmitted time summary.
+     */
     updateTimeSummary: function()
     {
         var total = 0, totalb = 0, today = 0, todayb = 0;
+
         this.slices.each(function(i) {
             var h = parseFloat(i.h);
             total = total + h;
@@ -696,9 +826,14 @@ HermesCore = {
         $('hermesSummaryTotalNonBillable').down().update((total - totalb).toFixed(2));
     },
 
+    /**
+     * Builds the slice list.
+     */
     buildTimeTable: function()
     {
-        var slices, t;
+        var t = $('hermesTimeListInternal'),
+            slices;
+
         if (this.reverseSort) {
             slices = this.slices.reverse();
             this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
@@ -735,19 +870,24 @@ HermesCore = {
             }
         }
         this.slices = slices;
-        t = $('hermesTimeListInternal');
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildTimeRow(slice).toggle());
         }.bind(this));
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
-        this.onResize();
         this.updateTimeSummary();
-        // Init the quickfinder now that we have a list of children.
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
+    /**
+     * Builds the DOM structure for a single slice row in the slice list.
+     *
+     * @param slice  The slices data.
+     *
+     * @return A DOM element representing the slice suitable for inserting into
+     *         the slice list.
+     */
     buildTimeRow: function(slice)
     {
         var row, cell, d;
@@ -773,6 +913,7 @@ HermesCore = {
         cell = cell.next().update((slice.desc) ? slice.desc : ' ');
         cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
         cell = cell.next().update(slice.h);
+
         return row;
     },
 
@@ -788,20 +929,15 @@ HermesCore = {
         this.buildTimeTable();
     },
 
-    loadPage: function(loc)
-    {
-        window.location.assign(loc);
-    },
-
     /**
      * Closes the currently active view.
      */
     closeView: function(loc)
     {
-        $w('Time CostObjects Clients JobTypes Search').each(function(a) {
-            a = $('HermesNav' + a);
+        $w('Time Search Admin').each(function(a) {
+            a = $('hermesNav' + a);
             if (a) {
-                a.removeClassName('on');
+                a.up().removeClassName('horde-active');
             }
         });
         if (this.view && this.view != loc) {
@@ -830,11 +966,6 @@ HermesCore = {
             d.setMinutes(date.substr(10, 2));
         }
         return d;
-    },
-
-    onResize: function(event)
-    {
-        //$('hermesTimeListBody').setStyle({height: document.height - 440 + 'px'});
     },
 
     sortDate: function(a, b)
@@ -870,86 +1001,6 @@ HermesCore = {
     sortDesc: function(a, b)
     {
         return (a.desc < b.desc) ? -1 : (a.desc > b.desc) ? 1 : 0;
-    },
-
-    /**
-     * Rebuilds the mini calendar.
-     *
-     * @param Date date    The date to show in the calendar.
-     * @param string view  The view that's displayed, determines which days in
-     *                     the mini calendar are highlighted.
-     */
-    updateMinical: function(date, view)
-    {
-        // Update header.
-        $('hermesMinicalDate')
-            .store('date', date.dateString())
-            .update(date.toString('MMMM yyyy'));
-        this.buildMinical($('hermesMinical').down('tbody'), date, view);
-    },
-
-    /**
-     * Creates a mini calendar suitable for the navigation calendar and the
-     * year view.
-     *
-     * @param Element tbody    The table body to add the days to.
-     * @param Date date        The date to show in the calendar.
-     * @param string view      The view that's displayed, determines which days
-     *                         in the mini calendar are highlighted.
-     * @param string idPrefix  If present, each day will get a DOM ID with this
-     *                         prefix
-     */
-    buildMinical: function(tbody, date, view, idPrefix)
-    {
-        var dates = this.viewDates(date, 'month'), day = dates[0].clone(),
-            date7 = date.clone().add(1).week(), today = Date.today(),
-            weekStart, weekEnd, dateString, td, tr, i;
-
-        // Remove old calendar rows. Maybe we should only rebuild the minical
-        // if necessary.
-        tbody.childElements().invoke('remove');
-
-        for (i = 0; i < 42; i++) {
-            dateString = day.dateString();
-            // Create calendar row and insert week number.
-            if (day.getDay() == 0) {
-                tr = new Element('tr');
-                tbody.insert(tr);
-                td = new Element('td', { className: 'hermesMinicalWeek' })
-                    .store('weekdate', dateString);
-                td.update(day.getRealWeek());
-                tr.insert(td);
-                weekStart = day.clone();
-                weekEnd = day.clone();
-                weekEnd.add(6).days();
-            }
-
-            // Insert day cell.
-            td = new Element('td').store('date', dateString);
-            if (day.getMonth() != date.getMonth()) {
-                td.addClassName('hermesMinicalEmpty');
-            } else if (!Object.isUndefined(idPrefix)) {
-                td.id = idPrefix + dateString;
-            }
-
-            // Highlight days currently being displayed.
-            //if (view &&
-            //    (view == 'month' ||
-            //     (view == 'week' && date.between(weekStart, weekEnd)) ||
-            //     (view == 'day' && date.equals(day)) ||
-            //     (view == 'agenda' && !day.isBefore(date) && day.isBefore(date7)))) {
-            if (date.between(weekStart, weekEnd)) {
-                td.addClassName('heremsSelected');
-            }
-
-            // Highlight today.
-            if (day.equals(today)) {
-                td.addClassName('hermesToday');
-            }
-            td.update(day.getDate());
-            tr.insert(td);
-            day.next().day();
-        }
     },
 
     /**
@@ -1007,7 +1058,7 @@ HermesCore = {
     pollCallback: function(r)
     {
         // Update timers.
-        if(r) {
+        if (r) {
             for (var i = 0; i < r.length; i++) {
                 var t = r[i];
                 $('hermesMenuTimers').select('.hermesMenuItem').each(function(elt) {
@@ -1022,24 +1073,20 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
-        document.observe('click',
-            HermesCore.clickHandler.bindAsEventListener(HermesCore));
-        $('hermesTimeFormClient').observe('change',
-            HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
+        $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
         }.bind(this);
         RedBox.duration = this.effectDur;
 
-        // @TODO: Minical that have dates with hours highlighted?
-        //this.updateMinical(this.date);
         this.today = new Date().toString('yyyyMMdd');
 
         // Default the date field to today
         $('hermesTimeFormStartDate').setValue(new Date().toString(Hermes.conf.date_format));
 
-        /* Initialize the starting page. */
+        // Initialize the starting page.
         var tmp = location.hash;
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? '' : tmp.substring(1);
@@ -1061,36 +1108,19 @@ HermesCore = {
             }
         }.bindAsEventListener(this));
 
-        /* Catch notification actions. */
-        document.observe('HordeCore:showNotifications', function(e) {
-            switch (e.memo.type) {
-            case 'horde.error':
-            case 'horde.warning':
-            case 'horde.message':
-            case 'horde.success':
-                var notify = $('hermesNotifications'),
-                    className = e.memo.type.replace(/\./, '-'),
-                    order = 'horde-error,horde-warning,horde-message,horde-success,hermesNotifications',
-                    open = notify.hasClassName('hermesClose');
-                notify.removeClassName('hermesClose');
-                if (order.indexOf(notify.className) > order.indexOf(className)) {
-                    notify.className = className;
-                }
-                if (open) {
-                    notify.addClassName('hermesClose');
-                }
-                break;
-            }
-        });
-
+        // List active timers
         HordeCore.doAction('listTimers', [], { 'callback': this.listTimersCallback.bind(this) });
-        Event.observe(window, 'resize', this.onResize.bind(this));
+
+        // Populate the deliverables with the default list.
+        HordeCore.doAction('listDeliverables',
+            { },
+            { 'callback': this.listDeliverablesCallback.bind(this) }
+        );
         new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
     }
-
 };
-
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
 document.observe('Horde_Calendar:select', HermesCore.datePickerHandler.bindAsEventListener(HermesCore));
 HordeCore.onException = HordeCore.onException.wrap(HermesCore.onException.bind(HermesCore));
+
 

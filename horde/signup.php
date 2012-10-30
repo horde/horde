@@ -6,6 +6,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Marko Djukic <marko@oblo.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/lib/Application.php';
@@ -28,7 +31,7 @@ try {
     $registry->getServiceLink('login')->redirect();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 $username = $vars->get('user_name');
 $email = $vars->get('email');
 if (!(bool)filter_var($username, FILTER_VALIDATE_EMAIL) && !empty($username) && !empty($conf['signup']['altemail'])) {

@@ -1,7 +1,6 @@
-/**
+  /**
  * Mytopo layer. See http://www.mytopo.com/google/index.cfm for instructions
- * in obtaining an api key, though it seems that the public key they use on
- * their browse page works. (mytopoz63g9R)
+ * in obtaining an api key.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *

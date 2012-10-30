@@ -1,3 +1,17 @@
+----------
+v3.0.2-git
+----------
+
+
+
+------
+v3.0.0
+------
+
+[mms] Add 'euser' option to 'transport_auth' hook allowing the effective user
+      to be provided for the timsieved transport driver.
+
+
 -----------
 v3.0.0beta2
 -----------
@@ -22,7 +36,6 @@ v3.0.0beta1
 v3.0.0alpha1
 ------------
 
-First alpha release for Horde 5.
 [mms] When adding to blacklist/whitelist, remove added addresses from the
       other list.
 [jan] Allow to use placeholder variables in vacation messages (Request #10316).

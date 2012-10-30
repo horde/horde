@@ -547,6 +547,9 @@ class Horde_Crypt_Smime extends Horde_Crypt
     public function parseCert($cert)
     {
         $data = openssl_x509_parse($cert, false);
+        if (!$data) {
+            throw new Horde_Crypt_Exception(sprintf(Horde_Crypt_Translation::t("Error parsing S/MIME certficate: %s"), openssl_error_string()));
+        }
 
         $details = array(
             'extensions' => $data['extensions'],

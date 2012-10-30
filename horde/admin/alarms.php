@@ -5,7 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
@@ -19,7 +22,7 @@ foreach ($horde_alarm->handlers() as $name => $method) {
     $methods[$name] = $method->getDescription();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $form = new Horde_Form($vars, _("Add new alarm"));
 $form->addHidden('', 'alarm', 'text', false);
@@ -108,8 +111,10 @@ if ($id) {
     }
 }
 
-$view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/admin/alarms'));
-new Horde_View_Helper_Text($view);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/alarms'
+));
+$view->addHelper('Text');
 
 try {
     $alarms = $horde_alarm->globalAlarms();

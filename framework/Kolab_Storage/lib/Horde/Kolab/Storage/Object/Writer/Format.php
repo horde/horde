@@ -92,9 +92,7 @@ class Horde_Kolab_Storage_Object_Writer_Format extends Horde_Kolab_Storage_Objec
             return $this->_getParser($object->getType())->save($object->getData(), array('previous' => $object->getCurrentContent()));
         } catch (Horde_Kolab_Format_Exception $e) {
             throw new Horde_Kolab_Storage_Object_Exception(
-                sprintf('Failed writing the Kolab object: %s', $e->getMessage()),
-                0,
-                $e
+                sprintf('Failed writing the Kolab object: %s', $e->getMessage())
             );
         }
     }

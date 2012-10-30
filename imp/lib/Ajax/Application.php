@@ -11,7 +11,6 @@
  *
  * Global parameters (in viewport parameter):
  *   - force: (integer) If set, always return viewport information if changed.
- *                     changed.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
@@ -46,6 +45,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         global $injector, $registry;
 
         switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+            $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
+            $this->addHandler('IMP_Ajax_Application_Handler_Search');
+            break;
+
         case $registry::VIEW_DYNAMIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
@@ -56,11 +60,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         case $registry::VIEW_SMARTMOBILE:
             $this->addHandler('IMP_Ajax_Application_Handler_Smartmobile');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
-            break;
-
-        case $registry::VIEW_TRADITIONAL:
-            $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
-            $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;
         }
 
@@ -417,6 +416,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - from: (string) From address to use.
      *   - identity: (integer) The identity to use
      *
+     @param string $action  AJAX action.
+     *
      * @return array  An array with the following values:
      *   - (object) AJAX base return object (with action and success
      *     parameters defined).
@@ -426,7 +427,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *
      * @throws Horde_Exception
      */
-    public function composeSetup()
+    public function composeSetup($action)
     {
         global $injector, $prefs;
 
@@ -454,7 +455,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 
         $result = new stdClass;
-        $result->action = $this->_action;
+        $result->action = $action;
         $result->success = 1;
 
         return array($result, $imp_compose, $headers, $identity);

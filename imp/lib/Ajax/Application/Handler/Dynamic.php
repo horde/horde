@@ -930,18 +930,29 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function addAttachment()
     {
-        $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
+        global $injector, $notification, $session;
 
         $result = new stdClass;
         $result->action = 'addAttachment';
         $result->success = 0;
 
-        if ($GLOBALS['session']->get('imp', 'file_upload') &&
-            $imp_compose->addFilesFromUpload('file_')) {
-            $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
-            $result->atc = end($ajax_compose->getAttachmentInfo());
-            $result->success = 1;
-            $result->imp_compose = $imp_compose->getCacheId();
+        /* A max POST size failure will result in ALL HTTP parameters being
+         * empty. Catch that here. */
+        if (!isset($this->vars->composeCache)) {
+            $notification->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
+        } elseif ($session->get('imp', 'file_upload')) {
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
+
+            try {
+                $filename = $imp_compose->addFileFromUpload('file_1');
+                $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
+                $result->atc = end($ajax_compose->getAttachmentInfo());
+                $result->success = 1;
+                $result->imp_compose = $imp_compose->getCacheId();
+                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+            } catch (IMP_Compose_Exception $e) {
+                $notification->push($e, 'horde.error');
+            }
         }
 
         return new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
@@ -1011,7 +1022,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     protected function _draftAction($action)
     {
         try {
-            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup();
+            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup($action);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
 

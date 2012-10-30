@@ -2,7 +2,7 @@
 
 <?php $notification->notify(array('listeners' => 'status')) ?>
 
-<form name="horde_login" id="horde_login" method="post" action="<?php echo Horde::selfUrl(false, true, false, true) ?>">
+<form name="horde_login" id="horde_login" method="post" action="<?php echo $loginurl ?>">
  <input type="hidden" name="app" id="app" value="<?php echo htmlspecialchars($vars->app) ?>" />
  <input type="hidden" name="login_post" id="login_post" value="0" />
  <input type="hidden" name="url" value="<?php echo htmlspecialchars($vars->url) ?>" />

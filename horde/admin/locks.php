@@ -5,7 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
@@ -24,8 +27,10 @@ if ($lock = Horde_Util::getFormData('unlock')) {
     }
 }
 
-$view = new Horde_View(array('templatePath' => HORDE_TEMPLATES . '/admin/locks'));
-new Horde_View_Helper_Text($view);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/locks'
+));
+$view->addHelper('Text');
 
 try {
     $format = $prefs->getValue('date_format') . ' ' . $prefs->getValue('time_format');

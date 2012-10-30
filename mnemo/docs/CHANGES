@@ -1,6 +1,27 @@
---------
-v4.0-git
---------
+----------
+v4.0.2-git
+----------
+
+
+
+------
+v4.0.0
+------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+
+
+---------
+v4.0.0RC1
+---------
+
+[jan] Fix client-side sorting by date.
+[jan] Fix exporting (Bug #11507).
+
+
+-----------
+v4.0.0beta1
+-----------
 
 [gwr] Always mark the initial share as default notepad.
 [gwr] Mark the initial default share as such with the Kolab backend.

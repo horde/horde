@@ -16,6 +16,8 @@
  */
 class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
+    protected $_external = array('embed');
+
     /**
      * Just polls for alarm messages and keeps session fresh for now.
      */
@@ -1423,10 +1425,10 @@ if (typeof kronolith == 'undefined') {
     document.write('$css');
 }
 kronolithNodes[kronolithNodes.length] = $container;
-kronolith['$container'] = $results;
+kronolith[$container] = $results;
 EOT;
 
-        return new Horde_Core_Ajax_Response_Javascript($js);
+        return new Horde_Core_Ajax_Response_Raw($js, 'text/javascript');
     }
 
     /**

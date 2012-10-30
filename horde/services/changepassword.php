@@ -6,6 +6,9 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @author Jason Felice <jason.m.felice@gmail.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../lib/Application.php';
@@ -18,7 +21,7 @@ if (!$auth->hasCapability('update')) {
     $registry->getServiceLink('login')->add('url', Horde_Util::getFormData('url'))->redirect();
 }
 
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 $title = _("Change Your Password");
 $form = new Horde_Form($vars, $title);
@@ -34,18 +37,13 @@ if ($vars->exists('formname')) {
     if ($form->isValid()) {
         $form->getInfo($vars, $info);
 
-        if ($GLOBALS['registry']->getAuthCredential('password') != $info['old_password']) {
+        if ($registry->getAuthCredential('password') != $info['old_password']) {
             $notification->push(_("Old password is not correct."), 'horde.error');
         } elseif ($info['password_1'] != $info['password_2']) {
             $notification->push(_("New passwords don't match."), 'horde.error');
         } elseif ($info['old_password'] == $info['password_1']) {
             $notification->push(_("Old and new passwords must be different."), 'horde.error');
         } else {
-            /* TODO: Need to clean up password policy patch and commit before
-             * enabling this...
-             * Horde_Auth::testPasswordStrength($info['password_1'],
-             *                                  $conf['auth']['password_policy']);
-             */
             try {
                 $auth->updateUser($registry->getAuth(), $registry->getAuth(), array('password' => $info['password_1']));
 
@@ -69,7 +67,6 @@ $vars->remove('password_1');
 $vars->remove('password_2');
 
 $page_output->topbar = $page_output->sidebar = false;
-
 $page_output->header(array(
     'title' => $title
 ));

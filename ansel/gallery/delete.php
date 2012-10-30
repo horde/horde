@@ -29,8 +29,8 @@ if ($galleryId) {
     case 'delete':
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(
-                sprintf(_("Access denied deleting gallery \"%s\"."),
-                        $gallery->get('name')), 'horde.error');
+                _("Access denied deleting this gallery."),
+                'horde.error');
         } else {
             try {
                 $GLOBALS['injector']
@@ -63,8 +63,7 @@ if ($galleryId) {
     case 'empty':
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
             $notification->push(
-                sprintf(_("Access denied deleting gallery \"%s\"."),
-                        $gallery->get('name')),
+                _("Access denied deleting this gallery."),
                 'horde.error');
         } else {
             $GLOBALS['injector']

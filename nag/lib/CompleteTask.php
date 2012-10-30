@@ -14,7 +14,7 @@ class Nag_CompleteTask {
             $task = Nag::getTask($tasklist, $task);
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
                 $result = array('error' => 'permission denied');
-                $notification->push(sprintf(_("Access denied completing task %s."), $task->name), 'horde.error');
+                $notification->push(_("Access denied completing this task."), 'horde.error');
             } else {
                 $task->toggleComplete();
                 $task->save();

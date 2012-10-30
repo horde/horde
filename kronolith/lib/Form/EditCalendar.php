@@ -104,9 +104,7 @@ class Kronolith_Form_EditCalendar extends Horde_Form
 
         /* Permissions link. */
         if (empty($GLOBALS['conf']['share']['no_sharing']) && $owner) {
-            $url = Horde::url($GLOBALS['registry']->get('webroot', 'horde')
-                              . '/services/shares/edit.php')
-                ->add(array('app' => 'kronolith', 'share' => $calendar->getName()));
+            $url = Horde::url('perms.php')->add('share', $calendar->getName());
             $this->addVariable(
                  '', '', 'link', false, false, null,
                  array(array(

@@ -35,7 +35,10 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
         $types = $type_mgr->ensureTypes(array('task'));
         $this->_type_ids = array('task' => (int)$types[0]);
         $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
-        $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('nag');
+        try {
+            $this->_shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create('nag');
+        } catch (Exception $e) {
+        }
     }
 
     public function up()
@@ -52,18 +55,20 @@ class NagUpgradeCategoriesToTags extends Horde_Db_Migration_Base
             );
 
             // Do we need to tag the task again, but as the share owner?
-            try {
-                $list = $this->_shares->getShare($row['task_owner']);
-                if ($list->get('owner') != $row['task_creator']) {
-                    $this->_tagger->tag(
-                        $list->get('owner'),
-                        array('object' => (string)$row['task_uid'],
-                              'type' => $this->_type_ids['task']),
-                        $row['task_category']
-                    );
+            if ($this->_shares) {
+                try {
+                    $list = $this->_shares->getShare($row['task_owner']);
+                    if ($list->get('owner') != $row['task_creator']) {
+                        $this->_tagger->tag(
+                            $list->get('owner'),
+                            array('object' => (string)$row['task_uid'],
+                                  'type' => $this->_type_ids['task']),
+                            $row['task_category']
+                        );
+                    }
+                } catch (Exception $e) {
+                    $this->announce('Unable to find Share: ' . $row['task_owner'] . ' Skipping.');
                 }
-            } catch (Exception $e) {
-                $this->announce('Unable to find Share: ' . $row['task_owner'] . ' Skipping.');
             }
         }
         $this->announce('Task categories successfully migrated.');

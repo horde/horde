@@ -426,6 +426,7 @@ document.observe('IMP_Ajax_Imple_ImageUnblock:do', function(e) {
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
     if (!e.element().up('.messageBody') &&
+        !e.element().match('SELECT') &&
         !e.element().match('TEXTAREA') &&
         !e.element().match('INPUT')) {
         e.stop();

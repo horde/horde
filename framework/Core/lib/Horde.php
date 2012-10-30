@@ -200,110 +200,6 @@ class Horde
     }
 
     /**
-     * Returns the URL to various Horde services.
-     *
-     * @param string $type       The service to display.
-     * <pre>
-     * 'ajax'
-     * 'cache'
-     * 'download'
-     * 'emailconfirm'
-     * 'go'
-     * 'help'
-     * 'imple'
-     * 'login'
-     * 'logintasks'
-     * 'logout'
-     * 'pixel'
-     * 'portal'
-     * 'problem'
-     * 'sidebar'
-     * 'prefs'
-     * </pre>
-     * @param string $app        The name of the current Horde application.
-     *
-     * @return Horde_Url|boolean  The HTML to create the link.
-     */
-    static public function getServiceLink($type, $app = null)
-    {
-        $opts = array('app' => 'horde');
-
-        switch ($type) {
-        case 'ajax':
-            $opts['noajax'] = true;
-            return self::url('services/ajax.php/' . $app . '/', false, $opts);
-
-        case 'cache':
-            $opts['append_session'] = -1;
-            return self::url('services/cache.php', false, $opts);
-
-        case 'download':
-            return self::url('services/download/', false, $opts)
-                ->add('module', $app);
-
-        case 'emailconfirm':
-            $opts['noajax'] = true;
-            return self::url('services/confirm.php', false, $opts);
-
-        case 'go':
-            $opts['noajax'] = true;
-            return self::url('services/go.php', false, $opts);
-
-        case 'help':
-            return self::url('services/help/', false, $opts)
-                ->add('module', $app);
-
-        case 'imple':
-            $opts['noajax'] = true;
-            return self::url('services/imple.php', false, $opts);
-
-        case 'login':
-            $opts['noajax'] = true;
-            return self::url('login.php', false, $opts);
-
-        case 'logintasks':
-            return self::url('services/logintasks.php', false, $opts)
-                ->add('app', $app);
-
-        case 'logout':
-            return $GLOBALS['registry']->getLogoutUrl(array('reason' => Horde_Auth::REASON_LOGOUT));
-
-        case 'pixel':
-            return self::url('services/images/pixel.php', false, $opts);
-
-        case 'prefs':
-            if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = self::url('services/prefs.php', false, $opts);
-                if (!is_null($app)) {
-                    $url->add('app', $app);
-                }
-                return $url;
-            }
-            break;
-
-        case 'portal':
-            if ($GLOBALS['session']->get('horde', 'mode') == 'smartmobile' && self::ajaxAvailable()) {
-                return self::url('services/portal/mobile.php', false, $opts);
-            } else {
-                return self::url('services/portal/', false, $opts);
-            }
-            break;
-
-        case 'problem':
-            return self::url('services/problem.php', false, $opts)
-                ->add('return_url', self::selfUrl(true, true, true));
-
-        case 'sidebar':
-            return self::url('services/sidebar.php', false, $opts);
-
-        case 'twitter':
-            return self::url('services/twitter/', true, $opts);
-        }
-
-        return false;
-    }
-
-    /**
      * Returns a response object with added notification information.
      *
      * @param mixed $data      The 'response' data.
@@ -923,14 +819,13 @@ class Horde
      * Returns an anchor sequence with the relevant parameters for a widget
      * with accesskey and text.
      *
-     * @param array $opts  A hash with widget options:
-     *                     - url: (string) The full URL to be linked to.
-     *                     - title: (string) The link title/description.
-     *                     - nocheck: (boolean, optional) Don't check if the
-     *                                access key already has been used.
-     *                                Defaults to false (= check).
-     *                     Any other options will be passed as attributes to
-     *                     the link tag.
+     * @param array $opts  A hash with widget options (other options will be
+     *                     passed as attributes to the link tag):
+     *   - url: (string) The full URL to be linked to.
+     *   - title: (string) The link title/description.
+     *   - nocheck: (boolean, optional) Don't check if the accesskey already
+     *              already has been used.
+     *              Defaults to false (= check).
      *
      * @return string  The full <a href>Title</a> sequence.
      */
@@ -945,7 +840,9 @@ class Horde
             $params
         );
 
-        $url = new Horde_Url($params['url']);
+        $url = ($params['url'] instanceof Horde_Url)
+            ? $params['url']
+            : new Horde_Url($params['url']);
         $title = $params['title'];
         $params['accesskey'] = self::getAccessKey($title, $params['nocheck']);
 
@@ -1671,7 +1568,10 @@ class Horde
             $language = 'en-US';
         }
         $params['conf'] = array(
-            'language' => $language
+            'language' => $language,
+            'markerImage' => (string)Horde_Themes::img('map/marker.png'),
+            'markerBackground' => (string)Horde_Themes::img('map/marker-shadow.png'),
+            'useMarkerLayer' => true,
         );
 
         $params['driver'] = 'Horde';

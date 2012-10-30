@@ -19,9 +19,9 @@ function _open()
 {
     static $opened;
 
-    if (is_null($opened)) {
-        global $registry, $prefs, $browser, $conf, $notification, $beendone, $title;
+    global $page_output, $notification, $beendone;
 
+    if (is_null($opened)) {
         $opened = true;
         $beendone = true;
         $page_output->header(array(

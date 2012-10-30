@@ -24,6 +24,7 @@ $template = $injector->createInstance('Horde_Template');
 $template->setOption('gettext', true);
 if ($isPopup) {
     $template->set('closebutton', _("Close"));
+    $page_output->topbar = $page_output->sidebar = false;
     $page_output->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
     ), true);

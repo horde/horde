@@ -1,6 +1,51 @@
 ----------
-v6.0.0-git
+v6.0.2-git
 ----------
+
+
+
+------
+v6.0.0
+------
+
+[mms] Fix regression in adding an attachment in minimal view.
+
+
+---------
+v6.0.0RC2
+---------
+
+[jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[mms] Fix regression causing large amounts of whitespace padding to be added to
+      compose text in basic view.
+[mms] Fix regression in sending messages in basic/minimal mode if no attachment
+      is added (Bug #11582).
+[jan] Fix key navigation in message view of basic mode.
+
+
+---------
+v6.0.0RC1
+---------
+
+[mms] Attach as many files as possible instead of aborting on first failed
+      attachment add.
+[mms] Fix determining first/last unseen message in a mailbox (use message date
+      instead of arrival date).
+[jan] Don't show application menus in iTip MIME viewer popups.
+[mms] Hide subfolder creation option in dynamic view if IMAP server indicates
+      that child mailboxes cannot be created.
+[mms] Correctly send deleted flag information to browser cache when using
+      dynamic/smartmobile view (Bug #11362).
+[mms] Auto-update folders list in smartmobile view if special mailbox is
+      auto-created (Request #11482).
+[mms] Load folders list on-demand in smartmobile view.
+[mms] Fix thread view when mailbox is not thread sorted (Bug #11320).
+[mms] Display message range when dragging slider on dynamic mailbox page.
+
+
+-----------
+v6.0.0beta4
+-----------
 
 [mms] Add predefined templates to ACL management screen (Request #10648).
 [mms] Capture key shortcuts on dynamic mailbox page even if focus is on IFRAME
@@ -168,6 +213,11 @@ v6.0.0alpha1
 v5.0.24-git
 -----------
 
+[mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
+      the browser's local filesystem that has a filename that contains HTML.
+[mms] Catch failure to add attachments in dynamic view because PHP's maximum
+      allowed POST size was exceeded.
+[jan] Fix search link from portal if using dynamic view (Bug #11314).
 [mms] Fix regression in using Virtual Trash (Bug #11478;
       tonyb@go-concepts.com).
 [mms] Fix sending MDN notifications in traditional view (Bug #11311).

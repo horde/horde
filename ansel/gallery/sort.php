@@ -27,7 +27,7 @@ try {
 }
 
 if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-    $notification->push(sprintf(_("Access denied editing gallery \"%s\"."), $gallery->get('name')), 'horde.error');
+    $notification->push(_("Access denied editing this gallery."), 'horde.error');
     Ansel::getUrlFor('view', array('view' => 'List'), true)->redirect();
 }
 

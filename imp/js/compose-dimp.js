@@ -115,7 +115,7 @@ var DimpCompose = {
         };
 
         $(opts.label).insert({ after:
-            new Element('SPAN', { className: 'iconImg popdownImg dimpOptionPopdown' }).store('popdown_id', id)
+            new Element('SPAN', { className: 'iconImg horde-popdown' }).store('popdown_id', id)
         });
     },
 
@@ -800,7 +800,7 @@ var DimpCompose = {
         var u = $('upload');
         this.uniqueSubmit('addAttachment');
         u.up().hide();
-        $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u) + ')').show();
+        $('upload_wait').update(DimpCore.text.uploading + ' (' + $F(u).escapeHTML() + ')').show();
     },
 
     toggleCC: function(type)
@@ -975,7 +975,7 @@ var DimpCompose = {
             break;
 
         case 'writemsg':
-            if (!this.disabled && elt.hasClassName('dimpOptionPopdown')) {
+            if (!this.disabled && elt.hasClassName('horde-popdown')) {
                 tmp = elt.retrieve('popdown_id');
                 this.knl[tmp].knl.show();
                 this.knl[tmp].knl.ignoreClick(e.memo);

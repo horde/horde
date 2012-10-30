@@ -22,24 +22,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-08</date>
- <time>12:22:03</time>
+ <date>2012-10-30</date>
+ <time>22:20:27</time>
  <version>
-  <release>4.0.0beta2</release>
-  <api>4.0.0beta1</api>
+  <release>4.0.1</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Synchronize tags with Kolab categories.
-* [mjr] Improvements to resource calendar handling.
-* [gwr] Mark the initial default share as such with the Kolab backend.
-* [gwr] Always mark the initial share as default calendar.
-* [jan] Fix attendees button in traditional view.
-* [jan] Fix sending alarm emails.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -661,6 +656,9 @@
    </dir> <!-- /test -->
    <dir name="themes">
     <dir name="default">
+     <dir name="block">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
@@ -1396,6 +1394,7 @@
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="kronolith/themes/default/webkit.css" name="themes/default/webkit.css" />
+   <install as="kronolith/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="kronolith/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="kronolith/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="kronolith/themes/default/graphics/agenda.png" name="themes/default/graphics/agenda.png" />
@@ -1945,7 +1944,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-08</date>
+   <date>2012-10-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Synchronize tags with Kolab categories.
@@ -1954,6 +1953,50 @@
 * [gwr] Always mark the initial share as default calendar.
 * [jan] Fix attendees button in traditional view.
 * [jan] Fix sending alarm emails.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0RC1</release>
+    <api>4.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Show completed future tasks in complete category, not in future category (Bug #11562).
+* [jan] Fix exporting of recurring events with exceptions from Kolab backends.
+* [jan] Fix export links for calendars (Bug #11576).
+* [jan] Fix broken Apple iCal behavior with exception dates (Evert Pot &lt;evert@rooftopsolutions.nl&gt;).
+* [jan] Use more compatible message format for iTip notifications (Bug #9854).
+* [jan] Fix free/busy retrieval on Kolab.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.1</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

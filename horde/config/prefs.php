@@ -90,7 +90,7 @@
  *       Function
  *     DEFAULT: None
  *
- *   - on_init: (function) A method to call when initialzing the value for
+ *   - on_init: (function) A method to call when initializing the value for
  *              display on the UI page. Is passed one argument: the
  *              Horde_Core_Prefs_Ui object.
  *     VALUES:

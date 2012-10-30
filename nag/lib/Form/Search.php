@@ -63,10 +63,10 @@ class Nag_Form_Search extends Horde_Form
         if ($vars->get('smart_id')) {
             $this->addVariable(_("SmartList Name:"), 'smartlist_name', 'text', false);
             $this->setButtons(_("Save"), _("Reset"));
-            $this->appendButtons(array(array('value' => _("Delete SmartList"), 'name' => 'deletebutton', 'class' => 'horde-delete')));
+            $this->appendButtons(array(array('value' => _("Delete Smart List"), 'name' => 'deletebutton', 'class' => 'horde-delete')));
         } else {
-            $this->addVariable(_("Save this search as a SmartList?"), 'save_smartlist', 'boolean', false);
-            $sl_name = $this->addVariable(_("SmartList Name:"), 'smartlist_name', 'text', false);
+            $this->addVariable(_("Save this search as a Smart List?"), 'save_smartlist', 'boolean', false);
+            $sl_name = $this->addVariable(_("Smart List Name:"), 'smartlist_name', 'text', false);
             $save_action = new Horde_Form_Action_ConditionalEnable(array('target' => 'save_smartlist', 'enabled' => true, 'values' => 'on'));
             $sl_name->setAction($save_action);
             $this->setButtons(_("Search"), _("Reset"));

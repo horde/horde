@@ -259,7 +259,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
 
             if (array_search('mail', $supported)) {
-                $folders = array_merge($folders, $this->_getMailFolders());
+                try {
+                    $folders = array_merge($folders, $this->_getMailFolders());
+                } catch (Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
             }
 
             $this->_endBuffer();
@@ -1319,7 +1325,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folder = array_pop($folder);
             }
 
-            return $folder->basename;
+            return $folder->value;
         } else {
             return $folder;
         }

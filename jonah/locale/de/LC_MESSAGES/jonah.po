@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah 1.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2011-02-02 17:34+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -450,7 +450,7 @@ msgstr "Speichern"
 msgid "Search"
 msgstr "Suche"
 
-#: templates/delivery/html.html:10
+#: templates/delivery/html.html:9
 msgid "Select a format:"
 msgstr "Wählen Sie ein Format:"
 
@@ -497,7 +497,7 @@ msgstr "Mit %s getaggte Beiträge in %s"
 msgid "Story"
 msgstr "Beitrag"
 
-#: stories/share.php:113
+#: stories/share.php:112
 msgid "Story Link"
 msgstr "Beitrags-URL"
 
@@ -587,7 +587,7 @@ msgstr "Der Beitrag \"%s\" wurde gespeichert."
 msgid "The story has been deleted."
 msgstr "Der Beitrag wurde gelöscht."
 
-#: stories/share.php:124
+#: stories/share.php:123
 msgid "The story was sent successfully."
 msgstr "Der Beitrag wurde erfolgreich versendet."
 
@@ -623,7 +623,7 @@ msgstr "Typ"
 msgid "Ultracompact"
 msgstr "Sehr kompakt"
 
-#: stories/share.php:122
+#: stories/share.php:121
 #, php-format
 msgid "Unable to send story: %s"
 msgstr "Der Beitrag konnte nicht versendet werden: %s"

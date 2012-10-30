@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Luxor H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-12 22:48:27+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -116,7 +116,7 @@ msgstr "Viitattu -"
 msgid "Size"
 msgstr "Koko"
 
-#: templates/menu.inc:13
+#: templates/menu.inc:12
 msgid "Symbol Search"
 msgstr "Symbolihaku"
 
@@ -147,7 +147,7 @@ msgstr "Ylätasolle"
 msgid "You do not have permission to view %s."
 msgstr "Sinulle ei ole oikeuksia nähdä %s."
 
-#: lib/Luxor.php:454
+#: lib/Application.php:51
 msgid "_Browse"
 msgstr "_Selaa"
 

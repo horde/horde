@@ -70,6 +70,19 @@ class Trean
         return Horde_Themes::img('protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
     }
 
+    static public function addFeedLink()
+    {
+        $rss = Horde::url('rss.php', true, -1);
+        if ($label = Horde_Util::getFormData('label')) {
+            $rss->add('label', $label);
+        }
+
+        $GLOBALS['page_output']->addLinkTag(array(
+            'href' => $rss,
+            'title' => _("Bookmarks Feed")
+        ));
+    }
+
     static public function bookmarkletLink()
     {
         $view = $GLOBALS['injector']->createInstance('Horde_View');

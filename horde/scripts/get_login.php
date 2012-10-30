@@ -5,7 +5,10 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Joel Vandal <joel@scopserv.com>
+ * @author   Joel Vandal <joel@scopserv.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 // Edit the following line to match the filesystem location of your Horde
@@ -20,7 +23,9 @@ $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create();
 // Check for GET auth.
 if (empty($_GET['user']) ||
     !$auth->authenticate($_GET['user'], array('password' => $_GET['pass']))) {
-    Horde::authenticationFailureRedirect();
+    $e = new Horde_Exception_AuthenticationFailure();
+    $e->application = 'horde';
+    throw $e;
 }
 
 require HORDE_BASE . '/index.php';

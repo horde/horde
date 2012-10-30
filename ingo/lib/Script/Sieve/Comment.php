@@ -5,8 +5,16 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @package Ingo
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ *
  * @todo    This and Sieve_If should really extends a Sieve_Block eventually.
  */
 class Ingo_Script_Sieve_Comment

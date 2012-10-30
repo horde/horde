@@ -17,6 +17,7 @@ $vars = Horde_Variables::getDefaultVariables();
 $ticket->setDetails($vars);
 $page_output->addLinkTag($ticket->feedLink());
 
+Whups::addFeedLink();
 $page_output->header(array(
     'title' => '[#' . $ticket->getId() . '] ' . $ticket->get('summary')
 ));

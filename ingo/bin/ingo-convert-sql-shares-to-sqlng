@@ -8,6 +8,15 @@
  * schema version. The schema migration already migrates the data once, but
  * this script can be used to migrate the data again, e.g. if starting to use
  * the NG driver at a later time.
+ *
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (ASL).  If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 if (file_exists(__DIR__ . '/../../ingo/lib/Application.php')) {

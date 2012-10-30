@@ -20,18 +20,11 @@ class Hermes_Ajax
     {
         global $page_output;
 
-        $datejs = str_replace('_', '-', $GLOBALS['language']) . '.js';
-        if (!file_exists($GLOBALS['registry']->get('jsfs', 'horde') . '/date/' . $datejs)) {
-            $datejs = 'en-US.js';
-        }
-
         $page_output->addScriptFile('redbox.js', 'horde');
         $page_output->addScriptFile('tooltips.js', 'horde');
-        $page_output->addScriptFile('date/' . $datejs, 'horde');
-        $page_output->addScriptFile('date/date.js', 'horde');
+        $page_output->addScriptPackage('Datejs');
         $page_output->addScriptFile('quickfinder.js', 'horde');
         $page_output->addScriptFile('hermes.js');
-
         Horde_Core_Ui_JsCalendar::init(array('short_weekdays' => true));
 
         $page_output->addInlineJsVars(array(
@@ -39,7 +32,7 @@ class Hermes_Ajax
         ), array('top' => true));
 
         $page_output->header(array(
-            'body_id' => 'hermesAjax',
+            'body_class' => 'horde-ajax',
             'growler_log' => true
         ));
     }
@@ -62,7 +55,6 @@ class Hermes_Ajax
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array(
-            'URI_HOME' => empty($conf['logo']['link']) ? null : $conf['logo']['link'],
             'images' => array(
                 'timerlog' => (string)Horde_Themes::img('log.png'),
                 'timerplay' => (string)Horde_Themes::img('play.png'),

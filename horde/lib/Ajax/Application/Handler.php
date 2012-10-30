@@ -96,7 +96,7 @@ class Horde_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                 return $GLOBALS['injector']
                     ->getInstance('Horde_Core_Factory_BlockCollection')
                     ->create()
-                    ->getBlock($this->vars->blockid)
+                    ->getBlock($this->vars->app, $this->vars->blockid)
                     ->getAjaxUpdate($this->vars);
             } catch (Exception $e) {
                 return $e->getMessage();

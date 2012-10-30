@@ -475,9 +475,8 @@ $prefGroups['compose'] = array(
         'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'encryptselect', 'save_attachments',
-        'delete_attachments_monthly_keep', 'request_mdn',
-        'reply_lang', 'traditional_compose', 'compose_popup',
+        'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
+        'request_mdn', 'reply_lang', 'basic_compose', 'compose_popup',
         'compose_confirm'
     )
 );
@@ -586,20 +585,6 @@ $_prefs['default_encrypt'] = array(
     'value' => IMP::ENCRYPT_NONE
 );
 
-// Save attachments when saving in sent mail mailbox?
-$_prefs['save_attachments'] = array(
-    'value' => 'prompt_no',
-    'type' => 'enum',
-    'enum' => array(
-        'always' => _("Always save attachments"),
-        'prompt_yes' => _("Prompt every time an attachment is sent; default to YES"),
-        'prompt_no' => _("Prompt every time an attachment is sent; default to NO"),
-        'never' => _("Never save attachments")
-    ),
-    'desc' => _("When saving sent mail, should we save attachment data?"),
-    'help' => 'prefs-save_attachments'
-);
-
 // how many old months of linked attachments to keep?
 $_prefs['delete_attachments_monthly_keep'] = array(
     'value' => 6,
@@ -641,8 +626,8 @@ $_prefs['reply_lang'] = array(
     },
 );
 
-$_prefs['traditional_compose'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+$_prefs['basic_compose'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
     'type' => 'rawhtml'
 );
 
@@ -880,11 +865,24 @@ $_prefs['auto_save_drafts'] = array(
 $prefGroups['sentmail'] = array(
     'column' => _("Compose"),
     'label' => _("Sent Mail"),
-    'desc' => _("Manage sent mail mailboxes."),
+    'desc' => _("Manage sent mail."),
     'members' => array(
-        'rename_sentmail_monthly', 'delete_sentmail_monthly_keep',
-        'purge_sentmail_interval', 'purge_sentmail_keep'
+        'save_attachments', 'rename_sentmail_monthly',
+        'delete_sentmail_monthly_keep', 'purge_sentmail_interval',
+        'purge_sentmail_keep'
     )
+);
+
+// Save attachments when saving in sent mail mailbox?
+$_prefs['save_attachments'] = array(
+    'value' => 'never',
+    'type' => 'enum',
+    'enum' => array(
+        'always' => _("Save attachments"),
+        'never' => _("Do not save attachments")
+    ),
+    'desc' => _("Should we save attachments in the sent-mail message?"),
+    'help' => 'prefs-save_attachments'
 );
 
 // rename sent mail mailbox every month?
@@ -1460,7 +1458,7 @@ $prefGroups['newmail'] = array(
     )
 );
 
-// time before reloading the navigator or mailbox page
+// time before polling for new mail
 $_prefs['refresh_time'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1472,7 +1470,7 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Refresh Folder Views:"),
+    'desc' => _("Poll for New Mail:"),
 );
 
 // Display notification if there is new mail?
@@ -1559,7 +1557,7 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'traditional_mailbox',
+        'max_msgs', 'from_link', 'atc_flag', 'basic_mailbox',
         'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
         'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
         'mimp_preview_msg'
@@ -1677,8 +1675,8 @@ $_prefs['atc_flag'] = array(
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );
 
-$_prefs['traditional_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Traditional View") . '</div>',
+$_prefs['basic_mailbox'] = array(
+    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
     'type' => 'rawhtml',
     'requires' => array('preview_enabled'),
     'requires_nolock' => array('preview_enabled')

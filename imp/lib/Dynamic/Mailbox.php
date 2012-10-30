@@ -19,15 +19,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
     public $growlerLog = true;
 
     /**
-     * @var boolean
-     */
-    public $topbar = true;
-
-    /**
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $page_output, $registry, $session;
+        global $conf, $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -50,8 +45,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
 
-        $this->view->is_opera = $browser->isBrowser('opera');
-
         $impSubinfo = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/dynamic'
         ));
@@ -62,6 +55,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $topbar->search = $this->view->show_search;
         $topbar->searchMenu = true;
         $topbar->subinfo = $impSubinfo->render('mailbox_subinfo');
+        $page_output->topbar = true;
 
         $blank = new Horde_Url();
         $impSidebar = new Horde_View(array(
@@ -402,8 +396,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'show_deleted' => _("Show Deleted"),
             'hide_deleted' => _("Hide Deleted"),
-            '_sep3' => null,
-            'help' => _("Help")
         );
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_oa']['_sub2']);
@@ -483,6 +475,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'search' => _("Search"),
             'search_time' => _("Results are %d Minutes Old"),
             'selected' => _("selected"),
+            'slidertext' => _("Messages %d - %d"),
             'vfolder' => _("Virtual Folder: %s"),
             'vp_empty' => _("There are no messages in this mailbox."),
             'vp_empty_search' => _("No messages matched the search query.")

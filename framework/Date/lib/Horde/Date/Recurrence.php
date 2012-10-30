@@ -1544,7 +1544,7 @@ class Horde_Date_Recurrence
             $hash['exclusion'][] = new DateTime($exception);
         }
         foreach ($this->completions as $completionexception) {
-            $hash['complete'][] = new DateTime($completion);
+            $hash['complete'][] = new DateTime($completionexception);
         }
 
         return $hash;

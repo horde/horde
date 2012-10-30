@@ -36,7 +36,7 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (4.0-git)';
+    public $version = 'H5 (4.0.2-git)';
 
     /**
      * Global variables defined:
@@ -120,7 +120,7 @@ class Mnemo_Application extends Horde_Registry_Application
             $row = array(
                 'selected' => in_array($name, $GLOBALS['display_notepads']),
                 'url' => $url->add('display_notepad', $name),
-                'label' => $notepad->get('name'),
+                'label' => Mnemo::getLabel($notepad),
                 'color' => $notepad->get('color') ?: '#dddddd',
                 'edit' => $edit->add('n', $notepad->getName()),
                 'type' => 'checkbox',
@@ -128,9 +128,6 @@ class Mnemo_Application extends Horde_Registry_Application
             if ($notepad->get('owner') == $user) {
                 $sidebar->addRow($row, 'my');
             } else {
-                if ($notepad->get('owner')) {
-                    $row['label'] .= ' [' . $GLOBALS['registry']->convertUsername($notepad->get('owner'), false) . ']';
-                }
                 $sidebar->addRow($row, 'shared');
             }
         }
@@ -170,11 +167,11 @@ class Mnemo_Application extends Horde_Registry_Application
             )
         ));
 
-        foreach (Mnemo::listNotepads() as $name => $notepad) {
+        foreach (Mnemo::listNotepads(false, Horde_Perms::EDIT) as $name => $notepad) {
             $tree->addNode(array(
                 'id' => $parent . $name . '__new',
                 'parent' => $parent . '__new',
-                'label' => sprintf(_("in %s"), $notepad->get('name')),
+                'label' => sprintf(_("in %s"), Mnemo::getLabel($notepad)),
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('add.png'),
@@ -201,7 +198,7 @@ class Mnemo_Application extends Horde_Registry_Application
     {
         $error = false;
         $notepads = $GLOBALS['mnemo_shares']->listShares(
-            $user, array('attribtues' => $user));
+            $user, array('attributes' => $user));
         foreach ($notepads as $notepad => $share) {
             $driver = $GLOBALS['injector']
                 ->getInstance('Mnemo_Factory_Driver')
@@ -248,10 +245,6 @@ class Mnemo_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
-            /* Create a Mnemo storage instance. */
-            $storage = $injector->getInstance('Mnemo_Factory_Driver')->create($registry->getAuth());
-            $storage->retrieve();
-
             /* Get the full, sorted memo list. */
             $notes = Mnemo::listMemos();
 
@@ -271,7 +264,10 @@ class Mnemo_Application extends Horde_Registry_Application
                     $data[] = $note;
                 }
 
-                $injector->getInstance('Horde_Core_Factory_Data')->create('Csv', array('cleanup' => array($this, 'cleanupData')))->exportFile(_("notes.csv"), $data, true);
+                $injector->getInstance('Horde_Core_Factory_Data')
+                    ->create('Csv',
+                             array('cleanup' => array($this, 'cleanupData')))
+                    ->exportFile(_("notes.csv"), $data, true);
                 exit;
             }
         }

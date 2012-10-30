@@ -363,6 +363,10 @@ class Horde_Imap_Client_Cache
         $this->_loadSliceMap($mailbox, $uidvalid);
         $this->_slicemap[$mailbox]['d'] = array_merge($this->_slicemap[$mailbox]['d'], $data);
         $this->_toUpdate($mailbox, 'slicemap', true);
+
+        if ($this->_params['debug']) {
+            $this->_base->writeDebug('CACHE: Stored metadata (mailbox: ' . $mailbox . '; Keys: ' . implode(',', array_keys($data)) . ")\n", Horde_Imap_Client::DEBUG_INFO);
+        }
     }
 
     /**
@@ -381,7 +385,7 @@ class Horde_Imap_Client_Cache
         $this->_loadSliceMap($mailbox);
 
         $slicemap = &$this->_slicemap[$mailbox];
-        $update = array_intersect_key($slicemap['s'], array_flip($uids));
+        $update = array_intersect_key($slicemap['s'], array_flip(is_array($uids) ? $uids : iterator_to_array($uids)));
 
         if (!empty($update)) {
             $this->_loadUids($mailbox, array_keys($update));

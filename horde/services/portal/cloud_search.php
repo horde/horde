@@ -11,7 +11,10 @@
  *        should not hardcode the supported apps.  Also should allow excluding
  *        of applications in the tag search
  *
- * @author Michael J. Rubinksy <mrubinsk@horde.org>
+ * @author   Michael J. Rubinksy <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Horde
  */
 
 require_once __DIR__ . '/../../lib/Application.php';
@@ -19,8 +22,8 @@ Horde_Registry::appInit('horde', array('nologintaks' => true));
 
 $tag = Horde_Util::getFormData('tag');
 $results = array();
-foreach ($GLOBALS['registry']->listAPIs() as $api) {
-    if ($GLOBALS['registry']->hasMethod($api . '/listTagInfo')) {
+foreach ($registry->listAPIs() as $api) {
+    if ($registry->hasMethod($api . '/listTagInfo')) {
         try {
             $results = array_merge(
                 $results, $registry->{$api}->searchTags(array($tag), 10, 0, '', $registry->getAuth()));

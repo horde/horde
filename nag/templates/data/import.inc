@@ -25,7 +25,7 @@
   foreach ($import_tasklists as $id => $tasklist) {
       $sel = ($id == $default) ? ' selected="selected"' : '';
       printf('<option value="%s"%s>%s</option>',
-             htmlspecialchars($id), $sel, htmlspecialchars($tasklist->get('name'))) . "\n";
+             htmlspecialchars($id), $sel, htmlspecialchars(Nag::getLabel($tasklist))) . "\n";
   } ?>
   </select>
  </p>

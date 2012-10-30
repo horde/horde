@@ -73,7 +73,7 @@ abstract class Horde_Core_Tagger
     public function split($tags)
     {
         $split_tags = explode(',', $tags);
-        return array_map("trim", $split_tags);
+        return array_map('trim', $split_tags);
     }
 
     /**
@@ -200,8 +200,7 @@ abstract class Horde_Core_Tagger
 
         // If we don't have an array - split the string.
         if (!is_array($tags)) {
-            $tags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->splitTags($tags);
+            $tags = $this->split($tags);
         }
         $remove = array();
         foreach ($existing_tags as $tag_id => $existing_tag) {

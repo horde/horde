@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H5 (5.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: index.php:224 templates/index.html.php:84
+#: index.php:221 templates/index.html.php:84
 msgid "Change Password"
 msgstr ""
 
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Passwd is not properly configured."
 msgstr ""
 
-#: lib/Application.php:47
+#: lib/Application.php:46
 msgid "Password"
 msgstr ""
 
@@ -185,15 +185,15 @@ msgstr ""
 msgid "Password module is not properly configured"
 msgstr ""
 
-#: index.php:217
+#: index.php:214
 msgid "Please provide a new password"
 msgstr ""
 
-#: index.php:216
+#: index.php:213
 msgid "Please provide your current password"
 msgstr ""
 
-#: index.php:218
+#: index.php:215
 msgid "Please verify your new password"
 msgstr ""
 
@@ -281,7 +281,7 @@ msgstr ""
 msgid "Your password could not be changed."
 msgstr ""
 
-#: index.php:219
+#: index.php:216
 msgid "Your passwords do not match"
 msgstr ""
 

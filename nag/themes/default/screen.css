@@ -32,34 +32,15 @@
 #RB_window {
     top: 50px !important;
 }
-.quickAddInfoPanel {
-    width: 30em;
-    padding: 1em;
-    border: 1px solid #ccc;
-    background: #ffc;
-}
-.quickAddInfoPanel textarea {
-    width: 100%;
-    height: 10em;
-    margin-top: .5em;
-}
-.quickAddInfoPanel p {
-    margin-top: .5em;
-    margin-bottom: .5em;
-}
 
-.overdue, .overdue td {
+.overdue, .overdue td, .overdue a, .overdue td a {
     color: #f00;
 }
-.overdue a, .overdue td a {
-    color: #f00;
-}
-.closed, .closed td {
+.closed, .closed td, .closed a, .closed td a {
     color: #aaa;
 }
 .closed a, .closed td a {
     text-decoration: line-through;
-    color: #aaa;
 }
 
 .pri-1 {

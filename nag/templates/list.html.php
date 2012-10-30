@@ -48,7 +48,7 @@ function doPrefsUpdate(column, sortDown)
             } else {
                 try {
                     $share = $GLOBALS['nag_shares']->getShare($task->tasklist);
-                    $owner = $share->get('name');
+                    $owner = Nag::getLabel($share);
                 } catch (Horde_Share_Exception $e) {
                     $owner = $task->tasklist;
                 }
@@ -70,7 +70,7 @@ function doPrefsUpdate(column, sortDown)
 
   <?php endif; ?>
 
-<div id="tasks_empty">
+<div id="tasks_empty" style="display:none">
  <?php echo _("No tasks match") ?>
 </div>
 </div>

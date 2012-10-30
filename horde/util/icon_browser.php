@@ -17,7 +17,7 @@ $apps = $registry->listAllApps();
 ksort($apps);
 
 $url = new Horde_Url('icon_browser.php');
-$vars = Horde_Variables::getDefaultVariables();
+$vars = $injector->getInstance('Horde_Variables');
 
 if (($app = basename($vars->app)) && isset($apps[$app])) {
     // Provide a non-white background for eyeballing transparency.

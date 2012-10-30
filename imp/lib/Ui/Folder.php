@@ -1,7 +1,6 @@
 <?php
 /**
- * This class provides a place to store common code shared among IMP's various
- * UI views for folder tree manipulation.
+ * Common code shared among IMP's various folder UI views.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -103,13 +102,10 @@ class IMP_Ui_Folder
                 }
 
                 foreach ($res as $ptr) {
-                    $from = '<>';
-                    if ($from_env = $ptr->getEnvelope()->from) {
-                        $ptr2 = reset($from_env);
-                        if (!empty($ptr2['mailbox']) && !empty($ptr2['host'])) {
-                            $from = $ptr2['mailbox']. '@' . $ptr2['host'];
-                        }
-                    }
+                    $from_env = $ptr->getEnvelope()->from;
+                    $from = count($from_env)
+                        ? $from_env[0]->bare_address
+                        : '<>';
 
                     /* We need this long command since some MUAs (e.g. pine)
                      * require a space in front of single digit days. */

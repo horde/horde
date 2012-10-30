@@ -20,7 +20,7 @@
   <?php echo Horde::label('exportList', _("Select the task list(s) to export from:")) ?><br />
   <select id="exportList" name="exportList[]" multiple="multiple">
     <?php foreach ($export_tasklists as $id => $tasklist) {
-        printf('<option value="%s">%s</option>', htmlspecialchars($id), htmlspecialchars($tasklist->get('name'))) . "\n";
+        printf('<option value="%s">%s</option>', htmlspecialchars($id), htmlspecialchars(Nag::getLabel($tasklist))) . "\n";
     } ?>
   </select>
  </p>

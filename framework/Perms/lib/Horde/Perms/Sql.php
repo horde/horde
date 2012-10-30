@@ -113,7 +113,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             }
 
             if (empty($result)) {
-                throw new Horde_Perms_Exception('Does not exist');
+                throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
             }
 
             $object = new Horde_Perms_Permission_Sql($name, $this->_cacheVersion);
@@ -156,7 +156,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
             }
 
             if (empty($result)) {
-                throw new Horde_Perms_Exception('Does not exist');
+                throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
             }
 
             $object = new Horde_Perms_Permission_Sql($result['perm_name'], $this->_cacheVersion);
@@ -365,7 +365,7 @@ class Horde_Perms_Sql extends Horde_Perms_Base
         }
 
         if (empty($result)) {
-            throw new Horde_Perms_Exception('Does not exist');
+            throw new Horde_Perms_Exception('Does not exist', Horde_Perms_Exception::NOT_EXIST);
         }
 
         return $this->_getParents($result);

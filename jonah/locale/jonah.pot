@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Jonah H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -440,7 +440,7 @@ msgstr ""
 msgid "Search"
 msgstr ""
 
-#: templates/delivery/html.html:10
+#: templates/delivery/html.html:9
 msgid "Select a format:"
 msgstr ""
 
@@ -485,7 +485,7 @@ msgstr ""
 msgid "Story"
 msgstr ""
 
-#: stories/share.php:113
+#: stories/share.php:112
 msgid "Story Link"
 msgstr ""
 
@@ -573,7 +573,7 @@ msgstr ""
 msgid "The story has been deleted."
 msgstr ""
 
-#: stories/share.php:124
+#: stories/share.php:123
 msgid "The story was sent successfully."
 msgstr ""
 
@@ -609,7 +609,7 @@ msgstr ""
 msgid "Ultracompact"
 msgstr ""
 
-#: stories/share.php:122
+#: stories/share.php:121
 #, php-format
 msgid "Unable to send story: %s"
 msgstr ""

@@ -21,7 +21,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.0.0-git';
+    public $version = '5.0.2-git';
 
     /**
      */
@@ -102,7 +102,9 @@ class Horde_Application extends Horde_Registry_Application
                 'Bing' => 'Bing',
                 'Yahoo' => 'Yahoo',
                 'Cloudmade' => 'CloudMade',
-                'MyTopo' => 'MyTopo',
+                // @TODO: API has evidently changed somewhat. Disable until
+                // I can get an API key to fully test.
+                //'Mytopo' => 'MyTopo',
                 'Osm' => 'OpenStreetMap',
                 'Ocm' => 'OpenCycleMap',
                 'Mapquest' => 'OpenMapquest'

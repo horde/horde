@@ -40,7 +40,7 @@ class Nag_Driver_Smartlist extends Nag_Driver
 
     public function add(array $task)
     {
-        throw new Nag_Exception(_("Cannot add tasks to smart task lists."));
+        throw new Nag_Exception(_("Cannot add tasks to smart lists."));
     }
 
     /**

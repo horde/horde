@@ -249,7 +249,7 @@ var HordeMobile = {
             data.options.parsedUrl = {
                 params: $.extend({}, parsed.search.toQueryParams(), parsed.hash.toQueryParams()),
                 parsed: parsed,
-                view: match ? match[1] : undefined
+                view: match ? match[1] : ($.mobile.firstPage ? $.mobile.firstPage.attr('id') : undefined)
             };
         } else {
             data.options.parsedUrl = {};

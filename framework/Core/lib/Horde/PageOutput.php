@@ -490,7 +490,10 @@ class Horde_PageOutput
     }
 
     /**
-     * Add a LINK tag.
+     * Adds a LINK tag.
+     *
+     * All attributes are HTML-encoded. Only pass raw, unencoded attribute
+     * values to avoid double escaping.
      *
      * @param array $opts  Non-default tag elements.
      */
@@ -655,6 +658,8 @@ class Horde_PageOutput
             $view->stylesheetOpts['subonly'] = true;
 
             $view->minimalView = true;
+
+            $this->sidebar = $this->topbar = false;
             break;
 
         case $registry::VIEW_SMARTMOBILE:
@@ -700,6 +705,8 @@ class Horde_PageOutput
             // Force JS to load at top of page, so we don't see flicker when
             // mobile styles are applied.
             $view->outputJs = true;
+
+            $this->sidebar = $this->topbar = false;
             break;
         }
 
@@ -793,9 +800,7 @@ class Horde_PageOutput
         }
 
         echo $view->render('header');
-        if ($this->topbar &&
-            ($this->_view == $registry::VIEW_BASIC ||
-             $this->_view == $registry::VIEW_DYNAMIC)) {
+        if ($this->topbar) {
             echo $injector->getInstance('Horde_View_Topbar')->render();
         }
 

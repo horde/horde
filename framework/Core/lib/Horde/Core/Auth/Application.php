@@ -686,15 +686,22 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
             } else {
                 $mode = $browser->isMobile()
                     ? 'mobile'
-                    : 'traditional';
+                    : 'basic';
+            }
+            break;
+
+        case 'basic':
+            if (!$browser->hasFeature('javascript')) {
+                $notification->push(_("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
+                $mode = 'mobile';
             }
             break;
 
         case 'dynamic':
             if (!$browser->hasFeature('ajax')) {
                 if ($browser->hasFeature('javascript')) {
-                    $notification->push(_("Your browser does not support the dynamic view. Using traditional view instead."), 'horde.warning');
-                    $mode = 'traditional';
+                    $notification->push(_("Your browser does not support the dynamic view. Using basic view instead."), 'horde.warning');
+                    $mode = 'basic';
                 } else {
                     $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                     $mode = 'mobile';
@@ -705,13 +712,6 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         case 'smartmobile':
             if (!$browser->hasFeature('ajax')) {
                 $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
-                $mode = 'mobile';
-            }
-            break;
-
-        case 'traditional':
-            if (!$browser->hasFeature('javascript')) {
-                $notification->push(_("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
             }
             break;
@@ -730,10 +730,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         }
 
         $registry_map = array(
+            'basic' => Horde_Registry::VIEW_BASIC,
             'dynamic' => Horde_Registry::VIEW_DYNAMIC,
             'mobile' => Horde_Registry::VIEW_MINIMAL,
-            'smartmobile' => Horde_Registry::VIEW_SMARTMOBILE,
-            'traditional' => Horde_Registry::VIEW_BASIC
+            'smartmobile' => Horde_Registry::VIEW_SMARTMOBILE
         );
 
         $this->_view = $mode;

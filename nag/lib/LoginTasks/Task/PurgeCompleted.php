@@ -47,15 +47,13 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
             'completed' => Nag::VIEW_COMPLETE,
             'tasklists' => array_keys($tasklists))
         );
-        $storage = $GLOBALS['injector']
-            ->getInstance('Nag_Factory_Driver')
-            ->create();
+        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
         $count = 0;
         $tasks->reset();
         while ($task = $tasks->each()) {
             if (($task->completed_date) && $task->completed_date < $del_time) {
                 try {
-                    $storage->delete($task->id);
+                    $factory->create($task->tasklist)->delete($task->id);
                     ++$count;
                 } catch (Nag_Exception $e) {
                     Horde::logMessage($e->getMessage(), 'ERR');
@@ -79,7 +77,7 @@ class Nag_LoginTasks_Task_PurgeCompleted extends Horde_LoginTasks_Task
     {
 
         return sprintf(
-            _("All completed tasks older than %s days will be permanently deleted."),
+            _("All completed tasks older than %d days will be permanently deleted."),
             $GLOBALS['prefs']->getValue('purge_completed_keep')
         );
     }

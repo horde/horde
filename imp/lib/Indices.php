@@ -90,7 +90,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 }
             } elseif (is_string($data)) {
                 $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-                $indices = $imp_imap->getUtils()->fromSequenceString($data);
+                $indices = $this->_fromSequenceString($data);
                 if ($imp_imap->pop3) {
                     $indices = array($this->_default => $indices);
                 }
@@ -189,8 +189,71 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
         foreach ($this->_indices as $key => $val) {
             $converted[IMP_Mailbox::formTo($key)] = $val;
         }
+        return $this->_toSequenceString($converted);
+    }
 
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->toSequenceString($converted, array('mailbox' => true));
+    /**
+     * Parse an IMAP message sequence string into a list of indices.
+     * Extends Horde_Imap_Client_Ids by allowing mailbox information to appear
+     * in the string.
+     *
+     * @param string $str  The IMAP message sequence string.
+     *
+     * @return array  An array of indices.  If string contains mailbox info,
+     *                return value will be an array of arrays, with keys as
+     *                mailbox names and values as IDs. Otherwise, return the
+     *                list of IDs.
+     */
+    protected function _fromSequenceString($str)
+    {
+        $str = trim($str);
+
+        if (!strlen($str)) {
+            return array();
+        }
+
+        if ($str[0] != '{') {
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getIdsOb($str)->ids;
+        }
+
+        $i = strpos($str, '}');
+        $count = intval(substr($str, 1, $i - 1));
+        $mbox = substr($str, $i + 1, $count);
+        $i += $count + 1;
+        $end = strpos($str, '{', $i);
+
+        if ($end === false) {
+            $ids = array();
+            $uidstr = substr($str, $i);
+        } else {
+            $ids = $this->_fromSequenceString(substr($str, $end));
+            $uidstr = substr($str, $i, $end - $i);
+        }
+
+        $ids[$mbox] = $this->_fromSequenceString($uidstr);
+
+        return $ids;
+    }
+
+    /**
+     * Create an IMAP message sequence string from a list of indices.
+     * Extends Horde_Imap_Client_Ids by allowing mailbox information to appear
+     * in the string.
+     *
+     * @param array $in  An array of indices.
+     *
+     * @return string  The message sequence string.
+     */
+    protected function _toSequenceString($in)
+    {
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $str = '';
+
+        foreach ($in as $mbox => $ids) {
+            $str .= '{' . strlen($mbox) . '}' . $mbox . $imap_ob->getIdsOb($ids)->tostring_sort;
+        }
+
+        return $str;
     }
 
     /* ArrayAccess methods. */
@@ -253,7 +316,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      */
     public function __toString()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getUtils()->toSequenceString($this->_indices, array('mailbox' => true));
+        return $this->_toSequenceString($this->_indices);
     }
 
     /* Iterator methods. */

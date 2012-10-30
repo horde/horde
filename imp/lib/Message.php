@@ -153,6 +153,7 @@ class IMP_Message
         $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
         $return_value = 0;
 
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Check for Trash mailbox. */
@@ -275,6 +276,8 @@ class IMP_Message
                               $opts['mailboxob']->isBuilt() &&
                               $ob->mbox->hideDeletedMsgs()) {
                         $opts['mailboxob']->removeMsgs($imp_indices);
+                    } else {
+                        $ajax_queue->flag($del_flags, true, new IMP_Indices($ob->mbox, $ids_ob));
                     }
                 } catch (IMP_Imap_Exception $e) {}
 
@@ -484,19 +487,19 @@ class IMP_Message
         $message = $contents->getMIMEMessage();
         $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 
-        $url_array = array(
-            'mailbox' => $mbox,
-            'uid' => $uid ,
-            'uidvalidity' => $uidvalidity
-        );
+        $url = new Horde_Imap_Client_Url();
+        $url->mailbox = $mbox;
+        $url->uid = $uid;
+        $url->uidvalidity = $uidvalidity;
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
 
         /* Always add the header to output. */
+        $url->section = 'HEADER';
         $parts = array(
             array(
                 't' => 'url',
-                'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => 'HEADER')))
+                'v' => strval($url)
             )
         );
 
@@ -528,13 +531,16 @@ class IMP_Message
                     ))
                 );
             } else {
+                $url->section = $id . '.MIME';
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id . '.MIME')))
+                    'v' => strval($url)
                 );
+
+                $url->section = $id;
                 $parts[] = array(
                     't' => 'url',
-                    'v' => $imp_imap->getUtils()->createUrl(array_merge($url_array, array('section' => $id)))
+                    'v' => strval($url)
                 );
             }
         }

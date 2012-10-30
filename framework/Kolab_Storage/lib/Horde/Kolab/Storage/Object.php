@@ -424,12 +424,10 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $this->_mime_part_id = Horde_Kolab_Storage_Object_MimeType::matchMimePartToObjectType(
             $body, $this->getType()
         );
+        $old_uid = $this->_getBackendId();
         $result = $this->_appendMessage($body, $headers);
-        $this->_driver->deleteMessages($this->_getFolder(), array($this->_getBackendId()));
+        $this->_driver->deleteMessages($this->_getFolder(), array($old_uid));
         $this->_driver->expunge($this->_getFolder());
-        if ($result !== true) {
-            $this->_backend_id = $result;
-        }
         return $result;
     }
 
@@ -462,6 +460,9 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
                 )
             );
         }
+        if ($result !== true) {
+            $this->_backend_id = $result;
+        }
         return $result;
     }
 
@@ -481,15 +482,11 @@ class Horde_Kolab_Storage_Object implements ArrayAccess, Serializable
         $description->setDisposition('inline');
         $description->setCharset('utf-8');
         $description->setContents(
-            Horde_String::wrap(
-                sprintf(
-                    Horde_Kolab_Storage_Translation::t(
-                        "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"
-                    ),
-                    'http://www.kolab.org/content/kolab-clients'
+            sprintf(
+                Horde_Kolab_Storage_Translation::t(
+                    "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit %s"
                 ),
-                76,
-                "\r\n"
+                'http://www.kolab.org/content/kolab-clients'
             ),
             array('encoding' => 'quoted-printable')
         );

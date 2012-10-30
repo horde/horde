@@ -25,7 +25,7 @@ if ($id = $vars->get('smart_id')) {
     $searchObj = unserialize($list->get('search'));
     $vars->set('smartlist_name', $list->get('name'));
     $searchObj->getVars($vars);
-    $form = new Nag_Form_Search($vars, sprintf(_("Editing SmartList \"%s\""), htmlspecialchars($list->get('name'))));
+    $form = new Nag_Form_Search($vars, sprintf(_("Editing Smart List \"%s\""), htmlspecialchars($list->get('name'))));
 } else {
     $form = new Nag_Form_Search($vars, _("Search"));
 }

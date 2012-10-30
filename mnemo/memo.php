@@ -85,6 +85,16 @@ case 'add_memo':
             $notification->push($e);
         }
     }
+    try {
+        $share = $mnemo_shares->getShare($memolist_id);
+    } catch (Horde_Share_Exception $e) {
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
+    }
+    if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
+        $notification->push(_("Access denied addings notes to this notepad."), 'horde.error');
+        Horde::url('list.php', true)->redirect();
+    }
     $memo_id = null;
     $memo_body = '';
     $memo_category = '';
@@ -129,11 +139,12 @@ case 'save_memo':
     try {
         $share = $mnemo_shares->getShare($notepad_target);
     } catch (Horde_Share_Exception $e) {
-        throw new Mnemo_Exception($e);
+        $notification->push($e);
+        Horde::url('list.php', true)->redirect();
     }
 
     if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-        $notification->push(sprintf(_("Access denied saving note to %s."), $share->get('name')), 'horde.error');
+        $notification->push(_("Access denied saving note to this notepad."), 'horde.error');
     } elseif ($memo_passphrase != $memo_passphrase2) {
         $notification->push(_("The passwords don't match."), 'horde.error');
         if (empty($memo_id)) {
@@ -179,7 +190,7 @@ case 'save_memo':
                         throw new Mnemo_Exception($e);
                     }
                     if ($share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-                        $result = $storage->move($memo_id, $notepad_target);
+                        $storage->move($memo_id, $notepad_target);
                         $storage = $GLOBALS['injector']->getInstance('Mnemo_Factory_Driver')->create($notepad_target);
                     } else {
                         $notification->push(_("Access denied moving the note."), 'horde.error');

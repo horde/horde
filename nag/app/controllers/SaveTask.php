@@ -21,9 +21,9 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
         // Check if we are here due to a deletebutton push
         if ($vars->deletebutton) {
             try {
-                $share = $GLOBALS['nag_shares']->getShare($info['tasklist_id']);
+                $share = $GLOBALS['nag_shares']->getShare($info['old_tasklist']);
             } catch (Horde_Share_Exception $e) {
-                $notification->push(sprintf(_("Access denied saving task: %s"), $e->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("Access denied deleting task: %s"), $e->getMessage()), 'horde.error');
                 Horde::url('list.php', true)->redirect();
             }
             if (!$share->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
@@ -32,7 +32,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             }
             $storage = $GLOBALS['injector']
                 ->getInstance('Nag_Factory_Driver')
-                ->create($info['tasklist_id']);
+                ->create($info['old_tasklist']);
             try {
                 $storage->delete($info['task_id']);
             } catch (Nag_Exception $e) {
@@ -54,7 +54,7 @@ class Nag_SaveTask_Controller extends Horde_Controller_Base
             Horde::url('list.php', true)->redirect();
         }
         if (!$share->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
-            $notification->push(sprintf(_("Access denied saving task to %s."), $share->get('name')), 'horde.error');
+            $notification->push(_("Access denied saving task to this task list."), 'horde.error');
             Horde::url('list.php', true)->redirect();
         }
 

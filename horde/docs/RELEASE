@@ -21,60 +21,34 @@ The steps to use when cutting a new release
    - Write the release announcements into the ``docs/RELEASE_NOTES`` file and
      check if it parses with ``php -l docs/RELEASE_NOTES``.
 
-   - Make sure sentinel reflects the most recent version (i.e. remove the
-     '-cvs' suffix).
-
-   As an extra effort to ensure completeness, you could also check the CVS
+   As an extra effort to ensure completeness, you could also check the
    changelogs for any changes that may not have been inserted in the
    ``*/docs/CHANGES`` file and integrate them into the above points.
 
-2. Examine ``*/README`` and ``docs/*`` files, and update the version if
-   this is a major release. Minor releases should not change the versions in
-   these files.
+2. Examine ``docs/*`` files, and update the version if this is a major
+   release. Minor releases should not change the versions in these files.
 
-3. Update the .pot file: ``./po/translation.php extract --module foo`` and
-   commit it.
+3. Update the .pot file: ``horde-translation extract --module foo`` and commit
+   it.
 
-4. Make sure your settings in ``horde-make-release-conf.php`` are correct. The
-   configuration file is loaded from the same directory as
-   ``horde-make-release.php``.
+4. Make sure your settings in ``components/config/conf.php`` are correct.
 
-5. If you want to use another ``CVSROOT`` than the default one, set the
-   ``CVSROOT`` environment variable to a user with commit privs
-   (e.g. ``user@cvs.horde.org:/repository``) and change to an empty directory.
+5. Make a "dry run" of the ``horde-components`` script by adding ``--pretend``
+   to the command line parameters.
 
-6. Make a "dry run" of the ``horde-make-release.php`` script by adding
-   ``--dryrun`` to the command line parameters.
+6. Create the PEAR package releases using ``horde-components ./foo release``::
 
-7. Create the tarballs/patches using ``horde-make-release.php``::
-
-   - Must be run as root (to set file ownership).
-   - Omit ``--branch`` when building HEAD.
    - For usage, use the ``--help`` flag.
 
-8. If upgrading from a release candidate, remove the old tarball from the FTP
-   server.
-
-9. Update the web site (``hordeweb`` CVS directory):
-
-   - Edit ``config/news.php`` to include the release announcement link.
+7. Update the web site (``horde-web`` Git repository):
 
    - Edit ``config/versions.php`` to update the version information.
 
-   - Edit ``main.html`` to include a blurb on the release.
+8. Add new version to bugs.horde.org if not added automatically by the release
+   script.
 
-   - If applicable (i.e. new branch, new major release), under
-     ``hordeweb/source`` edit::
-
-        versions.html
-        modules.html
-
-10. Add new version to bugs.horde.org if not added automatically by the
-    release script.
-
-11. Bump version numbers of showstopper tickets that didn't go into the
-    release, then bump version number in the showstopper query on
-    bugs.horde.org.
+9. Bump version numbers of showstopper tickets that didn't go into the release,
+   then bump version number in the showstopper query on bugs.horde.org.
 
 
 Guidelines for release candidates (RCs)
@@ -91,7 +65,7 @@ Guidelines for release candidates (RCs)
 
 * RCs are necessary for every release (except 3) because many translators only
   update their translations when there is a new (minor) release cycle starting
-  because they don't translate on CVS versions.
+  because they don't translate on Git versions.
 
 
 Example format for announcement messages

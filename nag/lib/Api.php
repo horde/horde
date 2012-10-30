@@ -26,7 +26,10 @@ class Nag_Api extends Horde_Registry_Api
     public function ajaxDefaults()
     {
         return array(
-            'URI_TASKLIST_EXPORT' => strval($GLOBALS['registry']->downloadUrl('', array('actionID' => 'export', 'exportTasks' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportList' => ''))),
+            'URI_TASKLIST_EXPORT' => str_replace(
+                array('%23', '%2523', '%7B', '%257B', '%7D', '%257D'),
+                array('#', '#', '{', '{', '}', '}'),
+                strval($GLOBALS['registry']->downloadUrl('#{tasklist}.ics', array('actionID' => 'export', 'exportTasks' => 1, 'exportID' => Horde_Data::EXPORT_ICALENDAR, 'exportList' => '#{tasklist}'))->setRaw(true))),
             'default_tasklist' => Nag::getDefaultTasklist(Horde_Perms::EDIT),
             'default_due' => (bool)$GLOBALS['prefs']->getValue('default_due'),
             'default_due_days' => (int)$GLOBALS['prefs']->getValue('default_due_days'),
@@ -287,8 +290,8 @@ class Nag_Api extends Horde_Registry_Api
             foreach ($tasklists as $tasklistId => $tasklist) {
                 $retpath = 'nag/' . $parts[0] . '/' . $tasklistId;
                 if (in_array('name', $properties)) {
-                    $results[$retpath]['name'] = sprintf(_("Tasks from %s"), $tasklist->get('name'));
-                    $results[$retpath . '.ics']['name'] = $tasklist->get('name');
+                    $results[$retpath]['name'] = sprintf(_("Tasks from %s"), Nag::getLabel($tasklist));
+                    $results[$retpath . '.ics']['name'] = Nag::getLabel($tasklist);
                 }
                 if (in_array('icon', $properties)) {
                     $results[$retpath]['icon'] = Horde_Themes::img('nag.png');
@@ -941,7 +944,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $task = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
-            ->create()
+            ->create('')
             ->getByUID($uid);
         if (!Nag::hasPermission($task->tasklist, Horde_Perms::READ)) {
             throw new Horde_Exception_PermissionDenied();
@@ -1057,8 +1060,8 @@ class Nag_Api extends Horde_Registry_Api
             return true;
         }
 
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $task = $storage->getByUID($uid);
+        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
+        $task = $factory->create('')->getByUID($uid);
 
         if (!$GLOBALS['registry']->isAdmin() &&
             !Nag::hasPermission($task->tasklist, Horde_Perms::DELETE)) {
@@ -1066,7 +1069,7 @@ class Nag_Api extends Horde_Registry_Api
              throw new Horde_Exception_PermissionDenied();
         }
 
-        return $storage->delete($task->id);
+        return $factory->create($task->tasklist)->delete($task->id);
     }
 
     /**
@@ -1106,8 +1109,8 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function replace($uid, $content, $contentType)
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $existing = $storage->getByUID($uid);
+        $factory = $GLOBALS['injector']->getInstance('Nag_Factory_Driver');
+        $existing = $factory->create('')->getByUID($uid);
         $taskId = $existing->id;
         $owner = $existing->owner;
         if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
@@ -1142,14 +1145,14 @@ class Nag_Api extends Horde_Registry_Api
             $task = new Nag_Task();
             $task->fromiCalendar($content);
             $task->owner = $owner;
-            $storage->modify($taskId, $task->toHash());
+            $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
 
         case 'activesync':
             $task = new Nag_Task();
             $task->fromASTask($content);
             $task->owner = $owner;
-            $storage->modify($taskId, $task->toHash());
+            $factory->create($existing->tasklist)->modify($taskId, $task->toHash());
             break;
         default:
             throw new Nag_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
@@ -1213,7 +1216,7 @@ class Nag_Api extends Horde_Registry_Api
         $categories = array();
         $tasklists = Nag::listTasklists(false, Horde_Perms::SHOW | Horde_Perms::READ);
         foreach ($tasklists as $tasklistId => $tasklist) {
-            $categories[$tasklistId] = array('title' => $tasklist->get('name'), 'type' => 'share');
+            $categories[$tasklistId] = array('title' => Nag::getLabel($tasklist), 'type' => 'share');
         }
         return $categories;
     }
@@ -1230,7 +1233,7 @@ class Nag_Api extends Horde_Registry_Api
     {
         $allowed_tasklists = Nag::listTasklists(false, Horde_Perms::READ);
         foreach ($categories as $tasklist) {
-            if (!Nag::hasPermission($tasklist, Horde_Perms::READ)) {
+            if (!isset($allowed_tasklists[$tasklist])) {
                 throw new Horde_Exception_PermissionDenied();
             }
         }
@@ -1300,16 +1303,17 @@ class Nag_Api extends Horde_Registry_Api
      */
     public function saveTimeObject(array $timeobject)
     {
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create();
-        $existing = $storage->get($timeobject['id']);
-        if (!Nag::hasPermission($existing->tasklist, Horde_Perms::EDIT)) {
+        if (!Nag::hasPermission($timeobject['params']['tasklist'], Horde_Perms::EDIT)) {
             throw new Horde_Exception_PermissionDenied();
         }
-        $storage = $GLOBALS['injector']->getInstance('Nag_Factory_Driver')->create($existing->tasklist);
+        $storage = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Driver')
+            ->create($timeobject['params']['tasklist']);
+        $existing = $storage->get($timeobject['id']);
         $info = array();
         if (isset($timeobject['start'])) {
             $info['due'] = new Horde_Date($timeobject['start']);
-            $info['due'] = $due->timestamp();
+            $info['due'] = $info['due']->timestamp();
         }
 
         if (isset($timeobject['title'])) {

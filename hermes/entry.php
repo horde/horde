@@ -15,8 +15,8 @@ Horde_Registry::appInit('hermes');
 $vars = Horde_Variables::getDefaultVariables();
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');
-    $timer = Hermes::getTimer($timer_id);
-    if ($timer) {
+    try {
+        $timer = Hermes::getTimer($timer_id);
         $tname = $timer['name'];
         $tformat = $prefs->getValue('twentyFour') ? 'G:i' : 'g:i a';
         $elapsed = ((!$timer['paused']) ? time() - $timer['time'] : 0 ) + $timer['elapsed'];
@@ -29,7 +29,7 @@ if (!$vars->exists('id') && $vars->exists('timer')) {
             unset($timers[$timer_id]);
             $prefs->setValue('running_timers', serialize($timers));
         }
-    }
+    } catch (Horde_Exception_NotFound $e) {}
 }
 
 switch ($vars->get('formname')) {

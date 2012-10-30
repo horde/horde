@@ -269,13 +269,14 @@ class IMP_Ajax_Application_ListMessages
         /* Get the cached list. */
         $cached = array();
         if (!empty($args['cache'])) {
-            foreach ($imp_imap->getUtils()->fromSequenceString($args['cache']) as $key => $uids) {
-                $key = IMP_Mailbox::formFrom($key);
+            $ids = new IMP_Indices($args['cache']);
+            foreach ($ids as $val) {
+                $val->mbox = IMP_Mailbox::formFrom($val->mbox);
 
-                foreach ($uids as $val) {
+                foreach ($val->uids as $val2) {
                     $cached[] = $is_search
-                        ? $this->searchUid($key, $val)
-                        : $val;
+                        ? $this->searchUid($val->mbox, $val2)
+                        : $val2;
                 }
             }
             $cached = array_flip($cached);
@@ -348,23 +349,14 @@ class IMP_Ajax_Application_ListMessages
             !$is_search &&
             !is_null($parsed) &&
             !empty($parsed['highestmodseq'])) {
-            $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_LASTMODSEQ | Horde_Imap_Client::STATUS_LASTMODSEQUIDS);
-            if ($status['lastmodseq'] == $parsed['highestmodseq']) {
-                /* QRESYNC already provided the updated list of flags - we can
-                 * grab the updated UIDS through this STATUS call and save a
-                 * FETCH. */
-                $changed = array_flip($status['lastmodsequids']);
-            } else {
-                $query = new Horde_Imap_Client_Fetch_Query();
-                $query->uid();
+            $squery = new Horde_Imap_Client_Search_Query();
+            $squery->modseq($parsed['highestmodseq'] + 1);
+            $squery->ids($imp_imap->getIdsOb(array_keys($cached)));
 
-                try {
-                    $changed = $imp_imap->fetch($mbox, $query, array(
-                        'changedsince' => $parsed['highestmodseq'],
-                        'ids' => $imp_imap->getIdsOb(array_keys($cached))
-                    ));
-                } catch (IMP_Imap_Exception $e) {}
-            }
+            try {
+                $res = $imp_imap->search($mbox, $squery);
+                $changed = array_flip($res['match']->ids);
+            } catch (IMP_Imap_Exception $e) {}
         }
 
         foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {
@@ -395,7 +387,7 @@ class IMP_Ajax_Application_ListMessages
         if ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD) {
             $thread = new stdClass;
             foreach ($msglist as $key => $val) {
-                $tmp = $mailbox_list[$key]['t'];
+                $tmp = $mailbox_list->getThreadOb($key);
                 $thread->$val = $sortpref->sortdir
                     ? $tmp->reverse_raw
                     : $tmp->raw;

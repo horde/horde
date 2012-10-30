@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Folks H5 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -208,11 +208,11 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-#: lib/Folks.php:140 lib/Folks.php:144
+#: lib/Folks.php:137 lib/Folks.php:141
 msgid "Aquarius"
 msgstr ""
 
-#: lib/Folks.php:148 lib/Folks.php:152
+#: lib/Folks.php:145 lib/Folks.php:149
 msgid "Aries"
 msgstr ""
 
@@ -249,7 +249,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Folks.php:160 lib/Folks.php:164
+#: lib/Folks.php:157 lib/Folks.php:161
 msgid "Cancer"
 msgstr ""
 
@@ -261,11 +261,11 @@ msgstr ""
 msgid "Cannot reset password automatically, contact your administrator."
 msgstr ""
 
-#: lib/Folks.php:286
+#: lib/Folks.php:283
 msgid "Cannot retrieve user email."
 msgstr ""
 
-#: lib/Folks.php:140 lib/Folks.php:184
+#: lib/Folks.php:137 lib/Folks.php:181
 msgid "Capricorn"
 msgstr ""
 
@@ -294,7 +294,7 @@ msgstr ""
 msgid "Close"
 msgstr ""
 
-#: lib/Api.php:81
+#: lib/Api.php:83
 #, php-format
 msgid "Commented user %s."
 msgstr ""
@@ -427,7 +427,7 @@ msgstr ""
 msgid "Edit my profile"
 msgstr ""
 
-#: lib/Folks.php:300
+#: lib/Application.php:53
 msgid "Edit profile"
 msgstr ""
 
@@ -499,13 +499,13 @@ msgid "Friend's e-mail"
 msgstr ""
 
 #: edit/friends/friends.php:16 edit/tabs.php:21 friends.php:19
-#: lib/Block/Friends.php:14 lib/Folks.php:299 lib/Friends/prefs.php:161
+#: lib/Application.php:52 lib/Block/Friends.php:14 lib/Friends/prefs.php:161
 #: lib/Friends/sql.php:191 templates/edit/header.php:1
 #: templates/user/user.php:122
 msgid "Friends"
 msgstr ""
 
-#: lib/Api.php:234
+#: lib/Api.php:236
 msgid "Friends Birthdays"
 msgstr ""
 
@@ -522,7 +522,7 @@ msgstr ""
 msgid "Friends we are waiting approval from"
 msgstr ""
 
-#: lib/Folks.php:156 lib/Folks.php:160
+#: lib/Folks.php:153 lib/Folks.php:157
 msgid "Gemini"
 msgstr ""
 
@@ -611,11 +611,11 @@ msgstr ""
 msgid "Last time online"
 msgstr ""
 
-#: lib/Folks.php:164 lib/Folks.php:168
+#: lib/Folks.php:161 lib/Folks.php:165
 msgid "Leo"
 msgstr ""
 
-#: lib/Folks.php:172 lib/Folks.php:176
+#: lib/Folks.php:169 lib/Folks.php:173
 msgid "Libra"
 msgstr ""
 
@@ -623,7 +623,7 @@ msgstr ""
 msgid "Limit"
 msgstr ""
 
-#: lib/Folks.php:303 list.php:14 templates/list/list.php:10
+#: lib/Application.php:56 list.php:14 templates/list/list.php:10
 msgid "List"
 msgstr ""
 
@@ -699,7 +699,7 @@ msgstr ""
 msgid "Most popular users"
 msgstr ""
 
-#: lib/Folks.php:298
+#: lib/Application.php:51
 msgid "My profile"
 msgstr ""
 
@@ -858,7 +858,7 @@ msgstr ""
 msgid "Picture"
 msgstr ""
 
-#: lib/Folks.php:144 lib/Folks.php:148
+#: lib/Folks.php:141 lib/Folks.php:145
 msgid "Pisces"
 msgstr ""
 
@@ -968,7 +968,7 @@ msgstr ""
 msgid "Reset Your Password"
 msgstr ""
 
-#: lib/Folks.php:180 lib/Folks.php:184
+#: lib/Folks.php:177 lib/Folks.php:181
 msgid "Sagittarius"
 msgstr ""
 
@@ -980,11 +980,11 @@ msgstr ""
 msgid "Save search criteria"
 msgstr ""
 
-#: lib/Folks.php:176 lib/Folks.php:180
+#: lib/Folks.php:173 lib/Folks.php:177
 msgid "Scorpio"
 msgstr ""
 
-#: lib/Folks.php:302 lib/Forms/Search.php:25 search.php:15
+#: lib/Application.php:55 lib/Forms/Search.php:25 search.php:15
 msgid "Search"
 msgstr ""
 
@@ -1033,7 +1033,7 @@ msgstr ""
 msgid "Send this profile to a friend"
 msgstr ""
 
-#: lib/Folks.php:301
+#: lib/Application.php:54
 msgid "Services"
 msgstr ""
 
@@ -1117,7 +1117,7 @@ msgid ""
 "request has been approved."
 msgstr ""
 
-#: lib/Folks.php:152 lib/Folks.php:156
+#: lib/Folks.php:149 lib/Folks.php:153
 msgid "Taurus"
 msgstr ""
 
@@ -1378,7 +1378,7 @@ msgstr ""
 msgid "View profile"
 msgstr ""
 
-#: lib/Folks.php:168 lib/Folks.php:172
+#: lib/Folks.php:165 lib/Folks.php:169
 msgid "Virgo"
 msgstr ""
 
@@ -1465,7 +1465,7 @@ msgstr ""
 msgid "You cannot add yourself to your blacklist."
 msgstr ""
 
-#: lib/Api.php:302
+#: lib/Api.php:304
 msgid "You cannot log activities for other users."
 msgstr ""
 

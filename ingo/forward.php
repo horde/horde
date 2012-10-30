@@ -7,7 +7,10 @@
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author Todd Merritt <tmerritt@email.arizona.edu>
+ * @author   Todd Merritt <tmerritt@email.arizona.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 
 require_once __DIR__ . '/lib/Application.php';
@@ -73,7 +76,7 @@ if (!$form->isSubmitted()) {
 /* Set form title. */
 $form_title = _("Forward");
 if (!empty($fwd_rule['disable'])) {
-    $form_title .= ' [<span class="form-error">' . _("Disabled") . '</span>]';
+    $form_title .= ' [<span class="horde-form-error">' . _("Disabled") . '</span>]';
 }
 $form_title .= ' ' . Horde_Help::link('ingo', 'forward');
 $form->setTitle($form_title);

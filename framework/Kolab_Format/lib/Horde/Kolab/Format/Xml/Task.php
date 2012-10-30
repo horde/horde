@@ -56,5 +56,7 @@ class Horde_Kolab_Format_Xml_Task extends Horde_Kolab_Format_Xml
         'status'              => 'Horde_Kolab_Format_Xml_Type_TaskStatus',
         'due-date'            => 'Horde_Kolab_Format_Xml_Type_DateTime',
         'parent'              => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'horde-estimate'      => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
+        'horde-alarm-methods' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
     );
 }

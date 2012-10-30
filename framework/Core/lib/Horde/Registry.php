@@ -260,6 +260,17 @@ class Horde_Registry
                 $failure->application = $app;
                 throw $failure;
 
+            case self::NOT_ACTIVE:
+                /* Try redirect to Horde if an app is not active. */
+                if ($app != 'horde') {
+                    $GLOBALS['notification']->push($e, 'horde.error');
+                    Horde::url($registry->getInitialPage('horde'))->redirect();
+                }
+
+                /* Shouldn't reach here, but fall back to permission denied
+                 * error if we can't even access Horde. */
+                // Fall-through
+
             case self::PERMISSION_DENIED:
                 $failure = new Horde_Exception_AuthenticationFailure($e->getMessage(), Horde_Auth::REASON_MESSAGE);
                 $failure->application = $app;
@@ -307,6 +318,11 @@ class Horde_Registry
      */
     public function __construct($session_flags = 0, array $args = array())
     {
+        /* Set a valid timezone. */
+        date_default_timezone_set(
+            ini_get('date.timezone') ?: getenv('TZ') ?: 'UTC'
+        );
+
         /* Save arguments. */
         $this->_args = $args;
 
@@ -1480,7 +1496,7 @@ class Horde_Registry
                 }
 
                 Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
-                throw new Horde_Exception(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED, $app);
+                throw new Horde_Exception_PushApp(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED, $app);
             }
         }
 

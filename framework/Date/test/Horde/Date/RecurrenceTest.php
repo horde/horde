@@ -857,7 +857,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $r->setRecurEnd(new Horde_Date(1970, 1, 4));
 
         $s = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
-        $s->fromHash($r->toHash());
+        $s->fromKolab($r->toKolab());
         $this->assertTrue($s->hasRecurEnd());
 
         $next = $s->nextRecurrence(new Horde_Date($s->start));
@@ -886,14 +886,14 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
     public function testHashMissingCycle()
     {
         $r = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
-        $r->fromHash(array('interval' => 1, 'range-type' => 'none'));
+        $r->fromKolab(array('interval' => 1, 'range-type' => 'none'));
         $this->assertEquals(Horde_Date_Recurrence::RECUR_NONE, $r->getRecurType());
     }
 
     public function testHashMissingRangeType()
     {
         $r = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
-        $r->fromHash(array('interval' => 1, 'cycle' => 'daily'));
+        $r->fromKolab(array('interval' => 1, 'cycle' => 'daily'));
         $this->assertEquals(Horde_Date_Recurrence::RECUR_DAILY, $r->getRecurType());
     }
 
@@ -939,7 +939,7 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($r->hasActiveRecurrence());
 
         $s = new Horde_Date_Recurrence(new Horde_Date(1970, 1, 1));
-        $s->fromHash($r->toHash());
+        $s->fromKolab($r->toKolab());
         $this->assertTrue($s->hasRecurEnd());
 
         $next = $s->nextRecurrence(new Horde_Date($s->start));

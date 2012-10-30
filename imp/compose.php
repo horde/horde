@@ -165,9 +165,21 @@ if ($session->get('imp', 'file_upload')) {
         unset($imp_compose[$val]);
     }
 
-    /* Add new attachments. */
-    if (!$imp_compose->addFilesFromUpload('upload_', $notify)) {
-        $vars->actionID = null;
+    /* Add attachments. */
+    for ($i = 1; $i <= count($_FILES); ++$i) {
+        if (isset($_FILES['upload_' . $i]) &&
+            strlen($_FILES['upload_' . $i]['name'])) {
+            try {
+                $fname = $imp_compose->addFileFromUpload('upload_' . $i);
+                if ($notify) {
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $fname), 'horde.success');
+                }
+            } catch (IMP_Compose_Exception $e) {
+                /* Any error will cancel the current action. */
+                $vars->actionID = null;
+                $notification->push($e, 'horde.error');
+            }
+        }
     }
 }
 
@@ -221,12 +233,12 @@ case 'template_edit':
         $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
 
         switch ($vars->actionID) {
-        case 'editasnew':
-            $result = $imp_compose->editAsNew($indices_ob);
+        case 'draft':
+            $result = $imp_compose->resumeDraft($indices_ob);
             break;
 
-        case 'resume':
-            $result = $imp_compose->resumeDraft($indices_ob);
+        case 'editasnew':
+            $result = $imp_compose->editAsNew($indices_ob);
             break;
 
         case 'template':
@@ -601,7 +613,6 @@ if ($redirect) {
 }
 
 $max_attach = $imp_compose->additionalAttachmentsAllowed();
-$sm_check = !empty($conf['user']['select_sentmail_folder']) && !$prefs->isLocked('sent_mail_folder');
 
 /* Get the URL to use for the cancel action. */
 $cancel_url = '';
@@ -697,7 +708,7 @@ $js_vars = array(
     'ImpCompose.popup' => intval($isPopup),
     'ImpCompose.redirect' => intval($redirect),
     'ImpCompose.reloaded' => intval($vars->compose_formToken),
-    'ImpCompose.sm_check' => intval($sm_check),
+    'ImpCompose.sm_check' => intval(!$prefs->isLocked('sent_mail_folder')),
     'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
     'ImpCompose.text' => array(
         'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
@@ -893,8 +904,7 @@ if ($redirect) {
         if ($vars->sent_mail) {
             $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
         }
-        if (!empty($conf['user']['select_sentmail_folder']) &&
-            !$prefs->isLocked('sent_mail_folder')) {
+        if (!$prefs->isLocked('sent_mail_folder')) {
             $ssm_options = array(
                 'abbrev' => false,
                 'basename' => true,
@@ -979,17 +989,16 @@ if ($redirect) {
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && (strpos($save_attach, 'prompt') === 0)
-                             && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
             if ($show_save_attach) {
                 $save_attach_val = isset($vars->save_attachments_select)
                     ? $vars->save_attachments_select
-                    : ($save_attach == 'prompt_yes');
+                    : ($save_attach == 'always');
                 $attach_options[] = array(
-                    'label' => _("Save Attachments with message in sent-mail mailbox?"),
+                    'label' => _("Save attachments with message in sent-mail mailbox?"),
                     'name' => 'save_attachments_select',
                     'val' => $save_attach_val
                 );
@@ -1056,7 +1065,7 @@ if ($redirect) {
 }
 
 if ($rtemode && !$redirect) {
-    IMP_Ui_Editor::init(false, 'composeMessage');
+    $injector->getInstance('IMP_Ui_Editor')->init(false, 'composeMessage');
 }
 
 if (!$showmenu) {

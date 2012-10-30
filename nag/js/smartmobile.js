@@ -47,9 +47,13 @@ var NagMobile = {
      */
     toggleCompleteCallback: function(r, elt)
     {
+        if (!r.data) {
+            return;
+        }
+
         switch (r.data) {
         case 'complete':
-            NagMobile.tasks[elt.jqmData('task_id')].cp = true;
+            NagMobile.tasks[elt.jqmData('tasklist')][elt.jqmData('task_id')].cp = true;
             if (Nag.conf.showCompleted == 'incomplete' ||
                 Nag.conf.showCompleted == 'future-incomplete') {
                 // Hide the task
@@ -59,12 +63,12 @@ var NagMobile = {
                     .find('span.ui-icon')
                     .removeClass('ui-icon-nag-unchecked')
                     .addClass('ui-icon-check');
-                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('task_id')]);
+                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('tasklist')][elt.jqmData('task_id')]);
             }
             break;
 
         default:
-            NagMobile.tasks[elt.jqmData('task_id')].cp = false;
+            NagMobile.tasks[elt.jqmData('tasklist')][elt.jqmData('task_id')].cp = false;
             if (Nag.conf.showCompleted == 'complete') {
                 // Hide the task
                 elt.parent().remove();
@@ -73,7 +77,7 @@ var NagMobile = {
                     .find('span.ui-icon')
                     .removeClass('ui-icon-check')
                     .addClass('ui-icon-nag-unchecked');
-                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('task_id')]);
+                NagMobile.styleTask(elt, NagMobile.tasks[elt.jqmData('tasklist')][elt.jqmData('task_id')]);
             }
         }
     },
@@ -106,6 +110,10 @@ var NagMobile = {
      */
     getTaskCallback: function(r)
     {
+        if (!r.task) {
+            return;
+        }
+
         var task = r.task,
             f = $('form')[0];
 
@@ -120,10 +128,13 @@ var NagMobile = {
         if (task.s) {
             $("#task_start").val(Date.parse(task.s).toString('yyyy-MM-dd'));
         }
-        $("#task_priority").val(task.pr);
+        var myselect = $("#task_priority");
+        myselect[0].selectedIndex = task.pr - 1;
+        myselect.selectmenu("refresh");
         $("#task_completed").prop("checked", task.cp).checkboxradio("refresh");
         $("#task_estimate").val(task.e);
         $("#task_id").val(task.id);
+        $("#tasklist").val(task.l);
     },
 
     /**
@@ -148,6 +159,10 @@ var NagMobile = {
      */
     getTasklistsCallback: function(r)
     {
+        if (!r.tasklists) {
+            return;
+        }
+
         var list = $('#nag-lists :jqmData(role="listview")'),
             count = 0;
 
@@ -223,9 +238,16 @@ var NagMobile = {
      */
     listTasksCallback: function(r)
     {
+        if (!r.tasks) {
+            return;
+        }
+
         NagMobile.tasks = {};
         $.each(r.tasks, function(i, t) {
-            NagMobile.tasks[t.id] = t;
+            if (!NagMobile.tasks[t.l]) {
+                NagMobile.tasks[t.l] = {};
+            }
+            NagMobile.tasks[t.l][t.id] = t;
         });
         NagMobile.buildTaskList();
         if (NagMobile.tasklists[NagMobile.currentList].smart == 1) {
@@ -243,9 +265,11 @@ var NagMobile = {
         var list = $('#nag-list :jqmData(role="listview")'),
             count = 0;
         list.empty();
-        $.each(NagMobile.tasks, function (i, t) {
-            count++;
-            NagMobile.insertTask(list, t);
+        $.each(NagMobile.tasks, function (i, l) {
+            $.each(l, function (i, t) {
+                count++;
+                NagMobile.insertTask(list, t);
+            });
         });
         if (count > 0) {
             $('#nag-notasks').hide();
@@ -287,6 +311,7 @@ var NagMobile = {
                 })
             );
         item.jqmData('task_id', t.id);
+        item.jqmData('tasklist', t.l);
         NagMobile.styleTask(item, t);
         l.append(item);
     },
@@ -357,8 +382,15 @@ var NagMobile = {
      */
     prepareFormForNew: function()
     {
-        var f = $('form')[0];
-        f.reset();
+        $('#nag-task-form')[0].reset();
+
+        // Must explicitly call refresh when the selectedIndex changes
+        // programmatically or the UI won't reflect the new value.
+        try {
+            $("#task_priority").selectmenu("refresh");
+        } catch(e) {}
+        $('#nag-task-form #tasklist').val('');
+        $('#nag-task-form #task_id').val('');
         $('#nag-taskform-view a[href^="#task-delete"]').hide();
     },
 
@@ -374,7 +406,11 @@ var NagMobile = {
 
     handleSubmitCallback: function(r)
     {
-        NagMobile.tasks[r.task.id] = r.task;
+        if (!r.task) {
+            return;
+        }
+
+        NagMobile.tasks[r.task.l][r.task.id] = r.task;
         NagMobile.buildTaskList();
         HordeMobile.changePage('nag-list');
     },
@@ -386,10 +422,13 @@ var NagMobile = {
 
     handleDelete: function(e)
     {
-        var taskid = $('#nag-taskform-view #task_id').val();
-        if (taskid) {
-            HordeMobile.doAction('deleteTask',
-                { 'task_id': taskid },
+        var taskid = $('#nag-taskform-view #task_id').val(),
+            tasklist = $('#nag-taskform-view #tasklist').val();
+        if (taskid && tasklist) {
+            HordeMobile.doAction('deleteTask', {
+                    'task_id': taskid,
+                    'tasklist': tasklist,
+                },
                 NagMobile.handleDeleteCallback
             );
         }
@@ -397,8 +436,12 @@ var NagMobile = {
 
     handleDeleteCallback: function(r)
     {
+        if (!r.l) {
+            return;
+        }
+
         if (r.deleted) {
-            delete NagMobile.tasks[r.deleted];
+            delete NagMobile.tasks[r.l][r.deleted];
         }
         NagMobile.buildTaskList();
         HordeMobile.changePage('nag-list');

@@ -1,14 +1,14 @@
 # German translations for Horde_Crypt module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Crypt module.
-# Automatically generated, 2010.
+# Jan Schneider <jan@horde.org>, 2010-2012.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2011-02-02 16:36+0100\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"PO-Revision-Date: 2012-10-30 21:44+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -139,12 +139,17 @@ msgstr "E-Mail-Adresse"
 msgid "Email Address"
 msgstr "E-Mail-Adresse"
 
+#: lib/Horde/Crypt/Smime.php:551
+#, php-format
+msgid "Error parsing S/MIME certficate: %s"
+msgstr "Fehler beim Lesen des S/MIME-Zertifikats: %s"
+
 #: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
 msgid "Error while talking to pgp binary."
 msgstr "Fehler beim Aufruf des PGP-Programms."
 
-#: lib/Horde/Crypt/Smime.php:718 lib/Horde/Crypt/Smime.php:736
-#: lib/Horde/Crypt/Smime.php:751
+#: lib/Horde/Crypt/Smime.php:721 lib/Horde/Crypt/Smime.php:739
+#: lib/Horde/Crypt/Smime.php:754
 msgid "Error while talking to smime binary."
 msgstr "Fehler beim Aufruf der S/MIME-Bibliothek."
 
@@ -217,7 +222,7 @@ msgstr "Name"
 msgid "Never"
 msgstr "Nie"
 
-#: lib/Horde/Crypt/Smime.php:684
+#: lib/Horde/Crypt/Smime.php:687
 msgid ""
 "No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
 "work with PKCS 12 data."
@@ -266,7 +271,7 @@ msgstr "Öffentlicher PGP-Schlüssel"
 msgid "PGP Signed/Encrypted Data"
 msgstr "Mit PGP unterzeichnete/verschlüsselte Daten"
 
-#: lib/Horde/Crypt/Smime.php:723
+#: lib/Horde/Crypt/Smime.php:726
 msgid "Password incorrect"
 msgstr "Falsches Passwort"
 
@@ -325,7 +330,7 @@ msgstr ""
 "Der PGP-Signaturblock wird benötigt, um die unterzeichnete Nachricht zu "
 "überprüfen."
 
-#: lib/Horde/Crypt/Smime.php:613
+#: lib/Horde/Crypt/Smime.php:616
 msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
 msgstr "Das OpenSSL-Modul wird für die Horde_Crypt_Smime:: Klasse benötigt."
 
@@ -371,6 +376,6 @@ msgstr "X509v3 Identität des Zertifikatschlüssels"
 msgid "X509v3 extensions"
 msgstr "X509v3 Erweiterungen"
 
-#: lib/Horde/Crypt/Smime.php:602
+#: lib/Horde/Crypt/Smime.php:605
 msgid "not yet implemented"
 msgstr "Noch nicht implementiert"

@@ -16,13 +16,13 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('horde', array('authentication' => 'none'));
 
-$redirect_url = new Horde_Url(Horde_Util::getFormData('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
+$vars = $injector->getInstance('Horde_Variables');
+
+$redirect_url = new Horde_Url($vars->get('return_url', Horde::url('login.php', true, array('app' => 'horde'))));
 
 if (!$registry->showService('problem')) {
     $redirect_url->redirect();
 }
-
-$vars = Horde_Variables::getDefaultVariables();
 
 $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
 $email = $identity->getValue('from_addr');

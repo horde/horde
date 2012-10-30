@@ -35,7 +35,7 @@ class Horde_Rpc_Syncml extends Horde_Rpc
         $backendparms = array(
             /* Write debug output to this dir, must be writeable be web
              * server. */
-            'debug_dir' => '/tmp/sync',
+            'debug_dir' => Horde::getTempDir().'/sync',
             /* Log all (wb)xml packets received or sent to debug_dir. */
             'debug_files' => true,
             /* Log everything. */

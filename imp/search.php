@@ -3,7 +3,7 @@
  * IMP advanced search script. This search script only works with javascript
  * enabled browsers. All other browsers are limited to the basic search
  * script only.
- * Usable in both traditional and dynamic views.
+ * Usable in both basic and dynamic views.
  *
  * URL Parameters:
  * ---------------

@@ -105,10 +105,10 @@ table.kronolith-view th.kronolith-first-col {
     width: 21px;
     background-color: #c2cccf;
     vertical-align: middle;
-    padding: 9px 0 0;
+/*    padding: 9px 0 0;*/
 }
-table.kronolith-view .kronolith-all-day td.kronolith-first-col {
-    padding-top: 32px;
+.kronolith-all-day td.kronolith-first-col span {
+    margin-top: 32px;
 }
 #kronolith-month-body td.kronolith-first-col {
     vertical-align: top;
@@ -122,6 +122,7 @@ table.kronolith-view.kronolith-sidebyside .kronolith-all-day td.kronolith-first-
 }
 .kronolith-first-col span {
     display: block;
+    margin-top: 10px;
     white-space: nowrap;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);
@@ -268,6 +269,7 @@ tr.kronolith-minical-nav, tr.kronolith-minical-nav th {
     line-height: 16px;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+    text-decoration: inherit;
 }
 img.kronolithEventIcon {
     float: left;
@@ -336,14 +338,6 @@ img.kronolithEventIcon {
 }
 #eventform .horde-form-buttons {
     padding-left: 0;
-}
-
-/* Block-specific styles. */
-.block-monthgrid {
-    background: #fff;
-}
-.block-upcomingday td {
-    border-top: 1px solid #ddd;
 }
 
 /* background-color will always be overridden for the

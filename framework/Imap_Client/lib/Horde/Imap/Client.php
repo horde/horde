@@ -1,7 +1,7 @@
 <?php
 /**
- * Base class for Horde_Imap_Client package. Defines common constants and
- * provides factory for creating an IMAP client object.
+ * Base class for Horde_Imap_Client package. Defines common constants for use
+ * in the package.
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
@@ -37,9 +37,11 @@ class Horde_Imap_Client
     const STATUS_FLAGS = 128;
     const STATUS_PERMFLAGS = 256;
     const STATUS_HIGHESTMODSEQ = 512;
-    const STATUS_LASTMODSEQ = 1024;
-    const STATUS_LASTMODSEQUIDS = 2048;
+    const STATUS_SYNCMODSEQ = 1024;
+    const STATUS_SYNCFLAGUIDS = 2048;
     const STATUS_UIDNOTSTICKY = 4096;
+    const STATUS_UIDNEXT_FORCE = 8192;
+    const STATUS_SYNCVANISHED = 16384;
 
     /* Constants for search() */
     const SORT_ARRIVAL = 1;
@@ -145,8 +147,8 @@ class Horde_Imap_Client
     const DEBUG_CLIENT = 1;
     const DEBUG_INFO = 2;
     const DEBUG_SERVER = 3;
-    // Time, in seconds, for a slow command.
-    const SLOW_COMMAND = 1;
+    // Time, in seconds, to be labeled a slow IMAP command.
+    const SLOW_COMMAND = 3;
 
     /**
      * Capability dependencies.

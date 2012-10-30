@@ -13,4 +13,5 @@
  */
 class Horde_Perms_Exception extends Horde_Exception_Wrapped
 {
+    const NOT_EXIST = 1;
 }

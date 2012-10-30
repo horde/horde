@@ -242,7 +242,7 @@ $_prefs['default_share'] = array(
     'on_init' => function($ui) {
         $enum = array();
         foreach (Kronolith::listInternalCalendars(false, Horde_Perms::EDIT) as $id => $calendar) {
-            $enum[$id] = $calendar->get('name');
+            $enum[$id] = Kronolith::getLabel($calendar);
         }
         $ui->prefs['default_share']['enum'] = $enum;
     },
@@ -276,7 +276,7 @@ $_prefs['sync_calendars'] = array(
         }
         foreach (Kronolith::listInternalCalendars(true, Horde_Perms::EDIT) as $key => $cal) {
             if ($cal->getName() != Kronolith::getDefaultCalendar(Horde_Perms::EDIT)) {
-                $enum[$key] = $cal->get('name');
+                $enum[$key] = Kronolith::getLabel($cal);
             }
         }
         $ui->prefs['sync_calendars']['enum'] = $enum;

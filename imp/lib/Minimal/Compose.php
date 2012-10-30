@@ -97,9 +97,17 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         /* Add attachment. */
         if ($session->get('imp', 'file_upload') &&
-            !$imp_compose->addFilesFromUpload('upload_', $this->vars->a == _("Expand Names")) &&
-            ($this->vars->a != _("Expand Names"))) {
-            $this->vars->a = null;
+            isset($_FILES['upload_1']) &&
+            strlen($_FILES['upload_1']['name'])) {
+            try {
+                $filename = $imp_compose->addFileFromUpload('upload_1');
+                if ($this->vars->a == _("Expand Names")) {
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                }
+            } catch (IMP_Compose_Exception $e) {
+                $this->vars->a = null;
+                $notification->push($e, 'horde.error');
+            }
         }
 
         /* Run through the action handlers. */
@@ -149,7 +157,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case _("Expand Names"):
             foreach (array_keys($display_hdrs) as $val) {
                 if (($val == 'to') || ($this->vars->action != 'rc')) {
-                    $res = $imp_ui->expandAddresses($header[$val]);
+                    $res = $this->_expandAddresses($header[$val]);
                     if (is_string($res)) {
                         $header[$val] = $res;
                     } else {
@@ -378,9 +386,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                         $this->view->attach = true;
                         if (count($imp_compose)) {
                             $imp_ui_mbox = new IMP_Ui_Mailbox();
-                            $this->view->attach_name = $atc_list[0]['part']->getName();
-                            $this->view->attach_type = $atc_list[0]['part']->getType();
-                            $this->view->attach_size = $imp_ui_mbox->getSize($atc_list[0]['part']->getBytes());
+                            $this->view->attach_name = $imp_compose[0]['part']->getName();
+                            $this->view->attach_type = $imp_compose[0]['part']->getType();
+                            $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
                         }
                     }
                 } catch (Horde_Exception_HookNotSet $e) {}
@@ -403,7 +411,10 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     : sprintf(_("Ambiguous matches for \"%s\":"), $expand[$key][0]);
 
                 $tmp['match'] = array();
-                foreach (array_slice($expand[$key][1], 0, 5) as $key2 => $val2) {
+                foreach ($expand[$key][1] as $key2 => $val2) {
+                    if ($key2 == 5) {
+                        break;
+                    }
                     $tmp['match'][] = array(
                         'id' => $key . '_expand_' . $key2,
                         'val' => $val2
@@ -423,6 +434,58 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
     static public function url(array $opts = array())
     {
         return Horde::url('minimal.php')->add('page', 'compose')->unique();
+    }
+
+    /**
+     * Expand addresses in a string. Only the last address in the string will
+     * be expanded.
+     *
+     * @param string $input  The input string.
+     *
+     * @return mixed  If a string, this value should be used as the new
+     *                input string.  If an array, the first value is the
+     *                input string without the search string; the second
+     *                value is the search string; and the third value is
+     *                the list of matching addresses.
+     */
+    protected function _expandAddresses($input)
+    {
+        $addr_list = IMP::parseAddressList($input, array(
+            'default_domain' => null
+        ));
+
+        if (!($size = count($addr_list))) {
+            return '';
+        }
+
+        $search = $addr_list[$size - 1];
+
+        /* Don't search if the search string looks like an e-mail address. */
+        if (!is_null($search->mailbox) && !is_null($search->host)) {
+            return strval($search);
+        }
+
+        /* "Search" string will be in mailbox element. */
+        $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
+        $res = $imple->getAddressList($search->mailbox);
+
+        switch (count($res)) {
+        case 0:
+            $GLOBALS['notification']->push(sprintf(_("Search for \"%s\" failed: no address found."), $search->mailbox), 'horde.warning');
+            return strval($addr_list);
+        case 1:
+            $addr_list[$size] = $res[0];
+            return strval($addr_list);
+
+        default:
+            $GLOBALS['notification']->push(_("Ambiguous address found."), 'horde.warning');
+            unset($addr_list[$size]);
+            return array(
+                strval($addr_list),
+                $search->mailbox,
+                $res
+            );
+        }
     }
 
 }

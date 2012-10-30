@@ -88,15 +88,6 @@ class IMP_Smartmobile
     {
         global $conf, $injector, $registry;
 
-        /* Initialize the IMP_Imap_Tree object. By default, only show INBOX,
-         * special mailboxes, and polled mailboxes. */
-        $imptree = $injector->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter(Imp_Imap_Tree::FLIST_POLLED);
-        $this->view->tree = $imptree->createTree('smobile_folders', array(
-            'poll_info' => true,
-            'render_type' => 'IMP_Tree_Jquerymobile'
-        ))->getTree(true);
-
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $this->view->options = IMP::flistSelect(array(
@@ -123,10 +114,6 @@ class IMP_Smartmobile
                     'val' => $id
                 );
             }
-
-            try {
-                $this->view->abook = Horde::url($registry->link('contacts/smartmobile_browse'));
-            } catch (Horde_Exception $e) {}
 
             $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
         }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Tests for the IMAP sorting class.
+ * Tests for IMAP mailbox sorting.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Tests for the IMAP sorting class.
+ * Tests for IMAP mailbox sorting.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -41,13 +41,109 @@ class Horde_Imap_Client_SortTest extends PHPUnit_Framework_TestCase
             'Foo.00002'
         );
 
-        Horde_Imap_Client_Sort::sortMailboxes($mboxes, array(
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $list_ob->sort(array(
             'delimiter' => '.'
         ));
 
         $this->assertEquals(
-            array_values($expected),
-            array_values($mboxes)
+            $expected,
+            array_values(iterator_to_array($list_ob))
+        );
+    }
+
+    public function testInboxSort()
+    {
+        $mboxes = array(
+            'A',
+            'INBOX'
+        );
+        $expected = array(
+            'INBOX',
+            'A'
+        );
+
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $sorted = $list_ob->sort(array(
+            'inbox' => true,
+        ));
+
+        $this->assertEquals(
+            $expected,
+            array_values($sorted)
+        );
+
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $sorted = $list_ob->sort(array(
+            'inbox' => false,
+        ));
+
+        $this->assertEquals(
+            $mboxes,
+            $sorted
+        );
+    }
+
+    public function testIndexAssociation()
+    {
+        $mboxes = array(
+            'Z' => 'Z',
+            'A' => 'A'
+        );
+        $expected = array(
+            'A',
+            'Z'
+        );
+
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $sorted = $list_ob->sort();
+
+        $this->assertEquals(
+            $expected,
+            array_values($sorted)
+        );
+
+        $this->assertEquals(
+            $expected,
+            array_keys($sorted)
+        );
+    }
+
+    public function testNoUpdateOfListObject()
+    {
+        $mboxes = array(
+            'Z',
+            'A'
+        );
+        $expected = array(
+            'A',
+            'Z'
+        );
+
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $sorted = $list_ob->sort(array(
+            'noupdate' => true
+        ));
+
+        $this->assertEquals(
+            $expected,
+            array_values($sorted)
+        );
+        $this->assertEquals(
+            $mboxes,
+            array_values(iterator_to_array($list_ob))
+        );
+
+        $list_ob = new Horde_Imap_Client_Mailbox_List($mboxes);
+        $sorted = $list_ob->sort();
+
+        $this->assertEquals(
+            $expected,
+            array_values($sorted)
+        );
+        $this->assertEquals(
+            $expected,
+            array_values(iterator_to_array($list_ob))
         );
     }
 
