@@ -36,6 +36,13 @@ class Horde_Stream
     }
 
     /**
+     */
+    public function __toString()
+    {
+        return $this->getString(0);
+    }
+
+    /**
      * Adds data to the stream.
      *
      * @param mixed $data     Data to add to the stream. Can be a resource,

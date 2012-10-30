@@ -246,4 +246,15 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testStringRepresentation()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertEquals(
+            '123',
+            strval($stream)
+        );
+    }
+
 }
