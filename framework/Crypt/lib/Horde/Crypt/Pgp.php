@@ -223,8 +223,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', $input, true, true);
 
         /* Get the keys from the temp files. */
-        $public_key = file($pub_file);
-        $secret_key = file($secret_file);
+        $public_key = file_get_contents($pub_file);
+        $secret_key = file_get_contents($secret_file);
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
