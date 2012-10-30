@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow Horde_Stream object to be serialized (Bug #11598).
 * [mms] Add Horde_Stream#__toString().
  </notes>
  <contents>
@@ -119,6 +120,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow Horde_Stream object to be serialized (Bug #11598).
 * [mms] Add Horde_Stream#__toString().
    </notes>
   </release>

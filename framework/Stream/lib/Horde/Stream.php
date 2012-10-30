@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Stream
  */
-class Horde_Stream
+class Horde_Stream implements Serializable
 {
     /**
      * Stream resource.
@@ -23,11 +23,27 @@ class Horde_Stream
     public $stream;
 
     /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params;
+
+    /**
      * Constructor.
      *
      * @param array $opts  Configuration options.
      */
     public function __construct(array $opts = array())
+    {
+        $this->_params = $opts;
+        $this->_init();
+    }
+
+    /**
+     * Initialization method.
+     */
+    protected function _init()
     {
         // Sane default: read-only, 0-length stream.
         if (!$this->stream) {
@@ -216,6 +232,33 @@ class Horde_Stream
             is_null($end) ? -1 : $end,
             is_null($start) ? -1 : $start
         );
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        $this->_params['_pos'] = ftell($this->stream);
+
+        return json_encode(array(
+            strval($this),
+            $this->_params
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_init();
+
+        $data = json_decode($data, true);
+        $this->add($data[0]);
+        fseek($this->stream, $data[1]['_pos']);
+        unset($data[1]['_pos']);
+        $this->_params = $data[1];
     }
 
 }
