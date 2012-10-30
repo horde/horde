@@ -53,6 +53,16 @@ class Horde_Stream implements Serializable
 
     /**
      */
+    public function __clone()
+    {
+        $data = strval($this);
+        $this->stream = null;
+        $this->_init();
+        $this->add($data);
+    }
+
+    /**
+     */
     public function __toString()
     {
         return $this->getString(0);
