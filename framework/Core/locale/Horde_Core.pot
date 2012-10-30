@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-10-30 21:26+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: lib/Horde.php:1343
+#: lib/Horde.php:1239
 #, php-format
 msgid " (Accesskey %s)"
 msgstr ""
@@ -48,27 +48,27 @@ msgid "-- select --"
 msgstr ""
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:743
+#: lib/Horde/PageOutput.php:746
 msgid "1 day"
 msgstr ""
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:741
+#: lib/Horde/PageOutput.php:744
 msgid "1 hour"
 msgstr ""
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:740
+#: lib/Horde/PageOutput.php:743
 msgid "15 minutes"
 msgstr ""
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:739
+#: lib/Horde/PageOutput.php:742
 msgid "5 minutes"
 msgstr ""
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:742
+#: lib/Horde/PageOutput.php:745
 msgid "6 hours"
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Available address books:"
 msgstr ""
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:674
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:677
 msgid "Back"
 msgstr ""
 
@@ -244,7 +244,7 @@ msgstr ""
 msgid "Click to add caption..."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:675
+#: lib/Horde/PageOutput.php:678
 msgid "Close"
 msgstr ""
 
@@ -375,7 +375,7 @@ msgstr ""
 msgid "Error"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:733
+#: lib/Horde/PageOutput.php:736
 msgid "Error when communicating with the server."
 msgstr ""
 
@@ -584,7 +584,7 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:749
+#: lib/Horde/PageOutput.php:752
 msgid "No Alerts"
 msgstr ""
 
@@ -604,7 +604,7 @@ msgstr ""
 msgid "No children can be added to this permission."
 msgstr ""
 
-#: lib/Horde.php:669
+#: lib/Horde.php:565
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr ""
@@ -742,7 +742,7 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
-#: lib/Horde.php:678
+#: lib/Horde.php:574
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr ""
@@ -801,7 +801,7 @@ msgstr ""
 msgid "Select the identity you want to change:"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:738
+#: lib/Horde/PageOutput.php:741
 msgid "Select..."
 msgstr ""
 
@@ -873,7 +873,7 @@ msgstr ""
 msgid "The History system is disabled."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:734
+#: lib/Horde/PageOutput.php:737
 msgid "The connection to the server has been restored."
 msgstr ""
 
@@ -884,16 +884,16 @@ msgid ""
 "window now."
 msgstr ""
 
-#: lib/Horde.php:452
+#: lib/Horde.php:348
 msgid "The encryption features require a secure web connection."
 msgstr ""
 
-#: lib/Horde.php:679
+#: lib/Horde.php:575
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr ""
 
-#: lib/Horde.php:670
+#: lib/Horde.php:566
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr ""
@@ -939,7 +939,7 @@ msgstr ""
 msgid "There are no preferences available for this application."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:735
+#: lib/Horde/PageOutput.php:738
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -958,7 +958,7 @@ msgstr ""
 msgid "There were errors encountered while updating your preferences."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:748
+#: lib/Horde/PageOutput.php:751
 msgid "This is the notification log."
 msgstr ""
 
@@ -1090,7 +1090,7 @@ msgid ""
 "the minimal view until you upgrade your browser."
 msgstr ""
 
-#: lib/Horde/PageOutput.php:736
+#: lib/Horde/PageOutput.php:739
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr ""
@@ -1168,7 +1168,7 @@ msgstr ""
 msgid "hh"
 msgstr ""
 
-#: lib/Horde/PageOutput.php:676
+#: lib/Horde/PageOutput.php:679
 msgid "loading"
 msgstr ""
 
