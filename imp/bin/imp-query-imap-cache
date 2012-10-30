@@ -187,8 +187,11 @@ while (true) {
             if ($res = $cache->get($mbox)) {
                 $cli->writeln();
 
+                $indices = new IMP_Indices($mbox, $res);
+                $uids = $indices->getSingle(true);
+
                 $cli->message('Mailbox: ' . $cli->green($mbox));
-                $cli->message('Cached messages: ' . count($res) . ' [' . strval(new IMP_Indices($mbox, $res)) . ']');
+                $cli->message('Cached messages: ' . count($res) . ' [' . $imp_imap->getIdsOb($uids[1])->tostring_sort . ']');
 
                 $lzf_size = $total_size = 0;
                 foreach ($cache->get($mbox, $res, null) as $val) {
