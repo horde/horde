@@ -50,6 +50,9 @@ The steps to use when cutting a new release
 8. Add new version to bugs.horde.org if not added automatically by the release
    script.
 
+   If releasing the first stable version after a release cycle, mark all
+   pre-release versions as inactive.
+
 9. Bump version numbers of showstopper tickets that didn't go into the release,
    then bump version number in the showstopper query on bugs.horde.org.
 
