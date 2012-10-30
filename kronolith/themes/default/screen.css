@@ -269,6 +269,7 @@ tr.kronolith-minical-nav, tr.kronolith-minical-nav th {
     line-height: 16px;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+    text-decoration: inherit;
 }
 img.kronolithEventIcon {
     float: left;
