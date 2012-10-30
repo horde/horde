@@ -569,20 +569,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
         $data = $this->pgpPacketInformation($pgpdata);
-        $return_array = array();
 
-        /* Search for the UID index. */
-        if (!isset($data['signature']) ||
-            !isset($data['signature'][$uid_idx])) {
-            return $return_array;
-        }
-
-        /* Store the signature information now. */
-        foreach ($data['signature'][$uid_idx] as $key => $value) {
-            $return_array[$key] = $value;
-        }
-
-        return $this->_pgpPacketSignature($data, $return_array);
+        return isset($data['signature'][$uid_idx])
+            ? $this->_pgpPacketSignature($data, $data['signature'][$uid_idx])
+            : array();
     }
 
     /**
