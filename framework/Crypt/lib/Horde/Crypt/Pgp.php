@@ -257,21 +257,21 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *   )
      *
      * [keyid] => Key ID of the PGP data (if available)
-     *            16-bit hex value (as of Horde 3.2)
+     *            16-bit hex value
      *
      * [signature] => Array (
      *     [id{n}/'_SIGNATURE'] => Array (
      *         [name]        => Full Name
      *         [comment]     => Comment
      *         [email]       => E-mail Address
-     *         [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *         [keyid]       => 16-bit hex value
      *         [created]     => Signature creation - UNIX timestamp
      *         [expires]     => Signature expiration - UNIX timestamp
      *         [micalg]      => The hash used to create the signature
      *         [sig_{hex}]   => Array [details of a sig verifying the ID] (
      *             [created]     => Signature creation - UNIX timestamp
      *             [expires]     => Signature expiration - UNIX timestamp
-     *             [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *             [keyid]       => 16-bit hex value
      *             [micalg]      => The hash used to create the signature
      *         )
      *     )
