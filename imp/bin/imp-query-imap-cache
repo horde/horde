@@ -188,7 +188,7 @@ while (true) {
                 $cli->writeln();
 
                 $cli->message('Mailbox: ' . $cli->green($mbox));
-                $cli->message('Cached messages: ' . count($res) . ' [' . strval(new IMP_Indices($res)) . ']');
+                $cli->message('Cached messages: ' . count($res) . ' [' . strval(new IMP_Indices($mbox, $res)) . ']');
 
                 $lzf_size = $total_size = 0;
                 foreach ($cache->get($mbox, $res, null) as $val) {
