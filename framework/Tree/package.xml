@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-30</date>
- <time>19:59:43</time>
+ <time>20:00:15</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First stable release for Horde 5.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -305,6 +305,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
