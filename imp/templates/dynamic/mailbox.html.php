@@ -38,7 +38,7 @@
 <?php endif; ?>
 <?php if ($this->show_notspam): ?>
      <li class="horde-icon" style="display:none">
-      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Ham', 'id' => 'button_ham', 'title' => _("Innocent"))) ?>
+      <?php echo $this->actionButton(array('class' => 'noselectDisable', 'icon' => 'Innocent', 'id' => 'button_innocent', 'title' => _("Innocent"))) ?>
      </li>
 <?php endif; ?>
      <li class="horde-icon" style="display:none">
