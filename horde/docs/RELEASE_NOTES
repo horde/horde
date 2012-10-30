@@ -10,11 +10,11 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Horde
+The Horde Team is pleased to announce the final release of the Horde
 Application Framework version 5.0.0.
 
 The Horde Application Framework is a flexible, modular, general-purpose web
@@ -24,28 +24,36 @@ developing modern web applications. It is the basis for a large number of
 production-level web applications, notably the Horde Groupware suites. For more
 information on Horde or the Horde Groupware suites, visit http://www.horde.org.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome. Strings are not going
-to change until the final release.
-
-The final release of Horde 5.0.0 is expected on October 30.
-
 For upgrading instructions, please see
 http://www.horde.org/apps/horde/docs/UPGRADING
-
-Please note that upgrading from a stable version to a beta version is currently
-not possible due to a bug in the PEAR installer.
 
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/horde/docs/INSTALL
 
-The major changes compared to the Horde version 5.0.0beta6 are:
+The major changes compared to the Horde version 4.0 are:
+    * Completely redesigned user interface.
+    * Much improved ActiveSync library including version 12.1 support and email
+      synchronization.
+    * Default to UTF-8 for all e-mail messages.
+    * IMAP groupware storage without dedicated Kolab server.
+    * Improved support for Kolab 2.
+    * Cache buster for JavaScript and CSS files.
     * Allow view-specific help files.
+    * Dropped support for Internet Explorer 6.
+    * Many further improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Completely redesigned user interface.
+Much improved ActiveSync library including version 12.1 support and email synchronization.
+Default to UTF-8 for all e-mail messages.
+IMAP groupware storage without dedicated Kolab server.
+Improved support for Kolab 2.
+Cache buster for JavaScript and CSS files.
 Allow view-specific help files.
+Dropped support for Internet Explorer 6.
+Many further improvements.
 FM;
 
 $this->notes['name'] = 'Horde';

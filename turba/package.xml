@@ -31,12 +31,12 @@
  <date>2012-10-27</date>
  <time>00:02:18</time>
  <version>
-  <release>4.0.0RC2</release>
-  <api>4.0.0beta1</api>
+  <release>4.0.0</release>
+  <api>4.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
@@ -1497,11 +1497,11 @@
   </release>
   <release>
    <version>
-    <release>4.0.0RC2</release>
-    <api>4.0.0beta1</api></version>
+    <release>4.0.0</release>
+    <api>4.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
+    <release>stable</release>
+    <api>stable</api></stability>
    <date>2012-10-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>

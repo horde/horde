@@ -19,16 +19,16 @@
  <date>2012-10-27</date>
  <time>00:25:54</time>
  <version>
-  <release>1.0.0RC2</release>
-  <api>1.0.0beta1</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* First stable release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -378,15 +378,15 @@
   </release>
   <release>
    <version>
-    <release>1.0.0RC2</release>
-    <api>1.0.0beta1</api></version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
+    <release>stable</release>
+    <api>stable</api></stability>
    <date>2012-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* First stable release.
    </notes>
   </release>
  </changelog>

@@ -19,16 +19,16 @@
  <date>2012-08-29</date>
  <time>16:05:58</time>
  <version>
-  <release>2.0.0beta2</release>
-  <api>2.0.0beta1</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* First stable release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -400,15 +400,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.0beta2</release>
-    <api>2.0.0beta1</api></version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
+    <release>stable</release>
+    <api>stable</api></stability>
    <date>2012-08-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* First stable release for Horde 5.
    </notes>
   </release>
  </changelog>

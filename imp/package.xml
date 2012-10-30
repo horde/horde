@@ -25,12 +25,12 @@
  <date>2012-10-29</date>
  <time>22:02:49</time>
  <version>
-  <release>6.0.0RC3</release>
-  <api>6.0.0beta1</api>
+  <release>6.0.0</release>
+  <api>6.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -2787,11 +2787,11 @@
   </release>
   <release>
    <version>
-    <release>6.0.0RC3</release>
-    <api>6.0.0beta1</api></version>
+    <release>6.0.0</release>
+    <api>6.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
+    <release>stable</release>
+    <api>stable</api></stability>
    <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>

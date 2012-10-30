@@ -31,12 +31,12 @@
  <date>2012-10-26</date>
  <time>23:55:41</time>
  <version>
-  <release>5.0.0RC2</release>
-  <api>5.0.0beta1</api>
+  <release>5.0.0</release>
+  <api>5.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
@@ -3706,11 +3706,11 @@
   </release>
   <release>
    <version>
-    <release>5.0.0RC2</release>
-    <api>5.0.0beta1</api></version>
+    <release>5.0.0</release>
+    <api>5.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
+    <release>stable</release>
+    <api>stable</api></stability>
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>

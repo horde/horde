@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first release candidate of the Turba
-Contact Manager version H5 (4.0.0).
+The Horde Team is pleased to announce the final release of the Turba Contact
+Manager version H5 (4.0.0).
 
 Turba is the Horde contact management application. Leveraging the Horde
 framework to provide seamless integration with IMP and other Horde
@@ -23,22 +23,22 @@ applications, it supports storing contacts in SQL, LDAP, Kolab, and IMSP
 address books. For more information on Turba, visit
 http://www.horde.org/apps/turba.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome. Strings are not going
-to change until the final release.
-
-The final release of Turba H5 (4.0.0) is expected on October 30.
-
-The major changes compared to the Turba version H5 (4.0.0beta3) are:
+The major changes compared to the Turba version H4 are:
+    * Completely redesigned user interface.
+    * Added initial implementation of a smartphone view.
     * Improved support for email fields with multiple addresses.
     * Improved Kolab support.
+    * Dropped preference which address books to display.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
+Completely redesigned user interface.
+Added initial implementation of a smartphone view.
 Improved support for email fields with multiple addresses.
 Improved Kolab support.
+Dropped preference which address books to display.
 Small bugfixes and improvements.
 FM;
 
