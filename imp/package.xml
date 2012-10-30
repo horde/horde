@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-29</date>
- <time>22:02:49</time>
+ <date>2012-10-30</date>
+ <time>22:11:58</time>
  <version>
   <release>6.0.0</release>
   <api>6.0.0</api>
@@ -2792,7 +2792,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-29</date>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix regression in adding an attachment in minimal view.

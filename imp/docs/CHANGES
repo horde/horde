@@ -1,6 +1,6 @@
-----------
-v6.0.0-git
-----------
+------
+v6.0.0
+------
 
 [mms] Fix regression in adding an attachment in minimal view.
 
