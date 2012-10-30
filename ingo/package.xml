@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-27</date>
- <time>00:00:09</time>
+ <date>2012-10-30</date>
+ <time>22:14:52</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -1138,7 +1138,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-27</date>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * First stable release for Horde 5.
