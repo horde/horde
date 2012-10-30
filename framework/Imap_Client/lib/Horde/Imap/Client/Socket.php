@@ -81,11 +81,6 @@
  *  <li>RFC 5466: FILTERS</li>
  *  <li>RFC 5738: UTF8 (Very limited support currently)</li>
  *  <li>RFC 6237: MULTISEARCH</li>
- *  <li>draft-ietf-morg-inthread-01: SEARCH=INTHREAD
- *   <ul>
- *    <li>Appears to be dead</li>
- *   </ul>
- *  </li>
  * </ul>
  *
  * Originally based on code from:
