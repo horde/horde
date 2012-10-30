@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>23:55:41</time>
+ <date>2012-10-30</date>
+ <time>22:04:05</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -3711,7 +3711,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
