@@ -97,7 +97,7 @@ v1.0.1-cvs
 
     public function testI18NForPreRelease()
     {
-        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $r = $this->_getAnnounceHelper(array('version' => '1.0.0RC1'));
         $this->assertContains(
             'i18n@lists.horde.org',
             $this->_announce($r)
@@ -124,7 +124,7 @@ v1.0.1-cvs
 
     public function testSubjectForPreRelease()
     {
-        $r = $this->_getAnnounceHelper(array('version' => '1.0-RC1'));
+        $r = $this->_getAnnounceHelper(array('version' => '1.0.0RC1'));
         $this->assertNotContains(
             '(final)',
             $this->_announce($r)

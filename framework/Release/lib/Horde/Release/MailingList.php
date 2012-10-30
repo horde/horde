@@ -192,8 +192,8 @@ class Horde_Release_MailingList
      */
     private function _isLatest()
     {
-        if (preg_match('/([.\d]+)(.*)/', $this->_version, $matches)
-            && !preg_match('/^pl\d/', $matches[2])) {
+        if (preg_match('/([.\d]+)([^.\d].*)/', $this->_version, $matches) &&
+            !preg_match('/^pl\d/', $matches[2])) {
             return false;
         }
         return true;

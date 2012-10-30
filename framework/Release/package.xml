@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix detecting stable releases.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -242,7 +242,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix detecting stable releases.
    </notes>
   </release>
  </changelog>
