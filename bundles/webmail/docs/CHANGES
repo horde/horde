@@ -570,7 +570,7 @@ Kolab_Storage
 [jan] Fix listing and loading data from IMAP server (Bug #11273).
 
 Lock
-[rla] add handling of permanent locks.
+[rla] Add handling of permanent locks.
 
 Mail
 [mms] Add Horde_Mail_Rfc822_Address#matchDomain().

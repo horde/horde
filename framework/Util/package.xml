@@ -17,19 +17,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-12</date>
- <time>21:00:39</time>
+ <date>2012-10-30</date>
+ <time>18:36:34</time>
  <version>
-  <release>2.0.0RC1</release>
-  <api>2.0.0beta1</api>
+  <release>2.0.0</release>
+  <api>2.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* First stable release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -89,7 +89,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -497,15 +497,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.0RC1</release>
-    <api>2.0.0beta1</api></version>
+    <release>2.0.0</release>
+    <api>2.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2012-10-12</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* First stable release for Horde 5.
    </notes>
   </release>
  </changelog>
