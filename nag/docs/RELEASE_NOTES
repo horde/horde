@@ -25,7 +25,7 @@ and allows users to share task lists or enable light-weight project management.
 The major changes compared to the Nag version H4 are:
     * Completely redesigned user interface.
     * Added recurring tasks.
-    * Added smart tasks lists.
+    * Added smart task lists.
     * Added login task to purge completed tasks.
     * Converted categories to tags.
     * Further bugfixes and improvements.
@@ -35,7 +35,7 @@ ML;
 $this->notes['fm']['changes'] = <<<FM
 Completely redesigned user interface.
 Added recurring tasks.
-Added smart tasks lists.
+Added smart task lists.
 Added login task to purge completed tasks.
 Converted categories to tags.
 Further bugfixes and improvements.
