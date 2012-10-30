@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-10-30</date>
- <time>19:22:43</time>
+ <time>19:23:35</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First stable release for Horde 5.
-* [mms] Confirmation link for new identity requires the full URL as it is intended to be accessed outside of the Horde application (Bug #11593).
-* [mms] Need to unescape JSON data returned in a text/html response.
-* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2539,6 +2536,19 @@
 * [mms] Confirmation link for new identity requires the full URL as it is intended to be accessed outside of the Horde application (Bug #11593).
 * [mms] Need to unescape JSON data returned in a text/html response.
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-30</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
