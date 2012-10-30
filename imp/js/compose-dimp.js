@@ -871,7 +871,7 @@ var DimpCompose = {
     {
         var sf = $('submit_frame'),
             doc = sf.contentDocument || sf.contentWindow.document;
-        DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
+        DimpCore.doActionComplete({ responseJSON: doc.body.innerHTML.unescapeHTML().evalJSON(true) }, this.uniqueSubmitCallback.bind(this));
     },
 
     toggleCC: function(type)
