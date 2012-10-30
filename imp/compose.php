@@ -165,9 +165,21 @@ if ($session->get('imp', 'file_upload')) {
         unset($imp_compose[$val]);
     }
 
-    /* Add new attachments. */
-    if (!$imp_compose->addFilesFromUpload('upload_', $notify)) {
-        $vars->actionID = null;
+    /* Add attachments. */
+    for ($i = 1; $i <= count($_FILES); ++$i) {
+        if (isset($_FILES['upload_' . $i]) &&
+            strlen($_FILES['upload_' . $i]['name'])) {
+            try {
+                $fname = $imp_compose->addFileFromUpload('upload_' . $i);
+                if ($notify) {
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $fname), 'horde.success');
+                }
+            } catch (IMP_Compose_Exception $e) {
+                /* Any error will cancel the current action. */
+                $vars->actionID = null;
+                $notification->push($e, 'horde.error');
+            }
+        }
     }
 }
 

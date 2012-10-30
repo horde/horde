@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Vilma H4 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
 "PO-Revision-Date: 2012-03-12 23:23:58+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -55,7 +55,7 @@ msgid_plural "Account is the target of %d forwards."
 msgstr[0] "Käyttäjätili on kohteena %d ohjaukselle."
 msgstr[1] "Käyttäjätili on kohteena %d ohjaukselle."
 
-#: templates/users/index.html:11
+#: templates/users/index.html:7
 msgid "Address"
 msgstr "Osoite"
 
@@ -112,11 +112,11 @@ msgstr "Poista %s \"%s\" ja kaikki riippuvuudet?"
 msgid "Delete %s \"%s\"?"
 msgstr "Poista %s \"%s\"?"
 
-#: domains/index.php:48 lib/Form/DeleteDomain.php:15
+#: domains/index.php:44 lib/Form/DeleteDomain.php:15
 msgid "Delete Domain"
 msgstr "Poista toimialue"
 
-#: users/index.php:115 virtuals/index.php:61
+#: users/index.php:109 virtuals/index.php:61
 msgid "Delete User"
 msgstr "Poista käyttäjä"
 
@@ -134,7 +134,7 @@ msgstr "Poista toimialue \"%s\" ja kaikki siihen liitetyt osoitteet?"
 msgid "Delete the virtual email address \"%s\" => \"%s\"?"
 msgstr "Poista virtuaaliosoite \"%s\" => \"%s\"?"
 
-#: virtuals/edit.php:58 templates/virtuals/index.html:18
+#: virtuals/edit.php:58 templates/virtuals/index.html:14
 msgid "Destination"
 msgstr "Kohde"
 
@@ -159,7 +159,7 @@ msgstr "Näytä listaus"
 msgid "Do not delete"
 msgstr "Älä poista"
 
-#: lib/Form/EditDomain.php:30 templates/domains/index.html:14
+#: lib/Form/EditDomain.php:30 templates/domains/index.html:10
 msgid "Domain"
 msgstr "Toimialue"
 
@@ -180,7 +180,7 @@ msgstr "Toimialue tallennettu."
 msgid "Edit Alias \"%s\" for \"%s\""
 msgstr "Muokkaa aliasta \"%s\" - \"%s\""
 
-#: domains/index.php:49 lib/Form/EditDomain.php:18
+#: domains/index.php:45 lib/Form/EditDomain.php:18
 msgid "Edit Domain"
 msgstr "Muokkaa toimialuetta"
 
@@ -199,7 +199,7 @@ msgstr "Muokkaa ohjausta - \"%s\""
 msgid "Edit Group for \"%s\""
 msgstr "Muokkaa ryhmää - \"%s\""
 
-#: users/index.php:116 virtuals/index.php:62
+#: users/index.php:110 virtuals/index.php:62
 msgid "Edit User"
 msgstr "Muokkaa käyttäjää"
 
@@ -356,7 +356,7 @@ msgstr "Ohjaus poistettu."
 msgid "Forwards"
 msgstr "Ohjaukset"
 
-#: lib/Form/EditUser.php:51 templates/users/index.html:14
+#: lib/Form/EditUser.php:51 templates/users/index.html:10
 msgid "Full Name"
 msgstr "Koko nimi"
 
@@ -380,7 +380,7 @@ msgstr "Kuinka monta toimialuetta näytetään sivulla."
 msgid "Local user"
 msgstr "Paikallinen käyttäjä"
 
-#: lib/MailboxDriver/Imap.php:86
+#: lib/MailboxDriver/Imap.php:88
 #, php-format
 msgid "Mailbox \"%s\" does not exist."
 msgstr "Postilaatikkoa \"%s\" ei ole olemassa."
@@ -390,7 +390,7 @@ msgstr "Postilaatikkoa \"%s\" ei ole olemassa."
 msgid "Maildrop directory \"%s\" does not exist."
 msgstr "Postiohjauksen hakemistoa \"%s\" ei ole olemassa."
 
-#: templates/domains/index.html:17
+#: templates/domains/index.html:13
 msgid "Max Users"
 msgstr "Maksimi käyttäjää"
 
@@ -501,7 +501,7 @@ msgstr "Etäsähköpostiosoite"
 msgid "Set default display parameters."
 msgstr "Aseta näkymän asetukset."
 
-#: templates/users/index.html:20
+#: templates/users/index.html:16
 msgid "Status"
 msgstr "Tila"
 
@@ -538,7 +538,7 @@ msgstr ""
 msgid "Transport"
 msgstr "Kuljetus"
 
-#: templates/users/index.html:17
+#: templates/users/index.html:13
 msgid "Type"
 msgstr "Tyyppi"
 
@@ -617,7 +617,7 @@ msgstr "Määrä - MB"
 msgid "Virtual Email"
 msgstr "Virtuaaliosoite"
 
-#: templates/virtuals/index.html:15
+#: templates/virtuals/index.html:11
 msgid "Virtual Email Address"
 msgstr "Virtuaaliosoite"
 

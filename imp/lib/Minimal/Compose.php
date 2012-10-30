@@ -97,9 +97,17 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         /* Add attachment. */
         if ($session->get('imp', 'file_upload') &&
-            !$imp_compose->addFilesFromUpload('upload_', $this->vars->a == _("Expand Names")) &&
-            ($this->vars->a != _("Expand Names"))) {
-            $this->vars->a = null;
+            isset($_FILES['upload_1']) &&
+            strlen($_FILES['upload_1']['name'])) {
+            try {
+                $filename = $imp_compose->addFileFromUpload('upload_1');
+                if ($this->vars->a == _("Expand Names")) {
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                }
+            } catch (IMP_Compose_Exception $e) {
+                $this->vars->a = null;
+                $notification->push($e, 'horde.error');
+            }
         }
 
         /* Run through the action handlers. */
@@ -378,9 +386,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                         $this->view->attach = true;
                         if (count($imp_compose)) {
                             $imp_ui_mbox = new IMP_Ui_Mailbox();
-                            $this->view->attach_name = $atc_list[0]['part']->getName();
-                            $this->view->attach_type = $atc_list[0]['part']->getType();
-                            $this->view->attach_size = $imp_ui_mbox->getSize($atc_list[0]['part']->getBytes());
+                            $this->view->attach_name = $imp_compose[0]['part']->getName();
+                            $this->view->attach_type = $imp_compose[0]['part']->getType();
+                            $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
                         }
                     }
                 } catch (Horde_Exception_HookNotSet $e) {}

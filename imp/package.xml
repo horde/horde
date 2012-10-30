@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>23:58:05</time>
+ <date>2012-10-29</date>
+ <time>22:02:49</time>
  <version>
-  <release>6.0.0RC2</release>
+  <release>6.0.0RC3</release>
   <api>6.0.0beta1</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix regression in adding an attachment in minimal view.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2574,7 +2574,8 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Catch failure to add attachments because PHP&apos;s maximum allowed POST size was exceeded.
+* [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from the browser&apos;s local filesystem that has a filename that contains HTML.
+* [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
 * [mms] Fix sending MDN notifications in traditional view (Bug #11311).
@@ -2775,10 +2776,26 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [mms] Fix regression causing large amounts of whitespace padding to be added to compose text in basic view.
+* [mms] Fix regression in sending messages in basic/minimal mode if no attachment is added (Bug #11582).
+* [jan] Fix key navigation in message view of basic mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.0RC3</release>
+    <api>6.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix regression in adding an attachment in minimal view.
    </notes>
   </release>
  </changelog>

@@ -144,7 +144,7 @@ var HordeCore = {
 
         sf.observe('load', function(sf) {
             this.doActionComplete({
-                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.evalJSON(true)
+                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
             }, opts);
         }.bind(this, sf));
 

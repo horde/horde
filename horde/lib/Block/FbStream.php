@@ -143,7 +143,7 @@ EOT;
                     . Horde::img('loading.gif', '', array('id' => $instance. '_loading', 'style' => 'display:none;'));
             }
         } catch (Horde_Service_Facebook_Exception $e) {
-            $prefs = Horde::getServiceLink('prefs');
+            $prefs = $GLOBALS['registry']->getServiceLink('prefs');
             $html .= sprintf(_("There was an error making the request: %s"), $e->getMessage());
             $html .= sprintf(_("You can also check your Facebook settings in your %s."), $prefs->add('group', 'facebook')->link() . _("preferences") . '</a>');
             return $html;

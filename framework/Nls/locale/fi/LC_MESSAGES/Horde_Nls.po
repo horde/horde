@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-05-04 10:15:04+0300\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-10-28 20:59:19+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -406,7 +406,7 @@ msgid "Cuba"
 msgstr "Kuuba"
 
 #: lib/Horde/Nls/Countries.php:65
-msgid "Curaçao"
+msgid "CuraÃ§ao"
 msgstr "Curacao"
 
 #: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:66
@@ -422,7 +422,7 @@ msgid "Czech Republic"
 msgstr "Tsekin tasavalta"
 
 #: lib/Horde/Nls/Countries.php:62
-msgid "Côte d'Ivoire"
+msgid "CÃ´te d'Ivoire"
 msgstr "Norsunluurannikko"
 
 #: lib/Horde/Nls/Languages.php:40
@@ -1349,11 +1349,11 @@ msgid "Rwanda"
 msgstr "Ruanda"
 
 #: lib/Horde/Nls/Countries.php:188
-msgid "Réunion"
+msgid "RÃ©union"
 msgstr "Reunion"
 
 #: lib/Horde/Nls/Countries.php:192
-msgid "Saint Barthélemy"
+msgid "Saint BarthÃ©lemy"
 msgstr "Saint Barthelemy"
 
 #: lib/Horde/Nls/Tld.php:210
@@ -1775,7 +1775,7 @@ msgstr "Neitsytsaaret, Yhdysvaltain"
 
 #: lib/Horde/Nls/Languages.php:184
 msgid "VolapÃ¼k"
-msgstr "VolapÃŒk"
+msgstr "VolapÃ?k"
 
 #: lib/Horde/Nls/Countries.php:252
 msgid "Wallis and Futuna"
@@ -1842,5 +1842,5 @@ msgid "Zulu"
 msgstr "Zulu"
 
 #: lib/Horde/Nls/Countries.php:9
-msgid "Åland Islands"
+msgid "Ãland Islands"
 msgstr "Ahvenanmaa"

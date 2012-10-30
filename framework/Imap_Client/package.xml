@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-26</date>
- <time>23:19:03</time>
+ <date>2012-10-29</date>
+ <time>21:59:50</time>
  <version>
-  <release>2.0.0RC2</release>
+  <release>2.0.0RC3</release>
   <api>2.0.0beta1</api>
  </version>
  <stability>
@@ -1056,7 +1056,7 @@
    <notes>
 * First alpha release for Horde 5.
 * [mms] Internally workaround IMAP servers that don&apos;t support text searches other than US-ASCII.
-* [mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP DateTime obejct (Request #11074).
+* [mms] Horde_Imap_Client_DateTime is now a wrapper around the native PHP DateTime object (Request #11074).
 * [mms] Implement new 2.0 API. See UPGRADING for full details of changes.
    </notes>
   </release>
@@ -1169,10 +1169,24 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-26</date>
+   <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix invalid class name usage (Bug #11586).
 * [mms] Remove STATUS_LASTMODSEQ and STATUS_LASTMODSEQUIDS return options from status().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.0RC3</release>
+    <api>2.0.0beta1</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-10-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED return options to Horde_Imap_Client_Base#status().
    </notes>
   </release>
  </changelog>

@@ -943,11 +943,15 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         } elseif ($session->get('imp', 'file_upload')) {
             $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
-            if ($imp_compose->addFilesFromUpload('file_', true)) {
+            try {
+                $filename = $imp_compose->addFileFromUpload('file_1');
                 $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
                 $result->atc = end($ajax_compose->getAttachmentInfo());
                 $result->success = 1;
                 $result->imp_compose = $imp_compose->getCacheId();
+                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+            } catch (IMP_Compose_Exception $e) {
+                $notification->push($e, 'horde.error');
             }
         }
 

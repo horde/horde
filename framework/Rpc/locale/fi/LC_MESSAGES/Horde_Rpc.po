@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2012-03-07 15:09:59+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-10-28 21:00:13+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -35,6 +35,10 @@ msgstr "Palautunut XML-data oli kelvotonta:"
 #: lib/Horde/Rpc/Phpgw.php:132
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "Pyyntöön ei voitu vastata. Palautunut virhekoodi: "
+
+#: lib/Horde/Rpc/ActiveSync.php:112
+msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
+msgstr "Yritetään ottaa yhteyttä ActiveSync toimintoon selaimella. Ei tuettu."
 
 #: lib/Horde/Rpc/Webdav.php:417
 #, php-format

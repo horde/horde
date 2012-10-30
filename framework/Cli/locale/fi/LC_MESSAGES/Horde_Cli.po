@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2012-03-07 15:04:50+0200\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-10-28 20:38:32+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -17,15 +17,25 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Cli.php:368
+#: lib/Horde/Cli.php:331
+#, php-format
+msgid " on line %d"
+msgstr " rivillä %d"
+
+#: lib/Horde/Cli.php:386
 #, php-format
 msgid "\"%s\" is not a valid choice."
 msgstr "\"%s\" ei kelpaa valinnaksi."
 
-#: lib/Horde/Cli.php:323
+#: lib/Horde/Cli.php:338
 msgid "Fatal Error:"
 msgstr "Vakava virhe:"
 
-#: lib/Horde/Cli.php:353
+#: lib/Horde/Cli.php:328
+#, php-format
+msgid "In %s"
+msgstr " - %s"
+
+#: lib/Horde/Cli.php:371
 msgid "Type your choice"
 msgstr "Kirjoita valintasi"

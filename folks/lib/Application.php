@@ -29,11 +29,11 @@ class Folks_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        $links = array(Folks::getUrlFor('feed', 'online') => _("Online users"));
+        $links = array(Folks::getUrlFor('feed', 'online', true, -1) => _("Online users"));
         if ($GLOBALS['registry']->isAuthenticated()) {
-            $links[Folks::getUrlFor('feed', 'friends')] = _("Online friends");
-            $links[Folks::getUrlFor('feed', 'activity')] = _("Friends activity");
-            $links[Folks::getUrlFor('feed', 'know')] = _("People you might know");
+            $links[Folks::getUrlFor('feed', 'friends', true, -1)] = _("Online friends");
+            $links[Folks::getUrlFor('feed', 'activity', true, -1)] = _("Friends activity");
+            $links[Folks::getUrlFor('feed', 'know', true, -1)] = _("People you might know");
         }
 
         foreach ($links as $url => $label) {

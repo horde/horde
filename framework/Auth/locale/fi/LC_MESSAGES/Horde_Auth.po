@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-07 16:19:11+0200\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-10-28 20:37:39+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -95,3 +95,12 @@ msgstr ""
 #: lib/Horde/Auth.php:399
 msgid "The password must not contain whitespace characters."
 msgstr "Salasana ei saa sisältää välilyöntejä tai tabulaattoreita"
+
+#: lib/Horde/Auth/Base.php:148
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Tilisi on lukittu %d minuutiksi"
+
+#: lib/Horde/Auth/Base.php:146
+msgid "Your account has been permanently locked"
+msgstr "Tilisi on pysyvästi lukittu"

@@ -327,7 +327,7 @@ if (IMP::mailbox()->inbox) {
 
 if (!is_null($rss_box)) {
     $page_output->addLinkTag(array(
-        'href' => Horde::url('rss.php') . $rss_box
+        'href' => Horde::url('rss.php', true, -1) . $rss_box
     ));
 }
 
