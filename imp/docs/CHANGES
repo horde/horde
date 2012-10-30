@@ -2,6 +2,8 @@
 v6.0.1-git
 ----------
 
+[mms] Fix displaying move to spam mailbox option in the preferences (Bug
+      #11603).
 [mms] Fixes to PGP Private key generation (Bug #11597).
 [mms] Don't block remote message styling if sender is in whitelist.
 [mms] Fix spellcheck display in dynamic view if HTML composition mode is the

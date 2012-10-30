@@ -1389,7 +1389,7 @@ $_prefs['delete_spam_after_report'] = array(
             0 => _("Nothing"),
             1 => _("Delete message")
         );
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $enum[2] = _("Move to spam mailbox");
         }
         $ui->prefs['delete_spam_after_report']['enum'] = $enum;
