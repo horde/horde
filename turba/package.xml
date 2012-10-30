@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-27</date>
- <time>00:02:18</time>
+ <date>2012-10-30</date>
+ <time>22:16:59</time>
  <version>
   <release>4.0.0</release>
   <api>4.0.0</api>
@@ -1502,7 +1502,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-27</date>
+   <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
