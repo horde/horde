@@ -1288,7 +1288,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ret;
         }
 
-        $list_ob = new Horde_Imap_Client_Mailbox_List(array_keys($ret));
+        $list_ob = new Horde_Imap_Client_Mailbox_List(empty($options['flat']) ? array_keys($ret) : $ret);
         $sorted = $list_ob->sort(array(
             'delimiter' => empty($options['sort_delimiter']) ? '.' : $options['sort_delimiter']
         ));

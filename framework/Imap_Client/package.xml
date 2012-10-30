@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in Horde_Imap_Client_Base#listMailboxes() return when both the &apos;flat&apos; and &apos;sort&apos; options are active.
 * [mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED return options to Horde_Imap_Client_Base#status().
  </notes>
  <contents>
@@ -1168,6 +1169,7 @@
    <date>2012-10-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in Horde_Imap_Client_Base#listMailboxes() return when both the &apos;flat&apos; and &apos;sort&apos; options are active.
 * [mms] Add STATUS_SYNCMODSEQ, STATUS_SYNCFLAGUIDS, and STATUS_SYNCVANISHED return options to Horde_Imap_Client_Base#status().
    </notes>
   </release>
