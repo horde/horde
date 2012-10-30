@@ -351,6 +351,8 @@ class IMP_Ajax_Application_ListMessages
             !empty($parsed['highestmodseq'])) {
             $squery = new Horde_Imap_Client_Search_Query();
             $squery->modseq($parsed['highestmodseq'] + 1);
+            $squery->ids($imp_imap->getIdsOb(array_keys($cached)));
+
             try {
                 $res = $imp_imap->search($mbox, $squery);
                 $changed = array_flip($res['match']->ids);

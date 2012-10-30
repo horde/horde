@@ -16,25 +16,11 @@
 class Horde_Imap_Client_Base_Mailbox
 {
     /**
-     * List of UIDs where flag changes were seen.
-     *
-     * @var Horde_Imap_Client_Ids
-     */
-    public $flagchange;
-
-    /**
      * Mapping object.
      *
      * @var Horde_Imap_Client_Ids_Map
      */
     public $map;
-
-    /**
-     * The original cached MODSEQ value when opening the mailbox.
-     *
-     * @var integer
-     */
-    public $origModseq;
 
     /**
      * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
@@ -79,6 +65,13 @@ class Horde_Imap_Client_Base_Mailbox
                 ? false
                 : null;
 
+        case Horde_Imap_Client::STATUS_SYNCMODSEQ:
+            return 0;
+
+        case Horde_Imap_Client::STATUS_SYNCFLAGUIDS:
+        case Horde_Imap_Client::STATUS_SYNCVANISHED:
+            return array();
+
         case Horde_Imap_Client::STATUS_PERMFLAGS:
             /* If PERMFLAGS is not returned by server, must assume that all
              * flags can be change permanently (RFC 3501 [6.3.1]). */
@@ -118,6 +111,23 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function setStatus($entry, $value)
     {
+        switch ($entry) {
+        case Horde_Imap_Client::STATUS_SYNCMODSEQ:
+            /* This is only set once per access. */
+            if (isset($this->_status[$entry])) {
+                return;
+            }
+            break;
+
+        case Horde_Imap_Client::STATUS_SYNCFLAGUIDS:
+        case Horde_Imap_Client::STATUS_SYNCVANISHED:
+            if (!isset($this->_status[$entry])) {
+                $this->_status[$entry] = array();
+            }
+            $this->_status[$entry] = array_merge($this->_status[$entry], $value);
+            return;
+        }
+
         $this->_status[$entry] = $value;
     }
 
@@ -126,9 +136,17 @@ class Horde_Imap_Client_Base_Mailbox
      */
     public function reset()
     {
-        $this->flagchange = new Horde_Imap_Client_Ids();
+        $keep = array(
+            Horde_Imap_Client::STATUS_SYNCFLAGUIDS,
+            Horde_Imap_Client::STATUS_SYNCMODSEQ,
+            Horde_Imap_Client::STATUS_SYNCVANISHED
+        );
+
+        foreach (array_diff(array_keys($this->_status), $keep) as $val) {
+            unset($this->_status[$val]);
+        }
+
         $this->map = new Horde_Imap_Client_Ids_Map();
-        $this->origModseq = 0;
         $this->sync = false;
     }
 

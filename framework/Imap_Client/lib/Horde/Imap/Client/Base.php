@@ -1591,19 +1591,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $flags &= ~Horde_Imap_Client::STATUS_UIDNOTSTICKY;
         }
 
-        /* Handle SYNC related return options. */
+        /* Handle SYNC related return options. These require the mailbox
+         * to be opened at least once. */
         if ($flags & Horde_Imap_Client::STATUS_SYNCMODSEQ) {
-            $ret['syncmodseq'] = null;
+            $this->openMailbox($mailbox);
+            $ret['syncmodseq'] = $this->_mailboxOb($mailbox)->getStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ);
             $flags &= ~Horde_Imap_Client::STATUS_SYNCMODSEQ;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_SYNCFLAGUIDS) {
-            $ret['syncflaguids'] = $this->getIdsOb();
+            $this->openMailbox($mailbox);
+            $ret['syncflaguids'] = $this->getIdsOb($this->_mailboxOb($mailbox)->getStatus(Horde_Imap_Client::STATUS_SYNCFLAGUIDS));
             $flags &= ~Horde_Imap_Client::STATUS_SYNCFLAGUIDS;
         }
 
         if ($flags & Horde_Imap_Client::STATUS_SYNCVANISHED) {
-            $ret['syncvanished'] = $this->getIdsOb();
+            $this->openMailbox($mailbox);
+            $ret['syncvanished'] = $this->getIdsOb($this->_mailboxOb($mailbox)->getStatus(Horde_Imap_Client::STATUS_SYNCVANISHED));
             $flags &= ~Horde_Imap_Client::STATUS_SYNCVANISHED;
         }
 
@@ -3580,7 +3584,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if (!empty($modseq)) {
             $this->_updateModSeq(max(array_merge($modseq, array($highestmodseq))));
-            $this->_mailboxOb()->flagchange->add(array_keys($modseq));
+            $mbox_ob->setStatus(Horde_Imap_Client::STATUS_SYNCFLAGUIDS, array_keys($modseq));
         }
     }
 
@@ -3644,6 +3648,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : $ids;
 
         $this->_cache->deleteMsgs($mailbox, $ids_ob->ids);
+        $mbox_ob->setStatus(Horde_Imap_Client::STATUS_SYNCVANISHED, $ids_ob->ids);
         $mbox_ob->map->remove($ids);
 
         return $ids_ob;
@@ -3757,7 +3762,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $set = false;
                 $sync = 0;
             }
-            $mbox_ob->origModseq = intval($md[self::CACHE_MODSEQ]);
+            $mbox_ob->setStatus(Horde_Imap_Client::STATUS_SYNCMODSEQ, $md[self::CACHE_MODSEQ]);
         } else {
             $set = true;
             $sync = 0;
@@ -3786,58 +3791,42 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $mbox_ob->sync = true;
         }
 
-        if (!$mbox_ob->sync) {
-            $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
+        if ($mbox_ob->sync) {
+            return;
+        }
 
-            if (!empty($uids)) {
-                $uids_ob = $this->getIdsOb($uids);
+        $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
-                /* Are we caching flags? */
-                if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
-                    $fquery = new Horde_Imap_Client_Fetch_Query();
-                    $fquery->flags();
+        if (!empty($uids)) {
+            $uids_ob = $this->getIdsOb($uids);
 
-                    /* Update flags in cache. Cache will be updated in
-                     * _fetch() call. */
-                    $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
-                        'changedsince' => $modseq,
-                        'ids' => $uids_ob
-                    ));
-                }
+            /* Are we caching flags? */
+            if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
+                $fquery = new Horde_Imap_Client_Fetch_Query();
+                $fquery->flags();
 
-                /* Search for deleted messages, and remove from cache. */
-                $squery = new Horde_Imap_Client_Search_Query();
-                $squery->ids($this->getIdsOb($uids_ob->range_string));
-
-                $search = $this->search($this->_selected, $squery, array(
-                    'nocache' => true
+                /* Update flags in cache. Cache will be updated in _fetch(). */
+                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
+                    'changedsince' => $modseq,
+                    'ids' => $uids_ob
                 ));
-
-                $deleted = array_diff($uids_ob->ids, $search['match']->ids);
-                if (!empty($deleted)) {
-                    $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
-                }
             }
 
-            $mbox_ob->sync = true;
-        }
-
-        /* Update changedsince search cache. */
-        if (count($mbox_ob->flagchange)) {
+            /* Search for deleted messages, and remove from cache. */
             $squery = new Horde_Imap_Client_Search_Query();
-            $squery->modseq($mbox_ob->origModseq);
+            $squery->ids($this->getIdsOb($uids_ob->range_string));
 
-            $this->_setSearchCache(array(
-                'count' => count($mbox_ob->flagchange),
-                'match' => strval($mbox_ob->flagchange)
-            ), $this->_getSearchCache('search', array(
-                '_query' => $squery->build($this->capability()),
-                'results' => array(
-                    Horde_Imap_Client::SEARCH_RESULTS_MATCH,
-                    Horde_Imap_Client::SEARCH_RESULTS_COUNT
-                )
-            )));
+            $search = $this->search($this->_selected, $squery, array(
+                'nocache' => true
+            ));
+
+            $deleted = array_diff($uids_ob->ids, $search['match']->ids);
+            if (!empty($deleted)) {
+                $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
+            }
         }
+
+        $mbox_ob->sync = true;
     }
 
     /**
