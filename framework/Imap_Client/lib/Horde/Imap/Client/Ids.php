@@ -32,6 +32,13 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     const LARGEST = "\03";
 
     /**
+     * Allow duplicate IDs?
+     *
+     * @var boolean
+     */
+    public $duplicates = false;
+
+    /**
      * List of IDs.
      *
      * @var mixed
@@ -145,10 +152,15 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
                 }
             }
 
-            $this->_ids = is_array($this->_ids)
-                ? array_keys(array_flip(array_merge($this->_ids, $add)))
-                : $add;
-            $this->_sorted = false;
+            if (!empty($add)) {
+                $this->_ids = is_array($this->_ids)
+                    ? array_merge($this->_ids, $add)
+                    : $add;
+                if (!$this->duplicates) {
+                    $this->_ids = array_keys(array_flip($this->_ids));
+                }
+                $this->_sorted = false;
+            }
         }
     }
 
@@ -335,6 +347,10 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     {
         $save = array();
 
+        if ($this->duplicates) {
+            $save['d'] = 1;
+        }
+
         if ($this->_sequence) {
             $save['s'] = 1;
         }
@@ -370,6 +386,7 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     {
         $save = @unserialize($data);
 
+        $this->duplicates = !empty($save['d']);
         $this->_sequence = !empty($save['s']);
         $this->_sorted = !empty($save['is']);
 

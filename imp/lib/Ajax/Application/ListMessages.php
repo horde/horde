@@ -349,14 +349,20 @@ class IMP_Ajax_Application_ListMessages
             !$is_search &&
             !is_null($parsed) &&
             !empty($parsed['highestmodseq'])) {
-            $squery = new Horde_Imap_Client_Search_Query();
-            $squery->modseq($parsed['highestmodseq'] + 1);
-            $squery->ids($imp_imap->getIdsOb(array_keys($cached)));
+            $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_SYNCMODSEQ | Horde_Imap_Client::STATUS_SYNCFLAGUIDS);
+            if ($status['syncmodseq'] == $parsed['highestmodseq']) {
+                /* We have the cached list of sync'd mailbox UIDs. */
+                $changed = array_flip($status['syncflaguids']->ids);
+            } else {
+                $squery = new Horde_Imap_Client_Search_Query();
+                $squery->modseq($parsed['highestmodseq'] + 1);
+                $squery->ids($imp_imap->getIdsOb(array_keys($cached)));
 
-            try {
-                $res = $imp_imap->search($mbox, $squery);
-                $changed = array_flip($res['match']->ids);
-            } catch (IMP_Imap_Exception $e) {}
+                try {
+                    $res = $imp_imap->search($mbox, $squery);
+                    $changed = array_flip($res['match']->ids);
+                } catch (IMP_Imap_Exception $e) {}
+            }
         }
 
         foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {

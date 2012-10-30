@@ -39,6 +39,7 @@
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
  *   - RFC 6203: SEARCH=FUZZY
+ *   - RFC XXXX: MOVE (draft-ietf-imapmove-command-02)
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -78,18 +79,8 @@
  *  <li>RFC 5267: CONTEXT=SEARCH; CONTEXT=SORT</li>
  *  <li>RFC 5465: NOTIFY</li>
  *  <li>RFC 5466: FILTERS</li>
- *  <li>RFC 5738: UTF8 (Very limited support currently)</li>
- *  <li>RFC 6237: MULTISEARCH</li>
- *  <li>draft-ietf-morg-inthread-01: SEARCH=INTHREAD
- *   <ul>
- *    <li>Appears to be dead</li>
- *   </ul>
- *  </li>
- *  <li>draft-krecicki-imap-move-01.txt: MOVE
- *   <ul>
- *    <li>Appears to be dead</li>
- *   </ul>
- *  </li>
+ *  <li>RFC 5738: UTF8 (Experimental; Very limited support currently)</li>
+ *  <li>RFC 6237: MULTISEARCH (Experimental)</li>
  * </ul>
  *
  * Originally based on code from:
@@ -112,6 +103,27 @@
  */
 class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 {
+    /* Cache names used exclusively within this class. */
+    const CACHE_FLAGS = 'HICflags';
+
+    /**
+     * Mapping of status fields to IMAP names.
+     *
+     * @var array
+     */
+    protected $_statusFields = array(
+        'messages' => Horde_Imap_Client::STATUS_MESSAGES,
+        'recent' => Horde_Imap_Client::STATUS_RECENT,
+        'uidnext' => Horde_Imap_Client::STATUS_UIDNEXT,
+        'uidvalidity' => Horde_Imap_Client::STATUS_UIDVALIDITY,
+        'unseen' => Horde_Imap_Client::STATUS_UNSEEN,
+        'firstunseen' => Horde_Imap_Client::STATUS_FIRSTUNSEEN,
+        'flags' => Horde_Imap_Client::STATUS_FLAGS,
+        'permflags' => Horde_Imap_Client::STATUS_PERMFLAGS,
+        'uidnotsticky' => Horde_Imap_Client::STATUS_UIDNOTSTICKY,
+        'highestmodseq' => Horde_Imap_Client::STATUS_HIGHESTMODSEQ
+    );
+
     /**
      * The socket connection to the IMAP server.
      *
@@ -852,16 +864,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $qresync = isset($this->_init['enabled']['QRESYNC']);
 
-        /* Let the 'CLOSE' response code handle mailbox switching if QRESYNC
-         * is active. */
-        if (!isset($this->_temp['mailbox']['name']) ||
-            (!$qresync && ($mailbox != $this->_temp['mailbox']['name']))) {
-            $this->_temp['mailbox'] = array('name' => clone($mailbox));
-            $this->_selected = clone($mailbox);
-        } elseif ($qresync) {
-            $this->_temp['qresyncmbox'] = clone($mailbox);
-        }
-
         $cmd = $this->_clientCommand(array(
             ($mode == Horde_Imap_Client::OPEN_READONLY) ? 'EXAMINE' : 'SELECT',
             new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
@@ -870,41 +872,49 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* If QRESYNC is available, synchronize the mailbox. */
         if ($qresync) {
             $this->_initCache();
-            $metadata = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
+            $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
-            if (isset($metadata[self::CACHE_MODSEQ])) {
-                $uids = $this->_cache->get($mailbox);
-                if (!empty($uids)) {
-                    /* This command may cause several things to happen.
-                     * 1. UIDVALIDITY may have changed.  If so, we need
-                     * to expire the cache immediately (done below).
-                     * 2. NOMODSEQ may have been returned. We can keep current
-                     * message cache data but won't be able to do flag
-                     * caching.
-                     * 3. VANISHED/FETCH information was returned. These
-                     * responses will have already been handled by those
-                     * response handlers.
-                     * TODO: Use 4th parameter (useful if we keep a sequence
-                     * number->UID lookup in the future). */
-                    $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
-                        'QRESYNC',
-                        new Horde_Imap_Client_Data_Format_List(array(
-                            $metadata['uidvalid'],
-                            $metadata[self::CACHE_MODSEQ],
-                            $this->getIdsOb($uids)->tostring_sort
-                        ))
-                    )));
-                }
+            if (isset($md[self::CACHE_MODSEQ]) &&
+                ($uids = $this->_cache->get($mailbox))) {
+                /* Several things can happen with a QRESYNC:
+                 * 1. UIDVALIDITY may have changed.  If so, we need to expire
+                 * the cache immediately (done below).
+                 * 2. NOMODSEQ may have been returned. We can keep current
+                 * message cache data but won't be able to do flag caching.
+                 * 3. VANISHED/FETCH information was returned. These responses
+                 * will have already been handled by those response handlers.
+                 * 4. We are already synced with the local server in which
+                 * case it acts like a normal EXAMINE/SELECT. */
+                $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
+                    'QRESYNC',
+                    new Horde_Imap_Client_Data_Format_List(array(
+                        $md['uidvalid'],
+                        $md[self::CACHE_MODSEQ],
+                        strval($this->getIdsOb($uids))
+                    ))
+                )));
             }
-        } elseif (!isset($this->_init['enabled']['CONDSTORE']) &&
-                  $this->_initCache() &&
-                  $this->queryCapability('CONDSTORE')) {
-            /* Activate CONDSTORE now if ENABLE is not available. */
-            $cmd->add(new Horde_Imap_Client_Data_Format_List('CONDSTORE'));
-            $this->_setInit('enabled', array_merge(
-                $this->_init['enabled'],
-                array('CONDSTORE' => true)
-            ));
+
+            /* Let the 'CLOSED' response code handle mailbox switching if
+             * QRESYNC is active. */
+            if ($this->_selected) {
+                $this->_temp['qresyncmbox'] = array($mailbox, $mode);
+            } else {
+                $this->_changeSelected($mailbox, $mode);
+            }
+        } else {
+            if (!isset($this->_init['enabled']['CONDSTORE']) &&
+                $this->_initCache() &&
+                $this->queryCapability('CONDSTORE')) {
+                /* Activate CONDSTORE now if ENABLE is not available. */
+                $cmd->add(new Horde_Imap_Client_Data_Format_List('CONDSTORE'));
+                $this->_setInit('enabled', array_merge(
+                    $this->_init['enabled'],
+                    array('CONDSTORE' => true)
+                ));
+            }
+
+            $this->_changeSelected($mailbox, $mode);
         }
 
         try {
@@ -913,7 +923,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // An EXAMINE/SELECT failure with a return of 'NO' will cause the
             // current mailbox to be unselected.
             if ($e->status == Horde_Imap_Client_Interaction_Server::NO) {
-                $this->_selected = null;
+                $this->_changeSelected(null);
                 $this->_mode = 0;
                 if (!$e->getCode()) {
                     throw new Horde_Imap_Client_Exception(
@@ -923,6 +933,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
             throw $e;
+        }
+
+        if ($qresync) {
+            /* Mailbox is fully sync'd. */
+            $this->_mailboxOb()->sync = true;
         }
     }
 
@@ -1144,26 +1159,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* LIST-STATUS does NOT depend on LIST-EXTENDED. */
         if (!empty($options['status']) &&
             $this->queryCapability('LIST-STATUS')) {
-            $status_mask = array(
-                Horde_Imap_Client::STATUS_MESSAGES => 'MESSAGES',
-                Horde_Imap_Client::STATUS_RECENT => 'RECENT',
-                Horde_Imap_Client::STATUS_UIDNEXT => 'UIDNEXT',
-                Horde_Imap_Client::STATUS_UIDVALIDITY => 'UIDVALIDITY',
-                Horde_Imap_Client::STATUS_UNSEEN => 'UNSEEN',
-                Horde_Imap_Client::STATUS_HIGHESTMODSEQ => 'HIGHESTMODSEQ'
+            $available_status = array(
+                Horde_Imap_Client::STATUS_MESSAGES,
+                Horde_Imap_Client::STATUS_RECENT,
+                Horde_Imap_Client::STATUS_UIDNEXT,
+                Horde_Imap_Client::STATUS_UIDVALIDITY,
+                Horde_Imap_Client::STATUS_UNSEEN,
+                Horde_Imap_Client::STATUS_HIGHESTMODSEQ
             );
 
-            $status_opts = new Horde_Imap_Client_Data_Format_List();
-            foreach ($status_mask as $key => $val) {
-                if ($options['status'] & $key) {
-                    $status_opts->add($val);
+            $status_opts = array();
+            foreach (array_intersect($this->_statusFields, $available_status) as $key => $val) {
+                if ($options['status'] & $val) {
+                    $status_opts[] = $key;
                 }
             }
 
             if (count($status_opts)) {
                 $return_opts->add(array(
                     'STATUS',
-                    $status_opts
+                    new Horde_Imap_Client_Data_Format_List(
+                        array_map('strtoupper', $status_opts)
+                    )
                 ));
             }
         }
@@ -1189,14 +1206,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
-                if (isset($t['listresponse'][$val_utf8]) &&
-                    isset($t['status'][$val_utf8])) {
-                    $t['listresponse'][$val_utf8]['status'] = $t['status'][$val_utf8];
+                if (isset($t['listresponse'][$val_utf8])) {
+                    $t['listresponse'][$val_utf8]['status'] = $this->_prepareStatusResponse($status_opts, $val_utf8);
                 }
             }
         }
 
-        return $t['listresponse'];
+        $out = $t['listresponse'];
+        unset($t['listresponse']);
+
+        return $out;
     }
 
     /**
@@ -1264,46 +1283,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
     {
-        $data = array();
-        $query = new Horde_Imap_Client_Data_Format_List();
-        $search = null;
-
-        $items = array(
-            Horde_Imap_Client::STATUS_MESSAGES => 'messages',
-            Horde_Imap_Client::STATUS_RECENT => 'recent',
-            Horde_Imap_Client::STATUS_UIDNEXT => 'uidnext',
-            Horde_Imap_Client::STATUS_UIDVALIDITY => 'uidvalidity',
-            Horde_Imap_Client::STATUS_UNSEEN => 'unseen',
-            Horde_Imap_Client::STATUS_FIRSTUNSEEN => 'firstunseen',
-            Horde_Imap_Client::STATUS_FLAGS => 'flags',
-            Horde_Imap_Client::STATUS_PERMFLAGS => 'permflags',
-            Horde_Imap_Client::STATUS_UIDNOTSTICKY => 'uidnotsticky',
+        $data = $query = array();
+        $unseen_flags = array(
+            Horde_Imap_Client::STATUS_FIRSTUNSEEN,
+            Horde_Imap_Client::STATUS_UNSEEN
         );
-
-        /* Don't include modseq returns if server does not support it. */
-        if ($this->queryCapability('CONDSTORE')) {
-            $items[Horde_Imap_Client::STATUS_HIGHESTMODSEQ] = 'highestmodseq';
-
-            /* Even though CONDSTORE is available, it may not yet have been
-             * enabled. */
-            if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
-                !isset($this->_init['enabled']['CONDSTORE'])) {
-                $this->_setInit('enabled', array_merge(
-                    $this->_init['enabled'],
-                    array('CONDSTORE' => true)
-                ));
-            }
-
-            /* If highestmodseq for the current mailbox is -1, and that is
-             * the mailbox we are querying, then we need to close the current
-             * mailbox; CONDSTORE is preventing us from getting the updated
-             * value within the current mailbox. */
-            if ($mailbox->equals($this->_selected) &&
-                isset($this->_temp['mailbox']['highestmodseq']) &&
-                ($this->_temp['mailbox']['highestmodseq'] === -1)) {
-                $this->close();
-            }
-        }
 
         /* If FLAGS/PERMFLAGS/UIDNOTSTICKY/FIRSTUNSEEN are needed, we must do
          * a SELECT/EXAMINE to get this information (data will be caught in
@@ -1315,59 +1299,68 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->openMailbox($mailbox);
         }
 
-        foreach ($items as $key => $val) {
-            if ($key & $flags) {
-                if ($mailbox->equals($this->_selected)) {
-                    if (isset($this->_temp['mailbox'][$val])) {
-                        $data[$val] = $this->_temp['mailbox'][$val];
-                    } elseif ($key == Horde_Imap_Client::STATUS_UIDNEXT) {
-                        /* UIDNEXT is not strictly required on mailbox open.
-                         * See RFC 3501 [6.3.1]. */
-                        $data[$val] = 0;
+        $mbox_ob = $this->_mailboxOb($mailbox);
 
-                        if (($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE) &&
-                            !empty($this->_temp['mailbox']['messages'])) {
-                            $squery = new Horde_Imap_Client_Search_Query();
-                            $squery->ids($this->getIdsOb(Horde_Imap_Client_Ids::LARGEST));
-                            $s_res = $this->search($this->_selected, $squery);
-                            $data[$val] = $s_res['match']->ids[0] + 1;
-                        }
-                    } elseif ($key == Horde_Imap_Client::STATUS_UIDNOTSTICKY) {
-                        /* In the absence of uidnotsticky information, or
-                         * if UIDPLUS is not supported, we assume the UIDs
-                         * are sticky. */
-                        $data[$val] = false;
-                    } elseif ($key == Horde_Imap_Client::STATUS_PERMFLAGS) {
-                        /* If PERMFLAGS is not returned by server, must assume
-                         * that all flags can be changed permanently. See
-                         * RFC 3501 [6.3.1]. */
-                        $data[$val] = isset($this->_temp['mailbox'][$items[Horde_Imap_Client::STATUS_FLAGS]])
-                            ? $this->_temp['mailbox'][$items[Horde_Imap_Client::STATUS_FLAGS]]
-                            : array();
-                        $data[$val][] = "\\*";
-                    } elseif (in_array($key, array(Horde_Imap_Client::STATUS_FIRSTUNSEEN, Horde_Imap_Client::STATUS_UNSEEN))) {
-                        /* If we already know there are no messages in the
-                         * current mailbox, we know there is no firstunseen
-                         * and unseen info also. */
-                        if (empty($this->_temp['mailbox']['messages'])) {
-                            $data[$val] = ($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? null : 0;
-                        } else {
-                            /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is
-                             * not mandatory. If missing in EXAMINE/SELECT
-                             * results, we need to do a search. An UNSEEN
-                             * count also requires a search. */
-                            if (is_null($search)) {
-                                $search_query = new Horde_Imap_Client_Search_Query();
-                                $search_query->flag(Horde_Imap_Client::FLAG_SEEN, false);
-                                $search = $this->search($mailbox, $search_query, array('results' => array(($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? Horde_Imap_Client::SEARCH_RESULTS_MIN : Horde_Imap_Client::SEARCH_RESULTS_COUNT), 'sequence' => true));
-                            }
+        foreach ($this->_statusFields as $key => $val) {
+            if (!($val & $flags)) {
+                continue;
+            }
 
-                            $data[$val] = $search[($key == Horde_Imap_Client::STATUS_FIRSTUNSEEN) ? 'min' : 'count'];
-                        }
-                    }
-                } else {
-                    $query->add(strtoupper($val));
+            if ($val == Horde_Imap_Client::STATUS_HIGHESTMODSEQ) {
+                /* Don't include modseq returns if server does not support
+                 * it. */
+                if (!$this->queryCapability('CONDSTORE')) {
+                    continue;
                 }
+
+                /* Even though CONDSTORE is available, it may not yet have
+                 * been enabled. */
+                if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                    $this->_setInit('enabled', array_merge(
+                        $this->_init['enabled'],
+                        array('CONDSTORE' => true)
+                    ));
+                }
+            }
+
+            if ($mailbox->equals($this->_selected)) {
+                if (!is_null($tmp = $mbox_ob->getStatus($val))) {
+                    $data[$key] = $tmp;
+                } elseif (($val == Horde_Imap_Client::STATUS_UIDNEXT) &&
+                          ($flags & Horde_Imap_Client::STATUS_UIDNEXT_FORCE)) {
+                    /* UIDNEXT is not mandatory. */
+                    if ($mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES) == 0) {
+                        $data[$key] = 0;
+                    } else {
+                        $fquery = new Horde_Imap_Client_Fetch_Query();
+                        $fquery->uid();
+                        $fetch_res = $this->fetch($this->_selected, $fquery, array(
+                            'ids' => $this->getIdsOb(Horde_Imap_Client_Ids::LARGEST)
+                        ));
+                        $data[$key] = $fetch_res->first()->getUid() + 1;
+                    }
+                } elseif (in_array($val, $unseen_flags)) {
+                    /* RFC 3501 [6.3.1] - FIRSTUNSEEN information is not
+                     * mandatory. If missing in EXAMINE/SELECT results, we
+                     * need to do a search. An UNSEEN count also requires a
+                     * search. */
+                    $squery = new Horde_Imap_Client_Search_Query();
+                    $squery->flag(Horde_Imap_Client::FLAG_SEEN, false);
+                    $search = $this->search($mailbox, $squery, array(
+                        'results' => array(
+                            Horde_Imap_Client::SEARCH_RESULTS_MIN,
+                            Horde_Imap_Client::SEARCH_RESULTS_COUNT
+                        ),
+                        'sequence' => true
+                    ));
+
+                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, $search['min']);
+                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UNSEEN, $search['count']);
+
+                    $data[$key] = $mbox_ob->getStatus($val);
+                }
+            } else {
+                $query[] = $key;
             }
         }
 
@@ -1378,12 +1371,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $cmd = $this->_clientCommand(array(
             'STATUS',
             new Horde_Imap_Client_Data_Format_Mailbox($mailbox),
-            $query
+            new Horde_Imap_Client_Data_Format_List(
+                array_map('strtoupper', $query)
+            )
         ));
 
         $this->_sendLine($cmd);
 
-        return $this->_temp['status'][strval($mailbox)];
+        return $this->_prepareStatusResponse($query, $mailbox);
     }
 
     /**
@@ -1394,16 +1389,37 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseStatus(Horde_Imap_Client_Tokenize $data)
     {
         // Mailbox name is in UTF7-IMAP
-        $mbox = strval(Horde_Imap_Client_Mailbox::get($data->current(), true));
-
-        $this->_temp['status'][$mbox] = array();
+        $mbox_ob = $this->_mailboxOb(
+            Horde_Imap_Client_Mailbox::get($data->current(), true)
+        );
 
         $s_data = $data->next();
         $k = $s_data->rewind();
 
         do {
-            $this->_temp['status'][$mbox][strtolower($k)] = $s_data->next();
+            $mbox_ob->setStatus(
+                $this->_statusFields[strtolower($k)],
+                $s_data->next()
+            );
         } while (($k = $s_data->next()) !== false);
+    }
+
+    /**
+     * Prepares a status response for a mailbox.
+     *
+     * @param array $request   The status keys to return.
+     * @param string $mailbox  The mailbox to query.
+     */
+    protected function _prepareStatusResponse($request, $mailbox)
+    {
+        $mbox_ob = $this->_mailboxOb($mailbox);
+        $out = array();
+
+        foreach ($request as $val) {
+            $out[$val] = $mbox_ob->getStatus($this->_statusFields[$val]);
+        }
+
+        return $out;
     }
 
     /**
@@ -1434,9 +1450,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $t = &$this->_temp;
         $t['appendsize'] = 0;
-        $t['appenduid'] = $this->getIdsOb();
+        $t['appenduid'] = true;
         $t['trycreate'] = null;
-        $t['uidplusmbox'] = $mailbox;
 
         $cmd = $this->_clientCommand(array(
             'APPEND',
@@ -1544,11 +1559,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        /* If we reach this point and have data in $_temp['appenduid'],
-         * UIDPLUS (RFC 4315) has done the dirty work for us. */
-        return count($t['appenduid'])
-            ? $t['appenduid']
-            : true;
+        /* If we reach this point and have data in 'appenduid', UIDPLUS (RFC
+         * 4315) has done the dirty work for us. */
+        return $t['appenduid'];
     }
 
     /**
@@ -1654,76 +1667,69 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             // CLOSE returns no untagged information (RFC 3501 [6.4.2])
             $this->_sendLine($this->_clientCommand('CLOSE'));
-
-            /* Ignore HIGHESTMODSEQ information (RFC 5162 [3.4]) since the
-             * expunge() call would have already caught it. */
         }
-
-        // Need to clear status cache since we are no longer in mailbox.
-        $this->_temp['mailbox'] = array();
     }
 
     /**
      */
     protected function _expunge($options)
     {
-        $unflag = array();
-        $mailbox = clone($this->_selected);
-        $s_res = null;
+        $expunged_ob = $modseq = null;
+        $ids = $options['ids'];
+        $list_msgs = !empty($options['list']);
         $uidplus = $this->queryCapability('UIDPLUS');
+        $unflag = array();
         $use_cache = $this->_initCache(true);
 
-        if ($options['ids']->all) {
-            $uid_string = strval($options['ids']);
+        if ($ids->all) {
+            $ids = ($list_msgs || $use_cache)
+                ? $this->resolveIds($this->_selected, $ids, 2)
+                : $ids;
         } elseif ($uidplus) {
-            /* UID EXPUNGE command needs UIDs. */
-            if ($options['ids']->sequence) {
-                $results = array(Horde_Imap_Client::SEARCH_RESULTS_MATCH);
-                if ($this->queryCapability('SEARCHRES')) {
-                    $results[] = Horde_Imap_Client::SEARCH_RESULTS_SAVE;
+            /* If QRESYNC is not available, and we are returning the list of
+             * expunged messages (or we are caching), we have to make sure we
+             * have a mapping of Sequence -> UIDs. If we have QRESYNC, the
+             * server SHOULD return a VANISHED response with UIDs. However,
+             * even if the server returns EXPUNGEs instead, we can use
+             * vanished() to grab the list. */
+            if (isset($this->_init['enabled']['QRESYNC'])) {
+                $ids = $this->resolveIds($this->_selected, $ids, 1);
+                if ($list_msgs) {
+                    $modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
+                    unset($this->_temp['expunge_seen']);
                 }
-                $s_res = $this->search($mailbox, null, array(
-                    'results' => $results
-                ));
-                $uid_string = (in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $results) && !empty($s_res['save']))
-                    ? '$'
-                    : strval($s_res['match']);
             } else {
-                $uid_string = strval($options['ids']);
+                $ids = $this->resolveIds($this->_selected, $ids, ($list_msgs || $use_cache) ? 2 : 1);
+            }
+            if ($this->_temp['search_save']) {
+                $ids = $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES);
             }
         } else {
             /* Without UIDPLUS, need to temporarily unflag all messages marked
              * as deleted but not a part of requested IDs to delete. Use NOT
              * searches to accomplish this goal. */
-            $search_query = new Horde_Imap_Client_Search_Query();
-            $search_query->flag(Horde_Imap_Client::FLAG_DELETED, true);
-            if ($options['ids']->search_res) {
-                $search_query->previousSearch(true);
-            } else {
-                $search_query->ids($options['ids'], true);
-            }
+            $squery = new Horde_Imap_Client_Search_Query();
+            $squery->flag(Horde_Imap_Client::FLAG_DELETED, true);
+            $squery->ids($ids, true);
 
-            $res = $this->search($mailbox, $search_query);
+            $s_res = $this->search($this->_selected, $squery, array(
+                'results' => array(
+                    Horde_Imap_Client::SEARCH_RESULTS_MATCH,
+                    Horde_Imap_Client::SEARCH_RESULTS_SAVE
+                )
+            ));
 
-            $this->store($mailbox, array(
-                'ids' => $res['match'],
+            $this->store($this->_selected, array(
+                'ids' => empty($s_res['save']) ? $s_res['match'] : $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES),
                 'remove' => array(Horde_Imap_Client::FLAG_DELETED)
             ));
 
-            $unflag = $res['match'];
+            $unflag = $s_res['match'];
         }
 
-        $list_msgs = !empty($options['list']);
-        $tmp = &$this->_temp;
-        $tmp['expunge'] = $tmp['vanished'] = array();
-
-        /* We need to get sequence num -> UID lookup table if we are caching.
-         * There is no guarantee that if we are using QRESYNC that we will get
-         * VANISHED responses, so this is unfortunately necessary. */
-        if (is_null($s_res) && ($list_msgs || $use_cache)) {
-            $s_res = $uidplus
-                ? $this->_getSeqUidLookup($options['ids'], true)
-                : $this->_getSeqUidLookup($this->getIdsOb(Horde_Imap_Client_Ids::ALL, true));
+        if ($list_msgs) {
+            $expunged_ob = $this->getIdsOb();
+            $this->_temp['expunged'] = $expunged_ob;
         }
 
         /* Always use UID EXPUNGE if available. */
@@ -1731,7 +1737,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $cmd = $this->_clientCommand(array(
                 'UID',
                 'EXPUNGE',
-                $uid_string
+                strval($ids)
             ));
             $this->_sendLine($cmd);
         } elseif ($use_cache || $list_msgs) {
@@ -1743,86 +1749,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->close(array('expunge' => true));
         }
 
+        unset($this->_temp['expunged']);
+
         if (!empty($unflag)) {
-            $this->store($mailbox, array(
+            $this->store($this->_selected, array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED),
                 'ids' => $unflag
             ));
         }
 
-        if (!$use_cache && !$list_msgs) {
-            return null;
+        if (!is_null($modseq) && !empty($this->_temp['expunge_seen'])) {
+            /* There's a chance we actually did a full map of sequence -> UID,
+             * but this code should never be reached in the first place so
+             * be ultra-safe and just do a full VANISHED search. */
+            $expunged_ob = $this->vanished($this->_selected, $modseq, array(
+                'ids' => $ids
+            ));
+            $this->_deleteMsgs($this->_selected, $expunged_ob);
         }
 
-        $expunged = array();
-
-        if (!empty($tmp['vanished'])) {
-            $expunged = $tmp['vanished']->ids;
-        } elseif (!empty($tmp['expunge'])) {
-            $lookup = $s_res['lookup'];
-
-            /* Expunge responses can come in any order. Thus, we need to
-             * reindex anytime we have an index that appears equal to or
-             * after a previously seen index. If an IMAP server is smart,
-             * it will expunge in reverse order instead. */
-            foreach ($tmp['expunge'] as &$val) {
-                $found = false;
-                $tmp2 = array();
-
-                foreach (array_keys($lookup) as $i => $seq) {
-                    if ($found) {
-                        $tmp2[$seq - 1] = $lookup[$seq];
-                    } elseif ($seq == $val) {
-                        $expunged[] = $lookup[$seq];
-                        $tmp2 = array_slice($lookup, 0, $i, true);
-                        $found = true;
-                    }
-                }
-
-                $lookup = $tmp2;
-            }
-        }
-
-        if (empty($expunged)) {
-            return null;
-        }
-
-        if ($use_cache) {
-            $this->_deleteMsgs($mailbox, $expunged);
-        }
-
-        /* Update MODSEQ if active for mailbox (QRESYNC only; CONDSTORE
-         * requires us to re-SELECT/EXAMINE the mailbox). */
-        if (!empty($this->_temp['mailbox']['highestmodseq']) &&
-            isset($this->_init['enabled']['QRESYNC'])) {
-            $this->_updateMetaData($mailbox, array(
-                self::CACHE_MODSEQ => $this->_temp['mailbox']['highestmodseq']
-            ), isset($this->_temp['mailbox']['uidvalidity']) ? $this->_temp['mailbox']['uidvalidity'] : null);
-        }
-
-        return $list_msgs
-            ? $this->getIdsOb($expunged, $options['ids']->sequence)
-            : null;
-    }
-
-    /**
-     * Parse an EXPUNGE response (RFC 3501 [7.4.1]).
-     *
-     * @param integer $seq  The message sequence number.
-     */
-    protected function _parseExpunge($seq)
-    {
-        $this->_temp['expunge'][] = $seq;
-
-        /* Bug #9915: Decrement the message list here because some broken
-         * IMAP servers will send an unneeded EXISTS response after the
-         * EXPUNGE list is processed (see RFC 3501 [7.4.1]). */
-        --$this->_temp['mailbox']['messages'];
-        $this->_temp['mailbox']['lookup'] = array();
-
-        if (!empty($this->_init['enabled']['CONDSTORE'])) {
-            $this->_temp['modseqs'][] = -1;
-        }
+        return $expunged_ob;
     }
 
     /**
@@ -1833,7 +1779,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseVanished(Horde_Imap_Client_Tokenize $data)
     {
         $val = $data->current();
-        $vanished = array();
 
         /* There are two forms of VANISHED.  VANISHED (EARLIER) will be sent
          * in a FETCH (VANISHED) or SELECT/EXAMINE (QRESYNC) call.
@@ -1846,17 +1791,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Caching is guaranteed to be active if we are using
                  * QRESYNC. */
                 $vanished = $this->getIdsOb($data->next());
-                $this->_deleteMsgs($this->_temp['mailbox']['name'], $vanished);
+                if (isset($this->_temp['vanished'])) {
+                    $this->_temp['vanished']->add($vanished);
+                } else {
+                    $this->_deleteMsgs($this->_selected, $vanished);
+                }
             }
         } else {
-            /* The second form is just VANISHED. This is returned from an
-             * EXPUNGE command and will be processed in _expunge(). */
-            $vanished = $this->getIdsOb($val);
-            $this->_temp['mailbox']['messages'] -= count($vanished);
-            $this->_temp['mailbox']['lookup'] = array();
+            /* The second form is just VANISHED. This is analogous to EXPUNGE
+             * and requires the message count to decrement. */
+            $this->_deleteMsgs($this->_selected, $this->getIdsOb($val), true);
         }
-
-        $this->_temp['vanished'] = $vanished;
     }
 
     /**
@@ -1869,11 +1814,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
          * doesn't support it will return BAD. Catch that here and throw
          * an exception. */
         if (in_array('CONDSTORE', $options['_query']['exts']) &&
-            empty($this->_temp['mailbox']['highestmodseq'])) {
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
-                );
+            !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Exception::MBOXNOMODSEQ
+            );
         }
 
         $cmd = $this->_clientCommand(empty($options['sequence']) ? 'UID' : null);
@@ -2155,7 +2100,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case Horde_Imap_Client::SEARCH_RESULTS_SAVE:
-                $ret['save'] = $esearch ? empty($this->_temp['searchnotsaved']) : false;
+                $this->_temp['search_save'] = $ret['save'] = $esearch ? empty($this->_temp['searchnotsaved']) : false;
                 break;
             }
         }
@@ -2384,6 +2329,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t = &$this->_temp;
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
+        $mbox_ob = $this->_mailboxOb();
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
@@ -2539,7 +2485,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     /* RFC 4551 [3.1] - trying to do a FETCH of MODSEQ on a
                      * mailbox that doesn't support it will return BAD. Catch
                      * that here and throw an exception. */
-                    if (empty($this->_temp['mailbox']['highestmodseq'])) {
+                    if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                         throw new Horde_Imap_Client_Exception(
                             Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
                             Horde_Imap_Client_Exception::MBOXNOMODSEQ
@@ -2557,11 +2503,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             strval($options['ids'])
         )));
 
-
         if (empty($options['changedsince'])) {
             $cmd->add($fetch);
         } else {
-            if (empty($this->_temp['mailbox']['highestmodseq'])) {
+            if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
                     Horde_Imap_Client_Exception::MBOXNOMODSEQ
@@ -2583,10 +2528,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
         }
 
+        $this->_temp['fetch_resp'] = $results;
+
         try {
-            $this->_sendLine($cmd, array(
-                'fetch' => $results
-            ));
+            $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most likely
             // means that messages were expunged. RFC 2180 [4.1]
@@ -2601,6 +2546,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             unset($this->_temp['expungeissued']);
             $this->noop();
         }
+
+        unset($this->_temp['fetch_resp']);
     }
 
     /**
@@ -2670,7 +2617,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'UID':
                 $uid = $f_data->next();
                 $ob->setUid($uid);
-                $this->_temp['mailbox']['lookup'][$id] = $uid;
                 break;
 
             case 'MODSEQ':
@@ -2764,11 +2710,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         } while (($tag = $f_data->next()) !== false);
 
-        if (is_null($this->_temp['fetchresp'])) {
-            $this->_temp['fetchresp'] = new Horde_Imap_Client_Fetch_Results($this->_fetchDataClass, is_null($uid) ? Horde_Imap_Client_Fetch_Results::SEQUENCE : Horde_Imap_Client_Fetch_Results::UID);
+        if (isset($this->_temp['fetch_resp'])) {
+            $this->_temp['fetch_resp']->get(is_null($uid) ? $id : $uid)->merge($ob);
         }
 
-        $this->_temp['fetchresp']->get(is_null($uid) ? $id : $uid)->merge($ob);
+        if (!is_null($uid)) {
+            $this->_temp['fetch_cache']->get($uid)->merge($ob);
+        }
     }
 
     /**
@@ -2987,14 +2935,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _vanished($modseq, Horde_Imap_Client_Ids $ids)
     {
-        if (empty($this->_temp['mailbox']['highestmodseq'])) {
+        $mbox_ob = $this->_mailboxOb();
+
+        if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
                 Horde_Imap_Client_Exception::MBOXNOMODSEQ
             );
         }
 
-        $this->_temp['vanished'] = array();
+        $vanished_ob = $this->getIdsOb();
+        $this->_temp['vanished'] = $vanished_ob;
 
         $cmd = $this->_clientCommand(array(
             'UID',
@@ -3010,7 +2961,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $this->_sendLine($cmd);
 
-        return $this->_temp['vanished'];
+        unset($this->_temp['vanished']);
+
+        return $vanished_ob;
     }
 
     /**
@@ -3023,16 +2976,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             strval($options['ids'])
         ));
 
-        if (!empty($this->_temp['mailbox']['highestmodseq'])) {
-            if (empty($options['unchangedsince'])) {
-                /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE
-                 * added to ensure we get MODSEQ updated information (need to
-                 * call via status() since value may be -1). */
-                $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
-                $ucsince = $status['highestmodseq'];
-            } else {
-                $ucsince = intval($options['unchangedsince']);
-            }
+        if ($modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE added
+             * to ensure we get MODSEQ updated information. */
+            $ucsince = empty($options['unchangedsince'])
+                ? $modseq
+                : intval($options['unchangedsince']);
 
             if ($ucsince) {
                 $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
@@ -3051,17 +3000,34 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_temp['modified'] = $this->getIdsOb();
+        $cmds = array();
 
         if (!empty($options['replace'])) {
-            $cmd->add('FLAGS' . ($this->_debug ? '' : '.SILENT'));
-            $cmd->add($options['replace']);
+            $cmd->add(array(
+                'FLAGS' . ($this->_debug ? '' : '.SILENT'),
+                $options['replace']
+            ));
+            $cmds[] = $cmd;
+        } else {
+            foreach (array('add' => '+', 'remove' => '-') as $k => $v) {
+                if (!empty($options[$k])) {
+                    $cmdtmp = clone $cmd;
+                    $cmdtmp->add(array(
+                        $v . 'FLAGS' . ($this->_debug ? '' : '.SILENT'),
+                        $options[$k]
+                    ));
+                    $cmds[] = $cmdtmp;
+                }
+            }
+        }
 
+        foreach ($cmds as $val) {
             try {
-                $this->_sendLine($cmd);
+                $this->_sendLine($cmdtmp);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-                // A NO response, when coupled with a sequence STORE and
-                // non-SILENT behavior, most likely means that messages were
-                // expunged. RFC 2180 [4.2]
+                /* A NO response, when coupled with a sequence STORE and
+                 * and non-SILENT behavior, most likely means that messages
+                 * messages were expunged. RFC 2180 [4.2] */
                 if (!empty($options['sequence']) &&
                     !$this->_debug &&
                     ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
@@ -3069,128 +3035,33 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
             }
 
-            $this->_storeUpdateCache('replace', $options['replace']);
-        } else {
-            foreach (array('add' => '+', 'remove' => '-') as $k => $v) {
-                if (!empty($options[$k])) {
-                    $cmdtmp = clone $cmd;
-                    $cmdtmp->add($v . 'FLAGS' . ($this->_debug ? '' : '.SILENT'));
-                    $cmdtmp->add($options[$k]);
-
-                    try {
-                        $this->_sendLine($cmdtmp);
-                    } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-                        // A NO response, when coupled with a sequence STORE
-                        // and non-SILENT behavior, most likely means that
-                        // messages were expunged. RFC 2180 [4.2]
-                        if (!empty($options['sequence']) &&
-                            !$this->_debug &&
-                            ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                            $this->_temp['expungeissued'] = true;
-                        }
-                    }
-
-                    $this->_storeUpdateCache($k, $options[$k]);
-                }
+            /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
+            if (!empty($this->_temp['expungeissued'])) {
+                unset($this->_temp['expungeissued']);
+                $this->noop();
             }
         }
 
-        $ret = $this->_temp['modified'];
-
-        /* Check for EXPUNGEISSUED (RFC 2180 [4.2]/RFC 5530 [3]). */
-        if (!empty($this->_temp['expungeissued'])) {
-            unset($this->_temp['expungeissued']);
-            $this->noop();
-        }
-
-        return $ret;
-    }
-
-    /**
-     * Update the flags in the cache. Only update if STORE was successful and
-     * flag information was not returned.
-     */
-    protected function _storeUpdateCache($type, $update_flags)
-    {
-        if (!isset($this->_init['enabled']['CONDSTORE']) ||
-            empty($this->_temp['mailbox']['highestmodseq']) ||
-            !count($this->_temp['fetchresp'])) {
-            return;
-        }
-
-        $fr = $this->_temp['fetchresp'];
-        $tocache = new Horde_Imap_Client_Fetch_Results();
-        $uids = array();
-
-        switch ($fr->key_type) {
-        case $fr::SEQUENCE:
-            $seq_res = $this->_getSeqUidLookup($this->getIdsOb($fr->ids(), true));
-            break;
-
-        case $fr::UID:
-            $seq_res = null;
-            break;
-        }
-
-        foreach ($fr as $key => $val) {
-            if (!$val->exists(Horde_Imap_Client::FETCH_FLAGS)) {
-                $uids[$key] = is_null($seq_res)
-                    ? $key
-                    : $seq_res['lookup'][$key];
-            }
-        }
-
-        /* Get the list of flags from the cache. */
-        switch ($type) {
-        case 'add':
-        case 'remove':
-            /* Caching is guaranteed to be active if CONDSTORE is active. */
-            $data = $this->_cache->get($this->_selected, array_values($uids), array('HICflags'), $this->_temp['mailbox']['uidvalidity']);
-
-            foreach ($uids as $key => $uid) {
-                $flags = isset($data[$uid]['HICflags'])
-                    ? $data[$uid]['HICflags']
-                    : array();
-                if ($type == 'add') {
-                    $flags = array_merge($flags, $update_flags);
-                } else {
-                    $flags = array_diff($flags, $update_flags);
-                }
-
-                $tocache[$uid] = $fr[$key];
-                $tocache[$uid]->setFlags(array_keys(array_flip($flags)));
-            }
-            break;
-
-        case 'update':
-            foreach ($uids as $uid) {
-                $tocache[$uid] = $fr[$key];
-                $tocache[$uid]->setFlags($update_flags);
-            }
-            break;
-        }
-
-        if (count($tocache)) {
-            $this->_updateCache($tocache, array(
-                'fields' => array(
-                    Horde_Imap_Client::FETCH_FLAGS
-                )
-            ));
-        }
+        return $this->_temp['modified'];
     }
 
     /**
      */
     protected function _copy(Horde_Imap_Client_Mailbox $dest, $options)
     {
-        $this->_temp['copyuid'] = $this->_temp['copyuidvalid'] = $this->_temp['trycreate'] = null;
-        $this->_temp['uidplusmbox'] = $dest;
+        $this->_temp['copydest'] = $dest;
+        $this->_temp['copyuid'] = true;
+        $this->_temp['trycreate'] = null;
+
+        /* Check for MOVE command. */
+        $move_cmd = (!empty($options['move']) &&
+                     $this->queryCapability('MOVE'));
 
         // COPY returns no untagged information (RFC 3501 [6.4.7])
         try {
             $cmd = $this->_clientCommand(array_filter(array(
                 $options['ids']->sequence ? null : 'UID',
-                'COPY',
+                $move_cmd ? 'MOVE' : 'COPY',
                 strval($options['ids']),
                 new Horde_Imap_Client_Data_Format_Mailbox($dest)
             )));
@@ -3205,17 +3076,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw $e;
         }
 
-        /* UIDPLUS (RFC 4315) allows easy determination of the UID of the
-         * copied messages. If UID not returned, then destination mailbox
-         * does not support persistent UIDs.
-         * Use UIDPLUS information to move cached data to new mailbox (see
-         * RFC 4549 [4.2.2.1]). */
-        if (!is_null($this->_temp['copyuid'])) {
-            $this->_moveCache($this->_selected, $dest, $this->_temp['copyuid'], $this->_temp['copyuidvalid']);
-        }
-
         // If moving, delete the old messages now.
-        if (!empty($options['move'])) {
+        if (!$move_cmd && !empty($options['move'])) {
             $opts = array('ids' => $options['ids']);
             $this->store($this->_selected, array_merge(array(
                 'add' => array(Horde_Imap_Client::FLAG_DELETED)
@@ -3223,9 +3085,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->expunge($this->_selected, $opts);
         }
 
-        return is_null($this->_temp['copyuid'])
-            ? true
-            : $this->_temp['copyuid'];
+        return $this->_temp['copyuid'];
     }
 
     /**
@@ -3648,80 +3508,48 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /* Overriden methods. */
 
     /**
+     * @param boolean $decrement  If true, decrement the message count.
      */
-    protected function _getSeqUidLookup(Horde_Imap_Client_Ids $ids,
-                                        $reverse = false)
+    protected function _deleteMsgs(Horde_Imap_Client_Mailbox $mailbox,
+                                   Horde_Imap_Client_Ids $ids,
+                                   $decrement = false)
     {
-        $ob = array(
-            'lookup' => array(),
-            'uids' => $this->getIdsOb()
-        );
+        /* If there are pending FETCH cache writes, we need to write them
+         * before the UID -> sequence number mapping changes. */
+        $this->_saveFetchCache();
 
-        if (!empty($this->_temp['mailbox']['lookup']) &&
-            count($ids) &&
-            ($ids->sequence || $reverse)) {
-            $need = $this->getIdsOb(null, $ids->sequence);
-            $t = $this->_temp['mailbox']['lookup'];
+        $res = parent::_deleteMsgs($mailbox, $ids);
 
-            foreach ($ids as $val) {
-                if ($ids->sequence) {
-                    if (isset($t[$val])) {
-                        $ob['lookup'][$val] = $t[$val];
-                        $ob['uids']->add($t[$val]);
-                    } else {
-                        $need->add($val);
-                    }
-                } else {
-                    if (($key = array_search($val, $t)) !== false) {
-                        $ob['lookup'][$key] = $val;
-                        $ob['uids']->add($val);
-                    } else {
-                        $need->add($val);
-                    }
-                }
-            }
-
-            if (!count($need)) {
-                return $ob;
-            }
-
-            $ids = $need;
+        if (isset($this->_temp['expunged'])) {
+            $this->_temp['expunged']->add($res);
         }
 
-        $res = parent::_getSeqUidLookup($ids, $reverse);
-
-        if (!empty($res['lookup'])) {
-            $ob['lookup'] = $ob['lookup'] + $res['lookup'];
-        }
-        if (isset($res['uids'])) {
-            $ob['uids']->add($res['uids']);
-        }
-
-        return $ob;
-    }
-
-    /**
-     */
-    protected function _getSearchCache($type, $mailbox, $options)
-    {
-        /* Search caching requires MODSEQ, which may not be active for a
-         * mailbox. */
-        return empty($this->_temp['mailbox']['highestmodseq'])
-            ? null
-            : parent::_getSearchCache($type, $mailbox, $options);
-    }
-
-    /**
-     */
-    protected function _syncMailbox()
-    {
-        /* QRESYNC would have already synced the mailbox. */
-        if (empty($this->_init['enabled']['QRESYNC'])) {
-            parent::_syncMailbox();
+        if ($decrement) {
+            $mbox_ob = $this->_mailboxOb();
+            $mbox_ob->setStatus(
+                Horde_Imap_Client::STATUS_MESSAGES,
+                $mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES) - count($ids)
+            );
         }
     }
 
     /* Internal functions. */
+
+    /**
+     * Saves pending FETCH entries to the cache.
+     *
+     * @param boolean $remove  If true, removes the cached results object
+     *                         instead of clearing it
+     */
+    protected function _saveFetchCache($remove = false)
+    {
+        $this->_updateCache($this->_temp['fetch_cache']);
+        if ($remove) {
+            unset($this->_temp['fetch_cache']);
+        } else {
+            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+        }
+    }
 
     /**
      * Perform a command on the IMAP server. A connection to the server must
@@ -3743,9 +3571,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - debug: (string) When debugging, send this string instead of the
      *            actual command/data sent.
      *            DEFAULT: Raw data output to debug stream.
-     *   - fetch: (Horde_Imap_Client_Fetch_Results) Use this as the initial
-     *            fetch results value.
-     *            DEFAULT: Fetch result is empty
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
      *                    DEFAULT: false
      *
@@ -3758,22 +3583,29 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* Initialize internal data items at the beginning of a command. */
         if ($data instanceof Horde_Imap_Client_Interaction_Client) {
-            $this->_temp['fetchresp'] = isset($opts['fetch'])
-                ? $opts['fetch']
-                : null;
+            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
             $this->_temp['lastcmd'] = $data;
             $this->_temp['modseqs'] = array();
         }
 
-        $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
+        try {
+            $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
 
-        $this->_processSendList($data, $opts);
+            $this->_processSendList($data, $opts);
 
-        if (!empty($opts['debug'])) {
-            $this->writeDebug($opts['debug']);
+            if (!empty($opts['debug'])) {
+                $this->writeDebug($opts['debug']);
+            }
+
+            $this->_writeStream('', array('eol' => true));
+        } catch (Horde_Imap_Client_Exception $e) {
+            if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_WRITEERROR) {
+                $this->_temp['logout'] = true;
+                $this->logout();
+            }
+
+            throw $e;
         }
-
-        $this->_writeStream('', array('eol' => true));
 
         while ($ob = $this->_getLine()) {
             switch (get_class($ob)) {
@@ -3898,16 +3730,30 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - eol: (boolean) If true, output EOL.
      *   - literal: (integer) If set, the length of the literal data.
      *   - nodebug: (boolean) If true, don't output debug data.
+     *
+     * @throws Horde_Imap_Client_Exception
      */
     protected function _writeStream($data, array $opts = array())
     {
+        $write_error = false;
+
         if (is_resource($data)) {
             rewind($data);
             while (!feof($data)) {
-                fwrite($this->_stream, fread($data, 8192));
+                if (fwrite($this->_stream, fread($data, 8192)) === false) {
+                    $write_error = true;
+                    break;
+                }
             }
-        } else {
-            fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n"));
+        } elseif (fwrite($this->_stream, $data . (empty($opts['eol']) ? '' : "\r\n")) === false) {
+            $write_error = true;
+        }
+
+        if ($write_error) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Server write error."),
+                Horde_Imap_Client_Exception::SERVER_WRITEERROR
+            );
         }
 
         if (!empty($opts['nodebug']) || !$this->_debug) {
@@ -3948,17 +3794,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
+            $this->_responseCode($server);
+
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {
-                $this->_temp['mailbox']['highestmodseq'] = max($this->_temp['modseqs']);
+                $modseq = max($this->_temp['modseqs']);
+                $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ, $modseq);
+                $this->_updateModSeq($modseq);
             }
 
-            /* Update FETCH items. */
-            if (!is_null($this->_temp['fetchresp'])) {
-                $this->_updateCache($this->_temp['fetchresp']);
-            }
-
-            $this->_responseCode($server);
+            /* Update cache items. */
+            $this->_saveFetchCache(true);
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
@@ -4175,7 +4021,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'FLAGS':
-            $this->_temp['mailbox']['flags'] = array_map('strtolower', iterator_to_array($token->next()));
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_FLAGS, array_map('strtolower', iterator_to_array($token->next())));
             break;
 
         case 'QUOTA':
@@ -4256,20 +4102,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             switch (strtoupper($token->next())) {
             case 'EXISTS':
                 // EXISTS response - RFC 3501 [7.3.2]
-                $this->_temp['mailbox']['messages'] = $first;
-                if (!empty($this->_init['enabled']['CONDSTORE'])) {
-                    $this->_temp['modseqs'][] = -1;
+                $mbox_ob = $this->_mailboxOb();
+                $mbox_ob->setStatus(Horde_Imap_Client::STATUS_MESSAGES, $first);
+
+                // Increment UIDNEXT if it is set.
+                if ($uidnext = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDNEXT)) {
+                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $uidnext + $first);
                 }
                 break;
 
             case 'RECENT':
                 // RECENT response - RFC 3501 [7.3.1]
-                $this->_temp['mailbox']['recent'] = $first;
+                $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_RECENT, $first);
                 break;
 
             case 'EXPUNGE':
                 // EXPUNGE response - RFC 3501 [7.4.1]
-                $this->_parseExpunge($first);
+                $this->_deleteMsgs($this->_selected, $this->getIdsOb($first, true), true);
+                $this->_temp['expunge_seen'] = true;
                 break;
 
             case 'FETCH':
@@ -4354,18 +4204,21 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'PERMANENTFLAGS':
-            $this->_temp['mailbox']['permflags'] = array_map('strtolower', $rc->data[0]);
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_PERMFLAGS, array_map('strtolower', $rc->data[0]));
             break;
 
         case 'UIDNEXT':
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $rc->data[0]);
+            break;
+
         case 'UIDVALIDITY':
-            $this->_temp['mailbox'][strtolower($rc->code)] = $rc->data[0];
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_UIDVALIDITY, $rc->data[0]);
             break;
 
         case 'UNSEEN':
             /* This is different from the STATUS UNSEEN response - this item,
              * if defined, returns the first UNSEEN message in the mailbox. */
-            $this->_temp['mailbox']['firstunseen'] = $rc->data[0];
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_FIRSTUNSEEN, $rc->data[0]);
             break;
 
         case 'REFERRAL':
@@ -4383,35 +4236,28 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
 
         case 'APPENDUID':
-        case 'COPYUID':
             // Defined by RFC 4315
             // APPENDUID: [0] = UIDVALIDITY, [1] = UID(s)
+            $this->_temp['appenduid'] = $this->getIdsOb($rc->data[1]);
+            break;
+
+        case 'COPYUID':
+            // Defined by RFC 4315
             // COPYUID: [0] = UIDVALIDITY, [1] = UIDFROM, [2] = UIDTO
-            if ($this->_temp['uidplusmbox']->equals($this->_selected) &&
-                ($this->_temp['mailbox']['uidvalidity'] != $rc->data[0])) {
-                $this->_temp['mailbox'] = array('uidvalidity' => $rc->data[0]);
-                $this->_temp['searchnotsaved'] = true;
-            }
+            $this->_temp['copyuid'] = array_combine(
+                $this->getIdsOb($rc->data[1])->ids,
+                $this->getIdsOb($rc->data[2])->ids
+            );
 
-            /* Check for cache expiration (see RFC 4549 [4.1]). */
-            $this->_updateCache(new Horde_Imap_Client_Fetch_Results(), array(
-                'mailbox' => $this->_temp['uidplusmbox'],
-                'uidvalid' => $rc->data[0]
-            ));
-
-            if ($rc->code == 'APPENDUID') {
-                $this->_temp['appenduid']->add($rc->data[1]);
-            } else {
-                $from = $this->getIdsOb($rc->data[1]);
-                $to = $this->getIdsOb($rc->data[2]);
-                $this->_temp['copyuid'] = array_combine($from->ids, $to->ids);
-                $this->_temp['copyuidvalid'] = $rc->data[0];
-            }
+            /* Use UIDPLUS information to move cached data to new mailbox (see
+             * RFC 4549 [4.2.2.1]). Need to move now, because a MOVE might
+             * EXPUNGE immediately afterwards. */
+            $this->_moveCache($this->_temp['copydest'], $this->_temp['copyuid'], $rc->data[0]);
             break;
 
         case 'UIDNOTSTICKY':
             // Defined by RFC 4315 [3]
-            $this->_temp['mailbox']['uidnotsticky'] = true;
+            $this->_mailboxOb()->setStatus(Horde_Imap_Client::STATUS_UIDNOTSTICKY, true);
             break;
 
         case 'BADURL':
@@ -4450,10 +4296,15 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLOSED':
             // Defined by RFC 5162 [3.7]
             if (isset($this->_temp['qresyncmbox'])) {
-                $this->_temp['mailbox'] = array(
-                    'name' => $this->_temp['qresyncmbox']
+                /* If there is any pending FETCH cache entries, flush them
+                 * now before changing mailboxes. */
+                $this->_saveFetchCache();
+
+                $this->_changeSelected(
+                    $this->_temp['qresyncmbox'][0],
+                    $this->_temp['qresyncmbox'][1]
                 );
-                $this->_selected = $this->_temp['qresyncmbox'];
+                unset($this->_temp['qresyncmbox']);
             }
             break;
 
