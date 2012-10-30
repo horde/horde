@@ -53,12 +53,12 @@ case 'import_personal_key':
     break;
 
 case 'process_import_personal_key':
-    $import_keys = $imp_pgp->getKeys($vars->import_key);
+    $import_key = $imp_pgp->getKeys($vars->import_key);
 
-    if (empty($import_keys['public']) || empty($import_keys['private'])) {
+    if (empty($import_key['public']) || empty($import_key['private'])) {
         try {
             $browser->wasFileUploaded('upload_key', _("key"));
-            $import_keys = array_merge_recursive($import_keys, $imp_pgp->getKeys(file_get_contents($_FILES['upload_key']['tmp_name'])));
+            $import_key = array_merge_recursive($import_key, $imp_pgp->getKeys(file_get_contents($_FILES['upload_key']['tmp_name'])));
         } catch (Horde_Browser_Exception $e) {
             if ($e->getCode() != UPLOAD_ERR_NO_FILE) {
                 $notification->push($e, 'horde.error');
@@ -66,18 +66,13 @@ case 'process_import_personal_key':
         }
     }
 
-    if (!empty($import_keys['public']) && !empty($import_keys['private'])) {
-        $imp_pgp->addPersonalPublicKey($import_keys['public'][0]);
-        $imp_pgp->addPersonalPrivateKey($import_keys['private'][0]);
+    if (!empty($import_key['public']) && !empty($import_key['private'])) {
+        $imp_pgp->addPersonalPublicKey($import_key['public'][0]);
+        $imp_pgp->addPersonalPrivateKey($import_key['private'][0]);
         $notification->push(_("Personal PGP key successfully added."), 'horde.success');
         $imp_pgp->reloadWindow($vars->reload);
     } else {
-        if (empty($import_keys['public'])) {
-            $notification->push(_("No personal PGP public key imported."), 'horde.error');
-        }
-        if (empty($import_keys['private'])) {
-            $notification->push(_("No personal PGP private key imported."), 'horde.error');
-        }
+        $notification->push(_("Personal PGP key not imported."), 'horde.error');
 
         $vars->actionID = 'import_personal_key';
         $imp_pgp->importKeyDialog('process_import_personal_key', $vars->reload);

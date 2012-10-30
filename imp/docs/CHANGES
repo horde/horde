@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Importing a PGP personal key now only requires the private key.
 
 
 ----------
