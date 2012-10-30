@@ -2,6 +2,10 @@
 v6.0.1-git
 ----------
 
+[mms] Fixes to PGP Private key generation (Bug #11597).
+[mms] Don't block remote message styling if sender is in whitelist.
+[mms] Fix spellcheck display in dynamic view if HTML composition mode is the
+      default (Bug #11592).
 
 
 ------

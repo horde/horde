@@ -34,7 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fixes to PGP Private key generation (Bug #11597).
+* [mms] Don&apos;t block remote message styling if sender is in whitelist.
+* [mms] Fix spellcheck display in dynamic view if HTML composition mode is the default (Bug #11592).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2809,7 +2811,9 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fixes to PGP Private key generation (Bug #11597).
+* [mms] Don&apos;t block remote message styling if sender is in whitelist.
+* [mms] Fix spellcheck display in dynamic view if HTML composition mode is the default (Bug #11592).
    </notes>
   </release>
  </changelog>
