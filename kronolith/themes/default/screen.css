@@ -105,10 +105,10 @@ table.kronolith-view th.kronolith-first-col {
     width: 21px;
     background-color: #c2cccf;
     vertical-align: middle;
-    padding: 9px 0 0;
+/*    padding: 9px 0 0;*/
 }
-table.kronolith-view .kronolith-all-day td.kronolith-first-col {
-    padding-top: 32px;
+.kronolith-all-day td.kronolith-first-col span {
+    margin-top: 32px;
 }
 #kronolith-month-body td.kronolith-first-col {
     vertical-align: top;
@@ -122,6 +122,7 @@ table.kronolith-view.kronolith-sidebyside .kronolith-all-day td.kronolith-first-
 }
 .kronolith-first-col span {
     display: block;
+    margin-top: 10px;
     white-space: nowrap;
     -webkit-transform: rotate(-90deg);
     -moz-transform: rotate(-90deg);

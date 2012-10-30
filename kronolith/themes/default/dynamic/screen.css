@@ -333,7 +333,7 @@ ul.horde-tags li:hover {
 #kronolithViewYear .kronolith-minical {
     float: left;
     margin: 10px 0 0 10px;
-    height: 185px;
+    height: 200px;
 }
 #kronolithViewYear .kronolithLoading {
     left: 10px;
@@ -408,7 +408,7 @@ ul.horde-tags li:hover {
 }
 .kronolith-view-head {
     position: relative;
-    margin-right: 15px;
+    overflow-y: scroll;
 }
 .kronolithViewBody {
     position: absolute;
