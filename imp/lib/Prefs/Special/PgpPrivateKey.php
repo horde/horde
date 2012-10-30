@@ -76,7 +76,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
 
                 $imp_identity = $injector->getInstance('IMP_Identity');
                 $view->fullname = $imp_identity->getFullname();
-                $view->fromaddr = strval($imp_identity->getFromAddress());
+                $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
 
                 $page_output->addInlineScript(array(
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
@@ -104,10 +104,19 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
             $injector->getInstance('IMP_Crypt_Pgp')->deletePersonalKeys();
             $notification->push(_("Personal PGP keys deleted successfully."), 'horde.success');
         } elseif (isset($ui->vars->create_pgp_key)) {
+            /* Sanity checking for email address. */
+            try {
+                $email = IMP::parseAddressList($ui->vars->generate_email, array(
+                    'validate' => true
+                ));
+            } catch (Horde_Mail_Exception $e) {
+                $notification->push($e);
+                return false;
+            }
+
             /* Check that fields are filled out (except for Comment) and that
              * the passphrases match. */
-            if (empty($ui->vars->generate_realname) ||
-                empty($ui->vars->generate_email)) {
+            if (empty($ui->vars->generate_realname) || empty($email)) {
                 $notification->push(_("Name and/or email cannot be empty"), 'horde.error');
             } elseif (empty($ui->vars->generate_passphrase1) ||
                       empty($ui->vars->generate_passphrase2)) {
@@ -120,8 +129,9 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $expire_date = $ui->vars->generate_expire
                     ? null
                     : ($ui->vars->generate_expire_date / 1000);
+
                 try {
-                    $injector->getInstance('IMP_Crypt_Pgp')->generatePersonalKeys($ui->vars->generate_realname, $ui->vars->generate_email, $ui->vars->generate_passphrase1, $ui->vars->_generate_comment, $ui->vars->generate_keylength, $expire_date);
+                    $injector->getInstance('IMP_Crypt_Pgp')->generatePersonalKeys($ui->vars->generate_realname, $email[0]->bare_address, $ui->vars->generate_passphrase1, $ui->vars->generate_comment, $ui->vars->generate_keylength, $expire_date);
                     $notification->push(_("Personal PGP keypair generated successfully."), 'horde.success');
                 } catch (Exception $e) {
                     $notification->push($e);
