@@ -2780,6 +2780,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
+* [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
 * [mms] Fix regression causing large amounts of whitespace padding to be added to compose text in basic view.
 * [mms] Fix regression in sending messages in basic/minimal mode if no attachment is added (Bug #11582).
 * [jan] Fix key navigation in message view of basic mode.

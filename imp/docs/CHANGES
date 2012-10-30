@@ -16,6 +16,7 @@ v6.0.0RC2
 ---------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
 [mms] Fix regression causing large amounts of whitespace padding to be added to
       compose text in basic view.
 [mms] Fix regression in sending messages in basic/minimal mode if no attachment
