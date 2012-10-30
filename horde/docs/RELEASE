@@ -28,6 +28,9 @@ The steps to use when cutting a new release
 2. Examine ``docs/*`` files, and update the version if this is a major
    release. Minor releases should not change the versions in these files.
 
+   Add ``-alpha`` or ``-beta`` sentinels to the ``pear install`` instructions
+   if switching from stable release to pre-release, and vice versa.
+
 3. Update the .pot file: ``horde-translation extract --module foo`` and commit
    it.
 
