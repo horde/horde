@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: 2012-07-19 19:39+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" nach \"%s\" umbenannt"
 
-#: quota.php:50
+#: quota.php:51
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
@@ -408,7 +408,7 @@ msgstr "Bitte wählen Sie ein Element aus, bevor Sie diese Aktion durchführen."
 msgid "Please specify at least one file to upload."
 msgstr "Bitte geben Sie mindestens eine Datei zum Hochladen an."
 
-#: quota.php:58 templates/quota/quota.html:2
+#: quota.php:59 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr "Speicherplatz"
 

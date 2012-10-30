@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Whups 2.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: 2012-08-29 14:01+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -119,7 +119,7 @@ msgstr "<<Anfang"
 msgid "<Prev"
 msgstr "<Zurück"
 
-#: lib/Application.php:193 view.php:45
+#: lib/Application.php:189 view.php:45
 #, php-format
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
@@ -132,11 +132,11 @@ msgstr "Attribut hinzufügen"
 msgid "Add Attribute Criterion"
 msgstr "Attributkriterium hinzufügen"
 
-#: mybugs.php:42
+#: mybugs.php:44
 msgid "Add Content"
 msgstr "Inhalt hinzufügen"
 
-#: query/index.php:234
+#: query/index.php:226
 msgid "Add Criterion"
 msgstr "Kriterium hinzufügen"
 
@@ -206,7 +206,7 @@ msgstr "Das Erstellen ihres Tickets ist fehlgeschlagen: %s."
 msgid "Address Books"
 msgstr "Adressbücher"
 
-#: admin/index.php:49 lib/Application.php:66
+#: admin/index.php:49 lib/Application.php:62
 msgid "Administration"
 msgstr "Administration"
 
@@ -230,12 +230,12 @@ msgstr "Beliebige Gruppe"
 msgid "Ascending"
 msgstr "Aufsteigend"
 
-#: lib/Application.php:87
+#: lib/Application.php:83
 msgid "Assign"
 msgstr "Zuweisen"
 
 #: config/prefs.php:57 lib/Api.php:660 lib/Driver.php:270
-#: lib/Form/Renderer/Query.php:160 lib/Form/TicketDetails.php:127
+#: lib/Form/Renderer/Query.php:164 lib/Form/TicketDetails.php:127
 #: lib/Whups.php:848
 msgid "Assigned"
 msgstr "Zugewiesen"
@@ -276,7 +276,7 @@ msgstr "Anlage %s nicht gefunden."
 msgid "Attachments"
 msgstr "Anlagen"
 
-#: query/index.php:155
+#: query/index.php:147
 msgid "Attri_bute Criteria"
 msgstr "Attr_ibutkriterien"
 
@@ -357,11 +357,11 @@ msgstr ""
 "Ändern Sie die Einstellungen für E-Mail-Benachrichtigungen bei "
 "Ticketänderungen."
 
-#: query/index.php:158
+#: query/index.php:150
 msgid "Choose Action:"
 msgstr "Aktion auswählen:"
 
-#: lib/Query.php:696
+#: lib/Query.php:702
 msgid "Choose New Query instead of deleting the root node."
 msgstr "Benutzen Sie \"Neue Abfrage\" anstatt den obersten Knoten zu löschen."
 
@@ -464,7 +464,7 @@ msgstr "Ticket erstellen - Schritt 3"
 msgid "Create Ticket - Step 4"
 msgstr "Ticket erstellen - Schritt 4"
 
-#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:145
+#: config/prefs.php:56 lib/Api.php:665 lib/Form/Renderer/Query.php:149
 #: lib/Form/TicketDetails.php:109 lib/Whups.php:846
 msgid "Created"
 msgstr "Erstellt"
@@ -481,7 +481,7 @@ msgstr "Erstellt seit"
 msgid "Created to"
 msgstr "Erstellt bis"
 
-#: query/index.php:224 query/index.php:241
+#: query/index.php:216 query/index.php:233
 msgid "Current Query"
 msgstr "Aktuelle Abfrage"
 
@@ -524,7 +524,7 @@ msgstr "Sortierreihenfolge:"
 msgid "Default sorting direction:"
 msgstr "Sortierrichtung:"
 
-#: query/index.php:159
+#: query/index.php:151
 msgid "Delete"
 msgstr "Löschen"
 
@@ -635,7 +635,7 @@ msgstr "Herunterladen"
 msgid "Download these results as: "
 msgstr "Diese Ergebnisse herunterladen als: "
 
-#: lib/Api.php:669 lib/Form/Renderer/Query.php:165
+#: lib/Api.php:669 lib/Form/Renderer/Query.php:169
 #: lib/Form/TicketDetails.php:115 lib/Ticket.php:680 lib/Ticket.php:879
 #: lib/Whups.php:849
 msgid "Due"
@@ -662,7 +662,7 @@ msgstr "Fällig bis"
 msgid "E_xecute Query"
 msgstr "Abfrage ausfü_hren"
 
-#: query/index.php:160
+#: query/index.php:152
 msgid "Edit"
 msgstr "Bearbeiten"
 
@@ -818,7 +818,7 @@ msgstr "Leerer Anhang"
 msgid "Entry deleted."
 msgstr "Kommentar gelöscht."
 
-#: query/index.php:192
+#: query/index.php:184
 #, php-format
 msgid "Error: Unknown query form \"%s\", defaulting to properties"
 msgstr ""
@@ -828,7 +828,7 @@ msgstr ""
 msgid "Exact Match"
 msgstr "Genaue Suche"
 
-#: query/run.php:109
+#: query/run.php:110
 msgid "Execute Query"
 msgstr "Abfrage ausführen"
 
@@ -840,7 +840,7 @@ msgstr "Für Tickets von diesen Warteschlangen"
 msgid "For tickets which are"
 msgstr "Für Tickets, die"
 
-#: lib/Application.php:75
+#: lib/Application.php:71
 msgid "Form Replies"
 msgstr "Standardantworten"
 
@@ -884,15 +884,15 @@ msgstr "Gruppen"
 msgid "Here is a summary of your open tickets:"
 msgstr "Dies ist eine Übersicht über Ihre offenen Tickets:"
 
-#: lib/Application.php:69
+#: lib/Application.php:65
 msgid "Hidden Comments"
 msgstr "Versteckte Kommentare"
 
-#: ticket/index.php:40
+#: ticket/index.php:41
 msgid "History"
 msgstr "Geschichte"
 
-#: query/index.php:161
+#: query/index.php:153
 msgid "Hoist Children"
 msgstr "Kinder anheben"
 
@@ -910,7 +910,7 @@ msgstr ""
 "Wenn Sie Tickets auswählen, die keinen Zuständigen haben, an wen sollen die "
 "Benachrichtigungen geschickt werden?"
 
-#: query/index.php:162
+#: query/index.php:154
 msgid "Insert And"
 msgstr "UND einfügen"
 
@@ -918,11 +918,11 @@ msgstr "UND einfügen"
 msgid "Insert Branch"
 msgstr "Branch einfügen"
 
-#: query/index.php:164
+#: query/index.php:156
 msgid "Insert Not"
 msgstr "NICHT einfügen"
 
-#: query/index.php:163
+#: query/index.php:155
 msgid "Insert Or"
 msgstr "ODER einfügen"
 
@@ -997,11 +997,11 @@ msgid "Make this comment visible only to members of a group?"
 msgstr ""
 "Diesen Kommentar nur für Mitglieder einer bestimmten Gruppe sichtbar machen?"
 
-#: lib/Form/Query/AttributeCriterion.php:33
+#: lib/Form/Query/AttributeCriterion.php:28
 msgid "Match"
 msgstr "Suchbegriff"
 
-#: lib/Form/Query/AttributeCriterion.php:35
+#: lib/Form/Query/AttributeCriterion.php:30
 #: lib/Form/Query/TextCriterion.php:17 lib/Form/Query/UserCriterion.php:31
 msgid "Match Operator"
 msgstr "Suchoperation"
@@ -1031,7 +1031,7 @@ msgstr "Neueste zuerst"
 msgid "Moved ticket %d to \"%s\""
 msgstr "Ticket %d nach \"%s\" verschoben"
 
-#: mybugs.php:44
+#: mybugs.php:46
 #, php-format
 msgid "My %s"
 msgstr "Meine %s"
@@ -1041,7 +1041,7 @@ msgstr "Meine %s"
 msgid "My %s :: Add Content"
 msgstr "Meine %s :: Inhalt hinzfügen"
 
-#: search.php:171
+#: search.php:172
 msgid "My Queries"
 msgstr "Meine Abfragen"
 
@@ -1099,7 +1099,7 @@ msgstr "Neue Anlage: %s"
 msgid "New Queue"
 msgstr "Neue Warteschlange"
 
-#: lib/Application.php:138 ticket/create.php:62
+#: lib/Application.php:134 ticket/create.php:62
 msgid "New Ticket"
 msgstr "Neues Ticket"
 
@@ -1233,7 +1233,7 @@ msgstr "Offene Tickets nach Typ"
 msgid "Open Tickets in %s"
 msgstr "Offene Tickets in %s"
 
-#: queue/index.php:44 queue/index.php:56 queue/rss.php:111
+#: queue/index.php:45 queue/index.php:57 queue/rss.php:111
 #, php-format
 msgid "Open tickets in %s"
 msgstr "Offene Tickets in %s"
@@ -1315,11 +1315,11 @@ msgstr "Prioritätbeschreibung"
 msgid "Priority Name"
 msgstr "Prioritätbezeichnung"
 
-#: search.php:171
+#: search.php:172
 msgid "Public Queries"
 msgstr "Öffentliche Abfragen"
 
-#: query/index.php:173
+#: query/index.php:165
 msgid "Query Builder"
 msgstr "Abfrageeditor"
 
@@ -1331,7 +1331,7 @@ msgstr "Abfragename"
 msgid "Query Parameters"
 msgstr "Abfrageparameter"
 
-#: lib/Block/Query.php:19 query/rss.php:57 query/run.php:79
+#: lib/Block/Query.php:19 query/rss.php:57 query/run.php:80
 msgid "Query Results"
 msgstr "Abfrageergebnisse"
 
@@ -1398,7 +1398,7 @@ msgstr "Warteschlange/Typ Matri_x"
 msgid "Queue/Type Matrix"
 msgstr "Warteschlange/Typ Matrix"
 
-#: lib/Api.php:31 lib/Application.php:72
+#: lib/Api.php:31 lib/Application.php:68
 msgid "Queues"
 msgstr "Warteschlangen"
 
@@ -1465,7 +1465,7 @@ msgstr ""
 msgid "Received message:"
 msgstr "Empfangene Nachricht:"
 
-#: search.php:156
+#: search.php:157
 msgid "Refine Search"
 msgstr "Suche verfeinern"
 
@@ -1504,7 +1504,7 @@ msgid "Required Attribute?"
 msgstr "Notwendiges Attribute?"
 
 #: config/prefs.php:58 lib/Api.php:674 lib/Driver.php:271
-#: lib/Form/Renderer/Query.php:155 lib/Form/TicketDetails.php:133
+#: lib/Form/Renderer/Query.php:159 lib/Form/TicketDetails.php:133
 #: lib/Whups.php:850
 msgid "Resolved"
 msgstr "Erledigt"
@@ -1533,7 +1533,7 @@ msgstr "Abfrage s_peichern"
 msgid "Save"
 msgstr "Speichern"
 
-#: query/index.php:234
+#: query/index.php:226
 msgid "Save Criterion"
 msgstr "Kriterium speichern"
 
@@ -1549,16 +1549,16 @@ msgstr "Als Abfrage speichern"
 msgid "Saved Queries"
 msgstr "Gespeicherte Abfragen"
 
-#: lib/Application.php:149 search.php:149
+#: lib/Application.php:145 search.php:150
 msgid "Search"
 msgstr "Suche"
 
-#: lib/Form/Query/AttributeCriterion.php:40
+#: lib/Form/Query/AttributeCriterion.php:35
 #, php-format
 msgid "Search %s Attribute"
 msgstr "Attribut %s durchsuchen"
 
-#: lib/Form/Query/AttributeCriterion.php:29
+#: lib/Form/Query/AttributeCriterion.php:40
 #: lib/Form/Query/AttributeCriterion.php:45
 msgid "Search Attribute"
 msgstr "Attribut suchen"
@@ -1641,7 +1641,7 @@ msgstr "Warteschlange festlegen - Schritt 3"
 msgid "Set Queue for %s"
 msgstr "Warteschlange für %s festlegen"
 
-#: lib/Application.php:88
+#: lib/Application.php:84
 msgid "Set Requester"
 msgstr "Anfrager festlegen"
 
@@ -1745,7 +1745,7 @@ msgstr "Status"
 msgid "Submit"
 msgstr "Abschicken"
 
-#: query/run.php:93 query/run.php:94
+#: query/run.php:94 query/run.php:95
 msgid "Subscribe to this query"
 msgstr "Diese Abfrage abonnieren"
 
@@ -1792,7 +1792,7 @@ msgstr "Dieser Kurzname ist bereits vergeben. Bitte wählen Sie einen anderen."
 msgid "The Requester's Email Address"
 msgstr "Die E-Mail-Adresse des Anfragers"
 
-#: lib/Application.php:184 lib/Ticket.php:467 lib/Ticket.php:520 view.php:39
+#: lib/Application.php:180 lib/Ticket.php:467 lib/Ticket.php:520 view.php:39
 msgid "The VFS backend needs to be configured to enable attachment uploads."
 msgstr ""
 "Das VFS-Backend muss konfiguriert sein, um das Hochladen von Dateien zu "
@@ -1889,7 +1889,7 @@ msgstr "Die Warteschlange wurde geändert."
 msgid "The queue was not deleted."
 msgstr "Die Warteschlange wurde nicht gelöscht."
 
-#: lib/Application.php:201
+#: lib/Application.php:197
 msgid "The requested template does not exist."
 msgstr "Die ausgewählte Vorlage existiert nicht."
 
@@ -1952,7 +1952,7 @@ msgstr "Die Version wurde nicht gelöscht."
 msgid "There are no attribute types to edit"
 msgstr "Keine Attributarten zum Bearbeiten"
 
-#: lib/Form/Query/AttributeCriterion.php:46
+#: lib/Form/Query/AttributeCriterion.php:41
 msgid "There are no attributes defined."
 msgstr "Es sind keine Attribute angelegt."
 
@@ -2109,7 +2109,7 @@ msgstr "Beim Bearbeiten der Version ist ein Fehler aufgetreten:"
 msgid "There was an error listing users: %s; %s"
 msgstr "Beim Anzeigen der Benutzer ist ein Fehler aufgetreten: %s; %s"
 
-#: queue/index.php:64
+#: queue/index.php:65
 #, php-format
 msgid "There was an error locating tickets in this queue: %s"
 msgstr ""
@@ -2154,11 +2154,11 @@ msgstr ""
 "Diese E-Mail-Adresse wird zum Versenden aller Benachrichtigungen für diese "
 "Warteschlange benutzt."
 
-#: lib/Application.php:204
+#: lib/Application.php:200
 msgid "This is not a search results template."
 msgstr "Dies ist keine Vorlage für Suchergebnisse."
 
-#: lib/Query.php:453 lib/Query.php:686
+#: lib/Query.php:453 lib/Query.php:692
 msgid "This query element cannot be edited."
 msgstr "Diese Abfragekriterium kann nicht bearbeitet werden."
 
@@ -2201,7 +2201,7 @@ msgstr "Ticket %s - %s"
 msgid "Ticket %s was not found."
 msgstr "Ticket %s nicht gefunden."
 
-#: search.php:164
+#: search.php:165
 msgid "Ticket Search"
 msgstr "Ticketsuche"
 
@@ -2283,12 +2283,12 @@ msgstr "Nicht zugewiesene Tickets"
 msgid "Unconfirmed"
 msgstr "Unbestätigt"
 
-#: lib/Form/Renderer/Query.php:171 lib/Form/Renderer/Query.php:211
+#: lib/Form/Renderer/Query.php:175 lib/Form/Renderer/Query.php:215
 #, php-format
 msgid "Unknown node type %s"
 msgstr "Unbekannter Knotentyp %s"
 
-#: lib/Application.php:89
+#: lib/Application.php:85
 msgid "Update"
 msgstr "Aktualisierung"
 
@@ -2301,7 +2301,7 @@ msgstr "%s aktualisieren"
 msgid "Update Associations"
 msgstr "Zuordnungen aktualisieren"
 
-#: lib/Form/Renderer/Query.php:150 lib/Form/TicketDetails.php:121
+#: lib/Form/Renderer/Query.php:154 lib/Form/TicketDetails.php:121
 #: lib/Whups.php:847
 msgid "Updated"
 msgstr "Aktualisiert"
@@ -2397,7 +2397,7 @@ msgstr "JJ/MM/TT HH:MM:SS"
 msgid "Yes"
 msgstr "Ja"
 
-#: lib/Application.php:178 view.php:33
+#: lib/Application.php:174 view.php:33
 #, php-format
 msgid "You are not allowed to view ticket %d."
 msgstr "Sie haben keine Berechtigung das Ticket %d anzuzeigen."
@@ -2449,7 +2449,7 @@ msgstr "[Versteckt]"
 msgid "[No Subject]"
 msgstr "[Kein Betreff]"
 
-#: lib/Application.php:124
+#: lib/Application.php:120
 msgid "_Admin"
 msgstr "A_dministration"
 
@@ -2457,7 +2457,7 @@ msgstr "A_dministration"
 msgid "_Comment"
 msgstr "_Kommentar"
 
-#: query/index.php:153
+#: query/index.php:145
 msgid "_Date Criteria"
 msgstr "Datums_kriterien"
 
@@ -2481,7 +2481,7 @@ msgstr "_Warteschlangen bearbeiten"
 msgid "_Go"
 msgstr "_Los"
 
-#: query/index.php:152
+#: query/index.php:144
 msgid "_Group Criteria"
 msgstr "_Gruppenkriterien"
 
@@ -2493,32 +2493,32 @@ msgstr "_Geschichte"
 msgid "_Load Query"
 msgstr "Ab_frage laden"
 
-#: lib/Application.php:116
+#: lib/Application.php:112
 #, php-format
 msgid "_My %s"
 msgstr "_Meine %s"
 
-#: lib/Application.php:118
+#: lib/Application.php:114
 msgid "_New Ticket"
 msgstr "_Neues Ticket"
 
-#: query/index.php:150
+#: query/index.php:142
 msgid "_Property Criteria"
 msgstr "Eigens_chaftenkriterien"
 
-#: lib/Application.php:119
+#: lib/Application.php:115
 msgid "_Query Builder"
 msgstr "_Abfrageeditor"
 
-#: lib/Application.php:120
+#: lib/Application.php:116
 msgid "_Reports"
 msgstr "_Berichte"
 
-#: lib/Application.php:117
+#: lib/Application.php:113
 msgid "_Search"
 msgstr "_Suche"
 
-#: query/index.php:154
+#: query/index.php:146
 msgid "_Text Criteria"
 msgstr "_Textkriterien"
 
@@ -2526,7 +2526,7 @@ msgstr "_Textkriterien"
 msgid "_Update"
 msgstr "Akt_ualisierung"
 
-#: query/index.php:151
+#: query/index.php:143
 msgid "_User Criteria"
 msgstr "Benut_zerkriterien"
 
@@ -2534,15 +2534,15 @@ msgstr "Benut_zerkriterien"
 msgid "_Watch"
 msgstr "Be_obachten"
 
-#: lib/Form/Renderer/Query.php:191
+#: lib/Form/Renderer/Query.php:195
 msgid "contains (case insensitive) substring"
 msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung ignoriert)"
 
-#: lib/Form/Renderer/Query.php:195
+#: lib/Form/Renderer/Query.php:199
 msgid "contains (case sensitive) substring"
 msgstr "enthält Teilzeichenkette (Groß-/Kleinschreibung beachtet)"
 
-#: lib/Form/Renderer/Query.php:199
+#: lib/Form/Renderer/Query.php:203
 msgid "contains the word"
 msgstr "enthält das Wort"
 
@@ -2550,19 +2550,19 @@ msgstr "enthält das Wort"
 msgid "estimated time"
 msgstr "geschätzte Zeit"
 
-#: lib/Form/Renderer/Query.php:187
+#: lib/Form/Renderer/Query.php:191
 msgid "is"
 msgstr "ist"
 
-#: lib/Form/Renderer/Query.php:179
+#: lib/Form/Renderer/Query.php:183
 msgid "is greater than"
 msgstr "ist größer als"
 
-#: lib/Form/Renderer/Query.php:183
+#: lib/Form/Renderer/Query.php:187
 msgid "is less than"
 msgstr "ist kleiner als"
 
-#: lib/Form/Renderer/Query.php:203
+#: lib/Form/Renderer/Query.php:207
 msgid "matches the pattern"
 msgstr "entspricht dem Muster"
 

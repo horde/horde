@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Wicked H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: 2011-11-01 12:59+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -568,7 +568,7 @@ msgstr "Der Seitenname darf nicht leer sein."
 msgid "Page unlocked"
 msgstr "Seite freigegeben"
 
-#: lib/Application.php:99
+#: lib/Application.php:93
 msgid "Pages"
 msgstr "Seiten"
 
@@ -937,7 +937,7 @@ msgstr "Sie müssen einen Änderungseintrag eingeben, um diese Datei anzuhängen
 msgid "You must provide a change log."
 msgstr "Sie müssen einen Änderungseintrag angeben."
 
-#: lib/Application.php:71
+#: lib/Application.php:65
 msgid "_All Pages"
 msgstr "_Alle Seiten"
 
@@ -953,7 +953,7 @@ msgstr "Lös_chen"
 msgid "_Edit"
 msgstr "_Bearbeiten"
 
-#: lib/Application.php:68
+#: lib/Application.php:62
 msgid "_Home"
 msgstr "_Startseite"
 
@@ -965,11 +965,11 @@ msgstr "S_perren"
 msgid "_Merge/Rename"
 msgstr "_Umbenennen"
 
-#: lib/Application.php:70
+#: lib/Application.php:64
 msgid "_Recent Changes"
 msgstr "_Letzte Änderungen"
 
-#: lib/Application.php:69
+#: lib/Application.php:63
 msgid "_Usage"
 msgstr "Anleitung"
 

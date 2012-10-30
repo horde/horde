@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
 "PO-Revision-Date: 2012-10-12 19:21+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -52,7 +52,7 @@ msgstr "\"Vorname Nachname\" (z.B. Max Mustermann)"
 msgid "\"Lastname, Firstname\" (ie. Doe, John)"
 msgstr "\"Nachname, Vorname\" (z.B. Mustermann, Max)"
 
-#: lib/Driver.php:718
+#: lib/Driver.php:722
 #, php-format
 msgid "%d. %s of %s"
 msgstr "%d. %s von %s"
@@ -81,11 +81,7 @@ msgstr "%s bis %s von %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Diesen Kontakt in den ersten einfügen"
 
-#: lib/Block/Minisearch.php:53
-msgid "A browser that supports iframes is required"
-msgstr "Ein Browser, der Iframes unterstützt, wird benötigt"
-
-#: lib/Application.php:457 view.php:48
+#: lib/Application.php:456 view.php:48
 #, php-format
 msgid "Access denied to %s"
 msgstr "Zugriff auf %s verweigert"
@@ -113,24 +109,20 @@ msgstr[1] ""
 "%d Kontakte hinzugefügt oder aktualisiert, aber mindestens ein Kontakt ist "
 "fehlgeschlagen:"
 
-#: lib/Driver.php:2827
+#: lib/Driver.php:2831
 msgid "Adding contacts is not available."
 msgstr "Hinzufügen von Kontakten nicht unterstützt."
 
-#: templates/addressbook_list.php:16 templates/search/advanced.html.php:11
+#: templates/search/advanced.html.php:11
 msgid "Address Book"
 msgstr "Adressbuch"
-
-#: templates/addressbook_list.php:12
-msgid "Address Book List"
-msgstr "Adressbuchübersicht"
 
 #: config/prefs.php:127 lib/View/Browse.php:42
 msgid "Address Book Listing"
 msgstr "Adressbuchliste"
 
 #: config/prefs.php:12 config/prefs.php:13 config/prefs.php:19
-#: lib/Block/Minisearch.php:43
+#: lib/Block/Minisearch.php:45
 msgid "Address Books"
 msgstr "Adressbücher"
 
@@ -138,7 +130,7 @@ msgstr "Adressbücher"
 msgid "Address book does not exist"
 msgstr "Adressbuch existiert nicht"
 
-#: lib/Turba.php:643
+#: lib/Turba.php:646
 #, php-format
 msgid "Address book of %s"
 msgstr "Adressbuch von %s"
@@ -147,7 +139,7 @@ msgstr "Adressbuch von %s"
 msgid "Address book successfully purged."
 msgstr "Adressbuch wurde erfolgreich geleert."
 
-#: lib/Ajax/Application/Smartmobile.php:45
+#: lib/Ajax/Application/Handler/Smartmobile.php:45
 msgid "Addressbook entry could not be loaded."
 msgstr "Der Adressbucheintrag konnte nicht geladen werden."
 
@@ -183,12 +175,12 @@ msgstr "Jahrestage"
 msgid "Anniversary"
 msgstr "Jahrestag"
 
-#: lib/Turba.php:678
+#: lib/Turba.php:681
 #, php-format
 msgid "Are you sure that you want to delete %s?"
 msgstr "Sind Sie sicher, dass Sie %s löschen möchten?"
 
-#: lib/Turba.php:683
+#: lib/Turba.php:686
 msgid "Are you sure that you want to delete the selected contacts?"
 msgstr "Sind Sie sicher, dass Sie die ausgewählten Kontakte löschen möchten?"
 
@@ -221,7 +213,7 @@ msgstr "Geburtstage"
 msgid "Blank name"
 msgstr "Leerer Name"
 
-#: templates/addressbook_list.php:29 templates/smartmobile/browse.html.php:2
+#: templates/smartmobile/browse.html.php:2
 #: templates/smartmobile/entry.html.php:2
 msgid "Browse"
 msgstr "Liste"
@@ -256,7 +248,7 @@ msgstr "Kategorie"
 msgid "Change %s sort to %s"
 msgstr "Ändere Sortierung für %s nach %s"
 
-#: lib/Form/EditAddressBook.php:68 templates/addressbook_list.php:33
+#: lib/Form/EditAddressBook.php:68
 msgid "Change Permissions"
 msgstr "Rechte Ändern"
 
@@ -296,7 +288,7 @@ msgstr ""
 "die Spalten mit der Maus, um die Reihenfolge zu ändern. Markieren Sie eine "
 "Spalte, um sie einzublenden."
 
-#: templates/block/minisearch.inc:7
+#: templates/block/minisearch.inc:5
 msgid "Close"
 msgstr "Schließen"
 
@@ -372,11 +364,11 @@ msgstr "Telefon Firma"
 msgid "Connection failure"
 msgstr "Verbindung fehlgeschlagen"
 
-#: lib/Block/Minisearch.php:25
+#: lib/Block/Minisearch.php:27
 msgid "Contact Search"
 msgstr "Kontaktsuche"
 
-#: lib/Driver/Kolab.php:806
+#: lib/Driver/Kolab.php:815
 msgid "Contacts"
 msgstr "Kontakte"
 
@@ -405,11 +397,11 @@ msgstr "Erstellen"
 msgid "Create Address Book"
 msgstr "Adressbuch Erstellen"
 
-#: lib/Application.php:191 templates/addressbook_list.php:8
+#: lib/Application.php:191
 msgid "Create a new Address Book"
 msgstr "Neues Adressbuch erstellen"
 
-#: lib/View/List.php:487
+#: lib/View/List.php:490
 msgid "Create a new Contact List in:"
 msgstr "Neue Kontaktliste anlegen in:"
 
@@ -423,7 +415,6 @@ msgstr "_Löschen"
 
 #: lib/Form/DeleteAddressBook.php:34 lib/Form/EditAddressBook.php:81
 #: lib/Form/EditAddressBook.php:98 lib/View/DeleteContact.php:58
-#: templates/addressbook_list.php:35
 #: templates/search/duplicate/contact_header.html.php:22
 msgid "Delete"
 msgstr "Löschen"
@@ -457,7 +448,7 @@ msgstr "Löschen fehlgeschlagen: (%s) %s"
 msgid "Deleted contact: %s"
 msgstr "Kontakt gelöscht: %s"
 
-#: lib/Driver.php:2840
+#: lib/Driver.php:2844
 msgid "Deleting contacts is not available."
 msgstr "Löschen von Kontakten nicht unterstützt."
 
@@ -503,8 +494,8 @@ msgstr "Duplikate von %s"
 msgid "Duplicates of %s \"%s\""
 msgstr "Duplikate zu %s \"%s\""
 
-#: templates/addressbook_list.php:31 templates/browse/actions.inc:8
-#: templates/browse/column_headers.inc:12 templates/browse/row.inc:36
+#: templates/browse/actions.inc:8 templates/browse/column_headers.inc:12
+#: templates/browse/row.inc:36
 #: templates/search/duplicate/contact_header.html.php:29
 msgid "Edit"
 msgstr "Bearbeiten"
@@ -536,7 +527,7 @@ msgstr "E-Mail"
 msgid "Emails"
 msgstr "E-Mail-Adressen"
 
-#: lib/Ajax/Application/Smartmobile.php:54
+#: lib/Ajax/Application/Handler/Smartmobile.php:54
 msgid "Entries"
 msgstr "Einträge"
 
@@ -625,7 +616,7 @@ msgstr ""
 msgid "Failed to search the address book"
 msgstr "Das Adressbuch konnte nicht durchsucht werden"
 
-#: lib/Application.php:495
+#: lib/Application.php:494
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "Das Verzeichnis %s konnte nicht durchsucht werden."
@@ -858,10 +849,6 @@ msgstr "Längengrad"
 msgid "Malformed request."
 msgstr "Ungültige Anfrage."
 
-#: templates/addressbook_list.php:2
-msgid "Manage Address Books"
-msgstr "Adressbücher-Verwaltung"
-
 #: config/attributes.php:494
 msgid "Manager"
 msgstr "Vorgesetzter"
@@ -960,7 +947,7 @@ msgstr "Titel nach dem Namen"
 msgid "Name:"
 msgstr "Name:"
 
-#: add.php:76 lib/Application.php:377
+#: add.php:76 lib/Application.php:376
 msgid "New Contact"
 msgstr "Neuer Kontakt"
 
@@ -991,7 +978,7 @@ msgstr ""
 "Zur Zeit sind keine Adressbücher verfügbar. Die Suche steht nicht zur "
 "Verfügung."
 
-#: lib/Smartmobile.php:83
+#: lib/Smartmobile.php:86
 msgid "No Name"
 msgstr "Kein Name"
 
@@ -1003,7 +990,7 @@ msgstr "Kein Adressbuch angegeben"
 msgid "No browseable address books"
 msgstr "Keine anzeigbare Adressbücher"
 
-#: minisearch.php:76
+#: lib/Ajax/Application/Handler/Minisearch.php:72
 msgid "No contacts found"
 msgstr "Keine Kontakte gefunden."
 
@@ -1052,7 +1039,7 @@ msgstr "Anzahl der Einträge pro Seite"
 msgid "Object not found."
 msgstr "Objekt nicht gefunden."
 
-#: lib/Driver/Kolab.php:632
+#: lib/Driver/Kolab.php:638
 #, php-format
 msgid "Object with UID %s does not exist!"
 msgstr "Objekt mit der UID %s existiert nicht!"
@@ -1129,8 +1116,8 @@ msgstr "Pager"
 msgid "Permanently delete this contact?"
 msgstr "Diesen Kontakt unwiederbringlich löschen?"
 
-#: deletefile.php:32 lib/Api.php:613 lib/Api.php:1564 lib/Driver.php:916
-#: lib/Driver/Share.php:217 lib/Driver/Sql.php:649
+#: deletefile.php:32 lib/Api.php:613 lib/Api.php:1564 lib/Driver.php:920
+#: lib/Driver/Share.php:231 lib/Driver/Sql.php:649
 msgid "Permission denied"
 msgstr "Zugriff verweigert"
 
@@ -1150,7 +1137,7 @@ msgstr "Foto-Dateityp"
 msgid "Pine Address Book"
 msgstr "Pine-Adressbuch"
 
-#: lib/Turba.php:681
+#: lib/Turba.php:684
 msgid "Please name the new contact list:"
 msgstr "Bitte einen Namen für die neue Kontakliste angeben:"
 
@@ -1177,7 +1164,7 @@ msgstr "Telefon Funk"
 msgid "Read failed: (%s) %s"
 msgstr "Lesen fehlgeschlagen: (%s) %s"
 
-#: lib/Driver.php:2814
+#: lib/Driver.php:2818
 msgid "Reading contacts is not available."
 msgstr "Anzeigen von Kontakten nicht unterstützt."
 
@@ -1191,7 +1178,7 @@ msgstr ""
 "gemacht werden, und alle Kontakte in diesem Adressbuch werden endgültig "
 "gelöscht."
 
-#: lib/Driver.php:2865
+#: lib/Driver.php:2869
 msgid ""
 "Removing user data is not supported in the current address book storage "
 "driver."
@@ -1207,7 +1194,7 @@ msgstr ""
 "Existierendes Adressbuch mit dem importierten ersetzen? <strong>Warnung: "
 "Damit werden alle aktuellen Einträge in dem Adressbuch gelöscht.</strong>"
 
-#: lib/Driver.php:796
+#: lib/Driver.php:800
 msgid "Requested object not found."
 msgstr "Gewünschtes Objekt nicht gefunden."
 
@@ -1237,12 +1224,12 @@ msgstr "Speichern"
 msgid "Save search as a virtual address book?"
 msgstr "Suche als Virtuelles Adressbuch speichern?"
 
-#: lib/Driver.php:2853
+#: lib/Driver.php:2857
 msgid "Saving contacts is not available."
 msgstr "Speichern von Kontakten nicht unterstützt."
 
-#: config/prefs.php:128 lib/Application.php:416
-#: templates/block/minisearch.inc:6 templates/browse/header.inc:3
+#: config/prefs.php:128 lib/Application.php:415
+#: templates/block/minisearch.inc:4 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:20
 #: templates/search/duplicate.html.php:11
 msgid "Search"
@@ -1261,11 +1248,11 @@ msgstr "Suche fehlgeschlagen"
 msgid "Search failed: %s"
 msgstr "Suche fehlgeschlagen: %s"
 
-#: templates/block/minisearch.inc:3
+#: templates/block/minisearch.inc:2
 msgid "Search for: "
 msgstr "Suchen nach: "
 
-#: lib/Driver.php:2796
+#: lib/Driver.php:2800
 msgid "Searching is not available."
 msgstr "Suchen von Kontakten nicht unterstützt."
 
@@ -1351,7 +1338,7 @@ msgstr "_Kontakte anzeigen"
 msgid "Show _Lists"
 msgstr "_Listen anzeigen"
 
-#: lib/View/List.php:329 lib/View/List.php:335
+#: lib/View/List.php:332 lib/View/List.php:338
 msgid "Sort Direction"
 msgstr "Sortierrichtung"
 
@@ -1483,7 +1470,7 @@ msgstr "Das Adressbuch \"%s\" wurde nach \"%s\" umbenannt."
 msgid "The addressbook \"%s\" has been saved."
 msgstr "Das Adressbuch \"%s\" wurde gespeichert."
 
-#: contact.php:19 lib/Application.php:439 vcard.php:18 view.php:27
+#: contact.php:19 lib/Application.php:438 vcard.php:18 view.php:27
 msgid "The contact you requested does not exist."
 msgstr "Der ausgewählte Kontakt existiert nicht."
 
@@ -1572,7 +1559,7 @@ msgstr "Beim Importieren der Daten ist ein Fehler aufgetreten: %s"
 msgid "There was an error importing the iCalendar data."
 msgstr "Beim Importieren der iCalendar Daten ist ein Fehler aufgetreten."
 
-#: lib/Application.php:311 lib/Application.php:344 lib/Application.php:357
+#: lib/Application.php:311 lib/Application.php:343 lib/Application.php:356
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr "Beim Löschen eines Adressbuchs von %s ist ein Fehler aufgetreten"
@@ -1585,7 +1572,7 @@ msgstr ""
 "Beim Speichern des Kontaktes ist ein Fehler aufgetreten. Bitte wenden Sie "
 "sich an Ihren Systemadministrator für weitere Hilfe."
 
-#: lib/Application.php:527
+#: lib/Application.php:526
 msgid "There were no addresses to export."
 msgstr "Es konnten keine Adressen zum Exportieren gefunden werden."
 
@@ -1617,7 +1604,7 @@ msgstr ""
 msgid "Time Zone"
 msgstr "Zeitzone"
 
-#: lib/Driver/Share.php:103
+#: lib/Driver/Share.php:117
 msgid "Unable to find contact owner."
 msgstr "Kontaktbesitzer konnte nicht gefunden werden."
 
@@ -1636,7 +1623,8 @@ msgstr "Das Adressbuch \"%s\" kann nicht gespeichert werden: %s"
 msgid "Unsupported Content-Type: %s"
 msgstr "Nicht unterstützter Inhaltstyp: %s"
 
-#: minisearch.php:68 minisearch.php:69
+#: lib/Ajax/Application/Handler/Minisearch.php:56
+#: lib/Ajax/Application/Handler/Minisearch.php:57
 msgid "View Contact"
 msgstr "Kontakt anzeigen"
 
@@ -1753,7 +1741,7 @@ msgstr "Sie können keine Kontakte aus Virtuellen Adressbüchern löschen"
 msgid "You didn't mark a contact as your own yet."
 msgstr "Sie haben noch keinen Kontakt als Ihre Visitenkarte markiert."
 
-#: edit.php:63 lib/Application.php:446 lib/View/DeleteContact.php:41
+#: edit.php:63 lib/Application.php:445 lib/View/DeleteContact.php:41
 #: lib/View/EditContact.php:42 view.php:35
 msgid "You do not have permission to view this contact."
 msgstr "Sie haben nicht genügend Rechte, um diesen Kontakt zu sehen."
@@ -1778,15 +1766,15 @@ msgstr ""
 msgid "You must provide a name for virtual address books."
 msgstr "Sie müssen einen Namen für das Virtuelle Adressbuch angeben."
 
-#: lib/Turba.php:682
+#: lib/Turba.php:685
 msgid "You must select a target address book."
 msgstr "Sie müssen erst ein Zieladressbuch auswählen."
 
-#: lib/Turba.php:680
+#: lib/Turba.php:683
 msgid "You must select a target contact list."
 msgstr "Sie müssen erst eine Zielliste angeben."
 
-#: edit.php:29 lib/Turba.php:679
+#: edit.php:29 lib/Turba.php:682
 msgid "You must select at least one contact first."
 msgstr "Sie müssen erst mindestens einen Kontakt auswählen."
 
@@ -1856,19 +1844,19 @@ msgstr "durch mich"
 msgid "contact"
 msgstr "Kontakt"
 
-#: lib/Application.php:544 lib/Application.php:548 templates/data/export.inc:1
+#: lib/Application.php:543 lib/Application.php:547 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "adressen.csv"
 
-#: lib/Application.php:566
+#: lib/Application.php:565
 msgid "contacts.ldif"
 msgstr "adressen.ldif"
 
-#: lib/Application.php:552
+#: lib/Application.php:551
 msgid "contacts.tsv"
 msgstr "adressen.tsv"
 
-#: lib/Application.php:557
+#: lib/Application.php:556
 msgid "contacts.vcf"
 msgstr "adressen.vcf"
 
@@ -1880,7 +1868,7 @@ msgstr "absteigend"
 msgid "female"
 msgstr "weiblich"
 
-#: lib/Application.php:388
+#: lib/Application.php:387
 #, php-format
 msgid "in %s"
 msgstr "in %s"
