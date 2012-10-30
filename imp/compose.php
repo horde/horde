@@ -1044,7 +1044,7 @@ if ($redirect) {
 
                 $entry = array(
                     'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
-                    'name' => $mime->getName(true),
+                    'name' => htmlspecialchars($mime->getName(true)),
                     'icon' => $v->getIcon($type),
                     'number' => $atc_num,
                     'type' => $type,
