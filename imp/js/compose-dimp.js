@@ -781,8 +781,13 @@ var DimpCompose = {
             return;
         }
 
-        var cmp = $('composeMessageParent').getLayout(),
+        var cmp = $('composeMessageParent').getLayout(), mah;
+
+        try {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
+        } catch (e) {
+            return;
+        }
 
         if (this.rte_loaded) {
             this.rte.resize('99%', mah - 1, false);
