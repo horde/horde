@@ -1071,7 +1071,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes.
      *
-     * @param mixed $pattern     The mailbox search pattern(s).
+     * @param array $pattern     The mailbox search pattern(s).
      * @param integer $mode      Which mailboxes to return.
      * @param array $options     Additional options. 'no_listext' will skip
      *                           using the LIST-EXTENDED capability.
@@ -1124,9 +1124,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ''
             ));
 
-            if (!is_array($pattern)) {
-                $pattern = array($pattern);
-            }
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($pattern as $val) {
                 $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
@@ -1140,19 +1137,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts->add('SPECIAL-USE');
             }
-        } else {
-            if (is_array($pattern)) {
-                $return_array = array();
-                foreach ($pattern as $val) {
-                    $return_array = array_merge($return_array, $this->_getMailboxList($val, $mode, $options, $subscribed));
-                }
-                return $return_array;
+        } elseif (count($pattern) > 1) {
+            $return_array = array();
+            foreach ($pattern as $val) {
+                $return_array = array_merge($return_array, $this->_getMailboxList(array($val), $mode, $options, $subscribed));
             }
-
+            return $return_array;
+        } else {
             $cmd = $this->_clientCommand(array(
                 ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST',
                 '',
-                new Horde_Imap_Client_Data_Format_ListMailbox($pattern)
+                new Horde_Imap_Client_Data_Format_ListMailbox(reset($pattern))
             ));
         }
 
@@ -1200,10 +1195,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Add in STATUS return, if needed. */
         if (!empty($options['status'])) {
-            if (!is_array($pattern)) {
-                $pattern = array($pattern);
-            }
-
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
                 if (isset($t['listresponse'][$val_utf8])) {

@@ -1292,11 +1292,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if ($val instanceof Horde_Imap_Client_Mailbox) {
                 $val = $val->list_escape;
             }
-            $plist[] = preg_replace(
+            $plist[] = Horde_Imap_Client_Mailbox::get(preg_replace(
                 array("/\*{2,}/", "/\%{2,}/"),
                 array('*', '%'),
                 Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($val)
-            );
+            ), true);
         }
 
         if (isset($options['special_use']) &&
@@ -1338,7 +1338,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param array $pattern  The mailbox search patterns (UTF7-IMAP strings).
+     * @param array $pattern  The mailbox search patterns
+     *                        (Horde_Imap_Client_Mailbox objects).
      * @param integer $mode   Which mailboxes to return.
      * @param array $options  Additional options.
      *
