@@ -396,6 +396,9 @@ class IMP
     {
         $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
             ->hasAppPermission($permission);
+        if ($allowed === true) {
+            return true;
+        }
 
         switch ($permission) {
         case 'create_folders':
@@ -403,12 +406,11 @@ class IMP
             break;
 
         case 'max_folders':
-            return ($allowed >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
-            break;
+            return (intval($allowed) >= count($GLOBALS['injector']->getInstance('IMP_Imap_Tree')));
 
         case 'max_recipients':
             if (isset($opts['value'])) {
-                return ($allowed >= $opts['value']);
+                return (intval($allowed) >= $opts['value']);
             }
             break;
 
@@ -424,7 +426,7 @@ class IMP
                     $opts['value'] += $sentmail->numberOfRecipients($GLOBALS['conf']['sentmail']['params']['limit_period'], true);
                 } catch (IMP_Exception $e) {}
 
-                return ($allowed >= $opts['value']);
+                return (intval($allowed) >= $opts['value']);
             }
             break;
         }

@@ -2,6 +2,8 @@
 v6.0.1-git
 ----------
 
+[mms] Optimize permission checking when creating a mailbox if no limit exists
+      for a user.
 [mms] Fix displaying column headers in dynamic mailbox view when accessing a
       POP3 server.
 [mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
