@@ -2591,7 +2591,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return $ret;
         }
 
-
         /* If doing changedsince query, and all other data is cached, we still
          * need to hit IMAP server to determine proper results set. */
         if (empty($new_query)) {
@@ -2610,7 +2609,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 } else {
                     $entry->setUid($val);
                 }
-                $cs_ret->merge($entry);
+                $cs_ret[$val] = $entry;
             }
         } else {
             foreach ($cs_ret as $key => $val) {
