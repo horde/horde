@@ -86,8 +86,7 @@ To function properly, IMP **requires** the following:
 
    .. Note:: If using a POP server, it MUST support the UIDL capability.
              POP3 support is limited to performing only basic mail actions;
-             Caching, on-demand filtering, searching, and sorting will be
-             disabled.
+             on-demand filtering, searching, and sorting will be disabled.
 
 4. Sendmail or SMTP server.
 

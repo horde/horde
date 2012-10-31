@@ -111,9 +111,9 @@
  *     - true:  Enable ACLs. (Not all IMAP servers support this feature).
  *     - false:  [DEFAULT] Disable ACLs.
  *
- * cache: [IMAP only] (mixed) Enables caching for the server. This requires
- *   configuration of a Horde_Cache driver in Horde. Will be disabled on any
- *   empty value and enabled on any non-false value.
+ * cache: (mixed) Enables caching for the server. This requires configuration
+ *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
+ *   and enabled on any non-false value.
  *
  *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
  *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the
