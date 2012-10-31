@@ -874,8 +874,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_initCache();
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
-            if (isset($md[self::CACHE_MODSEQ]) &&
-                ($uids = $this->_cache->get($mailbox))) {
+            if (isset($md[self::CACHE_MODSEQ])) {
+                $uids = $this->_cache->get($mailbox);
+
                 /* Several things can happen with a QRESYNC:
                  * 1. UIDVALIDITY may have changed.  If so, we need to expire
                  * the cache immediately (done below).
@@ -887,11 +888,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * case it acts like a normal EXAMINE/SELECT. */
                 $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
                     'QRESYNC',
-                    new Horde_Imap_Client_Data_Format_List(array(
+                    new Horde_Imap_Client_Data_Format_List(array_filter(array(
                         $md['uidvalid'],
                         $md[self::CACHE_MODSEQ],
-                        strval($this->getIdsOb($uids))
-                    ))
+                        empty($uids) ? null : strval($this->getIdsOb($uids))
+                    )))
                 )));
             }
 

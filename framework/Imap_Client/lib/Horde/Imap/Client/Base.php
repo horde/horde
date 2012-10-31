@@ -3797,34 +3797,33 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
+        $uids_ob = $this->getIdsOb($uids);
 
-        if (!empty($uids)) {
-            $uids_ob = $this->getIdsOb($uids);
+        /* Are we caching flags? */
+        if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
+            $fquery = new Horde_Imap_Client_Fetch_Query();
+            $fquery->flags();
 
-            /* Are we caching flags? */
-            if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
-                $fquery = new Horde_Imap_Client_Fetch_Query();
-                $fquery->flags();
-
-                /* Update flags in cache. Cache will be updated in _fetch(). */
-                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
-                    'changedsince' => $modseq,
-                    'ids' => $uids_ob
-                ));
-            }
-
-            /* Search for deleted messages, and remove from cache. */
-            $squery = new Horde_Imap_Client_Search_Query();
-            $squery->ids($this->getIdsOb($uids_ob->range_string));
-
-            $search = $this->search($this->_selected, $squery, array(
-                'nocache' => true
+            /* Update flags in cache. Cache will be updated in _fetch(). */
+            $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
+                'changedsince' => $modseq,
+                'ids' => $uids_ob
             ));
+        }
 
-            $deleted = array_diff($uids_ob->ids, $search['match']->ids);
-            if (!empty($deleted)) {
-                $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
-            }
+        /* Search for deleted messages, and remove from cache. */
+        $squery = new Horde_Imap_Client_Search_Query();
+        if (!empty($uids)) {
+            $squery->ids($this->getIdsOb($uids_ob->range_string));
+        }
+
+        $search = $this->search($this->_selected, $squery, array(
+            'nocache' => true
+        ));
+
+        $deleted = array_diff($uids_ob->ids, $search['match']->ids);
+        if (!empty($deleted)) {
+            $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
         }
 
         $mbox_ob->sync = true;
