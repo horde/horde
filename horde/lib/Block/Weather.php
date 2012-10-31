@@ -116,9 +116,9 @@ class Horde_Block_Weather extends Horde_Core_Block
                     )
                 );
 
-            $html = '<input id="location' . $instance . '" name="location' . $instance . '"><input type="button" id="button' . $instance . '" class="button" value="'
+            $html = '<div class="horde-content"><input id="location' . $instance . '" name="location' . $instance . '"> <input type="button" id="button' . $instance . '" class="button" value="'
                 . _("Change Location") . '" /><span style="display:none;" id="location' . $instance . '_loading_img">'
-                . Horde::img('loading.gif') . '</span>';
+                . Horde::img('loading.gif') . '</span></div>';
             $location = $this->_params['location'];
         }
 
@@ -160,6 +160,7 @@ class Horde_Block_Weather extends Horde_Core_Block
         }
         $html .= '</div>';
 
+        $html .= '<div class="horde-content">';
         // Sunrise/sunset.
         if ($station->sunrise) {
             $html .= '<strong>' . _("Sunrise") . ': </strong>'
@@ -228,7 +229,8 @@ class Horde_Block_Weather extends Horde_Core_Block
         $condition = $current->condition;
         $html .= '<br /><strong>' . _("Current condition") . ': </strong>'
             . Horde::img(Horde_Themes::img('weather/32x32/' . $current->icon))
-            .  ' ' . $condition;
+            .  ' ' . $condition
+            . '</div>';
 
         // Forecast
         if ($this->_params['days'] > 0) {
