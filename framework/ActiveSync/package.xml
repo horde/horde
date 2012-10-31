@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix moving/deleting messages on some devices.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -842,7 +842,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix moving/deleting messages on some devices.
    </notes>
   </release>
  </changelog>
