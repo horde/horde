@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:16:42</time>
+ <date>2012-10-31</date>
+ <time>11:43:18</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -839,7 +839,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-10-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix moving/deleting messages on some devices.
