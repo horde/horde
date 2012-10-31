@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix LDAP example for authusername hook.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3728,7 +3728,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix LDAP example for authusername hook.
    </notes>
   </release>
  </changelog>
