@@ -71,7 +71,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
         if ($imp_imap->imap) {
-            $imapSidebar->containers[] = array(
+            $impSidebar->containers[] = array(
                 'rows' => array(
                     array(
                         'id' => 'folderopts_link',
