@@ -2,6 +2,8 @@
 v3.0.1-git
 ----------
 
+[mms] Fix PHP error notification thrown if backends 'params' parameter was
+      empty (Bug #11615).
 
 
 ------
