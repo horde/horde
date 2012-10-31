@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
  </notes>
  <contents>
@@ -3728,6 +3729,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
    </notes>
   </release>
