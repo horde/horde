@@ -2933,8 +2933,8 @@ var DimpBase = {
             this.expandmbox = base ? base : true;
         }
 
-        if (r.switch) {
-            this.switchmbox = r.switch;
+        if (r['switch']) {
+            this.switchmbox = r['switch'];
         }
 
         if (r.d) {
