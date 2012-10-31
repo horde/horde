@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression for non-cached Socket objects (Bug #11605).
 * [mms] Improved handling of server write errors in the Socket driver.
 * [mms] Add support for IMAP MOVE command.
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
@@ -1201,6 +1202,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression for non-cached Socket objects (Bug #11605).
 * [mms] Improved handling of server write errors in the Socket driver.
 * [mms] Add support for IMAP MOVE command.
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.

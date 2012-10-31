@@ -3747,6 +3747,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _updateModSeq($modseq)
     {
+        if (!$this->_initCache(true)) {
+            return false;
+        }
+
         $mbox_ob = $this->_mailboxOb();
         $uidvalid = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY);
         $md = $this->_cache->getMetaData($this->_selected, $uidvalid, array(self::CACHE_MODSEQ));
