@@ -37,8 +37,8 @@
   </tr>
   <tr>
     <td class="control" colspan="2">
-      <input class="button" type="submit" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
-      <input class="button" type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
+      <input class="horde-default" type="submit" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
+      <input type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
     </td>
   </tr>
 </table>
