@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-10-31</date>
- <time>14:29:38</time>
+ <time>14:30:08</time>
  <version>
-  <release>2.0.0</release>
+  <release>2.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* Transitional package release to allow upgrading from Horde 4 to Horde 5.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -62,6 +62,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Transitional package release to allow upgrading from Horde 4 to Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-10-31</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
