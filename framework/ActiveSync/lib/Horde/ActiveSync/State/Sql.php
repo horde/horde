@@ -90,6 +90,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_syncDeviceTable;
     protected $_syncUsersTable;
     protected $_syncCacheTable;
+    protected $_syncMailMapTable;
 
     /**
      * The process id (used for logging).
