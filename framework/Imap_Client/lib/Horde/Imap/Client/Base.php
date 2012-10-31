@@ -428,14 +428,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        if (!$current) {
-            return true;
-        }
-
-        /* If UIDs are labeled as not sticky, don't cache since UIDs will
-         * change on every access. */
-        $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
-        return !$status['uidnotsticky'];
+        return $current
+            /* If UIDs are labeled as not sticky, don't cache since UIDs will
+             * change on every access. */
+            ? !($this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_UIDNOTSTICKY))
+            : true;
     }
 
     /**
