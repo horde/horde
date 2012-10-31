@@ -650,14 +650,15 @@ var DimpBase = {
                     this.resetSelected();
                 }
 
+                tmp = $('filter');
                 if (this.isSearch()) {
-                    $('filter').hide();
+                    tmp.hide();
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
                     this.showSearchbar(true);
-                } else {
-                    $('filter').show();
+                } else if (tmp)  {
+                    tmp.show();
                     this.showSearchbar(false);
                 }
 

@@ -2,6 +2,8 @@
 v6.0.1-git
 ----------
 
+[mms] Fix displaying column headers in dynamic mailbox view when accessing a
+      POP3 server.
 [mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
 [mms] Fix displaying move to spam mailbox option in the preferences (Bug
       #11603).

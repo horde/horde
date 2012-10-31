@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix displaying column headers in dynamic mailbox view when accessing a POP3 server.
 * [mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
 * [mms] Fix displaying move to spam mailbox option in the preferences (Bug #11603).
 * [mms] Fixes to PGP Private key generation (Bug #11597).
@@ -2813,6 +2814,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix displaying column headers in dynamic mailbox view when accessing a POP3 server.
 * [mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
 * [mms] Fix displaying move to spam mailbox option in the preferences (Bug #11603).
 * [mms] Fixes to PGP Private key generation (Bug #11597).
