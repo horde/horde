@@ -87,9 +87,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 )
             );
             $impSidebar->containers[] = array(
-                array(
-                    'id' => 'imp-normalmboxes'
-                )
+                'id' => 'imp-normalmboxes'
             );
         }
 
