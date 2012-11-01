@@ -976,7 +976,7 @@ HermesCore = {
     },
 
     /**
-     * Builds the DOM structure for a single slice row in the slice list.
+     * Builds the DOM structure for a single slice row in the results list.
      *
      * @param slice  The slices data.
      *
