@@ -215,7 +215,7 @@ foreach ($session->get('kronolith', 'attendees', Horde_Session::TYPE_ARRAY) as $
         ($status['attendance'] == Kronolith::PART_REQUIRED ||
          $status['attendance'] == Kronolith::PART_OPTIONAL)) {
         try {
-            $vfb = Kronolith_Freebusy::get($email);
+            $vfb = Kronolith_FreeBusy::get($email);
             $organizer = $vfb->getAttribute('ORGANIZER');
             if (empty($organizer)) {
                 $vfb->setAttribute('ORGANIZER', 'mailto:' . $email, array(),

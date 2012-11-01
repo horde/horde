@@ -117,12 +117,12 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
      */
     public function getFreeBusy($startstamp = null, $endstamp = null, $asObject = false, $json = false)
     {
-        $vfb = Kronolith_Freebusy::generate($this->get('calendar'), $startstamp, $endstamp, true);
+        $vfb = Kronolith_FreeBusy::generate($this->get('calendar'), $startstamp, $endstamp, true);
         $vfb->removeAttribute('ORGANIZER');
         $vfb->setAttribute('ORGANIZER', $this->get('name'));
 
         if ($json) {
-            return Kronolith_Freebusy::toJson($vfb);
+            return Kronolith_FreeBusy::toJson($vfb);
         } elseif (!$asObject) {
             return $vfb->exportvCalendar();
         }
