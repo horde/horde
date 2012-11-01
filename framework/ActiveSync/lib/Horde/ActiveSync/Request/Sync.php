@@ -921,11 +921,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $counters[$collection['id']] = array($collection['synckey'] => 1);
             } else {
                 // We saw this synckey before, increment the counter.
-                $this->_logger->debug('Incrementing counter, we saw this synckey before.');
+                $this->_logger->err('Incrementing counter, we saw this synckey before.');
                 $counters[$collection['id']][$collection['synckey']]++;
             }
             $this->_syncCache->set('synckeycounter', $counters);
             $this->_syncCache->save();
+
             array_push($this->_collections, $collection);
 
             if ($collection['importedchanges']) {
