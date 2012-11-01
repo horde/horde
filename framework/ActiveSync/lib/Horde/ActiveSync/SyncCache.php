@@ -116,7 +116,8 @@ class Horde_ActiveSync_SyncCache
     {
         return in_array($property, array(
             'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
-            'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat'));
+            'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
+            'synckeycounter'));
     }
     /**
      * Validate the cache. Compares the cache timestamp with the current cache
@@ -325,6 +326,7 @@ class Horde_ActiveSync_SyncCache
     public function removeCollection($id)
     {
         unset($this->_data['collections'][$id]);
+        unset($this->_data['synckeycounter'][$id]);
     }
 
     /**
