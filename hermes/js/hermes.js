@@ -20,6 +20,7 @@ HermesCore = {
     hermesBody: $('hermesBody'),
     clientIdMap: {},
     slices: [],
+    searchSlices: [],
     sortbyfield: 'sortDate',
     reverseSort: false,
     sortDir: 'up',
@@ -546,6 +547,8 @@ HermesCore = {
     searchCallback: function(r)
     {
         $('hermesLoadingSearch').hide();
+        this.searchSlices = r;
+        this.buildSearchResultsTable();
     },
 
     /**
@@ -881,6 +884,60 @@ HermesCore = {
     },
 
     /**
+     * Builds the slice list.
+     */
+    buildSearchResultsTable: function()
+    {
+        var t = $('hermesSearchListInternal'),
+            slices;
+
+        if (this.reverseSort) {
+            slices = this.searchSlices.reverse();
+            this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
+        } else {
+            this.sortDir = 'down';
+            switch (this.sortbyfield) {
+            case 'sortDate':
+                // Date defaults to reverse
+                this.sortDir = 'up';
+                slices = this.searchSlices.sort(this.sortDate).reverse();
+                break;
+            case 'sortClient':
+               slices = this.searchSlices.sort(this.sortClient);
+               break;
+            case 'sortCostObject':
+                slices = this.searchSlices.sort(this.sortCostObject);
+                break;
+            case 'sortType':
+                slices = this.searchSlices.sort(this.sortType);
+                break;
+            case 'sortHours':
+                this.sortDir = 'up';
+                slices = this.searcSlices.sort(this.sortHours).reverse();
+                break;
+            case 'sortBill':
+                slices = this.searchSlices.sort(this.sortBill);
+                break;
+            case 'sortDesc':
+                slices = this.searchSlices.sort(this.sortDesc);
+                break;
+            default:
+                slices = this.searchSlices;
+                break;
+            }
+        }
+        this.searchSlices = slices;
+        t.hide();
+        slices.each(function(slice) {
+            t.insert(this.buildSearchRow(slice).toggle());
+        }.bind(this));
+        $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+        t.appear({ duration: this.effectDur, queue: 'end' });
+        this.updateTimeSummary();
+        $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
+    },
+
+    /**
      * Builds the DOM structure for a single slice row in the slice list.
      *
      * @param slice  The slices data.
@@ -903,6 +960,44 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
+        if (!slice.cn) {
+            cell = cell.next().update(' ');
+        } else {
+            cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        }
+        cell = cell.next().update((slice.con) ? slice.con : ' ');
+        cell = cell.next().update((slice.tn) ? slice.tn : ' ');
+        cell = cell.next().update((slice.desc) ? slice.desc : ' ');
+        cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
+        cell = cell.next().update(slice.h);
+
+        return row;
+    },
+
+    /**
+     * Builds the DOM structure for a single slice row in the slice list.
+     *
+     * @param slice  The slices data.
+     *
+     * @return A DOM element representing the slice suitable for inserting into
+     *         the slice list.
+     */
+    buildSearchRow: function(slice)
+    {
+        var row, cell, d;
+
+        // Save the cn info for possible later use
+        if (!HermesCore.clientIdMap[slice.c]) {
+            HermesCore.clientIdMap[slice.c] = slice.cn;
+        }
+        row = $('hermesSearchListTemplate').clone(true);
+        row.addClassName('hermesTimeListRow');
+        row.removeAttribute('id');
+        row.store('sid', slice.i);
+        d = this.parseDate(slice.d);
+        cell = row.down().update(' ');
+        cell = cell.next().update(d.toString(Hermes.conf.date_format));
+        cell = cell.next().update(slice.e);
         if (!slice.cn) {
             cell = cell.next().update(' ');
         } else {
