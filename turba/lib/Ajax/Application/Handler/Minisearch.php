@@ -34,30 +34,37 @@ class Turba_Ajax_Application_Handler_Minisearch extends Horde_Core_Ajax_Applicat
         if (!is_null($search)) {
             foreach (Horde_Serialize::unserialize($this->vars->abooks, Horde_Serialize::JSON) as $val) {
                 try {
-                    $res = $injector->getInstance('Turba_Factory_Driver')->create($val)->search(array('name' => $search));
+                    $res = $injector->getInstance('Turba_Factory_Driver')
+                        ->create($val)
+                        ->search(array('name' => $search));
 
                     while ($ob = $res->next()) {
                         if ($ob->isGroup()) {
                             continue;
                         }
-
                         foreach ($ob->getAttributes() as $k => $v) {
                             if (!empty($attributes[$k]['type']) &&
                                 ($attributes[$k]['type'] == 'email')) {
-                                try {
-                                    $mail_link = $registry->call('mail/compose', array(
-                                        array('to' => $v)
-                                    ));
-                                } catch (Horde_Exception $e) {
-                                    $mail_link = 'mailto:' . urlencode($v);
+                                if (!empty($v)) {
+                                    try {
+                                        $mail_link = $registry->call('mail/compose', array(
+                                            array('to' => $v)
+                                        ));
+                                    } catch (Horde_Exception $e) {
+                                        $mail_link = 'mailto:' . urlencode($v);
+                                    }
                                 }
+                                $link = empty($v)
+                                    ? htmlspecialchars($ob->getValue('name'))
+                                    : htmlspecialchars($ob->getValue('name') . ' <' . $v . '>');
 
                                 $results[] = '<li class="linedRow">' .
                                     Horde::link(Horde::url($ob->url()), _("View Contact"), '', '_parent') .
                                     Horde::img('contact.png', _("View Contact")) . '</a> ' .
-                                    '<a href="' . $mail_link . '">' .
-                                    htmlspecialchars($ob->getValue('name') . ' <' . $v . '>') .
-                                    '</a></li>';
+                                    (!empty($v) ? '<a href="' . $mail_link . '">' : '') .
+                                    $link .
+                                    (!empty($v) ? '</a>' : '') . '</li>';
+
                                 break;
                             }
                         }
