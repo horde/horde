@@ -925,7 +925,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $counters[$collection['id']][$collection['synckey']]++;
             }
             $this->_syncCache->set('synckeycounter', $counters);
-
+            $this->_syncCache->save();
             array_push($this->_collections, $collection);
 
             if ($collection['importedchanges']) {
