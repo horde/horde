@@ -884,13 +884,14 @@ HermesCore = {
     },
 
     /**
-     * Builds the slice list.
+     * Builds the results list.
      */
     buildSearchResultsTable: function()
     {
         var t = $('hermesSearchListInternal'),
             slices;
 
+        t.update();
         if (this.reverseSort) {
             slices = this.searchSlices.reverse();
             this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
