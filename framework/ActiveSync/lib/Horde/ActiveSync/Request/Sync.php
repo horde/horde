@@ -903,7 +903,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             // We try to detect the same synckey being requested by the device
             // multiple times in case we are in some sort of infinite loop caused
             // by the device not accepting our data, out of memory issue etc...
-            $counters = $this->_syncCache->get('synckeycounter');
+            $counters = $this->_syncCache->synckeycounter;
             if (!empty($counters[$collection['id']][$collection['synckey']]) &&
                 $counters[$collection['id']][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
 
@@ -924,7 +924,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_logger->err('Incrementing counter, we saw this synckey before.');
                 $counters[$collection['id']][$collection['synckey']]++;
             }
-            $this->_syncCache->set('synckeycounter', $counters);
+            $this->_syncCache->synckeycounter = $counters;
             $this->_syncCache->save();
 
             array_push($this->_collections, $collection);
