@@ -37,6 +37,9 @@
  *                                      looping sync.
  * @property integer lastsyncendnormal  Timestamp of the last looping sync that
  *                                      ended normally.
+ * @property array synckeycounter       Track the number of times we see the
+ *                                      same synckey for the same collection.
+ *                                      Used for sync loop detection.
  */
 class Horde_ActiveSync_SyncCache
 {
