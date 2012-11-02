@@ -1684,6 +1684,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * server SHOULD return a VANISHED response with UIDs. However,
              * even if the server returns EXPUNGEs instead, we can use
              * vanished() to grab the list. */
+            unset($this->_temp['search_save']);
             if (isset($this->_init['enabled']['QRESYNC'])) {
                 $ids = $this->resolveIds($this->_selected, $ids, 1);
                 if ($list_msgs) {
@@ -1693,7 +1694,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } else {
                 $ids = $this->resolveIds($this->_selected, $ids, ($list_msgs || $use_cache) ? 2 : 1);
             }
-            if ($this->_temp['search_save']) {
+            if (!empty($this->_temp['search_save'])) {
                 $ids = $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES);
             }
         } else {
