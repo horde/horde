@@ -321,7 +321,7 @@ var DimpBase = {
 
         if (elt) {
             elt.addClassName('horde-subnavi-active');
-            this._toggleSubFolder(elt, 'exp');
+            this._toggleSubFolder(elt, 'exp', true);
         }
     },
 
@@ -2955,13 +2955,13 @@ var DimpBase = {
             this._toggleSubFolder(nm, 'expall', true);
         }
 
-        if (this.view) {
-            this.highlightSidebar(this.view);
-        }
-
         if ($('foldersLoading').visible()) {
             $('foldersLoading').hide();
             $('foldersSidebar').show();
+        }
+
+        if (this.view) {
+            this.highlightSidebar(this.view);
         }
 
         if (nm && nm.getStyle('max-height') !== null) {

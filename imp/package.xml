@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).
 * [mms] Fix displaying HTML signature preference on identities preference page.
 * [mms] Fix dynamic view loading in IE8 (Bug #11614).
 * [mms] Optimize permission checking when creating a mailbox if no limit exists for a user.
@@ -2817,6 +2818,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).
 * [mms] Fix displaying HTML signature preference on identities preference page.
 * [mms] Fix dynamic view loading in IE8 (Bug #11614).
 * [mms] Optimize permission checking when creating a mailbox if no limit exists for a user.
