@@ -754,33 +754,4 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         return $out;
     }
 
-    /**
-     * Generates a public key from a private key.
-     *
-     * @todo Move to Horde_Crypt
-     *
-     * @param string $data  Armor text of private key.
-     *
-     * @return string  Armor text of public key, or null if it could not be
-     *                 generated.
-     */
-    public function getPublicKeyFromPrivateKey($data)
-    {
-        $keyring = $this->_putInKeyring(array($data), 'private');
-        $fingerprints = $this->getFingerprintsFromKey($data);
-        reset($fingerprints);
-
-        $cmdline = array(
-            '--armor',
-            '--export',
-            key($fingerprints)
-        );
-
-        $result = $this->_callGpg($cmdline, 'r', array(), true, true);
-
-        return empty($result->output)
-            ? null
-            : $result->output;
-    }
-
 }
