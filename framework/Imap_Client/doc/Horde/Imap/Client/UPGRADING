@@ -11,6 +11,12 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.1.0
+==================
+
+The Horde_Imap_Client_Ids_Map class has been added.
+
+
 Upgrading to 2.0.0
 ==================
 

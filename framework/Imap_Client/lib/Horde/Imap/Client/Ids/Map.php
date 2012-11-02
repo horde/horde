@@ -2,6 +2,8 @@
 /**
  * An object implementing lookups between UIDs and message sequence numbers.
  *
+ * @since 2.1.0
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
