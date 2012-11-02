@@ -102,7 +102,7 @@ class Horde_Imap_Client_Socket_ClientSort
                                          $uids)
     {
         $dates = $this->_getSentDates($data, $data->ids());
-        $sorted = $tsort = array();
+        $out = $sorted = $tsort = array();
 
         foreach ($data as $k => $v) {
             $subject = strval(new Horde_Imap_Client_Data_BaseSubject($v->getEnvelope()->subject));
