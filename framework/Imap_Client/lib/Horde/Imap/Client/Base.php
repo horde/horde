@@ -2087,6 +2087,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query = new Horde_Imap_Client_Search_Query();
         }
 
+        // Check for SEARCHRES support.
+        if ((($pos = array_search(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) !== false) &&
+            !$this->queryCapability('SEARCHRES')) {
+            unset($options['results'][$pos]);
+        }
+
         // Check for supported charset.
         $options['_query'] = $query->build($this->capability());
         if (!is_null($options['_query']['charset']) &&
