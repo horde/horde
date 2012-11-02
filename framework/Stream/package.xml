@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-02</date>
- <time>16:06:18</time>
+ <time>16:06:43</time>
  <version>
-  <release>1.1.0</release>
+  <release>1.1.1</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Allow Horde_Stream object to be cloned.
-* [mms] Allow Horde_Stream object to be serialized (Bug #11598).
-* [mms] Add Horde_Stream#__toString().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -124,6 +122,19 @@
 * [mms] Allow Horde_Stream object to be cloned.
 * [mms] Allow Horde_Stream object to be serialized (Bug #11598).
 * [mms] Add Horde_Stream#__toString().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.1.1</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
