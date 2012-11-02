@@ -3592,9 +3592,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             $this->_writeStream('', array('eol' => true));
         } catch (Horde_Imap_Client_Exception $e) {
-            if ($e->getCode() == Horde_Imap_Client_Exception::SERVER_WRITEERROR) {
+            switch ($e->getCode()) {
+            case Horde_Imap_Client_Exception::NOT_SUPPORTED:
+                /* Flush debug log. */
+                $this->writeDebug("\n");
+                break;
+
+            case Horde_Imap_Client_Exception::SERVER_WRITEERROR:
                 $this->_temp['logout'] = true;
                 $this->logout();
+                break;
             }
 
             throw $e;
