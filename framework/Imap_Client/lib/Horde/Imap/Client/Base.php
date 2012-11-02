@@ -3365,9 +3365,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
              * then merge back into the original results. */
             $lookup = $map->lookup($ids);
             if (count($lookup) == count($ids)) {
-                return $ids->sequence
-                    ? $this->getIdsOb(array_keys($lookup), true)
-                    : $this->getIdsOb(array_values($lookup));
+                return $this->getIdsOb(array_values($lookup));
             }
         }
 
