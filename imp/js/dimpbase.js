@@ -3553,8 +3553,8 @@ var DimpBase = {
         if (r.add) {
             this.getMboxElt(r.mbox).store('u', 0);
         } else {
-            this.getMboxElt(r.mbox).store('u', undefined);
             this.updateUnseenStatus(r.mbox, 0);
+            this.getMboxElt(r.mbox).store('u', undefined);
         }
     },
 
