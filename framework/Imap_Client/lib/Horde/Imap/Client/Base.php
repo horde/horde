@@ -2539,7 +2539,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     foreach ($header_cache as $hkey => $hval) {
                         if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same
-                             * ND5 sum. */
+                             * MD5 sum. */
                             $entry->setHeaders($hkey, $data[$uid][$cid][$hval]);
                             $crit->remove($key, $hkey);
                         } else {
