@@ -245,8 +245,6 @@ Configuring IMP
    appearance and behavior. See the header of the configuration files for
    details and examples. The defaults will be correct for most sites.
 
-   IMP Configuration Pointers
-
    * By default, IMP is configured to NOT display text/html message parts
      inline.  This is done for various security reasons.  If you would like to
      see text/html parts inline, you must create a
