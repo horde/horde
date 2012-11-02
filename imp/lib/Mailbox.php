@@ -668,8 +668,8 @@ class IMP_Mailbox implements Serializable
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-            // POP3 does not support UIDVALIDITY.
-            if ($imp_imap->pop3) {
+            // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
+            if ($imp_imap->pop3 || $this->nonimap) {
                 return;
             }
 
