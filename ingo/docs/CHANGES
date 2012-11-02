@@ -48,6 +48,8 @@ v3.0.0alpha1
 -------
 v2.0.10
 -------
+[mms] Correctly reindex existing rules when deleting a rule and using the SQL
+      filters storage driver.
 [mms] Don't allow a user to save a rule with no matching conditions.
 
 
