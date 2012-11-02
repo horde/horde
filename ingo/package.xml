@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Correctly reindex existing rules when deleting a rule and using the SQL filters storage driver.
 * [mms] Don&apos;t allow a user to save a rule with no matching conditions.
  </notes>
  <contents>
@@ -1057,6 +1058,7 @@
    <date>2012-06-26</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Correctly reindex existing rules when deleting a rule and using the SQL filters storage driver.
 * [mms] Don&apos;t allow a user to save a rule with no matching conditions.
    </notes>
   </release>

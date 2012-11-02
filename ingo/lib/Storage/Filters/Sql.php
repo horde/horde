@@ -191,7 +191,9 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         } catch (Horde_Db_Exception $e) {
             throw new Ingo_Exception($e);
         }
-        unset($this->_filters[$id]);
+
+        /* Remove the rule from the filter list. */
+        parent::deleteRule($id);
 
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);
