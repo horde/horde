@@ -2,6 +2,8 @@
 v5.0.24-git
 -----------
 
+[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
+      #11623).
 [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
       the browser's local filesystem that has a filename that contains HTML.
 [mms] Catch failure to add attachments in dynamic view because PHP's maximum
