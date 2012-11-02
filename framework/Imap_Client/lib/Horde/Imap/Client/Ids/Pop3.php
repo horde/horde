@@ -27,7 +27,7 @@ class Horde_Imap_Client_Ids_Pop3 extends Horde_Imap_Client_Ids
     {
         /* Use space as delimiter as it is the only printable ASCII character
          * that is not allowed as part of the UID (RFC 1939 [7]). */
-        return implode(' ', array_keys(array_flip($this->_ids)));
+        return implode(' ', count($this->_ids) > 25000 ? array_unique($this->_ids) : array_keys(array_flip($this->_ids)));
     }
 
     /**
