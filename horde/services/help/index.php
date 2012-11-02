@@ -87,6 +87,9 @@ case 'menu':
 
 case 'sidebar':
     /* Generate Tabs */
+    if (!isset($vars->side_show)) {
+        $vars->side_show = 'index';
+    }
     $tabs = new Horde_Core_Ui_Tabs('side_show', $vars);
     $tabs->addTab(_("Help _Topics"), $sidebar_url, 'index');
     $tabs->addTab(_("Sea_rch"), $sidebar_url, 'search');

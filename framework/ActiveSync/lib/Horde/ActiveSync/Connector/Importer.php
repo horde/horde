@@ -249,11 +249,6 @@ class Horde_ActiveSync_Connector_Importer
             $change['id'] = $uid;
             $change['mod'] = time();
             $change['parent'] = $this->_folderId;
-            $this->_state->updateState(
-                Horde_ActiveSync::CHANGE_TYPE_DELETE,
-                $change,
-                Horde_ActiveSync::CHANGE_ORIGIN_PIM,
-                $this->_backend->getUser());
         }
 
         return $results;

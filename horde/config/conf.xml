@@ -1780,12 +1780,6 @@
        </configinteger>
       </configsection>
     </case>
-    <case name="Google" desc="Google Weather API - Unofficial API. Free, no registration. VERY basic forecast data.">
-      <configsection name="params">
-       <configinteger name="lifetime" desc="Lifetime of the cached weather information, in seconds.">21600
-       </configinteger>
-      </configsection>
-    </case>
     <case name="Wwo" desc="World Weather Online API. Free, requires registration. Slighty more detailed than Google.">
       <configsection name="params">
         <configstring name="key" desc="API Key. For information on registration

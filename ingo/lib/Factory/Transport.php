@@ -68,7 +68,7 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
         $class = 'Ingo_Transport_' . ucfirst($transport);
         if (class_exists($class)) {
             return new $class(array_merge(
-                $session->get('ingo', 'backend/params'),
+                $session->get('ingo', 'backend/params', Horde_Session::TYPE_ARRAY),
                 $auth
             ));
         }

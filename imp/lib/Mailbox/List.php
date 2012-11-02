@@ -133,7 +133,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         $fetch_query = new Horde_Imap_Client_Fetch_Query();
         $fetch_query->envelope();
         $fetch_query->flags();
-        $fetch_query->seq();
         $fetch_query->size();
         $fetch_query->uid();
 

@@ -68,8 +68,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $impSidebar->containers = array(
             array(
                 'id' => 'imp-specialmboxes'
-            ),
-            array(
+            )
+        );
+        if ($imp_imap->imap) {
+            $impSidebar->containers[] = array(
                 'rows' => array(
                     array(
                         'id' => 'folderopts_link',
@@ -83,11 +85,11 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                         'link' => $blank->link() . _("Move to Base Level") . '</a>'
                     )
                 )
-            ),
-            array(
+            );
+            $impSidebar->containers[] = array(
                 'id' => 'imp-normalmboxes'
-            )
-        );
+            );
+        }
 
         $sidebar = $GLOBALS['injector']->getInstance('Horde_View_Sidebar');
         $sidebar->newLink = $blank->link(array('id' => 'composelink',
@@ -334,6 +336,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if (empty($conf['user']['allow_view_source'])) {
             unset($context['ctx_message']['_sub3']);
         }
+        if ($imp_imap->pop3) {
+            unset(
+                $context['ctx_message']['_sub2'],
+                $context['ctx_message']['undelete']
+            );
+        }
 
         /* Mailbox context menu. */
         $context['ctx_mbox'] = array(
@@ -403,6 +411,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         if ($prefs->isLocked('delhide')) {
             unset($context['ctx_oa']['hide_deleted']);
         }
+        if ($imp_imap->pop3) {
+            unset(
+                $context['ctx_oa']['_sub1'],
+                $context['ctx_oa']['_sub2'],
+                $context['ctx_oa']['show_deleted'],
+                $context['ctx_oa']['hide_deleted']
+            );
+        }
+
 
         /* Preview context menu. */
         $context['ctx_preview'] = array(

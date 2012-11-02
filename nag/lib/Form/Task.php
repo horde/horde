@@ -139,7 +139,7 @@ class Nag_Form_Task extends Horde_Form
 
         $buttons = array(array('value' => _("Save")));
         if ($delete) {
-            $buttons[] = array('value' => _("Delete Task"), 'name' => 'deletebutton', 'class' => 'horde-delete');
+            $buttons[] = array('value' => _("Delete"), 'name' => 'deletebutton', 'class' => 'horde-delete');
         }
         if (!$vars->get('task_id')) {
             $buttons[] = array('value' => _("Save and New"), 'name' => 'savenewbutton', 'class' => 'horde-create');

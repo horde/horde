@@ -874,8 +874,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_initCache();
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
-            if (isset($md[self::CACHE_MODSEQ]) &&
-                ($uids = $this->_cache->get($mailbox))) {
+            if (isset($md[self::CACHE_MODSEQ])) {
+                $uids = $this->_cache->get($mailbox);
+
                 /* Several things can happen with a QRESYNC:
                  * 1. UIDVALIDITY may have changed.  If so, we need to expire
                  * the cache immediately (done below).
@@ -887,11 +888,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * case it acts like a normal EXAMINE/SELECT. */
                 $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
                     'QRESYNC',
-                    new Horde_Imap_Client_Data_Format_List(array(
+                    new Horde_Imap_Client_Data_Format_List(array_filter(array(
                         $md['uidvalid'],
                         $md[self::CACHE_MODSEQ],
-                        strval($this->getIdsOb($uids))
-                    ))
+                        empty($uids) ? null : strval($this->getIdsOb($uids))
+                    )))
                 )));
             }
 
@@ -1071,7 +1072,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Obtain a list of mailboxes.
      *
-     * @param mixed $pattern     The mailbox search pattern(s).
+     * @param array $pattern     The mailbox search pattern(s).
      * @param integer $mode      Which mailboxes to return.
      * @param array $options     Additional options. 'no_listext' will skip
      *                           using the LIST-EXTENDED capability.
@@ -1124,9 +1125,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 ''
             ));
 
-            if (!is_array($pattern)) {
-                $pattern = array($pattern);
-            }
             $tmp = new Horde_Imap_Client_Data_Format_List();
             foreach ($pattern as $val) {
                 $tmp->add(new Horde_Imap_Client_Data_Format_ListMailbox($val));
@@ -1140,19 +1138,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (!empty($options['special_use'])) {
                 $return_opts->add('SPECIAL-USE');
             }
-        } else {
-            if (is_array($pattern)) {
-                $return_array = array();
-                foreach ($pattern as $val) {
-                    $return_array = array_merge($return_array, $this->_getMailboxList($val, $mode, $options, $subscribed));
-                }
-                return $return_array;
+        } elseif (count($pattern) > 1) {
+            $return_array = array();
+            foreach ($pattern as $val) {
+                $return_array = array_merge($return_array, $this->_getMailboxList(array($val), $mode, $options, $subscribed));
             }
-
+            return $return_array;
+        } else {
             $cmd = $this->_clientCommand(array(
                 ($mode == Horde_Imap_Client::MBOX_SUBSCRIBED) ? 'LSUB' : 'LIST',
                 '',
-                new Horde_Imap_Client_Data_Format_ListMailbox($pattern)
+                new Horde_Imap_Client_Data_Format_ListMailbox(reset($pattern))
             ));
         }
 
@@ -1200,10 +1196,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         /* Add in STATUS return, if needed. */
         if (!empty($options['status'])) {
-            if (!is_array($pattern)) {
-                $pattern = array($pattern);
-            }
-
             foreach ($pattern as $val) {
                 $val_utf8 = Horde_Imap_Client_Utf7imap::Utf7ImapToUtf8($val);
                 if (isset($t['listresponse'][$val_utf8])) {
@@ -1692,6 +1684,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * server SHOULD return a VANISHED response with UIDs. However,
              * even if the server returns EXPUNGEs instead, we can use
              * vanished() to grab the list. */
+            unset($this->_temp['search_save']);
             if (isset($this->_init['enabled']['QRESYNC'])) {
                 $ids = $this->resolveIds($this->_selected, $ids, 1);
                 if ($list_msgs) {
@@ -1701,7 +1694,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             } else {
                 $ids = $this->resolveIds($this->_selected, $ids, ($list_msgs || $use_cache) ? 2 : 1);
             }
-            if ($this->_temp['search_save']) {
+            if (!empty($this->_temp['search_save'])) {
                 $ids = $this->getIdsOb(Horde_Imap_Client_Ids::SEARCH_RES);
             }
         } else {

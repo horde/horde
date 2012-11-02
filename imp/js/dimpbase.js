@@ -321,7 +321,7 @@ var DimpBase = {
 
         if (elt) {
             elt.addClassName('horde-subnavi-active');
-            this._toggleSubFolder(elt, 'exp');
+            this._toggleSubFolder(elt, 'exp', true);
         }
     },
 
@@ -650,14 +650,15 @@ var DimpBase = {
                     this.resetSelected();
                 }
 
+                tmp = $('filter');
                 if (this.isSearch()) {
-                    $('filter').hide();
+                    tmp.hide();
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
                     this.showSearchbar(true);
-                } else {
-                    $('filter').show();
+                } else if (tmp)  {
+                    tmp.show();
                     this.showSearchbar(false);
                 }
 
@@ -2932,8 +2933,8 @@ var DimpBase = {
             this.expandmbox = base ? base : true;
         }
 
-        if (r.switch) {
-            this.switchmbox = r.switch;
+        if (r['switch']) {
+            this.switchmbox = r['switch'];
         }
 
         if (r.d) {
@@ -2954,13 +2955,13 @@ var DimpBase = {
             this._toggleSubFolder(nm, 'expall', true);
         }
 
-        if (this.view) {
-            this.highlightSidebar(this.view);
-        }
-
         if ($('foldersLoading').visible()) {
             $('foldersLoading').hide();
             $('foldersSidebar').show();
+        }
+
+        if (this.view) {
+            this.highlightSidebar(this.view);
         }
 
         if (nm && nm.getStyle('max-height') !== null) {

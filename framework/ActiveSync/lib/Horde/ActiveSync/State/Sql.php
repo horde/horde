@@ -90,6 +90,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected $_syncDeviceTable;
     protected $_syncUsersTable;
     protected $_syncCacheTable;
+    protected $_syncMailMapTable;
 
     /**
      * The process id (used for logging).
@@ -410,7 +411,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
                 $params = array(
                     $change['id'],
-                    $this->_syncKey,
+                    (empty($this->_syncKey) ? 0 : $this->_syncKey),
                     $this->_deviceInfo->id,
                     $change['parent'],
                     $user,
@@ -426,7 +427,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $params = array(
                    $change['id'],
                    $change['mod'],
-                   $this->_syncKey,
+                   empty($this->_syncKey) ? 0 : $this->_syncKey,
                    $this->_deviceInfo->id,
                    $change['parent'],
                    $user,
@@ -1085,7 +1086,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'hbinterval' => false,
                 'folders' => array(),
                 'hierarchy' => false,
-                'collections' => array());
+                'collections' => array(),
+                'synckeycounter' => array());
         } else {
             return $data;
         }

@@ -2,9 +2,11 @@
 
 <form name="sqlshell" action="<?php echo $this->action ?>" method="post">
  <div class="horde-content">
+<?php if ($this->results): ?>
 <?php if ($this->command): ?>
   <h1 class="header"><?php echo _("Query") ?></h1>
   <pre class="text"><?php echo $this->h($this->command) ?></pre>
+<?php endif; ?>
 
   <h1 class="header"><?php echo _("Results") ?></h1>
 

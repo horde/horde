@@ -37,6 +37,9 @@
  *                                      looping sync.
  * @property integer lastsyncendnormal  Timestamp of the last looping sync that
  *                                      ended normally.
+ * @property array synckeycounter       Track the number of times we see the
+ *                                      same synckey for the same collection.
+ *                                      Used for sync loop detection.
  */
 class Horde_ActiveSync_SyncCache
 {
@@ -116,7 +119,8 @@ class Horde_ActiveSync_SyncCache
     {
         return in_array($property, array(
             'hbinterval', 'wait', 'hierarchy', 'confirmed_synckeys', 'lastuntil',
-            'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat'));
+            'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
+            'synckeycounter'));
     }
     /**
      * Validate the cache. Compares the cache timestamp with the current cache
@@ -325,6 +329,7 @@ class Horde_ActiveSync_SyncCache
     public function removeCollection($id)
     {
         unset($this->_data['collections'][$id]);
+        unset($this->_data['synckeycounter'][$id]);
     }
 
     /**

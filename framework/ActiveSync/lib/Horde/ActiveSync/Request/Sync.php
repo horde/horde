@@ -899,6 +899,34 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $this->_handleError($collection);
                 exit;
             }
+
+            // We try to detect the same synckey being requested by the device
+            // multiple times in case we are in some sort of infinite loop caused
+            // by the device not accepting our data, out of memory issue etc...
+            $counters = $this->_syncCache->synckeycounter;
+            if (!empty($counters[$collection['id']][$collection['synckey']]) &&
+                $counters[$collection['id']][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
+
+                $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
+                $this->_stateDriver->loadState(
+                    array(),
+                    null,
+                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                    $collection['id']);
+                $this->_statusCode = self::STATUS_SERVERERROR;
+                $this->_handleGlobalSyncError();
+                return false;
+            } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
+                // First time for this synckey. Remove others.
+                $counters[$collection['id']] = array($collection['synckey'] => 1);
+            } else {
+                // We saw this synckey before, increment the counter.
+                $this->_logger->err('Incrementing counter, we saw this synckey before.');
+                $counters[$collection['id']][$collection['synckey']]++;
+            }
+            $this->_syncCache->synckeycounter = $counters;
+            $this->_syncCache->save();
+
             array_push($this->_collections, $collection);
 
             if ($collection['importedchanges']) {

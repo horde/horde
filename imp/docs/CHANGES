@@ -9,6 +9,15 @@ v6.1.0-git
 v6.0.1-git
 ----------
 
+[mms] Fix expanding folder list in dynamic view when opening a mailbox and
+      folder expansion is not saved in the prefs (Bug #11609).
+[mms] Fix displaying HTML signature preference on identities preference page.
+[mms] Fix dynamic view loading in IE8 (Bug #11614).
+[mms] Optimize permission checking when creating a mailbox if no limit exists
+      for a user.
+[mms] Fix displaying column headers in dynamic mailbox view when accessing a
+      POP3 server.
+[mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
 [mms] Fix displaying move to spam mailbox option in the preferences (Bug
       #11603).
 [mms] Fixes to PGP Private key generation (Bug #11597).

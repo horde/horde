@@ -428,14 +428,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
         }
 
-        if (!$current) {
-            return true;
-        }
-
-        /* If UIDs are labeled as not sticky, don't cache since UIDs will
-         * change on every access. */
-        $status = $this->status($this->_selected, Horde_Imap_Client::STATUS_UIDNOTSTICKY);
-        return !$status['uidnotsticky'];
+        return $current
+            /* If UIDs are labeled as not sticky, don't cache since UIDs will
+             * change on every access. */
+            ? !($this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_UIDNOTSTICKY))
+            : true;
     }
 
     /**
@@ -1295,11 +1292,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if ($val instanceof Horde_Imap_Client_Mailbox) {
                 $val = $val->list_escape;
             }
-            $plist[] = preg_replace(
+            $plist[] = Horde_Imap_Client_Mailbox::get(preg_replace(
                 array("/\*{2,}/", "/\%{2,}/"),
                 array('*', '%'),
                 Horde_Imap_Client_Utf7imap::Utf8ToUtf7Imap($val)
-            );
+            ), true);
         }
 
         if (isset($options['special_use']) &&
@@ -1341,7 +1338,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Obtain a list of mailboxes matching a pattern.
      *
-     * @param array $pattern  The mailbox search patterns (UTF7-IMAP strings).
+     * @param array $pattern  The mailbox search patterns
+     *                        (Horde_Imap_Client_Mailbox objects).
      * @param integer $mode   Which mailboxes to return.
      * @param array $options  Additional options.
      *
@@ -2089,6 +2087,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query = new Horde_Imap_Client_Search_Query();
         }
 
+        // Check for SEARCHRES support.
+        if ((($pos = array_search(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) !== false) &&
+            !$this->queryCapability('SEARCHRES')) {
+            unset($options['results'][$pos]);
+        }
+
         // Check for supported charset.
         $options['_query'] = $query->build($this->capability());
         if (!is_null($options['_query']['charset']) &&
@@ -2489,96 +2493,94 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         /* Build a list of what we still need. */
-        $map = $mbox_ob->map->map;
-        foreach ($options['ids'] as $val) {
+        $map = array_flip($mbox_ob->map->map);
+        foreach ($ids as $uid) {
             $crit = clone $query;
-            $entry = $ret->get($val);
-            $uid = null;
 
             if ($options['ids']->sequence) {
-                if (isset($map[$val])) {
-                    $entry->setSeq($val);
-                    unset($crit[Horde_Imap_Client::FETCH_SEQ]);
-                    $uid = $map[$val];
+                if (!isset($map[$uid])) {
+                    continue;
                 }
+                $entry_idx = $map[$uid];
             } else {
-                $uid = $val;
-                if (($pos = array_search($val, $map)) !== false) {
-                    $entry->setSeq($pos);
-                    unset($crit[Horde_Imap_Client::FETCH_SEQ]);
-                }
+                $entry_idx = $uid;
             }
 
-            if (!is_null($uid)) {
-                $entry->setUid($uid);
-                unset($crit[Horde_Imap_Client::FETCH_UID]);
+            $entry = $ret->get($entry_idx);
 
-                foreach ($cache_array as $key => $cid) {
-                    switch ($key) {
-                    case Horde_Imap_Client::FETCH_ENVELOPE:
-                        if (isset($data[$uid][$cid]) &&
-                            ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
-                            $entry->setEnvelope($data[$uid][$cid]);
-                            unset($crit[$key]);
-                        }
-                        break;
+            if (isset($map[$uid])) {
+                $entry->setSeq($map[$uid]);
+                unset($crit[Horde_Imap_Client::FETCH_SEQ]);
+            }
 
-                    case Horde_Imap_Client::FETCH_FLAGS:
-                        if (isset($data[$uid][$cid]) &&
-                            is_array($data[$uid][$cid])) {
-                            $entry->setFlags($data[$uid][$cid]);
-                            unset($crit[$key]);
-                        }
-                        break;
+            $entry->setUid($uid);
+            unset($crit[Horde_Imap_Client::FETCH_UID]);
 
-                    case Horde_Imap_Client::FETCH_HEADERS:
-                        /* HEADERS caching. */
-                        foreach ($header_cache as $hkey => $hval) {
-                            if (isset($data[$uid][$cid][$hval])) {
-                                /* We have found a cached entry with the same
-                                 * ND5 sum. */
-                                $entry->setHeaders($hkey, $data[$uid][$cid][$hval]);
-                                $crit->remove($key, $hkey);
-                            } else {
-                                $this->_temp['headers_caching'][$hkey] = $hval;
-                            }
-                        }
-                        break;
-
-                    case Horde_Imap_Client::FETCH_IMAPDATE:
-                        if (isset($data[$uid][$cid]) &&
-                            ($data[$uid][$cid] instanceof Horde_Imap_Client_DateTime)) {
-                            $entry->setImapDate($data[$uid][$cid]);
-                            unset($crit[$key]);
-                        }
-                        break;
-
-                    case Horde_Imap_Client::FETCH_SIZE:
-                        if (isset($data[$uid][$cid])) {
-                            $entry->setSize($data[$uid][$cid]);
-                            unset($crit[$key]);
-                        }
-                        break;
-
-                    case Horde_Imap_Client::FETCH_STRUCTURE:
-                        if (isset($data[$uid][$cid]) &&
-                            ($data[$uid][$cid] instanceof Horde_Mime_Part)) {
-                            $entry->setStructure($data[$uid][$cid]);
-                            unset($crit[$key]);
-                        }
-                        break;
+            foreach ($cache_array as $key => $cid) {
+                switch ($key) {
+                case Horde_Imap_Client::FETCH_ENVELOPE:
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Imap_Client_Data_Envelope)) {
+                        $entry->setEnvelope($data[$uid][$cid]);
+                        unset($crit[$key]);
                     }
+                    break;
+
+                case Horde_Imap_Client::FETCH_FLAGS:
+                    if (isset($data[$uid][$cid]) &&
+                        is_array($data[$uid][$cid])) {
+                        $entry->setFlags($data[$uid][$cid]);
+                        unset($crit[$key]);
+                    }
+                    break;
+
+                case Horde_Imap_Client::FETCH_HEADERS:
+                    /* HEADERS caching. */
+                    foreach ($header_cache as $hkey => $hval) {
+                        if (isset($data[$uid][$cid][$hval])) {
+                            /* We have found a cached entry with the same
+                             * ND5 sum. */
+                            $entry->setHeaders($hkey, $data[$uid][$cid][$hval]);
+                            $crit->remove($key, $hkey);
+                        } else {
+                            $this->_temp['headers_caching'][$hkey] = $hval;
+                        }
+                    }
+                    break;
+
+                case Horde_Imap_Client::FETCH_IMAPDATE:
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Imap_Client_DateTime)) {
+                        $entry->setImapDate($data[$uid][$cid]);
+                        unset($crit[$key]);
+                    }
+                    break;
+
+                case Horde_Imap_Client::FETCH_SIZE:
+                    if (isset($data[$uid][$cid])) {
+                        $entry->setSize($data[$uid][$cid]);
+                        unset($crit[$key]);
+                    }
+                    break;
+
+                case Horde_Imap_Client::FETCH_STRUCTURE:
+                    if (isset($data[$uid][$cid]) &&
+                        ($data[$uid][$cid] instanceof Horde_Mime_Part)) {
+                        $entry->setStructure($data[$uid][$cid]);
+                        unset($crit[$key]);
+                    }
+                    break;
                 }
             }
 
             if (count($crit)) {
                 $sig = $crit->hash();
                 if (isset($new_query[$sig])) {
-                    $new_query[$sig]['i']->add($val);
+                    $new_query[$sig]['i']->add($entry_idx);
                 } else {
                     $new_query[$sig] = array(
                         'c' => $crit,
-                        'i' => $this->getIdsOb($val, $options['ids']->sequence)
+                        'i' => $this->getIdsOb($entry_idx, $options['ids']->sequence)
                     );
                 }
             }
@@ -2593,7 +2595,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (is_null($cs_ret)) {
             return $ret;
         }
-
 
         /* If doing changedsince query, and all other data is cached, we still
          * need to hit IMAP server to determine proper results set. */
@@ -2613,7 +2614,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 } else {
                     $entry->setUid($val);
                 }
-                $cs_ret->merge($entry);
+                $cs_ret[$val] = $entry;
             }
         } else {
             foreach ($cs_ret as $key => $val) {
@@ -3363,10 +3364,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
              * outweighed by the complexities needed to make the search and
              * then merge back into the original results. */
             $lookup = $map->lookup($ids);
-            if (count($lookup) == $count($ids)) {
-                return $ids->sequence
-                    ? $this->getIdsOb(array_keys($lookup), true)
-                    : $this->getIdsOb(array_values($lookup));
+            if (count($lookup) == count($ids)) {
+                return $this->getIdsOb(array_values($lookup));
             }
         }
 
@@ -3750,6 +3749,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _updateModSeq($modseq)
     {
+        if (!$this->_initCache(true)) {
+            return false;
+        }
+
         $mbox_ob = $this->_mailboxOb();
         $uidvalid = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY);
         $md = $this->_cache->getMetaData($this->_selected, $uidvalid, array(self::CACHE_MODSEQ));
@@ -3796,34 +3799,33 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
+        $uids_ob = $this->getIdsOb($uids);
 
-        if (!empty($uids)) {
-            $uids_ob = $this->getIdsOb($uids);
+        /* Are we caching flags? */
+        if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
+            $fquery = new Horde_Imap_Client_Fetch_Query();
+            $fquery->flags();
 
-            /* Are we caching flags? */
-            if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
-                $fquery = new Horde_Imap_Client_Fetch_Query();
-                $fquery->flags();
-
-                /* Update flags in cache. Cache will be updated in _fetch(). */
-                $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
-                    'changedsince' => $modseq,
-                    'ids' => $uids_ob
-                ));
-            }
-
-            /* Search for deleted messages, and remove from cache. */
-            $squery = new Horde_Imap_Client_Search_Query();
-            $squery->ids($this->getIdsOb($uids_ob->range_string));
-
-            $search = $this->search($this->_selected, $squery, array(
-                'nocache' => true
+            /* Update flags in cache. Cache will be updated in _fetch(). */
+            $this->_fetch(new Horde_Imap_Client_Fetch_Results(), $fquery, array(
+                'changedsince' => $modseq,
+                'ids' => $uids_ob
             ));
+        }
 
-            $deleted = array_diff($uids_ob->ids, $search['match']->ids);
-            if (!empty($deleted)) {
-                $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
-            }
+        /* Search for deleted messages, and remove from cache. */
+        $squery = new Horde_Imap_Client_Search_Query();
+        if (!empty($uids)) {
+            $squery->ids($this->getIdsOb($uids_ob->range_string));
+        }
+
+        $search = $this->search($this->_selected, $squery, array(
+            'nocache' => true
+        ));
+
+        $deleted = array_diff($uids_ob->ids, $search['match']->ids);
+        if (!empty($deleted)) {
+            $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
         }
 
         $mbox_ob->sync = true;

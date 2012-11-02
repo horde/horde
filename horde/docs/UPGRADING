@@ -29,6 +29,17 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
+Upgrading Horde from 5.0 to 5.0.1
+=================================
+
+Weather portal block
+--------------------
+
+Google no longer provides a weather API. Support for this has therefore been
+removed from Horde. If you were using Google as a source for weather, you will
+need to pick a new provider and update the Horde configuration.
+
+
 
 Upgrading Horde from 4.x to 5.x
 ===============================

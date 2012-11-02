@@ -464,8 +464,12 @@ class Horde_Hooks
 //            ? Horde_String::lower($userId)
 //            : $userId;
 //
+//
 //        // Example #3: Map the LDAP "uid" back to the LDAP "mail"
 //        // attribute in case both are allowed user IDs for login.
+//        if (!$toHorde) {
+//            return $userId;
+//        }
 //        $ldapServer = 'localhost';
 //        $ldapPort = '389';
 //        $searchBase = 'dc=example,dc=com';
@@ -478,10 +482,7 @@ class Horde_Hooks
 //        if (($information !== false) && ($information['count'] > 0)) {
 //            $userId = $information[0]['mail'][0];
 //        }
-//        return array(
-//            'userId' => $userId,
-//            'credentials' => $credentials
-//        );
+//        return $userId;
 //    }
 
 

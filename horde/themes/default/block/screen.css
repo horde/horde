@@ -2,6 +2,9 @@
     display: block;
 }
 
+#portal .horde-content {
+    padding: 5px;
+}
 table.horde-block-weather {
     border: 1px solid transparent;
     border-collapse: collapse;
