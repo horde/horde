@@ -515,7 +515,15 @@ class IMP_Application extends Horde_Registry_Application
                 ? reset($mlist)
                 : $mlist;
 
-            if ($vars->zip) {
+            switch ($vars->type) {
+            case 'mbox':
+                return array(
+                    'data' => $mbox,
+                    'name' => $name . '.mbox',
+                    'type' => 'text/plain; charset=UTF-8'
+                );
+
+            case 'mboxzip':
                 try {
                     $data = Horde_Compress::factory('Zip')->compress(array(
                         array(
@@ -537,12 +545,7 @@ class IMP_Application extends Horde_Registry_Application
                     'type' => 'application/zip'
                 );
             }
-
-            return array(
-                'data' => $mbox,
-                'name' => $name . '.mbox',
-                'type' => 'text/plain; charset=UTF-8'
-            );
+            break;
 
         case 'download_render':
             $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());

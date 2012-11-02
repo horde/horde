@@ -120,7 +120,7 @@ case 'download_mbox_zip':
     $registry->downloadUrl('mbox', array(
         'actionID' => 'download_mbox',
         'mbox_list' => $vars->mbox_list,
-        'zip' => intval($vars->actionID == 'download_mbox_zip')
+        'type' => ($vars->actionID == 'download_mbox') ? 'mbox' : 'mboxzip'
     ))->redirect();
     exit;
 

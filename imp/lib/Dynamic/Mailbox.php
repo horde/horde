@@ -161,6 +161,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
             // Other variables
             'acl' => $acl,
+            'download_types' => array(
+                'mbox' => _("Download into a MBOX file"),
+                'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
+            ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
             'fixed_mboxes' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -375,11 +379,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        $context['ctx_mbox_exportopts'] = array(
-            '*mbox' => _("Mbox"),
-            '*zip' => _("Zip")
-        );
-
         if (!$prefs->getValue('subscribe')) {
             unset($context['ctx_mbox']['sub'], $context['ctx_mbox']['unsub']);
         }
@@ -475,7 +474,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'createsub_prompt' => _("Create subfolder of %s:"),
             'delete_mbox' => _("Permanently delete %s?"),
             'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
-            'download_mbox' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
+            'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
             'import_mbox' => _("Mbox or .eml file:"),

@@ -1021,6 +1021,12 @@ span.readonlyImg {
     background-image: url("../graphics/forwarded.png");
 }
 
+/* Dialog */
+#dimpbase_confirm select {
+    display: block;
+    margin: 2px 0;
+}
+
 @media print {
     /* Hide UI elements when printing message in popup window. */
     div.dimpActionsMsg,
