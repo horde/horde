@@ -93,12 +93,12 @@ class Horde_Imap_Client_Socket_ClientSort
      * If server does not support the THREAD IMAP extension (RFC 5256), do
      * ORDEREDSUBJECT threading on the client side.
      *
-     * @param Horde_Imap_Client_Data_Fetch $data  Fetch results.
-     * @param boolean $uids                       Are IDs UIDs?
+     * @param Horde_Imap_Client_Fetch_Results $data  Fetch results.
+     * @param boolean $uids                          Are IDs UIDs?
      *
      * @return array  The thread sort results.
      */
-    public function threadOrderedSubject(Horde_Imap_Client_Data_Fetch $data,
+    public function threadOrderedSubject(Horde_Imap_Client_Fetch_Results $data,
                                          $uids)
     {
         $dates = $this->_getSentDates($data, $data->ids());
@@ -275,14 +275,17 @@ class Horde_Imap_Client_Socket_ClientSort
      * Get the sent dates for purposes of SORT/THREAD sorting under RFC 5256
      * [2.2].
      *
-     * @param array $data        Data returned from fetch() that includes both
-     *                           the 'envelope' and 'date' items.
-     * @param array $ids         The IDs to process.
-     * @param boolean $internal  Only use internal date?
+     * @param Horde_Imap_Client_Fetch_Results $data  Data returned from
+     *                                               fetch() that includes
+     *                                               both date and envelope
+     *                                               items.
+     * @param array $ids                             The IDs to process.
+     * @param boolean $internal                      Only use internal date?
      *
      * @return array  A mapping of IDs -> UNIX timestamps.
      */
-    protected function _getSentDates($data, $ids, $internal = false)
+    protected function _getSentDates(Horde_Imap_Client_Fetch_Results $data,
+                                     $ids, $internal = false)
     {
         $dates = array();
 
