@@ -1000,12 +1000,9 @@ var DimpBase = {
             break;
 
         case 'ctx_container_search':
-        case 'ctx_container_searchsub':
         case 'ctx_mbox_search':
-        case 'ctx_mbox_searchsub':
             this.go('search', {
-                mailbox: this.contextMbox(e).retrieve('mbox'),
-                subfolder: Number(id.endsWith('searchsub'))
+                mailbox: this.contextMbox(e).retrieve('mbox')
             });
             break;
 

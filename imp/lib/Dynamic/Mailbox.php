@@ -229,7 +229,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'delete' => _("Delete subfolders"),
                 '_sep2' => null,
                 'search' => _("Search"),
-                'searchsub' => _("Search All Subfolders"),
                 '_sep3' => null,
                 'expand' => _("Expand All"),
                 'collapse' => _("Collapse All")
@@ -364,7 +363,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'unsub' => _("Unsubscribe"),
             '_sep4' => null,
             'search' => _("Search"),
-            'searchsub' => _("Search All Subfolders"),
             '_sub1' => array(
                 '_sep5' => null,
                 'expand' => _("Expand All"),
