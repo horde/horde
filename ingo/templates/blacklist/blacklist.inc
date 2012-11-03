@@ -6,14 +6,18 @@
  <?php echo _("Blacklist") ?>
  <?php echo Horde_Help::link('ingo', 'blacklist') ?>
 <?php if (!empty($bl_rule['disable'])): ?>
-  &nbsp;[<span style="color:red"><?php echo _("Disabled") ?></span>]
+ [<span style="color:red"><?php echo _("Disabled") ?></span>]
 <?php endif; ?>
 </h1>
 
-<table width="100%" cellspacing="0">
-  <tr class="rowEven">
-    <td>
-      <?php echo _("Action for blacklisted addresses:") ?><br />
+<table>
+  <tr>
+    <td colspan="2">
+      <em><?php echo _("Action for blacklisted addresses:") ?></em>
+    </td>
+   </tr>
+   <tr>
+     <td>
       <input type="radio" name="action" id="action_delete" value="delete" <?php if (empty($blacklist_folder)) echo 'checked="checked" ' ?>/> <?php echo Horde::label('action_delete', _("_Delete message completely")) ?><br />
 <?php if ($flagonly): ?>
       <input type="radio" name="action" id="action_mark" value="mark" <?php if ($blacklist_folder == Ingo::BLACKLIST_MARKER) echo 'checked="checked" ' ?>/> <?php echo Horde::label('action_mark', _("Mar_k message as deleted")) ?><br />
@@ -22,22 +26,26 @@
       <label for="actionvalue" class="hidden"><?php echo _("Select target folder") ?></label>
       <?php echo $folder_list ?>
     </td>
-    <td width="40" align="right">
-      <?php echo Horde_Help::link('ingo', 'blacklist-action') ?>&nbsp;
+    <td>
+      <?php echo Horde_Help::link('ingo', 'blacklist-action') ?>
     </td>
   </tr>
-  <tr class="rowOdd">
-    <td align="left">
-      <?php echo Horde::label('blacklist', _("_Enter each address on a new line:")) ?><br />
+  <tr>
+    <td colspan="2">
+      <em><?php echo Horde::label('blacklist', _("_Enter each address on a new line:")) ?></em>
+    </td>
+  </tr>
+  <tr>
+    <td>
       <textarea name="blacklist" id="blacklist" rows="15" cols="80"><?php echo htmlspecialchars(implode("\n", $blacklist->getBlacklist())) ?></textarea>
     </td>
-    <td width="40" align="right">
-      <?php echo Horde_Help::link('ingo', 'blacklist-addresses') ?>&nbsp;
+    <td>
+      <?php echo Horde_Help::link('ingo', 'blacklist-addresses') ?>
     </td>
   </tr>
   <tr>
     <td class="control" colspan="2">
-      <input class="horde-default" type="submit" value="&nbsp;<?php echo _("Save") ?>&nbsp;" />
+      <input class="horde-default" type="submit" value="<?php echo _("Save") ?>" />
       <input type="button" onclick="document.location.href='<?php echo Horde::url('filters.php', true) ?>'" value="<?php echo _("Return to Rules List") ?>" />
     </td>
   </tr>

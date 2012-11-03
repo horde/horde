@@ -1,3 +1,17 @@
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table.scriptHeader {
+    width: auto;
+}
+
+.caseSensitive {
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
 .striped tr td:first-child {
     padding-right: 8px;
 }

@@ -342,7 +342,7 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
     switch ($testOb->type) {
     case 'text':
         if ($ingo_script->caseSensitive()) {
-            $match_value .= '<input type="checkbox" id="case_' . (int)$cond_num . '" name="case[' . (int)$cond_num . ']" value="1" ' .
+            $match_value .= '<input class="caseSensitive" type="checkbox" id="case_' . (int)$cond_num . '" name="case[' . (int)$cond_num . ']" value="1" ' .
                 ((isset($condition['case']) && $condition['case']) ? 'checked="checked" ' : '') .
                 '/> ' . Horde::label('case_' . (int)$cond_num, _("Case Sensitive"));
         }

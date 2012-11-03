@@ -1,6 +1,6 @@
   <tr>
     <td align="center">
-      <table>
+      <table class="scriptHeader">
         <tr>
 <?php if ($actionID != 'show_active'): ?>
           <td>
