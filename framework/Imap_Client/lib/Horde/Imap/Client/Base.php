@@ -324,6 +324,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
+     * This object can not be cloned.
+     */
+    public function __clone()
+    {
+        throw new LogicException('Object cannot be cloned.');
+    }
+
+    /**
      */
     public function serialize()
     {
