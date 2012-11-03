@@ -2584,19 +2584,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (count($crit)) {
                 $sig = $crit->hash();
                 if (isset($new_query[$sig])) {
-                    $new_query[$sig]['i']->add($entry_idx);
+                    $new_query[$sig]['i'][] = $entry_idx;
                 } else {
                     $new_query[$sig] = array(
                         'c' => $crit,
-                        'i' => $this->getIdsOb($entry_idx, $options['ids']->sequence)
+                        'i' => array($entry_idx)
                     );
                 }
             }
         }
 
         foreach ($new_query as $val) {
+            $ids_ob = $this->getIdsOb(null, $options['ids']->sequence);
+            $ids_ob->duplicates = true;
+            $ids_ob->add($val['i']);
             $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
-                'ids' => $val['i']
+                'ids' => $ids_ob
             )));
         }
 
