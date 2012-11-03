@@ -922,8 +922,8 @@ var Enumerable = (function() {
   }
 
   function include(object) {
-    if (Object.isFunction(this.indexOf))
-      if (this.indexOf(object) != -1) return true;
+    if (Object.isFunction(this.indexOf) && this.indexOf(object) != -1)
+      return true;
 
     var found = false;
     this.each(function(value) {
@@ -1467,7 +1467,7 @@ var Hash = Class.create(Enumerable, (function() {
   function toQueryPair(key, value) {
     if (Object.isUndefined(value)) return key;
 
-    var value = String.interpret(value);
+    value = String.interpret(value);
 
     value = value.gsub(/(\r)?\n/, '\r\n');
     value = encodeURIComponent(value);
@@ -2787,7 +2787,7 @@ Ajax.PeriodicalUpdater = Class.create(Ajax.Base, {
       name = table.names[attr] || attr;
       value = attributes[attr];
       if (table.values[attr])
-        name = table.values[attr](element, value);
+        name = table.values[attr](element, value) || name;
       if (value === false || value === null)
         element.removeAttribute(name);
       else if (value === true)
