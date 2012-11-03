@@ -3216,11 +3216,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Ignore mailbox argument -> index 1
         $curr = $data->next();
 
-        do {
+        while ($curr !== false) {
             $acl[$curr] = ($curr[0] == '-')
                 ? new Horde_Imap_Client_Data_AclNegative($data->next())
                 : new Horde_Imap_Client_Data_Acl($data->next());
-        } while (($curr = $data->next()) !== false);
+            $curr = $data->next();
+        }
     }
 
     /**

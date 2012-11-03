@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix parsing empty ACL responses.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1232,7 +1232,7 @@
    <date>2012-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix parsing empty ACL responses.
    </notes>
   </release>
  </changelog>
