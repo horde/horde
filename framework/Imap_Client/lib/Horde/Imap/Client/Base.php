@@ -301,6 +301,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _initOb()
     {
+        register_shutdown_function(array($this, 'shutdown'));
         $this->_debug = empty($this->_params['debug'])
             ? new Horde_Support_Stub()
             : new Horde_Imap_Client_Base_Debug($this->_params['debug']);
@@ -310,6 +311,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Destructor.
      */
     public function __destruct()
+    {
+        $this->shutdown();
+    }
+
+    /**
+     * Shutdown actions.
+     */
+    public function shutdown()
     {
         $this->logout();
     }
