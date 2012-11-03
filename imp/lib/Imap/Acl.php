@@ -53,12 +53,27 @@ class IMP_Imap_Acl
     {
         try {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-            return $user
-                ? $imp_imap->getMyACLRights($mbox)
-                : $imp_imap->getACL($mbox);
+            if ($user) {
+                $ret = $imp_imap->getMyACLRights($mbox);
+            } else {
+                $ret = $imp_imap->getACL($mbox);
+                $user = $imp_imap->getParam('username');
+                if (!isset($ret[$user]) &&
+                    ($acl = $this->getACL($mbox, true))) {
+                    $ret[$user] = $acl;
+                }
+            }
         } catch (IMP_Imap_Exception $e) {
-            throw new IMP_Exception(_("Could not retrieve ACL"));
+            switch ($e->getCode()) {
+            case $e::NOPERM:
+                throw new IMP_Exception(_("You do not have permission to view the ACLs on this mailbox."));
+
+            default:
+                throw new IMP_Exception(_("Could not retrieve ACL."));
+            }
         }
+
+        return $ret;
     }
 
     /**

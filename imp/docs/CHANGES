@@ -2,6 +2,8 @@
 v6.0.1-git
 ----------
 
+[mms] Correctly show ACL entry for current user even if ACL response for
+      mailbox is empty.
 [mms] Correctly remove unseen information from folder tree in dynamic mailbox
       view when mailbox is marked as not polled for new mail.
 [mms] Fix expanding folder list in dynamic view when opening a mailbox and
