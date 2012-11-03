@@ -1026,7 +1026,6 @@ var DimpBase = {
             break;
 
         case 'ctx_forward_editasnew':
-        case 'ctx_message_editasnew':
         case 'ctx_message_template':
         case 'ctx_message_template_edit':
             this.composeMailbox(id.substring(12));
@@ -1336,20 +1335,17 @@ var DimpBase = {
             if (sel.size() == 1) {
                 if (this.viewport.getMetaData('templates')) {
                     $('ctx_message_resume').hide().up().show();
-                    $('ctx_message_editasnew').hide();
                     $('ctx_message_template', 'ctx_message_template_edit').invoke('show');
                 } else if (this.isDraft(sel)) {
                     $('ctx_message_template', 'ctx_message_template_edit').invoke('hide');
-                    $('ctx_message_editasnew').show();
                     $('ctx_message_resume').show().up('DIV').show();
                 } else {
-                    $('ctx_message_editasnew').show();
                     $('ctx_message_resume').up('DIV').hide();
                 }
                 [ $('ctx_message_unsetflag') ].compact().invoke('hide');
             } else {
                 $('ctx_message_resume').up('DIV').hide();
-                $('ctx_message_editasnew', 'ctx_message_unsetflag').compact().invoke('show');
+                [ $('ctx_message_unsetflag') ].compact().invoke('show');
             }
             break;
 

@@ -299,7 +299,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'reply' => _("Reply"),
             'forward' => _("Forward"),
-            'editasnew' => _("Edit as New"),
             '_sub2' => array(
                 '_sep1' => null,
                 'setflag' => _("Mark as") . '...',
