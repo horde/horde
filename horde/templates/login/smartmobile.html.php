@@ -1,8 +1,4 @@
 <div id="login" data-role="page" data-theme="a">
- <div data-role="header" data-nobackbtn="true">
-  <h1><?php echo $this->h($this->title) ?></h1>
- </div>
-
  <div data-role="content">
   <form action="<?php echo $this->loginurl ?>" method="post" data-ajax="false">
    <input type="hidden" name="anchor_string" value="<?php echo $this->h($this->anchor) ?>" />
