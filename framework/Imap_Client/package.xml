@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-02</date>
- <time>20:37:23</time>
+ <time>20:37:48</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,14 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Split debugging code from Base driver into separate object.
-* [mms] Fix double encoding of non-ASCII elements in listMailboxes() (Bug #11608).
-* [mms] Fix regression for non-cached Socket objects (Bug #11605).
-* [mms] Improved handling of server write errors in the Socket driver.
-* [mms] Add support for IMAP MOVE command.
-* [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
-* [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
-* [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1214,6 +1207,19 @@
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
 * [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
