@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-03</date>
- <time>01:08:19</time>
+ <time>01:08:41</time>
  <version>
-  <release>2.1.1</release>
+  <release>2.1.2</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Massive performance increase for cached FETCH queries.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1220,6 +1220,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Massive performance increase for cached FETCH queries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
