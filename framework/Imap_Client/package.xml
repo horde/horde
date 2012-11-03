@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-02</date>
- <time>20:37:48</time>
+ <date>2012-11-03</date>
+ <time>01:08:19</time>
  <version>
   <release>2.1.1</release>
   <api>2.1.0</api>
@@ -1216,7 +1216,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-02</date>
+   <date>2012-11-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Massive performance increase for cached FETCH queries.
