@@ -2997,7 +2997,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if (!empty($options['replace'])) {
             $cmd->add(array(
-                'FLAGS' . ($this->_debug ? '' : '.SILENT'),
+                'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
                 $options['replace']
             ));
             $cmds[] = $cmd;
@@ -3006,7 +3006,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!empty($options[$k])) {
                     $cmdtmp = clone $cmd;
                     $cmdtmp->add(array(
-                        $v . 'FLAGS' . ($this->_debug ? '' : '.SILENT'),
+                        $v . 'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
                         $options[$k]
                     ));
                     $cmds[] = $cmdtmp;
@@ -3022,7 +3022,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * and non-SILENT behavior, most likely means that messages
                  * messages were expunged. RFC 2180 [4.2] */
                 if (!empty($options['sequence']) &&
-                    !$this->_debug &&
+                    !$this->_debug->debug &&
                     ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
                     $this->_temp['expungeissued'] = true;
                 }
@@ -3582,22 +3582,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         try {
-            $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
+            $this->_debug->client('', false);
 
             $this->_processSendList($data, $opts);
 
             if (!empty($opts['debug'])) {
-                $this->writeDebug($opts['debug']);
+                $this->_debug->raw($opts['debug']);
             }
 
             $this->_writeStream('', array('eol' => true));
         } catch (Horde_Imap_Client_Exception $e) {
             switch ($e->getCode()) {
-            case Horde_Imap_Client_Exception::NOT_SUPPORTED:
-                /* Flush debug log. */
-                $this->writeDebug("\n");
-                break;
-
             case Horde_Imap_Client_Exception::SERVER_WRITEERROR:
                 $this->_temp['logout'] = true;
                 $this->logout();
@@ -3684,7 +3679,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                         $ob = $this->_getLine();
                         if (!($ob instanceof Horde_Imap_Client_Interaction_Server_Continuation)) {
-                            $this->writeDebug("ERROR: Unexpected response from server while waiting for a continuation request.\n", Horde_Imap_Client::DEBUG_INFO);
+                            $this->_debug->info("ERROR: Unexpected response from server while waiting for a continuation request.");
                             $e = new Horde_Imap_Client_Exception(
                                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
                                 Horde_Imap_Client_Exception::SERVER_READERROR
@@ -3756,24 +3751,24 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             );
         }
 
-        if (!empty($opts['nodebug']) || !$this->_debug) {
+        if (!empty($opts['nodebug']) || !$this->_debug->debug) {
             return;
         }
 
         if (isset($opts['literal']) &&
             empty($this->_params['debug_literal'])) {
-            $this->writeDebug('[' . (empty($opts['binary']) ? 'LITERAL' : 'BINARY') . ' DATA: ' . $opts['literal'] . ' bytes]' . "\n", Horde_Imap_Client::DEBUG_CLIENT);
+            $this->_debug->client('[' . (empty($opts['binary']) ? 'LITERAL' : 'BINARY') . ' DATA: ' . $opts['literal'] . ' bytes]');
         } elseif (is_resource($data)) {
             rewind($data);
             while (!feof($data)) {
-                $this->writeDebug(fread($data, 8192));
+                $this->_debug->raw(fread($data, 8192));
             }
         } else {
-            $this->writeDebug($data . (empty($opts['eol']) ? '' : "\n"));
+            $this->_debug->raw($data . (empty($opts['eol']) ? '' : "\n"));
         }
 
         if (isset($opts['literal'])) {
-            $this->writeDebug('', Horde_Imap_Client::DEBUG_CLIENT);
+            $this->_debug->client('', false);
         }
     }
 
@@ -3891,7 +3886,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (feof($this->_stream)) {
                 $this->_temp['logout'] = true;
                 $this->logout();
-                $this->writeDebug("ERROR: Server closed the connection.\n", Horde_Imap_Client::DEBUG_INFO);
+                $this->_debug->info("ERROR: Server closed the connection.");
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Mail server closed the connection unexpectedly."),
                     Horde_Imap_Client_Exception::DISCONNECT
@@ -3899,23 +3894,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             if (is_null($literal_len)) {
-                $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
+                $this->_debug->server('', false);
 
                 while (($in = fgets($this->_stream)) !== false) {
                     $got_data = true;
 
                     if (substr($in, -1) == "\n") {
                         $in = rtrim($in);
-                        if ($this->_debug) {
-                            $this->writeDebug($in . "\n");
-                        }
+                        $this->_debug->raw($in . "\n");
                         $token->add($in);
                         break;
                     }
 
-                    if ($this->_debug) {
-                        $this->writeDebug($in);
-                    }
+                    $this->_debug->raw($in);
                     $token->add($in);
                 }
 
@@ -3938,17 +3929,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
             }
 
-            $debug_literal = ($this->_debug &&
+            $debug_literal = ($this->_debug->debug &&
                               !empty($this->_params['debug_literal']));
             $old_len = $literal_len;
 
-            $this->writeDebug('', Horde_Imap_Client::DEBUG_SERVER);
+            $this->_debug->server('', false);
 
             while ($literal_len && !feof($this->_stream)) {
                 $in = fread($this->_stream, min($literal_len, 8192));
                 $token->add($in);
                 if ($debug_literal) {
-                    $this->writeDebug($in);
+                    $this->_debug->raw($in);
                 }
 
                 $got_data = true;
@@ -3963,12 +3954,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $literal_len = null;
 
             if (!$debug_literal) {
-                $this->writeDebug('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $old_len . ' bytes]' . "\n");
+                $this->_debug->raw('[' . ($binary ? 'BINARY' : 'LITERAL') . ' DATA: ' . $old_len . ' bytes]' . "\n");
             }
         } while (true);
 
         if (!$got_data) {
-            $this->writeDebug("ERROR: IMAP read/timeout error.\n", Horde_Imap_Client::DEBUG_INFO);
+            $this->_debug->info("ERROR: IMAP read/timeout error.");
             $this->logout();
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error when communicating with the mail server."),
@@ -4436,7 +4427,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'CLIENTBUG':
         case 'CANNOT':
             // Defined by RFC 5530 [3]
-            $this->writeDebug("ERROR: mail server explicitly reporting an error.\n", Horde_Imap_Client::DEBUG_INFO);
+            $this->_debug->info("ERROR: mail server explicitly reporting an error.");
             break;
 
         case 'LIMIT':

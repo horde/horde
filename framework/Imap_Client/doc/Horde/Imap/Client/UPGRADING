@@ -16,6 +16,15 @@ Upgrading to 2.1.0
 
 The Horde_Imap_Client_Ids_Map class has been added.
 
+  - Horde_Imap_Cache
+
+    The following config options have changed:
+
+      - debug
+
+        Now requires a Horde_Imap_Client_Base_Debug object. The previous
+        'true' value will be ignored.
+
 
 Upgrading to 2.0.0
 ==================
