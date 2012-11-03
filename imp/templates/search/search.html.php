@@ -25,7 +25,7 @@
   </select>
  </div>
 
- <div class="smallheader leftAlign">
+ <div class="control smallheader leftAlign">
   <?php echo _("Search Criteria") ?>
  </div>
 
@@ -55,7 +55,7 @@
  </div>
 
 <?php if (!$this->edit_query_filter): ?>
- <div class="smallheader leftAlign">
+ <div class="control smallheader leftAlign">
   <?php echo _("Search Mailboxes") ?>
  </div>
 
@@ -74,7 +74,7 @@
  </div>
 <?php endif; ?>
 
- <div class="smallheader leftAlign">
+ <div class="control smallheader leftAlign">
   <?php echo _("Save Search") ?>
  </div>
 
@@ -101,7 +101,7 @@
   </div>
  </div>
 
- <div class="searchuiButtons">
+ <div class="control">
 <?php if ($this->edit_query): ?>
   <input type="button" id="search_submit" class="horde-default" value="<?php echo _("Save") ?>" />
   <input type="button" id="search_edit_query_cancel" class="horde-cancel" value="<?php echo _("Cancel") ?>" />

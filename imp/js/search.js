@@ -117,9 +117,9 @@ var ImpSearch = {
         }
     },
 
-    getCriteriaLabel: function(id)
+    getCriteriaLabel: function(id, nocolon)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + ': ';
+        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + (nocolon ? ' ' : ': ');
     },
 
     deleteCriteria: function(div)
@@ -214,7 +214,7 @@ var ImpSearch = {
             new Element('EM').insert(this.text.customhdr),
             new Element('INPUT', { type: 'text', size: 25 }).setValue(text.h),
             new Element('SPAN').insert(new Element('EM').insert(this.text.search_term + ' ')).insert(new Element('INPUT', { type: 'text', size: 25 }).setValue(text.s)),
-            new Element('SPAN').insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: 'customhdr' };
         tmp[1].activate();
@@ -299,8 +299,8 @@ var ImpSearch = {
     insertFilter: function(id, not)
     {
         var tmp = [
-            new Element('EM').insert(this.getCriteriaLabel(id)),
-            new Element('SPAN').insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
+            new Element('EM').insert(this.getCriteriaLabel(id, true)),
+            new Element('SPAN', { className: 'notMatch' }).insert(new Element('INPUT', { className: 'checkbox', type: 'checkbox' }).setValue(not)).insert(this.text.not_match)
         ];
         this.criteria[this.insertCriteria(tmp)] = { t: id };
     },
