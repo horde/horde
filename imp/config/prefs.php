@@ -294,7 +294,7 @@ $prefGroups['events'] = array(
 $_prefs['conflict_interval'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+    'desc' => _("Minutes needed to consider a event as non-conflicting in iTip")
 );
 
 
@@ -355,7 +355,7 @@ $_prefs['pgp_scan_body'] = array(
 $_prefs['pgp_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
+    'desc' => _("Should PGP signed messages be automatically verified when viewed?"),
     'help' => 'pgp-option-verify',
     'requires' => array('use_pgp')
 );
@@ -432,7 +432,7 @@ $_prefs['use_smime_text'] = array(
 $_prefs['smime_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
+    'desc' => _("Should S/MIME signed messages be automatically verified when viewed?"),
     'help' => 'smime-option-verify',
     'requires' => array('use_smime')
 );
