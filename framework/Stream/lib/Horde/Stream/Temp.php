@@ -25,11 +25,6 @@ class Horde_Stream_Temp extends Horde_Stream
      */
     public function __construct(array $opts = array())
     {
-        $opts = array_merge(array(
-            // 2 MB is the PHP default
-            'max_memory' => 2097152
-        ), $opts);
-
         parent::__construct($opts);
     }
 
@@ -38,7 +33,12 @@ class Horde_Stream_Temp extends Horde_Stream
      */
     protected function _init()
     {
-        if (($this->stream = @fopen('php://temp/maxmemory:' . $opts['max_memory'], 'r+')) === false) {
+        $cmd = 'php://temp';
+        if (isset($opts['max_memory'])) {
+            $cmd .= '/maxmemory:' . intval($opts['max_memory']);
+        }
+
+        if (($this->stream = @fopen($cmd, 'r+')) === false) {
             throw new Horde_Stream_Exception('Failed to open temporary memory stream.');
         }
     }

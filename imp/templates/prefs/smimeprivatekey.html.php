@@ -1,7 +1,7 @@
 <div class="prefsSmimeContainer">
  <div class="prefsSmimeHeader">
   <h3>
-   <?php echo _("Your S/MIME Public/Private Certificate") ?>
+   <?php echo _("Your S/MIME Personal Certificate") ?>
    <?php echo $this->hordeHelp('imp', 'smime-overview-personalkey') ?>
   </h3>
  </div>
@@ -39,6 +39,9 @@
   <?php echo $this->hordeHelp('imp', 'smime-delete-personal-certs') ?>
  </p>
 <?php elseif ($this->import): ?>
+ <div>
+  <em><?php echo _("No personal certificate") ?></em>
+ </div>
  <div>
   <p>
    <input type="submit" name="save" class="horde-default" id="import_smime_personal" value="<?php echo _("Import Personal Certificate") ?>" />

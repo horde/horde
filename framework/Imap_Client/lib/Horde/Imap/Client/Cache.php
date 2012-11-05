@@ -41,6 +41,13 @@ class Horde_Imap_Client_Cache
     protected $_data = array();
 
     /**
+     * Debug output.
+     *
+     * @var Horde_Imap_Client_Base_Debug
+     */
+    protected $_debug;
+
+    /**
      * The list of cache slices loaded.
      *
      * @var array
@@ -91,7 +98,7 @@ class Horde_Imap_Client_Cache
      *   Optional Parameters:
      *   <ul>
      *    <li>
-     *     debug: (boolean) If true, will output debug information.
+     *     debug: (Horde_Imap_Client_Base_Debug) Debug object.
      *            DEFAULT: No debug output
      *    </li>
      *    <li>
@@ -117,7 +124,6 @@ class Horde_Imap_Client_Cache
 
         // Default parameters.
         $params = array_merge(array(
-            'debug' => false,
             'lifetime' => 604800,
             'slicesize' => 50
         ), array_filter($params));
@@ -131,7 +137,10 @@ class Horde_Imap_Client_Cache
 
         $this->_cache = $params['cacheob'];
 
-        $this->_params['debug'] = (bool)$params['debug'];
+        $this->_debug = (isset($params['debug']) && ($params['debug'] instanceof Horde_Imap_Client_Base_Debug))
+            ? $params['debug']
+            : false;
+
         $this->_params['lifetime'] = intval($params['lifetime']);
         $this->_params['slicesize'] = intval($params['slicesize']);
 
@@ -255,8 +264,8 @@ class Horde_Imap_Client_Cache
                 : array_intersect_key($ptr[$val], $fields);
         }
 
-        if ($this->_params['debug'] && !empty($ret)) {
-            $this->_base->writeDebug('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb(array_keys($ret))->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
+        if ($this->_debug && !empty($ret)) {
+            $this->_debug->info('CACHE: Retrieved messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb(array_keys($ret))->tostring_sort . ")");
         }
 
         return $ret;
@@ -313,8 +322,8 @@ class Horde_Imap_Client_Cache
         $this->_toUpdate($mailbox, 'add', $add);
         $this->_toUpdate($mailbox, 'slice', array_keys($updated));
 
-        if ($this->_params['debug']) {
-            $this->_base->writeDebug('CACHE: Stored messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb($update)->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
+        if ($this->_debug) {
+            $this->_debug->info('CACHE: Stored messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb($update)->tostring_sort . ")");
         }
     }
 
@@ -364,8 +373,8 @@ class Horde_Imap_Client_Cache
         $this->_slicemap[$mailbox]['d'] = array_merge($this->_slicemap[$mailbox]['d'], $data);
         $this->_toUpdate($mailbox, 'slicemap', true);
 
-        if ($this->_params['debug']) {
-            $this->_base->writeDebug('CACHE: Stored metadata (mailbox: ' . $mailbox . '; Keys: ' . implode(',', array_keys($data)) . ")\n", Horde_Imap_Client::DEBUG_INFO);
+        if ($this->_debug) {
+            $this->_debug->info('CACHE: Stored metadata (mailbox: ' . $mailbox . '; Keys: ' . implode(',', array_keys($data)) . ")");
         }
     }
 
@@ -410,8 +419,8 @@ class Horde_Imap_Client_Cache
                 }
             }
 
-            if ($this->_params['debug']) {
-                $this->_base->writeDebug('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb(array_keys($update))->tostring_sort . ")\n", Horde_Imap_Client::DEBUG_INFO);
+            if ($this->_debug) {
+                $this->_debug->info('CACHE: Deleted messages (mailbox: ' . $mailbox . '; UIDs: ' . $this->_base->getIdsOb(array_keys($update))->tostring_sort . ")");
             }
         }
     }
@@ -447,8 +456,8 @@ class Horde_Imap_Client_Cache
             $this->_update[$mbox]
         );
 
-        if ($this->_params['debug']) {
-            $this->_base->writeDebug('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")\n", Horde_Imap_Client::DEBUG_INFO);
+        if ($this->_debug) {
+            $this->_debug->info('CACHE: Deleted mailbox (mailbox: ' . $mbox . ")");
         }
     }
 

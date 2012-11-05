@@ -1,4 +1,4 @@
-<table width="100%" cellspacing="0">
+<table>
   <tr>
     <td class="item">
       <pre>

@@ -51,9 +51,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
     protected $_cache = null;
 
     /**
-     * The debug stream.
+     * The debug object.
      *
-     * @var resource
+     * @var Horde_Imap_Client_Base_Debug
      */
     protected $_debug = null;
 
@@ -301,11 +301,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _initOb()
     {
-        if (!empty($this->_params['debug'])) {
-            $this->_debug = is_resource($this->_params['debug'])
-                ? $this->_params['debug']
-                :  @fopen($this->_params['debug'], 'a');
-        }
+        register_shutdown_function(array($this, 'shutdown'));
+        $this->_debug = empty($this->_params['debug'])
+            ? new Horde_Support_Stub()
+            : new Horde_Imap_Client_Base_Debug($this->_params['debug']);
     }
 
     /**
@@ -313,14 +312,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function __destruct()
     {
-        $this->logout();
+        $this->shutdown();
+    }
 
-        /* Close debugging output. */
-        if (is_resource($this->_debug)) {
-            fflush($this->_debug);
-            fclose($this->_debug);
-            $this->_debug = null;
-        }
+    /**
+     * Shutdown actions.
+     */
+    public function shutdown()
+    {
+        $this->logout();
+    }
+
+    /**
+     * This object can not be cloned.
+     */
+    public function __clone()
+    {
+        throw new LogicException('Object cannot be cloned.');
     }
 
     /**
@@ -371,9 +379,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
             switch ($key) {
             case 'capability':
                 if (!empty($this->_params['capability_ignore'])) {
-                    if ($this->_debug &&
+                    if ($this->_debug->debug &&
                         ($ignored = array_intersect_key($val, array_flip($this->_params['capability_ignore'])))) {
-                        $this->writeDebug(sprintf("IGNORING these IMAP capabilities: %s\n", implode(', ', array_keys($ignored))), Horde_Imap_Client::DEBUG_INFO);
+                        $this->_debug->info(sprintf("CONFIG: IGNORING these IMAP capabilities: %s", implode(', ', array_keys($ignored))));
                     }
 
                     $val = array_diff_key($val, array_flip($this->_params['capability_ignore']));
@@ -421,7 +429,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             try {
                 $this->_cache = new Horde_Imap_Client_Cache(array_merge($this->getParam('cache'), array(
                     'baseob' => $this,
-                    'debug' => (bool)$this->_debug
+                    'debug' => $this->_debug
                 )));
             } catch (InvalidArgumentException $e) {
                 return false;
@@ -2539,7 +2547,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
                     foreach ($header_cache as $hkey => $hval) {
                         if (isset($data[$uid][$cid][$hval])) {
                             /* We have found a cached entry with the same
-                             * ND5 sum. */
+                             * MD5 sum. */
                             $entry->setHeaders($hkey, $data[$uid][$cid][$hval]);
                             $crit->remove($key, $hkey);
                         } else {
@@ -2576,19 +2584,22 @@ abstract class Horde_Imap_Client_Base implements Serializable
             if (count($crit)) {
                 $sig = $crit->hash();
                 if (isset($new_query[$sig])) {
-                    $new_query[$sig]['i']->add($entry_idx);
+                    $new_query[$sig]['i'][] = $entry_idx;
                 } else {
                     $new_query[$sig] = array(
                         'c' => $crit,
-                        'i' => $this->getIdsOb($entry_idx, $options['ids']->sequence)
+                        'i' => array($entry_idx)
                     );
                 }
             }
         }
 
         foreach ($new_query as $val) {
+            $ids_ob = $this->getIdsOb(null, $options['ids']->sequence);
+            $ids_ob->duplicates = true;
+            $ids_ob->add($val['i']);
             $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
-                'ids' => $val['i']
+                'ids' => $ids_ob
             )));
         }
 
@@ -3435,64 +3446,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         return $this->_init['s_charset'][$charset];
     }
 
-    /**
-     * Output debug information.
-     *
-     * @param string $msg    Debug line.
-     * @param string $type   The message type. One of the following:
-     *   - Horde_Imap_Client::DEBUG_RAW: None (output raw message)
-     *   - Horde_Imap_Client::DEBUG_CLIENT: Client command
-     *   - Horde_Imap_Client::DEBUG_INFO: Informational message
-     *   - Horde_Imap_Client::DEBUG_SERVER: Server command
-     */
-    public function writeDebug($msg, $type = Horde_Imap_Client::DEBUG_RAW)
-    {
-        if (!$this->_debug) {
-            return;
-        }
-
-        $pre = '';
-
-        if ($type) {
-            $new_time = microtime(true);
-            if (isset($this->_temp['debug_time'])) {
-                if (($diff = ($new_time - $this->_temp['debug_time'])) > Horde_Imap_Client::SLOW_COMMAND) {
-                    fwrite($this->_debug, '>> Slow IMAP Command: ' . round($diff, 3) . " seconds\n");
-                }
-            } else {
-                fwrite(
-                    $this->_debug,
-                    str_repeat('-', 30) . "\n" . '>> Timestamp: ' . date('r') . "\n"
-                );
-            }
-
-            $this->_temp['debug_time'] = $new_time;
-
-            switch ($type) {
-            case Horde_Imap_Client::DEBUG_CLIENT:
-                $pre .= 'C: ';
-                break;
-
-            case Horde_Imap_Client::DEBUG_INFO:
-                $pre .= '>> ';
-                break;
-
-            case Horde_Imap_Client::DEBUG_SERVER:
-                $pre .= 'S: ';
-                break;
-            }
-        } elseif (isset($this->_temp['debug_buffer'])) {
-            $pre = $this->_temp['debug_buffer'];
-        }
-
-        if (substr($msg, -1) == "\n") {
-            fwrite($this->_debug, $pre . $msg);
-            unset($this->_temp['debug_buffer']);
-        } else {
-            $this->_temp['debug_buffer'] = $pre . $msg;
-        }
-    }
-
     /* Private utility functions. */
 
     /**
@@ -3511,7 +3464,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array(strval($this->_selected), $this->_params['cache']['fetch_ignore'])) {
-            $this->writeDebug(sprintf("IGNORING cached FETCH data (mailbox: %s)\n", $this->_selected), Horde_Imap_Client::DEBUG_INFO);
+            $this->_debug->info(sprintf("CACHE: Ignoring FETCH data (mailbox: %s)", $this->_selected));
             return;
         }
 
@@ -3606,7 +3559,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         if (in_array(strval($to), $this->_params['cache']['fetch_ignore'])) {
-            $this->writeDebug(sprintf("IGNORING moving cached FETCH data (%s => %s)\n", $this->_selected, $to), Horde_Imap_Client::DEBUG_INFO);
+            $this->_debug->info(sprintf("CACHE: Ignoring moving FETCH data (%s => %s)", $this->_selected, $to));
             return;
         }
 
@@ -3683,13 +3636,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (isset($md[self::CACHE_SEARCH]['cacheid']) &&
             ($md[self::CACHE_SEARCH]['cacheid'] != $cacheid)) {
             $md[self::CACHE_SEARCH] = array();
-            if ($this->_debug &&
+            if ($this->_debug->debug &&
                 !isset($this->_temp['searchcacheexpire'][strval($this->_selected)])) {
-                $this->writeDebug(sprintf("Expired search results from cache (mailbox: %s)\n", $this->_selected), Horde_Imap_Client::DEBUG_INFO);
+                $this->_debug->info(sprintf("SEARCH: Expired from cache (mailbox: %s)", $this->_selected));
                 $this->_temp['searchcacheexpire'][strval($this->_selected)] = true;
             }
         } elseif (isset($md[self::CACHE_SEARCH][$cache])) {
-            $this->writeDebug(sprintf("Retrieved %s results from cache (mailbox: %s; id: %s)\n", $type, $this->_selected, $cache), Horde_Imap_Client::DEBUG_INFO);
+            $this->_debug->info(sprintf("SEARCH: Retrieved %s from cache (mailbox: %s; id: %s)", $type, $this->_selected, $cache));
             $ret['data'] = unserialize($md[self::CACHE_SEARCH][$cache]);
         }
 
@@ -3714,8 +3667,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $this->_updateMetaData($this->_selected, $sdata['metadata']);
 
-        if ($this->_debug) {
-            $this->writeDebug(sprintf("Saved %s results to cache (mailbox: %s; id: %s)\n", $sdata['type'], $this->_selected, $sdata['id']), Horde_Imap_Client::DEBUG_INFO);
+        if ($this->_debug->debug) {
+            $this->_debug->info(sprintf("SEARCH: Saved %s to cache (mailbox: %s; id: %s)", $sdata['type'], $this->_selected, $sdata['id']));
             unset($this->_temp['searchcacheexpire'][strval($this->_selected)]);
         }
     }

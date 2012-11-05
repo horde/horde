@@ -25,6 +25,6 @@
   </p>
 </div>
 <p class="horde-form-buttons">
-  <input class="button" type="button" onclick="document.filtersettings.submit(); return true;" value="&nbsp;<?php echo _("Save Settings") ?>&nbsp;" />
+  <input class="button" type="button" onclick="document.filtersettings.submit(); return true;" value="<?php echo _("Save Settings") ?>" />
 </p>
 </form>

@@ -314,12 +314,27 @@ class IMP_Imap implements Serializable
      */
     public function __call($method, $params)
     {
-        if (!$this->ob || !method_exists($this->ob, $method)) {
+        if (!$this->ob) {
+            /* Fallback for these methods. */
+            switch ($method) {
+            case 'getIdsOb':
+                $ob = new Horde_Imap_Client_Ids();
+                call_user_func_array(array($ob, 'add'), $params);
+                return $ob;
+
+            default:
+                $error = true;
+                break;
+            }
+        } else {
+            $error = !method_exists($this->ob, $method);
+        }
+
+        if ($error) {
             if ($GLOBALS['registry']->getAuth()) {
                 throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
-            } else {
-                throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
             }
+            throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
         switch ($method) {

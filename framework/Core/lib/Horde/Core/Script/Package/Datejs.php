@@ -35,7 +35,7 @@ class Horde_Core_Script_Package_Datejs extends Horde_Script_Package
      *
      * @return string  The date format string in datejs format.
      */
-    public function translateFormat($format)
+    static public function translateFormat($format)
     {
         $from = array('%e', '%-d', '%d', '%a', '%A', '%-m', '%m', '%h', '%b', '%B', '%y', '%Y', '%x');
         $to = array(' d', 'd', 'dd', 'ddd', 'dddd', 'M', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy');

@@ -245,8 +245,6 @@ Configuring IMP
    appearance and behavior. See the header of the configuration files for
    details and examples. The defaults will be correct for most sites.
 
-   IMP Configuration Pointers
-
    * By default, IMP is configured to NOT display text/html message parts
      inline.  This is done for various security reasons.  If you would like to
      see text/html parts inline, you must create a
@@ -273,37 +271,35 @@ Configuring IMP
    read the file in `horde/docs/SECURITY`_ for Horde security information
    before proceeding.
 
-   There are two channels by which, unless steps are taken to avoid it, IMP
-   encourages users to pass their IMAP and POP3 passwords around the Internet
+   Unless steps are taken to avoid it, there are two channels by which IMP can
+   cause users to pass their IMAP/POP3 passwords across the network
    unencrypted.
 
-   The first channel is between their browser and the Web server.  We strongly
+   The first channel is between the browser and the Web server.  We strongly
    recommend using an SSL-capable Web server to give users the option of
    encrypting communications between their browser and the Web server on which
-   IMP is running; some sites may wish to disable non-SSL access entirely.
+   IMP is running. Some sites may wish to disable non-SSL access entirely.
 
    The second channel is between the Web server and their IMAP or POP3 server.
    The simplest way to avoid this is to have the mail server running on the
    same system as the Web server, and configuring IMP to connect to the IMAP
-   or POP3 server on ``localhost`` instead of on the Internet hostname.  In
+   or POP3 server on ``localhost`` instead of on the Internet hostname. In
    cases where that is not possible, it is highly recommended that the mail
    server be located on a private, secure network. Alternatively, the mail
-   server can be accessed via TLS (or via the deprecated SSL-specific ports)
-   to ensure that users' passwords remain safe after they have entrusted them
-   to IMP.
+   server can be accessed via TLS to ensure that users' passwords remain safe
+   after they have entrusted them to IMP (this is the default configuration).
 
    Other security steps you can take to increase security include:
 
    * Use session cookies instead of URL based sessions.
    * Set your php ``session.entropy_length`` to a larger value (e.g. 16) and
      ``session.entropy_file`` to a random source (e.g. ``/dev/urandom``)
-   * Enable and use the php mycrypt extension.
    * If your database, mail server, and web server are on the same host
      machine, then:
 
-     * Use unix socket database access and disable tcp database access.
-     * Use ``localhost`` for all TCP/IP connections to avoid the network.
-     * Use the command-line sendmail for sending mail if possible.
+     * Use unix socket database access and disable TCP database access.
+     * Use ``localhost`` for all TCP/IP connections to avoid the network, or
+       run all services on a local, private network.
 
 5. Testing IMP
 
@@ -314,8 +310,7 @@ Configuring IMP
 
    The test script will also allow you to test your connection to the mail
    server and provide some auto-detected configuration parameters that can
-   then be inserted into the server configuration located in
-   ``imp/config/backends.local.php``.
+   be used to configure the mail server in ``imp/config/backends.local.php``.
 
    Next, use IMP to login to a known working IMAP or POP3 server.  Test at
    least the following:

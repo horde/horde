@@ -15,12 +15,20 @@ for general performance tips for Horde.
   greater which contains features used internally by Horde to speed up
   access to the remote server.
 
+  NOTE: if your installation connects to multiple imapproxy instances, you
+  MUST configure your IMP installation to persistently connect to a single
+  backend over the course of a session. If this is not possible, you must
+  remove support for imapproxy's advanced features by adding 'XIMAPPROXY'
+  to the 'capability_ignore' parameter in your local configuration.
+
 * Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
   5162).
 
   These extensions are required to properly cache data and to properly keep
   the dynamic display synchronized. It is impossible to do otherwise, and the
-  UI experience will be limited without these extensions.
+  UI experience will be limited without these extensions. Additionally, if
+  these IMAP extensions are available, IMP is able to cache servers which
+  signficantly saves on client/server IMAP interactions.
 
   Technical information can be found here:
 
@@ -31,7 +39,7 @@ for general performance tips for Horde.
   advanced IMAP protocols, and use server-side caching to speed performance.
 
 * Consider switching to a faster mailbox storage format if needed. This may
-  also entail switching the underlying filesystem.
+  also require switching the underlying filesystem.
 
   Further information can be found here:
 
@@ -50,13 +58,15 @@ for general performance tips for Horde.
   storage is potentially cheap when compared to the performance gained by
   using caching.
 
+  If CONDSTORE/QRESYNC is available on the server, IMAP flags can be cached.
+
   To use this caching, you must have a ``Cache System`` configured in Horde's
   ``Administration/Configuration`` screen and have the relevant settings
   enabled in IMP's configuration screen
   (``Administration/Configuration/Mail/Mailbox``).
 
 * Configure Horde to use a VFS filesystem-based backend. Presently, the SQL
-  VFS backend uses 4-5 times the amount of memory as a filesystem-based
+  VFS backend uses ~5 times the amount of memory as a filesystem-based
   backend, so users attaching larger files to outgoing mail messages may
   cause PHP out-of-memory errors to occur.
 

@@ -491,7 +491,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                         $this->_insertElt($elt);
                     }
 
-                    $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED);
+                    $elt = $this->_makeElt($val, self::ELT_VFOLDER | self::ELT_IS_SUBSCRIBED | self::ELT_NONIMAP);
                     $elt['v'] = Horde_String::substr($val, Horde_String::length(self::VFOLDER_KEY) + Horde_String::length($this->_delimiter));
                     $this->_insertElt($elt);
                 }

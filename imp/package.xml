@@ -2575,6 +2575,7 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Don&apos;t attempt to use non-IMAP mailbox names in IMAP server commands (Bug #11623).
 * [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from the browser&apos;s local filesystem that has a filename that contains HTML.
 * [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
@@ -2810,6 +2811,9 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix importing personal S/MIME certificate.
+* [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
+* [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
 * [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).
 * [mms] Fix displaying HTML signature preference on identities preference page.
 * [mms] Fix dynamic view loading in IE8 (Bug #11614).

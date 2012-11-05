@@ -1,10 +1,10 @@
- <tr style="vertical-align:top">
+ <tr>
 <?php if ($cond_num > 0): ?>
   <td>
    <strong><?php echo ($rule['combine'] == Ingo_Storage::COMBINE_ALL) ? _("and") : _("or") ?></strong>
   </td>
 <?php elseif (($cond_num == 0) && !$lastfield): ?>
-  <td>&nbsp;</td>
+  <td></td>
 <?php endif; ?>
   <td>
    <label for="field_<?php echo (int)$cond_num ?>" class="hidden"><?php echo _("Field") ?></label>
@@ -17,7 +17,7 @@
 <?php endif; ?>
   </td>
 <?php if ($lastfield): ?>
-  <td colspan="2">&nbsp;</td>
+  <td colspan="2"></td>
 <?php else: ?>
   <td>
    <label for="match_<?php echo (int)$cond_num ?>" class="hidden"><?php echo _("Match type") ?></label>
@@ -32,6 +32,6 @@
 <?php if (!$lastfield): ?>
   <td><?php echo Horde::link('javascript:IngoRule.delete_condition(' . (int)$cond_num . ');', _("Delete Condition")) . Horde::img('delete.png', _("Delete Condition")) ?></a></td>
 <?php elseif ($cond_num != 0): ?>
-  <td>&nbsp;</td>
+  <td></td>
 <?php endif; ?>
  </tr>

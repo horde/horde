@@ -2,6 +2,10 @@
 /**
  * Client sorting methods for the Socket driver.
  *
+ * NOTE: This class is NOT intended to be accessed outside of a Base object.
+ * There is NO guarantees that the API of this class will not change across
+ * versions.
+ *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you

@@ -1070,7 +1070,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($query, $options = array())
     {
-        $this->writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", Horde_Imap_Client::DEBUG_CLIENT);
+        $this->_debug->client(empty($options['debug']) ? $query : $options['debug']);
 
         fwrite($this->_stream, $query . "\r\n");
 
@@ -1103,7 +1103,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->writeDebug($read . "\n", Horde_Imap_Client::DEBUG_SERVER);
+        $this->_debug->server($read);
 
         $orig_read = $read;
         $read = explode(' ', $read, 2);

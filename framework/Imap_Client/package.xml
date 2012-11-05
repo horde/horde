@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>20:11:11</time>
+ <date>2012-11-03</date>
+ <time>01:08:41</time>
  <version>
-  <release>2.0.1</release>
-  <api>2.0.0</api>
+  <release>2.1.2</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,14 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Check for SEARCHRES availability in search() (Bug #11627).
-* [mms] Fix double encoding of non-ASCII elements in listMailboxes() (Bug #11608).
-* [mms] Fix regression for non-cached Socket objects (Bug #11605).
-* [mms] Improved handling of server write errors in the Socket driver.
-* [mms] Add support for IMAP MOVE command.
-* [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
-* [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
-* [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
+* [mms] Fix parsing empty ACL responses.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -51,6 +44,7 @@
         <file name="DigestMD5.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
+        <file name="Debug.php" role="php" />
         <file name="Mailbox.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Data">
@@ -297,6 +291,7 @@
    <install as="Horde/Imap/Client/Url.php" name="lib/Horde/Imap/Client/Url.php" />
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
+   <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
@@ -1196,15 +1191,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Check for SEARCHRES availability in search() (Bug #11627).
+* [mms] Split debugging code from Base driver into separate object.
 * [mms] Fix double encoding of non-ASCII elements in listMailboxes() (Bug #11608).
 * [mms] Fix regression for non-cached Socket objects (Bug #11605).
 * [mms] Improved handling of server write errors in the Socket driver.
@@ -1212,6 +1207,32 @@
 * [mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED requests within a single request.
 * [mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may appear at any time.
 * [mms] Fix handling message sequence number actions returned from server when using CONDSTORE/QRESYNC.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Massive performance increase for cached FETCH queries.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix parsing empty ACL responses.
    </notes>
   </release>
  </changelog>

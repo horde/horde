@@ -237,7 +237,7 @@ $_prefs['filter_on_login'] = array(
     'desc' => _("Apply filter rules upon logging on?"),
     'help' => 'filter-on-login',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -247,7 +247,7 @@ $_prefs['filter_on_display'] = array(
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
     'help' => 'filter-on-display',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -257,7 +257,7 @@ $_prefs['filter_any_mailbox'] = array(
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
     'help' => 'filter-any-mailbox',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -282,7 +282,7 @@ $prefGroups['events'] = array(
 $_prefs['conflict_interval'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+    'desc' => _("Minutes needed to consider a event as non-conflicting in iTip")
 );
 
 
@@ -342,7 +342,7 @@ $_prefs['pgp_scan_body'] = array(
 $_prefs['pgp_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
+    'desc' => _("Should PGP signed messages be automatically verified when viewed?"),
     'help' => 'pgp-option-verify',
     'requires' => array('use_pgp')
 );
@@ -418,7 +418,7 @@ $_prefs['use_smime_text'] = array(
 $_prefs['smime_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
+    'desc' => _("Should S/MIME signed messages be automatically verified when viewed?"),
     'help' => 'smime-option-verify',
     'requires' => array('use_smime')
 );
@@ -462,8 +462,7 @@ $prefGroups['compose'] = array(
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'basic_compose', 'compose_popup',
-        'compose_confirm'
+        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm'
     )
 );
 
@@ -531,7 +530,7 @@ $_prefs['compose_html_font_size'] = array(
 $_prefs['mail_domain'] = array(
     'value' => '',
     'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?"),
+    'desc' => _("When sending mail or expanding addresses, what domain should be appended to unqualified addresses (email addresses without \"@\")?"),
     'on_change' => function() {
         $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
         $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
@@ -601,21 +600,16 @@ $_prefs['reply_lang'] = array(
     },
 );
 
-$_prefs['basic_compose'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 $_prefs['compose_popup'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
+    'desc' => _("Compose messages in a separate window?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['compose_confirm'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?"),
+    'desc' => _("Display confirmation in popup window after sending a message?") . ' (<em>' . _("Basic view only") . '</em>)',
     'requires' => array('compose_popup')
 );
 
@@ -690,7 +684,7 @@ $prefGroups['reply'] = array(
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, should we use the same format as the original message?")
+    'desc' => _("When replying to a message, use the same format as the original message?")
 );
 
 $_prefs['reply_charset'] = array(
@@ -761,7 +755,7 @@ $_prefs['forward_format'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
+    'desc' => _("When forwarding a message in the body text, should the same format as the original message be used?")
 );
 
 
@@ -840,7 +834,7 @@ $_prefs['save_attachments'] = array(
         'always' => _("Save attachments"),
         'never' => _("Do not save attachments")
     ),
-    'desc' => _("Should we save attachments in the sent-mail message?"),
+    'desc' => _("Should attachments be saved in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -987,7 +981,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_replacement_manage', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn', 'mimp_message', 'mimp_download_confirm', 'mimp_inline_all'
+        'send_mdn', 'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -1011,7 +1005,7 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should we display?"),
+    'desc' => _("For messages with alternative representations of the text part, which part should be displayed?"),
     'suppress' => function() {
         $mock_part = new Horde_Mime_Part();
         $mock_part->setType('text/html');
@@ -1135,24 +1129,19 @@ $_prefs['send_mdn'] = array(
     }
 );
 
-$_prefs['mimp_message'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 $_prefs['mimp_download_confirm'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 $_prefs['mimp_inline_all'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
@@ -1173,7 +1162,7 @@ $prefGroups['delmove'] = array(
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['delete_mark_seen'] = array(
@@ -1312,7 +1301,7 @@ $_prefs['delete_spam_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What should we do with messages after they have been reported as spam?"),
+    'desc' => _("What to do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report',
     'on_init' => function($ui) {
         $enum = array(
@@ -1333,7 +1322,7 @@ $_prefs['move_innocent_after_report'] = array(
         0 => _("Nothing"),
         1 => _("Move to Inbox")
     ),
-    'desc' => _("What should we do with messages after they have been reported as innocent?"),
+    'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
@@ -1480,10 +1469,9 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'basic_mailbox',
-        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
-        'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
-        'mimp_preview_msg'
+        'max_msgs', 'from_link', 'atc_flag', 'preview_enabled',
+        'preview_maxlen', 'preview_strip_nl', 'preview_show_unread',
+        'preview_show_tooltip', 'mimp_preview_msg'
     )
 );
 
@@ -1568,7 +1556,7 @@ $_prefs['sortdate'] = array(
 $_prefs['max_msgs'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Messages per page in the mailbox view.")
+    'desc' => _("Messages per page in the mailbox view.") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['from_link'] = array(
@@ -1579,7 +1567,7 @@ $_prefs['from_link'] = array(
         1 => _("Clicking on the address will open the message to be read"),
         2 => _("Do not generate a link in the From: column")
     ),
-    'desc' => _("The From: column of the message should be linked:")
+    'desc' => _("The From: column of the message should be linked:") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['atc_flag'] = array(
@@ -1591,20 +1579,13 @@ $_prefs['atc_flag'] = array(
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );
 
-$_prefs['basic_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
-    'type' => 'rawhtml',
-    'requires' => array('preview_enabled'),
-    'requires_nolock' => array('preview_enabled')
-);
-
 $_prefs['preview_enabled'] = array(
     // Disabled and locked by default: previews can be performance intensive,
     // especially without caching.
     'value' => 0,
     'locked' => true,
     'type' => 'checkbox',
-    'desc' => _("Enable message previews?")
+    'desc' => _("Enable message previews?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['preview_maxlen'] = array(
@@ -1645,15 +1626,11 @@ $_prefs['preview_show_tooltip'] = array(
     'requires' => array('preview_enabled')
 );
 
-$_prefs['mimp_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?")
+    'desc' => _("Display only the first 250 characters of a message initially?") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 

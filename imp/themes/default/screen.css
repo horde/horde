@@ -41,11 +41,8 @@ div.partsTreeDiv span span:last-child {
     display: inline-block;
     padding: 5px;
 }
-
-.searchAdd, .searchElement {
-    display: -moz-inline-stack;
-    display: inline-block;
-    padding: 3px;
+#search_form #show_unsub {
+    padding-left: 5px;
 }
 
 #no_search_criteria, #no_search_mboxes {
@@ -53,51 +50,56 @@ div.partsTreeDiv span span:last-child {
     padding: 3px;
 }
 
+.searchAdd, .searchElement {
+    display: -moz-inline-stack;
+    display: inline-block;
+}
+
+.searchAdd {
+    padding: 3px;
+}
 .searchElement {
     background-color: lightblue;
     border: 1px solid gray;
     margin: 2px;
+    padding: 4px;
 }
 .searchElement em {
     font-style: normal;
-}
-.searchElement span.notMatch {
-    padding-left: 3px;
-    padding-right: 3px;
+    font-weight: bold;
 }
 .searchElement span.searchFlag {
     padding-left: 3px;
-    padding-right: 5px;
 }
-.searchElement span.subfolders {
+.searchElement span.notMatch, .searchElement .searchuiDelete, .searchElement span.subfolders {
     padding-left: 10px;
 }
 .searchElement input.checkbox {
     margin-right: 3px;
-    vertical-align: text-top;
 }
-.searchElement .searchuiDelete {
-    padding-left: 6px;
-    vertical-align: text-top;
+
+#search_label, #search_type {
+    margin-left: 5px;
 }
 
 .searchElement span.beginDate, .searchElement span.endDate {
     border: 1px grey dotted;
-    margin: 0 6px;
     padding: 1px 2px;
 }
 .searchElement span.beginDate > span, .searchElement span.endDate > span {
     padding-right: 4px;
+}
+.searchElement span.beginDate {
+    margin-right: 6px;
+}
+.searchElement span.endDate {
+    margin-left: 6px;
 }
 .searchElement .calendarImg, .searchElement .closeImg {
     margin-right: 0;
 }
 .calendarImg {
     background-image: url("graphics/calendar.png");
-}
-
-.searchuiButtons {
-    padding-top: 5px;
 }
 
 /* Folder images. */
