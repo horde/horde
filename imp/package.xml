@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
 * [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
 * [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
@@ -2822,6 +2823,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
 * [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
 * [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
