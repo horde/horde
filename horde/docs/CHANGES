@@ -4,7 +4,6 @@ v5.0.1-git
 
 [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
-[mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 [mms] Fix topbar javascript on IE8 (Bug #11614).
 [jan] Fix LDAP example for authusername hook.
 

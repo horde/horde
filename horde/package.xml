@@ -42,7 +42,6 @@
  <notes>
 * [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
-* [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
  </notes>
@@ -3734,7 +3733,6 @@
    <notes>
 * [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
-* [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
    </notes>
