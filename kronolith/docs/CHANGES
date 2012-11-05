@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[jan] Fix generating calendar names when exporting non-internal calendars to
+      iCalendar.
 [jan] Fix authentication to remote calendars (Bug #11643).
 [jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar
       (Bug #11636).

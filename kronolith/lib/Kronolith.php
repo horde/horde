@@ -2716,6 +2716,44 @@ class Kronolith
     }
 
     /**
+     * Returns a Kronolith_Calendar object for a driver instance.
+     *
+     * @since Kronolith 4.0.1
+     *
+     * @param Kronolith_Driver  A driver instance.
+     *
+     * @return Kronolith_Calendar  The matching calendar instance.
+     */
+    static public function getCalendar(Kronolith_Driver $driver)
+    {
+        switch (true) {
+        case $driver instanceof Kronolith_Driver_Sql:
+        case $driver instanceof Kronolith_Driver_Kolab:
+            return $GLOBALS['all_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Ical:
+            return $GLOBALS['all_remote_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Horde:
+            return $GLOBALS['all_external_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Holidays:
+            return $GLOBALS['all_holidays'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Resource_Sql:
+            if ($driver->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                return new Kronolith_Calendar_ResourceGroup(array(
+                    'resource' => $driver
+                ));
+            } else {
+                return new Kronolith_Calendar_Resource(array(
+                    'resource' => $driver
+                ));
+            }
+        }
+    }
+
+    /**
      * Check for HTTP authentication credentials
      */
     static public function getRemoteParams($calendar)
