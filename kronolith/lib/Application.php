@@ -579,10 +579,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
             }
 
-            if (empty($events)) {
-                throw new Kronolith_Exception(_("There were no events to export."));
-            }
-
             switch ($vars->exportID) {
             case Horde_Data::EXPORT_CSV:
                 $data = array();
