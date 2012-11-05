@@ -70,6 +70,7 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
     }
 }
 
+$page_output->topbar = $page_output->sidebar = false;
 $page_output->header(array(
     'title' => $title
 ));
