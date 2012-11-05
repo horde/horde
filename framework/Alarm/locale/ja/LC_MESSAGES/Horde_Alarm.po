@@ -7,32 +7,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alerm\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-05 13:52+0200\n"
-"PO-Revision-Date: 2012-09-01 17:59+0900\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
+"PO-Revision-Date: 2012-10-14 11:14+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: lib/Horde/Alarm/Handler/Desktop.php:79
 msgid "Desktop notification (with certain browsers)"
 msgstr "デスクトップ通知（特定のブラウザで）"
 
-#: lib/Horde/Alarm/Handler/Mail.php:121
+#: lib/Horde/Alarm/Handler/Mail.php:129
 msgid "Email"
 msgstr "電子メール"
 
-#: lib/Horde/Alarm/Handler/Mail.php:141
+#: lib/Horde/Alarm/Handler/Mail.php:149
 msgid "Email address (optional)"
 msgstr "電子メールアドレス（オプション）"
 
-#: lib/Horde/Alarm/Handler/Notify.php:77
+#: lib/Horde/Alarm/Handler/Notify.php:79
 msgid "Inline"
 msgstr "インライン"
 
-#: lib/Horde/Alarm/Handler/Notify.php:97
+#: lib/Horde/Alarm/Handler/Notify.php:99
 msgid "Play a sound?"
 msgstr "音を鳴らしますか？"

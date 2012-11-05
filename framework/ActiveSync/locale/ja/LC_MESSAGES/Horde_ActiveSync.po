@@ -7,22 +7,23 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
-"PO-Revision-Date: 2012-09-02 11:50+0900\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-14 11:14+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
-"Language: \n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:471
+#: lib/Horde/ActiveSync/Imap/Message.php:476
 #, php-format
 msgid "%s part"
 msgstr "%s パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:450
+#: lib/Horde/ActiveSync/Imap/Message.php:455
 msgid "Audio part"
 msgstr "音パート"
 
@@ -38,15 +39,15 @@ msgstr "日付"
 msgid "From"
 msgstr "From"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:453
+#: lib/Horde/ActiveSync/Imap/Message.php:458
 msgid "Image part"
 msgstr "画像パート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:457
+#: lib/Horde/ActiveSync/Imap/Message.php:462
 msgid "Message part"
 msgstr "メッセージパート"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:460
+#: lib/Horde/ActiveSync/Imap/Message.php:465
 msgid "Multipart part"
 msgstr "マルチパート・パート"
 
@@ -58,7 +59,7 @@ msgstr "Reply-To"
 msgid "Subject"
 msgstr "件名"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:463
+#: lib/Horde/ActiveSync/Imap/Message.php:468
 msgid "Text part"
 msgstr "テキストパート"
 
@@ -66,6 +67,6 @@ msgstr "テキストパート"
 msgid "To"
 msgstr "To"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:466
+#: lib/Horde/ActiveSync/Imap/Message.php:471
 msgid "Video part"
 msgstr "ビデオパート"
