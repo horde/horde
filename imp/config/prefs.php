@@ -1223,7 +1223,7 @@ $prefGroups['delmove'] = array(
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // should messages be marked as 'Seen' when deleted?
@@ -1637,7 +1637,7 @@ $_prefs['sortdate'] = array(
 $_prefs['max_msgs'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Messages per page in the mailbox view.")
+    'desc' => _("Messages per page in the mailbox view.") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // How the from field should be displayed on the mailbox screen
@@ -1649,7 +1649,7 @@ $_prefs['from_link'] = array(
         1 => _("Clicking on the address will open the message to be read"),
         2 => _("Do not generate a link in the From: column")
     ),
-    'desc' => _("The From: column of the message should be linked:")
+    'desc' => _("The From: column of the message should be linked:") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // Display attachment information in mailbox list.
