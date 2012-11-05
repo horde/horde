@@ -1770,6 +1770,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders = array();
                 $imap_folders = $this->_imap->getMailboxes();
                 foreach ($imap_folders as $id => $folder) {
+                    // EAS maximum server id length is 64 per specs.
+                    if (strlen($id) > 64) {
+                        continue;
+                    }
                     $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
                 }
                 $this->_mailFolders = $folders;
