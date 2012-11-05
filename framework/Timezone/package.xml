@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix notice when parsing Etc/UTC rules.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -134,7 +134,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix notice when parsing Etc/UTC rules.
    </notes>
   </release>
  </changelog>
