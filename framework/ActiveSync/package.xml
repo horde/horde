@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-31</date>
- <time>11:43:43</time>
+ <date>2012-11-05</date>
+ <time>13:02:37</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Increase size of cache_data field.
 * [mjr] Add more complete error and debug output when saving syncCache.
 * [mjr] Attempt to detect infinite sync loops caused by server side errors.
  </notes>
@@ -158,6 +159,7 @@
       <file name="9_horde_activesync_add_cache.php" role="data" />
       <file name="10_horde_activesync_add_deviceproperties.php" role="data" />
       <file name="11_horde_activesync_removepingstate.php" role="data" />
+      <file name="12_horde_activesync_longtextcachefield.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -352,6 +354,7 @@
    <install as="migration/9_horde_activesync_add_cache.php" name="migration/Horde/ActiveSync/9_horde_activesync_add_cache.php" />
    <install as="migration/10_horde_activesync_add_deviceproperties.php" name="migration/Horde/ActiveSync/10_horde_activesync_add_deviceproperties.php" />
    <install as="migration/11_horde_activesync_removepingstate.php" name="migration/Horde/ActiveSync/11_horde_activesync_removepingstate.php" />
+   <install as="migration/12_horde_activesync_longtextcachefield.php" name="migration/Horde/ActiveSync/12_horde_activesync_longtextcachefield.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
@@ -853,9 +856,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-31</date>
+   <date>2012-11-05</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Increase size of cache_data field.
 * [mjr] Add more complete error and debug output when saving syncCache.
 * [mjr] Attempt to detect infinite sync loops caused by server side errors.
    </notes>
