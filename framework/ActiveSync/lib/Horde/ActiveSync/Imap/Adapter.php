@@ -159,7 +159,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
         try {
-            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT);
+            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
         } catch (Horde_Imap_Client_Exception $e) {
             // See if the folder disappeared.
             if (!$this->_mailboxExists($mbox->utf8)) {
