@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[jan] Fix fatal error when moving non-recurring events with resources (Bug
+      #11629).
 
 
 ------
