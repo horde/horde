@@ -1713,6 +1713,7 @@ $_prefs['preview_show_tooltip'] = array(
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
     'desc' => _("Display only the first 250 characters of a message initially?") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
