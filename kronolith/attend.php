@@ -40,7 +40,7 @@ default:
 }
 
 if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
-    $notification->push(_("The request was incomplete. Some parameters that are necessary to accept or decline an event are missing."), 'horde.error');
+    $notification->push(_("The request was incomplete. Some parameters that are necessary to accept or decline an event are missing."), 'horde.error', array('sticky'));
     $title = '';
 } else {
     try {
@@ -50,22 +50,22 @@ if (((empty($cal) || empty($id)) && empty($uid)) || empty($user)) {
             $event = Kronolith::getDriver()->getByUID($uid);
         }
         if (!$event->hasAttendee($user)) {
-            $notification->push(_("You are not an attendee of the specified event."), 'horde.error');
+            $notification->push(_("You are not an attendee of the specified event."), 'horde.error', array('sticky'));
             $title = $event->getTitle();
         } else {
             $event->addAttendee($user, Kronolith::PART_IGNORE, $action);
             try {
                 $event->save();
                 if (!empty($msg)) {
-                    $notification->push($msg, 'horde.success');
+                    $notification->push($msg, 'horde.success', array('sticky'));
                 }
             } catch (Exception $e) {
-                $notification->push($e, 'horde.error');
+                $notification->push($e, 'horde.error', array('sticky'));
             }
             $title = $event->getTitle();
         }
     } catch (Exception $e) {
-        $notification->push($e, 'horde.error');
+        $notification->push($e, 'horde.error', array('sticky'));
         $title = '';
     }
 }
