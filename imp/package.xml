@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix importing personal S/MIME certificate.
 * [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
 * [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
 * [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).
@@ -2821,6 +2822,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix importing personal S/MIME certificate.
 * [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
 * [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
 * [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).

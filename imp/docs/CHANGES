@@ -2,6 +2,7 @@
 v6.0.1-git
 ----------
 
+[mms] Fix importing personal S/MIME certificate.
 [mms] Correctly show ACL entry for current user even if ACL response for
       mailbox is empty.
 [mms] Correctly remove unseen information from folder tree in dynamic mailbox
