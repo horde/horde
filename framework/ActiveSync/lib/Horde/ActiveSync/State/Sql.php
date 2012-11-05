@@ -1119,28 +1119,38 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $have = $this->_db->selectValue($sql, array($devid, $user));
         } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
+        $cache = serialize($cache);
         if ($have) {
+            $this->_logger->debug(
+                sprintf('Replacing SYNC_CACHE entry for user %s and device %s: %s',
+                    $user, $devid, $cache));
             $sql = 'UPDATE ' . $this->_syncCacheTable
                 . ' SET cache_data = ? WHERE cache_devid = ? AND cache_user = ?';
             try {
                 $this->_db->update(
                     $sql,
-                    array(serialize($cache), $devid, $user)
+                    array($cache, $devid, $user)
                 );
             } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         } else {
+            $this->_logger->debug(
+                sprintf('Adding new SYNC_CACHE entry for user %s and device %s: %s',
+                    $user, $devid, $cache));
             $sql = 'INSERT INTO ' . $this->_syncCacheTable
                 . ' (cache_data, cache_devid, cache_user) VALUES (?, ?, ?)';
             try {
                 $this->_db->insert(
                     $sql,
-                    array(serialize($cache), $devid, $user)
+                    array($cache, $devid, $user)
                 );
             } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
