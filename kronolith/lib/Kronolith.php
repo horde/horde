@@ -2699,18 +2699,20 @@ class Kronolith
      */
     static public function getDriver($driver = null, $calendar = null)
     {
-        $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver);
+        $instance = $GLOBALS['injector']
+            ->getInstance('Kronolith_Factory_Driver')
+            ->create($driver);
 
         if (!is_null($calendar)) {
-            $driver->open($calendar);
+            $instance->open($calendar);
 
             /* Remote calendar parameters are per calendar. */
             if ($driver == 'Ical') {
-                $driver->setParams(self::getRemoteParams($calendar));
+                $instance->setParams(self::getRemoteParams($calendar));
             }
         }
 
-        return $driver;
+        return $instance;
     }
 
     /**

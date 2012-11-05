@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[jan] Fix authentication to remote calendars (Bug #11643).
 [jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar
       (Bug #11636).
 [jan] Fix fatal error when moving non-recurring events with resources (Bug
