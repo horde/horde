@@ -523,10 +523,6 @@ class Turba_Application extends Horde_Registry_Application
                 }
             }
 
-            if (empty($data)) {
-                throw new Turba_Exception(_("There were no addresses to export."));
-            }
-
             /* Make sure that all rows have the same columns if exporting from
              * different sources. */
             if (!$vcard && count($sources) > 1) {

@@ -356,10 +356,6 @@ class Nag_Application extends Horde_Registry_Application
                 'include_tags' => true)
             );
 
-            if (!$tasks->hasTasks()) {
-                throw new Nag_Exception(_("There were no tasks to export."));
-            }
-
             $tasks->reset();
             switch ($vars->exportID) {
             case Horde_Data::EXPORT_CSV:
