@@ -40,6 +40,9 @@
  </p>
 <?php elseif ($this->import): ?>
  <div>
+  <em><?php echo _("No personal certificate") ?></em>
+ </div>
+ <div>
   <p>
    <input type="submit" name="save" class="horde-default" id="import_smime_personal" value="<?php echo _("Import Personal Certificate") ?>" />
    <?php echo $this->hordeHelp('imp', 'smime-import-personal-certs') ?>
