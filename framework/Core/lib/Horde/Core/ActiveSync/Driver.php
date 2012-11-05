@@ -1828,7 +1828,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Check for nested folders. $fl will NEVER contain containers so we
         // can assume that any entry in $fl is an actual mailbox.
         if ($f['level'] != 0) {
-            $parts = split($f['d'], $f['label']);
+            $parts = explode($f['d'], $f['label']);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
                 $folder->parentid = implode($f['d'], $parts);
