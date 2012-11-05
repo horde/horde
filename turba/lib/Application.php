@@ -117,7 +117,8 @@ class Turba_Application extends Horde_Registry_Application
         $GLOBALS['session']->set('turba', 'source', Turba::$source);
 
         $GLOBALS['addSources'] = Turba::getAddressBooks(Horde_Perms::EDIT, array('require_add' => true));
-        $GLOBALS['copymoveSources'] = array_diff($GLOBALS['addSources'], array(Turba::$source));
+        $GLOBALS['copymoveSources'] = $GLOBALS['addSources'];
+        unset($GLOBALS['copymoveSources'][Turba::$source]);
     }
 
     /**
