@@ -551,7 +551,7 @@ $_prefs['compose_html_font_size'] = array(
 $_prefs['mail_domain'] = array(
     'value' => '',
     'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?"),
+    'desc' => _("When sending mail or expanding addresses, what domain should be appended to unqualified addresses (email addresses without \"@\")?"),
     'on_change' => function() {
         $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
         $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
@@ -708,12 +708,11 @@ $prefGroups['reply'] = array(
     )
 );
 
-// When replying to a message, should we use the same format as the
-// original message?
+// When replying to a message, use the same format as the original message?
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, should we use the same format as the original message?")
+    'desc' => _("When replying to a message, use the same format as the original message?")
 );
 
 // Use the charset of the original message, as opposed to the default sending
@@ -741,7 +740,7 @@ $_prefs['reply_quote'] = array(
     'desc' => _("Include original message in a reply?")
 );
 
-// How should we attribute quoted lines in a reply
+// How to attribute quoted lines in a reply
 $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
     'advanced' => true,
@@ -787,13 +786,13 @@ $_prefs['forward_default'] = array(
     'desc' => _("How should messages be forwarded by default?")
 );
 
-// When forwarding a message, should we use the same format as the
-// original message (for the body text)?
+// When forwarding a message, should the same format as the original message
+// be used (for the body text)?
 $_prefs['forward_format'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
+    'desc' => _("When forwarding a message in the body text, should the same format as the original message be used?")
 );
 
 
@@ -875,7 +874,7 @@ $_prefs['save_attachments'] = array(
         'always' => _("Save attachments"),
         'never' => _("Do not save attachments")
     ),
-    'desc' => _("Should we save attachments in the sent-mail message?"),
+    'desc' => _("Should attachments be saved in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -1042,7 +1041,7 @@ $_prefs['filtering'] = array(
     'desc' => _("Filter message content for unwanted text (e.g. profanity)?")
 );
 
-// Should we display an icon to strip attachments?
+// Should an icon be displayed for stripping attachments?
 $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -1057,7 +1056,7 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should we display?"),
+    'desc' => _("For messages with alternative representations of the text part, which part should be displayed?"),
     'suppress' => function() {
         $mock_part = new Horde_Mime_Part();
         $mock_part->setType('text/html');
@@ -1089,7 +1088,7 @@ $_prefs['image_replacement_addrs'] = array(
     'value' => '[]'
 );
 
-// should we try to mark different conversations with different colors?
+// should different conversations be marked with different colors?
 $_prefs['highlight_text'] = array(
     'value' => 1,
     'advanced' => true,
@@ -1097,7 +1096,7 @@ $_prefs['highlight_text'] = array(
     'desc' => _("Mark different levels of quoting with different colors?")
 );
 
-// should we try to mark simple markup with html tags?
+// should simple markup be marked with html tags?
 $_prefs['highlight_simple_markup'] = array(
     'value' => 1,
     'advanced' => true,
@@ -1105,7 +1104,7 @@ $_prefs['highlight_simple_markup'] = array(
     'desc' => _("Mark simple markup?")
 );
 
-// should we show large blocks of quoted text or hide them?
+// should large blocks of quoted text be shown?
 $_prefs['show_quoteblocks'] = array(
     'value' => 'thread',
     'type' => 'enum',
@@ -1119,7 +1118,7 @@ $_prefs['show_quoteblocks'] = array(
     'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose.")
 );
 
-// should we dim signatures?
+// should signatures be dimmed?
 $_prefs['dim_signature'] = array(
     'value' => 0,
     'advanced' => true,
@@ -1134,7 +1133,7 @@ $_prefs['emoticons'] = array(
     'desc' => _("Convert textual emoticons into graphical ones?")
 );
 
-// how do we display message parts in the summary?
+// how do message parts be displayed in the summary?
 $_prefs['parts_display'] = array(
     'value' => 'atc',
     'type' => 'enum',
@@ -1220,7 +1219,7 @@ $prefGroups['delmove'] = array(
     )
 );
 
-// should we return to the mailbox listing after deleting a message?
+// return to the mailbox listing after deleting a message?
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -1235,7 +1234,7 @@ $_prefs['delete_mark_seen'] = array(
     'desc' => _("Mark messages as Seen when deleting?")
 );
 
-// should we move messages to a trash mailbox instead of just marking
+// should messages be moved to a trash mailbox instead of just marking
 // them as deleted?
 $_prefs['use_trash'] = array(
     'value' => 0,
@@ -1366,12 +1365,12 @@ $_prefs['spam_folder'] = array(
     'value' => 'Spam'
 );
 
-// What should we do with spam messages after reporting them?
+// What to do with spam messages after reporting them?
 $_prefs['delete_spam_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What should we do with messages after they have been reported as spam?"),
+    'desc' => _("What to do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report',
     'on_init' => function($ui) {
         $enum = array(
@@ -1385,7 +1384,7 @@ $_prefs['delete_spam_after_report'] = array(
     }
 );
 
-// What should we do with spam messages after reporting them as innocent?
+// What to do with spam messages after reporting them as innocent?
 $_prefs['move_innocent_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1393,7 +1392,7 @@ $_prefs['move_innocent_after_report'] = array(
         0 => _("Nothing"),
         1 => _("Move to Inbox")
     ),
-    'desc' => _("What should we do with messages after they have been reported as innocent?"),
+    'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
