@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
  </notes>
  <contents>
@@ -824,6 +825,7 @@ Initial release as a PEAR package
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
    </notes>
   </release>
