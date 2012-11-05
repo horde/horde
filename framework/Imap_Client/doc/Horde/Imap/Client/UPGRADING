@@ -16,7 +16,7 @@ Upgrading to 2.1.0
 
 The Horde_Imap_Client_Ids_Map class has been added.
 
-  - Horde_Imap_Cache
+  - Horde_Imap_Client_Cache
 
     The following config options have changed:
 
