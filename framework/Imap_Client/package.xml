@@ -11,10 +11,10 @@
   <active>yes</active>
  </lead>
  <date>2012-11-05</date>
- <time>19:54:04</time>
+ <time>13:50:36</time>
  <version>
-  <release>2.1.4</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -45,6 +45,7 @@
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
         <file name="Debug.php" role="php" />
+        <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Data">
@@ -292,6 +293,7 @@
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
+   <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
@@ -1252,8 +1254,8 @@
   </release>
   <release>
    <version>
-    <release>2.1.4</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>

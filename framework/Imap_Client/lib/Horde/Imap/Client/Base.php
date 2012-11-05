@@ -3284,6 +3284,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Returns a unique identifier for the current mailbox status.
      *
+     * @deprecated
+     *
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
      *                        object or a string (UTF-8).
      * @param array $addl     Additional cache info to add to the cache ID
@@ -3298,35 +3300,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function getCacheId($mailbox, array $addl = array())
     {
-        $query = Horde_Imap_Client::STATUS_UIDVALIDITY | Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_UIDNEXT;
-
-        /* Use MODSEQ as cache ID if CONDSTORE extension is available. */
-        if (isset($this->_init['enabled']['CONDSTORE'])) {
-            $query |= Horde_Imap_Client::STATUS_HIGHESTMODSEQ;
-        } else {
-            $query |= Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
-        }
-
-        $status = $this->status($mailbox, $query);
-
-        if (empty($status['highestmodseq'])) {
-            $parts = array(
-                'V' . $status['uidvalidity'],
-                'U' . $status['uidnext'],
-                'M' . $status['messages']
-            );
-        } else {
-            $parts = array(
-                'V' . $status['uidvalidity'],
-                'H' . $status['highestmodseq']
-            );
-        }
-
-        return implode('|', array_merge($parts, $addl));
+        return Horde_Imap_Client_Base_Deprecated::getCacheId($this, $mailbox, isset($this->_init['enabled']['CONDSTORE']), $addl);
     }
 
     /**
      * Parses a cacheID created by getCacheId().
+     *
+     * @deprecated
      *
      * @param string $id  The cache ID.
      *
@@ -3338,21 +3318,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function parseCacheId($id)
     {
-        $data = array(
-            'H' => 'highestmodseq',
-            'M' => 'messages',
-            'U' => 'uidnext',
-            'V' => 'uidvalidity'
-        );
-        $info = array();
-
-        foreach (explode('|', $id) as $part) {
-            if (isset($data[$part[0]])) {
-                $info[$data[$part[0]]] = intval(substr($part, 1));
-            }
-        }
-
-        return $info;
+        return Horde_Imap_Client_Base_Deprecated::parseCacheId($id);
     }
 
     /**

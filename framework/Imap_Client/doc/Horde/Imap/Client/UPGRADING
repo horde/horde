@@ -11,6 +11,18 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.2.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The following methods have been marked as deprecated and will be removed
+    in 3.0:
+
+      - getCacheId()
+      - parseCacheId()
+
+
 Upgrading to 2.1.0
 ==================
 
