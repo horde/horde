@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
  </notes>
  <contents>
@@ -744,6 +745,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
    </notes>
   </release>
