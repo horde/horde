@@ -3366,6 +3366,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $res = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 return $this->getIdsOb($res['messages'] ? ('1:' . $res['messages']) : array(), true);
             }
+
+            $convert = 2;
         } elseif (!$convert || (!$ids->sequence && ($convert == 1))) {
             return clone $ids;
         } else {

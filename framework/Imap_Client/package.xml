@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Always map UIDs to sequence numbers if resolving an all UIDs search.
 * [mms] Ignore empty ID search queries.
  </notes>
  <contents>
@@ -1245,6 +1246,7 @@
    <date>2012-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Always map UIDs to sequence numbers if resolving an all UIDs search.
 * [mms] Ignore empty ID search queries.
    </notes>
   </release>
