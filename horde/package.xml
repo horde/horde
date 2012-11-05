@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
@@ -3730,6 +3731,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
