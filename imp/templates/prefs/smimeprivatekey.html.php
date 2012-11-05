@@ -1,7 +1,7 @@
 <div class="prefsSmimeContainer">
  <div class="prefsSmimeHeader">
   <h3>
-   <?php echo _("Your S/MIME Public/Private Certificate") ?>
+   <?php echo _("Your S/MIME Personal Certificate") ?>
    <?php echo $this->hordeHelp('imp', 'smime-overview-personalkey') ?>
   </h3>
  </div>
