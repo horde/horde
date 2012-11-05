@@ -2707,7 +2707,7 @@ class Kronolith
             $instance->open($calendar);
 
             /* Remote calendar parameters are per calendar. */
-            if ($driver == 'Ical') {
+            if ($instance instanceof Kronolith_Driver_Ical) {
                 $instance->setParams(self::getRemoteParams($calendar));
             }
         }
