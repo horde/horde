@@ -275,7 +275,6 @@ $prefGroups['identities'] = array(
     'type' => 'identities'
 );
 
-// identity name
 // If you lock this preference, you must specify a value or a hook for it in
 // horde/config/hooks.php.
 $_prefs['id'] = array(
@@ -284,7 +283,6 @@ $_prefs['id'] = array(
     'desc' => _("Identity's name:")
 );
 
-// user full name for From: line
 // If you lock this preference, you must specify a value or a hook for it in
 // horde/config/hooks.php.
 $_prefs['fullname'] = array(
@@ -293,7 +291,6 @@ $_prefs['fullname'] = array(
     'desc' => _("Your full name:")
 );
 
-// user preferred email address for From: line
 // If you lock this preference, you must specify a value or a hook for it in
 // horde/config/hooks.php.
 $_prefs['from_addr'] = array(
@@ -302,26 +299,22 @@ $_prefs['from_addr'] = array(
     'desc' =>  _("The default e-mail address to use with this identity:")
 );
 
-// user location.
 $_prefs['location'] = array(
     'value' => '',
     'type' => 'text',
     'desc' => _("Default location to use for location-aware features.")
 );
 
-// default identity
 // Set locked to true if you don't want the users to have multiple identities.
 $_prefs['default_identity'] = array(
     'value' => 0
 );
 
-// identities data
 $_prefs['identities'] = array(
     // default value = serialize(array())
     'value' => 'a:0:{}'
 );
 
-// identify email confirmation
 $_prefs['confirm_email'] = array(
     // default value = serialize(array())
     'value' => 'a:0:{}'
@@ -347,21 +340,18 @@ $prefGroups['forgotpass'] = array(
     }
 );
 
-// user security question
 $_prefs['security_question'] = array(
     'value' => '',
     'type' => 'text',
     'desc' => _("Enter a security question which you will be asked if you need to reset your password, e.g. 'what is the name of your pet?':")
 );
 
-// user security answer
 $_prefs['security_answer'] = array(
     'value' => '',
     'type' => 'text',
     'desc' => _("Insert the required answer to the security question:")
 );
 
-// user alternate email
 $_prefs['alternate_email'] = array(
     'value' => '',
     'type' => 'text',
@@ -382,7 +372,6 @@ $prefGroups['language'] = array(
     )
 );
 
-// user language
 $_prefs['language'] = array(
     'value' => '',
     'type' => 'enum',
@@ -405,7 +394,6 @@ $_prefs['language'] = array(
     }
 );
 
-// Select widget for email charsets
 $_prefs['sending_charset'] = array(
     'value' => 'UTF-8',
     'advanced' => true,
@@ -419,7 +407,6 @@ $_prefs['sending_charset'] = array(
     'desc' => _("Default charset for sending e-mail messages:")
 );
 
-// user time zone
 $_prefs['timezone'] = array(
     'value' => '',
     'type' => 'enum',
@@ -432,14 +419,12 @@ $_prefs['timezone'] = array(
     },
 );
 
-// time format
 $_prefs['twentyFour'] = array(
     'value' => false,
     'type' => 'checkbox',
     'desc' => _("Display 24-hour times?")
 );
 
-// date format
 $_prefs['date_format'] = array(
     'value' => '%x',
     'type' => 'enum',
@@ -470,7 +455,6 @@ $_prefs['date_format'] = array(
     'desc' => _("Choose how to display dates (full format):"),
 );
 
-// date format (miniature)
 $_prefs['date_format_mini'] = array(
     'value' => '%x',
     'type' => 'enum',
@@ -495,7 +479,6 @@ $_prefs['date_format_mini'] = array(
     'desc' => _("Choose how to display dates (abbreviated format):"),
 );
 
-// Time format
 $_prefs['time_format'] = array(
     'value' => '%X',
     'type' => 'enum',
@@ -509,7 +492,6 @@ $_prefs['time_format'] = array(
     'desc' => _("Choose how to display times:")
 );
 
-// what day should be displayed as the first day of the week?
 $_prefs['first_week_day'] = array(
     'value' => '0',
     'type' => 'enum',
@@ -537,12 +519,10 @@ $_prefs['categorymanagement'] = array(
     'handler' => 'Horde_Prefs_Special_Category'
 );
 
-// categories
 $_prefs['categories'] = array(
     'value' => ''
 );
 
-// category colors
 $_prefs['category_colors'] = array(
     'value' => ''
 );
@@ -562,7 +542,6 @@ $prefGroups['display'] = array(
     )
 );
 
-// what application should we go to after login?
 $_prefs['initial_application'] = array(
     'value' => 'horde',
     'type' => 'enum',
@@ -583,22 +562,20 @@ $_prefs['initial_application'] = array(
     },
 );
 
-// show the last login time of user
 $_prefs['show_last_login'] = array(
     'value' => true,
     'type' => 'checkbox',
     'desc' => _("Show last login time when logging in?")
 );
 
-// last login time of user
-// value is a serialized array of the UNIX timestamp of the last
-// login, and the host that the last login was from.
+// Last login time of user
 $_prefs['last_login'] = array(
+    // value is a serialized array of the UNIX timestamp of the last login,
+    // and the host that the last login was from.
     // value = serialize(array())
     'value' => 'a:0:{}'
 );
 
-// UI theme
 $_prefs['theme'] = array(
     'value' => 'silver',
     'type' => 'enum',
@@ -639,14 +616,13 @@ $_prefs['menu_refresh_time'] = array(
     'desc' => _("Refresh Dynamic Menu Elements:")
 );
 
-// should we create access keys?
 $_prefs['widget_accesskey'] = array(
     'value' => true,
     'type' => 'checkbox',
     'desc' => _("Should access keys be defined for most links?")
 );
 
-// the layout of the portal page.
+// The layout of the portal page.
 $_prefs['portal_layout'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
@@ -707,6 +683,7 @@ $_prefs['twitter'] = array(
 
 
 // *** IMSP Intergration Preferences ***
+
 $prefGroups['imspauth'] = array(
     'column' => _("Other Information"),
     'label' => _("Alternate IMSP Login"),
@@ -732,6 +709,7 @@ $_prefs['imsp_auth_pass'] = array(
 
 
 // *** SyncML Preferences ***
+
 $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
     'label' => _("SyncML"),
@@ -744,7 +722,10 @@ $_prefs['syncmlmanagement'] = array(
     'handler' => 'Horde_Prefs_Special_Syncml'
 );
 
+
+
 // *** ActiveSync Preferences ***
+
 $prefGroups['activesync'] = array(
     'column' => _("Other Information"),
     'label' => _("ActiveSync"),
@@ -771,9 +752,10 @@ $_prefs['activesync_replyposition'] = array(
 );
 
 
+
 // *** Internal Preferences ***
 
-// last time login tasks were run.
+// Last time login tasks were run.
 $_prefs['last_logintasks'] = array(
     // value = serialize(array())
     'value' => 'a:0:{}'
