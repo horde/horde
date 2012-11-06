@@ -325,3 +325,9 @@ td.addressTr span.loadingImg {
     vertical-align: middle;
     text-align: center;
 }
+
+/* Basic search page. */
+table.searchBasic input.checkbox {
+    margin-left: 5px;
+    vertical-align: middle;
+}
