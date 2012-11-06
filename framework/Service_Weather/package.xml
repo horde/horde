@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-01</date>
- <time>09:08:42</time>
+ <date>2012-11-06</date>
+ <time>20:55:10</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Remove support for Google&apos;s dead weather API.
  </notes>
  <contents>
@@ -31,6 +32,7 @@
      <dir name="Service">
       <dir name="Weather">
        <file name="COPYING" role="doc" />
+       <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Service/Weather -->
      </dir> <!-- /doc/Horde/Service -->
     </dir> <!-- /doc/Horde -->
@@ -294,6 +296,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Service/Weather/COPYING" />
+   <install as="UPGRADING" name="doc/Horde/Service/Weather/UPGRADING" />
    <install as="Horde/Service/Weather.php" name="lib/Horde/Service/Weather.php" />
    <install as="Horde/Service/Weather/Base.php" name="lib/Horde/Service/Weather/Base.php" />
    <install as="Horde/Service/Weather/Exception.php" name="lib/Horde/Service/Weather/Exception.php" />
@@ -628,9 +631,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-01</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [jan] Update Japanese translation (Hiromi Kimura &lt;hiromi@tac.tsukuba.ac.jp&gt;).
 * [mjr] Remove support for Google&apos;s dead weather API.
    </notes>
   </release>
