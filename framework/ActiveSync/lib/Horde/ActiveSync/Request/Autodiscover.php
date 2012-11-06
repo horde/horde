@@ -37,7 +37,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
         $email = $values[2]['value'];
         $username = $this->_driver->getUsernameFromEmail($email);
-
+        $this->_logger->debug('AUTODISCOVER username: ' . $username);
         if (!$this->_activeSync->authenticate($username)) {
             throw new Horde_Exception_AuthenticationFailure();
         }
