@@ -374,13 +374,13 @@ class Horde_ActiveSync
      * @return boolean  True on successful authentication to the backend.
      * @throws Horde_ActiveSync_Exception
      */
-    public function authenticate()
+    public function authenticate($username = '')
     {
         // Get credentials
         $serverVars = $this->_request->getServerVars();
         $user = $pass = '';
-        if (!empty($serverVars['PHP_AUTH_USER'])) {
-            $user = $serverVars['PHP_AUTH_USER'];
+        if (!empty($serverVars['PHP_AUTH_PW'])) {
+            $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
             $pass = $serverVars['PHP_AUTH_PW'];
         } elseif (!empty($serverVars['Authorization'])) {
             $hash = str_replace('Basic ', '', $serverVars['Authorization']);
@@ -388,6 +388,7 @@ class Horde_ActiveSync
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
+            $user = !empty($username) ? $username : $user;
         } else {
             // No provided username or Authorization header.
             $this->_logger->debug('Client did not provide authentication data.');
