@@ -26,7 +26,6 @@ if ($conf['signup']['allow'] && $conf['signup']['approve']) {
 $addForm = new Horde_Form($vars, _("Add a new user:"), 'adduser');
 $addForm->setButtons(_("Add user"), _("Reset"));
 
-$vars->set('form', 'add');
 $addForm->addHidden('', 'form', 'text', true, true);
 
 /* Use hooks get any extra fields for new accounts. */
