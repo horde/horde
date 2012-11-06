@@ -3765,8 +3765,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
-        $uids_ob = $this->getIdsOb($uids);
+        $uids_ob = $this->getIdsOb($this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY)));
 
         /* Are we caching flags? */
         if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
@@ -3781,18 +3780,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* Search for deleted messages, and remove from cache. */
-        $squery = new Horde_Imap_Client_Search_Query();
-        if (!empty($uids)) {
-            $squery->ids($this->getIdsOb($uids_ob->range_string));
-        }
-
-        $search = $this->search($this->_selected, $squery, array(
-            'nocache' => true
-        ));
-
-        $deleted = array_diff($uids_ob->ids, $search['match']->ids);
-        if (!empty($deleted)) {
-            $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
+        $vanished = $this->vanished($this->_selected, $modseq, $uids_ob);
+        $disappear = array_diff($uids_ob->ids, $vanished->ids);
+        if (!empty($disappear)) {
+            $this->_deleteMsgs($this->_selected, $this->getIdsOb($disappear));
         }
 
         $mbox_ob->sync = true;
