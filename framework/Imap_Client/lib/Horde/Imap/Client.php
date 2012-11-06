@@ -142,6 +142,16 @@ class Horde_Imap_Client
     const SPECIALUSE_SENT = '\\Sent';
     const SPECIALUSE_TRASH = '\\Trash';
 
+    /* Constants for sync(). */
+    const SYNC_UIDVALIDITY = 0;
+    const SYNC_FLAGS = 1;
+    const SYNC_FLAGSUIDS = 2;
+    const SYNC_NEWMSGS = 4;
+    const SYNC_NEWMSGSUIDS = 8;
+    const SYNC_VANISHED = 16;
+    const SYNC_VANISHEDUIDS = 32;
+    const SYNC_ALL = 64;
+
     /**
      * Capability dependencies.
      *
