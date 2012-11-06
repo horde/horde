@@ -29,7 +29,7 @@ class IMP_Dynamic_Compose_Common
     {
         global $page_output, $prefs;
 
-        $page_output->addScriptFile('compose-base.js');
+        $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('md5.js', 'horde');
         $page_output->addScriptFile('textarearesize.js', 'horde');

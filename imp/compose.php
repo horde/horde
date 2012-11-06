@@ -1071,7 +1071,7 @@ if ($rtemode && !$redirect) {
 if (!$showmenu) {
     $page_output->topbar = $page_output->sidebar = false;
 }
-$page_output->addScriptFile('compose-base.js');
+$page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
 $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
 $page_output->addInlineJsVars($js_vars);

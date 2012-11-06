@@ -9,6 +9,7 @@
 var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
+    // Vars set by PHP code: pastehtml
 
     getSpellChecker: function()
     {
@@ -72,6 +73,22 @@ var ImpComposeBase = {
         }
 
         elt.setValue(v + address + ', ');
+    },
+
+    onDomLoad: function()
+    {
+        if (CKEDITOR) {
+            CKEDITOR.on('instanceReady', function(e) {
+                e.editor.on('paste', function(e) {
+                    if (e.data.html) {
+                        alert(this.pastehtml);
+                        e.data.html = '';
+                    }
+                }.bind(this));
+            }.bind(this));
+        }
     }
 
 };
+
+document.observe('dom:loaded', ImpComposeBase.onDomLoad.bind(ImpComposeBase));
