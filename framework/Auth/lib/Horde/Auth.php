@@ -308,8 +308,6 @@ class Horde_Auth
     /**
      * Checks whether a password matches some expected policy.
      *
-     * @since   Horde_Auth 1.4.0
-     *
      * @param string $password  A password.
      * @param array $policy     A configuration with policy rules. Supported
      *                          rules:
@@ -405,8 +403,6 @@ class Horde_Auth
 
     /**
      * Checks whether a password is too similar to a dictionary of strings.
-     *
-     * @since   Horde_Auth 1.4.0
      *
      * @param string $password  A password.
      * @param array $dict       A dictionary to check for similarity, for

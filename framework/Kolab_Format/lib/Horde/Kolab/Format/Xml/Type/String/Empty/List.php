@@ -21,8 +21,6 @@
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
  *
- * @since Horde_Kolab_Format 2.0.0
- *
  * @category Kolab
  * @package  Kolab_Format
  * @author   Jan Schneider <jan@horde.org>

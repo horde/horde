@@ -402,8 +402,6 @@ class Horde_Db_Adapter_Mysql_Schema extends Horde_Db_Adapter_Base_Schema
     /**
      * Removes a primary key from a table.
      *
-     * @since Horde_Db 1.1.0
-     *
      * @param string $tableName  A table name.
      *
      * @throws Horde_Db_Exception

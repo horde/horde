@@ -111,8 +111,6 @@ implements Horde_Kolab_Storage_QuerySet
     /**
      * Add the set of data queries.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @param Horde_Kolab_Storage_Data $data   The data.
      * @param array                    $params Additional query parameters.
      *

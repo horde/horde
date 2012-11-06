@@ -51,8 +51,6 @@ class Horde_Kolab_Format_Xml_Parser
     /**
      * Simply return the DOMDocument without parsing any data.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @return DOMDocument The DOM document.
      */
     public function getDocument()

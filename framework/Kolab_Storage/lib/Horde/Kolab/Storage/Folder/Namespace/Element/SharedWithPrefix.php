@@ -82,8 +82,6 @@ extends Horde_Kolab_Storage_Folder_Namespace_Element_Shared
     /**
      * Generate a folder path for the given subpath and owner.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @param string $subpath The subpath of the folder.
      * @param string $owner   The folder owner.
      *

@@ -232,8 +232,6 @@ abstract class Horde_Auth_Base
     /**
      * Locks a user indefinitely or for a specified time.
      *
-     * @since Horde_Auth 1.2.0
-     *
      * @param string $userId  The user to lock.
      * @param integer $time   The duration in minutes, 0 = permanent.
      *
@@ -266,8 +264,6 @@ abstract class Horde_Auth_Base
     /**
      * Unlocks a user and optionally resets the bad login count.
      *
-     * @since Horde_Auth 1.2.0
-     *
      * @param string  $userId          The user to unlock.
      * @param boolean $resetBadLogins  Reset bad login counter?
      *
@@ -296,8 +292,6 @@ abstract class Horde_Auth_Base
 
     /**
      * Returns whether a user is currently locked.
-     *
-     * @since Horde_Auth 1.2.0
      *
      * @param string $userId         The user to check.
      * @param boolean $show_details  Return timeout too?
@@ -333,8 +327,6 @@ abstract class Horde_Auth_Base
     /**
      * Handles a bad login.
      *
-     * @since Horde_Auth 1.2.0
-     *
      * @param string $userId  The user with a bad login.
      *
      * @throws Horde_Auth_Exception
@@ -363,8 +355,6 @@ abstract class Horde_Auth_Base
 
     /**
      * Resets the bad login counter.
-     *
-     * @since Horde_Auth 1.2.0
      *
      * @param string $userId  The user to reset.
      *

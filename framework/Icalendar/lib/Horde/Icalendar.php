@@ -1317,8 +1317,7 @@ class Horde_Icalendar
      *                                     Horde_Date, array, or timestamp).
      * @param boolean $floating            Whether to return a floating
      *                                     date-time (without time zone
-     *                                     information). @since Horde_Icalendar
-     *                                     1.0.5.
+     *                                     information).
      *
      * @return string  The string representation of the datetime value.
      */

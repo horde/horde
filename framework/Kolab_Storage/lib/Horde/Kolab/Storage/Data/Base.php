@@ -98,8 +98,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Return the folder path for this data handler.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return string The folder path.
      */
     public function getPath()
@@ -109,8 +107,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Return the ID of the current user.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return string The current user.
      */
@@ -457,8 +453,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
     /**
      * Retrieve all objects in the current folder by backend id.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array An array of all objects.
      */
     public function getObjectsByBackendId()
@@ -468,8 +462,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Retrieve an object in the current folder by backend id.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $uid Backend id of the object to be returned.
      *
@@ -483,8 +475,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Return the mapping of object IDs to backend IDs.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The object to backend mapping.
      */
@@ -500,8 +490,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Retrieve the list of object duplicates.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of duplicates.
      */
@@ -525,8 +513,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Retrieve the list of object errors.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of errors.
      */
@@ -619,8 +605,6 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
 
     /**
      * Delete the specified messages from this folder.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param array|string $uids Backend id(s) of the message to be deleted.
      *

@@ -19,8 +19,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @since Horde_Test 1.1.0
- *
  * @category Horde
  * @package  Test
  * @author   Gunnar Wrobel <wrobel@pardus.de>

@@ -34,8 +34,6 @@ class Horde_Kolab_Format_Date
      *
      * @param string $date_time The Kolab date-time value.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
     static public function readUtcDateTime($date_time)
@@ -64,8 +62,6 @@ class Horde_Kolab_Format_Date
      * @param string $date     The Kolab date value.
      * @param string $timezone The associated timezone.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
     static public function readDate($date, $timezone)
@@ -80,8 +76,6 @@ class Horde_Kolab_Format_Date
      *
      * @param string $date_time The Kolab date-time value.
      * @param string $timezone  The associated timezone.
-     *
-     * @since Horde_Kolab_Format 1.1.0
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
@@ -135,8 +129,6 @@ class Horde_Kolab_Format_Date
      *
      * @param DateTime $date_time The PHP DateTime object.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @return string The Kolab format UTC date-time string.
      */
     static public function writeUtcDateTime(DateTime $date_time)
@@ -149,8 +141,6 @@ class Horde_Kolab_Format_Date
      * representation.
      *
      * @param DateTime $date_time The PHP DateTime object.
-     *
-     * @since Horde_Kolab_Format 1.1.0
      *
      * @return string The Kolab format date-time string.
      */
@@ -168,8 +158,6 @@ class Horde_Kolab_Format_Date
      * representation.
      *
      * @param DateTime $date The PHP DateTime object.
-     *
-     * @since Horde_Kolab_Format 1.1.0
      *
      * @return string The Kolab format UTC date string.
      */
