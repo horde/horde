@@ -1203,9 +1203,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $from = $message->getFromAddress();
         $msg = $this->_msgBody($part, $html);
         $msg_pre = "\n----- "
-            . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+            . ($from ? sprintf(Horde_Core_Translation::t("Forwarded message from %s"), $from) : Horde_Core_Translation::t("Forwarded message"))
             . " -----\n" . $fwd_headers . "\n";
-        $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+        $msg_post = "\n\n----- " . Horde_Core_Translation::t("End forwarded message") . " -----\n";
 
         return ($html ? self::text2html($msg_pre) : $msg_pre)
             . $msg
@@ -1226,14 +1226,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $part = $message->getMimePart($partId);
         $headers = $message->getHeaders();
         $from = strval($headers->getOb('from'));
-        $msg_pre = $from ? sprintf(_("Quoting %s"), $from) : _("Quoted") . "\n\n";
+        $msg_pre = $from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted") . "\n\n";
         $msg = $this->_msgBody($part, $html, true);
         if (!empty($msg) && $html) {
             $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
                 . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
         } else {
             $msg = empty($msg)
-                ? '[' . _("No message body text") . ']'
+                ? '[' . Horde_Core_Translation::t("No message body text") . ']'
                 : $msg_pre . $msg;
         }
 
@@ -1791,17 +1791,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::SPECIAL_TRASH:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
             $folder->serverid = 'Trash';
-            $folder->displayname = _("Trash");
+            $folder->displayname = Horde_Core_Translation::t("Trash");
             break;
         case self::SPECIAL_SENT:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
             $folder->serverid = 'Sent';
-            $folder->displayname = _("Sent");
+            $folder->displayname = Horde_Core_Translation::t("Sent");
             break;
         case self::SPECIAL_INBOX:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             $folder->serverid = 'INBOX';
-            $folder->displayname = _("Inbox");
+            $folder->displayname = Horde_Core_Translation::t("Inbox");
             break;
         }
 

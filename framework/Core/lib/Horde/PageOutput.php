@@ -674,9 +674,9 @@ class Horde_PageOutput
             }
 
             $init_js = implode('', array_merge(array(
-                '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',
-                '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
-                '$.mobile.loadingMessage = "' . _("loading") . '";'
+                '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
+                '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
+                '$.mobile.loadingMessage = "' . Horde_Core_Translation::t("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
 
             $this->addInlineJsVars(array(
@@ -733,23 +733,23 @@ class Horde_PageOutput
 
             /* Gettext strings used in core javascript files. */
             $js_text = array(
-                'ajax_error' => _("Error when communicating with the server."),
-                'ajax_recover' => _("The connection to the server has been restored."),
-                'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-                'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
+                'ajax_error' => Horde_Core_Translation::t("Error when communicating with the server."),
+                'ajax_recover' => Horde_Core_Translation::t("The connection to the server has been restored."),
+                'ajax_timeout' => Horde_Core_Translation::t("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+                'snooze' => sprintf(Horde_Core_Translation::t("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
                 'snooze_select' => array(
-                    '0' => _("Select..."),
-                    '5' => _("5 minutes"),
-                    '15' => _("15 minutes"),
-                    '60' => _("1 hour"),
-                    '360' => _("6 hours"),
-                    '1440' => _("1 day")
+                    '0' => Horde_Core_Translation::t("Select..."),
+                    '5' => Horde_Core_Translation::t("5 minutes"),
+                    '15' => Horde_Core_Translation::t("15 minutes"),
+                    '60' => Horde_Core_Translation::t("1 hour"),
+                    '360' => Horde_Core_Translation::t("6 hours"),
+                    '1440' => Horde_Core_Translation::t("1 day")
                 )
             );
 
             if (!empty($opts['growler_log'])) {
-                $js_text['growlerinfo'] = _("This is the notification log.");
-                $js_text['growlernoalerts'] = _("No Alerts");
+                $js_text['growlerinfo'] = Horde_Core_Translation::t("This is the notification log.");
+                $js_text['growlernoalerts'] = Horde_Core_Translation::t("No Alerts");
             }
 
             $this->addInlineJsVars(array(

@@ -692,7 +692,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         case 'basic':
             if (!$browser->hasFeature('javascript')) {
-                $notification->push(_("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
+                $notification->push(Horde_Core_Translation::t("Your browser does not support javascript. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
             }
             break;
@@ -700,10 +700,10 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         case 'dynamic':
             if (!$browser->hasFeature('ajax')) {
                 if ($browser->hasFeature('javascript')) {
-                    $notification->push(_("Your browser does not support the dynamic view. Using basic view instead."), 'horde.warning');
+                    $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using basic view instead."), 'horde.warning');
                     $mode = 'basic';
                 } else {
-                    $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
+                    $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                     $mode = 'mobile';
                 }
             }
@@ -711,7 +711,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
 
         case 'smartmobile':
             if (!$browser->hasFeature('ajax')) {
-                $notification->push(_("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
+                $notification->push(Horde_Core_Translation::t("Your browser does not support the dynamic view. Using minimal view instead."), 'horde.warning');
                 $mode = 'mobile';
             }
             break;
@@ -725,7 +725,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (($browser->getBrowser() == 'msie') &&
             ($browser->getMajor() < 8) &&
             ($mode != 'mobile')) {
-            $notification->push(_("You are using an old, unsupported version of Internet Explorer. You must use the minimal view until you upgrade your browser."));
+            $notification->push(Horde_Core_Translation::t("You are using an old, unsupported version of Internet Explorer. You must use the minimal view until you upgrade your browser."));
             $mode = 'mobile';
         }
 

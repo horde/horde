@@ -286,9 +286,9 @@ class Horde_Config
         $configFile = $this->configFile();
         if (file_exists($configFile)) {
             if (@copy($configFile, $path . '/conf.bak.php')) {
-                $GLOBALS['notification']->push(sprintf(_("Successfully saved the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.success');
+                $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Successfully saved the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.success');
             } else {
-                $GLOBALS['notification']->push(sprintf(_("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
+                $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Could not save the backup configuration file %s."), Horde_Util::realPath($path . '/conf.bak.php')), 'horde.warning');
             }
         }
         if ($fp = @fopen($configFile, 'w')) {
@@ -296,7 +296,7 @@ class Horde_Config
             fwrite($fp, $php);
             fclose($fp);
             $GLOBALS['registry']->rebuild();
-            $GLOBALS['notification']->push(sprintf(_("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
+            $GLOBALS['notification']->push(sprintf(Horde_Core_Translation::t("Successfully wrote %s"), Horde_Util::realPath($configFile)), 'horde.success');
             return true;
         }
 
