@@ -13,7 +13,7 @@ class Sesha_Form_PropertyList extends Horde_Form
 {
     public function __construct($vars)
     {
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
         // This is probably wrong. The library should get the driver 
         // or the properties passed
         $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();

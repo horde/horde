@@ -24,7 +24,7 @@ class Hermes_Form_Export extends Horde_Form
     public function __construct(&$vars)
     {
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');;
-        parent::Horde_Form($vars, _("Export Search Results"));
+        parent::__construct($vars, _("Export Search Results"));
 
         $formats = array(
             'Hermescsv' => _("Comma-Separated Variable (.csv)"),

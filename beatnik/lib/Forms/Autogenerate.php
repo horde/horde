@@ -16,7 +16,7 @@ class Autogenerate extends Horde_Form
     {
         require BEATNIK_BASE . '/config/autogenerate.php';
 
-        parent::Horde_Form($vars, _("Choose a template for autogenerating the records:"), 'autogenerate');
+        parent::__construct($vars, _("Choose a template for autogenerating the records:"), 'autogenerate');
         $this->setButtons(array(_("Autogenerate"), _("Cancel")));
 
         // Create an array of template => description for the enum

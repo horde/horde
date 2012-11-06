@@ -27,7 +27,7 @@ class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
      */
     public function __construct($params = array())
     {
-        parent::Horde_Form_Renderer($params);
+        parent::__construct_Renderer($params);
     }
 
     function _renderSectionBegin(&$form, $section)

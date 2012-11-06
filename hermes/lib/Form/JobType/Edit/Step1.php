@@ -12,7 +12,7 @@ class Hermes_Form_JobType_Edit_Step1 extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, 'editjobtypestep1form');
+        parent::__construct($vars, 'editjobtypestep1form');
 
         $values = array();
         try {

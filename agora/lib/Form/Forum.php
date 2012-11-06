@@ -17,7 +17,7 @@ class Agora_Form_Forum extends Horde_Form {
     {
         global $forums, $conf;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         try {
             $forums_list = Agora::formatCategoryTree($forums->getForums(0, false, 'forum_name', 0, true));
