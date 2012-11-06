@@ -2928,9 +2928,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _vanished($modseq, Horde_Imap_Client_Ids $ids)
     {
-        $mbox_ob = $this->_mailboxOb();
-
-        if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+        if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
             throw new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
                 Horde_Imap_Client_Exception::MBOXNOMODSEQ
