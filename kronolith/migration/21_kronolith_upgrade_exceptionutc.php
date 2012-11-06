@@ -27,7 +27,7 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
                 return;
             }
             $registry->importConfig('kronolith');
-            if (empty($GLOALS['conf']['calendar']['params']['utc'])) {
+            if (empty($GLOBALS['conf']['calendar']['params']['utc'])) {
                 return;
             }
         } catch (Exception $e) {
