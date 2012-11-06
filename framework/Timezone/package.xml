@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:58:24</time>
+ <date>2012-11-06</date>
+ <time>20:59:57</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -40,6 +40,8 @@
     <dir name="Horde">
      <dir name="Timezone">
       <dir name="fixtures">
+       <file name="etcetera" role="test" />
+       <file name="etcetera.ics" role="test" />
        <file name="europe" role="test" />
        <file name="europe.ics" role="test" />
       </dir> <!-- /test/Horde/Timezone/fixtures -->
@@ -91,6 +93,8 @@
    <install as="Horde/Timezone/AllTests.php" name="test/Horde/Timezone/AllTests.php" />
    <install as="Horde/Timezone/Autoload.php" name="test/Horde/Timezone/Autoload.php" />
    <install as="Horde/Timezone/IcalendarTest.php" name="test/Horde/Timezone/IcalendarTest.php" />
+   <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
+   <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
    <install as="Horde/Timezone/fixtures/europe" name="test/Horde/Timezone/fixtures/europe" />
    <install as="Horde/Timezone/fixtures/europe.ics" name="test/Horde/Timezone/fixtures/europe.ics" />
   </filelist>
@@ -131,7 +135,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix notice when parsing Etc/UTC rules.
