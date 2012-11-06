@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-30 21:26+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -455,7 +455,7 @@ msgstr ""
 msgid "Home Phone"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1800
+#: lib/Horde/Core/ActiveSync/Driver.php:1804
 msgid "Inbox"
 msgstr ""
 
@@ -813,7 +813,7 @@ msgstr ""
 msgid "Send SMS"
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1795
+#: lib/Horde/Core/ActiveSync/Driver.php:1799
 msgid "Sent"
 msgstr ""
 
@@ -988,7 +988,7 @@ msgid ""
 "while clicking."
 msgstr ""
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1790
+#: lib/Horde/Core/ActiveSync/Driver.php:1794
 msgid "Trash"
 msgstr ""
 

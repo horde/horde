@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H5 (3.0.0-git)\n"
+"Project-Id-Version: Ingo H5 (3.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-30 21:46+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,7 +59,7 @@ msgstr ""
 msgid "Advanced Settings"
 msgstr ""
 
-#: templates/rule/header.inc:31
+#: templates/rule/header.inc:37
 msgid "All of the following"
 msgstr ""
 
@@ -67,11 +67,11 @@ msgstr ""
 msgid "Allow Rules"
 msgstr ""
 
-#: templates/rule/footer.inc:34
+#: templates/rule/footer.inc:37
 msgid "Answered"
 msgstr ""
 
-#: templates/rule/header.inc:32
+#: templates/rule/header.inc:38
 msgid "Any of the following"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Copy %s"
 msgstr ""
 
-#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:226
+#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:228
 #, php-format
 msgid "Copy of %s"
 msgstr ""
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Delete message completely"
 msgstr ""
 
-#: templates/rule/footer.inc:36
+#: templates/rule/footer.inc:40
 msgid "Deleted"
 msgstr ""
 
@@ -220,7 +220,7 @@ msgid "Disable %s"
 msgstr ""
 
 #: forward.php:79 spam.php:120 templates/blacklist/blacklist.inc:9
-#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
+#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:9
 #: vacation.php:114
 msgid "Disabled"
 msgstr ""
@@ -259,7 +259,7 @@ msgstr ""
 
 #: lib/Block/Overview.php:56 lib/Block/Overview.php:67
 #: lib/Block/Overview.php:82 lib/Block/Overview.php:93
-#: lib/Block/Overview.php:104 templates/filters/header.inc:11
+#: lib/Block/Overview.php:104 templates/filters/header.inc:12
 msgid "Edit"
 msgstr ""
 
@@ -273,7 +273,7 @@ msgstr ""
 msgid "Enable %s"
 msgstr ""
 
-#: templates/filters/header.inc:13
+#: templates/filters/header.inc:14
 msgid "Enabled"
 msgstr ""
 
@@ -295,7 +295,7 @@ msgstr ""
 msgid "Error retrieving current script: (%d) %s"
 msgstr ""
 
-#: templates/filters/header.inc:5
+#: templates/filters/header.inc:6
 msgid "Existing Rules"
 msgstr ""
 
@@ -340,7 +340,7 @@ msgstr ""
 msgid "Filter Options"
 msgstr ""
 
-#: templates/rule/header.inc:12
+#: templates/rule/header.inc:13
 msgid "Filter Rule"
 msgstr ""
 
@@ -399,7 +399,7 @@ msgstr ""
 msgid "Filter not found."
 msgstr ""
 
-#: templates/rule/footer.inc:32
+#: templates/rule/footer.inc:34
 msgid "Flagged For Followup"
 msgstr ""
 
@@ -407,7 +407,7 @@ msgstr ""
 msgid "Folder to receive spam:"
 msgstr ""
 
-#: templates/rule/header.inc:29
+#: templates/rule/header.inc:31
 msgid "For an incoming message that matches:"
 msgstr ""
 
@@ -494,11 +494,11 @@ msgstr ""
 msgid "List-ID"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:19
+#: templates/blacklist/blacklist.inc:23
 msgid "Mar_k message as deleted"
 msgstr ""
 
-#: templates/rule/footer.inc:25
+#: templates/rule/footer.inc:26
 msgid "Mark message as:"
 msgstr ""
 
@@ -554,7 +554,7 @@ msgstr ""
 msgid "Mobile"
 msgstr ""
 
-#: templates/filters/header.inc:15
+#: templates/filters/header.inc:16
 msgid "Move"
 msgstr ""
 
@@ -687,17 +687,17 @@ msgstr ""
 msgid "Resent-To"
 msgstr ""
 
-#: templates/rule/footer.inc:61
+#: templates/rule/footer.inc:65
 msgid "Return to Filters List"
 msgstr ""
 
 #: forward.php:34 lib/Form/Base.php:30 spam.php:60
-#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
+#: templates/blacklist/blacklist.inc:49 templates/whitelist/whitelist.inc:30
 #: vacation.php:34
 msgid "Return to Rules List"
 msgstr ""
 
-#: templates/filters/header.inc:12
+#: templates/filters/header.inc:13
 msgid "Rule"
 msgstr ""
 
@@ -729,7 +729,7 @@ msgstr ""
 msgid "Rule Enabled"
 msgstr ""
 
-#: templates/rule/header.inc:20
+#: templates/rule/header.inc:21
 msgid "Rule Name:"
 msgstr ""
 
@@ -756,8 +756,8 @@ msgid "S_pam"
 msgstr ""
 
 #: lib/Form/Base.php:24 lib/Form/Forward.php:25 lib/Form/Spam.php:35
-#: lib/Form/Vacation.php:53 templates/blacklist/blacklist.inc:40
-#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
+#: lib/Form/Vacation.php:53 templates/blacklist/blacklist.inc:48
+#: templates/rule/footer.inc:64 templates/whitelist/whitelist.inc:29
 msgid "Save"
 msgstr ""
 
@@ -794,7 +794,7 @@ msgstr ""
 msgid "Script successfully deactivated."
 msgstr ""
 
-#: templates/rule/footer.inc:30
+#: templates/rule/footer.inc:31
 msgid "Seen"
 msgstr ""
 
@@ -806,7 +806,7 @@ msgstr ""
 msgid "Select ruleset to display:"
 msgstr ""
 
-#: rule.php:372 templates/blacklist/blacklist.inc:22
+#: rule.php:372 templates/blacklist/blacklist.inc:26
 msgid "Select target folder"
 msgstr ""
 
@@ -863,7 +863,7 @@ msgstr ""
 msgid "Start of vacation:"
 msgstr ""
 
-#: templates/rule/footer.inc:50
+#: templates/rule/footer.inc:54
 msgid "Stop checking if this rule matches?"
 msgstr ""
 
@@ -954,12 +954,12 @@ msgstr ""
 msgid "View Rule"
 msgstr ""
 
-#: templates/whitelist/whitelist.inc:14
+#: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
 msgstr ""
 
 #: filters.php:195 lib/Block/Overview.php:83 lib/Smartmobile.php:83
-#: templates/whitelist/whitelist.inc:5
+#: templates/whitelist/whitelist.inc:6
 msgid "Whitelist"
 msgstr ""
 
@@ -1040,11 +1040,11 @@ msgstr ""
 msgid "_Blacklist"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/blacklist/blacklist.inc:21
 msgid "_Delete message completely"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:31
+#: templates/blacklist/blacklist.inc:35
 msgid "_Enter each address on a new line:"
 msgstr ""
 
@@ -1052,7 +1052,7 @@ msgstr ""
 msgid "_Forward"
 msgstr ""
 
-#: templates/blacklist/blacklist.inc:21
+#: templates/blacklist/blacklist.inc:25
 msgid "_Move message to folder:"
 msgstr ""
 
