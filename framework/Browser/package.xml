@@ -17,9 +17,9 @@
   <active>yes</active>
  </developer>
  <date>2012-11-06</date>
- <time>19:54:47</time>
+ <time>19:55:14</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -745,6 +745,19 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
