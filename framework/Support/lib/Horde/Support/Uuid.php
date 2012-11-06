@@ -40,9 +40,9 @@ class Horde_Support_Uuid
         if (extension_loaded('uuid')) {
             if (function_exists('uuid_export')) {
                 // UUID extension from http://www.ossp.org/pkg/lib/uuid/
-                if (!uuid_create($ctx) &&
-                    !uuid_make($ctx, UUID_MAKE_V4) &&
-                    !uuid_export($ctx, UUID_FMT_STR, $str)) {
+                if (uuid_create($ctx) == UUID_RC_OK &&
+                    uuid_make($ctx, UUID_MAKE_V4) == UUID_RC_OK &&
+                    uuid_export($ctx, UUID_FMT_STR, $str) == UUID_RC_OK) {
                     $this->_uuid = $str;
                     uuid_destroy($ctx);
                 }
