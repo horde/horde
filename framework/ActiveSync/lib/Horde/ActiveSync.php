@@ -551,6 +551,8 @@ class Horde_ActiveSync
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            $request->setLogger($this->_logger);
+
             return $request->handle();
         }
 
