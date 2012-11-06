@@ -2,7 +2,7 @@
 v6.0.1-git
 ----------
 
-[mms] Disallow pasting non-text elements into the HTML editor.
+[mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 [mms] If persistent IMAP caching is disabled, use an in-memory cache for the
       current page load.

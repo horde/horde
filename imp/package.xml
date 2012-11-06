@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Disallow pasting non-text elements into the HTML editor.
+* [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
@@ -2827,7 +2827,7 @@
    <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Disallow pasting non-text elements into the HTML editor.
+* [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
