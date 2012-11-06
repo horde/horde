@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-02 18:10+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -162,8 +162,8 @@ msgid "Failed retrieving structure of message %s in folder %s."
 msgstr ""
 "Fehler beim Laden der Nachrichtenstruktur für Nachricht %s vom Ordner %s."
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:846
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:852
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:844
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:850
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr ""
@@ -250,7 +250,7 @@ msgstr "Fehler beim Schreiben der Annotation %s[%s] von Ordner %s."
 msgid "Setting annotation %s[%s] on folder %s to %s failed."
 msgstr "Fehler beim Schreiben der Annotation %s[%s] von Ordner %s nach %s."
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:259
+#: lib/Horde/Kolab/Storage/Data/Base.php:255
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -261,7 +261,7 @@ msgstr ""
 "dass dieses Kolab-Objekt von jemand anderem verändert wurde, während Sie es "
 "bearbeitet haben. Orginalfehlermeldung: %s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:685
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:683
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -283,7 +283,7 @@ msgstr ""
 "Sie ein E-Mail-Programm, das das Kolab-Groupware-Format unterstützt. Eine "
 "Liste solcher Programme finden Sie unter %s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:368
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:366
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""
