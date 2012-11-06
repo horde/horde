@@ -600,7 +600,7 @@ $_prefs['last_login'] = array(
 
 // UI theme
 $_prefs['theme'] = array(
-    'value' => 'silver',
+    'value' => 'default',
     'type' => 'enum',
     'enum' => Horde_Themes::themeList(),
     'desc' => _("Select your color scheme.")
