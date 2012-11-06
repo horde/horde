@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-10-30</date>
- <time>19:45:35</time>
+ <date>2012-11-06</date>
+ <time>20:51:58</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -742,7 +742,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
