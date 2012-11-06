@@ -16,6 +16,11 @@ Upgrading to 2.2.0
 
   - Horde_Imap_Client_Base
 
+    The following methods have been added:
+
+      - getSyncToken()
+      - sync()
+
     The following methods have been marked as deprecated and will be removed
     in 3.0:
 
