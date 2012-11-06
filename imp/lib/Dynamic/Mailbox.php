@@ -435,15 +435,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*flag' => _("Show Only"),
                 '*flagnot' => _("Don't Show")
             );
-            $context['ctx_qsearchby'] = array(
+            $context['ctx_qsearchopts'] = array(
                 '*all' => _("Entire Message"),
                 '*body' => _("Body"),
                 '*from' => _("From"),
                 '*recip' => _("Recipients (To/Cc/Bcc)"),
-                '*subject' => _("Subject")
-            );
-            $context['ctx_qsearchopts'] = array(
-                '*by' => _("Search By"),
+                '*subject' => _("Subject"),
                 '_sep1' => null,
                 '*advanced' => _("Advanced Search...")
             );

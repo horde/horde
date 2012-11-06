@@ -1135,25 +1135,25 @@ var DimpBase = {
             };
             // Fall through
 
-        case 'ctx_qsearchopts_advanced':
-            this.go('search', tmp);
-            break;
-
         case 'ctx_vcontainer_edit':
             this.go('prefs', { group: 'searches' });
             break;
 
-        case 'ctx_qsearchby_all':
-        case 'ctx_qsearchby_body':
-        case 'ctx_qsearchby_from':
-        case 'ctx_qsearchby_recip':
-        case 'ctx_qsearchby_subject':
-            this._setPref('qsearch_field', id.substring(14));
+        case 'ctx_qsearchopts_all':
+        case 'ctx_qsearchopts_body':
+        case 'ctx_qsearchopts_from':
+        case 'ctx_qsearchopts_recip':
+        case 'ctx_qsearchopts_subject':
+            this._setPref('qsearch_field', id.substring(16));
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
             }
+            break;
+
+        case 'ctx_qsearchopts_advanced':
+            this.go('search', tmp);
             break;
 
         default:
@@ -1320,7 +1320,7 @@ var DimpBase = {
             [ $('ctx_sortopts_to') ].invoke(tmp ? 'show' : 'hide');
             break;
 
-        case 'ctx_qsearchby':
+        case 'ctx_qsearchopts':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
             $(ctx_id + '_' + this._getPref('qsearch_field')).addClassName('contextSelected');
             break;
@@ -2155,7 +2155,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')] + ')');
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -3671,7 +3671,6 @@ var DimpBase = {
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
-            DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
 
             DimpCore.addPopdownButton('button_filter', 'filteropts', {
                 trigger: true

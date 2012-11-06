@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 [mms] Collapse multiple mailbox export options in dynamic mailbox view to
       single action.
 [mms] Importing a PGP personal key now only requires the private key.
