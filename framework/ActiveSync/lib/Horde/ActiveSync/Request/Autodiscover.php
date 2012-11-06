@@ -35,16 +35,31 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         $input_stream = $this->_decoder->getStream();
         $parser = xml_parser_create();
         xml_parse_into_struct($parser, stream_get_contents($input_stream), $values);
-        $email = $values[2]['value'];
+
+        // Some broken clients *cough* android *cough* don't send the actual
+        // XML data structure at all, but instead use the email address as
+        // the username in the HTTP_AUTHENTICATION data. There are so many things
+        // wrong with this, but try to work around it if we can.
+        if (empty($values) && !empty($_SERVER['HTTP_AUTHORIZATION'])) {
+            $hash = base64_decode(str_replace('Basic ', '', $_SERVER['HTTP_AUTHORIZATION']));
+            if (strpos($hash, ':') !== false) {
+                list($email, $pass) = explode(':', $hash, 2);
+            }
+        } else {
+          $email = $values[2]['value'];
+        }
+
         $username = $this->_driver->getUsernameFromEmail($email);
-        $this->_logger->debug('AUTODISCOVER username: ' . $username);
         if (!$this->_activeSync->authenticate($username)) {
             throw new Horde_Exception_AuthenticationFailure();
         }
 
         $results = $this->_driver->autoDiscover();
-        $results['request_schema'] = $values[0]['attributes']['XMLNS'];
-        $results['response_schema'] = $values[3]['value'];
+
+        if (!empty($values)) {
+            $results['request_schema'] = $values[0]['attributes']['XMLNS'];
+            $results['response_schema'] = $values[3]['value'];
+        }
 
         fwrite(
             $this->_encoder->getStream(),
