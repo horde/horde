@@ -122,6 +122,7 @@ class Horde_ActiveSync_SyncCache
             'lasthbsyncstarted', 'lastsyncendnormal', 'folders', 'pingheartbeat',
             'synckeycounter'));
     }
+
     /**
      * Validate the cache. Compares the cache timestamp with the current cache
      * timestamp in the state backend. If the timestamps are different, some

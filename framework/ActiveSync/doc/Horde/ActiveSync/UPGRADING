@@ -10,6 +10,12 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.0.2
+==================
+
+The field cache_data field size has been increased. You MUST run the new
+12_horde_activesync_longtextcachefield migration.
+
 
 Upgrading to 2.0
 ================

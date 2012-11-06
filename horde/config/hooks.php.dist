@@ -791,4 +791,16 @@ class Horde_Hooks
 //        }
 //    }
 
+    /**
+     * Activesync hook for determing a Horde username from an email address.
+     *
+     * @param string $email  The email address
+     *
+     * @return string  The username to use to authenticate to Horde with.
+     */
+    // public function activesync_get_autodiscover_username($email)
+    // {
+    //     return substr($email, 0, strpos($email, '@'));
+    // }
+
 }

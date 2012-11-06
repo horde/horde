@@ -7,21 +7,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_VFS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
-"PO-Revision-Date: 2012-08-30 21:12+0900\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-14 11:34+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Vfs/Smb.php:565
+#: lib/Horde/Vfs/Smb.php:564
 msgid "No such file"
 msgstr "該当ファイルなし"
 
-#: lib/Horde/Vfs/Smb.php:568
+#: lib/Horde/Vfs/Smb.php:567
 msgid "Permission Denied"
 msgstr "アクセスは拒否されました"
 

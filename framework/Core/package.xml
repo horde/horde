@@ -40,7 +40,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mjr] Fix detected email changes on certain IMAP servers.
+* [mjr] Fix determining special mailboxes and generating folder hierarchy on some ActiveSync clients (Bug #11626).
+* [mjr] Limit the length of ActiveSync folder serverids to 64 per ActiveSync specs.
+* [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2561,7 +2565,11 @@
    <date>2012-10-31</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Fix detected email changes on certain IMAP servers.
+* [mjr] Fix determining special mailboxes and generating folder hierarchy on some ActiveSync clients (Bug #11626).
+* [mjr] Limit the length of ActiveSync folder serverids to 64 per ActiveSync specs.
+* [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
    </notes>
   </release>
  </changelog>

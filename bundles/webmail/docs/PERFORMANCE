@@ -165,12 +165,21 @@ IMAP tuning
   which contains features used internally by Horde Groupware Webmail Edition to
   speed up access to the remote server.
 
+  NOTE: if your installation connects to multiple imapproxy instances, you MUST
+  configure your Horde Groupware Webmail Edition installation to persistently
+  connect to a single backend over the course of a session. If this is not
+  possible, you must remove support for imapproxy's advanced features by adding
+  'XIMAPPROXY' to the 'capability_ignore' parameter in your local
+  configuration.
+
 * Use an IMAP server that supports CONDSTORE (RFC 4551) and/or QRESYNC (RFC
   5162).
 
-  These extensions are required to properly cache data and to properly keep
-  the dynamic display synchronized. It is impossible to do otherwise, and the
-  UI experience will be limited without these extensions.
+  These extensions are required to properly cache data and to properly keep the
+  dynamic display synchronized. It is impossible to do otherwise, and the UI
+  experience will be limited without these extensions. Additionally, if these
+  IMAP extensions are available, Horde Groupware Webmail Edition is able to
+  cache servers which signficantly saves on client/server IMAP interactions.
 
   Technical information can be found here:
 
@@ -181,7 +190,7 @@ IMAP tuning
   advanced IMAP protocols, and use server-side caching to speed performance.
 
 * Consider switching to a faster mailbox storage format if needed. This may
-  also entail switching the underlying filesystem.
+  also require switching the underlying filesystem.
 
   Further information can be found here:
 
@@ -251,11 +260,10 @@ Autoloading
 VFS
 ---
 
-* Try to avoid using a SQL backend for VFS. Many databases require binary data
-  to be heavily escaped, resulting in storage sizes that are many times greater
-  than the actual size of the data, so users attaching larger files to outgoing
-  mail messages may cause PHP out-of-memory errors to occur. File system VFS
-  will normally provide much improved performance.
+* Configure Horde Groupware Webmail Edition to use a VFS filesystem-based
+  backend. Presently, the SQL VFS backend uses ~5 times the amount of memory as
+  a filesystem-based backend, so users attaching larger files to outgoing mail
+  messages may cause PHP out-of-memory errors to occur.
 
 
 Application tuning
@@ -277,6 +285,8 @@ Webmail tuning
   the potentially large amounts of cached data this option will
   produce. However, cache storage is potentially cheap when compared to the
   performance gained by using caching.
+
+  If CONDSTORE/QRESYNC is available on the server, IMAP flags can be cached.
 
   To use this caching, you must have a ``Cache System`` configured in Horde
   Groupware Webmail Edition's ``Administration/Configuration`` screen and have

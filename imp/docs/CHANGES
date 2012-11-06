@@ -11,6 +11,9 @@ v6.1.0-git
 v6.0.1-git
 ----------
 
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[mms] If persistent IMAP caching is disabled, use an in-memory cache for the
+      current page load.
 [mms] Fix importing personal S/MIME certificate.
 [mms] Correctly show ACL entry for current user even if ACL response for
       mailbox is empty.

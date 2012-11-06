@@ -182,7 +182,9 @@ class Kronolith_Resource_Single extends Kronolith_Resource_Base
         $to->end = clone $from->end;
         $to->durMin = $from->durMin;
         $to->allday = $from->allday;
-        $to->recurrence = clone $from->recurrence;
+        if ($from->recurrence) {
+            $to->recurrence = clone $from->recurrence;
+        }
         $to->initialized = true;
         $to->timezone = $from->timezone;
     }

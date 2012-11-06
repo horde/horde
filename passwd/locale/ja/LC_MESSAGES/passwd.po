@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H4 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
-"PO-Revision-Date: 2012-08-30 21:11+0900\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-14 11:37+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: Japanese <LL@li.org>\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: ja\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: lib/Driver/Expect.php:30
 #, php-format
@@ -44,7 +45,7 @@ msgstr "パスワードを変更できません"
 msgid "Cannot send command to server."
 msgstr "コマンドをサーバに送れませんでした。"
 
-#: index.php:224 templates/index.html.php:84
+#: index.php:221 templates/index.html.php:84
 msgid "Change Password"
 msgstr "パスワード変更"
 
@@ -164,7 +165,7 @@ msgstr "古いパスワード："
 msgid "Passwd is not properly configured."
 msgstr "Passwd が正しく設定されていません。"
 
-#: lib/Application.php:47
+#: lib/Application.php:46
 msgid "Password"
 msgstr "パスワード"
 
@@ -189,15 +190,15 @@ msgstr "パスワードモジュールは目的のパラメータを見つけら
 msgid "Password module is not properly configured"
 msgstr "パスワードモジュールが正しく設定されていません"
 
-#: index.php:217
+#: index.php:214
 msgid "Please provide a new password"
 msgstr "新しいパスワードを入力して下さい"
 
-#: index.php:216
+#: index.php:213
 msgid "Please provide your current password"
 msgstr "現在のパスワードを入力して下さい"
 
-#: index.php:218
+#: index.php:215
 msgid "Please verify your new password"
 msgstr "新しいパスワードを確認して下さい"
 
@@ -286,7 +287,7 @@ msgstr "新しいパスワードが一致しません"
 msgid "Your password could not be changed."
 msgstr "あなたのパスワードは変更できませんでした。"
 
-#: index.php:219
+#: index.php:216
 msgid "Your passwords do not match"
 msgstr "パスワードが一致しません"
 

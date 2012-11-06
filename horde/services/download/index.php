@@ -28,15 +28,9 @@ if (!isset($vars->app)) {
 $vars->filename = substr($vars->fn, 1);
 unset($vars->fn);
 
-try {
-   $res = $registry->callAppMethod($vars->app, 'download', array(
-       'args' => array($vars)
-   ));
-} catch (Horde_Exception $e) {
-    $notification->push(sprintf(_("Could not download data: %s"), $e->getMessage()), 'horde.error');
-    Horde::url('', false, array('app' => $vars->app))->redirect();
-    exit;
-}
+$res = $registry->callAppMethod($vars->app, 'download', array(
+    'args' => array($vars)
+));
 
 if (!isset($res['data'])) {
     exit;

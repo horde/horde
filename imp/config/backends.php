@@ -113,7 +113,7 @@
  *
  * cache: (mixed) Enables caching for the server. This requires configuration
  *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
- *   and enabled on any non-false value.
+ *   enabled on any non-false value.
  *
  *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
  *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the

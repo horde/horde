@@ -1,17 +1,375 @@
 # Dutch translations for Horde_Crypt module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
-# This file is distributed under the same license as the Horde_Crypt module.
-# Automatically generated, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"PO-Revision-Date: 2012-11-03 20:40+0100\n"
+"Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Crypt/Pgp.php:1272
+msgid "A passphrase is required to decrypt a message."
+msgstr "Een wachtwoord is nodig om een bericht te ontcijferen."
+
+#: lib/Horde/Crypt/Pgp.php:1343
+msgid "A public PGP key is required to verify a signed message."
+msgstr ""
+"Een openbare PGP sleutel is benodigd om een ondertekend bericht te "
+"verifieren."
+
+#: lib/Horde/Crypt/Pgp.php:1203
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+"Een openbare PGP sleutel, privé PGP sleutel en wachtwoord zijn nodig om een "
+"bericht te ondertekenen."
+
+#: lib/Horde/Crypt/Smime.php:266
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr ""
+"Een openbare S/MIME sleutel is benodigd om een bericht te versleutelen."
+
+#: lib/Horde/Crypt/Smime.php:394
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+"Een openbare S/MIME sleutel, privé S/MIME sleutel en wachtwoord zijn nodig "
+"om een bericht te ontcijferen."
+
+#: lib/Horde/Crypt/Smime.php:325
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+"Een openbare S/MIME sleutel, privé S/MIME sleutel en wachtwoord zijn nodig "
+"om een bericht te ondertekenen."
+
+#: lib/Horde/Crypt/Smime.php:465
+msgid "CRL Distribution Points"
+msgstr "CRL distributie punten"
+
+#: lib/Horde/Crypt/Smime.php:516
+msgid "Certificate Details"
+msgstr "Certificaat gegevens"
+
+#: lib/Horde/Crypt/Smime.php:474
+msgid "Certificate Owner"
+msgstr "Certificaat eigenaar"
+
+#: lib/Horde/Crypt/Smime.php:464
+msgid "Certificate Policies"
+msgstr "Certificaat richtlijnen"
+
+#: lib/Horde/Crypt/Pgp.php:436
+msgid "Comment"
+msgstr "Opmerking"
+
+#: lib/Horde/Crypt/Smime.php:448
+msgid "Common Name"
+msgstr "Algemene naam"
+
+#: lib/Horde/Crypt/Pgp.php:978
+msgid "Connection refused to the public keyserver."
+msgstr "Verbinding met openbare sleutel server geweigerd."
+
+#: lib/Horde/Crypt/Pgp.php:989
+#, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Verbinding met openbare sleutel server geweigerd. Reden: %s (%s)"
+
+#: lib/Horde/Crypt/Pgp.php:1171
+msgid "Could not PGP encrypt message: "
+msgstr "Kon bericht niet versleutelen met PGP."
+
+#: lib/Horde/Crypt/Pgp.php:1240
+msgid "Could not PGP sign message: "
+msgstr "Kon bericht niet ondertekenen met PGP."
+
+#: lib/Horde/Crypt/Smime.php:295
+msgid "Could not S/MIME encrypt message."
+msgstr "Kon bericht niet versleutelen met S/MIME."
+
+#: lib/Horde/Crypt/Smime.php:356
+msgid "Could not S/MIME sign message."
+msgstr "Kon bericht niet ondertekenen met S/MIME."
+
+#: lib/Horde/Crypt/Pgp.php:1311
+msgid "Could not decrypt PGP data: "
+msgstr "Kon PGP gegevens niet ontcijferen:"
+
+#: lib/Horde/Crypt/Smime.php:412
+msgid "Could not decrypt S/MIME data."
+msgstr "Kon de S/MIME gegevens niet ontcijferen."
+
+#: lib/Horde/Crypt/Pgp.php:671
+msgid "Could not determine the recipient's e-mail address."
+msgstr "Kon het e-mailadres van de ontvanger niet bepalen."
+
+#: lib/Horde/Crypt/Pgp.php:772 lib/Horde/Crypt/Pgp.php:886
+msgid "Could not obtain public key from the keyserver."
+msgstr "Kon de openbare sleutel niet ophalen van sleutel server."
+
+#: lib/Horde/Crypt/Smime.php:451
+msgid "Country"
+msgstr "Land"
+
+#: lib/Horde/Crypt/Smime.php:446
+msgid "Description"
+msgstr "Omschrijving"
+
+#: lib/Horde/Crypt/Pgp.php:437
+msgid "E-Mail"
+msgstr "E-mail"
+
+#: lib/Horde/Crypt/Smime.php:447
+msgid "Email Address"
+msgstr "E-mailadres"
+
+#: lib/Horde/Crypt/Smime.php:551
+#, php-format
+msgid "Error parsing S/MIME certficate: %s"
+msgstr ""
+"Er is een fout opgetreden bij het ontleden van het S/MIME certificaat: %s"
+
+#: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
+msgid "Error while talking to pgp binary."
+msgstr "Er is een fout opgetreden bij het aanroepen van het pgp programma."
+
+#: lib/Horde/Crypt/Smime.php:721 lib/Horde/Crypt/Smime.php:739
+#: lib/Horde/Crypt/Smime.php:754
+msgid "Error while talking to smime binary."
+msgstr "Er is een fout opgetreden bij het aanroepen van het smime programma."
+
+#: lib/Horde/Crypt/Pgp.php:434
+msgid "Expiration Date"
+msgstr "Vervaldatum"
+
+#: lib/Horde/Crypt/Smime.php:457
+msgid "Given Name"
+msgstr "Voornaam"
+
+#: lib/Horde/Crypt/Pgp.php:438
+msgid "Hash-Algorithm"
+msgstr "Hash-algorithme"
+
+#: lib/Horde/Crypt/Smime.php:485
+msgid "Issuer"
+msgstr "UItgever"
+
+#: lib/Horde/Crypt/Pgp.php:433
+msgid "Key Creation"
+msgstr "Sleutel gemaakt op"
+
+#: lib/Horde/Crypt/Pgp.php:440
+msgid "Key Fingerprint"
+msgstr "Sleutel vingerafdruk"
+
+#: lib/Horde/Crypt/Pgp.php:439
+msgid "Key ID"
+msgstr "Sleutel ID"
+
+#: lib/Horde/Crypt/Pgp.php:435
+msgid "Key Length"
+msgstr "Sleutellengte"
+
+#: lib/Horde/Crypt/Pgp.php:432
+msgid "Key Type"
+msgstr "Sleutel type"
+
+#: lib/Horde/Crypt/Smime.php:466
+msgid "Key Usage"
+msgstr "Sleutel gebruik"
+
+#: lib/Horde/Crypt/Pgp.php:795
+msgid "Key already exists on the public keyserver."
+msgstr "Sleutel bestaat al op de openbare sleutel server."
+
+#: lib/Horde/Crypt/Smime.php:453
+msgid "Location"
+msgstr "Plaats"
+
+#: lib/Horde/Crypt/Smime.php:143
+msgid ""
+"Message verified successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+"Bericht succesvol geverifieerd maar het certificaat van de ondertekenaar kon "
+"niet worden geverifieerd."
+
+#: lib/Horde/Crypt/Smime.php:131
+msgid "Message verified successfully."
+msgstr "Bericht met succes geverifieerd."
+
+#: lib/Horde/Crypt/Pgp.php:431
+msgid "Name"
+msgstr "Naam"
+
+#: lib/Horde/Crypt/Pgp.php:463
+msgid "Never"
+msgstr "Nooit"
+
+#: lib/Horde/Crypt/Smime.php:687
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+"Geen pad naar het OpenSSL programma opgegeven. Het OpenSSL programma is "
+"nodig om PKCS 12 gegevens te verwerken."
+
+#: lib/Horde/Crypt/Pgp.php:465 lib/Horde/Crypt/Pgp.php:466
+msgid "None"
+msgstr "Geen"
+
+#: lib/Horde/Crypt/Smime.php:498
+msgid "Not After"
+msgstr "Niet na"
+
+#: lib/Horde/Crypt/Smime.php:497
+msgid "Not Before"
+msgstr "Niet voor"
+
+#: lib/Horde/Crypt/Smime.php:182
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+"OpenSSL fout: kon geen gegevens halen uit het ondertekende S/MIME deel."
+
+#: lib/Horde/Crypt/Smime.php:449
+msgid "Organisation"
+msgstr "Organisatie"
+
+#: lib/Horde/Crypt/Smime.php:450
+msgid "Organisational Unit"
+msgstr "Afdeling"
+
+#: lib/Horde/Crypt/Pgp.php:1442
+msgid "PGP Digital Signature"
+msgstr "PGP digitale ondertekening"
+
+#: lib/Horde/Crypt/Pgp.php:1486
+msgid "PGP Encrypted Data"
+msgstr "PGP versleutelde gegevens"
+
+#: lib/Horde/Crypt/Pgp.php:1547
+msgid "PGP Public Key"
+msgstr "Openbare PGP sleutel"
+
+#: lib/Horde/Crypt/Pgp.php:1529
+msgid "PGP Signed/Encrypted Data"
+msgstr "PGP ondertekende/versleutelde gegevens"
+
+#: lib/Horde/Crypt/Smime.php:726
+msgid "Password incorrect"
+msgstr "Wachtwoord onjuist"
+
+#: lib/Horde/Crypt/Pgp.php:461
+msgid "Private Key"
+msgstr "Privé sleutel"
+
+#: lib/Horde/Crypt/Pgp.php:461
+msgid "Public Key"
+msgstr "Openbare sleutel"
+
+#: lib/Horde/Crypt/Pgp.php:231
+msgid "Public/Private keypair not generated successfully."
+msgstr "Openbaar/privé sleutelpaar niet met succes gegenereerd."
+
+#: lib/Horde/Crypt/Pgp.php:233
+msgid "Returned error message:"
+msgstr "Geretourneerd fout bericht:"
+
+#: lib/Horde/Crypt/Pgp.php:1680
+msgid "Revocation key not generated successfully."
+msgstr "Intrekkings sleutel niet succesvol gemaakt."
+
+#: lib/Horde/Crypt/Smime.php:204
+msgid "S/MIME Cryptographic Signature"
+msgstr "S/MIME cryptografische ondertekening"
+
+#: lib/Horde/Crypt/Smime.php:238
+msgid "S/MIME Encrypted Message"
+msgstr "S/MIME versleuteld bericht"
+
+#: lib/Horde/Crypt/Smime.php:518
+msgid "Serial Number"
+msgstr "Serienummer"
+
+#: lib/Horde/Crypt/Smime.php:452
+msgid "State or Province"
+msgstr "Staat of provincie"
+
+#: lib/Horde/Crypt/Smime.php:454
+msgid "Street Address"
+msgstr "Straat"
+
+#: lib/Horde/Crypt/Smime.php:456
+msgid "Surname"
+msgstr "Achternaam"
+
+#: lib/Horde/Crypt/Smime.php:455
+msgid "Telephone Number"
+msgstr "Telefoonnummer"
+
+#: lib/Horde/Crypt/Pgp.php:1347
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+"De losgekoppelde PGP ondertekening is benodigd om het ondertekende bericht "
+"te verifieren."
+
+#: lib/Horde/Crypt/Smime.php:616
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr "De openssl module is vereist voor de Horde_Crypt_Smime::class."
+
+#: lib/Horde/Crypt/Pgp.php:467 lib/Horde/Crypt/Pgp.php:468
+#: lib/Horde/Crypt/Pgp.php:469
+msgid "Unknown"
+msgstr "Onbekend"
+
+#: lib/Horde/Crypt/Smime.php:496
+msgid "Validity"
+msgstr "Geldigheid"
+
+#: lib/Horde/Crypt/Smime.php:138
+msgid "Verification failed - an unknown error has occurred."
+msgstr "Verificatie mislukt - er is een onbekende fout opgetreden."
+
+#: lib/Horde/Crypt/Smime.php:140
+msgid "Verification failed - this message may have been tampered with."
+msgstr "Verificatie mislukt - dit bericht is mogelijk niet authentiek."
+
+#: lib/Horde/Crypt/Smime.php:517
+msgid "Version"
+msgstr "Versie"
+
+#: lib/Horde/Crypt/Smime.php:461
+msgid "X509v3 Basic Constraints"
+msgstr "X509v3 elementaire beperkingen"
+
+#: lib/Horde/Crypt/Smime.php:460
+msgid "X509v3 Extended Key Usage"
+msgstr "X509v3 uitgebreid sleutelgebruik"
+
+#: lib/Horde/Crypt/Smime.php:462
+msgid "X509v3 Subject Alternative Name"
+msgstr "X509v3 onderwerp alternatieve naam"
+
+#: lib/Horde/Crypt/Smime.php:463
+msgid "X509v3 Subject Key Identifier"
+msgstr "X509v3 onderwerp sleutel identificatie"
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 extensions"
+msgstr "X509v3 uitbreidingen"
+
+#: lib/Horde/Crypt/Smime.php:605
+msgid "not yet implemented"
+msgstr "niet geïmplementeerd"

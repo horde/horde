@@ -1,17 +1,31 @@
 # Dutch translations for Horde_VFS module.
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_VFS module.
-# Automatically generated, 2010.
 #
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_VFS\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-11-02 22:48+0100\n"
+"Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
+"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: lib/Horde/Vfs/Smb.php:564
+msgid "No such file"
+msgstr "Bestand bestaat niet"
+
+#: lib/Horde/Vfs/Smb.php:567
+msgid "Permission Denied"
+msgstr "Toegang geweigerd"
+
+#: lib/Horde/Vfs/SqlFile.php:265
+msgid "Unable to rename VFS file."
+msgstr "Kan VFS bestand niet hernoemen."

@@ -523,11 +523,13 @@ class Horde_Imap_Client_Search_Query implements Serializable
     public function ids(Horde_Imap_Client_Ids $ids, $not = false,
                         array $opts = array())
     {
-        $this->_search['ids'] = array_filter(array(
-            'fuzzy' => !empty($opts['fuzzy']),
-            'ids' => $ids,
-            'not' => $not
-        ));
+        if (!$ids->isEmpty()) {
+            $this->_search['ids'] = array_filter(array(
+                'fuzzy' => !empty($opts['fuzzy']),
+                'ids' => $ids,
+                'not' => $not
+            ));
+        }
     }
 
     /**

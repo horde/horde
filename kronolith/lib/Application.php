@@ -579,10 +579,6 @@ class Kronolith_Application extends Horde_Registry_Application
                 );
             }
 
-            if (empty($events)) {
-                throw new Kronolith_Exception(_("There were no events to export."));
-            }
-
             switch ($vars->exportID) {
             case Horde_Data::EXPORT_CSV:
                 $data = array();
@@ -634,17 +630,15 @@ class Kronolith_Application extends Horde_Registry_Application
                     foreach ($calevents as $dayevents) {
                         foreach ($dayevents as $event) {
                             $calIds[$event->calendar] = true;
+                            $calNames[Kronolith::getCalendar($event->getDriver())->name()] = true;
                             $iCal->addComponent($event->toiCalendar($iCal));
                         }
                     }
                 }
 
                 $kshares = $injector->getInstance('Kronolith_Shares');
-                foreach (array_keys($calIds) as $calId) {
-                    $calNames[] = $kshares->getShare($calId)->get('name');
-                }
 
-                $iCal->setAttribute('X-WR-CALNAME', implode(', ', $calNames));
+                $iCal->setAttribute('X-WR-CALNAME', implode(', ', array_keys($calNames)));
 
                 return array(
                     'data' => $iCal->exportvCalendar(),

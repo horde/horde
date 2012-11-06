@@ -42,9 +42,13 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             throw new Horde_Exception_AuthenticationFailure();
         }
 
+        $results = $this->_driver->autoDiscover();
+        $results['request_schema'] = $values[0]['attributes']['XMLNS'];
+        $results['response_schema'] = $values[3]['value'];
+
         fwrite(
             $this->_encoder->getStream(),
-            $this->_buildResponseString($this->_driver->autoDiscover()));
+            $this->_buildResponseString($results));
 
         return 'text/xml';
     }

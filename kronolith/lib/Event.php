@@ -597,7 +597,7 @@ abstract class Kronolith_Event
             if ($this->timezone) {
                 try {
                     $tz = $GLOBALS['injector']->getInstance('Horde_Timezone');
-                    $vEvent->addComponent($tz->getZone($this->timezone)->toVtimezone());
+                    $vEvents[] = $tz->getZone($this->timezone)->toVtimezone();
                     $params['TZID'] = $this->timezone;
                 } catch (Horde_Exception $e) {
                 }

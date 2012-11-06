@@ -250,10 +250,7 @@ class Mnemo_Application extends Horde_Registry_Application
 
             switch ($vars->exportID) {
             case Horde_Data::EXPORT_CSV:
-                if (count($notes) == 0) {
-                    throw new Mnemo_Exception(_("There were no memos to export."));
-                }
-                                                                                                $data = array();
+                $data = array();
                 foreach ($notes as $note) {
                     unset(
                         $note['desc'],

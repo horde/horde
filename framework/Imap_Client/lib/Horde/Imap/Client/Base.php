@@ -2653,8 +2653,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * Get the list of vanished messages (UIDs that have been expunged since a
      * given mod-sequence value).
      *
-     * This method requires the QRESYNC IMAP extension.
-     *
      * @param mixed $mailbox   The mailbox to query. Either a
      *                         Horde_Imap_Client_Mailbox object or a string
      *                         (UTF-8).
@@ -2662,7 +2660,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                         mod-sequence value.
      * @param array $opts      Additional options:
      *   - ids: (Horde_Imap_Client_Ids)  Restrict to these UIDs.
-     *          DEFAULT: Returns full list of UIDs.
+     *          DEFAULT: Returns full list of UIDs vanished (QRESYNC only).
+     *                   This option is REQUIRED for non-QRESYNC servers or
+     *                   else an empty list will be returned.
      *
      * @return Horde_Imap_Client_Ids  List of UIDs that have vanished.
      *
@@ -2672,12 +2672,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
     {
         $this->login();
 
-        /* Requires QRESYNC and UIDs. */
-        if (!isset($this->_init['enabled']['QRESYNC'])) {
-            throw new Horde_Imap_Client_Exception_NoSupportExtension('QRESYNC');
-        }
+        $qresync = $this->queryCapability('QRESYNC');
 
         if (empty($opts['ids'])) {
+            if (!$qresync) {
+                return $this->getIdsOb();
+            }
             $opts['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
         } elseif ($opts['ids']->isEmpty()) {
             return $this->getIdsOb();
@@ -2687,7 +2687,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
-        return $this->_vanished($modseq, $opts['ids']);
+        if ($qresync) {
+            return $this->_vanished($modseq, $opts['ids']);
+        }
+
+        $ids = $this->resolveIds($mailbox, $opts['ids']);
+
+        $squery = new Horde_Imap_Client_Search_Query();
+        $squery->ids($this->getIdsOb($ids->range_string));
+        $search = $this->search($mailbox, $squery, array(
+            'nocache' => true
+        ));
+
+        return $this->getIdsOb(array_diff($ids->ids, $search['match']->ids));
     }
 
     /**
@@ -3366,6 +3378,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 $res = $this->status($mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 return $this->getIdsOb($res['messages'] ? ('1:' . $res['messages']) : array(), true);
             }
+
+            $convert = 2;
         } elseif (!$convert || (!$ids->sequence && ($convert == 1))) {
             return clone $ids;
         } else {
@@ -3751,8 +3765,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             return;
         }
 
-        $uids = $this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
-        $uids_ob = $this->getIdsOb($uids);
+        $uids_ob = $this->getIdsOb($this->_cache->get($this->_selected, array(), array(), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY)));
 
         /* Are we caching flags? */
         if (array_key_exists(Horde_Imap_Client::FETCH_FLAGS, $this->_cacheFields())) {
@@ -3767,18 +3780,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         /* Search for deleted messages, and remove from cache. */
-        $squery = new Horde_Imap_Client_Search_Query();
-        if (!empty($uids)) {
-            $squery->ids($this->getIdsOb($uids_ob->range_string));
-        }
-
-        $search = $this->search($this->_selected, $squery, array(
-            'nocache' => true
-        ));
-
-        $deleted = array_diff($uids_ob->ids, $search['match']->ids);
-        if (!empty($deleted)) {
-            $this->_deleteMsgs($this->_selected, $this->getIdsOb($deleted));
+        $vanished = $this->vanished($this->_selected, $modseq, $uids_ob);
+        $disappear = array_diff($uids_ob->ids, $vanished->ids);
+        if (!empty($disappear)) {
+            $this->_deleteMsgs($this->_selected, $this->getIdsOb($disappear));
         }
 
         $mbox_ob->sync = true;

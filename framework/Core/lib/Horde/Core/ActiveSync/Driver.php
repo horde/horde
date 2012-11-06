@@ -1770,6 +1770,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders = array();
                 $imap_folders = $this->_imap->getMailboxes();
                 foreach ($imap_folders as $id => $folder) {
+                    // EAS maximum server id length is 64 per specs.
+                    if (strlen($id) > 64) {
+                        continue;
+                    }
                     $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
                 }
                 $this->_mailFolders = $folders;
@@ -1824,7 +1828,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Check for nested folders. $fl will NEVER contain containers so we
         // can assume that any entry in $fl is an actual mailbox.
         if ($f['level'] != 0) {
-            $parts = split($f['d'], $f['label']);
+            $parts = explode($f['d'], $f['label']);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
                 $folder->parentid = implode($f['d'], $parts);
@@ -1848,20 +1852,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if (!is_null($mailbox)) {
                     switch ($key) {
                     case self::SPECIAL_SENT:
-                        if ($sid == $mailbox->basename) {
+                        if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
                             return $folder;
                         }
                         break;
                     case self::SPECIAL_TRASH:
-                        if ($sid == $mailbox->basename) {
+                        if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
                             return $folder;
                         }
                         break;
 
                     case self::SPECIAL_DRAFTS:
-                        if ($sid == $mailbox->basename) {
+                        if ($sid == $mailbox->value) {
                             $folder->type = Horde_ActiveSync::FOLDER_TYPE_DRAFTS;
                             return $folder;
                         }

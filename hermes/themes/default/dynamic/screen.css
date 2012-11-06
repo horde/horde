@@ -236,7 +236,8 @@ div.hermesTimeListSelect, div.hermesTimeListBill {
 div.hermesTimeListHours {
     width: 5%;
 }
-div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient {
+div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient,
+div.hermesTimeListEmployee {
     width: 10%;
 }
 div.hermesTimeListCostObject, div.hermesTimeListDesc {

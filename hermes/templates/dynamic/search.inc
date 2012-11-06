@@ -62,7 +62,6 @@
     <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sortDesc"><?php echo _("Description")?></a></div>
     <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sortBill"><?php echo _("Bill") ?></a></div>
     <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
-    <div class="hermesTimeSliceOptions">&nbsp;</div>
   </div>
   <div id="hermesSearchListBody">
     <div id="hermesSearchListTemplate" style="display:none;">
@@ -75,7 +74,6 @@
       <div class="hermesTimeListDesc hermesBorderLeft"></div>
       <div class="hermesTimeListBill hermesBorderLeft"></div>
       <div class="hermesTimeListHours hermesBorderLeft"></div>
-      <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded bold">x</a></div>
     </div>
     <div id="hermesSearchListInternal"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
