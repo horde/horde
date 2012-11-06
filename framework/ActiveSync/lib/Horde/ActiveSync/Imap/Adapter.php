@@ -213,11 +213,11 @@ class Horde_ActiveSync_Imap_Adapter
         if ($qresync = $imap->queryCapability('QRESYNC')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         } else {
             $status_flags = Horde_Imap_Client::STATUS_MESSAGES |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         }
 
         try {
