@@ -383,8 +383,7 @@ class Horde_ActiveSync
             $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
             $pass = $serverVars['PHP_AUTH_PW'];
         } elseif (!empty($serverVars['Authorization'])) {
-            $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-            $hash = base64_decode($hash);
+            $hash = base64_decode(str_replace('Basic ', '', $serverVars['Authorization']));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
