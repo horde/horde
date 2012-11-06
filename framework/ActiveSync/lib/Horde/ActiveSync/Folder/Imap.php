@@ -36,10 +36,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     const COUNT       = 'messages';
 
     /**
-     * The folder's current message list. Only used for servers that do not
-     * support CONDSTORE.
-     *
-     * An array of UIDs.
+     * The folder's current message list.
      *
      * @var array
      */
@@ -47,6 +44,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been added since last sync.
+     * Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -54,7 +52,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been modified on the server
-     * since the last sync.
+     * since the last sync. Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -62,7 +60,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been expunged from the IMAP
-     * server since last sync.
+     * server since last sync. Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -70,10 +68,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message flag changes. Should be one entry for each UID
-     * also listed in the $_changed array. An array keyed by message UID:
+     * also listed in the $_changed array. Used for transporting changes back to
+     * activesync. An array keyed by message UID:
      *   uid => array('read' => 1)
      *
-     *  @var array
+     * @var array
      */
     protected $_flags = array();
 
@@ -101,6 +100,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
+                    // @TODO: Possibly remove this and require CONDSTORE support
+                    // to support detecting flag changes.
                     if ($flags[$uid]['read'] != $this->_messages[$uid]['read'] ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged']) ||
                         (!isset($flags[$uid]['flagged']) && isset($this->_messages[$uid]['flagged']))) {
