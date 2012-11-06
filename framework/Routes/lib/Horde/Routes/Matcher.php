@@ -9,7 +9,6 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Horde_Routes
- * @since    1.1.0
  */
 
 /**
@@ -26,7 +25,6 @@
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Horde_Routes
- * @since    1.1.0
  */
 class Horde_Routes_Matcher
 {

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:13:58</time>
+ <date>2012-11-06</date>
+ <time>01:52:40</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add message thread view to dynamic mailbox preview.
 * [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 * [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
 * [mms] Importing a PGP personal key now only requires the private key.
@@ -741,9 +742,6 @@
      <dir name="search">
       <file name="search-basic.html.php" role="horde" />
      </dir> <!-- /templates/basic/search -->
-     <dir name="thread">
-      <file name="thread.html.php" role="horde" />
-     </dir> <!-- /templates/basic/thread -->
      <file name="subinfo.html.php" role="horde" />
     </dir> <!-- /templates/basic -->
     <dir name="contacts">
@@ -829,6 +827,9 @@
     <dir name="test">
      <file name="mailserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <dir name="thread">
+     <file name="thread.html.php" role="horde" />
+    </dir> <!-- /templates/thread -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -999,6 +1000,7 @@
       <file name="spacer_red.png" role="horde" />
       <file name="spam.png" role="horde" />
       <file name="spellcheck.png" role="horde" />
+      <file name="thread.png" role="horde" />
       <file name="undelete.png" role="horde" />
       <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
@@ -1717,7 +1719,6 @@
    <install as="imp/templates/basic/message/navbar_navigate.html.php" name="templates/basic/message/navbar_navigate.html.php" />
    <install as="imp/templates/basic/message/navbar_top.html.php" name="templates/basic/message/navbar_top.html.php" />
    <install as="imp/templates/basic/search/search-basic.html.php" name="templates/basic/search/search-basic.html.php" />
-   <install as="imp/templates/basic/thread/thread.html.php" name="templates/basic/thread/thread.html.php" />
    <install as="imp/templates/contacts/contacts.html.php" name="templates/contacts/contacts.html.php" />
    <install as="imp/templates/dynamic/compose-base.html.php" name="templates/dynamic/compose-base.html.php" />
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
@@ -1775,6 +1776,7 @@
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
    <install as="imp/templates/smime/import_key.html.php" name="templates/smime/import_key.html.php" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
+   <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
@@ -1862,6 +1864,7 @@
    <install as="imp/themes/default/graphics/spacer_red.png" name="themes/default/graphics/spacer_red.png" />
    <install as="imp/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
+   <install as="imp/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />
@@ -2809,7 +2812,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
@@ -2839,6 +2842,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add message thread view to dynamic mailbox preview.
 * [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 * [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
 * [mms] Importing a PGP personal key now only requires the private key.

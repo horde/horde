@@ -26,15 +26,11 @@ class Horde_Memcache implements Serializable
 
     /**
      * Locking timeout.
-     *
-     * @since 1.1.1
      */
     const LOCK_TIMEOUT = 30;
 
     /**
      * Suffix added to key to create the lock entry.
-     *
-     * @since 1.1.0
      */
     const LOCK_SUFFIX = '_l';
 
@@ -166,8 +162,6 @@ class Horde_Memcache implements Serializable
 
     /**
      * Shutdown function.
-     *
-     * @since 1.1.0
      */
     public function shutdown()
     {

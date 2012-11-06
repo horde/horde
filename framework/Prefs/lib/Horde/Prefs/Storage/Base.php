@@ -88,8 +88,6 @@ abstract class Horde_Prefs_Storage_Base
     /**
      * Lists all available scopes.
      *
-     * @since Horde_Prefs 1.1.0
-     *
      * @return array The list of scopes stored in the backend.
      */
     public function listScopes()

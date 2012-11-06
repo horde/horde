@@ -250,8 +250,6 @@ class Horde_Kolab_Storage_Cache_Data
     /**
      * Retrieve the list of object duplicates.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The list of duplicates.
      */
     public function getDuplicates()
@@ -261,8 +259,6 @@ class Horde_Kolab_Storage_Cache_Data
 
     /**
      * Retrieve the list of object errors.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of errors.
      */
@@ -347,8 +343,6 @@ class Horde_Kolab_Storage_Cache_Data
     /**
      * Return the timestamp of the last synchronization.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return int Timestamp of the last sync.
      */
     public function getLastSync()
@@ -359,8 +353,6 @@ class Horde_Kolab_Storage_Cache_Data
 
     /**
      * Is the specified query data available in the cache?
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $key The query key.
      *
@@ -374,8 +366,6 @@ class Horde_Kolab_Storage_Cache_Data
 
     /**
      * Return query information.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $key The query key.
      *
@@ -394,8 +384,6 @@ class Horde_Kolab_Storage_Cache_Data
 
     /**
      * Set query information.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param string $key  The query key.
      * @param mixed  $data The query data.
@@ -447,8 +435,6 @@ class Horde_Kolab_Storage_Cache_Data
 
     /**
      * Map backend IDs to object ids.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @param array $backend_ids The list of backend IDs
      *

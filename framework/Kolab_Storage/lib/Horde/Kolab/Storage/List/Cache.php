@@ -202,8 +202,6 @@ class Horde_Kolab_Storage_List_Cache
     /**
      * Returns if the folder type annotation is stored in the cache.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return boolean True if the type annotation is available.
      */
     public function hasFolderTypes()

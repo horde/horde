@@ -165,8 +165,6 @@ Horde_Kolab_Storage_List_Synchronization_Listener
      *
      * @param string $folder The folder to retrieve the ACL for.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return string The folder rights.
      */
     public function getAllAcl($folder)

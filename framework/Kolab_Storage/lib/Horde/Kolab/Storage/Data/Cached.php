@@ -181,8 +181,6 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Return the mapping of object IDs to backend IDs.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The object to backend mapping.
      */
     public function getObjectToBackend()
@@ -194,8 +192,6 @@ extends Horde_Kolab_Storage_Data_Base
     /**
      * Retrieve the list of object duplicates.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The list of duplicates.
      */
     public function getDuplicates()
@@ -206,8 +202,6 @@ extends Horde_Kolab_Storage_Data_Base
 
     /**
      * Retrieve the list of object errors.
-     *
-     * @since Horde_Kolab_Storage 1.1.0
      *
      * @return array The list of errors.
      */
