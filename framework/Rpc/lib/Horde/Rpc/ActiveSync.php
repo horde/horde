@@ -107,7 +107,10 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
         case 'OPTIONS':
         case 'GET':
             if ($serverVars['REQUEST_METHOD'] == 'GET' &&
-                $this->_get['Cmd'] != 'OPTIONS') {
+                $this->_get['Cmd'] != 'OPTIONS' &&
+                stripos($serverVars['REQUEST_URI'], 'autodiscover/autodiscover.xml') === false) {
+
+                $this->_logger->debug('Accessing ActiveSync endpoing from browser or missing required data.');
                 throw new Horde_Rpc_Exception(
                     Horde_Rpc_Translation::t('Trying to access the ActiveSync endpoint from a browser. Not Supported.'));
             }
@@ -115,6 +118,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             if (stripos($serverVars['REQUEST_URI'], 'autodiscover/autodiscover.xml') !== false) {
                 try {
                     if (!$this->_server->handleRequest('Autodiscover', null)) {
+                        $this->_logger->err('Unknown error during Autodiscover.');
                         throw new Horde_Exception('Unknown Error');
                     }
                 } catch (Horde_Exception_AuthenticationFailure $e) {

@@ -18,7 +18,8 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
      */
     protected $_versions = array(
         '4.0',
-        '4.0.12'
+        '4.0.12',
+        '5.0'
     );
 
     /**
@@ -33,6 +34,10 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
 
         case '4.0.12':
             $this->_replaceWeatherBlock();
+            break;
+
+        case '5.0':
+            $this->_upgradeSendingCharsetPref();
             break;
         }
     }
@@ -79,6 +84,14 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
         if ($m->updated()) {
             $GLOBALS['prefs']->setValue('portal_layout', $m->serialize());
         }
+    }
+
+    /**
+     * In H5, default to UTF-8 for sending_charset.
+     */
+    protected function _upgradeSendingCharsetPref()
+    {
+        $GLOBALS['prefs']->remove('sending_charset');
     }
 
 }
