@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1260,7 +1260,7 @@
    <date>2012-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
    </notes>
   </release>
  </changelog>
