@@ -1947,7 +1947,7 @@ var DimpBase = {
         if (Object.isUndefined(unseen)) {
             unseen = this.getUnseenCount(elt.retrieve('mbox'));
         } else {
-            if (Object.isUndefined(elt.retrieve('u')) ||
+            if (!Object.isUndefined(elt.retrieve('u')) &&
                 elt.retrieve('u') == unseen) {
                 return;
             }
