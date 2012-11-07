@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
 * [mms] Purge IMAP cache data when upgrading from IMP 5.
  </notes>
  <contents>
@@ -2841,6 +2842,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
 * [mms] Purge IMAP cache data when upgrading from IMP 5.
    </notes>
   </release>
