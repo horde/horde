@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-11-06</date>
- <time>21:14:40</time>
+ <time>21:15:10</time>
  <version>
-  <release>1.9.3</release>
+  <release>1.9.4</release>
   <api>1.9.0</api>
  </version>
  <stability>
@@ -40,12 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] SECURITY: Fix XSS in tooltip javascript.
-* [jan] Catch exceptions from Horde_Crypt (Bug #11530).
-* [mms] Fix Horde_Core_Auth_Application#updateUser().
-* [mjr] Port fix for Bug #9733 from FW_5.
-* [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
-* [mms] Mark session identifier cookie as HttpOnly.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1809,6 +1804,19 @@
 * [mjr] Port fix for Bug #9733 from FW_5.
 * [jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
 * [mms] Mark session identifier cookie as HttpOnly.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.9.4</release>
+    <api>1.9.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
