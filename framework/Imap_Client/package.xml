@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix determining subscribed mailbox list when not using LIST-EXTENDED (Bug #11608).
 * [mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
  </notes>
  <contents>
@@ -1260,6 +1261,7 @@
    <date>2012-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix determining subscribed mailbox list when not using LIST-EXTENDED (Bug #11608).
 * [mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
    </notes>
   </release>
