@@ -1,6 +1,6 @@
-----------
-v6.0.1-git
-----------
+------
+v6.0.1
+------
 
 [mms] Fix shift-clicking in dynamic mailbox view when navigating to other
       mailboxes (Bug #11520).

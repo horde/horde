@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>13:34:08</time>
+ <date>2012-11-07</date>
+ <time>18:10:04</time>
  <version>
   <release>6.0.1</release>
   <api>6.0.0</api>
@@ -2825,7 +2825,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix shift-clicking in dynamic mailbox view when navigating to other mailboxes (Bug #11520).
