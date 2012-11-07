@@ -1,6 +1,6 @@
-----------
-v3.0.1-git
-----------
+------
+v3.0.1
+------
 
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 [mms] Fix PHP error notification thrown if backends 'params' parameter was
