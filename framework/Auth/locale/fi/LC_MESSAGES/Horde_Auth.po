@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-28 20:37:39+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -17,30 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Auth.php:355
+#: lib/Horde/Auth.php:353
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr ""
 "Salasana on liian pitkä; salasanat eivät saa olla kuin %d merkkiä pitkiä!"
 
-#: lib/Horde/Auth.php:425 lib/Horde/Auth.php:434
+#: lib/Horde/Auth.php:421 lib/Horde/Auth.php:430
 msgid "The password is too simple to guess."
 msgstr "Salasana on liian arvattava ja yksinkertainen."
 
-#: lib/Horde/Auth.php:351
+#: lib/Horde/Auth.php:349
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "Salasana pitää olla vähintään %d merkkiä pitkä!"
 
-#: lib/Horde/Auth.php:387
+#: lib/Horde/Auth.php:385
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "Salasanan pitää sisältää ainakin %d muu kuin aakkosmerkki."
 msgstr[1] "Salasanan pitää sisältää ainakin %d muuta kuin aakkosmerkkiä."
 
-#: lib/Horde/Auth.php:390
+#: lib/Horde/Auth.php:388
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
@@ -49,7 +49,7 @@ msgstr[0] ""
 msgstr[1] ""
 "Salasanan pitää sisältää ainakin %d muuta kuin aakkosnumeerista merkkiä."
 
-#: lib/Horde/Auth.php:393
+#: lib/Horde/Auth.php:391
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -58,41 +58,41 @@ msgstr ""
 "Salasanan pitää sisältää ainakin %d eri tyyppistä merkkiä. Merkkityypit "
 "ovat: pieni, suuri, numeerinen ja symboli."
 
-#: lib/Horde/Auth.php:381
+#: lib/Horde/Auth.php:379
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "Salasanan pitää sisältää ainakin %d pieni kirjain."
 msgstr[1] "Salasanan pitää sisältää ainakin %d pientä kirjainta."
 
-#: lib/Horde/Auth.php:384
+#: lib/Horde/Auth.php:382
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
 msgstr[0] "Salasanan pitää sisältää ainakin %d numero."
 msgstr[1] "Salasanan pitää sisältää ainakin %d numeroa."
 
-#: lib/Horde/Auth.php:402
+#: lib/Horde/Auth.php:400
 #, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
 msgstr[0] "Salasanan pitää sisältää ainakin %d symboli."
 msgstr[1] "Salasanan pitää sisältää ainakin %d symbolia."
 
-#: lib/Horde/Auth.php:378
+#: lib/Horde/Auth.php:376
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "Salasanan pitää sisältää ainakin %d iso kirjain."
 msgstr[1] "Salasanan pitää sisältää ainakin %d isoa kirjainta."
 
-#: lib/Horde/Auth.php:397
+#: lib/Horde/Auth.php:395
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr ""
 "Salasanan pitää sisältää vähemmän kuin %d välilyöntiä tai tabulaattoria."
 
-#: lib/Horde/Auth.php:399
+#: lib/Horde/Auth.php:397
 msgid "The password must not contain whitespace characters."
 msgstr "Salasana ei saa sisältää välilyöntejä tai tabulaattoreita"
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-28 20:41:43+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Crypt/Pgp.php:1272
+#: lib/Horde/Crypt/Pgp.php:1262
 msgid "A passphrase is required to decrypt a message."
 msgstr "Salatun viestin purkamiseen tarvitaan salasanateksti."
 
-#: lib/Horde/Crypt/Pgp.php:1343
+#: lib/Horde/Crypt/Pgp.php:1333
 msgid "A public PGP key is required to verify a signed message."
 msgstr "Allekirjoitetun viestin tarkistukseen tarvitaan julkinen PGP-avain."
 
-#: lib/Horde/Crypt/Pgp.php:1203
+#: lib/Horde/Crypt/Pgp.php:1193
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -77,20 +77,20 @@ msgstr "Kommentti"
 msgid "Common Name"
 msgstr "Yleinen nimi"
 
-#: lib/Horde/Crypt/Pgp.php:978
+#: lib/Horde/Crypt/Pgp.php:968
 msgid "Connection refused to the public keyserver."
 msgstr "Yhteys julkisten avainten palvelimelle on estetty."
 
-#: lib/Horde/Crypt/Pgp.php:989
+#: lib/Horde/Crypt/Pgp.php:979
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "Yhteys julkisten avainten palvelimelle epäonnistui. Syy: %s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1171
+#: lib/Horde/Crypt/Pgp.php:1161
 msgid "Could not PGP encrypt message: "
 msgstr "Viestille ei voitu tehdä PGP-salausta: "
 
-#: lib/Horde/Crypt/Pgp.php:1240
+#: lib/Horde/Crypt/Pgp.php:1230
 msgid "Could not PGP sign message: "
 msgstr "Viestille ei voitu tehdä PGP-allekirjoitusta: "
 
@@ -102,7 +102,7 @@ msgstr "Viestille ei voitu tehdä S/MIME-salausta."
 msgid "Could not S/MIME sign message."
 msgstr "Viestille ei voitu tehdä S/MIME-allekirjoitusta."
 
-#: lib/Horde/Crypt/Pgp.php:1311
+#: lib/Horde/Crypt/Pgp.php:1301
 msgid "Could not decrypt PGP data: "
 msgstr "Viestin PGP-salausta ei voitu purkaa: "
 
@@ -110,11 +110,11 @@ msgstr "Viestin PGP-salausta ei voitu purkaa: "
 msgid "Could not decrypt S/MIME data."
 msgstr "Viestin S/MIME-salausta ei voitu purkaa."
 
-#: lib/Horde/Crypt/Pgp.php:671
+#: lib/Horde/Crypt/Pgp.php:661
 msgid "Could not determine the recipient's e-mail address."
 msgstr "Viestin vastaanottajan sähköpostiosoitetta ei löytynyt."
 
-#: lib/Horde/Crypt/Pgp.php:772 lib/Horde/Crypt/Pgp.php:886
+#: lib/Horde/Crypt/Pgp.php:762 lib/Horde/Crypt/Pgp.php:876
 msgid "Could not obtain public key from the keyserver."
 msgstr "Avaintietoa ei pystytty hakemaan julkisten avainten palvelimelta."
 
@@ -139,7 +139,7 @@ msgstr "Sähköpostiosoite"
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "Virhe tulkittaessa S/MIME-sertifikaattia: %s"
 
-#: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
+#: lib/Horde/Crypt/Pgp.php:1610 lib/Horde/Crypt/Pgp.php:1618
 msgid "Error while talking to pgp binary."
 msgstr "Virhe käytettäessä pgp-ohjelmistoa."
 
@@ -188,7 +188,7 @@ msgstr "Avaimen tyyppi"
 msgid "Key Usage"
 msgstr "Avaimen käyttö"
 
-#: lib/Horde/Crypt/Pgp.php:795
+#: lib/Horde/Crypt/Pgp.php:785
 msgid "Key already exists on the public keyserver."
 msgstr "Avain on jo julkisten avainten palvelimella"
 
@@ -249,19 +249,19 @@ msgstr "Organisaatio"
 msgid "Organisational Unit"
 msgstr "Organisaatioyksikkö"
 
-#: lib/Horde/Crypt/Pgp.php:1442
+#: lib/Horde/Crypt/Pgp.php:1432
 msgid "PGP Digital Signature"
 msgstr "Sähköinen PGP-allekirjoitus"
 
-#: lib/Horde/Crypt/Pgp.php:1486
+#: lib/Horde/Crypt/Pgp.php:1476
 msgid "PGP Encrypted Data"
 msgstr "PGP-salattua tietoa"
 
-#: lib/Horde/Crypt/Pgp.php:1547
+#: lib/Horde/Crypt/Pgp.php:1537
 msgid "PGP Public Key"
 msgstr "Julkinen PGP-avain"
 
-#: lib/Horde/Crypt/Pgp.php:1529
+#: lib/Horde/Crypt/Pgp.php:1519
 msgid "PGP Signed/Encrypted Data"
 msgstr "PGP-allekirjoitettua ja salattua tietoa"
 
@@ -285,7 +285,7 @@ msgstr "Julkisen/salaisen avainparin luonti epäonnistui."
 msgid "Returned error message:"
 msgstr "Palautti virheilmoituksen:"
 
-#: lib/Horde/Crypt/Pgp.php:1680
+#: lib/Horde/Crypt/Pgp.php:1670
 msgid "Revocation key not generated successfully."
 msgstr "Sulkuavaimen luonti epäonnistui."
 
@@ -317,7 +317,7 @@ msgstr "Sukunimi"
 msgid "Telephone Number"
 msgstr "Puhelinnumero"
 
-#: lib/Horde/Crypt/Pgp.php:1347
+#: lib/Horde/Crypt/Pgp.php:1337
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr ""
