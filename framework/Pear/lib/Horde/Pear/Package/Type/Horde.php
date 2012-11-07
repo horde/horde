@@ -93,6 +93,7 @@ implements Horde_Pear_Package_Type
         return new Horde_Pear_Package_Contents_Ignore_Composite(
             array(
                 new Horde_Pear_Package_Contents_Ignore_Dot(),
+                new Horde_Pear_Package_Contents_Ignore_Symlink(),
                 new Horde_Pear_Package_Contents_Ignore_Patterns(
                     array(
                         '/package.xml',
