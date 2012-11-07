@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.0.0.
+Webmail Edition version 5.0.1.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,70 +29,28 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0
+The major changes compared to the Horde Groupware Webmail Edition version 5.0.0
 are:
 
 General changes:
-    * Completely redesigned user interface.
-    * Completed and improved smartphone modes.
-    * Much improved ActiveSync library including version 12.1 support and email
-      synchronization.
-    * Default to UTF-8 for all e-mail messages.
-    * IMAP groupware storage without dedicated Kolab server.
-    * Improved support for Kolab 2.
-    * Dropped support for Internet Explorer 6.
-    * Many further improvements.
+    * Improved ActiveSync compatibility.
+    * Updated Slovak and Dutch translations.
+    * Small bugfixes and improvements.
 
 Mail changes:
-    * Added special mailbox for templates.
-    * Added searching by date range.
-    * Added keyboard shortcuts to compose window.
-    * Allow deletion when over quota.
-    * Pre-fetch next unseen message.
-    * Signature is now added during sending.
-    * Require JavaScript in traditional mode.
-    * Allow expiration date when generating personal PGP keys.
-
-Filters changes:
-    * Added placeholder variables to vacation messages.
-    * Added hook to customize authentication parameters.
-
-Address Book changes:
-    * Improved support for email fields with multiple addresses.
-    * Dropped preference which address books to display.
+    * Fixed displaying of several interface elements.
 
 Calendar changes:
-    * Allowed to set individual timezones for events.
-    * Added work week view to dynamic interface.
-    * Added complete recurrence and exception editing to dynamic interface.
-    * Added resource scheduling to dynamic interface.
-    * Added quick task adding to dynamic interface.
-    * Added heatmap to year view.
-    * Synchronized tags with Kolab categories.
-
-Tasks changes:
-    * Added recurring tasks.
-    * Added smart tasks lists.
-    * Added login task to purge completed tasks.
-    * Converted categories to tags.
+    * Fixed authentication to remote calendars.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Completely redesigned user interface.
-Completed and improved smartphone modes.
-Improved ActiveSync support with email synching.
-Allow email deletion when over quota.
-Pre-fetch next unseen message.
-Added template mailbox.
-Allow PGP key expiration dates.
-IMAP groupware storage without dedicated Kolab server.
-Improved support for Kolab 2 and for contacts with multiple addresses.
-Dropped support for Internet Explorer 6.
-Added individual timezones for calendar events.
-Completed dynamic calendar interface.
-Added recurring tasks and smart tasks lists.
-Many further improvements.
+Improved ActiveSync compatibility.
+Fixed displaying of several webmail interface elements.
+Fixed authentication to remote calendars.
+Updated Slovak and Dutch translations.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';

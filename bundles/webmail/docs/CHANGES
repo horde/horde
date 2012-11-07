@@ -2,6 +2,128 @@
 v5.0.1-git
 ----------
 
+[jan] Update Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[jan] Update Japanese translation (Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>).
+
+Horde Changes
+-------------
+[jan] Fix form for editing and removing of users.
+[mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
+[mms] Fix topbar javascript on IE8 (Bug #11614).
+[jan] Fix LDAP example for authusername hook.
+
+Mail Changes
+------------
+[mms] Fix shift-clicking in dynamic mailbox view when navigating to other
+      mailboxes (Bug #11520).
+[mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
+[mms] If persistent IMAP caching is disabled, use an in-memory cache for the
+      current page load.
+[mms] Fix importing personal S/MIME certificate.
+[mms] Correctly show ACL entry for current user even if ACL response for
+      mailbox is empty.
+[mms] Correctly remove unseen information from folder tree in dynamic mailbox
+      view when mailbox is marked as not polled for new mail.
+[mms] Fix expanding folder list in dynamic view when opening a mailbox and
+      folder expansion is not saved in the prefs (Bug #11609).
+[mms] Fix displaying HTML signature preference on identities preference page.
+[mms] Fix dynamic view loading in IE8 (Bug #11614).
+[mms] Optimize permission checking when creating a mailbox if no limit exists
+      for a user.
+[mms] Fix displaying column headers in dynamic mailbox view when accessing a
+      POP3 server.
+[mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
+[mms] Fix displaying move to spam mailbox option in the preferences (Bug
+      #11603).
+[mms] Fixes to PGP Private key generation (Bug #11597).
+[mms] Don't block remote message styling if sender is in whitelist.
+[mms] Fix spellcheck display in dynamic view if HTML composition mode is the
+      default (Bug #11592).
+
+Filters Changes
+---------------
+[mms] Fix PHP error notification thrown if backends 'params' parameter was
+      empty (Bug #11615).
+
+Calendar Changes
+----------------
+[jan] Fix migration of exceptionoriginaldate field (Bug #11654).
+[jan] Fix generating calendar names when exporting non-internal calendars to
+      iCalendar.
+[jan] Fix authentication to remote calendars (Bug #11643).
+[jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar
+      (Bug #11636).
+[jan] Fix fatal error when moving non-recurring events with resources (Bug
+      #11629).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Increase size of cache_data field.
+[mjr] Add more complete error and debug output when saving syncCache.
+[mjr] Attempt to detect infinite sync loops caused by server side errors.
+[mjr] Fix moving/deleting messages on some devices.
+
+Core
+[jan] Fix translations (Bug #11606).
+[mjr] Fix detected email changes on certain IMAP servers.
+[mjr] Fix determining special mailboxes and generating folder hierarchy on some
+      ActiveSync clients (Bug #11626).
+[mjr] Limit the length of ActiveSync folder serverids to 64 per ActiveSync
+      specs.
+[mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
+
+Crypt
+[mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
+
+Date
+[jan] Fix strftime() formatting of certain locale-specific format specifiers.
+
+Imap_Client
+[mms] Correctly workaround servers that incorrectly implement the LIST-EXTENDED
+      command.
+[mms] Fix determining subscribed mailbox list when not using LIST-EXTENDED (Bug
+      #11608).
+[mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
+[mms] Allow Horde_Imap_Client_Base#vanished() to work with non-QRESYNC servers
+      if the 'ids' option is given.
+[mms] Always map UIDs to sequence numbers if resolving an all UIDs search.
+[mms] Ignore empty ID search queries.
+[mms] Fix parsing empty ACL responses.
+[mms] Massive performance increase for cached FETCH queries.
+[mms] Split debugging code from Base driver into separate object.
+[mms] Fix double encoding of non-ASCII elements in listMailboxes() (Bug
+      #11608).
+[mms] Fix regression for non-cached Socket objects (Bug #11605).
+[mms] Improved handling of server write errors in the Socket driver.
+[mms] Add support for IMAP MOVE command.
+[mms] Correctly handle FETCH results intermingled with EXPUNGE/VANISHED
+      requests within a single request.
+[mms] Correctly handle EXISTS/EXPUNGE/VANISHED untagged responses which may
+      appear at any time.
+[mms] Fix handling message sequence number actions returned from server when
+      using CONDSTORE/QRESYNC.
+
+Rpc
+[mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
+
+Service_Weather
+[mjr] Remove support for Google's dead weather API.
+
+Stream
+[mms] Only specify maxmemory argument when creating temp stream if it was
+      given.
+[mms] Allow Horde_Stream object to be cloned.
+[mms] Allow Horde_Stream object to be serialized (Bug #11598).
+[mms] Add Horde_Stream#__toString().
+
+Support
+[jan] Support uuid extension from OSSP (remi@famillecollet.com, Request
+      #11653).
+
+Timezone
+[jan] Fix notice when parsing Etc/UTC rules.
 
 
 ------
