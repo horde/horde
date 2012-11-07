@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:20:27</time>
+ <date>2012-11-07</date>
+ <time>18:28:10</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -1998,7 +1998,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Fix migration of exceptionoriginaldate field (Bug #11654).
