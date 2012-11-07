@@ -193,7 +193,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         }
 
         /* Remove the rule from the filter list. */
-        parent::deleteRule($id);
+        unset($this->_filters[$id]);
+        $this->_filters = array_combine(
+            range(1, count($this->_filters)),
+            array_values($this->_filters)
+        );
 
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);
