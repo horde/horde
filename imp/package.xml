@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-07</date>
- <time>18:10:04</time>
+ <time>18:12:04</time>
  <version>
-  <release>6.0.1</release>
+  <release>6.0.2</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -34,23 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Fix shift-clicking in dynamic mailbox view when navigating to other mailboxes (Bug #11520).
-* [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
-* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
-* [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
-* [mms] Fix importing personal S/MIME certificate.
-* [mms] Correctly show ACL entry for current user even if ACL response for mailbox is empty.
-* [mms] Correctly remove unseen information from folder tree in dynamic mailbox view when mailbox is marked as not polled for new mail.
-* [mms] Fix expanding folder list in dynamic view when opening a mailbox and folder expansion is not saved in the prefs (Bug #11609).
-* [mms] Fix displaying HTML signature preference on identities preference page.
-* [mms] Fix dynamic view loading in IE8 (Bug #11614).
-* [mms] Optimize permission checking when creating a mailbox if no limit exists for a user.
-* [mms] Fix displaying column headers in dynamic mailbox view when accessing a POP3 server.
-* [mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
-* [mms] Fix displaying move to spam mailbox option in the preferences (Bug #11603).
-* [mms] Fixes to PGP Private key generation (Bug #11597).
-* [mms] Don&apos;t block remote message styling if sender is in whitelist.
-* [mms] Fix spellcheck display in dynamic view if HTML composition mode is the default (Bug #11592).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2845,6 +2829,19 @@
 * [mms] Fixes to PGP Private key generation (Bug #11597).
 * [mms] Don&apos;t block remote message styling if sender is in whitelist.
 * [mms] Fix spellcheck display in dynamic view if HTML composition mode is the default (Bug #11592).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.2</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
