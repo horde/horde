@@ -2,6 +2,7 @@
 v6.0.2-git
 ----------
 
+[mms] Purge IMAP cache data when upgrading from IMP 5.
 
 
 ------
