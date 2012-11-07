@@ -14,9 +14,7 @@ var DimpBase = {
     //   template, uid, view, viewaction, viewport, viewswitch
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
-    lastrow: -1,
     mboxes: {},
-    pivotrow: -1,
     ppcache: {},
     ppfifo: [],
     showunsub: 0,
@@ -59,20 +57,20 @@ var DimpBase = {
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.lastrow = row;
+        this.viewport.setMetaData({ lastrow: row });
 
         this.resetSelectAll();
 
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ row.get('rownum').first(), this.pivotrow.get('rownum').first() ];
+                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivotrow').get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.pivotrow = row;
+            this.viewport.setMetaData({ pivotrow:  row });
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -718,7 +716,10 @@ var DimpBase = {
             var sel = this.viewport.getSelected(),
                 count = sel.size();
             if (!count) {
-                this.lastrow = this.pivotrow = -1;
+                this.viewport.setMetaData({
+                    lastrow: null,
+                    pivotrow: null
+                });
             }
 
             this.toggleButtons();
@@ -752,7 +753,10 @@ var DimpBase = {
         container.observe('ViewPort:select', function(e) {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
-                this.lastrow = this.pivotrow = e.memo.vs;
+                this.viewport.setMetaData({
+                    lastrow: e.memo.vs,
+                    pivotrow: e.memo.vs
+                });
             }
 
             this.setMsgHash();
@@ -2370,8 +2374,9 @@ var DimpBase = {
         case Event.KEY_LEFT:
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
-            if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow.get('rownum').first() + ((prev) ? -1 : 1));
+            tmp = this.viewport.getMetaData('lastrow');
+            if (e.shiftKey && tmp) {
+                row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum, { bottom: true });

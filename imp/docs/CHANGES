@@ -2,6 +2,8 @@
 v6.0.1-git
 ----------
 
+[mms] Fix shift-clicking in dynamic mailbox view when navigating to other
+      mailboxes (Bug #11520).
 [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 [mms] If persistent IMAP caching is disabled, use an in-memory cache for the
