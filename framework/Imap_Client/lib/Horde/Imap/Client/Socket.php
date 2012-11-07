@@ -1193,8 +1193,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             /* Archiveopteryx 3.1.3 can't process empty list-select-opts list.
              * Retry using base IMAP4rev1 functionality. */
-            if (($e->status == Horde_Imap_Client_Interaction_Server::BYE) &&
-                $e->queryCapability('LIST-EXTENDED')) {
+            if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
+                $this->queryCapability('LIST-EXTENDED')) {
                 $cap = $this->capability();
                 unset($cap['LIST-EXTENDED']);
                 $this->_setInit('capability', $cap);
