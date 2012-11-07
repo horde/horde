@@ -1,6 +1,6 @@
-----------
-v5.0.1-git
-----------
+------
+v5.0.1
+------
 
 [jan] Fix form for editing and removing of users.
 [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
