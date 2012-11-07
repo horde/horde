@@ -19,7 +19,7 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
     protected $_versions = array(
         '4.0',
         '4.0.12',
-        '5.0'
+        '5.0.1'
     );
 
     /**
@@ -36,7 +36,7 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
             $this->_replaceWeatherBlock();
             break;
 
-        case '5.0':
+        case '5.0.1':
             $this->_upgradeSendingCharsetPref();
             break;
         }
