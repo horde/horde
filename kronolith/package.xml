@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-07</date>
- <time>18:28:10</time>
+ <time>18:29:29</time>
  <version>
-  <release>4.0.1</release>
+  <release>4.0.2</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix migration of exceptionoriginaldate field (Bug #11654).
-* [jan] Fix generating calendar names when exporting non-internal calendars to iCalendar.
-* [jan] Fix authentication to remote calendars (Bug #11643).
-* [jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar (Bug #11636).
-* [jan] Fix fatal error when moving non-recurring events with resources (Bug #11629).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2006,6 +2002,19 @@
 * [jan] Fix authentication to remote calendars (Bug #11643).
 * [jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar (Bug #11636).
 * [jan] Fix fatal error when moving non-recurring events with resources (Bug #11629).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
