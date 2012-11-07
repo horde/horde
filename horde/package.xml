@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-07</date>
- <time>14:39:43</time>
+ <time>14:41:12</time>
  <version>
-  <release>5.0.1</release>
+  <release>5.0.2</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix form for editing and removing of users.
-* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
-* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
-* [mms] Fix topbar javascript on IE8 (Bug #11614).
-* [jan] Fix LDAP example for authusername hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3535,6 +3531,19 @@
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
