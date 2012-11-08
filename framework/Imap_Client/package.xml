@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1287,7 +1287,7 @@
    <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
    </notes>
   </release>
  </changelog>

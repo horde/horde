@@ -3007,11 +3007,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_temp['modified'] = $this->getIdsOb();
+        $silent = (!$this->_debug->debug && !$this->_initCache());
         $cmds = array();
 
         if (!empty($options['replace'])) {
             $cmd->add(array(
-                'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
+                'FLAGS' . ($silent ? '.SILENT' : ''),
                 $options['replace']
             ));
             $cmds[] = $cmd;
@@ -3020,7 +3021,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!empty($options[$k])) {
                     $cmdtmp = clone $cmd;
                     $cmdtmp->add(array(
-                        $v . 'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
+                        $v . 'FLAGS' . ($silent ? '.SILENT' : ''),
                         $options[$k]
                     ));
                     $cmds[] = $cmdtmp;
@@ -3033,10 +3034,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_sendLine($cmdtmp);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 /* A NO response, when coupled with a sequence STORE and
-                 * and non-SILENT behavior, most likely means that messages
-                 * messages were expunged. RFC 2180 [4.2] */
-                if (!empty($options['sequence']) &&
-                    !$this->_debug->debug &&
+                 * non-SILENT behavior, most likely means that messages were
+                 * expunged. RFC 2180 [4.2] */
+                if (!$silent &&
+                    !empty($options['sequence']) &&
                     ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
                     $this->_temp['expungeissued'] = true;
                 }
