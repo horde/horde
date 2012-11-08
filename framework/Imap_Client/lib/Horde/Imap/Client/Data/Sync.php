@@ -154,7 +154,7 @@ class Horde_Imap_Client_Data_Sync
                 } else {
                     $squery = new Horde_Imap_Client_Search_Query();
                     $squery->modseq($sync['H'] + 1);
-                    $sres = $imp_imap->search($mailbox, $squery, array(
+                    $sres = $base_ob->search($mailbox, $squery, array(
                         'ids' => $ids
                     ));
                     $this->flags = $sres['match'];
