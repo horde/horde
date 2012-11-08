@@ -47,7 +47,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - checkcache: (integer) If 1, only send data if cache has been
      *                 invalidated.
      *   - rangeslice: (string) Range slice. See js/viewport.js.
-     *   - requestid: (string) Request ID. See js/viewport.js.
      *   - sortby: (integer) The Horde_Imap_Client sort constant.
      *   - sortdir: (integer) 0 for ascending, 1 for descending.
      *
@@ -77,13 +76,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         $changed = $this->_base->changed(true);
 
         if (is_null($changed)) {
-            $vp = $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_base->mbox);
-
-            if (isset($vp_vars->requestid)) {
-                $vp->requestid = intval($vp_vars->requestid);
-            }
-
-            $this->_base->addTask('viewport', $vp);
+            $this->_base->addTask('viewport', $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_base->mbox));
             return true;
         }
 

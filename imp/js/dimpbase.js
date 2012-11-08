@@ -410,7 +410,12 @@ var DimpBase = {
         this.viewport = new ViewPort({
             // Mandatory config
             ajax: function(params) {
-                DimpCore.doAction('viewPort', params, { loading: 'viewport' });
+                /* Store the requestid locally, so we don't need to
+                 * round-trip to the server. We'll re-add it later. */
+                var r_id = params.unset('requestid');
+                DimpCore.doAction('viewPort', params, {
+                    loading: 'viewport'
+                }).rid = r_id;
             },
             container: container,
             onContent: function(r, mode) {
@@ -533,7 +538,8 @@ var DimpBase = {
 
             // Callbacks
             onAjaxRequest: function(params) {
-                var tmp = params.get('cache'),
+                var r_id = params.unset('requestid'),
+                    tmp = params.get('cache'),
                     view = params.get('view');
 
                 if (this.viewswitch &&
@@ -559,6 +565,7 @@ var DimpBase = {
                 }
 
                 params = $H({
+                    requestid: r_id,
                     viewport: Object.toJSON(params),
                     view: view
                 });
@@ -3602,6 +3609,7 @@ var DimpBase = {
         var t = e.tasks;
 
         if (this.viewport && t['imp:viewport']) {
+            t['imp:viewport'].requestid = e.response.request.rid;
             this.viewport.parseJSONResponse(t['imp:viewport']);
         }
 

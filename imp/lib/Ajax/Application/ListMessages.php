@@ -129,9 +129,6 @@ class IMP_Ajax_Application_ListMessages
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $mbox->cacheid_date;
-        if (!empty($args['requestid'])) {
-            $result->requestid = intval($args['requestid']);
-        }
         $result->totalrows = $msgcount;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
