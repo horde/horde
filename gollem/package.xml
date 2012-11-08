@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-08</date>
- <time>14:48:30</time>
+ <time>16:55:39</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -279,15 +279,13 @@
     <dir name="login">
      <file name="login.html" role="horde" />
     </dir> <!-- /templates/login -->
-    <dir name="manager">
-     <file name="manager.html" role="horde" />
-    </dir> <!-- /templates/manager -->
     <dir name="quota">
      <file name="quota.html" role="horde" />
     </dir> <!-- /templates/quota -->
     <dir name="selectlist">
      <file name="selectlist.html" role="horde" />
     </dir> <!-- /templates/selectlist -->
+    <file name="manager.html.php" role="horde" />
     <file name="menu.html" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -585,11 +583,11 @@
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
+   <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
    <install as="gollem/templates/menu.html" name="templates/menu.html" />
    <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
    <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />
    <install as="gollem/templates/login/login.html" name="templates/login/login.html" />
-   <install as="gollem/templates/manager/manager.html" name="templates/manager/manager.html" />
    <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
    <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
