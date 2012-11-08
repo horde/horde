@@ -2974,9 +2974,9 @@ var DimpBase = {
     {
         r.each(function(entry) {
             $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
-                var s = this.viewport.createSelectionBuffer(m.key).search({
+                var s = this.viewport.createSelectionBuffer(this.isSearch() ? null : m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: [ m.key ] }
+                    mbox: { equal: m.key }
                 });
 
                 if (entry.add) {
