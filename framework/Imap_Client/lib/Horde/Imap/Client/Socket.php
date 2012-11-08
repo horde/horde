@@ -2982,6 +2982,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'STORE',
             strval($options['ids'])
         ));
+        $ucsince = false;
 
         if ($modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
             /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE added
@@ -3007,7 +3008,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_temp['modified'] = $this->getIdsOb();
-        $silent = (!$this->_debug->debug && !$this->_initCache());
+        $silent = (!$ucsince && !$this->_debug->debug);
         $cmds = array();
 
         if (!empty($options['replace'])) {
