@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-08</date>
- <time>16:56:38</time>
+ <time>17:54:26</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Convert templates to Horde_View.
 * [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
  </notes>
@@ -270,20 +271,12 @@
     <file name="1_gollem_base_tables.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
-    <dir name="clipboard">
-     <file name="clipboard.html" role="horde" />
-    </dir> <!-- /templates/clipboard -->
-    <dir name="edit">
-     <file name="edit.inc" role="horde" />
-    </dir> <!-- /templates/edit -->
-    <dir name="quota">
-     <file name="quota.html" role="horde" />
-    </dir> <!-- /templates/quota -->
-    <dir name="selectlist">
-     <file name="selectlist.html" role="horde" />
-    </dir> <!-- /templates/selectlist -->
+    <file name="clipboard.html.php" role="horde" />
+    <file name="edit.html.php" role="horde" />
     <file name="manager.html.php" role="horde" />
     <file name="menu.html" role="horde" />
+    <file name="quota.html.php" role="horde" />
+    <file name="selectlist.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -303,6 +296,7 @@
       <file name="gollem.png" role="horde" />
       <file name="perms.png" role="horde" />
       <file name="perms_disabled.png" role="horde" />
+      <file name="quota.png" role="horde" />
       <file name="reload.png" role="horde" />
       <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
@@ -580,12 +574,12 @@
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
+   <install as="gollem/templates/clipboard.html.php" name="templates/clipboard.html.php" />
+   <install as="gollem/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
    <install as="gollem/templates/menu.html" name="templates/menu.html" />
-   <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
-   <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />
-   <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
-   <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
+   <install as="gollem/templates/quota.html.php" name="templates/quota.html.php" />
+   <install as="gollem/templates/selectlist.html.php" name="templates/selectlist.html.php" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="gollem/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
    <install as="gollem/themes/default/graphics/clipboard.png" name="themes/default/graphics/clipboard.png" />
@@ -602,6 +596,7 @@
    <install as="gollem/themes/default/graphics/gollem.png" name="themes/default/graphics/gollem.png" />
    <install as="gollem/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
    <install as="gollem/themes/default/graphics/perms_disabled.png" name="themes/default/graphics/perms_disabled.png" />
+   <install as="gollem/themes/default/graphics/quota.png" name="themes/default/graphics/quota.png" />
    <install as="gollem/themes/default/graphics/reload.png" name="themes/default/graphics/reload.png" />
    <install as="gollem/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
    </filelist>
@@ -740,6 +735,7 @@
    </stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Convert templates to Horde_View.
 * [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
    </notes>

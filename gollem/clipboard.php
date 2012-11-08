@@ -19,16 +19,15 @@ Horde_Registry::appInit('gollem');
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Set up the template object. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('cancelbutton', _("Cancel"));
-$template->set('clearbutton', _("Clear"));
-$template->set('pastebutton', _("Paste"));
-$template->set('cutgraphic', Horde::img('cut.png', _("Cut")));
-$template->set('copygraphic', Horde::img('copy.png', _("Copy")));
-$template->set('currdir', Gollem::getDisplayPath($vars->dir));
-$template->set('dir', $vars->dir);
-$template->set('manager_url', Horde::url('manager.php'));
+$template = $injector->createInstance('Horde_View');
+$template->cancelbutton = _("Cancel");
+$template->clearbutton = _("Clear");
+$template->pastebutton = _("Paste");
+$template->cutgraphic = Horde::img('cut.png', _("Cut"));
+$template->copygraphic = Horde::img('copy.png', _("Copy"));
+$template->currdir = Gollem::getDisplayPath($vars->dir);
+$template->dir = $vars->dir;
+$template->manager_url = Horde::url('manager.php');
 
 $entry = array();
 foreach ($session->get('gollem', 'clipboard') as $key => $val) {
@@ -39,7 +38,7 @@ foreach ($session->get('gollem', 'clipboard') as $key => $val) {
         'name' => $val['display']
     );
 }
-$template->set('entry', $entry, true);
+$template->entries = $entry;
 
 $page_output->addScriptFile('clipboard.js');
 $page_output->addScriptFile('tables.js', 'horde');
@@ -53,5 +52,5 @@ $page_output->header(array(
 ));
 echo Gollem::menu();
 $notification->notify(array('listeners' => 'status'));
-echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
+echo $template->render('clipboard');
 $page_output->footer();

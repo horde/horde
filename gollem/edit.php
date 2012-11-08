@@ -60,6 +60,12 @@ case 'edit_file':
         $injector->getInstance('Horde_Editor')->initialize(array('id' => 'content'));
     }
 
+    $view = $injector->createInstance('Horde_View');
+    $view->self_url = Horde::url('edit.php');
+    $view->forminput = Horde_Util::formInput();
+    $view->vars = $vars;
+    $view->data = $data;
+
     $page_output->addScriptFile('edit.js');
     $page_output->topbar = $page_output->sidebar = false;
 
@@ -67,7 +73,7 @@ case 'edit_file':
         'title' => $title
     ));
     $notification->notify(array('listeners' => 'status'));
-    require GOLLEM_TEMPLATES . '/edit/edit.inc';
+    echo $view->render('edit');
     $page_output->footer();
     exit;
 }

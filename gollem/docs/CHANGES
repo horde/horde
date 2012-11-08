@@ -2,6 +2,7 @@
 v3.0-git
 --------
 
+[jan] Convert templates to Horde_View.
 [jan] Fix sorting if using a pager.
 [jan] Use standard Horde dialogs.
 

@@ -20,10 +20,9 @@ Horde_Registry::appInit('gollem');
 $isPopup = $browser->hasFeature('javascript');
 
 /* Set up the template object. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
+$template = $injector->createInstance('Horde_View');
 if ($isPopup) {
-    $template->set('closebutton', _("Close"));
+    $template->closebutton = _("Close");
     $page_output->topbar = $page_output->sidebar = false;
     $page_output->addInlineScript(array(
         '$("closebutton").observe("click", function() { window.close(); })'
@@ -31,12 +30,12 @@ if ($isPopup) {
 }
 
 /* Get the quota information. */
-$template->set('noquota', true, true);
-$template->set('quotaerror', false, true);
-$template->set('quotadisplay', false, true);
-$template->set('quotagraph', false, true);
+$template->noquota = true;
+$template->quotaerror = false;
+$template->quotadisplay = false;
+$template->quotagraph = false;
 if (Gollem::$backend['quota_val'] > -1) {
-    $template->set('noquota', false, true);
+    $template->noquota = false;
     try {
         $quota_info = $injector->getInstance('Gollem_Vfs')->getQuota();
         $usage = $quota_info['usage'] / (1024 * 1024.0);
@@ -44,14 +43,14 @@ if (Gollem::$backend['quota_val'] > -1) {
 
         $percent = ($usage * 100) / $limit;
         if ($percent >= 90) {
-            $template->set('quotastyle', '<div style="color:red">');
+            $template->quotastyle = '<div style="color:red">';
         } else {
-            $template->set('quotastyle', '<div>');
+            $template->quotastyle = '<div>';
         }
-        $template->set('quotadisplay', sprintf(_("%.2fMB / %.2fMB  (%.2f%%)"), $usage, $limit, $percent), true);
+        $template->quotadisplay = sprintf(_("%.2fMB / %.2fMB  (%.2f%%)"), $usage, $limit, $percent);
     } catch (Horde_Vfs_Exception $e) {
-        $template->set('quotaerror', true, true);
-        $template->set('quotaerrormsg', $e->getMessage());
+        $template->quotaerror = true;
+        $template->quotaerrormsg = $e->getMessage();
     }
 }
 
@@ -62,5 +61,5 @@ if (!$isPopup) {
     Gollem::menu();
     $notification->notify(array('listeners' => 'status'));
 }
-echo $template->fetch(GOLLEM_TEMPLATES . '/quota/quota.html');
+echo $template->render('quota');
 $page_output->footer();

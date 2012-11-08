@@ -75,21 +75,16 @@ $info['title'] = htmlspecialchars(Gollem::$backend['label']);
 $self_url = Horde::url('selectlist.php');
 
 /* Set up the template object. */
-$t = $injector->createInstance('Horde_Template');
-$t->set('addbutton', _("Add"));
-$t->set('donebutton', _("Done"));
-$t->set('cancelbutton', _("Cancel"));
-$t->set('self_url', $self_url);
-$t->set('forminput', Horde_Util::formInput());
-$t->set('cacheid', $cacheid);
-$t->set('currdir', htmlspecialchars(Gollem::$backend['dir']));
-$t->set('formid', htmlspecialchars($vars->formid));
-$t->set('navlink', Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $vars->formid))));
+$view = $injector->createInstance('Horde_View');
+$view->self_url = $self_url;
+$view->forminput = Horde_Util::formInput();
+$view->cacheid = $cacheid;
+$view->currdir = htmlspecialchars(Gollem::$backend['dir']);
+$view->formid = htmlspecialchars($vars->formid);
+$view->navlink = Gollem::directoryNavLink(Gollem::$backend['dir'], $self_url->copy()->add(array('cacheid' => $cacheid, 'formid' => $vars->formid)));
 if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
     // TODO
-    //$t->set('changeserver', Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde::url('login.php')->add(array('url' => Horde::url('selectlist.php')->add(array('formid' => $vars->formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true);
-} else {
-    $t->set('changeserver', '', true);
+    //$view->changeserver = Horde::link(htmlspecialchars(Horde_Auth::addLogoutParameters(Horde::url('login.php')->add(array('url' => Horde::url('selectlist.php')->add(array('formid' => $vars->formid)))), Horde_Auth::REASON_LOGOUT)), _("Change Server")) . Horde::img('logout.png', _("Change Server")) . '</a>', true;
 }
 
 if (is_array($info['list']) &&
@@ -170,10 +165,7 @@ if (is_array($info['list']) &&
         $entry[] = $item;
     }
 
-    $t->set('entry', $entry, true);
-    $t->set('nofiles', '', true);
-} else {
-    $t->set('nofiles', _("There are no files in this folder."), true);
+    $view->entries = $entry;
 }
 
 $page_output->addScriptFile('selectlist.js');
@@ -188,5 +180,5 @@ $page_output->header(array(
     'title' => $info['title']
 ));
 $notification->notify(array('listeners' => 'status'));
-echo $t->fetch(GOLLEM_TEMPLATES . '/selectlist/selectlist.html');
+echo $view->render('selectlist');
 $page_output->footer();
