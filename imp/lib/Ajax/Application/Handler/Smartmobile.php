@@ -80,4 +80,33 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         ))->getTree(true);
     }
 
+    /**
+     * AJAX action: Send message.
+     *
+     * @see IMP_Ajax_Application#getForwardData()
+     *
+     * @return string  HTML to use for the folder tree.
+     */
+    public function smartmobileSendMessage()
+    {
+        global $injector, $prefs;
+
+        $identity = $injector->getInstance('IMP_Identity');
+        $send_id = $prefs->isLocked('default_identity')
+            ? null
+            : $this->vars->identity;
+
+        /* There is no sent-mail config option on smartmobile compose page,
+         * so need to add that information now. */
+        if ($identity->getValue('save_sent_mail', $send_id)) {
+            $sent_mbox = $identity->getValue('sent_mail_folder', $send_id);
+            if ($sent_mbox && !$sent_mbox->readonly) {
+                $this->vars->save_sent_mail = true;
+                $this->vars->save_sent_mail_mbox = $sent_mbox->form_to;
+            }
+        }
+
+        return $this->_base->callAction('sendMessage');
+    }
+
 }

@@ -80,7 +80,7 @@ var ImpMobile = {
 
         case 'compose-submit':
             ImpMobile.uniqueSubmit(
-                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'sendMessage'
+                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'smartmobileSendMessage'
             );
             e.preventDefault();
             break;

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
 * [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
 * [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
 * [mms] Purge IMAP cache data when upgrading from IMP 5.
@@ -2843,6 +2844,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
 * [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
 * [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
 * [mms] Purge IMAP cache data when upgrading from IMP 5.
