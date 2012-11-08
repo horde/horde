@@ -658,14 +658,6 @@ class Gollem
     }
 
     /**
-     * Outputs Gollem's status/notification bar.
-     */
-    static public function status()
-    {
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
-    }
-
-    /**
      * Generate the backend selection list for use in the menu.
      *
      * @return string  The backend selection list.

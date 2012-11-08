@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:15</time>
+ <date>2012-11-08</date>
+ <time>14:48:30</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -60,9 +60,6 @@
     <file name="selectlist.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
-    <dir name="Ajax">
-     <file name="Application.php" role="horde" />
-    </dir> <!-- /lib/Ajax -->
     <dir name="Factory">
      <file name="Shares.php" role="horde" />
      <file name="Vfs.php" role="horde" />
@@ -291,7 +288,6 @@
     <dir name="selectlist">
      <file name="selectlist.html" role="horde" />
     </dir> <!-- /templates/selectlist -->
-    <file name="javascript_defs.php" role="horde" />
     <file name="menu.html" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
@@ -515,7 +511,6 @@
    <install as="gollem/lib/Exception.php" name="lib/Exception.php" />
    <install as="gollem/lib/Gollem.php" name="lib/Gollem.php" />
    <install as="gollem/lib/Test.php" name="lib/Test.php" />
-   <install as="gollem/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="gollem/lib/Factory/Shares.php" name="lib/Factory/Shares.php" />
    <install as="gollem/lib/Factory/Vfs.php" name="lib/Factory/Vfs.php" />
    <install as="gollem/lib/Factory/VfsDefault.php" name="lib/Factory/VfsDefault.php" />
@@ -590,7 +585,6 @@
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
-   <install as="gollem/templates/javascript_defs.php" name="templates/javascript_defs.php" />
    <install as="gollem/templates/menu.html" name="templates/menu.html" />
    <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
    <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />

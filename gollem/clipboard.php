@@ -47,13 +47,11 @@ $page_output->addInlineJsVars(array(
     'GollemClipboard.selectall' => _("Select All"),
     'GollemClipboard.selectnone' => _("Select None")
 ));
-$menu = Gollem::menu();
 
 $page_output->header(array(
     'title' => _("Clipboard")
 ));
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
-echo $menu;
-Gollem::status();
+echo Gollem::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(GOLLEM_TEMPLATES . '/clipboard/clipboard.html');
 $page_output->footer();

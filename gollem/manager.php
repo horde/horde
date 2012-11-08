@@ -585,15 +585,30 @@ $page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('manager.js');
 $page_output->addScriptPackage('Dialog');
 $page_output->addInlineJsVars(array(
-    '-warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
+    'var GollemVar' => array(
+        'actionUrl' => strval(Horde::url('manager.php')),
+        'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value')),
+        'warn_recursive' => intval($prefs->getValue('recursive_deletes') == 'warn')
+    ),
+    'var GollemText' => array(
+        'change_directory' => _("Change Folder"),
+        'create_folder' => _("Create Folder"),
+        'delete_confirm_1' => _("The following items will be permanently deleted:"),
+        'delete_confirm_2' => _("Are you sure?"),
+        'delete_recurs_1' => _("The following item(s) are folders:"),
+        'delete_recurs_2' => _("Are you sure you wish to continue?"),
+        'file' => _("File"),
+        'permissions' => _("Permissions"),
+        'rename' => _("Rename"),
+        'select_item' => _("Please select an item before this action."),
+        'specify_upload' => _("Please specify at least one file to upload."),
+    )
 ));
 
-$menu = Gollem::menu();
 $page_output->header(array(
     'title' => $title
 ));
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
-echo $menu;
-Gollem::status();
+echo Gollem::menu();
+$notification->notify(array('listeners' => 'status'));
 echo $template->fetch(GOLLEM_TEMPLATES . '/manager/manager.html');
 $page_output->footer();

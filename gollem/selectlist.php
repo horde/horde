@@ -177,10 +177,16 @@ if (is_array($info['list']) &&
 }
 
 $page_output->addScriptFile('selectlist.js');
+$page_output->addInlineJsVars(array(
+    'var GollemText' => array(
+        'opener_window' => _("The original opener window has been closed. Exiting."),
+    ),
+));
+$page_output->topbar = $page_output->sidebar = false;
+
 $page_output->header(array(
     'title' => $info['title']
 ));
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
-Gollem::status();
+$notification->notify(array('listeners' => 'status'));
 echo $t->fetch(GOLLEM_TEMPLATES . '/selectlist/selectlist.html');
 $page_output->footer();

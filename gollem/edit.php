@@ -65,8 +65,7 @@ case 'edit_file':
     $page_output->header(array(
         'title' => $title
     ));
-    require GOLLEM_TEMPLATES . '/javascript_defs.php';
-    Gollem::status();
+    $notification->notify(array('listeners' => 'status'));
     require GOLLEM_TEMPLATES . '/edit/edit.inc';
     $page_output->footer();
     exit;

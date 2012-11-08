@@ -58,10 +58,9 @@ if (Gollem::$backend['quota_val'] > -1) {
 $page_output->header(array(
     'title' => _("Quota Display")
 ));
-require GOLLEM_TEMPLATES . '/javascript_defs.php';
 if (!$isPopup) {
     Gollem::menu();
-    Gollem::status();
+    $notification->notify(array('listeners' => 'status'));
 }
 echo $template->fetch(GOLLEM_TEMPLATES . '/quota/quota.html');
 $page_output->footer();
