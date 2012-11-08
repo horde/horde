@@ -158,7 +158,7 @@ class IMP_Mailbox_List_Track extends IMP_Mailbox_List
     {
         if ($force ||
             (!is_null($this->_index) && !$this->getIMAPIndex(1))) {
-            parent::_rebuild();
+            parent::rebuild();
         }
     }
 
