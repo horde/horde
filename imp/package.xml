@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
 * [mms] Fix editing templates in dynamic view.
 * [mms] Fix sending templates in dynamic view.
 * [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
@@ -2848,6 +2849,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
 * [mms] Fix editing templates in dynamic view.
 * [mms] Fix sending templates in dynamic view.
 * [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
