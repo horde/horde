@@ -2,6 +2,7 @@
 
 /* Variables used in core javascript files. */
 $var = array(
+    'actionUrl' => strval(Horde::url('manager.php')),
     'empty_input' => intval($GLOBALS['browser']->hasQuirk('empty_file_input_value'))
 );
 
