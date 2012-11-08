@@ -311,7 +311,11 @@ if ($edit_perms) {
     $template->set('upload_identifier', session_id());
     $template->set('upload_help', Horde_Help::link('gollem', 'file-upload'));
     $template->set('perms_chmod', in_array('permission', $columns), true);
-    $template->set('create_folder', Horde::link('#', _("Create Folder"), '', '', '', '', '', array('id' => 'createfolder')));
+    $injector->getInstance('Horde_View_Sidebar')->addNewButton(
+        _("Create Folder"),
+        Horde::url('#'),
+        array('id' => 'createfolder')
+    );
 } else {
     $template->set('perms_edit', false, true);
     $template->set('perms_chmod', false, true);

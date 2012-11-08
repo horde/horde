@@ -78,6 +78,7 @@ if (empty($ret)) {
         echo $data;
     }
 } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
+    $page_output->topbar = $page_output->sidebar = false;
     $page_output->header();
     echo $ret[$key]['data'];
     $page_output->footer();

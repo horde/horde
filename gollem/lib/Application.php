@@ -208,10 +208,10 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $backend_key = Gollem_Auth::getPreferredBackend();
 
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'folder_home.png');
+        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'gollem-home');
 
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'horde-perms');
         }
 
         if (isset(Gollem::$backend['quota_val']) &&

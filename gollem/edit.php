@@ -61,6 +61,7 @@ case 'edit_file':
     }
 
     $page_output->addScriptFile('edit.js');
+    $page_output->topbar = $page_output->sidebar = false;
 
     $page_output->header(array(
         'title' => $title

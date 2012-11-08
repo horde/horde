@@ -1,10 +1,4 @@
 /* File list table. */
-#filelist {
-    width: 99%;
-    margin: 0 0 8px 5px;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
 #filelist caption {
     margin: 0 0 0 5px;
     font-weight: bold;
@@ -35,14 +29,6 @@
 }
 #filelist a.sortlink {
     display: block;
-}
-
-#filelist_upload, #filelist_actions {
-    margin: 0 0 8px 5px;
-    border: 1px solid #ddd;
-}
-#filelist_actions {
-    width: 99%;
 }
 
 #attributes table.horde-table th {
@@ -77,6 +63,9 @@ table.clipboard td {
 }
 
 /* Images. */
+.gollem-home {
+    background-image: url("graphics/folder_home.png");
+}
 .clipboardImg {
     background-image: url("graphics/clipboard.png");
 }
