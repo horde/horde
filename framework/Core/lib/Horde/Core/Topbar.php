@@ -101,7 +101,7 @@ class Horde_Core_Topbar
 
         if ($admin_item_count) {
             $menu['administration'] = array(
-                'name' => _("Administration"),
+                'name' => Horde_Core_Translation::t("Administration"),
                 'status' => 'heading',
                 'menu_parent' => 'settings',
             );

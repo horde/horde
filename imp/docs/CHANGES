@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add message thread view to dynamic mailbox preview.
 [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 [mms] Collapse multiple mailbox export options in dynamic mailbox view to
       single action.
@@ -9,10 +10,28 @@ v6.1.0-git
 
 
 ----------
-v6.0.1-git
+v6.0.2-git
 ----------
 
-[mms] Add message thread view to dynamic mailbox preview.
+[mms] Allow iCalendar events to be added to the calendar even if they are
+      missing the required UID parameter (Bug #11669).
+[mms] Fix displaying flag changes for messages in search mailboxes in dynamic
+      view (Bug #11622).
+[mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+[mms] Don't try to save sent-mail to a non-existent sent-mail mailbox.
+[mms] Fix displaying encrypted message in dynamic preview when correct
+      passphrase is entered (Bug #11661).
+[mms] Purge IMAP cache data when upgrading from IMP 5.
+
+
+------
+v6.0.1
+------
+
+[mms] Fix shift-clicking in dynamic mailbox view when navigating to other
+      mailboxes (Bug #11520).
+[mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
+>>>>>>> master
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 [mms] If persistent IMAP caching is disabled, use an in-memory cache for the
       current page load.
@@ -248,10 +267,10 @@ v6.0.0alpha1
 v5.0.24-git
 -----------
 
-[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
-      #11623).
 [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
       the browser's local filesystem that has a filename that contains HTML.
+[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
+      #11623).
 [mms] Catch failure to add attachments in dynamic view because PHP's maximum
       allowed POST size was exceeded.
 [jan] Fix search link from portal if using dynamic view (Bug #11314).

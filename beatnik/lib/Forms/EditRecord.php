@@ -26,7 +26,7 @@ class EditRecord extends Horde_Form
             }
         }
 
-        parent::Horde_Form($vars, $isnew ? _("Add DNS Record") : _("Edit DNS Record"));
+        parent::__construct($vars, $isnew ? _("Add DNS Record") : _("Edit DNS Record"));
 
         $types = Beatnik::getRecTypes();
         if (empty($_SESSION['beatnik']['curdomain'])) {

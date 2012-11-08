@@ -65,7 +65,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $drafts = IMP_Mailbox::getPref('drafts_folder');
         $readonly_drafts = $drafts && $drafts->readonly;
         $sent_mail = $identity->getValue('sent_mail_folder');
-        $save_sent_mail = ($sent_mail && $sent_mail->readonly)
+        $save_sent_mail = (!$sent_mail || $sent_mail->readonly)
             ? false
             : $prefs->getValue('save_sent_mail');
 

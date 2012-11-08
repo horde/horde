@@ -316,6 +316,7 @@
     </dir> <!-- /lib/Quota -->
     <dir name="Script">
      <dir name="Package">
+      <file name="ComposeBase.php" role="horde" />
       <file name="Imp.php" role="horde" />
      </dir> <!-- /lib/Script/Package -->
     </dir> <!-- /lib/Script -->
@@ -1051,35 +1052,35 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0beta1</min>
+    <min>5.0.0</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1093,42 +1094,42 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1142,133 +1143,133 @@
    <package>
     <name>Horde_Itip</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_SpellChecker</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1289,14 +1290,14 @@
    <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1527,6 +1528,7 @@
    <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
@@ -2579,8 +2581,8 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Don&apos;t attempt to use non-IMAP mailbox names in IMAP server commands (Bug #11623).
 * [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from the browser&apos;s local filesystem that has a filename that contains HTML.
+* [mms] Don&apos;t attempt to use non-IMAP mailbox names in IMAP server commands (Bug #11623).
 * [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
@@ -2815,6 +2817,8 @@
    <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix shift-clicking in dynamic mailbox view when navigating to other mailboxes (Bug #11520).
+* [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
@@ -2834,12 +2838,30 @@
   </release>
   <release>
    <version>
+    <release>6.0.2</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
+* [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
+* [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+* [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
+* [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
+* [mms] Purge IMAP cache data when upgrading from IMP 5.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>6.1.0</release>
     <api>6.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Add message thread view to dynamic mailbox preview.

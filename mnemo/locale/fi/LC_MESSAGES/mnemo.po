@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 3.0-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-29 07:58:54+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -122,7 +122,7 @@ msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
 #: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
 msgid "Delete"
 msgstr "Poista"
 
@@ -138,10 +138,6 @@ msgstr "Poiston varmistus"
 #: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "Voit muuttaa Poista painikkeen toimintaa"
-
-#: templates/memo/memo.inc:58
-msgid "Delete this note"
-msgstr "Poista tämä muistiinpano"
 
 #: config/prefs.php:59
 msgid "Descending"
@@ -479,10 +475,6 @@ msgstr "Muistiinpanon tallennuksessa tapahtui virhe: %s"
 msgid "There was an error viewing this notepad: %s"
 msgstr "Muistilistan katselemisessa tapahtui virhe: %s"
 
-#: lib/Application.php:254
-msgid "There were no memos to export."
-msgstr "Ei muistiinpanoja vietäväksi."
-
 #: data.php:70
 msgid "This file format is not supported."
 msgstr "Tämä tiedostomuoto ei ole tuettu."
@@ -624,7 +616,7 @@ msgstr "itse"
 msgid "in %s"
 msgstr "- %s"
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:267 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 

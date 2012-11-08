@@ -446,4 +446,15 @@ EOT;
         $this->assertEquals($text, $filter);
     }
 
+    public function testHtml2TextSpacing()
+    {
+        $html = 'Normal <strong>Strong</strong> Normal <em>Italics</em> Normal <u>Underline</u> Normal <strike>Strike</strike> Normal';
+        $filter = Horde_Text_Filter::filter($html, 'Html2text');
+
+        $this->assertEquals(
+            'Normal STRONG Normal /Italics/ Normal _Underline_ Normal Strike Normal',
+            $filter
+        );
+    }
+
 }

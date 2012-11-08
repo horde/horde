@@ -162,9 +162,15 @@ if (!(@include_once 'PEAR/Config.php') ||
     !(@include_once 'PEAR/PackageFile.php')) {
     print_usage('PEAR libraries are not in the PHP include_path.');
 }
+
+/* We are heavily relying on the PEAR libraries which are not clean with regard
+ * to E_STRICT. */
 if (defined('E_DEPRECATED')) {
-   error_reporting(E_ALL & ~E_DEPRECATED);
+    error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
+} else {
+    error_reporting(E_ALL & ~E_STRICT);
 }
+
 $pear_config = PEAR_Config::singleton();
 $pear_pkg = new PEAR_PackageFile($pear_config);
 

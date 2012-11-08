@@ -87,13 +87,13 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $secret->read(new Horde_Secret_Stub_Message(), "\x01");
     }
 
-    /**
-     * @expectedException Horde_Secret_Exception
-     */
     public function testLongKeyException()
     {
         $secret = new Horde_Secret();
-        $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01");
+        $this->assertEquals(
+            $secret->read('012345678901234567890123456789012345678901234567890123456', "\x01"),
+            $secret->read('012345678901234567890123456789012345678901234567890123456789', "\x01")
+        );
     }
 
     public function testShortKeyRead()

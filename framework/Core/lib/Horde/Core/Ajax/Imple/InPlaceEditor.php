@@ -54,9 +54,9 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $config = new stdClass;
             $config->config = array(
                 'cancelClassName' => '',
-                'cancelText' => _("Cancel"),
-                'emptyText' => _("Click to add caption..."),
-                'okText' => _("Ok")
+                'cancelText' => Horde_Core_Translation::t("Cancel"),
+                'emptyText' => Horde_Core_Translation::t("Click to add caption..."),
+                'okText' => Horde_Core_Translation::t("Ok")
             );
             $config->ids = new stdClass;
             $config->ids->{$this->getDomId()} = array(

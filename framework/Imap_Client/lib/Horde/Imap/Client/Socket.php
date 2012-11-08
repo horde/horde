@@ -1188,7 +1188,22 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
         }
 
-        $this->_sendLine($cmd);
+        try {
+            $this->_sendLine($cmd);
+        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+            /* Archiveopteryx 3.1.3 can't process empty list-select-opts list.
+             * Retry using base IMAP4rev1 functionality. */
+            if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
+                $this->queryCapability('LIST-EXTENDED')) {
+                $cap = $this->capability();
+                unset($cap['LIST-EXTENDED']);
+                $this->_setInit('capability', $cap);
+
+                return $this->_listMailboxes($pattern, $mode, $options);
+            }
+
+            throw $e;
+        }
 
         if (!empty($options['flat'])) {
             return array_values($t['listresponse']);
@@ -1230,7 +1245,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         if ($ml['check'] &&
             $ml['subexist'] &&
-            !isset($ml['subscribed'][$mbox->utf7imap])) {
+            // subscribed list is in UTF-8
+            !isset($ml['subscribed'][strval($mbox)])) {
             return;
         } elseif ((!$ml['check'] && $ml['subexist']) ||
                   (empty($mlo['flat']) && !empty($mlo['attributes']))) {

@@ -4,10 +4,8 @@ if (strpos('@php_dir@', '@php_dir') === 0) {
     set_include_path(dirname(__DIR__) . DIRECTORY_SEPARATOR . 'lib' . PATH_SEPARATOR . get_include_path());
 }
 
-/**
- * We are heavily relying on the PEAR libraries which are not clean with regard
- * to E_STRICT.
- */
+/* We are heavily relying on the PEAR libraries which are not clean with regard
+ * to E_STRICT. */
 if (defined('E_DEPRECATED')) {
     error_reporting(E_ALL & ~E_STRICT & ~E_DEPRECATED);
 } else {

@@ -107,8 +107,14 @@ $readonly_drafts = $draft && $draft->readonly;
 
 $save_sent_mail = $vars->save_sent_mail;
 $sent_mail = $identity->getValue('sent_mail_folder');
-if ($readonly_sentmail = ($sent_mail && $sent_mail->readonly)) {
+if (!$sent_mail) {
+    $readonly_sentmail = $save_sent_mail = false;
+} elseif ($sent_mail->readonly) {
+    $readonly_sentmail = true;
     $save_sent_mail = false;
+} else {
+    $readonly_sentmail = false;
+    $save_sent_mail = true;
 }
 
 /* Initialize the IMP_Compose:: object. */
@@ -1071,7 +1077,7 @@ if ($rtemode && !$redirect) {
 if (!$showmenu) {
     $page_output->topbar = $page_output->sidebar = false;
 }
-$page_output->addScriptFile('compose-base.js');
+$page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
 $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
 $page_output->addInlineJsVars($js_vars);

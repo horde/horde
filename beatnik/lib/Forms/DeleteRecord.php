@@ -14,7 +14,7 @@ class DeleteRecord extends Horde_Form
      */
     function DeleteRecord(&$vars)
     {
-        parent::Horde_Form($vars, _("Are you sure you want to delete this record?"));
+        parent::__construct($vars, _("Are you sure you want to delete this record?"));
 
         $rectype = $vars->get('rectype');
         $types = Beatnik::getRecTypes();

@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-30 21:27+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-30 21:34+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
@@ -291,10 +291,6 @@ msgstr "Keine Einträge einbeziehen nach"
 msgid "Do not include entries before"
 msgstr "Keine Einträge einbeziehen vor"
 
-#: templates/dynamic/search.inc:78
-msgid "Edit"
-msgstr "Bearbeiten"
-
 #: deliverables.php:81
 #, php-format
 msgid "Edit %s"
@@ -390,7 +386,7 @@ msgstr "Exportieren"
 msgid "Export Search Results"
 msgstr "Suchergebnisse exportieren"
 
-#: templates/dynamic/search.inc:85
+#: templates/dynamic/search.inc:83
 msgid "Export Time"
 msgstr "Exportzeit"
 
@@ -515,7 +511,7 @@ msgstr "Nein"
 msgid "No Notifications"
 msgstr "Keine Benachrichtigungen"
 
-#: templates/dynamic/search.inc:81 templates/dynamic/slices.inc:84
+#: templates/dynamic/search.inc:79 templates/dynamic/slices.inc:84
 msgid "No Time Slices"
 msgstr "Keine Zeitabschnitte"
 

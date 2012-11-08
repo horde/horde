@@ -14,7 +14,7 @@ class Hermes_Form_Deliverable_ClientSelector extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Select Client"));
+        parent::__construct($vars, _("Select Client"));
         $action = &Horde_Form_Action::factory('submit');
         list($clienttype, $clientparams) = $this->getClientType();
 

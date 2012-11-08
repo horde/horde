@@ -14,7 +14,7 @@ class PasteForm extends Horde_Form
      */
     function PasteForm(&$vars)
     {
-        parent::Horde_Form($vars, _("New Paste"));
+        parent::__construct($vars, _("New Paste"));
 
         $engine = 'Pastie_Highlighter_' . $GLOBALS['conf']['highlighter']['engine'];
         $tmp = call_user_func(array($engine, 'getSyntaxes'));

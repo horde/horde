@@ -130,7 +130,14 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                 // vJournal publish.
                 switch ($components[$key]->getType()) {
                 case 'vEvent':
-                    $guid = $components[$key]->getAttribute('UID');
+                    try {
+                        $guid = $components[$key]->getAttribute('UID');
+                    } catch (Horde_Icalendar_Exception $e) {
+                        /* If required UID parameter doesn't exist, make one
+                         * up so the user can at least add the event to the
+                         * calendar. */
+                        $guid = strval(new Horde_Support_Uuid());
+                    }
 
                     // Check if this is an update.
                     try {

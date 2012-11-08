@@ -80,7 +80,11 @@ See ``config/hooks.php.dist`` for further details.
 Preferences (prefs.php)
 -----------------------
 
-The 'sending_charset' preference now defaults to 'UTF-8'.
+The 'sending_charset' preference now defaults to 'UTF-8'. Any previous saved
+value will be deleted when upgrading to 5.0 - if you want to send in a
+charset other than UTF-8 (NOT RECOMMENDED), you will need to explicitly set
+this value again (in either ``config/prefs.local.php`` or you preferences
+storage backend).
 
 The 'menu_view' and 'show_sidebar' preferences have been removed.
 

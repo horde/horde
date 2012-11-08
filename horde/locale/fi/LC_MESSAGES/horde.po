@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-29 12:11:56+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -37,7 +37,7 @@ msgstr "\"%s\" ei luotu: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB käytetty %.2fMB sallitusta (%.2f%%)"
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s ja %s"
@@ -64,7 +64,7 @@ msgstr[1] "%d henkilöä pitää tästä"
 msgid "%d to %d of %d"
 msgstr "%d - %d / %d"
 
-#: lib/Block/Weather.php:236
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d päivän ennustus"
@@ -629,7 +629,7 @@ msgstr "Valitse päiväyksien esitysmuoto (kokonainen):"
 msgid "Choose how to display times:"
 msgstr "Valitse ajan esitysmuoto:"
 
-#: templates/admin/sqlshell.html.php:54
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "Poista kysely"
 
@@ -705,7 +705,7 @@ msgstr "Kommentit: %d"
 msgid "Computers"
 msgstr "Tietokoneet"
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr "Olosuhteet"
 
@@ -855,7 +855,7 @@ msgstr "Tämänhetkinen kellonaika"
 msgid "Current Weather"
 msgstr "Tämänhetkinen sää"
 
-#: lib/Block/Weather.php:229
+#: lib/Block/Weather.php:230
 msgid "Current condition"
 msgstr "Tämänhetkiset olosuhteet"
 
@@ -911,7 +911,7 @@ msgstr "Vastaanoton päiväys"
 msgid "Date: %s; time: %s"
 msgstr "Päiväys: %s; aika: %s"
 
-#: lib/Block/Weather.php:244
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr "Päivä"
 
@@ -1025,7 +1025,7 @@ msgstr "Kosteuspiste"
 msgid "Dew Point for last hour: "
 msgstr "Edellisen tunnin kosteuspiste: "
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:181
 msgid "Dew point"
 msgstr "Kosteuspiste"
 
@@ -1199,7 +1199,7 @@ msgid "Example values:"
 msgstr "Esimerkkiarvot:"
 
 #: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:53
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "Suorita"
 
@@ -1316,12 +1316,12 @@ msgstr "Ystäväpyynnöt:"
 msgid "Friends enabled"
 msgstr "Ystävät käytössä"
 
-#: lib/Block/Weather.php:206
+#: lib/Block/Weather.php:207
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "suunnasta %s (%s &deg;) nopeudella %s %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "suunnasta %s nopeudella %s %s"
@@ -1412,7 +1412,7 @@ msgstr "Viestivirran korkeus (leveys mukautuu automaattisesti osion mukaan)"
 msgid "Help"
 msgstr "Ohje"
 
-#: services/help/index.php:91
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "Ohjeiden _aiheet"
 
@@ -1448,7 +1448,7 @@ msgstr "Kenttien (sarakkeiden) lukumäärä?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Kuinka monen sekunnin välein tarkistetaan uudet viestit?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:218 lib/Block/Weather.php:257
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr "Kosteus"
 
@@ -1561,7 +1561,7 @@ msgstr "Juuri nyt..."
 msgid "Kernel Newbies"
 msgstr "Kernel aloittelijat"
 
-#: services/help/index.php:158
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr "Avainsana"
 
@@ -1639,7 +1639,7 @@ msgstr "Limerikit"
 msgid "Linux Cookie"
 msgstr "Linux pipareita"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "Listaa taulut"
 
@@ -1876,8 +1876,8 @@ msgstr "Portaalini"
 msgid "My Portal Layout"
 msgstr "Portaalini asettelu"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "N/A"
 
@@ -2086,7 +2086,7 @@ msgstr "Organisointi"
 msgid "Other Information"
 msgstr "Muut tiedot"
 
-#: templates/login/smartmobile.html.php:22
+#: templates/login/smartmobile.html.php:18
 msgid "Other Options"
 msgstr "Muut asetukset"
 
@@ -2144,7 +2144,7 @@ msgstr "Salasanan vaihto onnistui."
 msgid "Passwords must match."
 msgstr "Salasanojen pitää täsmätä."
 
-#: templates/admin/sqlshell.html.php:40
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "Liitä"
 
@@ -2252,12 +2252,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Sademäärä edelliselle %d tunnille: "
 msgstr[1] "Sademäärä edellisille %d tunneille: "
 
-#: lib/Block/Weather.php:253
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Sateen%stodennäköisyys"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr "Ilmanpaine"
 
@@ -2285,7 +2285,7 @@ msgstr "Jaellaan"
 msgid "Publish enabled."
 msgstr "Julkaisu sallittu"
 
-#: templates/admin/sqlshell.html.php:6
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "Kysely"
 
@@ -2416,12 +2416,12 @@ msgstr ""
 msgid "Reset your password"
 msgstr "Resetoi salasanasi"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "Palauta edellinen kysely"
 
 #: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:9
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "Tulokset"
 
@@ -2455,7 +2455,7 @@ msgstr "Palauta asennusasetukset"
 msgid "Riddles"
 msgstr "Arvoitukset"
 
-#: templates/admin/sqlshell.html.php:41
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "Suorita"
 
@@ -2517,12 +2517,12 @@ msgstr "Tiede"
 msgid "Scope"
 msgstr "Laajuus"
 
-#: services/help/index.php:92
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "Ha_ku"
 
-#: services/help/index.php:153 templates/admin/user/list.inc:14
-#: templates/topbar/_menubar.html.php:22
+#: services/help/index.php:156 templates/admin/user/list.inc:14
+#: templates/topbar/_menubar.html.php:21
 msgid "Search"
 msgstr "Haku"
 
@@ -2767,7 +2767,7 @@ msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Facebook tiliin onnistuttiin muodostamaan yhteys tai päivitettiin oikeuksia."
 
-#: templates/admin/sqlshell.html.php:13
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "Onnistui"
 
@@ -2824,7 +2824,7 @@ msgstr "Auringonlasku"
 msgid "Sunday"
 msgstr "Sunnuntai"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr "Aurinnnousu"
 
@@ -2832,7 +2832,7 @@ msgstr "Aurinnnousu"
 msgid "Sunrise/Sunset"
 msgstr "Aurinko nousee/Aurinko laskee"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr "Auringonlasku"
 
@@ -2860,11 +2860,11 @@ msgstr "Tehtävät"
 msgid "Temp for last hour: "
 msgstr "Lämpötila edelliselle tunnille: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr "Lämpötila"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:247
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Lämpötila%s(%sHi%s/%sLo%s)"
@@ -3093,11 +3093,11 @@ msgstr ""
 "Voidaksesi valita useampia vaihtoehtoja, pidä Control- (PC) tai Command- "
 "(Mac) näppäintä pohjassa kun napsautat hiiren painiketta."
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "Tänään"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "Huomenna"
 
@@ -3306,7 +3306,7 @@ msgstr "Vietnam (VISCII)"
 msgid "View an external web page"
 msgstr "Näytä ulkoinen web-sivu"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:223
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "Näkyväisyys"
 
@@ -3318,7 +3318,7 @@ msgstr "Varoitus"
 msgid "Weather"
 msgstr "Sää"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "Säätiedot toimittaa"
 
@@ -3385,7 +3385,7 @@ msgstr "Wifi"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:261
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr "Tuuli"
 
@@ -3707,7 +3707,7 @@ msgstr "tyyntä"
 msgid "from the %s (%s) at %s %s"
 msgstr "suunnasta %s (%s) nopeudella %s %s"
 
-#: lib/Block/Weather.php:212 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "puuskittain"
 

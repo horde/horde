@@ -399,8 +399,11 @@ document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventLi
 document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
 
-/* Dialog events. */
-document.observe('ImpPassphraseDialog:success', DimpCore.reloadMessage.bind(DimpCore, {}));
+/* Dialog events. Since reloadMessage() can be extended, don't immediately
+ * bind function call now. */
+document.observe('ImpPassphraseDialog:success', function() {
+    DimpCore.reloadMessage({});
+});
 
 /* Notification events. */
 document.observe('HordeCore:showNotifications', function(e) {

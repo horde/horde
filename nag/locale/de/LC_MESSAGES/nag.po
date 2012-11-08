@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Nag H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-30 21:41+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -437,7 +437,8 @@ msgid "Delay Start Until"
 msgstr "Start verzögern bis"
 
 #: lib/Form/DeleteTaskList.php:42 lib/Form/EditTaskList.php:128
-#: lib/Form/EditTaskList.php:143 templates/smartmobile/taskform.html.php:63
+#: lib/Form/EditTaskList.php:143 lib/Form/Task.php:142
+#: templates/smartmobile/taskform.html.php:63
 msgid "Delete"
 msgstr "Löschen"
 
@@ -453,10 +454,6 @@ msgstr "Löschbestätigung"
 #: lib/Form/Search.php:66
 msgid "Delete Smart List"
 msgstr "Smartliste löschen"
-
-#: lib/Form/Task.php:142
-msgid "Delete Task"
-msgstr "Aufgabe löschen"
 
 #: config/prefs.php:21
 msgid "Delete button behaviour"
@@ -1267,10 +1264,6 @@ msgstr ""
 "Beim Löschen der Aufgaben von %s ist ein Fehler aufgetreten. Details wurden "
 "protokolliert."
 
-#: lib/Application.php:360
-msgid "There were no tasks to export."
-msgstr "Es konnten keine Aufgaben zum Exportieren gefunden werden."
-
 #: data.php:95
 msgid "This file format is not supported."
 msgstr "Dieses Dateiformat wird nicht unterstützt."
@@ -1553,11 +1546,11 @@ msgstr "pm"
 msgid "tasks"
 msgstr "Aufgaben"
 
-#: lib/Application.php:392 templates/data/export.inc:1
+#: lib/Application.php:388 templates/data/export.inc:1
 msgid "tasks.csv"
 msgstr "aufgaben.csv"
 
-#: lib/Application.php:406
+#: lib/Application.php:402
 msgid "tasks.ics"
 msgstr "aufgaben.ics"
 

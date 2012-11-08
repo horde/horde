@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -756,11 +756,6 @@ msgstr ""
 #: test/Horde/Service/Weather/WwoTest.php:84
 #: test/Horde/Service/Weather/WwoTest.php:99
 msgid "Sunny"
-msgstr ""
-
-#: lib/Horde/Service/Weather/Google.php:169
-msgid ""
-"There was a problem with the weather request. Maybe an invalid location?"
 msgstr ""
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38

@@ -80,7 +80,7 @@ var ImpMobile = {
 
         case 'compose-submit':
             ImpMobile.uniqueSubmit(
-                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'sendMessage'
+                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'smartmobileSendMessage'
             );
             e.preventDefault();
             break;
@@ -1249,7 +1249,7 @@ var ImpMobile = {
             $.each([ 'to', 'cc' ], function(undefined, v) {
                 $('#imp-compose-' + v).autocomplete({
                     callback: function(e) {
-                        $('#imp-compose-' + v).val($(e.currentTarget).text());
+                        $('#imp-compose-' + v).val($.trim($(e.currentTarget).text()));
                     },
                     link: '#',
                     minLength: 3,

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -409,11 +409,11 @@ msgstr ""
 msgid "Required Field"
 msgstr ""
 
-#: lib/Horde/Form.php:624
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
 
-#: lib/Horde/Form.php:360 lib/Horde/Form/Renderer.php:312
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr ""
 
@@ -501,7 +501,7 @@ msgstr ""
 msgid "String list returning an array"
 msgstr ""
 
-#: lib/Horde/Form.php:353 lib/Horde/Form/Renderer.php:309
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr ""
 
@@ -588,7 +588,7 @@ msgid ""
 "'#1234af'."
 msgstr ""
 
-#: lib/Horde/Form.php:621
+#: lib/Horde/Form.php:615
 msgid "This form has already been processed."
 msgstr ""
 

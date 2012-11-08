@@ -18,10 +18,10 @@ class Whups_Form_Admin_EditQueueStepOne extends Horde_Form
         global $whups_driver, $registry;
 
         if ($registry->hasMethod('tickets/listQueues') == $registry->getApp()) {
-            parent::Horde_Form($vars, _("Edit or Delete Queues"));
+            parent::__construct($vars, _("Edit or Delete Queues"));
             $this->setButtons(array(_("Edit Queue"), _("Delete Queue")));
         } else {
-            parent::Horde_Form($vars, _("Edit Queues"));
+            parent::__construct($vars, _("Edit Queues"));
             $this->setButtons(array(_("Edit Queue")));
         }
 

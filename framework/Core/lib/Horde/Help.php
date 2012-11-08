@@ -55,7 +55,7 @@ class Horde_Help
 
         case self::SOURCE_FILE:
             if (!@is_file($data)) {
-                throw new Horde_Exception(Horde_Core_Translation::t(_("Help file not found.")));
+                throw new Horde_Exception(Horde_Core_Translation::t("Help file not found."));
             }
             $dom->load($data);
             break;

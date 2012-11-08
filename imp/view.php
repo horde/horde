@@ -32,7 +32,9 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array(
+    'session_control' => 'readonly'
+));
 
 $vars = $injector->getInstance('Horde_Variables');
 

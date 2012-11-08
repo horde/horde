@@ -80,8 +80,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      *   - state: (Horde_ActiveSync_State_Base) The state driver.
      *            DEFAULT: none (REQUIRED).
-     *   - connector: (Horde_ActiveSync_Driver_Horde_Connector_Registry) The
-     *                connector object for communicating with the registry.
+     *   - connector: (Horde_Core_ActiveSync_Connector) The connector object
+     *                for communicating with the registry.
      *                DEFAULT: none (REQUIRED)
      *   - auth: (Horde_Auth) The auth object.
      *           DEFAULT: none (REQUIRED).
@@ -90,8 +90,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *           DEFAULT: none (No email support will be provided).
      *   - reply_top: (boolean) Place email reply text above original.
      *                DEFAULT: false (Place reply text below original).
-     *
-     * @return Horde_ActiveSync_Driver_Horde
      */
     public function __construct(array $params = array())
     {
@@ -139,11 +137,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Authenticate to Horde
      *
-     * @see framework/ActiveSync/lib/Horde/ActiveSync/Driver/Horde_ActiveSync_Driver_Base#authenticate
+     * @see Horde_ActiveSync_Driver_Base#authenticate()
      */
     public function authenticate($username, $password, $domain = null)
     {
-        $this->_logger->info('Horde_ActiveSync_Driver_Horde::logon attempt for: ' . $username);
+        $this->_logger->info('Horde_Core_ActiveSync_Driver::authenticate() attempt for: ' . $username);
         parent::authenticate($username, $password, $domain);
 
         if (!$this->_auth->authenticate($username, array('password' => $password))) {
@@ -405,7 +403,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function getServerChanges($folder, $from_ts, $to_ts, $cutoffdate, $ping)
     {
         $this->_logger->debug(sprintf(
-            "Horde_ActiveSync_Driver_Horde::getServerChanges(%s, %u, %u, %u, %d)",
+            "Horde_Core_ActiveSync_Driver::getServerChanges(%s, %u, %u, %u, %d)",
             $folder->serverid(),
             $from_ts,
             $to_ts,
@@ -1203,9 +1201,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $from = $message->getFromAddress();
         $msg = $this->_msgBody($part, $html);
         $msg_pre = "\n----- "
-            . ($from ? sprintf(_("Forwarded message from %s"), $from) : _("Forwarded message"))
+            . ($from ? sprintf(Horde_Core_Translation::t("Forwarded message from %s"), $from) : Horde_Core_Translation::t("Forwarded message"))
             . " -----\n" . $fwd_headers . "\n";
-        $msg_post = "\n\n----- " . _("End forwarded message") . " -----\n";
+        $msg_post = "\n\n----- " . Horde_Core_Translation::t("End forwarded message") . " -----\n";
 
         return ($html ? self::text2html($msg_pre) : $msg_pre)
             . $msg
@@ -1226,14 +1224,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $part = $message->getMimePart($partId);
         $headers = $message->getHeaders();
         $from = strval($headers->getOb('from'));
-        $msg_pre = $from ? sprintf(_("Quoting %s"), $from) : _("Quoted") . "\n\n";
+        $msg_pre = $from ? sprintf(Horde_Core_Translation::t("Quoting %s"), $from) : Horde_Core_Translation::t("Quoted") . "\n\n";
         $msg = $this->_msgBody($part, $html, true);
         if (!empty($msg) && $html) {
             $msg = '<p>' . $this->text2html($msg_pre) . '</p>'
                 . self::HTML_BLOCKQUOTE . $msg . '</blockquote><br /><br />';
         } else {
             $msg = empty($msg)
-                ? '[' . _("No message body text") . ']'
+                ? '[' . Horde_Core_Translation::t("No message body text") . ']'
                 : $msg_pre . $msg;
         }
 
@@ -1706,7 +1704,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     protected function _smartStatMessage($folderid, $id, $hint)
     {
         ob_start();
-        $this->_logger->debug('ActiveSync_Driver_Horde::_smartStatMessage:' . $folderid . ':' . $id);
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::_smartStatMessage(): ' . $folderid . ':' . $id);
         $statKey = $folderid . $id;
         $mod = false;
 
@@ -1766,7 +1764,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_TRASH);
                 $this->_mailFolders[] = $this->_buildDummyFolder(self::SPECIAL_SENT);
             } else {
-                $this->_logger->debug('Polling Horde_ActiveSync_Driver_Horde::_getMailFolders()');
+                $this->_logger->debug('Polling Horde_Core_ActiveSync_Driver::_getMailFolders()');
                 $folders = array();
                 $imap_folders = $this->_imap->getMailboxes();
                 foreach ($imap_folders as $id => $folder) {
@@ -1791,17 +1789,17 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::SPECIAL_TRASH:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET;
             $folder->serverid = 'Trash';
-            $folder->displayname = _("Trash");
+            $folder->displayname = Horde_Core_Translation::t("Trash");
             break;
         case self::SPECIAL_SENT:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_SENTMAIL;
             $folder->serverid = 'Sent';
-            $folder->displayname = _("Sent");
+            $folder->displayname = Horde_Core_Translation::t("Sent");
             break;
         case self::SPECIAL_INBOX:
             $folder->type = Horde_ActiveSync::FOLDER_TYPE_INBOX;
             $folder->serverid = 'INBOX';
-            $folder->displayname = _("Inbox");
+            $folder->displayname = Horde_Core_Translation::t("Inbox");
             break;
         }
 
@@ -1828,7 +1826,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // Check for nested folders. $fl will NEVER contain containers so we
         // can assume that any entry in $fl is an actual mailbox.
         if ($f['level'] != 0) {
-            $parts = explode($f['d'], $f['label']);
+            $parts = explode($f['d'], $sid);
             $displayname = array_pop($parts);
             if (!empty($fl[implode($f['d'], $parts)])) {
                 $folder->parentid = implode($f['d'], $parts);

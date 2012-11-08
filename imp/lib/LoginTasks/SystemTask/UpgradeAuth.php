@@ -26,7 +26,8 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
     /**
      */
     protected $_versions = array(
-        '5.0'
+        '5.0',
+        '6.0.2'
     );
 
     /**
@@ -35,6 +36,10 @@ class IMP_LoginTasks_SystemTask_UpgradeAuth extends Horde_Core_LoginTasks_System
     {
         switch ($version) {
         case '5.0':
+            $this->_upgradeExpireImapCache();
+            break;
+
+        case '6.0.2':
             $this->_upgradeExpireImapCache();
             break;
         }

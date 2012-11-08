@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-30 21:46+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -40,7 +40,7 @@ msgstr "\"%s\" wurde nicht erstellt: %s."
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "%.2fMB (%3$.2f%%) von %2$.2fMB erlaubten verbraucht"
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s und %s"
@@ -67,7 +67,7 @@ msgstr[1] "%d Personen gefällt das"
 msgid "%d to %d of %d"
 msgstr "%d bis %d von %d"
 
-#: lib/Block/Weather.php:236
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-Tage-Vorhersage"
@@ -637,7 +637,7 @@ msgstr "Legen Sie fest, wie das Datum angezeigt werden soll (Vollständig):"
 msgid "Choose how to display times:"
 msgstr "Legen Sie fest, wie die Uhrzeit angezeigt werden soll:"
 
-#: templates/admin/sqlshell.html.php:54
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "Abfrage zurücksetzen"
 
@@ -713,7 +713,7 @@ msgstr "Kommentare: %d"
 msgid "Computers"
 msgstr "Computer"
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr "Bedingungen"
 
@@ -866,7 +866,7 @@ msgstr "Aktuelle Zeit"
 msgid "Current Weather"
 msgstr "Aktuelles Wetter"
 
-#: lib/Block/Weather.php:229
+#: lib/Block/Weather.php:230
 msgid "Current condition"
 msgstr "Aktuelle Bedingungen"
 
@@ -922,7 +922,7 @@ msgstr "Empfangsdatum"
 msgid "Date: %s; time: %s"
 msgstr "Datum: %s; Uhrzeit: %s"
 
-#: lib/Block/Weather.php:244
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr "Tag"
 
@@ -1036,7 +1036,7 @@ msgstr "Taupunkt"
 msgid "Dew Point for last hour: "
 msgstr "Taupunkt der letzten Stunde: "
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:181
 msgid "Dew point"
 msgstr "Taupunkt"
 
@@ -1213,7 +1213,7 @@ msgid "Example values:"
 msgstr "Beispielwerte:"
 
 #: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:53
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "Ausführen"
 
@@ -1330,12 +1330,12 @@ msgstr "Freundschafts-Anfragen:"
 msgid "Friends enabled"
 msgstr "Freunde aktiviert"
 
-#: lib/Block/Weather.php:206
+#: lib/Block/Weather.php:207
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "aus %s (%s &deg;) mit %s %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "aus %s mit %s %s"
@@ -1426,7 +1426,7 @@ msgstr "Höhe des Inhalts (Breite passt sich automatisch an den Block an)"
 msgid "Help"
 msgstr "Hilfe"
 
-#: services/help/index.php:91
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "_Hilfeeinträge"
 
@@ -1462,7 +1462,7 @@ msgstr "Wieviele Felder (Spalten) gibt es?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Nach wie vielen Sekunden soll nach neuen Beiträgen geschaut werden?"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:218 lib/Block/Weather.php:257
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr "Luftfeuchtigkeit"
 
@@ -1578,7 +1578,7 @@ msgstr "Gerade..."
 msgid "Kernel Newbies"
 msgstr "Kernel-Neulinge"
 
-#: services/help/index.php:158
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr "Stichwort"
 
@@ -1656,7 +1656,7 @@ msgstr "Limerick"
 msgid "Linux Cookie"
 msgstr "Linux-Glückskekse"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "Tabellen anzeigen"
 
@@ -1895,8 +1895,8 @@ msgstr "Mein Portal"
 msgid "My Portal Layout"
 msgstr "Mein Portallayout"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "k.A."
 
@@ -2108,7 +2108,7 @@ msgstr "Organisieren"
 msgid "Other Information"
 msgstr "Andere Informationen"
 
-#: templates/login/smartmobile.html.php:22
+#: templates/login/smartmobile.html.php:18
 msgid "Other Options"
 msgstr "Weitere Einstellungen"
 
@@ -2166,7 +2166,7 @@ msgstr "Passwort erfolgreich geändert."
 msgid "Passwords must match."
 msgstr "Die Passwörter müssen gleich sein."
 
-#: templates/admin/sqlshell.html.php:40
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "Einfügen"
 
@@ -2274,12 +2274,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "Niederschlag in der letzten %d Stunde: "
 msgstr[1] "Niederschlag in den letzten %d Stunden: "
 
-#: lib/Block/Weather.php:253
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Niederschlags-%swahrscheinlichkeit"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr "Luftdruck"
 
@@ -2307,7 +2307,7 @@ msgstr "Verknüpfung"
 msgid "Publish enabled."
 msgstr "Veröffentlichungen aktiviert."
 
-#: templates/admin/sqlshell.html.php:6
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "Abfrage"
 
@@ -2439,12 +2439,12 @@ msgstr ""
 msgid "Reset your password"
 msgstr "Passwort zurücksetzen"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "Letzte Abfrage einfügen"
 
 #: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:9
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "Ergebnisse"
 
@@ -2478,7 +2478,7 @@ msgstr "Konfiguration zurücksetzen"
 msgid "Riddles"
 msgstr "Rätsel"
 
-#: templates/admin/sqlshell.html.php:41
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "Starten"
 
@@ -2540,12 +2540,12 @@ msgstr "Wissenschaft"
 msgid "Scope"
 msgstr "Bereich"
 
-#: services/help/index.php:92
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "_Suche"
 
-#: services/help/index.php:153 templates/admin/user/list.inc:14
-#: templates/topbar/_menubar.html.php:22
+#: services/help/index.php:156 templates/admin/user/list.inc:14
+#: templates/topbar/_menubar.html.php:21
 msgid "Search"
 msgstr "Suche"
 
@@ -2789,7 +2789,7 @@ msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 "Erfolgreich mit Ihrem Facebook-Konto verbunden oder Rechte aktualisiert."
 
-#: templates/admin/sqlshell.html.php:13
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "Erfolg"
 
@@ -2845,7 +2845,7 @@ msgstr "Sonnenuntergang"
 msgid "Sunday"
 msgstr "Sonntag"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr "Sonnenaufgang"
 
@@ -2853,7 +2853,7 @@ msgstr "Sonnenaufgang"
 msgid "Sunrise/Sunset"
 msgstr "Sonnenauf/untergang"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr "Sonnenuntergang"
 
@@ -2881,11 +2881,11 @@ msgstr "Aufgaben"
 msgid "Temp for last hour: "
 msgstr "Temperatur der letzten Stunde: "
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr "Temperatur"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:247
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatur%s(%sMax%s/%sMin%s)"
@@ -3125,11 +3125,11 @@ msgstr ""
 "Halten Sie beim Klicken Strg (PC) bzw. Command (Mac) gedrückt, um mehrere "
 "Einträge auszuwählen."
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "Heute"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "Morgen"
 
@@ -3344,7 +3344,7 @@ msgstr "Vietnamesisch (VISCII)"
 msgid "View an external web page"
 msgstr "Externe Webseite anzeigen"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:223
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "Sicht"
 
@@ -3356,7 +3356,7 @@ msgstr "Warnung"
 msgid "Weather"
 msgstr "Wetter"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "Wetterdaten von"
 
@@ -3423,7 +3423,7 @@ msgstr "WLAN"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:261
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr "Wind"
 
@@ -3746,7 +3746,7 @@ msgstr "windstill"
 msgid "from the %s (%s) at %s %s"
 msgstr "aus %s (%s) mit %s %s"
 
-#: lib/Block/Weather.php:212 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "böig"
 
