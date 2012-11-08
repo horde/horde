@@ -107,8 +107,14 @@ $readonly_drafts = $draft && $draft->readonly;
 
 $save_sent_mail = $vars->save_sent_mail;
 $sent_mail = $identity->getValue('sent_mail_folder');
-if ($readonly_sentmail = ($sent_mail && $sent_mail->readonly)) {
+if (!$sent_mail) {
+    $readonly_sentmail = $save_sent_mail = false;
+} elseif ($sent_mail->readonly) {
+    $readonly_sentmail = true;
     $save_sent_mail = false;
+} else {
+    $readonly_sentmail = false;
+    $save_sent_mail = true;
 }
 
 /* Initialize the IMP_Compose:: object. */
