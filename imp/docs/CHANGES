@@ -2,6 +2,8 @@
 v6.0.2-git
 ----------
 
+[mms] Allow iCalendar events to be added to the calendar even if they are
+      missing the required UID parameter (Bug #11669).
 [mms] Fix displaying flag changes for messages in search mailboxes in dynamic
       view (Bug #11622).
 [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
