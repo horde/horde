@@ -181,7 +181,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 case 'template':
                     $result = $imp_compose->useTemplate($indices_ob);
-                    $compose_opts['template'] = true;
                     break;
 
                 case 'template_edit':
