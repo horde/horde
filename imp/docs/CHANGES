@@ -2,6 +2,7 @@
 v6.0.2-git
 ----------
 
+[mms] Fix editing templates in dynamic view.
 [mms] Fix sending templates in dynamic view.
 [mms] Allow iCalendar events to be added to the calendar even if they are
       missing the required UID parameter (Bug #11669).

@@ -202,6 +202,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             break;
 
         case 'new':
+        case 'template_new':
         default:
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
@@ -210,6 +211,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';
+            }
+
+            if ($this->vars->type == 'template_new') {
+                $compose_opts['template'] = true;
             }
             break;
         }
