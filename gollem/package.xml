@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-08</date>
- <time>16:55:39</time>
+ <time>16:56:38</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -276,9 +276,6 @@
     <dir name="edit">
      <file name="edit.inc" role="horde" />
     </dir> <!-- /templates/edit -->
-    <dir name="login">
-     <file name="login.html" role="horde" />
-    </dir> <!-- /templates/login -->
     <dir name="quota">
      <file name="quota.html" role="horde" />
     </dir> <!-- /templates/quota -->
@@ -587,7 +584,6 @@
    <install as="gollem/templates/menu.html" name="templates/menu.html" />
    <install as="gollem/templates/clipboard/clipboard.html" name="templates/clipboard/clipboard.html" />
    <install as="gollem/templates/edit/edit.inc" name="templates/edit/edit.inc" />
-   <install as="gollem/templates/login/login.html" name="templates/login/login.html" />
    <install as="gollem/templates/quota/quota.html" name="templates/quota/quota.html" />
    <install as="gollem/templates/selectlist/selectlist.html" name="templates/selectlist/selectlist.html" />
    <install as="gollem/themes/default/screen.css" name="themes/default/screen.css" />
