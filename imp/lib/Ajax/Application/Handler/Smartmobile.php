@@ -38,7 +38,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     {
         $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
 
-        return $this->_base->getForwardData();
+        return $this->_base->callAction('getForwardData');
     }
 
     /**
@@ -51,7 +51,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function smartmobileShowMessage()
     {
-        $output = $this->_base->showMessage();
+        $output = $this->_base->callAction('showMessage');
 
         if (IMP_Mailbox::formFrom($this->vars->view)->search) {
             $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
