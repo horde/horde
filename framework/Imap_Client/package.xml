@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
 * [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
  </notes>
  <contents>
@@ -1287,6 +1288,7 @@
    <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
 * [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
    </notes>
   </release>

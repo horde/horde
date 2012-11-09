@@ -4111,12 +4111,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'EXISTS':
                 // EXISTS response - RFC 3501 [7.3.2]
                 $mbox_ob = $this->_mailboxOb();
-                $mbox_ob->setStatus(Horde_Imap_Client::STATUS_MESSAGES, $first);
 
                 // Increment UIDNEXT if it is set.
-                if ($uidnext = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDNEXT)) {
-                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $uidnext + $first);
+                if ($mbox_ob->open &&
+                    ($uidnext = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDNEXT))) {
+                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $uidnext + $first - $mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES));
                 }
+
+                $mbox_ob->setStatus(Horde_Imap_Client::STATUS_MESSAGES, $first);
                 break;
 
             case 'RECENT':

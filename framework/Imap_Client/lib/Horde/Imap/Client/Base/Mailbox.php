@@ -27,6 +27,13 @@ class Horde_Imap_Client_Base_Mailbox
     public $map;
 
     /**
+     * Is mailbox opened?
+     *
+     * @var boolean
+     */
+    public $open;
+
+    /**
      * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
      *
      * @var boolean
@@ -151,7 +158,7 @@ class Horde_Imap_Client_Base_Mailbox
         }
 
         $this->map = new Horde_Imap_Client_Ids_Map();
-        $this->sync = false;
+        $this->open = $this->sync = false;
     }
 
 }
