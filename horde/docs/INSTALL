@@ -303,15 +303,6 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
                   this section. Installing Horde through PEAR will
                   automatically download and install all required PEAR modules.
 
-   These PEAR modules are **REQUIRED** to be installed for complete Horde
-   functionality:
-
-   a. Crypt_Blowfish (>= 1.0.1)
-
-      To install, enter the following at the command prompt::
-
-        pear install Crypt_Blowfish
-
    These PEAR modules are **RECOMMENDED** to be installed:
 
    a. Net_DNS2
