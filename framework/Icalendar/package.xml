@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-06</date>
- <time>20:37:25</time>
+ <date>2012-11-09</date>
+ <time>16:39:25</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -383,7 +383,6 @@
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="bug_7423.phpt" role="test" />
       <file name="charset1.phpt" role="test" />
       <file name="common.php" role="test" />
@@ -574,7 +573,6 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="Horde/Icalendar/AllTests.php" name="test/Horde/Icalendar/AllTests.php" />
-   <install as="Horde/Icalendar/Autoload.php" name="test/Horde/Icalendar/Autoload.php" />
    <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
    <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
    <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
@@ -1007,7 +1005,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

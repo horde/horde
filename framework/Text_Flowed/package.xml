@@ -11,8 +11,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:57:17</time>
+ <date>2012-11-09</date>
+ <time>16:44:55</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -48,7 +48,6 @@
      <dir name="Text">
       <dir name="Flowed">
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
        <file name="FlowedTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Text/Flowed -->
@@ -79,7 +78,6 @@
    <install as="COPYING" name="doc/Horde/Text/Flowed/COPYING" />
    <install as="Horde/Text/Flowed.php" name="lib/Horde/Text/Flowed.php" />
    <install as="Horde/Text/Flowed/AllTests.php" name="test/Horde/Text/Flowed/AllTests.php" />
-   <install as="Horde/Text/Flowed/Autoload.php" name="test/Horde/Text/Flowed/Autoload.php" />
    <install as="Horde/Text/Flowed/FlowedTest.php" name="test/Horde/Text/Flowed/FlowedTest.php" />
    <install as="Horde/Text/Flowed/phpunit.xml" name="test/Horde/Text/Flowed/phpunit.xml" />
   </filelist>
@@ -250,7 +248,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

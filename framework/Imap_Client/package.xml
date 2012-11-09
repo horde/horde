@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>21:56:46</time>
+ <date>2012-11-09</date>
+ <time>16:39:57</time>
  <version>
   <release>2.1.6</release>
   <api>2.1.0</api>
@@ -176,7 +176,6 @@
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
-       <file name="Autoload.php" role="test" />
        <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
@@ -348,7 +347,6 @@
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
-   <install as="Horde/Imap/Client/Autoload.php" name="test/Horde/Imap/Client/Autoload.php" />
    <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
@@ -1285,7 +1283,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).

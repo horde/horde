@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:22:39</time>
+ <date>2012-11-09</date>
+ <time>16:37:15</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -80,7 +80,6 @@
     <dir name="Horde">
      <dir name="Controller">
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="FilterRunnerTest.php" role="test" />
       <file name="MockRequestTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -169,7 +168,6 @@
    <install as="Horde/Controller/ResponseWriter/WebDebug.php" name="lib/Horde/Controller/ResponseWriter/WebDebug.php" />
    <install as="Horde/Controller/SettingsExporter/Default.php" name="lib/Horde/Controller/SettingsExporter/Default.php" />
    <install as="Horde/Controller/AllTests.php" name="test/Horde/Controller/AllTests.php" />
-   <install as="Horde/Controller/Autoload.php" name="test/Horde/Controller/Autoload.php" />
    <install as="Horde/Controller/FilterRunnerTest.php" name="test/Horde/Controller/FilterRunnerTest.php" />
    <install as="Horde/Controller/MockRequestTest.php" name="test/Horde/Controller/MockRequestTest.php" />
    <install as="Horde/Controller/phpunit.xml" name="test/Horde/Controller/phpunit.xml" />
@@ -354,7 +352,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

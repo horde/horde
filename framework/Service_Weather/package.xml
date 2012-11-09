@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:55:39</time>
+ <date>2012-11-09</date>
+ <time>16:42:59</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -128,7 +128,6 @@
         <file name="boston_wwo.json" role="test" />
        </dir> <!-- /test/Horde/Service/Weather/fixtures -->
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
        <file name="GoogleTest.php" role="test" />
        <file name="WundergroundTest.php" role="test" />
        <file name="WwoTest.php" role="test" />
@@ -330,7 +329,6 @@
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
-   <install as="Horde/Service/Weather/Autoload.php" name="test/Horde/Service/Weather/Autoload.php" />
    <install as="Horde/Service/Weather/GoogleTest.php" name="test/Horde/Service/Weather/GoogleTest.php" />
    <install as="Horde/Service/Weather/WundergroundTest.php" name="test/Horde/Service/Weather/WundergroundTest.php" />
    <install as="Horde/Service/Weather/WwoTest.php" name="test/Horde/Service/Weather/WwoTest.php" />
@@ -644,7 +642,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

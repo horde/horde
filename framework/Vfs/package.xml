@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>21:03:09</time>
+ <date>2012-11-09</date>
+ <time>16:45:52</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -373,7 +373,6 @@ Reading, writing and listing of files are all supported.</description>
        <file name="MysqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Vfs/SqlFile -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="FileTest.php" role="test" />
@@ -578,7 +577,6 @@ Reading, writing and listing of files are all supported.</description>
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
-   <install as="Horde/Vfs/Autoload.php" name="test/Horde/Vfs/Autoload.php" />
    <install as="Horde/Vfs/Base.php" name="test/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
    <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
@@ -1089,7 +1087,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
