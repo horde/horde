@@ -1344,16 +1344,16 @@ class IMP_Mailbox implements Serializable
     /**
      * Helper for importMbox().
      *
-     * @param resource $msg    Stream containing message data.
+     * @param array $msg       Message data.
      * @param integer $buffer  Buffer messages before sending?
      */
     protected function _importMbox($msg, $buffer = false)
     {
-        $this->_import['data'][] = array('data' => $msg);
-        $this->_import['size'] += intval(ftell($msg));
+        $this->_import['data'][] = array('data' => $msg['data']);
+        $this->_import['size'] += $msg['size'];
 
-        /* Buffer 5 MB of messages before sending. */
-        if ($buffer && ($this->_import['size'] < 5242880)) {
+        /* Buffer 1 MB of messages before sending. */
+        if ($buffer && ($this->_import['size'] < 1048576)) {
             return;
         }
 
