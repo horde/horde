@@ -215,8 +215,7 @@ class Horde_ActiveSync_Imap_Adapter
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         } else {
-            $status_flags = Horde_Imap_Client::STATUS_MESSAGES |
-                Horde_Imap_Client::STATUS_UIDVALIDITY |
+            $status_flags = Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         }
 
