@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Workaround broken BINARY implementation on UW-IMAP servers.
 * [mms] If we have binary data, and server doesn&apos;t support BINARY extension, send data anyway since we don&apos;t have any other option.
 * [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
 * [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
@@ -1287,6 +1288,7 @@
    <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Workaround broken BINARY implementation on UW-IMAP servers.
 * [mms] If we have binary data, and server doesn&apos;t support BINARY extension, send data anyway since we don&apos;t have any other option.
 * [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
 * [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
