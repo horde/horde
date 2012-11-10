@@ -1312,6 +1312,10 @@ class IMP_Mailbox implements Serializable
             break;
         }
 
+        if (is_null($fd)) {
+            throw new IMP_Exception(_("The uploaded file cannot be opened."));
+        }
+
         try {
             $parsed = new IMP_Mbox_Parse($fd);
         } catch (IMP_Exception $e) {
