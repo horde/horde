@@ -188,8 +188,8 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a list of messages from the specified mailbox. If QRESYNC is NOT
-     * available, or if QRESYNC IS available, but this is the first request
+     * Return a list of messages from the specified mailbox. If CONDSTORE is NOT
+     * available, or if CONDSTORE IS available, but this is the first request
      * then the entire message list is returned. Otherwise, only changes since
      * the last MODSEQ value are taken into consideration.
      *
@@ -210,7 +210,7 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-        if ($qresync = $imap->queryCapability('QRESYNC')) {
+        if ($condstore = $imap->queryCapability('CONDSTORE')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
                 Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
@@ -226,14 +226,14 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
-        if ($qresync) {
+        if ($condstore) {
             $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ];
         } else {
             $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ] = 0;
         }
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
-        if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
-            // QRESYNC and have known changes
+        if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
+            // CONDSTORE and have known changes
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
@@ -273,7 +273,7 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $folder->setRemoved($deleted->ids);
         } elseif ($folder->modseq() == 0) {
-            // Initial priming or we don't support QRESYNC.
+            // Initial priming or we don't support CONDSTORE.
             // Either way, we need the full message uid list.
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
@@ -287,12 +287,12 @@ class Horde_ActiveSync_Imap_Adapter
                 $query,
                 array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_MIN)));
 
-            if ($qresync && $modseq > 0) {
-                // Support QRESYNC, but this is initial priming - set the results.
+            if ($condstore && $modseq > 0) {
+                // Support CONDSTORE, but this is initial priming - set the results.
                 $folder->setChanges($search_ret['match']->ids);
                 $status[Horde_ActiveSync_Folder_Imap::MINUID] = $search_ret['min'];
             } else {
-                // No QRESYNC, perform some magic.
+                // No CONDSTORE, perform some magic.
                 $uids = $folder->messages();
                 $deleted = array_diff($uids, $search_ret['match']->ids);
                 $changed = $search_ret['match']->ids;

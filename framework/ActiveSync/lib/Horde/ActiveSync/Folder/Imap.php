@@ -36,10 +36,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
     const COUNT       = 'messages';
 
     /**
-     * The folder's current message list. Only used for servers that do not
-     * support QRESYNC.
-     *
-     * An array of UIDs.
+     * The folder's current message list.
      *
      * @var array
      */
@@ -81,7 +78,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Cache the known lowest UID we received during the initial SYNC request.
-     * Only available (or even needed) if server supports QRESYNC. This value
+     * Only available (or even needed) if server supports CONDSTORE. This value
      * will never change unless the syncstate is removed.
      *
      * @var integer
@@ -168,7 +165,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function updateState()
     {
-        // If we support QRESYNC, do not bother keeping a cache of messages,
+        // If we support CONDSTORE, do not bother keeping a cache of messages,
         // since we do not need them.
         if ($this->modseq() == 0) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
