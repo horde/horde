@@ -1478,18 +1478,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 while (list(,$v) = each($data[$key]['data'])) {
                     switch ($v['t']) {
                     case 'text':
-                        $text_data = $this->_appendData($v['v']);
-
                         if ($catenate) {
-                            $text_str = new Horde_Imap_Client_Data_Format_String($text_data);
-                            $text_str->forceLiteral();
-
                             $tmp->add(array(
                                 'TEXT',
-                                $text_str
+                                $this->_appendData($v['v'])
                             ));
                         } else {
-                            $data_stream->add($text_data);
+                            $data_stream->add($v['v']);
                         }
                         break;
 
@@ -1509,13 +1504,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    rewind($data_stream->stream);
-                    $text_data = new Horde_Imap_Client_Data_Format_String($data_stream);
-                    $text_data->forceLiteral();
-                    $cmd->add($text_data);
+                    $cmd->add($this->_appendData($data_stream));
                 }
             } else {
-                $cmd->add(new Horde_Imap_Client_Data_Format_String($this->_appendData($data[$key]['data'])));
+                $cmd->add($this->_appendData($data[$key]['data']));
             }
         }
 
@@ -1562,24 +1554,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $data  Either a resource or a string.
      *
-     * @param Horde_Stream  A stream containing the data.
+     * @param Horde_Imap_Client_Data_Format_String  The data object.
      */
     protected function _appendData($data)
     {
-        $stream = new Horde_Stream_Temp();
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-        $res = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-
         if (is_resource($data)) {
             rewind($data);
         }
-        $stream->add($data, true);
 
-        $this->_temp['appendsize'] += $stream->length();
+        $ob = new Horde_Imap_Client_Data_Format_String($data, array(
+            'eol' => true,
+            'skipscan' => true
+        ));
 
-        stream_filter_remove($res);
+        // Force output to binary. Not much we can do if server doesn't
+        // support, so just deal with it at send-time.
+        $ob->forceBinary();
 
-        return $stream;
+        $this->_temp['appendsize'] += $ob->length();
+
+        return $ob;
     }
 
     /**
@@ -1587,7 +1581,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param string $url  The CATENATE URL.
      *
-     * @return Horde_Stream  A stream containing the data.
+     * @return resource  A stream containing the data.
      */
     protected function _convertCatenateUrl($url)
     {
@@ -1619,7 +1613,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw new InvalidArgumentException($message);
         }
 
-        return $this->_appendData($part);
+        return $part;
     }
 
     /**

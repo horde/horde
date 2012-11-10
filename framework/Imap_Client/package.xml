@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Significant optimization to append() command.
 * [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
  </notes>
  <contents>
@@ -1266,6 +1267,7 @@
    <date>2012-11-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Significant optimization to append() command.
 * [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
    </notes>
   </release>
