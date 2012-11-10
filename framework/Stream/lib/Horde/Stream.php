@@ -62,6 +62,7 @@ class Horde_Stream implements Serializable
     }
 
     /**
+     * @since 1.1.0
      */
     public function __toString()
     {
