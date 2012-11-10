@@ -45,9 +45,9 @@ class Horde_Stream implements Serializable
      */
     protected function _init()
     {
-        // Sane default: read-only, 0-length stream.
+        // Sane default: read-write, 0-length stream.
         if (!$this->stream) {
-            $this->stream = @fopen('php://temp', 'r');
+            $this->stream = @fopen('php://temp', 'r+');
         }
     }
 
