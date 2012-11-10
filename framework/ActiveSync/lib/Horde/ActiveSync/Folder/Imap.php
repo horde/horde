@@ -34,6 +34,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const HIGHESTMODSEQ  = 'highestmodseq';
     const MINUID         = 'min';
 
+    /* Serialize version */
+    const VERSION        = 1;
+
     /**
      * The folder's current message list.
      *
@@ -270,17 +273,32 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function serialize()
     {
-        return serialize(array($this->_status, $this->_messages, $this->_serverid, $this->_class, $this->_min));
+        return serialize(array(
+            's' => $this->_status,
+            'm' => $this->_messages,
+            'f' => $this->_serverid,
+            'c' => $this->_class,
+            'l' => $this->_min,
+            'v' => self::VERSION)
+        );
     }
 
     /**
      * Reconstruct the object from serialized data.
      *
      * @param string $data  The serialized data.
+     * @throws Horde_ActiveSync_Exception_StaleState
      */
     public function unserialize($data)
-    {
-        list($this->_status, $this->_messages, $this->_serverid, $this->_class, $this->_min) = @unserialize($data);
+    {   $data = @unserialize($data);
+        if (!is_array($data) || empty($data['v']) || $data['v'] != self::VERSION) {
+            throw new Horde_ActiveSync_Exception_StaleState('Cache vesion change');
+        }
+        $this->_status = $data['s'];
+        $this->_messages = $data['m'];
+        $this->_serverid = $data['f'];
+        $this->_class = $data['c'];
+        $this->_min = $data['l'];
     }
 
     /**
