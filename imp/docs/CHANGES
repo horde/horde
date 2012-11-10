@@ -2,6 +2,7 @@
 v6.0.2-git
 ----------
 
+[mms] Improved generation and parsing of mbox files.
 [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug
       #11672).
 [mms] Fix editing templates in dynamic view.
