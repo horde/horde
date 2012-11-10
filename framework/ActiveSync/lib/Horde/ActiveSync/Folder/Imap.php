@@ -202,18 +202,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     }
 
     /**
-     * Return the total count of messages in this mailbox, if available.
-     *
-     * @return integer  The total count.
-     */
-    public function count()
-    {
-        return isset($this->_status[self::COUNT])
-            ? $this->_status[self::COUNT]
-            : null;
-    }
-
-    /**
      * Return the folder's MODSEQ value.
      *
      * @return string  The MODSEQ number.
