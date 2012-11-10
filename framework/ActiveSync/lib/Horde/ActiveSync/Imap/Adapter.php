@@ -767,8 +767,14 @@ class Horde_ActiveSync_Imap_Adapter
 
         // Build To: data
         $to = $imap_message->getToAddresses();
-        $eas_message->to = implode(',', $to['to']);
-        $eas_message->displayto = implode(',', $to['displayto']);
+        // POOMMAIL_TO has a max length of 1024
+        foreach ($to['to'] as $to_atom) {
+            if (strlen($eas_message->to) + strlen($to_atom) > 1024) {
+                break;
+            }
+            $eas_message->to .= ',' . $to_atom;
+        }
+        $eas_message->displayto = implode(';', $to['displayto']);
         if (empty($eas_message->displayto)) {
             $eas_message->displayto = $eas_message->to;
         }
