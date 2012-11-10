@@ -210,7 +210,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     {
         return empty($this->_status[self::HIGHESTMODSEQ])
             ? 0
-            : $this->_status[self::MODSEQ];
+            : $this->_status[self::HIGHESTMODSEQ];
     }
 
     /**
