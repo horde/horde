@@ -4194,12 +4194,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'PARSE':
-            throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message."),
-                Horde_Imap_Client_Exception::PARSEERROR,
-                $ob->status,
-                strval($ob->token)
-            );
+            /* Only throw error on NO/BAD. Message is human readable. */
+            switch ($ob->status) {
+            case Horde_Imap_Client_Interaction_Server::BAD:
+            case Horde_Imap_Client_Interaction_Server::NO:
+                throw new Horde_Imap_Client_Exception_ServerResponse(
+                    sprintf(Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message: %s"), strval($ob->token)),
+                    Horde_Imap_Client_Exception::PARSEERROR,
+                    $ob->status,
+                    strval($ob->token)
+                );
+            }
+            break;
 
         case 'READ-ONLY':
             $this->_mode = Horde_Imap_Client::OPEN_READONLY;
