@@ -26,14 +26,13 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
+class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implements Serializable
 {
     /* Key names for various IMAP server status values */
-    const UIDVALIDITY = 'uidvalidity';
-    const UIDNEXT     = 'uidnext';
-    const MODSEQ      = 'highestmodseq';
-    const MINUID      = 'min';
-    const COUNT       = 'messages';
+    const UIDVALIDITY    = 'uidvalidity';
+    const UIDNEXT        = 'uidnext';
+    const HIGHESTMODSEQ  = 'highestmodseq';
+    const MINUID         = 'min';
 
     /**
      * The folder's current message list.
