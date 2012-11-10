@@ -25,6 +25,13 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
     protected $_data;
 
     /**
+     * Dates of parsed messages.
+     *
+     * @var array
+     */
+    protected $_dates = array();
+
+    /**
      * Parsed boundaries.
      *
      * @var array
@@ -68,6 +75,13 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
                 if ((substr($line, 0, 5) == 'From ') &&
                     (is_null($curr) || (trim($last_line) == ''))) {
                     $this->_parsed[] = ftell($this->_data);
+
+                    $from_line = explode(' ', $line, 3);
+                    try {
+                        $this->_dates[] = new DateTime($from_line[2]);
+                    } catch (Exception $e) {
+                        $this->_dates[] = null;
+                    }
                 }
 
                 $last_line = $line;
@@ -115,6 +129,7 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
 
         $out = array(
             'data' => $fd,
+            'date' => $this->_dates[$offset],
             'size' => intval(ftell($fd))
         );
         rewind($fd);

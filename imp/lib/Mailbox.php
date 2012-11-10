@@ -1349,7 +1349,10 @@ class IMP_Mailbox implements Serializable
      */
     protected function _importMbox($msg, $buffer = false)
     {
-        $this->_import['data'][] = array('data' => $msg['data']);
+        $this->_import['data'][] = array_filter(array(
+            'data' => $msg['data'],
+            'internaldate' => $msg['date']
+        ));
         $this->_import['size'] += $msg['size'];
 
         /* Buffer 1 MB of messages before sending. */
