@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-10</date>
- <time>12:18:05</time>
+ <time>12:18:35</time>
  <version>
-  <release>2.1.6</release>
+  <release>2.1.7</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,11 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix parsing PARSE response code associated with an OK response.
-* [mms] Workaround broken BINARY implementation on UW-IMAP servers.
-* [mms] If we have binary data, and server doesn&apos;t support BINARY extension, send data anyway since we don&apos;t have any other option.
-* [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
-* [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1294,6 +1290,19 @@
 * [mms] If we have binary data, and server doesn&apos;t support BINARY extension, send data anyway since we don&apos;t have any other option.
 * [mms] Correctly increment UIDNEXT when an EXISTS response is issued after the mailbox is opened (Bug #11679).
 * [mms] Fix regression that may have caused message flags to have been improperly cached if debugging was disabled (Bug #11665).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
