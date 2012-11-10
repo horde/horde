@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-10</date>
- <time>12:18:35</time>
+ <date>2012-11-05</date>
+ <time>22:38:06</time>
  <version>
-  <release>2.1.7</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Significant optimization to append() command.
+* [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,6 +46,7 @@
        </dir> <!-- /lib/Horde/Imap/Client/Auth -->
        <dir name="Base">
         <file name="Debug.php" role="php" />
+        <file name="Deprecated.php" role="php" />
         <file name="Mailbox.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Base -->
        <dir name="Data">
@@ -77,6 +79,7 @@
         <file name="Envelope.php" role="php" />
         <file name="Fetch.php" role="php" />
         <file name="Format.php" role="php" />
+        <file name="Sync.php" role="php" />
         <file name="Thread.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Data -->
        <dir name="Exception">
@@ -84,6 +87,7 @@
         <file name="NoSupportPop3.php" role="php" />
         <file name="SearchCharset.php" role="php" />
         <file name="ServerResponse.php" role="php" />
+        <file name="Sync.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Exception -->
        <dir name="Fetch">
         <file name="Query.php" role="php" />
@@ -291,6 +295,7 @@
    <install as="Horde/Imap/Client/Utf7imap.php" name="lib/Horde/Imap/Client/Utf7imap.php" />
    <install as="Horde/Imap/Client/Auth/DigestMD5.php" name="lib/Horde/Imap/Client/Auth/DigestMD5.php" />
    <install as="Horde/Imap/Client/Base/Debug.php" name="lib/Horde/Imap/Client/Base/Debug.php" />
+   <install as="Horde/Imap/Client/Base/Deprecated.php" name="lib/Horde/Imap/Client/Base/Deprecated.php" />
    <install as="Horde/Imap/Client/Base/Mailbox.php" name="lib/Horde/Imap/Client/Base/Mailbox.php" />
    <install as="Horde/Imap/Client/Data/Acl.php" name="lib/Horde/Imap/Client/Data/Acl.php" />
    <install as="Horde/Imap/Client/Data/AclCommon.php" name="lib/Horde/Imap/Client/Data/AclCommon.php" />
@@ -300,6 +305,7 @@
    <install as="Horde/Imap/Client/Data/Envelope.php" name="lib/Horde/Imap/Client/Data/Envelope.php" />
    <install as="Horde/Imap/Client/Data/Fetch.php" name="lib/Horde/Imap/Client/Data/Fetch.php" />
    <install as="Horde/Imap/Client/Data/Format.php" name="lib/Horde/Imap/Client/Data/Format.php" />
+   <install as="Horde/Imap/Client/Data/Sync.php" name="lib/Horde/Imap/Client/Data/Sync.php" />
    <install as="Horde/Imap/Client/Data/Thread.php" name="lib/Horde/Imap/Client/Data/Thread.php" />
    <install as="Horde/Imap/Client/Data/Fetch/Pop3.php" name="lib/Horde/Imap/Client/Data/Fetch/Pop3.php" />
    <install as="Horde/Imap/Client/Data/Format/Astring.php" name="lib/Horde/Imap/Client/Data/Format/Astring.php" />
@@ -320,6 +326,7 @@
    <install as="Horde/Imap/Client/Exception/NoSupportPop3.php" name="lib/Horde/Imap/Client/Exception/NoSupportPop3.php" />
    <install as="Horde/Imap/Client/Exception/SearchCharset.php" name="lib/Horde/Imap/Client/Exception/SearchCharset.php" />
    <install as="Horde/Imap/Client/Exception/ServerResponse.php" name="lib/Horde/Imap/Client/Exception/ServerResponse.php" />
+   <install as="Horde/Imap/Client/Exception/Sync.php" name="lib/Horde/Imap/Client/Exception/Sync.php" />
    <install as="Horde/Imap/Client/Fetch/Query.php" name="lib/Horde/Imap/Client/Fetch/Query.php" />
    <install as="Horde/Imap/Client/Fetch/Results.php" name="lib/Horde/Imap/Client/Fetch/Results.php" />
    <install as="Horde/Imap/Client/Ids/Map.php" name="lib/Horde/Imap/Client/Ids/Map.php" />
@@ -1250,8 +1257,8 @@
   </release>
   <release>
    <version>
-    <release>2.1.4</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
@@ -1294,15 +1301,16 @@
   </release>
   <release>
    <version>
-    <release>2.1.7</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Significant optimization to append() command.
+* [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
    </notes>
   </release>
  </changelog>
