@@ -782,6 +782,7 @@ class Horde_ActiveSync_Imap_Adapter
         // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
         $eas_message->subject = $imap_message->getSubject();
+        $eas_message->threadtopic = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
