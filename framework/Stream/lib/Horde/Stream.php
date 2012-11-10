@@ -85,11 +85,15 @@ class Horde_Stream implements Serializable
 
         if (is_resource($data)) {
             $dpos = ftell($data);
-            stream_copy_to_stream($data, $this->stream);
+            while (!feof($data)) {
+                fwrite($this->stream, fread($data, 8192));
+            }
             fseek($data, $dpos);
         } elseif ($data instanceof Horde_Stream) {
             $dpos = ftell($data->stream);
-            stream_copy_to_stream($data->stream, $this->stream);
+            while (!feof($data->stream)) {
+                fwrite($this->stream, fread($data->stream, 8192));
+            }
             fseek($data->stream, $dpos);
         } else {
             fwrite($this->stream, $data);
