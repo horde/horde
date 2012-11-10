@@ -3656,25 +3656,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_writeStream(')', $s_opts);
             } elseif ($val instanceof Horde_Imap_Client_Data_Format_String) {
                 if ($val->literal()) {
-                    $literal = '';
-
                     /* RFC 3516 - Send literal8 if we have binary data.
                      * RFC 3516/4466 says we should be able to append binary
                      * data using literal8 "~{#} format", but it doesn't seem
                      * to work in all servers tried (UW-IMAP/Cyrus). However,
                      * there is no other way to append null data, so try
                      * anyway. */
-                    if ($val->binary()) {
-                        if (!$this->queryCapability('BINARY')) {
-                            throw new Horde_Imap_Client_Exception_NoSupportExtension(
-                                'BINARY',
-                                'Cannot send binary data to server that does not support it.'
-                            );
-                        }
+                    if ($val->binary() && $this->queryCapability('BINARY')) {
                         $binary = true;
-                        $literal .= '~';
+                        $literal = '~';
                     } else {
                         $binary = false;
+                        $literal = '';
                     }
 
                     $stream_ob = $val->getData();
