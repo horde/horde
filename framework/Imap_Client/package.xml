@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:39:57</time>
+ <date>2012-11-10</date>
+ <time>12:18:05</time>
  <version>
   <release>2.1.6</release>
   <api>2.1.0</api>
@@ -1286,7 +1286,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix parsing PARSE response code associated with an OK response.
