@@ -19,31 +19,26 @@ Horde_Registry::appInit('imp', array(
     'timezone' => true
 ));
 
-/* What mode are we in?
- * DEFAULT/'thread' - Thread mode
- * 'msgview' - Multiple message view
- */
 $vars = $injector->getInstance('Horde_Variables');
-$mode = $vars->mode
-    ? $vars->mode
-    : 'thread';
 
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
 
 $error = false;
-if ($mode == 'thread') {
+switch ($mode = $vars->get('mode', 'thread')) {
+case 'thread':
     /* THREAD MODE: Make sure we have a valid index. */
     if (($imp_mailbox instanceof IMP_Mailbox_List_Track) &&
         !$imp_mailbox->isValidIndex()) {
         $error = true;
     }
-} else {
+    break;
+
+default:
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
     $imp_indices = new IMP_Indices($vars->msglist);
-    if (!count($imp_indices)) {
-        $error = true;
-    }
+    $error = !count($imp_indices);
+    break;
 }
 
 if ($error) {
@@ -55,8 +50,7 @@ if ($error) {
 }
 
 /* Run through action handlers. */
-$actionID = $vars->actionID;
-switch ($actionID) {
+switch ($vars->actionID) {
 case 'add_address':
     try {
         $contact_link = $injector->getInstance('IMP_Ui_Contacts')->addAddress($vars->address, $vars->name);
@@ -69,7 +63,6 @@ case 'add_address':
 
 $msgs = $tree = array();
 $rowct = 0;
-
 $subject = '';
 $page_label = IMP::mailbox()->label;
 
@@ -82,7 +75,6 @@ if ($mode == 'thread') {
     }
 }
 
-$charset = 'UTF-8';
 $imp_ui = new IMP_Ui_Message();
 
 $query = new Horde_Imap_Client_Fetch_Query();
@@ -115,25 +107,23 @@ foreach ($imp_indices as $ob) {
         if (IMP::mailbox()->special_outgoing) {
             $curr_msg['addr_to'] = true;
             $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrl(true));
-            $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, $charset);
+            $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, 'UTF-8');
         } else {
             $from = $envelope->from;
             $curr_msg['addr_to'] = false;
             $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrl(true));
-            $addr = htmlspecialchars(strval($from), ENT_COMPAT, $charset);
+            $addr = htmlspecialchars(strval($from), ENT_COMPAT, 'UTF-8');
         }
 
-        $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, $charset);
+        $subject_header = htmlspecialchars($envelope->subject, ENT_COMPAT, 'UTF-8');
         if (($mode == 'thread') && empty($subject)) {
             $subject = preg_replace('/^re:\s*/i', '', $subject_header);
         }
 
         /* Create links to current message and mailbox. */
-        if ($mode == 'thread') {
-            $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true));
-        } else {
-            $curr_msg['link'] = Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
-        }
+        $curr_msg['link'] = ($mode == 'thread')
+            ? Horde::widget(array('url' => '#display', 'title' => _("Thread List"), 'nocheck' => true))
+            : Horde::widget(array('url' => '#display', 'title' => _("Back to Multiple Message View Index"), 'nocheck' => true));
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
@@ -174,7 +164,7 @@ if ($mode == 'thread') {
         ));
         $view->delete = Horde::link($delete_link, _("Delete Thread"), null, null, null, null, null, array('id' => 'threaddelete'));
         $page_output->addInlineScript(array(
-            '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON, $charset) . ')) { e.stop(); } })'
+            '$("threaddelete").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Are you sure you want to delete all messages in this thread?"), Horde_Serialize::JSON) . ')) { e.stop(); } })'
         ), true);
         break;
     }
