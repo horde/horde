@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-10</date>
- <time>15:03:16</time>
+ <date>2012-11-11</date>
+ <time>15:21:29</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -886,7 +886,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-10</date>
+   <date>2012-11-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue causing a loop during FETCH requests caused by the non-incrementing syncKey.
