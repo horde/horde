@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[mjr] Fix calling decode_attribute hook when exporting to ActiveSync
+      (kd@tu-cottbus.de, Bug #11678).
 [jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 
 

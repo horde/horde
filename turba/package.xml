@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mjr] Fix calling decode_attribute hook when exporting to ActiveSync (kd@tu-cottbus.de, Bug #11678).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
  </notes>
  <contents>
@@ -1519,6 +1520,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Fix calling decode_attribute hook when exporting to ActiveSync (kd@tu-cottbus.de, Bug #11678).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
    </notes>
   </release>
