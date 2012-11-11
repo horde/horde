@@ -240,7 +240,6 @@ class Horde_ActiveSync_Imap_Message
         );
 
         // Get body information
-        // @TODO: AllorNone
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $html_query_opts = $body_query_opts;
             if (!empty($html_id)) {
