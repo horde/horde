@@ -254,10 +254,7 @@ class Horde_ActiveSync_Imap_Message
                 $query->bodyPartSize($text_id);
             }
         } else {
-            // Plaintext body
-            if ($options['truncation'] && $options['truncation'] > 0) {
-                $body_query_opts['length'] = $options['truncation'];
-            }
+            // EAS 2.5 Plaintext body
             if ($options['truncation'] > 0 || $options['truncation'] === false) {
                 $query->bodyPart($text_id, $body_query_opts);
             }
@@ -285,9 +282,18 @@ class Horde_ActiveSync_Imap_Message
                 $text_body_part->setContents($text);
                 $text = $text_body_part->getContents();
             }
-            $text = substr($text, 0, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
-            $text_size = !is_null($data->getBodyPartSize($text_id)) ? $data->getBodyPartSize($text_id) : strlen($text);
-            $truncated = $text_size > strlen($text);
+            if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                // EAS >= 12.0 truncation
+                $text = Horde_String::substr($text, 0, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'], $charset);
+            } elseif (!empty($options['truncation'])) {
+                // EAS 2.5 truncation
+                $text = Horde_String::substr($text, 0, $options['truncation'], $charset);
+            }
+            $text_size = !is_null($data->getBodyPartSize($text_id))
+                ? $data->getBodyPartSize($text_id)
+                : Horde_String::length($text);
+
+            $truncated = $text_size > Horde_String::length($text);
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
                 $truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone']) {
                 $text = '';
