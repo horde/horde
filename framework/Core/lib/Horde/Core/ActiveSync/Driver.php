@@ -216,7 +216,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolderList()
     {
-        $this->_logger->debug('Horde::getFolderList()');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::getFolderList()');
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
@@ -235,7 +235,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (empty($this->_folders)) {
             ob_start();
-            $this->_logger->debug('Horde::getFolders()');
             try {
                 $supported = $this->_connector->horde_listApis();
             } catch (Exception $e) {
@@ -610,7 +609,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getMessage($folderid, $id, array $collection)
     {
-        $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::getMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
         $message = false;
         $foldertype = $this->_getFolderType($folderid);
@@ -818,7 +817,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function deleteMessage($folderid, array $ids)
     {
         $this->_logger->debug(sprintf(
-            "DELETE %s: %s",
+            "Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s",
             $folderid,
             print_r($ids, true))
         );
@@ -874,7 +873,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
-        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -905,7 +904,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
-        $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::changeMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
         $stat = false;
         switch ($folderid) {
@@ -1680,7 +1679,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // will remove the email from the UI as soon as the response is sent.
         // Failure to remove it from the server will result in an inconsistent
         // sync state.
-        $this->_logger->debug('Deleting');
         $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
 
         return $uid;
