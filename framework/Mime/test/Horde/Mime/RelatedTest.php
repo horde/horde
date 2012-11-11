@@ -12,11 +12,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
