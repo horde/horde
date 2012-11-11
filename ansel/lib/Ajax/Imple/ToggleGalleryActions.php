@@ -18,7 +18,7 @@ class Ansel_Ajax_Imple_ToggleGalleryActions extends Horde_Core_Ajax_Imple
             $GLOBALS['page_output']->addScriptFile('togglewidget.js');
         }
 
-        return 'doActionToggle("' . $this->_getDomId() . '", "show_actions")';
+        return 'doActionToggle("' . $this->getDomId() . '", "show_actions")';
     }
 
     /**
