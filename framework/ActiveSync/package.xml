@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-11</date>
- <time>15:21:57</time>
+ <time>17:29:35</time>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix fatal error due to abstract serialize methods.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -902,7 +902,7 @@
    <date>2012-11-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix fatal error due to abstract serialize methods.
    </notes>
   </release>
  </changelog>
