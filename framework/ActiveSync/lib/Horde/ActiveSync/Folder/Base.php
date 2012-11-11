@@ -87,18 +87,4 @@ abstract class Horde_ActiveSync_Folder_Base
      */
     abstract public function updateState();
 
-    /**
-     * Serialize this object.
-     *
-     * @return string  The serialized data.
-     */
-    abstract public function serialize();
-
-    /**
-     * Reconstruct the object from serialized data.
-     *
-     * @param string $data  The serialized data.
-     */
-    abstract public function unserialize($data);
-
 }
