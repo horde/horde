@@ -251,7 +251,6 @@ class Horde_ActiveSync_Imap_Message
                 $query->bodyPart($html_id, $html_query_opts);
             }
             if (!empty($text_id)) {
-                $body_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'];
                 $query->bodyPart($text_id, $body_query_opts);
                 $query->bodyPartSize($text_id);
             }
@@ -284,9 +283,10 @@ class Horde_ActiveSync_Imap_Message
         if (!empty($text_id)) {
             $text = $data->getBodyPart($text_id);
             if (!$data->getBodyPartDecode($text_id)) {
-                $text_body_part->setContents($data->getBodyPart($text_id));
+                $text_body_part->setContents($text);
                 $text = $text_body_part->getContents();
             }
+            $text = substr($text, 0, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
             $text_size = !is_null($data->getBodyPartSize($text_id)) ? $data->getBodyPartSize($text_id) : strlen($text);
             $truncated = $text_size > strlen($text);
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
