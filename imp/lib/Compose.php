@@ -137,6 +137,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         switch ($action) {
         case 'save_draft':
             /* Don't delete any drafts. */
+            $this->changed = 'deleted';
             return;
 
         case 'cancel':

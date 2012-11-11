@@ -2,6 +2,7 @@
 v6.0.2-git
 ----------
 
+[mms] Don't delete saved draft on session close.
 [mms] Improved generation and parsing of mbox files.
 [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug
       #11672).
