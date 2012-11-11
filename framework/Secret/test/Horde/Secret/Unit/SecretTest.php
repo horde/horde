@@ -75,7 +75,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $key = "\x88";
         $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
-        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext . "\x00")));
+        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
 
     /**
