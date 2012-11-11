@@ -163,7 +163,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 foreach($this->_parts as $bp) {
                     if (is_resource($bp)) {
                         rewind($bp);
-                        stream_copy_to_stream($bp, $this->_stream);
+                        while (!feof($bp)) {
+                            fwrite($this->_stream, fread($bp, 8192));
+                        }
                         fclose($bp);
                     } else {
                         fwrite($this->_stream, $bp);
@@ -336,7 +338,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         if (is_resource($content)) {
             rewind($content);
-            stream_copy_to_stream($content, $this->_stream);
+            while (!feof($content)) {
+                fwrite($this->_stream, fread($content, 8192));
+            }
         } else {
             fwrite($this->_stream, $content);
         }
