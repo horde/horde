@@ -1494,18 +1494,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 while (list(,$v) = each($data[$key]['data'])) {
                     switch ($v['t']) {
                     case 'text':
-                        $text_data = $this->_appendData($v['v']);
-
                         if ($catenate) {
-                            $text_str = new Horde_Imap_Client_Data_Format_String($text_data);
-                            $text_str->forceLiteral();
-
                             $tmp->add(array(
                                 'TEXT',
-                                $text_str
+                                $this->_appendData($v['v'])
                             ));
                         } else {
-                            $data_stream->add($text_data);
+                            $data_stream->add($v['v']);
                         }
                         break;
 
@@ -1525,13 +1520,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    rewind($data_stream->stream);
-                    $text_data = new Horde_Imap_Client_Data_Format_String($data_stream);
-                    $text_data->forceLiteral();
-                    $cmd->add($text_data);
+                    $cmd->add($this->_appendData($data_stream));
                 }
             } else {
-                $cmd->add(new Horde_Imap_Client_Data_Format_String($this->_appendData($data[$key]['data'])));
+                $cmd->add($this->_appendData($data[$key]['data']));
             }
         }
 
@@ -1564,6 +1556,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 return $this->_append($mailbox, $data, $options);
             }
 
+            /* RFC 3516/4466 says we should be able to append binary data
+             * using literal8 "~{#} format", but it doesn't seem to work on
+             * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
+             * broken BINARY and attempt to fix here. */
+            if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
+                $this->queryCapability('BINARY')) {
+                $cap = $this->capability();
+                unset($cap['BINARY']);
+                $this->_setInit('capability', $cap);
+
+                return $this->_append($mailbox, $data, $options);
+            }
+
             throw $e;
         }
 
@@ -1578,24 +1583,26 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $data  Either a resource or a string.
      *
-     * @param Horde_Stream  A stream containing the data.
+     * @param Horde_Imap_Client_Data_Format_String  The data object.
      */
     protected function _appendData($data)
     {
-        $stream = new Horde_Stream_Temp();
-        stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
-        $res = stream_filter_append($stream->stream, 'horde_eol', STREAM_FILTER_WRITE);
-
         if (is_resource($data)) {
             rewind($data);
         }
-        $stream->add($data, true);
 
-        $this->_temp['appendsize'] += $stream->length();
+        $ob = new Horde_Imap_Client_Data_Format_String($data, array(
+            'eol' => true,
+            'skipscan' => true
+        ));
 
-        stream_filter_remove($res);
+        // Force output to binary. Not much we can do if server doesn't
+        // support, so just deal with it at send-time.
+        $ob->forceBinary();
 
-        return $stream;
+        $this->_temp['appendsize'] += $ob->length();
+
+        return $ob;
     }
 
     /**
@@ -1603,7 +1610,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param string $url  The CATENATE URL.
      *
-     * @return Horde_Stream  A stream containing the data.
+     * @return resource  A stream containing the data.
      */
     protected function _convertCatenateUrl($url)
     {
@@ -1635,7 +1642,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             throw new InvalidArgumentException($message);
         }
 
-        return $this->_appendData($part);
+        return $part;
     }
 
     /**
@@ -2982,6 +2989,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'STORE',
             strval($options['ids'])
         ));
+        $ucsince = false;
 
         if ($modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
             /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE added
@@ -3007,11 +3015,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $this->_temp['modified'] = $this->getIdsOb();
+        $silent = (!$ucsince && !$this->_debug->debug);
         $cmds = array();
 
         if (!empty($options['replace'])) {
             $cmd->add(array(
-                'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
+                'FLAGS' . ($silent ? '.SILENT' : ''),
                 $options['replace']
             ));
             $cmds[] = $cmd;
@@ -3020,7 +3029,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if (!empty($options[$k])) {
                     $cmdtmp = clone $cmd;
                     $cmdtmp->add(array(
-                        $v . 'FLAGS' . ($this->_debug->debug ? '' : '.SILENT'),
+                        $v . 'FLAGS' . ($silent ? '.SILENT' : ''),
                         $options[$k]
                     ));
                     $cmds[] = $cmdtmp;
@@ -3033,10 +3042,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_sendLine($cmdtmp);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 /* A NO response, when coupled with a sequence STORE and
-                 * and non-SILENT behavior, most likely means that messages
-                 * messages were expunged. RFC 2180 [4.2] */
-                if (!empty($options['sequence']) &&
-                    !$this->_debug->debug &&
+                 * non-SILENT behavior, most likely means that messages were
+                 * expunged. RFC 2180 [4.2] */
+                if (!$silent &&
+                    !empty($options['sequence']) &&
                     ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
                     $this->_temp['expungeissued'] = true;
                 }
@@ -3654,25 +3663,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $this->_writeStream(')', $s_opts);
             } elseif ($val instanceof Horde_Imap_Client_Data_Format_String) {
                 if ($val->literal()) {
-                    $literal = '';
-
-                    /* RFC 3516 - Send literal8 if we have binary data.
-                     * RFC 3516/4466 says we should be able to append binary
-                     * data using literal8 "~{#} format", but it doesn't seem
-                     * to work in all servers tried (UW-IMAP/Cyrus). However,
-                     * there is no other way to append null data, so try
-                     * anyway. */
-                    if ($val->binary()) {
-                        if (!$this->queryCapability('BINARY')) {
-                            throw new Horde_Imap_Client_Exception_NoSupportExtension(
-                                'BINARY',
-                                'Cannot send binary data to server that does not support it.'
-                            );
-                        }
+                    /* RFC 3516/4466: Send literal8 if we have binary data. */
+                    if ($val->binary() && $this->queryCapability('BINARY')) {
                         $binary = true;
-                        $literal .= '~';
+                        $literal = '~';
                     } else {
                         $binary = false;
+                        $literal = '';
                     }
 
                     $stream_ob = $val->getData();
@@ -4109,12 +4106,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'EXISTS':
                 // EXISTS response - RFC 3501 [7.3.2]
                 $mbox_ob = $this->_mailboxOb();
-                $mbox_ob->setStatus(Horde_Imap_Client::STATUS_MESSAGES, $first);
 
                 // Increment UIDNEXT if it is set.
-                if ($uidnext = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDNEXT)) {
-                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $uidnext + $first);
+                if ($mbox_ob->open &&
+                    ($uidnext = $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDNEXT))) {
+                    $mbox_ob->setStatus(Horde_Imap_Client::STATUS_UIDNEXT, $uidnext + $first - $mbox_ob->getStatus(Horde_Imap_Client::STATUS_MESSAGES));
                 }
+
+                $mbox_ob->setStatus(Horde_Imap_Client::STATUS_MESSAGES, $first);
                 break;
 
             case 'RECENT':
@@ -4189,12 +4188,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             break;
 
         case 'PARSE':
-            throw new Horde_Imap_Client_Exception_ServerResponse(
-                Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message."),
-                Horde_Imap_Client_Exception::PARSEERROR,
-                $ob->status,
-                strval($ob->token)
-            );
+            /* Only throw error on NO/BAD. Message is human readable. */
+            switch ($ob->status) {
+            case Horde_Imap_Client_Interaction_Server::BAD:
+            case Horde_Imap_Client_Interaction_Server::NO:
+                throw new Horde_Imap_Client_Exception_ServerResponse(
+                    sprintf(Horde_Imap_Client_Translation::t("The mail server was unable to parse the contents of the mail message: %s"), strval($ob->token)),
+                    Horde_Imap_Client_Exception::PARSEERROR,
+                    $ob->status,
+                    strval($ob->token)
+                );
+            }
+            break;
 
         case 'READ-ONLY':
             $this->_mode = Horde_Imap_Client::OPEN_READONLY;

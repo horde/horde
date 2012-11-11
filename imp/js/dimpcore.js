@@ -33,7 +33,7 @@ var DimpCore = {
             params.set('uid', this.toUIDString(opts.uids));
         }
 
-        HordeCore.doAction(action, params, opts);
+        return HordeCore.doAction(action, params, opts);
     },
 
     // Dimp specific methods.

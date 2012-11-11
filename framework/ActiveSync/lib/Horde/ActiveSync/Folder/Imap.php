@@ -37,7 +37,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * The folder's current message list. Only used for servers that do not
-     * support CONDSTORE.
+     * support QRESYNC.
      *
      * An array of UIDs.
      *
@@ -47,6 +47,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been added since last sync.
+     * Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -54,7 +55,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been modified on the server
-     * since the last sync.
+     * since the last sync. Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -62,7 +63,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message UIDs that have been expunged from the IMAP
-     * server since last sync.
+     * server since last sync. Used for transporting changes back to activesync.
      *
      * @var array
      */
@@ -70,16 +71,17 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
 
     /**
      * Internal cache of message flag changes. Should be one entry for each UID
-     * also listed in the $_changed array. An array keyed by message UID:
+     * also listed in the $_changed array. Used for transporting changes back to
+     * activesync. An array keyed by message UID:
      *   uid => array('read' => 1)
      *
-     *  @var array
+     * @var array
      */
     protected $_flags = array();
 
     /**
      * Cache the known lowest UID we received during the initial SYNC request.
-     * Only available (or even needed) if server supports CONDSTORE. This value
+     * Only available (or even needed) if server supports QRESYNC. This value
      * will never change unless the syncstate is removed.
      *
      * @var integer
@@ -101,6 +103,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
+                    // @TODO: Possibly remove this and require CONDSTORE support
+                    // to support detecting flag changes.
                     if ($flags[$uid]['read'] != $this->_messages[$uid]['read'] ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged']) ||
                         (!isset($flags[$uid]['flagged']) && isset($this->_messages[$uid]['flagged']))) {
@@ -164,7 +168,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base
      */
     public function updateState()
     {
-        // If we support CONDSTORE, do not bother keeping a cache of messages,
+        // If we support QRESYNC, do not bother keeping a cache of messages,
         // since we do not need them.
         if ($this->modseq() == 0) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);

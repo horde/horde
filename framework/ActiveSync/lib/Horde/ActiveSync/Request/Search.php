@@ -225,8 +225,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             // not supported
             break;
         case 'mailbox':
-            $search_query['rebuildresults'] = $search_queryrebuildresults;
-            $search_query['deeptraversal'] =  $search_querydeeptraversal;
+            $search_query['rebuildresults'] = !empty($search_queryrebuildresults);
+            $search_query['deeptraversal'] =  !empty($search_querydeeptraversal);
             break;
         }
 

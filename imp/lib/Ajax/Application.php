@@ -181,7 +181,6 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
      *   - qsearchflagnot
      *   - qsearchmbox
      *   - rangeslice
-     *   - requestid
      *   - sortby
      *   - sortdir
      *
@@ -199,7 +198,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $params = array(
             'applyfilter', 'cache', 'cacheid', 'delhide', 'initial', 'qsearch',
             'qsearchfield', 'qsearchfilter', 'qsearchflag', 'qsearchflagnot',
-            'qsearchmbox', 'rangeslice', 'requestid', 'sortby', 'sortdir'
+            'qsearchmbox', 'rangeslice', 'sortby', 'sortdir'
         );
 
         $vp = $this->_vars->viewport;

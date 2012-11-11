@@ -78,19 +78,15 @@ class Horde_Compress_Zip extends Horde_Compress_Base
     protected $_tmp;
 
     /**
-     * @param array $data    The data to compress.
-     * <pre>
-     * Requires an array of arrays - each subarray should contain the
-     * following fields:
-     * data - (string/resource) The data to compress.
-     * name - (string) The pathname to the file.
-     * time - (integer) [optional] The timestamp to use for the file.
-     * </pre>
+     * @param array $data    The data to compress. Requires an array of
+     *                       arrays. Each subarray should contain these
+     *                       fields:
+     *   - data: (string/resource) The data to compress.
+     *   - name: (string) The pathname to the file.
+     *   - time: (integer) [optional] The timestamp to use for the file.
      * @param array $params  The parameter array.
-     * <pre>
-     * stream - (boolean) If set, return a stream instead of a string.
-     *            DEFAULT: Return string
-     * </pre>
+     *   - stream: (boolean) If set, return a stream instead of a string.
+     *             DEFAULT: Return string
      *
      * @return mixed  The ZIP file as either a string or a stream resource.
      */
@@ -142,30 +138,23 @@ class Horde_Compress_Zip extends Horde_Compress_Base
 
     /**
      * @param array $params  The parameter array.
-     * <pre>
-     * The following parameters are REQUIRED:
-     * 'action' - (integer) The action to take on the data.  Either
-     *                      self::ZIP_LIST or self::ZIP_DATA.
-     *
-     * The following parameters are REQUIRED for self::ZIP_DATA also:
-     * 'info' - (array) The zipfile list.
-     * 'key' - (integer) The position of the file in the archive list.
-     * </pre>
+     *   - action: (integer) [REQUIRED] The action to take on the data. Either
+     *             self::ZIP_LIST or self::ZIP_DATA.
+     *   - info: (array) [REQUIRED for ZIP_DATA] The zipfile list.
+     *   - key: (integer) [REQUIRED for ZIP_DATA] The position of the file in
+     *          the archive list.
      *
      * @return mixed  If action is self::ZIP_DATA, the uncompressed data. If
-     *                action is self::ZIP_LIST, the following data:
-     * <pre>
-     * KEY: Position in zipfile
-     * VALUES:
-     *   attr - File attributes
-     *   crc - CRC checksum
-     *   csize - Compressed file size
-     *   date - File modification time
-     *   name - Filename
-     *   method - Compression method
-     *   size - Original file size
-     *   type - File type
-     * </pre>
+     *                action is self::ZIP_LIST, an array with the KEY as the
+     *                position in the zipfile and these values:
+     *   - attr: File attributes
+     *   - crc: CRC checksum
+     *   - csize: Compressed file size
+     *   - date: File modification time
+     *   - name: Filename
+     *   - method: Compression method
+     *   - size: Original file size
+     *   - type: File type
      * @throws Horde_Compress_Exception
      */
     public function decompress($data, array $params = array())

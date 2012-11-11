@@ -123,7 +123,7 @@ var Gollem = {
         var cont = true, sf;
 
         if (window.confirm(GollemText.delete_confirm_1 + '\n' + this.getSelected() + '\n' + GollemText.delete_confirm_2)) {
-            if (warn_recursive) {
+            if (GollemVar.warn_recursive) {
                 sf = this.getSelectedFoldersList();
                 if (!sf.empty() &&
                     !window.confirm(GollemText.delete_recurs_1 + '\n' + sf + '\n' + GollemText.delete_recurs_2)) {

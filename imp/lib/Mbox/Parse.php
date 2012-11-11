@@ -25,6 +25,13 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
     protected $_data;
 
     /**
+     * Dates of parsed messages.
+     *
+     * @var array
+     */
+    protected $_dates = array();
+
+    /**
      * Parsed boundaries.
      *
      * @var array
@@ -65,9 +72,15 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
             while (!feof($this->_data)) {
                 $line = fgets($this->_data);
 
-                if (strpos($line, 'From ') === 0) {
-                    if (is_null($curr) || (trim($last_line) == '')) {
-                        $this->_parsed[] = ftell($this->_data);
+                if ((substr($line, 0, 5) == 'From ') &&
+                    (is_null($curr) || (trim($last_line) == ''))) {
+                    $this->_parsed[] = ftell($this->_data);
+
+                    $from_line = explode(' ', $line, 3);
+                    try {
+                        $this->_dates[] = new DateTime($from_line[2]);
+                    } catch (Exception $e) {
+                        $this->_dates[] = null;
                     }
                 }
 
@@ -102,28 +115,26 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
                     break;
                 }
 
-                if (strpos($line, '>From ') === 0) {
-                    fwrite($fd, substr($line, 1));
-                } else {
-                    fwrite($fd, $line);
-                }
+                fwrite($fd, (substr($line, 0, 6) == '>From ') ? substr($line, 1) : $line);
             }
-
-            rewind($fd);
-
-            return $fd;
-        }
-
-        if (($offset == 0) && !count($this)) {
+        } elseif (($offset == 0) && !count($this)) {
             $fd = fopen('php://temp', 'w+');
             rewind($this->_data);
-            stream_copy_to_stream($this->_data, $fd);
-            rewind($fd);
-
-            return $fd;
+            while (!feof($this->_data)) {
+                fwrite($fd, fgets($this->_data));
+            }
+        } else {
+            return null;
         }
 
-        return null;
+        $out = array(
+            'data' => $fd,
+            'date' => $this->_dates[$offset],
+            'size' => intval(ftell($fd))
+        );
+        rewind($fd);
+
+        return $out;
     }
 
     /**

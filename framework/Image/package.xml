@@ -23,8 +23,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:31:44</time>
+ <date>2012-11-09</date>
+ <time>16:39:41</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -392,7 +392,6 @@
        <file name="img_exif.jpg" role="test" />
       </dir> <!-- /test/Horde/Image/Fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="conf.php.dist" role="test" />
      </dir> <!-- /test/Horde/Image -->
     </dir> <!-- /test/Horde -->
@@ -617,7 +616,6 @@
    <install as="swf.php" name="test/swf.php" />
    <install as="two_page.tif.tiff" name="test/two_page.tif.tiff" />
    <install as="Horde/Image/AllTests.php" name="test/Horde/Image/AllTests.php" />
-   <install as="Horde/Image/Autoload.php" name="test/Horde/Image/Autoload.php" />
    <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
    <install as="Horde/Image/Exif/Base.php" name="test/Horde/Image/Exif/Base.php" />
    <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
@@ -910,7 +908,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

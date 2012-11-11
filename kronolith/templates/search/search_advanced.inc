@@ -3,7 +3,6 @@
 <input type="hidden" name="actionID" value="search_calendar" />
 <input type="hidden" name="search_mode" value="advanced" />
 
-<br /><br />
 <h1 class="header">
  <span class="smallheader rightFloat">
   <?php echo Horde::widget(array('url' => Horde::url('search.php')->add('search_mode', 'basic'), 'class' => 'smallheader', 'title' => _("_Basic Search"))) ?>
@@ -11,7 +10,8 @@
  <?php echo _("Advanced Search") ?>
 </h1>
 
-<table cellspacing="0" class="striped">
+<div class="horde-content">
+<table cellspacing="0">
 
 <!-- general header -->
 <tr><td align="left" colspan="5" class="control">
@@ -82,7 +82,10 @@
 <?php require KRONOLITH_TEMPLATES . '/edit/edit_timespan.inc'; ?>
 
 </table>
+</div>
 
-<br />
-<input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
+<p class="horde-form-buttons">
+  <input type="submit" class="horde-default" value="<?php echo _("Search") ?>" />
+</p>
+
 </form>

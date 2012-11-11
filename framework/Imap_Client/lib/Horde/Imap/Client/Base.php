@@ -936,6 +936,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($change) {
             $this->_openMailbox($mailbox, $mode);
+            $this->_mailboxOb()->open = true;
             if ($this->_initCache(true)) {
                 $this->_condstoreSync();
             }

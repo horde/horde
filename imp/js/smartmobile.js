@@ -314,7 +314,6 @@ var ImpMobile = {
         HordeMobile.doAction(
             'viewPort',
             ImpMobile.addViewportParams($.extend(params, {
-                requestid: 1,
                 view: mailbox
             }))
         );
@@ -476,7 +475,6 @@ var ImpMobile = {
                 // messages on a page.
                 after: ImpMobile.mbox_rows,
                 before: ImpMobile.mbox_rows,
-                requestid: 1,
                 // Need to manually encode JSON here.
                 search: JSON.stringify({ uid: purl.params.uid })
             };

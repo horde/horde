@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-10-30</date>
- <time>20:01:23</time>
+ <date>2012-11-09</date>
+ <time>16:45:26</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -69,7 +69,6 @@
       </dir> <!-- /test/Horde/Util/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="DomhtmlTest.php" role="test" />
       <file name="StringTest.php" role="test" />
       <file name="UtilTest.php" role="test" />
@@ -128,7 +127,6 @@
    <install as="Horde/Array/Sort/Helper.php" name="lib/Horde/Array/Sort/Helper.php" />
    <install as="Horde/Util/AllTests.php" name="test/Horde/Util/AllTests.php" />
    <install as="Horde/Util/ArrayTest.php" name="test/Horde/Util/ArrayTest.php" />
-   <install as="Horde/Util/Autoload.php" name="test/Horde/Util/Autoload.php" />
    <install as="Horde/Util/DomhtmlTest.php" name="test/Horde/Util/DomhtmlTest.php" />
    <install as="Horde/Util/StringTest.php" name="test/Horde/Util/StringTest.php" />
    <install as="Horde/Util/UtilTest.php" name="test/Horde/Util/UtilTest.php" />
@@ -521,7 +519,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

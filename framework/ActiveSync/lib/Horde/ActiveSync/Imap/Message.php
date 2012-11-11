@@ -679,12 +679,12 @@ class Horde_ActiveSync_Imap_Message
     {
         switch ($mime_type) {
         case 'text/plain':
-            if (!$this->_message->findBody('plain') == $id) {
+            if (!($this->_message->findBody('plain') == $id)) {
                 return true;
             }
             return false;
         case 'text/html':
-            if (!$this->_message->findBody('html') == $id) {
+            if (!($this->_message->findBody('html') == $id)) {
                 return true;
             }
             return false;

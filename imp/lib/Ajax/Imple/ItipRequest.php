@@ -136,7 +136,7 @@ class IMP_Ajax_Imple_ItipRequest extends Horde_Core_Ajax_Imple
                         /* If required UID parameter doesn't exist, make one
                          * up so the user can at least add the event to the
                          * calendar. */
-                        $guid = strval(new Horde_Support_Uuid());
+                        $guid = strval(new Horde_Support_Guid());
                     }
 
                     // Check if this is an update.

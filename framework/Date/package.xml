@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:23:47</time>
+ <date>2012-11-09</date>
+ <time>16:37:51</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -339,7 +339,6 @@
        <file name="YearTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Repeater -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="DateTest.php" role="test" />
       <file name="RecurrenceTest.php" role="test" />
       <file name="SpanTest.php" role="test" />
@@ -494,7 +493,6 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Date.po" name="locale/zh_CN/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Date.po" name="locale/zh_TW/LC_MESSAGES/Horde_Date.po" />
    <install as="Horde/Date/AllTests.php" name="test/Horde/Date/AllTests.php" />
-   <install as="Horde/Date/Autoload.php" name="test/Horde/Date/Autoload.php" />
    <install as="Horde/Date/DateTest.php" name="test/Horde/Date/DateTest.php" />
    <install as="Horde/Date/RecurrenceTest.php" name="test/Horde/Date/RecurrenceTest.php" />
    <install as="Horde/Date/SpanTest.php" name="test/Horde/Date/SpanTest.php" />
@@ -854,7 +852,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

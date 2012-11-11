@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>21:00:33</time>
+ <date>2012-11-09</date>
+ <time>16:45:12</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -46,7 +46,6 @@
        <file name="europe.ics" role="test" />
       </dir> <!-- /test/Horde/Timezone/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="IcalendarTest.php" role="test" />
      </dir> <!-- /test/Horde/Timezone -->
     </dir> <!-- /test/Horde -->
@@ -91,7 +90,6 @@
    <install as="Horde/Timezone/Rule.php" name="lib/Horde/Timezone/Rule.php" />
    <install as="Horde/Timezone/Zone.php" name="lib/Horde/Timezone/Zone.php" />
    <install as="Horde/Timezone/AllTests.php" name="test/Horde/Timezone/AllTests.php" />
-   <install as="Horde/Timezone/Autoload.php" name="test/Horde/Timezone/Autoload.php" />
    <install as="Horde/Timezone/IcalendarTest.php" name="test/Horde/Timezone/IcalendarTest.php" />
    <install as="Horde/Timezone/fixtures/etcetera" name="test/Horde/Timezone/fixtures/etcetera" />
    <install as="Horde/Timezone/fixtures/etcetera.ics" name="test/Horde/Timezone/fixtures/etcetera.ics" />
@@ -148,7 +146,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

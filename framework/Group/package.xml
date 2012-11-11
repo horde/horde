@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:29:32</time>
+ <date>2012-11-09</date>
+ <time>16:38:37</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -77,7 +77,6 @@
        <file name="Api.php" role="test" />
       </dir> <!-- /test/Horde/Group/Stub -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="LdapTest.php" role="test" />
@@ -139,7 +138,6 @@
    <install as="migration/1_horde_group_base_tables.php" name="migration/Horde/Group/1_horde_group_base_tables.php" />
    <install as="migration/2_horde_group_upgrade_autoincrement.php" name="migration/Horde/Group/2_horde_group_upgrade_autoincrement.php" />
    <install as="Horde/Group/AllTests.php" name="test/Horde/Group/AllTests.php" />
-   <install as="Horde/Group/Autoload.php" name="test/Horde/Group/Autoload.php" />
    <install as="Horde/Group/Base.php" name="test/Horde/Group/Base.php" />
    <install as="Horde/Group/conf.php.dist" name="test/Horde/Group/conf.php.dist" />
    <install as="Horde/Group/LdapTest.php" name="test/Horde/Group/LdapTest.php" />
@@ -405,7 +403,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

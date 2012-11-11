@@ -538,7 +538,9 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             /* Break apart the name via the delimiter and go step by
              * step through the name to make sure all subfolders exist
              * in the tree. */
-            $parts = explode($val['delimiter'], $key);
+            $parts = is_null($val['delimiter'])
+                ? array($key)
+                : explode($val['delimiter'], $key);
             $parts[0] = $this->_convertName($parts[0]);
             for ($i = 1, $p_count = count($parts); $i <= $p_count; ++$i) {
                 $part = implode($val['delimiter'], array_slice($parts, 0, $i));

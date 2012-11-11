@@ -275,10 +275,6 @@ class Horde_Test
         'Cache' => array(
             'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
         ),
-        'Crypt_Blowfish' => array(
-            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.',
-            'required' => true
-        ),
         'File_Fstab' => array(
             'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'
         ),

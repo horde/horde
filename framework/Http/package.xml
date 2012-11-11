@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:30:30</time>
+ <date>2012-11-09</date>
+ <time>16:39:13</time>
  <version>
   <release>2.0.1</release>
   <api>1.2.0</api>
@@ -71,7 +71,6 @@
     <dir name="Horde">
      <dir name="Http">
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="ClientTest.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="CurlTest.php" role="test" />
@@ -141,7 +140,6 @@
    <install as="Horde/Http/Response/Mock.php" name="lib/Horde/Http/Response/Mock.php" />
    <install as="Horde/Http/Response/Peclhttp.php" name="lib/Horde/Http/Response/Peclhttp.php" />
    <install as="Horde/Http/AllTests.php" name="test/Horde/Http/AllTests.php" />
-   <install as="Horde/Http/Autoload.php" name="test/Horde/Http/Autoload.php" />
    <install as="Horde/Http/ClientTest.php" name="test/Horde/Http/ClientTest.php" />
    <install as="Horde/Http/conf.php.dist" name="test/Horde/Http/conf.php.dist" />
    <install as="Horde/Http/CurlTest.php" name="test/Horde/Http/CurlTest.php" />
@@ -368,7 +366,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

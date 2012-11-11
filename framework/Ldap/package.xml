@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:35:52</time>
+ <date>2012-11-09</date>
+ <time>16:41:26</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -70,7 +70,6 @@
        <file name="unsorted_w50_WIN.ldif" role="test" />
       </dir> <!-- /test/Horde/Ldap/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="EntryTest.php" role="test" />
       <file name="FilterTest.php" role="test" />
@@ -124,7 +123,6 @@
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
    <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
-   <install as="Horde/Ldap/Autoload.php" name="test/Horde/Ldap/Autoload.php" />
    <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
    <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
    <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
@@ -349,7 +347,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 
