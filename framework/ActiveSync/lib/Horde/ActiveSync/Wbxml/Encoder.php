@@ -163,7 +163,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 foreach($this->_parts as $bp) {
                     if (is_resource($bp)) {
                         rewind($bp);
-                        stream_copy_to_stream($bp, $this->_stream);
+                        while (!feof($bp)) {
+                            fwrite($this->_stream, fread($bp, 8192));
+                        }
                         fclose($bp);
                     } else {
                         fwrite($this->_stream, $bp);
@@ -190,15 +192,18 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             }
         } else {
             stream_filter_register('horde_null', Horde_Stream_Filter_Null);
-            $filter = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
+            stream_filter_register('horde_eol', Horde_Stream_Filter_Eol);
+            $filter_null = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
+            $filter_eol = stream_filter_prepend($content, 'horde_eol', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
         if (is_resource($content)) {
             fclose($content);
         }
-        if (isset($filter)) {
-            stream_filter_remove($filter);
+        if (isset($filter_null)) {
+            stream_filter_remove($filter_eol);
+            stream_filter_remove($filter_null);
         }
     }
 
@@ -336,7 +341,9 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         if (is_resource($content)) {
             rewind($content);
-            stream_copy_to_stream($content, $this->_stream);
+            while (!feof($content)) {
+                fwrite($this->_stream, fread($content, 8192));
+            }
         } else {
             fwrite($this->_stream, $content);
         }
