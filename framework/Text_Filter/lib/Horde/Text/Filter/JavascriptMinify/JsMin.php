@@ -147,7 +147,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?{};\n')) {
+            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*\n')) {
                 $this->_output .= $this->_a . $this->_b;
 
                 while (true) {
