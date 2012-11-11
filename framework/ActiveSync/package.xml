@@ -22,7 +22,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix issue causing a loop during FETCH requests caused by the non-incrementing syncKey.
+* [mjr] Reduce number of IMAP server calls required when syncronizing email data.
+* [mjr] Fix issue causing iOS Mail to crash when receiving truncated body data.
+* [mjr] Improvements to detecting expunged messages.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -886,7 +889,10 @@
    <date>2012-11-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix issue causing a loop during FETCH requests caused by the non-incrementing syncKey.
+* [mjr] Reduce number of IMAP server calls required when syncronizing email data.
+* [mjr] Fix issue causing iOS Mail to crash when receiving truncated body data.
+* [mjr] Improvements to detecting expunged messages.
    </notes>
   </release>
  </changelog>
