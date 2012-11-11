@@ -32,7 +32,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     const UIDVALIDITY    = 'uidvalidity';
     const UIDNEXT        = 'uidnext';
     const HIGHESTMODSEQ  = 'highestmodseq';
-    const MINUID         = 'min';
 
     /* Serialize version */
     const VERSION        = 1;
@@ -79,15 +78,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     protected $_flags = array();
 
     /**
-     * Cache the known lowest UID we received during the initial SYNC request.
-     * Only available (or even needed) if server supports CONDSTORE. This value
-     * will never change unless the syncstate is removed.
-     *
-     * @var integer
-     */
-    protected $_min = 0;
-
-    /**
      * Set message changes.
      *
      * @param array $messages  An array of message UIDs.
@@ -98,12 +88,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
-            } else {
+            } elseif ($id >= $this->minuid()) {
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
-                    // @TODO: Possibly remove this and require CONDSTORE support
-                    // to support detecting flag changes.
                     if ($flags[$uid]['read'] != $this->_messages[$uid]['read'] ||
                         (isset($flags[$uid]['flagged']) && $flags[$uid]['flagged'] != $this->_messages[$uid]['flagged']) ||
                         (!isset($flags[$uid]['flagged']) && isset($this->_messages[$uid]['flagged']))) {
@@ -114,20 +102,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             }
         }
         $this->_flags = $flags;
-    }
-
-    /**
-     * Set server status values. Overrides parent class to save the MINUID.
-     *
-     * @param array $status  The server status array.
-     */
-    public function setStatus($status)
-    {
-        if (!empty($status[self::MINUID])) {
-            $this->_min = $status[self::MINUID];
-            unset($status[self::MINUID]);
-        }
-        parent::setStatus($status);
     }
 
     /**
@@ -151,8 +125,8 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function setRemoved(array $uids)
     {
         // Protect against HUGE numbers of UIDs from apparently broken(?) servers.
-        if (!empty($this->_min) && count($uids)) {
-            if ($uids[0] < $this->_min) {
+        if (count($uids)) {
+            if ($uids[0] < $this->minuid()) {
                 throw new Horde_ActiveSync_Exception_StaleState(
                     'BROKEN IMAP server has returned all VANISHED UIDs.');
             }
@@ -163,19 +137,25 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
 
     /**
      * Updates the internal UID cache if needed and clears the internal
-     * update/deleted/changed cache.
+     * update/deleted/changed cache. To be called after all changes have
+     * been dealt with by the activesync client.
      */
     public function updateState()
     {
-        // If we support CONDSTORE, do not bother keeping a cache of messages,
-        // since we do not need them.
-        if ($this->modseq() == 0) {
+        if ($this->_status[self::HIGHESTMODSEQ] == 0 && $this->_status[self::UIDNEXT]) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
             }
             $this->_messages = array_intersect_key($this->_flags, array_flip($this->_messages));
+        } else {
+            foreach ($this->_added as $add) {
+                $this->_messages[] = $add;
+            }
+            $this->_messages = array_diff($this->_messages, $this->_removed);
         }
+
+        // Clean up
         $this->_removed = array();
         $this->_added = array();
         $this->_changed = array();
@@ -200,7 +180,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function uidnext()
     {
         return empty($this->_status[self::UIDNEXT])
-            ? 1
+            ? 0
             : $this->_status[self::UIDNEXT];
     }
 
@@ -223,7 +203,9 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function messages()
     {
-        return array_keys($this->_messages);
+        return empty($this->_status[self::HIGHESTMODSEQ])
+            ? array_keys($this->_messages)
+            : $this->_messages;
     }
 
     /**
@@ -266,6 +248,13 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return $this->_removed;
     }
 
+    public function minuid()
+    {   if (empty($this->_status[self::HIGHESTMODSEQ])) {
+            return min(array_keys($this->_messages));
+        }
+        return min($this->_message);
+    }
+
     /**
      * Serialize this object.
      *
@@ -278,7 +267,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
             'm' => $this->_messages,
             'f' => $this->_serverid,
             'c' => $this->_class,
-            'l' => $this->_min,
             'v' => self::VERSION)
         );
     }
@@ -298,7 +286,6 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         $this->_messages = $data['m'];
         $this->_serverid = $data['f'];
         $this->_class = $data['c'];
-        $this->_min = $data['l'];
     }
 
     /**
