@@ -237,17 +237,17 @@ $manager_url = Horde::url('manager.php');
 $refresh_url = Horde::selfUrl(true, true);
 
 /* Init some form vars. */
-if ($session->get('gollem', 'filter') != $vars->filter) {
-    if (strlen($vars->filter)) {
-        $refresh_url->add('filter', $vars->filter);
+if ($session->get('gollem', 'filter') != $vars->searchfield) {
+    if (strlen($vars->searchfield)) {
+        $refresh_url->add('searchfield', $vars->searchfield);
     } else {
-        $refresh_url->remove('filter');
+        $refresh_url->remove('searchfield');
     }
     $page = 0;
 } else {
     $page = $vars->get('page', 0);
 }
-$session->set('gollem', 'filter', strval($vars->filter));
+$session->set('gollem', 'filter', strval($vars->searchfield));
 
 /* Get the list of copy/cut files in this directory. */
 $clipboard_files = array();
@@ -338,6 +338,11 @@ if ($read_perms) {
 if ($numitem) {
     $template->list_count = true;
     $template->perms_delete = $delete_perms;
+    $topbar = $injector->getInstance('Horde_View_Topbar');
+    $topbar->search = true;
+    $topbar->searchAction = $refresh_url;
+    $topbar->searchLabel = $session->get('gollem', 'filter') ?: _("Filter");
+    $topbar->searchIcon = Horde_Themes::img('filter-topbar.png');
 } else {
     $template->list_count = false;
 }
@@ -362,8 +367,8 @@ if (is_array($list) && $numitem && $read_perms) {
 
     foreach ($list as $key => $val) {
         /* Check if a filter is not empty and filter matches filename. */
-        if (strlen($vars->filter) &&
-            !preg_match('/' . preg_quote($vars->filter, '/') . '/', $val['name'])) {
+        if (strlen($vars->searchfield) &&
+            !preg_match('/' . preg_quote($vars->searchfield, '/') . '/', $val['name'])) {
             continue;
         }
 
@@ -585,7 +590,6 @@ if (is_array($list) && $numitem && $read_perms) {
     $template->headers = $headers;
     $template->entries = $entry;
     $template->page_caption = $page_caption;
-    $template->filter_val = $vars->filter;
     $template->checkall = Horde::getAccessKeyAndTitle(_("Check _All/None"));
 } else {
     $template->empty_dir = true;

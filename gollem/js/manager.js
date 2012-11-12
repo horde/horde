@@ -160,17 +160,6 @@ var Gollem = {
         }
     },
 
-    applyFilter: function()
-    {
-        $('manager').submit();
-    },
-
-    clearFilter: function()
-    {
-        $('filter').setValue('');
-        this.applyFilter();
-    },
-
     uploadFields: function()
     {
         return $('manager').getInputs('file').collect(function(m) {
@@ -255,14 +244,6 @@ var Gollem = {
                 });
                 e.stop();
                 return;
-
-            case 'filterapply':
-                this.applyFilter();
-                break;
-
-            case 'filterclear':
-                this.clearFilter();
-                break;
 
             case 'uploadfile':
                 this.uploadFile();

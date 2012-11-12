@@ -75,20 +75,6 @@
  </ul>
 </div>
 
-<?php if ($this->list_count): ?>
-<table id="filelist_actions" cellspacing="0">
- <tr class="control">
-  <td class="rightAlign">
-   <strong><?php echo _("Filter:") ?></strong><input id="filter" name="filter" type="text" size="25" value="<?php echo $this->filter_val ?>" />
-   <input type="button" id="filterapply" class="button" value="<?php echo _("Filter") ?>" />
-<?php if ($this->filter_val): ?>
-   <input type="button" id="filterclear" class="button" value="<?php echo _("Clear") ?>" />
-<?php endif ?>
-  </td>
- </tr>
-</table>
-<?php endif ?>
-
 <?php if ($this->empty_dir): ?>
 <p class="text">
  <em><?php echo _("There are no files in this folder.") ?></em>
