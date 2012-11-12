@@ -490,7 +490,7 @@ Configuring Horde Groupware
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde Groupware through PEAR of if PEAR's ``bin_dir``
+   If not installing Horde Groupware through PEAR or if PEAR's ``bin_dir``
    configuration doesn't point to ``/usr/bin/``, replace
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.

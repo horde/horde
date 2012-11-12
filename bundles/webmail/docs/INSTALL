@@ -535,7 +535,7 @@ Configuring Horde Groupware Webmail Edition
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde Groupware Webmail Edition through PEAR of if PEAR's
+   If not installing Horde Groupware Webmail Edition through PEAR or if PEAR's
    ``bin_dir`` configuration doesn't point to ``/usr/bin/``, replace
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.
