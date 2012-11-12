@@ -178,22 +178,33 @@ $this->applications = array(
         'status' => 'heading',
     ),
 
-    'organizing' => array(
-        'name' => _("Organizing"),
-        'status' => 'heading',
-        'menu_parent' => 'others',
-    ),
-
     'trean' => array(
         'name' => _("Bookmarks"),
         'provides' => 'bookmarks',
-        'menu_parent' => 'organizing'
+        'menu_parent' => 'others'
     ),
 
     'trean-menu' => array(
         'status' => 'topbar',
         'app' => 'trean',
         'menu_parent' => 'trean',
+    ),
+
+    'klutz' => array(
+        'name' => _("Comics"),
+        'menu_parent' => 'others'
+    ),
+
+    'ansel' => array(
+        'name' => _("Photos"),
+        'provides' => 'images',
+        'menu_parent' => 'others'
+    ),
+
+    'wicked' => array(
+        'name' => _("Wiki"),
+        'provides' => 'wiki',
+        'menu_parent' => 'others'
     ),
 
     'devel' => array(
@@ -234,11 +245,6 @@ $this->applications = array(
         'name' => _("Information"),
         'status' => 'heading',
         'menu_parent' => 'others',
-    ),
-
-    'klutz' => array(
-        'name' => _("Comics"),
-        'menu_parent' => 'info'
     ),
 
     'jonah' => array(
@@ -333,18 +339,6 @@ $this->applications = array(
 
     'ulaform' => array(
         'name' => _("Forms"),
-        'menu_parent' => 'website'
-    ),
-
-    'ansel' => array(
-        'name' => _("Photos"),
-        'provides' => 'images',
-        'menu_parent' => 'website'
-    ),
-
-    'wicked' => array(
-        'name' => _("Wiki"),
-        'provides' => 'wiki',
         'menu_parent' => 'website'
     ),
 
