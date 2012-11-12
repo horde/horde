@@ -9,8 +9,15 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  */
 
-require_once __DIR__ . '/lib/Application.php';
-$hermes = Horde_Registry::appInit('hermes');
+if (file_exists(__DIR__ . '/../../hermes/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/hermes/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('hermes', array('cli' => true));
 
 printf(_("Deleting data that was exported/billed more than %s days ago.\n"), $conf['time']['days_to_keep']);
 $GLOBALS['injector']->getInstance('Hermes_Driver')->purge();

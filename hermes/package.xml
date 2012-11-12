@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-18</date>
- <time>19:15:06</time>
+ <date>2012-11-12</date>
+ <time>15:30:19</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -42,6 +42,9 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="hermes-purge" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
     <file name="conf.xml" role="horde" />
@@ -163,55 +166,6 @@
     <file name="1_hermes_base_tables.php" role="horde" />
     <file name="2_hermes_autoincrement.php" role="horde" />
    </dir> <!-- /migration -->
-   <dir name="scripts">
-    <dir name="Sandals.wdgt">
-     <dir name="KeychainPlugIn.widgetplugin">
-      <dir name="Contents">
-       <dir name="MacOS">
-        <file name="KeychainPlugIn" role="horde" />
-       </dir> <!-- /scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/MacOS -->
-       <dir name="Resources">
-        <dir name="English.lproj">
-         <file name="InfoPlist.strings" role="horde" />
-        </dir> <!-- /scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Resources/English.lproj -->
-       </dir> <!-- /scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Resources -->
-       <file name="Info.plist" role="horde" />
-      </dir> <!-- /scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents -->
-     </dir> <!-- /scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin -->
-     <dir name="lib">
-      <file name="horde.js" role="horde" />
-      <file name="open_calendar.js" role="horde" />
-      <file name="Sandals.js" role="horde" />
-      <file name="stripe.js" role="horde" />
-      <file name="vcXMLRPC.js" role="horde" />
-     </dir> <!-- /scripts/Sandals.wdgt/lib -->
-     <dir name="themes">
-      <dir name="graphics">
-       <dir name="alerts">
-        <file name="alarm.png" role="horde" />
-        <file name="error.png" role="horde" />
-        <file name="message.png" role="horde" />
-        <file name="success.png" role="horde" />
-        <file name="warning.png" role="horde" />
-       </dir> <!-- /scripts/Sandals.wdgt/themes/graphics/alerts -->
-       <file name="calendar.png" role="horde" />
-       <file name="hermes.png" role="horde" />
-       <file name="required.png" role="horde" />
-       <file name="spinner-transparent.gif" role="horde" />
-      </dir> <!-- /scripts/Sandals.wdgt/themes/graphics -->
-      <file name="bluewhite-screen.css" role="horde" />
-      <file name="hermes-screen.css" role="horde" />
-      <file name="sandals-screen.css" role="horde" />
-      <file name="screen.css" role="horde" />
-     </dir> <!-- /scripts/Sandals.wdgt/themes -->
-     <file name="Default.png" role="horde" />
-     <file name="Icon.png" role="horde" />
-     <file name="Info.plist" role="horde" />
-     <file name="Sandals.html" role="horde" />
-    </dir> <!-- /scripts/Sandals.wdgt -->
-    <file name=".htaccess" role="horde" />
-    <file name="purge.php" role="horde" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <dir name="deliverables">
      <file name="list.inc" role="horde" />
@@ -261,7 +215,6 @@
       <file name="time.png" role="horde" />
       <file name="timer-start.png" role="horde" />
       <file name="timer-stop.png" role="horde" />
-      <file name="timer.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <dir name="print">
       <file name="screen.css" role="horde" />
@@ -426,6 +379,7 @@
    <install as="hermes/search.php" name="search.php" />
    <install as="hermes/start.php" name="start.php" />
    <install as="hermes/time.php" name="time.php" />
+   <install as="hermes-purge" name="bin/hermes-purge" />
    <install as="hermes/config/.htaccess" name="config/.htaccess" />
    <install as="hermes/config/conf.xml" name="config/conf.xml" />
    <install as="hermes/config/prefs.php" name="config/prefs.php" />
@@ -485,33 +439,6 @@
    <install as="hermes/locale/zh_TW/LC_MESSAGES/hermes.po" name="locale/zh_TW/LC_MESSAGES/hermes.po" />
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
-   <install as="hermes/scripts/.htaccess" name="scripts/.htaccess" />
-   <install as="hermes/scripts/purge.php" name="scripts/purge.php" />
-   <install as="hermes/scripts/Sandals.wdgt/Default.png" name="scripts/Sandals.wdgt/Default.png" />
-   <install as="hermes/scripts/Sandals.wdgt/Icon.png" name="scripts/Sandals.wdgt/Icon.png" />
-   <install as="hermes/scripts/Sandals.wdgt/Info.plist" name="scripts/Sandals.wdgt/Info.plist" />
-   <install as="hermes/scripts/Sandals.wdgt/Sandals.html" name="scripts/Sandals.wdgt/Sandals.html" />
-   <install as="hermes/scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Info.plist" name="scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Info.plist" />
-   <install as="hermes/scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/MacOS/KeychainPlugIn" name="scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/MacOS/KeychainPlugIn" />
-   <install as="hermes/scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Resources/English.lproj/InfoPlist.strings" name="scripts/Sandals.wdgt/KeychainPlugIn.widgetplugin/Contents/Resources/English.lproj/InfoPlist.strings" />
-   <install as="hermes/scripts/Sandals.wdgt/lib/horde.js" name="scripts/Sandals.wdgt/lib/horde.js" />
-   <install as="hermes/scripts/Sandals.wdgt/lib/open_calendar.js" name="scripts/Sandals.wdgt/lib/open_calendar.js" />
-   <install as="hermes/scripts/Sandals.wdgt/lib/Sandals.js" name="scripts/Sandals.wdgt/lib/Sandals.js" />
-   <install as="hermes/scripts/Sandals.wdgt/lib/stripe.js" name="scripts/Sandals.wdgt/lib/stripe.js" />
-   <install as="hermes/scripts/Sandals.wdgt/lib/vcXMLRPC.js" name="scripts/Sandals.wdgt/lib/vcXMLRPC.js" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/bluewhite-screen.css" name="scripts/Sandals.wdgt/themes/bluewhite-screen.css" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/hermes-screen.css" name="scripts/Sandals.wdgt/themes/hermes-screen.css" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/sandals-screen.css" name="scripts/Sandals.wdgt/themes/sandals-screen.css" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/screen.css" name="scripts/Sandals.wdgt/themes/screen.css" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/calendar.png" name="scripts/Sandals.wdgt/themes/graphics/calendar.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/hermes.png" name="scripts/Sandals.wdgt/themes/graphics/hermes.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/required.png" name="scripts/Sandals.wdgt/themes/graphics/required.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/spinner-transparent.gif" name="scripts/Sandals.wdgt/themes/graphics/spinner-transparent.gif" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/alarm.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/alarm.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/error.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/error.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/message.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/message.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/success.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/success.png" />
-   <install as="hermes/scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" name="scripts/Sandals.wdgt/themes/graphics/alerts/warning.png" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
    <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
    <install as="hermes/templates/dynamic/search.inc" name="templates/dynamic/search.inc" />
@@ -546,7 +473,6 @@
    <install as="hermes/themes/default/graphics/time.png" name="themes/default/graphics/time.png" />
    <install as="hermes/themes/default/graphics/timer-start.png" name="themes/default/graphics/timer-start.png" />
    <install as="hermes/themes/default/graphics/timer-stop.png" name="themes/default/graphics/timer-stop.png" />
-   <install as="hermes/themes/default/graphics/timer.png" name="themes/default/graphics/timer.png" />
    <install as="hermes/themes/default/graphics/alerts/message.png" name="themes/default/graphics/alerts/message.png" />
    <install as="hermes/themes/default/print/screen.css" name="themes/default/print/screen.css" />
    </filelist>
