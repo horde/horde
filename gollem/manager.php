@@ -285,7 +285,11 @@ $template->action = $refresh_url;
 $template->forminput = Horde_Util::formInput();
 $template->dir = Gollem::$backend['dir'];
 $template->navlink = Gollem::directoryNavLink(Gollem::$backend['dir'], $manager_url);
-$template->refresh = Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg'));
+$template->refresh = Horde::widget(array(
+    'url' => $refresh_url,
+    'title' => _("Refresh"),
+    'id' => 'gollem-refresh'
+));
 
 $template->hasclipboard = $edit_perms;
 
@@ -295,7 +299,16 @@ if ($shares_enabled) {
     $shares = $injector->getInstance('Gollem_Shares');
     $perms_url_base = Horde::url('share.php', true)->add('app', 'gollem');
     $share_name = $backkey . '|' . Gollem::$backend['dir'];
-    $template->share_folder = $perms_url_base->add('share', $share_name)->link(array('title' => _("Share Folder"), 'target' => '_blank', 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $share_name), 'urlencode' => true)) . 'return false;'));
+    $template->share_folder = Horde::widget(array(
+        'url' => $perms_url_base->add('share', $share_name),
+        'title' => _("Share Folder"),
+        'target' => '_blank',
+        'class' => 'gollem-sharefolder',
+        'onclick' => Horde::popupJs(
+            $perms_url_base,
+            array('params' => array('share' => $share_name),
+                  'urlencode' => true)) . 'return false;'
+    ));
 }
 
 if ($edit_perms) {
@@ -307,7 +320,7 @@ if ($edit_perms) {
     $injector->getInstance('Horde_View_Sidebar')->addNewButton(
         _("Create Folder"),
         Horde::url('#'),
-        array('id' => 'createfolder')
+        array('id' => 'gollem-createfolder')
     );
 } else {
     $template->perms_edit = false;
@@ -315,18 +328,19 @@ if ($edit_perms) {
 }
 
 if ($read_perms) {
-    $template->change_folder = Horde::link('#', _("Change Folder"), '', '', '', '', '', array('id' => 'changefolder'));
+    $template->change_folder = Horde::widget(array(
+        'url' => Horde::url('#'),
+        'title' => _("Change Folder"),
+        'id' => 'gollem-changefolder'
+    ));
 }
 
 if ($numitem) {
     $template->list_count = true;
     $template->perms_delete = $delete_perms;
-    $template->actions_help = Horde_Help::link('gollem', 'file-actions');
 } else {
     $template->list_count = false;
 }
-
-$template->actions = $edit_perms | $delete_perms;
 
 $icon_cache = array();
 $total = 0;

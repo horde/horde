@@ -45,41 +45,39 @@
 <div class="header">
  <strong style="float:right"><?php echo $this->itemcount ?></strong>
  <?php echo $this->navlink ?>
- <?php echo $this->refresh ?><span class="iconImg reloadImg"></span></a>
+</div>
+<div class="horde-buttonbar">
+ <ul>
+  <li class="horde-icon"><?php echo $this->refresh ?></li>
 <?php if ($this->share_folder): ?>
- <?php echo $this->share_folder ?><span class="iconImg foldershareImg"></span></a>
+  <li class="horde-icon"><?php echo $this->share_folder ?></li>
 <?php endif ?>
 <?php if ($this->change_folder): ?>
- <?php echo $this->change_folder ?><span class="iconImg foldergotoImg"></span></a>
+  <li class="horde-icon"><?php echo $this->change_folder ?></li>
 <?php endif ?>
+<?php if ($this->list_count): ?>
+<?php if ($this->perms_chmod): ?>
+  <li><?php echo Horde::widget(array('url' => '#', 'title' => _("Change Permissions"), 'id' => 'gollem-chmod')) ?></li>
+<?php endif ?>
+<?php if ($this->hasclipboard): ?>
+  <li><?php echo Horde::widget(array('url' => '#', 'title' => _("Copy"), 'id' => 'gollem-copy')) ?></li>
+<?php if ($this->perms_delete): ?>
+  <li><?php echo Horde::widget(array('url' => '#', 'title' => _("Cut"), 'id' => 'gollem-cut')) ?></li>
+<?php endif ?>
+<?php endif ?>
+<?php if ($this->perms_delete): ?>
+  <li><?php echo Horde::widget(array('url' => '#', 'title' => _("Delete"), 'id' => 'gollem-delete')) ?></li>
+<?php endif ?>
+<?php if ($this->perms_edit): ?>
+  <li><?php echo Horde::widget(array('url' => '#', 'title' => _("Rename"), 'id' => 'gollem-rename')) ?></li>
+<?php endif ?>
+<?php endif ?>
+ </ul>
 </div>
 
 <?php if ($this->list_count): ?>
 <table id="filelist_actions" cellspacing="0">
  <tr class="control">
-  <td class="leftAlign">
-<?php if ($this->actions): ?>
-   <select id="action1" name="action1">
-    <option selected="selected"><?php echo _("Actions:") ?></option>
-<?php if ($this->perms_chmod): ?>
-    <option value="chmod_modify"><?php echo _("Change Permissions") ?></option>
-<?php endif ?>
-<?php if ($this->hasclipboard): ?>
-    <option value="copy_items"><?php echo _("Copy") ?></option>
-<?php if ($this->perms_delete): ?>
-    <option value="cut_items"><?php echo _("Cut") ?></option>
-<?php endif ?>
-<?php endif ?>
-<?php if ($this->perms_delete): ?>
-    <option value="delete_items"><?php echo _("Delete") ?></option>
-<?php endif ?>
-<?php if ($this->perms_edit): ?>
-    <option value="rename_items"><?php echo _("Rename") ?></option>
-<?php endif ?>
-   </select>
-   <?php echo $this->actions_help ?>
-<?php endif ?>
-  </td>
   <td class="rightAlign">
    <strong><?php echo _("Filter:") ?></strong><input id="filter" name="filter" type="text" size="25" value="<?php echo $this->filter_val ?>" />
    <input type="button" id="filterapply" class="button" value="<?php echo _("Filter") ?>" />
@@ -117,7 +115,7 @@
 <?php endif ?>
 <?php if ($this->columns_share): ?>
   <td>
-   <?php if (!empty($entry['share'])): ?><?php echo $entry['share'] ?><span class="iconImg <?php if ($entry['share_disabled']): ?>foldershareDisabledImg<?php else: ?>foldershareImg<?php endif ?>"></span></a><?php endif ?>
+   <?php if (!empty($entry['share'])): ?><?php echo $entry['share'] ?><span class="iconImg <?php echo $entry['share_disabled'] ? 'gollem-sharefolder-disabled' : 'gollem-sharefolder' ?>"></span></a><?php endif ?>
   </td>
 <?php endif ?>
 <?php if ($this->columns_edit): ?>

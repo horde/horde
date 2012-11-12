@@ -58,10 +58,6 @@ table.clipboard td {
     text-decoration: underline;
 }
 
-#refreshimg {
-    margin-left: 7px;
-}
-
 /* Images. */
 .gollem-home {
     background-image: url("graphics/folder_home.png");
@@ -81,19 +77,16 @@ table.clipboard td {
 .folderImg {
     background-image: url("graphics/folder.png");
 }
-.foldershareImg {
+.gollem-sharefolder {
     background-image: url("graphics/perms.png");
 }
-.foldershareDisabledImg {
+.gollem-sharefolder-disabled {
     background-image: url("graphics/perms_disabled.png");
 }
-.foldercreateImg {
-    background-image: url("graphics/folder_create.png");
-}
-.foldergotoImg {
+#gollem-changefolder {
     background-image: url("graphics/folder_goto.png");
 }
-.reloadImg {
+#gollem-refresh {
     background-image: url("graphics/reload.png");
 }
 .symlinkImg {
