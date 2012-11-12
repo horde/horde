@@ -198,7 +198,7 @@ class Hermes_Application extends Horde_Registry_Application
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('timer-stop.png'),
-                        'url' => $entry->add('timer', $i)
+                        'url' => $entry->add('timer', $timer['id'])
                     )
                 ));
             }
