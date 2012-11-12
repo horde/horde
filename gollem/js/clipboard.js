@@ -34,7 +34,7 @@ var GollemClipboard = {
                 $('clipboard').submit();
                 return;
 
-            case 'pastebutton':
+            case 'clearbutton':
                 $('actionID').setValue('clear_items');
                 $('clipboard').submit();
                 return;
