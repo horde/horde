@@ -1,6 +1,6 @@
 <?php if ($this->list_count): ?>
 <?php if ($this->perms_chmod): ?>
-<div id="attributes" style="display:none;">
+<div id="gollem-attributes" style="display:none;">
 <table class="horde-table">
  <tr>
   <th width="25%">&nbsp;</th>
@@ -120,12 +120,12 @@
 <?php endif ?>
 <?php if ($this->columns_edit): ?>
   <td>
-   <?php if ($entry['edit']): ?><?php echo $entry['edit'] ?><span class="iconImg editImg"></span></a><?php endif ?>
+   <?php if ($entry['edit']): ?><?php echo $entry['edit'] ?><span class="iconImg gollem-edit"></span></a><?php endif ?>
   </td>
 <?php endif ?>
 <?php if ($this->columns_download): ?>
   <td>
-   <?php if ($entry['dl']): ?><?php echo $entry['dl'] ?><span class="iconImg downloadImg"></span></a><?php endif ?>
+   <?php if ($entry['dl']): ?><?php echo $entry['dl'] ?><span class="iconImg gollem-download"></span></a><?php endif ?>
   </td>
 <?php endif ?>
 <?php if ($this->columns_modified): ?>

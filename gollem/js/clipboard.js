@@ -23,24 +23,24 @@ var GollemClipboard = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'selectall':
+            case 'gollem-selectall':
                 tmp = elt.getValue();
                 elt.next('SPAN').update(tmp ? this.selectnone : this.selectall);
-                $('clipboard').getInputs('checkbox').without(elt).invoke('setValue', tmp);
+                $('gollem-clipboard').getInputs('checkbox').without(elt).invoke('setValue', tmp);
                 return;
 
-            case 'pastebutton':
+            case 'gollem-pastebutton':
                 $('actionID').setValue('paste_items');
-                $('clipboard').submit();
+                $('gollem-clipboard').submit();
                 return;
 
-            case 'clearbutton':
+            case 'gollem-clearbutton':
                 $('actionID').setValue('clear_items');
-                $('clipboard').submit();
+                $('gollem-clipboard').submit();
                 return;
 
-            case 'cancelbutton':
-                $('clipboard').submit();
+            case 'gollem-cancelbutton':
+                $('gollem-clipboard').submit();
                 return;
             }
 

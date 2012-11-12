@@ -31,17 +31,17 @@
     display: block;
 }
 
-#attributes table.horde-table th {
+#gollem-attributes table.horde-table th {
     text-align: center;
 }
 
-table.clipboard {
+table.gollem-clipboard {
     padding: .2em;
 }
-table.clipboard td {
+table.gollem-clipboard td {
     padding: 2px;
 }
-.selectall {
+.gollem-selectall {
     font-weight: bold;
 }
 
@@ -50,7 +50,7 @@ table.clipboard td {
     margin-right: 2px;
 }
 
-#editcontent {
+#gollem-edit {
     width: 99%;
 }
 
@@ -68,13 +68,13 @@ table.clipboard td {
 .gollem-clipboard {
     background-image: url("graphics/clipboard.png");
 }
-.downloadImg {
+.gollem-download {
     background-image: url("graphics/download.png");
 }
-.editImg {
+.gollem-edit {
     background-image: url("graphics/edit.png");
 }
-.folderImg {
+.gollem-folder {
     background-image: url("graphics/folder.png");
 }
 .gollem-sharefolder {
@@ -89,6 +89,6 @@ table.clipboard td {
 #gollem-refresh {
     background-image: url("graphics/reload.png");
 }
-.symlinkImg {
+.gollem-symlink {
     background-image: url("graphics/folder_symlink.png");
 }

@@ -7,8 +7,11 @@
 
  <h1 class="header"><?php echo sprintf(_("Edit %s"), $this->vars->file) ?></h1>
 
- <textarea name="content" id="editcontent" rows="40"><?php echo htmlspecialchars($this->data) ?></textarea>
+ <textarea name="content" id="gollem-edit" rows="38"><?php echo htmlspecialchars($this->data) ?></textarea>
+
+<p class="horde-form-buttons">
  <input type="submit" class="horde-default" value="<?php echo _("Save") ?>" />
  <input type="reset" value="<?php echo _("Reset") ?>" />
  <input type="button" class="horde-cancel" id="cancelbutton" value="<?php echo _("Cancel") ?>" />
+</p>
 </form>

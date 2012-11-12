@@ -394,9 +394,9 @@ if (is_array($list) && $numitem && $read_perms) {
 
         /* Determine graphic to use. */
         if (!empty($val['link'])) {
-            $item['graphic'] = '<span class="iconImg symlinkImg"></span>';
+            $item['graphic'] = '<span class="iconImg gollem-symlink"></span>';
         } elseif ($val['type'] == '**dir') {
-            $item['graphic'] = '<span class="iconImg folderImg"></span>';
+            $item['graphic'] = '<span class="iconImg gollem-folder"></span>';
         } else {
             if (empty($icon_cache[$val['type']])) {
                 $icon_cache[$val['type']] = Horde::img($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon(Horde_Mime_Magic::extToMime($val['type'])), '', '', '');

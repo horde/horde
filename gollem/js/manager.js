@@ -290,7 +290,7 @@ var Gollem = {
                     break;
                 }
                 HordeDialog.display({
-                    form: $('attributes').clone(true).show(),
+                    form: $('gollem-attributes').clone(true).show(),
                     form_id: 'chmodfrm',
                     form_opts: { action: GollemVar.actionUrl },
                     header: GollemText.permissions

@@ -1,4 +1,4 @@
-<form method="post" name="clipboard" id="clipboard" enctype="multipart/form-data" action="<?php echo $this->manager_url ?>">
+<form method="post" name="gollem-clipboard" id="gollem-clipboard" enctype="multipart/form-data" action="<?php echo $this->manager_url ?>">
 <?php echo $this->forminput ?>
 <input type="hidden" name="actionID" id="actionID" value="" />
 <input type="hidden" name="dir" value="<?php echo $this->dir ?>" />
@@ -21,11 +21,11 @@
  <?php echo _("Current directory:") ?> <span class="fixed"><?php echo $this->currdir ?></span>
 </div>
 
-<table class="clipboard striped nowrap" width="100%" cellspacing="0">
+<table class="gollem-clipboard nowrap" width="100%" cellspacing="0">
 <thead>
  <tr>
   <td>
-   <label><input id="selectall" type="checkbox" class="checkbox" /> <span class="selectall"><?php echo _("Select All") ?></span></label>
+   <label><input id="gollem-selectall" type="checkbox" class="checkbox" /> <span class="gollem-selectall"><?php echo _("Select All") ?></span></label>
   </td>
    </tr>
 </thead>
@@ -44,9 +44,9 @@
 <tfoot>
  <tr>
   <td>
-   <input class="horde-default" id="pastebutton" type="button" value="<?php echo $this->pastebutton ?>" />
-   <input id="clearbutton" type="button" value="<?php echo $this->clearbutton ?>" />
-   <input class="horde-cancel" id="cancelbutton" type="button" value="<?php echo $this->cancelbutton ?>" />
+   <input class="horde-default" id="gollem-pastebutton" type="button" value="<?php echo $this->pastebutton ?>" />
+   <input id="gollem-clearbutton" type="button" value="<?php echo $this->clearbutton ?>" />
+   <input class="horde-cancel" id="gollem-cancelbutton" type="button" value="<?php echo $this->cancelbutton ?>" />
   </td>
  </tr>
 </tfoot>
