@@ -767,9 +767,10 @@ reasons, some of these files may not be removed when the user's session
 ends. To reclaim this disk space, it may be necessary to periodically delete
 these old temporary files.
 
-An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
-Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
-similar to remove old files (see http://www.redhat.com/).
+An example cron-based solution can be found at
+``horde/scripts/temp-cleanup.cron`` in PEAR's ``data_dir`` directory.  Another
+possible solution is to use utilities like ``tmpwatch``, ``tmpreaper`` or
+anything similar to remove old files.
 
 Stale sessions are automatically pruned by PHP according to the
 `session.gc_probability`_, `session.gc_divisor`_, and
