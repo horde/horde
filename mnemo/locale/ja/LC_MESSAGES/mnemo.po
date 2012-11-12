@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (3.0-git)\n"
+"Project-Id-Version: Mnemo H5 (4.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 20:59+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:51+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -123,7 +123,7 @@ msgid "Default sorting direction:"
 msgstr "デフォルトの並び方向："
 
 #: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
 msgid "Delete"
 msgstr "削除"
 
@@ -139,10 +139,6 @@ msgstr "削除の確認"
 #: config/prefs.php:28
 msgid "Delete button behaviour"
 msgstr "削除ボタンの動作"
-
-#: templates/memo/memo.inc:58
-msgid "Delete this note"
-msgstr "メモを削除"
 
 #: config/prefs.php:59
 msgid "Descending"
@@ -479,10 +475,6 @@ msgstr "メモの保存中にエラーが発生しました：%s"
 msgid "There was an error viewing this notepad: %s"
 msgstr "メモの表示中にエラーが発生しました：%s"
 
-#: lib/Application.php:254
-msgid "There were no memos to export."
-msgstr "エクスポートするメモがありません。"
-
 #: data.php:70
 msgid "This file format is not supported."
 msgstr "この形式はサポートされていません。"
@@ -622,7 +614,7 @@ msgstr "自作"
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:267 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 

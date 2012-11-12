@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-11-04 18:04+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:57+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -757,11 +757,6 @@ msgstr "水煙"
 #: test/Horde/Service/Weather/WwoTest.php:99
 msgid "Sunny"
 msgstr "晴れ"
-
-#: lib/Horde/Service/Weather/Google.php:169
-msgid ""
-"There was a problem with the weather request. Maybe an invalid location?"
-msgstr "天気予報の要求に問題がありました。場所が間違っていませんか？"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:154

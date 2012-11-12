@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 20:46+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:54+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -165,8 +165,8 @@ msgid "Failed retrieving structure of message %s in folder %s."
 msgstr ""
 "フォルダー %2$s 内のメッセージ %1$s の構造を取得することに失敗しました。"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:846
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:852
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:844
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:850
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr "ID %s のメッセージの取得に失敗しました。エラー：%s"
@@ -251,7 +251,7 @@ msgstr "注釈 %s[%s] をフォルダー %s に設定することに失敗しま
 msgid "Setting annotation %s[%s] on folder %s to %s failed."
 msgstr "注釈 %s[%s] をフォルダー %s に %s と設定することに失敗しました。"
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:259
+#: lib/Horde/Kolab/Storage/Data/Base.php:255
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -262,7 +262,7 @@ msgstr ""
 "クトを取得した後で、誰かが Kolab オブジェクトを変更したのでしょう。元のエ"
 "ラー：%s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:685
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:683
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -283,7 +283,7 @@ msgstr ""
 "は、Kokab グループウエアの書式を理解しているメールクライアントが必要です。そ"
 "のようなメールクライアントの一覧がここにあります：%s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:368
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:366
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr "%s を %s に変更できません：目的のフォルダーは既に存在します"

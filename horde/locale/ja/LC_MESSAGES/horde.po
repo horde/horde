@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 4.0-git\n"
+"Project-Id-Version: Horde 5.0.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-03 22:16+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:45+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -38,7 +38,7 @@ msgstr "\"%s\" は作成されませんでした: %s。"
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "容量 %2$.2fMB 中の %1$.2fMB 使用(%3$.2f%%)"
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s と %s"
@@ -64,7 +64,7 @@ msgstr[0] "%d 人がこれをいいね！と言っています"
 msgid "%d to %d of %d"
 msgstr "%d から %d、合計 %d"
 
-#: lib/Block/Weather.php:236
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d 日間の予報"
@@ -628,7 +628,7 @@ msgstr "日付の表示形式を選択（完全形式）："
 msgid "Choose how to display times:"
 msgstr "時間の表示形式を選択："
 
-#: templates/admin/sqlshell.html.php:54
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr "クエリー消去"
 
@@ -704,7 +704,7 @@ msgstr "コメント： %d"
 msgid "Computers"
 msgstr "コンピュータ"
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr "気象状況"
 
@@ -853,7 +853,7 @@ msgstr "現在の時間"
 msgid "Current Weather"
 msgstr "現在の天気"
 
-#: lib/Block/Weather.php:229
+#: lib/Block/Weather.php:230
 msgid "Current condition"
 msgstr "現在の天候"
 
@@ -909,7 +909,7 @@ msgstr "データ受信"
 msgid "Date: %s; time: %s"
 msgstr "日付：%s、時間：%s"
 
-#: lib/Block/Weather.php:244
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr "日"
 
@@ -1022,7 +1022,7 @@ msgstr "露点"
 msgid "Dew Point for last hour: "
 msgstr "この時間の露点："
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:181
 msgid "Dew point"
 msgstr "露点"
 
@@ -1195,7 +1195,7 @@ msgid "Example values:"
 msgstr "値の例："
 
 #: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:53
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr "実行"
 
@@ -1312,12 +1312,12 @@ msgstr "友達リクエスト："
 msgid "Friends enabled"
 msgstr "友人を許可"
 
-#: lib/Block/Weather.php:206
+#: lib/Block/Weather.php:207
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "風向 %s（%s度）、風速 %s %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "風向 %s、風速 %s %s"
@@ -1408,7 +1408,7 @@ msgstr "ストリーム表示の高さ（幅は自動で調整されます）"
 msgid "Help"
 msgstr "ヘルプ"
 
-#: services/help/index.php:91
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr "_Tヘルプ項目"
 
@@ -1444,7 +1444,7 @@ msgstr "フィールド(列)の数はいくつですか？"
 msgid "How many seconds before we check for new articles?"
 msgstr "新着記事をチェックまで何秒待ちますか？"
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:218 lib/Block/Weather.php:257
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr "湿度"
 
@@ -1556,7 +1556,7 @@ msgstr "ちょうど今..."
 msgid "Kernel Newbies"
 msgstr "カーネル初心者"
 
-#: services/help/index.php:158
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr "キイワード"
 
@@ -1634,7 +1634,7 @@ msgstr "リムリック"
 msgid "Linux Cookie"
 msgstr "Linux クッキー"
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr "テーブル一覧"
 
@@ -1867,8 +1867,8 @@ msgstr "マイポータル"
 msgid "My Portal Layout"
 msgstr "マイポータルの配置"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "N/A"
 
@@ -2071,7 +2071,7 @@ msgstr "整理"
 msgid "Other Information"
 msgstr "その他の情報"
 
-#: templates/login/smartmobile.html.php:22
+#: templates/login/smartmobile.html.php:18
 msgid "Other Options"
 msgstr "その他のオプション"
 
@@ -2129,7 +2129,7 @@ msgstr "パスワードは正常に変更されました。"
 msgid "Passwords must match."
 msgstr "パスワードが一致しません。"
 
-#: templates/admin/sqlshell.html.php:40
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr "貼り付け"
 
@@ -2235,12 +2235,12 @@ msgid "Precipitation for last %d hour: "
 msgid_plural "Precipitation for last %d hours: "
 msgstr[0] "過去 %d 時間の降水量："
 
-#: lib/Block/Weather.php:253
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Precipitation%schance"
 msgstr "降水%s確率"
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr "気圧"
 
@@ -2268,7 +2268,7 @@ msgstr ""
 msgid "Publish enabled."
 msgstr "公開は許可されています。"
 
-#: templates/admin/sqlshell.html.php:6
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr "クエリー"
 
@@ -2398,12 +2398,12 @@ msgstr ""
 msgid "Reset your password"
 msgstr "あなたのパスワードをリセット"
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr "最後のクエリーを戻す"
 
 #: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:9
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr "結果"
 
@@ -2437,7 +2437,7 @@ msgstr "元の設定に戻す"
 msgid "Riddles"
 msgstr "なぞなぞ"
 
-#: templates/admin/sqlshell.html.php:41
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr "実行"
 
@@ -2498,12 +2498,12 @@ msgstr "科学"
 msgid "Scope"
 msgstr "範囲"
 
-#: services/help/index.php:92
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr "_R検索"
 
-#: services/help/index.php:153 templates/admin/user/list.inc:14
-#: templates/topbar/_menubar.html.php:22
+#: services/help/index.php:156 templates/admin/user/list.inc:14
+#: templates/topbar/_menubar.html.php:21
 msgid "Search"
 msgstr "検索"
 
@@ -2740,7 +2740,7 @@ msgstr ""
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr "あなたの Facebook アカウントに正常に接続されました。"
 
-#: templates/admin/sqlshell.html.php:13
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr "成功"
 
@@ -2794,7 +2794,7 @@ msgstr "日の入り"
 msgid "Sunday"
 msgstr "日曜"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr "日の出"
 
@@ -2802,7 +2802,7 @@ msgstr "日の出"
 msgid "Sunrise/Sunset"
 msgstr "日の出/日の入り"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr "日の入り"
 
@@ -2830,11 +2830,11 @@ msgstr "タスク"
 msgid "Temp for last hour: "
 msgstr "この１時間の気温："
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr "気温"
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:247
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "気温%s(%s最高%s/%s最低%s) "
@@ -3057,11 +3057,11 @@ msgstr ""
 "複数の項目を選択するには、PCでは Control キイ、Macなら Command キイを押しなが"
 "らクリックします。"
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr "今日"
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr "明日"
 
@@ -3267,7 +3267,7 @@ msgstr "ベトナム語 (VISCII)"
 msgid "View an external web page"
 msgstr "外部の web ページを表示"
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:223
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr "視界"
 
@@ -3279,7 +3279,7 @@ msgstr "警告"
 msgid "Weather"
 msgstr "天気"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr "気象データの提供は"
 
@@ -3346,7 +3346,7 @@ msgstr "WiFi"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:261
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr "風"
 
@@ -3663,7 +3663,7 @@ msgstr "無風"
 msgid "from the %s (%s) at %s %s"
 msgstr "from the %s (%s) at %s %s"
 
-#: lib/Block/Weather.php:212 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr "突風"
 
