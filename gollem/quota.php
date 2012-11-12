@@ -58,7 +58,6 @@ $page_output->header(array(
     'title' => _("Quota Display")
 ));
 if (!$isPopup) {
-    Gollem::menu();
     $notification->notify(array('listeners' => 'status'));
 }
 echo $template->render('quota');

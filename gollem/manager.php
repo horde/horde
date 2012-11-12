@@ -608,7 +608,6 @@ $page_output->addInlineJsVars(array(
 $page_output->header(array(
     'title' => $title
 ));
-echo Gollem::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $template->render('manager');
 $page_output->footer();

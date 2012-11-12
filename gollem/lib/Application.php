@@ -224,6 +224,31 @@ class Gollem_Application extends Horde_Registry_Application
         }
     }
 
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $backend = Gollem_Auth::getPreferredBackend();
+        $url = $GLOBALS['registry']->getServiceLink('login', 'horde')
+            ->add(array('url' => (string)Horde::url('manager.php', true),
+                        'app' => 'gollem'));
+
+        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
+            foreach (Gollem_Auth::getBackend() as $key => $val) {
+                $row = array(
+                    'selected' => $backend == $key,
+                    'url' => $url->add('backend_key', $key),
+                    'label' => $val['name'],
+                    'type' => 'radiobox',
+                );
+                $sidebar->addRow($row, 'backends');
+            }
+        }
+    }
+
     /* Topbar method. */
 
     /**
