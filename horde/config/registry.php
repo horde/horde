@@ -173,15 +173,15 @@ $this->applications = array(
         'menu_parent' => 'mnemo',
     ),
 
-    'others' => array(
-        'name' => _("Others"),
+    'more' => array(
+        'name' => _("More..."),
         'status' => 'heading',
     ),
 
     'trean' => array(
         'name' => _("Bookmarks"),
         'provides' => 'bookmarks',
-        'menu_parent' => 'others'
+        'menu_parent' => 'more'
     ),
 
     'trean-menu' => array(
@@ -192,25 +192,25 @@ $this->applications = array(
 
     'klutz' => array(
         'name' => _("Comics"),
-        'menu_parent' => 'others'
+        'menu_parent' => 'more'
     ),
 
     'ansel' => array(
         'name' => _("Photos"),
         'provides' => 'images',
-        'menu_parent' => 'others'
+        'menu_parent' => 'more'
     ),
 
     'wicked' => array(
         'name' => _("Wiki"),
         'provides' => 'wiki',
-        'menu_parent' => 'others'
+        'menu_parent' => 'more'
     ),
 
     'devel' => array(
         'name' => _("Development"),
         'status' => 'heading',
-        'menu_parent' => 'others',
+        'menu_parent' => 'more',
     ),
 
     'chora' => array(
@@ -244,7 +244,7 @@ $this->applications = array(
     'info' => array(
         'name' => _("Information"),
         'status' => 'heading',
-        'menu_parent' => 'others',
+        'menu_parent' => 'more',
     ),
 
     'jonah' => array(
@@ -262,7 +262,7 @@ $this->applications = array(
     'office' => array(
         'name' => _("Office"),
         'status' => 'heading',
-        'menu_parent' => 'others',
+        'menu_parent' => 'more',
     ),
 
     'hermes' => array(
@@ -305,7 +305,7 @@ $this->applications = array(
     'myaccount' => array(
         'name' => _("My Account"),
         'status' => 'heading',
-        'menu_parent' => 'others',
+        'menu_parent' => 'more',
     ),
 
     'gollem' => array(
@@ -328,7 +328,7 @@ $this->applications = array(
     'website' => array(
         'name' => _("Web Site"),
         'status' => 'heading',
-        'menu_parent' => 'others',
+        'menu_parent' => 'more',
     ),
 
     'agora' => array(
