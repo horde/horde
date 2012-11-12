@@ -190,11 +190,6 @@ $this->applications = array(
         'menu_parent' => 'trean',
     ),
 
-    'klutz' => array(
-        'name' => _("Comics"),
-        'menu_parent' => 'more'
-    ),
-
     'ansel' => array(
         'name' => _("Photos"),
         'provides' => 'images',
@@ -245,6 +240,11 @@ $this->applications = array(
         'name' => _("Information"),
         'status' => 'heading',
         'menu_parent' => 'more',
+    ),
+
+    'klutz' => array(
+        'name' => _("Comics"),
+        'menu_parent' => 'info'
     ),
 
     'jonah' => array(
