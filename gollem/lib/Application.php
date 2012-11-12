@@ -208,19 +208,40 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $backend_key = Gollem_Auth::getPreferredBackend();
 
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'gollem-home');
+        $menu->add(
+            Horde::url('manager.php')->add('dir', Gollem::$backend['home']),
+            _("Start Folder"),
+            'gollem-home');
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'horde-perms');
+        if (Gollem::checkPermissions('backend', Horde_Perms::EDIT) &&
+            Gollem::checkPermissions('directory', Horde_Perms::EDIT, Gollem::$backend['dir']) &&
+            $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY)) {
+            $menu->add(
+                Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']),
+                _("Clipboard"),
+                'gollem-clipboard');
         }
 
         if (!empty(Gollem::$backend['quota'])) {
             if ($GLOBALS['browser']->hasFeature('javascript')) {
-                $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                $quota_url = 'javascript:' . Horde::popupJs(
+                    Horde::url('quota.php'),
+                    array('params' => array('backend' => $backend_key),
+                          'height' => 300,
+                          'width' => 300,
+                          'urlencode' => true)
+                );
             } else {
-                $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
+                $quota_url = Horde::url('quota.php')
+                    ->add('backend', $backend_key);
             }
             $menu->add($quota_url, _("Check Quota"), 'gollem-quota');
+        }
+
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(
+                Horde::url('permissions.php')->add('backend', $backend_key),
+                _("_Permissions"), 'horde-perms');
         }
     }
 

@@ -69,7 +69,7 @@ table.clipboard td {
 .gollem-quota {
     background-image: url("graphics/quota.png");
 }
-.clipboardImg {
+.gollem-clipboard {
     background-image: url("graphics/clipboard.png");
 }
 .downloadImg {

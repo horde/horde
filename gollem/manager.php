@@ -19,7 +19,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('gollem');
 
 $backkey = $session->get('gollem', 'backend_key');
-$clipboard = $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
+$clipboard = $session->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY);
 $vars = Horde_Variables::getDefaultVariables();
 
 /* Set directory. */
@@ -142,7 +142,7 @@ case 'cut_items':
                     'path' => $old_dir
                 );
                 $clipboard[] = $file;
-                $GLOBALS['session']->set('gollem', 'clipboard', $clipboard);
+                $session->set('gollem', 'clipboard', $clipboard);
                 if ($action == 'copy') {
                     $notification->push(sprintf(_("Item copied to clipboard: %s"), $item), 'horde.success');
                 } else {
@@ -288,9 +288,6 @@ $template->navlink = Gollem::directoryNavLink(Gollem::$backend['dir'], $manager_
 $template->refresh = Horde::link($refresh_url, sprintf("%s %s", _("Refresh"), Gollem::$backend['label']), '', '', '', '', '', array('id' => 'refreshimg'));
 
 $template->hasclipboard = $edit_perms;
-if ($template->hasclipboard && !empty($clipboard)) {
-    $template->clipboard = Horde::link(Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']), _("View Clipboard"));
-}
 
 $shares_enabled = !empty(Gollem::$backend['shares']) &&
     strpos(Gollem::$backend['dir'], Gollem::$backend['home']) === 0;

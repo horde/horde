@@ -46,9 +46,6 @@
  <strong style="float:right"><?php echo $this->itemcount ?></strong>
  <?php echo $this->navlink ?>
  <?php echo $this->refresh ?><span class="iconImg reloadImg"></span></a>
-<?php if ($this->clipboard): ?>
- <?php echo $this->clipboard ?><span class="iconImg clipboardImg"></span></a>
-<?php endif ?>
 <?php if ($this->share_folder): ?>
  <?php echo $this->share_folder ?><span class="iconImg foldershareImg"></span></a>
 <?php endif ?>
