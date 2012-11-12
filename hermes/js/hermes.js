@@ -1212,7 +1212,7 @@ HermesCore = {
             { },
             { 'callback': this.listDeliverablesCallback.bind(this) }
         );
-        new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));
