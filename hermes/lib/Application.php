@@ -101,7 +101,7 @@ class Hermes_Application extends Horde_Registry_Application
         $timers = Hermes::listTimers();
         $entry = Horde::url('entry.php');
         foreach ($timers as $i => $timer) {
-            $menu->add($entry->add('timer', $i),
+            $menu->add($entry->add('timer', $timer['id']),
                        $timer['name'] . sprintf(" (%s)", $timer['e']),
                        'hermes-stop', null, '', null, '__noselection'
             );
