@@ -113,7 +113,7 @@ class Hermes_Application extends Horde_Registry_Application
             $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:deliverables'))) {
             $menu->add(Horde::url('deliverables.php'),
                        _("_Deliverables"),
-                       'hermes-time');
+                       'hermes-deliverables');
         }
 
         if ($GLOBALS['conf']['invoices']['driver'] &&
@@ -125,7 +125,7 @@ class Hermes_Application extends Horde_Registry_Application
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes-time');
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes-admin');
         }
     }
 
