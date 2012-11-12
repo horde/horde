@@ -18,7 +18,7 @@
         <input autocomplete="off" id="horde-search-input" type="text" />
       </div>
 <?php else: ?>
-      <input type="text" id="horde-search-input" name="searchfield" class="formGhost" title="<?php echo _("Search") ?>" />
+      <input type="text" id="horde-search-input" name="searchfield" class="formGhost" title="<?php echo $this->searchLabel ?>" />
 <?php endif ?>
       <input type="image" id="horde-search-icon" src="<?php echo $this->searchIcon ?>" />
     </form>
