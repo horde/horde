@@ -1217,6 +1217,9 @@ class Nag_Task
      */
     public function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
+        /* Owner is always current user. */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         try {
             $name = $vTodo->getAttribute('SUMMARY');
             if (!is_array($name)) { $this->name = $name; }
@@ -1321,7 +1324,7 @@ class Nag_Task
      */
     public function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
-        /* Owner is always current user for ActiveSync */
+        /* Owner is always current user. */
         $this->owner = $GLOBALS['registry']->getAuth();
 
         /* Notes and Title */

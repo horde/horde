@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix importing tasks from iCalendar (Bug #11681).
 * [jan] Fix listing of recurring tasks via timeobjects API.
  </notes>
  <contents>
@@ -1243,6 +1244,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix importing tasks from iCalendar (Bug #11681).
 * [jan] Fix listing of recurring tasks via timeobjects API.
    </notes>
   </release>
