@@ -211,7 +211,11 @@ class Gollem_Application extends Horde_Registry_Application
         $menu->add(
             Horde::url('manager.php')->add('dir', Gollem::$backend['home']),
             _("Start Folder"),
-            'gollem-home');
+            'gollem-home',
+            null,
+            null,
+            null,
+            '__noselection');
 
         if (Gollem::checkPermissions('backend', Horde_Perms::EDIT) &&
             Gollem::checkPermissions('directory', Horde_Perms::EDIT, Gollem::$backend['dir']) &&
