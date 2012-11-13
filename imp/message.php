@@ -456,7 +456,6 @@ $view->addHelper('Tag');
 
 $t_view = clone $view;
 $t_view->message_url = $message_url;
-$t_view->forminput = Horde_Util::formInput();
 $t_view->mailbox = IMP::mailbox()->form_to;
 $t_view->thismailbox = IMP::mailbox(true)->form_to;
 $t_view->start = $msgindex;

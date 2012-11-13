@@ -2,7 +2,6 @@
 <?php foreach ($this->hidden as $k => $v): ?>
  <?php echo $this->hiddenFieldTag($k, $v) ?>
 <?php endforeach; ?>
- <?php echo $this->forminput ?>
 
  <h1 class="header">
   <span class="rightFloat">

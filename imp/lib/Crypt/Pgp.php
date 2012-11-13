@@ -682,7 +682,6 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
         ));
         $view->addHelper('Text');
 
-        $view->forminput = Horde_Util::formInput();
         $view->reload = $reload;
         $view->selfurl = Horde::url('pgp.php');
         $view->target = $target;

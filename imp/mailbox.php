@@ -489,7 +489,6 @@ if ($pageOb['msgcount']) {
     /* Prepare the navbar template. */
     $n_view = clone $view;
     $n_view->id = 1;
-    $n_view->forminput = Horde_Util::formInput();
     $n_view->readonly = $readonly;
 
     $filtermsg = false;
@@ -810,7 +809,6 @@ foreach ($headers as $key => $val) {
 
 /* Output the form start. */
 $f_view = clone $view;
-$f_view->forminput = Horde_Util::formInput();
 $f_view->mailbox = IMP::mailbox()->form_to;
 $f_view->mailbox_token = $mailbox_token;
 $f_view->mailbox_url = $mailbox_url;

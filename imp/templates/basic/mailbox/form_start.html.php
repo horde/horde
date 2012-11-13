@@ -7,4 +7,3 @@
  <?php echo $this->hiddenFieldTag('newMbox', 0) ?>
  <?php echo $this->hiddenFieldTag('flag') ?>
  <?php echo $this->hiddenFieldTag('filter') ?>
- <?php echo $this->forminput ?>

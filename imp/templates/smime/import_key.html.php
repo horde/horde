@@ -1,7 +1,6 @@
 <form enctype="multipart/form-data" method="post" name="import_smime_key" action="<?php echo $this->selfurl ?>">
  <input type="hidden" name="reload" value="<?php echo $this->h($this->reload) ?>" />
  <input type="hidden" name="actionID" value="<?php echo $this->target ?>" />
- <?php echo $this->forminput ?>
 
  <table class="importKeyTable">
   <tr>

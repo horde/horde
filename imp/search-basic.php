@@ -106,7 +106,6 @@ $view->addHelper('Tag');
 
 $view->action = Horde::url('search-basic.php');
 $view->advsearch = Horde::link(IMP::mailbox()->url('search.php'));
-$view->forminput = Horde_Util::formInput();
 $view->mbox = IMP::mailbox()->form_to;
 $view->search_title = sprintf(_("Search %s"), IMP::mailbox()->display_html);
 $view->flist = $flag_set;

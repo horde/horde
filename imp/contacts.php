@@ -77,7 +77,6 @@ $view->addHelper('Text');
 
 $view->a_list = $a_list;
 $view->action = Horde::url('contacts.php')->unique();
-$view->formInput = Horde_Util::formInput();
 $view->sa = $selected_addresses;
 $view->search = $vars->search;
 $view->to_only = intval($vars->to_only);

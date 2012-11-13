@@ -8,4 +8,3 @@
  <?php echo $this->hiddenFieldTag('uid', $this->uid) ?>
  <?php echo $this->hiddenFieldTag('newMbox') ?>
  <?php echo $this->hiddenFieldTag('flag') ?>
- <?php echo $this->forminput ?>

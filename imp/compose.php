@@ -767,7 +767,6 @@ if ($redirect) {
 } else {
     /* Prepare the compose template. */
     $view->file_upload = $session->get('imp', 'file_upload');
-    $view->forminput = Horde_Util::formInput();
 
     $hidden = array(
         'actionID' => '',

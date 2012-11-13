@@ -512,7 +512,6 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         ));
         $view->addHelper('Text');
 
-        $view->forminput = Horde_Util::formInput();
         $view->reload = $reload;
         $view->selfurl = Horde::url('smime.php');
         $view->target = $target;
