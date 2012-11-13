@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-25</date>
- <time>13:57:26</time>
+ <date>2012-11-13</date>
+ <time>19:12:07</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -189,11 +189,6 @@
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
-      <dir name="folders">
-       <file name="folder_create.png" role="horde" />
-       <file name="folder_delete.png" role="horde" />
-       <file name="folder_edit.png" role="horde" />
-      </dir> <!-- /themes/default/graphics/folders -->
       <dir name="http">
        <file name="1xx.png" role="horde" />
        <file name="2xx.png" role="horde" />
@@ -208,18 +203,8 @@
        <file name="https.png" role="horde" />
       </dir> <!-- /themes/default/graphics/protocol -->
       <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="rating-star.gif" role="horde" />
-      <file name="search.png" role="horde" />
       <file name="trean.png" role="horde" />
-      <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -330,21 +315,8 @@
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
-   <install as="trean/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
-   <install as="trean/themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
-   <install as="trean/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
-   <install as="trean/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
-   <install as="trean/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
-   <install as="trean/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
-   <install as="trean/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
-   <install as="trean/themes/default/graphics/rating-star.gif" name="themes/default/graphics/rating-star.gif" />
-   <install as="trean/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="trean/themes/default/graphics/trean.png" name="themes/default/graphics/trean.png" />
-   <install as="trean/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="trean/themes/default/graphics/folders/folder_create.png" name="themes/default/graphics/folders/folder_create.png" />
-   <install as="trean/themes/default/graphics/folders/folder_delete.png" name="themes/default/graphics/folders/folder_delete.png" />
-   <install as="trean/themes/default/graphics/folders/folder_edit.png" name="themes/default/graphics/folders/folder_edit.png" />
    <install as="trean/themes/default/graphics/http/1xx.png" name="themes/default/graphics/http/1xx.png" />
    <install as="trean/themes/default/graphics/http/2xx.png" name="themes/default/graphics/http/2xx.png" />
    <install as="trean/themes/default/graphics/http/3xx.png" name="themes/default/graphics/http/3xx.png" />
@@ -366,7 +338,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-25</date>
+   <date>2012-11-13</date>
    <license uri="TODO">TODO</license>
    <notes>
 * Initial release.
