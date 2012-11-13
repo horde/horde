@@ -32,3 +32,7 @@ ul.horde-tags {
 .bl-title ul.horde-tags a {
     font-weight: normal;
 }
+
+.trean-browse {
+    background-image: url("graphics/trean.png");
+}

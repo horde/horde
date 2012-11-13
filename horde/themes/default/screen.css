@@ -2276,6 +2276,9 @@ left.horde-point-right {
 .horde-perms {
     background-image: url("graphics/perms.png");
 }
+.horde-search {
+    background-image: url("graphics/search.png");
+}
 
 #portal {
     clear: left;
