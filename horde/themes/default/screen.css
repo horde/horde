@@ -141,7 +141,7 @@ ul.linedRow {
 .linedRow, tr.linedRow td, table.linedRow td, ul.linedRow li {
     color: #000;
     background: #fff;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d0d0d0;
 }
 table.linedRow, ul.linedRow {
     border-bottom: none;
@@ -149,7 +149,7 @@ table.linedRow, ul.linedRow {
 .linedRowSelectedCol, td.linedRowSelectedCol, table.linedRow td.linedRowSelectedCol {
     color: #000;
     background: #f3f3f3;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d0d0d0;
 }
 .selectedRow, tr.selectedRow td, .selectedRow a {
     background-color: #36525d;
@@ -165,11 +165,11 @@ table.nopadding .headerbox td, table.nopadding .headerbox th {
     padding: 1px 5px;
 }
 .sortup {
-    background: url("graphics/za.png") center left no-repeat;
+    background: url("graphics/za.png") left center no-repeat;
     text-indent: 15px;
 }
 .sortdown {
-    background: url("graphics/az.png") center left no-repeat;
+    background: url("graphics/az.png") left center no-repeat;
     text-indent: 15px;
 }
 .sortdown a, .sortup a {
@@ -178,33 +178,65 @@ table.nopadding .headerbox td, table.nopadding .headerbox th {
 
 /* Horde UI standard tables */
 table.horde-table {
-    width: 99%;
-    margin-bottom: 8px;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
     border-spacing: 0;
 }
 table.horde-table th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
     text-align: left;
+    font-weight: normal;
 }
 table.horde-table th.rightAlign {
     text-align: right;
 }
 table.horde-table td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #d0d0d0;
 }
-table.horde-table th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
+.horde-table-header th, table.horde-table td, table.horde-table th {
+    height: 21px;
+    margin-left: 5px;
+    padding: 0 5px;
 }
-table.horde-table th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
+.horde-table-header, table.horde-table thead tr {
+    background-image: url("graphics/tablehead-bg.png");
+    background-repeat: repeat-x;
+}
+.horde-table-header a, table.horde-table thead a {
+    color: #000;
+}
+.horde-table-header .horde-split-left,
+table.horde-table thead .horde-split-left,
+.horde-table-header .horde-split-right,
+table.horde-table thead .horde-split-right {
+    background-image: url("graphics/tablehead-split.png");
+    background-repeat: no-repeat;
+}
+.horde-table-header .horde-split-right,
+table.horde-table thead .horde-split-right {
+    background-position: right center;
+}
+table.horde-table thead .horde-split-left.sortup,
+table.horde-table thead .horde-split-right.sortup,
+table.horde-table thead .horde-split-left.sortdown,
+table.horde-table thead .horde-split-right.sortdown {
+    text-indent: 20px;
+}
+table.horde-table thead .horde-split-left.sortup,
+table.horde-table thead .horde-split-left.sortdown {
+    background-position: 5px center, left center;
+}
+table.horde-table thead .horde-split-right.sortup,
+table.horde-table thead .horde-split-right.sortdown {
+    background-position: 5px center, right center;
+}
+table.horde-table thead .horde-split-left.sortup,
+table.horde-table thead .horde-split-right.sortup {
+    background-image: url("graphics/za.png"), url("graphics/tablehead-split.png");
+}
+table.horde-table thead .horde-split-left.sortdown,
+table.horde-table thead .horde-split-right.sortdown {
+    background-image: url("graphics/az.png"), url("graphics/tablehead-split.png");
+}
+.horde-table-header .iconImg {
+    vertical-align: middle;
 }
 
 /* Alternating styles. */
@@ -2202,28 +2234,6 @@ left.horde-point-right {
 }
 .horde-buttonbar .rightFloat li.horde-nobutton {
     margin-right: 5px;
-}
-
-/* Tables. */
-.horde-table-header {
-    height: 21px;
-    background-image: url("graphics/tablehead-bg.png");
-    background-repeat: repeat-x;
-}
-.horde-table-header a {
-    color: #000;
-}
-.horde-table-header .horde-split-left,
-.horde-table-header .horde-split-right {
-    background-image: url("graphics/tablehead-split.png");
-    background-repeat: no-repeat;
-    padding: 0 5px;
-}
-.horde-table-header .horde-split-right {
-    background-position: center right;
-}
-.horde-table-header .iconImg {
-    vertical-align: middle;
 }
 
 /* Sidebar entries. */
