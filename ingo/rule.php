@@ -216,81 +216,48 @@ if (!isset($rule)) {
     }
 }
 
-$page_output->addScriptFile('rule.js');
-$menu = Ingo::menu();
-$page_output->header(array(
-    'title' => $rule['name']
-));
-echo $menu;
-Ingo::status();
-require INGO_TEMPLATES . '/rule/header.inc';
-
 /* Add new, blank condition. */
 $rule['conditions'][] = array();
 
-/* Available conditions. */
-$avail_types = $ingo_script->availableTypes();
+/* Prepare the view. */
+$view = new Horde_View(array(
+    'templatePath' => INGO_TEMPLATES . '/basic/rule'
+));
+$view->addHelper('Horde_Core_View_Helper_Help');
+$view->addHelper('Horde_Core_View_Helper_Label');
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+$view->addHelper('Text');
+
+$view->avail_type = $ingo_script->availableTypes();
+$view->edit = $vars->edit;
+$view->fields = $ingo_fields;
+$view->formurl = Horde::url('rule.php');
+$view->rule = $rule;
+$view->special = $ingo_script->specialTypes();
+$view->userheader = !empty($conf['rules']['userheader']);
+
+$filter = array();
 $lastcond = count($rule['conditions']) - 1;
 
 /* Display the conditions. */
 foreach ($rule['conditions'] as $cond_num => $condition) {
-    $lastfield = ($lastcond == $cond_num);
+    $tmp = array(
+        'cond_num' => intval($cond_num),
+        'field' => isset($condition['field']) ? $condition['field'] : '',
+        'lastfield' => ($lastcond == $cond_num)
+    );
 
-    /* Create the field listing. */
-    $field_select = '';
-    $option_selected = !isset($condition['field']);
-
-    if ($lastfield) {
-        $field_select .= '<option value="">' . _("Select a field") . "</option>\n" .
-            "<option disabled=\"disabled\" value=\"\">- - - - - - - - -</option>\n";
+    if ($view->userheader &&
+        ($condition['type'] == Ingo_Storage::TYPE_HEADER) &&
+        !isset($ingo_fields[$tmp['field']])) {
+        $tmp['userheader'] = empty($vars->userheader)
+            ? $tmp['field']
+            : $vars->userheader[$cond_num];
     }
 
-    foreach ($ingo_fields as $key => $val) {
-        if (in_array($val['type'], $avail_types)) {
-            $field_select .= '<option value="' . htmlspecialchars($key) . '"';
-            if (isset($condition['field'])) {
-                if ($key == $condition['field']) {
-                    $field_select .= ' selected="selected"';
-                    $option_selected = true;
-                }
-            }
-            $field_select .= '>' . htmlspecialchars($val['label']) . "</option>\n";
-        }
-    }
-
-    /* Add any special types. */
-    $special = $ingo_script->specialTypes();
-    if (count($special)) {
-        $field_select .= "<option disabled=\"disabled\" value=\"\">- - - - - - - - -</option>\n";
-        foreach ($special as $type) {
-            $selected = '';
-            if (isset($condition['field'])) {
-                if ($type == $condition['field']) {
-                    $selected = ' selected="selected"';
-                    $option_selected = true;
-                }
-            }
-            $field_select .= '<option value="' . htmlspecialchars($type) . '"' . $selected . '>' . htmlspecialchars($type) . '</option>';
-        }
-    }
-
-    /* Add user defined header option. */
-    $header_entry = false;
-    if ($conf['rules']['userheader']) {
-        $field_select .= "<option disabled=\"disabled\" value=\"\">- - - - - - - - -</option>\n" .
-            '<option value="' . Ingo::USER_HEADER . '"' . ((!$option_selected) ? ' selected="selected"' : '') . '>' . _("Self-Defined Header") . (($lastfield) ? '' : ':') . "</option>\n";
-        if (!$option_selected) {
-            $header_entry = true;
-            if (empty($vars->userheader)) {
-                $vars->userheader = isset($condition['field']) ? $condition['field'] : '';
-            } else {
-                $vars->userheader = $vars->userheader[$cond_num];
-            }
-        }
-    }
-
-    if ($lastfield) {
-        require INGO_TEMPLATES . '/rule/filter.inc';
+    if ($tmp['lastfield']) {
+        $filter[] = $tmp;
         continue;
     }
 
@@ -303,82 +270,83 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
         $avail_tests = $ingo_fields[$condition['field']]['tests'];
     }
 
-    $match_select = '';
-    $selected_test = null;
-    if (!empty($condition['match'])) {
-        $selected_test = $condition['match'];
-    }
-
-    if (empty($avail_tests)) {
-        $match_select = "<option disabled=\"disabled\" value=\"\">- - - - - - - - -</option>\n";
-    } else {
-        $first_test = null;
-        foreach ($avail_tests as $test) {
-            if (is_null($selected_test)) {
-                $selected_test = $test;
-            }
-
-            $testOb = $ingo_storage->getTestInfo($test);
-            $match_select .= '<option value="' . htmlspecialchars($test) . '"';
-            if (!empty($condition['match'])) {
-                if ($test == $condition['match']) {
-                    $match_select .= ' selected="selected"';
-                }
-            }
-            $match_select .= '>' . htmlspecialchars($testOb->label) . "</option>\n";
+    $tmp['matchtest'] = array();
+    $selected_test = empty($condition['match'])
+        ? null
+        : $condition['match'];
+    foreach ($avail_tests as $test) {
+        if (is_null($selected_test)) {
+            $selected_test = $test;
         }
+        $tmp['matchtest'][] = array(
+            'label' => $ingo_storage->getTestInfo($test)->label,
+            'selected' => (isset($condition['match']) && ($test == $condition['match'])),
+            'value' => $test
+        );
     }
 
-    /* Create the matching input elements. */
-    $testOb = $ingo_storage->getTestInfo(!empty($condition['match']) ? $condition['match'] : 'contains');
-    $value = isset($condition['value']) ? htmlspecialchars($condition['value']): '';
-
-    $match_value = '';
     if (!in_array($selected_test, array('exists', 'not exist'))) {
-        $match_value = '<label for="value_' . (int)$cond_num . '" class="hidden">Value</label>' .
-            '<input id="value_' . (int)$cond_num . '" name="value[' . (int)$cond_num . ']" size="40" value="' . $value . '" />';
+        $tmp['match_value'] = isset($condition['value'])
+            ? $condition['value']
+            : '';
     }
 
+    $testOb = $ingo_storage->getTestInfo(!empty($condition['match']) ? $condition['match'] : 'contains');
     switch ($testOb->type) {
     case 'text':
         if ($ingo_script->caseSensitive()) {
-            $match_value .= '<input class="caseSensitive" type="checkbox" id="case_' . (int)$cond_num . '" name="case[' . (int)$cond_num . ']" value="1" ' .
-                ((isset($condition['case']) && $condition['case']) ? 'checked="checked" ' : '') .
-                '/> ' . Horde::label('case_' . (int)$cond_num, _("Case Sensitive"));
+            $tmp['case_sensitive'] = !empty($condition['case']);
         }
         break;
     }
-    require INGO_TEMPLATES . '/rule/filter.inc';
+
+    $filter[] = $tmp;
 }
+
+$view->filter = $filter;
 
 /* Get the action select output. */
-$actionselect = '';
+$actions = array();
 foreach ($availActions as $val) {
-    $actionselect .= '<option value="' . htmlspecialchars($val) . '"';
     $action = $ingo_storage->getActionInfo($val);
+    $actions[] = array(
+        'label' => $action->label,
+        'selected' => ($val == $rule['action']),
+        'value' => $val
+    );
     if ($val == $rule['action']) {
-        $actionselect .= ' selected="selected"';
         $current_action = $action;
-        $action->label .= ':';
     }
-    $actionselect .= '>' . htmlspecialchars($action->label) . "</option>\n";
 }
+$view->actions = $actions;
 
 /* Get the action value output. */
-$actionvaluelabel = '';
-$actionvalue = '';
 switch ($current_action->type) {
 case 'folder':
-    $actionvaluelabel = '<label for="actionvalue" class="hidden">' . _("Select target folder") . '</label>';
-    $actionvalue = Ingo::flistSelect($rule['action-value']);
+    $view->actionvaluelabel = _("Select target folder");
+    $view->actionvalue = Ingo::flistSelect($rule['action-value']);
     break;
 
 case 'text':
 case 'int':
-    $actionvaluelabel = '<label for="actionvalue" class="hidden">' . _("Value") . '</label>';
-    $actionvalue = '<input id="actionvalue" name="actionvalue" size="40" value="' . htmlspecialchars($rule['action-value']) . '" />';
+    $view->actionvaluelabel = _("Value");
+    $view->actionvalue = '<input id="actionvalue" name="actionvalue" size="40" value="' . htmlspecialchars($rule['action-value']) . '" />';
     break;
 }
 
-require INGO_TEMPLATES . '/rule/footer.inc';
+$view->flags = ($current_action->flags && $ingo_script->imapFlags());
+$view->stop = $ingo_script->stopScript();
+
+$page_output->addScriptFile('rule.js');
+$page_output->addInlineJsVars(array(
+    'IngoRule.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
+));
+
+$menu = Ingo::menu();
+$page_output->header(array(
+    'title' => $rule['name']
+));
+echo $menu;
+Ingo::status();
+echo $view->render('rule');
 $page_output->footer();

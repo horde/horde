@@ -334,24 +334,28 @@ class Ingo
      */
     static public function menu()
     {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-        $t->set('form_url', Horde::url('filters.php'));
-        $t->set('forminput', Horde_Util::formInput());
+        $view = new Horde_View(array(
+            'templatePath' => INGO_TEMPLATES . '/basic/menu'
+        ));
+        $view->addHelper('FormTag');
+        $view->addHelper('Tag');
+
+        $view->formurl = Horde::url('filters.php');
 
         if (!empty($GLOBALS['ingo_shares']) &&
             (count($GLOBALS['all_rulesets']) > 1)) {
             $options = array();
             foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
                 $options[] = array(
-                    'name' => htmlspecialchars($GLOBALS['all_rulesets'][$id]->get('name')),
+                    'name' => $GLOBALS['all_rulesets'][$id]->get('name'),
                     'selected' => ($GLOBALS['session']->get('ingo', 'current_share') == $id),
-                    'val' => htmlspecialchars($id)
+                    'val' => $id
                 );
             }
-            $t->set('options', $options);
+            $view->options = $options;
         }
 
-        return $t->fetch(INGO_TEMPLATES . '/menu/menu.html');
+        return $view->render('menu');
     }
 
     /**

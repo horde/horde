@@ -22,10 +22,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>17:20:42</time>
+ <date>2012-12-20</date>
+ <time>20:54:53</time>
  <version>
-  <release>3.0.2</release>
+  <release>3.1.0</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Fix changing permissions for shared rulesets.
+* [mms] All Ingo templates now use Horde_View.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -66,6 +65,7 @@
     <file name="new_folder.js" role="horde" />
     <file name="rule.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
+    <file name="whitelist.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -410,38 +410,31 @@
     <file name="5_ingo_upgrade_sqlnghierarchical.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
-    <dir name="blacklist">
-     <file name="blacklist.inc" role="horde" />
-    </dir> <!-- /templates/blacklist -->
-    <dir name="filters">
-     <file name="filter-none.inc" role="horde" />
-     <file name="filter.html" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="settings.inc" role="horde" />
-    </dir> <!-- /templates/filters -->
-    <dir name="menu">
-     <file name="menu.html" role="horde" />
-    </dir> <!-- /templates/menu -->
-    <dir name="rule">
-     <file name="filter.inc" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-    </dir> <!-- /templates/rule -->
-    <dir name="script">
-     <file name="activate.inc" role="horde" />
-     <file name="footer.inc" role="horde" />
-     <file name="header.inc" role="horde" />
-     <file name="script.inc" role="horde" />
-    </dir> <!-- /templates/script -->
+    <dir name="basic">
+     <dir name="blacklist">
+      <file name="blacklist.html.php" role="horde" />
+     </dir> <!-- /templates/basic/blacklist -->
+     <dir name="filters">
+      <file name="filters.html.php" role="horde" />
+     </dir> <!-- /templates/basic/filters -->
+     <dir name="menu">
+      <file name="menu.html.php" role="horde" />
+     </dir> <!-- /templates/basic/menu -->
+     <dir name="rule">
+      <file name="rule.html.php" role="horde" />
+     </dir> <!-- /templates/basic/rule -->
+     <dir name="script">
+      <file name="script.html.php" role="horde" />
+     </dir> <!-- /templates/basic/script -->
+     <dir name="whitelist">
+      <file name="whitelist.html.php" role="horde" />
+     </dir> <!-- /templates/basic/whitelist -->
+    </dir> <!-- /templates/basic -->
     <dir name="smartmobile">
      <file name="rule.html.php" role="horde" />
      <file name="rules.html.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
-    <dir name="whitelist">
-     <file name="whitelist.inc" role="horde" />
-    </dir> <!-- /templates/whitelist -->
-   </dir> <!-- /templates -->
+    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
      <dir name="block">
@@ -572,6 +565,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_View</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <extension>
     <name>gettext</name>
    </extension>
@@ -622,6 +622,7 @@
    <install as="ingo/js/new_folder.js" name="js/new_folder.js" />
    <install as="ingo/js/rule.js" name="js/rule.js" />
    <install as="ingo/js/smartmobile.js" name="js/smartmobile.js" />
+   <install as="ingo/js/whitelist.js" name="js/whitelist.js" />
    <install as="ingo/lib/Api.php" name="lib/Api.php" />
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
@@ -788,23 +789,14 @@
    <install as="ingo/migration/3_ingo_upgrade_sqlng.php" name="migration/3_ingo_upgrade_sqlng.php" />
    <install as="ingo/migration/4_ingo_upgrade_sqlhierarchical.php" name="migration/4_ingo_upgrade_sqlhierarchical.php" />
    <install as="ingo/migration/5_ingo_upgrade_sqlnghierarchical.php" name="migration/5_ingo_upgrade_sqlnghierarchical.php" />
-   <install as="ingo/templates/blacklist/blacklist.inc" name="templates/blacklist/blacklist.inc" />
-   <install as="ingo/templates/filters/filter-none.inc" name="templates/filters/filter-none.inc" />
-   <install as="ingo/templates/filters/filter.html" name="templates/filters/filter.html" />
-   <install as="ingo/templates/filters/footer.inc" name="templates/filters/footer.inc" />
-   <install as="ingo/templates/filters/header.inc" name="templates/filters/header.inc" />
-   <install as="ingo/templates/filters/settings.inc" name="templates/filters/settings.inc" />
-   <install as="ingo/templates/menu/menu.html" name="templates/menu/menu.html" />
-   <install as="ingo/templates/rule/filter.inc" name="templates/rule/filter.inc" />
-   <install as="ingo/templates/rule/footer.inc" name="templates/rule/footer.inc" />
-   <install as="ingo/templates/rule/header.inc" name="templates/rule/header.inc" />
-   <install as="ingo/templates/script/activate.inc" name="templates/script/activate.inc" />
-   <install as="ingo/templates/script/footer.inc" name="templates/script/footer.inc" />
-   <install as="ingo/templates/script/header.inc" name="templates/script/header.inc" />
-   <install as="ingo/templates/script/script.inc" name="templates/script/script.inc" />
+   <install as="ingo/templates/basic/blacklist/blacklist.html.php" name="templates/basic/blacklist/blacklist.html.php" />
+   <install as="ingo/templates/basic/filters/filters.html.php" name="templates/basic/filters/filters.html.php" />
+   <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
+   <install as="ingo/templates/basic/rule/rule.html.php" name="templates/basic/rule/rule.html.php" />
+   <install as="ingo/templates/basic/script/script.html.php" name="templates/basic/script/script.html.php" />
+   <install as="ingo/templates/basic/whitelist/whitelist.html.php" name="templates/basic/whitelist/whitelist.html.php" />
    <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
    <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
-   <install as="ingo/templates/whitelist/whitelist.inc" name="templates/whitelist/whitelist.inc" />
    <install as="ingo/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ingo/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="ingo/themes/default/graphics/blacklist.png" name="themes/default/graphics/blacklist.png" />
