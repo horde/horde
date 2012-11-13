@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test the Kolab configuration handler.
  *
  * Copyright 2010 Klarälvdalens Datakonsult AB

@@ -12,11 +12,6 @@
  */
 
 /**
- * Require the tested classes.
- */
-require_once 'Autoload.php';
-
-/**
  * Test for the Horde_Exception:: class.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)

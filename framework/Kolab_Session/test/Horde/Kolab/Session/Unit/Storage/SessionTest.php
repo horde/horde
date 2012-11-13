@@ -12,11 +12,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
-/**
  * Test the session based storage driver.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -47,14 +42,12 @@ class Horde_Kolab_Session_Unit_Storage_SessionTest extends Horde_Kolab_Session_T
         $_SESSION['kolab_session'] = array('data');
         $storage = new Horde_Kolab_Session_Storage_Session($session);
         $this->assertEquals($storage->load(), array('data'));
-        
     }
 
     public function testEmpty()
     {
         $storage = new Horde_Kolab_Session_Storage_Session($session);
         $this->assertEquals($storage->load(), array());
-        
     }
 
     public function testSave()

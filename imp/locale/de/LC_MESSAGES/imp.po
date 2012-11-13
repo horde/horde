@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-11-06 16:47+0100\n"
+"PO-Revision-Date: 2012-11-12 15:52+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -3718,7 +3718,7 @@ msgstr "Nachrichten umleiten"
 #: templates/smartmobile/folders.html.php:9
 #: templates/smartmobile/mailbox.html.php:14
 msgid "Refresh"
-msgstr "Aktualisiere"
+msgstr "Aktualisieren"
 
 #: templates/dynamic/mailbox.html.php:61
 msgid "Refresh Search Results"

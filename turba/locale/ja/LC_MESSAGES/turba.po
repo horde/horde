@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Turba H4 (3.0-git)\n"
+"Project-Id-Version: Turba H5 (4.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 21:01+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:48+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -80,7 +80,7 @@ msgstr "%s から %s（%s 件中）"
 msgid "<< Merge this into the first contact"
 msgstr "<< これを最初の連絡先に結合する"
 
-#: lib/Application.php:456 view.php:48
+#: lib/Application.php:457 view.php:48
 #, php-format
 msgid "Access denied to %s"
 msgstr "%s へのアクセスが拒否されました"
@@ -389,7 +389,7 @@ msgstr "作成"
 msgid "Create Address Book"
 msgstr "アドレス帳作成"
 
-#: lib/Application.php:191
+#: lib/Application.php:192
 msgid "Create a new Address Book"
 msgstr "新しいアドレス帳を作成"
 
@@ -603,7 +603,7 @@ msgstr "追加すべきオブジェクトが見付かりません: %s"
 msgid "Failed to search the address book"
 msgstr "アドレス帳の検索に失敗しました"
 
-#: lib/Application.php:494
+#: lib/Application.php:495
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "人名簿を検索できませんでした: %s"
@@ -847,7 +847,7 @@ msgstr "この連絡先はあなた自身のであると指定する"
 msgid "Matching"
 msgstr "が次に一致する"
 
-#: lib/Application.php:141
+#: lib/Application.php:142
 msgid "Maximum Number of Contacts"
 msgstr "連絡先の最大数"
 
@@ -906,7 +906,7 @@ msgstr "アドレス[%s]に複数の名前がありますが、名前 [%s]は存
 msgid "My Address Book"
 msgstr "私のアドレス帳"
 
-#: lib/Application.php:183
+#: lib/Application.php:184
 msgid "My Address Books"
 msgstr "私のアドレス帳"
 
@@ -931,7 +931,7 @@ msgstr "名前の後の敬称"
 msgid "Name:"
 msgstr "名前："
 
-#: add.php:76 lib/Application.php:376
+#: add.php:76 lib/Application.php:377
 msgid "New Contact"
 msgstr "新規連絡先"
 
@@ -970,7 +970,7 @@ msgstr "アドレス帳が指定されていません"
 msgid "No browseable address books"
 msgstr "閲覧可能なアドレス帳はありません"
 
-#: lib/Ajax/Application/Handler/Minisearch.php:72
+#: lib/Ajax/Application/Handler/Minisearch.php:79
 msgid "No contacts found"
 msgstr "連絡先が見付かりません"
 
@@ -994,7 +994,7 @@ msgstr "「お気に入りの相手」のソースがありません。"
 msgid "No vCard data was found."
 msgstr "vCard データが見付かりません。"
 
-#: lib/Application.php:283 templates/list/numPager.inc:8
+#: lib/Application.php:284 templates/list/numPager.inc:8
 msgid "None"
 msgstr "なし"
 
@@ -1048,7 +1048,7 @@ msgstr "その他"
 msgid "Other Address"
 msgstr "その他のアドレス"
 
-#: lib/Application.php:230
+#: lib/Application.php:231
 msgid "Other Address Books"
 msgstr "その他のアドレス帳"
 
@@ -1207,7 +1207,7 @@ msgstr "検索結果を仮想アドレス帳に保存しますか？"
 msgid "Saving contacts is not available."
 msgstr "連絡先の保存はできません。"
 
-#: config/prefs.php:128 lib/Application.php:415
+#: config/prefs.php:128 lib/Application.php:416
 #: templates/block/minisearch.inc:4 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:20
 #: templates/search/duplicate.html.php:11
@@ -1294,7 +1294,7 @@ msgstr "名前の表示形式を選択します。"
 msgid "Selected address book \"%s\"."
 msgstr "選択されたアドレス帳 \"%s\"。"
 
-#: config/backends.php:234 config/backends.php:580 lib/Application.php:197
+#: config/backends.php:234 config/backends.php:580 lib/Application.php:198
 msgid "Shared Address Books"
 msgstr "共有アドレス帳"
 
@@ -1333,7 +1333,7 @@ msgstr "%s だけで並べ替え"
 msgid "Sort by %s, then by %s"
 msgstr "先ず %s で、次に %s で並べ替え"
 
-#: lib/Application.php:131
+#: lib/Application.php:132
 msgid "Sources"
 msgstr "ソース"
 
@@ -1443,7 +1443,7 @@ msgstr "アドレス帳 \"%s\" は \"%s\" に変更されました。"
 msgid "The addressbook \"%s\" has been saved."
 msgstr "アドレス帳 \"%s\" は保存されました。"
 
-#: contact.php:19 lib/Application.php:438 vcard.php:18 view.php:27
+#: contact.php:19 lib/Application.php:439 vcard.php:18 view.php:27
 msgid "The contact you requested does not exist."
 msgstr "要求された連絡先は存在しません。"
 
@@ -1526,7 +1526,7 @@ msgstr "データのインポート中にエラーが発生しました: %s"
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar のインポート中にエラーが発生しました。"
 
-#: lib/Application.php:311 lib/Application.php:343 lib/Application.php:356
+#: lib/Application.php:312 lib/Application.php:344 lib/Application.php:357
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr "アドレス帳 %s の削除中にエラーが発生しました"
@@ -1538,10 +1538,6 @@ msgid ""
 msgstr ""
 "連絡先の保存中にエラーが発生しました。詳細についてはシステム管理者にお問い合"
 "わせください。"
-
-#: lib/Application.php:526
-msgid "There were no addresses to export."
-msgstr "エクスポートすべきアドレス帳がありません。"
 
 #: addressbooks/delete.php:23
 msgid "This address book cannot be deleted"
@@ -1588,8 +1584,8 @@ msgstr "アドレス帳 \"%s\"  を保存できませんでした: %s"
 msgid "Unsupported Content-Type: %s"
 msgstr "サポートしていない Content-Type：%s"
 
-#: lib/Ajax/Application/Handler/Minisearch.php:56
-#: lib/Ajax/Application/Handler/Minisearch.php:57
+#: lib/Ajax/Application/Handler/Minisearch.php:62
+#: lib/Ajax/Application/Handler/Minisearch.php:63
 msgid "View Contact"
 msgstr "連絡先を表示"
 
@@ -1707,7 +1703,7 @@ msgstr "仮想アドレス帳から連絡先は削除できません"
 msgid "You didn't mark a contact as your own yet."
 msgstr "連絡先はあなた自身であるとは指定されていません。"
 
-#: edit.php:63 lib/Application.php:445 lib/View/DeleteContact.php:41
+#: edit.php:63 lib/Application.php:446 lib/View/DeleteContact.php:41
 #: lib/View/EditContact.php:42 view.php:35
 msgid "You do not have permission to view this contact."
 msgstr "あなたにはこの連絡先を見る権限がありません。"
@@ -1761,7 +1757,7 @@ msgstr "あなた自身の連絡先"
 msgid "Your own contact cannot be found in the address book."
 msgstr "アドレス帳にあなた自身の連絡先がありません。"
 
-#: lib/Application.php:154
+#: lib/Application.php:155
 msgid "_Browse"
 msgstr "_B閲覧"
 
@@ -1773,11 +1769,11 @@ msgstr "_D削除"
 msgid "_Edit"
 msgstr "_E編集"
 
-#: lib/Application.php:161
+#: lib/Application.php:162
 msgid "_Import/Export"
 msgstr "_Iイン/アウト"
 
-#: lib/Application.php:173
+#: lib/Application.php:174
 msgid "_New Contact"
 msgstr "_N新規連絡先"
 
@@ -1785,7 +1781,7 @@ msgstr "_N新規連絡先"
 msgid "_Remove from this list"
 msgstr "_Rリストから削除"
 
-#: lib/Application.php:157
+#: lib/Application.php:158
 msgid "_Search"
 msgstr "_S検索"
 
@@ -1810,19 +1806,19 @@ msgstr "自作"
 msgid "contact"
 msgstr "contact"
 
-#: lib/Application.php:543 lib/Application.php:547 templates/data/export.inc:1
+#: lib/Application.php:540 lib/Application.php:544 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "contacts.csv"
 
-#: lib/Application.php:565
+#: lib/Application.php:562
 msgid "contacts.ldif"
 msgstr "contacts.ldif"
 
-#: lib/Application.php:551
+#: lib/Application.php:548
 msgid "contacts.tsv"
 msgstr "contacts.tsv"
 
-#: lib/Application.php:556
+#: lib/Application.php:553
 msgid "contacts.vcf"
 msgstr "contacts.vcf"
 
@@ -1834,7 +1830,7 @@ msgstr "降順"
 msgid "female"
 msgstr "女性"
 
-#: lib/Application.php:387
+#: lib/Application.php:388
 #, php-format
 msgid "in %s"
 msgstr "in %s"

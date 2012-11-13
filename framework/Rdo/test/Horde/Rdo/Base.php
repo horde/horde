@@ -1,10 +1,5 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * @author     Ralf Lang <lang@b1-systems.de>

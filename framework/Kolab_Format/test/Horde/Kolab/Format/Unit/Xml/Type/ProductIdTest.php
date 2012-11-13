@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the product ID attribute handler.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)

@@ -11,9 +11,6 @@
  * @license    http://www.horde.org/licenses/bsd BSD
  * @link       http://pear.horde.org/index.php?package=Service_Weather
  */
-
-require_once __DIR__ . '/Autoload.php';
-
 class Horde_Service_Weather_GoogleTest extends PHPUnit_Framework_TestCase
 {
 

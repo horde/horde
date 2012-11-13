@@ -50,7 +50,6 @@ $page_output->addInlineJsVars(array(
 $page_output->header(array(
     'title' => _("Clipboard")
 ));
-echo Gollem::menu();
 $notification->notify(array('listeners' => 'status'));
 echo $template->render('clipboard');
 $page_output->footer();

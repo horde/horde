@@ -12,11 +12,6 @@
  */
 
 /**
- * Require our basic test case definition
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the mapped query element.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)

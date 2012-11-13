@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the IMP HTML Mime Viewer driver.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -36,7 +31,6 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        require_once __DIR__ . '/../../../Stub/HtmlViewer.php';
         $GLOBALS['browser'] = $this->getMock('Horde_Browser');
     }
 

@@ -1,10 +1,5 @@
 <?php
 /**
- * Require our basic test case definition
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @category   Horde

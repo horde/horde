@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-05</date>
- <time>13:06:18</time>
+ <date>2012-11-11</date>
+ <time>17:30:01</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix issue in detecting certain text attachments.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -869,10 +869,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-05</date>
+   <date>2012-11-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix detecting mailbox changes on servers that don&apos;t return UIDNEXT data.
 * [mjr] Fix issue in detecting certain text attachments.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue causing a loop during FETCH requests caused by the non-incrementing syncKey.
+* [mjr] Reduce number of IMAP server calls required when syncronizing email data.
+* [mjr] Fix issue causing iOS Mail to crash when receiving truncated body data.
+* [mjr] Improvements to detecting expunged messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix fatal error due to abstract serialize methods.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

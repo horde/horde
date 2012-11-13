@@ -36,26 +36,6 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
     }
 
     /**
-     * Serialize this object.
-     *
-     * @return string  The serialized data.
-     */
-    public function serialize()
-    {
-        return serialize(array($this->_status, $this->_serverid, $this->_class));
-    }
-
-    /**
-     * Reconstruct the object from serialized data.
-     *
-     * @param string $data  The serialized data.
-     */
-    public function unserialize($data)
-    {
-        list($this->_status, $this->_serverid, $this->_class) = @unserialize($data);
-    }
-
-    /**
      * Convert the instance into a string.
      *
      * @return string The string representation for this instance.

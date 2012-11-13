@@ -12,11 +12,6 @@
  * @link       http://pear.horde.org/index.php?package=Secret
  */
 
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
-
 /** Needed for PEAR_Error. */
 require_once 'PEAR.php';
 require_once __DIR__ . '/Stub/Message.php';

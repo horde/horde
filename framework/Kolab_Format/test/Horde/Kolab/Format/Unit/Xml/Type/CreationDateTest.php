@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the creation-date attribute handler.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -53,7 +48,7 @@ extends Horde_Kolab_Format_TestCase
             array('element' => 'creation-date')
         );
         $this->assertEquals(
-            1309250531, 
+            1309250531,
             $attributes['creation-date']->format('U')
         );
     }
@@ -106,7 +101,7 @@ extends Horde_Kolab_Format_TestCase
     public function testSave()
     {
         $this->assertInstanceOf(
-            'DOMNode', 
+            'DOMNode',
             $this->saveToReturn()
         );
     }
@@ -116,7 +111,7 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0"><creation-date>1970-01-01T00:00:00Z</creation-date></kolab>
-', 
+',
             $this->saveToXml(
                 null,
                 array('creation-date' => new DateTime('1970-01-01T00:00:00Z')),
@@ -130,7 +125,7 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>
-', 
+',
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',
@@ -158,7 +153,7 @@ extends Horde_Kolab_Format_TestCase
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange">1971-01-01T00:00:00Z<b/><a/></creation-date>c</kolab>
-', 
+',
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>
 <kolab version="1.0" a="b"><creation-date type="strange"><b/>1970-01-01T00:00:00Z<a/></creation-date>c</kolab>',

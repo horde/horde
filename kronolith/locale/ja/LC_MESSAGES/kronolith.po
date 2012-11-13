@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Konolith H4 (3.0-git)\n"
+"Project-Id-Version: Konolith H5 (4.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 20:56+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:51+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -1843,8 +1843,8 @@ msgstr "このイベントを削除しますか？"
 
 #: lib/Ajax/Application/Handler.php:1446 lib/Block/Month.php:70
 #: lib/Block/Monthlist.php:89 lib/Block/Prevmonthlist.php:82
-#: lib/Block/Summary.php:100 lib/Kronolith.php:2804 lib/Kronolith.php:2812
-#: lib/Kronolith.php:2818 lib/Kronolith.php:2824
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2844 lib/Kronolith.php:2852
+#: lib/Kronolith.php:2858 lib/Kronolith.php:2864
 msgid "Permission Denied"
 msgstr "アクセス拒否"
 
@@ -2910,10 +2910,6 @@ msgstr "%s の予定表を削除中にエラーが発生しました。詳細は
 msgid "There was an error sending an event notification to %s: %s"
 msgstr "イベント通知を %s さんに送信中にエラーが発生しました：%s"
 
-#: lib/Application.php:583
-msgid "There were no events to export."
-msgstr "エクスポートするイベントはありません。"
-
 #: lib/Block/Month.php:13
 msgid "This Month"
 msgstr "今月"
@@ -3551,11 +3547,11 @@ msgstr "日"
 msgid "days"
 msgstr "日間"
 
-#: lib/Application.php:626 templates/data/export.inc:1
+#: lib/Application.php:622 templates/data/export.inc:1
 msgid "events.csv"
 msgstr "events.csv"
 
-#: lib/Application.php:651
+#: lib/Application.php:645
 msgid "events.ics"
 msgstr "events.ics"
 

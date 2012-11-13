@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Server test of the different driver implementations.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)

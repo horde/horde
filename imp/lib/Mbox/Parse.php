@@ -117,19 +117,22 @@ class IMP_Mbox_Parse implements ArrayAccess, Countable, Iterator
 
                 fwrite($fd, (substr($line, 0, 6) == '>From ') ? substr($line, 1) : $line);
             }
+
+            $date = $this->_dates[$offset];
         } elseif (($offset == 0) && !count($this)) {
             $fd = fopen('php://temp', 'w+');
             rewind($this->_data);
             while (!feof($this->_data)) {
                 fwrite($fd, fgets($this->_data));
             }
+            $date = null;
         } else {
             return null;
         }
 
         $out = array(
             'data' => $fd,
-            'date' => $this->_dates[$offset],
+            'date' => $date,
             'size' => intval(ftell($fd))
         );
         rewind($fd);

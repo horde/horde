@@ -2846,6 +2846,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Don&apos;t delete saved draft on session close.
 * [mms] Improved generation and parsing of mbox files.
 * [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
 * [mms] Fix editing templates in dynamic view.

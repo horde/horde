@@ -50,53 +50,6 @@ var Gollem = {
         }).compact().join("\n");
     },
 
-    chooseAction: function(i)
-    {
-        var action = $F('action' + i);
-
-        switch (action) {
-        case 'paste_items':
-            $('actionID').setValue('paste_items');
-            $('manager').submit();
-            break;
-
-        default:
-            if (!this.getChecked().size()) {
-                alert(GollemText.select_item);
-                break;
-            }
-            switch (action) {
-            case 'rename_items':
-                this.renameItems();
-                break;
-
-            case 'delete_items':
-                this.deleteItems();
-                break;
-
-            case 'chmod_modify':
-                HordeDialog.display({
-                    form: $('attributes').clone(true).show(),
-                    form_id: 'chmodfrm',
-                    form_opts: { action: GollemVar.actionUrl },
-                    header: GollemText.permissions
-                });
-                break;
-
-            case 'cut_items':
-                $('actionID').setValue('cut_items');
-                $('manager').submit();
-                break;
-
-            case 'copy_items':
-                $('actionID').setValue('copy_items');
-                $('manager').submit();
-                break;
-            }
-            break;
-        }
-    },
-
     _clearChecks: function()
     {
         this.getChecked().each(function(e) {
@@ -281,7 +234,7 @@ var Gollem = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'changefolder':
+            case 'gollem-changefolder':
                 this._clearChecks();
                 HordeDialog.display({
                     form_id: 'cdfrm',
@@ -294,7 +247,7 @@ var Gollem = {
                 this.toggleSelection();
                 break;
 
-            case 'createfolder':
+            case 'gollem-createfolder':
                 this._clearChecks();
                 HordeDialog.display({
                     form_id: 'createfrm',
@@ -313,6 +266,53 @@ var Gollem = {
 
             case 'uploadfile':
                 this.uploadFile();
+                break;
+
+            case 'gollem-rename':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.renameItems();
+                break;
+
+            case 'gollem-delete':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.deleteItems();
+                break;
+
+            case 'gollem-chmod':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                HordeDialog.display({
+                    form: $('attributes').clone(true).show(),
+                    form_id: 'chmodfrm',
+                    form_opts: { action: GollemVar.actionUrl },
+                    header: GollemText.permissions
+                });
+                break;
+
+            case 'gollem-cut':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('cut_items');
+                $('manager').submit();
+                break;
+
+            case 'gollem-copy':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('copy_items');
+                $('manager').submit();
                 break;
             }
 
@@ -349,14 +349,6 @@ var Gollem = {
     onDomLoad: function()
     {
         var tmp;
-
-        // Observe actual event since IE does not bubble change events.
-        if (tmp = $('action1')) {
-            tmp.observe('change', function() {
-                this.chooseAction(1);
-                $('action1').selectedIndex = 0;
-            }.bind(this));
-        }
 
         if (tmp = $('file_upload_1')) {
             tmp.observe('change', this.uploadChanged.bind(this));

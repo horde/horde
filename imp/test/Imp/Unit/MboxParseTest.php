@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test the mbox parsing library.
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
@@ -51,13 +46,13 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
             );
 
             $this->assertInternalType(
-                'resource',
+                'array',
                 $val
             );
 
             $this->assertEquals(
                 "Return-Path: <bugs@horde.org>\r\n",
-                fgets($val)
+                fgets($val['data'])
             );
         }
     }
@@ -74,13 +69,13 @@ class Imp_Unit_MboxParseTest extends PHPUnit_Framework_TestCase
         $val = $parse[0];
 
         $this->assertInternalType(
-            'resource',
+            'array',
             $val
         );
 
         $this->assertEquals(
             "Return-Path: <bugs@horde.org>\r\n",
-            fgets($val)
+            fgets($val['data'])
         );
     }
 

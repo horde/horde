@@ -17,11 +17,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test the module provider.
  */
 class Horde_Cli_Modular_Unit_ModuleProviderTest

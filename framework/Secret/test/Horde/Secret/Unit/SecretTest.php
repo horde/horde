@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test the secret class.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
@@ -75,7 +70,7 @@ class Horde_Secret_Unit_SecretTest extends PHPUnit_Framework_TestCase
         $key = "\x88";
         $plaintext = "\x01\x01\x01\x01\x01\x01\x01\x01";
 
-        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext . "\x00")));
+        $this->assertEquals($plaintext, $secret->read($key, $secret->write($key, $plaintext)));
     }
 
     /**

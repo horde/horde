@@ -14,8 +14,6 @@
 /**
  * Prepare the test setup.
  */
-require_once __DIR__ . '/Autoload.php';
-
 require_once __DIR__ . '/Constraints/Restrictkolabusers.php';
 require_once __DIR__ . '/Constraints/Restrictgroups.php';
 require_once __DIR__ . '/Constraints/Searchuid.php';

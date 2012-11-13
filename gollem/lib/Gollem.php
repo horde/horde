@@ -634,56 +634,6 @@ class Gollem
     }
 
     /**
-     * Build Gollem's menu.
-     *
-     * @return string  Menu.
-     */
-    static public function menu()
-    {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-
-        $t->set('login_url', $GLOBALS['registry']->getServiceLink('login', 'horde'));
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('hidden', array(array('key' => 'url', 'value' => (string)Horde::url('manager.php', true)),
-                                array('key' => 'app', 'value' => 'gollem')));
-        $t->set('be_select', self::backendSelect(), true);
-        if ($t->get('be_select')) {
-            $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("_Change Server")) : '');
-            $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-            $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
-            $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
-        }
-
-        return $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
-    }
-
-    /**
-     * Generate the backend selection list for use in the menu.
-     *
-     * @return string  The backend selection list.
-     */
-    static public function backendSelect()
-    {
-        $backends = Gollem_Auth::getBackend();
-        $backend = Gollem_Auth::getPreferredBackend();
-        $text = '';
-
-        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown' &&
-            count($backends) > 1) {
-            foreach ($backends as $key => $val) {
-                $sel = ($backend == $key) ? ' selected="selected"' : '';
-                $text .= sprintf('<option value="%s"%s>%s</option>%s',
-                                 empty($sel) ? $key : '',
-                                 $sel,
-                                 $val['name'],
-                                 "\n");
-            }
-        }
-
-        return $text;
-    }
-
-    /**
      * Generate the display path (the path with any root information stripped
      * out).
      *

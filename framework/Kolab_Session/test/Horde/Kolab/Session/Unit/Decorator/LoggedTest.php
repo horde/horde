@@ -12,11 +12,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
-/**
  * Test the log decorator.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)

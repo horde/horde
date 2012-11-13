@@ -9,11 +9,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * @category   Horde
  * @package    Support
  * @subpackage UnitTests

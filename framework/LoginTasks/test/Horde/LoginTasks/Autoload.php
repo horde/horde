@@ -9,9 +9,4 @@
  * @link     http://pear.horde.org/index.php?package=LoginTasks
  */
 
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
-
 require_once __DIR__ . '/Stubs.php';

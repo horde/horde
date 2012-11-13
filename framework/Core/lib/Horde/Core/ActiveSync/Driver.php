@@ -322,6 +322,29 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Return the foldertype given a folder id. ONLY for use when the exact
+     * type of email collection is not needed. I.e., only the fact that it is
+     * some type of email collection vs another collection type.
+     *
+     * @param string $id  The folder id.
+     *
+     * @return string  The folder type
+     */
+    protected function _getFolderType($id)
+    {
+        switch ($id) {
+        case self::APPOINTMENTS_FOLDER_UID:
+            return Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT;
+        case self::CONTACTS_FOLDER_UID:
+            return Horde_ActiveSync::FOLDER_TYPE_CONTACT;
+        case self::TASKS_FOLDER_UID:
+            return Horde_ActiveSync::FOLDER_TYPE_TASK;
+        default:
+            return Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
+        }
+    }
+
+    /**
      * Change a folder on the server.
      *
      * @param string $id           The server's folder id
@@ -590,8 +613,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
         $message = false;
-        $folder = $this->getFolder($folderid);
-        switch ($folder->type) {
+        $foldertype = $this->_getFolderType($folderid);
+        switch ($foldertype) {
         case Horde_ActiveSync::FOLDER_TYPE_APPOINTMENT:
             try {
                 $message = $this->_connector->calendar_export($id, array(

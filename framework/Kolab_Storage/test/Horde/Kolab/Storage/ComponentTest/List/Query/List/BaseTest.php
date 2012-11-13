@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the basic list query.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)

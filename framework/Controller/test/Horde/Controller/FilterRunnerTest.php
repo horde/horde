@@ -3,7 +3,6 @@
 /**
  * Prepare the test setup.
  */
-require_once __DIR__ . '/Autoload.php';
 
 class Horde_Controller_FilterRunnerTest extends Horde_Test_Case
 {

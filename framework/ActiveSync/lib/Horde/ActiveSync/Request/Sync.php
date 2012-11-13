@@ -919,7 +919,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
                 // First time for this synckey. Remove others.
                 $counters[$collection['id']] = array($collection['synckey'] => 1);
-            } else {
+            } elseif ($collection['getchanges']) {
                 // We saw this synckey before, increment the counter.
                 $this->_logger->err('Incrementing counter, we saw this synckey before.');
                 $counters[$collection['id']][$collection['synckey']]++;
