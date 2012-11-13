@@ -164,6 +164,9 @@ table.nopadding table td, table.nopadding table th {
 table.nopadding .headerbox td, table.nopadding .headerbox th {
     padding: 1px 5px;
 }
+.sortdown, .sortup {
+    font-weight: bold;
+}
 .sortup {
     background: url("graphics/za.png") left center no-repeat;
     text-indent: 15px;
@@ -171,9 +174,6 @@ table.nopadding .headerbox td, table.nopadding .headerbox th {
 .sortdown {
     background: url("graphics/az.png") left center no-repeat;
     text-indent: 15px;
-}
-.sortdown a, .sortup a {
-    font-weight: bold;
 }
 
 /* Horde UI standard tables */
@@ -183,6 +183,9 @@ table.horde-table {
 table.horde-table th {
     text-align: left;
     font-weight: normal;
+}
+table.horde-table th.sortdown, table.horde-table th.sortup {
+    font-weight: bold;
 }
 table.horde-table th.rightAlign {
     text-align: right;
