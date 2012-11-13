@@ -26,7 +26,11 @@ class Trean_Bookmarks
     public function __construct(Content_Users_Manager $userManager)
     {
         $this->_userManager = $userManager;
-        $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        try {
+            $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
     }
 
     /**
@@ -65,7 +69,11 @@ class Trean_Bookmarks
     function searchBookmarks($q)
     {
         $indexer = $GLOBALS['injector']->getInstance('Content_Indexer');
-        $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        try {
+            $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
         if (!$search->hits->total) {
             return array();
         }
