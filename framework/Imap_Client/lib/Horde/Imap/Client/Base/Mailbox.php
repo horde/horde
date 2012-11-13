@@ -92,11 +92,6 @@ class Horde_Imap_Client_Base_Mailbox
             $flags[] = "\\*";
             return $flags;
 
-        case Horde_Imap_Client::STATUS_UIDNEXT:
-            /* UIDNEXT is not strictly required on mailbox open.
-             * See RFC 3501 [6.3.1]. */
-            return 0;
-
         case Horde_Imap_Client::STATUS_UIDNOTSTICKY:
             /* In the absence of explicit uidnotsticky identification, assume
              * that UIDs are sticky. */

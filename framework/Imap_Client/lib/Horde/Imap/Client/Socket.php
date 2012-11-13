@@ -2480,7 +2480,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* A UID FETCH will always return UID information (RFC 3501
                  * [6.4.8]). Don't add to query as it just creates a longer
                  * FETCH command. */
-                if ($options['ids']->sequence) {
+                if ($options['ids']->sequence || (count($query) == 1)) {
                     $fetch->add('UID');
                 }
                 break;
