@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Add missing optional dependency on Horde_ElasticSearch.
+* [jan] Catch exceptions from Horde_ElasticSearch.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -192,6 +193,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_ElasticSearch</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -421,7 +429,8 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Add missing optional dependency on Horde_ElasticSearch.
+* [jan] Catch exceptions from Horde_ElasticSearch.
    </notes>
   </release>
  </changelog>
