@@ -229,6 +229,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>5.0.2</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
+   </package>
   </required>
  </dependencies>
  <phprelease>
