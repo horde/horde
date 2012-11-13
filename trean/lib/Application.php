@@ -55,11 +55,7 @@ class Trean_Application extends Horde_Registry_Application
 
         // Create db and gateway instances.
         $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
-        try {
-            $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
-        } catch (Exception $e) {
-            var_dump($e);
-        }
+        $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
     }
 
     /**
