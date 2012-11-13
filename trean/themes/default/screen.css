@@ -1,45 +1,3 @@
-td, th {
-    text-align: left;
-}
-table.control {
-    width: 100%;
-}
-table.control td.actions {
-    text-align: right;
-}
-
-#bookmarkList table {
-    width: 100%;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
-#bookmarkList th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
-    text-align: left;
-}
-#bookmarkList th.rightAlign {
-    text-align: right;
-}
-#bookmarkList th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-#bookmarkList th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
-}
-#bookmarkList td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-}
-
-div.bookmarks img {
-    padding-right: 2px;
-}
-
 .favicon {
     width: 16px;
     height: 16px;
@@ -58,12 +16,6 @@ div.bookmarks img {
 
 .bl-actions form {
     display: inline;
-}
-
-.bl-tags a {
-    padding: 1px;
-    background-color: #e9e9e9;
-    border-radius: 5px;
 }
 
 #browser-instructions {
