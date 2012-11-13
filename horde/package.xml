@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix removing user in admin actions (Bug #11690).
 * [jan] Allow to set custom search field label.
  </notes>
  <contents>
@@ -3545,6 +3546,7 @@
    <date>2012-11-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix removing user in admin actions (Bug #11690).
 * [jan] Allow to set custom search field label.
    </notes>
   </release>

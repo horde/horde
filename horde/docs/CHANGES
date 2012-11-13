@@ -2,6 +2,7 @@
 v5.0.2-git
 ----------
 
+[mms] Fix removing user in admin actions (Bug #11690).
 [jan] Allow to set custom search field label.
 
 
