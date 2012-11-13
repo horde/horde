@@ -32,7 +32,7 @@ case 'add_bookmark':
         'bookmark_url' => Horde_Util::getFormData('url'),
         'bookmark_title' => Horde_Util::getFormData('title'),
         'bookmark_description' => Horde_Util::getFormData('description'),
-        'bookmark_tags' => Horde_Util::getFormData('tags'),
+        'bookmark_tags' => Horde_Util::getFormData('treanBookmarkTags'),
     );
 
     try {
