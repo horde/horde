@@ -55,6 +55,8 @@ case 'add_bookmark':
 }
 
 if (Horde_Util::getFormData('popup')) {
+    $page_output->sidebar = false;
+    $page_output->topbar = false;
     $page_output->addInlineScript(array(
         'window.focus()'
     ), true);
