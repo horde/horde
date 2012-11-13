@@ -35,14 +35,9 @@
     text-align: center;
 }
 
-table.gollem-clipboard {
-    padding: .2em;
-}
-table.gollem-clipboard td {
-    padding: 2px;
-}
 .gollem-selectall {
     font-weight: bold;
+    margin-left: 22px;
 }
 
 #filter {

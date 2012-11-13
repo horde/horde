@@ -80,12 +80,12 @@
  <em><?php echo _("There are no files in this folder.") ?></em>
 </p>
 <?php else: ?>
-<table id="filelist" class="striped hover" cellspacing="0">
+<table class="horde-table">
 <thead>
  <tr>
   <th style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <?php echo $this->checkall ?> /></th>
 <?php foreach ($this->headers as $header): ?>
-  <th<?php if (isset($header['id'])): ?> id="<?php echo $header['id'] ?>"<?php endif ?><?php if ($header['class']): ?> class="<?php echo $header['class'] ?>"<?php endif ?> style="text-align:<?php echo $header['align'] ?>" width="<?php echo $header['width'] ?>"><?php if (isset($header['sort'])) echo $header['sort'] ?><?php echo $header['label'] ?></th>
+  <th<?php if (isset($header['id'])): ?> id="<?php echo $header['id'] ?>"<?php endif ?> class="horde-split-left<?php if ($header['class']) echo ' ' . $header['class'] ?>" style="text-align:<?php echo $header['align'] ?>" width="<?php echo $header['width'] ?>"><?php if (isset($header['sort'])) echo $header['sort'] ?><?php echo $header['label'] ?></th>
 <?php endforeach ?>
  </tr>
 </thead>
@@ -94,7 +94,7 @@
  <tr>
   <td style="text-align:center"><?php if ($entry['on_clipboard']): ?>&nbsp;<?php else: ?><input type="checkbox" class="checkbox" name="items[]" value="<?php echo $entry['name'] ?>" /><?php endif ?></td>
 <?php if ($this->columns_type): ?>
-  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<?php echo $entry['type'] ?>" /><?php echo $entry['graphic'] ?>&nbsp;</td>
+  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<?php echo $entry['type'] ?>" /><?php echo $entry['graphic'] ?></td>
 <?php endif ?>
 <?php if ($this->columns_name): ?>
   <td><?php echo $entry['link'] ?></td>
@@ -143,7 +143,7 @@
  <tr>
   <td class="leftAlign">
    <div id="upload_row_1">
-    <strong><?php echo _("File") ?> 1:</strong>&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" size="25" />
+    <?php echo _("File") ?> 1:&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" size="25" />
    </div>
   </td>
   <td class="leftAlign">

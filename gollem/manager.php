@@ -417,7 +417,7 @@ if (is_array($list) && $numitem && $read_perms) {
                 continue 2;
             }
             $item['link'] = $manager_url->copy()->add('dir', $subdir)->link()
-                . '<strong>' . $name . '</strong></a>';
+                . $name . '</a>';
             if ($shares_enabled) {
                 $share = $backkey . '|' . $subdir;
                 $item['share'] = $perms_url_base->add('share', $share)->link(array('title' => $shares->exists($share) ? _("Shared Folder") : _("Share Folder"), 'target' => '_blank', 'onclick' => Horde::popupJs($perms_url_base, array('params' => array('share' => $share), 'urlencode' => true)) . 'return false;'));
@@ -441,7 +441,7 @@ if (is_array($list) && $numitem && $read_perms) {
                 }
 
                 $url = $manager_url->copy()->add('dir', Gollem::subdirectory($dir, $name));
-                $item['link'] = $item['name'] . ' -> <strong>' . $url->link() . $val['link'] . '</a></strong>';
+                $item['link'] = $item['name'] . ' -> ' . $url->link() . $val['link'] . '</a>';
             } else {
                 $item['link'] = $item['name'] . ' -> ' . $val['link'];
             }
@@ -596,7 +596,6 @@ if (is_array($list) && $numitem && $read_perms) {
 }
 $template->itemcount = sprintf(ngettext(_("%d item"), _("%d items"), $total), $total);
 
-$page_output->addScriptFile('tables.js', 'horde');
 $page_output->addScriptFile('manager.js');
 $page_output->addScriptPackage('Dialog');
 $page_output->addInlineJsVars(array(

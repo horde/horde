@@ -7,49 +7,53 @@
  <strong><?php echo _("Clipboard") ?></strong>
 </h1>
 
-<div class="control leftAlign">
+<div class="horde-content">
+<p>
  <?php echo _("Below is the current contents of your clipboard.") ?>
-</div>
+</p>
 
-<div class="control leftAlign">
+<p>
  <?php echo _("To paste items from the clipboard to the current directory, check the box next to the filename and click on &quot;Paste&quot;.") ?>
  <br />
  <?php echo _("To clear items from the clipboard, check the box next to the filename and click on &quot;Clear&quot;.") ?>
-</div>
+</p>
 
-<div class="control leftAlign">
+<p>
  <?php echo _("Current directory:") ?> <span class="fixed"><?php echo $this->currdir ?></span>
+</p>
 </div>
 
-<table class="gollem-clipboard nowrap" width="100%" cellspacing="0">
+<table class="horde-table nowrap">
 <thead>
  <tr>
-  <td>
-   <label><input id="gollem-selectall" type="checkbox" class="checkbox" /> <span class="gollem-selectall"><?php echo _("Select All") ?></span></label>
-  </td>
-   </tr>
+  <th>
+   <label>
+    <input id="gollem-selectall" type="checkbox" class="checkbox" />
+    <span class="gollem-selectall"><?php echo _("Select All") ?></span>
+   </label>
+  </th>
+ </tr>
 </thead>
 <tbody>
 <?php foreach ($this->entries as $entry): ?>
  <tr>
   <td>
-   <label><input type="checkbox" class="checkbox" name="items[]" value="<?php echo $entry['id'] ?>" />
-   <?php if ($entry['cut']) echo $this->cutgraphic ?>
-   <?php if ($entry['copy']) echo $this->copygraphic ?>
-   <?php echo $entry['name'] ?></label>
+   <label>
+    <input type="checkbox" class="checkbox" name="items[]" value="<?php echo $entry['id'] ?>" />
+    <?php if ($entry['cut']) echo $this->cutgraphic ?>
+    <?php if ($entry['copy']) echo $this->copygraphic ?>
+    <?php echo $entry['name'] ?>
+   </label>
   </td>
  </tr>
 <?php endforeach ?>
 </tbody>
-<tfoot>
- <tr>
-  <td>
-   <input class="horde-default" id="gollem-pastebutton" type="button" value="<?php echo $this->pastebutton ?>" />
-   <input id="gollem-clearbutton" type="button" value="<?php echo $this->clearbutton ?>" />
-   <input class="horde-cancel" id="gollem-cancelbutton" type="button" value="<?php echo $this->cancelbutton ?>" />
-  </td>
- </tr>
-</tfoot>
 </table>
+
+<p class="horde-form-buttons">
+ <input class="horde-default" id="gollem-pastebutton" type="button" value="<?php echo $this->pastebutton ?>" />
+ <input id="gollem-clearbutton" type="button" value="<?php echo $this->clearbutton ?>" />
+ <input class="horde-cancel" id="gollem-cancelbutton" type="button" value="<?php echo $this->cancelbutton ?>" />
+</p>
 
 </form>
