@@ -31,8 +31,7 @@ class Kronolith_Ajax_Imple_TagAutoCompleter extends Horde_Core_Ajax_Imple_AutoCo
      */
     protected function _handleAutoCompleter($input)
     {
-        $tagger = Kronolith::getTagger();
-        return array_values($tagger->listTags($input));
+        return array_values(Kronolith::getTagger()->listTags($input));
     }
 
 }
