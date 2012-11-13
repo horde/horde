@@ -30,7 +30,6 @@
   <td>
     <div class="horde-DialogInfo"><?php echo _("Categorize your bookmark with comma separated tags.") ?></div>
     <input id="treanBookmarkTags" name="treanBookmarkTags" />
-    <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
     <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
     <div class="treanTopTags" id="treanBookmarkTopTags"></div>
   </td>
