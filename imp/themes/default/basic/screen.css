@@ -74,7 +74,6 @@ table.messageList .sortup, table.messageList .sortdown {
 .messageList th {
     cursor: pointer;
     overflow: hidden;
-    padding: 0 0 1px 2px;
     text-align: left;
     white-space: nowrap;
 }
