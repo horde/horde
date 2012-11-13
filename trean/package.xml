@@ -26,7 +26,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * Initial release.
  </notes>
@@ -346,7 +346,7 @@
     <api>alpha</api>
    </stability>
    <date>2012-11-13</date>
-   <license uri="TODO">TODO</license>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>
