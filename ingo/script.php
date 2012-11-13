@@ -55,26 +55,24 @@ case 'show_active':
     break;
 }
 
+/* Prepare the view. */
+$view = new Horde_View(array(
+    'templatePath' => INGO_TEMPLATES . '/basic/script'
+));
+$view->addHelper('Text');
+
+$view->scriptexists = !empty($script);
+$view->scripturl = Horde::url('script.php');
+$view->showactivate = ($actionID != 'show_active');
+if ($view->scriptexists) {
+    $view->lines = preg_split('(\r\n|\n|\r)', $script);
+}
+
 $menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Filter Script Display")
 ));
 echo $menu;
 Ingo::status();
-require INGO_TEMPLATES . '/script/header.inc';
-if (!empty($script)) {
-    require INGO_TEMPLATES . '/script/activate.inc';
-}
-require INGO_TEMPLATES . '/script/script.inc';
-if (!empty($script)) {
-    $lines = preg_split('(\r\n|\n|\r)', $script);
-    $i = 0;
-    foreach ($lines as $line) {
-        printf("%3d: %s\n", ++$i, htmlspecialchars($line));
-    }
-} else {
-    echo '[' . _("No script generated.") . ']';
-}
-
-require INGO_TEMPLATES . '/script/footer.inc';
+echo $view->render('script');
 $page_output->footer();

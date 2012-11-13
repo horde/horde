@@ -139,24 +139,25 @@ case 'apply_filters':
 /* Get the list of rules now. */
 $filter_list = $filters->getFilterList();
 
-$page_output->addScriptFile('stripe.js', 'horde');
-$page_output->addScriptFile('filters.js');
-$menu = Ingo::menu();
-
-$page_output->header(array(
-    'title' => _("Filter Rules")
-));
-echo $menu;
-Ingo::status();
-require INGO_TEMPLATES . '/filters/header.inc';
-
 /* Common URLs. */
 $filters_url = Horde::url('filters.php');
 $rule_url = Horde::url('rule.php');
 
-if (count($filter_list) == 0) {
-    require INGO_TEMPLATES . '/filters/filter-none.inc';
-} else {
+$view = new Horde_View(array(
+    'templatePath' => INGO_TEMPLATES . '/basic/filters'
+));
+$view->addHelper('Horde_Core_View_Helper_Help');
+$view->addHelper('Horde_Core_View_Helper_Image');
+$view->addHelper('Horde_Core_View_Helper_Label');
+$view->addHelper('FormTag');
+$view->addHelper('Tag');
+
+$view->canapply = $ingo_script->canApply();
+$view->deleteallowed = $delete_allowed;
+$view->editallowed = $edit_allowed;
+$view->formurl = $filters_url;
+
+if (count($filter_list)) {
     $display = array();
     $i = $rule_count = 0;
     $s_categories = $session->get('ingo', 'script_categories');
@@ -166,10 +167,6 @@ if (count($filter_list) == 0) {
             ++$rule_count;
         }
     }
-
-    /* Common graphics. */
-    $down_img = Horde::img('nav/down.png', _("Move Rule Down"));
-    $up_img = Horde::img('nav/up.png', _("Move Rule Up"));
 
     foreach ($filter_list as $rule_number => $filter) {
         /* Skip non-display categories. */
@@ -217,7 +214,7 @@ if (count($filter_list) == 0) {
             $editurl = $rule_url->copy()->add(array('edit' => $rule_number, 'actionID' => 'rule_edit'));
             $delurl = $url->copy()->add('actionID', 'rule_delete');
             $copyurl = $url->copy()->add('actionID', 'rule_copy');
-            $entry['filterimg'] = false;
+            $entry['filterimg'] = '';
             $name = $filter['name'];
             break;
         }
@@ -264,44 +261,45 @@ if (count($filter_list) == 0) {
 
         if (empty($filter['disable'])) {
             if ($edit_allowed) {
-                $entry['disablelink'] = Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name));
-                $entry['disableimg'] = Horde::img('enable.png', sprintf(_("Disable %s"), $name));
+                $entry['disablelink'] = Horde::link($url->copy()->add('actionID', 'rule_disable'), sprintf(_("Disable %s"), $name)) .
+                    Horde::img('enable.png', sprintf(_("Disable %s"), $name)) .
+                    '</a>';
             } else {
-                $entry['disableimg'] = Horde::img('enable.png');
-                $entry['disablelink'] = false;
+                $entry['disablelink'] = Horde::img('enable.png');
             }
             $entry['enablelink'] = false;
-            $entry['enableimg'] = false;
         } else {
             if ($edit_allowed) {
-                $entry['enablelink'] = Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name));
-                $entry['enableimg'] = Horde::img('disable.png', sprintf(_("Enable %s"), $name));
+                $entry['enablelink'] = Horde::link($url->copy()->add('actionID', 'rule_enable'), sprintf(_("Enable %s"), $name)) .
+                    Horde::img('disable.png', sprintf(_("Enable %s"), $name)) .
+                    '</a>';
             } else {
-                $entry['enableimg'] = Horde::img('disable.png');
-                $entry['enablelink'] = false;
+                $entry['enablelink'] = Horde::img('disable.png');
             }
             $entry['disablelink'] = false;
-            $entry['disableimg'] = false;
         }
 
         $display[] = $entry;
     }
 
-    /* Output the template. */
-    $template = $injector->createInstance('Horde_Template');
-    $template->set('down_img', $down_img);
-    $template->set('up_img', $up_img);
-    $template->set('filter', $display, true);
-    $template->set('edit_allowed', $edit_allowed, true);
-    $template->set('delete_allowed', $delete_allowed, true);
-    $template->setOption('gettext', true);
-    echo $template->fetch(INGO_TEMPLATES . '/filters/filter.html');
+    // TODO: This can probably be better abstracted into the view file.
+    $view->filter = $display;
 }
 
-$canapply = $ingo_script->canApply();
-require INGO_TEMPLATES . '/filters/footer.inc';
 if ($on_demand && $edit_allowed) {
-    require INGO_TEMPLATES . '/filters/settings.inc';
+    $view->settings = true;
+    $view->flags = $prefs->getValue('filter_seen');
+    $view->show_filter_msg = $prefs->getValue('show_filter_msg');
 }
 
+$page_output->addScriptFile('stripe.js', 'horde');
+$page_output->addScriptFile('filters.js');
+$menu = Ingo::menu();
+
+$page_output->header(array(
+    'title' => _("Filter Rules")
+));
+echo $menu;
+Ingo::status();
+echo $view->render('filters');
 $page_output->footer();

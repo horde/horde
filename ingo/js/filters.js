@@ -14,6 +14,17 @@ var IngoFilters = {
             window.location = downurl + '&steps=' + steps;
         }
         return true;
+    },
+
+    onDomLoad: function()
+    {
+        $('apply_filters').observe('click', function(e) {
+            $('actionID').setValue('apply_filters');
+            $('filters').submit();
+            e.stop();
+        });
     }
 
 };
+
+document.observe('dom:loaded', IngoFilters.onDomLoad.bind(IngoFilters));
