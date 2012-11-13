@@ -60,7 +60,9 @@ if (Horde_Util::getFormData('popup')) {
     ), true);
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter');
+$injector->getInstance('Horde_Core_Factory_Imple')
+    ->create('Trean_Ajax_Imple_TagAutoCompleter',
+             array('id' => 'treanBookmarkTags'));
 
 $page_output->header(array(
     'title' => _("New Bookmark")
