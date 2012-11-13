@@ -16,33 +16,77 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://www.horde.org/components/Horde_Test
  */
-if (!defined('HORDE_TEST_AUTOLOAD')) {
-    define('HORDE_TEST_AUTOLOAD', 1);
+class Horde_Test_Autoload
+{
+    /**
+     * Prefix mappings.
+     *
+     * @var array
+     */
+    private static $_mappings = array();
 
-    $mapping = '';
-    if (!empty($mappings)) {
-        foreach ($mappings as $prefix => $path) {
-            $mapping .= 'if (strpos($filename, "/") === false && $filename == "' . $prefix . '") {'
-                . '  $filename = "' . $path . '$filename";'
-                . '}';
-            $mapping .= 'if (substr($filename, 0, ' . strlen($prefix) . ') == "' . $prefix . '") {'
-                . '  $filename = substr($filename, ' . strlen($prefix) . ');'
-                . '  $filename = "' . $path . '$filename";'
-                . '}';
+    /**
+     * Only run init code once.
+     *
+     * @var boolean
+     */
+    private static $_runonce = false;
+
+    /**
+     * Base autoloader code for Horde PEAR packages.
+     */
+    public static function init()
+    {
+        if (self::$_runonce) {
+            return;
         }
-        unset($mappings);
-    }
-    spl_autoload_register(
-        create_function(
-            '$class',
-            '$filename = str_replace(array(\'::\', \'_\'), \'/\', $class);'
-            . $mapping
-            . '$err_mask = error_reporting() & ~E_WARNING;'
-            . '$oldErrorReporting = error_reporting($err_mask);'
-            . 'include "$filename.php";'
-            . 'error_reporting($oldErrorReporting);'
-        )
-    );
-}
 
-unset($mapping);
+        spl_autoload_register(
+            create_function(
+                '$class',
+                '$filename = Horde_Test_Autoload::resolve($class);'
+                . '$err_mask = error_reporting() & ~E_WARNING;'
+                . '$old_err = error_reporting($err_mask);'
+                . 'include "$filename.php";'
+                . 'error_reporting($old_err);'
+            )
+        );
+
+        self::$_runonce = true;
+    }
+
+    /**
+     * Add a prefix to the autoloader.
+     *
+     * @param string $prefix  Prefix to add.
+     * @param string $path    Path to the prefix.
+     */
+    public static function addPrefix($prefix, $path)
+    {
+        self::$_mappings[$prefix] = $path;
+    }
+
+    /**
+     * Resolve classname to a filename.
+     *
+     * @param string $class  Class name.
+     *
+     * @return string  Resolved filename.
+     */
+    public static function resolve($class)
+    {
+        $filename = str_replace(array('::', '_'), '/', $class);
+
+        foreach (self::$_mappings as $prefix => $path) {
+            if ((strpos($filename, "/") === false) && ($filename == $prefix)) {
+                $filename = $path . '/' . $filename;
+            }
+            if (substr($filename, 0, strlen($prefix)) == $prefix) {
+                $filename = $path . substr($filename, strlen($prefix));
+            }
+        }
+
+        return $filename;
+    }
+
+}

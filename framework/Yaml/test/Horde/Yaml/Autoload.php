@@ -11,8 +11,4 @@
  * @license    http://www.horde.org/licenses/bsd BSD
  */
 
-require_once 'Horde/Test/Autoload.php';
 require_once __DIR__ . '/Helpers.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);

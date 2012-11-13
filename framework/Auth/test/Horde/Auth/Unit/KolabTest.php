@@ -14,12 +14,6 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @link       http://pear.horde.org/index.php?package=Auth
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
 class Horde_Auth_Unit_KolabTest extends Horde_Auth_TestCase
 {
     public function setUp()

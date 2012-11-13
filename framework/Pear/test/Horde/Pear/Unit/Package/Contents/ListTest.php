@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the core content list handler for package.xml files.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)

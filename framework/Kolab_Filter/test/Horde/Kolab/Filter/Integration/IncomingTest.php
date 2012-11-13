@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test the incoming filter.
  *
  * Copyright 2008-2010 Klarälvdalens Datakonsult AB
