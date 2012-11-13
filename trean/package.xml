@@ -17,7 +17,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-13</date>
- <time>19:12:07</time>
+ <time>19:26:16</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -64,9 +64,9 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
-    <dir name="Forms">
+    <dir name="Form">
      <file name="Search.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    </dir> <!-- /lib/Form -->
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -273,7 +273,7 @@
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
-   <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="trean/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />

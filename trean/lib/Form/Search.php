@@ -2,9 +2,9 @@
 /**
  * @package Trean
  */
-class SearchForm extends Horde_Form
+class Trean_Form_Search extends Horde_Form
 {
-    function SearchForm($vars)
+    public function __construct($vars)
     {
         parent::__construct($vars, _("Search Bookmarks"), 'Search_Bookmarks');
 
