@@ -12,11 +12,7 @@
  * @link       http://www.horde.org/apps/mnemo
  */
 
-$mappings = array('Ansel' => __DIR__ . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Ansel', __DIR__ . '/../../lib');
 
 /** Load the basic test definition */
 require_once __DIR__ . '/TestCase.php';

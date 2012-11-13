@@ -13,11 +13,7 @@
  * @license    http://www.horde.org/licenses/gpl GPL
  */
 
-$mappings = array('Sesha' => __DIR__ . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Sesha', __DIR__ . '/../../lib');
 
 /** Load the basic test definition */
 require_once __DIR__ . '/TestCase.php';

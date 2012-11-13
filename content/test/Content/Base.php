@@ -1,7 +1,4 @@
 <?php
-
-require_once __DIR__ . '/Autoload.php';
-
 /**
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
