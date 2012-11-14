@@ -173,15 +173,15 @@ $this->applications = array(
         'menu_parent' => 'mnemo',
     ),
 
-    'more' => array(
-        'name' => _("More..."),
+    'others' => array(
+        'name' => _("Others"),
         'status' => 'heading',
     ),
 
     'trean' => array(
         'name' => _("Bookmarks"),
         'provides' => 'bookmarks',
-        'menu_parent' => 'more'
+        'menu_parent' => 'others'
     ),
 
     'trean-menu' => array(
@@ -193,19 +193,19 @@ $this->applications = array(
     'ansel' => array(
         'name' => _("Photos"),
         'provides' => 'images',
-        'menu_parent' => 'more'
+        'menu_parent' => 'others'
     ),
 
     'wicked' => array(
         'name' => _("Wiki"),
         'provides' => 'wiki',
-        'menu_parent' => 'more'
+        'menu_parent' => 'others'
     ),
 
     'devel' => array(
         'name' => _("Development"),
         'status' => 'heading',
-        'menu_parent' => 'more',
+        'menu_parent' => 'others',
     ),
 
     'chora' => array(
@@ -239,7 +239,7 @@ $this->applications = array(
     'info' => array(
         'name' => _("Information"),
         'status' => 'heading',
-        'menu_parent' => 'more',
+        'menu_parent' => 'others',
     ),
 
     'klutz' => array(
@@ -262,7 +262,7 @@ $this->applications = array(
     'office' => array(
         'name' => _("Office"),
         'status' => 'heading',
-        'menu_parent' => 'more',
+        'menu_parent' => 'others',
     ),
 
     'hermes' => array(
@@ -305,7 +305,7 @@ $this->applications = array(
     'myaccount' => array(
         'name' => _("My Account"),
         'status' => 'heading',
-        'menu_parent' => 'more',
+        'menu_parent' => 'others',
     ),
 
     'gollem' => array(
@@ -328,7 +328,7 @@ $this->applications = array(
     'website' => array(
         'name' => _("Web Site"),
         'status' => 'heading',
-        'menu_parent' => 'more',
+        'menu_parent' => 'others',
     ),
 
     'agora' => array(
