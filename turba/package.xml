@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>18:00:59</time>
+ <time>18:02:16</time>
  <version>
-  <release>3.0.16</release>
+  <release>3.0.17</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -40,11 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Fix sorting of columns in preferences (Bug #10795).
-* [jan] Remove user&apos;s address books when removing users, independent from address book permissions.
-* [mms] Fix infinite loop if array was passed to delete API call.
-* [mms] Fix descending sorting of result lists.
-* [mms] Return to same page when deleting contact from browse view.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1456,6 +1452,19 @@
 * [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
 * [mms] Return to same page when deleting contact from browse view.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.17</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
