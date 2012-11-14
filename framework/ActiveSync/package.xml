@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -915,7 +915,7 @@
    <date>2012-11-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
    </notes>
   </release>
  </changelog>
