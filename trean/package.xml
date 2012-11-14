@@ -2,12 +2,18 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>trean</name>
  <channel>pear.horde.org</channel>
- <summary>TODO</summary>
- <description>TODO</description>
+ <summary>Web-based bookmarks application</summary>
+ <description>Trean is a web-based bookmarks application that provides management of browser bookmarks, including support for tagging, link checking, and searching bookmarks.</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
   <email>chuck@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Michael J Rubinsky</name>
+  <user>mrubinsk</user>
+  <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
  <lead>
@@ -16,11 +22,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-13</date>
- <time>19:26:16</time>
+ <date>2012-11-14</date>
+ <time>22:57:59</time>
  <version>
   <release>1.0.0alpha1</release>
-  <api>1.0.0alpha1</api>
+  <api>1.0.0</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -28,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* Initial release.
+* First alpha release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -339,16 +345,16 @@
   <release>
    <version>
     <release>1.0.0alpha1</release>
-    <api>1.0.0alpha1</api>
+    <api>1.0.0</api>
    </version>
    <stability>
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-11-13</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* Initial release.
+* First alpha release for Horde 5.
    </notes>
   </release>
  </changelog>
