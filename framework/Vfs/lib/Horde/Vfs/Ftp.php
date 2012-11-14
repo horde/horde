@@ -660,7 +660,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
 
         foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                throw new Horde_Vfs_Exception(sprintf('%s already exists.'), $this->_getPath($dest, $name));
+                throw new Horde_Vfs_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
