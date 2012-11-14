@@ -85,6 +85,21 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      * Build the appropriate response string to send back to the client.
      *
      * @params array $properties  An array containing any needed properties.
+     *   Required properties for mobile sync:
+     *   - request_schema:  The request schema sent by the client.
+     *   - response_schema: The schema the client indicated it can accept.
+     *   - culture: The culture value (normally 'en:en').
+     *   - display_name:  The user's configured display name.
+     *   - email: The user's email address.
+     *   - url:  The url of the Microsoft-Servers-ActiveSync endpoint for this
+     *           user to use.
+     *
+     *   Properties used for Outlook schema:
+     *   - imap:  Array describing the IMAP server.
+     *   - pop:   Array describing the POP3 server.
+     *   - smtp:  Array describing the SMTP server.
+     *
+     *  @return string  The XML to return to the client.
      */
     protected function _buildResponseString($properties)
     {
