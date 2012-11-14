@@ -1,6 +1,6 @@
-----------
-v5.0.2-git
-----------
+------
+v5.0.2
+------
 
 [jan] Fix adding user in admin actions (Bug #11690).
 [mms] Fix removing user in admin actions (Bug #11690).
