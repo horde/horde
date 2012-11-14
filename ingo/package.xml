@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>17:58:58</time>
+ <time>18:00:10</time>
  <version>
-  <release>2.0.10</release>
+  <release>2.0.11</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Correctly reindex existing rules when deleting a rule and using the SQL filters storage driver.
-* [mms] Don&apos;t allow a user to save a rule with no matching conditions.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1060,6 +1059,19 @@
    <notes>
 * [mms] Correctly reindex existing rules when deleting a rule and using the SQL filters storage driver.
 * [mms] Don&apos;t allow a user to save a rule with no matching conditions.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.11</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
