@@ -29,5 +29,6 @@ First beta release.
 FM;
 
 $this->notes['name'] = 'Trean';
+$this->notes['list'] = 'horde';
 $this->notes['fm']['project'] = 'trean';
 $this->notes['fm']['branch'] = 'Horde 5';
