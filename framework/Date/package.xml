@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-06-29</date>
- <time>14:38:55</time>
+ <date>2012-11-14</date>
+ <time>14:35:24</time>
  <version>
   <release>1.0.12</release>
   <api>1.0.0</api>
@@ -744,7 +744,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-06-29</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
