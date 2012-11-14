@@ -19,7 +19,8 @@ File Manager version H5 (3.0.0).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
-database, as part of a real filesystem, or on FTP, Samba or SSH servers.
+database, as part of a real filesystem, or on FTP, Samba or SSH servers. For
+more information on Gollem, visit http://www.horde.org/apps/gollem.
 
 The major changes compared to Gollem version H4 (2.0) are:
     * Completely redesigned user interface.
