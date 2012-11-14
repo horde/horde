@@ -28,8 +28,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>20:01:16</time>
+ <date>2012-11-14</date>
+ <time>18:00:59</time>
  <version>
   <release>3.0.16</release>
   <api>3.0.0</api>
@@ -1439,7 +1439,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-07-20</date>
+   <date>2012-11-14</date>
    <time>20:01:16</time>
    <version>
     <release>3.0.16</release>

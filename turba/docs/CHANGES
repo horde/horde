@@ -1,6 +1,6 @@
------------
-v3.0.16-git
------------
+-------
+v3.0.16
+-------
 
 [jan] Fix sorting of columns in preferences (Bug #10795).
 [jan] Remove user's address books when removing users, independent from address
