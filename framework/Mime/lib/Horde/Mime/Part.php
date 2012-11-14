@@ -1679,18 +1679,16 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (isset($opts['encode'])) {
             /* Always allow 7bit encoding. */
             $encode |= $opts['encode'];
-        } else {
-            if ($mailer instanceof Horde_Mail_Transport_Smtp) {
-                try {
-                    $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
-                    if (isset($smtp_ext['8BITMIME'])) {
-                        $encode |= self::ENCODE_8BIT;
-                    }
-                    if (isset($smtp_ext['BINARYMIME'])) {
-                        $encode |= self::ENCODE_BINARY;
-                    }
-                } catch (Horde_Mail_Exception $e) {}
-            }
+        } elseif ($mailer instanceof Horde_Mail_Transport_Smtp) {
+            try {
+                $smtp_ext = $mailer->getSMTPObject()->getServiceExtensions();
+                if (isset($smtp_ext['8BITMIME'])) {
+                    $encode |= self::ENCODE_8BIT;
+                }
+                if (isset($smtp_ext['BINARYMIME'])) {
+                    $encode |= self::ENCODE_BINARY;
+                }
+            } catch (Horde_Mail_Exception $e) {}
         }
 
         $msg = $this->toString(array(
@@ -1958,7 +1956,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     }
 
     /**
-     * Creates a structure object from the text of one part of a MIME message.
+     * Creates a MIME object from the text of one part of a MIME message.
      *
      * @param string $header      The header text.
      * @param string $body        The body text.
@@ -1967,7 +1965,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      *                            MIME data. If not, a MIME-Version header
      *                            must exist to be parsed as a MIME message.
      *
-     * @return Horde_Mime_Part  TODO
+     * @return Horde_Mime_Part  The MIME part object.
      */
     static protected function _getStructure($header, $body,
                                             $ctype = 'application/octet-stream',
