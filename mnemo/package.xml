@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>18:16:54</time>
+ <date>2012-11-14</date>
+ <time>18:11:15</time>
  <version>
   <release>3.0.7</release>
   <api>3.0.0</api>
@@ -939,7 +939,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix deleting too many notepads if deleting a user.
