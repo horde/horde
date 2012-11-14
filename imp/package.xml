@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-20</date>
- <time>20:11:03</time>
+ <date>2012-11-14</date>
+ <time>17:56:07</time>
  <version>
   <release>5.0.24</release>
   <api>5.0.0</api>
@@ -2765,7 +2765,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-07-20</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from the browser&apos;s local filesystem that has a filename that contains HTML.

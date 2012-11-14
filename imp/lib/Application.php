@@ -57,7 +57,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H4 (5.0.24-git)';
+    public $version = 'H4 (5.0.24)';
 
     /**
      * Cached values to add to the session after authentication.
