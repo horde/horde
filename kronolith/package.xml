@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2014,7 +2014,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
    </notes>
   </release>
  </changelog>
