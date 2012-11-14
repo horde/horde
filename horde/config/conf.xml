@@ -2012,6 +2012,32 @@
        hooks.php file.">hook</value>
       </values>
      </configenum>
+     <configswitch name="outlookdiscovery" desc="Horde can answer Autodiscover
+     requests from Microsoft Outlook clients to send configuration information
+     for things like IMAP/POP3/SMTP servers. Should this be enabled? NOTE: This
+     does not enable syncing between Horde and Microsoft Outlook!">
+       <case name="false" desc="No" />
+       <case name="true" desc="Yes">
+         <configsection name="hosts">
+           <configsection name="imap">
+             <configstring name="host" desc="IMAP host" required="false"></configstring>
+             <configinteger name="port" desc="IMAP port" required="fasle"></configinteger>
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+           <configsection name="pop">
+             <configstring name="host" desc="POP3 host" required="false"></configstring>
+             <configinteger name="port" desc="POP3 port" required="fasle"></configinteger>
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+           <configsection name="smtp">
+             <configstring name="host" desc="SMTP host" required="false"></configstring>
+             <configinteger name="port" desc="SMTP port" required="fasle"></configinteger>
+             <configboolean name="popauth" desc="Require Pop Auth?" required="false" />
+             <configboolean name="ssl" desc="Use SSL?" />
+           </configsection>
+         </configsection>
+       </case>
+     </configswitch>
      <configheader>Logging</configheader>
      <configsection name="logging">
       <configswitch name="type" desc="For debugging, it may be useful to send
