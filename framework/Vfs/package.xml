@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:45:52</time>
+ <date>2012-11-14</date>
+ <time>23:20:03</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -375,10 +375,12 @@ Reading, writing and listing of files are all supported.</description>
       </dir> <!-- /test/Horde/Vfs/SqlFile -->
       <file name="AllTests.php" role="test" />
       <file name="Base.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="FileTest.php" role="test" />
       <file name="FtpTest.php" role="test" />
       <file name="KolabTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SmbTest.php" role="test" />
       <file name="Ssh2Test.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
@@ -579,10 +581,12 @@ Reading, writing and listing of files are all supported.</description>
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
    <install as="Horde/Vfs/Base.php" name="test/Horde/Vfs/Base.php" />
+   <install as="Horde/Vfs/bootstrap.php" name="test/Horde/Vfs/bootstrap.php" />
    <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
    <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
    <install as="Horde/Vfs/FtpTest.php" name="test/Horde/Vfs/FtpTest.php" />
    <install as="Horde/Vfs/KolabTest.php" name="test/Horde/Vfs/KolabTest.php" />
+   <install as="Horde/Vfs/phpunit.xml" name="test/Horde/Vfs/phpunit.xml" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
    <install as="Horde/Vfs/Ssh2Test.php" name="test/Horde/Vfs/Ssh2Test.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
@@ -1088,7 +1092,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix old folder not being removed when moving a folder (Bug #11703).
