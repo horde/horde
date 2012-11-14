@@ -156,6 +156,11 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      */
     protected function _copy()
     {
+        try {
+            self::$vfs->copy('test/dir1', 'file1', 'test/dir1', true);
+            $this->fail('Exception expected');
+        } catch (Horde_Vfs_Exception $e) {
+        }
         self::$vfs->copy('test/dir1', 'file1', 'test/dir4', true);
         $this->assertTrue(self::$vfs->exists('test/dir1', 'file1'));
         $this->assertTrue(self::$vfs->exists('test/dir4', 'file1'));

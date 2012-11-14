@@ -146,10 +146,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
-        $orig = $this->_getNativePath($path, $name);
-        if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
-        }
+        $this->_checkDestination($path, $dest);
 
         $this->_connect();
 
