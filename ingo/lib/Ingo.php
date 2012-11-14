@@ -118,9 +118,7 @@ class Ingo
     static public function getUser($full = true)
     {
         if (empty($GLOBALS['ingo_shares'])) {
-            $baseuser = ($full ||
-                        ($GLOBALS['session']->get('ingo', 'backend/hordeauth') === 'full'));
-            return $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
+            return $GLOBALS['registry']->getAuth($full ? null : 'bare');
         }
 
         list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
