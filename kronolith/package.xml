@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>18:04:36</time>
+ <time>18:06:00</time>
  <version>
-  <release>3.0.18</release>
+  <release>3.0.19</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,16 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
-* [mms] Fix permissions checking in the &apos;path_delete&apos; API call.
-* [mjr] Fix setting permissions in dynamic mode while $conf[share][world] is false (Bug #11359).
-* [mjr] Fix issue causing broken alarm values from being imported from certain ics files.
-* [rla] Fix sender of appointment notification (Bug #11198).
-* [mjr] Use SSL for map providers if current connection is SSL (Request #11193).
-* [jan] Don&apos;t show location of private events (Bug #11235).
-* [jan] Fix exporting multi-all-day events to iCalendar.
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2115,6 +2106,19 @@
 * [jan] Fix exporting multi-all-day events to iCalendar.
 * [jan] Update Turkish translation (İstanbul Technical University).
 * [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.19</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
