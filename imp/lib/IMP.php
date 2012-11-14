@@ -392,7 +392,7 @@ class IMP
      *
      * @return boolean  Whether the specified permission is allowed.
      */
-    public function hasPermission($permission, $opts = array())
+    static public function hasPermission($permission, $opts = array())
     {
         $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
             ->hasAppPermission($permission);

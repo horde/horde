@@ -157,16 +157,15 @@ class Trean_View_BookmarkList
     protected function _getBookmarkList()
     {
         $GLOBALS['page_output']->addScriptFile('tables.js', 'horde');
-        $GLOBALS['page_output']->header();
 
         $view = $GLOBALS['injector']->createInstance('Horde_View');
         $view->bookmarks = $this->_bookmarks;
         $view->target = $GLOBALS['prefs']->getValue('show_in_new_window') ? '_blank' : '';
         $view->redirectUrl = Horde::url('redirect.php');
-
         $view->sortby = $GLOBALS['prefs']->getValue('sortby');
         $view->sortdir = $GLOBALS['prefs']->getValue('sortdir');
         $view->sortdirclass = $view->sortdir ? 'sortup' : 'sortdown';
+
         return $view->render('list');
     }
 

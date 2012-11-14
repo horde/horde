@@ -1,6 +1,6 @@
 <?php if ($this->list_count): ?>
 <?php if ($this->perms_chmod): ?>
-<div id="attributes" style="display:none;">
+<div id="gollem-attributes" style="display:none;">
 <table class="horde-table">
  <tr>
   <th width="25%">&nbsp;</th>
@@ -75,31 +75,17 @@
  </ul>
 </div>
 
-<?php if ($this->list_count): ?>
-<table id="filelist_actions" cellspacing="0">
- <tr class="control">
-  <td class="rightAlign">
-   <strong><?php echo _("Filter:") ?></strong><input id="filter" name="filter" type="text" size="25" value="<?php echo $this->filter_val ?>" />
-   <input type="button" id="filterapply" class="button" value="<?php echo _("Filter") ?>" />
-<?php if ($this->filter_val): ?>
-   <input type="button" id="filterclear" class="button" value="<?php echo _("Clear") ?>" />
-<?php endif ?>
-  </td>
- </tr>
-</table>
-<?php endif ?>
-
 <?php if ($this->empty_dir): ?>
 <p class="text">
  <em><?php echo _("There are no files in this folder.") ?></em>
 </p>
 <?php else: ?>
-<table id="filelist" class="striped hover" cellspacing="0">
+<table class="horde-table">
 <thead>
  <tr>
   <th style="text-align:center" width="1%"><input type="checkbox" class="checkbox" id="checkall" name="checkAll" <?php echo $this->checkall ?> /></th>
 <?php foreach ($this->headers as $header): ?>
-  <th<?php if (isset($header['id'])): ?> id="<?php echo $header['id'] ?>"<?php endif ?><?php if ($header['class']): ?> class="<?php echo $header['class'] ?>"<?php endif ?> style="text-align:<?php echo $header['align'] ?>" width="<?php echo $header['width'] ?>"><?php if (isset($header['sort'])) echo $header['sort'] ?><?php echo $header['label'] ?></th>
+  <th<?php if (isset($header['id'])): ?> id="<?php echo $header['id'] ?>"<?php endif ?> class="horde-split-left<?php if ($header['class']) echo ' ' . $header['class'] ?>" style="text-align:<?php echo $header['align'] ?>" width="<?php echo $header['width'] ?>"><?php if (isset($header['sort'])) echo $header['sort'] ?><?php echo $header['label'] ?></th>
 <?php endforeach ?>
  </tr>
 </thead>
@@ -108,7 +94,7 @@
  <tr>
   <td style="text-align:center"><?php if ($entry['on_clipboard']): ?>&nbsp;<?php else: ?><input type="checkbox" class="checkbox" name="items[]" value="<?php echo $entry['name'] ?>" /><?php endif ?></td>
 <?php if ($this->columns_type): ?>
-  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<?php echo $entry['type'] ?>" /><?php echo $entry['graphic'] ?>&nbsp;</td>
+  <td class="rightAlign"><input type="hidden" name="itemTypes[]" value="<?php echo $entry['type'] ?>" /><?php echo $entry['graphic'] ?></td>
 <?php endif ?>
 <?php if ($this->columns_name): ?>
   <td><?php echo $entry['link'] ?></td>
@@ -120,12 +106,12 @@
 <?php endif ?>
 <?php if ($this->columns_edit): ?>
   <td>
-   <?php if ($entry['edit']): ?><?php echo $entry['edit'] ?><span class="iconImg editImg"></span></a><?php endif ?>
+   <?php if ($entry['edit']): ?><?php echo $entry['edit'] ?><span class="iconImg gollem-edit"></span></a><?php endif ?>
   </td>
 <?php endif ?>
 <?php if ($this->columns_download): ?>
   <td>
-   <?php if ($entry['dl']): ?><?php echo $entry['dl'] ?><span class="iconImg downloadImg"></span></a><?php endif ?>
+   <?php if ($entry['dl']): ?><?php echo $entry['dl'] ?><span class="iconImg gollem-download"></span></a><?php endif ?>
   </td>
 <?php endif ?>
 <?php if ($this->columns_modified): ?>
@@ -157,7 +143,7 @@
  <tr>
   <td class="leftAlign">
    <div id="upload_row_1">
-    <strong><?php echo _("File") ?> 1:</strong>&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" size="25" />
+    <?php echo _("File") ?> 1:&nbsp;<input id="file_upload_1" name="file_upload_1" type="file" size="25" />
    </div>
   </td>
   <td class="leftAlign">

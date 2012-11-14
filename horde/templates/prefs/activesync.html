@@ -14,15 +14,15 @@
 <input type="hidden" id="removedevice" name="removedevice" />
 <input type="hidden" name="wipeid" id="wipeid" />
 <input type="hidden" name="cancelwipe" id="cancelwipe" />
-<table class="horde-table striped">
- <tr>
+<table class="horde-table">
+ <thead><tr>
      <th></th>
-     <th><gettext>Device</gettext></th>
-     <th><gettext>Last Sync Time</gettext></th>
-     <th><gettext>Status</gettext></th>
- </tr>
+     <th class="horde-split-left"><gettext>Device</gettext></th>
+     <th class="horde-split-left"><gettext>Last Sync Time</gettext></th>
+     <th class="horde-split-left"><gettext>Status</gettext></th>
+ </tr></thead>
 <loop:devices>
- <tr class="<tag:devices.class />">
+ <tr>
   <td>
    <if:devices.device_policykey>
     <input class="horde-delete" type="button" value="<gettext>Wipe</gettext>" id="wipe_<tag:devices.key />" />

@@ -10,10 +10,10 @@
 }
 
 .sortup {
-    background-image: url("graphics/arrow_down.png");
+    background-image: url("graphics/arrow_up.png");
 }
 .sortdown {
-    background-image: url("graphics/arrow_up.png");
+    background-image: url("graphics/arrow_down.png");
 }
 
 /* Attachment tree styling. */

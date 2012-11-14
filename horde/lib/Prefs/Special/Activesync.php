@@ -55,7 +55,6 @@ class Horde_Prefs_Special_Activesync implements Horde_Core_Prefs_Ui_Special
         $devs = array();
 
         foreach ($devices as $key => $device) {
-            $device['class'] = fmod($key, 2) ? 'rowOdd' : 'rowEven';
             $device['key'] = $key;
 
             $stateMachine->loadDeviceInfo($device['device_id'], $auth);

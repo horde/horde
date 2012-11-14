@@ -160,17 +160,6 @@ var Gollem = {
         }
     },
 
-    applyFilter: function()
-    {
-        $('manager').submit();
-    },
-
-    clearFilter: function()
-    {
-        $('filter').setValue('');
-        this.applyFilter();
-    },
-
     uploadFields: function()
     {
         return $('manager').getInputs('file').collect(function(m) {
@@ -256,14 +245,6 @@ var Gollem = {
                 e.stop();
                 return;
 
-            case 'filterapply':
-                this.applyFilter();
-                break;
-
-            case 'filterclear':
-                this.clearFilter();
-                break;
-
             case 'uploadfile':
                 this.uploadFile();
                 break;
@@ -290,7 +271,7 @@ var Gollem = {
                     break;
                 }
                 HordeDialog.display({
-                    form: $('attributes').clone(true).show(),
+                    form: $('gollem-attributes').clone(true).show(),
                     form_id: 'chmodfrm',
                     form_opts: { action: GollemVar.actionUrl },
                     header: GollemText.permissions

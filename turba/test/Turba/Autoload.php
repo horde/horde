@@ -12,8 +12,4 @@
  * @license    http://www.horde.org/licenses/apache Apache-like
  */
 
-$mappings = array('Turba' => __DIR__ . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Turba', __DIR__ . '/../../lib');

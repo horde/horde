@@ -4,12 +4,12 @@
  *
  * Copyright 2011 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
+ * @license  http://www.horde.org/licenses/bsdl.php BSD
  * @package  Trean
  */
 class Trean_TagBrowser extends Horde_Core_TagBrowser

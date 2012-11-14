@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-25</date>
- <time>13:57:26</time>
+ <date>2012-11-13</date>
+ <time>19:26:16</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -26,7 +26,7 @@
   <release>alpha</release>
   <api>alpha</api>
  </stability>
- <license uri="TODO">TODO</license>
+ <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
 * Initial release.
  </notes>
@@ -64,9 +64,9 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
-    <dir name="Forms">
+    <dir name="Form">
      <file name="Search.php" role="horde" />
-    </dir> <!-- /lib/Forms -->
+    </dir> <!-- /lib/Form -->
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -189,11 +189,6 @@
    <dir name="themes">
     <dir name="default">
      <dir name="graphics">
-      <dir name="folders">
-       <file name="folder_create.png" role="horde" />
-       <file name="folder_delete.png" role="horde" />
-       <file name="folder_edit.png" role="horde" />
-      </dir> <!-- /themes/default/graphics/folders -->
       <dir name="http">
        <file name="1xx.png" role="horde" />
        <file name="2xx.png" role="horde" />
@@ -208,18 +203,8 @@
        <file name="https.png" role="horde" />
       </dir> <!-- /themes/default/graphics/protocol -->
       <file name="add.png" role="horde" />
-      <file name="az.png" role="horde" />
-      <file name="data.png" role="horde" />
-      <file name="delete.png" role="horde" />
-      <file name="edit.png" role="horde" />
       <file name="favicon.ico" role="horde" />
-      <file name="minus.png" role="horde" />
-      <file name="perms.png" role="horde" />
-      <file name="plus.png" role="horde" />
-      <file name="rating-star.gif" role="horde" />
-      <file name="search.png" role="horde" />
       <file name="trean.png" role="horde" />
-      <file name="za.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
@@ -244,6 +229,13 @@
    <pearinstaller>
     <min>1.7.0</min>
    </pearinstaller>
+   <package>
+    <name>horde</name>
+    <channel>pear.horde.org</channel>
+    <min>5.0.2</min>
+    <max>6.0.0alpha1</max>
+    <exclude>6.0.0alpha1</exclude>
+   </package>
   </required>
  </dependencies>
  <phprelease>
@@ -281,7 +273,7 @@
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
-   <install as="trean/lib/Forms/Search.php" name="lib/Forms/Search.php" />
+   <install as="trean/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -330,21 +322,8 @@
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
-   <install as="trean/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
-   <install as="trean/themes/default/graphics/data.png" name="themes/default/graphics/data.png" />
-   <install as="trean/themes/default/graphics/delete.png" name="themes/default/graphics/delete.png" />
-   <install as="trean/themes/default/graphics/edit.png" name="themes/default/graphics/edit.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
-   <install as="trean/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
-   <install as="trean/themes/default/graphics/perms.png" name="themes/default/graphics/perms.png" />
-   <install as="trean/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
-   <install as="trean/themes/default/graphics/rating-star.gif" name="themes/default/graphics/rating-star.gif" />
-   <install as="trean/themes/default/graphics/search.png" name="themes/default/graphics/search.png" />
    <install as="trean/themes/default/graphics/trean.png" name="themes/default/graphics/trean.png" />
-   <install as="trean/themes/default/graphics/za.png" name="themes/default/graphics/za.png" />
-   <install as="trean/themes/default/graphics/folders/folder_create.png" name="themes/default/graphics/folders/folder_create.png" />
-   <install as="trean/themes/default/graphics/folders/folder_delete.png" name="themes/default/graphics/folders/folder_delete.png" />
-   <install as="trean/themes/default/graphics/folders/folder_edit.png" name="themes/default/graphics/folders/folder_edit.png" />
    <install as="trean/themes/default/graphics/http/1xx.png" name="themes/default/graphics/http/1xx.png" />
    <install as="trean/themes/default/graphics/http/2xx.png" name="themes/default/graphics/http/2xx.png" />
    <install as="trean/themes/default/graphics/http/3xx.png" name="themes/default/graphics/http/3xx.png" />
@@ -366,8 +345,8 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-07-25</date>
-   <license uri="TODO">TODO</license>
+   <date>2012-11-13</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial release.
    </notes>
