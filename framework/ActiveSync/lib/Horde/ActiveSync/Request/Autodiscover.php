@@ -127,7 +127,8 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 </Response>
               </Autodiscover>';
         } elseif (stripos($properties['request_schema'], 'autodiscover/outlook') !== false) {
-            if (stripos($properties['response_schema'], 'autodiscover/mobilesync/responseschema/2006') === false) {
+            if (!empty($properties['response_schema']) &&
+                stripos($properties['response_schema'], 'autodiscover/mobilesync/responseschema/2006') === false) {
                 // We only support mobilesync for now, tell the device we can't
                 // locate a service for the requested schema.
                 return $this->_buildFailureResponse($properties['email'], '601');
