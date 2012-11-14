@@ -1,6 +1,6 @@
---------
-v3.0-git
---------
+-----------
+v3.0.0beta1
+-----------
 
 [jan] Convert templates to Horde_View.
 [jan] Fix sorting if using a pager.
