@@ -149,7 +149,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . $properties['imap']['ssl'] . '</SSL>
+                    <SSL>' . ($properties['imap']['ssl'] ? 'on' : 'off') . '</SSL>
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -161,7 +161,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . $properties['pop']['host'] . '</SSL>
+                    <SSL>' . ($properties['pop']['ssl'] ? 'on' : 'off') . '</SSL>
                     <AuthRequired>on</AuthRequired>
                     </Protocol>';
             }
@@ -173,9 +173,9 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                     <LoginName>' . $properties['username'] . '</LoginName>
                     <DomainRequired>off</DomainRequired>
                     <SPA>off</SPA>
-                    <SSL>' . $properties['smtp']['ssl'] . '</SSL>
+                    <SSL>' . ($properties['smtp']['ssl'] ? 'on' : 'off') . '</SSL>
                     <AuthRequired>on</AuthRequired>
-                    <UsePOPAuth>' . $properties['smtp']['popauth'] . '</UsePOPAuth>
+                    <UsePOPAuth>' . ($properties['smtp']['popauth'] ? 'on' : 'off') . '</UsePOPAuth>
                     </Protocol>';
             }
             $xml .= '</Account>
