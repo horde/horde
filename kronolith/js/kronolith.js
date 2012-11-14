@@ -5346,8 +5346,10 @@ KronolithCore = {
         params = $H($('kronolithEventForm').serialize({ hash: true }))
             .merge(this.saveEventParams());
         params.set('as_new', asnew ? 1 : 0);
-        params.set('cstart', this.cacheStart.toISOString());
-        params.set('cend', this.cacheEnd.toISOString());
+        if (this.cacheStart) {
+            params.set('cstart', this.cacheStart.toISOString());
+            params.set('cend', this.cacheEnd.toISOString());
+        }
         HordeImple.AutoCompleter.kronolithEventTags.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();

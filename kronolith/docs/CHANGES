@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[jan] Fix saving of events if no calendar has been loaded yet.
 [mjr] Fix importing events from ActiveSync with empty descriptions in EAS
       version 2.5
 
