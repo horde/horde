@@ -47,12 +47,6 @@ ML;
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Fixed XSS vulnerabilities.
-Close compose window after redirecting a message.
-Re-added option to report messages as spam/ham through redirection.
-Don't allow to save filter rules without conditions.
-Fixed reindexing of existing filter rules when deleting a rule.
-Fixed IMAP filtering.
-Further fixed folder names in Procmail rules if using Maildir.
 Remove all of user's address books when removing users.
 Fixed deleting too many notepads if deleting a user.
 Updated French, Swedish, and Turkish translations.
