@@ -310,7 +310,11 @@ abstract class Horde_Vfs_Base
     public function move($path, $name, $dest, $autocreate = false)
     {
         $this->copy($path, $name, $dest, $autocreate);
-        $this->deleteFile($path, $name);
+        if ($this->isFolder($path, $name)) {
+            $this->deleteFolder($path, $name, true);
+        } else {
+            $this->deleteFile($path, $name);
+        }
     }
 
     /**
