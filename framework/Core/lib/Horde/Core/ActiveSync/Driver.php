@@ -1505,6 +1505,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return array('raw_xml' => $xml);
         } catch (Horde_Exception_HookNotSet $e) {}
 
+        // Bring in the host configuration if needed.
+        if (!empty($GLOBALS['conf']['activesync']['outlookdiscovery'])) {
+            $params = array_merge($params, $GLOBALS['conf']['activesync']['hosts']);
+        }
+
         try {
             $params = Horde::callHook('activesync_autodisover_parameters', array($params), 'horde');
         } catch (Horde_Exception_HookNotSet $e) {}
