@@ -1,6 +1,6 @@
------------
-v3.0.18-git
------------
+-------
+v3.0.18
+-------
 
 [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
 [mms] Fix permissions checking in the 'path_delete' API call.

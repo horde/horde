@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-14</date>
- <time>10:23:35</time>
+ <date>2012-11-14</date>
+ <time>18:04:36</time>
  <version>
   <release>3.0.18</release>
   <api>3.0.0</api>
@@ -2102,7 +2102,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-14</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
