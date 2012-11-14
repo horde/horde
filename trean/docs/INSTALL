@@ -37,6 +37,43 @@ To function properly, Trean **requires** the following:
    .. _`Horde Application Framework`: http://www.horde.org/apps/horde
 
 
+Installing Trean
+================
+
+The **RECOMMENDED** way to install Trean is using the PEAR installer.
+Alternatively, if you want to run the latest development code or get the
+latest not yet released fixes, you can install Trean from Git.
+
+Installing with PEAR
+~~~~~~~~~~~~~~~~~~~~
+
+First follow the instructions in `horde/docs/INSTALL`_ to prepare a PEAR
+environment for Horde and install the Horde Framework.
+
+When installing Trean through PEAR now, the installer will automatically
+install any dependencies of Trean too. If you want to install Trean with all
+optional dependencies, but without the binary PECL packages that need to be
+compiled, specify both the ``-a`` and the ``-B`` flag::
+
+   pear install -a -B horde/trean-beta
+
+By default, only the required dependencies will be installed::
+
+   pear install horde/trean-beta
+
+If you want to install Trean even with all binary dependencies, you need to
+remove the ``-B`` flag. Please note that this might also try to install PHP
+extensions through PECL that might need further configuration or activation in
+your PHP configuration::
+
+   pear install -a horde/trean-beta
+
+Installing from Git
+~~~~~~~~~~~~~~~~~~~
+
+See http://www.horde.org/source/git.php
+
+
 Configuring Trean
 =================
 
