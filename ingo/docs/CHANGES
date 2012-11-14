@@ -1,6 +1,6 @@
------------
-v2.0.10-git
------------
+-------
+v2.0.10
+-------
 
 [mms] Correctly reindex existing rules when deleting a rule and using the SQL
       filters storage driver.
