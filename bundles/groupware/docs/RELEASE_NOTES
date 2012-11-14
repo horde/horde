@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Re
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 4.0.8.
+version 4.0.9.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,21 +27,36 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 4.0.7 are:
+The major changes compared to the Horde Groupware version 4.0.8 are:
 
 General changes:
-    * Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-    * Small bugfixes and improvements.
+    * Updated French, Swedish, and Turkish translations.
+    * Further bugfixes and improvements.
+
+Address Book changes:
+    * Remove all of user's address books when removing users.
+    * Added ability to return only the number of contacts that match a search.
 
 Calendar changes:
-    * Fixed XSS vulnerabilities in tasks and search views.
+    * Fixed XSS issue in portal blocks.
+
+Notes changes:
+    * Fixed deleting too many notepads if deleting a user.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Fixed XSS vulnerabilities.
-Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-Small bugfixes and improvements.
+Close compose window after redirecting a message.
+Re-added option to report messages as spam/ham through redirection.
+Don't allow to save filter rules without conditions.
+Fixed reindexing of existing filter rules when deleting a rule.
+Fixed IMAP filtering.
+Further fixed folder names in Procmail rules if using Maildir.
+Remove all of user's address books when removing users.
+Fixed deleting too many notepads if deleting a user.
+Updated French, Swedish, and Turkish translations.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware';

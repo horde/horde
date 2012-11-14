@@ -2,6 +2,185 @@
 v4.0.9-git
 ----------
 
+[jan] Update Turkish translation (İstanbul Technical University).
+[jan] Update Swedish translation (Jakob Alvermark
+      <jakob.alvermark@bsdlabs.com>).
+
+Horde Changes
+-------------
+[jan] Fix adding attachments to problem tickets (Bug #10654).
+[jan] Fix setting permissions on static/ directory with horde-set-perms (Bug
+      #11219).
+
+Mail Changes
+------------
+[mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
+      the browser's local filesystem that has a filename that contains HTML.
+[mms] SECURITY: Only allow display of basic image types directly in browser.
+[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
+      #11623).
+[mms] Catch failure to add attachments in dynamic view because PHP's maximum
+      allowed POST size was exceeded.
+[jan] Fix search link from portal if using dynamic view (Bug #11314).
+[mms] Fix regression in using Virtual Trash (Bug #11478;
+      tonyb@go-concepts.com).
+[mms] Fix sending MDN notifications in traditional view (Bug #11311).
+[mms] Fix changing sort order in dynamic search mailboxes (Bug #11108).
+[mms] Fix regression in creating top-level mailbox in traditional view (Bug
+      #11326).
+[mms] Fix spam reporting in minimal view.
+[mjr] Only ask for the count of matching contacts when determining to use
+      browser vs ajax autocompletion.
+[jan] Fix closing the compose window after redirecting (Bug #11259).
+[jan] Display correct values in permission-denied error messages (Bug #11253).
+[jan] Re-add option to report messages as spam/ham through redirection.
+
+Filters Changes
+---------------
+[mms] Correctly reindex existing rules when deleting a rule and using the SQL
+      filters storage driver.
+[mms] Don't allow a user to save a rule with no matching conditions.
+[mms] Fix patch for filtering on combination fields (Bug #11197).
+[mms] Procmail driver now explicitly sets the base Maildir directory by default
+      (Bug #10113).
+
+Address Book Changes
+--------------------
+[jan] Fix sorting of columns in preferences (Bug #10795).
+[jan] Remove user's address books when removing users, independent from address
+      book permissions.
+[mms] Fix infinite loop if array was passed to delete API call.
+[mms] Fix descending sorting of result lists.
+[mms] Return to same page when deleting contact from browse view.
+
+Calendar Changes
+----------------
+[mms] SECURITY: Fix XSS vulnerabilities in the portal blocks.
+[mms] Fix permissions checking in the 'path_delete' API call.
+[mjr] Fix setting permissions in dynamic mode while $conf[share][world] is
+      false (Bug #11359).
+[mjr] Fix issue causing broken alarm values from being imported from certain
+      ics files.
+[rla] Fix sender of appointment notification (Bug #11198).
+[mjr] Use SSL for map providers if current connection is SSL (Request #11193).
+[jan] Don't show location of private events (Bug #11235).
+[jan] Fix exporting multi-all-day events to iCalendar.
+
+Tasks Changes
+-------------
+[mms] Fix getTasklist() API call.
+[jan] Fix changing sort direction.
+[jan] Fix sorting by owner if displaying external task sources.
+
+Notes Changes
+-------------
+[jan] Fix deleting too many notepads if deleting a user.
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix issue that could cause a race condition during a PING request for
+      users with empty backend data.
+[mjr] Fix issue with setting time before screen lock.
+
+Alarm
+[mjr] Fix issue that prevented Desktop Notifications from displaying.
+
+Auth
+[mms] Fix Horde_Auth_Passwd#updateUser().
+
+Browser
+[mms] Improved detection of mobile browsers (leena.heino@uta.fi) (Request
+      #11328).
+[mms] Add recognition of Firefox for Android as a mobile browser (Request
+      #11216).
+
+Cache
+[mms] Correctly invalidate cache when write error occurs while using the stack
+      driver.
+
+Compress
+[mms] Fix parsing DBX data.
+[mms] Fix parsing UTF-16 data in TNEF driver (Bug #11390) (andrey012@gmail.com).
+
+Core
+[mms] SECURITY: Fix XSS in tooltip javascript.
+[jan] Catch exceptions from Horde_Crypt (Bug #11530).
+[mms] Fix Horde_Core_Auth_Application#updateUser().
+[mjr] Port fix for Bug #9733 from FW_5.
+[jan] Fix using PostgreSQL as the session handler backend (Bug #11436).
+[mms] Mark session identifier cookie as HttpOnly.
+[mms] Fix cache maxsize preference (Bug #11224).
+
+Date
+[jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+[jan] Avoid infinite loop when requesting invalid date property.
+[bak] Avoid printing empty BYDAY field on RRULE.
+
+Db
+[mms] Fix resetting postgresql error reporting.
+[mms] Fix Horde_Db_Adapter_Base_Table#offsetExists().
+[mms] Fix addLock() command.
+
+Icalendar
+[mms] Trim UTF-8 BOM from vCal data.
+
+Imap_Client
+[mms] Fix CRAM-MD5 authentication for POP3 driver (Bug #11449).
+[mms] Allow SSL version to be explicitly chosen via 'secure' configuration
+      option for POP3 driver (Request #11435).
+[mms] Fix reinitializing a prior authenticated client object when the IMAP
+      server subsequently becomes unavailable (Bug #11413).
+[mms] Fix POP3 regression that broken envelope data parsing (Bug #11477).
+[mms] Fix outputting the host part when using
+      Horde_Imap_Client_Utils#createUrl().
+[mms] Fix obtaining UIDs for APPENDed messages when the server doesn't support
+      APPENDUID.
+[mms] Fix CRAM-MD5 authentication (Bug #11449; patrickdk@patrickdk.com).
+[mms] Allow SSL version to be explicitly chosen via 'secure' configuration
+      option (Request #11435).
+[mms] Fix determining sequence numbers when caching is active (Bug #11294).
+[mms] Fix sorting of numeric mailboxes with leading zeros.
+[mms] Optimize statusMultiple() when polling mailboxes containing wildcard
+      characters.
+[mms] Correctly handle any resource key supported by the QUOTA extension.
+[mms] Improved handling of multi-accessed mailboxes and the FETCH/STORE/SEARCH
+      commands (RFC 2180 [2-4]).
+
+Mime
+[mms] Workaround broken base64 data.
+
+Mime_Viewer
+[mms] Fix reading Debian archive data.
+
+Oauth
+[mjr] Fix building signature when using over ssl.
+
+Secret
+[mms] If secret key is changed, change the associated $_COOKIE key or else key
+      change may not be recognized in the current page access (Bug #11570).
+[mms] Limit decryption/encryption key to 56 bytes (Bug #11566).
+[mms] Mark secret cookie data as HttpOnly.
+[mms] Secret keys should always be session expiration cookies.
+[mms] Add DEFAULT_KEY constant.
+[mms] Actually delete the cookie key from the browser when clearKey() is called.
+
+Service_Twitter
+[mjr] Update API endpoints.
+
+Service_Weather
+[mjr] Fix fatal error caused by not catching bad XML returned from remote.
+[mjr] Update image conditions mapping for Google driver.
+
+SessionHandler
+[jan] Fix track_lifetime setting for Memcache driver (Bug #11444).
+
+Text_Filter
+[mms] Merge upstream changes to jsmin filter that caused broken compression of
+      jQuery Mobile file.
+
+Util
+[mms] Add Horde_String::trimUtf8Bom().
 
 
 ------

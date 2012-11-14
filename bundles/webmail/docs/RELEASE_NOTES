@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORSECURITY, Horde_Re
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 4.0.8.
+Webmail Edition version 4.0.9.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,32 +29,52 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 4.0.7
+The major changes compared to the Horde Groupware Webmail Edition version 4.0.8
 are:
 
 General changes:
-    * Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-    * Small bugfixes and improvements.
+    * Updated French, Swedish, and Turkish translations.
+    * Further bugfixes and improvements.
 
 Mail changes:
-    * Fixed XSS vulnerabilities.
-    * Fixed regression in PGP support.
-    * Improved HTML editor support.
+    * Fixed obscure XSS issue when uploading attachments.
+    * Only display basic image attachments in the browser to avoid XSS
+      vulnerabilities triggered by opening malicious SVG attachments.
+    * Better description of error in some permission denied error messages.
+    * Compose window now closes properly after message redirection.
+    * More efficient determination of when to use Ajax auto-completion.
+    * Re-added option to report messages as spam/ham through redirection.
 
 Filters changes:
-    * Fixed folder names in Procmail rules if using Maildir.
+    * Don't allow to save rules without conditions.
+    * Fixed reindexing of existing rules when deleting a rule.
+    * Fixed IMAP filtering.
+    * Further fixed folder names in Procmail rules if using Maildir.
+
+Address Book changes:
+    * Remove all of user's address books when removing users.
+    * Added ability to return only the number of contacts that match a search.
 
 Calendar changes:
-    * Fixed XSS vulnerabilities in tasks and search views.
+    * Fixed XSS issue in portal blocks.
+
+Notes changes:
+    * Fixed deleting too many notepads if deleting a user.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Fixed XSS vulnerabilities.
-Fixed regression in PGP support.
-Improved HTML editor support.
-Updated Czech, Hungarian, Italian, Slovak, and Swedish translations.
-Small bugfixes and improvements.
+Close compose window after redirecting a message.
+Re-added option to report messages as spam/ham through redirection.
+Don't allow to save filter rules without conditions.
+Fixed reindexing of existing filter rules when deleting a rule.
+Fixed IMAP filtering.
+Further fixed folder names in Procmail rules if using Maildir.
+Remove all of user's address books when removing users.
+Fixed deleting too many notepads if deleting a user.
+Updated French, Swedish, and Turkish translations.
+Further bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Horde Groupware Webmail Edition';
