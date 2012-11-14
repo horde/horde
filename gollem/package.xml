@@ -25,7 +25,7 @@
  <date>2012-11-12</date>
  <time>18:56:34</time>
  <version>
-  <release>3.0.0</release>
+  <release>3.0.0alpha1</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -719,7 +719,7 @@
   </release>
   <release>
    <version>
-    <release>3.0.0</release>
+    <release>3.0.0alpha1</release>
     <api>3.0.0</api>
    </version>
    <stability>
