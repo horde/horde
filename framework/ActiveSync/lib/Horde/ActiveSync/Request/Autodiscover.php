@@ -81,27 +81,89 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
     {
     }
 
+    /**
+     * Build the appropriate response string to send back to the client.
+     *
+     * @params array $properties  An array containing any needed properties.
+     */
     protected function _buildResponseString($properties)
     {
-        return '<?xml version="1.0" encoding="utf-8"?>
-          <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
-            <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
-              <Culture>' . $properties['culture'] . '</Culture>
-              <User>
-                <DisplayName>' . $properties['display_name'] . '</DisplayName>
-                <EMailAddress>' . $properties['email'] . '</EMailAddress>
-              </User>
-              <Action>
-                <Settings>
-                  <Server>
-                    <Type>MobileSync</Type>
-                    <Url>' . $properties['url'] . '</Url>
-                    <Name>' . $properties['url'] . '</Name>
-                   </Server>
-                </Settings>
-              </Action>
-            </Response>
-          </Autodiscover>';
+        // Default response is for mobilesync.
+        if (empty($properties['request_schema']) ||
+            stripos($properties['request_schema'], 'autodiscover/mobilesync') !== false) {
+
+            return '<?xml version="1.0" encoding="utf-8"?>
+              <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
+                <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
+                  <Culture>' . $properties['culture'] . '</Culture>
+                  <User>
+                    <DisplayName>' . $properties['display_name'] . '</DisplayName>
+                    <EMailAddress>' . $properties['email'] . '</EMailAddress>
+                  </User>
+                  <Action>
+                    <Settings>
+                      <Server>
+                        <Type>MobileSync</Type>
+                        <Url>' . $properties['url'] . '</Url>
+                        <Name>' . $properties['url'] . '</Name>
+                       </Server>
+                    </Settings>
+                  </Action>
+                </Response>
+              </Autodiscover>';
+        } elseif (stripos($properties['request_schema'], 'autodiscover/outlook') !== false) {
+             $xml = '<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
+               <Response xmlns="' . $properties['response_schema'] . '">
+                 <User>
+                   <DisplayName>' . $properties['display_name'] . '</DisplayName>
+                 </User>
+                 <Account>
+                   <AccountType>email</AccountType>
+                     <Action>settings</Action>';
+             if (!empty($properties['imap'])) {
+                 $xml .= '<Protocol>
+                     <Type>IMAP</Type>
+                     <Server>' . $properties['imap']['host'] . '</Server>
+                     <Port>' . $properties['imap']['port'] . '</Port>
+                     <LoginName>' . $properties['username'] . '</LoginName>
+                     <DomainRequired>off</DomainRequired>
+                     <SPA>off</SPA>
+                     <SSL>' . $properties['imap']['ssl'] . '</SSL>
+                     <AuthRequired>on</AuthRequired>
+                     </Protocol>';
+             }
+             if (!empty($properties['pop'])) {
+                 $xml .= '<Protocol>
+                     <Type>POP3</Type>
+                     <Server>' . $properties['pop']['host'] . '</Server>
+                     <Port>' . $properties['pop']['port'] . '</Port>
+                     <LoginName>' . $properties['username'] . '</LoginName>
+                     <DomainRequired>off</DomainRequired>
+                     <SPA>off</SPA>
+                     <SSL>' . $properties['pop']['host'] . '</SSL>
+                     <AuthRequired>on</AuthRequired>
+                    </Protocol>';
+             }
+             if (!empty($properties['smtp'])) {
+                 $xml .= '<Protocol>
+                     <Type>SMTP</Type>
+                     <Server>' . $properties['smtp']['host'] . '</Server>
+                     <Port>' . $properties['smtp']['port'] . '</Port>
+                     <LoginName>' . $properties['username'] . '</LoginName>
+                     <DomainRequired>off</DomainRequired>
+                     <SPA>off</SPA>
+                     <SSL>' . $properties['smtp']['ssl'] . '</SSL>
+                     <AuthRequired>on</AuthRequired>
+                     <UsePOPAuth>' . $properties['smtp']['popauth'] . '</UsePOPAuth>
+                     </Protocol>';
+             }
+             $xml .= '</Account>
+                 </Response>
+              </Autodiscover>';
+
+             return $xml;
+         }
+
     }
 
     protected function _buildFailureResponse($email, $status)
