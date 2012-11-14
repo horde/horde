@@ -20,10 +20,13 @@ try {
     Horde::url('browse.php', true)->redirect();
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter', array(
-    'existing' => array_values($bookmark->tags)
-));
-
+$injector->getInstance('Horde_Core_Factory_Imple')
+    ->create('Trean_Ajax_Imple_TagAutoCompleter', array(
+        'id' => 'treanBookmarkTags',
+        'boxClass' => 'treanACBox',
+        'pretty' => true,
+        'existing' => array_values($bookmark->tags)));
+$page_output->addInlineScript('HordeImple.AutoCompleter.treanBookmarkTags.init()', true);
 $page_output->header(array(
     'title' => _("Edit Bookmark")
 ));
