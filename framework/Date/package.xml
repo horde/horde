@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>14:35:24</time>
+ <time>14:35:59</time>
  <version>
-  <release>1.0.12</release>
+  <release>1.0.13</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -748,6 +748,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Include time when parsing recurrence end date from vCalendar/iCalendar.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.13</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
