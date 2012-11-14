@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>14:57:04</time>
+ <time>14:57:34</time>
  <version>
-  <release>1.0.6</release>
+  <release>1.0.7</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix track_lifetime setting for Memcache driver (Bug #11444).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,6 +394,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix track_lifetime setting for Memcache driver (Bug #11444).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
