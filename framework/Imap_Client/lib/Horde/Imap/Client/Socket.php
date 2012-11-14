@@ -1560,7 +1560,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * using literal8 "~{#} format", but it doesn't seem to work on
              * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
              * broken BINARY and attempt to fix here. */
-            if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
+            if ($e instanceof Horde_Imap_Client_Exception_ServerResponse &&
+                $e->status == Horde_Imap_Client_Interaction_Server::BAD &&
                 $this->queryCapability('BINARY')) {
                 $cap = $this->capability();
                 unset($cap['BINARY']);
