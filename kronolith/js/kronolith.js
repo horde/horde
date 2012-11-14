@@ -5312,16 +5312,15 @@ KronolithCore = {
      */
     saveEventParams: function()
     {
-        var start, end, sig,
-            viewDates = this.viewDates(this.date, this.view),
-            params = { sig: viewDates[0].dateString() + viewDates[1].dateString() };
+        var viewDates = this.viewDates(this.date, this.view),
+            params = {
+                sig: viewDates[0].dateString() + viewDates[1].dateString(),
+                view: this.view
+            };
         if (this.cacheStart) {
-            start = this.cacheStart.dateString();
-            end = this.cacheEnd.dateString();
-            params.view_start = start;
-            params.view_end = end;
+            params.view_start = this.cacheStart.dateString();
+            params.view_end = this.cacheEnd.dateString();
         }
-        params.view = this.view;
         return params;
     },
 
