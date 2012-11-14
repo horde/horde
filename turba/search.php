@@ -237,7 +237,7 @@ $notification->notify(array('listeners' => 'status'));
 echo $tabs->render($search_mode);
 echo $headerView->render('header');
 echo $searchView->render($search_mode);
-if ($search_mode != 'duplicate') {
+if (!empty($vbookView)) {
     echo $vbookView->render('vbook');
 }
 if (isset($view) && is_object($view)) {
