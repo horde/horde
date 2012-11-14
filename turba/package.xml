@@ -31,7 +31,7 @@
  <date>2012-07-20</date>
  <time>20:01:16</time>
  <version>
-  <release>3.0.15</release>
+  <release>3.0.16</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -45,9 +45,6 @@
 * [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
 * [mms] Return to same page when deleting contact from browse view.
-* [mjr] Add ability to return count of objects matching search in place of full result set.
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Fix strict searching in favourites driver (Bug #11207).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1436,14 +1433,29 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [mjr] Add ability to return count of objects matching search in place of full result set.
+* [jan] Update Turkish translation (İstanbul Technical University).
+* [jan] Fix strict searching in favourites driver (Bug #11207).
+   </notes>
+  </release>
+  <release>
+   <date>2012-07-20</date>
+   <time>20:01:16</time>
+   <version>
+    <release>3.0.16</release>
+    <api>3.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
 * [jan] Fix sorting of columns in preferences (Bug #10795).
 * [jan] Remove user&apos;s address books when removing users, independent from address book permissions.
 * [mms] Fix infinite loop if array was passed to delete API call.
 * [mms] Fix descending sorting of result lists.
 * [mms] Return to same page when deleting contact from browse view.
-* [mjr] Add ability to return count of objects matching search in place of full result set.
-* [jan] Update Turkish translation (İstanbul Technical University).
-* [jan] Fix strict searching in favourites driver (Bug #11207).
    </notes>
   </release>
  </changelog>
