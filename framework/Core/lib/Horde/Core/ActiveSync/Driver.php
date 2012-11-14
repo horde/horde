@@ -1499,7 +1499,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $params['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
         // As of Exchange 2007, this always returns en:en
         $params['culture'] = 'en:en';
-
+        $params['username'] = $this->getUsernameFromEmail($params['email']);
         try {
             $xml = Horde::callHook('activesync_autodiscover_xml', array($params), 'horde');
             return array('raw_xml' => $xml);
