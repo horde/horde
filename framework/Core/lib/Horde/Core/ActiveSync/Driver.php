@@ -1481,23 +1481,35 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * do our best to translate email address to username. If this fails, the
      * device simply falls back to requiring full user configuration.
      *
-     * @return array
+     * @param array $params  Optional array of parameters.
+     *
+     * @return array  Either an array of autodiscover parameters that the
+     *                ActiveSync server will use to build the response, or
+     *                the raw XML response contained in the raw_xml key.
      */
-    public function autoDiscover()
+    public function autoDiscover($params = array())
     {
-        $results = array();
-
         // Attempt to get a username from the email address.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($GLOBALS['registry']->getAuth());
-        $results['display_name'] = $ident->getValue('fullname');
-        $results['email'] = $ident->getValue('from_addr');
+        $params['display_name'] = $ident->getValue('fullname');
+        $params['email'] = $ident->getValue('from_addr');
         $url = parse_url((string)Horde::url(null, true));
-        $results['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
+        $params['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
         // As of Exchange 2007, this always returns en:en
-        $results['culture'] = 'en:en';
-        return $results;
+        $params['culture'] = 'en:en';
+
+        try {
+            $xml = Horde::callHook('activesync_autodiscover_xml', array($params), 'horde');
+            return array('raw_xml' => $xml);
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        try {
+            $params = Horde::callHook('activesync_autodisover_parameters', array($params), 'horde');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return $params;
     }
 
     /**

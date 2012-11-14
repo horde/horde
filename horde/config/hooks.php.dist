@@ -792,7 +792,7 @@ class Horde_Hooks
 //    }
 
     /**
-     * Activesync hook for determing a Horde username from an email address.
+     * ActiveSync hook for determing a Horde username from an email address.
      *
      * @param string $email  The email address
      *
@@ -801,6 +801,35 @@ class Horde_Hooks
     // public function activesync_get_autodiscover_username($email)
     // {
     //     return substr($email, 0, strpos($email, '@'));
+    // }
+
+    /**
+     * ActiveSync hook for overriding the XML output. Takes an array of
+     * autodiscover parameters and returns the raw XML string to send to the
+     * client. USING THIS HOOK MEANS YOU ARE RESPONSIBLE FOR SENDING CORRECT
+     * XML TO THE CLIENT. ACTIVESYNC WILL SEND THIS STRING AS-IS. ONLY USE THIS
+     * IF YOU KNOW WHAT YOU ARE DOING!
+     *
+     * @param array $params  The array of available Autodiscover parameters.
+     *
+     * @return string  The XML string.
+     */
+    // public function activesync_autodiscover_xml(array $params)
+    // {
+    // }
+
+    /**
+     * ActiveSync hook for modifying the various Autodiscover values before
+     * the XML string is build by the ActiveSync server code. Use, e.g., if you
+     * need to alter the value of the host before sending it to the client.
+     *
+     * @param array $params  The array of Autodiscover parameters.
+     *
+     * @return array  The possibly modified array of Autodiscover parameters.
+     */
+    // public function activesync_autodiscover_parameters(array $params)
+    // {
+    //     return $params;
     // }
 
 }

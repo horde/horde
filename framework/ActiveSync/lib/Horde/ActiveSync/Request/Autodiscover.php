@@ -54,16 +54,25 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             throw new Horde_Exception_AuthenticationFailure();
         }
 
-        $results = $this->_driver->autoDiscover();
-
         if (!empty($values)) {
-            $results['request_schema'] = $values[0]['attributes']['XMLNS'];
-            $results['response_schema'] = $values[3]['value'];
+            $params = array(
+              'request_schema' => $values[0]['attributes']['XMLNS'],
+              'response_schema' => $values[3]['value']);
+        } else {
+          $params = array();
         }
+        $results = $this->_driver->autoDiscover($params);
 
-        fwrite(
-            $this->_encoder->getStream(),
-            $this->_buildResponseString($results));
+        if (!empty($results['raw_xml'])) {
+            fwrite(
+                $this->_encoder->getStream(),
+                $this->_buildResponseString($results));
+        } else {
+            // The backend is taking control of the XML.
+            fwrite(
+              $this->_encoder->getStream(),
+              $results['raw_xml']);
+        }
 
         return 'text/xml';
     }
