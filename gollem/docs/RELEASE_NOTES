@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the first alpha release of the Gollem
+The Horde Team is pleased to announce the first beta release of the Gollem
 File Manager version H5 (3.0.0).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
