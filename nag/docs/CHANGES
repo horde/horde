@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[mjr] Fix support for due/start dates for certain ActiveSync clients (Bug
+      #11693).
 [jan] Fix importing tasks from iCalendar (Bug #11681).
 [jan] Fix listing of recurring tasks via timeobjects API.
 
