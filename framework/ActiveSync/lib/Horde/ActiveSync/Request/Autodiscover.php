@@ -112,60 +112,78 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 </Response>
               </Autodiscover>';
         } elseif (stripos($properties['request_schema'], 'autodiscover/outlook') !== false) {
-             $xml = '<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
-               <Response xmlns="' . $properties['response_schema'] . '">
-                 <User>
-                   <DisplayName>' . $properties['display_name'] . '</DisplayName>
-                 </User>
-                 <Account>
-                   <AccountType>email</AccountType>
-                     <Action>settings</Action>';
-             if (!empty($properties['imap'])) {
-                 $xml .= '<Protocol>
-                     <Type>IMAP</Type>
-                     <Server>' . $properties['imap']['host'] . '</Server>
-                     <Port>' . $properties['imap']['port'] . '</Port>
-                     <LoginName>' . $properties['username'] . '</LoginName>
-                     <DomainRequired>off</DomainRequired>
-                     <SPA>off</SPA>
-                     <SSL>' . $properties['imap']['ssl'] . '</SSL>
-                     <AuthRequired>on</AuthRequired>
-                     </Protocol>';
-             }
-             if (!empty($properties['pop'])) {
-                 $xml .= '<Protocol>
-                     <Type>POP3</Type>
-                     <Server>' . $properties['pop']['host'] . '</Server>
-                     <Port>' . $properties['pop']['port'] . '</Port>
-                     <LoginName>' . $properties['username'] . '</LoginName>
-                     <DomainRequired>off</DomainRequired>
-                     <SPA>off</SPA>
-                     <SSL>' . $properties['pop']['host'] . '</SSL>
-                     <AuthRequired>on</AuthRequired>
+            if (stripos($properties['response_schema'], 'autodiscover/mobilesync/responseschema/2006') === false) {
+                // We only support mobilesync for now, tell the device we can't
+                // locate a service for the requested schema.
+                return $this->_buildFailureResponse($properties['email'], '601');
+            }
+            $xml = '<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
+                <Response xmlns="' . $properties['response_schema'] . '">
+                <User>
+                    <DisplayName>' . $properties['display_name'] . '</DisplayName>
+                </User>
+                <Account>
+                    <AccountType>email</AccountType>
+                    <Action>settings</Action>';
+
+            if (!empty($properties['imap'])) {
+                $xml .= '<Protocol>
+                    <Type>IMAP</Type>
+                    <Server>' . $properties['imap']['host'] . '</Server>
+                    <Port>' . $properties['imap']['port'] . '</Port>
+                    <LoginName>' . $properties['username'] . '</LoginName>
+                    <DomainRequired>off</DomainRequired>
+                    <SPA>off</SPA>
+                    <SSL>' . $properties['imap']['ssl'] . '</SSL>
+                    <AuthRequired>on</AuthRequired>
                     </Protocol>';
-             }
-             if (!empty($properties['smtp'])) {
-                 $xml .= '<Protocol>
-                     <Type>SMTP</Type>
-                     <Server>' . $properties['smtp']['host'] . '</Server>
-                     <Port>' . $properties['smtp']['port'] . '</Port>
-                     <LoginName>' . $properties['username'] . '</LoginName>
-                     <DomainRequired>off</DomainRequired>
-                     <SPA>off</SPA>
-                     <SSL>' . $properties['smtp']['ssl'] . '</SSL>
-                     <AuthRequired>on</AuthRequired>
-                     <UsePOPAuth>' . $properties['smtp']['popauth'] . '</UsePOPAuth>
-                     </Protocol>';
-             }
-             $xml .= '</Account>
-                 </Response>
-              </Autodiscover>';
+            }
+            if (!empty($properties['pop'])) {
+                $xml .= '<Protocol>
+                    <Type>POP3</Type>
+                    <Server>' . $properties['pop']['host'] . '</Server>
+                    <Port>' . $properties['pop']['port'] . '</Port>
+                    <LoginName>' . $properties['username'] . '</LoginName>
+                    <DomainRequired>off</DomainRequired>
+                    <SPA>off</SPA>
+                    <SSL>' . $properties['pop']['host'] . '</SSL>
+                    <AuthRequired>on</AuthRequired>
+                    </Protocol>';
+            }
+            if (!empty($properties['smtp'])) {
+                $xml .= '<Protocol>
+                    <Type>SMTP</Type>
+                    <Server>' . $properties['smtp']['host'] . '</Server>
+                    <Port>' . $properties['smtp']['port'] . '</Port>
+                    <LoginName>' . $properties['username'] . '</LoginName>
+                    <DomainRequired>off</DomainRequired>
+                    <SPA>off</SPA>
+                    <SSL>' . $properties['smtp']['ssl'] . '</SSL>
+                    <AuthRequired>on</AuthRequired>
+                    <UsePOPAuth>' . $properties['smtp']['popauth'] . '</UsePOPAuth>
+                    </Protocol>';
+            }
+            $xml .= '</Account>
+                </Response>
+                </Autodiscover>';
 
-             return $xml;
-         }
-
+            return $xml;
+        } else {
+          // Unknown request.
+          return $this->_buildFailureResponse($properties['email'], '600');
+        }
     }
 
+    /**
+     * Output failure response code.
+     *
+     * @param string $email   The email of the user attempting Autodiscover.
+     * @param string $status  An appropriate status code for the error. E.g.,
+     *                        600 - Invalid response.
+     *                        601 - Provider not found for requested schema.
+     *
+     * @return string  The XML to send to the client.
+     */
     protected function _buildFailureResponse($email, $status)
     {
         return '<?xml version="1.0" encoding="utf-8"?>
