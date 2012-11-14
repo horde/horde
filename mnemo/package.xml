@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>18:11:15</time>
+ <time>18:12:15</time>
  <version>
-  <release>3.0.7</release>
+  <release>3.0.8</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix deleting too many notepads if deleting a user.
-* [jan] Update Turkish translation (İstanbul Technical University).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -944,6 +943,19 @@
    <notes>
 * [jan] Fix deleting too many notepads if deleting a user.
 * [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.8</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
