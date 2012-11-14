@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-22</date>
- <time>15:53:21</time>
+ <date>2012-11-14</date>
+ <time>14:41:07</time>
  <version>
   <release>1.6.2</release>
   <api>1.6.0</api>
@@ -920,7 +920,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-22</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Workaround broken base64 data.
