@@ -3,6 +3,7 @@ function cancelEdit()
 {
 <?php if (!Horde_Util::getFormData('popup')) { ?>
     window.history.back();
+    return false;
 <?php } else { ?>
     return !window.close();
 <?php } ?>
