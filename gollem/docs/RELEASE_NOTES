@@ -10,26 +10,26 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Gollem File
-Manager version H4 (2.0.2).
+The Horde Team is pleased to announce the first alpha release of the Gollem
+File Manager version H5 (3.0.0).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
 database, as part of a real filesystem, or on FTP, Samba or SSH servers.
 
-The major changes compared to Gollem version H4 (2.0.1) are:
-    * Small bugfixes and improvements.
+The major changes compared to Gollem version H4 (2.0) are:
+    * Completely redesigned user interface.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Small bugfixes and improvements.
+Completely redesigned user interface.
 FM;
 
 $this->notes['name'] = 'Gollem';
 $this->notes['fm']['project'] = 'gollem';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';
