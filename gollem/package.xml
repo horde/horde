@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-14</date>
- <time>23:28:21</time>
+ <time>23:29:13</time>
  <version>
-  <release>3.0.0beta1</release>
+  <release>3.0.0beta2</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,9 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Convert templates to Horde_View.
-* [jan] Fix getViewLink() API method (Bug #11226).
-* [jan] Update Turkish translation (İstanbul Technical University).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -731,6 +729,19 @@
 * [jan] Convert templates to Horde_View.
 * [jan] Fix getViewLink() API method (Bug #11226).
 * [jan] Update Turkish translation (İstanbul Technical University).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0beta2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
