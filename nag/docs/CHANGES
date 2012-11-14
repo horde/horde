@@ -1,6 +1,6 @@
-----------
-v3.0.9-git
-----------
+------
+v3.0.9
+------
 
 [mms] Fix getTasklist() API call.
 [jan] Fix changing sort direction.

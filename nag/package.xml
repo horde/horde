@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-05-29</date>
- <time>18:20:15</time>
+ <date>2012-11-14</date>
+ <time>18:09:03</time>
  <version>
   <release>3.0.9</release>
   <api>3.0.0</api>
@@ -1129,7 +1129,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-05-29</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Fix getTasklist() API call.
