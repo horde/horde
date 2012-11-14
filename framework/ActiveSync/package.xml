@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-10</date>
- <time>16:16:50</time>
+ <date>2012-11-14</date>
+ <time>14:06:36</time>
  <version>
   <release>1.2.8</release>
   <api>1.2.0</api>
@@ -613,7 +613,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-07-10</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix issue that could cause a race condition during a PING request for users with empty backend data.
