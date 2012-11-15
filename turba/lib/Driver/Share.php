@@ -135,6 +135,29 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Creates an object key for a new object.
+     *
+     * @param array $attributes  The attributes (in driver keys) of the
+     *                           object being added.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeKey(array $attributes)
+    {
+        return $this->_driver->_makeKey($attributes);
+    }
+
+    /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return $this->_driver->_makeUid($attributes);
+    }
+
+    /**
      * Searches the address book with the given criteria and returns a
      * filtered list of results. If the criteria parameter is an empty array,
      * all records will be returned.
