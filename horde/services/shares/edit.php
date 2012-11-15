@@ -77,6 +77,7 @@ case 'editform':
          ($registry->getAuth() != $share->get('owner')))) {
         throw new Horde_Exception('Permission denied.');
     }
+
     $perm = $share->getPermission();
 
     // Process owner and owner permissions.
@@ -242,9 +243,9 @@ case 'editform':
     break;
 }
 
-$title = (!$share instanceof Horde_Share_Object)
-    ? _("Edit permissions")
-    : sprintf(_("Edit permissions for \"%s\""), $share->get('name'));
+$title = ($share instanceof Horde_Share_Object)
+    ? sprintf(_("Edit permissions for \"%s\""), $share->get('name'))
+    : _("Edit permissions");
 
 $userList = array();
 if ($auth->hasCapability('list') &&
