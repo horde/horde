@@ -252,6 +252,8 @@ class Turba_Driver_Kolab extends Turba_Driver
         $contacts = array();
         foreach ($raw_contacts as $id => $contact) {
             $contact = $contact->getData();
+            $contact['__key'] = Horde_Url::uriB64Encode($id);
+
             if (isset($contact['picture'])) {
                 $name = $contact['picture'];
                 if (isset($contact['_attachments'][$name])) {
