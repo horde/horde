@@ -331,14 +331,26 @@ HermesCore = {
     checkSelected: function()
     {
         var haveSelected = false;
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
-            haveSelected = true;
-            throw $break;
-        }.bind(this));
-        if (haveSelected) {
-            $('hermesTimeListSubmit').enable()
-        } else {
-            $('hermesTimeListSubmit').disable();
+        if (this.view == 'time') {
+            $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesTimeListSubmit').enable()
+            } else {
+                $('hermesTimeListSubmit').disable();
+            }
+        } else if (this.view == 'search') {
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesSearchListExport').enable()
+            } else {
+                $('hermesSearchListExport').disable();
+            }
         }
     },
 
