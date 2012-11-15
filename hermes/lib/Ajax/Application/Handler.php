@@ -317,18 +317,28 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         if (!empty($vars->type)) {
             $criteria['jobtype'] = $vars->type;
         }
-        if (!empty($vars->costobjects)) {
-            $criteria['costobject'] = $vars->costobjects;
+        if (!empty($vars->costobject)) {
+            $criteria['costobject'] = $vars->costobject;
         }
-        if (!empty($vars->start)) {
-            $dt = new Horde_Date($vars->start);
+        if (!empty($vars->after_date)) {
+            $dt = new Horde_Date($vars->after_date);
             $criteria['start'] = $dt->timestamp();
         }
-        if (!empty($vars->end)) {
-            $dt = new Horde_Date($vars->end);
+        if (!empty($vars->before_date)) {
+            $dt = new Horde_Date($vars->before_date);
             $criteria['end'] = $dt->add(86400)->timestamp();
         }
 
+        if ($vars->billable !== '') {
+            $criteria['billable'] = $vars->billable;
+        }
+        if ($vars->submitted !== '') {
+            $criteria['submitted'] = $vars->submitted;
+        }
+        if ($vars->exported !== '') {
+            $criteria['exported'] = $vars->exported;
+        }
+Horde::debug($criteria);
         return $criteria;
     }
 

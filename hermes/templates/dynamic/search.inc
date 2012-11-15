@@ -49,7 +49,7 @@
       <fieldset id="hermesSearchFormBottomSet">
       <label for="hermesSearchFormSubmitted">
          <?php echo _("Submitted") ?>
-         <select name="hermesSearchFormSubmitted">
+         <select id="hermesSearchFormSubmitted" name="submitted">
            <option value=""></option>
            <option value="1"><?php echo _("Yes") ?></option>
            <option value="0"><?php echo _("No") ?></option>
@@ -57,7 +57,7 @@
       </label>
       <label for="hermesSearchFormExported">
          <?php echo _("Exported") ?>
-         <select name="hermesSearchFormExported">
+         <select id="hermesSearchFormExported" name="exported">
            <option value=""></option>
            <option value="1"><?php echo _("Yes") ?></option>
            <option value="0"><?php echo _("No") ?></option>
@@ -65,7 +65,7 @@
       </label>
       <label for="hermesSearchFormBillable">
          <?php echo _("Billable") ?>
-         <select name="hermesSearchFormBillable">
+         <select id="hermesSearchFormBillable" name="billable">
            <option value=""></option>
            <option value="1"><?php echo _("Yes") ?></option>
            <option value="0"><?php echo _("No") ?></option>
