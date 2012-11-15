@@ -63,7 +63,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         }
         $results = $this->_driver->autoDiscover($params);
 
-        if (!empty($results['raw_xml'])) {
+        if (empty($results['raw_xml'])) {
             fwrite(
                 $this->_encoder->getStream(),
                 $this->_buildResponseString($results));
