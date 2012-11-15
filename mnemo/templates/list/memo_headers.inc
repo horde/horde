@@ -8,9 +8,9 @@ function table_sortCallback(tableId, column, sortDown)
 }
 </script>
 
-<table width="100%" id="memos" cellspacing="0" class="sortable linedRow nowrap">
+<table id="memos" class="horde-table sortable nowrap">
 <thead>
- <tr class="item leftAlign">
+ <tr>
   <th class="nosort" width="3%"><?php echo Horde::img('edit.png', _("Edit Note"), '') ?></th>
 <?php if ($showNotepad): ?>
   <th id="s<?php echo Mnemo::SORT_NOTEPAD ?>"<?php if ($sortby == Mnemo::SORT_NOTEPAD) echo ' class="' . $sortdirclass . '"' ?> width="2%">
