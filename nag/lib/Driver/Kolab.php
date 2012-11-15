@@ -104,7 +104,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _buildTask($task)
     {
         $result = array(
-            'task_id' => $Horde_Url::uriB64Encode($task['uid']),
+            'task_id' => Horde_Url::uriB64Encode($task['uid']),
             'uid' => $task['uid'],
             'name' => $task['summary'],
             'desc' => $task['body'],
