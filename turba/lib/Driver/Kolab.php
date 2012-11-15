@@ -633,15 +633,16 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Removes the specified object from the Kolab message store.
      */
-    protected function _delete($object_key, $uid)
+    protected function _delete($object_key, $object_id)
     {
         $this->connect();
 
-        if ($object_key != 'uid') {
-            throw new Turba_Exception(sprintf('Key for saving must be a UID not %s!', $object_key));
+        if ($object_key == 'uid') {
+            $object_id = Horde_Url::uriB64Encode($object_id);
+        } elseif ($object_key != '__key') {
+            throw new Turba_Exception(sprintf('Key for deleting must be a UID or ID not %s!', $object_key));
         }
 
-        $object_id = Horde_Url::uriB64Encode($uid);
         if (!isset($this->_contacts_cache[$object_id])) {
             throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $uid));
         }
@@ -654,7 +655,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             //$result = $this->_store->setObjectType('distribution-list');
         }
 
-        $result = $this->_getData()->delete($uid);
+        $result = $this->_getData()->delete($this->_contacts_cache[$object_id]['uid']);
 
         /* Invalidate cache. */
         $this->_connected = false;
