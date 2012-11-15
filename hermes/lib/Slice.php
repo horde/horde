@@ -48,6 +48,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
             'rate' => $json->r,
             'submitted' => $json->s,
             'type' => $json->t,
+            'editable' => Hermes::canEditTimeslice($json->i),
             '_type_name' => $json->tn,
         );
     }

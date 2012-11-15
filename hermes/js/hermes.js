@@ -520,10 +520,6 @@ HermesCore = {
         });
     },
 
-    clientSearchChangeHandler: function(e)
-    {
-    },
-
     /**
      * Save a slice entry.
      */
