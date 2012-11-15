@@ -160,7 +160,7 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
-            /* Main navigation links */
+            // Main navigation links
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();
@@ -171,7 +171,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Time entry form actions */
+            // Time entry form actions
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
@@ -186,7 +186,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Slice list actions */
+            // Slice list actions
             case 'hermesTimeListSubmit':
                 this.submitSlices();
                 e.stop();
@@ -220,7 +220,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Timer form */
+            // Timer form
             case 'hermesAddTimer':
                 RedBox.showHtml($('hermesTimerDialog').show());
                 return;
@@ -236,7 +236,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Search Form */
+            // Search Form
             case 'hermesSearch':
                 this.search();
                 e.stop();
