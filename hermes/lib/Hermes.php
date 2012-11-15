@@ -233,43 +233,56 @@ class Hermes
     }
 
     /**
+     * Return data for costobjects, optionally filtered by client_ids.
+     *
+     * @param mixed $client_ids  A client id or an array of client ids to
+     *                           filter cost obejcts by.
+     *
+     * @return array  An array of cost objects data.
      */
-    public static function getCostObjectType($clientID = null)
+    public static function getCostObjectType($client_ids = null)
     {
         global $registry;
 
-        /* Check to see if any other active applications are exporting cost
-         * objects to which we might want to bill our time. */
-        $criteria = array('user'   => $GLOBALS['registry']->getAuth(),
-                          'active' => true);
-        if (!empty($clientID)) {
-            $criteria['client_id'] = $clientID;
+        // Check to see if any other active applications are exporting cost
+        // objects to which we might want to bill our time.
+        $criteria = array(
+            'user'   => $GLOBALS['registry']->getAuth(),
+            'active' => true
+        );
+        if (empty($client_ids)) {
+            $client_ids = array();
+        } elseif (!is_array($client_ids)) {
+            $client_ids = array($client_ids);
         }
 
         $costobjects = array();
-        foreach ($registry->listApps() as $app) {
-            if (!$registry->hasMethod('listCostObjects', $app)) {
-                continue;
-            }
-
-            try {
-                $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
-            } catch (Horde_Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
-                continue;
-            }
-
-            foreach (array_keys($result) as $catkey) {
-                foreach (array_keys($result[$catkey]['objects']) as $okey){
-                    $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
-                        $result[$catkey]['objects'][$okey]['id'];
+        foreach ($client_ids as $client_id) {
+            $criteria['client_id'] = $client_id;
+            foreach ($registry->listApps() as $app) {
+                if (!$registry->hasMethod('listCostObjects', $app)) {
+                    continue;
                 }
-            }
 
-            if ($app == $registry->getApp()) {
-                $costobjects = array_merge($result, $costobjects);
-            } else {
-                $costobjects = array_merge($costobjects, $result);
+                try {
+                    $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
+                } catch (Horde_Exception $e) {
+                    $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
+                    continue;
+                }
+
+                foreach (array_keys($result) as $catkey) {
+                    foreach (array_keys($result[$catkey]['objects']) as $okey){
+                        $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
+                            $result[$catkey]['objects'][$okey]['id'];
+                    }
+                }
+
+                if ($app == $registry->getApp()) {
+                    $costobjects = array_merge($result, $costobjects);
+                } else {
+                    $costobjects = array_merge($costobjects, $result);
+                }
             }
         }
 
