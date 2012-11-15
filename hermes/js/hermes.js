@@ -801,6 +801,12 @@ HermesCore = {
             slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
         } else if (this.view == 'search') {
             $('hermesLoadingSearch').hide();
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                s.removeClassName('hermesSelectedSlice')
+                    .removeClassName('hermesTimeListSelect')
+                    .addClassName('hermesTimeListUnselectable');
+            }.bind(this));
+
         }
         this.checkSelected();
     },
