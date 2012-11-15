@@ -362,19 +362,19 @@ HermesCore = {
      */
     populateSliceForm: function(sid)
     {
-        var slice = this.getSliceFromCache(sid),
+        var slice = this.getSliceFromCache(sid, this.view),
             d = this.parseDate(slice.d);
 
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
         HordeCore.doAction('listDeliverables',
-              { 'c': $F('hermesTimeFormClient') },
-              { 'callback': function(r) {
-                    this.listDeliverablesCallback(r);
-                    $('hermesTimeFormCostobject').setValue(slice.co);
+            { 'c': $F('hermesTimeFormClient') },
+            { 'callback': function(r) {
+                  this.listDeliverablesCallback(r);
+                  $('hermesTimeFormCostobject').setValue(slice.co);
                 }.bind(this)
-              }
+            }
         );
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
         $('hermesTimeFormHours').setValue(slice.h);
@@ -383,6 +383,9 @@ HermesCore = {
         $('hermesTimeFormNotes').setValue(slice.n);
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
+
+        // We might be on the search form when we click edit.
+        this.go('time');
     },
 
     /**
@@ -430,13 +433,21 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid)
+    getSliceFromCache: function(sid, cache = 'time')
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
 
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                return this.slices[i];
+            if (c[i].i == sid) {
+                return c[i];
             }
         }
     },
