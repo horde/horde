@@ -261,27 +261,37 @@ div.hermesTimeSliceOptions {
 .horde-splitbar-horiz {
     cursor: default;
 }
+
 /* Search Form */
-#hermesSearchFormInputs {
-    margin-left: 7px;
-    margin-right: 7px;
-}
-#hermesSearchFormInputs label {
-    font-weight: bold;
-    white-space: nowrap;
-}
-#hermesSearchFormInputs .input {
-  border: medium none;
-  margin: 7px 7px 0 0;
-  padding: 6px 5px 4px;
-}
-#hermesSearchFormInputs .hermesLongField {
-  border: medium none;
-  margin: 0  7px 0;
-  padding: 6px 5px 4px;
-  width: 98%;
+#hermesSearchForm {
 
 }
+#hermesSearchForm fieldset {
+  margin: 20px 0px 20px 0px;
+  border: 0px;
+  position: relative;
+  display: block;
+  padding: 0 10px 10px 10px;
+}
+
+#hermesSearchForm label {
+  display: block;
+  float: left;
+  text-align: right;
+  margin:0px 5px 0px 0px;
+  width: 300px;
+  font-weightt: bold;
+}
+
+#hermesSearchForm input,
+#hermesSearchForm select {
+  vertical-align: middle;
+}
+
+#hermesSearchFormBottomSet label {
+  text-align: left;
+}
+
 .hermesLongField {
     width: 98%;
 }
