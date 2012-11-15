@@ -158,7 +158,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         foreach (array_keys(Nag::listTasklists(false, Horde_Perms::READ, false)) as $tasklist) {
             $this->_tasklist = $tasklist;
             try {
-                return $this->get($uid);
+                return $this->get(Horde_Url::uriB64Encode($uid));
             } catch (Horde_Exception_NotFound $e) {
             }
         }
