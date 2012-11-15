@@ -12,18 +12,20 @@
       if ($userType[0] == 'text'):?>
         <input type="text" id="hermesSearchFormEmployee" name="employees[]" />
       <?php else: ?>
-        <select>
-          <option value="userone">User One</option>
+        <select name="employees[]" id="hermesSearchFormEmployee" multiple="multiple">
+        <?php foreach ($userType[1] as $username => $user_label): ?>
+          <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
         </select>
+        <?php endforeach ?>
       <?php endif; ?>
       </label><span class="hermesSeparator">|</span>
       <label for="hermesSearchFormClient">
         <?php echo _("Client")?>*
-        <?php echo Hermes::getClientSelect('hermesSearchFormClient');?>
+        <?php echo Hermes::getClientSelect('hermesSearchFormClient', true);?>
       </label><span class="hermesSeparator">|</span>
       <label for="hermesSearchFormJobtype">
         <?php echo _("Job Type");?>
-        <?php echo Hermes::getJobTypeSelect('hermesSearchFormJobtype');?>
+        <?php echo Hermes::getJobTypeSelect('hermesSearchFormJobtype', true);?>
       </label><span class="hermesSeparator">|</span>
       <label for="hermesTimeFormCostobject">
         <?php echo _("Cost Object")?>

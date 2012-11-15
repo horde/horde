@@ -51,29 +51,50 @@ class Hermes
         return self::$_clients[$name];
     }
 
-    public static function getClientSelect($id)
+    /**
+     * Return the HTML needed to build an enum or multienum for selecting
+     * clients.
+     *
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML to render the select element.
+     */
+    public static function getClientSelect($id, $multi = false)
     {
         $clients = self::listClients();
-        $select = '<select name="client" id="' . $id . '">';
+        $select = '<select name="'
+            . ($multi ? 'client[]' : 'client')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple = "multiple"' : '') . '>';
         $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
         foreach ($clients as $cid => $client) {
-            $select .= '<option value="' . $cid . '">' . $client . '</option>';
+            $select .= '<option value="' . $cid . '">' . htmlspecialchars($client) . '</option>';
         }
 
         return $select . '</select>';
     }
 
     /**
+     * Return HTML needed to build an enum or multienum for jobtype selection.
      * @TODO: Build these via ajax once we have UI support for editing jobtypes
      *
-     * @return string
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML needed to render the select element.
      */
-    public static function getJobTypeSelect($id)
+    public static function getJobTypeSelect($id, $multi = false)
     {
-        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
-        $select = '<select name="type" id="' . $id . '">';
+        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
+            ->listJobTypes(array('enabled' => true));
+        $select = '<select name="'
+            . ($multi ? 'type[]' : 'type')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple="multiple"' : '') . '>';
+
         foreach ($types as $tid => $type) {
-            $select .= '<option value="' . $tid . '">' . $type['name'] . '</option>';
+            $select .= '<option value="' . $tid . '">' . htmlspecialchars($type['name']) . '</option>';
         }
 
         return $select . '</select>';
