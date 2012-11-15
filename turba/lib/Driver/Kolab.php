@@ -314,7 +314,7 @@ class Turba_Driver_Kolab extends Turba_Driver
                 $contact['anniversary'] = $contact['anniversary']->format('Y-m-d');
             }
 
-            $contacts[$id] = $contact;
+            $contacts[Horde_Url::uriB64Encode($id)] = $contact;
         }
 
         /* Now we retrieve distribution-lists */
@@ -363,7 +363,12 @@ class Turba_Driver_Kolab extends Turba_Driver
         $ids = $this->_removeDuplicated($ids);
 
         /* Now we have a list of names, get the rest. */
-        $result = $this->_read('uid', $ids, null, $fields);
+        $result = $this->_read(
+            'uid',
+            array_map(array('Horde_Url', 'uriB64Encode'), $ids),
+            null,
+            $fields
+        );
 
         Horde::logMessage(sprintf('Kolab returned %s results',
                                   count($result)), 'DEBUG');
@@ -544,7 +549,7 @@ class Turba_Driver_Kolab extends Turba_Driver
 
         $count = count($fields);
         foreach ($ids as $id) {
-            if (in_array($id, array_keys($this->_contacts_cache))) {
+            if (isset($this->_contacts_cache[$id])) {
                 $object = $this->_contacts_cache[$id];
 
                 if (!isset($object['__type']) || $object['__type'] == 'Object') {
@@ -626,7 +631,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     /**
      * Removes the specified object from the Kolab message store.
      */
-    protected function _delete($object_key, $object_id)
+    protected function _delete($object_key, $uid)
     {
         $this->connect();
 
@@ -634,8 +639,9 @@ class Turba_Driver_Kolab extends Turba_Driver
             throw new Turba_Exception(sprintf('Key for saving must be a UID not %s!', $object_key));
         }
 
+        $object_id = Horde_Url::uriB64Encode($uid);
         if (!isset($this->_contacts_cache[$object_id])) {
-            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $object_id));
+            throw new Turba_Exception(sprintf(_("Object with UID %s does not exist!"), $uid));
         }
 
         $group = isset($this->_contacts_cache[$object_id]['__type']) &&
@@ -646,7 +652,7 @@ class Turba_Driver_Kolab extends Turba_Driver
             //$result = $this->_store->setObjectType('distribution-list');
         }
 
-        $result = $this->_getData()->delete($object_id);
+        $result = $this->_getData()->delete($uid);
 
         /* Invalidate cache. */
         $this->_connected = false;
@@ -665,7 +671,7 @@ class Turba_Driver_Kolab extends Turba_Driver
     protected function _deleteAll($sourceName = null)
     {
         $this->connect();
-        $uids = array_keys($this->_contacts_cache);
+        $uids = array_map(array('Horde_Url', 'uriB64Decode'), array_keys($this->_contacts_cache));
 
         /* Delete contacts */
         $this->_getData()->deleteAll();
@@ -733,7 +739,7 @@ class Turba_Driver_Kolab extends Turba_Driver
         /* Invalidate cache. */
         $this->_connected = false;
 
-        return $object_id;
+        return Horde_Url::uriB64Encode($object_id);
     }
 
     /**
@@ -744,10 +750,11 @@ class Turba_Driver_Kolab extends Turba_Driver
         if (isset($attributes['__members'])) {
             $member_ids = unserialize($attributes['__members']);
             $attributes['member'] = array();
-            foreach ($member_ids as $member_id) {
+            foreach ($member_ids as $uid) {
+                $member_id = Horde_Url::uriB64Encode($uid);
                 if (isset($this->_contacts_cache[$member_id])) {
                     $member = $this->_contacts_cache[$member_id];
-                    $mail = array('uid' => $member_id);
+                    $mail = array('uid' => $uid);
                     if (!empty($member['full-name'])) {
                         $mail['display-name'] = $member['full-name'];
                     }
@@ -776,9 +783,10 @@ class Turba_Driver_Kolab extends Turba_Driver
      */
     protected function _makeKey(array $attributes)
     {
-        return isset($attributes['uid'])
-            ? $attributes['uid']
-            : $this->_generateUid();
+        return Horde_Url::uriB64Encode(
+            isset($attributes['uid'])
+                ? $attributes['uid']
+                : $this->_generateUid());
     }
 
     /**

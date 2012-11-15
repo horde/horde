@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[jan] Use encoded UIDs as IDs in Kolab driver.
 
 
 ------

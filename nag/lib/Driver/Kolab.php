@@ -84,10 +84,11 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     public function get($taskId)
     {
-        if (!$this->_getData()->objectIdExists($taskId)) {
+        $uid = Horde_Url::uriB64Decode($taskId);
+        if (!$this->_getData()->objectIdExists($uid)) {
             throw new Horde_Exception_NotFound();
         }
-        $task = $this->_getData()->getObject($taskId)->getData();
+        $task = $this->_getData()->getObject($uid)->getData();
         $nag_task = $this->_buildTask($task);
         $nag_task['tasklist_id'] = $this->_tasklist;
         return new Nag_Task($this, $nag_task);
@@ -103,7 +104,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _buildTask($task)
     {
         $result = array(
-            'task_id' => $task['uid'],
+            'task_id' => $Horde_Url::uriB64Encode($task['uid']),
             'uid' => $task['uid'],
             'name' => $task['summary'],
             'desc' => $task['body'],
@@ -201,7 +202,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Nag_Exception($e);
         }
-        return $object['uid'];
+        return Horde_Url::uriB64Encode($object['uid']);
     }
 
     /**
@@ -234,7 +235,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _modify($taskId, array $task)
     {
         $object = $this->_getObject($task);
-        $object['uid'] = $taskId;
+        $object['uid'] = Horde_Url::uriB64Decode($taskId);
         try {
             $this->_getData()->modify($object);
             $this->_updateTags($task);
@@ -340,7 +341,7 @@ class Nag_Driver_Kolab extends Nag_Driver
     protected function _move($taskId, $newTasklist)
     {
         $this->_getData()->move(
-            $taskId,
+            Horde_Url::uriB64Decode($taskId),
             $GLOBALS['nag_shares']->getShare($newTasklist)->get('folder')
         );
         $this->_getDataForTasklist($newTasklist)->synchronize();
@@ -353,25 +354,25 @@ class Nag_Driver_Kolab extends Nag_Driver
      */
     protected function _delete($taskId)
     {
-        $this->_getData()->delete($taskId);
+        $this->_getData()->delete(Horde_Url::uriB64Decode($taskId));
     }
 
     /**
      * Deletes all tasks from the backend.
      *
-     * @return array  An array of uids that have been deleted.
+     * @return array  An array of ids that have been deleted.
      */
     protected function _deleteAll()
     {
         $this->retrieve();
         $this->tasks->reset();
-        $uids = array();
+        $ids = array();
         while ($task = $this->tasks->each()) {
-            $uids[] = $task->uid;
+            $ids[] = $task->id;
         }
         $this->_getData()->deleteAll();
 
-        return $uids;
+        return $ids;
     }
 
     /**
@@ -391,7 +392,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         }
 
         foreach ($task_list as $task) {
-            $tuid = $task['uid'];
+            $tid = Horde_Url::uriB64Encode($task['uid']);
             $nag_task = $this->_buildTask($task);
             $nag_task['tasklist_id'] = $this->_tasklist;
             $t = new Nag_Task($this, $nag_task);
@@ -412,7 +413,7 @@ class Nag_Driver_Kolab extends Nag_Driver
             if (empty($t->parent_id)) {
                 $this->tasks->add($t);
             } else {
-                $dict[$tuid] = $t;
+                $dict[$tid] = $t;
             }
         }
 
@@ -445,7 +446,6 @@ class Nag_Driver_Kolab extends Nag_Driver
 
         $tasks = array();
         foreach ($task_list as $task) {
-            $tuid = $task['uid'];
             $t = new Nag_Task($this, $this->_buildTask($task));
             if ($t->alarm && $t->due &&
                 $t->due - $t->alarm * 60 < $date) {
@@ -473,7 +473,7 @@ class Nag_Driver_Kolab extends Nag_Driver
         $tasks = array();
 
         foreach ($task_list as $task) {
-            if ($task['parent'] != $parentId) {
+          if (Horde_Url::uriB64Encode($task['parent']) != $parentId) {
                 continue;
             }
             $t = new Nag_Task($this, $this->_buildTask($task));

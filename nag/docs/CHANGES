@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[jan] Use encoded UIDs as IDs in Kolab driver.
 [mjr] Fix support for due/start dates for certain ActiveSync clients (Bug
       #11693).
 [jan] Fix importing tasks from iCalendar (Bug #11681).

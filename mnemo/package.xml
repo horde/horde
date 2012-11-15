@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Use encoded UIDs as IDs in Kolab driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -948,7 +948,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Use encoded UIDs as IDs in Kolab driver.
    </notes>
   </release>
  </changelog>
