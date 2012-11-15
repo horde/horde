@@ -1028,6 +1028,11 @@ HermesCore = {
         row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
         row.store('sid', slice.i);
+        if (slice.x) {
+            row.down().removeClassName('hermesUnselectedSlice')
+                .removeClassName('hermesTimeListSelect')
+                .addClassName('hermesTimeListUnselectable');
+        }
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));

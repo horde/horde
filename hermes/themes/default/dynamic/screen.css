@@ -122,6 +122,11 @@ html, body {
 .hermesTimeListSelect:hover {
     background: url("../graphics/checkbox_over.png") no-repeat center;
 }
+.hermesTimeListUnselectable {
+    float: left;
+    width: 38px;
+    white-space: pre-wrap;
+}
 #hermesTimeListHeader, #hermesSearchListHeader {
     width: 100%;
     display: inline-block;
