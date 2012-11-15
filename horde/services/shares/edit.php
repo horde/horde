@@ -227,8 +227,7 @@ case 'editform':
     }
 
     try {
-        $share->setPermission($perm, false);
-        $share->save();
+        $share->setPermission($perm);
     } catch (Exception $e) {
         $notification->push($e->getMessage(), 'horde.error');
     }
