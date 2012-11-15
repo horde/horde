@@ -464,11 +464,19 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
-        $('hermesLoadingTime').show();
-        HordeCore.doAction('listDeliverables',
-            { 'c': $F('hermesTimeFormClient') },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
-        );
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesTimeFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesSearchFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        }
     },
 
     /**
@@ -476,15 +484,25 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
-        var h = $H(r);
+        var h = $H(r), elm;
 
-        $('hermesLoadingTime').hide();
-        $('hermesTimeFormCostobject').childElements().each(function(el) {
+        if (this.view == 'time') {
+            $('hermesLoadingTime').hide();
+            elm = $('hermesTimeFormCostobject');
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').hide();
+            elm = $('hermesSearchFormCostobject');
+        }
+        elm.childElements().each(function(el) {
             el.remove();
         });
         h.each(function(i) {
-           $('hermesTimeFormCostobject').insert(new Element('option', { 'value': i.key }).insert(i.value));
+           elm.insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
+    },
+
+    clientSearchChangeHandler: function(e)
+    {
     },
 
     /**
@@ -1169,8 +1187,12 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
+        // General click handler.
         document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
+
+        // Change handler for loading cost objects per client.
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
