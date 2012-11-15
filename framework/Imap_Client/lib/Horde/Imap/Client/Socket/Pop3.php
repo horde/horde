@@ -1,22 +1,13 @@
 <?php
 /**
- * An interface to a POP3 server using PHP functions.
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
- * It is an abstraction layer allowing POP3 commands to be used based on
- * IMAP equivalents.
- *
- * This driver implements the following POP3-related RFCs:
- *   - STD 53/RFC 1939: POP3 specification
- *   - RFC 2195: CRAM-MD5 authentication
- *   - RFC 2449: POP3 extension mechanism
- *   - RFC 2595/4616: PLAIN authentication
- *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
- *   - RFC 3206: AUTH/SYS response codes
- *   - RFC 1734/5034: POP3 SASL
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * ---------------------------------------------------------------------------
  *
- * Originally based on the PEAR Net_POP3 package (version 1.3.6) by:
+ * Based on the PEAR Net_POP3 package (version 1.3.6) by:
  *     Richard Heyes <richard@phpguru.org>
  *     Damian Fernandez Sosa <damlists@cnba.uba.ar>
  *
@@ -50,15 +41,35 @@
  *
  * ---------------------------------------------------------------------------
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An interface to a POP3 server using PHP functions.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * It is an abstraction layer allowing POP3 commands to be used based on
+ * IMAP equivalents.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * This driver implements the following POP3-related RFCs:
+ *   - STD 53/RFC 1939: POP3 specification
+ *   - RFC 2195: CRAM-MD5 authentication
+ *   - RFC 2449: POP3 extension mechanism
+ *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
+ *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 1734/5034: POP3 SASL
+ *
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {

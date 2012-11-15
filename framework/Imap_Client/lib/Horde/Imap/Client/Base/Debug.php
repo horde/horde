@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
  * An object allowing management of debugging output within a
  * Horde_Imap_Client_Base object.
  *
@@ -7,15 +19,12 @@
  * There is NO guarantees that the API of this class will not change across
  * versions.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @internal
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Base_Debug
 {

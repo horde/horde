@@ -1,22 +1,29 @@
 <?php
 /**
- * An object implementing lookups between UIDs and message sequence numbers.
- *
- * @since 2.1.0
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An object implementing lookups between UIDs and message sequence numbers.
  *
- * @property array $map  The raw ID mapping data.
- * @property Horde_Imap_Client_Ids $seq  The sorted sequence values.
- * @property Horde_Imap_Client_Ids $uids  The sorted UIDs.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ * @since     2.1.0
+ *
+ * @property-read array $map  The raw ID mapping data.
+ * @property-read Horde_Imap_Client_Ids $seq  The sorted sequence values.
+ * @property-read Horde_Imap_Client_Ids $uids  The sorted UIDs.
  */
 class Horde_Imap_Client_Ids_Map implements Countable, IteratorAggregate, Serializable
 {
@@ -114,7 +121,7 @@ class Horde_Imap_Client_Ids_Map implements Countable, IteratorAggregate, Seriali
     /**
      * Removes messages from the ID mapping.
      *
-     * @param Horde_Imap_Client_Ids $id  IDs to remove.
+     * @param Horde_Imap_Client_Ids $ids  IDs to remove.
      */
     public function remove(Horde_Imap_Client_Ids $ids)
     {

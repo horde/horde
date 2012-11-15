@@ -1,17 +1,25 @@
 <?php
 /**
- * An abstracted API interface to IMAP backends supporting the IMAP4rev1
- * protocol (RFC 3501).
- *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An abstracted API interface to IMAP backends supporting the IMAP4rev1
+ * protocol (RFC 3501).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 abstract class Horde_Imap_Client_Base implements Serializable
 {
@@ -470,8 +478,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
     /**
      * Sets a configuration parameter value.
      *
-     * @param string $key   The param key.
-     * @param mixed $value  The param value.
+     * @param string $key  The param key.
+     * @param mixed $val   The param value.
      */
     public function setParam($key, $val)
     {
@@ -525,9 +533,9 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *
      * @param string $capability  The capability string to query.
      *
-     * @param mixed  True if the server supports the queried capability,
-     *               false if it doesn't, or an array if the capability can
-     *               contain multiple values.
+     * @return mixed  True if the server supports the queried capability,
+     *                false if it doesn't, or an array if the capability can
+     *                contain multiple values.
      */
     public function queryCapability($capability)
     {
