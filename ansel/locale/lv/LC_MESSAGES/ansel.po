@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-12 11:29+0300\n"
-"PO-Revision-Date: 2012-04-12 11:58+0300\n"
+"POT-Creation-Date: 2012-11-14 22:58+0200\n"
+"PO-Revision-Date: 2012-11-14 15:06+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -21,8 +21,8 @@ msgstr ""
 "X-Poedit-Country: LATVIA\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
-#: templates/group/owner.inc:67 templates/list/header.inc:3
-#: templates/view/list.inc:3
+#: templates/view/list.inc:3 templates/list/header.inc:3
+#: templates/group/owner.inc:67
 #, php-format
 msgid "%d Gallery"
 msgid_plural "%d Galleries"
@@ -70,8 +70,8 @@ msgstr[0] "%d objekts"
 msgstr[1] "%d objekti"
 msgstr[2] "%d objekti"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/View/Results.php:256
-#: lib/Widget/Tags.php:91 templates/faces/search.inc:12
+#: templates/faces/search.inc:12 lib/Widget/Tags.php:91
+#: lib/View/Results.php:256 lib/Ajax/Imple/TagActions.php:106
 #, php-format
 msgid "%d photo"
 msgid_plural "%d photos"
@@ -87,7 +87,7 @@ msgstr[0] "%d attēls augšupielādēts."
 msgstr[1] "%d attēli augšupielādēti."
 msgstr[2] "%d attēls augšupielādēts."
 
-#: templates/list/header.inc:3 templates/view/list.inc:3
+#: templates/view/list.inc:3 templates/list/header.inc:3
 #, php-format
 msgid "%d to %d of %d Galleries"
 msgstr "%d līdz %d no %d galerijām"
@@ -122,9 +122,9 @@ msgstr "%s no %s"
 msgid "%s on %s"
 msgstr "%s uz %s"
 
-#: lib/Ansel.php:552 lib/Ansel.php:557 lib/View/List.php:178
-#: lib/View/List.php:183 lib/Widget/OtherGalleries.php:28
-#: templates/group/owner.inc:17 templates/group/owner.inc:22
+#: templates/group/owner.inc:17 templates/group/owner.inc:22 lib/Ansel.php:552
+#: lib/Ansel.php:557 lib/Widget/OtherGalleries.php:28 lib/View/List.php:178
+#: lib/View/List.php:183
 #, php-format
 msgid "%s's Galleries"
 msgstr "%s galerijas"
@@ -134,17 +134,33 @@ msgstr "%s galerijas"
 msgid "%s: faces %s"
 msgstr "%s: sejas %s"
 
-#: lib/Image.php:1074
+#: lib/Image.php:1073
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
 
-#: lib/View/GalleryProperties.php:180
+#: config/styles.php:116
+msgid "A Lightbox Inspired Style (Drop Shadows, No Background)"
+msgstr "Lightbox iedvesmots stils (ēna, bez fona)"
+
+#: config/styles.php:105
+msgid "A Lightbox Inspired Style (No Background)"
+msgstr "Lightbox iedvesmots stils (bez fona)"
+
+#: config/styles.php:94
+msgid "A Lightbox Inspired Style (White Background)"
+msgstr "Lightbox iedvesmots stils (balts fons)"
+
+#: lib/Api.php:340
+msgid "A gallery to add this photo to is required."
+msgstr "Nepieciešam norādīt galeriju, kurai pievienot šo fotoattēlu."
+
+#: lib/View/GalleryProperties.php:187
 #, php-format
 msgid "Access denied adding a gallery to \"%s\"."
 msgstr "Nav tiesību pievienot galeriju  \"%s\"."
 
-#: lib/Api.php:198 lib/Api.php:350 xppublish.php:175
+#: xppublish.php:175 lib/Api.php:198 lib/Api.php:350
 #, php-format
 msgid "Access denied adding photos to \"%s\"."
 msgstr "Nav tiesību pievienot attēlus \"%s\"."
@@ -153,7 +169,7 @@ msgstr "Nav tiesību pievienot attēlus \"%s\"."
 msgid "Access denied adding tags to this gallery."
 msgstr "Nav tiesību pievienot tagus šai galerijai."
 
-#: lib/Image.php:1222
+#: lib/Image.php:1221
 msgid "Access denied adding tags to this photo."
 msgstr "Nav tiesību pievienot tagus šim attēlam."
 
@@ -170,7 +186,7 @@ msgstr "Nav tiesību izveidot jaunas galerijas."
 msgid "Access denied deleting galleries."
 msgstr "Nav tiesību dzēst galerijas."
 
-#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
+#: lib/Api.php:515 gallery/delete.php:32 gallery/delete.php:66
 #, php-format
 msgid "Access denied deleting gallery \"%s\"."
 msgstr "Nav tiesību dzēst galeriju \"%s\"."
@@ -185,21 +201,21 @@ msgstr "Nav tiesību dzēst attēlus no \"%s\"."
 msgid "Access denied downloading full sized photos from \"%s\"."
 msgstr "Nav tiesību lejupielādēt pilna izmēra attēlus no \"%s\"."
 
-#: gallery.php:40 image.php:796 lib/Image.php:907
+#: gallery.php:40 image.php:796 lib/Image.php:906
 #, php-format
 msgid "Access denied downloading photos from \"%s\"."
 msgstr "Nav tiesību lejupielādēt attēlus no \"%s\"."
 
-#: lib/View/GalleryProperties.php:240
+#: lib/View/GalleryProperties.php:247
 msgid "Access denied editing galleries."
 msgstr "Nav tiesību labot galerijas."
 
-#: faces/gallery.php:32 gallery/sort.php:30
+#: gallery/sort.php:30 faces/gallery.php:32
 #, php-format
 msgid "Access denied editing gallery \"%s\"."
 msgstr "Nav tiesību labot galeriju \"%s\"."
 
-#: faces/custom.php:36 image.php:342 image.php:823
+#: image.php:342 image.php:823 faces/custom.php:36
 msgid "Access denied editing the photo."
 msgstr "Nav tiesību labot attēlu."
 
@@ -213,7 +229,7 @@ msgstr "Nav tiesību pārvietot attēlus uz \"%s\"."
 msgid "Access denied removing photos from \"%s\"."
 msgstr "Nav tiesību dzēst attēlu no \"%s\"."
 
-#: lib/View/GalleryProperties.php:284
+#: lib/View/GalleryProperties.php:291
 #, php-format
 msgid "Access denied saving gallery \"%s\"."
 msgstr "Nav tiesību  saglabāt galeriju \"%s\"."
@@ -233,13 +249,13 @@ msgstr "Nav tiesību  saglabāt aprakstus %s."
 msgid "Access denied to gallery \"%s\"."
 msgstr "Galerijai \"%s\" pieeja liegta."
 
-#: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:204 lib/Gallery.php:829
+#: lib/Gallery.php:829 lib/Block/Gallery.php:162
+#: lib/Block/RecentComments.php:175 lib/Block/RecentlyAdded.php:204
 msgid "Access denied viewing this gallery."
 msgstr "Nav tiesību apskatīt šo galeriju."
 
-#: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1184
+#: lib/Image.php:1183 img/download.php:17 img/full.php:17 img/index.php:17
+#: img/mini.php:17 img/screen.php:17 img/thumb.php:31
 msgid "Access denied viewing this photo."
 msgstr "Nav tiesību apskatīt šo attēlu."
 
@@ -267,20 +283,29 @@ msgstr "Pievienot attēlus"
 msgid "Add Photo"
 msgstr "Pievienot foto"
 
+#: templates/faces/gallery.inc:22
+msgid "Add a custom face range"
+msgstr "Pievienot pieskaņotu seju kopu"
+
+#: lib/View/Upload.php:84
+msgid "Add files to the upload queue and click the start button."
+msgstr ""
+"Pievienojiet failus augšupielādes rindai un nospiediet pogu Augšuplādēt."
+
 #: lib/Widget/Actions.php:134
 msgid "Add to bookmarks"
 msgstr "Pievienot grāmatzīmēm"
 
-#: lib/View/GalleryProperties.php:356
+#: lib/View/GalleryProperties.php:363
 msgid "Adding A New Gallery"
 msgstr "Pievienot jaunu galeriju"
 
-#: lib/View/GalleryProperties.php:189
+#: lib/View/GalleryProperties.php:196
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr "Pievienojam %s apakšgaleriju"
 
-#: lib/View/GalleryProperties.php:155
+#: lib/View/GalleryProperties.php:162
 msgid "Adding a New Gallery"
 msgstr "Pievienot jaunu galeriju"
 
@@ -313,11 +338,11 @@ msgstr "Visas sejas"
 msgid "Allow all ages"
 msgstr "Atļaut visiem vecumiem"
 
-#: lib/View/Results.php:237 map_edit.php:25
+#: map_edit.php:25 lib/View/Results.php:237
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr "Kļūda saņemot attēlu. Informācija par kļūmi ierakstīta žurnālā."
 
-#: config/prefs.php:199 templates/gallery/properties.html.php:110
+#: templates/gallery/properties.html.php:110 config/prefs.php:199
 msgid "Anyone"
 msgstr "Ikviens"
 
@@ -338,7 +363,7 @@ msgstr "Augoši"
 msgid "Attempt to edit a non-existent share."
 msgstr "Mēģinājums mainīt neeksistējošu koplietojumu."
 
-#: config/prefs.php:200 templates/gallery/properties.html.php:111
+#: templates/gallery/properties.html.php:111 config/prefs.php:200
 msgid "Authenticated users"
 msgstr "Autentificētie lietotāji"
 
@@ -346,14 +371,14 @@ msgstr "Autentificētie lietotāji"
 msgid "Automatically watermark photos?"
 msgstr "Attēliem uzlikt ūdenszīmi automātiski?"
 
-#: lib/Application.php:209 templates/mobile/image.html.php:3
+#: templates/mobile/image.html.php:3 lib/Application.php:209
 msgid "Back"
 msgstr "Atpakaļ"
 
+#: templates/view/image.inc:97 templates/view/image.inc:98
+#: templates/view/image.inc:124 templates/view/image.inc:125
 #: templates/image/crop_image.inc:91 templates/image/edit_image.inc:7
-#: templates/image/resize_image.inc:37 templates/view/image.inc:97
-#: templates/view/image.inc:98 templates/view/image.inc:124
-#: templates/view/image.inc:125
+#: templates/image/resize_image.inc:37
 msgid "Back to gallery"
 msgstr "Atpakaļ uz galeriju"
 
@@ -370,7 +395,7 @@ msgstr "Kļūdaini ievades dati."
 msgid "Basic Thumbnails"
 msgstr "Vienkāršie sīkattēli"
 
-#: config/prefs.php:171 lib/Form/Watermark.php:49
+#: lib/Form/Watermark.php:49 config/prefs.php:171
 msgid "Bottom"
 msgstr "Apakša"
 
@@ -386,13 +411,18 @@ msgstr "Pārlūkot tagus"
 msgid "By"
 msgstr "Pēc"
 
-#: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
-#: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:249 report.php:43
-#: templates/faces/custom.inc:52 templates/faces/define.inc:38
-#: templates/gallery/delete_confirmation.inc:13
+#: lib/Ansel.php:436
+#, php-format
+msgid "Can't get unknown file type \"%s\"."
+msgstr "Nevar saņemt nezināmu faila tipu \"%s\"."
+
+#: disclamer.php:30 disclamer.php:33 report.php:43
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
 #: templates/image/resize_image.inc:38
+#: templates/gallery/delete_confirmation.inc:13 templates/faces/custom.inc:52
+#: templates/faces/define.inc:38 lib/View/Upload.php:249
+#: lib/Form/Upload.php:30 lib/Ajax/Imple/EditCaption.php:45 faces/claim.php:34
+#: faces/report.php:37 faces/savecustom.php:28
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -430,8 +460,8 @@ msgstr "Apraksts saglabāts."
 msgid "Category"
 msgstr "Kategorija"
 
-#: config/prefs.php:159 config/prefs.php:170 lib/Form/Watermark.php:41
-#: lib/Form/Watermark.php:48
+#: lib/Form/Watermark.php:41 lib/Form/Watermark.php:48 config/prefs.php:159
+#: config/prefs.php:170
 msgid "Center"
 msgstr "Centrēt"
 
@@ -443,9 +473,22 @@ msgstr ""
 "Mainīt attēlošanas iestatījumus, piemēram, noklusēto skatu, cik daudz attēlu "
 "rādīt vienā lapā un noklusēto galerijas stilu."
 
+#: config/prefs.php:25
+msgid "Change preferences dealing with tags and image metadata."
+msgstr "Mainiet tagu un attēlu metadatu iestatījumus."
+
 #: lib/Widget/Actions.php:151
 msgid "Change properties"
 msgstr "Mainīt īpašības"
+
+#: config/prefs.php:32
+msgid ""
+"Change your user permission preferences such as who can download original "
+"photos, and what permissions newly created galleries should have by default."
+msgstr ""
+"Mainiet savu lietotāja tiesību iestatījumus, kā piemēram - kas drīkst "
+"lejupielādēt oriģinālos fotoattēlus un kādas noklusētās pieejas tiesības "
+"jāuzstāda no jauna izveidojamām galerijām."
 
 #: config/prefs.php:42
 msgid "Change your watermark preferences."
@@ -454,6 +497,10 @@ msgstr "Mainiet Jūsu ūdenszīmju iestatījumus."
 #: faces/savecustom.php:29
 msgid "Changes cancelled."
 msgstr "Izmaiņas atceltas."
+
+#: templates/tile/face.inc:28 lib/Faces.php:159
+msgid "Claim"
+msgstr "Prasība"
 
 #: map_edit.php:90
 msgid "Click on a thumbnail to locate at the same point."
@@ -470,6 +517,11 @@ msgstr "Komentāri:"
 #: disclamer.php:23
 msgid "Content Disclaimer"
 msgstr "Satura izmantošanas noteikumi"
+
+#: lib/Report.php:91
+#, php-format
+msgid "Content abuse report in %s"
+msgstr "Satura pārkāpuma ziņojums galerijā %s"
 
 #: disclamer.php:30
 #, php-format
@@ -492,8 +544,8 @@ msgstr[0] "%d attēli nokopēti uz %s"
 msgstr[1] "%d attēls nokopēts uz %s"
 msgstr[2] "%d attēli nokopēti uz %s"
 
-#: lib/View/GalleryRenderer/Gallery.php:128
 #: templates/view/gallerylightbox.inc:166 templates/view/results.inc:88
+#: lib/View/GalleryRenderer/Gallery.php:128
 msgid "Copy"
 msgstr "Kopēt"
 
@@ -561,12 +613,20 @@ msgstr "Graizīt"
 msgid "Custom Watermark"
 msgstr "Pielāgota ūdenszīme"
 
+#: config/prefs.php:54
+msgid ""
+"Custom text to display describing your galleries. This will be displayed in "
+"place of your username when grouping galleries by username."
+msgstr ""
+"Jūsu galerijas aprakstošs teksts, kas tiks parādīts Jūsu lietotāja vārda "
+"vietā, grupējot galerijas pēc lietotāja vārda."
+
 #: config/prefs.php:114 config/prefs.php:151
 msgid "Custom watermark to use for photos"
 msgstr "Pieskaņotā ūdenszīme attēlu iezīmēšanai"
 
-#: lib/Block/RecentComments.php:122 lib/Block/RecentlyAdded.php:117
-#: templates/view/list.inc:19
+#: templates/view/list.inc:19 lib/Block/RecentComments.php:122
+#: lib/Block/RecentlyAdded.php:117
 msgid "Date"
 msgstr "Datums"
 
@@ -579,9 +639,9 @@ msgstr "Noklusētie"
 msgid "Default style for galleries"
 msgstr "Noklusētais galeriju stils"
 
-#: lib/View/GalleryRenderer/Gallery.php:122
 #: templates/view/gallerylightbox.inc:160 templates/view/image.inc:64
 #: templates/view/results.inc:83 templates/view/slideshow.inc:21
+#: lib/View/GalleryRenderer/Gallery.php:122
 msgid "Delete"
 msgstr "Dzēst"
 
@@ -621,6 +681,14 @@ msgstr "Ekrāna režīms"
 msgid "Display Preferences"
 msgstr "Ekrāna iestatījumi"
 
+#: config/prefs.php:254
+msgid ""
+"Do not use the ajax-enabled uploader? Select this if your browser is having "
+"trouble uploading images with the ajax uploader."
+msgstr ""
+"Neizmanot ajax-iespējotu augšupielādētāju? atzīmējiet to, ja saskaraties ar "
+"problēmām ajax augšupielādētāja darbībā."
+
 #: lib/Faces.php:159
 msgid "Do you know someone in this photo?"
 msgstr "Vai pazīstat kādu šajā attēlā?"
@@ -658,6 +726,16 @@ msgstr "Lejuplādēt izvēlētos attēlus"
 msgid "Download selected photos"
 msgstr "Lejuplādēt izvēlētos attēlus"
 
+#: lib/Ansel.php:726
+msgid ""
+"Downloading zip files is not enabled. Talk to your server administrator."
+msgstr ""
+"ZIP failu lejupielāde nav atļauta. Aprunājieties ar servera administratoru."
+
+#: gallery/sort.php:81
+msgid "Drag photos to the desired sort position."
+msgstr "Pārvelciet fotoattēlus uz vēlamo šķirošanas vietu."
+
 #: lib/ImageGenerator/ShadowThumb.php:15
 msgid "Drop Shadows"
 msgstr "Ēnot"
@@ -667,6 +745,10 @@ msgstr "Ēnot"
 msgid "ERROR: %s"
 msgstr "KĻŪDA:  %s"
 
+#: img/ecard.php:75
+msgid "Ecard - "
+msgstr "E-kartīte -"
+
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
@@ -675,8 +757,8 @@ msgstr "KĻŪDA:  %s"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/tile/image.inc:21 templates/view/image.inc:61
-#: templates/view/slideshow.inc:18
+#: templates/view/image.inc:61 templates/view/slideshow.inc:18
+#: templates/tile/image.inc:21
 msgid "Edit"
 msgstr "Labot"
 
@@ -685,8 +767,8 @@ msgstr "Labot"
 msgid "Edit %s :: %s"
 msgstr "Labot %s :: %s"
 
-#: edit_dates.php:44 lib/View/GalleryRenderer/Gallery.php:119
-#: templates/view/gallerylightbox.inc:157
+#: edit_dates.php:44 templates/view/gallerylightbox.inc:157
+#: lib/View/GalleryRenderer/Gallery.php:119
 msgid "Edit Dates"
 msgstr "Labot datumus"
 
@@ -721,6 +803,10 @@ msgstr "Labot sejas"
 #, php-format
 msgid "Edit properties :: %s"
 msgstr "Labot īpašības :: %s"
+
+#: lib/Form/ImageDate.php:26
+msgid "Editing dates for the following photos"
+msgstr "Labo datus sekojošiem fotoattēliem"
 
 #: lib/Widget/Links.php:47
 msgid "Embed: "
@@ -789,9 +875,17 @@ msgstr "Fails %s"
 msgid "File not found."
 msgstr "Fails nav atrasts."
 
+#: lib/View/Upload.php:85
+msgid "File size error."
+msgstr "Faila izmēra kļūda."
+
 #: lib/Form/Upload.php:38 lib/Form/Upload.php:67
 msgid "File to upload"
 msgstr "Augšupielādējamais fails"
+
+#: lib/View/Upload.php:86
+msgid "File type error."
+msgstr "Faila tipa kļūda."
 
 #: templates/faces/gallery.inc:5
 msgid "Filename"
@@ -806,7 +900,11 @@ msgstr "Meklēt"
 msgid "Find faces"
 msgstr "Meklēt sejas"
 
-#: lib/Faces.php:164 templates/faces/face.inc:14 templates/tile/face.inc:34
+#: templates/tile/face.inc:25
+msgid "Find other photos this face appears in"
+msgstr "Sameklēt citus fotoattēlus, kuros parādās šī seja"
+
+#: templates/tile/face.inc:34 templates/faces/face.inc:14 lib/Faces.php:164
 msgid "Find similar"
 msgstr "Atrast līdzīgās"
 
@@ -832,7 +930,7 @@ msgstr "No sistēmas galerijām"
 msgid "From: "
 msgstr "Sūtītājs:"
 
-#: config/prefs.php:62 lib/Ansel.php:619
+#: lib/Ansel.php:619 config/prefs.php:62
 msgid "Galleries"
 msgstr "Galerijas"
 
@@ -841,14 +939,14 @@ msgstr "Galerijas"
 msgid "Galleries grouped by %s"
 msgstr "Galerijas, sakārtotas pēc %s"
 
-#: lib/Block/Gallery.php:26 lib/Block/Gallery.php:35
-#: lib/Block/RecentComments.php:40 lib/Block/RecentComments.php:68
-#: lib/Block/RecentlyAdded.php:33 lib/Block/RecentlyAdded.php:74
-#: lib/Block/RecentlyAdded.php:117 templates/faces/face.inc:30
+#: templates/faces/face.inc:30 lib/Block/Gallery.php:26
+#: lib/Block/Gallery.php:35 lib/Block/RecentComments.php:40
+#: lib/Block/RecentComments.php:68 lib/Block/RecentlyAdded.php:33
+#: lib/Block/RecentlyAdded.php:74 lib/Block/RecentlyAdded.php:117
 msgid "Gallery"
 msgstr "Galerija"
 
-#: image.php:63 img/upload.php:21 lib/Storage.php:268
+#: image.php:63 lib/Storage.php:268 img/upload.php:21
 #, php-format
 msgid "Gallery %s not found."
 msgstr "Galerija %s nav atrasta"
@@ -861,8 +959,8 @@ msgstr "Darbības ar galrijām"
 msgid "Gallery Ages"
 msgstr "Galerijas vecumi"
 
-#: faces/claim.php:47 faces/report.php:50 report.php:65
-#: templates/gallery/properties.html.php:63
+#: report.php:65 templates/gallery/properties.html.php:63 faces/claim.php:47
+#: faces/report.php:50
 msgid "Gallery Description"
 msgstr "Galerijas apraksts"
 
@@ -878,8 +976,8 @@ msgstr "Galerijas ID"
 msgid "Gallery List"
 msgstr "Galeriju saraksts"
 
-#: faces/claim.php:46 faces/report.php:49 lib/Block/MyGalleries.php:70
-#: report.php:64
+#: report.php:64 lib/Block/MyGalleries.php:70 faces/claim.php:46
+#: faces/report.php:49
 msgid "Gallery Name"
 msgstr "Galerijas nosaukums"
 
@@ -928,6 +1026,10 @@ msgstr "Par galeriju ir paziņots."
 msgid "General Preferences"
 msgstr "Vispārējie iestatījumi"
 
+#: lib/Form/Watermark.php:35 config/prefs.php:184
+msgid "Giant"
+msgstr "Milzīgs"
+
 #: templates/image/crop_image.inc:106 templates/image/edit_image.inc:22
 #: templates/image/resize_image.inc:52
 msgid "Grayscale"
@@ -937,7 +1039,7 @@ msgstr "Pelēktoņu"
 msgid "Group By Date"
 msgstr "Grupēt pēc datuma"
 
-#: templates/group/header.inc:10 templates/view/list.inc:11
+#: templates/view/list.inc:11 templates/group/header.inc:10
 msgid "Group by:"
 msgstr "Grupēt pēc:"
 
@@ -949,13 +1051,21 @@ msgstr "Grupēt galerijas pēc"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Kartes augstums (platums pieskaņojas blokam automātiski)"
 
-#: config/prefs.php:162 lib/Form/Watermark.php:43
+#: lib/Form/Watermark.php:43 config/prefs.php:162
 msgid "Horizontal Alignment"
 msgstr "Horizontālais izvietojums"
+
+#: faces/claim.php:45
+msgid "I know who is on one of your photos"
+msgstr "Es zinu personu vienā no Jūsu fotoattēliem"
 
 #: lib/Block/RecentComments.php:122
 msgid "Image"
 msgstr "Attēls"
+
+#: lib/Gallery.php:493
+msgid "Image already has existing attributes."
+msgstr "Attēlam jau ir atribūti."
 
 #: lib/GalleryMode/Date.php:538 lib/GalleryMode/Normal.php:205
 msgid "Image not found in gallery."
@@ -982,7 +1092,7 @@ msgstr "Kļūdaini dati %s"
 msgid "Landscape"
 msgstr "Ainava"
 
-#: config/prefs.php:183 lib/Form/Watermark.php:34
+#: lib/Form/Watermark.php:34 config/prefs.php:183
 msgid "Large"
 msgstr "Liels"
 
@@ -995,13 +1105,21 @@ msgstr "Liels"
 msgid "Last Modified"
 msgstr "Pēdējās izmaiņas"
 
-#: config/prefs.php:158 lib/Form/Watermark.php:40
+#: templates/image/upload.inc:4
+msgid "Learn how to publish photos directly from Windows."
+msgstr "Uzziniet, kā ir iespējams publicēt fotoattēlus no Windows."
+
+#: lib/Form/Watermark.php:40 config/prefs.php:158
 msgid "Left"
 msgstr "Pa kreisi"
 
 #: lib/View/GalleryRenderer/GalleryLightbox.php:19
 msgid "Lightbox Gallery"
 msgstr "Lightbox galerija"
+
+#: config/styles.php:128 config/styles.php:159
+msgid "Lightbox with Polaroids (No Background)"
+msgstr "Lightbox ar polaroīdiem (bez fona)"
 
 #: lib/Widget/Links.php:15
 msgid "Links"
@@ -1011,9 +1129,9 @@ msgstr "Saites"
 msgid "Loading ..."
 msgstr "Lasa ..."
 
-#: lib/Ajax/Imple/EditFaces.php:25 lib/Ajax/Imple/EditGalleryFaces.php:24
 #: map_edit.php:83 templates/faces/gallery.inc:28
-#: templates/faces/gallery.inc:39
+#: templates/faces/gallery.inc:39 lib/Ajax/Imple/EditFaces.php:25
+#: lib/Ajax/Imple/EditGalleryFaces.php:24
 msgid "Loading..."
 msgstr "Lasa..."
 
@@ -1024,6 +1142,10 @@ msgstr "Sameklēt attēlu:"
 #: lib/Widget/Geotag.php:47
 msgid "Location"
 msgstr "Vieta"
+
+#: lib/Api.php:656 lib/View/Gallery.php:64 lib/View/Image.php:71
+msgid "Locked galleries are not viewable via the api."
+msgstr "Slēgtās galerijas nav aplūkojamas, izmantojot API."
 
 #: templates/mobile/galleries.html.php:6
 msgid "Log out"
@@ -1075,7 +1197,7 @@ msgstr "Attēla maksimālais izmērs"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Attēla maksimālais izmērs: %s; un kopā: %s"
 
-#: config/prefs.php:182 lib/Form/Watermark.php:33
+#: lib/Form/Watermark.php:33 config/prefs.php:182
 msgid "Medium"
 msgstr "Vidējs"
 
@@ -1084,7 +1206,7 @@ msgstr "Vidējs"
 msgid "Mirror"
 msgstr "Spogulis"
 
-#: lib/View/GalleryProperties.php:201
+#: lib/View/GalleryProperties.php:208
 msgid "Missing gallery parameter"
 msgstr "Iztrūkst galerijas parametrs"
 
@@ -1101,13 +1223,21 @@ msgstr "Mobilais skats"
 msgid "Modified"
 msgstr "Izmainīts"
 
-#: lib/View/GalleryProperties.php:221
+#: lib/View/GalleryProperties.php:228
 #, php-format
 msgid "Modifying: %s"
 msgstr "Modificējam: %s"
 
-#: lib/View/GalleryRenderer/Gallery.php:125
+#: faces/search/image_define.php:37
+msgid ""
+"More then one face found in photo. Please note that you can search only one "
+"face at a time."
+msgstr ""
+"Fotoattēlā atrasta vairāk kā viena seja. Ņemiet vērā, ka ir vienlaicīgi ir "
+"iespējams meklēt tikai vienu seju."
+
 #: templates/view/gallerylightbox.inc:163 templates/view/results.inc:85
+#: lib/View/GalleryRenderer/Gallery.php:125
 msgid "Move"
 msgstr "Pārvietot"
 
@@ -1123,9 +1253,9 @@ msgstr[2] "%d attēli pārvietoti no \"%s\" uz \"%s\""
 msgid "Multiple Photos"
 msgstr "Vairāki attēli"
 
-#: config/prefs.php:63 lib/Ansel.php:533 lib/Block/MyGalleries.php:19
-#: lib/Block/MyGalleries.php:45 lib/View/List.php:162
-#: templates/group/owner.inc:3 templates/mobile/galleries.html.php:3
+#: templates/mobile/galleries.html.php:3 templates/group/owner.inc:3
+#: lib/Ansel.php:533 lib/View/List.php:162 lib/Block/MyGalleries.php:19
+#: lib/Block/MyGalleries.php:45 config/prefs.php:63
 msgid "My Galleries"
 msgstr "Manas galerijas"
 
@@ -1154,18 +1284,19 @@ msgstr "Jaunās galerijas nosaukums"
 msgid "New images uploaded to %s. %s"
 msgstr "Jauni attēli augšupielādēti %s. %s"
 
-#: templates/mobile/image.html.php:10 templates/view/image.inc:95
-#: templates/view/image.inc:96 templates/view/image.inc:122
-#: templates/view/image.inc:123 templates/view/slideshow.inc:41
-#: templates/view/slideshow.inc:42
+#: templates/view/image.inc:95 templates/view/image.inc:96
+#: templates/view/image.inc:122 templates/view/image.inc:123
+#: templates/view/slideshow.inc:41 templates/view/slideshow.inc:42
+#: templates/mobile/image.html.php:10
 msgid "Next"
 msgstr "Nākošais"
 
-#: faces/image.php:42 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:66 lib/Ajax/Imple/EditGalleryFaces.php:43
-#: lib/Ajax/Imple/EditGalleryFaces.php:84 lib/Widget/GalleryFaces.php:57
-#: lib/Widget/ImageFaces.php:89 templates/faces/faces.inc:10
-#: templates/faces/index.inc:14 templates/faces/search.inc:23
+#: templates/faces/faces.inc:10 templates/faces/index.inc:14
+#: templates/faces/search.inc:23 lib/Widget/GalleryFaces.php:57
+#: lib/Widget/ImageFaces.php:89 lib/Ajax/Imple/EditFaces.php:66
+#: lib/Ajax/Imple/EditGalleryFaces.php:43
+#: lib/Ajax/Imple/EditGalleryFaces.php:84 faces/image.php:42
+#: faces/search/image.php:71
 msgid "No faces found"
 msgstr "Sejas nav atrastas"
 
@@ -1177,7 +1308,7 @@ msgstr "Sejas nav atrastas. Definējiet pašrocīgi."
 msgid "No file specified"
 msgstr "Nav norādīts fails"
 
-#: faces/gallery.php:20 lib/View/Base.php:127
+#: lib/View/Base.php:127 faces/gallery.php:20
 msgid "No gallery specified"
 msgstr "Nav norādīta galerija"
 
@@ -1185,14 +1316,32 @@ msgstr "Nav norādīta galerija"
 msgid "No location data present."
 msgstr "Nav vietas datu."
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Widget/Geotag.php:196
+#, php-format
+msgid ""
+"No location data present. Place using %s map %s or click on image to place "
+"at the same location."
+msgstr ""
+"Vietas datu nav. Novietojiet, izmantojot %s karti %s vai uzklikšķiniet uz "
+"attēla, lai novietotu tajā pašā vietā."
+
+#: lib/Ajax/Imple/ImageSaveGeotag.php:82
+#, php-format
+msgid ""
+"No location data present. Place using %smap%s or click on image to place at "
+"the same location."
+msgstr ""
+"Vietas datu nav. Novietojiet, izmantojot %skarti%s vai uzklikšķiniet uz "
+"attēla, lai novietotu tajā pašā vietā."
+
+#: lib/Widget/Geotag.php:198 lib/Ajax/Imple/ImageSaveGeotag.php:84
 #, php-format
 msgid "No location data present. You may add some %s."
 msgstr "Nav vietas datu. Varat pievienot %s."
 
-#: config/prefs.php:74 config/prefs.php:210 config/prefs.php:231
-#: lib/Application.php:162 templates/view/gallery.inc:134
-#: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
+#: templates/view/gallery.inc:134 templates/view/gallerylightbox.inc:150
+#: templates/view/results.inc:79 lib/Application.php:162 config/prefs.php:74
+#: config/prefs.php:210 config/prefs.php:231
 msgid "None"
 msgstr "Nekas"
 
@@ -1270,8 +1419,8 @@ msgstr "Citi"
 msgid "Owned by: %s"
 msgstr "Īpašnieks:  %s"
 
-#: config/prefs.php:72 templates/tile/gallery.inc:11
-#: templates/view/list.inc:21
+#: templates/view/list.inc:21 templates/tile/gallery.inc:11
+#: config/prefs.php:72
 msgid "Owner"
 msgstr "Īpašnieks"
 
@@ -1287,6 +1436,11 @@ msgstr "Parole"
 #: templates/view/slideshow.inc:38
 msgid "Pause Slideshow"
 msgstr "Apturēt slīdrādi"
+
+#: lib/Widget/OwnerFaces.php:39
+#, php-format
+msgid "People in galleries owned by %s (%d of %d)"
+msgstr "Cilvēki lietotāja %s galerijās (%d no %d)"
 
 #: lib/Widget/GalleryFaces.php:31
 msgid "People in this gallery"
@@ -1308,9 +1462,9 @@ msgstr "Persona"
 msgid "Person in photo"
 msgstr "Persona fotogrāfijā"
 
-#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:141
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
+#: lib/View/GalleryRenderer/GalleryLightbox.php:146
+#: lib/View/EmbeddedRenderer/Mini.php:191 lib/Block/RecentlyAdded.php:117
 msgid "Photo"
 msgstr "Foto"
 
@@ -1325,6 +1479,19 @@ msgstr "Foto galerijas"
 #: templates/xppublish/javascript.inc:63
 msgid "Photo Upload"
 msgstr "Attēlu augšupielāde"
+
+#: disclamer.php:28
+#, php-format
+msgid "Photo content may be offensive. You must be over %d to continue."
+msgstr ""
+"Fotoattēlu saturs var būt aizskarošs. Jums ir jābūt virs %d gadiem, lai "
+"turpinātu."
+
+#: faces/search/image.php:36 faces/search/image_save.php:29
+msgid "Photo is too small. Search photo must be at least 50x50 pixels."
+msgstr ""
+"Fotoattēls ir pārāk mazs. Meklējamam attēlam jābūt vismaz 50x50 pikseļus "
+"lielam."
 
 #
 #: lib/Storage.php:474
@@ -1359,13 +1526,40 @@ msgstr "Attēli ar tagiem %s uz %s"
 msgid "Play"
 msgstr "Atskaņot"
 
+#: faces/report.php:32
+msgid ""
+"Please describe the reasons. For example, you don't want to be mentioned "
+"etc..."
+msgstr ""
+"Lūdzu, aprakstiet iemeslus. Piemēram, nevēlaties tikt pieminēts(-a) utml."
+
 #: xppublish.php:50
 msgid "Please enter your username and password."
 msgstr "Lūdzu ievadiet savu lietotāja vārdu un paroli"
 
+#: faces/search/image.php:16
+msgid ""
+"Please upload photo with the face to search for. You can search only one "
+"face at a time."
+msgstr ""
+"lūdzu, augšupielādējiet fotoattēlu ar meklējamo seju. Vienlaicīgi ir "
+"iespējams meklēt tikai vienu seju."
+
+#: config/styles.php:85
+msgid "Polaroid Style Thumbnails (White Background)"
+msgstr "Polaroīda stila sīkattēli (balts fons)"
+
+#: lib/ImageGenerator/PolaroidThumb.php:15
+msgid "Polaroids"
+msgstr "Polaroīdi"
+
 #: templates/image/crop_image.inc:149
 msgid "Portrait"
 msgstr "Portrets"
+
+#: xppublish.php:95 xppublish.php:145
+msgid "Press the \"Back\" button and try again."
+msgstr "Nospiediet pogu \"Atpakaļ\" un mēģiniet vēlreiz."
 
 #: templates/image/crop_image.inc:164
 msgid "Preview"
@@ -1376,15 +1570,15 @@ msgstr "Priekšskats"
 msgid "Preview changes for %s :: %s"
 msgstr "Priekšskatīt %s izmaiņas :: %s"
 
-#: templates/mobile/image.html.php:9 templates/view/image.inc:93
-#: templates/view/image.inc:94 templates/view/image.inc:120
-#: templates/view/image.inc:121 templates/view/slideshow.inc:39
-#: templates/view/slideshow.inc:40
+#: templates/view/image.inc:93 templates/view/image.inc:94
+#: templates/view/image.inc:120 templates/view/image.inc:121
+#: templates/view/slideshow.inc:39 templates/view/slideshow.inc:40
+#: templates/mobile/image.html.php:9
 msgid "Previous"
 msgstr "Iepriekšējais"
 
-#: templates/tile/image.inc:20 templates/view/image.inc:60
-#: templates/view/slideshow.inc:17
+#: templates/view/image.inc:60 templates/view/slideshow.inc:17
+#: templates/tile/image.inc:20
 msgid "Properties"
 msgstr "Īpašības"
 
@@ -1516,8 +1710,8 @@ msgstr "Pēdējie lietotāja %s pievienotie attēli uz %s"
 msgid "Recently added photos on %s"
 msgstr "Pēdējie pievienotie attēli uz %s"
 
-#: templates/group/header.inc:7 templates/list/header.inc:5
-#: templates/view/list.inc:5
+#: templates/view/list.inc:5 templates/list/header.inc:5
+#: templates/group/header.inc:7
 msgid "Refresh List"
 msgstr "Atsvaidzināt sarakstu"
 
@@ -1543,7 +1737,7 @@ msgstr "Pārvietot šo attēlu"
 msgid "Remove %s from search"
 msgstr "Aizvākt %s no vaicājuma"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/Widget/Tags.php:91
+#: lib/Widget/Tags.php:91 lib/Ajax/Imple/TagActions.php:106
 msgid "Remove Tag"
 msgstr "Dzēst tagu"
 
@@ -1551,11 +1745,16 @@ msgstr "Dzēst tagu"
 msgid "Replace photo with this file"
 msgstr "Aizvietot attēlu ar šo failu"
 
-#: lib/Widget/Actions.php:196 report.php:43 report.php:62
-#: templates/faces/face.inc:11 templates/faces/search.inc:15
-#: templates/tile/face.inc:31 templates/view/image.inc:80
+#: report.php:43 report.php:62 templates/view/image.inc:80
+#: templates/tile/face.inc:31 templates/faces/face.inc:11
+#: templates/faces/search.inc:15 lib/Widget/Actions.php:196
 msgid "Report"
 msgstr "Ziņot"
+
+#: templates/tile/face.inc:30 templates/faces/face.inc:11
+#: templates/faces/search.inc:15
+msgid "Report abuse or submit a removal request"
+msgstr "Paziņot par pārkāpumu vai iesniegt pieprasījumu dzēst"
 
 #: lib/Report.php:102
 msgid "Report by user"
@@ -1577,8 +1776,8 @@ msgstr "Ziņojuma iemesls"
 msgid "Report type"
 msgstr "Ziņojuma tips"
 
-#: templates/faces/custom.inc:53 templates/faces/define.inc:39
 #: templates/image/crop_image.inc:165 templates/image/resize_image.inc:75
+#: templates/faces/custom.inc:53 templates/faces/define.inc:39
 msgid "Reset"
 msgstr "Atsākt"
 
@@ -1599,7 +1798,7 @@ msgstr "Mainīt izmēru"
 msgid "Return to Image View"
 msgstr "Atgriezties pie attēlu skata"
 
-#: config/prefs.php:160 lib/Form/Watermark.php:42
+#: lib/Form/Watermark.php:42 config/prefs.php:160
 msgid "Right"
 msgstr "Pa labi"
 
@@ -1622,14 +1821,22 @@ msgstr "Griezt pa labi"
 msgid "Rounded Corners"
 msgstr "Noapaļoti stūri"
 
+#: config/styles.php:60
+msgid "Rounded Thumbnails (No Background)"
+msgstr "Noapaļoti sīkattēli (bez fona)"
+
+#: config/styles.php:68
+msgid "Rounded Thumbnails (White Background)"
+msgstr "Noapaļoti sīkattēli (balts fons)"
+
 # #-#-#-#-#  horde.po (Horde 2.1)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Nag 2.1.4)  #-#-#-#-#
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: lib/Form/Image.php:21 lib/Form/ImageDate.php:21 lib/Form/Watermark.php:21
-#: map_edit.php:63 templates/faces/custom.inc:51
-#: templates/image/resize_image.inc:74
+#: map_edit.php:63 templates/image/resize_image.inc:74
+#: templates/faces/custom.inc:51 lib/Form/Image.php:21
+#: lib/Form/ImageDate.php:21 lib/Form/Watermark.php:21
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -1655,7 +1862,7 @@ msgstr "Saglabāt foto"
 msgid "Save face name"
 msgstr " Saglabāt sejas vārdu"
 
-#: faces/search/name.php:17 templates/faces/define.inc:37
+#: templates/faces/define.inc:37 faces/search/name.php:17
 msgid "Search"
 msgstr "Meklēt"
 
@@ -1724,7 +1931,7 @@ msgstr "Sūtīt e-kartīti"
 msgid "Send ecard to the following address:"
 msgstr "Sūtīt e-kartīti uz sekojošu adresi"
 
-#: lib/Form/Upload.php:44 templates/gallery/properties.html.php:83
+#: templates/gallery/properties.html.php:83 lib/Form/Upload.php:44
 msgid "Separate tags with commas."
 msgstr "Atdaliet tagus ar komatu."
 
@@ -1736,6 +1943,18 @@ msgstr "Ievadīt aprakstus"
 msgid "Set permissions"
 msgstr "Noteikt pieejas tiesības"
 
+#: config/styles.php:76
+msgid "Shadowed Thumbnails (White Background)"
+msgstr "Ēnoti sīkattēli (balts fons)"
+
+#: config/prefs.php:248
+msgid ""
+"Should we automatically set the image title on upload if able? If so, choose "
+"the field to obtain the title from."
+msgstr ""
+"Piešķirt attēlam nosaukumu augšupielādes laikā, ja iespējams? Ja jā, "
+"izvēlieties lauku, no kura jāiegūst nosaukums."
+
 #: config/prefs.php:108
 msgid "Show EXIF data"
 msgstr "RādītEXIF datus"
@@ -1744,7 +1963,7 @@ msgstr "RādītEXIF datus"
 msgid "Similar Photos"
 msgstr "Līdzīgi attēli"
 
-#: templates/faces/face.inc:14 templates/tile/face.inc:34
+#: templates/tile/face.inc:34 templates/faces/face.inc:14
 msgid "Similar faces"
 msgstr "Līdzīgās sejas"
 
@@ -1760,7 +1979,17 @@ msgstr "Vienkāršs Lightbox"
 msgid "Single Photo"
 msgstr "Atsevišķs attēls"
 
-#: config/prefs.php:181 lib/Form/Watermark.php:32
+#: templates/gallery/properties.html.php:75
+msgid "Slug names may contain only letters, numbers, @, or _ (underscore)."
+msgstr ""
+"Saīsinātie nosaukumi drīkst saturēt tikai burtus, ciparus, @, vai _ "
+"(zemsvītru)."
+
+#: templates/gallery/properties.html.php:74
+msgid "Slugs allows direct access to this gallery by visiting:"
+msgstr "Saīsinātais nosaukums ļauj piekļūt šai galerijai pa tiešo, apmeklējot:"
+
+#: lib/Form/Watermark.php:32 config/prefs.php:181
 msgid "Small"
 msgstr "Mazs"
 
@@ -1781,8 +2010,8 @@ msgstr "Kvadrātiski sīkattēli"
 msgid "Standard Gallery"
 msgstr "Standarta galerija"
 
-#: lib/Widget/Actions.php:66 templates/view/image.inc:90
-#: templates/view/image.inc:117 templates/view/slideshow.inc:37
+#: templates/view/image.inc:90 templates/view/image.inc:117
+#: templates/view/slideshow.inc:37 lib/Widget/Actions.php:66
 msgid "Start Slideshow"
 msgstr "Sākt slīdrādi"
 
@@ -1813,7 +2042,7 @@ msgstr "Sistēmas galerijas"
 msgid "Tag Cloud"
 msgstr "Tag Cloud"
 
-#: lib/Form/Image.php:41 lib/Form/Upload.php:44 lib/Widget/Tags.php:17
+#: lib/Widget/Tags.php:17 lib/Form/Image.php:41 lib/Form/Upload.php:44
 msgid "Tags"
 msgstr "Iezīmes"
 
@@ -1821,9 +2050,13 @@ msgstr "Iezīmes"
 msgid "Tags and Metadata Preferences"
 msgstr "Tagu un metadatu iestatījumi"
 
-#: faces/claim.php:26 templates/tile/face.inc:27
+#: templates/tile/face.inc:27 faces/claim.php:26
 msgid "Tell us who is in this photo"
 msgstr "Pastāstiet, kādi cilvēki ir redzami šajā attēlā"
+
+#: report.php:46
+msgid "Terms and conditions infringement"
+msgstr "Noteikumu pārkāpums"
 
 #: lib/Ansel.php:425
 #, php-format
@@ -1839,17 +2072,17 @@ msgstr "Jūsu augšupielādētais fails neizskatās pēc derīga attēla."
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr "Galeriju \"%s\" nav iespējams izveidot: %s"
 
-#: lib/View/GalleryProperties.php:382 xppublish.php:123
+#: xppublish.php:123 lib/View/GalleryProperties.php:389
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr "Galeriju \"%s\" nav iespējams izveidot: %s"
 
-#: lib/View/GalleryProperties.php:377 xppublish.php:120
+#: xppublish.php:120 lib/View/GalleryProperties.php:384
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr "Galerija \"%s\" veiksmīgi izveidota."
 
-#: lib/View/GalleryProperties.php:325
+#: lib/View/GalleryProperties.php:332
 msgid "The gallery was saved."
 msgstr "Galerijas saglabāta."
 
@@ -1865,6 +2098,14 @@ msgstr "Galerijas sīkattēli veiksmīgi atiestatīti."
 msgid "The gallery's views have successfully been reset."
 msgstr "Galerijas skati veiksmīgi atiestatīti."
 
+#: faces/report.php:61
+msgid "The owner of the photo was notified."
+msgstr "Fotoattēla īpašnieks tikai informēts."
+
+#: faces/claim.php:55
+msgid "The owner of the photo, who will delegate the face name, was notified."
+msgstr "Fotoattēla īpašnieks, kas deleģēs sejas vārdu, tika informēts."
+
 #: lib/Storage.php:142
 #, php-format
 msgid "The slug \"%s\" already exists."
@@ -1876,7 +2117,7 @@ msgid ""
 msgstr ""
 "Augšupielādētais fails izskatās tukšs. Varbūt tas neeksistē uz Jūsu datora."
 
-#: lib/Block/RandomPhoto.php:34 lib/View/List.php:136
+#: lib/View/List.php:136 lib/Block/RandomPhoto.php:34
 msgid "There are no photo galleries available."
 msgstr "Nav pieejamu attēlu galeriju."
 
@@ -1885,8 +2126,8 @@ msgstr "Nav pieejamu attēlu galeriju."
 msgid "There are no photos in %s to download."
 msgstr "Galerijā %s nav lejuplādējamu attēlu."
 
-#: templates/captions/captions.inc:52 templates/view/gallery.inc:142
-#: templates/view/gallerylightbox.inc:172 templates/view/results.inc:100
+#: templates/view/gallery.inc:142 templates/view/gallerylightbox.inc:172
+#: templates/view/results.inc:100 templates/captions/captions.inc:52
 msgid "There are no photos in this gallery."
 msgstr "Šajā galerijā nav attēlu."
 
@@ -1918,7 +2159,7 @@ msgstr "Kļūme augšupielādējot attēlu: %s"
 msgid "There was an error accessing the gallery"
 msgstr "Kļūda pieslēdzoties galerijai"
 
-#: gallery/sort.php:24 xppublish.php:180
+#: xppublish.php:180 gallery/sort.php:24
 msgid "There was an error accessing the gallery."
 msgstr "Kļūda pieslēdzoties galerijai."
 
@@ -1946,6 +2187,10 @@ msgstr "Kļūda aizvietojot attēlu."
 msgid "There was an error sending your message: %s"
 msgstr "Radās kļūda sūtot vēstuli: %s"
 
+#: protect.php:22
+msgid "This gallery is protected by a password. Please enter it below."
+msgstr "Galerija ir aizsargāta ar paroli. Lūdzu, ievadiet to zemāk."
+
 #
 #: lib/Widget/Geotag.php:93
 msgid "This image"
@@ -1964,11 +2209,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr "Sīktēla stils:"
 
-#: config/prefs.php:180 lib/Form/Watermark.php:31
+#: lib/Form/Watermark.php:31 config/prefs.php:180
 msgid "Tiny"
 msgstr "Sīks"
 
-#: config/prefs.php:169 lib/Form/Watermark.php:47
+#: lib/Form/Watermark.php:47 config/prefs.php:169
 msgid "Top"
 msgstr "Augša"
 
@@ -1997,7 +2242,7 @@ msgstr "Nav iespējams saņemt pieprasīto plūsmu"
 msgid "Undo Changes"
 msgstr "Atcelt izmaiņas"
 
-#: lib/View/GalleryProperties.php:223
+#: lib/View/GalleryProperties.php:230
 msgid "Unknown Gallery"
 msgstr "Nezināma galerija"
 
@@ -2023,7 +2268,7 @@ msgstr "Atsvaidzināt %s pozīciju"
 msgid "Updated %s."
 msgstr "%s atsvaidzināts."
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:80
+#: lib/View/Upload.php:80 lib/Form/Upload.php:30 faces/search/image.php:18
 msgid "Upload"
 msgstr "Augšuplādēt"
 
@@ -2036,13 +2281,17 @@ msgstr "Augšupielādēt attēlus %s"
 msgid "Upload face photo"
 msgstr "Augšupielādēt sejas attēlu"
 
-#: lib/View/Upload.php:147 lib/Widget/Actions.php:71
+#: lib/Widget/Actions.php:71 lib/View/Upload.php:147
 msgid "Upload photos"
 msgstr "Augšupielādēt attēlus"
 
 #: lib/View/Upload.php:82
 msgid "Upload to gallery"
 msgstr "Augšupielādēt galerijā"
+
+#: lib/Block/Gallery.php:46
+msgid "Use a lightbox to view photos"
+msgstr "Fotoattēlu aplūkošanai izmanto gaismas kasti"
 
 #: lib/Form/Ecard.php:24
 msgid "Use the following return address:"
@@ -2061,11 +2310,11 @@ msgstr "Lietotāja vārds"
 msgid "Username or password are incorrect."
 msgstr "Nepareizs lietotāja vārds un/vai parole."
 
-#: config/prefs.php:201 templates/gallery/properties.html.php:112
+#: templates/gallery/properties.html.php:112 config/prefs.php:201
 msgid "Users with edit permissions"
 msgstr "Lietotāji ar rediģēšanas tiesībām"
 
-#: config/prefs.php:173 config/prefs.php:186 lib/Form/Watermark.php:50
+#: lib/Form/Watermark.php:50 config/prefs.php:173 config/prefs.php:186
 msgid "Vertical Alignment"
 msgstr "Vertikālais izvietojums"
 
@@ -2086,9 +2335,17 @@ msgstr "Skatīt galeriju"
 msgid "View Photo"
 msgstr "Skatīt foto"
 
+#: templates/view/results.inc:65
+msgid "View Results from All Users"
+msgstr "Apskatīt rezultātus no visu lietotāju galerijām"
+
 #: templates/gallery/partial/_styles.html.php:21
 msgid "View Style"
 msgstr "Skatīt stilu"
+
+#: templates/tile/image.inc:11
+msgid "View or leave comments"
+msgstr "Apskatīt vai atstāt komentāru"
 
 #: config/prefs.php:65
 msgid "View to display by default"
@@ -2107,6 +2364,44 @@ msgstr "Ūdenszīmes fonts"
 msgid "Watermark Preferences"
 msgstr "Ūdenszīmju iestatījumi"
 
+#: config/prefs.php:236
+msgid ""
+"When a new gallery is created, what default permissions should be given to "
+"groups that the user is a member of?"
+msgstr ""
+"Ja tiek izveidota jauna galerija, kādas pieejas tiesības ir piešķiramas  "
+"grupām, kuru loceklis ir lietotājs?"
+
+#: config/prefs.php:214
+msgid ""
+"When a new gallery is created, what permissions should be given to "
+"authenticated users by default?"
+msgstr ""
+"Ja tiek izveidota jauna galerija, kādas pieejas tiesības pēc noklusēšanas ir "
+"piešķiramas autentificētiem lietotājiem?"
+
+#: config/prefs.php:224
+msgid ""
+"When a new gallery is created, what permissions should be given to guests by "
+"default?"
+msgstr ""
+"Ja tiek izveidota jauna galerija, kādas pieejas tiesības  pēc noklusēšanas "
+"ir piešķiramas viesiem?"
+
+#: config/prefs.php:242
+msgid ""
+"Which metadata fields should we automatically add as image tags during "
+"upload?"
+msgstr "Kurus metadatu laukus jāpievieno kā attēla tagus augšupielādes laikā?"
+
+#: config/prefs.php:203
+msgid "Who should be allowed to download original photos"
+msgstr "Kam ir atļauts lejuplādēt oriģinālos fotoattēlus"
+
+#: templates/gallery/properties.html.php:107
+msgid "Who should be allowed to download original photos?"
+msgstr "Kam ir atļauts lejuplādēt oriģinālos fotoattēlus?"
+
 #: edit_dates.php:23
 msgid "You are not allowed to edit these photos."
 msgstr "Jums nav atļauts mainīt šos attēlus."
@@ -2119,10 +2414,21 @@ msgstr "Jums nav atļauts augšupielādēt attēlus šajā galerijā."
 msgid "You did not select any photos to upload."
 msgstr "Jūs neizvēlējāties augšupielādei nevienu attēlu."
 
-#: lib/View/GalleryProperties.php:342
+#: lib/View/GalleryProperties.php:349
 #, php-format
 msgid "You do not have permission to add children to %s."
 msgstr "Jums nav tiesību pievienot apakšgalerijas galerijai %s."
+
+#: img/ecard.php:42
+msgid ""
+"You have been sent an Ecard. To view the Ecard, you must be able to view "
+"text/html messages in your mail reader. If you are viewing this message, "
+"then most likely your mail reader does not support viewing text/html "
+"messages."
+msgstr ""
+"Jums ir pienākusi E-kartīte. Lai to apskatītu, Jūsu izmantotajā pasta "
+"programmā nepieciešama iespēja skatīt text/html formāta vēstules. Ja Jūs "
+"redzat šo paziņojumu, Jūsu pasta programma, acīmredzot, neuztur šādu iespēju."
 
 #: lib/View/List.php:132
 msgid "You have no photo galleries, add one!"
@@ -2159,7 +2465,7 @@ msgstr "Jums ir jāievada vēstules adresāta e-pasta adrese."
 msgid "You must enter your e-mail address."
 msgstr "Jums ir jāievada sava e-pasta adrese."
 
-#: lib/View/GalleryProperties.php:353
+#: lib/View/GalleryProperties.php:360
 msgid "You must provide a display name for your new gallery."
 msgstr "Nepieciešams norādīt Jūsu galerijas ekrāna nosaukumu."
 
@@ -2175,6 +2481,16 @@ msgstr "Jums ir jāizvēlas lejupielādējamie attēli."
 #: faces/search/image_search.php:30
 msgid "You must upload the search photo first"
 msgstr "Meklējamo attēlu nepieciešams augšupielādēt pirms meklēšanas"
+
+#: lib/View/GalleryProperties.php:127
+msgid ""
+"Your server does not support thumbnails with transparent backgrounds.  "
+"Either select a background color or use the 'Basic Thumbnail' type. Please "
+"contact your server administrator for more information."
+msgstr ""
+"Jūsu serveris neatbalsta sīkattēlus ar caurspīdīgu fonu. Vai nu izvēlieties "
+"fona krāsu vai arī izmantojiet tipu 'Pamata sīkattēls'. Sazinieties ar "
+"servera administratoru, ja vēlaties saņemt papildu informāciju."
 
 #: lib/Form/Upload.php:63
 msgid "Zip File Upload"
@@ -2209,12 +2525,12 @@ msgstr "Drukāt"
 msgid "from"
 msgstr "no"
 
-#: templates/faces/define.inc:61 templates/image/crop_image.inc:159
-#: templates/image/resize_image.inc:69
+#: templates/image/crop_image.inc:159 templates/image/resize_image.inc:69
+#: templates/faces/define.inc:61
 msgid "height"
 msgstr "augstums"
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Widget/Geotag.php:198 lib/Ajax/Imple/ImageSaveGeotag.php:84
 msgid "here"
 msgstr "šeit"
 
@@ -2226,8 +2542,8 @@ msgstr "lasa"
 msgid "none"
 msgstr "nekas"
 
+#: lib/View/GalleryRenderer/GalleryLightbox.php:147
 #: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:142
 msgid "of"
 msgstr "no"
 
@@ -2243,7 +2559,7 @@ msgstr "foto"
 msgid "preferences"
 msgstr "iestatījumi"
 
-#: templates/faces/define.inc:59 templates/image/crop_image.inc:153
-#: templates/image/resize_image.inc:67
+#: templates/image/crop_image.inc:153 templates/image/resize_image.inc:67
+#: templates/faces/define.inc:59
 msgid "width"
 msgstr "platums"

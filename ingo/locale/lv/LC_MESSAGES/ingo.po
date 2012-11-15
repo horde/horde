@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H3 (1.1.5)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-12 11:29+0300\n"
-"PO-Revision-Date: 2011-07-21 10:27+0300\n"
+"POT-Creation-Date: 2012-11-14 23:24+0200\n"
+"PO-Revision-Date: 2012-11-14 23:32+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -104,8 +104,8 @@ msgstr "Sākas ar"
 msgid "Bind failed: (%s) %s"
 msgstr "Neizdevās pieslēgties: (%s) %s"
 
-#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
-#: templates/blacklist/blacklist.inc:6
+#: filters.php:179 templates/blacklist/blacklist.inc:6
+#: lib/Block/Overview.php:84 lib/Block/Overview.php:87
 msgid "Blacklist"
 msgstr "Melnais saraksts"
 
@@ -117,7 +117,7 @@ msgstr "Melnā saraksta labošana"
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Melno sarakstu."
 
-#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:219
+#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:240
 #: lib/Script/Sieve.php:281
 msgid "Blacklisted Addresses"
 msgstr "Melnā saraksta adreses"
@@ -126,7 +126,7 @@ msgstr "Melnā saraksta adreses"
 msgid "Body"
 msgstr "Ķermenis"
 
-#: filters.php:225 rule.php:336
+#: filters.php:225 rule.php:343
 msgid "Case Sensitive"
 msgstr "Reģistrjutīgs"
 
@@ -134,7 +134,7 @@ msgstr "Reģistrjutīgs"
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:63 forward.php:49 rule.php:156 spam.php:88 vacation.php:71
+#: blacklist.php:63 forward.php:49 rule.php:163 spam.php:88 vacation.php:71
 #: whitelist.php:32
 msgid "Changes saved."
 msgstr "Izmaiņas saglabātas."
@@ -152,20 +152,20 @@ msgstr "Satur"
 msgid "Copy %s"
 msgstr "Kopēt %s"
 
-#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:222
+#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:228
 #, php-format
 msgid "Copy of %s"
 msgstr "%s kopija"
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:166
 msgid "Could not validate IMAP mailbox."
 msgstr "Nevar pārbaudīt IMAP pastkasti."
 
-#: lib/Ingo.php:121
+#: lib/Ingo.php:120
 msgid "Create new folder"
 msgstr "Izveidot jaunu mapi"
 
-#: lib/Script/Maildrop/Comment.php:35 lib/Script/Procmail/Comment.php:35
+#: lib/Script/Procmail/Comment.php:35 lib/Script/Maildrop/Comment.php:35
 msgid "DISABLED: "
 msgstr "IZSLĒGTS: "
 
@@ -215,9 +215,9 @@ msgstr "Mērķis (To,Cc,Bcc, utt.)"
 msgid "Disable %s"
 msgstr "Izslēgt %s"
 
-#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
-#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
-#: vacation.php:137
+#: forward.php:88 spam.php:132 vacation.php:137
+#: templates/whitelist/whitelist.inc:8 templates/rule/header.inc:13
+#: templates/blacklist/blacklist.inc:9
 msgid "Disabled"
 msgstr "Izslēgts"
 
@@ -253,9 +253,9 @@ msgstr "Neeksistē"
 msgid "Doesn't match (with placeholders)"
 msgstr "Neatbilst (ar vietturiem)"
 
-#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
-#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
-#: lib/Block/Overview.php:96 templates/filters/header.inc:11
+#: templates/filters/header.inc:11 lib/Block/Overview.php:52
+#: lib/Block/Overview.php:61 lib/Block/Overview.php:76
+#: lib/Block/Overview.php:86 lib/Block/Overview.php:96
 msgid "Edit"
 msgstr "Labot"
 
@@ -367,7 +367,7 @@ msgstr "Filtrēšana: izdzēsta(s) %s vēstule(s) ."
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Filtrēšana: %s vēstule(s) pārvietota(s)uz mapi \"%s\"."
 
-#: lib/Script/Imap.php:191
+#: lib/Script/Imap.php:190
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr "Filtrēšana: izdzēstas %s Melnajam sarakstam atbilstošā(s) vēstule(s)."
@@ -391,7 +391,7 @@ msgid ""
 "\"%s\"."
 msgstr "Filtrēšana: Vēstule \"%s\" no \"%s\" pārvietota uz mapi \"%s\"."
 
-#: rule.php:204
+#: rule.php:211
 msgid "Filter not found."
 msgstr "Filtrs nav atrodams"
 
@@ -420,7 +420,7 @@ msgstr "Pāradresēt darbības saglabāšanu"
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta pārsūtīšanu."
 
-#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:298
+#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:319
 #: lib/Script/Sieve.php:244
 msgid "Forwards"
 msgstr "Pārsūtīšanas"
@@ -566,21 +566,21 @@ msgstr "Pārvietot augšup"
 msgid "My email addresses:"
 msgstr "Jūsu e-pasta adreses:"
 
-#: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
-#: templates/filters/footer.inc:6
+#: templates/filters/filter-none.inc:3 templates/filters/footer.inc:6
+#: lib/Storage/Filters.php:90
 msgid "New Rule"
 msgstr "Jauns likums"
 
-#: lib/Ingo.php:318
+#: lib/Ingo.php:317
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "\"%s\" elements nav atrasts palīgmoduļa konfigurācijā ."
 
-#: lib/Ingo.php:310
+#: lib/Ingo.php:309
 msgid "No backend configured for this host"
 msgstr "Nav atrodams konfigurēts palīgmodulis"
 
-#: lib/Ingo.php:283
+#: lib/Ingo.php:282
 msgid "No backends configured in backends.php"
 msgstr "backends.php nav neviens konfigurēts palīgmodulis"
 
@@ -636,7 +636,7 @@ msgstr "Dalībnieks (From,To, utt.)"
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
-#: lib/Ingo.php:136
+#: lib/Ingo.php:135
 msgid "Please enter the name of the new folder:"
 msgstr "Lūdzu ievadiet jaunās mapes nosaukumu:"
 
@@ -683,9 +683,9 @@ msgstr "Pārsūtīts"
 msgid "Return to Filters List"
 msgstr "Atgriezties pie filtru saraksta"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
-#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
-#: vacation.php:30 vacation.php:102
+#: forward.php:30 forward.php:77 spam.php:56 spam.php:119 vacation.php:30
+#: vacation.php:102 templates/whitelist/whitelist.inc:24
+#: templates/blacklist/blacklist.inc:41
 msgid "Return to Rules List"
 msgstr "Atgriezties pie likumu saraksta"
 
@@ -738,9 +738,9 @@ msgstr "STARTTLS kļūme: (%s) %s"
 msgid "S_pam"
 msgstr "Mēstules"
 
-#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
-#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
-#: vacation.php:54
+#: forward.php:40 spam.php:71 vacation.php:54
+#: templates/whitelist/whitelist.inc:23 templates/rule/footer.inc:60
+#: templates/blacklist/blacklist.inc:40
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -766,15 +766,15 @@ msgstr "Skripts"
 msgid "Script Updating"
 msgstr "Skripta atjaunināšana"
 
-#: lib/Ingo.php:263
+#: lib/Ingo.php:262
 msgid "Script not updated."
 msgstr "Skripts nav atjaunināts"
 
-#: lib/Ingo.php:233
+#: lib/Ingo.php:232
 msgid "Script successfully activated."
 msgstr "Skripts veiksmīgi aktivēts."
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:231
 msgid "Script successfully deactivated."
 msgstr "Skripts veiksmīgi deaktivēts."
 
@@ -782,7 +782,7 @@ msgstr "Skripts veiksmīgi deaktivēts."
 msgid "Seen"
 msgstr "Redzēta"
 
-#: rule.php:233
+#: rule.php:240
 msgid "Select a field"
 msgstr "Izvēlieties lauku"
 
@@ -790,15 +790,15 @@ msgstr "Izvēlieties lauku"
 msgid "Select ruleset to display:"
 msgstr "Izvēlieties rādāmo likumu kopumu:"
 
-#: rule.php:361 templates/blacklist/blacklist.inc:22
+#: rule.php:368 templates/blacklist/blacklist.inc:22
 msgid "Select target folder"
 msgstr "izvēlēties mapi"
 
-#: lib/Ingo.php:117
+#: lib/Ingo.php:116
 msgid "Select target folder:"
 msgstr "izvēlēties mērķa mapi:"
 
-#: rule.php:270
+#: rule.php:277
 msgid "Self-Defined Header"
 msgstr "Pašdefinēta galvene"
 
@@ -831,8 +831,8 @@ msgstr "Izmērs"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Avots (From,Reply-to, utt.)"
 
-#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
-#: lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
+#: filters.php:203 lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
+#: lib/Block/Overview.php:94 lib/Block/Overview.php:97
 msgid "Spam Filter"
 msgstr "Mēstuļu filtrs"
 
@@ -874,15 +874,15 @@ msgstr "Adrese \"%s\" pievienota Melnajam sarakstam."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Adrese \"%s\" pievienota Baltajam sarakstam."
 
-#: lib/Ingo.php:227
+#: lib/Ingo.php:226
 msgid "The driver said: "
 msgstr "Palīgmodulis paziņoja:"
 
-#: lib/Ingo.php:226
+#: lib/Ingo.php:225
 msgid "There was an error activating the script."
 msgstr "Kļūda aktivējot skriptu."
 
-#: lib/Ingo.php:225
+#: lib/Ingo.php:224
 msgid "There was an error deactivating the script."
 msgstr "Kļūda deaktivējot skriptu."
 
@@ -903,9 +903,9 @@ msgstr "Nevar ielasīt %s nosacījumus."
 msgid "User header"
 msgstr "Lietotāja galvene"
 
-#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
-#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:278
-#: lib/Script/Sieve.php:416 vacation.php:135
+#: filters.php:191 vacation.php:135 lib/Script/Maildrop.php:278
+#: lib/Script/Procmail.php:299 lib/Script/Sieve.php:416
+#: lib/Block/Overview.php:50 lib/Block/Overview.php:53
 msgid "Vacation"
 msgstr "Brīvdienas"
 
@@ -917,7 +917,7 @@ msgstr "Labot Brīvdienu paziņojumu"
 msgid "Vacation is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta brīvdienu paziņōjumus."
 
-#: rule.php:367
+#: rule.php:374
 msgid "Value"
 msgstr "Vērtība"
 
@@ -925,8 +925,8 @@ msgstr "Vērtība"
 msgid "Wh_itelist addresses:"
 msgstr "Baltā saraksta adreses"
 
-#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
-#: templates/whitelist/whitelist.inc:5
+#: filters.php:185 templates/whitelist/whitelist.inc:5
+#: lib/Block/Overview.php:74 lib/Block/Overview.php:77
 msgid "Whitelist"
 msgstr "Baltais saraksts"
 
@@ -938,7 +938,7 @@ msgstr "Labot Balto sarakstu"
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Pašreizējais filtrēšanas dzinis neatbalsta Balto sarakstu."
 
-#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:246
+#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:267
 #: lib/Script/Sieve.php:341
 msgid "Whitelisted Addresses"
 msgstr "Baltā saraksta adreses"
@@ -959,7 +959,7 @@ msgstr "X-Spam-Score"
 msgid "X-Spam-Status"
 msgstr "X-Spam-Status"
 
-#: filters.php:73 rule.php:191
+#: filters.php:73 rule.php:198
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Jūs nevarat izveidot vairāk kā %d likumus."
@@ -968,22 +968,26 @@ msgstr "Jūs nevarat izveidot vairāk kā %d likumus."
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Jūs nevarat izveidot vai mainīt specializētos likumus"
 
-#: rule.php:90
+#: rule.php:92
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "Tukšus nosacījumus nevar izveidot. Lūdzu, norādiet \"%s\" vērtību."
 
-#: filters.php:50 rule.php:168
+#: filters.php:50 rule.php:175
 msgid "You do not have permission to delete filter rules."
 msgstr "Jums nav tiesību dzēst filtra likumus."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:181
+#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:188
 msgid "You do not have permission to edit filter rules."
 msgstr "Jums nav tiesību labot filtru likumus."
 
 #: lib/Script/Sieve/Action/Notify.php:38
 msgid "You have received a new message"
 msgstr "Jums ir pienākusi jauna vēstule."
+
+#: rule.php:148
+msgid "You need to select at least one field to match."
+msgstr "Jums ir jāizvēlas vismaz viens atbilstības lauks."
 
 #: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
 msgid "[No Sender]"
@@ -1053,6 +1057,6 @@ msgstr "Ingo ģenerēts maildrop skripts."
 msgid "or"
 msgstr " vai"
 
-#: lib/Script/Procmail.php:138
+#: lib/Script/Procmail.php:159
 msgid "procmail script generated by Ingo"
 msgstr "Ingo ģenerēts procmail skripts."

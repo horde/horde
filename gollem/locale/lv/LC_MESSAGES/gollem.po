@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-04 10:49+0300\n"
-"PO-Revision-Date: 2012-04-11 17:22+0300\n"
+"POT-Creation-Date: 2012-11-14 22:58+0200\n"
+"PO-Revision-Date: 2012-11-13 15:36+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -31,12 +31,12 @@ msgstr "\"%s\" pārdēvēts par \"%s\""
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d item"
 msgstr "%d objekts"
 
-#: manager.php:556
+#: manager.php:558
 #, php-format
 msgid "%d items"
 msgstr "%d objekti"
@@ -94,7 +94,7 @@ msgstr "Jautāt"
 msgid "Attributes"
 msgstr "Atribūti"
 
-#: lib/Application.php:124
+#: lib/Application.php:139
 msgid "Backend"
 msgstr "Dzinis"
 
@@ -106,7 +106,7 @@ msgstr "Dziņi"
 msgid "Below is the current contents of your clipboard."
 msgstr "Zemāk redzams pašreizējais starpliktuves saturs."
 
-#: clipboard.php:24 manager.php:281 selectlist.php:81
+#: clipboard.php:24 manager.php:283 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Atcelt"
@@ -134,7 +134,7 @@ msgstr "Nevar izgriezt objektu uz starpliktuvi."
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr "Nevar ielīmēt \"%s\" (fails iztīrīts no starpliktuves): %s"
 
-#: manager.php:307 templates/manager/manager.html:70
+#: manager.php:309 templates/manager/manager.html:70
 msgid "Change Folder"
 msgstr "Mainīt mapi"
 
@@ -146,11 +146,11 @@ msgstr "Mainīt pieejas tiesības"
 msgid "Change Server"
 msgstr "Nomainīt serveri"
 
-#: lib/Application.php:286
+#: lib/Application.php:301
 msgid "Check Quota"
 msgstr "Pārbaudīt kvotu"
 
-#: manager.php:552
+#: manager.php:554
 msgid "Check _All/None"
 msgstr "Pārbaudīt visus/nevienu"
 
@@ -158,7 +158,7 @@ msgstr "Pārbaudīt visus/nevienu"
 msgid "Chmod done: "
 msgstr "Atribūti manīti:"
 
-#: lib/Application.php:256
+#: lib/Application.php:271
 msgid "Choose which columns to display, and in what order:"
 msgstr "Izvēlieties, kurus slejas un kādā secībā rādīt:"
 
@@ -174,7 +174,7 @@ msgstr "Starpliktuve"
 msgid "Close"
 msgstr "Aizvērt"
 
-#: lib/Application.php:260
+#: lib/Application.php:275
 msgid "Columns that will not be displayed:"
 msgstr "Slejas, kas netiks parādītas:"
 
@@ -182,7 +182,7 @@ msgstr "Slejas, kas netiks parādītas:"
 msgid "Copy"
 msgstr "Kopēt"
 
-#: manager.php:300 templates/manager/manager.html:58
+#: manager.php:302 templates/manager/manager.html:58
 msgid "Create Folder"
 msgstr "Izveidot mapi"
 
@@ -227,7 +227,7 @@ msgstr "Dilstoši"
 msgid "Done"
 msgstr "Darīts"
 
-#: manager.php:427
+#: manager.php:429
 #, php-format
 msgid "Download %s"
 msgstr "Lejupielādēt %s"
@@ -292,7 +292,7 @@ msgstr "Mapju pārlūkošanas iestatījumi"
 msgid "File received: %s"
 msgstr "Fails saņemts: %s"
 
-#: lib/Api.php:124
+#: lib/Api.php:122
 msgid "Files must be written inside a VFS backend."
 msgstr "Failus jāieraksta VFS vidē."
 
@@ -308,7 +308,7 @@ msgstr "Filtrs:"
 msgid "Folder removed: "
 msgstr "Mape dzēsta:"
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:153 lib/Api.php:184
 msgid "Folders must be created inside a VFS backend."
 msgstr "Mapes jāizveido VFS vidē."
 
@@ -316,11 +316,11 @@ msgstr "Mapes jāizveido VFS vidē."
 msgid "Go to:"
 msgstr "Pāriet pie:"
 
-#: manager.php:531 templates/manager/manager.html:10
+#: manager.php:533 templates/manager/manager.html:10
 msgid "Group"
 msgstr "Grupa"
 
-#: lib/Api.php:405
+#: lib/Api.php:403
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Pieprasīts neizmantojams dzinis: %s"
@@ -352,11 +352,11 @@ msgstr "Mapes rādīt vispirms?"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: manager.php:501
+#: manager.php:503
 msgid "Modified"
 msgstr "Pēdējās izmaiņas"
 
-#: manager.php:479
+#: manager.php:481
 msgid "Name"
 msgstr "Nosaukums"
 
@@ -377,11 +377,11 @@ msgstr "Nē"
 msgid "No quota found."
 msgstr "Kvota nav atrasta."
 
-#: manager.php:282
+#: manager.php:284
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:524 templates/manager/manager.html:9
+#: manager.php:526 templates/manager/manager.html:9
 msgid "Owner"
 msgstr "Īpašnieks"
 
@@ -389,7 +389,7 @@ msgstr "Īpašnieks"
 msgid "Paste"
 msgstr "Ielīmēt"
 
-#: manager.php:517
+#: manager.php:519
 msgid "Permission"
 msgstr "Tiesības"
 
@@ -403,7 +403,7 @@ msgstr "Pieeja %s liegta: %s"
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Pieeja mapei \"%s\" liegta: %s"
 
-#: lib/Api.php:413
+#: lib/Api.php:411
 msgid "Permission denied to this backend."
 msgstr "Jums nav tiesību izmantot šo dzini."
 
@@ -431,7 +431,7 @@ msgstr "Kvota"
 msgid "Read"
 msgstr "Lasīt"
 
-#: manager.php:287
+#: manager.php:289
 msgid "Refresh"
 msgstr "Atsvaidzināt skatu"
 
@@ -439,11 +439,11 @@ msgstr "Atsvaidzināt skatu"
 msgid "Rename"
 msgstr "Pārdēvēt"
 
-#: lib/Api.php:200
+#: lib/Api.php:198
 msgid "Renaming across backends is not supported."
 msgstr "Pārdēvēšana starp dažādiem dziņiem nav atbalstīta."
 
-#: lib/Api.php:194
+#: lib/Api.php:192
 msgid "Renaming of backends is not allowed."
 msgstr "Dziņu pārdēvēšana nav atļauta."
 
@@ -456,7 +456,7 @@ msgstr "Sākt no jauna"
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: manager.php:280 templates/edit/edit.inc:11
+#: manager.php:282 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -468,7 +468,7 @@ msgstr "Iezīmēt visu"
 msgid "Select None"
 msgstr "Neizvēlēties neko"
 
-#: lib/Application.php:258
+#: lib/Application.php:273
 msgid "Select a backend:"
 msgstr "Izvēlieties dzini:"
 
@@ -480,11 +480,11 @@ msgstr "Serveris"
 msgid "Show dotfiles?"
 msgstr "Rādīt slēptos failus?"
 
-#: manager.php:509
+#: manager.php:511
 msgid "Size"
 msgstr "Izmērs"
 
-#: lib/Api.php:229
+#: lib/Api.php:227
 msgid "The application folder can not be deleted."
 msgstr "Aplikācijas mape nav izdzēšama."
 
@@ -504,7 +504,7 @@ msgstr "Oriģinālais logs ir aizvērts. Veramies ciet."
 msgid "There are no files in this folder."
 msgstr "Šajā mapē failu nav."
 
-#: lib/Application.php:257
+#: lib/Application.php:272
 msgid "These columns will display in this order:"
 msgstr "Šīs slejas tiks parādītas šādā secībā:"
 
@@ -524,11 +524,11 @@ msgstr ""
 "Lai ielīmētu objektus no starpliktuves atvērtajā mapē, ieķeksējiet rūtiņu "
 "blakus faila nosaukumam un uzklikšķiniet &quot;Ielīmet&quot;."
 
-#: manager.php:471
+#: manager.php:473
 msgid "Type"
 msgstr "Tips"
 
-#: lib/Api.php:409
+#: lib/Api.php:407
 msgid "Unable to create Gollem session"
 msgstr "Nevar atvērt Gollem sesiju"
 
@@ -552,7 +552,7 @@ msgstr "Mapi %s nevar nodzēst: %s"
 msgid "Up to %s"
 msgstr "Atpakaļ uz %s"
 
-#: manager.php:296
+#: manager.php:298
 msgid "Upload File(s)"
 msgstr "Augšupielādēt failu(s)"
 
@@ -560,7 +560,7 @@ msgstr "Augšupielādēt failu(s)"
 msgid "User Interface"
 msgstr "Lietotāja saskarne"
 
-#: manager.php:291
+#: manager.php:293
 msgid "View Clipboard"
 msgstr "Skatīt starpliktuvi"
 
@@ -580,10 +580,10 @@ msgstr "Lai noteiktu pieejas tiesības, jābūt definētam vismaz vienam dzinim"
 msgid "_Change Server"
 msgstr "Mainīt serveri"
 
-#: lib/Application.php:273
+#: lib/Application.php:288
 msgid "_My Home"
 msgstr "Pamatmape"
 
-#: lib/Application.php:276
+#: lib/Application.php:291
 msgid "_Permissions"
 msgstr "Tiesības"

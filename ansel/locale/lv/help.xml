@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
 
-<entry id="overview" state="uptodate" md5="df2fe059a57c3b7fb286dd279e155bad">
+<entry id="overview" state="unknown">
   <title>Pārskats</title>
   <heading>Ievads</heading>
   <para>
@@ -9,14 +9,14 @@
   </para>
 </entry>
 
-<entry id="upload" state="uptodate" md5="ca8e50685a92d0dd33690d9a24d23fb9">
+<entry id="upload" state="unknown">
   <title>Attēlu augšupielāde: Pārskats</title>
   <para>
     Iespējams augšupielādēt vairumu no ierasto formātu attēliem. Gadījumu, ja ar augšupielādēto attēlu kaut kas nav kārtībā, sistēma par to brīdinās, līdz ar to - ja ir šaubas, tad izmēģiniet. Ja augšupielādējamo attēlu ir daudz, Jums ir divas iespējas, lai augšupielādētu tos vienā paņēmienā - Jūs varat augšupielādēt attēlus kā visu attēlu ZIP arhīvu vai, ja izmantojat Windows XP, varat izmantot <ref ENTRY="xppublish" MODULE="ansel">XP Publishing Wizard</ref>.
   </para>
 </entry>
 
-<entry id="xppublish" state="uptodate" md5="f4067b7d23111b69a9b69920eb17d794">
+<entry id="xppublish" state="unknown">
   <title>Attēlu augšupielāde: publicēt no Windows XP</title>
   <heading>Windows XP's Publish to the Web iespējas izmantošana</heading>
 

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde 4.0.7-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-04 10:49+0300\n"
-"PO-Revision-Date: 2012-04-11 17:09+0300\n"
+"POT-Creation-Date: 2012-11-14 23:23+0200\n"
+"PO-Revision-Date: 2012-11-14 23:33+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: lv\n"
@@ -46,7 +46,7 @@ msgstr "\"%s\" nav izveidots: %s"
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr "izmantoti %.2fMB no atļautajiem %.2fMB  (%.2f%%)"
 
-#: lib/Block/Weather.php:197 lib/Block/Weatherdotcom.php:221
+#: lib/Block/Weather.php:199 lib/Block/Weatherdotcom.php:221
 #, php-format
 msgid "%d %s and %s"
 msgstr "%d %s un %s"
@@ -74,7 +74,7 @@ msgstr[2] "%d personām tas patīk"
 msgid "%d to %d of %d"
 msgstr "%d līdz %d no %d"
 
-#: lib/Block/Weather.php:237 lib/Block/Weatherdotcom.php:268
+#: lib/Block/Weather.php:239 lib/Block/Weatherdotcom.php:268
 #, php-format
 msgid "%d-day forecast"
 msgstr "%d-dienas prognoze"
@@ -282,7 +282,7 @@ msgstr "ActiveSync Iekārtas"
 msgid "ActiveSync not activated."
 msgstr "ActiveSync nav iespējots."
 
-#: templates/admin/groups/add.inc:11 templates/portal/add.inc:14
+#: templates/portal/add.inc:14 templates/admin/groups/add.inc:11
 msgid "Add"
 msgstr "Pievienot"
 
@@ -600,8 +600,8 @@ msgstr "Mierīgs"
 msgid "Camouflage"
 msgstr "Kamuflāža"
 
-#: admin/user.php:120 admin/user.php:140 templates/admin/groups/delete.inc:11
-#: templates/admin/user/clear.inc:12 templates/admin/user/remove.inc:12
+#: admin/user.php:120 admin/user.php:140 templates/admin/user/clear.inc:12
+#: templates/admin/user/remove.inc:12 templates/admin/groups/delete.inc:11
 msgid "Cancel"
 msgstr "Atcelt"
 
@@ -634,7 +634,7 @@ msgstr "Central European (ISO-8859-2)"
 msgid "Change"
 msgstr "Mainīt"
 
-#: lib/Block/Weather.php:120
+#: lib/Block/Weather.php:122
 msgid "Change Location"
 msgstr "Mainīt atrašanās vietu"
 
@@ -785,7 +785,7 @@ msgstr "Komentāri: %d"
 msgid "Computers"
 msgstr "Datori"
 
-#: lib/Block/Weather.php:250 lib/Block/Weatherdotcom.php:280
+#: lib/Block/Weather.php:252 lib/Block/Weatherdotcom.php:280
 msgid "Condition"
 msgstr "Nosacījums"
 
@@ -946,7 +946,7 @@ msgstr "Pašreizējais laiks"
 msgid "Current Weather"
 msgstr "Šā brīža laika apstākļi"
 
-#: lib/Block/Weather.php:230
+#: lib/Block/Weather.php:232
 msgid "Current condition"
 msgstr "Šībrīža apstākļi"
 
@@ -997,7 +997,7 @@ msgstr "Datu koks"
 msgid "DataTree Browser"
 msgstr "Datu koka pārlūks"
 
-#: templates/admin/config/index.html:33 templates/prefs/syncml.html:11
+#: templates/prefs/syncml.html:11 templates/admin/config/index.html:33
 msgid "Database"
 msgstr "Datubāze"
 
@@ -1014,7 +1014,7 @@ msgstr "Saņemšanas datums"
 msgid "Date: %s; time: %s"
 msgstr "Datums: %s; laiks: %s"
 
-#: lib/Block/Weather.php:245 lib/Block/Weatherdotcom.php:275
+#: lib/Block/Weather.php:247 lib/Block/Weatherdotcom.php:275
 #: lib/Block/Weatherdotcom.php:304
 msgid "Day"
 msgstr "Diena"
@@ -1045,14 +1045,14 @@ msgstr "Noklusētā atrašanās vieta dislokācijas jūtīgām funkcijām."
 msgid "Definitions"
 msgstr "Definīcijas"
 
-#: admin/groups.php:54 templates/admin/groups/delete.inc:10
-#: templates/admin/user/list.inc:34 templates/shares/edit.inc:66
+#: admin/groups.php:54 templates/shares/edit.inc:66
 #: templates/shares/edit.inc:86 templates/shares/edit.inc:101
 #: templates/shares/edit.inc:121 templates/shares/edit.inc:137
 #: templates/shares/edit.inc:157 templates/shares/edit.inc:172
 #: templates/shares/edit.inc:196 templates/shares/edit.inc:231
 #: templates/shares/edit.inc:258 templates/shares/edit.inc:274
 #: templates/shares/edit.inc:299 templates/shares/edit.inc:328
+#: templates/admin/user/list.inc:34 templates/admin/groups/delete.inc:10
 #: templates/prefs/identityselect.html:34 templates/prefs/rpc.html:35
 #: templates/prefs/syncml.html:14 templates/prefs/syncml.html:23
 msgid "Delete"
@@ -1125,7 +1125,7 @@ msgstr "Rasas punkts"
 msgid "Dew Point for last hour: "
 msgstr "Rasas punkts pēdējā stundā:"
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:182
 msgid "Dew point"
 msgstr "Rasas punkts"
 
@@ -1232,13 +1232,17 @@ msgstr "Labot pieejas tiesības \"%s\""
 msgid "Education"
 msgstr "Izglītība"
 
-#: templates/admin/groups/edit.inc:12 templates/admin/user/update.inc:45
+#: templates/admin/user/update.inc:45 templates/admin/groups/edit.inc:12
 msgid "Email Address"
 msgstr "E-pasta adrese"
 
 #: templates/admin/locks/list.html.php:14
 msgid "End Time"
 msgstr "Beigu laiks"
+
+#: lib/Block/Weather.php:75
+msgid "English"
+msgstr "Angļu"
 
 #: lib/Prefs/Ui.php:201
 msgid "Enter a name for the new category:"
@@ -1252,8 +1256,8 @@ msgstr ""
 "Ievadiet drošības jautājumu, kuru izmantot paroles maiņas nepieciešamības "
 "gadījumā, piemēram - 'kāds ir Jūsu mājdzīvnieka vārds?':"
 
-#: lib/Prefs/Ui.php:546 services/twitter/index.php:182
-#: services/twitter/index.php:205
+#: lib/Prefs/Ui.php:546 services/twitter/index.php:184
+#: services/twitter/index.php:207
 #, php-format
 msgid ""
 "Error connecting to Twitter: %s Details have been logged for the "
@@ -1468,12 +1472,12 @@ msgstr "Draugi iespējoti"
 msgid "From the "
 msgstr "No"
 
-#: lib/Block/Weather.php:207
+#: lib/Block/Weather.php:209
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr "no %s (%s &deg;) plkst. %s %s"
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr "No %s plkst. %s %s"
@@ -1632,7 +1636,7 @@ msgstr "Cik daudz lauku (sleju) šeit ir?"
 msgid "How many seconds before we check for new articles?"
 msgstr "Cik sekundes līdz nākošajam jaunu rakstu pieprasījumam?"
 
-#: lib/Block/Metar.php:203 lib/Block/Weather.php:219 lib/Block/Weather.php:258
+#: lib/Block/Metar.php:203 lib/Block/Weather.php:221 lib/Block/Weather.php:260
 #: lib/Block/Weatherdotcom.php:283
 msgid "Humidity"
 msgstr "Gaisa mitrums"
@@ -1955,7 +1959,7 @@ msgstr "Lasa..."
 msgid "Local time: "
 msgstr "Vietējais laiks:"
 
-#: lib/Block/Weather.php:159
+#: lib/Block/Weather.php:161
 #, php-format
 msgid "Local time: %s %s"
 msgstr "Vietējais laiks: %s %s"
@@ -2167,7 +2171,7 @@ msgstr "Mozilla"
 
 #: config/registry.php:305
 msgid "My Account"
-msgstr "Man konts"
+msgstr "Mans konts"
 
 #: lib/Block/Account.php:26
 msgid "My Account Information"
@@ -2185,8 +2189,8 @@ msgstr "Mans portāls"
 msgid "My Portal Layout"
 msgstr "Mans portāla izkārtojums"
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr "Nav"
 
@@ -2498,8 +2502,8 @@ msgstr "P_HP čaula"
 msgid "Partly Cloudy"
 msgstr "Daļēji mākoņains"
 
-#: login.php:194 admin/config/index.php:322 admin/user.php:40
-#: admin/user.php:54 config/registry.php:322
+#: login.php:194 admin/user.php:40 admin/user.php:54
+#: admin/config/index.php:322 config/registry.php:322
 #: templates/admin/user/update.inc:20
 msgid "Password"
 msgstr "Parole"
@@ -2620,7 +2624,7 @@ msgstr[0] "Nokrišņi pēdējā %d stundā:"
 msgstr[1] "Nokrišņi pēdējās %d stundās:"
 msgstr[2] "Nokrišņi pēdējās %d stundās:"
 
-#: lib/Block/Weather.php:254
+#: lib/Block/Weather.php:256
 #, php-format
 msgid "Precipitation%schance"
 msgstr "Nokrišņu%siespējamība"
@@ -2629,7 +2633,7 @@ msgstr "Nokrišņu%siespējamība"
 msgid "Precipitation<br />chance"
 msgstr "Nokrišņi<br />iespējamība"
 
-#: lib/Block/Metar.php:198 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:198 lib/Block/Weather.php:193
 msgid "Pressure"
 msgstr "Spiediens"
 
@@ -2755,9 +2759,9 @@ msgstr "Attālinātā stacija:"
 msgid "Remote URL (http://www.example.com/horde):"
 msgstr "Attālinātā saite (URL, http://www.example.com/horde):"
 
-#: admin/activesync.php:187 templates/admin/groups/edit.inc:26
-#: templates/admin/user/approve.inc:40
-#: templates/admin/user/removequeued.inc:13 templates/prefs/activesync.html:33
+#: admin/activesync.php:187 templates/admin/user/approve.inc:40
+#: templates/admin/user/removequeued.inc:13 templates/admin/groups/edit.inc:26
+#: templates/prefs/activesync.html:33
 msgid "Remove"
 msgstr "Aizvākt"
 
@@ -2878,7 +2882,7 @@ msgstr "S_Ql čaula"
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/admin/groups/edit.inc:70 templates/shares/edit.inc:338
+#: templates/shares/edit.inc:338 templates/admin/groups/edit.inc:70
 #, php-format
 msgid "Save \"%s\""
 msgstr "Saglabāt \"%s\""
@@ -3044,7 +3048,7 @@ msgstr ""
 msgid "Several locations possible with the parameter: "
 msgstr "Šim parametram iespējamas vairākas atrašanās vietas:"
 
-#: lib/Block/Weather.php:136
+#: lib/Block/Weather.php:138
 #, php-format
 msgid "Several locations possible with the parameter: %s"
 msgstr "Šim parametram iespējamas vairākas atrašanās vietas: %s"
@@ -3187,8 +3191,7 @@ msgstr "Īpašo simbolu ievade"
 msgid "Sports"
 msgstr "Sports"
 
-#: lib/Block/Metar.php:60 lib/Block/Weather.php:75
-#: lib/Block/Weatherdotcom.php:61
+#: lib/Block/Metar.php:60 lib/Block/Weatherdotcom.php:61
 msgid "Standard"
 msgstr "Standarta"
 
@@ -3204,8 +3207,8 @@ msgstr "Sākuma laiks"
 msgid "State Management"
 msgstr "Stāvokļa vadība"
 
-#: admin/activesync.php:114 templates/admin/config/index.html:39
-#: templates/prefs/activesync.html:22
+#: admin/activesync.php:114 templates/prefs/activesync.html:22
+#: templates/admin/config/index.html:39
 msgid "Status"
 msgstr "Statuss"
 
@@ -3300,7 +3303,7 @@ msgstr "Svētdiena"
 msgid "Sunny"
 msgstr "Saulains"
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:167 lib/Block/Weather.php:168
 #: lib/Block/Weatherdotcom.php:200
 msgid "Sunrise"
 msgstr "Saullēkts"
@@ -3313,7 +3316,7 @@ msgstr "Saullēkts/saulriets"
 msgid "Sunrise: "
 msgstr "Saullēkts:"
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:170 lib/Block/Weather.php:171
 #: lib/Block/Weatherdotcom.php:203
 msgid "Sunset"
 msgstr "Saulriets"
@@ -3382,11 +3385,11 @@ msgstr "Krīklis"
 msgid "Temp for last hour: "
 msgstr "Temp. pēdējā stundā:"
 
-#: lib/Block/Metar.php:187 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:187 lib/Block/Weather.php:177
 msgid "Temperature"
 msgstr "Temperatūra"
 
-#: lib/Block/Weather.php:246
+#: lib/Block/Weather.php:248
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr "Temperatūra%s(%sMaks%s/%sMin%s)"
@@ -3641,11 +3644,11 @@ msgstr ""
 "Lai iezīmētu vairākus objektus, klikšķinot turiet nospiestu Control (PC) vai "
 "Command (MAC) pogu."
 
-#: lib/Block/Weather.php:278 lib/Block/Weatherdotcom.php:293
+#: lib/Block/Weather.php:280 lib/Block/Weatherdotcom.php:293
 msgid "Today"
 msgstr "Šodiena"
 
-#: lib/Block/Weather.php:280 lib/Block/Weatherdotcom.php:295
+#: lib/Block/Weather.php:282 lib/Block/Weatherdotcom.php:295
 msgid "Tomorrow"
 msgstr "Rītdiena"
 
@@ -3777,8 +3780,8 @@ msgstr "Visas aplikāciju konfigurācijas augšupielādētas."
 msgid "Use if name/password is different for IMSP server."
 msgstr "Lietot, ja lietotāja vārds/parole IMSP serverim atšķiras."
 
-#: templates/admin/groups/edit.inc:24 templates/admin/groups/edit.inc:67
-#: templates/admin/locks/list.html.php:12
+#: templates/admin/locks/list.html.php:12 templates/admin/groups/edit.inc:24
+#: templates/admin/groups/edit.inc:67
 msgid "User"
 msgstr "Lietotājs"
 
@@ -3814,8 +3817,8 @@ msgstr "Konts nav atrasts"
 msgid "User to add:"
 msgstr "Pievienojamais lietotājs:"
 
-#: login.php:189 admin/config/index.php:321 admin/user.php:37
-#: admin/user.php:53 services/resetpassword.php:30
+#: login.php:189 admin/user.php:37 admin/user.php:53
+#: admin/config/index.php:321 services/resetpassword.php:30
 #: templates/admin/user/approve.inc:22
 msgid "Username"
 msgstr "Lietotāja vārds"
@@ -3868,7 +3871,7 @@ msgstr "Vietnamese (VISCII)"
 msgid "View an external web page"
 msgstr "apskatīt ārējo tīmekļa lapu"
 
-#: lib/Block/Metar.php:182 lib/Block/Weather.php:224
+#: lib/Block/Metar.php:182 lib/Block/Weather.php:226
 msgid "Visibility"
 msgstr "Redzamība"
 
@@ -3888,7 +3891,7 @@ msgstr "Laika apstākļi"
 msgid "Weather Forecast"
 msgstr "Laika prognoze"
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 #: lib/Block/Weatherdotcom.php:409
 msgid "Weather data provided by"
 msgstr "Laika ziņu avots - "
@@ -3952,7 +3955,7 @@ msgstr "Kreisās %s izvēlnes platums:"
 msgid "Wiki"
 msgstr "Wiki"
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:262
+#: lib/Block/Weather.php:206 lib/Block/Weather.php:264
 #: lib/Block/Weatherdotcom.php:283 lib/Block/WeatherdotcomStrings.php:95
 msgid "Wind"
 msgstr "Vējš"
@@ -4303,7 +4306,7 @@ msgstr "krīt"
 msgid "from the %s (%s) at %s %s"
 msgstr "no %s (%s) plkst. %s %s"
 
-#: lib/Block/Weather.php:213 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:215 lib/Block/Weather.php:323
 #: lib/Block/Weatherdotcom.php:234
 msgid "gusting"
 msgstr "brāzmas"

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 2.1.7\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-04 10:49+0300\n"
-"PO-Revision-Date: 2012-04-11 17:05+0300\n"
+"POT-Creation-Date: 2012-11-14 23:24+0200\n"
+"PO-Revision-Date: 2012-11-14 23:32+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -39,7 +39,7 @@ msgstr " bez beigām"
 msgid "%d %s before the event starts"
 msgstr "%d %s pirms notikuma sākuma"
 
-#: lib/Event.php:1808
+#: lib/Event.php:1825
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
@@ -51,14 +51,14 @@ msgstr[1] "%d dienas"
 msgid "%d events"
 msgstr "%d notikumi"
 
-#: lib/Event.php:1811
+#: lib/Event.php:1828
 #, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] "%d stunda"
 msgstr[1] "%d stundas"
 
-#: lib/Event.php:1814
+#: lib/Event.php:1831
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -70,7 +70,7 @@ msgstr[1] "%d minūtes"
 msgid "%d times"
 msgstr "%d reizes"
 
-#: lib/Event.php:1805
+#: lib/Event.php:1822
 #, php-format
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -87,7 +87,7 @@ msgstr "%s %sKoplietot ar %s %sgrupu%s un %sļaut viņiem%s %s"
 msgid "%s %sShare with the users:%s %s and %sallow them to%s %s"
 msgstr "%s %sKoplietot ar lietotājiem:%s %s un %sļaut viņiem%s %s"
 
-#: lib/Api.php:714 lib/Api.php:725
+#: lib/Api.php:719 lib/Api.php:730
 #, php-format
 msgid "%s Already Exists"
 msgstr "%s jau eksistē"
@@ -116,7 +116,7 @@ msgstr "%s Neuzstādīt %s vai %s uzstādīt %s pirms notikuma %s "
 msgid "%s Private %s &mdash; hides details if calendar is public %s"
 msgstr "%s Privāts %s &mdash; slēpj detaļas, ja kalendārs ir publisks %s"
 
-#: lib/Event.php:1822
+#: lib/Event.php:1839
 #, php-format
 msgid "%s at %s"
 msgstr "%s plkst. %s"
@@ -126,7 +126,7 @@ msgstr "%s plkst. %s"
 msgid "%s don't set %s or %s set %s before due date %s"
 msgstr "%s neuzstādīt %s vai %s uzstādīt %s pirms izpildes datuma %s"
 
-#: data.php:326
+#: data.php:328
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s fails sekmīgi importēts"
@@ -141,12 +141,12 @@ msgstr "%s piešķīra Jums kalendāra \"%s\" īpašumtiesības."
 msgid "%s has assigned the ownership of the calendar %s to you."
 msgstr "%s piešķīra Jums kalendāra %s īpašumtiesības."
 
-#: lib/Kronolith.php:2372
+#: lib/Kronolith.php:2373
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr "%s atcēla \"%s\"."
 
-#: lib/Kronolith.php:2374
+#: lib/Kronolith.php:2375
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr "%s atcēla atkārtojošos ierakstu \"%s\"."
@@ -156,7 +156,7 @@ msgstr "%s atcēla atkārtojošos ierakstu \"%s\"."
 msgid "%s notifications"
 msgstr "%s paziņojumi"
 
-#: lib/Kronolith.php:2390
+#: lib/Kronolith.php:2391
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
 msgstr "%s vēlas Jūs brīdināt par \"%s\" izmaiņām."
@@ -179,7 +179,7 @@ msgstr ""
 "%s vēlas koplietot kalendāru %s ar Jums un piešķirt pieejas tiesības visiem "
 "notikumiem šajā kalendārā."
 
-#: lib/Kronolith.php:2385
+#: lib/Kronolith.php:2386
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr "\"%s\" vēlas Jūs brīdināt par \"%s\"."
@@ -227,7 +227,7 @@ msgstr "* Lūdzu izvēlieties adresi(-es) *"
 msgid ", %d times"
 msgstr ", %d reizes"
 
-#: lib/Kronolith.php:180 templates/mobile/javascript_defs.php:53
+#: templates/mobile/javascript_defs.php:53 lib/Kronolith.php:180
 msgid "1 day"
 msgstr "1 diena"
 
@@ -235,13 +235,13 @@ msgstr "1 diena"
 msgid "1 event"
 msgstr "1 notikums"
 
-#: config/prefs.php:162 lib/Kronolith.php:178
-#: templates/mobile/javascript_defs.php:51
+#: templates/mobile/javascript_defs.php:51 lib/Kronolith.php:178
+#: config/prefs.php:162
 msgid "1 hour"
 msgstr "1 stunda"
 
-#: config/prefs.php:159 lib/Kronolith.php:177
-#: templates/mobile/javascript_defs.php:50
+#: templates/mobile/javascript_defs.php:50 lib/Kronolith.php:177
+#: config/prefs.php:159
 msgid "15 minutes"
 msgstr "15 minūtes"
 
@@ -253,11 +253,11 @@ msgstr "20 minūtes"
 msgid "30 minutes"
 msgstr "30 minūtes"
 
-#: lib/Kronolith.php:176 templates/mobile/javascript_defs.php:49
+#: templates/mobile/javascript_defs.php:49 lib/Kronolith.php:176
 msgid "5 minutes"
 msgstr "5 minūtes"
 
-#: lib/Kronolith.php:179 templates/mobile/javascript_defs.php:52
+#: templates/mobile/javascript_defs.php:52 lib/Kronolith.php:179
 msgid "6 hours"
 msgstr "6 stundas"
 
@@ -265,11 +265,11 @@ msgstr "6 stundas"
 msgid "AM"
 msgstr "no rīta"
 
-#: lib/Kronolith.php:1391
+#: lib/Kronolith.php:1392
 msgid "Accepted"
 msgstr "Akceptēts"
 
-#: lib/Kronolith.php:1978
+#: lib/Kronolith.php:1979
 msgid "Access permissions"
 msgstr "Pieejas tiesības"
 
@@ -277,8 +277,8 @@ msgstr "Pieejas tiesības"
 msgid "Ad_vanced Search"
 msgstr "Paplašinātā meklēšana"
 
-#: templates/chunks/permissions.inc:201 templates/chunks/permissions.inc:248
-#: templates/contacts/contacts.inc:172
+#: templates/contacts/contacts.inc:172 templates/chunks/permissions.inc:201
+#: templates/chunks/permissions.inc:248
 msgid "Add"
 msgstr "Pievienot"
 
@@ -334,8 +334,8 @@ msgstr "Pievienot dalībniekiem"
 msgid "Added task list not found."
 msgstr "Pievienotais uzdevumu saraksts nav atrasts."
 
-#: contacts.php:74 templates/attendees/attendees.inc:130
-#: templates/contacts/contacts.inc:139
+#: contacts.php:74 templates/contacts/contacts.inc:139
+#: templates/attendees/attendees.inc:130
 msgid "Address Book"
 msgstr "Kontakti"
 
@@ -347,36 +347,36 @@ msgstr "Adrešu grāmatas"
 msgid "Advanced Search"
 msgstr "Paplašinātā meklēšana"
 
-#: lib/Kronolith.php:250 templates/index/index.inc:59
+#: templates/index/index.inc:59 lib/Kronolith.php:250
 msgid "Agenda"
 msgstr "Dienas kārtība"
 
-#: templates/edit/edit.inc:174 templates/view/view.inc:49
+#: templates/view/view.inc:49 templates/edit/edit.inc:174
 msgid "Alarm"
 msgstr "Atgādinājums"
 
-#: lib/Event.php:2760
+#: lib/Event.php:2810
 #, php-format
 msgid "Alarm %d day before"
 msgid_plural "Alarm %d days before"
 msgstr[0] "Atgādinājums %d dienu pirms"
 msgstr[1] "Atgādinājums %d dienas pirms"
 
-#: lib/Event.php:2763
+#: lib/Event.php:2813
 #, php-format
 msgid "Alarm %d hour before"
 msgid_plural "Alarm %d hours before"
 msgstr[0] "Atgādinājums %d stundu pirms"
 msgstr[1] "Atgādinājums %d stundas pirms"
 
-#: lib/Event.php:2766
+#: lib/Event.php:2816
 #, php-format
 msgid "Alarm %d minute before"
 msgid_plural "Alarm %d minutes before"
 msgstr[0] "Atgādinājums %d minūti pirms"
 msgstr[1] "Atgādinājums %d minūtes pirms"
 
-#: lib/Event.php:2757
+#: lib/Event.php:2807
 #, php-format
 msgid "Alarm %d week before"
 msgid_plural "Alarm %d weeks before"
@@ -416,8 +416,8 @@ msgstr "Atgādinājums:"
 msgid "Alert me %s as default %s or %s using:"
 msgstr "Brīdināt mani %s pēc noklusēšanas %s vai %s izmantojot:"
 
-#: templates/delete/delete.inc:27 templates/edit/edit.inc:45
 #: templates/index/agenda.inc:13 templates/index/tasks.inc:8
+#: templates/edit/edit.inc:45 templates/delete/delete.inc:27
 msgid "All"
 msgstr "Viss"
 
@@ -426,7 +426,7 @@ msgstr "Viss"
 msgid "All Attendees"
 msgstr "Visi dalībnieki"
 
-#: templates/chunks/permissions.inc:94 templates/perms/perms.inc:53
+#: templates/perms/perms.inc:53 templates/chunks/permissions.inc:94
 msgid "All Authenticated Users"
 msgstr "Visi autentificētie lietotāji"
 
@@ -447,13 +447,13 @@ msgstr "Visi pagājušie"
 msgid "All Visible"
 msgstr "Visi redzamie"
 
-#: lib/Block/Month.php:181 lib/Block/Summary.php:179 lib/Event.php:2873
+#: templates/mobile/javascript_defs.php:146 templates/index/day.inc:26
+#: templates/index/week.inc:29 templates/edit/edit_timespan.inc:109
+#: templates/agenda/notification.html.php:24
+#: templates/agenda/notification.plain.php:6 lib/Event.php:2923
 #: lib/Kronolith.php:253 lib/View/Day.php:97 lib/View/Day.php:102
 #: lib/View/Week.php:123 lib/View/Week.php:128 lib/View/Year.php:139
-#: templates/agenda/notification.html.php:24
-#: templates/agenda/notification.plain.php:6
-#: templates/edit/edit_timespan.inc:109 templates/index/day.inc:26
-#: templates/index/week.inc:29 templates/mobile/javascript_defs.php:146
+#: lib/Block/Month.php:181 lib/Block/Summary.php:179
 msgid "All day"
 msgstr "Visu dienu"
 
@@ -490,7 +490,7 @@ msgstr "Vienmēr apstiprināt"
 msgid "Always Decline"
 msgstr "Vienmēr noraidīt"
 
-#: lib/Kronolith.php:1485 templates/search/search_advanced.inc:36
+#: templates/search/search_advanced.inc:36 lib/Kronolith.php:1486
 msgid "Any"
 msgstr "Jebkurš"
 
@@ -510,8 +510,8 @@ msgstr ""
 "Vai tiešām vēlaties dzēst šo uzdevumu sarakstu un visus tajā reģistrētos "
 "uzdevumus?"
 
-#: templates/data/export.inc:85 templates/data/export.inc:176
 #: templates/edit/edit_timespan.inc:32 templates/edit/edit_timespan.inc:80
+#: templates/data/export.inc:85 templates/data/export.inc:176
 msgid "At"
 msgstr "-"
 
@@ -530,17 +530,17 @@ msgstr ""
 msgid "Attempt to edit a non-existent share."
 msgstr "Mēģinājums mainīt neeksistējošu koplietojumu."
 
+#: templates/view/view.inc:173 templates/view/view.inc:191
 #: templates/attendees/attendees.inc:49 templates/attendees/attendees.inc:61
 #: templates/attendees/attendees.inc:85 templates/attendees/attendees.inc:97
-#: templates/view/view.inc:170 templates/view/view.inc:188
 msgid "Attendance"
 msgstr "Dalība"
 
-#: templates/attendees/attendees.inc:48 templates/view/view.inc:169
+#: templates/view/view.inc:172 templates/attendees/attendees.inc:48
 msgid "Attendee"
 msgstr "Dalībnieks"
 
-#: templates/index/edit.inc:75 templates/view/view.inc:166
+#: templates/view/view.inc:169 templates/index/edit.inc:75
 msgid "Attendees"
 msgstr "Dalībnieki"
 
@@ -548,8 +548,8 @@ msgstr "Dalībnieki"
 msgid "Attendees and Resources"
 msgstr "Dalībnieki un resursi"
 
-#: templates/alarm/mail.html.php:32 templates/itip/notification.html.php:42
-#: templates/itip/notification.plain.php:10
+#: templates/itip/notification.html.php:42
+#: templates/itip/notification.plain.php:10 templates/alarm/mail.html.php:33
 msgid "Attendees:"
 msgstr "Dalībnieki:"
 
@@ -583,9 +583,9 @@ msgstr "Kalendārs"
 msgid "Cal_endar"
 msgstr "Kalendārs"
 
+#: templates/calendar_list.php:24 lib/Calendars/Kolab.php:21
 #: lib/Block/Month.php:26 lib/Block/Monthlist.php:22
 #: lib/Block/Prevmonthlist.php:22 lib/Block/Summary.php:26
-#: lib/Calendars/Kolab.php:21 templates/calendar_list.php:24
 msgid "Calendar"
 msgstr "Kalendārs"
 
@@ -619,7 +619,7 @@ msgstr "%s kalendārs"
 msgid "Calendar owner"
 msgstr "Kalendāra īpašnieks"
 
-#: data.php:250
+#: data.php:252
 msgid "Calendar successfully purged."
 msgstr "Kalendārs sekmīgi iztīrīts."
 
@@ -627,8 +627,8 @@ msgstr "Kalendārs sekmīgi iztīrīts."
 msgid "Calendar title"
 msgstr "Kalendāra nosaukums"
 
-#: config/prefs.php:25 config/prefs.php:32 config/prefs.php:65
-#: templates/panel.inc:41 templates/panel.inc:42
+#: templates/panel.inc:41 templates/panel.inc:42 config/prefs.php:25
+#: config/prefs.php:32 config/prefs.php:65
 msgid "Calendars"
 msgstr "Kalendāri"
 
@@ -636,30 +636,30 @@ msgstr "Kalendāri"
 msgid "Calendars Printed: "
 msgstr "Izdrukāti kalendāri:"
 
-#: data.php:270
+#: data.php:272
 msgid "Can't create a new event."
 msgstr "Nevar izveidot jaunu notikumu"
 
+#: templates/index/edit.inc:232 templates/index/edit.inc:240
+#: templates/index/index.inc:207 templates/index/task.inc:81
+#: templates/edit/edit.inc:57 templates/edit/edit.inc:438
+#: templates/delete/delete.inc:28 templates/delete/one.inc:25
+#: templates/chunks/calendar.php:133 templates/chunks/calendar.php:208
+#: templates/chunks/calendar.php:235 templates/chunks/calendar.php:256
+#: templates/chunks/calendar.php:276 templates/chunks/calendar.php:300
 #: lib/Form/DeleteCalendar.php:33 lib/Form/DeleteCalendar.php:42
 #: lib/Form/DeleteResource.php:36 lib/Form/DeleteResource.php:45
 #: lib/Form/DeleteResourceGroup.php:37 lib/Form/DeleteResourceGroup.php:46
 #: lib/Form/UnsubscribeRemoteCalendar.php:27
-#: lib/Form/UnsubscribeRemoteCalendar.php:36 templates/chunks/calendar.php:133
-#: templates/chunks/calendar.php:208 templates/chunks/calendar.php:235
-#: templates/chunks/calendar.php:256 templates/chunks/calendar.php:276
-#: templates/chunks/calendar.php:300 templates/delete/delete.inc:28
-#: templates/delete/one.inc:25 templates/edit/edit.inc:57
-#: templates/edit/edit.inc:438 templates/index/edit.inc:232
-#: templates/index/edit.inc:240 templates/index/index.inc:207
-#: templates/index/task.inc:81
+#: lib/Form/UnsubscribeRemoteCalendar.php:36
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: lib/Kronolith.php:1367 templates/index/edit.inc:49
+#: templates/index/edit.inc:49 lib/Kronolith.php:1368
 msgid "Cancelled"
 msgstr "Atcelts"
 
-#: lib/Kronolith.php:2370
+#: lib/Kronolith.php:2371
 #, php-format
 msgid "Cancelled: %s"
 msgstr "Atcelts: %s"
@@ -673,7 +673,7 @@ msgstr "(Pagaidām) nevar izdzēst izņēmumus."
 msgid "Cannot parse event description \"%s\""
 msgstr "Nevar izanalizēt notikuma aprakstu \"%s\""
 
-#: calendars/index.php:72 templates/calendar_list.php:52
+#: templates/calendar_list.php:52 calendars/index.php:72
 msgid "Change Permissions"
 msgstr "Mainīt pieejas tiesības"
 
@@ -733,9 +733,9 @@ msgstr "Izvēlieties galveno kalendāru"
 msgid "Clear all"
 msgstr "Dzēst visu"
 
-#: resources/index.php:78 templates/calendar_list.php:38
-#: templates/calendar_list.php:39 templates/calendar_list.php:48
-#: templates/calendar_list.php:49
+#: templates/calendar_list.php:38 templates/calendar_list.php:39
+#: templates/calendar_list.php:48 templates/calendar_list.php:49
+#: resources/index.php:78
 msgid "Click or copy this URL to display this calendar"
 msgstr "Lai parādītu šo kalendāru, uzklikšķiniet šai saitei vai nokopējiet to."
 
@@ -751,10 +751,10 @@ msgstr "Aizvērt logu"
 msgid "Close window"
 msgstr "Aizvērt logu"
 
-#: lib/Form/CreateCalendar.php:25 lib/Form/EditCalendar.php:32
-#: lib/Form/EditRemoteCalendar.php:30 lib/Form/SubscribeRemoteCalendar.php:25
 #: templates/chunks/calendar.php:39 templates/chunks/calendar.php:151
-#: templates/chunks/calendar.php:226
+#: templates/chunks/calendar.php:226 lib/Form/CreateCalendar.php:25
+#: lib/Form/EditCalendar.php:32 lib/Form/EditRemoteCalendar.php:30
+#: lib/Form/SubscribeRemoteCalendar.php:25
 msgid "Color"
 msgstr "Krāsa"
 
@@ -775,7 +775,7 @@ msgstr "Izpildīts"
 msgid "Confirm deletion of events?"
 msgstr "Apstiprināt notikumu dzēšanu?"
 
-#: lib/Kronolith.php:1364 templates/index/edit.inc:48
+#: templates/index/edit.inc:48 lib/Kronolith.php:1365
 msgid "Confirmed"
 msgstr "Apstiprināts"
 
@@ -810,8 +810,8 @@ msgstr "Izveidot resursu"
 msgid "Create Resource Group"
 msgstr "Izveidot resursu grupu"
 
-#: lib/View/Day.php:95 lib/View/Day.php:262 lib/View/Month.php:189
-#: templates/week/head.inc:27
+#: templates/week/head.inc:27 lib/View/Day.php:95 lib/View/Day.php:262
+#: lib/View/Month.php:189
 msgid "Create a New Event"
 msgstr "Jauns notikums"
 
@@ -831,7 +831,7 @@ msgstr "Izveidot jaunu resursu grupu"
 msgid "Created"
 msgstr "Izveidots"
 
-#: templates/delete/delete.inc:25 templates/edit/edit.inc:43
+#: templates/edit/edit.inc:43 templates/delete/delete.inc:25
 msgid "Current"
 msgstr "Pašreizējais"
 
@@ -840,7 +840,7 @@ msgstr "Pašreizējais"
 msgid "Customize tasks to run upon logon to %s."
 msgstr "Pielāgot uzdevumus, ko izpilda pieslēdzoties %s."
 
-#: templates/edit/edit.inc:297 templates/view/view.inc:100
+#: templates/view/view.inc:100 templates/edit/edit.inc:297
 msgid "Daily: Recurs every"
 msgstr "Diena: Atkārtojas ik"
 
@@ -852,23 +852,23 @@ msgstr "Datums un laiks:"
 msgid "Date:"
 msgstr "Datums:"
 
-#: attendees.php:183 config/prefs.php:97 lib/Application.php:556
-#: lib/Kronolith.php:2801 templates/index/index.inc:52
-#: templates/mobile/day.html.php:3 templates/mobile/day.html.php:10
-#: templates/mobile/month.html.php:10 templates/mobile/summary.html.php:10
+#: attendees.php:183 templates/mobile/day.html.php:3
+#: templates/mobile/day.html.php:10 templates/mobile/month.html.php:10
+#: templates/mobile/summary.html.php:10 templates/index/index.inc:52
+#: lib/Application.php:556 lib/Kronolith.php:2802 config/prefs.php:97
 msgid "Day"
 msgstr "Diena"
 
-#: templates/edit/edit.inc:147 templates/edit/edit.inc:190
-#: templates/view/view.inc:58 templates/prefs/defaultalarm.html:12
+#: templates/view/view.inc:58 templates/edit/edit.inc:147
+#: templates/edit/edit.inc:190 templates/prefs/defaultalarm.html:12
 msgid "Day(s)"
 msgstr "Diena(s)"
 
-#: lib/Kronolith.php:2854
+#: lib/Kronolith.php:2855
 msgid "De_lete"
 msgstr "Dzēst"
 
-#: lib/Kronolith.php:1394
+#: lib/Kronolith.php:1395
 msgid "Declined"
 msgstr "Atteikts"
 
@@ -884,47 +884,47 @@ msgstr "Galvenais kalendārs"
 msgid "Default users"
 msgstr "Noklusētais lietotājs"
 
-#: templates/chunks/permissions.inc:114 templates/chunks/permissions.inc:141
-#: templates/chunks/permissions.inc:169 templates/chunks/permissions.inc:222
-#: templates/chunks/permissions.inc:269 templates/perms/perms.inc:59
-#: templates/perms/perms.inc:83 templates/perms/perms.inc:100
-#: templates/perms/perms.inc:124 templates/perms/perms.inc:142
-#: templates/perms/perms.inc:166 templates/perms/perms.inc:183
-#: templates/perms/perms.inc:211 templates/perms/perms.inc:251
-#: templates/perms/perms.inc:282 templates/perms/perms.inc:300
-#: templates/perms/perms.inc:329 templates/perms/perms.inc:363
+#: templates/perms/perms.inc:59 templates/perms/perms.inc:83
+#: templates/perms/perms.inc:100 templates/perms/perms.inc:124
+#: templates/perms/perms.inc:142 templates/perms/perms.inc:166
+#: templates/perms/perms.inc:183 templates/perms/perms.inc:211
+#: templates/perms/perms.inc:251 templates/perms/perms.inc:282
+#: templates/perms/perms.inc:300 templates/perms/perms.inc:329
+#: templates/perms/perms.inc:363 templates/chunks/permissions.inc:114
+#: templates/chunks/permissions.inc:141 templates/chunks/permissions.inc:169
+#: templates/chunks/permissions.inc:222 templates/chunks/permissions.inc:269
 msgid "Delegate"
 msgstr "Deleģēts"
 
-#: calendars/index.php:73 lib/Event.php:1987 lib/Event.php:2818
-#: lib/Form/DeleteCalendar.php:33 lib/Form/DeleteResource.php:36
-#: lib/Form/DeleteResourceGroup.php:37 resources/groups/index.php:29
-#: resources/groups/index.php:66 resources/index.php:35 resources/index.php:72
-#: templates/calendar_list.php:54 templates/chunks/calendar.php:130
-#: templates/chunks/calendar.php:205 templates/chunks/calendar.php:234
-#: templates/chunks/calendar.php:275 templates/chunks/calendar.php:299
-#: templates/chunks/permissions.inc:109 templates/chunks/permissions.inc:136
-#: templates/chunks/permissions.inc:164 templates/chunks/permissions.inc:217
-#: templates/chunks/permissions.inc:264 templates/delete/one.inc:24
-#: templates/index/edit.inc:231 templates/index/edit.inc:239
-#: templates/index/task.inc:80 templates/perms/perms.inc:58
+#: templates/calendar_list.php:54 templates/perms/perms.inc:58
 #: templates/perms/perms.inc:79 templates/perms/perms.inc:99
 #: templates/perms/perms.inc:120 templates/perms/perms.inc:141
 #: templates/perms/perms.inc:162 templates/perms/perms.inc:182
 #: templates/perms/perms.inc:207 templates/perms/perms.inc:247
 #: templates/perms/perms.inc:278 templates/perms/perms.inc:299
 #: templates/perms/perms.inc:325 templates/perms/perms.inc:359
+#: templates/index/edit.inc:231 templates/index/edit.inc:239
+#: templates/index/task.inc:80 templates/delete/one.inc:24
+#: templates/chunks/calendar.php:130 templates/chunks/calendar.php:205
+#: templates/chunks/calendar.php:234 templates/chunks/calendar.php:275
+#: templates/chunks/calendar.php:299 templates/chunks/permissions.inc:109
+#: templates/chunks/permissions.inc:136 templates/chunks/permissions.inc:164
+#: templates/chunks/permissions.inc:217 templates/chunks/permissions.inc:264
+#: resources/index.php:35 resources/index.php:72 resources/groups/index.php:29
+#: resources/groups/index.php:66 lib/Event.php:2006 lib/Event.php:2868
+#: lib/Form/DeleteCalendar.php:33 lib/Form/DeleteResource.php:36
+#: lib/Form/DeleteResourceGroup.php:37 calendars/index.php:73
 msgid "Delete"
 msgstr "Dzēst"
 
-#: lib/Event.php:2815 lib/Form/DeleteCalendar.php:28
-#: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
-#: lib/View/DeleteEvent.php:42
+#: lib/Event.php:2865 lib/View/DeleteEvent.php:42
+#: lib/Form/DeleteCalendar.php:28 lib/Form/DeleteResource.php:31
+#: lib/Form/DeleteResourceGroup.php:31
 #, php-format
 msgid "Delete %s"
 msgstr "Dzēst %s"
 
-#: lib/Event.php:1986
+#: lib/Event.php:2005
 #, php-format
 msgid "Delete exception on %s"
 msgstr "Dzēšanas izņēmums uz %s"
@@ -940,25 +940,25 @@ msgstr[1] "Dzēsti %d notikumi, kas vecāki par %d dienām."
 msgid "Deleting events is not supported with this remote calendar."
 msgstr "Šis attālinātais kalendārs neuztur notikumu dzēšanu."
 
-#: templates/edit/edit.inc:227 templates/search/search.inc:26
-#: templates/search/search_advanced.inc:75
+#: templates/search/search.inc:26 templates/search/search_advanced.inc:75
+#: templates/edit/edit.inc:227
 msgid "Descri_ption"
 msgstr "A_praksts"
 
-#: data.php:66 lib/Form/CreateCalendar.php:26 lib/Form/CreateResource.php:44
-#: lib/Form/CreateResourceGroup.php:34 lib/Form/EditCalendar.php:33
-#: lib/Form/EditRemoteCalendar.php:31 lib/Form/EditResource.php:54
-#: lib/Form/EditResourceGroup.php:44 lib/Form/SubscribeRemoteCalendar.php:27
-#: resources/groups/index.php:58 templates/chunks/calendar.php:47
+#: data.php:66 templates/view/view.inc:154 templates/index/edit.inc:71
+#: templates/index/task.inc:46 templates/chunks/calendar.php:47
 #: templates/chunks/calendar.php:159 templates/chunks/calendar.php:268
-#: templates/index/edit.inc:71 templates/index/task.inc:46
-#: templates/view/view.inc:153
+#: resources/groups/index.php:58 lib/Form/CreateCalendar.php:26
+#: lib/Form/CreateResource.php:44 lib/Form/CreateResourceGroup.php:34
+#: lib/Form/EditCalendar.php:33 lib/Form/EditRemoteCalendar.php:31
+#: lib/Form/EditResource.php:54 lib/Form/EditResourceGroup.php:44
+#: lib/Form/SubscribeRemoteCalendar.php:27
 msgid "Description"
 msgstr "Paskaidrojums"
 
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/alarm/mail.html.php:52 templates/itip/notification.html.php:62
+#: templates/itip/notification.html.php:62 templates/alarm/mail.html.php:53
 msgid "Description:"
 msgstr "Apraksts:"
 
@@ -970,11 +970,11 @@ msgstr "Ekrāna iestatījumi"
 msgid "Display Preferences"
 msgstr "Attēlošanas iestatījumi"
 
-#: resources/index.php:64 templates/calendar_list.php:26
+#: templates/calendar_list.php:26 resources/index.php:64
 msgid "Display URL"
 msgstr "Rādīt saiti"
 
-#: lib/Kronolith.php:1332
+#: lib/Kronolith.php:1333
 msgid "Does not recur"
 msgstr "Neatkārtojas"
 
@@ -1001,37 +1001,37 @@ msgstr "Izpildīt līdz"
 msgid "Duration"
 msgstr "Ilgums"
 
-#: lib/Event.php:2584
+#: lib/Event.php:2634
 msgid "Duration Day"
 msgstr "Ilgums dienās"
 
-#: lib/Event.php:2595
+#: lib/Event.php:2645
 msgid "Duration Hour"
 msgstr "Ilgums stundās"
 
-#: lib/Event.php:2605
+#: lib/Event.php:2655
 msgid "Duration Minute"
 msgstr "Ilgums minūtēs"
 
-#: calendars/index.php:71 lib/Event.php:2805 resources/groups/index.php:24
-#: resources/groups/index.php:67 resources/index.php:28 resources/index.php:73
 #: templates/calendar_list.php:40 templates/calendar_list.php:50
-#: templates/chunks/permissions.inc:105 templates/chunks/permissions.inc:132
-#: templates/chunks/permissions.inc:160 templates/chunks/permissions.inc:213
-#: templates/chunks/permissions.inc:260 templates/perms/perms.inc:57
-#: templates/perms/perms.inc:75 templates/perms/perms.inc:98
-#: templates/perms/perms.inc:116 templates/perms/perms.inc:140
-#: templates/perms/perms.inc:158 templates/perms/perms.inc:181
-#: templates/perms/perms.inc:203 templates/perms/perms.inc:243
-#: templates/perms/perms.inc:274 templates/perms/perms.inc:298
-#: templates/perms/perms.inc:321 templates/perms/perms.inc:355
+#: templates/perms/perms.inc:57 templates/perms/perms.inc:75
+#: templates/perms/perms.inc:98 templates/perms/perms.inc:116
+#: templates/perms/perms.inc:140 templates/perms/perms.inc:158
+#: templates/perms/perms.inc:181 templates/perms/perms.inc:203
+#: templates/perms/perms.inc:243 templates/perms/perms.inc:274
+#: templates/perms/perms.inc:298 templates/perms/perms.inc:321
+#: templates/perms/perms.inc:355 templates/chunks/permissions.inc:105
+#: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
+#: templates/chunks/permissions.inc:213 templates/chunks/permissions.inc:260
+#: resources/index.php:28 resources/index.php:73 resources/groups/index.php:24
+#: resources/groups/index.php:67 lib/Event.php:2855 calendars/index.php:71
 msgid "Edit"
 msgstr "Labot"
 
-#: lib/Event.php:2802 lib/Form/EditCalendar.php:28
+#: templates/attendees/attendees.inc:58 lib/Event.php:2852
+#: lib/View/EditEvent.php:43 lib/Form/EditCalendar.php:28
 #: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
-#: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:43
-#: templates/attendees/attendees.inc:58
+#: lib/Form/EditResourceGroup.php:34
 #, php-format
 msgid "Edit %s"
 msgstr "Labot %s"
@@ -1090,24 +1090,24 @@ msgstr "Beidzas"
 msgid "End Date"
 msgstr "Beigu datums"
 
-#: lib/Event.php:2557 templates/data/export.inc:161
+#: templates/data/export.inc:161 lib/Event.php:2607
 msgid "End Day"
 msgstr "Beigu diena"
 
-#: lib/Event.php:2569 templates/data/export.inc:178
+#: templates/data/export.inc:178 lib/Event.php:2619
 msgid "End Hour"
 msgstr "Beigu stunda"
 
-#: lib/Event.php:2579 templates/data/export.inc:190
+#: templates/data/export.inc:190 lib/Event.php:2629
 msgid "End Minute"
 msgstr "Beigu minūte"
 
-#: lib/Event.php:2549 templates/data/export.inc:148
+#: templates/data/export.inc:148 lib/Event.php:2599
 msgid "End Month"
 msgstr "Beigu mēnesis"
 
-#: templates/data/export.inc:125 templates/search/event_headers.inc:7
-#: templates/view/view.inc:42
+#: templates/view/view.inc:42 templates/search/event_headers.inc:7
+#: templates/data/export.inc:125
 msgid "End On"
 msgstr "Beidzas"
 
@@ -1115,7 +1115,7 @@ msgstr "Beidzas"
 msgid "End Time"
 msgstr "Beigu laiks"
 
-#: lib/Event.php:2539 templates/data/export.inc:134
+#: templates/data/export.inc:134 lib/Event.php:2589
 msgid "End Year"
 msgstr "Beigu gads"
 
@@ -1133,7 +1133,7 @@ msgstr "Kļūda saņemot %s Brīvs/Aizņemts informāciju: %s"
 msgid "Error retrieving your free/busy information: %s"
 msgstr "Kļūda saņemot Jūsu Brīvs/Aizņemts informāciju: %s"
 
-#: lib/Kronolith.php:241 templates/mobile/javascript_defs.php:145
+#: templates/mobile/javascript_defs.php:145 lib/Kronolith.php:241
 msgid "Error when communicating with the server."
 msgstr "Kļūda sazinoties ar serveri."
 
@@ -1149,25 +1149,25 @@ msgstr "Notikuma noklusētie parametri"
 msgid "Event ICS file"
 msgstr "Notikuma ICS datne"
 
-#: feed/index.php:141
+#: feed/index.php:143
 msgid "Event Status:"
 msgstr "Notikuma statuss:"
 
-#: lib/Kronolith.php:2544
+#: lib/Kronolith.php:2545
 msgid "Event added:"
 msgstr "Notikums pievienots:"
 
-#: lib/Kronolith.php:2554
+#: lib/Kronolith.php:2555
 msgid "Event deleted:"
 msgstr "Notikums dzēsts:"
 
-#: lib/Kronolith.php:2549
+#: lib/Kronolith.php:2550
 msgid "Event edited:"
 msgstr "Notikums labots:"
 
-#: lib/Driver/Horde.php:156 lib/Driver/Ical.php:377 lib/Driver/Ical.php:396
-#: lib/Driver/Sql.php:452 lib/View/DeleteEvent.php:53
-#: lib/View/EditEvent.php:54 lib/View/Event.php:53 lib/View/ExportEvent.php:17
+#: lib/View/DeleteEvent.php:53 lib/View/EditEvent.php:54 lib/View/Event.php:53
+#: lib/View/ExportEvent.php:17 lib/Driver/Horde.php:156
+#: lib/Driver/Ical.php:377 lib/Driver/Ical.php:396 lib/Driver/Sql.php:452
 msgid "Event not found"
 msgstr "Notikums nav atrasts"
 
@@ -1198,26 +1198,26 @@ msgstr "Notikumi no %s"
 msgid "Events matching \"%s\""
 msgstr "\"%s\" atbilstošie notikumi"
 
-#: lib/Event.php:1561
+#: lib/Event.php:1578
 msgid "Events must have a start date."
 msgstr "Notikumam nepieciešams sākuma datums."
 
-#: lib/Event.php:1531
+#: lib/Event.php:1548
 msgid "Events must have a title."
 msgstr "Notikumam nepieciešams nosaukums."
 
-#: lib/Event.php:1959 lib/Event.php:2775 lib/Kronolith.php:285
-#: templates/mobile/javascript_defs.php:178
+#: templates/mobile/javascript_defs.php:178 lib/Event.php:1978
+#: lib/Event.php:2825 lib/Kronolith.php:285
 msgid "Exception"
 msgstr "Izņēmumi"
 
-#: templates/edit/edit.inc:390 templates/view/view.inc:135
+#: templates/view/view.inc:135 templates/edit/edit.inc:390
 msgid "Exceptions"
 msgstr "Izņēmumi"
 
-#: lib/Kronolith.php:2861 templates/chunks/calendar.php:64
-#: templates/chunks/calendar.php:173 templates/data/export.inc:209
-#: templates/index/edit.inc:84
+#: templates/index/edit.inc:84 templates/data/export.inc:209
+#: templates/chunks/calendar.php:64 templates/chunks/calendar.php:173
+#: lib/Kronolith.php:2862
 msgid "Export"
 msgstr "Eksportēt"
 
@@ -1225,8 +1225,8 @@ msgstr "Eksportēt"
 msgid "Export Calendar"
 msgstr "Eksportēt kalendāru"
 
-#: templates/chunks/calendar.php:123 templates/chunks/calendar.php:198
-#: templates/index/edit.inc:224
+#: templates/index/edit.inc:224 templates/chunks/calendar.php:123
+#: templates/chunks/calendar.php:198
 msgid "Export ICS file"
 msgstr "Eksportēt ICS datni"
 
@@ -1246,11 +1246,11 @@ msgstr "Meklēt"
 msgid "Find in Maps"
 msgstr "Atrast kartē"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:66 templates/edit/edit.inc:310
+#: templates/edit/edit.inc:310 lib/View/Year.php:66 lib/Block/Month.php:116
 msgid "Fr"
 msgstr "Pk"
 
-#: lib/Kronolith.php:1370 templates/index/edit.inc:46
+#: templates/index/edit.inc:46 lib/Kronolith.php:1371
 msgid "Free"
 msgstr "Brīvs"
 
@@ -1258,8 +1258,8 @@ msgstr "Brīvs"
 msgid "Free/Busy Information"
 msgstr "Brīvs/Aizņemts informācija"
 
-#: templates/index/edit.inc:140 templates/month/head.inc:21
-#: templates/view/view.inc:107
+#: templates/view/view.inc:107 templates/month/head.inc:21
+#: templates/index/edit.inc:140
 msgid "Friday"
 msgstr "Piektdiena"
 
@@ -1267,18 +1267,18 @@ msgstr "Piektdiena"
 msgid "From"
 msgstr "Sūtītājs"
 
-#: lib/Event.php:1697
+#: lib/Event.php:1714
 #, php-format
 msgid "From %s at %s to %s at %s"
 msgstr "No %s plkst. %s līdz %s plkst. %s"
 
-#: lib/Event.php:1694
+#: lib/Event.php:1711
 #, php-format
 msgid "From %s to %s"
 msgstr "Notikumi no %s līdz %s"
 
-#: templates/delete/delete.inc:26 templates/edit/edit.inc:44
 #: templates/index/agenda.inc:15 templates/index/tasks.inc:11
+#: templates/edit/edit.inc:44 templates/delete/delete.inc:26
 msgid "Future"
 msgstr "Nākotnē"
 
@@ -1295,12 +1295,12 @@ msgstr "Aiziet"
 msgid "Goto %s"
 msgstr "Pāriet uz %s"
 
+#: templates/perms/perms.inc:294 templates/chunks/permissions.inc:234
 #: lib/Form/CreateResource.php:48 lib/Form/EditResource.php:56
-#: templates/chunks/permissions.inc:234 templates/perms/perms.inc:294
 msgid "Groups"
 msgstr "Grupas"
 
-#: templates/chunks/permissions.inc:121 templates/perms/perms.inc:94
+#: templates/perms/perms.inc:94 templates/chunks/permissions.inc:121
 msgid "Guest Permissions"
 msgstr "Viesa pieejas tiesības"
 
@@ -1324,11 +1324,11 @@ msgstr "Augsta"
 msgid "Highest"
 msgstr "Visaugstākā"
 
-#: templates/chunks/calendar.php:291 templates/index/index.inc:161
+#: templates/index/index.inc:161 templates/chunks/calendar.php:291
 msgid "Holidays"
 msgstr "Brīvdienas"
 
-#: lib/Kronolith.php:2939
+#: lib/Kronolith.php:2940
 msgid "Holidays are disabled"
 msgstr "Brīvdienas nav iespējotas"
 
@@ -1336,8 +1336,8 @@ msgstr "Brīvdienas nav iespējotas"
 msgid "Holidays:"
 msgstr "Brīvdienas:"
 
-#: templates/edit/edit.inc:151 templates/edit/edit.inc:189
-#: templates/view/view.inc:61 templates/prefs/defaultalarm.html:11
+#: templates/view/view.inc:61 templates/edit/edit.inc:151
+#: templates/edit/edit.inc:189 templates/prefs/defaultalarm.html:11
 msgid "Hour(s)"
 msgstr "Stunda(s)"
 
@@ -1392,7 +1392,7 @@ msgstr "Kalendāra imports, %d solis"
 msgid "Import ICS file"
 msgstr "Importēt ICS datni"
 
-#: data.php:352
+#: data.php:354
 msgid "Import/Export Calendar"
 msgstr "Importēt/Eksportēt kalendāru"
 
@@ -1439,7 +1439,7 @@ msgstr "Pēdējais mēnesis"
 msgid "Last Year"
 msgstr "Pēdējais gads"
 
-#: templates/search/search.inc:52 templates/week/head.inc:6
+#: templates/week/head.inc:6 templates/search/search.inc:52
 msgid "Last week"
 msgstr "Pēdējā nedēļa"
 
@@ -1459,7 +1459,7 @@ msgstr ""
 "Rādīt visus kontaktus atverot kontaktu ekrānu? (ja būs izslēgts, Jūs "
 "redzēsiet tikai tos kontaktus, kurus konkrēti meklēsiet)"
 
-#: templates/edit/edit.inc:109 templates/search/search_advanced.inc:55
+#: templates/search/search_advanced.inc:55 templates/edit/edit.inc:109
 msgid "Lo_cation"
 msgstr "Notikuma vieta"
 
@@ -1467,10 +1467,10 @@ msgstr "Notikuma vieta"
 msgid "Loading ..."
 msgstr "Lasa ..."
 
-#: templates/attendees/attendees.inc:127 templates/chunks/calendar.php:77
-#: templates/edit/edit.inc:417 templates/index/edit.inc:56
+#: templates/panel.inc:100 templates/index/edit.inc:56
 #: templates/index/edit.inc:183 templates/index/edit.inc:214
-#: templates/panel.inc:100
+#: templates/edit/edit.inc:417 templates/chunks/calendar.php:77
+#: templates/attendees/attendees.inc:127
 msgid "Loading..."
 msgstr "Lasa..."
 
@@ -1483,14 +1483,14 @@ msgstr "Vietējais"
 msgid "Local calendar owned by %s."
 msgstr "Lokālā kalendāra īpašnieks ir %s."
 
-#: data.php:67 lib/Event.php:2855 templates/index/edit.inc:52
-#: templates/search/event_headers.inc:4 templates/view/view.inc:6
+#: data.php:67 templates/view/view.inc:6 templates/search/event_headers.inc:4
+#: templates/index/edit.inc:52 lib/Event.php:2905
 msgid "Location"
 msgstr "Atrašanās"
 
-#: templates/alarm/mail.html.php:22 templates/alarm/mail.plain.php:7
 #: templates/itip/notification.html.php:32
-#: templates/itip/notification.plain.php:5
+#: templates/itip/notification.plain.php:5 templates/alarm/mail.html.php:22
+#: templates/alarm/mail.plain.php:7
 msgid "Location:"
 msgstr "Vieta:"
 
@@ -1516,7 +1516,7 @@ msgstr "Zems"
 msgid "Lowest"
 msgstr "Viszemākā"
 
-#: calendars/index.php:76 templates/calendar_list.php:4
+#: templates/calendar_list.php:4 calendars/index.php:76
 msgid "Manage Calendars"
 msgstr "Organizēt kalendārus"
 
@@ -1544,32 +1544,32 @@ msgstr "Maksimālais notikumu skaits"
 msgid "Maximum number of events to display (0 = no limit)"
 msgstr "Maksimālās vienlaikus rādāmo notikumu skaits (0 =  bez ierobežojuma)"
 
-#: lib/Event.php:2851
+#: lib/Event.php:2901
 msgid "Me"
 msgstr "Es"
 
-#: lib/Event.php:2785
+#: lib/Event.php:2835
 msgid "Meeting"
 msgstr "Tikšanās"
 
-#: templates/edit/edit.inc:155 templates/edit/edit.inc:188
-#: templates/view/view.inc:64 templates/prefs/defaultalarm.html:10
+#: templates/view/view.inc:64 templates/edit/edit.inc:155
+#: templates/edit/edit.inc:188 templates/prefs/defaultalarm.html:10
 msgid "Minute(s)"
 msgstr "Minūte(s)"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:62 templates/edit/edit.inc:306
+#: templates/edit/edit.inc:306 lib/View/Year.php:62 lib/Block/Month.php:116
 msgid "Mo"
 msgstr "P"
 
-#: config/prefs.php:126 templates/index/edit.inc:136
-#: templates/month/head.inc:17 templates/view/view.inc:103
+#: templates/view/view.inc:103 templates/month/head.inc:17
+#: templates/index/edit.inc:136 config/prefs.php:126
 msgid "Monday"
 msgstr "Pirmdiena"
 
-#: attendees.php:186 config/prefs.php:100 lib/Application.php:559
-#: lib/Kronolith.php:2807 templates/index/index.inc:54
-#: templates/mobile/day.html.php:11 templates/mobile/month.html.php:3
-#: templates/mobile/month.html.php:11 templates/mobile/summary.html.php:11
+#: attendees.php:186 templates/mobile/day.html.php:11
+#: templates/mobile/month.html.php:3 templates/mobile/month.html.php:11
+#: templates/mobile/summary.html.php:11 templates/index/index.inc:54
+#: lib/Application.php:559 lib/Kronolith.php:2808 config/prefs.php:100
 msgid "Month"
 msgstr "Mēnesis"
 
@@ -1577,8 +1577,8 @@ msgstr "Mēnesis"
 msgid "Month, Week, and Day Views"
 msgstr "Mēneša, nedēļas un dienas skati"
 
-#: templates/edit/edit.inc:317 templates/edit/edit.inc:323
 #: templates/view/view.inc:112 templates/view/view.inc:114
+#: templates/edit/edit.inc:317 templates/edit/edit.inc:323
 msgid "Monthly: Recurs every"
 msgstr "Ikmēneša: Atkārtojas ik"
 
@@ -1590,7 +1590,7 @@ msgstr "Mēnešus uz priekšu"
 msgid "Months Before"
 msgstr "Mēnešus pirms"
 
-#: lib/Api.php:971
+#: lib/Api.php:976
 msgid "Multiple iCalendar components found; only one vEvent is supported."
 msgstr ""
 "Atrasti vairāki iCalendar komponenti; tiek atbalstīts tikai viens eEvent "
@@ -1616,13 +1616,13 @@ msgstr "Mana Brīvs/Aizņemts saite"
 msgid "My Task Lists"
 msgstr "Mani uzdevumu saraksti"
 
-#: lib/Form/CreateCalendar.php:24 lib/Form/CreateResource.php:43
-#: lib/Form/CreateResourceGroup.php:33 lib/Form/EditCalendar.php:31
-#: lib/Form/EditRemoteCalendar.php:25 lib/Form/EditResource.php:52
-#: lib/Form/EditResourceGroup.php:43 lib/Form/SubscribeRemoteCalendar.php:24
-#: resources/groups/index.php:57 resources/index.php:63
-#: templates/chunks/calendar.php:145 templates/chunks/calendar.php:262
-#: templates/contacts/contacts.inc:189
+#: templates/contacts/contacts.inc:189 templates/chunks/calendar.php:145
+#: templates/chunks/calendar.php:262 resources/index.php:63
+#: resources/groups/index.php:57 lib/Form/CreateCalendar.php:24
+#: lib/Form/CreateResource.php:43 lib/Form/CreateResourceGroup.php:33
+#: lib/Form/EditCalendar.php:31 lib/Form/EditRemoteCalendar.php:25
+#: lib/Form/EditResource.php:52 lib/Form/EditResourceGroup.php:43
+#: lib/Form/SubscribeRemoteCalendar.php:24
 msgid "Name"
 msgstr "Nosaukums"
 
@@ -1647,10 +1647,10 @@ msgstr ""
 "Radīts jauns kalendārs un automātiski iedarbināta koplietošana ar sekojošu(-"
 "ām) grupu(-ām): %s."
 
-#: templates/data/import.inc:33 templates/index/agenda.inc:10
+#: templates/mobile/day.html.php:18 templates/index/agenda.inc:10
 #: templates/index/day.inc:10 templates/index/month.inc:8
 #: templates/index/week.inc:9 templates/index/year.inc:9
-#: templates/mobile/day.html.php:18
+#: templates/data/import.inc:33
 msgid "Next"
 msgstr "Nākošais"
 
@@ -1662,8 +1662,8 @@ msgstr "Nākošās 24 stundas"
 msgid "Next Day"
 msgstr "Nākošā diena"
 
-#: lib/FreeBusy/View/Month.php:42 templates/month/head.inc:7
-#: templates/month/head_side_by_side.inc:7
+#: templates/month/head.inc:7 templates/month/head_side_by_side.inc:7
+#: lib/FreeBusy/View/Month.php:42
 msgid "Next Month"
 msgstr "Nākošais mēnesis"
 
@@ -1679,11 +1679,11 @@ msgstr "Nākošais gads"
 msgid "Next day"
 msgstr "Nākošā diena"
 
-#: templates/index/index.inc:82 templates/mobile/month.html.php:18
+#: templates/mobile/month.html.php:18 templates/index/index.inc:82
 msgid "Next month"
 msgstr "Nākošais mēnesis"
 
-#: templates/search/search.inc:56 templates/week/head.inc:8
+#: templates/week/head.inc:8 templates/search/search.inc:56
 msgid "Next week"
 msgstr "Nākošā nedēļa"
 
@@ -1703,7 +1703,7 @@ msgstr "Nav paziņojumu"
 msgid "No Sound"
 msgstr "Nav skaņas"
 
-#: templates/edit/edit.inc:183 templates/view/view.inc:69
+#: templates/view/view.inc:69 templates/edit/edit.inc:183
 msgid "No alarm"
 msgstr "Nav brīdinājuma"
 
@@ -1715,7 +1715,7 @@ msgstr "Nav dalībnieku"
 msgid "No attendees defined"
 msgstr "Nav noteikti dalībnieki"
 
-#: lib/Api.php:1099
+#: lib/Api.php:1104
 msgid ""
 "No attendees have been updated because none of the provided email addresses "
 "have been found in the event's attendees list."
@@ -1731,12 +1731,12 @@ msgstr "Viesiem nav pieejams neviens kalendārs."
 msgid "No calendars to search"
 msgstr "Nav meklēšanai pieejamu kalendāru"
 
-#: templates/edit/edit.inc:355 templates/view/view.inc:129
+#: templates/view/view.inc:129 templates/edit/edit.inc:355
 msgid "No end date"
 msgstr "Nav beigu datuma"
 
-#: lib/Block/Monthlist.php:173 lib/Block/Prevmonthlist.php:167
-#: lib/Block/Summary.php:204 templates/mobile/javascript_defs.php:147
+#: templates/mobile/javascript_defs.php:147 lib/Block/Monthlist.php:178
+#: lib/Block/Prevmonthlist.php:167 lib/Block/Summary.php:204
 msgid "No events to display"
 msgstr "Nav notikumu"
 
@@ -1750,7 +1750,7 @@ msgstr "%s Brīvs/Aizņemts saitē nav atrasta informācija par aizņemtību."
 msgid "No free/busy url found for %s."
 msgstr "Nav atrasta %s Brīvs/Aizņemts saite."
 
-#: lib/Api.php:655 lib/Api.php:675 lib/Api.php:978
+#: lib/Api.php:660 lib/Api.php:680 lib/Api.php:983
 msgid "No iCalendar data was found."
 msgstr "Nav atrasti iCalendar dati."
 
@@ -1763,7 +1763,7 @@ msgstr "Nav ierakstu"
 msgid "No items to display"
 msgstr "Nav attēlojamu ierakstu"
 
-#: lib/Event.php:1957 templates/edit/edit.inc:292
+#: templates/edit/edit.inc:292 lib/Event.php:1976
 msgid "No recurrence"
 msgstr "Neatkārtojas"
 
@@ -1771,8 +1771,8 @@ msgstr "Neatkārtojas"
 msgid "No valid email address found"
 msgstr "Nav atrasta derīga e-pasta adrese"
 
+#: lib/Kronolith.php:1402 lib/Kronolith.php:1423
 #: lib/Form/CreateResource.php:32 lib/Form/EditResource.php:40
-#: lib/Kronolith.php:1401 lib/Kronolith.php:1422
 msgid "None"
 msgstr "Nav"
 
@@ -1800,7 +1800,7 @@ msgstr "Paziņojumi"
 msgid "Now"
 msgstr "Tagad"
 
-#: templates/chunks/permissions.inc:149 templates/perms/perms.inc:136
+#: templates/perms/perms.inc:136 templates/chunks/permissions.inc:149
 msgid "Object Creator"
 msgstr "Objektu redaktors"
 
@@ -1808,7 +1808,7 @@ msgstr "Objektu redaktors"
 msgid "On"
 msgstr "ZZ"
 
-#: lib/Event.php:1692
+#: lib/Event.php:1709
 #, php-format
 msgid "On %s"
 msgstr "iekš %s"
@@ -1829,7 +1829,7 @@ msgstr "Visos parādītajos kalendāros"
 msgid "On my calendars only"
 msgstr "Tikai manos kalendāros"
 
-#: lib/Kronolith.php:1855
+#: lib/Kronolith.php:1856
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -1837,7 +1837,7 @@ msgstr ""
 "Tikai objekta īpašnieks vai sistēmas administrators var mainīt koplietojuma "
 "īpašnieku vai tā pieejas tiesības."
 
-#: lib/Kronolith.php:1419
+#: lib/Kronolith.php:1420
 msgid "Optional"
 msgstr "Neobligāti"
 
@@ -1865,7 +1865,7 @@ msgstr "Citi notikumi"
 msgid "Overview"
 msgstr "Pārskats"
 
-#: templates/perms/perms.inc:25 templates/view/view.inc:28
+#: templates/view/view.inc:28 templates/perms/perms.inc:25
 msgid "Owner"
 msgstr "Īpašnieks"
 
@@ -1873,12 +1873,12 @@ msgstr "Īpašnieks"
 msgid "Owner:"
 msgstr "Īpašnieks:"
 
-#: lib/Event.php:2850
+#: lib/Event.php:2900
 #, php-format
 msgid "Owner: %s"
 msgstr "Īpašnieks: %s"
 
-#: lib/Kronolith.php:1868
+#: lib/Kronolith.php:1869
 msgid "Ownership assignment"
 msgstr "Īpašumtiesību noteikšana"
 
@@ -1886,8 +1886,8 @@ msgstr "Īpašumtiesību noteikšana"
 msgid "PM"
 msgstr "vakarā"
 
-#: lib/Form/EditRemoteCalendar.php:29 lib/Form/SubscribeRemoteCalendar.php:29
-#: templates/chunks/calendar.php:249
+#: templates/chunks/calendar.php:249 lib/Form/EditRemoteCalendar.php:29
+#: lib/Form/SubscribeRemoteCalendar.php:29
 msgid "Password"
 msgstr "Parole"
 
@@ -1895,22 +1895,22 @@ msgstr "Parole"
 msgid "Past"
 msgstr "Pagājušie"
 
-#: templates/edit/edit.inc:287 templates/view/view.inc:95
+#: templates/view/view.inc:95 templates/edit/edit.inc:287
 msgid "Pattern"
 msgstr "Paraugs"
 
-#: templates/delete/one.inc:22 templates/index/edit.inc:237
+#: templates/index/edit.inc:237 templates/delete/one.inc:22
 msgid "Permanently delete this event?"
 msgstr "Dzēst šo notikumu pavisam?"
 
-#: lib/Ajax/Application.php:890 lib/Block/Month.php:74
-#: lib/Block/Monthlist.php:83 lib/Block/Prevmonthlist.php:82
-#: lib/Block/Summary.php:100 lib/Kronolith.php:3030 lib/Kronolith.php:3038
-#: lib/Kronolith.php:3044 lib/Kronolith.php:3050
+#: lib/Kronolith.php:3031 lib/Kronolith.php:3039 lib/Kronolith.php:3045
+#: lib/Kronolith.php:3051 lib/Block/Month.php:74 lib/Block/Monthlist.php:83
+#: lib/Block/Prevmonthlist.php:82 lib/Block/Summary.php:100
+#: lib/Ajax/Application.php:890
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
-#: lib/Api.php:460
+#: lib/Api.php:465
 #, php-format
 msgid "Permission Denied or Calendar Not Found: %s - skipping."
 msgstr "Pieeja liegta  vai arī kalendārs nav atrasts: %s - izlaists."
@@ -1941,9 +1941,9 @@ msgstr "Iespējamais tikšanās laiks"
 msgid "Preferences"
 msgstr "Iestatījumi"
 
-#: templates/index/agenda.inc:8 templates/index/day.inc:8
-#: templates/index/month.inc:6 templates/index/week.inc:7
-#: templates/index/year.inc:7 templates/mobile/day.html.php:16
+#: templates/mobile/day.html.php:16 templates/index/agenda.inc:8
+#: templates/index/day.inc:8 templates/index/month.inc:6
+#: templates/index/week.inc:7 templates/index/year.inc:7
 msgid "Previous"
 msgstr "Iepriekšējais"
 
@@ -1963,7 +1963,7 @@ msgstr "Iepriekšējā nedēļa"
 msgid "Previous day"
 msgstr "Iepriekšējā diena"
 
-#: templates/index/index.inc:81 templates/mobile/month.html.php:16
+#: templates/mobile/month.html.php:16 templates/index/index.inc:81
 msgid "Previous month"
 msgstr "Iepriekšējais mēnesis"
 
@@ -1989,7 +1989,7 @@ msgstr "Iepriekšējie notikumi"
 msgid "Priority"
 msgstr "Prioritāte"
 
-#: lib/Event.php:2780
+#: lib/Event.php:2830
 msgid "Private event"
 msgstr "Privāts notikums"
 
@@ -2013,15 +2013,15 @@ msgstr "Dzēst notikumus, kas vecāki par norādīto dienu skaitu."
 msgid "Quick _insert"
 msgstr "Ātrā _pievienošana"
 
-#: templates/chunks/permissions.inc:101 templates/chunks/permissions.inc:128
-#: templates/chunks/permissions.inc:156 templates/chunks/permissions.inc:209
-#: templates/chunks/permissions.inc:256 templates/perms/perms.inc:56
-#: templates/perms/perms.inc:71 templates/perms/perms.inc:97
-#: templates/perms/perms.inc:112 templates/perms/perms.inc:139
-#: templates/perms/perms.inc:154 templates/perms/perms.inc:180
-#: templates/perms/perms.inc:199 templates/perms/perms.inc:239
-#: templates/perms/perms.inc:270 templates/perms/perms.inc:297
-#: templates/perms/perms.inc:317 templates/perms/perms.inc:351
+#: templates/perms/perms.inc:56 templates/perms/perms.inc:71
+#: templates/perms/perms.inc:97 templates/perms/perms.inc:112
+#: templates/perms/perms.inc:139 templates/perms/perms.inc:154
+#: templates/perms/perms.inc:180 templates/perms/perms.inc:199
+#: templates/perms/perms.inc:239 templates/perms/perms.inc:270
+#: templates/perms/perms.inc:297 templates/perms/perms.inc:317
+#: templates/perms/perms.inc:351 templates/chunks/permissions.inc:101
+#: templates/chunks/permissions.inc:128 templates/chunks/permissions.inc:156
+#: templates/chunks/permissions.inc:209 templates/chunks/permissions.inc:256
 msgid "Read"
 msgstr "Lasīt"
 
@@ -2048,11 +2048,11 @@ msgstr ""
 msgid "Really unsubscribe from the calendar \"%s\" (%s)?"
 msgstr "Tiešām atrakstīties no kalendāra \"%s\" (%s)?"
 
-#: templates/edit/edit.inc:352 templates/view/view.inc:128
+#: templates/view/view.inc:128 templates/edit/edit.inc:352
 msgid "Recur Until"
 msgstr "Atkārtojas līdz"
 
-#: templates/edit/edit.inc:277 templates/view/view.inc:92
+#: templates/view/view.inc:92 templates/edit/edit.inc:277
 msgid "Recurrence"
 msgstr "Atkārtošanās"
 
@@ -2064,15 +2064,15 @@ msgstr "Atkārtošanās datums"
 msgid "Recurrence End Date"
 msgstr "Atkārtošanās beigu datums"
 
-#: lib/Event.php:2646
+#: lib/Event.php:2696
 msgid "Recurrence End Day"
 msgstr "Atkārtošanās beigu diena"
 
-#: lib/Event.php:2632
+#: lib/Event.php:2682
 msgid "Recurrence End Month"
 msgstr "Atkārtošanās beigu mēnesis"
 
-#: lib/Event.php:2616
+#: lib/Event.php:2666
 msgid "Recurrence End Year"
 msgstr "Atkārtošanās beigu gads"
 
@@ -2084,7 +2084,7 @@ msgstr "Atkārtošanās intervāls"
 msgid "Recurrence Type"
 msgstr "Atkārtošanās veids"
 
-#: lib/Kronolith.php:1335
+#: lib/Kronolith.php:1336
 msgid "Recurs daily"
 msgstr "Atkārtojas katru dienu"
 
@@ -2117,7 +2117,7 @@ msgstr "Atkārtojas ik %s gadus tajā pašā dienā"
 msgid "Recurs every month on the same weekday"
 msgstr "Atkārtojas ik mēnesi tajā pašā nedēļas dienā"
 
-#: lib/Kronolith.php:1342
+#: lib/Kronolith.php:1343
 msgid "Recurs monthly"
 msgstr "Atkārtojas ik mēnesi"
 
@@ -2135,7 +2135,7 @@ msgstr "Atkārtojas reizi gadā, %s"
 msgid "Recurs once a year, on the same day"
 msgstr "Atkārtojas ik gadu tajā pašā dienā"
 
-#: lib/Kronolith.php:1338
+#: lib/Kronolith.php:1339
 msgid "Recurs weekly"
 msgstr "Atkārtojas ik nedēļu"
 
@@ -2144,7 +2144,7 @@ msgstr "Atkārtojas ik nedēļu"
 msgid "Recurs weekly on every %s"
 msgstr "Atkārtojas ik nedēļu katru %s"
 
-#: lib/Kronolith.php:1347
+#: lib/Kronolith.php:1348
 msgid "Recurs yearly"
 msgstr "Atkārtojas ik gadu"
 
@@ -2181,7 +2181,7 @@ msgstr "Aizvākt %s"
 msgid "Remove Attendee"
 msgstr "Aizvākt dalībniekus"
 
-#: lib/Ajax/Imple/TagActions.php:112 templates/panel.inc:84
+#: templates/panel.inc:84 lib/Ajax/Imple/TagActions.php:112
 msgid "Remove Tag"
 msgstr "Aizvākt iezīmi"
 
@@ -2225,7 +2225,7 @@ msgstr ""
 "Aizvietot eksistējošo kalendāru ar importēto? <strong>Uzmanību: šī darbība "
 "izdzēsīs visus notikumus šajā kalendārā</strong>"
 
-#: lib/Kronolith.php:1426
+#: lib/Kronolith.php:1427
 msgid "Required"
 msgstr "Dalība obligāta"
 
@@ -2242,7 +2242,7 @@ msgstr "Nepieciešamie resursi"
 msgid "Reset to Defaults"
 msgstr "Atjaunot noklusētos parametrus"
 
-#: templates/attendees/attendees.inc:84 templates/view/view.inc:187
+#: templates/view/view.inc:190 templates/attendees/attendees.inc:84
 msgid "Resource"
 msgstr "Resurss"
 
@@ -2262,14 +2262,14 @@ msgstr "Resursu saraksts"
 msgid "Resource not valid."
 msgstr "Neesošs resurss."
 
-#: lib/Form/CreateResourceGroup.php:35 lib/Form/EditResourceGroup.php:45
-#: resources/groups/index.php:44 resources/index.php:50
-#: templates/view/view.inc:184
+#: templates/view/view.inc:187 resources/index.php:50
+#: resources/groups/index.php:44 lib/Form/CreateResourceGroup.php:35
+#: lib/Form/EditResourceGroup.php:45
 msgid "Resources"
 msgstr "Resursi"
 
+#: templates/view/view.inc:174 templates/view/view.inc:192
 #: templates/attendees/attendees.inc:50 templates/attendees/attendees.inc:86
-#: templates/view/view.inc:171 templates/view/view.inc:189
 msgid "Response"
 msgstr "Atbilde"
 
@@ -2297,21 +2297,21 @@ msgstr "Atgriezties pie kalendāriem"
 msgid "Return to my calendars"
 msgstr "Atgriezties pie maniem kalendāriem"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:67 templates/edit/edit.inc:311
+#: templates/edit/edit.inc:311 lib/View/Year.php:67 lib/Block/Month.php:116
 msgid "Sa"
 msgstr "S"
 
-#: templates/index/edit.inc:141 templates/month/head.inc:22
-#: templates/view/view.inc:108
+#: templates/view/view.inc:108 templates/month/head.inc:22
+#: templates/index/edit.inc:141
 msgid "Saturday"
 msgstr "Sestdiena"
 
-#: lib/Form/EditCalendar.php:39 lib/Form/EditRemoteCalendar.php:33
-#: lib/Form/EditResource.php:57 lib/Form/EditResourceGroup.php:46
+#: templates/panel.inc:163 templates/index/edit.inc:229
+#: templates/index/index.inc:205 templates/index/task.inc:79
 #: templates/chunks/calendar.php:129 templates/chunks/calendar.php:204
 #: templates/chunks/calendar.php:274 templates/chunks/calendar.php:298
-#: templates/index/edit.inc:229 templates/index/index.inc:205
-#: templates/index/task.inc:79 templates/panel.inc:163
+#: lib/Form/EditCalendar.php:39 lib/Form/EditRemoteCalendar.php:33
+#: lib/Form/EditResource.php:57 lib/Form/EditResourceGroup.php:46
 msgid "Save"
 msgstr "Saglabāt"
 
@@ -2320,22 +2320,22 @@ msgstr "Saglabāt"
 msgid "Save %s"
 msgstr "Saglabāt %s"
 
-#: lib/Kronolith.php:2846 lib/View/EditEvent.php:97 lib/View/EditEvent.php:106
-#: templates/edit/edit.inc:46 templates/index/edit.inc:230
+#: templates/index/edit.inc:230 templates/edit/edit.inc:46
+#: lib/Kronolith.php:2847 lib/View/EditEvent.php:97 lib/View/EditEvent.php:106
 msgid "Save As New"
 msgstr "Saglabāt kā jaunu"
 
-#: lib/View/EditEvent.php:100 new.php:66
+#: new.php:66 lib/View/EditEvent.php:100
 msgid "Save Event"
 msgstr "Saglabāt notikumu"
 
-#: templates/attendees/attendees.inc:149 templates/perms/perms.inc:375
+#: templates/perms/perms.inc:375 templates/attendees/attendees.inc:149
 msgid "Save and Finish"
 msgstr "Saglabāt un beigt"
 
-#: lib/Application.php:561 search.php:109 templates/contacts/contacts.inc:156
-#: templates/index/index.inc:100 templates/search/search.inc:65
-#: templates/search/search_advanced.inc:87
+#: search.php:109 templates/search/search.inc:65
+#: templates/search/search_advanced.inc:87 templates/index/index.inc:100
+#: templates/contacts/contacts.inc:156 lib/Application.php:561
 msgid "Search"
 msgstr "Meklēt"
 
@@ -2363,11 +2363,11 @@ msgstr "Izvēlieties grupu"
 msgid "Select a group to add"
 msgstr "Izvēlieties pievienojamo grupu"
 
-#: templates/chunks/permissions.inc:241 templates/perms/perms.inc:337
+#: templates/perms/perms.inc:337 templates/chunks/permissions.inc:241
 msgid "Select a group to add:"
 msgstr "Izvēlieties pievienojamo grupu:"
 
-#: templates/chunks/permissions.inc:67 templates/perms/perms.inc:33
+#: templates/perms/perms.inc:33 templates/chunks/permissions.inc:67
 msgid "Select a new owner:"
 msgstr "Izvēlieties jaunu īpašnieku:"
 
@@ -2439,7 +2439,7 @@ msgstr "Izvēlētās adreses"
 msgid "Send a cancel notification to all attendees when deleting this event?"
 msgstr "Dzēšot šo notikumu, nosūtīt atcelšanas paziņojumu visiem dalībniekiem?"
 
-#: templates/view/view.inc:175
+#: templates/view/view.inc:178
 #, php-format
 msgid "Send an email to %s"
 msgstr "Nosūtīt e-pastu %s"
@@ -2465,8 +2465,8 @@ msgstr "Iestaties jauno uzdevumu noklusētās vērtības"
 msgid "Set due date"
 msgstr "Noteikt beigu datumu"
 
-#: templates/edit/edit_timespan.inc:70 templates/index/edit.inc:30
-#: templates/index/edit.inc:166
+#: templates/index/edit.inc:30 templates/index/edit.inc:166
+#: templates/edit/edit_timespan.inc:70
 msgid "Set end date"
 msgstr "Beigu datums"
 
@@ -2474,7 +2474,7 @@ msgstr "Beigu datums"
 msgid "Set recurrence end date"
 msgstr "Atkārtošanās beigu datums"
 
-#: templates/edit/edit_timespan.inc:24 templates/index/edit.inc:21
+#: templates/index/edit.inc:21 templates/edit/edit_timespan.inc:24
 msgid "Set start date"
 msgstr "Sākuma datums"
 
@@ -2506,16 +2506,16 @@ msgstr "Koplietojamie uzdevumu saraksti"
 msgid "Sharing"
 msgstr "Koplietošana"
 
-#: templates/chunks/permissions.inc:97 templates/chunks/permissions.inc:124
-#: templates/chunks/permissions.inc:152 templates/chunks/permissions.inc:205
-#: templates/chunks/permissions.inc:252 templates/edit/edit.inc:6
 #: templates/perms/perms.inc:55 templates/perms/perms.inc:67
 #: templates/perms/perms.inc:96 templates/perms/perms.inc:108
 #: templates/perms/perms.inc:138 templates/perms/perms.inc:150
 #: templates/perms/perms.inc:179 templates/perms/perms.inc:195
 #: templates/perms/perms.inc:235 templates/perms/perms.inc:266
 #: templates/perms/perms.inc:296 templates/perms/perms.inc:313
-#: templates/perms/perms.inc:347
+#: templates/perms/perms.inc:347 templates/edit/edit.inc:6
+#: templates/chunks/permissions.inc:97 templates/chunks/permissions.inc:124
+#: templates/chunks/permissions.inc:152 templates/chunks/permissions.inc:205
+#: templates/chunks/permissions.inc:252
 msgid "Show"
 msgstr "Rādīt"
 
@@ -2558,24 +2558,24 @@ msgstr "Sākas"
 msgid "Start Date"
 msgstr "Sākuma datums"
 
-#: lib/Event.php:2516 templates/data/export.inc:68
+#: templates/data/export.inc:68 lib/Event.php:2566
 msgid "Start Day"
 msgstr "Sākuma diena"
 
-#: lib/Event.php:2526 templates/data/export.inc:87
+#: templates/data/export.inc:87 lib/Event.php:2576
 msgid "Start Hour"
 msgstr "Sākuma stunda"
 
-#: lib/Event.php:2535 templates/data/export.inc:102
+#: templates/data/export.inc:102 lib/Event.php:2585
 msgid "Start Minute"
 msgstr "Sākuma minūte"
 
-#: lib/Event.php:2508 templates/data/export.inc:54
+#: templates/data/export.inc:54 lib/Event.php:2558
 msgid "Start Month"
 msgstr "Sākuma mēnesis"
 
-#: templates/data/export.inc:37 templates/search/event_headers.inc:6
-#: templates/view/view.inc:35
+#: templates/view/view.inc:35 templates/search/event_headers.inc:6
+#: templates/data/export.inc:37
 msgid "Start On"
 msgstr "Sāksies"
 
@@ -2583,7 +2583,7 @@ msgstr "Sāksies"
 msgid "Start Time"
 msgstr "Sākuma laiks"
 
-#: lib/Event.php:2498 templates/data/export.inc:39
+#: templates/data/export.inc:39 lib/Event.php:2548
 msgid "Start Year"
 msgstr "Sākuma gads"
 
@@ -2591,12 +2591,12 @@ msgstr "Sākuma gads"
 msgid "Start:"
 msgstr "Sākt:"
 
-#: templates/edit/edit.inc:118 templates/search/search_advanced.inc:65
+#: templates/search/search_advanced.inc:65 templates/edit/edit.inc:118
 msgid "Stat_us"
 msgstr "Statuss"
 
-#: templates/index/edit.inc:44 templates/search/event_headers.inc:5
-#: templates/view/view.inc:21
+#: templates/view/view.inc:21 templates/search/event_headers.inc:5
+#: templates/index/edit.inc:44
 msgid "Status"
 msgstr "Statuss"
 
@@ -2605,13 +2605,13 @@ msgstr "Statuss"
 msgid "Stop %s never%s, %s at %s or %s after %s recurrences %s"
 msgstr "Atcelt %s nekad%s, %s atttttt %s vai %s pēc %s atkārtojumiem %s"
 
-#: lib/Block/Month.php:118 lib/Block/Month.php:120 lib/View/Year.php:60
-#: lib/View/Year.php:69 templates/edit/edit.inc:312
+#: templates/edit/edit.inc:312 lib/View/Year.php:60 lib/View/Year.php:69
+#: lib/Block/Month.php:118 lib/Block/Month.php:120
 msgid "Su"
 msgstr "Sv"
 
-#: lib/Form/SubscribeRemoteCalendar.php:31 templates/chunks/calendar.php:131
-#: templates/chunks/calendar.php:206
+#: templates/chunks/calendar.php:131 templates/chunks/calendar.php:206
+#: lib/Form/SubscribeRemoteCalendar.php:31
 msgid "Subscribe"
 msgstr "Parakstīties"
 
@@ -2623,7 +2623,7 @@ msgstr "Parakstīties no sindicētās plūsmas lasītāja"
 msgid "Subscribe from another calendar program"
 msgstr "Parakstīties no citas kalendāra programmas"
 
-#: lib/Form/SubscribeRemoteCalendar.php:22 templates/calendar_list.php:17
+#: templates/calendar_list.php:17 lib/Form/SubscribeRemoteCalendar.php:22
 msgid "Subscribe to a Remote Calendar"
 msgstr "Parakstīties uz attālinātajiem kalendāriem"
 
@@ -2641,9 +2641,9 @@ msgstr "Parakstīšanās saite"
 msgid "Summary"
 msgstr "Kopsavilkums"
 
-#: config/prefs.php:125 templates/index/edit.inc:142
-#: templates/month/head.inc:15 templates/month/head.inc:24
-#: templates/view/view.inc:109
+#: templates/view/view.inc:109 templates/month/head.inc:15
+#: templates/month/head.inc:24 templates/index/edit.inc:142
+#: config/prefs.php:125
 msgid "Sunday"
 msgstr "Svētdiena"
 
@@ -2671,10 +2671,10 @@ msgstr ""
 "Sistēmas kalendāriem nav īpašnieka. Tikai administrators var mainīt "
 "kalendāra iestatījumus un pieejas tiesības."
 
+#: templates/panel.inc:75 templates/view/view.inc:144
+#: templates/index/edit.inc:76 templates/edit/edit.inc:407
+#: templates/edit/edit.inc:413 templates/chunks/calendar.php:48
 #: lib/Form/CreateCalendar.php:27 lib/Form/EditCalendar.php:34
-#: templates/chunks/calendar.php:48 templates/edit/edit.inc:407
-#: templates/edit/edit.inc:413 templates/index/edit.inc:76
-#: templates/panel.inc:75 templates/view/view.inc:143
 msgid "Tags"
 msgstr "Iezīmes"
 
@@ -2690,20 +2690,20 @@ msgstr "Uzdevumu saraksta īpašnieks"
 msgid "Task title"
 msgstr "Uzdevuma nosaukums"
 
-#: lib/Kronolith.php:251 templates/index/index.inc:57
-#: templates/index/tasks.inc:5
+#: templates/index/index.inc:57 templates/index/tasks.inc:5
+#: lib/Kronolith.php:251
 msgid "Tasks"
 msgstr "Uzdevumi"
 
-#: lib/Kronolith.php:1374 lib/Kronolith.php:1397 templates/index/edit.inc:47
+#: templates/index/edit.inc:47 lib/Kronolith.php:1375 lib/Kronolith.php:1398
 msgid "Tentative"
 msgstr "Nepstiprināts"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:65 templates/edit/edit.inc:309
+#: templates/edit/edit.inc:309 lib/View/Year.php:65 lib/Block/Month.php:116
 msgid "Th"
 msgstr "C"
 
-#: data.php:242
+#: data.php:244
 #, php-format
 msgid "The %s file didn't contain any events."
 msgstr "Fails %s nesatur nevienu notikumu."
@@ -2721,7 +2721,7 @@ msgstr "Kalendāra palīgmodulis šobrīd nav pieejams: %s."
 msgid "The Edit Attendees screen is no longer present. Exiting."
 msgstr "Dalībnieku saraksta labošanas ekrāns aizvērts. Beidzam."
 
-#: lib/Api.php:1122
+#: lib/Api.php:1127
 msgid ""
 "The attendee hasn't been updated because the update was not sent from the "
 "attendee."
@@ -2732,34 +2732,34 @@ msgstr ""
 msgid "The authentication information you specified wasn't accepted."
 msgstr "Jūsu norādītā autentifikācijas informācija noraidīta."
 
-#: calendars/create.php:31 lib/Ajax/Application.php:625
 #: resources/create.php:30 resources/groups/create.php:26
+#: lib/Ajax/Application.php:625 calendars/create.php:31
 #, php-format
 msgid "The calendar \"%s\" has been created."
 msgstr "Radīts kalendārs \"%s\"."
 
-#: calendars/delete.php:43 lib/Ajax/Application.php:775
+#: lib/Ajax/Application.php:775 calendars/delete.php:43
 #, php-format
 msgid "The calendar \"%s\" has been deleted."
 msgstr "Kalendārs \"%s\" nodzēsts."
 
-#: calendars/edit.php:44 lib/Ajax/Application.php:650
+#: lib/Ajax/Application.php:650 calendars/edit.php:44
 #, php-format
 msgid "The calendar \"%s\" has been renamed to \"%s\"."
 msgstr "Kalendārs \"%s\" pārsaukts par \"%s\"."
 
-#: calendars/edit.php:46 calendars/remote_edit.php:45
 #: lib/Ajax/Application.php:652 lib/Ajax/Application.php:739
+#: calendars/edit.php:46 calendars/remote_edit.php:45
 #, php-format
 msgid "The calendar \"%s\" has been saved."
 msgstr "Kalendārs \"%s\" saglabāts."
 
-#: lib/Kronolith.php:1605
+#: lib/Kronolith.php:1606
 #, php-format
 msgid "The calendar %s returned the error: %s"
 msgstr "Kalendārs %s atbildēja ar kļūdu: %s"
 
-#: data.php:252
+#: data.php:254
 #, php-format
 msgid "The calendar could not be purged: %s"
 msgstr "Kalendārs nav iztīrāms: %s"
@@ -2776,13 +2776,13 @@ msgstr "Savienojums ar serveri atjaunots."
 msgid "The end date must be later than the start date."
 msgstr "Beigu datumam ir jābūt vēlākam par sākuma datumu."
 
-#: lib/Kronolith.php:2545
+#: lib/Kronolith.php:2546
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
 msgstr "\"%s\" notikums pievienots \"%s\" kalendāram, notiek %s plkst. %s."
 
-#: lib/Kronolith.php:2555
+#: lib/Kronolith.php:2556
 #, php-format
 msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
@@ -2791,7 +2791,7 @@ msgstr ""
 "\"%s\" notikums dzēsts no \"%s\" kalendāra, notikumam bija plānots %s plkst. "
 "%s."
 
-#: lib/Kronolith.php:2550
+#: lib/Kronolith.php:2551
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
@@ -2809,7 +2809,7 @@ msgstr "Notikums nav izdzēšams no attālinātā servera."
 msgid "The event could not be updated on the remote server."
 msgstr "Notikums nav izmaināms uz attālinātā servera."
 
-#: lib/Kronolith.php:2450
+#: lib/Kronolith.php:2451
 #, php-format
 msgid "The event notification to %s was successfully sent."
 msgstr "Paziņojums  %s sekmīgi nosūtīts."
@@ -2822,14 +2822,14 @@ msgstr "Izņēmums aizvākts."
 msgid "The following is a more detailed description of the event:"
 msgstr "Notikuma plašāks apraksts:"
 
-#: lib/Kronolith.php:2612
+#: lib/Kronolith.php:2613
 #, php-format
 msgid "The following resource has accepted your request: %s"
 msgid_plural "The following resources have accepted your request: %s"
 msgstr[0] "Sekojošais resurss apstiprināja Jūsu pieprasījumu: %s"
 msgstr[1] "Sekojošie resursi apstiprināja Jūsu pieprasījumu: %s"
 
-#: lib/Kronolith.php:2605
+#: lib/Kronolith.php:2606
 #, php-format
 msgid "The following resource has declined your request: %s"
 msgid_plural "The following resources have declined your request: %s"
@@ -2841,8 +2841,8 @@ msgstr[1] "Sekojošie resursi noraidīja Jūsu pieprasījumu: %s"
 msgid "The free/busy url for %s cannot be retrieved."
 msgstr "%s Brīvs/Aizņemts saite nav pieejama."
 
-#: calendars/remote_edit.php:36 calendars/remote_unsubscribe.php:37
-#: lib/Kronolith.php:2155
+#: lib/Kronolith.php:2156 calendars/remote_edit.php:36
+#: calendars/remote_unsubscribe.php:37
 msgid "The remote calendar was not found."
 msgstr "Attālinātais kalendārs nav atrasts."
 
@@ -2935,7 +2935,7 @@ msgstr "Uzdevumu saraksta nosaukums nedrīkst būt tukšs."
 msgid "The time span to show"
 msgstr "Attēlojamā laika sprīdis"
 
-#: lib/Kronolith.php:1857 lib/Kronolith.php:1991
+#: lib/Kronolith.php:1858 lib/Kronolith.php:1992
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr "Lietotājs \"%s\" neeksistē."
@@ -2974,7 +2974,7 @@ msgstr "Kļūda sazinoties ar  ActiveSync serveri: %s"
 msgid "There was an error editing the event: %s"
 msgstr "Kļūda labojot notikumu: %s"
 
-#: lib/Api.php:304 lib/Api.php:647 lib/Api.php:963
+#: lib/Api.php:304 lib/Api.php:652 lib/Api.php:968
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
@@ -2988,7 +2988,7 @@ msgstr "Kļūda pārvietojot notikumu: %s"
 msgid "There was an error removing calendars for %s. Details have been logged."
 msgstr "Kļūda dzēšot %s kalendārus. Informācija par kļūdu ierakstīta žurnālā."
 
-#: lib/Kronolith.php:2455
+#: lib/Kronolith.php:2456
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
 msgstr "Kļūda nosūtot paziņojumu %s: %s"
@@ -3005,7 +3005,7 @@ msgstr "Šomēnes"
 msgid "This calendar requires to specify a user name and password."
 msgstr "Šim kalendāram ir jānorāda lietotāja vārds un parole."
 
-#: data.php:224
+#: data.php:226
 msgid "This file format is not supported."
 msgstr "Faila formāts netiek atbalstīts."
 
@@ -3031,7 +3031,7 @@ msgstr ""
 msgid "This is an exception to a recurring event originally scheduled on %s"
 msgstr "Šis ir izņēmums notikumam atkārtojumam, kas sākotnēji bija noteikts %s"
 
-#: templates/edit/edit.inc:285 templates/view/view.inc:98
+#: templates/view/view.inc:98 templates/edit/edit.inc:285
 #, php-format
 msgid ""
 "This is an exception to a recurring event originally scheduled on %s at %s"
@@ -3047,13 +3047,13 @@ msgstr "Tas ir nenosūtīto paziņojumu saraksts"
 msgid "This is what the server said:"
 msgstr "Servera atbilde: "
 
-#: data.php:271
+#: data.php:273
 #, php-format
 msgid "This is what the server said: %s"
 msgstr "Servera atbilde: %s"
 
-#: templates/index/edit.inc:139 templates/month/head.inc:20
-#: templates/view/view.inc:106
+#: templates/view/view.inc:106 templates/month/head.inc:20
+#: templates/index/edit.inc:139
 msgid "Thursday"
 msgstr "Ceturdiena"
 
@@ -3069,7 +3069,7 @@ msgstr "Laika sprīdis"
 msgid "Time:"
 msgstr "Laiks:"
 
-#: templates/edit/edit.inc:64 templates/search/search_advanced.inc:23
+#: templates/search/search_advanced.inc:23 templates/edit/edit.inc:64
 msgid "Tit_le"
 msgstr "Nosaukums"
 
@@ -3120,45 +3120,45 @@ msgstr ""
 msgid "To subscribe to this calendar, you need to click the following link:"
 msgstr "Lai parakstītos uz šo kalendāru, izmantojiet šo saiti:"
 
-#: lib/Block/Monthlist.php:138 lib/Block/Prevmonthlist.php:134
-#: lib/Block/Summary.php:154 templates/mobile/javascript_defs.php:149
+#: templates/mobile/javascript_defs.php:149 lib/Block/Monthlist.php:141
+#: lib/Block/Prevmonthlist.php:134 lib/Block/Summary.php:154
 msgid "Today"
 msgstr "Šodiena"
 
-#: lib/Block/Monthlist.php:140 lib/Block/Prevmonthlist.php:136
-#: lib/Block/Summary.php:156 templates/mobile/javascript_defs.php:150
+#: templates/mobile/javascript_defs.php:150 lib/Block/Monthlist.php:143
+#: lib/Block/Prevmonthlist.php:136 lib/Block/Summary.php:156
 msgid "Tomorrow"
 msgstr "Rītdiena"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:63 templates/edit/edit.inc:307
+#: templates/edit/edit.inc:307 lib/View/Year.php:63 lib/Block/Month.php:116
 msgid "Tu"
 msgstr "O"
 
-#: templates/index/edit.inc:137 templates/month/head.inc:18
-#: templates/view/view.inc:104
+#: templates/view/view.inc:104 templates/month/head.inc:18
+#: templates/index/edit.inc:137
 msgid "Tuesday"
 msgstr "Otrdiena"
 
-#: lib/Form/EditRemoteCalendar.php:26 lib/Form/SubscribeRemoteCalendar.php:26
-#: templates/chunks/calendar.php:220 templates/edit/edit.inc:242
-#: templates/edit/edit.inc:247 templates/index/edit.inc:74
-#: templates/view/view.inc:14
+#: templates/view/view.inc:14 templates/index/edit.inc:74
+#: templates/edit/edit.inc:242 templates/edit/edit.inc:247
+#: templates/chunks/calendar.php:220 lib/Form/EditRemoteCalendar.php:26
+#: lib/Form/SubscribeRemoteCalendar.php:26
 msgid "URL"
 msgstr "URL"
 
-#: lib/Ajax/Application.php:772 lib/Ajax/Application.php:788
-#: lib/Form/DeleteResource.php:57 lib/Form/DeleteResourceGroup.php:58
-#: lib/Kronolith.php:1809
+#: lib/Kronolith.php:1810 lib/Form/DeleteResource.php:57
+#: lib/Form/DeleteResourceGroup.php:58 lib/Ajax/Application.php:772
+#: lib/Ajax/Application.php:788
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr "Nevar nodzēst \"%s\": %s"
 
-#: lib/Api.php:411
+#: lib/Api.php:416
 #, php-format
 msgid "Unable to delete calendar \"%s\": %s"
 msgstr "Nevar nodzēst kalendāru \"%s\": %s"
 
-#: lib/Api.php:920
+#: lib/Api.php:925
 msgid ""
 "Unable to delete event. An exception date was provided but the event does "
 "not seem to be recurring."
@@ -3175,16 +3175,16 @@ msgstr "Nevar ielādēt %s definīciju."
 msgid "Unable to locate requested address"
 msgstr "Pieprasītā adrese nav atrodama"
 
-#: lib/Event.php:820
+#: lib/Event.php:824
 msgid "Unable to parse event."
 msgstr "Nevar izanalizēt notikumu."
 
-#: lib/Kronolith.php:2243
+#: lib/Kronolith.php:2244
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
 msgstr "\"%s\" nav atpazīstama kā e-pasta adrese."
 
-#: lib/Kronolith.php:1783
+#: lib/Kronolith.php:1784
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
 msgstr "Nevar saglabāt kalendāru \"%s\": %s"
@@ -3198,12 +3198,12 @@ msgstr "Nav iespējams saglabāt resursu \"%s\": %s"
 msgid "Unexpected response from remote server."
 msgstr "Negaidīta atbilde no attālinātā servera."
 
-#: lib/Api.php:1200 lib/Api.php:1217
+#: lib/Api.php:1205 lib/Api.php:1222
 msgid "Unknown calendar protocol"
 msgstr "Nezināms kalendāra protokols"
 
-#: lib/Form/UnsubscribeRemoteCalendar.php:27 templates/calendar_list.php:44
-#: templates/chunks/calendar.php:132 templates/chunks/calendar.php:207
+#: templates/calendar_list.php:44 templates/chunks/calendar.php:132
+#: templates/chunks/calendar.php:207 lib/Form/UnsubscribeRemoteCalendar.php:27
 msgid "Unsubscribe"
 msgstr "Atrakstīties"
 
@@ -3212,8 +3212,8 @@ msgstr "Atrakstīties"
 msgid "Unsubscribe from %s"
 msgstr "Atrakstīties no %s"
 
-#: lib/Api.php:362 lib/Api.php:694 lib/Api.php:801 lib/Api.php:853
-#: lib/Api.php:984
+#: lib/Api.php:367 lib/Api.php:699 lib/Api.php:806 lib/Api.php:858
+#: lib/Api.php:989
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts saturs tips: %s"
@@ -3231,7 +3231,7 @@ msgstr "Apstiprināt"
 msgid "Updated \"%s\"."
 msgstr "\"%s\" mainīts."
 
-#: lib/Kronolith.php:2389
+#: lib/Kronolith.php:2390
 #, php-format
 msgid "Updated: %s."
 msgstr "Atjaunots: %s."
@@ -3256,8 +3256,8 @@ msgstr "Pievienojamais lietotājs"
 msgid "User to add:"
 msgstr "Pievienojamais lietotājs:"
 
-#: lib/Form/EditRemoteCalendar.php:28 lib/Form/SubscribeRemoteCalendar.php:28
-#: templates/chunks/calendar.php:243
+#: templates/chunks/calendar.php:243 lib/Form/EditRemoteCalendar.php:28
+#: lib/Form/SubscribeRemoteCalendar.php:28
 msgid "Username"
 msgstr "Lietotāja vārds"
 
@@ -3265,12 +3265,12 @@ msgstr "Lietotāja vārds"
 msgid "Users"
 msgstr "Lietotāji"
 
-#: lib/Block/Month.php:174 lib/Block/Month.php:189 lib/View/Year.php:148
-#: lib/View/Year.php:151
+#: lib/View/Year.php:148 lib/View/Year.php:151 lib/Block/Month.php:174
+#: lib/Block/Month.php:190
 msgid "View Day"
 msgstr "Skatīt dienu"
 
-#: lib/Block/Month.php:116 lib/View/Year.php:64 templates/edit/edit.inc:308
+#: templates/edit/edit.inc:308 lib/View/Year.php:64 lib/Block/Month.php:116
 msgid "We"
 msgstr "T"
 
@@ -3278,27 +3278,27 @@ msgstr "T"
 msgid "We would like to remind you of this upcoming event."
 msgstr "Vēlamies atgādināt par šī notikuma tuvošanos."
 
-#: templates/index/edit.inc:138 templates/month/head.inc:19
-#: templates/view/view.inc:105
+#: templates/view/view.inc:105 templates/month/head.inc:19
+#: templates/index/edit.inc:138
 msgid "Wednesday"
 msgstr "Trešdiena"
 
-#: attendees.php:185 config/prefs.php:98 lib/Application.php:558
-#: lib/Kronolith.php:2805 templates/index/index.inc:53
+#: attendees.php:185 templates/index/index.inc:53 lib/Application.php:558
+#: lib/Kronolith.php:2806 config/prefs.php:98
 msgid "Week"
 msgstr "Nedēļa"
 
-#: lib/View/Month.php:197 week.php:20 workweek.php:21
+#: week.php:20 workweek.php:21 lib/View/Month.php:197
 #, php-format
 msgid "Week %d"
 msgstr "Nedēļas %d"
 
-#: templates/edit/edit.inc:143 templates/edit/edit.inc:191
-#: templates/view/view.inc:55 templates/prefs/defaultalarm.html:13
+#: templates/view/view.inc:55 templates/edit/edit.inc:143
+#: templates/edit/edit.inc:191 templates/prefs/defaultalarm.html:13
 msgid "Week(s)"
 msgstr "Nedēļa(s)"
 
-#: templates/edit/edit.inc:303 templates/view/view.inc:110
+#: templates/view/view.inc:110 templates/edit/edit.inc:303
 msgid "Weekly: Recurs every"
 msgstr "Nedēļa: Atkārtojas ik"
 
@@ -3318,26 +3318,26 @@ msgstr ""
 msgid "When:"
 msgstr "Kad:"
 
-#: feed/index.php:139
+#: feed/index.php:140
 msgid "Where:"
 msgstr "Kur:"
 
-#: feed/index.php:136
+#: feed/index.php:137
 msgid "Who:"
 msgstr "Kurš:"
 
-#: attendees.php:184 config/prefs.php:99 lib/Application.php:557
-#: lib/Kronolith.php:2803
+#: attendees.php:184 lib/Application.php:557 lib/Kronolith.php:2804
+#: config/prefs.php:99
 msgid "Work Week"
 msgstr "Darba nedēļa"
 
-#: lib/Application.php:560 lib/Kronolith.php:2809 templates/index/index.inc:55
+#: templates/index/index.inc:55 lib/Application.php:560 lib/Kronolith.php:2810
 msgid "Year"
 msgstr "Gads"
 
-#: templates/edit/edit.inc:329 templates/edit/edit.inc:335
-#: templates/edit/edit.inc:341 templates/view/view.inc:116
-#: templates/view/view.inc:118 templates/view/view.inc:120
+#: templates/view/view.inc:116 templates/view/view.inc:118
+#: templates/view/view.inc:120 templates/edit/edit.inc:329
+#: templates/edit/edit.inc:335 templates/edit/edit.inc:341
 msgid "Yearly: Recurs every"
 msgstr "Ikgadējs: Atkārtojas ik"
 
@@ -3345,7 +3345,7 @@ msgstr "Ikgadējs: Atkārtojas ik"
 msgid "Yesterday"
 msgstr "Vakar"
 
-#: calendars/edit.php:33 lib/Kronolith.php:1771
+#: lib/Kronolith.php:1772 calendars/edit.php:33
 msgid "You are not allowed to change this calendar."
 msgstr "Jums nav atļauts mainīt šo kalendāru."
 
@@ -3353,13 +3353,13 @@ msgstr "Jums nav atļauts mainīt šo kalendāru."
 msgid "You are not allowed to change this resource."
 msgstr "Jums nav atļauts mainīt šo resursu."
 
-#: add.php:62 data.php:47 data.php:263 edit.php:34
-#: lib/Ajax/Application.php:113 new.php:29
+#: add.php:62 data.php:47 data.php:265 edit.php:34 new.php:29
+#: lib/Ajax/Application.php:113
 #, php-format
 msgid "You are not allowed to create more than %d events."
 msgstr "Jums nav atļauts izveidot vairāk kā %d notikumus."
 
-#: calendars/delete.php:34 lib/Kronolith.php:1802
+#: lib/Kronolith.php:1803 calendars/delete.php:34
 msgid "You are not allowed to delete this calendar."
 msgstr "Jums nav atļauts dzēst šo kalendāru."
 
@@ -3399,7 +3399,7 @@ msgstr "Šo formu varat lietot tikai dalībnieku saraksta labošanas logā."
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "Jūs varat to atlikt uz %s vai %s atcelt %s pilnībā"
 
-#: lib/Kronolith.php:2339
+#: lib/Kronolith.php:2340
 #, php-format
 msgid ""
 "You do not have an email address configured in your Personal Information "
@@ -3413,10 +3413,6 @@ msgstr ""
 #, php-format
 msgid "You do not have permission to add events to %s."
 msgstr "Jums nav tiesību pievienot notikumus %s."
-
-#: data.php:204
-msgid "You do not have permission to add events to the selected calendar."
-msgstr "Jums nav tiesību pievienot notikumu izvēlētajam kalendāram."
 
 #: add.php:53 edit.php:181
 #, php-format
@@ -3447,7 +3443,7 @@ msgstr ""
 "dienas kārtības nosūtīšana. Jūs varat to mainīt %spieslēdzoties kalendāram%s "
 "un izmainot iestatījumus."
 
-#: templates/alarm/mail.html.php:64
+#: templates/alarm/mail.html.php:66
 #, php-format
 msgid ""
 "You get this message because your calendar is configured to send you "
@@ -3459,20 +3455,24 @@ msgstr ""
 "kalendāram%s un izmainot iestatījumus."
 
 # =====================tiktāl nav, zemāk ir viss ok...
-#: calendars/remote_subscribe.php:33 lib/Ajax/Application.php:741
+#: lib/Ajax/Application.php:741 calendars/remote_subscribe.php:33
 #, php-format
 msgid "You have been subscribed to \"%s\" (%s)."
 msgstr "Jūs parakstījāties uz \"%s\" (%s)."
 
 # =====================tiktāl nav, zemāk ir viss ok...
-#: calendars/remote_unsubscribe.php:46 lib/Ajax/Application.php:801
+#: lib/Ajax/Application.php:801 calendars/remote_unsubscribe.php:46
 #, php-format
 msgid "You have been unsubscribed from \"%s\" (%s)."
 msgstr "Jūs atrakstījāties no \"%s\" (%s)."
 
-#: data.php:210
-msgid "You have specified an invalid calendar."
-msgstr "Jūs norādījāt nepareizu kalendāru."
+#: data.php:206
+msgid ""
+"You have specified an invalid calendar or you do not have permission to add "
+"events to the selected calendar."
+msgstr ""
+"Jūs norādījāt nederīgu kalendāru vai arī Jums nav tiesību pievienot "
+"notikumus izvēlētajam kalendāram."
 
 #: attend.php:23
 msgid "You have successfully accepted attendence to this event."
@@ -3494,21 +3494,21 @@ msgstr "Vispirms jāizvēlas adrese."
 msgid "You must specify a URL."
 msgstr "Obligāti jānorāda saite."
 
-#: lib/Kronolith.php:2101
+#: lib/Kronolith.php:2102
 msgid "You must specify a name and a URL."
 msgstr "Obligāti jānorāda nosaukums un saite."
 
-#: lib/Kronolith.php:2545
+#: lib/Kronolith.php:2546
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
 "Jūs pieprasījāt paziņojumu, ja Jūsu kalendāriem ir pievienoti notikumi."
 
-#: lib/Kronolith.php:2555
+#: lib/Kronolith.php:2556
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr "Jūs pieprasījāt paziņojumu, ja no Jūsu kalendāriem ir dzēsti notikumi."
 
-#: lib/Kronolith.php:2550
+#: lib/Kronolith.php:2551
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr "Jūs pieprasījāt paziņojumu, ja Jūsu kalendāros ir laboti notikumi."
 
@@ -3561,7 +3561,7 @@ msgstr "[Organizēt resursu kalendārus]"
 msgid "[Resource Calendars]"
 msgstr "[Resursu kalendāri]"
 
-#: lib/Event.php:2026 lib/Event/Horde.php:265 lib/Event/Ical.php:66
+#: lib/Event.php:2067 lib/Event/Horde.php:265 lib/Event/Ical.php:66
 msgid "[Unnamed event]"
 msgstr "[Nenosaukts notikums]"
 
@@ -3573,7 +3573,7 @@ msgstr "Brīdinājums"
 msgid "_Basic Search"
 msgstr "Meklēšana"
 
-#: lib/Kronolith.php:2846
+#: lib/Kronolith.php:2847
 msgid "_Edit"
 msgstr "Labot"
 
@@ -3601,10 +3601,10 @@ msgstr "_Jauns notikums"
 msgid "_Search"
 msgstr "Meklēt"
 
-#: lib/Application.php:104 templates/index/agenda.inc:9
-#: templates/index/day.inc:9 templates/index/index.inc:47
-#: templates/index/month.inc:7 templates/index/week.inc:8
-#: templates/index/year.inc:8
+#: templates/index/agenda.inc:9 templates/index/day.inc:9
+#: templates/index/index.inc:47 templates/index/month.inc:7
+#: templates/index/week.inc:8 templates/index/year.inc:8
+#: lib/Application.php:104
 msgid "_Today"
 msgstr "Šodien"
 
@@ -3626,7 +3626,7 @@ msgstr "pirms notikuma sākuma"
 msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr "pirms notikuma sākuma. \"0\" nozīmē atslēgtus noklusētos brīdinājumus"
 
-#: lib/Event.php:2024 lib/Event.php:2028
+#: lib/Event.php:2066
 msgid "busy"
 msgstr "aizņemts"
 
@@ -3647,21 +3647,21 @@ msgstr "izpildīts"
 msgid "day"
 msgstr "diena"
 
-#: templates/edit/edit.inc:298 templates/view/view.inc:100
+#: templates/view/view.inc:100 templates/edit/edit.inc:298
 msgid "day(s)"
 msgstr "dienu(as)"
 
+#: templates/index/edit.inc:103 templates/index/task.inc:65
 #: lib/Block/Summary.php:36 lib/Block/Summary.php:37 lib/Block/Summary.php:38
 #: lib/Block/Summary.php:39 lib/Block/Summary.php:40
-#: templates/index/edit.inc:103 templates/index/task.inc:65
 msgid "days"
 msgstr "dienas"
 
-#: data.php:159 templates/data/export.inc:1
+#: data.php:161 templates/data/export.inc:1
 msgid "events.csv"
 msgstr "notikumi.csv"
 
-#: data.php:183
+#: data.php:185
 msgid "events.ics"
 msgstr "events.ics"
 
@@ -3669,8 +3669,8 @@ msgstr "events.ics"
 msgid "hours"
 msgstr "stundas"
 
-#: templates/chunks/calendar.php:107 templates/chunks/calendar.php:121
-#: templates/chunks/calendar.php:196 templates/index/edit.inc:223
+#: templates/index/edit.inc:223 templates/chunks/calendar.php:107
+#: templates/chunks/calendar.php:121 templates/chunks/calendar.php:196
 msgid ""
 "iCalendar is a computer file format which allows internet users to send "
 "meeting requests and tasks to other internet users, via email, or sharing "
@@ -3692,8 +3692,8 @@ msgstr "lasa"
 msgid "minutes"
 msgstr "minūtes"
 
-#: templates/edit/edit.inc:318 templates/edit/edit.inc:324
 #: templates/view/view.inc:112 templates/view/view.inc:114
+#: templates/edit/edit.inc:318 templates/edit/edit.inc:324
 msgid "month(s)"
 msgstr "mēnesi(-šus)"
 
@@ -3706,19 +3706,19 @@ msgstr "vairāk..."
 msgid "on %s at %s"
 msgstr "%s plkst. %s"
 
-#: templates/edit/edit.inc:318 templates/view/view.inc:112
+#: templates/view/view.inc:112 templates/edit/edit.inc:318
 msgid "on the same date"
 msgstr "tajā pašā datumā"
 
-#: templates/edit/edit.inc:324 templates/view/view.inc:114
+#: templates/view/view.inc:114 templates/edit/edit.inc:324
 msgid "on the same weekday"
 msgstr "tajā pašā nedēļas dienā"
 
+#: templates/index/edit.inc:232 templates/index/edit.inc:240
+#: templates/index/index.inc:206 templates/index/task.inc:81
 #: templates/chunks/calendar.php:133 templates/chunks/calendar.php:208
 #: templates/chunks/calendar.php:235 templates/chunks/calendar.php:256
 #: templates/chunks/calendar.php:276 templates/chunks/calendar.php:300
-#: templates/index/edit.inc:232 templates/index/edit.inc:240
-#: templates/index/index.inc:206 templates/index/task.inc:81
 msgid "or"
 msgstr "vai"
 
@@ -3742,7 +3742,7 @@ msgstr "lasīt uzdevumus"
 msgid "recurrences"
 msgstr "atkārtošanās"
 
-#: lib/Kronolith.php:175 templates/mobile/javascript_defs.php:48
+#: templates/mobile/javascript_defs.php:48 lib/Kronolith.php:175
 msgid "select..."
 msgstr "izvēlieties..."
 
@@ -3762,23 +3762,23 @@ msgstr "vCalendar/iCalendar"
 msgid "week"
 msgstr "nedēļa"
 
-#: templates/edit/edit.inc:305 templates/view/view.inc:110
+#: templates/view/view.inc:110 templates/edit/edit.inc:305
 msgid "week(s) on:"
 msgstr "nedēļu(-as) :"
 
-#: lib/Block/Summary.php:42 lib/Block/Summary.php:43 lib/Block/Summary.php:44
 #: templates/index/edit.inc:104 templates/index/task.inc:66
+#: lib/Block/Summary.php:42 lib/Block/Summary.php:43 lib/Block/Summary.php:44
 msgid "weeks"
 msgstr "nedēļas"
 
-#: templates/edit/edit.inc:330 templates/view/view.inc:116
+#: templates/view/view.inc:116 templates/edit/edit.inc:330
 msgid "year(s) on the same date"
 msgstr "gadu(s) tajā pašā datumā"
 
-#: templates/edit/edit.inc:336 templates/view/view.inc:118
+#: templates/view/view.inc:118 templates/edit/edit.inc:336
 msgid "year(s) on the same day of the year"
 msgstr "gadu(s) tajā pašā gada dienā"
 
-#: templates/edit/edit.inc:342 templates/view/view.inc:120
+#: templates/view/view.inc:120 templates/edit/edit.inc:342
 msgid "year(s) on the same weekday and month of the year"
 msgstr "gadu(s) tajā pašā nedēļas dienā un mēnesī"

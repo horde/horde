@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.1.2\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-04-12 11:29+0300\n"
-"PO-Revision-Date: 2012-04-12 11:38+0300\n"
+"POT-Creation-Date: 2012-11-14 23:24+0200\n"
+"PO-Revision-Date: 2012-11-13 15:37+0300\n"
 "Last-Translator: Jānis Eisaks <jancs@dv.lv>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -64,16 +64,16 @@ msgstr "Augoši"
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Ajax/Imple/EditNote.php:45 lib/Form/DeleteNotepad.php:34
-#: lib/Form/DeleteNotepad.php:40
+#: lib/Form/DeleteNotepad.php:34 lib/Form/DeleteNotepad.php:40
+#: lib/Ajax/Imple/EditNote.php:45
 msgid "Cancel"
 msgstr "Atcelt"
 
-#: data.php:49 templates/view/memo.inc:26
+#: data.php:49 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Kategorija"
 
-#: notepads/index.php:34 templates/notepad_list.php:29
+#: templates/notepad_list.php:29 notepads/index.php:34
 msgid "Change Permissions"
 msgstr "Mainīt pieejas tiesības"
 
@@ -109,7 +109,7 @@ msgstr "Izveidot jaunu Piezīmju grāmatu"
 
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/view/memo.inc:32
+#: templates/view/memo.inc:30
 msgid "Created"
 msgstr "Izveidota"
 
@@ -118,7 +118,7 @@ msgid "Date"
 msgstr "Datums"
 
 #
-#: templates/memo/memo.inc:23 templates/view/memo.inc:54
+#: templates/view/memo.inc:52 templates/memo/memo.inc:23
 msgid "Decrypt"
 msgstr "Atšifrēt"
 
@@ -135,8 +135,8 @@ msgstr "Noklusētais šķirošanas kritērijs:"
 msgid "Default sorting direction:"
 msgstr "Noklusētā šķirošanas kārtība:"
 
-#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:16
+#: templates/notepad_list.php:31 templates/view/memo.inc:15
+#: notepads/index.php:35 lib/Form/DeleteNotepad.php:34
 msgid "Delete"
 msgstr "Dzēst"
 
@@ -194,8 +194,8 @@ msgstr "Vai vēlaties papildu apstiprinājumu dzēšot ierakstus?"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:13
+#: templates/notepad_list.php:27 templates/view/memo.inc:12
+#: notepads/index.php:33
 msgid "Edit"
 msgstr "Labot"
 
@@ -210,8 +210,8 @@ msgid "Edit %s"
 msgstr "Labot %s"
 
 #
-#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
-#: templates/list/memo_headers.inc:30
+#: templates/list/memo_headers.inc:30 lib/Block/Summary.php:91
+#: lib/Block/Summary.php:92
 msgid "Edit Note"
 msgstr "Labot Piezīmi"
 
@@ -224,7 +224,7 @@ msgstr "Labot kategorijas un krāsas"
 msgid "Edit: %s"
 msgstr "Labot: %s"
 
-#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
+#: templates/list/memo_summaries.inc:15 lib/Block/Summary.php:113
 msgid "Empty Note"
 msgstr "Tukša piezīme"
 
@@ -270,12 +270,12 @@ msgstr "Kur:"
 #
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/view/memo.inc:39
+#: templates/view/memo.inc:37
 msgid "Last Modified"
 msgstr "Pēdējās izmaiņas"
 
 #
-#: notepads/index.php:39 templates/notepad_list.php:2
+#: templates/notepad_list.php:2 notepads/index.php:39
 msgid "Manage Notepads"
 msgstr "Organizēt piezīmju grāmatas"
 
@@ -298,7 +298,7 @@ msgstr "Pēdējo izmaiņu datums"
 msgid "More Options..."
 msgstr "Papildu iestatījumi..."
 
-#: lib/Api.php:378
+#: lib/Api.php:364
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr "Atrasti vairāki iCalendar komponenti; atbalstīts ir tikai viens vNote."
 
@@ -316,7 +316,7 @@ msgstr "Manas Piezīmes"
 msgid "Name"
 msgstr "Nosaukums"
 
-#: lib/Application.php:133 memo.php:92 memo.php:138
+#: memo.php:92 memo.php:138 lib/Application.php:128
 msgid "New Note"
 msgstr "Jauna piezīme"
 
@@ -324,7 +324,7 @@ msgstr "Jauna piezīme"
 msgid "Next"
 msgstr "Nākošā"
 
-#: lib/Api.php:222 lib/Api.php:371
+#: lib/Api.php:208 lib/Api.php:357
 msgid "No iCalendar data was found."
 msgstr "Nav atrasti iCalendar dati."
 
@@ -371,7 +371,7 @@ msgid "Note _Text"
 msgstr "Piezīmes teksts"
 
 #
-#: memo.php:102 memo.php:143 note/pdf.php:52 view.php:52
+#: memo.php:102 memo.php:143 view.php:52 note/pdf.php:52
 msgid "Note not found."
 msgstr "Nav strodams paziņojumu klausītājs %s"
 
@@ -381,8 +381,8 @@ msgid "Note_pad:"
 msgstr "Piezīmes:"
 
 #
-#: config/prefs.php:53 templates/list/memo_headers.inc:33
-#: templates/notepad_list.php:17
+#: templates/notepad_list.php:17 templates/list/memo_headers.inc:33
+#: config/prefs.php:53
 msgid "Notepad"
 msgstr "Piezīmes"
 
@@ -392,7 +392,7 @@ msgid "Notepad List"
 msgstr "Piezīmju saraksts"
 
 #
-#: lib/Mnemo.php:533
+#: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s piezīmju grāmata"
@@ -401,6 +401,11 @@ msgstr "%s piezīmju grāmata"
 #: templates/panel.inc:33 templates/panel.inc:34
 msgid "Notepads"
 msgstr "Piezīmju grāmatas"
+
+#
+#: lib/Notepads/Kolab.php:38
+msgid "Notes"
+msgstr "Piezīmes"
 
 #
 #: lib/Block/Summary.php:12
@@ -416,8 +421,8 @@ msgstr "Ok"
 # #-#-#-#-#  ingo.po (Ingo H3 (1.1.5))  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: lib/Api.php:105 lib/Api.php:138 lib/Api.php:170 lib/Api.php:201
-#: lib/Api.php:286 lib/Api.php:331 lib/Api.php:354
+#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
+#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
 msgid "Permission Denied"
 msgstr "Pieeja liegta"
 
@@ -435,7 +440,7 @@ msgstr ""
 "rezultātā visas piezīmes šajā piezīmju grāmatā tiks izdzēstas."
 
 #
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "Really delete this note?"
 msgstr "Tiešām dzēst šo piezīmi?"
 
@@ -459,21 +464,21 @@ msgstr "Tiešām dzēst šo piezīmi?"
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
-#: templates/panel.inc:69
+#: templates/panel.inc:69 templates/memo/memo.inc:58
+#: lib/Form/EditNotepad.php:32
 msgid "Save"
 msgstr "Saglabāt"
 
-#: templates/view/memo.inc:11
+#: templates/view/memo.inc:10
 msgid "Save as PDF"
 msgstr "Saglabāt kā PDF"
 
-#: lib/Application.php:166 search.php:22 templates/list/header.inc:4
-#: templates/search/search.inc:4 templates/search/search.inc:27
+#: search.php:22 templates/search/search.inc:4 templates/search/search.inc:27
+#: templates/list/header.inc:4 lib/Application.php:154
 msgid "Search"
 msgstr "Meklēt"
 
-#: list.php:52 notes/index.php:38 stickies.php:52
+#: list.php:52 stickies.php:52 notes/index.php:38
 msgid "Search Results"
 msgstr "Meklēšanas rezultāti"
 
@@ -593,11 +598,11 @@ msgstr "Kļūda importējot datus: %s"
 #
 # #-#-#-#-#  nag.po (Nag 2.1.4)  #-#-#-#-#
 #
-#: lib/Api.php:216 lib/Api.php:365
+#: lib/Api.php:202 lib/Api.php:351
 msgid "There was an error importing the iCalendar data."
 msgstr "Kļūda importējot iCalendar datus."
 
-#: lib/Api.php:53 lib/Api.php:65
+#: lib/Application.php:202
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr "Kļūda dzēšot %s piezīmes. Informācija par kļūmi ierakstīta žurnālā."
@@ -612,7 +617,7 @@ msgstr "Kļūda dzēšot piezīmi: %s."
 msgid "There was an error saving the note: %s"
 msgstr "Kļūda saglabājot piezīmi: %s"
 
-#: note/pdf.php:42 view.php:42
+#: view.php:42 note/pdf.php:42
 #, php-format
 msgid "There was an error viewing this notepad: %s"
 msgstr "Kļūda apskatot šo piezīmju grāmatu: %s"
@@ -642,17 +647,17 @@ msgstr ""
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Šī piezīme ir šifrēta, lūdzu ievadiet paroli"
 
-#: lib/Api.php:280 lib/Driver/Kolab.php:293 lib/Driver/Sql.php:344
+#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
 msgid "This note has been encrypted."
 msgstr "Piezīme ir nošifrēta."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:275 lib/Mnemo.php:276
-#: lib/Mnemo.php:290 lib/Mnemo.php:291 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:27
+#: templates/view/memo.inc:25 templates/list/memo_summaries.inc:20
+#: lib/Mnemo.php:310 lib/Mnemo.php:311 lib/Mnemo.php:325 lib/Mnemo.php:326
+#: lib/Block/Summary.php:116
 msgid "Unfiled"
 msgstr "Neklasificēts"
 
-#: lib/Api.php:249 lib/Api.php:305 lib/Api.php:388
+#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Neatbalstīts satura tips: %s"
@@ -684,7 +689,7 @@ msgstr "Jums nav atļauts dzēst šo piezīmju grāmatu."
 msgid "You do not have permission to edit this note."
 msgstr "Jums nav tiesību labot šo piezīmi."
 
-#: note/pdf.php:46 view.php:46
+#: view.php:46 note/pdf.php:46
 #, php-format
 msgid "You do not have permission to view the notepad %s."
 msgstr "Jums nav tiesību apskatīt piezīmju grāmatau %s."
@@ -716,7 +721,7 @@ msgstr "Kategorija:"
 
 # #-#-#-#-#  mnemo.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/view/memo.inc:16
+#: templates/view/memo.inc:15
 msgid "_Delete"
 msgstr "Dzēst"
 
@@ -725,7 +730,7 @@ msgstr "Dzēst"
 # #-#-#-#-#  turba.po (Turba 2.1.7)  #-#-#-#-#
 # #-#-#-#-#  lv_LV.po (Mnemo 2.1.2)  #-#-#-#-#
 #
-#: templates/view/memo.inc:13
+#: templates/view/memo.inc:12
 msgid "_Edit"
 msgstr "Labot"
 
@@ -753,18 +758,13 @@ msgstr "Piezīmju saraksts"
 msgid "_New Note"
 msgstr "Jauna piezīme"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/view/memo.inc:50 templates/memo/memo.inc:21
 msgid "_Password"
 msgstr "Parole"
 
 #: templates/memo/memo.inc:89
 msgid "_Password:"
 msgstr "Parole:"
-
-#
-#: lib/Application.php:86
-msgid "_Print"
-msgstr "Drukāt"
 
 #: templates/memo/memo.inc:93
 msgid "_Repeat:"
@@ -789,7 +789,7 @@ msgstr "pēc %s"
 msgid "by me"
 msgstr "manis rakstītās"
 
-#: lib/Application.php:153
+#: lib/Application.php:141
 #, php-format
 msgid "in %s"
 msgstr "iekš %s"
