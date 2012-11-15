@@ -347,9 +347,9 @@ HermesCore = {
                 throw $break;
             }.bind(this));
             if (haveSelected) {
-                $('hermesSearchListExport').enable()
+                $('hermesSearchListSubmit').enable()
             } else {
-                $('hermesSearchListExport').disable();
+                $('hermesSearchListSubmit').disable();
             }
         }
     },

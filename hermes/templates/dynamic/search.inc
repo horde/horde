@@ -112,6 +112,6 @@
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
   </div>
   <div id="hermesTimeListControls" class="horde-form-buttons">
-    <input id="hermesSearchListExport" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Export")?>" />
+    <input id="hermesSearchListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit")?>" />
   </div>
 </div>
