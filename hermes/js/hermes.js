@@ -26,6 +26,7 @@ HermesCore = {
     sortDir: 'up',
     today: null,
     redBoxLoading: false,
+    fromSearch: false,
 
     onException: function(parentfunc, r, e)
     {
@@ -388,6 +389,7 @@ HermesCore = {
         $('hermesTimeFormBillable').setValue(slice.b == 1);
 
         // We might be on the search form when we click edit.
+        this.fromSearch = (this.view == 'search');
         this.go('time');
     },
 
@@ -461,10 +463,14 @@ HermesCore = {
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
      */
-    replaceSliceInCache: function(sid, slice)
+    replaceSliceInCache: function(sid, slice, cache = 'time')
     {
-        this.removeSliceFromCache(sid);
-        this.slices.push(slice);
+        this.removeSliceFromCache(sid, cache);
+        if (cache == 'time') {
+            this.slices.push(slice);
+        } else if (cache == 'search') {
+            this.searchSlices.push(slice);
+        }
     },
 
     /**
@@ -472,12 +478,20 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid)
+    removeSliceFromCache: function(sid, cache = 'time')
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                this.slices.splice(i, 1);
+            if (c[i].i == sid) {
+                c.splice(i, 1);
                 break;
             }
         }
@@ -611,13 +625,21 @@ HermesCore = {
         $('hermesLoadingTime').hide();
         if (this.getSliceFromCache(sid)) {
             this.replaceSliceInCache(sid, r);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
         }
-        this.reverseSort = false;
-        this.updateView(this.view);
-        this.buildTimeTable();
         $('hermesTimeForm').reset();
         $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
+
+        if (this.fromSearch) {
+            this.fromSearch = false;
+            this.replaceSliceInCache(sid, r, 'search');
+            this.updateView('search');
+            this.buildSearchResultsTable();
+            this.go('search');
+        }
     },
 
     /**
@@ -836,13 +858,24 @@ HermesCore = {
     {
         switch (view) {
         case 'time':
-            var tbody = $('hermesTimeListInternal');
-            tbody.childElements().each(function(row) {
+            $('hermesTimeListInternal').childElements().each(function(row) {
                 row.purge();
                 row.remove();
             });
             if ($('hermesTimeListHeader')) {
                 $('hermesTimeListHeader').select('div').each(function(d) {
+                   d.removeClassName('sortup');
+                   d.removeClassName('sortdown');
+                });
+            }
+            break;
+        case 'search':
+            $('hermesSearchListInternal').childElements().each(function(row) {
+                row.purge();
+                row.remove();
+            });
+            if ($('hermesSearchListHeader')) {
+                $('hermesSearchListHeader').select('div').each(function(d) {
                    d.removeClassName('sortup');
                    d.removeClassName('sortdown');
                 });
