@@ -29,9 +29,9 @@
           <?php echo _("Client")?>*
           <?php echo Hermes::getClientSelect('hermesSearchFormClient', true);?>
         </label>
-        <label for="hermesTimeFormCostobject">
+        <label for="hermesSearchFormCostobject">
           <?php echo _("Cost Object")?>
-          <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
+          <select type="text" id="hermesSearchFormCostobject" name="costobject"></select>
         </label>
       </fieldset>
       <fieldset>
