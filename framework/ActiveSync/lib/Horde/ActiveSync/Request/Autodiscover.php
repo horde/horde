@@ -46,7 +46,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 list($email, $pass) = explode(':', $hash, 2);
             }
         } else {
-          $email = $values[2]['value'];
+            $email = $values[2]['value'];
         }
 
         $username = $this->_driver->getUsernameFromEmail($email);
@@ -55,11 +55,16 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         }
 
         if (!empty($values)) {
-            $params = array(
-              'request_schema' => $values[0]['attributes']['XMLNS'],
-              'response_schema' => $values[3]['value']);
+            $params = array('request_schema' => $values[0]['attributes']['XMLNS']);
+            // Response Schema is not in a set place.
+            foreach ($values as $value) {
+                if ($value['tag'] == 'ACCEPTABLERESPONSESCHEMA') {
+                    $params['response_schema'] = $value['value'];
+                    break;
+                }
+            }
         } else {
-          $params = array();
+            $params = array();
         }
         $results = $this->_driver->autoDiscover($params);
 
@@ -70,8 +75,9 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         } else {
             // The backend is taking control of the XML.
             fwrite(
-              $this->_encoder->getStream(),
-              $results['raw_xml']);
+                $this->_encoder->getStream(),
+                $results['raw_xml']
+            );
         }
 
         return 'text/xml';
