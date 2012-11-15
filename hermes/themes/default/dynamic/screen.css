@@ -116,7 +116,6 @@ html, body {
 /* Timelist */
 .hermesTimeListSelect {
     float: left;
-    width: 18px;
     white-space: pre-wrap;
 }
 .hermesTimeListSelect:hover {
@@ -124,7 +123,6 @@ html, body {
 }
 .hermesTimeListUnselectable {
     float: left;
-    width: 38px;
     white-space: pre-wrap;
 }
 #hermesTimeListHeader, #hermesSearchListHeader {
@@ -235,7 +233,7 @@ div.hermesTimeListEmployee {
     white-space: pre-wrap;
     overflow: hidden;
 }
-div.hermesTimeListSelect, div.hermesTimeListBill {
+div.hermesTimeListSelect, div.hermesTimeListBill, div.hermesTimeListUnselectable {
     width: 3%;
 }
 div.hermesTimeListHours {
