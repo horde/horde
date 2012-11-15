@@ -137,11 +137,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
                 // Missing required response_schema
                 return $this->_buildFailureResponse($properties['email'], '600');
             }
-            if (stripos($properties['response_schema'], 'autodiscover/mobilesync/responseschema/2006') === false) {
-                // We only support mobilesync for now, tell the device we can't
-                // locate a service for the requested schema.
-                return $this->_buildFailureResponse($properties['email'], '601');
-            }
+
             $xml = '<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
                 <Response xmlns="' . $properties['response_schema'] . '">
                 <User>
