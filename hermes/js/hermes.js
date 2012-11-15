@@ -188,6 +188,7 @@ HermesCore = {
 
             // Slice list actions
             case 'hermesTimeListSubmit':
+            case 'hermesSearchListSubmit':
                 this.submitSlices();
                 e.stop();
                 return;
@@ -765,10 +766,18 @@ HermesCore = {
     submitSlices: function()
     {
         var sliceIds = [],
-        slices = [];
+        slices = [],
+        elt;
 
-        $('hermesLoadingTime').show();
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            elt = $('hermesTimeListInternal');
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            elt = $('hermesSearchListInternal');
+        }
+
+        elt.select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
         }.bind(this));
@@ -787,8 +796,12 @@ HermesCore = {
      */
     submitSlicesCallback: function(slices)
     {
-        $('hermesLoadingTime').hide();
-        slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        if (this.view == 'time') {
+            $('hermesLoadingTime').hide();
+            slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').hide();
+        }
         this.checkSelected();
     },
 
@@ -802,7 +815,6 @@ HermesCore = {
         switch (view) {
         case 'time':
             var tbody = $('hermesTimeListInternal');
-            // TODO: Probably more effecient way
             tbody.childElements().each(function(row) {
                 row.purge();
                 row.remove();
