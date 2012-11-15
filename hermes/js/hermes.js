@@ -252,11 +252,13 @@ HermesCore = {
             }
 
             if (elt.hasClassName('hermesTimeListSelect')) {
-                if (elt.up().identify() == 'hermesTimeListHeader') {
+                if (elt.up().identify() == 'hermesTimeListHeader' ||
+                    elt.up().identify() == 'hermesSearchListHeader') {
                     this.toggleAllRows(elt);
                     e.stop();
                     return;
                 }
+
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
@@ -296,11 +298,16 @@ HermesCore = {
     // elt Element for the checkall checkbox
     toggleAllRows: function(elt)
     {
-        var select = false;
+        var select = false, target;
         if (elt.hasClassName('hermesUnselectedSlice')) {
            select = true;
         }
-        $('hermesTimeListInternal').select('.hermesTimeListRow').each(function(e) {
+        if (elt.up().identify() == 'hermesTimeListHeader') {
+            target = $('hermesTimeListInternal');
+        } else {
+            target = $('hermesSearchListInternal');
+        }
+        target.select('.hermesTimeListRow').each(function(e) {
             var c = e.down();
             if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
