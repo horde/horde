@@ -1028,7 +1028,7 @@ HermesCore = {
         row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
         row.store('sid', slice.i);
-        if (slice.x) {
+        if (!slice.x) {
             row.down().removeClassName('hermesUnselectedSlice')
                 .removeClassName('hermesTimeListSelect')
                 .addClassName('hermesTimeListUnselectable');
