@@ -162,9 +162,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * Fetch time slices
+     * Fetch time slices with optional filter.
      *
-     * @param array $filters
+     * @param array $filters  An array of properties to filter on. Each entry
+     *                        is a field => value format. Possible field values:
+     *                        client, jobtype, submitted, exported, billable,
+     *                        start, end, employee, id, costobject.
      * @param array $fields
      *
      * @return array  Array of timeslice objects
