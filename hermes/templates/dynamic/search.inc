@@ -41,6 +41,30 @@
         <input class="input" type="text" name="before_date" id="hermesSearchFormBeforeDate" size="10" />
         <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormBeforePicker" class="hermesDatePicker"') ?>
       </label><span class="hermesSeparator">|</span>
+      <label for="hermesSearchFormSubmitted">
+         <?php echo _("Submitted") ?>
+         <select name="hermesSearchFormSubmitted">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
+      <label for="hermesSearchFormExported">
+         <?php echo _("Exported") ?>
+         <select name="hermesSearchFormExported">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
+      <label for="hermesSearchFormBillable">
+         <?php echo _("Billable") ?>
+         <select name="hermesSearchFormBillable">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
     </div>
     <div class="horde-form-buttons">
       <input id="hermesSearch" class="horde-default" type="submit" value="<?php echo _("Search")?>" />
