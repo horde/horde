@@ -1060,7 +1060,9 @@ HermesCore = {
         if (!slice.x) {
             row.down().removeClassName('hermesUnselectedSlice')
                 .removeClassName('hermesTimeListSelect')
-                .addClassName('hermesTimeListUnselectable');
+                .addClassName('hermesTimeListUnselectable')
+                .next().next().next().next().next().next().next().next().next()
+                .update();
         }
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
