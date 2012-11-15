@@ -31,7 +31,7 @@
         </label>
         <label for="hermesSearchFormCostobject">
           <?php echo _("Cost Object")?>
-          <select type="text" id="hermesSearchFormCostobject" name="costobject"></select>
+          <select type="text" id="hermesSearchFormCostobject" name="costobject" multiple="multiple"></select>
         </label>
       </fieldset>
       <fieldset>
