@@ -135,7 +135,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         } elseif (stripos($properties['request_schema'], 'autodiscover/outlook') !== false) {
             if (empty($properties['response_schema'])) {
                 // Missing required response_schema
-                return $this->_buildFailureResponse($properties['email'], '600');
+                return $this->_buildFailureResponse($properties['email'], '600', 'http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a');
             }
 
             $xml = '<Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
@@ -191,7 +191,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
             return $xml;
         } else {
           // Unknown request.
-          return $this->_buildFailureResponse($properties['email'], '600');
+          return $this->_buildFailureResponse($properties['email'], '600', $properties['response_schema']);
         }
     }
 
@@ -205,11 +205,11 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      *
      * @return string  The XML to send to the client.
      */
-    protected function _buildFailureResponse($email, $status)
+    protected function _buildFailureResponse($email, $status, $response_schema)
     {
         return '<?xml version="1.0" encoding="utf-8"?>
           <Autodiscover xmlns="http://schemas.microsoft.com/exchange/autodiscover/responseschema/2006">
-            <Response xmlns="http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006">
+            <Response xmlns="' . $response_schema . '">
               <Culture>en:us</Culture>
               <User>
                 <EMailAddress>' . $email . '</EMailAddress>
