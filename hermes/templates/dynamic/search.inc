@@ -75,7 +75,7 @@
     <!-- </div> -->
     <div class="horde-form-buttons">
       <input id="hermesSearch" class="horde-default" type="submit" value="<?php echo _("Search")?>" />
-      <input id="hermesTimeReset" type="reset" value ="<?php echo _("Reset") ?>" />
+      <input id="hermesSearchReset" type="reset" value ="<?php echo _("Reset") ?>" />
     </div>
   </form>
   <!-- End Search Form -->

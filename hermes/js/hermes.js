@@ -185,7 +185,10 @@ HermesCore = {
                 $('hermesTimeFormId').value = 0;
                 e.stop();
                 return;
-
+            case 'hermesSearchReset':
+                $('hermesSearchForm').reset();
+                e.stop();
+                return;
             // Slice list actions
             case 'hermesTimeListSubmit':
             case 'hermesSearchListSubmit':
