@@ -144,7 +144,7 @@ html, body {
 }
 #hermesTimeListHeader div.sortup a, #hermesTimeListHeader div.sortdown a,
 #hermesSearchListHeader div.sortup a, #hermesSearchListHeader div.sortdown a {
-    padding-left: 14px;
+    padding-left: 18px;
 }
 
 /* Body of timelist */
