@@ -781,7 +781,13 @@ var DimpCompose = {
             return;
         }
 
-        var cmp = $('composeMessageParent').getLayout(), mah;
+        var cmp = $('composeMessageParent'), mah;
+
+        if (!cmp) {
+            return;
+        }
+
+        cmp = cmp.getLayout();
 
         try {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
