@@ -6,8 +6,8 @@
       <label for="hermesExportFormat"><?php echo _("Select the export format")?>
         <select name="format" id="hermesExportFormat">
           <option value="<?php echo Horde_Data::EXPORT_CSV ?>"><?php echo _("Comma-Separated Variable (.csv)") ?></option>
-          <!--<option value="Hermesxls"><?php echo _("Microsoft Excel (.xls)") ?></option>
-          <option value="Iif"><?php echo _("QuickBooks (.iif)") ?></option>-->
+          <option value="xls"><?php echo _("Microsoft Excel (.xls)") ?></option>
+          <option value="iif"><?php echo _("QuickBooks (.iif)") ?></option>
           <option value="<?php echo Horde_Data::EXPORT_TSV ?>"><?php echo _("Tab-Separated Variable (.tsv, .txt)") ?></option>
         </select>
       </label>

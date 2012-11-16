@@ -61,7 +61,6 @@ class Hermes_Data_Iif extends Horde_Data_Base
         $this->_mapped = true;
 
         foreach ($this->_rawData as &$row) {
-            $row = $row->toArray();
             $row['description'] = str_replace(array("\r", "\n"), array('', ' '), $row['description']);
             $row['note'] = str_replace(array("\r", "\n"), array('', ' '), $row['note']);
             $this->_iifData[] = array(

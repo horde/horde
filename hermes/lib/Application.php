@@ -85,28 +85,30 @@ class Hermes_Application extends Horde_Registry_Application
             $exportHours = Hermes::makeExportHours($hours);
             switch ($vars->f) {
             case Horde_Data::EXPORT_CSV:
-                $data = new Hermes_Data_Csv(
-                    $injector->getInstance('Horde_Core_Data_Storage'),
-                    array(
-                        'browser' => $injector->getInstance('Horde_Browser'),
-                        'vars' => Horde_Variables::getDefaultVariables()
-                    )
-                );
-                $file = 'time.csv';
+                $class = 'Hermes_Data_Csv';
+                $ext = 'csv';
                 break;
             case Horde_Data::EXPORT_TSV:
-                $data = new Hermes_Data_Tsv(
+                $class = 'Hermes_Data_Tsv';
+                $ext = 'tsv';
+                break;
+            case 'xls':
+                $class = 'Hermes_Data_Xls';
+                $ext = 'xls';
+                break;
+            case 'iif':
+                $class = 'Hermes_Data_Iif';
+                $ext = 'iif';
+                break;
+            }
+            $data = new $class(
                     $injector->getInstance('Horde_Core_Data_Storage'),
                     array(
                         'browser' => $injector->getInstance('Horde_Browser'),
                         'vars' => Horde_Variables::getDefaultVariables()
                     )
                 );
-                $file = 'time.tsv';
-                break;
-            }
-
-            $data->exportFile($file, $exportHours, true);
+            $data->exportFile('time.' . $ext, $exportHours, true);
 
         if ($vars->m) {
             $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
