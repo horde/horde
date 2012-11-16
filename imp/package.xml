@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.
 * [mms] Add message thread view to dynamic mailbox preview.
 * [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 * [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
@@ -2869,6 +2870,7 @@
    <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.
 * [mms] Add message thread view to dynamic mailbox preview.
 * [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 * [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.

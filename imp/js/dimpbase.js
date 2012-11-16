@@ -9,7 +9,7 @@
 
 var DimpBase = {
     // Vars used and defaulting to null/false:
-    //   expandmbox, pollPE, pp, resize, rownum, search,
+    //   expandmbox, init, pollPE, pp, resize, rownum, search,
     //   searchbar_time, searchbar_time_mins, splitbar, sort_init, switchmbox,
     //   template, uid, view, viewaction, viewport, viewswitch
 
@@ -412,8 +412,14 @@ var DimpBase = {
             ajax: function(params) {
                 /* Store the requestid locally, so we don't need to
                  * round-trip to the server. We'll re-add it later. */
-                var r_id = params.unset('requestid');
-                DimpCore.doAction('viewPort', params, {
+                var action, r_id = params.unset('requestid');
+                if (this.init) {
+                    action = 'viewPort';
+                } else {
+                    action = 'dynamicInit';
+                    this.init = true;
+                }
+                DimpCore.doAction(action, params, {
                     loading: 'viewport'
                 }).rid = r_id;
             },
@@ -3710,7 +3716,8 @@ var DimpBase = {
         /* Store these text strings for updating purposes. */
         //DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
 
-        /* Initialize the starting page. */
+        /* Initialize the starting page. The initial call to viewPort will
+         * return the mailbox list and pending notifications. */
         tmp = decodeURIComponent(location.hash);
         if (!tmp.empty() && tmp.startsWith('#')) {
             tmp = (tmp.length == 1) ? "" : tmp.substring(1);
@@ -3724,10 +3731,6 @@ var DimpBase = {
         } else {
             this.go();
         }
-
-        /* Create the folder list. Any pending notifications will be caught
-         * via the return from this call. */
-        this._listMboxes({ initial: 1, mboxes: this.view });
 
         /* Add popdown menus. */
         DimpCore.addPopdownButton('button_template', 'template');

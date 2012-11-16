@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Initialize viewport and mailbox list in single AJAX call when initially
+      loading the dynamic mailbox view.
 [mms] Add message thread view to dynamic mailbox preview.
 [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
 [mms] Collapse multiple mailbox export options in dynamic mailbox view to

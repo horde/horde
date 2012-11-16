@@ -353,6 +353,25 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
+     * AJAX action: Initialize dynamic view.
+     *
+     * @see IMP_Ajax_Application_Handler_Common#viewPort()
+     * @see listMailboxes()
+     *
+     * @return boolean  True.
+     */
+    public function dynamicInit()
+    {
+        $this->_base->callAction('viewPort');
+
+        $this->vars->initial = 1;
+        $this->vars->mboxes = Horde_Serialize::serialize(array($this->vars->mbox), Horde_Serialize::JSON);
+        $this->listMailboxes();
+
+        return true;
+    }
+
+    /**
      * AJAX action: Expand mailboxes (saves expanded state in prefs).
      *
      * Variables used:
