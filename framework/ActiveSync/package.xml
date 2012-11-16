@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-11</date>
- <time>17:30:01</time>
+ <date>2012-11-16</date>
+ <time>12:06:26</time>
  <version>
   <release>2.0.6</release>
   <api>2.0.0</api>
@@ -141,6 +141,12 @@
       <file name="Horde_ActiveSync.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
     <file name="Horde_ActiveSync.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="migration">
@@ -177,11 +183,13 @@
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
       <file name="ContactTest.php" role="test" />
       <file name="FolderSyncTest.php" role="test" />
       <file name="HordeDriverTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
@@ -341,6 +349,8 @@
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_ActiveSync.po" name="locale/nl/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="migration/1_horde_activesync_base_tables.php" name="migration/Horde/ActiveSync/1_horde_activesync_base_tables.php" />
    <install as="migration/2_horde_activesync_peruserpolicykey.php" name="migration/Horde/ActiveSync/2_horde_activesync_peruserpolicykey.php" />
    <install as="migration/3_horde_activesync_clientidmap.php" name="migration/Horde/ActiveSync/3_horde_activesync_clientidmap.php" />
@@ -355,11 +365,13 @@
    <install as="migration/12_horde_activesync_longtextcachefield.php" name="migration/Horde/ActiveSync/12_horde_activesync_longtextcachefield.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
+   <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
    <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
    <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
+   <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
@@ -912,7 +924,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-11</date>
+   <date>2012-11-16</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
