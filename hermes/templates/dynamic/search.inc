@@ -83,6 +83,7 @@
   <!-- Search results grid -->
   <div class="header"><?php echo _("Search Results") ?>
     <span class="QuickFinderWrapper"><input type="text" name="quicksearchS" id="quicksearchS" for="hermesSearchListInternal" empty="hermesSearchListEmpty" /></span>
+    <input id="hermesExport" class="horde-button" type="submit" value="<?php echo _("Export Results")?>" />
   </div>
 
   <div id="hermesSearchListHeader">

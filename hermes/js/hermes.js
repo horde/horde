@@ -236,9 +236,23 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesExportCancel':
             case 'hermesTimerCancel':
                 this.closeRedBox();
                 e.stop();
+                return;
+
+            // Export
+            case 'hermesExport':
+                RedBox.showHtml($('hermesExportDialog').show());
+                return;
+
+            case 'hermesDoExport':
+                var keys = this.getSearchResultKeys(),
+                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT_CSV, {
+                      'm': $F('hermesExportMark'),
+                      's': keys.join(',') });
+                HordeCore.redirect(url);
                 return;
 
             // Search Form
@@ -495,6 +509,18 @@ HermesCore = {
                 break;
             }
         }
+    },
+
+    getSearchResultKeys: function()
+    {
+        var s = this.searchSlices.length,
+            c = this.searchSlices,
+            k = [];
+        for (var i = 0; i <= (s - 1); i++) {
+            k.push(c[i].i);
+        }
+
+        return k;
     },
 
     /**

@@ -55,6 +55,9 @@ class Hermes_Ajax
 
         /* Variables used in core javascript files. */
         $js_vars['conf'] = array(
+            'URI_EXPORT_CSV' => (string)$registry->downloadUrl(
+                'time.csv',
+                array('actionID' => 'export', 'exportID' => Horde_Data::EXPORT_CSV))->setRaw(true),
             'images' => array(
                 'timerlog' => (string)Horde_Themes::img('log.png'),
                 'timerplay' => (string)Horde_Themes::img('play.png'),
