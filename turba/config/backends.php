@@ -582,7 +582,7 @@ $cfgSources['kolab'] = array(
     'params' => array(
     ),
     'map' => array(
-        '__key' => 'uid',
+        '__key' => '__key',
         '__uid' => 'uid',
         '__type' => '__type',
         '__members' => '__members',

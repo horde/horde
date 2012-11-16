@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-12</date>
- <time>15:30:19</time>
+ <date>2012-11-15</date>
+ <time>21:10:41</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -68,10 +68,10 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Data">
-     <file name="Hermescsv.php" role="horde" />
-     <file name="Hermestsv.php" role="horde" />
+     <file name="Csv.php" role="horde" />
      <file name="Hermesxls.php" role="horde" />
      <file name="Iif.php" role="horde" />
+     <file name="Tsv.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
      <file name="Sql.php" role="horde" />
@@ -171,6 +171,7 @@
      <file name="list.inc" role="horde" />
     </dir> <!-- /templates/deliverables -->
     <dir name="dynamic">
+     <file name="export.inc" role="horde" />
      <file name="index.inc" role="horde" />
      <file name="search.inc" role="horde" />
      <file name="sidebar.html.php" role="horde" />
@@ -399,10 +400,10 @@
    <install as="hermes/lib/Table.php" name="lib/Table.php" />
    <install as="hermes/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="hermes/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
-   <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
-   <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
+   <install as="hermes/lib/Data/Csv.php" name="lib/Data/Csv.php" />
    <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
    <install as="hermes/lib/Data/Iif.php" name="lib/Data/Iif.php" />
+   <install as="hermes/lib/Data/Tsv.php" name="lib/Data/Tsv.php" />
    <install as="hermes/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="hermes/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="hermes/lib/Form/Deliverable.php" name="lib/Form/Deliverable.php" />
@@ -440,6 +441,7 @@
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
+   <install as="hermes/templates/dynamic/export.inc" name="templates/dynamic/export.inc" />
    <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
    <install as="hermes/templates/dynamic/search.inc" name="templates/dynamic/search.inc" />
    <install as="hermes/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />

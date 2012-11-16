@@ -51,18 +51,6 @@ extends Horde_Kolab_Format_TestCase
         );
     }
 
-    public function testLoadTimezoneValue()
-    {
-        $attributes = $this->load(
-            '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime tz="Europe/Berlin">2011-06-29</datetime>c</kolab>'
-        );
-        $this->assertEquals(
-            '2011-06-29T00:00:00+02:00',
-            $attributes['datetime']['date']->format('c')
-        );
-    }
-
     public function testLoadStrangeDateTime()
     {
         $attributes = $this->load(
@@ -125,7 +113,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><datetime tz="UTC">2011-06-29T11:11:11Z</datetime></kolab>
+<kolab version="1.0"><datetime>2011-06-29T11:11:11Z</datetime></kolab>
 ',
             $this->saveToXml(
                 null,
@@ -145,7 +133,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0"><datetime tz="Europe/Berlin">2011-06-29T11:11:11</datetime></kolab>
+<kolab version="1.0"><datetime>2011-06-29T09:11:11Z</datetime></kolab>
 ',
             $this->saveToXml(
                 null,
@@ -165,7 +153,7 @@ extends Horde_Kolab_Format_TestCase
     {
         $this->assertEquals(
             '<?xml version="1.0" encoding="UTF-8"?>
-<kolab version="1.0" a="b"><datetime type="strange" tz="Europe/Berlin">2011-06-29<b/><a/></datetime>c</kolab>
+<kolab version="1.0" a="b"><datetime type="strange">2011-06-29<b/><a/></datetime>c</kolab>
 ',
             $this->saveToXml(
                 '<?xml version="1.0" encoding="UTF-8"?>

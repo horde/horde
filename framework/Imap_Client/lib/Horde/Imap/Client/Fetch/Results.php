@@ -1,18 +1,26 @@
 <?php
 /**
- * Fetch results object for use with Horde_Imap_Client_Base#fetch().
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Fetch results object for use with Horde_Imap_Client_Base#fetch().
  *
- * @property integer $key_type  The key type (sequence or UID).
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ *
+ * @property-read integer $key_type  The key type (sequence or UID).
  */
 class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, IteratorAggregate
 {

@@ -34,7 +34,7 @@ $template->noquota = true;
 $template->quotaerror = false;
 $template->quotadisplay = false;
 $template->quotagraph = false;
-if (Gollem::$backend['quota_val'] > -1) {
+if (!empty(Gollem::$backend['quota'])) {
     $template->noquota = false;
     try {
         $quota_info = $injector->getInstance('Gollem_Vfs')->getQuota();

@@ -253,7 +253,8 @@ if (isset($update_form) && $auth->hasCapability('list')) {
 } elseif (isset($removequeued_form)) {
     require HORDE_TEMPLATES . '/admin/user/removequeued.inc';
 } elseif ($auth->hasCapability('add')) {
-    require HORDE_TEMPLATES . '/admin/user/add.inc';
+    $vars->form = 'add';
+    $addForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
     if ($conf['signup']['allow'] && $conf['signup']['approve']) {
         require HORDE_TEMPLATES . '/admin/user/approve.inc';
     }

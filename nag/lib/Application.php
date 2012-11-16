@@ -81,7 +81,7 @@ class Nag_Application extends Horde_Registry_Application
      *
      * @param Horde_Menu  The menu object.
      */
-    public function menu(Horde_Menu $menu)
+    public function menu($menu)
     {
         global $conf;
 

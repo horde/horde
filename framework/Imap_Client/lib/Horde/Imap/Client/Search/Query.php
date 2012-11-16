@@ -1,18 +1,26 @@
 <?php
 /**
- * Abstraction of the IMAP4rev1 search criteria (see RFC 3501 [6.4.4]).
- * Allows translation between abstracted search criteria and a generated IMAP
- * search criteria string suitable for sending to a remote IMAP server.
- *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Abstraction of the IMAP4rev1 search criteria (see RFC 3501 [6.4.4]).
+ * Allows translation between abstracted search criteria and a generated IMAP
+ * search criteria string suitable for sending to a remote IMAP server.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Search_Query implements Serializable
 {

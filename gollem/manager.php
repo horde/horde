@@ -25,7 +25,7 @@ $vars = Horde_Variables::getDefaultVariables();
 /* Set directory. */
 try {
     Gollem::changeDir();
-} catch (Horde_Vfs_Exception $e) {
+} catch (Gollem_Exception $e) {
     $notification->push($e);
 }
 $old_dir = Gollem::$backend['dir'];

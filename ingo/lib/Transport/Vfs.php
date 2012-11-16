@@ -110,16 +110,9 @@ class Ingo_Transport_Vfs extends Ingo_Transport
         if (!empty($this->_params['vfs_path'])) {
             $user = Ingo::getUser();
             $domain = Ingo::getDomain();
-            if ($GLOBALS['session']->get('ingo', 'backend/hordeauth') !== 'full') {
-                $pos = strpos($user, '@');
-                if ($pos !== false) {
-                    $domain = substr($user, $pos + 1);
-                    $user = substr($user, 0, $pos);
-                }
-            }
             $this->_params['vfs_path'] = str_replace(
                 array('%u', '%d', '%U'),
-                array($user, $domain, $this->_params['username']),
+                array(Ingo::getUser(), Ingo::getDomain(), $this->_params['username']),
                 $this->_params['vfs_path']);
         }
 

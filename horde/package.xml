@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-12</date>
- <time>18:55:34</time>
+ <date>2012-11-14</date>
+ <time>23:24:46</time>
  <version>
-  <release>5.0.2</release>
+  <release>5.0.3</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix removing user in admin actions (Bug #11690).
-* [jan] Allow to set custom search field label.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -646,7 +645,6 @@
       <file name="list.html.php" role="horde" />
      </dir> <!-- /templates/admin/locks -->
      <dir name="user">
-      <file name="add.inc" role="horde" />
       <file name="approve.inc" role="horde" />
       <file name="clear.inc" role="horde" />
       <file name="list.inc" role="horde" />
@@ -2203,7 +2201,6 @@
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
    <install as="templates/admin/locks/list.html.php" name="templates/admin/locks/list.html.php" />
-   <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
    <install as="templates/admin/user/approve.inc" name="templates/admin/user/approve.inc" />
    <install as="templates/admin/user/clear.inc" name="templates/admin/user/clear.inc" />
    <install as="templates/admin/user/list.inc" name="templates/admin/user/list.inc" />
@@ -3543,11 +3540,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-12</date>
+   <date>2012-11-14</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix adding user in admin actions (Bug #11690).
 * [mms] Fix removing user in admin actions (Bug #11690).
 * [jan] Allow to set custom search field label.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

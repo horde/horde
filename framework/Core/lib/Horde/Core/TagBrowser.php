@@ -228,8 +228,7 @@ abstract class Horde_Core_TagBrowser
             $filter = array();
         }
         if (empty($this->_results) || $this->_dirty) {
-            $this->_results = $this->_tagger
-                    ->search($this->_tags, $filter);
+            return $this->_tagger->search($this->_tags, $filter);
         }
     }
 

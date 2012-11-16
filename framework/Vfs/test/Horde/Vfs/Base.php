@@ -156,6 +156,11 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      */
     protected function _copy()
     {
+        try {
+            self::$vfs->copy('test/dir1', 'file1', 'test/dir1', true);
+            $this->fail('Exception expected');
+        } catch (Horde_Vfs_Exception $e) {
+        }
         self::$vfs->copy('test/dir1', 'file1', 'test/dir4', true);
         $this->assertTrue(self::$vfs->exists('test/dir1', 'file1'));
         $this->assertTrue(self::$vfs->exists('test/dir4', 'file1'));
@@ -192,6 +197,7 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      *     file1: content1_1
      *     file2: __FILE__
      *   dir2/
+     *     dir5/
      *     file3: content1_1
      *   dir3/
      *     file1: content3_1
@@ -204,6 +210,10 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         self::$vfs->move('test/dir3', 'file3', 'test/dir2');
         $this->assertFalse(self::$vfs->exists('test/dir3', 'file3'));
         $this->assertTrue(self::$vfs->exists('test/dir2', 'file3'));
+        self::$vfs->createFolder('test', 'dir5');
+        self::$vfs->move('test', 'dir5', 'test/dir2');
+        $this->assertFalse(self::$vfs->exists('test', 'dir5'));
+        $this->assertTrue(self::$vfs->exists('test/dir2', 'dir5'));
     }
 
     /**
@@ -213,6 +223,7 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      *     file1: content1_1
      *     file2: __FILE__
      *   dir2/
+     *     dir5/
      *   dir3/
      *     file1: content3_1
      *     file2: __FILE__
@@ -239,6 +250,7 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
      *     file1: content1_1
      *     file2: __FILE__
      *   dir2/
+     *     dir5/
      *   file1: content1
      */
     protected function _deleteFolder()
@@ -272,7 +284,7 @@ class Horde_Vfs_Test_Base extends Horde_Test_Case
         self::$vfs->copy('test/dir1', 'file2', 'test/dir2');
         self::$vfs->createFolder('test/dir2', 'dir2_1');
         $this->assertEquals(
-            array('dir2_1', 'file1', 'file2'),
+            array('dir2_1', 'dir5', 'file1', 'file2'),
             array_keys($this->_sort(self::$vfs->listFolder('test/dir2'))));
         self::$vfs->emptyFolder('test/dir2');
         $this->assertFalse(self::$vfs->exists('test/dir2', 'file1'));

@@ -116,11 +116,14 @@ html, body {
 /* Timelist */
 .hermesTimeListSelect {
     float: left;
-    width: 18px;
     white-space: pre-wrap;
 }
 .hermesTimeListSelect:hover {
     background: url("../graphics/checkbox_over.png") no-repeat center;
+}
+.hermesTimeListUnselectable {
+    float: left;
+    white-space: pre-wrap;
 }
 #hermesTimeListHeader, #hermesSearchListHeader {
     width: 100%;
@@ -144,7 +147,7 @@ html, body {
 }
 #hermesTimeListHeader div.sortup a, #hermesTimeListHeader div.sortdown a,
 #hermesSearchListHeader div.sortup a, #hermesSearchListHeader div.sortdown a {
-    padding-left: 14px;
+    padding-left: 18px;
 }
 
 /* Body of timelist */
@@ -174,10 +177,10 @@ html, body {
   background:  url('../graphics/delete.png') no-repeat scroll 0 0 transparent;
 }
 
-#hermesTimeListBody .hermesTimeListRow .hermesTimeSliceOptions {
+.hermesTimeListRow .hermesTimeSliceOptions {
     visibility: hidden;
 }
-#hermesTimeListBody .hermesTimeListRow:hover .hermesTimeSliceOptions {
+.hermesTimeListRow:hover .hermesTimeSliceOptions {
     visibility: visible;
 }
 .hermesUnselectedSlice {
@@ -230,7 +233,7 @@ div.hermesTimeListEmployee {
     white-space: pre-wrap;
     overflow: hidden;
 }
-div.hermesTimeListSelect, div.hermesTimeListBill {
+div.hermesTimeListSelect, div.hermesTimeListBill, div.hermesTimeListUnselectable {
     width: 3%;
 }
 div.hermesTimeListHours {
@@ -241,11 +244,12 @@ div.hermesTimeListEmployee {
     width: 10%;
 }
 div.hermesTimeListCostObject, div.hermesTimeListDesc {
-    width: 22%;
+    width: 19%;
 }
 div.hermesTimeSliceOptions {
-    width: 10%;
+    width: 8%;
     text-align: right;
+    float:right;
 }
 #hermesTimeListControls {
   height: 25px;
@@ -261,27 +265,37 @@ div.hermesTimeSliceOptions {
 .horde-splitbar-horiz {
     cursor: default;
 }
+
 /* Search Form */
-#hermesSearchFormInputs {
-    margin-left: 7px;
-    margin-right: 7px;
-}
-#hermesSearchFormInputs label {
-    font-weight: bold;
-    white-space: nowrap;
-}
-#hermesSearchFormInputs .input {
-  border: medium none;
-  margin: 7px 7px 0 0;
-  padding: 6px 5px 4px;
-}
-#hermesSearchFormInputs .hermesLongField {
-  border: medium none;
-  margin: 0  7px 0;
-  padding: 6px 5px 4px;
-  width: 98%;
+#hermesSearchForm {
 
 }
+#hermesSearchForm fieldset {
+  margin: 20px 0px 20px 0px;
+  border: 0px;
+  position: relative;
+  display: block;
+  padding: 0 10px 10px 10px;
+}
+
+#hermesSearchForm label {
+  display: block;
+  float: left;
+  text-align: right;
+  margin:0px 5px 0px 0px;
+  width: 300px;
+  font-weightt: bold;
+}
+
+#hermesSearchForm input,
+#hermesSearchForm select {
+  vertical-align: middle;
+}
+
+#hermesSearchFormBottomSet label {
+  text-align: left;
+}
+
 .hermesLongField {
     width: 98%;
 }

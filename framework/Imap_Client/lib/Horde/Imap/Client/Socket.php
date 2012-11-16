@@ -1,5 +1,26 @@
 <?php
 /**
+ * Originally based on code from:
+ *   - auth.php (1.49)
+ *   - imap_general.php (1.212)
+ *   - imap_messages.php (revision 13038)
+ *   - strings.php (1.184.2.35)
+ * from the Squirrelmail project.
+ * Copyright (c) 1999-2007 The SquirrelMail Project Team
+ *
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 1999-2007 The SquirrelMail Project Team
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
  * An interface to an IMAP4rev1 server (RFC 3501) using built-in PHP features.
  *
  * Implements the following IMAP-related RFCs (see
@@ -83,23 +104,12 @@
  *  <li>RFC 6237: MULTISEARCH (Experimental)</li>
  * </ul>
  *
- * Originally based on code from:
- *   - auth.php (1.49)
- *   - imap_general.php (1.212)
- *   - imap_messages.php (revision 13038)
- *   - strings.php (1.184.2.35)
- * from the Squirrelmail project.
- * Copyright (c) 1999-2007 The SquirrelMail Project Team
- *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2007 The SquirrelMail Project Team
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 {
@@ -1560,7 +1570,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * using literal8 "~{#} format", but it doesn't seem to work on
              * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
              * broken BINARY and attempt to fix here. */
-            if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
+            if ($e instanceof Horde_Imap_Client_Exception_ServerResponse &&
+                $e->status == Horde_Imap_Client_Interaction_Server::BAD &&
                 $this->queryCapability('BINARY')) {
                 $cap = $this->capability();
                 unset($cap['BINARY']);
@@ -3145,7 +3156,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Parse a QUOTA response (RFC 2087 [5.1]).
      *
-     * @param Horde_Imap_Client_Parse_Tokenize $data  The server response.
+     * @param Horde_Imap_Client_Tokenize $data  The server response.
      */
     protected function _parseQuota(Horde_Imap_Client_Tokenize $data)
     {
@@ -3270,7 +3281,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     /**
      * Parse a LISTRIGHTS response (RFC 4314 [3.7]).
      *
-     * @param Horde_Imap_Client_Tokenzie $data  The server response.
+     * @param Horde_Imap_Client_Tokenize $data  The server response.
      */
     protected function _parseListRights(Horde_Imap_Client_Tokenize $data)
     {

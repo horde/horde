@@ -216,7 +216,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getFolderList()
     {
-        $this->_logger->debug('Horde::getFolderList()');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::getFolderList()');
         $folderlist = $this->getFolders();
         $folders = array();
         foreach ($folderlist as $f) {
@@ -235,7 +235,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     {
         if (empty($this->_folders)) {
             ob_start();
-            $this->_logger->debug('Horde::getFolders()');
             try {
                 $supported = $this->_connector->horde_listApis();
             } catch (Exception $e) {
@@ -610,7 +609,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function getMessage($folderid, $id, array $collection)
     {
-        $this->_logger->debug('Horde::getMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::getMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
         $message = false;
         $foldertype = $this->_getFolderType($folderid);
@@ -818,7 +817,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function deleteMessage($folderid, array $ids)
     {
         $this->_logger->debug(sprintf(
-            "DELETE %s: %s",
+            "Horde_Core_ActiveSync_Driver::deleteMessage() %s: %s",
             $folderid,
             print_r($ids, true))
         );
@@ -874,7 +873,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
     {
-        $this->_logger->debug('Horde::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::moveMessage(' . implode(',', array($folderid, '[' . implode(',', $ids) . ']', $newfolderid)) . ')');
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -905,7 +904,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function changeMessage($folderid, $id, Horde_ActiveSync_Message_Base $message, $device)
     {
-        $this->_logger->debug('Horde::changeMessage(' . $folderid . ', ' . $id . ')');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::changeMessage(' . $folderid . ', ' . $id . ')');
         ob_start();
         $stat = false;
         switch ($folderid) {
@@ -1482,23 +1481,40 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * do our best to translate email address to username. If this fails, the
      * device simply falls back to requiring full user configuration.
      *
-     * @return array
+     * @param array $params  Optional array of parameters.
+     *
+     * @return array  Either an array of autodiscover parameters that the
+     *                ActiveSync server will use to build the response, or
+     *                the raw XML response contained in the raw_xml key.
      */
-    public function autoDiscover()
+    public function autoDiscover($params = array())
     {
-        $results = array();
-
         // Attempt to get a username from the email address.
         $ident = $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Identity')
             ->create($GLOBALS['registry']->getAuth());
-        $results['display_name'] = $ident->getValue('fullname');
-        $results['email'] = $ident->getValue('from_addr');
+        $params['display_name'] = $ident->getValue('fullname');
+        $params['email'] = $ident->getValue('from_addr');
         $url = parse_url((string)Horde::url(null, true));
-        $results['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
+        $params['url'] = $url['scheme'] . '://' . $url['host'] . '/Microsoft-Server-ActiveSync';
         // As of Exchange 2007, this always returns en:en
-        $results['culture'] = 'en:en';
-        return $results;
+        $params['culture'] = 'en:en';
+        $params['username'] = $this->getUsernameFromEmail($params['email']);
+        try {
+            $xml = Horde::callHook('activesync_autodiscover_xml', array($params), 'horde');
+            return array('raw_xml' => $xml);
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        // Bring in the host configuration if needed.
+        if (!empty($GLOBALS['conf']['activesync']['outlookdiscovery'])) {
+            $params = array_merge($params, $GLOBALS['conf']['activesync']['hosts']);
+        }
+
+        try {
+            $params = Horde::callHook('activesync_autodisover_parameters', array($params), 'horde');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        return $params;
     }
 
     /**
@@ -1680,7 +1696,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // will remove the email from the UI as soon as the response is sent.
         // Failure to remove it from the server will result in an inconsistent
         // sync state.
-        $this->_logger->debug('Deleting');
         $this->_imap->deleteMessages(array($response['requestid']), $response['folderid']);
 
         return $uid;

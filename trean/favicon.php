@@ -17,7 +17,7 @@ if (!$bookmark_id) {
     exit;
 }
 
-$bookmark = &$trean_shares->getBookmark($bookmark_id);
+$bookmark = $trean_shares->getBookmark($bookmark_id);
 if (!$favicon = $bookmark->favicon) {
     exit;
 }

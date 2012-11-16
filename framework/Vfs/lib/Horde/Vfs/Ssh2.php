@@ -628,10 +628,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
-        $orig = $this->_getPath($path, $name);
-        if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
-        }
+        $this->_checkDestination($path, $dest);
 
         $this->_connect();
 
@@ -649,7 +646,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
             $this->_copyRecursive($path, $name, $dest);
         } else {
             $tmpFile = Horde_Util::getTempFile('vfs');
-            if (!$this->_recv($orig, $tmpFile)) {
+            if (!$this->_recv($this->_getPath($path, $name), $tmpFile)) {
                 throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $orig));
             }
 

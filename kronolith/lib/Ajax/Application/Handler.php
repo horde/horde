@@ -1485,22 +1485,20 @@ EOT;
             $cal = $event->calendarType . '|' . $event->calendar;
         }
         $result = $this->_signedResponse($cal);
-        if (!$this->vars->view_start || !$this->vars->view_end) {
-            $result->events = array();
-            return $result;
-        }
         $events = array();
         try {
             $event->save();
-            if ($this->vars->view_start && $this->vars->view_end) {
-                $end = new Horde_Date($this->vars->view_end);
-                $end->hour = 23;
-                $end->min = $end->sec = 59;
-                Kronolith::addEvents(
-                    $events, $event,
-                    new Horde_Date($this->vars->view_start),
-                    $end, true, true);
+            if (!$this->vars->view_start || !$this->vars->view_end) {
+              $result->events = array();
+              return $result;
             }
+            $end = new Horde_Date($this->vars->view_end);
+            $end->hour = 23;
+            $end->min = $end->sec = 59;
+            Kronolith::addEvents(
+                $events, $event,
+                new Horde_Date($this->vars->view_start),
+                $end, true, true);
             // If this is an exception, we re-add the original event also;
             // cstart and cend are the cacheStart and cacheEnd dates from the
             // client.

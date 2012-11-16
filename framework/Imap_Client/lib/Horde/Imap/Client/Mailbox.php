@@ -1,22 +1,30 @@
 <?php
 /**
- * An object that provides a way to switch between UTF7-IMAP and
- * human-readable representations of a mailbox name.
- *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An object that provides a way to switch between UTF7-IMAP and
+ * human-readable representations of a mailbox name.
  *
- * @property string $list_escape  Escapes mailbox for use in LIST command.
- *                                Returned in UTF-8.
- * @property string $utf7imap  Mailbox in UTF7-IMAP.
- * @property string $utf8      Mailbox in UTF-8.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ *
+ * @property-read string $list_escape  Escapes mailbox for use in LIST
+ *                                     command (UTF-8).
+ * @property-read string $utf7imap  Mailbox in UTF7-IMAP.
+ * @property-read string $utf8      Mailbox in UTF-8.
  */
 class Horde_Imap_Client_Mailbox implements Serializable
 {

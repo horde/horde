@@ -51,15 +51,7 @@ extends Horde_Kolab_Format_Xml_Type_String
             return null;
         }
         if ($type == 'date') {
-            $tz = $node->getAttribute('tz');
-            if (empty($tz)) {
-                /**
-                 * @todo Be more strict once KEP2 has been completely adopted if
-                 * (!$this->isRelaxed()) throw new Horde_Kolab_Format_Exception();
-                 */
-                $tz = 'UTC';
-            }
-            return Horde_Kolab_Format_Date::readDate($result, $tz);
+            return Horde_Kolab_Format_Date::readDate($result);
         }
         return $result;
     }
@@ -93,13 +85,11 @@ extends Horde_Kolab_Format_Xml_Type_String
         $old_node = false
     )
     {
-        $tz = false;
         if (empty($value)) {
             $type = 'none';
             $value = '';
         } else if ($value instanceOf DateTime) {
             $type = 'date';
-            $tz = $value->getTimezone()->getName();
             $value = Horde_Kolab_Format_Date::writeDate($value);
         } else {
             $type = 'number';
@@ -108,9 +98,6 @@ extends Horde_Kolab_Format_Xml_Type_String
             $name, $value, $parent_node, $helper, $params, $old_node
         );
         $node->setAttribute('type', $type);
-        if ($tz !== false) {
-            $node->setAttribute('tz', $tz);
-        }
         return $node;
     }
 }

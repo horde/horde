@@ -9,7 +9,6 @@
 var ImpComposeBase = {
 
     // Vars defaulting to null: editor_on, identities
-    // Vars set by PHP code: pastehtml
 
     getSpellChecker: function()
     {
@@ -81,8 +80,7 @@ var ImpComposeBase = {
             CKEDITOR.on('instanceReady', function(e) {
                 e.editor.on('paste', function(e) {
                     if (e.data.html) {
-                        alert(this.pastehtml);
-                        e.data.html = '';
+                        e.data.html = e.data.html.stripTags();
                     }
                 }.bind(this));
             }.bind(this));

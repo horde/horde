@@ -273,14 +273,14 @@ abstract class Mnemo_Driver
      */
     public function deleteAll()
     {
-        $ids = $this->_deleteAll();
+        $uids = $this->_deleteAll();
 
         // Update History.
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            foreach ($ids as $id) {
+            foreach ($uids as $uid) {
                 $history->log(
-                    'mnemo:' . $this->_notepad . ':' . $id,
+                    'mnemo:' . $this->_notepad . ':' . $uid,
                     array('action' => 'delete'),
                     true);
             }

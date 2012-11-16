@@ -63,6 +63,61 @@ class Hermes_Application extends Horde_Registry_Application
         }
     }
 
+    public function download(Horde_Variables $vars)
+    {
+        global $notification, $browser, $injector;
+
+        switch ($vars->actionID) {
+        case 'export':
+            $ids = split(',', $vars->s);
+            if (!is_array($ids)) {
+                $notification->push(_("No time slices were submitted"), 'horde.error');
+                return false;
+            }
+            try {
+                $hours = $injector
+                    ->getInstance('Hermes_Driver')
+                    ->getHours(array('id' => $ids));
+            } catch (Hermes_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+                return false;
+            }
+            $exportHours = Hermes::makeExportHours($hours);
+            switch ($vars->f) {
+            case Horde_Data::EXPORT_CSV:
+                $class = 'Hermes_Data_Csv';
+                $ext = 'csv';
+                break;
+            case Horde_Data::EXPORT_TSV:
+                $class = 'Hermes_Data_Tsv';
+                $ext = 'tsv';
+                break;
+            case 'xls':
+                $class = 'Hermes_Data_Xls';
+                $ext = 'xls';
+                break;
+            case 'iif':
+                $class = 'Hermes_Data_Iif';
+                $ext = 'iif';
+                break;
+            }
+            $data = new $class(
+                    $injector->getInstance('Horde_Core_Data_Storage'),
+                    array(
+                        'browser' => $injector->getInstance('Horde_Browser'),
+                        'vars' => Horde_Variables::getDefaultVariables()
+                    )
+                );
+            $data->exportFile('time.' . $ext, $exportHours, true);
+
+        if ($vars->m) {
+            $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
+        }
+        $GLOBALS['notification']->push(_("Export complete."), 'horde.success');
+        return true;
+        }
+    }
+
     /**
      */
     public function perms()

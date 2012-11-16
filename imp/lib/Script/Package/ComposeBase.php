@@ -20,11 +20,7 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
      */
     public function __construct()
     {
-        $ob = new Horde_Script_File_JsDir('compose-base.js', 'imp');
-        $ob->jsvars = array(
-            'ImpComposeBase.pastehtml' => _("Pasting non-text elements is not supported.")
-        );
-        $this->_files[] = $ob;
+        $this->_files[] = new Horde_Script_File_JsDir('compose-base.js', 'imp');
     }
 
 }

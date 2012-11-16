@@ -19,8 +19,8 @@ class Ingo_Hooks
      *
      * @param string $driver  The driver name (array key from backends.php).
      *
-     * @return mixed  If non-array, uses hordeauth credentials (DEFAULT).
-     *                Otherwise, an array with the following keys
+     * @return mixed  If non-array, uses Horde authentication credentials
+                      (DEFAULT). Otherwise, an array with the following keys
      *                (non-existent keys will use default values):
      *  - euser: (string; SIEVE ONLY) For the sieve driver, the effective
      *           user to use.

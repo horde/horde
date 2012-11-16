@@ -190,9 +190,9 @@ $searchView->criteria = $criteria;
 $searchView->value = $val;
 
 /* The form footer and vbook section. */
-if ($search_mode != 'duplicate') {
+if ($search_mode != 'duplicate' && $session->get('turba', 'has_share')) {
     $vbookView = new Horde_View(array('templatePath' => TURBA_TEMPLATES . '/search'));
-    $vbookView->hasShare = $session->get('turba', 'has_share');
+    $vbookView->hasShare = true;
     $vbookView->shareSources = $shareSources;
     $vbookView->source = $source;
     $page_output->addInlineScript('$(\'vbook_name\').observe(\'keyup\', function() { $(\'save-vbook\').checked = !!$F(\'vbook_name\'); });');
@@ -237,7 +237,7 @@ $notification->notify(array('listeners' => 'status'));
 echo $tabs->render($search_mode);
 echo $headerView->render('header');
 echo $searchView->render($search_mode);
-if ($search_mode != 'duplicate') {
+if (!empty($vbookView)) {
     echo $vbookView->render('vbook');
 }
 if (isset($view) && is_object($view)) {

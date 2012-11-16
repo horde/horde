@@ -32,87 +32,74 @@ class Horde_Kolab_Format_Date
     /**
      * Parse the provided string into a PHP DateTime object.
      *
+     * @todo Drop in version 3.0.0.
+     *
      * @param string $date_time The Kolab date-time value.
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
     static public function readUtcDateTime($date_time)
     {
-        if ($date = DateTime::createFromFormat(
-                'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone('UTC')
-            )) {
-            return $date;
-        }
-
-        /* No need to support fractions of a second yet. So lets just try to
-         * remove a potential microseconds part and attempt parsing again. */
-        $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+Z/',
-            '\1Z',
-            $date_time
-        );
-        return DateTime::createFromFormat(
-            'Y-m-d\TH:i:s\Z', $date_time, new DateTimeZone('UTC')
-        );
+        return self::readDateTime($date_time);
     }
 
     /**
      * Parse the provided string into a PHP DateTime object.
+     *
+     * @todo Drop $timezone parameter in version 3.0.0.
      *
      * @param string $date     The Kolab date value.
-     * @param string $timezone The associated timezone.
+     * @param string $timezone The associated timezone. Deprecated.
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readDate($date, $timezone)
+    static public function readDate($date, $timezone = null)
     {
-        return DateTime::createFromFormat(
-            '!Y-m-d', $date, new DateTimeZone($timezone)
-        );
-    }
-
-    /**
-     * Parse the provided string into a PHP DateTime object.
-     *
-     * @param string $date_time The Kolab date-time value.
-     * @param string $timezone  The associated timezone.
-     *
-     * @return DateTime The date-time value represented as PHP DateTime object.
-     */
-    static public function readDateTime($date_time, $timezone)
-    {
-        /* The trailing "Z" for UTC times holds no relevant information. The
-         * authoritative timezone information is the "tz" attribute. If that
-         * one is missing we will assume to have a UTC date-time in any case -
-         * with or without "Z". */
-        $date_time = preg_replace('/Z$/','', $date_time);
-        if ($date = DateTime::createFromFormat(
-                'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
-            )) {
-            return $date;
+        if (empty($date)) {
+            return false;
         }
 
-        /* No need to support fractions of a second yet. So lets just try to
-         * remove a potential microseconds part and attempt parsing again. */
-        $date_time = preg_replace(
-            '/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}).\d+/',
-            '\1',
-            $date_time
-        );
         return DateTime::createFromFormat(
-            'Y-m-d\TH:i:s', $date_time, new DateTimeZone($timezone)
+            '!Y-m-d', $date, new DateTimeZone('UTC')
         );
     }
 
     /**
      * Parse the provided string into a PHP DateTime object.
      *
-     * @param string $date      The string representation of the date (& time).
-     * @param string $timezone  The associated timezone.
+     * @todo Drop $timezone parameter in version 3.0.0.
+     *
+     * @param string $date_time The Kolab date-time value.
+     * @param string $timezone  The associated timezone. Deprecated.
      *
      * @return DateTime The date-time value represented as PHP DateTime object.
      */
-    static public function readDateOrDateTime($date, $timezone)
+    static public function readDateTime($date_time, $timezone = null)
+    {
+        if (empty($date_time)) {
+            return false;
+        }
+
+        try {
+            $date = new DateTime($date_time);
+            $date->setTimezone(new DateTimeZone('UTC'));
+            return $date;
+        } catch (Exception $e) {
+            return false;
+        }
+    }
+
+    /**
+     * Parse the provided string into a PHP DateTime object.
+     *
+     * @todo Drop $timezone parameter in version 3.0.0.
+     *
+     * @param string $date      The string representation of the date (& time).
+     * @param string $timezone  The associated timezone. Deprecated.
+     *
+     * @return DateTime The date-time value represented as PHP DateTime object.
+     */
+    static public function readDateOrDateTime($date, $timezone = null)
     {
         if (empty($date)) {
             return null;
@@ -127,13 +114,15 @@ class Horde_Kolab_Format_Date
      * Write the provided PHP DateTime object into a Kolab format UTC date-time
      * representation.
      *
+     * @todo Drop in version 3.0.0.
+     *
      * @param DateTime $date_time The PHP DateTime object.
      *
      * @return string The Kolab format UTC date-time string.
      */
     static public function writeUtcDateTime(DateTime $date_time)
     {
-        return $date_time->format('Y-m-d\TH:i:s\Z');
+        return self::writeDateTime($date_time);
     }
 
     /**
@@ -146,11 +135,8 @@ class Horde_Kolab_Format_Date
      */
     static public function writeDateTime(DateTime $date_time)
     {
-        if ($date_time->getTimezone()->getName() == 'UTC') {
-            return $date_time->format('Y-m-d\TH:i:s\Z');
-        } else {
-            return $date_time->format('Y-m-d\TH:i:s');
-        }
+        $date_time->setTimezone(new DateTimeZone('UTC'));
+        return $date_time->format('Y-m-d\TH:i:s\Z');
     }
 
     /**

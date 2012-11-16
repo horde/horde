@@ -138,23 +138,6 @@ class Hermes_Table extends Horde_Core_Ui_Widget
 
         $html .= '</h1>';
 
-        /*
-        //
-        // Export icon.  We store the parameters in the session so that smart
-        // users can't hack it (in Hermes, you could make it show other
-        // people's time, for example).
-        //
-        $id = $this->_config['name'] . ':' . $this->_name;
-        $_SESSION['horde']['tables'][$id] = $this->_config;
-        $exportlink = Horde::url($GLOBALS['registry']->get('webroot', 'horde') .
-                                 '/services/table/export.php');
-        $exportlink->add(array('id' => $id));
-
-        $html .= ' &nbsp;' . Horde::link($exportlink, _("Export Data")) .
-                 Horde::img('data.png', _("Export Data"), 'hspace="2"') .
-                 '</a>';
-        */
-
         // Column titles.
         $html .= '<table class="time striped" id="hermes_time" cellspacing="0"><thead><tr class="item">';
         foreach ($this->_metaData['sections']['data']['columns'] as $col) {
