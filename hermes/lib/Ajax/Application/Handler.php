@@ -147,7 +147,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                 ->getInstance('Hermes_Driver')
                 ->markAs('submitted', $time);
         } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
             return false;
         }
 
