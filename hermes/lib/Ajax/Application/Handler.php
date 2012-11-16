@@ -343,7 +343,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         if ($vars->exported !== '') {
             $criteria['exported'] = $vars->exported;
         }
-Horde::debug($criteria);
+
         return $criteria;
     }
 
