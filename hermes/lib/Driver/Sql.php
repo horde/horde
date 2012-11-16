@@ -248,7 +248,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     break;
 
                 case 'id':
-                    $where .= $glue . $this->_equalClause('timeslice_id', (int)$filter, false);
+                    if (is_array($filter)) {
+                        foreach ($filter as &$id) {
+                            $id = (int)$id;
+                        }
+                    }
+                    $where .= $glue . $this->_equalClause('timeslice_id', $filter, false);
                     $glue = ' AND';
                     break;
 
