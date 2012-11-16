@@ -1,7 +1,3 @@
-#nag-menu {
-    padding-bottom: 10px;
-}
-
 #tasks {
     width: 100%;
 }
@@ -71,115 +67,8 @@
     overflow: auto;
 }
 
-.task-desc {
-    padding: .5em;
-}
-.task-desc label {
-    font-weight: bold;
-    display: block;
-}
-.task-desc textarea {
-    width: 100%;
-}
-
 #tasks-body tr {
     line-height: 20px;
-}
-
-body #pageControlsInner {
-    display: none;
-}
-body #sbarShow, body #sbarHide {
-    padding-left: 18px;
-    white-space: nowrap;
-}
-body #sbarShow {
-    display: block;
-    background: transparent url("graphics/plus.png") center left no-repeat;
-}
-body #sbarHide {
-    display: none;
-    background: transparent url("graphics/minus.png") center left no-repeat;
-}
-
-#pageControls {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background: #eee;
-    border: 1px solid #ccc;
-    padding: 4px;
-    -moz-border-radius-bottomleft: 10px;
-    -webkit-border-bottom-left-radius: 10px;
-    border-bottom-left-radius: 10px;
-}
-#pageControls #tasklistSearch {
-    background-image: url("graphics/search.png");
-    background-repeat: no-repeat;
-    background-position: 2px center;
-    border: 1px solid #ccc;
-    padding: 2px 0 2px 20px;
-}
-#pageControls h3 {
-    font-size: 100%;
-    margin-top: 1em;
-}
-#pageControls h4 {
-    font-size: 90%;
-    margin-top: .5em;
-}
-
-/* Tables. */
-table#tasklist-list {
-    width: 99%;
-    margin: 0 0 8px 5px;
-    border-top: 1px solid #ddd;
-    border-left: 1px solid #ddd;
-}
-table#tasklist-list th {
-    padding: 3px;
-    background: #e9e9e9;
-    border-right: 1px solid #ccc;
-    text-align: left;
-}
-table#tasklist-list td {
-    padding: 3px;
-    border-right: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
-}
-table#tasklist-list th.sortup {
-    background: #bbcbff url("graphics/za.png") center left no-repeat;
-    padding-left: 10px;
-}
-table#tasklist-list th.sortdown {
-    background: #bbcbff url("graphics/az.png") center left no-repeat;
-    padding-left: 10px;
-}
-
-#tasklist-list-buttons {
-    padding: 1em;
-}
-#tasklist-list-buttons form {
-    display: inline;
-}
-.tasklist-list-icon {
-    width: 1%;
-}
-
-.tasklist-info {
-    cursor: pointer;
-}
-.tasklist-info-url {
-    background-color: #fff;
-    color: #000;
-    overflow: auto;
-    padding: 2px;
-    font-size: 90%;
-    word-wrap: break-word;
-}
-
-.base-category {
-    padding: 0 4px;
 }
 
 #dueimg, #startimg {
@@ -197,26 +86,11 @@ table#tasklist-list th.sortdown {
 }
 
 /* Icons. */
-.nag-managelists {
-    background-image: url('graphics/manage.png');
-}
 .nag-list {
     background-image: url('graphics/nag.png');
 }
-.nag-add {
-    background-image: url('graphics/add.png');
-}
 .nag-search {
     background-image: url('graphics/search.png');
-}
-.nag-listSelected {
-    background-image: url('graphics/checked.png');
-}
-.nag-listUnselected {
-    background-image: url('graphics/unchecked.png');
-}
-.nag-smart {
-    background-image: url('graphics/smart.png');
 }
 .horde-new-extra {
     background: none;
@@ -226,7 +100,7 @@ table#tasklist-list th.sortdown {
 }
 
 @media print {
-    .header .smallheader, .tabset, .notices, #pageControls, #quicksearchL, #quicksearch {
+    .header .smallheader, .tabset, .notices, #quicksearchL, #quicksearch {
         display: none;
     }
 }
