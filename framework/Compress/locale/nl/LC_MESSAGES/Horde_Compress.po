@@ -1,17 +1,47 @@
 # Dutch translations for Horde_Compress module.
 # Copyright 2010-2012 Horde LLC
 # This file is distributed under the same license as the Horde_Compress module.
-# Automatically generated, 2010.
 #
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-11-02 20:53+0100\n"
+"Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
+"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
+
+#: lib/Horde/Compress/Rar.php:57 lib/Horde/Compress/Rar.php:66
+#: lib/Horde/Compress/Rar.php:113
+msgid "Invalid RAR data."
+msgstr "Ongeldige RAR data."
+
+#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:207
+#: lib/Horde/Compress/Zip.php:234 lib/Horde/Compress/Zip.php:254
+msgid "Invalid ZIP data"
+msgstr "Ongeldige ZIP data"
+
+#: lib/Horde/Compress/Dbx.php:127 lib/Horde/Compress/Dbx.php:156
+#: lib/Horde/Compress/Dbx.php:237
+msgid "Invalid file format"
+msgstr "Ongeldig bestandsformaat"
+
+#: lib/Horde/Compress/Zip.php:100
+msgid "This server can't compress zip files."
+msgstr "Deze server kan geen zip bestanden inpakken."
+
+#: lib/Horde/Compress/Gzip.php:42
+msgid "This server can't uncompress gzip files."
+msgstr "Deze server kan geen gzip bestanden uitpakken."
+
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
+#: lib/Horde/Compress/Tar.php:76
+msgid "Unable to decompress data."
+msgstr "Niet in staat om data uit te pakken."

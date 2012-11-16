@@ -2,6 +2,53 @@
 v6.0.2-git
 ----------
 
+[mms] Don't delete saved draft on session close.
+[mms] Improved generation and parsing of mbox files.
+[mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug
+      #11672).
+[mms] Fix editing templates in dynamic view.
+[mms] Fix sending templates in dynamic view.
+[mms] Allow iCalendar events to be added to the calendar even if they are
+      missing the required UID parameter (Bug #11669).
+[mms] Fix displaying flag changes for messages in search mailboxes in dynamic
+      view (Bug #11622).
+[mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+[mms] Don't try to save sent-mail to a non-existent sent-mail mailbox.
+[mms] Fix displaying encrypted message in dynamic preview when correct
+      passphrase is entered (Bug #11661).
+[mms] Purge IMAP cache data when upgrading from IMP 5.
+
+
+------
+v6.0.1
+------
+
+[mms] Fix shift-clicking in dynamic mailbox view when navigating to other
+      mailboxes (Bug #11520).
+[mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[mms] If persistent IMAP caching is disabled, use an in-memory cache for the
+      current page load.
+[mms] Fix importing personal S/MIME certificate.
+[mms] Correctly show ACL entry for current user even if ACL response for
+      mailbox is empty.
+[mms] Correctly remove unseen information from folder tree in dynamic mailbox
+      view when mailbox is marked as not polled for new mail.
+[mms] Fix expanding folder list in dynamic view when opening a mailbox and
+      folder expansion is not saved in the prefs (Bug #11609).
+[mms] Fix displaying HTML signature preference on identities preference page.
+[mms] Fix dynamic view loading in IE8 (Bug #11614).
+[mms] Optimize permission checking when creating a mailbox if no limit exists
+      for a user.
+[mms] Fix displaying column headers in dynamic mailbox view when accessing a
+      POP3 server.
+[mms] Fix display of innocent button in dynamic mailbox view (Bug #11604).
+[mms] Fix displaying move to spam mailbox option in the preferences (Bug
+      #11603).
+[mms] Fixes to PGP Private key generation (Bug #11597).
+[mms] Don't block remote message styling if sender is in whitelist.
+[mms] Fix spellcheck display in dynamic view if HTML composition mode is the
+      default (Bug #11592).
 
 
 ------
@@ -16,6 +63,7 @@ v6.0.0RC2
 ---------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
 [mms] Fix regression causing large amounts of whitespace padding to be added to
       compose text in basic view.
 [mms] Fix regression in sending messages in basic/minimal mode if no attachment
@@ -215,6 +263,8 @@ v5.0.24-git
 
 [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
       the browser's local filesystem that has a filename that contains HTML.
+[mms] Don't attempt to use non-IMAP mailbox names in IMAP server commands (Bug
+      #11623).
 [mms] Catch failure to add attachments in dynamic view because PHP's maximum
       allowed POST size was exceeded.
 [jan] Fix search link from portal if using dynamic view (Bug #11314).

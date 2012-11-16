@@ -6,11 +6,17 @@
 <!-- begin body -->
 <div id="hermesBody">
 
-<?php
-require __DIR__ . '/slices.inc';
-require __DIR__ . '/timer.inc';
-require __DIR__ . '/search.inc';
-?>
+<!-- Begin timer form -->
+<?php require __DIR__ . '/timer.inc' ?>
+
+<!-- Begin export form -->
+<?php require __DIR__ . '/export.inc' ?>
+
+<!-- Begin time entry and slice list -->
+<?php require __DIR__ . '/slices.inc' ?>
+
+<!-- Begin search form and results list -->
+<?php require __DIR__ . '/search.inc' ?>
 
 </div>
 <!-- end body -->

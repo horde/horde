@@ -608,16 +608,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
-     * AJAX action: Generate data necessary to display a message.
-     *
-     * @see IMP_Ajax_Application#showMessage
-     */
-    public function showMessage()
-    {
-        return $this->_base->showMessage();
-    }
-
-    /**
      * AJAX action: Return the MIME tree representation of the message.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
@@ -688,16 +678,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result->hdr_data->$hdr = (object)$show_msg->getAddressHeader($this->vars->header, null);
 
         return $result;
-    }
-
-    /**
-     * AJAX action: Get forward compose data.
-     *
-     * @see IMP_Ajax_Application#getForwardData()
-     */
-    public function getForwardData()
-    {
-        return $this->_base->getForwardData();
     }
 
     /**

@@ -36,13 +36,13 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
 
         try {
             $curr_acl = $acl->getACL($mbox);
+            if (!($canEdit = $acl->canEdit($mbox))) {
+                $notification->push(_("You do not have permission to change access to this mailbox."), 'horde.warning');
+            }
         } catch (IMP_Exception $e) {
             $notification->push($e);
+            $canEdit = false;
             $curr_acl = array();
-        }
-
-        if (!($canEdit = $acl->canEdit($mbox))) {
-            $notification->push(_("You do not have permission to change access to this mailbox."), 'horde.warning');
         }
 
         $rightslist = $acl->getRights();

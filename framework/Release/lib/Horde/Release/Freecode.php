@@ -71,7 +71,7 @@ class Horde_Release_Freecode
                            'release' => $params);
         $http = new Horde_Http_Client();
         try {
-            $response = $http->post('http://freecode.com/projects/' . $this->_project . '/releases.json',
+            $response = $http->post('https://freecode.com/projects/' . $this->_project . '/releases.json',
                                     Horde_Serialize::serialize($fm_params, Horde_Serialize::JSON),
                                     array('Content-Type' => 'application/json'));
         } catch (Horde_Http_Exception $e) {
@@ -95,7 +95,7 @@ class Horde_Release_Freecode
         // to update.
         $http = new Horde_Http_Client();
         try {
-            $response = $http->get('http://freecode.com/projects/' . $this->_project . '/urls.json?auth_code=' . $this->_token);
+            $response = $http->get('https://freecode.com/projects/' . $this->_project . '/urls.json?auth_code=' . $this->_token);
         } catch (Horde_Http_Exception $e) {
             throw new Horde_Exception_Wrapped($e);
         }
@@ -124,7 +124,7 @@ class Horde_Release_Freecode
             if (empty($permalink)) {
                 // No link found to update...create it.
                 try {
-                    $response = $http->post('http://freecode.com/projects/' . $this->_project . '/urls.json',
+                    $response = $http->post('https://freecode.com/projects/' . $this->_project . '/urls.json',
                                             Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                             array('Content-Type' => 'application/json'));
                     $response = $response->getBody();
@@ -138,7 +138,7 @@ class Horde_Release_Freecode
             } else {
                 // Found the link to update...update it.
                 try {
-                    $response = $http->put('http://freecode.com/projects/' . $this->_project . '/urls/' . $permalink . '.json',
+                    $response = $http->put('https://freecode.com/projects/' . $this->_project . '/urls/' . $permalink . '.json',
                                            Horde_Serialize::serialize($link, Horde_Serialize::JSON),
                                            array('Content-Type' => 'application/json'));
                     $response = $response->getBody();

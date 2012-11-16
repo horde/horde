@@ -597,7 +597,7 @@ abstract class Kronolith_Event
             if ($this->timezone) {
                 try {
                     $tz = $GLOBALS['injector']->getInstance('Horde_Timezone');
-                    $vEvent->addComponent($tz->getZone($this->timezone)->toVtimezone());
+                    $vEvents[] = $tz->getZone($this->timezone)->toVtimezone();
                     $params['TZID'] = $this->timezone;
                 } catch (Horde_Exception $e) {
                 }
@@ -1292,7 +1292,7 @@ abstract class Kronolith_Event
         if ($message->getProtocolVersion() == Horde_ActiveSync::VERSION_TWOFIVE &&
             strlen($description = $message->getBody())) {
             $this->description = $description;
-        } else {
+        } elseif ($message->getProtocolVersion() > Horde_ActiveSync::VERSION_TWOFIVE) {
             $this->description = $message->airsyncbasebody->data;
         }
         if (strlen($location = $message->getLocation())) {

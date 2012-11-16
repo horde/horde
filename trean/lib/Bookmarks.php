@@ -26,7 +26,11 @@ class Trean_Bookmarks
     public function __construct(Content_Users_Manager $userManager)
     {
         $this->_userManager = $userManager;
-        $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        try {
+            $this->_userId = current($this->_userManager->ensureUsers($GLOBALS['registry']->getAuth()));
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
     }
 
     /**
@@ -46,7 +50,7 @@ class Trean_Bookmarks
     /**
      * Search bookmarks.
      */
-    function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
+    public function listBookmarks($sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
     {
         $values = array($this->_userId);
 
@@ -62,10 +66,14 @@ class Trean_Bookmarks
     /**
      * Search bookmarks.
      */
-    function searchBookmarks($q)
+    public function searchBookmarks($q)
     {
         $indexer = $GLOBALS['injector']->getInstance('Content_Indexer');
-        $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        try {
+            $search = $indexer->search('horde-user-' . $this->_userId, 'trean-bookmark', $q);
+        } catch (Content_Exception $e) {
+            throw new Trean_Exception($e);
+        }
         if (!$search->hits->total) {
             return array();
         }
@@ -87,7 +95,7 @@ class Trean_Bookmarks
      *
      * @return integer  The number of all bookmarks.
      */
-    function countBookmarks()
+    public function countBookmarks()
     {
         $sql = 'SELECT COUNT(*) FROM trean_bookmarks WHERE user_id = ?';
         return $GLOBALS['trean_db']->selectValue($sql, array($this->_userId));
@@ -96,7 +104,7 @@ class Trean_Bookmarks
     /**
      * Return counts on grouping bookmarks by a specific property.
      */
-    function groupBookmarks($groupby)
+    public function groupBookmarks($groupby)
     {
         switch ($groupby) {
         case 'status':
@@ -119,7 +127,7 @@ class Trean_Bookmarks
      *
      * @return Trean_Bookmark  The bookmark object corresponding to the given name.
      */
-    function getBookmark($id)
+    public function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
             SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
@@ -138,7 +146,7 @@ class Trean_Bookmarks
      *
      * @param Trean_Bookmark $bookmark  The bookmark to remove.
      */
-    function removeBookmark($bookmark)
+    public function removeBookmark($bookmark)
     {
         /* Make sure $bookmark is a Trean_Bookmark; if not, try
          * loading it. */
@@ -167,7 +175,7 @@ class Trean_Bookmarks
      * Create Trean_Bookmark objects for each row in a SQL result.
      * @static
      */
-    function resultSet($bookmarks)
+    public function resultSet($bookmarks)
     {
         if (is_null($bookmarks)) {
             return array();

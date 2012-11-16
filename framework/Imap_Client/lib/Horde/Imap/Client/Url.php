@@ -1,18 +1,26 @@
 <?php
 /**
- * Object representation of a a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
- *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Object representation of a a POP3 (RFC 2384) or IMAP (RFC 5092/5593) URL.
  *
- * @property boolean $relative  Is this a relative URL?
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ *
+ * @property-read boolean $relative  Is this a relative URL?
  */
 class Horde_Imap_Client_Url implements Serializable
 {

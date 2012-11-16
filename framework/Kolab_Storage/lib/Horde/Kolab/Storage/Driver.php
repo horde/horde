@@ -266,8 +266,6 @@ interface Horde_Kolab_Storage_Driver
      * @param string $folder The folder to fetch the messages from.
      * @param array  $uid    The message UID.
      *
-     * @since Horde_Kolab_Storage 1.1.0
-     *
      * @return array The message encapsuled as an array that contains a
      *               Horde_Mime_Headers and a Horde_Mime_Part object.
      */

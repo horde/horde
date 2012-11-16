@@ -10,12 +10,6 @@
  * @author     Ralf Lang <lang@b1-systems.de>
  * @link       http://www.horde.org/apps/passwd
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
 class Passwd_Unit_Factory_DriverTest extends Passwd_TestCase
 {
 

@@ -92,6 +92,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      * t    - type id
      * tn   - type name
      * b    - billable
+     * x    - can edit
      *</pre>
      *
      * @return array
@@ -115,7 +116,8 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
             's' => $this->_properties['submitted'],
             't' => $this->_properties['type'],
             'tn' => $this->_properties['_type_name'],
-            'b'  => $this->_properties['billable']
+            'b'  => $this->_properties['billable'],
+            'x'  => Hermes::canEditTimeslice($this->_properties['id'])
         );
 
         return $json;

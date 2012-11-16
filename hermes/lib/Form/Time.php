@@ -20,7 +20,7 @@ class Hermes_Form_Time extends Horde_Form
 {
     public function __construct(&$vars, $name = null)
     {
-        parent::Horde_Form($vars, $name);
+        parent::__construct($vars, $name);
     }
 
     public function getJobTypeType()

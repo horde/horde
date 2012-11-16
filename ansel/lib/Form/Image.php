@@ -16,7 +16,7 @@ class Ansel_Form_Image extends Horde_Form
     {
         global $gallery;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         $this->setButtons(_("Save"));
         $this->addHidden('', 'actionID', 'text', false);

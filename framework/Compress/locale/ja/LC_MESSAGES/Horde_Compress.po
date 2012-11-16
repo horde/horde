@@ -7,15 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-09-01 18:00+0900\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2012-10-14 11:17+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: lib/Horde/Compress/Rar.php:57 lib/Horde/Compress/Rar.php:66
 #: lib/Horde/Compress/Rar.php:113
@@ -40,7 +41,7 @@ msgstr "このサーバは zip ファイルに圧縮できません。"
 msgid "This server can't uncompress gzip files."
 msgstr "このサーバは gzip ファイルを展開できません。"
 
-#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
 #: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
 msgstr "データを展開できません。"

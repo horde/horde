@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Turba 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-29 08:07:05+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -79,7 +79,7 @@ msgstr "%s - %s / %s"
 msgid "<< Merge this into the first contact"
 msgstr "<< Yhdistä tämä ensimmäiseen yhteystietoon"
 
-#: lib/Application.php:456 view.php:48
+#: lib/Application.php:457 view.php:48
 #, php-format
 msgid "Access denied to %s"
 msgstr "%s käyttö kielletty"
@@ -393,7 +393,7 @@ msgstr "Luo"
 msgid "Create Address Book"
 msgstr "Luo osoitekirja"
 
-#: lib/Application.php:191
+#: lib/Application.php:192
 msgid "Create a new Address Book"
 msgstr "Luo uusi osoitekirja"
 
@@ -611,7 +611,7 @@ msgstr "Lisättävän objektin haku epäonnistui: %s"
 msgid "Failed to search the address book"
 msgstr "Haku osoitekirjasta epäonnistui"
 
-#: lib/Application.php:494
+#: lib/Application.php:495
 #, php-format
 msgid "Failed to search the directory: %s"
 msgstr "Haku epäonnistui hakemistosta: %s"
@@ -855,7 +855,7 @@ msgstr "Merkitse tämä tieto omaksi yhteystiedoksi"
 msgid "Matching"
 msgstr "On"
 
-#: lib/Application.php:141
+#: lib/Application.php:142
 msgid "Maximum Number of Contacts"
 msgstr "Yhteystietojen enimmäismäärä"
 
@@ -916,7 +916,7 @@ msgstr ""
 msgid "My Address Book"
 msgstr "Oma osoitekirja"
 
-#: lib/Application.php:183
+#: lib/Application.php:184
 msgid "My Address Books"
 msgstr "Omat osoitekirjani"
 
@@ -941,7 +941,7 @@ msgstr "Nimen päätteet"
 msgid "Name:"
 msgstr "Nimi:"
 
-#: add.php:76 lib/Application.php:376
+#: add.php:76 lib/Application.php:377
 msgid "New Contact"
 msgstr "Uusi yhteystieto"
 
@@ -980,7 +980,7 @@ msgstr "Ei määriteltyä osoitekirjaa"
 msgid "No browseable address books"
 msgstr "Selattavia Osoitekirjoja ei ole saatavilla."
 
-#: lib/Ajax/Application/Handler/Minisearch.php:72
+#: lib/Ajax/Application/Handler/Minisearch.php:79
 msgid "No contacts found"
 msgstr "Ei löytynyt yhteystietoja"
 
@@ -1004,7 +1004,7 @@ msgstr "Lähdettä suosituille vastaanottajille ei ole olemassa."
 msgid "No vCard data was found."
 msgstr "vCard tietoja ei löytynyt."
 
-#: lib/Application.php:283 templates/list/numPager.inc:8
+#: lib/Application.php:284 templates/list/numPager.inc:8
 msgid "None"
 msgstr "Ei mitään"
 
@@ -1058,7 +1058,7 @@ msgstr "Muu"
 msgid "Other Address"
 msgstr "Osoite (muu)"
 
-#: lib/Application.php:230
+#: lib/Application.php:231
 msgid "Other Address Books"
 msgstr "Muut osoitekirjat"
 
@@ -1216,7 +1216,7 @@ msgstr "Tallenna haku virtuaaliseen osoitekirjaan?"
 msgid "Saving contacts is not available."
 msgstr "Yhteystietojen tallennus ei ole käytettävissä."
 
-#: config/prefs.php:128 lib/Application.php:415
+#: config/prefs.php:128 lib/Application.php:416
 #: templates/block/minisearch.inc:4 templates/browse/header.inc:3
 #: templates/search/advanced.html.php:5 templates/search/basic.html.php:20
 #: templates/search/duplicate.html.php:11
@@ -1305,7 +1305,7 @@ msgstr "Voit valita nimien esitysmuodon."
 msgid "Selected address book \"%s\"."
 msgstr "Valittu osoitekirja \"%s\"."
 
-#: config/backends.php:234 config/backends.php:580 lib/Application.php:197
+#: config/backends.php:234 config/backends.php:580 lib/Application.php:198
 msgid "Shared Address Books"
 msgstr "Jaetut osoitekirjat"
 
@@ -1344,7 +1344,7 @@ msgstr "Järjestä vain %s mukaan"
 msgid "Sort by %s, then by %s"
 msgstr "Järjestä %s mukaan, ja sitten %s mukaan"
 
-#: lib/Application.php:131
+#: lib/Application.php:132
 msgid "Sources"
 msgstr "Lähteet"
 
@@ -1456,7 +1456,7 @@ msgstr "Osoitekirjan \"%s\" uudeelleen nimeys nimelle \"%s\" onnistui."
 msgid "The addressbook \"%s\" has been saved."
 msgstr "Osoitekirja \"%s\" on tallennettu."
 
-#: contact.php:19 lib/Application.php:438 vcard.php:18 view.php:27
+#: contact.php:19 lib/Application.php:439 vcard.php:18 view.php:27
 msgid "The contact you requested does not exist."
 msgstr "Pyytämääsi ohjektia ei ole olemassa."
 
@@ -1543,7 +1543,7 @@ msgstr "Tapahtui virhe tuotaessa tietoa: %s"
 msgid "There was an error importing the iCalendar data."
 msgstr "iCalendar-tietojen tuonnissa tapahtui virhe."
 
-#: lib/Application.php:311 lib/Application.php:343 lib/Application.php:356
+#: lib/Application.php:312 lib/Application.php:344 lib/Application.php:357
 #, php-format
 msgid "There was an error removing an address book for %s"
 msgstr "Tapahtui virhe poistettaessa osoitekirjaa: %s."
@@ -1554,10 +1554,6 @@ msgid ""
 "further help."
 msgstr ""
 "Tapahtui taletettaessa yhteystietoja. Ota yhteyttä järjestelmän ylläpitäjään."
-
-#: lib/Application.php:526
-msgid "There were no addresses to export."
-msgstr "Ei ole yhtään vietävää osoitetta."
 
 #: addressbooks/delete.php:23
 msgid "This address book cannot be deleted"
@@ -1604,8 +1600,8 @@ msgstr "Osoitekirjaa \"%s\" ei voitu tallentaa: %s"
 msgid "Unsupported Content-Type: %s"
 msgstr "Ei tuettu Content-Type: %s"
 
-#: lib/Ajax/Application/Handler/Minisearch.php:56
-#: lib/Ajax/Application/Handler/Minisearch.php:57
+#: lib/Ajax/Application/Handler/Minisearch.php:62
+#: lib/Ajax/Application/Handler/Minisearch.php:63
 msgid "View Contact"
 msgstr "Näytä yhteystiedot"
 
@@ -1721,7 +1717,7 @@ msgstr "Et voi poistaa yhteystietoja virtuaalisesti osoitekirjasta"
 msgid "You didn't mark a contact as your own yet."
 msgstr "Et ole vielä merkinnyt omaa yhteystietoa."
 
-#: edit.php:63 lib/Application.php:445 lib/View/DeleteContact.php:41
+#: edit.php:63 lib/Application.php:446 lib/View/DeleteContact.php:41
 #: lib/View/EditContact.php:42 view.php:35
 msgid "You do not have permission to view this contact."
 msgstr "Sinulla ei ole oikeuksia nähdä tätä yhteystietoa."
@@ -1775,7 +1771,7 @@ msgstr "Oma yhteistietosi"
 msgid "Your own contact cannot be found in the address book."
 msgstr "Omaa yhteystietoasi ei löyty osoitekirjasta."
 
-#: lib/Application.php:154
+#: lib/Application.php:155
 msgid "_Browse"
 msgstr "_Selaa"
 
@@ -1787,11 +1783,11 @@ msgstr "_Poista"
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: lib/Application.php:161
+#: lib/Application.php:162
 msgid "_Import/Export"
 msgstr "_Tuo/Vie"
 
-#: lib/Application.php:173
+#: lib/Application.php:174
 msgid "_New Contact"
 msgstr "_Uusi yhteystieto"
 
@@ -1799,7 +1795,7 @@ msgstr "_Uusi yhteystieto"
 msgid "_Remove from this list"
 msgstr "_Poista tältä listalta"
 
-#: lib/Application.php:157
+#: lib/Application.php:158
 msgid "_Search"
 msgstr "_Haku"
 
@@ -1824,19 +1820,19 @@ msgstr "itse"
 msgid "contact"
 msgstr "contact"
 
-#: lib/Application.php:543 lib/Application.php:547 templates/data/export.inc:1
+#: lib/Application.php:540 lib/Application.php:544 templates/data/export.inc:1
 msgid "contacts.csv"
 msgstr "contacts.csv"
 
-#: lib/Application.php:565
+#: lib/Application.php:562
 msgid "contacts.ldif"
 msgstr "contacts.ldif"
 
-#: lib/Application.php:551
+#: lib/Application.php:548
 msgid "contacts.tsv"
 msgstr "contacts.tsv"
 
-#: lib/Application.php:556
+#: lib/Application.php:553
 msgid "contacts.vcf"
 msgstr "contacts.vcf"
 
@@ -1848,7 +1844,7 @@ msgstr "laskeva"
 msgid "female"
 msgstr "nainen"
 
-#: lib/Application.php:387
+#: lib/Application.php:388
 #, php-format
 msgid "in %s"
 msgstr "- %s"

@@ -9,8 +9,6 @@
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/Autoload.php';
-
 /**
  * @category   Horde
  * @package    Yaml

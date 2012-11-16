@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.0.0-git\n"
+"Project-Id-Version: Horde 5.0.1-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,7 +38,7 @@ msgstr ""
 msgid "%.2fMB used of %.2fMB allowed (%.2f%%)"
 msgstr ""
 
-#: lib/Block/Weather.php:197
+#: lib/Block/Weather.php:198
 #, php-format
 msgid "%d %s and %s"
 msgstr ""
@@ -65,7 +65,7 @@ msgstr[1] ""
 msgid "%d to %d of %d"
 msgstr ""
 
-#: lib/Block/Weather.php:236
+#: lib/Block/Weather.php:238
 #, php-format
 msgid "%d-day forecast"
 msgstr ""
@@ -613,7 +613,7 @@ msgstr ""
 msgid "Choose how to display times:"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:54
+#: templates/admin/sqlshell.html.php:56
 msgid "Clear Query"
 msgstr ""
 
@@ -687,7 +687,7 @@ msgstr ""
 msgid "Computers"
 msgstr ""
 
-#: lib/Block/Weather.php:249
+#: lib/Block/Weather.php:251
 msgid "Condition"
 msgstr ""
 
@@ -828,7 +828,7 @@ msgstr ""
 msgid "Current Weather"
 msgstr ""
 
-#: lib/Block/Weather.php:229
+#: lib/Block/Weather.php:230
 msgid "Current condition"
 msgstr ""
 
@@ -884,7 +884,7 @@ msgstr ""
 msgid "Date: %s; time: %s"
 msgstr ""
 
-#: lib/Block/Weather.php:244
+#: lib/Block/Weather.php:246
 msgid "Day"
 msgstr ""
 
@@ -997,7 +997,7 @@ msgstr ""
 msgid "Dew Point for last hour: "
 msgstr ""
 
-#: lib/Block/Weather.php:180
+#: lib/Block/Weather.php:181
 msgid "Dew point"
 msgstr ""
 
@@ -1167,7 +1167,7 @@ msgid "Example values:"
 msgstr ""
 
 #: templates/admin/cmdshell.html.php:22 templates/admin/phpshell.html.php:21
-#: templates/admin/sqlshell.html.php:53
+#: templates/admin/sqlshell.html.php:55
 msgid "Execute"
 msgstr ""
 
@@ -1282,12 +1282,12 @@ msgstr ""
 msgid "Friends enabled"
 msgstr ""
 
-#: lib/Block/Weather.php:206
+#: lib/Block/Weather.php:207
 #, php-format
 msgid "From the %s (%s &deg;) at %s %s"
 msgstr ""
 
-#: lib/Block/Weather.php:316
+#: lib/Block/Weather.php:318
 #, php-format
 msgid "From the %s at %s %s"
 msgstr ""
@@ -1378,7 +1378,7 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: services/help/index.php:91
+#: services/help/index.php:94
 msgid "Help _Topics"
 msgstr ""
 
@@ -1414,7 +1414,7 @@ msgstr ""
 msgid "How many seconds before we check for new articles?"
 msgstr ""
 
-#: lib/Block/Metar.php:204 lib/Block/Weather.php:218 lib/Block/Weather.php:257
+#: lib/Block/Metar.php:204 lib/Block/Weather.php:219 lib/Block/Weather.php:259
 msgid "Humidity"
 msgstr ""
 
@@ -1521,7 +1521,7 @@ msgstr ""
 msgid "Kernel Newbies"
 msgstr ""
 
-#: services/help/index.php:158
+#: services/help/index.php:161
 msgid "Keyword"
 msgstr ""
 
@@ -1599,7 +1599,7 @@ msgstr ""
 msgid "Linux Cookie"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:58
+#: templates/admin/sqlshell.html.php:60
 msgid "List Tables"
 msgstr ""
 
@@ -1832,8 +1832,8 @@ msgstr ""
 msgid "My Portal Layout"
 msgstr ""
 
-#: lib/Block/Weather.php:306 lib/Block/Weather.php:310
-#: lib/Block/Weather.php:326
+#: lib/Block/Weather.php:308 lib/Block/Weather.php:312
+#: lib/Block/Weather.php:328
 msgid "N/A"
 msgstr ""
 
@@ -2034,7 +2034,7 @@ msgstr ""
 msgid "Other Information"
 msgstr ""
 
-#: templates/login/smartmobile.html.php:22
+#: templates/login/smartmobile.html.php:18
 msgid "Other Options"
 msgstr ""
 
@@ -2092,7 +2092,7 @@ msgstr ""
 msgid "Passwords must match."
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:40
+#: templates/admin/sqlshell.html.php:42
 msgid "Paste"
 msgstr ""
 
@@ -2195,12 +2195,12 @@ msgid_plural "Precipitation for last %d hours: "
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Block/Weather.php:253
+#: lib/Block/Weather.php:255
 #, php-format
 msgid "Precipitation%schance"
 msgstr ""
 
-#: lib/Block/Metar.php:199 lib/Block/Weather.php:191
+#: lib/Block/Metar.php:199 lib/Block/Weather.php:192
 msgid "Pressure"
 msgstr ""
 
@@ -2228,7 +2228,7 @@ msgstr ""
 msgid "Publish enabled."
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:6
+#: templates/admin/sqlshell.html.php:7
 msgid "Query"
 msgstr ""
 
@@ -2355,12 +2355,12 @@ msgstr ""
 msgid "Reset your password"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:56
+#: templates/admin/sqlshell.html.php:58
 msgid "Restore Last Query"
 msgstr ""
 
 #: templates/admin/cmdshell.html.php:7 templates/admin/phpshell.html.php:32
-#: templates/admin/sqlshell.html.php:9
+#: templates/admin/sqlshell.html.php:11
 msgid "Results"
 msgstr ""
 
@@ -2394,7 +2394,7 @@ msgstr ""
 msgid "Riddles"
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:41
+#: templates/admin/sqlshell.html.php:43
 msgid "Run"
 msgstr ""
 
@@ -2454,12 +2454,12 @@ msgstr ""
 msgid "Scope"
 msgstr ""
 
-#: services/help/index.php:92
+#: services/help/index.php:95
 msgid "Sea_rch"
 msgstr ""
 
-#: services/help/index.php:153 templates/admin/user/list.inc:14
-#: templates/topbar/_menubar.html.php:22
+#: services/help/index.php:156 templates/admin/user/list.inc:14
+#: templates/topbar/_menubar.html.php:21
 msgid "Search"
 msgstr ""
 
@@ -2693,7 +2693,7 @@ msgstr ""
 msgid "Succesfully connected your Facebook account or updated permissions."
 msgstr ""
 
-#: templates/admin/sqlshell.html.php:13
+#: templates/admin/sqlshell.html.php:15
 msgid "Success"
 msgstr ""
 
@@ -2747,7 +2747,7 @@ msgstr ""
 msgid "Sunday"
 msgstr ""
 
-#: lib/Block/Weather.php:165 lib/Block/Weather.php:166
+#: lib/Block/Weather.php:166 lib/Block/Weather.php:167
 msgid "Sunrise"
 msgstr ""
 
@@ -2755,7 +2755,7 @@ msgstr ""
 msgid "Sunrise/Sunset"
 msgstr ""
 
-#: lib/Block/Weather.php:168 lib/Block/Weather.php:169
+#: lib/Block/Weather.php:169 lib/Block/Weather.php:170
 msgid "Sunset"
 msgstr ""
 
@@ -2783,11 +2783,11 @@ msgstr ""
 msgid "Temp for last hour: "
 msgstr ""
 
-#: lib/Block/Metar.php:188 lib/Block/Weather.php:175
+#: lib/Block/Metar.php:188 lib/Block/Weather.php:176
 msgid "Temperature"
 msgstr ""
 
-#: lib/Block/Weather.php:245
+#: lib/Block/Weather.php:247
 #, php-format
 msgid "Temperature%s(%sHi%s/%sLo%s)"
 msgstr ""
@@ -2995,11 +2995,11 @@ msgid ""
 "clicking."
 msgstr ""
 
-#: lib/Block/Weather.php:278
+#: lib/Block/Weather.php:280
 msgid "Today"
 msgstr ""
 
-#: lib/Block/Weather.php:280
+#: lib/Block/Weather.php:282
 msgid "Tomorrow"
 msgstr ""
 
@@ -3205,7 +3205,7 @@ msgstr ""
 msgid "View an external web page"
 msgstr ""
 
-#: lib/Block/Metar.php:183 lib/Block/Weather.php:223
+#: lib/Block/Metar.php:183 lib/Block/Weather.php:224
 msgid "Visibility"
 msgstr ""
 
@@ -3217,7 +3217,7 @@ msgstr ""
 msgid "Weather"
 msgstr ""
 
-#: lib/Block/Weather.php:338 lib/Block/Weather.php:346
+#: lib/Block/Weather.php:340 lib/Block/Weather.php:348
 msgid "Weather data provided by"
 msgstr ""
 
@@ -3284,7 +3284,7 @@ msgstr ""
 msgid "Wiki"
 msgstr ""
 
-#: lib/Block/Weather.php:204 lib/Block/Weather.php:261
+#: lib/Block/Weather.php:205 lib/Block/Weather.php:263
 msgid "Wind"
 msgstr ""
 
@@ -3585,7 +3585,7 @@ msgstr ""
 msgid "from the %s (%s) at %s %s"
 msgstr ""
 
-#: lib/Block/Weather.php:212 lib/Block/Weather.php:321
+#: lib/Block/Weather.php:213 lib/Block/Weather.php:323
 msgid "gusting"
 msgstr ""
 

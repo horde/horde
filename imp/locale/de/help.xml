@@ -644,7 +644,7 @@
   </entry>
 
     <entry id="sorting" state="uptodate" md5="3f793fe1cdb63cedeb0c1f4011f604ec">
-    <title>Ordner: Sortieren und Themen</title>
+    <title>Nachrichtenliste: Sortieren und Themen</title>
     <heading>Nachrichten Sortieren</heading>
     <para>
       Sie können Nachrichtenlisten nach einer beliebigen Spalte sortieren,
@@ -848,9 +848,9 @@
   </entry>
 
     <entry id="prefs-mailbox_start" state="uptodate" md5="4eb9c594c460e83c1cd413b2c46c718b">
-    <title>Ordner: Einstellungen: Startseite in Ordnern</title>
+    <title>Nachrichtenliste: Einstellungen: Startseite</title>
     <para>
-      Legt fest, welche Seite in der Ordneransicht angezeigt wird, wenn Sie
+      Legt fest, welche Seite in der Nachrichtenliste angezeigt wird, wenn Sie
       einen Ordner öffnen.
     </para>
   </entry>
@@ -865,7 +865,7 @@
   </entry>
 
     <entry id="virtual_inbox" state="uptodate" md5="bf6db3e373a0592cd285ee6e94adb1fb">
-    <title>Ordner: Virtueller Posteingang</title>
+    <title>Nachrichtenliste: Virtueller Posteingang</title>
     <para>
       Der Virtuelle Posteingang ist eine gespeicherte Suchabfrage, die es Ihnen
       abnimmt, in allen Ordnern nach neuen Nachrichten zu schauen.  Stattdessen
@@ -876,7 +876,7 @@
   </entry>
 
     <entry id="virtual_trash" state="uptodate" md5="3674e4fce2260d4a738bcee3272fa1b8">
-    <title>Ordner: Virtueller Papierkorb</title>
+    <title>Nachrichtenliste: Virtueller Papierkorb</title>
     <para>
       Der Virtuelle Papierkorb ist eine gespeicherte Suchabfrage, die einen
       separaten Papierkorb-Ordner unnötig macht. Anstatt gelöschte Nachrichten
@@ -891,7 +891,7 @@
 
     <view id="basic">
         <entry id="mailbox-keyboard" state="uptodate" md5="8cce3b6be2b37cf7a3126ae9e638f950">
-      <title>Ordner: Tastaturbelegung</title>
+      <title>Nachrichtenliste: Tastaturbelegung</title>
       <para>
         Sie können Ihre Tastatur verwenden, um Nachrichten in der
         Nachrichtenliste auszuwählen und anzuzeigen. Benutzen Sie die <css class="iconImg keyupImg"/> und <css class="iconImg keydownImg"/>
@@ -1006,7 +1006,7 @@
     </entry>
 
         <entry id="folders" state="uptodate" md5="013062bdc2d23e8879bc97137adf90a8">
-      <title>Ordner</title>
+      <title>Nachrichtenliste</title>
       <para>
         Sie können Ordner an den Kästchen vor den Ordnernamen markieren.
         Anschließend können Sie aus der Auswahlliste die entsprechende Aktion
@@ -1015,7 +1015,7 @@
     </entry>
 
         <entry id="folders-create" state="uptodate" md5="0cdec687f538673ccd19190af40765f2">
-      <title>Ordner: Erstellen</title>
+      <title>Nachrichtenliste: Erstellen</title>
       <para>
         Erstellt einen Ordner, falls möglich. Um einen Order in der obersten
         Ebene zu erstellen, wählen sie "Erstellen" aus, ohne zuvor einen Ordner
@@ -1025,7 +1025,7 @@
     </entry>
 
         <entry id="folders-rename" state="uptodate" md5="ee878e110f141c5380b86e605a5d619d">
-      <title>Ordner: Umbenennen</title>
+      <title>Nachrichtenliste: Umbenennen</title>
       <para>
         Benennt einen Ordner um. Um Ordner umzubennen, markieren Sie zunächst
         die gewünschten Ordner und wählen Sie dann "Umbenennen" aus. Beim
@@ -1034,7 +1034,7 @@
     </entry>
 
         <entry id="folders-delete" state="uptodate" md5="cfeb4fb5e1c194a16c370fc3d28c22cd">
-      <title>Ordner: Löschen</title>
+      <title>Nachrichtenliste: Löschen</title>
       <para>
         Löscht einen Ordner und alle darin enthaltenen Nachrichten. Sie müssen
         die Ordner, die Sie löschen möchten, markieren und anschließend
@@ -1045,7 +1045,7 @@
     </entry>
 
         <entry id="folders-empty" state="uptodate" md5="40aa6e04eea1deaafbebbf10b0253b64">
-      <title>Ordner: Leeren</title>
+      <title>Nachrichtenliste: Leeren</title>
       <para>
         Um alle Nachrichten in Ordnern, aber nicht die Ordner selbst zu
         löschen, markieren Sie die entsprechenden Ordner und wählen Sie
@@ -1054,7 +1054,7 @@
     </entry>
 
         <entry id="folders-purge" state="uptodate" md5="ff4eec60c5f3fccac8efbdb5befd2453">
-      <title>Ordner: Aufräumen</title>
+      <title>Nachrichtenliste: Aufräumen</title>
       <para>
         Um alle Nachrichten, die in Ordnern als gelöscht markiert sind,
         endgültig zu entfernen, markieren Sie die entsprechenden Ordner und
@@ -1064,7 +1064,7 @@
     </entry>
 
         <entry id="folders-subscribe" state="uptodate" md5="f6deebeac842b011decafe6d6fd7e28e">
-      <title>Ordner: Einblenden/Ausblenden</title>
+      <title>Nachrichtenliste: Einblenden/Ausblenden</title>
       <para>
         Markiert einen Ordner, so dass er zum Beispiel in den Auswahllisten
         angezeigt oder ausgeblendet wird. Diese Aktionen stehen nur Verfügung,
@@ -1078,7 +1078,7 @@
     </entry>
 
         <entry id="folders-newmail" state="uptodate" md5="968bf7baad520a2d2bdb59926f649d9b">
-      <title>Ordner: (Nicht) auf neue Nachrichten überpüfen</title>
+      <title>Nachrichtenliste: (Nicht) auf neue Nachrichten überpüfen</title>
       <warn>
         Diese Aktion steht unter Umständen nicht zur Verfügung, falls sie von
         Ihrem Administrator deaktiviert wurde.
@@ -1095,7 +1095,7 @@
     </entry>
 
         <entry id="folders-markseen" state="uptodate" md5="559380c98d187db02af27d3405a36f9c">
-      <title>Ordner: Alle Nachrichten als (un)gelesen markieren</title>
+      <title>Nachrichtenliste: Alle Nachrichten als (un)gelesen markieren</title>
       <para>
         Um alle Nachrichten in einem Order als gelesen zu markieren, wählen Sie
         die entsprechenden Ordner und dann "Alle Nachrichten als gelesen
@@ -1105,7 +1105,7 @@
     </entry>
 
         <entry id="folders-download" state="uptodate" md5="ca1b4a5affef2ab24994112bd286587b">
-      <title>Ordner: Herunterladen</title>
+      <title>Nachrichtenliste: Herunterladen</title>
       <para>
         Um alle Nachrichten in einem Ordner in einer einzigen Datei im
         Mbox-Format herunterzuladen, markieren Sie den gewünschten Ordner und
@@ -1116,7 +1116,7 @@
     </entry>
 
         <entry id="folders-import" state="uptodate" md5="60df93f93185f35846b212b6149578c3">
-      <title>Ordner: Nachrichten importieren</title>
+      <title>Nachrichtenliste: Nachrichten importieren</title>
       <para>
         Mit dieser Aktion können Sie eine Datei im Mbox- oder .eml-Format in
         einen beliebigen Ordner importieren. Markieren Sie dazu einen Ordner
@@ -1127,7 +1127,7 @@
     </entry>
 
         <entry id="folders-rebuild" state="uptodate" md5="4d10b81eafbe1658dddd5ee45bd35e20">
-      <title>Ordner: Ordnerbaum neu aufbauen</title>
+      <title>Nachrichtenliste: Ordnerbaum neu aufbauen</title>
       <para>
         Baut die graphische Darstellung der Ordnerstruktur neu auf, indem die
         Ordnerliste erneut vom Mailserver abgefragt wird. Dies ist in der Regel
@@ -1137,7 +1137,7 @@
     </entry>
 
         <entry id="folders-showsub" state="uptodate" md5="20b82145260d1e1fc4ad4f93cf9037cf">
-      <title>Ordner: Ausgeblendete Ordner anzeigen/verstecken</title>
+      <title>Nachrichtenliste: Ausgeblendete Ordner anzeigen/verstecken</title>
       <para>
         Versteckt oder zeigt ausgeblendete Ordner an, wenn Sie IMAP
         Ordnerabonnements verwenden. Markieren Sie die gewünschten Ordner und
@@ -1147,14 +1147,14 @@
     </entry>
 
         <entry id="folders-expandall" state="uptodate" md5="2f092b6f14cf3cf7d2e63cd5cfd5e416">
-      <heading>Ordner: Alle öffnen</heading>
+      <heading>Nachrichtenliste: Alle öffnen</heading>
       <para>
         Alle Ordnereinträge werden aufgeklappt.
       </para>
     </entry>
 
         <entry id="folders-collapseall" state="uptodate" md5="5bfe9c7029027dc384e08c4c608285d0">
-      <heading>Ordner: Alle schließen</heading>
+      <heading>Nachrichtenliste: Alle schließen</heading>
       <para>
         Alle Ordnereinträge werden zugeklappt.
       </para>
@@ -1206,7 +1206,7 @@
     </entry>
 
         <entry id="mailbox" state="uptodate" md5="ef690e1219cfd1cfc2429790202f881a">
-      <title>Ordner</title>
+      <title>Nachrichtenliste</title>
       <para>
         Um die Vorschau einer Nachricht anzuzeigen, wählen Sie diese in der
         Nachrichtenliste aus.
@@ -1229,7 +1229,7 @@
     </entry>
 
         <entry id="mailbox-keyboard" state="uptodate" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
-      <title>Ordner: Tastaturbelegung</title>
+      <title>Nachrichtenliste: Tastaturbelegung</title>
       <para>
         Die folgenden Tastenkombinationen stehen zur Verfügung:
       </para>

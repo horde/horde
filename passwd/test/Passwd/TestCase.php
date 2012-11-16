@@ -1,17 +1,11 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * @author     Ralf Lang <lang@ralf-lang.de>
  * @license    http://www.horde.org/licenses/gpl GPL
  * @category   Horde
  * @package    Passwd
  * @subpackage UnitTests
  */
-
 class Passwd_TestCase extends PHPUnit_Framework_TestCase
 {
 
@@ -29,7 +23,7 @@ class Passwd_TestCase extends PHPUnit_Framework_TestCase
         return new Horde_Injector(new Horde_Injector_TopLevel());
     }
 
-    protected function getSqlDriver() 
+    protected function getSqlDriver()
     {
         $GLOBALS['injector']    = $this->getInjector();
         $driver_factory         = new Passwd_Factory_Driver($this->getInjector());
@@ -43,7 +37,7 @@ class Passwd_TestCase extends PHPUnit_Framework_TestCase
                  );";
         $db->execute($table);
 
-        $this->driver = $driver_factory->create('Sqlite', 
+        $this->driver = $driver_factory->create('Sqlite',
                                         array(
                                             'driver' => 'Sql',
                                             'params' => array(

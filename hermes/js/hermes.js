@@ -20,11 +20,13 @@ HermesCore = {
     hermesBody: $('hermesBody'),
     clientIdMap: {},
     slices: [],
+    searchSlices: [],
     sortbyfield: 'sortDate',
     reverseSort: false,
     sortDir: 'up',
     today: null,
     redBoxLoading: false,
+    fromSearch: false,
 
     onException: function(parentfunc, r, e)
     {
@@ -159,7 +161,7 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
-            /* Main navigation links */
+            // Main navigation links
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();
@@ -170,7 +172,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Time entry form actions */
+            // Time entry form actions
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
@@ -184,9 +186,13 @@ HermesCore = {
                 $('hermesTimeFormId').value = 0;
                 e.stop();
                 return;
-
-            /* Slice list actions */
+            case 'hermesSearchReset':
+                $('hermesSearchForm').reset();
+                e.stop();
+                return;
+            // Slice list actions
             case 'hermesTimeListSubmit':
+            case 'hermesSearchListSubmit':
                 this.submitSlices();
                 e.stop();
                 return;
@@ -219,7 +225,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Timer form */
+            // Timer form
             case 'hermesAddTimer':
                 RedBox.showHtml($('hermesTimerDialog').show());
                 return;
@@ -230,12 +236,27 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesExportCancel':
             case 'hermesTimerCancel':
                 this.closeRedBox();
                 e.stop();
                 return;
 
-            /* Search Form */
+            // Export
+            case 'hermesExport':
+                RedBox.showHtml($('hermesExportDialog').show());
+                return;
+
+            case 'hermesDoExport':
+                var keys = this.getSearchResultKeys(),
+                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
+                      'f': $F('hermesExportFormat'),
+                      'm': $F('hermesExportMark'),
+                      's': keys.join(',') });
+                HordeCore.redirect(url);
+                return;
+
+            // Search Form
             case 'hermesSearch':
                 this.search();
                 e.stop();
@@ -251,11 +272,13 @@ HermesCore = {
             }
 
             if (elt.hasClassName('hermesTimeListSelect')) {
-                if (elt.up().identify() == 'hermesTimeListHeader') {
+                if (elt.up().identify() == 'hermesTimeListHeader' ||
+                    elt.up().identify() == 'hermesSearchListHeader') {
                     this.toggleAllRows(elt);
                     e.stop();
                     return;
                 }
+
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
@@ -295,11 +318,16 @@ HermesCore = {
     // elt Element for the checkall checkbox
     toggleAllRows: function(elt)
     {
-        var select = false;
+        var select = false, target;
         if (elt.hasClassName('hermesUnselectedSlice')) {
            select = true;
         }
-        $('hermesTimeListInternal').select('.hermesTimeListRow').each(function(e) {
+        if (elt.up().identify() == 'hermesTimeListHeader') {
+            target = $('hermesTimeListInternal');
+        } else {
+            target = $('hermesSearchListInternal');
+        }
+        target.select('.hermesTimeListRow').each(function(e) {
             var c = e.down();
             if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
@@ -323,14 +351,26 @@ HermesCore = {
     checkSelected: function()
     {
         var haveSelected = false;
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
-            haveSelected = true;
-            throw $break;
-        }.bind(this));
-        if (haveSelected) {
-            $('hermesTimeListSubmit').enable()
-        } else {
-            $('hermesTimeListSubmit').disable();
+        if (this.view == 'time') {
+            $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesTimeListSubmit').enable()
+            } else {
+                $('hermesTimeListSubmit').disable();
+            }
+        } else if (this.view == 'search') {
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesSearchListSubmit').enable()
+            } else {
+                $('hermesSearchListSubmit').disable();
+            }
         }
     },
 
@@ -341,19 +381,19 @@ HermesCore = {
      */
     populateSliceForm: function(sid)
     {
-        var slice = this.getSliceFromCache(sid),
+        var slice = this.getSliceFromCache(sid, this.view),
             d = this.parseDate(slice.d);
 
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
         HordeCore.doAction('listDeliverables',
-              { 'c': $F('hermesTimeFormClient') },
-              { 'callback': function(r) {
-                    this.listDeliverablesCallback(r);
-                    $('hermesTimeFormCostobject').setValue(slice.co);
+            { 'c': $F('hermesTimeFormClient') },
+            { 'callback': function(r) {
+                  this.listDeliverablesCallback(r);
+                  $('hermesTimeFormCostobject').setValue(slice.co);
                 }.bind(this)
-              }
+            }
         );
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
         $('hermesTimeFormHours').setValue(slice.h);
@@ -362,6 +402,10 @@ HermesCore = {
         $('hermesTimeFormNotes').setValue(slice.n);
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
+
+        // We might be on the search form when we click edit.
+        this.fromSearch = (this.view == 'search');
+        this.go('time');
     },
 
     /**
@@ -409,13 +453,21 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid)
+    getSliceFromCache: function(sid, cache = 'time')
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
 
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                return this.slices[i];
+            if (c[i].i == sid) {
+                return c[i];
             }
         }
     },
@@ -426,10 +478,14 @@ HermesCore = {
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
      */
-    replaceSliceInCache: function(sid, slice)
+    replaceSliceInCache: function(sid, slice, cache = 'time')
     {
-        this.removeSliceFromCache(sid);
-        this.slices.push(slice);
+        this.removeSliceFromCache(sid, cache);
+        if (cache == 'time') {
+            this.slices.push(slice);
+        } else if (cache == 'search') {
+            this.searchSlices.push(slice);
+        }
     },
 
     /**
@@ -437,15 +493,35 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid)
+    removeSliceFromCache: function(sid, cache = 'time')
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                this.slices.splice(i, 1);
+            if (c[i].i == sid) {
+                c.splice(i, 1);
                 break;
             }
         }
+    },
+
+    getSearchResultKeys: function()
+    {
+        var s = this.searchSlices.length,
+            c = this.searchSlices,
+            k = [];
+        for (var i = 0; i <= (s - 1); i++) {
+            k.push(c[i].i);
+        }
+
+        return k;
     },
 
     /**
@@ -463,11 +539,19 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
-        $('hermesLoadingTime').show();
-        HordeCore.doAction('listDeliverables',
-            { 'c': $F('hermesTimeFormClient') },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
-        );
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesTimeFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesSearchFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        }
     },
 
     /**
@@ -475,14 +559,20 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
-        var h = $H(r);
+        var h = $H(r), elm;
 
-        $('hermesLoadingTime').hide();
-        $('hermesTimeFormCostobject').childElements().each(function(el) {
+        if (this.view == 'time') {
+            $('hermesLoadingTime').hide();
+            elm = $('hermesTimeFormCostobject');
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').hide();
+            elm = $('hermesSearchFormCostobject');
+        }
+        elm.childElements().each(function(el) {
             el.remove();
         });
         h.each(function(i) {
-           $('hermesTimeFormCostobject').insert(new Element('option', { 'value': i.key }).insert(i.value));
+           elm.insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
     },
 
@@ -546,6 +636,8 @@ HermesCore = {
     searchCallback: function(r)
     {
         $('hermesLoadingSearch').hide();
+        this.searchSlices = r;
+        this.buildSearchResultsTable();
     },
 
     /**
@@ -558,13 +650,23 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
-        this.replaceSliceInCache(sid, r);
-        this.reverseSort = false;
-        this.updateView(this.view);
-        this.buildTimeTable();
+        if (this.getSliceFromCache(sid)) {
+            this.replaceSliceInCache(sid, r);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
+        }
         $('hermesTimeForm').reset();
         $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
+
+        if (this.fromSearch) {
+            this.fromSearch = false;
+            this.replaceSliceInCache(sid, r, 'search');
+            this.updateView('search');
+            this.buildSearchResultsTable();
+            this.go('search');
+        }
     },
 
     /**
@@ -729,10 +831,18 @@ HermesCore = {
     submitSlices: function()
     {
         var sliceIds = [],
-        slices = [];
+        slices = [],
+        elt;
 
-        $('hermesLoadingTime').show();
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            elt = $('hermesTimeListInternal');
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            elt = $('hermesSearchListInternal');
+        }
+
+        elt.select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
         }.bind(this));
@@ -751,8 +861,18 @@ HermesCore = {
      */
     submitSlicesCallback: function(slices)
     {
-        $('hermesLoadingTime').hide();
-        slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        if (this.view == 'time') {
+            $('hermesLoadingTime').hide();
+            slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').hide();
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                s.removeClassName('hermesSelectedSlice')
+                    .removeClassName('hermesTimeListSelect')
+                    .addClassName('hermesTimeListUnselectable');
+            }.bind(this));
+
+        }
         this.checkSelected();
     },
 
@@ -765,14 +885,24 @@ HermesCore = {
     {
         switch (view) {
         case 'time':
-            var tbody = $('hermesTimeListInternal');
-            // TODO: Probably more effecient way
-            tbody.childElements().each(function(row) {
+            $('hermesTimeListInternal').childElements().each(function(row) {
                 row.purge();
                 row.remove();
             });
             if ($('hermesTimeListHeader')) {
                 $('hermesTimeListHeader').select('div').each(function(d) {
+                   d.removeClassName('sortup');
+                   d.removeClassName('sortdown');
+                });
+            }
+            break;
+        case 'search':
+            $('hermesSearchListInternal').childElements().each(function(row) {
+                row.purge();
+                row.remove();
+            });
+            if ($('hermesSearchListHeader')) {
+                $('hermesSearchListHeader').select('div').each(function(d) {
                    d.removeClassName('sortup');
                    d.removeClassName('sortdown');
                 });
@@ -881,6 +1011,61 @@ HermesCore = {
     },
 
     /**
+     * Builds the results list.
+     */
+    buildSearchResultsTable: function()
+    {
+        var t = $('hermesSearchListInternal'),
+            slices;
+
+        t.update();
+        if (this.reverseSort) {
+            slices = this.searchSlices.reverse();
+            this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
+        } else {
+            this.sortDir = 'down';
+            switch (this.sortbyfield) {
+            case 'sortDate':
+                // Date defaults to reverse
+                this.sortDir = 'up';
+                slices = this.searchSlices.sort(this.sortDate).reverse();
+                break;
+            case 'sortClient':
+               slices = this.searchSlices.sort(this.sortClient);
+               break;
+            case 'sortCostObject':
+                slices = this.searchSlices.sort(this.sortCostObject);
+                break;
+            case 'sortType':
+                slices = this.searchSlices.sort(this.sortType);
+                break;
+            case 'sortHours':
+                this.sortDir = 'up';
+                slices = this.searcSlices.sort(this.sortHours).reverse();
+                break;
+            case 'sortBill':
+                slices = this.searchSlices.sort(this.sortBill);
+                break;
+            case 'sortDesc':
+                slices = this.searchSlices.sort(this.sortDesc);
+                break;
+            default:
+                slices = this.searchSlices;
+                break;
+            }
+        }
+        this.searchSlices = slices;
+        t.hide();
+        slices.each(function(slice) {
+            t.insert(this.buildSearchRow(slice).toggle());
+        }.bind(this));
+        $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+        t.appear({ duration: this.effectDur, queue: 'end' });
+        this.updateTimeSummary();
+        $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
+    },
+
+    /**
      * Builds the DOM structure for a single slice row in the slice list.
      *
      * @param slice  The slices data.
@@ -903,6 +1088,51 @@ HermesCore = {
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
+        if (!slice.cn) {
+            cell = cell.next().update(' ');
+        } else {
+            cell = cell.next().update(slice.cn[Hermes.conf.client_name_field]);
+        }
+        cell = cell.next().update((slice.con) ? slice.con : ' ');
+        cell = cell.next().update((slice.tn) ? slice.tn : ' ');
+        cell = cell.next().update((slice.desc) ? slice.desc : ' ');
+        cell = cell.next().update((slice.b == 1) ? 'Y' : 'N');
+        cell = cell.next().update(slice.h);
+
+        return row;
+    },
+
+    /**
+     * Builds the DOM structure for a single slice row in the results list.
+     *
+     * @param slice  The slices data.
+     *
+     * @return A DOM element representing the slice suitable for inserting into
+     *         the slice list.
+     */
+    buildSearchRow: function(slice)
+    {
+        var row, cell, d;
+
+        // Save the cn info for possible later use
+        if (!HermesCore.clientIdMap[slice.c]) {
+            HermesCore.clientIdMap[slice.c] = slice.cn;
+        }
+        row = $('hermesSearchListTemplate').clone(true);
+        row.addClassName('hermesTimeListRow');
+        row.removeAttribute('id');
+        row.store('sid', slice.i);
+        if (!slice.x) {
+            row.down().removeClassName('hermesUnselectedSlice')
+                .removeClassName('hermesTimeListSelect')
+                .addClassName('hermesTimeListUnselectable')
+                .next().next().next().next().next().next().next().next().next()
+                .update();
+        }
+        d = this.parseDate(slice.d);
+        cell = row.down().update(' ');
+        cell = cell.next().update(d.toString(Hermes.conf.date_format));
+        cell = cell.next().update(slice.e);
         if (!slice.cn) {
             cell = cell.next().update(' ');
         } else {
@@ -1073,8 +1303,12 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
+        // General click handler.
         document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
+
+        // Change handler for loading cost objects per client.
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -1116,7 +1350,7 @@ HermesCore = {
             { },
             { 'callback': this.listDeliverablesCallback.bind(this) }
         );
-        new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));

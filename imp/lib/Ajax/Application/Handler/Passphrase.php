@@ -60,7 +60,7 @@ class IMP_Ajax_Application_Handler_Passphrase extends Horde_Core_Ajax_Applicatio
                         $result = true;
                         $notification->push(_("S/MIME passphrase stored in session."), 'horde.success');
                     } else {
-                        $notification->error(_("Invalid passphrase entered."), 'horde.error');
+                        $notification->push(_("Invalid passphrase entered."), 'horde.error');
                     }
                 } else {
                     $notification->push(_("No passphrase entered."), 'horde.error');

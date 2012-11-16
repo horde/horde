@@ -85,6 +85,12 @@ class Horde_Timezone_Zone
 
         $tz = new Horde_Icalendar_Vtimezone();
         $tz->setAttribute('TZID', $this->_name);
+        if (count($this->_info[0]) <= 3) {
+            // Zone has no start or end date, but DAYLIGHT and STANDARD
+            // components are required to have a DTSTART attribute [RFC
+            // 5545 3.8.2.4].
+            return $tz;
+        }
 
         $startDate = $this->_getDate(0);
         $startOffset = $this->_getOffset(0);

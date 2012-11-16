@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H4 (4.0.0-git)\n"
+"Project-Id-Version: Mnemo H5 (4.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -122,7 +122,7 @@ msgid "Default sorting direction:"
 msgstr ""
 
 #: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
-#: lib/Form/EditNotepad.php:90
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
 msgid "Delete"
 msgstr ""
 
@@ -137,10 +137,6 @@ msgstr ""
 
 #: config/prefs.php:28
 msgid "Delete button behaviour"
-msgstr ""
-
-#: templates/memo/memo.inc:58
-msgid "Delete this note"
 msgstr ""
 
 #: config/prefs.php:59
@@ -475,10 +471,6 @@ msgstr ""
 msgid "There was an error viewing this notepad: %s"
 msgstr ""
 
-#: lib/Application.php:254
-msgid "There were no memos to export."
-msgstr ""
-
 #: data.php:70
 msgid "This file format is not supported."
 msgstr ""
@@ -618,7 +610,7 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:267 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr ""
 

@@ -122,8 +122,6 @@ class Horde_Kolab_Format_Factory
     /**
      * Generates a XML parser.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @return Horde_Kolab_Format_Xml_Parser The parser.
      */
     public function createXmlParser()
@@ -136,8 +134,6 @@ class Horde_Kolab_Format_Factory
     /**
      * Generates a XML helper instance.
      *
-     * @since Horde_Kolab_Format 1.1.0
-     *
      * @param DOMDocument $xmldoc The XML document the helper works with.
      *
      * @return Horde_Kolab_Format_Xml_Helper The helper utility.
@@ -149,8 +145,6 @@ class Horde_Kolab_Format_Factory
 
     /**
      * Generates a XML type that deals with XML data modifications.
-     *
-     * @since Horde_Kolab_Format 1.1.0
      *
      * @param string      $type   The value type.
      * @param array       $params Additional parameters.

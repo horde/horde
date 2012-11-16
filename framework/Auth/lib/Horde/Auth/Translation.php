@@ -11,7 +11,6 @@
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
- * @since    Horde_Auth 1.4.0
  */
 class Horde_Auth_Translation extends Horde_Translation
 {

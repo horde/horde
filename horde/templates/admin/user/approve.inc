@@ -14,13 +14,14 @@ try {
 <?php elseif (!count($allQueued)): ?>
  <div class="text"><em><?php echo _("No pending signups.") ?></em></div>
 <?php else: ?>
-<table class="striped horde-table" id="signup-pending" cellspacing="0">
+<br />
+<table class="horde-table" id="signup-pending">
 <thead>
  <tr>
   <th>&nbsp;</th>
   <th>&nbsp;</th>
-  <th class="leftAlign"><?php echo _("Username") ?></th>
-  <th class="leftAlign"><?php echo _("Date Received") ?></th>
+  <th class="horde-split-left"><?php echo _("Username") ?></th>
+  <th class="horde-split-left"><?php echo _("Date Received") ?></th>
  </tr>
 </thead>
 <tbody>
@@ -46,4 +47,5 @@ try {
 <?php endforeach; ?>
 </tbody>
 </table>
+<br />
 <?php endif; ?>

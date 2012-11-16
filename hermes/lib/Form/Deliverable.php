@@ -15,7 +15,7 @@ class Hermes_Form_Deliverable extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Deliverable Detail"));
+        parent::__construct($vars, _("Deliverable Detail"));
 
         $this->addHidden('', 'deliverable_id', 'text', false);
         $this->addHidden('', 'client_id', 'text', false);

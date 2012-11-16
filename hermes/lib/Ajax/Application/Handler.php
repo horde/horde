@@ -75,8 +75,8 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
 
     /**
      * Get a list of client deliverables. Expects the following in $this->vars:
-     *   - c: The client id, if querying for a specific client id. Returns
-     *        all deliverables not attached to only a single client otherwise.
+     *   - c: The client id, or an array of client ids if querying for specific
+     *        clients. Returns all deliverables otherwise.
      *
      * @return array @see Hermes::getCostObjectType
      */
@@ -147,7 +147,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
                 ->getInstance('Hermes_Driver')
                 ->markAs('submitted', $time);
         } catch (Horde_Exception $e) {
-            $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
+            $GLOBALS['notification']->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
             return false;
         }
 
@@ -299,11 +299,16 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $vars = $this->vars;
 
         $criteria = array();
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
-            if (!empty($vars->employees)) {
+        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)
+            || $GLOBALS['registry']->isAdmin()) {
+
+            if (!empty($vars->employees[0])) {
                 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
                 if (!$auth->hasCapability('list')) {
-                    $criteria['employee'] = explode(',', $vars->employees);
+                    $criteria['employee'] = explode(',', $vars->employees[0]);
+                    if (empty($criteria['employee'])) {
+                        unset($criteria['employee']);
+                    }
                 } else {
                     $criteria['employee'] = $vars->employees;
                 }
@@ -317,16 +322,26 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         if (!empty($vars->type)) {
             $criteria['jobtype'] = $vars->type;
         }
-        if (!empty($vars->costobjects)) {
-            $criteria['costobject'] = $vars->costobjects;
+        if (!empty($vars->costobject)) {
+            $criteria['costobject'] = $vars->costobject;
         }
-        if (!empty($vars->start)) {
-            $dt = new Horde_Date($vars->start);
+        if (!empty($vars->after_date)) {
+            $dt = new Horde_Date($vars->after_date);
             $criteria['start'] = $dt->timestamp();
         }
-        if (!empty($vars->end)) {
-            $dt = new Horde_Date($vars->end);
+        if (!empty($vars->before_date)) {
+            $dt = new Horde_Date($vars->before_date);
             $criteria['end'] = $dt->add(86400)->timestamp();
+        }
+
+        if ($vars->billable !== '') {
+            $criteria['billable'] = $vars->billable;
+        }
+        if ($vars->submitted !== '') {
+            $criteria['submitted'] = $vars->submitted;
+        }
+        if ($vars->exported !== '') {
+            $criteria['exported'] = $vars->exported;
         }
 
         return $criteria;

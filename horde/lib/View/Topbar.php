@@ -8,6 +8,7 @@
  * - searchAction: (string) The form action attribute of the search form.
  * - searchMenu: (boolean) whether to show a drop down icon inside the search
  *               field.
+ * - searchLabel: (string) Ghost label of the search field.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
@@ -54,6 +55,7 @@ class Horde_View_Topbar extends Horde_View
         /* Search form. */
         $this->searchAction = '#';
         $this->searchIcon = Horde_Themes::img('search-topbar.png');
+        $this->searchLabel = _("Search");
 
         /* Login/Logout. */
         if ($registry->getAuth()) {

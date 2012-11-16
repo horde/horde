@@ -7,7 +7,7 @@
   <strong><?php echo $this->search_title ?></strong>
  </h1>
 
- <table class="item">
+ <table class="item searchBasic">
   <tr>
    <td class="searchUILabel"><?php echo _("Search Criteria:") ?></td>
    <td>
@@ -46,8 +46,8 @@
   </tr>
  </table>
 
- <div>
-  <input type="submit" class="button basicSearchSubmit" value="<?php echo _("Submit") ?>" />
+ <div class="control">
+  <input type="submit" class="button horde-default basicSearchSubmit" value="<?php echo _("Submit") ?>" />
   <input type="reset" class="button basicSearchReset" value="<?php echo _("Reset") ?>" />
  </div>
 </form>

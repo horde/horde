@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Storage\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-29 08:12:27+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
@@ -158,8 +158,8 @@ msgstr "Tilatietojen haku kansiosta %s epäonnistui."
 msgid "Failed retrieving structure of message %s in folder %s."
 msgstr "Viestin %s rakennetietojen haku kansiosta %s epäonnistui."
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:846
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:852
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:844
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:850
 #, php-format
 msgid "Failed retrieving the message with ID %s. Original error: %s."
 msgstr "Viestin haku epäonnistui ID tunnisteella %s. Virheilmoitus oli: %s."
@@ -244,7 +244,7 @@ msgstr "Lisätiedon %s[%s] asetus kansioon %s epäonnistui."
 msgid "Setting annotation %s[%s] on folder %s to %s failed."
 msgstr "Lisätiedon %s[%s] asetus kansioon %s muotoon %s epäonnistui."
 
-#: lib/Horde/Kolab/Storage/Data/Base.php:259
+#: lib/Horde/Kolab/Storage/Data/Base.php:255
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -255,7 +255,7 @@ msgstr ""
 "jokin muu taho on muokannut Kolab-objekia sen jälkeen kun se haettiin "
 "taustajärjestelmästä. Virheilmoitus oli: %s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:685
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:683
 #, php-format
 msgid ""
 "The message with ID %s does not exist. This probably means that the Kolab "
@@ -277,7 +277,7 @@ msgstr ""
 "pitää olla Kolab Groupwaren formaattia ymmärtävä sähköpostiohjelma. Lista "
 "yhteensopivista sähköpostiohjelmista löytyy osoitteesta %s"
 
-#: doc/Horde/Kolab/Storage/OLD/Folder.php:368
+#: doc/Horde/Kolab/Storage/OLD/Folder.php:366
 #, php-format
 msgid "Unable to rename %s to %s: destination folder already exists"
 msgstr ""

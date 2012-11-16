@@ -5312,16 +5312,15 @@ KronolithCore = {
      */
     saveEventParams: function()
     {
-        var start, end, sig,
-            viewDates = this.viewDates(this.date, this.view),
-            params = { sig: viewDates[0].dateString() + viewDates[1].dateString() };
+        var viewDates = this.viewDates(this.date, this.view),
+            params = {
+                sig: viewDates[0].dateString() + viewDates[1].dateString(),
+                view: this.view
+            };
         if (this.cacheStart) {
-            start = this.cacheStart.dateString();
-            end = this.cacheEnd.dateString();
-            params.view_start = start;
-            params.view_end = end;
+            params.view_start = this.cacheStart.dateString();
+            params.view_end = this.cacheEnd.dateString();
         }
-        params.view = this.view;
         return params;
     },
 
@@ -5347,8 +5346,10 @@ KronolithCore = {
         params = $H($('kronolithEventForm').serialize({ hash: true }))
             .merge(this.saveEventParams());
         params.set('as_new', asnew ? 1 : 0);
-        params.set('cstart', this.cacheStart.toISOString());
-        params.set('cend', this.cacheEnd.toISOString());
+        if (this.cacheStart) {
+            params.set('cstart', this.cacheStart.toISOString());
+            params.set('cend', this.cacheEnd.toISOString());
+        }
         HordeImple.AutoCompleter.kronolithEventTags.shutdown();
         $('kronolithEventSave').disable();
         $('kronolithEventSaveAsNew').disable();

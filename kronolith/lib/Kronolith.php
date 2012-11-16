@@ -2699,18 +2699,58 @@ class Kronolith
      */
     static public function getDriver($driver = null, $calendar = null)
     {
-        $driver = $GLOBALS['injector']->getInstance('Kronolith_Factory_Driver')->create($driver);
+        $instance = $GLOBALS['injector']
+            ->getInstance('Kronolith_Factory_Driver')
+            ->create($driver);
 
         if (!is_null($calendar)) {
-            $driver->open($calendar);
+            $instance->open($calendar);
 
             /* Remote calendar parameters are per calendar. */
-            if ($driver == 'Ical') {
-                $driver->setParams(self::getRemoteParams($calendar));
+            if ($instance instanceof Kronolith_Driver_Ical) {
+                $instance->setParams(self::getRemoteParams($calendar));
             }
         }
 
-        return $driver;
+        return $instance;
+    }
+
+    /**
+     * Returns a Kronolith_Calendar object for a driver instance.
+     *
+     * @since Kronolith 4.0.1
+     *
+     * @param Kronolith_Driver  A driver instance.
+     *
+     * @return Kronolith_Calendar  The matching calendar instance.
+     */
+    static public function getCalendar(Kronolith_Driver $driver)
+    {
+        switch (true) {
+        case $driver instanceof Kronolith_Driver_Sql:
+        case $driver instanceof Kronolith_Driver_Kolab:
+            return $GLOBALS['all_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Ical:
+            return $GLOBALS['all_remote_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Horde:
+            return $GLOBALS['all_external_calendars'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Holidays:
+            return $GLOBALS['all_holidays'][$driver->calendar];
+
+        case $driver instanceof Kronolith_Driver_Resource_Sql:
+            if ($driver->get('type') == Kronolith_Resource::TYPE_GROUP) {
+                return new Kronolith_Calendar_ResourceGroup(array(
+                    'resource' => $driver
+                ));
+            } else {
+                return new Kronolith_Calendar_Resource(array(
+                    'resource' => $driver
+                ));
+            }
+        }
     }
 
     /**

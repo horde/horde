@@ -1172,11 +1172,13 @@ class Nag_Task
         /* Due Date */
         if (!empty($this->due)) {
             $message->utcduedate = new Horde_Date($this->due);
+            $message->duedate = clone $message->utcduedate;
         }
 
         /* Start Date */
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
+            $message->startdate = clone $message->utcstartdate;
         }
 
         /* Priority */
@@ -1217,6 +1219,9 @@ class Nag_Task
      */
     public function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
+        /* Owner is always current user. */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         try {
             $name = $vTodo->getAttribute('SUMMARY');
             if (!is_array($name)) { $this->name = $name; }
@@ -1321,7 +1326,7 @@ class Nag_Task
      */
     public function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
-        /* Owner is always current user for ActiveSync */
+        /* Owner is always current user. */
         $this->owner = $GLOBALS['registry']->getAuth();
 
         /* Notes and Title */
@@ -1340,12 +1345,12 @@ class Nag_Task
         }
 
         /* Due Date */
-        if ($due = $message->utcduedate) {
+        if ($due = $message->utcduedate || $due = $message->duedate) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->utcstartdate) {
+        if ($start = $message->utcstartdate || $start = $message->startdate) {
             $this->start = $start->timestamp();
         }
 

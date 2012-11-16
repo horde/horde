@@ -1,7 +1,8 @@
 ----------
-v4.0.2-git
+v4.0.1-git
 ----------
 
+[jan] Use encoded UIDs as IDs in Kolab driver.
 
 
 ------
@@ -9,6 +10,7 @@ v4.0.0
 ------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
 
 
 ---------

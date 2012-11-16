@@ -497,7 +497,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
             '$$("INPUT.horde-cancel").first().observe("click", function() { window.close(); })'
         ), true);
 
-        IMP::header(_("Import S/MIME Key"));
+        IMP::header(_("Import Personal S/MIME Certificate"));
 
         /* Need to use regular status notification - AJAX notifications won't
          * show in popup windows. */
@@ -508,7 +508,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
         IMP::status();
 
         $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/pgp'
+            'templatePath' => IMP_TEMPLATES . '/smime'
         ));
         $view->addHelper('Text');
 

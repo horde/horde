@@ -26,7 +26,6 @@ if ($conf['signup']['allow'] && $conf['signup']['approve']) {
 $addForm = new Horde_Form($vars, _("Add a new user:"), 'adduser');
 $addForm->setButtons(_("Add user"), _("Reset"));
 
-$vars->set('form', 'add');
 $addForm->addHidden('', 'form', 'text', true, true);
 
 /* Use hooks get any extra fields for new accounts. */
@@ -263,7 +262,8 @@ if (isset($update_form) && $auth->hasCapability('list')) {
 } elseif (isset($removequeued_form)) {
     require HORDE_TEMPLATES . '/admin/user/removequeued.inc';
 } elseif ($auth->hasCapability('add')) {
-    require HORDE_TEMPLATES . '/admin/user/add.inc';
+    $vars->form = 'add';
+    $addForm->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
     if ($conf['signup']['allow'] && $conf['signup']['approve']) {
         require HORDE_TEMPLATES . '/admin/user/approve.inc';
     }

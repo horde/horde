@@ -15,7 +15,7 @@
  </form>
 </div>
 
-<table class="striped" width="100%" cellspacing="0">
+<table class="horde-table">
 <?php
 $remove = $auth->hasCapability('remove');
 $total = 0;
@@ -33,7 +33,7 @@ foreach ($users as $user):
 <?php endif; ?>
   <td width="1%"><?php echo Horde::link($user_url->add('form', 'update_f'), _("Update")) .  Horde::img('edit.png', _("Update")) ?></a></td>
   <td width="1%"><?php echo Horde::link($user_url->add('form', 'clear_f'), _("Clear user data")) .  Horde::img('reload.png', _("Clear user data")) ?></a></td>
-  <td class="leftAlign"><?php echo $user ?></td>
+  <td><?php echo $user ?></td>
  </tr>
 <?php endforeach; ?>
 </table>

@@ -259,7 +259,7 @@
   </entry>
   <entry id="whitelist-addresses">
     <title>Whitelist: Addresses</title>
-    <para>TODO. Each address should be entered on a separate line.</para>
+    <para>Each address should be entered on a separate line.</para>
   </entry>
   <entry id="spam-level">
     <title>Spam Filtering: Spam Level</title>

@@ -22,10 +22,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-10-30</date>
- <time>19:56:15</time>
+ <date>2012-11-14</date>
+ <time>01:40:12</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Jsmin fixes merged from upstream C source.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -350,10 +350,11 @@
         <file name="bug_11116.txt" role="test" />
        </dir> <!-- /test/Horde/Text/Filter/fixtures -->
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="EmailsTest.php" role="test" />
        <file name="EnvironmentTest.php" role="test" />
        <file name="Html2textTest.php" role="test" />
+       <file name="JsminTest.php" role="test" />
        <file name="LinkurlsTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="Space2htmlTest.php" role="test" />
@@ -518,10 +519,11 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" name="locale/zh_TW/LC_MESSAGES/Horde_Text_Filter.po" />
    <install as="Horde/Text/Filter/AllTests.php" name="test/Horde/Text/Filter/AllTests.php" />
-   <install as="Horde/Text/Filter/Autoload.php" name="test/Horde/Text/Filter/Autoload.php" />
+   <install as="Horde/Text/Filter/bootstrap.php" name="test/Horde/Text/Filter/bootstrap.php" />
    <install as="Horde/Text/Filter/EmailsTest.php" name="test/Horde/Text/Filter/EmailsTest.php" />
    <install as="Horde/Text/Filter/EnvironmentTest.php" name="test/Horde/Text/Filter/EnvironmentTest.php" />
    <install as="Horde/Text/Filter/Html2textTest.php" name="test/Horde/Text/Filter/Html2textTest.php" />
+   <install as="Horde/Text/Filter/JsminTest.php" name="test/Horde/Text/Filter/JsminTest.php" />
    <install as="Horde/Text/Filter/LinkurlsTest.php" name="test/Horde/Text/Filter/LinkurlsTest.php" />
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
@@ -833,10 +835,23 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Jsmin fixes merged from upstream C source.
    </notes>
   </release>
  </changelog>

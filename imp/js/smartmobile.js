@@ -80,7 +80,7 @@ var ImpMobile = {
 
         case 'compose-submit':
             ImpMobile.uniqueSubmit(
-                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'sendMessage'
+                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'smartmobileSendMessage'
             );
             e.preventDefault();
             break;
@@ -314,7 +314,6 @@ var ImpMobile = {
         HordeMobile.doAction(
             'viewPort',
             ImpMobile.addViewportParams($.extend(params, {
-                requestid: 1,
                 view: mailbox
             }))
         );
@@ -476,7 +475,6 @@ var ImpMobile = {
                 // messages on a page.
                 after: ImpMobile.mbox_rows,
                 before: ImpMobile.mbox_rows,
-                requestid: 1,
                 // Need to manually encode JSON here.
                 search: JSON.stringify({ uid: purl.params.uid })
             };
@@ -1249,7 +1247,7 @@ var ImpMobile = {
             $.each([ 'to', 'cc' ], function(undefined, v) {
                 $('#imp-compose-' + v).autocomplete({
                     callback: function(e) {
-                        $('#imp-compose-' + v).val($(e.currentTarget).text());
+                        $('#imp-compose-' + v).val($.trim($(e.currentTarget).text()));
                     },
                     link: '#',
                     minLength: 3,

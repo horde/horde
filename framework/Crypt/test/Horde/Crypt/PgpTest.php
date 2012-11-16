@@ -513,4 +513,11 @@ Version: GnuPG v%d.%d.%d (%s)
         );
     }
 
+    public function testGetPublicKeyFromPrivateKey()
+    {
+        $this->assertNotNull(
+            $this->_pgp->getPublicKeyFromPrivateKey($this->_privkey)
+        );
+    }
+
 }

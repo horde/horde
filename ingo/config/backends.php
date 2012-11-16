@@ -81,7 +81,7 @@ $backends['maildrop'] = array(
         // You can use the following variables:
         //   %u = name of the filters' owner
         //   %d = domain name of the filters' owner
-        //   %U = the 'username' from above
+        //   %U = the transport 'username'
         // Example:
         //   '/data/maildrop/filters/%d/%u'
         //   This would be translated into:

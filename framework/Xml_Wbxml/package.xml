@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>20:03:37</time>
+ <date>2012-11-09</date>
+ <time>16:46:23</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -83,7 +83,6 @@
      <dir name="Xml">
       <dir name="Wbxml">
        <file name="AllTests.php" role="test" />
-       <file name="Autoload.php" role="test" />
        <file name="DecodeTest.php" role="test" />
       </dir> <!-- /test/Horde/Xml/Wbxml -->
      </dir> <!-- /test/Horde/Xml -->
@@ -136,7 +135,6 @@
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" />
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" />
    <install as="Horde/Xml/Wbxml/AllTests.php" name="test/Horde/Xml/Wbxml/AllTests.php" />
-   <install as="Horde/Xml/Wbxml/Autoload.php" name="test/Horde/Xml/Wbxml/Autoload.php" />
    <install as="Horde/Xml/Wbxml/DecodeTest.php" name="test/Horde/Xml/Wbxml/DecodeTest.php" />
   </filelist>
  </phprelease>
@@ -287,7 +285,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

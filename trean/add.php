@@ -32,7 +32,7 @@ case 'add_bookmark':
         'bookmark_url' => Horde_Util::getFormData('url'),
         'bookmark_title' => Horde_Util::getFormData('title'),
         'bookmark_description' => Horde_Util::getFormData('description'),
-        'bookmark_tags' => Horde_Util::getFormData('tags'),
+        'bookmark_tags' => Horde_Util::getFormData('treanBookmarkTags'),
     );
 
     try {
@@ -55,12 +55,19 @@ case 'add_bookmark':
 }
 
 if (Horde_Util::getFormData('popup')) {
+    $page_output->sidebar = false;
+    $page_output->topbar = false;
     $page_output->addInlineScript(array(
         'window.focus()'
     ), true);
 }
 
-$injector->getInstance('Horde_Core_Factory_Imple')->create('Trean_Ajax_Imple_TagAutoCompleter');
+$injector->getInstance('Horde_Core_Factory_Imple')
+    ->create('Trean_Ajax_Imple_TagAutoCompleter', array(
+        'id' => 'treanBookmarkTags',
+        'pretty' => true,
+        'boxClass' => 'treanACBox'));
+$page_output->addInlineScript('HordeImple.AutoCompleter.treanBookmarkTags.init()', true);
 
 $page_output->header(array(
     'title' => _("New Bookmark")

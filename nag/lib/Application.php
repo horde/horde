@@ -40,7 +40,7 @@ class Nag_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.0.2-git)';
+    public $version = 'H5 (4.0.1-git)';
 
     /**
      * Global variables defined:
@@ -81,7 +81,7 @@ class Nag_Application extends Horde_Registry_Application
      *
      * @param Horde_Menu  The menu object.
      */
-    public function menu(Horde_Menu $menu)
+    public function menu($menu)
     {
         global $conf;
 
@@ -355,10 +355,6 @@ class Nag_Application extends Horde_Registry_Application
                 'completed' => $vars->exportTasks,
                 'include_tags' => true)
             );
-
-            if (!$tasks->hasTasks()) {
-                throw new Nag_Exception(_("There were no tasks to export."));
-            }
 
             $tasks->reset();
             switch ($vars->exportID) {

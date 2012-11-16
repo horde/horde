@@ -49,7 +49,8 @@ class Kronolith_Event_Kolab extends Kronolith_Event
      */
     public function fromDriver($event)
     {
-        $this->uid = $this->id = $event['uid'];
+        $this->uid = $event['uid'];
+        $this->id = Horde_Url::uriB64Encode($event['uid']);
 
         if (isset($event['summary'])) {
             $this->title = $event['summary'];

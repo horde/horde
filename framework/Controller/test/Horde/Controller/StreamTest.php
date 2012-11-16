@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
 class Horde_Controller_StreamTest extends Horde_Test_Case
 {
     public function testStreamOutput()

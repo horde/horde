@@ -246,4 +246,43 @@ class Horde_Stream_TempTest extends Horde_Test_Case
         );
     }
 
+    public function testStringRepresentation()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $this->assertEquals(
+            '123',
+            strval($stream)
+        );
+    }
+
+    public function testSerializing()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $stream2 = unserialize(serialize($stream));
+
+        $this->assertEquals(
+            '123',
+            strval($stream2)
+        );
+    }
+
+    public function testClone()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add('123');
+
+        $stream2 = clone $stream;
+
+        fclose($stream->stream);
+
+        $this->assertEquals(
+            '123',
+            strval($stream2)
+        );
+    }
+
 }

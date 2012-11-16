@@ -398,7 +398,7 @@ class IMP_Mailbox implements Serializable
             }
 
             try {
-                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes(Horde_Imap_Client_Mailbox::get($this->_mbox), null, array('flat' => true));
+                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->imap_mbox_ob, null, array('flat' => true));
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
@@ -652,7 +652,7 @@ class IMP_Mailbox implements Serializable
             return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
 
         case 'subfolders_only':
-            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes(Horde_Imap_Client_Mailbox::get($this->_mbox)->list_escape . $this->namespace_delimiter . '*', null, array('flat' => true)));
+            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->imap_mbox_ob->list_escape . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'systemquery':
             return $injector->getInstance('IMP_Search')->isSystemQuery($this->_mbox);
@@ -668,8 +668,8 @@ class IMP_Mailbox implements Serializable
         case 'uidvalid':
             $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-            // POP3 does not support UIDVALIDITY.
-            if ($imp_imap->pop3) {
+            // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
+            if ($imp_imap->pop3 || $this->nonimap) {
                 return;
             }
 
@@ -1312,6 +1312,10 @@ class IMP_Mailbox implements Serializable
             break;
         }
 
+        if (is_null($fd)) {
+            throw new IMP_Exception(_("The uploaded file cannot be opened."));
+        }
+
         try {
             $parsed = new IMP_Mbox_Parse($fd);
         } catch (IMP_Exception $e) {
@@ -1340,16 +1344,19 @@ class IMP_Mailbox implements Serializable
     /**
      * Helper for importMbox().
      *
-     * @param resource $msg    Stream containing message data.
+     * @param array $msg       Message data.
      * @param integer $buffer  Buffer messages before sending?
      */
     protected function _importMbox($msg, $buffer = false)
     {
-        $this->_import['data'][] = array('data' => $msg);
-        $this->_import['size'] += intval(ftell($msg));
+        $this->_import['data'][] = array_filter(array(
+            'data' => $msg['data'],
+            'internaldate' => $msg['date']
+        ));
+        $this->_import['size'] += $msg['size'];
 
-        /* Buffer 5 MB of messages before sending. */
-        if ($buffer && ($this->_import['size'] < 5242880)) {
+        /* Buffer 1 MB of messages before sending. */
+        if ($buffer && ($this->_import['size'] < 1048576)) {
             return;
         }
 

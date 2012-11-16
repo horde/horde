@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:50:27</time>
+ <date>2012-11-09</date>
+ <time>16:43:11</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -91,7 +91,6 @@
        <file name="StackTest.php" role="test" />
       </dir> <!-- /test/Horde/SessionHandler/Storage -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="conf.php.dist" role="test" />
      </dir> <!-- /test/Horde/SessionHandler -->
     </dir> <!-- /test/Horde -->
@@ -159,7 +158,6 @@
    <install as="Horde/SessionHandler/Storage/Stack.php" name="lib/Horde/SessionHandler/Storage/Stack.php" />
    <install as="migration/1_horde_sessionhandler_base_tables.php" name="migration/Horde/SessionHandler/1_horde_sessionhandler_base_tables.php" />
    <install as="Horde/SessionHandler/AllTests.php" name="test/Horde/SessionHandler/AllTests.php" />
-   <install as="Horde/SessionHandler/Autoload.php" name="test/Horde/SessionHandler/Autoload.php" />
    <install as="Horde/SessionHandler/conf.php.dist" name="test/Horde/SessionHandler/conf.php.dist" />
    <install as="Horde/SessionHandler/Storage/Base.php" name="test/Horde/SessionHandler/Storage/Base.php" />
    <install as="Horde/SessionHandler/Storage/BuiltinTest.php" name="test/Horde/SessionHandler/Storage/BuiltinTest.php" />
@@ -442,7 +440,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

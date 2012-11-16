@@ -21,7 +21,7 @@ class Jonah_Form_Feed extends Horde_Form
         $channel_id = $vars->get('channel_id');
         $editing = (!empty($channel_id));
 
-        parent::Horde_Form($vars, ($editing ? _("Edit Feed") : _("New Feed")));
+        parent::__construct($vars, ($editing ? _("Edit Feed") : _("New Feed")));
 
         $this->addHidden('', 'channel_id', 'int', false);
         $this->addHidden('', 'old_channel_type', 'text', false);

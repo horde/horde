@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.0-git)';
+    public $version = 'H5 (3.0.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -208,20 +208,69 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $backend_key = Gollem_Auth::getPreferredBackend();
 
-        $menu->add(Horde::url('manager.php')->add('dir', Gollem::$backend['home']), _("_My Home"), 'folder_home.png');
+        $menu->add(
+            Horde::url('manager.php')->add('dir', Gollem::$backend['home']),
+            _("Start Folder"),
+            'gollem-home',
+            null,
+            null,
+            null,
+            '__noselection');
 
-        if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('permissions.php')->add('backend', $backend_key), _("_Permissions"), 'perms.png');
+        if (Gollem::checkPermissions('backend', Horde_Perms::EDIT) &&
+            Gollem::checkPermissions('directory', Horde_Perms::EDIT, Gollem::$backend['dir']) &&
+            $GLOBALS['session']->get('gollem', 'clipboard', Horde_Session::TYPE_ARRAY)) {
+            $menu->add(
+                Horde::url('clipboard.php')->add('dir', Gollem::$backend['dir']),
+                _("Clipboard"),
+                'gollem-clipboard');
         }
 
-        if (isset(Gollem::$backend['quota_val']) &&
-            Gollem::$backend['quota_val'] != -1) {
+        if (!empty(Gollem::$backend['quota'])) {
             if ($GLOBALS['browser']->hasFeature('javascript')) {
-                $quota_url = 'javascript:' . Horde::popupJs(Horde::url('quota.php'), array('params' => array('backend' => $backend_key), 'height' => 300, 'width' => 300, 'urlencode' => true));
+                $quota_url = 'javascript:' . Horde::popupJs(
+                    Horde::url('quota.php'),
+                    array('params' => array('backend' => $backend_key),
+                          'height' => 300,
+                          'width' => 300,
+                          'urlencode' => true)
+                );
             } else {
-                $quota_url = Horde::url('quota.php')->add('backend', $backend_key);
+                $quota_url = Horde::url('quota.php')
+                    ->add('backend', $backend_key);
             }
-            $menu->add($quota_url, _("Check Quota"), 'info_icon.png');
+            $menu->add($quota_url, _("Check Quota"), 'gollem-quota');
+        }
+
+        if ($GLOBALS['registry']->isAdmin()) {
+            $menu->add(
+                Horde::url('permissions.php')->add('backend', $backend_key),
+                _("_Permissions"), 'horde-perms');
+        }
+    }
+
+    /**
+     * Add additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        $backend = Gollem_Auth::getPreferredBackend();
+        $url = $GLOBALS['registry']->getServiceLink('login', 'horde')
+            ->add(array('url' => (string)Horde::url('manager.php', true),
+                        'app' => 'gollem'));
+
+        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown') {
+            foreach (Gollem_Auth::getBackend() as $key => $val) {
+                $row = array(
+                    'selected' => $backend == $key,
+                    'url' => $url->add('backend_key', $key),
+                    'label' => $val['name'],
+                    'type' => 'radiobox',
+                );
+                $sidebar->addRow($row, 'backends');
+            }
         }
     }
 

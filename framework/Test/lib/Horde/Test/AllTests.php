@@ -12,10 +12,6 @@
  * @link     http://www.horde.org/components/Horde_Test
  */
 
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'Horde_Test_AllTests::main');
-}
-
 require_once 'PHPUnit/Autoload.php';
 
 /**
@@ -35,36 +31,55 @@ require_once 'PHPUnit/Autoload.php';
  */
 class Horde_Test_AllTests
 {
-    /** @todo: Use protected properties and LSB with PHP 5.3. */
-    private static $_file = __FILE__;
-    private static $_package = 'Horde_Test';
+    private $_dir;
+    private $_package;
 
     /**
-     * Main entry point for running the suite.
+     * Create a Horde_Test_AllTests object.
+     *
+     * @param string $file  Filename of the AllTests.php script.
+     *
+     * @return Horde_Test_AllTests  Test object.
      */
-    public static function main($package = null, $file = null)
+    static public function init($file)
     {
-        if ($package) {
-            self::$_package = $package;
+        $file = dirname($file);
+
+        $parts = array();
+        foreach (array_reverse(explode(DIRECTORY_SEPARATOR, $file)) as $val) {
+            if ($val == 'test') {
+                break;
+            }
+            $parts[] = $val;
         }
-        if ($file) {
-            self::$_file = $file;
-        }
-        PHPUnit_TextUI_TestRunner::run(self::suite());
+
+        return new self(
+            implode('_', array_reverse($parts)),
+            $file
+        );
     }
 
     /**
-     * Initialize the test suite class.
+     * Constructor.
      *
-     * @param string $package The name of the package tested by this suite.
-     * @param string $file    The path of the AllTests class.
-     *
-     * @return NULL
+     * @param string $package  The name of the package tested by this suite.
+     * @param string $dir      The path of the AllTests class.
      */
-    public static function init($package, $file)
+    public function __construct($package, $dir)
     {
-        self::$_package = $package;
-        self::$_file = $file;
+        $this->_package = $package;
+        $this->_dir = $dir;
+
+        chdir($dir);
+    }
+
+    /**
+     *
+     * Main entry point for running the suite.
+     */
+    public function run()
+    {
+        PHPUnit_TextUI_TestRunner::run($this->suite());
     }
 
     /**
@@ -72,28 +87,27 @@ class Horde_Test_AllTests
      *
      * @return PHPUnit_Framework_TestSuite The test suite.
      */
-    public static function suite()
+    public function suite()
     {
-        self::setup();
+        $this->setup();
 
-        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . self::$_package);
+        $suite = new PHPUnit_Framework_TestSuite('Horde Framework - ' . $this->_package);
 
-        $basedir = dirname(self::$_file);
-        $baseregexp = preg_quote($basedir . DIRECTORY_SEPARATOR, '/');
+        $baseregexp = preg_quote($this->_dir . DIRECTORY_SEPARATOR, '/');
 
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($basedir)) as $file) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir)) as $file) {
             if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
                 $pathname = $file->getPathname();
                 if (include $pathname) {
                     $class = str_replace(DIRECTORY_SEPARATOR, '_',
                                          preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
-                        $suite->addTestSuite(self::$_package . '_' . $class);
+                        $suite->addTestSuite($this->_package . '_' . $class);
                     } catch (InvalidArgumentException $e) {
                         throw new Horde_Test_Exception(
                             sprintf(
                                 'Failed adding test suite "%s" from file "%s": %s',
-                                self::$_package . '_' . $class,
+                                $this->_package . '_' . $class,
                                 $pathname,
                                 $e->getMessage()
                             )
@@ -111,21 +125,19 @@ class Horde_Test_AllTests
      *
      * In the default situation this will set the error reporting to E_ALL |
      * E_STRICT and pull in Horde/Test/Autoload.php as autoloading
-     * definition. If there is an Autoload.php alongside the AllTests.php
-     * represented by self::$_file, then only this file will be used.
+     * definition. If there is an Autoload.php in $_dir, then only this file
+     * will be used.
      *
      * In addition the setup() call will attempt to detect the "lib" directory
      * of the component currently under test and add it to the
      * include_path. This ensures that the component code from the checkout is
      * preferred over whatever else might be available in the default
      * include_path.
-     *
-     * @return NULL
      */
-    public static function setup()
+    public function setup()
     {
         // Detect component root and add "lib" to the include path.
-        for ($dirname = self::$_file, $i = 0;
+        for ($dirname = $this->_dir, $i = 0;
              $dirname != '/', $i < 5;
              $dirname = dirname($dirname), $i++) {
             if (basename($dirname) == 'test' &&
@@ -137,15 +149,8 @@ class Horde_Test_AllTests
             }
         }
 
-        $autoload = dirname(self::$_file) . '/Autoload.php';
-        if (!file_exists($autoload)) {
-            // Catch strict standards
-            error_reporting(E_ALL | E_STRICT);
-
-            // Set up autoload
-            require_once 'Horde/Test/Autoload.php';
-        } else {
-            require_once $autoload;
-        }
+        require_once 'Horde/Test/Bootstrap.php';
+        Horde_Test_Bootstrap::bootstrap($this->_dir);
     }
+
 }

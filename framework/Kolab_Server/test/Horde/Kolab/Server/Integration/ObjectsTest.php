@@ -12,11 +12,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Tests for the main server class.
  *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)

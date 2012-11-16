@@ -1,6 +1,6 @@
 <?php
 /**
- * Tag list view
+ * Task list view.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *

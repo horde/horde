@@ -223,8 +223,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $result = $this->_callGpg($cmdline, 'w', $input, true, true);
 
         /* Get the keys from the temp files. */
-        $public_key = file($pub_file);
-        $secret_key = file($secret_file);
+        $public_key = file_get_contents($pub_file);
+        $secret_key = file_get_contents($secret_file);
 
         /* If either key is empty, something went wrong. */
         if (empty($public_key) || empty($secret_key)) {
@@ -257,21 +257,21 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      *   )
      *
      * [keyid] => Key ID of the PGP data (if available)
-     *            16-bit hex value (as of Horde 3.2)
+     *            16-bit hex value
      *
      * [signature] => Array (
      *     [id{n}/'_SIGNATURE'] => Array (
      *         [name]        => Full Name
      *         [comment]     => Comment
      *         [email]       => E-mail Address
-     *         [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *         [keyid]       => 16-bit hex value
      *         [created]     => Signature creation - UNIX timestamp
      *         [expires]     => Signature expiration - UNIX timestamp
      *         [micalg]      => The hash used to create the signature
      *         [sig_{hex}]   => Array [details of a sig verifying the ID] (
      *             [created]     => Signature creation - UNIX timestamp
      *             [expires]     => Signature expiration - UNIX timestamp
-     *             [keyid]       => 16-bit hex value (as of Horde 3.2)
+     *             [keyid]       => 16-bit hex value
      *             [micalg]      => The hash used to create the signature
      *         )
      *     )
@@ -569,20 +569,10 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     public function pgpPacketSignatureByUidIndex($pgpdata, $uid_idx)
     {
         $data = $this->pgpPacketInformation($pgpdata);
-        $return_array = array();
 
-        /* Search for the UID index. */
-        if (!isset($data['signature']) ||
-            !isset($data['signature'][$uid_idx])) {
-            return $return_array;
-        }
-
-        /* Store the signature information now. */
-        foreach ($data['signature'][$uid_idx] as $key => $value) {
-            $return_array[$key] = $value;
-        }
-
-        return $this->_pgpPacketSignature($data, $return_array);
+        return isset($data['signature'][$uid_idx])
+            ? $this->_pgpPacketSignature($data, $data['signature'][$uid_idx])
+            : array();
     }
 
     /**
@@ -1681,6 +1671,33 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         }
 
         return $results->output;
+    }
+
+    /**
+     * Generates a public key from a private key.
+     *
+     * @param string $data  Armor text of private key.
+     *
+     * @return string  Armor text of public key, or null if it could not be
+     *                 generated.
+     */
+    public function getPublicKeyFromPrivateKey($data)
+    {
+        $keyring = $this->_putInKeyring(array($data), 'private');
+        $fingerprints = $this->getFingerprintsFromKey($data);
+        reset($fingerprints);
+
+        $cmdline = array(
+            '--armor',
+            '--export',
+            key($fingerprints)
+        );
+
+        $result = $this->_callGpg($cmdline, 'r', array(), true, true);
+
+        return empty($result->output)
+            ? null
+            : $result->output;
     }
 
 }

@@ -23,7 +23,7 @@ $q_cache = $session->get('horde', 'sql_query_cache', Horde_Session::TYPE_ARRAY);
 $title = _("SQL Shell");
 $vars = $injector->getInstance('Horde_Variables');
 
-if ($vars->list-tables) {
+if ($vars->get('list-tables')) {
     $description = 'LIST TABLES';
     $result = $db->tables();
     $command = null;
@@ -58,6 +58,7 @@ $view->title = $title;
 if (isset($result)) {
     $keys = null;
     $rows = array();
+    $view->results = true;
 
     if (is_object($result) && $result->columnCount()) {
         while ($row = $result->fetch(Horde_Db::FETCH_ASSOC)) {

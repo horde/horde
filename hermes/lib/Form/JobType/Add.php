@@ -11,7 +11,7 @@ class Hermes_Form_JobType_Add extends Horde_Form
 {
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, 'addjobtypeform');
+        parent::__construct($vars, 'addjobtypeform');
         $this->addVariable(_("Job Type"), 'name', 'text', true);
         $var = &$this->addVariable(_("Enabled?"), 'enabled', 'boolean', false);
         $var->setDefault(true);

@@ -16,11 +16,6 @@
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
-
 /** Load Mapper definitions */
 require_once __DIR__ . '/Objects/SomeLazyBaseObjectMapper.php';
 require_once __DIR__ . '/Objects/SomeLazyBaseObject.php';

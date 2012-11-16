@@ -249,8 +249,13 @@ var DimpMessage = {
         $('msgHeaderAtc').show();
     },
 
-    onDomLoad: function()
+    onDomLoad: function(loop)
     {
+        /* IE runs things out of order, so need to check on this first. */
+        if (loop < 5 && !HordeCore.base) {
+            return this.onDomLoad.bind(this, ++loop).defer();
+        }
+
         HordeCore.initHandler('click');
 
         if (DimpCore.conf.disable_compose) {
@@ -300,7 +305,7 @@ var DimpMessage = {
 };
 
 /* Attach event handlers. */
-document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage));
+document.observe('dom:loaded', DimpMessage.onDomLoad.bind(DimpMessage, 0));
 document.observe('HordeCore:click', DimpMessage.clickHandler.bindAsEventListener(DimpMessage));
 Event.observe(window, 'resize', DimpMessage.resizeWindow.bind(DimpMessage));
 

@@ -12,8 +12,7 @@
  * @link       http://pear.horde.org/index.php?package=Imp
  */
 
-$mappings = array('IMP' => __DIR__ . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
+Horde_Test_Autoload::addPrefix('IMP', __DIR__ . '/../../lib');
 
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+require_once 'Stub/HtmlViewer.php';
+require_once 'Stub/ItipRequest.php';

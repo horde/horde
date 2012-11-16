@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Kronolith
-Calendar Application version H5 (4.0.0).
+Calendar Application version H5 (4.0.1).
 
 Kronolith is the Horde calendar application. It provides web-based calendars
 backed by a SQL database or a Kolab server. Supported features include Ajax and
@@ -25,29 +25,15 @@ events, and a sophisticated day/week view which handles arbitrary numbers of
 overlapping events. For more information on Kronolith, visit
 http://www.horde.org/apps/kronolith.
 
-The major changes compared to the Kronolith version H4 are:
-    * Completely redesigned user interface.
-    * Allowed to set individual timezones for events.
-    * Added work week view to dynamic interface.
-    * Added complete recurrence and exception editing to dynamic interface.
-    * Added resource scheduling to dynamic interface.
-    * Added quick task adding to dynamic interface.
-    * Added heatmap to year view.
-    * Synchronized tags with Kolab categories.
-    * Further bugfixes and improvements.
+The major changes compared to the Kronolith version H5 (4.0.0) are:
+    * Fixed authentication to remote calendars.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Completely redesigned user interface.
-Allowed to set individual timezones for events.
-Added work week view to dynamic interface.
-Added complete recurrence and exception editing to dynamic interface.
-Added resource scheduling to dynamic interface.
-Added quick task adding to dynamic interface.
-Added heatmap to year view.
-Synchronized tags with Kolab categories.
-Further bugfixes and improvements.
+Fixed authentication to remote calendars.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'Kronolith';

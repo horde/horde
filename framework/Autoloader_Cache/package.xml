@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Compress cached data with LZF, if the PECL module is available.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,6 +67,11 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>lzf</name>
+    <channel>pecl.php.net</channel>
+    <min>1.5.2</min>
+   </package>
    <extension>
     <name>apc</name>
    </extension>
@@ -204,7 +209,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Compress cached data with LZF, if the PECL module is available.
    </notes>
   </release>
  </changelog>

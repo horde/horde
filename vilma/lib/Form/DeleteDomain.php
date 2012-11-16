@@ -12,7 +12,7 @@ class Vilma_Form_DeleteDomain extends Horde_Form
 {
     public function __construct($vars)
     {
-        parent::Horde_Form($vars, _("Delete Domain"));
+        parent::__construct($vars, _("Delete Domain"));
 
         $domain_record = $GLOBALS['vilma']->driver->getDomain($vars->get('domain_id'));
         $domain = $domain_record['domain_name'];

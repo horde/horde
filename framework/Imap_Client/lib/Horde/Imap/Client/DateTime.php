@@ -1,18 +1,26 @@
 <?php
 /**
- * A wrapper around PHP's native DateTime class that handles improperly
- * formatted dates and adds a few features missing from the base object
- * (string representation; doesn't fail on bad date input).
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * A wrapper around PHP's native DateTime class that handles improperly
+ * formatted dates and adds a few features missing from the base object
+ * (string representation; doesn't fail on bad date input).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_DateTime extends DateTime
 {

@@ -382,8 +382,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
     /**
      * Adds a primary key to a table.
      *
-     * @since Horde_Db 1.1.0
-     *
      * @param string $tableName         A table name.
      * @param string|array $columnName  One or more column names.
      *
@@ -405,8 +403,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Removes a primary key from a table.
-     *
-     * @since Horde_Db 1.1.0
      *
      * @param string $tableName  A table name.
      *
@@ -478,8 +474,6 @@ class Horde_Db_Adapter_Sqlite_Schema extends Horde_Db_Adapter_Base_Schema
 
     /**
      * Generates a modified date for SELECT queries.
-     *
-     * @since Horde_Db 1.2.0
      *
      * @param string $reference  The reference date - this is a column
      *                           referenced in the SELECT.

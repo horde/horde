@@ -96,10 +96,10 @@ Webserver/PHP tuning
   javascript files from a different server. This could be a very lightweight
   server without PHP (and other CGI modules) builtin. If using SSL to serve
   all pages, the images/js server will also have to serve SSL content or else
-  browsers will complain about non-secure content in a secure page. Good
-  lightweight servers that support SSL include lighttpd_ and Hiawatha_. If
-  using a Horde installation that doesn't use SSL (or only uses SSL for
-  logins), good choices for servers include thttpd_ or Boa_. You need to set
+  browsers will complain about non-secure content in a secure page. Since this
+  server does not need to handle dynamic content, it would be wise to use a
+  high-performance server with low memory and/or system resource requirements
+  (this `IBM Article`_ can provide further information). You need to set
   the ``themesuri`` and/or ``jsuri`` parameters in ``config/registry.php`` for
   all applications and copy all ``themes`` and/or ``js`` directories in the
   same directory layout to the other server.
@@ -135,10 +135,7 @@ Webserver/PHP tuning
 .. _`Alternative PHP Cache`: http://www.php.net/apc
 .. _eAccelerator: http://eaccelerator.net/
 .. _XCache: http://xcache.lighttpd.net/
-.. _`lighttpd`: http://www.lighttpd.net/
-.. _`Hiawatha`: http://hiawatha.leisink.org/
-.. _`thttpd`: http://www.acme.com/software/thttpd/
-.. _`Boa`: http://www.boa.org/
+.. _`IBM Article`: http://www.ibm.com/developerworks/web/library/wa-ltwebserv/
 .. _`Yahoo's Analysis`: http://yuiblog.com/blog/2006/11/28/performance-research-part-1/
 
 
@@ -179,19 +176,18 @@ MySQL tuning
 Horde tuning
 ============
 
-
 Autoloading
 -----------
 
 * Horde automatically loads PHP source files on demand which relies on the PHP
   autoloading feature introduced with PHP 5 and the Horde Autoloader library.
-  Both allow to limit the set of source code files pulled into the system to the
-  minimal amount required to answer the current request. This saves memory and
-  time but at the same time the Autoloader library has to map each class name to
-  the path of the corresponding PHP file that holds the class definition. This
-  procedure is expensive and can slow the system down. Fortunately the mapping is
-  fixed unless files are added or removed which usually only happens during an
-  upgrade.
+  Both allow to limit the set of source code files pulled into the system to
+  the minimal amount required to answer the current request. This saves memory
+  and time but at the same time the Autoloader library has to map each class
+  name to the path of the corresponding PHP file that holds the class
+  definition. This procedure is expensive and can slow the system down.
+  Fortunately the mapping is fixed unless files are added or removed which
+  usually only happens during an upgrade.
 
   Thus Autoloading is amenable to caching and an easy way to improve the
   performance of the Horde Autoloader library, is to install the Autoloader
@@ -212,7 +208,6 @@ Autoloading
 
   or empty the cache manually, e.g. by restarting the web server or deleting
   the cache file from the temporary directory.
-
 
 VFS
 ---

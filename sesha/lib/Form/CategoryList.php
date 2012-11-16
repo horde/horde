@@ -16,8 +16,9 @@ class Sesha_Form_CategoryList extends Horde_Form {
         // This is probably wrong. The library should get the driver 
         // or the properties passed
         $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
-        $this->setButtons(array(_("Edit Category"),
-                                _("Delete Category")));
+        $this->setButtons(array(
+            _("Edit Category"),
+            array('class' => 'horde-delete', 'value' => _("Delete Category"))));
         $categories = $sesha_driver->getCategories();
         $params = array();
         foreach ($categories as $category) {

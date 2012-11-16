@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:54:38</time>
+ <date>2012-11-09</date>
+ <time>16:43:42</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -48,7 +48,6 @@
     <dir name="Horde">
      <dir name="Template">
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="TemplateTest.php" role="test" />
      </dir> <!-- /test/Horde/Template -->
     </dir> <!-- /test/Horde -->
@@ -70,7 +69,6 @@
    <install as="COPYING" name="doc/Horde/Template/COPYING" />
    <install as="Horde/Template.php" name="lib/Horde/Template.php" />
    <install as="Horde/Template/AllTests.php" name="test/Horde/Template/AllTests.php" />
-   <install as="Horde/Template/Autoload.php" name="test/Horde/Template/Autoload.php" />
    <install as="Horde/Template/TemplateTest.php" name="test/Horde/Template/TemplateTest.php" />
   </filelist>
  </phprelease>
@@ -242,7 +240,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

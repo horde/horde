@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
-/**
  * Test the modules of the CLI interface.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)

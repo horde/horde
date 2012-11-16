@@ -260,7 +260,7 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
             throw new Horde_Kolab_Storage_List_Exception(
                 sprintf(
                     "Unable to mark %s as a default folder. It is not within your personal namespace!",
-                    $folder
+                    $folder['folder']
                 )
             );
         }
@@ -269,7 +269,7 @@ class Horde_Kolab_Storage_List_Query_List_Cache_Synchronization
             throw new Horde_Kolab_Storage_List_Exception(
                 sprintf(
                     "The folder %s has no Kolab type. It cannot be marked as 'default' folder!",
-                    $folder
+                    $folder['folder']
                 )
             );
         }

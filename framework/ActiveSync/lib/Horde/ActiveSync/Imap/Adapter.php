@@ -159,7 +159,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
         try {
-            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT);
+            $status = $imap->status($mbox, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
         } catch (Horde_Imap_Client_Exception $e) {
             // See if the folder disappeared.
             if (!$this->_mailboxExists($mbox->utf8)) {
@@ -188,8 +188,8 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a list of messages from the specified mailbox. If QRESYNC is NOT
-     * available, or if QRESYNC IS available, but this is the first request
+     * Return a list of messages from the specified mailbox. If CONDSTORE is NOT
+     * available, or if CONDSTORE IS available, but this is the first request
      * then the entire message list is returned. Otherwise, only changes since
      * the last MODSEQ value are taken into consideration.
      *
@@ -210,14 +210,13 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
-        if ($qresync = $imap->queryCapability('QRESYNC')) {
+        if ($condstore = $imap->queryCapability('CONDSTORE')) {
             $status_flags = Horde_Imap_Client::STATUS_HIGHESTMODSEQ |
                 Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT;
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         } else {
-            $status_flags = Horde_Imap_Client::STATUS_MESSAGES |
-                Horde_Imap_Client::STATUS_UIDVALIDITY |
-                Horde_Imap_Client::STATUS_UIDNEXT;
+            $status_flags = Horde_Imap_Client::STATUS_UIDVALIDITY |
+                Horde_Imap_Client::STATUS_UIDNEXT_FORCE;
         }
 
         try {
@@ -226,14 +225,14 @@ class Horde_ActiveSync_Imap_Adapter
             // If we can't status the mailbox, assume it's gone.
             throw new Horde_ActiveSync_Exception_FolderGone($e);
         }
-        if ($qresync) {
-            $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ];
+        if ($condstore) {
+            $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ];
         } else {
-            $modseq = $status[Horde_ActiveSync_Folder_Imap::MODSEQ] = 0;
+            $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
         }
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
-        if ($qresync && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
-            // QRESYNC and have known changes
+        if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
+            $this->_logger->debug('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->modseq();
@@ -264,18 +263,19 @@ class Horde_ActiveSync_Imap_Adapter
                     }
                 }
             }
-            unset($fetch_ret);
             $folder->setChanges($changes, $flags);
             try {
-                $deleted = $imap->vanished($mbox, $folder->modseq());
+                $deleted = $imap->vanished(
+                    $mbox,
+                    $folder->modseq(),
+                    array('ids' => new Horde_Imap_Client_Ids($folder->messages())));
             } catch (Horde_Imap_Client_Excetion $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
             }
             $folder->setRemoved($deleted->ids);
-        } elseif ($folder->modseq() == 0) {
-            // Initial priming or we don't support QRESYNC.
-            // Either way, we need the full message uid list.
+        } elseif ($folder->uidnext() == 0) {
+            $this->_logger->debug('INITIAL SYNC');
             $query = new Horde_Imap_Client_Search_Query();
             if (!empty($options['sincedate'])) {
                 $query->dateSearch(
@@ -286,23 +286,11 @@ class Horde_ActiveSync_Imap_Adapter
             $search_ret = $imap->search(
                 $mbox,
                 $query,
-                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH, Horde_Imap_Client::SEARCH_RESULTS_MIN)));
+                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
-            if ($qresync && $modseq > 0) {
-                // Support QRESYNC, but this is initial priming - set the results.
+            if ($condstore) {
                 $folder->setChanges($search_ret['match']->ids);
-                $status[Horde_ActiveSync_Folder_Imap::MINUID] = $search_ret['min'];
             } else {
-                // No QRESYNC, perform some magic.
-                $uids = $folder->messages();
-                $deleted = array_diff($uids, $search_ret['match']->ids);
-                $changed = $search_ret['match']->ids;
-                // All changes in AS are a change in flags. Get the flags only
-                // for the messages we think have been changed and set them in
-                // the folder. We don't care about what state the flag is in
-                // on the device currently. We will assume that all flag changes
-                // from the server are authoritative. There is no other sane way
-                // to do this without killing the server.
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
                 $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
@@ -315,12 +303,34 @@ class Horde_ActiveSync_Imap_Adapter
                         $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
                     }
                 }
-                $folder->setChanges($changed, $flags);
-                $folder->setRemoved($deleted);
+                $folder->setChanges($search_ret['match']->ids, $flags);
             }
-        }
-        $folder->setStatus($status);
+        } elseif (!$condstore) {
+            $this->_logger->debug('NO CONDSTORE: ' . $folder->minuid);
+            $query = new Horde_Imap_Client_Search_Query();
+            $search_ret = $imap->search(
+                $mbox,
+                $query,
+                array('results' => array(Horde_Imap_Client::SEARCH_RESULTS_MATCH)));
 
+            // Update flags.
+            $query = new Horde_Imap_Client_Fetch_Query();
+            $query->flags();
+            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['results']));
+            $flags = array();
+            foreach ($fetch_ret as $uid => $data) {
+                $flags[$uid] = array(
+                    'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
+                );
+                if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
+                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                }
+            }
+            $folder->setChanges($search_ret['match']->ids, $flags);
+            $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
+        }
+
+        $folder->setStatus($status);
         return $folder;
     }
 
@@ -343,7 +353,7 @@ class Horde_ActiveSync_Imap_Adapter
         $from = new Horde_Imap_Client_Mailbox($folderid);
         $to = new Horde_Imap_Client_Mailbox($newfolderid);
         if (!$imap->queryCapability('UIDPLUS')) {
-            $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT);
+            $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
             $uidnext = $status[Horde_Imap_Client::STATUS_UIDNEXT];
         }
         $ids = new Horde_Imap_Client_Ids($ids);
@@ -766,10 +776,16 @@ class Horde_ActiveSync_Imap_Adapter
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
         $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
 
-        // Build To: data
+        // Build To: data (POOMMAIL_TO has a max length of 1024).
         $to = $imap_message->getToAddresses();
-        $eas_message->to = implode(',', $to['to']);
-        $eas_message->displayto = implode(',', $to['displayto']);
+        $eas_message->to = array_pop($to['to']);
+        foreach ($to['to'] as $to_atom) {
+            if (strlen($eas_message->to) + strlen($to_atom) > 1024) {
+                break;
+            }
+            $eas_message->to .= ',' . $to_atom;
+        }
+        $eas_message->displayto = implode(';', $to['displayto']);
         if (empty($eas_message->displayto)) {
             $eas_message->displayto = $eas_message->to;
         }
@@ -777,6 +793,7 @@ class Horde_ActiveSync_Imap_Adapter
         // Fill in other header data
         $eas_message->from = $imap_message->getFromAddress();
         $eas_message->subject = $imap_message->getSubject();
+        $eas_message->threadtopic = $imap_message->getSubject();
         $eas_message->datereceived = $imap_message->getDate();
         $eas_message->read = $imap_message->getFlag(Horde_Imap_Client::FLAG_SEEN);
         $eas_message->cc = $imap_message->getCc();
@@ -786,7 +803,6 @@ class Horde_ActiveSync_Imap_Adapter
         $eas_message->messageclass = 'IPM.Note';
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            // EAS 2.5 behavior or no bodyprefs sent
             $message_body_data = $imap_message->getMessageBodyData($options);
             if ($message_body_data['plain']['charset'] != 'UTF-8') {
                 $eas_message->body = Horde_String::convertCharset(

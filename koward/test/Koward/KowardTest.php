@@ -12,11 +12,6 @@
  */
 
 /**
- * Initialize testing for this application.
- */
-require_once 'TestInit.php';
-
-/**
  * Test the user object.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)

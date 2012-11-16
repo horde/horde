@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-30 21:26+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-10-30 21:43+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -465,7 +465,7 @@ msgstr "Adresse privat"
 msgid "Home Phone"
 msgstr "Telefon privat"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1800
+#: lib/Horde/Core/ActiveSync/Driver.php:1804
 msgid "Inbox"
 msgstr "Posteingang"
 
@@ -824,7 +824,7 @@ msgstr "Ausgewählte Adressbücher:"
 msgid "Send SMS"
 msgstr "SMS verschicken"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1795
+#: lib/Horde/Core/ActiveSync/Driver.php:1799
 msgid "Sent"
 msgstr "Gesendet"
 
@@ -1020,7 +1020,7 @@ msgstr ""
 "Halten Sie beim Klicken Strg bzw. (PC) Command (Mac) gedrückt, um mehrere "
 "Einträge auszuwählen."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1790
+#: lib/Horde/Core/ActiveSync/Driver.php:1794
 msgid "Trash"
 msgstr "Papierkorb"
 

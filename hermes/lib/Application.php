@@ -63,6 +63,48 @@ class Hermes_Application extends Horde_Registry_Application
         }
     }
 
+    public function download(Horde_Variables $vars)
+    {
+        global $notification, $browser;
+
+        switch ($vars->actionID) {
+        case 'export':
+            $ids = split(',', $vars->s);
+            if (!is_array($ids)) {
+                $notification->push(_("No time slices were submitted"), 'horde.error');
+                return false;
+            }
+            try {
+                $hours = $GLOBALS['injector']
+                    ->getInstance('Hermes_Driver')
+                    ->getHours(array('id' => $ids));
+            } catch (Hermes_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+                return false;
+            }
+            $exportHours = Hermes::makeExportHours($hours);
+            switch ($vars->f) {
+            case Horde_Data::EXPORT_CSV:
+                $format = 'Csv';
+                $file = 'time.csv';
+                break;
+            case Horde_Data::EXPORT_TSV:
+                $format = 'Tsv';
+                $file = 'time.tsv';
+            }
+
+            $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Data')
+                ->create($format)->exportFile($file, $exportHours, true);
+
+        if ($vars->m) {
+            $GLOBALS['injector']->getInstance('Hermes_Driver')->markAs('exported', $hours);
+        }
+        $GLOBALS['notification']->push(_("Export complete."), 'horde.success');
+        return true;
+        }
+    }
+
     /**
      */
     public function perms()
@@ -101,7 +143,7 @@ class Hermes_Application extends Horde_Registry_Application
         $timers = Hermes::listTimers();
         $entry = Horde::url('entry.php');
         foreach ($timers as $i => $timer) {
-            $menu->add($entry->add('timer', $i),
+            $menu->add($entry->add('timer', $timer['id']),
                        $timer['name'] . sprintf(" (%s)", $timer['e']),
                        'hermes-stop', null, '', null, '__noselection'
             );
@@ -113,7 +155,7 @@ class Hermes_Application extends Horde_Registry_Application
             $GLOBALS['registry']->isAdmin(array('permission' => 'hermes:deliverables'))) {
             $menu->add(Horde::url('deliverables.php'),
                        _("_Deliverables"),
-                       'hermes-time');
+                       'hermes-deliverables');
         }
 
         if ($GLOBALS['conf']['invoices']['driver'] &&
@@ -125,7 +167,7 @@ class Hermes_Application extends Horde_Registry_Application
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin()) {
-            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes-time');
+            $menu->add(Horde::url('admin.php'), _("_Admin"), 'hermes-admin');
         }
     }
 
@@ -198,7 +240,7 @@ class Hermes_Application extends Horde_Registry_Application
                     'expanded' => false,
                     'params' => array(
                         'icon' => Horde_Themes::img('timer-stop.png'),
-                        'url' => $entry->add('timer', $i)
+                        'url' => $entry->add('timer', $timer['id'])
                     )
                 ));
             }

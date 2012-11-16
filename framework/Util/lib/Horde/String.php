@@ -784,8 +784,6 @@ class Horde_String
     /**
      * Strip UTF-8 byte order mark (BOM) from string data.
      *
-     * @since 1.4.0
-     *
      * @param string $str  Input string (UTF-8).
      *
      * @return string  Stripped string (UTF-8).

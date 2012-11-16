@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.0.0).
+Program (IMP) version H5 (6.0.1).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,39 +23,15 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-The major changes compared to the IMP version H4 are:
-    * Completely redesigned user interface.
-    * Completed and improved smartphone mode.
-    * Added special mailbox for templates.
-    * Added searching by date range.
-    * Allow deletion when over quota.
-    * Pre-fetch next unseen message.
-    * Default to UTF-8 for all e-mail messages.
-    * Signature is now added during sending.
-    * Require JavaScript in traditional mode.
-    * Allow expiration date when generating personal PGP keys.
-    * Added keyboard shortcuts to compose window.
-    * Allowed to automatically update calendar events from iTip messages.
-    * Simplified ACL management.
-    * Many further improvements.
+The major changes compared to the IMP version H5 (6.0.0) are:
+    * Fixed displaying of several interface elements.
+    * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Completely redesigned user interface.
-Completed and improved smartphone mode.
-Added special mailbox for templates.
-Added searching by date range.
-Allow deletion when over quota.
-Pre-fetch next unseen message.
-Default to UTF-8 for all e-mail messages.
-Signature is now added during sending.
-Require JavaScript in traditional mode.
-Allow expiration date when generating personal PGP keys.
-Added keyboard shortcuts to compose window.
-Allowed to automatically update calendar events from iTip messages.
-Simplified ACL management.
-Many further improvements.
+Fixed displaying of several interface elements.
+Small bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';

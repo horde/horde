@@ -72,6 +72,21 @@ var ImpComposeBase = {
         }
 
         elt.setValue(v + address + ', ');
+    },
+
+    onDomLoad: function()
+    {
+        if (CKEDITOR) {
+            CKEDITOR.on('instanceReady', function(e) {
+                e.editor.on('paste', function(e) {
+                    if (e.data.html) {
+                        e.data.html = e.data.html.stripTags();
+                    }
+                }.bind(this));
+            }.bind(this));
+        }
     }
 
 };
+
+document.observe('dom:loaded', ImpComposeBase.onDomLoad.bind(ImpComposeBase));

@@ -2,6 +2,24 @@
 v4.0.2-git
 ----------
 
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix saving of events if no calendar has been loaded yet.
+[mjr] Fix importing events from ActiveSync with empty descriptions in EAS
+      version 2.5
+
+
+------
+v4.0.1
+------
+
+[jan] Fix migration of exceptionoriginaldate field (Bug #11654).
+[jan] Fix generating calendar names when exporting non-internal calendars to
+      iCalendar.
+[jan] Fix authentication to remote calendars (Bug #11643).
+[jan] Fix incorrect nesting of VTIMEZONE components when exporting to iCalendar
+      (Bug #11636).
+[jan] Fix fatal error when moving non-recurring events with resources (Bug
+      #11629).
 
 
 ------
@@ -9,6 +27,7 @@ v4.0.0
 ------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
 
 
 ---------

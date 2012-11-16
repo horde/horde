@@ -1,22 +1,13 @@
 <?php
 /**
- * An interface to a POP3 server using PHP functions.
+ * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
  *
- * It is an abstraction layer allowing POP3 commands to be used based on
- * IMAP equivalents.
- *
- * This driver implements the following POP3-related RFCs:
- *   - STD 53/RFC 1939: POP3 specification
- *   - RFC 2195: CRAM-MD5 authentication
- *   - RFC 2449: POP3 extension mechanism
- *   - RFC 2595/4616: PLAIN authentication
- *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
- *   - RFC 3206: AUTH/SYS response codes
- *   - RFC 1734/5034: POP3 SASL
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * ---------------------------------------------------------------------------
  *
- * Originally based on the PEAR Net_POP3 package (version 1.3.6) by:
+ * Based on the PEAR Net_POP3 package (version 1.3.6) by:
  *     Richard Heyes <richard@phpguru.org>
  *     Damian Fernandez Sosa <damlists@cnba.uba.ar>
  *
@@ -50,15 +41,35 @@
  *
  * ---------------------------------------------------------------------------
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An interface to a POP3 server using PHP functions.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * It is an abstraction layer allowing POP3 commands to be used based on
+ * IMAP equivalents.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * This driver implements the following POP3-related RFCs:
+ *   - STD 53/RFC 1939: POP3 specification
+ *   - RFC 2195: CRAM-MD5 authentication
+ *   - RFC 2449: POP3 extension mechanism
+ *   - RFC 2595/4616: PLAIN authentication
+ *   - RFC 2831: DIGEST-MD5 SASL Authentication (obsoleted by RFC 6331)
+ *   - RFC 3206: AUTH/SYS response codes
+ *   - RFC 1734/5034: POP3 SASL
+ *
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002 Richard Heyes
+ * @copyright 2009-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 {
@@ -278,7 +289,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             $this->_isSecure = false;
             $e = new Horde_Imap_Client_Exception(
                 Horde_Imap_Client_Translation::t("Error connecting to POP3 server."),
-                'SERVER_CONNECT'
+                Horde_Imap_Client_Exception::SERVER_CONNECT
             );
             $e->details = sprintf("[%u] %s.", $error_number, $error_string);
             throw $e;
@@ -351,7 +362,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
         case 'PLAIN':
             // RFC 5034
-            $this->_sendLine('AUTH PLAIN ' . base64_encode(chr(0) . $this->_params['username'] . chr(0) . $this->getParam('password')), array(
+            $this->_sendLine('AUTH PLAIN ' . base64_encode(implode("\0", array($this->_params['username'], $this->getParam('password')))), array(
                 'debug' => sprintf('[AUTH PLAIN Command - username: %s]', $this->_params['username'])
             ));
             break;
@@ -434,6 +445,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         if (strcasecmp($mailbox, 'INBOX') !== 0) {
             throw new Horde_Imap_Client_Exception_NoSupportPop3('Mailboxes other than INBOX');
         }
+        $this->_changeSelected($mailbox, $mode);
     }
 
     /**
@@ -496,15 +508,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
     protected function _status(Horde_Imap_Client_Mailbox $mailbox, $flags)
     {
         $this->openMailbox($mailbox);
-
-        // This driver only supports the base IMAP flags.
-        if (($flags & Horde_Imap_Client::STATUS_FIRSTUNSEEN) ||
-            ($flags & Horde_Imap_Client::STATUS_FLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_PERMFLAGS) ||
-            ($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) ||
-            ($flags & Horde_Imap_Client::STATUS_UIDNOTSTICKY)) {
-            throw new Horde_Imap_Client_Exception_NoSupportPop3('Non-basic status requests');
-        }
 
         $ret = array();
 
@@ -660,12 +663,6 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
                               Horde_Imap_Client_Fetch_Query $query,
                               $options)
     {
-        // These options are not supported by this driver.
-        if (!empty($options['changedsince']) ||
-            !empty($options['vanished'])) {
-            throw new Horde_Imap_Client_Exception_NoSupportPop3('Fetch options');
-        }
-
         // Grab sequence IDs - IDs will always be the message number for
         // POP3 fetch commands.
         $seq_ids = $this->_getSeqIds($options['ids']);
@@ -826,9 +823,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             }
         }
 
-        $this->_updateCache($results, array(
-            'seq' => $options['ids']->sequence
-        ));
+        $this->_updateCache($results);
     }
 
     /**
@@ -1066,7 +1061,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
 
     /**
      */
-    protected function _getSearchCache($type, $mailbox, $options)
+    protected function _getSearchCache($type, $options)
     {
         /* POP3 does not support search caching. */
         return null;
@@ -1086,7 +1081,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
      */
     protected function _sendLine($query, $options = array())
     {
-        $this->writeDebug((empty($options['debug']) ? $query : $options['debug']) . "\n", Horde_Imap_Client::DEBUG_CLIENT);
+        $this->_debug->client(empty($options['debug']) ? $query : $options['debug']);
 
         fwrite($this->_stream, $query . "\r\n");
 
@@ -1119,7 +1114,7 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
             return;
         }
 
-        $this->writeDebug($read . "\n", Horde_Imap_Client::DEBUG_SERVER);
+        $this->_debug->server($read);
 
         $orig_read = $read;
         $read = explode(' ', $read, 2);

@@ -40,14 +40,17 @@ extends Components_Release_Task_Base
     public function run(&$options)
     {
         if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::validatePear(
-                $this->getComponent()->getVersion()
-            );
+            if (empty($options['old_version'])) {
+                $options['old_version'] = $this->getComponent()->getVersion();
+            }
+            $next_version = Components_Helper_Version::nextPearVersion($options['old_version']);
+        } else {
+            $next_version = $options['next_version'];
         }
         if (isset($options['commit'])) {
             $options['commit']->commit(
                 'Development mode for ' . $this->getComponent()->getName()
-                . '-' . Components_Helper_Version::validatePear($options['next_version'])
+                . '-' . Components_Helper_Version::validatePear($next_version)
             );
         }
     }

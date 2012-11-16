@@ -129,9 +129,7 @@ class IMP_Imap implements Serializable
         );
 
         /* Initialize caching. */
-        if (!empty($server['cache'])) {
-            $imap_config['cache'] = $this->loadCacheConfig(is_array($server['cache']) ? $server['cache'] : array());
-        }
+        $imap_config['cache'] = $this->loadCacheConfig(isset($server['cache']) ? $server['cache'] : null);
 
         try {
             $ob = ($protocol == 'imap')
@@ -160,24 +158,27 @@ class IMP_Imap implements Serializable
     /**
      * Prepare the config parameters necessary to use IMAP caching.
      *
-     * @param mixed $config  Either a list of cache config parameters, or a
-     *                       string containing the name of the driver with
-     *                       which to load the cache config from.
+     * @param mixed $config  Either true (enable default cache), or a list of
+     *                       cache config parameters (enable default cache and
+     *                       pass these parameters to IMAP object).
      *
      * @return array  The configuration array.
      */
     public function loadCacheConfig($config)
     {
-        if (!($ob = $GLOBALS['injector']->getInstance('Horde_Cache'))) {
-            return array();
+        $ob = empty($config)
+            ? null
+            : $GLOBALS['injector']->getInstance('Horde_Cache');
+
+        if (!$ob) {
+            $ob = new Horde_Cache(
+                new Horde_Cache_Storage_Mock(),
+                array('compress' => true)
+            );
         }
 
-        if (is_string($config)) {
-            if ((($server = $this->loadServerConfig($config)) === false) ||
-                empty($server['cache'])) {
-                return array();
-            }
-            $config = $server['cache'];
+        if (!is_array($config)) {
+            $config = array();
         }
 
         return array(
@@ -314,12 +315,27 @@ class IMP_Imap implements Serializable
      */
     public function __call($method, $params)
     {
-        if (!$this->ob || !method_exists($this->ob, $method)) {
+        if (!$this->ob) {
+            /* Fallback for these methods. */
+            switch ($method) {
+            case 'getIdsOb':
+                $ob = new Horde_Imap_Client_Ids();
+                call_user_func_array(array($ob, 'add'), $params);
+                return $ob;
+
+            default:
+                $error = true;
+                break;
+            }
+        } else {
+            $error = !method_exists($this->ob, $method);
+        }
+
+        if ($error) {
             if ($GLOBALS['registry']->getAuth()) {
                 throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
-            } else {
-                throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
             }
+            throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 
         switch ($method) {

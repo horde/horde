@@ -28,7 +28,7 @@ class Agora_Form_Search extends Horde_Form {
      */
     function __construct(&$vars, $scope)
     {
-        parent::Horde_Form($vars, _("Search Forums"));
+        parent::__construct($vars, _("Search Forums"));
 
         if ($scope == 'agora') {
             list($forumstype, $forumsparams) = $this->getForumsType($scope);

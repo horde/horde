@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the base response definition.
  *
  * Copyright 2010 Kolab Systems AG

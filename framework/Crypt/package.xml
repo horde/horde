@@ -16,11 +16,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:24:07</time>
+ <date>2012-11-06</date>
+ <time>19:58:10</time>
  <version>
-  <release>2.0.1</release>
-  <api>1.1.0</api>
+  <release>2.1.1</release>
+  <api>1.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -816,12 +816,26 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.0.1</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>1.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

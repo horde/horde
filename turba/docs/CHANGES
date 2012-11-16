@@ -1,7 +1,12 @@
 ----------
-v4.0.2-git
+v4.0.1-git
 ----------
 
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix searching shares for duplicates.
+[mjr] Fix calling decode_attribute hook when exporting to ActiveSync
+      (kd@tu-cottbus.de, Bug #11678).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 
 
 ------
@@ -9,6 +14,7 @@ v4.0.0
 ------
 
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).
+[jan] Update Dutch translation (Arjen de Korte <arjen+horde@de-korte.org>).
 
 
 ---------

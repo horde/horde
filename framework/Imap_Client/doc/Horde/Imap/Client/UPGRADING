@@ -11,6 +11,38 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.2.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The following methods have been added:
+
+      - getSyncToken()
+      - sync()
+
+    The following methods have been marked as deprecated and will be removed
+    in 3.0:
+
+      - getCacheId()
+      - parseCacheId()
+
+
+Upgrading to 2.1.0
+==================
+
+The Horde_Imap_Client_Ids_Map class has been added.
+
+  - Horde_Imap_Client_Cache
+
+    The following config options have changed:
+
+      - debug
+
+        Now requires a Horde_Imap_Client_Base_Debug object. The previous
+        'true' value will be ignored.
+
+
 Upgrading to 2.0.0
 ==================
 

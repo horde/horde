@@ -1,19 +1,5 @@
 <?php
 /**
- * Tests for UTF7-IMAP <-> UTF-8 conversions.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
- */
-
-/**
- * Tests for UTF7-IMAP <-> UTF-8 conversions.
- *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -21,9 +7,17 @@
  *
  * @category Horde
  * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ */
+
+/**
+ * Tests for UTF7-IMAP <-> UTF-8 conversions.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @ignore
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Utf7ConvertTest extends PHPUnit_Framework_TestCase
 {

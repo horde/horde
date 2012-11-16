@@ -70,7 +70,7 @@ $_prefs['signature_html_select'] = array(
     'handler' => 'IMP_Prefs_Special_HtmlSignature',
     'requires_nolock' => array('signature_html'),
     'suppress' => function() {
-        return $GLOBALS['session']->get('imp', 'rteavail');
+        return !$GLOBALS['session']->get('imp', 'rteavail');
     }
 );
 
@@ -245,7 +245,7 @@ $_prefs['filter_on_login'] = array(
     'desc' => _("Apply filter rules upon logging on?"),
     'help' => 'filter-on-login',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -256,7 +256,7 @@ $_prefs['filter_on_display'] = array(
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
     'help' => 'filter-on-display',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -267,7 +267,7 @@ $_prefs['filter_any_mailbox'] = array(
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
     'help' => 'filter-any-mailbox',
     'suppress' => function() {
-        return IMP::applyFilters();
+        return !IMP::applyFilters();
     }
 );
 
@@ -294,7 +294,7 @@ $prefGroups['events'] = array(
 $_prefs['conflict_interval'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Minutes needed to consider a event as a non-conflicting one in iTip")
+    'desc' => _("Minutes needed to consider a event as non-conflicting in iTip")
 );
 
 
@@ -355,7 +355,7 @@ $_prefs['pgp_scan_body'] = array(
 $_prefs['pgp_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should PGP signed messages automatically be verified when viewed?"),
+    'desc' => _("Should PGP signed messages be automatically verified when viewed?"),
     'help' => 'pgp-option-verify',
     'requires' => array('use_pgp')
 );
@@ -432,7 +432,7 @@ $_prefs['use_smime_text'] = array(
 $_prefs['smime_verify'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should S/MIME signed messages automatically be verified when viewed?"),
+    'desc' => _("Should S/MIME signed messages be automatically verified when viewed?"),
     'help' => 'smime-option-verify',
     'requires' => array('use_smime')
 );
@@ -476,8 +476,7 @@ $prefGroups['compose'] = array(
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'basic_compose', 'compose_popup',
-        'compose_confirm'
+        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm'
     )
 );
 
@@ -552,7 +551,7 @@ $_prefs['compose_html_font_size'] = array(
 $_prefs['mail_domain'] = array(
     'value' => '',
     'type' => 'text',
-    'desc' => _("When sending mail or expanding addresses, what domain should we append to unqualified addresses (email addresses without \"@\")?"),
+    'desc' => _("When sending mail or expanding addresses, what domain should be appended to unqualified addresses (email addresses without \"@\")?"),
     'on_change' => function() {
         $maildomain = preg_replace('/[^-\.a-z0-9]/i', '', $GLOBALS['prefs']->getValue('mail_domain'));
         $GLOBALS['prefs']->setValue('mail_domain', $maildomain);
@@ -626,23 +625,18 @@ $_prefs['reply_lang'] = array(
     },
 );
 
-$_prefs['basic_compose'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 // compose in a separate window?
 $_prefs['compose_popup'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Compose messages in a separate window?")
+    'desc' => _("Compose messages in a separate window?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // confirm successful sending of messages in popup window?
 $_prefs['compose_confirm'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Display confirmation in popup window after sending a message?"),
+    'desc' => _("Display confirmation in popup window after sending a message?") . ' (<em>' . _("Basic view only") . '</em>)',
     'requires' => array('compose_popup')
 );
 
@@ -714,12 +708,11 @@ $prefGroups['reply'] = array(
     )
 );
 
-// When replying to a message, should we use the same format as the
-// original message?
+// When replying to a message, use the same format as the original message?
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, should we use the same format as the original message?")
+    'desc' => _("When replying to a message, use the same format as the original message?")
 );
 
 // Use the charset of the original message, as opposed to the default sending
@@ -747,7 +740,7 @@ $_prefs['reply_quote'] = array(
     'desc' => _("Include original message in a reply?")
 );
 
-// How should we attribute quoted lines in a reply
+// How to attribute quoted lines in a reply
 $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
     'advanced' => true,
@@ -793,13 +786,13 @@ $_prefs['forward_default'] = array(
     'desc' => _("How should messages be forwarded by default?")
 );
 
-// When forwarding a message, should we use the same format as the
-// original message (for the body text)?
+// When forwarding a message, should the same format as the original message
+// be used (for the body text)?
 $_prefs['forward_format'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("When forwarding a message in the body text, should we use the same format as the original message?")
+    'desc' => _("When forwarding a message in the body text, should the same format as the original message be used?")
 );
 
 
@@ -881,7 +874,7 @@ $_prefs['save_attachments'] = array(
         'always' => _("Save attachments"),
         'never' => _("Do not save attachments")
     ),
-    'desc' => _("Should we save attachments in the sent-mail message?"),
+    'desc' => _("Should attachments be saved in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -1036,7 +1029,7 @@ $prefGroups['viewing'] = array(
         'image_replacement', 'image_replacement_manage', 'highlight_text',
         'highlight_simple_markup', 'show_quoteblocks', 'dim_signature',
         'emoticons', 'parts_display', 'mail_hdr', 'default_msg_charset',
-        'send_mdn', 'mimp_message', 'mimp_download_confirm', 'mimp_inline_all'
+        'send_mdn', 'mimp_download_confirm', 'mimp_inline_all'
     )
 );
 
@@ -1048,7 +1041,7 @@ $_prefs['filtering'] = array(
     'desc' => _("Filter message content for unwanted text (e.g. profanity)?")
 );
 
-// Should we display an icon to strip attachments?
+// Should an icon be displayed for stripping attachments?
 $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
@@ -1063,7 +1056,7 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should we display?"),
+    'desc' => _("For messages with alternative representations of the text part, which part should be displayed?"),
     'suppress' => function() {
         $mock_part = new Horde_Mime_Part();
         $mock_part->setType('text/html');
@@ -1095,7 +1088,7 @@ $_prefs['image_replacement_addrs'] = array(
     'value' => '[]'
 );
 
-// should we try to mark different conversations with different colors?
+// should different conversations be marked with different colors?
 $_prefs['highlight_text'] = array(
     'value' => 1,
     'advanced' => true,
@@ -1103,7 +1096,7 @@ $_prefs['highlight_text'] = array(
     'desc' => _("Mark different levels of quoting with different colors?")
 );
 
-// should we try to mark simple markup with html tags?
+// should simple markup be marked with html tags?
 $_prefs['highlight_simple_markup'] = array(
     'value' => 1,
     'advanced' => true,
@@ -1111,7 +1104,7 @@ $_prefs['highlight_simple_markup'] = array(
     'desc' => _("Mark simple markup?")
 );
 
-// should we show large blocks of quoted text or hide them?
+// should large blocks of quoted text be shown?
 $_prefs['show_quoteblocks'] = array(
     'value' => 'thread',
     'type' => 'enum',
@@ -1125,7 +1118,7 @@ $_prefs['show_quoteblocks'] = array(
     'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose.")
 );
 
-// should we dim signatures?
+// should signatures be dimmed?
 $_prefs['dim_signature'] = array(
     'value' => 0,
     'advanced' => true,
@@ -1140,7 +1133,7 @@ $_prefs['emoticons'] = array(
     'desc' => _("Convert textual emoticons into graphical ones?")
 );
 
-// how do we display message parts in the summary?
+// how do message parts be displayed in the summary?
 $_prefs['parts_display'] = array(
     'value' => 'atc',
     'type' => 'enum',
@@ -1196,24 +1189,19 @@ $_prefs['send_mdn'] = array(
     }
 );
 
-$_prefs['mimp_message'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 $_prefs['mimp_download_confirm'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.")
+    'desc' => _("Only show download confirmation page if message part is greater than this size, in bytes. Set to 0 to always require the confirmation page.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 $_prefs['mimp_inline_all'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.")
+    'desc' => _("Show all inline parts by default in message view? If unchecked, will treat all but the first viewable inline part as attachments.") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 
@@ -1231,11 +1219,11 @@ $prefGroups['delmove'] = array(
     )
 );
 
-// should we return to the mailbox listing after deleting a message?
+// return to the mailbox listing after deleting a message?
 $_prefs['mailbox_return'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?")
+    'desc' => _("Return to the mailbox listing after deleting, moving, or copying a message?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // should messages be marked as 'Seen' when deleted?
@@ -1246,7 +1234,7 @@ $_prefs['delete_mark_seen'] = array(
     'desc' => _("Mark messages as Seen when deleting?")
 );
 
-// should we move messages to a trash mailbox instead of just marking
+// should messages be moved to a trash mailbox instead of just marking
 // them as deleted?
 $_prefs['use_trash'] = array(
     'value' => 0,
@@ -1377,26 +1365,26 @@ $_prefs['spam_folder'] = array(
     'value' => 'Spam'
 );
 
-// What should we do with spam messages after reporting them?
+// What to do with spam messages after reporting them?
 $_prefs['delete_spam_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array(),
-    'desc' => _("What should we do with messages after they have been reported as spam?"),
+    'desc' => _("What to do with messages after they have been reported as spam?"),
     'help' => 'prefs-delete_spam_after_report',
     'on_init' => function($ui) {
         $enum = array(
             0 => _("Nothing"),
             1 => _("Delete message")
         );
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
             $enum[2] = _("Move to spam mailbox");
         }
         $ui->prefs['delete_spam_after_report']['enum'] = $enum;
     }
 );
 
-// What should we do with spam messages after reporting them as innocent?
+// What to do with spam messages after reporting them as innocent?
 $_prefs['move_innocent_after_report'] = array(
     'value' => 0,
     'type' => 'enum',
@@ -1404,7 +1392,7 @@ $_prefs['move_innocent_after_report'] = array(
         0 => _("Nothing"),
         1 => _("Move to Inbox")
     ),
-    'desc' => _("What should we do with messages after they have been reported as innocent?"),
+    'desc' => _("What to do with messages after they have been reported as innocent?"),
     'help' => 'prefs-move_innocent_after_report',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
@@ -1557,10 +1545,9 @@ $prefGroups['mboxdisplay'] = array(
     'desc' => _("Change display preferences for viewing the listing of messages in a mailbox."),
     'members' => array(
         'initialpageselect', 'mailbox_start', 'sortby', 'sortdir', 'sortdate',
-        'max_msgs', 'from_link', 'atc_flag', 'basic_mailbox',
-        'preview_enabled', 'preview_maxlen', 'preview_strip_nl',
-        'preview_show_unread', 'preview_show_tooltip', 'mimp_mailbox',
-        'mimp_preview_msg'
+        'max_msgs', 'from_link', 'atc_flag', 'preview_enabled',
+        'preview_maxlen', 'preview_strip_nl', 'preview_show_unread',
+        'preview_show_tooltip', 'mimp_preview_msg'
     )
 );
 
@@ -1650,7 +1637,7 @@ $_prefs['sortdate'] = array(
 $_prefs['max_msgs'] = array(
     'value' => 30,
     'type' => 'number',
-    'desc' => _("Messages per page in the mailbox view.")
+    'desc' => _("Messages per page in the mailbox view.") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // How the from field should be displayed on the mailbox screen
@@ -1662,7 +1649,7 @@ $_prefs['from_link'] = array(
         1 => _("Clicking on the address will open the message to be read"),
         2 => _("Do not generate a link in the From: column")
     ),
-    'desc' => _("The From: column of the message should be linked:")
+    'desc' => _("The From: column of the message should be linked:") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 // Display attachment information in mailbox list.
@@ -1675,13 +1662,6 @@ $_prefs['atc_flag'] = array(
     'desc' => _("Display attachment information about a message in the mailbox listing?")
 );
 
-$_prefs['basic_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Basic View") . '</div>',
-    'type' => 'rawhtml',
-    'requires' => array('preview_enabled'),
-    'requires_nolock' => array('preview_enabled')
-);
-
 // Previews are disabled by default as it can be performance intensive,
 // especially without caching.
 $_prefs['preview_enabled'] = array(
@@ -1689,7 +1669,7 @@ $_prefs['preview_enabled'] = array(
     'value' => 0,
     'locked' => true,
     'type' => 'checkbox',
-    'desc' => _("Enable message previews?")
+    'desc' => _("Enable message previews?") . ' (<em>' . _("Basic view only") . '</em>)'
 );
 
 $_prefs['preview_maxlen'] = array(
@@ -1730,16 +1710,12 @@ $_prefs['preview_show_tooltip'] = array(
     'requires' => array('preview_enabled')
 );
 
-$_prefs['mimp_mailbox'] = array(
-    'value' => '<div class="prefsViews">' . _("Preferences affecting only the Minimal View") . '</div>',
-    'type' => 'rawhtml'
-);
-
 // display only the first 250 characters of a message on first message view?
 $_prefs['mimp_preview_msg'] = array(
     'value' => 0,
+    'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display only the first 250 characters of a message initially?")
+    'desc' => _("Display only the first 250 characters of a message initially?") . ' (<em>' . _("Minimal view only") . '</em>)'
 );
 
 

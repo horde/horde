@@ -4,7 +4,7 @@
  <channel>pear.horde.org</channel>
  <extends>Horde_MIME</extends>
  <summary>Horde MIME Library</summary>
- <description>Provides methods for dealing with MIME (RFC 2045) and related e-mail (RFC 822/2822/5322) standards.</description>
+ <description>Provides methods for dealing with Multipurpose Internet Mail Extensions (MIME) features (RFC 2045/2046/2047).</description>
  <lead>
   <name>Chuck Hagenbuch</name>
   <user>chuck</user>
@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:39:37</time>
+ <date>2012-11-09</date>
+ <time>16:41:41</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -331,7 +331,6 @@
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
       <file name="HeadersTest.php" role="test" />
       <file name="MagicTest.php" role="test" />
       <file name="MailTest.php" role="test" />
@@ -535,7 +534,6 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" name="locale/zh_TW/LC_MESSAGES/Horde_Mime.po" />
    <install as="Horde/Mime/AllTests.php" name="test/Horde/Mime/AllTests.php" />
-   <install as="Horde/Mime/Autoload.php" name="test/Horde/Mime/Autoload.php" />
    <install as="Horde/Mime/HeadersTest.php" name="test/Horde/Mime/HeadersTest.php" />
    <install as="Horde/Mime/MagicTest.php" name="test/Horde/Mime/MagicTest.php" />
    <install as="Horde/Mime/MailTest.php" name="test/Horde/Mime/MailTest.php" />
@@ -1009,7 +1007,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

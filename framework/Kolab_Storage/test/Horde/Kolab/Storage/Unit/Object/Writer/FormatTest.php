@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Tests the conversion of Kolab MIME parts content to data arrays.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)

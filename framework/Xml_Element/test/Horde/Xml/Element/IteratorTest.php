@@ -6,9 +6,6 @@
  * @package    Xml_Element
  * @subpackage UnitTests
  */
-
-require_once __DIR__ . '/Autoload.php';
-
 class Horde_Xml_Element_IteratorTest extends PHPUnit_Framework_TestCase
 {
     public function setUp()

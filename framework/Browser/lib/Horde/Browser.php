@@ -199,6 +199,13 @@ class Horde_Browser
     protected $_mobile = false;
 
     /**
+     * Is this a tablet browser?
+     *
+     * @var boolean
+     */
+    protected $_tablet = false;
+
+    /**
      * Features.
      *
      * @var array
@@ -320,6 +327,9 @@ class Horde_Browser
              * agent strings. */
             if (preg_match('/; (120x160|240x280|240x320|320x320)\)/', $agent)) {
                 $this->setMobile(true);
+            } elseif (preg_match('|Tablet|', $agent)) {
+                $this->setMobile(true);
+                $this->setTablet(true);
             }
 
             if ($this->_majorVersion >= 7) {
@@ -591,6 +601,9 @@ class Horde_Browser
                 }
                 if (stripos($agent, 'mobile') !== false) {
                     $this->setMobile(true);
+                } elseif (stripos($agent, 'tablet') !== false) {
+                    $this->setTablet(true);
+                    $this->setMobile(true);
                 }
                 break;
 
@@ -779,6 +792,32 @@ class Horde_Browser
     public function isMobile()
     {
         return $this->_mobile;
+    }
+
+    /**
+     * Set this browser as a tablet device.
+     *
+     * @since 2.1.0
+     *
+     * @param boolean $tablet  True if the browser is a tablet device.
+     */
+    public function setTablet($tablet)
+    {
+        $this->_tablet = (bool)$tablet;
+    }
+
+    /**
+     * Is the current browser a tablet device? This is not 100% reliable, as
+     * most browsers do not differentiate between smartphone and tablet
+     * versions.
+     *
+     * @since 2.1.0
+     *
+     * @return boolean  True if we do, false if we don't.
+     */
+    public function isTablet()
+    {
+        return $this->_tablet;
     }
 
     /**

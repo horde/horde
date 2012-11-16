@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the defaults helper.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -54,7 +49,7 @@ extends PHPUnit_Framework_TestCase
                 'Mr. Foo' => array(
                     'TypeFOO' => 'FooA',
                     'TypeFOOBAR' => 'FooC',
-                ), 
+                ),
                 'Mr. Bar' => array(
                     'TypeBAR' => 'BarA',
                     'TypeFOOBAR' => 'BarC',

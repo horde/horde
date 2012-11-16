@@ -50,7 +50,8 @@ try {
             if (is_null($host)) {
                 $host = @gethostbyaddr($data['remoteAddr']);
             }
-            $tmp['remotehost'] = $host . ' [' . $data['remoteAddr'] . '] ' . Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
+            $tmp['remotehost'] = $host . ' [' . $data['remoteAddr'] . '] ';
+            $tmp['remotehostimage'] = Horde_Core_Ui_FlagImage::generateFlagImageByHost($host);
         }
 
         $s_info[] = $tmp;

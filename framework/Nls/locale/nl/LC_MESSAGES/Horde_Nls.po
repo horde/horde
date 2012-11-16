@@ -1,19 +1,21 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Nls package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Nls\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2012-08-03 22:31+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-11-02 23:19+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language: \n"
+"Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: lib/Horde/Nls/Languages.php:10
 msgid "Abkhaz"
@@ -404,7 +406,7 @@ msgid "Cuba"
 msgstr "Cuba"
 
 #: lib/Horde/Nls/Countries.php:65
-msgid "Curaçao"
+msgid "CuraÃ§ao"
 msgstr "Curacao"
 
 #: lib/Horde/Nls/Countries.php:66 lib/Horde/Nls/Tld.php:66
@@ -420,7 +422,7 @@ msgid "Czech Republic"
 msgstr "Tsjechië"
 
 #: lib/Horde/Nls/Countries.php:62
-msgid "Côte d'Ivoire"
+msgid "CÃ´te d'Ivoire"
 msgstr "Ivoorkust"
 
 #: lib/Horde/Nls/Languages.php:40
@@ -941,7 +943,7 @@ msgstr "Liechtenstein"
 
 #: lib/Horde/Nls/Languages.php:103
 msgid "Limburgish, Limburgan, Limburger"
-msgstr ""
+msgstr "Limburgs"
 
 #: lib/Horde/Nls/Languages.php:104
 msgid "Lingala"
@@ -1206,7 +1208,7 @@ msgstr "Occitaans"
 
 #: lib/Horde/Nls/Languages.php:131
 msgid "Ojibwe, Ojibwa"
-msgstr ""
+msgstr "Ojibwe, Ojibwa"
 
 #: lib/Horde/Nls/Languages.php:37
 msgid ""
@@ -1347,11 +1349,11 @@ msgid "Rwanda"
 msgstr "Rwanda"
 
 #: lib/Horde/Nls/Countries.php:188
-msgid "Réunion"
+msgid "RÃ©union"
 msgstr "Réunion"
 
 #: lib/Horde/Nls/Countries.php:192
-msgid "Saint Barthélemy"
+msgid "Saint BarthÃ©lemy"
 msgstr "Sint-Bartholomeus"
 
 #: lib/Horde/Nls/Tld.php:210
@@ -1412,7 +1414,7 @@ msgstr "Sardisch"
 
 #: lib/Horde/Nls/Geoip.php:327
 msgid "Satellite Provider"
-msgstr ""
+msgstr "Satteliet provider"
 
 #: lib/Horde/Nls/Countries.php:202 lib/Horde/Nls/Tld.php:204
 msgid "Saudi Arabia"
@@ -1840,5 +1842,5 @@ msgid "Zulu"
 msgstr "Zoeloe"
 
 #: lib/Horde/Nls/Countries.php:9
-msgid "Åland Islands"
+msgid "Ãland Islands"
 msgstr "Åland-eilanden"

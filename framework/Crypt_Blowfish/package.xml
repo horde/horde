@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Crypt_Blowfish</name>
+ <channel>pear.horde.org</channel>
+ <summary>Blowfish Encryption Library</summary>
+ <description>Provides blowfish encryption/decryption for PHP string data.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2012-11-09</date>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* [mms] Initial release of package.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Crypt">
+      <dir name="Blowfish">
+       <file name="COPYING" role="doc" />
+       <file name="ORIGINAL_LICENSE" role="doc" />
+      </dir> <!-- /doc/Horde/Crypt/Blowfish -->
+     </dir> <!-- /doc/Horde/Crypt -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Crypt">
+      <dir name="Blowfish">
+       <dir name="Php">
+        <file name="Base.php" role="php" />
+        <file name="Cbc.php" role="php" />
+        <file name="Ecb.php" role="php" />
+       </dir> <!-- /lib/Horde/Crypt/Blowfish/Php -->
+       <file name="Base.php" role="php" />
+       <file name="Exception.php" role="php" />
+       <file name="Mcrypt.php" role="php" />
+       <file name="Openssl.php" role="php" />
+       <file name="Php.php" role="php" />
+      </dir> <!-- /lib/Horde/Crypt/Blowfish -->
+      <file name="Blowfish.php" role="php" />
+     </dir> <!-- /lib/Horde/Crypt -->
+    </dir> <!-- /lib/Horde -->
+   </dir> <!-- /lib -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Crypt">
+      <dir name="Blowfish">
+       <dir name="fixtures">
+        <file name="vectors.txt" role="test" />
+        <file name="vectors_cbc.txt" role="test" />
+       </dir> <!-- /test/Horde/Crypt/Blowfish/fixtures -->
+       <file name="AllTests.php" role="test" />
+       <file name="CbcTest.php" role="test" />
+       <file name="EcbTest.php" role="test" />
+      </dir> <!-- /test/Horde/Crypt/Blowfish -->
+     </dir> <!-- /test/Horde/Crypt -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Exception</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Support</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+  <optional>
+   <extension>
+    <name>mcrypt</name>
+   </extension>
+   <extension>
+    <name>openssl</name>
+   </extension>
+  </optional>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/Crypt/Blowfish/COPYING" />
+   <install as="ORIGINAL_LICENSE" name="doc/Horde/Crypt/Blowfish/ORIGINAL_LICENSE" />
+   <install as="Horde/Crypt/Blowfish.php" name="lib/Horde/Crypt/Blowfish.php" />
+   <install as="Horde/Crypt/Blowfish/Base.php" name="lib/Horde/Crypt/Blowfish/Base.php" />
+   <install as="Horde/Crypt/Blowfish/Exception.php" name="lib/Horde/Crypt/Blowfish/Exception.php" />
+   <install as="Horde/Crypt/Blowfish/Mcrypt.php" name="lib/Horde/Crypt/Blowfish/Mcrypt.php" />
+   <install as="Horde/Crypt/Blowfish/Openssl.php" name="lib/Horde/Crypt/Blowfish/Openssl.php" />
+   <install as="Horde/Crypt/Blowfish/Php.php" name="lib/Horde/Crypt/Blowfish/Php.php" />
+   <install as="Horde/Crypt/Blowfish/Php/Base.php" name="lib/Horde/Crypt/Blowfish/Php/Base.php" />
+   <install as="Horde/Crypt/Blowfish/Php/Cbc.php" name="lib/Horde/Crypt/Blowfish/Php/Cbc.php" />
+   <install as="Horde/Crypt/Blowfish/Php/Ecb.php" name="lib/Horde/Crypt/Blowfish/Php/Ecb.php" />
+   <install as="Horde/Crypt/Blowfish/AllTests.php" name="test/Horde/Crypt/Blowfish/AllTests.php" />
+   <install as="Horde/Crypt/Blowfish/CbcTest.php" name="test/Horde/Crypt/Blowfish/CbcTest.php" />
+   <install as="Horde/Crypt/Blowfish/EcbTest.php" name="test/Horde/Crypt/Blowfish/EcbTest.php" />
+   <install as="Horde/Crypt/Blowfish/fixtures/vectors.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors.txt" />
+   <install as="Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" />
+  </filelist>
+ </phprelease>
+ <changelog>
+ </changelog>
+</package>

@@ -11,7 +11,7 @@ class Ansel_Form_Ecard extends Horde_Form {
 
     public function __construct(&$vars, $title)
     {
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         $this->setButtons(_("Send"));
         $this->addHidden('', 'actionID', 'text', false);

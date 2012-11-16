@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:16:42</time>
+ <date>2012-11-11</date>
+ <time>17:30:01</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.6</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -157,6 +157,7 @@
       <file name="9_horde_activesync_add_cache.php" role="data" />
       <file name="10_horde_activesync_add_deviceproperties.php" role="data" />
       <file name="11_horde_activesync_removepingstate.php" role="data" />
+      <file name="12_horde_activesync_longtextcachefield.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -252,7 +253,7 @@
    <package>
      <name>Horde_Imap_Client</name>
      <channel>pear.horde.org</channel>
-     <min>2.0.0</min>
+     <min>2.1.3</min>
      <max>3.0.0alpha1</max>
      <exclude>3.0.0alpha1</exclude>
    </package>
@@ -351,6 +352,7 @@
    <install as="migration/9_horde_activesync_add_cache.php" name="migration/Horde/ActiveSync/9_horde_activesync_add_cache.php" />
    <install as="migration/10_horde_activesync_add_deviceproperties.php" name="migration/Horde/ActiveSync/10_horde_activesync_add_deviceproperties.php" />
    <install as="migration/11_horde_activesync_removepingstate.php" name="migration/Horde/ActiveSync/11_horde_activesync_removepingstate.php" />
+   <install as="migration/12_horde_activesync_longtextcachefield.php" name="migration/Horde/ActiveSync/12_horde_activesync_longtextcachefield.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
@@ -816,7 +818,7 @@
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+*
    </notes>
   </release>
   <release>
@@ -839,10 +841,81 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-10-31</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix moving/deleting messages on some devices.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-05</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Increase size of cache_data field.
+* [mjr] Add more complete error and debug output when saving syncCache.
+* [mjr] Attempt to detect infinite sync loops caused by server side errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix detecting mailbox changes on servers that don&apos;t return UIDNEXT data.
+* [mjr] Fix issue in detecting certain text attachments.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix issue causing a loop during FETCH requests caused by the non-incrementing syncKey.
+* [mjr] Reduce number of IMAP server calls required when syncronizing email data.
+* [mjr] Fix issue causing iOS Mail to crash when receiving truncated body data.
+* [mjr] Improvements to detecting expunged messages.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix fatal error due to abstract serialize methods.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
    </notes>
   </release>
  </changelog>

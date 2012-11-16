@@ -20,8 +20,6 @@
  * receive this file, see
  * http://www.horde.org/licenses/lgpl21.
  *
- * @since Horde_Kolab_Format 1.1.0
- *
  * @category Kolab
  * @package  Kolab_Format
  * @author   Gunnar Wrobel <wrobel@pardus.de>
@@ -48,15 +46,7 @@ extends Horde_Kolab_Format_Xml_Type_String
     )
     {
         $result = $helper->fetchNodeValue($node);
-        $tz = $node->getAttribute('tz');
-        if (empty($tz)) {
-            /**
-             * @todo Be more strict once KEP2 has been completely adopted
-             * if (!$this->isRelaxed()) throw new Horde_Kolab_Format_Exception();
-             */
-            $tz = 'UTC';
-        }
-        return Horde_Kolab_Format_Date::readDateOrDateTime($result, $tz);
+        return Horde_Kolab_Format_Date::readDateOrDateTime($result);
     }
 
     /**

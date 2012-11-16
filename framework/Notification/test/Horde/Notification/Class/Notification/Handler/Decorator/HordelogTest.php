@@ -10,11 +10,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the notification handler class that logs to the horde log.
  *
  * Copyright 2009-2012 Horde LLC (http://www.horde.org/)

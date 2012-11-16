@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
-/**
  * Test the Xml parser.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -41,7 +36,7 @@ extends PHPUnit_Framework_TestCase
             new DOMDocument('1.0', 'UTF-8')
         );
         $this->assertInstanceOf(
-            'DOMDocument', 
+            'DOMDocument',
             $parser->parse("<?xml version=\"1.0\"?>\n<kolab><test/></kolab>")
         );
     }
@@ -132,7 +127,7 @@ extends PHPUnit_Framework_TestCase
             new DOMDocument('1.0', 'UTF-8')
         );
         $this->assertInstanceOf(
-            'DOMDocument', 
+            'DOMDocument',
             $parser->parse('', array('relaxed' => true))
         );
     }

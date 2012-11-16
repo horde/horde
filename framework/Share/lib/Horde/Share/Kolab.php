@@ -196,8 +196,6 @@ class Horde_Share_Kolab extends Horde_Share_Base
      *
      * @param string $folder The folder name.
      *
-     * @since Horde_Share 1.2.0
-     *
      * @return array A list of namespace prefix, the delimiter and the folder
      *               subpath.
      */

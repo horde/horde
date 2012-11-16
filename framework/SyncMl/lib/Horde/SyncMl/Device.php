@@ -77,6 +77,7 @@ class Horde_SyncMl_Device
             strpos($database, 'card') !== false) {
             return 'text/x-vcard';
         } elseif (strpos($database, 'note') !== false ||
+                  strpos($database, 'snote') !== false ||
                   strpos($database, 'memo') !== false) {
             return 'text/plain';
         } elseif (strpos($database, 'task') !== false ||
@@ -129,6 +130,7 @@ class Horde_SyncMl_Device
             strpos($database, 'card') !== false) {
             return 'text/x-vcard';
         } elseif (strpos($database, 'note') !== false ||
+                  strpos($database, 'snote') !== false ||
                   strpos($database, 'memo') !== false) {
             // SyncML conformance suite expects this rather than text/x-vnote
             return 'text/plain';

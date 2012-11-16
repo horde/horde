@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Stream
  */
-class Horde_Stream
+class Horde_Stream implements Serializable
 {
     /**
      * Stream resource.
@@ -23,16 +23,50 @@ class Horde_Stream
     public $stream;
 
     /**
+     * Configuration parameters.
+     *
+     * @var array
+     */
+    protected $_params;
+
+    /**
      * Constructor.
      *
      * @param array $opts  Configuration options.
      */
     public function __construct(array $opts = array())
     {
-        // Sane default: read-only, 0-length stream.
+        $this->_params = $opts;
+        $this->_init();
+    }
+
+    /**
+     * Initialization method.
+     */
+    protected function _init()
+    {
+        // Sane default: read-write, 0-length stream.
         if (!$this->stream) {
-            $this->stream = @fopen('php://temp', 'r');
+            $this->stream = @fopen('php://temp', 'r+');
         }
+    }
+
+    /**
+     */
+    public function __clone()
+    {
+        $data = strval($this);
+        $this->stream = null;
+        $this->_init();
+        $this->add($data);
+    }
+
+    /**
+     * @since 1.1.0
+     */
+    public function __toString()
+    {
+        return $this->getString(0);
     }
 
     /**
@@ -51,11 +85,15 @@ class Horde_Stream
 
         if (is_resource($data)) {
             $dpos = ftell($data);
-            stream_copy_to_stream($data, $this->stream);
+            while (!feof($data)) {
+                fwrite($this->stream, fread($data, 8192));
+            }
             fseek($data, $dpos);
         } elseif ($data instanceof Horde_Stream) {
             $dpos = ftell($data->stream);
-            stream_copy_to_stream($data->stream, $this->stream);
+            while (!feof($data->stream)) {
+                fwrite($this->stream, fread($data->stream, 8192));
+            }
             fseek($data->stream, $dpos);
         } else {
             fwrite($this->stream, $data);
@@ -209,6 +247,33 @@ class Horde_Stream
             is_null($end) ? -1 : $end,
             is_null($start) ? -1 : $start
         );
+    }
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        $this->_params['_pos'] = ftell($this->stream);
+
+        return json_encode(array(
+            strval($this),
+            $this->_params
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        $this->_init();
+
+        $data = json_decode($data, true);
+        $this->add($data[0]);
+        fseek($this->stream, $data[1]['_pos']);
+        unset($data[1]['_pos']);
+        $this->_params = $data[1];
     }
 
 }

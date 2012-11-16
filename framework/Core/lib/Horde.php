@@ -1606,6 +1606,7 @@ class Horde
             }
         }
         $params['jsuri'] = $GLOBALS['registry']->get('jsuri', 'horde') . '/map/';
+        $params['ssl'] = $GLOBALS['browser']->usingSSLConnection();
 
         $page_output->addScriptFile('map/map.js', 'horde');
         $page_output->addInlineScript(array(

@@ -40,11 +40,16 @@ extends Components_Release_Task_Sentinel
     public function run(&$options)
     {
         if (empty($options['next_version'])) {
-            $options['next_version'] = Components_Helper_Version::nextVersion($this->getComponent()->getVersion());
+            if (empty($options['old_version'])) {
+                $options['old_version'] = $this->getComponent()->getVersion();
+            }
+            $next_version = Components_Helper_Version::nextVersion($options['old_version']);
+        } else {
+            $next_version = $options['next_version'];
         }
-        $changes_version = $options['next_version'];
+        $changes_version = $next_version;
         $application_version = Components_Helper_Version::pearToHordeWithBranch(
-            $options['next_version'], $this->getNotes()->getBranch()
+            $next_version, $this->getNotes()->getBranch()
         );
         $result = $this->getComponent()->nextSentinel(
             $changes_version, $application_version, $options

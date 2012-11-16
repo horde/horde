@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-30 21:27+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -283,10 +283,6 @@ msgstr ""
 msgid "Do not include entries before"
 msgstr ""
 
-#: templates/dynamic/search.inc:78
-msgid "Edit"
-msgstr ""
-
 #: deliverables.php:81
 #, php-format
 msgid "Edit %s"
@@ -382,7 +378,7 @@ msgstr ""
 msgid "Export Search Results"
 msgstr ""
 
-#: templates/dynamic/search.inc:85
+#: templates/dynamic/search.inc:83
 msgid "Export Time"
 msgstr ""
 
@@ -503,7 +499,7 @@ msgstr ""
 msgid "No Notifications"
 msgstr ""
 
-#: templates/dynamic/search.inc:81 templates/dynamic/slices.inc:84
+#: templates/dynamic/search.inc:79 templates/dynamic/slices.inc:84
 msgid "No Time Slices"
 msgstr ""
 

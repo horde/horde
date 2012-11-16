@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the next sentinel release task.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
@@ -148,7 +143,7 @@ public $version = \'5.0.0-git\';
                 sprintf('Would run "git add %s/package.xml" now.', $tmp_dir),
                 sprintf('Would run "git add %s/docs/CHANGES" now.', $tmp_dir),
                 sprintf('Would run "git add %s/lib/Application.php" now.', $tmp_dir),
-                'Would run "git commit -m "Development mode for Horde-5.0.0"" now.'
+                'Would run "git commit -m "Development mode for Horde-5.0.0alpha2"" now.'
             ),
             $this->output->getOutput()
         );

@@ -20,9 +20,16 @@ var ImpHtmlSignaturePrefs = {
             }
             break;
         }
+    },
+
+    onDomLoad: function()
+    {
+        CKEDITOR.on('instanceReady', function(e) {
+            ImpHtmlSignaturePrefs.ready = true;
+        });
     }
 
 };
 
-CKEDITOR.on('instanceReady', function(e) { ImpHtmlSignaturePrefs.ready = true; });
+document.observe('dom:loaded', ImpHtmlSignaturePrefs.onDomLoad.bind(ImpHtmlSignaturePrefs));
 document.observe('HordeIdentitySelect:change', ImpHtmlSignaturePrefs.changeIdentity.bindAsEventListener(ImpHtmlSignaturePrefs));

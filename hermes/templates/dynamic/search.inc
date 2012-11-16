@@ -4,45 +4,78 @@
   <!-- Search Form -->
   <div class="header"><?php echo _("Search") ?></div>
   <form id="hermesSearchForm" action="">
-    <div id="hermesSearchFormInputs">
+    <!-- <div id="hermesSearchFormInputs"> -->
       <div id="hermesLoadingSearch" class="hermesLoading" style="display:none"></div>
-      <label for="hermesSearchFormEmployee">
-      <?php echo _("Employee"); ?>
-      <?php $userType = Hermes::getEmployeesType();
-      if ($userType[0] == 'text'):?>
-        <input type="text" id="hermesSearchFormEmployee" name="employees[]" />
-      <?php else: ?>
-        <select>
-          <option value="userone">User One</option>
-        </select>
-      <?php endif; ?>
-      </label><span class="hermesSeparator">|</span>
-      <label for="hermesSearchFormClient">
-        <?php echo _("Client")?>*
-        <?php echo Hermes::getClientSelect('hermesSearchFormClient');?>
-      </label><span class="hermesSeparator">|</span>
-      <label for="hermesSearchFormJobtype">
-        <?php echo _("Job Type");?>
-        <?php echo Hermes::getJobTypeSelect('hermesSearchFormJobtype');?>
-      </label><span class="hermesSeparator">|</span>
-      <label for="hermesTimeFormCostobject">
-        <?php echo _("Cost Object")?>
-        <select type="text" id="hermesTimeFormCostobject" name="costobject"></select>
-      </label><span class="hermesSeparator">|</span>
-      <label for="HermesSearchFormAfterDate">
-        <?php echo _("Do not include entries before") ?>
-        <input class="input" type="text" name="after_date" id="hermesSearchFormAfterDate" size="10" />
-        <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormAfterPicker" class="hermesDatePicker"') ?>
-      </label><span class="hermesSeparator">|</span>
-      <label for="HermesSearchFormBeforeDate">
-        <?php echo _("Do not include entries after") ?>
-        <input class="input" type="text" name="before_date" id="hermesSearchFormBeforeDate" size="10" />
-        <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormBeforePicker" class="hermesDatePicker"') ?>
-      </label><span class="hermesSeparator">|</span>
-    </div>
+      <fieldset>
+        <label for="hermesSearchFormEmployee"><?php echo _("Employee") ?>
+        <?php $userType = Hermes::getEmployeesType();
+        if ($userType[0] == 'text'):?>
+          <input type="text" id="hermesSearchFormEmployee" name="employees[]" />
+        <?php else: ?>
+          <select name="employees[]" id="hermesSearchFormEmployee" multiple="multiple">
+          <?php foreach ($userType[1] as $username => $user_label): ?>
+            <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
+          </select>
+          <?php endforeach ?>
+        <?php endif; ?>
+        </label>
+        <label for="hermesSearchFormJobtype">
+          <?php echo _("Job Type");?>
+          <?php echo Hermes::getJobTypeSelect('hermesSearchFormJobtype', true);?>
+        </label>
+      </fieldset>
+      <fieldset>
+        <label for="hermesSearchFormClient">
+          <?php echo _("Client")?>*
+          <?php echo Hermes::getClientSelect('hermesSearchFormClient', true);?>
+        </label>
+        <label for="hermesSearchFormCostobject">
+          <?php echo _("Cost Object")?>
+          <select type="text" id="hermesSearchFormCostobject" name="costobject" multiple="multiple"></select>
+        </label>
+      </fieldset>
+      <fieldset>
+        <label for="hermesSearchFormAfterDate">
+          <?php echo _("Do not include entries before") ?>
+          <input class="input" type="text" name="after_date" id="hermesSearchFormAfterDate" size="10" />
+          <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormAfterPicker" class="hermesDatePicker"') ?>
+        </label>
+        <label for="hermesSearchFormBeforeDate">
+          <?php echo _("Do not include entries after") ?>
+          <input class="input" type="text" name="before_date" id="hermesSearchFormBeforeDate" size="10" />
+          <?php echo Horde::img('picker.png', _("Set date"), 'id="hermesSearchFormBeforePicker" class="hermesDatePicker"') ?>
+        </label>
+      </fieldset>
+      <fieldset id="hermesSearchFormBottomSet">
+      <label for="hermesSearchFormSubmitted">
+         <?php echo _("Submitted") ?>
+         <select id="hermesSearchFormSubmitted" name="submitted">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
+      <label for="hermesSearchFormExported">
+         <?php echo _("Exported") ?>
+         <select id="hermesSearchFormExported" name="exported">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
+      <label for="hermesSearchFormBillable">
+         <?php echo _("Billable") ?>
+         <select id="hermesSearchFormBillable" name="billable">
+           <option value=""></option>
+           <option value="1"><?php echo _("Yes") ?></option>
+           <option value="0"><?php echo _("No") ?></option>
+         </select>
+      </label>
+    </fieldset>
+    <!-- </div> -->
     <div class="horde-form-buttons">
       <input id="hermesSearch" class="horde-default" type="submit" value="<?php echo _("Search")?>" />
-      <input id="hermesTimeReset" type="reset" value ="<?php echo _("Reset") ?>" />
+      <input id="hermesSearchReset" type="reset" value ="<?php echo _("Reset") ?>" />
     </div>
   </form>
   <!-- End Search Form -->
@@ -50,6 +83,7 @@
   <!-- Search results grid -->
   <div class="header"><?php echo _("Search Results") ?>
     <span class="QuickFinderWrapper"><input type="text" name="quicksearchS" id="quicksearchS" for="hermesSearchListInternal" empty="hermesSearchListEmpty" /></span>
+    <input id="hermesExport" class="horde-button" type="submit" value="<?php echo _("Export Results")?>" />
   </div>
 
   <div id="hermesSearchListHeader">
@@ -75,13 +109,12 @@
       <div class="hermesTimeListDesc hermesBorderLeft"></div>
       <div class="hermesTimeListBill hermesBorderLeft"></div>
       <div class="hermesTimeListHours hermesBorderLeft"></div>
-      <div class="hermesTimeSliceOptions"><a href="#" class="sliceEdit rounded bold"><?php echo _("Edit") ?></a> <a href="#" class="sliceDelete rounded bold">x</a></div>
+      <div class="hermesTimeSliceOptions"><span class="sliceEdit sliceControl">&nbsp;</span><span class="sliceDelete sliceControl">&nbsp;</span></div>
     </div>
     <div id="hermesSearchListInternal"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
   </div>
-  <!-- @TODO
   <div id="hermesTimeListControls" class="horde-form-buttons">
-    <a id="hermesSearchListSubmit" class="horde-default"><?php echo _("Export Time") ?></a>
-  </div> -->
+    <input id="hermesSearchListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit")?>" />
+  </div>
 </div>

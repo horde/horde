@@ -6,18 +6,24 @@ function table_sortCallback(tableId, column, sortDown)
 }
 </script>
 
-<div id="bookmarkList">
-<table class="striped sortable" cellspacing="0" id="BookmarkList">
+<br />
+<table class="horde-table sortable" cellspacing="0">
 <thead>
  <tr>
+  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Bookmarked On")?></th>
   <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
-  <th id="s_clicks"<?php if ($this->sortby == 'clicks') echo ' class="' . $this->sortdirclass . '"' ?> width="1%"><?php echo _("Clicks") ?></th>
-  <th width="10%" class="nosort"></th>
+  <th id="s_clicks" class="horde-split-left<?php if ($this->sortby == 'clicks') echo ' ' . $this->sortdirclass ?>" width="1%"><?php echo _("Clicks") ?></th>
+  <th width="10%" class="horde-split-left nosort"></th>
  </tr>
 </thead>
 <tbody id="BookmarkList-body">
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
+  <td>
+    <div class="bl-dt">
+      <?php $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')) ?>
+    </div>
+  </td>
   <td>
    <div class="bl-title">
     <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'favicon')) ?>
@@ -46,14 +52,13 @@ function table_sortCallback(tableId, column, sortDown)
   </td>
   <td class="bl-actions">
    <a href="<?php echo Horde::url('edit.php')->add('bookmark', (int)$bookmark->id) ?>"><?php echo Horde::img('edit.png', _("Edit")) ?></a>
-   <form class="bl-delete" action="<?php echo Horde::url('b/delete') ?>" method="post">
-    <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>">
-    <input type="hidden" name="url" value="<?php echo $this->h(Horde::selfUrl()) ?>">
-    <input type="submit" class="horde-delete" value="<?php echo _("Delete") ?>">
+   <form action="<?php echo Horde::url('b/delete') ?>" method="post">
+    <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>" />
+    <input type="hidden" name="url" value="<?php echo $this->h(Horde::selfUrl()) ?>" />
+    <input type="image" src="<?php echo Horde_Themes::img('delete.png') ?>" />
    </form>
   </td>
  </tr>
  <?php endforeach ?>
 </tbody>
 </table>
-</div>

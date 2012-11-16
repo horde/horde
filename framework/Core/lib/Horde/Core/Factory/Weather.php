@@ -13,7 +13,7 @@ class Horde_Core_Factory_Weather extends Horde_Core_Factory_Injector
         global $conf, $injector;
 
         if (empty($conf['weather']['provider'])) {
-            throw new Horde_Exception(_("Weather support not configured."));
+            throw new Horde_Exception(Horde_Core_Translation::t("Weather support not configured."));
         }
 
         // Parameters for all driver types

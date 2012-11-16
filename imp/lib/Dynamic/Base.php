@@ -180,12 +180,14 @@ abstract class IMP_Dynamic_Base
         );
     }
 
+    static public function url(array $opts = array())
+    {
+        throw new Exception('Missing implementation for url method.');
+    }
+
     /**
      */
     abstract protected function _init();
 
-    /**
-     */
-    abstract static public function url(array $opts = array());
 
 }

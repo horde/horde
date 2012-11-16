@@ -5,20 +5,20 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: IMP H4 (5.0-git)\n"
+"Project-Id-Version: IMP H5 (6.0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-08-29 13:30+0200\n"
-"PO-Revision-Date: 2012-09-09 18:31+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:44+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Poedit-Language: Japanese\n"
+"X-Generator: Poedit 1.5.4\n"
 
-#: lib/Notification/Handler/Decorator/NewmailNotify.php:87
+#: lib/Notification/Handler/Decorator/NewmailNotify.php:94
 msgid " and "
 msgstr "かつ"
 
@@ -27,43 +27,53 @@ msgstr "かつ"
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" は有効な電子メールアドレスではありません。"
 
-#: lib/Ajax/Application.php:543
+#: lib/LoginTasks/Task/RenameSentmailMonthly.php:60
+#, php-format
+msgid "\"%s\" mailbox being renamed at the start of the month."
+msgstr "メールボックス %s の名前は、毎月の初めに変更されます。"
+
+#: lib/Ajax/Application/Handler/Dynamic.php:434
 #, php-format
 msgid "\"%s\" mailbox no longer polled for new mail."
 msgstr "メールボックス ¥\"%s¥\" の新着メールはもう確認されません。"
 
-#: lib/Ajax/Application.php:540
+#: lib/Ajax/Application/Handler/Dynamic.php:431
 #, php-format
 msgid "\"%s\" mailbox now polled for new mail."
 msgstr "メールボックス ¥\"%s¥\" の新着メールは確認されます。"
 
-#: lib/Quota.php:54
+#: lib/Quota.php:48
 #, php-format
 msgid "%.0f %s"
 msgstr "%.0f %s"
 
-#: lib/Quota.php:48
+#: lib/Quota.php:45
 #, php-format
 msgid "%.0f%% of %.0f %s"
 msgstr "%.0f%% ／ %.0f %s"
 
-#: folders.php:289 folders.php:303 lib/Message.php:833
+#: folders.php:302 folders.php:317 lib/Message.php:839
 #, php-format
 msgid "%.2fMB"
 msgstr "%.2fMB"
 
-#: lib/Ajax/Application/ShowMessage.php:281
+#: lib/Smartmobile.php:164
+#, php-format
+msgid "%d - %d of %d Messages"
+msgstr "%d - %d／%d 通のメッセージ"
+
+#: lib/Ajax/Application/ShowMessage.php:275
 #, php-format
 msgid "%d Attachment"
 msgid_plural "%d Attachments"
 msgstr[0] "%d 添付"
 
-#: mailbox.php:390 mailbox.php:394 thread.php:152
+#: mailbox.php:384 mailbox.php:388 thread.php:169
 #, php-format
 msgid "%d Messages"
 msgstr "%d 通のメッセージ"
 
-#: lib/Ajax/Application.php:1415
+#: lib/Ajax/Application/Handler/Dynamic.php:754
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
@@ -101,15 +111,10 @@ msgstr[0] "%d 新規"
 msgid "%d of %d"
 msgstr "%d / %d"
 
-#: lib/Dynamic/Compose/Common.php:233
+#: lib/Dynamic/Compose/Common.php:235
 #, php-format
 msgid "%d recipients"
 msgstr "受信者 %d 名"
-
-#: lib/Smartmobile.php:168
-#, php-format
-msgid "%d to %d of %d"
-msgstr "%d から %d、合計 %d"
 
 #: lib/Minimal/Mailbox.php:112
 #, php-format
@@ -123,15 +128,15 @@ msgstr "未読 %d 通"
 
 #: lib/Search/Element/Header.php:49
 #, php-format
-msgid "%s (Header) for '%s'"
-msgstr "%s (ヘッダー) が '%s'"
+msgid "%s (Header) for \"%s\""
+msgstr "%s (Header) for \"%s\""
 
-#: lib/Contents.php:747 lib/Ui/Mailbox.php:115
+#: lib/Contents.php:755 lib/Ui/Mailbox.php:114
 #, php-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: lib/Contents.php:746 lib/Ui/Mailbox.php:114
+#: lib/Contents.php:754 lib/Ui/Mailbox.php:113
 #, php-format
 msgid "%s MB"
 msgstr "%s MB"
@@ -141,37 +146,32 @@ msgstr "%s MB"
 msgid "%s for '%s'"
 msgstr "%s が '%s'"
 
-#: lib/Mime/Viewer/Itip.php:339
+#: lib/Mime/Viewer/Itip.php:336
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr "%s さんは \"%s\" をキャンセルしました。"
 
-#: lib/Mime/Viewer/Itip.php:334
+#: lib/Mime/Viewer/Itip.php:331
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr "%s さんは、繰り返し \"%s\" の１つをキャンセルしました。"
 
-#: lib/Mime/Viewer/Itip.php:172
+#: lib/Mime/Viewer/Itip.php:169
 #, php-format
 msgid "%s has replied to a free/busy request."
 msgstr "%s さんが予定情報の要求に返答しました。"
 
-#: lib/Mime/Viewer/Itip.php:313
+#: lib/Mime/Viewer/Itip.php:310
 #, php-format
 msgid "%s has replied to the invitation to \"%s\"."
 msgstr "%s さんが \"%s\" への招待に返信しました。"
 
-#: lib/Mime/Viewer/Itip.php:163
+#: lib/Mime/Viewer/Itip.php:160
 #, php-format
 msgid "%s has sent you free/busy information."
 msgstr "%s さんが予定情報を送ってきました。"
 
-#: lib/LoginTasks/Task/RenameSentmailMonthly.php:60
-#, php-format
-msgid "%s mailbox being renamed at the start of the month."
-msgstr "メールボックス %s の名前は、毎月の初めに変更されます。"
-
-#: lib/Contents.php:1278
+#: lib/Contents.php:1286
 #, php-format
 msgid "%s part"
 msgstr "%s パート"
@@ -181,62 +181,53 @@ msgstr "%s パート"
 msgid "%s report from %s"
 msgstr "%2$s さんから %1$s の報告"
 
-#: lib/Mime/Viewer/Itip.php:168
+#: lib/Mime/Viewer/Itip.php:165
 #, php-format
 msgid "%s requests your free/busy information."
 msgstr "%s さんがあなたの予定情報を要求しています。"
 
-#: lib/Mime/Viewer/Itip.php:279
+#: lib/Mime/Viewer/Itip.php:276
 #, php-format
 msgid "%s requests your presence at \"%s\"."
 msgstr "%s さんはあなたが \"%s\" に出席することを要求しています。"
 
-#: lib/Mime/Viewer/Itip.php:266
+#: lib/Mime/Viewer/Itip.php:263
 #, php-format
 msgid "%s wants to notify you about changes in \"%s\"."
 msgstr "%s さんはあなたが \"%s\" の変更を通知することを希望しています。"
 
-#: lib/Message.php:442
+#: lib/Message.php:445
 #, php-format
 msgid "%s was successfully added to \"%s\"."
 msgstr "%s は \"%s\" に追加されました。"
 
-#: lib/Ajax/Application.php:860
+#: lib/Ajax/Application/Handler/Dynamic.php:559
 #, php-format
 msgid "%s was successfully added to your address book."
 msgstr "%s はあなたのアドレス帳に追加されました。"
 
-#: templates/dynamic/mailbox.html.php:192
-#, php-format
-msgid ""
-"%s will delete the current message and move to the next message if a single "
-"message is selected."
-msgstr ""
-"%s は現在のメッセージを削除し、もし選択されていたメッセージが１つだけなら、次"
-"のメッセージに移動します。"
-
-#: lib/Mime/Viewer/Itip.php:301
+#: lib/Mime/Viewer/Itip.php:298
 #, php-format
 msgid "%s wishes to amend \"%s\"."
 msgstr "%s さんが \"%s\" の改定を希望しています。"
 
-#: lib/Mime/Viewer/Itip.php:255 lib/Mime/Viewer/Itip.php:269
-#: lib/Mime/Viewer/Itip.php:481
+#: lib/Mime/Viewer/Itip.php:252 lib/Mime/Viewer/Itip.php:266
+#: lib/Mime/Viewer/Itip.php:478
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr "%s さんはあなたが \"%s\" を承知することを希望しています。"
 
-#: lib/Mime/Viewer/Itip.php:308
+#: lib/Mime/Viewer/Itip.php:305
 #, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
 msgstr "%s さんが \"%s\" についての最新情報を希望しています。"
 
-#: compose.php:1076
+#: compose.php:1055
 #, php-format
 msgid "%s%% of allowed size"
 msgstr "許容サイズの %s%%"
 
-#: message.php:317 message.php:321
+#: message.php:316 message.php:320
 #, php-format
 msgid "%s: %s"
 msgstr "%s: %s"
@@ -246,7 +237,7 @@ msgstr "%s: %s"
 msgid "%s: This message may not be from whom it claims to be."
 msgstr "%s：このメッセージは表示されているのとは異なる所から来たようです。"
 
-#: lib/Compose.php:2192
+#: lib/Compose.php:2182
 #, php-format
 msgid "%u Forwarded Messages"
 msgstr "%u 通の転送されたメール"
@@ -256,7 +247,7 @@ msgstr "%u 通の転送されたメール"
 msgid "%u of %u messages in %s unread."
 msgstr "%u ／ %u 通、未読 %s"
 
-#: message.php:744
+#: message.php:904
 #, php-format
 msgid "(%d of %d)"
 msgstr "（%d／%d）"
@@ -266,27 +257,19 @@ msgstr "（%d／%d）"
 msgid "(Message %d of %d)"
 msgstr "（%d ／ %d メッセージ）"
 
-#: templates/imp/contacts/contacts.html:50
-msgid "* Add these by clicking OK *"
-msgstr "* OKをクリックして追加します *"
-
-#: templates/imp/contacts/contacts.html:34
-msgid "* Please select address(es) *"
-msgstr "* アドレスを選択して下さい *"
-
-#: config/prefs.php:1698
+#: config/prefs.php:1680
 msgid "100 characters"
 msgstr "100 文字"
 
-#: config/prefs.php:1701
+#: config/prefs.php:1683
 msgid "1000 characters"
 msgstr "1000 文字"
 
-#: config/prefs.php:1699
+#: config/prefs.php:1681
 msgid "250 characters"
 msgstr "250 文字"
 
-#: config/prefs.php:1700
+#: config/prefs.php:1682
 msgid "500 characters"
 msgstr "500 文字"
 
@@ -294,17 +277,13 @@ msgstr "500 文字"
 msgid "A PGP Public Key is attached to the message."
 msgstr "PGP 公開鍵はメッセージに添付されています。"
 
-#: templates/dynamic/mailbox.html.php:181
-msgid "A left click"
-msgstr "左クリック"
-
 #: lib/Mime/Viewer/Mdn.php:61
 msgid ""
 "A message you have sent has resulted in a return notification from the "
 "recipient."
 msgstr "あなたが送信したメールに対する受信者からの通知です。"
 
-#: lib/Compose.php:3143
+#: lib/Compose.php:3077
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -312,47 +291,33 @@ msgstr ""
 "あなたのセッションが時間切れになった時に作成中だったメッセージは修復されまし"
 "た。下書きフォルダーに移動すればメッセージ作成を再開できます。"
 
-#: lib/IMP.php:76
-msgid ""
-"A popup window could not be opened. Perhaps you have set your browser to "
-"block popup windows?"
-msgstr ""
-"ポップアップ・ウインドウが開けません。ブラウザでポップアップ・ウインドウをブ"
-"ロックしていませんか？"
-
-#: templates/dynamic/mailbox.html.php:183
-msgid "A right-click on a message or a mailbox will display available actions."
-msgstr ""
-"メッセージやメールボックスで右クリックをすると、使用可能な動作が表示されま"
-"す。"
-
-#: lib/Prefs/Special/Acl.php:155
+#: lib/Prefs/Special/Acl.php:156
 #, php-format
 msgid "ACL for \"%s\" successfully created for the mailbox \"%s\"."
 msgstr "ACL \"%s\" はメールボックス \"%s\" 用に作成されました。"
 
-#: lib/Prefs/Special/Acl.php:180
+#: lib/Prefs/Special/Acl.php:181
 #, php-format
 msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
 msgstr "\"%s\" の ACL 権はメールボックス \"%s\" 用に更新されました。"
 
-#: lib/Imap/Acl.php:26
+#: lib/Imap/Acl.php:33
 msgid "ACLs not configured for this server."
 msgstr "このサーバは ACL が設定されていません。"
 
-#: lib/Mime/Viewer/Itip.php:290
+#: lib/Mime/Viewer/Itip.php:287
 msgid "Accept and add to my calendar"
 msgstr "要求を受諾し私の予定表に追加する"
 
-#: lib/Mime/Viewer/Itip.php:287
+#: lib/Mime/Viewer/Itip.php:284
 msgid "Accept and update in my calendar"
 msgstr "受諾し私の予定表を更新する"
 
-#: lib/Mime/Viewer/Itip.php:294
+#: lib/Mime/Viewer/Itip.php:291
 msgid "Accept request"
 msgstr "要求を受諾する"
 
-#: lib/Mime/Viewer/Itip.php:541
+#: lib/Mime/Viewer/Itip.php:538
 msgid "Accepted"
 msgstr "受諾済み"
 
@@ -369,11 +334,11 @@ msgid "Action"
 msgstr "アクション"
 
 #: templates/itip/action.html.php:94 templates/itip/action.html.php:96
-#: templates/prefs/searches.html:10 templates/prefs/searches.html:54
+#: templates/prefs/searches.html.php:10 templates/prefs/searches.html.php:55
 msgid "Actions"
 msgstr "アクション"
 
-#: lib/Ui/Message.php:319 lib/Ui/Message.php:347
+#: lib/Ui/Message.php:317 lib/Ui/Message.php:345
 #, php-format
 msgid "Add %s to my Address Book"
 msgstr "%s を私のアドレス帳に追加する"
@@ -386,64 +351,70 @@ msgstr "Bcc 追加"
 msgid "Add Cc"
 msgstr "Cc 追加"
 
-#: templates/imp/search/search.html:42
+#: templates/search/search.html.php:40
 msgid "Add OR clause"
 msgstr "OR 節を追加"
 
-#: config/prefs.php:1545
+#: config/prefs.php:1535
 msgid "Add a \"Printed By\" header to the top of printed messages?"
 msgstr "印刷の先頭に「印刷したのは」を追加しますか？"
 
-#: templates/imp/search/search.html:40
-msgid "Add search criteria:"
-msgstr "デフォルトの検索基準："
+#: templates/search/search.html.php:38
+msgid "Add search criteria"
+msgstr "検索基準を追加"
 
 #: lib/Ui/Search.php:46
 msgid "Add search mailbox:"
 msgstr "検索メールボックスを追加："
 
-#: lib/Mime/Viewer/Itip.php:257
+#: templates/contacts/contacts.html.php:50
+msgid "Add these by clicking OK"
+msgstr "* OKをクリックして追加します *"
+
+#: lib/Mime/Viewer/Itip.php:254
 msgid "Add this to my calendar"
 msgstr "私の予定表に追加"
 
-#: lib/Mime/Viewer/Itip.php:483
+#: lib/Mime/Viewer/Itip.php:480
 msgid "Add this to my tasklist"
 msgstr "私のタスクリストに追加"
 
-#: lib/Dynamic/Base.php:142
+#: lib/Dynamic/Base.php:144
 msgid "Add to Address Book"
 msgstr "アドレス帳に追加:"
 
-#: lib/Mime/Viewer/Itip.php:291
+#: lib/Mime/Viewer/Itip.php:288
 msgid "Add to my calendar"
 msgstr "私の予定表に追加"
 
-#: lib/Compose.php:3051
+#: compose.php:175 lib/Ajax/Application/Handler/Dynamic.php:952
+#: lib/Minimal/Compose.php:105
 #, php-format
 msgid "Added \"%s\" as an attachment."
 msgstr "\"%s\" を添付しました。"
 
-#: lib/Prefs/Special/Flag.php:89
+#: lib/Prefs/Special/Flag.php:91
 #, php-format
 msgid "Added flag \"%s\"."
 msgstr "フラグ \"%s\" を追加しました。"
 
-#: lib/Ajax/Application.php:854
+#: lib/Ajax/Application/Handler/Dynamic.php:553
 msgid "Adding group lists not currently supported."
 msgstr "グループリストの追加は現在サポートされていません。"
 
-#: config/prefs.php:1163
+#: config/prefs.php:1155
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
 msgstr "閲覧時に追加で表示するヘッダ: <em>（１行に１つのヘッダを指定）</em>"
 
-#: compose.php:759 compose.php:760 compose.php:892 contacts.php:101
-#: templates/imp/contacts/contacts.html:8
+#: compose.php:753 compose.php:872 contacts.php:111
+#: templates/basic/compose/redirect.html.php:22
+#: templates/contacts/contacts.html.php:8
 msgid "Address Book"
 msgstr "アドレス帳"
 
-#: config/prefs.php:942
+#: config/prefs.php:934
 msgid "Address Books"
 msgstr "アドレス帳"
 
@@ -459,11 +430,11 @@ msgid ""
 "address on a new line)</em>"
 msgstr "この ID に連結させるアドレス:（オプション。１行に１アドレスを指定）"
 
-#: lib/Imap/Acl.php:152
+#: lib/Imap/Acl.php:179
 msgid "Administer"
 msgstr "管理"
 
-#: lib/Dynamic/Mailbox.php:441
+#: lib/Dynamic/Mailbox.php:451
 msgid "Advanced Search..."
 msgstr "詳細検索..."
 
@@ -472,15 +443,19 @@ msgstr "詳細検索..."
 msgid "After '%s'"
 msgstr "'%s' の後"
 
-#: lib/Dynamic/Mailbox.php:469
+#: lib/Dynamic/Mailbox.php:479
 msgid "Alerts _Log"
 msgstr "_L警告ログ"
 
-#: lib/Search/Query.php:262 templates/imp/search/search-all.html:2
+#: templates/prefs/acl.html.php:44 templates/prefs/acl.html.php:79
+msgid "All"
+msgstr "全て"
+
+#: lib/Search/Query.php:262 templates/search/search-all.html.php:2
 msgid "All Mailboxes"
 msgstr "全メールボックス"
 
-#: lib/Dynamic/Mailbox.php:417
+#: lib/Dynamic/Mailbox.php:427
 msgid "All Parts"
 msgstr "全てのパート"
 
@@ -503,7 +478,7 @@ msgid_plural ""
 msgstr[0] ""
 "%2$s 日以上経った \"%1$s\" メールボックス内のメッセージはすべて削除されます。"
 
-#: lib/Dynamic/Mailbox.php:467
+#: lib/Dynamic/Mailbox.php:477
 msgid ""
 "All messages in this mailbox will be downloaded into one MBOX file. This may "
 "take some time. Are you sure you want to continue?"
@@ -519,7 +494,7 @@ msgid ""
 msgstr ""
 "%2$s 日以上経った \"%1$s\" メールボックス内のメッセージはすべて削除されます。"
 
-#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:75
+#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:77
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr "%sヶ月以上経過した古いリンク型添付は全て削除されます。"
@@ -530,7 +505,7 @@ msgid "All old sent-mail mailboxes more than %s months old will be deleted."
 msgstr ""
 "作成してから %s ヶ月以上経った送信控えメールボックスは全て削除されます。"
 
-#: lib/Prefs/Special/Acl.php:190
+#: lib/Prefs/Special/Acl.php:191
 #, php-format
 msgid "All rights on mailbox \"%s\" successfully removed for \"%s\"."
 msgstr "メールボックス \"%s\" から \"%s\" への権利は全て削除されました。"
@@ -543,53 +518,46 @@ msgstr "フィルタルールをどのメールボックスでも適用できる
 msgid "Allow mailbox creation?"
 msgstr "フォルダーの作成を許可しますか？"
 
-#: templates/dynamic/mailbox.html.php:190
-msgid "Alt"
-msgstr "[ALT]"
-
-#: config/prefs.php:623
+#: config/prefs.php:607
 msgid "Always"
 msgstr "常に"
 
-#: config/prefs.php:1188
+#: config/prefs.php:1180
 msgid "Always prompt"
 msgstr "常にプロンプト"
 
-#: config/prefs.php:594
-msgid "Always save attachments"
-msgstr "添付は常に保存する"
+#: lib/Ajax/Application/Handler/ImageUnblock.php:34
+#, php-format
+msgid "Always showing images in messages sent by %s."
+msgstr "%s から送信された画像は常に表示します。"
 
-#: lib/Mime/Viewer/Html.php:222
-msgid "Always show images from this sender?"
-msgstr "この送信者の画像は常に表示しますか？"
-
-#: lib/Ui/Compose.php:60
+#: lib/Minimal/Compose.php:481
 msgid "Ambiguous address found."
 msgstr "曖昧なアドレスが見つかりました。"
 
-#: lib/Minimal/Compose.php:403
+#: lib/Minimal/Compose.php:410
 #, php-format
 msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
 msgstr "¥\"%s¥\" の曖昧な一致（初めの5件表示）："
 
-#: lib/Minimal/Compose.php:404
+#: lib/Minimal/Compose.php:411
 #, php-format
 msgid "Ambiguous matches for \"%s\":"
 msgstr "¥\"%s¥\" への曖昧な一致："
 
-#: lib/Message.php:576
+#: lib/Message.php:582
 msgid "An error occured while attempting to strip the attachment."
 msgstr "添付を削除する際にエラーが発生しました。"
 
-#: lib/Message.php:417
+#: lib/Message.php:420
 msgid "An unknown error occured while creating the new note."
 msgstr "新規ノート作成中に原因不明のエラーが発生しました。"
 
-#: lib/Message.php:413
+#: lib/Message.php:416
 msgid "An unknown error occured while creating the new task."
 msgstr "新規タスク作成中に原因不明のエラーが発生しました。"
 
-#: lib/Mime/Viewer/Itip.php:476
+#: lib/Mime/Viewer/Itip.php:473
 msgid "An unknown person"
 msgstr "不明な人物"
 
@@ -597,11 +565,11 @@ msgstr "不明な人物"
 msgid "Answered"
 msgstr "返信済み"
 
-#: templates/smartmobile/folders.html.php:3
-msgid "Applications"
-msgstr "アプリケーション"
+#: templates/prefs/acl.html.php:41 templates/prefs/acl.html.php:76
+msgid "Append"
+msgstr "追加"
 
-#: templates/imp/mailbox/header.html:11
+#: templates/basic/mailbox/header.html.php:13
 msgid "Apply Filters"
 msgstr "フィルタを適用"
 
@@ -613,23 +581,23 @@ msgstr "ログイン時にフィルタルールを適用しますか？"
 msgid "Apply filter rules whenever Inbox is displayed?"
 msgstr "INBOXを表示する度にフィルタを適用しますか？"
 
-#: message.php:695
+#: message.php:849
 msgid "Are you sure you want to PERMANENTLY delete all attachments?"
 msgstr "本当に添付を全て削除したいですか？"
 
-#: message.php:533
+#: message.php:567
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
 msgstr "本当にこれらのメッセージを完全に削除したいですか？"
 
-#: thread.php:163
+#: thread.php:166
 msgid "Are you sure you want to delete all messages in this thread?"
 msgstr "本当にこのフォルダ内のメールを全て削除していいですか？"
 
-#: mailbox.php:361
+#: mailbox.php:354
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
 msgstr "本当にこの仮想フォルダの定義を消去しますか？"
 
-#: lib/Prefs/Special/Searches.php:96
+#: lib/Prefs/Special/Searches.php:100
 msgid "Are you sure you want to delete this filter?"
 msgstr "本当にこのフィルターを削除したいですか？"
 
@@ -637,30 +605,30 @@ msgstr "本当にこのフィルターを削除したいですか？"
 msgid "Are you sure you want to delete this flag?"
 msgstr "本当にこのフラグを削除したいですか？"
 
-#: lib/Smartmobile.php:157
+#: lib/Smartmobile.php:153
 msgid "Are you sure you want to delete this message?"
 msgstr "本当にこのメッセージを削除したいですか？"
 
-#: lib/Prefs/Special/PgpPublicKey.php:57
-#: lib/Prefs/Special/SmimePublicKey.php:57
+#: lib/Prefs/Special/PgpPublicKey.php:61
+#: lib/Prefs/Special/SmimePublicKey.php:58
 msgid "Are you sure you want to delete this public key?"
 msgstr "本当にこの公開鍵を消去しますか？"
 
-#: lib/Prefs/Special/Searches.php:97
+#: lib/Prefs/Special/Searches.php:101
 msgid "Are you sure you want to delete this virtual folder?"
 msgstr "本当にこの仮想フォルダを消去したいですか？"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:70
-#: lib/Prefs/Special/SmimePrivateKey.php:61
+#: lib/Prefs/Special/PgpPrivateKey.php:68
+#: lib/Prefs/Special/SmimePrivateKey.php:64
 msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
 msgstr "本当にこの鍵ペアを消去しますか？（お勧めしません！）"
 
-#: compose.php:729
+#: compose.php:714
 msgid "Are you sure you want to do this?"
 msgstr "本当に実行していいですか？"
 
-#: lib/IMP.php:79
+#: lib/IMP.php:75
 msgid ""
 "Are you sure you want to move the message(s)? (Some message information "
 "might get lost, like message headers, text formatting or attachments!)"
@@ -668,75 +636,71 @@ msgstr ""
 "本当にメッセージを移動しますか？（ヘッダーや添付などの情報が欠落するかもしれ"
 "ません！）"
 
-#: mailbox.php:359
+#: mailbox.php:352
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
 msgstr "本当にこれらのメッセージを完全に削除していいですか？"
 
-#: lib/Dynamic/Base.php:176 message.php:684
+#: lib/Dynamic/Base.php:178 message.php:829
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
 msgstr "本当にこれらの添付を完全に削除していいですか？"
 
-#: mailbox.php:360
+#: mailbox.php:353
 msgid "Are you sure you wish to delete all mail in this mailbox?"
 msgstr "本当にこのフォルダ内のメールを全て削除したいですか？"
 
-#: lib/Application.php:234
+#: lib/Application.php:235
 msgid "Are you sure you wish to empty your spam mailbox?"
 msgstr "本当に SPAM メールボックスを空にしたいですか？"
 
-#: lib/Application.php:221
+#: lib/Application.php:222
 msgid "Are you sure you wish to empty your trash mailbox?"
 msgstr "本当にゴミ箱を空にしたいですか？"
 
-#: lib/IMP.php:81 lib/Smartmobile.php:158
+#: lib/IMP.php:77 lib/Smartmobile.php:154
 msgid "Are you sure you wish to report this message as innocent?"
 msgstr "本当にこのメッセージを無害と報告してもいいですか？"
 
-#: lib/IMP.php:80 lib/Smartmobile.php:159
+#: lib/IMP.php:76 lib/Smartmobile.php:155
 msgid "Are you sure you wish to report this message as spam?"
 msgstr "本当にこのメッセージを SPAM と報告してもいいですか？"
 
-#: lib/Dynamic/Mailbox.php:258
+#: lib/Dynamic/Mailbox.php:256
 msgid "Arrival (No Sort)"
 msgstr "到着順（並べ替えなし）"
 
-#: lib/Dynamic/Mailbox.php:236
+#: lib/Dynamic/Mailbox.php:234
 msgid "Arrival Time"
 msgstr "到着時間"
 
-#: config/prefs.php:1641
+#: config/prefs.php:1630
 msgid "Arrival time on server"
 msgstr "サーバーへの到着時間"
 
-#: lib/Dynamic/Base.php:153 message.php:560
+#: lib/Dynamic/Base.php:155 message.php:618
 msgid "As Attachment"
 msgstr "添付として"
 
-#: config/prefs.php:803
+#: config/prefs.php:781
 msgid "As attachment"
 msgstr "添付として"
 
-#: config/prefs.php:805
+#: config/prefs.php:783
 msgid "As both body text and an attachment"
 msgstr "本文と添付として"
 
-#: config/prefs.php:1620
+#: config/prefs.php:1609
 msgid "Ascending"
 msgstr "昇順"
 
-#: config/prefs.php:622
+#: config/prefs.php:606
 msgid "Ask"
 msgstr "尋ねる"
 
-#: compose.php:1007
-msgid "Attach Files"
-msgstr "添付ファイル"
-
-#: compose.php:997
+#: templates/basic/compose/compose.html.php:238
 msgid "Attach a copy of your PGP public key to the message?"
 msgstr "あなたの PGP 公開鍵を添付しますか？"
 
-#: compose.php:1002
+#: templates/basic/compose/compose.html.php:248
 msgid "Attach your contact information to the message?"
 msgstr "あなたの連絡先を添付しますか？"
 
@@ -744,13 +708,13 @@ msgstr "あなたの連絡先を添付しますか？"
 msgid "Attach:"
 msgstr "添付："
 
-#: lib/Compose.php:2274 lib/Compose.php:2377
+#: lib/Compose.php:2298 lib/Compose.php:2956
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
 msgstr "添付ファイル \"%s\" のサイズが大きすぎます。添付されません。"
 
-#: lib/Compose.php:2739
+#: lib/Compose.php:2660
 #, php-format
 msgid ""
 "Attached file(s) exceeds the linked attachment size limit (%d KB too large). "
@@ -759,7 +723,7 @@ msgstr ""
 "添付ファイルのサイズが許容限度を超えました（%d KB超過）。継続するには添付を削"
 "除して下さい。"
 
-#: lib/Ajax/Imple/ItipRequest.php:359
+#: lib/Ajax/Imple/ItipRequest.php:361
 msgid "Attached is a reply to a calendar request you sent."
 msgstr "添付ファイルはあなたが送った予定表要求への返信です。"
 
@@ -772,25 +736,26 @@ msgstr "添付"
 msgid "Attachment %s deleted."
 msgstr "添付 %s は削除されました。"
 
-#: lib/Compose.php:2799
+#: lib/Compose.php:2720
 msgid "Attachment Information"
 msgstr "添付の情報"
 
-#: lib/Dynamic/Base.php:155 message.php:562
+#: lib/Dynamic/Base.php:157 message.php:628
 msgid "Attachment and Body Text"
 msgstr "添付と本文"
 
-#: lib/Compose.php:908
+#: lib/Compose.php:898
 msgid "Attachment stripped: Original attachment type"
 msgstr "添付を取り除きました: 添付の型"
 
-#: lib/Ajax/Application.php:1491 lib/Dynamic/Message.php:42 message.php:195
+#: lib/Ajax/Application/Handler/Dynamic.php:830 lib/Dynamic/Message.php:43
+#: message.php:195
 msgid "Attachment successfully stripped."
 msgstr "添付は削除されました。"
 
-#: compose.php:910 lib/Compose.php:2756 message.php:703 message.php:733
-#: templates/dynamic/message.html.php:75
-#: templates/imp/compose/compose.html:243
+#: compose.php:891 lib/Compose.php:2677 message.php:860 message.php:892
+#: templates/basic/compose/compose.html.php:258
+#: templates/dynamic/message.html.php:74
 msgid "Attachments"
 msgstr "添付"
 
@@ -798,7 +763,7 @@ msgstr "添付"
 msgid "Attendees"
 msgstr "参加者"
 
-#: lib/Contents.php:1257
+#: lib/Contents.php:1265
 msgid "Audio part"
 msgstr "オーディオパート"
 
@@ -807,27 +772,27 @@ msgstr "オーディオパート"
 msgid "Automatically Generated Messages"
 msgstr "自動生成されたメッセージ"
 
-#: lib/Mime/Viewer/Itip.php:620
+#: lib/Mime/Viewer/Itip.php:617
 msgid "Awaiting Response"
 msgstr "応答待ち"
 
-#: message.php:502 thread.php:133
+#: message.php:520 thread.php:133
 #, php-format
 msgid "Bac_k to %s"
 msgstr "_K%s に戻る"
-
-#: message.php:502 thread.php:133
-#, php-format
-msgid "Back to %s"
-msgstr "%s に戻る"
 
 #: thread.php:130
 msgid "Back to Multiple Message View Index"
 msgstr "メッセージ一覧に戻る"
 
-#: lib/Ui/Message.php:30 search.php:60 templates/dynamic/compose.html.php:108
-#: templates/dynamic/mailbox.html.php:135
-#: templates/imp/contacts/contacts.html:44
+#: config/prefs.php:632 config/prefs.php:639 config/prefs.php:1226
+#: config/prefs.php:1640 config/prefs.php:1652 config/prefs.php:1672
+msgid "Basic view only"
+msgstr "基本表示のみ"
+
+#: lib/Ui/Message.php:29 search.php:61 templates/contacts/contacts.html.php:44
+#: templates/dynamic/compose.html.php:108
+#: templates/dynamic/mailbox.html.php:132
 msgid "Bcc"
 msgstr "Bcc"
 
@@ -848,57 +813,57 @@ msgid ""
 msgstr ""
 "中のリンクをクリックしたり、個人情報を送信する際には十分に注意して下さい。"
 
-#: lib/Dynamic/Mailbox.php:313 lib/Dynamic/Mailbox.php:394 mailbox.php:603
-#: message.php:575
+#: lib/Dynamic/Mailbox.php:310 lib/Dynamic/Mailbox.php:397
 msgid "Blacklist"
 msgstr "ブラックリスト"
 
-#: config/prefs.php:1079
+#: config/prefs.php:1071
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
 msgstr "メッセージ中の画像は指示するまで表示しないようにしますか？"
 
-#: lib/Dynamic/Mailbox.php:433 search.php:72
+#: lib/Dynamic/Mailbox.php:443 search.php:73
 #: templates/smartmobile/search.html.php:11
 msgid "Body"
 msgstr "本文"
 
-#: config/prefs.php:572
+#: config/prefs.php:570
 msgid "Bottom"
 msgstr "最も下"
 
-#: search.php:363
+#: search.php:368
 msgid "Built-in Filters cannot be edited."
 msgstr "組み込みのフィルターは編集できません。"
 
-#: search.php:356
+#: search.php:361
 msgid "Built-in Virtual Folders cannot be edited."
 msgstr "組み込みの仮想フォルダーは編集できません。"
 
-#: lib/Search/Element/Bulk.php:45 lib/Search/Filter/Bulk.php:22 search.php:105
+#: lib/Search/Element/Bulk.php:45 lib/Search/Filter/Bulk.php:22 search.php:106
 msgid "Bulk Messages"
 msgstr "バルクメッセージ"
 
-#: lib/Minimal/Compose.php:322 templates/minimal/compose.html.php:55
-#: templates/minimal/redirect.html.php:29
+#: lib/Minimal/Compose.php:329 templates/basic/compose/redirect.html.php:55
+#: templates/basic/folders/folders_confirm.html.php:27
+#: templates/basic/folders/import.html.php:17
+#: templates/contacts/contacts.html.php:70
+#: templates/minimal/compose.html.php:55
+#: templates/minimal/redirect.html.php:29 templates/pgp/import_key.html.php:70
+#: templates/saveimage/saveimage.html.php:21
+#: templates/search/search.html.php:107
 #: templates/smartmobile/compose.html.php:40
 #: templates/smartmobile/confirm.html.php:8
-#: templates/smartmobile/target.html.php:22
-#: templates/imp/compose/redirect.html:45
-#: templates/imp/contacts/contacts.html:70
-#: templates/imp/folders/folders_confirm.html:24
-#: templates/imp/folders/import.html:17 templates/imp/search/search.html:110
-#: templates/pgp/import_key.html:73 templates/saveimage/saveimage.html:21
-#: templates/smime/import_key.html:80
+#: templates/smartmobile/copymove.html.php:22
+#: templates/smime/import_key.html.php:79
 msgid "Cancel"
 msgstr "キャンセル"
 
-#: templates/imp/compose/compose.html:30
-#: templates/imp/compose/compose.html:202
+#: templates/basic/compose/compose.html.php:32
+#: templates/basic/compose/compose.html.php:217
 msgid "Cancel Message"
 msgstr "メッセージをキャンセル"
 
-#: lib/Dynamic/Compose/Common.php:230
+#: lib/Dynamic/Compose/Common.php:232
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -908,11 +873,11 @@ msgstr ""
 "す。\n"
 "本当にそうしたいですか？"
 
-#: compose.php:729
+#: compose.php:714
 msgid "Cancelling this message will permanently discard its contents."
 msgstr "このメッセージをキャンセルすると、内容は全て廃棄されます。"
 
-#: lib/Imap/Tree.php:1517
+#: lib/Imap/Tree.php:1540
 msgid "Cannot directly create mailbox in this folder."
 msgstr "このフォルダーにはメールボックスは作成できません。"
 
@@ -935,42 +900,46 @@ msgstr "メッセージから予定表データを取得できませんでした
 msgid "Cannot retrieve public key from message."
 msgstr "メッセージから公開鍵を取得できませんでした。"
 
-#: compose.php:918
+#: compose.php:899
 #, php-format
 msgid "Cannot save sent-mail message to \"%s\" as that mailbox is read-only."
 msgstr ""
 "送信済みメッセージを\"%s\"に保存できません。そのメールボックスは読み出し専用"
 "です。"
 
-#: lib/Message.php:478
+#: lib/Message.php:481
 msgid "Cannot strip the MIME part as the mailbox is read-only."
 msgstr "メールボックスは読み出し専用なので、MIME パートを取り除けません。"
 
-#: lib/Compose.php:2236 lib/Ui/Message.php:29 search.php:56
+#: lib/Compose.php:2226 lib/Ui/Message.php:28 search.php:57
+#: templates/contacts/contacts.html.php:43
 #: templates/dynamic/compose.html.php:97
-#: templates/dynamic/mailbox.html.php:131
-#: templates/imp/contacts/contacts.html:43
+#: templates/dynamic/mailbox.html.php:128
 msgid "Cc"
 msgstr "Cc"
+
+#: templates/smartmobile/compose.html.php:25
+msgid "Cc:"
+msgstr "Cc:"
 
 #: lib/Minimal/Compose.php:51
 msgid "Cc: "
 msgstr "Cc:"
 
-#: lib/Mime/Viewer/Itip.php:602
+#: lib/Mime/Viewer/Itip.php:599
 msgid "Chair Person"
 msgstr "議長"
 
-#: templates/prefs/acl.html:70
+#: templates/prefs/acl.html.php:97
 msgid "Change"
 msgstr "変更"
 
-#: config/prefs.php:1555
+#: config/prefs.php:1545
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
 msgstr "表示設定はメールボックス中のメッセージ一覧の見え方を変更します。"
 
-#: config/prefs.php:1750
+#: config/prefs.php:1728
 msgid "Change folder navigation display preferences."
 msgstr "フォルダ表示の個人設定を変更します。"
 
@@ -980,24 +949,25 @@ msgid ""
 "reply to your email."
 msgstr "メールに表示されるあなたの名前、アドレス、署名を変更します。"
 
-#: config/prefs.php:1703
+#: config/prefs.php:1685
 msgid "Characters to display in preview:"
 msgstr "プレビューで表示する文字数："
 
-#: templates/imp/folders/actions.html:11
-#: templates/imp/mailbox/message_headers.html:5
+#: templates/basic/folders/actions.html.php:14
+#: templates/basic/mailbox/message_headers.html.php:5
 msgid "Check All/None"
 msgstr "全てチェック／解除"
 
-#: lib/Ui/Compose.php:102 templates/dynamic/compose.html.php:23
+#: lib/Ui/Compose.php:49 templates/dynamic/compose.html.php:23
 msgid "Check Spelling"
 msgstr "スペルチェック"
 
-#: folders.php:368 mailbox.php:741
+#: templates/basic/folders/actions.html.php:13
+#: templates/basic/mailbox/message_headers.html.php:6
 msgid "Check _All/None"
 msgstr "_A全てチェック／解除"
 
-#: lib/Dynamic/Mailbox.php:353 templates/imp/folders/actions.html:32
+#: lib/Dynamic/Mailbox.php:356 templates/basic/folders/actions.html.php:36
 msgid "Check for New Mail"
 msgstr "新着メールを確認"
 
@@ -1005,27 +975,28 @@ msgstr "新着メールを確認"
 msgid "Check for valid recipient PGP public keys while replying?"
 msgstr "返信時に受信者のPGP公開鍵を検証しますか？"
 
-#: config/prefs.php:509
+#: config/prefs.php:507
 msgid "Check spelling before sending a message?"
 msgstr "送信する前にスペルチェックしますか？"
 
-#: lib/Dynamic/Mailbox.php:461 lib/Ui/Compose.php:103
+#: lib/Dynamic/Mailbox.php:471 lib/Ui/Compose.php:50
 msgid "Checking..."
 msgstr "確認中"
 
-#: templates/imp/folders/actions.html:14 templates/imp/folders/actions.html:16
+#: templates/basic/folders/actions.html.php:18
+#: templates/basic/folders/actions.html.php:20
 msgid "Choose Action"
 msgstr "操作を選択"
 
-#: config/prefs.php:1014
+#: config/prefs.php:1006
 msgid "Choose the address book to use when adding addresses."
 msgstr "アドレスの追加時に使うアドレス帳を指定してください。"
 
-#: templates/dynamic/mailbox.html.php:63
+#: templates/dynamic/mailbox.html.php:60
 msgid "Clear Search"
 msgstr "検索解除"
 
-#: mailbox.php:589
+#: mailbox.php:630
 msgid "Clear Sort"
 msgstr "ソート解除"
 
@@ -1036,17 +1007,17 @@ msgid ""
 "view."
 msgstr "%s をクリックすると画像をブラウザで表示可能な形式に変換します。"
 
-#: lib/Contents.php:531
+#: lib/Contents.php:538
 #, php-format
 msgid "Click %s to download the data."
 msgstr "%s をクリックするとデータをダウンロードします。"
 
-#: lib/Filter.php:126
+#: lib/Filter.php:125
 #, php-format
 msgid "Click %s to go to %s management page."
 msgstr "%s をクリックすると %s 管理ページに移動します。"
 
-#: lib/Ajax/Application/ShowMessage.php:257 message.php:661
+#: lib/Ajax/Application/ShowMessage.php:249 message.php:802
 #, php-format
 msgid "Click %s to send the notification message."
 msgstr "%s をクリックすると通知メッセージを送信します。"
@@ -1055,30 +1026,18 @@ msgstr "%s をクリックすると通知メッセージを送信します。"
 msgid "Click HERE to verify the data."
 msgstr "ここをクリックするとデータを検証します。"
 
-#: lib/Mime/Viewer/Pgp.php:438 lib/Mime/Viewer/Pgp.php:442
+#: lib/Mime/Viewer/Pgp.php:437 lib/Mime/Viewer/Pgp.php:441
 msgid "Click HERE to verify the message."
 msgstr "ここをクリックするとメッセージを検証します。"
 
-#: templates/dynamic/mailbox.html.php:205
+#: templates/dynamic/mailbox.html.php:180
 msgid "Click HERE to view the message in a new window."
 msgstr "ここをクリックするとメッセージを新しいウィンドウで表示します。"
 
-#: lib/Prefs/Special/Mailto.php:44
+#: templates/prefs/mailto.html.php:3
 #, php-format
 msgid "Click here to open all mailto: links using %s."
 msgstr "ここをクリックすると mailto: リンクを %s で開きます。"
-
-#: templates/dynamic/mailbox.html.php:186
-#, php-format
-msgid ""
-"Click on a message while holding down the %s key to select multiple "
-"messages.  To select a range of messages, click the first message of the "
-"range, navigate to the last message of the range, and then click on the last "
-"message while holding down the %s key."
-msgstr ""
-"%s キイを押しながらメッセージをクリックすると、複数のメッセージを選択できま"
-"す。範囲で選択したいなら、先ず最初のメッセージをクリックし、%s キイを押しなが"
-"ら、最後のメッセージをクリックします。"
 
 #: templates/dynamic/compose.html.php:163
 msgid "Click this box to add the original message as an attachment."
@@ -1088,58 +1047,54 @@ msgstr "ここをクリックすると元のメッセージを添付として追
 msgid "Click this box to add the original message text to the body."
 msgstr "ここをクリックすると元のメッセージを本文に挿入します。"
 
-#: config/prefs.php:1659
+#: lib/Script/Package/Imp.php:25
+msgid "Click to always show images from this sender."
+msgstr "クリックすると、この送信者の画像は常に表示します。"
+
+#: config/prefs.php:1648
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr "アドレスをクリックすると送信者への新規メールを作成します"
 
-#: config/prefs.php:1660
+#: config/prefs.php:1649
 msgid "Clicking on the address will open the message to be read"
 msgstr "アドレスをクリックするとメッセージを表示します"
 
-#: templates/dynamic/mailbox.html.php:177
-msgid "Close"
-msgstr "閉じる"
-
-#: lib/Ui/Compose.php:193
+#: lib/Ui/Compose.php:155
 msgid "Close this window"
 msgstr "このウインドウを閉じる"
 
-#: folders.php:379 lib/Dynamic/Mailbox.php:233 lib/Dynamic/Mailbox.php:288
-#: lib/Dynamic/Mailbox.php:363
+#: folders.php:408 lib/Dynamic/Mailbox.php:231 lib/Dynamic/Mailbox.php:286
+#: lib/Dynamic/Mailbox.php:366
 msgid "Collapse All"
 msgstr "全てを畳む"
 
-#: folders.php:379
-msgid "Collapse All Folders"
-msgstr "全てのフォルダを畳む"
-
-#: templates/dynamic/mailbox.html.php:115
+#: templates/dynamic/mailbox.html.php:112
 msgid "Collapse Headers"
 msgstr "ヘッダを畳む"
 
-#: templates/prefs/flags.html:8
+#: templates/prefs/flags.html.php:8
 msgid "Color"
 msgstr "色"
 
-#: lib/Prefs/Special/Flag.php:75
+#: lib/Prefs/Special/Flag.php:51
 msgid "Color Picker"
 msgstr "色選択"
 
-#: config/prefs.php:1787
+#: config/prefs.php:1765
 msgid "Combine all namespaces"
 msgstr "全ての名前空間を合体"
 
-#: templates/prefs/pgpprivatekey.html:59
-msgid "Comment:"
-msgstr "コメント："
+#: templates/prefs/pgpprivatekey.html.php:65
+msgid "Comment"
+msgstr "コメント"
 
-#: lib/Mime/Viewer/Itip.php:553
+#: lib/Mime/Viewer/Itip.php:550
 msgid "Completed"
 msgstr "完了"
 
-#: config/prefs.php:471 config/prefs.php:678 config/prefs.php:723
-#: config/prefs.php:789 config/prefs.php:825 config/prefs.php:881
-#: config/prefs.php:941
+#: config/prefs.php:471 config/prefs.php:657 config/prefs.php:702
+#: config/prefs.php:767 config/prefs.php:803 config/prefs.php:859
+#: config/prefs.php:933
 msgid "Compose"
 msgstr "新規メール"
 
@@ -1147,15 +1102,15 @@ msgstr "新規メール"
 msgid "Compose Message"
 msgstr "新規メールを作成"
 
-#: config/prefs.php:679
+#: config/prefs.php:658
 msgid "Compose Templates"
 msgstr "テンプレート作成"
 
-#: lib/Prefs/Special/ComposeTemplates.php:38
+#: templates/prefs/composetemplates.html.php:3
 msgid "Compose Templates mailbox:"
 msgstr "テンプレート用メールボックス："
 
-#: config/prefs.php:653
+#: config/prefs.php:632
 msgid "Compose messages in a separate window?"
 msgstr "別のウィンドウで新規メールを作成しますか？"
 
@@ -1171,7 +1126,7 @@ msgstr "PGP 暗号のサポートを設定します。"
 msgid "Configure S/MIME encryption support."
 msgstr "S/MIME 暗号サポートを設定します。"
 
-#: config/prefs.php:1501
+#: config/prefs.php:1491
 msgid "Configure flag highlighting."
 msgstr "強調フラグに関する設定をします。"
 
@@ -1179,15 +1134,15 @@ msgstr "強調フラグに関する設定をします。"
 msgid "Configure how event or meeting requests should be handled."
 msgstr "イベントや会議案内をどう処理するかを設定します。"
 
-#: config/prefs.php:1034
+#: config/prefs.php:1026
 msgid "Configure how messages are displayed."
 msgstr "メッセージをどう表示するかを設定します。"
 
-#: config/prefs.php:791
+#: config/prefs.php:769
 msgid "Configure how you forward mail."
 msgstr "メールの転送に関する設定をします。"
 
-#: config/prefs.php:725
+#: config/prefs.php:704
 msgid "Configure how you reply to mail."
 msgstr "メールの返信に関する設定をします。"
 
@@ -1195,11 +1150,11 @@ msgstr "メールの返信に関する設定をします。"
 msgid "Configure how you send mail."
 msgstr "メールの送信に関する設定をします。"
 
-#: config/prefs.php:1536
+#: config/prefs.php:1526
 msgid "Configure message printing."
 msgstr "メッセージの印刷を設定します。"
 
-#: config/prefs.php:1357
+#: config/prefs.php:1346
 msgid "Configure spam reporting."
 msgstr "Spam 報告の設定をします。"
 
@@ -1207,11 +1162,11 @@ msgstr "Spam 報告の設定をします。"
 msgid "Confirmation"
 msgstr "確認"
 
-#: search.php:109
+#: search.php:110
 msgid "Contains Attachment(s)"
 msgstr "添付あり"
 
-#: config/prefs.php:1453
+#: config/prefs.php:1443
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
@@ -1221,42 +1176,39 @@ msgstr "新着メールを何時確認するか、新着メールを通知する
 msgid "Convert HTML data to plain text and view in new window."
 msgstr "HTML をプレインテキストに変換し新しいウィンドウに表示する。"
 
-#: config/prefs.php:1141
+#: config/prefs.php:1133
 msgid "Convert textual emoticons into graphical ones?"
 msgstr "絵文字をアイコンに変更しますか？"
 
-#: mailbox.php:538 message.php:493 templates/smartmobile/target.html.php:11
+#: mailbox.php:554 message.php:507 templates/smartmobile/copymove.html.php:11
 msgid "Copy"
 msgstr "コピー"
 
-#: lib/Dynamic/Mailbox.php:462
+#: lib/Dynamic/Mailbox.php:472
 #, php-format
 msgid "Copy %s to %s"
 msgstr "%s を %s にコピー"
 
-#: mailbox.php:538 message.php:493
-msgid "Copy to mailbox"
-msgstr "メールボックスにコピー"
-
-#: lib/Smartmobile.php:167 templates/smartmobile/message.html.php:43
+#: lib/Smartmobile.php:163 templates/smartmobile/copymove.html.php:3
+#: templates/smartmobile/message.html.php:38
 msgid "Copy/Move"
 msgstr "コピー／移動"
 
-#: lib/Imap/Acl.php:77
+#: lib/Imap/Acl.php:99
 #, php-format
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "ユーザ \"%s\" のメールボックス \"%s\" へのアクセス権が追加できません。"
 
-#: lib/Compose.php:2352
+#: lib/Compose.php:2273
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr "%s をメッセージに添付できません。"
 
-#: lib/Compose/View.php:46 lib/Contents/View.php:143
+#: lib/Compose/View.php:46 lib/Contents/View.php:149
 msgid "Could not auto-determine data type."
 msgstr "データの種類を自動判別できませんでした。"
 
-#: lib/Crypt/Pgp.php:346
+#: lib/Crypt/Pgp.php:345
 msgid "Could not connect to public PGP keyserver"
 msgstr "公開 PGP 鍵サーバに接続できません"
 
@@ -1265,12 +1217,12 @@ msgstr "公開 PGP 鍵サーバに接続できません"
 msgid "Could not create the VFS backend: %s"
 msgstr "VFS バックエンドが作成できません：%s"
 
-#: lib/Mailbox.php:819
+#: lib/Mailbox.php:823
 #, php-format
 msgid "Could not delete Virtual Folder \"%s\"."
 msgstr "仮想フォルダー \"%s\" を削除できませんでした。"
 
-#: lib/Message.php:776
+#: lib/Message.php:782
 #, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
 msgstr "%s からメッセージは削除できません。メールボックスは読み出し専用です。"
@@ -1279,7 +1231,7 @@ msgstr "%s からメッセージは削除できません。メールボックス
 msgid "Could not display attachment data."
 msgstr "添付データを表示できません。"
 
-#: lib/Auth.php:353
+#: lib/Auth.php:349
 msgid "Could not initialize mail server configuration."
 msgstr "メールサーバーの設定を初期化できませんでした。"
 
@@ -1291,20 +1243,20 @@ msgstr ""
 "SPAM メールボックスに移動できません - SPAM メールボックスが設定されていませ"
 "ん。"
 
-#: lib/Ajax/Application.php:973
+#: lib/Ajax/Application.php:320
 msgid "Could not open mailbox."
 msgstr "メールボックスが開けません。"
 
-#: lib/Imap/Acl.php:99
+#: lib/Imap/Acl.php:126
 #, php-format
 msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "ユーザ \"%s\" のフォルダ \"%s\" へのアクセス権が削除できません。"
 
-#: lib/Imap/Acl.php:53
-msgid "Could not retrieve ACL"
-msgstr "ACL を取得できませんでした"
+#: lib/Imap/Acl.php:72
+msgid "Could not retrieve ACL."
+msgstr "ACL を取得できませんでした。"
 
-#: lib/Ui/Compose.php:137
+#: lib/Ui/Compose.php:84
 msgid "Could not retrieve message data from the mail server."
 msgstr "メールサーバからメッセージデータが取得できません。"
 
@@ -1313,24 +1265,24 @@ msgstr "メールサーバからメッセージデータが取得できません
 msgid "Could not retrieve public key for %s."
 msgstr "%s の公開鍵を取得できません。"
 
-#: templates/smartmobile/target.html.php:20
-#: templates/imp/folders/actions.html:19
+#: templates/basic/folders/actions.html.php:23
+#: templates/smartmobile/copymove.html.php:20
 msgid "Create"
 msgstr "作成"
 
-#: templates/prefs/pgpprivatekey.html:132
+#: templates/prefs/pgpprivatekey.html.php:139
 msgid "Create Keys"
 msgstr "鍵を作成"
 
-#: templates/imp/flist/flist.html:9
+#: templates/basic/flist/flist.html.php:11
 msgid "Create New Mailbox"
 msgstr "メールボックスを新規作成"
 
-#: lib/Dynamic/Mailbox.php:265 mailbox.php:596
+#: lib/Dynamic/Mailbox.php:263 mailbox.php:644
 msgid "Create New Template"
 msgstr "新しいテンプレートの作成"
 
-#: lib/Imap/Acl.php:156
+#: lib/Imap/Acl.php:183
 msgid "Create Subfolders/Rename Mailbox"
 msgstr "サブフォルダ作成／メールボックス名前変更"
 
@@ -1346,61 +1298,55 @@ msgstr ""
 "受信メールをメールボックスに振り分けたり、SPAM メールを削除など、受信メールを"
 "整理するためのフィルタルールを作成します。"
 
-#: lib/Dynamic/Mailbox.php:463
+#: lib/Dynamic/Mailbox.php:473
 msgid "Create mailbox:"
 msgstr "メールボックスの作成："
 
-#: config/prefs.php:698
+#: config/prefs.php:677
 msgid "Create new Template"
 msgstr "新しいテンプレートの作成"
 
-#: lib/Dynamic/Mailbox.php:225 lib/Dynamic/Mailbox.php:346
+#: lib/Dynamic/Mailbox.php:223 lib/Dynamic/Mailbox.php:349
 msgid "Create subfolder"
 msgstr "サブフォルダーを作成"
 
-#: lib/Dynamic/Mailbox.php:464
+#: lib/Dynamic/Mailbox.php:474
 #, php-format
 msgid "Create subfolder of %s:"
 msgstr "%s のサブフォルダーを作成："
 
-#: lib/Imap/Acl.php:155
+#: lib/Imap/Acl.php:182
 msgid "Create subfolders and rename mailbox"
 msgstr "サブフォルダ作成とメールボックスの名前変更"
 
-#: config/prefs.php:1644
+#: config/prefs.php:1633
 msgid "Criteria to use when sorting by date:"
 msgstr "日付でソートする際の基準："
 
-#: templates/dynamic/mailbox.html.php:181
-#: templates/dynamic/mailbox.html.php:186
-#: templates/dynamic/mailbox.html.php:195
-msgid "Ctrl"
-msgstr "[CTRL]"
-
-#: templates/imp/compose/compose.html:298
+#: templates/basic/compose/compose.html.php:314
 msgid "Current Attachments"
 msgstr "現在の添付"
 
-#: lib/Prefs/Special/Acl.php:57
+#: lib/Prefs/Special/Acl.php:58
 #, php-format
 msgid "Current access to %s"
 msgstr "%s への現在のアクセス"
 
-#: search.php:68
+#: search.php:69
 msgid "Custom Header"
 msgstr "カスタムヘッダー"
 
-#: search.php:478
+#: search.php:483
 msgid "Custom Header:"
 msgstr "カスタムヘッダー："
 
-#: mailbox.php:661
+#: mailbox.php:737
 msgid "Dat_e"
 msgstr "_E日付"
 
-#: config/prefs.php:1605 lib/Compose.php:2216 lib/Dynamic/Mailbox.php:205
-#: lib/Dynamic/Mailbox.php:255 lib/Ui/Message.php:26 search.php:80
-#: templates/dynamic/mailbox.html.php:123
+#: config/prefs.php:1594 lib/Compose.php:2206 lib/Dynamic/Mailbox.php:203
+#: lib/Dynamic/Mailbox.php:253 lib/Ui/Message.php:25 search.php:81
+#: templates/dynamic/mailbox.html.php:120
 msgid "Date"
 msgstr "日付"
 
@@ -1408,11 +1354,11 @@ msgstr "日付"
 msgid "Date Equals"
 msgstr "日付一致 (=)"
 
-#: search.php:479
+#: search.php:484
 msgid "Date Reset"
 msgstr "日付をリセット"
 
-#: search.php:480
+#: search.php:485
 msgid "Date Selection"
 msgstr "日付の選択"
 
@@ -1424,126 +1370,119 @@ msgstr "日付以降 (>=)"
 msgid "Date Until"
 msgstr "日付以前 (<)"
 
-#: config/prefs.php:1642
+#: config/prefs.php:1631
 msgid "Date in message headers"
 msgstr "メッセージヘッダー中の日付"
 
-#: templates/imp/search/search.html:122
+#: templates/search/search.html.php:119
 msgid "Days"
 msgstr "日"
 
-#: lib/Mime/Viewer/Itip.php:544
+#: lib/Mime/Viewer/Itip.php:541
 msgid "Declined"
 msgstr "謝絶済み"
 
-#: config/prefs.php:1175
+#: config/prefs.php:1167
 msgid "Default (US-ASCII)"
 msgstr "デフォルト (US-ASCII)"
 
-#: config/prefs.php:528
+#: config/prefs.php:526
 msgid "Default method to compose messages:"
 msgstr "デフォルトのメール作成方法："
 
-#: config/prefs.php:1612
+#: config/prefs.php:1601
 msgid "Default sorting criteria:"
 msgstr "デフォルトのソート基準："
 
-#: config/prefs.php:1623
+#: config/prefs.php:1612
 msgid "Default sorting direction:"
 msgstr "デフォルトのソート方向："
 
-#: templates/dynamic/mailbox.html.php:192
-msgid "Del"
-msgstr "DEL"
-
-#: lib/Mime/Viewer/Itip.php:550
+#: lib/Mime/Viewer/Itip.php:547
 msgid "Delegated"
 msgstr "委任済み"
 
-#: lib/Dynamic/Mailbox.php:315 lib/Dynamic/Mailbox.php:349
-#: lib/Imap/Acl.php:164 lib/Minimal/Message.php:228 lib/Smartmobile.php:162
-#: mailbox.php:566 message.php:530 templates/dynamic/mailbox.html.php:54
-#: templates/dynamic/message.html.php:29 templates/minimal/mailbox.html.php:36
-#: templates/smartmobile/message.html.php:41
-#: templates/imp/contacts/contacts.html:60
-#: templates/imp/folders/actions.html:22 templates/prefs/pgppublickey.html:13
-#: templates/prefs/smimepublickey.html:13
+#: lib/Dynamic/Mailbox.php:312 lib/Dynamic/Mailbox.php:352
+#: lib/Imap/Acl.php:191 lib/Minimal/Message.php:228 lib/Smartmobile.php:158
+#: templates/basic/folders/actions.html.php:26
+#: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
+#: templates/minimal/mailbox.html.php:36 templates/prefs/acl.html.php:43
+#: templates/prefs/acl.html.php:78 templates/prefs/pgppublickey.html.php:22
+#: templates/prefs/smimepublickey.html.php:24
+#: templates/smartmobile/mailbox.html.php:24
+#: templates/smartmobile/message.html.php:22
 msgid "Delete"
 msgstr "削除"
 
-#: lib/Prefs/Special/PgpPublicKey.php:57
-#: lib/Prefs/Special/SmimePublicKey.php:57
+#: lib/Prefs/Special/PgpPublicKey.php:61
+#: lib/Prefs/Special/SmimePublicKey.php:58
 #, php-format
 msgid "Delete %s Public Key"
 msgstr "%s 公開鍵を削除"
 
-#: templates/prefs/pgpprivatekey.html:40
+#: templates/prefs/pgpprivatekey.html.php:46
 msgid "Delete Current Keys"
 msgstr "現在の鍵を削除"
 
-#: templates/prefs/smimeprivatekey.html:34
+#: templates/prefs/smimeprivatekey.html.php:38
 msgid "Delete Personal Certificate"
 msgstr "個人証明書を削除"
 
-#: templates/imp/folders/folders_confirm.html:23
+#: templates/basic/folders/folders_confirm.html.php:26
 msgid "Delete Selected Mailboxes"
 msgstr "選択したメールボックスを削除"
 
-#: thread.php:161
+#: thread.php:164
 msgid "Delete Thread"
 msgstr "スレッドを削除"
 
-#: lib/Dynamic/Mailbox.php:276
+#: lib/Dynamic/Mailbox.php:274
 msgid "Delete Virtual Folder"
 msgstr "仮想フォルダを削除"
 
-#: lib/Dynamic/Mailbox.php:466
+#: lib/Dynamic/Mailbox.php:476
 #, php-format
 msgid "Delete all subfolders of %s?"
 msgstr "%s の全てのサブフォルダを削除しますか？"
 
-#: lib/Imap/Acl.php:159
+#: lib/Imap/Acl.php:186
 msgid "Delete and rename mailbox"
 msgstr "メールボックスの削除と名前の変更"
 
-#: lib/Mime/Viewer/Itip.php:341
+#: lib/Mime/Viewer/Itip.php:338
 msgid "Delete from my calendar"
 msgstr "私の予定表から削除"
 
-#: config/prefs.php:1389
+#: config/prefs.php:1378
 msgid "Delete message"
 msgstr "メッセージを削除"
 
-#: lib/Imap/Acl.php:163
+#: lib/Imap/Acl.php:190
 msgid "Delete messages"
 msgstr "メッセージを削除"
 
-#: config/prefs.php:609
+#: config/prefs.php:593
 msgid ""
 "Delete old linked attachments after this many months (0 to never delete)?"
 msgstr ""
 "何ヶ月以上経過した古いリンク型添付を削除しますか？（0なら削除しません）"
 
-#: config/prefs.php:906
+#: config/prefs.php:897
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete)?"
 msgstr ""
 "古い送信控えメールボックスは何ヶ月経過したら削除しますか？（0なら削除しませ"
 "ん）"
 
-#: lib/Dynamic/Mailbox.php:227
+#: lib/Dynamic/Mailbox.php:225
 msgid "Delete subfolders"
 msgstr "サブフォルダを削除"
 
-#: templates/dynamic/mailbox.html.php:192
-msgid "Delete the currently selected message(s)."
-msgstr "現在選択されているメッセージを削除します。"
-
-#: lib/Imap/Acl.php:160
+#: lib/Imap/Acl.php:187
 msgid "Delete/Rename Mailbox"
 msgstr "メールボックスの削除／名前変更"
 
-#: templates/imp/compose/compose.html:323
+#: templates/basic/compose/compose.html.php:347
 msgid "Delete?"
 msgstr "削除？"
 
@@ -1551,81 +1490,55 @@ msgstr "削除？"
 msgid "Deleted"
 msgstr "削除済"
 
-#: lib/Mailbox.php:815
+#: lib/Mailbox.php:819
 #, php-format
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr "仮想フォルダ ¥\"%s¥\" を削除しました。"
 
-#: compose.php:163 lib/Ajax/Application.php:1380
+#: compose.php:163 lib/Ajax/Application/Handler/Dynamic.php:718
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr "添付 ¥\"%s¥\" を削除しました。"
 
-#: lib/Prefs/Special/Flag.php:104
+#: lib/Prefs/Special/Flag.php:106
 #, php-format
 msgid "Deleted flag \"%s\"."
 msgstr "フラグ ¥\"%s¥\" を削除しました。"
 
-#: config/prefs.php:1226
+#: config/prefs.php:1213
 msgid "Deleting and Moving Messages"
 msgstr "メールの削除と移動"
 
-#: lib/Mime/Viewer/Itip.php:296
+#: lib/Mime/Viewer/Itip.php:293
 msgid "Deny request"
 msgstr "要求を拒否する"
 
-#: lib/Mime/Viewer/Itip.php:221
+#: lib/Mime/Viewer/Itip.php:218
 msgid "Deny request for free/busy information"
 msgstr "予定情報の要求を拒否する"
 
-#: config/prefs.php:1621
+#: config/prefs.php:1610
 msgid "Descending"
 msgstr "降順"
 
+#: templates/basic/compose/compose.html.php:339
 #: templates/itip/action.html.php:40
 msgid "Description"
 msgstr "説明"
 
-#: templates/imp/compose/compose.html:319
-msgid "Description:"
-msgstr "説明："
-
-#: templates/prefs/pgpprivatekey.html:19 templates/prefs/pgpprivatekey.html:30
-#: templates/prefs/pgppublickey.html:13
-#: templates/prefs/smimeprivatekey.html:19
-#: templates/prefs/smimepublickey.html:13
+#: templates/prefs/pgpprivatekey.html.php:22
+#: templates/prefs/pgpprivatekey.html.php:36
+#: templates/prefs/pgppublickey.html.php:21
+#: templates/prefs/smimeprivatekey.html.php:22
+#: templates/prefs/smimepublickey.html.php:23
 msgid "Details"
 msgstr "詳細"
 
-#: lib/Compose.php:3036
-#, php-format
-msgid "Did not attach \"%s\" as it was only partially uploaded."
-msgstr "\"%s\" は一部しかアップロードされていないので、添付しません。"
-
-#: lib/Compose.php:3045
-#, php-format
-msgid "Did not attach \"%s\" as the file was empty."
-msgstr "ファイル \"%s\" は空白なので添付しません。"
-
-#: lib/Compose.php:3032
-#, php-format
-msgid ""
-"Did not attach \"%s\" as the maximum allowed upload size has been exceeded."
-msgstr "ファイル \"%s\" は許容サイズを超過しているので添付しません。"
-
-#: lib/Compose.php:3040
-#, php-format
-msgid ""
-"Did not attach \"%s\" as the server configuration did not allow the file to "
-"be uploaded."
-msgstr ""
-"サーバーの設定でアップロードが許可されていないので \"%s\" は添付しません。"
-
-#: config/prefs.php:1134
+#: config/prefs.php:1126
 msgid "Dim signatures?"
 msgstr "署名を薄く表示しますか？"
 
-#: lib/Dynamic/Compose/Common.php:235
+#: lib/Dynamic/Compose/Common.php:237
 msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
@@ -1633,27 +1546,27 @@ msgstr ""
 "書式情報を削除しますか（HTMLからプレインテキストへの変換）？　この操作は取り"
 "消せません。"
 
-#: config/prefs.php:1673
+#: config/prefs.php:1662
 msgid "Display attachment information about a message in the mailbox listing?"
 msgstr "メールボックスの一覧表示で添付の情報を表示させますか？"
 
-#: config/prefs.php:660
+#: config/prefs.php:639
 msgid "Display confirmation in popup window after sending a message?"
 msgstr "送信後にポップアップの確認画面を表示しますか？"
 
-#: config/prefs.php:1478
+#: config/prefs.php:1468
 msgid "Display notification when new mail arrives?"
 msgstr "新着メール到着時に通知しますか？"
 
-#: config/prefs.php:1740
+#: config/prefs.php:1718
 msgid "Display only the first 250 characters of a message initially?"
 msgstr "最初は本文の先頭 250 文字だけを表示しますか？"
 
-#: config/prefs.php:1417
+#: config/prefs.php:1406
 msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "メニューバーに「Spam清掃」を表示しますか？"
 
-#: config/prefs.php:1309
+#: config/prefs.php:1298
 msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "メニューバーに「ゴミ箱清掃」を表示しますか？"
 
@@ -1661,50 +1574,54 @@ msgstr "メニューバーに「ゴミ箱清掃」を表示しますか？"
 msgid "Do Action"
 msgstr "アクション実行"
 
-#: search.php:487 templates/imp/search/search-basic.html:24
-#: templates/imp/search/search-basic.html:38
+#: search.php:492 templates/basic/search/search-basic.html.php:25
+#: templates/basic/search/search-basic.html.php:39
 msgid "Do NOT Match"
 msgstr "一致しない"
 
-#: lib/Dynamic/Mailbox.php:354 templates/imp/folders/actions.html:33
+#: lib/Dynamic/Mailbox.php:357 templates/basic/folders/actions.html.php:37
 msgid "Do Not Check for New Mail"
 msgstr "新着メールを確認しない"
 
-#: config/prefs.php:1661
+#: config/prefs.php:1650
 msgid "Do not generate a link in the From: column"
 msgstr "何もリンクしない"
 
-#: config/prefs.php:1151
+#: config/prefs.php:875
+msgid "Do not save attachments"
+msgstr "添付を保存しない"
+
+#: config/prefs.php:1143
 msgid "Do not show parts"
 msgstr "パートを表示しない"
 
-#: compose.php:730
+#: compose.php:715
 msgid "Doing so will discard this message permanently."
 msgstr "実行するとこのメッセージは完全に廃棄されます。"
 
-#: lib/Dynamic/Mailbox.php:429
+#: lib/Dynamic/Mailbox.php:439
 msgid "Don't Show"
 msgstr "表示しない"
 
-#: templates/imp/mailbox/navbar.html:77
+#: templates/basic/mailbox/navbar.html.php:69
 msgid "Don't Show:"
 msgstr "表示しない："
 
-#: lib/Contents.php:782 templates/minimal/message.html.php:22
-#: templates/imp/folders/actions.html:37
+#: lib/Contents.php:790 templates/basic/folders/actions.html.php:41
+#: templates/minimal/message.html.php:22
 msgid "Download"
 msgstr "ダウンロード"
 
-#: lib/Contents.php:793
+#: lib/Contents.php:801
 #, php-format
 msgid "Download %s in .zip Format"
 msgstr "%s を zip 形式でダウンロード"
 
-#: templates/imp/folders/actions.html:38
+#: templates/basic/folders/actions.html.php:42
 msgid "Download (.zip format)"
 msgstr "ダウンロード [zip形式]"
 
-#: message.php:691
+#: message.php:838
 msgid "Download All Attachments (in .zip file)"
 msgstr "添付を全てダウンロード（.zip ファイルで）"
 
@@ -1720,23 +1637,23 @@ msgstr "添付をダウンロード："
 msgid "Draft"
 msgstr "下書き"
 
-#: lib/Ajax/Application.php:1931
+#: lib/Ajax/Application/Handler/Dynamic.php:1054
 msgid "Draft automatically saved."
 msgstr "下書きは自動的に保存されました。"
 
-#: config/prefs.php:826 lib/Mailbox.php:1616 lib/Mailbox.php:1706
+#: config/prefs.php:804 lib/Mailbox.php:1620 lib/Mailbox.php:1710
 msgid "Drafts"
 msgstr "下書き"
 
-#: lib/Prefs/Special/Drafts.php:37
+#: templates/prefs/drafts.html.php:3
 msgid "Drafts mailbox:"
 msgstr "下書きメールボックス："
 
-#: templates/prefs/pgpprivatekey.html:70
-msgid "E-mail Address:"
-msgstr "メールアドレス："
+#: templates/prefs/pgpprivatekey.html.php:76
+msgid "E-mail Address"
+msgstr "メールアドレス"
 
-#: mailbox.php:855
+#: mailbox.php:933
 msgid "END"
 msgstr "終了"
 
@@ -1748,41 +1665,41 @@ msgstr "エラー：メッセージは配達できませんでした。"
 msgid "EXAMPLE LINK"
 msgstr "リンクの例"
 
-#: lib/Imap/Tree.php:1689
+#: lib/Imap/Tree.php:1718
 msgid "Edit"
 msgstr "編集"
 
-#: lib/Dynamic/Mailbox.php:370
+#: lib/Dynamic/Mailbox.php:373
 msgid "Edit ACL"
 msgstr "アクセス権の編集"
 
-#: templates/imp/search/search.html:11
+#: templates/search/search.html.php:10
 msgid "Edit Filter"
 msgstr "フィルタを編集"
 
-#: mailbox.php:429 templates/dynamic/mailbox.html.php:65
+#: mailbox.php:425 templates/dynamic/mailbox.html.php:62
 msgid "Edit Search Query"
 msgstr "検索要求を編集"
 
-#: lib/Dynamic/Mailbox.php:264 lib/Dynamic/Mailbox.php:299 mailbox.php:594
+#: lib/Dynamic/Mailbox.php:262 lib/Dynamic/Mailbox.php:297 mailbox.php:638
 msgid "Edit Template"
 msgstr "テンプレートの編集"
 
-#: lib/Dynamic/Mailbox.php:275 lib/Imap/Tree.php:1689 mailbox.php:426
-#: templates/imp/search/search.html:8
+#: lib/Dynamic/Mailbox.php:273 lib/Imap/Tree.php:1718 mailbox.php:422
+#: templates/search/search.html.php:8
 msgid "Edit Virtual Folder"
 msgstr "仮想フォルダを編集"
 
-#: lib/Dynamic/Mailbox.php:270
+#: lib/Dynamic/Mailbox.php:268
 msgid "Edit Virtual Folders"
 msgstr "仮想フォルダを編集"
 
-#: config/prefs.php:806 lib/Dynamic/Base.php:157 lib/Dynamic/Mailbox.php:304
-#: lib/Minimal/Message.php:250 message.php:567
+#: config/prefs.php:784 lib/Dynamic/Base.php:159 lib/Minimal/Message.php:250
+#: message.php:641
 msgid "Edit as New"
 msgstr "新規として編集"
 
-#: config/prefs.php:680
+#: config/prefs.php:659
 msgid "Edit compose templates."
 msgstr "新規作成用テンプレートを編集します。"
 
@@ -1798,32 +1715,32 @@ msgstr "フィルタルールを編集"
 msgid "Edit your Whitelist"
 msgstr "ホワイトリストを編集"
 
-#: lib/Message.php:803
+#: lib/Message.php:809
 #, php-format
 msgid "Emptied all messages from %s."
 msgstr "%s のメールを全て空にしました。"
 
-#: lib/Message.php:782
+#: lib/Message.php:788
 msgid "Emptied all messages from Virtual Trash Folder."
 msgstr "仮想ゴミ箱フォルダーを空にしました。"
 
-#: lib/Dynamic/Mailbox.php:348 templates/imp/folders/actions.html:23
+#: lib/Dynamic/Mailbox.php:351 templates/basic/folders/actions.html.php:27
 msgid "Empty"
 msgstr "空にする"
 
-#: templates/imp/mailbox/header.html:23
+#: templates/basic/mailbox/header.html.php:33
 msgid "Empty Mailbox"
 msgstr "メールボックスを空にする"
 
-#: templates/imp/folders/folders_confirm.html:23
+#: templates/basic/folders/folders_confirm.html.php:26
 msgid "Empty Selected Mailboxes"
 msgstr "選択したメールボックスを空にする"
 
-#: lib/Application.php:235
+#: lib/Application.php:236
 msgid "Empty _Spam"
 msgstr "_SPAM清掃"
 
-#: lib/Application.php:222
+#: lib/Application.php:223
 msgid "Empty _Trash"
 msgstr "_Tゴミ箱清掃"
 
@@ -1835,15 +1752,15 @@ msgstr "PGP を使用しますか？"
 msgid "Enable S/MIME functionality?"
 msgstr "S/MIME を使用しますか？"
 
-#: config/prefs.php:1690
+#: config/prefs.php:1672
 msgid "Enable message previews?"
 msgstr "メッセージのプレビューを使用しますか？"
 
-#: templates/prefs/searches.html:9 templates/prefs/searches.html:53
+#: templates/prefs/searches.html.php:9 templates/prefs/searches.html.php:54
 msgid "Enabled?"
 msgstr "有効？"
 
-#: compose.php:990
+#: templates/basic/compose/compose.html.php:225
 msgid "Encr_yption Options"
 msgstr "_Y暗号オプション"
 
@@ -1851,29 +1768,25 @@ msgstr "_Y暗号オプション"
 msgid "Encryption"
 msgstr "暗号化"
 
-#: templates/dynamic/mailbox.html.php:191 templates/itip/action.html.php:13
+#: templates/itip/action.html.php:13
 msgid "End"
 msgstr "終了"
 
-#: lib/Compose.php:1999
+#: lib/Compose.php:1987
 msgid "End forwarded message"
 msgstr "転送するメッセージは以上です"
 
-#: lib/Compose.php:1814
+#: lib/Compose.php:1804
 msgid "End message"
 msgstr "メッセージは以上です"
 
-#: lib/Compose.php:1814
+#: lib/Compose.php:1804
 #, php-format
 msgid "End message from %s"
 msgstr "%s からのメッセージは以上です"
 
-#: templates/dynamic/mailbox.html.php:194
-msgid "Enter"
-msgstr "入力"
-
 #: lib/Prefs/Special/PgpPrivateKey.php:62
-#: lib/Prefs/Special/SmimePrivateKey.php:55
+#: lib/Prefs/Special/SmimePrivateKey.php:59
 msgid "Enter Passphrase"
 msgstr "パスフレーズを入力"
 
@@ -1906,9 +1819,9 @@ msgstr "PGP 秘密鍵のパスフレーズを入力してください。"
 msgid "Enter your personal S/MIME passphrase."
 msgstr "個人の S/MIME パスフレーズを入力してください。"
 
-#: lib/Dynamic/Mailbox.php:432 search.php:76
+#: lib/Dynamic/Mailbox.php:442 search.php:77
+#: templates/basic/search/search-basic.html.php:21
 #: templates/smartmobile/search.html.php:10
-#: templates/imp/search/search-basic.html:20
 msgid "Entire Message"
 msgstr "メッセージ全体"
 
@@ -1916,7 +1829,7 @@ msgstr "メッセージ全体"
 msgid "Entire Message (including Headers)"
 msgstr "メッセージ全体（ヘッダーを含む）"
 
-#: lib/Compose.php:1196 message.php:178 thread.php:62
+#: lib/Compose.php:1186 message.php:178 thread.php:62
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
 msgstr "\"%s\" というエントリがアドレス帳に追加されました。"
@@ -1925,20 +1838,20 @@ msgstr "\"%s\" というエントリがアドレス帳に追加されました�
 msgid "Error"
 msgstr "エラー"
 
-#: lib/Contents.php:115
+#: lib/Contents.php:122
 msgid "Error displaying message: message does not exist on server."
 msgstr "メッセージ表示エラー：メッセージはサーバーにありません。"
 
-#: lib/Ajax/Imple/ItipRequest.php:290 lib/Ajax/Imple/ItipRequest.php:399
+#: lib/Ajax/Imple/ItipRequest.php:290 lib/Ajax/Imple/ItipRequest.php:401
 #, php-format
 msgid "Error sending reply: %s."
 msgstr "返信エラー： %s。"
 
-#: lib/Compose.php:2075
+#: lib/Compose.php:2065
 msgid "Error when redirecting message."
 msgstr "メッセージの転送時にエラーが起きました。"
 
-#: templates/dynamic/mailbox.html.php:6
+#: templates/dynamic/mailbox.html.php:4
 msgid ""
 "Error! This application requires javascript to be available and enabled in "
 "your browser."
@@ -1954,102 +1867,99 @@ msgstr "イベント要求"
 msgid "Event successfully deleted."
 msgstr "イベントは削除されました。"
 
-#: config/prefs.php:1468
+#: config/prefs.php:1458
 msgid "Every 15 minutes"
 msgstr "15 分毎"
 
-#: config/prefs.php:1465
+#: config/prefs.php:1455
 msgid "Every 30 seconds"
 msgstr "30 秒毎"
 
-#: config/prefs.php:871 config/prefs.php:1467
+#: config/prefs.php:849 config/prefs.php:1457
 msgid "Every 5 minutes"
 msgstr "5 分毎"
 
-#: config/prefs.php:1469
+#: config/prefs.php:1459
 msgid "Every half hour"
 msgstr "30 分毎"
 
-#: config/prefs.php:870 config/prefs.php:1466
+#: config/prefs.php:848 config/prefs.php:1456
 msgid "Every minute"
 msgstr "1 分毎"
 
-#: templates/imp/mailbox/header.html:16
+#: templates/basic/mailbox/header.html.php:22
 msgid "Exit Search"
 msgstr "検索終了"
 
-#: folders.php:378 lib/Dynamic/Mailbox.php:232 lib/Dynamic/Mailbox.php:287
-#: lib/Dynamic/Mailbox.php:362
+#: folders.php:400 lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:285
+#: lib/Dynamic/Mailbox.php:365
 msgid "Expand All"
 msgstr "全て展開"
 
-#: folders.php:378
-msgid "Expand All Folders"
-msgstr "全フォルダを展開"
-
-#: templates/dynamic/mailbox.html.php:81
+#: templates/dynamic/mailbox.html.php:78
 msgid "Expand Headers"
 msgstr "ヘッダー拡大"
 
-#: lib/Minimal/Compose.php:100 lib/Minimal/Compose.php:101
-#: lib/Minimal/Compose.php:149 templates/minimal/compose.html.php:54
+#: lib/Minimal/Compose.php:104 lib/Minimal/Compose.php:157
+#: templates/minimal/compose.html.php:54
 #: templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "名前を展開"
 
-#: config/prefs.php:1775
+#: config/prefs.php:1753
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr "フォルダのデフォルト表示でフォルダツリー全体を展開しますか？"
 
-#: templates/prefs/pgpprivatekey.html:115
-msgid "Expiration:"
-msgstr "有効期限："
+#: templates/prefs/pgpprivatekey.html.php:121
+msgid "Expiration"
+msgstr "有効期限"
 
-#: lib/Dynamic/Mailbox.php:366
+#: lib/Dynamic/Mailbox.php:369
 msgid "Export"
 msgstr "エクスポート"
 
-#: templates/imp/folders/actions.html:25
+#: templates/basic/folders/actions.html.php:29
 msgid "Expunge"
 msgstr "削除"
 
-#: lib/Application.php:259
+#: lib/Application.php:260
 msgid "Fi_lters"
 msgstr "_Lフィルタ"
 
-#: compose.php:731 templates/imp/compose/compose.html:262
+#: compose.php:716 templates/basic/compose/compose.html.php:277
 msgid "File"
 msgstr "ファイル"
 
-#: templates/dynamic/mailbox.html.php:20 templates/imp/search/search.html:96
-#: templates/prefs/searches.html:52
+#: templates/dynamic/mailbox.html.php:17 templates/prefs/searches.html.php:53
+#: templates/search/search.html.php:93
 msgid "Filter"
 msgstr "フィルタ"
 
-#: search.php:290
+#: search.php:291
 #, php-format
 msgid "Filter \"%s\" created succesfully."
 msgstr "フィルタ \"%s\" が作成されました。"
 
-#: lib/Prefs/Special/Searches.php:121
+#: lib/Prefs/Special/Searches.php:125
 #, php-format
 msgid "Filter \"%s\" deleted."
 msgstr "フィルタ \"%s\" が削除されました。"
 
-#: search.php:286
+#: search.php:287
 #, php-format
 msgid "Filter \"%s\" edited successfully."
 msgstr "フィルタ \"%s\" は編集されました。"
 
-#: lib/Dynamic/Mailbox.php:427
+#: lib/Dynamic/Mailbox.php:437
 msgid "Filter By"
 msgstr "フィルタ"
 
-#: templates/imp/mailbox/navbar.html:67 templates/imp/mailbox/navbar.html:69
+#: templates/basic/mailbox/navbar.html.php:59
+#: templates/basic/mailbox/navbar.html.php:61
 msgid "Filter Messages"
 msgstr "メッセージをフィルター"
 
-#: config/prefs.php:1049
+#: config/prefs.php:1041
 msgid "Filter message content for unwanted text (e.g. profanity)?"
 msgstr "不適切なメッセージの内容をフィルタしますか？"
 
@@ -2057,25 +1967,25 @@ msgstr "不適切なメッセージの内容をフィルタしますか？"
 msgid "Filters"
 msgstr "フィルタ"
 
-#: lib/Filter.php:125
+#: lib/Filter.php:124
 #, php-format
 msgid "Filters: %s management page"
 msgstr "フィルタ：%s 管理ページ"
 
-#: templates/imp/contacts/contacts.html:13
-msgid "Find:"
-msgstr "検索："
+#: templates/contacts/contacts.html.php:13
+msgid "Find"
+msgstr "検索"
 
-#: config/prefs.php:1587
+#: config/prefs.php:1576
 msgid "First (oldest) Unseen Message"
 msgstr "最初の未読メッセージ"
 
-#: config/prefs.php:1589 lib/Minimal/Mailbox.php:201
-#: templates/imp/mailbox/navbar.html:9
+#: config/prefs.php:1578 lib/Minimal/Mailbox.php:201
+#: templates/basic/mailbox/navbar.html.php:9
 msgid "First Page"
 msgstr "最初のページ"
 
-#: search.php:481
+#: search.php:486
 msgid "Flag:"
 msgstr "フラグ："
 
@@ -2083,53 +1993,53 @@ msgstr "フラグ："
 msgid "Flagged for Followup"
 msgstr "続報の印"
 
-#: config/prefs.php:1500
+#: config/prefs.php:1490
 msgid "Flags"
 msgstr "フラグ"
 
-#: mailbox.php:611 message.php:558
+#: mailbox.php:670 message.php:612
 msgid "Fo_rward"
 msgstr "_R転送"
 
-#: lib/Mailbox.php:1684
+#: lib/Mailbox.php:1688
 msgid "Folder"
 msgstr "フォルダ"
 
-#: lib/Dynamic/Mailbox.php:81
+#: lib/Dynamic/Mailbox.php:79
 msgid "Folder Actions"
 msgstr "フォルダ操作"
 
-#: folders.php:261 templates/imp/folders/folders_confirm.html:6
+#: folders.php:270 templates/basic/folders/folders_confirm.html.php:6
 msgid "Folder Actions - Confirmation"
 msgstr "フォルダ操作 - 確認"
 
-#: config/prefs.php:1749
+#: config/prefs.php:1727
 msgid "Folder Display"
 msgstr "フォルダ表示"
 
-#: folders.php:341 folders.php:410 templates/prefs/initialpage.html:10
+#: folders.php:351 folders.php:439 templates/prefs/initialpage.html.php:7
 msgid "Folder Navigator"
 msgstr "フォルダ操作"
 
 #: lib/Minimal/Base.php:85 lib/Minimal/Folders.php:66
-#: templates/smartmobile/folders.html.php:4
-#: templates/smartmobile/mailbox.html.php:3
+#: templates/smartmobile/folders.html.php:2
+#: templates/smartmobile/mailbox.html.php:2
 msgid "Folders"
 msgstr "フォルダ"
 
-#: config/prefs.php:1067
+#: config/prefs.php:1059
 msgid ""
 "For messages with alternative representations of the text part, which part "
-"should we display?"
+"should be displayed?"
 msgstr ""
-"メッセージにテキストの代替パートが含まれている場合には、そちらを表示します"
+"メッセージにテキストの代替パートが含まれている場合には、どちらを表示します"
 "か？"
 
-#: lib/Compose.php:1944 lib/Compose.php:1947 lib/Dynamic/Mailbox.php:303
-#: lib/Minimal/Compose.php:209 lib/Minimal/Message.php:248
-#: lib/Notification/Event/Status.php:27 mailbox.php:611 message.php:558
-#: templates/dynamic/mailbox.html.php:35 templates/dynamic/message.html.php:15
-#: templates/smartmobile/message.html.php:35
+#: lib/Compose.php:1932 lib/Compose.php:1935 lib/Dynamic/Mailbox.php:301
+#: lib/Minimal/Compose.php:217 lib/Minimal/Message.php:248
+#: lib/Notification/Event/Status.php:27 templates/dynamic/mailbox.html.php:32
+#: templates/dynamic/message.html.php:15
+#: templates/smartmobile/message.html.php:28
 msgid "Forward"
 msgstr "転送"
 
@@ -2137,57 +2047,58 @@ msgstr "転送"
 msgid "Forwarded"
 msgstr "転送"
 
-#: lib/Compose.php:2179
+#: lib/Compose.php:2169
 msgid "Forwarded Message"
 msgstr "メッセージを転送"
 
-#: lib/Compose.php:1997
+#: lib/Compose.php:1985
 msgid "Forwarded message"
 msgstr "転送されたメッセージ"
 
-#: lib/Compose.php:1997
+#: lib/Compose.php:1985
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "%s から転送されたメッセージ"
 
-#: lib/Ajax/Application/Helper/Smartmobile.php:24 lib/Minimal/Compose.php:208
+#: lib/Ajax/Application/Handler/Smartmobile.php:39 lib/Minimal/Compose.php:216
 msgid "Forwarded message will be automatically added to your outgoing message."
 msgstr "転送メッセージはあなたの送信メッセージに自動的に追加されます。"
 
-#: config/prefs.php:790
+#: config/prefs.php:768
 msgid "Forwards"
 msgstr "転送"
 
-#: lib/Ajax/Imple/ItipRequest.php:391
+#: lib/Ajax/Imple/ItipRequest.php:393
 msgid "Free/Busy Request Response"
 msgstr "予定情報要求応答"
 
-#: mailbox.php:646
+#: mailbox.php:722
 msgid "Fro_m"
 msgstr "_M差出人"
 
-#: lib/Compose.php:2220 lib/Dynamic/Mailbox.php:185
-#: lib/Dynamic/Mailbox.php:251 lib/Dynamic/Mailbox.php:434
-#: lib/Ui/Message.php:27 search.php:44 templates/dynamic/compose.html.php:76
-#: templates/dynamic/mailbox.html.php:119
+#: lib/Compose.php:2210 lib/Dynamic/Mailbox.php:183
+#: lib/Dynamic/Mailbox.php:249 lib/Dynamic/Mailbox.php:444
+#: lib/Ui/Message.php:26 search.php:45
+#: templates/basic/compose/compose.html.php:38
+#: templates/basic/search/search-basic.html.php:17
+#: templates/basic/thread/thread.html.php:19
+#: templates/dynamic/compose.html.php:76
+#: templates/dynamic/mailbox.html.php:116
 #: templates/minimal/mailbox.html.php:13
 #: templates/smartmobile/search.html.php:12
-#: templates/imp/compose/compose.html:35
-#: templates/imp/search/search-basic.html:16
 msgid "From"
 msgstr "From"
 
-#: config/prefs.php:1606
+#: config/prefs.php:1595
 msgid "From Address"
 msgstr "送信元アドレス"
 
-#: lib/Ui/Mailbox.php:81 templates/minimal/compose.html.php:6
-#: templates/smartmobile/compose.html.php:18
-#: templates/imp/thread/thread.html:19
+#: lib/Ui/Mailbox.php:80 templates/minimal/compose.html.php:6
+#: templates/smartmobile/compose.html.php:14
 msgid "From:"
 msgstr "From:"
 
-#: templates/saveimage/saveimage.html:13
+#: templates/saveimage/saveimage.html.php:13
 msgid "Gallery"
 msgstr "ギャラリー"
 
@@ -2201,7 +2112,7 @@ msgstr "一般的オプション"
 msgid "Go"
 msgstr "移動"
 
-#: templates/imp/search/search-basic.html:42
+#: templates/basic/search/search-basic.html.php:44
 msgid "Go to Advanced Search Page..."
 msgstr "詳細な検索ページに移動"
 
@@ -2209,7 +2120,7 @@ msgstr "詳細な検索ページに移動"
 msgid "Go to Message"
 msgstr "メッセージに移動"
 
-#: lib/IMP.php:194
+#: lib/Ui/Contacts.php:43
 #, php-format
 msgid "Go to address book entry of \"%s\""
 msgstr "アドレス帳の \"%s\" に移動する"
@@ -2218,16 +2129,16 @@ msgstr "アドレス帳の \"%s\" に移動する"
 msgid "Go to your Inbox..."
 msgstr "INBOX に移動"
 
-#: lib/Ajax/Application/ShowMessage.php:257 lib/Contents.php:531
-#: lib/Filter.php:125 lib/Mime/Viewer/Appledouble.php:90
+#: lib/Ajax/Application/ShowMessage.php:249 lib/Contents.php:538
+#: lib/Filter.php:124 lib/Mime/Viewer/Appledouble.php:90
 #: lib/Mime/Viewer/Images.php:139 lib/Mime/Viewer/Mdn.php:78
 #: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Status.php:103
 #: lib/Mime/Viewer/Status.php:115 lib/Mime/Viewer/Status.php:126
-#: message.php:661
+#: message.php:802
 msgid "HERE"
 msgstr "ここ"
 
-#: lib/Compose.php:1318
+#: lib/Compose.php:1308
 msgid "HTML Message"
 msgstr "HTML メッセージ"
 
@@ -2235,31 +2146,27 @@ msgstr "HTML メッセージ"
 msgid "HTML composition"
 msgstr "HTML 編集モード"
 
-#: config/prefs.php:1064
+#: config/prefs.php:1056
 msgid "HTML part"
 msgstr "HTML パート"
 
-#: message.php:607
+#: message.php:723
 msgid "Headers"
 msgstr "ヘッダ"
 
-#: lib/Dynamic/Mailbox.php:404
-msgid "Help"
-msgstr "ヘルプ"
-
-#: config/prefs.php:1124
+#: config/prefs.php:1116
 msgid "Hidden"
 msgstr "隠す"
 
-#: config/prefs.php:1122
+#: config/prefs.php:1114
 msgid "Hidden in List Messages"
 msgstr "メール一覧で隠す"
 
-#: config/prefs.php:1121
+#: config/prefs.php:1113
 msgid "Hidden in Thread View"
 msgstr "スレッド表示では隠す"
 
-#: config/prefs.php:1123
+#: config/prefs.php:1115
 msgid "Hidden in Thread View and List Messages"
 msgstr "スレッド表示と一覧では隠す"
 
@@ -2267,51 +2174,47 @@ msgstr "スレッド表示と一覧では隠す"
 msgid "Hide Addresses"
 msgstr "アドレスを隠す"
 
-#: lib/Dynamic/Mailbox.php:469
+#: lib/Dynamic/Mailbox.php:479
 msgid "Hide Alerts _Log"
 msgstr "_L警告ログを隠す"
 
-#: lib/Dynamic/Mailbox.php:402 mailbox.php:288
+#: lib/Dynamic/Mailbox.php:405 mailbox.php:281
 msgid "Hide Deleted"
 msgstr "削除済みを隠す"
 
-#: lib/Dynamic/Mailbox.php:385
+#: lib/Dynamic/Mailbox.php:388
 msgid "Hide Preview"
 msgstr "プレビューを隠す"
 
-#: folders.php:372 lib/Dynamic/Mailbox.php:285
+#: folders.php:381 lib/Dynamic/Mailbox.php:283
 msgid "Hide Unsubscribed"
 msgstr "非購読を隠す"
 
-#: config/prefs.php:1302
+#: config/prefs.php:1291
 msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr "削除したメッセージはゴミ箱を使っていたとしても隠しますか？"
 
-#: compose.php:871 lib/Dynamic/Compose/Common.php:199 message.php:328
+#: compose.php:845 lib/Dynamic/Compose/Common.php:201 message.php:327
 msgid "High"
 msgstr "高"
 
-#: lib/Flag/System/HighPriority.php:37 message.php:328
+#: lib/Flag/System/HighPriority.php:37 message.php:327
 msgid "High Priority"
 msgstr "優先度高"
 
-#: templates/dynamic/mailbox.html.php:191
-msgid "Home"
-msgstr "ホーム"
-
-#: lib/Dynamic/Mailbox.php:387
+#: lib/Dynamic/Mailbox.php:390
 msgid "Horizontal Layout"
 msgstr "横方向の配置"
 
-#: config/prefs.php:808
+#: config/prefs.php:786
 msgid "How should messages be forwarded by default?"
 msgstr "デフォルトではどういう形式で転送しますか？"
 
-#: config/prefs.php:1790
+#: config/prefs.php:1768
 msgid "How should namespaces be displayed in the folder tree view?"
 msgstr "フォルダーツリー表示では名前空間を表示しますか？"
 
-#: config/prefs.php:770
+#: config/prefs.php:748
 msgid "How to attribute quoted lines in a reply"
 msgstr "返信時の引用句"
 
@@ -2320,111 +2223,101 @@ msgid ""
 "However, no personal private key exists so the message cannot be decrypted."
 msgstr "秘密鍵が無いので、メッセージの復号はできません。"
 
-#: templates/prefs/flags.html:7
+#: templates/prefs/flags.html.php:7
 msgid "Icon"
 msgstr "アイコン"
 
-#: templates/imp/folders/folders_confirm.html:13
+#: templates/basic/folders/folders_confirm.html.php:16
 msgid "If you continue, all messages in the mailbox(es) will be lost!"
 msgstr "続けると、メールボックス内のメールはすべて消滅します！"
 
-#: saveimage.php:55
+#: templates/saveimage/saveimage.html.php:8
 msgid "Image"
 msgstr "画像"
 
-#: lib/Contents.php:1260
+#: lib/Contents.php:1268
 msgid "Image part"
 msgstr "画像パート"
 
-#: lib/Mime/Viewer/Html.php:220
+#: lib/Mime/Viewer/Html.php:216
 msgid "Images have been blocked in this message part."
 msgstr "このメッセージ中の画像はブロックされました。"
 
-#: lib/Dynamic/Mailbox.php:367 templates/imp/folders/import.html:16
-#: templates/pgp/import_key.html:72 templates/smime/import_key.html:79
+#: lib/Dynamic/Mailbox.php:370 templates/basic/folders/import.html.php:16
+#: templates/pgp/import_key.html.php:69 templates/smime/import_key.html.php:78
 msgid "Import"
 msgstr "インポート"
 
-#: templates/prefs/pgpprivatekey.html:134
+#: templates/prefs/pgpprivatekey.html.php:141
 msgid "Import Keypair"
 msgstr "鍵ペアのインポート"
 
-#: templates/imp/folders/actions.html:40 templates/imp/folders/import.html:7
+#: templates/basic/folders/actions.html.php:44
+#: templates/basic/folders/import.html.php:7
 msgid "Import Messages"
 msgstr "メールをインポートする"
 
-#: lib/Crypt/Pgp.php:665
+#: lib/Crypt/Pgp.php:670
 msgid "Import PGP Key"
 msgstr "PGP 鍵のインポート"
 
-#: templates/prefs/smimeprivatekey.html:40
+#: templates/prefs/smimeprivatekey.html.php:47
 msgid "Import Personal Certificate"
 msgstr "個人証明書をインポート"
 
-#: templates/pgp/import_key.html:13
+#: templates/pgp/import_key.html.php:12 templates/pgp/import_key.html.php:35
 msgid "Import Personal Keys"
 msgstr "個人鍵をインポート"
 
-#: templates/pgp/import_key.html:38
-msgid "Import Personal Keys:"
-msgstr "個人鍵をインポート："
-
-#: templates/smime/import_key.html:13
-msgid "Import Personal S/MIME Certificates"
+#: lib/Crypt/Smime.php:500 templates/smime/import_key.html.php:12
+msgid "Import Personal S/MIME Certificate"
 msgstr "個人の S/MIME 証明書をインポート"
 
-#: templates/prefs/pgppublickey.html:30 templates/prefs/smimepublickey.html:30
+#: templates/pgp/import_key.html.php:33
+#: templates/prefs/pgppublickey.html.php:40
+#: templates/prefs/smimepublickey.html.php:40
 msgid "Import Public Key"
 msgstr "公開鍵のインポート"
 
-#: templates/pgp/import_key.html:35
-msgid "Import Public Key:"
-msgstr "公開鍵のインポート："
-
-#: templates/pgp/import_key.html:10
+#: templates/pgp/import_key.html.php:10
 msgid "Import Public PGP Key"
 msgstr "PGP 公開鍵のインポート"
 
-#: templates/smime/import_key.html:10
+#: templates/smime/import_key.html.php:10
 msgid "Import Public S/MIME Key"
 msgstr "S/MIME 公開鍵のインポート"
 
-#: lib/Crypt/Smime.php:492
-msgid "Import S/MIME Key"
-msgstr "S/MIM 鍵のインポート"
-
-#: templates/imp/folders/import.html:12
+#: templates/basic/folders/import.html.php:12
 msgid "Import mbox or .eml file"
 msgstr "Mbox か .eml ファイルをインポート"
 
-#: lib/Ui/Folder.php:147
+#: lib/Ui/Folder.php:145
 #, php-format
 msgid "Imported %d message from %s."
 msgid_plural "Imported %d messages from %s"
 msgstr[0] "%d 通のメッセージが %s からインポートされました。"
 
-#: lib/Dynamic/Base.php:154 message.php:561
+#: lib/Dynamic/Base.php:156 message.php:623
 msgid "In Body Text"
 msgstr "本文の中"
 
-#: lib/Mime/Viewer/Itip.php:556
+#: lib/Mime/Viewer/Itip.php:553
 msgid "In Process"
 msgstr "処理中"
 
-#: config/prefs.php:804
+#: config/prefs.php:782
 msgid "In the body text"
 msgstr "本文の中へ"
 
-#: lib/Mailbox.php:1604 lib/Mailbox.php:1694 lib/Minimal/Base.php:76
-#: templates/prefs/initialpage.html:8
+#: lib/Mailbox.php:1608 lib/Mailbox.php:1698 lib/Minimal/Base.php:76
 msgid "Inbox"
 msgstr "INBOX"
 
-#: config/prefs.php:752
+#: config/prefs.php:730
 msgid "Include a brief summary of the header in a reply?"
 msgstr "返信時にヘッダの一部を付加しますか？"
 
-#: config/prefs.php:762
+#: config/prefs.php:740
 msgid "Include original message in a reply?"
 msgstr "返信時に元のメッセージを引用しますか？"
 
@@ -2432,8 +2325,8 @@ msgstr "返信時に元のメッセージを引用しますか？"
 msgid "Info"
 msgstr "情報"
 
-#: lib/Prefs/Special/PgpPublicKey.php:56
-#: lib/Prefs/Special/SmimePublicKey.php:56
+#: lib/Prefs/Special/PgpPublicKey.php:60
+#: lib/Prefs/Special/SmimePublicKey.php:57
 #, php-format
 msgid "Information on %s Public Key"
 msgstr "%s 公開鍵の情報"
@@ -2442,49 +2335,50 @@ msgstr "%s 公開鍵の情報"
 msgid "Information on Personal Private Key"
 msgstr "個人の秘密鍵の情報"
 
-#: lib/Prefs/Special/SmimePrivateKey.php:44
+#: lib/Prefs/Special/SmimePrivateKey.php:45
 msgid "Information on Personal Public Certificate"
 msgstr "個人の公開鍵の情報"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:49
+#: lib/Prefs/Special/PgpPrivateKey.php:44
 msgid "Information on Personal Public Key"
 msgstr "個人の公開鍵の情報"
 
-#: templates/dynamic/mailbox.html.php:44 templates/dynamic/message.html.php:24
-#: templates/smartmobile/message.html.php:46
+#: templates/dynamic/mailbox.html.php:41 templates/dynamic/message.html.php:24
+#: templates/smartmobile/mailbox.html.php:26
+#: templates/smartmobile/message.html.php:35
 msgid "Innocent"
 msgstr "無害"
 
-#: lib/Imap/Acl.php:144
+#: lib/Imap/Acl.php:171
 msgid "Insert"
 msgstr "挿入"
 
-#: templates/smime/import_key.html:24
-msgid "Insert Certificate Here:"
-msgstr "証明書をここに挿入："
+#: templates/smime/import_key.html.php:23
+msgid "Insert Certificate Here"
+msgstr "証明書をここに挿入"
 
-#: lib/Imap/Acl.php:143
+#: lib/Imap/Acl.php:170
 msgid "Insert messages"
 msgstr "メッセージを挿入"
 
-#: lib/Ajax/Imple/ItipRequest.php:402
+#: lib/Ajax/Imple/ItipRequest.php:404
 msgid "Invalid Action selected for this component."
 msgstr "無効な操作を選択しました。"
 
-#: lib/Dynamic/Mailbox.php:458 lib/Smartmobile.php:170 lib/Ui/Mailbox.php:85
+#: lib/Dynamic/Mailbox.php:468 lib/Smartmobile.php:166 lib/Ui/Mailbox.php:84
 msgid "Invalid Address"
 msgstr "無効なアドレス"
 
-#: lib/Dynamic/Mailbox.php:459
+#: lib/Dynamic/Mailbox.php:469
 msgid "Invalid Subject"
 msgstr "不正な件名"
 
-#: lib/Compose.php:1165
+#: lib/Compose.php:1155
 #, php-format
 msgid "Invalid e-mail address (%s)."
 msgstr "無効なメールアドレス（%s）です。"
 
-#: lib/Compose.php:715
+#: lib/Compose.php:705
 msgid "Invalid e-mail address."
 msgstr "無効なメールアドレスです。"
 
@@ -2492,11 +2386,12 @@ msgstr "無効なメールアドレスです。"
 msgid "Invalid key"
 msgstr "無効な鍵"
 
-#: mailbox.php:42
+#: mailbox.php:35
 msgid "Invalid mailbox."
 msgstr "無効なメールボックスです。"
 
-#: lib/Ajax/Application.php:1778 lib/Ajax/Application.php:1792
+#: lib/Ajax/Application/Handler/Passphrase.php:49
+#: lib/Ajax/Application/Handler/Passphrase.php:63
 msgid "Invalid passphrase entered."
 msgstr "不正なパスフレーズが入力されました。"
 
@@ -2504,73 +2399,71 @@ msgstr "不正なパスフレーズが入力されました。"
 msgid "Junk"
 msgstr "ゴミ"
 
-#: templates/imp/compose/compose.html:298
-#: templates/imp/compose/compose.html:308
-#: templates/imp/compose/compose.html:310
+#: templates/basic/compose/compose.html.php:314
+#: templates/basic/compose/compose.html.php:325
+#: templates/basic/compose/compose.html.php:329
 msgid "KB"
 msgstr "KB"
 
-#: templates/prefs/pgpprivatekey.html:81
-msgid "Key Length:"
-msgstr "鍵の長さ："
+#: templates/prefs/pgpprivatekey.html.php:87
+msgid "Key Length"
+msgstr "鍵の長さ"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:83
+#: lib/Prefs/Special/PgpPrivateKey.php:82
 msgid ""
 "Key generation may take a long time to complete.  Continue with key "
 "generation?"
 msgstr "鍵の生成には時間がかかります。生成を続けますか？"
 
-#: templates/prefs/pgppublickey.html:37 templates/prefs/smimepublickey.html:37
+#: templates/prefs/pgppublickey.html.php:47
+#: templates/prefs/smimepublickey.html.php:47
 msgid "Key import is not available. File upload is not enabled on this server."
 msgstr ""
 "鍵のインポートはできません。このサーバではファイルのアップロードは許可されて"
 "いません。"
 
-#: templates/prefs/pgppublickey.html:25 templates/prefs/smimepublickey.html:25
+#: templates/prefs/pgppublickey.html.php:35
+#: templates/prefs/smimepublickey.html.php:35
 msgid ""
 "Key import is not available. You have no address book defined to add your "
 "contacts."
 msgstr "鍵のインポートはできません。あなたはアドレス帳を定義していません。"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:137
+#: lib/Prefs/Special/PgpPrivateKey.php:144
 msgid "Key successfully sent to the public keyserver."
 msgstr "鍵は公開鍵サーバに送られました。"
 
-#: templates/prefs/flags.html:6
+#: templates/prefs/flags.html.php:6 templates/search/search.html.php:99
 msgid "Label"
 msgstr "ラベル"
 
-#: templates/imp/search/search.html:103
-msgid "Label:"
-msgstr "ラベル:"
-
-#: config/prefs.php:1588
+#: config/prefs.php:1577
 msgid "Last (newest) Unseen Message"
 msgstr "最後の未読メッセージ"
 
-#: config/prefs.php:1590 lib/Minimal/Mailbox.php:206
-#: templates/imp/mailbox/navbar.html:32
+#: config/prefs.php:1579 lib/Minimal/Mailbox.php:206
+#: templates/basic/mailbox/navbar.html.php:26
 msgid "Last Page"
 msgstr "最後のページ"
 
-#: compose.php:1033
+#: compose.php:1008
 msgid "Link Attachments?"
 msgstr "添付はリンクだけを送信しますか？"
 
-#: attachment.php:26 lib/Compose.php:2732
+#: attachment.php:26 lib/Compose.php:2653
 msgid "Linked attachments are forbidden."
 msgstr "リンク型添付は使用できません。"
 
-#: lib/Compose.php:2763
+#: lib/Compose.php:2684
 #, php-format
 msgid "Links will expire on %s"
 msgstr "リンクは %s で期限切れになります"
 
-#: lib/Imap/Acl.php:128
+#: lib/Imap/Acl.php:155
 msgid "List"
 msgstr "リスト"
 
-#: config/prefs.php:968
+#: config/prefs.php:960
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -2582,14 +2475,15 @@ msgstr ""
 msgid "Load All Addresses"
 msgstr "全アドレスをロード"
 
-#: lib/Mime/Viewer/Html.php:231
+#: lib/Mime/Viewer/Html.php:229
 msgid "Load Styling?"
 msgstr "スタイルデータをロードしますか？"
 
-#: lib/Dynamic/Base.php:175 lib/Mime/Viewer/Html.php:76 search.php:482
+#: lib/Dynamic/Base.php:177 lib/Mime/Viewer/Html.php:76 search.php:487
 #: templates/dynamic/compose-base.html.php:4
-#: templates/dynamic/mailbox.html.php:4 templates/dynamic/message.html.php:4
-#: templates/dynamic/sidebar.html.php:1
+#: templates/dynamic/mailbox.html.php:2
+#: templates/dynamic/mailbox_subinfo.html.php:5
+#: templates/dynamic/message.html.php:4 templates/dynamic/sidebar.html.php:1
 msgid "Loading..."
 msgstr "ロード中..."
 
@@ -2597,22 +2491,19 @@ msgstr "ロード中..."
 msgid "Location"
 msgstr "場所"
 
-#: lib/Minimal/Base.php:88 templates/smartmobile/compose.html.php:5
-#: templates/smartmobile/folders.html.php:6
-#: templates/smartmobile/mailbox.html.php:6
-#: templates/smartmobile/message.html.php:6
+#: lib/Minimal/Base.php:88
 msgid "Log out"
 msgstr "ログアウト"
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:487
 msgid "Logging Out..."
 msgstr "ログアウト ..."
 
-#: compose.php:873 lib/Dynamic/Compose/Common.php:208 message.php:333
+#: compose.php:847 lib/Dynamic/Compose/Common.php:210 message.php:332
 msgid "Low"
 msgstr "低"
 
-#: lib/Flag/System/LowPriority.php:29 message.php:333
+#: lib/Flag/System/LowPriority.php:29 message.php:332
 msgid "Low Priority"
 msgstr "優先度低"
 
@@ -2620,27 +2511,27 @@ msgstr "優先度低"
 msgid "Macintosh File"
 msgstr "Macintosh ファイル"
 
-#: config/prefs.php:1553 config/prefs.php:1748 lib/Block/Summary.php:102
-#: lib/Mailbox.php:1731 templates/smartmobile/message.html.php:3
-#: templates/imp/folders/folders_size.html:6
+#: config/prefs.php:1543 config/prefs.php:1726 lib/Block/Summary.php:102
+#: lib/Mailbox.php:1735 templates/basic/folders/folders_size.html.php:8
+#: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
 msgstr "メールボックス"
 
-#: folders.php:138 lib/Ajax/Application.php:160
+#: folders.php:148 lib/Ajax/Application/Handler/Dynamic.php:72
 #, php-format
 msgid "Mailbox \"%s\" already exists."
 msgstr "メールボックス \"%s\" は既に存在します。"
 
-#: lib/Ajax/Application/ListMessages.php:254
+#: lib/Ajax/Application/ListMessages.php:251
 #, php-format
 msgid "Mailbox %s does not exist."
 msgstr "メールボックス %s は存在しません。"
 
-#: config/prefs.php:1554
+#: config/prefs.php:1544
 msgid "Mailbox Display"
 msgstr "メールボックスの表示"
 
-#: folders.php:310 templates/imp/folders/folders_size.html:1
+#: folders.php:322 templates/basic/folders/folders_size.html.php:2
 msgid "Mailbox Sizes"
 msgstr "メールボックスサイズ"
 
@@ -2648,15 +2539,11 @@ msgstr "メールボックスサイズ"
 msgid "Mailbox Summary"
 msgstr "メールボックスの要約"
 
-#: lib/Mailbox.php:679
+#: lib/Mailbox.php:683
 msgid "Mailbox structure on server has changed."
 msgstr "サーバでのメールボックスの構成が変更されました。"
 
-#: mailbox.php:384 templates/dynamic/mailbox_subinfo.html.php:2
-msgid "Mailbox:"
-msgstr "メールボックス："
-
-#: templates/imp/flist/flist.html:13
+#: templates/basic/flist/flist.html.php:16
 msgid "Mailboxes"
 msgstr "メールボックス"
 
@@ -2665,81 +2552,82 @@ msgid "Mailing List Message"
 msgstr "メーリングリストのメッセージ"
 
 #: lib/Search/Element/Mailinglist.php:44 lib/Search/Filter/Mailinglist.php:22
-#: search.php:113
+#: search.php:114
 msgid "Mailing List Messages"
 msgstr "メーリングリストのメッセージ"
 
-#: config/prefs.php:827
+#: config/prefs.php:805
 msgid "Manage message drafts."
 msgstr "メッセージの下書きを管理します。"
 
-#: config/prefs.php:883
-msgid "Manage sent mail mailboxes."
-msgstr "送信控えメールボックスを管理します。"
+#: config/prefs.php:861
+msgid "Manage sent mail."
+msgstr "送信控えフォルダを管理します。"
 
 #: config/prefs.php:144
 msgid "Manage your saved searches"
 msgstr "最後の検索を管理します。"
 
-#: lib/Imap/Acl.php:140
+#: lib/Imap/Acl.php:167
 msgid "Mark (Other)"
 msgstr "マーク（その他）"
 
-#: lib/Imap/Acl.php:136
+#: lib/Imap/Acl.php:163
 msgid "Mark (Seen)"
 msgstr "マーク（既読）"
 
-#: templates/imp/folders/actions.html:35
+#: templates/basic/folders/actions.html.php:39
 msgid "Mark All Messages as Seen"
 msgstr "全メッセージを既読とする"
 
-#: templates/imp/folders/actions.html:36
+#: templates/basic/folders/actions.html.php:40
 msgid "Mark All Messages as Unseen"
 msgstr "全メッセージを未読とする"
 
-#: templates/imp/message/navbar_navigate.html:15
-#: templates/imp/message/navbar_navigate.html:17
+#: templates/basic/message/navbar_navigate.html.php:25
+#: templates/basic/message/navbar_navigate.html.php:27
 msgid "Mark Message"
 msgstr "メッセージに印を付ける"
 
-#: templates/imp/mailbox/navbar.html:47 templates/imp/mailbox/navbar.html:49
+#: templates/basic/mailbox/navbar.html.php:39
+#: templates/basic/mailbox/navbar.html.php:41
 msgid "Mark Messages"
 msgstr "メッセージに印を付ける"
 
-#: lib/Dynamic/Mailbox.php:351
+#: lib/Dynamic/Mailbox.php:354
 msgid "Mark all as"
 msgstr "全てに印を付ける"
 
-#: lib/Dynamic/Mailbox.php:307 lib/Dynamic/Mailbox.php:391
+#: lib/Dynamic/Mailbox.php:304 lib/Dynamic/Mailbox.php:394
 msgid "Mark as"
 msgstr "印を付ける"
 
-#: templates/imp/mailbox/navbar.html:51
-#: templates/imp/message/navbar_navigate.html:19
+#: templates/basic/mailbox/navbar.html.php:43
+#: templates/basic/message/navbar_navigate.html.php:29
 msgid "Mark as:"
 msgstr "印を付ける："
 
-#: config/prefs.php:1104
+#: config/prefs.php:1096
 msgid "Mark different levels of quoting with different colors?"
 msgstr "引用部分を別の色で表示しますか？"
 
-#: config/prefs.php:1247
+#: config/prefs.php:1234
 msgid "Mark messages as Seen when deleting?"
 msgstr "削除したメッセージを既読にしますか？"
 
-#: config/prefs.php:1112
+#: config/prefs.php:1104
 msgid "Mark simple markup?"
 msgstr "太字、下線、斜体を単純に表示しますか？"
 
-#: lib/Imap/Acl.php:135
+#: lib/Imap/Acl.php:162
 msgid "Mark with Seen/Unseen flags"
 msgstr "既読／未読の印を付ける"
 
-#: lib/Imap/Acl.php:139
+#: lib/Imap/Acl.php:166
 msgid "Mark with other flags (e.g. Important/Answered)"
 msgstr "その他の印を付ける（例えば、重要／返信済）"
 
-#: templates/imp/compose/compose.html:267
+#: templates/basic/compose/compose.html.php:283
 msgid "Maximum Attachment Size"
 msgstr "最大添付サイズ"
 
@@ -2755,19 +2643,19 @@ msgstr "メッセージ毎の受信者の最大数"
 msgid "Maximum Number of Recipients per Time Period"
 msgstr "時間あたりの受信者の最大数"
 
-#: templates/imp/compose/compose.html:256
+#: templates/basic/compose/compose.html.php:270
 msgid "Maximum number of attachments reached."
 msgstr "添付数の上限に達しました。"
 
-#: templates/imp/compose/compose.html:253
+#: templates/basic/compose/compose.html.php:265
 msgid "Maximum total attachment size reached."
 msgstr "添付サイズの上限に達しました。"
 
-#: lib/Dynamic/Mailbox.php:375
+#: lib/Dynamic/Mailbox.php:378
 msgid "Mbox"
 msgstr "Mbox"
 
-#: lib/Dynamic/Mailbox.php:470
+#: lib/Dynamic/Mailbox.php:480
 msgid "Mbox or .eml file:"
 msgstr "Mbox または .eml ファイル："
 
@@ -2775,47 +2663,48 @@ msgstr "Mbox または .eml ファイル："
 msgid "Menu"
 msgstr "メニュー"
 
-#: config/prefs.php:1032 config/prefs.php:1225 config/prefs.php:1355
-#: config/prefs.php:1451 config/prefs.php:1499 config/prefs.php:1534
-#: lib/Compose.php:1808 lib/Dynamic/Mailbox.php:473 lib/Dynamic/Message.php:89
+#: config/prefs.php:1024 config/prefs.php:1212 config/prefs.php:1344
+#: config/prefs.php:1441 config/prefs.php:1489 config/prefs.php:1524
+#: lib/Compose.php:1798 lib/Dynamic/Mailbox.php:483 lib/Dynamic/Message.php:90
 msgid "Message"
 msgstr "メッセージ"
 
-#: lib/Ajax/Application.php:1713
+#: lib/Ajax/Application/Handler/Common.php:565
 #, php-format
 msgid "Message \"%s\" redirected successfully."
 msgstr "メッセージ \"%s\" は転送されました。"
 
-#: lib/Ajax/Application.php:1634
+#: lib/Ajax/Application/Handler/Common.php:486
 #, php-format
 msgid "Message \"%s\" sent successfully."
 msgstr "メッセージ \"%s\" は送信されました。"
 
-#: lib/Search/Element/Text.php:51 templates/imp/search/search-basic.html:19
+#: lib/Search/Element/Text.php:51
+#: templates/basic/search/search-basic.html.php:20
 msgid "Message Body"
 msgstr "メッセージ本文"
 
-#: lib/Minimal/Compose.php:390
+#: lib/Minimal/Compose.php:397
 msgid "Message Composition"
 msgstr "メッセージ作成"
 
-#: lib/Dynamic/Mailbox.php:237
+#: lib/Dynamic/Mailbox.php:235
 msgid "Message Date"
 msgstr "メッセージの日付"
 
-#: templates/dynamic/mailbox.html.php:156
+#: templates/dynamic/mailbox.html.php:153
 msgid "Message Log"
 msgstr "メッセージのログ"
 
-#: config/prefs.php:1609
+#: config/prefs.php:1598
 msgid "Message Size"
 msgstr "メッセージサイズ"
 
-#: lib/Contents/View.php:159 message.php:583
+#: lib/Contents/View.php:167 message.php:673
 msgid "Message Source"
 msgstr "メッセージ原文"
 
-#: lib/Compose.php:1808
+#: lib/Compose.php:1798
 #, php-format
 msgid "Message from %s"
 msgstr "%s からのメッセージ"
@@ -2832,27 +2721,27 @@ msgstr "暗号化されたメッセージ"
 msgid "Message is Signed"
 msgstr "署名されたメッセージ"
 
-#: lib/Contents.php:1264
+#: lib/Contents.php:1272
 msgid "Message part"
 msgstr "メッセージパート"
 
-#: compose.php:377 compose.php:383 lib/Ajax/Application.php:1713
-#: lib/Minimal/Compose.php:223
+#: compose.php:389 compose.php:395 lib/Ajax/Application/Handler/Common.php:565
+#: lib/Minimal/Compose.php:231
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
 msgstr[0] "メッセージは正常に転送されました。"
 
-#: lib/Compose.php:938
+#: lib/Compose.php:928
 #, php-format
 msgid "Message sent successfully, but not saved to %s."
 msgstr "メッセージは送信されましたが、%s に保存されていません。"
 
-#: compose.php:538 compose.php:544 lib/Ajax/Application.php:1634
-#: lib/Minimal/Compose.php:307
+#: compose.php:550 compose.php:556 lib/Ajax/Application/Handler/Common.php:486
+#: lib/Minimal/Compose.php:314
 msgid "Message sent successfully."
 msgstr "メッセージの送信成功"
 
-#: lib/Mime/Viewer/Html.php:230
+#: lib/Mime/Viewer/Html.php:228
 msgid ""
 "Message styling has been suppressed in this message part since the style "
 "data lives on a remote server."
@@ -2864,19 +2753,24 @@ msgstr ""
 msgid "Message:"
 msgstr "メッセージ："
 
-#: lib/Dynamic/Mailbox.php:474
+#: lib/Dynamic/Mailbox.php:484
 msgid "Messages"
 msgstr "メッセージ"
+
+#: lib/Dynamic/Mailbox.php:494
+#, php-format
+msgid "Messages %d - %d"
+msgstr "メッセージ %d - %d"
 
 #: lib/Search/Filter/Contacts.php:23
 msgid "Messages From Personal Contacts"
 msgstr "個人の連絡先からのメッセージ"
 
-#: config/prefs.php:1651
+#: config/prefs.php:1640
 msgid "Messages per page in the mailbox view."
 msgstr "メールボックス表示の各ページに表示されるメール数"
 
-#: mailbox.php:250
+#: mailbox.php:243
 msgid "Messages to"
 msgstr "メールの行先"
 
@@ -2884,80 +2778,60 @@ msgstr "メールの行先"
 msgid "Messages with Attachments"
 msgstr "添付ありメッセージ"
 
+#: config/prefs.php:1197 config/prefs.php:1204 config/prefs.php:1718
+msgid "Minimal view only"
+msgstr "最小表示のみ"
+
 #: config/prefs.php:297
-msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
+msgid "Minutes needed to consider a event as non-conflicting in iTip"
 msgstr "iTip 上でイベントが重複しないための間隔（分）"
 
-#: smartmobile.php:27
+#: smartmobile.php:24
 msgid "Mobile Mail"
 msgstr "携帯メール"
 
-#: templates/imp/search/search.html:123
+#: templates/search/search.html.php:120
 msgid "Months"
 msgstr "月"
 
-#: mailbox.php:537 message.php:492 templates/smartmobile/target.html.php:12
+#: templates/smartmobile/message.html.php:26
+msgid "More..."
+msgstr "さらに…"
+
+#: mailbox.php:548 message.php:501 templates/smartmobile/copymove.html.php:12
 msgid "Move"
 msgstr "移動"
 
-#: lib/Dynamic/Mailbox.php:475
+#: lib/Dynamic/Mailbox.php:485
 #, php-format
 msgid "Move %s to %s"
 msgstr "%s から %s へ移動"
 
-#: templates/dynamic/mailbox.html.php:189
-msgid "Move one page up/down through the message list."
-msgstr "１ページ分上下に移動します。"
-
-#: lib/Dynamic/Mailbox.php:87
+#: lib/Dynamic/Mailbox.php:85
 msgid "Move to Base Level"
 msgstr "ベースレベルに移動"
 
-#: config/prefs.php:1404
+#: config/prefs.php:1393
 msgid "Move to Inbox"
 msgstr "INBOX に移動"
 
-#: mailbox.php:537 message.php:492
-msgid "Move to mailbox"
-msgstr "メールボックスに移動"
-
-#: config/prefs.php:1392
+#: config/prefs.php:1381
 msgid "Move to spam mailbox"
 msgstr "SPAM メールボックスに移動"
 
-#: templates/dynamic/mailbox.html.php:191
-msgid "Move to the beginning/end of the message list."
-msgstr "メッセージ一覧の先頭／末尾に移動します。"
-
-#: templates/dynamic/mailbox.html.php:193
-msgid "Move to the next unseen message (non-search mailboxes only)."
-msgstr "次の未読メッセージに移動します（検索メールボックス以外）。"
-
-#: templates/dynamic/mailbox.html.php:188
-msgid "Move up/down through the message list."
-msgstr "メッセージ一覧中で上下に移動します。"
-
-#: lib/Contents.php:1267
+#: lib/Contents.php:1275
 msgid "Multipart part"
 msgstr "マルチパート パート"
 
-#: thread.php:174
+#: templates/basic/thread/thread.html.php:2 thread.php:178
 msgid "Multiple Message View"
 msgstr "複数メール表示"
 
-#: templates/imp/thread/thread.html:2
-msgid "Multiple Message View:"
-msgstr "複数メール表示："
-
-#: lib/Dynamic/Compose.php:119
+#: lib/Dynamic/Compose.php:118
 msgid "Multiple messages can only be forwarded as attachments."
 msgstr "複数メッセージの転送は添付でのみ可能です。"
 
-#: templates/dynamic/mailbox.html.php:193
-msgid "N"
-msgstr "N"
-
-#: config/prefs.php:1604
+#: config/prefs.php:1593
 msgid "NONE"
 msgstr "なし"
 
@@ -2965,62 +2839,58 @@ msgstr "なし"
 msgid "Name"
 msgstr "名前"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:114
+#: lib/Prefs/Special/PgpPrivateKey.php:120
 msgid "Name and/or email cannot be empty"
 msgstr "名前かメールは必須です"
 
-#: search.php:484
+#: search.php:489
 msgid "Need at least one date in the date range search."
 msgstr "日付範囲の検索には少なくとも１つの日付が必要です。"
 
-#: lib/Compose.php:717
+#: lib/Compose.php:707
 msgid "Need at least one message recipient."
 msgstr "1 人以上の宛先を指定してください。"
 
-#: lib/Mime/Viewer/Itip.php:561
+#: lib/Mime/Viewer/Itip.php:558
 msgid "Needs Action"
 msgstr "操作が必要です"
 
-#: templates/prefs/acl.html:28
+#: templates/prefs/acl.html.php:31
 msgid "Negative Right"
 msgstr "右に移動"
 
-#: config/prefs.php:621 config/prefs.php:917 config/prefs.php:1321
-#: config/prefs.php:1427 config/prefs.php:1464
+#: config/prefs.php:605 config/prefs.php:908 config/prefs.php:1310
+#: config/prefs.php:1416 config/prefs.php:1454
 msgid "Never"
 msgstr "なし"
 
-#: config/prefs.php:597
-msgid "Never save attachments"
-msgstr "添付は保存しない"
-
-#: config/prefs.php:1187
+#: config/prefs.php:1179
 msgid "Never send read receipt"
 msgstr "開封確認を送信しない"
 
-#: templates/prefs/flags.html:46
+#: templates/prefs/flags.html.php:46
 msgid "New Flag"
 msgstr "新規フラグ"
 
-#: config/prefs.php:1452
+#: config/prefs.php:1442
 msgid "New Mail"
 msgstr "新着メール"
 
-#: lib/Dynamic/Mailbox.php:284
+#: lib/Dynamic/Mailbox.php:282
 msgid "New Mailbox"
 msgstr "新規メールボックス"
 
-#: compose.php:183 lib/Application.php:405 lib/Compose.php:1918
-#: lib/Dynamic/Base.php:141 lib/Dynamic/Compose.php:70
-#: lib/Dynamic/Mailbox.php:99 lib/Minimal/Base.php:80 lib/Smartmobile.php:169
-#: lib/Ui/Compose.php:192 templates/dynamic/mailbox.html.php:57
-#: templates/smartmobile/compose.html.php:3
-#: templates/smartmobile/folders.html.php:20
-#: templates/smartmobile/mailbox.html.php:23
+#: compose.php:195 lib/Application.php:435 lib/Compose.php:1908
+#: lib/Dynamic/Base.php:143 lib/Dynamic/Compose.php:69
+#: lib/Dynamic/Mailbox.php:97 lib/Minimal/Base.php:80 lib/Smartmobile.php:165
+#: lib/Ui/Compose.php:159 templates/dynamic/mailbox.html.php:54
+#: templates/smartmobile/compose.html.php:2
+#: templates/smartmobile/folders.html.php:13
+#: templates/smartmobile/mailbox.html.php:19
 msgid "New Message"
 msgstr "新規メール"
 
-#: lib/Ui/Message.php:309 lib/Ui/Message.php:337 mailbox.php:868
+#: lib/Ui/Message.php:307 lib/Ui/Message.php:335 mailbox.php:946
 #, php-format
 msgid "New Message to %s"
 msgstr "%s への新規メール"
@@ -3030,7 +2900,11 @@ msgstr "%s への新規メール"
 msgid "New Search in %s"
 msgstr "%s の新規検索"
 
-#: templates/smartmobile/target.html.php:18
+#: templates/prefs/acl.html.php:58
+msgid "New User"
+msgstr "新規ユーザ"
+
+#: templates/smartmobile/copymove.html.php:18
 msgid "New mailbox name:"
 msgstr "新規メールボックスの名前："
 
@@ -3038,44 +2912,46 @@ msgstr "新規メールボックスの名前："
 msgid "Newest Unseen Messages"
 msgstr "最後の未読メッセージ"
 
-#: templates/smartmobile/message.html.php:29
+#: templates/smartmobile/mailbox.html.php:6
+#: templates/smartmobile/message.html.php:41
 msgid "Next"
 msgstr "次"
 
-#: lib/Minimal/Message.php:258 message.php:512
+#: lib/Minimal/Message.php:258 message.php:532
 msgid "Next Message"
 msgstr "次のメール"
 
-#: lib/Minimal/Mailbox.php:205 templates/imp/mailbox/navbar.html:25
+#: lib/Minimal/Mailbox.php:205 templates/basic/mailbox/navbar.html.php:21
 msgid "Next Page"
 msgstr "次のページ"
 
-#: config/prefs.php:869 config/prefs.php:1771 lib/IMP.php:83
-#: templates/imp/compose/compose.html:286
+#: config/prefs.php:847 config/prefs.php:1749 lib/IMP.php:79
+#: templates/basic/compose/compose.html.php:302
 msgid "No"
 msgstr "いいえ"
 
-#: templates/prefs/searches.html:35 templates/prefs/searches.html:71
+#: templates/prefs/searches.html.php:35 templates/prefs/searches.html.php:72
 msgid "No Actions Available"
 msgstr "操作できることはありません"
 
-#: templates/prefs/pgpprivatekey.html:118
+#: templates/prefs/pgpprivatekey.html.php:125
 msgid "No Expiration"
 msgstr "有効期限なし"
 
-#: templates/prefs/pgppublickey.html:18 templates/prefs/smimepublickey.html:18
+#: templates/prefs/pgppublickey.html.php:28
+#: templates/prefs/smimepublickey.html.php:12
 msgid "No Keys in Keyring"
 msgstr "鍵リングは空です"
 
-#: lib/Dynamic/Mailbox.php:476 mailbox.php:387 rss.php:82
+#: lib/Dynamic/Mailbox.php:486 mailbox.php:379 rss.php:82
 msgid "No Messages"
-msgstr "メールはありません"
+msgstr "0 メッセージ"
 
 #: pgp.php:45
 msgid "No PGP public key imported."
 msgstr "PGP 公開鍵はインポートされませんでした。"
 
-#: mailbox.php:837
+#: mailbox.php:915
 msgid "No Preview Text"
 msgstr "プレビューなし"
 
@@ -3083,19 +2959,19 @@ msgstr "プレビューなし"
 msgid "No S/MIME public key imported."
 msgstr "S/MIME 公開鍵はインポートされませんでした。"
 
-#: templates/prefs/searches.html:86
+#: templates/prefs/searches.html.php:88
 msgid "No Saved Searches Defined."
 msgstr "最後の検索が定義されていません。"
 
-#: templates/imp/search/search.html:35
+#: templates/search/search.html.php:33
 msgid "No Search Criteria"
 msgstr "検索条件なし"
 
-#: templates/imp/search/search.html:65
+#: templates/search/search.html.php:63
 msgid "No Search Mailboxes"
 msgstr "メールボックスを検索しない"
 
-#: templates/prefs/newmailaudio.html:7
+#: templates/prefs/newmailaudio.html.php:9
 msgid "No Sound"
 msgstr "音なし"
 
@@ -3103,7 +2979,7 @@ msgstr "音なし"
 msgid "No Subject"
 msgstr "件名なし"
 
-#: lib/Dynamic/Mailbox.php:248
+#: lib/Dynamic/Mailbox.php:246
 msgid "No actions available"
 msgstr "操作できることはありません"
 
@@ -3111,11 +2987,11 @@ msgstr "操作できることはありません"
 msgid "No email information located in the public key."
 msgstr "公開鍵にメールの情報は含まれていません。"
 
-#: lib/IMP.php:577
+#: lib/Ui/Quota.php:67
 msgid "No limit"
 msgstr "無制限"
 
-#: folders.php:178
+#: folders.php:188
 msgid "No mailboxes were specified"
 msgstr "メールボックスが指定されていません"
 
@@ -3123,7 +2999,7 @@ msgstr "メールボックスが指定されていません"
 msgid "No mailboxes with unseen messages"
 msgstr "どのメールボックスにも未読メールはありません"
 
-#: lib/Compose.php:1839
+#: lib/Compose.php:1829
 msgid "No message body text"
 msgstr "本文なし"
 
@@ -3131,11 +3007,11 @@ msgstr "本文なし"
 msgid "No message index given."
 msgstr "メッセージのインデックスが不明です。"
 
-#: lib/Dynamic/Mailbox.php:486
+#: lib/Dynamic/Mailbox.php:497
 msgid "No messages matched the search query."
 msgstr "検索条件に一致するメッセージは見つかりませんでした。"
 
-#: templates/imp/mailbox/empty_mailbox.html:4
+#: templates/basic/mailbox/empty_mailbox.html.php:4
 msgid "No messages matched your search criteria."
 msgstr "検索条件に一致するメッセージは見つかりませんでした。"
 
@@ -3143,7 +3019,8 @@ msgstr "検索条件に一致するメッセージは見つかりませんでし
 msgid "No messages."
 msgstr "メッセージはありません。"
 
-#: lib/Ajax/Application.php:1781 lib/Ajax/Application.php:1795
+#: lib/Ajax/Application/Handler/Passphrase.php:52
+#: lib/Ajax/Application/Handler/Passphrase.php:66
 msgid "No passphrase entered."
 msgstr "パスフレーズが入力されていません。"
 
@@ -3155,6 +3032,10 @@ msgstr "個人の PGP 秘密鍵はインポートされませんでした。"
 msgid "No personal PGP public key imported."
 msgstr "個人の PGP 公開鍵はインポートされませんでした。"
 
+#: templates/prefs/smimeprivatekey.html.php:43
+msgid "No personal certificate"
+msgstr "個人証明書なし"
+
 #: lib/Mime/Viewer/Smime.php:182
 msgid "No personal private key exists so the data is unable to be decrypted."
 msgstr "秘密鍵が無いので、メッセージの復号はできません。"
@@ -3163,7 +3044,7 @@ msgstr "秘密鍵が無いので、メッセージの復号はできません。
 msgid "No search criteria specified."
 msgstr "検索条件が指定されていません。"
 
-#: lib/Dynamic/Compose/Common.php:234
+#: lib/Dynamic/Compose/Common.php:236
 msgid "No spelling errors found."
 msgstr "スペルミスは見つかりませんでした。"
 
@@ -3171,21 +3052,21 @@ msgstr "スペルミスは見つかりませんでした。"
 msgid "No unread messages"
 msgstr "未読メッセージなし"
 
-#: lib/Mime/Viewer/Itip.php:610
+#: lib/Mime/Viewer/Itip.php:607
 msgid "Non Participant"
 msgstr "参加者以外"
 
-#: lib/IMP.php:614 lib/Mime/Viewer/Itip.php:372 lib/Mime/Viewer/Itip.php:498
-#: templates/dynamic/mailbox_subinfo.html.php:3
-#: templates/imp/search/search-basic.html:14
-#: templates/imp/search/search-basic.html:31
-#: templates/prefs/composetemplates.html:8 templates/prefs/drafts.html:7
-#: templates/prefs/sentmail.html:7 templates/prefs/spam.html:7
-#: templates/prefs/trash.html:7
+#: lib/IMP.php:475 lib/Mime/Viewer/Itip.php:369 lib/Mime/Viewer/Itip.php:495
+#: templates/basic/search/search-basic.html.php:15
+#: templates/basic/search/search-basic.html.php:32
+#: templates/prefs/acl.html.php:38 templates/prefs/acl.html.php:73
+#: templates/prefs/composetemplates.html.php:7
+#: templates/prefs/drafts.html.php:7 templates/prefs/sentmail.html.php:7
+#: templates/prefs/spam.html.php:7 templates/prefs/trash.html.php:7
 msgid "None"
 msgstr "なし"
 
-#: compose.php:872 lib/Dynamic/Compose/Common.php:203
+#: compose.php:846 lib/Dynamic/Compose/Common.php:205
 msgid "Normal"
 msgstr "通常"
 
@@ -3202,11 +3083,12 @@ msgstr "ゴミではない"
 msgid "Not a valid public key."
 msgstr "正しい公開鍵ではありません。"
 
-#: templates/imp/flist/flist.html:50 templates/imp/flist/flist.html:53
+#: templates/basic/flist/flist.html.php:60
+#: templates/basic/flist/flist.html.php:63
 msgid "Notepads"
 msgstr "メモ帳"
 
-#: config/prefs.php:1388 config/prefs.php:1403
+#: config/prefs.php:1377 config/prefs.php:1392
 msgid "Nothing"
 msgstr "何もしない"
 
@@ -3214,12 +3096,12 @@ msgstr "何もしない"
 msgid "Notification: Linked attachment downloaded"
 msgstr "通知：リンクされた添付がダウンロードされました"
 
-#: templates/imp/contacts/contacts.html:69
+#: templates/contacts/contacts.html.php:69
 msgid "OK"
 msgstr "OK"
 
-#: lib/Search/Element/Or.php:31 search.php:488
-#: templates/pgp/import_key.html:53 templates/smime/import_key.html:38
+#: lib/Search/Element/Or.php:31 search.php:493
+#: templates/pgp/import_key.html.php:50 templates/smime/import_key.html.php:37
 msgid "OR"
 msgstr "または"
 
@@ -3227,7 +3109,7 @@ msgstr "または"
 msgid "Old sent-mail mailboxes being purged."
 msgstr "古い送信控えメールボックスの消去中。"
 
-#: lib/Search/Element/Within.php:71 search.php:84
+#: lib/Search/Element/Within.php:71 search.php:85
 msgid "Older Than"
 msgstr "より古い"
 
@@ -3244,7 +3126,7 @@ msgstr "未読メールがあるメールボックスだけを表示しますか
 msgid "Only one mailbox should be selected for this action."
 msgstr "この操作では、メールボックスは１つだけ指定して下さい。"
 
-#: config/prefs.php:1210
+#: config/prefs.php:1197
 msgid ""
 "Only show download confirmation page if message part is greater than this "
 "size, in bytes. Set to 0 to always require the confirmation page."
@@ -3252,32 +3134,28 @@ msgstr ""
 "パートの大きさがこのサイズ（バイト）より大きい場合はダウンロード確認を表示す"
 "る。ゼロ（0）なら常に確認を要求する。"
 
-#: templates/dynamic/mailbox.html.php:78 templates/dynamic/mailbox.html.php:91
+#: templates/dynamic/mailbox.html.php:75 templates/dynamic/mailbox.html.php:88
 msgid "Open in new window"
 msgstr "新規ウインドウに表示"
 
-#: templates/dynamic/mailbox.html.php:194
-msgid "Open message in a popup window."
-msgstr "ポップアップ・ウィンドウでメッセージを開きます。"
-
-#: lib/Mailbox.php:1680
+#: lib/Mailbox.php:1684
 msgid "Opened Folder"
 msgstr "フォルダを開く"
 
-#: lib/Mime/Viewer/Itip.php:606
+#: lib/Mime/Viewer/Itip.php:603
 msgid "Optional Participant"
 msgstr "任意の参加者"
 
-#: templates/dynamic/mailbox.html.php:24
+#: templates/dynamic/mailbox.html.php:21
 msgid "Other"
 msgstr "その他"
 
 #: templates/dynamic/compose.html.php:65
-#: templates/dynamic/mailbox.html.php:109
+#: templates/dynamic/mailbox.html.php:106
 msgid "Other Options"
 msgstr "その他のオプション"
 
-#: lib/Mailbox.php:1570
+#: lib/Mailbox.php:1574
 msgid "Other Users"
 msgstr "その他のユーザ"
 
@@ -3293,11 +3171,11 @@ msgstr "PGP 暗号メッセージ"
 msgid "PGP Encrypt Message with passphrase"
 msgstr "PGP 暗号メッセージ（パスフレーズ使用）"
 
-#: lib/Compose.php:1484
+#: lib/Compose.php:1474
 msgid "PGP Error: "
 msgstr "PGP エラー: "
 
-#: templates/prefs/pgpprivatekey.html:8
+#: templates/prefs/pgpprivatekey.html.php:11
 msgid "PGP Personal Keypair support requires a secure web connection."
 msgstr "PGP 個人鍵の使用には安全な web 接続（SSL 接続）が必要です。"
 
@@ -3306,12 +3184,12 @@ msgstr "PGP 個人鍵の使用には安全な web 接続（SSL 接続）が必�
 msgid "PGP Public Key for \"%s (%s)\" was successfully added."
 msgstr "\"%s (%s)\" の PGP 公開鍵が追加されました。"
 
-#: lib/Prefs/Special/PgpPublicKey.php:87
+#: lib/Prefs/Special/PgpPublicKey.php:89
 #, php-format
 msgid "PGP Public Key for \"%s\" was successfully deleted."
 msgstr "\"%s\" の PGP 公開鍵は削除されました。"
 
-#: templates/prefs/pgppublickey.html:3
+#: templates/prefs/pgppublickey.html.php:4
 msgid "PGP Public Keyring"
 msgstr "PGP 公開鍵リング"
 
@@ -3327,17 +3205,17 @@ msgstr "PGP 署名／暗号メッセージ"
 msgid "PGP Sign/Encrypt Message with passphrase"
 msgstr "PGP 署名／暗号メッセージ（パスフレーズ使用）"
 
-#: compose.php:709
+#: compose.php:694
 msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
 msgstr "全ての受信者の公開鍵が無いと、デフォルトで PGP 暗号化はできません。"
 
-#: lib/Ajax/Application.php:1776
+#: lib/Ajax/Application/Handler/Passphrase.php:47
 msgid "PGP passhprase stored in session."
 msgstr "PGP パスフレーズはセッションに保存されました。"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:143
+#: lib/Prefs/Special/PgpPrivateKey.php:150
 msgid "PGP passphrase successfully unloaded."
 msgstr "PGP パスフレーズはアンロードされました。"
 
@@ -3350,54 +3228,71 @@ msgstr ""
 "PGP のサポートにはポップアップ・ウインドウが必要です。お使いのブラウザがポッ"
 "プアップを禁止にしてあるなら、PGP 機能は正しく動作しません。"
 
-#: lib/Compose.php:1438
+#: lib/Compose.php:1428
 msgid "PGP: Need passphrase for personal private key."
 msgstr "PGP: 秘密鍵のパスフレーズが必要です。"
 
-#: lib/Compose.php:1450
+#: lib/Compose.php:1440
 msgid "PGP: Need passphrase to encrypt your message with."
 msgstr "PGP: 秘密鍵のパスフレーズが必要です。"
 
-#: mailbox.php:392
+#: templates/basic/mailbox/navbar.html.php:18
+msgid "Page"
+msgstr "ページ"
+
+#: mailbox.php:386
 #, php-format
 msgid "Page %d of %d"
 msgstr "%d ／ %d ページ"
 
-#: templates/imp/mailbox/navbar.html:22
-msgid "Page:"
-msgstr "ページ："
-
-#: lib/Ajax/Application/ShowMessage.php:280 lib/Dynamic/Base.php:174
-#: message.php:733
+#: lib/Ajax/Application/ShowMessage.php:274 lib/Dynamic/Base.php:176
+#: message.php:892
 msgid "Parts"
 msgstr "パート"
 
-#: templates/prefs/pgpprivatekey.html:106
-msgid "Passphrase (Again):"
-msgstr "パスフレーズ（再度）："
+#: templates/prefs/pgpprivatekey.html.php:101
+msgid "Passphrase"
+msgstr "パスフレーズ"
 
-#: templates/prefs/pgpprivatekey.html:95
-msgid "Passphrase:"
-msgstr "パスフレーズ："
+#: templates/prefs/pgpprivatekey.html.php:112
+msgid "Passphrase (Again)"
+msgstr "パスフレーズ（再度）"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:117
+#: lib/Prefs/Special/PgpPrivateKey.php:123
 msgid "Passphrases cannot be empty"
 msgstr "パスフレーズは空ではいけません"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:119
+#: lib/Prefs/Special/PgpPrivateKey.php:125
 msgid "Passphrases do not match"
 msgstr "パスフレーズが一致しません"
 
-#: templates/smime/import_key.html:62
-msgid "Password:"
-msgstr "パスワード："
+#: templates/smime/import_key.html.php:61
+msgid "Password"
+msgstr "パスワード"
 
-#: lib/Dynamic/Mailbox.php:465
+#: templates/pgp/import_key.html.php:20
+msgid ""
+"Paste PGP public keys into the textarea, upload a file containing PGP public "
+"keys, or combine both methods. Multiple keys are supported."
+msgstr ""
+"PGP公開鍵をテキスト領域にペースト、あるいはPGP公開鍵のファイルをアップロー"
+"ド、またはその両方。複数の鍵をサポートします。"
+
+#: templates/pgp/import_key.html.php:22
+msgid ""
+"Paste your PGP public and private key into the textarea, upload a file "
+"containing your keys, or combine both methods. The first public key and "
+"private key recognized in the input will be used as your personal keys."
+msgstr ""
+"PGP公開鍵と秘密鍵をテキスト領域にペースト、あるいはPGP鍵のファイルをアップ"
+"ロード、またはその両方。最初の公開鍵と秘密鍵をあなたの鍵として認識します。"
+
+#: lib/Dynamic/Mailbox.php:475
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "%s を完全に削除しますか？"
 
-#: lib/Dynamic/Mailbox.php:468
+#: lib/Dynamic/Mailbox.php:478
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr "本当にこの %2$s 内の %1$d 通のメッセージを全て削除しますか？"
@@ -3411,7 +3306,7 @@ msgid "Personal Information"
 msgstr "個人情報"
 
 #: lib/Search/Element/Personal.php:62 lib/Search/Filter/Personal.php:22
-#: search.php:117
+#: search.php:118
 msgid "Personal Messages"
 msgstr "個人メッセージ"
 
@@ -3419,11 +3314,11 @@ msgstr "個人メッセージ"
 msgid "Personal PGP key successfully added."
 msgstr "PGP 個人鍵が正常に追加されました。"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:128
+#: lib/Prefs/Special/PgpPrivateKey.php:135
 msgid "Personal PGP keypair generated successfully."
 msgstr "個人用 PGP 鍵を生成しました。"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:108
+#: lib/Prefs/Special/PgpPrivateKey.php:105
 msgid "Personal PGP keys deleted successfully."
 msgstr "個人用 PGP 鍵を削除しました。"
 
@@ -3435,33 +3330,23 @@ msgstr "個人用 S/MIME 証明書はインポートされませんでした。"
 msgid "Personal S/MIME certificates NOT imported: "
 msgstr "個人用 S/MIME 証明書がインポートされませんでした："
 
-#: lib/Prefs/Special/SmimePrivateKey.php:83
+#: lib/Prefs/Special/SmimePrivateKey.php:85
 msgid "Personal S/MIME keys deleted successfully."
 msgstr "個人用 S/MIME 鍵は削除されました。"
 
-#: templates/dynamic/mailbox.html.php:189
-#: templates/dynamic/mailbox.html.php:190
-msgid "PgDown"
-msgstr "PgDown"
-
-#: templates/dynamic/mailbox.html.php:189
-#: templates/dynamic/mailbox.html.php:190
-msgid "PgUp"
-msgstr "PgUp"
-
-#: config/prefs.php:525
+#: config/prefs.php:523
 msgid "Plain Text"
 msgstr "プレインテキスト"
 
-#: lib/Compose.php:1337
+#: lib/Compose.php:1327
 msgid "Plaintext Message"
 msgstr "プレインテキストメッセージ"
 
-#: config/prefs.php:1065
+#: config/prefs.php:1057
 msgid "Plaintext part"
 msgstr "プレインテキストパート"
 
-#: templates/prefs/newmailaudio.html:2
+#: templates/prefs/newmailaudio.html.php:3
 msgid ""
 "Play a sound when receiving new mail? Although most browsers support "
 "embedded sound files, some may require a plugin."
@@ -3469,11 +3354,11 @@ msgstr ""
 "新着メールを音で知らせますか？　多くのブラウザはサウンドファイルに対応してい"
 "ますが、プラグインが必要なブラウザもあります。"
 
-#: lib/Application.php:310
+#: lib/Application.php:340
 msgid "Please choose a mail server."
 msgstr "メールサーバを選択して下さい。"
 
-#: lib/IMP.php:82
+#: lib/IMP.php:78
 msgid "Please enter a name for the new mailbox:"
 msgstr "新規メールボックスの名前を入力してください："
 
@@ -3493,19 +3378,27 @@ msgstr "新しい名前を指定してください："
 msgid "Please select a mailbox before you perform this action."
 msgstr "操作を実行する前にメールボックスを選んでください。"
 
-#: search.php:485
+#: templates/contacts/contacts.html.php:34
+msgid "Please select address(es)"
+msgstr "* アドレスを選択して下さい *"
+
+#: search.php:490
 msgid "Please select at least one mailbox to search."
 msgstr "検索するメールボックスを 1 つ以上選んでください。"
 
-#: search.php:483
+#: search.php:488
 msgid "Please select at least one search criteria."
 msgstr "検索条件を 1 つ以上選んでください。"
 
-#: config/prefs.php:1810
+#: config/prefs.php:1788
 msgid "Poll all mailboxes for new mail?"
 msgstr "新着メールを確認するために全メールボックスを調べますか？"
 
-#: lib/Dynamic/Mailbox.php:478
+#: config/prefs.php:1461
+msgid "Poll for New Mail:"
+msgstr "新着メールを確認："
+
+#: lib/Dynamic/Mailbox.php:488
 msgid "Portal"
 msgstr "ポータル"
 
@@ -3513,11 +3406,12 @@ msgstr "ポータル"
 msgid "Possible Conflicts"
 msgstr "重複の可能性"
 
-#: lib/Imap/Acl.php:148
+#: lib/Imap/Acl.php:175 templates/prefs/acl.html.php:40
+#: templates/prefs/acl.html.php:75
 msgid "Post"
 msgstr "投稿"
 
-#: lib/Imap/Acl.php:147
+#: lib/Imap/Acl.php:174
 msgid "Post to this mailbox (not enforced by IMAP)"
 msgstr "このメールボックスにポストする（IMAPではなく）"
 
@@ -3525,107 +3419,91 @@ msgstr "このメールボックスにポストする（IMAPではなく）"
 msgid "Precede your text signature with dashes ('-- ')?"
 msgstr "署名の前にはダッシュ（'-- '）を付けますか？"
 
-#: config/prefs.php:1201 config/prefs.php:1732
-msgid "Preferences affecting only the Minimal View"
-msgstr "文字表示モードのみに使用される個人設定"
-
-#: config/prefs.php:645 config/prefs.php:1677
-msgid "Preferences affecting only the Traditional View"
-msgstr "従来表示のみに使用される個人設定"
-
-#: compose.php:1066
+#: compose.php:1045
 msgid "Preview"
 msgstr "プレビュー"
 
-#: templates/smartmobile/message.html.php:28
+#: templates/smartmobile/mailbox.html.php:4
+#: templates/smartmobile/message.html.php:40
 msgid "Previous"
 msgstr "前"
 
-#: lib/Minimal/Message.php:255 message.php:505
+#: lib/Minimal/Message.php:255 message.php:525
 msgid "Previous Message"
 msgstr "前のメール"
 
-#: lib/Minimal/Mailbox.php:202 templates/imp/mailbox/navbar.html:16
+#: lib/Minimal/Mailbox.php:202 templates/basic/mailbox/navbar.html.php:14
 msgid "Previous Page"
 msgstr "前のページ"
 
-#: lib/Contents.php:810 lib/Contents.php:811
+#: lib/Contents.php:818 lib/Contents.php:819
 msgid "Print"
 msgstr "印刷"
 
-#: lib/Contents/View.php:238
+#: lib/Contents/View.php:248
 msgid "Printed By"
 msgstr "印刷したのは"
 
-#: config/prefs.php:1535
+#: config/prefs.php:1525
 msgid "Printing"
 msgstr "印刷"
 
-#: lib/Minimal/Message.php:171 message.php:327 message.php:332
+#: lib/Minimal/Message.php:171 message.php:326 message.php:331
 #: templates/dynamic/compose.html.php:53 templates/itip/action.html.php:20
 msgid "Priority"
 msgstr "優先度"
 
-#: templates/smime/import_key.html:68
-msgid "Private Key Password:"
-msgstr "秘密鍵パスワード："
+#: templates/smime/import_key.html.php:67
+msgid "Private Key Password"
+msgstr "秘密鍵パスワード"
 
-#: config/prefs.php:596
-msgid "Prompt every time an attachment is sent; default to NO"
-msgstr "添付を送信した時は尋ねる；デフォルトNO"
-
-#: config/prefs.php:595
-msgid "Prompt every time an attachment is sent; default to YES"
-msgstr "添付を送信した時は尋ねる；デフォルトYES"
-
-#: config/prefs.php:1193
+#: config/prefs.php:1185
 msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
 msgstr "開封確認を送信する前に尋ねますか？"
 
-#: lib/Crypt/Pgp.php:330
+#: lib/Crypt/Pgp.php:329
 msgid "Public PGP keyserver support has been disabled."
 msgstr "公開 PGP 鍵サーバのサポートは無効になっています。"
 
-#: mailbox.php:462 mailbox.php:582
+#: mailbox.php:471 mailbox.php:618
 msgid "Pur_ge Deleted"
 msgstr "_Gゴミ箱を空にする"
 
-#: lib/Imap/Acl.php:168
+#: lib/Imap/Acl.php:195
 msgid "Purge"
 msgstr "パージ"
 
-#: lib/Dynamic/Mailbox.php:398 lib/Minimal/Mailbox.php:185 mailbox.php:462
-#: mailbox.php:582
+#: lib/Dynamic/Mailbox.php:401 lib/Minimal/Mailbox.php:185
 msgid "Purge Deleted"
 msgstr "ゴミ箱を空にする"
 
-#: config/prefs.php:1428
+#: config/prefs.php:1417
 msgid "Purge Spam how often:"
 msgstr "SPAM をパージする頻度："
 
-#: config/prefs.php:1322
+#: config/prefs.php:1311
 msgid "Purge Trash how often:"
 msgstr "ゴミ箱をパージする頻度："
 
-#: lib/Imap/Acl.php:167
+#: lib/Imap/Acl.php:194
 msgid "Purge messages"
 msgstr "メッセージをパージ"
 
-#: config/prefs.php:1439
+#: config/prefs.php:1428
 msgid "Purge messages in Spam mailbox older than this amount of days."
 msgstr "SPAM メールボックスで、この日数以上の古いメールを消去します。"
 
-#: config/prefs.php:1335
+#: config/prefs.php:1324
 msgid "Purge messages in Trash mailbox older than this amount of days."
 msgstr "ゴミ箱メールボックスで、この日数以上の古いメールを消去します。"
 
-#: config/prefs.php:929
+#: config/prefs.php:920
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
 msgstr "送信控えメールボックス内で、この日数以上の古いメールを消去します。"
 
-#: config/prefs.php:918
+#: config/prefs.php:909
 msgid "Purge sent mail how often:"
 msgstr "送信控えをパージする頻度："
 
@@ -3651,66 +3529,50 @@ msgstr "送信控えメールボックスから %d 通のメールを削除し�
 msgid "Purging 1 message from sent-mail mailbox %s."
 msgstr "送信控えメールボックス %s から１通のメールを削除しました。"
 
-#: lib/Quota.php:45
-#, php-format
-msgid "Quota status: %.2f %s / %.2f %s  (%.2f%%)"
-msgstr "クォータの状況： %.2f %s / %.2f %s  (%.2f%%)"
-
-#: lib/Quota.php:51
-#, php-format
-msgid "Quota status: %.2f %s / NO LIMIT"
-msgstr "クォータの状況： %.2f %s /無制限"
-
-#: lib/IMP.php:576
-#, php-format
-msgid "Quota status: NO LIMIT"
-msgstr "クォータの状況： 無制限"
-
-#: config/prefs.php:767
+#: config/prefs.php:745
 #, php-format
 msgid "Quoting %f:"
 msgstr "引用 %f："
 
-#: lib/Imap/Acl.php:132
+#: lib/Imap/Acl.php:159 templates/prefs/acl.html.php:39
+#: templates/prefs/acl.html.php:74
 msgid "Read"
 msgstr "読む"
 
-#: lib/Dynamic/Compose/Common.php:169
+#: lib/Dynamic/Compose/Common.php:168
 msgid "Read Receipt"
 msgstr "開封確認"
 
-#: lib/Imap/Acl.php:131
+#: lib/Imap/Acl.php:158
 msgid "Read messages"
 msgstr "メッセージを読む"
 
-#: lib/Minimal/Mailbox.php:118 templates/dynamic/mailbox_subinfo.html.php:4
-#: templates/imp/subinfo.html.php:5 templates/imp/mailbox/header.html:4
+#: lib/Minimal/Mailbox.php:118 templates/basic/mailbox/header.html.php:4
+#: templates/basic/subinfo.html.php:8
+#: templates/dynamic/mailbox_subinfo.html.php:6
 msgid "Read-Only"
 msgstr "読み出し専用"
 
-#: lib/Dynamic/Mailbox.php:290
+#: lib/Dynamic/Mailbox.php:288
 msgid "Rebuild Folder List"
 msgstr "フォルダ一覧の再構築"
 
-#: templates/imp/folders/actions.html:45
+#: templates/basic/folders/actions.html.php:49
 msgid "Rebuild Folder Tree"
 msgstr "フォルダーツリーを再構築"
 
-#: templates/imp/search/search.html:20
+#: templates/search/search.html.php:18 templates/search/search.html.php:22
+#: templates/search/search.html.php:24
 msgid "Recent Searches"
 msgstr "最後の検索"
 
-#: templates/imp/search/search.html:24 templates/imp/search/search.html:26
-msgid "Recent Searches:"
-msgstr "最後の検索："
-
-#: lib/Compose.php:731
+#: lib/Compose.php:721
 msgid "Recipient address does not match the currently selected identity."
 msgstr "受信アドレスは選択されている ID と一致しません。"
 
-#: lib/Dynamic/Mailbox.php:435 search.php:48
+#: lib/Dynamic/Mailbox.php:445 search.php:49
+#: templates/basic/search/search-basic.html.php:18
 #: templates/smartmobile/search.html.php:13
-#: templates/imp/search/search-basic.html:17
 msgid "Recipients (To/Cc/Bcc)"
 msgstr "受信者 (To/Cc/Bcc)"
 
@@ -3719,78 +3581,76 @@ msgstr "受信者 (To/Cc/Bcc)"
 msgid "Recipients (To/Cc/Bcc) for '%s'"
 msgstr "'%s' の受信先 (To, Cc, Bcc )"
 
-#: message.php:565 message.php:605
+#: message.php:635 message.php:716
 msgid "Redirec_t"
 msgstr "_Tそのまま転送"
 
-#: compose.php:365 lib/Dynamic/Base.php:159 lib/Dynamic/Compose.php:160
-#: lib/Minimal/Compose.php:215 lib/Minimal/Compose.php:218
+#: compose.php:377 lib/Dynamic/Base.php:161 lib/Dynamic/Compose.php:159
+#: lib/Minimal/Compose.php:223 lib/Minimal/Compose.php:226
 #: lib/Minimal/Message.php:249 lib/Notification/Event/Status.php:32
-#: mailbox.php:612 message.php:565 message.php:605
+#: mailbox.php:675 templates/basic/compose/redirect.html.php:53
 #: templates/dynamic/redirect.html.php:7
 #: templates/minimal/redirect.html.php:27
-#: templates/smartmobile/message.html.php:36
-#: templates/imp/compose/redirect.html:43
+#: templates/smartmobile/message.html.php:29
 msgid "Redirect"
 msgstr "そのまま転送"
 
-#: compose.php:365
+#: compose.php:377
 msgid "Redirect Messages"
 msgstr "メッセージ転送"
 
 #: lib/Minimal/Folders.php:58 lib/Minimal/Mailbox.php:178
-#: templates/dynamic/mailbox.html.php:29 templates/imp/mailbox/header.html:9
+#: templates/basic/mailbox/header.html.php:9
+#: templates/dynamic/mailbox.html.php:26
+#: templates/smartmobile/folders.html.php:9
+#: templates/smartmobile/mailbox.html.php:14
 msgid "Refresh"
 msgstr "再表示"
 
-#: config/prefs.php:1471
-msgid "Refresh Folder Views:"
-msgstr "フォルダ表示のリフレッシュ:"
-
-#: templates/dynamic/mailbox.html.php:64
+#: templates/dynamic/mailbox.html.php:61
 msgid "Refresh Search Results"
 msgstr "検索結果の再表示"
 
-#: lib/Mime/Viewer/Itip.php:206
+#: lib/Mime/Viewer/Itip.php:203
 msgid "Remember the free/busy information."
 msgstr "予定情報を記憶する。"
 
-#: config/prefs.php:1773
+#: config/prefs.php:1751
 msgid "Remember the last view"
 msgstr "最後の表示を記憶"
 
-#: lib/Dynamic/Compose/Common.php:232
+#: lib/Dynamic/Compose/Common.php:234 templates/contacts/contacts.html.php:60
 msgid "Remove"
 msgstr "削除"
 
-#: lib/Dynamic/Mailbox.php:226 lib/Dynamic/Mailbox.php:347
-#: templates/imp/folders/actions.html:21
+#: lib/Dynamic/Mailbox.php:224 lib/Dynamic/Mailbox.php:350
+#: templates/basic/folders/actions.html.php:25
 msgid "Rename"
 msgstr "名前変更"
 
-#: lib/Dynamic/Mailbox.php:480
+#: lib/Dynamic/Mailbox.php:490
 #, php-format
 msgid "Rename %s to:"
 msgstr "%s の名前変更："
 
-#: config/prefs.php:894
+#: config/prefs.php:885
 msgid "Rename sent mail mailbox at beginning of month?"
 msgstr "送信控えメールボックスの名前を毎月の初めに変更しますか？"
 
-#: lib/Mailbox.php:886
+#: lib/Mailbox.php:890
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr "\"%s\" を \"%s\" に変更できませんでした。サーバのエラー:"
 
-#: config/prefs.php:724
+#: config/prefs.php:703
 msgid "Replies"
 msgstr "返信"
 
-#: lib/Dynamic/Compose.php:93 lib/Dynamic/Mailbox.php:302
-#: lib/Minimal/Compose.php:193 lib/Minimal/Message.php:234
-#: lib/Notification/Event/Status.php:39 message.php:542
-#: templates/dynamic/mailbox.html.php:32 templates/dynamic/message.html.php:12
-#: templates/smartmobile/message.html.php:34
+#: lib/Dynamic/Compose.php:92 lib/Dynamic/Mailbox.php:300
+#: lib/Minimal/Compose.php:201 lib/Minimal/Message.php:234
+#: lib/Notification/Event/Status.php:39 templates/dynamic/mailbox.html.php:29
+#: templates/dynamic/message.html.php:12
+#: templates/smartmobile/message.html.php:24
 msgid "Reply"
 msgstr "返信"
 
@@ -3798,54 +3658,54 @@ msgstr "返信"
 msgid "Reply All"
 msgstr "全員に返信"
 
-#: lib/Ajax/Imple/ItipRequest.php:287 lib/Ajax/Imple/ItipRequest.php:396
+#: lib/Ajax/Imple/ItipRequest.php:287 lib/Ajax/Imple/ItipRequest.php:398
 msgid "Reply Sent."
 msgstr "返信完了。"
 
+#: templates/basic/compose/compose.html.php:160
+#: templates/basic/compose/compose.html.php:174
 #: templates/dynamic/compose.html.php:153
 #: templates/dynamic/compose.html.php:157
-#: templates/imp/compose/compose.html:148
-#: templates/imp/compose/compose.html:162
 msgid "Reply To Sender instead"
 msgstr "送信者に返信"
 
-#: lib/Minimal/Compose.php:192
+#: lib/Minimal/Compose.php:200
 msgid "Reply text will be automatically appended to your outgoing message."
 msgstr "返信の文はあなたの送信メッセージに自動的に追加されます。"
 
-#: lib/Dynamic/Compose.php:97
+#: lib/Dynamic/Compose.php:96
 msgid "Reply to All"
 msgstr "全員に返信"
 
-#: compose.php:300
+#: compose.php:312
 msgid "Reply to All:"
 msgstr "全員に返信："
 
-#: lib/Dynamic/Compose.php:101 lib/Minimal/Message.php:237
+#: lib/Dynamic/Compose.php:100 lib/Minimal/Message.php:237
 msgid "Reply to List"
 msgstr "リストに返信"
 
-#: compose.php:313
+#: compose.php:325
 msgid "Reply to List:"
 msgstr "リストに返信："
 
-#: lib/Mime/Viewer/Itip.php:209 lib/Mime/Viewer/Itip.php:218
+#: lib/Mime/Viewer/Itip.php:206 lib/Mime/Viewer/Itip.php:215
 msgid "Reply with Not Supported Message"
 msgstr "サポート外のメッセージで返信"
 
-#: lib/Mime/Viewer/Itip.php:216
+#: lib/Mime/Viewer/Itip.php:213
 msgid "Reply with free/busy for next 2 months."
 msgstr "2ヶ月分の予定情報付きで返信"
 
-#: lib/Mime/Viewer/Itip.php:215
+#: lib/Mime/Viewer/Itip.php:212
 msgid "Reply with requested free/busy information."
 msgstr "要求された予定情報で返信"
 
-#: lib/Compose.php:2224 lib/Ui/Message.php:31
+#: lib/Compose.php:2214 lib/Ui/Message.php:30
 msgid "Reply-To"
 msgstr "Reply-To"
 
-#: compose.php:288
+#: compose.php:300
 msgid "Reply:"
 msgstr "返信:"
 
@@ -3857,66 +3717,66 @@ msgstr "無害と報告"
 msgid "Report As Spam"
 msgstr "SPAMと報告"
 
-#: lib/Dynamic/Mailbox.php:312 lib/Minimal/Message.php:270
-#: lib/Smartmobile.php:163 mailbox.php:622 message.php:602
+#: lib/Dynamic/Mailbox.php:309 lib/Minimal/Message.php:270
+#: lib/Smartmobile.php:159 mailbox.php:693 message.php:709
 msgid "Report as Innocent"
 msgstr "無害と報告"
 
-#: lib/Dynamic/Mailbox.php:311 lib/Minimal/Message.php:265
-#: lib/Smartmobile.php:164 mailbox.php:617 message.php:597
+#: lib/Dynamic/Mailbox.php:308 lib/Minimal/Message.php:265
+#: lib/Smartmobile.php:160 mailbox.php:684 message.php:699
 msgid "Report as Spam"
 msgstr "SPAMと報告"
 
-#: compose.php:955
+#: templates/basic/compose/compose.html.php:138
 msgid "Request a _Read Receipt"
 msgstr "_R開封確認を要求"
 
-#: config/prefs.php:625
+#: config/prefs.php:609
 msgid "Request read receipts?"
 msgstr "開封確認を要求しますか？"
 
-#: lib/Ajax/Application.php:962 lib/Ajax/Application.php:1063
-#: lib/Ajax/Application/ShowMessage.php:80 mailbox.php:117
+#: lib/Ajax/Application.php:309 lib/Ajax/Application/Handler/Dynamic.php:680
+#: lib/Ajax/Application/ShowMessage.php:80 mailbox.php:110
 msgid "Requested message not found."
 msgstr "要求されたメールは見付かりませんでした。"
 
-#: lib/Mime/Viewer/Itip.php:598
+#: lib/Mime/Viewer/Itip.php:595
 msgid "Required Participant"
 msgstr "必須参加者"
 
-#: templates/imp/contacts/contacts.html:26
-#: templates/imp/search/search-basic.html:48
-#: templates/imp/search/search.html:113
+#: templates/basic/search/search-basic.html.php:51
+#: templates/contacts/contacts.html.php:26
+#: templates/search/search.html.php:110
 msgid "Reset"
 msgstr "リセット"
 
-#: lib/Ajax/Imple/ItipRequest.php:113 lib/Mime/Viewer/Itip.php:322
+#: lib/Ajax/Imple/ItipRequest.php:113 lib/Mime/Viewer/Itip.php:319
 msgid "Respondent Status Updated."
 msgstr "回答者の状況を更新しました。"
 
-#: lib/Dynamic/Mailbox.php:482
+#: lib/Dynamic/Mailbox.php:492
 #, php-format
 msgid "Results are %d Minutes Old"
 msgstr "結果は %d 分前です"
 
-#: message.php:589 templates/dynamic/mailbox.html.php:48
+#: message.php:682 templates/dynamic/mailbox.html.php:45
 msgid "Resume"
 msgstr "再開"
 
-#: lib/Dynamic/Mailbox.php:297 templates/dynamic/mailbox.html.php:97
+#: lib/Dynamic/Mailbox.php:295 templates/dynamic/mailbox.html.php:94
 msgid "Resume Draft"
 msgstr "下書きから再開"
 
-#: lib/Ui/Compose.php:105
+#: lib/Ui/Compose.php:52
 msgid "Resume Editing"
 msgstr "編集再開"
 
-#: search.php:498
+#: search.php:503
 #, php-format
 msgid "Return to %s"
 msgstr "%s に戻る"
 
-#: templates/imp/folders/folders_size.html:30
+#: templates/basic/folders/folders_size.html.php:40
 msgid "Return to Folders View"
 msgstr "フォルダー表示に戻る"
 
@@ -3924,13 +3784,13 @@ msgstr "フォルダー表示に戻る"
 msgid "Return to message view"
 msgstr "メール表示に戻る"
 
-#: config/prefs.php:1239
+#: config/prefs.php:1226
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
 "メッセージを削除、移動、コピーした後、メールボックスリストに戻りますか？"
 
-#: config/prefs.php:526
+#: config/prefs.php:524
 msgid "Rich Text (HTML)"
 msgstr "リッチテキスト(HTML)"
 
@@ -3950,24 +3810,24 @@ msgstr "S/MIME"
 msgid "S/MIME Encrypt Message"
 msgstr "S/MIME 暗号化"
 
-#: lib/Compose.php:1517
+#: lib/Compose.php:1507
 msgid "S/MIME Error: "
 msgstr "S/MIME エラー: "
 
-#: lib/Compose.php:1494
+#: lib/Compose.php:1484
 msgid "S/MIME Error: Need passphrase for personal private key."
 msgstr "S/MIME エラー: 秘密鍵のパスフレーズが必要です。"
 
-#: templates/prefs/smimeprivatekey.html:8
+#: templates/prefs/smimeprivatekey.html.php:11
 msgid "S/MIME Personal Certificate support requires a secure web connection."
 msgstr "S/MIME 個人鍵の使用には安全な web 接続が必要です。"
 
-#: lib/Prefs/Special/SmimePublicKey.php:87
+#: lib/Prefs/Special/SmimePublicKey.php:86
 #, php-format
 msgid "S/MIME Public Key for \"%s\" was successfully deleted."
 msgstr "\"%s\" の S/MIME 公開鍵は削除されました。"
 
-#: templates/prefs/smimepublickey.html:3
+#: templates/prefs/smimepublickey.html.php:4
 msgid "S/MIME Public Keyring"
 msgstr "S/MIME 公開鍵リング"
 
@@ -3983,11 +3843,11 @@ msgstr "S/MIME 署名"
 msgid "S/MIME Sign/Encrypt Message"
 msgstr "S/MIME 署名／暗号化"
 
-#: lib/Ajax/Application.php:1790
+#: lib/Ajax/Application/Handler/Passphrase.php:61
 msgid "S/MIME passphrase stored in session."
 msgstr "S/MIME パスフレーズはセッションに保存されました。"
 
-#: lib/Prefs/Special/SmimePrivateKey.php:86
+#: lib/Prefs/Special/SmimePrivateKey.php:88
 msgid "S/MIME passphrase successfully unloaded."
 msgstr "S/MIME パスフレーズはアンロードされました。"
 
@@ -4017,76 +3877,78 @@ msgstr ""
 "S/MIME のサポートにはポップアップ・ウインドウが必要です。お使いのブラウザが"
 "ポップアップを禁止にしてあるなら、S/MIME 機能は正しく動作しません。"
 
-#: compose.php:860
+#: templates/basic/compose/compose.html.php:77
 msgid "S_ubject"
 msgstr "_U件名"
 
-#: compose.php:921
-msgid "Sa_ve a copy in "
+#: templates/basic/compose/compose.html.php:121
+msgid "Sa_ve a copy in"
 msgstr "_V次の場所にコピーを保存 "
 
-#: message.php:593
+#: message.php:690
 msgid "Sa_ve as"
 msgstr "_V保存"
 
-#: lib/Dynamic/Mailbox.php:415 templates/dynamic/message.html.php:50
-#: templates/imp/search/search.html:109
+#: lib/Dynamic/Mailbox.php:425 templates/dynamic/message.html.php:50
+#: templates/search/search.html.php:106
 msgid "Save"
 msgstr "保存"
 
-#: lib/Ajax/Application/ShowMessage.php:283
+#: lib/Ajax/Application/ShowMessage.php:277
 msgid "Save All"
 msgstr "全て保存"
 
-#: lib/Dynamic/Compose/Common.php:172
+#: lib/Dynamic/Compose/Common.php:171
 msgid "Save Attachments in Sent Mailbox"
 msgstr "添付を送信控えメールボックスに保存"
 
-#: compose.php:1030
-msgid "Save Attachments with message in sent-mail mailbox?"
-msgstr "添付もメッセージと共に送信控えメールボックスに保存しますか？"
-
-#: lib/Minimal/Compose.php:231 lib/Minimal/Compose.php:234
-#: lib/Minimal/Compose.php:282 templates/minimal/compose.html.php:52
-#: templates/imp/compose/compose.html:25
-#: templates/imp/compose/compose.html:197
+#: lib/Minimal/Compose.php:239 lib/Minimal/Compose.php:242
+#: lib/Minimal/Compose.php:289 templates/basic/compose/compose.html.php:27
+#: templates/basic/compose/compose.html.php:212
+#: templates/minimal/compose.html.php:52
 msgid "Save Draft"
 msgstr "下書きを保存"
 
-#: saveimage.php:60
+#: saveimage.php:67
 msgid "Save Image"
 msgstr "画像を保存"
 
-#: lib/Contents.php:802
+#: lib/Contents.php:810
 msgid "Save Image in Gallery"
 msgstr "画像をギャラリーに保存"
 
-#: templates/imp/search/search.html:80
+#: templates/search/search.html.php:78
 msgid "Save Search"
 msgstr "検索保存"
 
-#: templates/dynamic/compose.html.php:19 templates/imp/compose/compose.html:28
-#: templates/imp/compose/compose.html:200
+#: templates/basic/compose/compose.html.php:30
+#: templates/basic/compose/compose.html.php:215
+#: templates/dynamic/compose.html.php:19
 msgid "Save Template"
 msgstr "テンプレート保存"
 
-#: compose.php:806
+#: templates/basic/compose/compose.html.php:27
+#: templates/basic/compose/compose.html.php:212
 msgid "Save _Draft"
 msgstr "_D下書きを保存"
-
-#: message.php:593
-msgid "Save as"
-msgstr "名前を付けて保存"
 
 #: templates/dynamic/compose.html.php:26
 msgid "Save as Draft"
 msgstr "下書きとして保存"
 
-#: config/prefs.php:860
+#: config/prefs.php:874
+msgid "Save attachments"
+msgstr "添付を保存する"
+
+#: compose.php:1001
+msgid "Save attachments with message in sent-mail mailbox?"
+msgstr "添付もメッセージと共に送信控えメールボックスに保存しますか？"
+
+#: config/prefs.php:838
 msgid "Save drafts as unseen?"
 msgstr "下書きを未読として保存しますか？"
 
-#: config/prefs.php:873
+#: config/prefs.php:851
 msgid "Save drafts automatically while composing?"
 msgstr "メール作成中に下書きを自動的に保存しますか？"
 
@@ -4094,7 +3956,7 @@ msgstr "メール作成中に下書きを自動的に保存しますか？"
 msgid "Save in"
 msgstr "保存"
 
-#: config/prefs.php:959
+#: config/prefs.php:951
 msgid "Save recipients automatically to the default address book?"
 msgstr "受信者を自動的にデフォルトのアドレス帳に追加しますか？"
 
@@ -4106,7 +3968,7 @@ msgstr "送信メールの控えを保存しますか？"
 msgid "Save the certificate to your Address Book."
 msgstr "証明書をあなたのアドレス帳に保存します。"
 
-#: lib/Mime/Viewer/Pgp.php:361
+#: lib/Mime/Viewer/Pgp.php:360
 msgid "Save the key to your address book."
 msgstr "鍵をアドレス帳に保存します。"
 
@@ -4114,96 +3976,96 @@ msgstr "鍵をアドレス帳に保存します。"
 msgid "Saved Searches"
 msgstr "検索の保存"
 
-#: search.php:486
+#: search.php:491
 msgid "Saved searches require a label."
 msgstr "検索の保存にはラベルが必要です。"
 
-#: lib/Compose.php:234
+#: lib/Compose.php:227
 #, php-format
 msgid ""
 "Saving the draft failed because it contains an invalid e-mail address: %s."
 msgstr "下書きを保存できませんでした。無効なメールアドレスが含まれています：%s"
 
-#: lib/Compose.php:293
+#: lib/Compose.php:285
 msgid "Saving the draft failed. Could not create a drafts mailbox."
 msgstr "下書きが保存できません。下書きメールボックスが作成できません。"
 
-#: lib/Compose.php:288
+#: lib/Compose.php:280
 msgid "Saving the draft failed. No drafts mailbox specified."
 msgstr "下書きを保存できません。下書きメールボックスが指定されていません。"
 
-#: lib/Compose.php:613
+#: lib/Compose.php:604
 msgid "Saving the template failed: could not create the templates mailbox."
 msgstr ""
 "テンプレートが保存できません。テンプレートメールボックスが作成できません。"
 
-#: lib/Compose.php:608
+#: lib/Compose.php:599
 msgid "Saving the template failed: no template mailbox exists."
 msgstr "テンプレートが保存できません。テンプレートフォルダがありません。"
 
-#: templates/dynamic/mailbox.html.php:190
-msgid "Scroll up/down through the display of the previewed message."
-msgstr "表示されているメッセージを上下にスクロールします。"
-
-#: lib/Application.php:419 lib/Dynamic/Mailbox.php:229
-#: lib/Dynamic/Mailbox.php:358 lib/Dynamic/Mailbox.php:481
-#: lib/Minimal/Mailbox.php:195 lib/Search/Filter.php:30
-#: lib/Search/Query.php:246 search-basic.php:111 search.php:504
-#: templates/smartmobile/mailbox.html.php:26
+#: lib/Application.php:463 lib/Dynamic/Mailbox.php:227
+#: lib/Dynamic/Mailbox.php:361 lib/Dynamic/Mailbox.php:491
+#: lib/Minimal/Mailbox.php:195 search-basic.php:114 search.php:507
+#: templates/basic/folders/actions.html.php:47
+#: templates/basic/mailbox/header.html.php:18
+#: templates/contacts/contacts.html.php:25 templates/search/search.html.php:12
+#: templates/smartmobile/mailbox.html.php:16
 #: templates/smartmobile/search.html.php:3
-#: templates/imp/contacts/contacts.html:25
-#: templates/imp/folders/actions.html:43 templates/imp/mailbox/header.html:14
-#: templates/imp/search/search.html:13
 msgid "Search"
 msgstr "検索"
 
-#: lib/Minimal/Search.php:29 search-basic.php:107
+#: lib/Minimal/Search.php:29 lib/Search/Filter.php:40 search-basic.php:111
 #, php-format
 msgid "Search %s"
 msgstr "検索 %s"
 
-#: search.php:489
+#: lib/Search/Query.php:269
+#, php-format
+msgid "Search %s in %s"
+msgstr "%2$s 中の %1$s を検索"
+
+#: search.php:494
 msgid "Search All Mailboxes"
 msgstr "全メールボックスを検索"
 
-#: lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:359
+#: lib/Dynamic/Mailbox.php:228 lib/Dynamic/Mailbox.php:362
 msgid "Search All Subfolders"
 msgstr "全てのサブフォルダを検索"
 
-#: lib/Dynamic/Mailbox.php:439 templates/smartmobile/search.html.php:8
+#: lib/Dynamic/Mailbox.php:449 templates/smartmobile/search.html.php:8
 msgid "Search By"
 msgstr "検索項目"
 
-#: templates/imp/search/search.html:31
+#: templates/search/search.html.php:29
 msgid "Search Criteria"
 msgstr "検索条件"
 
-#: templates/imp/search/search-basic.html:11
+#: templates/basic/search/search-basic.html.php:12
 msgid "Search Criteria:"
 msgstr "検索条件："
 
-#: templates/imp/search/search-basic.html:28
+#: templates/basic/search/search-basic.html.php:29
 msgid "Search Flags:"
 msgstr "検索フラグ："
 
-#: templates/imp/search/search.html:61
+#: templates/search/search.html.php:59
 msgid "Search Mailboxes"
 msgstr "メールボックスを検索"
 
-#: lib/Search/Query.php:136 lib/Smartmobile.php:172
-#: templates/imp/contacts/contacts.html:32
+#: lib/Search/Query.php:136 lib/Smartmobile.php:168
+#: templates/contacts/contacts.html.php:32
 msgid "Search Results"
 msgstr "検索結果"
 
-#: search.php:490
+#: search.php:495
 msgid "Search Term:"
 msgstr "検索項目："
 
-#: search.php:491
+#: search.php:496
 msgid "Search all subfolders?"
 msgstr "全てのサブフォルダを検索しますか？"
 
-#: lib/Ui/Compose.php:53
+#: lib/Minimal/Compose.php:474
 #, php-format
 msgid "Search for \"%s\" failed: no address found."
 msgstr "\"%s\"の検索に失敗しました：アドレスが見つかりません。"
@@ -4216,7 +4078,7 @@ msgstr "検索："
 msgid "Searching is not available."
 msgstr "検索はできません。"
 
-#: lib/Dynamic/Mailbox.php:242 lib/Flag/Imap/Seen.php:34
+#: lib/Dynamic/Mailbox.php:240 lib/Flag/Imap/Seen.php:34
 msgid "Seen"
 msgstr "既読"
 
@@ -4224,53 +4086,49 @@ msgstr "既読"
 msgid "Select"
 msgstr "-- 選択 --"
 
-#: templates/dynamic/mailbox.html.php:213
-#: templates/dynamic/mailbox.html.php:230
+#: templates/dynamic/mailbox.html.php:188
+#: templates/dynamic/mailbox.html.php:205
 msgid "Select All"
 msgstr "全て選択"
 
-#: config/prefs.php:943
+#: config/prefs.php:935
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "アドレスの追加や検索を行うアドレス帳のソースを選んでください。"
 
-#: templates/dynamic/mailbox.html.php:195
-msgid "Select all messages in the current mailbox."
-msgstr "現在のメールボックス内の全メッセージを選択します。"
-
-#: templates/saveimage/saveimage.html:9
+#: templates/saveimage/saveimage.html.php:9
 msgid "Select the gallery to save the image in."
 msgstr "画像を保存するギャラリーを選択して下さい。"
 
-#: templates/imp/contacts/contacts.html:48
+#: templates/contacts/contacts.html.php:48
 msgid "Selected Addresses"
 msgstr "選択されたアドレス"
 
-#: lib/Minimal/Compose.php:232 lib/Minimal/Compose.php:240
-#: lib/Minimal/Compose.php:294 templates/dynamic/compose.html.php:13
+#: lib/Minimal/Compose.php:240 lib/Minimal/Compose.php:248
+#: lib/Minimal/Compose.php:301 templates/dynamic/compose.html.php:13
 #: templates/minimal/compose.html.php:49
 msgid "Send"
 msgstr "送信"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:50
-#: templates/prefs/pgpprivatekey.html:19
+#: lib/Prefs/Special/PgpPrivateKey.php:48
+#: templates/prefs/pgpprivatekey.html.php:23
 msgid "Send Key to Public Keyserver"
 msgstr "鍵を公開鍵サーバに送る"
 
-#: lib/Mime/Viewer/Itip.php:309
+#: lib/Mime/Viewer/Itip.php:306
 msgid "Send Latest Information"
 msgstr "最新の情報を送る"
 
+#: templates/basic/compose/compose.html.php:24
+#: templates/basic/compose/compose.html.php:209
 #: templates/smartmobile/compose.html.php:39
-#: templates/imp/compose/compose.html:22
-#: templates/imp/compose/compose.html:194
 msgid "Send Message"
 msgstr "メールの送信"
 
-#: compose.php:732 lib/Smartmobile.php:171
+#: compose.php:717 lib/Smartmobile.php:167
 msgid "Send message without a Subject?"
 msgstr "件名なしで送信しますか？"
 
-#: lib/Dynamic/Compose/Common.php:231
+#: lib/Dynamic/Compose/Common.php:233
 msgid "Send message without a subject?"
 msgstr "件名なしで送信しますか？"
 
@@ -4279,39 +4137,39 @@ msgstr "件名なしで送信しますか？"
 msgid "Sender: %s"
 msgstr "送信者： %s"
 
-#: lib/Mailbox.php:1621 lib/Mailbox.php:1626 lib/Mailbox.php:1725
+#: lib/Mailbox.php:1625 lib/Mailbox.php:1630 lib/Mailbox.php:1729
 msgid "Sent"
 msgstr "送信控え"
 
-#: config/prefs.php:882
+#: config/prefs.php:860
 msgid "Sent Mail"
 msgstr "送信済メール"
 
-#: lib/Prefs/Special/Sentmail.php:47
+#: templates/prefs/sentmail.html.php:3
 msgid "Sent mail mailbox:"
 msgstr "送信控えメールボックス："
 
-#: lib/Application.php:302
+#: lib/Application.php:332
 msgid "Server"
 msgstr "サーバ"
 
-#: templates/prefs/specialuse.html:3
-msgid "Server Suggestion:"
-msgstr "サーバのお勧め："
+#: templates/prefs/specialuse.html.php:3
+msgid "Server Suggestion"
+msgstr "サーバのお勧め"
 
-#: lib/Imap/Acl.php:30
+#: lib/Imap/Acl.php:37
 msgid "Server does not support ACLs."
 msgstr "サーバは ACL をサポートしていません。"
 
-#: config/prefs.php:517
+#: config/prefs.php:515
 msgid "Set a priority header when composing messages?"
 msgstr "新規作成時に優先度のヘッダを付けますか？"
 
-#: lib/Imap/Acl.php:151
+#: lib/Imap/Acl.php:178
 msgid "Set permissions for other users"
 msgstr "他のユーザのアクセス権をセット"
 
-#: config/prefs.php:1227
+#: config/prefs.php:1214
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr "メールを移動、削除した場合の処置に関する設定を指定してください。"
 
@@ -4323,26 +4181,23 @@ msgstr "共有メールボックス"
 msgid "Share your mailboxes with other users."
 msgstr "あなたのメールボックスを他のユーザと共有します。"
 
-#: lib/Mailbox.php:1573
+#: lib/Mailbox.php:1577
 msgid "Shared"
 msgstr "共有"
 
-#: templates/dynamic/mailbox.html.php:181
-#: templates/dynamic/mailbox.html.php:186
-#: templates/dynamic/mailbox.html.php:192
-#: templates/dynamic/mailbox.html.php:193
-msgid "Shift"
-msgstr "[SHIFT]"
-
 #: config/prefs.php:358
-msgid "Should PGP signed messages automatically be verified when viewed?"
+msgid "Should PGP signed messages be automatically verified when viewed?"
 msgstr "PGP で署名されたメッセージを表示する時、自動的に検証しますか？"
 
 #: config/prefs.php:435
-msgid "Should S/MIME signed messages automatically be verified when viewed?"
+msgid "Should S/MIME signed messages be automatically verified when viewed?"
 msgstr "S/MIME で署名されたメッセージを表示する時、自動的に検証しますか？"
 
-#: config/prefs.php:1126
+#: config/prefs.php:877
+msgid "Should attachments be saved in the sent-mail message?"
+msgstr "添付もメッセージと共に送信控えフォルダに保存しますか？"
+
+#: config/prefs.php:1118
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
@@ -4352,7 +4207,7 @@ msgstr "長い引用を表示しますか？隠しますか？ 何時でも簡�
 msgid "Should the body of text/plain messages be scanned for PGP data?"
 msgstr "メールの本文を PGP で検証しますか？"
 
-#: config/prefs.php:852
+#: config/prefs.php:830
 msgid "Should the compose window be closed after saving a draft?"
 msgstr "下書きの保存後、メール作成ウィンドウを閉じますか？"
 
@@ -4365,56 +4220,56 @@ msgstr "デフォルトで PGP 公開鍵をメールに添付しますか？"
 msgid "Show Addresses (%d)"
 msgstr "アドレスを表示（%d）"
 
-#: folders.php:372 templates/minimal/message.html.php:7
-#: templates/smartmobile/folders.html.php:17
+#: folders.php:382 templates/minimal/message.html.php:7
+#: templates/smartmobile/folders.html.php:10
 msgid "Show All"
 msgstr "全て表示"
 
-#: message.php:612
+#: message.php:736
 msgid "Show All Headers"
 msgstr "ヘッダを全て表示"
 
-#: lib/Dynamic/Mailbox.php:286 lib/Minimal/Folders.php:61
+#: lib/Dynamic/Mailbox.php:284 lib/Minimal/Folders.php:61
 msgid "Show All Mailboxes"
 msgstr "全メールボックスを表示"
 
-#: message.php:677
+#: message.php:820
 msgid "Show All Parts"
 msgstr "全てのパートを表示"
 
-#: message.php:609
+#: message.php:729
 msgid "Show Common Headers"
 msgstr "主なヘッダを表示"
 
-#: lib/Dynamic/Mailbox.php:401 mailbox.php:286
+#: lib/Dynamic/Mailbox.php:404 mailbox.php:279
 msgid "Show Deleted"
 msgstr "削除済みを表示"
 
-#: lib/Mime/Viewer/Html.php:221
+#: lib/Mime/Viewer/Html.php:220
 msgid "Show Images?"
 msgstr "画像を表示しますか？"
 
-#: message.php:615
+#: message.php:743
 msgid "Show Mailing List Information"
 msgstr "メイリングリストの情報を表示"
 
-#: lib/Dynamic/Mailbox.php:428
+#: lib/Dynamic/Mailbox.php:438
 msgid "Show Only"
 msgstr "限定表示"
 
-#: templates/imp/mailbox/navbar.html:72
+#: templates/basic/mailbox/navbar.html.php:64
 msgid "Show Only:"
 msgstr "限定表示："
 
-#: templates/smartmobile/folders.html.php:18
+#: templates/smartmobile/folders.html.php:11
 msgid "Show Polled"
 msgstr "新着確認"
 
-#: lib/Dynamic/Mailbox.php:386
+#: lib/Dynamic/Mailbox.php:389
 msgid "Show Preview"
 msgstr "プレビューを表示"
 
-#: templates/imp/folders/actions.html:42
+#: templates/basic/folders/actions.html.php:46
 msgid "Show Size"
 msgstr "サイズ表示"
 
@@ -4422,19 +4277,19 @@ msgstr "サイズ表示"
 msgid "Show Subscribed Mailboxes"
 msgstr "購読済みメールボックスを表示"
 
-#: templates/imp/search/search.html:73
+#: templates/search/search.html.php:71
 msgid "Show Unsubscribed Mailboxes"
 msgstr "非購読メールボックスを表示"
 
-#: config/prefs.php:1150
+#: config/prefs.php:1142
 msgid "Show all attachments"
 msgstr "全ての添付を表示"
 
-#: config/prefs.php:1526
+#: config/prefs.php:1516
 msgid "Show all flags (including flags set by other mail programs)?"
 msgstr "全ての印を表示（他のプログラムで付けた印も）しますか？"
 
-#: config/prefs.php:1217
+#: config/prefs.php:1204
 msgid ""
 "Show all inline parts by default in message view? If unchecked, will treat "
 "all but the first viewable inline part as attachments."
@@ -4442,31 +4297,31 @@ msgstr ""
 "メッセージ表示で全てのインラインパートを表示しますか？もしチェックしなけれ"
 "ば、最初のパート以外は添付のように表示されます。"
 
-#: config/prefs.php:1149
+#: config/prefs.php:1141
 msgid "Show all parts"
 msgstr "全てのパートを表示"
 
-#: config/prefs.php:1056
+#: config/prefs.php:1048
 msgid "Show an icon to allow stripping of attachments from messages?"
 msgstr "メールから添付を削除するためのアイコンを表示しますか？"
 
-#: config/prefs.php:1788
+#: config/prefs.php:1766
 msgid "Show non-private mailboxes in separate folders"
 msgstr "個人用でないメールボックスは分けて表示"
 
-#: config/prefs.php:1719
+#: config/prefs.php:1701
 msgid "Show previews for unread messages only?"
 msgstr "未読メールだけプレビューしますか？"
 
-#: config/prefs.php:1727
+#: config/prefs.php:1709
 msgid "Show previews in tooltips?"
 msgstr "プレビューをツールチップスに表示しますか？"
 
-#: config/prefs.php:502
+#: config/prefs.php:500
 msgid "Show the Bcc: header field when composing mail?"
 msgstr "新規作成時に Bcc: を表示しますか？"
 
-#: config/prefs.php:495
+#: config/prefs.php:493
 msgid "Show the Cc: header field when composing mail?"
 msgstr "新規作成時に Cc: を表示しますか？"
 
@@ -4474,23 +4329,25 @@ msgstr "新規作成時に Cc: を表示しますか？"
 msgid "Show the filter icon on the menubar?"
 msgstr "フィルターのアイコンをメニューに表示しますか？"
 
-#: config/prefs.php:1120
+#: config/prefs.php:1112
 msgid "Shown"
 msgstr "表示"
 
-#: mailbox.php:666
+#: mailbox.php:742
 msgid "Si_ze"
 msgstr "_Zサイズ"
 
-#: lib/Dynamic/Mailbox.php:214 templates/imp/folders/folders_size.html:7
+#: lib/Dynamic/Mailbox.php:212 templates/basic/compose/compose.html.php:324
+#: templates/basic/compose/compose.html.php:328
+#: templates/basic/folders/folders_size.html.php:9
 msgid "Size"
 msgstr "サイズ"
 
-#: search.php:93
+#: search.php:94
 msgid "Size (KB) <"
 msgstr "サイズ (KB) <"
 
-#: search.php:98
+#: search.php:99
 msgid "Size (KB) >"
 msgstr "サイズ (KB) >"
 
@@ -4502,54 +4359,50 @@ msgstr "サイズ - 以上(KB)"
 msgid "Size - Less Than (KB)"
 msgstr "サイズ - 以下(KB)"
 
-#: templates/imp/compose/compose.html:308
-#: templates/imp/compose/compose.html:310
-msgid "Size:"
-msgstr "サイズ："
-
-#: templates/dynamic/mailbox.html.php:233
+#: templates/dynamic/mailbox.html.php:208
 msgid "Sort"
 msgstr "並べ替え"
 
-#: mailbox.php:660
+#: mailbox.php:736
 msgid "Sort by Date"
 msgstr "日付順"
 
-#: mailbox.php:645
+#: mailbox.php:721
 msgid "Sort by From Address"
 msgstr "送信元アドレス順"
 
-#: mailbox.php:665
+#: mailbox.php:741
 msgid "Sort by Message Size"
 msgstr "サイズ順"
 
-#: mailbox.php:655
+#: mailbox.php:731
 msgid "Sort by Subject"
 msgstr "サブジェクト順"
 
-#: mailbox.php:650
+#: mailbox.php:726
 msgid "Sort by Thread"
 msgstr "スレッド順"
 
-#: mailbox.php:640
+#: mailbox.php:716
 msgid "Sort by To Address"
 msgstr "アドレス順"
 
-#: lib/Mailbox.php:1634 lib/Mailbox.php:1712
-#: templates/dynamic/mailbox.html.php:39 templates/dynamic/message.html.php:19
-#: templates/smartmobile/message.html.php:49
+#: lib/Mailbox.php:1638 lib/Mailbox.php:1716
+#: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
+#: templates/smartmobile/mailbox.html.php:25
+#: templates/smartmobile/message.html.php:32
 msgid "Spam"
 msgstr "Spam"
 
-#: config/prefs.php:1356
+#: config/prefs.php:1345
 msgid "Spam Reporting"
 msgstr "Spam 報告"
 
-#: lib/Prefs/Special/Spam.php:37
+#: templates/prefs/spam.html.php:3
 msgid "Spam mailbox:"
 msgstr "SPAMメールボックス："
 
-#: lib/Ui/Compose.php:104
+#: lib/Ui/Compose.php:51
 msgid "Spell Check Failed"
 msgstr "スペルチェック失敗"
 
@@ -4565,46 +4418,48 @@ msgstr "検索開始"
 msgid "Status"
 msgstr "状態"
 
-#: message.php:693
+#: message.php:845
 msgid "Strip All Attachments"
 msgstr "添付を全て除去"
 
-#: lib/Contents.php:821
+#: lib/Contents.php:829
 msgid "Strip Attachment"
 msgstr "添付を除去"
 
-#: config/prefs.php:1711
+#: config/prefs.php:1693
 msgid "Strip linebreaks in preview?"
 msgstr "プレビューでは改行を除去しますか？"
 
-#: config/prefs.php:777
+#: config/prefs.php:755
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr "プレインテキストの返信から送信者の署名を削除しますか？"
 
-#: mailbox.php:656
+#: mailbox.php:732
 msgid "Sub_ject"
 msgstr "_J件名"
 
-#: config/prefs.php:1608 lib/Compose.php:2228 lib/Dynamic/Mailbox.php:196
-#: lib/Dynamic/Mailbox.php:253 lib/Dynamic/Mailbox.php:436
-#: lib/Ui/Message.php:32 search.php:64 templates/dynamic/compose.html.php:130
+#: config/prefs.php:1597 lib/Compose.php:2218 lib/Dynamic/Mailbox.php:194
+#: lib/Dynamic/Mailbox.php:251 lib/Dynamic/Mailbox.php:446
+#: lib/Smartmobile.php:169 lib/Ui/Message.php:31 search.php:65
+#: templates/basic/search/search-basic.html.php:19
+#: templates/dynamic/compose.html.php:130
 #: templates/minimal/mailbox.html.php:14
 #: templates/smartmobile/search.html.php:14
-#: templates/imp/search/search-basic.html:18
 msgid "Subject"
 msgstr "件名"
 
 #: templates/minimal/compose.html.php:37
-#: templates/smartmobile/compose.html.php:30
+#: templates/smartmobile/compose.html.php:29
 msgid "Subject:"
 msgstr "件名："
 
-#: templates/imp/search/search-basic.html:47
-#: templates/imp/search/search.html:112 templates/saveimage/saveimage.html:20
+#: templates/basic/search/search-basic.html.php:50
+#: templates/saveimage/saveimage.html.php:20
+#: templates/search/search.html.php:109
 msgid "Submit"
 msgstr "実行"
 
-#: lib/Dynamic/Mailbox.php:355 templates/imp/folders/actions.html:28
+#: lib/Dynamic/Mailbox.php:358 templates/basic/folders/actions.html.php:32
 msgid "Subscribe"
 msgstr "購読"
 
@@ -4620,7 +4475,7 @@ msgstr "証明書はメッセージから正常に追加されました。"
 msgid "Successfully added public key from message."
 msgstr "公開鍵をメッセージから正常に取得しました。"
 
-#: templates/imp/folders/folders_size.html:22
+#: templates/basic/folders/folders_size.html.php:29
 msgid "Sum"
 msgstr "合計"
 
@@ -4628,31 +4483,32 @@ msgstr "合計"
 msgid "Summary"
 msgstr "概要"
 
-#: compose.php:960 compose.php:963
+#: compose.php:940 templates/basic/compose/compose.html.php:147
 msgid "Switch Composition Method"
 msgstr "編集モードの切替え"
 
-#: templates/imp/compose/compose.html:136
+#: templates/basic/compose/compose.html.php:148
 msgid "Switch to HTML composition"
 msgstr "HTML 編集モードに切替える"
 
-#: templates/imp/compose/compose.html:136
+#: templates/basic/compose/compose.html.php:148
 msgid "Switch to plain text composition"
 msgstr "テキスト編集モードに切替える"
 
-#: templates/imp/message/navbar_navigate.html:34
+#: templates/basic/message/navbar_navigate.html.php:44
 msgid "Target Mailbox"
 msgstr "目的のメールボックス"
 
-#: templates/imp/mailbox/navbar.html:104
+#: templates/basic/mailbox/navbar.html.php:96
 msgid "Target Mailbox:"
 msgstr "目的のメールボックス"
 
-#: templates/imp/flist/flist.html:35 templates/imp/flist/flist.html:38
+#: templates/basic/flist/flist.html.php:43
+#: templates/basic/flist/flist.html.php:46
 msgid "Task Lists"
 msgstr "タスク一覧"
 
-#: compose.php:981
+#: templates/basic/compose/compose.html.php:197
 msgid "Te_xt"
 msgstr "_X本文"
 
@@ -4676,27 +4532,28 @@ msgstr "技術的エラーの詳細は %s で閲覧できます。"
 msgid "Technical message details can be viewed %s."
 msgstr "技術的メッセージの詳細は %s で閲覧できます。"
 
-#: lib/Mailbox.php:1612
+#: lib/Mailbox.php:1616 templates/prefs/acl.html.php:36
+#: templates/prefs/acl.html.php:71
 msgid "Templates"
 msgstr "テンプレート"
 
-#: lib/Mime/Viewer/Itip.php:295
+#: lib/Mime/Viewer/Itip.php:292
 msgid "Tentatively Accept request"
 msgstr "要求を仮受諾する"
 
-#: lib/Mime/Viewer/Itip.php:547
+#: lib/Mime/Viewer/Itip.php:544
 msgid "Tentatively Accepted"
 msgstr "仮受諾"
 
-#: lib/Contents.php:1270
+#: lib/Contents.php:1278
 msgid "Text part"
 msgstr "テキストパート"
 
-#: templates/smartmobile/compose.html.php:33
+#: templates/smartmobile/compose.html.php:32
 msgid "Text:"
 msgstr "テキスト："
 
-#: config/prefs.php:1663
+#: config/prefs.php:1652
 msgid "The From: column of the message should be linked:"
 msgstr "メッセージの From: 欄とリンクするのは:"
 
@@ -4709,13 +4566,13 @@ msgstr "Macintosh リソースフォーク"
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr "Macintosh リソースフォークは %s からダウンロードできます。"
 
-#: lib/Ajax/Application.php:1443
+#: lib/Ajax/Application/Handler/Dynamic.php:782
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr "開封確認を送信できませんでした。サーバからの応答:"
 
-#: lib/Ajax/Application.php:1451
+#: lib/Ajax/Application/Handler/Dynamic.php:790
 msgid "The Message Disposition Notification was sent successfully."
 msgstr "開封確認は正常に送信されました。"
 
@@ -4727,7 +4584,7 @@ msgstr "添付の上限に達しました。"
 msgid "The attachment was not found."
 msgstr "添付がありません。"
 
-#: lib/Ajax/Imple/ItipRequest.php:68 lib/Mime/Viewer/Itip.php:82
+#: lib/Ajax/Imple/ItipRequest.php:68 lib/Mime/Viewer/Itip.php:79
 msgid "The calendar data is invalid"
 msgstr "予定表のデータが無効です"
 
@@ -4746,14 +4603,14 @@ msgstr "このパートのデータは正しい PGP 暗号文ではないよう�
 msgid "The data in this part has been compressed via PGP."
 msgstr "このパートのデータは PGP で圧縮されています。"
 
-#: lib/Mime/Viewer/Pgp.php:404
+#: lib/Mime/Viewer/Pgp.php:403
 msgid ""
 "The data in this part has been digitally signed via PGP, but the signature "
 "cannot be verified."
 msgstr ""
 "このパートのデータは PGP で署名されていますが、署名は検証できませんでした。"
 
-#: lib/Mime/Viewer/Pgp.php:310 lib/Mime/Viewer/Pgp.php:408
+#: lib/Mime/Viewer/Pgp.php:310 lib/Mime/Viewer/Pgp.php:407
 msgid "The data in this part has been digitally signed via PGP."
 msgstr "このパートのデータは PGP で署名されています。"
 
@@ -4777,24 +4634,24 @@ msgstr "このパートのデータは PGP で暗号化されています。"
 msgid "The data in this part has been encrypted via S/MIME."
 msgstr "このパートのデータは S/MIME で暗号化されています。"
 
-#: config/prefs.php:1177
+#: config/prefs.php:1169
 msgid "The default charset for messages with no charset information:"
 msgstr "文字セット情報の無いメッセージのデフォルトの文字セット："
 
-#: config/prefs.php:538
+#: config/prefs.php:536
 msgid "The default font family to use in the HTML editor."
 msgstr "HTML エディターで使用するデフォルトのフォントファミリーです。"
 
-#: config/prefs.php:548
+#: config/prefs.php:546
 msgid "The default font size to use in the HTML editor (in pixels)."
 msgstr "HTML エディターで使用するデフォルトのフォントサイズです。"
 
-#: lib/Compose.php:317
+#: lib/Compose.php:309
 #, php-format
 msgid "The draft has been saved to the \"%s\" mailbox."
 msgstr "下書きは \"%s\" メールボックスに保存されました。"
 
-#: lib/Compose.php:319
+#: lib/Compose.php:311
 msgid "The draft was not successfully saved."
 msgstr "下書きは正常に保存されませんでした。"
 
@@ -4806,7 +4663,7 @@ msgstr "イベントは予定表に追加されました。"
 msgid "The event was updated in your calendar."
 msgstr "イベントは予定表で更新されました。"
 
-#: lib/Compose.php:2308
+#: lib/Compose.php:2990
 #, php-format
 msgid "The file %s could not be attached."
 msgstr "ファイル %s を添付できませんでした。"
@@ -4815,11 +4672,7 @@ msgstr "ファイル %s を添付できませんでした。"
 msgid "The folder view is not enabled."
 msgstr "フォルダ表示は有効ではありません。"
 
-#: templates/dynamic/mailbox.html.php:187
-msgid "The following keyboard shortcuts are available:"
-msgstr "以下のようなキーボード・ショートカットが使用可能です："
-
-#: lib/Contents.php:537
+#: lib/Contents.php:544
 msgid "The initial portion of this text part is displayed below."
 msgstr "以下の表示は文字パートの最初の部分です。"
 
@@ -4827,58 +4680,58 @@ msgstr "以下の表示は文字パートの最初の部分です。"
 msgid "The links that caused this warning have this background color:"
 msgstr "この警告の原因となったリンクは、この背景色です："
 
-#: templates/prefs/imagereplacement.html:2
+#: templates/prefs/imagereplacement.html.php:2
 msgid ""
 "The list of addresses that will NOT have their images blocked by default "
-"(enter each address on a new line):"
+"(enter each address on a new line)"
 msgstr "デフォルトで画像をブロックしないアドレスの一覧（１行に１アドレス）"
 
-#: lib/Ajax/Application.php:279
+#: lib/Ajax/Application/Handler/Dynamic.php:192
 #, php-format
 msgid "The mailbox \"%s\" is already empty."
 msgstr "メールボックス \"%s\" は既に空です。"
 
-#: folders.php:227 lib/Mailbox.php:836
+#: folders.php:237 lib/Mailbox.php:840
 #, php-format
 msgid "The mailbox \"%s\" may not be deleted."
 msgstr "メールボックス \"%s\" は削除されていないかもしれません。"
 
-#: folders.php:234 lib/Ajax/Application.php:273
+#: folders.php:244 lib/Ajax/Application/Handler/Dynamic.php:186
 #, php-format
 msgid "The mailbox \"%s\" may not be emptied."
 msgstr "メールボックス \"%s\" は空ではないでしょう。"
 
-#: lib/Mailbox.php:876
+#: lib/Mailbox.php:880
 #, php-format
 msgid "The mailbox \"%s\" may not be renamed."
 msgstr "メールボックス \"%s\" の名前は変更されていないかもしれません。"
 
-#: lib/Mailbox.php:774
+#: lib/Mailbox.php:778
 #, php-format
 msgid "The mailbox \"%s\" was not created. This is what the server said"
 msgstr "メールボックス \"%s\" を作成できませんでした。サーバからの応答:"
 
-#: lib/Mailbox.php:845
+#: lib/Mailbox.php:849
 #, php-format
 msgid "The mailbox \"%s\" was not deleted. This is what the server said"
 msgstr "メールボックス \"%s\" は削除できませんでした。サーバからの応答:"
 
-#: lib/Mailbox.php:778
+#: lib/Mailbox.php:782
 #, php-format
 msgid "The mailbox \"%s\" was successfully created."
 msgstr "メールボックス \"%s\" が作成されました。"
 
-#: lib/Mailbox.php:842
+#: lib/Mailbox.php:846
 #, php-format
 msgid "The mailbox \"%s\" was successfully deleted."
 msgstr "メールボックス \"%s\" が削除されました。"
 
-#: lib/Mailbox.php:890
+#: lib/Mailbox.php:894
 #, php-format
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
 msgstr "メールボックス \"%s\" の名前が \"%s\" に変更されました。"
 
-#: lib/Message.php:791
+#: lib/Message.php:797
 #, php-format
 msgid "The mailbox %s is already empty."
 msgstr "メールボックス %s は既に空です。"
@@ -4893,15 +4746,15 @@ msgstr "メッセージ \"%s\" は無害として報告されました。"
 msgid "The message \"%s\" has been reported as spam."
 msgstr "メッセージ \"%s\" は SPAM として報告されました。"
 
-#: contacts.php:96
+#: contacts.php:104
 msgid "The message being composed has been closed."
 msgstr "作成中のメッセージは閉じられました。"
 
-#: compose.php:732 lib/Smartmobile.php:171
+#: compose.php:717 lib/Smartmobile.php:167
 msgid "The message does not have a Subject entered."
 msgstr "メッセージの件名が入力されていません。"
 
-#: lib/Dynamic/Compose/Common.php:231
+#: lib/Dynamic/Compose/Common.php:233
 msgid "The message does not have a subject entered."
 msgstr "メッセージの件名が入力されていません。"
 
@@ -4919,7 +4772,7 @@ msgstr "\"%s\" からのメッセージは SPAM として報告されました�
 msgid "The message has been deleted."
 msgstr "メッセージは削除されました。"
 
-#: lib/Compose.php:3112
+#: lib/Compose.php:3046
 msgid ""
 "The message you were composing has been saved as a draft. The next time you "
 "login, you may resume composing your message."
@@ -4939,12 +4792,12 @@ msgstr "表示する未読メッセージの数"
 msgid "The recipient has indicated that they prefer replies in these languages"
 msgstr "受信者はこれらの言語で返信されることを望んでいます"
 
-#: templates/imp/compose/compose.html:175
+#: templates/basic/compose/compose.html.php:187
 msgid ""
 "The recipient has indicated that they prefer replies in these languages:"
 msgstr "受信者はこれらの言語で返信されることを望んでいます："
 
-#: message.php:660
+#: message.php:801
 msgid ""
 "The sender of this message is requesting a notification from you when you "
 "have read this message."
@@ -4952,7 +4805,7 @@ msgstr ""
 "このメールの送信者は、あなたがこのメッセージを読んだ際に通知してくれることを"
 "要求しています。"
 
-#: lib/Ajax/Application/ShowMessage.php:256
+#: lib/Ajax/Application/ShowMessage.php:248
 msgid ""
 "The sender of this message is requesting notification from you when you have "
 "read this message."
@@ -4960,11 +4813,11 @@ msgstr ""
 "このメールの送信者は、あなたがこのメッセージを読んだ際に通知してくれることを"
 "要求しています。"
 
-#: lib/Dynamic/Mailbox.php:471
+#: lib/Dynamic/Mailbox.php:481
 msgid "The server is still generating the message list."
 msgstr "サーバはメッセージ一覧を作成中です。"
 
-#: lib/Dynamic/Mailbox.php:472
+#: lib/Dynamic/Mailbox.php:482
 msgid "The server was unable to generate the message list."
 msgstr "サーバはメッセージ一覧を作成中できませんでした。"
 
@@ -4990,11 +4843,11 @@ msgstr "目的のディレクトリは読み出し専用です。"
 msgid "The task has been added to your tasklist."
 msgstr "タスクはあなたのタスク表に追加されました。"
 
-#: lib/Compose.php:638
+#: lib/Compose.php:629
 msgid "The template has been saved."
 msgstr "テンプレートは保存されました。"
 
-#: lib/Compose.php:635
+#: lib/Compose.php:626
 msgid "The template was not successfully saved."
 msgstr "テンプレートは正常に保存されませんでした。"
 
@@ -5025,11 +4878,11 @@ msgstr "送信したメールの内容"
 msgid "The text of the sent message can be viewed %s."
 msgstr "送信したメールの内容は %s で表示できます。"
 
-#: lib/Mailbox.php:1314
+#: lib/Mailbox.php:1318
 msgid "The uploaded file cannot be opened."
 msgstr "アップロードされたファイルが開けませんでした。"
 
-#: lib/Ajax/Imple/ItipRequest.php:199 lib/Mime/Viewer/Itip.php:201
+#: lib/Ajax/Imple/ItipRequest.php:199 lib/Mime/Viewer/Itip.php:198
 msgid "The user's free/busy information was sucessfully stored."
 msgstr "予定情報は保存されました。"
 
@@ -5037,11 +4890,12 @@ msgstr "予定情報は保存されました。"
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "インライン表示可能な代替パートはありません。"
 
-#: lib/Dynamic/Mailbox.php:485 templates/imp/mailbox/empty_mailbox.html:6
+#: lib/Dynamic/Mailbox.php:496
+#: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "このメールボックスにはメールはありません。"
 
-#: lib/Contents.php:1431
+#: lib/Contents.php:1439
 msgid "There are no parts that can be shown inline."
 msgstr "インライン表示できるパートはありません。"
 
@@ -5056,7 +4910,7 @@ msgid ""
 "server said"
 msgstr "\"%s\" を \"%s\" にコピー中にエラーが発生しました。サーバからの応答： "
 
-#: lib/Message.php:189
+#: lib/Message.php:190
 #, php-format
 msgid "There was an error deleting messages from the mailbox \"%s\"."
 msgstr "メールボックス \"%s\" からメッセージを削除中にエラーが起きました。"
@@ -5066,13 +4920,13 @@ msgstr "メールボックス \"%s\" からメッセージを削除中にエラ�
 msgid "There was an error deleting the event: %s"
 msgstr "イベント削除中にエラーが発生しました：%s"
 
-#: lib/Message.php:638
+#: lib/Message.php:644
 #, php-format
 msgid "There was an error flagging messages in the mailbox \"%s\": %s."
 msgstr ""
 "メールボックス \"%s\" のメッセージに印を付ける時にエラーが発生しました：%s"
 
-#: lib/Ui/Folder.php:144
+#: lib/Ui/Folder.php:142
 #, php-format
 msgid "There was an error importing %s."
 msgstr "%s をインポート中にエラーが発生しました。"
@@ -5087,7 +4941,7 @@ msgstr "イベントをインポート中にエラーが発生しました：%s"
 msgid "There was an error importing the task: %s"
 msgstr "タスクをインポート中にエラーが発生しました：%s"
 
-#: lib/Ajax/Imple/ItipRequest.php:202 lib/Mime/Viewer/Itip.php:203
+#: lib/Ajax/Imple/ItipRequest.php:202 lib/Mime/Viewer/Itip.php:200
 #, php-format
 msgid "There was an error importing user's free/busy information: %s"
 msgstr "予定情報をインポート中にエラーが発生しました：%s"
@@ -5099,12 +4953,12 @@ msgid ""
 "server said"
 msgstr "\"%s\" を \"%s\" に移動中にエラーが発生しました。サーバからの応答： "
 
-#: lib/Compose.php:842
+#: lib/Compose.php:832
 #, php-format
 msgid "There was an error sending your message: %s"
 msgstr "メールの送信中にエラーが発生しました: %s"
 
-#: lib/Ajax/Imple/ItipRequest.php:116 lib/Mime/Viewer/Itip.php:324
+#: lib/Ajax/Imple/ItipRequest.php:116 lib/Mime/Viewer/Itip.php:321
 #, php-format
 msgid "There was an error updating the event: %s"
 msgstr "イベントの更新中にエラーが発生しました：%s"
@@ -5123,7 +4977,7 @@ msgstr "要求されたメッセージの表示中にエラーが発生しまし
 #: lib/Ajax/Imple/ItipRequest.php:101 lib/Ajax/Imple/ItipRequest.php:119
 #: lib/Ajax/Imple/ItipRequest.php:191 lib/Ajax/Imple/ItipRequest.php:205
 #: lib/Ajax/Imple/ItipRequest.php:231 lib/Ajax/Imple/ItipRequest.php:237
-#: lib/Ajax/Imple/ItipRequest.php:293 lib/Ajax/Imple/ItipRequest.php:409
+#: lib/Ajax/Imple/ItipRequest.php:293 lib/Ajax/Imple/ItipRequest.php:411
 msgid "This action is not supported."
 msgstr "この操作はサポートされていません。"
 
@@ -5140,7 +4994,7 @@ msgstr "これが添付された PDF ファイルのサムネイルです。"
 msgid "This is a thumbnail of an image attachment."
 msgstr "これが添付された画像のサムネイルです。"
 
-#: lib/Message.php:184 lib/Message.php:626
+#: lib/Message.php:185 lib/Message.php:632
 msgid "This mailbox is read-only."
 msgstr "このメールボックスは読み出し専用です。"
 
@@ -5158,7 +5012,7 @@ msgid "This message contains a Macintosh file (named \"%s\")."
 msgstr ""
 "このメッセージには Macintosh のファイルが含まれています（名前は ¥\"%s¥\"）。"
 
-#: lib/Contents.php:530
+#: lib/Contents.php:537
 msgid "This message part cannot be viewed because it is too large."
 msgstr "本文は大きすぎるので表示できません。"
 
@@ -5177,7 +5031,7 @@ msgstr ""
 "このメッセージにはHTMLデータが含まれていますが、インラインで表示可能ではあり"
 "ません。"
 
-#: lib/Smartmobile.php:94 message.php:495
+#: lib/Smartmobile.php:94 message.php:511
 msgid "This message to"
 msgstr "メールの行先"
 
@@ -5195,31 +5049,33 @@ msgstr "このパートは空です。"
 msgid "This video file is reported to be %d minutes, %d seconds in length."
 msgstr "このビデオファイルは長さが %d 分 %d 秒だと報告されました。"
 
-#: config/prefs.php:1610 lib/Dynamic/Mailbox.php:254
+#: config/prefs.php:1599 lib/Dynamic/Mailbox.php:252
 msgid "Thread"
 msgstr "スレッド"
 
-#: templates/imp/thread/thread.html:2
-msgid "Thread Display:"
-msgstr "スレッド表示："
+#: templates/basic/thread/thread.html.php:2
+msgid "Thread Display"
+msgstr "スレッド表示"
 
 #: thread.php:128
 msgid "Thread List"
 msgstr "スレッド一覧"
 
-#: lib/Dynamic/Mailbox.php:261
+#: lib/Dynamic/Mailbox.php:259
 msgid "Thread Sort"
 msgstr "スレッド順"
 
-#: thread.php:174
+#: thread.php:178
 msgid "Thread View"
 msgstr "スレッド表示"
 
-#: compose.php:764 lib/Compose.php:2232 lib/Dynamic/Mailbox.php:191
-#: lib/Dynamic/Mailbox.php:252 lib/Ui/Message.php:28 mailbox.php:641
-#: search.php:52 templates/dynamic/compose.html.php:87
-#: templates/dynamic/mailbox.html.php:127
-#: templates/imp/contacts/contacts.html:41
+#: lib/Compose.php:2222 lib/Dynamic/Mailbox.php:189
+#: lib/Dynamic/Mailbox.php:250 lib/Ui/Message.php:27 mailbox.php:717
+#: search.php:53 templates/basic/compose/redirect.html.php:32
+#: templates/basic/thread/thread.html.php:19
+#: templates/contacts/contacts.html.php:41
+#: templates/dynamic/compose.html.php:87
+#: templates/dynamic/mailbox.html.php:124
 msgid "To"
 msgstr "To"
 
@@ -5228,38 +5084,33 @@ msgstr "To"
 msgid "To %s"
 msgstr "To %s"
 
-#: config/prefs.php:1607
+#: config/prefs.php:1596
 msgid "To Address"
 msgstr "宛先"
 
-#: lib/Dynamic/Base.php:146 message.php:554
+#: lib/Dynamic/Base.php:148
 msgid "To All"
 msgstr "全員へ"
 
-#: lib/Dynamic/Base.php:147 message.php:546
+#: lib/Dynamic/Base.php:149
 msgid "To List"
 msgstr "リストへ"
 
-#: lib/Dynamic/Base.php:145 message.php:543
+#: lib/Dynamic/Base.php:147 message.php:584
 msgid "To Sender"
 msgstr "送信者へ"
 
-#: message.php:554
+#: message.php:603
 msgid "To _All"
 msgstr "_A全員へ"
 
-#: message.php:546
+#: message.php:591
 msgid "To _List"
 msgstr "_Lリストへ"
 
-#: templates/dynamic/mailbox.html.php:178
-msgid "To preview a message, select it from the message list."
-msgstr "メッセージをプレビューするには、一覧から選択します。"
-
-#: lib/Ui/Mailbox.php:68 templates/dynamic/redirect.html.php:14
-#: templates/smartmobile/compose.html.php:11
-#: templates/smartmobile/compose.html.php:25 thread.php:112 thread.php:113
-#: templates/imp/thread/thread.html:19
+#: lib/Ui/Mailbox.php:67 templates/dynamic/redirect.html.php:14
+#: templates/smartmobile/compose.html.php:7
+#: templates/smartmobile/compose.html.php:21 thread.php:112 thread.php:113
 msgid "To:"
 msgstr "To:"
 
@@ -5267,13 +5118,12 @@ msgstr "To:"
 msgid "To: "
 msgstr "To： "
 
-#: lib/Ui/Message.php:176
+#: lib/Ui/Message.php:177
 #, php-format
 msgid "Today, %s %s"
 msgstr "今日、%s %s"
 
-#: config/prefs.php:571 templates/smartmobile/mailbox.html.php:21
-#: templates/smartmobile/message.html.php:27
+#: config/prefs.php:569
 msgid "Top"
 msgstr "最も上"
 
@@ -5281,175 +5131,177 @@ msgstr "最も上"
 msgid "Total"
 msgstr "合計"
 
-#: templates/imp/compose/compose.html:298
-msgid "Total Size:"
-msgstr "合計サイズ:"
+#: templates/basic/compose/compose.html.php:314
+msgid "Total Size"
+msgstr "合計サイズ"
 
-#: lib/Mailbox.php:1638 lib/Mailbox.php:1718
+#: lib/Mailbox.php:1642 lib/Mailbox.php:1722
 msgid "Trash"
 msgstr "ゴミ箱"
 
-#: lib/Prefs/Special/Trash.php:40
+#: templates/prefs/trash.html.php:3
 msgid "Trash mailbox:"
 msgstr "ゴミ箱メールボックス："
 
-#: templates/imp/search/search.html:93
-msgid "Type:"
-msgstr "種類:"
+#: templates/search/search.html.php:90
+msgid "Type"
+msgstr "種類"
 
 #: lib/Quota/Command.php:90 lib/Quota/Hook.php:40 lib/Quota/Imap.php:50
-#: lib/Quota/Maildir.php:60 lib/Quota/Mdaemon.php:63
+#: lib/Quota/Maildir.php:60 lib/Quota/Mdaemon.php:62
 #: lib/Quota/Mercury32.php:68
 msgid "Unable to retrieve quota"
 msgstr "クォータが取得できません"
 
-#: templates/dynamic/mailbox.html.php:202
+#: templates/dynamic/mailbox.html.php:177
 msgid "Unable to view message in preview pane."
 msgstr "プレビュー領域ではメッセージは表示できません。"
 
-#: lib/Dynamic/Mailbox.php:316 lib/Dynamic/Mailbox.php:399
-#: lib/Minimal/Message.php:227 mailbox.php:570 message.php:528
+#: lib/Dynamic/Mailbox.php:313 lib/Dynamic/Mailbox.php:402
+#: lib/Minimal/Message.php:227 message.php:556
 #: templates/minimal/mailbox.html.php:37
 msgid "Undelete"
 msgstr "削除取り消し"
 
-#: lib/Ajax/Application/ShowMessage.php:421 lib/Ui/Mailbox.php:74
-#: lib/Ui/Message.php:362
+#: lib/Ajax/Application/ShowMessage.php:415 lib/Ui/Mailbox.php:73
+#: lib/Ui/Message.php:360
 msgid "Undisclosed Recipients"
 msgstr "未公開の宛先"
 
-#: lib/Mime/Viewer/Itip.php:134
+#: lib/Mime/Viewer/Itip.php:131
 #, php-format
 msgid "Unhandled component of type: %s"
 msgstr "扱えない形式です：%s"
 
-#: lib/Mime/Viewer/Itip.php:594
+#: lib/Mime/Viewer/Itip.php:591
 msgid "Unknown"
 msgstr "不明"
 
-#: lib/Ui/Mailbox.php:151
+#: lib/Ui/Mailbox.php:150
 msgid "Unknown Date"
 msgstr "不明な日付"
 
-#: lib/Mime/Viewer/Itip.php:371
+#: lib/Mime/Viewer/Itip.php:368
 msgid "Unknown Meeting"
 msgstr "不明な会議"
 
-#: lib/Mime/Viewer/Itip.php:497
+#: lib/Mime/Viewer/Itip.php:494
 msgid "Unknown Task"
 msgstr "不明なタスク"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:54
-#: lib/Prefs/Special/SmimePrivateKey.php:47
+#: lib/Prefs/Special/SmimePrivateKey.php:51
 msgid "Unload Passphrase"
 msgstr "パスフレーズを解除"
 
-#: lib/Dynamic/Mailbox.php:308 lib/Dynamic/Mailbox.php:392
+#: lib/Dynamic/Mailbox.php:305 lib/Dynamic/Mailbox.php:395
 msgid "Unmark as"
 msgstr "印を消す"
 
-#: templates/imp/mailbox/navbar.html:56
-#: templates/imp/message/navbar_navigate.html:24
+#: templates/basic/mailbox/navbar.html.php:48
+#: templates/basic/message/navbar_navigate.html.php:34
 msgid "Unmark as:"
 msgstr "印を消す："
 
-#: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:243
+#: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:241
 #: lib/Flag/System/Unseen.php:39
 msgid "Unseen"
 msgstr "未読"
 
-#: lib/Dynamic/Mailbox.php:356 templates/imp/folders/actions.html:29
+#: lib/Dynamic/Mailbox.php:359 templates/basic/folders/actions.html.php:33
 msgid "Unsubscribe"
 msgstr "未購読"
 
-#: templates/imp/compose/compose.html:275
+#: templates/basic/compose/compose.html.php:291
 msgid "Update"
 msgstr "更新"
 
-#: lib/Mime/Viewer/Itip.php:288 lib/Mime/Viewer/Itip.php:336
+#: lib/Mime/Viewer/Itip.php:285 lib/Mime/Viewer/Itip.php:333
 msgid "Update in my calendar"
 msgstr "私の予定表を更新"
 
-#: lib/Mime/Viewer/Itip.php:327
+#: lib/Mime/Viewer/Itip.php:324
 msgid "Update respondent status"
 msgstr "回答者の状況を更新"
 
-#: lib/Mime/Viewer/Itip.php:303
+#: lib/Mime/Viewer/Itip.php:300
 msgid "Update this event on my calendar"
 msgstr "私の予定表のイベントを更新"
 
-#: templates/pgp/import_key.html:62 templates/smime/import_key.html:48
-msgid "Upload:"
-msgstr "アップロード："
+#: templates/pgp/import_key.html.php:59 templates/smime/import_key.html.php:47
+msgid "Upload"
+msgstr "アップロード"
 
-#: lib/Dynamic/Compose/Common.php:236
+#: lib/Dynamic/Compose/Common.php:238
 msgid "Uploading..."
 msgstr "アップロード中..."
 
-#: templates/prefs/sentmail.html:8
+#: templates/prefs/sentmail.html.php:8
 msgid "Use Default Value"
 msgstr "デフォルトを使用"
 
-#: config/prefs.php:1760
+#: config/prefs.php:1738
 msgid "Use IMAP mailbox subscriptions?"
 msgstr "IMAP メールボックスの購読を使用しますか？"
 
-#: lib/Dynamic/Mailbox.php:298 templates/dynamic/mailbox.html.php:51
-#: templates/dynamic/mailbox.html.php:103
+#: lib/Dynamic/Mailbox.php:296 templates/dynamic/mailbox.html.php:48
+#: templates/dynamic/mailbox.html.php:100
 msgid "Use Template"
 msgstr "テンプレートを使用"
 
-#: templates/prefs/trash.html:9
+#: templates/prefs/trash.html.php:9
 msgid "Use Virtual Trash"
 msgstr "仮想フォルダを使用"
 
-#: config/prefs.php:743
+#: config/prefs.php:721
 msgid "Use the charset of the original message when replying?"
 msgstr "返信時に元のメッセージの文字セットを使用しますか？"
 
-#: templates/prefs/acl.html:12
+#: templates/prefs/acl.html.php:12
 msgid "User"
 msgstr "ユーザ"
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:489
 msgid "User Options"
 msgstr "ユーザオプション"
 
-#: lib/Imap/Acl.php:127
+#: lib/Imap/Acl.php:154
 msgid "User can see the mailbox"
 msgstr "メールボックスを閲覧可能"
 
-#: lib/Application.php:452
+#: lib/Application.php:497
 msgid "User is not authenticated."
 msgstr "ユーザーは認証されていません。"
 
-#: lib/Dynamic/Base.php:177
+#: lib/Dynamic/Base.php:179
 msgid "Verifying..."
 msgstr "検証中 ..."
 
-#: lib/Dynamic/Mailbox.php:388
+#: lib/Dynamic/Mailbox.php:391
 msgid "Vertical Layout"
 msgstr "縦方向の配置"
 
-#: lib/Contents.php:1273
+#: lib/Contents.php:1281
 msgid "Video part"
 msgstr "ビデオパート"
 
-#: templates/minimal/message.html.php:19 templates/prefs/pgpprivatekey.html:19
-#: templates/prefs/pgpprivatekey.html:30 templates/prefs/pgppublickey.html:13
-#: templates/prefs/smimeprivatekey.html:19
-#: templates/prefs/smimeprivatekey.html:27
-#: templates/prefs/smimepublickey.html:13
+#: templates/minimal/message.html.php:19
+#: templates/prefs/pgpprivatekey.html.php:21
+#: templates/prefs/pgpprivatekey.html.php:35
+#: templates/prefs/pgppublickey.html.php:20
+#: templates/prefs/smimeprivatekey.html.php:21
+#: templates/prefs/smimeprivatekey.html.php:31
+#: templates/prefs/smimepublickey.html.php:22
 msgid "View"
 msgstr "表示"
 
-#: lib/Contents.php:767 lib/Contents.php:924 lib/Mime/Viewer/Zip.php:99
+#: lib/Contents.php:775 lib/Contents.php:932 lib/Mime/Viewer/Zip.php:99
 #, php-format
 msgid "View %s"
 msgstr "%s を表示"
 
-#: lib/Prefs/Special/PgpPublicKey.php:55
-#: lib/Prefs/Special/SmimePublicKey.php:55
+#: lib/Prefs/Special/PgpPublicKey.php:59
+#: lib/Prefs/Special/SmimePublicKey.php:56
 #, php-format
 msgid "View %s Public Key"
 msgstr "%s の公開鍵を表示"
@@ -5471,11 +5323,11 @@ msgstr "全文表示"
 msgid "View HTML data in new window."
 msgstr "HTML データを別ウインドウで表示。"
 
-#: lib/Dynamic/Mailbox.php:300
+#: lib/Dynamic/Mailbox.php:298
 msgid "View Message"
 msgstr "メッセージ閲覧"
 
-#: mailbox.php:625
+#: mailbox.php:700
 msgid "View Messages"
 msgstr "メール表示"
 
@@ -5484,26 +5336,22 @@ msgid "View PDF File"
 msgstr "PDF ファイルを閲覧"
 
 #: lib/Prefs/Special/PgpPrivateKey.php:65
-#: lib/Prefs/Special/SmimePrivateKey.php:58
+#: lib/Prefs/Special/SmimePrivateKey.php:62
 msgid "View Personal Private Key"
 msgstr "個人の秘密鍵を表示"
 
-#: lib/Prefs/Special/SmimePrivateKey.php:43
+#: lib/Prefs/Special/SmimePrivateKey.php:44
 msgid "View Personal Public Certificate"
 msgstr "個人の公開鍵を表示"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:48
+#: lib/Prefs/Special/PgpPrivateKey.php:43
 msgid "View Personal Public Key"
 msgstr "個人の公開鍵を表示"
 
-#: lib/Dynamic/Mailbox.php:319 lib/Dynamic/Mailbox.php:416
+#: lib/Dynamic/Mailbox.php:316 lib/Dynamic/Mailbox.php:426
 #: templates/dynamic/message.html.php:43
 msgid "View Source"
 msgstr "ソースを閲覧"
-
-#: message.php:571
-msgid "View Thread"
-msgstr "スレッド表示"
 
 #: lib/Mime/Viewer/Smime.php:306
 msgid "View certificate details."
@@ -5514,16 +5362,16 @@ msgstr "証明書の詳細を表示"
 msgid "View event"
 msgstr "イベントを表示"
 
-#: lib/Mime/Viewer/Pgp.php:363
+#: lib/Mime/Viewer/Pgp.php:362
 msgid "View key details."
 msgstr "鍵の詳細を表示"
 
-#: mailbox.php:767
+#: mailbox.php:850
 #, php-format
 msgid "View messages in %s"
 msgstr "%s 中のメッセージを表示"
 
-#: lib/Prefs/Special/InitialPage.php:47
+#: templates/prefs/initialpage.html.php:3
 msgid "View or mailbox to display after login:"
 msgstr "ログイン後の表示："
 
@@ -5531,37 +5379,37 @@ msgstr "ログイン後の表示："
 msgid "View task"
 msgstr "タスク表示"
 
-#: config/prefs.php:1033
+#: config/prefs.php:1025
 msgid "Viewing"
 msgstr "表示"
 
-#: mailbox.php:373 mailbox.php:374 templates/imp/search/search.html:97
-#: templates/prefs/searches.html:8
+#: mailbox.php:366 mailbox.php:367 templates/prefs/searches.html.php:8
+#: templates/search/search.html.php:94
 msgid "Virtual Folder"
 msgstr "仮想フォルダ"
 
-#: search.php:308
+#: search.php:309
 #, php-format
 msgid "Virtual Folder \"%s\" created succesfully."
 msgstr "仮想フォルダ \"%s\" が作成されました。"
 
-#: lib/Prefs/Special/Searches.php:119
+#: lib/Prefs/Special/Searches.php:123
 #, php-format
 msgid "Virtual Folder \"%s\" deleted."
 msgstr "仮想フォルダ \"%s\" が削除されました。"
 
-#: search.php:305
+#: search.php:306
 #, php-format
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr "仮想フォルダ \"%s\" が編集されました。"
 
-#: lib/Dynamic/Mailbox.php:484
+#: lib/Dynamic/Mailbox.php:495
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr "仮想フォルダ： %s"
 
-#: lib/Dynamic/Mailbox.php:268 lib/Mailbox.php:1576
-#: templates/imp/flist/flist.html:21
+#: lib/Dynamic/Mailbox.php:266 lib/Mailbox.php:1580
+#: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr "仮想フォルダ"
 
@@ -5577,11 +5425,11 @@ msgstr "仮想ゴミ箱"
 msgid "WARNING"
 msgstr "＊警告＊"
 
-#: lib/Contents.php:533 lib/Mime/Status.php:73
+#: lib/Contents.php:540 lib/Mime/Status.php:73
 msgid "Warning"
 msgstr "警告"
 
-#: config/prefs.php:636
+#: config/prefs.php:620
 msgid ""
 "What language(s) do you prefer replies to your messages to be in? (Hold down "
 "the CTRL key when clicking to add multiple languages)"
@@ -5589,16 +5437,15 @@ msgstr ""
 "あなたのメッセージへの返信には、どの言語を望みますか？（複数の言語を選択する"
 "にはCTRLキイを押しながらクリックします）"
 
-#: config/prefs.php:1406
-msgid ""
-"What should we do with messages after they have been reported as innocent?"
+#: config/prefs.php:1395
+msgid "What to do with messages after they have been reported as innocent?"
 msgstr "メッセージを無害と報告した後で何をしますか？"
 
-#: config/prefs.php:1384
-msgid "What should we do with messages after they have been reported as spam?"
+#: config/prefs.php:1373
+msgid "What to do with messages after they have been reported as spam?"
 msgstr "メッセージを SPAM と報告した後で何をしますか？"
 
-#: config/prefs.php:1255
+#: config/prefs.php:1242
 msgid ""
 "When deleting messages, move them to your Trash mailbox instead of marking "
 "them as deleted?"
@@ -5606,71 +5453,70 @@ msgstr ""
 "メッセージを削除した時、削除という印を付けるのではなく、ゴミ箱メールボックス"
 "に移動しますか？"
 
-#: config/prefs.php:817
+#: config/prefs.php:795
 msgid ""
-"When forwarding a message in the body text, should we use the same format as "
-"the original message?"
+"When forwarding a message in the body text, should the same format as the "
+"original message be used?"
 msgstr "メッセージを本文に含めて転送する時、元の形式と同じ形式にしますか？"
 
-#: config/prefs.php:1592
+#: config/prefs.php:1581
 msgid "When opening a mailbox for the first time, where do you want to start?"
 msgstr "新しいメールボックスを開いた時、どこから開始しますか？"
 
-#: config/prefs.php:737
+#: config/prefs.php:715
 msgid ""
-"When replying to a message, should we use the same format as the original "
-"message?"
+"When replying to a message, use the same format as the original message?"
 msgstr "メッセージの返信時、元の形式と同じ形式にしますか？"
 
-#: config/prefs.php:599
-msgid "When saving sent mail, should we save attachment data?"
-msgstr "送信控えを保存する際、添付も保存しますか？"
-
-#: config/prefs.php:556
+#: config/prefs.php:554
 msgid ""
-"When sending mail or expanding addresses, what domain should we append to "
+"When sending mail or expanding addresses, what domain should be appended to "
 "unqualified addresses (email addresses without \"@\")?"
 msgstr ""
 "メール送信時やアドレス展開時にドメインが省略されていた場合に補完するドメイン"
 "名は？"
 
-#: config/prefs.php:574
+#: config/prefs.php:572
 msgid "Where should the cursor be located in the compose text area by default?"
 msgstr "メール作成画面でカーソルを本文のどの位置におきますか？"
 
-#: config/prefs.php:1153
+#: config/prefs.php:1145
 msgid "Which message parts do you want to display in the summary?"
 msgstr "サマリー表示ではメッセージのどのパートを表示しますか？"
 
-#: lib/Dynamic/Mailbox.php:314 lib/Dynamic/Mailbox.php:395 mailbox.php:607
-#: message.php:579
+#: lib/Dynamic/Mailbox.php:311 lib/Dynamic/Mailbox.php:398
 msgid "Whitelist"
 msgstr "ホワイトリスト"
 
-#: templates/imp/search/search.html:124
+#: templates/prefs/acl.html.php:42 templates/prefs/acl.html.php:77
+msgid "Write"
+msgstr "書く"
+
+#: templates/search/search.html.php:121
 msgid "Years"
 msgstr "年"
 
-#: config/prefs.php:1772 lib/IMP.php:85 templates/imp/compose/compose.html:285
+#: config/prefs.php:1750 lib/IMP.php:81
+#: templates/basic/compose/compose.html.php:301
 msgid "Yes"
 msgstr "はい"
 
+#: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:152
-#: templates/imp/compose/compose.html:147
 msgid "You are"
 msgstr "あなたは"
 
-#: templates/imp/folders/folders_confirm.html:11
+#: templates/basic/folders/folders_confirm.html.php:13
 msgid ""
 "You are attempting to delete all messages contained in the following mailbox"
 "(es)."
 msgstr "次のメールボックス内の全てのメッセージを削除しようとしています。"
 
-#: templates/imp/folders/folders_confirm.html:10
+#: templates/basic/folders/folders_confirm.html.php:11
 msgid "You are attempting to delete the following mailbox(es)."
 msgstr "次のメールボックスを削除しようとしています。"
 
-#: lib/IMP.php:82
+#: lib/IMP.php:78
 msgid "You are copying/moving to a new mailbox."
 msgstr "新しいメールボックスにコピー／移動しようとしています。"
 
@@ -5682,28 +5528,28 @@ msgstr "次フォルダのサブフォルダを作成しています"
 msgid "You are creating a top-level mailbox."
 msgstr "最上位のメールボックスを作成しています。"
 
-#: lib/Mailbox.php:747
+#: lib/Mailbox.php:751
 msgid "You are not allowed to create mailboxes."
 msgstr "あなたはメールボックスを作成できません。"
 
-#: lib/Mailbox.php:755
+#: lib/Mailbox.php:759
 #, php-format
 msgid "You are not allowed to create more than %d mailboxes."
 msgstr "あなたは %d 個以上のメールボックスを作成できません。"
 
-#: lib/Compose.php:1116
+#: lib/Compose.php:1106
 #, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
 msgstr "あなたは %2$d 時間内に %1$d 人以上にメールを送信できません。"
 
-#: lib/Compose.php:1123
+#: lib/Compose.php:1113
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
 msgstr "あなたは %d 人以上にメールを送信できません。"
 
-#: lib/Message.php:225
+#: lib/Message.php:226
 msgid ""
 "You are over your quota, so your messages will be permanently deleted "
 "instead of moved to the Trash mailbox."
@@ -5715,32 +5561,36 @@ msgstr ""
 msgid "You are renaming the mailbox:"
 msgstr "フォルダの名前を変更しています："
 
+#: templates/basic/compose/compose.html.php:173
 #: templates/dynamic/compose.html.php:156
-#: templates/imp/compose/compose.html:161
 msgid "You are replying to a mailing list"
 msgstr "あなたはメーリングリストに返信しています"
 
-#: lib/Mailbox.php:915
+#: lib/Mailbox.php:919
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "\"%s\" の購読を解除できません。"
 
-#: lib/Prefs/Special/Acl.php:45
+#: lib/Prefs/Special/Acl.php:40
 msgid "You do not have permission to change access to this mailbox."
 msgstr "あなたにはこのメールボックスのアクセス権を変更する権限がありません。"
 
-#: lib/Maillog.php:198
+#: lib/Imap/Acl.php:69
+msgid "You do not have permission to view the ACLs on this mailbox."
+msgstr "あなたにはこのメールボックスのアクセス権を変更する権限がありません。"
+
+#: lib/Maillog.php:222
 #, php-format
 msgid "You forwarded this message on %%s to: %s."
 msgstr "あなたは %%s のメッセージを次の人に転送しました：%s"
 
-#: lib/Notification/Handler/Decorator/NewmailNotify.php:99
+#: lib/Notification/Handler/Decorator/NewmailNotify.php:106
 #, php-format
 msgid "You have %d new mail message in %s."
 msgid_plural "You have %d new mail messages in %s."
 msgstr[0] "新着メールが %d 通 %s の中にあります。"
 
-#: config/prefs.php:1260 config/prefs.php:1287
+#: config/prefs.php:1249 config/prefs.php:1276
 msgid ""
 "You have activated move to Trash but no Trash mailbox is defined. You will "
 "be unable to delete messages until you set a Trash mailbox in the "
@@ -5753,17 +5603,17 @@ msgstr ""
 msgid "You have already submitted this page."
 msgstr "あなたはこのページを既に送信しています。"
 
-#: lib/Ajax/Application.php:131
+#: lib/Ajax/Application/Handler/Dynamic.php:43
 #, php-format
 msgid "You may not create child mailboxes in \"%s\"."
 msgstr "あなたは ¥\"%s¥\" にメールボックスを作成できません。"
 
-#: lib/Ajax/Application.php:194
+#: lib/Ajax/Application/Handler/Dynamic.php:106
 #, php-format
 msgid "You may not delete \"%s\"."
 msgstr "あなたは ¥\"%s¥\" を削除できません。"
 
-#: lib/Ajax/Application.php:198
+#: lib/Ajax/Application/Handler/Dynamic.php:110
 #, php-format
 msgid "You may not rename \"%s\"."
 msgstr "あなたは \"%s\" の名前を変更できません。"
@@ -5788,113 +5638,121 @@ msgstr ""
 "このメッセージを表示するには、暗号化する際に使用されたパスフレーズを入力する"
 "必要があります。"
 
-#: lib/IMP.php:84
+#: lib/IMP.php:80
 msgid "You must select a target mailbox first."
 msgstr "目的のメールボックスを最初に選んでください。"
 
-#: contacts.php:97
+#: contacts.php:105
 msgid "You must select an address first."
 msgstr "アドレスを最初に選んでください。"
 
-#: mailbox.php:362 mailbox.php:364
+#: mailbox.php:355 mailbox.php:357
 msgid "You must select at least one message first."
 msgstr "1 つ以上のメールを最初に選んでください。"
 
-#: mailbox.php:363
+#: mailbox.php:356
 msgid "You must select only one message for this action."
 msgstr "この操作に選択できるのは１つのメッセージだけです。"
 
-#: compose.php:733
+#: compose.php:718
 msgid "You must specify a recipient."
 msgstr "宛先を指定してください。"
 
-#: lib/Maillog.php:206
+#: lib/Maillog.php:230
 #, php-format
 msgid "You redirected this message to %s on %%s."
 msgstr "%%2$s に %1$s へそのまま転送しました。"
 
-#: lib/Maillog.php:214
+#: lib/Maillog.php:238
 #, php-format
 msgid "You replied to all recipients of this message on %s."
 msgstr "あなたは %s にこのメッセージをメイリングリストに返信しました。"
 
-#: lib/Maillog.php:210
+#: lib/Maillog.php:234
 #, php-format
 msgid "You replied to this message on %s."
 msgstr "%s に返信しました。"
 
-#: lib/Maillog.php:218
+#: lib/Maillog.php:242
 #, php-format
 msgid "You replied to this message via the mailing list on %s."
 msgstr "あなたは %s にこのメッセージをメイリングリストに返信しました。"
 
-#: lib/Mailbox.php:923
+#: lib/Mailbox.php:927
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr "\"%s\" を購読していません。サーバからの応答： "
 
-#: lib/Mailbox.php:925
+#: lib/Mailbox.php:929
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr "\"%s\" の購読を解除していません。サーバからの応答： "
 
-#: lib/Mailbox.php:931
+#: lib/Mailbox.php:935
 #, php-format
 msgid "You were successfully subscribed to \"%s\"."
 msgstr "\"%s\" の購読を開始しました。"
 
-#: lib/Mailbox.php:934
+#: lib/Mailbox.php:938
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "\"%s\" の購読を解除しました。"
 
-#: lib/Search/Element/Within.php:72 search.php:88
+#: lib/Search/Element/Within.php:72 search.php:89
 msgid "Younger Than"
 msgstr "より新しい"
 
-#: templates/prefs/pgpprivatekey.html:48
-msgid "Your Name:"
-msgstr "あなたの名前："
+#: templates/prefs/pgpprivatekey.html.php:54
+msgid "Your Name"
+msgstr "あなたの名前"
 
-#: templates/prefs/pgpprivatekey.html:3
+#: templates/prefs/pgpprivatekey.html.php:4
 msgid "Your PGP Public/Private Keys"
 msgstr "あなたの PGP 公開鍵と秘密鍵"
 
-#: templates/prefs/smimeprivatekey.html:24
-msgid "Your Private Certificate:"
-msgstr "あなたの秘密証明書："
+#: templates/prefs/smimeprivatekey.html.php:27
+msgid "Your Private Certificate"
+msgstr "あなたの秘密証明書"
 
-#: templates/prefs/pgpprivatekey.html:27
-msgid "Your Private Key:"
-msgstr "あなたの秘密鍵："
+#: templates/prefs/pgpprivatekey.html.php:31
+msgid "Your Private Key"
+msgstr "あなたの秘密鍵"
 
-#: templates/prefs/smimeprivatekey.html:16
-msgid "Your Public Certificate:"
-msgstr "あなたの公開証明書："
+#: templates/prefs/smimeprivatekey.html.php:18
+msgid "Your Public Certificate"
+msgstr "あなたの公開証明書"
 
-#: templates/prefs/pgpprivatekey.html:16
-msgid "Your Public Key:"
-msgstr "あなたの公開鍵："
+#: templates/prefs/pgpprivatekey.html.php:18
+msgid "Your Public Key"
+msgstr "あなたの公開鍵"
 
 #: config/prefs.php:29
 msgid "Your Reply-to: address: <em>(optional)</em>"
 msgstr "返信先として表示されるアドレス：<em>（オプション）</em>"
 
-#: templates/prefs/smimeprivatekey.html:3
-msgid "Your S/MIME Public/Private Certificate"
-msgstr "あなたの S/MIME 公開証明書と秘密証明書"
+#: templates/prefs/smimeprivatekey.html.php:4
+msgid "Your S/MIME Personal Certificate"
+msgstr "あなたのS/MIME個人証明書"
 
 #: config/prefs.php:36
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
 msgstr "あなたの別名アドレス:<em>（オプション。１行に１アドレスを指定）</em>"
 
+#: lib/Ajax/Application/Handler/Dynamic.php:942
+msgid ""
+"Your attachment was not uploaded. Most likely, the file exceeded the maximum "
+"size allowed by the server configuration."
+msgstr ""
+"添付ファイルはアップロードされませんでした。おそらく、ファイルサイズがサー"
+"バー設定の上限を超過したのでしょう。"
+
 #: lib/Mime/Viewer/Images.php:127
 msgid "Your browser does not support inline display of this image type."
 msgstr ""
 "お使いのブラウザではこの種類の画像のインライン表示をサポートしていません"
 
-#: lib/Prefs/Special/Encrypt.php:29
+#: templates/prefs/encrypt.html.php:3
 msgid "Your default encryption method for sending messages:"
 msgstr "送信時のデフォルトの暗号方法:"
 
@@ -5907,7 +5765,7 @@ msgstr ""
 "あなたの ID は現在の受信アドレスに従って変更されました。ここをクリックすると"
 "元の ID に戻ります。ID はこのメール作成の間ではもうチェックされません。"
 
-#: compose.php:517 lib/Minimal/Compose.php:315
+#: compose.php:529 lib/Minimal/Compose.php:322
 msgid ""
 "Your identity has been switched to the identity associated with the current "
 "recipient address. The identity will not be checked again during this "
@@ -5939,130 +5797,131 @@ msgstr ""
 msgid "Your message was successfully delivered."
 msgstr "あなたのメールは配達されました。"
 
-#: templates/prefs/signaturehtml.html:2
+#: templates/prefs/signaturehtml.html.php:2
 msgid ""
 "Your signature to use when composing with the HTML editor (if empty, the "
-"text signature will be used):"
+"text signature will be used)"
 msgstr ""
-"HTML で作成する時のあなたの署名（空白ならテキスト版の署名を使用します）："
+"HTML で作成する時のあなたの署名（空白ならテキスト版の署名を使用します）"
 
 #: config/prefs.php:57
 msgid "Your signature:"
 msgstr "あなたの署名:"
 
-#: lib/Dynamic/Mailbox.php:376
+#: lib/Dynamic/Mailbox.php:379
 msgid "Zip"
 msgstr "Zip"
 
-#: lib/Message.php:520
+#: lib/Message.php:523
 #, php-format
 msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
 msgstr "[添付を取り除きました: 元の添付の型：%s、名前 %s]"
 
-#: lib/Ui/Message.php:370
+#: lib/Ui/Message.php:368
 msgid "[Hide Addresses]"
 msgstr "[アドレスを隠す]"
 
-#: lib/Ajax/Application/ShowMessage.php:232
-#: lib/Ajax/Application/ShowMessage.php:234 lib/Compose.php:2198
-#: lib/Compose.php:2543 lib/Minimal/Message.php:143 lib/Ui/Mailbox.php:181
-#: message.php:320
+#: lib/Ajax/Application/ShowMessage.php:224
+#: lib/Ajax/Application/ShowMessage.php:226 lib/Compose.php:2188
+#: lib/Compose.php:2464 lib/Minimal/Message.php:143 lib/Ui/Mailbox.php:180
+#: message.php:319
 msgid "[No Subject]"
 msgstr "[件名なし]"
 
-#: lib/Ui/Message.php:369
+#: lib/Ui/Message.php:367
 #, php-format
 msgid "[Show Addresses - %d recipients]"
 msgstr "[アドレスを表示 - %d 受信者]"
 
-#: lib/Compose.php:2891
+#: lib/Compose.php:2812
 msgid "[Truncated Text]"
 msgstr "[省略した文]"
 
-#: compose.php:846
+#: compose.php:826
 msgid "_Bcc"
 msgstr "_Bcc"
 
-#: mailbox.php:603 message.php:575
+#: mailbox.php:654 message.php:657
 msgid "_Blacklist"
 msgstr "_Bブラックリスト"
 
-#: compose.php:843
+#: compose.php:823
 msgid "_Cc"
 msgstr "_Cc"
 
-#: mailbox.php:566 message.php:530
+#: mailbox.php:587 message.php:562
 msgid "_Delete"
 msgstr "_D削除"
 
-#: lib/Application.php:243
+#: lib/Application.php:244
 msgid "_Folders"
 msgstr "_Fフォルダ"
 
-#: compose.php:824
+#: templates/basic/compose/compose.html.php:38
 msgid "_Identity"
 msgstr "_ID"
 
-#: message.php:583
+#: message.php:671
 msgid "_Message Source"
 msgstr "_Mメール原文"
 
-#: lib/IMP.php:475
+#: lib/Application.php:274
 msgid "_New Message"
 msgstr "_N新規メール"
 
-#: compose.php:867
+#: templates/basic/compose/compose.html.php:87
 msgid "_Priority"
 msgstr "_P優先度"
 
-#: folders.php:367
+#: folders.php:376
 msgid "_Refresh"
 msgstr "_R再表示"
 
-#: message.php:542
+#: message.php:579
 msgid "_Reply"
 msgstr "_R返信"
 
-#: lib/Application.php:251
+#: lib/Application.php:252
 msgid "_Search"
 msgstr "_S検索"
 
-#: compose.php:804
+#: templates/basic/compose/compose.html.php:24
+#: templates/basic/compose/compose.html.php:209
 msgid "_Send Message"
 msgstr "_S送信"
 
-#: mailbox.php:651
+#: mailbox.php:727
 msgid "_Thread"
 msgstr "_Tスレッド"
 
-#: compose.php:839 compose.php:841
+#: compose.php:821
 msgid "_To"
 msgstr "_To"
 
-#: mailbox.php:570
+#: mailbox.php:595
 msgid "_Undelete"
 msgstr "_U削除取消"
 
-#: message.php:571
+#: message.php:649
 msgid "_View Thread"
 msgstr "_Vスレッド表示"
 
-#: mailbox.php:607 message.php:579
+#: mailbox.php:662 message.php:665
 msgid "_Whitelist"
 msgstr "_Wホワイトリスト"
 
-#: lib/Notification/Handler/Decorator/NewmailNotify.php:92
-#: lib/Search/Filter.php:35 lib/Search/Query.php:254 search.php:477
+#: lib/Notification/Handler/Decorator/NewmailNotify.php:99
+#: lib/Search/Filter.php:35 lib/Search/Query.php:254 search.php:482
 msgid "and"
 msgstr "かつ"
 
-#: lib/Notification/Handler/Decorator/NewmailNotify.php:94
+#: lib/Notification/Handler/Decorator/NewmailNotify.php:101
 #, php-format
 msgid "and %d more mailbox"
 msgid_plural "and %d more mailboxes"
 msgstr[0] "メールボックスを %d 追加"
 
-#: lib/Compose.php:2263
+#: lib/Compose.php:2944
 msgid "attachment"
 msgstr "添付"
 
@@ -6070,11 +5929,11 @@ msgstr "添付"
 msgid "attachments.zip"
 msgstr "attachments.zip"
 
-#: lib/Dynamic/Mailbox.php:460
+#: lib/Dynamic/Mailbox.php:470
 msgid "base level of the folder tree"
 msgstr "フォルダツリーの基本レベル"
 
-#: templates/imp/compose/compose.html:267
+#: templates/basic/compose/compose.html.php:283
 msgid "bytes"
 msgstr "バイト"
 
@@ -6087,28 +5946,24 @@ msgstr "日"
 msgid "flagged \"%s\""
 msgstr "印 \"%s\""
 
-#: templates/dynamic/mailbox.html.php:82
-#: templates/imp/contacts/contacts.html:16
+#: templates/contacts/contacts.html.php:16
+#: templates/dynamic/mailbox.html.php:79
 msgid "from"
 msgstr "from"
 
-#: lib/Search/Query.php:269
-msgid "in"
-msgstr "in"
-
-#: templates/imp/folders/import.html:14
+#: templates/basic/folders/import.html.php:14
 msgid "into mailbox"
 msgstr "メールボックスに入れる"
 
-#: lib/Crypt/Smime.php:527 pgp.php:32 pgp.php:60
+#: lib/Crypt/Smime.php:539 pgp.php:32 pgp.php:60
 msgid "key"
 msgstr "キイ"
 
-#: lib/Ui/Folder.php:138
+#: lib/Ui/Folder.php:136
 msgid "mailbox file"
 msgstr "メールボックス・ファイル"
 
-#: templates/imp/folders/folders_confirm.html:18
+#: templates/basic/folders/folders_confirm.html.php:21
 msgid "messages"
 msgstr "メッセージ"
 
@@ -6132,7 +5987,7 @@ msgstr "添付なしメッセージ"
 msgid "months"
 msgstr "月"
 
-#: lib/Compose.php:908
+#: lib/Compose.php:898
 msgid "name"
 msgstr "名前"
 
@@ -6143,31 +5998,27 @@ msgstr "名前"
 msgid "not"
 msgstr "not"
 
-#: lib/Contents/View.php:51
+#: lib/Contents/View.php:52
 #, php-format
 msgid "part %s"
 msgstr "パート %s"
 
-#: templates/imp/compose/compose.html:147
+#: templates/basic/compose/compose.html.php:159
 msgid "recipients"
 msgstr "受信者"
 
+#: templates/basic/compose/compose.html.php:159
 #: templates/dynamic/compose.html.php:152
-#: templates/imp/compose/compose.html:147
 msgid "replying to ALL"
 msgstr "全員に返信"
 
-#: lib/Dynamic/Mailbox.php:483
+#: lib/Dynamic/Mailbox.php:493
 msgid "selected"
-msgstr "削除済"
+msgstr "選択済"
 
-#: search.php:492
+#: search.php:497
 msgid "to"
 msgstr "to"
-
-#: templates/dynamic/mailbox.html.php:181
-msgid "will display available actions."
-msgstr "使用可能な動作を表示します。"
 
 #: lib/Search/Element/Within.php:76
 msgid "years"
@@ -6180,3 +6031,7 @@ msgstr "ブラックリスト"
 #: lib/Filter.php:85
 msgid "your whitelist"
 msgstr "ホワイトリスト"
+
+# missing in pot
+msgid "Signed"
+msgstr "署名済"

@@ -9,11 +9,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde

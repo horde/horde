@@ -77,6 +77,23 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     * <code>
+     * array('name' => array('John Doe' => Turba_List, ...), ...)
+     * </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        return $this->_driver->searchDuplicates();
+    }
+
+    /**
      * Checks if the current user has the requested permissions on this
      * address book.
      *
@@ -115,6 +132,29 @@ class Turba_Driver_Share extends Turba_Driver
         }
 
         throw new Turba_Exception(_("Unable to find contact owner."));
+    }
+
+    /**
+     * Creates an object key for a new object.
+     *
+     * @param array $attributes  The attributes (in driver keys) of the
+     *                           object being added.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeKey(array $attributes)
+    {
+        return $this->_driver->_makeKey($attributes);
+    }
+
+    /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return $this->_driver->_makeUid($attributes);
     }
 
     /**

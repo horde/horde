@@ -1,5 +1,7 @@
 <form name="removeuser" action="<?php echo Horde::selfUrl() ?>" method="post">
 <input type="hidden" name="form" value="remove" />
+<input type="hidden" name="user_name" value="<?php echo htmlspecialchars($f_user_name) ?>" />
+
 <?php Horde_Util::pformInput() ?>
 
 <h1 class="header">

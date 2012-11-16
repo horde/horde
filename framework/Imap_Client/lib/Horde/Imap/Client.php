@@ -1,17 +1,25 @@
 <?php
 /**
- * Base class for Horde_Imap_Client package. Defines common constants for use
- * in the package.
- *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Base class for Horde_Imap_Client package. Defines common constants for use
+ * in the package.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client
 {
@@ -142,13 +150,15 @@ class Horde_Imap_Client
     const SPECIALUSE_SENT = '\\Sent';
     const SPECIALUSE_TRASH = '\\Trash';
 
-    /* Debugging constants. */
-    const DEBUG_RAW = 0;
-    const DEBUG_CLIENT = 1;
-    const DEBUG_INFO = 2;
-    const DEBUG_SERVER = 3;
-    // Time, in seconds, to be labeled a slow IMAP command.
-    const SLOW_COMMAND = 3;
+    /* Constants for sync(). */
+    const SYNC_UIDVALIDITY = 0;
+    const SYNC_FLAGS = 1;
+    const SYNC_FLAGSUIDS = 2;
+    const SYNC_NEWMSGS = 4;
+    const SYNC_NEWMSGSUIDS = 8;
+    const SYNC_VANISHED = 16;
+    const SYNC_VANISHEDUIDS = 32;
+    const SYNC_ALL = 64;
 
     /**
      * Capability dependencies.

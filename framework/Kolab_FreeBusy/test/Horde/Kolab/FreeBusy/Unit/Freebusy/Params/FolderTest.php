@@ -13,11 +13,6 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test retrieving the folder parameter.
  *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
@@ -37,7 +32,6 @@ extends Horde_Kolab_FreeBusy_TestCase
 {
     public function testGetFolder()
     {
-        
         $param = new Horde_Kolab_FreeBusy_Freebusy_Params_Folder(
             $this->getTestMatchDict('trigger')
         );

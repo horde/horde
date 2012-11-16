@@ -3,7 +3,6 @@
   <div id="horde-version"><?php echo $this->h($this->version) ?></div>
   <div id="horde-navigation">
 <?php echo $this->menu->getTree() ?>
-    <div class="clear"></div>
   </div>
 <?php if ($this->logoutUrl): ?>
   <div id="horde-logout"><a class="icon" href="<?php echo $this->logoutUrl ?>"></a></div>
@@ -19,11 +18,10 @@
         <input autocomplete="off" id="horde-search-input" type="text" />
       </div>
 <?php else: ?>
-      <input type="text" id="horde-search-input" name="searchfield" class="formGhost" title="<?php echo _("Search") ?>" />
+      <input type="text" id="horde-search-input" name="searchfield" class="formGhost" title="<?php echo $this->searchLabel ?>" />
 <?php endif ?>
       <input type="image" id="horde-search-icon" src="<?php echo $this->searchIcon ?>" />
     </form>
   </div>
 <?php endif ?>
-  <div class="clear"></div>
 </div>

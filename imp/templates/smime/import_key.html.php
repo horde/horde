@@ -9,7 +9,7 @@
 <?php if ($this->target == 'process_import_public_key'): ?>
     <?php echo _("Import Public S/MIME Key") ?>
 <?php else: ?>
-    <?php echo _("Import Personal S/MIME Certificates") ?>
+    <?php echo _("Import Personal S/MIME Certificate") ?>
 <?php endif; ?>
    </td>
   </tr>

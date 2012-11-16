@@ -21,7 +21,7 @@
    </div>
    <div>
     <strong><?php echo _("Remote Host") ?>:</strong>
-    <?php echo $this->h($v['remotehost']) ?>
+    <?php echo $this->h($v['remotehost']) ?> <?php echo $v['remotehostimage'] ?>
    </div>
    <div>
     <strong><?php echo _("Authenticated to") ?>:</strong>
