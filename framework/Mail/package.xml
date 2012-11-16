@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Ensure bare address is output to SMTP MAIL command.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -378,7 +378,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Ensure bare address is output to SMTP MAIL command.
    </notes>
   </release>
  </changelog>

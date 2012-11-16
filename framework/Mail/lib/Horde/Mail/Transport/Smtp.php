@@ -212,7 +212,8 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
         }
 
-        $res = $this->_smtp->mailFrom($from, ltrim($params));
+        $from_ob = new Horde_Mail_Rfc822_Address($from);
+        $res = $this->_smtp->mailFrom($from_ob->bare_address, ltrim($params));
         if ($res instanceof PEAR_Error) {
             $this->_error("Failed to set sender: $from", $res, self::ERROR_SENDER);
         }
