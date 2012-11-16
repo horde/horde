@@ -65,7 +65,7 @@ class Hermes_Application extends Horde_Registry_Application
 
     public function download(Horde_Variables $vars)
     {
-        global $notification, $browser;
+        global $notification, $browser, $injector;
 
         switch ($vars->actionID) {
         case 'export':
@@ -75,7 +75,7 @@ class Hermes_Application extends Horde_Registry_Application
                 return false;
             }
             try {
-                $hours = $GLOBALS['injector']
+                $hours = $injector
                     ->getInstance('Hermes_Driver')
                     ->getHours(array('id' => $ids));
             } catch (Hermes_Exception $e) {
@@ -85,20 +85,31 @@ class Hermes_Application extends Horde_Registry_Application
             $exportHours = Hermes::makeExportHours($hours);
             switch ($vars->f) {
             case Horde_Data::EXPORT_CSV:
-                $format = 'Csv';
+                $data = new Hermes_Data_Csv(
+                    $injector->getInstance('Horde_Core_Data_Storage'),
+                    array(
+                        'browser' => $injector->getInstance('Horde_Browser'),
+                        'vars' => Horde_Variables::getDefaultVariables()
+                    )
+                );
                 $file = 'time.csv';
                 break;
             case Horde_Data::EXPORT_TSV:
-                $format = 'Tsv';
+                $data = new Hermes_Data_Tsv(
+                    $injector->getInstance('Horde_Core_Data_Storage'),
+                    array(
+                        'browser' => $injector->getInstance('Horde_Browser'),
+                        'vars' => Horde_Variables::getDefaultVariables()
+                    )
+                );
                 $file = 'time.tsv';
+                break;
             }
 
-            $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Data')
-                ->create($format)->exportFile($file, $exportHours, true);
+            $data->exportFile($file, $exportHours, true);
 
         if ($vars->m) {
-            $GLOBALS['injector']->getInstance('Hermes_Driver')->markAs('exported', $hours);
+            $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
         }
         $GLOBALS['notification']->push(_("Export complete."), 'horde.success');
         return true;

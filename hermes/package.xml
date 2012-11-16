@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-15</date>
- <time>20:42:31</time>
+ <time>21:10:41</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -68,10 +68,10 @@
      <file name="Application.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Data">
-     <file name="Hermescsv.php" role="horde" />
-     <file name="Hermestsv.php" role="horde" />
+     <file name="Csv.php" role="horde" />
      <file name="Hermesxls.php" role="horde" />
      <file name="Iif.php" role="horde" />
+     <file name="Tsv.php" role="horde" />
     </dir> <!-- /lib/Data -->
     <dir name="Driver">
      <file name="Sql.php" role="horde" />
@@ -400,10 +400,10 @@
    <install as="hermes/lib/Table.php" name="lib/Table.php" />
    <install as="hermes/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="hermes/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
-   <install as="hermes/lib/Data/Hermescsv.php" name="lib/Data/Hermescsv.php" />
-   <install as="hermes/lib/Data/Hermestsv.php" name="lib/Data/Hermestsv.php" />
+   <install as="hermes/lib/Data/Csv.php" name="lib/Data/Csv.php" />
    <install as="hermes/lib/Data/Hermesxls.php" name="lib/Data/Hermesxls.php" />
    <install as="hermes/lib/Data/Iif.php" name="lib/Data/Iif.php" />
+   <install as="hermes/lib/Data/Tsv.php" name="lib/Data/Tsv.php" />
    <install as="hermes/lib/Driver/Sql.php" name="lib/Driver/Sql.php" />
    <install as="hermes/lib/Factory/Driver.php" name="lib/Factory/Driver.php" />
    <install as="hermes/lib/Form/Deliverable.php" name="lib/Form/Deliverable.php" />

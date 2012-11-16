@@ -1,6 +1,6 @@
 <?php
 /**
- * The Horde_Data_hermes_tsv class extends Horde's TSV Data class with
+ * The Hermes_Data_Hermescsv class extends Horde's CSV Data class with
  * Hermes-specific handling.
  *
  * See the enclosed file LICENSE for license information (BSD). If you
@@ -9,26 +9,18 @@
  * @author Chuck Hagenbuch <chuck@horde.org>
  * @package Horde_Data
  */
-class Hermes_Data_Hermestsv extends Horde_Data_Tsv
+class Hermes_Data_Csv extends Horde_Data_Csv
 {
-    protected $_mapped = false;
-
-    public function exportData($data, $header = true)
+    public function exportData(
+        $data, $header = true, $export_mapping = array())
     {
-        return parent::exportData($this->_map($data), $header);
+        return parent::exportData($this->_map($data), $header, $export_mapping);
     }
 
     protected function _map($data)
     {
-        if ($this->_mapped) {
-            return $data;
-        }
-
-        $this->_mapped = true;
-
         $count = count($data);
         for ($i = 0; $i < $count; $i++) {
-            $data[$i] = $data[$i]->toArray();
             $data[$i]['description'] = str_replace(array("\r", "\n"), array('', ' '), $data[$i]['description']);
             $data[$i]['note'] = str_replace(array("\r", "\n"), array('', ' '), $data[$i]['note']);
             $data[$i]['timestamp'] = $data[$i]['date'];
