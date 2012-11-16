@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-12</date>
- <time>15:30:19</time>
+ <date>2012-11-15</date>
+ <time>20:42:31</time>
  <version>
   <release>2.0.0</release>
   <api>2.0.0</api>
@@ -171,6 +171,7 @@
      <file name="list.inc" role="horde" />
     </dir> <!-- /templates/deliverables -->
     <dir name="dynamic">
+     <file name="export.inc" role="horde" />
      <file name="index.inc" role="horde" />
      <file name="search.inc" role="horde" />
      <file name="sidebar.html.php" role="horde" />
@@ -440,6 +441,7 @@
    <install as="hermes/migration/1_hermes_base_tables.php" name="migration/1_hermes_base_tables.php" />
    <install as="hermes/migration/2_hermes_autoincrement.php" name="migration/2_hermes_autoincrement.php" />
    <install as="hermes/templates/deliverables/list.inc" name="templates/deliverables/list.inc" />
+   <install as="hermes/templates/dynamic/export.inc" name="templates/dynamic/export.inc" />
    <install as="hermes/templates/dynamic/index.inc" name="templates/dynamic/index.inc" />
    <install as="hermes/templates/dynamic/search.inc" name="templates/dynamic/search.inc" />
    <install as="hermes/templates/dynamic/sidebar.html.php" name="templates/dynamic/sidebar.html.php" />
