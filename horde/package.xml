@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-14</date>
- <time>23:24:46</time>
+ <date>2012-11-16</date>
+ <time>11:59:33</time>
  <version>
   <release>5.0.3</release>
   <api>5.0.0</api>
@@ -76,6 +76,9 @@
      <dir name="lv">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/lv -->
+     <dir name="nl">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/nl -->
     </dir> <!-- /admin/locale -->
     <dir name="perms">
      <file name="addchild.php" role="horde" />
@@ -1896,6 +1899,7 @@
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
    <install as="admin/locale/hu/help.xml" name="admin/locale/hu/help.xml" />
    <install as="admin/locale/lv/help.xml" name="admin/locale/lv/help.xml" />
+   <install as="admin/locale/nl/help.xml" name="admin/locale/nl/help.xml" />
    <install as="admin/perms/addchild.php" name="admin/perms/addchild.php" />
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
@@ -3555,7 +3559,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-14</date>
+   <date>2012-11-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
