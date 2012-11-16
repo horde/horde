@@ -1,21 +1,23 @@
 # Turba Dutch translation.
 # Copyright 2001 Jan Kuipers.
-# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
 # Updated Han Spruyt 2005.
 #
+# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Turba H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-28 22:51+0100\n"
+"PO-Revision-Date: 2012-11-09 10:27+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: data.php:293
 #, php-format
@@ -221,7 +223,7 @@ msgstr "Zakelijke categorie"
 
 #: data.php:54
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: lib/Object/Group.php:65
 msgid "Can't add a group to itself."
@@ -336,7 +338,7 @@ msgstr "Straat (algemeen)"
 
 #: config/attributes.php:570
 msgid "Common Video Call"
-msgstr ""
+msgstr "Videogesprek (algemeen)"
 
 #: config/backends.php:340 config/backends.php:666
 msgid "Communications"
@@ -716,7 +718,7 @@ msgstr "Straat (privé)"
 
 #: config/attributes.php:582
 msgid "Home Video Call"
-msgstr ""
+msgstr "Videogesprek (thuis)"
 
 #: config/attributes.php:670
 msgid "Home Website URL"
@@ -725,11 +727,11 @@ msgstr "Website URL (privé)"
 #: config/attributes.php:359 config/attributes.php:365
 #: config/attributes.php:371
 msgid "IM Address"
-msgstr ""
+msgstr "IM adres"
 
 #: config/backends.php:895
 msgid "IMSP"
-msgstr ""
+msgstr "IMSP"
 
 #: templates/data/import.inc:7
 #, php-format
@@ -746,7 +748,7 @@ msgstr "Initialen"
 
 #: config/attributes.php:488
 msgid "Instant Messenger"
-msgstr ""
+msgstr "Instant Messenger"
 
 #: lib/Api.php:732 lib/Api.php:874
 msgid "Invalid ID"
@@ -763,7 +765,7 @@ msgstr "Ongeldig adresboek: %s"
 
 #: lib/Api.php:930
 msgid "Invalid contact unique ID"
-msgstr ""
+msgstr "Ongeldige unieke ID voor contact"
 
 #: lib/Api.php:1550 lib/Api.php:1635 lib/Api.php:1706
 msgid "Invalid email"
@@ -787,7 +789,7 @@ msgstr "Beroepstitel"
 
 #: config/attributes.php:476
 msgid "Kolab Home Server"
-msgstr ""
+msgstr "Kolab Home Server"
 
 #: lib/Driver/Ldap.php:43
 msgid ""
@@ -842,7 +844,7 @@ msgstr "Lengtegraad"
 
 #: lib/Api.php:388
 msgid "Malformed request."
-msgstr ""
+msgstr "Ongeldig verzoek."
 
 #: config/attributes.php:494
 msgid "Manager"
@@ -1099,7 +1101,7 @@ msgstr "Openbare PGP sleutel"
 
 #: config/attributes.php:600
 msgid "PTT"
-msgstr ""
+msgstr "PTT"
 
 #: config/attributes.php:353
 msgid "Pager"
@@ -1150,7 +1152,7 @@ msgstr "Zoeken mislukt: (%s) %s"
 
 #: config/attributes.php:335
 msgid "Radio Phone"
-msgstr ""
+msgstr "Portofoon"
 
 #: lib/Driver/Ldap.php:253 lib/Driver/Ldap.php:262 lib/Driver/Ldap.php:535
 #, php-format
@@ -1202,7 +1204,7 @@ msgstr "Openbaar S/MIME certificaat"
 
 #: config/attributes.php:594
 msgid "SIP"
-msgstr ""
+msgstr "SIP"
 
 #: lib/Driver/Ldap.php:93
 #, php-format
@@ -1404,7 +1406,7 @@ msgstr "Systeeem"
 
 #: data.php:55
 msgid "TSV"
-msgstr ""
+msgstr "TSV"
 
 #: templates/data/export.inc:14 templates/data/import.inc:14
 msgid "Tab separated values"
@@ -1628,7 +1630,7 @@ msgstr "Standaardweergave:"
 
 #: config/attributes.php:588
 msgid "VoIP"
-msgstr ""
+msgstr "VoIP"
 
 #: config/attributes.php:435
 msgid "Website URL"
@@ -1692,7 +1694,7 @@ msgstr "Straat (werk)"
 
 #: config/attributes.php:576
 msgid "Work Video Call"
-msgstr ""
+msgstr "Videogesprek (werk)"
 
 #: config/attributes.php:648
 msgid "Work Website URL"
