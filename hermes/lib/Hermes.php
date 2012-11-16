@@ -147,8 +147,9 @@ class Hermes
 
         $clients = Hermes::listClients();
         $namecache = array();
+        $results = array();
         for ($i = 0; $i < count($hours); $i++) {
-            $timeentry = &$hours[$i];
+            $timeentry = $hours[$i]->toArray();
             $timeentry['item'] = $timeentry['_type_name'];
             if (isset($clients[$timeentry['client']])) {
                 $timeentry['client'] = $clients[$timeentry['client']];
@@ -166,9 +167,10 @@ class Hermes
                     $namecache[$emp] = $emp;
                 }
             }
+            $results[] = $timeentry;
         }
 
-        return $hours;
+        return $results;
     }
 
     /**
