@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-16</date>
- <time>12:46:00</time>
+ <time>12:46:41</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Ensure bare address is output to SMTP MAIL command.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -383,6 +383,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Ensure bare address is output to SMTP MAIL command.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-16</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
