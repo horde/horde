@@ -83,7 +83,7 @@ class Hermes_Application extends Horde_Registry_Application
                 return false;
             }
             $exportHours = Hermes::makeExportHours($hours);
-            switch ($vars->exportID) {
+            switch ($vars->f) {
             case Horde_Data::EXPORT_CSV:
                 $format = 'Csv';
                 $file = 'time.csv';

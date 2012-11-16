@@ -249,7 +249,8 @@ HermesCore = {
 
             case 'hermesDoExport':
                 var keys = this.getSearchResultKeys(),
-                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT_CSV, {
+                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
+                      'f': $F('hermesExportFormat'),
                       'm': $F('hermesExportMark'),
                       's': keys.join(',') });
                 HordeCore.redirect(url);
