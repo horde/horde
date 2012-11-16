@@ -254,6 +254,7 @@ HermesCore = {
                       'm': $F('hermesExportMark'),
                       's': keys.join(',') });
                 HordeCore.redirect(url);
+                e.stop();
                 return;
 
             // Search Form
