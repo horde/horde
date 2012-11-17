@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-12</date>
- <time>16:44:24</time>
+ <date>2012-11-17</date>
+ <time>10:50:26</time>
  <version>
   <release>2.1.0</release>
   <api>2.0.0</api>
@@ -36,6 +36,13 @@
    <dir name="doc">
     <dir name="Horde">
      <dir name="Test">
+      <dir name="template">
+       <dir name="packagetest">
+        <file name="AllTests.php" role="doc" />
+        <file name="bootstrap.php" role="doc" />
+        <file name="phpunit.xml" role="doc" />
+       </dir> <!-- /doc/Horde/Test/template/packagetest -->
+      </dir> <!-- /doc/Horde/Test/template -->
       <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Test -->
     </dir> <!-- /doc/Horde -->
@@ -129,6 +136,9 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Test/COPYING" />
+   <install as="template/packagetest/AllTests.php" name="doc/Horde/Test/template/packagetest/AllTests.php" />
+   <install as="template/packagetest/bootstrap.php" name="doc/Horde/Test/template/packagetest/bootstrap.php" />
+   <install as="template/packagetest/phpunit.xml" name="doc/Horde/Test/template/packagetest/phpunit.xml" />
    <install as="Horde/Test/AllTests.php" name="lib/Horde/Test/AllTests.php" />
    <install as="Horde/Test/Autoload.php" name="lib/Horde/Test/Autoload.php" />
    <install as="Horde/Test/Bootstrap.php" name="lib/Horde/Test/Bootstrap.php" />
@@ -358,7 +368,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-12</date>
+   <date>2012-11-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Refactor Horde_Test_AllTests.
