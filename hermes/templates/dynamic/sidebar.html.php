@@ -11,12 +11,6 @@
     </div>
     <div class="horde-subnavi-point"><?php echo _("Search") ?></div>
   </div>
-  <div id="hermesNavAdmin" class="horde-subnavi">
-    <div class="horde-subnavi-icon">
-      <a class="icon"></a>
-    </div>
-    <div class="horde-subnavi-point"><?php echo _("Admin") ?></div>
-  </div>
   <div class="horde-sidebar-split"></div>
 
   <!-- Stats -->
