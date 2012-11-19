@@ -923,7 +923,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').show();
         this.slices = [];
-        HordeCore.doAction('getTimeSlices',
+        HordeCore.doAction('loadSlices',
             { 'e': Hermes.conf.user, 's': false },
             { 'callback': this.loadSlicesCallback.bind(this) }
         );

@@ -25,7 +25,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
      *
      * @return array  An array of time slice data.
      */
-    public function getTimeSlices()
+    public function loadSlices()
     {
         $params = array(
             'employee' => $this->vars->e,
