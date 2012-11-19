@@ -69,6 +69,7 @@ class Hermes_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'export':
+            // 'export' used from Ajax view
             $ids = split(',', $vars->s);
             if (!is_array($ids)) {
                 $notification->push(_("No time slices were submitted"), 'horde.error');
@@ -83,39 +84,91 @@ class Hermes_Application extends Horde_Registry_Application
                 return false;
             }
             $exportHours = Hermes::makeExportHours($hours);
-            switch ($vars->f) {
-            case Horde_Data::EXPORT_CSV:
-                $class = 'Hermes_Data_Csv';
-                $ext = 'csv';
-                break;
-            case Horde_Data::EXPORT_TSV:
-                $class = 'Hermes_Data_Tsv';
-                $ext = 'tsv';
-                break;
-            case 'xls':
-                $class = 'Hermes_Data_Xls';
-                $ext = 'xls';
-                break;
-            case 'iif':
-                $class = 'Hermes_Data_Iif';
-                $ext = 'iif';
-                break;
+            $this->_doExport($vars->f, $exportHours);
+            if ($vars->m) {
+                $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
             }
-            $data = new $class(
-                    $injector->getInstance('Horde_Core_Data_Storage'),
-                    array(
-                        'browser' => $injector->getInstance('Horde_Browser'),
-                        'vars' => Horde_Variables::getDefaultVariables()
-                    )
-                );
-            $data->exportFile('time.' . $ext, $exportHours, true);
+            break;
 
-        if ($vars->m) {
-            $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
+        case 'search_export':
+            // Called from Basic view.
+            if (!($searchVars = $GLOBALS['session']->get('hermes', 'search_criteria'))) {
+                $notification->push(_("No time slices were submitted"), 'horde.error');
+                return false;
+            }
+            $searchForm = new Hermes_Form_Search($searchVars);
+            $criteria = $searchForm->getSearchCriteria($searchVars);
+            if (is_null($criteria)) {
+                $notification->push(_("No time slices were submitted"), 'horde.error');
+                return false;
+            }
+            $form = new Hermes_Form_Export($vars);
+            $form->validate($vars);
+            if (!$form->isValid()) {
+                return false;
+            }
+            $form->getInfo($vars, $info);
+            try {
+                $hours = $injector
+                    ->getInstance('Hermes_Driver')
+                    ->getHours($criteria);
+            } catch (Hermes_Exception $e) {
+                $notification->push($e, 'horde.error');
+                return false;
+            }
+            $exportHours = Hermes::makeExportHours($hours);
+            $this->_doExport($info['format'], $exportHours);
+            if (!empty($info['mark_exported']) &&
+                $info['mark_exported'] == 'yes' &&
+                $GLOBALS['perms']->hasPermission(
+                    'hermes:review',
+                     $GLOBALS['registry']->getAuth(),
+                     Horde_Perms::EDIT)) {
+
+                $injector->getInstance('Hermes_Driver')->markAs('exported', $hours);
+            }
         }
         $GLOBALS['notification']->push(_("Export complete."), 'horde.success');
+
         return true;
+    }
+
+    /**
+     * Actually perform the export in the appropriate format.
+     *
+     * @param string $format  The format to export in.
+     * @param array $hours     The data to export, as returned from
+     *                        Hermes::makeExportHours()
+     *
+     */
+    protected function _doExport($format, $hours)
+    {
+        switch ($format) {
+        case Horde_Data::EXPORT_CSV:
+            $class = 'Hermes_Data_Csv';
+            $ext = 'csv';
+            break;
+        case Horde_Data::EXPORT_TSV:
+            $class = 'Hermes_Data_Tsv';
+            $ext = 'tsv';
+            break;
+        case 'xls':
+            $class = 'Hermes_Data_Xls';
+            $ext = 'xls';
+            break;
+        case 'iif':
+            $class = 'Hermes_Data_Iif';
+            $ext = 'iif';
+            break;
         }
+        $data = new $class(
+            $GLOBALS['injector']->getInstance('Horde_Core_Data_Storage'),
+            array(
+                'browser' => $GLOBALS['injector']->getInstance('Horde_Browser'),
+                'vars' => Horde_Variables::getDefaultVariables()
+            )
+        );
+        $data->exportFile('time.' . $ext, $hours, true);
     }
 
     /**
