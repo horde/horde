@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:41:26</time>
+ <date>2012-11-19</date>
+ <time>14:08:28</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -70,11 +70,13 @@
        <file name="unsorted_w50_WIN.ldif" role="test" />
       </dir> <!-- /test/Horde/Ldap/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="EntryTest.php" role="test" />
       <file name="FilterTest.php" role="test" />
       <file name="LdapTest.php" role="test" />
       <file name="LdifTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SearchTest.php" role="test" />
       <file name="TestBase.php" role="test" />
       <file name="UtilTest.php" role="test" />
@@ -109,6 +111,15 @@
     <name>ldap</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -123,11 +134,13 @@
    <install as="Horde/Ldap/Search.php" name="lib/Horde/Ldap/Search.php" />
    <install as="Horde/Ldap/Util.php" name="lib/Horde/Ldap/Util.php" />
    <install as="Horde/Ldap/AllTests.php" name="test/Horde/Ldap/AllTests.php" />
+   <install as="Horde/Ldap/bootstrap.php" name="test/Horde/Ldap/bootstrap.php" />
    <install as="Horde/Ldap/conf.php.dist" name="test/Horde/Ldap/conf.php.dist" />
    <install as="Horde/Ldap/EntryTest.php" name="test/Horde/Ldap/EntryTest.php" />
    <install as="Horde/Ldap/FilterTest.php" name="test/Horde/Ldap/FilterTest.php" />
    <install as="Horde/Ldap/LdapTest.php" name="test/Horde/Ldap/LdapTest.php" />
    <install as="Horde/Ldap/LdifTest.php" name="test/Horde/Ldap/LdifTest.php" />
+   <install as="Horde/Ldap/phpunit.xml" name="test/Horde/Ldap/phpunit.xml" />
    <install as="Horde/Ldap/SearchTest.php" name="test/Horde/Ldap/SearchTest.php" />
    <install as="Horde/Ldap/TestBase.php" name="test/Horde/Ldap/TestBase.php" />
    <install as="Horde/Ldap/UtilTest.php" name="test/Horde/Ldap/UtilTest.php" />
@@ -347,7 +360,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * 

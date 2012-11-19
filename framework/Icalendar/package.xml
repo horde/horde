@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-09</date>
- <time>16:39:25</time>
+ <date>2012-11-19</date>
+ <time>14:08:26</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -383,6 +383,7 @@
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="bug_7423.phpt" role="test" />
       <file name="charset1.phpt" role="test" />
       <file name="common.php" role="test" />
@@ -390,6 +391,7 @@
       <file name="geo.phpt" role="test" />
       <file name="iCalendar.phpt" role="test" />
       <file name="line-folding.phpt" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="quoted-params.phpt" role="test" />
       <file name="read-escapes.phpt" role="test" />
       <file name="read-vcard-org.phpt" role="test" />
@@ -462,6 +464,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -573,6 +584,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="Horde/Icalendar/AllTests.php" name="test/Horde/Icalendar/AllTests.php" />
+   <install as="Horde/Icalendar/bootstrap.php" name="test/Horde/Icalendar/bootstrap.php" />
    <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
    <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
    <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
@@ -580,6 +592,7 @@
    <install as="Horde/Icalendar/geo.phpt" name="test/Horde/Icalendar/geo.phpt" />
    <install as="Horde/Icalendar/iCalendar.phpt" name="test/Horde/Icalendar/iCalendar.phpt" />
    <install as="Horde/Icalendar/line-folding.phpt" name="test/Horde/Icalendar/line-folding.phpt" />
+   <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
    <install as="Horde/Icalendar/quoted-params.phpt" name="test/Horde/Icalendar/quoted-params.phpt" />
    <install as="Horde/Icalendar/read-escapes.phpt" name="test/Horde/Icalendar/read-escapes.phpt" />
    <install as="Horde/Icalendar/read-vcard-org.phpt" name="test/Horde/Icalendar/read-vcard-org.phpt" />
@@ -1005,7 +1018,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

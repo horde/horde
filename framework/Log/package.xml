@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:37:21</time>
+ <date>2012-11-19</date>
+ <time>14:08:29</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -92,7 +92,9 @@
        <file name="StreamTest.php" role="test" />
       </dir> <!-- /test/Horde/Log/Handler -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="LogTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Log -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -129,6 +131,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -157,7 +166,9 @@
    <install as="Horde/Log/Handler/Stream.php" name="lib/Horde/Log/Handler/Stream.php" />
    <install as="Horde/Log/Handler/Syslog.php" name="lib/Horde/Log/Handler/Syslog.php" />
    <install as="Horde/Log/AllTests.php" name="test/Horde/Log/AllTests.php" />
+   <install as="Horde/Log/bootstrap.php" name="test/Horde/Log/bootstrap.php" />
    <install as="Horde/Log/LogTest.php" name="test/Horde/Log/LogTest.php" />
+   <install as="Horde/Log/phpunit.xml" name="test/Horde/Log/phpunit.xml" />
    <install as="Horde/Log/Filter/ChainingTest.php" name="test/Horde/Log/Filter/ChainingTest.php" />
    <install as="Horde/Log/Filter/ConstraintTest.php" name="test/Horde/Log/Filter/ConstraintTest.php" />
    <install as="Horde/Log/Filter/ExactLevelTest.php" name="test/Horde/Log/Filter/ExactLevelTest.php" />
@@ -333,7 +344,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

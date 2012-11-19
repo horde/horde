@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:42:04</time>
+ <date>2012-11-19</date>
+ <time>14:08:21</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -353,6 +353,7 @@
     <dir name="Horde">
      <dir name="Perms">
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="KolabTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Perms -->
@@ -405,6 +406,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
@@ -531,6 +539,7 @@
    <install as="migration/1_horde_perms_base_tables.php" name="migration/Horde/Perms/1_horde_perms_base_tables.php" />
    <install as="migration/2_horde_perms_upgrade_autoincrement.php" name="migration/Horde/Perms/2_horde_perms_upgrade_autoincrement.php" />
    <install as="Horde/Perms/AllTests.php" name="test/Horde/Perms/AllTests.php" />
+   <install as="Horde/Perms/bootstrap.php" name="test/Horde/Perms/bootstrap.php" />
    <install as="Horde/Perms/KolabTest.php" name="test/Horde/Perms/KolabTest.php" />
    <install as="Horde/Perms/phpunit.xml" name="test/Horde/Perms/phpunit.xml" />
   </filelist>
@@ -874,7 +883,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

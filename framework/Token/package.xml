@@ -16,8 +16,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>21:02:13</time>
+ <date>2012-11-19</date>
+ <time>14:08:32</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -337,6 +337,7 @@
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="BackendTestCase.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Token -->
     </dir> <!-- /test/Horde -->
@@ -388,6 +389,13 @@
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -497,6 +505,7 @@
    <install as="Horde/Token/AllTests.php" name="test/Horde/Token/AllTests.php" />
    <install as="Horde/Token/Autoload.php" name="test/Horde/Token/Autoload.php" />
    <install as="Horde/Token/BackendTestCase.php" name="test/Horde/Token/BackendTestCase.php" />
+   <install as="Horde/Token/bootstrap.php" name="test/Horde/Token/bootstrap.php" />
    <install as="Horde/Token/phpunit.xml" name="test/Horde/Token/phpunit.xml" />
    <install as="Horde/Token/Unit/FileTest.php" name="test/Horde/Token/Unit/FileTest.php" />
    <install as="Horde/Token/Unit/SqlTest.php" name="test/Horde/Token/Unit/SqlTest.php" />
@@ -839,7 +848,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:33:45</time>
+ <date>2012-11-19</date>
+ <time>14:08:22</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -247,6 +247,7 @@
        </dir> <!-- /test/Horde/Kolab/Format/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Format -->
@@ -276,16 +277,16 @@
   </required>
   <optional>
    <package>
-    <name>Horde_Test</name>
+    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Support</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -383,6 +384,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/String/Empty/List.php" name="lib/Horde/Kolab/Format/Xml/Type/String/Empty/List.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
+   <install as="Horde/Kolab/Format/bootstrap.php" name="test/Horde/Kolab/Format/bootstrap.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
    <install as="Horde/Kolab/Format/TestCase.php" name="test/Horde/Kolab/Format/TestCase.php" />
    <install as="Horde/Kolab/Format/fixtures/contact-kyr.xml" name="test/Horde/Kolab/Format/fixtures/contact-kyr.xml" />
@@ -658,7 +660,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Deprecate timezone parameters, always write UTC datetime values (Bug #11695).

@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:41:19</time>
+ <date>2012-11-19</date>
+ <time>14:08:32</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -90,6 +90,7 @@
       </dir> <!-- /test/Horde/Notification/Class -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Notification -->
     </dir> <!-- /test/Horde -->
@@ -137,6 +138,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -158,6 +166,7 @@
    <install as="Horde/Notification/Storage/Session.php" name="lib/Horde/Notification/Storage/Session.php" />
    <install as="Horde/Notification/AllTests.php" name="test/Horde/Notification/AllTests.php" />
    <install as="Horde/Notification/Autoload.php" name="test/Horde/Notification/Autoload.php" />
+   <install as="Horde/Notification/bootstrap.php" name="test/Horde/Notification/bootstrap.php" />
    <install as="Horde/Notification/phpunit.xml" name="test/Horde/Notification/phpunit.xml" />
    <install as="Horde/Notification/Class/NotificationTest.php" name="test/Horde/Notification/Class/NotificationTest.php" />
    <install as="Horde/Notification/Class/Notification/EventTest.php" name="test/Horde/Notification/Class/Notification/EventTest.php" />
@@ -341,7 +350,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

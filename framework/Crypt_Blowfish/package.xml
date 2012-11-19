@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
+ <date>2012-11-19</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -63,8 +63,10 @@
         <file name="vectors_cbc.txt" role="test" />
        </dir> <!-- /test/Horde/Crypt/Blowfish/fixtures -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="CbcTest.php" role="test" />
        <file name="EcbTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Crypt/Blowfish -->
      </dir> <!-- /test/Horde/Crypt -->
     </dir> <!-- /test/Horde -->
@@ -95,6 +97,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <extension>
     <name>mcrypt</name>
    </extension>
@@ -117,8 +126,10 @@
    <install as="Horde/Crypt/Blowfish/Php/Cbc.php" name="lib/Horde/Crypt/Blowfish/Php/Cbc.php" />
    <install as="Horde/Crypt/Blowfish/Php/Ecb.php" name="lib/Horde/Crypt/Blowfish/Php/Ecb.php" />
    <install as="Horde/Crypt/Blowfish/AllTests.php" name="test/Horde/Crypt/Blowfish/AllTests.php" />
+   <install as="Horde/Crypt/Blowfish/bootstrap.php" name="test/Horde/Crypt/Blowfish/bootstrap.php" />
    <install as="Horde/Crypt/Blowfish/CbcTest.php" name="test/Horde/Crypt/Blowfish/CbcTest.php" />
    <install as="Horde/Crypt/Blowfish/EcbTest.php" name="test/Horde/Crypt/Blowfish/EcbTest.php" />
+   <install as="Horde/Crypt/Blowfish/phpunit.xml" name="test/Horde/Crypt/Blowfish/phpunit.xml" />
    <install as="Horde/Crypt/Blowfish/fixtures/vectors.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors.txt" />
    <install as="Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" name="test/Horde/Crypt/Blowfish/fixtures/vectors_cbc.txt" />
   </filelist>

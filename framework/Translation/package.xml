@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:59:41</time>
+ <date>2012-11-19</date>
+ <time>14:08:23</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -59,7 +59,9 @@
        </dir> <!-- /test/Horde/Translation/locale/de -->
       </dir> <!-- /test/Horde/Translation/locale -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="GettextTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="TestBase.php" role="test" />
       <file name="WrapperTest.php" role="test" />
      </dir> <!-- /test/Horde/Translation -->
@@ -80,7 +82,7 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -97,7 +99,9 @@
    <install as="Horde/Translation/Handler.php" name="lib/Horde/Translation/Handler.php" />
    <install as="Horde/Translation/Handler/Gettext.php" name="lib/Horde/Translation/Handler/Gettext.php" />
    <install as="Horde/Translation/AllTests.php" name="test/Horde/Translation/AllTests.php" />
+   <install as="Horde/Translation/bootstrap.php" name="test/Horde/Translation/bootstrap.php" />
    <install as="Horde/Translation/GettextTest.php" name="test/Horde/Translation/GettextTest.php" />
+   <install as="Horde/Translation/phpunit.xml" name="test/Horde/Translation/phpunit.xml" />
    <install as="Horde/Translation/TestBase.php" name="test/Horde/Translation/TestBase.php" />
    <install as="Horde/Translation/WrapperTest.php" name="test/Horde/Translation/WrapperTest.php" />
    <install as="Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" name="test/Horde/Translation/locale/de/LC_MESSAGES/Horde_Other.mo" />
@@ -254,7 +258,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

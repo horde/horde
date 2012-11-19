@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:36:22</time>
+ <date>2012-11-19</date>
+ <time>14:08:30</time>
  <version>
   <release>1.0.1</release>
   <api>1.0.0</api>
@@ -48,7 +48,9 @@
     <dir name="Horde">
      <dir name="ListHeaders">
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="ParseTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/ListHeaders -->
      </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -70,6 +72,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -80,7 +91,9 @@
    <install as="Horde/ListHeaders/NoPost.php" name="lib/Horde/ListHeaders/NoPost.php" />
    <install as="Horde/ListHeaders/Object.php" name="lib/Horde/ListHeaders/Object.php" />
    <install as="Horde/ListHeaders/AllTests.php" name="test/Horde/ListHeaders/AllTests.php" />
+   <install as="Horde/ListHeaders/bootstrap.php" name="test/Horde/ListHeaders/bootstrap.php" />
    <install as="Horde/ListHeaders/ParseTest.php" name="test/Horde/ListHeaders/ParseTest.php" />
+   <install as="Horde/ListHeaders/phpunit.xml" name="test/Horde/ListHeaders/phpunit.xml" />
    </filelist>
  </phprelease>
  <changelog>
@@ -133,7 +146,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

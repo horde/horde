@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:46:08</time>
+ <date>2012-11-19</date>
+ <time>14:08:33</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -55,9 +55,11 @@
         <file name="Sample.xml" role="test" />
        </dir> <!-- /test/Horde/Xml/Element/fixtures -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="CountTest.php" role="test" />
        <file name="ElementTest.php" role="test" />
        <file name="IteratorTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Xml/Element -->
      </dir> <!-- /test/Horde/Xml -->
     </dir> <!-- /test/Horde -->
@@ -83,6 +85,15 @@
     <name>dom</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -91,9 +102,11 @@
    <install as="Horde/Xml/Element/Exception.php" name="lib/Horde/Xml/Element/Exception.php" />
    <install as="Horde/Xml/Element/List.php" name="lib/Horde/Xml/Element/List.php" />
    <install as="Horde/Xml/Element/AllTests.php" name="test/Horde/Xml/Element/AllTests.php" />
+   <install as="Horde/Xml/Element/bootstrap.php" name="test/Horde/Xml/Element/bootstrap.php" />
    <install as="Horde/Xml/Element/CountTest.php" name="test/Horde/Xml/Element/CountTest.php" />
    <install as="Horde/Xml/Element/ElementTest.php" name="test/Horde/Xml/Element/ElementTest.php" />
    <install as="Horde/Xml/Element/IteratorTest.php" name="test/Horde/Xml/Element/IteratorTest.php" />
+   <install as="Horde/Xml/Element/phpunit.xml" name="test/Horde/Xml/Element/phpunit.xml" />
    <install as="Horde/Xml/Element/fixtures/NamespacedSample.xml" name="test/Horde/Xml/Element/fixtures/NamespacedSample.xml" />
    <install as="Horde/Xml/Element/fixtures/Sample.xml" name="test/Horde/Xml/Element/fixtures/Sample.xml" />
   </filelist>
@@ -248,7 +261,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

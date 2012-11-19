@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>20:00:48</time>
+ <date>2012-11-19</date>
+ <time>14:08:26</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -52,9 +52,11 @@
      <dir name="Url">
       <file name="AddTest.php" role="test" />
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CallbackTest.php" role="test" />
       <file name="ConstructorTest.php" role="test" />
       <file name="LinkTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RawTest.php" role="test" />
       <file name="RedirectTest.php" role="test" />
       <file name="RemoveTest.php" role="test" />
@@ -80,6 +82,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -88,9 +99,11 @@
    <install as="Horde/Url/Exception.php" name="lib/Horde/Url/Exception.php" />
    <install as="Horde/Url/AddTest.php" name="test/Horde/Url/AddTest.php" />
    <install as="Horde/Url/AllTests.php" name="test/Horde/Url/AllTests.php" />
+   <install as="Horde/Url/bootstrap.php" name="test/Horde/Url/bootstrap.php" />
    <install as="Horde/Url/CallbackTest.php" name="test/Horde/Url/CallbackTest.php" />
    <install as="Horde/Url/ConstructorTest.php" name="test/Horde/Url/ConstructorTest.php" />
    <install as="Horde/Url/LinkTest.php" name="test/Horde/Url/LinkTest.php" />
+   <install as="Horde/Url/phpunit.xml" name="test/Horde/Url/phpunit.xml" />
    <install as="Horde/Url/RawTest.php" name="test/Horde/Url/RawTest.php" />
    <install as="Horde/Url/RedirectTest.php" name="test/Horde/Url/RedirectTest.php" />
    <install as="Horde/Url/RemoveTest.php" name="test/Horde/Url/RemoveTest.php" />
@@ -292,7 +305,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

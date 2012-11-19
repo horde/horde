@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:18:15</time>
+ <date>2012-11-19</date>
+ <time>14:08:18</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -148,6 +148,7 @@
       </dir> <!-- /test/Horde/Auth/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Auth -->
@@ -239,6 +240,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>pam</name>
     <channel>pecl.php.net</channel>
    </package>
@@ -298,6 +306,7 @@
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
+   <install as="Horde/Auth/bootstrap.php" name="test/Horde/Auth/bootstrap.php" />
    <install as="Horde/Auth/phpunit.xml" name="test/Horde/Auth/phpunit.xml" />
    <install as="Horde/Auth/TestCase.php" name="test/Horde/Auth/TestCase.php" />
    <install as="Horde/Auth/fixtures/test.passwd" name="test/Horde/Auth/fixtures/test.passwd" />
@@ -764,7 +773,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

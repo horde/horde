@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-16</date>
- <time>12:46:41</time>
+ <date>2012-11-19</date>
+ <time>14:08:32</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -107,6 +107,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>Net_DNS2</name>
     <channel>pear.php.net</channel>
@@ -392,7 +399,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-16</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

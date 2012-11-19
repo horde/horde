@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:22:09</time>
+ <date>2012-11-19</date>
+ <time>14:08:20</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -57,10 +57,12 @@
       <file name="AlwaysFalseTest.php" role="test" />
       <file name="AlwaysTrueTest.php" role="test" />
       <file name="AndTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="IsInstanceOfTest.php" role="test" />
       <file name="NotTest.php" role="test" />
       <file name="NullTest.php" role="test" />
       <file name="OrTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="PregMatchTest.php" role="test" />
      </dir> <!-- /test/Horde/Constraint -->
     </dir> <!-- /test/Horde -->
@@ -76,6 +78,15 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -95,10 +106,12 @@
    <install as="Horde/Constraint/AlwaysFalseTest.php" name="test/Horde/Constraint/AlwaysFalseTest.php" />
    <install as="Horde/Constraint/AlwaysTrueTest.php" name="test/Horde/Constraint/AlwaysTrueTest.php" />
    <install as="Horde/Constraint/AndTest.php" name="test/Horde/Constraint/AndTest.php" />
+   <install as="Horde/Constraint/bootstrap.php" name="test/Horde/Constraint/bootstrap.php" />
    <install as="Horde/Constraint/IsInstanceOfTest.php" name="test/Horde/Constraint/IsInstanceOfTest.php" />
    <install as="Horde/Constraint/NotTest.php" name="test/Horde/Constraint/NotTest.php" />
    <install as="Horde/Constraint/NullTest.php" name="test/Horde/Constraint/NullTest.php" />
    <install as="Horde/Constraint/OrTest.php" name="test/Horde/Constraint/OrTest.php" />
+   <install as="Horde/Constraint/phpunit.xml" name="test/Horde/Constraint/phpunit.xml" />
    <install as="Horde/Constraint/PregMatchTest.php" name="test/Horde/Constraint/PregMatchTest.php" />
   </filelist>
  </phprelease>
@@ -237,7 +250,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:25:44</time>
+ <date>2012-11-19</date>
+ <time>14:08:32</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -99,8 +99,10 @@
         <file name="DeTest.php" role="test" />
        </dir> <!-- /test/Horde/Date/Parser/Locale -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="HandlerTest.php" role="test" />
        <file name="ParserTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="ResultTest.php" role="test" />
        <file name="TokenTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Parser -->
@@ -132,6 +134,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -168,8 +179,10 @@
    <install as="Horde/Date/Parser/Locale/Pt/Separator.php" name="lib/Horde/Date/Parser/Locale/Pt/Separator.php" />
    <install as="Horde/Date/Parser/Locale/Pt/Timezone.php" name="lib/Horde/Date/Parser/Locale/Pt/Timezone.php" />
    <install as="Horde/Date/Parser/AllTests.php" name="test/Horde/Date/Parser/AllTests.php" />
+   <install as="Horde/Date/Parser/bootstrap.php" name="test/Horde/Date/Parser/bootstrap.php" />
    <install as="Horde/Date/Parser/HandlerTest.php" name="test/Horde/Date/Parser/HandlerTest.php" />
    <install as="Horde/Date/Parser/ParserTest.php" name="test/Horde/Date/Parser/ParserTest.php" />
+   <install as="Horde/Date/Parser/phpunit.xml" name="test/Horde/Date/Parser/phpunit.xml" />
    <install as="Horde/Date/Parser/ResultTest.php" name="test/Horde/Date/Parser/ResultTest.php" />
    <install as="Horde/Date/Parser/TokenTest.php" name="test/Horde/Date/Parser/TokenTest.php" />
    <install as="Horde/Date/Parser/Locale/BaseTest.php" name="test/Horde/Date/Parser/Locale/BaseTest.php" />
@@ -339,7 +352,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

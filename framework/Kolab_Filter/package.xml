@@ -13,7 +13,7 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-03-19</date>
+ <date>2012-11-19</date>
  <version>
   <release>0.2.0</release>
   <api>0.1.0</api>
@@ -157,6 +157,7 @@
         <file name="validation.ret" role="test" />
        </dir> <!-- /test/Horde/Kolab/Filter/fixtures -->
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="ContentTestOld.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="ResourceTestOld.php" role="test" />
@@ -241,6 +242,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -279,6 +287,7 @@
    <install name="script/Horde/Kolab/Filter/kolabfilter.php" as="kolabfilter" />
    <install name="test/Horde/Kolab/Filter/AllTests.php" as="Horde/Kolab/Filter/AllTests.php" />
    <install as="Horde/Kolab/Filter/Autoload.php" name="test/Horde/Kolab/Filter/Autoload.php" />
+   <install as="Horde/Kolab/Filter/bootstrap.php" name="test/Horde/Kolab/Filter/bootstrap.php" />
    <install as="Horde/Kolab/Filter/ContentTestOld.php" name="test/Horde/Kolab/Filter/ContentTestOld.php" />
    <install as="Horde/Kolab/Filter/phpunit.xml" name="test/Horde/Kolab/Filter/phpunit.xml" />
    <install as="Horde/Kolab/Filter/ResourceTestOld.php" name="test/Horde/Kolab/Filter/ResourceTestOld.php" />
@@ -529,7 +538,7 @@
    </notes>
   </release>
   <release>
-   <date>2012-03-19</date>
+   <date>2012-11-19</date>
    <version>
     <release>0.2.0</release>
     <api>0.1.0</api>

@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-09</date>
- <time>16:43:22</time>
+ <date>2012-11-19</date>
+ <time>14:08:33</time>
  <version>
   <release>2.0.2</release>
   <api>1.2.0</api>
@@ -85,12 +85,14 @@
       <file name="AllTests.php" role="test" />
       <file name="ArrayTest.php" role="test" />
       <file name="BacktraceTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CombineStreamTest.php" role="test" />
       <file name="ConsistentHashTest.php" role="test" />
       <file name="GuidTest.php" role="test" />
       <file name="InflectorTest.php" role="test" />
       <file name="MemoryTest.php" role="test" />
       <file name="ObjectStubTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RandomidTest.php" role="test" />
       <file name="StackTest.php" role="test" />
       <file name="StringStreamTest.php" role="test" />
@@ -125,6 +127,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -150,12 +161,14 @@
    <install as="Horde/Support/AllTests.php" name="test/Horde/Support/AllTests.php" />
    <install as="Horde/Support/ArrayTest.php" name="test/Horde/Support/ArrayTest.php" />
    <install as="Horde/Support/BacktraceTest.php" name="test/Horde/Support/BacktraceTest.php" />
+   <install as="Horde/Support/bootstrap.php" name="test/Horde/Support/bootstrap.php" />
    <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
    <install as="Horde/Support/GuidTest.php" name="test/Horde/Support/GuidTest.php" />
    <install as="Horde/Support/InflectorTest.php" name="test/Horde/Support/InflectorTest.php" />
    <install as="Horde/Support/MemoryTest.php" name="test/Horde/Support/MemoryTest.php" />
    <install as="Horde/Support/ObjectStubTest.php" name="test/Horde/Support/ObjectStubTest.php" />
+   <install as="Horde/Support/phpunit.xml" name="test/Horde/Support/phpunit.xml" />
    <install as="Horde/Support/RandomidTest.php" name="test/Horde/Support/RandomidTest.php" />
    <install as="Horde/Support/StackTest.php" name="test/Horde/Support/StackTest.php" />
    <install as="Horde/Support/StringStreamTest.php" name="test/Horde/Support/StringStreamTest.php" />
@@ -370,7 +383,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Better generation of random IDs.

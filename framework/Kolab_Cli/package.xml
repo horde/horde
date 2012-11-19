@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-07-05</date>
- <time>23:50:56</time>
+ <date>2012-11-19</date>
+ <time>14:08:27</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -120,6 +120,7 @@
        </dir> <!-- /test/Horde/Kolab/Cli/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Cli -->
@@ -188,6 +189,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -233,6 +241,7 @@
    <install as="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Cli.po" name="locale/pt_BR/LC_MESSAGES/Horde_Kolab_Cli.po" />
    <install as="Horde/Kolab/Cli/AllTests.php" name="test/Horde/Kolab/Cli/AllTests.php" />
    <install as="Horde/Kolab/Cli/Autoload.php" name="test/Horde/Kolab/Cli/Autoload.php" />
+   <install as="Horde/Kolab/Cli/bootstrap.php" name="test/Horde/Kolab/Cli/bootstrap.php" />
    <install as="Horde/Kolab/Cli/phpunit.xml" name="test/Horde/Kolab/Cli/phpunit.xml" />
    <install as="Horde/Kolab/Cli/TestCase.php" name="test/Horde/Kolab/Cli/TestCase.php" />
    <install as="Horde/Kolab/Cli/fixtures/ledger.xml" name="test/Horde/Kolab/Cli/fixtures/ledger.xml" />
@@ -290,9 +299,9 @@
     <release>1.0.0beta1</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
+    <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-07-05</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *

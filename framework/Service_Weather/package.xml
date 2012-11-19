@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:42:59</time>
+ <date>2012-11-19</date>
+ <time>14:08:26</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -128,7 +128,9 @@
         <file name="boston_wwo.json" role="test" />
        </dir> <!-- /test/Horde/Service/Weather/fixtures -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="GoogleTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="WundergroundTest.php" role="test" />
        <file name="WwoTest.php" role="test" />
       </dir> <!-- /test/Horde/Service/Weather -->
@@ -285,6 +287,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <usesrole>
   <role>horde</role>
@@ -329,7 +340,9 @@
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" name="locale/nl/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="Horde/Service/Weather/AllTests.php" name="test/Horde/Service/Weather/AllTests.php" />
+   <install as="Horde/Service/Weather/bootstrap.php" name="test/Horde/Service/Weather/bootstrap.php" />
    <install as="Horde/Service/Weather/GoogleTest.php" name="test/Horde/Service/Weather/GoogleTest.php" />
+   <install as="Horde/Service/Weather/phpunit.xml" name="test/Horde/Service/Weather/phpunit.xml" />
    <install as="Horde/Service/Weather/WundergroundTest.php" name="test/Horde/Service/Weather/WundergroundTest.php" />
    <install as="Horde/Service/Weather/WwoTest.php" name="test/Horde/Service/Weather/WwoTest.php" />
    <install as="Horde/Service/Weather/fixtures/boston_google.xml" name="test/Horde/Service/Weather/fixtures/boston_google.xml" />
@@ -642,7 +655,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

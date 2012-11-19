@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-09</date>
- <time>16:42:25</time>
+ <date>2012-11-19</date>
+ <time>14:08:34</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -63,7 +63,9 @@
        <file name="badutf8.txt" role="test" />
       </dir> <!-- /test/Horde/Serialize/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="JsonTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Serialize -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -108,6 +110,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
@@ -133,7 +142,9 @@
    <install as="Horde/Serialize.php" name="lib/Horde/Serialize.php" />
    <install as="Horde/Serialize/Exception.php" name="lib/Horde/Serialize/Exception.php" />
    <install as="Horde/Serialize/AllTests.php" name="test/Horde/Serialize/AllTests.php" />
+   <install as="Horde/Serialize/bootstrap.php" name="test/Horde/Serialize/bootstrap.php" />
    <install as="Horde/Serialize/JsonTest.php" name="test/Horde/Serialize/JsonTest.php" />
+   <install as="Horde/Serialize/phpunit.xml" name="test/Horde/Serialize/phpunit.xml" />
    <install as="Horde/Serialize/fixtures/badutf8.txt" name="test/Horde/Serialize/fixtures/badutf8.txt" />
   </filelist>
  </phprelease>
@@ -319,7 +330,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

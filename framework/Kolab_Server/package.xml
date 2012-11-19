@@ -12,8 +12,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:41:11</time>
+ <date>2012-11-19</date>
+ <time>14:08:23</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -303,6 +303,7 @@
         <file name="UserTest.php" role="test" />
        </dir> <!-- /test/Horde/Kolab/Server/Integration -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="LdapTestCase.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
@@ -350,6 +351,13 @@
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -490,6 +498,7 @@
    <install as="Horde/Kolab/Server/Structure/Attribute/Interface.php" name="lib/Horde/Kolab/Server/Structure/Attribute/Interface.php" />
    <install as="Horde/Kolab/Server/Structure/Attribute/Value.php" name="lib/Horde/Kolab/Server/Structure/Attribute/Value.php" />
    <install as="Horde/Kolab/Server/AllTests.php" name="test/Horde/Kolab/Server/AllTests.php" />
+   <install as="Horde/Kolab/Server/bootstrap.php" name="test/Horde/Kolab/Server/bootstrap.php" />
    <install as="Horde/Kolab/Server/LdapTestCase.php" name="test/Horde/Kolab/Server/LdapTestCase.php" />
    <install as="Horde/Kolab/Server/phpunit.xml" name="test/Horde/Kolab/Server/phpunit.xml" />
    <install as="Horde/Kolab/Server/TestCase.php" name="test/Horde/Kolab/Server/TestCase.php" />
@@ -837,7 +846,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

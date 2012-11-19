@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>20:04:11</time>
+ <date>2012-11-19</date>
+ <time>14:08:31</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -65,10 +65,12 @@
       </dir> <!-- /test/Horde/Yaml/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="DumperTest.php" role="test" />
       <file name="Helpers.php" role="test" />
       <file name="LoaderTest.php" role="test" />
       <file name="NodeTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Yaml -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -90,6 +92,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -104,10 +115,12 @@
    <install as="Horde/Yaml/Node.php" name="lib/Horde/Yaml/Node.php" />
    <install as="Horde/Yaml/AllTests.php" name="test/Horde/Yaml/AllTests.php" />
    <install as="Horde/Yaml/Autoload.php" name="test/Horde/Yaml/Autoload.php" />
+   <install as="Horde/Yaml/bootstrap.php" name="test/Horde/Yaml/bootstrap.php" />
    <install as="Horde/Yaml/DumperTest.php" name="test/Horde/Yaml/DumperTest.php" />
    <install as="Horde/Yaml/Helpers.php" name="test/Horde/Yaml/Helpers.php" />
    <install as="Horde/Yaml/LoaderTest.php" name="test/Horde/Yaml/LoaderTest.php" />
    <install as="Horde/Yaml/NodeTest.php" name="test/Horde/Yaml/NodeTest.php" />
+   <install as="Horde/Yaml/phpunit.xml" name="test/Horde/Yaml/phpunit.xml" />
    <install as="Horde/Yaml/fixtures/basic.yml" name="test/Horde/Yaml/fixtures/basic.yml" />
    <install as="Horde/Yaml/fixtures/references.yml" name="test/Horde/Yaml/fixtures/references.yml" />
   </filelist>
@@ -217,7 +230,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

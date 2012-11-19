@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:18:43</time>
+ <date>2012-11-19</date>
+ <time>14:08:22</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -67,6 +67,8 @@
       </dir> <!-- /test/Horde/Autoloader/ClassPathMapper -->
       <file name="AllTests.php" role="test" />
       <file name="AutoloaderTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Autoloader -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -81,6 +83,15 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -94,6 +105,8 @@
    <install as="Horde/Autoloader/ClassPathMapper/Prefix.php" name="lib/Horde/Autoloader/ClassPathMapper/Prefix.php" />
    <install as="Horde/Autoloader/AllTests.php" name="test/Horde/Autoloader/AllTests.php" />
    <install as="Horde/Autoloader/AutoloaderTest.php" name="test/Horde/Autoloader/AutoloaderTest.php" />
+   <install as="Horde/Autoloader/bootstrap.php" name="test/Horde/Autoloader/bootstrap.php" />
+   <install as="Horde/Autoloader/phpunit.xml" name="test/Horde/Autoloader/phpunit.xml" />
    <install as="Horde/Autoloader/ClassPathMapper/ApplicationTest.php" name="test/Horde/Autoloader/ClassPathMapper/ApplicationTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/DefaultTest.php" name="test/Horde/Autoloader/ClassPathMapper/DefaultTest.php" />
    <install as="Horde/Autoloader/ClassPathMapper/PrefixTest.php" name="test/Horde/Autoloader/ClassPathMapper/PrefixTest.php" />
@@ -237,7 +250,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

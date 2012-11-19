@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>14:36:47</time>
+ <date>2012-11-19</date>
+ <time>14:08:33</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -255,6 +255,7 @@
       </dir> <!-- /test/Horde/Pear/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Pear -->
@@ -290,6 +291,13 @@
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -345,6 +353,7 @@
    <install as="Horde/Pear/Rest/Releases.php" name="lib/Horde/Pear/Rest/Releases.php" />
    <install as="Horde/Pear/AllTests.php" name="test/Horde/Pear/AllTests.php" />
    <install as="Horde/Pear/Autoload.php" name="test/Horde/Pear/Autoload.php" />
+   <install as="Horde/Pear/bootstrap.php" name="test/Horde/Pear/bootstrap.php" />
    <install as="Horde/Pear/phpunit.xml" name="test/Horde/Pear/phpunit.xml" />
    <install as="Horde/Pear/TestCase.php" name="test/Horde/Pear/TestCase.php" />
    <install as="Horde/Pear/fixture/package.xml.v1.0" name="test/Horde/Pear/fixture/package.xml.v1.0" />
@@ -471,7 +480,7 @@
    <stability>
     <release>alpha</release>
     <api>alpha</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Ignore symbolic links when building content lists.

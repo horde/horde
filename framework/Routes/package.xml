@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:44:59</time>
+ <date>2012-11-19</date>
+ <time>14:08:20</time>
  <version>
   <release>2.0.1</release>
   <api>1.1.0</api>
@@ -67,7 +67,9 @@
        </dir> <!-- /test/Horde/Routes/fixtures/controllers -->
       </dir> <!-- /test/Horde/Routes/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="GenerationTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RecognitionTest.php" role="test" />
       <file name="TestHelper.php" role="test" />
       <file name="UtilTest.php" role="test" />
@@ -100,6 +102,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -113,7 +124,9 @@
    <install as="Horde/Routes/Route.php" name="lib/Horde/Routes/Route.php" />
    <install as="Horde/Routes/Utils.php" name="lib/Horde/Routes/Utils.php" />
    <install as="Horde/Routes/AllTests.php" name="test/Horde/Routes/AllTests.php" />
+   <install as="Horde/Routes/bootstrap.php" name="test/Horde/Routes/bootstrap.php" />
    <install as="Horde/Routes/GenerationTest.php" name="test/Horde/Routes/GenerationTest.php" />
+   <install as="Horde/Routes/phpunit.xml" name="test/Horde/Routes/phpunit.xml" />
    <install as="Horde/Routes/RecognitionTest.php" name="test/Horde/Routes/RecognitionTest.php" />
    <install as="Horde/Routes/TestHelper.php" name="test/Horde/Routes/TestHelper.php" />
    <install as="Horde/Routes/UtilTest.php" name="test/Horde/Routes/UtilTest.php" />
@@ -284,7 +297,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

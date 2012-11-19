@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:39:37</time>
+ <date>2012-11-19</date>
+ <time>14:08:20</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -357,6 +357,7 @@
       </dir> <!-- /test/Horde/Itip/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Itip -->
     </dir> <!-- /test/Horde -->
@@ -386,6 +387,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -497,6 +507,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Itip.po" name="locale/zh_TW/LC_MESSAGES/Horde_Itip.po" />
    <install as="Horde/Itip/AllTests.php" name="test/Horde/Itip/AllTests.php" />
    <install as="Horde/Itip/Autoload.php" name="test/Horde/Itip/Autoload.php" />
+   <install as="Horde/Itip/bootstrap.php" name="test/Horde/Itip/bootstrap.php" />
    <install as="Horde/Itip/phpunit.xml" name="test/Horde/Itip/phpunit.xml" />
    <install as="Horde/Itip/Integration/ItipTest.php" name="test/Horde/Itip/Integration/ItipTest.php" />
    <install as="Horde/Itip/Stub/Identity.php" name="test/Horde/Itip/Stub/Identity.php" />
@@ -703,7 +714,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

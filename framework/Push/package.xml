@@ -10,8 +10,8 @@
   <email>wrobel@pardus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-01-23</date>
- <time>13:37:17</time>
+ <date>2012-11-19</date>
+ <time>14:08:18</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -80,6 +80,12 @@
       <file name="Horde_Push.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="fi">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Push.mo" role="data" />
+      <file name="Horde_Push.po" role="data" />
+     </dir> <!-- /locale/fi/LC_MESSAGES -->
+    </dir> <!-- /locale/fi -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Push.mo" role="data" />
@@ -125,6 +131,7 @@
       </dir> <!-- /test/Horde/Push/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Push -->
@@ -199,6 +206,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Yaml</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -230,12 +244,15 @@
    <install as="locale/de/LC_MESSAGES/Horde_Push.po" name="locale/de/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Push.mo" name="locale/es/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Push.po" name="locale/es/LC_MESSAGES/Horde_Push.po" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Push.mo" name="locale/fi/LC_MESSAGES/Horde_Push.mo" />
+   <install as="locale/fi/LC_MESSAGES/Horde_Push.po" name="locale/fi/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Push.mo" name="locale/ja/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Push.po" name="locale/ja/LC_MESSAGES/Horde_Push.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Push.mo" name="locale/lv/LC_MESSAGES/Horde_Push.mo" />
    <install as="locale/lv/LC_MESSAGES/Horde_Push.po" name="locale/lv/LC_MESSAGES/Horde_Push.po" />
    <install as="Horde/Push/AllTests.php" name="test/Horde/Push/AllTests.php" />
    <install as="Horde/Push/Autoload.php" name="test/Horde/Push/Autoload.php" />
+   <install as="Horde/Push/bootstrap.php" name="test/Horde/Push/bootstrap.php" />
    <install as="Horde/Push/phpunit.xml" name="test/Horde/Push/phpunit.xml" />
    <install as="Horde/Push/TestCase.php" name="test/Horde/Push/TestCase.php" />
    <install as="Horde/Push/fixtures/empty.php" name="test/Horde/Push/fixtures/empty.php" />
@@ -264,7 +281,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-01-23</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix finding locale directory if installed with PEAR.

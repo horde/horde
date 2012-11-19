@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:46:23</time>
+ <date>2012-11-19</date>
+ <time>14:08:31</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -83,7 +83,9 @@
      <dir name="Xml">
       <dir name="Wbxml">
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="DecodeTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
       </dir> <!-- /test/Horde/Xml/Wbxml -->
      </dir> <!-- /test/Horde/Xml -->
     </dir> <!-- /test/Horde -->
@@ -106,6 +108,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -135,7 +146,9 @@
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlDevInf.php" />
    <install as="Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" name="lib/Horde/Xml/Wbxml/Dtd/SyncMlMetInf.php" />
    <install as="Horde/Xml/Wbxml/AllTests.php" name="test/Horde/Xml/Wbxml/AllTests.php" />
+   <install as="Horde/Xml/Wbxml/bootstrap.php" name="test/Horde/Xml/Wbxml/bootstrap.php" />
    <install as="Horde/Xml/Wbxml/DecodeTest.php" name="test/Horde/Xml/Wbxml/DecodeTest.php" />
+   <install as="Horde/Xml/Wbxml/phpunit.xml" name="test/Horde/Xml/Wbxml/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -285,7 +298,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

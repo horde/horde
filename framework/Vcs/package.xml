@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:45:41</time>
+ <date>2012-11-19</date>
+ <time>14:08:29</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -296,8 +296,10 @@
        </dir> <!-- /test/Horde/Vcs/repos/svn -->
       </dir> <!-- /test/Horde/Vcs/repos -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CvsTest.php" role="test" />
       <file name="GitTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RcsTest.php" role="test" />
       <file name="SvnTest.php" role="test" />
       <file name="TestBase.php" role="test" />
@@ -330,6 +332,13 @@
     <name>Horde_Cache</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -371,8 +380,10 @@
    <install as="Horde/Vcs/QuickLog/Rcs.php" name="lib/Horde/Vcs/QuickLog/Rcs.php" />
    <install as="Horde/Vcs/QuickLog/Svn.php" name="lib/Horde/Vcs/QuickLog/Svn.php" />
    <install as="Horde/Vcs/AllTests.php" name="test/Horde/Vcs/AllTests.php" />
+   <install as="Horde/Vcs/bootstrap.php" name="test/Horde/Vcs/bootstrap.php" />
    <install as="Horde/Vcs/CvsTest.php" name="test/Horde/Vcs/CvsTest.php" />
    <install as="Horde/Vcs/GitTest.php" name="test/Horde/Vcs/GitTest.php" />
+   <install as="Horde/Vcs/phpunit.xml" name="test/Horde/Vcs/phpunit.xml" />
    <install as="Horde/Vcs/RcsTest.php" name="test/Horde/Vcs/RcsTest.php" />
    <install as="Horde/Vcs/SvnTest.php" name="test/Horde/Vcs/SvnTest.php" />
    <install as="Horde/Vcs/TestBase.php" name="test/Horde/Vcs/TestBase.php" />
@@ -545,7 +556,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix generating cache ID in base File object.

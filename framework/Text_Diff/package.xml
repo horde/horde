@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:43:58</time>
+ <date>2012-11-19</date>
+ <time>14:08:22</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -103,7 +103,9 @@
         <file name="unified2.patch" role="test" />
        </dir> <!-- /test/Horde/Text/Diff/fixtures -->
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="EngineTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="RendererTest.php" role="test" />
        <file name="ThreeWayTest.php" role="test" />
       </dir> <!-- /test/Horde/Text/Diff -->
@@ -136,6 +138,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <package>
     <name>xdiff</name>
     <channel>pecl.php.net</channel>
@@ -170,7 +179,9 @@
    <install as="Horde/Text/Diff/ThreeWay/Op/Base.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Base.php" />
    <install as="Horde/Text/Diff/ThreeWay/Op/Copy.php" name="lib/Horde/Text/Diff/ThreeWay/Op/Copy.php" />
    <install as="Horde/Text/Diff/AllTests.php" name="test/Horde/Text/Diff/AllTests.php" />
+   <install as="Horde/Text/Diff/bootstrap.php" name="test/Horde/Text/Diff/bootstrap.php" />
    <install as="Horde/Text/Diff/EngineTest.php" name="test/Horde/Text/Diff/EngineTest.php" />
+   <install as="Horde/Text/Diff/phpunit.xml" name="test/Horde/Text/Diff/phpunit.xml" />
    <install as="Horde/Text/Diff/RendererTest.php" name="test/Horde/Text/Diff/RendererTest.php" />
    <install as="Horde/Text/Diff/ThreeWayTest.php" name="test/Horde/Text/Diff/ThreeWayTest.php" />
    <install as="Horde/Text/Diff/fixtures/1.txt" name="test/Horde/Text/Diff/fixtures/1.txt" />
@@ -349,7 +360,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

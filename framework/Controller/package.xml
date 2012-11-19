@@ -17,8 +17,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:37:15</time>
+ <date>2012-11-19</date>
+ <time>14:08:30</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -80,6 +80,7 @@
     <dir name="Horde">
      <dir name="Controller">
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="FilterRunnerTest.php" role="test" />
       <file name="MockRequestTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -134,6 +135,13 @@
    </package>
   </required>
   <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
    <extension>
     <name>mbstring</name>
    </extension>
@@ -168,6 +176,7 @@
    <install as="Horde/Controller/ResponseWriter/WebDebug.php" name="lib/Horde/Controller/ResponseWriter/WebDebug.php" />
    <install as="Horde/Controller/SettingsExporter/Default.php" name="lib/Horde/Controller/SettingsExporter/Default.php" />
    <install as="Horde/Controller/AllTests.php" name="test/Horde/Controller/AllTests.php" />
+   <install as="Horde/Controller/bootstrap.php" name="test/Horde/Controller/bootstrap.php" />
    <install as="Horde/Controller/FilterRunnerTest.php" name="test/Horde/Controller/FilterRunnerTest.php" />
    <install as="Horde/Controller/MockRequestTest.php" name="test/Horde/Controller/MockRequestTest.php" />
    <install as="Horde/Controller/phpunit.xml" name="test/Horde/Controller/phpunit.xml" />
@@ -352,7 +361,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 
