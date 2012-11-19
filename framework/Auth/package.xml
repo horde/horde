@@ -24,7 +24,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-19</date>
- <time>14:08:18</time>
+ <time>14:11:30</time>
  <version>
   <release>2.0.1</release>
   <api>2.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use new Horde_Test layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -776,7 +776,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use new Horde_Test layout.
    </notes>
   </release>
  </changelog>
