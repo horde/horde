@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>19:53:45</time>
+ <date>2012-11-19</date>
+ <time>13:37:24</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use new Horde_Test layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -325,10 +325,12 @@
     <dir name="Horde">
      <dir name="Alarm">
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="HandlerTest.php" role="test" />
       <file name="NullTest.php" role="test" />
       <file name="ObjectTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SqlTest.php" role="test" />
      </dir> <!-- /test/Horde/Alarm -->
     </dir> <!-- /test/Horde -->
@@ -412,6 +414,13 @@
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -519,10 +528,12 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" name="locale/zh_TW/LC_MESSAGES/Horde_Alarm.po" />
    <install as="migration/1_horde_alarms_table.php" name="migration/Horde/Alarm/1_horde_alarms_table.php" />
    <install as="Horde/Alarm/AllTests.php" name="test/Horde/Alarm/AllTests.php" />
+   <install as="Horde/Alarm/bootstrap.php" name="test/Horde/Alarm/bootstrap.php" />
    <install as="Horde/Alarm/conf.php.dist" name="test/Horde/Alarm/conf.php.dist" />
    <install as="Horde/Alarm/HandlerTest.php" name="test/Horde/Alarm/HandlerTest.php" />
    <install as="Horde/Alarm/NullTest.php" name="test/Horde/Alarm/NullTest.php" />
    <install as="Horde/Alarm/ObjectTest.php" name="test/Horde/Alarm/ObjectTest.php" />
+   <install as="Horde/Alarm/phpunit.xml" name="test/Horde/Alarm/phpunit.xml" />
    <install as="Horde/Alarm/SqlTest.php" name="test/Horde/Alarm/SqlTest.php" />
   </filelist>
  </phprelease>
@@ -795,10 +806,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use new Horde_Test layout.
    </notes>
   </release>
  </changelog>
