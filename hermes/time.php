@@ -16,7 +16,8 @@ $vars = Horde_Variables::getDefaultVariables();
 $delete = $vars->get('delete');
 if (!empty($delete)) {
     try {
-        $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array(array('id' => $delete, 'delete' => true)));
+        $GLOBALS['injector']->getInstance('Hermes_Driver')
+            ->updateTime(array(array('id' => $delete, 'delete' => true)));
     } catch (Horde_Exception $e) {
         $notification->push(sprintf(_("There was an error deleting the time: %s"), $e->getMessage()), 'horde.error');
     }
@@ -29,15 +30,18 @@ case 'submittimeform':
     $time = array();
     $item = $vars->get('item');
     if (is_null($item) || !count($item)) {
-        $notification->push(_("No timeslices were selected to submit."),
-                            'horde.error');
+        $notification->push(
+            _("No timeslices were selected to submit."),
+            'horde.error');
     } else {
-        foreach ($item as $id => $val) {
+        foreach (array_keys($item) as $id) {
             $time[] = array('id' => $id);
         }
         try {
-            $GLOBALS['injector']->getInstance('Hermes_Driver')->markAs('submitted', $time);
-            $notification->push(_("Your time was successfully submitted."), 'horde.success');
+            $GLOBALS['injector']->getInstance('Hermes_Driver')
+                ->markAs('submitted', $time);
+            $notification->push(
+                _("Your time was successfully submitted."), 'horde.success');
             $vars = new Horde_Variables();
         } catch (Horde_Exception $e) {
             $notification->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
@@ -48,13 +52,18 @@ case 'submittimeform':
 
 // We are displaying all time.
 $tabs = Hermes::tabs();
-$criteria = array('employee' => $GLOBALS['registry']->getAuth(),
-                  'submitted' => false,
-                  'link_page' => 'time.php');
-$table = new Hermes_Table('week', $vars,
-                            array('title' => _("My Unsubmitted Time"),
-                                  'name' => 'hermes/hours',
-                                  'params' => $criteria));
+$criteria = array(
+    'employee' => $GLOBALS['registry']->getAuth(),
+    'submitted' => false,
+    'link_page' => 'time.php');
+$table = new Hermes_Table(
+    'week',
+    $vars,
+    array(
+        'title' => _("My Unsubmitted Time"),
+        'name' => 'hermes/hours',
+        'params' => $criteria)
+);
 
 $template = new Horde_Template();
 $template->setOption('gettext', true);
