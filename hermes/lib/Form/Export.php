@@ -27,10 +27,10 @@ class Hermes_Form_Export extends Horde_Form
         parent::__construct($vars, _("Export Search Results"));
 
         $formats = array(
-            'Hermescsv' => _("Comma-Separated Variable (.csv)"),
-            'Hermesxls' => _("Microsoft Excel (.xls)"),
-            'Iif' => _("QuickBooks (.iif)"),
-            'Hermestsv' => _("Tab-Separated Variable (.tsv, .txt)"),
+            Horde_Data::EXPORT_CSV => _("Comma-Separated Variable (.csv)"),
+            'xls' => _("Microsoft Excel (.xls)"),
+            'iif' => _("QuickBooks (.iif)"),
+            Horde_Data::EXPORT_TSV => _("Tab-Separated Variable (.tsv, .txt)"),
         );
 
         $this->addVariable(_("Select the export format"), 'format', 'enum',

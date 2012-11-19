@@ -24,7 +24,7 @@
     <?php endif; ?>
     <p>
       <input id="hermesDoExport" class="horde-default" type="submit" value="<?php echo _("Export")?>" />
-      <input id="hermesExportCancel" class="horde-cancel" type="button" value="<?php echo _("Cancel")?>" />
+      <input id="hermesExportCancel" class="horde-cancel" type="button" value="<?php echo _("Close")?>" />
     </p>
   </form>
 </div>
