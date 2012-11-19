@@ -277,7 +277,9 @@ div.hermesTimeSliceOptions {
   display: block;
   padding: 0 10px 10px 10px;
 }
-
+#hermesSearchForm fieldset label {
+  font-weight: bold;
+}
 #hermesSearchForm label {
   display: block;
   float: left;
