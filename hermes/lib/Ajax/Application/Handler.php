@@ -27,6 +27,35 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
+     * Create a new jobtype. Takes the following from $this->vars:
+     *   - name:     (string)  They type name.
+     *   - billable: (boolean) Is this type billable?
+     *   - enabled:  (boolean) Is this type enabled?
+     *   - rate:     (double)  The default hourly rate to use for this type.
+     *
+     * @return integer  The type id of the newly created type.
+     */
+    public function createJobType()
+    {
+        $job = array(
+            'id' => 0,
+            'name' => $this->vars->name,
+            'billable' => $this->vars->billable == 'on',
+            'enabled' => $this->vars->enabled == 'on',
+            'rate' => $this->vars->rate);
+        try {
+            $id = $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->updateJobType($job);
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+        }
+        $GLOBALS['notification']->push(_("Job type successfully added."), 'horde.success');
+
+        return $id;
+    }
+
+    /**
      * Remove a slice. Expects the following in $this->vars:
      *   - id:  The slice id
      *
@@ -87,6 +116,20 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $client = !empty($this->vars->c) ? $this->vars->c : null;
 
         return Hermes::getCostObjectType($client);
+    }
+
+    /**
+     * Return descriptions of job types. If $this->vars->id is present it is
+     * used to filter by the requested id.
+     *
+     * @return array An array describing the type.
+     */
+    public function listJobTypes()
+    {
+        $id = !empty($this->vars->id) ? $this->vars->id : null;
+        return array_values($GLOBALS['injector']
+            ->getInstance('Hermes_Driver')
+            ->listJobTypes(array('id' => $id)));
     }
 
     /**
@@ -270,6 +313,37 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         }
 
         $GLOBALS['notification']->push(_("Your time was successfully submitted."), 'horde.success');
+        return true;
+    }
+
+    /**
+     * Update an existing jobtype. Takes the following from $this->vars:
+     *   - id:       (integer) The type id of the exsting type.
+     *   - name:     (string)  They type name.
+     *   - billable: (boolean) Is this type billable?
+     *   - enabled:  (boolean) Is this type enabled?
+     *   - rate:     (double)  The default hourly rate to use for this type.
+     *
+     * @return boolean  True on success/false on failure.
+     */
+    public function updateJobType()
+    {
+        $job = array(
+            'id' => $this->vars->job_id,
+            'name' => $this->vars->name,
+            'billable' => $this->vars->billable == 'on',
+            'enabled' => $this->vars->enabled == 'on',
+            'rate' => $this->vars->rate);
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->updateJobType($job);
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e->getMessage(), 'horde.error');
+            return false;
+        }
+        $GLOBALS['notification']->push(_("Job type successfully updated."), 'horde.success');
+
         return true;
     }
 

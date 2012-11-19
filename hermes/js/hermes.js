@@ -187,6 +187,12 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesJobSaveAsNew':
+                $('hermesJobFormId').value = null;
+            case 'hermesJobSave':
+                this.saveJobType();
+                e.stop();
+                return;
             case 'hermesTimeReset':
                 $('hermesTimeSaveAsNew').hide();
                 $('hermesTimeForm').reset();
@@ -562,6 +568,25 @@ HermesCore = {
         }
     },
 
+    jobtypeChangeHandler: function(e)
+    {
+        HordeCore.doAction('listJobTypes',
+            { 'id': $F('hermesJobTypeSelect') },
+            { 'callback': this.listJobtypeCallback.bind(this) }
+        );
+    },
+
+    listJobtypeCallback: function(r)
+    {
+        var job = r[0];
+        $('hermesJobFormName').setValue(job.name);
+        $('hermesJobFormId').setValue(job.id);
+        $('hermesJobFormBillable').setValue(job.billable == 1);
+        $('hermesJobFormEnabled').setValue(job.enabled == 1);
+        $('hermesJobFormRate').setValue(job.rate);
+        $('hermesJobSaveAsNew').show();
+    },
+
     /**
      * Update the deliverable list for the current client
      */
@@ -587,6 +612,33 @@ HermesCore = {
         h.each(function(i) {
            elm.insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
+    },
+
+    saveJobType: function()
+    {
+        var params = $H($('hermesJobForm').serialize({ hash: true }));
+        if ($F('hermesJobFormId') > 0) {
+            HordeCore.doAction('updateJobType',
+               params,
+               { 'callback': this.updateJobTypeCallback.bind(this) }
+            );
+        } else {
+            HordeCore.doAction('createJobType',
+                params,
+                { 'callback': this.createJobTypeCallback.bind(this) }
+            );
+
+        }
+    },
+
+    createJobTypeCallback: function(r)
+    {
+        // Build the new select list in the admin,time,search form.
+    },
+
+    updateJobTypeCallback: function(r)
+    {
+        // Update the jobtype select list in the admin,time,search form.
     },
 
     /**
@@ -1322,6 +1374,9 @@ HermesCore = {
         // Change handler for loading cost objects per client.
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+
+        // Handler for the jobtype selection
+        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

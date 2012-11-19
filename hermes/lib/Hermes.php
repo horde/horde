@@ -83,10 +83,15 @@ class Hermes
      *
      * @return string  The HTML needed to render the select element.
      */
-    public static function getJobTypeSelect($id, $multi = false)
+    public static function getJobTypeSelect($id, $multi = false, $show_disabled = false)
     {
+        if ($show_disabled) {
+            $params = array();
+        } else {
+            $params = array('enabled' => true);
+        }
         $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
-            ->listJobTypes(array('enabled' => true));
+            ->listJobTypes($params);
         $select = '<select name="'
             . ($multi ? 'type[]' : 'type')
             . '" id="' . $id . '" '
