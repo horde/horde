@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-19</date>
- <time>14:58:21</time>
+ <time>14:58:54</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not automatically return this information.
-* [mms] Significant optimization to append() command.
-* [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1335,6 +1332,19 @@
 * [mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not automatically return this information.
 * [mms] Significant optimization to append() command.
 * [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
