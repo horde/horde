@@ -29,7 +29,7 @@ html, body {
 }
 
 /* Main links */
-#hermesNavTime, #hermesNavSearch {
+#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs {
     cursor: pointer;
 }
 #hermesNavTime a.icon {
@@ -37,6 +37,9 @@ html, body {
 }
 #hermesNavSearch a.icon {
     background-image: url("../graphics/search.png");
+}
+#hermesNavAdminjobs a.icon {
+    background-image: url("../graphics/admin.png");
 }
 
 /* Time summary */

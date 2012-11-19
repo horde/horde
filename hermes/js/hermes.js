@@ -65,7 +65,8 @@ HermesCore = {
             return;
         }
         var locParts = fullloc.split(':'),
-            loc = locParts.shift();
+            loc = locParts.shift(),
+            locCap;
 
         if (this.openLocation == fullloc) {
             return;
@@ -76,8 +77,9 @@ HermesCore = {
         switch (loc) {
         case 'time':
         case 'search':
+        case 'adminjobs':
             this.closeView(loc);
-            var locCap = loc.capitalize();
+            locCap = loc.capitalize();
             $('hermesNav' + locCap).up().addClassName('horde-active');
             switch (loc) {
             case 'time':
@@ -169,6 +171,11 @@ HermesCore = {
 
             case 'hermesNavSearch':
                 this.go('search');
+                e.stop();
+                return;
+
+            case 'hermesNavAdminjobs':
+                this.go('adminjobs');
                 e.stop();
                 return;
 
