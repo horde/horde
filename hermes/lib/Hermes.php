@@ -77,7 +77,6 @@ class Hermes
 
     /**
      * Return HTML needed to build an enum or multienum for jobtype selection.
-     * @TODO: Build these via ajax once we have UI support for editing jobtypes
      *
      * @param string $id      The DOM id to identify the select list.
      * @param boolean $multi  Allow multi select?
@@ -92,7 +91,7 @@ class Hermes
             . ($multi ? 'type[]' : 'type')
             . '" id="' . $id . '" '
             . ($multi ? 'multiple="multiple"' : '') . '>';
-
+        $select .= '<option value="">' . _("--- Select a Job Type ---") . '</option>';
         foreach ($types as $tid => $type) {
             $select .= '<option value="' . $tid . '">' . htmlspecialchars($type['name']) . '</option>';
         }
