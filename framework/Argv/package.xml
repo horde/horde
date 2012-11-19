@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>19:54:34</time>
+ <date>2012-11-19</date>
+ <time>13:38:43</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [mms] Use new Horde_Test layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -329,6 +329,7 @@
      <dir name="Argv">
       <file name="AllTests.php" role="test" />
       <file name="BoolTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="CallbackCheckAbbrevTest.php" role="test" />
       <file name="CallbackExtraArgsTest.php" role="test" />
       <file name="CallbackManyArgsTest.php" role="test" />
@@ -357,6 +358,7 @@
       <file name="OptionValuesTest.php" role="test" />
       <file name="ParseNumTest.php" role="test" />
       <file name="ParserTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="ProgNameTest.php" role="test" />
       <file name="StandardTest.php" role="test" />
       <file name="TestCase.php" role="test" />
@@ -498,6 +500,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Argv.po" name="locale/zh_TW/LC_MESSAGES/Horde_Argv.po" />
    <install as="Horde/Argv/AllTests.php" name="test/Horde/Argv/AllTests.php" />
    <install as="Horde/Argv/BoolTest.php" name="test/Horde/Argv/BoolTest.php" />
+   <install as="Horde/Argv/bootstrap.php" name="test/Horde/Argv/bootstrap.php" />
    <install as="Horde/Argv/CallbackCheckAbbrevTest.php" name="test/Horde/Argv/CallbackCheckAbbrevTest.php" />
    <install as="Horde/Argv/CallbackExtraArgsTest.php" name="test/Horde/Argv/CallbackExtraArgsTest.php" />
    <install as="Horde/Argv/CallbackManyArgsTest.php" name="test/Horde/Argv/CallbackManyArgsTest.php" />
@@ -526,6 +529,7 @@
    <install as="Horde/Argv/OptionValuesTest.php" name="test/Horde/Argv/OptionValuesTest.php" />
    <install as="Horde/Argv/ParseNumTest.php" name="test/Horde/Argv/ParseNumTest.php" />
    <install as="Horde/Argv/ParserTest.php" name="test/Horde/Argv/ParserTest.php" />
+   <install as="Horde/Argv/phpunit.xml" name="test/Horde/Argv/phpunit.xml" />
    <install as="Horde/Argv/ProgNameTest.php" name="test/Horde/Argv/ProgNameTest.php" />
    <install as="Horde/Argv/StandardTest.php" name="test/Horde/Argv/StandardTest.php" />
    <install as="Horde/Argv/TestCase.php" name="test/Horde/Argv/TestCase.php" />
@@ -749,10 +753,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [mms] Use new Horde_Test layout.
    </notes>
   </release>
  </changelog>
