@@ -560,12 +560,17 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
+        this.updateCostObjects(r, this.view);
+    },
+
+    updateCostObjects: function(r, view)
+    {
         var h = $H(r), elm;
 
-        if (this.view == 'time') {
+        if (view == 'time') {
             $('hermesLoadingTime').hide();
             elm = $('hermesTimeFormCostobject');
-        } else if (this.view == 'search') {
+        } else if (view == 'search') {
             $('hermesLoadingSearch').hide();
             elm = $('hermesSearchFormCostobject');
         }
@@ -1349,7 +1354,10 @@ HermesCore = {
         // Populate the deliverables with the default list.
         HordeCore.doAction('listDeliverables',
             { },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
+            { 'callback': function(r) {
+                this.updateCostObjects(r, 'time');
+                this.updateCostObjects(r, 'search');}.bind(this)
+            }
         );
         new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }
