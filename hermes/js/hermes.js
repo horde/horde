@@ -1333,6 +1333,10 @@ HermesCore = {
         }
         if (!tmp.empty()) {
             this.go(decodeURIComponent(tmp));
+            if (decodeURIComponent(tmp) != 'time') {
+                // We need to load the slices so the time summary can display.
+                this.loadSlices();
+            }
         } else {
             this.go(Hermes.conf.login_view);
         }
