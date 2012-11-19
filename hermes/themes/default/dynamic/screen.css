@@ -43,6 +43,9 @@ html, body {
 }
 
 /* Time summary */
+.hermesTimeStats div {
+  margin-left: 20px;
+}
 .hermesViewTimeContainer h2 {
     float: left;
 }
