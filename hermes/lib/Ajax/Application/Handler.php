@@ -15,35 +15,37 @@
 class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 {
     /**
-     * Fetch a collection of time slices. For now, just allows a search for
-     * all of a single employees time. Either submitted or not submitted.
-     * Expects the following values in $this->vars:
-     *   - e:     The employee id
-     *   - s:     Include submitted slices if true
-     *   - sort:  The sort-by value
-     *   - dir:   The sort direction
+     * Add a new timer.  Expects the following in $this->vars:
+     *   - desc:  The timer description.
      *
-     * @return array  An array of time slice data.
+     * @return array  An array with an 'id' key.
      */
-    public function loadSlices()
+    public function addTimer()
     {
-        $params = array(
-            'employee' => $this->vars->e,
-            'submitted' => $this->vars->s);
+        $id = Hermes::newTimer($this->vars->desc);
+        return array('id' => $id);
+    }
 
-        $json = array();
+    /**
+     * Remove a slice. Expects the following in $this->vars:
+     *   - id:  The slice id
+     *
+     * @return boolean
+     */
+    public function deleteSlice()
+    {
+        $sid = array('id' => $this->vars->id, 'delete' => true);
         try {
-            $slices = $GLOBALS['injector']
+            $result = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->getHours($params);
-            foreach ($slices as $slice) {
-                $json[] = $slice->toJson();
-            }
+                ->updateTime(array($sid));
+            $GLOBALS['notification']->push(
+                _("Your time entry was successfully deleted."), 'horde.success');
+
+            return $result;
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
-
-        return $json;
     }
 
     /**
@@ -88,83 +90,127 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
-     * Remove a slice. Expects the following in $this->vars:
-     *   - id:  The slice id
+     * Return the current list of timers.
      *
-     * @return boolean
+     * @param boolean $running_only  Only return running timers if true.
+     *
+     * @return array  An array of timer arrays. @see Hermes::listTimers()
      */
-    public function deleteSlice()
+    public function listTimers($running_only = false)
     {
-        $sid = array('id' => $this->vars->id, 'delete' => true);
-        try {
-            $result = $GLOBALS['injector']
-                ->getInstance('Hermes_Driver')
-                ->updateTime(array($sid));
-            $GLOBALS['notification']->push(
-                _("Your time entry was successfully deleted."), 'horde.success');
-
-            return $result;
-        } catch (Hermes_Exception $e) {
-            $GLOBALS['notification']->push($e, 'horde.error');
-        }
+        return Hermes::listTimers($running_only);
     }
 
     /**
-     * Update a slice. @see Hermes_Slice::readForm() for the data expeted in
-     * the posted form.
+     * Fetch a collection of time slices. For now, just allows a search for
+     * all of a single employees time. Either submitted or not submitted.
+     * Expects the following values in $this->vars:
+     *   - e:     The employee id
+     *   - s:     Include submitted slices if true
+     *   - sort:  The sort-by value
+     *   - dir:   The sort direction
      *
-     * @return array  The new slice data.
+     * @return array  An array of time slice data.
      */
-    public function updateSlice()
+    public function loadSlices()
     {
-        $slice = new Hermes_Slice();
-        $slice->readForm();
-        try {
-            $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
-            $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
-            $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
+        $params = array(
+            'employee' => $this->vars->e,
+            'submitted' => $this->vars->s);
 
-            return current($new)->toJson();
+        $json = array();
+        try {
+            $slices = $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->getHours($params);
+            foreach ($slices as $slice) {
+                $json[] = $slice->toJson();
+            }
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }
+
+        return $json;
     }
 
     /**
-     * Mark slices as submitted.  Expects the following in $this->vars:
-     *   - items:  The slice ids to submit.
+     * Pause a timer. Expects the following data in $this->vars:
+     *   - t: The timer id
      *
      * @return boolean
      */
-    public function submitSlices()
+    public function pauseTimer()
     {
-        $time = array();
-        foreach (explode(':', $this->vars->items) as $id) {
-            $time[] = array('id' => $id);
-        }
         try {
-            $GLOBALS['injector']
-                ->getInstance('Hermes_Driver')
-                ->markAs('submitted', $time);
-        } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
+            $timer = Hermes::getTimer($this->vars->t);
+        } catch (Horde_Exception_NotFound $e) {
+            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
             return false;
         }
 
-        $GLOBALS['notification']->push(_("Your time was successfully submitted."), 'horde.success');
+        // Avoid pausing the same timer twice.
+        if ($timer['paused'] || $timer['time'] == 0) {
+            return true;
+        }
+        $timer['paused'] = true;
+        $timer['elapsed'] += time() - $timer['time'];
+        $timer['time'] = 0;
+        Hermes::updateTimer($this->vars->t, $timer);
+
         return true;
     }
 
     /**
-     * Add a new timer.  Expects the following in $this->vars:
-     *   - desc:  The timer description.
+     * Poll the server. Currently also returns the list of current timer data
+     * so the UI can be updated periodically.
      *
-     * @return array  An array with an 'id' key.
+     * @return array  An array of timer arrays. @see self::listTimers()
      */
-    public function addTimer()
+    public function poll()
     {
-        $id = Hermes::newTimer($this->vars->desc);
-        return array('id' => $id);
+        // Return any elapsed time for timers
+        return $this->listTimers(true);
+    }
+
+    /**
+     * Perform a slice search.
+     *
+     * @return array  The search results.
+     */
+    public function search()
+    {
+        $criteria = $this->_readSearchForm();
+
+        $slices = $GLOBALS['injector']
+            ->getInstance('Hermes_Driver')
+            ->getHours($criteria);
+        $json = array();
+
+        foreach ($slices as $slice) {
+            $json[] = $slice->toJson();
+        }
+        return $json;
+    }
+
+    /**
+     * Restart a paused timer. Expects the following data in $this->vars:
+     *   - t:  The timer id.
+     *
+     * @return boolean
+     */
+    public function startTimer()
+    {
+        try {
+            $timer = Hermes::getTimer($this->vars->t);
+        } catch (Horde_Exception_NotFound $e) {
+            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            return false;
+        }
+        $timer['paused'] = false;
+        $timer['time'] = time();
+        Hermes::updateTimer($this->vars->t, $timer);
+
+        return true;
     }
 
     /**
@@ -203,90 +249,49 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     }
 
     /**
-     * Pause a timer. Expects the following data in $this->vars:
-     *   - t: The timer id
+     * Mark slices as submitted.  Expects the following in $this->vars:
+     *   - items:  The slice ids to submit.
      *
      * @return boolean
      */
-    public function pauseTimer()
+    public function submitSlices()
     {
+        $time = array();
+        foreach (explode(':', $this->vars->items) as $id) {
+            $time[] = array('id' => $id);
+        }
         try {
-            $timer = Hermes::getTimer($this->vars->t);
-        } catch (Horde_Exception_NotFound $e) {
-            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
+            $GLOBALS['injector']
+                ->getInstance('Hermes_Driver')
+                ->markAs('submitted', $time);
+        } catch (Horde_Exception $e) {
+            $GLOBALS['notification']->push(sprintf(_("There was an error submitting your time: %s"), $e->getMessage()), 'horde.error');
             return false;
         }
 
-        // Avoid pausing the same timer twice.
-        if ($timer['paused'] || $timer['time'] == 0) {
-            return true;
-        }
-        $timer['paused'] = true;
-        $timer['elapsed'] += time() - $timer['time'];
-        $timer['time'] = 0;
-        Hermes::updateTimer($this->vars->t, $timer);
-
+        $GLOBALS['notification']->push(_("Your time was successfully submitted."), 'horde.success');
         return true;
     }
 
     /**
-     * Restart a paused timer. Expects the following data in $this->vars:
-     *   - t:  The timer id.
+     * Update a slice. @see Hermes_Slice::readForm() for the data expeted in
+     * the posted form.
      *
-     * @return boolean
+     * @return array  The new slice data.
      */
-    public function startTimer()
+    public function updateSlice()
     {
+        $slice = new Hermes_Slice();
+        $slice->readForm();
         try {
-            $timer = Hermes::getTimer($this->vars->t);
-        } catch (Horde_Exception_NotFound $e) {
-            $GLOBALS['notification']->push(_("Invalid timer requested"), 'horde.error');
-            return false;
+            $GLOBALS['injector']->getInstance('Hermes_Driver')->updateTime(array($slice));
+            $new = $GLOBALS['injector']->getInstance('Hermes_Driver')->getHours(array('id' => $slice['id']));
+            $GLOBALS['notification']->push(_("Your time was successfully updated."), 'horde.success');
+
+            return current($new)->toJson();
+        } catch (Hermes_Exception $e) {
+            $GLOBALS['notification']->push($e, 'horde.error');
         }
-        $timer['paused'] = false;
-        $timer['time'] = time();
-        Hermes::updateTimer($this->vars->t, $timer);
-
-        return true;
-    }
-
-    /**
-     * Return the current list of timers.
-     *
-     * @param boolean $running_only  Only return running timers if true.
-     *
-     * @return array  An array of timer arrays. @see Hermes::listTimers()
-     */
-    public function listTimers($running_only = false)
-    {
-        return Hermes::listTimers($running_only);
-    }
-
-    public function search()
-    {
-        $criteria = $this->_readSearchForm();
-
-        $slices = $GLOBALS['injector']
-            ->getInstance('Hermes_Driver')
-            ->getHours($criteria);
-        $json = array();
-
-        foreach ($slices as $slice) {
-            $json[] = $slice->toJson();
-        }
-        return $json;
-    }
-
-    /**
-     * Poll the server. Currently also returns the list of current timer data
-     * so the UI can be updated periodically.
-     *
-     * @return array  An array of timer arrays. @see self::listTimers()
-     */
-    public function poll()
-    {
-        // Return any elapsed time for timers
-        return $this->listTimers(true);
     }
 
     /**
