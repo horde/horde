@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-19</date>
- <time>14:08:19</time>
+ <time>14:54:09</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use new Horde_Test layout.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -282,7 +282,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Use new Horde_Test layout.
    </notes>
   </release>
  </changelog>
