@@ -13,19 +13,21 @@ class Hermes_Table extends Horde_Core_Ui_Widget
     /**
      * Data loaded from the getTableMetaData API.
      *
-     * @access private
      * @var array
      */
-    private $_metaData = null;
+    private $_metaData;
 
     /**
+     * The form variables.
+     *
      * @var array
      */
     protected $_formVars = array();
 
     /**
+     * Return the metadata for the table.
      *
-     * @return array
+     * @return array  An array of the table metadata.
      * @throws Hermes_Exception
      */
     public function getMetaData()
@@ -35,7 +37,6 @@ class Hermes_Table extends Horde_Core_Ui_Widget
             $args = array($name, $this->_config['params']);
             $this->_metaData = $GLOBALS['registry']->callByPackage(
                 $app, 'getTableMetaData', $args);
-
 
             // We need to make vars for the columns.
             foreach ($this->_metaData['sections'] as $secname => $section) {
@@ -49,8 +50,8 @@ class Hermes_Table extends Horde_Core_Ui_Widget
                     if (substr($typename, 0, 1) != '%') {
                         // This type needs to be assigned by reference!
                         $type = &Horde_Form::getType($typename, $params);
-                        $var = new Horde_Form_Variable($title, $col['name'],
-                                                       $type, false, true, '');
+                        $var = new Horde_Form_Variable(
+                            $title, $col['name'], $type, false, true, '');
                         $this->_formVars[$secname][$col['name']] = $var;
                     }
                 }
@@ -60,6 +61,13 @@ class Hermes_Table extends Horde_Core_Ui_Widget
         return $this->_metaData;
     }
 
+    /**
+     * Return the data for the table.
+     *
+     * @param array $range  The range of data to return.
+     *
+     * @return array  The table data.
+     */
     protected function _getData($range = null)
     {
         if (is_null($range)) {
@@ -70,9 +78,9 @@ class Hermes_Table extends Horde_Core_Ui_Widget
                     $this->_metaData['sections'][$secname]['rows']);
             }
         }
-
         list($app, $name) = explode('/', $this->_config['name']);
         $args = array($name, $this->_config['params'], $range);
+
         return $GLOBALS['registry']->callByPackage($app, 'getTableData', $args);
     }
 
@@ -82,8 +90,7 @@ class Hermes_Table extends Horde_Core_Ui_Widget
      * Returns the largest column count of any section, taking into account
      * 'colspan' attributes.
      *
-     * @return integer number of columns
-     * @throws Hermes_Exception
+     * @return integer The number of columns.
      */
     public function getColumnCount()
     {
@@ -108,6 +115,10 @@ class Hermes_Table extends Horde_Core_Ui_Widget
 
     /**
      * Render the table.
+     *
+     * @param array $data  The data to render.
+     *
+     * @return mixed The HTML needed to render the table or false if failed.
      */
     public function render($data = null)
     {
@@ -163,8 +174,8 @@ class Hermes_Table extends Horde_Core_Ui_Widget
             /* Open the table section, either a tbody or the tfoot. */
             $html .= ($secname == 'footer') ? '<tfoot>' : '<tbody>';
 
-            /* This Horde_Variables object is populated for each table row
-             * so that we can use the Horde_Core_Ui_VarRenderer. */
+            // This Horde_Variables object is populated for each table row
+            // so that we can use the Horde_Core_Ui_VarRenderer.
             $vars = new Horde_Variables();
             $form = null;
             foreach ($data[$secname] as $row) {
@@ -214,11 +225,11 @@ class Hermes_Table extends Horde_Core_Ui_Widget
                 $html .= '</tr>';
             }
 
-            /* Close the table section. */
+            // Close the table section.
             $html .= ($secname == 'footer') ? '</tfoot>' : '</tbody>';
         }
-
         $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
+
         return $html . '</table>';
     }
 
