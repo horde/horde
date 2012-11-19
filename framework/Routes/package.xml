@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-19</date>
- <time>15:16:30</time>
+ <time>15:17:01</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Use new Horde_Test layout.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -301,6 +301,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
