@@ -116,7 +116,7 @@ class Hermes_Table extends Horde_Core_Ui_Widget
     /**
      * Render the table.
      *
-     * @param array $data  The data to render.
+     * @param array $data  The data to render (unused).
      *
      * @return mixed The HTML needed to render the table or false if failed.
      */
