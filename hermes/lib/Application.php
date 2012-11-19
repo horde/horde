@@ -65,7 +65,7 @@ class Hermes_Application extends Horde_Registry_Application
 
     public function download(Horde_Variables $vars)
     {
-        global $notification, $browser, $injector;
+        global $notification, $injector;
 
         switch ($vars->actionID) {
         case 'export':
