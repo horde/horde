@@ -253,7 +253,7 @@ class Hermes
             'active' => true
         );
         if (empty($client_ids)) {
-            $client_ids = array();
+            $client_ids = array('');
         } elseif (!is_array($client_ids)) {
             $client_ids = array($client_ids);
         }
