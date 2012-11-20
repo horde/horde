@@ -1,3 +1,7 @@
+.horde-form table {
+    width: auto;
+}
+
 .favicon {
     width: 16px;
     height: 16px;
@@ -19,8 +23,8 @@
 }
 
 #browser-instructions {
-    margin: 8px;
-    padding: 8px;
+    margin: 10px;
+    padding: 10px;
 }
 
 ul.horde-tags {
@@ -38,9 +42,8 @@ ul.horde-tags {
 }
 
 .treanACBox {
-  background: none repeat scroll 0 0 #EBEFF0;
-  border: 1px solid #D0D0D0;
+  background: #ebeff0;
+  border: 1px solid #d0d0d0;
   cursor: default;
-  padding: 4px;
   text-align: left;
 }

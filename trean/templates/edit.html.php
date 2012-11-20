@@ -18,35 +18,45 @@ function cancelEdit()
  <?php echo htmlspecialchars($bookmark->title) ?>
 </h1>
 
+<div class="horde-content horde-form">
 <table cellspacing="0">
  <tr>
-  <td align="right"><strong><?php echo _("URL") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("URL") ?></td>
   <td><input type="text" name="bookmark_url" size="40" value="<?php echo htmlspecialchars($bookmark->url) ?>" /></td>
  </tr>
 
  <tr>
-  <td align="right" width="1"><strong><?php echo _("Title") ?></strong></td>
+  <td class="horde-form-label" width="1"><?php echo _("Title") ?></td>
   <td><input type="text" name="bookmark_title" size="40" value="<?php echo htmlspecialchars($bookmark->title) ?>" /></td>
  </tr>
 
  <tr>
-  <td align="right"><strong><?php echo _("Description") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("Description") ?></td>
   <td><input type="text" name="bookmark_description" size="40" value="<?php echo htmlspecialchars($bookmark->description) ?>" /></td>
  </tr>
 
  <tr>
-  <td align="right"><strong><?php echo _("Tags") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("Tags") ?></td>
   <td>
   <input id="treanBookmarkTags" name="treanBookmarkTags">
-  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  </td>
+ </tr>
+
+ <tr>
+  <td class="rightAlign">
   <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
+  </td>
+  <td>
+  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
   <div class="treanTopTags" id="treanBookmarkTopTags"></div>
   </td>
  </tr>
 
 </table>
-<br />
+</div>
 
-<input type="submit" class="horde-default" name="submit" value="<?php echo _("Save") ?>">
-<input type="submit" class="horde-cancel" name="cancel" value="<?php echo _("Cancel") ?>" onclick="return cancelEdit();">
+<div class="horde-form-buttons">
+ <input type="submit" class="horde-default" name="submit" value="<?php echo _("Save") ?>">
+ <input type="submit" class="horde-cancel" name="cancel" value="<?php echo _("Cancel") ?>" onclick="return cancelEdit();">
+</div>
 </form>

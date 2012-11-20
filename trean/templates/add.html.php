@@ -9,42 +9,47 @@
   <?php echo _("New Bookmark") ?>
 </h1>
 
+<div class="horde-content horde-form">
 <table cellspacing="0">
 <tr>
-  <td class="light rightAlign"><strong><?php echo _("URL") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("URL") ?></td>
   <td><input type="text" name="url" size="40" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url', 'http://')) ?>" /></td>
 </tr>
 
 <tr>
-  <td class="light rightAlign"><strong><?php echo _("Title") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("Title") ?></td>
   <td><input type="text" name="title" size="40" value="<?php echo htmlspecialchars(Horde_Util::getFormData('title')) ?>" /></td>
 </tr>
 
 <tr>
-  <td class="light rightAlign"><strong><?php echo _("Description") ?></strong></td>
+  <td class="horde-form-label"><?php echo _("Description") ?></td>
   <td><input type="text" name="description" size="40" value="<?php echo htmlspecialchars(Horde_Util::getFormData('description')) ?>" /></td>
 </tr>
 
 <tr>
-  <td></td>
+  <td class="horde-form-label"><?php echo _("Tags") ?></td>
   <td>
-    <div class="horde-DialogInfo"><?php echo _("Categorize your bookmark with comma separated tags.") ?></div>
-    <input id="treanBookmarkTags" name="treanBookmarkTags" />
-    <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
-    <div class="treanTopTags" id="treanBookmarkTopTags"></div>
+    <input id="treanBookmarkTags" name="treanBookmarkTags">
   </td>
 </tr>
 
 <tr>
-  <td>
+  <td class="rightAlign">
+  <span id="treanBookmarkTags_loading_img" style="display:none;"><?php echo Horde::img('loading.gif', _("Loading...")) ?></span>
   </td>
   <td>
-    <input type="submit" class="horde-default" value="<?php echo _("Add") ?>">
-    <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" onclick="<?php echo Horde_Util::getFormData('popup') ? 'window.close();' : 'window.history.go(-1);'; ?>" />
+  <label for="treanBookmarkTopTags"><?php echo _("Previously used tags") ?>:</label><br />
+  <div class="treanTopTags" id="treanBookmarkTopTags"></div>
   </td>
 </tr>
-
 </table>
+</div>
+
+<div class="horde-form-buttons">
+ <input type="submit" class="horde-default" value="<?php echo _("Add") ?>">
+ <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" onclick="<?php echo Horde_Util::getFormData('popup') ? 'window.close();' : 'window.history.go(-1);'; ?>" />
+</div>
+
 </form>
 
 <?php if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')): ?>
