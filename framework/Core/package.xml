@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-*
+* [mms] Fix returning session start time if session has been closed (read-only) in the current page access (Bug #11685).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2586,7 +2586,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-*
+* [mms] Fix returning session start time if session has been closed (read-only) in the current page access (Bug #11685).
    </notes>
   </release>
  </changelog>
