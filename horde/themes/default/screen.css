@@ -287,6 +287,9 @@ small, .small {
     border-collapse: collapse;
     border-spacing: 0;
 }
+.horde-form tr {
+    vertical-align: top;
+}
 .horde-form td {
     padding-bottom: 5px;
 }
@@ -1375,6 +1378,7 @@ div.GrowlerNoticeExit {
     display:inline;
     position:static;
     width:80px;
+    font-size: 111%;
 }
 /*.hordeACContainer {
     height:18px;
