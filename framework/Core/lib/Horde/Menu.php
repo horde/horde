@@ -77,7 +77,7 @@ class Horde_Menu
         }
 
         $this->_menu[] = array_merge(array(
-            'class' => '',
+            'class' => null,
             'icon' => '',
             'icon_path' => null,
             'onclick' => null,
