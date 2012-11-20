@@ -309,10 +309,10 @@ class Turba_Driver_Kolab extends Turba_Driver
                 }
             }
 
-            if (isset($contact['birthday'])) {
+            if (!empty($contact['birthday'])) {
                 $contact['birthday'] = $contact['birthday']->format('Y-m-d');
             }
-            if (isset($contact['anniversary'])) {
+            if (!empty($contact['anniversary'])) {
                 $contact['anniversary'] = $contact['anniversary']->format('Y-m-d');
             }
 
