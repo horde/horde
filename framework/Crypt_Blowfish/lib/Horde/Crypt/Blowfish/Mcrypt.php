@@ -1,7 +1,5 @@
 <?php
 /**
- * Mcrypt driver for blowfish encryption.
- *
  * Copyright 2005-2008 Matthew Fonda <mfonda@php.net>
  * Copyright 2008 Philippe Jausions <jausions@php.net>
  * Copyright 2012 Horde LLC (http://www.horde.org/)
@@ -9,9 +7,6 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author    Matthew Fonda <mfonda@php.net>
- * @author    Philippe Jausions <jausions@php.net>
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2005-2008 Matthew Fonda
  * @copyright 2012 Horde LLC
@@ -20,6 +15,8 @@
  */
 
 /**
+ * Mcrypt driver for blowfish encryption.
+ *
  * @author    Matthew Fonda <mfonda@php.net>
  * @author    Philippe Jausions <jausions@php.net>
  * @author    Michael Slusarz <slusarz@horde.org>
