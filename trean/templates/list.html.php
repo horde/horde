@@ -10,7 +10,7 @@ function table_sortCallback(tableId, column, sortDown)
 <table class="horde-table sortable" cellspacing="0">
 <thead>
  <tr>
-  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Bookmarked On")?></th>
+  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
   <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
   <th id="s_clicks" class="horde-split-left<?php if ($this->sortby == 'clicks') echo ' ' . $this->sortdirclass ?>" width="1%"><?php echo _("Clicks") ?></th>
   <th width="10%" class="horde-split-left nosort"></th>
