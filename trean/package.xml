@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-15</date>
- <time>00:03:09</time>
+ <date>2012-11-20</date>
+ <time>15:41:38</time>
  <version>
   <release>1.0.0beta2</release>
   <api>1.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Move search box to top menu.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -71,9 +71,6 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
-    <dir name="Form">
-     <file name="Search.php" role="horde" />
-    </dir> <!-- /lib/Form -->
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -191,7 +188,6 @@
     <file name="bookmarklet.html.php" role="horde" />
     <file name="edit.html.php" role="horde" />
     <file name="list.html.php" role="horde" />
-    <file name="search.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="themes">
     <dir name="default">
@@ -422,7 +418,6 @@
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
-   <install as="trean/lib/Form/Search.php" name="lib/Form/Search.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -465,7 +460,6 @@
    <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="trean/templates/list.html.php" name="templates/list.html.php" />
-   <install as="trean/templates/search.php" name="templates/search.php" />
    <install as="trean/templates/block/1line.inc" name="templates/block/1line.inc" />
    <install as="trean/templates/block/2line.inc" name="templates/block/2line.inc" />
    <install as="trean/templates/block/standard.inc" name="templates/block/standard.inc" />
@@ -507,10 +501,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-11-15</date>
+   <date>2012-11-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Move search box to top menu.
    </notes>
   </release>
  </changelog>
