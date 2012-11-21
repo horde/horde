@@ -1126,7 +1126,7 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 5.
-* [mms] Update CKEditor to v2.6.3.
+* [mms] Update CKEditor to v3.6.3.
    </notes>
   </release>
   <release>
@@ -1152,7 +1152,7 @@ Initial packaging
    <date>2012-10-26</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Update CKEditor to v2.6.5.
+* [mms] Update CKEditor to v3.6.5.
    </notes>
   </release>
   <release>
