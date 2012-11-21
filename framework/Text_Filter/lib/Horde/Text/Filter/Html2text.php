@@ -151,12 +151,12 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                 }
 
                 if ($child instanceof DOMElement) {
-                    switch (strtolower($child->tagName)) {
+                    switch (Horde_String::lower($child->tagName)) {
                     case 'h1':
                     case 'h2':
                     case 'h3':
                         $out .= "\n\n" .
-                            strtoupper($this->_node($doc, $child)) .
+                            Horde_String::upper($this->_node($doc, $child)) .
                             "\n\n";
                         break;
 
@@ -170,7 +170,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'b':
                     case 'strong':
-                        $out .= strtoupper($this->_node($doc, $child));
+                        $out .= Horde_String::upper($this->_node($doc, $child));
                         break;
 
                     case 'u':
@@ -211,7 +211,7 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         break;
 
                     case 'th':
-                        $out .= strtoupper($this->_node($doc, $child)) . " \t";
+                        $out .= Horde_String::upper($this->_node($doc, $child)) . " \t";
                         break;
 
                     case 'td':
