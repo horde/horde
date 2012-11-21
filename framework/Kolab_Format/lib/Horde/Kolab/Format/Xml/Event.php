@@ -53,5 +53,6 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
         'show-time-as' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'color-label'  => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'end-date'     => 'Horde_Kolab_Format_Xml_Type_EventDate',
+        'priority'     => 'Horde_Kolab_Format_Xml_Type_EventPriority',
     );
 }
