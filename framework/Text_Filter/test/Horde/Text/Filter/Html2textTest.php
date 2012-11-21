@@ -13,8 +13,6 @@ class Horde_Text_Filter_Html2textTest extends PHPUnit_Framework_TestCase
 {
     public function testHtml2textVarious()
     {
-        $this->markTestSkipped();
-
         $html = <<<EOT
 <h2>Inline Formatting</h2>
 
@@ -283,12 +281,11 @@ You can mix and match bullet and number lists:
 BLOCK QUOTING
 
 > Horde Homepage[1]
->  Some inline link[1].
+> Some inline link[1].
 
 Line inbetween.
 
 > HEADING INSIDE QUOTING
->
 >
 > This is a paragraph inside a block quoting. The result should be
 > several lines prefixed with the > character.
@@ -304,29 +301,33 @@ Zitat von John Doe <john.doe@example.com>:
 > Blah, blah.'
 
 --
- Some signature
+Some signature
 http://www.example.com
 
 Zitat von Jane Doe <jane.doe@example.com>:
 
 > Jan Schneider a écrit :
-> > Zitat von Jane Doe <jane.doe@example.com>[3]:
-> > > Hi,
-> > >
-> > >  I prepare the last "horde-webmail-1.2" for production level but
-> > > I have few questions:
-> > >  - is there a way to disable "external_display_cal" in
-> > > kronolith, I don't want seeing birthdays calendars (turba) and
-> > > task list (nag)
-> >  They aren't displayed by default, or do you mean you don't want
-> > them to appear in the top right calendar panel?
->  Yes I don't want them to appear in the top right calendar panel but
+>
+>> Zitat von Jane Doe <jane.doe@example.com>[3]:
+>>
+>>> Hi,
+>>>
+>>> I prepare the last "horde-webmail-1.2" for production level but I
+>>> have few questions:
+>>> - is there a way to disable "external_display_cal" in kronolith,
+>>> I don't want seeing birthdays calendars (turba) and task list
+>>> (nag)
+>>
+>> They aren't displayed by default, or do you mean you don't want
+>> them to appear in the top right calendar panel?
+>
+> Yes I don't want them to appear in the top right calendar panel but
 > I want user can create their external_cal
 
 Jan.
 
- --
- Do you need professional PHP or Horde consulting?
+--
+Do you need professional PHP or Horde consulting?
 http://horde.org/consulting/
 
 
@@ -382,8 +383,6 @@ EOT;
 
     public function testHtml2textQuoting()
     {
-        $this->markTestSkipped();
-
         $html = <<<EOT
 <p>Zitat von Roberto Maurizzi &lt;roberto.maurizzi@gmail.com&gt;:</p>
   <blockquote type="cite">
@@ -413,18 +412,20 @@ EOT;
         $text = <<<EOT
 Zitat von Roberto Maurizzi <roberto.maurizzi@gmail.com>:
 
-> > > > 4) In Turba, I can select a VFS driver to use. Currently it is
-> > > > set to
-> > > >   None and turba seems to be working fine. What does Turba use
-> > > > the VFS
-> > > >  for?
-> >  You can attach files to contacts with that.
-> >
-> >  Jan.
+>>>> 4) In Turba, I can select a VFS driver to use. Currently it is
+>>>> set to
+>>>>  None and turba seems to be working fine. What does Turba use
+>>>> the VFS
+>>>> for?
+>>
+>> You can attach files to contacts with that.
+>>
+>> Jan.
+>
 > Anything similar for Kronolith, maybe in the new version?
 > I've googled a little and only found a discussion in 2004 about
 > having attachment (or links) from VFS in Kronolith.
->  I'd really like to be able to attach all my taxes forms to the day
+> I'd really like to be able to attach all my taxes forms to the day
 > I have to pay them ;-) and more in general all the extra
 > documentation regarding an appointment.
 >
@@ -435,8 +436,8 @@ Some unquoted line with single ' quotes.
 
 Jan.
 
- --
- Do you need professional PHP or Horde consulting?
+--
+Do you need professional PHP or Horde consulting?
 http://horde.org/consulting/
 EOT;
 
