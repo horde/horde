@@ -227,6 +227,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
+     * Unsets a capability.
+     *
+     * @param string $cap  Capability to unset.
+     */
+    protected function _unsetCapability($cap)
+    {
+        $cap_list = $this->capability();
+        unset($cap_list[$cap]);
+        $this->_setInit('capability', $cap_list);
+    }
+
+    /**
      */
     protected function _noop()
     {
@@ -1205,10 +1217,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * Retry using base IMAP4rev1 functionality. */
             if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
                 $this->queryCapability('LIST-EXTENDED')) {
-                $cap = $this->capability();
-                unset($cap['LIST-EXTENDED']);
-                $this->_setInit('capability', $cap);
-
+                $this->_unsetCapability('LIST-EXTENDED');
                 return $this->_listMailboxes($pattern, $mode, $options);
             }
 
@@ -1553,10 +1562,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Cyrus 2.4 (at least as of .14) has a broken CATENATE (see
                  * Bug #11111). Regardless, if CATENATE is broken, we can try
                  * to fallback to APPEND. */
-                $cap = $this->capability();
-                unset($cap['CATENATE']);
-                $this->_setInit('capability', $cap);
-
+                $this->_unsetCapability('CATENATE');
                 return $this->_append($mailbox, $data, $options);
             }
 
@@ -1575,9 +1581,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 switch ($e->status) {
                 case Horde_Imap_Client_Interaction_Server::BAD:
                 case Horde_Imap_Client_Interaction_Server::BYE:
-                    $cap = $this->capability();
-                    unset($cap['BINARY']);
-                    $this->_setInit('capability', $cap);
+                    $this->_unsetCapability('BINARY');
                     return $this->_append($mailbox, $data, $options);
                 }
             }
@@ -2057,9 +2061,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Bug #9842: Workaround broken Cyrus servers (as of
                  * 2.4.7). */
                 if ($esearch && ($charset != 'US-ASCII')) {
-                    $cap = $this->capability();
-                    unset($cap['ESEARCH']);
-                    $this->_setInit('capability', $cap);
+                    $this->_unsetCapability('ESEARCH');
                     $this->_setInit('noesearch', true);
 
                     try {
