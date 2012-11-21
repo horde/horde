@@ -61,19 +61,19 @@ function processDependencies($component) {
                 $name = 'horde5-' . $dependency['name'];
             }
             if ($dependency['optional'] == 'yes') {
-                $suggests[$name] = "$name >= " . $dependency['min'];
+                $suggests[$name] = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
             } else {
-                $requires[$name]      = "$name >= " . $dependency['min'];
-                $buildRequires[$name] = "$name >= " . $dependency['min'];
+                $requires[$name]      = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
+                $buildRequires[$name] = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
             }
         } elseif (!empty($dependency['channel']) &&
             $dependency['channel'] == 'pear.php.net') {
             $name = 'php5-pear-' . $dependency['name'];
             if ($dependency['optional'] == 'yes') {
-                $suggests[$name] = "$name >= " . $dependency['min'];
+                $suggests[$name] = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
             } else {
-                $requires[$name] = "$name >= " . $dependency['min'];
-                $buildRequires[$name] = "$name >= " . $dependency['min'];
+                $requires[$name] = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
+                $buildRequires[$name] = isset($dependency['min']) ? "$name >= " . $dependency['min'] : "$name";
             }
         } elseif ($dependency['type'] == 'ext') {
             // TODO: we need to prepend a blacklist here
