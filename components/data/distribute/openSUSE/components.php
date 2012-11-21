@@ -56,9 +56,9 @@ function processDependencies($component) {
             if (preg_match('/Horde_/', $dependency['name'])) {
                 $name = 'php5-pear-' . $dependency['name'];
             } elseif ($dependency['name'] == 'horde') {
-                $name = 'horde4';
+                $name = 'horde5';
             } else {
-                $name = 'horde4-' . $dependency['name'];
+                $name = 'horde5-' . $dependency['name'];
             }
             if ($dependency['optional'] == 'yes') {
                 $suggests[$name] = "$name >= " . $dependency['min'];
@@ -104,7 +104,7 @@ function processDependencies($component) {
 
 
 if (in_array($component->getName(), $applications)) {
-    $package_name = 'horde4-' .  $component->getName();
+    $package_name = 'horde5-' .  $component->getName();
 } elseif (in_array($component->getName(), $bundles)) {
     throw new Components_Exception("Bundles are not supported in openSUSE");
 } else {
