@@ -661,8 +661,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Convert a PKCS 12 encrypted certificate package into a private key,
      * public key, and any additional keys.
      *
-     * @param string $text   The PKCS 12 data.
-     * @param array $params  The parameters needed for parsing.
+     * @param string $pkcs12  The PKCS 12 data.
+     * @param array $params   The parameters needed for parsing.
      * <pre>
      * Parameters:
      * ===========

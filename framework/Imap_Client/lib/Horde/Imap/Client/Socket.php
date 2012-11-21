@@ -1594,7 +1594,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $data  Either a resource or a string.
      *
-     * @param Horde_Imap_Client_Data_Format_String  The data object.
+     * @return Horde_Imap_Client_Data_Format_String  The data object.
      */
     protected function _appendData($data)
     {

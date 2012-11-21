@@ -18,7 +18,7 @@ class IMP_Tree_Simplehtml extends Horde_Core_Tree_Renderer_Simplehtml
     /**
      * Should this element be toggled?
      *
-     * @param string $node_id  The node ID.
+     * @param string $id  The node ID.
      *
      * @return boolean  True of the element should be toggled.
      */

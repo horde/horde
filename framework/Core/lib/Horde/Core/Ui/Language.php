@@ -18,9 +18,6 @@ class Horde_Core_Ui_Language {
     /**
      * Render the language selection.
      *
-     * @param boolean $form  Return the selection box as a complete standalone
-     *                       form.
-     *
      * @return string  The HTML selection box.
      */
     static public function render()

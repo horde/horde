@@ -39,8 +39,8 @@ class Horde_Imap_Client_Data_BaseSubject
     /**
      * Constructor.
      *
-     * @param string $str     The subject string.
-     * @param array $options  Additional options:
+     * @param string $str  The subject string.
+     * @param array $opts  Additional options:
      *   - keepblob: (boolean) Don't remove any "blob" information (i.e. text
      *               leading text between square brackets) from string.
      *

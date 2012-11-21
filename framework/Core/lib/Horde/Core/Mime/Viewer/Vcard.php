@@ -36,15 +36,12 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the data to be
-     *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'browser' - (Horde_Browser) Browser object.
-     * 'notification' - (Horde_Notification_Base) Notification object.
-     * 'prefs' - (Horde_Prefs) Prefs object.
-     * 'registry' - (Horde_Registry) Registry object.
-     * </pre>
+     * @param Horde_Mime_Part $part  The object with the data to be rendered.
+     * @param array $conf            Configuration:
+     *   - browser: (Horde_Browser) Browser object.
+     *   - notification: (Horde_Notification_Base) Notification object.
+     *   - prefs: (Horde_Prefs) Prefs object.
+     *   - registry: (Horde_Registry) Registry object.
      *
      * @throws InvalidArgumentException
      */

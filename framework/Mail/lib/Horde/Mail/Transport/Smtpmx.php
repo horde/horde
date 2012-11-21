@@ -1,11 +1,7 @@
 <?PHP
 /**
- * SMTP MX implementation.
- * Requires the Net_SMTP class.
- *
- * LICENSE:
- *
  * Copyright (c) 2010, Gerd Schaufelberger
+ * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,18 +30,22 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category   Horde
- * @package    Mail
- * @author     gERD Schaufelberger <gerd@php-tools.net>
  * @copyright  2010 gERD Schaufelberger
+ * @copyright  2010-2012 Horde LLC
  * @license    http://www.horde.org/licenses/bsd New BSD License
+ * @package    Mail
  */
 
 /**
  * SMTP MX implementation.
  *
- * @author   gERD Schaufelberger <gerd@php-tools.net>
- * @category Horde
- * @package  Mail
+ * @author    gERD Schaufelberger <gerd@php-tools.net>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010 gERD Schaufelberger
+ * @copyright 2010-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
 {

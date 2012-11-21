@@ -187,7 +187,7 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
      *
      * @since 2.2.0
      *
-     * @param integer  Data length.
+     * @return integer  Data length.
      */
     public function length()
     {

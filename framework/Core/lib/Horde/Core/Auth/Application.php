@@ -456,12 +456,12 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
      * @param mixed $value  The credential value to set. See getCredential()
      *                      for the list of valid credentials/types.
      */
-    public function setCredential($type, $value)
+    public function setCredential($name, $value)
     {
         if ($this->_base) {
-            $this->_base->setCredential($type, $value);
+            $this->_base->setCredential($name, $value);
         } else {
-            parent::setCredential($type, $value);
+            parent::setCredential($name, $value);
         }
     }
 

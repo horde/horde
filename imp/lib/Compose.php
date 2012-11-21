@@ -1,16 +1,24 @@
 <?php
 /**
- * The IMP_Compose:: class represents an outgoing mail message.
- *
  * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Compose:: class represents an outgoing mail message.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 {
@@ -171,7 +179,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Saves a draft message.
      *
-     * @param array $header   List of message headers (UTF-8).
+     * @param array $headers  List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
      *                        Horde_Mime_Part object that contains the text
      *                        to send.
@@ -581,7 +589,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Save a template message on the IMAP server.
      *
-     * @param array $header   List of message headers (UTF-8).
+     * @param array $headers  List of message headers (UTF-8).
      * @param mixed $message  Either the message text (string) or a
      *                        Horde_Mime_Part object that contains the text
      *                        to save.

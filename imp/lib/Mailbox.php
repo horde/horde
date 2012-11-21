@@ -862,8 +862,8 @@ class IMP_Mailbox implements Serializable
      * Rename this mailbox on the server. The subscription status remains the
      * same.  All subfolders will also be renamed.
      *
-     * @param string $new     The new mailbox name (UTF-8).
-     * @param boolean $force  Rename mailbox even if it is fixed?
+     * @param string $new_name  The new mailbox name (UTF-8).
+     * @param boolean $force    Rename mailbox even if it is fixed?
      *
      * @return boolean  True on success
      */

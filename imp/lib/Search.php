@@ -456,7 +456,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Alter the current IMAP search query.
      *
-     * @param string $id               The search query id.
+     * @param string $offset           The search query id.
      * @param IMP_Search_Query $value  The query object.
      *
      * @throws InvalidArgumentException
@@ -491,7 +491,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Deletes an IMAP search query.
      *
-     * @param string $id  The search query id.
+     * @param string $offset  The search query id.
      */
     public function offsetUnset($offset)
     {

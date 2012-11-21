@@ -1631,7 +1631,7 @@ class Horde_Registry
      *
      * @param string $app     The name of the application
      * @param integer $perms  The permission level to check for.
-     * @param array $options  Additional options:
+     * @param array $params   Additional options:
      *   - notransparent: (boolean) Do not attempt transparent authentication.
      *                    DEFAULT: false
      *
@@ -2229,7 +2229,7 @@ class Horde_Registry
     /**
      * Converts an authentication username to a unique Horde username.
      *
-     * @param string $username  The username to convert.
+     * @param string $userId    The username to convert.
      * @param boolean $toHorde  If true, convert to a Horde username. If
      *                          false, convert to the auth username.
      *
@@ -2744,9 +2744,9 @@ class Horde_Registry
      * too, charsets have to be updated etc. This method takes care of all
      * this.
      *
-     * @param string $language  The new language.
-     * @param string $app       The application for reloading the gettext
-     *                          catalog. The current application if empty.
+     * @param string $lang  The new language.
+     * @param string $app   The application for reloading the gettext catalog.
+     *                      Uses current application if null.
      */
     public function setLanguageEnvironment($lang = null, $app = null)
     {

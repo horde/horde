@@ -1390,7 +1390,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Explicitly mark an element as added.
      *
-     * @param mixed $in  A mailbox name or a tree element.
+     * @param mixed $elt  A mailbox name or a tree element.
      */
     public function addEltDiff($elt)
     {

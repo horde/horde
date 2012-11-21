@@ -1,9 +1,5 @@
 <?php
 /**
- * RFC 822/2822/3490/5322 Email parser/validator.
- *
- * LICENSE:
- *
  * Copyright (c) 2001-2010, Richard Heyes
  * Copyright (c) 2011-2012, Horde LLC
  * All rights reserved.
@@ -33,31 +29,32 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- *
  * RFC822 parsing code adapted from message-address.c and rfc822-parser.c
  *   (Dovecot 2.1rc5)
  *   Original code released under LGPL-2.1
  *   Copyright (c) 2002-2011 Timo Sirainen <tss@iki.fi>
  *
- * @category    Horde
- * @package     Mail
- * @author      Richard Heyes <richard@phpguru.org>
- * @author      Chuck Hagenbuch <chuck@horde.org
- * @author      Michael Slusarz <slusarz@horde.org>
- * @copyright   2001-2010 Richard Heyes
- * @copyright   2011-2012 Horde LLC
- * @license     http://www.horde.org/licenses/bsd New BSD License
+ * @category  Horde
+ * @copyright 2001-2010 Richard Heyes
+ * @copyright 2002-2011 Timo Sirainen
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * RFC 822/2822/3490/5322 Email parser/validator.
  *
- * @author   Richard Heyes <richard@phpguru.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/bsd New BSD License
- * @package  Mail
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Timo Sirainen <tss@iki.fi>
+ * @category  Horde
+ * @copyright 2001-2010 Richard Heyes
+ * @copyright 2002-2011 Timo Sirainen
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Rfc822
 {

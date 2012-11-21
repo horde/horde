@@ -64,16 +64,15 @@ class Horde_Core_Share_Driver
     /**
      * Lock an item belonging to a share, or an entire share itself.
      *
-     * @param Horde_Lock $locks          The lock object
-     * @param Horde_Share_Object $share  The share object
-     * @param string $uid                The uid of a specific object to lock,
-     *                                   if null, entire share is locked.
+     * @param Horde_Lock $locks  The lock object.
+     * @param string $uid        The uid of a specific object to lock, if
+     *                           null, entire share is locked.
      *
      * @return mixed  A lock ID on sucess, false if:
-     *                  - The share is already locked,
-     *                  - The item is already locked,
-     *                  - A share lock was requested and an item is already
-     *                    locked in the share.
+     *   - The share is already locked,
+     *   - The item is already locked,
+     *   - A share lock was requested and an item is already locked in the
+     *     share.
      */
     public function lock(Horde_Lock $locks, $uid = null)
     {

@@ -385,7 +385,6 @@ class IMP
      * Returns whether the specified permission is granted.
      *
      * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
      * @param array $opts         Additional options:
      *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
      *     recipients in the current message.
