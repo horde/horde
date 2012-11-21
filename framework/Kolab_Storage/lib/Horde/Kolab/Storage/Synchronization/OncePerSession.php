@@ -1,6 +1,6 @@
 <?php
 /**
- * Handles synchronization with the backend.
+ * Synchronization strategy that synchronizes once per session with the backend.
  *
  * PHP version 5
  *
@@ -12,7 +12,7 @@
  */
 
 /**
- * Handles synchronization with the backend.
+ * Synchronization strategy that synchronizes once per session with the backend.
  *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
@@ -25,27 +25,14 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
-class Horde_Kolab_Storage_Synchronization
+class Horde_Kolab_Storage_Synchronization_OncePerSession
+extends Horde_Kolab_Storage_Synchronization
 {
     /**
-     * Synchronization strategy.
-     *
-     * @var Horde_Kolab_Storage_Synchronization
-     */
-    private $_strategy;
-
-    /**
      * Constructor.
-     *
-     * @param Horde_Kolab_Storage_Synchronization $strategy Optional synchronization strategy.
      */
-    public function __construct(Horde_Kolab_Storage_Synchronization $strategy = null)
+    public function __construct()
     {
-        if ($strategy === null) {
-            $this->_strategy = new Horde_Kolab_Storage_Synchronization_OncePerSession();
-        } else {
-            $this->_strategy = $strategy;
-        }
     }
 
     /**
@@ -56,7 +43,11 @@ class Horde_Kolab_Storage_Synchronization
      */
     public function synchronizeList(Horde_Kolab_Storage_List_Tools $list)
     {
-        $this->_strategy->synchronizeList($list);
+        $list_id = $list->getId();
+        if (empty($_SESSION['kolab_storage']['synchronization']['list'][$list_id])) {
+            $list->getListSynchronization()->synchronize();
+            $_SESSION['kolab_storage']['synchronization']['list'][$list_id] = true;
+        }
     }
 
     /**
@@ -67,6 +58,10 @@ class Horde_Kolab_Storage_Synchronization
      */
     public function synchronizeData(Horde_Kolab_Storage_Data $data)
     {
-        $this->_strategy->synchronizeData($data);
+        $data_id = $data->getId();
+        if (empty($_SESSION['kolab_storage']['synchronization']['data'][$data_id])) {
+            $data->synchronize();
+            $_SESSION['kolab_storage']['synchronization']['data'][$data_id] = true;
+        }
     }
 }
