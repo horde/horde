@@ -33,7 +33,9 @@ class Horde_Crypt_Blowfish_Openssl extends Horde_Crypt_Blowfish_Base
      */
     public function encrypt($text)
     {
-        return openssl_encrypt($text, 'bf-' . $this->cipher, $this->key, true, strval($this->iv));
+        // Need to mask error output, since an invalid warning message was
+        // issued prior to 5.3.4 for empty IVs.
+        return @openssl_encrypt($text, 'bf-' . $this->cipher, $this->key, true, strval($this->iv));
     }
 
     /**
