@@ -14,11 +14,11 @@
 /**
  * This class implements the draft flag (RFC 3501 [2.3.2]).
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
  * @copyright 2010-2012 Horde LLC
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Flag_Imap_Draft extends IMP_Flag_Imap
 {
