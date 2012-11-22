@@ -1767,7 +1767,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                 default:
                     try {
-                        return array_pop($this->statMailMessage($folderid, $id));
+                        return $this->statMailMessage($folderid, $id);
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_endBuffer();
                         return false;
