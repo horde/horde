@@ -2,14 +2,11 @@
 /**
  * Setup autoloading for the tests.
  *
- * PHP version 5
- *
+ * @author     Gunnar Wrobel <wrobel@pardus.de>
  * @category   Horde
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  */
 
 Horde_Test_Autoload::addPrefix('IMP', __DIR__ . '/../../lib');
