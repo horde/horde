@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
  <notes>
-* 
+* [jan] Re-packaged 2.0.0 release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -232,7 +232,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
    <notes>
-* 
+* [jan] Re-packaged 2.0.0 release.
    </notes>
   </release>
  </changelog>

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Re-packaged 2.0.0 release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -317,7 +317,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Re-packaged 2.0.0 release.
    </notes>
   </release>
  </changelog>
