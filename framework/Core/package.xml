@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-11-22</date>
- <time>12:56:45</time>
+ <time>12:58:17</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix synchronizing device message flag changes over ActiveSync (Bug # 11732).
-* [mms] Fix returning session start time if session has been closed (read-only) in the current page access (Bug #11685).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2589,6 +2588,19 @@
    <notes>
 * [mjr] Fix synchronizing device message flag changes over ActiveSync (Bug # 11732).
 * [mms] Fix returning session start time if session has been closed (read-only) in the current page access (Bug #11685).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
