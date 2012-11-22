@@ -122,6 +122,7 @@ class Horde_ActiveSync_Connector_Importer
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
+
         // Changing an existing object
         if ($id) {
             $conflict = $this->_isConflict(
@@ -329,7 +330,7 @@ class Horde_ActiveSync_Connector_Importer
      * Any other combination of operations can be done
      * (e.g. change flags & move or move & delete)
      *
-     * @param string $type  The type of change('change', 'delete' etc...)
+     * @param string $type      The type of change('change', 'delete' etc...)
      * @param string $folderid  The id of the folder this change is from.
      * @param string $id        The uid for the changed message.
      *
