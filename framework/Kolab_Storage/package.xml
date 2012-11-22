@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:23</time>
+ <date>2012-11-21</date>
+ <time>09:19:29</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -23,7 +23,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [gwr] Add a time based snychronization strategy (Bug #11590).
+* [gwr] Correct cache update after move (Bug #11305).
+* [gwr] Remove deleted objects from the cache (Bug #11674).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -186,6 +188,10 @@
         <file name="Cached.php" role="php" />
         <file name="Uncached.php" role="php" />
        </dir> <!-- /lib/Horde/Kolab/Storage/QuerySet -->
+       <dir name="Synchronization">
+        <file name="OncePerSession.php" role="php" />
+        <file name="TimeBased.php" role="php" />
+       </dir> <!-- /lib/Horde/Kolab/Storage/Synchronization -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="Cached.php" role="php" />
@@ -606,6 +612,10 @@
         <dir name="QuerySet">
          <file name="UncachedTest.php" role="test" />
         </dir> <!-- /test/Horde/Kolab/Storage/Unit/QuerySet -->
+        <dir name="Synchronization">
+         <file name="OncePerSessionTest.php" role="test" />
+         <file name="TimeBasedTest.php" role="test" />
+        </dir> <!-- /test/Horde/Kolab/Storage/Unit/Synchronization -->
         <file name="CachedTest.php" role="test" />
         <file name="CacheTest.php" role="test" />
         <file name="FactoryTest.php" role="test" />
@@ -822,6 +832,8 @@
    <install as="Horde/Kolab/Storage/QuerySet/Base.php" name="lib/Horde/Kolab/Storage/QuerySet/Base.php" />
    <install as="Horde/Kolab/Storage/QuerySet/Cached.php" name="lib/Horde/Kolab/Storage/QuerySet/Cached.php" />
    <install as="Horde/Kolab/Storage/QuerySet/Uncached.php" name="lib/Horde/Kolab/Storage/QuerySet/Uncached.php" />
+   <install as="Horde/Kolab/Storage/Synchronization/OncePerSession.php" name="lib/Horde/Kolab/Storage/Synchronization/OncePerSession.php" />
+   <install as="Horde/Kolab/Storage/Synchronization/TimeBased.php" name="lib/Horde/Kolab/Storage/Synchronization/TimeBased.php" />
    <install as="locale/Horde_Kolab_Storage.pot" name="locale/Horde_Kolab_Storage.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.mo" />
    <install as="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" name="locale/ar/LC_MESSAGES/Horde_Kolab_Storage.po" />
@@ -981,6 +993,8 @@
    <install as="Horde/Kolab/Storage/Unit/Object/Writer/FormatTest.php" name="test/Horde/Kolab/Storage/Unit/Object/Writer/FormatTest.php" />
    <install as="Horde/Kolab/Storage/Unit/Object/Writer/RawTest.php" name="test/Horde/Kolab/Storage/Unit/Object/Writer/RawTest.php" />
    <install as="Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" name="test/Horde/Kolab/Storage/Unit/QuerySet/UncachedTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Synchronization/OncePerSessionTest.php" name="test/Horde/Kolab/Storage/Unit/Synchronization/OncePerSessionTest.php" />
+   <install as="Horde/Kolab/Storage/Unit/Synchronization/TimeBasedTest.php" name="test/Horde/Kolab/Storage/Unit/Synchronization/TimeBasedTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1263,10 +1277,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-11-21</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [gwr] Add a time based snychronization strategy (Bug #11590).
+* [gwr] Correct cache update after move (Bug #11305).
+* [gwr] Remove deleted objects from the cache (Bug #11674).
    </notes>
   </release>
  </changelog>
