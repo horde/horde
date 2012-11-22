@@ -213,7 +213,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_thisSyncTS = $this->_lastSyncTS;
 
         // Restore any state or pending changes
-        $data = unserialize($results['sync_data']);
+        try {
+            $columns = $this->_db->columns($this->_syncStateTable);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $data = unserialize(
+            $columns['sync_data']->binaryToString($results['sync_data']));
         $pending = unserialize($results['sync_pending']);
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -294,7 +301,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // timestamp, otherwise we will never get the initial set of data.
         $params = array(
             $this->_syncKey,
-            $data,
+            new Horde_Db_Value_Binary($data),
             $this->_deviceInfo->id,
             (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncTS),
             (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
@@ -1295,14 +1302,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         return $mflag == $flag;
-    }
-
-    protected function _getLastState($id, $ts)
-    {
-        $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable
-            . ' WHERE sync_folderid = ? AND sync_time = ?';
-
-        return unserialize($this->_db->selectValue($sql, array($id, $ts)));
     }
 
     /**

@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-11-22</date>
- <time>12:20:10</time>
+ <time>12:52:21</time>
  <version>
   <release>2.0.7</release>
   <api>2.0.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use binary column for serialized sync state (Bug #11743).
 * [jan] Fix boolean table columns (Bug #11742).
 * [mms] Use new Horde_Test layout.
  </notes>
@@ -166,6 +167,7 @@
       <file name="11_horde_activesync_removepingstate.php" role="data" />
       <file name="12_horde_activesync_longtextcachefield.php" role="data" />
       <file name="13_horde_activesync_booleanfields.php" role="data" />
+      <file name="14_horde_activesync_binarystatefield.php" role="data" />
      </dir> <!-- /migration/Horde/ActiveSync -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
@@ -373,6 +375,7 @@
    <install as="migration/11_horde_activesync_removepingstate.php" name="migration/Horde/ActiveSync/11_horde_activesync_removepingstate.php" />
    <install as="migration/12_horde_activesync_longtextcachefield.php" name="migration/Horde/ActiveSync/12_horde_activesync_longtextcachefield.php" />
    <install as="migration/13_horde_activesync_booleanfields.php" name="migration/Horde/ActiveSync/13_horde_activesync_booleanfields.php" />
+   <install as="migration/14_horde_activesync_binarystatefield.php" name="migration/Horde/ActiveSync/14_horde_activesync_binarystatefield.php" />
    <install as="Horde/ActiveSync/AllTests.php" name="test/Horde/ActiveSync/AllTests.php" />
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
@@ -951,6 +954,7 @@
    <date>2012-11-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use binary column for serialized sync state (Bug #11743).
 * [jan] Fix boolean table columns (Bug #11742).
 * [mms] Use new Horde_Test layout.
    </notes>
