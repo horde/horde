@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:53:02</time>
+ <date>2012-11-22</date>
+ <time>13:07:46</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -209,7 +209,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Re-packaged 2.0.0 release.
