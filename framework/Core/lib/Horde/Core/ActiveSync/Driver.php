@@ -1366,12 +1366,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // I can't think of a time when we would actually need to hit the
         // server. As long as 'mod' is 0, this should be fine as we don't
         // track flag conflicts.
-        // $messages = $this->_imap->getImapMessage(
-        //     $folderid, array($id), array('structure' => false));
         return array(
             'id' => $id,
             'mod' => 0,
-            'flags' => false);//$messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
+            'flags' => false);
     }
 
     /**
