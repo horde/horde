@@ -415,7 +415,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $this->_deviceInfo->id,
                     $change['parent'],
                     $user,
-                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : 1
+                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
                 );
                 break;
 
@@ -782,7 +782,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             }
                             break;
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                            if ($this->_isPIMChange($change['id'], 1, $change['type'])) {
+                            if ($this->_isPIMChange($change['id'], true, $change['type'])) {
                                $this->_logger->debug(sprintf(
                                     "[%s] Ignoring PIM initiated deletion for %s",
                                     $this->_procid,
@@ -1269,7 +1269,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
             return false;
         } else {
-            return $this->_isPIMChangeQuery($id, 1, 'sync_deleted');
+            return $this->_isPIMChangeQuery($id, true, 'sync_deleted');
         }
     }
 
