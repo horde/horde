@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:41:53</time>
+ <date>2012-11-22</date>
+ <time>13:19:11</time>
  <version>
   <release>2.0.1</release>
   <api>1.0.0</api>
@@ -263,7 +263,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-22</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Re-packaged 2.0.0 release.
