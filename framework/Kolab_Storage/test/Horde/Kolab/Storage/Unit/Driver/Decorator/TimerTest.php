@@ -105,4 +105,49 @@ extends Horde_Kolab_Storage_TestCase
             $driver->getNamespace()
         );
     }
+
+    public function testCreateLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('create')
+            ->with('a');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $driver,
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $logger->create('a');
+        $this->assertLogRegexp('/REQUEST OUT IMAP:.*createFolder.*/');
+    }
+
+    public function testSetAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('setAcl')
+            ->with('a', 'b', 'c');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $driver,
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $logger->setAcl('a', 'b', 'c');
+        $this->assertLogRegexp('/REQUEST OUT IMAP:.*setAcl.*/');
+    }
+
+    public function testDeleteAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('deleteAcl')
+            ->with('a', 'b');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Timer(
+            $driver,
+            new Horde_Support_Timer(),
+            $this->getMockLogger()
+        );
+        $logger->deleteAcl('a', 'b');
+        $this->assertLogRegexp('/REQUEST OUT IMAP:.*deleteAcl.*/');
+    }
 }
