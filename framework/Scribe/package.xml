@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-22</date>
- <time>13:21:50</time>
+ <time>13:22:43</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
  <notes>
-* [jan] Re-packaged 2.0.0 release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -233,6 +233,19 @@
    <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
    <notes>
 * [jan] Re-packaged 2.0.0 release.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/apache">Apache 2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
