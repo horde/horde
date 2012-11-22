@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [jan] Fix searching shares for duplicates.
 * [mjr] Fix calling decode_attribute hook when exporting to ActiveSync (kd@tu-cottbus.de, Bug #11678).
@@ -1522,6 +1523,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [jan] Fix searching shares for duplicates.
 * [mjr] Fix calling decode_attribute hook when exporting to ActiveSync (kd@tu-cottbus.de, Bug #11678).

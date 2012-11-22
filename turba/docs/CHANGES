@@ -2,6 +2,7 @@
 v4.0.1-git
 ----------
 
+[gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
 [jan] Use encoded UIDs as IDs in Kolab driver.
 [jan] Fix searching shares for duplicates.
 [mjr] Fix calling decode_attribute hook when exporting to ActiveSync
