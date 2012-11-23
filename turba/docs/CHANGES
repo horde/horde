@@ -2,6 +2,8 @@
 v4.0.1-git
 ----------
 
+[jan] Add free-text country attributes and use them in default Kolab backend
+      (Request #11692).
 [gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
 [jan] Use encoded UIDs as IDs in Kolab driver.
 [jan] Fix searching shares for duplicates.
