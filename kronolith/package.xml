@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix timezone when reading events from Kolab (Bug #11695).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [jan] Fix saving of events if no calendar has been loaded yet.
 * [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
@@ -2016,6 +2017,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix timezone when reading events from Kolab (Bug #11695).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [jan] Fix saving of events if no calendar has been loaded yet.
 * [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
