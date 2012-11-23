@@ -60,7 +60,7 @@ class Trean_Bookmarks
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
         $sql = $GLOBALS['trean_db']->addLimitOffset($sql, array('limit' => $count, 'offset' => $from));
 
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }
 
     /**
@@ -87,7 +87,7 @@ class Trean_Bookmarks
                 WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
         $values = array($this->_userId);
 
-        return Trean_Bookmarks::resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
+        return $this->_resultSet($GLOBALS['trean_db']->selectAll($sql, $values));
     }
 
     /**
@@ -137,7 +137,7 @@ class Trean_Bookmarks
             throw new Trean_Exception('not found');
         }
 
-        $bookmark = $this->resultSet(array($bookmark));
+        $bookmark = $this->_resultSet(array($bookmark));
         return array_pop($bookmark);
     }
 
@@ -172,10 +172,9 @@ class Trean_Bookmarks
     }
 
     /**
-     * Create Trean_Bookmark objects for each row in a SQL result.
-     * @static
+     * Creates Trean_Bookmark objects for each row in a SQL result.
      */
-    public function resultSet($bookmarks)
+    protected function _resultSet($bookmarks)
     {
         if (is_null($bookmarks)) {
             return array();
@@ -183,10 +182,11 @@ class Trean_Bookmarks
 
         $objects = array();
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
+        $charset = $GLOBALS['trean_db']->getOption('charset');
         foreach ($bookmarks as $bookmark) {
             foreach ($bookmark as $key => $value) {
                 if (!empty($value) && !is_numeric($value)) {
-                    $cvBookmarks[$key] = Horde_String::convertCharset($value, $GLOBALS['conf']['sql']['charset'], 'UTF-8');
+                    $cvBookmarks[$key] = Horde_String::convertCharset($value, $charset, 'UTF-8');
                 } else {
                     $cvBookmarks[$key] = $value;
                 }
@@ -194,6 +194,7 @@ class Trean_Bookmarks
             $cvBookmarks['bookmark_tags'] = $tagger->getTags((string)$cvBookmarks['bookmark_id'], 'bookmark');
             $objects[] = new Trean_Bookmark($cvBookmarks);
         }
+
         return $objects;
     }
 }

@@ -49,6 +49,8 @@ class Trean_Bookmark
      */
     public function save()
     {
+        $charset = $GLOBALS['trean_db']->getOption('charset');
+
         if ($this->id) {
             // Update an existing bookmark.
             $GLOBALS['trean_db']->update('
@@ -62,9 +64,9 @@ class Trean_Bookmark
                 WHERE bookmark_id = ?',
                 array(
                     $this->userId,
-                    Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                    Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                    Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                    Horde_String::convertCharset($this->url, 'UTF-8', $charset),
+                    Horde_String::convertCharset($this->title, 'UTF-8', $charset),
+                    Horde_String::convertCharset($this->description, 'UTF-8', $charset),
                     $this->clicks,
                     $this->http_status,
                     $this->id,
@@ -85,9 +87,9 @@ class Trean_Bookmark
             VALUES (?, ?, ?, ?, ?, ?, ?)',
             array(
                 $this->userId,
-                Horde_String::convertCharset($this->url, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                Horde_String::convertCharset($this->title, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
-                Horde_String::convertCharset($this->description, 'UTF-8', $GLOBALS['conf']['sql']['charset']),
+                Horde_String::convertCharset($this->url, 'UTF-8', $charset),
+                Horde_String::convertCharset($this->title, 'UTF-8', $charset),
+                Horde_String::convertCharset($this->description, 'UTF-8', $charset),
                 $this->clicks,
                 $this->http_status,
                 $this->dt,
