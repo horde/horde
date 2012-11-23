@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Turba H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-09 10:27+0100\n"
+"PO-Revision-Date: 2012-11-23 10:31+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -56,7 +56,7 @@ msgstr "\"Achternaam, Voornaam\" (b.v. Modaal, Jan)"
 #: lib/Driver.php:722
 #, php-format
 msgid "%d. %s of %s"
-msgstr "%d. %s of %s"
+msgstr "%d. %s van %s"
 
 #: lib/Form/AddContact.php:88
 #, php-format
