@@ -19,6 +19,12 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
      */
     protected $_headers = null;
 
+    /**
+     * Route match dict
+     * @var array
+     */
+    protected $_routeVars = null;
+
     public function setPath($path)
     {
         $this->_path = $path;
@@ -63,6 +69,16 @@ class Horde_Controller_Request_Http implements Horde_Controller_Request
     public function getRequestVars()
     {
         return $_REQUEST;
+    }
+
+    public function setRouteVars(array $dict)
+    {
+        $this->_routeVars = $dict;
+    }
+
+    public function getRouteVars()
+    {
+        return $this->_routeVars;
     }
 
     public function getSessionId()

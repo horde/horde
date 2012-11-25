@@ -64,6 +64,7 @@ class Horde_Core_Controller_RequestMapper
             $path = substr($path, 0, $pos);
         }
         $match = $this->_mapper->match($path);
+        $request->setRouteVars($match);
         if (isset($match['controller'])) {
             $config->setControllerName(ucfirst($app) . '_' . ucfirst($match['controller']) . '_Controller');
             $config->setSettingsExporterName($settingsFinder->getSettingsExporterName($config->getControllerName()));

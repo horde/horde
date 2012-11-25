@@ -43,5 +43,13 @@ interface Horde_Controller_Request
 
     /**
      */
+    public function setRouteVars(array $dict);
+
+    /**
+     */
+    public function getRouteVars();
+
+    /**
+     */
     public function getSessionId();
 }

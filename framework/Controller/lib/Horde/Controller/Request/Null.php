@@ -67,6 +67,12 @@ class Horde_Controller_Request_Null implements Horde_Controller_Request
 
     /**
      */
+    public function getRouteVars()
+    {
+    }
+
+    /**
+     */
     public function getSessionId()
     {
     }

@@ -28,7 +28,7 @@ class Horde_Controller_Request_Mock extends Horde_Controller_Request_Http
         } else if (!empty($server['REQUEST_URI'])) {
             $this->setPath($server['REQUEST_URI']);
         }
-    } 
+    }
 
     /**
      * Set the request variables GET, POST, COOKIE, SERVER, REQUEST etc.
@@ -82,5 +82,10 @@ class Horde_Controller_Request_Mock extends Horde_Controller_Request_Http
     public function getRequestVars()
     {
         return $this->getVars('REQUEST');
+    }
+
+    public function getRouteVars()
+    {
+        return $this->getVars('ROUTE');
     }
 }
