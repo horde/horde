@@ -2,6 +2,7 @@
 v1.0.0-git
 ----------
 
+[cjh] Turn search off by default (Bug #11701).
 [jan] Allow to set custom SQL parameters.
 [jan] Move search box to top menu.
 

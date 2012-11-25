@@ -13,6 +13,14 @@
   </configswitch>
  </configsection>
 
+ <configsection name="search">
+  <configheader>Search Settings</configheader>
+  <configdescription>Currently, search support assumes an ElasticSearch cluster
+  accessible by Horde at the default port of localhost:9200. If you don&apos;t
+  have that, don&apos;t turn search on.</configdescription>
+  <configboolean name="enabled" desc="Enable Bookmarks Search?">false</configboolean>
+ </configsection>
+
  <configsection name="favicons">
   <configheader>Virtual File Storage</configheader>
   <configvfs switchname="type" />
