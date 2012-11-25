@@ -2,7 +2,7 @@
 /**
  * Trean_TagBrowser:: class provides logic for dealing with tag browsing.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -14,7 +14,6 @@
  */
 class Trean_TagBrowser extends Horde_Core_TagBrowser
 {
-
     protected $_app = 'trean';
 
     /**
@@ -24,7 +23,6 @@ class Trean_TagBrowser extends Horde_Core_TagBrowser
      */
     public function getTagTrail()
     {
-
     }
 
     /**
@@ -56,5 +54,4 @@ class Trean_TagBrowser extends Horde_Core_TagBrowser
 
         return $bookmarks;
     }
-
 }
