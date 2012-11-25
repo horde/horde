@@ -794,18 +794,14 @@ class Horde_PageOutput
 
         $view->pageOutput = $this;
 
-        if ($this->topbar) {
-            $topbar = $injector->getInstance('Horde_View_Topbar');
-        }
-
         header('Content-type: text/html; charset=UTF-8');
         if (isset($language)) {
             header('Vary: Accept-Language');
         }
 
         echo $view->render('header');
-        if ($topbar) {
-            echo $topbar->render();
+        if ($this->topbar) {
+            echo $injector->getInstance('Horde_View_Topbar')->render();
         }
 
         // Send what we have currently output so the browser can start
