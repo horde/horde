@@ -1,7 +1,18 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Pgp class allows viewing/decrypting of PGP
- * formatted messages.  This class implements RFC 3156.
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Renderer to allow viewing/decrypting of PGP formatted messages (RFC 3156).
  *
  * This class handles the following MIME types:
  *   - application/pgp-encrypted (in multipart/encrypted part)
@@ -12,15 +23,11 @@
  *   - pgp_verify_msg: (boolean) Do verification of PGP signed data?
  *   - pgp_view_key: (boolean) View PGP key details?
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 {

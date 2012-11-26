@@ -294,14 +294,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             throw new IMP_Compose_Exception(_("Saving the draft failed. Could not create a drafts mailbox."));
         }
 
-        $append_flags = array(Horde_Imap_Client::FLAG_DRAFT);
+        $append_flags = array(
+            Horde_Imap_Client::FLAG_DRAFT,
+            /* RFC 3503 [3.4] - MUST set MDNSent flag on draft message. */
+            Horde_Imap_Client::FLAG_MDNSENT
+        );
         if (!$GLOBALS['prefs']->getValue('unseen_drafts')) {
             $append_flags[] = Horde_Imap_Client::FLAG_SEEN;
         }
-
-        /* RFC 3503 [3.4] states that when saving a draft, the client MUST
-         * set the MDNSent keyword. However, IMP doesn't write MDN headers
-         * until send time so no need to set the flag here. */
 
         $old_uid = $this->getMetadata('draft_uid');
 
@@ -921,15 +921,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $sent_mail = IMP_Mailbox::get($opts['sent_mail']);
             $sent_mail->create();
 
-            $flags = array(Horde_Imap_Client::FLAG_SEEN);
-
-            /* RFC 3503 [3.3] - set MDNSent flag on sent message. */
-            if ($prefs->getValue('request_mdn') != 'never') {
-                $mdn = new Horde_Mime_Mdn($headers);
-                if ($mdn->getMdnReturnAddr()) {
-                    $flags[] = Horde_Imap_Client::FLAG_MDNSENT;
-                }
-            }
+            $flags = array(
+                Horde_Imap_Client::FLAG_SEEN,
+                /* RFC 3503 [3.3] - MUST set MDNSent flag on sent message. */
+                Horde_Imap_Client::FLAG_MDNSENT
+            );
 
             try {
                 $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));

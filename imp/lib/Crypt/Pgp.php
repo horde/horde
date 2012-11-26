@@ -10,6 +10,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
+
 /**
  * The IMP_Crypt_Pgp:: class contains all functions related to handling
  * PGP messages within IMP.
