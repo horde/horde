@@ -2,9 +2,9 @@
     width: auto;
 }
 
-.favicon {
-    width: 16px;
-    height: 16px;
+.trean-favicon {
+    max-width: 20px;
+    max-height: 20px;
 }
 
 .bl-title {

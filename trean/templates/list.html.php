@@ -25,7 +25,7 @@ function table_sortCallback(tableId, column, sortDown)
   </td>
   <td>
    <div class="bl-title">
-    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'favicon')) ?>
+    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
     <?php if ($bookmark->http_status == 'error'): ?>
     <?php echo Horde::img('http/error.png') ?>
     <?php elseif ($bookmark->http_status): ?>

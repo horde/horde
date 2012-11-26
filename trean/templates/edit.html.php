@@ -14,7 +14,7 @@ function cancelEdit()
 <input type="hidden" name="bookmark" value="<?php echo $bookmark->id ?>" />
 
 <h1 class="header">
- <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="favicon"', '') ?>
+ <?php echo Horde::img(Trean::getFavicon($bookmark), '', 'class="trean-favicon"', '') ?>
  <?php echo htmlspecialchars($bookmark->title) ?>
 </h1>
 
