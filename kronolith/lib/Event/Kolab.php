@@ -42,6 +42,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     }
 
     /**
+     * Retrieves history information for this event from the history backend.
+     */
+    public function loadHistory()
+    {
+    }
+
+    /**
      * Imports a backend specific event object.
      *
      * @param array $event  Backend specific event object that this object
