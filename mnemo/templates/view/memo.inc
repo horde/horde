@@ -27,7 +27,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
 
 <?php if (isset($memo['created'])): ?>
 <tr>
-  <td align="right"><strong><?php echo _("Created") ?></strong>&nbsp;</td>
+  <td class="rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;</td>
   <td>
     <?php echo $memo['created']->strftime($prefs->getValue('date_format')) . ' ' . $memo['created']->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
 <?php if (isset($memo['createdby'])): ?>
@@ -39,7 +39,7 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
 
 <?php if (isset($memo['modified'])): ?>
 <tr>
-  <td align="right"><strong><?php echo _("Last Modified") ?></strong>&nbsp;</td>
+  <td class="rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;</td>
   <td>
     <?php echo $memo['modified']->strftime($prefs->getValue('date_format')) . ' ' . $memo['modified']->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
 <?php if (isset($memo['modifiedby'])): ?>
