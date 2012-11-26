@@ -6,7 +6,6 @@ function table_sortCallback(tableId, column, sortDown)
 }
 </script>
 
-<br />
 <table class="horde-table sortable" cellspacing="0">
 <thead>
  <tr>

@@ -27,14 +27,13 @@
     padding: 10px;
 }
 
-ul.horde-tags {
-    margin: 4px;
+.trean-tags-related, .trean-tags-browsing {
+    padding-bottom: 12px;
+    padding-left: 5px;
 }
-.trean-tags-related {
-    padding: 5px;
-}
-.bl-title ul.horde-tags a {
-    font-weight: normal;
+
+.horde-tags li a img {
+    padding-left: 5px;
 }
 
 .trean-browse {
