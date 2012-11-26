@@ -1564,6 +1564,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * to fallback to APPEND. */
                 $this->_unsetCapability('CATENATE');
                 return $this->_append($mailbox, $data, $options);
+
+            case $e::DISCONNECT:
+                /* Workaround broken literal8 on Cyrus. */
+                if ($this->queryCapability('BINARY')) {
+                    $this->_unsetCapability('BINARY');
+                    return $this->append($mailbox, $data, $options);
+                }
+                break;
             }
 
             if (!empty($options['create']) && $this->_temp['trycreate']) {
@@ -1576,14 +1584,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * using literal8 "~{#} format", but it doesn't seem to work on
              * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
              * broken BINARY and attempt to fix here. */
-            if (($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
-                $this->queryCapability('BINARY')) {
-                switch ($e->status) {
-                case Horde_Imap_Client_Interaction_Server::BAD:
-                case Horde_Imap_Client_Interaction_Server::BYE:
-                    $this->_unsetCapability('BINARY');
-                    return $this->_append($mailbox, $data, $options);
-                }
+            if ($this->queryCapability('BINARY') &&
+                ($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
+                ($e->status == Horde_Imap_Client_Interaction_Server::BAD)) {
+                $this->_unsetCapability('BINARY');
+                return $this->_append($mailbox, $data, $options);
             }
 
             throw $e;
