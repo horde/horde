@@ -10,4 +10,6 @@ abstract class Horde_Queue_Runner
     {
         $this->_storage = $storage;
     }
+
+    abstract public function run();
 }
