@@ -53,7 +53,7 @@ function table_sortCallback(tableId, column, sortDown)
    <a href="<?php echo Horde::url('edit.php')->add('bookmark', (int)$bookmark->id) ?>"><?php echo Horde::img('edit.png', _("Edit")) ?></a>
    <form action="<?php echo Horde::url('b/delete') ?>" method="post">
     <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>" />
-    <input type="hidden" name="url" value="<?php echo $this->h(Horde::selfUrl()) ?>" />
+    <input type="hidden" name="url" value="<?php echo $this->h(Horde::selfUrl(true)) ?>" />
     <input type="image" src="<?php echo Horde_Themes::img('delete.png') ?>" />
    </form>
   </td>
