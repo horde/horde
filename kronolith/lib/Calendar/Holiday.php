@@ -42,7 +42,7 @@ class Kronolith_Calendar_Holiday extends Kronolith_Calendar
      */
     public function name()
     {
-        return $this->_driver['title'];
+        return Horde_Nls_Translation::t($this->_driver['title']);
     }
 
     /**

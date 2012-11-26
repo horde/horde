@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[jan] Try to translate holiday drivers (Request #11755).
 [jan] Fix timezone when reading events from Kolab (Bug #11695).
 [jan] Use encoded UIDs as IDs in Kolab driver.
 [jan] Fix saving of events if no calendar has been loaded yet.
