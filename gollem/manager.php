@@ -48,7 +48,7 @@ case 'create_folder':
         try {
             Gollem::createFolder($old_dir, $vars->new_folder);
             $notification->push(_("New folder created: ") . $vars->new_folder, 'horde.success');
-        } catch (Horde_Exception $e) {
+        } catch (Gollem_Exception $e) {
             $notification->push($e, 'horde.error');
         }
     }
@@ -63,7 +63,7 @@ case 'rename_items':
                 try {
                     Gollem::renameItem($old_dir, $old[$i], $old_dir, $new[$i]);
                     $notification->push(sprintf(_("\"%s\" renamed to \"%s\""), $old[$i], $new[$i]), 'horde.success');
-                } catch (Horde_Exception $e) {
+                } catch (Gollem_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
             }
@@ -81,7 +81,7 @@ case 'delete_items':
                     Gollem::changePermissions(Gollem::$backend['dir'], $item, $vars->chmod);
                     Gollem::expireCache($old_dir);
                     $notification->push(_("Chmod done: ") . $item, 'horde.success');
-                } catch (Horde_Exception $e) {
+                } catch (Gollem_Exception $e) {
                     $notification->push(sprintf(_("Cannot chmod %s: %s"), $item, $e->getMessage()), 'horde.error');
                 }
             } elseif ($vars->actionID == 'delete_items') {
@@ -90,7 +90,7 @@ case 'delete_items':
                         Gollem::deleteFolder($old_dir, $item);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("Folder removed: ") . $item, 'horde.success');
-                    } catch (Horde_Exception $e) {
+                    } catch (Gollem_Exception $e) {
                         $notification->push(sprintf(_("Unable to delete folder %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
                 } else {
@@ -98,7 +98,7 @@ case 'delete_items':
                         Gollem::deleteFile($old_dir, $item);
                         Gollem::expireCache($old_dir);
                         $notification->push(_("File deleted: ") . $item, 'horde.success');
-                    } catch (Horde_Exception $e) {
+                    } catch (Gollem_Exception $e) {
                         $notification->push(sprintf(_("Unable to delete file %s: %s"), $item, $e->getMessage()), 'horde.error');
                     }
                 }
@@ -119,7 +119,7 @@ case 'upload_file':
                     Gollem::writeFile($old_dir, $filename, $_FILES[$val]['tmp_name']);
                     Gollem::expireCache($old_dir);
                     $notification->push(sprintf(_("File received: %s"), $filename), 'horde.success');
-                } catch (Horde_Exception $e) {
+                } catch (Gollem_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
             }
@@ -220,7 +220,7 @@ try {
                 Gollem::setDir(($loc !== false) ? substr(Gollem::$backend['dir'], 0, $loc) : Gollem::$backend['home']);
                 $list = Gollem::listFolder(Gollem::$backend['dir']);
             }
-        } catch (Horde_Exception $e) {
+        } catch (Gollem_Exception $e) {
             $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
         }
     }
