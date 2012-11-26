@@ -378,7 +378,7 @@ if (is_array($list) && $numitem && $read_perms) {
         }
 
         $item = array(
-            'date' => htmlspecialchars(strftime($prefs->getValue('date_format'), $val['date'])),
+            'date' => htmlspecialchars(strftime($prefs->getValue('date_format_mini'), $val['date'])),
             'dl' => false,
             'edit' => false,
             'group' => empty($val['group']) ? '-' : htmlspecialchars($val['group']),
