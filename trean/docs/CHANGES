@@ -2,6 +2,9 @@
 v1.0.0-git
 ----------
 
+[cjh] If Content_Indexer is available with ElasticSearch, and a working Horde_Queue
+      backend is available, crawl all bookmarks when they are saved or edited for
+      fulltext searching.
 [cjh] Turn search off by default (Bug #11701).
 [jan] Allow to set custom SQL parameters.
 [jan] Move search box to top menu.

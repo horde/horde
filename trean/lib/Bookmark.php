@@ -49,7 +49,14 @@ class Trean_Bookmark
      */
     public function save()
     {
+        if (!strlen($this->url)) {
+            throw new Trean_Exception('Incomplete bookmark');
+        }
+
         $charset = $GLOBALS['trean_db']->getOption('charset');
+        $c_url = Horde_String::convertCharset($this->url, 'UTF-8', $charset);
+        $c_title = Horde_String::convertCharset($this->title, 'UTF-8', $charset);
+        $c_description = Horde_String::convertCharset($this->description, 'UTF-8', $charset);
 
         if ($this->id) {
             // Update an existing bookmark.
@@ -64,39 +71,54 @@ class Trean_Bookmark
                 WHERE bookmark_id = ?',
                 array(
                     $this->userId,
-                    Horde_String::convertCharset($this->url, 'UTF-8', $charset),
-                    Horde_String::convertCharset($this->title, 'UTF-8', $charset),
-                    Horde_String::convertCharset($this->description, 'UTF-8', $charset),
+                    $c_url,
+                    $c_title,
+                    $c_description,
                     $this->clicks,
                     $this->http_status,
                     $this->id,
             ));
 
             $GLOBALS['injector']->getInstance('Trean_Tagger')->replaceTags((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
-            return;
+        } else {
+            // Saving a new bookmark.
+            $bookmark_id = $GLOBALS['trean_db']->insert('
+                INSERT INTO trean_bookmarks (
+                    user_id,
+                    bookmark_url,
+                    bookmark_title,
+                    bookmark_description,
+                    bookmark_clicks,
+                    bookmark_http_status,
+                    bookmark_dt
+                ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                array(
+                    $this->userId,
+                    $c_url,
+                    $c_title,
+                    $c_description,
+                    $this->clicks,
+                    $this->http_status,
+                    $this->dt,
+            ));
+
+            $this->id = (int)$bookmark_id;
+            $GLOBALS['injector']->getInstance('Trean_Tagger')->tag((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
         }
 
-        if (!strlen($this->url)) {
-            throw new Trean_Exception('Incomplete bookmark');
+        try {
+            $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+            $queue->add(new Trean_Queue_Task_Crawl(
+                $this->url,
+                $this->title,
+                $this->description,
+                $this->id,
+                $this->userId
+            ));
+        } catch (Exception $e) {
+            Horde::log($e, 'INFO');
         }
 
-        // Saving a new bookmark.
-        $bookmark_id = $GLOBALS['trean_db']->insert('
-            INSERT INTO trean_bookmarks
-                (user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt)
-            VALUES (?, ?, ?, ?, ?, ?, ?)',
-            array(
-                $this->userId,
-                Horde_String::convertCharset($this->url, 'UTF-8', $charset),
-                Horde_String::convertCharset($this->title, 'UTF-8', $charset),
-                Horde_String::convertCharset($this->description, 'UTF-8', $charset),
-                $this->clicks,
-                $this->http_status,
-                $this->dt,
-        ));
-
-        $this->id = (int)$bookmark_id;
-        $GLOBALS['injector']->getInstance('Trean_Tagger')->tag((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
         return $this->id;
     }
 }
