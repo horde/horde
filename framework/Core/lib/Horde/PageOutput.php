@@ -445,9 +445,9 @@ class Horde_PageOutput
      * @param string $content      The content of the META tag.
      * @param boolean $http_equiv  Output http-equiv instead of name?
      */
-    public function addMetaTag($type, $content, $http_equiv = true)
+    public function addMetaTag($name, $content, $http_equiv = true)
     {
-        $this->metaTags[$type] = array(
+        $this->metaTags[$name] = array(
             'c' => $content,
             'h' => $http_equiv
         );

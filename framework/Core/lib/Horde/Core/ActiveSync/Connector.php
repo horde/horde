@@ -112,7 +112,7 @@ class Horde_Core_ActiveSync_Connector
      * Import a Horde_Icalendar_vEvent into a user's calendar. Used for creating
      * events from meeting invitations.
      *
-     * @param Horde_Icalendar_vEvent $event  The event data.
+     * @param Horde_Icalendar_vEvent $vEvent  The event data.
      *
      * @return string The event's UID.
      */
@@ -125,10 +125,11 @@ class Horde_Core_ActiveSync_Connector
      * Import an event response into a user's calendar. Used for updating
      * attendee information from a meeting response.
      *
-     * @param Horde_Icalendar_vEvent $event  The event data.
-     * @param string $attendee               The attendee.
+     * @param Horde_Icalendar_vEvent $vEvent  The event data.
+     * @param string $attendee                The attendee.
      */
-    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent, $attendee)
+    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent,
+                                             $attendee)
     {
         if ($this->_registry->hasMethod('calendar/updateAttendee')) {
             // If the mail interface (i.e., IMP) provides a mime driver for

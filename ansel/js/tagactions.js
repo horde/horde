@@ -41,6 +41,7 @@ var AnselTagActions = {
     // Since onsubmit is never called when submitting programatically we
     // can use this function to add tags when we press enter on the tag form.
     submitcheck: function()
+    {
         return !this.add();
     }
 

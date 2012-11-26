@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-09</date>
- <time>16:42:38</time>
+ <date>2012-11-19</date>
+ <time>14:08:27</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0alpha1</api>
@@ -52,8 +52,10 @@
      <dir name="Service">
       <dir name="Gravatar">
        <file name="AllTests.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="conf.php.dist" role="test" />
        <file name="GravatarTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="ServerTest.php" role="test" />
       </dir> <!-- /test/Horde/Service/Gravatar -->
      </dir> <!-- /test/Horde/Service -->
@@ -81,7 +83,7 @@
    <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -95,8 +97,10 @@
    <install as="examples/get_profile.php" name="doc/Horde/Service/Gravatar/examples/get_profile.php" />
    <install as="Horde/Service/Gravatar.php" name="lib/Horde/Service/Gravatar.php" />
    <install as="Horde/Service/Gravatar/AllTests.php" name="test/Horde/Service/Gravatar/AllTests.php" />
+   <install as="Horde/Service/Gravatar/bootstrap.php" name="test/Horde/Service/Gravatar/bootstrap.php" />
    <install as="Horde/Service/Gravatar/conf.php.dist" name="test/Horde/Service/Gravatar/conf.php.dist" />
    <install as="Horde/Service/Gravatar/GravatarTest.php" name="test/Horde/Service/Gravatar/GravatarTest.php" />
+   <install as="Horde/Service/Gravatar/phpunit.xml" name="test/Horde/Service/Gravatar/phpunit.xml" />
    <install as="Horde/Service/Gravatar/ServerTest.php" name="test/Horde/Service/Gravatar/ServerTest.php" />
   </filelist>
  </phprelease>
@@ -110,7 +114,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Initial release.

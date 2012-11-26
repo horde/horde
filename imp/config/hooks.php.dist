@@ -426,7 +426,7 @@ class IMP_Hooks
 //    {
 //        // Example #1: Default Kolab redirection scheme
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->listFolderTypes();
+//            ->getList()->getQuery()->listTypes();
 //
 //        $icons = array();
 //        foreach ($types as $f => $type) {
@@ -622,7 +622,7 @@ class IMP_Hooks
 //
 //        // Example #2: Kolab default
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->listFolderTypes();
+//            ->getList()->getQuery()->listTypes();
 //        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 

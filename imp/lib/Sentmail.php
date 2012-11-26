@@ -77,7 +77,7 @@ abstract class IMP_Sentmail
      * @param integer $action     Why the message was sent (IMP_Sentmail
      *                            constant).
      * @param string $message_id  The Message-ID.
-     * @param string $recipients  A message recipient.
+     * @param string $recipient   A message recipient.
      * @param boolean $success    Whether the attempt was successful.
      */
     abstract protected function _log($action, $message_id, $recipient,

@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:44:01</time>
+ <date>2012-11-19</date>
+ <time>14:08:27</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -313,6 +313,7 @@
      <dir name="LoginTasks">
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="LoginTasksTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="Stubs.php" role="test" />
@@ -342,6 +343,13 @@
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -445,6 +453,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_LoginTasks.po" name="locale/zh_TW/LC_MESSAGES/Horde_LoginTasks.po" />
    <install as="Horde/LoginTasks/AllTests.php" name="test/Horde/LoginTasks/AllTests.php" />
    <install as="Horde/LoginTasks/Autoload.php" name="test/Horde/LoginTasks/Autoload.php" />
+   <install as="Horde/LoginTasks/bootstrap.php" name="test/Horde/LoginTasks/bootstrap.php" />
    <install as="Horde/LoginTasks/LoginTasksTest.php" name="test/Horde/LoginTasks/LoginTasksTest.php" />
    <install as="Horde/LoginTasks/phpunit.xml" name="test/Horde/LoginTasks/phpunit.xml" />
    <install as="Horde/LoginTasks/Stubs.php" name="test/Horde/LoginTasks/Stubs.php" />
@@ -629,7 +638,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

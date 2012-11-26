@@ -118,10 +118,10 @@ class Nag_Driver_Kolab extends Nag_Driver
             'owner' => $GLOBALS['nag_shares']->getShare($this->_tasklist)->get('owner'),
         );
 
-        if (isset($task['start-date'])) {
+        if (!empty($task['start-date'])) {
             $result['start'] = $task['start-date']->format('U');
         }
-        if (isset($task['due-date'])) {
+        if (!empty($task['due-date'])) {
             $result['due'] = $task['due-date']->format('U');
         }
 

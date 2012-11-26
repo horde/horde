@@ -1,11 +1,7 @@
 <?php
 /**
- * SMTP implementation.
- * Requires the Net_SMTP class.
- *
- * LICENSE:
- *
  * Copyright (c) 2010, Chuck Hagenbuch
+ * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -34,18 +30,23 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @package   Mail
- * @author    Jon Parise <jon@php.net>
- * @author    Chuck Hagenbuch <chuck@horde.org>
  * @copyright 2010 Chuck Hagenbuch
+ * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * SMTP implementation.
  *
- * @category Horde
- * @package  Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@php.net>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010 Chuck Hagenbuch
+ * @copyright 2010-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
 {
@@ -212,7 +213,8 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
         }
 
-        $res = $this->_smtp->mailFrom($from, ltrim($params));
+        $from_ob = new Horde_Mail_Rfc822_Address($from);
+        $res = $this->_smtp->mailFrom($from_ob->bare_address, ltrim($params));
         if ($res instanceof PEAR_Error) {
             $this->_error("Failed to set sender: $from", $res, self::ERROR_SENDER);
         }

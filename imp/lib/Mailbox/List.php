@@ -188,6 +188,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     }
 
                     $f = $fetch_res[$v];
+                    $uid = $f->getUid();
                     $v = array(
                         'envelope' => $f->getEnvelope(),
                         'flags' => $f->getFlags(),
@@ -195,32 +196,38 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                         'idx' => $k,
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
-                        'uid' => $f->getUid()
+                        'uid' => $uid
                     );
 
                     if (($options['preview'] === 2) ||
                         (($options['preview'] === 1) &&
                          (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
                           !in_array(Horde_Imap_Client::FLAG_SEEN, $v['flags'])))) {
-                        if (empty($preview_info[$v])) {
+                        if (empty($preview_info[$uid])) {
                             try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $v));
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $uid));
                                 $prev = $imp_contents->generatePreview();
-                                $preview_info[$v] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
+                                $preview_info[$uid] = array(
+                                    'IMPpreview' => $prev['text'],
+                                    'IMPpreviewc' => $prev['cut']
+                                );
                                 if (!is_null($cache)) {
-                                    $tostore[$v] = $preview_info[$v];
+                                    $tostore[$uid] = $preview_info[$uid];
                                 }
                             } catch (Exception $e) {
-                                $preview_info[$v] = array('IMPpreview' => '', 'IMPpreviewc' => false);
+                                $preview_info[$uid] = array(
+                                    'IMPpreview' => '',
+                                    'IMPpreviewc' => false
+                                );
                             }
                         }
 
-                        $v['preview'] = $preview_info[$v]['IMPpreview'];
-                        $v['previewcut'] = $preview_info[$v]['IMPpreviewc'];
+                        $v['preview'] = $preview_info[$uid]['IMPpreview'];
+                        $v['previewcut'] = $preview_info[$uid]['IMPpreviewc'];
                     }
 
                     $overview[] = $v;
-                    $mbox_ids[] = $v['uid'];
+                    $mbox_ids[] = $uid;
                 }
 
                 $uids[$mbox] = $mbox_ids;

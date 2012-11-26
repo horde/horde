@@ -77,22 +77,26 @@ class Hermes
 
     /**
      * Return HTML needed to build an enum or multienum for jobtype selection.
-     * @TODO: Build these via ajax once we have UI support for editing jobtypes
      *
      * @param string $id      The DOM id to identify the select list.
      * @param boolean $multi  Allow multi select?
      *
      * @return string  The HTML needed to render the select element.
      */
-    public static function getJobTypeSelect($id, $multi = false)
+    public static function getJobTypeSelect($id, $multi = false, $show_disabled = false)
     {
+        if ($show_disabled) {
+            $params = array();
+        } else {
+            $params = array('enabled' => true);
+        }
         $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
-            ->listJobTypes(array('enabled' => true));
+            ->listJobTypes($params);
         $select = '<select name="'
             . ($multi ? 'type[]' : 'type')
             . '" id="' . $id . '" '
             . ($multi ? 'multiple="multiple"' : '') . '>';
-
+        $select .= '<option value="">' . _("--- Select a Job Type ---") . '</option>';
         foreach ($types as $tid => $type) {
             $select .= '<option value="' . $tid . '">' . htmlspecialchars($type['name']) . '</option>';
         }
@@ -253,7 +257,7 @@ class Hermes
             'active' => true
         );
         if (empty($client_ids)) {
-            $client_ids = array();
+            $client_ids = array('');
         } elseif (!is_array($client_ids)) {
             $client_ids = array($client_ids);
         }

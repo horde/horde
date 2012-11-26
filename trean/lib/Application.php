@@ -45,7 +45,11 @@ class Trean_Application extends Horde_Registry_Application
         /* For now, autoloading the Content_* classes depend on there being a
          * registry entry for the 'content' application that contains at least
          * the fileroot entry. */
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Content_/', $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'));
+        $GLOBALS['injector']->getInstance('Horde_Autoloader')
+            ->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Content_/',
+                $GLOBALS['registry']->get('fileroot', 'content') . '/lib/'
+            ));
         if (!class_exists('Content_Tagger')) {
             throw new Horde_Exception('The Content_Tagger class could not be found. Make sure the Content application is installed.');
         }
@@ -54,8 +58,17 @@ class Trean_Application extends Horde_Registry_Application
         $GLOBALS['registry']->setTimeZone();
 
         // Create db and gateway instances.
-        $GLOBALS['trean_db'] = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Db')->create('trean');
-        $GLOBALS['trean_gateway'] = $GLOBALS['injector']->getInstance('Trean_Bookmarks');
+        $GLOBALS['trean_db'] = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Db')
+            ->create('trean', 'storage');
+        $GLOBALS['trean_gateway'] = $GLOBALS['injector']
+            ->getInstance('Trean_Bookmarks');
+
+        if ($GLOBALS['conf']['search']['enabled']) {
+            $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+            $topbar->search = true;
+            $topbar->searchAction = Horde::url('search.php');
+        }
     }
 
     /**
@@ -75,7 +88,6 @@ class Trean_Application extends Horde_Registry_Application
     public function menu($menu)
     {
         $menu->add(Horde::url('browse.php'), _("_Browse"), 'trean-browse', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'horde-search');
     }
 
     /**
@@ -86,5 +98,26 @@ class Trean_Application extends Horde_Registry_Application
     public function sidebar($sidebar)
     {
         $sidebar->addNewButton(_("_New Bookmark"), Horde::url('add.php'));
+
+        $sidebar->containers['tags'] = array(
+            'header' => array(
+                'id' => 'trean-toggle-tags',
+                'label' => _("Tags"),
+                'collapsed' => false,
+            ),
+        );
+
+        $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
+        $tags = $tagger->listBookmarkTags();
+        natcasesort($tags);
+        foreach ($tags as $tag) {
+            $url = Horde::url("tag/$tag");
+            $row = array(
+                'url' => $url,
+                'cssClass' => 'tagImg',
+                'label' => $tag,
+            );
+            $sidebar->addRow($row, 'tags');
+        }
     }
 }

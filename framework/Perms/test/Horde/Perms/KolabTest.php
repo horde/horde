@@ -368,10 +368,10 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
                         'wrobel' => 'lrid',
                         'reader' => 'lr',
                         'viewer' => 'l',
-                        'editor' => 'l', 'r', 'e',
+                        'editor' => 'lre',
                         'anyone' => 'l',
                         'anonymous' => '',
-                        'group:editors' => 'l', 'r', 'e'
+                        'group:editors' => 'lre'
                     )
                 )
             );

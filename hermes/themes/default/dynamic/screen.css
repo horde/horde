@@ -29,7 +29,7 @@ html, body {
 }
 
 /* Main links */
-#hermesNavTime, #hermesNavSearch, #hermesNavAdmin{
+#hermesNavTime, #hermesNavSearch, #hermesNavAdminjobs {
     cursor: pointer;
 }
 #hermesNavTime a.icon {
@@ -38,11 +38,14 @@ html, body {
 #hermesNavSearch a.icon {
     background-image: url("../graphics/search.png");
 }
-#hermesNavAdmin a.icon {
+#hermesNavAdminjobs a.icon {
     background-image: url("../graphics/admin.png");
 }
 
 /* Time summary */
+.hermesTimeStats div {
+  margin-left: 20px;
+}
 .hermesViewTimeContainer h2 {
     float: left;
 }
@@ -277,7 +280,9 @@ div.hermesTimeSliceOptions {
   display: block;
   padding: 0 10px 10px 10px;
 }
-
+#hermesSearchForm fieldset label {
+  font-weight: bold;
+}
 #hermesSearchForm label {
   display: block;
   float: left;

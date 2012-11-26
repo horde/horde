@@ -173,4 +173,31 @@ extends Horde_Kolab_Storage_TestCase
         $log->rename('INBOX/Test', 'FOO');
     }
 
+    public function testSetAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('setAcl')
+            ->with('a', 'b', 'c');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $driver,
+            $this->getMockLogger()
+        );
+        $logger->setAcl('a', 'b', 'c');
+        $this->assertLogCount(2);
+    }
+
+    public function testDeleteAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('deleteAcl')
+            ->with('a', 'b');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $driver,
+            $this->getMockLogger()
+        );
+        $logger->deleteAcl('a', 'b');
+        $this->assertLogCount(2);
+    }
 }

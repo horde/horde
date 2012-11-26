@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-03-07</date>
- <time>00:25:16</time>
+ <date>2012-11-19</date>
+ <time>14:08:33</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -26,6 +26,13 @@
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="PubSub">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/PubSub -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="PubSub">
@@ -39,7 +46,9 @@
     <dir name="Horde">
      <dir name="PubSub">
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="HandleTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="ProviderTest.php" role="test" />
       <file name="PubSubTest.php" role="test" />
      </dir> <!-- /test/Horde/PubSub -->
@@ -56,14 +65,26 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/PubSub/COPYING" />
    <install as="Horde/PubSub.php" name="lib/Horde/PubSub.php" />
    <install as="Horde/PubSub/Handle.php" name="lib/Horde/PubSub/Handle.php" />
    <install as="Horde/PubSub/Provider.php" name="lib/Horde/PubSub/Provider.php" />
    <install as="Horde/PubSub/AllTests.php" name="test/Horde/PubSub/AllTests.php" />
+   <install as="Horde/PubSub/bootstrap.php" name="test/Horde/PubSub/bootstrap.php" />
    <install as="Horde/PubSub/HandleTest.php" name="test/Horde/PubSub/HandleTest.php" />
+   <install as="Horde/PubSub/phpunit.xml" name="test/Horde/PubSub/phpunit.xml" />
    <install as="Horde/PubSub/ProviderTest.php" name="test/Horde/PubSub/ProviderTest.php" />
    <install as="Horde/PubSub/PubSubTest.php" name="test/Horde/PubSub/PubSubTest.php" />
   </filelist>

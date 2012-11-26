@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-05</date>
- <time>22:38:06</time>
+ <date>2012-11-22</date>
+ <time>13:02:48</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not automatically return this information.
-* [mms] Significant optimization to append() command.
-* [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -161,6 +159,12 @@
       <file name="Horde_Imap_Client.po" role="data" />
      </dir> <!-- /locale/ja/LC_MESSAGES -->
     </dir> <!-- /locale/ja -->
+    <dir name="nl">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/nl/LC_MESSAGES -->
+    </dir> <!-- /locale/nl -->
     <file name="Horde_Imap_Client.pot" role="data" />
    </dir> <!-- /locale -->
    <dir name="test">
@@ -180,11 +184,13 @@
        <file name="AclTest.php" role="test" />
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="MailboxTest.php" role="test" />
        <file name="MapTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -264,6 +270,13 @@
     <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -351,14 +364,18 @@
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="Horde/Imap/Client/AclTest.php" name="test/Horde/Imap/Client/AclTest.php" />
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
+   <install as="Horde/Imap/Client/bootstrap.php" name="test/Horde/Imap/Client/bootstrap.php" />
    <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
+   <install as="Horde/Imap/Client/phpunit.xml" name="test/Horde/Imap/Client/phpunit.xml" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -1263,11 +1280,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix determining subscribed mailbox list when not using LIST-EXTENDED (Bug #11608).
-* [mms] Work around servers that incorrectly implement the LIST-EXTENDED command.
+* [jan] Add Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not automatically return this information.
+* [mms] Significant optimization to append() command.
+* [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
    </notes>
   </release>
   <release>
@@ -1313,6 +1332,32 @@
 * [mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not automatically return this information.
 * [mms] Significant optimization to append() command.
 * [mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Workaround broken BINARY extension on Cyrus servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

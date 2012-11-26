@@ -28,20 +28,35 @@
 class Horde_Kolab_Storage_Synchronization
 {
     /**
+     * Synchronization strategy.
+     *
+     * @var Horde_Kolab_Storage_Synchronization
+     */
+    private $_strategy;
+
+    /**
+     * Constructor.
+     *
+     * @param Horde_Kolab_Storage_Synchronization $strategy Optional synchronization strategy.
+     */
+    public function __construct(Horde_Kolab_Storage_Synchronization $strategy = null)
+    {
+        if ($strategy === null) {
+            $this->_strategy = new Horde_Kolab_Storage_Synchronization_OncePerSession();
+        } else {
+            $this->_strategy = $strategy;
+        }
+    }
+
+    /**
      * Synchronize the provided list in case the selected synchronization
      * strategy requires it.
      *
      * @param Horde_Kolab_Storage_List $list The list to synchronize.
-     *
-     * @return NULL
      */
     public function synchronizeList(Horde_Kolab_Storage_List_Tools $list)
     {
-        $list_id = $list->getId();
-        if (empty($_SESSION['kolab_storage']['synchronization']['list'][$list_id])) {
-            $list->getListSynchronization()->synchronize();
-            $_SESSION['kolab_storage']['synchronization']['list'][$list_id] = true;
-        }
+        $this->_strategy->synchronizeList($list);
     }
 
     /**
@@ -49,15 +64,9 @@ class Horde_Kolab_Storage_Synchronization
      * strategy requires it.
      *
      * @param Horde_Kolab_Storage_Data $data The data to synchronize.
-     *
-     * @return NULL
      */
     public function synchronizeData(Horde_Kolab_Storage_Data $data)
     {
-        $data_id = $data->getId();
-        if (empty($_SESSION['kolab_storage']['synchronization']['data'][$data_id])) {
-            $data->synchronize();
-            $_SESSION['kolab_storage']['synchronization']['data'][$data_id] = true;
-        }
+        $this->_strategy->synchronizeData($data);
     }
 }

@@ -30,8 +30,6 @@ class Horde_Core_Factory_Editor extends Horde_Core_Factory_Injector
     /**
      * Return the Horde_Editor:: instance.
      *
-     * @param string $driver  The editor driver.
-     *
      * @return Horde_Editor  The singleton editor instance.
      * @throws Horde_Editor_Exception
      */

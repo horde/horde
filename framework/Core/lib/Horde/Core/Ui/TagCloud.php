@@ -99,7 +99,7 @@ class Horde_Core_Ui_TagCloud
     /**
      * Add a Tag Element to build Tag Cloud.
      *
-     * @param string $tag         TODO
+     * @param string $name        TODO
      * @param string $url         TODO
      * @param integer $count      TODO
      * @param integer $timestamp  UNIX timestamp.

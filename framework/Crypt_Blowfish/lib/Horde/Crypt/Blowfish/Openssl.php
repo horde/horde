@@ -1,13 +1,10 @@
 <?php
 /**
- * Openssl driver for blowfish encryption.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -15,6 +12,8 @@
  */
 
 /**
+ * Openssl driver for blowfish encryption.
+ *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2012 Horde LLC
@@ -34,7 +33,9 @@ class Horde_Crypt_Blowfish_Openssl extends Horde_Crypt_Blowfish_Base
      */
     public function encrypt($text)
     {
-        return openssl_encrypt($text, 'bf-' . $this->cipher, $this->key, true, strval($this->iv));
+        // Need to mask error output, since an invalid warning message was
+        // issued prior to 5.3.4 for empty IVs.
+        return @openssl_encrypt($text, 'bf-' . $this->cipher, $this->key, true, strval($this->iv));
     }
 
     /**

@@ -213,7 +213,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $this->_thisSyncTS = $this->_lastSyncTS;
 
         // Restore any state or pending changes
-        $data = unserialize($results['sync_data']);
+        try {
+            $columns = $this->_db->columns($this->_syncStateTable);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
+        $data = unserialize(
+            $columns['sync_data']->binaryToString($results['sync_data']));
         $pending = unserialize($results['sync_pending']);
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -294,7 +301,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // timestamp, otherwise we will never get the initial set of data.
         $params = array(
             $this->_syncKey,
-            $data,
+            new Horde_Db_Value_Binary($data),
             $this->_deviceInfo->id,
             (self::getSyncKeyCounter($this->_syncKey) == 1 ? 0 : $this->_thisSyncTS),
             (!empty($this->_collection['id']) ? $this->_collection['id'] : Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC),
@@ -415,7 +422,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                     $this->_deviceInfo->id,
                     $change['parent'],
                     $user,
-                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : 1
+                    ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) ? $flag_value : true
                 );
                 break;
 
@@ -782,7 +789,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                             }
                             break;
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                            if ($this->_isPIMChange($change['id'], 1, $change['type'])) {
+                            if ($this->_isPIMChange($change['id'], true, $change['type'])) {
                                $this->_logger->debug(sprintf(
                                     "[%s] Ignoring PIM initiated deletion for %s",
                                     $this->_procid,
@@ -1269,7 +1276,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
             return false;
         } else {
-            return $this->_isPIMChangeQuery($id, 1, 'sync_deleted');
+            return $this->_isPIMChangeQuery($id, true, 'sync_deleted');
         }
     }
 
@@ -1295,14 +1302,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         }
 
         return $mflag == $flag;
-    }
-
-    protected function _getLastState($id, $ts)
-    {
-        $sql = 'SELECT sync_data FROM ' . $this->_syncStateTable
-            . ' WHERE sync_folderid = ? AND sync_time = ?';
-
-        return unserialize($this->_db->selectValue($sql, array($id, $ts)));
     }
 
     /**

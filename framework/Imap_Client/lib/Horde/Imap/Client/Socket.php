@@ -227,6 +227,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /**
+     * Unsets a capability.
+     *
+     * @param string $cap  Capability to unset.
+     */
+    protected function _unsetCapability($cap)
+    {
+        $cap_list = $this->capability();
+        unset($cap_list[$cap]);
+        $this->_setInit('capability', $cap_list);
+    }
+
+    /**
      */
     protected function _noop()
     {
@@ -1205,10 +1217,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * Retry using base IMAP4rev1 functionality. */
             if (($e->status == Horde_Imap_Client_Interaction_Server::BAD) &&
                 $this->queryCapability('LIST-EXTENDED')) {
-                $cap = $this->capability();
-                unset($cap['LIST-EXTENDED']);
-                $this->_setInit('capability', $cap);
-
+                $this->_unsetCapability('LIST-EXTENDED');
                 return $this->_listMailboxes($pattern, $mode, $options);
             }
 
@@ -1553,11 +1562,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Cyrus 2.4 (at least as of .14) has a broken CATENATE (see
                  * Bug #11111). Regardless, if CATENATE is broken, we can try
                  * to fallback to APPEND. */
-                $cap = $this->capability();
-                unset($cap['CATENATE']);
-                $this->_setInit('capability', $cap);
-
+                $this->_unsetCapability('CATENATE');
                 return $this->_append($mailbox, $data, $options);
+
+            case $e::DISCONNECT:
+                /* Workaround broken literal8 on Cyrus. */
+                if ($this->queryCapability('BINARY')) {
+                    $this->_unsetCapability('BINARY');
+                    return $this->append($mailbox, $data, $options);
+                }
+                break;
             }
 
             if (!empty($options['create']) && $this->_temp['trycreate']) {
@@ -1570,13 +1584,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * using literal8 "~{#} format", but it doesn't seem to work on
              * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
              * broken BINARY and attempt to fix here. */
-            if ($e instanceof Horde_Imap_Client_Exception_ServerResponse &&
-                $e->status == Horde_Imap_Client_Interaction_Server::BAD &&
-                $this->queryCapability('BINARY')) {
-                $cap = $this->capability();
-                unset($cap['BINARY']);
-                $this->_setInit('capability', $cap);
-
+            if ($this->queryCapability('BINARY') &&
+                ($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
+                ($e->status == Horde_Imap_Client_Interaction_Server::BAD)) {
+                $this->_unsetCapability('BINARY');
                 return $this->_append($mailbox, $data, $options);
             }
 
@@ -1594,7 +1605,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *
      * @param mixed $data  Either a resource or a string.
      *
-     * @param Horde_Imap_Client_Data_Format_String  The data object.
+     * @return Horde_Imap_Client_Data_Format_String  The data object.
      */
     protected function _appendData($data)
     {
@@ -2055,9 +2066,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* Bug #9842: Workaround broken Cyrus servers (as of
                  * 2.4.7). */
                 if ($esearch && ($charset != 'US-ASCII')) {
-                    $cap = $this->capability();
-                    unset($cap['ESEARCH']);
-                    $this->_setInit('capability', $cap);
+                    $this->_unsetCapability('ESEARCH');
                     $this->_setInit('noesearch', true);
 
                     try {

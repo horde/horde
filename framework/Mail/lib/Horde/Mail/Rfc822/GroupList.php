@@ -1,14 +1,12 @@
 <?php
 /**
- * Container object for a collection of group addresses.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -18,6 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */

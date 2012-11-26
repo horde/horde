@@ -3,21 +3,21 @@
 # Updated Han Spruyt 2005
 #
 # Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
-# Arjen de Korte <arjen@de-korte.org>, 2011.
+# Arjen de Korte <build+horde@de-korte.org>, 2011, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-28 14:30+0100\n"
+"PO-Revision-Date: 2012-11-15 20:42+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Lokalize 1.2\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: admin/groups.php:32
 #, php-format
@@ -155,22 +155,27 @@ msgstr "3 dagen"
 #: templates/prefs/facebook.html:41
 msgid "<tag:app_name /> cannot read information about your Facebook friends."
 msgstr ""
+"<tag:app_name /> kan geen informatie ophalen over uw Facebook vrienden."
 
 #: templates/prefs/facebook.html:29
 msgid ""
 "<tag:app_name /> cannot read your stream messages and various other Facebook "
 "data items."
 msgstr ""
+"<tag:app_name /> kan uw gegevensstroom berichten en verschillende andere  "
+"Facebook gegevens niet ophalen."
 
 #: templates/prefs/facebook.html:17
 msgid ""
 "<tag:app_name /> cannot set your status messages or publish other content to "
 "Facebook."
 msgstr ""
+"<tag:app_name /> kan uw status berichten of  andere gegevens niet opFacebook "
+"plaatsen."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr ""
+msgstr "<tag:appname /> kan niet samenwerken met uw Twitter account"
 
 #: admin/activesync.php:33
 msgid ""
@@ -290,7 +295,7 @@ msgstr "Adresboek"
 
 #: lib/Application.php:52
 msgid "Administration"
-msgstr "Administratie"
+msgstr "Beheer"
 
 #: admin/alarms.php:31
 msgid "Alarm end"
@@ -660,7 +665,7 @@ msgstr "Klik om verder te gaan"
 
 #: templates/prefs/syncml.html:13
 msgid "Client Anchor"
-msgstr ""
+msgstr "Client anker"
 
 #: templates/shares/edit.inc:12
 msgid "Close Window"
@@ -672,7 +677,7 @@ msgstr "Wolken"
 
 #: lib/Application.php:222
 msgid "Codeword frequency"
-msgstr ""
+msgstr "Codewoord frequentie"
 
 #: lib/View/Sidebar.php:63 templates/admin/sessions.html.php:9
 #: templates/sidebar/_container.html.php:14
@@ -769,6 +774,8 @@ msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
+"Kon autorisatie voor <tag:appname /> niet vinden om samen te werken met "
+"uwTwitter account"
 
 #: services/resetpassword.php:100
 msgid ""
@@ -1211,7 +1218,7 @@ msgstr "Extra groot"
 
 #: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
-msgstr "FTP overdracht van configuratie"
+msgstr "FTP upload van configuratie"
 
 #: config/prefs.php:661
 msgid "Facebook Integration"
@@ -1223,11 +1230,11 @@ msgstr "Mislukte ontgrendel pogingen voordat apparaat volledig wordt gewist"
 
 #: lib/Block/Feed.php:56
 msgid "Feed"
-msgstr ""
+msgstr "Feed"
 
 #: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr ""
+msgstr "Feed URL"
 
 #: lib/Block/Metar.php:194
 msgid "Feels Like"
@@ -1239,7 +1246,7 @@ msgstr "Zoekvelden"
 
 #: config/registry.php:306
 msgid "File Manager"
-msgstr "Bestandbeheer"
+msgstr "Bestandsbeheer"
 
 #: lib/Block/FbStream.php:60
 msgid "Filter"
@@ -1403,7 +1410,7 @@ msgstr "Hoogte"
 
 #: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
-msgstr ""
+msgstr "Hoogte van gegevensstroom inhoud (breedte wordt automatisch aangepast)"
 
 #: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
@@ -1546,7 +1553,7 @@ msgstr "Ongeldig parent recht."
 
 #: config/registry.php:287
 msgid "Inventory"
-msgstr ""
+msgstr "Voorraad"
 
 #: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
@@ -1554,7 +1561,7 @@ msgstr "Japans (ISO-2022-JP)"
 
 #: lib/Block/TwitterTimeline.php:111
 msgid "Just now..."
-msgstr ""
+msgstr "Zojuist..."
 
 #: lib/Block/Fortune.php:49
 msgid "Kernel Newbies"
@@ -1696,7 +1703,7 @@ msgstr "Afmelden"
 
 #: templates/prefs/facebook.html:8
 msgid "Logged in to Facebook"
-msgstr ""
+msgstr "Aangemeld bij Facebook"
 
 #: login.php:339
 msgid "Login failed because your username or password was entered incorrectly."
@@ -1710,11 +1717,11 @@ msgstr "Aanmelding mislukt."
 
 #: templates/prefs/facebook.html:49
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr ""
+msgstr "Aanmelden bij Facebook en autoriseer <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr ""
+msgstr "Aanmelden bij Twitter en autoriseer <tag:appname />"
 
 #: templates/prefs/facebook.html:9
 msgid "Logout"
@@ -2210,7 +2217,7 @@ msgstr ""
 
 #: services/facebook/index.php:187
 msgid "Pokes:"
-msgstr ""
+msgstr "Pokes:"
 
 #: admin/activesync.php:108
 msgid "Policy Key"
@@ -2436,12 +2443,12 @@ msgstr "Terug naar hoofdscherm"
 
 #: templates/block/twitter_tweet.html.php:35
 msgid "Retweet"
-msgstr ""
+msgstr "Retweet"
 
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr ""
+msgstr "Geretweed door %s"
 
 #: services/changepassword.php:33
 msgid "Retype new password"
@@ -2515,7 +2522,7 @@ msgstr "Wetenschap"
 
 #: templates/admin/locks/list.html.php:10
 msgid "Scope"
-msgstr ""
+msgstr "Bereik"
 
 #: services/help/index.php:92
 msgid "Sea_rch"
@@ -2615,11 +2622,11 @@ msgstr ""
 
 #: config/prefs.php:662
 msgid "Set up integration with your Facebook account."
-msgstr ""
+msgstr "Stel integratie met uw Facebook account in."
 
 #: config/prefs.php:688
 msgid "Set up integration with your Twitter account."
-msgstr ""
+msgstr "Stel integratie met uw Twitter account in."
 
 #: config/prefs.php:378
 msgid "Set your preferred language, timezone and date preferences."
@@ -2740,11 +2747,11 @@ msgstr "Status"
 
 #: services/facebook/index.php:232
 msgid "Status unable to be set."
-msgstr ""
+msgstr "Kan status niet instellen."
 
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
-msgstr ""
+msgstr "Gegevensstroom"
 
 #: util/icon_browser.php:40
 #, php-format
@@ -2762,7 +2769,7 @@ msgstr ""
 
 #: services/facebook/index.php:138
 msgid "Succesfully connected your Facebook account or updated permissions."
-msgstr ""
+msgstr "Succesvol aangemeld bij uw Facebook account."
 
 #: templates/admin/sqlshell.html.php:13
 msgid "Success"
@@ -2840,7 +2847,7 @@ msgstr "SyncML"
 
 #: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr ""
+msgstr "Webfeed"
 
 #: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
@@ -2869,7 +2876,7 @@ msgstr "Kan niet verbinden met Facebook. Probeer het later nog eens."
 
 #: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr ""
+msgstr "Kan niet verbinden met Twitter. Probeer het later nog eens."
 
 #: config/nls.php:184
 msgid "Thai (TIS-620)"
@@ -3007,7 +3014,7 @@ msgstr ""
 #: lib/Block/TwitterTimeline.php:86 lib/Block/TwitterTimeline.php:102
 #, php-format
 msgid "There was an error contacting Twitter: %s"
-msgstr ""
+msgstr "Er is een fout opgetreden bij het verbinden met Twitter: %s"
 
 #: admin/config/config.php:62
 msgid ""
@@ -3149,7 +3156,7 @@ msgstr "Niet in staat "
 
 #: services/facebook/index.php:126
 msgid "Unable to validate the request token. Please try your request again."
-msgstr ""
+msgstr "Kan het verzoek token niet valideren. Probeer het later nog eens."
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
@@ -3217,7 +3224,7 @@ msgstr "Upload"
 
 #: admin/config/index.php:325
 msgid "Uploaded all application configuration files to the server."
-msgstr "Alle toepassing setupbestanden naar de server geupload."
+msgstr "Alle toepassing setupbestanden naar de server geüpload."
 
 #: config/prefs.php:713
 msgid "Use if name/password is different for IMSP server."

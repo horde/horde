@@ -1,14 +1,12 @@
 <?php
 /**
- * Object representation of a RFC 822 e-mail group.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -18,13 +16,15 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  *
- * @property string $groupname_encoded  MIME encoded groupname (UTF-8).
- * @property string $label  The shorthand label for this group.
- * @property boolean $valid  Returns true if there is enough information in
- *                           object to create a valid address.
+ * @property string $groupname  Groupname (UTF-8).
+ * @property-read string $groupname_encoded  MIME encoded groupname (UTF-8).
+ * @property-read string $label  The shorthand label for this group.
+ * @property-read boolean $valid  Returns true if there is enough information
+ *                                in object to create a valid address.
  */
 class Horde_Mail_Rfc822_Group extends Horde_Mail_Rfc822_Object implements Countable
 {

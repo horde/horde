@@ -2847,6 +2847,8 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Always add MDNSent flag when saving a draft/sent message.
+* [mms] Fix preview message text in basic view (Bug #11724).
 * [mms] Don&apos;t delete saved draft on session close.
 * [mms] Improved generation and parsing of mbox files.
 * [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).

@@ -2562,7 +2562,6 @@ class Kronolith
 
         $view = $injector->createInstance('Horde_View');
 
-        $today = new Horde_Date($_SERVER['REQUEST_TIME']);
         $date = self::currentDate();
         $date_stamp = array('date' => $date->dateString());
         $tabname = basename($_SERVER['PHP_SELF']) == 'index.php'
@@ -2594,7 +2593,7 @@ class Kronolith
         }
         $view->today = Horde::url($prefs->getValue('defaultview') . '.php')
             ->link(Horde::getAccessKeyAndTitle(_("_Today"), false, true))
-            . $today->strftime($prefs->getValue('date_format_mini')) . '</a>';
+            . _("Today") . '</a>';
         $view->day = Horde::widget(array(
             'url' => Horde::url('day.php')->add($date_stamp),
             'id' => 'kronolithNavDay',

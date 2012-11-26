@@ -18,6 +18,12 @@
 <!-- Begin search form and results list -->
 <?php require __DIR__ . '/search.inc' ?>
 
+<!-- Begin admin-only inclusions -->
+<?php if ($GLOBALS['registry']->isAdmin()):
+  require __DIR__ . '/jobtypes.inc';
+  endif;
+?>
+
 </div>
 <!-- end body -->
 

@@ -57,11 +57,15 @@ class Trean_View_BookmarkList
      * Const'r
      *
      */
-    public function __construct($bookmarks = null)
+    public function __construct($bookmarks = null, $browser = null)
     {
         $this->_bookmarks = $bookmarks;
-        $this->_browser = new Trean_TagBrowser(
-            $GLOBALS['injector']->getInstance('Trean_Tagger'));
+        if ($browser) {
+            $this->_browser = $browser;
+        } else {
+            $this->_browser = new Trean_TagBrowser(
+                $GLOBALS['injector']->getInstance('Trean_Tagger'));
+        }
 
         $action = Horde_Util::getFormData('actionID', '');
         switch ($action) {
@@ -118,11 +122,11 @@ class Trean_View_BookmarkList
 
         $this->_getBookmarks();
 
-        $html = '';
+        $browser = '';
         if ($this->_showTagBrowser) {
-            $html = $this->_getTagTrail() . $this->_getRelatedTags();
+            $browser = '<br>' . $this->_getRelatedTags() . $this->_getTagTrail();
         }
-        return $html . '<h1 class="header">' . $title . '</h1>' . $this->_getBookmarkList();
+        return '<h1 class="header">' . $title . '</h1>' . $browser . $this->_getBookmarkList();
     }
 
     /**
@@ -177,13 +181,17 @@ class Trean_View_BookmarkList
     protected function _getRelatedTags()
     {
         $rtags = $this->_browser->getRelatedTags();
-        $html = '<div class="trean-tags-related">' . _("Related Tags:") . '<ul class="horde-tags">';
-        foreach ($rtags as $id => $taginfo) {
-            $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
-                . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+        if (count($rtags)) {
+            $t = Horde::img('tags.png');
+            $html = sprintf('<div class="trean-tags-related">%s<ul class="horde-tags">', $t);
+            foreach ($rtags as $id => $taginfo) {
+                $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                    . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
+            }
+            return $html . '</ul></div>';
         }
 
-        return $html . '</ul></div>';
+        return '';
     }
 
     /**
@@ -193,16 +201,19 @@ class Trean_View_BookmarkList
      */
     protected function _getTagTrail()
     {
-        $html = '<div class="header">' . _("Browsing for tags:") . '<ul class="horde-tags">';
-        foreach ($this->_browser->getTags() as $tag => $id) {
-            $html .= '<li>' . htmlspecialchars($tag)
-                . $this->_linkRemoveTag($tag)->link()
-                . Horde::img('delete-small.png', _("Remove from search"))
-                . '</a></li>';
+        if ($this->_browser->tagCount() >= 1) {
+            $html = '<div class="trean-tags-browsing">' . Horde::img('filter.png') . '<ul class="horde-tags">';
+            foreach ($this->_browser->getTags() as $tag => $id) {
+                $html .= '<li>' . htmlspecialchars($tag)
+                    . $this->_linkRemoveTag($tag)->link()
+                    . Horde::img('delete-small.png', _("Remove from search"))
+                    . '</a></li>';
+            }
+            return $html .= '</ul></div>';
         }
-        return $html .= '</ul></div>';
-    }
 
+        return '';
+    }
 
     /**
      * Get HTML for a link to remove a tag from the current search.
@@ -228,5 +239,4 @@ class Trean_View_BookmarkList
     {
         return Horde::url('browse.php')->add(array('tag' => $tag));
     }
-
 }

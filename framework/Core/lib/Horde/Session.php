@@ -100,7 +100,7 @@ class Horde_Session
     {
         switch ($name) {
         case 'begin':
-            return $this->_active
+            return ($this->_active || $this->_relogin)
                 ? $_SESSION[self::BEGIN]
                 : 0;
         }

@@ -1,16 +1,24 @@
 <?php
 /**
- * Compose page for dynamic view.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @package   IMP
+ */
+
+/**
+ * Compose page for dynamic view.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @package   IMP
  */
 class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 {

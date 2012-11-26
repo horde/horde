@@ -148,6 +148,65 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
     }
 
     /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Setting ACL %s for user %s on folder %s.',
+                $this->getDriverName(),
+                $acl,
+                $user,
+                $folder
+            )
+        );
+        parent::setAcl($folder, $user, $acl);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully set ACL on folder %s to %s.',
+                $this->getDriverName(),
+                $folder,
+                $acl
+            )
+        );
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Deleting ACL for user %s on folder %s.',
+                $this->getDriverName(),
+                $user,
+                $folder
+            )
+        );
+        parent::deleteAcl($folder, $user);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully deleted ACL on folder %s.',
+                $this->getDriverName(),
+                $folder
+            )
+        );
+    }
+
+    /**
      * Retrieves a list of mailboxes from the server.
      *
      * @return array The list of mailboxes.

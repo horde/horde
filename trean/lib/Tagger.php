@@ -41,4 +41,24 @@ class Trean_Tagger extends Horde_Core_Tagger
         return $results;
     }
 
+    /**
+     * Returns tags on bookmarks belonging to the current user.
+     *
+     * @param string $token  The token to match the start of the tag with.
+     *
+     * @return A tag_id => tag_name hash
+     * @throws Horde_Exception
+     */
+    public function listBookmarkTags()
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('Content_Tagger')
+                ->getTags(array(
+                    'typeId' => $this->_type_ids['bookmark'],
+                    'userId' => $GLOBALS['registry']->getAuth())
+                );
+        } catch (Content_Exception $e) {
+            throw new Horde_Exception($e);
+        }
+    }
 }

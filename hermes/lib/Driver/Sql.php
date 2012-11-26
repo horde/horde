@@ -372,10 +372,19 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * @TODO
+     * Return a list of optionally filtered jobtypes.
      *
-     * @param <type> $criteria
-     * @return <type>
+     * @param array $criteria  An array of optional criteria. Can include:
+     *   - id:      (string) The jobtype id.
+     *   - enabled: (boolean) The enabled property of the jobtype.
+     *
+     * @return array  An array of jobtype hashes. Each hash contains the
+     *                following keys:
+     *   - id:        The jobtype id.
+     *   - name:      The name.
+     *   - rate:      The hourly rate.
+     *   - billable:  The billable flag.
+     *   - enabled:   The enabled flag.
      */
     public function listJobTypes(array $criteria = array())
     {

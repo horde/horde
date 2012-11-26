@@ -24,7 +24,6 @@ require_once $baseDir . 'lib/Application.php';
 Horde_Registry::appInit('kronolith', array('cli' => true));
 
 // Read command line parameters.
-$cli = Horde_Cli::singleton();
 if (count($argv) != 3) {
     $cli->message('Too many or too few parameters.', 'cli.error');
     usage();

@@ -75,7 +75,6 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      * Constructor.
      *
      * @param Horde_Core_Block_Collection $collection  TODO
-     * @param array $layout                            TODO
      */
     public function __construct(Horde_Core_Block_Collection $collection)
     {

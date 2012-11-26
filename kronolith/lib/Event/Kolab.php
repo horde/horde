@@ -79,8 +79,11 @@ class Kronolith_Event_Kolab extends Kronolith_Event
             $this->alarm = $event['alarm'];
         }
 
+        $tz_local = date_default_timezone_get();
         $this->start = new Horde_Date($event['start-date']);
+        $this->start->setTimezone($tz_local);
         $this->end = new Horde_Date($event['end-date']);
+        $this->end->setTimezone($tz_local);
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
 
         if (isset($event['show-time-as'])) {

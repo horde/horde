@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Vcard class renders out the contents of vCard
- * files in HTML format and allows inline display of embedded photos.
- *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Handler to render the contents of vCard files in HTML format, allowing
+ * inline display of embedded photos.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2010-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Vcard extends Horde_Core_Mime_Viewer_Vcard
 {

@@ -1,7 +1,19 @@
 <?php
 /**
- * The IMP_Filter:: class contains all functions related to handling
- * filtering messages in IMP.
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Filter class contains all functions related to handling filtering
+ * messages in IMP.
  *
  * For full use, the following Horde API calls should be defined
  * (These API methods are not defined in IMP):
@@ -13,15 +25,11 @@
  *   - mail/whitelistFrom
  *   - mail/showWhitelist
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Filter
 {

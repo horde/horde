@@ -63,7 +63,6 @@ class Ansel_View_Upload
         global $page_output;
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('carousel.js');
-        $page_output->addScriptFile('upload.js');
     }
 
     public function run()
@@ -88,10 +87,6 @@ class Ansel_View_Upload
         $sizeError = _("File size error.");
         $typeError = _("File type error.");
 
-        $imple = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_Imple')
-            ->create('Ansel_Ajax_Imple_UploadNotification');
-        $notificationUrl = (string)$imple->getUrl();
         $this->_params['target']->add('gallery', $this->_params['gallery']->id);
         $jsuri = $GLOBALS['registry']->get('jsuri', 'horde');
         // workaround for older mozilla browsers that incorrectly enocde as utf8
@@ -101,7 +96,6 @@ class Ansel_View_Upload
             $multipart = 'false';
         }
         $js = <<< EOT
-        Ansel.ajax.uploadNotificationUrl = '{$notificationUrl}';
         var uploader = new Horde_Uploader({
             'target': "{$this->_params['target']}",
             drop_target: "{$this->_params['drop_target']}",
@@ -130,16 +124,6 @@ class Ansel_View_Upload
             }
         });
         uploader.init();
-        $('twitter').observe('click', function() {
-            HordeCore.doAction('uploadNotification', {
-                s: 'twitter',
-                g: '{$this->_gallery->id}'
-            }, {
-                callback: function(r) {
-                    $('twitter').hide();
-                }
-            );
-        });
 EOT;
 
         $js .= $this->_doCarouselSetup();

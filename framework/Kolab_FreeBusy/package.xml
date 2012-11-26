@@ -17,8 +17,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-03-19</date>
- <time>15:58:17</time>
+ <date>2012-11-19</date>
+ <time>14:08:24</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -522,6 +522,7 @@
        </dir> <!-- /test/Horde/Kolab/FreeBusy/Stub -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/FreeBusy -->
@@ -593,6 +594,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -752,6 +762,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Kolab_FreeBusy.po" name="locale/zh_TW/LC_MESSAGES/Horde_Kolab_FreeBusy.po" />
    <install as="Horde/Kolab/FreeBusy/AllTests.php" name="test/Horde/Kolab/FreeBusy/AllTests.php" />
    <install as="Horde/Kolab/FreeBusy/Autoload.php" name="test/Horde/Kolab/FreeBusy/Autoload.php" />
+   <install as="Horde/Kolab/FreeBusy/bootstrap.php" name="test/Horde/Kolab/FreeBusy/bootstrap.php" />
    <install as="Horde/Kolab/FreeBusy/phpunit.xml" name="test/Horde/Kolab/FreeBusy/phpunit.xml" />
    <install as="Horde/Kolab/FreeBusy/Unit/FreeBusyTest.php" name="test/Horde/Kolab/FreeBusy/Unit/FreeBusyTest.php" />
    <install as="Horde/Kolab/FreeBusy/Unit/Controller/MatchDictTest.php" name="test/Horde/Kolab/FreeBusy/Unit/Controller/MatchDictTest.php" />
@@ -903,7 +914,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2012-03-19</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix tests to work with PHPUnit 3.6.

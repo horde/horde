@@ -1,10 +1,7 @@
 <?php
 /**
- * Mock mail transport.
- *
- * LICENSE:
- *
  * Copyright (c) 2010 Chuck Hagenbuch
+ * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -33,17 +30,21 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @package   Mail
- * @author    Chuck Hagenbuch <chuck@horde.org>
  * @copyright 2010 Chuck Hagenbuch
+ * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Mock implementation, for testing.
  *
- * @category Horde
- * @package  Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
 {

@@ -705,7 +705,7 @@ class Content_Tagger
         // Anything already typed as an integer is assumed to be a tag id.
         foreach ($tags as $tag) {
             if (is_int($tag)) {
-                $tagIds[] = $tag;
+                $tagIds[$tag] = $tag;
                 continue;
             }
 
@@ -719,10 +719,10 @@ class Content_Tagger
                 . ' WHERE LOWER(tag_name) = LOWER('
                 . $this->toDriver($tag) . ')';
             if ($id = $this->_db->selectValue($sql)) {
-                $tagIds[] = (int)$id;
+                $tagIds[$tag] = (int)$id;
             } elseif ($create) {
                 // Create any tags that didn't already exist
-                $tagIds[] = (int)$this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
+                $tagIds[$tag] = (int)$this->_db->insert('INSERT INTO ' . $this->_t('tags') . ' (tag_name) VALUES (' . $this->toDriver($tag) . ')');
             }
         }
 

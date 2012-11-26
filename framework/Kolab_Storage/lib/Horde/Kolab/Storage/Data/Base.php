@@ -284,7 +284,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
                         $result => $object
                     ),
-                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array(
+                        $obid => $object['uid'])
                 )
             );
         }
@@ -553,7 +554,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             array(
                 'changes' => array(
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
-                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array($object_id)
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array($uid => $object_id)
                 )
             )
         );

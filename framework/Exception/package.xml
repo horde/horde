@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-09</date>
- <time>16:38:03</time>
+ <date>2012-11-19</date>
+ <time>14:08:22</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -328,6 +328,7 @@
        <file name="PearError.php" role="test" />
       </dir> <!-- /test/Horde/Exception/Stub -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="ExceptionTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/Exception -->
@@ -351,6 +352,15 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -450,6 +460,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Exception.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Exception.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Exception.po" name="locale/zh_TW/LC_MESSAGES/Horde_Exception.po" />
    <install as="Horde/Exception/AllTests.php" name="test/Horde/Exception/AllTests.php" />
+   <install as="Horde/Exception/bootstrap.php" name="test/Horde/Exception/bootstrap.php" />
    <install as="Horde/Exception/ExceptionTest.php" name="test/Horde/Exception/ExceptionTest.php" />
    <install as="Horde/Exception/phpunit.xml" name="test/Horde/Exception/phpunit.xml" />
    <install as="Horde/Exception/Stub/PearError.php" name="test/Horde/Exception/Stub/PearError.php" />
@@ -726,7 +737,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-09</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

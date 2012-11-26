@@ -1,14 +1,12 @@
 <?php
 /**
- * Object representation of a RFC 822 e-mail address.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -18,18 +16,20 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  *
- * @property string $bare_address  The bare mailbox@host address.
- * @property string $encoded  The full MIME/IDN encoded address (UTF-8).
+ * @property-read string $bare_address  The bare mailbox@host address.
+ * @property-read string $encoded  The full MIME/IDN encoded address (UTF-8).
  * @property string $host  Returns the host part (UTF-8).
- * @property string $host_idn  Returns the IDN encoded host part.
- * @property string $label  The shorthand label for this address.
+ * @property-read string $host_idn  Returns the IDN encoded host part.
+ * @property-read string $label  The shorthand label for this address.
  * @property string $personal  The personal part (UTF-8).
- * @property string $personal_encoded  The MIME encoded personal part (UTF-8).
- * @property boolean $valid  Returns true if there is enough information in
- *                           object to create a valid address.
+ * @property-read string $personal_encoded  The MIME encoded personal part
+ *                                          (UTF-8).
+ * @property-read boolean $valid  Returns true if there is enough information
+ *                                in object to create a valid address.
  */
 class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
 {
@@ -64,9 +64,9 @@ class Horde_Mail_Rfc822_Address extends Horde_Mail_Rfc822_Object
     /**
      * Constructor.
      *
-     * @param string $addresses  If set, address is parsed and used as the
-     *                           object address. Address is not validated;
-     *                           first e-mail address parsed is used.
+     * @param string $address  If set, address is parsed and used as the
+     *                         object address. Address is not validated;
+     *                         first e-mail address parsed is used.
      */
     public function __construct($address = null)
     {

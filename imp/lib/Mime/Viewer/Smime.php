@@ -1,7 +1,18 @@
 <?php
 /**
- * The IMP_Mime_Viewer_Smime class allows viewing/decrypting of S/MIME
- * messages (RFC 2633).
+ * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2000-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Renderer for viewing/decrypting of S/MIME messages (RFC 2633).
  *
  * This class handles the following MIME types:
  *   application/pkcs7-mime
@@ -13,16 +24,12 @@
  *   'smime_verify_msg' - (boolean) Do verification of S/MIME message.
  *   'view_smime_key' - (boolean) Display the S/MIME Key.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2000-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 {

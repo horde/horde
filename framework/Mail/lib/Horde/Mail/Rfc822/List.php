@@ -1,14 +1,12 @@
 <?php
 /**
- * Container object for a collection of RFC 822 elements.
- *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsd.
  *
- * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -18,15 +16,17 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  *
- * @property array $addresses  The list of all addresses (address w/personal
- *                             parts).
- * @property array $bare_addresses  The list of all addresses (mail@host).
- * @property array $base_addresses  The list of ONLY base addresses (Address
- *                                  objects).
- * @property array $raw_addresses  The list of all addresses (Address objects).
+ * @property-read array $addresses  The list of all addresses (address
+ *                                  w/personal parts).
+ * @property-read array $bare_addresses  The list of all addresses (mail@host).
+ * @property-read array $base_addresses  The list of ONLY base addresses
+ *                                       (Address objects).
+ * @property-read array $raw_addresses  The list of all addresses (Address
+ *                                      objects).
  */
 class Horde_Mail_Rfc822_List extends Horde_Mail_Rfc822_Object implements ArrayAccess, Countable, SeekableIterator, Serializable
 {

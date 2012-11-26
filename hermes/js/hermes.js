@@ -65,7 +65,8 @@ HermesCore = {
             return;
         }
         var locParts = fullloc.split(':'),
-            loc = locParts.shift();
+            loc = locParts.shift(),
+            locCap;
 
         if (this.openLocation == fullloc) {
             return;
@@ -76,8 +77,9 @@ HermesCore = {
         switch (loc) {
         case 'time':
         case 'search':
+        case 'adminjobs':
             this.closeView(loc);
-            var locCap = loc.capitalize();
+            locCap = loc.capitalize();
             $('hermesNav' + locCap).up().addClassName('horde-active');
             switch (loc) {
             case 'time':
@@ -172,6 +174,11 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesNavAdminjobs':
+                this.go('adminjobs');
+                e.stop();
+                return;
+
             // Time entry form actions
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
@@ -180,6 +187,12 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesJobSaveAsNew':
+                $('hermesJobFormId').value = null;
+            case 'hermesJobSave':
+                this.saveJobType();
+                e.stop();
+                return;
             case 'hermesTimeReset':
                 $('hermesTimeSaveAsNew').hide();
                 $('hermesTimeForm').reset();
@@ -555,17 +568,41 @@ HermesCore = {
         }
     },
 
+    jobtypeChangeHandler: function(e)
+    {
+        HordeCore.doAction('listJobTypes',
+            { 'id': $F('hermesJobTypeSelect') },
+            { 'callback': this.listJobtypeCallback.bind(this) }
+        );
+    },
+
+    listJobtypeCallback: function(r)
+    {
+        var job = r[0];
+        $('hermesJobFormName').setValue(job.name);
+        $('hermesJobFormId').setValue(job.id);
+        $('hermesJobFormBillable').setValue(job.billable == 1);
+        $('hermesJobFormEnabled').setValue(job.enabled == 1);
+        $('hermesJobFormRate').setValue(job.rate);
+        $('hermesJobSaveAsNew').show();
+    },
+
     /**
      * Update the deliverable list for the current client
      */
     listDeliverablesCallback: function(r)
     {
+        this.updateCostObjects(r, this.view);
+    },
+
+    updateCostObjects: function(r, view)
+    {
         var h = $H(r), elm;
 
-        if (this.view == 'time') {
+        if (view == 'time') {
             $('hermesLoadingTime').hide();
             elm = $('hermesTimeFormCostobject');
-        } else if (this.view == 'search') {
+        } else if (view == 'search') {
             $('hermesLoadingSearch').hide();
             elm = $('hermesSearchFormCostobject');
         }
@@ -575,6 +612,33 @@ HermesCore = {
         h.each(function(i) {
            elm.insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
+    },
+
+    saveJobType: function()
+    {
+        var params = $H($('hermesJobForm').serialize({ hash: true }));
+        if ($F('hermesJobFormId') > 0) {
+            HordeCore.doAction('updateJobType',
+               params,
+               { 'callback': this.updateJobTypeCallback.bind(this) }
+            );
+        } else {
+            HordeCore.doAction('createJobType',
+                params,
+                { 'callback': this.createJobTypeCallback.bind(this) }
+            );
+
+        }
+    },
+
+    createJobTypeCallback: function(r)
+    {
+        // Build the new select list in the admin,time,search form.
+    },
+
+    updateJobTypeCallback: function(r)
+    {
+        // Update the jobtype select list in the admin,time,search form.
     },
 
     /**
@@ -918,7 +982,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').show();
         this.slices = [];
-        HordeCore.doAction('getTimeSlices',
+        HordeCore.doAction('loadSlices',
             { 'e': Hermes.conf.user, 's': false },
             { 'callback': this.loadSlicesCallback.bind(this) }
         );
@@ -1311,6 +1375,9 @@ HermesCore = {
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
+        // Handler for the jobtype selection
+        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
         }.bind(this);
@@ -1328,6 +1395,10 @@ HermesCore = {
         }
         if (!tmp.empty()) {
             this.go(decodeURIComponent(tmp));
+            if (decodeURIComponent(tmp) != 'time') {
+                // We need to load the slices so the time summary can display.
+                this.loadSlices();
+            }
         } else {
             this.go(Hermes.conf.login_view);
         }
@@ -1349,7 +1420,10 @@ HermesCore = {
         // Populate the deliverables with the default list.
         HordeCore.doAction('listDeliverables',
             { },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
+            { 'callback': function(r) {
+                this.updateCostObjects(r, 'time');
+                this.updateCostObjects(r, 'search');}.bind(this)
+            }
         );
         new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }

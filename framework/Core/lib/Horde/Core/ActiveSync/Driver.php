@@ -748,13 +748,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * longid. Used to fetch email objects from a search result, which only
      * returns a 'longid'.
      *
-     * @param string $longid   The unique search result identifier.
-     * @param array $bodypref  The bodypreference array.
-     * @param boolean $mime    Mimesupport flag.
+     * @param string $searchlongid   The unique search result identifier.
+     * @param array $bodypreference  The bodypreference array.
+     * @param boolean $mimesupport   Mimesupport flag.
      *
      * @return Horde_ActiveSync_Message_Base  The message requested.
      */
-    public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport)
+    public function itemOperationsFetchMailbox($searchlongid,
+                                               array $bodypreference,
+                                               $mimesupport)
     {
         list($mailbox, $uid) = explode(':', $searchlongid);
         return $this->getMessage(
@@ -811,7 +813,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Delete a message
      *
-     * @param string $folderId  The folder id
+     * @param string $folderid  The folder id
      * @param array $ids        The message ids to delete
      */
     public function deleteMessage($folderid, array $ids)
@@ -1211,7 +1213,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return the body of the forwarded message in the appropriate type.
      *
      * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
-     * @param integer $partID                         The body's mime id.
+     * @param integer $partId                         The body's mime id.
      * @param boolean $html                           Is this an html part?
      *
      * @return string  The propertly formatted forwarded body text.
@@ -1236,7 +1238,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return the body of the replied message in the appropriate type.
      *
      * @param Horde_ActiveSync_Imap_Message $message  The imap message object.
-     * @param integer $partID                         The body's mime id.
+     * @param integer $partId                         The body's mime id.
      * @param boolean $html                           Is this an html part?
      *
      * @return string  The propertly formatted replied body text.
@@ -1320,9 +1322,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Set the read (\seen) flag on the specified message.
      *
-     * @param string $folderid  The folder id containing the message.
-     * @param string $uid       The message uid.
-     * @param integer $flag     The value to set the flag to.
+     * @param string $folderId  The folder id containing the message.
+     * @param string $id        The message uid.
+     * @param integer $flags    The value to set the flag to.
      */
     public function setReadFlag($folderId, $id, $flags)
     {
@@ -1364,12 +1366,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // I can't think of a time when we would actually need to hit the
         // server. As long as 'mod' is 0, this should be fine as we don't
         // track flag conflicts.
-        // $messages = $this->_imap->getImapMessage(
-        //     $folderid, array($id), array('structure' => false));
         return array(
             'id' => $id,
             'mod' => 0,
-            'flags' => false);//$messages[$id]->getFlag(Horde_Imap_Client::FLAG_SEEN));
+            'flags' => false);
     }
 
     /**
@@ -1765,7 +1765,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
                 default:
                     try {
-                        return array_pop($this->statMailMessage($folderid, $id));
+                        return $this->statMailMessage($folderid, $id);
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_endBuffer();
                         return false;
@@ -2016,7 +2016,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
-     * @param string $mime_part  The MIME type.
+     * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
      */

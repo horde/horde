@@ -1,3 +1,7 @@
+.horde-form table {
+    width: auto;
+}
+
 .favicon {
     width: 16px;
     height: 16px;
@@ -19,28 +23,31 @@
 }
 
 #browser-instructions {
-    margin: 8px;
-    padding: 8px;
+    margin: 10px;
+    padding: 10px;
 }
 
-ul.horde-tags {
-    margin: 4px;
+.trean-tags-related, .trean-tags-browsing {
+    padding-bottom: 12px;
+    padding-left: 5px;
 }
-.trean-tags-related {
-    padding: 5px;
-}
-.bl-title ul.horde-tags a {
-    font-weight: normal;
+
+.horde-tags li a img {
+    padding-left: 5px;
 }
 
 .trean-browse {
     background-image: url("graphics/trean.png");
 }
 
+/* sidebar images. */
+.tagImg {
+    background-image: url("graphics/tag.png");
+}
+
 .treanACBox {
-  background: none repeat scroll 0 0 #EBEFF0;
-  border: 1px solid #D0D0D0;
+  background: #ebeff0;
+  border: 1px solid #d0d0d0;
   cursor: default;
-  padding: 4px;
   text-align: left;
 }

@@ -174,6 +174,12 @@ $attributes['homeCountry'] = array(
     'required' => false,
     'params' => array('prompt' => true)
 );
+$attributes['homeCountryFree'] = array(
+    'label' => _("Home Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['workAddress'] = array(
     'label' => _("Work Address"),
     'type' => 'address',
@@ -216,6 +222,12 @@ $attributes['workCountry'] = array(
     'required' => false,
     'params' => array('prompt' => true)
 );
+$attributes['workCountryFree'] = array(
+    'label' => _("Work Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['companyAddress'] = array(
     'label' => _("Company Address"),
     'type' => 'address',
@@ -257,6 +269,12 @@ $attributes['otherCountry'] = array(
     'type' => 'country',
     'required' => false,
     'params' => array('prompt' => true)
+);
+$attributes['otherCountryFree'] = array(
+    'label' => _("Other Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
 );
 $attributes['otherPOBox'] = array(
     'label' => _("Other Post Office Box"),
@@ -639,6 +657,12 @@ $attributes['commonPostalCode'] = array(
     'params' => array('regex' => '', 'size' => 10, 'maxlength' => 10)
 );
 $attributes['commonCountry'] = array(
+    'label' => _("Common Country"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['commonCountryFree'] = array(
     'label' => _("Common Country"),
     'type' => 'text',
     'required' => false,

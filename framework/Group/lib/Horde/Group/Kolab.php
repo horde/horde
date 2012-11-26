@@ -16,32 +16,6 @@
 class Horde_Group_Kolab extends Horde_Group_Ldap
 {
     /**
-     * Constructor.
-     *
-     * @throws Horde_Group_Exception
-     */
-    /*
-    public function __construct($params)
-    {
-        $this->_params = array(
-            'hostspec' => $GLOBALS['conf']['kolab']['ldap']['server'],
-            'basedn' => $GLOBALS['conf']['kolab']['ldap']['basedn'],
-            'binddn' => $GLOBALS['conf']['kolab']['ldap']['phpdn'],
-            'password' => $GLOBALS['conf']['kolab']['ldap']['phppw'],
-            'version' => 3,
-            'gid' => 'cn',
-            'memberuid' => 'member',
-            'attrisdn' => true,
-            'filter_type' => 'objectclass',
-            'objectclass' => 'kolabGroupOfNames',
-            'newgroup_objectclass' => 'kolabGroupOfNames'
-        );
-
-        $this->_filter = 'objectclass=' . $this->_params['objectclass'];
-    }
-    */
-
-    /**
      * Returns a list of groups a user belongs to.
      *
      * @param string $user  A user name.

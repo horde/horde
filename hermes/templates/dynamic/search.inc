@@ -2,7 +2,7 @@
 <div id="hermesViewSearch" style="display:none">
 
   <!-- Search Form -->
-  <div class="header"><?php echo _("Search") ?></div>
+  <div class="header"><span class="horde-collapse" id="hordeSearchFormCollapse"><?php echo _("Search") ?></span></div>
   <form id="hermesSearchForm" action="">
     <!-- <div id="hermesSearchFormInputs"> -->
       <div id="hermesLoadingSearch" class="hermesLoading" style="display:none"></div>

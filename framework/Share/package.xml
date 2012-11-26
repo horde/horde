@@ -23,8 +23,8 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:56:34</time>
+ <date>2012-11-19</date>
+ <time>14:08:21</time>
  <version>
   <release>2.0.2</release>
   <api>1.3.0</api>
@@ -364,6 +364,7 @@ owns or has access to.</description>
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
       <file name="Base.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="stress-test" role="test" />
@@ -442,6 +443,13 @@ owns or has access to.</description>
     <name>Horde_Kolab_Storage</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -550,6 +558,7 @@ owns or has access to.</description>
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
    <install as="Horde/Share/Base.php" name="test/Horde/Share/Base.php" />
+   <install as="Horde/Share/bootstrap.php" name="test/Horde/Share/bootstrap.php" />
    <install as="Horde/Share/conf.php.dist" name="test/Horde/Share/conf.php.dist" />
    <install as="Horde/Share/phpunit.xml" name="test/Horde/Share/phpunit.xml" />
    <install as="Horde/Share/stress-test" name="test/Horde/Share/stress-test" />
@@ -926,7 +935,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
