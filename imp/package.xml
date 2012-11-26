@@ -39,8 +39,7 @@
 * [mms] Don&apos;t delete saved draft on session close.
 * [mms] Improved generation and parsing of mbox files.
 * [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
-* [mms] Fix editing templates in dynamic view.
-* [mms] Fix sending templates in dynamic view.
+* [mms] Fix editing/sending templates in dynamic view.
 * [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
 * [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
 * [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
@@ -2858,8 +2857,7 @@
 * [mms] Don&apos;t delete saved draft on session close.
 * [mms] Improved generation and parsing of mbox files.
 * [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
-* [mms] Fix editing templates in dynamic view.
-* [mms] Fix sending templates in dynamic view.
+* [mms] Fix editing/sending templates in dynamic view.
 * [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
 * [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
 * [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
