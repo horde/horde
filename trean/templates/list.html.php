@@ -24,7 +24,7 @@ function table_sortCallback(tableId, column, sortDown)
     </div>
   </td>
   <td>
-   <div class="bl-title">
+   <div class="trean-bookmarks-title">
     <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
     <?php if ($bookmark->http_status == 'error'): ?>
     <?php echo Horde::img('http/error.png') ?>
@@ -46,10 +46,10 @@ function table_sortCallback(tableId, column, sortDown)
     </ul>
    </div>
   </td>
-  <td class="bl-clicks">
+  <td class="trean-bookmarks-clicks">
    <?php echo $bookmark->clicks ?>
   </td>
-  <td class="bl-actions">
+  <td class="trean-bookmarks-actions">
    <a href="<?php echo Horde::url('edit.php')->add('bookmark', (int)$bookmark->id) ?>"><?php echo Horde::img('edit.png', _("Edit")) ?></a>
    <form action="<?php echo Horde::url('b/delete') ?>" method="post">
     <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>" />

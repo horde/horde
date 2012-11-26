@@ -7,19 +7,19 @@
     max-height: 20px;
 }
 
-.bl-title {
+.trean-bookmarks-title {
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.bl-clicks {
+.trean-bookmarks-clicks {
     text-align: center;
 }
 
-.bl-actions form {
+.trean-bookmarks-actions form {
     display: inline;
 }
 
-#browser-instructions {
+#trean-browser-instructions {
     margin: 10px;
     padding: 10px;
 }
@@ -33,12 +33,11 @@
     padding-left: 5px;
 }
 
+/* Sidebar images. */
 .trean-browse {
     background-image: url("graphics/trean.png");
 }
-
-/* sidebar images. */
-.tagImg {
+.trean-tag {
     background-image: url("graphics/tag.png");
 }
 
