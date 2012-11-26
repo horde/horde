@@ -25,19 +25,29 @@ if ($share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE))
   <td width="100%"><?php echo htmlspecialchars($memo['category'] ? $memo['category'] : _("Unfiled")) ?></td>
 </tr>
 
-<?php if (isset($created)): ?>
+<?php if (isset($memo['created'])): ?>
 <tr>
   <td align="right"><strong><?php echo _("Created") ?></strong>&nbsp;</td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . @htmlspecialchars($createdby, ENT_COMPAT, 'UTF-8') ?></td>
+  <td>
+    <?php echo $memo['created']->strftime($prefs->getValue('date_format')) . ' ' . $memo['created']->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
+<?php if (isset($memo['createdby'])): ?>
+    <?php echo htmlspecialchars($memo['createdby']) ?>
+<?php endif ?>
+  </td>
 </tr>
-<?php endif; ?>
+<?php endif ?>
 
-<?php if (isset($modified)): ?>
+<?php if (isset($memo['modified'])): ?>
 <tr>
   <td align="right"><strong><?php echo _("Last Modified") ?></strong>&nbsp;</td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . @htmlspecialchars($modifiedby, ENT_COMPAT, 'UTF-8') ?></td>
+  <td>
+    <?php echo $memo['modified']->strftime($prefs->getValue('date_format')) . ' ' . $memo['modified']->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
+<?php if (isset($memo['modifiedby'])): ?>
+    <?php echo htmlspecialchars($memo['modifiedby']) ?>
+<?php endif ?>
+</td>
 </tr>
-<?php endif; ?>
+<?php endif ?>
 
  <tr>
   <td colspan="2">

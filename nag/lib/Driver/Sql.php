@@ -568,7 +568,7 @@ class Nag_Driver_Sql extends Nag_Driver
         }
 
         /* Create a new task based on $row's values. */
-        return array(
+        $task = array(
             'tasklist_id' => $row['task_owner'],
             'task_id' => $row['task_id'],
             'uid' => Horde_String::convertCharset($row['task_uid'], $this->_params['charset'], 'UTF-8'),
@@ -588,6 +588,35 @@ class Nag_Driver_Sql extends Nag_Driver
             'private' => $row['task_private'],
             'recurrence' => $recurrence
         );
+
+        try {
+            $log = $GLOBALS['injector']->getInstance('Horde_History')
+                ->getHistory('nag:' . $row['task_owner'] . ':' . $row['uid']);
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    $task['created'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $task['createdby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                    } else {
+                        $task['createdby'] = _("by me");
+                    }
+                    break;
+
+                case 'modify':
+                    $task['modified'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $task['modifiedby'] = sprintf(_("by %s"), Nag::getUserName($entry['who']));
+                    } else {
+                        $task['modifiedby'] = _("by me");
+                    }
+                    break;
+                }
+            }
+        } catch (Horde_Exception $e) {
+        }
+
+        return $task;
     }
 
 }

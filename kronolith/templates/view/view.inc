@@ -71,17 +71,17 @@ if ($this->event->initialized && $this->event->alarm > 0):
  </td>
 </tr>
 
-<?php if (isset($created)): ?>
+<?php if ($this->event->created): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Created") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php  echo $created->strftime($dateFormat) . ' ' . $created->format($timeFormat) . ' ' . htmlspecialchars($createdby) ?></td>
+  <td class="nowrap"><?php  echo $this->event->created->strftime($dateFormat) . ' ' . $this->event->created->format($timeFormat) . ' ' . htmlspecialchars($this->event->createdby) ?></td>
 </tr>
 <?php endif; ?>
 
-<?php if (isset($modified)): ?>
+<?php if ($this->event->modified): ?>
 <tr>
   <td class="nowrap rightAlign"><strong><?php echo _("Last Modified") ?></strong>&nbsp;&nbsp;</td>
-  <td class="nowrap"><?php echo $modified->strftime($dateFormat) . ' ' . $modified->format($timeFormat) . ' ' . htmlspecialchars($modifiedby) ?></td>
+  <td class="nowrap"><?php echo $this->event->modified->strftime($dateFormat) . ' ' . $this->event->modified->format($timeFormat) . ' ' . htmlspecialchars($this->event->modifiedby) ?></td>
 </tr>
 <?php endif; ?>
 

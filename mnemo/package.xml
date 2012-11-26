@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Use modification and creation dates from backend if available (Request #11591).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
  </notes>
  <contents>
@@ -948,6 +949,7 @@
    <date>2012-10-30</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Use modification and creation dates from backend if available (Request #11591).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
    </notes>
   </release>
