@@ -29,6 +29,18 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading IMP From 6.0.x To 6.1
+===============================
+
+Preferences (prefs.php)
+-----------------------
+
+The default values for these preferences have been changed::
+
+   request_mdn
+
+
+
 Upgrading IMP From 5.x To 6.x
 =============================
 

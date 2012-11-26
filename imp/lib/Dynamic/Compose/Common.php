@@ -119,11 +119,7 @@ class IMP_Dynamic_Compose_Common
         $view->compose_link = $compose_link->url . 'addAttachment';
 
         $view->is_template = !empty($args['template']);
-
-        $d_read = $prefs->getValue('request_mdn');
-        if ($d_read != 'never') {
-            $view->read_receipt_set = ($d_read != 'ask');
-        }
+        $view->read_receipt_set = ($prefs->getValue('request_mdn') == 'always');
 
         $view->priority = $prefs->getValue('set_priority');
         if (!$prefs->isLocked('default_encrypt') &&
@@ -164,7 +160,7 @@ class IMP_Dynamic_Compose_Common
         /* Context menu definitions. */
         $base->js_context['ctx_msg_other'] = new stdClass;
 
-        if ($prefs->getValue('request_mdn') == 'never') {
+        if (!$prefs->isLocked('request_mdn')) {
             $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
         if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {

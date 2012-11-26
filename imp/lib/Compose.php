@@ -1011,8 +1011,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* Add Return Receipt Headers. */
-        if (!empty($opts['readreceipt']) &&
-            ($GLOBALS['prefs']->getValue('request_mdn') != 'never')) {
+        if (!empty($opts['readreceipt'])) {
             $mdn = new Horde_Mime_Mdn($ob);
             $mdn->addMdnRequestHeaders(IMP::bareAddress($ob->getValue('from'), true));
         }

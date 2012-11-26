@@ -575,12 +575,12 @@ $_prefs['delete_attachments_monthly_keep'] = array(
 );
 
 $_prefs['request_mdn'] = array(
-    'value' => 'ask',
+    'value' => 'never',
+    'advanced' => true,
     'type' => 'enum',
     'enum' => array(
-        'never' => _("Never"),
-        'ask' => _("Ask"),
-        'always' => _("Always")
+        'never' => _("No"),
+        'always' => _("Yes")
     ),
     'desc' => _("Request read receipts?"),
     'help' => 'prefs-request_mdn'

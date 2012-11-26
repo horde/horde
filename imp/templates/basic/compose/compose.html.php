@@ -129,7 +129,7 @@
   </tr>
 <?php endif; ?>
 
-<?php if ($this->rrr): ?>
+<?php if (!is_null($this->rrr_selected)): ?>
   <tr>
    <td></td>
    <td class="item">

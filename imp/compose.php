@@ -932,11 +932,9 @@ if ($redirect) {
         }
     }
 
-    $d_read = $prefs->getValue('request_mdn');
-    if ($d_read != 'never') {
-        $view->rrr = true;
-        $view->rrr_selected = (($d_read != 'ask') || $request_read_receipt);
-    }
+    $view->rrr_selected = $prefs->isLocked('request_mdn')
+        ? null
+        : (($prefs->getValue('request_mdn') == 'always') || $request_read_receipt);
 
     if (!is_null($rtemode) && !$prefs->isLocked('compose_html')) {
         $view->compose_html = true;
