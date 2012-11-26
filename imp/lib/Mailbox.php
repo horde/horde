@@ -1,112 +1,130 @@
 <?php
 /**
- * This object is a clearinghouse for actions related to an IMP mailbox.
- *
  * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This object is a clearinghouse for actions related to an IMP mailbox.
  *
- * @property string $abbrev_label  Abbreviated version of $label - displays
- *                                 only the bare mailbox name (no parents).
- * @property boolean $access_creatembox  Can sub mailboxes be created?
- * @property boolean $access_deletembox  Can this mailbox be deleted?
- * @property boolean $access_deletembox_acl  Can this mailbox be deleted
- *                                           according to ACL rules?
- * @property boolean $access_deletemsgs  Can messages be deleted in this
- *                                       mailbox?
- * @property boolean $access_empty  Can this mailbox be emptied?
- * @property boolean $access_expunge  Can messages be expunged in this
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read string $abbrev_label  Abbreviated version of $label -
+ *                                      displays only the bare mailbox name
+ *                                      (no parents).
+ * @property-read boolean $access_creatembox  Can sub mailboxes be created?
+ * @property-read boolean $access_deletembox  Can this mailbox be deleted?
+ * @property-read boolean $access_deletembox_acl  Can this mailbox be deleted
+ *                                                according to ACL rules?
+ * @property-read boolean $access_deletemsgs  Can messages be deleted in this
+ *                                            mailbox?
+ * @property-read boolean $access_empty  Can this mailbox be emptied?
+ * @property-read boolean $access_expunge  Can messages be expunged in this
  *                                    mailbox?
- * @property boolean $access_filters  Is filtering available?
- * @property boolean $access_sort  Is sorting available?
- * @property boolean $access_sortthread  Is thread sort available?
- * @property mixed $acl  Either an ACL object for the mailbox, or null if
- *                       no ACL found for the mailbox.
- * @property string $basename  The basename of the mailbox (UTF-8).
+ * @property-read boolean $access_filters  Is filtering available?
+ * @property-read boolean $access_sort  Is sorting available?
+ * @property-read boolean $access_sortthread  Is thread sort available?
+ * @property-read mixed $acl  Either an ACL object for the mailbox, or null if
+ *                            no ACL found for the mailbox.
+ * @property-read string $basename  The basename of the mailbox (UTF-8).
  * @property array $cache  Get the cached information for this object.
- * @property string $cacheid  Cache ID for the mailbox.
- * @property string $cacheid_date  Cache ID for the mailbox, with added date
- *                                 information.
- * @property integer $changed  Has this object changed?
- * @property boolean $children  Does the element have children?
- * @property boolean $children_allowed  Can this element have children?
- * @property boolean $container  Is this a container element?
+ * @property-read string $cacheid  Cache ID for the mailbox.
+ * @property-read string $cacheid_date  Cache ID for the mailbox, with added
+ *                                      data information.
+ * @property-read integer $changed  Has this object changed?
+ * @property-read boolean $children  Does the element have children?
+ * @property-read boolean $children_allowed  Can this element have children?
+ * @property-read boolean $container  Is this a container element?
  * @property string $display  Display version of mailbox. Special mailboxes
  *                            are replaced with localized strings and
  *                            namespace information is removed.
- * @property string $display_html  $display that has been HTML encoded.
- * @property boolean $drafts  Is this a Drafts mailbox?
- * @property boolean $editquery  Can this search query be edited?
- * @property boolean $editvfolder  Can this virtual folder be edited?
- * @property boolean $exists  Does this mailbox exist on the IMAP server?
- * @property boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
- * @property string $form_to  Converts this mailbox to a form representation.
- * @property object $icon  Icon information for the mailbox. Properties:
+ * @property-read string $display_html  $display that has been HTML encoded.
+ * @property-read boolean $drafts  Is this a Drafts mailbox?
+ * @property-read boolean $editquery  Can this search query be edited?
+ * @property-read boolean $editvfolder  Can this virtual folder be edited?
+ * @property-read boolean $exists  Does this mailbox exist on the IMAP server?
+ * @property-read boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
+ * @property-read string $form_to  Converts this mailbox to a form
+ *                                 representation.
+ * @property-read object $icon  Icon information for the mailbox. Properties:
  *   - alt: (string) The alt text for the icon.
  *   - class: (string) The CSS class name.
  *   - icon: (Horde_Themes_Image) The icon graphic to use.
  *   - iconopen: (Horde_Themes_Image) The openicon to use.
  *   - user_icon: (boolean) Use a user defined icon?
- * @property Horde_Imap_Client_Mailbox $imap_mbox_ob  Convert this object to
- *                                                    an Imap_Client mailbox
- *                                                    obejct.
- * @property boolean $inbox  Is this the INBOX?
- * @property boolean $invisible  Is this mailbox invisible?
- * @property boolean $is_open  Is this level expanded?
- * @property string $label  The mailbox label. Essentially is $display that
- *                          can be modified by user hook.
- * @property integer $level  The child level of this element.
- * @property string $namespace  Is this a namespace element?
- * @property IMP_Mailbox $namespace_append  The mailbox with necessary
- *                                          namespace information appended.
- * @property string $namespace_delimiter  The delimiter for this namespace.
- * @property array $namespace_info  See IMP_Imap::getNamespace().
- * @property boolean $nonimap  Is this a non-IMAP element?
- * @property IMP_Mailbox $parent  The parent element. Returns null if no
- *                                parent.
- * @property IMP_Imap_PermanentFlags $permflags  Return the list of permanent
- *                                               flags available to set in the
- *                                               mailbox.
- * @property boolean $polled  Show polled information?
- * @property object $poll_info  Poll information for the mailbox. Properties:
+ * @property-read Horde_Imap_Client_Mailbox $imap_mbox_ob  Convert this object
+ *                                                         tp an
+ *                                                         Imap_Client mailbox
+ *                                                         object.
+ * @property-read boolean $inbox  Is this the INBOX?
+ * @property-read boolean $invisible  Is this mailbox invisible?
+ * @property-read boolean $is_open  Is this level expanded?
+ * @property-read string $label  The mailbox label. Essentially is $display
+ *                               that can be modified by user hook.
+ * @property-read integer $level  The child level of this element.
+ * @property-read string $namespace  Is this a namespace element?
+ * @property-read IMP_Mailbox $namespace_append  The mailbox with necessary
+ *                                               namespace information appended.
+ * @property-read string $namespace_delimiter  The delimiter for this
+ *                                             namespace.
+ * @property-read array $namespace_info  See IMP_Imap::getNamespace().
+ * @property-read boolean $nonimap  Is this a non-IMAP element?
+ * @property-read IMP_Mailbox $parent  The parent element. Returns null if no
+ *                                     parent.
+ * @property-read IMP_Imap_PermanentFlags $permflags  Return the list of
+ *                                                    permanent flags
+ *                                                    available to set in the
+ *                                                    mailbox.
+ * @property-read boolean $polled  Show polled information?
+ * @property-read object $poll_info  Poll information for the mailbox.
+ *                                   Properties:
  *   - msgs: (integer) The number of total messages in the element, if polled.
  *   - recent: (integer) The number of new messages in the element, if polled.
  *   - unseen: (integer) The number of unseen messages in the element, if
  *             polled.
- * @property string $pref_from  Convert mailbox name from preference storage.
- * @property string $pref_to  Convert mailbox name to preference storage.
- * @property boolean $query  Is this a search query?
- * @property boolean $readonly  Is this mailbox read-only?
- * @property boolean $search  Is this a search mailbox?
- * @property boolean $spam  Is this a Spam mailbox?
- * @property boolean $special  Is this is a "special" element?
- * @property boolean $special_outgoing  Is this a "special" element dealing
- *                                      with outgoing messages?
- * @property boolean $specialvfolder  Is this a "special" virtual folder?
- * @property boolean $sub  Is this mailbox subscribed to?
- * @property array $subfolders  Returns the list of subfolders as mailbox
- *                              objects (including the current mailbox).
- * @property array $subfolders_only  Returns the list of subfolders as mailbox
- *                                   objects (NOT including the current
- *                                   mailbox).
- * @property boolean $systemquery  Is this a system (built-in) search query?
- * @property boolean $templates  Is this a Templates mailbox?
- * @property boolean $trash  Is this a Trash mailbox?
- * @property string $uidvalid  Returns the UIDVALIDITY string. Throws an
- *                             IMP_Exception on error.
- * @property string $utf7imap  The UTF7-IMAP representation of this object.
- * @property string $value  The value of this element (IMAP mailbox name;
- *                          UTF-8).
- * @property boolean $vfolder  Is this a virtual folder?
- * @property boolean $vfolder_container  Is this the virtual folder container?
- * @property boolean $vinbox  Is this the virtual inbox?
- * @property boolean $vtrash  Is this the virtual trash?
+ * @property-read string $pref_from  Convert mailbox name from preference
+ *                                   storage.
+ * @property-read string $pref_to  Convert mailbox name to preference storage.
+ * @property-read boolean $query  Is this a search query?
+ * @property-read boolean $readonly  Is this mailbox read-only?
+ * @property-read boolean $search  Is this a search mailbox?
+ * @property-read boolean $spam  Is this a Spam mailbox?
+ * @property-read boolean $special  Is this is a "special" element?
+ * @property-read boolean $special_outgoing  Is this a "special" element
+ *                                           dealing with outgoing messages?
+ * @property-read boolean $specialvfolder  Is this a "special" virtual folder?
+ * @property-read boolean $sub  Is this mailbox subscribed to?
+ * @property-read array $subfolders  Returns the list of subfolders as mailbox
+ *                                   objects (including the current mailbox).
+ * @property-read array $subfolders_only  Returns the list of subfolders as
+ *                                        mailbox objects (NOT including the
+ *                                        current mailbox).
+ * @property-read boolean $systemquery  Is this a system (built-in) search
+ *                                      query?
+ * @property-read boolean $templates  Is this a Templates mailbox?
+ * @property-read boolean $trash  Is this a Trash mailbox?
+ * @property-read string $uidvalid  Returns the UIDVALIDITY string. Throws an
+ *                                  IMP_Exception on error.
+ * @property-read string $utf7imap  The UTF7-IMAP representation of this
+ *                                  object.
+ * @property-read string $value  The value of this element (IMAP mailbox name;
+ *                               UTF-8).
+ * @property-read boolean $vfolder  Is this a virtual folder?
+ * @property-read boolean $vfolder_container  Is this the virtual folder
+ *                                            container?
+ * @property-read boolean $vinbox  Is this the virtual inbox?
+ * @property-read boolean $vtrash  Is this the virtual trash?
  */
 class IMP_Mailbox implements Serializable
 {

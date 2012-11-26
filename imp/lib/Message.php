@@ -1,22 +1,32 @@
 <?php
 /**
- * The IMP_Message:: class contains all functions related to handling messages
- * within IMP. Actions such as moving, copying, and deleting messages are
- * handled in here so that code need not be repeated between mailbox, message,
- * and other pages.
- *
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
  * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Chris Hyde <chris@jeks.net>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2000-2001 Chris Hyde
+ * @copyright 2000-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class contains all functions related to handling messages within IMP.
+ * Actions such as moving, copying, and deleting messages are handled in here
+ * so that code need not be repeated between mailbox, message, and other
+ * pages.
+ *
+ * @author    Chris Hyde <chris@jeks.net>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2000-2001 Chris Hyde
+ * @copyright 2000-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Message
 {
