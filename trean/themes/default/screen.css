@@ -11,9 +11,6 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.bl-title a {
-    font-weight: bold;
-}
 .bl-clicks {
     text-align: center;
 }
