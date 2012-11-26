@@ -14,7 +14,7 @@ class Trean_BrowseByTag_Controller extends Horde_Controller_Base
         $notification = $this->getInjector()->getInstance('Horde_Notification');
 
         Trean::addFeedLink();
-        $title = sprintf(_("Tag: %s"), $tag);
+        $title = sprintf(_("tagged %s"), $tag);
         $page_output->header(array(
             'title' => $title
         ));

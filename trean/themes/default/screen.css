@@ -40,6 +40,11 @@
     background-image: url("graphics/trean.png");
 }
 
+/* sidebar images. */
+.tagImg {
+    background-image: url("graphics/tag.png");
+}
+
 .treanACBox {
   background: #ebeff0;
   border: 1px solid #d0d0d0;

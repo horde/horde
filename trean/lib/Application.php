@@ -114,6 +114,7 @@ class Trean_Application extends Horde_Registry_Application
             $url = Horde::url("tag/$tag");
             $row = array(
                 'url' => $url,
+                'cssClass' => 'tagImg',
                 'label' => $tag,
             );
             $sidebar->addRow($row, 'tags');
