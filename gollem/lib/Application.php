@@ -242,7 +242,8 @@ class Gollem_Application extends Horde_Registry_Application
             $menu->add($quota_url, _("Check Quota"), 'gollem-quota');
         }
 
-        if ($GLOBALS['registry']->isAdmin()) {
+        if ($GLOBALS['registry']->isAdmin() &&
+            !($GLOBALS['injector']->getInstance('Horde_Perms') instanceof Horde_Perms_Null)) {
             $menu->add(
                 Horde::url('permissions.php')->add('backend', $backend_key),
                 _("_Permissions"), 'horde-perms');
