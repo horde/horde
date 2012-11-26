@@ -98,5 +98,25 @@ class Trean_Application extends Horde_Registry_Application
     public function sidebar($sidebar)
     {
         $sidebar->addNewButton(_("_New Bookmark"), Horde::url('add.php'));
+
+        $sidebar->containers['tags'] = array(
+            'header' => array(
+                'id' => 'trean-toggle-tags',
+                'label' => _("Tags"),
+                'collapsed' => false,
+            ),
+        );
+
+        $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
+        $tags = $tagger->listBookmarkTags();
+        natcasesort($tags);
+        foreach ($tags as $tag) {
+            $url = Horde::url("tag/$tag");
+            $row = array(
+                'url' => $url,
+                'label' => $tag,
+            );
+            $sidebar->addRow($row, 'tags');
+        }
     }
 }
