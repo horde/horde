@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Add missing core wrapper for Kolab group driver (Bug #11737).
+*
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2602,7 +2602,7 @@
    <date>2012-11-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [gwr] Add missing core wrapper for Kolab group driver (Bug #11737).
+*
    </notes>
   </release>
  </changelog>
