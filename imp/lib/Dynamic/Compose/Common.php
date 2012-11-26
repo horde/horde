@@ -127,6 +127,7 @@ class IMP_Dynamic_Compose_Common
         $view->compose_link = $compose_link->url . 'addAttachment';
 
         $view->is_template = !empty($args['template']);
+        $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
 
         $d_read = $prefs->getValue('request_mdn');
         if ($d_read != 'never') {
@@ -148,11 +149,6 @@ class IMP_Dynamic_Compose_Common
             );
         }
         $view->select_list = $select_list;
-
-        $save_attach = $prefs->getValue('save_attachments');
-        if (strpos($save_attach, 'prompt') !== false) {
-            $view->save_attach_set = strpos($save_attach, 'yes') !== false;
-        }
     }
 
     /**
@@ -175,7 +171,7 @@ class IMP_Dynamic_Compose_Common
         if ($prefs->getValue('request_mdn') == 'never') {
             $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
-        if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
+        if (!$prefs->isLocked('save_attachments')) {
             $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
         }
 
