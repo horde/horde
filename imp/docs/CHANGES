@@ -2,6 +2,7 @@
 v6.0.2-git
 ----------
 
+[mms] Always add MDNSent flag when saving a draft/sent message.
 [mms] Fix preview message text in basic view (Bug #11724).
 [mms] Don't delete saved draft on session close.
 [mms] Improved generation and parsing of mbox files.
