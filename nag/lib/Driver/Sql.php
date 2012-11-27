@@ -591,7 +591,7 @@ class Nag_Driver_Sql extends Nag_Driver
 
         try {
             $log = $GLOBALS['injector']->getInstance('Horde_History')
-                ->getHistory('nag:' . $row['task_owner'] . ':' . $row['uid']);
+                ->getHistory('nag:' . $row['task_owner'] . ':' . $row['task_uid']);
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
