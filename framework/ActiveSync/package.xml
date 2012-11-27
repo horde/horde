@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-27</date>
- <time>11:48:49</time>
+ <time>11:50:35</time>
  <version>
-  <release>2.0.7</release>
+  <release>2.0.8</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Use binary column for serialized sync state (Bug #11743).
-* [jan] Fix boolean table columns (Bug #11742).
-* [mms] Use new Horde_Test layout.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -957,6 +955,19 @@
 * [jan] Use binary column for serialized sync state (Bug #11743).
 * [jan] Fix boolean table columns (Bug #11742).
 * [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
