@@ -39,7 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix deleting folders from absolute path in FTP backend (Bug #11761).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1115,7 +1115,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix deleting folders from absolute path in FTP backend (Bug #11761).
    </notes>
   </release>
  </changelog>
