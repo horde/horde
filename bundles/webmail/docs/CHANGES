@@ -2,6 +2,159 @@
 v5.0.2-git
 ----------
 
+[jan] Re-packaged some 2.0.0 releases.
+[mms] Use new Horde_Test layout.
+
+Horde Changes
+-------------
+[jan] Fix adding user in admin actions (Bug #11690).
+[mms] Fix removing user in admin actions (Bug #11690).
+[jan] Allow to set custom search field label.
+
+Mail Changes
+------------
+[mms] Always add MDNSent flag when saving a draft/sent message.
+[mms] Fix preview message text in basic view (Bug #11724).
+[mms] Don't delete saved draft on session close.
+[mms] Improved generation and parsing of mbox files.
+[mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug
+      #11672).
+[mms] Fix editing/sending templates in dynamic view.
+[mms] Allow iCalendar events to be added to the calendar even if they are
+      missing the required UID parameter (Bug #11669).
+[mms] Fix displaying flag changes for messages in search mailboxes in dynamic
+      view (Bug #11622).
+[mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+[mms] Don't try to save sent-mail to a non-existent sent-mail mailbox.
+[mms] Fix displaying encrypted message in dynamic preview when correct
+      passphrase is entered (Bug #11661).
+[mms] Purge IMAP cache data when upgrading from IMP 5.
+
+Address Book Changes
+--------------------
+[jan] Add free-text country attributes and use them in default Kolab backend
+      (Request #11692).
+[gwr] Fix handling empty dates in the Kolab driver (Bug #11691).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix searching shares for duplicates.
+[mjr] Fix calling decode_attribute hook when exporting to ActiveSync
+      (kd@tu-cottbus.de, Bug #11678).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+
+Calendar Changes
+----------------
+[jan] Try to translate holiday drivers (Request #11755).
+[jan] Fix timezone when reading events from Kolab (Bug #11695).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix saving of events if no calendar has been loaded yet.
+[mjr] Fix importing events from ActiveSync with empty descriptions in EAS
+      version 2.5
+
+Tasks Changes
+-------------
+[gwr] Ignore empty dates (Bug #11736).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[mjr] Fix support for due/start dates for certain ActiveSync clients (Bug
+      #11693).
+[jan] Fix importing tasks from iCalendar (Bug #11681).
+[jan] Fix listing of recurring tasks via timeobjects API.
+
+Notes Changes
+-------------
+[jan] Use modification and creation dates from backend if available (Request
+      #11591).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+
+Tagging Changes
+---------------
+[jan] Add missing optional dependency on Horde_ElasticSearch.
+[jan] Catch exceptions from Horde_ElasticSearch.
+
+Library Changes
+---------------
+ActiveSync
+[jan] Use binary column for serialized sync state (Bug #11743).
+[jan] Fix boolean table columns (Bug #11742).
+[mms] Use new Horde_Test layout.
+[jan] Add Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+[mjr] Answer Microsoft Outlook Autodiscover requests (Request # 11639).
+[mjr] Fix fatal error due to abstract serialize methods.
+[mjr] Fix issue causing a loop during FETCH requests caused by the
+      non-incrementing syncKey.
+[mjr] Reduce number of IMAP server calls required when syncronizing email data.
+[mjr] Fix issue causing iOS Mail to crash when receiving truncated body data.
+[mjr] Improvements to detecting expunged messages.
+[mjr] Fix detecting mailbox changes on servers that don't return UIDNEXT data.
+[mjr] Fix issue in detecting certain text attachments.
+
+Autoloader_Cache
+[mms] Compress cached data with LZF, if the PECL module is available.
+
+Browser
+[mms] Add tablet detection/reporting.
+
+Core
+[jan] Fix class name when using the Kolab group backend (Bug #11737).
+[mjr] Fix synchronizing device message flag changes over ActiveSync (Bug
+      #11732).
+[mms] Fix returning session start time if session has been closed (read-only)
+      in the current page access (Bug #11685).
+
+Crypt_Blowfish
+[mms] Mask harmless warning messages when using openssl_encrypt() on
+      out-of-date PHP versions.
+[mms] Initial release of package.
+
+Imap_Client
+[mms] Complete workaround for broken BINARY extension on Cyrus servers.
+[mms] Workaround broken BINARY extension on Cyrus servers.
+[mms] Fix returning UIDNEXT when using UIDNEXT_FORCE and the server does not
+      automatically return this information.
+[mms] Significant optimization to append() command.
+[mms] Add abstracted syncing methods to Horde_Imap_Client_Base.
+[mms] Fix parsing PARSE response code associated with an OK response.
+[mms] Workaround broken BINARY implementation on UW-IMAP servers.
+[mms] If we have binary data, and server doesn't support BINARY extension, send
+      data anyway since we don't have any other option.
+[mms] Correctly increment UIDNEXT when an EXISTS response is issued after the
+      mailbox is opened (Bug #11679).
+[mms] Fix regression that may have caused message flags to have been improperly
+      cached if debugging was disabled (Bug #11665).
+
+Kolab_Format
+[jan] Deprecate timezone parameters, always write UTC datetime values (Bug
+      #11695).
+
+Kolab_Storage
+[gwr] Add a time based snychronization strategy (Bug #11590).
+[gwr] Correct cache update after move (Bug #11305).
+[gwr] Remove deleted objects from the cache (Bug #11674).
+
+Mail
+[mms] Ensure bare address is output to SMTP MAIL command.
+
+Secret
+[jan] Fix package.xml.
+[mms] Use Horde_Crypt_Blowfish instead of Crypt_Blowfish.
+
+Stream
+[mms] Add Horde_Stream_Existing class.
+
+Support
+[mms] Better generation of random IDs.
+
+Test
+[mms] Refactor Horde_Test_AllTests.
+[mms] Add Horde_Test_Bootstrap.
+
+Text_Filter
+[jan] Improve HTML-to-Text filter.
+[mms] Jsmin fixes merged from upstream C source.
+
+Vfs
+[jan] Fix deleting folders from absolute path in FTP backend (Bug #11761).
+[jan] Fix old folder not being removed when moving a folder (Bug #11703).
+[jan] Fix checking source and destination paths being the same (Bug #11702).
 
 
 ------

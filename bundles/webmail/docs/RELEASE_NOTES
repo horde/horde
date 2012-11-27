@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-Webmail Edition version 5.0.1.
+Webmail Edition version 5.0.2.
 
 Horde Groupware Webmail Edition is a free, enterprise ready, browser based
 communication suite. Users can read, send and organize email messages with
@@ -29,27 +29,43 @@ http://www.horde.org/apps/webmail/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/webmail/docs/INSTALL
 
-The major changes compared to the Horde Groupware Webmail Edition version 5.0.0
+The major changes compared to the Horde Groupware Webmail Edition version 5.0.1
 are:
 
 General changes:
+    * Fixed adding and removing of users.
     * Improved ActiveSync compatibility.
-    * Updated Slovak and Dutch translations.
+    * Improved Kolab compatibility.
     * Small bugfixes and improvements.
 
 Mail changes:
-    * Fixed displaying of several interface elements.
+    * Save sent mail in smartphone view.
+    * Fixed deleting of saved drafts.
+    * Fixed displaying of encrypted messages in dynamic view.
+    * Fixed template management in dynamic view.
+
+Address Book Changes:
+    * Fixed searching shared address books for duplicates.
 
 Calendar changes:
-    * Fixed authentication to remote calendars.
+    * Translated holiday drivers.
+
+Tasks Changes:
+    * Fixed importing tasks from iCalendar data.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Improved ActiveSync compatibility.
-Fixed displaying of several webmail interface elements.
-Fixed authentication to remote calendars.
-Updated Slovak and Dutch translations.
+Improved Kolab compatibility.
+Save sent mail in smartphone view.
+Translated holiday drivers.
+Fixed adding and removing of users.
+Fixed deleting of saved drafts.
+Fixed displaying of encrypted messages in dynamic view.
+Fixed message template management in dynamic view.
+Fixed searching shared address books for duplicates.
+Fixed importing tasks from iCalendar data.
 Small bugfixes and improvements.
 FM;
 

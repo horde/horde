@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>19:12:26</time>
+ <date>2012-11-27</date>
+ <time>15:13:22</time>
  <version>
   <release>5.0.2</release>
   <api>5.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* 
+* [jan] Update Horde, IMP, Turba, Kronolith, Nag, Mnemo, and Content.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -78,63 +78,63 @@
    <package>
     <name>content</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0</min>
+    <min>5.0.2</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>imp</name>
     <channel>pear.horde.org</channel>
-    <min>6.0.0</min>
+    <min>6.0.2</min>
     <max>7.0.0alpha1</max>
     <exclude>7.0.0alpha1</exclude>
    </package>
    <package>
     <name>ingo</name>
     <channel>pear.horde.org</channel>
-    <min>3.0.0</min>
+    <min>3.0.1</min>
     <max>4.0.0alpha1</max>
     <exclude>4.0.0alpha1</exclude>
    </package>
    <package>
     <name>kronolith</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.2</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>mnemo</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.1</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>nag</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.1</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
    <package>
     <name>timeobjects</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.1</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>turba</name>
     <channel>pear.horde.org</channel>
-    <min>4.0.0</min>
+    <min>4.0.1</min>
     <max>5.0.0alpha1</max>
     <exclude>5.0.0alpha1</exclude>
    </package>
@@ -317,7 +317,7 @@
    <date>2012-05-29</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, and Mnemo.
    </notes>
   </release>
   <release>
@@ -359,7 +359,7 @@
    <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, IMP, Ingo, and Kronolith.
    </notes>
   </release>
   <release>
@@ -369,10 +369,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
-* 
+* [jan] Update Horde, IMP, Turba, Kronolith, Nag, Mnemo, and Content.
    </notes>
   </release>
  </changelog>
