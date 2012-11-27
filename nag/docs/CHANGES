@@ -1,6 +1,6 @@
-----------
-v4.0.1-git
-----------
+------
+v4.0.1
+------
 
 [gwr] Ignore empty dates (Bug #11736).
 [jan] Use encoded UIDs as IDs in Kolab driver.

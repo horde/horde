@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:23:21</time>
+ <date>2012-11-27</date>
+ <time>13:02:31</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -477,6 +477,7 @@
      </dir> <!-- /test/Nag/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Nag -->
@@ -495,7 +496,6 @@
       <file name="checkbox.png" role="horde" />
       <file name="checked.png" role="horde" />
       <file name="favicon.ico" role="horde" />
-      <file name="manage.png" role="horde" />
       <file name="minus.png" role="horde" />
       <file name="nag.png" role="horde" />
       <file name="note.png" role="horde" />
@@ -913,6 +913,7 @@
    <install as="nag/templates/view/task.inc" name="templates/view/task.inc" />
    <install as="Nag/AllTests.php" name="test/Nag/AllTests.php" />
    <install as="Nag/Autoload.php" name="test/Nag/Autoload.php" />
+   <install as="Nag/bootstrap.php" name="test/Nag/bootstrap.php" />
    <install as="Nag/phpunit.xml" name="test/Nag/phpunit.xml" />
    <install as="Nag/TestCase.php" name="test/Nag/TestCase.php" />
    <install as="Nag/Unit/Driver/Base.php" name="test/Nag/Unit/Driver/Base.php" />
@@ -938,7 +939,6 @@
    <install as="nag/themes/default/graphics/checkbox.png" name="themes/default/graphics/checkbox.png" />
    <install as="nag/themes/default/graphics/checked.png" name="themes/default/graphics/checked.png" />
    <install as="nag/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
-   <install as="nag/themes/default/graphics/manage.png" name="themes/default/graphics/manage.png" />
    <install as="nag/themes/default/graphics/minus.png" name="themes/default/graphics/minus.png" />
    <install as="nag/themes/default/graphics/nag.png" name="themes/default/graphics/nag.png" />
    <install as="nag/themes/default/graphics/note.png" name="themes/default/graphics/note.png" />
@@ -1244,7 +1244,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [gwr] Ignore empty dates (Bug #11736).
