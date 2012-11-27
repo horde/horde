@@ -25,7 +25,7 @@ abstract class IMP_Flag_System_Match_Flag extends IMP_Flag_Base
     /**
      * @param array $data  List of IMAP flags.
      */
-    public function match(array $data)
+    public function match($data)
     {
         return false;
     }

@@ -38,6 +38,7 @@ class IMP_Flag_System_Personal extends IMP_Flag_System_Match_Address
     }
 
     /**
+     * @param string $data  E-mail address.
      */
     public function match($data)
     {

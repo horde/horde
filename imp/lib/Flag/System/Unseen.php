@@ -61,8 +61,9 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
     }
 
     /**
+     * @param array $data  List of IMAP flags.
      */
-    public function match(array $data)
+    public function match($data)
     {
         return !in_array(Horde_Imap_Client::FLAG_SEEN, $data);
     }

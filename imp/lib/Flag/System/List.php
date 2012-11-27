@@ -38,8 +38,9 @@ class IMP_Flag_System_List extends IMP_Flag_System_Match_Header
     }
 
     /**
+     * @param Horde_Mime_Headers $data
      */
-    public function match(Horde_Mime_Headers $data)
+    public function match($data)
     {
         return ($data->getValue('list-post') !== null);
     }

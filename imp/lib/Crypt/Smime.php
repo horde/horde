@@ -449,7 +449,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data)
+    public function extractSignedContents($data, $sslpath = null)
     {
         $sslpath = empty($GLOBALS['conf']['openssl']['path'])
             ? null

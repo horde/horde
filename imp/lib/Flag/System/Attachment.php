@@ -38,8 +38,9 @@ class IMP_Flag_System_Attachment extends IMP_Flag_System_Match_Header
     }
 
     /**
+     * @param Horde_Mime_Headers $data
      */
-    public function match(Horde_Mime_Headers $data)
+    public function match($data)
     {
         if (!($ctype = $data->getValue('content-type', Horde_Mime_Headers::VALUE_BASE))) {
             return false;
