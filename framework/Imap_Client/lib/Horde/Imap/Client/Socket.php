@@ -2656,7 +2656,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'MODSEQ':
-                $modseq = reset(iterator_to_array($f_data->next()));
+                $tmp = iterator_to_array($f_data->next());
+                $modseq = reset($tmp);
 
                 $ob->setModSeq($modseq);
 
