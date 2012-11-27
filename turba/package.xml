@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-10-30</date>
- <time>22:18:03</time>
+ <date>2012-11-27</date>
+ <time>12:56:40</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -542,6 +542,7 @@
      </dir> <!-- /test/Turba/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Turba -->
@@ -1024,6 +1025,7 @@
    <install as="turba/templates/test/ldapserver.inc" name="templates/test/ldapserver.inc" />
    <install as="Turba/AllTests.php" name="test/Turba/AllTests.php" />
    <install as="Turba/Autoload.php" name="test/Turba/Autoload.php" />
+   <install as="Turba/bootstrap.php" name="test/Turba/bootstrap.php" />
    <install as="Turba/phpunit.xml" name="test/Turba/phpunit.xml" />
    <install as="Turba/TestCase.php" name="test/Turba/TestCase.php" />
    <install as="Turba/fixtures/az.png" name="test/Turba/fixtures/az.png" />
@@ -1521,7 +1523,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Add free-text country attributes and use them in default Kolab backend (Request #11692).

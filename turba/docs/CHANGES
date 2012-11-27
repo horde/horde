@@ -1,6 +1,6 @@
-----------
-v4.0.1-git
-----------
+------
+v4.0.1
+------
 
 [jan] Add free-text country attributes and use them in default Kolab backend
       (Request #11692).
