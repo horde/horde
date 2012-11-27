@@ -55,8 +55,22 @@
     color: #00f;
 }
 
-.task td {
-    padding-right: .5em;
+.horde-header {
+    padding: 10px;
+    background-color: #eceff0;
+    border-bottom: 1px solid #d0d0d0;
+}
+.horde-header tr {
+    vertical-align: top;
+}
+.horde-header td {
+    padding: 0 0 1px 0;
+}
+.horde-header td.horde-label {
+    font-weight: bold;
+    padding-right: 4px;
+    text-align: right;
+    white-space: nowrap;
 }
 
 .taskBody {
@@ -87,16 +101,26 @@
 
 /* Icons. */
 .nag-list {
-    background-image: url('graphics/nag.png');
+    background-image: url("graphics/nag.png");
 }
 .nag-search {
-    background-image: url('graphics/search.png');
+    background-image: url("graphics/search.png");
 }
 .horde-new-extra {
     background: none;
 }
 .horde-new-extra a {
-    background: url('graphics/add.png') no-repeat;
+    background: url("graphics/add.png") no-repeat;
+}
+
+.nag-complete {
+    background-image: url("graphics/complete.png");
+}
+.nag-edit {
+    background-image: url("graphics/edit.png");
+}
+.nag-delete {
+    background-image: url("graphics/delete.png");
 }
 
 @media print {

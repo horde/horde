@@ -22,25 +22,25 @@ function doPrefsUpdate(column, sortDown)
 
 </script>
 <div id="page">
+  <?php echo $this->render('list/header'); ?>
   <?php echo $this->tabs; ?>
   <?php echo $this->browser; ?>
-  <?php echo $this->render('list/header'); ?>
   <?php if (!$this->tasks->hasTasks()): ?>
 
     <p class="text"><em><?php echo _("There are no tasks matching the current criteria.") ?></em></p>
 
   <?php else: ?>
 
-    <table id="tasks" cellspacing="0" class="sortable nowrap">
+    <table id="tasks" class="horde-table sortable nowrap">
       <?php echo $this->render('list/task_headers'); ?>
       <tbody id="tasks-body">
         <?php while ($task = $this->tasks->each()):
             if (!empty($task->completed)) {
-                $style = 'linedRow closed';
+                $style = 'closed';
             } elseif (!empty($task->due) && $task->due < time()) {
-                $style = 'linedRow overdue';
+                $style = 'overdue';
             } else {
-                $style = 'linedRow';
+                $style = '';
             }
             if ($task->tasklist == '**EXTERNAL**') {
                 $share = $GLOBALS['nag_shares']->newShare($GLOBALS['registry']->getAuth(), '**EXTERNAL**', $task->tasklist_name);

@@ -1,4 +1,4 @@
-<div class="header leftAlign">
+<div class="header">
  <?php echo htmlspecialchars($this->title) . ' (' . $this->tasks->count() . ')' ?>
  <?php if (!empty($this->smartShare)): ?>
    <small><a href="<?php echo Horde::url('search.php')->add('smart_id', $this->smartShare->getName()); ?>"><?php echo _("Edit criteria")?></a></small>
