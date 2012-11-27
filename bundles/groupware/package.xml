@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-27</date>
- <time>15:16:46</time>
+ <time>15:17:59</time>
  <version>
-  <release>5.0.2</release>
+  <release>5.0.3</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, and Content.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -319,6 +319,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Update Horde, Turba, Kronolith, Nag, Mnemo, and Content.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
