@@ -112,6 +112,34 @@ class Nag_Task
     public $completed_date;
 
     /**
+     * The creation time.
+     *
+     * @var Horde_Date
+     */
+    public $created;
+
+    /**
+     * The creator string.
+     *
+     * @var string
+     */
+    public $createdby;
+
+    /**
+     * The last modification time.
+     *
+     * @var Horde_Date
+     */
+    public $modified;
+
+    /**
+     * The last-modifier string.
+     *
+     * @var string
+     */
+    public $modifiedby;
+
+    /**
      * The task alarm threshold.
      *
      * @var integer

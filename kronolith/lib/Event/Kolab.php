@@ -86,6 +86,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->end->setTimezone($tz_local);
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
 
+        if (!empty($event['creation-date'])) {
+            $this->created = new Horde_Date($event['creation-date']);
+        }
+        if (!empty($event['last-modification-date'])) {
+            $this->modified = new Horde_Date($event['last-modification-date']);
+        }
+
         if (isset($event['show-time-as'])) {
             switch ($event['show-time-as']) {
                 case 'free':

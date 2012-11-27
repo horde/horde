@@ -49,45 +49,6 @@ if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) 
     Horde::url('list.php', true)->redirect();
 }
 
-/* Get the task's history. */
-$created = null;
-$modified = null;
-$completed = null;
-$userId = $GLOBALS['registry']->getAuth();
-$createdby = '';
-$modifiedby = '';
-if (!empty($task->uid)) {
-    try {
-        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
-        foreach ($log as $entry) {
-            switch ($entry['action']) {
-            case 'add':
-                $created = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $createdby = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                } else {
-                    $createdby = _("by me");
-                }
-                break;
-
-            case 'modify':
-                $modified = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $modifiedby = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                } else {
-                    $modifiedby = _("by me");
-                }
-                break;
-
-            case 'complete':
-                if (!empty($entry['ts'])) {
-                    $completed = $entry['ts'];
-                }
-            }
-        }
-    } catch (Exception $e) {}
-}
-
 $links = array();
 $page_output->addScriptFile('stripe.js', 'horde');
 

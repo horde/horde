@@ -200,6 +200,38 @@ abstract class Kronolith_Event
     public $allday = false;
 
     /**
+     * The creation time.
+     *
+     * @see loadHistory()
+     * @var Horde_Date
+     */
+    public $created;
+
+    /**
+     * The creator string.
+     *
+     * @see loadHistory()
+     * @var string
+     */
+    public $createdby;
+
+    /**
+     * The last modification time.
+     *
+     * @see loadHistory()
+     * @var Horde_Date
+     */
+    public $modified;
+
+    /**
+     * The last-modifier string.
+     *
+     * @see loadHistory()
+     * @var string
+     */
+    public $modifiedby;
+
+    /**
      * Number of minutes before the event starts to trigger an alarm.
      *
      * @var integer
@@ -331,6 +363,39 @@ abstract class Kronolith_Event
 
         if (!is_null($eventObject)) {
             $this->fromDriver($eventObject);
+        }
+    }
+
+    /**
+     * Retrieves history information for this event from the history backend.
+     */
+    public function loadHistory()
+    {
+        try {
+            $log = $GLOBALS['injector']->getInstance('Horde_History')
+                ->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    $this->created = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $this->createdby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
+                    } else {
+                        $this->createdby = _("by me");
+                    }
+                    break;
+
+                case 'modify':
+                    $this->modified = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $this->modifiedby = sprintf(_("by %s"), Kronolith::getUserName($entry['who']));
+                    } else {
+                        $this->modifiedby = _("by me");
+                    }
+                    break;
+                }
+            }
+        } catch (Horde_Exception $e) {
         }
     }
 

@@ -337,13 +337,46 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         // Create a new task based on $row's values.
-        return array('memolist_id' => $row['memo_owner'],
-                     'memo_id' => $row['memo_id'],
-                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_charset, 'UTF-8'),
-                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_charset, 'UTF-8'),
-                     'body' => $body,
-                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_charset, 'UTF-8'),
-                     'encrypted' => $encrypted);
+        $memo = array(
+            'memolist_id' => $row['memo_owner'],
+            'memo_id' => $row['memo_id'],
+            'uid' => Horde_String::convertCharset(
+                $row['memo_uid'], $this->_charset, 'UTF-8'),
+            'desc' => Horde_String::convertCharset(
+                $row['memo_desc'], $this->_charset, 'UTF-8'),
+            'body' => $body,
+            'category' => Horde_String::convertCharset(
+                $row['memo_category'], $this->_charset, 'UTF-8'),
+            'encrypted' => $encrypted);
+
+        try {
+            $log = $GLOBALS['injector']->getInstance('Horde_History')
+                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['uid']);
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    $memo['created'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $memo['createdby'] = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
+                    } else {
+                        $memo['createdby'] = _("by me");
+                    }
+                    break;
+
+                case 'modify':
+                    $memo['modified'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $memo['modifiedby'] = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
+                    } else {
+                        $memo['modifiedby'] = _("by me");
+                    }
+                    break;
+                }
+            }
+        } catch (Horde_Exception $e) {
+        }
+
+        return $memo;
     }
 
     /**
