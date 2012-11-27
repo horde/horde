@@ -934,7 +934,40 @@
    <configheader>Groups Driver</configheader>
    <configswitch name="driver" desc="What backend should we use for Horde
    Groups?">Sql
-    <case name="Kolab" desc="Kolab"/>
+    <case name="Kolab" desc="Kolab">
+     <configsection name="params">
+      <configldap switchname="driverconfig">
+       <configstring name="gid" desc="The group search key">cn</configstring>
+       <configstring name="memberuid" desc="Group membership field">
+       memberUid</configstring>
+       <configboolean name="attrisdn" required="false"
+        desc="If checked, the user member attributes returned from LDAP are
+       expected to be fully qualified DNs"/>
+       <configlist name="newgroup_objectclass" desc="What objectclasses should
+       a new group be member of? These objectclasses should cover the mail and
+       gidnumber attributes as well as the group search key">
+       posixGroup,hordeGroup</configlist>
+       <configstring name="writedn" desc="DN used to bind for creating and
+       editing LDAP groups." required="false"/>
+       <configstring name="writepw" desc="Password for bind DN."
+       required="false"/>
+       <configsection name="search">
+        <configswitch name="filter_type" desc="How to specify a filter for the
+        group lists">objectclass
+         <case name="objectclass" desc="One or more objectclass filters">
+          <configlist name="objectclass" desc="The objectclass filter used to
+          search for groups. Can be a single objectclass or a list.">
+          posixGroup</configlist>
+         </case>
+         <case name="filter" desc="A complete LDAP filter expression">
+          <configstring name="filter" desc="The LDAP RFC formatted filter used
+          to search for groups."/>
+         </case>
+        </configswitch>
+       </configsection>
+      </configldap>
+     </configsection>
+    </case>
     <case name="Ldap" desc="LDAP">
      <configsection name="params">
       <configldap switchname="driverconfig">
