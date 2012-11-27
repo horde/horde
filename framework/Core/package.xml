@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-22</date>
- <time>22:11:50</time>
+ <date>2012-11-27</date>
+ <time>11:51:12</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -458,7 +458,6 @@
        <file name="Weather.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Factory -->
       <dir name="Group">
-       <file name="Kolab.php" role="php" />
        <file name="Ldap.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Group -->
       <dir name="Imsp">
@@ -1719,7 +1718,6 @@
    <install as="Horde/Core/Factory/Vfs.php" name="lib/Horde/Core/Factory/Vfs.php" />
    <install as="Horde/Core/Factory/View.php" name="lib/Horde/Core/Factory/View.php" />
    <install as="Horde/Core/Factory/Weather.php" name="lib/Horde/Core/Factory/Weather.php" />
-   <install as="Horde/Core/Group/Kolab.php" name="lib/Horde/Core/Group/Kolab.php" />
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
@@ -2599,7 +2597,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix class name when using the Kolab group backend (Bug #11737).
