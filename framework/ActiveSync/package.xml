@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>12:52:21</time>
+ <date>2012-11-27</date>
+ <time>11:48:49</time>
  <version>
   <release>2.0.7</release>
   <api>2.0.0</api>
@@ -951,7 +951,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Use binary column for serialized sync state (Bug #11743).
