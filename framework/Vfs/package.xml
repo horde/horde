@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:31</time>
+ <date>2012-11-27</date>
+ <time>12:24:13</time>
  <version>
   <release>2.0.3</release>
   <api>2.0.0</api>
@@ -1112,7 +1112,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix deleting folders from absolute path in FTP backend (Bug #11761).
