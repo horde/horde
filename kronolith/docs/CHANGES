@@ -1,6 +1,6 @@
-----------
-v4.0.2-git
-----------
+------
+v4.0.2
+------
 
 [jan] Try to translate holiday drivers (Request #11755).
 [jan] Fix timezone when reading events from Kolab (Bug #11695).

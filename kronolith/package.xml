@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>18:29:29</time>
+ <date>2012-11-27</date>
+ <time>12:59:31</time>
  <version>
   <release>4.0.2</release>
   <api>4.0.0</api>
@@ -654,6 +654,7 @@
      </dir> <!-- /test/Kronolith/Stub -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Kronolith -->
@@ -1367,6 +1368,7 @@
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
    <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
    <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
+   <install as="Kronolith/bootstrap.php" name="test/Kronolith/bootstrap.php" />
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
@@ -2015,7 +2017,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Try to translate holiday drivers (Request #11755).
