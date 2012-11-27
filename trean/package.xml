@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-27</date>
- <time>13:27:56</time>
+ <time>13:29:30</time>
  <version>
-  <release>1.0.0beta2</release>
+  <release>1.0.0beta3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [cjh] Add a list of tags to the sidebar.
-* [cjh] Crawl all bookmarks when they are saved or edited for fulltext searching if elasticsearch is available.
-* [cjh] Turn search off by default (Bug #11701).
-* [jan] Allow to set custom SQL parameters.
-* [jan] Move search box to top menu.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -530,6 +526,19 @@
 * [cjh] Turn search off by default (Bug #11701).
 * [jan] Allow to set custom SQL parameters.
 * [jan] Move search box to top menu.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
