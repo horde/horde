@@ -1032,11 +1032,11 @@ var DimpCompose = {
     {
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_msg_other_rr':
-            $('request_read_receipt').setValue(!$F('request_read_receipt'));
+            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
             break;
 
         case 'ctx_msg_other_saveatc':
-            $('save_attachments_select').setValue(!$F('save_attachments_select'));
+            $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
             break;
         }
     },
@@ -1048,10 +1048,10 @@ var DimpCompose = {
         switch (e.memo) {
         case 'ctx_msg_other':
             if (tmp = $('ctx_msg_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), $F('request_read_receipt'));
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
             }
             if (tmp = $('ctx_msg_other_saveatc')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), $F('save_attachments_select'));
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
             }
             break;
         }

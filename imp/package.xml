@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix toggling other options in dynamic compose screen.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2867,7 +2867,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix toggling other options in dynamic compose screen.
    </notes>
   </release>
  </changelog>

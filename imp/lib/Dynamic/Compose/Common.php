@@ -168,7 +168,7 @@ class IMP_Dynamic_Compose_Common
         /* Context menu definitions. */
         $base->js_context['ctx_msg_other'] = new stdClass;
 
-        if ($prefs->getValue('request_mdn') == 'never') {
+        if ($prefs->getValue('request_mdn') == 'ask') {
             $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
         if (!$prefs->isLocked('save_attachments')) {
