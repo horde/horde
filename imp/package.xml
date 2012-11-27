@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2012-11-27</date>
- <time>12:49:42</time>
+ <time>12:52:37</time>
  <version>
-  <release>6.0.2</release>
+  <release>6.0.3</release>
   <api>6.0.0</api>
  </version>
  <stability>
@@ -34,18 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mms] Always add MDNSent flag when saving a draft/sent message.
-* [mms] Fix preview message text in basic view (Bug #11724).
-* [mms] Don&apos;t delete saved draft on session close.
-* [mms] Improved generation and parsing of mbox files.
-* [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
-* [mms] Fix editing/sending templates in dynamic view.
-* [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
-* [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
-* [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
-* [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
-* [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
-* [mms] Purge IMAP cache data when upgrading from IMP 5.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2866,6 +2855,19 @@
 * [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
 * [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
 * [mms] Purge IMAP cache data when upgrading from IMP 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.3</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
