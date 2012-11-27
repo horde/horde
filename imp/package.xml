@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>18:12:04</time>
+ <date>2012-11-27</date>
+ <time>12:49:42</time>
  <version>
   <release>6.0.2</release>
   <api>6.0.0</api>
@@ -865,6 +865,7 @@
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Imp -->
    </dir> <!-- /test -->
@@ -1788,6 +1789,7 @@
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
+   <install as="Imp/bootstrap.php" name="test/Imp/bootstrap.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
@@ -2849,7 +2851,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Always add MDNSent flag when saving a draft/sent message.
