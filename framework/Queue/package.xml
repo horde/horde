@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-07-21</date>
- <time>10:37:31</time>
+ <date>2012-11-27</date>
+ <time>13:25:25</time>
  <version>
    <release>1.0.0alpha1</release>
    <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First alpha release for Horde 4.
+* First alpha release for Horde 5.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -32,6 +32,7 @@
       <dir name="examples">
        <file name="shutdown_runner.php" role="doc" />
       </dir> <!-- /doc/Horde/Queue/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/Queue -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -66,6 +67,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Queue/COPYING" />
    <install as="examples/shutdown_runner.php" name="doc/Horde/Queue/examples/shutdown_runner.php" />
    <install as="Horde/Queue/Runner.php" name="lib/Horde/Queue/Runner.php" />
    <install as="Horde/Queue/Storage.php" name="lib/Horde/Queue/Storage.php" />
@@ -86,10 +88,10 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2011-07-21</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* First alpha release for Horde 4.
+* First alpha release for Horde 5.
    </notes>
   </release>
  </changelog>
