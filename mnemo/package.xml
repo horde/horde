@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:26:22</time>
+ <date>2012-11-27</date>
+ <time>13:08:13</time>
  <version>
   <release>4.0.1</release>
   <api>4.0.0</api>
@@ -350,6 +350,7 @@
      </dir> <!-- /test/Mnemo/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Mnemo -->
@@ -681,6 +682,7 @@
    <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
+   <install as="Mnemo/bootstrap.php" name="test/Mnemo/bootstrap.php" />
    <install as="Mnemo/phpunit.xml" name="test/Mnemo/phpunit.xml" />
    <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
    <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
@@ -946,7 +948,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Use modification and creation dates from backend if available (Request #11591).
