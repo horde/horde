@@ -34,6 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [cjh] Add a list of tags to the sidebar.
+* [cjh] Crawl all bookmarks when they are saved or edited for fulltext searching if elasticsearch is available.
+* [cjh] Turn search off by default (Bug #11701).
 * [jan] Allow to set custom SQL parameters.
 * [jan] Move search box to top menu.
  </notes>
@@ -505,6 +508,9 @@
    <date>2012-11-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [cjh] Add a list of tags to the sidebar.
+* [cjh] Crawl all bookmarks when they are saved or edited for fulltext searching if elasticsearch is available.
+* [cjh] Turn search off by default (Bug #11701).
 * [jan] Allow to set custom SQL parameters.
 * [jan] Move search box to top menu.
    </notes>
