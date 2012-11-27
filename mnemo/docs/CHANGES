@@ -8,6 +8,7 @@ v4.0.2-git
 v4.0.1
 ------
 
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 [jan] Use modification and creation dates from backend if available (Request
       #11591).
 [jan] Use encoded UIDs as IDs in Kolab driver.

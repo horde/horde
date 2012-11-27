@@ -1243,6 +1243,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 * [gwr] Ignore empty dates (Bug #11736).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [mjr] Fix support for due/start dates for certain ActiveSync clients (Bug #11693).

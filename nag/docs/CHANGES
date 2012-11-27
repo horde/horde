@@ -8,6 +8,7 @@ v4.0.2-git
 v4.0.1
 ------
 
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 [gwr] Ignore empty dates (Bug #11736).
 [jan] Use encoded UIDs as IDs in Kolab driver.
 [mjr] Fix support for due/start dates for certain ActiveSync clients (Bug

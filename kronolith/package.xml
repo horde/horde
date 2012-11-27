@@ -2016,6 +2016,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 * [jan] Try to translate holiday drivers (Request #11755).
 * [jan] Fix timezone when reading events from Kolab (Bug #11695).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
