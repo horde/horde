@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t log backtrace for E_STRICT errors.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2613,7 +2613,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t log backtrace for E_STRICT errors.
    </notes>
   </release>
  </changelog>

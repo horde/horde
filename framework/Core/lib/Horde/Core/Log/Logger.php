@@ -31,6 +31,7 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
      * @param array $options   Additional options:
      *   - file: (string) The filename to use in the log message.
      *   - line: (integer) The file line to use in the log message.
+     *   - notracelog: (boolean) If true, don't output backtrace.
      *   - trace: (integer) The trace level of the original log location.
      */
     public function log($event, $priority = null, array $options = array())
@@ -141,7 +142,8 @@ class Horde_Core_Log_Logger extends Horde_Log_Logger
         parent::log($eventob);
 
         /* If logging an exception, log the backtrace too. */
-        if (($event instanceof Exception) &&
+        if (empty($options['notracelog']) &&
+            ($event instanceof Exception) &&
             class_exists('Horde_Support_Backtrace')) {
             parent::log((string)new Horde_Support_Backtrace($event), Horde_Log::DEBUG);
         }

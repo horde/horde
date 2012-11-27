@@ -72,7 +72,6 @@ class Horde
                 $options['trace'] = 0;
             }
             $options['trace'] += 2;
-
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         }
     }
