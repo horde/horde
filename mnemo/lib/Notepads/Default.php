@@ -27,8 +27,7 @@
  * @license  http://www.horde.org/licenses/apache
  * @link     http://www.horde.org/apps/mnemo
  */
-class Mnemo_Notepads_Default
-extends Mnemo_Notepads_Base
+class Mnemo_Notepads_Default extends Mnemo_Notepads_Base
 {
     /**
      * The current identity.
@@ -60,7 +59,7 @@ extends Mnemo_Notepads_Base
      *
      * @return string The name of a default share.
      */
-    protected function getDefaultShareName()
+    protected function _getDefaultShareName()
     {
         return sprintf(_("Notepad of %s"), $this->_identity->getName());
     }

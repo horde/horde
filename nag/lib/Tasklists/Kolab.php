@@ -8,15 +8,14 @@
  * @author  Gunnar Wrobel <wrobel@pardus.de>
  * @package Nag
  */
-class Nag_Tasklists_Kolab
-extends Nag_Tasklists_Base
+class Nag_Tasklists_Kolab extends Nag_Tasklists_Base
 {
     /**
      * Return the name of the default share.
      *
      * @return string The name of a default share.
      */
-    protected function getDefaultShareName()
+    protected function _getDefaultShareName()
     {
         return _("Tasks");
     }
@@ -26,7 +25,7 @@ extends Nag_Tasklists_Base
      *
      * @param Horde_Share_Object $share The new default share.
      */
-    protected function prepareDefaultShare($share)
+    protected function _prepareDefaultShare($share)
     {
         $share->set('default', true);
     }
