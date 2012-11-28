@@ -200,11 +200,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
             $this->_parent = $old_parent;
         }
 
-        while (($c = fgetc($this->stream->stream)) !== false) {
+        $stream = $this->stream->stream;
+
+        while (($c = fgetc($stream)) !== false) {
             switch ($c) {
             case '\\':
                 $text .= $in_quote
-                    ? fgetc($this->stream->stream)
+                    ? fgetc($stream)
                     : $c;
                 break;
 
@@ -229,7 +231,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                 case ')':
                     if (strlen($text)) {
-                        fseek($this->stream->stream, -1, SEEK_CUR);
+                        fseek($stream, -1, SEEK_CUR);
                         break 3;
                     }
 
@@ -246,7 +248,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                 case '{':
                     $literal_len = $this->stream->getToChar('}');
-                    return stream_get_contents($this->stream->stream, $literal_len);
+                    return stream_get_contents($stream, $literal_len);
 
                 case ' ':
                     if (strlen($text)) {
