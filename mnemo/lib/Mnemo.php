@@ -226,23 +226,22 @@ class Mnemo
      * Returns the default notepad for the current user at the specified
      * permissions level.
      *
-     * @return mixed  The notepad identifier, or false if none found
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
+     *
+     * @return string  The notepad identifier, or null if none.
      */
     public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
-        global $prefs;
-
-        $default_notepad = $prefs->getValue('default_notepad');
+        $default_notepad = $GLOBALS['prefs']->getValue('default_notepad');
         $notepads = self::listNotepads(false, $permission);
 
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
-        } elseif (count($notepads)) {
-            reset($notepads);
-            return key($notepads);
         }
 
-        return false;
+        reset($notepads);
+        return key($notepads);
     }
 
     /**

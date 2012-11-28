@@ -1369,26 +1369,25 @@ class Kronolith
      * Returns the default calendar for the current user at the specified
      * permissions level.
      *
-     * @param integer $permission  Horde_Perms constant for permission level required.
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
      * @param boolean $owner_only  Only consider owner-owned calendars.
      *
-     * @return mixed  The calendar id, or false if none found.
+     * @return string  The calendar id, or null if none.
      */
-    static public function getDefaultCalendar($permission = Horde_Perms::SHOW, $owner_only = false)
+    static public function getDefaultCalendar($permission = Horde_Perms::SHOW,
+                                              $owner_only = false)
     {
-        global $prefs;
-
-        $default_share = $prefs->getValue('default_share');
+        $default_share = $GLOBALS['prefs']->getValue('default_share');
         $calendars = self::listInternalCalendars($owner_only, $permission);
 
         if (isset($calendars[$default_share]) ||
-            $prefs->isLocked('default_share')) {
+            $GLOBALS['prefs']->isLocked('default_share')) {
             return $default_share;
-        } elseif (count($calendars)) {
-            return key($calendars);
         }
 
-        return false;
+        reset($calendars);
+        return key($calendars);
     }
 
     /**
