@@ -24,17 +24,18 @@ class Sesha_View_List extends Sesha_View_Base
 {
     public function __construct(array $config)
     {
-        if (!is_null($what) && !is_null($where)) {
-            $title = _("Search Inventory");
-            $this->header = _("Matching Inventory");
+        if (!empty($config['what']) && !empty($config['loc'])) {
+            $this->title = _("Search Results");
+            $this->header = _("Search Results");
+            $url = new Horde_Url('list.php');
+            $this->backToList = $url->link() . _('Back to stock list') . '</a>';
         } else {
             $this->header = $category_id
                 ? sprintf(_("Available Inventory in %s"),
                           $selectedCategory->category)
                 : _("Available Inventory");
+            $this->title = _("Inventory List");
         }
-
-        $this->title = _("Inventory List");
         $this->selectedCategories = is_array($config['selectedCategories'])
             ? $config['selectedCategories']
             : array($config['selectedCategories']);

@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [rla] Feature [#11656] Improved display of search results.
 * [rla] Feature [#11655] Search now allows to select partial or full value match.
 * First stable release.
  </notes>
@@ -387,6 +388,7 @@
    <date>2012-10-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [rla] Feature [#11656] Improved display of search results.
 * [rla] Feature [#11655] Search now allows to select partial or full value match.
 * First stable release.
    </notes>

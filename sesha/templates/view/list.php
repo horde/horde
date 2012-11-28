@@ -12,7 +12,7 @@
 <?php foreach ($this->allCategories() as $category): ?>
   <option value="<?php echo $category->category_id ?>"<?php if (in_array($category->category_id, $this->selectedCategories)) echo ' selected="selected"' ?>><?php echo $category->category ?></option>
 <?php endforeach ?>
- </select>
+ </select> <?php echo $this->backToList ?>
 </form>
 </div>
 
