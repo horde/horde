@@ -239,7 +239,7 @@ class Horde_Prefs_Storage_KolabImap extends Horde_Prefs_Storage_Base
         $folder = $this->_kolab->getList()
             ->getNamespace()
             ->constructFolderName($params['user'], $this->_folder);
-        $this->_kolab->getList()->createFolder($folder, 'h-prefs.default');
+        $this->_kolab->getList()->getListManipulation()->createFolder($folder, 'h-prefs.default');
         if ($this->_logger !== null) {
             $this->_logger->info(
                 sprintf(
