@@ -201,6 +201,9 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function addCategory($info)
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
+        if(array_key_exists('category_id', $info)
+            && $info['category_id'] == null)
+            unset($info['category_id']);
         return $cm->create($info);
     }
 
