@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>11:21:41</time>
+ <date>2012-11-28</date>
+ <time>01:04:35</time>
  <version>
   <release>2.2.3</release>
   <api>2.2.0</api>
@@ -1367,7 +1367,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Another workaround for broken Cyrus APPEND behavior (Bug #11769).
