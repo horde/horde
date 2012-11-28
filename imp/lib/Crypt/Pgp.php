@@ -623,7 +623,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::publicKeyMimePart().
      */
-    public function publicKeyMimePart()
+    public function publicKeyMimePart($key = null)
     {
         return parent::publicKeyMimePart($this->getPersonalPublicKey());
     }
