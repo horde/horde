@@ -563,13 +563,21 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                     $items = array();
                     foreach ($filter['value'] as $propTest) {
                         $values = is_array($propTest['values']) ? $propTest['values'] : array($propTest['values']);
-                        $valueQuery = new Horde_Rdo_Query($vm);
-                        if ($propTest['property']) {
-                            $valueQuery->addTest('property_id', '=', $propTest['property']);
-                        }
-                        $valueQuery->addTest('txt_datavalue', 'IN', $values);
-                        foreach ($vm->find($valueQuery) as $value) {
-                            $items[$value->stock_id] = $value->stock;
+                        // Find all Value objects which match any of the $value[values]
+                        foreach ($values as $filter_value) {
+                           $valueQuery = new Horde_Rdo_Query($vm);
+                            if ($propTest['property']) {
+                                $valueQuery->addTest('property_id', '=', $propTest['property']);
+                            }
+                            if (empty($filter['exact'])) {
+                                $filter_value = '%' . $filter_value . '%';
+                            }
+
+                            $valueQuery->addTest('txt_datavalue', 'LIKE', $filter_value);
+                            foreach ($vm->find($valueQuery) as $value) {
+                                // prevent doubles
+                                $items[$value->stock_id] = $value->stock;
+                            }
                         }
                     }
                     if (count($filters == 1)) {

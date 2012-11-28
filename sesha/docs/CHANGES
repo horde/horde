@@ -2,6 +2,7 @@
 v1.0.0-git
 ----------
 
+[rla] Feature [#11655] Search now allows to select partial or full value match.
 [jan] Update to work with latest Horde 5 code.
 
 
