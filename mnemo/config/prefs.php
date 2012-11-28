@@ -74,7 +74,7 @@ $_prefs['memo_colors'] = array(
 // default notepad
 // Set locked to true if you don't want users to have multiple notepads.
 $_prefs['default_notepad'] = array(
-    'value' => ''
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default notepad:"),

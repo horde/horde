@@ -235,7 +235,7 @@ $_prefs['show_shared_side_by_side'] = array(
 // default calendar
 // Set locked to true if you don't want users to have multiple calendars.
 $_prefs['default_share'] = array(
-    'value' => ''
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default calendar:"),
