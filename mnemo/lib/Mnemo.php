@@ -237,8 +237,6 @@ class Mnemo
 
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
-        } elseif ($prefs->isLocked('default_notepad')) {
-            return $GLOBALS['registry']->getAuth();
         } elseif (count($notepads)) {
             reset($notepads);
             return key($notepads);

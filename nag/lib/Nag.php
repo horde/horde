@@ -520,8 +520,6 @@ class Nag
 
         if (isset($tasklists[$default_tasklist])) {
             return $default_tasklist;
-        } elseif ($prefs->isLocked('default_tasklist')) {
-            return $GLOBALS['registry']->getAuth();
         } elseif (count($tasklists)) {
             reset($tasklists);
             return key($tasklists);

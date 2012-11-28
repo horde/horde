@@ -1384,11 +1384,6 @@ class Kronolith
         if (isset($calendars[$default_share]) ||
             $prefs->isLocked('default_share')) {
             return $default_share;
-        } elseif (isset($GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]) &&
-                  $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]->hasPermission($permission)) {
-            // This is for older, existing default shares. New default shares
-            // are not named as the username.
-            return $GLOBALS['registry']->getAuth();
         } elseif (count($calendars)) {
             return key($calendars);
         }
