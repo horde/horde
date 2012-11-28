@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:02:48</time>
+ <date>2012-11-27</date>
+ <time>11:21:41</time>
  <version>
-  <release>2.2.2</release>
+  <release>2.2.3</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -1354,7 +1354,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Complete workaround for broken BINARY extension on Cyrus servers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

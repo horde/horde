@@ -10,7 +10,7 @@ function table_sortCallback(tableId, column, sortDown)
 <thead>
  <tr>
   <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
-  <th id="s_title"<?php if ($this->sortby == 'title') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Title") ?></th>
+  <th id="s_title" class="horde-split-left<?php if ($this->sortby == 'title') echo ' ' . $this->sortdirclass ?>"><?php echo _("Title") ?></th>
   <th id="s_clicks" class="horde-split-left<?php if ($this->sortby == 'clicks') echo ' ' . $this->sortdirclass ?>" width="1%"><?php echo _("Clicks") ?></th>
   <th width="10%" class="horde-split-left nosort"></th>
  </tr>
@@ -19,13 +19,11 @@ function table_sortCallback(tableId, column, sortDown)
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
   <td>
-    <div class="bl-dt">
-      <?php $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')) ?>
-    </div>
+   <?php $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')) ?>
   </td>
   <td>
-   <div class="bl-title">
-    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'favicon')) ?>
+   <div class="trean-bookmarks-title">
+    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
     <?php if ($bookmark->http_status == 'error'): ?>
     <?php echo Horde::img('http/error.png') ?>
     <?php elseif ($bookmark->http_status): ?>
@@ -46,10 +44,10 @@ function table_sortCallback(tableId, column, sortDown)
     </ul>
    </div>
   </td>
-  <td class="bl-clicks">
+  <td class="trean-bookmarks-clicks">
    <?php echo $bookmark->clicks ?>
   </td>
-  <td class="bl-actions">
+  <td class="trean-bookmarks-actions">
    <a href="<?php echo Horde::url('edit.php')->add('bookmark', (int)$bookmark->id) ?>"><?php echo Horde::img('edit.png', _("Edit")) ?></a>
    <form action="<?php echo Horde::url('b/delete') ?>" method="post">
     <input type="hidden" name="bookmark" value="<?php echo (int)$bookmark->id ?>" />

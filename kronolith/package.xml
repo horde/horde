@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>18:29:29</time>
+ <date>2012-11-27</date>
+ <time>13:01:18</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,10 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix timezone when reading events from Kolab (Bug #11695).
-* [jan] Use encoded UIDs as IDs in Kolab driver.
-* [jan] Fix saving of events if no calendar has been loaded yet.
-* [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -653,6 +650,7 @@
      </dir> <!-- /test/Kronolith/Stub -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Kronolith -->
@@ -1366,6 +1364,7 @@
    <install as="kronolith/templates/week/head_side_by_side.inc" name="templates/week/head_side_by_side.inc" />
    <install as="Kronolith/AllTests.php" name="test/Kronolith/AllTests.php" />
    <install as="Kronolith/Autoload.php" name="test/Kronolith/Autoload.php" />
+   <install as="Kronolith/bootstrap.php" name="test/Kronolith/bootstrap.php" />
    <install as="Kronolith/phpunit.xml" name="test/Kronolith/phpunit.xml" />
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
@@ -2014,13 +2013,28 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+* [jan] Try to translate holiday drivers (Request #11755).
 * [jan] Fix timezone when reading events from Kolab (Bug #11695).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [jan] Fix saving of events if no calendar has been loaded yet.
 * [mjr] Fix importing events from ActiveSync with empty descriptions in EAS version 2.5
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

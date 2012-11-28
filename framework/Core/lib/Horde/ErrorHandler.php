@@ -143,6 +143,8 @@ HTML;
             return;
         }
 
+        $options = array();
+
         try {
             switch ($errno) {
             case E_WARNING:
@@ -153,12 +155,17 @@ HTML;
                 $priority = Horde_Log::NOTICE;
                 break;
 
+            case E_STRICT:
+                $options['notracelog'] = true;
+                $priority = Horde_Log::DEBUG;
+                break;
+
             default:
                 $priority = Horde_Log::DEBUG;
                 break;
             }
 
-            Horde::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
+            Horde::log(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority, $options);
         } catch (Exception $e) {}
     }
 

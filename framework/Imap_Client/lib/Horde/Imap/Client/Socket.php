@@ -1568,8 +1568,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case $e::DISCONNECT:
                 /* Workaround broken literal8 on Cyrus. */
                 if ($this->queryCapability('BINARY')) {
+                    // Need to re-login first before removing capability.
+                    $this->login();
                     $this->_unsetCapability('BINARY');
-                    return $this->append($mailbox, $data, $options);
+                    return $this->_append($mailbox, $data, $options);
                 }
                 break;
             }
@@ -1585,10 +1587,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * all servers tried (UW-IMAP/Cyrus). Do a last-ditch check for
              * broken BINARY and attempt to fix here. */
             if ($this->queryCapability('BINARY') &&
-                ($e instanceof Horde_Imap_Client_Exception_ServerResponse) &&
-                ($e->status == Horde_Imap_Client_Interaction_Server::BAD)) {
-                $this->_unsetCapability('BINARY');
-                return $this->_append($mailbox, $data, $options);
+                ($e instanceof Horde_Imap_Client_Exception_ServerResponse)) {
+                switch ($e->status) {
+                case Horde_Imap_Client_Interaction_Server::BAD:
+                case Horde_Imap_Client_Interaction_Server::NO:
+                    $this->_unsetCapability('BINARY');
+                    return $this->_append($mailbox, $data, $options);
+                }
             }
 
             throw $e;
@@ -2656,7 +2661,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'MODSEQ':
-                $modseq = reset(iterator_to_array($f_data->next()));
+                $tmp = iterator_to_array($f_data->next());
+                $modseq = reset($tmp);
 
                 $ob->setModSeq($modseq);
 

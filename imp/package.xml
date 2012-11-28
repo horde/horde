@@ -858,6 +858,7 @@
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Imp -->
    </dir> <!-- /test -->
@@ -1782,6 +1783,7 @@
    <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
+   <install as="Imp/bootstrap.php" name="test/Imp/bootstrap.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
@@ -2844,7 +2846,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Always add MDNSent flag when saving a draft/sent message.
@@ -2852,8 +2854,7 @@
 * [mms] Don&apos;t delete saved draft on session close.
 * [mms] Improved generation and parsing of mbox files.
 * [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
-* [mms] Fix editing templates in dynamic view.
-* [mms] Fix sending templates in dynamic view.
+* [mms] Fix editing/sending templates in dynamic view.
 * [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
 * [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
 * [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
@@ -2864,12 +2865,23 @@
   </release>
   <release>
    <version>
+    <release>6.0.3</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix toggling other options in dynamic compose screen.
+   </notes>
+  </release>
+  <release>
+   <version>
     <release>6.1.0</release>
     <api>6.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.

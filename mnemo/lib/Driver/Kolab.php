@@ -304,7 +304,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             }
         }
 
-        return array(
+        $result = array(
             'memolist_id' => $this->_notepad,
             'memo_id' => $id,
             'uid' => $note['uid'],
@@ -313,6 +313,15 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
             'encrypted' => $encrypted,
             'body' => $body,
         );
+
+        if (!empty($note['creation-date'])) {
+            $result['created'] = new Horde_Date($note['creation-date']);
+        }
+        if (!empty($note['last-modification-date'])) {
+            $result['modified'] = new Horde_Date($note['last-modification-date']);
+        }
+
+        return $result;
     }
 
     /**

@@ -1,21 +1,29 @@
 <?php
 /**
- * The IMP_Imap:: class provides common functions for interaction with
- * IMAP/POP3 servers via the Horde_Imap_Client:: library.
- *
  * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Provides common functions for interaction with IMAP/POP3 servers via the
+ * Horde_Imap_Client package.
  *
- * @property boolean $changed  If true, this object has changed.
- * @property boolean $imap  If true, this is an IMAP connection.
- * @property boolean $pop3  If true, this is a POP3 connection.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2008-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read boolean $changed  If true, this object has changed.
+ * @property-read boolean $imap  If true, this is an IMAP connection.
+ * @property-read boolean $pop3  If true, this is a POP3 connection.
  */
 class IMP_Imap implements Serializable
 {

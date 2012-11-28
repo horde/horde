@@ -428,7 +428,7 @@ document.observe('IMP_Ajax_Imple_ImageUnblock:do', function(e) {
 /* Disable text selection for everything but compose/message body and FORM
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
-    if (!e.element().up('.messageBody') &&
+    if (!e.findElement('.allowTextSelection') &&
         !e.element().match('SELECT') &&
         !e.element().match('TEXTAREA') &&
         !e.element().match('INPUT')) {

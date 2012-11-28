@@ -54,4 +54,4 @@ $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/
 set_exception_handler(array('Horde_ErrorHandler', 'fatal'));
 
 /* Catch errors. */
-set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL);
+set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL | E_STRICT);

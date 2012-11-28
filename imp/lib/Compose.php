@@ -886,10 +886,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             /* Strip attachments if requested. */
-            $save_attach = $prefs->getValue('save_attachments');
-            if (($save_attach == 'never') ||
-                ((strpos($save_attach, 'prompt') === 0) &&
-                 empty($opts['save_attachments']))) {
+            if (empty($opts['save_attachments'])) {
                 $save_msg->buildMimeIds();
 
                 /* Don't strip any part if this is a text message with both

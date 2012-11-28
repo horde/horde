@@ -53,7 +53,7 @@
 </form>
 
 <?php if (!Horde_Util::getFormData('popup') && !Horde_Util::getFormData('iframe')): ?>
-<div class="box leftAlign" id="browser-instructions">
+<div class="box leftAlign" id="trean-browser-instructions">
   <h3><?php echo _("To be able to quickly add bookmarks from your web browser:") ?></h3>
   <h4><?php echo _("Firefox/Mozilla") ?></h4>
   <p><?php echo _("Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\".") ?></p>

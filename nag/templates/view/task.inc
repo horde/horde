@@ -46,25 +46,35 @@
         } else {
             echo Nag::formatCompletion($task->completed) . '</a>';
         }
-        if (isset($completed)) {
-            echo ' <small>' . strftime($prefs->getValue('date_format'), $completed) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $completed) . '</small>';
+        if ($task->completed_date) {
+            echo ' <small>' . strftime($prefs->getValue('date_format'), $task->completed_date) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $task->completed_date) . '</small>';
         } ?>
   </td>
  </tr>
 
-<?php if (isset($created)): ?>
- <tr>
+<?php if ($task->created): ?>
+<tr>
   <td class="rightAlign"><strong><?php echo _("Created") ?></strong></td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $created) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $created) . ' ' . htmlspecialchars($createdby) ?></td>
- </tr>
-<?php endif; ?>
+  <td>
+    <?php echo $task->created->strftime($prefs->getValue('date_format')) . ' ' . $task->created->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
+<?php if (isset($memo['createdby'])): ?>
+    <?php echo htmlspecialchars($task->createdby) ?>
+<?php endif ?>
+  </td>
+</tr>
+<?php endif ?>
 
-<?php if (isset($modified)): ?>
- <tr>
+<?php if ($task->modified): ?>
+<tr>
   <td class="rightAlign"><strong><?php echo _("Last Modified") ?></strong></td>
-  <td><?php echo strftime($prefs->getValue('date_format'), $modified) . ' ' . date($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a', $modified) . ' ' . htmlspecialchars($modifiedby) ?></td>
- </tr>
-<?php endif; ?>
+  <td>
+    <?php echo $task->modified->strftime($prefs->getValue('date_format')) . ' ' . $task->modified->format($prefs->getValue('twentyFour') ? 'G:i' : 'g:i a') ?>
+<?php if (isset($memo['modifiedby'])): ?>
+    <?php echo htmlspecialchars($task->modifiedby) ?>
+<?php endif ?>
+</td>
+</tr>
+<?php endif ?>
 
 <?php if (strlen($task->desc)): ?>
  <tr>

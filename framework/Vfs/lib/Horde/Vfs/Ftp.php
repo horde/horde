@@ -328,7 +328,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
         }
 
         if ($isDir) {
-            $dir = ltrim($path . '/' . $name, '/');
+            $dir = $path . '/' . $name;
             $file_list = $this->listFolder($dir);
             if (count($file_list) && !$recursive) {
                 throw new Horde_Vfs_Exception(sprintf('Unable to delete "%s", as the directory is not empty.', $this->_getPath($path, $name)));

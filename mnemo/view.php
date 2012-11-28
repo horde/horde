@@ -55,35 +55,6 @@ if (!$memo || !isset($memo['memo_id'])) {
 
 /* Get the note's history. */
 $userId = $GLOBALS['registry']->getAuth();
-$createdby = '';
-$modifiedby = '';
-if (!empty($memo['uid'])) {
-    try {
-        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-        foreach ($log as $entry) {
-            switch ($entry['action']) {
-            case 'add':
-                $created = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $createdby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $createdby = _("by me");
-                }
-                break;
-
-            case 'modify':
-                $modified = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $modifiedby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $modifiedby = _("by me");
-                }
-                break;
-            }
-        }
-    } catch (Horde_Exception $e) {
-    }
-}
 
 /* Encryption tests. */
 $show_passphrase = false;

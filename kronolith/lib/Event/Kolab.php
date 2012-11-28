@@ -42,6 +42,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
     }
 
     /**
+     * Retrieves history information for this event from the history backend.
+     */
+    public function loadHistory()
+    {
+    }
+
+    /**
      * Imports a backend specific event object.
      *
      * @param array $event  Backend specific event object that this object
@@ -85,6 +92,13 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         $this->end = new Horde_Date($event['end-date']);
         $this->end->setTimezone($tz_local);
         $this->durMin = ($this->end->timestamp() - $this->start->timestamp()) / 60;
+
+        if (!empty($event['creation-date'])) {
+            $this->created = new Horde_Date($event['creation-date']);
+        }
+        if (!empty($event['last-modification-date'])) {
+            $this->modified = new Horde_Date($event['last-modification-date']);
+        }
 
         if (isset($event['show-time-as'])) {
             switch ($event['show-time-as']) {

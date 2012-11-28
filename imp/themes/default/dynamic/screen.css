@@ -616,6 +616,9 @@ div.dimpActionsMsg #windowclose {
     height: 18px;
     margin-top: -6px;
 }
+.msgwrite #msg_other_options .horde-popdown {
+    height: 16px;
+}
 #noticerow li span.closeImg {
     float: right;
     margin: -1px 0 0;

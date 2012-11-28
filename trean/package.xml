@@ -22,10 +22,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-20</date>
- <time>15:41:38</time>
+ <date>2012-11-27</date>
+ <time>13:29:30</time>
  <version>
-  <release>1.0.0beta2</release>
+  <release>1.0.0beta3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,13 +34,13 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Allow to set custom SQL parameters.
-* [jan] Move search box to top menu.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="app">
     <dir name="controllers">
+     <file name="BrowseByTag.php" role="horde" />
      <file name="DeleteBookmark.php" role="horde" />
      <file name="SaveBookmark.php" role="horde" />
     </dir> <!-- /app/controllers -->
@@ -72,6 +72,11 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Queue">
+     <dir name="Task">
+      <file name="Crawl.php" role="horde" />
+     </dir> <!-- /lib/Queue/Task -->
+    </dir> <!-- /lib/Queue -->
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -208,6 +213,7 @@
       </dir> <!-- /themes/default/graphics/protocol -->
       <file name="add.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="tag.png" role="horde" />
       <file name="trean.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
@@ -381,6 +387,13 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -395,6 +408,7 @@
    <install as="trean/redirect.php" name="redirect.php" />
    <install as="trean/rss.php" name="rss.php" />
    <install as="trean/search.php" name="search.php" />
+   <install as="trean/app/controllers/BrowseByTag.php" name="app/controllers/BrowseByTag.php" />
    <install as="trean/app/controllers/DeleteBookmark.php" name="app/controllers/DeleteBookmark.php" />
    <install as="trean/app/controllers/SaveBookmark.php" name="app/controllers/SaveBookmark.php" />
    <install as="trean-url-checker" name="bin/trean-url-checker" />
@@ -419,6 +433,7 @@
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -467,6 +482,7 @@
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="trean/themes/default/graphics/tag.png" name="themes/default/graphics/tag.png" />
    <install as="trean/themes/default/graphics/trean.png" name="themes/default/graphics/trean.png" />
    <install as="trean/themes/default/graphics/http/1xx.png" name="themes/default/graphics/http/1xx.png" />
    <install as="trean/themes/default/graphics/http/2xx.png" name="themes/default/graphics/http/2xx.png" />
@@ -502,11 +518,27 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-11-20</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [cjh] Add a list of tags to the sidebar.
+* [cjh] Crawl all bookmarks when they are saved or edited for fulltext searching if elasticsearch is available.
+* [cjh] Turn search off by default (Bug #11701).
 * [jan] Allow to set custom SQL parameters.
 * [jan] Move search box to top menu.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
