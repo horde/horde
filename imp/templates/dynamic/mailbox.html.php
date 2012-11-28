@@ -75,7 +75,7 @@
        <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
        <span class="date"></span>
        <span class="iconImg" id="th_expand"></span>
-       <span class="subject" title="<?php echo _("Expand Headers") ?>"></span>
+       <span class="subject allowTextSelection" title="<?php echo _("Expand Headers") ?>"></span>
        <span class="fromcontainer"><?php echo _("from") ?>
         <span class="from"></span>
        </span>
@@ -109,7 +109,7 @@
        </div>
        <div id="msgHeadersContent">
         <span class="iconImg" id="th_collapse"></span>
-        <p class="subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <p class="subject allowTextSelection" title="<?php echo _("Collapse Headers") ?>"></p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">
@@ -162,7 +162,7 @@
        </div>
       </div>
      </div>
-     <div id="messageBody" class="messageBody"></div>
+     <div id="messageBody" class="messageBody allowTextSelection"></div>
     </div>
    </div>
   </div>
