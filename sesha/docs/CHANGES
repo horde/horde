@@ -2,8 +2,9 @@
 v1.0.0-git
 ----------
 
-[rla] Feature [#11656] Improved display of search results.
-[rla] Feature [#11655] Search now allows to select partial or full value match.
+
+[rla] Improved display of search results (Request #11656).
+[rla] Search now allows to select partial or full value match (Request #11655).
 [jan] Update to work with latest Horde 5 code.
 
 
