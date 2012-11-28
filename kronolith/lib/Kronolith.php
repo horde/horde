@@ -1381,8 +1381,7 @@ class Kronolith
         $default_share = $GLOBALS['prefs']->getValue('default_share');
         $calendars = self::listInternalCalendars($owner_only, $permission);
 
-        if (isset($calendars[$default_share]) ||
-            $GLOBALS['prefs']->isLocked('default_share')) {
+        if (isset($calendars[$default_share])) {
             return $default_share;
         }
 
