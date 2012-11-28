@@ -509,6 +509,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
      * @param array filters  a list of filter hashes, each having keys
      *                  string type ('note', 'stock_name', 'stock_id', 'categories', 'values')
      *                  string test
+     *                  boolean exact (only search for full words, default to null)
      *                  mixed  value (string for note, stock_name)
      *                  For the 'values' structure, value, value is a map of [values] and optional [property]}
      * @return array  List of Stock items
@@ -525,12 +526,16 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                 case 'note':
                 case 'stock_name':
                 case 'stock_id':
-                $test = array(
-                            'field' => $filter['type'],
-                            'test' => $filter['test'] ? $filter['test'] : 'IN',
-                            'value' => is_array($filter['value']) ? $filter['value'] : array($filter['value'])
-                        );
-                $query->addTest($test['field'], $test['test'], $test['value']);
+                $filter_values = is_array($filter['value']) ? $filter['value'] : array($filter['value']);
+                $filter_test   = $filter['test'] ? $filter['test'] : 'LIKE';
+                $filter_field  = $filter['type'];
+                foreach ($filter_values as $filter_value) {
+                    if ($filter_test == 'LIKE' and empty($filter['exact'])) {
+                         $filter_value = '%' . $filter_value . '%';
+                    }
+                    $query->addTest($filter_field, $filter_test, $filter_value);
+                }
+
                 break;
                 case 'categories':
                     $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
@@ -551,7 +556,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                     if (count($filters == 1)) {
                         return $items;
                     }
-                    $query->addTest('stock_id',$filter['test'] ? $filter['test'] : 'IN', array_keys($items));
+                    $query->addTest('stock_id', $filter['test'] ? $filter['test'] : 'IN', array_keys($items));
                 break;
                 case 'values':
                     $vm = $this->_mappers->create('Sesha_Entity_ValueMapper');
