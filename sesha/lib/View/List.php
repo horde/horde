@@ -48,23 +48,28 @@ class Sesha_View_List extends Sesha_View_Base
         $filters = array();
         if (!empty($this->selectedCategories)) {
             $filters[] = array('type' => 'categories',
-                               'value' => $this->selectedCategories);
+                               'value' => $this->selectedCategories,
+                               'exact' => $config['exact']);
         }
         if (in_array(Sesha::SEARCH_ID, $config['loc'])) {
             $filters[] = array('type' => 'stock_id',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_NAME, $config['loc'])) {
             $filters[] = array('type' => 'stock_name',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_NOTE, $config['loc'])) {
             $filters[] = array('type' => 'note',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_PROPERTY, $config['loc'])) {
             $filters[] = array(
                 'type' => 'values',
+                'exact' => $config['exact'],
                 'value' => array(array('values' => array($config['what']))));
         }
         $this->shownStock = $this->stock($filters);

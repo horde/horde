@@ -33,6 +33,7 @@ class Sesha_Form_Search extends Horde_Form {
                 Sesha::SEARCH_NOTE          => _("Item Note"),
                 Sesha::SEARCH_PROPERTY      => _("Property Value"))));
         $this->addVariable(_("For this value"), 'criteria', 'text', true);
+        $this->addVariable(_("Only exact matches"), 'exact', 'boolean', true, false);
     }
 
 }

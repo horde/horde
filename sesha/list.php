@@ -23,6 +23,7 @@ $view = new Sesha_View_List(array('templatePath'    => SESHA_TEMPLATES . '/view/
                                 'sortBy'            => Horde_Util::getFormData('sortby'),
                                 'propertyIds'       => @unserialize($prefs->getValue('list_properties')),
                                 'what'              => Horde_Util::getFormData('criteria'),
+                                'exact'             => Horde_Util::getFormData('exact'),
                                 'loc'               => Horde_Util::getFormData('location')
                             )
                             );
