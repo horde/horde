@@ -18,17 +18,21 @@ function table_sortCallback(tableId, column, sortDown)
 <tbody id="BookmarkList-body">
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
-  <td>
+  <td class="trean-bookmarks-date">
    <?php if ($bookmark->dt) { $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')); } ?>
   </td>
   <td>
    <div class="trean-bookmarks-title">
-    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
-    <?php if ($bookmark->http_status == 'error'): ?>
-    <?php echo Horde::img('http/error.png') ?>
-    <?php elseif ($bookmark->http_status): ?>
-    <?php echo Horde::img('http/' . (int)substr($bookmark->http_status, 0, 1) . 'xx.png') ?>
-    <?php endif; ?>
+    <div class="trean-favicon-container">
+     <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
+    </div>
+    <?php
+if ($bookmark->http_status == 'error') {
+    echo Horde::img('http/error.png');
+} elseif ($bookmark->http_status) {
+    echo Horde::img('http/' . (int)substr($bookmark->http_status, 0, 1) . 'xx.png');
+}
+    ?>
     <?php echo $this->redirectUrl->add('b', $bookmark->id)->link(array('target' => $this->target)) . $this->h($bookmark->title ? $bookmark->title : $bookmark->url) ?></a>
     <small>
       <?php echo $this->h($bookmark->url) ?>
