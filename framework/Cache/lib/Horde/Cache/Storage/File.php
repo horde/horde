@@ -66,8 +66,10 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      */
     public function __destruct()
     {
+        $c_time = time();
+
         /* Only do garbage collection 0.1% of the time we create an object. */
-        if (rand(0, 999) != 0) {
+        if (intval(substr($c_time, -3)) != 0) {
             return;
         }
 
@@ -83,8 +85,6 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
                 $excepts[$parts[0]] = $parts[1];
             }
         }
-
-        $c_time = time();
 
         foreach ($this->_getCacheFiles() as $fname => $pname) {
             $d_time = isset($excepts[$fname])
