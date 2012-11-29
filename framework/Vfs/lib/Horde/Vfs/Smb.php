@@ -548,8 +548,8 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
             // This should never happen.
             throw new Horde_Vfs_Exception('Failed to call proc_open().');
         }
-        $out   = explode("\n", stream_get_contents($pipes[1]));
-        $error = explode("\n", stream_get_contents($pipes[2]));
+        $out   = explode("\n", trim(stream_get_contents($pipes[1])));
+        $error = explode("\n", trim(stream_get_contents($pipes[2])));
         $ret = proc_close($proc);
 
         // In some cases, (like trying to delete a nonexistant file),
