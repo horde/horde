@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Deprecated Horde_SpellChecker::factory().
 * [mms] Add Horde_SpellChecker_Exception.
 * [mms] Convert test suite to PHPUnit.
  </notes>
@@ -267,6 +268,7 @@ Initial Release.
    <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Deprecated Horde_SpellChecker::factory().
 * [mms] Add Horde_SpellChecker_Exception.
 * [mms] Convert test suite to PHPUnit.
    </notes>

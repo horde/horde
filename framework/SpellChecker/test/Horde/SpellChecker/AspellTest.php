@@ -34,7 +34,7 @@ class Horde_SpellChecker_AspellTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('No aspell/ispell binary found.');
         }
 
-        $this->aspell = Horde_SpellChecker::factory('Aspell', array(
+        $this->aspell = new Horde_SpellChecker_Aspell(array(
             'path' => $aspell
         ));
     }

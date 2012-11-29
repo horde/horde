@@ -45,6 +45,8 @@ abstract class Horde_SpellChecker
      * Attempts to return a concrete Horde_SpellChecker instance based on
      * $driver.
      *
+     * @deprecated
+     *
      * @param string $driver  The type of concrete subclass to return.
      * @param array $params   A hash containing any additional configuration
      *                        or connection parameters a subclass might need.
