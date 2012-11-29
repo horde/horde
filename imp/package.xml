@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Bug #11782; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Fix toggling other options in dynamic compose screen.
  </notes>
  <contents>
@@ -2867,6 +2868,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Bug #11782; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Fix toggling other options in dynamic compose screen.
    </notes>
   </release>

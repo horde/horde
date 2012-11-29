@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[mms] Honor 'hide_when_unlimited' option for the quota driver (Bug #11782;
+      Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [mms] Fix toggling other options in dynamic compose screen.
 
 
