@@ -1,15 +1,25 @@
 <?php
 /**
- * The Horde_SpellChecker:: class provides a unified spellchecker API.
- *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package SpellChecker
+ * @category  Horde
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SpellChecker
+ */
+
+/**
+ * Provides a unified spellchecker API.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SpellChecker
  */
 abstract class Horde_SpellChecker
 {
@@ -18,46 +28,28 @@ abstract class Horde_SpellChecker
     const SUGGEST_SLOW = 3;
 
     /**
-     * @var integer
-     */
-    protected $_maxSuggestions = 10;
-
-    /**
-     * @var integer
-     */
-    protected $_minLength = 3;
-
-    /**
-     * @var string
-     */
-    protected $_locale = 'en';
-
-    /**
-     * @var boolean
-     */
-    protected $_html = false;
-
-    /**
-     * @var integer
-     */
-    protected $_suggestMode = self::SUGGEST_FAST;
-
-    /**
+     * Configuration parameters.
+     *
      * @var array
      */
-    protected $_localDict = array();
+    protected $_params = array(
+        'html' => false,
+        'locale' => 'en',
+        'localDict' => array(),
+        'maxSuggestions' => 10,
+        'minLength' => 3,
+        'suggestMode' => self::SUGGEST_FAST
+    );
 
     /**
      * Attempts to return a concrete Horde_SpellChecker instance based on
      * $driver.
      *
-     * @param string $driver  The type of concrete Horde_SpellChecker subclass
-     *                        to return.
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
+     * @param string $driver  The type of concrete subclass to return.
+     * @param array $params   A hash containing any additional configuration
+     *                        or connection parameters a subclass might need.
      *
-     * @return Horde_SpellChecker  The newly created Horde_SpellChecker
-     *                             instance.
+     * @return Horde_SpellChecker  The newly created instance.
      * @throws Horde_Exception
      */
     static public function factory($driver, $params = array())
@@ -72,32 +64,31 @@ abstract class Horde_SpellChecker
 
     /**
      * Constructor.
+     *
+     * @param array $params  TODO
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->setParams($params);
     }
 
     /**
-     * TODO
+     * Set configuration parmeters.
      *
-     * @param array $params  TODO
+     * @param array $params  Parameters to set.
      */
     public function setParams($params)
     {
-        foreach ($params as $key => $val) {
-            $key = '_' . $key;
-            $this->$key = $val;
-        }
+        $this->_params = array_merge($this->_params, $params);
     }
 
     /**
-     * TODO
+     * Perform spellcheck.
      *
-     * @param string $text  TODO
+     * @param string $text  Text to spellcheck.
      *
      * @return array  TODO
-     * @throws Horde_Exception
+     * @throws Horde_SpellChecker_Exception
      */
     abstract public function spellCheck($text);
 
@@ -122,9 +113,9 @@ abstract class Horde_SpellChecker
      */
     protected function _inLocalDictionary($word)
     {
-        return (empty($this->_localDict))
+        return empty($this->_params['localDict'])
             ? false
-            : in_array(Horde_String::lower($word, true, 'UTF-8'), $this->_localDict);
+            : in_array(Horde_String::lower($word, true, 'UTF-8'), $this->_params['localDict']);
     }
 
 }

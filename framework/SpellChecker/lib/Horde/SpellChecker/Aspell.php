@@ -1,35 +1,43 @@
 <?php
 /**
- * The Horde_SpellChecker_aspell:: class provides a driver for the 'aspell'
- * program.
- *
  * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael Slusarz <slusarz@horde.org>
- * @package SpellChecker
+ * @category  Horde
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SpellChecker
+ */
+
+/**
+ * A spellcheck driver for the aspell/ispell binary.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2005-2012 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   SpellChecker
  */
 class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 {
     /**
-     * TODO
-     *
-     * @param string $text  TODO
-     *
-     * @return array  TODO
-     * @throws Horde_Exception
      */
     public function spellCheck($text)
     {
-        if ($this->_html) {
+        $ret = array(
+            'bad' => array(),
+            'suggestions' => array()
+        );
+
+        if ($this->_params['html']) {
             $input = strtr($text, "\n", ' ');
         } else {
             $words = $this->_getWords($text);
             if (!count($words)) {
-                return array('bad' => array(), 'suggestions' => array());
+                return $ret;
             }
             $input = implode(' ', $words);
         }
@@ -43,7 +51,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 
         $process = proc_open($this->_cmd(), $descspec, $pipes);
         if (!is_resource($process)) {
-            throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
+            throw new Horde_SpellChecker_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
         // The '^' character tells aspell to spell check the entire line.
@@ -69,40 +77,38 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
         proc_close($process);
 
         if (strlen($out) === 0) {
-            throw new Horde_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
+            throw new Horde_SpellChecker_Exception('Spellcheck failed. Command line: ' . $this->_cmd());
         }
 
         // Parse output.
-        $bad = $suggestions = array();
-        $lines = explode("\n", $out);
-        foreach ($lines as $line) {
-            $line = trim($line);
-            if (empty($line)) {
+        foreach (array_map('trim', explode("\n", $out)) as $line) {
+            if (!strlen($line)) {
                 continue;
             }
 
             @list(,$word,) = explode(' ', $line, 3);
 
-            if ($this->_inLocalDictionary($word) || in_array($word, $bad)) {
+            if ($this->_inLocalDictionary($word) ||
+                in_array($word, $ret['bad'])) {
                 continue;
             }
 
             switch ($line[0]) {
             case '#':
                 // Misspelling with no suggestions.
-                $bad[] = $word;
-                $suggestions[] = array();
+                $ret['bad'][] = $word;
+                $ret['suggestions'][] = array();
                 break;
 
             case '&':
                 // Suggestions.
-                $bad[] = $word;
-                $suggestions[] = array_slice(explode(', ', substr($line, strpos($line, ':') + 2)), 0, $this->_maxSuggestions);
+                $ret['bad'][] = $word;
+                $ret['suggestions'][] = array_slice(explode(', ', substr($line, strpos($line, ':') + 2)), 0, $this->_params['maxSuggestions']);
                 break;
             }
         }
 
-        return array('bad' => $bad, 'suggestions' => $suggestions);
+        return $ret;
     }
 
     /**
@@ -114,7 +120,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
     {
         $args = '--encoding=UTF-8';
 
-        switch ($this->_suggestMode) {
+        switch ($this->_params['suggestMode']) {
         case self::SUGGEST_FAST:
             $args .= ' --sug-mode=fast';
             break;
@@ -127,9 +133,9 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             $args .= ' --sug-mode=normal';
         }
 
-        $args .= ' --lang=' . escapeshellarg($this->_locale);
+        $args .= ' --lang=' . escapeshellarg($this->_params['locale']);
 
-        if ($this->_html) {
+        if ($this->_params['html']) {
             $args .= ' -H';
         }
 

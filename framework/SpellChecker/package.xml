@@ -17,10 +17,10 @@
   <active>yes</active>
  </lead>
  <date>2012-11-28</date>
- <time>18:02:01</time>
+ <time>18:17:40</time>
  <version>
-  <release>2.0.2</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_SpellChecker_Exception.
 * [mms] Convert test suite to PHPUnit.
  </notes>
  <contents>
@@ -43,6 +44,7 @@
     <dir name="Horde">
      <dir name="SpellChecker">
       <file name="Aspell.php" role="php" />
+      <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/SpellChecker -->
      <file name="SpellChecker.php" role="php" />
     </dir> <!-- /lib/Horde -->
@@ -88,6 +90,7 @@
    <install as="COPYING" name="doc/Horde/SpellChecker/COPYING" />
    <install as="Horde/SpellChecker.php" name="lib/Horde/SpellChecker.php" />
    <install as="Horde/SpellChecker/Aspell.php" name="lib/Horde/SpellChecker/Aspell.php" />
+   <install as="Horde/SpellChecker/Exception.php" name="lib/Horde/SpellChecker/Exception.php" />
    <install as="Horde/SpellChecker/AllTests.php" name="test/Horde/SpellChecker/AllTests.php" />
    <install as="Horde/SpellChecker/AspellTest.php" name="test/Horde/SpellChecker/AspellTest.php" />
    <install as="Horde/SpellChecker/bootstrap.php" name="test/Horde/SpellChecker/bootstrap.php" />
@@ -256,14 +259,15 @@ Initial Release.
   </release>
   <release>
    <version>
-    <release>2.0.2</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_SpellChecker_Exception.
 * [mms] Convert test suite to PHPUnit.
    </notes>
   </release>
