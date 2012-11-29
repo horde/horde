@@ -12,9 +12,9 @@ class Trean_Bookmark
     public $description = '';
     public $clicks = 0;
     public $http_status = null;
-    public $favicon;
-    public $tags = array();
+    public $favicon_url;
     public $dt;
+    public $tags = array();
 
     /**
      */
@@ -35,11 +35,15 @@ class Trean_Bookmark
             if (!empty($bookmark['bookmark_http_status'])) {
                 $this->http_status = $bookmark['bookmark_http_status'];
             }
-            if (!empty($bookmark['bookmark_tags'])) {
-                $this->tags = $bookmark['bookmark_tags'];
+            if (!empty($bookmark['favicon_url'])) {
+                $this->favicon_url = $bookmark['favicon_url'];
             }
             if (!empty($bookmark['bookmark_dt'])) {
                 $this->dt = $bookmark['bookmark_dt'];
+            }
+
+            if (!empty($bookmark['bookmark_tags'])) {
+                $this->tags = $bookmark['bookmark_tags'];
             }
         }
     }
@@ -47,7 +51,7 @@ class Trean_Bookmark
     /**
      * Save bookmark.
      */
-    public function save()
+    public function save($crawl = true)
     {
         if (!strlen($this->url)) {
             throw new Trean_Exception('Incomplete bookmark');
@@ -57,6 +61,7 @@ class Trean_Bookmark
         $c_url = Horde_String::convertCharset($this->url, 'UTF-8', $charset);
         $c_title = Horde_String::convertCharset($this->title, 'UTF-8', $charset);
         $c_description = Horde_String::convertCharset($this->description, 'UTF-8', $charset);
+        $c_favicon_url = Horde_String::convertCharset($this->favicon_url, 'UTF-8', $charset);
 
         if ($this->id) {
             // Update an existing bookmark.
@@ -67,7 +72,8 @@ class Trean_Bookmark
                     bookmark_title = ?,
                     bookmark_description = ?,
                     bookmark_clicks = ?,
-                    bookmark_http_status = ?
+                    bookmark_http_status = ?,
+                    favicon_url = ?
                 WHERE bookmark_id = ?',
                 array(
                     $this->userId,
@@ -76,6 +82,7 @@ class Trean_Bookmark
                     $c_description,
                     $this->clicks,
                     $this->http_status,
+                    $c_favicon_url,
                     $this->id,
             ));
 
@@ -90,8 +97,9 @@ class Trean_Bookmark
                     bookmark_description,
                     bookmark_clicks,
                     bookmark_http_status,
+                    favicon_url,
                     bookmark_dt
-                ) VALUES (?, ?, ?, ?, ?, ?, ?)',
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
                 array(
                     $this->userId,
                     $c_url,
@@ -99,6 +107,7 @@ class Trean_Bookmark
                     $c_description,
                     $this->clicks,
                     $this->http_status,
+                    $c_favicon_url,
                     $this->dt,
             ));
 
@@ -106,17 +115,19 @@ class Trean_Bookmark
             $GLOBALS['injector']->getInstance('Trean_Tagger')->tag((string)$this->id, $this->tags, $GLOBALS['registry']->getAuth(), 'bookmark');
         }
 
-        try {
-            $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
-            $queue->add(new Trean_Queue_Task_Crawl(
-                $this->url,
-                $this->title,
-                $this->description,
-                $this->id,
-                $this->userId
-            ));
-        } catch (Exception $e) {
-            Horde::log($e, 'INFO');
+        if ($crawl) {
+            try {
+                $queue = $GLOBALS['injector']->getInstance('Horde_Queue_Storage');
+                $queue->add(new Trean_Queue_Task_Crawl(
+                    $this->url,
+                    $this->title,
+                    $this->description,
+                    $this->id,
+                    $this->userId
+                ));
+            } catch (Exception $e) {
+                Horde::log($e, 'INFO');
+            }
         }
 
         return $this->id;

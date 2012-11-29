@@ -50,24 +50,13 @@ class Trean
      */
     static function getFavicon($bookmark)
     {
-        global $registry;
-
-        // Initialize VFS.
-        try {
-            $vfs = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create();
-            if ($bookmark->favicon
-                && $vfs->exists('.horde/trean/favicons/', $bookmark->favicon)) {
-
-                return Horde::url('favicon.php')->add('bookmark_id', $bookmark->id);
-            }
-        } catch (Exception $e) {
+        if ($bookmark->favicon_url) {
+            return Horde::url('favicon.php')->add('bookmark_id', $bookmark->id);
+        } else {
+            // Default to the protocol icon.
+            $protocol = substr($bookmark->url, 0, strpos($bookmark->url, '://'));
+            return Horde_Themes::img('protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
         }
-
-        // Default to the protocol icon.
-        $protocol = substr($bookmark->url, 0, strpos($bookmark->url, '://'));
-        return Horde_Themes::img('protocol/' . (empty($protocol) ? 'http' : $protocol) . '.png');
     }
 
     static public function addFeedLink()

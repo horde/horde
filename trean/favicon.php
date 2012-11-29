@@ -8,32 +8,32 @@
  * @author Ben Chavet <ben@horde.org>
  */
 
-$session_control = 'readonly';
-@define('TREAN_BASE', __DIR__);
-require_once TREAN_BASE . '/lib/base.php';
+require_once __DIR__ . '/lib/Application.php';
+Horde_Registry::appInit('trean', array('session_control' => 'readonly'));
 
 $bookmark_id = Horde_Util::getFormData('bookmark_id');
 if (!$bookmark_id) {
     exit;
 }
 
-$bookmark = $trean_shares->getBookmark($bookmark_id);
-if (!$favicon = $bookmark->favicon) {
+$bookmark = $trean_gateway->getBookmark($bookmark_id);
+if (!$bookmark || !$bookmark->favicon_url) {
     exit;
 }
+$favicon_hash = md5($bookmark->favicon_url);
 
 // Initialize VFS
-$vfs_params = Horde::getVFSConfig('favicons');
-if (is_a($vfs_params, 'PEAR_Error')) {
-    exit;
+try {
+    $vfs = $GLOBALS['injector']
+        ->getInstance('Horde_Core_Factory_Vfs')
+        ->create();
+    if (!$vfs->exists('.horde/trean/favicons/', $favicon_hash)) {
+        exit;
+    }
+} catch (Exception $e) {
 }
-$vfs = Horde_Vfs::factory($vfs_params['type'], $vfs_params['params']);
 
-if (!$vfs->exists('.horde/trean/favicons/', $favicon)) {
-    exit;
-}
-
-$data = $vfs->read('.horde/trean/favicons/', $favicon);
+$data = $vfs->read('.horde/trean/favicons/', $favicon_hash);
 $browser->downloadHeaders('favicon', null, true, strlen($data));
 header('Expires: ' . gmdate('r', time() + 172800));
 header('Cache-Control: public, max-age=172800');
