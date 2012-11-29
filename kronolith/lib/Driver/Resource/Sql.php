@@ -277,8 +277,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    public function delete(Kronolith_Resource_Base $resource)
+    public function delete($resource)
     {
+        if (!($resource instanceof Kronolith_Resource_Base)) {
+            throw new InvalidArgumentException('Argument is not a resource');
+        }
+
         if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
         }
