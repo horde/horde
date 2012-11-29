@@ -125,7 +125,8 @@ class Horde_Vfs_Smb extends Horde_Vfs_Base
      */
     public function readStream($path, $name)
     {
-        return fopen($this->readFile($path, $name),OS_WINDOWS ? 'rb' : 'r');
+        return fopen($this->readFile($path, $name),
+                     substr(PHP_OS, 0, 3) == 'WIN' ? 'rb' : 'r');
     }
 
     /**
