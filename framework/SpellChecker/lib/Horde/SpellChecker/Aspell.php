@@ -134,6 +134,7 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
         }
 
         $args .= ' --lang=' . escapeshellarg($this->_params['locale']);
+        $args .= ' --ignore=' . escapeshellarg(max($this->_params['minLength'] - 1, 0));
 
         if ($this->_params['html']) {
             $args .= ' -H';
