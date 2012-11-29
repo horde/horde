@@ -43,7 +43,7 @@ class Horde_Core_Factory_SpellChecker extends Horde_Core_Factory_Base
         $args = array_merge(
             array('localDict' => array()),
             Horde::getDriverConfig('spell', null),
-            array('localDict' =>$args)
+            $args
         );
 
         if (empty($args['locale'])) {
