@@ -58,12 +58,14 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
 
         if (!$this->_body) {
             // Fetch full text of $url
-            $page = $client->get($this->_url);
-            $this->_body = $page->getBody();
-
-            if ($type = $page->getHeader('Content-Type') &&
-                preg_match('/.*;\s*charset="?([^" ]*)/', $type, $match)) {
-                $this->_charset = $match[1];
+            try {
+                $page = $client->get($this->_url);
+                $this->_body = $page->getBody();
+                if ($type = $page->getHeader('Content-Type') &&
+                    preg_match('/.*;\s*charset="?([^" ]*)/', $type, $match)) {
+                    $this->_charset = $match[1];
+                }
+            } catch (Horde_Http_Exception $e) {
             }
         }
 
