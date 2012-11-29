@@ -24,6 +24,17 @@
 class Horde_SpellChecker_Aspell extends Horde_SpellChecker
 {
     /**
+     * @param array $args  Additional arguments:
+     *   - path: (string) Path to the aspell binary.
+     */
+    public function __construct(array $args = array())
+    {
+        parent::__construct(array_merge(array(
+            'path' => 'aspell'
+        ), $args));
+    }
+
+    /**
      */
     public function spellCheck($text)
     {
@@ -140,7 +151,8 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
             $args[] = '-H';
         }
 
-        return 'aspell ' . implode(' ', $args);
+        return escapeshellcmd($this->_params['path']) . ' ' .
+               implode(' ', $args);
     }
 
 }
