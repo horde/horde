@@ -100,8 +100,14 @@ class Horde_SessionHandler_Storage_File extends Horde_SessionHandler_Storage
             return '';
         }
 
+        $data = '';
         rewind($this->_fp);
-        return strval(stream_get_contents($this->_fp));
+
+        while (($read = fgets($this->_fp)) !== false) {
+            $data .= $read;
+        }
+
+        return $data;
     }
 
     /**
