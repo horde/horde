@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:07:13</time>
+ <date>2012-11-28</date>
+ <time>18:02:01</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Convert test suite to PHPUnit.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -50,7 +50,10 @@
    <dir name="test">
     <dir name="Horde">
      <dir name="SpellChecker">
-      <file name="basic-aspell.phpt" role="test" />
+      <file name="AllTests.php" role="test" />
+      <file name="AspellTest.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="phpunit.xml" role="test" />
      </dir> <!-- /test/Horde/SpellChecker -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -85,7 +88,10 @@
    <install as="COPYING" name="doc/Horde/SpellChecker/COPYING" />
    <install as="Horde/SpellChecker.php" name="lib/Horde/SpellChecker.php" />
    <install as="Horde/SpellChecker/Aspell.php" name="lib/Horde/SpellChecker/Aspell.php" />
-   <install as="Horde/SpellChecker/basic-aspell.phpt" name="test/Horde/SpellChecker/basic-aspell.phpt" />
+   <install as="Horde/SpellChecker/AllTests.php" name="test/Horde/SpellChecker/AllTests.php" />
+   <install as="Horde/SpellChecker/AspellTest.php" name="test/Horde/SpellChecker/AspellTest.php" />
+   <install as="Horde/SpellChecker/bootstrap.php" name="test/Horde/SpellChecker/bootstrap.php" />
+   <install as="Horde/SpellChecker/phpunit.xml" name="test/Horde/SpellChecker/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -255,10 +261,10 @@ Initial Release.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Convert test suite to PHPUnit.
    </notes>
   </release>
  </changelog>
