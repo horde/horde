@@ -80,7 +80,8 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create($credentials['server']);
+        $imp_imap_factory = $injector->getInstance('IMP_Factory_Imap');
+        $imp_imap = $imp_imap_factory->create($credentials['server']);
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -103,6 +104,7 @@ class IMP_Auth
 
         try {
             $imp_imap->login();
+            $imp_imap_factory->defaultID = $credentials['server'];
         } catch (IMP_Imap_Exception $e) {
             self::_log(false, $imp_imap);
             throw $e->authException();
