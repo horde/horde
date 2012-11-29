@@ -95,13 +95,10 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
         }
 
         // Initialize VFS
-        try {
-            $vfs = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Vfs')
-                ->create();
-            $vfs->writeData('.horde/trean/favicons/', md5($bookmark->favicon_url), $response->getBody());
-        } catch (Exception $e) {
-        }
+        $vfs = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Vfs')
+            ->create();
+        $vfs->writeData('.horde/trean/favicons/', md5($bookmark->favicon_url), $response->getBody());
     }
 
     protected function _findByRel($client, $url, $body, $charset)
