@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1383,7 +1383,7 @@
    <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
    </notes>
   </release>
  </changelog>
