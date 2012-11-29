@@ -118,29 +118,29 @@ class Horde_SpellChecker_Aspell extends Horde_SpellChecker
      */
     protected function _cmd()
     {
-        $args = '--encoding=UTF-8';
+        $args = array('-a', '--encoding=UTF-8');
 
         switch ($this->_params['suggestMode']) {
         case self::SUGGEST_FAST:
-            $args .= ' --sug-mode=fast';
+            $args[] = '--sug-mode=fast';
             break;
 
         case self::SUGGEST_SLOW:
-            $args .= ' --sug-mode=bad-spellers';
+            $args[] = '--sug-mode=bad-spellers';
             break;
 
         default:
-            $args .= ' --sug-mode=normal';
+            $args[] = '--sug-mode=normal';
         }
 
-        $args .= ' --lang=' . escapeshellarg($this->_params['locale']);
-        $args .= ' --ignore=' . escapeshellarg(max($this->_params['minLength'] - 1, 0));
+        $args[] = '--lang=' . escapeshellarg($this->_params['locale']);
+        $args[] = '--ignore=' . escapeshellarg(max($this->_params['minLength'] - 1, 0));
 
         if ($this->_params['html']) {
-            $args .= ' -H';
+            $args[] = '-H';
         }
 
-        return 'aspell -a ' . $args;
+        return 'aspell ' . implode(' ', $args);
     }
 
 }
