@@ -19,7 +19,7 @@ function table_sortCallback(tableId, column, sortDown)
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
   <td>
-   <?php $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')) ?>
+   <?php if ($bookmark->dt) { $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')); } ?>
   </td>
   <td>
    <div class="trean-bookmarks-title">
