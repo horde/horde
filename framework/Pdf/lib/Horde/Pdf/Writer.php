@@ -1258,7 +1258,7 @@ class Horde_Pdf_Writer
      */
     public function getFormatHeight()
     {
-        return $this->fwPt;
+        return $this->fhPt;
     }
 
     /**
@@ -1266,7 +1266,7 @@ class Horde_Pdf_Writer
      */
     public function getFormatWidth()
     {
-        return $this->fhPt;
+        return $this->fwPt;
     }
 
     /**
