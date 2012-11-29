@@ -73,14 +73,6 @@ class Horde_Imap_Client_Base_Debug
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->shutdown();
-    }
-
-    /**
      * Shutdown function.
      */
     public function shutdown()
