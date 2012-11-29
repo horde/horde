@@ -126,7 +126,7 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
 
                     try {
                         $response = $client->get($favicon);
-                        if ($response->code == '200') {
+                        if ($this->_isValidFavicon($response)) {
                             return $response;
                         }
                     } catch (Horde_Http_Exception $e) {
@@ -141,7 +141,7 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
     {
         try {
             $response = $client->get($url['scheme'] . '://' . $url['host'] . '/favicon.ico');
-            if ($response->code == '200') {
+            if ($this->_isValidFavicon($response)) {
                 return $response;
             }
         } catch (Horde_Http_Exception $e) {
@@ -155,12 +155,19 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
             if (strlen($path['dirname'])) {
                 try {
                     $response = $client->get($url['scheme'] . '://' . $url['host'] . $path['dirname'] . '/favicon.ico');
-                    if ($response->code == '200') {
+                    if ($this->_isValidFavicon($response)) {
                         return $response;
                     }
                 } catch (Horde_Http_Exception $e) {
                 }
             }
         }
+    }
+
+    protected function _isValidFavicon($response)
+    {
+        return ($response->code == 200)
+            && (substr($response->getHeader('content-type'), 0, 5) == 'image')
+            && (strlen($response->getBody()) > 0);
     }
 }
