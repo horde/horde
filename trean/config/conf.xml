@@ -15,11 +15,12 @@
 
  <configsection name="content_index">
   <configheader>Content Indexing/Search</configheader>
-  <configdescription>Search support requires the Content_Index application,
-  which currently assumes an ElasticSearch cluster accessible by Horde at the
-  default port of localhost:9200. If you don&apos;t have that, don&apos;t turn
-  content indexing/search on.</configdescription>
-  <configboolean name="enabled" desc="Enable use of Content_Index?">false</configboolean>
+  <configdescription>Search support uses the Content application, and currently
+  requires an ElasticSearch cluster accessible by Horde at the default port of
+  localhost:9200. If you don&apos;t have that, don&apos;t turn content
+  indexing/search on.</configdescription>
+  <configboolean name="enabled" desc="Enable content
+  indexing?">false</configboolean>
  </configsection>
 
  <configsection name="favicons">
