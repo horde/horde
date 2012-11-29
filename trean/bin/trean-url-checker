@@ -35,99 +35,11 @@ foreach ($ids as $bookmark_id) {
     }
     $bookmark->http_status = $response->code;
 
-    if ($bookmark->http_status == '200' || $bookmark->http_status == '302') {
-        get_favicon($bookmark);
-    }
-
     // If we've been redirected, update the bookmark's URL.
     if ($location = $response->getHeader('Location') &&
         $location != $bookmark->url) {
         $bookmark->url = $location;
     }
 
-    $bookmark->save();
-}
-
-/**
- * Attempts to retrieve a favicon for the given bookmark.
- */
-function get_favicon(&$bookmark)
-{
-    global $factory, $params;
-
-    $favicon = '';
-    $url = parse_url($bookmark->url);
-
-    try {
-        $response = $factory->create($params)->get($bookmark->url);
-        if ($type = $response->getHeader('Content-Type') &&
-            preg_match('/.*;\s*charset="?([^" ]*)/', $type, $match)) {
-            $charset = $match[1];
-        } else {
-            $charset = null;
-        }
-        $dom = new Horde_Domhtml($response->getBody(), $charset);
-        foreach ($dom as $node) {
-            if ($node instanceof DOMElement &&
-                Horde_String::lower($node->tagName) == 'link' &&
-                ($rel = Horde_String::lower($node->getAttribute('rel'))) &&
-                ($rel == 'shortcut icon' || $rel == 'icon')) {
-                $favicon = $node->getAttribute('href');
-
-                // Make sure $favicon is a full URL.
-                $favicon_url = parse_url($favicon);
-                if (empty($favicon_url['scheme'])) {
-                    if (substr($favicon, 0, 1) == '/') {
-                        $favicon = $url['scheme'] . '://' . $url['host'] . $favicon;
-                    } else {
-                        $path = pathinfo($url['path']);
-                        $favicon = $url['scheme'] . '://' . $url['host'] . $path['dirname'] . '/' . $favicon;
-                    }
-                }
-
-                goto favicon;
-            }
-        }
-    } catch (Horde_Http_Exception $e) {
-    }
-
-    // If parsing a favicon failed, look for favicon.ico.
-    try {
-        $response = $factory->create($params)
-            ->head($url['scheme'] . '://' . $url['host'] . '/favicon.ico');
-        if ($response->code == '200') {
-            $favicon = $url['scheme'] . '://' . $url['host'] . '/favicon.ico';
-            echo $response->getBody();
-            goto favicon;
-        }
-    } catch (Horde_Http_Exception $e) {
-    }
-
-    if (isset($url['path'])) {
-        $path = pathinfo($url['path']);
-        if (strlen($path['dirname'])) {
-            try {
-                $response = $factory->create($params)
-                    ->head($url['scheme'] . '://' . $url['host'] . $path['dirname'] . '/favicon.ico');
-                if ($response->code == '200') {
-                    $favicon = $url['scheme'] . '://' . $url['host'] . $path['dirname'] . '/favicon.ico';
-                    goto favicon;
-                }
-            } catch (Horde_Http_Exception $e) {
-            }
-        }
-    }
-
-    // If a favicon was found, try to get it.
-    favicon:
-    if (!$favicon) {
-        return;
-    }
-
-    // Attempt to read and store $favicon.
-    try {
-        $response = $factory->create($params)->get($favicon);
-        // TODO: Store in VFS, update $bookmark->favicon.
-    } catch (Horde_Http_Exception $e) {
-    }
+    $bookmark->save($crawl = false);
 }
