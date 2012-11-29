@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Fix receiving resource calendars in dynamic view (Bug #11776).
 
 
 ------
