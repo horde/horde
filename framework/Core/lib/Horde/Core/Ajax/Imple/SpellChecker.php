@@ -86,30 +86,14 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     {
         global $conf, $injector, $language;
 
-        $args = Horde::getDriverConfig('spell', null);
+        $args = isset($vars->locale)
+            ? array('locale' => $vars->locale)
+            : array();
         $input = $vars->get($vars->input);
-
-        if (isset($vars->locale)) {
-            $args['locale'] = $vars->locale;
-        } elseif (empty($args['locale'])) {
-            try {
-                $args['locale'] = $injector->getInstance('Horde_Core_Factory_LanguageDetect')->getLanguageCode($input);
-            } catch (Horde_Exception $e) {}
-        }
-
-        if (empty($args['locale']) && isset($language)) {
-            $args['locale'] = $language;
-        }
-
-        /* Add local dictionary words. */
-        try {
-            $result = Horde::loadConfiguration('spelling.php', 'ignore_list', 'horde');
-            $args['localDict'] = $result;
-        } catch (Horde_Exception $e) {}
 
         try {
             return new Horde_Core_Ajax_Response_Prototypejs(
-                Horde_SpellChecker::factory($conf['spell']['driver'], $args)->spellCheck($input)
+                $injector->getInstance('Horde_Core_Factory_SpellChecker')->create($args, $input)->spellCheck($input)
             );
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');

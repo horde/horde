@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-27</date>
- <time>11:53:01</time>
+ <date>2012-11-28</date>
+ <time>18:38:35</time>
  <version>
-  <release>2.0.5</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Core_Factory_SpellChecker.
 * [mms] Don&apos;t log backtrace for E_STRICT errors.
  </notes>
  <contents>
@@ -443,6 +444,7 @@
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="ShareBase.php" role="php" />
+       <file name="SpellChecker.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="ThemesCache.php" role="php" />
@@ -1705,6 +1707,7 @@
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
+   <install as="Horde/Core/Factory/SpellChecker.php" name="lib/Horde/Core/Factory/SpellChecker.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/ThemesCache.php" name="lib/Horde/Core/Factory/ThemesCache.php" />
@@ -2605,14 +2608,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Core_Factory_SpellChecker.
 * [mms] Don&apos;t log backtrace for E_STRICT errors.
    </notes>
   </release>
