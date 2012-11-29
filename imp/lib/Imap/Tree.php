@@ -1397,11 +1397,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _getNamespace($mailbox)
     {
-        if (!in_array($mailbox, array(self::OTHER_KEY, self::SHARED_KEY, self::VFOLDER_KEY)) &&
-            (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)) {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox);
+        switch ($mailbox) {
+        case self::OTHER_KEY:
+        case self::SHARED_KEY:
+        case self::VFOLDER_KEY:
+            return null;
+
+        default:
+            return (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)
+                ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox)
+                : null;
         }
-        return null;
     }
 
     /**
