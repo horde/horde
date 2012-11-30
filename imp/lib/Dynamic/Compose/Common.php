@@ -123,9 +123,7 @@ class IMP_Dynamic_Compose_Common
             }
         }
 
-        $compose_link = $registry->getServiceLink('ajax', 'imp');
-        $view->compose_link = $compose_link->url . 'addAttachment';
-
+        $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->is_template = !empty($args['template']);
         $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
 
