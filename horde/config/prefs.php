@@ -316,6 +316,11 @@ $_prefs['default_identity'] = array(
 );
 
 // identities data
+// Identities are built automatically from the default values of all
+// preferences from all applications that make up an identity. This only works
+// if no identities exist yet, or when creating new identities manually. If you
+// provide a default value for the complete identities list, it has to include
+// all preferences from all applications.
 $_prefs['identities'] = array(
     // default value = serialize(array())
     'value' => 'a:0:{}'
