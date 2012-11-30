@@ -264,9 +264,19 @@ class Horde_Imap_Client_Tokenize implements Iterator
             }
         }
 
-        return strlen($text)
-            ? ((strcasecmp($text, 'NIL') === 0) ? null : $text)
-            : false;
+        switch (strlen($text)) {
+        case 0:
+            return false;
+
+        case 3:
+            if (strcasecmp($text, 'NIL') === 0) {
+                return null;
+            }
+            // Fall-through
+
+        default:
+            return $text;
+        }
     }
 
 }
