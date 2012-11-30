@@ -67,8 +67,8 @@ class Horde_Imap_Client_Tokenize implements Iterator
     /**
      * Constructor.
      *
-     * @param mixed $data    Data to add (string, resource, or Horde_Stream
-     *                       object), or a Tokenize object.
+     * @param mixed $data  Data to add (string, resource, or Horde_Stream
+     *                     object), or a Tokenize object.
      */
     public function __construct($data = null)
     {
