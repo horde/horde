@@ -1054,14 +1054,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         global $injector, $prefs;
 
-        $this->setIteratorFilter(self::FLIST_NOCONTAINER);
-
         if ($prefs->getValue('nav_poll_all')) {
+            $this->setIteratorFilter(self::FLIST_NOCONTAINER);
             return iterator_to_array($this);
         }
 
         $plist = array();
-        foreach ($this as $val) {
+        foreach ($this->_tree as $val) {
             if ($this->isPolled($val)) {
                 $plist[] = $val;
             }
