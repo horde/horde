@@ -1,15 +1,15 @@
 # Nag Dutch translation.
 # This file is distributed under the same license as the Ingo package.
 # Copyright (C) 2001-2012 Horde LLC (http://www.horde.org/)
+#
 # Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
 # Arjen de Korte <build+horde@de-korte.org>, 2012.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Nag H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-27 21:41+0200\n"
-"PO-Revision-Date: 2012-10-30 10:47+0100\n"
+"PO-Revision-Date: 2012-11-30 10:28+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -404,7 +404,7 @@ msgstr "Datum"
 
 #: templates/alarm/mail.html.php:13
 msgid "Date and time:"
-msgstr "Datum en tijd"
+msgstr "Datum en tijd:"
 
 #: templates/alarm/mail.plain.php:7
 msgid "Date:"
@@ -450,7 +450,7 @@ msgstr "Verwijder taak"
 
 #: config/prefs.php:21
 msgid "Delete button behaviour"
-msgstr "Verwijderknopgedrag"
+msgstr "Gedrag verwijderknop"
 
 #: task.php:34
 #, php-format
@@ -469,11 +469,11 @@ msgstr "Afnemend"
 #: lib/Form/Search.php:39 lib/Form/Task.php:138
 #: templates/smartmobile/taskform.html.php:14
 msgid "Description"
-msgstr "Beschrijving"
+msgstr "Omschrijving"
 
 #: templates/alarm/mail.html.php:23
 msgid "Description:"
-msgstr "Beschrijving:"
+msgstr "Omschrijving:"
 
 #: config/prefs.php:13
 msgid "Display Preferences"
@@ -957,7 +957,7 @@ msgstr ""
 
 #: lib/Application.php:151
 msgid "Shared Task Lists"
-msgstr "Gedeelde taaklijsten:"
+msgstr "Gedeelde taaklijsten"
 
 #: lib/Block/Summary.php:51
 msgid "Show action buttons?"
@@ -1030,7 +1030,7 @@ msgstr "Begindatum opgegeven."
 
 #: lib/Form/EditTaskList.php:97
 msgid "Subscription URL"
-msgstr "Subscription URL"
+msgstr "Inschrijving URL"
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:116
 msgid "Successfully deleted"
@@ -1235,7 +1235,8 @@ msgstr "Een probleem bij het opslaan van de taak: %s."
 #: config/prefs.php:315
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
-msgstr "Er is een fout opgetreden bij het bewerken van de gebeurtenis: %s"
+msgstr ""
+"Er is een fout opgetreden bij de communicatie met de ActiveSync server: %s"
 
 #: data.php:150
 #, php-format
@@ -1244,7 +1245,8 @@ msgstr "Een fout bij het importeren van de data: %s"
 
 #: lib/Api.php:487 lib/Api.php:803 lib/Api.php:1126
 msgid "There was an error importing the iCalendar data."
-msgstr "Een fout bij het importeren van de iCalendardata."
+msgstr ""
+"Er is een fout opgetreden bij het importeren van de iCalendar gegevens."
 
 #: lib/Application.php:232
 #, php-format
@@ -1267,7 +1269,7 @@ msgstr "Tijd"
 
 #: templates/alarm/mail.plain.php:9
 msgid "Time:"
-msgstr "Tijdsd_uur:"
+msgstr "Tijd:"
 
 #: templates/smartmobile/taskform.html.php:9
 msgid "Title"
@@ -1346,28 +1348,28 @@ msgstr "Aan welke taaklijst dienen de taken toegevoegd te worden?"
 
 #: lib/Nag.php:587
 msgid "You are not allowed to change this task list."
-msgstr "Het is u niet toegestaan deze taaklijst te wijzigen."
+msgstr "U mag deze taaklijst niet wijzigen."
 
 #: data.php:38 data.php:114 task.php:73
 #, php-format
 msgid "You are not allowed to create more than %d tasks."
-msgstr "Het is u niet toegestaan om meer dan %d taken te maken."
+msgstr "U mag niet meer dan %d taken aanmaken."
 
 #: lib/Nag.php:620 tasklists/delete.php:27
 msgid "You are not allowed to delete this task list."
-msgstr "Het is u niet toegestaan om deze taaklijst te verwijderen."
+msgstr "U mag deze taaklijst niet verwijderen."
 
 #: lib/Ajax/Application/Handler/Smartmobile.php:107
 msgid "You are not allowed to delete this task."
-msgstr "Het is u niet toegestaan om deze taak te verwijderen."
+msgstr "U mag deze taak niet verwijderen."
 
 #: lib/Api.php:132
 msgid "You are not allowed to retrieve this task list."
-msgstr "Het is u niet toegestaan om deze taaklijst op te halen."
+msgstr "U mag deze taaklijst niet ophalen."
 
 #: tasklists/edit.php:28
 msgid "You are not allowed to see this task list."
-msgstr "Het is u niet toegestaan om deze taaklijst te zien."
+msgstr "U mag deze taaklijst niet inzien."
 
 #: view.php:48
 msgid "You do not have permission to view this tasklist."

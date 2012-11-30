@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Gollem H3 (1.1-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-11-23 10:08+0100\n"
-"PO-Revision-Date: 2012-11-23 10:25+0100\n"
+"PO-Revision-Date: 2012-11-30 10:27+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -51,13 +51,13 @@ msgstr "%s met succes geplakt."
 #: edit.php:35 edit.php:49
 #, php-format
 msgid "Access denied to %s"
-msgstr "Toegang geweigerd tot %s"
+msgstr "Toegang tot %s geweigerd"
 
 #: lib/Gollem.php:49 lib/Gollem.php:300 lib/Gollem.php:360 lib/Gollem.php:393
 #: lib/Gollem.php:413
 #, php-format
 msgid "Access denied to folder \"%s\"."
-msgstr "Toegang geweigerd tot map \"%s\"."
+msgstr "Toegang tot map \"%s\" geweigerd."
 
 #: templates/selectlist.html.php:28
 msgid "Add"
@@ -349,7 +349,7 @@ msgstr "Plakken"
 
 #: manager.php:559
 msgid "Permission"
-msgstr "Recht"
+msgstr "Toegang"
 
 #: selectlist.php:65
 #, php-format
@@ -492,7 +492,7 @@ msgstr "Niet in staat om Gollem sessie te maken"
 #: permissions.php:40
 #, php-format
 msgid "Unable to create backend permission: %s"
-msgstr "Niet in staat om backendrecht te maken: %s"
+msgstr "Niet in staat om backend recht te maken: %s"
 
 #: manager.php:102
 #, php-format

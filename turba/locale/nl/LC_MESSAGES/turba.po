@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Turba H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-23 10:31+0100\n"
+"PO-Revision-Date: 2012-11-30 10:43+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -85,7 +85,7 @@ msgstr "<< Voeg dit samen met het eerste contact"
 #: lib/Application.php:456 view.php:48
 #, php-format
 msgid "Access denied to %s"
-msgstr "Toegang geweigerd voor %s"
+msgstr "Toegang tot %s geweigerd"
 
 #: lib/Form/AddContact.php:17 templates/browse/actions.inc:27
 msgid "Add"
@@ -1057,7 +1057,7 @@ msgstr "Organisatie"
 
 #: config/backends.php:345 config/backends.php:670
 msgid "Other"
-msgstr "Andere"
+msgstr "Overig"
 
 #: config/attributes.php:226
 msgid "Other Address"
@@ -1711,7 +1711,7 @@ msgstr "U mag dit adresboek niet verwijderen."
 
 #: addressbooks/edit.php:31
 msgid "You are not allowed to see this addressbook."
-msgstr "U mag dit adresboek niet zien."
+msgstr "U mag dit adresboek niet inzien."
 
 #: lib/Driver/Facebook.php:165
 msgid ""

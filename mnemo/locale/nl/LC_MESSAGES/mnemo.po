@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Mneno H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-09 10:30+0100\n"
+"PO-Revision-Date: 2012-11-30 10:42+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -134,11 +134,11 @@ msgstr "Verwijder %s"
 
 #: config/prefs.php:27
 msgid "Delete Confirmation"
-msgstr "Bevestiging verwijderen"
+msgstr "Verwijderbevestiging"
 
 #: config/prefs.php:28
 msgid "Delete button behaviour"
-msgstr "Verwijderknop gedrag"
+msgstr "Gedrag verwijderknop"
 
 #: templates/memo/memo.inc:58
 msgid "Delete this note"
@@ -462,7 +462,8 @@ msgstr "Een fout bij het importeren van de data: %s"
 
 #: lib/Api.php:202 lib/Api.php:354
 msgid "There was an error importing the iCalendar data."
-msgstr "Een fout bij het importeren van de iCalendar data."
+msgstr ""
+"Er is een fout opgetreden bij het importeren van de iCalendar gegevens."
 
 #: lib/Application.php:233
 #, php-format
@@ -535,7 +536,7 @@ msgstr "Aan welk notitieboek dienen de notities toegevoegd te worden?"
 #: data.php:34 data.php:91 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Het is u niet toegestaan om meer dan %d notities te maken."
+msgstr "U mag niet meer dan %d notities aanmaken."
 
 #: notepads/delete.php:30
 msgid "You are not allowed to delete this notepad."
@@ -543,7 +544,7 @@ msgstr "U mag dit notitieboek niet verwijderen."
 
 #: notepads/edit.php:32
 msgid "You are not allowed to see this notepad."
-msgstr "U mag dit notitieboek niet zien."
+msgstr "U mag dit notitieboek niet inzien."
 
 #: lib/Ajax/Imple/EditNote.php:27
 msgid "You do not have permission to edit this note."
