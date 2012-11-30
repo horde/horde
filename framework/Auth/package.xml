@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix updating users in LDAP driver (Bug #11791).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -789,7 +789,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix updating users in LDAP driver (Bug #11791).
    </notes>
   </release>
  </changelog>
