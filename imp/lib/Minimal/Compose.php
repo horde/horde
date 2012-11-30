@@ -33,7 +33,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector, $notification, $prefs, $session, $registry;
 
         /* The message text and headers. */
         $expand = array();
@@ -343,6 +343,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $this->view->cacheid = $imp_compose->getCacheId();
         $this->view->menu = $this->getMenu('compose');
         $this->view->url = self::url();
+        $this->view->user = $registry->getAuth();
 
         switch ($this->vars->a) {
         case 'rc':

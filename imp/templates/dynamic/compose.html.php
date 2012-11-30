@@ -3,6 +3,7 @@
  <?php echo $this->hiddenFieldTag('composeCache') ?>
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
+ <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
 
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Accesskey Esc") ?>"></div>

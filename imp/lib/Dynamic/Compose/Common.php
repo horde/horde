@@ -35,7 +35,7 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $page_output, $prefs;
+        global $page_output, $prefs, $registry;
 
         $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
@@ -126,6 +126,7 @@ class IMP_Dynamic_Compose_Common
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->is_template = !empty($args['template']);
         $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
+        $view->user = $registry->getAuth();
 
         $d_read = $prefs->getValue('request_mdn');
         if ($d_read != 'never') {
