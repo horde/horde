@@ -1381,9 +1381,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _convertName($name)
     {
-        return (strcasecmp($name, 'INBOX') == 0)
+        $str = strval($name);
+
+        return ((strlen($str) == 5) && (strcasecmp($str, 'INBOX') == 0))
             ? 'INBOX'
-            : strval($name);
+            : $str;
     }
 
     /**
