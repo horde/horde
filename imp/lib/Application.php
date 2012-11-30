@@ -81,9 +81,10 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector;
 
-        if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-            $injector->getInstance('Horde_Variables')->composeCache) {
+        switch ($e->getCode()) {
+        case Horde_Registry::AUTH_FAILURE:
             $injector->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft($injector->getInstance('Horde_Variables'));
+            break;
         }
     }
 

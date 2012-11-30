@@ -3020,9 +3020,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @param Horde_Variables $vars  Object with the form data.
      */
-    public function sessionExpireDraft($vars)
+    public function sessionExpireDraft(Horde_Variables $vars)
     {
-        if (empty($GLOBALS['conf']['compose']['use_vfs'])) {
+        global $conf, $injector, $notification;
+
+        if (empty($conf['compose']['use_vfs']) ||
+            !isset($vars->composeCache)) {
             return;
         }
 
@@ -3037,16 +3040,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 'priority' => $vars->priority,
                 'readreceipt' => $vars->request_read_receipt
             ));
-        } catch (IMP_Compose_Exception $e) {
-            return;
-        }
 
-        try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-            $vfs->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
-
-            $GLOBALS['notification']->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
-        } catch (Horde_Vfs_Exception $e) {}
+            $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
+            $notification->push(_("The message you were composing has been saved as a draft. The next time you login, you may resume composing your message."));
+        } catch (Exception $e) {}
     }
 
     /**
@@ -3054,31 +3051,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function recoverSessionExpireDraft()
     {
-        if (empty($GLOBALS['conf']['compose']['use_vfs'])) {
+        global $conf, $injector, $notification;
+
+        if (empty($conf['compose']['use_vfs'])) {
             return;
         }
 
         $filename = hash('md5', $GLOBALS['registry']->getAuth());
 
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (Horde_Vfs_Exception $e) {
-            return;
-        }
+            $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
 
-        if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
-            try {
+            if ($vfs->exists(self::VFS_DRAFTS_PATH, $filename)) {
                 $data = $vfs->read(self::VFS_DRAFTS_PATH, $filename);
-                $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
-            } catch (Horde_Vfs_Exception $e) {
-                return;
-            }
-
-            try {
                 $this->_saveDraftServer($data);
-                $GLOBALS['notification']->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
-            } catch (IMP_Compose_Exception $e) {}
-        }
+                $vfs->deleteFile(self::VFS_DRAFTS_PATH, $filename);
+                $notification->push(_("A message you were composing when your session expired has been recovered. You may resume composing your message by going to your Drafts mailbox."));
+            }
+        } catch (Exception $e) {}
     }
 
     /**
