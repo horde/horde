@@ -3022,7 +3022,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function sessionExpireDraft(Horde_Variables $vars)
     {
-        global $conf, $injector, $notification;
+        global $conf, $injector;
 
         if (empty($conf['compose']['use_vfs']) ||
             !isset($vars->composeCache)) {
@@ -3042,7 +3042,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             ));
 
             $injector->getInstance('Horde_Core_Factory_Vfs')->create()->writeData(self::VFS_DRAFTS_PATH, hash('md5', $vars->user), $body, true);
-            $notification->push(_("The message you were composing has been saved in your Drafts mailbox, although any attachments have been deleted."));
         } catch (Exception $e) {}
     }
 
