@@ -44,6 +44,12 @@ class Sesha_Application extends Horde_Registry_Application
      */
     public $version = 'H5 (1.0.0-git)';
 
+    /**
+     * Explicitly sets which class to highlight in the sidebar
+     * @var string
+     */
+    public $highlight = '';
+
     public function perms()
     {
         $permissions = array(
@@ -64,10 +70,13 @@ class Sesha_Application extends Horde_Registry_Application
     {
         global $conf, $injector;
 
-        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+        if (empty($this->highlight) && basename($_SERVER['PHP_SELF']) == 'index.php') {
+           $this->highlight = 'sesha-list';
+        }
+        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, $this->highlight == 'sesha-list' ? 'current' : '__noselection');
 
         /* Search. */
-        $menu->add(Horde::url('search.php'), _("_Search"), 'sesha-search');
+        $menu->add(Horde::url('search.php'), _("_Search"), 'sesha-search', null, null, null, $this->highlight == 'sesha-search' ? 'current' : null);
 
         if (Sesha::isAdmin(Horde_Perms::READ)|| $perms->hasPermission('sesha:addStock', $GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
             $menu->add(Horde::url('admin.php'), _("Administration"), 'sesha-admin');

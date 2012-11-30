@@ -1416,13 +1416,17 @@ class Horde_Date_Recurrence
         // Exceptions.
         if (isset($hash['exclusion'])) {
             foreach ($hash['exclusion'] as $exception) {
-                $this->exceptions[] = $exception->format('Ymd');
+                if ($exception instanceof DateTime) {
+                    $this->exceptions[] = $exception->format('Ymd');
+                }
             }
         }
 
         if (isset($hash['complete'])) {
             foreach ($hash['complete'] as $completion) {
-                $this->completions[] = $completion->format('Ymd');
+                if ($exception instanceof DateTime) {
+                    $this->completions[] = $completion->format('Ymd');
+                }
             }
         }
 

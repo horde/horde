@@ -11,18 +11,21 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('sesha');
+$sesha = Horde_Registry::appInit('sesha');
 
 /* While switching from Horde_Template to Horde_View, try to leave only lines which strictly need to be in this file */
 // Start page display.
 
-
+if (Horde_Util::getFormData('criteria')) {
+    $sesha->highlight = 'sesha-search';
+}
 $view = new Sesha_View_List(array('templatePath'    => SESHA_TEMPLATES . '/view/',
                                 'selectedCategories' => array(Horde_Util::getFormData('category_id')),
                                 'sortDir'           => Horde_Util::getFormData('sortdir'),
                                 'sortBy'            => Horde_Util::getFormData('sortby'),
                                 'propertyIds'       => @unserialize($prefs->getValue('list_properties')),
                                 'what'              => Horde_Util::getFormData('criteria'),
+                                'exact'             => Horde_Util::getFormData('exact'),
                                 'loc'               => Horde_Util::getFormData('location')
                             )
                             );

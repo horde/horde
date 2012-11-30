@@ -95,12 +95,17 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
                                Horde_Date $endDate = null,
                                array $options = array())
     {
+        $json = !empty($options['json']);
+        $options['json'] = false;
         $events = $this->_driver->listEvents($startDate, $endDate, $options);
         $results = array();
 
         foreach ($events as $period_key => $period) {
             foreach ($period as $event_id => $event) {
-                $results[$period_key][$event_id] = $this->_buildResourceEvent($event);
+                $resource_event = $this->_buildResourceEvent($event);
+                $results[$period_key][$event_id] = $json
+                    ? $resource_event->toJson()
+                    : $resource_event;
             }
         }
 
@@ -277,8 +282,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      *
      * @throws Kronolith_Exception
      */
-    public function delete(Kronolith_Resource_Base $resource)
+    public function delete($resource)
     {
+        if (!($resource instanceof Kronolith_Resource_Base)) {
+            throw new InvalidArgumentException('Argument is not a resource');
+        }
+
         if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
         }

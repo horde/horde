@@ -138,6 +138,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     protected $_namespaces;
 
     /**
+     * True if display_folder hook is not available.
+     *
+     * @var boolean
+     */
+    protected $_nohook = false;
+
+    /**
      * Parent list.
      *
      * @var array
@@ -372,9 +379,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $tmp = explode($delimiter, $name);
         $elt['c'] = count($tmp) - 1;
 
-        try {
-            $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
-        } catch (Horde_Exception_HookNotSet $e) {}
+        if (!$this->_nohook) {
+            try {
+                $this->_setInvisible($elt, !Horde::callHook('display_folder', array($elt['v']), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {
+                $this->_nohook = true;
+            }
+        }
 
         if ($elt['c'] != 0) {
             $elt['p'] = implode(is_null($ns_info) ? $this->_delimiter : $ns_info['delimiter'], array_slice($tmp, 0, $elt['c']));
@@ -1386,11 +1397,17 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _getNamespace($mailbox)
     {
-        if (!in_array($mailbox, array(self::OTHER_KEY, self::SHARED_KEY, self::VFOLDER_KEY)) &&
-            (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)) {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox);
+        switch ($mailbox) {
+        case self::OTHER_KEY:
+        case self::SHARED_KEY:
+        case self::VFOLDER_KEY:
+            return null;
+
+        default:
+            return (strpos($mailbox, self::VFOLDER_KEY . $this->_delimiter) !== 0)
+                ? $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getNamespace($mailbox)
+                : null;
         }
-        return null;
     }
 
     /**

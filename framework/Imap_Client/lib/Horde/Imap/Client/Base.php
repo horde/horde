@@ -316,14 +316,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
     }
 
     /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->shutdown();
-    }
-
-    /**
      * Shutdown actions.
      */
     public function shutdown()

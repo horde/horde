@@ -232,7 +232,7 @@ $_prefs['show_completed'] = array(
 // default tasklists
 // Set locked to true if you don't want users to have multiple task lists.
 $_prefs['default_tasklist'] = array(
-    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default task list:"),

@@ -351,7 +351,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
 
         try {
             $log = $GLOBALS['injector']->getInstance('Horde_History')
-                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['uid']);
+                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['memo_uid']);
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':

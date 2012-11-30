@@ -12,4 +12,15 @@ abstract class Horde_Queue_Runner
     }
 
     abstract public function run();
+
+    public function runTask(Horde_Queue_Task $task)
+    {
+        //@TODO add logging
+        try {
+            $task->run();
+        } catch (Exception $e) {
+            //@TODO TEMPORARY
+            echo $e->getMessage() . "\n";
+        }
+    }
 }

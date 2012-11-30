@@ -51,10 +51,10 @@ class Horde_Tree_Renderer_Menu extends Horde_Tree_Renderer_Base
         $result->root_nodes = $this->_tree->getRootNodes();
         $result->files = array();
 
+        /* Ignore files that are already loaded before building the tree. */
+        $ignored = array('prototype.js', 'hordetree.js', 'accesskeys.js', 'topbar.js');
         foreach ($GLOBALS['page_output']->hsl as $val) {
-            /* Ignore files that are already loaded before building the
-             * tree. */
-            if (!in_array($val->file, array('prototype.js', 'hordetree.js', 'accesskeys.js'))) {
+            if (!in_array($val->file, $ignored)) {
                 $result->files[] = strval($val->url);
             }
         }

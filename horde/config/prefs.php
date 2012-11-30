@@ -736,7 +736,10 @@ $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
     'label' => _("SyncML"),
     'desc' => _("Configuration for syncing with PDAs, Smartphones and Outlook."),
-    'members' => array('syncmlmanagement')
+    'members' => array('syncmlmanagement'),
+    'suppress' => function() {
+        return !class_exists('Horde_SyncMl_Backend');
+    }
 );
 
 $_prefs['syncmlmanagement'] = array(

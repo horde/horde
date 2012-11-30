@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>11:21:41</time>
+ <date>2012-11-28</date>
+ <time>01:06:49</time>
  <version>
-  <release>2.2.3</release>
+  <release>2.2.4</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1367,10 +1367,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Another workaround for broken Cyrus APPEND behavior (Bug #11769).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.4</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
    </notes>
   </release>
  </changelog>

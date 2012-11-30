@@ -54,7 +54,7 @@ class Trean_Bookmarks
     {
         $values = array($this->_userId);
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
                 WHERE user_id = ?
                 ORDER BY bookmark_' . $sortby . ($sortdir ? ' DESC' : '');
@@ -82,7 +82,7 @@ class Trean_Bookmarks
             $bookmarkIds[] = (int)$bookmarkHit->_id;
         }
 
-        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+        $sql = 'SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
                 FROM trean_bookmarks
                 WHERE user_id = ? AND bookmark_id IN (' . implode(',', $bookmarkIds) . ')';
         $values = array($this->_userId);
@@ -130,7 +130,7 @@ class Trean_Bookmarks
     public function getBookmark($id)
     {
         $bookmark = $GLOBALS['trean_db']->selectOne('
-            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, bookmark_dt
+            SELECT bookmark_id, user_id, bookmark_url, bookmark_title, bookmark_description, bookmark_clicks, bookmark_http_status, favicon_url, bookmark_dt
             FROM trean_bookmarks
             WHERE bookmark_id = ' . (int)$id);
         if (is_null($bookmark)) {
@@ -150,6 +150,7 @@ class Trean_Bookmarks
     {
         /* Make sure $bookmark is a Trean_Bookmark; if not, try
          * loading it. */
+        //@TODO is this really called this way?
         if (!is_a($bookmark, 'Trean_Bookmark')) {
             $bookmark = $this->getBookmark($bookmark);
         }
@@ -163,7 +164,8 @@ class Trean_Bookmarks
         $tagger = $GLOBALS['injector']->getInstance('Trean_Tagger');
         $tagger->replaceTags((string)$bookmark->id, array(), $GLOBALS['registry']->getAuth(), 'bookmark');
 
-        /* TODO: Decrement favicon refcount. */
+        /* @TODO delete from content index? */
+        //$indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
 
         /* Delete from SQL. */
         $GLOBALS['trean_db']->delete('DELETE FROM trean_bookmarks WHERE bookmark_id = ' . (int)$bookmark->id);

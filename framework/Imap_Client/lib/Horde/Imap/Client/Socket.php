@@ -427,7 +427,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * the current CAPABILITY array (since some servers, e.g. Cyrus,
              * may not include authentication capabilities that are still
              * needed in the event this object is eventually serialized). */
-            $this->_temp['in_login'] = true;
+            $t['in_login'] = true;
 
             try {
                 $this->_tryLogin($method);
@@ -438,7 +438,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $success = false;
             }
 
-            unset($this->_temp['in_login']);
+            unset($t['in_login']);
 
             // Check for login referral (RFC 2221) response - can happen for
             // an OK, NO, or BYE response.

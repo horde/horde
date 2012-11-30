@@ -2223,7 +2223,7 @@ class Horde_Registry
             /* Add the filename to the end of the URL. Although not necessary
              * for many browsers, this should allow every browser to download
              * correctly. */
-            ->add('fn', '/' . rawurlencode($filename));
+            ->add('fn', '/' . $filename);
     }
 
     /**

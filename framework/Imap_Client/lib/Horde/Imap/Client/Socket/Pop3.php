@@ -1122,42 +1122,50 @@ class Horde_Imap_Client_Socket_Pop3 extends Horde_Imap_Client_Base
         switch ($read[0]) {
         case '+OK':
             $ob['response'] = 'OK';
-            if (isset($read[1]) && $this->queryCapability('RESP-CODES')) {
-                $response = $this->_parseResponseCode($read[1]);
-                $ob['line'] = $response->text;
+            if (isset($read[1])) {
+                if ($this->queryCapability('RESP-CODES')) {
+                    $response = $this->_parseResponseCode($read[1]);
+                    $ob['line'] = $response->text;
+                } else {
+                    $ob['line'] = $read[1];
+                }
             }
             break;
 
         case '-ERR':
             $errcode = 0;
-            if (isset($read[1]) && $this->queryCapability('RESP-CODES')) {
-                $response = $this->_parseResponseCode($read[1]);
-                $errtext = $response->text;
+            if (isset($read[1])) {
+                if ($this->queryCapability('RESP-CODES')) {
+                    $response = $this->_parseResponseCode($read[1]);
+                    $errtext = $response->text;
 
-                if (isset($response->code)) {
-                    switch ($response->code) {
-                    // RFC 2449 [8.1.1]
-                    case 'IN-USE':
-                    // RFC 2449 [8.1.2]
-                    case 'LOGIN-DELAY':
-                        $errcode = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
-                        break;
+                    if (isset($response->code)) {
+                        switch ($response->code) {
+                        // RFC 2449 [8.1.1]
+                        case 'IN-USE':
+                        // RFC 2449 [8.1.2]
+                        case 'LOGIN-DELAY':
+                            $errcode = Horde_Imap_Client_Exception::LOGIN_UNAVAILABLE;
+                            break;
 
-                    // RFC 3206 [4]
-                    case 'SYS/TEMP':
-                        $errcode = Horde_Imap_Client_Exception::POP3_TEMP_ERROR;
-                        break;
+                        // RFC 3206 [4]
+                        case 'SYS/TEMP':
+                            $errcode = Horde_Imap_Client_Exception::POP3_TEMP_ERROR;
+                            break;
 
-                    // RFC 3206 [4]
-                    case 'SYS/PERM':
-                        $errcode = Horde_Imap_Client_Exception::POP3_PERM_ERROR;
-                        break;
+                        // RFC 3206 [4]
+                        case 'SYS/PERM':
+                            $errcode = Horde_Imap_Client_Exception::POP3_PERM_ERROR;
+                            break;
 
-                    // RFC 3206 [5]
-                    case 'AUTH':
-                        $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
-                        break;
+                        // RFC 3206 [5]
+                        case 'AUTH':
+                            $errcode = Horde_Imap_Client_Exception::LOGIN_AUTHENTICATIONFAILED;
+                            break;
+                        }
                     }
+                } else {
+                    $errtext = $read[1];
                 }
             } else {
                 $errtext = '[No error message provided by server]';

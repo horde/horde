@@ -590,6 +590,7 @@ class Nag_Driver_Sql extends Nag_Driver
         );
 
         try {
+            $userId = $GLOBALS['registry']->getAuth();
             $log = $GLOBALS['injector']->getInstance('Horde_History')
                 ->getHistory('nag:' . $row['task_owner'] . ':' . $row['task_uid']);
             foreach ($log as $entry) {

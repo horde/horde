@@ -58,14 +58,14 @@ class IMP_Ui_Quota
 
             $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
-        } else {
-            if ($quota['usage'] != 0) {
-                $quota['usage'] = $quota['usage'] / $calc;
+        } elseif ($quotaDriver->getHideWhenUnlimited()) {
+            return false;
+        } elseif ($quota['usage'] != 0) {
+            $quota['usage'] = $quota['usage'] / $calc;
 
-                $ret['message'] = sprintf($strings['nolimit_short'], $quota['usage'], $unit);
-            } else {
-                $ret['message'] = _("No limit");
-            }
+            $ret['message'] = sprintf($strings['nolimit_short'], $quota['usage'], $unit);
+        } else {
+            $ret['message'] = _("No limit");
         }
 
         return $ret;

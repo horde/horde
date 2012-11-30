@@ -34,21 +34,21 @@ abstract class Mnemo_Notepads_Base
      *
      * @var Horde_Share_Base
      */
-    protected $shares;
+    protected $_shares;
 
     /**
      * The current user.
      *
      * @var string
      */
-    protected $user;
+    protected $_user;
 
     /**
      * Additional parameters for the notepad handling.
      *
      * @var array
      */
-    protected $params;
+    protected $_params;
 
     /**
      * Constructor.
@@ -59,9 +59,9 @@ abstract class Mnemo_Notepads_Base
      */
     public function __construct($shares, $user, $params)
     {
-        $this->shares = $shares;
-        $this->user = $user;
-        $this->params = $params;
+        $this->_shares = $shares;
+        $this->_user = $user;
+        $this->_params = $params;
     }
 
     /**
@@ -74,15 +74,15 @@ abstract class Mnemo_Notepads_Base
     public function ensureDefaultShare()
     {
         /* If the user doesn't own a task list, create one. */
-        if (!empty($this->params['auto_create']) && $this->user &&
+        if (!empty($this->_params['auto_create']) && $this->_user &&
             !count(Mnemo::listNotepads(true))) {
-            $share = $this->shares->newShare(
-                $this->user,
+            $share = $this->_shares->newShare(
+                $this->_user,
                 strval(new Horde_Support_Randomid()),
-                $this->getDefaultShareName()
+                $this->_getDefaultShareName()
             );
-            $this->prepareDefaultShare($share);
-            $this->shares->addShare($share);
+            $this->_prepareDefaultShare($share);
+            $this->_shares->addShare($share);
             return $share->getName();
         }
     }
@@ -92,14 +92,14 @@ abstract class Mnemo_Notepads_Base
      *
      * @return string The name of a default share.
      */
-    abstract protected function getDefaultShareName();
+    abstract protected function _getDefaultShareName();
 
     /**
      * Add any modifiers required to the share in order to mark it as default.
      *
      * @param Horde_Share_Object $share The new default share.
      */
-    protected function prepareDefaultShare($share)
+    protected function _prepareDefaultShare($share)
     {
     }
 }

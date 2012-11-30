@@ -186,7 +186,7 @@ class IMP_Hooks
 //        // This example uses the open source ClamAV binary (tested with
 //        // v0.96). See: http://www.clamav.net/
 //        $clamscan = '/path/to/clamscan';
-//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), null, $return_var);
+//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), $output, $return_var);
 //        switch ($return_var) {
 //        case 1:
 //            // Virus found.

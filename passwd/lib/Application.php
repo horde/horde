@@ -40,9 +40,10 @@ class Passwd_Application extends Horde_Registry_Application {
     public $version = 'H5 (5.0-git)';
 
     /**
+     * The menu -- adds items to the sidebar
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('', false, array('app' => 'passwd')), _("Password"), 'passwd.png');
+        $menu->add(Horde::url('index.php'), _("Password"), 'passwd-mypassword', null, null, null, (basename($_SERVER['PHP_SELF']) == 'index.php' || strpos($_SERVER['PHP_SELF'], 'passwd/index.php') !== false) ? 'current' : null);
     }
 }

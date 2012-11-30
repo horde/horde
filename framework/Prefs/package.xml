@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -935,7 +935,7 @@ Initial release as a PEAR package
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
    </notes>
   </release>
  </changelog>
