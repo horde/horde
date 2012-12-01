@@ -18,6 +18,7 @@ var GollemLogin = {
     {
         switch (e.element().readAttribute('id')) {
         case 'backend_key':
+            RedBox.loading();
             $('horde_login').submit();
             break;
         }

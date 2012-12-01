@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Show loading layer when changing backends on login form.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -756,7 +756,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Show loading layer when changing backends on login form.
    </notes>
   </release>
  </changelog>
