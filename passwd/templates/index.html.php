@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo $this->h($this->url) ?>" name="passwd" id="passwd">
+<form method="post" action="<?php echo $this->h($this->url) ?>" name="passwd">
 <?php echo $this->formInput ?>
 <?php if (!$this->showlist): ?>
 <input type="hidden" name="backend" value="<?php echo $this->backend ?>" />
@@ -18,7 +18,7 @@
   <?php echo $this->label->userid ?>
  </td>
  <td>
-  <input type="text" id="userid" name="userid" value="<?php echo $this->h($this->userid) ?>" />
+  <input type="text" name="userid" value="<?php echo $this->h($this->userid) ?>" />
   <?php echo $this->help->username ?>
  </td>
 </tr>
@@ -29,7 +29,7 @@
   <?php echo $this->label->oldpassword ?>
  </td>
  <td>
-  <input type="password" id="oldpassword" name="oldpassword" size="32" />
+  <input type="password" id="passwd-oldpassword" name="oldpassword" size="32" />
   <?php echo $this->help->oldpassword ?>
  </td>
 </tr>
@@ -39,7 +39,7 @@
   <?php echo $this->label->newpassword0 ?>
  </td>
  <td>
-  <input type="password" id="newpassword0" name="newpassword0" size="32" />
+  <input type="password" id="passwd-newpassword0" name="newpassword0" size="32" />
   <?php echo $this->help->newpassword ?>
  </td>
 </tr>
@@ -49,7 +49,7 @@
   <?php echo $this->label->newpassword1 ?>
  </td>
  <td>
-  <input type="password" id="newpassword1" name="newpassword1" size="32" />
+  <input type="password" id="passwd-newpassword1" name="newpassword1" size="32" />
   <?php echo $this->help->confirmpassword ?>
  </td>
 </tr>
@@ -59,8 +59,8 @@
  <td class="horde-form-label">
   <?php echo $this->label->backend ?>
  </td>
- <td style="direction: ltr">
-  <select id="backend" name="backend">
+ <td>
+  <select name="backend">
    <?php foreach ($this->backends as $key => $backend): ?>
    <option value="<?php echo $key ?>"<?php echo $backend['selected'] ?>><?php echo $this->h($backend['name']) ?></option>
    <?php endforeach ?>
@@ -75,7 +75,7 @@
 </div>
 
 <p class="horde-form-buttons">
- <input class="horde-default" type="submit" name="submit" id="submit" value="<?php echo _("Change Password") ?>" />
+ <input class="horde-default" type="submit" name="submit" id="passwd-submit" value="<?php echo _("Change Password") ?>" />
  <input type="reset" name="reset" value="<?php echo _("Reset") ?>" />
 </p>
 </form>
