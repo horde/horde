@@ -10,61 +10,54 @@
 
 <h1 class="header"><?php echo $this->header ?></h1>
 
-<table class="striped" style="border-collapse: collapse; width: 100%;">
+<div class="horde-form">
+<table>
 <?php if ($this->userChange): ?>
 <tr>
- <td class="rightAlign">
-  <strong><?php echo $this->label->userid ?></strong>
+ <td class="horde-form-label">
+  <?php echo $this->label->userid ?>
  </td>
  <td>
   <input type="text" id="userid" name="userid" value="<?php echo $this->h($this->userid) ?>" />
- </td>
- <td class="rightAlign">
   <?php echo $this->help->username ?>
  </td>
 </tr>
 <?php endif ?>
 
 <tr>
- <td width="15%" class="rightAlign">
-  <strong><?php echo $this->label->oldpassword ?></strong>
+ <td width="15%" class="horde-form-label">
+  <?php echo $this->label->oldpassword ?>
  </td>
  <td>
   <input type="password" id="oldpassword" name="oldpassword" size="32" />
- </td>
- <td class="rightAlign">
   <?php echo $this->help->oldpassword ?>
  </td>
 </tr>
 
 <tr>
- <td class="rightAlign">
-  <strong><?php echo $this->label->newpassword0 ?></strong>
+ <td class="horde-form-label">
+  <?php echo $this->label->newpassword0 ?>
  </td>
  <td>
   <input type="password" id="newpassword0" name="newpassword0" size="32" />
- </td>
- <td class="rightAlign">
   <?php echo $this->help->newpassword ?>
  </td>
 </tr>
 
 <tr>
- <td class="rightAlign">
-  <strong><?php echo $this->label->newpassword1 ?></strong>
+ <td class="horde-form-label">
+  <?php echo $this->label->newpassword1 ?>
  </td>
  <td>
   <input type="password" id="newpassword1" name="newpassword1" size="32" />
- </td>
- <td class="rightAlign">
   <?php echo $this->help->confirmpassword ?>
  </td>
 </tr>
 
 <?php if ($this->showlist): ?>
 <tr>
- <td class="rightAlign">
-  <strong><?php echo $this->label->backend ?></strong>
+ <td class="horde-form-label">
+  <?php echo $this->label->backend ?>
  </td>
  <td style="direction: ltr">
   <select id="backend" name="backend">
@@ -73,17 +66,16 @@
    <?php endforeach ?>
   </select>
  </td>
- <td class="rightAlign">
+ <td class="horde-form-label">
      <?php echo $this->help->server ?>
  </td>
 </tr>
 <?php endif; ?>
-
-<tr class="control">
- <td colspan="3" class="control">
-  <input class="button" type="submit" name="submit" id="submit" value="<?php echo _("Change Password") ?>" />
-  <input class="button" type="reset" name="reset" value="<?php echo _("Reset") ?>" />
- </td>
-</tr>
 </table>
+</div>
+
+<p class="horde-form-buttons">
+ <input class="horde-default" type="submit" name="submit" id="submit" value="<?php echo _("Change Password") ?>" />
+ <input type="reset" name="reset" value="<?php echo _("Reset") ?>" />
+</p>
 </form>
