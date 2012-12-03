@@ -847,10 +847,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             (empty($this->_folder) ? array() : $this->_folder),
             $folderlist);
 
-        $this->_logger->debug(sprintf(
-            "[%s] Found folder changes: %s",
-            $this->_procid,
-            print_r($this->_changes, true)));
+        if (!count($this->_changes)) {
+            $this->_logger->debug(sprintf(
+                "[%s] No folder changes found.",
+                $this->_procid));
+        } else {
+            $this->_logger->debug(sprintf(
+                "[%s] Found folder changes: %s",
+                $this->_procid,
+                print_r($this->_changes, true)));
+        }
     }
 
     /**
