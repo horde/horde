@@ -352,7 +352,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *                          foldersync)
      * @param array $change     A stat/change hash describing the change.
      *  Contains:
-     *    - id: (integer)     The message uid the change applies to.
+     *    - id: (mixed)       The message uid the change applies to.
      *    - parent: (string)  The parent of the message, normally the folder id.
      *    - flags: (array)    If this is a flag change, the state of the flags.
      *    - mod: (integer)    The modtime of this change.

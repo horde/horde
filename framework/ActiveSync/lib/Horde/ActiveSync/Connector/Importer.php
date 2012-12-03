@@ -117,7 +117,8 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return string|boolean The server message id or false
      */
-    public function importMessageChange($id, $message, $device, $clientid)
+    public function importMessageChange(
+        $id, Horde_ActiveSync_Message_Base $message, $device, $clientid)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
@@ -159,7 +160,7 @@ class Horde_ActiveSync_Connector_Importer
      * Import message deletions. This may conflict if the local object has been
      * modified.
      *
-     * @param array $ids  Server message uids to delete
+     * @param array $ids          Server message uids to delete
      * @param string $collection  The server collection type.
      */
     public function importMessageDeletion(array $ids, $collection)
@@ -205,15 +206,15 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Import a change in 'read' flags .. This can never conflict
+     * Import a change in 'read' flags. This can never conflict.
      *
-     * @param string $id        Server message id
-     * @param string $flags     The read flags to set
+     * @param integer $id    Server message id (The IMAP UID).
+     * @param string $flags  The read flags to set
      */
     public function importMessageReadFlag($id, $flags)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return true;
+            return;
         }
 
         $change = array();
@@ -227,8 +228,6 @@ class Horde_ActiveSync_Connector_Importer
             $this->_backend->getUser());
 
         $this->_backend->setReadFlag($this->_folderId, $id, $flags);
-
-        return true;
     }
 
     /**
@@ -258,16 +257,15 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a folder change from the wbxml stream
      *
-     * @param string $id            The folder id
-     * @param string $parent        The parent folder id?
-     * @param string $displayname   The folder display name
-     * @param integer $type         The collection type.
+     * @param string $id           The folder id
+     * @param string $displayname  The folder display name
+     * @param string $parent       The parent folder id.
      *
      * @return string|boolean  The new serverid if successful, otherwise false.
      */
     public function importFolderChange($id, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        /* do nothing if it is a dummy folder */
+        // do nothing if it is a dummy folder
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
