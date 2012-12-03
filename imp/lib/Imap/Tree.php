@@ -1052,18 +1052,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function getPollList($sort = false)
     {
-        global $injector, $prefs;
-
-        $this->setIteratorFilter(self::FLIST_NOCONTAINER);
-
-        if ($prefs->getValue('nav_poll_all')) {
-            return iterator_to_array($this);
-        }
-
         $plist = array();
-        foreach ($this as $val) {
+        foreach ($this->_tree as $key => $val) {
             if ($this->isPolled($val)) {
-                $plist[] = $val;
+                $plist[] = $key;
             }
         }
 
@@ -1382,9 +1374,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _convertName($name)
     {
-        return (strcasecmp($name, 'INBOX') == 0)
+        $str = strval($name);
+
+        return ((strlen($str) == 5) && (strcasecmp($str, 'INBOX') == 0))
             ? 'INBOX'
-            : strval($name);
+            : $str;
     }
 
     /**

@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Imp H3 (4.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-09 15:54+0100\n"
+"PO-Revision-Date: 2012-11-30 10:20+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -794,7 +794,7 @@ msgstr "Bijlagen"
 
 #: templates/itip/action.html.php:54
 msgid "Attendees"
-msgstr "Aanwezigen"
+msgstr "Deelnemers"
 
 #: lib/Contents.php:1265
 msgid "Audio part"
@@ -1500,11 +1500,11 @@ msgstr "Verwijder uit mijn agenda"
 
 #: config/prefs.php:1390
 msgid "Delete message"
-msgstr "Verwijderd bericht"
+msgstr "Verwijder bericht"
 
 #: lib/Imap/Acl.php:168
 msgid "Delete messages"
-msgstr "Verwijderde berichten"
+msgstr "Verwijder berichten"
 
 #: config/prefs.php:594
 msgid ""
@@ -2153,7 +2153,7 @@ msgstr "Album"
 #: config/prefs.php:178 config/prefs.php:287 config/prefs.php:305
 #: config/prefs.php:397
 msgid "General"
-msgstr "Algemene opties"
+msgstr "Algemeen"
 
 #: templates/itip/action.html.php:104
 msgid "Go"
@@ -2520,7 +2520,7 @@ msgstr "Links verlopen op %s"
 
 #: lib/Imap/Acl.php:133
 msgid "List"
-msgstr "Groepen"
+msgstr "Lijst"
 
 #: config/prefs.php:967
 msgid ""
@@ -2552,7 +2552,7 @@ msgstr "Locatie"
 
 #: lib/Minimal/Base.php:88
 msgid "Log out"
-msgstr "_Afmelden"
+msgstr "Afmelden"
 
 #: lib/Dynamic/Mailbox.php:471
 msgid "Logging Out..."
@@ -2629,7 +2629,7 @@ msgstr "Beheer bewaarde zoekopdrachten"
 
 #: lib/Imap/Acl.php:145
 msgid "Mark (Other)"
-msgstr "Markeer (Anders)"
+msgstr "Markeer (overig)"
 
 #: lib/Imap/Acl.php:141
 msgid "Mark (Seen)"
@@ -3204,16 +3204,16 @@ msgstr "Extra deelnemer"
 
 #: templates/dynamic/mailbox.html.php:21
 msgid "Other"
-msgstr "Andere"
+msgstr "Overig"
 
 #: templates/dynamic/compose.html.php:65
 #: templates/dynamic/mailbox.html.php:106
 msgid "Other Options"
-msgstr "Andere opties"
+msgstr "Overige opties"
 
 #: lib/Mailbox.php:1574
 msgid "Other Users"
-msgstr "Andere gebruikers"
+msgstr "Overige gebruikers"
 
 #: config/prefs.php:306
 msgid "PGP"
@@ -4251,7 +4251,7 @@ msgstr "Instellen van de X-Priority header bij het maken van berichten?"
 
 #: lib/Imap/Acl.php:156
 msgid "Set permissions for other users"
-msgstr "Rechten instellen voor anderen"
+msgstr "Rechten instellen voor overige gebruikers"
 
 #: config/prefs.php:1226
 msgid "Set preferences for what happens when you move and delete messages."
@@ -5670,16 +5670,12 @@ msgstr "U mag niet meer dan %d mappen maken."
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
-msgstr ""
-"Het is u niet toegestaan om berichten te verzenden aan meer dan %d "
-"ontvangers binnen %d uur."
+msgstr "U mag niet aan meer dan %d ontvangers berichten zenden binnen %d uur."
 
 #: lib/Compose.php:1113
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
-msgstr ""
-"Het is u niet toegestaan om berichten te verzenden aan meer dan %d "
-"ontvangers."
+msgstr "U mag niet aan meer dan %d ontvangers berichten zenden."
 
 #: lib/Message.php:226
 msgid ""

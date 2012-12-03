@@ -53,4 +53,20 @@ class Horde_Imap_Client_Data_Format_Mailbox extends Horde_Imap_Client_Data_Forma
         return $this->_mailbox;
     }
 
+    /**
+     */
+    public function length()
+    {
+        return strlen($this->_mailbox->utf7imap);
+    }
+
+    /**
+     */
+    public function getStream()
+    {
+        $stream = new Horde_Stream_Temp();
+        $stream->add($this->_mailbox->utf7imap);
+        return $stream;
+    }
+
 }

@@ -3698,9 +3698,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         $literal = '';
                     }
 
-                    $stream_ob = $val->getData();
-
-                    $literal_len = $stream_ob->length();
+                    $literal_len = $val->length();
                     $literal .= '{' . $literal_len;
 
                     /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
@@ -3727,7 +3725,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                         }
                     }
 
-                    $this->_writeStream($stream_ob->stream, array_merge($s_opts, array(
+                    $this->_writeStream($val->getStream()->stream, array_merge($s_opts, array(
                         'binary' => $binary,
                         'literal' => $literal_len
                     )));

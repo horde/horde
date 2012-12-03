@@ -61,4 +61,22 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
             : parent::quoted();
     }
 
+    /**
+     */
+    public function length()
+    {
+        return is_null($this->_data)
+            ? 0
+            : parent::length();
+    }
+
+    /**
+     */
+    public function getStream()
+    {
+        return is_null($this->_data)
+            ? new Horde_Stream_Temp()
+            : parent::length();
+    }
+
 }

@@ -368,9 +368,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             if ($oldID != $newID) {
                 $this->_ldap->move($olddn, $newdn);
-                $this->_ldap->modify($newdn, $entry);
+                $this->_ldap->modify($newdn, array('replace' => $entry));
             } else {
-                $this->_ldap->modify($olddn, $entry);
+                $this->_ldap->modify($olddn, array('replace' => $entry));
             }
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));

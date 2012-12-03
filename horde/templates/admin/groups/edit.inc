@@ -27,7 +27,9 @@
  </tr>
 <?php foreach ($users as $user): ?>
  <tr>
-  <td><?php echo Horde::label('remove_' . htmlspecialchars($user), htmlspecialchars($user), '') ?></td>
+  <td><label for="remove_<?php echo htmlspecialchars($user) ?>">
+   <?php echo htmlspecialchars($user) ?>
+  </label></td>
   <?php if (!$groups->readOnly()): ?>
   <td><input type="checkbox" id="remove_<?php echo htmlspecialchars($user) ?>" name="remove[<?php echo htmlspecialchars($user) ?>]" /></td>
   <?php endif; ?>

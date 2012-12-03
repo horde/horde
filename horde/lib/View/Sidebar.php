@@ -55,6 +55,8 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers = array();
         $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
+        $this->left = ($GLOBALS['registry']->nlsconfig->curr_rtl ? 'right:' : 'left:')
+            . $this->width;
 
         $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $pageOutput->addScriptFile('sidebar.js', 'horde');

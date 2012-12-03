@@ -30,14 +30,33 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
     protected $_mailboxlist;
     protected $_specialMailboxlist;
 
+    /**
+     * Return a Horde_Imap_Client
+     *
+     * @return Horde_Imap_Client_Base
+     * @throws Horde_ActiveSync_Exception
+     */
     public function getImapOb()
     {
         if (empty($this->_adapter)) {
-            $this->_adapter = $GLOBALS['registry']->mail->imapOb();
+            try {
+                $this->_adapter = $GLOBALS['registry']->mail->imapOb();
+            } catch (Horde_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
         }
+
         return $this->_adapter;
     }
 
+    /**
+     * Return an array of email folders.
+     *
+     * @param boolean $force  If true, will force a refresh of the folder list.
+     *
+     * @return array  An array of folder information.
+     * @throws Horde_ActiveSync_Exception
+     */
     public function getMailboxes($force = false)
     {
         if (empty($this->_mailboxlist) || $force) {
@@ -55,11 +74,22 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         return $this->_mailboxlist;
     }
 
+    /**
+     * Return a list of the special mailboxes available on this server.
+     *
+     * @return array An array of special mailboxes.
+     * @throws Horde_ActiveSync_Exception
+     */
     public function getSpecialMailboxes()
     {
         if (empty($this->_specialMailboxlist)) {
-            $this->_specialMailboxlist = $GLOBALS['registry']->mail->getSpecialMailboxes();
+            try {
+                $this->_specialMailboxlist = $GLOBALS['registry']->mail->getSpecialMailboxes();
+            } catch (Horde_Exception $e) {
+                throw new Horde_ActiveSync_Exception($e);
+            }
         }
+
         return $this->_specialMailboxlist;
     }
 

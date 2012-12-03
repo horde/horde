@@ -84,11 +84,11 @@ if ($vars->actionID) {
 }
 
 /* Check for duplicate submits. */
-if ($vars->compose_formToken) {
+if ($reload = $vars->compose_formToken) {
     $tokenSource = $injector->getInstance('Horde_Token');
 
     try {
-        if (!$tokenSource->verify($vars->compose_formToken)) {
+        if (!$tokenSource->verify($reload)) {
             $notification->push(_("You have already submitted this page."), 'horde.error');
             $vars->actionID = null;
         }
@@ -105,7 +105,6 @@ $compose_disable = !IMP::canCompose();
 $draft = IMP_Mailbox::getPref('drafts_folder');
 $readonly_drafts = $draft && $draft->readonly;
 
-$save_sent_mail = $vars->save_sent_mail;
 $sent_mail = $identity->getValue('sent_mail_folder');
 if (!$sent_mail) {
     $readonly_sentmail = $save_sent_mail = false;
@@ -114,7 +113,9 @@ if (!$sent_mail) {
     $save_sent_mail = false;
 } else {
     $readonly_sentmail = false;
-    $save_sent_mail = true;
+    $save_sent_mail = $reload
+        ? (bool)$vars->save_sent_mail
+        : true;
 }
 
 /* Initialize the IMP_Compose:: object. */
@@ -659,7 +660,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
-if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
+if (!$reload && ($vars->actionID != 'draft')) {
     $header['bcc'] = strval($identity->getBccAddresses());
 }
 
@@ -682,7 +683,7 @@ if ($prefs->getValue('use_pgp') &&
     !$prefs->isLocked('default_encrypt') &&
     $prefs->getValue('pgp_reply_pubkey')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
-    if (!$vars->compose_formToken &&
+    if (!$reload &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
         $addrs = $imp_compose->recipientList($header);
         if (!empty($addrs['list'])) {
@@ -708,7 +709,7 @@ $js_vars = array(
     'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
     'ImpCompose.popup' => intval($isPopup),
     'ImpCompose.redirect' => intval($redirect),
-    'ImpCompose.reloaded' => intval($vars->compose_formToken),
+    'ImpCompose.reloaded' => intval($reload),
     'ImpCompose.sm_check' => intval(!$prefs->isLocked('sent_mail_folder')),
     'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
     'ImpCompose.text' => array(
@@ -893,13 +894,14 @@ if ($redirect) {
     }
     $view->compose_options = $compose_options;
 
-    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')) {
+    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+        !$prefs->isLocked('save_sent_mail')) {
         $view->ssm = true;
         if ($readonly_sentmail) {
             $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail->display), 'horde.warning'));
         }
-        $view->ssm_selected = $vars->compose_formToken
-            ? ($save_sent_mail == 'on')
+        $view->ssm_selected = $reload
+            ? $save_sent_mail
             : ($sent_mail && $identity->saveSentmail());
         if ($vars->sent_mail) {
             $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
@@ -965,7 +967,7 @@ if ($redirect) {
 
         if ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')) {
             $view->pgp_options = true;
-            $view->pgp_attach_pubkey = isset($vars->pgp_attach_pubkey)
+            $view->pgp_attach_pubkey = $reload
                 ? $vars->pgp_attach_pubkey
                 : $prefs->getValue('pgp_attach_pubkey');
         }
@@ -992,7 +994,7 @@ if ($redirect) {
             $view->show_link_save_attach = true;
             $attach_options = array();
             if ($show_save_attach) {
-                $save_attach_val = isset($vars->save_attachments_select)
+                $save_attach_val = $reload
                     ? $vars->save_attachments_select
                     : ($save_attach == 'always');
                 $attach_options[] = array(

@@ -141,7 +141,9 @@ class Gollem_Application extends Horde_Registry_Application
 
         return array(
             'js_code' => array(),
-            'js_files' => array(array('login.js', 'gollem')),
+            'js_files' => array(array('login.js', 'gollem'),
+                                array('scriptaculous/effects.js', 'horde'),
+                                array('redbox.js', 'horde')),
             'params' => $params
         );
     }

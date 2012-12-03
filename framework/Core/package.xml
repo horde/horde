@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Reset NLS information when changing languages.
 * [jan] Fix downloading files with special characters in Gollem (Bug #11770).
 * [mms] Added Horde_Core_Factory_SpellChecker.
 * [mms] Don&apos;t log backtrace for E_STRICT errors.
@@ -2617,7 +2618,8 @@
    <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [jan] Fix downloading files with special characters in Gollem.
+* [jan] Reset NLS information when changing languages.
+* [jan] Fix downloading files with special characters in Gollem (Bug #11770).
 * [mms] Added Horde_Core_Factory_SpellChecker.
 * [mms] Don&apos;t log backtrace for E_STRICT errors.
    </notes>

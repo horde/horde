@@ -2759,6 +2759,8 @@ class Horde_Registry
             $app,
             $this->get('fileroot', $app) . '/locale'
         );
+
+        $GLOBALS['session']->remove('horde', 'nls/');
     }
 
     /**

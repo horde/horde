@@ -458,6 +458,7 @@ var ImpSearch = {
                 break;
 
             case 'customhdr':
+                this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                 this.criteria[c].v = { h: $F($(c).down('INPUT')), s: $F($(c).down('INPUT', 1)) };
                 data.push(this.criteria[c]);
                 break;

@@ -203,6 +203,7 @@ if ($view->showlist) {
                             htmlspecialchars($backends[$backend_key]['name']));
 }
 
+$page_output->sidebar = false;
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('passwd.js');
 $page_output->addInlineScript(array(

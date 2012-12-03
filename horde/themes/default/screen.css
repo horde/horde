@@ -2315,11 +2315,6 @@ left.horde-point-right {
         border-left-color: #000;
     }
 
-    .download {
-        padding: 2px 2px 2px 0;
-        background-image: none;
-    }
-
     #Growler, #GrowlerLog {
         display: none !important;
     }

@@ -1,5 +1,5 @@
 <div class="horde-subnavi<?php if (!empty($selected)) echo ' horde-subnavi-active' ?>">
- <div class="horde-subnavi-icon" style="background-image:url('<?php echo $icon ?>')"><a class="icon" href=""></a></div>
+ <div class="horde-subnavi-icon" style="background-image:url('<?php echo $icon ?>')"></div>
  <div class="horde-subnavi-point">
 <?php if (!empty($url)): ?>
   <a href="<?php echo $url ?>">

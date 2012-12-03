@@ -10,7 +10,7 @@ msgstr ""
 "Project-Id-Version: Kronolith H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-09 10:58+0100\n"
+"PO-Revision-Date: 2012-11-30 10:34+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -148,7 +148,7 @@ msgstr "%s heeft \"%s\" afgezegd."
 #: lib/Kronolith.php:2121
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
-msgstr "%s heeft \"%s\" afgezegd."
+msgstr "%s heeft een onderdeel van herhalende \"%s\" afgezegd."
 
 #: lib/Kronolith.php:2137
 #, php-format
@@ -195,7 +195,8 @@ msgstr ""
 #: templates/chunks/permissions.inc:2
 #, php-format
 msgid "%sStandard sharing.%s You can also set %sadvanced sharing%s options."
-msgstr "%sStandaard delen.%s You can also set %sadvanced sharing%s options."
+msgstr ""
+"%sStandaard delen.%s U kunt ook %sgeavanceerd delen%s opties instellen."
 
 #: templates/chunks/calendar.php:126
 #, php-format
@@ -856,7 +857,7 @@ msgstr "Verwi_jderen"
 
 #: lib/Kronolith.php:1129
 msgid "Declined"
-msgstr "Afgenomen"
+msgstr "Afgewezen"
 
 #: templates/dynamic/edit.inc:60
 msgid "Default"
@@ -1779,7 +1780,7 @@ msgstr "Nu"
 
 #: templates/chunks/permissions.inc:149 templates/perms/perms.inc:136
 msgid "Object Creator"
-msgstr "Object maker"
+msgstr "Objecteigenaar"
 
 #: templates/edit/edit_timespan.inc:13 templates/edit/edit_timespan.inc:58
 msgid "On"
@@ -2932,7 +2933,8 @@ msgstr "Een fout bij het toevoegen van de gebeurtenis: %s"
 #: config/prefs.php:312
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
-msgstr "Er was een probleem met de communicatie met de ActiveSync server: %s"
+msgstr ""
+"Er is een fout opgetreden bij de communicatie met de ActiveSync server: %s"
 
 #: edit.php:20
 #, php-format
@@ -2941,7 +2943,8 @@ msgstr "Een fout bij het bewerken van de gebeurtenis: %s"
 
 #: lib/Api.php:302 lib/Api.php:650 lib/Api.php:972
 msgid "There was an error importing the iCalendar data."
-msgstr "Een fout bij het importeren van de iCalendardata."
+msgstr ""
+"Er is een fout opgetreden bij het importeren van de iCalendar gegevens."
 
 #: edit.php:213 lib/Ajax/Application/Handler.php:237
 #, php-format

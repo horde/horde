@@ -2872,6 +2872,9 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
+* [mms] Fix NOT criteria for custom header searches (Bug #11802).
+* [mms] Fix saving compose message to draft mailbox when session expires (Bug #11795).
 * [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Bug #11782; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Fix toggling other options in dynamic compose screen.
    </notes>

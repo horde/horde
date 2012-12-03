@@ -15,6 +15,11 @@ v6.1.0-git
 v6.0.3-git
 ----------
 
+[mms] Correctly remember form state when refreshing basic view compose page
+      (Bug #11794).
+[mms] Fix NOT criteria for custom header searches (Bug #11802).
+[mms] Fix saving compose message to draft mailbox when session expires (Bug
+      #11795).
 [mms] Honor 'hide_when_unlimited' option for the quota driver (Bug #11782;
       Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [mms] Fix toggling other options in dynamic compose screen.
