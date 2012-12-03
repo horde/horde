@@ -204,6 +204,13 @@ class Horde_ActiveSync_Message_Base
         throw new BadMethodCallException('Unknown method: ' . $method . ' in class: ' . __CLASS__);
     }
 
+    /**
+     * Magic method.
+     *
+     * @param string $property  The property name to check.
+     *
+     * @return boolean.
+     */
     public function __isset($property)
     {
         return isset($this->_properties[$property]);

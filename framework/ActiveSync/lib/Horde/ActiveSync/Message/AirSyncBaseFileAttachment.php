@@ -33,6 +33,11 @@
  * @copyright 2011-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string contenttype   The content type of the attachment.
+ * @property mixed string|stream  The attachment data.
+ * @property integer total        The total size of the attachment.
+ * @property integer range        @todo
  */
 class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSync_Message_Base
 {

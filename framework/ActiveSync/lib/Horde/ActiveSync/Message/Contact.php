@@ -33,6 +33,72 @@
  * @copyright 2010-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ *          anniversary
+ * @property string     assistantname
+ * @property string     assistnamephonenumber
+ * @property Horde_Date birthday
+ * @property string     business2phonenumber
+ * @property string     businesscity
+ * @property string     businesscountry
+ * @property string     businesspostalcode
+ * @property string     businessstate
+ * @property string     businessstreet
+ * @property string     businessfaxnumber
+ * @property string     businessphonenumber
+ * @property string     carphonenumber
+ * @property array      categories
+ * @property array      children
+ * @property string     companyname
+ * @property string     department
+ * @property string     email1address
+ * @property string     email2address
+ * @property string     email3address
+ * @property string     fileas
+ * @property string     firstname
+ * @property string     home2phonenumber
+ * @property string     homecity
+ * @property string     homecountry
+ * @property string     homepostalcode
+ * @property string     homestate
+ * @property string     homestreet
+ * @property string     homefaxnumber
+ * @property string     homephonenumber
+ * @property string     jobtitle
+ * @property string     lastname
+ * @property string     middlename
+ * @property string     mobilephonenumber
+ * @property string     officelocation
+ * @property string     othercity
+ * @property string     othercountry
+ * @property string     otherpostalcode
+ * @property string     otherstate
+ * @property string     otherstreet
+ * @property string     pagernumber
+ * @property string     radiophonenumber
+ * @property string     spouse
+ * @property string     suffix
+ * @property string     title
+ * @property string     webpage
+ * @property string     yomicompanyname
+ * @property string     yomifirstname
+ * @property string     yomilastname
+ * @property string     picture
+ * @property string     customerid
+ * @property string     governmentid
+ * @property string     imaddress
+ * @property string     imaddress2
+ * @property string     imaddress3
+ * @property string     managername
+ * @property string     companymainphone
+ * @property string     accountname
+ * @property string     nickname
+ * @property string     mms
+ * @property string     body (EAS 2.5 only)
+ * @property integer    bodysize (EAS 2.5 only)
+ * @property integer    bodytruncated (EAS 2.5 only)
+ * @property integer    rtf (EAS 2.5 only)
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody airsyncbasebody (EAS >= 12.0 only)
  */
 class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
 {
@@ -106,6 +172,11 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     const NICKNAME              = "POOMCONTACTS2:NickName";
     const MMS                   = "POOMCONTACTS2:MMS";
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array(
         self::ANNIVERSARY           => array(self::KEY_ATTRIBUTE =>  'anniversary', self::KEY_TYPE => self::TYPE_DATE_DASHES),
         self::ASSISTANTNAME         => array(self::KEY_ATTRIBUTE => 'assistantname'),
@@ -171,6 +242,11 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         self::MMS                   => array(self::KEY_ATTRIBUTE => 'mms'),
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
             'anniversary'           => false,
             'assistantname'         => false,
@@ -275,11 +351,23 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
         }
     }
 
+    /**
+     * Return message type
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'Contacts';
     }
 
+    /**
+     * Check if we should send a specific property even if it's empty.
+     *
+     * @param string $tag  The property tag.
+     *
+     * @return boolean
+     */
     protected function _checkSendEmpty($tag)
     {
         if ($tag == self::BODYTRUNCATED && $this->bodysize > 0) {

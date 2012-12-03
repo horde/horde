@@ -33,11 +33,20 @@
  * @copyright 2009-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string  serverid      Identifier of folder on the backend.
+ * @property string  displayname   Display name for folder.
+ * @property integer type          Foldertype (Horde_Activesync:: constant).
  */
 class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
 {
     public $parentid = false;
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array (
         Horde_ActiveSync::FOLDERHIERARCHY_SERVERENTRYID => array (self::KEY_ATTRIBUTE => 'serverid'),
         Horde_ActiveSync::FOLDERHIERARCHY_PARENTID      => array (self::KEY_ATTRIBUTE => 'parentid'),
@@ -45,12 +54,22 @@ class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
         Horde_ActiveSync::FOLDERHIERARCHY_TYPE          => array (self::KEY_ATTRIBUTE => 'type')
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'serverid'    => false,
         'displayname' => false,
         'type'        => false,
     );
 
+    /**
+     * Get message type.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'Folders';

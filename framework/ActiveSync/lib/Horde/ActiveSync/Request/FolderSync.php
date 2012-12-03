@@ -331,6 +331,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
     /**
      * Helper function for sending error responses
      *
+     * @param Exception $e  The exception.
      */
     private function _handleError($e = null)
     {

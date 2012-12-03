@@ -33,9 +33,29 @@
  * @copyright 2010-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property mixed string|Horde_Date timezone
+ * @property Horde_Date              dtstamp
+ * @property Horde_Date              starttime
+ * @property string                  subject
+ * @property string                  organizername
+ * @property string                  location
+ * @property Horde_Date              endtime
+ * @property integer                 sensitivity
+ * @property integer                 busystatus
+ * @property integer                 alldayevent
+ * @property integer                 reminder
+ * @property integer                 meetingstatus
+ * @property Horde_Date              exceptionstarttime
+ * @property integer                 deleted
  */
 class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appointment
 {
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array(
         Horde_ActiveSync_Message_Appointment::POOMCAL_TIMEZONE           => array(self::KEY_ATTRIBUTE => 'timezone'),
         Horde_ActiveSync_Message_Appointment::POOMCAL_DTSTAMP            => array(self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
@@ -55,6 +75,11 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         Horde_ActiveSync_Message_Appointment::POOMCAL_DELETED            => array(self::KEY_ATTRIBUTE => 'deleted'),
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'timezone'           => false,
         'dtstamp'            => false,
@@ -96,6 +121,11 @@ class Horde_ActiveSync_Message_Exception extends Horde_ActiveSync_Message_Appoin
         return $this->_getAttribute('exceptionstarttime');
     }
 
+    /**
+     * Set the exceptionStartTime value.
+     *
+     * @param Horde_Date $date  The exceptionStartTime.
+     */
     public function setExceptionStartTime($date)
     {
         $this->exceptionstarttime = $date;

@@ -107,6 +107,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const RESPONSE_DECLINED          = 4;
     const RESPONSE_NORESPONSE        = 5;
 
+    /**
+     * DOW mapping for DATE to MASK
+     *
+     * @var array
+     */
     protected $_dayOfWeekMap = array(
         Horde_Date::DATE_SUNDAY    => Horde_Date::MASK_SUNDAY,
         Horde_Date::DATE_MONDAY    => Horde_Date::MASK_MONDAY,
@@ -117,6 +122,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         Horde_Date::DATE_SATURDAY  => Horde_Date::MASK_SATURDAY,
     );
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array(
         self::POOMCAL_TIMEZONE       => array (self::KEY_ATTRIBUTE => 'timezone'),
         self::POOMCAL_DTSTAMP        => array (self::KEY_ATTRIBUTE => 'dtstamp', self::KEY_TYPE => self::TYPE_DATE),
@@ -139,6 +149,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'alldayevent'    => false,
         'attendees'      => array(),
@@ -232,7 +247,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set the appointment's modify timestamp
      *
-     * @param mixed $timestamp  Horde_Date or a unix timestamp
+     * @param mixed Horde_Date|integer $date  The date to set.
      */
     public function setDTStamp($date)
     {
@@ -255,7 +270,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set the appointment time/duration.
      *
-     * @param array $timestamp  An array containing:
+     * @param array $datetime  An array containing:
      *   - start: (Horde_Date) The start time.
      *   - end: (Horde_Date) The end time. If omitted, must include duration or
      *                       allday.
@@ -551,6 +566,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Return the exceptions for this appointment.
      *
      * @return array  An array of Horde_ActiveSync_Message_Exception objects
      */
@@ -635,6 +651,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Get the reminder time.
      *
      * @return integer  Number of minutes before appointment for notifications.
      */
@@ -656,6 +673,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     }
 
     /**
+     * Return the meeting status for this meeting.
      *
      * @return integer A MEETING_* constant
      */
@@ -715,6 +733,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         $this->_properties['categories'][] = $category;
     }
 
+    /**
+     * Return this appointments tags/categories.
+     *
+     * @return array
+     */
     public function getCategories()
     {
         return $this->_properties['categories'];
