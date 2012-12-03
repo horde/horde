@@ -1107,10 +1107,18 @@ class Horde_ActiveSync_Imap_Adapter
      * is not yet authenticated at the time of object creation.
      *
      * @return Horde_Imap_Client_Base
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _getImapOb()
     {
-        return $this->_imap->getImapOb();
+        try {
+            return $this->_imap->getImapOb();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err(sprintf(
+                "EMERGENCY - Unable to obtain the IMAP Client: %s",
+                $e->getTraceAsString()));
+            throw $e;
+        }
     }
 
 }
