@@ -35,7 +35,8 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Caches the current state(s) in memory
      *
-     * @var Horde_ActiveSync_Folder_Base
+     * @var mixed Horde_ActiveSync_Folder_Base if request is not a FOLDERSYNC
+     *            otherwise an array containing all FOLDERSYNC state.
      */
     protected $_folder;
 
