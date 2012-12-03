@@ -379,13 +379,17 @@ class Horde_Mail_Rfc822
     {
         $ob = new Horde_Mail_Rfc822_Address();
         $ob->mailbox = $this->_parseLocalPart();
-        if (!is_null($this->_params['default_domain'])) {
-            $this->host = $this->_params['default_domain'];
-        }
 
         if ($this->_curr() == '@') {
             $this->_rfc822ParseDomain($host);
-            $ob->host = $host;
+            if (strlen($host)) {
+                $ob->host = $host;
+            }
+        }
+
+        if (is_null($ob->host) &&
+            !is_null($this->_params['default_domain'])) {
+            $ob->host = $this->_params['default_domain'];
         }
 
         return $ob;

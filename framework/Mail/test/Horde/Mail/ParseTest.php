@@ -526,4 +526,27 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testDefaultDomain()
+    {
+        $address = 'foo@example2.com';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example2.com',
+            strval($result)
+        );
+
+        $address = 'foo';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($result)
+        );
+    }
+
 }
