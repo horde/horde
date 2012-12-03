@@ -184,13 +184,13 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $changes = true;
                     break;
                 case SYNC_REMOVE:
-                    $serverid = $importer->importFolderDeletion($folder->serverid);
-                    if (($sid = array_search($serverid, $seenfolders)) !== false) {
+                    $importer->importFolderDeletion($folder->serverid);
+                    if (($sid = array_search($folder->serverid, $seenfolders)) !== false) {
                         unset($seenfolders[$sid]);
                         $seenfolders = array_values($seenfolders);
                     }
                     if ($syncCache !== false) {
-                        $syncCache->deleteFolder($folderid);
+                        $syncCache->deleteFolder($folder->serverid);
                     }
                     $changes = true;
                     break;
