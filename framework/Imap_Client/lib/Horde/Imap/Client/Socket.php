@@ -3700,7 +3700,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
                     $stream_ob = $val->getData();
 
-                    $literal_len = $stream_ob->length();
+                    $literal_len = $val->length();
                     $literal .= '{' . $literal_len;
 
                     /* RFC 2088 - If LITERAL+ is available, saves a roundtrip
