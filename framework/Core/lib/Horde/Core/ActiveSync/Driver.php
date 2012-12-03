@@ -381,11 +381,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        try {
-            $this->_imap->deleteMailbox($id);
-        } catch (Horde_ActiveSync_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $this->_imap->deleteMailbox($id);
     }
 
     /**
