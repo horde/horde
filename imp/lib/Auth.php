@@ -359,6 +359,13 @@ class IMP_Auth
             throw new Horde_Exception(_("Could not initialize mail server configuration."));
         }
 
+        /* change the imap password if it doesn't match the auth credential password */
+        /* calling authenticate on authed imp after passwd change triggers this */
+        if ($imp_imap->ob && $imp_imap->ob->getParam('password') != $registry->getAuthCredential('password', 'imp')) {
+            $imp_imap->ob->setParam('password', $registry->getAuthCredential('password', 'imp'));
+            Horde::log('IMAP credential changed', 'debug');
+        }
+
         /* Set the maildomain. */
         $maildomain = $prefs->getValue('mail_domain');
         $session->set('imp', 'maildomain', $maildomain ? $maildomain : (isset($ptr['maildomain']) ? $ptr['maildomain'] : ''));
