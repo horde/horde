@@ -111,12 +111,15 @@ class Nag_Driver_Kolab extends Nag_Driver
             'priority' => $task['priority'],
             'parent' => $task['parent'],
             'alarm' => $task['alarm'],
-            'internaltags' => $task['categories'],
             'completed' => !empty($task['completed']),
             'completed_date' => $task['completed_date'],
             'private' => $task['sensitivity'] != 'public',
             'owner' => $GLOBALS['nag_shares']->getShare($this->_tasklist)->get('owner'),
         );
+
+        if (isset($task['categories'])) {
+            $result['internaltags'] = $task['categories'];
+        }
 
         if (!empty($task['start-date'])) {
             $result['start'] = $task['start-date']->format('U');
