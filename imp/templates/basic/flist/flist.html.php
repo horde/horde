@@ -8,7 +8,7 @@
 
 <?php if ($this->new_mbox): ?>
 <option value="" disabled="disabled">- - - - - - - -</option>
-<option class="flistCreate" value=""><?php echo _("Create New Mailbox") ?></option>
+<option class="flistCreate" value=""><?php echo _("Create Mailbox") ?></option>
 <option value="" disabled="disabled">- - - - - - - -</option>
 <?php endif; ?>
 

@@ -291,7 +291,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $context['ctx_folderopts'] = array(
-                'new' => _("New Mailbox"),
+                'new' => _("Create Mailbox"),
                 'sub' => _("Hide Unsubscribed"),
                 'unsub' => _("Show All Mailboxes"),
                 'expand' => _("Expand All"),
