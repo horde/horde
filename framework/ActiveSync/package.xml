@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix importing message read flag (Bug #11741).
 * [mjr] Fix charset conversion of HTML messages when original body is plaintext (Bug #11745).
 * [mjr] Use integer column for message_uid field for IMAP messages (Bug #11742)
  </notes>
@@ -968,6 +969,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix importing message read flag (Bug #11741).
 * [mjr] Fix charset conversion of HTML messages when original body is plaintext (Bug #11745).
 * [mjr] Use integer column for message_uid field for IMAP messages (Bug #11742)
    </notes>
