@@ -2,6 +2,7 @@
 v6.0.3-git
 ----------
 
+[mms] Fix NOT criteria for custom header searches (Bug #11802).
 [mms] Fix saving compose message to draft mailbox when session expires (Bug
       #11795).
 [mms] Honor 'hide_when_unlimited' option for the quota driver (Bug #11782;
