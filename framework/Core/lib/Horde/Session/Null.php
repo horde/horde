@@ -25,9 +25,11 @@ class Horde_Session_Null extends Horde_Session
      */
     public function __construct()
     {
-        // We must start a session to ensure that session_id() is available.
-        // Places such as Horde_Secret use it as an encryption key.
+        // We must start a session to ensure that session_id() is available,
+        // but since we don't actually need to write to it, close it at once
+        // to avoid session lock issues.
         session_start();
+        session_write_close();
     }
 
     /**
