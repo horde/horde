@@ -208,10 +208,10 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a change in 'read' flags. This can never conflict.
      *
-     * @param integer $id    Server message id (The IMAP UID).
-     * @param string $flags  The read flags to set
+     * @param integer $id   Server message id (The IMAP UID).
+     * @param string $flag  The state of the /seen flag
      */
-    public function importMessageReadFlag($id, $flags)
+    public function importMessageReadFlag($id, $flag)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return;
@@ -219,7 +219,7 @@ class Horde_ActiveSync_Connector_Importer
 
         $change = array();
         $change['id'] = $id;
-        $change['flags'] = $flags;
+        $change['flags'] = array('read' => $flags);
         $change['parent'] = $this->_folderId;
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_FLAGS,
