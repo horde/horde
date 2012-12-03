@@ -154,7 +154,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 ->getInstance('Horde_Perms')
                 ->getPermissions('horde:activesync', $username);
 
-            return $this->_getPolicyValue('activesync', $perms);
+            if (!$this->_getPolicyValue('activesync', $perms)) {
+                $this->_logger->debug(sprintf(
+                    "Access denied for user %s per policy settings.",
+                    $username)
+                );
+                return false;
+            }
         }
 
         return true;
