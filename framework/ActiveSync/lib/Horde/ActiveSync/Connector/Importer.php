@@ -291,30 +291,21 @@ class Horde_ActiveSync_Connector_Importer
      * Imports a folder deletion from the PIM
      *
      * @param string $id      The folder id
-     * @param string $parent  The folder id of the parent folder
-     *
-     * @return boolean
+     * @param string $parent  The folder id of the parent folder.
      */
     public function importFolderDeletion($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         /* Do nothing if it is a dummy folder */
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return false;
+            return;
         }
-
         $change = array();
         $change['id'] = $id;
-        try {
-            $this->_backend->deleteFolder($id, $parent);
-        } catch (Horde_Exception $e) {
-            return false;
-        }
+        $this->_backend->deleteFolder($id, $parent);
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_DELETE,
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_NA);
-
-        return true;
     }
 
     /**
