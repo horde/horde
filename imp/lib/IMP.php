@@ -231,7 +231,7 @@ class IMP
     static public function getComposeArgs(Horde_Variables $vars)
     {
         $args = array();
-        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
+        $fields = array('to', 'cc', 'bcc', 'body', 'subject');
 
         foreach ($fields as $val) {
             if (isset($vars->$val)) {
