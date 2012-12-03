@@ -52,6 +52,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         Horde_ActiveSync::AIRSYNCBASE_DATA              => array (self::KEY_ATTRIBUTE => '_data'),
     );
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'attmethod'       => false,
         'attsize'         => false,
@@ -64,6 +69,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         '_data'           => false
     );
 
+    /**
+     * Return the type of message.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'AirSyncBaseAttachment';

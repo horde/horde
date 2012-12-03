@@ -388,8 +388,8 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Delete a message
      *
-     * @param string $folderId  Folder id
-     * @param array $ids        Message ids
+     * @param string $folderid  The folder id containing the messages.
+     * @param array $ids        An array of message ids to delete.
      */
     abstract public function deleteMessage($folderid, array $ids);
 
@@ -422,10 +422,10 @@ abstract class Horde_ActiveSync_Driver_Base
      * Set the read (\seen) flag on the specified message.
      *
      * @param string $folderid  The folder id containing the message.
-     * @param string $uid       The message uid.
+     * @param integer $uid      The message IMAP UID.
      * @param integer $flag     The value to set the flag to.
      */
-    abstract public function setReadFlag($folderid, $id, $flags);
+    abstract public function setReadFlag($folderid, $uid, $flag);
 
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
@@ -472,13 +472,13 @@ abstract class Horde_ActiveSync_Driver_Base
      * Returnmail object represented by the specified longid. Used to fetch
      * email objects from a search result, which only returns a 'longid'.
      *
-     * @param string $longid   The unique search result identifier.
-     * @param array $bodypref  The bodypreference array.
-     * @param boolean $mime    Mimesupport flag.
+     * @param string $longid        The unique search result identifier.
+     * @param array $bodyprefs      The bodypreference array.
+     * @param boolean $mimesupport  Mimesupport flag.
      *
      * @return Horde_ActiveSync_Message_Base  The message requested.
      */
-    abstract public function itemOperationsFetchMailbox($searchlongid, array $bodypreference, $mimesupport);
+    abstract public function itemOperationsFetchMailbox($longid, array $bodyprefs, $mimesupport);
 
     /**
      * Return a documentlibrary item.
@@ -494,6 +494,9 @@ abstract class Horde_ActiveSync_Driver_Base
 
     /**
      * Build a stat structure for an email message.
+     *
+     * @param string $folderid   The mailbox name.
+     * @param integer|array $id  The message(s) to stat (IMAP UIDs).
      *
      * @return array
      */
@@ -518,10 +521,10 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return settings from the backend for a SETTINGS request.
      *
-     * @param array $settings  An array of settings to return.
-     * @param stdClass $devId  The device to obtain settings for.
+     * @param array $settings   An array of settings to return.
+     * @param stdClass $device  The device to obtain settings for.
      *
-     * @return array  The requested settigns.
+     * @return array  The requested settings.
      */
     abstract public function getSettings(array $settings, $device);
 
@@ -590,6 +593,13 @@ abstract class Horde_ActiveSync_Driver_Base
 
     /**
      * Request freebusy information from the server
+     *
+     * @param string $user    The user to request FB information for.
+     * @param array $options  Options.
+     *
+     * @return mixed boolean|array  The FB information, if available. Otherwise
+     *                              false.
      */
     abstract public function getFreebusy($user, array $options = array());
+
 }

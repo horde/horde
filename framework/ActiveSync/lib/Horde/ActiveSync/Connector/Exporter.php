@@ -148,8 +148,8 @@ class Horde_ActiveSync_Connector_Exporter
     /**
      * Change a message's READ flag.
      *
-     * @param string $id      The uid
-     * @param integer $flags  The flag
+     * @param integer $id    The IMAP UID of the message.
+     * @param integer $flag  The flag.
      */
     public function messageReadFlag($id, $flag)
     {
@@ -171,6 +171,12 @@ class Horde_ActiveSync_Connector_Exporter
         $this->_encoder->endTag();
     }
 
+    /**
+     * Output a POOMMAIL_FLAG change.
+     *
+     * @param integer $id    The IMAP UID of the message.
+     * @param integer $flag  The flag value (1 == FLAG_STATUS_ACTIVE).
+     */
     public function messageFlag($id, $flag)
     {
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);

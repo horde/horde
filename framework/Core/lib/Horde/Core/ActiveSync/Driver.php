@@ -750,22 +750,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * longid. Used to fetch email objects from a search result, which only
      * returns a 'longid'.
      *
-     * @param string $searchlongid   The unique search result identifier.
-     * @param array $bodypreference  The bodypreference array.
+     * @param string $longid         The unique search result identifier.
+     * @param array $bodyprefs        The bodypreference array.
      * @param boolean $mimesupport   Mimesupport flag.
      *
      * @return Horde_ActiveSync_Message_Base  The message requested.
      */
-    public function itemOperationsFetchMailbox($searchlongid,
-                                               array $bodypreference,
-                                               $mimesupport)
+    public function itemOperationsFetchMailbox(
+        $longid, array $bodyprefs, $mimesupport)
     {
-        list($mailbox, $uid) = explode(':', $searchlongid);
+        list($mailbox, $uid) = explode(':', $longid);
         return $this->getMessage(
             $mailbox,
             $uid,
             array(
-                'bodyprefs' => $bodypreference,
+                'bodyprefs' => $bodyprefs,
                 'mimesupport' => $mimesupport)
         );
     }
@@ -1362,7 +1361,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Build a stat structure for an email message.
      *
      * @param string $folderid   The mailbox name.
-     * @param integer|array $id  The message(s) to stat
+     * @param integer|array $id  The message(s) to stat (IMAP UIDs).
      *
      * @return array
      */
@@ -1411,7 +1410,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param stdClass $device  The device to obtain settings for.
      *
-     * @return array  The requested settigns.
+     * @return array  The requested settings.
      */
     public function getSettings(array $settings, $device)
     {
