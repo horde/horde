@@ -13,8 +13,8 @@
  <date>2012-11-28</date>
  <time>01:06:49</time>
  <version>
-  <release>2.2.4</release>
-  <api>2.2.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
 * [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
  </notes>
@@ -1376,14 +1377,15 @@
   </release>
   <release>
    <version>
-    <release>2.2.4</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
 * [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
    </notes>

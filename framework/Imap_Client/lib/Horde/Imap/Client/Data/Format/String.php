@@ -194,4 +194,16 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
         return $this->_data->length();
     }
 
+    /**
+     * Return the contents of the string as a stream object.
+     *
+     * @since 2.3.0
+     *
+     * @return Horde_Stream  The stream object.
+     */
+    public function getStream()
+    {
+        return $this->_data;
+    }
+
 }
