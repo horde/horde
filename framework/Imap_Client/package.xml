@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-28</date>
- <time>01:06:49</time>
+ <date>2012-12-03</date>
+ <time>20:40:29</time>
  <version>
   <release>2.3.0</release>
   <api>2.3.0</api>
@@ -1383,7 +1383,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-28</date>
+   <date>2012-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix sending literal mailbox data to an IMAP server (Bug #11800).
