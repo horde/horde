@@ -219,7 +219,7 @@ class Horde_ActiveSync_Connector_Importer
 
         $change = array();
         $change['id'] = $id;
-        $change['flags'] = array('read' => $flags);
+        $change['flags'] = array('read' => $flag);
         $change['parent'] = $this->_folderId;
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_FLAGS,
@@ -227,7 +227,7 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser());
 
-        $this->_backend->setReadFlag($this->_folderId, $id, $flags);
+        $this->_backend->setReadFlag($this->_folderId, $id, $flag);
     }
 
     /**
