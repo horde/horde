@@ -35,25 +35,4 @@ class Kronolith_Hooks
        }
    }
 
-   public function prefs_change($pref)
-   {
-       switch ($pref) {
-       case 'default_share':
-           $value = $GLOBALS['prefs']->getValue('default_share');
-           $calendars = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
-               ->create()
-               ->listShares(
-                   $GLOBALS['registry']->getAuth(),
-                   array('perm' => Horde_Perms::SHOW,
-                         'attributes' => $GLOBALS['registry']->getAuth()));
-           foreach ($calendars as $id => $calendar) {
-               if ($id == $value) {
-                   $calendar->set('default', true);
-                   $calendar->save();
-                   break;
-               }
-           }
-           break;
-       }
-   }
 }

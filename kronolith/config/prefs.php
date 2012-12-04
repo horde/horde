@@ -247,6 +247,9 @@ $_prefs['default_share'] = array(
         $ui->prefs['default_share']['enum'] = $enum;
     },
     'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_share'));
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         $haveDefault = false;
         $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);

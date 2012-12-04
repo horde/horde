@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Mark Kolab folder as default when changing default notepad preference.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -965,7 +965,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Mark Kolab folder as default when changing default notepad preference.
    </notes>
   </release>
  </changelog>

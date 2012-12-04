@@ -2750,6 +2750,15 @@ class Turba_Driver implements Countable
     }
 
     /**
+     * Runs any actions after setting a new default tasklist.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+    }
+
+    /**
      * Creates an object key for a new object.
      *
      * @param array $attributes  The attributes (in driver keys) of the

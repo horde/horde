@@ -64,6 +64,15 @@ abstract class Kronolith_Calendars_Base
     }
 
     /**
+     * Runs any actions after setting a new default tasklist.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+    }
+
+    /**
      * Return the name of the default share.
      *
      * @return string The name of a default share.

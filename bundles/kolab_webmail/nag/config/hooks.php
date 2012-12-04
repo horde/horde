@@ -34,26 +34,4 @@ class Nag_Hooks
            return $primary;
        }
    }
-
-   public function prefs_change($pref)
-   {
-       switch ($pref) {
-       case 'default_tasklist':
-           $value = $GLOBALS['prefs']->getValue('default_tasklist');
-           $tasklists = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
-               ->create()
-               ->listShares(
-                   $GLOBALS['registry']->getAuth(),
-                   array('perm' => Horde_Perms::SHOW,
-                         'attributes' => $GLOBALS['registry']->getAuth()));
-           foreach ($tasklists as $id => $tasklist) {
-               if ($id == $value) {
-                   $tasklist->set('default', true);
-                   $tasklist->save();
-                   break;
-               }
-           }
-           break;
-       }
-   }
 }

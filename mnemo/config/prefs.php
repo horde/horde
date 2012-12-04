@@ -85,6 +85,11 @@ $_prefs['default_notepad'] = array(
         }
         $ui->prefs['default_notepad']['enum'] = $enum;
     },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_notepad'));
+    },
 );
 
 // store the notepads to diplay

@@ -848,4 +848,25 @@ class Turba_Driver_Kolab extends Turba_Driver
             ? $params['default']
             : false;
     }
+
+    /**
+     * Runs any actions after setting a new default notepad.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+           $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')
+               ->listShares(
+                   $GLOBALS['registry']->getAuth(),
+                   array('perm' => Horde_Perms::SHOW,
+                         'attributes' => $GLOBALS['registry']->getAuth()));
+           foreach ($addressbooks as $id => $addressbook) {
+               if ($id == $share) {
+                   $addressbook->set('default', true);
+                   $addressbook->save();
+                   break;
+               }
+           }
+    }
 }
