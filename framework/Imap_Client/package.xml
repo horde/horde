@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-12-03</date>
- <time>20:40:29</time>
+ <time>20:41:56</time>
  <version>
-  <release>2.3.0</release>
+  <release>2.3.1</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix sending literal mailbox data to an IMAP server (Bug #11800).
-* [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
-* [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1390,6 +1387,19 @@
 * [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
 * [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-03</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
