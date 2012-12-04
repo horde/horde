@@ -247,9 +247,9 @@ class Horde_Mail_Rfc822
 
         while (($this->_curr() !== false) &&
                (is_null($limit) || ($limit-- > 0))) {
-           try {
+            try {
                 $this->_parseAddress();
-           } catch (Horde_Mail_Exception $e) {
+            } catch (Horde_Mail_Exception $e) {
                if ($this->_params['validate']) {
                    throw $e;
                }
