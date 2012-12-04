@@ -27,7 +27,7 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_EventDate_V1
-extends Horde_Kolab_Format_Xml_Type_DateTime_V1
+extends Horde_Kolab_Format_Xml_Type_Date_V1
 {
     /**
      * Indicate which value type is expected.

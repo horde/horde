@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>15:00:51</time>
+ <date>2012-12-04</date>
+ <time>12:42:45</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Correctly format all-day events (Bug #11767).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -96,6 +96,9 @@
          <dir name="EventDate">
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/EventDate -->
+         <dir name="EventDateTime">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/EventDateTime -->
          <dir name="Multiple">
           <file name="Address.php" role="php" />
           <file name="Attendee.php" role="php" />
@@ -127,6 +130,7 @@
          <file name="Date.php" role="php" />
          <file name="DateTime.php" role="php" />
          <file name="EventDate.php" role="php" />
+         <file name="EventDateTime.php" role="php" />
          <file name="Integer.php" role="php" />
          <file name="ModificationDate.php" role="php" />
          <file name="Multiple.php" role="php" />
@@ -340,6 +344,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Date.php" name="lib/Horde/Kolab/Format/Xml/Type/Date.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime.php" />
    <install as="Horde/Kolab/Format/Xml/Type/EventDate.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDate.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/EventDateTime.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDateTime.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Integer.php" name="lib/Horde/Kolab/Format/Xml/Type/Integer.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple.php" />
@@ -371,6 +376,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Date/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/Date/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/EventDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDate/V1.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/EventDateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDateTime/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Address.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" />
@@ -673,10 +679,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-12-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Correctly format all-day events (Bug #11767).
    </notes>
   </release>
  </changelog>
