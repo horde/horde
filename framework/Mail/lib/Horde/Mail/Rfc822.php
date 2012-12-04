@@ -145,9 +145,12 @@ class Horde_Mail_Rfc822
             return $address;
         }
 
+        if (empty($params['limit'])) {
+            $params['limit'] = null;
+        }
+
         $this->_params = array_merge(array(
             'default_domain' => null,
-            'limit' => 0,
             'validate' => false
         ), $params);
 
@@ -240,9 +243,7 @@ class Horde_Mail_Rfc822
      */
     protected function _parseAddressList()
     {
-        $limit = empty($this->_params['limit'])
-            ? null
-            : $this->_params['limit'];
+        $limit = $this->_params['limit'];
 
         while (($this->_curr() !== false) &&
                (is_null($limit) || ($limit-- > 0))) {
