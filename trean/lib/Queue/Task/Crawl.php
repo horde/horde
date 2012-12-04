@@ -67,7 +67,6 @@ class Trean_Queue_Task_Crawl implements Horde_Queue_Task
             return;
         }
 
-        // @TODO don't index the content unless we got some
         if ($body && $page->code == 200) {
             // submit text to ElasticSearch, under $userId's index
             try {

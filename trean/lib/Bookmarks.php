@@ -146,15 +146,8 @@ class Trean_Bookmarks
      *
      * @param Trean_Bookmark $bookmark  The bookmark to remove.
      */
-    public function removeBookmark($bookmark)
+    public function removeBookmark(Trean_Bookmark $bookmark)
     {
-        /* Make sure $bookmark is a Trean_Bookmark; if not, try
-         * loading it. */
-        //@TODO is this really called this way?
-        if (!is_a($bookmark, 'Trean_Bookmark')) {
-            $bookmark = $this->getBookmark($bookmark);
-        }
-
         /* Check permissions. */
         if ($bookmark->userId != $this->_userId) {
             throw new Trean_Exception('permission denied');

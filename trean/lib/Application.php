@@ -37,8 +37,8 @@ class Trean_Application extends Horde_Registry_Application
 
     /**
      * Global variables defined:
-     * - $trean_db:      TODO
-     * - $trean_gateway: TODO
+     * - $trean_db:      Horde_Db object
+     * - $trean_gateway: Trean_Bookmarks object
      */
     protected function _init()
     {
