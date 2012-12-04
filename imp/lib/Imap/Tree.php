@@ -44,6 +44,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     const ELT_VFOLDER = 128;
     const ELT_NONIMAP = 256;
     const ELT_INVISIBLE = 512;
+    const ELT_NOT_POLLED = 1024;
 
     /* The isOpen() expanded mode constants. */
     const OPEN_NONE = 0;
@@ -1203,13 +1204,23 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         $elt = $this->getElement($in);
 
-        if ($this->isNonImapElt($in) || $this->isContainer($in)) {
+        if ($elt) {
+            if ($elt['a'] & self::ELT_IS_POLLED) {
+                return true;
+            } elseif ($elt['a'] & self::ELT_NOT_POLLED) {
+                return false;
+            }
+        }
+
+        if ($this->isNonImapElt($elt) ||
+            $this->isContainer($elt) ||
+            !$GLOBALS['prefs']->getValue('nav_poll_all')) {
+            $this->_setAttribute($elt, self::ELT_NOT_POLLED, true);
             return false;
         }
 
-        return $GLOBALS['prefs']->getValue('nav_poll_all')
-            ? true
-            : ($elt && ($elt['a'] & self::ELT_IS_POLLED));
+        $this->_setPolled($elt, true);
+        return true;
     }
 
     /**
