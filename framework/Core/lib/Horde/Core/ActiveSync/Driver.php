@@ -1071,7 +1071,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             foreach (array('To', 'Cc') as $header) {
                $recipients->add($headers->getOb($header));
             }
-            $h_array = $headers->toArray();
+            $h_array = $headers->toArray(array('charset' => 'UTF-8'));
             if (!empty($h_array['Bcc'])) {
                 $recipients->add($headers->getOb('Bcc'));
                 unset($h_array['Bcc']);
@@ -1185,7 +1185,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($headers->getValue('Content-Transfer-Encoding')) {
                     $copy->setTransferEncoding($headers->getValue('Content-Transfer-Encoding'), array('send' => true));
                 }
-                $msg = $copy->toString(array('headers' => $headers->toString(), 'stream' => true));
+                $msg = $copy->toString(array('headers' => $headers->toString(array('charset' => 'UTF-8')), 'stream' => true));
                 $this->_imap->appendMessage($sf, $msg, $flags);
             }
         }
