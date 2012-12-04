@@ -299,13 +299,14 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query)
     {
-        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
-            $fields = array($GLOBALS['conf']['gal']['addressbook'] => array('firstname', 'lastname', 'alias', 'name', 'email'));
+        $gal = $this->contacts_getGal();
+        if (!empty($gal)) {
+            $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
             $opts = array(
                 'fields' => $fields,
                 'matchBegin' => true,
                 'forceSource' => true,
-                'sources' => array($this->contacts_getGal())
+                'sources' => array($gal)
             );
             return $this->_registry->contacts->search($query, $opts);
         }
