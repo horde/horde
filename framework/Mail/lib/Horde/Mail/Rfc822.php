@@ -310,7 +310,7 @@ class Horde_Mail_Rfc822
 
         while (($chr = $this->_curr()) !== false) {
             if ($chr == ';') {
-                $this->_curr(true);
+                ++$this->_ptr;
 
                 if (count($addresses)) {
                     $this->_listob->add(new Horde_Mail_Rfc822_Group($groupname, $addresses));
@@ -485,7 +485,7 @@ class Horde_Mail_Rfc822
             if ($this->_curr() != ',') {
                 return $route;
             }
-            $this->_curr(true);
+            ++$this->_ptr;
         }
 
         throw new Horde_Mail_Exception('Invalid domain list.');
@@ -590,7 +590,7 @@ class Horde_Mail_Rfc822
         while (($chr = $this->_curr()) !== false) {
             if ($this->_rfc822IsAtext($chr, $validate)) {
                 $str .= $chr;
-                $this->_curr(true);
+                ++$this->_ptr;
             } else {
                 $this->_rfc822SkipLwsp();
 
@@ -626,7 +626,7 @@ class Horde_Mail_Rfc822
             }
 
             $str .= $chr;
-            $this->_curr(true);
+            ++$this->_ptr;
         }
     }
 
@@ -699,7 +699,7 @@ class Horde_Mail_Rfc822
     protected function _rfc822SkipLwsp($advance = false)
     {
         if ($advance) {
-            $this->_curr(true);
+            ++$this->_ptr;
         }
 
         while (($chr = $this->_curr()) !== false) {
@@ -708,7 +708,7 @@ class Horde_Mail_Rfc822
             case "\n":
             case "\r":
             case "\t":
-                $this->_curr(true);
+                ++$this->_ptr;
                 continue;
 
             case '(':
