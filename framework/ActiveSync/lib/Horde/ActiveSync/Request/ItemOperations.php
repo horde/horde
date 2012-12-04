@@ -273,6 +273,9 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
             : 'application/vnd.ms-sync.wbxml';
     }
 
+    /**
+     * Helper to send the status output.
+     */
     protected function _outputStatus()
     {
         $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
@@ -280,6 +283,13 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         $this->_encoder->endTag();
     }
 
+    /**
+     * Return the size of the specified data.
+     *
+     * @param string|stream  The data to obtain the size of.
+     *
+     * @return integer  The size of the data.
+     */
     protected function _getDataSize($data)
     {
         if (is_resource($data)) {
