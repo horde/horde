@@ -271,7 +271,7 @@ class Horde_ActiveSync_Connector_Importer
         }
         try {
             $change_res = $this->_backend->changeFolder($id, $displayname, $parent);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_ActiveSync_Exception $e) {
             return false;
         }
         $change = array();
