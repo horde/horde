@@ -233,10 +233,19 @@ class Mnemo
      */
     public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
-        $default_notepad = $GLOBALS['prefs']->getValue('default_notepad');
         $notepads = self::listNotepads(false, $permission);
 
+        $default_notepad = $GLOBALS['prefs']->getValue('default_notepad');
         if (isset($notepads[$default_notepad])) {
+            return $default_notepad;
+        }
+
+        $default_notepad = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->getDefaultShare();
+        if (isset($notepads[$default_notepad])) {
+            $GLOBALS['prefs']->setValue('default_notepad', $default_notepad);
             return $default_notepad;
         }
 

@@ -514,10 +514,19 @@ class Nag
      */
     static public function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
-        $default_tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
         $tasklists = self::listTasklists(false, $permission);
 
+        $default_tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
         if (isset($tasklists[$default_tasklist])) {
+            return $default_tasklist;
+        }
+
+        $default_tasklist = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Tasklists')
+            ->create()
+            ->getDefaultShare();
+        if (isset($tasklists[$default_tasklist])) {
+            $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
             return $default_tasklist;
         }
 

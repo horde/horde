@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Use default Kolab folder for default calendar preference.
 [jan] Mark Kolab folder as default when changing default calendar preference.
 [jan] Defer navigation in dynamic view until environment has been initialized.
 [jan] Fix receiving resource calendars in dynamic view (Bug #11776).

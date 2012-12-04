@@ -64,6 +64,25 @@ abstract class Kronolith_Calendars_Base
     }
 
     /**
+     * Returns the default share's ID, if it can be determined from the share
+     * backend.
+     *
+     * @return string  The default share ID.
+     */
+    public function getDefaultShare()
+    {
+        $shares = $this->_shares->listShares(
+            $this->_user,
+            array('attributes' => $this->_user)
+        );
+        foreach ($shares as $id => $share) {
+            if ($share->get('default')) {
+                return $id;
+            }
+        }
+    }
+
+    /**
      * Runs any actions after setting a new default tasklist.
      *
      * @param string $share  The default share ID.
