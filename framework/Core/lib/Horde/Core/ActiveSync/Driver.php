@@ -1084,7 +1084,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-                $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
+                $mailer->send($recipients->writeAddress(array('encode' => true)), $h_array, $raw_message->getMessage());
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
