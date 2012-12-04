@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
 * [mms] Fix NOT criteria for custom header searches (Bug #11802).
 * [mms] Fix saving compose message to draft mailbox when session expires (Bug #11795).
@@ -2871,6 +2872,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
 * [mms] Fix NOT criteria for custom header searches (Bug #11802).
 * [mms] Fix saving compose message to draft mailbox when session expires (Bug #11795).

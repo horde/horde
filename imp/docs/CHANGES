@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
 [mms] Correctly remember form state when refreshing basic view compose page
       (Bug #11794).
 [mms] Fix NOT criteria for custom header searches (Bug #11802).

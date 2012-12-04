@@ -2,6 +2,8 @@
 v4.0.2-git
 ----------
 
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
 [jan] Mark Kolab folder as default when changing default address book
       preference.
 
