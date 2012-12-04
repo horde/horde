@@ -320,7 +320,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
-            throw new Horde_Exception('Folder ' . $id . ' unknown');
+            throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
         }
 
         return $folder;
@@ -363,11 +363,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_imap->createMailbox($displayname);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             $this->_logger->err('Renaming IMAP folders not supported.');
-            throw Horde_Exception('Renaming not supported.');
+            throw new Horde_ActiveSync_Exception('Renaming not supported.');
         }
 
         return $displayname;
@@ -883,7 +883,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
             $this->_endBuffer();
-            throw new Horde_Exception('Not supported');
+            throw new Horde_ActiveSync_Exception('Not supported');
         default:
             $move_res = $this->_imap->moveMessage($folderid, $ids, $newfolderid);
         }
@@ -1049,6 +1049,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param boolean $save     Save in sent messages.
      *
      * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
     public function sendMail(
         $rfc822, $forward = null, $reply = null, $parent = null, $save = true)
@@ -1086,7 +1087,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             $message = $raw_message->getMimeObject();
@@ -1172,7 +1173,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         }
 
