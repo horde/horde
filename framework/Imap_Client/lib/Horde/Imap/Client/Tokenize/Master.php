@@ -103,8 +103,6 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
      */
     public function next()
     {
-        while ($this->_sub && ($this->parseStream() !== false)) {}
-
         $this->_current = $this->parseStream();
         $this->_key = ($this->_current === false)
             ? false
@@ -131,7 +129,23 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
      *
      * @return mixed  Either a string, array, true, false, or null.
      */
-    public function parseStream($level = 1)
+    public function parseStream($level = 0)
+    {
+        while (($this->_sub > $level) &&
+               ($this->_parseStream($level) !== false)) {
+            // No-op
+        }
+        return $this->_parseStream($level);
+    }
+
+    /**
+     * Returns the next token and increments the internal stream pointer.
+     *
+     * @param integer $level  Sublevel to return.
+     *
+     * @return mixed  Either a string, array, true, false, or null.
+     */
+    protected function _parseStream($level)
     {
         $in_quote = false;
         $stream = $this->stream->stream;
