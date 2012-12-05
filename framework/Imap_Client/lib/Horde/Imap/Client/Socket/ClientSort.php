@@ -198,9 +198,9 @@ class Horde_Imap_Client_Socket_ClientSort
                             $sorted[$num] = null;
                         } else {
                             $addr_ob = reset($env->$field);
-                            $sorted[$num] = empty($addr_ob['personal'])
-                                ? $addr_ob['mailbox']
-                                : $addr_ob['personal'];
+                            if (is_null($sorted[$num] = $addr_ob->personal)) {
+                                $sorted[$num] = $addr_ob->mailbox;
+                            }
                         }
                     }
 
@@ -220,9 +220,9 @@ class Horde_Imap_Client_Socket_ClientSort
 
                     foreach ($slice as $num) {
                         $tmp = $fetch_res[$num]->getEnvelope()->$field;
-                        $sorted[$num] = empty($tmp)
-                            ? null
-                            : $tmp[0]['mailbox'];
+                        $sorted[$num] = count($tmp)
+                            ? $tmp[0]->mailbox
+                            : null;
                     }
                     asort($sorted, SORT_LOCALE_STRING);
                     break;
