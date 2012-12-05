@@ -16,7 +16,7 @@ KronolithCore = {
     // Vars used and defaulting to null/false:
     //   weekSizes, daySizes,
     //   groupLoading, colorPicker, duration, timeMarker, monthDays,
-    //   allDays, eventsWeek
+    //   allDays, eventsWeek, initialized
 
     view: '',
     ecache: $H(),
@@ -106,6 +106,11 @@ KronolithCore = {
 
     go: function(fullloc, data)
     {
+        if (!this.initialized) {
+            this.go.bind(this, fullloc, data).defer();
+            return;
+        }
+
         if (this.viewLoading.size()) {
             this.viewLoading.push([ fullloc, data ]);
             return;
@@ -6512,6 +6517,7 @@ KronolithCore = {
         HordeSidebar.refreshEvents();
         $('kronolithLoadingCalendars').hide();
         $('kronolithMenuCalendars').show();
+        this.initialized = true;
 
         /* Initialize the starting page. */
         if (!location.empty()) {

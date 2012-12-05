@@ -60,7 +60,7 @@ class Horde_Kolab_Format_Date
         }
 
         return DateTime::createFromFormat(
-            '!Y-m-d', $date, new DateTimeZone('UTC')
+            '!Y-m-d', $date
         );
     }
 

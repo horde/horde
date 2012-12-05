@@ -1699,6 +1699,9 @@ $_prefs['nav_poll_all'] = array(
     'desc' => _("Poll all mailboxes for new mail?"),
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS);
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->init();
     }
 );
 

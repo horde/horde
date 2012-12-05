@@ -37,9 +37,10 @@
 class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
 {
     /**
+     * Handle the request
      *
-     * @param $protocolversion
-     * @return unknown_type
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
     protected function _handle()
     {
@@ -54,7 +55,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             $result = $this->_driver->sendMail($stream, false, false, false, true);
             fclose($stream);
             return $result;
-        } catch (Horde_Exception $e) {
+        } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
         }

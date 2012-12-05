@@ -33,6 +33,13 @@
  * @copyright 2010-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string attmethod    The attachment method.
+ * @property integer attsize     The attachment size.
+ * @property string displayname  The attachment's display name.
+ * @property string attname      The attachment's name.
+ * @property string attoid       The ObjectID of the attachment.
+ * @property integer attremoved  @todo
  */
 class Horde_ActiveSync_Message_Attachment extends Horde_ActiveSync_Message_Base
 {
@@ -63,6 +70,11 @@ class Horde_ActiveSync_Message_Attachment extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_ATTREMOVED  => array (self::KEY_ATTRIBUTE => "attremoved"),
     );
 
+    /**
+     * Property values
+     *
+     * @var array
+     */
     protected $_properties = array(
         'attmethod'   => false,
         'attsize'     => false,
@@ -72,6 +84,11 @@ class Horde_ActiveSync_Message_Attachment extends Horde_ActiveSync_Message_Base
         'attremoved'  => false
     );
 
+    /**
+     * Return the message type.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'Attachment';

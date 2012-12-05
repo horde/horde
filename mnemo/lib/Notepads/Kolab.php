@@ -28,6 +28,27 @@
 class Mnemo_Notepads_Kolab extends Mnemo_Notepads_Base
 {
     /**
+     * Runs any actions after setting a new default notepad.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+           $notepads = $this->_shares
+               ->listShares(
+                   $this->_user,
+                   array('perm' => Horde_Perms::SHOW,
+                         'attributes' => $this->_user));
+           foreach ($notepads as $id => $notepad) {
+               if ($id == $share) {
+                   $notepad->set('default', true);
+                   $notepad->save();
+                   break;
+               }
+           }
+    }
+
+    /**
      * Return the name of the default share.
      *
      * @return string The name of a default share.

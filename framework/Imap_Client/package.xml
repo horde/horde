@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-28</date>
- <time>01:06:49</time>
+ <date>2012-12-04</date>
+ <time>23:42:24</time>
  <version>
-  <release>2.3.0</release>
+  <release>2.3.1</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -22,10 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix sending literal mailbox data to an IMAP server (Bug #11800).
-* [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
-* [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
+* [mms] Optimizations to IMAP token parser.
+* [mms] Fix setting language value when language is returned in an IMAP list.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -119,6 +117,10 @@
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
+       <dir name="Tokenize">
+        <file name="List.php" role="php" />
+        <file name="Master.php" role="php" />
+       </dir> <!-- /lib/Horde/Imap/Client/Tokenize -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="DateTime.php" role="php" />
@@ -358,6 +360,8 @@
    <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
+   <install as="Horde/Imap/Client/Tokenize/List.php" name="lib/Horde/Imap/Client/Tokenize/List.php" />
+   <install as="Horde/Imap/Client/Tokenize/Master.php" name="lib/Horde/Imap/Client/Tokenize/Master.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
@@ -1383,13 +1387,27 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-28</date>
+   <date>2012-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix sending literal mailbox data to an IMAP server (Bug #11800).
 * [mms] Add Horde_Imap_Client_Data_Format_String#getStream().
 * [jan] Fix Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Fix regression in POP3 driver for servers that don&apos;t support the RESP-CODES extension.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Optimizations to IMAP token parser.
+* [mms] Fix setting language value when language is returned in an IMAP list.
    </notes>
   </release>
  </changelog>

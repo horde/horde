@@ -15,30 +15,14 @@
 class Trean_Api extends Horde_Registry_Api
 {
     /**
-     * Returns all the bookmarks in a given folder, sorted and "paginated."
-     *
-     * @param integer $folderId   the ID of a folder, or -1 for root
-     * @param string  $sortby     field to sort by
-     * @param integer $sortdir    direction to sort by (non-0 for descending)
-     * @param integer $from       bookmark to start from
-     * @param integer $count      how many bookmarks to return
-     * @return array  An array of associative arrays (XMLRPC structs) representing
-     * the bookmarks.
-     */
-    public function listBookmarks($folderId, $sortby = 'title', $sortdir = 0, $from = 0, $count = 0)
-    {
-        $folder = $GLOBALS['trean_shares']->getFolder($folderId);
-        return $folder->listBookmarks($sortby, $sortdir, $from, $count);
-    }
-
-    /**
      * Delete a given bookmark.
      *
      * @param integer $bookmarkId  The ID of the bookmark to delete
      */
     public function deleteBookmark($bookmarkId)
     {
-        $GLOBALS['trean_shares']->removeBookmark($bookmarkId);
+        $bookmark = $GLOBALS['trean_gateway']->getBookmark($bookmarkId);
+        $GLOBALS['trean_gateway']->removeBookmark($bookmark);
     }
 
     /**

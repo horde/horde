@@ -656,7 +656,17 @@ class Horde_Core_Prefs_Ui
             );
         }
         $t->set('apps', $tmp);
-        $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
+        if ($this->app == 'horde') {
+            $header = Horde_Core_Translation::t("Global Preferences");
+        } else {
+            $header = sprintf(
+                Horde_Core_Translation::t("Preferences for %s"),
+                Horde::url($registry->getInitialPage($this->app))->link()
+                    . htmlspecialchars($registry->get('name', $this->app))
+                    . '</a>'
+            );
+        }
+        $t->set('header', $header);
 
         $t->set('has_advanced', $this->hasAdvancedPrefs());
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {

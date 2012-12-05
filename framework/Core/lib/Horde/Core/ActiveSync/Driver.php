@@ -154,7 +154,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 ->getInstance('Horde_Perms')
                 ->getPermissions('horde:activesync', $username);
 
-            return $this->_getPolicyValue('activesync', $perms);
+            if (!$this->_getPolicyValue('activesync', $perms)) {
+                $this->_logger->debug(sprintf(
+                    "Access denied for user %s per policy settings.",
+                    $username)
+                );
+                return false;
+            }
         }
 
         return true;
@@ -314,7 +320,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             $this->_logger->err('Folder ' . $id . ' unknown');
-            throw new Horde_Exception('Folder ' . $id . ' unknown');
+            throw new Horde_ActiveSync_Exception('Folder ' . $id . ' unknown');
         }
 
         return $folder;
@@ -357,11 +363,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_imap->createMailbox($displayname);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             $this->_logger->err('Renaming IMAP folders not supported.');
-            throw Horde_Exception('Renaming not supported.');
+            throw new Horde_ActiveSync_Exception('Renaming not supported.');
         }
 
         return $displayname;
@@ -375,11 +381,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     public function deleteFolder($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        try {
-            $this->_imap->deleteMailbox($id);
-        } catch (Horde_ActiveSync_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $this->_imap->deleteMailbox($id);
     }
 
     /**
@@ -748,22 +750,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * longid. Used to fetch email objects from a search result, which only
      * returns a 'longid'.
      *
-     * @param string $searchlongid   The unique search result identifier.
-     * @param array $bodypreference  The bodypreference array.
+     * @param string $longid         The unique search result identifier.
+     * @param array $bodyprefs        The bodypreference array.
      * @param boolean $mimesupport   Mimesupport flag.
      *
      * @return Horde_ActiveSync_Message_Base  The message requested.
      */
-    public function itemOperationsFetchMailbox($searchlongid,
-                                               array $bodypreference,
-                                               $mimesupport)
+    public function itemOperationsFetchMailbox(
+        $longid, array $bodyprefs, $mimesupport)
     {
-        list($mailbox, $uid) = explode(':', $searchlongid);
+        list($mailbox, $uid) = explode(':', $longid);
         return $this->getMessage(
             $mailbox,
             $uid,
             array(
-                'bodyprefs' => $bodypreference,
+                'bodyprefs' => $bodyprefs,
                 'mimesupport' => $mimesupport)
         );
     }
@@ -855,7 +856,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
             try {
                 $this->_imap->deleteMessages($ids, $folderid);
-            } catch (Horde_Exception $e) {
+            } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
             }
         }
@@ -882,7 +883,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
             $this->_endBuffer();
-            throw new Horde_Exception('Not supported');
+            throw new Horde_ActiveSync_Exception('Not supported');
         default:
             $move_res = $this->_imap->moveMessage($folderid, $ids, $newfolderid);
         }
@@ -1048,6 +1049,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param boolean $save     Save in sent messages.
      *
      * @return boolean
+     * @throws Horde_ActiveSync_Exception
      */
     public function sendMail(
         $rfc822, $forward = null, $reply = null, $parent = null, $save = true)
@@ -1069,7 +1071,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             foreach (array('To', 'Cc') as $header) {
                $recipients->add($headers->getOb($header));
             }
-            $h_array = $headers->toArray();
+            $h_array = $headers->toArray(array('charset' => 'UTF-8'));
             if (!empty($h_array['Bcc'])) {
                 $recipients->add($headers->getOb('Bcc'));
                 unset($h_array['Bcc']);
@@ -1082,10 +1084,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-                $mailer->send($recipients->writeAddress(), $h_array, $raw_message->getMessage());
+                $mailer->send($recipients->writeAddress(array('encode' => true)), $h_array, $raw_message->getMessage());
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         } else {
             $message = $raw_message->getMimeObject();
@@ -1171,7 +1173,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
-                throw new Horde_Exception($e);
+                throw new Horde_ActiveSync_Exception($e);
             }
         }
 
@@ -1180,7 +1182,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (!empty($sf)) {
                 $this->_logger->debug(sprintf("Preparing to copy to '%s'", $sf));
                 $flags = array(Horde_Imap_Client::FLAG_SEEN);
-                $msg = $copy->toString(array('headers' => $headers->toString()));
+                if ($headers->getValue('Content-Transfer-Encoding')) {
+                    $copy->setTransferEncoding($headers->getValue('Content-Transfer-Encoding'), array('send' => true));
+                }
+                $msg = $copy->toString(array('headers' => $headers->toString(array('charset' => 'UTF-8')), 'stream' => true));
                 $this->_imap->appendMessage($sf, $msg, $flags);
             }
         }
@@ -1357,7 +1362,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Build a stat structure for an email message.
      *
      * @param string $folderid   The mailbox name.
-     * @param integer|array $id  The message(s) to stat
+     * @param integer|array $id  The message(s) to stat (IMAP UIDs).
      *
      * @return array
      */
@@ -1406,7 +1411,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param stdClass $device  The device to obtain settings for.
      *
-     * @return array  The requested settigns.
+     * @return array  The requested settings.
      */
     public function getSettings(array $settings, $device)
     {

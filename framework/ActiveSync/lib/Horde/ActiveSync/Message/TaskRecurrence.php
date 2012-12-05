@@ -44,6 +44,16 @@
  * @copyright 2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property integer    type
+ * @property Horde_Date start
+ * @property Horde_Date until
+ * @property string     occurrences
+ * @property integer    interval
+ * @property integer    dayofweek
+ * @property integer    dayofmonth
+ * @property integer    weekofmonth
+ * @property integer    monthofyear
  */
 class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_Base
 {
@@ -55,6 +65,11 @@ class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_B
     const TYPE_YEARLY      = 5;
     const TYPE_YEARLYNTH   = 6;
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_mapping = array (
         Horde_ActiveSync_Message_Task::POOMTASKS_TYPE        => array(self::KEY_ATTRIBUTE => 'type'),
         Horde_ActiveSync_Message_Task::POOMTASKS_UNTIL       => array(self::KEY_ATTRIBUTE => 'until', self::KEY_TYPE => self::TYPE_DATE),
@@ -67,6 +82,11 @@ class Horde_ActiveSync_Message_TaskRecurrence extends Horde_ActiveSync_Message_B
         Horde_ActiveSync_Message_Task::POOMTASKS_START       => array(self::KEY_ATTRIBUTE => 'start', self::KEY_TYPE => self::TYPE_DATE),
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'type'        => false,
         'start'       => false,

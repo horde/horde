@@ -1270,6 +1270,11 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $collection['id']);
     }
 
+    /**
+     * Helper for sending error status results.
+     *
+     * @param boolean $limit  Send the SYNC_LIMIT error if true.
+     */
     protected function _handleGlobalSyncError($limit = false)
     {
         $this->_encoder->StartWBXML();
@@ -1288,9 +1293,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     /**
      * Helper for handling sync errors
      *
-     * @param <type> $collection
+     * @param array $collection
      */
-    protected function _handleError($collection)
+    protected function _handleError(array $collection)
     {
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);

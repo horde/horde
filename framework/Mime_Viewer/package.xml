@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>20:47:00</time>
+ <date>2012-12-04</date>
+ <time>12:43:51</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -100,17 +100,32 @@
      <dir name="Mime">
       <dir name="Viewer">
        <dir name="Ooo">
-        <file name="common.xsl" role="php" />
-        <file name="global_document.xsl" role="php" />
-        <file name="main_html.xsl" role="php" />
-        <file name="palm.xsl" role="php" />
-        <file name="style_header.xsl" role="php" />
-        <file name="style_inlined.xsl" role="php" />
-        <file name="style_mapping.xsl" role="php" />
-        <file name="table.xsl" role="php" />
-        <file name="table_cells.xsl" role="php" />
-        <file name="table_columns.xsl" role="php" />
-        <file name="table_rows.xsl" role="php" />
+        <dir name="common">
+         <file name="measure_conversion.xsl" role="php" />
+        </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/common -->
+        <dir name="export">
+         <dir name="common">
+          <dir name="styles">
+           <file name="style_collector.xsl" role="php" />
+           <file name="style_mapping_css.xsl" role="php" />
+          </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/export/common/styles -->
+          <dir name="table">
+           <file name="table.xsl" role="php" />
+           <file name="table_cells.xsl" role="php" />
+           <file name="table_columns.xsl" role="php" />
+           <file name="table_rows.xsl" role="php" />
+          </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/export/common/table -->
+          <file name="body.xsl" role="php" />
+          <file name="ooo2ms_docpr.xsl" role="php" />
+          <file name="table_of_content.xsl" role="php" />
+         </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/export/common -->
+         <dir name="xhtml">
+          <file name="body.xsl" role="php" />
+          <file name="header.xsl" role="php" />
+          <file name="opendoc2xhtml.xsl" role="php" />
+          <file name="table.xsl" role="php" />
+         </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/export/xhtml -->
+        </dir> <!-- /lib/Horde/Mime/Viewer/Ooo/export -->
        </dir> <!-- /lib/Horde/Mime/Viewer/Ooo -->
        <file name="Audio.php" role="php" />
        <file name="Base.php" role="php" />
@@ -564,17 +579,20 @@
    <install as="Horde/Mime/Viewer/Translation.php" name="lib/Horde/Mime/Viewer/Translation.php" />
    <install as="Horde/Mime/Viewer/Wordperfect.php" name="lib/Horde/Mime/Viewer/Wordperfect.php" />
    <install as="Horde/Mime/Viewer/Zip.php" name="lib/Horde/Mime/Viewer/Zip.php" />
-   <install as="Horde/Mime/Viewer/Ooo/common.xsl" name="lib/Horde/Mime/Viewer/Ooo/common.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/global_document.xsl" name="lib/Horde/Mime/Viewer/Ooo/global_document.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/main_html.xsl" name="lib/Horde/Mime/Viewer/Ooo/main_html.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/palm.xsl" name="lib/Horde/Mime/Viewer/Ooo/palm.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/style_header.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_header.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/style_inlined.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_inlined.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/style_mapping.xsl" name="lib/Horde/Mime/Viewer/Ooo/style_mapping.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/table.xsl" name="lib/Horde/Mime/Viewer/Ooo/table.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/table_cells.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_cells.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/table_columns.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_columns.xsl" />
-   <install as="Horde/Mime/Viewer/Ooo/table_rows.xsl" name="lib/Horde/Mime/Viewer/Ooo/table_rows.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/common/measure_conversion.xsl" name="lib/Horde/Mime/Viewer/Ooo/common/measure_conversion.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/body.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/body.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/ooo2ms_docpr.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/ooo2ms_docpr.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/table_of_content.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/table_of_content.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/styles/style_collector.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/styles/style_collector.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/styles/style_mapping_css.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/styles/style_mapping_css.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/table/table.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/table/table.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/table/table_cells.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/table/table_cells.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/table/table_columns.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/table/table_columns.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/common/table/table_rows.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/common/table/table_rows.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/xhtml/body.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/xhtml/body.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/xhtml/header.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/xhtml/header.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/xhtml/opendoc2xhtml.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/xhtml/opendoc2xhtml.xsl" />
+   <install as="Horde/Mime/Viewer/Ooo/export/xhtml/table.xsl" name="lib/Horde/Mime/Viewer/Ooo/export/xhtml/table.xsl" />
    <install as="locale/Horde_Mime_Viewer.pot" name="locale/Horde_Mime_Viewer.pot" />
    <install as="locale/ar/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/ar/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/bg/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/bg/LC_MESSAGES/Horde_Mime_Viewer.po" />
@@ -921,7 +939,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-12-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update XSLT processor for OpenDocument files.

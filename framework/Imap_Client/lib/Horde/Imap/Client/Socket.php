@@ -2850,7 +2850,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // This is language information. It is either a single value or a list
         // of values.
         if (($tmp = $data->next()) !== false) {
-            $ob->setLanguage($tmp);
+            $ob->setLanguage(is_object($tmp) ? $tmp->flushIterator() : $tmp);
         }
 
         $data->next(); // Ignore: location (RFC 2557)
@@ -3916,7 +3916,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $got_data = false;
         $literal_len = null;
-        $token = new Horde_Imap_Client_Tokenize();
+        $token = new Horde_Imap_Client_Tokenize_Master();
 
         do {
             if (feof($this->_stream)) {

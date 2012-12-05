@@ -64,7 +64,7 @@ class Trean_Block_Mostclicked extends Horde_Core_Block
         $template = TREAN_TEMPLATES . '/block/' . $this->_params['template'] . '.inc';
 
         $html = '';
-        $bookmarks = $GLOBALS['trean_shares']->sortBookmarks('clicks', 1, 0, $this->_params['rows']);
+        $bookmarks = $GLOBALS['trean_gateway']->sortBookmarks('clicks', 1, 0, $this->_params['rows']);
         foreach ($bookmarks as $bookmark) {
             ob_start();
             require $template;

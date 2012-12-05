@@ -117,7 +117,8 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @return string|boolean The server message id or false
      */
-    public function importMessageChange($id, $message, $device, $clientid)
+    public function importMessageChange(
+        $id, Horde_ActiveSync_Message_Base $message, $device, $clientid)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
@@ -159,7 +160,7 @@ class Horde_ActiveSync_Connector_Importer
      * Import message deletions. This may conflict if the local object has been
      * modified.
      *
-     * @param array $ids  Server message uids to delete
+     * @param array $ids          Server message uids to delete
      * @param string $collection  The server collection type.
      */
     public function importMessageDeletion(array $ids, $collection)
@@ -205,20 +206,20 @@ class Horde_ActiveSync_Connector_Importer
     }
 
     /**
-     * Import a change in 'read' flags .. This can never conflict
+     * Import a change in 'read' flags. This can never conflict.
      *
-     * @param string $id        Server message id
-     * @param string $flags     The read flags to set
+     * @param integer $id   Server message id (The IMAP UID).
+     * @param string $flag  The state of the /seen flag
      */
-    public function importMessageReadFlag($id, $flags)
+    public function importMessageReadFlag($id, $flag)
     {
         if ($this->_folderId == Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return true;
+            return;
         }
 
         $change = array();
         $change['id'] = $id;
-        $change['flags'] = $flags;
+        $change['flags'] = array('read' => $flag);
         $change['parent'] = $this->_folderId;
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_FLAGS,
@@ -226,9 +227,7 @@ class Horde_ActiveSync_Connector_Importer
             Horde_ActiveSync::CHANGE_ORIGIN_PIM,
             $this->_backend->getUser());
 
-        $this->_backend->setReadFlag($this->_folderId, $id, $flags);
-
-        return true;
+        $this->_backend->setReadFlag($this->_folderId, $id, $flag);
     }
 
     /**
@@ -258,22 +257,21 @@ class Horde_ActiveSync_Connector_Importer
     /**
      * Import a folder change from the wbxml stream
      *
-     * @param string $id            The folder id
-     * @param string $parent        The parent folder id?
-     * @param string $displayname   The folder display name
-     * @param integer $type         The collection type.
+     * @param string $id           The folder id
+     * @param string $displayname  The folder display name
+     * @param string $parent       The parent folder id.
      *
      * @return string|boolean  The new serverid if successful, otherwise false.
      */
     public function importFolderChange($id, $displayname, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
-        /* do nothing if it is a dummy folder */
+        // do nothing if it is a dummy folder
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
             return false;
         }
         try {
             $change_res = $this->_backend->changeFolder($id, $displayname, $parent);
-        } catch (Horde_Exception $e) {
+        } catch (Horde_ActiveSync_Exception $e) {
             return false;
         }
         $change = array();
@@ -293,30 +291,21 @@ class Horde_ActiveSync_Connector_Importer
      * Imports a folder deletion from the PIM
      *
      * @param string $id      The folder id
-     * @param string $parent  The folder id of the parent folder
-     *
-     * @return boolean
+     * @param string $parent  The folder id of the parent folder.
      */
     public function importFolderDeletion($id, $parent = Horde_ActiveSync::FOLDER_ROOT)
     {
         /* Do nothing if it is a dummy folder */
         if ($parent === Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
-            return false;
+            return;
         }
-
         $change = array();
         $change['id'] = $id;
-        try {
-            $this->_backend->deleteFolder($id, $parent);
-        } catch (Horde_Exception $e) {
-            return false;
-        }
+        $this->_backend->deleteFolder($id, $parent);
         $this->_state->updateState(
             Horde_ActiveSync::CHANGE_TYPE_DELETE,
             $change,
             Horde_ActiveSync::CHANGE_ORIGIN_NA);
-
-        return true;
     }
 
     /**

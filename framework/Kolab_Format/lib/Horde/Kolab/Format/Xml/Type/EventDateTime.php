@@ -26,8 +26,8 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
-class Horde_Kolab_Format_Xml_Type_EventDate
-extends Horde_Kolab_Format_Xml_Type_Date
+class Horde_Kolab_Format_Xml_Type_EventDateTime
+extends Horde_Kolab_Format_Xml_Type_DateTime
 {
     /**
      * Indicate which value type is expected.

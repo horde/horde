@@ -33,6 +33,15 @@
  * @copyright 2011-2012 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string attmethod    The attachment method.
+ * @property integer attsize     The attachment size.
+ * @property string displayname  The attachment's display name.
+ * @property string attname      The attachment's name.
+ * @property boolean attremoved  @todo
+ * @property contentid           @todo
+ * @property contentlocation     @todo
+ * @property isinline            @todo
  */
 class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Message_Base
 {
@@ -52,6 +61,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         Horde_ActiveSync::AIRSYNCBASE_DATA              => array (self::KEY_ATTRIBUTE => '_data'),
     );
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'attmethod'       => false,
         'attsize'         => false,
@@ -64,6 +78,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         '_data'           => false
     );
 
+    /**
+     * Return the type of message.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'AirSyncBaseAttachment';

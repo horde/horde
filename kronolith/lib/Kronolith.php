@@ -1378,10 +1378,19 @@ class Kronolith
     static public function getDefaultCalendar($permission = Horde_Perms::SHOW,
                                               $owner_only = false)
     {
-        $default_share = $GLOBALS['prefs']->getValue('default_share');
         $calendars = self::listInternalCalendars($owner_only, $permission);
 
+        $default_share = $GLOBALS['prefs']->getValue('default_share');
         if (isset($calendars[$default_share])) {
+            return $default_share;
+        }
+
+        $default_share = $GLOBALS['injector']
+            ->getInstance('Kronolith_Factory_Calendars')
+            ->create()
+            ->getDefaultShare();
+        if (isset($calendars[$default_share])) {
+            $GLOBALS['prefs']->setValue('default_share', $default_share);
             return $default_share;
         }
 

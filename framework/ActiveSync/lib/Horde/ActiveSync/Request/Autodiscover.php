@@ -83,6 +83,9 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
         return 'text/xml';
     }
 
+    /**
+     * Noop. This class overrides the handle method.
+     */
     protected function _handle()
     {
     }
@@ -90,7 +93,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
     /**
      * Build the appropriate response string to send back to the client.
      *
-     * @params array $properties  An array containing any needed properties.
+     * @param array $properties  An array containing any needed properties.
      *   Required properties for mobile sync:
      *   - request_schema:  The request schema sent by the client.
      *   - response_schema: The schema the client indicated it can accept.
@@ -202,6 +205,7 @@ class Horde_ActiveSync_Request_Autodiscover extends Horde_ActiveSync_Request_Bas
      * @param string $status  An appropriate status code for the error. E.g.,
      *                        600 - Invalid response.
      *                        601 - Provider not found for requested schema.
+     * @param string $response_schema  The response schema value.
      *
      * @return string  The XML to send to the client.
      */
