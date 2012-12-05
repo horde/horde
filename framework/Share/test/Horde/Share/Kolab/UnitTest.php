@@ -191,13 +191,6 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testExistsById()
-    {
-        $this->assertTrue(
-            $this->_getPrefilledDriver()->exists($this->_getId('john', 'Calendar'))
-        );
-    }
-
     public function testExistsByName()
     {
         $this->assertTrue(
@@ -488,7 +481,7 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Horde_Kolab_Storage_Exception
+     * @expectedException Horde_Share_Exception
      */
     public function testConstructFolderNameInComplexNamespace()
     {

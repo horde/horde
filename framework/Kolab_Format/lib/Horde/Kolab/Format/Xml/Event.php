@@ -56,6 +56,36 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
     );
 
     /**
+     * Load an object based on the given XML stream. The stream may only contain
+     * UTF-8 data.
+     *
+     * @param resource $xml     The XML stream of the message.
+     * @param array    $options Additional options when parsing the XML.
+     * <pre>
+     * - relaxed: Relaxed error checking (default: false)
+     * </pre>
+     *
+     * @return array The data array representing the object.
+     *
+     * @throws Horde_Kolab_Format_Exception If parsing the XML data failed.
+     *
+     * @todo Check encoding of the returned array. It seems to be ISO-8859-1 at
+     * the moment and UTF-8 would seem more appropriate.
+     */
+    public function load($xml, $options = array())
+    {
+        $object = parent::load($xml, $options);
+        if ($object['end-date']['date-only']) {
+            $object['end-date']['date']
+                ->add(new DateInterval('P1D'))
+                ->sub(new DateInterval('PT1S'));
+        }
+        $object['start-date'] = $object['start-date']['date'];
+        $object['end-date'] = $object['end-date']['date'];
+        return $object;
+    }
+
+    /**
      * Convert the data to a XML stream. Strings contained in the data array may
      * only be provided as UTF-8 data.
      *

@@ -84,8 +84,7 @@ extends Horde_Perms_Permission
          * MYRIGHTS only when that is all we need and use the full GETACL just
          * when required. */
         $acl = new Horde_Perms_Permission_Kolab_AclIterator(
-            $this->_storage->getAcl(),
-            $this->_storage->getOwner()
+            $this->_storage->getAcl()
         );
         foreach ($acl as $element) {
             $element->toHorde($data);
@@ -104,20 +103,27 @@ extends Horde_Perms_Permission
         /* @todo: If somebody else accessed the folder before us, we will
          * overwrite the change here. */
         $current = $this->getCurrentPermissions();
+        $owner = $this->_storage->getOwner();
 
         $elements = new Horde_Perms_Permission_Kolab_ElementIterator(
-            $this->data, $this->_groups, $this->_storage->getOwner()
+            $this->data, $this->_groups
         );
         foreach ($elements as $element) {
+            if ($owner == $element->getId()) {
+                continue;
+            }
             $this->_storage->setAcl($element->getId(), $element->fromHorde());
             $element->unsetInCurrent($current);
         }
 
         // Delete ACLs that have been removed
         $elements = new Horde_Perms_Permission_Kolab_ElementIterator(
-            $current, $this->_groups, $this->_storage->getOwner()
+            $current, $this->_groups
         );
         foreach ($elements as $element) {
+            if ($owner == $element->getId()) {
+                continue;
+            }
             $this->_storage->deleteAcl($element->getId());
         }
 

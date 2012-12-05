@@ -127,20 +127,6 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(Horde_Perms::ALL, $permission->getDefaultPermissions());
     }
 
-    public function testImapOwnerUserMapsToCreator()
-    {
-        $this->storage->expects($this->any())
-            ->method('getOwner')
-            ->will($this->returnValue('test'));
-        $this->storage->expects($this->once())
-            ->method('getAcl')
-            ->will($this->returnValue(array('test' => 'lrid')));
-        $permission = new Horde_Perms_Permission_Kolab(
-            $this->storage, $this->groups
-        );
-        $this->assertEquals(Horde_Perms::ALL, $permission->getCreatorPermissions());
-    }
-
     public function testImapGroupMapsToHordeGroup()
     {
         $this->storage->expects($this->once())
@@ -236,23 +222,6 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission->addDefaultPermission(Horde_Perms::ALL, true);
     }
 
-    public function testCreatorMapsToImapOwnerUser()
-    {
-        $this->storage->expects($this->any())
-            ->method('getOwner')
-            ->will($this->returnValue('test'));
-        $this->storage->expects($this->exactly(3))
-            ->method('getAcl')
-            ->will($this->returnValue(array()));
-        $this->storage->expects($this->once())
-            ->method('setAcl')
-            ->with('test', 'alriswcd');
-        $permission = new Horde_Perms_Permission_Kolab(
-            $this->storage, $this->groups
-        );
-        $permission->addCreatorPermission(Horde_Perms::ALL, true);
-    }
-
     public function testHordeGroupMapsToImapGroup()
     {
         $this->groups->expects($this->once())
@@ -293,45 +262,12 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('DUMMY', $permission->getName());
     }
 
-    public function testRemoveCreatorPermissions()
-    {
-        $this->storage->expects($this->any())
-            ->method('getOwner')
-            ->will($this->returnValue('test'));
-        $this->storage->expects($this->exactly(3))
-            ->method('getAcl')
-            ->will($this->returnValue(array('test' => 'lrid')));
-        $this->storage->expects($this->once())
-            ->method('deleteAcl')
-            ->with('test');
-        $permission = new Horde_Perms_Permission_Kolab(
-            $this->storage, $this->groups
-        );
-        $permission->removeCreatorPermission();
-    }
-
-    public function testDoNotRemoveCreatorPermissions()
-    {
-        $this->storage->expects($this->any())
-            ->method('getOwner')
-            ->will($this->returnValue('test'));
-        $this->storage->expects($this->exactly(3))
-            ->method('getAcl')
-            ->will($this->returnValue(array('test' => 'lrid')));
-        $this->storage->expects($this->never())
-            ->method('deleteAcl');
-        $permission = new Horde_Perms_Permission_Kolab(
-            $this->storage, $this->groups
-        );
-        $permission->addGuestPermission(Horde_Perms::SHOW);
-    }
-
     public function testDoNotRemoveGuestPermissions()
     {
         $this->storage->expects($this->any())
             ->method('getOwner')
             ->will($this->returnValue('test'));
-        $this->storage->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(1))
             ->method('getAcl')
             ->will($this->returnValue(array('anonymous' => 'lrid')));
         $this->storage->expects($this->never())
@@ -339,15 +275,14 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission = new Horde_Perms_Permission_Kolab(
             $this->storage, $this->groups
         );
-        $permission->addCreatorPermission(Horde_Perms::SHOW);
     }
 
-    public function testDoNotRemoveDefaulttPermissions()
+    public function testDoNotRemoveDefaultPermissions()
     {
         $this->storage->expects($this->any())
             ->method('getOwner')
             ->will($this->returnValue('test'));
-        $this->storage->expects($this->exactly(3))
+        $this->storage->expects($this->exactly(1))
             ->method('getAcl')
             ->will($this->returnValue(array('anyone' => 'lrid')));
         $this->storage->expects($this->never())
@@ -355,7 +290,6 @@ class Horde_Perms_KolabTest extends PHPUnit_Framework_TestCase
         $permission = new Horde_Perms_Permission_Kolab(
             $this->storage, $this->groups
         );
-        $permission->addCreatorPermission(Horde_Perms::SHOW);
     }
 
     private function _getComplexPermissions()

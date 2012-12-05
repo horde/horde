@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:21</time>
+ <date>2012-12-05</date>
+ <time>18:29:54</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Remove creator permission mapping from Kolab backend (Bug #11713).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -48,12 +48,10 @@
         <dir name="Acl">
          <file name="Anonymous.php" role="php" />
          <file name="Anyone.php" role="php" />
-         <file name="Creator.php" role="php" />
          <file name="Group.php" role="php" />
          <file name="User.php" role="php" />
         </dir> <!-- /lib/Horde/Perms/Permission/Kolab/Acl -->
         <dir name="Element">
-         <file name="Creator.php" role="php" />
          <file name="Default.php" role="php" />
          <file name="Group.php" role="php" />
          <file name="Guest.php" role="php" />
@@ -441,10 +439,8 @@
    <install as="Horde/Perms/Permission/Kolab/Storage.php" name="lib/Horde/Perms/Permission/Kolab/Storage.php" />
    <install as="Horde/Perms/Permission/Kolab/Acl/Anonymous.php" name="lib/Horde/Perms/Permission/Kolab/Acl/Anonymous.php" />
    <install as="Horde/Perms/Permission/Kolab/Acl/Anyone.php" name="lib/Horde/Perms/Permission/Kolab/Acl/Anyone.php" />
-   <install as="Horde/Perms/Permission/Kolab/Acl/Creator.php" name="lib/Horde/Perms/Permission/Kolab/Acl/Creator.php" />
    <install as="Horde/Perms/Permission/Kolab/Acl/Group.php" name="lib/Horde/Perms/Permission/Kolab/Acl/Group.php" />
    <install as="Horde/Perms/Permission/Kolab/Acl/User.php" name="lib/Horde/Perms/Permission/Kolab/Acl/User.php" />
-   <install as="Horde/Perms/Permission/Kolab/Element/Creator.php" name="lib/Horde/Perms/Permission/Kolab/Element/Creator.php" />
    <install as="Horde/Perms/Permission/Kolab/Element/Default.php" name="lib/Horde/Perms/Permission/Kolab/Element/Default.php" />
    <install as="Horde/Perms/Permission/Kolab/Element/Group.php" name="lib/Horde/Perms/Permission/Kolab/Element/Group.php" />
    <install as="Horde/Perms/Permission/Kolab/Element/Guest.php" name="lib/Horde/Perms/Permission/Kolab/Element/Guest.php" />
@@ -883,10 +879,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-12-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Remove creator permission mapping from Kolab backend (Bug #11713).
    </notes>
   </release>
  </changelog>
