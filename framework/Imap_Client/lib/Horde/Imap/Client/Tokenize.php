@@ -126,6 +126,10 @@ class Horde_Imap_Client_Tokenize implements Iterator
     {
         $out = array();
 
+        if (!$this->valid()) {
+            $this->next();
+        }
+
         while ($this->valid()) {
             if ($return_entry) {
                 $out[] = $this->current();
