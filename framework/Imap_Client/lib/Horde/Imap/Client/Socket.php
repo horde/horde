@@ -3916,7 +3916,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $got_data = false;
         $literal_len = null;
-        $token = new Horde_Imap_Client_Tokenize();
+        $token = new Horde_Imap_Client_Tokenize_Master();
 
         do {
             if (feof($this->_stream)) {

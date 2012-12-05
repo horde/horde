@@ -41,7 +41,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $ids = array();
 
         foreach (array_filter($data) as $val) {
-            $token = new Horde_Imap_Client_Tokenize($val);
+            $token = new Horde_Imap_Client_Tokenize_Master($val);
             $token->rewind();
             $id_str = $token->next();
             $token->next();
@@ -55,7 +55,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function getThreadSort($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
+        $token = new Horde_Imap_Client_Tokenize_Master($data);
         $token->rewind();
 
         $this->_parseThread($token);
@@ -65,7 +65,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function parseNamespace($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
+        $token = new Horde_Imap_Client_Tokenize_Master($data);
         $token->rewind();
 
         $this->_parseNamespace($token);
@@ -75,7 +75,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function parseFetch($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
+        $token = new Horde_Imap_Client_Tokenize_Master($data);
         $token->rewind();
         $msg_no = $token->next();
         $token->next();
@@ -91,7 +91,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function responseCode($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
+        $token = new Horde_Imap_Client_Tokenize_Master($data);
         $server = Horde_Imap_Client_Interaction_Server::create($token);
 
         $this->_responseCode($server);
