@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix setting language value when language is returned in an IMAP list.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1399,7 +1399,7 @@
    <date>2012-12-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix setting language value when language is returned in an IMAP list.
    </notes>
   </release>
  </changelog>
