@@ -2030,19 +2030,43 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    <li>Horde_Imap_Client::SORT_ARRIVAL</li>
      *    <li>Horde_Imap_Client::SORT_CC</li>
      *    <li>Horde_Imap_Client::SORT_DATE</li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYFROM
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to doing client-side sorting.
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to Horde_Imap_Client::SORT_FROM [since 2.4.0].
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYTO
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to doing client-side sorting.
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to Horde_Imap_Client::SORT_TO [since 2.4.0].
+     *      </li>
+     *     </ul>
+     *    </li>
      *    <li>Horde_Imap_Client::SORT_FROM</li>
      *    <li>Horde_Imap_Client::SORT_SEQUENCE</li>
      *    <li>Horde_Imap_Client::SORT_SIZE</li>
      *    <li>Horde_Imap_Client::SORT_SUBJECT</li>
      *    <li>Horde_Imap_Client::SORT_TO</li>
-     *    <li>
-     *     [On servers that support SORT=DISPLAY, these criteria are also
-     *     available:]
-     *     <ul>
-     *      <li>Horde_Imap_Client::SORT_DISPLAYFROM</li>
-     *      <li>Horde_Imap_Client::SORT_DISPLAYTO</li>
-     *     </ul>
-     *    </li>
      *    <li>
      *     [On servers that support SEARCH=FUZZY, this criteria is also
      *     available:]
@@ -2100,6 +2124,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if ((($pos = array_search(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) !== false) &&
             !$this->queryCapability('SEARCHRES')) {
             unset($options['results'][$pos]);
+        }
+
+        // Check for SORT-related options.
+        if (!empty($options['sort'])) {
+            $sort = $this->queryCapability('SORT');
+            if (!$sort || !in_array('DISPLAY', $sort)) {
+                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK, $options['sort'])) !== false) {
+                    $options['sort'][$pos] = Horde_Imap_Client::SORT_FROM;
+                }
+                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK, $options['sort'])) !== false) {
+                    $options['sort'][$pos] = Horde_Imap_Client::SORT_TO;
+                }
+            }
         }
 
         // Check for supported charset.
