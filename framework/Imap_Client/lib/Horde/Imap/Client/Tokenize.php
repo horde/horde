@@ -96,6 +96,13 @@ class Horde_Imap_Client_Tokenize implements Iterator
     }
 
     /**
+     */
+    public function __sleep()
+    {
+        throw new LogicException('Object can not be serialized.');
+    }
+
+    /**
      * Add data to buffer.
      *
      * @param mixed $data  Data to add (string, resource, or Horde_Stream
