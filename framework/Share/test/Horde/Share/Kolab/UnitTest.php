@@ -488,7 +488,7 @@ extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Horde_Kolab_Storage_Exception
+     * @expectedException Horde_Share_Exception
      */
     public function testConstructFolderNameInComplexNamespace()
     {
