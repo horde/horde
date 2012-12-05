@@ -191,13 +191,6 @@ extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testExistsById()
-    {
-        $this->assertTrue(
-            $this->_getPrefilledDriver()->exists($this->_getId('john', 'Calendar'))
-        );
-    }
-
     public function testExistsByName()
     {
         $this->assertTrue(
