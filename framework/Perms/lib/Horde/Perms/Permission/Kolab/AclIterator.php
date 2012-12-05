@@ -39,20 +39,15 @@ implements IteratorAggregate
      * Constructor.
      *
      * @param array  $acl     The folder ACL as provided by the driver.
-     * @param string $creator The ID of the folder creator.
      */
-    public function __construct(array $acl, $creator)
+    public function __construct(array $acl)
     {
         foreach ($acl as $user => $rights) {
-            if ($user == $creator) {
-                $this->_acl[] = new Horde_Perms_Permission_Kolab_Acl_Creator(
-                    $rights
-                );
-            } else if (substr($user, 0, 6) == 'group:') {
+            if (substr($user, 0, 6) == 'group:') {
                 $this->_acl[] = new Horde_Perms_Permission_Kolab_Acl_Group(
                     $rights, substr($user, 6)
                 );
-            } else if ($user == 'anyone' || $user == 'anonymous'){
+            } elseif ($user == 'anyone' || $user == 'anonymous'){
                 $class = 'Horde_Perms_Permission_Kolab_Acl_' . ucfirst($user);
                 $this->_acl[] = new $class(
                     $rights

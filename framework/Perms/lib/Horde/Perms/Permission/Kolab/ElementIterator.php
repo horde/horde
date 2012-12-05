@@ -41,36 +41,35 @@ implements IteratorAggregate
      * @param array $permissions        The folder permissions as provided by
      *                                  Horde.
      * @param Horde_Group_Base $groups  The group handler.
-     * @param string $creator           The ID of the folder creator.
      */
-    public function __construct(array $permissions, Horde_Group_Base $groups,
-                                $creator)
+    public function __construct(array $permissions, Horde_Group_Base $groups)
     {
         foreach ($permissions as $user => $user_perms) {
-            if ($user == 'default') {
+            switch ($user) {
+            case 'default':
                 $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Default(
                     $user_perms
                 );
-            } else if ($user == 'guest') {
+                break;
+            case 'guest':
                 $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Guest(
                     $user_perms
                 );
-            } else if ($user == 'creator') {
-                $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Creator(
-                    $user_perms, $creator
-                );
-            } else if ($user == 'groups') {
+                break;
+            case 'groups':
                 foreach ($user_perms as $user_entry => $perms) {
                     $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_Group(
                         $perms, $user_entry, $groups
                     );
                 }
-            } else if ($user == 'users') {
+                break;
+            case 'users':
                 foreach ($user_perms as $user_entry => $perms) {
                     $this->_elements[] = new Horde_Perms_Permission_Kolab_Element_User(
                         $perms, $user_entry
                     );
                 }
+                break;
             }
         }
     }
