@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-12-05</date>
- <time>15:36:58</time>
+ <time>15:39:01</time>
  <version>
-  <release>2.3.1</release>
+  <release>2.3.2</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix client-side address sorting (Bug #11820).
-* [mms] Optimizations to IMAP token parser.
-* [mms] Fix setting language value when language is returned in an IMAP list.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1410,6 +1408,19 @@
 * [mms] Fix client-side address sorting (Bug #11820).
 * [mms] Optimizations to IMAP token parser.
 * [mms] Fix setting language value when language is returned in an IMAP list.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.2</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
