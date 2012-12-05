@@ -482,24 +482,17 @@ class IMP_Imap implements Serializable
     {
         $mailbox = IMP_Mailbox::get($mailbox);
 
-        if (!empty($opts['sort'])) {
+        if (!empty($opts['sort']) && $mailbox->access_sort) {
             /* If doing a from/to search, use display sorting if possible.
              * Although there is a fallback to a PHP-based display sort, for
              * performance reasons only do a display sort if it is supported
              * on the server. */
-            $sort_cap = $this->queryCapability('SORT');
-            if (is_array($sort_cap) &&
-                in_array('DISPLAY', $sort_cap) &&
-                $mailbox->access_sort) {
-                $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
-                }
+            if (($pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort'])) !== false) {
+                $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK;
+            }
 
-                $pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort']);
-                if ($pos !== false) {
-                    $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO;
-                }
+            if (($pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort'])) !== false) {
+                $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK;
             }
         }
 
