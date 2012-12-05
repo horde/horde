@@ -35,4 +35,33 @@ extends Horde_Kolab_Format_Xml_Type_DateTime_V1
      * @var int
      */
     protected $value = Horde_Kolab_Format_Xml::VALUE_NOT_EMPTY;
+
+    /**
+     * Load the value of a node.
+     *
+     * @param DOMNode                       $node   Retrieve value for this node.
+     * @param Horde_Kolab_Format_Xml_Helper $helper A XML helper instance.
+     * @param array                         $params Additiona parameters for
+     *                                              this parse operation.
+     *
+     * @return mixed|null The value or null if no value was found.
+     */
+    public function loadNodeValue(
+        $node,
+        Horde_Kolab_Format_Xml_Helper $helper,
+        $params = array()
+    )
+    {
+        $result = $helper->fetchNodeValue($node);
+        if (strlen($result) == 10) {
+            return array(
+                'date' => Horde_Kolab_Format_Date::readDate($result),
+                'date-only' => true
+            );
+        }
+        return array(
+            'date' => Horde_Kolab_Format_Date::readDateTime($result),
+            'date-only' => false
+        );
+    }
 }
