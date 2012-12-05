@@ -66,7 +66,10 @@ class Horde_Imap_Client_Tokenize_List extends Horde_Imap_Client_Tokenize
      */
     public function __toString()
     {
-        return implode(' ', $this->flushIterator(true));
+        $pos = ftell($this->_master->stream->stream);
+        $out = $this->_current . ' ' . $this->_master->stream->getString();
+        fseek($this->_master->stream->stream, $pos);
+        return $out;
     }
 
     /**
