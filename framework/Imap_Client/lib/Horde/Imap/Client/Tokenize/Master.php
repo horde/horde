@@ -28,11 +28,11 @@
 class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
 {
     /**
-     * Current sub level.
+     * No need to return data when flushing iterator.
      *
-     * @var integer
+     * @var boolean
      */
-    protected $_sub = 0;
+    public $noreturn = false;
 
     /**
      * Data stream.
@@ -40,6 +40,13 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
      * @var Horde_Stream
      */
     public $stream;
+
+    /**
+     * Current sub level.
+     *
+     * @var integer
+     */
+    protected $_sub = 0;
 
     /**
      * Constructor.
@@ -64,6 +71,21 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
         $out = $this->_current . ' ' . $this->stream->getString();
         fseek($this->stream->stream, $pos);
         return $out;
+    }
+
+    /**
+     */
+    public function flushIterator($return_entry = true)
+    {
+        if ($return_entry) {
+            return $this->_flushIterator(true);
+        }
+
+        fseek($this->stream->stream, 0, SEEK_END);
+        $this->_current = $this->_key = false;
+        $this->_sub = 0;
+
+        return array();
     }
 
     /**
@@ -139,7 +161,10 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
 
                 switch ($c) {
                 case '(':
-                    return new Horde_Imap_Client_Tokenize_List($this, ++$this->_sub);
+                    ++$this->_sub;
+                    return $this->noreturn
+                        ? true
+                        : new Horde_Imap_Client_Tokenize_List($this, $this->_sub);
 
                 case ')':
                     if (strlen($text)) {
@@ -155,6 +180,10 @@ class Horde_Imap_Client_Tokenize_Master extends Horde_Imap_Client_Tokenize
 
                 case '{':
                     $literal_len = $this->stream->getToChar('}');
+                    if ($this->noreturn) {
+                        fseek($stream, $literal_len, SEEK_CUR);
+                        return true;
+                    }
                     return stream_get_contents($stream, $literal_len);
 
                 case ' ':

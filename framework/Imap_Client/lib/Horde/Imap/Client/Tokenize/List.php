@@ -71,6 +71,16 @@ class Horde_Imap_Client_Tokenize_List extends Horde_Imap_Client_Tokenize
 
     /**
      */
+    public function flushIterator($return_entry = true)
+    {
+        $this->_master->noreturn = !$return_entry;
+        $out = $this->_flushIterator($return_entry);
+        $this->_master->noreturn = false;
+        return $out;
+    }
+
+    /**
+     */
     public function next()
     {
         $this->_current = $this->_master->parseStream($this->_level);
