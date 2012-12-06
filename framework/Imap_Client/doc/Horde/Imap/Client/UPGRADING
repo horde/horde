@@ -10,16 +10,6 @@
 
 This lists the API changes between releases of the package.
 
-Upgrading to 2.4.0
-==================
-
-  - Horde_Imap_Client_Base
-
-    The following 'sort' criteria have been added to search():
-
-      - SORT_DISPLAYFROM_FALLBACK
-      - SORT_DISPLAYTO_FALLBACK
-
 
 Upgrading to 2.3.0
 ==================

@@ -71,10 +71,6 @@ class Horde_Imap_Client
     const SORT_SEQUENCE = 12;
     /* Fuzzy sort criteria defined in RFC 6203 */
     const SORT_RELEVANCY = 13;
-    /* @since 2.4.0 */
-    const SORT_DISPLAYFROM_FALLBACK = 14;
-    /* @since 2.4.0 */
-    const SORT_DISPLAYTO_FALLBACK = 15;
 
     /* Search results constants */
     const SEARCH_RESULTS_COUNT = 1;
