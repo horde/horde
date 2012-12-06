@@ -366,7 +366,7 @@ class Kronolith
 
             /* Add all recurrences of the event. */
             $next = $event->recurrence->nextRecurrence($next);
-            if ($convert) {
+            if ($next && $convert) {
                 /* Resetting after the nextRecurrence() call, because
                  * we need to test if the next recurrence in the
                  * event's timezone actually matches the interval we
@@ -403,7 +403,7 @@ class Kronolith
                           'hour' => $next->hour,
                           'min' => $next->min,
                           'sec' => $next->sec));
-                if ($convert) {
+                if ($next && $convert) {
                     $next->setTimezone($timezone);
                 }
             }

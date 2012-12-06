@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
 [jan] Fix double owner name on shared calendars.
 [jan] Use default Kolab folder for default calendar preference.
 [jan] Mark Kolab folder as default when changing default calendar preference.
