@@ -214,12 +214,4 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
-    public function testParseBodystructure()
-    {
-        $test = '* 8 FETCH (UID 50165 BODYSTRUCTURE (("text" "plain" ("charset" "UTF-8") NIL NIL "7bit" 1192 52 NIL NIL NIL NIL) "alternative" ("boundary" "=_49bab3fb5f69f9b3fa3d994278f182ad") NIL NIL NIL))';
-
-        // Should not cause an error.
-        $this->test_ob->parseFetch($test)->first()->getEnvelope();
-    }
-
 }

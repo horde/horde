@@ -116,10 +116,6 @@
         <file name="ClientSort.php" role="php" />
         <file name="Pop3.php" role="php" />
        </dir> <!-- /lib/Horde/Imap/Client/Socket -->
-       <dir name="Tokenize">
-        <file name="List.php" role="php" />
-        <file name="Master.php" role="php" />
-       </dir> <!-- /lib/Horde/Imap/Client/Tokenize -->
        <file name="Base.php" role="php" />
        <file name="Cache.php" role="php" />
        <file name="DateTime.php" role="php" />
@@ -359,8 +355,6 @@
    <install as="Horde/Imap/Client/Socket/Catenate.php" name="lib/Horde/Imap/Client/Socket/Catenate.php" />
    <install as="Horde/Imap/Client/Socket/ClientSort.php" name="lib/Horde/Imap/Client/Socket/ClientSort.php" />
    <install as="Horde/Imap/Client/Socket/Pop3.php" name="lib/Horde/Imap/Client/Socket/Pop3.php" />
-   <install as="Horde/Imap/Client/Tokenize/List.php" name="lib/Horde/Imap/Client/Tokenize/List.php" />
-   <install as="Horde/Imap/Client/Tokenize/Master.php" name="lib/Horde/Imap/Client/Tokenize/Master.php" />
    <install as="locale/Horde_Imap_Client.pot" name="locale/Horde_Imap_Client.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/de/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_Imap_Client.po" name="locale/de/LC_MESSAGES/Horde_Imap_Client.po" />
