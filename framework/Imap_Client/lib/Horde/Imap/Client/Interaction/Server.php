@@ -122,7 +122,7 @@ class Horde_Imap_Client_Interaction_Server
                         }
                         $resp->data[] = is_string($elt)
                             ? $elt
-                            : iterator_to_array($elt);
+                            : $token->flushIterator();
                     }
                 }
 

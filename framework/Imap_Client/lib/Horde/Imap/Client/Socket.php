@@ -2181,7 +2181,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _parseEsearch(Horde_Imap_Client_Tokenize $data)
     {
         // Ignore search correlator information
-        if ($data->next() === false) {
+        if ($data->next() === true) {
             $data->flushIterator(false);
         }
 
@@ -2210,7 +2210,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case 'PARTIAL':
                 // RFC 5267 [4.4]
-                $partial = iterator_to_array($val);
+                $partial = $val->flushIterator();
                 $this->_parseSearch(end($partial));
                 break;
             }

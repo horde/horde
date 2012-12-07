@@ -125,9 +125,9 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
         if ($return) {
             $level = $sublevel ? $this->_level : 0;
-            while (($this->_current !== false) &&
+            while ((($curr = $this->next()) !== false) &&
                    ($level <= $this->_level)) {
-                $out[] = $this->next();
+                $out[] = $curr;
             }
         } elseif ($sublevel && $this->_level) {
             $level = $this->_level;
