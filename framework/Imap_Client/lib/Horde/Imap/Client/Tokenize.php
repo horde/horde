@@ -125,10 +125,16 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
         if ($return) {
             $level = $sublevel ? $this->_level : 0;
-            while ((($curr = $this->next()) !== false) &&
-                   ($level <= $this->_level)) {
-                $out[] = $curr;
-            }
+            do {
+                $curr = $this->next();
+                if ($this->_level < $level) {
+                    break;
+                }
+
+                if (!is_bool($curr) && ($level == $this->_level)) {
+                    $out[] = $curr;
+                }
+            } while (($curr !== false) || $this->_level || !$this->eos);
         } elseif ($sublevel && $this->_level) {
             $level = $this->_level;
             while ($level <= $this->_level) {
@@ -136,6 +142,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
             }
         } else {
             fseek($this->_stream->stream, 0, SEEK_END);
+            fgetc($this->_stream->stream);
             $this->_current = $this->_key = $this->_level = false;
         }
 
