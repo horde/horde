@@ -14,7 +14,7 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Core
  */
-class Horde_Core_Tree_Renderer_Html extends Horde_Core_Tree_Renderer_Simplehtml
+class Horde_Core_Tree_Renderer_Html extends Horde_Tree_Renderer_Html
 {
     /**
      * Images array.
@@ -39,6 +39,20 @@ class Horde_Core_Tree_Renderer_Html extends Horde_Core_Tree_Renderer_Simplehtml
         'folderopen' => 15,
         'leaf' => 16
     );
+
+    /**
+     * Generate a link URL tag.
+     *
+     * @param string $node_id  The node ID.
+     *
+     * @return string  The link tag.
+     */
+    protected function _generateUrlTag($node_id)
+    {
+        return Horde::selfUrl()
+            ->add(Horde_Tree::TOGGLE . $this->_tree->instance, $node_id)
+            ->link();
+    }
 
     /**
      * Generate the icon image.
