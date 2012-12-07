@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-12-07</date>
- <time>18:21:17</time>
+ <time>18:23:01</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,14 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix various issues with charset encoding when sending ActiveSync email.
-* [jan] Link back to application from preference screen.
-* [mjr] Fix GAL searching via ActiveSync (Bug #11808, horde@albasoft.com).
-* [mjr] Fix saving sent mail when using ActiveSync (Bug #11805, horde@albasoft.com).
-* [jan] Reset NLS information when changing languages.
-* [jan] Fix downloading files with special characters in Gollem (Bug #11770).
-* [mms] Added Horde_Core_Factory_SpellChecker.
-* [mms] Don&apos;t log backtrace for E_STRICT errors.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2630,6 +2623,19 @@
 * [jan] Fix downloading files with special characters in Gollem (Bug #11770).
 * [mms] Added Horde_Core_Factory_SpellChecker.
 * [mms] Don&apos;t log backtrace for E_STRICT errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
