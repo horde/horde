@@ -390,4 +390,76 @@ EOT;
         $this->assertFalse($token->next());
     }
 
+    public function testFlushIterator()
+    {
+        $test = 'FOO (BAR (BAZ BAZ2) BAR2) FOO2';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
+
+        $this->assertEquals(
+            array('BAR', 'BAR2'),
+            $token->flushIterator()
+        );
+        $this->assertEquals(
+            'FOO2',
+            $token->next()
+        );
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
+
+        $this->assertEquals(
+            array(),
+            $token->flushIterator(false)
+        );
+        $this->assertEquals(
+            'FOO2',
+            $token->next()
+        );
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
+
+        $this->assertEquals(
+            array(),
+            $token->flushIterator(false, false)
+        );
+        $this->assertTrue($token->eos);
+    }
+
+    public function testLiteralLength()
+    {
+        $test = 'FOO';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $this->assertNull($token->getLiteralLength());
+
+        $test = 'FOO {100}';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $len = $token->getLiteralLength();
+        $this->assertNotNull($len);
+        $this->assertFalse($len['binary']);
+        $this->assertEquals(
+            100,
+            $len['length']
+        );
+
+        $test = 'FOO ~{100}';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $len = $token->getLiteralLength();
+        $this->assertNotNull($len);
+        $this->assertTrue($len['binary']);
+        $this->assertEquals(
+            100,
+            $len['length']
+        );
+    }
+
 }
