@@ -15,9 +15,6 @@ binary: build
 	# config of "imp" app:
 	mv $(DESTDIR)/usr/share/horde/imp/config $(DESTDIR)/etc/horde/imp
 	dh_link etc/horde/imp usr/share/horde/imp/config
-	# config of "kronolith" app:
-	mv $(DESTDIR)/usr/share/horde/kronolith/config $(DESTDIR)/etc/horde/kronolith
-	dh_link etc/horde/kronolith usr/share/horde/kronolith/config
 	# config of "turba" app:
 	mv $(DESTDIR)/usr/share/horde/turba/config $(DESTDIR)/etc/horde/turba
 	dh_link etc/horde/turba usr/share/horde/turba/config
