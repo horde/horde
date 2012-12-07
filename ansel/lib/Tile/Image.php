@@ -122,7 +122,7 @@ class Ansel_Tile_Image
                 $geometry = $image->getDimensions($thumbstyle);
                 $GLOBALS['injector']->createInstance('Horde_Core_Factory_Imple')->create(
                     'Ansel_Ajax_Imple_EditCaption',
-                    array('data_id' => $image->id,
+                    array('dataid' => $image->id,
                           'id' => $image->id . 'caption',
                           'width' => $geometry['width']));
             } catch (Ansel_Exception $e) {
