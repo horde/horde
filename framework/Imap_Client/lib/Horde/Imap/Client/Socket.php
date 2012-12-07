@@ -765,13 +765,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         $this->_temp['id'] = array();
 
-        if (is_null($token_data = $data->next())) {
-            return;
-        }
-
-        while (($curr = $token_data->next()) !== false) {
-            if (!is_null($id = $token_data->next())) {
-                $this->_temp['id'][$curr] = $id;
+        if (!is_null($data->next())) {
+            while (($curr = $data->next()) !== false) {
+                if (!is_null($id = $data->next())) {
+                    $this->_temp['id'][$curr] = $id;
+                }
             }
         }
     }
