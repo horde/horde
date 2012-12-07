@@ -2840,6 +2840,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             foreach ($this->_parseStructureParams($data, 'content-disposition') as $key => $val) {
                 $ob->setDispositionParameter($key, $val);
             }
+            $data->next();
         }
 
         // This is language information. It is either a single value or a list
