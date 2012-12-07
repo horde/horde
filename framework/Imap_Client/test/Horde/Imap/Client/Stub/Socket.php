@@ -43,8 +43,8 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         foreach (array_filter($data) as $val) {
             $token = new Horde_Imap_Client_Tokenize($val);
             $token->rewind();
-            $id_str = $token->next();
             $token->next();
+            $id_str = $token->next();
             $token->next();
             $this->_parseFetch($id_str, $token);
             $ids[] = $id_str;
@@ -77,8 +77,8 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
     {
         $token = new Horde_Imap_Client_Tokenize($data);
         $token->rewind();
-        $msg_no = $token->next();
         $token->next();
+        $msg_no = $token->next();
         $token->next();
 
         $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();

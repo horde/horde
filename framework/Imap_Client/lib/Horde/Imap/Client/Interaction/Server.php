@@ -70,7 +70,8 @@ class Horde_Imap_Client_Interaction_Server
      */
     static public function create(Horde_Imap_Client_Tokenize $t)
     {
-        $tag = $t->rewind();
+        $t->rewind();
+        $tag = $t->next();
         $t->next();
 
         switch ($tag) {
