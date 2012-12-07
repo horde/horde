@@ -2835,9 +2835,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if ($data->next() === true) {
             $ob->setDisposition($data->next());
 
-            $data->next();
-            foreach ($this->_parseStructureParams($data, 'content-disposition') as $key => $val) {
-                $ob->setDispositionParameter($key, $val);
+            if ($data->next() === true) {
+                foreach ($this->_parseStructureParams($data, 'content-disposition') as $key => $val) {
+                    $ob->setDispositionParameter($key, $val);
+                }
             }
             $data->next();
         }
