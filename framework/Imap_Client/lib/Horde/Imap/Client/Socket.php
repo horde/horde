@@ -2770,13 +2770,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // If index 0 is an array, this is a multipart part.
         if (($entry = $data->next()) === true) {
-            // Keep going through array values until we find a non-array.
             do {
                 $ob->addPart($this->_parseBodystructure($data));
             } while (($entry = $data->next()) === true);
 
-            // The first string entry after an array entry gives us the
-            // subpart type.
+            // The subpart type.
             $ob->setType('multipart/' . $entry);
 
             // After the subtype is further extension information. This
