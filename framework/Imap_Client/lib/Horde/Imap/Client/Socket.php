@@ -2813,6 +2813,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'message':
                 if ($ob->getSubType() == 'rfc822') {
                     $data->next(); // Ignore: envelope
+                    $data->flushIterator(false);
                     $data->next();
                     $ob->addPart($this->_parseBodystructure($data));
                     $data->next(); // Ignore: lines
@@ -3503,6 +3504,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         switch ($data->current()) {
         case 'ANNOTATION':
             $mbox = $data->next();
+            $entry = $data->next();
 
             // Ignore unsolicited responses.
             if ($data->next() !== true) {
