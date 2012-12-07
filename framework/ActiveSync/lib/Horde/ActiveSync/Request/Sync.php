@@ -601,11 +601,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // Get new synckey if needed
+            // Get new synckey if needed. We need a new synckey if there were
+            // any changes (incoming or outgoing) or if this is during the
+            // initial sync pairing of the collection.
             if ($statusCode == self::STATUS_SUCCESS &&
                 (isset($collection['importedchanges']) ||
                 !empty($changecount) ||
                 $collection['synckey'] == '0' ||
+                $this->_stateDriver->getSyncKeyCounter($collection['synckey']) == 1 ||
                 !empty($collection['fetchids']))) {
 
                 try {
