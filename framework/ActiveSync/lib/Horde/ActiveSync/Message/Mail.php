@@ -49,6 +49,7 @@
  * @property Horde_ActiveSync_Message_MeetingRequest  meetingrequest
  * @property string     reply_to
  * @property integer    read
+ * @property cpid       integer  The codepage id.
  * @property Horde_ActiveSync_Message_Attachments attachments (EAS 2.5 only).
  * @property integer    bodytruncated (EAS 2.5 only)
  * @property integer    bodysize (EAS 2.5 only)
@@ -121,6 +122,9 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const FLAG_READ_UNSEEN = 0;
     const FLAG_READ_SEEN   = 1;
 
+    /* UTF-8 codepage id. */
+    const INTERNET_CPID_UTF8 = 65001;
+
     /**
      * Property mappings
      *
@@ -142,6 +146,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_MESSAGECLASS   => array(self::KEY_ATTRIBUTE => 'messageclass'),
         self::POOMMAIL_MEETINGREQUEST => array(self::KEY_ATTRIBUTE => 'meetingrequest', self::KEY_TYPE => 'Horde_ActiveSync_Message_MeetingRequest'),
         self::POOMMAIL_REPLY_TO       => array(self::KEY_ATTRIBUTE => 'reply_to'),
+        self::POOMMAIL_INTERNETCPID   => array(self::KEY_ATTRIBUTE => 'cpid'),
     );
 
     /**
@@ -172,6 +177,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         'meetingrequest' => false,
         'reply_to'       => false,
         'read'           => false,
+        'cpid'           => false,
     );
 
     /**

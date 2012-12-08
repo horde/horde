@@ -805,6 +805,10 @@ class Horde_ActiveSync_Imap_Adapter
         // Default to IPM.Note - may change below depending on message content.
         $eas_message->messageclass = 'IPM.Note';
 
+        // Codepage id. MS recommends to always set to UTF-8 when possible.
+        // See http://msdn.microsoft.com/en-us/library/windows/desktop/dd317756%28v=vs.85%29.aspx
+        $eas_message->cpid = Horde_ActiveSync_Message_Mail::INTERNET_CPID_UTF8;
+
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $message_body_data = $imap_message->getMessageBodyData($options);
             if ($message_body_data['plain']['charset'] != 'UTF-8') {
