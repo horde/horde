@@ -38,6 +38,13 @@ abstract class Horde_Core_Tagger
     protected $_types;
 
     /**
+     * The tagger
+     *
+     * @var Content_Tagger
+     */
+    protected $_tagger;
+
+    /**
      * Constructor
      *
      * @return Horde_Core_Tagger
@@ -58,6 +65,8 @@ abstract class Horde_Core_Tagger
             $GLOBALS['injector']->getInstance('Horde_Cache')
                 ->set($key, serialize($this->_type_ids));
         }
+
+        $this->_tagger = $GLOBALS['injector']->getInstance('Content_Tagger');
     }
 
     /**
@@ -100,7 +109,7 @@ abstract class Horde_Core_Tagger
         }
 
         try {
-            $GLOBALS['injector']->getInstance('Content_Tagger')->tag(
+            $this->_tagger->tag(
                     $owner,
                     array('object' => $localId,
                           'type' => $this->_type_ids[$content_type]),
@@ -127,15 +136,14 @@ abstract class Horde_Core_Tagger
         }
         if (is_array($localId)) {
             try {
-                return $GLOBALS['injector']->getInstance('Content_Tagger')
-                    ->getTagsByObjects($localId, $type);
+                return $this->_tagger->getTagsByObjects($localId, $type);
             } catch (Content_Exception $e) {
                 throw new Horde_Exception($e);
             }
         }
 
         try {
-            return $GLOBALS['injector']->getInstance('Content_Tagger')->getTags(
+            return $this->_tagger->getTags(
                 array(
                     'objectId' => array(
                         'object' => $localId,
@@ -167,8 +175,8 @@ abstract class Horde_Core_Tagger
         }
 
         try {
-            $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->removeTagFromObject(array(
+            $this->_tagger->removeTagFromObject(
+                array(
                     'object' => $localId,
                     'type' => $this->_type_ids[$content_type]),
                     $tags
@@ -248,8 +256,8 @@ abstract class Horde_Core_Tagger
     public function listTags($token)
     {
         try {
-            return $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->getTags(array(
+            return $this->_tagger->getTags(
+                array(
                     'q' => $token,
                     'userId' => $GLOBALS['registry']->getAuth())
                 );
@@ -273,14 +281,13 @@ abstract class Horde_Core_Tagger
     public function getCloud($user, $limit = 5, $all = false)
     {
         try {
-            return $GLOBALS['injector']->getInstance('Content_Tagger')
-                ->getTagCloud(
-                    array(
-                        'userId' => $user,
-                        'limit' => $limit,
-                        'typeId' => ($all ? null : $this->_types)
-                    )
-                );
+            return $this->_tagger->getTagCloud(
+                array(
+                    'userId' => $user,
+                    'limit' => $limit,
+                    'typeId' => ($all ? null : $this->_types)
+                )
+            );
         } catch (Content_Exception $e) {
             throw new Horde_Exception($e);
         }
@@ -302,20 +309,16 @@ abstract class Horde_Core_Tagger
     public function browseTags($tags, $user)
     {
         if (empty($tags)) {
-            return $GLOBALS['injector']
-                ->getInstance('Content_Tagger')
-                ->getTags(array(
-                    'userId' => $user,
-                    'typeId' => $this->_type_ids));
+            return $this->_tagger->getTags(array(
+                'userId' => $user,
+                'typeId' => $this->_type_ids)
+            );
         }
         try {
-            $tags = array_values($GLOBALS['injector']
-                ->getInstance('Content_Tagger')
-                ->getTagIds($tags));
+            $tags = array_values($this->_tagger->getTagIds($tags));
             $all_tags = array();
             foreach ($this->_type_ids as $tid) {
-                $iTags = $GLOBALS['injector']->getInstance('Content_Tagger')
-                    ->browseTags($tags, $tid, $user);
+                $iTags = $this->_tagger->browseTags($tags, $tid, $user);
                 foreach ($iTags as $id => $name) {
                     if (empty($all_tags[$id])) {
                         $all_tags[$id] = $name;
@@ -340,9 +343,7 @@ abstract class Horde_Core_Tagger
     public function getTagIds($tags)
     {
         try {
-            return $GLOBALS['injector']
-                ->getInstance('Content_Tagger')
-                ->getTagIds($tags);
+            return $this->_tagger->getTagIds($tags);
         } catch (Content_Exception $e) {
             throw new Trean_Exception($e);
         }
@@ -369,9 +370,7 @@ abstract class Horde_Core_Tagger
         );
 
         try {
-            return $GLOBALS['injector']
-                ->getInstance('Content_Tagger')
-                ->getTagCloud($filter);
+            return $this->_tagger->getTagCloud($filter);
         } catch (Content_Exception $e) {
             throw new Horde_Exception($e);
         }
