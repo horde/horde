@@ -182,7 +182,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
                 . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
         } catch (Horde_Db_Exception $e) {
-            $this->_logger->err($e->getMessage());
+            $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
 
@@ -1316,12 +1316,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @params string $syncKey  The sync key
      *
      * @throws Horde_ActiveSync_Exception
-     * @return boolean?
      */
     protected function _gc($syncKey)
     {
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
-            return false;
+            return;
         }
         $guid = $matches[1];
         $n = $matches[2];
@@ -1337,7 +1336,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 ? $this->_collection['id']
                 : Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC);
 
-        $results = $this->_db->selectAll($sql, $values);
+        try {
+            $results = $this->_db->selectAll($sql, $values);
+        } catch (Horde_Db_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception($e);
+        }
         $remove = array();
         $guids = array($guid);
         foreach ($results as $oldkey) {
@@ -1354,7 +1358,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if (count($remove)) {
             $sql = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_key IN ('
                 . str_repeat('?,', count($remove) - 1) . '?)';
-            $this->_db->delete($sql, $remove);
+
+            try {
+                $this->_db->delete($sql, $remove);
+            } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_ActiveSync_Exception($e);
+            }
         }
 
         // Also clean up the map table since this data is only needed for one
@@ -1364,9 +1374,16 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $remove = array();
             $sql = 'SELECT sync_key FROM ' . $table
                 . ' WHERE sync_devid = ? AND sync_user = ?';
-            $maps = $this->_db->selectValues(
-                $sql,
-                array($this->_deviceInfo->id, $this->_deviceInfo->user));
+
+            try {
+                $maps = $this->_db->selectValues(
+                    $sql,
+                    array($this->_deviceInfo->id, $this->_deviceInfo->user)
+                );
+            } catch (Horde_Db_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_ActiveSync_Exception($e);
+            }
             foreach ($maps as $key) {
                 if (preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $key, $matches)) {
                     if ($matches[1] == $guid && $matches[2] < $n) {
@@ -1377,11 +1394,15 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             if (count($remove)) {
                 $sql = 'DELETE FROM ' . $table . ' WHERE sync_key IN ('
                     . str_repeat('?,', count($remove) - 1) . '?)';
-                $this->_db->delete($sql, $remove);
+
+                try {
+                    $this->_db->delete($sql, $remove);
+                } catch (Horde_Db_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    throw new Horde_ActiveSync_Exception($e);
+                }
             }
         }
-
-        return true;
     }
 
     /**
