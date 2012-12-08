@@ -891,6 +891,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
+                    // Return true on error since error codes were already
+                    // sent to client.
                     if (!$this->_parseSyncCommands($collection)) {
                         return true;
                     }
@@ -989,7 +991,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
         }
 
-        $this->_initState($collection);
+        try {
+            $this->_initState($collection);
+        } catch (Horde_ActiveSync_Exception_StateGone $e) {
+            $this->_statusCode = self::STATUS_KEYMISM;
+            $this->_handleError($collection);
+            return false;
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_statusCode = self::STATUS_SERVERERROR;
+            $this->_handleGlobalSyncError();
+            return false;
+        }
 
         // Configure importer with last state
         if (!empty($collection['synckey'])) {
