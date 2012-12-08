@@ -930,7 +930,8 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html']['body'] = Horde_String::convertCharset(
                         $message_body_data['html']['body'],
                         $message_body_data['html']['charset'],
-                        'UTF-8'
+                        'UTF-8',
+                        true
                     );
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
@@ -942,11 +943,11 @@ class Horde_ActiveSync_Imap_Adapter
 
                 // Non MIME encoded plaintext
                 $this->_logger->debug('Sending PLAINTEXT Message.');
-
                 $message_body_data['plain']['body'] = Horde_String::convertCharset(
                     $message_body_data['plain']['body'],
                     $message_body_data['plain']['charset'],
-                    'UTF-8'
+                    'UTF-8',
+                    true
                 );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
