@@ -50,8 +50,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     /**
      * Start reading the wbxml stream, pulling off the initial header and
      * populate the properties.
-     *
-     * @return void
      */
     public function readWbxmlHeader()
     {
@@ -66,7 +64,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
     /**
      * Returns either start, content or end, and auto-concatenates successive
-     * content
+     * content.
+     *
+     * @return mixed  The element requested or false on failure.
      */
     public function getElement()
     {
@@ -96,6 +96,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Peek at the next element in the stream.
      *
      * @return array  The next element in the stream.
      */
@@ -112,7 +113,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @param string $tag  The element that this should be a start tag for.
      *
-     * @return mixed  The start tag array | false on failure.
+     * @return array|boolean  The start tag array | false on failure.
      */
     public function getElementStartTag($tag)
     {
@@ -132,7 +133,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     /**
      * Get the next tag, which is assumed to be an end tag.
      *
-     * @return mixed  The element array | false on failure.
+     * @return array|boolean The element array | false on failure.
      */
     public function getElementEndTag()
     {
@@ -159,8 +160,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT) {
             return $element[Horde_ActiveSync_Wbxml::EN_CONTENT];
         } else {
-            $this->_logger->info('Unmatched content:');
-            $this->_logger->info(print_r($element, true));
+            $this->_logger->info('Possible unmatched content (peeking or empty tag?)g');
             $this->_ungetElement($element);
         }
 
@@ -498,7 +498,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $ch = fread($this->_stream, 1);
         if (strlen($ch) > 0) {
             $ch = ord($ch);
-            //$this->_logger->debug('_getByte: ' . $ch);
             return $ch;
         } else {
             return;
