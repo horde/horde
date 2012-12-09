@@ -108,12 +108,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Const'r
      *
-     * @param array $collection  A collection array
-     * @param array $params  All configuration parameters, requirements.
-     *
-     * @return Horde_ActiveSync_State_Base
+     * @param array $params  All configuration parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
         if (empty($params['logger'])) {
@@ -121,9 +118,12 @@ abstract class Horde_ActiveSync_State_Base
         }
     }
 
+    /**
+     * Destructor
+     */
     public function __destruct()
     {
-        unset ($this->_backend);
+        unset($this->_backend);
     }
 
     /**
@@ -259,7 +259,9 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Return the counter for the specified syncKey.
      *
-     * @return mixed integer|boolean
+     * @param string $syncKey  The synckey to obtain the counter for.
+     *
+     * @return mixed integer|boolean  The increment counter or false if failed.
      */
     static public function getSyncKeyCounter($syncKey)
     {
@@ -496,13 +498,12 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Set a new remotewipe status for the device
      *
-     * @param string $devid    The device id.
+     * @param string $devId    The device id.
      * @param string $status   A Horde_ActiveSync::RWSTATUS_* constant.
      *
-     * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
-    abstract public function setDeviceRWStatus($devid, $status);
+    abstract public function setDeviceRWStatus($devId, $status);
 
     /**
      * Obtain the device object.
@@ -528,9 +529,7 @@ abstract class Horde_ActiveSync_State_Base
     /**
      * Set new device info
      *
-     * @param object $device  The device information
-     *
-     * @return boolean
+     * @param object $data  The device information
      */
     abstract public function setDeviceInfo($data);
 
@@ -576,12 +575,13 @@ abstract class Horde_ActiveSync_State_Base
     abstract public function getLastSyncTimestamp();
 
     /**
-     * Return a sync cache for 12.1 SYNC requests.
+     * Return the sync cache.
      *
      * @param string $devid  The device id.
      * @param string $user   The user id.
      *
      * @return array  The current sync cache for the user/device combination.
+     * @throws Horde_ActiveSync_Exception
      */
     abstract public function getSyncCache($devid, $user);
 
