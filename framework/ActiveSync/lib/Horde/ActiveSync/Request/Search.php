@@ -86,7 +86,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            '[%s] Beginning SEARCH',
+            '[%s] Handling SEARCH command.',
             $this->_device->id));
 
         $search_range = '0';

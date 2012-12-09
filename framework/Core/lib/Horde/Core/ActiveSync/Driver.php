@@ -1981,7 +1981,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             return $return;
         }
-        $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::_searchGal() found ' . $count . ' matches.');
 
         preg_match('/(.*)\-(.*)/', $query['range'], $matches);
         $return_count = $matches[2] - $matches[1];
