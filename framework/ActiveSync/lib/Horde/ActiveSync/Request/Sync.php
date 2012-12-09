@@ -214,6 +214,28 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return true;
             }
 
+            // Fill in missing values from the cache.
+            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+                // Give up in case we don't have a synched hierarchy synckey
+                if (!isset($this->_syncCache->hierarchy)) {
+                    $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
+                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                }
+
+                // Sanity check. These are not allowed in the same request.
+                if ($this->_syncCache->hbinterval !== false && $this->_syncCache->wait !== false) {
+                    $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request. VIOLATION.');
+                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                }
+
+                // Fill in missing information from cache.
+                $this->_syncCache->validateCollectionsFromCache($this->_collections);
+            }
+
             // Perform some checks that could cause state reset.
             $counters = $this->_syncCache->synckeycounter;
             foreach ($this->_collections as $collection) {
@@ -235,6 +257,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
                     // First time for this synckey. Remove others.
                     $counters[$collection['id']] = array($collection['synckey'] => 0);
+                } else {
+                    $this->_logger->debug('LOOP COUNTER: ' . $collection['synckey'] . ' : ' . $counters[$collection['id']][$collection['synckey']]);
                 }
 
                 // Ensure the FILTERTYPE hasn't changed. If so, we need to invalidate
@@ -251,28 +275,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_handleError($collection);
                     return true;
                 }
-            }
-
-            // Fill in missing values from the cache.
-            if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
-                // Give up in case we don't have a synched hierarchy synckey
-                if (!isset($this->_syncCache->hierarchy)) {
-                    $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
-                    $this->_statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
-
-                // Sanity check. These are not allowed in the same request.
-                if ($this->_syncCache->hbinterval !== false && $this->_syncCache->wait !== false) {
-                    $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request. VIOLATION.');
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleGlobalSyncError();
-                    return true;
-                }
-
-                // Fill in missing information from cache.
-                $this->_syncCache->validateCollectionsFromCache($this->_collections);
             }
 
             // Handle PARTIALSYNC requests
