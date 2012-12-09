@@ -241,7 +241,7 @@ class Horde_ActiveSync
 
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
-    const MAXIMUM_SYNCKEY_COUNT                 = 100;
+    const MAXIMUM_SYNCKEY_COUNT                 = 10;
 
     /**
      * Logger
