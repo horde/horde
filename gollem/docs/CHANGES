@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Change recursive deletion preference to ask by default.
 [jan] Fix share_id column if using old share backend (Bug #11833).
 [jan] Show loading layer when changing backends on login form.
 
