@@ -16,15 +16,15 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2012-10-27</date>
- <time>00:25:54</time>
+ <date>2012-12-10</date>
+ <time>15:37:38</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.0RC2</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -144,6 +144,8 @@
      </dir> <!-- /test/Sesha/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
+     <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Sesha -->
    </dir> <!-- /test -->
@@ -316,6 +318,8 @@
    <install as="sesha/templates/view/list.php" name="templates/view/list.php" />
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
+   <install as="Sesha/bootstrap.php" name="test/Sesha/bootstrap.php" />
+   <install as="Sesha/phpunit.xml" name="test/Sesha/phpunit.xml" />
    <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
    <install as="Sesha/Unit/Driver/RdoTest.php" name="test/Sesha/Unit/Driver/RdoTest.php" />
    <install as="sesha/themes/default/screen.css" name="themes/default/screen.css" />
@@ -371,7 +375,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-27</date>
+   <date>2012-12-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update to work with latest Horde 5 code.
@@ -379,12 +383,12 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
+    <release>1.0.0RC2</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-27</date>
+   <date>2012-12-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [rla] Improved display of search results (Request #11656).
