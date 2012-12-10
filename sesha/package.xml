@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2012-12-10</date>
- <time>15:46:44</time>
+ <time>15:48:42</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.0RC3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [rla] Improved display of search results (Request #11656).
-* [rla] Search now allows to select partial or full value match (Request #11655).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -393,6 +392,19 @@
    <notes>
 * [rla] Improved display of search results (Request #11656).
 * [rla] Search now allows to select partial or full value match (Request #11655).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-12-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
