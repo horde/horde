@@ -1,6 +1,6 @@
-----------
-v1.0.0-git
-----------
+---------
+v1.0.0RC2
+---------
 
 [rla] Improved display of search results (Request #11656).
 [rla] Search now allows to select partial or full value match (Request #11655).
