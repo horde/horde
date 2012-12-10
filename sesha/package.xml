@@ -30,7 +30,6 @@
  <notes>
 * [rla] Improved display of search results (Request #11656).
 * [rla] Search now allows to select partial or full value match (Request #11655).
-* First stable release.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -390,7 +389,6 @@
    <notes>
 * [rla] Improved display of search results (Request #11656).
 * [rla] Search now allows to select partial or full value match (Request #11655).
-* First stable release.
    </notes>
   </release>
  </changelog>
