@@ -83,8 +83,8 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         }
 
         $sort_list = array();
-        foreach ($search->addresses as $val) {
-            $sort_list[$val] = @levenshtein($str, $val);
+        foreach ($search->base_addresses as $val) {
+            $sort_list[strval($val)] = @levenshtein($str, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 

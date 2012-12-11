@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix returning complete groups with auto-completer.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2635,7 +2635,7 @@
    <date>2012-12-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix returning complete groups with auto-completer.
    </notes>
   </release>
  </changelog>
