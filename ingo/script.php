@@ -68,11 +68,9 @@ if ($view->scriptexists) {
     $view->lines = preg_split('(\r\n|\n|\r)', $script);
 }
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Filter Script Display")
 ));
-echo $menu;
 Ingo::status();
 echo $view->render('script');
 $page_output->footer();

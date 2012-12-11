@@ -233,6 +233,29 @@ class Ingo_Application extends Horde_Registry_Application
               $perms->hasAppPermission('max_rules') > count($filters)))) {
             $sidebar->addNewButton(_("New Rule"), Horde::url('rule.php'));
         }
+
+        if (!empty($GLOBALS['ingo_shares']) &&
+            (count($GLOBALS['all_rulesets']) > 1)) {
+            $url = Horde::url('filters.php');
+            $current = $GLOBALS['session']->get('ingo', 'current_share');
+
+            $sidebar->containers['rulesets'] = array(
+                'header' => array(
+                    'id' => 'ingo-toggle-rules',
+                    'label' => _("Ruleset"),
+                    'collapsed' => false,
+                ),
+            );
+            foreach ($GLOBALS['all_rulesets'] as $id => $ruleset) {
+                $row = array(
+                    'selected' => ($current == $id),
+                    'url' => $url->add('ruleset', $id),
+                    'label' => $ruleset->get('name'),
+                    'type' => 'radiobox',
+                );
+                $sidebar->addRow($row, 'rulesets');
+            }
+        }
     }
 
     /**

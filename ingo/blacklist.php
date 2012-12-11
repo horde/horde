@@ -109,11 +109,9 @@ $page_output->addInlineJsVars(array(
     'IngoBlacklist.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
 ));
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Blacklist Edit")
 ));
-echo $menu;
 Ingo::status();
 echo $view->render('blacklist');
 $page_output->footer();

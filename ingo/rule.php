@@ -342,11 +342,9 @@ $page_output->addInlineJsVars(array(
     'IngoRule.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
 ));
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => $rule['name']
 ));
-echo $menu;
 Ingo::status();
 echo $view->render('rule');
 $page_output->footer();

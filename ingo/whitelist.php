@@ -67,11 +67,9 @@ $page_output->addInlineJsVars(array(
     'IngoWhitelist.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
 ));
 
-$menu = Ingo::menu();
 $page_output->header(array(
     'title' => _("Whitelist Edit")
 ));
-echo $menu;
 Ingo::status();
 echo $view->render('whitelist');
 $page_output->footer();

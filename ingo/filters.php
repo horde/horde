@@ -294,12 +294,10 @@ if ($on_demand && $edit_allowed) {
 
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('filters.js');
-$menu = Ingo::menu();
 
 $page_output->header(array(
     'title' => _("Filter Rules")
 ));
-echo $menu;
 Ingo::status();
 echo $view->render('filters');
 $page_output->footer();

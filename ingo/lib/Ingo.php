@@ -328,37 +328,6 @@ class Ingo
     }
 
     /**
-     * Create ingo's menu.
-     *
-     * @return string  The menu text.
-     */
-    static public function menu()
-    {
-        $view = new Horde_View(array(
-            'templatePath' => INGO_TEMPLATES . '/basic/menu'
-        ));
-        $view->addHelper('FormTag');
-        $view->addHelper('Tag');
-
-        $view->formurl = Horde::url('filters.php');
-
-        if (!empty($GLOBALS['ingo_shares']) &&
-            (count($GLOBALS['all_rulesets']) > 1)) {
-            $options = array();
-            foreach (array_keys($GLOBALS['all_rulesets']) as $id) {
-                $options[] = array(
-                    'name' => $GLOBALS['all_rulesets'][$id]->get('name'),
-                    'selected' => ($GLOBALS['session']->get('ingo', 'current_share') == $id),
-                    'val' => $id
-                );
-            }
-            $view->options = $options;
-        }
-
-        return $view->render('menu');
-    }
-
-    /**
      * Outputs Ingo's status/notification bar.
      */
     static public function status()
