@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
 * [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
@@ -2873,6 +2874,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
 * [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
