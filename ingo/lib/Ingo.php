@@ -269,13 +269,27 @@ class Ingo
                                         $permission = Horde_Perms::SHOW)
     {
         try {
-            $rulesets = $GLOBALS['ingo_shares']->listShares(
+            $tmp = $GLOBALS['ingo_shares']->listShares(
                 $GLOBALS['registry']->getAuth(),
                 array('perm' => $permission,
                       'attributes' => $owneronly ? $GLOBALS['registry']->getAuth() : null));
         } catch (Horde_Share_Exception $e) {
             Horde::logMessage($e, 'ERR');
             return array();
+        }
+
+        /* Check if filter backend of the share still exists. */
+        $backends = Horde::loadConfiguration('backends.php', 'backends', 'ingo');
+        if (!isset($backends) || !is_array($backends)) {
+            throw new Ingo_Exception(_("No backends configured in backends.php"));
+        }
+        $rulesets = array();
+        foreach ($tmp as $id => $ruleset) {
+            list($backend) = explode(':', $id);
+            if (isset($backends[$backend]) &&
+                empty($backends[$backend]['disabled'])) {
+                $rulesets[$id] = $ruleset;
+            }
         }
 
         return $rulesets;
