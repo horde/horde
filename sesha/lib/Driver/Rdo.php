@@ -524,6 +524,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
             return iterator_to_array($sm->find());
         }
         $query = new Horde_Rdo_Query($sm);
+        $query->combineWith('OR');
         foreach ($filters as $filter) {
             switch ($filter['type']) {
                 case 'note':
