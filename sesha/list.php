@@ -13,6 +13,22 @@
 require_once __DIR__ . '/lib/Application.php';
 $sesha = Horde_Registry::appInit('sesha');
 
+/* Init some form vars. This is about the search field in the topbar */
+$vars = Horde_Variables::getDefaultVariables();
+
+if ($vars->searchfield || $vars->location) {
+    $vars->criteria = $vars->searchfield;
+    $vars->location = array(Sesha::SEARCH_ID, Sesha::SEARCH_NAME);
+}
+
+$session->set('sesha', 'search', strval($vars->searchfield));
+
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('list.php');
+$topbar->searchLabel =  $session->get('sesha', 'search') ?: _("Stock Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
 /* While switching from Horde_Template to Horde_View, try to leave only lines which strictly need to be in this file */
 // Start page display.
 
@@ -24,9 +40,9 @@ $view = new Sesha_View_List(array('templatePath'    => SESHA_TEMPLATES . '/view/
                                 'sortDir'           => Horde_Util::getFormData('sortdir'),
                                 'sortBy'            => Horde_Util::getFormData('sortby'),
                                 'propertyIds'       => @unserialize($prefs->getValue('list_properties')),
-                                'what'              => Horde_Util::getFormData('criteria'),
+                                'what'              => $vars->criteria,
                                 'exact'             => Horde_Util::getFormData('exact'),
-                                'loc'               => Horde_Util::getFormData('location')
+                                'loc'               => $vars->location
                             )
                             );
 $page_output->addScriptFile('prototype.js', 'horde');
@@ -34,7 +50,7 @@ $page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => $view->title
 ));
-require SESHA_TEMPLATES . '/menu.inc';
+#require SESHA_TEMPLATES . '/menu.inc';
 echo $view->render('list.php');
 $page_output->footer();
 
