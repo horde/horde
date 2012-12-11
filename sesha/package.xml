@@ -16,8 +16,8 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2012-12-10</date>
- <time>15:48:42</time>
+ <date>2012-12-11</date>
+ <time>21:06:08</time>
  <version>
   <release>1.0.0RC3</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [rla] QuickSearch now works by Name or Id (Request #11657).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -132,7 +132,6 @@
     <dir name="view">
      <file name="list.php" role="horde" />
     </dir> <!-- /templates/view -->
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Sesha">
@@ -313,7 +312,6 @@
    <install as="sesha/locale/lv/LC_MESSAGES/sesha.po" name="locale/lv/LC_MESSAGES/sesha.po" />
    <install as="sesha/migration/1_sesha_base_tables.php" name="migration/1_sesha_base_tables.php" />
    <install as="sesha/migration/2_sesha_upgrade_autoincrement.php" name="migration/2_sesha_upgrade_autoincrement.php" />
-   <install as="sesha/templates/menu.inc" name="templates/menu.inc" />
    <install as="sesha/templates/view/list.php" name="templates/view/list.php" />
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
@@ -401,10 +399,10 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-12-10</date>
+   <date>2012-12-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [rla] QuickSearch now works by Name or Id (Request #11657).
    </notes>
   </release>
  </changelog>

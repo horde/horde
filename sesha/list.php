@@ -50,7 +50,6 @@ $page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => $view->title
 ));
-#require SESHA_TEMPLATES . '/menu.inc';
 echo $view->render('list.php');
 $page_output->footer();
 
