@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Additional workarounds for IMAP servers with broken BINARY implementations (Bug #11855).
 * [mms] Add SORT_DISPLAYFROM_FALLBACK and SORT_DISPLAYTO_FALLBACK sorting criteria to Horde_Imap_Client_Base#search().
  </notes>
  <contents>
@@ -1427,6 +1428,7 @@
    <date>2012-12-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Additional workarounds for IMAP servers with broken BINARY implementations (Bug #11855).
 * [mms] Add SORT_DISPLAYFROM_FALLBACK and SORT_DISPLAYTO_FALLBACK sorting criteria to Horde_Imap_Client_Base#search().
    </notes>
   </release>

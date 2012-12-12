@@ -1543,14 +1543,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
+        /* Although it is normally more efficient to use LITERAL+, disable if
+         * payload is over 0.5 MB because it allows the server to throw error
+         * before we potentially push a lot of data to server that would
+         * otherwise be ignored (see RFC 4549 [4.2.2.3]). */
+        if (!($noliteralplus = ($this->_temp['appendsize'] > 524288))) {
+            /* Additionally, if using BINARY, since so many IMAP servers have
+             * issues with APPEND + BINARY, don't use LITERAL+ since servers
+             * may send BAD after initial command. */
+            $noliteralplus = $this->queryCapability('BINARY');
+        }
+
         try {
             $this->_sendLine($cmd, array(
-                /* Although it is normally more efficient to use LITERAL+,
-                 * disable here if our payload is over 0.5 MB because it
-                 * allows the server to throw error before we potentially push
-                 * a lot of data to server that would otherwise be ignored
-                 * (see RFC 4549 [4.2.2.3]). */
-                'noliteralplus' => ($this->_temp['appendsize'] > 524288)
+                'noliteralplus' => $noliteralplus
             ));
         } catch (Horde_Imap_Client_Exception $e) {
             switch ($e->getCode()) {
