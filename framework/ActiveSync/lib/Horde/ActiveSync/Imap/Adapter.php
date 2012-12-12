@@ -442,6 +442,9 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function getMessages($folderid, array $messages, array $options = array())
     {
+        Horde_Mime_Part::$defaultCharset = 'us-ascii';
+        Horde_Mime_Headers::$defaultCharset = 'us-ascii';
+
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         $results = $this->_getMailMessages($mbox, $messages);
         $ret = array();
@@ -930,8 +933,7 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html']['body'] = Horde_String::convertCharset(
                         $message_body_data['html']['body'],
                         $message_body_data['html']['charset'],
-                        'UTF-8',
-                        true
+                        'UTF-8'
                     );
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
@@ -946,8 +948,7 @@ class Horde_ActiveSync_Imap_Adapter
                 $message_body_data['plain']['body'] = Horde_String::convertCharset(
                     $message_body_data['plain']['body'],
                     $message_body_data['plain']['charset'],
-                    'UTF-8',
-                    true
+                    'UTF-8'
                 );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
