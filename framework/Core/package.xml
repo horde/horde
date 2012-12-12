@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2012-12-12</date>
- <time>17:36:45</time>
+ <time>17:38:25</time>
  <version>
-  <release>2.1.1</release>
+  <release>2.1.2</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,8 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Improve logging in ActiveSync drivers to better track down issues.
-* [jan] Fix returning complete groups with auto-completer.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2638,6 +2637,19 @@
    <notes>
 * [mjr] Improve logging in ActiveSync drivers to better track down issues.
 * [jan] Fix returning complete groups with auto-completer.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
