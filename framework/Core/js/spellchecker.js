@@ -234,9 +234,11 @@ var SpellChecker = Class.create({
 
         var t;
 
-        this.reviewDiv.select('span.spellcheckIncorrect').each(function(n) {
-            n.replace(n.innerHTML);
-        });
+        [ 'Corrected', 'Incorrect' ].each(function(i) {
+            this.reviewDiv.select('span.spellcheck' + i).each(function(n) {
+                n.replace(n.innerHTML);
+            });
+        }, this);
 
         t = this.reviewDiv.innerHTML;
         if (!this.htmlAreaParent) {
