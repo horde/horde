@@ -814,14 +814,11 @@ class Horde_ActiveSync_Imap_Adapter
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $message_body_data = $imap_message->getMessageBodyData($options);
-            if ($message_body_data['plain']['charset'] != 'UTF-8') {
-                $eas_message->body = Horde_String::convertCharset(
-                    $message_body_data['plain']['body'],
-                    $message_body_data['plain']['charset'],
-                    'UTF-8');
-            } else {
-                $eas_message->body = $message_body_data['plain']['body'];
-            }
+            $body = Horde_String::convertCharset(
+                $message_body_data['plain']['body'],
+                $message_body_data['plain']['charset'],
+                'UTF-8');
+            $eas_message->body = $this->_validateUtf8($message_body_data['plain']['body']);
             $eas_message->bodysize = Horde_String::length($eas_message->body);
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
@@ -848,7 +845,6 @@ class Horde_ActiveSync_Imap_Adapter
                 // alter the data in anyway or the signature will not be
                 // verified, so we fetch the entire message and hope for the best.
                 if (!$imap_message->isSigned()) {
-
                     // Sending a non-signed MIME message, start building the
                     // UTF-8 converted structure.
                     $mime = new Horde_Mime_Part();
@@ -863,7 +859,7 @@ class Horde_ActiveSync_Imap_Adapter
                             $message_body_data['plain']['charset'],
                             'UTF-8'
                         );
-                        $plain_mime->setContents($message_body_data['plain']['body']);
+                        $plain_mime->setContents($this->_validateUtf8($message_body_data['plain']['body']));
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -872,8 +868,13 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $html_mime->setContents($message_body_data['html']['body']);
-                        $html_mime->setCharset($message_body_data['html']['charset']);
+                        $message_body_data['html']['body'] = Horde_String::convertCharset(
+                            $message_body_data['html']['body'],
+                            $message_body_data['html']['charset'],
+                            'UTF-8'
+                        );
+                        $html_mime->setContents($this->_validateUtf8($message_body_data['html']['body']));
+                        $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
 
@@ -938,7 +939,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
-                $airsync_body->data = $message_body_data['html']['body'];
+                $airsync_body->data = $this->_validateUtf8($message_body_data['html']['body']);
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
@@ -952,7 +953,7 @@ class Horde_ActiveSync_Imap_Adapter
                 );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                $airsync_body->data = $message_body_data['plain']['body'];
+                $airsync_body->data = $this->_validateUtf8($message_body_data['plain']['body']);
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
@@ -1126,6 +1127,15 @@ class Horde_ActiveSync_Imap_Adapter
                 "EMERGENCY - Unable to obtain the IMAP Client: %s",
                 $e->getTraceAsString()));
             throw $e;
+        }
+    }
+
+    protected function _validateUtf8($data)
+    {
+        if (Horde_String::validUtf8($data)) {
+            return $data;
+        } else {
+            return Horde_String::convertCharset($data, 'UTF-8', 'UTF-8', true);
         }
     }
 
