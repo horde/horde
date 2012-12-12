@@ -15,8 +15,8 @@
           <select name="employees[]" id="hermesSearchFormEmployee" multiple="multiple">
           <?php foreach ($userType[1] as $username => $user_label): ?>
             <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
-          </select>
           <?php endforeach ?>
+          </select>
         <?php endif; ?>
         </label>
         <label for="hermesSearchFormJobtype">

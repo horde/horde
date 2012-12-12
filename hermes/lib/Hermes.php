@@ -211,7 +211,7 @@ class Hermes
             $employees[$user] = $label;
         }
 
-        return array($enumtype, array($employees));
+        return array($enumtype, $employees);
     }
 
     public static function getCostObjectByID($id)
