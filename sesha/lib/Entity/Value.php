@@ -24,7 +24,14 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
         case 'monthdayyear':
         case 'monthyear':
         case 'time':
-            return new Horde_Date($this->txt_datavalue);
+            if (is_int($this->txt_datavalue)) {
+                return new Horde_Date($this->txt_datavalue);
+            }
+            $dt = new Horde_Date;
+            foreach (Horde_Serialize::unserialize($this->txt_datavalue, Horde_Serialize::BASIC) as $marker => $content) {
+                if (strlen($content)) { $dt->$marker = $content; }
+            }
+            return $dt;
             break;
         case 'image';
             return array('hash' => $this->txt_datavalue);
