@@ -467,11 +467,11 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid, cache = 'time')
+    getSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
@@ -492,8 +492,11 @@ HermesCore = {
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
      */
-    replaceSliceInCache: function(sid, slice, cache = 'time')
+    replaceSliceInCache: function(sid, slice, cache)
     {
+        if (!cache) {
+            cache = time;
+        }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {
             this.slices.push(slice);
@@ -507,11 +510,11 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid, cache = 'time')
+    removeSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
