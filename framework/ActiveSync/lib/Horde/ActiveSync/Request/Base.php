@@ -190,6 +190,11 @@ abstract class Horde_ActiveSync_Request_Base
         return true;
     }
 
+    /**
+     * Set the logger.
+     *
+     * @var Horde_Log_Logger
+     */
     public function setLogger(Horde_Log_Logger $logger)
     {
         $this->_logger = $logger;
@@ -217,6 +222,11 @@ abstract class Horde_ActiveSync_Request_Base
         }
     }
 
+    /**
+     * Implementation method for handling request.
+     *
+     * @return string|boolean  Content-Type of results if not wbxml, or boolean.
+     */
     abstract protected function _handle();
 
     /**

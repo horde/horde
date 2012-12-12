@@ -17,6 +17,12 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sesha');
 
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('list.php');
+$topbar->searchLabel = _("Stock Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
 // Basic actions and configuration.
@@ -174,11 +180,9 @@ default:
 }
 
 // Begin page display.
-// require SESHA_TEMPLATES . '/menu.inc';
 $page_output->header(array(
     'title' => $title
 ));
-require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 
 if ($active) {

@@ -400,7 +400,6 @@ var NagMobile = {
         var form = $('#nag-task-form'),
             data = HordeJquery.formToObject(form);
 
-        data.tasklist = NagMobile.currentList;
         HordeMobile.doAction('saveTask', data, NagMobile.handleSubmitCallback);
     },
 

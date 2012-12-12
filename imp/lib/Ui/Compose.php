@@ -143,7 +143,7 @@ class IMP_Ui_Compose
             '$("close_success").observe("click", function() { window.close(); })'
         ), true);
 
-        IMP::header();
+        IMP::header(_("Message Successfully Sent"));
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/basic/compose'

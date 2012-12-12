@@ -231,6 +231,7 @@ class Ingo
                     $backend = $name;
                 }
             }
+            $backends[$name]['id'] = $name;
         }
 
         /* Check for valid backend configuration. */
@@ -238,7 +239,6 @@ class Ingo
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
-        $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         foreach (array('script', 'transport') as $val) {

@@ -350,6 +350,7 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             'encrypted' => $encrypted);
 
         try {
+            $userId = $GLOBALS['registry']->getAuth();
             $log = $GLOBALS['injector']->getInstance('Horde_History')
                 ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['memo_uid']);
             foreach ($log as $entry) {

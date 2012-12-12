@@ -165,7 +165,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
-                $this->_base->queue->poll($new_name);
                 $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
                 return true;
             }

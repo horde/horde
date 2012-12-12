@@ -24,7 +24,7 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
     public function testTokenizeSimple()
     {
         $test1 = 'FOO BAR';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
 
         $tmp = iterator_to_array($token1);
 
@@ -42,7 +42,7 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
     public function testTokenizeQuotes()
     {
         $test1 = 'FOO "BAR"';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
 
         $tmp = iterator_to_array($token1);
 
@@ -57,7 +57,7 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
         );
 
         $test2 = '"\"BAR\""';
-        $token2 = new Horde_Imap_Client_Tokenize_Master($test2);
+        $token2 = new Horde_Imap_Client_Tokenize($test2);
 
         $tmp = iterator_to_array($token2);
 
@@ -70,7 +70,7 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
     public function testTokenizeLiteral()
     {
         $test1 = 'FOO {3}BAR BAZ';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
 
         $tmp = iterator_to_array($token1);
 
@@ -93,11 +93,12 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
     public function testTokenizeNil()
     {
         $test1 = 'FOO NIL';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
+        $token1->rewind();
 
         $this->assertEquals(
             'FOO',
-            $token1->rewind()
+            $token1->next()
         );
         $this->assertNull($token1->next());
         $this->assertFalse($token1->next());
@@ -106,75 +107,63 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
     public function testTokenizeList()
     {
         $test1 = 'FOO ("BAR") BAZ';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
+        $token1->rewind();
 
         $this->assertEquals(
             'FOO',
-            $token1->rewind()
+            $token1->next()
         );
 
-        $inner = $token1->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token1->next());
 
         $this->assertEquals(
             'BAR',
-            $inner->rewind()
+            $token1->next()
         );
-        $this->assertFalse($inner->next());
+
+        $this->assertFalse($token1->next());
 
         $this->assertEquals(
             'BAZ',
             $token1->next()
         );
 
-        $test2 = '(BAR NIL NIL)';
-        $token2 = new Horde_Imap_Client_Tokenize_Master($test2);
+        $this->assertFalse($token1->next());
 
-        $inner = $token2->rewind();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
+        $test2 = '(BAR NIL NIL)';
+        $token2 = new Horde_Imap_Client_Tokenize($test2);
+        $token2->rewind();
+
+        $this->assertTrue($token2->next());
 
         $this->assertEquals(
             'BAR',
-            $inner->rewind()
+            $token2->next()
         );
-        $this->assertNull($inner->next());
-        $this->assertNull($inner->next());
-        $this->assertFalse($inner->next());
+
+        $this->assertNull($token2->next());
+        $this->assertNull($token2->next());
+        $this->assertFalse($token2->next());
 
         $test3 = '(\Foo)';
-        $token3 = new Horde_Imap_Client_Tokenize_Master($test3);
+        $token3 = new Horde_Imap_Client_Tokenize($test3);
+        $token3->rewind();
 
-        $inner = $token3->rewind();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token3->next());
 
         $this->assertEquals(
             '\\Foo',
-            $inner->rewind()
-        );
-    }
-
-    public function testTokenizeListWithoutExhaustingInnerStream()
-    {
-        $test1 = 'FOO ("BAR") BAZ';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
-
-        $this->assertEquals(
-            'FOO',
-            $token1->rewind()
+            $token3->next()
         );
 
-        $inner = $token1->next();
-
-        $this->assertEquals(
-            'BAZ',
-            $token1->next()
-        );
+        $this->assertFalse($token3->next());
     }
 
     public function testTokenizeBadWhitespace()
     {
         $test1 = '  FOO  BAR ';
-        $token1 = new Horde_Imap_Client_Tokenize_Master($test1);
+        $token1 = new Horde_Imap_Client_Tokenize($test1);
 
         $tmp = iterator_to_array($token1);
 
@@ -195,11 +184,12 @@ class Horde_Imap_Client_TokenizeTest extends PHPUnit_Framework_TestCase
 * 8 FETCH (UID 39210 BODYSTRUCTURE (("text" "plain" ("charset" "ISO-8859-1") NIL NIL "quoted-printable" 1559 40 NIL NIL NIL NIL)("text" "html" ("charset" "ISO-8859-1") NIL NIL {16}quoted-printable 25318 427 NIL NIL NIL NIL) {11}alternative ("boundary" "_Part_1_xMiAxODoyNjozNyAtMDQwMA==") NIL NIL NIL))
 EOT;
 
-        $token = new Horde_Imap_Client_Tokenize_Master($test);
+        $token = new Horde_Imap_Client_Tokenize($test);
+        $token->rewind();
 
         $this->assertEquals(
             '*',
-            $token->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '8',
@@ -210,245 +200,265 @@ EOT;
             $token->next()
         );
 
-        $inner = $token->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'UID',
-            $inner->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '39210',
-            $inner->next()
+            $token->next()
         );
         $this->assertEquals(
             'BODYSTRUCTURE',
-            $inner->next()
+            $token->next()
         );
 
-        $inner2 = $inner->next();
-        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize_List);
-
-        $inner3 = $inner2->rewind();
-        $this->assertTrue($inner3 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'text',
-            $inner3->rewind()
+            $token->next()
         );
         $this->assertEquals(
             'plain',
-            $inner3->next()
+            $token->next()
         );
 
-        $inner4 = $inner3->next();
-        $this->assertTrue($inner4 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'charset',
-            $inner4->rewind()
+            $token->next()
         );
         $this->assertEquals(
             'ISO-8859-1',
-            $inner4->next()
+            $token->next()
         );
 
-        $this->assertFalse($inner4->next());
+        $this->assertFalse($token->next());
 
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
         $this->assertEquals(
             'quoted-printable',
-            $inner3->next()
+            $token->next()
         );
         $this->assertEquals(
             1559,
-            $inner3->next()
+            $token->next()
         );
         $this->assertEquals(
             40,
-            $inner3->next()
+            $token->next()
         );
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertFalse($inner3->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertFalse($token->next());
 
-        $inner3 = $inner2->next();
-        $this->assertTrue($inner3 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'text',
-            $inner3->rewind()
+            $token->next()
         );
         $this->assertEquals(
             'html',
-            $inner3->next()
+            $token->next()
         );
 
-        $inner4 = $inner3->next();
-        $this->assertTrue($inner4 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'charset',
-            $inner4->rewind()
+            $token->next()
         );
         $this->assertEquals(
             'ISO-8859-1',
-            $inner4->next()
+            $token->next()
         );
 
-        $this->assertFalse($inner4->next());
+        $this->assertFalse($token->next());
 
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
         $this->assertEquals(
             'quoted-printable',
-            $inner3->next()
+            $token->next()
         );
         $this->assertEquals(
             25318,
-            $inner3->next()
+            $token->next()
         );
         $this->assertEquals(
             427,
-            $inner3->next()
+            $token->next()
         );
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertNull($inner3->next());
-        $this->assertFalse($inner3->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertFalse($token->next());
 
         $this->assertEquals(
             'alternative',
-            $inner2->next()
+            $token->next()
         );
 
-        $inner3 = $inner2->next();
-        $this->assertTrue($inner3 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'boundary',
-            $inner3->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '_Part_1_xMiAxODoyNjozNyAtMDQwMA==',
-            $inner3->next()
+            $token->next()
         );
-        $this->assertFalse($inner3->next());
+        $this->assertFalse($token->next());
 
-        $this->assertNull($inner2->next());
-        $this->assertNull($inner2->next());
-        $this->assertNull($inner2->next());
-        $this->assertFalse($inner2->next());
-
-        $this->assertFalse($inner->next());
-
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertNull($token->next());
+        $this->assertFalse($token->next());
+        $this->assertFalse($token->next());
         $this->assertFalse($token->next());
     }
 
     public function testBug11450()
     {
         $test = '* NAMESPACE (("INBOX." ".")) (("user." ".")) (("" "."))';
-        $token = new Horde_Imap_Client_Tokenize_Master($test);
+        $token = new Horde_Imap_Client_Tokenize($test);
+        $token->rewind();
 
         $this->assertEquals(
             '*',
-            $token->rewind()
+            $token->next()
         );
         $this->assertEquals(
             'NAMESPACE',
             $token->next()
         );
 
-        $inner = $token->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
-
-        $inner2 = $inner->rewind();
-        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'INBOX.',
-            $inner2->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '.',
-            $inner2->next()
+            $token->next()
         );
-        $this->assertFalse($inner2->next());
 
-        $this->assertFalse($inner->next());
+        $this->assertFalse($token->next());
+        $this->assertFalse($token->next());
 
-        $inner = $token->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
-
-        $inner2 = $inner->rewind();
-        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             'user.',
-            $inner2->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '.',
-            $inner2->next()
+            $token->next()
         );
-        $this->assertFalse($inner2->next());
 
-        $this->assertFalse($inner->next());
+        $this->assertFalse($token->next());
+        $this->assertFalse($token->next());
 
-        $inner = $token->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
-
-        $inner2 = $inner->rewind();
-        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize_List);
+        $this->assertTrue($token->next());
+        $this->assertTrue($token->next());
 
         $this->assertEquals(
             '',
-            $inner2->rewind()
+            $token->next()
         );
         $this->assertEquals(
             '.',
-            $inner2->next()
+            $token->next()
         );
-        $this->assertFalse($inner2->next());
 
-        $this->assertFalse($inner->next());
-
+        $this->assertFalse($token->next());
         $this->assertFalse($token->next());
     }
 
-    public function testFlushingFromSublevelObject()
+    public function testFlushIterator()
     {
-        $test = 'A (FOO (BAR (BAZ))) B';
-        $token = new Horde_Imap_Client_Tokenize_Master($test);
+        $test = 'FOO (BAR (BAZ BAZ2) BAR2) FOO2';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
 
         $this->assertEquals(
-            'A',
-            $token->rewind()
+            array('BAR', 'BAR2'),
+            $token->flushIterator()
         );
-
-        $inner = $token->next();
-        $this->assertTrue($inner instanceof Horde_Imap_Client_Tokenize_List);
         $this->assertEquals(
-            'FOO',
-            $inner->rewind()
-        );
-
-        $inner2 = $inner->next();
-        $this->assertTrue($inner2 instanceof Horde_Imap_Client_Tokenize_List);
-        $this->assertEquals(
-            'BAR',
-            $inner2->rewind()
-        );
-
-        $inner->flushIterator();
-
-        $this->assertEquals(
-            'B',
+            'FOO2',
             $token->next()
+        );
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
+
+        $this->assertEquals(
+            array(),
+            $token->flushIterator(false)
+        );
+        $this->assertEquals(
+            'FOO2',
+            $token->next()
+        );
+
+        $token->rewind();
+        $token->next(); // FOO
+        $token->next(); // Opening paren
+
+        $this->assertEquals(
+            array(),
+            $token->flushIterator(false, false)
+        );
+        $this->assertTrue($token->eos);
+    }
+
+    public function testLiteralLength()
+    {
+        $test = 'FOO';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $this->assertNull($token->getLiteralLength());
+
+        $test = 'FOO {100}';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $len = $token->getLiteralLength();
+        $this->assertNotNull($len);
+        $this->assertFalse($len['binary']);
+        $this->assertEquals(
+            100,
+            $len['length']
+        );
+
+        $test = 'FOO ~{100}';
+        $token = new Horde_Imap_Client_Tokenize($test);
+
+        $len = $token->getLiteralLength();
+        $this->assertNotNull($len);
+        $this->assertTrue($len['binary']);
+        $this->assertEquals(
+            100,
+            $len['length']
         );
     }
 

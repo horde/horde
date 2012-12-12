@@ -70,7 +70,8 @@ class Horde_Imap_Client_Interaction_Server
      */
     static public function create(Horde_Imap_Client_Tokenize $t)
     {
-        $tag = $t->rewind();
+        $t->rewind();
+        $tag = $t->next();
         $t->next();
 
         switch ($tag) {
@@ -121,7 +122,7 @@ class Horde_Imap_Client_Interaction_Server
                         }
                         $resp->data[] = is_string($elt)
                             ? $elt
-                            : iterator_to_array($elt);
+                            : $token->flushIterator();
                     }
                 }
 

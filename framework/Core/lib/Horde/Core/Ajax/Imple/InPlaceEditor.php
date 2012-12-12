@@ -80,7 +80,9 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
                              return "value=" + encodeURIComponent(value);
                          },
                          onComplete: function(ipe, opts) {
-                            $("' . $this->getDomId() . '").update(opts.responseJSON)
+                            if (opts) {
+                                $("' . $this->getDomId() . '").update(opts.responseJSON)
+                            }
                              ipe.checkEmpty()
                          },
                          loadTextURL: pair.value.load_url,

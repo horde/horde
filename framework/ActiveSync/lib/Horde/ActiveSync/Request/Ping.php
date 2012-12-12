@@ -102,7 +102,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     {
         $now = time();
         $this->_logger->info(sprintf(
-            "[%s] PING received at timestamp: %s.",
+            "[%s] Handling PING command received at timestamp: %s.",
             $this->_procid,
             $now));
 
@@ -207,7 +207,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $changes = array();
         $dataavailable = false;
         if ($this->_statusCode == self::STATUS_NOCHANGES) {
-            $this->_logger->info(sprintf(
+            $this->_logger->debug(sprintf(
                 '[%s] Waiting for changes (heartbeat interval: %d)',
                 $this->_procid,
                 $lifetime)
@@ -311,7 +311,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
 
                 if ($dataavailable) {
-                    $this->_logger->info(sprintf(
+                    $this->_logger->debug(sprintf(
                         "[%s] Changes available!",
                         $this->_procid));
                     break;
@@ -328,11 +328,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $syncCache->lastsyncendnormal = time();
         $syncCache->save();
 
-        // Prepare for response
-        $this->_logger->info(sprintf(
-            "[%s] Sending response for PING.",
-            $this->_procid));
-
+        // Send response
         $this->_encoder->StartWBXML();
         $this->_encoder->startTag(self::PING);
         $this->_encoder->startTag(self::STATUS);

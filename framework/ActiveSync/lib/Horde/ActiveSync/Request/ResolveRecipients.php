@@ -74,7 +74,7 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] RESOLVERECIPIENTS",
+            "[%s] Handling RESOLVERECIPIENTS command.",
             $this->_device->id));
 
         if (!$this->_decoder->getElementStartTag(self::TAG_RESOLVERECIPIENTS)) {

@@ -264,7 +264,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if (array_search('mail', $supported)) {
                 try {
                     $folders = array_merge($folders, $this->_getMailFolders());
-                } catch (Exception $e) {
+                } catch (Horde_ActiveSync_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
                     return array();
@@ -1809,13 +1809,28 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } else {
                 $this->_logger->debug('Polling Horde_Core_ActiveSync_Driver::_getMailFolders()');
                 $folders = array();
-                $imap_folders = $this->_imap->getMailboxes();
+                try {
+                    $imap_folders = $this->_imap->getMailboxes();
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err(sprintf(
+                        "Problem loading mail folders from IMAP server: %s",
+                        $e->getMessage())
+                    );
+                    throw $e;
+                }
                 foreach ($imap_folders as $id => $folder) {
                     // EAS maximum server id length is 64 per specs.
                     if (strlen($id) > 64) {
                         continue;
                     }
-                    $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
+                    try {
+                        $folders[] = $this->_getMailFolder($id, $imap_folders, $folder);
+                    } catch (Horde_ActiveSync_Exception $e) {
+                        $this->_logger->err(srintf(
+                            "Problem retrieving %s mail folder",
+                            $id)
+                        );
+                    }
                 }
                 $this->_mailFolders = $folders;
             }
@@ -1882,7 +1897,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return $folder;
         }
 
-        $specialFolders = $this->_imap->getSpecialMailboxes();
+        try {
+            $specialFolders = $this->_imap->getSpecialMailboxes();
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err('Problem retrieving special folders: ' . $e->getMessage());
+            throw $e;
+        }
 
         // Check for known, supported special folders.
         foreach ($specialFolders as $key => $value) {
@@ -1961,7 +1981,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_endBuffer();
             return $return;
         }
-        $this->_logger->info('Horde::getSearchResults found ' . $count . ' matches.');
+        $this->_logger->debug('Horde_Core_ActiveSync_Driver::_searchGal() found ' . $count . ' matches.');
 
         preg_match('/(.*)\-(.*)/', $query['range'], $matches);
         $return_count = $matches[2] - $matches[1];

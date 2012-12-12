@@ -441,13 +441,15 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $event = $this->getEvent($eventId);
         $this->synchronize();
 
-        $target = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($newCalendar);
-        $folder = $target->getId();
+        $target = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->getShare($newCalendar)
+            ->get('folder');
 
-        $this->_data->move($event->uid, $folder);
+        $this->_data->move($event->uid, $target);
         unset($this->_events_cache[$eventId]);
         try {
-            $this->_kolab->getData($target->get('folder'), 'contact')->synchronize();
+            $this->_kolab->getData($target, 'event')->synchronize();
         } catch (Kolab_Storage_Exception $e) {
             throw new Kronolith_Exception($e);
         }

@@ -323,10 +323,10 @@ class Ansel_View_Image extends Ansel_View_Ansel
         $commentHtml = '';
         if (isset($hasComments)) {
             if (!empty($comments['threads'])) {
-                $commentHtml .= '<br />' . $comments['threads'];
+                $commentHtml .= '<br>' . $comments['threads'];
             }
             if (!empty($comments['comments'])) {
-                $commentHtml .= '<br />' . $comments['comments'];
+                $commentHtml .= '<br>' . $comments['comments'];
             }
         }
 
@@ -377,6 +377,58 @@ class Ansel_View_Image extends Ansel_View_Ansel
                 echo $tmp->tag_full;
             }
         }
+
+        $js = '';
+        if (empty($this->_params['hide_slideshow'])) {
+            $js .= '$$(\'.ssPlay\').each(function(n) { n.show();});';
+        }
+        $js = '
+Event.observe($("photodiv"), "load", function() {
+    new Effect.Appear($("photodiv"), { duration: 0.5,
+        afterFinish: function() {$$(".imgloading").each(function(n) { n.setStyle({visibility: "hidden"});});
+        new Effect.Appear($("Caption"), { duration: 0.5 });
+    }});
+    var nextImg = new Image();
+    var prvImg = new Image();
+    nextImg.src = "' . $nextImgUrl . '";
+    prvImg.src = "' . $prvImgUrl . '";
+});
+
+new Effect.Opacity("photodiv", {to: 0, duration: 0.5, afterFinish: function() {$("photodiv").src = "' . $this->_urls['imgsrc'] . '"} });
+
+// Arrow keys for navigation
+document.observe("keydown", arrowHandler);
+
+function arrowHandler(e)
+{
+    if (e.altKey || e.shiftKey || e.ctrlKey) {
+        return;
+    }
+
+    theElement = Event.element(e);
+    switch (theElement.tagName) {
+    case "INPUT":
+    case "SELECT":
+    case "TEXTAREA":
+        return;
+    }
+    switch (e.keyCode || e.charCode) {
+    case Event.KEY_LEFT:
+        if ($("PrevLink")) {
+            document.location.href = $("PrevLink").href;
+        }
+        break;
+
+    case Event.KEY_RIGHT:
+        if ($("NextLink")) {
+            document.location.href = $("NextLink").href;
+        }
+        break;
+    }
+}';
+
+        global $page_output;
+        $page_output->addInlineScript($js, true);
 
         require ANSEL_TEMPLATES . '/view/image.inc';
         return Horde::endBuffer();

@@ -1276,6 +1276,7 @@ class IMP_Contents
             return _("Image part");
 
         case 'message':
+        case '':
         case Horde_Mime_Part::UNKNOWN:
             return _("Message part");
 

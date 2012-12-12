@@ -15,19 +15,51 @@ class Sesha_Entity_Value extends Horde_Rdo_Base
      */
     public function getDataValue()
     {
-        if ($this->property->datatype == 'image') {
+
+        /* These field-specific handlers should better be delegated to field definitions */
+        switch ($this->property->datatype) {
+        case 'date':
+        case 'datetime':
+        case 'hourminutesecond':
+        case 'monthdayyear':
+        case 'monthyear':
+        case 'time':
+            return new Horde_Date($this->txt_datavalue);
+            break;
+        case 'image';
             return array('hash' => $this->txt_datavalue);
+            break;
+        default:
+            return $this->txt_datavalue;
         }
-        return $this->txt_datavalue;
     }
 
     /**
      * Save the txt_datavalue or int_datavalue depending on context
+     * Fold special data types into a serializable, preferably search-friendly format
      */
     public function setDataValue($value)
     {
-        if ($this->property->datatype == 'image') {
+        /* These field-specific handlers should better be delegated to field definitions */
+        switch ($this->property->datatype) {
+        case 'date':
+        case 'datetime':
+        case 'hourminutesecond':
+        case 'monthdayyear':
+        case 'monthyear':
+        case 'time':
+            if (is_array($value)) {
+                // Directly passing the array makes funny breakage :(
+                $dt = new Horde_Date();
+                foreach ($value as $marker => $content) {
+                    if (strlen($content)) { $dt->$marker = $content; }
+                }
+                $value = $dt->datestamp();
+            }
+            break;
+        case 'image':
             $value = $value['hash'];
+            break;
         }
         return $this->txt_datavalue = $value;
     }

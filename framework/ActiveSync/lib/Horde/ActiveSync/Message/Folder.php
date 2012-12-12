@@ -34,12 +34,18 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
+ * @property string  parentid      Identifier of parent folder, if applicable.
  * @property string  serverid      Identifier of folder on the backend.
  * @property string  displayname   Display name for folder.
  * @property integer type          Foldertype (Horde_Activesync:: constant).
  */
 class Horde_ActiveSync_Message_Folder extends Horde_ActiveSync_Message_Base
 {
+    /**
+     * Id of the parent folder
+     *
+     * @var string
+     */
     public $parentid = false;
 
     /**

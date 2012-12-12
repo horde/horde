@@ -83,7 +83,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @param array $messages  An array of message UIDs.
      * @param array $flags     A hash of message read flags, keyed by UID.
      */
-    public function setChanges($messages, $flags = array())
+    public function setChanges(array $messages, array $flags = array())
     {
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
@@ -107,9 +107,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * Check the validity of various values.
      *
+     * @param array $params  A status array containing status to check.
+     *
      * @throws Horde_ActiveSync_Exception_StaleState
      */
-    public function checkValidity($params = array())
+    public function checkValidity(array $params = array())
     {
         if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
             throw new Horde_ActiveSync_Exception_StaleState('UIDVALIDTY no longer valid');
@@ -248,6 +250,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return $this->_removed;
     }
 
+    /**
+     * Return the minimum IMAP UID contained in this folder.
+     *
+     * @return integer  The IMAP UID.
+     */
     public function minuid()
     {   if (empty($this->_status[self::HIGHESTMODSEQ])) {
             return min(array_keys($this->_messages));

@@ -214,23 +214,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return true;
             }
 
-            // Ensure the FILTERTYPE hasn't changed. If so, we need to invalidate
-            // the client's synckey to force a sync reset. This is the only
-            // reliable way of fetching an older set of data from the backend.
-            foreach ($this->_collections as $collection) {
-                $cc = $this->_syncCache->getCollections();
-                if (!empty($cc[$collection['id']]['filtertype']) &&
-                    !empty($collection['filtertype']) &&
-                    $cc[$collection['id']]['filtertype'] != $collection['filtertype']) {
-                    $this->_syncCache->removeCollection($collection['id']);
-                    $this->_syncCache->save();
-                    $this->_logger->debug('Invalidating SYNCKEY - found updated filtertype');
-                    $this->_statusCode = self::STATUS_KEYMISM;
-                    $this->_handleError($collection);
-                    return true;
-                }
-            }
-
             // Fill in missing values from the cache.
             if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
                 // Give up in case we don't have a synched hierarchy synckey
@@ -251,6 +234,47 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 // Fill in missing information from cache.
                 $this->_syncCache->validateCollectionsFromCache($this->_collections);
+            }
+
+            // Perform some checks that could cause state reset.
+            $counters = $this->_syncCache->synckeycounter;
+            foreach ($this->_collections as $collection) {
+                // We try to detect the same synckey being requested by the device
+                // multiple times in case we are in some sort of infinite loop caused
+                // by the device not accepting our data, out of memory issue etc...
+                if (!empty($counters[$collection['id']][$collection['synckey']]) &&
+                    $counters[$collection['id']][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
+
+                    $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
+                    $this->_stateDriver->loadState(
+                        array(),
+                        null,
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $collection['id']);
+                    $this->_statusCode = self::STATUS_SERVERERROR;
+                    $this->_handleGlobalSyncError();
+                    return true;
+                } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
+                    // First time for this synckey. Remove others.
+                    $counters[$collection['id']] = array($collection['synckey'] => 0);
+                } else {
+                    $this->_logger->debug('LOOP COUNTER: ' . $collection['synckey'] . ' : ' . $counters[$collection['id']][$collection['synckey']]);
+                }
+
+                // Ensure the FILTERTYPE hasn't changed. If so, we need to invalidate
+                // the client's synckey to force a sync reset. This is the only
+                // reliable way of fetching an older set of data from the backend.
+                $cc = $this->_syncCache->getCollections();
+                if (!empty($cc[$collection['id']]['filtertype']) &&
+                    !empty($collection['filtertype']) &&
+                    $cc[$collection['id']]['filtertype'] != $collection['filtertype']) {
+                    $this->_syncCache->removeCollection($collection['id']);
+                    $this->_syncCache->save();
+                    $this->_logger->debug('Invalidating SYNCKEY - found updated filtertype');
+                    $this->_statusCode = self::STATUS_KEYMISM;
+                    $this->_handleError($collection);
+                    return true;
+                }
             }
 
             // Handle PARTIALSYNC requests
@@ -601,12 +625,21 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // Get new synckey if needed
+            // Get new synckey if needed. We need a new synckey if there were
+            // any changes (incoming or outgoing) or if this is during the
+            // initial sync pairing of the collection.
             if ($statusCode == self::STATUS_SUCCESS &&
                 (isset($collection['importedchanges']) ||
                 !empty($changecount) ||
                 $collection['synckey'] == '0' ||
+                $this->_stateDriver->getSyncKeyCounter($collection['synckey']) == 1 ||
                 !empty($collection['fetchids']))) {
+
+                // Increment the loop detection counter.
+                ++$counters[$collection['id']][$collection['synckey']];
+                if ($counters[$collection['id']][$collection['synckey']] > 1) {
+                    $this->_logger->debug('Incrementing loop counter. We saw this synckey before.');
+                }
 
                 try {
                     $collection['newsynckey'] = $this->_stateDriver->getNewSyncKey($collection['synckey']);
@@ -746,6 +779,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $this->_syncCache->updateCollection(
                         $collection, array('newsynckey' => true, 'unsetChanges' => true)
                     );
+                    $this->_syncCache->synckeycounter = $counters;
                 }
             }
             $this->_encoder->endTag();
@@ -888,6 +922,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_COMMANDS:
+                    // Return true on error since error codes were already
+                    // sent to client.
                     if (!$this->_parseSyncCommands($collection)) {
                         return true;
                     }
@@ -900,34 +936,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 exit;
             }
 
-            // We try to detect the same synckey being requested by the device
-            // multiple times in case we are in some sort of infinite loop caused
-            // by the device not accepting our data, out of memory issue etc...
-            $counters = $this->_syncCache->synckeycounter;
-            if (!empty($counters[$collection['id']][$collection['synckey']]) &&
-                $counters[$collection['id']][$collection['synckey']] > Horde_ActiveSync::MAXIMUM_SYNCKEY_COUNT) {
-
-                $this->_logger->err('Reached MAXIMUM_SYNCKEY_COUNT possible sync loop. Clearing state.');
-                $this->_stateDriver->loadState(
-                    array(),
-                    null,
-                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                    $collection['id']);
-                $this->_statusCode = self::STATUS_SERVERERROR;
-                $this->_handleGlobalSyncError();
-                return false;
-            } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
-                // First time for this synckey. Remove others.
-                $counters[$collection['id']] = array($collection['synckey'] => 1);
-            } elseif ($collection['getchanges']) {
-                // We saw this synckey before, increment the counter.
-                $this->_logger->err('Incrementing counter, we saw this synckey before.');
-                $counters[$collection['id']][$collection['synckey']]++;
-            }
-            $this->_syncCache->synckeycounter = $counters;
-
             array_push($this->_collections, $collection);
-
             if ($collection['importedchanges']) {
                 $this->_importedChanges = true;
             }
@@ -986,7 +995,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
         }
 
-        $this->_initState($collection);
+        try {
+            $this->_initState($collection);
+        } catch (Horde_ActiveSync_Exception_StateGone $e) {
+            $this->_statusCode = self::STATUS_KEYMISM;
+            $this->_handleError($collection);
+            return false;
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_statusCode = self::STATUS_SERVERERROR;
+            $this->_handleGlobalSyncError();
+            return false;
+        }
 
         // Configure importer with last state
         if (!empty($collection['synckey'])) {

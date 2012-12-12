@@ -1796,12 +1796,13 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_changed = true;
         }
 
-        $result = array();
+        $poll = $result = array();
 
         if (!empty($changes['a'])) {
             $result['a'] = array();
             foreach (array_keys($changes['a']) as $val) {
                 $result['a'][] = $this->_ajaxElt($val);
+                $poll[] = $val;
             }
         }
 
@@ -1812,6 +1813,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 // updated on-screen.
                 if ($val != self::BASE_ELT) {
                     $result['c'][] = $this->_ajaxElt($val);
+                    $poll[] = $val;
                 }
             }
         }
@@ -1822,6 +1824,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $result['d'][] = IMP_Mailbox::get($val)->form_to;
             }
         }
+
+        $GLOBALS['injector']->getInstance('IMP_Ajax_Queue')->poll($poll);
 
         return $result;
     }

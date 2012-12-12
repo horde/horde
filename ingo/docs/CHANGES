@@ -3,6 +3,7 @@ v3.0.2-git
 ----------
 
 [mms] All Ingo templates now use Horde_View.
+[jan] Fix changing permissions for shared rulesets.
 
 
 ------

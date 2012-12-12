@@ -90,7 +90,7 @@ $prefGroups['settings'] = array(
 
 // user preferred recursive deletes
 $_prefs['recursive_deletes'] = array(
-    'value' => 'disabled',
+    'value' => 'warn',
     'type' => 'enum',
     'enum' => array(
         'disabled' => _("No"),

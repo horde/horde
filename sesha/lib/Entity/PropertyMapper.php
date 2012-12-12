@@ -74,8 +74,8 @@ class Sesha_Entity_PropertyMapper extends Horde_Rdo_Mapper
         if (!is_string($property['parameters'])) {
             $property['parameters'] = serialize($property['parameters']);
         }
-        if(array_key_exists('property_id', $property)
-            && $property['property_id'] == null)
+        if (array_key_exists('property_id', $property) &&
+            $property['property_id'] == null)
             unset($property['property_id']);
         return parent::create($property);
     }

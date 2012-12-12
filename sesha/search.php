@@ -14,6 +14,12 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('sesha');
 
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('list.php');
+$topbar->searchLabel = _("Stock Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
 // Page variables.
 $title = _("Search Inventory");
 $actionId = Horde_Util::getFormData('actionId');
@@ -28,7 +34,6 @@ $vars->set('location', array(Sesha::SEARCH_NAME));
 $page_output->header(array(
     'title' => $title
 ));
-require SESHA_TEMPLATES . '/menu.inc';
 $notification->notify(array('listeners' => 'status'));
 $form->renderActive($renderer, $vars, Horde::url('list.php'), 'post');
 $page_output->footer();

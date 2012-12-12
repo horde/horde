@@ -29,27 +29,29 @@
 class Horde_ActiveSync_Imap_Message
 {
     /**
-     * Message data
+     * Message data.
      *
      * @var Horde_Imap_Client_Fetch_Data
      */
     protected $_data;
 
     /**
-     * Message structure
+     * Message structure.
      *
      * @var Horde_Mime_Part
      */
     protected $_message;
 
     /**
-     * The imap client
+     * The imap client.
      *
      * @var Horde_Imap_Client_Base
      */
     protected $_imap;
 
     /**
+     * The envelope data.
+     *
      * @var Horde_Imap_Client_Data_Envelope
      */
     protected $_envelope;
@@ -79,14 +81,14 @@ class Horde_ActiveSync_Imap_Message
      */
     public function __construct(
         Horde_Imap_Client_Base $imap,
-        Horde_Imap_Client_Mailbox $mailbox,
+        Horde_Imap_Client_Mailbox $mbox,
         Horde_Imap_Client_Data_Fetch $data)
     {
         $this->_imap = $imap;
         $this->_message = $data->getStructure();
         $this->_uid = $data->getUid();
         $this->_flags = $data->getFlags();
-        $this->_mbox = $mailbox;
+        $this->_mbox = $mbox;
         $this->_data = $data;
     }
 
@@ -676,7 +678,7 @@ class Horde_ActiveSync_Imap_Message
      * contained within the download data).
      *
      * @param string $id         The MIME Id for the part we are checking.
-     * @param string $mime_part  The MIME type.
+     * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
      */

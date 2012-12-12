@@ -41,6 +41,13 @@ class Nag_Search implements Serializable
     protected $_completed;
 
     /**
+     * The tasks lists to search.
+     *
+     * @var array
+     */
+    protected $_tasklists;
+
+    /**
      * Duedate criteria
      *
      * @var array
@@ -69,7 +76,7 @@ class Nag_Search implements Serializable
      *          DEFAULT: No date filters.
      *
      *   - tags: (array) An array of tags to filter on.
-     *   - tasklists: (array) An arary of tasklist ids to filter on.
+     *   - tasklists: (array) An array of tasklist ids to filter on.
      *                DEFAULT: The current display_tasklists value is used.
      *
      * @return Nag_Search

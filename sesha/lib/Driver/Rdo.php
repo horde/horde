@@ -201,8 +201,8 @@ class Sesha_Driver_Rdo extends Sesha_Driver
     public function addCategory($info)
     {
         $cm = $this->_mappers->create('Sesha_Entity_CategoryMapper');
-        if(array_key_exists('category_id', $info)
-            && $info['category_id'] == null)
+        if (array_key_exists('category_id', $info) &&
+            $info['category_id'] == null)
             unset($info['category_id']);
         return $cm->create($info);
     }
@@ -524,6 +524,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
             return iterator_to_array($sm->find());
         }
         $query = new Horde_Rdo_Query($sm);
+        $query->combineWith('OR');
         foreach ($filters as $filter) {
             switch ($filter['type']) {
                 case 'note':
@@ -568,7 +569,7 @@ class Sesha_Driver_Rdo extends Sesha_Driver
                         $values = is_array($propTest['values']) ? $propTest['values'] : array($propTest['values']);
                         // Find all Value objects which match any of the $value[values]
                         foreach ($values as $filter_value) {
-                           $valueQuery = new Horde_Rdo_Query($vm);
+                            $valueQuery = new Horde_Rdo_Query($vm);
                             if ($propTest['property']) {
                                 $valueQuery->addTest('property_id', '=', $propTest['property']);
                             }
