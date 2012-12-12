@@ -23,7 +23,7 @@
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
 * [mjr] Improve loop detection logic, preventing unnecessary state resets.
-* [mjr] Force charset conversion to prevent broken emails from breaking iOS sync.
+* [mjr] Fix charset issues with certain broken emails which can cause iOS to crash.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -987,7 +987,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improve loop detection logic, preventing unnecessary state resets.
-* [mjr] Force charset conversion to prevent broken emails from breaking iOS sync.
+* [mjr] Fix charset issues with certain broken emails which can cause iOS to crash.
    </notes>
   </release>
  </changelog>
