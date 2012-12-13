@@ -1004,7 +1004,7 @@ msgstr "Keine Duplikate gefunden."
 
 #: lib/View/List.php:253
 msgid "No matching contacts"
-msgstr "Keine passende Kontakte"
+msgstr "Keine passenden Kontakte"
 
 #: lib/Driver/Favourites.php:168
 msgid "No source for favourite recipients exists."
