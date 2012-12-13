@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[mjr] Fix incoming task sync with certain combinations of due date values.
 [mjr] Fix quick task addition without session cookies enabled (Bug #11875,
       Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug
