@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport
+abstract class Ingo_Transport_Base
 {
     /**
      * Congifuration parameters.

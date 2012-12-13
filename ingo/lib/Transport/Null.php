@@ -14,7 +14,7 @@
  * @package  Ingo
  */
 
-class Ingo_Transport_Null extends Ingo_Transport
+class Ingo_Transport_Null extends Ingo_Transport_Base
 {
     /**
      * Constructor.
@@ -22,8 +22,6 @@ class Ingo_Transport_Null extends Ingo_Transport
     public function __construct(array $params = array())
     {
         $this->_supportShares = true;
-
         parent::__construct($params);
     }
-
 }

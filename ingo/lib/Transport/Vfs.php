@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Transport_Vfs extends Ingo_Transport
+class Ingo_Transport_Vfs extends Ingo_Transport_Base
 {
     /**
      * Constructs a new VFS-based storage driver.
