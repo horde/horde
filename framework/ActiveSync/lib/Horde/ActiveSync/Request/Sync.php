@@ -831,13 +831,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 switch ($folder_tag) {
                 case Horde_ActiveSync::SYNC_FOLDERTYPE:
-                    // Evidently not always sent in 12.1 requests??
+                    // Not sent in 12.1 requests??
                     $collection['class'] = $this->_decoder->getElementContent();
-                    $this->_logger->info(sprintf(
-                        "[%s] Syncing folder class: %s",
-                        $this->_device->id,
-                        $collection['class'])
-                    );
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
@@ -852,11 +847,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                 case Horde_ActiveSync::SYNC_FOLDERID:
                     $collection['id'] = $this->_decoder->getElementContent();
-                    $this->_logger->info(sprintf(
-                        "[%s] Folder server id: %s",
-                        $this->_device->id,
-                        $collection['id'])
-                    );
                     if (!$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol error');
                     }
