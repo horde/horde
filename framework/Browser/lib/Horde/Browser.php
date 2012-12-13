@@ -499,7 +499,8 @@ class Horde_Browser
                 $this->_minorVersion = $version[2];
             }
 
-            if (stripos($agent, 'Chrome/') !== false) {
+            if (stripos($agent, 'Chrome/') !== false ||
+                stripos($agent, 'CriOS/') !== false) {
                 // Google Chrome.
                 $this->setFeature('ischrome');
                 $this->setFeature('rte');
