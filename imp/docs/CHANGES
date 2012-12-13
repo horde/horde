@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[mms] Fix loss of HTML body if related conversion is turned off (Bug #11883;
+      Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [mms] Ensure that polled mailboxes in dynamic view continue to show unseen
       message count if its child status changes (Bug #11864).
 [jan] Include address groups in auto-completion list if address book is below
