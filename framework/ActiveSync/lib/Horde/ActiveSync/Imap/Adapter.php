@@ -814,11 +814,10 @@ class Horde_ActiveSync_Imap_Adapter
 
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $message_body_data = $imap_message->getMessageBodyData($options);
-            $body = Horde_String::convertCharset(
+            $eas_message->body = $this->_validateUtf8(
                 $message_body_data['plain']['body'],
-                $message_body_data['plain']['charset'],
-                'UTF-8');
-            $eas_message->body = $this->_validateUtf8($message_body_data['plain']['body']);
+                $message_body_data['plain']['charset']
+            );
             $eas_message->bodysize = Horde_String::length($eas_message->body);
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
@@ -854,12 +853,11 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['plain'])) {
                         $plain_mime = new Horde_Mime_Part();
                         $plain_mime->setType('text/plain');
-                        $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                        $message_body_data['plain']['body'] = $this->_validateUtf8(
                             $message_body_data['plain']['body'],
-                            $message_body_data['plain']['charset'],
-                            'UTF-8'
+                            $message_body_data['plain']['charset']
                         );
-                        $plain_mime->setContents($this->_validateUtf8($message_body_data['plain']['body']));
+                        $plain_mime->setContents($message_body_data['plain']['body']);
                         $plain_mime->setCharset('UTF-8');
                         $mime->addPart($plain_mime);
                     }
@@ -868,12 +866,11 @@ class Horde_ActiveSync_Imap_Adapter
                     if (!empty($message_body_data['html'])) {
                         $html_mime = new Horde_Mime_Part();
                         $html_mime->setType('text/html');
-                        $message_body_data['html']['body'] = Horde_String::convertCharset(
+                        $message_body_data['html']['body'] = $this->_validateUtf8(
                             $message_body_data['html']['body'],
-                            $message_body_data['html']['charset'],
-                            'UTF-8'
+                            $message_body_data['html']['charset']
                         );
-                        $html_mime->setContents($this->_validateUtf8($message_body_data['html']['body']));
+                        $html_mime->setContents($message_body_data['html']['body']);
                         $html_mime->setCharset('UTF-8');
                         $mime->addPart($html_mime);
                     }
@@ -925,35 +922,32 @@ class Horde_ActiveSync_Imap_Adapter
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
-                        'body' => Horde_String::convertCharset($message_body_data['plain']['body'], $message_body_data['plain']['charset'], 'UTF-8'),
+                        'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
                         'truncated' => $message_body_data['plain']['truncated']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
-                    $message_body_data['html']['body'] = Horde_String::convertCharset(
-                        $message_body_data['html']['body'],
-                        $message_body_data['html']['charset'],
-                        'UTF-8'
-                    );
                 }
                 $airsync_body->estimateddatasize = $message_body_data['html']['estimated_size'];
                 $airsync_body->truncated = $message_body_data['html']['truncated'];
-                $airsync_body->data = $this->_validateUtf8($message_body_data['html']['body']);
+                $airsync_body->data = $this->_validateUtf8(
+                    $message_body_data['html']['body'],
+                    $message_body_data['html']['charset']
+                );
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
 
                 // Non MIME encoded plaintext
                 $this->_logger->debug('Sending PLAINTEXT Message.');
-                $message_body_data['plain']['body'] = Horde_String::convertCharset(
+                $message_body_data['plain']['body'] = $this->_validateUtf8(
                     $message_body_data['plain']['body'],
-                    $message_body_data['plain']['charset'],
-                    'UTF-8'
+                    $message_body_data['plain']['charset']
                 );
                 $airsync_body->estimateddatasize = $message_body_data['plain']['size'];
                 $airsync_body->truncated = $message_body_data['plain']['truncated'];
-                $airsync_body->data = $this->_validateUtf8($message_body_data['plain']['body']);
+                $airsync_body->data = $message_body_data['plain']['body'];
                 $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
@@ -1130,13 +1124,45 @@ class Horde_ActiveSync_Imap_Adapter
         }
     }
 
-    protected function _validateUtf8($data)
+    /**
+     * Ensure $data is converted to valid UTF-8 data. Works as follows:
+     * Converts to UTF-8, assuming data is in $from_charset encoding. If
+     * that produces invalid UTF-8, attempt to convert to most common mulitibyte
+     * encodings. If that *still* fails, strip out non 7-Bit characters...and
+     * force encoding to UTF-8 from $from_charset as a last resort.
+     *
+     * @param string $data          The string data to convert to UTF-8.
+     * @param string $from_charset  The character set to assume $data is encoded
+     *                              in.
+     *
+     * @return string  A valid UTF-8 encoded string.
+     */
+    protected function _validateUtf8($data, $from_charset)
     {
-        if (Horde_String::validUtf8($data)) {
-            return $data;
-        } else {
-            return Horde_String::convertCharset($data, 'UTF-8', 'UTF-8', true);
+        $test = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
+        if (!Horde_String::validUtf8($test)) {
+            $test_charsets = array(
+                'windows-1252',
+                'UTF-8'
+            );
+            foreach ($test_charsets as $charset) {
+                if ($charset != $from_charset) {
+                    $test = Horde_String::convertCharset($data, $charset, 'UTF-8');
+                    if (Horde_String::validUtf8($test)) {
+                        return $test;
+                    }
+                }
+            }
+
+            // Invalid UTF-8 still found. Strip out non 7-bit characters, or if
+            // that fails, force a conersion to UTF-8 as a last resort.
+            $test = preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $data);
+            if (!$test) {
+                $test = Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
+            }
         }
+
+        return $test;
     }
 
 }
