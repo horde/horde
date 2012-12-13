@@ -2556,7 +2556,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Return immediately if related conversion is turned off via
          * configuration. */
         if (empty($GLOBALS['conf']['compose']['convert_to_related'])) {
-            return;
+            return $html;
         }
 
         $client = $GLOBALS['injector']
