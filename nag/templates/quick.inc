@@ -1,6 +1,7 @@
 <div id="quickAddInfoPanel" class="quickAdd" style="display:none;">
  <h2><?php echo _("Quick Task Creation") ?></h2>
  <form method="post" action="quick.php">
+  <?php echo Horde_Util::formInput() ?>
   <p><?php echo _("Enter one task per line. Create child tasks by indenting them below their parent task. Include due dates like \"laundry tomorrow\" or \"get dry cleaning next Thursday\". Tags may be added by prefixing them with the \"#\" character.") ?></p>
   <textarea name="quickText" id="quickText"></textarea>
   <p>
