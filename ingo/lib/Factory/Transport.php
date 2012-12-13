@@ -25,20 +25,21 @@
  * @link     http://pear.horde.org/index.php?package=Ingo
  * @package  Ingo
  */
-class Ingo_Factory_Transport extends Horde_Core_Factory_Injector
+class Ingo_Factory_Transport extends Horde_Core_Factory_Base
 {
     /**
-     * Return the Ingo_Transport instance.
+     * Returns a Ingo_Transport instance.
      *
-     * @return Ingo_Transport  The singleton instance.
+     * @param string $transport  A transport driver name.
      *
+     * @return Ingo_Transport  The Ingo_Transport instance.
      * @throws Ingo_Exception
      */
-    public function create(Horde_Injector $injector)
+    public function create($transport)
     {
         global $registry, $session;
 
-        $transport = strlen($transport = $session->get('ingo', 'backend/transport'))
+        $transport = strlen($transport)
             ? basename($transport)
             : 'null';
 

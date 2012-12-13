@@ -156,7 +156,8 @@ class Ingo
     {
         try {
             $GLOBALS['injector']
-                ->getInstance('Ingo_Transport')
+                ->getInstance('Ingo_Factory_Transport')
+                ->create($GLOBALS['session']->get('ingo', 'backend/transport'))
                 ->setScriptActive($script, $additional);
         } catch (Ingo_Exception $e) {
             $msg = $deactivate

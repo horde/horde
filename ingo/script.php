@@ -47,7 +47,9 @@ case 'action_deactivate':
 
 case 'show_active':
     try {
-        $script = $injector->getInstance('Ingo_Transport')->getScript();
+        $script = $injector->getInstance('Ingo_Factory_Transport')
+            ->create($session->get('ingo', 'backend/transport'))
+            ->getScript();
     } catch (Ingo_Exception $e) {
         $notification->push($e);
         $script = '';
