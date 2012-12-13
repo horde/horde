@@ -46,6 +46,8 @@ class Horde_ActiveSync_Imap_Adapter
     public function __construct(array $params = array())
     {
         $this->_imap = $params['factory'];
+        Horde_Mime_Part::$defaultCharset = 'UTF-8';
+        Horde_Mime_Headers::$defaultCharset = 'UTF-8';
     }
 
     /**
@@ -442,9 +444,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     public function getMessages($folderid, array $messages, array $options = array())
     {
-        Horde_Mime_Part::$defaultCharset = 'us-ascii';
-        Horde_Mime_Headers::$defaultCharset = 'us-ascii';
-
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
         $results = $this->_getMailMessages($mbox, $messages);
         $ret = array();
