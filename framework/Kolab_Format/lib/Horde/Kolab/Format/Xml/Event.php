@@ -48,6 +48,7 @@ class Horde_Kolab_Format_Xml_Event extends Horde_Kolab_Format_Xml
         'organizer'    => 'Horde_Kolab_Format_Xml_Type_Composite_SimplePerson',
         'start-date'   => 'Horde_Kolab_Format_Xml_Type_EventDateTime',
         'alarm'        => 'Horde_Kolab_Format_Xml_Type_Integer',
+        'horde-alarm-methods' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',
         'recurrence'   => 'Horde_Kolab_Format_Xml_Type_Composite_Recurrence',
         'attendee'     => 'Horde_Kolab_Format_Xml_Type_Multiple_Attendee',
         'show-time-as' => 'Horde_Kolab_Format_Xml_Type_String_MaybeMissing',

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11880).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Fix moving events between calendars (Bug #11830).
 * [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
@@ -2041,6 +2042,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11880).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Fix moving events between calendars (Bug #11830).
 * [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).

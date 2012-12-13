@@ -85,6 +85,10 @@ class Kronolith_Event_Kolab extends Kronolith_Event
         if (isset($event['alarm'])) {
             $this->alarm = $event['alarm'];
         }
+        if (isset($event['horde-alarm-methods'])) {
+            $this->methods = @unserialize($event['horde-alarm-methods']);
+        }
+
 
         $tz_local = date_default_timezone_get();
         $this->start = new Horde_Date($event['start-date']);
@@ -228,6 +232,9 @@ class Kronolith_Event_Kolab extends Kronolith_Event
 
         if ($this->alarm != 0) {
             $event['alarm'] = $this->alarm;
+        }
+        if ($this->methods !== null) {
+            $event['horde-alarm-methods'] = serialize($this->methods);
         }
 
         $event['start-date'] = $this->start->toDateTime();
