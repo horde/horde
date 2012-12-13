@@ -307,8 +307,8 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
-        } elseif (!$condstore) {
-            $this->_logger->debug('NO CONDSTORE: ' . $folder->minuid);
+        } else {
+            $this->_logger->debug('NO CONDSTORE or per mailbox MODSEQ: ' . $folder->minuid);
             $query = new Horde_Imap_Client_Search_Query();
             $search_ret = $imap->search(
                 $mbox,
