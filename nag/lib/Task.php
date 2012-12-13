@@ -1373,12 +1373,12 @@ class Nag_Task
         }
 
         /* Due Date */
-        if ($due = $message->utcduedate || $due = $message->duedate) {
+        if (($due = $message->utcduedate) || ($due = $message->duedate)) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->utcstartdate || $start = $message->startdate) {
+        if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
             $this->start = $start->timestamp();
         }
 
