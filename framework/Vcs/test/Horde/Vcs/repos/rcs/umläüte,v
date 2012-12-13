@@ -1,0 +1,24 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2011.12.28.13.51.49;	author jan;	state Exp;
+branches;
+next	;
+
+
+desc
+@This is a file with umlauts in the file name.
+@
+
+
+1.1
+log
+@Add file with umlauts.
+@
+text
+@@

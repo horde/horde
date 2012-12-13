@@ -1,0 +1,24 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2011.12.28.13.48.20;	author jan;	state Exp;
+branches;
+next	;
+commitid	1004EFB1E241434EFD7;
+
+
+desc
+@@
+
+
+1.1
+log
+@Add file with umlauts.
+@
+text
+@@
