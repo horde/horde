@@ -2,6 +2,7 @@
 v6.0.3-git
 ----------
 
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [mms] Fix loss of HTML body if related conversion is turned off (Bug #11883;
       Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [mms] Ensure that polled mailboxes in dynamic view continue to show unseen

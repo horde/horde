@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Remove creator permission mapping from Kolab backend (Bug #11713).
  </notes>
  <contents>
@@ -882,6 +883,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-12-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Remove creator permission mapping from Kolab backend (Bug #11713).
    </notes>
   </release>

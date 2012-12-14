@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mms] Fix loss of HTML body if related conversion is turned off (Bug #11883; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
 * [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
@@ -2875,7 +2876,11 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+<<<<<<< HEAD
 * [mms] Fix loss of HTML body if related conversion is turned off (Bug #11883; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+=======
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+>>>>>>> Update eu translation.
 * [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
 * [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mjr] Fix incoming task sync with certain combinations of due date values.
 * [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
@@ -1272,6 +1273,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mjr] Fix incoming task sync with certain combinations of due date values.
 * [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).

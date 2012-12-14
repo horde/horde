@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mjr] Set the importance flag on mail messages.
 * [mjr] Fix detecting mailbox changes on IMAP servers that support CONDSTORE but not per mailbox MODSEQ (Bug #11754).
  </notes>
@@ -1013,6 +1014,7 @@
    <date>2012-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mjr] Set the importance flag on mail messages.
 * [mjr] Fix detecting mailbox changes on IMAP servers that support CONDSTORE but not per mailbox MODSEQ (Bug #11754).
    </notes>

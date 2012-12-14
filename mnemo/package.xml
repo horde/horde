@@ -28,7 +28,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+<<<<<<< HEAD
 * [mjr] Fix importing notepads (Bug #11849).
+=======
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+>>>>>>> Update eu translation.
 * [jan] Use default Kolab folder for default notepad preference.
 * [jan] Mark Kolab folder as default when changing default notepad preference.
  </notes>
@@ -967,7 +971,11 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+<<<<<<< HEAD
 * [mjr] Fix importing notepads (Bug #11849).
+=======
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+>>>>>>> Update eu translation.
 * [jan] Use default Kolab folder for default notepad preference.
 * [jan] Mark Kolab folder as default when changing default notepad preference.
    </notes>
