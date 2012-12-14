@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Text_Filter \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-12-09 17:23+0100\n"
 "PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Text/Filter/Html2text.php:123
-#: lib/Horde/Text/Filter/Html2text.php:124
+#: lib/Horde/Text/Filter/Html2text.php:118
+#: lib/Horde/Text/Filter/Html2text.php:119
 msgid "Links"
 msgstr "Vínculos"

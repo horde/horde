@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Alarm \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-02-22 11:20+0100\n"
 "PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -30,10 +30,10 @@ msgstr "Correo"
 msgid "Email address (optional)"
 msgstr "Dirección de correo (opcional)"
 
-#: lib/Horde/Alarm/Handler/Notify.php:77
+#: lib/Horde/Alarm/Handler/Notify.php:79
 msgid "Inline"
 msgstr "En línea"
 
-#: lib/Horde/Alarm/Handler/Notify.php:97
+#: lib/Horde/Alarm/Handler/Notify.php:99
 msgid "Play a sound?"
 msgstr "¿Reproducir un sonido?"

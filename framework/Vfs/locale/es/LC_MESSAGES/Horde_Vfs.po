@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Vfs \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-12-09 17:23+0100\n"
 "PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -18,14 +18,14 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Vfs/Smb.php:600
+#: lib/Horde/Vfs/Smb.php:586
 msgid "No such file"
 msgstr "El archivo no existe"
 
-#: lib/Horde/Vfs/Smb.php:603
+#: lib/Horde/Vfs/Smb.php:589
 msgid "Permission Denied"
 msgstr "Permiso denegado"
 
-#: lib/Horde/Vfs/SqlFile.php:265
+#: lib/Horde/Vfs/SqlFile.php:262
 msgid "Unable to rename VFS file."
 msgstr "Incapaz de renombrar el archivo VFS."

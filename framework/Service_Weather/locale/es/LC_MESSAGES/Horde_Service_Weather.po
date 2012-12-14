@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Weather \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-12-09 17:23+0100\n"
 "PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -38,7 +38,7 @@ msgstr "Nube de polvo generalizada"
 msgid "Blowing snow"
 msgstr "Nieve y viento"
 
-#: lib/Horde/Service/Weather/Base.php:200
+#: lib/Horde/Service/Weather/Base.php:207
 msgid "C"
 msgstr "C"
 
@@ -101,7 +101,7 @@ msgstr "ESE"
 msgid "East"
 msgstr "Este"
 
-#: lib/Horde/Service/Weather/Base.php:190
+#: lib/Horde/Service/Weather/Base.php:197
 msgid "F"
 msgstr "F"
 
@@ -580,7 +580,7 @@ msgstr "Nieve moderada"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:129
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:144
-#: test/Horde/Service/Weather/WundergroundTest.php:28
+#: test/Horde/Service/Weather/WundergroundTest.php:25
 msgid "Mostly Cloudy"
 msgstr "Mayormente nublado"
 
@@ -623,8 +623,8 @@ msgstr "Cubierto"
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:128
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:146
 #: lib/Horde/Service/Weather/Wwo_Strings.php:54
-#: test/Horde/Service/Weather/WundergroundTest.php:76
-#: test/Horde/Service/Weather/WwoTest.php:32
+#: test/Horde/Service/Weather/WundergroundTest.php:74
+#: test/Horde/Service/Weather/WwoTest.php:29
 msgid "Partly Cloudy"
 msgstr "Parcialmente nublado"
 
@@ -754,17 +754,10 @@ msgstr "Rocío"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:152
 #: lib/Horde/Service/Weather/Wwo_Strings.php:56
-#: test/Horde/Service/Weather/WwoTest.php:84
-#: test/Horde/Service/Weather/WwoTest.php:99
+#: test/Horde/Service/Weather/WwoTest.php:81
+#: test/Horde/Service/Weather/WwoTest.php:96
 msgid "Sunny"
 msgstr "Soleado"
-
-#: lib/Horde/Service/Weather/Google.php:169
-msgid ""
-"There was a problem with the weather request. Maybe an invalid location?"
-msgstr ""
-"Se produjo un problema con la solicitud de estado del tiempo. ¿Tal vez una "
-"ubicación inválida?"
 
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:38
 #: lib/Horde/Service/Weather/WeatherUnderground_Strings.php:154
@@ -827,42 +820,42 @@ msgstr "Oeste"
 msgid "Widespread Dust"
 msgstr "Polvo ambiental"
 
-#: lib/Horde/Service/Weather/Base.php:205
+#: lib/Horde/Service/Weather/Base.php:212
 msgid "centimeters"
 msgstr "centímetros"
 
 #: lib/Horde/Service/Weather/Current/WeatherUnderground.php:115
-#: test/Horde/Service/Weather/WundergroundTest.php:53
+#: test/Horde/Service/Weather/WundergroundTest.php:50
 msgid "falling"
 msgstr "disminuyendo"
 
-#: lib/Horde/Service/Weather/Base.php:192
-#: lib/Horde/Service/Weather/Base.php:194
-#: lib/Horde/Service/Weather/Base.php:195
+#: lib/Horde/Service/Weather/Base.php:199
+#: lib/Horde/Service/Weather/Base.php:201
+#: lib/Horde/Service/Weather/Base.php:202
 msgid "inches"
 msgstr "pulgadas"
 
-#: lib/Horde/Service/Weather/Base.php:203
+#: lib/Horde/Service/Weather/Base.php:210
 msgid "km"
 msgstr "km"
 
-#: lib/Horde/Service/Weather/Base.php:201
+#: lib/Horde/Service/Weather/Base.php:208
 msgid "kph"
 msgstr "km/h"
 
-#: lib/Horde/Service/Weather/Base.php:193
+#: lib/Horde/Service/Weather/Base.php:200
 msgid "miles"
 msgstr "millas"
 
-#: lib/Horde/Service/Weather/Base.php:202
+#: lib/Horde/Service/Weather/Base.php:209
 msgid "millibars"
 msgstr "milibares"
 
-#: lib/Horde/Service/Weather/Base.php:204
+#: lib/Horde/Service/Weather/Base.php:211
 msgid "millimeters"
 msgstr "milímetros"
 
-#: lib/Horde/Service/Weather/Base.php:191
+#: lib/Horde/Service/Weather/Base.php:198
 msgid "mph"
 msgstr "m/h"
 
