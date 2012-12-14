@@ -734,7 +734,7 @@ class Horde_ActiveSync_Imap_Adapter
             $query->flags();
         }
         if (!empty($options['headers'])) {
-            $query->headerText();
+            $query->headerText(array('peek' => true));
         }
         $ids = new Horde_Imap_Client_Ids($uids);
         try {
