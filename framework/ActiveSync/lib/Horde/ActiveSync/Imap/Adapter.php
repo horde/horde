@@ -445,7 +445,7 @@ class Horde_ActiveSync_Imap_Adapter
     public function getMessages($folderid, array $messages, array $options = array())
     {
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $results = $this->_getMailMessages($mbox, $messages);
+        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true));
         $ret = array();
         if (!empty($options['truncation'])) {
             $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
@@ -811,6 +811,15 @@ class Horde_ActiveSync_Imap_Adapter
         // See http://msdn.microsoft.com/en-us/library/windows/desktop/dd317756%28v=vs.85%29.aspx
         $eas_message->cpid = Horde_ActiveSync_Message_Mail::INTERNET_CPID_UTF8;
 
+        // Message importance. First try X-Priority, then Importance since
+        // Outlook sends the later.
+        if ($priority = $imap_message->getHeaders()->getValue('X-priority')) {
+            $priorty = preg_replace('/\D+/', '', $priority);
+        } else {
+            $priority = $imap_message->getHeaders()->getValue('Importance');
+        }
+        $eas_message->importance = $this->_getEASImportance($importance);
+
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $message_body_data = $imap_message->getMessageBodyData($options);
             $eas_message->body = $this->_validateUtf8(
@@ -1042,6 +1051,30 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         return $eas_message;
+    }
+
+    /**
+     * Map Importance header values to EAS importance values.
+     *
+     * @param string $importance  The importance [high|normal|low].
+     *
+     * @return integer  The EAS importance value [0|1|2].
+     */
+    protected function _getEASImportance($importance)
+    {
+        $this->_logger->debug($importance);
+        switch (strtolower($importance)) {
+        case '1':
+        case 'high':
+            return 2;
+        case '5':
+        case 'low':
+            return 0;
+        case 'normal':
+        case '3':
+        default:
+            return 1;
+        }
     }
 
     /**

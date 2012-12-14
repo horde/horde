@@ -114,16 +114,21 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
 
     /* Mail message types */
-    const CLASS_NOTE            = 'IPM.Note';
-    const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
-    const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
+    const CLASS_NOTE                 = 'IPM.Note';
+    const CLASS_MEETING_REQUEST      = 'IPM.Schedule.Meeting.Request';
+    const CLASS_MEETING_NOTICE       = 'IPM.Notification.Meeting';
 
     /* Flags */
-    const FLAG_READ_UNSEEN = 0;
-    const FLAG_READ_SEEN   = 1;
+    const FLAG_READ_UNSEEN           = 0;
+    const FLAG_READ_SEEN             = 1;
 
     /* UTF-8 codepage id. */
-    const INTERNET_CPID_UTF8 = 65001;
+    const INTERNET_CPID_UTF8         = 65001;
+
+    /* Importance */
+    const IMPORTANCE_LOW             = 0;
+    const IMPORTANCE_NORM            = 1;
+    const IMPORTANCE_HIGH            = 2;
 
     /**
      * Property mappings
