@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
-class Ansel_Prefs_Special_GallerySelect implements Horde_Core_Prefs_Ui_Special
+class Ansel_Prefs_Special_GalleryStyle implements Horde_Core_Prefs_Ui_Special
 {
     /**
      */

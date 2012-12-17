@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-24</date>
- <time>10:02:59</time>
+ <date>2012-12-17</date>
+ <time>11:03:43</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -122,6 +122,9 @@
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
+     <dir name="Application">
+      <file name="Handler.php" role="horde" />
+     </dir> <!-- /lib/Ajax/Application -->
      <dir name="Imple">
       <file name="EditCaption.php" role="horde" />
       <file name="EditFaces.php" role="horde" />
@@ -188,6 +191,7 @@
     <dir name="Prefs">
      <dir name="Special">
       <file name="GallerySelect.php" role="horde" />
+      <file name="GalleryStyle.php" role="horde" />
      </dir> <!-- /lib/Prefs/Special -->
     </dir> <!-- /lib/Prefs -->
     <dir name="Queue">
@@ -453,6 +457,7 @@
      </dir> <!-- /test/Ansel/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Ansel -->
@@ -857,6 +862,7 @@
    <install as="ansel/lib/Widget.php" name="lib/Widget.php" />
    <install as="ansel/lib/XPPublisher.php" name="lib/XPPublisher.php" />
    <install as="ansel/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
+   <install as="ansel/lib/Ajax/Application/Handler.php" name="lib/Ajax/Application/Handler.php" />
    <install as="ansel/lib/Ajax/Imple/EditCaption.php" name="lib/Ajax/Imple/EditCaption.php" />
    <install as="ansel/lib/Ajax/Imple/EditFaces.php" name="lib/Ajax/Imple/EditFaces.php" />
    <install as="ansel/lib/Ajax/Imple/LocationAutoCompleter.php" name="lib/Ajax/Imple/LocationAutoCompleter.php" />
@@ -897,6 +903,7 @@
    <install as="ansel/lib/ImageGenerator/Thumb.php" name="lib/ImageGenerator/Thumb.php" />
    <install as="ansel/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ansel/lib/Prefs/Special/GallerySelect.php" name="lib/Prefs/Special/GallerySelect.php" />
+   <install as="ansel/lib/Prefs/Special/GalleryStyle.php" name="lib/Prefs/Special/GalleryStyle.php" />
    <install as="ansel/lib/Queue/ProcessThumbs.php" name="lib/Queue/ProcessThumbs.php" />
    <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
    <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
@@ -1023,6 +1030,7 @@
    <install as="ansel/templates/xppublish/new.inc" name="templates/xppublish/new.inc" />
    <install as="Ansel/AllTests.php" name="test/Ansel/AllTests.php" />
    <install as="Ansel/Autoload.php" name="test/Ansel/Autoload.php" />
+   <install as="Ansel/bootstrap.php" name="test/Ansel/bootstrap.php" />
    <install as="Ansel/phpunit.xml" name="test/Ansel/phpunit.xml" />
    <install as="Ansel/TestCase.php" name="test/Ansel/TestCase.php" />
    <install as="Ansel/fixtures/vfs/.horde/ansel/00/full/4200.jpg" name="test/Ansel/fixtures/vfs/.horde/ansel/00/full/4200.jpg" />
