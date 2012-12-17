@@ -148,7 +148,7 @@ abstract class Horde_Core_TagBrowser
     /**
      * Get the total number of resources that match.
      *
-     * @return integer  The count of matching bookmarks.
+     * @return integer  The count of matching resources.
      */
     public function count()
     {
