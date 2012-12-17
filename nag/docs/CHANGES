@@ -2,6 +2,7 @@
 v4.0.2-git
 ----------
 
+[mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
 [mjr] Fix displaying and editing tasks from search results (Bug #11847).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [mjr] Fix incoming task sync with certain combinations of due date values.
