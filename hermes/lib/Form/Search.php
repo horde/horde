@@ -27,7 +27,7 @@ class Hermes_Form_Search extends Horde_Form
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             $type = Hermes::getEmployeesType();
             $this->addVariable(_("Employees"), 'employees', $type[0], false,
-                               false, null, $type[1]);
+                               false, null, array($type[1]));
         }
         $type = $this->getClientsType();
         $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
