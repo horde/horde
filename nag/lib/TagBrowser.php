@@ -1,5 +1,16 @@
 <?php
 /**
+ * Copyright 2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Nag
+ */
+/**
  * Nag_TagBrowser:: class provides logic for dealing with tag browsing.
  *
  * Copyright 2012 Horde LLC (http://www.horde.org/)
@@ -14,6 +25,11 @@
  */
 class Nag_TagBrowser extends Horde_Core_TagBrowser
 {
+    /**
+     * Application that the tag browser is for.
+     *
+     * @var string
+     */
     protected $_app = 'nag';
 
     /**
@@ -34,6 +50,9 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
 
     /**
      * Fetch the matching resources that should appear on the current page
+     *
+     * @param integer $page     Start page.
+     * @param integer $perpage  Number of tasks per page.
      *
      * @return Nag_Task  A list of tasks.
      */
