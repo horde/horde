@@ -231,7 +231,7 @@ html, body {
 div.hermesTimeListDate, div.hermesTimeListHours, div.hermesTimeListDesc,
 div.hermesTimeListClient, div.hermesTimeListCostObject, div.hermesTimeListType,
 div.hermesTimeSliceOptions, div.hermesTimeListSelect, div.hermesTimeListBill,
-div.hermesTimeListEmployee {
+div.hermesTimeListEmployee, div.hermesTimeListSum {
     float: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -239,7 +239,7 @@ div.hermesTimeListEmployee {
 div.hermesTimeListSelect, div.hermesTimeListBill, div.hermesTimeListUnselectable {
     width: 3%;
 }
-div.hermesTimeListHours {
+div.hermesTimeListHours, div.hermesTimeListSum {
     width: 5%;
 }
 div.hermesTimeListDate, div.hermesTimeListType, div.hermesTimeListClient,
@@ -248,6 +248,9 @@ div.hermesTimeListEmployee {
 }
 div.hermesTimeListCostObject, div.hermesTimeListDesc {
     width: 19%;
+}
+div.hermesTimeListSum {
+  margin-left: 85%;
 }
 div.hermesTimeSliceOptions {
     width: 8%;

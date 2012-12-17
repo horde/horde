@@ -1084,7 +1084,7 @@ HermesCore = {
     buildSearchResultsTable: function()
     {
         var t = $('hermesSearchListInternal'),
-            slices;
+            slices, total = 0;
 
         t.update();
         if (this.reverseSort) {
@@ -1126,10 +1126,12 @@ HermesCore = {
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildSearchRow(slice).toggle());
+            total = total + parseFloat(slice.h);
         }.bind(this));
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
+        $('hermesSearchSum').update(total);
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
