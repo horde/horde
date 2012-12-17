@@ -71,12 +71,9 @@ abstract class Ansel_Widget_Base
      * Attach this widget to the passed in view. Normally called
      * by the Ansel_View once this widget is added.
      *
-     * @param Ansel_View $view  The view to attach to
-     *
-     * @return boolean.
-     * @TODO: Remove return value, throw exception instead.
+     * @param Ansel_View_Base $view  The view to attach
      */
-    public function attach($view)
+    public function attach(Ansel_View_Base $view)
     {
         $this->_view = $view;
         if (!empty($this->_params['style'])) {

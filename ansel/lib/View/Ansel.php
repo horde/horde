@@ -40,10 +40,8 @@ abstract class Ansel_View_Ansel extends Ansel_View_Base
      */
     public function addWidget($widget)
     {
-        $result = $widget->attach($this);
-        if (!empty($result)) {
-            $this->_widgets[] = $widget;
-        }
+        $widget->attach($this);
+        $this->_widgets[] = $widget;
     }
 
     /**

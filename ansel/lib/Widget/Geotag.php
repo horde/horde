@@ -51,8 +51,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
      * Attach widget to supplied view.
      *
      * @param Ansel_View_Base $view
-     *
-     * @return boolean
      */
     public function attach(Ansel_View_Base $view)
     {
@@ -60,7 +58,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             return false;
         }
         parent::attach($view);
-        return true;
     }
 
     /**

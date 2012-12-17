@@ -1,5 +1,11 @@
 <?php
 /**
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
  * Ansel_Widget_OtherGalleries:: class to display a widget containing mini
  * thumbnails and links to other galleries owned by the same user as the
  * currently viewed image/gallery.
@@ -26,8 +32,6 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             $name = $this->_view->gallery->get('owner');
         }
         $this->_title = sprintf(_("%s's Galleries"), $name);
-
-        return true;
     }
 
     /**
