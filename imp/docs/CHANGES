@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[mms] Fix duplicate signature being added to compose messages in minimal view
+      (Bug #11896; Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [mms] Fix loss of HTML body if related conversion is turned off (Bug #11883;
       Thomas Jarosch <thomas.jarosch@intra2net.com>).

@@ -308,7 +308,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 );
 
                 try {
-                    $imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options);
+                    $imp_compose->buildAndSendMessage($message, $header, $options);
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');
