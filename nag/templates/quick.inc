@@ -6,7 +6,7 @@
   <textarea name="quickText" id="quickText"></textarea>
   <p>
    <input type="submit" class="horde-default" value="<?php echo _("Create") ?>" />
-   <input type="button" class="horde-cancel" onclick="RedBox.close()" value="<?php echo _("Cancel") ?>" />
+   <input type="button" class="horde-cancel" onclick="RedBox.close();RedBox.getWindow().down().remove();" value="<?php echo _("Cancel") ?>" />
   </p>
  </form>
 </div>
