@@ -112,8 +112,10 @@
       <div class="hermesTimeSliceOptions"><span class="sliceEdit sliceControl">&nbsp;</span><span class="sliceDelete sliceControl">&nbsp;</span></div>
     </div>
     <div id="hermesSearchListInternal"></div>
-    <div  id="hermesSearchSum" class="hermesTimeListSum"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
+    <div class="hermesTimeListRow">
+      <div class="hermesTimeListSumLabel"><?php echo _("Total Hours")?></div><div  id="hermesSearchSum" class="hermesTimeListSum">0</div>
+    </div>
   </div>
   <div id="hermesTimeListControls" class="horde-form-buttons">
     <input id="hermesSearchListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit")?>" />
