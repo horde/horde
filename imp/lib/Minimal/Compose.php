@@ -312,7 +312,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');
-                    $this->redirect('mailbox')->redirect();
+                    IMP_Minimal_Mailbox::url()->redirect();
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
 
