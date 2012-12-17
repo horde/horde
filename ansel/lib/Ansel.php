@@ -875,7 +875,6 @@ class Ansel
                         'app' => 'ansel',
                         'append_session' => -1)));
 
-            // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
             $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
