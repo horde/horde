@@ -61,7 +61,6 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
         // Refresh the search
         $this->runSearch();
         $results = array_slice($this->_results, $page * (empty($perpage) ? 0 : $perpage), $perpage);
-
         $driver = $GLOBALS['injector']
             ->getInstance('Nag_Factory_Driver')
             ->create('');
@@ -75,6 +74,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
                 Horde::logMessage('Task not found: ' . $id, 'ERR');
             }
         }
+        $tasks->process();
 
         return $tasks;
     }
