@@ -40,6 +40,14 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     protected $_completed = Nag::VIEW_ALL;
 
     /**
+     * Cache the last tag search to avoid having to retrieve the tags from the
+     * backend twice.
+     *
+     * @var Nag_Task
+     */
+    protected $_tasks;
+
+    /**
      * Get breadcrumb style navigation html for choosen tags
      *
      * @return  Return information useful for building a tag trail.
@@ -60,23 +68,7 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     {
         // Refresh the search
         $this->runSearch();
-        $results = array_slice($this->_results, $page * (empty($perpage) ? 0 : $perpage), $perpage);
-        $driver = $GLOBALS['injector']
-            ->getInstance('Nag_Factory_Driver')
-            ->create('');
-        $tasks = new Nag_Task();
-        foreach ($results as $id) {
-            try {
-                $tasks->add($driver->getByUID($id));
-            } catch (Nag_Exception $e) {
-                Horde::logMessage(sprintf('Error loading task: %s', $e->getMessage()), 'ERR');
-            } catch (Horde_Exception_NotFound $e) {
-                Horde::logMessage('Task not found: ' . $id, 'ERR');
-            }
-        }
-        $tasks->process();
-
-        return $tasks;
+        return $this->_tasks->getSlice($page, $perpage);
     }
 
     /**
@@ -107,6 +99,10 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
         $tasks = $search->getSlice();
         $tasks->reset();
 
+        // Save the resulting task list.
+        $this->_tasks = $tasks;
+
+        // Must return the UID array since the parent class requires them.
         $ids = array();
         while ($task = $tasks->each()) {
             $ids[] = $task->uid;
