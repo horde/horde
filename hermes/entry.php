@@ -12,6 +12,11 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
+
+if (Hermes::showAjaxView()) {
+    Horde::url('', true)->setAnchor('time')->redirect();
+}
+
 $vars = Horde_Variables::getDefaultVariables();
 if (!$vars->exists('id') && $vars->exists('timer')) {
     $timer_id = $vars->get('timer');

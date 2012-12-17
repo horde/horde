@@ -468,4 +468,14 @@ class Hermes
          $prefs->setValue('running_timers', serialize($timers));
     }
 
+    /**
+     * Returns true if we are showing the Ajax view.
+     *
+     * @return boolean
+     */
+    static public function showAjaxView()
+    {
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
+    }
+
 }

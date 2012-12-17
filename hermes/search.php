@@ -11,6 +11,10 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
+if (Hermes::showAjaxView()) {
+    Horde::url('', true)->setAnchor('search')->redirect();
+}
+
 $vars = Horde_Variables::getDefaultVariables();
 $delete = $vars->get('delete');
 if (!empty($delete)) {
