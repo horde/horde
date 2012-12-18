@@ -36,7 +36,6 @@
  */
 class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
 {
-
     /** Search code page **/
     const SEARCH_SEARCH              = 'Search:Search';
     const SEARCH_STORE               = 'Search:Store';
@@ -64,6 +63,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const SEARCH_USERNAME            = 'Search:UserName';
     const SEARCH_PASSWORD            = 'Search:Password';
     const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
+
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
@@ -76,7 +76,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const STORE_STATUS_NOTFOUND      = 6;
     const STORE_STATUS_CONNECTIONERR = 7;
     const STORE_STATUS_COMPLEX       = 8;
-
 
     /**
      * Handle request
@@ -200,6 +199,12 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                             }
                             break;
                         }
+                    }
+                }
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                    $bodypreference['mimesupport'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
                     }
                 }
                 $e = $this->_decoder->peek();
