@@ -1171,30 +1171,55 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _validateUtf8($data, $from_charset)
     {
-        $test = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
-        if (!Horde_String::validUtf8($test)) {
+        $this->_logger->debug('Validating UTF-8 data coming from ' . $from_charset);
+        $text = Horde_String::convertCharset($data, $from_charset, 'UTF-8');
+        if (!Horde_String::validUtf8($text)) {
+            $this->_logger->debug('Found invalid UTF-8 data, try different encodings.');
             $test_charsets = array(
                 'windows-1252',
                 'UTF-8'
             );
             foreach ($test_charsets as $charset) {
                 if ($charset != $from_charset) {
-                    $test = Horde_String::convertCharset($data, $charset, 'UTF-8');
-                    if (Horde_String::validUtf8($test)) {
-                        return $test;
+                    $text = Horde_String::convertCharset($data, $charset, 'UTF-8');
+                    if (Horde_String::validUtf8($text)) {
+                        $this->_logger->debug('Found valid UTF-8 data when using ' . $charset);
+                        return $text;
                     }
                 }
             }
 
             // Invalid UTF-8 still found. Strip out non 7-bit characters, or if
-            // that fails, force a conersion to UTF-8 as a last resort.
-            $test = preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $data);
-            if (!$test) {
-                $test = Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
+            // that fails, force a conersion to UTF-8 as a last resort. Need
+            // to break string into smaller chunks to avoid hitting
+            // https://bugs.php.net/bug.php?id=37793
+            $this->_logger->debug('Could not encode UTF-8 data. Removing non 7-bit characters.');
+            $chunk_size = 4000;
+            $text = '';
+            while ($data !== false && strlen($data)) {
+                $test = $this->_stripNon7BitChars(substr($data, 0, $chunk_size));
+                if ($test !== false) {
+                    $text .= $test;
+                } else {
+                    return Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
+                }
+                $data = substr($data, $chuck_size);
             }
         }
 
-        return $test;
+        return $text;
+    }
+
+    /**
+     * Strip out non 7Bit characters from a text string.
+     *
+     * @param string $text  The string to strip.
+     *
+     * @return string|boolean  The stripped string, or false if failed.
+     */
+    protected function _stripNon7BitChars($text)
+    {
+        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
     }
 
 }
