@@ -146,14 +146,28 @@ class Horde_Prefs implements ArrayAccess
      */
     public function remove($pref = null)
     {
+        $to_remove = array();
+
         if (is_null($pref)) {
-            foreach ($this->_scopes as $val) {
-                foreach (array_keys(iterator_to_array($val)) as $prefname) {
-                    $val->remove($prefname);
-                }
+            foreach ($this->_scopes as $key => $val) {
+                $to_remove[$key] = array_keys(iterator_to_array($val));
             }
         } elseif ($scope = $this->_getScope($pref)) {
-            $this->_scopes[$scope]->remove($pref);
+            $to_remove[$scope] = array($pref);
+        }
+
+        foreach ($to_remove as $key => $val) {
+            $scope = $this->_scopes[$key];
+
+            foreach ($val as $prefname) {
+                $scope->remove($prefname);
+
+                foreach ($this->_storage as $storage) {
+                    try {
+                        $storage->remove($prefname);
+                    } catch (Exception $e) {}
+                }
+            }
         }
     }
 
