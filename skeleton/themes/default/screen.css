@@ -1,1 +1,14 @@
-/* Insert CSS definitions here. */
+/* Sidebar menu */
+.skeleton-list {
+    background-image: url("graphics/user.png");
+}
+
+/* Button bar */
+.skeleton-delete {
+    background-image: url("graphics/delete.png");
+}
+
+/* List table */
+.horde-table {
+    width: 100%;
+}
