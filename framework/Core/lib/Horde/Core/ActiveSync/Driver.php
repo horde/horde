@@ -600,8 +600,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param string $folderid    The server's folder id this message is from
      * @param string $id          The server's message id
      * @param array  $collection  The colletion data. May contain things like:
-     *   - mimesupport: (boolean) Indicates if the device has MIME support.
-     *                  DEFAULT: false (No MIME support)
+     *   - mimesupport: (integer) Indicates if the device has MIME support.
+     *                  DEFAULT: 0 (No MIME support)
      *   - truncation: (integer)  The truncation constant, if sent by the device.
      *                 DEFAULT: 0 (No truncation)
      *   - bodyprefs: (array)  The bodypref array from the device.
@@ -751,13 +751,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * returns a 'longid'.
      *
      * @param string $longid         The unique search result identifier.
-     * @param array $bodyprefs        The bodypreference array.
-     * @param boolean $mimesupport   Mimesupport flag.
+     *                               Consists of mailbox:uid E.g, INBOX:110
+     * @param array $bodyprefs       The bodypreference array.
+     * @param integer $mimesupport   Mimesupport flag.
+     *                               A Horde_ActiveSync::MIME_SUPPORT_* constant.
      *
      * @return Horde_ActiveSync_Message_Base  The message requested.
      */
     public function itemOperationsFetchMailbox(
-        $longid, array $bodyprefs, $mimesupport)
+        $longid, array $bodyprefs, $mimesupport = 0)
     {
         list($mailbox, $uid) = explode(':', $longid);
         return $this->getMessage(

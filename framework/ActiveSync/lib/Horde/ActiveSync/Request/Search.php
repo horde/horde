@@ -123,7 +123,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $search_status = self::SEARCH_STATUS_ERROR;
             $store_status = self::STORE_STATUS_PROTERR;
         }
-
+        $mime = Horde_ActiveSync::MIME_SUPPORT_NONE;
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
@@ -323,7 +323,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u['searchfolderid']);
                     $this->_encoder->endTag();
                     $this->_encoder->startTag(self::SEARCH_PROPERTIES);
-                    $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference);
+                    $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference, $mime);
                     $msg->encodeStream($this->_encoder);
                     $this->_encoder->endTag();//properties
                     $this->_encoder->endTag();//result
