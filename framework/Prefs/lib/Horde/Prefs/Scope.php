@@ -74,7 +74,11 @@ class Horde_Prefs_Scope implements Iterator, Serializable
             return false;
         }
 
-        unset($this->_prefs[$pref]);
+        if (isset($this->_prefs[$pref]['d'])) {
+            $this->_prefs[$pref]['v'] = $this->_prefs[$pref]['d'];
+            unset($this->_prefs[$pref]['d']);
+        }
+
         if (!$this->init) {
             $this->setDirty($pref, true);
         }
