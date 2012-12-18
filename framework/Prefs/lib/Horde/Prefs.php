@@ -103,7 +103,7 @@ class Horde_Prefs implements ArrayAccess
         }
         $this->_storage = $storage;
 
-        register_shutdown_function(array($this, 'store'));
+        register_shutdown_function(array($this, 'store'), false);
 
         $this->retrieve($scope);
     }
@@ -382,21 +382,20 @@ class Horde_Prefs implements ArrayAccess
     }
 
     /**
-     * This function will be run at the end of every request as a shutdown
-     * function (registered by the constructor).  All dirty prefs will be
-     * saved to the storage backend.
+     * Save all dirty prefs to the storage backend.
+     *
+     * @param boolean $throw  Throw exception on error? If false, ignores
+     *                        errors. (Since 2.1.0)
      */
-    public function store()
+    public function store($throw = true)
     {
-        $backtrace = new Horde_Support_Backtrace();
-        $from_shutdown = $backtrace->getNestingLevel() == 1;
         foreach ($this->_scopes as $scope) {
             if ($scope->isDirty()) {
                 foreach ($this->_storage as $storage) {
                     try {
                         $storage->store($scope);
                     } catch (Exception $e) {
-                        if (!$from_shutdown) {
+                        if ($throw) {
                             throw $e;
                         }
                     }
@@ -405,7 +404,7 @@ class Horde_Prefs implements ArrayAccess
                 try {
                     $this->_cache->store($scope);
                 } catch (Exception $e) {
-                    if (!$from_shutdown) {
+                    if ($throw) {
                         throw $e;
                     }
                 }
