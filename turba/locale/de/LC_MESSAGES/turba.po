@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Turba H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-11-06 16:40+0100\n"
-"PO-Revision-Date: 2012-10-12 19:21+0200\n"
+"PO-Revision-Date: 2012-12-20 11:44+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <i18n@lists.horde.org>\n"
 "Language: de\n"
@@ -635,7 +635,7 @@ msgstr "Dateien"
 
 #: templates/search/basic.html.php:10
 msgid "Find"
-msgstr "Durchsuchen von"
+msgstr "durchsuche"
 
 #: lib/Form/EditContactGroup.php:22 lib/Form/EditContactGroup.php:26
 #: lib/Form/EditContactGroup.php:30 lib/Form/EditContactGroup.php:35
@@ -653,7 +653,7 @@ msgstr "Frei-/Gebucht-URL"
 
 #: templates/search/basic.html.php:2
 msgid "From"
-msgstr "Von"
+msgstr "In"
 
 #: config/attributes.php:506
 msgid "Gender"
