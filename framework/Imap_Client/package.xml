@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-19</date>
- <time>21:36:28</time>
+ <date>2012-12-20</date>
+ <time>14:35:53</time>
  <version>
   <release>2.4.1</release>
   <api>2.4.0</api>
@@ -1443,7 +1443,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-19</date>
+   <date>2012-12-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix bodystructure parsing for IMAP servers that do not return full extension data (Bug #11907).
