@@ -726,6 +726,8 @@ class Horde_String
      */
     static public function validUtf8($text)
     {
+        $text = strval($text);
+
         for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
             $c = ord($text[$i]);
 
