@@ -2782,10 +2782,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $ob->setType('multipart/' . $entry);
 
             // After the subtype is further extension information. This
-            // information MAY not appear for BODYSTRUCTURE requests.
+            // information MAY appear for BODYSTRUCTURE requests.
 
             // This is parameter information.
-            if ($data->next() === true) {
+            if (($tmp = $data->next()) === false) {
+                return $ob;
+            } elseif ($tmp === true) {
                 foreach ($this->_parseStructureParams($data, 'content-type') as $key => $val) {
                     $ob->setContentTypeParameter($key, $val);
                 }
@@ -2834,11 +2836,16 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             // After the subtype is further extension information. This
             // information MAY appear for BODYSTRUCTURE requests.
 
-            $data->next(); // Ignore: MD5
+            // Ignore: MD5
+            if ($data->next() === false) {
+                return $ob;
+            }
         }
 
         // This is disposition information
-        if ($data->next() === true) {
+        if (($tmp = $data->next()) === false) {
+            return $ob;
+        } elseif ($tmp === true) {
             $ob->setDisposition($data->next());
 
             if ($data->next() === true) {
@@ -2851,12 +2858,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         // This is language information. It is either a single value or a list
         // of values.
-        if (($tmp = $data->next()) !== false) {
+        if (($tmp = $data->next()) === false) {
+            return $ob;
+        } elseif (!is_null($tmp)) {
             $ob->setLanguage(($tmp === true) ? $data->flushIterator() : $tmp);
         }
 
-        $data->next(); // Ignore: location (RFC 2557)
-        $data->next(); // Consume closing paren
+        // Ignore location (RFC 2557) and consume closing paren.
+        $data->flushIterator(false);
 
         return $ob;
     }
