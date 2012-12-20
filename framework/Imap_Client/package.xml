@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-17</date>
- <time>15:39:23</time>
+ <date>2012-12-19</date>
+ <time>21:36:28</time>
  <version>
   <release>2.4.1</release>
   <api>2.4.0</api>
@@ -179,8 +179,6 @@
       <dir name="Client">
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
-        <file name="test_email.txt" role="test" />
-        <file name="test_email2.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
@@ -392,8 +390,6 @@
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
-   <install as="Horde/Imap/Client/fixtures/test_email.txt" name="test/Horde/Imap/Client/fixtures/test_email.txt" />
-   <install as="Horde/Imap/Client/fixtures/test_email2.txt" name="test/Horde/Imap/Client/fixtures/test_email2.txt" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/SocketClientSort.php" name="test/Horde/Imap/Client/Stub/SocketClientSort.php" />
@@ -1447,7 +1443,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-17</date>
+   <date>2012-12-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
