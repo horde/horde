@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-19</date>
- <time>18:47:23</time>
+ <date>2012-12-20</date>
+ <time>14:38:42</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -543,7 +543,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-12-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator to eliminate PCRE issues relating to stack sizes (Bug #11899).
