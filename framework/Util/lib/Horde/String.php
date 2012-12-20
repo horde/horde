@@ -736,25 +736,25 @@ class Horde_String
                     // STD 63 (RFC 3629) eliminates 5 & 6-byte characters.
                     return false;
                 } elseif ($c > 239) {
-                    $j = $i + 3;
+                    $j = 3;
                 } elseif ($c > 223) {
-                    $j = $i + 2;
+                    $j = 2;
                 } elseif ($c > 191) {
-                    $j = $i + 1;
+                    $j = 1;
                 } else {
                     return false;
                 }
 
-                if ($j > $len) {
+                if (($i + $j) > $len) {
                     return false;
                 }
 
-                while (++$i <= $j) {
-                    $c = ord($text[$i]);
+                do {
+                    $c = ord($text[++$i]);
                     if (($c < 128) || ($c > 191)) {
                         return false;
                     }
-                }
+                } while (--$j);
             }
         }
 
