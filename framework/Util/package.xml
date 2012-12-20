@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator to eliminate PCRE issues relating to stack sizes (Bug #11899).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -546,7 +546,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator to eliminate PCRE issues relating to stack sizes (Bug #11899).
    </notes>
   </release>
  </changelog>

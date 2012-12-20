@@ -726,40 +726,37 @@ class Horde_String
      */
     static public function validUtf8($text)
     {
-        /* There is bug in PHP/PCRE with larger strings; stack overflow causes
-         * PHP segfaults. See:
-         * https://bugs.php.net/bug.php?id=37793
-         *
-         * Thus, break string down into smaller chunks instead.
-         */
-        $chunk_size = 4000;
-        $length = strlen($text);
+        for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
+            $c = ord($text[$i]);
 
-        while ($length > $chunk_size) {
-            /* Can't use self::substr() here since the input may not be
-             * proper UTF-8, which is sort of the whole point of this
-             * method. */
-            if (!self::validUtf8(substr($text, 0, $chunk_size))) {
-                return false;
+            if ($c > 128) {
+                if ($c > 247) {
+                    // STD 63 (RFC 3629) eliminates 5 & 6-byte characters.
+                    return false;
+                } elseif ($c > 239) {
+                    $j = $i + 3;
+                } elseif ($c > 223) {
+                    $j = $i + 2;
+                } elseif ($c > 191) {
+                    $j = $i + 1;
+                } else {
+                    return false;
+                }
+
+                if ($j > $len) {
+                    return false;
+                }
+
+                while (++$i <= $j) {
+                    $c = ord($text[$i]);
+                    if (($c < 128) || ($c > 191)) {
+                        return false;
+                    }
+                }
             }
-
-            $text = substr($text, $chunk_size);
-            $length -= $chunk_size;
         }
 
-        /* Regex from:
-         * http://stackoverflow.com/questions/1523460/ensuring-valid-utf-8-in-php
-         */
-        return preg_match('/^(?:
-              [\x09\x0A\x0D\x20-\x7E]            # ASCII
-            | [\xC2-\xDF][\x80-\xBF]             # non-overlong 2-byte
-            | \xE0[\xA0-\xBF][\x80-\xBF]         # excluding overlongs
-            | [\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}  # straight 3-byte
-            | \xED[\x80-\x9F][\x80-\xBF]         # excluding surrogates
-            | \xF0[\x90-\xBF][\x80-\xBF]{2}      # planes 1-3
-            | [\xF1-\xF3][\x80-\xBF]{3}          # planes 4-15
-            | \xF4[\x80-\x8F][\x80-\xBF]{2}      # plane 16
-        )*$/xs', $text);
+        return true;
     }
 
     /**
