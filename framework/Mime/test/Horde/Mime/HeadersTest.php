@@ -167,4 +167,12 @@ To: recipient2@example.com"
         );
     }
 
+    public function testMultipleToAddresses()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/multiple_to.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertNotEmpty($hdrs->getValue('To'));
+    }
+
 }
