@@ -747,7 +747,6 @@ $cfgSources['favourites'] = array(
         'email' => 'email'
     ),
     'search' => array(
-        'name',
         'email'
     ),
     'strict' => array(
