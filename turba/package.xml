@@ -31,7 +31,7 @@
  <date>2012-11-27</date>
  <time>12:58:16</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.1.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
-* [jan] Mark Kolab folder as default when changing default address book preference.
+* [jan] Allow to search all search fields at once in basic searching.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1544,6 +1542,19 @@
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [jan] Mark Kolab folder as default when changing default address book preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.1.0</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [jan] Allow to search all search fields at once in basic searching.
    </notes>
   </release>
  </changelog>

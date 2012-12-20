@@ -47,6 +47,18 @@ if (!isset($addressBooks[$source])) {
     }
 }
 
+/* Build all available search criteria. */
+$allCriteria = $shareSources = array();
+foreach ($addressBooks as $key => $entry) {
+    $allCriteria[$key] = array('' => _("All"));
+    foreach ($entry['search'] as $field) {
+        $allCriteria[$key][$field] = $GLOBALS['attributes'][$field]['label'];
+    }
+
+    /* Remember vbooks and sources that are using shares. */
+    $shareSources[$key] = $entry['type'] != 'vbook';
+}
+
 $criteria = $vars->criteria;
 $val = $vars->val;
 
@@ -60,7 +72,10 @@ try {
 
 if ($driver) {
     $map = $driver->getCriteria();
-    if ($search_mode == 'advanced') {
+    $do_search = false;
+
+    switch ($search_mode) {
+    case 'advanced':
         $criteria = array();
         foreach (array_keys($map) as $key) {
             if ($key != '__key') {
@@ -70,18 +85,38 @@ if ($driver) {
                 }
             }
         }
+        if (count($criteria)) {
+            $do_search = true;
+        }
+        break;
+
+    case 'basic':
+        if (empty($val)) {
+            $criteria = array();
+            break;
+        }
+        if (!strlen($criteria)) {
+            /* Searching all fields in basic search. */
+            $criteria = array_combine(
+                array_filter(array_keys($allCriteria[$source])),
+                array_fill(0, count($allCriteria[$source]) - 1, $val)
+            );
+        } else {
+            $criteria = array($criteria => $val);
+        }
+        $do_search = true;
+        break;
+
+    case 'duplicate':
+        $do_search = $vars->search || $vars->dupe || count($addressBooks) == 1;
+        break;
     }
 
     /* Check for updated sort criteria */
     Turba::setPreferredSortOrder($vars, $source);
 
     /* Only try to perform a search if we actually have search criteria. */
-    if ((is_array($criteria) && count($criteria)) ||
-        !empty($val) ||
-        ($search_mode == 'duplicate' &&
-         ($vars->search ||
-          $vars->dupe ||
-          count($addressBooks) == 1))) {
+    if ($do_search) {
         if ($vars->save_vbook) {
             /* We create the vbook and redirect before we try to search
              * since we are not displaying the search results on this page
@@ -98,7 +133,7 @@ if ($driver) {
                 'params' => serialize(array(
                     'type' => 'vbook',
                     'source' => $source,
-                    'criteria' => $search_mode == 'basic' ? array($criteria => $val) : $criteria
+                    'criteria' => $criteria
                 ))
             );
 
@@ -129,7 +164,7 @@ if ($driver) {
         } else {
             try {
                 if ((($search_mode == 'basic') &&
-                     ($results = $driver->search(array($criteria => $val)))) ||
+                     ($results = $driver->search($criteria, null, 'OR'))) ||
                     (($search_mode == 'advanced') &&
                      ($results = $driver->search($criteria)))) {
                     /* Read the columns to display from the preferences. */
@@ -149,18 +184,6 @@ if ($driver) {
             }
         }
     }
-}
-
-/* Build all available search criteria. */
-$allCriteria = $shareSources = array();
-foreach ($addressBooks as $key => $entry) {
-    $allCriteria[$key] = array();
-    foreach ($entry['search'] as $field) {
-        $allCriteria[$key][$field] = $GLOBALS['attributes'][$field]['label'];
-    }
-
-    /* Remember vbooks and sources that are using shares. */
-    $shareSources[$key] = $entry['type'] != 'vbook';
 }
 
 /* Build search mode tabs. */
