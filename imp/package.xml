@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
 * [mms] Fix redirection to mailbox page after sending message in minimal view (Bug #11897; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Fix duplicate signature being added to compose messages in minimal view (Bug #11896; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
@@ -2878,6 +2879,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
 * [mms] Fix redirection to mailbox page after sending message in minimal view (Bug #11897; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [mms] Fix duplicate signature being added to compose messages in minimal view (Bug #11896; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).

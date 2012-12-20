@@ -1252,12 +1252,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
                                           array $options = array())
     {
-        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
-
         /* Get body text. */
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
+            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
         /* Add signature data. */
@@ -1285,6 +1283,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
+        /* Convert to sending charset. */
+        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
+        if (!empty($options['html'])) {
+            $body_html = Horde_String::convertCharset($body_html, 'UTF-8', $this->charset);
         }
 
         /* Set up the body part now. */

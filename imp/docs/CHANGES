@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[mms] Fix converting charset of signature/trailer in compose message if not
+      sending in UTF-8 (Bug #11898).
 [mms] Fix redirection to mailbox page after sending message in minimal view
       (Bug #11897; Thomas Jarosch <thomas.jarosch@intra2net.com>).
 [mms] Fix duplicate signature being added to compose messages in minimal view
