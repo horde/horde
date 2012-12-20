@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-12-12</date>
- <time>17:38:25</time>
+ <date>2012-12-20</date>
+ <time>15:35:18</time>
  <version>
   <release>2.1.2</release>
   <api>2.1.0</api>
@@ -698,6 +698,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Core.mo" role="data" />
       <file name="Horde_Core.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -1813,6 +1814,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Core.po" name="locale/es/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Core.mo" name="locale/et/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Core.po" name="locale/et/LC_MESSAGES/Horde_Core.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Core.mo" name="locale/eu/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Core.po" name="locale/eu/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Core.po" name="locale/fa/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Core.mo" name="locale/fi/LC_MESSAGES/Horde_Core.mo" />
@@ -2648,7 +2650,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-12</date>
+   <date>2012-12-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix restoring cached theme data (Bug #11906).
