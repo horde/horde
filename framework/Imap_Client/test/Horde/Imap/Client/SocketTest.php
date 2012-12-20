@@ -214,4 +214,18 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug11899()
+    {
+        $test = '* 1 FETCH (ENVELOPE (NIL "Standard Subject" (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) (' .
+            str_repeat('("=?windows-1252?Q?=95Test_User?=" NIL "tester" "domain.tld")', 135) .
+            ') NIL NIL NIL "<id@mail.gmail.com>"))';
+
+        $env = $this->test_ob->parseFetch($test)->first()->getEnvelope();
+
+        $this->assertEquals(
+            135,
+            count($env->to)
+        );
+    }
+
 }
