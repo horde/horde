@@ -48,24 +48,8 @@ case 'rule_update':
 }
 
 /* Get the whitelist rule. */
-$wl_rule = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS)->findRule(Ingo_Storage::ACTION_WHITELIST);
-
-/* Prepare the view. */
-$view = new Horde_View(array(
-    'templatePath' => INGO_TEMPLATES . '/basic/whitelist'
-));
-$view->addHelper('Horde_Core_View_Helper_Help');
-$view->addHelper('Horde_Core_View_Helper_Label');
-$view->addHelper('Text');
-
-$view->disabled = !empty($wl_rule['disable']);
-$view->formurl = Horde::url('whitelist.php');
-$view->whitelist = implode("\n", $whitelist->getWhitelist());
-
-$page_output->addScriptFile('whitelist.js');
-$page_output->addInlineJsVars(array(
-    'IngoWhitelist.filtersurl' => strval(Horde::url('filters.php', true)->setRaw(true))
-));
+$filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
+$wl_rule = $filters->findRule(Ingo_Storage::ACTION_WHITELIST);
 
 $menu = Ingo::menu();
 $page_output->header(array(
@@ -73,5 +57,5 @@ $page_output->header(array(
 ));
 echo $menu;
 Ingo::status();
-echo $view->render('whitelist');
+require INGO_TEMPLATES . '/whitelist/whitelist.inc';
 $page_output->footer();
