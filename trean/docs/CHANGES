@@ -2,6 +2,7 @@
 v1.0.0-git
 ----------
 
+[cjh] Implement listTagInfo and searchTags API calls for Trean (Bug #11816)
 [cjh] Fix fetching, saving, and display of favicons
 
 
