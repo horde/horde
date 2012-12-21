@@ -76,7 +76,7 @@ implements Horde_Itip_Resource
      */
     public function getMailAddress()
     {
-        return $this->_identity->getFromAddress();
+        return strval($this->_identity->getFromAddress());
     }
 
     /**
