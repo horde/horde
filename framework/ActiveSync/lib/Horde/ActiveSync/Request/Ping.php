@@ -176,7 +176,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // If empty here, we have an empty PING request, but have no
                 // cached sync collections.
                 $this->_statusCode = self::STATUS_MISSING;
-        } else {
+        }
+
+        // Populate $collections if we received either an empty PING request or
+        // a PING request with no <FOLDERS> element.
+        if ($this->_statusCode == self::STATUS_NOCHANGES && empty($collections)) {
             // Build the list of PINGable collections from the cache.
             foreach ($cache_collections as $key => $collection) {
                 if ($syncCache->collectionIsPingable($key)) {
