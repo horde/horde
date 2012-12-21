@@ -2,6 +2,8 @@
 v6.0.3-git
 ----------
 
+[mms] Fix verifying an enveloped signed & encrypted S/MIME message (Bug
+      #11874).
 [mms] Fix converting charset of signature/trailer in compose message if not
       sending in UTF-8 (Bug #11898).
 [mms] Fix redirection to mailbox page after sending message in minimal view
