@@ -16,3 +16,6 @@ TODO
   outside of the client's advertised timespan. This should only run once per
   day .. probably on the first connection of the day, or perhaps a randomized
   connection to lessen the chance of every user having this run at once.
+
+- Look at Horde_ActiveSync_SyncCache::isPingable et al - there is some
+  logic duplication involving synckey == 0 and isPingable etc...
