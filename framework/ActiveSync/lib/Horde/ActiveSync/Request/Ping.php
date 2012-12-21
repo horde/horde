@@ -195,7 +195,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Remove any collections that have not yet been synced.
         foreach ($collections as $id => $collection) {
-            if (!isset($collection['synckey'])) {
+            if (empty($collection['synckey'])) {
                 unset($collections[$id]);
             }
         }
