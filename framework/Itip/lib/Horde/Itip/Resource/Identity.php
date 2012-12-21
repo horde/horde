@@ -70,13 +70,13 @@ implements Horde_Itip_Resource
     }
 
     /**
-     * Retrieve the mail address of the resource.
+     * Retrieve the bare email address of the resource. I.e., addr-spec.
      *
      * @return string The mail address.
      */
     public function getMailAddress()
     {
-        return strval($this->_identity->getFromAddress());
+        return $this->_identity->getFromAddress()->bare_address;
     }
 
     /**
