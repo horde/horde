@@ -13,7 +13,7 @@
 <table cellspacing="0">
 <tr>
   <td class="horde-form-label"><?php echo _("URL") ?></td>
-  <td><input type="text" name="url" size="40" value="<?php echo htmlspecialchars(Horde_Util::getFormData('url', 'http://')) ?>" /></td>
+  <td><input type="text" name="url" size="40" value="<?php echo htmlspecialchars(new Trean_Url(Horde_Util::getFormData('url', 'http://'))) ?>" /></td>
 </tr>
 
 <tr>
