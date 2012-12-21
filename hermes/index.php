@@ -10,16 +10,13 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
 
 /* Determine View */
-switch ($registry->getView()) {
-case Horde_Registry::VIEW_DYNAMIC:
-    if ($prefs->getValue('dynamic_view')) {
-        $injector->getInstance('Hermes_Ajax')->init();
-        require HERMES_TEMPLATES . '/dynamic/index.inc';
-        echo $injector->getInstance('Hermes_View_Sidebar');
-        $page_output->footer();
-        exit;
-    }
-default:
-    include HERMES_BASE . '/time.php';
+if (Hermes::showAjaxView()) {
+    $injector->getInstance('Hermes_Ajax')->init();
+    require HERMES_TEMPLATES . '/dynamic/index.inc';
+    echo $injector->getInstance('Hermes_View_Sidebar');
+    $page_output->footer();
     exit;
 }
+
+include HERMES_BASE . '/time.php';
+exit;

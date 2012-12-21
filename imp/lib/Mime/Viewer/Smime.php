@@ -215,8 +215,16 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             'forcemime' => true
         ));
 
-        $hdrs = $this->getConfigParam('imp_contents')->getHeader();
-        $new_part->setMetadata('imp-smime-from', $hdrs->getValue('from'));
+        if ($new_part->getType() == 'multipart/signed') {
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
+
+            $data = new Horde_Stream_Temp();
+            $data->add(
+                'From:' . $hdrs->getValue('from') . "\n" .
+                $decrypted_data
+            );
+            $new_part->setMetadata('imp-smime-decrypt', $data);
+        }
 
         return $new_part;
     }
@@ -250,18 +258,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         }
 
         $imp_contents = $this->getConfigParam('imp_contents');
-        if ($imp_contents->isEmbedded($base_id)) {
-            $hdrs = new Horde_Mime_Headers();
-            $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
-
-            $stream = $this->_mimepart->toString(array(
-                'headers' => $hdrs,
-                'stream' => true
-            ));
-        } else {
-            $stream = $this->_getPartStream($base_id);
-        }
-
+        $stream = $imp_contents->isEmbedded($base_id)
+            ? $this->_mimepart->getMetadata('imp-smime-decrypt')
+            : $this->_getPartStream($base_id);
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
         $this->_initSmime();

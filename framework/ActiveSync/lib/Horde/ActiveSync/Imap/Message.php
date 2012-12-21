@@ -246,7 +246,6 @@ class Horde_ActiveSync_Imap_Message
             $html_query_opts = $body_query_opts;
             if (!empty($html_id)) {
                 if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-                    $html_query_opts['length'] = $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'];
                     $query->bodyPartSize($html_id);
                 }
                 $query->bodyPart($html_id, $html_query_opts);
@@ -307,14 +306,24 @@ class Horde_ActiveSync_Imap_Message
                 'size' => $text_size));
         }
         if (!empty($html_id)) {
-            $html_body_part->setContents($data->getBodyPart($html_id));
-            $html = $html_body_part->getContents();
-            if (isset($html_query_opts['length'])) {
-                $html_size = !is_null($data->getBodyPartSize($html_id)) ? $data->getBodyPartSize($html_id) : strlen($html);
+            $html = $data->getBodyPart($html_id);
+            if (!$data->getBodyPartDecode($html_id)) {
+                $html_body_part->setContents($html);
+                $html = $html_body_part->getContents();
             } else {
-                $html_size = strlen($html);
+                $html = $html_body_part->getContents();
             }
-            $truncated = $html_size > strlen($html);
+            // HTML truncation
+            if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
+                $html = Horde_String::substr(
+                    $html,
+                    0,
+                    $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'], $html_charset);
+            }
+            $html_size = !is_null($data->getBodyPartSize($html_id)) ?
+                $data->getBodyPartSize($html_id) :
+                Horde_String::length($html);
+            $truncated = $html_size > Horde_String::length($html);
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
                 !($truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone'])) {
                 $return['html'] = array(

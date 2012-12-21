@@ -1,5 +1,11 @@
 <?php
 /**
+ * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ *
+ * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
  * Ansel_Widget_OtherGalleries:: class to display a widget containing mini
  * thumbnails and links to other galleries owned by the same user as the
  * currently viewed image/gallery.
@@ -26,8 +32,6 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             $name = $this->_view->gallery->get('owner');
         }
         $this->_title = sprintf(_("%s's Galleries"), $name);
-
-        return true;
     }
 
     /**
@@ -63,8 +67,10 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
     {
         $owner = $this->_view->gallery->get('owner');
 
-        /* Set up the tree */
-        $tree = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Tree')->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
+        // Set up the tree
+        $tree = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Tree')
+            ->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
             $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
@@ -74,6 +80,7 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             return '';
         }
 
+        // @TODO: Remove the 'show_othergalleries' pref. It's not settable anywhere.
         $html = '<div style="display:'
             . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
             . ';background:' . $this->_style->background
@@ -88,11 +95,16 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
                 $parent = array_pop($parents);
             }
 
-            $img = (string)Ansel::getImageUrl($gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')), 'mini', true);
-            $link = Ansel::getUrlFor('view', array('gallery' => $gallery->id,
-                                                   'slug' => $gallery->get('slug'),
-                                                   'view' => 'Gallery'),
-                                     true);
+            $img = (string)Ansel::getImageUrl(
+                $gallery->getKeyImage(Ansel::getStyleDefinition('ansel_default')),
+                'mini',
+                true);
+            $link = Ansel::getUrlFor(
+                'view',
+                array('gallery' => $gallery->id,
+                      'slug' => $gallery->get('slug'),
+                      'view' => 'Gallery'),
+                true);
 
             $tree->addNode(array(
                 'id' => $gallery->id,
@@ -104,9 +116,11 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         }
 
         Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleOtherGalleries', array(
-            'id' => 'othergalleries'
-        ));
+        $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Imple')
+            ->create(
+                'Ansel_Ajax_Imple_ToggleOtherGalleries',
+                array('id' => 'othergalleries'));
 
         $tree->sort('label');
         $tree->renderTree();

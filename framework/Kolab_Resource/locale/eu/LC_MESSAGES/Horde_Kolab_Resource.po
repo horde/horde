@@ -7,10 +7,36 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_Resource\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2012-10-17 10:52+0200\n"
+"PO-Revision-Date: 2012-10-19 11:06+0100\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
+"Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: Basque\n"
+
+#: lib/Horde/Kolab/Resource.php:557
+#, php-format
+msgid "%s has been cancelled"
+msgstr "%s bertan behera geratu da"
+
+#: lib/Horde/Kolab/Resource.php:536 lib/Horde/Kolab/Resource.php:541
+#, php-format
+msgid "Error processing \"%s\""
+msgstr "Errorea \"%s\" prozesatzen"
+
+#: lib/Horde/Kolab/Resource.php:556
+msgid "The following event has been successfully removed:"
+msgstr "Ondorengo gertaera ongi ezabatu da:"
+
+#: lib/Horde/Kolab/Resource.php:540
+#, php-format
+msgid "The following event that was canceled is not present in %s's calendar:"
+msgstr "Bertan behera geratu den ondorengo gertaera ez dago %s egutegian:"
+
+#: lib/Horde/Kolab/Resource.php:535
+#, php-format
+msgid "Unable to access %s's calendar:"
+msgstr "Ezin da %s egutegian sartu:"

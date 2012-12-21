@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
 "PO-Revision-Date: 2012-01-17 12:38+0100\n"
 "Last-Translator: Manuel P. Ayala <mayala@unex.es>, Juan C. Blanco "
 "<jcblanco@fi.upm.es>\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Auth.php:355
+#: lib/Horde/Auth.php:353
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
@@ -26,30 +26,30 @@ msgstr ""
 "La contraseña es demasiado larga; ¡las contraseñas no deben tener más de %d "
 "caracteres!"
 
-#: lib/Horde/Auth.php:425 lib/Horde/Auth.php:434
+#: lib/Horde/Auth.php:421 lib/Horde/Auth.php:430
 msgid "The password is too simple to guess."
 msgstr "La contraseña es demasiado simple de adivinar."
 
-#: lib/Horde/Auth.php:351
+#: lib/Horde/Auth.php:349
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "¡La contraseña tiene que tener al menos %d caracteres!"
 
-#: lib/Horde/Auth.php:387
+#: lib/Horde/Auth.php:385
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "La contraseña tiene que tener al menos %d carácter alfabético."
 msgstr[1] "La contraseña tiene que tener al menos %d caracteres alfabéticos."
 
-#: lib/Horde/Auth.php:390
+#: lib/Horde/Auth.php:388
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
 msgstr[0] "La contraseña tiene que tener al menos %d carácter alfanumérico."
 msgstr[1] "La contraseña tiene que tener al menos %d caracteres alfanuméricos."
 
-#: lib/Horde/Auth.php:393
+#: lib/Horde/Auth.php:391
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -58,39 +58,48 @@ msgstr ""
 "La contraseña tiene que tener al menos %d tipos de caracteres distintos. Los "
 "tipos son: minúsculas, mayúsculas, números y signos de puntuación."
 
-#: lib/Horde/Auth.php:381
+#: lib/Horde/Auth.php:379
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "La contraseña tiene que tener al menos %d carácter en minúsculas."
 msgstr[1] "La contraseña tiene que tener al menos %d caracteres en minúsculas."
 
-#: lib/Horde/Auth.php:384
+#: lib/Horde/Auth.php:382
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
 msgstr[0] "La contraseña tiene que tener al menos %d carácter numérico."
 msgstr[1] "La contraseña tiene que tener al menos %d caracteres en numéricos."
 
-#: lib/Horde/Auth.php:402
+#: lib/Horde/Auth.php:400
 #, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
 msgstr[0] "La contraseña tiene que tener al menos %d signo de puntuación."
 msgstr[1] "La contraseña tiene que tener al menos %d signos de puntuación."
 
-#: lib/Horde/Auth.php:378
+#: lib/Horde/Auth.php:376
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "La contraseña tiene que tener al menos %d carácter en mayúsculas."
 msgstr[1] "La contraseña tiene que tener al menos %d caracteres en mayúsculas."
 
-#: lib/Horde/Auth.php:397
+#: lib/Horde/Auth.php:395
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr "La nueva contraseña tiene que tener menos de %d espacios en blanco."
 
-#: lib/Horde/Auth.php:399
+#: lib/Horde/Auth.php:397
 msgid "The password must not contain whitespace characters."
 msgstr "La contraseña no puede tener espacios en blanco."
+
+#: lib/Horde/Auth/Base.php:148
+#, php-format
+msgid "Your account has been locked for %d minutes"
+msgstr "Su cuenta se ha bloqueado durante %d minutos"
+
+#: lib/Horde/Auth/Base.php:146
+msgid "Your account has been permanently locked"
+msgstr "Su cuenta se ha bloqueado de forma permanente"

@@ -10,10 +10,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-07</date>
- <time>18:20:05</time>
+ <date>2012-12-17</date>
+ <time>13:31:27</time>
  <version>
-  <release>2.0.9</release>
+  <release>2.0.12</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Improve loop detection logic, preventing unnecessary state resets.
-* [mjr] Force charset conversion to prevent broken emails from breaking iOS sync.
+* [mjr] Fix searching mailboxes on certain devices that send MIMESUPPORT flag, like iOS (Bug #11900).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -136,6 +135,12 @@
       <file name="Horde_ActiveSync.po" role="data" />
      </dir> <!-- /locale/de/LC_MESSAGES -->
     </dir> <!-- /locale/de -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_ActiveSync.mo" role="data" />
@@ -358,6 +363,8 @@
    <install as="locale/Horde_ActiveSync.pot" name="locale/Horde_ActiveSync.pot" />
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/de/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/eu/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" name="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" />
@@ -983,11 +990,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-07</date>
+   <date>2012-12-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Improve loop detection logic, preventing unnecessary state resets.
-* [mjr] Force charset conversion to prevent broken emails from breaking iOS sync.
+* [mjr] Fix charset issues with certain broken emails which can cause iOS to crash.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.10</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Check for invalid UTF-8 data before sending to client.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.11</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix updating the read flag on iOS.
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Set the importance flag on mail messages.
+* [mjr] Fix detecting mailbox changes on IMAP servers that support CONDSTORE but not per mailbox MODSEQ (Bug #11754).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.12</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-17</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix searching mailboxes on certain devices that send MIMESUPPORT flag, like iOS (Bug #11900).
    </notes>
   </release>
  </changelog>

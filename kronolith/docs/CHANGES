@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix moving events between calendars (Bug #11830).
 [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
 [jan] Fix double owner name on shared calendars.

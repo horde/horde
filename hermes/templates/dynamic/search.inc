@@ -15,8 +15,8 @@
           <select name="employees[]" id="hermesSearchFormEmployee" multiple="multiple">
           <?php foreach ($userType[1] as $username => $user_label): ?>
             <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
-          </select>
           <?php endforeach ?>
+          </select>
         <?php endif; ?>
         </label>
         <label for="hermesSearchFormJobtype">
@@ -113,6 +113,9 @@
     </div>
     <div id="hermesSearchListInternal"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
+    <div class="hermesTimeListRow">
+      <div class="hermesTimeListSumLabel"><?php echo _("Total Hours")?></div><div  id="hermesSearchSum" class="hermesTimeListSum">0</div>
+    </div>
   </div>
   <div id="hermesTimeListControls" class="horde-form-buttons">
     <input id="hermesSearchListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit")?>" />

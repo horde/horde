@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-    <entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="changed">
+
+<entry id="summary" md5="68ca33f7f0c9aae4c103eb47492cdc15" state="uptodate">
 <title>Atari-orria</title>
- <para>Zure informazio garrantzitsu guztiaren laburpen bat aurkituko duzu atari-orri honetan. Adibidez, zenbat mezu berri dituzun Sarrerako ontzian, egutegian hurrengo egunetarako dituzun gertaerak, egitekoetan dituzun zereginak, hautatutako albiste-zerbitzuetako titularrak, etab.   Laburpen askotan ohiko funtzioetarako lasterbideak aurkituko dituzu, hau da, mezu elektroniko berri bat idazteko, egutegiko gertaera edo zeregin berri bat sortzeko, etab.</para> <para>Atari-orri honetako edukia pertsonaliza dezakezu, Diseinua botoia sakatuz. Adibidez, atari-orrian zein eduki bistaratuko diren hauta dezakezu, baita zein ordenatan agertuko diren ere.</para><!-- English entry (2012-11-06):
-<entry id="summary">
-        <title>The Portal Page</title>
-        <para>
-            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on. Many of these summaries will contain quick shortcuts to common functions, such as composing a new mail message, creating a new calendar event or task, etc.
-         </para>
-         <para>
-            The contents of this portal page are customizable via the Layout button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
-        </para>
-    </entry>--><!-- English entry (2012-11-06):
-<entry id="summary">
-        <title>The Portal Page</title>
-        <para>
-            This portal page provides a quick summary of all your important information. For example, it might show how many new e-mail messages you have in your INBOX, upcoming events on your calendar, tasks on your to-do list, headlines from selected news services, and so on.
-         </para>
-         <para>
-            The contents of this portal page are customizable via the "Add Content" button. For example, you can choose which items to include on this portal page as well as in which order they are shown.
-        </para>
-    </entry>--></entry>
+ <para>
+  Zure informazio garrantzitsu guztiaren laburpen bat aurkituko duzu atari-orri honetan. Adibidez, zenbat mezu berri dituzun SARRERAKO ONTZIAN, egutegian hurrengo egunetarako dituzun gertaerak, egitekoetan dituzun zereginak, hautatutako albiste-zerbitzuetako titularrak, etab.  Laburpen askotan ohiko funtzioetarako lasterbideak aurkituko dituzu, hau da, mezu elektroniko berri bat idazteko, egutegiko gertaera edo zeregin berri bat sortzeko, etab.
+ </para>
+ <para>
+  Atari-orri honetako edukia pertsonaliza dezakezu, Diseinua botoia sakatuz.
+  Adibidez, atari-orrian zein eduki bistaratuko diren hauta dezakezu, baita zein ordenatan agertuko diren ere.
+ </para>
+</entry>
+
+<entry id="navbar" md5="b8cf0ae19e57dfa0c2b962e516782f47" state="uptodate">
+<title>Aplikazioaren nabigazio-barra</title>
+ <para>
+  Web-orriaren ezkerraldean bistaratzen da aplikazioaren nabigazio-barra.
+  Erabilgarri dauden aplikazioen artean azkar eta erraz pasatzeko batetik bestera, egin klik nabigazio-barrako ikonoetan.
+ </para>
+</entry>
+
 </help>

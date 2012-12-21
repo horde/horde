@@ -25,15 +25,19 @@ case 'add':
 case 'addchild':
 case 'save':
 case 'modify':
-    $view = new Ansel_View_GalleryProperties(array('actionID' => $actionID,
-                                                   'url' => new Horde_Url(Horde_Util::getFormData('url')),
-                                                   'gallery' => Horde_Util::getFormData('gallery')));
+    $view = new Ansel_View_GalleryProperties(
+        array(
+            'actionID' => $actionID,
+            'url' => new Horde_Url(Horde_Util::getFormData('url')),
+            'gallery' => Horde_Util::getFormData('gallery')));
     $view->run();
     exit;
 
 case 'downloadzip':
     $galleryId = Horde_Util::getFormData('gallery');
-    $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+    $gallery = $GLOBALS['injector']
+        ->getInstance('Ansel_Storage')
+        ->getGallery($galleryId);
     if (!$registry->getAuth() ||
         !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
 
@@ -51,7 +55,9 @@ case 'empty':
     $galleryId = Horde_Util::getFormData('gallery');
     if ($galleryId) {
         try {
-            $gallery = $GLOBALS['injector']->getInstance('Ansel_Storage')->getGallery($galleryId);
+            $gallery = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->getGallery($galleryId);
             $page_output->header();
             $notification->notify(array('listeners' => 'status'));
             require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';

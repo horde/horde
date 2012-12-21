@@ -214,4 +214,30 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug11899()
+    {
+        $test = '* 1 FETCH (ENVELOPE (NIL "Standard Subject" (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) (("Test User" NIL "tester" "domain.tld")) (' .
+            str_repeat('("=?windows-1252?Q?=95Test_User?=" NIL "tester" "domain.tld")', 135) .
+            ') NIL NIL NIL "<id@mail.gmail.com>"))';
+
+        $env = $this->test_ob->parseFetch($test)->first()->getEnvelope();
+
+        $this->assertEquals(
+            135,
+            count($env->to)
+        );
+    }
+
+    public function testBug11907()
+    {
+        $test = '* 1 FETCH (BODYSTRUCTURE (((("text" "plain" ("charset" "iso-8859-1") NIL NIL "quoted-printable" 2456 153 NIL NIL NIL)("text" "html" ("charset" "iso-8859-1") NIL NIL "quoted-printable" 21256 392 NIL NIL NIL) "alternative" ("boundary" "----=_NextPart_002_0022_01CDDD09.86926E40") NIL NIL)("image" "jpeg" ("name" "image001.jpg") "<image001.jpg@01CDDD08.173EC940>" NIL "base64" 7658 NIL NIL NIL) "related" ("boundary" "----=_NextPart_001_0021_01CDDD09.86926E40") NIL NIL)("application" "vnd.openxmlformats-officedocument.spreadsheetml.sheet" ("name" "C&C S.A.S.xlsx") NIL NIL "base64" 26184 NIL ("attachment" ("filename" "C&C S.A.S.xlsx")) NIL) "mixed" ("boundary" "----=_NextPart_000_0020_01CDDD09.86926E40") NIL "es-co"))';
+
+        $parse = $this->test_ob->parseFetch($test)->first()->getStructure();
+
+        $this->assertEquals(
+            'multipart/mixed',
+            $parse->getType()
+        );
+    }
+
 }

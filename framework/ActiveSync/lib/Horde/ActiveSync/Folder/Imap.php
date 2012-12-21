@@ -88,7 +88,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
-            } elseif ($id >= $this->minuid()) {
+            } elseif ($uid >= $this->minuid()) {
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {

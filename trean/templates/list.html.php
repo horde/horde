@@ -9,8 +9,8 @@ function table_sortCallback(tableId, column, sortDown)
 <table class="horde-table sortable" cellspacing="0">
 <thead>
  <tr>
-  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
   <th id="s_title" class="horde-split-left<?php if ($this->sortby == 'title') echo ' ' . $this->sortdirclass ?>"><?php echo _("Title") ?></th>
+  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
   <th id="s_clicks" class="horde-split-left<?php if ($this->sortby == 'clicks') echo ' ' . $this->sortdirclass ?>" width="1%"><?php echo _("Clicks") ?></th>
   <th width="10%" class="horde-split-left nosort"></th>
  </tr>
@@ -18,9 +18,6 @@ function table_sortCallback(tableId, column, sortDown)
 <tbody id="BookmarkList-body">
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
-  <td class="trean-bookmarks-date">
-   <?php if ($bookmark->dt) { $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')); } ?>
-  </td>
   <td>
    <div class="trean-bookmarks-title">
     <div class="trean-favicon-container">
@@ -47,6 +44,9 @@ if ($bookmark->http_status == 'error') {
      <?php endforeach ?>
     </ul>
    </div>
+  </td>
+  <td class="trean-bookmarks-date">
+   <?php if ($bookmark->dt) { $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')); } ?>
   </td>
   <td class="trean-bookmarks-clicks">
    <?php echo $bookmark->clicks ?>

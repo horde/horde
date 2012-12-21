@@ -467,11 +467,11 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid, cache = 'time')
+    getSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
@@ -492,8 +492,11 @@ HermesCore = {
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
      */
-    replaceSliceInCache: function(sid, slice, cache = 'time')
+    replaceSliceInCache: function(sid, slice, cache)
     {
+        if (!cache) {
+            cache = time;
+        }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {
             this.slices.push(slice);
@@ -507,11 +510,11 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid, cache = 'time')
+    removeSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
@@ -1081,7 +1084,7 @@ HermesCore = {
     buildSearchResultsTable: function()
     {
         var t = $('hermesSearchListInternal'),
-            slices;
+            slices, total = 0;
 
         t.update();
         if (this.reverseSort) {
@@ -1123,10 +1126,12 @@ HermesCore = {
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildSearchRow(slice).toggle());
+            total = total + parseFloat(slice.h);
         }.bind(this));
         $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
+        $('hermesSearchSum').update(total);
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 

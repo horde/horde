@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [jan] Mark Kolab folder as default when changing default address book preference.
  </notes>
@@ -1540,6 +1541,7 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [jan] Mark Kolab folder as default when changing default address book preference.
    </notes>

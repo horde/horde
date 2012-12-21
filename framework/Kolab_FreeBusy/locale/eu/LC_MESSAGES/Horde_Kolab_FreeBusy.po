@@ -7,10 +7,100 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Kolab_FreeBusy\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2012-10-17 10:52+0200\n"
+"PO-Revision-Date: 2012-10-19 10:56+0100\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
+"Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Language: Basque\n"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:229
+msgid "401 Unauthorized"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:208
+msgid "404 Not Found"
+msgstr "404 Ez da aurkitu"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:246
+msgid "500 Server Error"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/View.php:246
+msgid "Error"
+msgstr "Errorea"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:53
+#, fuzzy
+msgid "Errors:"
+msgstr "Errorea"
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:45
+#, fuzzy, php-format
+msgid "Failed regenerating calendar %s: %s"
+msgstr "Ezin da ezabatu \"%s\" egutegia: %s"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:93
+#, fuzzy, php-format
+msgid "Invalid authentication for user %s!"
+msgstr "Ekintza baliogabea: %s"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:321
+#, php-format
+msgid "No such account %s!"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:82
+#, fuzzy, php-format
+msgid "No such folder %s"
+msgstr "Gehitu bilatzeko karpeta:"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:208
+msgid "Not found"
+msgstr "Ez da aurkitu"
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Base.php:89
+#, fuzzy
+msgid "Please authenticate!"
+msgstr "Erabiltzailea ez dago autentifikatuta."
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:32
+msgid "Starting to regenerate the free/busy cache..."
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:61
+#, fuzzy
+msgid "Successfully regenerated all calendar caches!"
+msgstr "Behar bezala ezabatu da %d kontaktu."
+
+#: lib/Horde/Kolab/FreeBusy/Report.php:38
+#, fuzzy, php-format
+msgid "Successfully regenerated calendar \"%s\"!"
+msgstr "Beha bezala ezabatu da \"%s\"."
+
+#: lib/Horde/Kolab/FreeBusy/View.php:206
+#, fuzzy, php-format
+msgid "The requested URL %s was not found on this server."
+msgstr "Eskatutako iturria (%s) ez da aurkitu zerbitzari honetan."
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Kolab.php:197
+msgid "Unable to determine owner of the free/busy data!"
+msgstr ""
+
+#: lib/Horde/Kolab/FreeBusy/Driver/Freebusy/Base.php:398
+#, fuzzy, php-format
+msgid "Unable to read free/busy information from %s"
+msgstr "Errorea gertatu da %s(r)en libre/lanpetuta informazioa eskuratzean: %s"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:229
+#, fuzzy
+msgid "Unauthorized"
+msgstr "Baimendu irakurketa:"
+
+#: lib/Horde/Kolab/FreeBusy/View.php:230
+#, fuzzy
+msgid "You are not authorized to access the requested URL."
+msgstr "Ez daukazu baimenik baliabide hau aldatzeko."

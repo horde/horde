@@ -1251,17 +1251,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
                                           array $options = array())
     {
-        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
+        global $conf, $injector, $prefs, $registry;
 
         /* Get body text. */
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
+            $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
         /* Add signature data. */
         if (isset($options['signature'])) {
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $sig = $identity->getSignature('text', $options['signature']);
             $body .= $sig;
 
@@ -1284,6 +1284,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
+        /* Convert to sending charset. */
+        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
+        if (!empty($options['html'])) {
+            $body_html = Horde_String::convertCharset($body_html, 'UTF-8', $this->charset);
         }
 
         /* Set up the body part now. */
@@ -1312,10 +1318,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
              * with no HTML body tag - so simply wrap the data in a body
              * tag with the CSS information. */
             $styles = array();
-            if ($font_family = $GLOBALS['prefs']->getValue('compose_html_font_family')) {
+            if ($font_family = $prefs->getValue('compose_html_font_family')) {
                 $styles[] = 'font-family:' . $font_family;
             }
-            if ($font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'))) {
+            if ($font_size = intval($prefs->getValue('compose_html_font_size'))) {
                 $styles[] = 'font-size:' . $font_size . 'px';
             }
 
@@ -1346,7 +1352,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 : $htmlBody
             );
 
-            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
+            $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
                 'charset' => $this->charset
             )));
         } else {
@@ -1357,8 +1363,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $attach_flag = true;
         if (empty($options['noattach']) && count($this)) {
             if (($this->_linkAttach &&
-                 $GLOBALS['conf']['compose']['link_attachments']) ||
-                !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
+                 $conf['compose']['link_attachments']) ||
+                !empty($conf['compose']['link_all_attachments'])) {
                 $base = $this->linkAttachments($textpart);
 
                 if ($this->_pgpAttachPubkey ||
@@ -1390,13 +1396,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($attach_flag) {
             if ($this->_pgpAttachPubkey) {
-                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
             if ($this->_attachVCard !== false) {
                 try {
-                    $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
+                    $vcard = $registry->call('contacts/ownVCard');
 
                     $vpart = new Horde_Mime_Part();
                     $vpart->setType('text/x-vcard');
@@ -1413,10 +1419,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $encrypt = empty($options['encrypt'])
             ? IMP::ENCRYPT_NONE
             : $options['encrypt'];
-        if ($GLOBALS['prefs']->getValue('use_pgp') &&
-            !empty($GLOBALS['conf']['gnupg']['path']) &&
+        if ($prefs->getValue('use_pgp') &&
+            !empty($conf['gnupg']['path']) &&
             in_array($encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGN, IMP_Crypt_Pgp::SIGNENC, IMP_Crypt_Pgp::SYM_ENCRYPT, IMP_Crypt_Pgp::SYM_SIGNENC))) {
-            $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
             $symmetric_passphrase = null;
 
             switch ($encrypt) {
@@ -1474,9 +1480,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
             }
-        } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
+        } elseif ($prefs->getValue('use_smime') &&
                   in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
-            $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
+            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             if (in_array($encrypt, array(IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
@@ -2555,7 +2561,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Return immediately if related conversion is turned off via
          * configuration. */
         if (empty($GLOBALS['conf']['compose']['convert_to_related'])) {
-            return;
+            return $html;
         }
 
         $client = $GLOBALS['injector']

@@ -223,12 +223,10 @@ class Horde_ActiveSync_Sync
                     $this->_exporter->messageDeletion($change['id']);
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                    if (isset($change['flags']['read'])) {
-                        $this->_exporter->messageReadFlag($change['id'], $change['flags']['read']);
-                    }
-                    if (isset($change['flags']['flagged'])) {
-                        $this->_exporter->messageFlag($change['id'], $change['flags']['flagged']);
-                    }
+                    $this->_exporter->messageFlag(
+                        $change['id'],
+                        (isset($change['flags']['read']) ? $change['flags']['read'] : null),
+                        (isset($change['flags']['flagged']) ? $change['flags']['flagged'] : null));
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                     $this->_exporter->messageMove($change['id'], $change['parent']);

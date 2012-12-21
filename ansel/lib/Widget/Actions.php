@@ -8,7 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @TODO: Use Horde_View for html template output.
- * 
+ *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
@@ -65,7 +65,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
             $html .= '<li>' . $slideshow_url->link(array('class' => 'widget')) . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") . '</a></li>';
         }
-        
+
         /* Upload and new subgallery Urls */
         if (!empty($uploadurl) && $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
             $html .= '<li>' . $uploadurl->link(array('class' => 'widget')) . Horde::img('image_add.png') . ' ' . _("Upload photos") . '</a></li>';

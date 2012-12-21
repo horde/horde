@@ -7,10 +7,70 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-10-17 10:52+0200\n"
+"PO-Revision-Date: 2012-10-18 12:41+0100\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Argv/Parser.php:495
+#, php-format
+msgid "%s option does not take a value"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
+#, php-format
+msgid "%s option requires %d arguments"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
+#, php-format
+msgid "%s option requires an argument"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:660
+msgid "Options"
+msgstr "Aukerak"
+
+#: lib/Horde/Argv/TitledHelpFormatter.php:29
+msgid "Usage"
+msgstr "Erabilpena"
+
+#: lib/Horde/Argv/IndentedHelpFormatter.php:29
+msgid "Usage:"
+msgstr "Erabilpena:"
+
+#: lib/Horde/Argv/Parser.php:186
+msgid "[options]"
+msgstr "[aukerak]"
+
+#: lib/Horde/Argv/Option.php:122
+#, php-format
+msgid "option %s: invalid choice: '%s' (choose from %s)"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:104
+#, php-format
+msgid "option %s: invalid floating-point value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:94
+#, php-format
+msgid "option %s: invalid integer value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Option.php:95
+#, php-format
+msgid "option %s: invalid long integer value: '%s'"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:158
+msgid "show program's version number and exit"
+msgstr ""
+
+#: lib/Horde/Argv/Parser.php:152
+msgid "show this help message and exit"
+msgstr ""

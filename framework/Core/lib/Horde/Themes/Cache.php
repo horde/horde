@@ -277,11 +277,15 @@ class Horde_Themes_Cache implements Serializable
     {
         $out = @unserialize($data);
 
-        if (isset($out['id']) && ($out['id'] != $this->getCacheId())) {
-            throw new Exception('Cache invalidated');
+        // Needed to generate cache ID.
+        if (isset($out['a'])) {
+            $this->_app = $out['a'];
         }
 
-        $this->_app = $out['a'];
+        if (isset($out['id']) && ($out['id'] != $this->getCacheId())) {
+            throw new Exception('Cache invalidated for ' . $out['a'] . ': ' . $out['id'] . " != ".$this->getCacheId());
+        }
+
         $this->_complete = $out['c'];
         $this->_data = $out['d'];
         $this->_theme = $out['t'];

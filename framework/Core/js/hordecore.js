@@ -315,11 +315,13 @@ var HordeCore = {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
+                            var ajax_params = $H({
+                                alarm: alarm.id,
+                                snooze: e.element().getValue()
+                            });
+                            this.addRequestParams(ajax_params);
                             new Ajax.Request(this.conf.URI_SNOOZE, {
-                                parameters: {
-                                    alarm: alarm.id,
-                                    snooze: e.element().getValue()
-                                }
+                                parameters: ajax_params
                             });
                         }
                     }.bindAsEventListener(this))
@@ -327,11 +329,13 @@ var HordeCore = {
                         e.stop();
                     });
                     message.down('input[type=button]').observe('click', function(e) {
+                        var ajax_params = $H({
+                            alarm: alarm.id,
+                            snooze: -1
+                        });
+                        this.addRequestParams(ajax_params);
                         new Ajax.Request(this.conf.URI_SNOOZE, {
-                            parameters: {
-                                alarm: alarm.id,
-                                snooze: -1
-                            }
+                            parameters: ajax_params
                         });
                     }.bindAsEventListener(this));
                 }

@@ -53,7 +53,7 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 /* Loop through the action handlers. */
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->get('target', Horde_Util::getFormData('notepad_target'));
+    $storage->set('target', Horde_Util::getFormData('notepad_target'));
     break;
 }
 

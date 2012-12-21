@@ -211,7 +211,7 @@ class Hermes
             $employees[$user] = $label;
         }
 
-        return array($enumtype, array($employees));
+        return array($enumtype, $employees);
     }
 
     public static function getCostObjectByID($id)
@@ -466,6 +466,16 @@ class Hermes
          }
          $timers[$id] = $timer;
          $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    /**
+     * Returns true if we are showing the Ajax view.
+     *
+     * @return boolean
+     */
+    static public function showAjaxView()
+    {
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
     }
 
 }

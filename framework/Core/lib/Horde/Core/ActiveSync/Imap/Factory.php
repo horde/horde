@@ -67,6 +67,9 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
                     }
                 }
             } catch (Horde_Exception $e) {
+                Horde::log(sprintf(
+                    'Error retrieving mailbox list: %s',
+                    $e->getMessage()), 'ERR');
                 throw new Horde_ActiveSync_Exception($e);
             }
         }
@@ -86,6 +89,9 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
             try {
                 $this->_specialMailboxlist = $GLOBALS['registry']->mail->getSpecialMailboxes();
             } catch (Horde_Exception $e) {
+                Horde::log(sprintf(
+                    'Error retrieving specialmailbox list: %s',
+                    $e->getMessage()), 'ERR');
                 throw new Horde_ActiveSync_Exception($e);
             }
         }

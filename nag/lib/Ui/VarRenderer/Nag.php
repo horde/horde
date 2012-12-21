@@ -165,7 +165,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $options = '';
         foreach ($units as $unit => $label) {
             $options .= '<option value="' . $unit;
-            if ($value['on'] && $value['unit'] == $unit) {
+            if ($value && $value['on'] && $value['unit'] == $unit) {
                 $options .= '" selected="selected';
             }
             $options .= '">' . $label . '</option>';

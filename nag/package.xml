@@ -34,6 +34,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+* [mjr] Fix displaying and editing tasks from search results (Bug #11847).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix incoming task sync with certain combinations of due date values.
+* [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
 * [jan] Use default Kolab folder for default taks list preference.
 * [jan] Mark Kolab folder as default when changing default task list preference.
@@ -637,6 +642,13 @@
    </package>
    <package>
     <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Routes</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -1263,6 +1275,11 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+* [mjr] Fix displaying and editing tasks from search results (Bug #11847).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix incoming task sync with certain combinations of due date values.
+* [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
 * [jan] Use default Kolab folder for default taks list preference.
 * [jan] Mark Kolab folder as default when changing default task list preference.

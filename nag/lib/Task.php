@@ -678,6 +678,43 @@ class Nag_Task
     }
 
     /**
+     * Helper method for getting only a slice of the total tasks in this list.
+     *
+     * @param integer $page     The starting page.
+     * @param integer $perpage  The count of tasks per page.
+     *
+     * @return Nag_Task  The resulting task list.
+     */
+    public function getSlice($page = 0, $perpage = null)
+    {
+        $this->reset();
+
+        // Position at start task
+        $start = $page * (empty($perpage) ? 0 : $perpage);
+        $count = 0;
+        while ($count < $start) {
+            if (!$this->each()) {
+                return new Nag_Task();
+            }
+            ++$count;
+        }
+
+        $count = 0;
+        $results = new Nag_Task();
+        $max = (empty($perpage) ? ($this->count() - $start) : $perpage);
+        while ($count < $max) {
+            if ($next = $this->each()) {
+                $results->add($next);
+                ++$count;
+            } else {
+                $count = $max;
+            }
+        }
+        $results->process();
+        return $results;
+    }
+
+    /**
      * Processes a list of tasks by adding action links, obscuring details of
      * private tasks and calculating indentation.
      *
@@ -1373,12 +1410,12 @@ class Nag_Task
         }
 
         /* Due Date */
-        if ($due = $message->utcduedate || $due = $message->duedate) {
+        if (($due = $message->utcduedate) || ($due = $message->duedate)) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->utcstartdate || $start = $message->startdate) {
+        if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
             $this->start = $start->timestamp();
         }
 
