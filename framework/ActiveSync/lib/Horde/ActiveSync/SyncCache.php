@@ -186,7 +186,7 @@ class Horde_ActiveSync_SyncCache
         $collections = array();
         foreach ($this->_data['collections'] as $key => $value) {
             $collection = $value;
-            if (!$requireKey || ($requireKey && isset($collection['synckey']))) {
+            if (!$requireKey || ($requireKey && !empty($collection['synckey']))) {
                 $collection['id'] = $key;
                 $collections[$key] = $collection;
             }
