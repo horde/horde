@@ -2129,7 +2129,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         // Check for SORT-related options.
         if (!empty($options['sort'])) {
             $sort = $this->queryCapability('SORT');
-            if (!$sort || !in_array('DISPLAY', $sort)) {
+            if (!is_array($sort) || !in_array('DISPLAY', $sort)) {
                 if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK, $options['sort'])) !== false) {
                     $options['sort'][$pos] = Horde_Imap_Client::SORT_FROM;
                 }
