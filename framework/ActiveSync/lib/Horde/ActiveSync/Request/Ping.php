@@ -197,13 +197,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
         }
 
-        // Remove any collections that have not yet been synced.
-        foreach ($collections as $id => $collection) {
-            if (empty($collection['synckey'])) {
-                unset($collections[$id]);
-            }
-        }
-
         // If empty here, we have collections requested to be PINGed but have
         // not sync'd any yet.
         if (empty($collections)) {
