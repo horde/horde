@@ -820,8 +820,8 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $eas_message->importance = $this->_getEASImportance($importance);
 
+        $message_body_data = $imap_message->getMessageBodyData($options);
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $message_body_data = $imap_message->getMessageBodyData($options);
             $eas_message->body = $this->_validateUtf8(
                 $message_body_data['plain']['body'],
                 $message_body_data['plain']['charset']
@@ -830,8 +830,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
-            // Determine the message's native type.
-            $message_body_data = $imap_message->getMessageBodyData($options);
+            // Get the message body and determine original type.
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
