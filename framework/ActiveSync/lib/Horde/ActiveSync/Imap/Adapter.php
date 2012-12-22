@@ -820,6 +820,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $eas_message->importance = $this->_getEASImportance($importance);
 
+        // Get the body data and ensure we have something to send.
         $message_body_data = $imap_message->getMessageBodyData($options);
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $eas_message->body = $this->_validateUtf8(
