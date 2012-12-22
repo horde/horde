@@ -963,6 +963,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_logger->err(sprintf(
                 "[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.",
                 $this->_device->id));
+                $this->_statusCode = self::STATUS_KEYMISM;
+                $this->_handleGlobalSyncError();
+                return false;
         }
 
         // Sanity checking, synccahe etc..
