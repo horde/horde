@@ -2529,7 +2529,7 @@ class Turba_Driver implements Countable
 
             case 'birthday':
             case 'anniversary':
-                if (!empty($value)) {
+                if (!empty($value) && $value != '0000-00-00') {
                     try {
                         $date = new Horde_Date($value);
                         $message->{$field} = $date;
