@@ -215,7 +215,11 @@ class Horde_ActiveSync_Imap_Message
         }
 
         // Find and get the message body parts we will need.
-        if ($version >= Horde_ActiveSync::VERSION_TWELVE && !empty($options['bodyprefs'])) {
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
+
             $html_id = $this->_message->findBody('html');
             if (!empty($html_id)) {
                 $html_body_part = $this->_message->getPart($html_id);
