@@ -148,7 +148,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                     $this->_decoder->getElementEndTag();
 
-                    // Ensure we have a synckey, or force a resync.
+                    // If the client explicitly requests to PING a collection,
+                    // it MUST have been SYNC'd already so ensure we have a
+                    // synckey for it. Otherwise set it to 0 to ensure we tell
+                    // the client it needs to issue a SYNC.
                     $collection['synckey'] = !empty($cache_collections[$collection['id']]['lastsynckey'])
                         ? $cache_collections[$collection['id']]['lastsynckey']
                         : 0;
@@ -156,9 +159,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collections[$collection['id']] = $collection;
                 }
 
-                // Set the collections as PINGable.
+                // Since the client is explicitly sending FOLDERS, we reset the
+                // pingable collections in the syncCache in anticipation of
+                // empty PING or empty FOLDERS in future requests.
                 foreach ($cache_collections as $value) {
-                    if (!empty($collections[$value['id']]) && !empty($collections[$value['id']['synckey']])) {
+                    if (!empty($collections[$value['id']['synckey']])) {
                         $syncCache->setPingableCollection($value['id']);
                     } else {
                         $syncCache->removePingableCollection($value['id']);
@@ -173,8 +178,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         } elseif (empty($cache_collections)) {
-                // If empty here, we have an empty PING request, but have no
-                // cached sync collections.
+                // We have an empty PING request but have no cached collections.
                 $this->_statusCode = self::STATUS_MISSING;
         }
 
