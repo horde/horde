@@ -18,7 +18,7 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
         );
 
         $this->_state = $this->getMockSkipConstructor('Horde_ActiveSync_State_Sql');
-        $this->_state->expects($this->once())->method('getSyncCache')->will($this->returnValue($this->_fixture));
+        $this->_state->expects($this->any())->method('getSyncCache')->will($this->returnValue($this->_fixture));
     }
 
     public function testPropertyAccess()
@@ -52,6 +52,46 @@ class Horde_ActiveSync_CacheTest extends Horde_Test_Case
         $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
         $collections = $cache->getCollections();
         $this->assertEquals('Calendar', $collections['@Calendar@']['class']);
+    }
+
+    public function testValidateCache()
+    {
+        $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
+        $this->assertEquals(true, $cache->validateCache());
+        $cache->updateTimestamp();
+        $this->assertEquals(true, $cache->validateCache());
+    }
+
+    public function testValidateTimestamps()
+    {
+        $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
+        $this->assertEquals(true, $cache->validateTimestamps());
+        $cache->lasthbsyncstarted = time();
+        $this->assertEquals(false, $cache->validateTimestamps());
+    }
+
+    public function testCollectionsFromCache()
+    {
+        $cache = new Horde_ActiveSync_SyncCache($this->_state, 'devid', 'userone');
+        $fixture = array('@Calendar@' => array('id' => '@Calendar@'));
+        $cache->validateCollectionsFromCache($fixture);
+        $expected = array(
+            '@Calendar@' => array(
+                'id' => '@Calendar@',
+                'class' => 'Calendar',
+                'filtertype' => '6',
+                'mimesupport' => 0,
+                'bodyprefs' => array(
+                    'wanted' => '1',
+                    '1' => array(
+                      'type' => '1',
+                      'truncationsize' => '32768',
+                    )
+                ),
+                'windowsize' => '25'
+            )
+        );
+        $this->assertEquals($expected, $fixture);
     }
 
 }
