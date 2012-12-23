@@ -181,6 +181,7 @@ class Horde_ActiveSync_Sync
                         Horde_ActiveSync::CHANGE_TYPE_FOLDERSYNC, $stat);
                     break;
                 case Horde_ActiveSync::CHANGE_TYPE_DELETE:
+                    $this->_exporter->folderDeletion($change['id']);
                     $this->_stateDriver->updateState(
                         Horde_ActiveSync::CHANGE_TYPE_DELETE, $change);
                     break;
