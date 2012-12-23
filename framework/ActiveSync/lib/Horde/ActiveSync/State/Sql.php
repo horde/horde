@@ -1143,6 +1143,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 'folders' => array(),
                 'hierarchy' => false,
                 'collections' => array(),
+                'pingheartbeat' => false,
                 'synckeycounter' => array());
         } else {
             return $data;
