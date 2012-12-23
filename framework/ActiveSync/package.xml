@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-17</date>
- <time>13:31:27</time>
+ <date>2012-12-23</date>
+ <time>15:20:50</time>
  <version>
   <release>2.0.12</release>
   <api>2.0.0</api>
@@ -1043,7 +1043,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-17</date>
+   <date>2012-12-23</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix non empty PING requests with empty FOLDERS element.
