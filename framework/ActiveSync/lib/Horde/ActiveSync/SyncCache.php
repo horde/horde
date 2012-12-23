@@ -96,7 +96,8 @@ class Horde_ActiveSync_SyncCache
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        return $this->_data[$property];
+
+        return !empty($this->_data[$property]) ? $this->_data[$property] : null;
     }
 
     public function __set($property, $value)
