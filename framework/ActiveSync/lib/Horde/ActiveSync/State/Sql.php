@@ -169,13 +169,13 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      *
      * @param array $collection  The collection array for the collection, if
      *                           a FOLDERSYNC, pass an empty array.
-     * @param string $syncKey   The synckey of the state to load. If empty will
-     *                          force a reset of the state for the class
-     *                          specified in $id
-     * @param string $type      The type of state a
-     *                          Horde_ActiveSync::REQUEST_TYPE constant.
-     * @param string $id        The folder id this state represents. If empty
-     *                          assumed to be a foldersync state.
+     * @param string $syncKey    The synckey of the state to load. If empty will
+     *                           force a reset of the state for the class
+     *                           specified in $id
+     * @param string $type       The type of state a
+     *                           Horde_ActiveSync::REQUEST_TYPE constant.
+     * @param string $id         The folder id this state represents. If empty
+     *                           assumed to be a foldersync state.
      *
      * @throws Horde_ActiveSync_Exception
      */
@@ -579,7 +579,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $query = 'SELECT device_policykey FROM ' . $this->_syncUsersTable
                 . ' WHERE device_id = ? AND device_user = ?';
             try {
-                $duser = $this->_db->selectOne($query, array($devId, $user));
+                if (!$duser = $this->_db->selectOne($query, array($devId, $user))) {
+                    throw new Horde_ActiveSync_Exception('Device not found.');
+                }
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
@@ -1487,7 +1489,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $this->_db->delete($state_query, array($this->_deviceInfo->id, $id));
             $this->_db->delete($map_query, array($this->_deviceInfo->id, $id));
-            $this->_db->delete($user, array($this->_deviceInfo->id, $this->_devInfo->user));
+            $this->_db->delete($user, array($this->_deviceInfo->id, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }

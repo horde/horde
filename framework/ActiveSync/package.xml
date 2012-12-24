@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2012-12-23</date>
- <time>15:22:43</time>
+ <time>19:04:09</time>
  <version>
   <release>2.0.13</release>
   <api>2.0.0</api>
@@ -184,25 +184,31 @@
        <file name="default_policies.wbxml" role="test" />
        <file name="default_policies.xml" role="test" />
        <file name="dst.wbxml" role="test" />
-       <file name="FolderSyncRequest.txt" role="test" />
        <file name="invitation_one.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
+      <dir name="StateTest">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="MysqlTest.php" role="test" />
+        </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql -->
+       <file name="Base.php" role="test" />
+      </dir> <!-- /test/Horde/ActiveSync/StateTest -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
-      <file name="FolderSyncTest.php" role="test" />
-      <file name="HordeDriverTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
-      <file name="{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -395,24 +401,24 @@
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
+   <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
-   <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
-   <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
-   <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
-   <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
+   <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Base.php" name="test/Horde/ActiveSync/StateTest/Sql/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
   </filelist>
  </phprelease>
  <changelog>
