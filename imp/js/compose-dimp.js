@@ -16,6 +16,7 @@ var DimpCompose = {
     //   sc_submit, skip_spellcheck, spellcheck, uploading
 
     knl: {},
+    seed: 3,
 
     getCacheElt: function()
     {
@@ -586,7 +587,7 @@ var DimpCompose = {
             !this.auto_save_interval) {
             this.auto_save_interval = new PeriodicalExecuter(function() {
                 if ($('compose').visible()) {
-                    var hdrs = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0')), msg;
+                    var hdrs = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0'), this.seed), msg;
                     if (this.md5_hdrs) {
                         msg = this.msgHash();
                         if (this.md5_hdrs != hdrs || this.md5_msg != msg) {
@@ -600,14 +601,14 @@ var DimpCompose = {
                 }
             }.bind(this), DimpCore.conf.auto_save_interval_val * 60);
 
-            /* Immediately execute to get MD5 hash of headers. */
+            /* Immediately execute to get hash of headers. */
             this.auto_save_interval.execute();
         }
     },
 
     msgHash: function()
     {
-        return MD5.hash(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'));
+        return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), ths.seed);
     },
 
     fadeNotice: function(elt)

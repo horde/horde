@@ -10,7 +10,9 @@ var ImpCompose = {
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
     //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
     //   spellcheck, text
+
     display_unload_warning: true,
+    seed: 3,
 
     confirmCancel: function(e)
     {
@@ -129,7 +131,7 @@ var ImpCompose = {
                 CKEDITOR.instances.composeMessage.updateElement();
             }
 
-            cur_msg = MD5.hash($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'));
+            cur_msg = murmurhash3($('to', 'cc', 'bcc', 'subject').compact().invoke('getValue').join('\0') + $F('composeMessage'), this.seed);
             if (this.last_msg && curr_hash != this.last_msg) {
                 // Use an AJAX submit here so that the page doesn't reload.
                 $('actionID').setValue(actionID);
