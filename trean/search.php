@@ -34,12 +34,14 @@ $notification->notify(array('listeners' => 'status'));
 // Display the results.
 if (strlen($vars->searchfield)) {
     if (!$bookmarks) {
-        echo '<p><em>' . _("No Bookmarks found") . '</em></p>';
+        echo '<p><em>' . _("No bookmarks found") . '</em></p>';
     } else {
         $view = new Trean_View_BookmarkList($bookmarks);
         $view->showTagBrowser(false);
-        echo $view->render(sprintf(_("Search Results (%s)"), count($bookmarks)));
+        echo $view->render(sprintf(_("Search results (%s)"), count($bookmarks)));
     }
+} else {
+    echo '<p><em>' . _("No search") . '</em></p>';
 }
 
 $page_output->footer();
