@@ -253,7 +253,7 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
         }
 
         /* If persistent connections are disabled, destroy our SMTP object. */
-        if ($this->_params['persist']) {
+        if (!$this->_params['persist']) {
             $this->disconnect();
         }
     }
@@ -354,4 +354,5 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
         /* Build our standardized error string. */
         throw new Horde_Mail_Exception($text . ' [SMTP: ' . $error->getMessage() . " (code: $code, response: $response)]", $e_code);
     }
+
 }
