@@ -579,9 +579,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $query = 'SELECT device_policykey FROM ' . $this->_syncUsersTable
                 . ' WHERE device_id = ? AND device_user = ?';
             try {
-                if (!$duser = $this->_db->selectOne($query, array($devId, $user))) {
-                    throw new Horde_ActiveSync_Exception('Device not found.');
-                }
+                $duser = $this->_db->selectOne($query, array($devId, $user));
             } catch (Horde_Db_Exception $e) {
                 throw new Horde_ActiveSync_Exception($e);
             }
