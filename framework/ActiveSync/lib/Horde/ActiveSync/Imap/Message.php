@@ -554,6 +554,12 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getBodyPart($id, $options)
     {
+        $options = array_merge(
+            array(
+                'decode' => false,
+                'mimeheaders' => false,
+                'stream' => false),
+            $options);
         $this->_lastBodyPartDecode = null;
         $query = new Horde_Imap_Client_Fetch_Query();
         if (!isset($options['length']) || !empty($options['length'])) {
@@ -584,7 +590,7 @@ class Horde_ActiveSync_Imap_Message
 
         if (empty($options['mimeheaders'])) {
             $this->_lastBodyPartDecode = $fetch_res[$this->_uid]->getBodyPartDecode($id);
-            return $fetch_res[$this->_uid]->getBodyPart($id);
+            return $fetch_res[$this->_uid]->getBodyPart($id, $options['stream']);
         } elseif (empty($options['stream'])) {
             return $fetch_res[$this->_uid]->getMimeHeader($id) . $fetch_res[$this->_uid]->getBodyPart($id);
         } else {
