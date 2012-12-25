@@ -1202,7 +1202,7 @@ class Horde_ActiveSync_Imap_Adapter
                 } else {
                     return Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
                 }
-                $data = substr($data, $chuck_size);
+                $data = substr($data, $chunk_size);
             }
         }
 
