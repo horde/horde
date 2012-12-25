@@ -1218,7 +1218,18 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _stripNon7BitChars($text)
     {
-        return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
+        // Don't use regex to avoid php bug that causes segfaults.
+        $text = strval($text);
+        $output = '';
+        for ($i = 0, $len = strlen($text); $i < $len; ++$i) {
+            if (ord($text[$i]) > 128) {
+                continue;
+            } else {
+                $output .= $text[$i];
+            }
+        }
+
+        return $output;
     }
 
 }
