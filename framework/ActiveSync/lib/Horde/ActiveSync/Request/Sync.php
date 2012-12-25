@@ -592,7 +592,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 );
                 $statusCode = self::STATUS_KEYMISM;
             } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err('UNKNOWN ERROR');
+                $this->_logger->err($e->getMessage());
                 return false;
             }
 
