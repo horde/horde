@@ -387,7 +387,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // In case some synckeys didn't get confirmed by device we issue a full sync
-            if (count($this->_syncCache->confirmed_synckeys) > 0) {
+            if (!empty($this->_syncCache->confirmed_synckeys)) {
+                $this->_logger->debug(count($this->_syncCache->confirmed_synckeys));
                 $this->_logger->debug(sprintf(
                     'Confirmed Synckeys contains %s',
                     print_r($this->_syncCache->confirmed_synckeys, true))
