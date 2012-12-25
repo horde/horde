@@ -1486,7 +1486,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         try {
             $this->_db->delete($state_query, array($this->_deviceInfo->id, $id));
             $this->_db->delete($map_query, array($this->_deviceInfo->id, $id));
-            $this->_db->delete($user, array($this->_deviceInfo->id, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
