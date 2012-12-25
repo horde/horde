@@ -1062,7 +1062,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _getEASImportance($importance)
     {
-        $this->_logger->debug($importance);
         switch (strtolower($importance)) {
         case '1':
         case 'high':
