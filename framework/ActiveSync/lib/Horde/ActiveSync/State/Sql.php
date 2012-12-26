@@ -822,9 +822,10 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                                     "[%s] Ignoring PIM initiated flag change for %s",
                                     $this->_procid,
                                     $change['id']));
-                            } else {
-                                $this->_changes[] = $change;
+                                $change['ignore'] = true;
                             }
+                            $this->_changes[] = $change;
+
                             break;
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                             if ($this->_isPIMChange($change['id'], true, $change['type'])) {
@@ -832,9 +833,9 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                                     "[%s] Ignoring PIM initiated deletion for %s",
                                     $this->_procid,
                                     $change['id']));
-                            } else {
-                                $this->_changes[] = $change;
+                                $change['ignore'] = true;
                             }
+                            $this->_changes[] = $change;
                             break;
                         default:
                             // New message.

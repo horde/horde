@@ -205,33 +205,35 @@ class Horde_ActiveSync_Sync
                     $change = $this->_changes[$this->_step];
                 }
 
-                switch($change['type']) {
-                case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
-                    try {
-                        $message = $this->_backend->getMessage(
-                            $this->_folderId, $change['id'], $this->_collection);
-                        // copy the flag to the message
-                        // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
-                        $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
-                        $this->_exporter->messageChange($change['id'], $message);
-                    } catch (Horde_Exception_NotFound $e) {
-                        $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
+                if (empty($change['ignore'])) {
+                    switch($change['type']) {
+                    case Horde_ActiveSync::CHANGE_TYPE_CHANGE:
+                        try {
+                            $message = $this->_backend->getMessage(
+                                $this->_folderId, $change['id'], $this->_collection);
+                            // copy the flag to the message
+                            // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
+                            $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
+                            $this->_exporter->messageChange($change['id'], $message);
+                        } catch (Horde_Exception_NotFound $e) {
+                            $this->_logger->err('Message gone or error reading message from server: ' . $e->getMessage());
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            $this->_logger->err('Unknown backend error skipping message: ' . $e->getMessage());
+                        }
+                        break;
+                    case Horde_ActiveSync::CHANGE_TYPE_DELETE:
+                        $this->_exporter->messageDeletion($change['id']);
+                        break;
+                    case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
+                        $this->_exporter->messageFlag(
+                            $change['id'],
+                            (isset($change['flags']['read']) ? $change['flags']['read'] : null),
+                            (isset($change['flags']['flagged']) ? $change['flags']['flagged'] : null));
+                        break;
+                    case Horde_ActiveSync::CHANGE_TYPE_MOVE:
+                        $this->_exporter->messageMove($change['id'], $change['parent']);
+                        break;
                     }
-                    break;
-                case Horde_ActiveSync::CHANGE_TYPE_DELETE:
-                    $this->_exporter->messageDeletion($change['id']);
-                    break;
-                case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                    $this->_exporter->messageFlag(
-                        $change['id'],
-                        (isset($change['flags']['read']) ? $change['flags']['read'] : null),
-                        (isset($change['flags']['flagged']) ? $change['flags']['flagged'] : null));
-                    break;
-                case Horde_ActiveSync::CHANGE_TYPE_MOVE:
-                    $this->_exporter->messageMove($change['id'], $change['parent']);
-                    break;
                 }
 
                 $this->_stateDriver->updateState($change['type'], $change);
