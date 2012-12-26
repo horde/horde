@@ -383,9 +383,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * server changes, we need to track which changes have been sent (by
      * removing them from $this->_changes) so we know which items to send on the
      * next sync if a MOREAVAILBLE response was needed.  If this is being called
-     * from a FOLDERSYNC command, update state accordingly. Yet another reason
-     * to break out state handling into different classes based on the command
-     * being run (Horde_ActiveSync_State_Sync, *_FolderSync, *_Ping etc...);
+     * from a FOLDERSYNC command, update state accordingly.
      *
      * @param string $type      The type of change (change, delete, flags or
      *                          foldersync)
