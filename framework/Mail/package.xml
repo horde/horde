@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2012-12-26</date>
- <time>15:39:43</time>
+ <time>15:41:52</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Fix behavior of &apos;persist&apos; option in SMTP transport driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -416,6 +416,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fix behavior of &apos;persist&apos; option in SMTP transport driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-26</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
