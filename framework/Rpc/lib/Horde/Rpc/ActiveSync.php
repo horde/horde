@@ -34,15 +34,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     protected $_contentType = 'application/vnd.ms-sync.wbxml';
 
     /**
-     * Do we need an authenticated user?
-     *
-     * ActiveSync handles the authentication directly.
-     *
-     * @var boolean
-     */
-    protected $_requireAuthorization = false;
-
-    /**
      * Constructor.
      *
      * @param Horde_Controller_Request_Http  The request object.
@@ -173,6 +164,18 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             }
             break;
         }
+    }
+
+    /**
+     * Override the authorize method and always return true. The ActiveSync
+     * server classes handld authentication directly since we need complete
+     * control over what responses are sent.
+     *
+     * @return boolean
+     */
+    public function authorize()
+    {
+        return true;
     }
 
     /**
