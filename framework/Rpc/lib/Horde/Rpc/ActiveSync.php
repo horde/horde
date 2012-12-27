@@ -184,7 +184,7 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      */
     public function sendOutput($output)
     {
-        // Unfortunately, even though zpush can stream the data to the client
+        // Unfortunately, even though we can stream the data to the client
         // with a chunked encoding, using chunked encoding also breaks the
         // progress bar on the PDA. So we de-chunk here and just output a
         // content-length header and send it as a 'normal' packet. If the output
