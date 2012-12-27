@@ -38,7 +38,7 @@ class Horde_Session_Null extends Horde_Session
      *
      * @throws Horde_Exception
      */
-    public function setup($start = true, $cache_limiter = null)
+    public function setup($start = true, $cache_limiter = null, $session_id = null)
     {
         global $conf;
         session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
