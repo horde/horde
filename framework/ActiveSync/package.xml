@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix DB migration for some RDBMS (Bug # 11877).
 * [mjr] Fix authentication related errors.
  </notes>
  <contents>
@@ -1078,6 +1079,7 @@
    <date>2012-12-25</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix DB migration for some RDBMS (Bug # 11877).
 * [mjr] Fix authentication related errors.
    </notes>
   </release>
