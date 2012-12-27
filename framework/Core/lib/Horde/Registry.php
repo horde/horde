@@ -458,6 +458,7 @@ class Horde_Registry
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $GLOBALS['session'] = $session = new Horde_Session_Null();
+            $session->setup(true, $args['session_cache_limiter']);
         } elseif (PHP_SAPI == 'cli' ||
                   ((PHP_SAPI == 'cgi' || PHP_SAPI == 'cgi-fcgi') &&
                     empty($_SERVER['SERVER_NAME']))) {
