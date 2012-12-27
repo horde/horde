@@ -1148,10 +1148,7 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             return $this->_imap->getImapOb();
         } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err(sprintf(
-                "EMERGENCY - Unable to obtain the IMAP Client: %s",
-                $e->getTraceAsString()));
-            throw $e;
+            throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
         }
     }
 

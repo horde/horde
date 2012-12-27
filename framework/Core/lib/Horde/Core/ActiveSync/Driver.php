@@ -450,6 +450,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $endstamp = time() + 32140800; //60 * 60 * 24 * 31 * 12 == one year
                 try {
                     $changes['add'] = $this->_connector->calendar_listUids($startstamp, $endstamp);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -458,6 +461,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } else {
                 try {
                     $changes = $this->_connector->getChanges('calendar', $from_ts, $to_ts);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -471,6 +477,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if ($from_ts == 0) {
                 try {
                     $changes['add'] = $this->_connector->contacts_listUids();
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -479,6 +488,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } else {
                 try {
                     $changes = $this->_connector->getChanges('contacts', $from_ts, $to_ts);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -492,6 +504,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             if ($from_ts == 0) {
                 try {
                     $changes['add'] = $this->_connector->tasks_listUids();
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -500,6 +515,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             } else {
                 try {
                     $changes = $this->_connector->getChanges('tasks', $from_ts, $to_ts);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -526,6 +544,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_endBuffer();
                     throw $e;
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -542,6 +563,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $this->_endBuffer();
                     throw $e;
                 } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_Exception_AuthenticationFailure $e) {
                     $this->_endBuffer();
                     throw $e;
                 } catch (Horde_Exception $e) {
