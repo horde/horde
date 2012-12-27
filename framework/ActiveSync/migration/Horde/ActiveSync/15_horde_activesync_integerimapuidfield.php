@@ -6,7 +6,8 @@ class HordeActiveSyncIntegerimapuidfield extends Horde_Db_Migration_Base
         $this->changeColumn(
             'horde_activesync_mailmap',
             'message_uid',
-            'integer');
+            'integer',
+            array('null' => false, 'default' => 0));
     }
 
     public function down()
