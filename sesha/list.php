@@ -12,6 +12,8 @@
 
 require_once __DIR__ . '/lib/Application.php';
 $sesha = Horde_Registry::appInit('sesha');
+$page_output->addScriptFile('prototype.js', 'horde');
+$page_output->addScriptFile('tables.js', 'horde');
 
 /* Init some form vars. This is about the search field in the topbar */
 $vars = Horde_Variables::getDefaultVariables();
@@ -45,8 +47,6 @@ $view = new Sesha_View_List(array('templatePath'    => SESHA_TEMPLATES . '/view/
                                 'loc'               => $vars->location
                             )
                             );
-$page_output->addScriptFile('prototype.js', 'horde');
-$page_output->addScriptFile('tables.js', 'horde');
 $page_output->header(array(
     'title' => $view->title
 ));
