@@ -2532,8 +2532,14 @@ class Turba_Driver implements Countable
                 if (!empty($value) && $value != '0000-00-00') {
                     try {
                         $date = new Horde_Date($value);
-                        $message->{$field} = $date;
                     } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
+                    // Some sanity checking to make sure the date was
+                    // successfully parsed.
+                    if ($date->month != 0) {
+                        $message->$field = $date;
+                    } else {
                         $message->$field = null;
                     }
                 } else {
