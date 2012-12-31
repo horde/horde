@@ -2177,7 +2177,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      */
     protected function _getPolicyFromPerms()
     {
-        $prefix = 'activesync:provisioning:';
+        $prefix = 'horde:activesync:provisioning:';
         $policy = array();
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
         if (!$perms->exists('horde:activesync:provisioning')) {
