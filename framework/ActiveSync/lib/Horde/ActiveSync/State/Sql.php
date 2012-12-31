@@ -1367,7 +1367,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        if ($mflag === false) {
+        if (is_null($mflag) || $mflag === false) {
             return false;
         }
 
