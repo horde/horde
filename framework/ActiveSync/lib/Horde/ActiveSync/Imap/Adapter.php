@@ -932,7 +932,8 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html'] = array(
                         'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
-                        'truncated' => $message_body_data['plain']['truncated']
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
