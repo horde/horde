@@ -216,7 +216,7 @@ class Horde_ActiveSync_Imap_Message
 
         // Look for the parts we need. We try to detect and fetch only the parts
         // we need, while ensuring we have something to return. So, e.g., if we
-        // don't have BODYPREF_TYPE_HTML, we only  request plain text, but if we
+        // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
         // can't find plain text but we have a html body, fetch that anyway.
         $text_id = $this->_message->findBody('plain');
         $html_id = $this->_message->findBody('html');
@@ -325,8 +325,6 @@ class Horde_ActiveSync_Imap_Message
             $html = $data->getBodyPart($html_id);
             if (!$data->getBodyPartDecode($html_id)) {
                 $html_body_part->setContents($html);
-                $html = $html_body_part->getContents();
-            } else {
                 $html = $html_body_part->getContents();
             }
 
