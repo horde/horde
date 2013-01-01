@@ -251,26 +251,25 @@ class Horde_ActiveSync_Imap_Message
             $query->envelope();
         }
 
-        $body_query_opts = array(
+        $query_opts = array(
             'decode' => true,
             'peek' => true
         );
 
         // Get body information
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
-            $html_query_opts = $body_query_opts;
             if (!empty($html_id)) {
                 $query->bodyPartSize($html_id);
-                $query->bodyPart($html_id, $html_query_opts);
+                $query->bodyPart($html_id, $query_opts);
             }
             if (!empty($text_id)) {
-                $query->bodyPart($text_id, $body_query_opts);
+                $query->bodyPart($text_id, $query_opts);
                 $query->bodyPartSize($text_id);
             }
         } else {
             // EAS 2.5 Plaintext body
             if ($options['truncation'] > 0 || $options['truncation'] === false) {
-                $query->bodyPart($text_id, $body_query_opts);
+                $query->bodyPart($text_id, $query_opts);
             }
             $query->bodyPartSize($text_id);
         }
