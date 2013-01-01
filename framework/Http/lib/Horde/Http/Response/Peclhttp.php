@@ -31,7 +31,13 @@ class Horde_Http_Response_Peclhttp extends Horde_Http_Response_Base
      */
     public function __construct($uri, HttpMessage $message)
     {
-        $this->uri = $uri;
+        if (($parent = $message->getParentMessage()) &&
+            ($location = $parent->getHeader('Location'))) {
+            $this->uri = $location;
+        } else {
+            $this->uri = $uri;
+        }
+
         $this->httpVersion = $message->getHttpVersion();
         $this->code = $message->getResponseCode();
         $this->_message = $message;
