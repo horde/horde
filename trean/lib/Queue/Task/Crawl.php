@@ -59,16 +59,28 @@ class Trean_Queue_Task_Crawl implements Horde_Queue_Task
         $client = $injector->getInstance('Horde_Http_Client');
 
         // Fetch full text of $url
-        $body = null;
-        try {
-            $page = $client->get($this->_url);
-            $body = $page->getBody();
-        } catch (Horde_Http_Exception $e) {
-            return;
+        $page = $client->get($this->_url);
+        $body = $page->getBody();
+
+        $gateway = $injector->getInstance('Trean_Bookmarks');
+        $bookmark = $gateway->getBookmark($this->_bookmarkId);
+        $changed = false;
+
+        // update URL if we were redirected
+        if ($page->uri && ($page->uri != $this->_url)) {
+            $bookmark->url = $page->uri;
+            $this->_url = $page->uri;
+            $changed = true;
         }
 
+        // update bookmark_http_status
+        if ($bookmark->http_status != $page->code) {
+            $bookmark->http_status = $page->code;
+            $changed = true;
+        }
+
+        // submit text to ElasticSearch, under $userId's index
         if ($body && $page->code == 200) {
-            // submit text to ElasticSearch, under $userId's index
             try {
                 $indexer = $injector->getInstance('Content_Indexer');
                 $indexer->index('horde-user-' . $this->_userId, 'trean-bookmark', $this->_bookmarkId, json_encode(array(
@@ -79,27 +91,16 @@ class Trean_Queue_Task_Crawl implements Horde_Queue_Task
                     'body' => $body,
                 )));
             } catch (Exception $e) {
+                Horde::log($e, 'INFO');
             }
         }
 
-        // update bookmark_http_status
-        $gateway = $injector->getInstance('Trean_Bookmarks');
-        $bookmark = $gateway->getBookmark($this->_bookmarkId);
-        if ($bookmark->http_status != $page->code) {
-            $bookmark->http_status = $page->code;
+        if ($changed) {
             $bookmark->save($crawl = false);
         }
 
-        // @TODO: update from redirects? may need to set request.redirect to false in Http_Client
-        /*
-        // If we've been redirected, update the bookmark's URL.
-        if ($location = $response->getHeader('Location') &&
-            $location != $bookmark->url) {
-            $bookmark->url = $location;
-        }
-        */
-
         // @TODO: crawl resources from the page to make a fully local version
+        // (http://bugs.horde.org/ticket/10753)
 
         // Favicon
         if ($body) {
