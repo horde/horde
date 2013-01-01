@@ -260,9 +260,7 @@ class Horde_ActiveSync_Imap_Message
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $html_query_opts = $body_query_opts;
             if (!empty($html_id)) {
-                if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-                    $query->bodyPartSize($html_id);
-                }
+                $query->bodyPartSize($html_id);
                 $query->bodyPart($html_id, $html_query_opts);
             }
             if (!empty($text_id)) {
