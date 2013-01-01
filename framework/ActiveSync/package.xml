@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix some possible character set related issues with HTML email.
+* [mjr] Fix sending boolean policy values.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1092,7 +1093,8 @@
    <date>2012-12-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix some possible character set related issues with HTML email.
+* [mjr] Fix sending boolean policy values.
    </notes>
   </release>
  </changelog>
