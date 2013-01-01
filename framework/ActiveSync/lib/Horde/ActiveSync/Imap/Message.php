@@ -222,15 +222,15 @@ class Horde_ActiveSync_Imap_Message
         $html_id = $this->_message->findBody('html');
 
         // Deduce which part(s) we need to request.
-        $want_html_text = ($version >= Horde_ActiveSync::VERSION_TWELVE &&
+        $want_html_text = $version >= Horde_ActiveSync::VERSION_TWELVE &&
             (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
             !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
-            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])));
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]));
 
-        $want_plain_text = ($version == Horde_ActiveSync::VERSION_TWOFIVE ||
+        $want_plain_text = $version == Horde_ActiveSync::VERSION_TWOFIVE ||
             empty($options['bodyprefs']) ||
-            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) ||
-            (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME])) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
             ($want_html_text && empty($html_id));
 
         if (!empty($text_id) && $want_plain_text) {
