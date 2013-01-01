@@ -331,12 +331,18 @@ class Horde_ActiveSync_Imap_Message
                 $html = Horde_String::substr(
                     $html,
                     0,
-                    $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'], $html_charset);
+                    $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
+                    $html_charset);
             } elseif (!empty($want_html_as_plain)) {
-                $html = Horde_Text_Filter::filter($html, 'Html2text', array('charset' => $html_charset));
+                $html = Horde_Text_Filter::filter(
+                    $html, 'Html2text', array('charset' => $html_charset));
                 if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
                     // EAS >= 12.0 truncation
-                    $html = Horde_String::substr($html, 0, $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'], $html_charset);
+                    $html = Horde_String::substr(
+                        $html,
+                        0,
+                        $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
+                        $html_charset);
                 } elseif (!empty($options['truncation'])) {
                     // EAS 2.5 truncation
                     $html = Horde_String::substr($html, 0, $options['truncation'], $html_charset);
@@ -344,9 +350,9 @@ class Horde_ActiveSync_Imap_Message
             }
 
             // Get the size of the HTML part.
-            $html_size = !is_null($data->getBodyPartSize($html_id)) ?
-                $data->getBodyPartSize($html_id) :
-                Horde_String::length($html);
+            $html_size = !is_null($data->getBodyPartSize($html_id))
+                ? $data->getBodyPartSize($html_id)
+                : Horde_String::length($html);
             $truncated = $html_size > Horde_String::length($html);
 
             if ($want_html_as_plain) {
