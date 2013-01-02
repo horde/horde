@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -362,7 +362,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Using SyncCache State for %s',
                         $value['id']
                     ));
-                    array_push($this->_collections, $value);
+                    $this->_collections[] = $value;
                 }
                 unset($tempSyncCache);
             } else {
@@ -927,7 +927,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 exit;
             }
 
-            array_push($this->_collections, $collection);
+            $this->_collections[] = $collection;
             if ($collection['importedchanges']) {
                 $this->_importedChanges = true;
             }
@@ -1111,7 +1111,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_FETCH:
-                    array_push($collection['fetchids'], $serverid);
+                    $collection['fetchids'][] = $serverid;
                     break;
                 }
             }

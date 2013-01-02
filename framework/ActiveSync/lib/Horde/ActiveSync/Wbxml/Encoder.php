@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -122,7 +122,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             $stackelem['attributes'] = $attributes;
             $stackelem['nocontent'] = $output_empty;
             $stackelem['sent'] = false;
-            array_push($this->_stack, $stackelem);
+            $this->_stack[] = $stackelem;
         } else {
             /* Flush the stack if we want to force empty tags */
             $this->_outputStack();
@@ -440,7 +440,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if ($output_empty) {
             $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
         } else {
-            array_push($this->_logStack, $tag);
+            $this->_logStack[] = $tag;
             $this->_logger->debug(sprintf('O %s <%s>', $spaces, $tag));
         }
     }

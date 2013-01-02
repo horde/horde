@@ -826,7 +826,7 @@ class Horde_Ldap_Entry
         foreach ($attr as $thisvalue) {
             if (preg_match($regex, $thisvalue, $matches_int)) {
                 $match = true;
-                array_push($matches, $matches_int);
+                $matches[] = $matches_int;
             }
         }
 

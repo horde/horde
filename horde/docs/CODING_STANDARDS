@@ -821,6 +821,10 @@ Don't use array_unique().  The following is reported to be 20 times faster::
 Even better, if possible rework the algorithm to store the unique data in the
 key and then call array_keys($foo) to return the unique list.
 
+Avoid array_push(), the [] operator is much faster::
+
+    $array[] = 'element';
+
 User defined functions
 ----------------------
 User defined functions are more expensive than "regular" functions.  Use them

@@ -47,7 +47,7 @@ class Horde_View_Helper_Form extends Horde_View_Helper_Base
 
         $options['end'] = '</form>';
 
-        array_push($args, $options);
+        $args[] = $options;
         return call_user_func_array(array($this, 'fieldsFor'), $args);
     }
 

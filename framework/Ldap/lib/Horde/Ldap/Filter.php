@@ -361,19 +361,19 @@ class Horde_Ldap_Filter
 
             if ($cur_char == '(' && $prev_char == ')' && $level == 1) {
                 // Mark the position for splitting.
-                array_push($sub_index_pos, $curpos);
+                $sub_index_pos[] = $curpos;
             }
             $prev_char = $cur_char;
         }
 
         // Now perform the splits. To get the last part too, we need to add the
         // "END" index to the split array.
-        array_push($sub_index_pos, strlen($filter));
+        $sub_index_pos[] = strlen($filter);
         $subfilters = array();
         $oldpos = 0;
         foreach ($sub_index_pos as $s_pos) {
             $str_part = substr($filter, $oldpos, $s_pos - $oldpos);
-            array_push($subfilters, $str_part);
+            $subfilters[] = $str_part;
             $oldpos = $s_pos;
         }
 
@@ -391,7 +391,7 @@ class Horde_Ldap_Filter
         // operator.
         $subfilters_o = array();
         foreach ($subfilters as $s_s) {
-            array_push($subfilters_o, self::parse($s_s));
+            $subfilters_o[] = self::parse($s_s);
         }
         if (count($subfilters_o) == 1) {
             $subfilters_o = $subfilters_o[0];

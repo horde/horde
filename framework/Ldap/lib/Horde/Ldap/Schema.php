@@ -313,7 +313,7 @@ class Horde_Ldap_Schema
                 $this->_oids[$schema_entry['oid']] = $schema_entry;
                 // Save refs for all names in type map.
                 $names = $schema_entry['aliases'];
-                array_push($names, $schema_entry['name']);
+                $names[] = $schema_entry['name'];
                 foreach ($names as $name) {
                     $this->{$type_var}[Horde_String::lower($name)] = $schema_entry;
                 }
@@ -375,7 +375,7 @@ class Horde_Ldap_Schema
                             break;
                         }
                         if ($tmp != '$') {
-                            array_push($schema_entry[$token], $tmp);
+                            $schema_entry[$token][] = $tmp;
                         }
                     }
                 }

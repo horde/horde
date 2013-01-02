@@ -16,7 +16,7 @@
  *     $entry = $ldif->readEntry();
  *     $dn    = $entry->dn();
  *     echo " done building entry: $dn\n";
- *     array_push($entries, $entry);
+ *     $entries[] = $entry;
  * } while (!$ldif->eof());
  * $ldif->done();
  *

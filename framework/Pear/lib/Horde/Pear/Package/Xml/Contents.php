@@ -156,7 +156,7 @@ class Horde_Pear_Package_Xml_Contents
     private function _getInstallInsertionPoint($new)
     {
         $keys = array_keys($this->_install_list);
-        array_push($keys, $new);
+        $keys[] = $new;
         usort($keys, array($this, '_fileOrder'));
         $pos = array_search($new, $keys);
         if ($pos < (count($keys) - 1)) {
