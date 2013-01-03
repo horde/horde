@@ -2,6 +2,7 @@
 v2.0.3-git
 ----------
 
+[jan] Fix converting searches in individual queues to queries (Bug #11819).
 [jan] Fix editing single attribute and text criteria in query editor.
 [jan] Fix setting active tabs in query editor.
 [jan] Group active and inactive versions in queue adminstration.

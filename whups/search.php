@@ -70,7 +70,7 @@ if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||
         }
         if ($vars->get('queue')) {
             $whups_query->insertCriterion('', Whups_Query::CRITERION_QUEUE, null,
-                                          Whups_Query::OPERATOR_EQUAL, $info['queue']);
+                                          Whups_Query::OPERATOR_EQUAL, $info['queue'][0]);
         }
         foreach (array('ticket_timestamp', 'date_updated', 'date_resolved', 'date_assigned', 'date_due') as $date_field) {
             if (!empty($info[$date_field]['from']) || !empty($info[$date_field]['to'])) {
