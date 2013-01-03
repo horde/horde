@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Fix downloading if backend key doesn't match driver name (Bug #11746).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Change recursive deletion preference to ask by default.
 [jan] Fix share_id column if using old share backend (Bug #11833).

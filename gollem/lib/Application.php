@@ -312,7 +312,9 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function download(Horde_Variables $vars)
     {
-        $vfs = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($vars->driver);
+        $vfs = $GLOBALS['injector']
+            ->getInstance('Gollem_Factory_Vfs')
+            ->create($vars->backend);
         $res = array(
             'data' => is_callable(array($vfs, 'readStream'))
                 ? $vfs->readStream($vars->dir, $vars->filename)
