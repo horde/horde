@@ -2,14 +2,16 @@
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Service_Facebook module.
 # Automatically generated, 2010.
+# Martin Matuška <martin@matuska.org>, 2008
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Service_Facebook\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-04-04 10:15+0200\n"
-"PO-Revision-Date: 2011-05-18 17:16+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,11 +19,11 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Service/Facebook/Request.php:93
-msgid "Service is unavailable. Please try again later."
+#: lib/Horde/Service/Facebook/Request/Rest.php:70
+msgid "Facebook service is unavailable. Please try again later."
 msgstr "Služba momentálne nie je dostupná. Skúste neskôr."
 
-#: lib/Horde/Service/Facebook/UploadRequest.php:93
+#: lib/Horde/Service/Facebook/Request/Graph.php:106
 #, php-format
 msgid "Upload failed: %s"
 msgstr "Nahrávanie zlyhalo: %s"

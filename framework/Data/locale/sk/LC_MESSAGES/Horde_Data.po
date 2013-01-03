@@ -2,14 +2,16 @@
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Data module.
 # Automatically generated, 2010.
+# Martin Matuška <martin@matuska.org>, 2008
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-05-18 16:09+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,10 +19,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Data/Tsv.php:222
+#: lib/Horde/Data/Csv.php:70
+msgid "Cannot open file."
+msgstr "Nepodarilo sa otvoriť súbor."
+
+#: lib/Horde/Data/Csv.php:227
+msgid "Incorrect charset given for the data."
+msgstr "Pre dáta bola zadaná zlá znaková sada."
+
+#: lib/Horde/Data/Tsv.php:216
 msgid "TSV file"
 msgstr "TSV súbor"
 
-#: lib/Horde/Data/Base.php:281
+#: lib/Horde/Data/Base.php:282
 msgid "The file contained no data."
 msgstr "Súbor neobsahoval žiadne údaje."
+
+#: lib/Horde/Data/Base.php:343
+msgid "The uploaded data was lost since the previous step."
+msgstr "Nahrané dáta sa od predchádzajúceho kroku stratili."
+
+#: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
+msgid "The uploaded file could not be saved."
+msgstr "Nahraný súbor nie je možné uložiť."
+
+#: lib/Horde/Data/Imc.php:32
+msgid "There was an error importing the iCalendar data."
+msgstr "Nastala chyba pri importovaní iCalendar údajov."
+
+#: lib/Horde/Data/Base.php:289
+msgid ""
+"You didn\\'t map any fields from the imported file to the corresponding "
+"fields."
+msgstr ""
+"Žiadne polia z naimportovaného súboru neboli namapované na príslušné polia."

@@ -2,14 +2,16 @@
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Image module.
 # Automatically generated, 2010.
+# Martin Matuška <martin@matuska.org>, 2008
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Image\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-05-18 17:14+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -359,15 +361,15 @@ msgstr "Studená fluorescenčná biela"
 msgid "Copyright"
 msgstr "Autorské práva"
 
-#: lib/Horde/Image/Exif/Bundled.php:269
+#: lib/Horde/Image/Exif/Bundled.php:285
 msgid "Couldnt Find IFD1"
 msgstr "Nenašlo sa IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:315
+#: lib/Horde/Image/Exif/Bundled.php:331
 msgid "Couldnt Find InteroperabilityIFD"
 msgstr "Nenašlo sa InteroperabilityIFD"
 
-#: lib/Horde/Image/Exif/Bundled.php:232
+#: lib/Horde/Image/Exif/Bundled.php:248
 msgid "Couldnt Find SubIFD"
 msgstr "Nenašlo sa SubIFD"
 
@@ -595,15 +597,15 @@ msgstr "Nastavenie ISO"
 msgid "ISO studio tungsten"
 msgstr "ISO studio wolfrám"
 
-#: lib/Horde/Image/Exif/Bundled.php:288
+#: lib/Horde/Image/Exif/Bundled.php:304
 msgid "Illegal size for IFD1"
 msgstr "Neplatná veľkosť pre IFD1"
 
-#: lib/Horde/Image/Exif/Bundled.php:334
+#: lib/Horde/Image/Exif/Bundled.php:350
 msgid "Illegal size for InteroperabilityIFD"
 msgstr "Neplatná veľkosť pre InteroperabilityIFD"
 
-#: lib/Horde/Image/Exif/Bundled.php:251
+#: lib/Horde/Image/Exif/Bundled.php:267
 msgid "Illegal size for SubIFD"
 msgstr "Neplatná veľkosť pre SubIFD"
 
@@ -659,9 +661,9 @@ msgstr "Zemepisná šírka"
 msgid "Left"
 msgstr "Vľavo"
 
-#: lib/Horde/Image/Exif.php:127
-msgid "Lens"
-msgstr "Objektív"
+#: lib/Horde/Image/Exif.php:126
+msgid "Lens Id"
+msgstr "Id objektívu"
 
 #: lib/Horde/Image/Exif.php:120
 msgid "Light source"
@@ -1119,7 +1121,7 @@ msgstr "Slnečno"
 msgid "Superfine"
 msgstr "Veľmi jemné"
 
-#: lib/Horde/Image/Exif/Bundled.php:53
+#: lib/Horde/Image/Exif/Bundled.php:69
 msgid "The file could not be opened."
 msgstr "Súbor sa nepodarilo otvoriť."
 
@@ -1317,7 +1319,7 @@ msgstr "iný zdroj svetla"
 msgid "sRGB"
 msgstr "sRGB"
 
-#: lib/Horde/Image/Exif/Bundled.php:800
+#: lib/Horde/Image/Exif/Bundled.php:816
 #, php-format
 msgid "version %d"
 msgstr "verzia %d"
