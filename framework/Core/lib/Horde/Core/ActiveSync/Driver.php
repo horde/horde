@@ -1125,25 +1125,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         // need a smart reply or smart forward. The device will NOT send a
         // smart reply/forward request if it is a s/mime signed.
         if (!$parent) {
-            $mailer = $GLOBALS['injector']->getInstance('Horde_Mail');
-            $recipients = new Horde_Mail_Rfc822_List();
-            foreach (array('To', 'Cc') as $header) {
-               $recipients->add($headers->getOb($header));
-            }
             $h_array = $headers->toArray(array('charset' => 'UTF-8'));
-            if (!empty($h_array['Bcc'])) {
-                $recipients->add($headers->getOb('Bcc'));
-                unset($h_array['Bcc']);
-            }
             if (is_array($h_array['From'])) {
                 $h_array['From'] = current($h_array['From']);
             }
+            $mail = new Horde_Mime_Mail($h_array);
+            $mail->setBasePart($raw_message->getMimeObject());
+
             try {
                 // Need the message if we are saving to sent.
                 if ($save) {
                     $copy = $raw_message->getMimeObject();
                 }
-                $mailer->send($recipients->writeAddress(array('encode' => true)), $h_array, $raw_message->getMessage());
+                $mail->send($GLOBALS['injector']->getInstance('Horde_Mail'), true);
             } catch (Horde_Mail_Exception $e) {
                 $this->_logger->err($e->getMessage());
                 throw new Horde_ActiveSync_Exception($e);
