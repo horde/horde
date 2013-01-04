@@ -35,13 +35,6 @@ class Horde_ActiveSync_Rfc822
     static public $memoryLimit = 2097152;
 
     /**
-     * The raw message.
-     *
-     * @var mixed string|stream resource
-     */
-    protected $_rfc822;
-
-    /**
      * Position of end of headers.
      *
      * @var integer
@@ -56,6 +49,13 @@ class Horde_ActiveSync_Rfc822
     protected $_eol;
 
     /**
+     * The raw message data in a stream.
+     *
+     * @var Horde_Stream
+     */
+    protected $_stream;
+
+    /**
      * Constructor.
      *
      * @param mixed $rfc822  The incoming message. Either a string or a
@@ -63,35 +63,39 @@ class Horde_ActiveSync_Rfc822
      */
     public function __construct($rfc822)
     {
-        $this->_rfc822 = $rfc822;
-        list($this->_hdr_pos, $this->_eol) = $this->_findHeader($this->_rfc822);
+        if (is_resource($rfc822)) {
+            $this->_stream = new Horde_Stream_Existing(array('stream' => $rfc822));
+            rewind($this->_stream->stream);
+        } else {
+            $this->_stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
+            $this->_stream->add($rfc822, true);
+        }
+        list($this->_hdr_pos, $this->_eol) = $this->_findHeader();
     }
 
     /**
      * Returns the raw message with the message headers stripped.
      *
-     * @return mixed  string or stream resource.
+     * @return Horde_Stream
      */
     public function getMessage()
     {
-        if (is_resource($this->_rfc822)) {
-            fseek($this->_rfc822, $this->_hdr_pos + $this->_eol);
-            $fp = fopen('php://temp/maxmemory:' . self::$memoryLimit, 'r+');
-            stream_copy_to_stream($this->_rfc822, $fp);
-            rewind($fp);
-            return $fp;
-        }
-
-        return substr($this->_rfc822, $this->_hdr_pos + $this->_eol);
+        // Position to after the headers.
+        fseek($this->_stream->stream, $this->_hdr_pos + $this->_eol);
+        $new_stream = new Horde_Stream_Temp(array('max_memory' => self::$memoryLimit));
+        $new_stream->add($this->_stream->stream, true);
+        return $new_stream;
     }
 
+    /**
+     * Return the raw message data.
+     *
+     * @return stream resource
+     */
     public function getString()
     {
-        if (is_resource($this->_rfc822)) {
-            rewind($this->_rfc822);
-        }
-
-        return $this->_rfc822;
+        rewind($this->_stream->stream);
+        return $this->_stream->stream;
     }
 
     /**
@@ -101,39 +105,34 @@ class Horde_ActiveSync_Rfc822
      */
     public function getHeaders()
     {
-        if (is_resource($this->_rfc822)) {
-            rewind($this->_rfc822);
-            $hdr_text = fread($this->_rfc822, $this->_hdr_pos);
-            return Horde_Mime_Headers::parseHeaders($hdr_text);
-        }
-        return Horde_Mime_Headers::parseHeaders(substr($this->_rfc822, 0, $this->_hdr_pos));
+        rewind($this->_stream->stream);
+        $hdr_text = $this->_stream->getString(null, $this->_hdr_pos);
+        return Horde_Mime_Headers::parseHeaders($hdr_text);
     }
 
     /**
-     * Return a Mime object representing the message.
+     * Return a Mime object representing the entire message.
      *
      * @return Horde_Mime_Part  The Mime object.
      */
     public function getMimeObject()
     {
-        if (is_resource($this->_rfc822)) {
-            rewind($this->_rfc822);
-            while (!feof($this->_rfc822)) {
-                $out .= fread($this->_rfc822, 8192);
-            }
-        } else {
-            $out = $this->_rfc822;
-        }
+        rewind($this->_stream->stream);
+        $part = Horde_Mime_Part::parseMessage($this->_stream->getString());
+        $part->isBasePart(true);
 
-        return Horde_Mime_Part::parseMessage($out);
+        return $part;
     }
 
+    /**
+     * Return the length of the message data.
+     *
+     * @return integer
+     */
     public function getBytes()
     {
         if (!isset($this->_bytes)) {
-            fseek($this->_rfc822, 0, SEEK_END);
-            $this->_bytes = ftell($this->_rfc822);
-            rewind($this->_rfc822);
+            $this->_bytes = $this->_stream->length();
         }
 
         return $this->_bytes;
@@ -142,29 +141,15 @@ class Horde_ActiveSync_Rfc822
     /**
      * Find the location of the end of the header text.
      *
-     * @param mixed $text  The text to search. A string or stream resource.
-     *
      * @return array  1st element: Header position, 2nd element: Length of
      *                trailing EOL.
      */
-    protected function _findHeader($text)
+    protected function _findHeader()
     {
-        if (!is_resource($text)) {
-            $hdr_pos = strpos($text, "\r\n\r\n");
-            if ($hdr_pos !== false) {
-                return array($hdr_pos, 4);
-            }
-
-            $hdr_pos = strpos($text, "\n\n");
-            return ($hdr_pos === false)
-                ? array(strlen($text), 0)
-                : array($hdr_pos, 2);
-        }
-
-        rewind($text);
         $i = 0;
-        while (is_resource($text) && !feof($text)) {
-            $data = fread($text, 8192);
+        while (is_resource($this->_stream->stream) &&
+               !feof($this->_stream->stream)) {
+            $data = fread($this->_stream->stream, 8192);
             $hdr_pos = strpos($data, "\r\n\r\n");
             if ($hdr_pos !== false) {
                 return array($hdr_pos + ($i * 8192), 4);
@@ -175,8 +160,8 @@ class Horde_ActiveSync_Rfc822
             }
             $i++;
         }
-        fseek($text, 0, SEEK_END);
-        return array(ftell($text), 0);
+        fseek($this->_stream->stream, 0, SEEK_END);
+        return array(ftell($$this->_stream->stream), 0);
     }
 
 }
