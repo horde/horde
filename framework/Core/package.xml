@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix multiple AJAX submits to same hidden IFRAME on the same page (Bug #11928).
 * [mjr] Fix some MIME related issues when sending email via ActiveSync (Bug #11931).
 * [mjr] Fix detecting non-default ActiveSync policies.
  </notes>
@@ -2681,6 +2682,7 @@
    <date>2012-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix multiple AJAX submits to same hidden IFRAME on the same page (Bug #11928).
 * [mjr] Fix some MIME related issues when sending email via ActiveSync (Bug #11931).
 * [mjr] Fix detecting non-default ActiveSync policies.
    </notes>
