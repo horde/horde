@@ -1069,7 +1069,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $disposition = $this->getDisposition();
         $disp_params = $this->getAllDispositionParameters();
         $name = $this->getName();
-        if ($disposition || !empty($name) || !empty($disp_params)) {
+        $disp_params_copy = $disp_params;
+        unset($disp_params_copy['size']);
+        if ($disposition || !empty($name) || !empty($disp_params_copy)) {
             if (!$disposition) {
                 $disposition = 'attachment';
             }
