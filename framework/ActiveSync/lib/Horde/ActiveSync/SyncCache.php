@@ -72,6 +72,13 @@ class Horde_ActiveSync_SyncCache
     protected $_devid;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver
