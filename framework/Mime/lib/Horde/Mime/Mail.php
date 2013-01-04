@@ -426,6 +426,7 @@ class Horde_Mime_Mail
             if (count($this->_parts)) {
                 $basepart = new Horde_Mime_Part();
                 $basepart->setType('multipart/mixed');
+                $basepart->isBasePart(true);
                 if ($body) {
                     $basepart->addPart($body);
                 }
@@ -434,6 +435,7 @@ class Horde_Mime_Mail
                 }
             } else {
                 $basepart = $body;
+                $basepart->isBasePart(true);
             }
         }
         $basepart->setHeaderCharset($this->_charset);
