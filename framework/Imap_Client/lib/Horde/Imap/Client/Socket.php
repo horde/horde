@@ -1516,6 +1516,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $this->_appendData($v['v'])
                             ));
                         } else {
+                            if (is_resource($v['v'])) {
+                                rewind($v['v']);
+                            }
                             $data_stream->add($v['v']);
                         }
                         break;
@@ -1536,7 +1539,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    $cmd->add($this->_appendData($data_stream));
+                    $cmd->add($this->_appendData($data_stream->stream));
                 }
             } else {
                 $cmd->add($this->_appendData($data[$key]['data']));

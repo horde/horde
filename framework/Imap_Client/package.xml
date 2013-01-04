@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix multipart APPENDs when IMAP server does not support CATENATE.
 * [mms] Fix harmless PHP warning issued when IMAP server supports SORT but not SORT=DISPLAY.
  </notes>
  <contents>
@@ -1460,6 +1461,7 @@
    <date>2012-12-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix multipart APPENDs when IMAP server does not support CATENATE.
 * [mms] Fix harmless PHP warning issued when IMAP server supports SORT but not SORT=DISPLAY.
    </notes>
   </release>
