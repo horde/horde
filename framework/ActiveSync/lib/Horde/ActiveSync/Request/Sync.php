@@ -94,7 +94,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_syncCache = new Horde_ActiveSync_SyncCache(
                 $this->_stateDriver,
                 $this->_device->id,
-                $this->_device->user);
+                $this->_device->user,
+                $this->_logger);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();

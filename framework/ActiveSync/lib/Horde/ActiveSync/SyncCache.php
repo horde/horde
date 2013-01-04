@@ -83,12 +83,14 @@ class Horde_ActiveSync_SyncCache
     public function __construct(
         Horde_ActiveSync_State_Base $state,
         $devid,
-        $user)
+        $user,
+        Horde_Log_Logger $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;
         $this->_user = $user;
         $this->_data = $state->getSyncCache($devid, $user);
+        $this->_logger = $logger;
     }
 
     public function __get($property)

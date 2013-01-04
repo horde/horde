@@ -113,7 +113,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $syncCache = new Horde_ActiveSync_SyncCache(
             $this->_stateDriver,
             $this->_device->id,
-            $this->_device->user);
+            $this->_device->user,
+            $this->_logger);
 
         // Build the collection array from anything we have in the cache.
         $collections = array();
