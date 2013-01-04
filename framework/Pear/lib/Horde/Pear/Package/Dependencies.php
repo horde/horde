@@ -52,6 +52,9 @@ class Horde_Pear_Package_Dependencies
         case 'extension':
             self::addOther($input, 'ext', $optional, $result);
             break;
+        case '#comment':
+            //ignore
+            break;
         default:
             throw new Horde_Pear_Exception(
                 sprintf('Unsupported dependency type "%s"!', $type)
