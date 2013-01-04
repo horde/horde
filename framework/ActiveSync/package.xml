@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-27</date>
- <time>14:00:42</time>
+ <date>2013-01-04</date>
+ <time>14:59:49</time>
  <version>
   <release>2.0.15</release>
   <api>2.0.0</api>
@@ -186,6 +186,7 @@
        <file name="default_policies.xml" role="test" />
        <file name="dst.wbxml" role="test" />
        <file name="invitation_one.eml" role="test" />
+       <file name="iOSMultipartAlternative.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
@@ -208,6 +209,7 @@
       <file name="InviteTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
+      <file name="Rfc822Test.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
@@ -407,6 +409,7 @@
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
+   <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
@@ -414,6 +417,7 @@
    <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
+   <install as="Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" name="test/Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
@@ -1090,7 +1094,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-27</date>
+   <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix some possible character set related issues with HTML email.

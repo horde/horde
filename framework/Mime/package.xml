@@ -17,8 +17,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:19</time>
+ <date>2013-01-04</date>
+ <time>14:59:58</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -327,7 +327,9 @@
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
        <file name="flowed_msg.txt" role="test" />
+       <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
+       <file name="samplemultipart_msg.txt" role="test" />
        <file name="sample_msg.txt" role="test" />
        <file name="uudecode.txt" role="test" />
       </dir> <!-- /test/Horde/Mime/fixtures -->
@@ -554,7 +556,9 @@
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
+   <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
+   <install as="Horde/Mime/fixtures/samplemultipart_msg.txt" name="test/Horde/Mime/fixtures/samplemultipart_msg.txt" />
    <install as="Horde/Mime/fixtures/sample_msg.txt" name="test/Horde/Mime/fixtures/sample_msg.txt" />
    <install as="Horde/Mime/fixtures/uudecode.txt" name="test/Horde/Mime/fixtures/uudecode.txt" />
   </filelist>
@@ -1032,7 +1036,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix issue where parsing multipart/alternative messages would turn the parts into attachments.
