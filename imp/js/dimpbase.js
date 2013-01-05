@@ -667,18 +667,6 @@ var DimpBase = {
                     this.showSearchbar(false);
                 }
 
-                tmp = $('applyfilterlink');
-                if (tmp) {
-                    if (this.isSearch() ||
-                        (!DimpCore.conf.filter_any && this.view != this.INBOX)) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                    }
-
-                    this._sizeFolderlist();
-                }
-
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
                     $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
@@ -1167,6 +1155,12 @@ var DimpBase = {
             }
             break;
 
+        case 'ctx_filteropts_applyfilters':
+            if (this.viewport) {
+                this.viewport.reload({ applyfilter: 1 });
+            }
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1401,6 +1395,13 @@ var DimpBase = {
 
         case 'ctx_template':
             [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
+            break;
+
+        case 'ctx_filteropts':
+            tmp = $('ctx_filteropts_applyfilters');
+            if (tmp) {
+                [ tmp.up('DIV') ].invoke(this.isSearch() || (!DimpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
+            }
             break;
         }
     },
@@ -2607,13 +2608,6 @@ var DimpBase = {
 
         case 'alertsloglink':
             HordeCore.Growler.toggleLog();
-            break;
-
-        case 'applyfilterlink':
-            if (this.viewport) {
-                this.viewport.reload({ applyfilter: 1 });
-            }
-            e.memo.stop();
             break;
 
         case 'appprefs':

@@ -47,7 +47,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $this->view->filter_avail = IMP::applyFilters();
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
@@ -445,6 +444,13 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*flag' => _("Show Only"),
                 '*flagnot' => _("Don't Show")
             );
+            if (IMP::applyFilters()) {
+                $context['ctx_filteropts']['_sub1'] = array(
+                    '_sep1' => null,
+                    'applyfilters' => _("Apply Filters")
+                );
+            }
+
             $context['ctx_qsearchby'] = array(
                 '*all' => _("Entire Message"),
                 '*body' => _("Body"),

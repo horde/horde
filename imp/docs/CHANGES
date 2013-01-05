@@ -2,6 +2,7 @@
 v6.0.3-git
 ----------
 
+[mms] Re-add apply mail filters action in dynamic view.
 [mms] Improved parsing of References header when replying to a message.
 [mms] Fix verifying an enveloped signed & encrypted S/MIME message (Bug
       #11874).

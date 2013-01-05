@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Re-add apply mail filters action in dynamic view.
 * [mms] Improved parsing of References header when replying to a message.
 * [mms] Fix verifying an enveloped signed &amp; encrypted S/MIME message (Bug #11874).
 * [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
@@ -2885,6 +2886,7 @@
    <date>2012-12-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Re-add apply mail filters action in dynamic view.
 * [mms] Improved parsing of References header when replying to a message.
 * [mms] Fix verifying an enveloped signed &amp; encrypted S/MIME message (Bug #11874).
 * [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
