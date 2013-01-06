@@ -1855,27 +1855,11 @@ var DimpBase = {
 
     clearPreviewPane: function()
     {
-        var sel, txt;
-
         this.loadingImg('msg', false);
         $('previewMsg').hide();
         $('previewPane').scrollTop = 0;
 
-        sel = this.selectedCount();
-        switch (sel) {
-        case 0:
-            txt = DimpCore.text.nomessages;
-            break;
-
-        case 1:
-            txt = 1 + ' ' + DimpCore.text.message;
-            break;
-
-        default:
-            txt = sel + ' ' + DimpCore.text.messages;
-            break;
-        }
-        $('previewInfo').update(txt + ' ' + DimpCore.text.selected + '.').show();
+        $('previewInfo').update(DimpCore.text.selected.sub('%s', this.messageCountText(this.selectedCount()))).show();
 
         delete this.pp;
     },
@@ -1940,11 +1924,7 @@ var DimpBase = {
 
         if (rows) {
             range = this.viewport.currentViewableRange();
-            text += ' (' + (
-                (rows == 1)
-                    ? 1 + ' ' + DimpCore.text.message :
-                    rows + ' ' + DimpCore.text.messages
-            ) + ')';
+            text += ' (' + this.messageCountText(rows) + ')';
         }
 
         $('mailboxName').update(text);
@@ -2174,7 +2154,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')] + ')');
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search_input.sub('%s', DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')]));
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2262,10 +2242,18 @@ var DimpBase = {
         }
     },
 
-    dragCaption: function()
+    messageCountText: function(cnt)
     {
-        var cnt = this.selectedCount();
-        return cnt + ' ' + (cnt == 1 ? DimpCore.text.message : DimpCore.text.messages);
+        switch (cnt) {
+        case 0:
+            return DimpCore.text.message_0;
+
+        case 1:
+            return DimpCore.text.message_1;
+
+        default:
+            return DimpCore.text.message_2.sub('%d', cnt);
+        }
     },
 
     onDragMouseDown: function(e)
@@ -3807,7 +3795,9 @@ DimpBase._msgDragConfig = {
     classname: 'msgdrag',
     scroll: 'imp-normalmboxes',
     threshold: 5,
-    caption: DimpBase.dragCaption.bind(DimpBase)
+    caption: function() {
+        return DimpBase.messageCountText(DimpBase.selectedCount());
+    }
 };
 
 DimpBase._mboxDragConfig = {
@@ -3850,7 +3840,7 @@ DimpBase._mboxDropConfig = {
 
         return drag.hasClassName('imp-sidebar-mbox')
             ? ((ftype != 'special' && !DimpBase.isSubfolder(drag, drop)) ? m.sub('%s', d).sub('%s', l) : '')
-            : ((ftype != 'container') ? m.sub('%s', DimpBase.dragCaption()).sub('%s', l) : '');
+            : ((ftype != 'container') ? m.sub('%s', DimpBase.messageCountText(DimpBase.selectedCount())).sub('%s', l) : '');
     },
     keypress: true
 };
