@@ -307,7 +307,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
-        } else {
+        } elseif (!$condstore || ($condstore && $modseq == 0)) {
             $this->_logger->debug('NO CONDSTORE or per mailbox MODSEQ: ' . $folder->minuid);
             $query = new Horde_Imap_Client_Search_Query();
             $search_ret = $imap->search(
@@ -820,8 +820,9 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $eas_message->importance = $this->_getEASImportance($importance);
 
+        // Get the body data and ensure we have something to send.
+        $message_body_data = $imap_message->getMessageBodyData($options);
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $message_body_data = $imap_message->getMessageBodyData($options);
             $eas_message->body = $this->_validateUtf8(
                 $message_body_data['plain']['body'],
                 $message_body_data['plain']['charset']
@@ -830,8 +831,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
-            // Determine the message's native type.
-            $message_body_data = $imap_message->getMessageBodyData($options);
+            // Get the message body and determine original type.
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
@@ -932,7 +932,8 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html'] = array(
                         'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
-                        'truncated' => $message_body_data['plain']['truncated']
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
@@ -1062,7 +1063,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _getEASImportance($importance)
     {
-        $this->_logger->debug($importance);
         switch (strtolower($importance)) {
         case '1':
         case 'high':
@@ -1149,10 +1149,7 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             return $this->_imap->getImapOb();
         } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err(sprintf(
-                "EMERGENCY - Unable to obtain the IMAP Client: %s",
-                $e->getTraceAsString()));
-            throw $e;
+            throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
         }
     }
 
@@ -1203,7 +1200,7 @@ class Horde_ActiveSync_Imap_Adapter
                 } else {
                     return Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
                 }
-                $data = substr($data, $chuck_size);
+                $data = substr($data, $chunk_size);
             }
         }
 

@@ -259,7 +259,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         $imp_contents = $this->getConfigParam('imp_contents');
         $stream = $imp_contents->isEmbedded($base_id)
-            ? $this->_mimepart->getMetadata('imp-smime-decrypt')
+            ? $this->_mimepart->getMetadata('imp-smime-decrypt')->stream
             : $this->_getPartStream($base_id);
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 

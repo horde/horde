@@ -2,36 +2,38 @@
 # Copyright 2008-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Gollem package.
 # Martin Matuška <martin@matuska.org>, 2008
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Gollem H3 (1.0.4-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-11 11:56+0200\n"
-"PO-Revision-Date: 2011-10-19 10:44+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: manager.php:64
+#: manager.php:65
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" premenované na \"%s\""
 
-#: quota.php:49
+#: quota.php:51
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:579
+#: manager.php:582
 #, php-format
 msgid "%d item"
 msgstr "%d položka"
 
-#: manager.php:579
+#: manager.php:582
 #, php-format
 msgid "%d items"
 msgstr "%d položiek"
@@ -41,7 +43,7 @@ msgstr "%d položiek"
 msgid "%s successfully saved."
 msgstr "%s bolo úspešne uložené."
 
-#: manager.php:190
+#: manager.php:178
 #, php-format
 msgid "%s was successfully pasted."
 msgstr "%s bolo úspešne vložené."
@@ -51,21 +53,21 @@ msgstr "%s bolo úspešne vložené."
 msgid "Access denied to %s"
 msgstr "Prístup do %s bol odopretý"
 
-#: lib/Gollem.php:48 lib/Gollem.php:294 lib/Gollem.php:341 lib/Gollem.php:363
-#: lib/Gollem.php:383
+#: lib/Gollem.php:49 lib/Gollem.php:300 lib/Gollem.php:360 lib/Gollem.php:393
+#: lib/Gollem.php:413
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "Prístup do priečinka \"%s\" bol odopretý."
 
-#: templates/manager/manager.html:108
+#: templates/manager/manager.html:69
 msgid "Actions:"
 msgstr "Operácie:"
 
-#: selectlist.php:87
+#: selectlist.php:79
 msgid "Add"
 msgstr "Pridať"
 
-#: templates/manager/manager.html:11
+#: templates/manager/manager.html:9
 msgid "All"
 msgstr "Všetky"
 
@@ -77,23 +79,19 @@ msgstr "Naozaj chcete pokračovať?"
 msgid "Are you sure?"
 msgstr "Ste si istý?"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Ascending"
 msgstr "Vzostupne"
 
-#: config/prefs.php:97
+#: config/prefs.php:98
 msgid "Ask"
 msgstr "Spýtať sa"
 
-#: templates/manager/manager.html:5
-msgid "Attributes"
-msgstr "Atribúty"
-
-#: lib/Application.php:124
+#: lib/Application.php:136
 msgid "Backend"
 msgstr "Backend"
 
-#: lib/Application.php:86
+#: lib/Application.php:83
 msgid "Backends"
 msgstr "Backendy"
 
@@ -101,87 +99,87 @@ msgstr "Backendy"
 msgid "Below is the current contents of your clipboard."
 msgstr "Nižšie je aktuálny obsah Vašej schránky."
 
-#: clipboard.php:24 manager.php:302 selectlist.php:89
+#: clipboard.php:24 manager.php:286 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Zrušiť"
 
-#: manager.php:89
+#: manager.php:85
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr "Nepodarilo sa vykonať chmod %s: %s"
 
-#: manager.php:162
+#: manager.php:153
 msgid "Cannot copy items onto clipboard."
 msgstr "Nepodarilo sa skopírovať položky do schránky."
 
-#: manager.php:237
+#: manager.php:224
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "Nepodarilo sa vytvoriť domovský priečinok %s."
 
-#: manager.php:164
+#: manager.php:155
 msgid "Cannot cut items onto clipboard."
 msgstr "Nepodarilo sa vystrihnúť položky do schránky."
 
-#: manager.php:192
+#: manager.php:180
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr "Nepodarlio sa vložiť \"%s\" (súbor bol zmazaný zo schránky): %s"
 
-#: manager.php:330 templates/manager/manager.html:70
+#: manager.php:321 templates/javascript_defs.php:15
 msgid "Change Folder"
 msgstr "Zmeniť priečinok"
 
-#: templates/manager/manager.html:110
+#: templates/manager/manager.html:71
 msgid "Change Permissions"
 msgstr "Zmeniť prístupové práva"
 
-#: lib/Gollem.php:585
+#: lib/Gollem.php:653
 msgid "Change Server"
 msgstr "Zmeniť server"
 
-#: lib/Application.php:288
+#: lib/Application.php:224
 msgid "Check Quota"
 msgstr "Skontrolovať kvóta"
 
-#: manager.php:575
+#: manager.php:578
 msgid "Check _All/None"
 msgstr "Vybrať _všetky/žiadne"
 
-#: manager.php:87
+#: manager.php:83
 msgid "Chmod done: "
 msgstr "Chmod vykonaný: "
 
-#: lib/Application.php:258
+#: lib/Prefs/Special/Columnselect.php:53
 msgid "Choose which columns to display, and in what order:"
 msgstr "Vyberte, ktoré stĺpce sa majú zobraziť a v akom poradí:"
 
-#: clipboard.php:25 templates/manager/manager.html:129
+#: clipboard.php:25 templates/manager/manager.html:93
 msgid "Clear"
 msgstr "Odstrániť"
 
-#: clipboard.php:44 templates/clipboard/clipboard.html:7
+#: clipboard.php:53 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
 msgstr "Schránka"
 
-#: quota.php:28
+#: quota.php:26
 msgid "Close"
 msgstr "Zavrieť"
 
-#: lib/Application.php:262
+#: lib/Prefs/Special/Columnselect.php:57
 msgid "Columns that will not be displayed:"
 msgstr "Stĺpce, ktoré nebudú zobrazené:"
 
-#: clipboard.php:28 templates/manager/manager.html:113
+#: clipboard.php:28 templates/manager/manager.html:74
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: manager.php:323 templates/manager/manager.html:58
+#: manager.php:314 templates/javascript_defs.php:16
 msgid "Create Folder"
 msgstr "Vytvoriť priečinok"
 
-#: permissions.php:53
+#: permissions.php:45
 #, php-format
 msgid ""
 "Created empty permissions for \"%s\". You must explicitly grant access to "
@@ -194,37 +192,33 @@ msgstr ""
 msgid "Current directory:"
 msgstr "Aktuálny priečinok: "
 
-#: clipboard.php:27 templates/manager/manager.html:114
+#: clipboard.php:27 templates/manager/manager.html:76
 msgid "Cut"
 msgstr "Vystrihnúť"
 
-#: config/prefs.php:59
+#: config/prefs.php:60
 msgid "Default sorting criteria:"
 msgstr "Prednastavený spôsob triedenia:"
 
-#: config/prefs.php:70
+#: config/prefs.php:71
 msgid "Default sorting direction:"
 msgstr "Prednastavený smer triedenia:"
 
-#: templates/manager/manager.html:117
+#: templates/manager/manager.html:80
 msgid "Delete"
 msgstr "Vymazať"
 
-#: config/prefs.php:99
+#: config/prefs.php:100
 msgid "Delete folders recursively?"
 msgstr "Vymazať priečinky a ich obsah?"
 
-#: config/prefs.php:68
+#: config/prefs.php:69
 msgid "Descending"
 msgstr "Zostupne"
 
-#: selectlist.php:88
+#: selectlist.php:80
 msgid "Done"
 msgstr "Vykonané"
-
-#: manager.php:247
-msgid "Download"
-msgstr "Stiahnuť"
 
 #: manager.php:450
 #, php-format
@@ -235,24 +229,20 @@ msgstr "Stiahnuť %s"
 msgid "ERROR:"
 msgstr "CHYBA:"
 
-#: manager.php:246
-msgid "Edit"
-msgstr "Upraviť"
-
 #: templates/edit/edit.inc:8
 #, php-format
 msgid "Edit %s"
 msgstr "Upraviť %s"
 
-#: templates/manager/manager.html:26
+#: templates/manager/manager.html:24
 msgid "Execute"
 msgstr "Spustiť"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:195
+#: templates/javascript_defs.php:21 templates/manager/manager.html:168
 msgid "File"
 msgstr "Súbor"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File Actions"
 msgstr "Operácie"
 
@@ -260,27 +250,27 @@ msgstr "Operácie"
 msgid "File Display"
 msgstr "Zobrazenie súborov"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Modification Time"
 msgstr "Čas modifikácie súborov"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Name"
 msgstr "Meno súboru"
 
-#: config/prefs.php:57
+#: config/prefs.php:58
 msgid "File Size"
 msgstr "Veľkosť súboru"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Type"
 msgstr "Typ súboru"
 
-#: config/prefs.php:87
+#: config/prefs.php:88
 msgid "File action settings."
 msgstr "Nastavenie operácií súborov."
 
-#: manager.php:104
+#: manager.php:100
 msgid "File deleted: "
 msgstr "Súbor vymazaný:"
 
@@ -288,7 +278,7 @@ msgstr "Súbor vymazaný:"
 msgid "File display preferences."
 msgstr "Nastavenie zobrazovania súborov."
 
-#: manager.php:126
+#: manager.php:121
 #, php-format
 msgid "File received: %s"
 msgstr "Súbor prijatý: %s"
@@ -297,54 +287,42 @@ msgstr "Súbor prijatý: %s"
 msgid "Files must be written inside a VFS backend."
 msgstr "Súbory musia byť zapisované v backende VFS."
 
-#: templates/manager/manager.html:127
+#: templates/manager/manager.html:91
 msgid "Filter"
 msgstr "Filter"
 
-#: templates/manager/manager.html:126
+#: templates/manager/manager.html:90
 msgid "Filter:"
 msgstr "Filter:"
 
-#: manager.php:96
+#: manager.php:92
 msgid "Folder removed: "
 msgstr "Priečinok vymazaný:"
 
-#: lib/Api.php:155 lib/Api.php:186
+#: lib/Api.php:157 lib/Api.php:190
 msgid "Folders must be created inside a VFS backend."
 msgstr "Priečinky musia byť vytvárané v backende VFS."
 
-#: templates/manager/manager.html:72
-msgid "Go to:"
-msgstr "Prejsť na:"
-
-#: permissions.php:22
-msgid "Gollem Backend Permissions Administration"
-msgstr "Administrácia práv backendov Gollem"
-
-#: manager.php:554 templates/manager/manager.html:10
+#: manager.php:555 templates/manager/manager.html:8
 msgid "Group"
 msgstr "Skupina"
 
-#: manager.php:71
-msgid "Incorrect number of items."
-msgstr "Nesprávny počet položiek."
-
-#: lib/Api.php:405
+#: lib/Api.php:413
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Neplatný backend: %s"
 
-#: manager.php:155
+#: manager.php:147
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr "Položka skopírovaná do schránky: %s"
 
-#: manager.php:157
+#: manager.php:149
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr "Položka vystrihnutá do schránky: %s"
 
-#: config/prefs.php:77
+#: config/prefs.php:78
 msgid "Items per page"
 msgstr "Počet položiek na stránku"
 
@@ -356,23 +334,19 @@ msgstr "Jazyk"
 msgid "List folders first?"
 msgstr "Zobraziť najprv priečinky?"
 
-#: manager.php:524
+#: manager.php:527
 msgid "Modified"
 msgstr "Zmenené"
 
-#: manager.php:502
+#: manager.php:501
 msgid "Name"
 msgstr "Meno"
 
-#: templates/manager/manager.html:46 templates/manager/manager.html:60
-msgid "Name:"
-msgstr "Meno:"
-
-#: manager.php:49
+#: manager.php:50
 msgid "New folder created: "
 msgstr "Nový priečinok bol vytvorený: "
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "No"
 msgstr "Nie"
 
@@ -380,11 +354,11 @@ msgstr "Nie"
 msgid "No quota found."
 msgstr "Žiadne kvóta neboli nájdené."
 
-#: manager.php:303
+#: manager.php:287
 msgid "OK"
 msgstr "OK"
 
-#: manager.php:547 templates/manager/manager.html:9
+#: manager.php:549 templates/manager/manager.html:7
 msgid "Owner"
 msgstr "Vlastník"
 
@@ -392,61 +366,65 @@ msgstr "Vlastník"
 msgid "Paste"
 msgstr "Vložiť"
 
-#: manager.php:540
+#: manager.php:543
 msgid "Permission"
 msgstr "Právo"
 
-#: selectlist.php:69
+#: selectlist.php:65
 #, php-format
 msgid "Permission denied to %s: %s"
 msgstr "Prístup zamietnutý do %s: %s"
 
-#: manager.php:230
+#: manager.php:217
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Prístup zamietnutý do priečinka \"%s\": %s"
 
-#: lib/Api.php:413
+#: lib/Api.php:421
 msgid "Permission denied to this backend."
 msgstr "Prístup do tohto backendu bol odopretý."
 
-#: templates/javascript_defs.php:13
+#: templates/javascript_defs.php:22
+msgid "Permissions"
+msgstr "Práva"
+
+#: templates/javascript_defs.php:12
 msgid "Please provide your password."
 msgstr "Prosím zadajte svoje heslo"
 
-#: templates/javascript_defs.php:12
+#: templates/javascript_defs.php:11
 msgid "Please provide your username."
 msgstr "Prosím zadajte svoje používateľské meno"
 
-#: templates/javascript_defs.php:16
+#: templates/javascript_defs.php:24
 msgid "Please select an item before this action."
 msgstr "Prosím vyberte položku pred vykonaním tejto operácie."
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:25
 msgid "Please specify at least one file to upload."
 msgstr "Prosím vyberte aspoň jeden súbor na nahranie."
 
-#: quota.php:56 templates/quota/quota.html:2
+#: quota.php:59 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr "Zobrazenie kvót"
 
-#: templates/manager/manager.html:14
+#: templates/manager/manager.html:12
 msgid "Read"
 msgstr "Čítať"
 
-#: manager.php:308
+#: manager.php:292
 msgid "Refresh"
 msgstr "Obnoviť"
 
-#: templates/manager/manager.html:44 templates/manager/manager.html:120
+#: templates/javascript_defs.php:23 templates/manager/manager.html:83
 msgid "Rename"
 msgstr "Premenovať"
 
-#: lib/Api.php:200
+#: lib/Api.php:206
 msgid "Renaming across backends is not supported."
 msgstr "Premenovanie medzi backendami nie je podporované."
 
-#: lib/Api.php:194
+#: lib/Api.php:198
 msgid "Renaming of backends is not allowed."
 msgstr "Premenovanie backendov nie je povolené."
 
@@ -454,19 +432,19 @@ msgstr "Premenovanie backendov nie je povolené."
 msgid "Reset"
 msgstr "Zrušiť"
 
-#: manager.php:301 templates/edit/edit.inc:11
+#: manager.php:285 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Uložiť"
 
-#: clipboard.php:48 templates/clipboard/clipboard.html:28
+#: clipboard.php:47 templates/clipboard/clipboard.html:28
 msgid "Select All"
 msgstr "Vybrať všetko"
 
-#: clipboard.php:49
+#: clipboard.php:48
 msgid "Select None"
 msgstr "Vybrať žiadne"
 
-#: lib/Application.php:260
+#: lib/Prefs/Special/Columnselect.php:55
 msgid "Select a backend:"
 msgstr "Prosím vyberte backend:"
 
@@ -474,15 +452,23 @@ msgstr "Prosím vyberte backend:"
 msgid "Server"
 msgstr "Server"
 
+#: manager.php:305 manager.php:407
+msgid "Share Folder"
+msgstr "Zdielať priečinok"
+
+#: manager.php:407
+msgid "Shared Folder"
+msgstr "Zdielaný priečinok"
+
 #: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "Zobraziť súbory začínajúce bodkou?"
 
-#: manager.php:532
+#: manager.php:535
 msgid "Size"
 msgstr "Veľkosť"
 
-#: lib/Api.php:229
+#: lib/Api.php:235
 msgid "The application folder can not be deleted."
 msgstr "Priečinok aplikácií nemôže byť zmazaný."
 
@@ -494,15 +480,15 @@ msgstr "Nasledujúce položky sú priečinky:"
 msgid "The following items will be permanently deleted:"
 msgstr "Nasledujúce položky budú trvale vymazané:"
 
-#: templates/javascript_defs.php:25
+#: templates/javascript_defs.php:28
 msgid "The original opener window has been closed. Exiting."
 msgstr "Pôvodné okno bolo zavreté. Koniec."
 
-#: selectlist.php:184 templates/manager/manager.html:138
+#: selectlist.php:176 templates/manager/manager.html:102
 msgid "There are no files in this folder."
 msgstr "V tomto priečinku nie sú žiadne súbory."
 
-#: lib/Application.php:259
+#: lib/Prefs/Special/Columnselect.php:54
 msgid "These columns will display in this order:"
 msgstr "Zobrazia sa tieto stĺpce v uvedenom poradí:"
 
@@ -522,74 +508,70 @@ msgstr ""
 "Ak chcete vložiť položky zo schránky do aktuálneho priečinka, zaškrtnite "
 "štvorček vedľa súboru a kliknite na  &quot;Vložiť&quot;."
 
-#: manager.php:494
+#: manager.php:493
 msgid "Type"
 msgstr "Typ"
 
-#: lib/Api.php:409
+#: lib/Api.php:417
 msgid "Unable to create Gollem session"
 msgstr "Nepodarilo sa vytvoriť sedenie Gollem"
 
-#: permissions.php:48
+#: permissions.php:40
 #, php-format
 msgid "Unable to create backend permission: %s"
 msgstr "Nepodarilo sa vytvoriť právo pre backend: %s"
 
-#: manager.php:106
+#: manager.php:102
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr "Nepodarilo sa vymazať súbor %s: %s"
 
-#: manager.php:98
+#: manager.php:94
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr "Nepodarilo sa vymazať priečinok %s: %s"
 
-#: lib/Gollem.php:549 lib/Gollem.php:559
+#: lib/Gollem.php:617 lib/Gollem.php:627
 #, php-format
 msgid "Up to %s"
 msgstr "Vyššie na %s"
 
-#: manager.php:319
+#: manager.php:310
 msgid "Upload File(s)"
 msgstr "Nahrať súbory"
 
-#: config/prefs.php:14 config/prefs.php:85
+#: config/prefs.php:14 config/prefs.php:86
 msgid "User Interface"
 msgstr "Používateľské rozhranie"
 
-#: manager.php:314
+#: manager.php:296
 msgid "View Clipboard"
 msgstr "Zobraziť schránku"
 
-#: templates/manager/manager.html:20
+#: templates/manager/manager.html:18
 msgid "Write"
 msgstr "Zapísať"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Yes"
 msgstr "Áno"
+
+#: share.php:29
+msgid "You are not allowed to share this folder"
+msgstr "Nemáte právo na zdielanie tohto priečinku."
 
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
 msgstr "Musíte mať nastavený aspoň jeden backend na nastavenie práv."
 
-#: lib/Gollem.php:583 lib/Gollem.php:586
+#: lib/Gollem.php:651 lib/Gollem.php:654
 msgid "_Change Server"
 msgstr "_Zmeniť server"
 
-#: lib/Application.php:275
+#: lib/Application.php:211
 msgid "_My Home"
 msgstr "Domovský Priečinok"
 
-#: lib/Application.php:278
+#: lib/Application.php:214
 msgid "_Permissions"
 msgstr "_Práva"
-
-#: manager.php:248 selectlist.php:79
-msgid "folder"
-msgstr "priečinok"
-
-#: manager.php:249 selectlist.php:80
-msgid "symlink"
-msgstr "symlinka"

@@ -2,14 +2,16 @@
 # Copyright 2010-2012 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Prefs module.
 # Automatically generated, 2010.
+# Martin Matuška <martin@matuska.org>, 2008
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Prefs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
-"PO-Revision-Date: 2011-05-18 17:16+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2012-08-29 13:30+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -17,7 +19,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: lib/Horde/Prefs/Identity.php:112
+#: lib/Horde/Prefs/Identity.php:335
+#, php-format
+msgid "\"%s\" is not a valid email address."
+msgstr "\"%s\" nie je platná e-mailová adresa."
+
+#: lib/Horde/Prefs/Identity.php:110
 msgid "Default Identity"
 msgstr "Vaša prednastavená identita"
 
@@ -29,11 +36,15 @@ msgstr "Nová kategória"
 msgid "Please type the new category name:"
 msgstr "Zadajte prosím meno pre novú kategóriu:"
 
+#: lib/Horde/Prefs/Storage/KolabImap.php:66
+msgid "Preferences"
+msgstr "Nastavenia"
+
 #: lib/Horde/Prefs/CategoryManager.php:63
 msgid "Unfiled"
 msgstr "Nenastavená"
 
-#: lib/Horde/Prefs/Identity.php:332
+#: lib/Horde/Prefs/Identity.php:324
 msgid "Unnamed"
 msgstr "Nepomenovaná"
 

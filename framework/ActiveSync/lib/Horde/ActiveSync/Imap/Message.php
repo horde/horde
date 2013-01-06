@@ -203,7 +203,7 @@ class Horde_ActiveSync_Imap_Message
      *  - protocolversion: (float)  The EAS protocol we are supporting.
      *                     DEFAULT 2.5
      *
-     * @return array  An array of 'plain' and 'html' content.
+     * @return array  An array of one or both of 'plain' and 'html' content.
      *
      * @throws Horde_ActiveSync_Exception
      */
@@ -214,21 +214,36 @@ class Horde_ActiveSync_Imap_Message
             $options['truncation'] = false;
         }
 
-        // Find and get the message body parts we will need.
-        if ($version >= Horde_ActiveSync::VERSION_TWELVE && !empty($options['bodyprefs'])) {
-            $html_id = $this->_message->findBody('html');
-            if (!empty($html_id)) {
-                $html_body_part = $this->_message->getPart($html_id);
-                $html_charset = $html_body_part->getCharset();
-            }
-        }
+        // Look for the parts we need. We try to detect and fetch only the parts
+        // we need, while ensuring we have something to return. So, e.g., if we
+        // don't have BODYPREF_TYPE_HTML, we only request plain text, but if we
+        // can't find plain text but we have a html body, fetch that anyway.
+        $text_id = $this->_message->findBody('plain');
+        $html_id = $this->_message->findBody('html');
 
-        $text_id = $this->_message->findBody();
-        if (!empty($text_id)) {
+        // Deduce which part(s) we need to request.
+        $want_html_text = $version >= Horde_ActiveSync::VERSION_TWELVE &&
+            (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF]));
+
+        $want_plain_text = $version == Horde_ActiveSync::VERSION_TWOFIVE ||
+            empty($options['bodyprefs']) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) ||
+            !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
+            ($want_html_text && empty($html_id));
+
+        if (!empty($text_id) && $want_plain_text) {
             $text_body_part = $this->_message->getPart($text_id);
             $charset = $text_body_part->getCharset();
-        } else {
-            $text_body_part = null;
+        } elseif ($want_plain_text && !empty($html_id) &&
+                  empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME])) {
+            $want_html_text = true;
+            $want_html_as_plain = true;
+        }
+        if (!empty($html_id) && $want_html_text) {
+            $html_body_part = $this->_message->getPart($html_id);
+            $html_charset = $html_body_part->getCharset();
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
@@ -236,28 +251,25 @@ class Horde_ActiveSync_Imap_Message
             $query->envelope();
         }
 
-        $body_query_opts = array(
+        $query_opts = array(
             'decode' => true,
             'peek' => true
         );
 
         // Get body information
         if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
-            $html_query_opts = $body_query_opts;
             if (!empty($html_id)) {
-                if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
-                    $query->bodyPartSize($html_id);
-                }
-                $query->bodyPart($html_id, $html_query_opts);
+                $query->bodyPartSize($html_id);
+                $query->bodyPart($html_id, $query_opts);
             }
             if (!empty($text_id)) {
-                $query->bodyPart($text_id, $body_query_opts);
+                $query->bodyPart($text_id, $query_opts);
                 $query->bodyPartSize($text_id);
             }
         } else {
             // EAS 2.5 Plaintext body
             if ($options['truncation'] > 0 || $options['truncation'] === false) {
-                $query->bodyPart($text_id, $body_query_opts);
+                $query->bodyPart($text_id, $query_opts);
             }
             $query->bodyPartSize($text_id);
         }
@@ -277,7 +289,8 @@ class Horde_ActiveSync_Imap_Message
             $this->_envelope = $data->getEnvelope();
         }
 
-        if (!empty($text_id)) {
+        $return = array();
+        if (!empty($text_id) && $want_plain_text) {
             $text = $data->getBodyPart($text_id);
             if (!$data->getBodyPartDecode($text_id)) {
                 $text_body_part->setContents($text);
@@ -299,31 +312,57 @@ class Horde_ActiveSync_Imap_Message
                 $truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['allornone']) {
                 $text = '';
             }
-            $return = array('plain' => array(
+            $return ['plain'] = array(
                 'charset' => $charset,
                 'body' => $text,
                 'truncated' => $truncated,
-                'size' => $text_size));
+                'size' => $text_size);
         }
-        if (!empty($html_id)) {
+        if (!empty($html_id) && $want_html_text) {
             $html = $data->getBodyPart($html_id);
             if (!$data->getBodyPartDecode($html_id)) {
                 $html_body_part->setContents($html);
                 $html = $html_body_part->getContents();
-            } else {
-                $html = $html_body_part->getContents();
             }
-            // HTML truncation
+
+            // Truncation
             if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'])) {
                 $html = Horde_String::substr(
                     $html,
                     0,
-                    $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'], $html_charset);
+                    $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
+                    $html_charset);
+            } elseif (!empty($want_html_as_plain)) {
+                $html = Horde_Text_Filter::filter(
+                    $html, 'Html2text', array('charset' => $html_charset));
+                if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+                    // EAS >= 12.0 truncation
+                    $html = Horde_String::substr(
+                        $html,
+                        0,
+                        $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'],
+                        $html_charset);
+                } elseif (!empty($options['truncation'])) {
+                    // EAS 2.5 truncation
+                    $html = Horde_String::substr($html, 0, $options['truncation'], $html_charset);
+                }
             }
-            $html_size = !is_null($data->getBodyPartSize($html_id)) ?
-                $data->getBodyPartSize($html_id) :
-                Horde_String::length($html);
+
+            // Get the size of the HTML part.
+            $html_size = !is_null($data->getBodyPartSize($html_id))
+                ? $data->getBodyPartSize($html_id)
+                : Horde_String::length($html);
             $truncated = $html_size > Horde_String::length($html);
+
+            if ($want_html_as_plain) {
+                $return['plain'] = array(
+                    'charset' => $html_charset,
+                    'body' => $html,
+                    'truncated' => $truncated,
+                    'size' => $html_size
+                );
+            }
+
             if ($version >= Horde_ActiveSync::VERSION_TWELVE &&
                 !($truncated && $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['allornone'])) {
                 $return['html'] = array(
@@ -333,6 +372,7 @@ class Horde_ActiveSync_Imap_Message
                     'truncated' => $truncated);
             }
         }
+
         return $return;
     }
 
@@ -515,6 +555,12 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getBodyPart($id, $options)
     {
+        $options = array_merge(
+            array(
+                'decode' => false,
+                'mimeheaders' => false,
+                'stream' => false),
+            $options);
         $this->_lastBodyPartDecode = null;
         $query = new Horde_Imap_Client_Fetch_Query();
         if (!isset($options['length']) || !empty($options['length'])) {
@@ -545,7 +591,7 @@ class Horde_ActiveSync_Imap_Message
 
         if (empty($options['mimeheaders'])) {
             $this->_lastBodyPartDecode = $fetch_res[$this->_uid]->getBodyPartDecode($id);
-            return $fetch_res[$this->_uid]->getBodyPart($id);
+            return $fetch_res[$this->_uid]->getBodyPart($id, $options['stream']);
         } elseif (empty($options['stream'])) {
             return $fetch_res[$this->_uid]->getMimeHeader($id) . $fetch_res[$this->_uid]->getBodyPart($id);
         } else {

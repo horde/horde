@@ -444,10 +444,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 array('work', _("Work Week"), 'workweekview.png', Horde::url('workweek.php')),
                 array('week', _("Week"), 'weekview.png', Horde::url('week.php')),
                 array('month', _("Month"), 'monthview.png', Horde::url('month.php')),
-                array('year', _("Year"), 'yearview.png', Horde::url('year.php')),
-                array('search', _("Search"), 'search.png', Horde::url('search.php'))
+                array('year', _("Year"), 'yearview.png', Horde::url('year.php'))
             );
-
+            // Dynamic view has no dedicated search page.
+            if (!Kronolith::showAjaxView()) {
+                $menus[] = array('search', _("Search"), 'search.png', Horde::url('search.php'));
+            }
             foreach ($menus as $menu) {
                 $tree->addNode(array(
                     'id' => $parent . $menu[0],

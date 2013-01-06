@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Ingo H3 (1.2-RC2)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-30 21:46+0100\n"
-"PO-Revision-Date: 2012-11-03 15:23+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
 "Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: sk\n"
@@ -525,19 +525,19 @@ msgstr "Maximálny počet pravidiel."
 #, php-format
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
-"Maximum addresses: %s). Could not add new addresses to blacklist."
+"Maximum addresses: %s).  Could not add new addresses to blacklist."
 msgstr ""
 "Maximálny počet adries v čiernej listine bol dosiahnutý (Adries spolu: %s, "
-"maximálne: %s). Nemožné pridať nové adresy do čiernej listiny."
+"maximálne: %s). Nie je možné pridať nové adresy do čiernej listiny."
 
 #: lib/Storage/Whitelist.php:42
 #, php-format
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
-"Maximum addresses: %s). Could not add new addresses to whitelist."
+"Maximum addresses: %s).  Could not add new addresses to whitelist."
 msgstr ""
 "Maximálny počet adries v bielej listine bol dosiahnutý (Adries spolu: %s, "
-"maximálne: %s). Nemožné pridať nové adresy do bielej listiny."
+"maximálne: %s). Nie je možné pridať nové adresy do bielej listiny."
 
 #: lib/Form/Spam.php:28
 msgid ""

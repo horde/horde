@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -128,7 +128,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $collection['filtertype'] = $filtertype;
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
-            array_push($collections, $collection);
+            $collections[] = $collection;
         }
 
         // End Folders

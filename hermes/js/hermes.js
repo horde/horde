@@ -22,8 +22,11 @@ HermesCore = {
     slices: [],
     searchSlices: [],
     sortbyfield: 'sortDate',
+    searchSortbyfield: 'sortDate',
     reverseSort: false,
+    searchReverseSort: false,
     sortDir: 'up',
+    searchSortDir: 'up',
     today: null,
     redBoxLoading: false,
     fromSearch: false,
@@ -210,6 +213,21 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesSearchListHeader':
+                var el = e.element().identify();
+                if (el == 'sSortDate' ||
+                    el == 'sSortClient' ||
+                    el == 'sSortEmployee' ||
+                    el == 'sSortCostObject' ||
+                    el == 'sSortType' ||
+                    el == 'sSortHours' ||
+                    el == 'sSortBill' ||
+                    el == 'sSortDesc') {
+
+                    this.handleSearchSort(e.element());
+                    e.stop();
+                }
+                return;
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' ||
@@ -220,7 +238,7 @@ HermesCore = {
                     el == 'sortBill' ||
                     el == 'sortDesc') {
 
-                    this.handleSort(e.element());
+                    this.handleEntrySort(e.element());
                     e.stop();
                 }
                 return;
@@ -1087,34 +1105,34 @@ HermesCore = {
             slices, total = 0;
 
         t.update();
-        if (this.reverseSort) {
+        if (this.searchReverseSort) {
             slices = this.searchSlices.reverse();
-            this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
+            this.searchSortDir = (this.searchSortDir == 'up') ? 'down' : 'up';
         } else {
-            this.sortDir = 'down';
-            switch (this.sortbyfield) {
-            case 'sortDate':
+            this.searchSortDir = 'down';
+            switch (this.searchSortbyfield) {
+            case 'sSortDate':
                 // Date defaults to reverse
-                this.sortDir = 'up';
+                this.searchSortDir = 'up';
                 slices = this.searchSlices.sort(this.sortDate).reverse();
                 break;
-            case 'sortClient':
+            case 'sSortClient':
                slices = this.searchSlices.sort(this.sortClient);
                break;
-            case 'sortCostObject':
+            case 'sSortCostObject':
                 slices = this.searchSlices.sort(this.sortCostObject);
                 break;
-            case 'sortType':
+            case 'sSortType':
                 slices = this.searchSlices.sort(this.sortType);
                 break;
-            case 'sortHours':
-                this.sortDir = 'up';
-                slices = this.searcSlices.sort(this.sortHours).reverse();
+            case 'sSortHours':
+                this.searchSortDir = 'up';
+                slices = this.searchSlices.sort(this.sortHours).reverse();
                 break;
-            case 'sortBill':
+            case 'sSortBill':
                 slices = this.searchSlices.sort(this.sortBill);
                 break;
-            case 'sortDesc':
+            case 'sSortDesc':
                 slices = this.searchSlices.sort(this.sortDesc);
                 break;
             default:
@@ -1128,7 +1146,7 @@ HermesCore = {
             t.insert(this.buildSearchRow(slice).toggle());
             total = total + parseFloat(slice.h);
         }.bind(this));
-        $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+        $(this.searchSortbyfield).up('div').addClassName('sort' + this.searchSortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
         $('hermesSearchSum').update(total);
@@ -1217,7 +1235,7 @@ HermesCore = {
         return row;
     },
 
-    handleSort: function(e)
+    handleEntrySort: function(e)
     {
         if (this.sortbyfield == e.identify()) {
             this.reverseSort = true;
@@ -1227,6 +1245,18 @@ HermesCore = {
         this.sortbyfield = e.identify();
         this.updateView(this.view);
         this.buildTimeTable();
+    },
+
+    handleSearchSort: function(e)
+    {
+        if (this.searchSortbyfield == e.identify()) {
+            this.searchReverseSort = true;
+        } else {
+            this.searchReverseSort = false;
+        }
+        this.searchSortbyfield = e.identify();
+        this.updateView(this.view);
+        this.buildSearchResultsTable();
     },
 
     /**
@@ -1301,6 +1331,11 @@ HermesCore = {
     sortDesc: function(a, b)
     {
         return (a.desc < b.desc) ? -1 : (a.desc > b.desc) ? 1 : 0;
+    },
+
+    sortEmployee: function(a, b)
+    {
+        return (a.e < b.e) ? -1 : (a.e > b.e) ? 1 : 0;
     },
 
     /**

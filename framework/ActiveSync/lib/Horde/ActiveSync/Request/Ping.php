@@ -113,7 +113,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $syncCache = new Horde_ActiveSync_SyncCache(
             $this->_stateDriver,
             $this->_device->id,
-            $this->_device->user);
+            $this->_device->user,
+            $this->_logger);
 
         // Build the collection array from anything we have in the cache.
         $collections = array();
@@ -148,7 +149,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                     $this->_decoder->getElementEndTag();
 
-                    // Ensure we have a synckey, or force a resync.
+                    // If the client explicitly requests to PING a collection,
+                    // it MUST have been SYNC'd already so ensure we have a
+                    // synckey for it. Otherwise set it to 0 to ensure we tell
+                    // the client it needs to issue a SYNC.
                     $collection['synckey'] = !empty($cache_collections[$collection['id']]['lastsynckey'])
                         ? $cache_collections[$collection['id']]['lastsynckey']
                         : 0;
@@ -156,9 +160,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collections[$collection['id']] = $collection;
                 }
 
-                // Set the collections as PINGable.
+                // Since the client is explicitly sending FOLDERS, we reset the
+                // pingable collections in the syncCache in anticipation of
+                // empty PING or empty FOLDERS in future requests.
                 foreach ($cache_collections as $value) {
-                    if (!empty($collections[$value['id']])) {
+                    if (!empty($collections[$value['id']['synckey']])) {
                         $syncCache->setPingableCollection($value['id']);
                     } else {
                         $syncCache->removePingableCollection($value['id']);
@@ -173,10 +179,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         } elseif (empty($cache_collections)) {
-                // If empty here, we have an empty PING request, but have no
-                // cached sync collections.
+                // We have an empty PING request but have no cached collections.
                 $this->_statusCode = self::STATUS_MISSING;
-        } else {
+        }
+
+        // Populate $collections if we received either an empty PING request or
+        // a PING request with no <FOLDERS> element.
+        if ($this->_statusCode == self::STATUS_NOCHANGES && empty($collections)) {
             // Build the list of PINGable collections from the cache.
             foreach ($cache_collections as $key => $collection) {
                 if ($syncCache->collectionIsPingable($key)) {
@@ -187,13 +196,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
             }
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
-        }
-
-        // Remove any collections that have not yet been synced.
-        foreach ($collections as $id => $collection) {
-            if (!isset($collection['synckey'])) {
-                unset($collections[$id]);
-            }
         }
 
         // If empty here, we have collections requested to be PINGed but have

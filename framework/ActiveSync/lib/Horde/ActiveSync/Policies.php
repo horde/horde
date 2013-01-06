@@ -250,6 +250,11 @@ class Horde_ActiveSync_Policies
         if ($nodefault && $value == $this->_defaults[$policy]) {
             return;
         }
+	if ($value === false) {
+            $value = 0;
+        } elseif ($value === true) {
+           $value = 1;
+        }
         $this->_encoder->startTag('Provision:' . $policy);
         $this->_encoder->content($value);
         $this->_encoder->endTag();

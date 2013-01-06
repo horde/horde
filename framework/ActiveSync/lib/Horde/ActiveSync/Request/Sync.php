@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -94,7 +94,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_syncCache = new Horde_ActiveSync_SyncCache(
                 $this->_stateDriver,
                 $this->_device->id,
-                $this->_device->user);
+                $this->_device->user,
+                $this->_logger);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_SERVERERROR;
             $this->_handleGlobalSyncError();
@@ -362,7 +363,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         'Using SyncCache State for %s',
                         $value['id']
                     ));
-                    array_push($this->_collections, $value);
+                    $this->_collections[] = $value;
                 }
                 unset($tempSyncCache);
             } else {
@@ -387,7 +388,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // In case some synckeys didn't get confirmed by device we issue a full sync
-            if (count($this->_syncCache->confirmed_synckeys) > 0) {
+            if (!empty($this->_syncCache->confirmed_synckeys)) {
+                $this->_logger->debug(count($this->_syncCache->confirmed_synckeys));
                 $this->_logger->debug(sprintf(
                     'Confirmed Synckeys contains %s',
                     print_r($this->_syncCache->confirmed_synckeys, true))
@@ -591,7 +593,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 );
                 $statusCode = self::STATUS_KEYMISM;
             } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err('UNKNOWN ERROR');
+                $this->_logger->err($e->getMessage());
                 return false;
             }
 
@@ -926,7 +928,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 exit;
             }
 
-            array_push($this->_collections, $collection);
+            $this->_collections[] = $collection;
             if ($collection['importedchanges']) {
                 $this->_importedChanges = true;
             }
@@ -963,6 +965,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_logger->err(sprintf(
                 "[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.",
                 $this->_device->id));
+                $this->_statusCode = self::STATUS_KEYMISM;
+                $this->_handleGlobalSyncError();
+                return false;
         }
 
         // Sanity checking, synccahe etc..
@@ -1107,7 +1112,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_FETCH:
-                    array_push($collection['fetchids'], $serverid);
+                    $collection['fetchids'][] = $serverid;
                     break;
                 }
             }

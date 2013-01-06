@@ -107,7 +107,8 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $stream = fopen($uri, 'rb', false, $context);
         restore_error_handler();
         if (!$stream) {
-            if (preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $this->_errors[0]['message'], $matches)) {
+            if (isset($this->_errors[0]['message']) &&
+                preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $this->_errors[0]['message'], $matches)) {
                 // Create a Response for the HTTP error code
                 return new Horde_Http_Response_Fopen($uri, null, $matches[0]);
             } else {

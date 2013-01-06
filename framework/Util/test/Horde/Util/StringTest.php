@@ -481,7 +481,8 @@ EOT
             'Valid ASCII' => "a",
             'Valid 2 Octet Sequence' => "\xc3\xb1",
             'Valid 3 Octet Sequence' => "\xe2\x82\xa1",
-            'Valid 4 Octet Sequence' => "\xf0\x90\x8c\xbc"
+            'Valid 4 Octet Sequence' => "\xf0\x90\x8c\xbc",
+            'Bug #11930' => 'ö ä ü ß\n\nMit freundlichen Grüßen'
         );
         $invalid = array(
             'Invalid 2 Octet Sequence' => "\xc3\x28",

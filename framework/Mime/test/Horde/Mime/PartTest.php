@@ -86,6 +86,23 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(1795, strlen($part->toString()));
     }
 
+    public function testParsingMultipartAlternativeDoesNotProduceAttachment()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/samplemultipart_msg.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+        $part->isBasePart(true);
+        $msg = $part->toString(array('headers' => true));
+        $test_part = Horde_Mime_Part::parseMessage($msg);
+        $map = array(
+            'multipart/alternative',
+            'text/plain',
+            'text/html');
+        $this->assertEquals($map, $test_part->contentTypeMap());
+
+        $part_one = $test_part->getPart(1);
+        $this->assertEquals('', $test_part->getPart(1)->getDisposition());
+    }
+
     public function testArrayAccessImplementation()
     {
         $part = $this->_getTestPart();

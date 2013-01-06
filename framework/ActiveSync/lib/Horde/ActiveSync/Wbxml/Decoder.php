@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -201,7 +201,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         case Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG:
             if ($el[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT) {
                 $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '>');
-                array_push($this->_logStack, $el[Horde_ActiveSync_Wbxml::EN_TAG]);
+                $this->_logStack[] = $el[Horde_ActiveSync_Wbxml::EN_TAG];
             } else {
                 $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '/>');
             }

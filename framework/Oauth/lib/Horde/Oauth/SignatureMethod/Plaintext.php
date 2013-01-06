@@ -30,9 +30,9 @@ class Horde_Oauth_SignatureMethod_Plaintext extends Horde_Oauth_SignatureMethod
         );
 
         if ($token) {
-            array_push($signature, Horde_Oauth_Utils::urlencodeRfc3986($token->secret));
+            $signature[] = Horde_Oauth_Utils::urlencodeRfc3986($token->secret);
         } else {
-            array_push($signature, '');
+            $signature[] = '';
         }
 
         return Horde_Oauth_Utils::urlencodeRfc3986(implode('&', $signature));

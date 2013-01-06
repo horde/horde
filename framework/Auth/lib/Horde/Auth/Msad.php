@@ -249,7 +249,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         foreach ($this->_params['uid'] as $uid) {
             $entries = array($uid);
             if ($uid != $this->_params['authId']) {
-                array_push($entries, $this->_params['authId']);
+                $entries[] = $this->_params['authId'];
             }
             $search = @ldap_search($this->_ds, $this->_params['basedn'],
                                $uid . '=' . $userId,

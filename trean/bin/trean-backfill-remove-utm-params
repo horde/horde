@@ -1,0 +1,28 @@
+#!/usr/bin/env php
+<?php
+/**
+ *
+ * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ */
+
+if (file_exists(__DIR__ . '/../../trean/lib/Application.php')) {
+    $baseDir = __DIR__ . '/../';
+} else {
+    require_once 'PEAR/Config.php';
+    $baseDir = PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/trean/';
+}
+require_once $baseDir . 'lib/Application.php';
+Horde_Registry::appInit('trean', array('cli' => true));
+
+$ids = $trean_db->selectValues('SELECT bookmark_id FROM trean_bookmarks');
+foreach ($ids as $bookmark_id) {
+    $bookmark = $trean_gateway->getBookmark($bookmark_id);
+    $bookmark->url = (string)new Trean_Url($bookmark->url);
+    $bookmark->save($crawl = false);
+}

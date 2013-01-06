@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-23</date>
- <time>22:16:21</time>
+ <date>2012-12-26</date>
+ <time>21:44:27</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -123,6 +123,7 @@
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
      <file name="Exception.php" role="horde" />
+     <file name="References.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Contents">
@@ -857,6 +858,7 @@
       <file name="ComposeTest.php" role="test" />
       <file name="MboxParseTest.php" role="test" />
       <file name="QuotaTest.php" role="test" />
+      <file name="ReferencesTest.php" role="test" />
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
@@ -1398,6 +1400,7 @@
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
@@ -1796,6 +1799,7 @@
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
+   <install as="Imp/Unit/ReferencesTest.php" name="test/Imp/Unit/ReferencesTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
@@ -2875,6 +2879,8 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Re-add apply mail filters action in dynamic view.
+* [mms] Improved parsing of References header when replying to a message.
 * [mms] Fix verifying an enveloped signed &amp; encrypted S/MIME message (Bug #11874).
 * [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
 * [mms] Fix redirection to mailbox page after sending message in minimal view (Bug #11897; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).

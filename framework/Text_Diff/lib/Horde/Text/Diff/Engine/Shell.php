@@ -81,34 +81,34 @@ class Horde_Text_Diff_Engine_Shell
             if ($from_line_no < $match[1] || $to_line_no < $match[4]) {
                 // copied lines
                 assert('$match[1] - $from_line_no == $match[4] - $to_line_no');
-                array_push($edits,
+                $edits[] =
                     new Horde_Text_Diff_Op_Copy(
                         $this->_getLines($from_lines, $from_line_no, $match[1] - 1),
-                        $this->_getLines($to_lines, $to_line_no, $match[4] - 1)));
+                        $this->_getLines($to_lines, $to_line_no, $match[4] - 1));
             }
 
             switch ($match[3]) {
             case 'd':
                 // deleted lines
-                array_push($edits,
+                $edits[] =
                     new Horde_Text_Diff_Op_Delete(
-                        $this->_getLines($from_lines, $from_line_no, $match[2])));
+                        $this->_getLines($from_lines, $from_line_no, $match[2]));
                 $to_line_no++;
                 break;
 
             case 'c':
                 // changed lines
-                array_push($edits,
+                $edits[] =
                     new Horde_Text_Diff_Op_Change(
                         $this->_getLines($from_lines, $from_line_no, $match[2]),
-                        $this->_getLines($to_lines, $to_line_no, $match[5])));
+                        $this->_getLines($to_lines, $to_line_no, $match[5]));
                 break;
 
             case 'a':
                 // added lines
-                array_push($edits,
+                $edits[] =
                     new Horde_Text_Diff_Op_Add(
-                        $this->_getLines($to_lines, $to_line_no, $match[5])));
+                        $this->_getLines($to_lines, $to_line_no, $match[5]));
                 $from_line_no++;
                 break;
             }
@@ -116,12 +116,12 @@ class Horde_Text_Diff_Engine_Shell
 
         if (!empty($from_lines)) {
             // Some lines might still be pending. Add them as copied
-            array_push($edits,
+            $edits[] =
                 new Horde_Text_Diff_Op_Copy(
                     $this->_getLines($from_lines, $from_line_no,
                                      $from_line_no + count($from_lines) - 1),
                     $this->_getLines($to_lines, $to_line_no,
-                                     $to_line_no + count($to_lines) - 1)));
+                                     $to_line_no + count($to_lines) - 1));
         }
 
         return $edits;
@@ -145,7 +145,7 @@ class Horde_Text_Diff_Engine_Shell
             $lines = array();
             // We can shift even more
             while ($line_no <= $end) {
-                array_push($lines, array_shift($text_lines));
+                $lines[] = array_shift($text_lines);
                 $line_no++;
             }
         } else {

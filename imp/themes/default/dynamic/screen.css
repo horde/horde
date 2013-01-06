@@ -959,6 +959,10 @@ span.logoutIcon {
 #ctx_preview_thread span.iconImg {
     background-image: url("../graphics/thread.png");
 }
+#ctx_filteropts_applyfilters span.iconImg {
+    background-image: url("../graphics/filters.png");
+}
+
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
     height: 17px;

@@ -538,7 +538,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             );
 
             if ($val = $headers->getValue('references')) {
-                $this->_metadata['references'] = $val;
+                $ref_ob = new IMP_Compose_References();
+                $ref_ob->parse($val);
+                $this->_metadata['references'] = $ref_ob->references;
 
                 if ($val = $headers->getValue('in-reply-to')) {
                     $this->_metadata['in_reply_to'] = $val;
@@ -988,8 +990,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if ($this->replyType(true) == self::REPLY) {
-            if ($this->getMetadata('references')) {
-                $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
+            if ($refs = $this->getMetadata('references')) {
+                $ob->addHeader('References', implode(' ', $refs));
             }
             if ($this->getMetadata('in_reply_to')) {
                 $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
@@ -1571,11 +1573,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (($msg_id = $h->getValue('message-id'))) {
                 $this->_metadata['in_reply_to'] = chop($msg_id);
 
-                if (($refs = $h->getValue('references'))) {
-                    $refs .= ' ' . $this->_metadata['in_reply_to'];
+                if ($refs = $h->getValue('references')) {
+                    $ref_ob = new IMP_Compose_References();
+                    $ref_ob->parse($refs);
+                    $refs = $ref_ob->references;
                 } else {
-                    $refs = $this->_metadata['in_reply_to'];
+                    $refs = array();
                 }
+                $refs[] = $this->_metadata['in_reply_to'];
                 $this->_metadata['references'] = $refs;
             }
         }

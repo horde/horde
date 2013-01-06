@@ -59,7 +59,7 @@ class Horde_Imap_Client_Socket_Catenate
         $ids_ob = $this->_socket->getIdsOb($url->uid);
 
         // BODY[]
-        if (is_null($section)) {
+        if (is_null($url->section)) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText(array(
                 'peek' => true
