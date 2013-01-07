@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix generating cache key for generated URLs (remi@famillecollet.com, Bug #11894).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -313,7 +313,7 @@
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix generating cache key for generated URLs (remi@famillecollet.com, Bug #11894).
    </notes>
   </release>
  </changelog>
