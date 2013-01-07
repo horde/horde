@@ -67,7 +67,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
      * + IMP_Compose object
      * + IMP_Contents object
      * + IMP_Indices object
-     * + IMP_Mailbox_List_Track object
+     * + IMP_Mailbox_List object
      * + String
      *   Format: IMAP sequence string
      *
@@ -111,11 +111,12 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                 );
             } elseif ($data instanceof IMP_Indices) {
                 $indices = $data->indices();
-            } elseif ($data instanceof IMP_Mailbox_List_Track) {
-                $idx = $data->getIMAPIndex();
-                $indices = array(
-                    strval($idx['mailbox']) => array($idx['uid'])
-                );
+            } elseif ($data instanceof IMP_Mailbox_List) {
+                if ($idx = $data->getIMAPIndex()) {
+                    $indices = array(
+                        strval($idx['mailbox']) => array($idx['uid'])
+                    );
+                }
             }
             break;
 

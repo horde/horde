@@ -22,6 +22,7 @@
  */
 class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 {
+    /** Session storage key for list objects. */
     const STORAGE_KEY = 'mboxlist/';
 
     /**
@@ -42,56 +43,44 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 
     /**
      * Return the mailbox list instance.
-     * For IMP/MIMP, returns an IMP_Mailbox_List_Track object.
-     * For DIMP/Mobile, returns an IMP_Mailbox_List object.
      *
      * @param string $mailbox       The mailbox name.
-     * @param IMP_Indices $indices  An indices object. Only used for 'imp' and
-     *                              'mimp' views.
+     * @param IMP_Indices $indices  An indices object. Only used for basic and
+     *                              minimal views.
      *
      * @return IMP_Mailbox_List  The singleton instance.
      * @throws IMP_Exception
      */
     public function create($mailbox, $indices = null)
     {
-        $mbox_key = strval($mailbox);
-        $mode = $GLOBALS['registry']->getView();
+        global $registry, $session;
 
-        if (!isset($this->_instances[$mbox_key])) {
-            switch ($mode) {
-            case Horde_Registry::VIEW_DYNAMIC:
-            case Horde_Registry::VIEW_SMARTMOBILE:
-                $ob = new IMP_Mailbox_List($mailbox);
-                break;
+        $key = strval($mailbox);
 
-            case Horde_Registry::VIEW_BASIC:
-            case Horde_Registry::VIEW_MINIMAL:
-                try {
-                    $ob = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mailbox);
-                } catch (Exception $e) {
-                    $ob = null;
-                }
-
-                if (is_null($ob) ||
-                    !($ob instanceof IMP_Mailbox_List_Track)) {
-                    $ob = new IMP_Mailbox_List_Track($mailbox);
-                }
-                break;
+        if (!isset($this->_instances[$key])) {
+            try {
+                $ob = $session->get('imp', self::STORAGE_KEY . $mailbox);
+            } catch (Exception $e) {
+                $ob = null;
             }
 
-            $this->_instances[$mbox_key] = $ob;
+            if (is_null($ob)) {
+                $ob = new IMP_Mailbox_List($mailbox);
+            }
+
+            $this->_instances[$key] = $ob;
         }
 
-        switch ($mode) {
-        case Horde_Registry::VIEW_BASIC:
-        case Horde_Registry::VIEW_MINIMAL:
+        switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+        case $registry::VIEW_MINIMAL:
             /* 'checkcache' needs to be set before setIndex(). */
-            $this->_instances[$mbox_key]->checkcache = is_null($indices);
-            $this->_instances[$mbox_key]->setIndex($indices);
+            $this->_instances[$key]->checkcache = is_null($indices);
+            $this->_instances[$key]->setIndex($indices);
             break;
         }
 
-        return $this->_instances[$mbox_key];
+        return $this->_instances[$key];
     }
 
     /**
@@ -99,18 +88,9 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
      */
     public function shutdown()
     {
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-        case Horde_Registry::VIEW_MINIMAL:
-            /* Cache mailbox information if viewing in standard (IMP) message
-             * mode. Needed to keep navigation consistent when moving through
-             * the message list, and to ensure messages aren't marked as
-             * missing in search mailboxes (e.g. if search is dependent on
-             * unseen flag). */
-            foreach ($this->_instances as $key => $val) {
-                if ($val->changed) {
-                    $GLOBALS['session']->set('imp', self::STORAGE_KEY . $key, $val);
-                }
+        foreach ($this->_instances as $key => $val) {
+            if ($val->changed) {
+                $GLOBALS['session']->set('imp', self::STORAGE_KEY . $key, $val);
             }
         }
     }

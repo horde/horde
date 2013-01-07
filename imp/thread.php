@@ -28,7 +28,7 @@ $error = false;
 switch ($mode = $vars->get('mode', 'thread')) {
 case 'thread':
     /* THREAD MODE: Make sure we have a valid index. */
-    if (($imp_mailbox instanceof IMP_Mailbox_List_Track) &&
+    if (($registry->getView() == $registry::VIEW_BASIC) &&
         !$imp_mailbox->isValidIndex()) {
         $error = true;
     }
@@ -67,11 +67,15 @@ $subject = '';
 $page_label = IMP::mailbox()->label;
 
 if ($mode == 'thread') {
-    if ($imp_mailbox instanceof IMP_Mailbox_List_Track) {
+    switch ($registry->getView()) {
+    case $registry::VIEW_BASIC:
         $index = $imp_mailbox->getIMAPIndex();
         $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
-    } else {
+        break;
+
+    case $registry::VIEW_DYNAMIC:
         $imp_indices = $imp_mailbox->getFullThread(IMP::uid(), IMP::mailbox(true));
+        break;
     }
 }
 
