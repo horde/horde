@@ -181,7 +181,10 @@ $page_output->noDnsPrefetch();
 switch ($registry->getView()) {
 case $registry::VIEW_DYNAMIC:
     $page_output->topbar = $page_output->sidebar = false;
-    IMP::header(_("Thread View"));
+    $page_output->header(array(
+        'html_id' => 'dynamic_thread',
+        'title' => _("Thread View")
+    ));
     break;
 
 default:

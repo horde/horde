@@ -6,6 +6,9 @@
 html {
     overflow-y: hidden;
 }
+#dynamic_thread {
+    overflow-y: scroll;
+}
 
 /* global */
 input {
