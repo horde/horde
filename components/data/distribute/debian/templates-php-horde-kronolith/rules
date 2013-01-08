@@ -8,9 +8,9 @@ DESTDIR=$(CURDIR)/debian/php-horde-$(HORDENAME)
 
 binary: build
 	dh binary --buildsystem=phppear --with phppear --until dh_install
-	dh_installdirs etc/horde4
+	dh_installdirs etc/horde
 	# config of "kronolith" app:
-	mv $(DESTDIR)/usr/share/horde4/$(HORDENAME)/config $(DESTDIR)/etc/horde4/$(HORDENAME)
-	dh_link etc/horde4/$(HORDENAME) usr/share/horde4/$(HORDENAME)/config
+	mv $(DESTDIR)/usr/share/horde/$(HORDENAME)/config $(DESTDIR)/etc/horde/$(HORDENAME)
+	dh_link etc/horde/$(HORDENAME) usr/share/horde/$(HORDENAME)/config
 	# back to debhelper:
 	dh binary --buildsystem=phppear --with phppear --after dh_install
