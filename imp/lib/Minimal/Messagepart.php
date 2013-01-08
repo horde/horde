@@ -29,9 +29,9 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
             IMP_Minimal_Mailbox::url()->add('a', 'm')->redirect();
         }
 
-        $index_ob = $imp_mailbox->getIMAPIndex();
-        $mailbox = $index_ob['mailbox'];
-        $uid = $index_ob['uid'];
+        $index_ob = $imp_mailbox[$imp_mailbox->getIndex()];
+        $mailbox = $index_ob['m'];
+        $uid = $index_ob['u'];
 
         /* Parse the message. */
         try {

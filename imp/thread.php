@@ -69,8 +69,8 @@ $page_label = IMP::mailbox()->label;
 if ($mode == 'thread') {
     switch ($registry->getView()) {
     case $registry::VIEW_BASIC:
-        $index = $imp_mailbox->getIMAPIndex();
-        $imp_indices = $imp_mailbox->getFullThread($index['uid'], $index['mailbox']);
+        $index = $imp_mailbox[$imp_mailbox->getIndex()];
+        $imp_indices = $imp_mailbox->getFullThread($index['u'], $index['m']);
         break;
 
     case $registry::VIEW_DYNAMIC:

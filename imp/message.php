@@ -75,9 +75,9 @@ if ($vars->actionID) {
 $readonly = IMP::mailbox()->readonly;
 
 /* Get mailbox/UID of message. */
-$index_array = $imp_mailbox->getIMAPIndex();
-$mailbox = $index_array['mailbox'];
-$uid = $index_array['uid'];
+$index_array = $imp_mailbox[$imp_mailbox->getIndex()];
+$mailbox = $index_array['m'];
+$uid = $index_array['u'];
 $indices = new IMP_Indices($mailbox, $uid);
 
 $imp_flags = $injector->getInstance('IMP_Flags');
@@ -101,7 +101,7 @@ case 'delete_message':
         array('mailboxob' => $imp_mailbox)
     );
     if ($prefs->getValue('mailbox_return')) {
-        _returnToMailbox($imp_mailbox->getMessageIndex());
+        _returnToMailbox($imp_mailbox->getIndex());
         require IMP_BASE . '/mailbox.php';
         exit;
     }
@@ -135,7 +135,7 @@ case 'copy_message':
             )
         );
         if ($prefs->getValue('mailbox_return')) {
-            _returnToMailbox($imp_mailbox->getMessageIndex());
+            _returnToMailbox($imp_mailbox->getIndex());
             require IMP_BASE . '/mailbox.php';
             exit;
         }
@@ -153,7 +153,7 @@ case 'notspam_report':
         break;
     }
     if ($prefs->getValue('mailbox_return')) {
-        _returnToMailbox($imp_mailbox->getMessageIndex());
+        _returnToMailbox($imp_mailbox->getIndex());
         require IMP_BASE . '/mailbox.php';
         exit;
     }
@@ -165,7 +165,7 @@ case 'flag_message':
         $flag = $imp_flags->parseFormId($vars->flag);
         $imp_message->flag(array($flag['flag']), $indices, $flag['set']);
         if ($prefs->getValue('mailbox_return')) {
-            _returnToMailbox($imp_mailbox->getMessageIndex());
+            _returnToMailbox($imp_mailbox->getIndex());
             require IMP_BASE . '/mailbox.php';
             exit;
         }
@@ -211,9 +211,9 @@ if (!$imp_mailbox->isValidIndex()) {
 
 /* Now that we are done processing, get the index and array index of
  * the current message. */
-$index_array = $imp_mailbox->getIMAPIndex();
-$mailbox = $index_array['mailbox'];
-$uid = $index_array['uid'];
+$index_array = $imp_mailbox[$imp_mailbox->getIndex()];
+$mailbox = $index_array['m'];
+$uid = $index_array['u'];
 
 /* Parse the message. */
 try {
@@ -256,7 +256,7 @@ $mime_headers = $peek
 $page_label = IMP::mailbox()->label;
 
 /* Generate the link to ourselves. */
-$msgindex = $imp_mailbox->getMessageIndex();
+$msgindex = $imp_mailbox->getIndex();
 $message_url = Horde::url('message.php');
 $message_token = $injector->getInstance('Horde_Token')->get('imp.message');
 $self_link = IMP::mailbox()->url('message.php', $uid, $mailbox)->add(array('start' => $msgindex, 'message_token' => $message_token));
@@ -390,10 +390,10 @@ IMP::$newUrl = $selfURL = IMP::mailbox()->url($selfURL->remove(array('actionID',
 $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
 /* Generate previous/next links. */
-$prev_msg = $imp_mailbox->getIMAPIndex(-1);
+$prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1];
 if ($prev_msg) {
     $prev_url = IMP::mailbox()
-        ->url('message.php', $prev_msg['uid'], $prev_msg['mailbox'], false);
+        ->url('message.php', $prev_msg['u'], $prev_msg['m'], false);
     $page_output->addLinkTag(array(
         'href' => $prev_url,
         'id' => 'prev',
@@ -401,10 +401,10 @@ if ($prev_msg) {
         'type' => null
     ));
 }
-$next_msg = $imp_mailbox->getIMAPIndex(1);
+$next_msg = $imp_mailbox[$imp_mailbox->getIndex() + 1];
 if ($next_msg) {
     $next_url = IMP::mailbox()
-        ->url('message.php', $next_msg['uid'], $next_msg['mailbox'], false);
+        ->url('message.php', $next_msg['u'], $next_msg['m'], false);
     $page_output->addLinkTag(array(
         'href' => $next_url,
         'id' => 'next',

@@ -775,7 +775,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @return integer  The message array index.
      */
-    public function getMessageIndex()
+    public function getIndex()
     {
         return $this->isValidIndex()
             ? ($this->_index + 1)
@@ -790,31 +790,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     public function isValidIndex()
     {
         return !is_null($this->_index);
-    }
-
-    /**
-     * Returns IMAP mbox/UID information on a message.
-     *
-     * @param integer $offset  The offset from the current message.
-     *
-     * @return array  Array with the following entries:
-     *   - mailbox: (IMP_Mailbox) The mailbox.
-     *   - uid: (integer) The message UID.
-     */
-    public function getIMAPIndex($offset = 0)
-    {
-        if (!$this->isValidIndex()) {
-            return array();
-        }
-
-        $index = $this->_index + $offset;
-
-        return isset($this->_sorted[$index])
-            ? array(
-                  'mailbox' => isset($this->_sortedMbox[$index]) ? IMP_Mailbox::get($this->_sortedMbox[$index]) : $this->_mailbox,
-                  'uid' => $this->_sorted[$index]
-              )
-            : array();
     }
 
     /**
@@ -840,7 +815,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         } else {
             $index = $this->_index += $data;
             if (isset($this->_sorted[$this->_index])) {
-                if (!$this->getIMAPIndex(1)) {
+                if (!isset($this->_sorted[$this->_index + 1])) {
                     $this->rebuild();
                 }
             } else {
@@ -857,7 +832,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     protected function _rebuild($force = false)
     {
         if ($force ||
-            (!is_null($this->_index) && !$this->getIMAPIndex(1))) {
+            (!is_null($this->_index) && !isset($this->_sorted[$this->_index + 1]))) {
             parent::rebuild();
         }
     }

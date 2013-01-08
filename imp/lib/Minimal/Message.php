@@ -39,7 +39,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         switch ($this->vars->a) {
         // 'd' = delete message
         case 'd':
-            $msg_index = $imp_mailbox->getMessageIndex();
+            $msg_index = $imp_mailbox->getIndex();
             $imp_indices = new IMP_Indices($imp_mailbox);
             $imp_message = $injector->getInstance('IMP_Message');
             try {
@@ -55,7 +55,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         // 'u' = undelete message
         case 'u':
-            $msg_index = $imp_mailbox->getMessageIndex();
+            $msg_index = $imp_mailbox->getIndex();
             $imp_indices = new IMP_Indices($imp_mailbox);
             $imp_message = $injector->getInstance('IMP_Message');
             $imp_message->undelete($imp_indices);
@@ -65,7 +65,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            $msg_index = $imp_mailbox->getMessageIndex();
+            $msg_index = $imp_mailbox->getIndex();
             $msg_delete = (IMP_Spam::reportSpam(new IMP_Indices($imp_mailbox), $this->vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
             break;
         }
@@ -84,9 +84,9 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Now that we are done processing the messages, get the index and
          * array index of the current message. */
-        $index_ob = $imp_mailbox->getIMAPIndex();
-        $mailbox = $index_ob['mailbox'];
-        $uid = $index_ob['uid'];
+        $index_ob = $imp_mailbox[$imp_mailbox->getIndex()];
+        $mailbox = $index_ob['m'];
+        $uid = $index_ob['u'];
 
         /* Get envelope/flag/header information. */
         try {
@@ -122,7 +122,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Get the starting index for the current message and the message
          * count. */
-        $msgindex = $imp_mailbox->getMessageIndex();
+        $msgindex = $imp_mailbox->getIndex();
         $msgcount = count($imp_mailbox);
 
         /* Generate the mailbox link. */
@@ -251,11 +251,11 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         }
 
         /* Generate previous/next links. */
-        if ($prev_msg = $imp_mailbox->getIMAPIndex(-1)) {
-            $menu[] = array(_("Previous Message"), self::url(array('mailbox' => $prev_msg['mailbox'], 'uid' => $prev_msg['uid'])));
+        if ($prev_msg = $imp_mailbox[$imp_mailbox->getIndex() - 1]) {
+            $menu[] = array(_("Previous Message"), self::url(array('mailbox' => $prev_msg['m'], 'uid' => $prev_msg['u'])));
         }
-        if ($next_msg = $imp_mailbox->getIMAPIndex(1)) {
-            $menu[] = array(_("Next Message"), self::url(array('mailbox' => $next_msg['mailbox'], 'uid' => $next_msg['uid'])));
+        if ($next_msg = $imp_mailbox[$imp_mailbox->getIndex() + 1]) {
+            $menu[] = array(_("Next Message"), self::url(array('mailbox' => $next_msg['m'], 'uid' => $next_msg['u'])));
         }
 
         $menu[] = array(sprintf(_("To %s"), IMP::mailbox()->label), $mailbox_link);
