@@ -35,8 +35,8 @@ class Horde_Core_Prefs_Ui_Widgets
      * 'selectlabel' - (array) Selected label.
      * 'sourcelabel' - (string) [OPTIONAL] Source selection label.
      * 'sources' - (array) List of sources - keys are source names. Each
-     *             source is an array with two entries - selected and
-     *             unselected.
+     *             source is an array with the entries: 'label', 'selected' and
+     *             'unselected'.
      * 'unselectlabel' - (array) Unselected label.
      * </pre>
      *
@@ -50,7 +50,7 @@ class Horde_Core_Prefs_Ui_Widgets
         $t->set('selectlabel', $data['selectlabel']);
         $t->set('unselectlabel', $data['unselectlabel']);
 
-        $sources = array();
+        $sources = $labels = array();
         foreach ($data['sources'] as $key => $val) {
             $selected = $unselected = array();
 
@@ -69,6 +69,7 @@ class Horde_Core_Prefs_Ui_Widgets
             }
 
             $sources[$key] = array($selected, $unselected);
+            $labels[] = array('key' => $key, 'label' => $val['label']);
         }
 
         if (count($sources) == 1) {
@@ -76,6 +77,9 @@ class Horde_Core_Prefs_Ui_Widgets
             $t->set('selected', $val[0]);
             $t->set('unselected', $val[1]);
         } else {
+            $t->set('source_select', true);
+            $t->set('sources', $labels);
+            $t->set('sourcelabel', $data['sourcelabel']);
             $js = array();
             foreach ($sources as $key => $val) {
                 $js[] = array(
