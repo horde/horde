@@ -2,6 +2,8 @@
 v4.0.3-git
 ----------
 
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
 [jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
       <thomas.jarosch@intra2net.com>, Bug #11880).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
