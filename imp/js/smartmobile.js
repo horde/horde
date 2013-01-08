@@ -500,7 +500,7 @@ var ImpMobile = {
                 force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
+                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
             }),
             ImpMobile.messageLoaded
         );
@@ -1026,7 +1026,7 @@ var ImpMobile = {
             }), {
                 mboxto: value,
                 newmbox: $('#imp-copymove-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ]),
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
             })
         );
 
