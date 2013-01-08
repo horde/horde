@@ -2,6 +2,7 @@
 v5.0.3-git
 ----------
 
+[jan] Fix setting menu refresh rate to none (Bug #11867).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix JavaScript errors after updating the top menu.
 
