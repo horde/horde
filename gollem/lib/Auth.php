@@ -53,7 +53,7 @@ class Gollem_Auth
         if ((!isset($credentials['userId']) ||
              !isset($credentials['password'])) &&
             !$GLOBALS['session']->exists('gollem', 'backend_key') &&
-            self::canAutoLogin()) {
+            self::canAutoLogin($credentials['backend_key'])) {
             if (!empty($backend['hordeauth'])) {
                 $credentials['userId'] = self::getAutologinID($credentials['backend_key']);
                 $credentials['password'] = $GLOBALS['registry']->getAuthCredential('password');

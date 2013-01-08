@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Fix automatic login to other than the first backend.
 [jan] Fix downloading if backend key doesn't match driver name (Bug #11746).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Change recursive deletion preference to ask by default.
