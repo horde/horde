@@ -168,11 +168,13 @@ class IMP_Mime_Viewer_Related extends Horde_Mime_Viewer_Base
             $this->_mimepart->setMetadata('related_ob', $this->_related);
         }
 
+        $start_id = $this->_related->startId();
+
         /* Only display if the start part (normally text/html) can be
          * displayed inline -OR- we are viewing this part as an attachment. */
-        return ($inline && !$this->getConfigParam('imp_contents')->canDisplay($this->_related->startId(), IMP_Contents::RENDER_INLINE))
+        return ($inline && !is_null($start_id) && !$this->getConfigParam('imp_contents')->canDisplay($start_id, IMP_Contents::RENDER_INLINE))
             ? null
-            : $this->_related->startId();
+            : $start_id;
     }
 
     /**

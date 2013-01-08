@@ -58,7 +58,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     {
         parent::open($calendar);
         $this->_client = null;
-        unset($this->_davSupport, $this->_permission);
+        $this->_permission = 0;
+        unset($this->_davSupport);
     }
 
     /**

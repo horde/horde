@@ -46,13 +46,15 @@ $session->set('kronolith', 'attendees', $event->attendees);
 $session->set('kronolith', 'resources', $event->getResources());
 
 $date = Horde_Util::getFormData('datetime');
-if (!$date) {
+if ($date) {
+    $event->start = new Horde_Date($date);
+} else {
     $date = Horde_Util::getFormData('date', date('Ymd')) . '000600';
+    $event->start = new Horde_Date($date);
     if ($prefs->getValue('twentyFour')) {
         $event->start->hour = 12;
     }
 }
-$event->start = new Horde_Date($date);
 $event->end = new Horde_Date($event->start);
 if (Horde_Util::getFormData('allday')) {
     $event->end->mday++;

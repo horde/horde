@@ -89,7 +89,7 @@ class Horde_View_Topbar extends Horde_View
                 Horde_Core_Script_Package_Datejs::translateFormat(
                     $GLOBALS['prefs']->getValue('date_format')),
             'refresh' =>
-                $GLOBALS['prefs']->getValue('menu_refresh_time'),
+                (int)$GLOBALS['prefs']->getValue('menu_refresh_time'),
         )));
 
         /* Sidebar. */

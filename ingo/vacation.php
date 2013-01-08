@@ -83,7 +83,7 @@ if (!$vacation->getVacationAddresses()) {
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
     $addresses = implode("\n", $identity->getAll('from_addr'));
     /* Remove empty lines. */
-    $addresses = preg_replace('/\n+/', "\n", $addresses);
+    $addresses = trim(preg_replace('/\n+/', "\n", $addresses));
     if (empty($addresses)) {
         $addresses = $GLOBALS['registry']->getAuth();
     }
