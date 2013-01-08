@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-07</date>
- <time>16:33:34</time>
+ <time>17:27:39</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -225,6 +225,7 @@
     <dir name="Mailbox">
      <dir name="List">
       <file name="Thread.php" role="horde" />
+      <file name="Virtual.php" role="horde" />
      </dir> <!-- /lib/Mailbox/List -->
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/Mailbox -->
@@ -1469,6 +1470,7 @@
    <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
+   <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />

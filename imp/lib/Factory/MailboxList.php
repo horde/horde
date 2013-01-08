@@ -59,13 +59,16 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 
         if (!isset($this->_instances[$key])) {
             try {
-                $ob = $session->get('imp', self::STORAGE_KEY . $mailbox);
+                $ob = $session->get('imp', self::STORAGE_KEY . $key);
             } catch (Exception $e) {
                 $ob = null;
             }
 
             if (is_null($ob)) {
-                $ob = new IMP_Mailbox_List($mailbox);
+                $mailbox = IMP_Mailbox::get($mailbox);
+                $ob = $mailbox->search
+                    ? new IMP_Mailbox_List_Virtual($mailbox)
+                    : new IMP_Mailbox_List($mailbox);
             }
 
             $this->_instances[$key] = $ob;
