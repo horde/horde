@@ -352,6 +352,7 @@ class Horde_Core_Prefs_Ui
                  * application. */
                 if (isset($this->prefs[$pref]['handler']) &&
                     ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
                     $pref_updated = $ob->update($this);
                 }
                 break;
@@ -482,6 +483,7 @@ class Horde_Core_Prefs_Ui
                 if (($this->prefs[$pref]['type'] == 'special') &&
                     isset($this->prefs[$pref]['handler']) &&
                     ($ob = $GLOBALS['injector']->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
                     echo $ob->display($this);
                     continue;
                 }
