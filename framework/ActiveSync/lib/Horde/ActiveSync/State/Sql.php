@@ -225,7 +225,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             throw new Horde_ActiveSync_Exception($e);
         }
 
-        $this->_loadStateFromResults($results);
+        $this->_loadStateFromResults($results, $type);
     }
 
     /**
