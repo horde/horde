@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-09</date>
- <time>15:29:25</time>
+ <time>15:31:03</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -23,8 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Return date-only values as floating dates (Bug #11767).
-* [jan] Correctly format all-day events (Bug #11767).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -685,6 +684,19 @@
    <notes>
 * [jan] Return date-only values as floating dates (Bug #11767).
 * [jan] Correctly format all-day events (Bug #11767).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
