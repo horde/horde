@@ -63,7 +63,7 @@ class Horde_Auth_Pam extends Horde_Auth_Base
         }
 
         $error = null;
-        if (!pam_auth($userId, $credentials['password'], &$error)) {
+        if (!pam_auth($userId, $credentials['password'], $error)) {
             throw new Horde_Auth_Exception($error);
         }
     }

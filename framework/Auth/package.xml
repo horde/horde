@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -811,7 +811,7 @@
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+.
    </notes>
   </release>
  </changelog>
