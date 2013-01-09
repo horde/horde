@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>13:39:19</time>
+ <date>2013-01-09</date>
+ <time>14:56:12</time>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -775,7 +775,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
