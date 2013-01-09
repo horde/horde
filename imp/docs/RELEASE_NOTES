@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Internet Mail
-Program (IMP) version H5 (6.0.2).
+Program (IMP) version H5 (6.0.3).
 
 IMP, the Internet Mail Program, is one of the most popular and widely deployed
 open source webmail applications in the world. It allows universal, web-based
@@ -23,21 +23,25 @@ access to IMAP and POP3 mail servers and provides Ajax, mobile and basic
 interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
-The major changes compared to the IMP version H5 (6.0.1) are:
-    * Save sent mail in smartphone view.
-    * Fixed deleting of saved drafts.
-    * Fixed displaying of encrypted messages in dynamic view.
-    * Fixed template management dynamic view.
-    * Small bugfixes and improvements.
+The major changes compared to the IMP version H5 (6.0.2) are:
+    * Fix saving compose message to draft mailbox when session expires.
+    * Fix NOT criteria for custom header searches.
+    * Fix losing data when refreshing compose screen.
+    * Fix verifying enveloped signed & encrypted S/MIME messages.
+    * Re-add apply mail filters action to dynamic view.
+    * Improved parsing of References header when replying to messages.
+    * Many bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Save sent mail in smartphone view.
-Fixed deleting of saved drafts.
-Fixed displaying of encrypted messages in dynamic view.
-Fixed template management dynamic view.
-Small bugfixes and improvements.
+Fix saving compose message to draft mailbox when session expires.
+Fix NOT criteria for custom header searches.
+Fix losing data when refreshing compose screen.
+Fix verifying enveloped signed & encrypted S/MIME messages.
+Re-add apply mail filters action to dynamic view.
+Improved parsing of References header when replying to messages.
+Many bugfixes and improvements.
 FM;
 
 $this->notes['name'] = 'IMP';
