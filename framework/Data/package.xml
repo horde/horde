@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-19</date>
- <time>14:08:20</time>
+ <date>2013-01-09</date>
+ <time>15:12:31</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -900,7 +900,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
