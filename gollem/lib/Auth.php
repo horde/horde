@@ -2,7 +2,7 @@
 /**
  * The Gollem_Auth class provides authentication for Gollem.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -53,7 +53,7 @@ class Gollem_Auth
         if ((!isset($credentials['userId']) ||
              !isset($credentials['password'])) &&
             !$GLOBALS['session']->exists('gollem', 'backend_key') &&
-            self::canAutoLogin()) {
+            self::canAutoLogin($credentials['backend_key'])) {
             if (!empty($backend['hordeauth'])) {
                 $credentials['userId'] = self::getAutologinID($credentials['backend_key']);
                 $credentials['password'] = $GLOBALS['registry']->getAuthCredential('password');
@@ -84,8 +84,14 @@ class Gollem_Auth
             $vfs = $GLOBALS['injector']
                 ->getInstance('Gollem_Factory_Vfs')
                 ->create($credentials['backend_key']);
-            $vfs->setParams(array('username' => $credentials['userId'],
-                                  'password' => $credentials['password']));
+            $params = array('username' => $credentials['userId'],
+                            'password' => $credentials['password']);
+            foreach (array_keys($backend['loginparams']) as $param) {
+                if (isset($credentials[$param])) {
+                    $backend['params'][$param] = $params[$param] = $credentials[$param];
+                }
+            }
+            $vfs->setParams($params);
             $vfs->checkCredentials();
         } catch (Horde_Exception $e) {
             throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);

@@ -34,6 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Pass custom login parameters to VFS backend (Bug #11771).
+* [jan] Fix selecting display columns in preferences (Bug #11851).
+* [jan] Fix automatic login to other than the first backend.
 * [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Change recursive deletion preference to ask by default.
@@ -351,7 +354,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -762,6 +765,9 @@
    <date>2012-12-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Pass custom login parameters to VFS backend (Bug #11771).
+* [jan] Fix selecting display columns in preferences (Bug #11851).
+* [jan] Fix automatic login to other than the first backend.
 * [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Change recursive deletion preference to ask by default.

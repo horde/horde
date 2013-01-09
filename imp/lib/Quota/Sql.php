@@ -4,7 +4,7 @@
  * custom SQL database.
  *
  * Copyright 2006-2007 Tomas Simonaitis <haden@homelan.lt>
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

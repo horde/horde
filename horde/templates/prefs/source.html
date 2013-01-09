@@ -8,6 +8,9 @@
  <div>
   <select id="source_select" name="source_select">
    <option value=""><tag:sourcelabel /></option>
+<loop:sources>
+   <option value="<tag:sources.key />"><tag:sources.label /></option>
+</loop:sources>
   </select>
  </div>
 </if:source_select>

@@ -115,10 +115,14 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    PHP is the interpreted language in which Horde is written.
 
-   It may be possible to install PHP using the package manager for your
-   operating system. Alternatively, you can obtain PHP sources at
+   You can obtain PHP sources at::
 
       http://www.php.net/
+
+   .. Note:: While it may be possible to install PHP using the package manager
+      for your operating system, it is highly recommended to install PHP from
+      source, since distribution packages often do not contain the most recent
+      bug and security patches.
 
    Follow the instructions in the PHP package to build PHP for your system. If
    you use Apache, be sure to build PHP as a library with one of the following

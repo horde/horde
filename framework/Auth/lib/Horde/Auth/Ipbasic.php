@@ -5,7 +5,7 @@
  * for times when you want a block of IPs to be able to access a site,
  * and that access is simply on/off - no preferences, etc.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21

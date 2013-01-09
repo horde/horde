@@ -1,5 +1,5 @@
 # Latvian translations for Horde_Alarm package.
-# Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2011-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Alarm package.
 # Automatically generated, 2011.
 #

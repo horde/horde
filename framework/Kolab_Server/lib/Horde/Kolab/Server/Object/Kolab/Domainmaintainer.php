@@ -14,7 +14,7 @@
 /**
  * This class provides methods associated to Kolab domain maintainers.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -106,7 +106,7 @@ class Horde_Kolab_Server_Object_Kolab_Domainmaintainer extends Horde_Kolab_Serve
                 }
             }
         }
-        parent::prepareObjectInformation(&$info);
+        parent::prepareObjectInformation($info);
     }
 
 }

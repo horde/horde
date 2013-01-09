@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -500,7 +500,7 @@ var ImpMobile = {
                 force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
+                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
             }),
             ImpMobile.messageLoaded
         );
@@ -1026,7 +1026,7 @@ var ImpMobile = {
             }), {
                 mboxto: value,
                 newmbox: $('#imp-copymove-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ]),
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
             })
         );
 

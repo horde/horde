@@ -1,8 +1,7 @@
 <?php
 /**
- * Copyright (c) 1997-2010, Chuck Hagenbuch
+ * Copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2002-2007, Richard Heyes
- * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,9 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @copyright 1997-2010 Chuck Hagenbuch
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * @copyright 2002-2007 Richard Heyes
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -45,9 +43,8 @@
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1997-2010 Chuck Hagenbuch
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * @copyright 2002-2007 Richard Heyes
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
