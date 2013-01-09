@@ -113,8 +113,9 @@ extends Horde_Kolab_Format_Xml_Type_Base
     {
         $result = array();
         foreach ($this->elements as $sub_name => $sub_type) {
-            if (is_array($sub_type) && isset($sub_type['type']))
+            if (is_array($sub_type) && isset($sub_type['type'])) {
                 $sub_type = $sub_type['type'];
+            }
             $this->createSubType($sub_type, $params)
                 ->load($sub_name, $result, $node, $helper, $params);
         }
