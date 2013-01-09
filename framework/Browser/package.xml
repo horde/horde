@@ -17,9 +17,9 @@
   <active>yes</active>
  </developer>
  <date>2013-01-09</date>
- <time>15:01:25</time>
+ <time>15:02:51</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mjr] Properly detect mobile Chrome on iOS (Bug #11868).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -773,6 +772,19 @@ Initial packaging
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [mjr] Properly detect mobile Chrome on iOS (Bug #11868).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
