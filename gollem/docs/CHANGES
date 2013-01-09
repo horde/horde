@@ -2,6 +2,7 @@
 v3.0.0-git
 ----------
 
+[jan] Pass custom login parameters to VFS backend (Bug #11771).
 [jan] Fix selecting display columns in preferences (Bug #11851).
 [jan] Fix automatic login to other than the first backend.
 [jan] Fix downloading if backend key doesn't match driver name (Bug #11746).

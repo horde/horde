@@ -84,8 +84,14 @@ class Gollem_Auth
             $vfs = $GLOBALS['injector']
                 ->getInstance('Gollem_Factory_Vfs')
                 ->create($credentials['backend_key']);
-            $vfs->setParams(array('username' => $credentials['userId'],
-                                  'password' => $credentials['password']));
+            $params = array('username' => $credentials['userId'],
+                            'password' => $credentials['password']);
+            foreach (array_keys($backend['loginparams']) as $param) {
+                if (isset($credentials[$param])) {
+                    $backend['params'][$param] = $params[$param] = $credentials[$param];
+                }
+            }
+            $vfs->setParams($params);
             $vfs->checkCredentials();
         } catch (Horde_Exception $e) {
             throw new Horde_Auth_Exception($e->getMessage(), Horde_Auth::REASON_MESSAGE);
