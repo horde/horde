@@ -3,7 +3,7 @@
  * This class parses a multipart/related MIME part (RFC 2387) to provide
  * information on the part contents.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

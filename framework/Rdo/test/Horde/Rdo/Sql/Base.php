@@ -5,7 +5,7 @@
 require_once __DIR__ . '/../Base.php';
 
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Ralf Lang <lang@b1-systems.de>
  * @category   Horde

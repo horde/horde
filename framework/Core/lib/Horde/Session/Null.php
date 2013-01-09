@@ -6,7 +6,7 @@
  * work within a single HTTP request when we don't need the overhead of a
  * full PHP session.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
