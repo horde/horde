@@ -227,7 +227,7 @@ try {
 }
 
 $numitem = count($list);
-$title = Gollem::$backend['label'];
+$title = Gollem::$backend['name'];
 
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
