@@ -2470,6 +2470,7 @@ class Turba_Driver implements Countable
 
             case 'workCountry':
                 $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
+                break;
 
             case 'email':
                 $message->email1address = $value;
