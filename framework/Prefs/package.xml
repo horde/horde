@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-09</date>
- <time>15:45:00</time>
+ <time>15:46:34</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] When removing a pref, reset its value in the cached scope to the default (Bug #11895).
-* [mms] Delete preference from storage backend when calling Horde_Prefs#remove().
-* [mms] Add throw parameter to Horde_Prefs#store().
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -944,6 +940,19 @@ Initial release as a PEAR package
 * [mms] Add throw parameter to Horde_Prefs#store().
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
