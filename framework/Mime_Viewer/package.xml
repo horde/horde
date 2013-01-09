@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-04</date>
- <time>12:43:51</time>
+ <date>2013-01-09</date>
+ <time>15:36:10</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -229,6 +229,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Mime_Viewer.mo" role="data" />
       <file name="Horde_Mime_Viewer.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -613,6 +614,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/es/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/et/LC_MESSAGES/Horde_Mime_Viewer.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/et/LC_MESSAGES/Horde_Mime_Viewer.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/eu/LC_MESSAGES/Horde_Mime_Viewer.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/eu/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Mime_Viewer.po" name="locale/fa/LC_MESSAGES/Horde_Mime_Viewer.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Mime_Viewer.mo" name="locale/fi/LC_MESSAGES/Horde_Mime_Viewer.mo" />
@@ -940,7 +942,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-04</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
