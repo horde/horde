@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:19</time>
+ <date>2013-01-09</date>
+ <time>15:45:00</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -936,7 +936,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] When removing a pref, reset its value in the cached scope to the default (Bug #11895).
