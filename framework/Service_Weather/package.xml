@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:26</time>
+ <date>2013-01-09</date>
+ <time>15:58:53</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -91,6 +91,12 @@
       <file name="Horde_Service_Weather.po" role="data" />
      </dir> <!-- /locale/es/LC_MESSAGES -->
     </dir> <!-- /locale/es -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Service_Weather.mo" role="data" />
+      <file name="Horde_Service_Weather.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="Horde_Service_Weather.mo" role="data" />
@@ -331,6 +337,8 @@
    <install as="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" name="locale/en_US/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/es/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/es/LC_MESSAGES/Horde_Service_Weather.po" name="locale/es/LC_MESSAGES/Horde_Service_Weather.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/eu/LC_MESSAGES/Horde_Service_Weather.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Service_Weather.po" name="locale/eu/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/fi/LC_MESSAGES/Horde_Service_Weather.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Service_Weather.po" name="locale/fi/LC_MESSAGES/Horde_Service_Weather.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" name="locale/ja/LC_MESSAGES/Horde_Service_Weather.mo" />
@@ -655,7 +663,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
