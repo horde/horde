@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-01-09</date>
- <time>15:06:37</time>
+ <time>15:08:30</time>
  <version>
-  <release>2.1.5</release>
+  <release>2.1.6</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix sourceselect preferences UI that includes multiple sources.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2696,6 +2696,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix sourceselect preferences UI that includes multiple sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
