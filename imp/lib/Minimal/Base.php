@@ -103,6 +103,8 @@ abstract class IMP_Minimal_Base
 
     /**
      */
-    abstract static public function url(array $opts = array());
+    static public function url(array $opts = array())
+    {
+    }
 
 }
