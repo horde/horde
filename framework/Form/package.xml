@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:01:34</time>
+ <date>2013-01-09</date>
+ <time>15:18:57</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -130,6 +130,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Form.mo" role="data" />
       <file name="Horde_Form.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -428,6 +429,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Form.po" name="locale/es/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Form.mo" name="locale/et/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Form.po" name="locale/et/LC_MESSAGES/Horde_Form.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Form.mo" name="locale/eu/LC_MESSAGES/Horde_Form.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Form.po" name="locale/eu/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Form.po" name="locale/fa/LC_MESSAGES/Horde_Form.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Form.mo" name="locale/fi/LC_MESSAGES/Horde_Form.mo" />
@@ -801,7 +803,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
