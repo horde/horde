@@ -259,10 +259,7 @@ foreach ($clipboard as $val) {
 }
 
 /* Read the columns to display from the preferences. */
-$sources = json_decode($prefs->getValue('columns'));
-$columns = isset($sources[$backkey])
-    ? $sources[$backkey]
-    : Gollem::$backend['attributes'];
+$columns = Gollem::getColumns($backkey);
 
 /* Prepare the template. */
 $template = $injector->createInstance('Horde_View');

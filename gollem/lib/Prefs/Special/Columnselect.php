@@ -25,17 +25,10 @@ class Gollem_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $prefs;
-
-        $cols = json_decode($prefs->getValue('columns'));
         $sources = array();
-
         foreach (Gollem_Auth::getBackend() as $source => $info) {
             $selected = $unselected = array();
-            $selected_list = isset($cols[$source])
-                ? array_flip($cols[$source])
-                : array();
-
+            $selected_list = array_flip(Gollem::getColumns($source));
             foreach ($info['attributes'] as $column) {
                 if (isset($selected_list[$column])) {
                     $selected[$column] = $column;
@@ -44,6 +37,7 @@ class Gollem_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
                 }
             }
             $sources[$source] = array(
+                'label' => $info['name'],
                 'selected' => $selected,
                 'unselected' => $unselected,
             );
@@ -62,7 +56,12 @@ class Gollem_Prefs_Special_Columnselect implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        return false;
+        if (!isset($ui->vars->sources)) {
+            return false;
+        }
+
+        $GLOBALS['prefs']->setValue('columns', $ui->vars->sources);
+        return true;
     }
 
 }
