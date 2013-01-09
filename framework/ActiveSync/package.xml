@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-*
+* [mjr] Fix loading state for FOLDERSYNC requests for certain clients.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1123,7 +1123,7 @@
    <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-*
+* [mjr] Fix loading state for FOLDERSYNC requests for certain clients.
    </notes>
   </release>
  </changelog>
