@@ -11,8 +11,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>11:54:25</time>
+ <date>2013-01-09</date>
+ <time>15:31:16</time>
  <version>
   <release>2.0.3</release>
   <api>2.0.0</api>
@@ -1290,7 +1290,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
