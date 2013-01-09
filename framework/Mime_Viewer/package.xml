@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-09</date>
- <time>15:36:10</time>
+ <time>15:37:47</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Update XSLT processor for OpenDocument files.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -947,6 +946,19 @@
    <notes>
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Update XSLT processor for OpenDocument files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
