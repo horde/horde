@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-09</date>
- <time>15:03:12</time>
+ <time>15:04:34</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -702,6 +702,19 @@ Add &apos;default&apos; parameter to Horde_CLI::prompt().
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
