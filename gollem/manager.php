@@ -221,7 +221,7 @@ try {
                 $list = Gollem::listFolder(Gollem::$backend['dir']);
             }
         } catch (Gollem_Exception $e) {
-            $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
+            $notification->push(sprintf(_("Cannot create home directory: %s"), $e->getMessage()), 'horde.error');
         }
     }
 }
