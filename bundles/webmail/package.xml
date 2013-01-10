@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>16:07:36</time>
+ <time>16:09:42</time>
  <version>
-  <release>5.0.3</release>
+  <release>5.0.4</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/">OSI certified</license>
  <notes>
-* [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Timeobjects.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -386,6 +386,19 @@
    <license uri="http://www.horde.org/licenses/">OSI certified</license>
    <notes>
 * [jan] Update Horde, IMP, Ingo, Turba, Kronolith, Nag, Mnemo, and Timeobjects.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/">OSI certified</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
