@@ -38,7 +38,7 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
 * 
  </notes>
@@ -3046,7 +3046,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -3061,7 +3061,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * Fix updating schema for individual libraries.
 * Improved control over which application view to load.
@@ -3078,7 +3078,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Allow disabling applications for administrators.
@@ -3094,7 +3094,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9647).
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
@@ -3112,7 +3112,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Add pushapp_post hook.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -3130,7 +3130,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
 * [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
@@ -3149,7 +3149,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
@@ -3164,7 +3164,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix return link after reporting problem (Bug #10069).
 * [jan] Add button to update all configurations with default values at once.
@@ -3181,7 +3181,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix colorpicker on categories preferences screen (Bug #10118).
 * [mjr] Fix Metar portal block.
@@ -3196,7 +3196,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Remove debug code.
    </notes>
@@ -3209,7 +3209,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix extracting of translation strings in a release.
 * [rla] Enable giving users specific admin permissions (Enhancement #9350)
@@ -3225,7 +3225,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
@@ -3242,7 +3242,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [cjh] Add mobile maintenance screens.
 * [jan] Update Latvian translation.
@@ -3258,7 +3258,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [rla] Add account locking similar to the former kolab-specific option.
 * [jan] Add missing configuration for LDAP groups write support.
@@ -3275,7 +3275,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-11</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Update javascript map library.
 * [mms] Allow in-page base64 image encoding to be disabled via configuration.
@@ -3290,7 +3290,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-02</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [cjh] Add Hordevetica theme.
 * [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
@@ -3305,7 +3305,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-22</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
@@ -3319,7 +3319,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
@@ -3335,7 +3335,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-28</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
@@ -3351,7 +3351,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
@@ -3370,7 +3370,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
@@ -3388,7 +3388,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First alpha release for Horde 5.
 * [jan] Implement new user interface.
@@ -3415,7 +3415,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-20</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Remove DataTree support.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
@@ -3431,7 +3431,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-21</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 * [jan] Remove optional dependency on Horde_DataTree.
@@ -3445,7 +3445,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-22</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix dependency on Horde_Service_Weather.
    </notes>
@@ -3458,7 +3458,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-08-07</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix logging in without JavaScript (Bug #11328).
 * [mms] Fix sidebar element wrapping.
@@ -3473,7 +3473,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-08-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix cancelling problem report.
 * [jan] Fix audio notification path printed in page output.
@@ -3487,7 +3487,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-12</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
 * [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
@@ -3502,7 +3502,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-26</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Port VAT identification block to use SOAP extension.
 * [jan] Fix dynamic updating of portal blocks.
@@ -3518,7 +3518,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-10-30</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
 * [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
@@ -3532,7 +3532,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-07</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix form for editing and removing of users.
 * [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
@@ -3549,7 +3549,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-14</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix adding user in admin actions (Bug #11690).
 * [mms] Fix removing user in admin actions (Bug #11690).
@@ -3564,7 +3564,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-01-10</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix setting menu refresh rate to none (Bug #11867).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
@@ -3579,7 +3579,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-01-10</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * 
    </notes>

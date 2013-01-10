@@ -5,8 +5,8 @@
  *
  * Requires prototypejs 1.6.0.2+.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
 /* Finds all text inputs (input type="text") and textarea tags, and

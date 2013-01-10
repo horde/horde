@@ -5,11 +5,11 @@
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL
+ * @license  http://www.horde.org/licenses/lgpl LGPL
  * @package  Horde
  */
 class Horde_Prefs_Special_Twitter implements Horde_Core_Prefs_Ui_Special
