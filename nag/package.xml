@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>14:51:38</time>
+ <time>14:54:51</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,14 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
-* [mjr] Fix displaying and editing tasks from search results (Bug #11847).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mjr] Fix incoming task sync with certain combinations of due date values.
-* [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
-* [jan] Use default Kolab folder for default taks list preference.
-* [jan] Mark Kolab folder as default when changing default task list preference.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1283,6 +1276,19 @@
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
 * [jan] Use default Kolab folder for default taks list preference.
 * [jan] Mark Kolab folder as default when changing default task list preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
