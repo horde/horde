@@ -267,19 +267,19 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 return array();
             }
             $folders = array();
-            if (array_search('calendar', $supported)) {
+            if (array_search('calendar', $supported) !== false) {
                 $folders[] = $this->getFolder(self::APPOINTMENTS_FOLDER_UID);
             }
 
-            if (array_search('contacts', $supported)) {
+            if (array_search('contacts', $supported) !== false) {
                 $folders[] = $this->getFolder(self::CONTACTS_FOLDER_UID);
             }
 
-            if (array_search('tasks', $supported)) {
+            if (array_search('tasks', $supported) !== false) {
                 $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
             }
 
-            if (array_search('mail', $supported)) {
+            if (array_search('mail', $supported) !== false) {
                 try {
                     $folders = array_merge($folders, $this->_getMailFolders());
                 } catch (Horde_ActiveSync_Exception $e) {
