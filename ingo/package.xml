@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-07</date>
- <time>17:20:42</time>
+ <date>2013-01-10</date>
+ <time>14:37:42</time>
  <version>
   <release>3.0.2</release>
   <api>3.0.0</api>
@@ -1167,7 +1167,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
