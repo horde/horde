@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>12:25:12</time>
+ <date>2013-01-10</date>
+ <time>12:45:52</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -1127,7 +1127,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
