@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>13:09:37</time>
+ <date>2013-01-10</date>
+ <time>14:48:11</time>
  <version>
   <release>4.0.2</release>
   <api>4.0.0</api>
@@ -965,7 +965,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
