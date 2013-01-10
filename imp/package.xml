@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-26</date>
- <time>21:44:27</time>
+ <date>2013-01-10</date>
+ <time>14:33:31</time>
  <version>
   <release>6.0.3</release>
   <api>6.0.0</api>
@@ -2883,24 +2883,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-26</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Re-add apply mail filters action in dynamic view.
 * [mms] Improved parsing of References header when replying to a message.
 * [mms] Fix verifying an enveloped signed &amp; encrypted S/MIME message (Bug #11874).
 * [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
-* [mms] Fix redirection to mailbox page after sending message in minimal view (Bug #11897; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [mms] Fix duplicate signature being added to compose messages in minimal view (Bug #11896; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mms] Fix redirection to mailbox page after sending message in minimal view (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11897).
+* [mms] Fix duplicate signature being added to compose messages in minimal view (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11896).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mms] Fix loss of HTML body if related conversion is turned off (Bug #11883; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mms] Fix loss of HTML body if related conversion is turned off (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11883).
 * [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
 * [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
 * [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
 * [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
 * [mms] Fix NOT criteria for custom header searches (Bug #11802).
 * [mms] Fix saving compose message to draft mailbox when session expires (Bug #11795).
-* [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Bug #11782; Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11782).
 * [mms] Fix toggling other options in dynamic compose screen.
    </notes>
   </release>

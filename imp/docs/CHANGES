@@ -1,6 +1,6 @@
-----------
-v6.0.3-git
-----------
+------
+v6.0.3
+------
 
 [mms] Re-add apply mail filters action in dynamic view.
 [mms] Improved parsing of References header when replying to a message.
