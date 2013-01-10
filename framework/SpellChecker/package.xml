@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>12:29:31</time>
+ <time>12:31:40</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -28,11 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Honor the &apos;path&apos; configuration parameter in Aspell driver (Bug #11778).
-* [mms] Minimum length configuration was not being honored in the Aspell driver.
-* [mms] Deprecated Horde_SpellChecker::factory().
-* [mms] Add Horde_SpellChecker_Exception.
-* [mms] Convert test suite to PHPUnit.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -275,6 +271,19 @@ Initial Release.
 * [mms] Deprecated Horde_SpellChecker::factory().
 * [mms] Add Horde_SpellChecker_Exception.
 * [mms] Convert test suite to PHPUnit.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
