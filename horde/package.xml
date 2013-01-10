@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-16</date>
- <time>11:59:33</time>
+ <date>2013-01-10</date>
+ <time>14:23:06</time>
  <version>
   <release>5.0.3</release>
   <api>5.0.0</api>
@@ -3565,7 +3565,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-16</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix setting menu refresh rate to none (Bug #11867).
