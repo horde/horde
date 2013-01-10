@@ -2,6 +2,217 @@
 v5.0.3-git
 ----------
 
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Use default Kolab folders for default share preferences.
+[jan] Mark Kolab folders as default when changing default share preferences.
+
+Horde Changes
+-------------
+[jan] Fix setting menu refresh rate to none (Bug #11867).
+[jan] Fix JavaScript errors after updating the top menu.
+
+Mail Changes
+------------
+[mms] Re-add apply mail filters action in dynamic view.
+[mms] Improved parsing of References header when replying to a message.
+[mms] Fix verifying an enveloped signed & encrypted S/MIME message (Bug
+      #11874).
+[mms] Fix converting charset of signature/trailer in compose message if not
+      sending in UTF-8 (Bug #11898).
+[mms] Fix redirection to mailbox page after sending message in minimal view
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11897).
+[mms] Fix duplicate signature being added to compose messages in minimal view
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11896).
+[mms] Fix loss of HTML body if related conversion is turned off (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11883).
+[mms] Ensure that polled mailboxes in dynamic view continue to show unseen
+      message count if its child status changes (Bug #11864).
+[jan] Include address groups in auto-completion list if address book is below
+      AJAX lookup threshold.
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
+[mms] Correctly remember form state when refreshing basic view compose page
+      (Bug #11794).
+[mms] Fix NOT criteria for custom header searches (Bug #11802).
+[mms] Fix saving compose message to draft mailbox when session expires (Bug
+      #11795).
+[mms] Honor 'hide_when_unlimited' option for the quota driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11782).
+[mms] Fix toggling other options in dynamic compose screen.
+
+Filters Changes
+---------------
+[jan] Fix changing permissions for shared rulesets.
+
+Address Book Changes
+--------------------
+[mjr] Avoid sending broken datetime values to ActiveSync.
+[jan] Update French translation (Laurent Foucher
+      <laurent.foucher@iut-tlse3.fr>).
+
+Calendar Changes
+----------------
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
+[jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11880).
+[jan] Fix moving events between calendars (Bug #11830).
+[jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
+[jan] Fix double owner name on shared calendars.
+[jan] Defer navigation in dynamic view until environment has been initialized.
+[jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+
+Tasks Changes
+-------------
+[mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+[mjr] Fix displaying and editing tasks from search results (Bug #11847).
+[mjr] Fix incoming task sync with certain combinations of due date values.
+[mjr] Fix quick task addition without session cookies enabled (Bug #11875,
+      Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[jan] Fix editing tasks from the merged list view in smartmobile mode (Bug
+      #11840).
+
+Notes Changes
+-------------
+[mjr] Fix importing notepads (Bug #11849).
+
+Library Changes
+---------------
+ActiveSync
+[mjr] Fix regression caused by fixing some logging in the sync cache.
+[mjr] Fix some possible character set related issues with HTML email.
+[mjr] Fix sending boolean policy values.
+[mjr] Fix DB migration for some RDBMS (Bug #11877).
+[mjr] Fix authentication related errors.
+[mjr] Fix regression caused by incorrectly named variable (martin.ament@gmx.de,
+      Bug #11919)
+[mjr] Fix non empty PING requests with empty FOLDERS element.
+[mjr] Fix exporting folder deletions (Bug #11918).
+[mjr] Improvements to fetching and sending message body.
+[mjr] Fix searching mailboxes on certain devices that send MIMESUPPORT flag,
+      like iOS (Bug #11900).
+[mjr] Fix updating the read flag on iOS.
+[mjr] Set the importance flag on mail messages.
+[mjr] Fix detecting mailbox changes on IMAP servers that support CONDSTORE but
+      not per mailbox MODSEQ (Bug #11754).
+[mjr] Check for invalid UTF-8 data before sending to client.
+[mjr] Improve loop detection logic, preventing unnecessary state resets.
+[mjr] Fix charset issues with certain broken emails which can cause iOS to
+      crash.
+[mjr] Fix issue causing SYNC/PING loop in empty mail folders (Bug #11823).
+[mjr] Fix importing message read flag (Bug #11741).
+[mjr] Fix charset conversion of HTML messages when original body is plaintext
+      (Bug #11745).
+[mjr] Use integer column for message_uid field for IMAP messages (Bug #11742)
+
+Auth
+[jan] Fix updating users in LDAP driver (Bug #11791).
+
+Browser
+[mjr] Properly detect mobile Chrome on iOS (Bug #11868).
+
+Core
+[jan] Fix sourceselect preferences UI that includes multiple sources.
+[mms] Fix multiple AJAX submits to same hidden IFRAME on the same page (Bug
+      #11928).
+[mjr] Fix some MIME related issues when sending email via ActiveSync (Bug
+      #11931).
+[mjr] Fix detecting non-default ActiveSync policies.
+[mjr] Improvements to ActiveSync authentication failure handling.
+[mjr] Fix issue with Null session driver that could cause authentication to be
+      lost.
+[mms] Fix restoring cached theme data (Bug #11906).
+[mjr] Fix dismissing reminders without session cookies enabled (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11875).
+[mjr] Improve logging in ActiveSync drivers to better track down issues.
+[jan] Fix returning complete groups with auto-completer.
+[mjr] Fix various issues with charset encoding when sending ActiveSync email.
+[jan] Link back to application from preference screen.
+[mjr] Fix GAL searching via ActiveSync (horde@albasoft.com, Bug #11808).
+[mjr] Fix saving sent mail when using ActiveSync (horde@albasoft.com, Bug
+      #11805).
+[jan] Reset NLS information when changing languages.
+[jan] Fix downloading files with special characters in Gollem (Bug #11770).
+[mms] Added Horde_Core_Factory_SpellChecker.
+[mms] Don't log backtrace for E_STRICT errors.
+
+Crypt_Blowfish
+[mms] Fix Openssl driver for PHP 5.3.0-5.3.2 (Bug #11797).
+
+Date
+[jan] Fix more strftime() formatting of certain locale-specific format
+      specifiers (Bug #11831).
+
+Imap_Client
+[mms] Fix multipart APPENDs when IMAP server does not support CATENATE.
+[mms] Fix harmless PHP warning issued when IMAP server supports SORT but not
+      SORT=DISPLAY.
+[mms] Fix bodystructure parsing for IMAP servers that do not return full
+      extension data (Bug #11907).
+[mms] Re-add optimizations to IMAP token parser.
+[mms] Additional workarounds for IMAP servers with broken BINARY
+      implementations (Bug #11855).
+[mms] Add SORT_DISPLAYFROM_FALLBACK and SORT_DISPLAYTO_FALLBACK sorting
+      criteria to Horde_Imap_Client_Base#search().
+[mms] Revert valid PHP changes that caused errors in broken old versions of
+      PHP.
+[mms] Fix client-side address sorting (Bug #11820).
+[mms] Optimizations to IMAP token parser.
+[mms] Fix setting language value when language is returned in an IMAP list.
+[mms] Fix sending literal mailbox data to an IMAP server (Bug #11800).
+[mms] Add Horde_Imap_Client_Data_Format_String#getStream().
+[jan] Fix Dutch translation (Arjen de Korte <build+horde@de-korte.org>).
+[mms] Fix regression in POP3 driver for servers that don't support the
+      RESP-CODES extension.
+[mms] Another workaround for broken Cyrus APPEND behavior (Bug #11769).
+
+Kolab_Format
+[jan] Return date-only values as floating dates (Bug #11767).
+[jan] Correctly format all-day events (Bug #11767).
+
+Mail
+[mms] Fix behavior of 'persist' option in SMTP transport driver.
+[mms] Fix default_domain parameter to Horde_Mail_Rfc822 (Bug #11804).
+
+Mime
+[mjr] Fix issue where parsing multipart/alternative messages would turn the
+      parts into attachments.
+
+Mime_Viewer
+[jan] Update XSLT processor for OpenDocument files.
+
+Pdf
+[jan] Fix swapped getFormatHeight() and getFormatWidth() methods (Bug #11762).
+
+Perms
+[jan] Remove creator permission mapping from Kolab backend (Bug #11713).
+
+Prefs
+[mms] When removing a pref, reset its value in the cached scope to the default
+      (Bug #11895).
+[mms] Delete preference from storage backend when calling Horde_Prefs#remove().
+[mms] Add throw parameter to Horde_Prefs#store().
+[jan] Fix creating storage folder for Kolab/IMAP backends (Bug #11751).
+
+Routes
+[jan] Fix generating cache key for generated URLs (remi@famillecollet.com, Bug
+      #11894).
+
+SpellChecker
+[mms] Honor the 'path' configuration parameter in Aspell driver (Bug #11778).
+[mms] Minimum length configuration was not being honored in the Aspell driver.
+[mms] Deprecated Horde_SpellChecker::factory().
+[mms] Add Horde_SpellChecker_Exception.
+[mms] Convert test suite to PHPUnit.
+
+Util
+[mms] Fix validating certain strings of UTF-8 data (Bug #11930).
+[mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator
+      to eliminate PCRE issues relating to stack sizes (Bug #11899).
+
+Vfs
+[jan] Don't rely on PEAR to determine Windows OS in Samba backend.
+[jan] Implement vfsroot parameter in Samba backend.
 
 
 ------

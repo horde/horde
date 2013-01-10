@@ -2619,8 +2619,8 @@
    <notes>
 * [mjr] Fix various issues with charset encoding when sending ActiveSync email.
 * [jan] Link back to application from preference screen.
-* [mjr] Fix GAL searching via ActiveSync (Bug #11808, horde@albasoft.com).
-* [mjr] Fix saving sent mail when using ActiveSync (Bug #11805, horde@albasoft.com).
+* [mjr] Fix GAL searching via ActiveSync (horde@albasoft.com, Bug #11808).
+* [mjr] Fix saving sent mail when using ActiveSync (horde@albasoft.com, Bug #11805).
 * [jan] Reset NLS information when changing languages.
 * [jan] Fix downloading files with special characters in Gollem (Bug #11770).
 * [mms] Added Horde_Core_Factory_SpellChecker.
@@ -2653,7 +2653,7 @@
    <notes>
 * [mms] Fix restoring cached theme data (Bug #11906).
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mjr] Fix dismissing reminders without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Fix dismissing reminders without session cookies enabled (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11875).
    </notes>
   </release>
   <release>
