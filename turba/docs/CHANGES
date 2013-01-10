@@ -1,6 +1,6 @@
-----------
-v4.0.2-git
-----------
+------
+v4.0.2
+------
 
 [mjr] Avoid sending broken datetime values to ActiveSync.
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
