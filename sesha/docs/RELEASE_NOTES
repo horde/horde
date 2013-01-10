@@ -14,7 +14,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the Sesha
+The Horde Team is pleased to announce the third release candidate of the Sesha
 Inventory Manager Application version H5 (1.0.0).
 
 Sesha is the Horde Inventory Manager. It is an application designed to track a
@@ -26,7 +26,7 @@ We encourage widespread testing and feedback via the mailing lists or our bug
 tracking system. Updated translations are very welcome. Strings are not going
 to change until the final release.
 
-The major changes compared to the Sesha version H5 (1.0.0RC1) are:
+The major changes compared to the Sesha version H5 (1.0.0RC2) are:
     * Search improvements.
 ML;
 
