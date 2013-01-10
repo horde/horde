@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>14:12:41</time>
+ <date>2013-01-10</date>
+ <time>13:34:55</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -64,6 +64,12 @@
       <file name="timeobjects.po" role="horde" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="timeobjects.mo" role="horde" />
+      <file name="timeobjects.po" role="horde" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="timeobjects.mo" role="horde" />
@@ -194,6 +200,8 @@
    <install as="timeobjects/locale/de/LC_MESSAGES/timeobjects.po" name="locale/de/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.mo" name="locale/et/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/et/LC_MESSAGES/timeobjects.po" name="locale/et/LC_MESSAGES/timeobjects.po" />
+   <install as="timeobjects/locale/eu/LC_MESSAGES/timeobjects.mo" name="locale/eu/LC_MESSAGES/timeobjects.mo" />
+   <install as="timeobjects/locale/eu/LC_MESSAGES/timeobjects.po" name="locale/eu/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.mo" name="locale/fi/LC_MESSAGES/timeobjects.mo" />
    <install as="timeobjects/locale/fi/LC_MESSAGES/timeobjects.po" name="locale/fi/LC_MESSAGES/timeobjects.po" />
    <install as="timeobjects/locale/hu/LC_MESSAGES/timeobjects.mo" name="locale/hu/LC_MESSAGES/timeobjects.mo" />
@@ -431,7 +439,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
