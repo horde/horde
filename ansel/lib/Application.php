@@ -128,18 +128,6 @@ class Ansel_Application extends Horde_Registry_Application
                        '__noselection');
         }
 
-        /* Let authenticated users create new galleries. */
-        if ($GLOBALS['registry']->isAdmin() ||
-            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
-             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $menu->add(Horde::url('gallery.php')->add('actionID', 'add'),
-                       _("_New Gallery"), 'add.png', null, null, null,
-                       (basename($_SERVER['PHP_SELF']) == 'gallery.php' &&
-                        Horde_Util::getFormData('actionID') == 'add')
-                       ? 'current'
-                       : '__noselection');
-        }
-
         if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
             $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'user.png');
         }
@@ -150,6 +138,27 @@ class Ansel_Application extends Horde_Registry_Application
             $menu->add($pl, _("_Print"), 'print.png',
                        null, '_blank',
                        Horde::popupJs($pl, array('urlencode' => true)) . 'return false;');
+        }
+    }
+
+    /**
+     * Adds additional items to the sidebar.
+     *
+     * @param Horde_View_Sidebar $sidebar  The sidebar object.
+     */
+    public function sidebar($sidebar)
+    {
+        /* Let authenticated users create new galleries. */
+        if ($GLOBALS['registry']->isAdmin() ||
+            (!$GLOBALS['injector']->getInstance('Horde_Perms')->exists('ansel') && $GLOBALS['registry']->getAuth()) ||
+             $GLOBALS['injector']->getInstance('Horde_Perms')->hasPermission('ansel', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+
+
+            $sidebar->addNewButton(
+                _("_New Gallery"),
+                Horde::url('gallery.php')->add('url', Horde::selfUrl(true, false, true))->add('actionID', 'add')
+            );
+
         }
     }
 
