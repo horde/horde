@@ -13,9 +13,9 @@ v6.1.0-git
 [mms] Importing a PGP personal key now only requires the private key.
 
 
-----------
-v6.0.3-git
-----------
+------
+v6.0.3
+------
 
 [mms] Re-add apply mail filters action in dynamic view.
 [mms] Improved parsing of References header when replying to a message.
@@ -24,12 +24,12 @@ v6.0.3-git
 [mms] Fix converting charset of signature/trailer in compose message if not
       sending in UTF-8 (Bug #11898).
 [mms] Fix redirection to mailbox page after sending message in minimal view
-      (Bug #11897; Thomas Jarosch <thomas.jarosch@intra2net.com>).
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11897).
 [mms] Fix duplicate signature being added to compose messages in minimal view
-      (Bug #11896; Thomas Jarosch <thomas.jarosch@intra2net.com>).
+      (Thomas Jarosch <thomas.jarosch@intra2net.com>, Bug #11896).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
-[mms] Fix loss of HTML body if related conversion is turned off (Bug #11883;
-      Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[mms] Fix loss of HTML body if related conversion is turned off (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11883).
 [mms] Ensure that polled mailboxes in dynamic view continue to show unseen
       message count if its child status changes (Bug #11864).
 [jan] Include address groups in auto-completion list if address book is below
@@ -41,8 +41,8 @@ v6.0.3-git
 [mms] Fix NOT criteria for custom header searches (Bug #11802).
 [mms] Fix saving compose message to draft mailbox when session expires (Bug
       #11795).
-[mms] Honor 'hide_when_unlimited' option for the quota driver (Bug #11782;
-      Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[mms] Honor 'hide_when_unlimited' option for the quota driver (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11782).
 [mms] Fix toggling other options in dynamic compose screen.
 
 

@@ -23,6 +23,6 @@ $page_output->header(array(
     'title' => _("Photo Galleries")
 ));
 $notification->notify(array('listeners' => 'status'));
-echo '<div id="menuBottom"><a href="' . Horde::url('browse_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
+include ANSEL_TEMPLATES . '/browse/new.inc';
 echo $layout_html;
 $page_output->footer();

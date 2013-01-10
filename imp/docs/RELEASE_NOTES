@@ -24,23 +24,23 @@ interfaces with a rich range of features normally found only in desktop email
 clients. For more information on IMP, visit http://www.horde.org/apps/imp.
 
 The major changes compared to the IMP version H5 (6.0.2) are:
-    * Fix saving compose message to draft mailbox when session expires.
-    * Fix NOT criteria for custom header searches.
-    * Fix losing data when refreshing compose screen.
-    * Fix verifying enveloped signed & encrypted S/MIME messages.
-    * Re-add apply mail filters action to dynamic view.
+    * Re-added apply mail filters action to dynamic view.
     * Improved parsing of References header when replying to messages.
+    * Fixed saving compose message to draft mailbox when session expires.
+    * Fixed NOT criteria for custom header searches.
+    * Fixed losing data when refreshing compose screen.
+    * Fixed verifying enveloped signed & encrypted S/MIME messages.
     * Many bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Fix saving compose message to draft mailbox when session expires.
-Fix NOT criteria for custom header searches.
-Fix losing data when refreshing compose screen.
-Fix verifying enveloped signed & encrypted S/MIME messages.
-Re-add apply mail filters action to dynamic view.
+Re-added apply mail filters action to dynamic view.
 Improved parsing of References header when replying to messages.
+Fixed saving compose message to draft mailbox when session expires.
+Fixed NOT criteria for custom header searches.
+Fixed losing data when refreshing compose screen.
+Fixed verifying enveloped signed & encrypted S/MIME messages.
 Many bugfixes and improvements.
 FM;
 

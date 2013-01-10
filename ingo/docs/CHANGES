@@ -1,6 +1,12 @@
 ----------
-v3.0.2-git
+v3.0.3-git
 ----------
+
+
+
+------
+v3.0.2
+------
 
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix changing permissions for shared rulesets.

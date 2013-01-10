@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-17</date>
- <time>11:03:43</time>
+ <date>2013-01-09</date>
+ <time>21:30:34</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -364,6 +364,9 @@
     <file name="10_ansel_upgrade_computestylehashes.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
+    <dir name="browse">
+     <file name="new.inc" role="horde" />
+    </dir> <!-- /templates/browse -->
     <dir name="captions">
      <file name="captions.inc" role="horde" />
     </dir> <!-- /templates/captions -->
@@ -981,6 +984,7 @@
    <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
    <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
    <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
+   <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
    <install as="ansel/templates/faces/define.inc" name="templates/faces/define.inc" />

@@ -2,8 +2,8 @@
 /**
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author  Jan Schneider <jan@horde.org>
