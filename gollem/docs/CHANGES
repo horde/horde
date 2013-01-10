@@ -1,6 +1,6 @@
-----------
-v3.0.0-git
-----------
+---------
+v3.0.0RC2
+---------
 
 [jan] Pass custom login parameters to VFS backend (Bug #11771).
 [jan] Fix selecting display columns in preferences (Bug #11851).
