@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.0.0RC2)';
+    public $version = 'H5 (3.0.0-git)';
 
     /**
      * Server key used in logged out session.

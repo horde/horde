@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>16:21:13</time>
+ <time>16:23:20</time>
  <version>
-  <release>3.0.0RC2</release>
+  <release>3.0.0RC3</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,14 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Pass custom login parameters to VFS backend (Bug #11771).
-* [jan] Fix selecting display columns in preferences (Bug #11851).
-* [jan] Fix automatic login to other than the first backend.
-* [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Change recursive deletion preference to ask by default.
-* [jan] Fix share_id column if using old share backend (Bug #11833).
-* [jan] Show loading layer when changing backends on login form.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -773,6 +766,19 @@
 * [jan] Change recursive deletion preference to ask by default.
 * [jan] Fix share_id column if using old share backend (Bug #11833).
 * [jan] Show loading layer when changing backends on login form.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC3</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
