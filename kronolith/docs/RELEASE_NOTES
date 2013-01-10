@@ -27,14 +27,14 @@ http://www.horde.org/apps/kronolith.
 
 The major changes compared to the Kronolith version H5 (4.0.2) are:
     * Improved Kolab compatibility.
-    * Fixed moving event between calendars.
+    * Fixed moving events between calendars.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
 Improved Kolab compatibility.
-Fixed moving event between calendars.
+Fixed moving events between calendars.
 Small bugfixes and improvements.
 FM;
 
