@@ -28,9 +28,9 @@ Reading, writing and listing of files are all supported.</description>
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>12:45:52</time>
+ <time>12:47:42</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -39,9 +39,7 @@ Reading, writing and listing of files are all supported.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Don&apos;t rely on PEAR to determine Windows OS in Samba backend.
-* [jan] Implement vfsroot parameter in Samba backend.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1133,6 +1131,19 @@ Added a class for providing garbage collection; removed all Horde dependancies.
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Don&apos;t rely on PEAR to determine Windows OS in Samba backend.
 * [jan] Implement vfsroot parameter in Samba backend.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
