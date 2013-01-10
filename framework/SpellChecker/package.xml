@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-28</date>
- <time>18:17:40</time>
+ <date>2013-01-10</date>
+ <time>12:29:31</time>
  <version>
   <release>2.1.0</release>
   <api>2.1.0</api>
@@ -267,7 +267,7 @@ Initial Release.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-28</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Honor the &apos;path&apos; configuration parameter in Aspell driver (Bug #11778).
