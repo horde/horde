@@ -1,6 +1,6 @@
-----------
-v1.0.0-git
-----------
+---------
+v1.0.0RC1
+---------
 
 [cjh] Strip utm_ parameters from incoming bookmarks, and provide a script to
       strip them from already-saved bookmarks (Request #10751).
