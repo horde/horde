@@ -1,6 +1,6 @@
-----------
-v4.0.2-git
-----------
+------
+v4.0.2
+------
 
 [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
 [mjr] Fix displaying and editing tasks from search results (Bug #11847).
