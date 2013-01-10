@@ -29,9 +29,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>14:23:06</time>
+ <time>14:25:49</time>
  <version>
-  <release>5.0.3</release>
+  <release>5.0.4</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix setting menu refresh rate to none (Bug #11867).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Fix JavaScript errors after updating the top menu.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3571,6 +3569,19 @@
 * [jan] Fix setting menu refresh rate to none (Bug #11867).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Fix JavaScript errors after updating the top menu.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
