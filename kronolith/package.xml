@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-10</date>
- <time>14:43:01</time>
+ <time>14:45:46</time>
  <version>
-  <release>4.0.3</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,16 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Fix setting default start time in new event dialog of basic view (Bug #11861).
-* [jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11880).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Fix moving events between calendars (Bug #11830).
-* [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
-* [jan] Fix double owner name on shared calendars.
-* [jan] Use default Kolab folder for default calendar preference.
-* [jan] Mark Kolab folder as default when changing default calendar preference.
-* [jan] Defer navigation in dynamic view until environment has been initialized.
-* [jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2053,6 +2044,19 @@
 * [jan] Mark Kolab folder as default when changing default calendar preference.
 * [jan] Defer navigation in dynamic view until environment has been initialized.
 * [jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
