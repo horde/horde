@@ -1,6 +1,6 @@
-----------
-v4.0.3-git
-----------
+------
+v4.0.3
+------
 
 [jan] Fix setting default start time in new event dialog of basic view (Bug
       #11861).
