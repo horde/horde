@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>14:45:46</time>
+ <date>2013-01-11</date>
+ <time>23:00:01</time>
  <version>
   <release>4.0.4</release>
   <api>4.0.0</api>
@@ -610,6 +610,7 @@
      <dir name="fixtures">
       <file name="allday.ics" role="test" />
       <file name="bug7068.ics" role="test" />
+      <file name="bug11688.ics" role="test" />
       <file name="export1.ics" role="test" />
       <file name="export2.ics" role="test" />
       <file name="export3.ics" role="test" />
@@ -1369,6 +1370,7 @@
    <install as="Kronolith/TestCase.php" name="test/Kronolith/TestCase.php" />
    <install as="Kronolith/fixtures/allday.ics" name="test/Kronolith/fixtures/allday.ics" />
    <install as="Kronolith/fixtures/bug7068.ics" name="test/Kronolith/fixtures/bug7068.ics" />
+   <install as="Kronolith/fixtures/bug11688.ics" name="test/Kronolith/fixtures/bug11688.ics" />
    <install as="Kronolith/fixtures/export1.ics" name="test/Kronolith/fixtures/export1.ics" />
    <install as="Kronolith/fixtures/export2.ics" name="test/Kronolith/fixtures/export2.ics" />
    <install as="Kronolith/fixtures/export3.ics" name="test/Kronolith/fixtures/export3.ics" />
@@ -2053,7 +2055,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
