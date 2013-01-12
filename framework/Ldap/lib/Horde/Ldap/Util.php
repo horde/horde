@@ -96,6 +96,13 @@ class Horde_Ldap_Util
         // Not clear, if this is neccessary here:
         //$dn_array = self::_correctDNSplitting($dn_array, ',');
 
+        $callback_upper = function($value) {
+            return Horde_String::upper($value[1]);
+        };
+        $callback_lower = function($value) {
+            return Horde_String::lower($value[1]);
+        };
+
         // Construct subarrays for multivalued RDNs and unescape DN value, also
         // convert to output format and apply casefolding.
         foreach ($dn_array as $key => $value) {
@@ -107,10 +114,14 @@ class Horde_Ldap_Util
                 foreach ($rdns as $subrdn_k => $subrdn_v) {
                     // Casefolding.
                     if ($options['casefold'] == 'upper') {
-                        $subrdn_v = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $subrdn_v);
+                        $subrdn_v = preg_replace_callback('/^(\w+=)/',
+                                                          $callback_upper,
+                                                          $subrdn_v);
                     }
                     if ($options['casefold'] == 'lower') {
-                        $subrdn_v = preg_replace('/^(\w+=)/e', "Horde_String::lower('\\1')", $subrdn_v);
+                        $subrdn_v = preg_replace_callback('/^(\w+=)/',
+                                                          $callback_lower,
+                                                          $subrdn_v);
                     }
 
                     if ($options['onlyvalues']) {
@@ -129,10 +140,14 @@ class Horde_Ldap_Util
                 // Singlevalued RDN.
                 // Casefolding.
                 if ($options['casefold'] == 'upper') {
-                    $value = preg_replace('/^(\w+=)/e', "Horde_String::upper('\\1')", $value);
+                    $value = preg_replace_callback('/^(\w+=)/',
+                                                   $callback_upper,
+                                                   $value);
                 }
                 if ($options['casefold'] == 'lower') {
-                    $value = preg_replace('/^(\w+=)/e', "Horde_String::lower('\\1')", $value);
+                    $value = preg_replace_callback('/^(\w+=)/',
+                                                   $callback_lower,
+                                                   $value);
                 }
 
                 if ($options['onlyvalues']) {
@@ -504,7 +519,12 @@ class Horde_Ldap_Util
      */
     public static function hex2asc($string)
     {
-        return preg_replace('/\\\([0-9A-Fa-f]{2})/e', "chr(hexdec('\\1'))", $string);
+        return preg_replace(
+            '/\\\([0-9A-Fa-f]{2})/',
+            function($hex) {
+                return chr(hexdec($hex[1]));
+            },
+            $string);
     }
 
     /**

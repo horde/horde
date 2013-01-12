@@ -98,8 +98,15 @@ class Luxor_SimpleParse {
 
                 // Optimize for common case.
                 if (!empty($line)) {
-                    $line = preg_replace('/^(\t+)/e', "str_repeat(' ', $this->_tabwidth * strlen('\\1'))", $line);
-                    if (preg_match('/([^\t]*)\t/e', $line, $match)) {
+                    $tabwidth = $this->_tabwidth;
+                    $line = preg_replace_callback(
+                        '/^(\t+)/',
+                        function($spaces) use($tabwidth) {
+                            return str_repeat(' ', $tabwidth * strlen($spaces[1]));
+                        },
+                        $line
+                    );
+                    if (preg_match('/([^\t]*)\t/', $line, $match)) {
                         $tabs = str_repeat(' ', $this->_tabwidth - (strlen($match[1]) % $this->_tabwidth));
                         $line = preg_replace('/([^\t]*)\t/', '\1' . $tabs, $line);
                     }

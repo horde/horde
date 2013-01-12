@@ -124,7 +124,12 @@ EOR;
      */
     static public function decode($text)
     {
-        return preg_replace('/\01\01\01([\w=+\/]*)\01\01\01/e', 'base64_decode(\'$1\')', $text);
+        return preg_replace_callback(
+            '/\01\01\01([\w=+\/]*)\01\01\01/',
+            function($hex) {
+                return base64_decode($hex[1]);
+            },
+            $text);
     }
 
 }

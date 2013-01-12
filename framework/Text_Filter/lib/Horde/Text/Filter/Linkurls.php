@@ -174,7 +174,12 @@ END_OF_REGEX;
      */
     static public function decode($text)
     {
-        return preg_replace('/\00\00\00([\w=+\/]*)\00\00\00/e', 'base64_decode(\'$1\')', $text);
+        return preg_replace_callback(
+            '/\00\00\00([\w=+\/]*)\00\00\00/',
+            function($hex) {
+                return base64_decode($hex[1]);
+            },
+            $text);
     }
 
 }
