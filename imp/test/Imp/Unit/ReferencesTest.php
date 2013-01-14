@@ -77,4 +77,22 @@ class Imp_Unit_ReferencesTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug11953()
+    {
+        $refs = '<foo@example@example.com>';
+
+        $ob = new IMP_Compose_References();
+        $ob->parse($refs);
+
+        $this->assertEquals(
+            1,
+            count($ob->references)
+        );
+
+        $this->assertEquals(
+            $refs,
+            reset($ob->references)
+        );
+    }
+
 }

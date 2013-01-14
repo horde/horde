@@ -48,14 +48,47 @@ class IMP_Compose_References extends Horde_Mail_Rfc822
 
         while ($this->_curr() !== false) {
             try {
-                $this->references[] = '<' . trim(strval($this->_parseAngleAddr())) . '>';
-            } catch (Horde_Mail_Exception $e) {}
+                $this->references[] = $this->_parseMessageId();
+            } catch (Horde_Mail_Exception $e) {
+                break;
+            }
 
             // Some mailers incorrectly insert commas between reference items
             if ($this->_curr() == ',') {
                 $this->_rfc822SkipLwsp(true);
             }
         }
+    }
+
+    /**
+     * Message IDs are defined in RFC 5322 [3.6.4]. In short, they can only
+     * contain one '@' character. However, Outlook can produce invalid
+     * Message-IDs containing multiple '@' characters, which will fail the
+     * strict RFC checks.
+     *
+     * Since we don't care about the structure/details of the Message-ID,
+     * just do a basic parse that considers all characters inside of angled
+     * brackets to be valid.
+     *
+     * @return string  A full Message-ID (enclosed in angled brackets).
+     *
+     * @throws Horde_Mail_Exception
+     */
+    private function _parseMessageId()
+    {
+        if ($this->_curr(true) == '<') {
+            $str = '<';
+
+            while (($chr = $this->_curr(true)) !== false) {
+                $str .= $chr;
+                if ($chr == '>') {
+                    $this->_rfc822SkipLwsp();
+                    return $str;
+                }
+            }
+        }
+
+        throw new Horde_Mail_Exception('Invalid Message-ID.');
     }
 
 }
