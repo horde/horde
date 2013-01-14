@@ -2,6 +2,7 @@
 v6.0.4-git
 ----------
 
+[mms] Fix display of attachment name in basic compose screen (Bug #11947).
 
 
 ------
