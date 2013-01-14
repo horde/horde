@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Fix JavaScript error if Nag is not installed.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2058,7 +2058,7 @@
    <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Fix JavaScript error if Nag is not installed.
    </notes>
   </release>
  </changelog>

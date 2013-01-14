@@ -5412,7 +5412,9 @@ KronolithCore = {
     quickClose: function()
     {
         $('kronolithQuickinsertQ').value = '';
-        $('kronolithQuicktaskQ').value = '';
+        if ($('kronolithQuicktaskQ')) {
+            $('kronolithQuicktaskQ').value = '';
+        }
         this.closeRedBox();
     },
 
