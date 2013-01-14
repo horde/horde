@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//The Horde Project//Horde iCalendar Library//EN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:20041120-8550-innerjoin-org
+DTSTART;VALUE=DATE:20050503
+DTSTAMP;VALUE=DATE:20041120
+SUMMARY:Escaped Comma in Description Field
+DESCRIPTION:There is a comma (escaped with a baskslash) in this sentence
+  and some important words after it\, see anything here?
+ORGANIZER;CN="Klä,rchen; Mül:ler":mailto:mueller@example.org
+END:VEVENT
+END:VCALENDAR

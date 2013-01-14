@@ -33,8 +33,8 @@ class Horde_Editor_Ckeditor extends Horde_Editor
         }
 
         $ck_file = empty($params['basic'])
-            ? 'ckeditor.js'
-            : 'ckeditor_basic.js';
+            ? 'ckeditor/ckeditor.js'
+            : 'ckeditor/ckeditor_basic.js';
 
         if (isset($params['config'])) {
             if (is_array($params['config'])) {

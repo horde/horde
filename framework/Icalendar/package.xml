@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-09</date>
- <time>15:22:34</time>
+ <date>2013-01-11</date>
+ <time>21:32:50</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -36,7 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Convert test suite to PHPUnit.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -381,26 +381,37 @@
         <file name="wicca.ics" role="test" />
         <file name="wicca.txt" role="test" />
        </dir> <!-- /test/Horde/Icalendar/fixtures/vTimezone -->
+       <file name="bug7423.ics" role="test" />
+       <file name="charset1.ics" role="test" />
+       <file name="charset2.ics" role="test" />
+       <file name="charset3.ics" role="test" />
+       <file name="date.ics" role="test" />
+       <file name="empty.ics" role="test" />
+       <file name="escapes1.ics" role="test" />
+       <file name="escapes2.ics" role="test" />
+       <file name="geo1.vcf" role="test" />
+       <file name="geo2.vcf" role="test" />
+       <file name="line-folding-1.ics" role="test" />
+       <file name="line-folding-2.ics" role="test" />
+       <file name="line-folding-3.ics" role="test" />
+       <file name="line-folding-4.ics" role="test" />
+       <file name="line-folding-5.ics" role="test" />
+       <file name="line-folding-6.ics" role="test" />
+       <file name="org.vcf" role="test" />
+       <file name="quoted-params.ics" role="test" />
+       <file name="vcal20.ics" role="test" />
+       <file name="vfreebusy1.ics" role="test" />
+       <file name="vfreebusy2.ics" role="test" />
       </dir> <!-- /test/Horde/Icalendar/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="AttributeTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
-      <file name="bug_7423.phpt" role="test" />
-      <file name="charset1.phpt" role="test" />
-      <file name="common.php" role="test" />
-      <file name="empty_data.phpt" role="test" />
-      <file name="geo.phpt" role="test" />
-      <file name="iCalendar.phpt" role="test" />
-      <file name="line-folding.phpt" role="test" />
+      <file name="CharsetTest.php" role="test" />
+      <file name="ExportTest.php" role="test" />
+      <file name="FreeBusyTest.php" role="test" />
+      <file name="ParseTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
-      <file name="quoted-params.phpt" role="test" />
-      <file name="read-escapes.phpt" role="test" />
-      <file name="read-vcard-org.phpt" role="test" />
-      <file name="read-write-escapes.phpt" role="test" />
-      <file name="timezones.phpt" role="test" />
       <file name="TimezonesTest.php" role="test" />
-      <file name="vcal20.phpt" role="test" />
-      <file name="vfreebusy.phpt" role="test" />
-      <file name="write-escapes.phpt" role="test" />
      </dir> <!-- /test/Horde/Icalendar -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -584,24 +595,35 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" name="locale/zh_TW/LC_MESSAGES/Horde_Icalendar.po" />
    <install as="Horde/Icalendar/AllTests.php" name="test/Horde/Icalendar/AllTests.php" />
+   <install as="Horde/Icalendar/AttributeTest.php" name="test/Horde/Icalendar/AttributeTest.php" />
    <install as="Horde/Icalendar/bootstrap.php" name="test/Horde/Icalendar/bootstrap.php" />
-   <install as="Horde/Icalendar/bug_7423.phpt" name="test/Horde/Icalendar/bug_7423.phpt" />
-   <install as="Horde/Icalendar/charset1.phpt" name="test/Horde/Icalendar/charset1.phpt" />
-   <install as="Horde/Icalendar/common.php" name="test/Horde/Icalendar/common.php" />
-   <install as="Horde/Icalendar/empty_data.phpt" name="test/Horde/Icalendar/empty_data.phpt" />
-   <install as="Horde/Icalendar/geo.phpt" name="test/Horde/Icalendar/geo.phpt" />
-   <install as="Horde/Icalendar/iCalendar.phpt" name="test/Horde/Icalendar/iCalendar.phpt" />
-   <install as="Horde/Icalendar/line-folding.phpt" name="test/Horde/Icalendar/line-folding.phpt" />
+   <install as="Horde/Icalendar/CharsetTest.php" name="test/Horde/Icalendar/CharsetTest.php" />
+   <install as="Horde/Icalendar/ExportTest.php" name="test/Horde/Icalendar/ExportTest.php" />
+   <install as="Horde/Icalendar/FreeBusyTest.php" name="test/Horde/Icalendar/FreeBusyTest.php" />
+   <install as="Horde/Icalendar/ParseTest.php" name="test/Horde/Icalendar/ParseTest.php" />
    <install as="Horde/Icalendar/phpunit.xml" name="test/Horde/Icalendar/phpunit.xml" />
-   <install as="Horde/Icalendar/quoted-params.phpt" name="test/Horde/Icalendar/quoted-params.phpt" />
-   <install as="Horde/Icalendar/read-escapes.phpt" name="test/Horde/Icalendar/read-escapes.phpt" />
-   <install as="Horde/Icalendar/read-vcard-org.phpt" name="test/Horde/Icalendar/read-vcard-org.phpt" />
-   <install as="Horde/Icalendar/read-write-escapes.phpt" name="test/Horde/Icalendar/read-write-escapes.phpt" />
-   <install as="Horde/Icalendar/timezones.phpt" name="test/Horde/Icalendar/timezones.phpt" />
    <install as="Horde/Icalendar/TimezonesTest.php" name="test/Horde/Icalendar/TimezonesTest.php" />
-   <install as="Horde/Icalendar/vcal20.phpt" name="test/Horde/Icalendar/vcal20.phpt" />
-   <install as="Horde/Icalendar/vfreebusy.phpt" name="test/Horde/Icalendar/vfreebusy.phpt" />
-   <install as="Horde/Icalendar/write-escapes.phpt" name="test/Horde/Icalendar/write-escapes.phpt" />
+   <install as="Horde/Icalendar/fixtures/bug7423.ics" name="test/Horde/Icalendar/fixtures/bug7423.ics" />
+   <install as="Horde/Icalendar/fixtures/charset1.ics" name="test/Horde/Icalendar/fixtures/charset1.ics" />
+   <install as="Horde/Icalendar/fixtures/charset2.ics" name="test/Horde/Icalendar/fixtures/charset2.ics" />
+   <install as="Horde/Icalendar/fixtures/charset3.ics" name="test/Horde/Icalendar/fixtures/charset3.ics" />
+   <install as="Horde/Icalendar/fixtures/date.ics" name="test/Horde/Icalendar/fixtures/date.ics" />
+   <install as="Horde/Icalendar/fixtures/empty.ics" name="test/Horde/Icalendar/fixtures/empty.ics" />
+   <install as="Horde/Icalendar/fixtures/escapes1.ics" name="test/Horde/Icalendar/fixtures/escapes1.ics" />
+   <install as="Horde/Icalendar/fixtures/escapes2.ics" name="test/Horde/Icalendar/fixtures/escapes2.ics" />
+   <install as="Horde/Icalendar/fixtures/geo1.vcf" name="test/Horde/Icalendar/fixtures/geo1.vcf" />
+   <install as="Horde/Icalendar/fixtures/geo2.vcf" name="test/Horde/Icalendar/fixtures/geo2.vcf" />
+   <install as="Horde/Icalendar/fixtures/line-folding-1.ics" name="test/Horde/Icalendar/fixtures/line-folding-1.ics" />
+   <install as="Horde/Icalendar/fixtures/line-folding-2.ics" name="test/Horde/Icalendar/fixtures/line-folding-2.ics" />
+   <install as="Horde/Icalendar/fixtures/line-folding-3.ics" name="test/Horde/Icalendar/fixtures/line-folding-3.ics" />
+   <install as="Horde/Icalendar/fixtures/line-folding-4.ics" name="test/Horde/Icalendar/fixtures/line-folding-4.ics" />
+   <install as="Horde/Icalendar/fixtures/line-folding-5.ics" name="test/Horde/Icalendar/fixtures/line-folding-5.ics" />
+   <install as="Horde/Icalendar/fixtures/line-folding-6.ics" name="test/Horde/Icalendar/fixtures/line-folding-6.ics" />
+   <install as="Horde/Icalendar/fixtures/org.vcf" name="test/Horde/Icalendar/fixtures/org.vcf" />
+   <install as="Horde/Icalendar/fixtures/quoted-params.ics" name="test/Horde/Icalendar/fixtures/quoted-params.ics" />
+   <install as="Horde/Icalendar/fixtures/vcal20.ics" name="test/Horde/Icalendar/fixtures/vcal20.ics" />
+   <install as="Horde/Icalendar/fixtures/vfreebusy1.ics" name="test/Horde/Icalendar/fixtures/vfreebusy1.ics" />
+   <install as="Horde/Icalendar/fixtures/vfreebusy2.ics" name="test/Horde/Icalendar/fixtures/vfreebusy2.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.ics" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.ics" />
    <install as="Horde/Icalendar/fixtures/vTimezone/allcategories.txt" name="test/Horde/Icalendar/fixtures/vTimezone/allcategories.txt" />
    <install as="Horde/Icalendar/fixtures/vTimezone/arsenal32FC.ics" name="test/Horde/Icalendar/fixtures/vTimezone/arsenal32FC.ics" />
@@ -1031,10 +1053,10 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Convert test suite to PHPUnit.
    </notes>
   </release>
  </changelog>

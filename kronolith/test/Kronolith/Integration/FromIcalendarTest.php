@@ -94,6 +94,19 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
         unset($GLOBALS['conf']);
     }
 
+    public function testInvalidTimezone()
+    {
+        $this->markTestIncomplete();
+
+        $GLOBALS['conf']['calendar']['driver'] = 'Mock';
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
+        $event = $this->_getFixture('bug11688.ics', 1);
+        $event->start->toDateTime();
+
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['conf']);
+    }
+
     private function _getFixture($name, $item = 0)
     {
         $iCal = new Horde_Icalendar();

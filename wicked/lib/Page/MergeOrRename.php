@@ -99,6 +99,10 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
 
         $references = $wicked->getBackLinks($referrer);
 
+        $callback = function($string) {
+            return '=' . str_pad(dechex(ord($string[1])), 2, '0', STR_PAD_LEFT);
+        };
+
         foreach ($references as $key => $page) {
             $references[$key]['page_url'] = htmlspecialchars(Wicked::url($page['page_name']));
             $references[$key]['page_name'] = htmlspecialchars($page['page_name']);
@@ -106,7 +110,11 @@ class Wicked_Page_MergeOrRename extends Wicked_Page {
             // Since the page name can have [ and ] and other special
             // characters in it, and we don't want the browser or PHP decoding
             // it, we encode it in quoted printable for the checkbox names.
-            $references[$key]['checkbox'] = preg_replace('/([^a-zA-Z_0-9 ])/e', '"=" . str_pad(dechex(ord(\'\\1\')), 2, \'0\', STR_PAD_LEFT)', $page['page_name']);
+            $references[$key]['checkbox'] = preg_replace_callback(
+                '/([^a-zA-Z_0-9 ])/',
+                $callback,
+                $page['page_name']
+            );
         }
 
         $template->set('references', $references);

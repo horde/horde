@@ -1078,7 +1078,9 @@ abstract class Kronolith_Event
                           'mday'  => (int)$start['mday']),
                     $tzid);
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         try {
             $end = $vEvent->getAttribute('DTEND');

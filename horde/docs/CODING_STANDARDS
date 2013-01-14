@@ -745,8 +745,7 @@ constants as well.
 eval and create_function - Obvious danger if user input is supplied to
 it in uncontrolled conditions.
 
-preg_replace - The /e modifier causes the replacement string to be
-evaluated as PHP code.
+preg_replace - The /e modifier is deprecated and must no longer be used.
 
 Command Execution:
 ------------------

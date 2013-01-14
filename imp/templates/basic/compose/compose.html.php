@@ -318,7 +318,7 @@
   <tr class="item">
    <td>
     <img style="padding-right:5px" src="<?php echo $v['icon'] ?>" />
-    <strong><?php echo $this->h($v['name']) ?></strong>
+    <strong><?php echo $v['name'] ?></strong>
 <?php if ($v['fwdattach']): ?>
     (<strong><?php echo _("Size") ?>:</strong>
     <?php echo $v['size'] . ' ' . _("KB") ?>)

@@ -291,7 +291,12 @@ class Horde_Mime
             case 'Q':
             case 'q':
                 $out .= Horde_String::convertCharset(
-                    preg_replace('/=([0-9a-f]{2})/ie', 'chr(0x\1)', str_replace('_', ' ', $encoded_text)),
+                    preg_replace_callback(
+                        '/=([0-9a-f]{2})/i',
+                        function($ord) {
+                            return chr(hexdec($ord[1]));
+                        },
+                        str_replace('_', ' ', $encoded_text)),
                     $orig_charset,
                     'UTF-8'
                 );

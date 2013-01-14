@@ -1043,7 +1043,7 @@ if ($redirect) {
                         'class' => 'link',
                         'target' => 'compose_preview_window',
                         'title' => _("Preview")
-                    )) . $entry['name'] . '</a>';
+                    )) . htmlspecialchars($entry['name']) . '</a>';
                 }
 
                 $atc[] = $entry;
