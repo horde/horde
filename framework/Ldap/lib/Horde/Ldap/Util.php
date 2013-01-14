@@ -519,7 +519,7 @@ class Horde_Ldap_Util
      */
     public static function hex2asc($string)
     {
-        return preg_replace(
+        return preg_replace_callback(
             '/\\\([0-9A-Fa-f]{2})/',
             function($hex) {
                 return chr(hexdec($hex[1]));
