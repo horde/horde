@@ -61,7 +61,12 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     public function smartmobileFolderTree()
     {
         $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-        $imptree->setIteratorFilter($this->vars->all ? 0 : Imp_Imap_Tree::FLIST_POLLED);
+
+        $mask = $imptree::FLIST_VFOLDER;
+        if (!$this->vars->all) {
+            $mask |= $imptree::FLIST_POLLED;
+        }
+        $imptree->setIteratorFilter($mask);
 
         return $imptree->createTree($this->vars->all ? 'smobile_folders_all' : 'smobile_folders', array(
             'poll_info' => true,
