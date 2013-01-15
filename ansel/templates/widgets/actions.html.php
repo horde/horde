@@ -25,6 +25,27 @@
         <?php if (!empty($this->captions_url)): ?>
           <li><?php echo $this->captions_url . Horde::img('text.png') . ' ' . _("Set captions") ?></a></li>
         <?php endif; ?>
+        <?php if (!empty($this->sort_url)): ?>
+          <li><?php echo $this->sort_url . Horde::img('arrow_switch.png') . ' ' . _("Sort photos") ?></a></li>
+        <?php endif; ?>
+        <li><?php echo $this->regenerate_url . Horde::img('reload.png') . ' ' . _("Reset all thumbnails")?></a></li>
+        <li><?php echo $this->regenerate_all . Horde::img('reload.png') . ' ' . _("Regenerate all photo views")?></a></li>
+        <?php if (!empty($this->faces_url)): ?>
+          <li><?php echo $this->faces_url . Horde::img('user.png') . ' ' . _("Find faces") ?></a></li>
+        <?php endif; ?>
+        <?php if (!empty($this->gendefault_url)): ?>
+          <li><?php echo $this->gendefault_url . Horde::img('reload.png') . ' ' . _("Reset default photo") ?></a></li>
+        <?php endif; ?>
+      <?php endif; ?>
+      <?php if (!empty($this->perms_link)): ?>
+        <li><?php echo $this->perms_link . Horde::img('perms.png') . ' ' . _("Set permissions")?></a></li>
+      <?php endif; ?>
+      <?php if (!empty($this->report_url)): ?>
+        <li><?php echo $this->report_url . _("Report") ?></a></li>
+      <?php endif; ?>
+      <?php if (!empty($this->have_delete)): ?>
+        <li><?php echo $this->deleteall_url . Horde::img('delete.png') . ' ' . _("Delete All Photos")?></a></li>
+        <li><?php echo $this->deletegallery_url . Horde::img('delete.png', 'horde') . ' ' . _("Delete Entire Gallery")?></a></li>
       <?php endif; ?>
       </ul>
     </div>
