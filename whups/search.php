@@ -14,7 +14,7 @@
  */
 function _getSearchUrl($vars)
 {
-    $qUrl = Horde::url();
+    $qUrl = new Horde_Url();
 
     $queue = (int)$vars->get('queue');
     $qUrl->add(array('queue' => $queue));
