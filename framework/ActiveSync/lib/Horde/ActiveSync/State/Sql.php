@@ -220,10 +220,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Load the previous syncState from storage
         try {
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
-                . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
+                . $this->_syncStateTable . ' WHERE sync_key = ?', array($syncKey));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
+        }
+
+        if (empty($results)) {
+            $this->_logger->err(sprintf(
+                "[%s] Could not find state for synckey %s.",
+                $this->_procid,
+                $syncKey));
+            throw new Horde_ActiveSync_Exception_StateGone();
         }
 
         $this->_loadStateFromResults($results, $type);
@@ -239,10 +247,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
-        if (!$results) {
-            throw new Horde_ActiveSync_Exception_StateGone();
-        }
-
         // Load the last known sync time for this collection
         $this->_lastSyncTS = !empty($results['sync_time'])
             ? $results['sync_time']
