@@ -11,11 +11,7 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+Whups::addTopbarSearch();
 
 /* Supported graph types. Unused at the moment. */
 $graphs = array('open|queue_name' => array('chart', _("Open Tickets by Queue")),

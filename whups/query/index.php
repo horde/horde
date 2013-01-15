@@ -19,11 +19,8 @@ $qManager = new Whups_Query_Manager();
 $showEditQuery = true;
 $showExtraForm = null;
 
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+Whups::addTopbarSearch();
+
 // Find our current query.
 if ($whups_query = $session->get('whups', 'query')) {
     if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

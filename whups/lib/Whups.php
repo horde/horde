@@ -379,7 +379,7 @@ class Whups
     {
         $default = Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
         $id = Horde_Util::getFormData('searchfield');
-        if(empty($id)) {
+        if (empty($id)) {
             $id = Horde_Util::getFormData('id');
         }
         $id = preg_replace('|\D|', '', $id);
@@ -400,6 +400,16 @@ class Whups
             $GLOBALS['notification']->push($e);
             $default->redirect();
         }
+    }
+
+    /**
+     * Adds topbar search to page
+     */
+    static public function addTopbarSearch() {
+        $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+        $topbar->search = true;
+        $topbar->searchAction = Horde::url('ticket');
+        $topbar->searchLabel =  $GLOBALS['session']->get('whups', 'search') ?: _("Ticket #Id");
     }
 
     /**

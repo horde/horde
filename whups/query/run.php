@@ -31,11 +31,7 @@ try {
     $notification->push($e->getMessage());
 }
 
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+Whups::addTopbarSearch();
 
 // If we have an error, or if we still don't have a query, or if we don't have
 // read permissions on the requested query, go to the initial Whups page.

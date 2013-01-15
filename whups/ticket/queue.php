@@ -22,11 +22,8 @@ if ($form != 'whups_form_queue_stepone') {
     $v = $vars->get('version');
     $t = $vars->get('type');
 }
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
+Whups::addTopbarSearch();
 
 // Get all ticket details from storage, then override any values that are
 // in the process of being edited.

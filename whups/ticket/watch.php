@@ -18,11 +18,8 @@ $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
+Whups::addTopbarSearch();
 
 $addform = new Whups_Form_AddListener($vars, _("Add Watcher"));
 $delform = new Whups_Form_DeleteListener($vars, _("Remove Watcher"));

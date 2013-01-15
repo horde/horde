@@ -13,11 +13,7 @@ Horde_Registry::appInit('whups', array(
     'permission' => array('whups:admin', Horde_Perms::EDIT)
 ));
 
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+Whups::addTopbarSearch();
 
 // Set up the page config vars.
 $showExtraForm = null;

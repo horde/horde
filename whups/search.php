@@ -14,7 +14,7 @@
  */
 function _getSearchUrl($vars)
 {
-    $qUrl = new Horde_Url();
+    $qUrl = Horde::url();
 
     $queue = (int)$vars->get('queue');
     $qUrl->add(array('queue' => $queue));
@@ -54,11 +54,8 @@ if (Horde_Util::getFormData('sortby') !== null) {
 if (Horde_Util::getFormData('sortdir') !== null) {
     $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
 }
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
+Whups::addTopbarSearch();
 
 $form = new Whups_Form_Search($vars);
 $results = null;

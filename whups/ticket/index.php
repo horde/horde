@@ -20,11 +20,7 @@ $ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
 $page_output->addLinkTag($ticket->feedLink());
 
-$topbar = $injector->getInstance('Horde_View_Topbar');
-$topbar->search = true;
-$topbar->searchAction = new Horde_Url('../ticket');
-$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
-$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+Whups::addTopbarSearch();
 
 Whups::addFeedLink();
 $page_output->header(array(
