@@ -2958,14 +2958,13 @@ KronolithCore = {
             case 'holiday':
                 $('kronolithCalendarholidayDriver').update();
                 $H(Kronolith.conf.calendars.holiday).each(function(calendar) {
-                    calendar = calendar.value;
-                    if (calendar.show) {
+                    if (calendar.value.show) {
                         return;
                     }
                     $('kronolithCalendarholidayDriver').insert(
-                        new Element('option', { value: calendar.name })
-                            .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
-                            .insert(calendar.name.escapeHTML())
+                        new Element('option', { value: calendar.key })
+                            .setStyle({ color: calendar.value.fg, backgroundColor: calendar.value.bg })
+                            .insert(calendar.value.name.escapeHTML())
                     );
                 });
                 break;
