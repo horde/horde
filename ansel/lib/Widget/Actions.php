@@ -47,12 +47,6 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         $id = $this->_view->gallery->id;
         $galleryurl = Horde::url('gallery.php')->add('gallery', $id);
 
-        if ($this->_view->gallery->hasFeature('upload')) {
-            $uploadurl = Horde::url('img/upload.php')->add(
-                array('gallery' => $id,
-                      'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
-        }
-
         // Slideshow
         if (empty($this->_params['hide_slideshow']) &&
             $this->_view->gallery->hasFeature('slideshow') &&
@@ -60,30 +54,37 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
             // Slideshow link
             if (!empty($this->_params['slideshow_link'])) {
-                $view->slideshow_url = str_replace(array('%i', '%g'),
-                                             array(array_pop($this->_view->gallery->listImages(0, 1)), $id),
-                                             urldecode($this->_params['slideshow_link']));
+                $view->slideshow_url = str_replace(
+                    array('%i', '%g'),
+                    array(array_pop($this->_view->gallery->listImages(0, 1)), $id),
+                    urldecode($this->_params['slideshow_link']));
             } else {
                 // Get any date info the gallery has
                 $date = $this->_view->gallery->getDate();
-                $view->slideshow_url = Horde::url('view.php')->add(
-                    array_merge(array('gallery' => $id,
-                                      'image' => array_pop($this->_view->gallery->listImages(0, 1)),
-                                      'view' => 'Slideshow'),
-                                $date));
+                $view->slideshow_url = Horde::url('view.php')
+                    ->add(array_merge(
+                        array('gallery' => $id,
+                              'image' => array_pop($this->_view->gallery->listImages(0, 1)),
+                              'view' => 'Slideshow'),
+                        $date));
             }
         }
 
         // Upload and new subgallery Urls
-        if (!empty($uploadurl) && $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $view->uploadurl_link = $uploadurl->link(array('class' => 'widget'));
+        if ($this->_view->gallery->hasFeature('upload') &&
+            $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
 
-            /* Subgalleries */
+            Horde::url('img/upload.php')->add(array(
+                'gallery' => $id,
+                'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0)
+            )->link(array('class' => 'widget'));
+
             if ($this->_view->gallery->hasFeature('subgalleries')) {
-                $view->subgallery_link = $galleryurl->copy()->add('actionID', 'addchild')->link(array('class' => 'widget'));
+                $view->subgallery_link = $galleryurl->copy()
+                    ->add('actionID', 'addchild')
+                    ->link(array('class' => 'widget'));
             }
         }
-
         $this->_getGalleryActions($view);
 
         return $view->render('actions');
