@@ -231,9 +231,6 @@ class IMP
 
         $args = array_merge(self::_decodeMailto($args), $extra);
         $callback = $raw = false;
-        $uid = isset($args['uid'])
-            ? $args['uid']
-            : null;
         $view = $GLOBALS['registry']->getView();
 
         if ($simplejs || ($view == Horde_Registry::VIEW_DYNAMIC)) {
@@ -259,12 +256,11 @@ class IMP
         }
 
         if (isset($args['mailbox'])) {
-            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
+            $url = IMP_Mailbox::get($args['mailbox'])->url($url, $args['buid']);
+            unset($args['buid'], $args['mailbox']);
         } elseif (!($url instanceof Horde_Url)) {
             $url = Horde::url($url);
         }
-
-        unset($args['mailbox'], $args['uid']);
 
         $url->setRaw($raw)->add($args);
         if ($callback) {

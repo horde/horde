@@ -873,7 +873,8 @@ while (list(,$ob) = each($mbox_info['overview'])) {
     if ($mailbox->drafts || $mailbox->templates) {
         $target = IMP::composeLink(array(), array(
             'actionID' => ($mailbox->drafts ? 'draft' : 'template'),
-            'muid' => strval(new IMP_Indices($ob['mailbox'], $ob['uid']))
+            'buid' => $msg['buid'],
+            'mailbox' => $mailbox
         ));
     } else {
         $target = $mailbox->url('message.php', $msg['buid']);

@@ -166,7 +166,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
             if (!isset($msg['target'])) {
                 $msg['target'] = IMP::composeLink(array(), array(
                     'a' => $compose,
-                    'buid' => $ob['buid'],
+                    'buid' => $msg['buid'],
                     'bodypart' => 1,
                     'mailbox' => $this->indices->mailbox
                 ));

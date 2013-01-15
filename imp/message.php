@@ -536,10 +536,7 @@ $compose_params = array(
     'mailbox' => $mailbox
 );
 if (!$prefs->getValue('compose_popup')) {
-    $compose_params += array(
-        'mailbox' => $mailbox,
-        'start' => $msgindex
-    );
+    $compose_params['start'] = $msgindex;
 }
 
 if ($msg_index['m']->access_deletemsgs) {
