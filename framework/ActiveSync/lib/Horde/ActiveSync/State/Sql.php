@@ -211,6 +211,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             throw new Horde_ActiveSync_Exception('Invalid sync key');
         }
+
         $this->_syncKey = $syncKey;
 
         // Cleanup older syncstates
