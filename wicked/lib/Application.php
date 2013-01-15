@@ -36,7 +36,7 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (2.0-git)';
+    public $version = 'H5 (2.1-git)';
 
     protected function _bootstrap()
     {
@@ -63,6 +63,7 @@ class Wicked_Application extends Horde_Registry_Application
                            'Wiki/Usage' => _("_Usage"),
                            'RecentChanges' => _("_Recent Changes"),
                            'AllPages' => _("_All Pages"));
+
             foreach ($conf['menu']['pages'] as $pagename) {
                 /* Determine who we should say referred us. */
                 $curpage = isset($page) ? $page->pageName() : null;
@@ -79,7 +80,17 @@ class Wicked_Application extends Horde_Registry_Application
                 }
 
                 $url = Wicked::url($pagename)->add('referrer', $referrer);
-                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
+                $css_class = sprintf(
+                  "wicked_%s",
+                  strtolower(
+                    str_replace(
+                      ' ',
+                      '_',
+                      str_replace('_', '', $pages[$pagename])
+                    )
+                  )
+                );
+                $menu->add($url, $pages[$pagename], $css_class);
             }
         }
     }
