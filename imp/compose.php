@@ -17,7 +17,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC,
-    'session_control' => 'netscape'
+    'session_control' => 'netscape',
+    'timezone' => true
 ));
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -35,8 +36,6 @@ if ($vars->actionID == 'mailto_link') {
         exit;
     }
 }
-
-$registry->setTimeZone();
 
 /* The message headers and text. */
 $header = array();

@@ -23,10 +23,9 @@ function _returnToMailbox($startIndex = null, $actID = null)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
-
-$registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear

@@ -28,14 +28,13 @@ function _outputSummaries($msgs, Horde_View $view)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
 
 if (!IMP::mailbox()) {
     throw new IMP_Exception(_("Invalid mailbox."));
 }
-
-$registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
 try {

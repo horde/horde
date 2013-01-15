@@ -21,7 +21,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'authentication' => 'none',
-    'session_control' => 'none'
+    'session_control' => 'none',
+    'timezone' => true
 ));
 
 // Lets see if we are even able to send the user an attachment.
@@ -84,7 +85,6 @@ if ($conf['compose']['link_attachments_notify']) {
             /* Ignore missing addresses, which are returned as <>. */
             if (strlen($mail_address) > 2) {
                 $mail_address_full = $mail_identity->getDefaultFromAddress(true);
-                $registry->setTimeZone();
                 $registry->setLanguageEnvironment();
 
                 /* Set up the mail headers and read the log file. */
