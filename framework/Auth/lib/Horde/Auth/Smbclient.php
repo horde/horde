@@ -35,7 +35,9 @@ class Horde_Auth_Smbclient extends Horde_Auth_Base
     public function __construct(array $params = array())
     {
         foreach (array('hostspec', 'domain', 'smbclient_path') as $val) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            if (empty($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
 
         parent::__construct($params);
