@@ -190,3 +190,10 @@ span.match {
 .wicked_all_pages {
     background: url(graphics/AllPages.png) no-repeat center;
 }
+
+.newArticleForm {
+    width: 30em;
+    padding: 1em;
+    background: #ffc;
+    border: 1px solid #ccc;
+}

@@ -18,6 +18,10 @@ if (!defined('WICKED_BASE')) {
     define('WICKED_BASE', __DIR__ . '/..');
 }
 
+/* if (!defined('WICKED_TEMPLATES')) { */
+/*     define('WICKED_TEMPLATES', __DIR__ . '/..'); */
+/* } */
+
 if (!defined('HORDE_BASE')) {
     /* If Horde does not live directly under the app directory, the HORDE_BASE
      * constant should be defined in config/horde.local.php. */
@@ -178,6 +182,26 @@ class Wicked_Application extends Horde_Registry_Application
             'file' => $vars->file,
             'type' => $type
         );
+    }
+
+    public function sidebar($sidebar) {
+
+      global $display_tasklists, $page_output, $prefs;
+
+      $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+      $page_output->addScriptFile('redbox.js', 'horde');
+      $page_output->addScriptFile('new_article.js');
+
+
+      $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+      $sidebar->addNewButton(
+        _("_New Task"),
+        Horde::url('task.php')->add('actionID', 'add_task'),
+        array('id' => 'newEventButton')
+      );
+
+      require_once(WICKED_TEMPLATES . '/new_article.inc');
+
     }
 
 }
