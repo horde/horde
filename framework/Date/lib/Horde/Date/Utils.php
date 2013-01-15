@@ -55,7 +55,11 @@ class Horde_Date_Utils
     {
         static $cache = array();
         if (!isset($cache[$year][$month])) {
-            $date = new DateTime(sprintf('%04d-%02d-01', $year, $month));
+            try {
+                $date = new DateTime(sprintf('%04d-%02d-01', $year, $month));
+            } catch (Exception $e) {
+                throw new Horde_Date_Exception($e);
+            }
             $cache[$year][$month] = $date->format('t');
         }
         return $cache[$year][$month];

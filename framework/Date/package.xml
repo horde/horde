@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -882,7 +882,7 @@
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
    </notes>
   </release>
  </changelog>
