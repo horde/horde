@@ -85,7 +85,6 @@ if ($conf['compose']['link_attachments_notify']) {
             /* Ignore missing addresses, which are returned as <>. */
             if (strlen($mail_address) > 2) {
                 $mail_address_full = $mail_identity->getDefaultFromAddress(true);
-                $registry->setLanguageEnvironment();
 
                 /* Set up the mail headers and read the log file. */
                 $msg_headers = new Horde_Mime_Headers();
