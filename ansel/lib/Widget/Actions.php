@@ -1,4 +1,13 @@
 <?php
+ /**
+  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+  *
+  * See the enclosed file COPYING for license information (GPL). If you
+  * did not receive this file, see http://www.horde.org/licenses/gpl.
+  *
+  * @author Michael J Rubinsky <mrubinsk@horde.org>
+  * @package Ansel
+  */
 /**
  * Ansel_Widget_Actions:: class to wrap the display of gallery actions
  *
@@ -7,9 +16,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @TODO: Use Horde_View for html template output.
- *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 class Ansel_Widget_Actions extends Ansel_Widget_Base
@@ -24,7 +31,6 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
      */
     public function __construct($params)
     {
-        $this->_title = _("Gallery Actions");
         parent::__construct($params);
     }
 
@@ -34,7 +40,18 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
      */
     public function html()
     {
-        $html = $this->_htmlBegin();
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = _("Gallery Actions");
+        $view->background = $this->_style->background;
+        $view->toggle_url = Horde::selfUrl(true, true)
+            ->add('actionID', 'show_actions')
+            ->link(array(
+                'id' => 'gallery-actions-toggle',
+                'class' => ($GLOBALS['prefs']->getValue('show_actions') ? 'hide' : 'show')
+            )
+        );
+
         $id = $this->_view->gallery->id;
         $galleryurl = Horde::url('gallery.php')->add('gallery', $id);
 
@@ -44,47 +61,40 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                       'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
         }
 
-        $html .= '<ul style="list-style-type:none;">';
+        // Slideshow
         if (empty($this->_params['hide_slideshow']) &&
             $this->_view->gallery->hasFeature('slideshow') &&
             $this->_view->gallery->countImages()) {
 
-            /* Slideshow link */
+            // Slideshow link
             if (!empty($this->_params['slideshow_link'])) {
-                $slideshow_url = str_replace(array('%i', '%g'),
+                $view->slideshow_url = str_replace(array('%i', '%g'),
                                              array(array_pop($this->_view->gallery->listImages(0, 1)), $id),
                                              urldecode($this->_params['slideshow_link']));
             } else {
                 /* Get any date info the gallery has */
                 $date = $this->_view->gallery->getDate();
-                $slideshow_url = Horde::url('view.php')->add(
+                $view->slideshow_url = Horde::url('view.php')->add(
                     array_merge(array('gallery' => $id,
                                       'image' => array_pop($this->_view->gallery->listImages(0, 1)),
                                       'view' => 'Slideshow'),
                                 $date));
             }
-            $html .= '<li>' . $slideshow_url->link(array('class' => 'widget')) . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") . '</a></li>';
         }
 
-        /* Upload and new subgallery Urls */
+        // Upload and new subgallery Urls
         if (!empty($uploadurl) && $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $html .= '<li>' . $uploadurl->link(array('class' => 'widget')) . Horde::img('image_add.png') . ' ' . _("Upload photos") . '</a></li>';
+            $view->uploadurl_link = $uploadurl->link(array('class' => 'widget'));
 
             /* Subgalleries */
             if ($this->_view->gallery->hasFeature('subgalleries')) {
-                $html .= '<li>' . $galleryurl->copy()->add('actionID', 'addchild')->link(array('class' => 'widget')) . Horde::img('add.png', '[icon]') . ' ' . _("Create a subgallery") . '</a></li>';
+                $view->subgallery_link = $galleryurl->copy()->add('actionID', 'addchild')->link(array('class' => 'widget'));
             }
         }
-        $html .= '</ul>';
-        $html .= $this->_getGalleryActions();
 
-        $selfurl = Horde::selfUrl(true, true);
-        $html .=  '<div class="control">'
-                 . $selfurl->add('actionID', 'show_actions')->link(array('id' => 'gallery-actions-toggle', 'class' => ($GLOBALS['prefs']->getValue('show_actions') ? 'hide' : 'show')))
-                 . '&nbsp;</a></div>' . "\n";
+        $this->_getGalleryActions($view);
 
-        $html .= $this->_htmlEnd();
-        return $html;
+        return $view->render('actions');
     }
 
     /**
@@ -92,24 +102,25 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
      *
      * @return string  The HTML
      */
-    protected function _getGalleryActions()
+    protected function _getGalleryActions($view)
     {
         global $registry, $conf;
 
         $id = $this->_view->gallery->id;
         $galleryurl = Horde::url('gallery.php')->add('gallery', $id);
         $selfurl = Horde::selfUrl(true, false, true);
-        $count = $this->_view->gallery->countImages();
+        $view->count = $count = $this->_view->gallery->countImages();
+
         $date = $this->_view->gallery->getDate();
 
-        $html = '<div style="display:' . (($GLOBALS['prefs']->getValue('show_actions')) ? 'block' : 'none') . ';" id="gallery-actions">';
+        //$html = '<div style="display:' . (($GLOBALS['prefs']->getValue('show_actions')) ? 'block' : 'none') . ';" id="gallery-actions">';
 
-        /* Attach the ajax action */
-        Horde::startBuffer();
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleGalleryActions', array(
-            'id' => 'gallery-actions'
-        ));
-        $html .= Horde::endBuffer();
+        // /* Attach the ajax action */
+        // //Horde::startBuffer();
+        // $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleGalleryActions', array(
+        //     'id' => 'gallery-actions'
+        // ));
+        // $html .= Horde::endBuffer();
 
         /* Buid the url parameters to the zip link */
         $view_params = array(
@@ -121,39 +132,37 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         /* Append the date information to the parameters if we need it */
         $view_params = array_merge($view_params, $date);
 
-        $html .= '<ul style="list-style-type:none;">';
-
-        /* Bookmark link */
+        // Bookmark link
         if ($registry->hasMethod('bookmarks/getAddUrl')) {
             $api_params = array(
                 'url' => Ansel::getUrlFor('view', $view_params, true),
                 'title' => $this->_view->gallery->get('name'));
 
             try {
-                $url = new Horde_Url($registry->bookmarks->getAddUrl($api_params));
-                $html .= '<li>' . $url->link(array('class' => 'widget')) . Horde::img('trean.png') . ' ' . _("Add to bookmarks") . '</a></li>';
+                $view->bookmark_url = new Horde_Url($registry->bookmarks->getAddUrl($api_params));
             } catch (Horde_Exception $e) {}
         }
 
-        /* Download as ZIP link */
+        // Download as ZIP link
         if (!empty($conf['gallery']['downloadzip']) &&
             $this->_view->gallery->canDownload() &&
             $count &&
             $this->_view->gallery->hasFeature('zipdownload')) {
 
             $zip_params = array_merge(array('actionID' => 'downloadzip'), $date);
-            $html .= '<li>' . $galleryurl->copy()->add($zip_params)->link(array('class' => 'widget')) . Horde::img('mime/compressed.png') . ' ' .  _("Download as zip file") . '</a></li>';
+            $view->zip_url = $galleryurl->copy()->add($zip_params)->link(array('class' => 'widget'));
         }
 
-        /* Image upload, subgalleries, captions etc... */
+        // Image upload, subgalleries, captions etc..
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            /* Properties */
-            $html .= '<li>' . $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => $selfurl))->link(array('class' => 'widget')) . Horde::img('edit.png') . ' ' . _("Change properties") . '</a></li>';
+            // @TODO:
+            $view->hasEdit = true;
+            $view->properties_url = $galleryurl->copy()->add(array('actionID' => 'modify', 'url' => $selfurl))->link(array('class' => 'widget'));
             if ($count) {
-                /* Captions */
+
                 if ($this->_view->gallery->hasFeature('image_captions')) {
                     $params = array_merge(array('gallery' => $id), $date);
-                    $html .= '<li>' . Horde::url('gallery/captions.php')->add($params)->link(array('class' => 'widget')) . Horde::img('text.png') . ' ' . _("Set captions") . ' ' . '</a></li>';
+                    $view->captions_url = Horde::url('gallery/captions.php')->add($params)->link(array('class' => 'widget'));
                 }
 
                 /* Sort */
