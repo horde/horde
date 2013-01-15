@@ -590,28 +590,23 @@ class Kronolith_Application extends Horde_Registry_Application
                             $row = array(
                                 'alarm' => $event->alarm,
                                 'description' => $event->description,
-                                'end_date' => sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday),
-                                'end_time' => sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec),
+                                'end_date' => $event->end->format('Y-m-d'),
+                                'end_time' => $event->end->format('H:i:s'),
                                 'location' => $event->location,
                                 'private' => intval($event->private),
                                 'recur_type' => null,
                                 'recur_end_date' => null,
                                 'recur_interval' => null,
                                 'recur_data' => null,
-                                'start_date' => sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday),
-                                'start_time' => sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec),
+                                'start_date' => $event->start->format('Y-m-d'),
+                                'start_time' => $event->start->format('H:i:s'),
                                 'tags' => implode(', ', $event->tags),
                                 'title' => $event->getTitle()
                             );
 
                             if ($event->recurs()) {
                                 $row['recur_type'] = $event->recurrence->getRecurType();
-                                $row['recur_end_date'] = sprintf(
-                                    '%d-%02d-%02d',
-                                    $event->recurrence->recurEnd->year,
-                                    $event->recurrence->recurEnd->month,
-                                    $event->recurrence->recurEnd->mday
-                                );
+                                $row['recur_end_date'] = $event->recurrence->recurEnd->format('Y-m-d');
                                 $row['recur_interval'] = $event->recurrence->getRecurInterval();
                                 $row['recur_data'] = $event->recurrence->recurData;
                             }
