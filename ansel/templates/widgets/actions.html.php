@@ -1,3 +1,4 @@
+<!-- Actions Widget -->
 <?php echo $this->render('begin'); ?>
     <ul style="list-style-type:none;">
     <?php if (!empty($this->slideshow_url)): ?>
@@ -53,5 +54,6 @@
     <!-- Toggle Link -->
     <div class="control"><?php echo $this->toggle_url ?>&nbsp;</a></div>
 
-<?php echo $this->render('end');
+<?php echo $this->render('end'); ?>
+<!-- End Action Widget -->
 

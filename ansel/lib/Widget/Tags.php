@@ -1,15 +1,40 @@
 <?php
+ /**
+  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+  *
+  * See the enclosed file COPYING for license information (GPL). If you
+  * did not receive this file, see http://www.horde.org/licenses/gpl.
+  *
+  * @author Michael J Rubinsky <mrubinsk@horde.org>
+  * @package Ansel
+  */
 /**
  * Ansel_Widget_Tags:: class to display a tags widget in the image and gallery
  * views.
  *
- * @author Michael J. Rubinsky <mrubinsk@horde.org>
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ *  @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
- */
+*/
 class Ansel_Widget_Tags extends Ansel_Widget_Base
 {
+    /**
+     * The type of resource the widget is connected to.
+     * i.e., image or gallery
+     *
+     * @var string
+     */
     protected $_resourceType;
 
+    /**
+     *
+     * @var array $params  The parameters:
+     *   - view:  The view we are attaching to (image, gallery).
+     */
     public function __construct($params)
     {
         parent::__construct($params);
@@ -24,35 +49,31 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
      */
     public function html()
     {
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = _("Tags");
+        $view->background = $this->_style->background;
+
         $image_id = ($this->_resourceType == 'image')
             ? $this->_view->resource->id
             : null;
 
-        /* Build the tag widget */
-        $html = $this->_htmlBegin();
         try {
-            $html .= '<div id="tags">' . $this->_getTagHTML();
+            $view->tag_html = $this->_getTagHTML();
         } catch (Ansel_Exception $e) {
-            return $html . sprintf(_("There was an error fetching tags: %s"), $e->getMessage()) . $this->_htmlEnd();
+            $view->error_text = sprintf(_("There was an error fetching tags: %s"), $e->getMessage());
         }
+
         if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $GLOBALS['page_output']->addScriptFile('tagactions.js');
+            $view->have_edit = true;
+            $GLOBALS['page_output']->addScriptFile('widgets/tagactions.js');
             $GLOBALS['page_output']->addInlineJsVars(array(
-                'AnselTagActions.gallery' => $this->_view->gallery->id,
-                'AnselTagActions.image' => $image_id
+               'AnselTagActions.gallery' => $this->_view->gallery->id,
+               'AnselTagActions.image' => $image_id
             ));
-
-            $actionUrl = Horde::url('image.php')->add(
-                array('image' => $this->_view->resource->id,
-                      'gallery' => $this->_view->gallery->id));
-
-            $html .= '<form name="tagform" action="' . $actionUrl . '" onsubmit="return AnselTagActions.submitcheck();" method="post">';
-            $html .= '<input id="addtag" name="addtag" type="text" size="15" /> <input name="tagbutton" id="tagbutton" class="button" value="' . _("Add") . '" type="submit" />';
-            $html .= '</form>';
         }
-        $html .= '</div>' . $this->_htmlEnd();
 
-        return $html;
+        return $view->render('tags');
     }
 
 
