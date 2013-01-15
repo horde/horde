@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-15</date>
- <time>13:13:00</time>
+ <time>13:15:46</time>
  <version>
-  <release>2.1.2</release>
+  <release>2.1.3</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix handling missing state when processing COMMANDS.
-* [mjr] Fix loading state for FOLDERSYNC requests for certain clients.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1126,6 +1125,19 @@
    <notes>
 * [mjr] Fix handling missing state when processing COMMANDS.
 * [mjr] Fix loading state for FOLDERSYNC requests for certain clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
