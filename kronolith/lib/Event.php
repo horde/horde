@@ -1766,17 +1766,19 @@ abstract class Kronolith_Event
         if (!empty($hash['private'])) {
             $this->private = true;
         }
+        $this->start = null;
         if (!empty($hash['start_date'])) {
-            $date = explode('-', $hash['start_date']);
+            $date = array_map('intval', explode('-', $hash['start_date']));
             if (empty($hash['start_time'])) {
                 $time = array(0, 0, 0);
             } else {
-                $time = explode(':', $hash['start_time']);
+                $time = array_map('intval', explode(':', $hash['start_time']));
                 if (count($time) == 2) {
                     $time[2] = 0;
                 }
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $this->start = new Horde_Date(array('year' => $date[0],
                                                     'month' => $date[1],
                                                     'mday' => $date[2],
@@ -1784,7 +1786,8 @@ abstract class Kronolith_Event
                                                     'min' => $time[1],
                                                     'sec' => $time[2]));
             }
-        } else {
+        }
+        if (!isset($this->start)) {
             throw new Kronolith_Exception(_("Events must have a start date."));
         }
         if (empty($hash['duration'])) {
@@ -1805,16 +1808,17 @@ abstract class Kronolith_Event
             $this->end->sec += $hash['duration'];
         }
         if (!empty($hash['end_date'])) {
-            $date = explode('-', $hash['end_date']);
+            $date = array_map('intval', explode('-', $hash['end_date']));
             if (empty($hash['end_time'])) {
                 $time = array(0, 0, 0);
             } else {
-                $time = explode(':', $hash['end_time']);
+                $time = array_map('intval', explode(':', $hash['end_time']));
                 if (count($time) == 2) {
                     $time[2] = 0;
                 }
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $this->end = new Horde_Date(array('year' => $date[0],
                                                   'month' => $date[1],
                                                   'mday' => $date[2],
@@ -1827,12 +1831,13 @@ abstract class Kronolith_Event
             $this->alarm = (int)$hash['alarm'];
         } elseif (!empty($hash['alarm_date']) &&
                   !empty($hash['alarm_time'])) {
-            $date = explode('-', $hash['alarm_date']);
-            $time = explode(':', $hash['alarm_time']);
+            $date = array_map('intval', explode('-', $hash['alarm_date']));
+            $time = array_map('intval', explode(':', $hash['alarm_time']));
             if (count($time) == 2) {
                 $time[2] = 0;
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $alarm = new Horde_Date(array('hour'  => $time[0],
                                               'min'   => $time[1],
                                               'sec'   => $time[2],
@@ -1846,8 +1851,10 @@ abstract class Kronolith_Event
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             $this->recurrence->setRecurType($hash['recur_type']);
             if (!empty($hash['recur_end_date'])) {
-                $date = explode('-', $hash['recur_end_date']);
-                $this->recurrence->setRecurEnd(new Horde_Date(array('year' => $date[0], 'month' => $date[1], 'mday' => $date[2])));
+                $date = array_map('intval', explode('-', $hash['recur_end_date']));
+                if (count($date) == 3 && !empty($date[1]) && !empty($date[2])) {
+                    $this->recurrence->setRecurEnd(new Horde_Date(array('year' => $date[0], 'month' => $date[1], 'mday' => $date[2])));
+                }
             }
             if (!empty($hash['recur_interval'])) {
                 $this->recurrence->setRecurInterval($hash['recur_interval']);

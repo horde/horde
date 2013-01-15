@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] More robust date parsing during event importing (Bug #11916).
 * [jan] Always export year numbers with four digits to CSV (Request #11917).
 * [jan] Fix JavaScript error if Nag is not installed.
  </notes>
@@ -2059,6 +2060,7 @@
    <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] More robust date parsing during event importing (Bug #11916).
 * [jan] Always export year numbers with four digits to CSV (Request #11917).
 * [jan] Fix JavaScript error if Nag is not installed.
    </notes>

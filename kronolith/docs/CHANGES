@@ -2,6 +2,7 @@
 v4.0.4-git
 ----------
 
+[jan] More robust date parsing during event importing (Bug #11916).
 [jan] Always export year numbers with four digits to CSV (Request #11917).
 [jan] Fix JavaScript error if Nag is not installed.
 
