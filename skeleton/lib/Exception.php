@@ -7,7 +7,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Your name <you@example.com>
+ * @author   Your Name <you@example.com>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Skeleton
