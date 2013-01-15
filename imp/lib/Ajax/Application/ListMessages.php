@@ -275,7 +275,7 @@ class IMP_Ajax_Application_ListMessages
             $cached = array();
         } else {
             $cache_indices = new IMP_Indices($mbox, $args['cache']);
-            $cache_uids = $cache_indices->getSingle($true);
+            $cache_uids = $cache_indices->getSingle(true);
             $cached = array_flip($cache_uids[1]);
         }
 
