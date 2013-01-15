@@ -258,15 +258,13 @@ class IMP
                 : 'compose.php';
         }
 
-        if (isset($args['thismailbox'])) {
-            $url = IMP_Mailbox::get($args['thismailbox'])->url($url, $uid);
-        } elseif (isset($args['mailbox'])) {
+        if (isset($args['mailbox'])) {
             $url = IMP_Mailbox::get($args['mailbox'])->url($url, $uid);
         } elseif (!($url instanceof Horde_Url)) {
             $url = Horde::url($url);
         }
 
-        unset($args['mailbox'], $args['thismailbox'], $args['uid']);
+        unset($args['mailbox'], $args['uid']);
 
         $url->setRaw($raw)->add($args);
         if ($callback) {

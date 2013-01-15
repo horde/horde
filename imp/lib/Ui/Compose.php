@@ -70,7 +70,7 @@ class IMP_Ui_Compose
 
         $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
 
-        foreach (array('start', 'page', 'mailbox', 'thismailbox') as $key) {
+        foreach (array('start', 'page', 'mailbox') as $key) {
             if (isset($vars->$key)) {
                 $url->add($key, $vars->$key);
             }
