@@ -16,6 +16,11 @@ if ($r_time = $prefs->getValue('summary_refresh_time') &&
     !$browser->hasFeature('xmlhttpreq')) {
     $page_output->metaRefresh($r_time, Horde::url('mybugs.php'));
 }
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('ticket');
+$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 // Load layout from preferences for authenticated users, and a default
 // block set for guests.

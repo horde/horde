@@ -17,6 +17,12 @@ $wereerrors = 0;
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
 
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('../ticket');
+$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
 $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
 $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
 $form3 = new Whups_Form_Ticket_CreateStepThree($vars);

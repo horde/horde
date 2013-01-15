@@ -378,8 +378,11 @@ class Whups
     static public function getCurrentTicket()
     {
         $default = Horde::url($GLOBALS['prefs']->getValue('whups_default_view') . '.php', true);
-
-        $id = preg_replace('|\D|', '', Horde_Util::getFormData('id'));
+        $id = Horde_Util::getFormData('searchfield');
+        if(empty($id)) {
+            $id = Horde_Util::getFormData('id');
+        }
+        $id = preg_replace('|\D|', '', $id);
         if (!$id) {
             $GLOBALS['notification']->push(_("Invalid Ticket Id"), 'horde.error');
             $default->redirect();

@@ -29,6 +29,12 @@ if ($layout->updated()) {
     }
 }
 
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('ticket');
+$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
+
 $page_output->header(array(
     'title' => sprintf(_("My %s :: Add Content"), $registry->get('name'))
 ));

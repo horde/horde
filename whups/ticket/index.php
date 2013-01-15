@@ -12,10 +12,19 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
+if ($vars->searchfield) {
+    $vars->id = $vars->searchfield;
+}
+$ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
 $page_output->addLinkTag($ticket->feedLink());
+
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('../ticket');
+$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 Whups::addFeedLink();
 $page_output->header(array(

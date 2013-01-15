@@ -18,6 +18,11 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
+$topbar = $injector->getInstance('Horde_View_Topbar');
+$topbar->search = true;
+$topbar->searchAction = new Horde_Url('../ticket');
+$topbar->searchLabel =  $session->get('whups', 'search') ?: _("Ticket #Id");
+$topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
