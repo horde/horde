@@ -86,7 +86,9 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
         $this->_getGalleryActions($view);
-
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleGalleryActions', array(
+             'id' => 'gallery-actions-toggle'
+        ));
         return $view->render('actions');
     }
 
@@ -106,23 +108,14 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
         $date = $this->_view->gallery->getDate();
 
-        //$html = '<div style="display:' . (($GLOBALS['prefs']->getValue('show_actions')) ? 'block' : 'none') . ';" id="gallery-actions">';
-
-        // /* Attach the ajax action */
-        // //Horde::startBuffer();
-        // $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleGalleryActions', array(
-        //     'id' => 'gallery-actions'
-        // ));
-        // $html .= Horde::endBuffer();
-
-        /* Buid the url parameters to the zip link */
+        // Buid the url parameters to the zip link
         $view_params = array(
             'gallery' => $this->_view->gallery->id,
             'view' => 'Gallery',
             'slug' => $this->_view->gallery->get('slug'),
             'page' => (!empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0));
 
-        /* Append the date information to the parameters if we need it */
+        // Append the date information to the parameters if we need it
         $view_params = array_merge($view_params, $date);
 
         // Bookmark link
