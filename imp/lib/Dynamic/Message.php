@@ -27,7 +27,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $page_output, $prefs;
+        global $conf, $injector, $notification, $page_output, $prefs;
 
         if (!IMP::uid() || !IMP::mailbox()) {
             throw new IMP_Exception(_("No message index given."));
