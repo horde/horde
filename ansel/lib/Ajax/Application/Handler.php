@@ -251,6 +251,10 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * Adds a new tag to a resource.
+     *
+     * @return array  An array of tag hashes representing the objects's current
+     *                tags (after the new tag is added).
      */
     public function addTag()
     {
@@ -271,7 +275,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             throw new Ansel_Exception(_("Invalid input %s"), $id);
         }
 
-        /* Get the resource owner */
+        // Get the resource owner
         $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
@@ -286,13 +290,16 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 
         $tagger->tag($id, $tags, $registry->getAuth(), $type);
 
-        /* Get the tags again since we need the newly added tag_ids */
+        // Get the tags again since we need the newly added tag_ids
         $newTags = $tagger->getTags($id, $type);
         if (count($newTags)) {
             $newTags = $tagger->getTagInfo(array_keys($newTags));
         }
-
-        return new Horde_Core_Ajax_Response_Raw($this->_getTagHtml($newTags, $parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)), 'text/html');
+        $links = Ansel::getTagLinks($newTags, 'add');
+        foreach ($newTags as &$tag_info) {
+            $tag_info['link'] = strval($links[$tag_info['tag_id']]);
+        }
+        return $newTags;
     }
 
     /**

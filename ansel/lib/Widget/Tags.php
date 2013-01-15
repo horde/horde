@@ -96,6 +96,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
                                                         Horde_Perms::EDIT);
         $owner = $this->_view->gallery->get('owner');
         $tags = $tagger->getTags((int)$this->_view->resource->id, $this->_resourceType);
+
         if (count($tags)) {
             $tags = $tagger->getTagInfo(array_keys($tags), 500, $this->_resourceType);
         }
