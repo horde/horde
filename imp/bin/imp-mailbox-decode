@@ -38,19 +38,7 @@ switch ($cli->prompt('Action:', $opts)) {
 case 1:
     $encoded = trim($cli->prompt('Base64url encoded mailbox:'));
     $cli->writeln();
-
-    if (strpos($encoded, '{') === 0) {
-        $cli->message($cli->red('IMAP mailbox with UID information detected.'));
-        $cli->writeln();
-
-        $indices = new IMP_Indices_Form($encoded);
-        foreach ($indices as $val) {
-            $cli->message($cli->red('IMAP mailbox: ') . strval($val->mbox));
-            $cli->message($cli->red('UIDs: ') . implode(',', $val->uids));
-        }
-    } else {
-        $cli->message($cli->red('IMAP mailbox: ') . IMP_Mailbox::formFrom($encoded));
-    }
+    $cli->message($cli->red('IMAP mailbox: ') . IMP_Mailbox::formFrom($encoded));
     break;
 
 case 2:

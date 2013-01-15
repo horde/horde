@@ -393,11 +393,13 @@ class IMP_Ui_Message
     /**
      * Increment mailbox index after deleting a message?
      *
+     * @param IMP_Mailbox $mailbox  Current mailbox.
+     *
      * @return boolean  If true, increments index.
      */
-    public function moveAfterAction()
+    public function moveAfterAction(IMP_Mailbox $mailbox)
     {
-        return (!IMP::mailbox()->hideDeletedMsgs() &&
+        return (!$mailbox->hideDeletedMsgs() &&
                 !$GLOBALS['prefs']->getValue('use_trash'));
     }
 

@@ -17,9 +17,11 @@ class IMP_Ui_Quota
     /**
      * Returns data needed to output quota.
      *
+     * @param string $mailbox  Mailbox to query.
+     *
      * @return array  Array with these keys: class, message, percent.
      */
-    public function quota()
+    public function quota($mailbox = null)
     {
         global $injector, $session;
 
@@ -29,7 +31,7 @@ class IMP_Ui_Quota
 
         try {
             $quotaDriver = $injector->getInstance('IMP_Quota');
-            $quota = $quotaDriver->getQuota();
+            $quota = $quotaDriver->getQuota($mailbox);
         } catch (IMP_Exception $e) {
             Horde::log($e, 'ERR');
             return false;

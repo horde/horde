@@ -30,6 +30,11 @@ abstract class IMP_Dynamic_Base
     public $growlerLog = false;
 
     /**
+     * @var IMP_Indices_Mailbox
+     */
+    public $indices;
+
+    /**
      * @var array
      */
     public $js_conf = array();
@@ -75,10 +80,12 @@ abstract class IMP_Dynamic_Base
         $this->vars = $vars;
         $this->view = $this->getEmptyView();
 
+        $this->indices = new IMP_Indices_Mailbox($vars);
+
         $this->_addBaseVars();
 
         $page_output->addScriptFile('dimpcore.js');
-        $page_output->addScriptFile('indices.js');
+        $page_output->addScriptFile('viewport_utils.js');
         $page_output->addScriptFile('contextsensitive.js', 'horde');
         $page_output->addScriptFile('imple.js', 'horde');
 

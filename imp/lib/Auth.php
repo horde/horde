@@ -291,11 +291,9 @@ class IMP_Auth
             $mbox = null;
         } else {
             $mbox = IMP_Mailbox::get($init_url);
-            if (!$mbox->exists) {
-                $mbox = IMP_Mailbox::get('INBOX');
-            }
-
-            IMP::setMailboxInfo($mbox);
+            $GLOBALS['injector']->getInstance('Horde_Variables')->mailbox = $mbox->exists
+                ? $mbox->form_to
+                : IMP_Mailbox::get('INBOX')->form_to;
         }
 
         $result = new stdClass;

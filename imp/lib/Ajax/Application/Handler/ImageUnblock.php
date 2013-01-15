@@ -25,9 +25,7 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
     /**
      * AJAX action: Store e-mail sender of message in safe address list.
      *
-     * Variables used:
-     *   - mbox: (string) Mailbox of message (base64url encoded).
-     *   - uid: (integer) UID of message.
+     * Requires mailbox/indices form input.
      *
      * @return boolean  True on success.
      */
@@ -35,7 +33,7 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
     {
         global $injector, $notification;
 
-        $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices(IMP_Mailbox::formFrom($this->vars->mbox), $this->vars->uid));
+        $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars));
         $address = IMP::bareAddress($contents->getHeader()->getValue('from'));
         $injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList(IMP::bareAddress($address));
 

@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Abstract all UIDs used for mailbox/message navigation on the browser to
+      BUIDs (browser UIDs) (Bug #10719).
 [mms] Use more efficient murmurhash3 to determine changes in compose message
       that will trigger auto saved drafts.
 [mms] Initialize viewport and mailbox list in single AJAX call when initially

@@ -6,6 +6,7 @@
  */
 
 var ImpFlagPrefs = {
+
     // Variables set by other code: confirm_delete, new_prompt
 
     addFlag: function()

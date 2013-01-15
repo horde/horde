@@ -23,18 +23,20 @@
 class IMP_Contents_View
 {
     /**
+     * @var IMP_Contents
      */
     protected $_contents;
 
     /**
+     * @param IMP_Indices $indices
      */
-    public function __construct($mailbox, $uid)
+    public function __construct(IMP_Indices $indices)
     {
-        if (!$mailbox || !$uid) {
+        try {
+            $this->_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+        } catch (Exception $e) {
             exit;
         }
-
-        $this->_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($mailbox->getIndicesOb($uid));
     }
 
     /**

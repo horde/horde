@@ -27,78 +27,23 @@ var DimpCore = {
             opts = opts || {};
 
             if (opts.uids.viewport_selection) {
-                opts.uids = this.selectionToRange(opts.uids);
+                opts.uids = opts.uids.get('uid');
             }
 
-            params.set('uid', this.toUIDString(opts.uids));
+            params.set('buid', opts.uids.toViewportUidString());
         }
 
         return HordeCore.doAction(action, params, opts);
     },
 
-    // Dimp specific methods.
-    toUIDString: function(ob, opts)
+    compose: function(type, params)
     {
-        if (DimpCore.conf.pop3) {
-            opts = opts || {};
-            opts.pop3 = 1;
-        }
+        params = params || {};
+        params.type = type;
 
-        return ImpIndices.toUIDString(ob, opts);
-    },
-
-    parseUIDString: function(str)
-    {
-        return ImpIndices.parseUIDString(str, DimpCore.conf.pop3 ? { pop3: 1 } : {});
-    },
-
-    selectionToRange: function(s)
-    {
-        var b = s.getBuffer(),
-            tmp = {};
-
-        if (b.getMetaData('search')) {
-            s.get('dataob').each(function(r) {
-                if (tmp[r.mbox]) {
-                    tmp[r.mbox].push(r.uid);
-                } else {
-                    tmp[r.mbox] = [ r.uid ];
-                }
-            });
-        } else {
-            tmp[b.getView()] = s.get('uid');
-        }
-
-        return tmp;
-    },
-
-    // args: params, uids
-    compose: function(type, args)
-    {
-        args = args || {};
-        if (!args.params) {
-            args.params = {};
-        }
-        if (type) {
-            args.params.type = type;
-        }
-
-        if (type.startsWith('forward') || !args.uids) {
-            if (type.startsWith('forward')) {
-                args.params.uids = this.toUIDString(this.selectionToRange(args.uids));
-            }
-            HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, args.params, {
-                name: 'compose' + new Date().getTime()
-            });
-        } else {
-            args.uids.get('dataob').each(function(d) {
-                args.params.mailbox = d.mbox;
-                args.params.uid = d.uid;
-                HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, args.params, {
-                    name: 'compose' + new Date().getTime()
-                });
-            }, this);
-        }
+        HordeCore.popupWindow(DimpCore.conf.URI_COMPOSE, params, {
+            name: 'compose' + new Date().getTime()
+        });
     },
 
     toggleButtons: function(elts, disable)
@@ -292,9 +237,7 @@ var DimpCore = {
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_contacts_new':
             this.compose('new', {
-                params: {
-                    to_json: Object.toJSON(baseelt.retrieve('email'))
-                }
+                to_json: Object.toJSON(baseelt.retrieve('email'))
             });
             break;
 

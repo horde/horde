@@ -15,6 +15,11 @@
 abstract class IMP_Minimal_Base
 {
     /**
+     * @var IMP_Indices_Mailbox
+     */
+    public $indices;
+
+    /**
      * @var string
      */
     public $title;
@@ -41,6 +46,8 @@ abstract class IMP_Minimal_Base
     public function __construct(Horde_Variables $vars)
     {
         $this->vars = $vars;
+
+        $indices = new IMP_Indices_Mailbox($vars);
 
         $this->view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/minimal'
@@ -72,7 +79,7 @@ abstract class IMP_Minimal_Base
     public function getMenu($page, $items = array())
     {
         if (!in_array($page, array('mailbox', 'message')) ||
-            (IMP::mailbox() != 'INBOX')) {
+            !$this->indices->mailbox->inbox) {
             $items[] = array(_("Inbox"), IMP_Minimal_Mailbox::url(array('mailbox' => 'INBOX')));
         }
 

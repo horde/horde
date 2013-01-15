@@ -6,6 +6,7 @@
  */
 
 var ImpCompose = {
+
     // Variables defined in compose.php:
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
     //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,

@@ -46,7 +46,7 @@ if (!empty($request)) {
     $new_mail = (isset($request_parts[1]) && ($request_parts[1] === 'new'));
 }
 
-$imp_mailbox = $mailbox->getListOb();
+$imp_mailbox = $mailbox->list_ob;
 
 /* Obtain some information describing the mailbox state. */
 $total_num = count($imp_mailbox);
@@ -71,7 +71,7 @@ if (count($ids)) {
             'title' => $imp_ui->getSubject($ob['envelope']->subject),
             'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
-            'url' => Horde::url($mailbox->url('message.php', $ob['uid'], $mailbox), true, array('append_session' => -1)),
+            'url' => Horde::url($mailbox->url('message.php', $imp_mailbox->getBuid($mailbox, $ob['uid'])), true, array('append_session' => -1)),
             'fromAddr' => strval($from_addr['from_list']),
             'toAddr' => strval($ob['envelope']->to)
         ));

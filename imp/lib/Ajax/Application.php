@@ -15,8 +15,8 @@
  * Defines the AJAX interface for IMP.
  *
  * Global tasks:
- *   - msgload: (string) Indices of the messages to load in the background
- *              (IMAP sequence string; mailboxes are base64url encoded).
+ *   - msgload: (string) BUID of a message to load in the background (mailbox
+ *              is located in 'mailbox' parameter).
  *   - poll: (string) The list of mailboxes to process (JSON encoded
  *           array; mailboxes are base64url encoded). If an empty array, polls
  *           all mailboxes.
@@ -33,11 +33,11 @@
 class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 {
     /**
-     * The mailbox (view) we are dealing with on the browser.
+     * The IMP_Indices_Mailbox object based on form data.
      *
-     * @var IMP_Mailbox
+     * @var IMP_Indices_Mailbox
      */
-    public $mbox;
+    public $indices;
 
     /**
      * Queue object.
@@ -76,11 +76,13 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         $this->queue = $injector->getInstance('IMP_Ajax_Queue');
 
-        /* Bug #10462: 'view' POST parameter is base64url encoded to
-         * workaround suhosin. */
+        /* Copy 'view' paramter to 'mailbox', because this is what
+         * IMP_Indices_Mailbox expects. */
         if (isset($this->_vars->view)) {
-            $this->mbox = IMP_Mailbox::formFrom($this->_vars->view);
+            $this->_vars->mailbox = $this->_vars->view;
         }
+
+        $this->indices = new IMP_Indices_Mailbox($this->_vars);
 
         /* Make sure the viewport entry is initialized. */
         $vp = isset($this->_vars->viewport)
@@ -92,12 +94,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Check for global msgload task. */
         if (isset($this->_vars->msgload)) {
-            $indices = new IMP_Indices_Form($this->_vars->msgload);
-            foreach ($indices as $ob) {
-                foreach ($ob->uids as $val) {
-                    $this->queue->message($ob->mbox, $val, true, true);
-                }
-            }
+            $this->queue->message($this->indices->mailbox->fromBuids($this->_vars->msgload), true, true);
         }
 
         /* Check for global poll task. */
@@ -150,9 +147,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $ob->ajax = new IMP_Ajax_Application_Compose($ob->compose, $this->_vars->type);
 
         if (!($ob->contents = $ob->compose->getContentsOb())) {
-            $ob->contents = $this->_vars->uid
-                ? $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->_vars->uid))
-                : null;
+            $ob->contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         }
 
         return $ob;
@@ -166,7 +161,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function checkUidvalidity()
     {
         try {
-            $this->mbox->uidvalid;
+            $this->indices->mailbox->uidvalid;
         } catch (IMP_Exception $e) {
             $this->addTask('viewport', $this->viewPortData(true));
         }
@@ -200,7 +195,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         $args = array(
             'change' => $change,
-            'mbox' => strval($this->mbox)
+            'mbox' => strval($this->indices->mailbox)
         );
 
         $params = array(
@@ -259,7 +254,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         }
 
         /* Only update search mailboxes on forced refreshes. */
-        if ($this->mbox->search) {
+        if ($this->indices->mailbox->search) {
             return !empty($this->_vars->forceUpdate);
         }
 
@@ -267,14 +262,14 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->mbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;
             }
         }
 
-        return ($this->mbox->cacheid_date != $this->_vars->viewport->cacheid);
+        return ($this->indices->mailbox->cacheid_date != $this->_vars->viewport->cacheid);
     }
 
     /**
@@ -288,7 +283,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     public function viewPortOb($mbox = null)
     {
         if (is_null($mbox)) {
-            $mbox = $this->mbox;
+            $mbox = $this->indices->mailbox;
         }
 
         $vp = new stdClass;
@@ -364,27 +359,16 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
     {
         /* Check if we need to update thread information. */
         if (!$changed) {
-            $changed = ($this->mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
+            $changed = ($this->indices->mailbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
         if ($changed) {
             $vp = $this->viewPortData(true);
             $this->addTask('viewport', $vp);
-        } elseif ($force || $this->mbox->hideDeletedMsgs(true)) {
+        } elseif (($indices instanceof IMP_Indices_Mailbox) &&
+                  ($force || $this->indices->mailbox->hideDeletedMsgs(true))) {
             $vp = $this->viewPortOb();
-
-            if ($this->mbox->search) {
-                $disappear = array();
-                foreach ($indices as $val) {
-                    foreach ($val->uids as $val2) {
-                        $disappear[] = IMP_Ajax_Application_ListMessages::searchUid($val->mbox, $val2);
-                    }
-                }
-            } else {
-                $disappear = end($indices->getSingle(true));
-            }
-            $vp->disappear = $disappear;
-
+            $vp->disappear = $indices->buids->toArray();
             $this->addTask('viewport', $vp);
         }
 

@@ -37,8 +37,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
      *           template_edit, template_new
      *   - to: Addresses to send to.
      *   - to_json: JSON encoded addresses to send to. Overwrites 'to'.
-     *   - uids: UIDs of message to forward (only used when forwarding a
-     *           message).
      */
     protected function _init()
     {
@@ -70,7 +68,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
         /* Init objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
-        $imp_ui = new IMP_Ui_Compose();
         $compose_ajax = new IMP_Ajax_Application_Compose($imp_compose, $this->vars->type);
 
         $compose_opts = array(
@@ -83,7 +80,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'reply_auto':
         case 'reply_list':
             try {
-                $contents = $imp_ui->getContents($this->vars);
+                $contents = $this->_getContents();
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
@@ -117,17 +114,13 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'forward_auto':
         case 'forward_body':
         case 'forward_both':
-            $indices = $this->vars->uids
-                ? new IMP_Indices_Form($this->vars->uids)
-                : null;
-
-            if ($indices && (count($indices) > 1)) {
+            if (count($this->indices) > 1) {
                 if (!in_array($this->vars->type, array('forward_attach', 'forward_auto'))) {
                     $notification->push(_("Multiple messages can only be forwarded as attachments."), 'horde.warning');
                 }
 
                 try {
-                    $subject = $compose_opts['title'] = $imp_compose->attachImapMessage($indices);
+                    $subject = $compose_opts['title'] = $imp_compose->attachImapMessage($this->indices);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
@@ -143,7 +136,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $onload->header['subject'] = $subject;
             } else {
                 try {
-                    $contents = $imp_ui->getContents($this->vars);
+                    $contents = $this->_getContents();
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                     break;
@@ -163,7 +156,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
         case 'forward_redirect':
             try {
-                $imp_compose->redirectMessage($imp_ui->getIndices($this->vars));
+                $imp_compose->redirectMessage($this->indices);
                 $compose_opts['title'] = _("Redirect");
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e, 'horde.error');
@@ -176,23 +169,21 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         case 'template':
         case 'template_edit':
             try {
-                $indices_ob = IMP::mailbox()->getIndicesOb(IMP::uid());
-
                 switch ($this->vars->type) {
                 case 'editasnew':
-                    $result = $imp_compose->editAsNew($indices_ob);
+                    $result = $imp_compose->editAsNew($this->indices);
                     break;
 
                 case 'resume':
-                    $result = $imp_compose->resumeDraft($indices_ob);
+                    $result = $imp_compose->resumeDraft($this->indices);
                     break;
 
                 case 'template':
-                    $result = $imp_compose->useTemplate($indices_ob);
+                    $result = $imp_compose->useTemplate($this->indices);
                     break;
 
                 case 'template_edit':
-                    $result = $imp_compose->editTemplate($indices_ob);
+                    $result = $imp_compose->editTemplate($this->indices);
                     $compose_opts['template'] = true;
                     break;
                 }
@@ -228,6 +219,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         }
 
         /* Attach spellchecker & auto completer. */
+        $imp_ui = new IMP_Ui_Compose();
         if ($this->vars->type == 'forward_redirect') {
             $compose_opts['redirect'] = true;
             $imp_ui->attachAutoCompleter(array('redirect_to'));
@@ -261,6 +253,30 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
     static public function url(array $opts = array())
     {
         return Horde::url('dynamic.php')->add('page', 'compose');
+    }
+
+    /**
+     * Create the IMP_Contents objects needed to create a message.
+     *
+     * @param Horde_Variables $vars  The variables object.
+     *
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws IMP_Exception
+     */
+    protected function _getContents()
+    {
+        $ob = null;
+
+        if (!is_null($this->indices)) {
+            try {
+                return $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->indices);
+            } catch (Horde_Exception $e) {}
+        }
+
+        $this->vars->buid = null;
+        $this->vars->type = 'new';
+
+        throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
     }
 
 }

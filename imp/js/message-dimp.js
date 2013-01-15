@@ -7,12 +7,11 @@
 
 var DimpMessage = {
 
-    // Variables defaulting to empty/false: mbox, uid
+    // Variables defaulting to empty/false: buid, mbox
 
     quickreply: function(type)
     {
-        var func, ob = {};
-        ob[this.mbox] = [ this.uid ];
+        var func;
 
         switch (type) {
         case 'reply':
@@ -54,21 +53,20 @@ var DimpMessage = {
             imp_compose: $F('composeCache'),
             type: type
         }, {
-            uids: ob,
-            callback: DimpCompose.fillForm.bind(DimpCompose)
+            callback: DimpCompose.fillForm.bind(DimpCompose),
+            uids: [ this.buid ],
+            view: this.mbox
         });
     },
 
     updateAddressHeader: function(e)
     {
-        var tmp = {};
-        tmp[this.mbox] = [ this.uid ];
-
         DimpCore.doAction('addressHeader', {
             header: e.element().up('TR').identify().substring(9).toLowerCase()
         }, {
             callback: this._updateAddressHeaderCallback.bind(this),
-            uids: tmp
+            uids: [ this.buid ],
+            view: this.mbox
         });
     },
     _updateAddressHeaderCallback: function(r)
@@ -90,8 +88,6 @@ var DimpMessage = {
     /* Click handlers. */
     clickHandler: function(e)
     {
-        var tmp;
-
         switch (e.element().readAttribute('id')) {
         case 'windowclose':
             window.close();
@@ -116,29 +112,29 @@ var DimpMessage = {
                 if (e.element().identify() == 'button_delete') {
                     HordeCore.base.DimpBase.deleteMsg({
                         mailbox: this.mbox,
-                        uid: this.uid
+                        uid: this.buid
                     });
                 } else {
                     HordeCore.base.DimpBase.reportSpam(e.element().identify() == 'button_spam', {
                         mailbox: this.mbox,
-                        uid: this.uid
+                        uid: this.buid
                     });
                 }
             } else {
-                tmp = {};
-                tmp[this.mbox] = [ this.uid ];
                 if (e.element().identify() == 'button_delete') {
                     DimpCore.doAction('deleteMessages', {
                         view: this.mbox
                     }, {
-                        uids: tmp
+                        uids: [ this.buid ],
+                        view: this.mbox
                     });
                 } else {
                     DimpCore.doAction('reportSpam', {
                         spam: Number(e.element().identify() == 'button_spam'),
                         view: this.mbox
                     }, {
-                        uids: tmp
+                        uids: [ this.buid ],
+                        view: this.mbox
                     });
                 }
             }
@@ -149,20 +145,19 @@ var DimpMessage = {
         case 'msg_view_source':
             HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
+                buid: this.buid,
                 id: 0,
-                mailbox: this.mbox,
-                uid: this.uid
+                mailbox: this.mbox
             }, {
-                name: this.uid + '|' + this.mbox
+                name: this.buid + '|' + this.mbox
             });
             break;
 
         case 'msg_all_parts':
-            tmp = {};
-            tmp[this.mbox] = [ this.uid ];
             DimpCore.doAction('messageMimeTree', {}, {
                 callback: this._mimeTreeCallback.bind(this),
-                uids: tmp
+                uids: [ this.buid ],
+                view: this.mbox
             });
             break;
 
@@ -173,14 +168,12 @@ var DimpMessage = {
             break;
 
         case 'send_mdn_link':
-            tmp = {};
-            tmp[this.mbox] = [ this.uid ];
-            DimpCore.doAction('sendMDN', {
-                uid: DimpCore.toUIDString(tmp)
-            }, {
+            DimpCore.doAction('sendMDN', {}, {
                 callback: function(r) {
                     $('sendMdnMessage').up(1).fade({ duration: 0.2 });
-                }
+                },
+                uids: [ this.buid ],
+                view: this.mbox
             });
             e.memo.stop();
             break;
@@ -189,11 +182,11 @@ var DimpMessage = {
             if (e.element().hasClassName('printAtc')) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
+                    buid: this.buid
                     id: e.element().readAttribute('mimeid'),
-                    mailbox: this.mbox,
-                    uid: this.uid
+                    mailbox: this.mbox
                 }, {
-                    name: this.uid + '|' + this.mbox + '|print',
+                    name: this.buid + '|' + this.mbox + '|print',
                     onload: IMP_JS.printWindow
                 });
                 e.memo.stop();
@@ -201,9 +194,9 @@ var DimpMessage = {
                 if (window.confirm(DimpCore.text.strip_warn)) {
                     DimpCore.reloadMessage({
                         actionID: 'strip_attachment',
-                        mailbox: this.mbox,
+                        buid: this.buid,
                         id: e.element().readAttribute('mimeid'),
-                        uid: this.uid
+                        mailbox: this.mbox
                     });
                 }
                 e.memo.stop();
@@ -285,7 +278,7 @@ var DimpMessage = {
                 if (this.tasks['imp:maillog']) {
                     this.tasks['imp:maillog'].each(function(l) {
                         if (this.mbox == l.mbox &&
-                            this.uid == l.uid) {
+                            this.buid == l.buid) {
                             DimpCore.updateMsgLog(l.log);
                             $('msgloglist').show();
                         }

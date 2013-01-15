@@ -5,8 +5,8 @@
 
  <div data-role="content" class="ui-body">
   <form id="imp-copymove">
+   <input id="imp-copymove-buid" type="hidden" />
    <input id="imp-copymove-mbox" type="hidden" />
-   <input id="imp-copymove-uid" type="hidden" />
    <select id="imp-copymove-action">
     <option value="copy"><?php echo _("Copy") ?></option>
     <option value="move"><?php echo _("Move") ?></option>

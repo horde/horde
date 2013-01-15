@@ -203,7 +203,7 @@ $title = _("New Message");
 switch ($vars->actionID) {
 case 'mailto':
     try {
-        $contents = $imp_ui->getContents();
+        $contents = $injector->getInstance('IMP_Basic_Compose')->getContents($vars);
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
         break;
@@ -237,23 +237,21 @@ case 'editasnew':
 case 'template':
 case 'template_edit':
     try {
-        $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
-
         switch ($vars->actionID) {
         case 'draft':
-            $result = $imp_compose->resumeDraft($indices_ob);
+            $result = $imp_compose->resumeDraft(new IMP_Indices_Mailbox($vars));
             break;
 
         case 'editasnew':
-            $result = $imp_compose->editAsNew($indices_ob);
+            $result = $imp_compose->editAsNew(new IMP_Indices_Mailbox($vars));
             break;
 
         case 'template':
-            $result = $imp_compose->useTemplate($indices_ob);
+            $result = $imp_compose->useTemplate(new IMP_Indices_Mailbox($vars));
             break;
 
         case 'template_edit':
-            $result = $imp_compose->editTemplate($imp_ui->getIndices($vars));
+            $result = $imp_compose->editTemplate(new IMP_Indices_Mailbox($vars));
             $vars->template_mode = true;
             break;
         }
@@ -281,7 +279,7 @@ case 'reply_all':
 case 'reply_auto':
 case 'reply_list':
     try {
-        $contents = $imp_ui->getContents();
+        $contents = $injector->getInstance('IMP_Basic_Compose')->getContents($vars);
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
         break;
@@ -355,7 +353,7 @@ case 'forward_auto':
 case 'forward_body':
 case 'forward_both':
     try {
-        $contents = $imp_ui->getContents();
+        $contents = $injector->getInstance('IMP_Basic_Compose')->getContents($vars);
     } catch (IMP_Compose_Exception $e) {
         $notification->push($e, 'horde.error');
         break;
@@ -378,7 +376,7 @@ case 'forward_both':
 
 case 'redirect_compose':
     try {
-        $indices = $imp_ui->getIndices($vars);
+        $indices = new IMP_Indices_Mailbox($vars);
         $imp_compose->redirectMessage($indices);
         $redirect = true;
         $title = ngettext(_("Redirect"), _("Redirect Messages"), count($indices));
@@ -566,7 +564,7 @@ case 'send_message':
     exit;
 
 case 'fwd_digest':
-    $indices = $imp_ui->getIndices($vars);
+    $indices = new IMP_Indices_Mailbox($vars);
     if (count($indices)) {
         try {
             $header['subject'] = $imp_compose->attachImapMessage($indices);
@@ -770,7 +768,6 @@ if ($redirect) {
         'compose_formToken' => Horde_Token::generateId('compose'),
         'compose_requestToken' => $injector->getInstance('Horde_Token')->get('imp.compose'),
         'composeCache' => $composeCacheID,
-        'mailbox' => IMP::mailbox(true)->form_to,
         'oldrtemode' => $rtemode,
         'rtemode' => $rtemode,
         'user' => $registry->getAuth()

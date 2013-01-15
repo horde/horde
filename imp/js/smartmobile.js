@@ -13,6 +13,9 @@ var ImpMobile = {
     // /* Attachment data for the current message. */
     // atc,
     //
+    // /* BUID of the currently displayed message. */
+    // buid,
+    //
     // /* Has the folders list been loaded? */
     // foldersLoaded,
     //
@@ -33,12 +36,6 @@ var ImpMobile = {
     //
     // /* Search parameters for the viewPort Ajax request. */
     // search,
-    //
-    // /* UID of the currently displayed message. */
-    // uid,
-    //
-    // /* Mailbox of the currently displayed message. */
-    // uid_mbox,
 
     // Mailbox data cache.
     cache: {},
@@ -137,8 +134,7 @@ var ImpMobile = {
 
         case 'mailbox-delete':
             ImpMobile.deleteMessage(
-                data.options.data.jqmData('mbox'),
-                data.options.data.jqmData('uid')
+                data.options.data.jqmData('buid')
             );
             e.preventDefault();
             break;
@@ -153,8 +149,7 @@ var ImpMobile = {
         case 'mailbox-spam':
             ImpMobile.reportSpam(
                 view.match(/spam$/) ? 'spam' : 'innocent',
-                data.options.data.jqmData('mbox'),
-                data.options.data.jqmData('uid')
+                data.options.data.jqmData('buid')
             );
             e.preventDefault();
             break;
@@ -165,7 +160,7 @@ var ImpMobile = {
             break;
 
         case 'message-delete':
-            ImpMobile.deleteMessage(ImpMobile.uid_mbox, ImpMobile.uid);
+            ImpMobile.deleteMessage(ImpMobile.buid);
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: ImpMobile.mailbox
             }), {
@@ -176,9 +171,9 @@ var ImpMobile = {
 
         case 'message-forward':
             $.mobile.changePage(HordeMobile.createUrl('compose', {
-                mbox: ImpMobile.uid_mbox,
-                type: 'forward_auto',
-                uid: ImpMobile.uid
+                buid: ImpMobile.buid,
+                mbox: ImpMobile.mailbox,
+                type: 'forward_auto'
             }));
             e.preventDefault();
             break;
@@ -201,9 +196,9 @@ var ImpMobile = {
 
         case 'message-redirect':
             $.mobile.changePage(HordeMobile.createUrl('compose', {
-                mbox: ImpMobile.uid_mbox,
-                type: 'forward_redirect',
-                uid: ImpMobile.uid
+                buid: ImpMobile.buid,
+                mbox: ImpMobile.mailbox,
+                type: 'forward_redirect'
             }));
             e.preventDefault();
             break;
@@ -218,9 +213,9 @@ var ImpMobile = {
 
         case 'message-reply':
             $.mobile.changePage(HordeMobile.createUrl('compose', {
-                mbox: ImpMobile.uid_mbox,
-                type: 'reply_auto',
-                uid: ImpMobile.uid
+                buid: ImpMobile.buid,
+                mbox: ImpMobile.mailbox,
+                type: 'reply_auto'
             }));
             e.preventDefault();
             break;
@@ -328,7 +323,7 @@ var ImpMobile = {
         var from = 1, ob;
 
         if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
-            params.cache = ImpMobile.toUIDStringSingle(ImpMobile.mailbox, ob.cachedIds());
+            params.cache = ImpMobile.toUidString(ob.cachedIds());
             params.cacheid = ob.cacheid;
             from = ob.from;
         }
@@ -401,17 +396,16 @@ var ImpMobile = {
         list = $('#imp-mailbox-list');
         list.empty();
 
-        $.each(ob.rows(), function(key, data) {
+        $.each(ob.rows(), function(key, val) {
             var c = $('<li class="imp-message">')
-                    .jqmData('mbox', data.mbox)
-                    .jqmData('uid', data.uid),
+                    .jqmData('buid', val.buid),
                 url = HordeMobile.createUrl('message', {
-                    mbox: data.mbox,
-                    uid: data.uid
+                    buid: val.buid,
+                    mbox: ImpMobile.mailbox
                 });
 
-            if (data.flag) {
-                $.each(data.flag, function(k, flag) {
+            if (val.data.flag) {
+                $.each(val.data.flag, function(k, flag) {
                     switch (flag) {
                     case IMP.conf.flags.deleted:
                         c.addClass('imp-mailbox-deleted');
@@ -419,9 +413,9 @@ var ImpMobile = {
 
                     case IMP.conf.flags.draft:
                         url = HordeMobile.createUrl('compose', {
-                            mbox: data.mbox,
-                            type: 'resume',
-                            uid: data.uid
+                            buid: val.buid,
+                            mbox: ImpMobile.mailbox,
+                            type: 'resume'
                         });
                         break;
 
@@ -434,12 +428,12 @@ var ImpMobile = {
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '">').html(data.subject)).append(
+                    $('<a href="' + url + '">').html(val.data.subject)).append(
                     $('<div class="imp-mailbox-secondrow">').append(
                         $('<span class="imp-mailbox-date">').text(
-                            data.date)).append(
+                            val.data.date)).append(
                         $('<span class="imp-mailbox-from">').text(
-                            data.from))));
+                            val.data.from))));
         });
 
         list.listview('refresh');
@@ -476,7 +470,7 @@ var ImpMobile = {
                 after: ImpMobile.mbox_rows,
                 before: ImpMobile.mbox_rows,
                 // Need to manually encode JSON here.
-                search: JSON.stringify({ uid: purl.params.uid })
+                search: JSON.stringify({ buid: purl.params.buid })
             };
             ImpMobile.mailbox = purl.params.mbox;
         }
@@ -484,8 +478,8 @@ var ImpMobile = {
         HordeMobile.changePage('message', data);
 
         // Page is cached.
-        if (ImpMobile.uid == purl.params.uid &&
-            ImpMobile.uid_mbox == purl.params.mbox) {
+        if (ImpMobile.buid == purl.params.buid &&
+            ImpMobile.mailbox == purl.params.mbox) {
             document.title = $('#message .smartmobile-title').text();
             return;
         }
@@ -495,12 +489,12 @@ var ImpMobile = {
         document.title = '';
 
         HordeMobile.doAction(
-            'smartmobileShowMessage',
+            'showMessage',
             $.extend(ImpMobile.addViewportParams($.extend(params, {
                 force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
+                buid: ImpMobile.toUidString([ purl.params.buid ])
             }),
             ImpMobile.messageLoaded
         );
@@ -531,15 +525,15 @@ var ImpMobile = {
      */
     navigateMessage: function(dir)
     {
-        var rid,
+        var buid,
             ob = ImpMobile.cache[ImpMobile.mailbox],
             pos = ob.rowlist[ImpMobile.rowid] + dir;
 
         if (pos > 0 && pos <= ob.totalrows) {
-            if (rid = ob.rowToUid(pos)) {
+            if (buid = ob.rowToBuid(pos)) {
                 $.mobile.changePage(HordeMobile.createUrl('message', {
-                    mbox: ob.data[rid].mbox,
-                    uid: ob.data[rid].uid
+                    buid: buid,
+                    mbox: ImpMobile.mailbox
                 }));
             } else {
                 // TODO: Load viewport slice
@@ -564,7 +558,7 @@ var ImpMobile = {
 
         var cache = ImpMobile.cache[ImpMobile.mailbox],
             data = ImpMobile.message,
-            args = { mbox: data.mbox, uid: data.uid },
+            args = { buid: r.buid, mbox: ImpMobile.mailbox },
             rownum, tmp;
 
         // TODO: Remove once we can pass viewport parameters directly to the
@@ -574,8 +568,7 @@ var ImpMobile = {
             return;
         }
 
-        ImpMobile.uid = data.uid;
-        ImpMobile.uid_mbox = data.mbox;
+        ImpMobile.buid = r.buid;
 
         $('#message .smartmobile-title').text(data.title);
         document.title = $('#message .smartmobile-title').text();
@@ -626,10 +619,7 @@ var ImpMobile = {
 
         data.headers.push({ name: IMP.text.subject, value: data.subject });
         ImpMobile.headers = data.headers;
-
-        ImpMobile.rowid = (ImpMobile.mailbox == IMP.conf.qsearchid)
-            ? r.suid
-            : data.uid;
+        ImpMobile.rowid = r.buid;
 
         $.fn[cache.readonly ? 'hide' : 'show'].call($('#imp-message-delete'));
 
@@ -743,7 +733,7 @@ var ImpMobile = {
 
     /**
      */
-    deleteMessage: function(mbox, uid)
+    deleteMessage: function(buid)
     {
         HordeMobile.doAction(
             'deleteMessages',
@@ -752,14 +742,14 @@ var ImpMobile = {
                 force: 1,
                 view: ImpMobile.mailbox
             }), {
-                uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
+                buid: ImpMobile.toUidString([ buid ])
             })
         );
     },
 
     /**
      */
-    reportSpam: function(action, mbox, uid)
+    reportSpam: function(action, buid)
     {
         HordeMobile.doAction(
             'reportSpam',
@@ -768,8 +758,8 @@ var ImpMobile = {
                 force: 1,
                 view: ImpMobile.mailbox
             }), {
-                spam: Number(action == 'spam'),
-                uid: ImpMobile.toUIDStringSingle(mbox, [ uid ])
+                buid: ImpMobile.toUidString([ buid ]),
+                spam: Number(action == 'spam')
             })
         );
     },
@@ -832,9 +822,10 @@ var ImpMobile = {
         HordeMobile.doAction(
             func,
             $.extend(params, {
+                buid: ImpMobile.toUidString([ purl.params.buid ]),
                 imp_compose: $(cache).val(),
                 type: purl.params.type,
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
+                view: ImpMobile.mailbox
             }),
             function(r) { ImpMobile.composeLoaded(r, data); }
         );
@@ -975,8 +966,7 @@ var ImpMobile = {
 
             ImpMobile.reportSpam(
                 purl.params.action,
-                purl.params.mbox,
-                purl.params.uid
+                purl.params.buid
             );
             break;
         }
@@ -993,8 +983,8 @@ var ImpMobile = {
 
         HordeMobile.changePage('copymove');
 
+        $('#imp-copymove-buid').val(purl.params.buid);
         $('#imp-copymove-mbox').val(purl.params.mbox);
-        $('#imp-copymove-uid').val(purl.params.uid);
     },
 
     /**
@@ -1024,9 +1014,9 @@ var ImpMobile = {
                 force: Number(move),
                 view: source
             }), {
+                buid: ImpMobile.toUidString([ $('#imp-copymove-buid').val() ]),
                 mboxto: value,
-                newmbox: $('#imp-copymove-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
+                newmbox: source
             })
         );
 
@@ -1047,23 +1037,29 @@ var ImpMobile = {
     updateFlags: function(r)
     {
         $.each(r, function(k, v) {
-            $.each(ImpIndices.parseUIDString(v.uids), function(k2, v2) {
-                if (ImpMobile.cache[k2] && ImpMobile.cache[k2].data[v2]) {
-                    var ob = ImpMobile.cache[k2].data[v2].flag, tmp = [];
-                    if (v.add) {
-                        $.merge(ob, v.add);
-                        $.each(ob, function(i, v) {
-                            if ($.inArray(v, tmp) === -1) {
-                                tmp.push(v);
+            $.each(v.buids, function(k2, v2) {
+                var c = ImpMobile.cache[k2];
+
+                if (c) {
+                    $.each(ImpMobile.fromUidString(v2), function(k3, v3) {
+                        if (c.data[v3]) {
+                            var ob = c.data[v3].flag, tmp = [];
+                            if (v.add) {
+                                $.merge(ob, v.add);
+                                $.each(ob, function(i, v4) {
+                                    if ($.inArray(v4, tmp) === -1) {
+                                        tmp.push(v4);
+                                    }
+                                });
+                                ob = tmp;
                             }
-                        });
-                        ob = tmp;
-                    }
-                    if (v.remove) {
-                        ob = $.grep(ob, function(n, i) {
-                            return $.inArray(n, v.remove) < 0;
-                        });
-                    }
+                            if (v.remove) {
+                                ob = $.grep(ob, function(n, i) {
+                                    return $.inArray(n, v.remove) < 0;
+                                });
+                            }
+                        }
+                    });
                 }
             });
         });
@@ -1104,52 +1100,56 @@ var ImpMobile = {
     },
 
     /**
-     * Converts an object to an IMP UID range string.
+     * Converts an array to a UID range string.
      *
-     * @param object ob  Mailbox name as keys, values are array of uids.
+     * @param array uids  Array of UIDs.
      *
      * @return string  The UID range string.
      */
-    toUIDString: function(ob)
+    toUidString: function(uids)
     {
-        var str = '';
+        var u = uids.numericSort(),
+            first = u.shift(),
+            last = first,
+            out = [];
 
-        $.each(ob, function(key, value) {
-            if (!value.length) {
-                return;
-            }
-
-            if (IMP.conf.pop3) {
-                str = value.join(' ');
+        $.each(u, function(n, k) {
+            if (last + 1 == k) {
+                last = k;
             } else {
-                var u = value.numericSort(),
-                    first = u.shift(),
-                    last = first,
-                    out = [];
-
-                $.each(u, function(n, k) {
-                    if (last + 1 == k) {
-                        last = k;
-                    } else {
-                        out.push(first + (last == first ? '' : (':' + last)));
-                        first = last = k;
-                    }
-                });
                 out.push(first + (last == first ? '' : (':' + last)));
-                str += '{' + key.length + '}' + key + out.join(',');
+                first = last = k;
             }
         });
 
-        return str;
+        out.push(first + (last == first ? '' : (':' + last)));
+
+        return out.join(',');
     },
 
     /**
+     * Converts a UID range string to an array.
+     *
+     * @param string str  UID range string.
+     *
+     * @return array  UID array.
      */
-    toUIDStringSingle: function(mbox, uid)
+    fromUidString: function(str)
     {
-        var o = {};
-        o[mbox] = uid;
-        return ImpMobile.toUIDString(o);
+        var out = [];
+
+        $.each($.trim(str).split(','), function(n, e) {
+            var i, r = e.split(':');
+            if (r.length == 1) {
+                out.push(Number(e));
+            } else {
+                for (i = Number(r[0]); i <= Number(r[1]); ++i) {
+                    out.push(Number(i));
+                }
+            }
+        });
+
+        return out;
     },
 
     /**
@@ -1176,7 +1176,7 @@ var ImpMobile = {
         }
 
         if (v = d['imp:message']) {
-            ImpMobile.message = v.shift();
+            ImpMobile.message = v.shift().data;
         }
 
         if (d['imp:mailbox']) {
@@ -1319,29 +1319,32 @@ var ImpMobileMbox = {
 
         return $.map($.map(this.rowlist, function(value, key) {
             return (value >= start && value <= end)
-                ? { sort: value, uid: key }
+                ? { sort: value, buid: key }
                 : null;
         }).sort(function(a, b) {
             return (a.sort < b.sort) ? -1 : 1;
         }), function(value, key) {
-            return mbox_data[value.uid]
+            return {
+                buid: value.buid,
+                data: mbox_data[value.buid]
+            };
         });
     },
 
-    rowToUid: function(row)
+    rowToBuid: function(row)
     {
-        var uid = undefined;
+        var buid = undefined;
 
         if (row >= 0 && row <= this.totalrows) {
-            $.each(this.rowlist, function(u, p) {
+            $.each(this.rowlist, function(b, p) {
                 if (p == row) {
-                    uid = u;
+                    buid = b;
                     return;
                 }
             });
         }
 
-        return uid;
+        return buid;
     }
 
 };

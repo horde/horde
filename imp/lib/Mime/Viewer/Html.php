@@ -222,8 +222,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $tmp = new IMP_Mime_Status(array(
                 _("Images have been blocked in this message part."),
                 Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
-                    'mailbox' => $contents->getMailbox()->form_to,
-                    'uid' => $contents->getUid()
+                    'muid' => strval($contents->getIndicesOb())
                 )) . _("Show Images?") . '</a>'
             ));
             $tmp->icon('mime/image.png');

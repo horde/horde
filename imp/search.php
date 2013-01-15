@@ -9,12 +9,13 @@
  * ---------------
  *   - criteria_form: (string) JSON representation of the search query.
  *   - edit_query: (integer) If true, edit a search query (contained in
- *                 IMP::mailbox()).
+ *                 'mailbox' parameter).
  *   - edit_query_filter: (string) The name of the filter being edited.
  *   - edit_query_vfolder: (string) The name of the virtual folder being
  *                         edited.
+ *   - mailbox: (string) Mailbox parameter.
  *   - mailbox_list: (array) A list of mailboxes to process (base64url
- *                   encoded) If empty, uses IMP::mailbox().
+ *                   encoded) If empty, uses 'mailbox' parameter.
  *   - mboxes_form: (string) JSON representation of the list of mailboxes for
  *                   the query. Hash containing 2 keys: mbox & subfolder.
  *                   Both values are base64url encoded.
@@ -151,12 +152,12 @@ if (isset($vars->mailbox_list)) {
         $default_mailbox = IMP_Mailbox::formFrom($vars->mailbox_list);
         $search_mailbox = array($default_mailbox);
     }
-} elseif (IMP::mailbox()) {
-    $default_mailbox = IMP::mailbox();
+} elseif (isset($vars->mailbox)) {
+    $default_mailbox = IMP_Mailbox::formFrom($vars->mailbox);
     $search_mailbox = array($default_mailbox);
 } else {
     $default_mailbox = IMP_Mailbox::get('INBOX');
-    $search_mailbox = array(IMP_Mailbox::get('INBOX'));
+    $search_mailbox = array($default_mailbox);
 }
 
 $flist = $imp_flags->getList(array(

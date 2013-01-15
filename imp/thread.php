@@ -22,7 +22,9 @@ Horde_Registry::appInit('imp', array(
 $vars = $injector->getInstance('Horde_Variables');
 
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
-$imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
+$indices = new IMP_Indices_Mailbox($vars);
+$mailbox = $indices->mailbox;
+$imp_mailbox = $mailbox->list_ob;
 
 $error = false;
 switch ($mode = $vars->get('mode', 'thread')) {
@@ -36,7 +38,7 @@ case 'thread':
 
 default:
     /* MSGVIEW MODE: Make sure we have a valid list of messages. */
-    $imp_indices = new IMP_Indices($vars->msglist);
+    $imp_indices = $indices;
     $error = !count($imp_indices);
     break;
 }
@@ -64,19 +66,11 @@ case 'add_address':
 $msgs = $tree = array();
 $rowct = 0;
 $subject = '';
-$page_label = IMP::mailbox()->label;
+$page_label = $mailbox->label;
 
 if ($mode == 'thread') {
-    switch ($registry->getView()) {
-    case $registry::VIEW_BASIC:
-        $index = $imp_mailbox[$imp_mailbox->getIndex()];
-        $imp_indices = $imp_mailbox->getFullThread($index['u'], $index['m']);
-        break;
-
-    case $registry::VIEW_DYNAMIC:
-        $imp_indices = $imp_mailbox->getFullThread(IMP::uid(), IMP::mailbox(true));
-        break;
-    }
+    list($m, $u) = $indices->getSingle();
+    $imp_indices = $imp_mailbox->getFullThread($u, $m);
 }
 
 $imp_ui = new IMP_Ui_Message();
@@ -108,7 +102,7 @@ foreach ($imp_indices as $ob) {
         /* Get headers for the message. */
         $curr_msg['date'] = $imp_ui->getLocalTime($envelope->date);
 
-        if (IMP::mailbox()->special_outgoing) {
+        if ($mailbox->special_outgoing) {
             $curr_msg['addr_to'] = true;
             $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrl(true));
             $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, 'UTF-8');
@@ -131,8 +125,8 @@ foreach ($imp_indices as $ob) {
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
-            $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('message.php', $idx, $ob->mbox), 'title' => _("Go to Message"), 'nocheck' => true)) .
-                ' | ' . Horde::widget(array('url' => IMP::mailbox()->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
+            $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $mailbox->url('message.php', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
+                ' | ' . Horde::widget(array('url' => $mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
             break;
         }
 
@@ -159,8 +153,8 @@ if ($mode == 'thread') {
 
     switch ($registry->getView()) {
     case $registry::VIEW_BASIC:
-        $uid_list = $imp_indices[strval(IMP::mailbox())];
-        $delete_link = IMP::mailbox()->url('mailbox.php')->add(array(
+        $uid_list = $imp_indices[strval($mailbox)];
+        $delete_link = $mailbox->url('mailbox.php')->add(array(
             'actionID' => 'delete_messages',
             'indices' => strval($imp_indices),
             'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),

@@ -56,57 +56,6 @@ class IMP_Ui_Compose
     }
 
     /**
-     * Create the IMP_Contents objects needed to create a message.
-     *
-     * @param Horde_Variables $vars  The variables object.
-     *
-     * @return IMP_Contents  The IMP_Contents object.
-     * @throws IMP_Exception
-     */
-    public function getContents($vars = null)
-    {
-        $ob = null;
-
-        $indices = $this->getIndices($vars);
-
-        if (!is_null($indices)) {
-            try {
-                $ob = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
-            } catch (Horde_Exception $e) {}
-        }
-
-        if (is_null($ob)) {
-            if (!is_null($vars)) {
-                $vars->uid = null;
-                $vars->type = 'new';
-            }
-
-            throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
-        }
-
-        return $ob;
-    }
-
-    /**
-     * Return the Indices object for the messages affected by this compose
-     * action.
-     *
-     * @param Horde_Variables $vars  The variables object.
-     *
-     * @return IMP_Indices  The indices object.
-     */
-    public function getIndices($vars = null)
-    {
-        if (!is_null($vars) && isset($vars->msglist)) {
-            return new IMP_Indices($vars->msglist);
-        }
-
-        return (is_null($vars) || !isset($vars->uids))
-            ? IMP::mailbox(true)->getIndicesOb(IMP::uid())
-            : new IMP_Indices_Form($vars->uids);
-    }
-
-    /**
      * Generate mailbox return URL.
      *
      * @param string $url  The URL to use instead of the default.

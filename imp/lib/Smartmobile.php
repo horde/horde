@@ -42,7 +42,6 @@ class IMP_Smartmobile
         $this->_addBaseVars();
 
         $page_output->addScriptFile('smartmobile.js');
-        $page_output->addScriptFile('indices.js');
         $page_output->addScriptFile('json2.js', 'horde');
 
         $page_output->addStylesheet(
@@ -141,7 +140,6 @@ class IMP_Smartmobile
                 ),
                 'innocent_spammbox' => !empty($conf['notspam']['spamfolder']),
                 'mailbox_return' => $prefs->getValue('mailbox_return'),
-                'pop3' => intval($imp_imap->pop3),
                 'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
                 'spam_mbox' => IMP_Mailbox::formTo($prefs->getValue('spam_folder')),
                 'spam_spammbox' => !empty($conf['spam']['spamfolder'])

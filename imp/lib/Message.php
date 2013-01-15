@@ -688,7 +688,7 @@ class IMP_Message
             try {
                 /* Grab list of UIDs before flagging, to make sure we
                  * determine the exact subset that has been flagged. */
-                $mailbox_list = $val->getListOb()->getIndicesOb();
+                $mailbox_list = $val->list_ob->getIndicesOb();
                 $imp_imap->store($val, $action_array);
                 $ajax_queue->flag(reset($action_array), $action, $mailbox_list);
             } catch (IMP_Imap_Exception $e) {

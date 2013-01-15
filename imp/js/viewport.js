@@ -201,6 +201,7 @@
  *   VP_domid: (string) The DOM ID of the row.
  *   VP_id: (string) The unique ID used to store the data entry.
  *   VP_rownum: (integer) The row number of the row.
+ *   VP_view: (string) The containing view.
  *
  *
  * Scroll bars are styled using these CSS class names:
@@ -211,8 +212,12 @@
  * vpScrollDown - The DOWN arrow.
  *
  *
- * Requires prototypejs 1.6+, scriptaculous 1.8+ (effects.js only), and
- * Horde's dragdrop2.js and slider2.js.
+ * Requires:
+ *   - prototypejs 1.6+
+ *   - scriptaculous 1.8+ (effects.js only)
+ *   - dragdrop2.js (Horde)
+ *   - slider2.js (Horde)
+ *   - viewport_utils.js
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
@@ -778,7 +783,7 @@ var ViewPort = Class.create({
 
         cached = this._getBuffer(opts.view).getAllUIDs();
         if (cached.size()) {
-            params.set('cache', Object.toJSON(cached));
+            params.set('cache', cached.toViewportUidString());
         }
 
         params.update(args);
@@ -1556,6 +1561,7 @@ ViewPort_Buffer = Class.create({
                     e.VP_domid = 'VProw_' + (++this.vp.id);
                 }
                 e.VP_id = u;
+                e.VP_view = this.view;
                 return e;
             }
         }, this).compact();
@@ -1860,22 +1866,4 @@ ViewPort_Selection = Class.create({
         return this.buffer;
     }
 
-});
-
-/** Utility Functions **/
-Object.extend(Array.prototype, {
-    // Need our own diff() function because prototypejs's without() function
-    // does not handle array input.
-    diff: function(values)
-    {
-        return this.select(function(value) {
-            return !values.include(value);
-        });
-    },
-    numericSort: function()
-    {
-        return this.collect(Number).sort(function(a, b) {
-            return (a > b) ? 1 : ((a < b) ? -1 : 0);
-        });
-    }
 });

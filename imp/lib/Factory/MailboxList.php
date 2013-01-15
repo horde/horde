@@ -44,16 +44,14 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
     /**
      * Return the mailbox list instance.
      *
-     * @param string $mailbox       The mailbox name.
-     * @param IMP_Indices $indices  An indices object. Only used for basic and
-     *                              minimal views.
+     * @param string $mailbox  The mailbox name.
      *
      * @return IMP_Mailbox_List  The singleton instance.
      * @throws IMP_Exception
      */
-    public function create($mailbox, $indices = null)
+    public function create($mailbox)
     {
-        global $registry, $session;
+        global $injector, $registry, $session;
 
         $key = strval($mailbox);
 
@@ -66,21 +64,16 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
 
             if (is_null($ob)) {
                 $mailbox = IMP_Mailbox::get($mailbox);
-                $ob = $mailbox->search
-                    ? new IMP_Mailbox_List_Virtual($mailbox)
-                    : new IMP_Mailbox_List($mailbox);
+                if ($mailbox->search) {
+                    $ob = new IMP_Mailbox_List_Virtual($mailbox);
+                } else {
+                    $ob = $injector->getInstance('IMP_Factory_Imap')->create()->pop3
+                        ? new IMP_Mailbox_List_Pop3($mailbox)
+                        : new IMP_Mailbox_List($mailbox);
+                }
             }
 
             $this->_instances[$key] = $ob;
-        }
-
-        switch ($registry->getView()) {
-        case $registry::VIEW_BASIC:
-        case $registry::VIEW_MINIMAL:
-            /* 'checkcache' needs to be set before setIndex(). */
-            $this->_instances[$key]->checkcache = is_null($indices);
-            $this->_instances[$key]->setIndex($indices);
-            break;
         }
 
         return $this->_instances[$key];

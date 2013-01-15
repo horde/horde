@@ -17,7 +17,7 @@
   <tr>
 <?php if ($this->checkbox): ?>
    <td>
-    <input type="checkbox" name="indices[]" value="<?php echo $v['uid'] ?>" />
+    <input type="checkbox" name="buid[]" value="<?php echo $v['buid'] ?>" />
    </td>
 <?php endif; ?>
    <td><?php echo $v['status'] ?></td>

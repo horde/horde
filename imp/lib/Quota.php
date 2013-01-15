@@ -53,13 +53,15 @@ abstract class IMP_Quota
     /**
      * Get quota information (used/allocated), in bytes.
      *
+     * @param string $mailbox  Mailbox to check.
+     *
      * @return array  An array with the following keys:
      *   - limit: Maximum quota allowed
      *   - usage: Currently used portion of quota (in bytes)
      *
      * @throws IMP_Exception
      */
-    abstract public function getQuota();
+    abstract public function getQuota($mailbox = null);
 
     /**
      * Should quota be displayed if no limit is configured?

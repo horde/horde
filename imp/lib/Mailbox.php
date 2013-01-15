@@ -73,6 +73,8 @@
  * @property-read string $label  The mailbox label. Essentially is $display
  *                               that can be modified by user hook.
  * @property-read integer $level  The child level of this element.
+ * @property-read IMP_Mailbox_List $list_ob  Returns the List object for the
+ *                                           mailbox.
  * @property-read string $namespace  Is this a namespace element?
  * @property-read IMP_Mailbox $namespace_append  The mailbox with necessary
  *                                               namespace information appended.
@@ -476,6 +478,9 @@ class IMP_Mailbox implements Serializable
             return $elt
                 ? $elt['c']
                 : 0;
+
+        case 'list_ob':
+             return $injector->getInstance('IMP_Factory_MailboxList')->create($this);
 
         case 'namespace':
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
@@ -990,18 +995,6 @@ class IMP_Mailbox implements Serializable
     }
 
     /**
-     * Return the mailbox list object.
-     *
-     * @param IMP_Indices $indices  See IMP_Factory_MailboxList::__construct().
-     *
-     * @return IMP_Mailbox_List  See IMP_Factory_MailboxList::__construct().
-     */
-    public function getListOb($indices = null)
-    {
-        return $GLOBALS['injector']->getInstance('IMP_Factory_MailboxList')->create($this, $indices);
-    }
-
-    /**
      * Return the search query object for this mailbox.
      *
      * @return IMP_Search_Query  The search query object.
@@ -1179,14 +1172,13 @@ class IMP_Mailbox implements Serializable
      * Generate a URL using the current mailbox.
      *
      * @param string|Horde_Url $page  Page name to link to.
-     * @param string $uid             The UID to use on the linked page.
-     * @param string $tmailbox        The mailbox associated with $uid.
+     * @param string $buid            The BUID to use on the linked page.
      * @param boolean $encode         Encode the argument separator?
      *
      * @return Horde_Url  URL to $page with any necessary mailbox information
      *                    added to the parameter list of the URL.
      */
-    public function url($page, $uid = null, $tmailbox = null, $encode = true)
+    public function url($page, $buid = null, $encode = true)
     {
         if ($page instanceof Horde_Url) {
             $url = clone $page;
@@ -1194,16 +1186,16 @@ class IMP_Mailbox implements Serializable
             if ($page != 'search.php') {
                 switch ($GLOBALS['registry']->getView()) {
                 case Horde_Registry::VIEW_DYNAMIC:
-                    $anchor = is_null($uid)
+                    $anchor = is_null($buid)
                         ? ('mbox:' . $this->form_to)
-                        : ('msg:' . $this->getIndicesOb($uid)->formTo());
+                        : ('msg:' . $this->form_to . ';' . $buid);
                     return Horde::url('index.php')->setAnchor($anchor);
 
                 case Horde_Registry::VIEW_SMARTMOBILE:
                     $url = Horde::url('smartmobile.php');
-                    $anchor = is_null($uid)
+                    $anchor = is_null($buid)
                         ? ('mbox=' . $this->form_to)
-                        : ('msg=' . $this->getIndicesOb($uid)->formTo());
+                        : ('msg=' . $this->form_to . ';' . $buid);
                     $url->setAnchor('mailbox?' . $anchor);
                     return $url;
                 }
@@ -1212,28 +1204,23 @@ class IMP_Mailbox implements Serializable
             $url = Horde::url($page);
         }
 
-        return $url->add($this->urlParams($uid, $tmailbox))->setRaw(!$encode);
+        return $url->add($this->urlParams($buid))->setRaw(!$encode);
     }
 
     /**
      * Returns list of URL parameters necessary to indicate current mailbox
      * status.
      *
-     * @param string $uid       The UID to use on the linked page.
-     * @param string $tmailbox  The mailbox associated with $uid to use on
-     *                          the linked page.
+     * @param string $buid  The BUID to use on the linked page.
      *
      * @return array  The list of parameters needed to indicate the current
      *                mailbox status.
      */
-    public function urlParams($uid = null, $tmailbox = null)
+    public function urlParams($buid = null)
     {
         $params = array('mailbox' => $this->form_to);
-        if (!is_null($uid)) {
-            $params['uid'] = $uid;
-            if (!is_null($tmailbox) && ($this->_mbox != $tmailbox)) {
-                $params['thismailbox'] = IMP_Mailbox::get($tmailbox)->form_to;
-            }
+        if (!is_null($buid)) {
+            $params['buid'] = $buid;
         }
         return $params;
     }
@@ -1393,6 +1380,53 @@ class IMP_Mailbox implements Serializable
         $this->_import['size'] = 0;
     }
 
+    /**
+     * Create an indices object from a list of browser-UIDs.
+     *
+     * @param IMP_Indices|array $buids  Browser-UIDs.
+     *
+     * @return IMP_Indices  An indices object.
+     */
+    public function fromBuids($buids)
+    {
+        if (is_array($buids)) {
+            $buids = new IMP_Indices($this->_mbox, $buids);
+        }
+        $buid_list = $buids->getSingle(true);
+
+        $list_ob = $this->list_ob;
+        $out = new IMP_Indices();
+
+        foreach ($buid_list[1] as $buid) {
+            if ($resolve = $list_ob->resolveBuid($buid)) {
+                $out->add($resolve['m'], $resolve['u']);
+            }
+        }
+
+        return $out;
+    }
+
+    /**
+     * Create a BUID indices object from a list of UIDs.
+     *
+     * @param IMP_Indices $uids  UIDs.
+     *
+     * @return IMP_Indices  An indices object.
+     */
+    public function toBuids(IMP_Indices $uids)
+    {
+        $list_ob = $this->list_ob;
+        $out = new IMP_Indices();
+
+        foreach ($uids as $val) {
+            foreach ($val->uids as $val2) {
+                $out->add($list_ob->getBuid($val->mbox, $val2));
+            }
+        }
+
+        return $out;
+    }
+
     /* Static methods. */
 
     /**
@@ -1408,7 +1442,8 @@ class IMP_Mailbox implements Serializable
     {
         return is_array($mbox)
             ? array_filter(array_map(array(__CLASS__, 'formFrom'), $mbox))
-            : self::get(IMP::base64urlDecode($mbox));
+              // Base64url (RFC 4648 [5]) encoding
+            : self::get(base64_decode(strtr($mbox, '-_', '+/')));
     }
 
     /**
@@ -1424,7 +1459,8 @@ class IMP_Mailbox implements Serializable
     {
         return is_array($mbox)
             ? array_filter(array_map(array(__CLASS__, 'formTo'), $mbox))
-            : IMP::base64urlEncode($mbox);
+              // Base64url (RFC 4648 [5]) encoding
+            : strtr(rtrim(base64_encode($mbox), '='), '+/', '-_');
     }
 
     /**

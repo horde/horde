@@ -32,8 +32,7 @@ var IMP_JS = {
                 var box = e.element().up('.mimeStatusMessageTable').up();
 
                 HordeCore.doAction('imageUnblockAdd', {
-                    mbox: elt.readAttribute('mailbox'),
-                    uid: elt.readAttribute('uid')
+                    muid: elt.readAttribute('muid')
                 });
 
                 box.slideUp({

@@ -17,27 +17,18 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
     /**
      * URL Parameters:
      *   - atc
+     *   - buid
      *   - id
      */
     protected function _init()
     {
         global $injector;
 
-        /* Make sure we have a valid index. */
-        $imp_mailbox = IMP::mailbox()->getListOb(IMP::mailbox(true)->getIndicesOb(IMP::uid()));
-        if (!$imp_mailbox->isValidIndex()) {
-            IMP_Minimal_Mailbox::url()->add('a', 'm')->redirect();
-        }
-
-        $index_ob = $imp_mailbox[$imp_mailbox->getIndex()];
-        $mailbox = $index_ob['m'];
-        $uid = $index_ob['u'];
-
         /* Parse the message. */
         try {
-            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imp_mailbox));
+            $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         } catch (IMP_Exception $e) {
-            IMP_Minimal_Mailbox::url(array('mailbox' => $mailbox))->add('a', 'm')->redirect();
+            IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->add('a', 'm')->redirect();
         }
 
         if (isset($this->vars->atc)) {
@@ -58,7 +49,10 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
                 : _("This part is empty.");
         }
 
-        $this->view->self_link = IMP_Minimal_Message::url(array('mailbox' => $mailbox, 'uid' => $uid));
+        $this->view->self_link = IMP_Minimal_Message::url(array(
+            'buid' => $this->vars->buid,
+            'mailbox' => $this->indices->mailbox
+        ));
         $this->view->title = $this->title;
 
         $this->_pages[] = 'messagepart';
@@ -66,12 +60,12 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
 
     /**
      * @param array $opts  Options:
+     *   - buid: (integer) BUID of message.
      *   - mailbox: (string) Mailbox of message.
-     *   - uid: (string) UID of message.
      */
     static public function url(array $opts = array())
     {
-        return IMP::mailbox()->url('minimal.php', $opts['uid'], $opts['mailbox'])->add('page', 'messagepart');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal.php', $opts['buid'])->add('page', 'messagepart');
     }
 
 }

@@ -350,7 +350,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $this->_base->queue->poll($imptree->getPollList());
         }
 
-        $this->_base->queue->quota();
+        $this->_base->queue->quota($this->_base->indices->mailbox);
 
         if ($this->vars->initial) {
             $GLOBALS['session']->start();
@@ -522,16 +522,15 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
      *   - add: (integer) Set the flag?
+     *   - buid: (string) BUIDs of the messages to flag (IMAP sequence
+     *           string).
      *   - flags: (string) The flags to set (JSON serialized array).
-     *   - uid: (string) Indices of the messages to flag (IMAP sequence
-     *          string; mailboxes are base64url encoded).
      *
      * @return boolean  True on success, false on failure.
      */
     public function flagMessages()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
-        if (!$this->vars->flags || !count($indices)) {
+        if (!$this->vars->flags || !count($this->_base->indices)) {
             return false;
         }
 
@@ -543,13 +542,13 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $flags = Horde_Serialize::unserialize($this->vars->flags, Horde_Serialize::JSON);
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $indices, $this->vars->add)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add)) {
             $this->_base->checkUidvalidity();
             return false;
         }
 
         if (in_array(Horde_Imap_Client::FLAG_SEEN, $flags)) {
-            $this->_base->queue->poll(array_keys($indices->indices()));
+            $this->_base->queue->poll(array_keys($this->_base->indices->indices()));
         }
 
         $this->_base->addTask('viewport', $change ? $this->_base->viewPortData(true) : $this->_base->viewPortOb());
@@ -597,15 +596,14 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * IMP_Ajax_Application#deleteMsgs(), and
      * IMP_Ajax_Application#checkUidvalidity(). Additional variables used:
      *   - blacklist: (integer) 1 to blacklist, 0 to whitelist.
-     *   - uid: (string) Indices of the messages to report (IMAP sequence
-     *          string; mailboxes are base64url encoded).
+     *   - buid: (string) BUIDs of the messages to report (IMAP sequence
+     *           string).
      *
      * @return boolean  True on success.
      */
     public function blacklist()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
-        if (!count($indices)) {
+        if (!count($this->_base->indices)) {
             return false;
         }
 
@@ -613,8 +611,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $change = $this->_base->changed(false);
             if (!is_null($change)) {
                 try {
-                    if ($GLOBALS['injector']->getInstance('IMP_Filter')->blacklistMessage($indices, false)) {
-                        $this->_base->deleteMsgs($indices, $change);
+                    if ($GLOBALS['injector']->getInstance('IMP_Filter')->blacklistMessage($this->_base->indices, false)) {
+                        $this->_base->deleteMsgs($this->_base->indices, $change);
                         return true;
                     }
                 } catch (Horde_Exception $e) {
@@ -623,7 +621,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         } else {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Filter')->whitelistMessage($indices, false);
+                $GLOBALS['injector']->getInstance('IMP_Filter')->whitelistMessage($this->_base->indices, false);
                 return true;
             } catch (Horde_Exception $e) {
                 $this->_base->checkUidvalidity();
@@ -638,10 +636,10 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
+     *   - buid: (string) BUID of the message to display (IMAP sequence
+     *           string; must be single index).
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
-     *   - uid: (string) Index of the messages to display (IMAP sequence
-     *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return mixed  On error will return null.
      *                Otherwise an object with the following entries:
@@ -654,7 +652,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result = new stdClass;
 
         try {
-            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Form($this->vars->uid));
+            $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
             $result->tree = $imp_contents->getTree()->getTree(true);
         } catch (IMP_Exception $e) {
             if (!$this->vars->preview) {
@@ -663,8 +661,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             $result->preview->error = $e->getMessage();
             $result->preview->errortype = 'horde.error';
-            $result->preview->mbox = $this->vars->mbox;
-            $result->preview->uid = $this->vars->uid;
+            $result->preview->buid = $this->vars->buid;
             $result->preview->view = $this->vars->view;
         }
 
@@ -677,10 +674,10 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
+     *   - buid: (string) BUIDs of the messages to display (IMAP sequence
+     *           string; must be single index).
      *   - header: (integer) If set, return preview data. Otherwise, return
      *              full data.
-     *   - uid: (string) Index of the messages to display (IMAP sequence
-     *          string; mailbox is base64url encoded) - must be single index.
      *
      * @return object  An object with the following entries:
      *   - hdr_data: (object) Contains header names as keys and lists of
@@ -689,14 +686,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function addressHeader()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
-        list($mbox, $idx) = $indices->getSingle();
-
-        if (!$idx) {
-            throw new IMP_Exception(_("Requested message not found."));
-        }
-
-        $show_msg = new IMP_Ajax_Application_ShowMessage($mbox, $idx);
+        $show_msg = new IMP_Ajax_Application_ShowMessage($this->_base->indices);
 
         $hdr = $this->vars->header;
 
@@ -748,18 +738,19 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         if (!$change) {
-            $change = ($this->_base->mbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
+            $change = ($this->_base->indices->mailbox->getSort()->sortby == Horde_Imap_Client::SORT_THREAD);
         }
 
-        $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_base->mbox) => 1), array('list' => true));
+        $expunged = $injector->getInstance('IMP_Message')->expungeMailbox(array(strval($this->_base->indices->mailbox) => 1), array('list' => true));
 
         if (!($expunge_count = count($expunged))) {
             return false;
         }
 
-        $GLOBALS['notification']->push(sprintf(ngettext("%d message was purged from \"%s\".", "%d messages were purged from \"%s\".", $expunge_count), $expunge_count, $this->_base->mbox->display), 'horde.success');
+        $GLOBALS['notification']->push(sprintf(ngettext("%d message was purged from \"%s\".", "%d messages were purged from \"%s\".", $expunge_count), $expunge_count, $this->_base->indices->mailbox->display), 'horde.success');
 
-        $this->_base->deleteMsgs($expunged, $change, true);
+        // TODO
+        $this->_base->deleteMsgs(new IMP_View_Indices($this->_base->indices->mailbox, $expunged), $change, true);
 
         return true;
     }
@@ -768,36 +759,35 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: Send a Message Disposition Notification (MDN).
      *
      * Variables used:
-     *   - uid: (string) Index of the messages to send MDN for (IMAP sequence
-     *          string; mailbox is base64url encoded) - must be single index.
+     *   - buid: (string) BUID of the messages to send MDN for (IMAP sequence
+     *           string; must be single index).
      *
      * @return mixed  False on failure, or an object with these properties:
+     *   - buid: (integer) BUID of message.
      *   - mbox: (string) Mailbox of message (base64url encoded).
-     *   - uid: (integer) UID of message.
      */
     public function sendMDN()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
-        if (count($indices) != 1) {
+        if (count($this->_base->indices) != 1) {
             return false;
         }
 
         try {
-            $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+            $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
         } catch (IMP_Imap_Exception $e) {
             $e->notify(_("The Message Disposition Notification was not sent. This is what the server said") . ': ' . $e->getMessage());
             return false;
         }
 
-        list($mbox, $uid) = $indices->getSingle();
+        list($mbox, $uid) = $this->_base->indices->getSingle();
         $imp_ui = new IMP_Ui_Message();
         $imp_ui->MDNCheck($mbox, $uid, $contents->getHeaderAndMarkAsSeen(), true);
 
         $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 
         $result = new stdClass;
+        $result->buid = $this->_base->vars->buid;
         $result->mbox = $mbox->form_to;
-        $result->uid = $uid;
 
         return $result;
     }
@@ -807,17 +797,16 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
      * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
-     *   - uid: (string) Index of the messages to preview (IMAP sequence
-     *          string; base64url encoded) - must be single index.
+     *   - buid: (string) BUID of the messages to preview (IMAP sequence
+     *           string; must be single index).
      *
      * @return mixed  False on failure, or an object with these properties:
+     *   - newbuid: (integer) BUID of new message.
      *   - newmbox: (string) Mailbox of new message (base64url encoded).
-     *   - newuid: (integer) UID of new message.
      */
     public function stripAttachment()
     {
-        $indices = new IMP_Indices_Form($this->vars->uid);
-        if (count($indices) != 1) {
+        if (count($this->_base->indices) != 1) {
             return false;
         }
 
@@ -827,7 +816,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         try {
-            $new_indices = $GLOBALS['injector']->getInstance('IMP_Message')->stripPart($indices, $this->vars->id);
+            $indices = $this->_base->mailbox->toBuids($GLOBALS['injector']->getInstance('IMP_Message')->stripPart($this->_base->indices, $this->vars->id));
         } catch (IMP_Exception $e) {
             $GLOBALS['notification']->push($e);
             return false;
@@ -835,13 +824,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
 
-        $tmp = $new_indices->getSingle();
 
         $result = new stdClass;
-        $result->newmbox = $tmp[0]->form_to;
-        $result->newuid = $tmp[1];
+        list($result->newmbox, $result->newbuid) = $indices->getSingle();
+        $result->newmbox = $result->newmbox->form_to;
 
-        $this->_base->queue->message($tmp[0], $tmp[1], true);
+        $this->_base->queue->message($indices, true);
         $this->_base->addTask('viewport', $this->_base->viewPortData(true));
 
         return $result;

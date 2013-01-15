@@ -18,34 +18,23 @@ class IMP_Quota_Imap extends IMP_Quota
      * Constructor.
      *
      * @param array $params  Parameters:
-     *   - imap_ob: (Horde_Imap_Client_Base) IMAP client object.
-     *   - mbox: (string) IMAP mailbox to query.
-     *
-     * @throws InvalidArgumentException
+     *   - imap_ob: (Horde_Imap_Client_Base) IMAP client object [REQUIRED].
      */
     public function __construct(array $params = array())
     {
-        foreach (array('imap_ob', 'mbox') as $val) {
-            if (!isset($params[$val])) {
-                throw new InvalidArgumentException('Missing ' . $val . ' parameter');
-            }
+        if (!isset($params['imap_ob'])) {
+            throw new InvalidArgumentException('Missing ' . $val . ' parameter');
         }
 
         parent::__construct($params);
     }
 
     /**
-     * Get quota information (used/allocated), in bytes.
-     *
-     * @return array  An array with the following keys:
-     *   - limit: Maximum quota allowed
-     *   - usage: Currently used portion of quota (in bytes)
-     * @throws IMP_Exception
      */
-    public function getQuota()
+    public function getQuota($mailbox = null)
     {
         try {
-            $quota = $this->_params['imap_ob']->getQuotaRoot($this->_params['mbox']);
+            $quota = $this->_params['imap_ob']->getQuotaRoot(is_null($mailbox) ? 'INBOX' : $mailbox);
         } catch (IMP_Imap_Exception $e) {
             throw new IMP_Exception(_("Unable to retrieve quota"));
         }

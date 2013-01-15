@@ -359,10 +359,9 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             // TODO: Check for key existence.
             $imp_contents = $this->getConfigParam('imp_contents');
             $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
-                'mailbox' => $imp_contents->getMailbox(),
                 'mime_id' => $mime_id,
-                'type' => 'pgp',
-                'uid' => $imp_contents->getUid()
+                'muid' => strval($imp_contents->getIndicesOb()),
+                'type' => 'pgp'
             ));
             $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the key to your address book.") . '</a>');
         }

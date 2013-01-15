@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-07</date>
- <time>17:27:39</time>
+ <date>2013-01-14</date>
+ <time>17:53:57</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Abstract all UIDs used for mailbox/message navigation on the browser to BUIDs (browser UIDs) (Bug #10719).
 * [mms] Use more efficient murmurhash3 to determine changes in compose message that will trigger auto saved drafts.
 * [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.
 * [mms] Add message thread view to dynamic mailbox preview.
@@ -79,7 +80,6 @@
     <file name="folderprefs.js" role="horde" />
     <file name="folders.js" role="horde" />
     <file name="imp.js" role="horde" />
-    <file name="indices.js" role="horde" />
     <file name="login.js" role="horde" />
     <file name="mailbox.js" role="horde" />
     <file name="message-dimp.js" role="horde" />
@@ -92,6 +92,7 @@
     <file name="signaturehtml.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
     <file name="viewport.js" role="horde" />
+    <file name="viewport_utils.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
     <dir name="Ajax">
@@ -117,6 +118,9 @@
      <file name="Application.php" role="horde" />
      <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
+    <dir name="Basic">
+     <file name="Compose.php" role="horde" />
+    </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
      <file name="Summary.php" role="horde" />
@@ -202,7 +206,7 @@
      <file name="Tree.php" role="horde" />
     </dir> <!-- /lib/Imap -->
     <dir name="Indices">
-     <file name="Form.php" role="horde" />
+     <file name="Mailbox.php" role="horde" />
     </dir> <!-- /lib/Indices -->
     <dir name="LoginTasks">
      <dir name="SystemTask">
@@ -224,6 +228,7 @@
     </dir> <!-- /lib/LoginTasks -->
     <dir name="Mailbox">
      <dir name="List">
+      <file name="Pop3.php" role="horde" />
       <file name="Thread.php" role="horde" />
       <file name="Virtual.php" role="horde" />
      </dir> <!-- /lib/Mailbox/List -->
@@ -1348,7 +1353,6 @@
    <install as="imp/js/folderprefs.js" name="js/folderprefs.js" />
    <install as="imp/js/folders.js" name="js/folders.js" />
    <install as="imp/js/imp.js" name="js/imp.js" />
-   <install as="imp/js/indices.js" name="js/indices.js" />
    <install as="imp/js/login.js" name="js/login.js" />
    <install as="imp/js/mailbox.js" name="js/mailbox.js" />
    <install as="imp/js/message-dimp.js" name="js/message-dimp.js" />
@@ -1361,6 +1365,7 @@
    <install as="imp/js/signaturehtml.js" name="js/signaturehtml.js" />
    <install as="imp/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="imp/js/viewport.js" name="js/viewport.js" />
+   <install as="imp/js/viewport_utils.js" name="js/viewport_utils.js" />
    <install as="imp/lib/.htaccess" name="lib/.htaccess" />
    <install as="imp/lib/Api.php" name="lib/Api.php" />
    <install as="imp/lib/Application.php" name="lib/Application.php" />
@@ -1397,6 +1402,7 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
@@ -1455,7 +1461,7 @@
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />
-   <install as="imp/lib/Indices/Form.php" name="lib/Indices/Form.php" />
+   <install as="imp/lib/Indices/Mailbox.php" name="lib/Indices/Mailbox.php" />
    <install as="imp/lib/LoginTasks/SystemTask/GarbageCollection.php" name="lib/LoginTasks/SystemTask/GarbageCollection.php" />
    <install as="imp/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="imp/lib/LoginTasks/SystemTask/UpgradeAuth.php" name="lib/LoginTasks/SystemTask/UpgradeAuth.php" />
@@ -1469,6 +1475,7 @@
    <install as="imp/lib/LoginTasks/Task/RecoverDraft.php" name="lib/LoginTasks/Task/RecoverDraft.php" />
    <install as="imp/lib/LoginTasks/Task/RenameSentmailMonthly.php" name="lib/LoginTasks/Task/RenameSentmailMonthly.php" />
    <install as="imp/lib/Mailbox/List.php" name="lib/Mailbox/List.php" />
+   <install as="imp/lib/Mailbox/List/Pop3.php" name="lib/Mailbox/List/Pop3.php" />
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
@@ -2920,6 +2927,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Abstract all UIDs used for mailbox/message navigation on the browser to BUIDs (browser UIDs) (Bug #10719).
 * [mms] Use more efficient murmurhash3 to determine changes in compose message that will trigger auto saved drafts.
 * [mms] Initialize viewport and mailbox list in single AJAX call when initially loading the dynamic mailbox view.
 * [mms] Add message thread view to dynamic mailbox preview.

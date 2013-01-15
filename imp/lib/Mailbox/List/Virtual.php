@@ -23,6 +23,9 @@
  */
 class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
 {
+    /* String used to separate mailboxes/UIDs in search mailboxes. */
+    const IDX_SEP = "\0";
+
     /**
      * The mailboxes corresponding to the sorted indices list.
      *
@@ -30,6 +33,8 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
      */
     protected $_sortedMbox = array();
 
+    /**
+     */
     public function buildMailboxPage($page = 0, $start = 0)
     {
         $ret = parent::buildMailboxPage($page, $start);
@@ -81,10 +86,6 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
     {
         $this->_buildMailbox();
 
-        if (is_null($mbox)) {
-            $mbox = IMP::mailbox(true);
-        }
-
         /* Need to compare both mbox name and message UID to obtain the
          * correct array index since there may be duplicate UIDs. */
         foreach (array_keys($this->_sorted, $uid) as $key) {
@@ -122,6 +123,10 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {
                 unset($this->_sortedMbox[$this->getArrayIndex($uid, $ob->mbox)]);
+                $idx = $ob->mbox . self::IDX_SEP . $uid;
+                if (($aindex = array_search($idx, $this->_buids)) !== false) {
+                    unset($this->_buids[$aindex]);
+                }
             }
         }
 
@@ -135,6 +140,37 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
     protected function _getMbox($id)
     {
         return IMP_Mailbox::get($this->_sortedMbox[$id]);
+    }
+
+    /**
+     */
+    public function getBuid($mbox, $uid)
+    {
+        $idx = $mbox . self::IDX_SEP . $uid;
+
+        if (($aindex = array_search($idx, $this->_buids)) === false) {
+            $aindex = ++$this->_buidmax;
+            $this->_buids[$aindex] = $idx;
+            $this->changed = true;
+        }
+
+        return $aindex;
+    }
+
+    /**
+     */
+    public function resolveBuid($buid)
+    {
+        if (!isset($this->_buids[$buid])) {
+            return null;
+        }
+
+        list($mbox, $uid) = explode(self::IDX_SEP, $this->_buids[$buid]);
+
+        return array(
+            'm' => IMP_Mailbox::get($mbox),
+            'u' => intval($uid)
+        );
     }
 
     /**
@@ -154,7 +190,7 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
      */
     protected function _unserialize($data)
     {
-        parent::_unserialize();
+        parent::_unserialize($data);
 
         if (isset($data['som'])) {
             $this->_sortedMbox = $data['som'];

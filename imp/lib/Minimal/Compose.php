@@ -20,6 +20,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      *   - action: (string) The action ID (used on redirect page).
      *   - bcc: (string) BCC address(es).
      *   - bcc_expand_[1-5]: (string) Expand matches for BCC addresses.
+     *   - buid: (string) TODO
      *   - cc: (string) CC address(es).
      *   - cc_expand_[1-5]: (string) Expand matches for BCC addresses.
      *   - composeCache: (string) Compose object cache ID.
@@ -74,7 +75,6 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         /* Initialize objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
-        $imp_ui = new IMP_Ui_Compose();
 
         foreach (array_keys($display_hdrs) as $val) {
             $header[$val] = $this->vars->$val;
@@ -119,23 +119,21 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case 'en':
         case 't':
             try {
-                $indices_ob = IMP::mailbox(true)->getIndicesOb(IMP::uid());
-
                 switch ($this->vars->a) {
                 case 'd':
-                    $result = $imp_compose->resumeDraft($indices_ob, array(
+                    $result = $imp_compose->resumeDraft($this->indices, array(
                         'format' => 'text'
                     ));
                     break;
 
                 case 'en':
-                    $result = $imp_compose->editAsNew($indices_ob, array(
+                    $result = $imp_compose->editAsNew($this->indices, array(
                         'format' => 'text'
                     ));
                     break;
 
                 case 't':
-                    $result = $imp_compose->useTemplate($indices_ob, array(
+                    $result = $imp_compose->useTemplate($this->indices, array(
                         'format' => 'text'
                     ));
                     break;
@@ -179,7 +177,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         case 'ra':
         case 'rl':
             try {
-                $imp_contents = $imp_ui->getContents();
+                $imp_contents = $this->_getContents();
             } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
@@ -204,7 +202,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         // 'f' = forward
         case 'f':
             try {
-                $imp_contents = $imp_ui->getContents();
+                $imp_contents = $this->_getContents();
             } catch (IMP_Exception $e) {
                 $notification->push($e, 'horde.error');
                 break;
@@ -219,7 +217,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         // 'rc' = redirect compose
         case 'rc':
-            $imp_compose->redirectMessage($imp_ui->getIndices());
+            $imp_compose->redirectMessage($this->indices);
             $this->title = _("Redirect");
             break;
 
@@ -229,7 +227,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 $imp_compose->destroy('send');
 
                 $notification->push(ngettext("Message redirected successfully.", "Messages redirected successfully.", count($num_msgs)), 'horde.success');
-                IMP_Minimal_Mailbox::url()->redirect();
+                IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
             } catch (Horde_Exception $e) {
                 $this->vars->a = 'rc';
                 $notification->push($e);
@@ -291,7 +289,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $notification->push($imp_compose->saveDraft($header, $message), 'horde.success');
                     if ($prefs->getValue('close_draft')) {
                         $imp_compose->destroy('save_draft');
-                        IMP_Minimal_Mailbox::url()->redirect();
+                        IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
                     }
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
@@ -312,7 +310,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');
-                    IMP_Minimal_Mailbox::url()->redirect();
+                    IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
 
@@ -328,7 +326,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         case _("Cancel"):
             $imp_compose->destroy('cancel');
-            IMP_Minimal_Mailbox::url()->redirect();
+            IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
             exit;
         }
 
@@ -487,6 +485,26 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 $res
             );
         }
+    }
+
+    /**
+     * Create the IMP_Contents objects needed to create a message.
+     *
+     * @param Horde_Variables $vars  The variables object.
+     *
+     * @return IMP_Contents  The IMP_Contents object.
+     * @throws IMP_Exception
+     */
+    protected function _getContents()
+    {
+        try {
+            return $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->indices);
+        } catch (Horde_Exception $e) {}
+
+        $this->vars->buid = null;
+        $this->vars->type = 'new';
+
+        throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
     }
 
 }

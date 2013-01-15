@@ -302,10 +302,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                         $this->_impsmime->getPublicKey($sig_result->email);
                     } catch (Horde_Exception $e) {
                         $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
-                            'mailbox' => $imp_contents->getMailbox(),
                             'mime_id' => $base_id,
-                            'type' => 'smime',
-                            'uid' => $imp_contents->getUid()
+                            'muid' => strval($imp_contents->getIndicesOb()),
+                            'type' => 'smime'
                         ));
                         $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the certificate to your Address Book.") . '</a>');
                     }

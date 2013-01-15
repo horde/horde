@@ -1,39 +1,53 @@
 <?php
 /**
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @package   IMP
+ */
+
+/**
  * This is a view of the IMP subinfo bar.
  *
  * Useful properties:
- * - label: (string) Prefix label for the content, e.g. "Mailbox:".
- * - value: (string) The content, e.g. mailbox name.
- * - readonly: (boolean) Whether to add a read-only icon.
- * - quotaText: (string) Text to be added to the quota section. This is done
- *              automatically.
- * - quotaClass: (string) CSS class to be used for the quota section. This is
+ *   - label: (string) Prefix label for the content, e.g. "Mailbox:".
+ *   - quotaClass: (string) CSS class to be used for the quota section. This is
  *               done automatically.
+ *   - quotaText: (string) Text to be added to the quota section. This is done
+ *                automatically.
+ *   - readonly: (boolean) Whether to add a read-only icon.
+ *   - value: (string) The content, e.g. mailbox name.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
- * @package  IMP
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @package   IMP
  */
 class IMP_View_Subinfo extends Horde_View
 {
     /**
      * Constructor.
      *
-     * @param array $config  Configuration key-value pairs.
+     * @param array $config  Configuration key-value pairs. Additional options:
+     *   - mailbox: (string) Mailbox to use for quota query.
      */
-    public function __construct($config = array())
+    public function __construct(array $config = array())
     {
         $config['templatePath'] = IMP_TEMPLATES . '/basic';
         parent::__construct($config);
 
-        $quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota();
+        $quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota(isset($config['mailbox']) ? $config['mailbox'] : null);
         if (!empty($quotadata)) {
             $this->quotaClass = $quotadata['class'];
             $this->quotaText = $quotadata['message'];

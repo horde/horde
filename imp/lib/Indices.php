@@ -102,9 +102,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                     $indices = array($this->_default => $indices);
                 }
             } elseif ($data instanceof IMP_Compose) {
-                $indices = array(
-                    strval($data->getMetadata('mailbox')) => array($data->getMetadata('uid'))
-                );
+                $indices = $data->getMetadata('indices')->indices();
             } elseif ($data instanceof IMP_Contents) {
                 $indices = array(
                     strval($data->getMailbox()) => array($data->getUid())
@@ -127,7 +125,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
             } elseif ($secondarg instanceof Horde_Imap_Client_Ids) {
                 $secondarg = $secondarg->ids;
             } else {
-                $secondarg = array($secondarg);
+                $secondarg = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getIdsOb($secondarg)->ids;
             }
 
             if (!empty($secondarg)) {
@@ -185,19 +183,21 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Converts an indices object string to a string form representation.
-     * Needed because null characters (used for various internal non-IMAP
-     * mailbox representations) will not work in form elements.
+     * Returns an array containing compressed UID values.
      *
-     * @return string  String representation (IMAP sequence string).
+     * @return array  Keys are base64 encoded mailbox names, values are
+     *                sequence strings.
      */
-    public function formTo()
+    public function toArray()
     {
         $converted = array();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+
         foreach ($this->_indices as $key => $val) {
-            $converted[IMP_Mailbox::formTo($key)] = $val;
+            $converted[IMP_Mailbox::formTo($key)] = strval($imp_imap->getIdsOb($val));
         }
-        return $this->_toSequenceString($converted);
+
+        return $converted;
     }
 
     /**

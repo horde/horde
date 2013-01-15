@@ -62,7 +62,7 @@ class IMP_Ajax_Queue
     /**
      * Add quota information to response?
      *
-     * @var boolean
+     * @var string
      */
     protected $_quota = false;
 
@@ -86,11 +86,15 @@ class IMP_Ajax_Queue
      *   - switch: (string) Load this mailbox (base64url encoded).
      *
      * For maillog data (key: 'maillog'), an object with these properties:
+     *   - buid: (integer) BUID.
      *   - log: (array) List of log entries.
      *   - mbox: (string) Mailbox.
-     *   - uid: (string) UID.
      *
-     * For message preview data (key: 'message'), an array with these keys:
+     * For message preview data (key: 'message'), an object with these
+     * properties:
+     *   - buid: (integer) BUID.
+     *   - data: (object) Message viewport data.
+     *   - mbox: (string) Mailbox.
      *
      * For poll data (key: 'poll'), an array with keys as base64url encoded
      * mailbox names, values as the number of unseen messages.
@@ -125,9 +129,9 @@ class IMP_Ajax_Queue
             foreach ($this->_maillog as $val) {
                 if ($tmp = $imp_maillog->getLogObs($val['msg_id'])) {
                     $log_ob = new stdClass;
+                    $log_ob->buid = intval($val['buid']);
                     $log_ob->log = $tmp;
                     $log_ob->mbox = $val['mailbox']->form_to;
-                    $log_ob->uid = $val['uid'];
                     $maillog[] = $log_ob;
                 }
             }
@@ -163,7 +167,7 @@ class IMP_Ajax_Queue
 
         /* Add quota information. */
         if ($this->_quota &&
-            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota())) {
+            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota($this->_quota))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),
@@ -182,7 +186,7 @@ class IMP_Ajax_Queue
      * @param boolean $add          Were the flags added?
      * @param IMP_Indices $indices  Indices object.
      */
-    public function flag($flags, $add, $indices)
+    public function flag($flags, $add, IMP_Indices $indices)
     {
         global $injector;
 
@@ -200,8 +204,12 @@ class IMP_Ajax_Queue
             $result->remove = array_map('strval', $changed['remove']);
         }
 
+        if ($indices instanceof IMP_Indices_Mailbox) {
+            $indices = $indices->joinIndices();
+        }
+
         if (count($indices)) {
-            $result->uids = $indices->formTo();
+            $result->buids = $indices->toArray();
             $this->_flag[] = $result;
         }
     }
@@ -209,38 +217,58 @@ class IMP_Ajax_Queue
     /**
      * Add message data to output.
      *
-     * @param string $mailbox   The mailbox name.
-     * @param string $uid       The message UID.
-     * @param boolean $preview  Preview data?
-     * @param boolean $peek     Don't set seen flag?
+     * @param IMP_Indices $indices  Index of the message.
+     * @param boolean $preview      Preview data?
+     * @param boolean $peek         Don't set seen flag?
      */
-    public function message($mailbox, $uid, $preview = false, $peek = false)
+    public function message(IMP_Indices $indices, $preview = false,
+                            $peek = false)
     {
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($mailbox, $uid, $peek);
+            $show_msg = new IMP_Ajax_Application_ShowMessage($indices, $peek);
             $msg = (object)$show_msg->showMessage(array(
                 'preview' => $preview
             ));
             $msg->save_as = strval($msg->save_as);
-            $this->_messages[] = $msg;
+
+            if ($indices instanceof IMP_Indices_Mailbox) {
+                $indices = $indices->joinIndices();
+            }
+
+            foreach ($indices as $val) {
+                foreach ($val->uids as $val2) {
+                    $ob = new stdClass;
+                    $ob->buid = $val2;
+                    $ob->data = $msg;
+                    $ob->mbox = $val->mbox->form_to;
+                    $this->_messages[] = $ob;
+                }
+            }
         } catch (Exception $e) {}
     }
 
     /**
      * Add mail log data to output.
      *
-     * @param string $mailbox  The mailbox name.
-     * @param string $uid      The message UID.
-     * @param string $msg_id   The message ID of the original message.
+     * @param IMP_Indices $indices  Indices object.
+     * @param string $msg_id        The message ID of the original message.
      */
-    public function maillog($mailbox, $uid, $msg_id)
+    public function maillog(IMP_Indices $indices, $msg_id)
     {
         if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            $this->_maillog[] = array(
-                'mailbox' => IMP_Mailbox::get($mailbox),
-                'msg_id' => $msg_id,
-                'uid' => $uid
-            );
+            if ($indices instanceof IMP_Indices_Mailbox) {
+                $indices = $indices->joinIndices();
+            }
+
+            foreach ($indices as $val) {
+                foreach ($val->uids as $val2) {
+                    $this->_maillog[] = array(
+                        'buid' => $val2,
+                        'mailbox' => $val->mbox,
+                        'msg_id' => $msg_id
+                    );
+                }
+            }
         }
     }
 
@@ -275,10 +303,12 @@ class IMP_Ajax_Queue
 
     /**
      * Add quota entry to response queue.
+     *
+     * @param string $mailbox  Mailbox to query for quota.
      */
-    public function quota()
+    public function quota($mailbox)
     {
-        $this->_quota = true;
+        $this->_quota = $mailbox;
     }
 
 }

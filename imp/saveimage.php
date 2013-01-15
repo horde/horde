@@ -23,11 +23,13 @@ if (!$registry->hasMethod('images/selectGalleries') ||
     throw $e;
 }
 
-/* Run through the action handlers. */
 $vars = $injector->getInstance('Horde_Variables');
+$indices = new IMP_Indices_Mailbox($vars);
+
+/* Run through the action handlers. */
 switch ($vars->actionID) {
 case 'save_image':
-    $contents = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($vars->mbox, $vars->uid));
+    $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
     $mime_part = $contents->getMIMEPart($vars->id);
     $image_data = array(
         'data' => $mime_part->getContents(),
@@ -55,8 +57,7 @@ $view->addHelper('Text');
 $view->action = Horde::url('saveimage.php');
 $view->gallerylist = $registry->images->selectGalleries(array('perm' => Horde_Perms::EDIT));
 $view->id = $vars->id;
-$view->mbox = $vars->mbox;
-$view->uid = $vars->uid;
+$view->muid = strval($indices);
 
 $page_output->topbar = $page_output->sidebar = false;
 

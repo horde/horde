@@ -51,13 +51,6 @@ class IMP
     static public $newUrl = null;
 
     /**
-     * Current mailbox/UID information.
-     *
-     * @var array
-     */
-    static private $_mboxinfo;
-
-    /**
      * Initialize the JS browser environment and output everything up to, and
      * including, the <body> tag.
      *
@@ -108,68 +101,6 @@ class IMP
         $GLOBALS['page_output']->header(array(
             'title' => $title
         ));
-    }
-
-    /**
-     * Returns mailbox info for the current page.
-     *
-     * @param boolean $uidmbox  If true, return mailbox associated with UID.
-     *                          Otherwise, return master mailbox.
-     *
-     * @return IMP_Mailbox  Mailbox object.
-     */
-    static public function mailbox($uidmbox = false)
-    {
-        if (!isset(self::$_mboxinfo)) {
-            self::setMailboxInfo();
-        }
-
-        return self::$_mboxinfo[$uidmbox ? 'thismailbox' : 'mailbox'];
-    }
-
-    /**
-     * Returns UID info for the current page.
-     *
-     * @return string  UID.
-     */
-    static public function uid()
-    {
-        if (!isset(self::$_mboxinfo)) {
-            self::setMailboxInfo();
-        }
-
-        return self::$_mboxinfo['uid'];
-    }
-
-    /**
-     * Sets mailbox/index information for current page load.
-     *
-     * @param boolean $mbox  Use this mailbox, instead of form data.
-     */
-    static public function setMailboxInfo($mbox = null)
-    {
-        if (is_null($mbox)) {
-            $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
-
-            $mailbox = isset($vars->mailbox)
-                ? IMP_Mailbox::formFrom($vars->mailbox)
-                : IMP_Mailbox::get('INBOX');
-
-            $thismailbox = isset($vars->thismailbox)
-                ? IMP_Mailbox::formFrom($vars->thismailbox)
-                : $mailbox;
-
-            $uid = $vars->uid;
-        } else {
-            $mailbox = $thismailbox = IMP_Mailbox::get($mbox);
-            $uid = null;
-        }
-
-        self::$_mboxinfo = array(
-            'mailbox' => $mailbox,
-            'thismailbox' => $thismailbox,
-            'uid' => $uid
-        );
     }
 
     /**
@@ -522,30 +453,6 @@ class IMP
         } catch (Horde_Exception_HookNotSet $e) {
             return true;
         }
-    }
-
-    /**
-     * Base64url (RFC 4648 [5]) encode a string.
-     *
-     * @param string $in  Unencoded string.
-     *
-     * @return string  Encoded string.
-     */
-    static public function base64urlEncode($in)
-    {
-        return strtr(rtrim(base64_encode($in), '='), '+/', '-_');
-    }
-
-    /**
-     * Base64url (RFC 4648 [5]) decode a string.
-     *
-     * @param string $in  Encoded string.
-     *
-     * @return string  Decoded string.
-     */
-    static public function base64urlDecode($in)
-    {
-        return base64_decode(strtr($in, '-_', '+/'));
     }
 
     /**

@@ -295,7 +295,6 @@ class IMP_Application extends Horde_Registry_Application
                 'open' => false,
                 'poll_info' => true
             ));
-            $tree->addNodeParams(IMP_Mailbox::formTo(IMP::mailbox()), array('selected' => true));
             $sidebar->containers['imp-menu'] = array('content' => $tree->getTree());
         }
     }
@@ -509,11 +508,11 @@ class IMP_Application extends Horde_Registry_Application
 
         switch ($vars->actionID) {
         case 'download_all':
-            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             return $view_ob->downloadAll();
 
         case 'download_attach':
-            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             return $view_ob->downloadAttach($vars->id, $vars->zip);
 
         case 'download_mbox':
@@ -556,11 +555,11 @@ class IMP_Application extends Horde_Registry_Application
             break;
 
         case 'download_render':
-            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             return $view_ob->downloadRender($vars->id, $vars->mode, $vars->ctype);
 
         case 'save_message':
-            $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());
+            $view_ob = new IMP_Contents_View(new IMP_Indices_Mailbox($vars));
             return $view_ob->saveMessage();
         }
 

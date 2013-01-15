@@ -245,12 +245,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if ($this->_replytype) {
             $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
             try {
+                $indices = $this->getMetadata('indices');
+
                 $imap_url = new Horde_Imap_Client_Url();
                 $imap_url->hostspec = $imp_imap->getParam('hostspec');
-                $imap_url->mailbox = $this->getMetadata('mailbox');
+                list($imap_url->mailbox, $imap_url->uid) = $indices->getSingle();
                 $imap_url->protocol = $imp_imap->pop3 ? 'pop' : 'imap';
-                $imap_url->uid = $this->getMetadata('uid');
-                $imap_url->uidvalidity = $this->getMetadata('mailbox')->uidvalid;
+                $imap_url->uidvalidity = $imap_url->mailbox->uidvalid;
                 $imap_url->username = $imp_imap->getParam('username');
 
                 switch ($this->replyType(true)) {
@@ -559,8 +560,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                         // should catch any true server/backend changes.
                         (IMP_Mailbox::get($imap_url->mailbox)->uidvalid == $imap_url->uidvalidity) &&
                         $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($imap_url->mailbox, $imap_url->uid))) {
-                        $this->_metadata['mailbox'] = IMP_Mailbox::get($imap_url->mailbox);
-                        $this->_metadata['uid'] = $imap_url->uid;
+                        $this->_metadata['indices'] = new IMP_Indices($imap_url->mailbox, $imap_url->uid);
                         $this->_replytype = $type;
                     }
                 } catch (Exception $e) {}
@@ -1565,8 +1565,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $reply_type = self::REPLY_SENDER;
 
         if (!$this->_replytype) {
-            $this->_metadata['mailbox'] = $contents->getMailbox();
-            $this->_metadata['uid'] = $contents->getUid();
+            $this->_metadata['indices'] = $contents->getIndicesOb();
             $this->changed = 'changed';
 
             /* Set the message-id related headers. */
@@ -1929,8 +1928,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $h = $contents->getHeader();
 
-        $this->_metadata['mailbox'] = $contents->getMailbox();
-        $this->_metadata['uid'] = $contents->getUid();
+        $this->_metadata['indices'] = $contents->getIndicesOb();
 
         /* We need the Message-Id so we can log this event. This header is not
          * added to the outgoing messages. */
@@ -3088,8 +3086,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function getContentsOb()
     {
-        return ($this->_replytype && $this->getMetadata('mailbox'))
-            ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($this->getMetadata('mailbox'), $this->getMetadata('uid')))
+        return ($this->_replytype && $indices = $this->getMetadata('indices'))
+            ? $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices)
             : null;
     }
 

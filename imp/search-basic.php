@@ -28,6 +28,7 @@ if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCE
 
 $imp_search = $injector->getInstance('IMP_Search');
 $vars = $injector->getInstance('Horde_Variables');
+$mailbox = IMP_Mailbox::formFrom($vars->mailbox);
 
 /* If search_basic is set, we are processing the search query. */
 if ($vars->search_basic) {
@@ -76,7 +77,7 @@ if ($vars->search_basic) {
         /* Store the search in the session. */
         $q_ob = $imp_search->createQuery($c_list, array(
             'id' => IMP_Search::BASIC_SEARCH,
-            'mboxes' => array(IMP::mailbox()),
+            'mboxes' => array($mailbox),
             'type' => IMP_Search::CREATE_QUERY
         ));
 
@@ -87,7 +88,7 @@ if ($vars->search_basic) {
 
 $flist = $injector->getInstance('IMP_Flags')->getList(array(
     'imap' => true,
-    'mailbox' => IMP::mailbox()
+    'mailbox' => $mailbox
 ));
 $flag_set = array();
 foreach ($flist as $val) {
@@ -105,9 +106,9 @@ $view->addHelper('FormTag');
 $view->addHelper('Tag');
 
 $view->action = Horde::url('search-basic.php');
-$view->advsearch = Horde::link(IMP::mailbox()->url('search.php'));
-$view->mbox = IMP::mailbox()->form_to;
-$view->search_title = sprintf(_("Search %s"), IMP::mailbox()->display_html);
+$view->advsearch = Horde::link($mailbox->url('search.php'));
+$view->mbox = $mailbox->form_to;
+$view->search_title = sprintf(_("Search %s"), $mailbox->display_html);
 $view->flist = $flag_set;
 
 IMP::header(_("Search"));

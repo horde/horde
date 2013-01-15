@@ -149,6 +149,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
 
         case self::CREATE_QUERY:
             $this->_search['query'][$ob->id] = $ob;
+            $ob->mbox_ob->list_ob->rebuild(true);
             break;
 
         case self::CREATE_VFOLDER:

@@ -50,25 +50,6 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     }
 
     /**
-     * AJAX action: Generate data necessary to display a message.
-     *
-     * @see IMP_Ajax_Application#showMessage()
-     *
-     * @return object  Adds the following entries to the base object:
-     *   - suid: (string) The search mailbox UID.
-     */
-    public function smartmobileShowMessage()
-    {
-        $output = $this->_base->callAction('showMessage');
-
-        if (IMP_Mailbox::formFrom($this->vars->view)->search) {
-            $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
-        }
-
-        return $output;
-    }
-
-    /**
      * AJAX action: Check access rights for creation of a submailbox.
      *
      * Variables used:

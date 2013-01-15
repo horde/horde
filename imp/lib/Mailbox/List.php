@@ -34,11 +34,18 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     public $changed = false;
 
     /**
-     * Check the IMAP cache ID?
+     * Max assigned browser-UID.
      *
-     * @var boolean
+     * @var integer
      */
-    public $checkcache = true;
+    protected $_buidmax = 0;
+
+    /**
+     * Mapping of browser-UIDs to UIDs.
+     *
+     * @var array
+     */
+    protected $_buids = array();
 
     /**
      * The IMAP cache ID of the mailbox.
@@ -46,6 +53,13 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      * @var string
      */
     protected $_cacheid = null;
+
+    /**
+     * Check the IMAP cache ID?
+     *
+     * @var boolean
+     */
+    protected $_checkcache = true;
 
     /**
      * The location in the sorted array we are at.
@@ -357,14 +371,14 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     protected function _buildMailbox()
     {
         if ($this->isBuilt() &&
-            (!$this->checkcache ||
+            (!$this->_checkcache ||
              ($this->_cacheid == $this->_mailbox->cacheid))) {
             return;
         }
 
         $this->changed = true;
         $this->_sorted = array();
-        if ($this->checkcache) {
+        if ($this->_checkcache) {
             $this->_cacheid = $this->_mailbox->cacheid;
         }
 
@@ -542,12 +556,21 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Rebuilds the mailbox.
+     * Rebuilds/resets the mailbox list.
+     *
+     * @param boolean $reset  If true, resets the list instead of rebuilding.
      */
-    public function rebuild()
+    public function rebuild($reset = false)
     {
-        $this->_sorted = null;
-        $this->_buildMailbox();
+        $this->_cacheid = $this->_sorted = null;
+
+        if ($reset) {
+            $this->_buidmax = 0;
+            $this->_buids = array();
+            $this->changed = true;
+        } else {
+            $this->_buildMailbox();
+        }
     }
 
     /**
@@ -729,6 +752,38 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         return $this->_mailbox;
     }
 
+    /* Pseudo-UID related methods. */
+
+    /**
+     * Create a browser-UID from a mail UID.
+     *
+     * @param string $mbox  The mailbox.
+     * @param integer $uid  UID.
+     *
+     * @return integer  Browser-UID.
+     */
+    public function getBuid($mbox, $uid)
+    {
+        return $uid;
+    }
+
+    /**
+     * Resolve a mail UID from a browser-UID.
+     *
+     * @param integer $buid  Browser-UID.
+     *
+     * @return array  Two-element array:
+     *   - m: (IMP_Mailbox) Mailbox of message.
+     *   - u: (string) UID of message.
+     */
+    public function resolveBuid($buid)
+    {
+        return array(
+            'm' => $this->_mailbox,
+            'u' => intval($buid)
+        );
+    }
+
     /* Tracking related methods. */
 
     /**
@@ -757,13 +812,20 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Updates the message array index.
      *
-     * @param mixed $data  If an integer, the number of messages to increase
-     *                     array index by. If an indices object, sets array
-     *                     index to the index value. If null, rebuilds the
-     *                     internal index.
+     * @param mixed $data          If an integer, the number of messages to
+     *                             increase array index by. If an indices
+     *                             object, sets array index to the index
+     *                             value. If null, rebuilds the internal
+     *                             index.
+     * @param boolean $checkcache  Set checkcache variable based on value of
+     *                             $data?
      */
-    public function setIndex($data)
+    public function setIndex($data, $checkcache = false)
     {
+        if ($checkcache) {
+            $this->_checkcache = is_null($indices);
+        }
+
         if ($data instanceof IMP_Indices) {
             list($mailbox, $uid) = $data->getSingle();
             $this->_index = $this->getArrayIndex($uid, $mailbox);
@@ -921,8 +983,11 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             'v' => self::VERSION
         );
 
-        if (!is_null($this->_sorted)) {
-            $data['so'] = $this->_sorted;
+        if ($this->_buidmax) {
+            $data['bm'] = $this->_buidmax;
+            if (!empty($this->_buids)) {
+                $data['b'] = $this->_buids;
+            }
         }
 
         if (!is_null($this->_cacheid)) {
@@ -931,6 +996,10 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
         if (!is_null($this->_index)) {
             $data['i'] = $this->_index;
+        }
+
+        if (!is_null($this->_sorted)) {
+            $data['so'] = $this->_sorted;
         }
 
         return $data;
@@ -961,8 +1030,11 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     {
         $this->_mailbox = $data['m'];
 
-        if (isset($data['so'])) {
-            $this->_sorted = $data['so'];
+        if (isset($data['bm'])) {
+            $this->_buidmax = $data['bm'];
+            if (isset($data['b'])) {
+                $this->_buids = $data['b'];
+            }
         }
 
         if (isset($data['c'])) {
@@ -971,6 +1043,10 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
         if (isset($data['i'])) {
             $this->_index = $data['i'];
+        }
+
+        if (isset($data['so'])) {
+            $this->_sorted = $data['so'];
         }
     }
 
