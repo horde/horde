@@ -16,7 +16,7 @@
     <span class="iconImg <?php echo $this->pages_prev ?>"></span>
 <?php endif; ?>
     <label for="page<?php echo $this->id ?>" class="hidden"><?php echo _("Page") ?>:</label>
-    <input type="text" id="page<?php echo $this->id ?>" name="page" value="<?php $this->h($this->page_val) ?>" size="<?php echo $this->page_size ?>" />
+    <input type="text" id="page<?php echo $this->id ?>" name="page" value="<?php $this->escape($this->page_val) ?>" size="<?php echo $this->page_size ?>" />
 <?php if ($this->url_next): ?>
     <a href="<?php echo $this->url_next ?>" title="<?php echo _("Next Page") ?>"><span class="iconImg <?php echo $this->pages_next ?>"></span></a>
 <?php else: ?>
@@ -74,7 +74,7 @@
 <?php if ($this->filters): ?>
      <option value="" disabled="disabled">- - - - - - - -</option>
 <?php foreach ($this->filters as $v): ?>
-     <option value="<?php echo $v['v'] ?>">&nbsp;&nbsp;<?php echo $v['l'] ?></option>
+     <option value="<?php echo $v['v'] ?>">&nbsp;&nbsp;<?php echo $this->escape($v['l']) ?></option>
 <?php endforeach; ?>
 <?php endif; ?>
     </select>

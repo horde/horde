@@ -76,7 +76,6 @@ $view = new Horde_View(array(
 ));
 $view->addHelper('FormTag');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->folders_token = $folders_token;
 

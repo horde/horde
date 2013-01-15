@@ -405,7 +405,6 @@ $view = new Horde_View(array(
 $view->addHelper('FormTag');
 $view->addHelper('Horde_Core_View_Helper_Accesskey');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $hdr_view = clone $view;
 $hdr_view->readonly = $readonly;
@@ -527,7 +526,7 @@ if ($pageOb['msgcount']) {
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
         foreach ($imp_search as $val) {
             $filters[] = array(
-                'l' => htmlspecialchars($val->label),
+                'l' => $val->label,
                 'v' => IMP_Mailbox::formTo($val)
             );
         }

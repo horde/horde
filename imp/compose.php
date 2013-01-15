@@ -730,7 +730,6 @@ $view->addHelper('Horde_Core_View_Helper_Help');
 $view->addHelper('Horde_Core_View_Helper_Image');
 $view->addHelper('Horde_Core_View_Helper_Label');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->allow_compose = !$compose_disable;
 $view->post_action = Horde::url('compose.php')->unique();
@@ -740,7 +739,7 @@ $blank_url = new Horde_Url('#');
 if ($redirect) {
     /* Prepare the redirect template. */
     $view->cacheid = $composeCacheID;
-    $view->title = htmlspecialchars($title);
+    $view->title = $title;
     $view->token = $injector->getInstance('Horde_Token')->get('imp.compose');
 
     Horde::startBuffer();
