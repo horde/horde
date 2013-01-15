@@ -122,3 +122,20 @@ table.tickets th.sortdown {
     background: gray;
     color: #fff;
 }
+
+/* Menu entries */
+.whups-mywhups {
+    background-image: url('graphics/whups.png');
+}
+.whups-search {
+    background-image: url('graphics/search.png');
+}
+.whups-query {
+    background-image: url('graphics/query.png');
+}
+.whups-reports {
+    background-image: url('graphics/reports.png');
+}
+.whups-admin {
+    background-image: url('graphics/admin.png');
+}

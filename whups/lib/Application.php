@@ -116,14 +116,14 @@ class Whups_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
-        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'query.png');
-        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
+        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups-mywhups', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'whups-search', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'whups-query');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'whups-reports');
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
-            $menu->add(Horde::url('admin/'), _("_Admin"), 'admin.png');
+            $menu->add(Horde::url('admin/'), _("_Admin"), 'whups-admin');
         }
     }
 
