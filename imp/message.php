@@ -30,7 +30,7 @@ Horde_Registry::appInit('imp', array(
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $vars = $injector->getInstance('Horde_Variables');
 $indices = new IMP_Indices_Mailbox($vars);
-list(,$buid) = $indices->buid->getSingle();
+list(,$buid) = $indices->buids->getSingle();
 $mailbox = $indices->mailbox;
 
 /* We know we are going to be exclusively dealing with this mailbox, so
