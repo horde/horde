@@ -60,7 +60,7 @@
 <?php endif; ?>
     </div>
     <div id="msgHeadersContent">
-     <div class="subject"><?php echo $this->subject ?></div>
+     <div class="subject allowTextSelection"><?php echo $this->subject ?></div>
      <table>
       <thead>
 <?php foreach ($this->hdrs as $val): ?>
@@ -95,7 +95,7 @@
     </div>
    </div>
   </div>
-  <div class="messageBody">
+  <div class="messageBody allowTextSelection">
    <?php echo $this->msgtext ?>
   </div>
  </div>
