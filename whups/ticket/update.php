@@ -19,6 +19,8 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
         ->redirect();
 }
 
+Whups::addTopbarSearch();
+
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {

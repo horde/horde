@@ -12,10 +12,15 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
+if ($vars->searchfield) {
+    $vars->id = $vars->searchfield;
+}
+$ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
 $page_output->addLinkTag($ticket->feedLink());
+
+Whups::addTopbarSearch();
 
 Whups::addFeedLink();
 $page_output->header(array(

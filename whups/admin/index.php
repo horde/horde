@@ -13,6 +13,8 @@ Horde_Registry::appInit('whups', array(
     'permission' => array('whups:admin', Horde_Perms::EDIT)
 ));
 
+Whups::addTopbarSearch();
+
 // Set up the page config vars.
 $showExtraForm = null;
 

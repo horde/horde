@@ -19,6 +19,8 @@ $qManager = new Whups_Query_Manager();
 $showEditQuery = true;
 $showExtraForm = null;
 
+Whups::addTopbarSearch();
+
 // Find our current query.
 if ($whups_query = $session->get('whups', 'query')) {
     if (!$whups_query->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {

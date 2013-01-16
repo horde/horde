@@ -17,6 +17,8 @@ if ($r_time = $prefs->getValue('summary_refresh_time') &&
     $page_output->metaRefresh($r_time, Horde::url('mybugs.php'));
 }
 
+Whups::addTopbarSearch();
+
 // Load layout from preferences for authenticated users, and a default
 // block set for guests.
 if (!$registry->isAuthenticated()) {

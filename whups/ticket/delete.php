@@ -21,6 +21,8 @@ if (!Whups::hasPermission($details['queue'], 'queue', Horde_Perms::DELETE)) {
         ->redirect();
 }
 
+Whups::addTopbarSearch();
+
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($details as $varname => $value) {
