@@ -3637,6 +3637,12 @@ var DimpBase = {
     {
         var DM = DimpCore.DMenu, tmp;
 
+        /* Wait for DimpCore to be loaded. */
+        if (!DM) {
+            this.onDomLoad.defer();
+            return;
+        }
+
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
         HordeCore.initHandler('click');

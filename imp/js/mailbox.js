@@ -39,7 +39,7 @@ var ImpMailbox = {
 
         switch (actID) {
         case 'delete_messages':
-            if (IMP.conf.pop3 && !confirm(this.text.delete)) {
+            if (IMP.conf.pop3 && !confirm(this.text.delete_messages)) {
                 return;
             }
             break;
@@ -229,7 +229,7 @@ var ImpMailbox = {
                 break;
 
             case 'permdeleteAction':
-                if (confirm(this.text.delete)) {
+                if (confirm(this.text.delete_messages)) {
                     this.submit('delete_messages');
                 }
                 e.memo.stop();

@@ -348,7 +348,7 @@ $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 $page_output->addInlineJsVars(array(
     'ImpMailbox.text' => array(
-        'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
+        'delete_messages' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
         'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
         'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
         'selectone' => _("You must select at least one message first."),
