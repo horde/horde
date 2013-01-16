@@ -991,7 +991,7 @@ if ($redirect) {
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && !$conf['compose']['link_all_attachments']);
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
