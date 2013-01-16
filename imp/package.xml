@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Hide attachment upload UI in dynamic view if file uploads are disabled.
 * [jan] Fix JavaScript errors with Internet Explorer 8.
 * [mms] Fix display of mail log icons on the basic message page (Bug #11964).
 * [jan] Fix stripping attachments in dynamic view (aarno.sandvik@helsinki.fi, Bug #11959).
@@ -2903,6 +2904,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Hide attachment upload UI in dynamic view if file uploads are disabled.
 * [jan] Fix JavaScript errors with Internet Explorer 8.
 * [mms] Fix display of mail log icons on the basic message page (Bug #11964).
 * [jan] Fix stripping attachments in dynamic view (aarno.sandvik@helsinki.fi, Bug #11959).

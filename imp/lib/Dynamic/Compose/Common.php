@@ -125,7 +125,12 @@ class IMP_Dynamic_Compose_Common
 
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->is_template = !empty($args['template']);
-        $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
+        if (IMP_Compose::canUploadAttachment()) {
+            $view->attach = true;
+            $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
+        } else {
+            $view->attach = false;
+        }
         $view->user = $registry->getAuth();
 
         $d_read = $prefs->getValue('request_mdn');
@@ -170,7 +175,9 @@ class IMP_Dynamic_Compose_Common
         if ($prefs->getValue('request_mdn') == 'ask') {
             $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
-        if (!$prefs->isLocked('save_attachments')) {
+
+        if (($attach_upload = IMP_Compose::canUploadAttachment()) &&
+            !$prefs->isLocked('save_attachments')) {
             $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
         }
 
@@ -182,7 +189,7 @@ class IMP_Dynamic_Compose_Common
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
 
-            'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
+            'attach_limit' => ($attach_upload && $conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
             'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
             'bcc' => intval($prefs->getValue('compose_bcc')),
             'cc' => intval($prefs->getValue('compose_cc')),
