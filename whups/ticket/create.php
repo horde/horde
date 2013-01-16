@@ -17,6 +17,8 @@ $wereerrors = 0;
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
 
+Whups::addTopbarSearch();
+
 $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
 $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);
 $form3 = new Whups_Form_Ticket_CreateStepThree($vars);

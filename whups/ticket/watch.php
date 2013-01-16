@@ -19,6 +19,8 @@ foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
 
+Whups::addTopbarSearch();
+
 $addform = new Whups_Form_AddListener($vars, _("Add Watcher"));
 $delform = new Whups_Form_DeleteListener($vars, _("Remove Watcher"));
 

@@ -11,6 +11,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('whups');
 
+Whups::addTopbarSearch();
+
 /* Supported graph types. Unused at the moment. */
 $graphs = array('open|queue_name' => array('chart', _("Open Tickets by Queue")),
                 'open|state_name' => array('chart', _("Open Tickets by State")),
