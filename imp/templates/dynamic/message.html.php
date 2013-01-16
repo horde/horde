@@ -66,7 +66,7 @@
 <?php foreach ($this->hdrs as $val): ?>
        <tr<?php if (!empty($val['id'])) echo ' id="' . $val['id'] . '"'; ?>>
         <td class="label"><?php echo $val['label'] ?>:</td>
-        <td><?php echo $val['val'] ?></td>
+        <td class="allowTextSelection"><?php echo $val['val'] ?></td>
        </tr>
 <?php endforeach; ?>
        <tr id="msgHeaderAtc"<?php if (!isset($this->atc_label)) echo ' style="display:none"'; ?>>
