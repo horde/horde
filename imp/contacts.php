@@ -43,19 +43,16 @@ if (!isset($vars->source) || !isset($source_list[$vars->source])) {
     $vars->source = key($source_list);
 }
 
-$a_list = array();
 if ($vars->searched || $prefs->getValue('display_contact')) {
     $search_params = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
-    $csearch = $registry->call('contacts/search', array($vars->get('search', ''), array(
+    $a_list = iterator_to_array($registry->call('contacts/search', array($vars->get('search', ''), array(
         'fields' => $search_params['fields'],
         'returnFields' => array('email', 'name'),
         'rfc822Return' => true,
         'sources' => array($vars->source)
-    )));
-
-    foreach ($csearch as $val) {
-        $a_list[] = htmlspecialchars(strval($val), ENT_QUOTES, 'UTF-8');
-    }
+    ))));
+} else {
+    $a_list = array();
 }
 
 /* If self-submitted, preserve the currently selected users encoded by
@@ -63,7 +60,7 @@ if ($vars->searched || $prefs->getValue('display_contact')) {
 $selected_addresses = array();
 foreach (explode('|', $vars->sa) as $addr) {
     if (strlen(trim($addr))) {
-        $selected_addresses[] = @htmlspecialchars($addr, ENT_QUOTES, 'UTF-8');
+        $selected_addresses[] = $addr;
     }
 }
 
@@ -73,7 +70,6 @@ $view = new Horde_View(array(
 ));
 $view->addHelper('FormTag');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->a_list = $a_list;
 $view->action = Horde::url('contacts.php')->unique();
@@ -85,7 +81,7 @@ if (count($source_list) > 1) {
     $s_list = array();
     foreach ($source_list as $key => $select) {
         $s_list[] = array(
-            'label' => htmlspecialchars($select),
+            'label' => $select,
             'selected' => ($key == $vars->source),
             'val' => $key
         );

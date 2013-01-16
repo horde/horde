@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Fix exporting bodies of encrypted notes (Bug #11960).
 
 
 ------

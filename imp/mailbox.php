@@ -28,7 +28,8 @@ function _outputSummaries($msgs, Horde_View $view)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -39,8 +40,6 @@ $mailbox = $indices->mailbox;
 if (!$mailbox) {
     throw new IMP_Exception(_("Invalid mailbox."));
 }
-
-$registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
 try {
@@ -409,7 +408,6 @@ $view = new Horde_View(array(
 $view->addHelper('FormTag');
 $view->addHelper('Horde_Core_View_Helper_Accesskey');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $hdr_view = clone $view;
 $hdr_view->readonly = $readonly;
@@ -530,7 +528,7 @@ if ($pageOb['msgcount']) {
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
         foreach ($imp_search as $val) {
             $filters[] = array(
-                'l' => htmlspecialchars($val->label),
+                'l' => $val->label,
                 'v' => IMP_Mailbox::formTo($val)
             );
         }

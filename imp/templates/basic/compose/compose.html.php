@@ -7,7 +7,7 @@
   <span class="rightFloat">
    <?php echo $this->hordeHelp('imp', 'compose-buttons') ?>
   </span>
-  <?php echo $this->h($this->title) ?>
+  <?php echo $this->escape($this->title) ?>
  </h1>
 
  <br />
@@ -39,9 +39,9 @@
    <td class="item">
 <?php if ($this->di_locked): ?>
 <?php if ($this->fromaddr_locked): ?>
-    <strong><?php echo $this->h($this->from) ?></strong>
+    <strong><?php echo $this->escape($this->from) ?></strong>
 <?php else: ?>
-    <input id="text_identity" type="text" tabindex="<?php echo ++$this->tabindex ?>" name="from" value="<?php echo $this->h($this->from) ?>" style="direction:ltr" />
+    <input id="text_identity" type="text" tabindex="<?php echo ++$this->tabindex ?>" name="from" value="<?php echo $this->escape($this->from) ?>" style="direction:ltr" />
 <?php endif; ?>
 <?php else: ?>
     <input type="hidden" id="last_identity" name="last_identity" value="<?php echo $this->last_identity ?>" />
@@ -53,7 +53,7 @@
    </select>
 <?php else: ?>
     <input type="hidden" name="identity" value="<?php echo $this->identity_default ?>" />
-    <?php echo $this->h($this->identity_text) ?>
+    <?php echo $this->escape($this->identity_text) ?>
 <?php endif; ?>
 <?php endif; ?>
    </td>
@@ -196,7 +196,7 @@
     <strong><?php echo $this->hordeLabel('composeMessage', _("Te_xt")) ?></strong>
    </td>
    <td class="item" id="composeMessageParent">
-    <textarea class="fixed composebody" tabindex="<?php echo ++$this->tabindex ?>" name="message" id="composeMessage" rows="20" cols="80"><?php echo $this->h($this->message) ?></textarea>
+    <textarea class="fixed composebody" tabindex="<?php echo ++$this->tabindex ?>" name="message" id="composeMessage" rows="20" cols="80"><?php echo $this->escape($this->message) ?></textarea>
    </td>
   </tr>
 
@@ -323,7 +323,7 @@
     (<strong><?php echo _("Size") ?>:</strong>
     <?php echo $v['size'] . ' ' . _("KB") ?>)
 <?php else: ?>
-    (<?php echo $this->h($v['type']) ?>)
+    (<?php echo $this->escape($v['type']) ?>)
     <strong><?php echo _("Size") ?>:</strong>
     <?php echo $v['size'] . ' ' . _("KB") ?>
 <?php endif; ?>
@@ -338,7 +338,7 @@
        <strong><label for="file_description_<?php echo $v['number'] ?>"><?php echo _("Description") ?>:</label></strong>
       </td>
       <td>
-       <input type="text" size="40" id="file_description_<?php echo $v['number'] ?>" name="file_description_<?php echo $v['number'] ?>" value="<?php echo $this->h($v['description']) ?>" />
+       <input type="text" size="40" id="file_description_<?php echo $v['number'] ?>" name="file_description_<?php echo $v['number'] ?>" value="<?php echo $this->escape($v['description']) ?>" />
       </td>
      </tr>
      <tr>

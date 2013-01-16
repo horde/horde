@@ -3,29 +3,30 @@
  *                     The node that contains the toggle link should be named
  *                     {node}-toggle
  */
-function doActionToggle(node)
+function doActionToggle(node, pref_name)
 {
+    togglePlusMinus(node, pref_name);
+    node = node.replace('-toggle', '');
     $(node).toggle();
-    togglePlusMinus(node);
     return false;
 }
 
-function togglePlusMinus(node)
+function togglePlusMinus(node, pref_name)
 {
     var pref_value;
 
-    if ($(node + '-toggle').hasClassName('show')) {
-        $(node + '-toggle').removeClassName('show');
-        $(node + '-toggle').addClassName('hide');
+    if ($(node).hasClassName('show')) {
+        $(node).removeClassName('show');
+        $(node).addClassName('hide');
         pref_value = 1;
-    } else if ($(node + '-toggle').hasClassName('hide')) {
-        $(node + '-toggle').removeClassName('hide');
-        $(node + '-toggle').addClassName('show');
+    } else if ($(node).hasClassName('hide')) {
+        $(node).removeClassName('hide');
+        $(node).addClassName('show');
         pref_value = 0;
     }
 
     HordeCore.doAction('setPrefValue', {
-        pref: foo,
+        pref: pref_name,
         value: pref_value
     });
 }

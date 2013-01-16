@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-09</date>
- <time>21:30:34</time>
+ <date>2013-01-15</date>
+ <time>13:11:29</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -104,6 +104,7 @@
     </dir> <!-- /js/blocks -->
     <dir name="widgets">
      <file name="geotag.js" role="horde" />
+     <file name="tagactions.js" role="horde" />
     </dir> <!-- /js/widgets -->
     <file name="block.js" role="horde" />
     <file name="carousel.js" role="horde" />
@@ -117,7 +118,6 @@
     <file name="slideshow.js" role="horde" />
     <file name="slugcheck.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
-    <file name="tagactions.js" role="horde" />
     <file name="togglewidget.js" role="horde" />
    </dir> <!-- /js -->
    <dir name="lib">
@@ -432,6 +432,12 @@
      <file name="results.inc" role="horde" />
      <file name="slideshow.inc" role="horde" />
     </dir> <!-- /templates/view -->
+    <dir name="widgets">
+     <file name="actions.html.php" role="horde" />
+     <file name="begin.html.php" role="horde" />
+     <file name="end.html.php" role="horde" />
+     <file name="tags.html.php" role="horde" />
+    </dir> <!-- /templates/widgets -->
     <dir name="xppublish">
      <file name="javascript.inc" role="horde" />
      <file name="list.inc" role="horde" />
@@ -843,10 +849,10 @@
    <install as="ansel/js/slideshow.js" name="js/slideshow.js" />
    <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
    <install as="ansel/js/smartmobile.js" name="js/smartmobile.js" />
-   <install as="ansel/js/tagactions.js" name="js/tagactions.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
+   <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
    <install as="ansel/lib/Application.php" name="lib/Application.php" />
@@ -1028,6 +1034,10 @@
    <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
    <install as="ansel/templates/view/results.inc" name="templates/view/results.inc" />
    <install as="ansel/templates/view/slideshow.inc" name="templates/view/slideshow.inc" />
+   <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
+   <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
+   <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />
+   <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />
    <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
    <install as="ansel/templates/xppublish/list.inc" name="templates/xppublish/list.inc" />
    <install as="ansel/templates/xppublish/login.inc" name="templates/xppublish/login.inc" />

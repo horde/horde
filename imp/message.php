@@ -23,10 +23,9 @@ function _returnToMailbox($startIndex = null, $actID = null)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
-
-$registry->setTimeZone();
 
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 $vars = $injector->getInstance('Horde_Variables');
@@ -311,7 +310,7 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 /* Process the subject now. */
 if ($subject = $mime_headers->getValue('subject')) {
     $title = sprintf(_("%s: %s"), $page_label, $subject);
-    $shortsub = htmlspecialchars(Horde_String::truncate($subject, 100));
+    $shortsub = Horde_String::truncate($subject, 100);
 } else {
     $shortsub = _("[No Subject]");
     $title = sprintf(_("%s: %s"), $page_label, $shortsub);

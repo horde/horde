@@ -46,7 +46,9 @@ class Horde_Auth_Smb extends Horde_Auth_Base
         }
 
         foreach (array('domain', 'hostspec') as $val) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            if (empty($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
 
         $params = array_merge(array(

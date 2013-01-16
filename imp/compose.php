@@ -17,7 +17,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC,
-    'session_control' => 'netscape'
+    'session_control' => 'netscape',
+    'timezone' => true
 ));
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -35,8 +36,6 @@ if ($vars->actionID == 'mailto_link') {
         exit;
     }
 }
-
-$registry->setTimeZone();
 
 /* The message headers and text. */
 $header = array();
@@ -729,7 +728,6 @@ $view->addHelper('Horde_Core_View_Helper_Help');
 $view->addHelper('Horde_Core_View_Helper_Image');
 $view->addHelper('Horde_Core_View_Helper_Label');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->allow_compose = !$compose_disable;
 $view->post_action = Horde::url('compose.php')->unique();
@@ -739,7 +737,7 @@ $blank_url = new Horde_Url('#');
 if ($redirect) {
     /* Prepare the redirect template. */
     $view->cacheid = $composeCacheID;
-    $view->title = htmlspecialchars($title);
+    $view->title = $title;
     $view->token = $injector->getInstance('Horde_Token')->get('imp.compose');
 
     Horde::startBuffer();

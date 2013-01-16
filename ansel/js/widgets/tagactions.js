@@ -15,7 +15,7 @@ var AnselTagActions = {
             }, {
                 callback: function(r) {
                     $('addtag').value = "";
-                    $('tags').update(r.response);
+                    AnselTagActions.updateTags(r);
                 }
             });
         }
@@ -43,6 +43,18 @@ var AnselTagActions = {
     submitcheck: function()
     {
         return !this.add();
+    },
+
+    updateTags: function(r)
+    {
+        var ul = new Element('ul', { 'class': 'horde-tags' });
+        console.log(r);
+        $H(r).each(function(x) {
+            var a = new Element('a', { 'href': x[1].link }).update(x[1].tag_name);
+            var l = new Element('li').update(a);
+            ul.update(l);
+        });
+        $('tags').insert({ 'top': ul });
     }
 
 };
