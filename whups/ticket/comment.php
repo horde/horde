@@ -13,6 +13,8 @@ Horde_Registry::appInit('whups');
 $ticket = Whups::getCurrentTicket();
 $page_output->addLinkTag($ticket->feedLink());
 
+Whups::addTopbarSearch();
+
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {

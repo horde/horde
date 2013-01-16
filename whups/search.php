@@ -55,6 +55,8 @@ if (Horde_Util::getFormData('sortdir') !== null) {
     $prefs->setValue('sortdir', Horde_Util::getFormData('sortdir'));
 }
 
+Whups::addTopbarSearch();
+
 $form = new Whups_Form_Search($vars);
 $results = null;
 if (($vars->get('formname') || $vars->get('summary') || $vars->get('states') ||

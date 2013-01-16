@@ -31,6 +31,8 @@ try {
     $notification->push($e->getMessage());
 }
 
+Whups::addTopbarSearch();
+
 // If we have an error, or if we still don't have a query, or if we don't have
 // read permissions on the requested query, go to the initial Whups page.
 if (!isset($whups_query) ||

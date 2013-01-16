@@ -184,7 +184,7 @@ class Horde_Share_Test_Sql_Base extends Horde_Share_Test_Base
 
     public function testCallback()
     {
-        $this->callback(new Horde_Share_Object_Sql(array()));
+        $this->callbackSetShareOb(new Horde_Share_Object_Sql(array()));
     }
 
     public static function setUpBeforeClass()

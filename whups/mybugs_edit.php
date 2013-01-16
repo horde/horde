@@ -29,6 +29,8 @@ if ($layout->updated()) {
     }
 }
 
+Whups::addTopbarSearch();
+
 $page_output->header(array(
     'title' => sprintf(_("My %s :: Add Content"), $registry->get('name'))
 ));

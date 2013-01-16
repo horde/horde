@@ -411,6 +411,9 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <extension>
+    <name>tidy</name>
+   </extension>
   </optional>
  </dependencies>
  <phprelease>

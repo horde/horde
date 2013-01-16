@@ -23,6 +23,8 @@ if ($form != 'whups_form_queue_stepone') {
     $t = $vars->get('type');
 }
 
+Whups::addTopbarSearch();
+
 // Get all ticket details from storage, then override any values that are
 // in the process of being edited.
 foreach ($ticket->getDetails() as $varname => $value) {

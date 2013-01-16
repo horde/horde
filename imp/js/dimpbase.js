@@ -2033,19 +2033,14 @@ var DimpBase = {
     quotaCallback: function(r)
     {
         var quota = $('quota-text');
-        quota.setText(r.m);
+        quota.removeClassName('quotaalert').
+            removeClassName('quotawarn').
+            setText(r.m);
+
         switch (r.l) {
         case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.addClassName('quotaalert');
-            break;
         case 'warn':
-            quota.removeClassName('quotaalert');
-            quota.addClassName('quotawarn');
-            break;
-        case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.removeClassName('quotaalert');
+            quota.addClassName('quota' + r.l);
             break;
         }
     },
@@ -3613,6 +3608,12 @@ var DimpBase = {
     onDomLoad: function()
     {
         var DM = DimpCore.DMenu, tmp;
+
+        /* Wait for DimpCore to be loaded. */
+        if (!DM) {
+            this.onDomLoad.defer();
+            return;
+        }
 
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
