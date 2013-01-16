@@ -927,18 +927,22 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
          * empty. Catch that here. */
         if (!isset($this->vars->composeCache)) {
             $notification->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
-        } elseif ($session->get('imp', 'file_upload')) {
+        } else {
             $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
-            try {
-                $filename = $imp_compose->addFileFromUpload('file_1');
-                $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
-                $result->atc = end($ajax_compose->getAttachmentInfo());
-                $result->success = 1;
-                $result->imp_compose = $imp_compose->getCacheId();
-                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
-            } catch (IMP_Compose_Exception $e) {
-                $notification->push($e, 'horde.error');
+            if ($imp_compose->canUploadAttachment()) {
+                try {
+                    $filename = $imp_compose->addFileFromUpload('file_1');
+                    $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
+                    $result->atc = end($ajax_compose->getAttachmentInfo());
+                    $result->success = 1;
+                    $result->imp_compose = $imp_compose->getCacheId();
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                } catch (IMP_Compose_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
+            } else {
+                $notification->push(_("Uploading attachments has been disabled on this server."), 'horde.error');
             }
         }
 

@@ -149,7 +149,8 @@ if ($session->get('imp', 'rteavail')) {
 }
 
 /* Update the file attachment information. */
-if ($session->get('imp', 'file_upload')) {
+$attach_upload = $imp_compose->canUploadAttachment();
+if ($attach_upload) {
     /* Only notify if we are reloading the compose screen. */
     $notify = !in_array($vars->actionID, array('send_message', 'save_draft'));
 
@@ -760,7 +761,7 @@ if ($redirect) {
     $view_output = $view->render('redirect');
 } else {
     /* Prepare the compose template. */
-    $view->file_upload = $session->get('imp', 'file_upload');
+    $view->file_upload = $attach_upload;
     $view->forminput = Horde_Util::formInput();
 
     $hidden = array(
@@ -775,8 +776,8 @@ if ($redirect) {
         'user' => $registry->getAuth()
     );
 
-    if ($session->exists('imp', 'file_upload')) {
-        $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
+    if ($attach_upload) {
+        $hidden['MAX_FILE_SIZE'] = $imp_compose->maxAttachmentSize();
     }
     foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
         $hidden[$val] = $vars->$val;
@@ -883,7 +884,7 @@ if ($redirect) {
             'label' => ''
         );
     }
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
@@ -979,7 +980,7 @@ if ($redirect) {
         $view->attach_vcard = $vars->vcard;
     }
 
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         if (!$imp_compose->maxAttachmentSize()) {
             $view->maxattachsize = true;
         } elseif (!$max_attach) {

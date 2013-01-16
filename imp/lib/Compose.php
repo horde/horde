@@ -3113,6 +3113,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /* Static methods. */
 
     /**
+     * Can attachments be uploaded?
+     *
+     * @return boolean  True if attachments can be uploaded.
+     */
+    static public function canUploadAttachment()
+    {
+        return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+    }
+
+    /**
      * Shortcut function to convert text -> HTML for purposes of composition.
      *
      * @param string $msg  The message text.
