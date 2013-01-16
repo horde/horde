@@ -47,7 +47,7 @@ abstract class IMP_Minimal_Base
     {
         $this->vars = $vars;
 
-        $indices = new IMP_Indices_Mailbox($vars);
+        $this->indices = new IMP_Indices_Mailbox($vars);
 
         $this->view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/minimal'

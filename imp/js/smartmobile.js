@@ -492,9 +492,9 @@ var ImpMobile = {
             'showMessage',
             $.extend(ImpMobile.addViewportParams($.extend(params, {
                 force: 1,
-                view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
+                view: purl.params.mbox
             })), {
-                buid: ImpMobile.toUidString([ purl.params.buid ])
+                buid: purl.params.buid
             }),
             ImpMobile.messageLoaded
         );
@@ -551,8 +551,7 @@ var ImpMobile = {
         // TODO: Error handling.
         if (r.error ||
             !ImpMobile.message ||
-            (r.view != ImpMobile.mailbox &&
-             ImpMobile.mailbox != IMP.conf.qsearchid)) {
+            (r.view != ImpMobile.mailbox)) {
             return;
         }
 
@@ -742,7 +741,7 @@ var ImpMobile = {
                 force: 1,
                 view: ImpMobile.mailbox
             }), {
-                buid: ImpMobile.toUidString([ buid ])
+                buid: buid
             })
         );
     },
@@ -758,7 +757,7 @@ var ImpMobile = {
                 force: 1,
                 view: ImpMobile.mailbox
             }), {
-                buid: ImpMobile.toUidString([ buid ]),
+                buid: buid,
                 spam: Number(action == 'spam')
             })
         );
@@ -822,7 +821,7 @@ var ImpMobile = {
         HordeMobile.doAction(
             func,
             $.extend(params, {
-                buid: ImpMobile.toUidString([ purl.params.buid ]),
+                buid: purl.params.buid,
                 imp_compose: $(cache).val(),
                 type: purl.params.type,
                 view: ImpMobile.mailbox
@@ -1014,7 +1013,7 @@ var ImpMobile = {
                 force: Number(move),
                 view: source
             }), {
-                buid: ImpMobile.toUidString([ $('#imp-copymove-buid').val() ]),
+                buid: $('#imp-copymove-buid').val(),
                 mboxto: value,
                 newmbox: source
             })

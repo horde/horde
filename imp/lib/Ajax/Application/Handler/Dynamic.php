@@ -520,10 +520,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: Flag messages.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
-     * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed. Additional variables used:
      *   - add: (integer) Set the flag?
-     *   - buid: (string) BUIDs of the messages to flag (IMAP sequence
-     *           string).
      *   - flags: (string) The flags to set (JSON serialized array).
      *
      * @return boolean  True on success, false on failure.
@@ -594,10 +593,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * See the list of variables needed for IMP_Ajax_Application#changed(),
      * IMP_Ajax_Application#deleteMsgs(), and
-     * IMP_Ajax_Application#checkUidvalidity(). Additional variables used:
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed. Additional variables used:
      *   - blacklist: (integer) 1 to blacklist, 0 to whitelist.
-     *   - buid: (string) BUIDs of the messages to report (IMAP sequence
-     *           string).
      *
      * @return boolean  True on success.
      */
@@ -635,9 +633,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: Return the MIME tree representation of the message.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
-     * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
-     *   - buid: (string) BUID of the message to display (IMAP sequence
-     *           string; must be single index).
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed. Additional variables used:
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.
      *
@@ -673,9 +670,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * header for a message.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
-     * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
-     *   - buid: (string) BUIDs of the messages to display (IMAP sequence
-     *           string; must be single index).
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed. Additional variables used:
      *   - header: (integer) If set, return preview data. Otherwise, return
      *              full data.
      *
@@ -749,8 +745,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $GLOBALS['notification']->push(sprintf(ngettext("%d message was purged from \"%s\".", "%d messages were purged from \"%s\".", $expunge_count), $expunge_count, $this->_base->indices->mailbox->display), 'horde.success');
 
-        // TODO
-        $this->_base->deleteMsgs(new IMP_View_Indices($this->_base->indices->mailbox, $expunged), $change, true);
+        $indices = new IMP_Indices_Mailbox();
+        $indices->buids = $this->_base->indices->mailbox->toBuids($expunged);
+        $indices->mailbox = $this->_base->indices->mailbox;
+        $indices->indices = $expunged;
+
+        $this->_base->deleteMsgs($indices, $change, true);
 
         return true;
     }
@@ -758,9 +758,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     /**
      * AJAX action: Send a Message Disposition Notification (MDN).
      *
-     * Variables used:
-     *   - buid: (string) BUID of the messages to send MDN for (IMAP sequence
-     *           string; must be single index).
+     * Mailbox/indices form parameters needed.
      *
      * @return mixed  False on failure, or an object with these properties:
      *   - buid: (integer) BUID of message.
@@ -796,9 +794,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * AJAX action: strip attachment.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
-     * IMP_Ajax_Application#checkUidvalidity().  Additional variables used:
-     *   - buid: (string) BUID of the messages to preview (IMAP sequence
-     *           string; must be single index).
+     * IMP_Ajax_Application#checkUidvalidity(). Mailbox/indices form
+     * parameters needed.
      *
      * @return mixed  False on failure, or an object with these properties:
      *   - newbuid: (integer) BUID of new message.

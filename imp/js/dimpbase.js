@@ -2545,11 +2545,11 @@ var DimpBase = {
 
             if (this.viewport.getMetaData('templates')) {
                 DimpCore.compose('template', {
-                    buid: tmp.get('uid').toViewportUidString
+                    buid: tmp.get('uid').toViewportUidString()
                 });
             } else if (this.isDraft(tmp)) {
                 DimpCore.compose('resume', {
-                    buid: tmp.get('uid').toViewportUidString
+                    buid: tmp.get('uid').toViewportUidString()
                 });
             } else {
                 this.msgWindow(tmp.get('dataob').first());
@@ -3486,27 +3486,22 @@ var DimpBase = {
     updateFlag: function(vs, flag, add)
     {
         vs.get('dataob').each(function(ob) {
-            this._updateFlag(ob, flag, add);
+            var hasflag;
+
+            if (!ob.flag) {
+                ob.flag = [];
+            } else {
+                hasflag = ob.flag.include(flag);
+            }
+
+            if (add && !hasflag) {
+                ob.flag.push(flag);
+                this.viewport.updateRow(ob);
+            } else if (!add && hasflag) {
+                ob.flag = ob.flag.without(flag);
+                this.viewport.updateRow(ob);
+            }
         }, this);
-    },
-
-    _updateFlag: function(ob, flag, add)
-    {
-        var hasflag;
-
-        if (!ob.flag) {
-            ob.flag = [];
-        } else {
-            hasflag = ob.flag.include(flag);
-        }
-
-        if (add && !hasflag) {
-            ob.flag.push(flag);
-            this.viewport.updateRow(ob);
-        } else if (!add && hasflag) {
-            ob.flag = ob.flag.without(flag);
-            this.viewport.updateRow(ob);
-        }
     },
 
     isDraft: function(vs)

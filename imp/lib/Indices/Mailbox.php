@@ -42,7 +42,7 @@ class IMP_Indices_Mailbox extends IMP_Indices
      * @param Horde_Variables  Variables object. These GET/POST parameters are
      *                         reserved in IMP:
      *   - buid: (string) BUID [Browser UID].
-     *   - mailbox: (string) Base64urlencoded mailbox.
+     *   - mailbox: (string) Base64url encoded mailbox.
      *   - muid: (string) MUID [Mailbox + UID].
      *   - uid: (string) UID [Actual mail UID].
      */

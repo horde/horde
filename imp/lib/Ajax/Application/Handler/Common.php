@@ -609,8 +609,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * Generate data necessary to display a message.
      *
      * See the list of variables needed for changed() and
-     * checkUidvalidity().  Additional variables used:
-     *   - buid: (string) BUID of the message to display.
+     * checkUidvalidity(). Mailbox/indices form parameters needed. Additional
+     * variables used:
      *   - peek: (integer) If set, don't set seen flag.
      *   - preview: (integer) If set, return preview data. Otherwise, return
      *              full data.

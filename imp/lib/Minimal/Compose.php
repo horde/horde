@@ -20,7 +20,6 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      *   - action: (string) The action ID (used on redirect page).
      *   - bcc: (string) BCC address(es).
      *   - bcc_expand_[1-5]: (string) Expand matches for BCC addresses.
-     *   - buid: (string) TODO
      *   - cc: (string) CC address(es).
      *   - cc_expand_[1-5]: (string) Expand matches for BCC addresses.
      *   - composeCache: (string) Compose object cache ID.
