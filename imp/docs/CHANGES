@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Support link attachment feature in dynamic view.
 [mms] Display Virtual Folders in smartmobile view.
 [mms] Abstract all UIDs used for mailbox/message navigation on the browser to
       BUIDs (browser UIDs) (Bug #10719).

@@ -461,6 +461,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
+     *   - link_attachments_select: (boolean) Whether to link attachments.
      *   - message: (string) The message text.
      *   - priority: (string) The priority of the message.
      *   - request_read_receipt: (boolean) Add request read receipt header?
@@ -480,6 +481,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function sendMessage()
     {
+        global $conf, $injector, $notification, $page_output, $prefs;
+
         try {
             list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup('sendMessage');
             if (!IMP::canCompose()) {
@@ -487,7 +490,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 return $result;
             }
         } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
 
             $result = new stdClass;
             $result->action = 'sendMessage';
@@ -497,13 +500,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
 
-        $sm_displayed = !$GLOBALS['prefs']->isLocked('sent_mail_folder');
+        $sm_displayed = !$prefs->isLocked('sent_mail_folder');
 
         $options = array(
             'add_signature' => $identity->getDefault(),
-            'encrypt' => ($GLOBALS['prefs']->isLocked('default_encrypt') ? $GLOBALS['prefs']->getValue('default_encrypt') : $this->vars->encrypt),
+            'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
             'html' => $this->vars->html,
             'identity' => $identity,
+            'link_attachments' => ($conf['compose']['link_all_attachments'] || ($conf['compose']['link_attachments'] && $this->vars->link_attachments_select)),
             'priority' => $this->vars->priority,
             'readreceipt' => $this->vars->request_read_receipt,
             'save_attachments' => $this->vars->save_attachments_select,
@@ -517,7 +521,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         try {
             $imp_compose->buildAndSendMessage($this->vars->message, $headers, $options);
-            $GLOBALS['notification']->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
+            $notification->push(empty($headers['subject']) ? _("Message sent successfully.") : sprintf(_("Message \"%s\" sent successfully."), Horde_String::truncate($headers['subject'])), 'horde.success');
         } catch (IMP_Compose_Exception $e) {
             $result->success = 0;
 
@@ -526,7 +530,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
 
             if ($e->encrypt) {
-                $imp_ui = $GLOBALS['injector']->getInstance('IMP_Ui_Compose');
+                $imp_ui = $injector->getInstance('IMP_Ui_Compose');
                 switch ($e->encrypt) {
                 case 'pgp_symmetric_passphrase_dialog':
                     $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());
@@ -542,14 +546,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 }
 
                 Horde::startBuffer();
-                $GLOBALS['page_output']->outputInlineScript(true);
+                $page_output->outputInlineScript(true);
                 if ($js_inline = Horde::endBuffer()) {
                     $result->encryptjs = array($js_inline);
                 }
             } else {
                 /* Don't push notification if showing passphrase dialog -
                  * passphrase dialog contains the necessary information. */
-                $GLOBALS['notification']->push($e);
+                $notification->push($e);
             }
 
             return $result;

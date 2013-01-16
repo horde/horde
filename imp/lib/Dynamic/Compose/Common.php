@@ -173,9 +173,18 @@ class IMP_Dynamic_Compose_Common
         }
 
         $base->js_context['ctx_atc'] = new stdClass;
-        if (($attach_upload = IMP_Compose::canUploadAttachment()) &&
-            !$prefs->isLocked('save_attachments')) {
-            $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
+        if ($attach_upload = IMP_Compose::canUploadAttachment()) {
+            if ($conf['compose']['link_attachments'] &&
+                !$conf['compose']['link_all_attachments']) {
+                $base->js_context['ctx_atc']->link = _("Link Attachments?");
+            }
+
+            if (!$prefs->isLocked('save_attachments') &&
+                (!$prefs->isLocked('save_sent_mail') ||
+                 $prefs->getValue('save_sent_mail')) &&
+                !$conf['compose']['link_all_attachments']) {
+                $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
+            }
         }
 
         /* Variables used in compose page. */

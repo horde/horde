@@ -1032,12 +1032,16 @@ var DimpCompose = {
     contextOnClick: function(e)
     {
         switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_other_rr':
-            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
+        case 'ctx_atc_link':
+            $('link_attachments_select').setValue(Number(!Number($F('link_attachments_select'))));
             break;
 
         case 'ctx_atc_save':
             $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
+            break;
+
+        case 'ctx_other_rr':
+            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
             break;
         }
     },
@@ -1048,6 +1052,9 @@ var DimpCompose = {
 
         switch (e.memo) {
         case 'ctx_atc':
+            if (tmp = $('ctx_atc_link')) {
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('link_attachments_select')));
+            }
             if (tmp = $('ctx_atc_save')) {
                 DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
             }

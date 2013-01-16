@@ -1,6 +1,7 @@
 <form id="compose" name="compose" enctype="multipart/form-data" action="<?php echo $this->compose_link ?>" method="post" style="display:none">
  <?php echo $this->hiddenFieldTag('html', intval($this->rte && $this->compose_html)) ?>
  <?php echo $this->hiddenFieldTag('composeCache') ?>
+ <?php echo $this->hiddenFieldTag('link_attachments_select') ?>
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>
  <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
 <?php if ($this->attach): ?>
