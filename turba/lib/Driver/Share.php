@@ -164,7 +164,7 @@ class Turba_Driver_Share extends Turba_Driver
      */
     protected function _makeUid()
     {
-        return $this->_driver->_makeUid($attributes);
+        return $this->_driver->_makeUid();
     }
 
     /**
