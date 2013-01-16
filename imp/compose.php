@@ -120,7 +120,6 @@ if (!$sent_mail) {
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
 $imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
-$imp_compose->userLinkAttachments((bool) $vars->link_attachments);
 if ($vars->vcard) {
     $imp_compose->attachVCard($identity->getValue('fullname'));
 }
@@ -514,6 +513,7 @@ case 'send_message':
         'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $vars->encrypt_options,
         'html' => $rtemode,
         'identity' => $identity,
+        'link_attachments' => $vars->link_attachments,
         'priority' => $priority,
         'save_sent' => $save_sent_mail,
         'sent_mail' => $sent_mail,

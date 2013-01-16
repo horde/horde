@@ -87,13 +87,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected $_cacheid;
 
     /**
-     * Whether attachments should be linked.
-     *
-     * @var boolean
-     */
-    protected $_linkAttach = false;
-
-    /**
      * Various metadata for this message.
      *
      * @var array
@@ -681,6 +674,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *             addresses.
      *  </li>
      *  <li>
+     *   link_attachments: (bool) Link attachments?
+     *  </li>
+     *  <li>
      *   priority: (string) The message priority ('high', 'normal', 'low').
      *  </li>
      *  <li>
@@ -745,6 +741,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $msg_options = array(
             'encrypt' => $encrypt,
             'html' => !empty($opts['html']),
+            'linkattach' => !empty($opts['link_attachments']),
             'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null
         );
 
@@ -1240,6 +1237,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - from: (string) The outgoing from address - only needed for multiple
      *           PGP encryption.
      *   - html: (boolean) Is this a HTML message?
+     *   - linkattach: (boolean) Link attachments?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - signature: (integer) If set, will add the users' signature to the
@@ -1364,10 +1362,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Add attachments now. */
         $attach_flag = true;
         if (empty($options['noattach']) && count($this)) {
-            if (($this->_linkAttach &&
+            if ((!empty($options['linkattach']) &&
                  $conf['compose']['link_attachments']) ||
                 !empty($conf['compose']['link_all_attachments'])) {
-                $base = $this->linkAttachments($textpart);
+                $base = $this->_linkAttachments($textpart);
 
                 if ($this->_pgpAttachPubkey ||
                     ($this->_attachVCard !== false)) {
@@ -2653,7 +2651,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *
      * @throws IMP_Compose_Exception
      */
-    public function linkAttachments($part)
+    protected function _linkAttachments($part)
     {
         global $conf, $prefs;
 
@@ -2923,17 +2921,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $this->_attachVCard = ($name === false)
             ? false
             : ((strlen($name) ? $name : 'vcard') . '.vcf');
-    }
-
-    /**
-     * Has user specifically asked attachments to be linked in outgoing
-     * messages?
-     *
-     * @param boolean $attach  True if attachments should be linked.
-     */
-    public function userLinkAttachments($attach)
-    {
-        $this->_linkAttach = (bool)$attach;
     }
 
     /**
@@ -3269,7 +3256,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $this->_attachVCard,
             $atc,
             $this->_cacheid,
-            $this->_linkAttach,
             $this->_metadata,
             $this->_pgpAttachPubkey,
             $this->_replytype,
@@ -3286,7 +3272,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $this->_attachVCard,
             $this->_atc,
             $this->_cacheid,
-            $this->_linkAttach,
             $this->_metadata,
             $this->_pgpAttachPubkey,
             $this->_replytype,
