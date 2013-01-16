@@ -585,7 +585,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertArrayHasKey('joeshare', self::$share->listAllShares());
     }
 
-    public function callback($share)
+    public function callbackSetShareOb($share)
     {
         $share->setShareOb(new Horde_Support_Stub());
         $this->assertEquals($share, unserialize(serialize($share)));
