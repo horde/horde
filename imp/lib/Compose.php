@@ -2540,19 +2540,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * What is the maximum attachment size allowed?
+     * What is the maximum attachment size remaining?
      *
-     * @return integer  The maximum attachment size allowed (in bytes).
+     * @return integer  The maximum attachment size remaining (in bytes).
      */
     public function maxAttachmentSize()
     {
         $size = $GLOBALS['session']->get('imp', 'file_upload');
 
-        if (!empty($GLOBALS['conf']['compose']['attach_size_limit'])) {
-            return min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
-        }
-
-        return $size;
+        return empty($GLOBALS['conf']['compose']['attach_size_limit'])
+            ? $size
+            : min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
     }
 
     /**
