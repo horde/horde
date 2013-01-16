@@ -75,6 +75,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         /* Initialize objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
+        /* Are attachments allowed? */
+        $attach_upload = $imp_compose->canUploadAttachment();
+
         foreach (array_keys($display_hdrs) as $val) {
             $header[$val] = $this->vars->$val;
 
@@ -95,7 +98,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         }
 
         /* Add attachment. */
-        if ($session->get('imp', 'file_upload') &&
+        if ($attach_upload &&
             isset($_FILES['upload_1']) &&
             strlen($_FILES['upload_1']['name'])) {
             try {
@@ -378,19 +381,18 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             $this->view->identities = $tmp;
 
             /* Activate advanced compose attachments UI? */
-            if ($session->get('imp', 'file_upload')) {
-                try {
-                    if (Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
-                        $this->view->attach = true;
-                        if (count($imp_compose)) {
-                            $imp_ui_mbox = new IMP_Ui_Mailbox();
-                            $this->view->attach_name = $imp_compose[0]['part']->getName();
-                            $this->view->attach_type = $imp_compose[0]['part']->getType();
-                            $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
-                        }
+            try {
+                if ($attach_upload &&
+                    Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
+                    $this->view->attach = true;
+                    if (count($imp_compose)) {
+                        $imp_ui_mbox = new IMP_Ui_Mailbox();
+                        $this->view->attach_name = $imp_compose[0]['part']->getName();
+                        $this->view->attach_type = $imp_compose[0]['part']->getType();
+                        $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
                     }
-                } catch (Horde_Exception_HookNotSet $e) {}
-            }
+                }
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             $this->title = _("Message Composition");
         }
