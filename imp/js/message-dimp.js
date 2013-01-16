@@ -182,7 +182,7 @@ var DimpMessage = {
             if (e.element().hasClassName('printAtc')) {
                 HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                     actionID: 'print_attach',
-                    buid: this.buid
+                    buid: this.buid,
                     id: e.element().readAttribute('mimeid'),
                     mailbox: this.mbox
                 }, {
