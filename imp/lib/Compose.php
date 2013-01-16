@@ -3011,22 +3011,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Shortcut function to convert text -> HTML for purposes of composition.
-     *
-     * @param string $msg  The message text.
-     *
-     * @return string  HTML text.
-     */
-    static public function text2html($msg)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
-            'always_mailto' => true,
-            'flowed' => self::HTML_BLOCKQUOTE,
-            'parselevel' => Horde_Text_Filter_Text2html::MICRO
-        ));
-    }
-
-    /**
      * Store draft compose data if session expires.
      *
      * @param Horde_Variables $vars  Object with the form data.
@@ -3126,6 +3110,24 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return null;
         }
+    }
+
+    /* Static methods. */
+
+    /**
+     * Shortcut function to convert text -> HTML for purposes of composition.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
+            'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+        ));
     }
 
     /* ArrayAccess methods. */
