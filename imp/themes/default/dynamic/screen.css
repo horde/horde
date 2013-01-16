@@ -391,7 +391,7 @@ div.vpRowVert div.msgSubject span.flagUser {
 .dimpOptions a:hover {
     text-decoration: underline;
 }
-.dimpOptions .horde-popdown {
+.dimpOptions .horde-popdown, .atcrow .horde-popdown {
     display: inline-block;
     float: none;
     height: 16px;
@@ -619,7 +619,7 @@ div.dimpActionsMsg #windowclose {
     height: 18px;
     margin-top: -6px;
 }
-.msgwrite #msg_other_options .horde-popdown {
+.msgwrite #other_options .horde-popdown {
     height: 16px;
 }
 #noticerow li span.closeImg {

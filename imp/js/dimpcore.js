@@ -58,6 +58,7 @@ var DimpCore = {
     // o = (object) Options:
     //   - disabled: (boolean) Disabled?
     //   - insert: (string) Insertion position.
+    //   - no_offset: (boolean) If true, offset from popdown graphic.
     //   - trigger: (boolean) Trigger popdown on button click?
     addPopdown: function(p, t, o)
     {
@@ -84,7 +85,7 @@ var DimpCore = {
             disable: o.disabled,
             elt: elt,
             left: true,
-            offset: elt.up(),
+            offset: (o.no_offset ? elt : elt.up()),
             type: t
         });
     },

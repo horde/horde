@@ -167,15 +167,15 @@ class IMP_Dynamic_Compose_Common
         global $browser, $conf, $prefs, $registry;
 
         /* Context menu definitions. */
-        $base->js_context['ctx_msg_other'] = new stdClass;
-
+        $base->js_context['ctx_other'] = new stdClass;
         if (!$prefs->isLocked('request_mdn')) {
-            $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
+            $base->js_context['ctx_other']->rr = _("Read Receipt");
         }
 
+        $base->js_context['ctx_atc'] = new stdClass;
         if (($attach_upload = IMP_Compose::canUploadAttachment()) &&
             !$prefs->isLocked('save_attachments')) {
-            $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
+            $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
         }
 
         /* Variables used in compose page. */

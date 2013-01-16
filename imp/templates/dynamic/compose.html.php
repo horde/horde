@@ -64,7 +64,7 @@
     </div>
 <?php endif; ?>
     <div>
-     <span id="msg_other_options">
+     <span id="other_options">
       <a><?php echo _("Other Options") ?></a>
      </span>
     </div>

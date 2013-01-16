@@ -1032,11 +1032,11 @@ var DimpCompose = {
     contextOnClick: function(e)
     {
         switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_msg_other_rr':
+        case 'ctx_other_rr':
             $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
             break;
 
-        case 'ctx_msg_other_saveatc':
+        case 'ctx_atc_save':
             $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
             break;
         }
@@ -1047,12 +1047,15 @@ var DimpCompose = {
         var tmp;
 
         switch (e.memo) {
-        case 'ctx_msg_other':
-            if (tmp = $('ctx_msg_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
-            }
-            if (tmp = $('ctx_msg_other_saveatc')) {
+        case 'ctx_atc':
+            if (tmp = $('ctx_atc_save')) {
                 DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
+            }
+            break;
+
+        case 'ctx_other':
+            if (tmp = $('ctx_other_rr')) {
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
             }
             break;
         }
@@ -1132,12 +1135,18 @@ var DimpCompose = {
             callback: this.uniqueSubmitCallback.bind(this)
         });
 
-        if ($H(DimpCore.context.ctx_msg_other).size()) {
-            DimpCore.addPopdown($('msg_other_options').down('A'), 'msg_other', {
+        if ($H(DimpCore.context.ctx_atc).size()) {
+            DimpCore.addPopdown($('upload'), 'atc', {
+                no_offset: true
+            });
+        }
+
+        if ($H(DimpCore.context.ctx_other).size()) {
+            DimpCore.addPopdown($('other_options').down('A'), 'other', {
                 trigger: true
             });
         } else {
-            $('msg_other_options').hide();
+            $('other_options').hide();
         }
 
         /* Create sent-mail list. */
