@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Smartmobile view now uses additive loading instead of pagination on the
+      mailbox page.
 [mms] Converted 'link_all_attachments' configuration option to the
       'link_attach' preference.
 [mms] Support link attachment feature in dynamic view.

@@ -160,6 +160,7 @@ class IMP_Smartmobile
                     ),
                 ),
                 'copymove' => _("Copy/Move"),
+                'more_msgs' => _("Load More Messages..."),
                 'nav' => _("%d - %d of %d Messages"),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),

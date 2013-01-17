@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
 * [mms] Converted &apos;link_all_attachments&apos; configuration option to the &apos;link_attach&apos; preference.
 * [mms] Support link attachment feature in dynamic view.
 * [mms] Display Virtual Folders in smartmobile view.
@@ -2934,6 +2935,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
 * [mms] Converted &apos;link_all_attachments&apos; configuration option to the &apos;link_attach&apos; preference.
 * [mms] Support link attachment feature in dynamic view.
 * [mms] Display Virtual Folders in smartmobile view.

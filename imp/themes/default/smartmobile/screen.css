@@ -6,8 +6,7 @@
 #mailbox .ui-grid-a .ui-li-desc {
     margin: 0;
 }
-#imp-mailbox-more {
-    font-weight: normal;
+.imp-mailbox-more a {
     text-align: center;
 }
 .imp-mailbox-date {

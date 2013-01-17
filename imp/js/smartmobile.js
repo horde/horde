@@ -40,8 +40,8 @@ var ImpMobile = {
     // Mailbox data cache.
     cache: {},
 
-    // Rows per mailbox page.
-    mbox_rows: 40,
+    // Rows per mailbox slice.
+    mbox_slice: 30,
 
     // 'INBOX' base64url encoded
     INBOX: 'SU5CT1g',
@@ -139,12 +139,6 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'mailbox-next':
-        case 'mailbox-prev':
-            ImpMobile.navigateMailbox(view.match(/next$/) ? 1 : -1);
-            e.preventDefault();
-            break;
-
         case 'mailbox-innocent':
         case 'mailbox-spam':
             ImpMobile.reportSpam(
@@ -152,6 +146,24 @@ var ImpMobile = {
                 data.options.data.jqmData('buid')
             );
             e.preventDefault();
+            break;
+
+        case 'mailbox-more':
+            ImpMobile.cache[ImpMobile.mailbox].slice += ImpMobile.mbox_slice;
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: ImpMobile.mailbox
+            }), {
+                data: { norefresh: true }
+            });
+            e.preventDefault();
+            break;
+
+        case 'mailbox-refresh':
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: ImpMobile.mailbox
+            }));
+            e.preventDefault();
+            $('#mailbox :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
             break;
 
         case 'message':
@@ -203,14 +215,6 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'mailbox-refresh':
-            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                mbox: ImpMobile.mailbox
-            }));
-            e.preventDefault();
-            $('#mailbox :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
-            break;
-
         case 'message-reply':
             $.mobile.changePage(HordeMobile.createUrl('compose', {
                 buid: ImpMobile.buid,
@@ -257,8 +261,11 @@ var ImpMobile = {
         switch (HordeMobile.currentPage()) {
         case 'message':
             $('#imp-message-more').show().siblings(':jqmData(more)').hide();
-
             $('#imp-message-headers,#imp-message-atc').trigger('collapse');
+            if (ImpMobile.rowid) {
+                tmp = ImpMobile.cache[ImpMobile.mailbox];
+                ImpMobile.disableButton($('#imp-message-next'), tmp.rowlist[ImpMobile.rowid] == tmp.maxRow());
+            }
             break;
         }
     },
@@ -279,7 +286,6 @@ var ImpMobile = {
         $('#mailbox .smartmobile-title').text(title);
         if (ImpMobile.mailbox != mailbox) {
             $('#imp-mailbox-list').empty();
-            $('#imp-mailbox-navtop').hide();
             ImpMobile.mailbox = mailbox;
         }
 
@@ -294,16 +300,13 @@ var ImpMobile = {
 
         HordeMobile.changePage('mailbox', data);
 
-        if (ob = ImpMobile.cache[mailbox]) {
-            if (purl.params.from) {
-                ob.from = Number(purl.params.from);
-            } else if (data.options.data && data.options.data.noajax) {
-                ImpMobile.refreshMailbox(ob);
+        if ((!data.options.data || !data.options.data.norefresh) &&
+            (ob = ImpMobile.cache[mailbox])) {
+            ImpMobile.refreshMailbox(ob);
+            if (data.options.data && data.options.data.noajax) {
                 return;
-            } else {
-                ImpMobile.refreshMailbox(ob);
-                params.checkcache = 1;
             }
+            params.checkcache = 1;
         }
 
         HordeMobile.doAction(
@@ -320,16 +323,18 @@ var ImpMobile = {
     {
         params = params || {};
 
-        var from = 1, ob;
+        var ob = ImpMobile.cache[ImpMobile.mailbox], slice;
 
-        if (ob = ImpMobile.cache[ImpMobile.mailbox]) {
+        if (ob) {
             params.cache = ImpMobile.toUidString(ob.cachedIds());
             params.cacheid = ob.cacheid;
-            from = ob.from;
+            slice = ob.slice;
+        } else {
+            slice = ImpMobile.mbox_slice;
         }
 
         if (!params.search) {
-            params.slice = from + ':' + (from + ImpMobile.mbox_rows - 1);
+            params.slice = '1:' + slice;
         }
 
         return {
@@ -349,6 +354,7 @@ var ImpMobile = {
 
         if (!(ob = ImpMobile.cache[r.view])) {
             ob = ImpMobile.cache[r.view] = $.extend(true, {}, ImpMobileMbox);
+            ob.slice = ImpMobile.mbox_slice;
             if (r.metadata.readonly || r.metadata.nodelete) {
                 ob.readonly = 1;
             }
@@ -369,9 +375,6 @@ var ImpMobile = {
         if (r.disappear) {
             ob.disappear(r.disappear);
         }
-        if (r.rownum) {
-            ob.from = (Math.floor(r.rownum / ImpMobile.mbox_rows) * ImpMobile.mbox_rows) + 1;
-        }
 
         if (HordeMobile.currentPage() == 'mailbox') {
             ImpMobile.refreshMailbox(ob);
@@ -383,7 +386,7 @@ var ImpMobile = {
     refreshMailbox: function(ob)
     {
         var list, ob, tmp,
-            cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.from;
+            cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.slice;
 
         if (cid == ImpMobile.mailboxCache) {
             return;
@@ -436,21 +439,13 @@ var ImpMobile = {
                             val.data.from))));
         });
 
-        list.listview('refresh');
-
-        if (ob.totalrows > ImpMobile.mbox_rows) {
-            $('#imp-mailbox-navtext').text(IMP.text.nav
-                .replace(/%d/, ob.from)
-                .replace(/%d/, Math.min(ob.from + ImpMobile.mbox_rows - 1, ob.totalrows))
-                .replace(/%d/, ob.totalrows)
-            );
-
-            tmp = $('#imp-mailbox-navtop').show();
-            ImpMobile.disableButton(tmp.children('a[href$="prev"]'), ob.from == 1);
-            ImpMobile.disableButton(tmp.children('a[href$="next"]'), (ob.from + ImpMobile.mbox_rows - 1) >= ob.totalrows);
-        } else {
-            $('#imp-mailbox-navtop').hide();
+        if (ob.totalrows > ob.slice) {
+            list.append($('<li class="imp-mailbox-more"></li>').append(
+                $('<a href="#mailbox-more"></a>').text(
+                    IMP.text.more_msgs)));
         }
+
+        list.listview('refresh');
     },
 
     /**
@@ -464,14 +459,6 @@ var ImpMobile = {
             params = {};
 
         if (!ImpMobile.mailbox) {
-            params = {
-                // Make sure we have a big enough buffer to fit all
-                // messages on a page.
-                after: ImpMobile.mbox_rows,
-                before: ImpMobile.mbox_rows,
-                // Need to manually encode JSON here.
-                search: JSON.stringify({ buid: purl.params.buid })
-            };
             ImpMobile.mailbox = purl.params.mbox;
         }
 
@@ -501,24 +488,6 @@ var ImpMobile = {
     },
 
     /**
-     * Navigates to the next/previous mailbox page.
-     *
-     * @param integer dir  Jump length.
-     */
-    navigateMailbox: function(dir)
-    {
-        var ob = ImpMobile.cache[ImpMobile.mailbox],
-            from = Math.min(ob.totalrows, Math.max(1, ob.from + (dir * ImpMobile.mbox_rows)));
-
-        if (from != ob.from) {
-            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                from: from,
-                mbox: ImpMobile.mailbox
-            }));
-        }
-    },
-
-    /**
      * Navigates to the next/previous message page.
      *
      * @param integer dir  Jump length.
@@ -535,8 +504,6 @@ var ImpMobile = {
                     buid: buid,
                     mbox: ImpMobile.mailbox
                 }));
-            } else {
-                // TODO: Load viewport slice
             }
         }
     },
@@ -654,7 +621,7 @@ var ImpMobile = {
 
         rownum = cache.rowlist[ImpMobile.rowid];
         ImpMobile.disableButton($('#imp-message-prev'), rownum == 1);
-        ImpMobile.disableButton($('#imp-message-next'), rownum == cache.totalrows);
+        ImpMobile.disableButton($('#imp-message-next'), rownum == cache.maxRow());
 
         if (data.js) {
             $.each(data.js, function(k, js) {
@@ -1231,7 +1198,7 @@ var ImpMobile = {
         $(document).bind('HordeMobile:runTasks', ImpMobile.runTasks);
 
         $('#imp-mailbox-list').swipebutton()
-            .on('swipebutton', 'li', ImpMobile.swipeButtons);
+            .on('swipebutton', 'li.imp-message', ImpMobile.swipeButtons);
 
         $('#message').on('swipeleft', function() {
             $.mobile.changePage('#message-next');
@@ -1270,8 +1237,8 @@ $(ImpMobile.onDocumentReady);
 var ImpMobileMbox = {
     // Vars used: cacheid, label, readonly
     data: {},
-    from: 1,
     rowlist: {},
+    slice: 0,
     totalrows: 0,
 
     update: function(data, rowlist, totalrows)
@@ -1309,17 +1276,12 @@ var ImpMobileMbox = {
         });
     },
 
-    rows: function(start)
+    rows: function()
     {
-        start = start || this.from;
-
-        var mbox_data = this.data,
-            end = Math.min(start + ImpMobile.mbox_rows - 1, this.totalrows);
+        var mbox_data = this.data;
 
         return $.map($.map(this.rowlist, function(value, key) {
-            return (value >= start && value <= end)
-                ? { sort: value, buid: key }
-                : null;
+            return { sort: value, buid: key };
         }).sort(function(a, b) {
             return (a.sort < b.sort) ? -1 : 1;
         }), function(value, key) {
@@ -1334,16 +1296,19 @@ var ImpMobileMbox = {
     {
         var buid = undefined;
 
-        if (row >= 0 && row <= this.totalrows) {
-            $.each(this.rowlist, function(b, p) {
-                if (p == row) {
-                    buid = b;
-                    return;
-                }
-            });
-        }
+        $.each(this.rowlist, function(b, p) {
+            if (p == row) {
+                buid = b;
+                return;
+            }
+        });
 
         return buid;
+    },
+
+    maxRow: function()
+    {
+        return Math.min(this.slice, this.totalrows);
     }
 
 };
