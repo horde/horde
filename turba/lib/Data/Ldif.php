@@ -286,7 +286,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
                 $data[] = $turbaHash;
             }
 
-            $this->storage->remove('data');
+            $this->storage->set('data', null);
             return $data;
 
         default:
