@@ -608,7 +608,7 @@ var DimpCompose = {
 
     msgHash: function()
     {
-        return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), ths.seed);
+        return murmurhash3(ImpComposeBase.editor_on ? this.rte.getData() : $F('composeMessage'), this.seed);
     },
 
     fadeNotice: function(elt)
