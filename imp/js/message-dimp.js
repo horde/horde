@@ -51,11 +51,11 @@ var DimpMessage = {
 
         DimpCore.doAction(func, {
             imp_compose: $F('composeCache'),
-            type: type
+            type: type,
+            view: this.mbox
         }, {
             callback: DimpCompose.fillForm.bind(DimpCompose),
-            uids: [ this.buid ],
-            view: this.mbox
+            uids: [ this.buid ]
         });
     },
 

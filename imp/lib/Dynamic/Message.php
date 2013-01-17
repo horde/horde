@@ -79,7 +79,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         if (!empty($msg_res['list_info']['exists'])) {
             $js_vars['DimpMessage.reply_list'] = true;
         }
-        list(,$js_vars['DimpMessage.buid']) = $this->indices->mailbox->toBuids($this->indices)->getSingle();
+        list(,$js_vars['DimpMessage.buid']) = $this->indices->buids->getSingle();
         $js_vars['DimpMessage.mbox'] = $this->indices->mailbox->form_to;
         $js_vars['DimpMessage.tasks'] = $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks();
 
