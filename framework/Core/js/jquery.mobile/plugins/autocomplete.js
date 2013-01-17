@@ -75,8 +75,8 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
             if (data) {
                 $.each(data, function(i, v) {
-                    var li = $('<li>').jqmData('icon', opts.icon),
-                        a = $('<a>').jqmData('transition', opts.transition).appendTo(li);
+                    var li = $('<li></li>').jqmData('icon', opts.icon),
+                        a = $('<a></a>').jqmData('transition', opts.transition).appendTo(li);
 
                     // are we working with objects or strings?
                     if ($.isPlainObject(v)) {
