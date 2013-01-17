@@ -131,6 +131,10 @@ class IMP_Dynamic_Compose_Common
         if (IMP_Compose::canUploadAttachment()) {
             $view->attach = true;
             $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
+            if ($conf['compose']['link_attachments'] &&
+                !$prefs->isLocked('link_attach')) {
+                $view->link_attach_select = $prefs->getValue('link_attach');
+            }
         } else {
             $view->attach = false;
         }
@@ -175,14 +179,16 @@ class IMP_Dynamic_Compose_Common
         $base->js_context['ctx_atc'] = new stdClass;
         if ($attach_upload = IMP_Compose::canUploadAttachment()) {
             if ($conf['compose']['link_attachments'] &&
-                !$conf['compose']['link_all_attachments']) {
+                !$prefs->isLocked('link_attach')) {
                 $base->js_context['ctx_atc']->link = _("Link Attachments?");
             }
 
             if (!$prefs->isLocked('save_attachments') &&
                 (!$prefs->isLocked('save_sent_mail') ||
                  $prefs->getValue('save_sent_mail')) &&
-                !$conf['compose']['link_all_attachments']) {
+                (!$conf['compose']['link_attachments'] ||
+                 !$prefs->isLocked('link_attach') ||
+                 $prefs->getValue('link_attach'))) {
                 $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
             }
         }

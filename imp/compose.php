@@ -983,9 +983,11 @@ if ($redirect) {
 
         $view->attach_size = IMP::numberFormat($imp_compose->maxAttachmentSize(), 0);
 
+        $link_attach = $prefs->getValue('link_attach');
         $save_attach = $prefs->getValue('save_attachments');
-        $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_link_attach = ($conf['compose']['link_attachments'] && !$prefs->isLocked('link_attach'));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || $show_link_attach || $link_attach));
+
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
@@ -1003,7 +1005,7 @@ if ($redirect) {
                 $attach_options[] = array(
                     'label' => _("Link Attachments?"),
                     'name' => 'link_attachments',
-                    'val' => $vars->link_attachments
+                    'val' => (isset($vars->link_attachments) ? $vars->link_attachments : $link_attach)
                 );
             }
             $view->attach_options = $attach_options;

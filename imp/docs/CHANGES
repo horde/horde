@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Converted 'link_all_attachments' configuration option to the
+      'link_attach' preference.
 [mms] Support link attachment feature in dynamic view.
 [mms] Display Virtual Folders in smartmobile view.
 [mms] Abstract all UIDs used for mailbox/message navigation on the browser to

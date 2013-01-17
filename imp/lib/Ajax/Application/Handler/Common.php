@@ -500,6 +500,13 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
 
+        if ($conf['compose']['link_attachments']) {
+            $link_attach = $prefs->isLocked('link_attach')
+                ? $prefs->getValue('link_attach')
+                : $this->vars->link_attachments_select;
+        } else {
+            $link_attach = false;
+        }
         $sm_displayed = !$prefs->isLocked('sent_mail_folder');
 
         $options = array(
@@ -507,7 +514,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
             'html' => $this->vars->html,
             'identity' => $identity,
-            'link_attachments' => ($conf['compose']['link_all_attachments'] || ($conf['compose']['link_attachments'] && $this->vars->link_attachments_select)),
+            'link_attachments' => $link_attach,
             'priority' => $this->vars->priority,
             'readreceipt' => $this->vars->request_read_receipt,
             'save_attachments' => $this->vars->save_attachments_select,

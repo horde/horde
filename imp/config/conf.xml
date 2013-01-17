@@ -119,9 +119,6 @@
    <configswitch name="link_attachments" desc="Should users be allowed to send
    attachments as links?">true
     <case name="true" desc="Yes">
-     <configboolean name="link_all_attachments" desc="Send all attachments as
-     links? If false, the user will be given the option to individually link
-     any attachment.">false</configboolean>
      <configboolean name="link_attachments_notify" desc="Send an e-mail
      notification to the sender when the first person attempts to download the
      linked attachment? This notification includes a link to delete the

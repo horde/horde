@@ -32,6 +32,13 @@ outdated.
 Upgrading IMP From 6.0.x To 6.1
 ===============================
 
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['compose']['link_all_attachments'] option was removed and replaced
+by the 'link_attach' preference.
+
+
 Preferences (prefs.php)
 -----------------------
 

@@ -1362,9 +1362,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Add attachments now. */
         $attach_flag = true;
         if (empty($options['noattach']) && count($this)) {
-            if ((!empty($options['linkattach']) &&
-                 $conf['compose']['link_attachments']) ||
-                !empty($conf['compose']['link_all_attachments'])) {
+            if (!empty($options['linkattach']) &&
+                $conf['compose']['link_attachments'] &&
+                (!$prefs->isLocked('link_attach') ||
+                 $prefs->isLocked('link_attach'))) {
                 $base = $this->_linkAttachments($textpart);
 
                 if ($this->_pgpAttachPubkey ||

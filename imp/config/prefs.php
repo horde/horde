@@ -462,7 +462,8 @@ $prefGroups['compose'] = array(
         'set_priority', 'compose_html', 'compose_html_font_family',
         'compose_html_font_size', 'mail_domain',
         'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm'
+        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm',
+        'link_attach'
     )
 );
 
@@ -611,6 +612,16 @@ $_prefs['compose_confirm'] = array(
     'type' => 'checkbox',
     'desc' => _("Display confirmation in popup window after sending a message?") . ' (<em>' . _("Basic view only") . '</em>)',
     'requires' => array('compose_popup')
+);
+
+$_prefs['link_attach'] = array(
+    'value' => 0,
+    'advanced' => true,
+    'type' => 'checkbox',
+    'desc' => _("Link attachments by default?"),
+    'suppress' => function() {
+        return empty($GLOBALS['conf']['compose']['link_attachments']);
+    }
 );
 
 // The list of buttons to show in CKeditor
