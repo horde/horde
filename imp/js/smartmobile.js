@@ -397,7 +397,7 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, val) {
-            var c = $('<li class="imp-message">')
+            var c = $('<li class="imp-message"></li>')
                     .jqmData('buid', val.buid),
                 url = HordeMobile.createUrl('message', {
                     buid: val.buid,
@@ -428,11 +428,11 @@ var ImpMobile = {
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '">').html(val.data.subject)).append(
-                    $('<div class="imp-mailbox-secondrow">').append(
-                        $('<span class="imp-mailbox-date">').text(
+                    $('<a href="' + url + '"></a>').html(val.data.subject)).append(
+                    $('<div class="imp-mailbox-secondrow"></div>').append(
+                        $('<span class="imp-mailbox-date"></span>').text(
                             val.data.date)).append(
-                        $('<span class="imp-mailbox-from">').text(
+                        $('<span class="imp-mailbox-from"></span>').text(
                             val.data.from))));
         });
 
@@ -685,10 +685,10 @@ var ImpMobile = {
 
         $.each(ImpMobile.headers, function(k, header) {
             if (header.value) {
-                h.append($('<tr>')
-                    .append($('<td class="imp-header-label">')
+                h.append($('<tr></tr>')
+                    .append($('<td class="imp-header-label"></td>')
                         .html(header.name + ':'))
-                    .append($('<td>').html(header.value)
+                    .append($('<td></td>').html(header.value)
                 ));
             }
         });
@@ -709,7 +709,7 @@ var ImpMobile = {
         $.each(ImpMobile.atc, function(k, v) {
             list.append(
                 $('<li class="imp-message-atc"></li>').append(
-                    $('<a>').attr({
+                    $('<a></a>').attr({
                         href: v.download_url,
                         target: 'download'
                     }).append(
