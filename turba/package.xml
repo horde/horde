@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
-* 
+* [jan] Fix importing of LDIF data (Bug #11972).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1555,7 +1555,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
-* 
+* [jan] Fix importing of LDIF data (Bug #11972).
    </notes>
   </release>
  </changelog>
