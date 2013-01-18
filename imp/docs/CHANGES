@@ -2,6 +2,7 @@
 v6.0.4-git
 ----------
 
+[mms] Fix deleting virtual folders/filters from preferences page (Bug #11982).
 [mms] Fix saving mailbox expansion state in basic folders view (Bug #11979).
 [mms] Hide attachment upload UI in dynamic view if file uploads are disabled.
 [jan] Fix JavaScript errors with Internet Explorer 8.
