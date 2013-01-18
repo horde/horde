@@ -568,7 +568,7 @@ class Horde_ActiveSync
 
         $this->_logger->debug(sprintf(
             '[%s] %s request received for user %s',
-            $devId,
+            getmypid(),
             strtoupper($cmd),
             $this->_driver->getUser())
         );
