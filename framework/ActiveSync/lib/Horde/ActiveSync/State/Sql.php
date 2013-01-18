@@ -1487,12 +1487,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _resetDeviceState($id)
     {
-        $this->_logger->debug(sprintf('[%s] Resetting device state.', $this->_procid));
-        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
-        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
+        $this->_logger->debug(sprintf(
+            '[%s] Resetting device state for device: %s, user: %s, and collection: %s.',
+            $this->_procid,
+            $this->_deviceInfo->id,
+            $this->_deviceInfo->user,
+            $id));
+        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
+        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
+        $mailmap_query = 'DELETE FROM ' . $this->_syncMailMapTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
         try {
-            $this->_db->delete($state_query, array($this->_deviceInfo->id, $id));
-            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id));
+            $this->_db->delete($state_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
+            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
+            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
