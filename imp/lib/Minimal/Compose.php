@@ -9,7 +9,7 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Minimal_Compose extends IMP_Minimal_Base
