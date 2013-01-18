@@ -139,6 +139,11 @@ class IMP_Dynamic_Compose_Common
             $view->attach = false;
         }
 
+        if ($prefs->getValue('use_pgp') &&
+            $prefs->getValue('pgp_public_key')) {
+            $view->pgp_pubkey = $prefs->getValue('pgp_attach_pubkey');
+        }
+
         $view->priority = $prefs->getValue('set_priority');
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
@@ -191,6 +196,11 @@ class IMP_Dynamic_Compose_Common
                  $prefs->getValue('link_attach'))) {
                 $base->js_context['ctx_atc']->save = _("Save Attachments in Sent Mailbox");
             }
+        }
+
+        if ($prefs->getValue('use_pgp') &&
+            $prefs->getValue('pgp_public_key')) {
+            $base->js_context['ctx_atc']->pgppubkey = _("Attach Personal PGP Public Key?");
         }
 
         /* Variables used in compose page. */

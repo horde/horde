@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Support attaching PGP public keys in dynamic compose.
 [mms] Smartmobile view now uses additive loading instead of pagination on the
       mailbox page.
 [mms] Converted 'link_all_attachments' configuration option to the

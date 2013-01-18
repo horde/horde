@@ -18,6 +18,7 @@ var DimpCompose = {
     checkbox_context: $H({
         ctx_atc: $H({
             link: 'link_attachments_select',
+            pgppubkey: 'pgp_attach_pubkey',
             save: 'save_attachments_select'
         }),
         ctx_other: $H({

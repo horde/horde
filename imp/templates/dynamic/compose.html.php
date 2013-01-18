@@ -9,6 +9,9 @@
 <?php if ($this->attach): ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 <?php endif; ?>
+<?php if (isset($this->pgp_pubkey)): ?>
+ <?php echo $this->hiddenFieldTag('pgp_attach_pubkey', intval($this->pgp_pubkey)) ?>
+<?php endif; ?>
 
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Accesskey Esc") ?>"></div>

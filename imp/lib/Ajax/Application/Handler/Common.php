@@ -463,6 +463,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - html: (integer) In HTML compose mode?
      *   - link_attachments_select: (boolean) Whether to link attachments.
      *   - message: (string) The message text.
+     *   - pgp_attach_pubkey: (boolean) True if PGP public key should be
+     *                        attached to the message.
      *   - priority: (string) The priority of the message.
      *   - request_read_receipt: (boolean) Add request read receipt header?
      *   - save_attachments_select: (boolean) Whether to save attachments.
@@ -515,6 +517,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             'html' => $this->vars->html,
             'identity' => $identity,
             'link_attachments' => $link_attach,
+            'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
             'priority' => $this->vars->priority,
             'readreceipt' => $this->vars->request_read_receipt,
             'save_attachments' => $this->vars->save_attachments_select,
