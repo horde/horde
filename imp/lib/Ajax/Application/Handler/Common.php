@@ -471,6 +471,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - save_sent_mail: (boolean) True if saving sent mail.
      *   - save_sent_mail_mbox: (string) base64url encoded version of sent
      *                          mail mailbox to use.
+     *   - vcard_attach: (boolean) Attach user's vCard to the message?
      *
      * @return object  An object with the following entries:
      *   - action: (string) The AJAX action string
@@ -526,7 +527,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                             : $identity->getValue('save_sent_mail')),
             'sent_mail' => ($sm_displayed
                               ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue('sent_mail_folder'))
-                              : $identity->getValue('sent_mail_folder'))
+                              : $identity->getValue('sent_mail_folder')),
+            'vcard_attach' => ($this->vars->vcard_attach ? $identity->getValue('fullname') : null)
         );
 
         try {

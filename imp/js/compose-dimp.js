@@ -19,7 +19,8 @@ var DimpCompose = {
         ctx_atc: $H({
             link: 'link_attachments_select',
             pgppubkey: 'pgp_attach_pubkey',
-            save: 'save_attachments_select'
+            save: 'save_attachments_select',
+            vcard: 'vcard_attach'
         }),
         ctx_other: $H({
             rr: 'request_read_receipt'

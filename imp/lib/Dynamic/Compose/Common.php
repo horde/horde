@@ -144,6 +144,10 @@ class IMP_Dynamic_Compose_Common
             $view->pgp_pubkey = $prefs->getValue('pgp_attach_pubkey');
         }
 
+        if ($registry->hasMethod('contacts/ownVCard')) {
+            $view->vcard_attach = true;
+        }
+
         $view->priority = $prefs->getValue('set_priority');
         if (!$prefs->isLocked('default_encrypt') &&
             ($prefs->getValue('use_pgp') || $prefs->getValue('use_smime'))) {
@@ -201,6 +205,10 @@ class IMP_Dynamic_Compose_Common
         if ($prefs->getValue('use_pgp') &&
             $prefs->getValue('pgp_public_key')) {
             $base->js_context['ctx_atc']->pgppubkey = _("Attach Personal PGP Public Key?");
+        }
+
+        if ($registry->hasMethod('contacts/ownVCard')) {
+            $base->js_context['ctx_atc']->vcard = _("Attach your contact information?");
         }
 
         /* Variables used in compose page. */
