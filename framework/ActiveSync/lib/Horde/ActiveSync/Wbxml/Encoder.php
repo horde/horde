@@ -438,10 +438,18 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         $spaces = str_repeat(' ', count($this->_logStack));
         if ($output_empty) {
-            $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
+            $this->_logger->debug(sprintf(
+                '[%s] O %s <%s/>',
+                $this->_procid,
+                $spaces,
+                $tag));
         } else {
             $this->_logStack[] = $tag;
-            $this->_logger->debug(sprintf('O %s <%s>', $spaces, $tag));
+            $this->_logger->debug(sprintf(
+                '[%s] O %s <%s>',
+                $this->_procid,
+                $spaces,
+                $tag));
         }
     }
 
@@ -454,7 +462,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
-        $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
+        $this->_logger->debug(sprintf(
+            '[%s] O %s <%s/>',
+            $this->_procid,
+            $spaces,
+            $tag));
     }
 
     /**
@@ -467,7 +479,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     private function _logContent($content)
     {
         $spaces = str_repeat(' ', count($this->_logStack) + 1);
-        $this->_logger->debug('O ' . $spaces . $content);
+        $this->_logger->debug(sprintf(
+            '[%s] O %s %s',
+            $this->_procid,
+            $spaces,
+            $content));
     }
 
 }
