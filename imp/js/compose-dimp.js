@@ -15,6 +15,15 @@ var DimpCompose = {
     //   onload_show, old_action, old_identity, rte, rte_loaded,
     //   sc_submit, skip_spellcheck, spellcheck, uploading
 
+    checkbox_context: $H({
+        ctx_atc: $H({
+            link: 'link_attachments_select',
+            save: 'save_attachments_select'
+        }),
+        ctx_other: $H({
+            rr: 'request_read_receipt'
+        })
+    }),
     knl: {},
     seed: 3,
 
@@ -1031,40 +1040,29 @@ var DimpCompose = {
 
     contextOnClick: function(e)
     {
-        switch (e.memo.elt.readAttribute('id')) {
-        case 'ctx_atc_link':
-            $('link_attachments_select').setValue(Number(!Number($F('link_attachments_select'))));
-            break;
+        var id = e.memo.elt.readAttribute('id');
 
-        case 'ctx_atc_save':
-            $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
-            break;
-
-        case 'ctx_other_rr':
-            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
-            break;
-        }
+        this.checkbox_context.each(function(pair) {
+            if (id.startsWith(pair.key + '_')) {
+                var t = pair.value.get(id.substring(pair.key.length + 1));
+                if (t) {
+                    $(t).setValue(Number(!Number($F(t))));
+                }
+            }
+        });
     },
 
     contextOnShow: function(e)
     {
-        var tmp;
+        var tmp = this.checkbox_context.get(e.memo);
 
-        switch (e.memo) {
-        case 'ctx_atc':
-            if (tmp = $('ctx_atc_link')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('link_attachments_select')));
-            }
-            if (tmp = $('ctx_atc_save')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
-            }
-            break;
-
-        case 'ctx_other':
-            if (tmp = $('ctx_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
-            }
-            break;
+        if (tmp) {
+            tmp.each(function(pair) {
+                var t = $(e.memo + '_' + pair.key);
+                if (t) {
+                    DimpCore.toggleCheck(t.down('SPAN'), Number($F(pair.value)));
+                }
+            });
         }
     },
 
