@@ -74,7 +74,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
         if ($this->_view->gallery->hasFeature('upload') &&
             $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
 
-            Horde::url('img/upload.php')->add(array(
+            $view->uploadurl_link = Horde::url('img/upload.php')->add(array(
                 'gallery' => $id,
                 'page' => !empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0)
             )->link(array('class' => 'widget'));

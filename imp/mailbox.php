@@ -376,21 +376,15 @@ if ($mailbox->editvfolder) {
 
 /* Generate mailbox summary string. */
 $subinfo = new IMP_View_Subinfo(array('mailbox' => $mailbox));
-$subinfo->value = $pagetitle;
+$subinfo->value = $pagetitle . ' (';
 if (empty($pageOb['end'])) {
     $subinfo->value .= _("No Messages");
 } else {
-    $subinfo->value .= ' (';
-    if ($pageOb['pagecount'] > 1) {
-        $subinfo->value .=
-              sprintf(_("%d Messages"), $pageOb['msgcount'])
-            . ' / '
-            .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
-    } else {
-        $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
-    }
-    $subinfo->value .= ')';
+    $subinfo->value .= ($pageOb['pagecount'] > 1)
+        ? sprintf(_("%d Messages"), $pageOb['msgcount']) . ' / ' . sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount'])
+        : sprintf(_("%d Messages"), $pageOb['msgcount']);
 }
+$subinfo->value .= ')';
 $injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 $page_output->addScriptFile('hordecore.js', 'horde');

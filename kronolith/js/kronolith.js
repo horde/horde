@@ -874,7 +874,7 @@ KronolithCore = {
             date7 = date.clone().add(1).week(),
             today = Date.today(),
             week = this.viewDates(this.date, 'week'),
-            workweek = [ week[0], week[1].clone().add(-2).day() ],
+            workweek = this.viewDates(this.date, 'workweek'),
             dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -3685,6 +3685,9 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
+            if (view == 'workweek') {
+                start.add(1).days();
+            }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {

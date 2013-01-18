@@ -141,7 +141,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
             return $element;
         } else {
-            $this->_logger->err('Unmatched end tag:');
+            $this->_logger->err(sprintf(
+                '[%s] Unmatched end tag:',
+                $this->_procid));
             $this->_logger->err(print_r($element, true));
             $this->_ungetElement($element);
         }
@@ -200,18 +202,34 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         switch ($el[Horde_ActiveSync_Wbxml::EN_TYPE]) {
         case Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG:
             if ($el[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT) {
-                $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '>');
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s<%s>',
+                    $this->_procid,
+                    $spaces,
+                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
                 $this->_logStack[] = $el[Horde_ActiveSync_Wbxml::EN_TAG];
             } else {
-                $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '/>');
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s<%s />',
+                    $this->_procid,
+                    $spaces,
+                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
             }
             break;
         case Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG:
             $tag = array_pop($this->_logStack);
-            $this->_logger->debug('I ' . $spaces . '</' . $tag . '>');
+            $this->_logger->debug(sprintf(
+                '[%s] I %s</%s>',
+                $this->_procid,
+                $spaces,
+                $tag));
             break;
         case Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT:
-            $this->_logger->debug('I ' . $spaces . ' ' . $el[Horde_ActiveSync_Wbxml::EN_CONTENT]);
+            $this->_logger->debug(sprintf(
+                '[%s] I %s %s',
+                $this->_procid,
+                $spaces,
+                $el[Horde_ActiveSync_Wbxml::EN_CONTENT]));
             break;
         }
     }

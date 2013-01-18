@@ -567,8 +567,8 @@ class Horde_ActiveSync
         $this->setProvisioning($this->_driver->getProvisioning());
 
         $this->_logger->debug(sprintf(
-            "[%s] %s request received for user %s",
-            $devId,
+            '[%s] %s request received for user %s',
+            getmypid(),
             strtoupper($cmd),
             $this->_driver->getUser())
         );
@@ -593,7 +593,7 @@ class Horde_ActiveSync
             // Device might exist, but with a new (additional) user account
             $device = new StdClass();
             if ($this->_state->deviceExists($devId)) {
-                $d = $this->_state->loadDeviceInfo($devId);
+                $device = $this->_state->loadDeviceInfo($devId);
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');

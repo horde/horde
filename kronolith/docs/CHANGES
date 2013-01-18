@@ -2,6 +2,8 @@
 v4.0.4-git
 ----------
 
+[jan] Fix some issues with workweek views if first day of week is Sunday (Bug
+      #11973).
 [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
 [jan] More robust date parsing during event importing (Bug #11916).
 [jan] Always export year numbers with four digits to CSV (Request #11917).

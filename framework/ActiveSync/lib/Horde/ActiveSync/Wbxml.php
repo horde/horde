@@ -704,13 +704,22 @@ class Horde_ActiveSync_Wbxml
      */
      protected $_stream;
 
+     /**
+      * The current procid
+      *
+      * @var integer
+      */
+     protected $_procid;
+
     /**
-     * [__construct description]
+     *
+     * @param stream $stream  The [input|output] stream.
      */
     public function __construct($stream)
     {
         $this->_stream = $stream;
         $this->_logger = new Horde_Support_Stub();
+        $this->_procid = getmypid();
     }
 
     public function getStream()

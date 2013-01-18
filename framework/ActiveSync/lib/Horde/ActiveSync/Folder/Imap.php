@@ -303,7 +303,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function __toString()
     {
         return sprintf(
-            "status: %s\nchanged: %s\nadded: %s\nremoved: %s",
+            'status: %s\nchanged: %s\nadded: %s\nremoved: %s',
             join(', ', $this->_status),
             join(', ', $this->_changed),
             join(', ', $this->_added),
