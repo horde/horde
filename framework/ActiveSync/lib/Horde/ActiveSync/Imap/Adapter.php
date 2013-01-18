@@ -741,7 +741,7 @@ class Horde_ActiveSync_Imap_Adapter
             return $imap->fetch($mbox, $query, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
-                "Unable to fetch message: %s",
+                'Unable to fetch message: %s',
                 $e->getMessage()));
             throw new Horde_ActiveSync_Exception($e);
         }

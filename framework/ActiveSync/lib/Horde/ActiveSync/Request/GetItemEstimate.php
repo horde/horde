@@ -63,7 +63,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling GETITEMESTIMATE command.",
+            '[%s] Handling GETITEMESTIMATE command.',
             $this->_device->id)
         );
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {

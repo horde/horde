@@ -43,7 +43,7 @@ class Horde_ActiveSync_Folder_Collection extends Horde_ActiveSync_Folder_Base
     public function __toString()
     {
         return sprintf(
-            "serverid: %s\nclass: %s\n",
+            'serverid: %s\nclass: %s\n',
             $this->serverid(),
             $this->collectionClass());
     }

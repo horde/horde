@@ -58,7 +58,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info(sprintf(
-            "[%s] Handling FOLDERSYNC command.",
+            '[%s] Handling FOLDERSYNC command.',
             $this->_device->id));
 
         // Check policy
@@ -254,7 +254,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $syncFolder['type'] == $folder->type) {
 
                     $this->_logger->debug(sprintf(
-                        "[%s] Ignoring %s from changes because it contains no changes from device.",
+                        '[%s] Ignoring %s from changes because it contains no changes from device.',
                         $this->_device->id,
                         $folder->serverid)
                     );
@@ -269,7 +269,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             foreach ($exporter->deleted as $key => $folder) {
                 if (($sid = array_search($folder, $seenfolders)) === false) {
                     $this->_logger->debug(sprintf(
-                        "[%s] Ignoring %s from deleted list because the device does not know it",
+                        '[%s] Ignoring %s from deleted list because the device does not know it',
                         $this->_device->id,
                         $folder)
                     );

@@ -567,7 +567,7 @@ class Horde_ActiveSync
         $this->setProvisioning($this->_driver->getProvisioning());
 
         $this->_logger->debug(sprintf(
-            "[%s] %s request received for user %s",
+            '[%s] %s request received for user %s',
             $devId,
             strtoupper($cmd),
             $this->_driver->getUser())

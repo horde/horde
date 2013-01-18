@@ -62,7 +62,7 @@ class Horde_ActiveSync_Request_ValidateCert extends Horde_ActiveSync_Request_Bas
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling ValidateCertificate command.",
+            '[%s] Handling ValidateCertificate command.',
             $this->_device->id)
         );
 

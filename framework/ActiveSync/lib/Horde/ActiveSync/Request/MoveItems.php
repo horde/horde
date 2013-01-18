@@ -65,7 +65,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling MoveItems command.",
+            '[%s] Handling MoveItems command.',
             $this->_device_id)
         );
 

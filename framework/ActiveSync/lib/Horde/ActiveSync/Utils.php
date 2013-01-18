@@ -113,7 +113,7 @@ class Horde_ActiveSync_Utils
             // bytes 17 - 20 converted to zero
             $hex = array();
             foreach (str_split($goid) as $chr) {
-                $hex[] = sprintf("%02X", ord($chr));
+                $hex[] = sprintf('%02X', ord($chr));
             }
             array_splice($hex, 16, 4, array('00', '00', '00', '00'));
             return implode('', $hex);
@@ -151,7 +151,7 @@ class Horde_ActiveSync_Utils
         // The UID Data:
         $hexuid = '';
         foreach (str_split($uid) as $chr) {
-            $hexuid .= sprintf("%02X", ord($chr));
+            $hexuid .= sprintf('%02X', ord($chr));
         }
 
         // Pack it

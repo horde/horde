@@ -15,7 +15,7 @@
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
- *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            Version 2, the distribution   of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
  * @copyright 2009-2013 Horde LLC (http://www.horde.org)
@@ -53,7 +53,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
         $status = self::STATUS_SUCCESS;
         $create = $update = $delete = false;
         $this->_logger->info(sprintf(
-            "[%s] Handling FOLDER[CREATE|DELETE|CHANGE] command.",
+            '[%s] Handling FOLDER[CREATE|DELETE|CHANGE] command.',
             $this->_device->id)
         );
 
@@ -135,7 +135,7 @@ class Horde_ActiveSync_Request_FolderCreate extends Horde_ActiveSync_Request_Bas
                 $seenfolders = array();
             }
             $this->_logger->debug(sprintf(
-                "[%s] KNOWNFOLDERS: %s",
+                '[%s] KNOWNFOLDERS: %s',
                 $this->_device->device_id,
                 print_r($seenfolders, true))
             );

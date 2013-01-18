@@ -77,7 +77,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling SYNC command.",
+            '[%s] Handling SYNC command.',
             $this->_device->id)
         );
 
@@ -150,13 +150,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
-                        "[%s] HeartbeatInterval %s Seconds.",
+                        '[%s] HeartbeatInterval %s Seconds.',
                         $this->_device->id,
                         $this->_syncCache->hbinterval)
                     );
                     if ($this->_syncCache->hbinterval > (self::MAX_HEARTBEAT)) {
                         $this->_logger->err(sprintf(
-                            "[%s] HeartbeatInterval outside of allowed range.",
+                            '[%s] HeartbeatInterval outside of allowed range.',
                             $this->_device->id)
                         );
                         $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
@@ -169,13 +169,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_decoder->getElementEndTag();
                     }
                     $this->_logger->debug(sprintf(
-                        "[%s] Wait %s Minutes.",
+                        '[%s] Wait %s Minutes.',
                         $this->_device->id,
                         $this->_syncCache->wait)
                     );
                     if ($this->_syncCache->wait > (self::MAX_HEARTBEAT / 60)) {
                         $this->_logger->err(sprintf(
-                            "[%s] Wait value outside of allowed range.",
+                            '[%s] Wait value outside of allowed range.',
                             $this->_device->id)
                         );
                         $this->_statusCode = self::STATUS_INVALID_WAIT_HEARTBEATINTERVAL;
@@ -192,7 +192,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 case Horde_ActiveSync::SYNC_WINDOWSIZE:
                     $default_maxitems = $this->_decoder->getElementContent();
                     $this->_logger->debug(sprintf(
-                        "[%s] Global WINDOWSIZE set to %s",
+                        '[%s] Global WINDOWSIZE set to %s',
                         $this->_device->id,
                         $default_maxitems));
                     if (!$this->_decoder->getElementEndTag()) {
@@ -607,7 +607,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $sync->init($this->_stateDriver, $exporter, $collection);
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] Force restting of state for %s: %s",
+                            '[%s] Force restting of state for %s: %s',
                             $this->_device->id,
                             $collection['id'],
                             $e->getMessage()));
@@ -619,7 +619,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $statusCode = self::STATUS_KEYMISM;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] FOLDERSYNC required, collection gone.",
+                            '[%s] FOLDERSYNC required, collection gone.',
                             $this->_device->id));
                         $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                     }
@@ -646,7 +646,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 try {
                     $collection['newsynckey'] = $this->_stateDriver->getNewSyncKey($collection['synckey']);
                     $this->_logger->debug(sprintf(
-                        "Old SYNCKEY: %s, New SYNCKEY: %s",
+                        'Old SYNCKEY: %s, New SYNCKEY: %s',
                         $collection['synckey'],
                         $collection['newsynckey'])
                     );
@@ -720,7 +720,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $this->_encoder->endTag();
                         } else {
                             $this->_logger->err(sprintf(
-                                "[%s] Unable to fetch %s",
+                                '[%s] Unable to fetch %s',
                                 $this->_device->id,
                                 $id)
                             );
@@ -750,7 +750,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                                 $n >= $collection['windowsize']) {
 
                                 $this->_logger->info(sprintf(
-                                    "[%s] Exported maxItems of messages (%s) - more available.",
+                                    '[%s] Exported maxItems of messages (%s) - more available.',
                                     $this->_device->id,
                                     $collection['windowsize'])
                                 );
@@ -768,7 +768,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_stateDriver->save();
                     } else {
                         $this->_logger->err(sprintf(
-                            "[%s] Error saving %s - no state information available.",
+                            '[%s] Error saving %s - no state information available.',
                             $this->_device->id,
                             $collection['newsynckey'])
                         );
@@ -963,7 +963,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // of data integrity issues.
         if (empty($collection['synckey'])) {
             $this->_logger->err(sprintf(
-                "[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.",
+                '[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.',
                 $this->_device->id));
                 $this->_statusCode = self::STATUS_KEYMISM;
                 $this->_handleGlobalSyncError();
@@ -1274,7 +1274,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     {
         // Initialize the state
         $this->_logger->debug(sprintf(
-            "[%s] Initializing state for collection: %s, synckey: %s",
+            '[%s] Initializing state for collection: %s, synckey: %s',
             getmypid(),
             $collection['id'],
             $collection['synckey']));

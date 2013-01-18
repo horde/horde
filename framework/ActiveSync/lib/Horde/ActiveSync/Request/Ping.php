@@ -102,7 +102,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     {
         $now = time();
         $this->_logger->info(sprintf(
-            "[%s] Handling PING command received at timestamp: %s.",
+            '[%s] Handling PING command received at timestamp: %s.',
             $this->_procid,
             $now));
 
@@ -246,7 +246,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // cause the PING to terminate early and hope we have
                         // a SYNC next time it's pinged.
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating: %s",
+                            '[%s] PING terminating: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $syncCache->lastuntil = time();
@@ -256,7 +256,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] State gone, PING terminating and forcing a SYNC: %s",
+                            '[%s] State gone, PING terminating and forcing a SYNC: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_NEEDSYNC;
@@ -267,7 +267,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating unknown error: %s",
+                            '[%s] PING terminating unknown error: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
@@ -279,7 +279,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $sync->init($this->_stateDriver, null, $collection, true);
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating and force-clearing device state: %s",
+                            '[%s] PING terminating and force-clearing device state: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
@@ -289,7 +289,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating and forcing a FOLDERSYNC",
+                            '[%s] PING terminating and forcing a FOLDERSYNC',
                             $this->_procid));
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         $syncCache->lastuntil = time();
@@ -297,7 +297,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
                         $this->_logger->err(sprintf(
-                            "[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.",
+                            '[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.',
                             $this->_procid,
                             $e->getMessage()));
                         sleep(30);
@@ -314,7 +314,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
                 if ($dataavailable) {
                     $this->_logger->debug(sprintf(
-                        "[%s] Changes available!",
+                        '[%s] Changes available!',
                         $this->_procid));
                     break;
                 }
@@ -369,7 +369,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Initialize the state
         $this->_logger->debug(sprintf(
-            "[%s] Initializing state for collection: %s, synckey: %s",
+            '[%s] Initializing state for collection: %s, synckey: %s',
             getmypid(),
             $collection['id'],
             $collection['synckey'])
