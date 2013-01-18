@@ -181,9 +181,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function loadState(array $collection, $syncKey, $type = null, $id = null)
     {
+        // Initialize the local members.
         $this->_collection = $collection;
         $this->_changes = null;
         $this->_type = $type;
+
+        // If this is a FOLDERSYNC, mock the device id.
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {
             $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
