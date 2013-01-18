@@ -119,9 +119,6 @@ if (!$sent_mail) {
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
-if ($vars->vcard) {
-    $imp_compose->attachVCard($identity->getValue('fullname'));
-}
 
 /* Init objects. */
 $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -518,7 +515,8 @@ case 'send_message':
         'save_sent' => $save_sent_mail,
         'sent_mail' => $sent_mail,
         'save_attachments' => $vars->save_attachments_select,
-        'readreceipt' => $request_read_receipt
+        'readreceipt' => $request_read_receipt,
+        'vcard_attach' => $vars->vcard ? $identity->getValue('fullname') : null
     );
 
     try {

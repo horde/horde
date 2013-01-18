@@ -73,13 +73,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected $_atc = array();
 
     /**
-     * Whether the user's vCard should be attached to outgoing messages.
-     *
-     * @var string
-     */
-    protected $_attachVCard = false;
-
-    /**
      * The cache ID used to store object in session.
      *
      * @var string
@@ -690,6 +683,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *  <li>
      *   useragent: (string) The User-Agent string to use.
      *  </li>
+     *  <li>
+     *   vcard_attach: (string) Attach the user's vCard (value is name to
+     *                 display as vcard filename).
+     *  </li>
      * </ul>
      *
      * @throws Horde_Exception
@@ -739,7 +736,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'html' => !empty($opts['html']),
             'linkattach' => !empty($opts['link_attachments']),
             'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
-            'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null
+            'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null,
+            'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
         );
 
         /* Must encrypt & send the message one recipient at a time. */
@@ -1240,6 +1238,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
      *   - signature: (integer) If set, will add the users' signature to the
      *                message.
+     *   - vcard_attach: (string) If set, attach user's vcard to message.
      *
      * @return Horde_Mime_Part  The MIME message to send.
      *
@@ -1367,7 +1366,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base = $this->_linkAttachments($textpart);
 
                 if (!empty($options['pgp_attach_pubkey']) ||
-                    ($this->_attachVCard !== false)) {
+                    !empty($options['attach_vcard'])) {
                     $new_body = new Horde_Mime_Part();
                     $new_body->setType('multipart/mixed');
                     $new_body->addPart($base);
@@ -1384,7 +1383,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 }
             }
         } elseif (!empty($options['pgp_attach_pubkey']) ||
-                  ($this->_attachVCard !== false)) {
+                  !empty($options['attach_vcard'])) {
             $base = new Horde_Mime_Part();
             $base->setType('multipart/mixed');
             $base->addPart($textpart);
@@ -1399,7 +1398,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
-            if ($this->_attachVCard !== false) {
+            if (!empty($options['attach_vcard'])) {
                 try {
                     $vcard = $registry->call('contacts/ownVCard');
 
@@ -1407,7 +1406,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $vpart->setType('text/x-vcard');
                     $vpart->setCharset('UTF-8');
                     $vpart->setContents($vcard);
-                    $vpart->setName($this->_attachVCard);
+                    $vpart->setName($options['attach_vcard']);
 
                     $base->addPart($vpart);
                 } catch (Horde_Exception $e) {}
@@ -2897,21 +2896,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Attach the user's vCard to every message sent by buildAndSendMessage().
-     *
-     * @param mixed $name  The user's name. If false, will not attach
-     *                     vCard to message.
-     *
-     * @throws IMP_Compose_Exception
-     */
-    public function attachVCard($name)
-    {
-        $this->_attachVCard = ($name === false)
-            ? false
-            : ((strlen($name) ? $name : 'vcard') . '.vcf');
-    }
-
-    /**
      * Add uploaded file from form data.
      *
      * @param string $field  The form field name.
@@ -3241,7 +3225,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         return serialize(array(
             $this->charset,
-            $this->_attachVCard,
             $atc,
             $this->_cacheid,
             $this->_metadata,
@@ -3256,7 +3239,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         list(
             $this->charset,
-            $this->_attachVCard,
             $this->_atc,
             $this->_cacheid,
             $this->_metadata,
