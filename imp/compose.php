@@ -119,7 +119,6 @@ if (!$sent_mail) {
 
 /* Initialize the IMP_Compose:: object. */
 $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($vars->composeCache);
-$imp_compose->pgpAttachPubkey((bool) $vars->pgp_attach_pubkey);
 if ($vars->vcard) {
     $imp_compose->attachVCard($identity->getValue('fullname'));
 }
@@ -514,6 +513,7 @@ case 'send_message':
         'html' => $rtemode,
         'identity' => $identity,
         'link_attachments' => $vars->link_attachments,
+        'pgp_attach_pubkey' => $vars->pgp_attach_pubkey,
         'priority' => $priority,
         'save_sent' => $save_sent_mail,
         'sent_mail' => $sent_mail,

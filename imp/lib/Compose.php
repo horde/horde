@@ -94,14 +94,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected $_metadata = array();
 
     /**
-     * Whether the user's PGP public key should be attached to outgoing
-     * messages.
-     *
-     * @var boolean
-     */
-    protected $_pgpAttachPubkey = false;
-
-    /**
      * The reply type.
      *
      * @var integer
@@ -677,6 +669,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   link_attachments: (bool) Link attachments?
      *  </li>
      *  <li>
+     *   pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
+     *                      message?
+     *  </li>
+     *  <li>
      *   priority: (string) The message priority ('high', 'normal', 'low').
      *  </li>
      *  <li>
@@ -742,6 +738,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'encrypt' => $encrypt,
             'html' => !empty($opts['html']),
             'linkattach' => !empty($opts['link_attachments']),
+            'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
             'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null
         );
 
@@ -1240,6 +1237,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      *   - linkattach: (boolean) Link attachments?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
+     *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
      *   - signature: (integer) If set, will add the users' signature to the
      *                message.
      *
@@ -1368,7 +1366,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                  $prefs->isLocked('link_attach'))) {
                 $base = $this->_linkAttachments($textpart);
 
-                if ($this->_pgpAttachPubkey ||
+                if (!empty($options['pgp_attach_pubkey']) ||
                     ($this->_attachVCard !== false)) {
                     $new_body = new Horde_Mime_Part();
                     $new_body->setType('multipart/mixed');
@@ -1385,7 +1383,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     $base->addPart($this->buildAttachment($id));
                 }
             }
-        } elseif ($this->_pgpAttachPubkey ||
+        } elseif (!empty($options['pgp_attach_pubkey']) ||
                   ($this->_attachVCard !== false)) {
             $base = new Horde_Mime_Part();
             $base->setType('multipart/mixed');
@@ -1396,7 +1394,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if ($attach_flag) {
-            if ($this->_pgpAttachPubkey) {
+            if (!empty($options['pgp_attach_pubkey'])) {
                 $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
@@ -2899,17 +2897,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Attach the user's PGP public key to every message sent by
-     * buildAndSendMessage().
-     *
-     * @param boolean $attach  True if public key should be attached.
-     */
-    public function pgpAttachPubkey($attach)
-    {
-        $this->_pgpAttachPubkey = (bool)$attach;
-    }
-
-    /**
      * Attach the user's vCard to every message sent by buildAndSendMessage().
      *
      * @param mixed $name  The user's name. If false, will not attach
@@ -3258,7 +3245,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $atc,
             $this->_cacheid,
             $this->_metadata,
-            $this->_pgpAttachPubkey,
             $this->_replytype,
             $this->_size
         ));
@@ -3274,7 +3260,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $this->_atc,
             $this->_cacheid,
             $this->_metadata,
-            $this->_pgpAttachPubkey,
             $this->_replytype,
             $this->_size
         ) = unserialize($data);
