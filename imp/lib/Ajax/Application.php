@@ -260,6 +260,10 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             return !empty($this->_vars->forceUpdate);
         }
 
+        if (!$this->_vars->viewport->cacheid) {
+            return false;
+        }
+
         /* We know we are going to be dealing with this mailbox, so select it
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {

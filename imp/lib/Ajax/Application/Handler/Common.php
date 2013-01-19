@@ -39,7 +39,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $this->_base->queue->quota($this->_base->indices->mailbox);
 
-        if ($this->_base->indices->mailbox && $this->_base->changed()) {
+        if ($this->_base->changed()) {
             $this->_base->addTask('viewport', $this->_base->viewPortData(true));
         }
 
