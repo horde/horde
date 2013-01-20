@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix behavior when attempting to fetch attachment of a vanished message.
 * [mjr] Fix multiple accounts on a single client (Bug #11963).
 * [mjr] Fix setting PINGable collections on non-empty PING requests.
  </notes>
@@ -1138,6 +1139,7 @@
    <date>2013-01-15</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix behavior when attempting to fetch attachment of a vanished message.
 * [mjr] Fix multiple accounts on a single client (Bug #11963).
 * [mjr] Fix setting PINGable collections on non-empty PING requests.
    </notes>
