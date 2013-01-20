@@ -31,11 +31,11 @@ var AnselTagActions = {
             tags: tagid
         }, {
             callback: function(r) {
-                $('tags').update(r.response);
+                AnselTagActions.updateTags(r);
             }
         });
 
-        return true;
+        return false;
     },
 
     // Since onsubmit is never called when submitting programatically we
@@ -47,13 +47,16 @@ var AnselTagActions = {
 
     updateTags: function(r)
     {
+        $('tags').down('ul').remove();
         var ul = new Element('ul', { 'class': 'horde-tags' });
-        console.log(r);
         $H(r).each(function(x) {
-            var a = new Element('a', { 'href': x[1].link }).update(x[1].tag_name);
+            var a = new Element('a', { 'href': x[1].link }).update(x[1].tag_name + '&nbsp;');
             var l = new Element('li').update(a);
-            ul.update(l);
-        });
+            var r = new Element('img', {'src': this.remove_image });
+            r.observe('click', function() { return this.remove(x[1].tag_id) }.bind(this));
+            l.insert(r);
+            ul.insert(l);
+        }.bind(this));
         $('tags').insert({ 'top': ul });
     }
 

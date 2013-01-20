@@ -17,7 +17,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- *  @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
 */
 class Ansel_Widget_Tags extends Ansel_Widget_Base
@@ -53,7 +53,7 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
         $view->title = _("Tags");
         $view->background = $this->_style->background;
-
+        $view->action_url = Horde::url('gallery.php');
         $image_id = ($this->_resourceType == 'image')
             ? $this->_view->resource->id
             : null;
@@ -69,7 +69,8 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             $GLOBALS['page_output']->addScriptFile('widgets/tagactions.js');
             $GLOBALS['page_output']->addInlineJsVars(array(
                'AnselTagActions.gallery' => $this->_view->gallery->id,
-               'AnselTagActions.image' => $image_id
+               'AnselTagActions.image' => $image_id,
+               'AnselTagActions.remove_image' => strval(Horde_Themes::img('delete-small.png'))
             ));
         }
 
@@ -100,12 +101,16 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         if (count($tags)) {
             $tags = $tagger->getTagInfo(array_keys($tags), 500, $this->_resourceType);
         }
-
+        if ($this->_resourceType != 'image') {
+            $removeLink = Horde::url('gallery.php')->add(array('actionID' => 'removeTags', 'gallery' => $this->_view->gallery->id));
+        } else {
+            $removeLink = Horde::url('image.php')->add(array('actionID' => 'removeTags', 'gallery' => $this->_view->gallery->id, 'image' => $this->_view->resource->id));
+        }
         $links = Ansel::getTagLinks($tags, 'add', $owner);
         $html = '<ul class="horde-tags">';
         foreach ($tags as $taginfo) {
             $tag_id = $taginfo['tag_id'];
-            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="#" onclick="AnselTagActions.remove(' . $tag_id . ');">' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
+            $html .= '<li>' . $links[$tag_id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos", $taginfo['count']), $taginfo['count']))) . htmlspecialchars($taginfo['tag_name']) . '</a>' . ($hasEdit ? '<a href="' . strval($removeLink) . '" onclick="return AnselTagActions.remove(' . $tag_id . ');"> ' . Horde::img('delete-small.png', _("Remove Tag")) . '</a>' : '') . '</li>';
         }
         $html .= '</ul>';
 
