@@ -539,7 +539,7 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, array($uid));
-        if ($messages[$uid]->isDefault() !== true) {
+        if (empty($messages[$uid])) {
             throw new Horde_ActiveSync_Exception('Message Gone');
         }
         $msg = new Horde_ActiveSync_Imap_Message(
