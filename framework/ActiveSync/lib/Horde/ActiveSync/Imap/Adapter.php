@@ -451,7 +451,9 @@ class Horde_ActiveSync_Imap_Adapter
             $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
         }
         foreach ($results as $data) {
-            $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+            if ($data->exists[Horde_Imap_Client::FETCH_HEADERS]) {
+                $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+            }
         }
 
         return $ret;
@@ -539,11 +541,10 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, array($uid));
-        if (empty($messages[$uid])) {
+        if (!$messages[$uid]->exists[Horde_Imap_Client::FETCH_STRUCTURE]) {
             throw new Horde_ActiveSync_Exception('Message Gone');
         }
-        $msg = new Horde_ActiveSync_Imap_Message(
-            $imap, $mbox, $messages[$uid]);
+        $msg = new Horde_ActiveSync_Imap_Message($imap, $mbox, $messages[$uid]);
         $part = $msg->getMimePart($part);
 
         return $part;
@@ -569,7 +570,9 @@ class Horde_ActiveSync_Imap_Adapter
         $messages = $this->_getMailMessages($mbox, $uid, $options);
         $res = array();
         foreach ($messages as $id => $message) {
-            $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+            if ($message->exists[Horde_Imap_Client::FETCH_STRUCTURE]) {
+                $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+            }
         }
 
         return $res;
