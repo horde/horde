@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-19</date>
- <time>21:22:03</time>
+ <time>21:25:06</time>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.4</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix behavior when attempting to fetch attachment of a vanished message.
-* [mjr] Fix multiple accounts on a single client (Bug #11963).
-* [mjr] Fix setting PINGable collections on non-empty PING requests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1142,6 +1140,19 @@
 * [mjr] Fix behavior when attempting to fetch attachment of a vanished message.
 * [mjr] Fix multiple accounts on a single client (Bug #11963).
 * [mjr] Fix setting PINGable collections on non-empty PING requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
