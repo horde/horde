@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-15</date>
- <time>13:11:29</time>
+ <date>2013-01-20</date>
+ <time>17:44:59</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -436,6 +436,7 @@
      <file name="actions.html.php" role="horde" />
      <file name="begin.html.php" role="horde" />
      <file name="end.html.php" role="horde" />
+     <file name="othergalleries.html.php" role="horde" />
      <file name="tags.html.php" role="horde" />
     </dir> <!-- /templates/widgets -->
     <dir name="xppublish">
@@ -1037,6 +1038,7 @@
    <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
    <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
    <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />
+   <install as="ansel/templates/widgets/othergalleries.html.php" name="templates/widgets/othergalleries.html.php" />
    <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />
    <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
    <install as="ansel/templates/xppublish/list.inc" name="templates/xppublish/list.inc" />

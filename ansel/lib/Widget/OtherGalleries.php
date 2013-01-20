@@ -41,29 +41,28 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
      */
     public function html()
     {
-        // The cache breaks this block for some reason, disable until figured
-        // out.
-//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-//            $widget = $GLOBALS['injector']->getInstance('Horde_Cache')->get('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'));
-//            if ($widget !== false) {
-//                return $widget;
-//            }
-//        }
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = $this->_title;
+        $view->background = $this->_style->background;
+        $view->toggle_url = Horde::selfUrl(true, true)
+            ->add('actionID', 'show_othergalleries')
+            ->link(array(
+                'id' => 'othergalleries-toggle',
+                'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')
+            )
+        );
+        $this->_getOtherGalleries($view);
 
-        $widget = $this->_htmlBegin() . $this->_getOtherGalleries() . $this->_htmlEnd();
-//        if ($GLOBALS['conf']['ansel_cache']['usecache']) {
-//            $GLOBALS['injector']->getInstance('Horde_Cache')->set('Ansel_OtherGalleries' . $this->_view->gallery->get('owner'), $widget);
-//        }
-
-        return $widget;
+        return $view->render('othergalleries');
     }
 
     /**
      * Build the HTML for the other galleries widget content.
      *
-     * @return string  The HTML
+     * @param Horde_View $view  The view object.
      */
-    protected function _getOtherGalleries()
+    protected function _getOtherGalleries(&$view)
     {
         $owner = $this->_view->gallery->get('owner');
 
@@ -73,18 +72,13 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
             ->create('otherAnselGalleries_' . md5($owner), 'Javascript', array('class' => 'anselWidgets'));
 
         try {
-            $galleries = $GLOBALS['injector']->getInstance('Ansel_Storage')
-                    ->listGalleries(array('attributes' => $owner));
+            $galleries = $GLOBALS['injector']
+                ->getInstance('Ansel_Storage')
+                ->listGalleries(array('attributes' => $owner));
         } catch (Ansel_Exception $e) {
             Horde::logMessage($e, 'ERR');
-            return '';
+            return;
         }
-
-        // @TODO: Remove the 'show_othergalleries' pref. It's not settable anywhere.
-        $html = '<div style="display:'
-            . (($GLOBALS['prefs']->getValue('show_othergalleries')) ? 'block' : 'none')
-            . ';background:' . $this->_style->background
-            . ';width:100%;max-height:300px;overflow:auto;" id="othergalleries" >';
 
         foreach ($galleries as $gallery) {
             $parents = $gallery->get('parents');
@@ -116,24 +110,16 @@ class Ansel_Widget_OtherGalleries extends Ansel_Widget_Base
         }
 
         Horde::startBuffer();
+        $tree->sort('label');
+        $tree->renderTree();
+        $view->tree = Horde::endBuffer();
+
         $GLOBALS['injector']
             ->getInstance('Horde_Core_Factory_Imple')
             ->create(
                 'Ansel_Ajax_Imple_ToggleOtherGalleries',
-                array('id' => 'othergalleries'));
+                array('id' => 'othergalleries-toggle'));
 
-        $tree->sort('label');
-        $tree->renderTree();
-        $html .= Horde::endBuffer();
-        $html .= '</div>';
-        $selfurl = Horde::selfUrl(true, true);
-        $html .= '<div class="control">'
-              . $selfurl->add('actionID', 'show_actions')->link(
-                        array('id' => 'othergalleries-toggle',
-                              'class' => ($GLOBALS['prefs']->getValue('show_othergalleries') ? 'hide' : 'show')))
-              . '&nbsp;</a></div>';
-
-        return $html;
     }
 
 }
