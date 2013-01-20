@@ -42,6 +42,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     const STATUS_KEYMISM                = 3;
     const STATUS_PROTERROR              = 4;
     const STATUS_SERVERERROR            = 5;
+    const STATUS_NOTFOUND               = 8;
 
     // 12.1
     const STATUS_FOLDERSYNC_REQUIRED    = 12;
@@ -709,25 +710,33 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
                     // Output any FETCH requests
                     foreach ($collection['fetchids'] as $id) {
-                        $data = $this->_driver->fetch($collection['id'], $id, $collection);
-                        if ($data !== false) {
+                        try {
+                            $data = $this->_driver->fetch($collection['id'], $id, $collection);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
                             $this->_encoder->content($id);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(1);
+                            $this->_encoder->content(self::STATUS_SUCCESS);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
                             $data->encodeStream($this->_encoder);
                             $this->_encoder->endTag();
                             $this->_encoder->endTag();
-                        } else {
+                        } catch (Horde_Exception_NotFound $e) {
                             $this->_logger->err(sprintf(
                                 '[%s] Unable to fetch %s',
                                 $this->_procid,
                                 $id)
                             );
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                            $this->_encoder->content($id);
+                            $this->_encoder->endTag();
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                            $this->_encoder->content(self::STATUS_NOTFOUND);
+                            $this->_encoder->endTag();
+                            $this->_encoder->endTag();
                         }
                     }
                     $this->_encoder->endTag();
@@ -971,9 +980,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_logger->err(sprintf(
                 '[%s] Attempting a SYNC_COMMANDS, but device failed to send synckey. Ignoring.',
                 $this->_procid));
-                $this->_statusCode = self::STATUS_KEYMISM;
-                $this->_handleGlobalSyncError();
-                return false;
         }
 
         // Sanity checking, synccahe etc..
