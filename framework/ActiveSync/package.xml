@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-20</date>
- <time>14:09:54</time>
+ <time>14:14:36</time>
  <version>
-  <release>2.1.4</release>
+  <release>2.1.5</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix existence checking, again.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1153,6 +1153,19 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix existence checking, again.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
