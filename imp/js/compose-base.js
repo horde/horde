@@ -82,8 +82,8 @@ var ImpComposeBase = {
                     if (e.data.html) {
                         e.data.html = e.data.html.stripTags();
                     }
-                }.bind(this));
-            }.bind(this));
+                });
+            });
         }
     }
 
