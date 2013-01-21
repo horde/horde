@@ -303,6 +303,10 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * Remove tag(s) from a resource.
+     *
+     * @return array An array of tag hashes representing the objects's current
+     *               tags (after the tags are deleted).
      */
     public function removeTag()
     {
@@ -322,8 +326,6 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         if (!is_numeric($id)) {
             throw new Ansel_Exception(_("Invalid input %s"), $id);
         }
-
-        /* Get the resource owner */
         $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
@@ -334,17 +336,19 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         $tagger = $injector->getInstance('Ansel_Tagger');
-
         $tagger->untag($resource->id, (int)$tags, $type);
-
-        $existingTags = $tagger->getTags($resource->id, $type);
-        if (count($existingTags)) {
-            $newTags = $tagger->getTagInfo(array_keys($existingTags));
+        $currentTags = $tagger->getTags($resource->id, $type);
+        if (count($currentTags)) {
+            $newTags = $tagger->getTagInfo(array_keys($currentTags));
         } else {
             $newTags = array();
         }
+        $links = Ansel::getTagLinks($newTags, 'add');
+        foreach ($newTags as &$tag_info) {
+            $tag_info['link'] = strval($links[$tag_info['tag_id']]);
+        }
 
-        return new Horde_Core_Ajax_Response_Raw($this->_getTagHtml($newTags, $parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)), 'text/html');
+        return $newTags;
     }
 
     /**

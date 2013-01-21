@@ -9,7 +9,7 @@
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Hermes
  */
 class Hermes_Ajax

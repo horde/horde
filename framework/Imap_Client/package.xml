@@ -13,8 +13,8 @@
  <date>2013-01-04</date>
  <time>15:12:04</time>
  <version>
-  <release>2.4.3</release>
-  <api>2.4.0</api>
+  <release>2.5.0</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add exists option to Horde_Imap_Client_Base#fetch().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1466,15 +1466,15 @@
   </release>
   <release>
    <version>
-    <release>2.4.3</release>
-    <api>2.4.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add exists option to Horde_Imap_Client_Base#fetch().
    </notes>
   </release>
  </changelog>

@@ -2442,6 +2442,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   thrown. If valid, this option implicity adds the
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
+     *   - exists: (boolean) Ensure that all ids returned exist on the server.
+     *             If false, the list of ids returned in the results object
+     *             is not guaranteed to reflect the current state of the
+     *             remote mailbox.
+     *             DEFAULT: false
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
      *
@@ -2532,7 +2537,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : clone $ret;
 
         /* Convert special searches to UID lists and create mapping. */
-        $ids = $this->resolveIds($this->_selected, $options['ids'], 1);
+        $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
 
         /* Get the cached values. */
         $mbox_ob = $this->_mailboxOb();

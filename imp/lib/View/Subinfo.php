@@ -31,7 +31,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2012-2013 Horde LLC
- * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 class IMP_View_Subinfo extends Horde_View

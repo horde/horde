@@ -276,6 +276,48 @@ C
         );
     }
 
+    // Deeply nested creation is OK
+    public function testDeeplyNestedPartCreation()
+    {
+        // Part #1
+        $base_part = $part = new Horde_Mime_Part();
+        $part->setType('multipart/mixed');
+
+        // Part #2-101
+        for ($i = 0; $i < 100; ++$i) {
+            $new_part = new Horde_Mime_Part();
+            $new_part->setType('multipart/mixed');
+            $part->addPart($new_part);
+            $part = $new_part;
+        }
+
+        // Part #102
+        $new_part = new Horde_Mime_Part();
+        $new_part->setType('text/plain');
+        $new_part->setContents('Test');
+        $part->addPart($new_part);
+
+        $base_part->isBasePart(true);
+        $base_part->buildMimeIds();
+
+        $this->assertEquals(
+            102,
+            count($base_part->contentTypeMap())
+        );
+    }
+
+    // Deeply nested parsing is limited
+    public function testDeeplyNestedPartParsing()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/deeply_nested.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            100,  // Actual levels: 102
+            count($part->contentTypeMap())
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();

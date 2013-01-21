@@ -86,16 +86,17 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
             }
         }
         $this->_getGalleryActions($view);
-        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_ToggleGalleryActions', array(
-             'id' => 'gallery-actions-toggle'
-        ));
+        $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')
+            ->create('Ansel_Ajax_Imple_ToggleGalleryActions',
+                     array('id' => 'gallery-actions-toggle'));
+
         return $view->render('actions');
     }
 
     /**
      * Helper function for generating the gallery actions selection widget.
      *
-     * @return string  The HTML
+     * @param Horde_View $view  The view object.
      */
     protected function _getGalleryActions(&$view)
     {
