@@ -21,97 +21,67 @@ class Turba_Data_Ldif extends Horde_Data_Base
      *
      * @var array
      */
-    private $_mozillaAttr = array('cn', 'givenName', 'sn', 'mail', 'mozillaNickname',
-                             'homeStreet', 'mozillaHomeStreet2', 'mozillaHomeLocalityName',
-                             'mozillaHomeState', 'mozillaHomePostalCode',
-                             'mozillaHomeCountryName', 'street',
-                             'mozillaWorkStreet2', 'l', 'st', 'postalCode',
-                             'c', 'homePhone', 'telephoneNumber', 'mobile',
-                             'fax', 'title', 'company', 'description', 'mozillaWorkUrl',
-                              'department', 'mozillaNickname');
+    protected $_mozillaAttr = array(
+        'cn', 'givenName', 'sn', 'mail', 'mozillaNickname',
+        'homeStreet', 'mozillaHomeStreet2', 'mozillaHomeLocalityName',
+        'mozillaHomeState', 'mozillaHomePostalCode',
+        'mozillaHomeCountryName', 'street',
+        'mozillaWorkStreet2', 'l', 'st', 'postalCode',
+        'c', 'homePhone', 'telephoneNumber', 'mobile',
+        'fax', 'title', 'company', 'description', 'mozillaWorkUrl',
+        'department', 'mozillaNickname'
+    );
 
     /**
      * Useful Turba address book attribute names.
      *
      * @var array
      */
-    private $_turbaAttr = array('name', 'firstname', 'lastname', 'email', 'alias',
-                            'homeAddress', 'homeStreet', 'homeCity',
-                            'homeProvince', 'homePostalCode', 'homeCountry',
-                            'workAddress', 'workStreet', 'workCity', 'workProvince',
-                            'workPostalCode', 'workCountry',
-                            'homePhone', 'workPhone', 'cellPhone',
-                            'fax', 'title', 'company', 'notes', 'website',
-                            'department', 'nickname');
+    protected $_turbaAttr = array(
+        'name', 'firstname', 'lastname', 'email', 'alias',
+        'homeAddress', 'homeStreet', 'homeCity',
+        'homeProvince', 'homePostalCode', 'homeCountry',
+        'workAddress', 'workStreet', 'workCity', 'workProvince',
+        'workPostalCode', 'workCountry',
+        'homePhone', 'workPhone', 'cellPhone',
+        'fax', 'title', 'company', 'notes', 'website',
+        'department', 'nickname'#
+    );
+
     /**
      * Turba address book attribute names and the corresponding Mozilla name.
      *
      * @var array
      */
-    private $_turbaMozillaMap = array('name' => 'cn',
-                                  'firstname' => 'givenName',
-                                  'lastname' => 'sn',
-                                  'email' => 'mail',
-                                  'alias' => 'mozillaNickname',
-                                  'homePhone' => 'homePhone',
-                                  'workPhone' => 'telephoneNumber',
-                                  'cellPhone' => 'mobile',
-                                  'fax' => 'fax',
-                                  'title' => 'title',
-                                  'company' => 'company',
-                                  'notes' => 'description',
-                                  'homeAddress' => 'homeStreet',
-                                  'homeStreet' => 'mozillaHomeStreet2',
-                                  'homeCity' => 'mozillaHomeLocalityName',
-                                  'homeProvince' => 'mozillaHomeState',
-                                  'homePostalCode' => 'mozillaHomePostalCode',
-                                  'homeCountry' => 'mozillaHomeCountryName',
-                                  'workAddress' => 'street',
-                                  'workStreet' => 'mozillaWorkStreet2',
-                                  'workCity' => 'l',
-                                  'workProvince' => 'st',
-                                  'workPostalCode' => 'postalCode',
-                                  'workCountry' => 'c',
-                                  'website' => 'mozillaWorkUrl',
-                                  'department' => 'department',
-                                  'nickname' => 'mozillaNickname');
-
-    /**
-     * Check if a string is safe according to RFC 2849, or if it needs to be
-     * base64 encoded.
-     *
-     * @private
-     *
-     * @param string $str  The string to check.
-     *
-     * @return boolean  True if the string is safe, false otherwise.
-     */
-    private function _is_safe_string($str)
-    {
-        /*  SAFE-CHAR         = %x01-09 / %x0B-0C / %x0E-7F
-         *                     ; any value <= 127 decimal except NUL, LF,
-         *                     ; and CR
-         *
-         *  SAFE-INIT-CHAR    = %x01-09 / %x0B-0C / %x0E-1F /
-         *                     %x21-39 / %x3B / %x3D-7F
-         *                     ; any value <= 127 except NUL, LF, CR,
-         *                     ; SPACE, colon (":", ASCII 58 decimal)
-         *                     ; and less-than ("<" , ASCII 60 decimal) */
-        if (!strlen($str)) {
-            return true;
-        }
-        if ($str[0] == ' ' || $str[0] == ':' || $str[0] == '<') {
-            return false;
-        }
-        for ($i = 0; $i < strlen($str); ++$i) {
-            if (ord($str[$i]) > 127 || $str[$i] == NULL || $str[$i] == "\n" ||
-                $str[$i] == "\r") {
-                return false;
-            }
-        }
-
-        return true;
-    }
+    protected $_turbaMozillaMap = array(
+        'name' => 'cn',
+        'firstname' => 'givenName',
+        'lastname' => 'sn',
+        'email' => 'mail',
+        'alias' => 'mozillaNickname',
+        'homePhone' => 'homePhone',
+        'workPhone' => 'telephoneNumber',
+        'cellPhone' => 'mobile',
+        'fax' => 'fax',
+        'title' => 'title',
+        'company' => 'company',
+        'notes' => 'description',
+        'homeAddress' => 'homeStreet',
+        'homeStreet' => 'mozillaHomeStreet2',
+        'homeCity' => 'mozillaHomeLocalityName',
+        'homeProvince' => 'mozillaHomeState',
+        'homePostalCode' => 'mozillaHomePostalCode',
+        'homeCountry' => 'mozillaHomeCountryName',
+        'workAddress' => 'street',
+        'workStreet' => 'mozillaWorkStreet2',
+        'workCity' => 'l',
+        'workProvince' => 'st',
+        'workPostalCode' => 'postalCode',
+        'workCountry' => 'c',
+        'website' => 'mozillaWorkUrl',
+        'department' => 'department',
+        'nickname' => 'mozillaNickname'
+    );
 
     public function importData($contents, $header = false)
     {
@@ -292,6 +262,41 @@ class Turba_Data_Ldif extends Horde_Data_Base
         default:
             return parent::nextStep($action, $param);
         }
+    }
+
+    /**
+     * Checks if a string is safe according to RFC 2849, or if it needs to be
+     * base64 encoded.
+     *
+     * @param string $str  The string to check.
+     *
+     * @return boolean  True if the string is safe.
+     */
+    protected function _is_safe_string($str)
+    {
+        /*  SAFE-CHAR         = %x01-09 / %x0B-0C / %x0E-7F
+         *                     ; any value <= 127 decimal except NUL, LF,
+         *                     ; and CR
+         *
+         *  SAFE-INIT-CHAR    = %x01-09 / %x0B-0C / %x0E-1F /
+         *                     %x21-39 / %x3B / %x3D-7F
+         *                     ; any value <= 127 except NUL, LF, CR,
+         *                     ; SPACE, colon (":", ASCII 58 decimal)
+         *                     ; and less-than ("<" , ASCII 60 decimal) */
+        if (!strlen($str)) {
+            return true;
+        }
+        if ($str[0] == ' ' || $str[0] == ':' || $str[0] == '<') {
+            return false;
+        }
+        for ($i = 0; $i < strlen($str); ++$i) {
+            if (ord($str[$i]) > 127 || $str[$i] == NULL || $str[$i] == "\n" ||
+                $str[$i] == "\r") {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
