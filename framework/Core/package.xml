@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix spellchecking on HTML data (Bug #11986).
 * [jan] Fix fatal error in signup and password reset forms (Bug #11952).
  </notes>
  <contents>
@@ -2710,6 +2711,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix spellchecking on HTML data (Bug #11986).
 * [jan] Fix fatal error in signup and password reset forms (Bug #11952).
    </notes>
   </release>
