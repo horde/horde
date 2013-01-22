@@ -73,7 +73,11 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         return $this->_temp['namespace'];
     }
 
-    public function parseFetch($data)
+    /**
+     * @param array $data  Options:
+     *   - results: (Horde_Imap_Client_Fetch_Results)
+     */
+    public function parseFetch($data, array $opts = array())
     {
         $token = new Horde_Imap_Client_Tokenize($data);
         $token->rewind();
@@ -81,8 +85,10 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $msg_no = $token->next();
         $token->next();
 
-        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_temp['fetch_cache'] = isset($opts['results'])
+            ? $opts['results']
+            : new Horde_Imap_Client_Fetch_Results('Horde_Imap_Client_Data_Fetch', Horde_Imap_Client_Fetch_Results::SEQUENCE);
+        $this->_temp['fetch_resp'] = clone $this->_temp['fetch_cache'];
 
         $this->_parseFetch($msg_no, $token);
 
