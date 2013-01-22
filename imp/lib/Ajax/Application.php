@@ -148,7 +148,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $ob->compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->imp_compose);
         $ob->ajax = new IMP_Ajax_Application_Compose($ob->compose, $this->_vars->type);
 
-        if (!($ob->contents = $ob->compose->getContentsOb())) {
+        if (!($ob->contents = $ob->compose->getContentsOb()) &&
+            count($this->indices)) {
             $ob->contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         }
 
