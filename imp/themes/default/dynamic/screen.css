@@ -681,14 +681,19 @@ div.dimpActionsMsg #windowclose {
 
 /* Attachment file list */
 #attach_list {
+    list-style: none;
     max-height: 125px;
     overflow-x: hidden;
     overflow-y: auto;
-    padding: 0 0 2px 15px;
+    padding: 0 0 2px;
     width: 500px;
 }
+#attach_list canvas {
+    margin-bottom: -4px;
+    padding-right: 4px;
+}
 #attach_list li {
-    padding-top: 5px;
+    padding-top: 7px;
 }
 #attach_list span.remove {
     border: 1px solid #ccc;

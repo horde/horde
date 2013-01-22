@@ -143,12 +143,14 @@ class IMP_Ajax_Application_Compose
 
         foreach ($this->_composeOb as $atc_num => $data) {
             $mime = $data['part'];
+            $type = $mime->getType();
 
             $atc[] = array(
                 'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
+                'icon' => base64_encode(file_get_contents($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs)),
                 'name' => $mime->getName(true),
                 'num' => $atc_num,
-                'type' => $mime->getType(),
+                'type' => $type,
                 'size' => $mime->getSize()
             );
         }

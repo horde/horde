@@ -710,19 +710,35 @@ var DimpCompose = {
 
     // opts = (Object)
     //   fwdattach: (integer) Attachment is forwarded message
+    //   icon: (string) base64 encoded icon data (PNG).
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
     //   size: (integer) Size, in KB
     //   type: (string) MIME type
     addAttach: function(opts)
     {
-        var span = new Element('SPAN').insert(opts.name.escapeHTML()),
-            li = new Element('LI').insert(span).store('atc_id', opts.num);
+        var canvas, img,
+            li = new Element('LI').store('atc_id', opts.num),
+            span = new Element('SPAN').insert(opts.name.escapeHTML());
+
+        if (opts.icon) {
+            canvas = new Element('CANVAS', { height: '16px', width: '16px' });
+            li.insert(canvas);
+            img = new Image();
+            img.src = 'data:image/png;base64,' + opts.icon;
+            img.onload = function() {
+                canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
+            };
+        }
+
+        li.insert(span);
+
         if (opts.fwdattach) {
             li.insert(' (' + opts.size + ' KB)');
             span.addClassName('attachNameFwdmsg');
         } else {
-            li.insert(' [' + opts.type + '] (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
+            canvas.writeAttribute('title', opts.type);
+            li.insert(' (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
             if (opts.type != 'application/octet-stream') {
                 span.addClassName('attachName');
             }

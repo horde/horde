@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Dynamically display MIME type icon for attachments uploaded on the
+      dynamic compose page.
 [mms] Remove 'compose_cc' and 'compose_bcc' preferences.
 [mms] Support attaching vCard in dynamic compose.
 [mms] Support attaching PGP public keys in dynamic compose.
