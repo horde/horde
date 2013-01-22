@@ -42,6 +42,7 @@ framework/Db/test/Horde/Db/Adapter/conf.php
 framework/Db/test/Horde/Db/Adapter/Pdo/conf.php
 framework/Group/test/Horde/Group/conf.php
 framework/Http/test/Horde/Http/conf.php
+framework/Imap_Client/test/Horde/Imap/Client/conf.php
 framework/Kolab_Storage/test/Horde/Kolab/Storage/conf.php
 framework/Ldap/test/Horde/Ldap/conf.php
 framework/Pear/test/Horde/Pear/Server/conf.php
