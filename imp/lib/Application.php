@@ -433,8 +433,6 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector, $registry;
 
-        IMP_Mailbox::get('INBOX')->filterOnDisplay();
-
         if (IMP::canCompose()) {
             $tree->addNode(array(
                 'id' => strval($parent) . 'compose',
