@@ -124,8 +124,8 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 
         // Appending test e-mail 1 (with Flagged), 2 via a stream (with Seen),
         // 3 via a stream (with internaldate), and 4 via a string:
-        $handle = fopen(__DIR__ . '/fixtures/remote1.txt', 'r');
-        $handle2 = fopen(__DIR__ . '/fixtures/remote2.txt', 'r');
+        $handle = fopen(__DIR__ . '/fixtures/remote2.txt', 'r');
+        $handle2 = fopen(__DIR__ . '/fixtures/remote3.txt', 'r');
         $uid = $this->imap->append($test_mbox, array(
             array(
                 'data' => file_get_contents(__DIR__ . '/fixtures/remote1.txt'),
