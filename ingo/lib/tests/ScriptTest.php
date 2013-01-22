@@ -157,14 +157,15 @@ class ScriptTester_imap extends ScriptTester {
             'api' => $this->api,
             'spam_compare' => 'string',
             'spam_header' => 'X-Spam-Level',
-            'spam_char' => '*'
+            'spam_char' => '*',
+            'filter_seen' => 0,
+            'show_filter_msg' => 1
         ));
     }
 
     function _run()
     {
-        $params = array('api' => $this->api, 'filter_seen' => 0, 'show_filter_msg' => 1);
-        $this->imap->perform($params);
+        $this->imap->perform(0);
     }
 
     function assertDeletesMessage($fixture)

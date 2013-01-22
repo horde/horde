@@ -36,10 +36,12 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        global $conf, $prefs, $session;
+        global $conf, $notification, $prefs, $registry, $session;
 
         $driver = ucfirst(basename($session->get('ingo', 'backend/script')));
         $params = $session->get('ingo', 'backend/scriptparams', Horde_Session::TYPE_ARRAY);
+        $params['storage'] = $injector->getInstance('Ingo_Factory_Storage')
+            ->create();
 
         if (!isset($params['spam_compare'])) {
             $params['spam_compare'] = $conf['spam']['compare'];
@@ -51,7 +53,16 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
             ($params['spam_compare'] == 'string')) {
             $params['spam_char'] = $conf['spam']['char'];
         }
-        if (strcasecmp($driver, 'Sieve') === 0) {
+
+        switch ($driver) {
+        case 'Imap':
+            $params['filter_seen'] = $prefs->getValue('filter_seen');
+            $params['show_filter_msg'] = $prefs->getValue('show_filter_msg');
+            $params['notification'] = $notification;
+            $params['registry'] = $registry;
+            break;
+
+        case 'Sieve':
             if (!isset($params['date_format'])) {
                 $params['date_format'] = $prefs->getValue('date_format');
             }
@@ -62,6 +73,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
                     ? '%R'
                     : '%r';
             }
+            break;
         }
 
         $class = 'Ingo_Script_' . $driver;

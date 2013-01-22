@@ -127,12 +127,12 @@ class Ingo_Api extends Horde_Registry_Api
     {
         try {
             if (isset($params['mailbox'])) {
-                $params['mailbox'] = Horde_String::convertCharset($params['mailbox'], 'UTF-8', 'UTF7-IMAP');
+                $params['mailbox'] = Horde_String::convertCharset(
+                    $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
             }
-            return $GLOBALS['injector']->getInstance('Ingo_Script')->perform(array_merge(array(
-                'filter_seen' => $GLOBALS['prefs']->getValue('filter_seen'),
-                'show_filter_msg' => $GLOBALS['prefs']->getValue('show_filter_msg')
-            ), $params));
+            return $GLOBALS['injector']->getInstance('Ingo_Script')
+                ->setParams($params)
+                ->perform($GLOBALS['session']->get('ingo', 'change'));
         } catch (Ingo_Exception $e) {
             return false;
         }

@@ -184,7 +184,8 @@ class Ingo_Script_Sieve extends Ingo_Script
             return;
         }
 
-        $forward = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FORWARD);
+        $forward = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_FORWARD);
         $fwd_addr = $forward->getForwardAddresses();
         if (empty($fwd_addr)) {
             return;
@@ -227,7 +228,8 @@ class Ingo_Script_Sieve extends Ingo_Script
             return;
         }
 
-        $blacklist = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+        $blacklist = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_BLACKLIST);
         $bl_addr = $blacklist->getBlacklist();
         $folder = $blacklist->getBlacklistFolder();
         if (empty($bl_addr)) {
@@ -301,7 +303,8 @@ class Ingo_Script_Sieve extends Ingo_Script
             return;
         }
 
-        $whitelist = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_WHITELIST);
+        $whitelist = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_WHITELIST);
         $wl_addr = $whitelist->getWhitelist();
         if (empty($wl_addr)) {
             return;
@@ -325,7 +328,8 @@ class Ingo_Script_Sieve extends Ingo_Script
             return;
         }
 
-        $vacation = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_VACATION);
+        $vacation = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_VACATION);
         $vacation_addr = $vacation->getVacationAddresses();
         if (!count($vacation_addr)) {
             return;
@@ -403,7 +407,8 @@ class Ingo_Script_Sieve extends Ingo_Script
             return;
         }
 
-        $spam = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_SPAM);
+        $spam = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_SPAM);
         if ($spam === false) {
             return;
         }
@@ -446,7 +451,8 @@ class Ingo_Script_Sieve extends Ingo_Script
      */
     public function generate()
     {
-        $filters = $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $this->_params['storage']
+             ->retrieve(Ingo_Storage::ACTION_FILTERS);
         foreach ($filters->getFilterList() as $filter) {
             /* Check to make sure this is a valid rule and that the rule
                is not disabled. */

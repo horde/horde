@@ -132,7 +132,7 @@ case 'apply_filters':
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         Horde::url('filters.php', true)->redirect();
     }
-    $ingo_script->apply();
+    $ingo_script->apply($GLOBALS['session']->get('ingo', 'change'));
     break;
 }
 

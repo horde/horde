@@ -115,7 +115,7 @@ class Ingo_Script
     {
         global $registry;
 
-        $this->_params = $params;
+        $this->setParams($params);
 
         /* Determine if ingo should handle the blacklist. */
         if ((($key = array_search(Ingo_Storage::ACTION_BLACKLIST, $this->_categories)) !== false) &&
@@ -128,6 +128,19 @@ class Ingo_Script
             ($registry->hasMethod('mail/whitelistFrom') != 'ingo')) {
             unset($this->_categories[$key]);
         }
+    }
+
+    /**
+     * Updates the parameters.
+     *
+     * @param array $params  A hash containing parameters.
+     *
+     * @return Ingo_Script  This object, for chaining.
+     */
+    public function setParams(array $params = array())
+    {
+        $this->_params = array_merge($this->_params, $params);
+        return $this;
     }
 
     /**
@@ -270,11 +283,12 @@ class Ingo_Script
     /**
      * Perform the filtering specified in the rules.
      *
-     * @param array $params  The parameter array.
+     * @param integer $change  The timestamp of the latest rule change during
+     *                         the current session.
      *
      * @return boolean  True if filtering performed, false if not.
      */
-    public function perform($params = array())
+    public function perform($change)
     {
         return false;
     }
@@ -290,16 +304,20 @@ class Ingo_Script
     }
 
     /**
-     * Apply the filters now.
+     * Applies the filters now.
+     *
      * This is essentially a wrapper around perform() that allows that
      * function to be called from within Ingo ensuring that all necessary
      * parameters are set.
      *
+     * @param integer $change  The timestamp of the latest rule change during
+     *                         the current session.
+     *
      * @return boolean  See perform().
      */
-    public function apply()
+    public function apply($change)
     {
-        return $this->perform();
+        return $this->perform($change);
     }
 
     /**
