@@ -2487,7 +2487,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
-            unset($query[$k]);
+            unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
         }
 
         /* Determine if caching is available and if anything in $query is
