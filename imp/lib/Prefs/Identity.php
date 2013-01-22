@@ -409,10 +409,6 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $val = '<div>' . $val . '</div>';
         }
 
-        try {
-            $val = Horde::callHook('signature', array($val), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {}
-
         $this->_cached['signatures'][$key] = $val;
 
         return $val;

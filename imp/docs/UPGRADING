@@ -39,6 +39,12 @@ The $conf['compose']['link_all_attachments'] option was removed and replaced
 by the 'link_attach' preference.
 
 
+Hooks (hooks.php)
+-----------------
+
+The 'signature' hook has been removed.
+
+
 MIME Viewer Options (mime_drivers.php)
 --------------------------------------
 
