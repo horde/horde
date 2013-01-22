@@ -358,7 +358,7 @@ var DimpCompose = {
 
     toggleHtmlEditor: function(noupdate)
     {
-        var sc;
+        var changed, sc, text, tmp;
 
         if (!DimpCore.conf.rte_avail) {
             return;
@@ -368,8 +368,6 @@ var DimpCompose = {
         if (sc = ImpComposeBase.getSpellChecker()) {
            sc.resume();
         }
-
-        var changed, text;
 
         if (ImpComposeBase.editor_on) {
             this.RTELoading('show');
@@ -391,13 +389,16 @@ var DimpCompose = {
             this.RTELoading('show');
 
             if (!noupdate) {
-                DimpCore.doAction('text2Html', {
-                    changed: Number(this.msgHash() != this.md5_msgOrig),
-                    imp_compose: $F(this.getCacheElt()),
-                    text: $F('composeMessage')
-                }, {
-                    callback: this.setMessageText.bind(this, true)
-                });
+                tmp = $F('composeMessage');
+                if (!tmp.blank()) {
+                    DimpCore.doAction('text2Html', {
+                        changed: Number(this.msgHash() != this.md5_msgOrig),
+                        imp_compose: $F(this.getCacheElt()),
+                        text: tmp
+                    }, {
+                        callback: this.setMessageText.bind(this, true)
+                    });
+                }
             }
 
             if (Object.isUndefined(this.rte_loaded)) {
