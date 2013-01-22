@@ -244,7 +244,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
     {
         $test = array(
             '* 1 FETCH (UID 9 FLAGS (\Seen))',
-            '* 1 FETCH (FLAGS (\Flagged))'
+            '* 1 FETCH (FLAGS (\Seen \Flagged))'
         );
 
         $res = new Horde_Imap_Client_Fetch_Results();
