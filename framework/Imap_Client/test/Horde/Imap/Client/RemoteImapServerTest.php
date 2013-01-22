@@ -72,8 +72,9 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 
         // Create test mailbox.
         try {
-            $this->imap->subscribeMailbox($test_mbox, false);
             $this->imap->deleteMailbox($test_mbox);
+        } catch (Horde_Imap_Client_Exception $e) {}
+        try {
             $this->imap->deleteMailbox($test_mbox_utf8);
         } catch (Horde_Imap_Client_Exception $e) {}
 
