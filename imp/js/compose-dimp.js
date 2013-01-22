@@ -1,5 +1,5 @@
 /**
- * compose.js - Javascript code used in the DIMP compose view.
+ * compose.js - Javascript code used in the dynamic compose view.
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *

@@ -320,7 +320,6 @@ var DimpCore = {
         return elt;
     },
 
-    /* DIMP initialization function. */
     onDomLoad: function()
     {
         HordeCore.initHandler('click');

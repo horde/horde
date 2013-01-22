@@ -1,5 +1,5 @@
 /**
- * dimpbase.js - Javascript used in the base DIMP page.
+ * dimpbase.js - Javascript used in the base dynamic page.
  *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
@@ -2179,7 +2179,7 @@ var DimpBase = {
         }
     },
 
-    /* Enable/Disable DIMP action buttons as needed. */
+    /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
         DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() == 0);
