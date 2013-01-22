@@ -72,7 +72,10 @@ $mime_drivers = array(
         ),
 
         /* Display images inline that are less than this size (in bytes). */
-        'inlinesize' => 262144
+        'inlinesize' => 262144,
+
+        /* Display image thumbnails? */
+        'thumbnails' => true
     ),
 
     /* Enriched text display. */

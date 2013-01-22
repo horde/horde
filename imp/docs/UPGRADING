@@ -39,6 +39,12 @@ The $conf['compose']['link_all_attachments'] option was removed and replaced
 by the 'link_attach' preference.
 
 
+MIME Viewer Options (mime_drivers.php)
+--------------------------------------
+
+Thumbnails can now be disabled for images and PDF attachments.
+
+
 Preferences (prefs.php)
 -----------------------
 

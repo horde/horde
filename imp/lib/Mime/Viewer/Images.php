@@ -248,6 +248,10 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
      */
     protected function _getHordeImageOb($load)
     {
+        if (!$this->getConfigParam('thumbnails')) {
+            return false;
+        }
+
         try {
             if (($img = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Image')->create()) && $load) {
                 $img->loadString($this->_mimepart->getContents());
