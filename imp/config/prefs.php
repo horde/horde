@@ -53,7 +53,7 @@ $_prefs['signature'] = array(
 );
 
 $_prefs['sig_dashes'] = array(
-    'value' => 0,
+    'value' => 1,
     'type' => 'checkbox',
     'desc' => _("Precede your text signature with dashes ('-- ')?")
 );
