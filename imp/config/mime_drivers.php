@@ -95,7 +95,10 @@ $mime_drivers = array(
         ),
         'icons' => array(
             'default' => 'pdf.png'
-        )
+        ),
+
+        /* Display PDF thumbnails? */
+        'thumbnails' => true
     ),
 
     /* PGP (Pretty Good Privacy) display. */
