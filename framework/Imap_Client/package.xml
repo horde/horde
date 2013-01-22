@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-04</date>
- <time>15:12:04</time>
+ <date>2013-01-22</date>
+ <time>15:20:01</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -162,6 +162,12 @@
       <file name="Horde_Imap_Client.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Imap_Client.mo" role="data" />
+      <file name="Horde_Imap_Client.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Imap_Client.mo" role="data" />
@@ -182,6 +188,10 @@
       <dir name="Client">
        <dir name="fixtures">
         <file name="bug_10503.txt" role="test" />
+        <file name="remote1.txt" role="test" />
+        <file name="remote2.txt" role="test" />
+        <file name="remote3.txt" role="test" />
+        <file name="remote4.txt" role="test" />
        </dir> <!-- /test/Horde/Imap/Client/fixtures -->
        <dir name="Stub">
         <file name="DigestMD5.php" role="test" />
@@ -192,12 +202,14 @@
        <file name="AllTests.php" role="test" />
        <file name="AuthTest.php" role="test" />
        <file name="bootstrap.php" role="test" />
+       <file name="conf.php.dist" role="test" />
        <file name="DataFormatTest.php" role="test" />
        <file name="DateTimeTest.php" role="test" />
        <file name="IdsTest.php" role="test" />
        <file name="MailboxTest.php" role="test" />
        <file name="MapTest.php" role="test" />
        <file name="phpunit.xml" role="test" />
+       <file name="RemoteImapServerTest.php" role="test" />
        <file name="SearchTest.php" role="test" />
        <file name="SocketTest.php" role="test" />
        <file name="SortTest.php" role="test" />
@@ -371,6 +383,8 @@
    <install as="locale/eu/LC_MESSAGES/Horde_Imap_Client.po" name="locale/eu/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fi/LC_MESSAGES/Horde_Imap_Client.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/fr/LC_MESSAGES/Horde_Imap_Client.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Imap_Client.po" name="locale/fr/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" name="locale/ja/LC_MESSAGES/Horde_Imap_Client.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" name="locale/nl/LC_MESSAGES/Horde_Imap_Client.mo" />
@@ -379,12 +393,14 @@
    <install as="Horde/Imap/Client/AllTests.php" name="test/Horde/Imap/Client/AllTests.php" />
    <install as="Horde/Imap/Client/AuthTest.php" name="test/Horde/Imap/Client/AuthTest.php" />
    <install as="Horde/Imap/Client/bootstrap.php" name="test/Horde/Imap/Client/bootstrap.php" />
+   <install as="Horde/Imap/Client/conf.php.dist" name="test/Horde/Imap/Client/conf.php.dist" />
    <install as="Horde/Imap/Client/DataFormatTest.php" name="test/Horde/Imap/Client/DataFormatTest.php" />
    <install as="Horde/Imap/Client/DateTimeTest.php" name="test/Horde/Imap/Client/DateTimeTest.php" />
    <install as="Horde/Imap/Client/IdsTest.php" name="test/Horde/Imap/Client/IdsTest.php" />
    <install as="Horde/Imap/Client/MailboxTest.php" name="test/Horde/Imap/Client/MailboxTest.php" />
    <install as="Horde/Imap/Client/MapTest.php" name="test/Horde/Imap/Client/MapTest.php" />
    <install as="Horde/Imap/Client/phpunit.xml" name="test/Horde/Imap/Client/phpunit.xml" />
+   <install as="Horde/Imap/Client/RemoteImapServerTest.php" name="test/Horde/Imap/Client/RemoteImapServerTest.php" />
    <install as="Horde/Imap/Client/SearchTest.php" name="test/Horde/Imap/Client/SearchTest.php" />
    <install as="Horde/Imap/Client/SocketTest.php" name="test/Horde/Imap/Client/SocketTest.php" />
    <install as="Horde/Imap/Client/SortTest.php" name="test/Horde/Imap/Client/SortTest.php" />
@@ -393,6 +409,10 @@
    <install as="Horde/Imap/Client/UrlParseTest.php" name="test/Horde/Imap/Client/UrlParseTest.php" />
    <install as="Horde/Imap/Client/Utf7ConvertTest.php" name="test/Horde/Imap/Client/Utf7ConvertTest.php" />
    <install as="Horde/Imap/Client/fixtures/bug_10503.txt" name="test/Horde/Imap/Client/fixtures/bug_10503.txt" />
+   <install as="Horde/Imap/Client/fixtures/remote1.txt" name="test/Horde/Imap/Client/fixtures/remote1.txt" />
+   <install as="Horde/Imap/Client/fixtures/remote2.txt" name="test/Horde/Imap/Client/fixtures/remote2.txt" />
+   <install as="Horde/Imap/Client/fixtures/remote3.txt" name="test/Horde/Imap/Client/fixtures/remote3.txt" />
+   <install as="Horde/Imap/Client/fixtures/remote4.txt" name="test/Horde/Imap/Client/fixtures/remote4.txt" />
    <install as="Horde/Imap/Client/Stub/DigestMD5.php" name="test/Horde/Imap/Client/Stub/DigestMD5.php" />
    <install as="Horde/Imap/Client/Stub/Socket.php" name="test/Horde/Imap/Client/Stub/Socket.php" />
    <install as="Horde/Imap/Client/Stub/SocketClientSort.php" name="test/Horde/Imap/Client/Stub/SocketClientSort.php" />
@@ -1474,7 +1494,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-04</date>
+   <date>2013-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Some IMAP servers require a mailbox to be unselected before it can be renamed.
