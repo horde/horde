@@ -415,12 +415,15 @@ var DimpBase = {
                     action = 'viewPort';
                 } else {
                     action = 'dynamicInit';
+                    if (this.uid) {
+                        params.set('msgload', this.uid);
+                    }
                     this.init = true;
                 }
                 DimpCore.doAction(action, params, {
                     loading: 'viewport'
                 }).rid = r_id;
-            },
+            }.bind(this),
             container: container,
             onContent: function(r, mode) {
                 var bg, re, u,
@@ -3574,6 +3577,10 @@ var DimpBase = {
     {
         var t = e.tasks;
 
+        if (t['imp:message']) {
+            this.messageCallback(t['imp:message']);
+        }
+
         if (this.viewport && t['imp:viewport']) {
             t['imp:viewport'].requestid = e.response.request.rid;
             this.viewport.parseJSONResponse(t['imp:viewport']);
@@ -3585,10 +3592,6 @@ var DimpBase = {
 
         if (t['imp:flag']) {
             this.flagCallback(t['imp:flag']);
-        }
-
-        if (t['imp:message']) {
-            this.messageCallback(t['imp:message']);
         }
 
         if (t['imp:maillog']) {

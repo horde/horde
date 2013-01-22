@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a
+      message preview active.
 [mms] Dynamically display MIME type icon for attachments uploaded on the
       dynamic compose page.
 [mms] Remove 'compose_cc' and 'compose_bcc' preferences.

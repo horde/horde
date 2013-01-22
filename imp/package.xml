@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a message preview active.
 * [mms] Dynamically display MIME type icon for attachments uploaded on the dynamic compose page.
 * [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
 * [mms] Support attaching vCard in dynamic compose.
@@ -2943,6 +2944,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a message preview active.
 * [mms] Dynamically display MIME type icon for attachments uploaded on the dynamic compose page.
 * [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
 * [mms] Support attaching vCard in dynamic compose.
