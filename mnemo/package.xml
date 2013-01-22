@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix exporting bodies of encrypted notes (Bug #11960).
  </notes>
  <contents>
@@ -981,6 +982,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix exporting bodies of encrypted notes (Bug #11960).
    </notes>
   </release>

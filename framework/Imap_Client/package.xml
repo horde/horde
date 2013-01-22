@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [mms] Ignore fetch data returned from an UID FETCH command if it doesn&apos;t include UID information (Bug #11946).
 * [mms] Add exists option to Horde_Imap_Client_Base#fetch().
  </notes>
@@ -1475,6 +1476,7 @@
    <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [mms] Ignore fetch data returned from an UID FETCH command if it doesn&apos;t include UID information (Bug #11946).
 * [mms] Add exists option to Horde_Imap_Client_Base#fetch().
    </notes>
