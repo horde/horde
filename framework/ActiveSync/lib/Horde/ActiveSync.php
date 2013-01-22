@@ -809,12 +809,12 @@ class Horde_ActiveSync
                 }
 
                 $this->_get = $results;
-                return $results;
             }
         } else {
             $this->_get = $get;
-            return $get;
         }
+
+        return $this->_get;
     }
 
     /**
