@@ -2755,7 +2755,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (isset($this->_temp['fetch_resp'])) {
-            $this->_temp['fetch_resp']->get(is_null($uid) ? $id : $uid)->merge($ob);
+            switch ($this->_temp['fetch_resp']->key_type) {
+            case Horde_Imap_Client_Fetch_Results::SEQUENCE:
+                $this->_temp['fetch_resp']->get($id)->merge($ob);
+                break;
+
+            case Horde_Imap_Client_Fetch_Results::UID:
+                if (!is_null($uid)) {
+                    $this->_temp['fetch_resp']->get($uid)->merge($ob);
+                }
+                break;
+            }
         }
 
         if (!is_null($uid)) {

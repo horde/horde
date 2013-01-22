@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[jan] Fix emptying shared address books.
 [jan] Fix importing of LDIF data (Bug #11972).
 
 

@@ -63,6 +63,18 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Checks if this backend has a certain capability.
+     *
+     * @param string $capability  The capability to check for.
+     *
+     * @return boolean  Supported or not.
+     */
+    public function hasCapability($capability)
+    {
+        return $this->_driver->hasCapability($capability);
+    }
+
+    /**
      * Translates the keys of the first hash from the generalized Turba
      * attributes to the driver-specific fields. The translation is based on
      * the contents of $this->map.
