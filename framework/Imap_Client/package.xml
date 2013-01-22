@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-22</date>
- <time>15:47:41</time>
+ <time>15:51:49</time>
  <version>
-  <release>2.5.0</release>
+  <release>2.5.1</release>
   <api>2.5.0</api>
  </version>
  <stability>
@@ -22,10 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Some IMAP servers require a mailbox to be unselected before it can be renamed.
-* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [mms] Ignore fetch data returned from an UID FETCH command if it doesn&apos;t include UID information (Bug #11946).
-* [mms] Add exists option to Horde_Imap_Client_Base#fetch().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1501,6 +1498,19 @@
 * [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [mms] Ignore fetch data returned from an UID FETCH command if it doesn&apos;t include UID information (Bug #11946).
 * [mms] Add exists option to Horde_Imap_Client_Base#fetch().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.5.1</release>
+    <api>2.5.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
