@@ -225,16 +225,6 @@ class Ingo_Script
     }
 
     /**
-     * Returns a script previously generated with generate().
-     *
-     * @return string  The script.
-     */
-    public function toCode()
-    {
-        return '';
-    }
-
-    /**
      * Can this driver generate a script file?
      *
      * @return boolean  True if generate() is available, false if not.

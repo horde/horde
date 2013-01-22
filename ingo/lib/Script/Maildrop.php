@@ -109,20 +109,6 @@ class Ingo_Script_Maildrop extends Ingo_Script
     protected $_reason;
 
     /**
-     * Returns a script previously generated with generate().
-     *
-     * @return string  The maildrop script.
-     */
-    public function toCode()
-    {
-        $code = '';
-        foreach ($this->_recipes as $item) {
-            $code .= $item->generate() . "\n";
-        }
-        return rtrim($code);
-    }
-
-    /**
      * Generates the maildrop script to do the filtering specified in
      * the rules.
      *
@@ -177,7 +163,11 @@ class Ingo_Script_Maildrop extends Ingo_Script
             }
         }
 
-        return $this->toCode();
+        $code = '';
+        foreach ($this->_recipes as $item) {
+            $code .= $item->generate() . "\n";
+        }
+        return rtrim($code);
     }
 
     /**

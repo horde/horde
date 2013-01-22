@@ -125,30 +125,6 @@ class Ingo_Script_Procmail extends Ingo_Script
     }
 
     /**
-     * Returns a script previously generated with generate().
-     *
-     * @return string  The procmail script.
-     */
-    public function toCode()
-    {
-        $code = '';
-        foreach ($this->_recipes as $item) {
-            $code .= $item->generate() . "\n";
-        }
-
-        // If an external delivery program is used, add final rule
-        // to deliver to $DEFAULT
-        if (isset($this->_params['delivery_agent'])) {
-            $code .= ":0 w\n";
-            $code .= isset($this->_params['delivery_mailbox_prefix']) ?
-                '| ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . '$DEFAULT' :
-                '| ' . $this->_params['delivery_agent'] . ' $DEFAULT';
-        }
-
-        return rtrim($code) . "\n";
-    }
-
-    /**
      * Generates the procmail script to do the filtering specified in the
      * rules.
      *
@@ -219,7 +195,21 @@ class Ingo_Script_Procmail extends Ingo_Script
             }
         }
 
-        return $this->toCode();
+        $code = '';
+        foreach ($this->_recipes as $item) {
+            $code .= $item->generate() . "\n";
+        }
+
+        // If an external delivery program is used, add final rule
+        // to deliver to $DEFAULT
+        if (isset($this->_params['delivery_agent'])) {
+            $code .= ":0 w\n";
+            $code .= isset($this->_params['delivery_mailbox_prefix']) ?
+                '| ' . $this->_params['delivery_agent'] . ' ' . $this->_params['delivery_mailbox_prefix'] . '$DEFAULT' :
+                '| ' . $this->_params['delivery_agent'] . ' $DEFAULT';
+        }
+
+        return rtrim($code) . "\n";
     }
 
     /**
