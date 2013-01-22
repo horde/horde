@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Remove 'compose_cc' and 'compose_bcc' preferences.
 [mms] Support attaching vCard in dynamic compose.
 [mms] Support attaching PGP public keys in dynamic compose.
 [mms] Smartmobile view now uses additive loading instead of pagination on the

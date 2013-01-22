@@ -103,7 +103,6 @@
       <span id="to_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php if ($this->cc): ?>
     <tr id="sendcc" style="display:none">
      <td class="label">
       <span><?php echo _("Cc") ?>:</span>
@@ -113,8 +112,6 @@
       <span id="cc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php endif; ?>
-<?php if ($this->bcc): ?>
     <tr id="sendbcc" style="display:none">
      <td class="label">
       <span><?php echo _("Bcc") ?>:</span>
@@ -124,20 +121,13 @@
       <span id="bcc_loading_img" class="loadingImg" style="display:none"></span>
      </td>
     </tr>
-<?php endif; ?>
-<?php if ($this->cc || $this->bcc): ?>
     <tr>
      <td></td>
      <td>
-<?php if ($this->cc): ?>
       <span id="togglecc"><?php echo _("Add Cc") ?></span>
-<?php endif; ?>
-<?php if ($this->bcc): ?>
       <span id="togglebcc"><?php echo _("Add Bcc") ?></span>
-<?php endif; ?>
      </td>
     </tr>
-<?php endif; ?>
     <tr>
      <td class="label"><?php echo _("Subject")?>:</td>
      <td class="subject">

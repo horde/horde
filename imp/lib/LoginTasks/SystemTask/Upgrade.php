@@ -66,6 +66,7 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             break;
 
         case '6.1':
+            $this->_upgradeComposePrefs61();
             $this->_upgradeRequestMdn();
             break;
         }
@@ -636,6 +637,17 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $imp_search[$key] = $val;
             }
         }
+    }
+
+    /**
+     * IMP 6.1: Upgrade compose preferences.
+     */
+    protected function _upgradeComposePrefs61()
+    {
+        global $prefs;
+
+        $prefs->remove('compose_bcc');
+        $prefs->remove('compose_cc');
     }
 
     /**

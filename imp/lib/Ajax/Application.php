@@ -332,17 +332,12 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         /* Set up the From address based on the identity. */
         $headers = array(
-            'from' => strval($identity->getFromLine(null, $this->_vars->from))
+            'from' => strval($identity->getFromLine(null, $this->_vars->from)),
+            'to' => $this->_vars->to,
+            'cc' => $this->_vars->cc,
+            'bcc' => $this->_vars->bcc,
+            'subject' => $this->_vars->subject
         );
-
-        $headers['to'] = $this->_vars->to;
-        if ($prefs->getValue('compose_cc')) {
-            $headers['cc'] = $this->_vars->cc;
-        }
-        if ($prefs->getValue('compose_bcc')) {
-            $headers['bcc'] = $this->_vars->bcc;
-        }
-        $headers['subject'] = $this->_vars->subject;
 
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->_vars->composeCache);
 

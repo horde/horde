@@ -99,7 +99,7 @@ var DimpCompose = {
         var identity = ImpComposeBase.identities[$F('identity')];
 
         this.setPopdownLabel('sm', identity.sm_name, identity.sm_display);
-        if (DimpCore.conf.bcc && identity.bcc) {
+        if (identity.bcc) {
             $('bcc').setValue(($F('bcc') ? $F('bcc') + ', ' : '') + identity.bcc);
             this.toggleCC('bcc');
         }
@@ -525,11 +525,11 @@ var DimpCompose = {
         ob.opts = ob.opts || {};
 
         $('to').setValue(ob.header.to);
-        if (DimpCore.conf.cc && ob.header.cc) {
+        if (ob.header.cc) {
             this.toggleCC('cc');
             $('cc').setValue(ob.header.cc);
         }
-        if (DimpCore.conf.bcc && ob.header.bcc) {
+        if (ob.header.bcc) {
             this.toggleCC('bcc');
             $('bcc').setValue(ob.header.bcc);
         }

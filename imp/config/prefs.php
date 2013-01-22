@@ -458,12 +458,11 @@ $prefGroups['compose'] = array(
     'label' => _("Composition"),
     'desc' => _("Configure how you send mail."),
     'members' => array(
-        'mailto_handler', 'compose_cc', 'compose_bcc', 'compose_spellcheck',
-        'set_priority', 'compose_html', 'compose_html_font_family',
-        'compose_html_font_size', 'mail_domain',
-        'compose_cursor', 'encryptselect', 'delete_attachments_monthly_keep',
-        'request_mdn', 'reply_lang', 'compose_popup', 'compose_confirm',
-        'link_attach'
+        'mailto_handler', 'compose_spellcheck', 'set_priority',
+        'compose_html', 'compose_html_font_family', 'compose_html_font_size',
+        'mail_domain', 'compose_cursor', 'encryptselect',
+        'delete_attachments_monthly_keep', 'request_mdn', 'reply_lang',
+        'compose_popup', 'compose_confirm', 'link_attach'
     )
 );
 
@@ -471,18 +470,6 @@ $prefGroups['compose'] = array(
 $_prefs['mailto_handler'] = array(
     'type' => 'special',
     'handler' => 'IMP_Prefs_Special_Mailto'
-);
-
-$_prefs['compose_cc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Cc: header field when composing mail?")
-);
-
-$_prefs['compose_bcc'] = array(
-    'value' => 1,
-    'type' => 'checkbox',
-    'desc' => _("Show the Bcc: header field when composing mail?")
 );
 
 $_prefs['compose_spellcheck'] = array(

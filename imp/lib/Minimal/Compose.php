@@ -46,13 +46,11 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $this->title = _("Compose Message");
 
         /* Get the list of headers to display. */
-        $display_hdrs = array('to' => _("To: "));
-        if ($prefs->getValue('compose_cc')) {
-            $display_hdrs['cc'] = _("Cc: ");
-        }
-        if ($prefs->getValue('compose_bcc')) {
-            $display_hdrs['bcc'] = ("Bcc: ");
-        }
+        $display_hdrs = array(
+            'to' => _("To: "),
+            'cc' => _("Cc: "),
+            'bcc' => ("Bcc: ")
+        );
 
         /* Set the current identity. */
         $identity = $injector->getInstance('IMP_Identity');

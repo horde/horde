@@ -54,8 +54,6 @@ class IMP_Dynamic_Compose_Common
         $view->addHelper('Tag');
         $view->addHelper('FormTag');
 
-        $view->bcc = $prefs->getValue('compose_bcc');
-        $view->cc = $prefs->getValue('compose_cc');
         $view->compose_enable = IMP::canCompose();
 
         if (!empty($args['redirect'])) {
@@ -221,8 +219,6 @@ class IMP_Dynamic_Compose_Common
 
             'attach_limit' => ($attach_upload && $conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
             'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
-            'bcc' => intval($prefs->getValue('compose_bcc')),
-            'cc' => intval($prefs->getValue('compose_cc')),
             'close_draft' => intval($prefs->getValue('close_draft')),
             'compose_cursor' => ($compose_cursor ? $compose_cursor : 'top'),
             'drafts_mbox' => $drafts_mbox ? $drafts_mbox->form_to : null,

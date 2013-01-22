@@ -226,13 +226,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $compose_opts['redirect'] = true;
             $imp_ui->attachAutoCompleter(array('redirect_to'));
         } else {
-            $acomplete = array('to', 'redirect_to');
-            foreach (array('cc', 'bcc') as $val) {
-                if ($prefs->getValue('compose_' . $val)) {
-                    $acomplete[] = $val;
-                }
-            }
-            $imp_ui->attachAutoCompleter($acomplete);
+            $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
             $imp_ui->attachSpellChecker();
         }
 

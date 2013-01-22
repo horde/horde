@@ -420,12 +420,8 @@ case 'send_message':
     }
 
     $header['to'] = $vars->to;
-    if ($prefs->getValue('compose_cc')) {
-        $header['cc'] = $vars->cc;
-    }
-    if ($prefs->getValue('compose_bcc')) {
-        $header['bcc'] = $vars->bcc;
-    }
+    $header['cc'] = $vars->cc;
+    $header['bcc'] = $vars->bcc;
 
     $header['subject'] = strval($vars->subject);
     $message = strval($vars->message);
@@ -594,13 +590,7 @@ $composeCacheID = filter_var($imp_compose->getCacheId(), FILTER_SANITIZE_STRING)
 if ($redirect) {
     $imp_ui->attachAutoCompleter(array('to'));
 } else {
-    $auto_complete = array('to');
-    foreach (array('cc', 'bcc') as $val) {
-        if ($prefs->getValue('compose_' . $val)) {
-            $auto_complete[] = $val;
-        }
-    }
-    $imp_ui->attachAutoCompleter($auto_complete);
+    $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc'));
 
     if (!empty($conf['spell']['driver'])) {
         $spellcheck = true;
@@ -813,13 +803,11 @@ if ($redirect) {
         }
     }
 
-    $addr_array = array('to' => _("_To"));
-    if ($prefs->getValue('compose_cc')) {
-        $addr_array['cc'] = _("_Cc");
-    }
-    if ($prefs->getValue('compose_bcc')) {
-        $addr_array['bcc'] = _("_Bcc");
-    }
+    $addr_array = array(
+        'to' => _("_To"),
+        'cc' => _("_Cc"),
+        'bcc' => _("_Bcc")
+    );
 
     $address_array = array();
     foreach ($addr_array as $val => $label) {

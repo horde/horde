@@ -46,6 +46,14 @@ The default values for these preferences have been changed::
 
    request_mdn
 
+The following preferences are no longer used and may be safely removed from
+your preference backend (only after all users have logged in - these
+preferences MAY be used to automatically upgrade to new preferences when
+a user logs into IMP 6 for the first time)::
+
+   compose_bcc
+   compose_cc
+
 
 
 Upgrading IMP From 5.x To 6.x

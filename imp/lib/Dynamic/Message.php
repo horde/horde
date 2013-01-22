@@ -27,7 +27,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs;
+        global $conf, $injector, $notification, $page_output;
 
         if (!$this->indices) {
             throw new IMP_Exception(_("No message index given."));
@@ -104,13 +104,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
             /* Attach spellchecker & auto completer. */
             $imp_ui = new IMP_Ui_Compose();
-            $acomplete = array('to', 'redirect_to');
-            foreach (array('cc', 'bcc') as $val) {
-                if ($prefs->getValue('compose_' . $val)) {
-                    $acomplete[] = $val;
-                }
-            }
-            $imp_ui->attachAutoCompleter($acomplete);
+            $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
             $imp_ui->attachSpellChecker();
         }
 

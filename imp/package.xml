@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
 * [mms] Support attaching vCard in dynamic compose.
 * [mms] Support attaching PGP public keys in dynamic compose.
 * [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
@@ -2941,6 +2942,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
 * [mms] Support attaching vCard in dynamic compose.
 * [mms] Support attaching PGP public keys in dynamic compose.
 * [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
