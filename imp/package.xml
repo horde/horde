@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] All basic view pages are now routed through the basic.php endpoint.
 * [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a message preview active.
 * [mms] Dynamically display MIME type icon for attachments uploaded on the dynamic compose page.
 * [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.
@@ -2948,6 +2949,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] All basic view pages are now routed through the basic.php endpoint.
 * [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a message preview active.
 * [mms] Dynamically display MIME type icon for attachments uploaded on the dynamic compose page.
 * [mms] Remove &apos;compose_cc&apos; and &apos;compose_bcc&apos; preferences.

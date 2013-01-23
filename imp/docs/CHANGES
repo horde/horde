@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] All basic view pages are now routed through the basic.php endpoint.
 [mms] Save AJAX showMessage call when reloading the dynamic mailbox page with a
       message preview active.
 [mms] Dynamically display MIME type icon for attachments uploaded on the
