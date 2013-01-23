@@ -107,7 +107,8 @@ class Ingo_Api extends Horde_Registry_Api
     public function canApplyFilters()
     {
         try {
-            return $GLOBALS['injector']->getInstance('Ingo_Script')->performAvailable();
+            return $GLOBALS['injector']->getInstance('Ingo_Script')
+                ->hasFeature('on_demand');
         } catch (Ingo_Exception $e) {
             return false;
         }
@@ -120,22 +121,16 @@ class Ingo_Api extends Horde_Registry_Api
      *   - filter_seen
      *   - mailbox (UTF-8)
      *   - show_filter_msg
-     *
-     * @return boolean  True if filtering was performed, false if not.
      */
     public function applyFilters(array $params = array())
     {
-        try {
-            if (isset($params['mailbox'])) {
-                $params['mailbox'] = Horde_String::convertCharset(
-                    $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
-            }
-            return $GLOBALS['injector']->getInstance('Ingo_Script')
-                ->setParams($params)
-                ->perform($GLOBALS['session']->get('ingo', 'change'));
-        } catch (Ingo_Exception $e) {
-            return false;
+        if (isset($params['mailbox'])) {
+            $params['mailbox'] = Horde_String::convertCharset(
+                $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
         }
+        $GLOBALS['injector']->getInstance('Ingo_Script')
+            ->setParams($params)
+            ->perform($GLOBALS['session']->get('ingo', 'change'));
     }
 
     /**

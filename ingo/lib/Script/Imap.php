@@ -23,6 +23,24 @@ class Ingo_Script_Imap extends Ingo_Script_Base
     protected $_params = array('mailbox' => 'INBOX');
 
     /**
+     * A list of driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        /* Can tests be case sensitive? */
+        'case_sensitive' => false,
+        /* Does the driver support setting IMAP flags? */
+        'imap_flags' => true,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => true,
+        /* Can this driver perform on demand filtering? */
+        'on_demand' => true,
+        /* Does the driver require a script file to be generated? */
+        'script_file' => false,
+    );
+
+    /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
@@ -65,34 +83,10 @@ class Ingo_Script_Imap extends Ingo_Script_Base
     );
 
     /**
-     * Does the driver support setting IMAP flags?
-     *
-     * @var boolean
-     */
-    protected $_supportIMAPFlags = true;
-
-    /**
-     * Does the driver support the stop-script option?
-     *
-     * @var boolean
-     */
-    protected $_supportStopScript = true;
-
-    /**
-     * This driver can perform on demand filtering (in fact, that is all
-     * it can do).
-     *
-     * @var boolean
-     */
-    protected $_ondemand = true;
-
-    /**
      * Performs the filtering specified in the rules.
      *
      * @param integer $change  The timestamp of the latest rule change during
      *                         the current session.
-     *
-     * @return boolean  True if filtering performed, false if not.
      */
     public function perform($change)
     {
@@ -108,7 +102,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
            3. The rules have changed. */
         $cache = $api->getCache();
         if ($cache !== false && $cache == $change) {
-            return true;
+            return;
         }
 
         /* Grab the rules list. */
@@ -330,19 +324,16 @@ class Ingo_Script_Imap extends Ingo_Script_Base
 
         /* Set cache flag. */
         $api->storeCache($change);
-
-        return true;
     }
 
     /**
-     * Is the apply() function available?
+     * Is the perform() function available?
      *
-     * @return boolean  True if apply() is available, false if not.
+     * @return boolean  True if perform() is available, false if not.
      */
-    public function canApply()
+    public function canPerform()
     {
-        if ($this->performAvailable() &&
-            $this->_params['registry']->hasMethod('mail/server')) {
+        if ($this->_params['registry']->hasMethod('mail/server')) {
             try {
                 $server = $this->_params['registry']->call('mail/server');
                 return ($server['protocol'] == 'imap');
@@ -352,19 +343,6 @@ class Ingo_Script_Imap extends Ingo_Script_Base
         }
 
         return false;
-    }
-
-    /**
-     * Apply the filters now.
-     *
-     * @param integer $change  The timestamp of the latest rule change during
-     *                         the current session.
-     *
-     * @return boolean  See perform().
-     */
-    public function apply($change)
-    {
-        return $this->canApply() ? $this->perform($change) : false;
     }
 
     /**

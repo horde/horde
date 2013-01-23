@@ -113,8 +113,6 @@ class Ingo_Application extends Horde_Registry_Application
      *   - storage: (array) Used by Ingo_Storage:: for caching data.
      *   - script_categories: (array) The list of available categories for the
      *                                Ingo_Script driver in use.
-     *   - script_generate: (boolean) Is the Ingo_Script::generate() call
-     *                                available?
      *
      * @throws Ingo_Exception
      */
@@ -122,7 +120,7 @@ class Ingo_Application extends Horde_Registry_Application
     {
         global $injector, $prefs, $session;
 
-        if ($session->exists('ingo', 'script_generate')) {
+        if ($session->exists('ingo', 'script_categories')) {
             return;
         }
 
@@ -133,9 +131,6 @@ class Ingo_Application extends Horde_Registry_Application
                 $session->set('ingo', 'backend/' . $key, $val);
             }
         }
-
-        $ingo_script = $injector->getInstance('Ingo_Script');
-        $session->set('ingo', 'script_generate', $ingo_script->generateAvailable());
 
         /* Disable categories as specified in preferences */
         $locked_prefs = array(
@@ -153,6 +148,7 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         /* Set the list of categories this driver supports. */
+        $ingo_script = $injector->getInstance('Ingo_Script');
         $session->set('ingo', 'script_categories', array_diff(array_merge($ingo_script->availableActions(), $ingo_script->availableCategories()), $locked));
     }
 
@@ -198,7 +194,7 @@ class Ingo_Application extends Horde_Registry_Application
             $menu->add(Horde::url('spam.php'), _("S_pam"), 'ingo-spam');
         }
 
-        if ($GLOBALS['session']->get('ingo', 'script_generate') &&
+        if ($GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file') &&
             (!$GLOBALS['prefs']->isLocked('auto_update') ||
              !$GLOBALS['prefs']->getValue('auto_update'))) {
             $menu->add(Horde::url('script.php'), _("_Script"), 'ingo-script');

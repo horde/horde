@@ -58,7 +58,7 @@ case 'rule_delete':
         'conditions' => array()
     );
 
-    if ($ingo_script->caseSensitive()) {
+    if ($ingo_script->hasFeature('case_sensitive')) {
         $casesensitive = $vars->case;
     }
 
@@ -294,7 +294,7 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
     $testOb = $ingo_storage->getTestInfo(!empty($condition['match']) ? $condition['match'] : 'contains');
     switch ($testOb->type) {
     case 'text':
-        if ($ingo_script->caseSensitive()) {
+        if ($ingo_script->hasFeature('case_sensitive')) {
             $tmp['case_sensitive'] = !empty($condition['case']);
         }
         break;
@@ -334,8 +334,8 @@ case 'int':
     break;
 }
 
-$view->flags = ($current_action->flags && $ingo_script->imapFlags());
-$view->stop = $ingo_script->stopScript();
+$view->flags = $current_action->flags && $ingo_script->hasFeature('imap_flags');
+$view->stop = $ingo_script->hasFeature('stop_script');
 
 $page_output->addScriptFile('rule.js');
 $page_output->addInlineJsVars(array(

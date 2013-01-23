@@ -24,6 +24,24 @@ abstract class Ingo_Script_Base
     protected $_params = array();
 
     /**
+     * A list of driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        /* Can tests be case sensitive? */
+        'case_sensitive' => false,
+        /* Does the driver support setting IMAP flags? */
+        'imap_flags' => false,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => false,
+        /* Can this driver perform on demand filtering? */
+        'on_demand' => false,
+        /* Does the driver require a script file to be generated? */
+        'script_file' => false,
+    );
+
+    /**
      * The list of actions allowed (implemented) for this driver.
      * This SHOULD be defined in each subclass.
      *
@@ -63,41 +81,6 @@ abstract class Ingo_Script_Base
     protected $_special_types = array();
 
     /**
-     * Can tests be case sensitive?
-     *
-     * @var boolean
-     */
-    protected $_casesensitive = false;
-
-    /**
-     * Does the driver support setting IMAP flags?
-     *
-     * @var boolean
-     */
-    protected $_supportIMAPFlags = false;
-
-    /**
-     * Does the driver support the stop-script option?
-     *
-     * @var boolean
-     */
-    protected $_supportStopScript = false;
-
-    /**
-     * Can this driver perform on demand filtering?
-     *
-     * @var boolean
-     */
-    protected $_ondemand = false;
-
-    /**
-     * Does the driver require a script file to be generated?
-     *
-     * @var boolean
-     */
-    protected $_scriptfile = false;
-
-    /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
@@ -132,6 +115,20 @@ abstract class Ingo_Script_Base
     {
         $this->_params = array_merge($this->_params, $params);
         return $this;
+    }
+
+    /**
+     * Returns whether the script driver supports a certain feature.
+     *
+     * @see $_features
+     *
+     * @param string $feature  A feature name.
+     *
+     * @return boolean  True if this feature is supported.
+     */
+    public function hasFeature($feature)
+    {
+        return !empty($this->_features[$feature]);
     }
 
     /**
@@ -199,46 +196,6 @@ abstract class Ingo_Script_Base
     }
 
     /**
-     * Returns if this driver allows case sensitive searches.
-     *
-     * @return boolean  Does this driver allow case sensitive searches?
-     */
-    public function caseSensitive()
-    {
-        return $this->_casesensitive;
-    }
-
-    /**
-     * Returns if this driver allows IMAP flags to be set.
-     *
-     * @return boolean  Does this driver allow IMAP flags to be set?
-     */
-    public function imapFlags()
-    {
-        return $this->_supportIMAPFlags;
-    }
-
-    /**
-     * Returns if this driver supports the stop-script option.
-     *
-     * @return boolean  Does this driver support the stop-script option?
-     */
-    public function stopScript()
-    {
-        return $this->_supportStopScript;
-    }
-
-    /**
-     * Can this driver generate a script file?
-     *
-     * @return boolean  True if generate() is available, false if not.
-     */
-    public function generateAvailable()
-    {
-        return $this->_scriptfile;
-    }
-
-    /**
      * Generates the script to do the filtering specified in
      * the rules.
      *
@@ -262,53 +219,23 @@ abstract class Ingo_Script_Base
     }
 
     /**
-     * Can this driver perform on demand filtering?
-     *
-     * @return boolean  True if perform() is available, false if not.
-     */
-    public function performAvailable()
-    {
-        return $this->_ondemand;
-    }
-
-    /**
-     * Perform the filtering specified in the rules.
+     * Performs the filtering specified in the rules.
      *
      * @param integer $change  The timestamp of the latest rule change during
      *                         the current session.
-     *
-     * @return boolean  True if filtering performed, false if not.
      */
     public function perform($change)
     {
-        return false;
     }
 
     /**
-     * Is the apply() function available?
+     * Is the perform() function available?
      *
-     * @return boolean  True if apply() is available, false if not.
+     * @return boolean  True if perform() is available, false if not.
      */
-    public function canApply()
+    public function canPerform()
     {
-        return $this->performAvailable();
-    }
-
-    /**
-     * Applies the filters now.
-     *
-     * This is essentially a wrapper around perform() that allows that
-     * function to be called from within Ingo ensuring that all necessary
-     * parameters are set.
-     *
-     * @param integer $change  The timestamp of the latest rule change during
-     *                         the current session.
-     *
-     * @return boolean  See perform().
-     */
-    public function apply($change)
-    {
-        return $this->perform($change);
+        return $this->hasFeature('on_demand');
     }
 
     /**

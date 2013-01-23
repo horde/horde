@@ -15,12 +15,12 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('ingo');
 
 /* Redirect if script updating is not available. */
-if (!$session->get('ingo', 'script_generate')) {
+$ingo_script = $injector->getInstance('Ingo_Script');
+if (!$ingo_script->hasFeature('script_file')) {
     Horde::url('filters.php', true)->redirect();
 }
 
 /* Generate the script. */
-$ingo_script = $injector->getInstance('Ingo_Script');
 $script = $ingo_script->generate();
 $additional = $ingo_script->additionalScripts();
 

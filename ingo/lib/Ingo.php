@@ -189,7 +189,7 @@ class Ingo
      */
     static public function updateScript()
     {
-        if ($GLOBALS['session']->get('ingo', 'script_generate')) {
+        if ($GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file')) {
             try {
                 $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
 

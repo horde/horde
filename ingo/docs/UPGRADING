@@ -29,6 +29,15 @@ Administration => Configuration and update anything that's highlighted as
 outdated.
 
 
+Upgrading Ingo From 3.0.x To 3.1.x
+==================================
+
+API Changes
+-----------
+
+The applyFilters() no longer returns a value.
+
+
 Upgrading Ingo From 2.x To 3.x
 ==============================
 

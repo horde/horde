@@ -16,7 +16,7 @@ $prefGroups['script'] = array(
     'desc' => _("Preferences about script updating."),
     'members' => array('auto_update'),
     'suppress' => function() {
-        return !$GLOBALS['session']->get('ingo', 'script_generate');
+        return !$GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file');
     }
 );
 

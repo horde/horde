@@ -16,6 +16,24 @@
 class Ingo_Script_Procmail extends Ingo_Script_Base
 {
     /**
+     * A list of driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        /* Can tests be case sensitive? */
+        'case_sensitive' => true,
+        /* Does the driver support setting IMAP flags? */
+        'imap_flags' => false,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => true,
+        /* Can this driver perform on demand filtering? */
+        'on_demand' => false,
+        /* Does the driver require a script file to be generated? */
+        'script_file' => true,
+    );
+
+    /**
      * The list of actions allowed (implemented) for this driver.
      *
      * @var array
@@ -74,27 +92,6 @@ class Ingo_Script_Procmail extends Ingo_Script_Base
         'not ends with',
         'regex'
     );
-
-    /**
-     * Can tests be case sensitive?
-     *
-     * @var boolean
-     */
-    protected $_casesensitive = true;
-
-    /**
-     * Does the driver support the stop-script option?
-     *
-     * @var boolean
-     */
-    protected $_supportStopScript = true;
-
-    /**
-     * Does the driver require a script file to be generated?
-     *
-     * @var boolean
-     */
-    protected $_scriptfile = true;
 
     /**
      * The recipes that make up the code.

@@ -14,10 +14,29 @@
  */
 class Ingo_Script_Maildrop extends Ingo_Script_Base
 {
-
-    /* Additional storage action since maildrop does not support the
-     * "c-flag" as in procmail. */
+    /**
+     * Additional storage action since maildrop does not support the "c-flag"
+     * as in procmail.
+     */
     const MAILDROP_STORAGE_ACTION_STOREANDFORWARD = 100;
+
+    /**
+     * A list of driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        /* Can tests be case sensitive? */
+        'case_sensitive' => true,
+        /* Does the driver support setting IMAP flags? */
+        'imap_flags' => false,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => false,
+        /* Can this driver perform on demand filtering? */
+        'on_demand' => false,
+        /* Does the driver require a script file to be generated? */
+        'script_file' => true,
+    );
 
     /**
      * The list of actions allowed (implemented) for this driver.
@@ -72,27 +91,6 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
         'equal', 'not equal',
         'greater than', 'greater than or equal to',
     );
-
-    /**
-     * Can tests be case sensitive?
-     *
-     * @var boolean
-     */
-    protected $_casesensitive = true;
-
-    /**
-     * Does the driver support the stop-script option?
-     *
-     * @var boolean
-     */
-    protected $_supportStopScript = false;
-
-    /**
-     * Does the driver require a script file to be generated?
-     *
-     * @var boolean
-     */
-    protected $_scriptfile = true;
 
     /**
      * The recipes that make up the code.
