@@ -171,7 +171,7 @@ case 'flag_message':
 
 case 'add_address':
     try {
-        $contact_link = $injector->getInstance('IMP_Ui_Contacts')->addAddress($vars->address, $vars->name);
+        $contact_link = $injector->getInstance('IMP_Contacts')->addAddress($vars->address, $vars->name);
         $notification->push(sprintf(_("Entry \"%s\" was successfully added to the address book"), $contact_link), 'horde.success', array('content.raw'));
     } catch (Horde_Exception $e) {
         $notification->push($e);

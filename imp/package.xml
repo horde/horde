@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-22</date>
- <time>22:38:20</time>
+ <time>22:40:23</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -390,7 +390,6 @@
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
-     <file name="Contacts.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Quota.php" role="horde" />
@@ -404,6 +403,7 @@
     <file name="Application.php" role="horde" />
     <file name="Auth.php" role="horde" />
     <file name="Compose.php" role="horde" />
+    <file name="Contacts.php" role="horde" />
     <file name="Contents.php" role="horde" />
     <file name="Editor.php" role="horde" />
     <file name="Exception.php" role="horde" />
@@ -1382,6 +1382,7 @@
    <install as="imp/lib/Application.php" name="lib/Application.php" />
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
+   <install as="imp/lib/Contacts.php" name="lib/Contacts.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
    <install as="imp/lib/Editor.php" name="lib/Editor.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
@@ -1597,7 +1598,6 @@
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
-   <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />

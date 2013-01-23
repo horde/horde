@@ -532,7 +532,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         try {
-            $injector->getInstance('IMP_Ui_Contacts')->addAddress($ob->bare_address, $ob->personal);
+            $injector->getInstance('IMP_Contacts')->addAddress($ob->bare_address, $ob->personal);
             $notification->push(sprintf(_("%s was successfully added to your address book."), $ob->label), 'horde.success');
             return true;
         } catch (Horde_Exception $e) {
