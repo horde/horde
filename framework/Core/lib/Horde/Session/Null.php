@@ -6,7 +6,7 @@
  * work within a single HTTP request when we don't need the overhead of a
  * full PHP session.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,17 +19,13 @@
 class Horde_Session_Null extends Horde_Session
 {
     protected $_data = array();
+    private $_cleansession = false;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-        // We must start a session to ensure that session_id() is available,
-        // but since we don't actually need to write to it, close it at once
-        // to avoid session lock issues.
-        session_start();
-        session_write_close();
     }
 
     /**
@@ -42,9 +38,13 @@ class Horde_Session_Null extends Horde_Session
      *
      * @throws Horde_Exception
      */
-    public function setup($start = true, $cache_limiter = null,
-                          $session_id = null)
+    public function setup($start = true, $cache_limiter = null, $session_id = null)
     {
+        global $conf;
+        session_cache_limiter(is_null($cache_limiter) ? $conf['session']['cache_limiter'] : $cache_limiter);
+        if ($start) {
+            $this->start();
+        }
     }
 
     /**
@@ -52,6 +52,18 @@ class Horde_Session_Null extends Horde_Session
      */
     public function start()
     {
+        // We must start a session to ensure that session_id() is available,
+        // but since we don't actually need to write to it, close it at once
+        // to avoid session lock issues.
+        session_start();
+        $this->_active = true;
+        session_write_close();
+        register_shutdown_function(array($this, 'shutdown'));
+    }
+
+    public function shutdown()
+    {
+        session_destroy();
     }
 
     /**
@@ -63,7 +75,13 @@ class Horde_Session_Null extends Horde_Session
      */
     public function clean()
     {
+        if ($this->_cleansession) {
+            return false;
+        }
+        session_regenerate_id(true);
+        session_unset();
         $this->_data = array();
+        $this->_cleansession = true;
         return true;
     }
 
@@ -72,7 +90,7 @@ class Horde_Session_Null extends Horde_Session
      */
     public function close()
     {
-        session_destroy();
+        $this->_active = false;
     }
 
     /**
@@ -80,8 +98,8 @@ class Horde_Session_Null extends Horde_Session
      */
     public function destroy()
     {
-        $this->clean();
         session_destroy();
+        $this->_cleansession = true;
     }
 
     /**
@@ -91,7 +109,7 @@ class Horde_Session_Null extends Horde_Session
      */
     public function isActive()
     {
-        return true;
+        return $this->_active;
     }
 
     /* Session variable access. */

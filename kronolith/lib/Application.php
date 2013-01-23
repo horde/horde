@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Kronolith through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,7 +44,7 @@ class Kronolith_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.0.3-git)';
+    public $version = 'H5 (4.0.4-git)';
 
     /**
      * Global variables defined:
@@ -444,10 +444,12 @@ class Kronolith_Application extends Horde_Registry_Application
                 array('work', _("Work Week"), 'workweekview.png', Horde::url('workweek.php')),
                 array('week', _("Week"), 'weekview.png', Horde::url('week.php')),
                 array('month', _("Month"), 'monthview.png', Horde::url('month.php')),
-                array('year', _("Year"), 'yearview.png', Horde::url('year.php')),
-                array('search', _("Search"), 'search.png', Horde::url('search.php'))
+                array('year', _("Year"), 'yearview.png', Horde::url('year.php'))
             );
-
+            // Dynamic view has no dedicated search page.
+            if (!Kronolith::showAjaxView()) {
+                $menus[] = array('search', _("Search"), 'search.png', Horde::url('search.php'));
+            }
             foreach ($menus as $menu) {
                 $tree->addNode(array(
                     'id' => $parent . $menu[0],
@@ -588,28 +590,23 @@ class Kronolith_Application extends Horde_Registry_Application
                             $row = array(
                                 'alarm' => $event->alarm,
                                 'description' => $event->description,
-                                'end_date' => sprintf('%d-%02d-%02d', $event->end->year, $event->end->month, $event->end->mday),
-                                'end_time' => sprintf('%02d:%02d:%02d', $event->end->hour, $event->end->min, $event->end->sec),
+                                'end_date' => $event->end->format('Y-m-d'),
+                                'end_time' => $event->end->format('H:i:s'),
                                 'location' => $event->location,
                                 'private' => intval($event->private),
                                 'recur_type' => null,
                                 'recur_end_date' => null,
                                 'recur_interval' => null,
                                 'recur_data' => null,
-                                'start_date' => sprintf('%d-%02d-%02d', $event->start->year, $event->start->month, $event->start->mday),
-                                'start_time' => sprintf('%02d:%02d:%02d', $event->start->hour, $event->start->min, $event->start->sec),
+                                'start_date' => $event->start->format('Y-m-d'),
+                                'start_time' => $event->start->format('H:i:s'),
                                 'tags' => implode(', ', $event->tags),
                                 'title' => $event->getTitle()
                             );
 
                             if ($event->recurs()) {
                                 $row['recur_type'] = $event->recurrence->getRecurType();
-                                $row['recur_end_date'] = sprintf(
-                                    '%d-%02d-%02d',
-                                    $event->recurrence->recurEnd->year,
-                                    $event->recurrence->recurEnd->month,
-                                    $event->recurrence->recurEnd->mday
-                                );
+                                $row['recur_end_date'] = $event->recurrence->recurEnd->format('Y-m-d');
                                 $row['recur_interval'] = $event->recurrence->getRecurInterval();
                                 $row['recur_data'] = $event->recurrence->recurData;
                             }

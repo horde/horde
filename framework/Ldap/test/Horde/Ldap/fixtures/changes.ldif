@@ -13,7 +13,7 @@ attr2: baz
 delete: attr4
 -
 
-dn:: Y249dGVzdCD25Pwsb3U9ZXhhbXBsZSxkYz1jbm8=
+dn:: Y249dGVzdCDDtsOkw7wsb3U9ZXhhbXBsZSxkYz1jbm8=
 changetype: modify
 add: newattr
 newattr: foo

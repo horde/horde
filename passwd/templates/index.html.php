@@ -1,4 +1,4 @@
-<form method="post" action="<?php echo $this->h($this->url) ?>" name="passwd">
+<form method="post" action="<?php echo $this->h($this->url) ?>" id="passwd" name="passwd">
 <?php echo $this->formInput ?>
 <?php if (!$this->showlist): ?>
 <input type="hidden" name="backend" value="<?php echo $this->backend ?>" />

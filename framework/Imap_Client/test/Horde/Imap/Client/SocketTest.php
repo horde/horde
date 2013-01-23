@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -237,6 +237,36 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             'multipart/mixed',
             $parse->getType()
+        );
+    }
+
+    public function testBug11946()
+    {
+        $test = array(
+            '* 1 FETCH (UID 9 FLAGS (\Seen))',
+            '* 1 FETCH (FLAGS (\Seen \Flagged))'
+        );
+
+        $res = new Horde_Imap_Client_Fetch_Results();
+
+        $this->test_ob->parseFetch($test[0], array('results' => $res));
+        $this->test_ob->parseFetch($test[1], array('results' => $res));
+
+        $this->assertEquals(
+            array('\seen'),
+            $res->first()->getFlags()
+        );
+
+        $test[1] = '* 1 FETCH (UID 9 FLAGS (\Seen \Flagged))';
+
+        $res = new Horde_Imap_Client_Fetch_Results();
+
+        $this->test_ob->parseFetch($test[0], array('results' => $res));
+        $this->test_ob->parseFetch($test[1], array('results' => $res));
+
+        $this->assertEquals(
+            array('\seen', '\flagged'),
+            $res->first()->getFlags()
         );
     }
 

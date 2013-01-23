@@ -1,6 +1,15 @@
 ----------
-v4.0.2-git
+v4.0.3-git
 ----------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix exporting bodies of encrypted notes (Bug #11960).
+
+
+------
+v4.0.2
+------
 
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [mjr] Fix importing notepads (Bug #11849).

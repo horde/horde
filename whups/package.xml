@@ -978,6 +978,7 @@
    <date>2012-02-28</date>
    <license uri="http://www.horde.org/licenses/bsdl.php">BSD-2-Clause</license>
    <notes>
+* [jan] Fix converting searches in individual queues to queries (Bug #11819).
 * [jan] Fix editing single attribute and text criteria in query editor.
 * [jan] Fix setting active tabs in query editor.
 * [jan] Group active and inactive versions in queue adminstration.

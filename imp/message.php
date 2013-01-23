@@ -2,7 +2,7 @@
 /**
  * Basic view message page.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,10 +23,9 @@ function _returnToMailbox($startIndex = null, $actID = null)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
-
-$registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
@@ -314,7 +313,7 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 /* Process the subject now. */
 if ($subject = $mime_headers->getValue('subject')) {
     $title = sprintf(_("%s: %s"), $page_label, $subject);
-    $shortsub = htmlspecialchars(Horde_String::truncate($subject, 100));
+    $shortsub = Horde_String::truncate($subject, 100);
 } else {
     $shortsub = _("[No Subject]");
     $title = sprintf(_("%s: %s"), $page_label, $shortsub);

@@ -46,7 +46,7 @@ request processing steps:
 add filtered requests/blue_filter port to Horde?
  *
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 

@@ -5,7 +5,7 @@
 require_once __DIR__ . '/../Base.php';
 
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -185,7 +185,7 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
 
     public function testCallback()
     {
-        parent::callback(new Horde_Share_Object_Sqlng(array()));
+        $this->callbackSetShareOb(new Horde_Share_Object_Sqlng(array()));
     }
 
     public static function setUpBeforeClass()

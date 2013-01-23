@@ -78,12 +78,17 @@ var ImpComposeBase = {
     {
         if (CKEDITOR) {
             CKEDITOR.on('instanceReady', function(e) {
-                e.editor.on('paste', function(e) {
-                    if (e.data.html) {
-                        e.data.html = e.data.html.stripTags();
+                e.editor.on('contentDom', function(e1) {
+                    e1.editor.document.on('drop', function (e2) {
+                        e2.data.preventDefault(true);
+                    });
+                });
+                e.editor.on('paste', function(ev) {
+                    if (ev.data.html) {
+                        ev.data.html = ev.data.html.stripTags();
                     }
-                }.bind(this));
-            }.bind(this));
+                });
+            });
         }
     }
 

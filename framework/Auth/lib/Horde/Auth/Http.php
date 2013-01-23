@@ -3,7 +3,7 @@
  * The Horde_Auth_Http class transparently logs users in to Horde using
  * already present HTTP authentication headers.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21

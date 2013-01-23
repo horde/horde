@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Part class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -84,6 +84,23 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
         // Test the length of the resulting MIME string to ensure
         // the incoming multipart data was not output twice.
         $this->assertEquals(1795, strlen($part->toString()));
+    }
+
+    public function testParsingMultipartAlternativeDoesNotProduceAttachment()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/samplemultipart_msg.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+        $part->isBasePart(true);
+        $msg = $part->toString(array('headers' => true));
+        $test_part = Horde_Mime_Part::parseMessage($msg);
+        $map = array(
+            'multipart/alternative',
+            'text/plain',
+            'text/html');
+        $this->assertEquals($map, $test_part->contentTypeMap());
+
+        $part_one = $test_part->getPart(1);
+        $this->assertEquals('', $test_part->getPart(1)->getDisposition());
     }
 
     public function testArrayAccessImplementation()
@@ -256,6 +273,48 @@ C
         $part31->setDisposition('attachment');
         $this->assertNull(
             $part->findBody('html')
+        );
+    }
+
+    // Deeply nested creation is OK
+    public function testDeeplyNestedPartCreation()
+    {
+        // Part #1
+        $base_part = $part = new Horde_Mime_Part();
+        $part->setType('multipart/mixed');
+
+        // Part #2-101
+        for ($i = 0; $i < 100; ++$i) {
+            $new_part = new Horde_Mime_Part();
+            $new_part->setType('multipart/mixed');
+            $part->addPart($new_part);
+            $part = $new_part;
+        }
+
+        // Part #102
+        $new_part = new Horde_Mime_Part();
+        $new_part->setType('text/plain');
+        $new_part->setContents('Test');
+        $part->addPart($new_part);
+
+        $base_part->isBasePart(true);
+        $base_part->buildMimeIds();
+
+        $this->assertEquals(
+            102,
+            count($base_part->contentTypeMap())
+        );
+    }
+
+    // Deeply nested parsing is limited
+    public function testDeeplyNestedPartParsing()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/deeply_nested.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            100,  // Actual levels: 102
+            count($part->contentTypeMap())
         );
     }
 

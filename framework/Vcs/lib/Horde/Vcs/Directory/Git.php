@@ -3,7 +3,7 @@
  * Git directory class that stores information about the files in a single
  * directory in the repository.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -59,6 +59,10 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
             'ls-tree --full-name ' . escapeshellarg($this->_branch)
             . ' ' . escapeshellarg($dir));
 
+        $octchr = function($oct) {
+            return chr(octdec($oct[1]));
+        };
+
         /* Create two arrays - one of all the files, and the other of all the
          * dirs. */
         while (!feof($result)) {
@@ -69,7 +73,7 @@ class Horde_Vcs_Directory_Git extends Horde_Vcs_Directory_Base
 
             list(, $type, , $file) = preg_split('/\s+/', $line, -1,
                                                 PREG_SPLIT_NO_EMPTY);
-            $file = preg_replace('/\\\\(\d+)/e', 'chr(0$1)', $file);
+            $file = preg_replace_callback('/\\\\(\d+)/', $octchr, $file);
             $file = str_replace(array('\\t', '\\n', '\\\\'),
                                 array("\t", "\n", '\\'),
                                 $file);

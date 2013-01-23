@@ -1,7 +1,7 @@
 /**
  * dimpbase.js - Javascript used in the base DIMP page.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -667,18 +667,6 @@ var DimpBase = {
                     this.showSearchbar(false);
                 }
 
-                tmp = $('applyfilterlink');
-                if (tmp) {
-                    if (this.isSearch() ||
-                        (!DimpCore.conf.filter_any && this.view != this.INBOX)) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                    }
-
-                    this._sizeFolderlist();
-                }
-
                 if (this.viewport.getMetaData('drafts')) {
                     $('button_resume').up().show();
                     $('button_template', 'button_reply', 'button_forward', 'button_spam', 'button_innocent').compact().invoke('up').invoke('hide');
@@ -1167,6 +1155,12 @@ var DimpBase = {
             }
             break;
 
+        case 'ctx_filteropts_applyfilters':
+            if (this.viewport) {
+                this.viewport.reload({ applyfilter: 1 });
+            }
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1401,6 +1395,13 @@ var DimpBase = {
 
         case 'ctx_template':
             [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
+            break;
+
+        case 'ctx_filteropts':
+            tmp = $('ctx_filteropts_applyfilters');
+            if (tmp) {
+                [ tmp.up('DIV') ].invoke(this.isSearch() || (!DimpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
+            }
             break;
         }
     },
@@ -2055,19 +2056,14 @@ var DimpBase = {
     quotaCallback: function(r)
     {
         var quota = $('quota-text');
-        quota.setText(r.m);
+        quota.removeClassName('quotaalert').
+            removeClassName('quotawarn').
+            setText(r.m);
+
         switch (r.l) {
         case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.addClassName('quotaalert');
-            break;
         case 'warn':
-            quota.removeClassName('quotaalert');
-            quota.addClassName('quotawarn');
-            break;
-        case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.removeClassName('quotaalert');
+            quota.addClassName('quota' + r.l);
             break;
         }
     },
@@ -2607,13 +2603,6 @@ var DimpBase = {
 
         case 'alertsloglink':
             HordeCore.Growler.toggleLog();
-            break;
-
-        case 'applyfilterlink':
-            if (this.viewport) {
-                this.viewport.reload({ applyfilter: 1 });
-            }
-            e.memo.stop();
             break;
 
         case 'appprefs':
@@ -3642,6 +3631,12 @@ var DimpBase = {
     onDomLoad: function()
     {
         var DM = DimpCore.DMenu, tmp;
+
+        /* Wait for DimpCore to be loaded. */
+        if (!DM) {
+            this.onDomLoad.defer();
+            return;
+        }
 
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);

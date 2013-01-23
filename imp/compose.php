@@ -2,7 +2,7 @@
 /**
  * Compose script for basic view.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -17,7 +17,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC,
-    'session_control' => 'netscape'
+    'session_control' => 'netscape',
+    'timezone' => true
 ));
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -35,8 +36,6 @@ if ($vars->actionID == 'mailto_link') {
         exit;
     }
 }
-
-$registry->setTimeZone();
 
 /* The message headers and text. */
 $header = array();
@@ -150,7 +149,8 @@ if ($session->get('imp', 'rteavail')) {
 }
 
 /* Update the file attachment information. */
-if ($session->get('imp', 'file_upload')) {
+$attach_upload = $imp_compose->canUploadAttachment();
+if ($attach_upload) {
     /* Only notify if we are reloading the compose screen. */
     $notify = !in_array($vars->actionID, array('send_message', 'save_draft'));
 
@@ -731,7 +731,6 @@ $view->addHelper('Horde_Core_View_Helper_Help');
 $view->addHelper('Horde_Core_View_Helper_Image');
 $view->addHelper('Horde_Core_View_Helper_Label');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->allow_compose = !$compose_disable;
 $view->post_action = Horde::url('compose.php')->unique();
@@ -741,7 +740,7 @@ $blank_url = new Horde_Url('#');
 if ($redirect) {
     /* Prepare the redirect template. */
     $view->cacheid = $composeCacheID;
-    $view->title = htmlspecialchars($title);
+    $view->title = $title;
     $view->token = $injector->getInstance('Horde_Token')->get('imp.compose');
 
     Horde::startBuffer();
@@ -762,7 +761,7 @@ if ($redirect) {
     $view_output = $view->render('redirect');
 } else {
     /* Prepare the compose template. */
-    $view->file_upload = $session->get('imp', 'file_upload');
+    $view->file_upload = $attach_upload;
     $view->forminput = Horde_Util::formInput();
 
     $hidden = array(
@@ -777,8 +776,8 @@ if ($redirect) {
         'user' => $registry->getAuth()
     );
 
-    if ($session->exists('imp', 'file_upload')) {
-        $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
+    if ($attach_upload) {
+        $hidden['MAX_FILE_SIZE'] = $imp_compose->maxAttachmentSize();
     }
     foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
         $hidden[$val] = $vars->$val;
@@ -885,7 +884,7 @@ if ($redirect) {
             'label' => ''
         );
     }
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
@@ -981,7 +980,7 @@ if ($redirect) {
         $view->attach_vcard = $vars->vcard;
     }
 
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         if (!$imp_compose->maxAttachmentSize()) {
             $view->maxattachsize = true;
         } elseif (!$max_attach) {
@@ -992,7 +991,7 @@ if ($redirect) {
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && !$conf['compose']['link_all_attachments']);
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
@@ -1046,7 +1045,7 @@ if ($redirect) {
                         'class' => 'link',
                         'target' => 'compose_preview_window',
                         'title' => _("Preview")
-                    )) . $entry['name'] . '</a>';
+                    )) . htmlspecialchars($entry['name']) . '</a>';
                 }
 
                 $atc[] = $entry;

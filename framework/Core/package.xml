@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-12-20</date>
- <time>15:36:53</time>
+ <date>2013-01-10</date>
+ <time>11:49:57</time>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.6</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,7 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [mms] Fix spellchecking on HTML data (Bug #11986).
+* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -898,6 +900,7 @@
       <dir name="Stub">
        <file name="Registry.php" role="test" />
       </dir> <!-- /test/Horde/Core/Stub -->
+      <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -1869,6 +1872,7 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Core.po" name="locale/zh_CN/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Core.po" name="locale/zh_TW/LC_MESSAGES/Horde_Core.po" />
    <install as="migration/1_horde_core_base_tables.php" name="migration/Horde/Core/1_horde_core_base_tables.php" />
+   <install as="Horde/Core/ActiveSyncTests.php" name="test/Horde/Core/ActiveSyncTests.php" />
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
    <install as="Horde/Core/bootstrap.php" name="test/Horde/Core/bootstrap.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
@@ -2619,8 +2623,8 @@
    <notes>
 * [mjr] Fix various issues with charset encoding when sending ActiveSync email.
 * [jan] Link back to application from preference screen.
-* [mjr] Fix GAL searching via ActiveSync (Bug #11808, horde@albasoft.com).
-* [mjr] Fix saving sent mail when using ActiveSync (Bug #11805, horde@albasoft.com).
+* [mjr] Fix GAL searching via ActiveSync (horde@albasoft.com, Bug #11808).
+* [mjr] Fix saving sent mail when using ActiveSync (horde@albasoft.com, Bug #11805).
 * [jan] Reset NLS information when changing languages.
 * [jan] Fix downloading files with special characters in Gollem (Bug #11770).
 * [mms] Added Horde_Core_Factory_SpellChecker.
@@ -2653,7 +2657,7 @@
    <notes>
 * [mms] Fix restoring cached theme data (Bug #11906).
 * [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mjr] Fix dismissing reminders without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [mjr] Fix dismissing reminders without session cookies enabled (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11875).
    </notes>
   </release>
   <release>
@@ -2663,10 +2667,54 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-20</date>
+   <date>2012-12-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mjr] Improvements to ActiveSync authentication failure handling.
+* [mjr] Fix issue with Null session driver that could cause authentication to be lost.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix multiple AJAX submits to same hidden IFRAME on the same page (Bug #11928).
+* [mjr] Fix some MIME related issues when sending email via ActiveSync (Bug #11931).
+* [mjr] Fix detecting non-default ActiveSync policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix sourceselect preferences UI that includes multiple sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [mms] Fix spellchecking on HTML data (Bug #11986).
+* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
    </notes>
   </release>
  </changelog>

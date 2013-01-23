@@ -2,7 +2,7 @@
 /**
  * Ingo_Transport_Vfs implements an Ingo storage driver using Horde VFS.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -108,8 +108,6 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
     {
         /* Do variable substitution. */
         if (!empty($this->_params['vfs_path'])) {
-            $user = Ingo::getUser();
-            $domain = Ingo::getDomain();
             $this->_params['vfs_path'] = str_replace(
                 array('%u', '%d', '%U'),
                 array(Ingo::getUser(), Ingo::getDomain(), $this->_params['username']),

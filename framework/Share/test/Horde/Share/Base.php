@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -585,7 +585,7 @@ class Horde_Share_Test_Base extends Horde_Test_Case
         $this->assertArrayHasKey('joeshare', self::$share->listAllShares());
     }
 
-    public function callback($share)
+    public function callbackSetShareOb($share)
     {
         $share->setShareOb(new Horde_Support_Stub());
         $this->assertEquals($share, unserialize(serialize($share)));

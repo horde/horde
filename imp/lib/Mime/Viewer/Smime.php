@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -27,7 +27,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -259,7 +259,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
 
         $imp_contents = $this->getConfigParam('imp_contents');
         $stream = $imp_contents->isEmbedded($base_id)
-            ? $this->_mimepart->getMetadata('imp-smime-decrypt')
+            ? $this->_mimepart->getMetadata('imp-smime-decrypt')->stream
             : $this->_getPartStream($base_id);
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 

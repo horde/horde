@@ -14,7 +14,7 @@
 /**
  * Horde_Prefs_Identity based information provider for an invited resource.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -70,13 +70,13 @@ implements Horde_Itip_Resource
     }
 
     /**
-     * Retrieve the mail address of the resource.
+     * Retrieve the bare email address of the resource. I.e., addr-spec.
      *
      * @return string The mail address.
      */
     public function getMailAddress()
     {
-        return $this->_identity->getFromAddress();
+        return $this->_identity->getFromAddress()->bare_address;
     }
 
     /**

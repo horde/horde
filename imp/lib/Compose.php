@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -538,7 +538,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             );
 
             if ($val = $headers->getValue('references')) {
-                $this->_metadata['references'] = $val;
+                $ref_ob = new IMP_Compose_References();
+                $ref_ob->parse($val);
+                $this->_metadata['references'] = $ref_ob->references;
 
                 if ($val = $headers->getValue('in-reply-to')) {
                     $this->_metadata['in_reply_to'] = $val;
@@ -988,8 +990,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if ($this->replyType(true) == self::REPLY) {
-            if ($this->getMetadata('references')) {
-                $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
+            if ($refs = $this->getMetadata('references')) {
+                $ob->addHeader('References', implode(' ', $refs));
             }
             if ($this->getMetadata('in_reply_to')) {
                 $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
@@ -1572,11 +1574,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (($msg_id = $h->getValue('message-id'))) {
                 $this->_metadata['in_reply_to'] = chop($msg_id);
 
-                if (($refs = $h->getValue('references'))) {
-                    $refs .= ' ' . $this->_metadata['in_reply_to'];
+                if ($refs = $h->getValue('references')) {
+                    $ref_ob = new IMP_Compose_References();
+                    $ref_ob->parse($refs);
+                    $refs = $ref_ob->references;
                 } else {
-                    $refs = $this->_metadata['in_reply_to'];
+                    $refs = array();
                 }
+                $refs[] = $this->_metadata['in_reply_to'];
                 $this->_metadata['references'] = $refs;
             }
         }
@@ -2535,19 +2540,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * What is the maximum attachment size allowed?
+     * What is the maximum attachment size remaining?
      *
-     * @return integer  The maximum attachment size allowed (in bytes).
+     * @return integer  The maximum attachment size remaining (in bytes).
      */
     public function maxAttachmentSize()
     {
         $size = $GLOBALS['session']->get('imp', 'file_upload');
 
-        if (!empty($GLOBALS['conf']['compose']['attach_size_limit'])) {
-            return min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
-        }
-
-        return $size;
+        return empty($GLOBALS['conf']['compose']['attach_size_limit'])
+            ? $size
+            : min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
     }
 
     /**
@@ -3006,22 +3009,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Shortcut function to convert text -> HTML for purposes of composition.
-     *
-     * @param string $msg  The message text.
-     *
-     * @return string  HTML text.
-     */
-    static public function text2html($msg)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
-            'always_mailto' => true,
-            'flowed' => self::HTML_BLOCKQUOTE,
-            'parselevel' => Horde_Text_Filter_Text2html::MICRO
-        ));
-    }
-
-    /**
      * Store draft compose data if session expires.
      *
      * @param Horde_Variables $vars  Object with the form data.
@@ -3121,6 +3108,34 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return null;
         }
+    }
+
+    /* Static methods. */
+
+    /**
+     * Can attachments be uploaded?
+     *
+     * @return boolean  True if attachments can be uploaded.
+     */
+    static public function canUploadAttachment()
+    {
+        return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+    }
+
+    /**
+     * Shortcut function to convert text -> HTML for purposes of composition.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
+            'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+        ));
     }
 
     /* ArrayAccess methods. */

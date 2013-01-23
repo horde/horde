@@ -1,5 +1,5 @@
 <div id="msgheaders">
- <p><?php echo $this->label ?></p>
+ <p><?php echo $this->escape($this->label) ?></p>
  <table>
 <?php foreach ($this->headers as $v): ?>
   <tr<?php if (!empty($v['class'])): ?> class="<?php echo $v['class'] ?>"<?php endif; ?>>

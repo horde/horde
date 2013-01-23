@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -52,7 +52,11 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
         // and just forward it to the backend. We provide no output except for
         // an OK http reply
         $stream = fopen('php://temp/maxmemory:2097152', 'r+');
-        stream_copy_to_stream(fopen('php://input', 'r'), $stream);
+        $input = fopen('php://input', 'r');
+        while (!feof($input)) {
+            fwrite($stream, fread($input, 8192));
+        }
+        fclose($input);
         try {
             $result = $this->_driver->sendMail($stream, false, false, false, true);
             fclose($stream);

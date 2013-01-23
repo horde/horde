@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -26,7 +26,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -54,6 +54,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
+            $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;
@@ -61,6 +62,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         case $registry::VIEW_DYNAMIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
+            $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;

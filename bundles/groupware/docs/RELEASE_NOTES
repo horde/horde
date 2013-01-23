@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Rel
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Horde Groupware
-version 5.0.2.
+version 5.0.3.
 
 Horde Groupware is a free, enterprise ready, browser based collaboration
 suite. Users can manage and share calendars, contacts, tasks and notes with the
@@ -27,32 +27,30 @@ http://www.horde.org/apps/groupware/docs/UPGRADING
 For detailed installation and configuration instructions, please see
 http://www.horde.org/apps/groupware/docs/INSTALL
 
-The major changes compared to the Horde Groupware version 5.0.1 are:
+The major changes compared to the Horde Groupware version 5.0.2 are:
 
 General changes:
-    * Fixed adding and removing of users.
+    * Fixed top menu updating bugs.
+    * Updated Basque translation.
     * Improved ActiveSync compatibility.
     * Improved Kolab compatibility.
     * Small bugfixes and improvements.
 
-Address Book Changes:
-    * Fixed searching shared address books for duplicates.
-
 Calendar changes:
-    * Translated holiday drivers.
+    * Fixed moving events between calendars.
 
-Tasks Changes:
-    * Fixed importing tasks from iCalendar data.
+Notes Changes:
+    * Fixed import.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
 Improved ActiveSync compatibility.
 Improved Kolab compatibility.
-Translated holiday drivers.
-Fixed adding and removing of users.
-Fixed searching shared address books for duplicates.
-Fixed importing tasks from iCalendar data.
+Fixed top menu updating bugs.
+Fixed moving events between calendars.
+Fixed notes import.
+Updated Basque translation.
 Small bugfixes and improvements.
 FM;
 

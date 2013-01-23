@@ -9,7 +9,7 @@
 <?php endif ?>
 <?php if ($this->search): ?>
   <div id="horde-search">
-    <form action="<?php echo $this->searchAction ?>" method="post">
+    <form action="<?php echo $this->searchAction ?>" method="get">
 <?php if ($this->searchMenu): ?>
       <div class="horde-fake-input">
         <span id="horde-search-dropdown">

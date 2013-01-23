@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2012 Horde LLC
- * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 
@@ -16,8 +16,8 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012 Horde LLC
- * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 class IMP_Dynamic_Compose extends IMP_Dynamic_Base
@@ -215,7 +215,9 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
             $onload = $compose_ajax->getBaseResponse();
-            $onload->body = strval($args['body']);
+            $onload->body = isset($args['body'])
+                ? strval($args['body'])
+                : '';
             $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';

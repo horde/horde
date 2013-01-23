@@ -4,7 +4,7 @@
  * between Horde applications and keeping track of application
  * configuration information.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -458,6 +458,7 @@ class Horde_Registry
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $GLOBALS['session'] = $session = new Horde_Session_Null();
+            $session->setup(true, $args['session_cache_limiter']);
         } elseif (PHP_SAPI == 'cli' ||
                   ((PHP_SAPI == 'cgi' || PHP_SAPI == 'cgi-fcgi') &&
                     empty($_SERVER['SERVER_NAME']))) {

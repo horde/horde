@@ -2,7 +2,7 @@
 /**
  * Wrapper around backtraces providing utility methods.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support

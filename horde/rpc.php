@@ -8,14 +8,14 @@
  *                                  present.
  *   - wsdl: TODO
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -24,7 +24,7 @@ require_once __DIR__ . '/lib/Application.php';
 // Since different RPC servers have different session requirements, we can't
 // call appInit() until we know which server we are requesting. We  don't
 // initialize the application until after we know the rpc server we want.
-$input = $session_control = null;
+$input = $session_control = $cache_control = null;
 $nocompress = false;
 $params = array();
 
@@ -39,6 +39,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
     $serverType = 'ActiveSync';
     $nocompress = true;
     $session_control = 'none';
+    $cache_control = 'private';
 } elseif (!empty($_SERVER['PATH_INFO']) ||
           in_array($_SERVER['REQUEST_METHOD'], array('DELETE', 'PROPFIND', 'PUT', 'OPTIONS'))) {
     $serverType = 'Webdav';
@@ -73,7 +74,8 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 Horde_Registry::appInit('horde', array(
     'authentication' => 'none',
     'nocompress' => $nocompress,
-    'session_control' => $session_control
+    'session_control' => $session_control,
+    'session_cache_limiter' => $cache_control
 ));
 
 $request = $injector->getInstance('Horde_Controller_Request');

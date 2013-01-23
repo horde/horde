@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -307,7 +307,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
                 $folder->setChanges($search_ret['match']->ids, $flags);
             }
-        } else {
+        } elseif (!$condstore || ($condstore && $modseq == 0)) {
             $this->_logger->debug('NO CONDSTORE or per mailbox MODSEQ: ' . $folder->minuid);
             $query = new Horde_Imap_Client_Search_Query();
             $search_ret = $imap->search(
@@ -451,7 +451,9 @@ class Horde_ActiveSync_Imap_Adapter
             $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
         }
         foreach ($results as $data) {
-            $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+            if ($data->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+                $ret[] = $this->_buildMailMessage($mbox, $data, $options);
+            }
         }
 
         return $ret;
@@ -539,11 +541,10 @@ class Horde_ActiveSync_Imap_Adapter
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $messages = $this->_getMailMessages($mbox, array($uid));
-        if (empty($messages[$uid])) {
+        if (!$messages[$uid]->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
             throw new Horde_ActiveSync_Exception('Message Gone');
         }
-        $msg = new Horde_ActiveSync_Imap_Message(
-            $imap, $mbox, $messages[$uid]);
+        $msg = new Horde_ActiveSync_Imap_Message($imap, $mbox, $messages[$uid]);
         $part = $msg->getMimePart($part);
 
         return $part;
@@ -569,7 +570,9 @@ class Horde_ActiveSync_Imap_Adapter
         $messages = $this->_getMailMessages($mbox, $uid, $options);
         $res = array();
         foreach ($messages as $id => $message) {
-            $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+            if ($message->exists(Horde_Imap_Client::FETCH_STRUCTURE)) {
+                $res[$id] = new Horde_ActiveSync_Imap_Message($this->_getImapOb(), $mbox, $message);
+            }
         }
 
         return $res;
@@ -741,7 +744,7 @@ class Horde_ActiveSync_Imap_Adapter
             return $imap->fetch($mbox, $query, array('ids' => $ids));
         } catch (Horde_Imap_Client_Exception $e) {
             $this->_logger->err(sprintf(
-                "Unable to fetch message: %s",
+                'Unable to fetch message: %s',
                 $e->getMessage()));
             throw new Horde_ActiveSync_Exception($e);
         }
@@ -820,8 +823,9 @@ class Horde_ActiveSync_Imap_Adapter
         }
         $eas_message->importance = $this->_getEASImportance($importance);
 
+        // Get the body data and ensure we have something to send.
+        $message_body_data = $imap_message->getMessageBodyData($options);
         if ($version == Horde_ActiveSync::VERSION_TWOFIVE) {
-            $message_body_data = $imap_message->getMessageBodyData($options);
             $eas_message->body = $this->_validateUtf8(
                 $message_body_data['plain']['body'],
                 $message_body_data['plain']['charset']
@@ -830,8 +834,7 @@ class Horde_ActiveSync_Imap_Adapter
             $eas_message->bodytruncated = $message_body_data['plain']['truncated'];
             $eas_message->attachments = $imap_message->getAttachments($version);
         } else {
-            // Determine the message's native type.
-            $message_body_data = $imap_message->getMessageBodyData($options);
+            // Get the message body and determine original type.
             if (!empty($message_body_data['html'])) {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_HTML;
             } else {
@@ -932,7 +935,8 @@ class Horde_ActiveSync_Imap_Adapter
                     $message_body_data['html'] = array(
                         'body' => $message_body_data['plain']['body'],
                         'estimated_size' => $message_body_data['plain']['size'],
-                        'truncated' => $message_body_data['plain']['truncated']
+                        'truncated' => $message_body_data['plain']['truncated'],
+                        'charset' => $message_body_data['plain']['charset']
                     );
                 } else {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_HTML;
@@ -1062,7 +1066,6 @@ class Horde_ActiveSync_Imap_Adapter
      */
     protected function _getEASImportance($importance)
     {
-        $this->_logger->debug($importance);
         switch (strtolower($importance)) {
         case '1':
         case 'high':
@@ -1149,10 +1152,7 @@ class Horde_ActiveSync_Imap_Adapter
         try {
             return $this->_imap->getImapOb();
         } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err(sprintf(
-                "EMERGENCY - Unable to obtain the IMAP Client: %s",
-                $e->getTraceAsString()));
-            throw $e;
+            throw new Horde_Exception_AuthenticationFailure('EMERGENCY - Unable to obtain the IMAP Client');
         }
     }
 
@@ -1203,7 +1203,7 @@ class Horde_ActiveSync_Imap_Adapter
                 } else {
                     return Horde_String::convertCharset($data, $from_charset, 'UTF-8', true);
                 }
-                $data = substr($data, $chuck_size);
+                $data = substr($data, $chunk_size);
             }
         }
 

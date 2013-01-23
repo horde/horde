@@ -3,7 +3,7 @@
  *
  * TODO: loadingImg()
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -874,7 +874,7 @@ KronolithCore = {
             date7 = date.clone().add(1).week(),
             today = Date.today(),
             week = this.viewDates(this.date, 'week'),
-            workweek = [ week[0], week[1].clone().add(-2).day() ],
+            workweek = this.viewDates(this.date, 'workweek'),
             dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -2958,14 +2958,13 @@ KronolithCore = {
             case 'holiday':
                 $('kronolithCalendarholidayDriver').update();
                 $H(Kronolith.conf.calendars.holiday).each(function(calendar) {
-                    calendar = calendar.value;
-                    if (calendar.show) {
+                    if (calendar.value.show) {
                         return;
                     }
                     $('kronolithCalendarholidayDriver').insert(
-                        new Element('option', { value: calendar.name })
-                            .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
-                            .insert(calendar.name.escapeHTML())
+                        new Element('option', { value: calendar.key })
+                            .setStyle({ color: calendar.value.fg, backgroundColor: calendar.value.bg })
+                            .insert(calendar.value.name.escapeHTML())
                     );
                 });
                 break;
@@ -3686,6 +3685,9 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
+            if (view == 'workweek') {
+                start.add(1).days();
+            }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
@@ -5412,7 +5414,9 @@ KronolithCore = {
     quickClose: function()
     {
         $('kronolithQuickinsertQ').value = '';
-        $('kronolithQuicktaskQ').value = '';
+        if ($('kronolithQuicktaskQ')) {
+            $('kronolithQuicktaskQ').value = '';
+        }
         this.closeRedBox();
     },
 

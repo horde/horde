@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -58,8 +58,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         // Be optimistic
         $this->_statusCode = self::STATUS_SUCCESS;
         $this->_logger->info(sprintf(
-            "[%s] Handling FOLDERSYNC command.",
-            $this->_device->id));
+            '[%s] Handling FOLDERSYNC command.',
+            $this->_procid));
 
         // Check policy
         if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
@@ -105,7 +105,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $syncCache = new Horde_ActiveSync_SyncCache(
                 $this->_stateDriver,
                 $this->_device->id,
-                $this->_device->user);
+                $this->_device->user,
+                $this->_logger);
             if (count($syncCache->getFolders())) {
                 if (empty($synckey)) {
                     $syncCache->clearFolders();
@@ -124,7 +125,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             }
             $this->_logger->debug(sprintf(
                 '[%s] Using syncCache',
-                $this->_device->id)
+                $this->_procid)
             );
         } else {
             $syncCache = false;
@@ -253,8 +254,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     $syncFolder['type'] == $folder->type) {
 
                     $this->_logger->debug(sprintf(
-                        "[%s] Ignoring %s from changes because it contains no changes from device.",
-                        $this->_device->id,
+                        '[%s] Ignoring %s from changes because it contains no changes from device.',
+                        $this->_procid,
                         $folder->serverid)
                     );
                     unset($exporter->changed[$key]);
@@ -268,8 +269,8 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             foreach ($exporter->deleted as $key => $folder) {
                 if (($sid = array_search($folder, $seenfolders)) === false) {
                     $this->_logger->debug(sprintf(
-                        "[%s] Ignoring %s from deleted list because the device does not know it",
-                        $this->_device->id,
+                        '[%s] Ignoring %s from deleted list because the device does not know it',
+                        $this->_procid,
                         $folder)
                     );
                     unset($exporter->deleted[$key]);

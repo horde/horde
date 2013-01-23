@@ -1,7 +1,25 @@
 ----------
-v4.0.3-git
+v4.0.4-git
 ----------
 
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix some issues with workweek views if first day of week is Sunday (Bug
+      #11973).
+[jan] Fix adding holiday calendars if not using English locale (Bug #11961).
+[jan] More robust date parsing during event importing (Bug #11916).
+[jan] Always export year numbers with four digits to CSV (Request #11917).
+[jan] Fix JavaScript error if Nag is not installed.
+
+
+------
+v4.0.3
+------
+
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
+[jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11880).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix moving events between calendars (Bug #11830).
 [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).

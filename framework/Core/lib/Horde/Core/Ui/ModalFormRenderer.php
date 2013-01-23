@@ -2,7 +2,7 @@
 /**
  * Horde Modal Form Renderer
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://opensource.org/licenses/lgpl-2.1.php
@@ -15,20 +15,6 @@
 class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
 {
     var $_stripedRows = false;
-
-    /**
-     * Constructor
-     *
-     * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:
-     *                       - 'varrenderer_driver': specifies the driver
-     *                         parameter to Horde_Core_Ui_VarRenderer::factory().
-     *                       - 'encode_title': @see $_encodeTitle
-     */
-    public function __construct($params = array())
-    {
-        parent::__construct_Renderer($params);
-    }
 
     function _renderSectionBegin(&$form, $section)
     {

@@ -7,8 +7,16 @@ v3.1.0-git
 
 
 ----------
-v3.0.2-git
+v3.0.3-git
 ----------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v3.0.2
+------
 
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix changing permissions for shared rulesets.

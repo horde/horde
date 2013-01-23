@@ -14,7 +14,7 @@
 <?php foreach ($this->mboxes as $v): ?>
   <tr>
    <td class="leftAlign">
-    <?php echo $this->h($v['name']) ?>
+    <?php echo $this->escape($v['name']) ?>
    </td>
    <td class="rightAlign" sortval="<?php echo $v['sort'] ?>">
     <?php echo $v['size'] ?>

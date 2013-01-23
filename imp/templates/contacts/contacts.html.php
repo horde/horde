@@ -11,12 +11,12 @@
 <div id="contactstable" class="headerbox item">
  <p class="control">
   <label for="search"><strong><?php echo _("Find") ?>:</strong></label>
-  <input value="<?php echo $this->h($this->search) ?>" id="search" name="search" />
+  <input value="<?php echo $this->escape($this->search) ?>" id="search" name="search" />
 <?php if (is_array($this->source_list)): ?>
   <strong><label for="source"><?php echo _("from") ?></label></strong>
   <select id="source" name="source">
 <?php foreach ($this->source_list as $v): ?>
-   <?php echo $this->optionTag($v['val'], $v['label'], $v['selected']) ?>
+   <?php echo $this->optionTag($v['val'], $this->escape($v['label']), $v['selected']) ?>
 <?php endforeach; ?>
   </select>
 <?php else: ?>
@@ -32,7 +32,7 @@
     <label for="search_results" class="hidden"><?php echo _("Search Results") ?></label>
     <select id="search_results" name="search_results" multiple="multiple" size="10">
      <option disabled="disabled" value="">* <?php echo _("Please select address(es)") ?> *</option>
-<?php foreach ($this->a_list as $v): ?>
+<?php foreach (array_map(array($this, 'escape'), $this->a_list) as $v): ?>
      <?php echo $this->optionTag($v, $v) ?>
 <?php endforeach; ?>
     </select>
@@ -48,7 +48,7 @@
     <label for="selected_addresses" class="hidden"><?php echo _("Selected Addresses") ?></label>
     <select id="selected_addresses" name="selected_addresses" multiple="multiple" size="10">
      <option disabled="disabled" value="">* <?php echo _("Add these by clicking OK") ?> *</option>
-<?php foreach ($this->sa as $v): ?>
+<?php foreach (array_map(array($this, 'escape'), $this->sa) as $v): ?>
      <?php echo $this->optionTag($v, $v) ?>
 <?php endforeach; ?>
     </select>

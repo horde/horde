@@ -333,9 +333,6 @@ $backends['file'] = array(
         'download',
         'modified',
         'size',
-        'permission',
-        'owner',
-        'group'
     )
 );
 

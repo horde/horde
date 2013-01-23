@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -60,6 +60,18 @@ class Turba_Driver_Share extends Turba_Driver
     public function __call($method, $args)
     {
         return call_user_func_array(array($this->_driver, $method), $args);
+    }
+
+    /**
+     * Checks if this backend has a certain capability.
+     *
+     * @param string $capability  The capability to check for.
+     *
+     * @return boolean  Supported or not.
+     */
+    public function hasCapability($capability)
+    {
+        return $this->_driver->hasCapability($capability);
     }
 
     /**
@@ -164,7 +176,7 @@ class Turba_Driver_Share extends Turba_Driver
      */
     protected function _makeUid()
     {
-        return $this->_driver->_makeUid($attributes);
+        return $this->_driver->_makeUid();
     }
 
     /**

@@ -282,9 +282,13 @@ class Horde_Date
      */
     public function toDateTime()
     {
-        $date = new DateTime(null, new DateTimeZone($this->_timezone));
-        $date->setDate($this->_year, $this->_month, $this->_mday);
-        $date->setTime($this->_hour, $this->_min, $this->_sec);
+        try {
+            $date = new DateTime(null, new DateTimeZone($this->_timezone));
+            $date->setDate($this->_year, $this->_month, $this->_mday);
+            $date->setTime($this->_hour, $this->_min, $this->_sec);
+        } catch (Exception $e) {
+            throw new Horde_Date_Exception($e);
+        }
         return $date;
     }
 

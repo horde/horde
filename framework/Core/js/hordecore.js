@@ -10,7 +10,7 @@
  *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -134,21 +134,22 @@ var HordeCore = {
         form = $(form);
         opts = opts || {};
 
-        if (this.submit_frame[form.identify()]) {
-            return;
+        var sf, fid = form.identify();
+
+        if (!this.submit_frame[fid]) {
+            var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+            $(document.body).insert(sf);
+
+            sf.observe('load', function(sf) {
+                this.doActionComplete({
+                    responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
+                }, opts);
+            }.bind(this, sf));
+
+            this.submit_frame[fid] = sf;
         }
 
-        var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
-        $(document.body).insert(sf);
-        $(form).writeAttribute('target', 'submit_frame');
-
-        sf.observe('load', function(sf) {
-            this.doActionComplete({
-                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
-            }, opts);
-        }.bind(this, sf));
-
-        this.submit_frame[form.identify()] = sf;
+        form.writeAttribute('target', 'submit_frame');
     },
 
     // params: (Hash) URL parameters

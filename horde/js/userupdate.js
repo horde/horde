@@ -1,8 +1,8 @@
 /**
  * Provides the javascript for the admin user update page.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
 var HordeAdminUserUpdate = {

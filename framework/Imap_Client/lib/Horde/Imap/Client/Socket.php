@@ -8,14 +8,14 @@
  * from the Squirrelmail project.
  * Copyright (c) 1999-2007 The SquirrelMail Project Team
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
  * @copyright 1999-2007 The SquirrelMail Project Team
- * @copyright 2005-2012 Horde LLC
+ * @copyright 2005-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -107,7 +107,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 1999-2007 The SquirrelMail Project Team
- * @copyright 2005-2012 Horde LLC
+ * @copyright 2005-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -1021,6 +1021,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _renameMailbox(Horde_Imap_Client_Mailbox $old,
                                       Horde_Imap_Client_Mailbox $new)
     {
+        // Some IMAP servers will not allow a rename of a currently open
+        // mailbox.
+        if ($old->equals($this->_selected)) {
+            $this->close();
+        }
+
         // RENAME returns no untagged information (RFC 3501 [6.3.5])
         $cmd = $this->_clientCommand(array(
             'RENAME',
@@ -1516,6 +1522,9 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                                 $this->_appendData($v['v'])
                             ));
                         } else {
+                            if (is_resource($v['v'])) {
+                                rewind($v['v']);
+                            }
                             $data_stream->add($v['v']);
                         }
                         break;
@@ -1536,7 +1545,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 if ($catenate) {
                     $cmd->add($tmp);
                 } else {
-                    $cmd->add($this->_appendData($data_stream));
+                    $cmd->add($this->_appendData($data_stream->stream));
                 }
             } else {
                 $cmd->add($this->_appendData($data[$key]['data']));
@@ -2752,7 +2761,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (isset($this->_temp['fetch_resp'])) {
-            $this->_temp['fetch_resp']->get(is_null($uid) ? $id : $uid)->merge($ob);
+            switch ($this->_temp['fetch_resp']->key_type) {
+            case Horde_Imap_Client_Fetch_Results::SEQUENCE:
+                $this->_temp['fetch_resp']->get($id)->merge($ob);
+                break;
+
+            case Horde_Imap_Client_Fetch_Results::UID:
+                if (!is_null($uid)) {
+                    $this->_temp['fetch_resp']->get($uid)->merge($ob);
+                }
+                break;
+            }
         }
 
         if (!is_null($uid)) {

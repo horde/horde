@@ -1,7 +1,7 @@
 /**
  * Autocomplete widget for jQuery Mobile.
  *
- * Copyright (c) 2012 The Horde Project (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * - Original released under MIT license -
  *
@@ -75,8 +75,8 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
             if (data) {
                 $.each(data, function(i, v) {
-                    var li = $('<li>').jqmData('icon', opts.icon),
-                        a = $('<a>').jqmData('transition', opts.transition).appendTo(li);
+                    var li = $('<li></li>').jqmData('icon', opts.icon),
+                        a = $('<a></a>').jqmData('transition', opts.transition).appendTo(li);
 
                     // are we working with objects or strings?
                     if ($.isPlainObject(v)) {

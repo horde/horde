@@ -3,7 +3,7 @@
  * This class provides an object-oriented representation of a MIME part
  * (defined by RFC 2045).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,6 +36,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
     /* Unknown types. */
     const UNKNOWN = 'x-unknown';
+
+    /* MIME nesting limit. */
+    const NESTING_LIMIT = 100;
 
     /**
      * The default charset to use when parsing text parts with no charset
@@ -1069,7 +1072,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $disposition = $this->getDisposition();
         $disp_params = $this->getAllDispositionParameters();
         $name = $this->getName();
-        if ($disposition || !empty($name) || !empty($disp_params)) {
+        $disp_params_copy = $disp_params;
+        unset($disp_params_copy['size']);
+        if ($disposition || !empty($name) || !empty($disp_params_copy)) {
             if (!$disposition) {
                 $disposition = 'attachment';
             }
@@ -1459,23 +1464,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             return 0;
         }
 
-        $kb = $bytes / 1024;
         $localeinfo = Horde_Nls::getLocaleInfo();
-
-        /* Reduce need for decimals as part size gets larger. */
-        if ($kb > 100) {
-            $decimals = 0;
-        } elseif ($kb > 10) {
-            $decimals = 1;
-        } else {
-            $decimals = 2;
-        }
 
         // TODO: Workaround broken number_format() prior to PHP 5.4.0.
         return str_replace(
             array('X', 'Y'),
             array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
-            number_format($kb, $decimals, 'X', 'Y')
+            number_format($bytes / 1024, 0, 'X', 'Y')
         );
     }
 
@@ -1937,22 +1932,24 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * This function can be called statically via:
      *    $mime_part = Horde_Mime_Part::parseMessage();
      *
-     * @param string $text    The text of the MIME message.
-     * @param array $options  Additional options:
+     * @param string $text  The text of the MIME message.
+     * @param array $opts   Additional options:
      *   - forcemime: (boolean) If true, the message data is assumed to be
      *                MIME data. If not, a MIME-Version header must exist (RFC
      *                2045 [4]) to be parsed as a MIME message.
      *                DEFAULT: false
+     *   - level: (integer) Current nesting level of the MIME data.
+     *            DEFAULT: 0
      *
      * @return Horde_Mime_Part  A MIME Part object.
      * @throws Horde_Mime_Exception
      */
-    static public function parseMessage($text, $options = array())
+    static public function parseMessage($text, array $opts = array())
     {
         /* Find the header. */
         list($hdr_pos, $eol) = self::_findHeader($text);
 
-        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($options['forcemime']));
+        $ob = self::_getStructure(substr($text, 0, $hdr_pos), substr($text, $hdr_pos + $eol), null, !empty($opts['forcemime']), empty($opts['level']) ? 0 : $opts['level']);
         $ob->buildMimeIds();
         return $ob;
     }
@@ -1966,12 +1963,13 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      * @param boolean $forcemime  If true, the message data is assumed to be
      *                            MIME data. If not, a MIME-Version header
      *                            must exist to be parsed as a MIME message.
+     * @param integer $level      Current nesting level.
      *
      * @return Horde_Mime_Part  TODO
      */
     static protected function _getStructure($header, $body,
                                             $ctype = 'application/octet-stream',
-                                            $forcemime = false)
+                                            $forcemime = false, $level = 0)
     {
         /* Parse headers text into a Horde_Mime_Headers object. */
         $hdrs = Horde_Mime_Headers::parseHeaders($header);
@@ -2039,6 +2037,10 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
         }
 
+        if (++$level >= self::NESTING_LIMIT) {
+            return $ob;
+        }
+
         /* Process subparts. */
         switch ($ob->getPrimaryType()) {
         case 'message':
@@ -2053,7 +2055,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
                 foreach ($b_find as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
-                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true));
+                    $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true, $level));
                 }
             }
             break;

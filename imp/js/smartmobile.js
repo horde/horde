@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -402,7 +402,7 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, data) {
-            var c = $('<li class="imp-message">')
+            var c = $('<li class="imp-message"></li>')
                     .jqmData('mbox', data.mbox)
                     .jqmData('uid', data.uid),
                 url = HordeMobile.createUrl('message', {
@@ -434,11 +434,11 @@ var ImpMobile = {
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '">').html(data.subject)).append(
-                    $('<div class="imp-mailbox-secondrow">').append(
-                        $('<span class="imp-mailbox-date">').text(
+                    $('<a href="' + url + '"></a>').html(data.subject)).append(
+                    $('<div class="imp-mailbox-secondrow"></div>').append(
+                        $('<span class="imp-mailbox-date"></span>').text(
                             data.date)).append(
-                        $('<span class="imp-mailbox-from">').text(
+                        $('<span class="imp-mailbox-from"></span>').text(
                             data.from))));
         });
 
@@ -500,7 +500,7 @@ var ImpMobile = {
                 force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
+                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
             }),
             ImpMobile.messageLoaded
         );
@@ -696,10 +696,10 @@ var ImpMobile = {
 
         $.each(ImpMobile.headers, function(k, header) {
             if (header.value) {
-                h.append($('<tr>')
-                    .append($('<td class="imp-header-label">')
+                h.append($('<tr></tr>')
+                    .append($('<td class="imp-header-label"></td>')
                         .html(header.name + ':'))
-                    .append($('<td>').html(header.value)
+                    .append($('<td></td>').html(header.value)
                 ));
             }
         });
@@ -720,7 +720,7 @@ var ImpMobile = {
         $.each(ImpMobile.atc, function(k, v) {
             list.append(
                 $('<li class="imp-message-atc"></li>').append(
-                    $('<a>').attr({
+                    $('<a></a>').attr({
                         href: v.download_url,
                         target: 'download'
                     }).append(
@@ -1026,7 +1026,7 @@ var ImpMobile = {
             }), {
                 mboxto: value,
                 newmbox: $('#imp-copymove-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ]),
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
             })
         );
 

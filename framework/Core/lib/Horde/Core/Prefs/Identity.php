@@ -3,7 +3,7 @@
  * This class provides Horde-specific functions for the Horde_Prefs_Identity
  * class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -123,7 +123,11 @@ class Horde_Core_Prefs_Identity extends Horde_Prefs_Identity
      */
     public function getFromAddress($ident = null)
     {
-        return $GLOBALS['prefs']->getValue('from_addr');
+        $from = $this->getValue('from_addr', $ident);
+        if (!strlen($from)) {
+            $from = $GLOBALS['registry']->getAuth();
+        }
+        return $from;
     }
 
     /**

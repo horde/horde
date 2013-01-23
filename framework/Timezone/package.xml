@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:08:33</time>
+ <date>2013-01-16</date>
+ <time>10:53:04</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -22,10 +22,17 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add license file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Timezone">
+      <file name="COPYING" role="doc" />
+     </dir> <!-- /doc/Horde/Timezone -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
    <dir name="lib">
     <dir name="Horde">
      <dir name="Timezone">
@@ -96,6 +103,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/Timezone/COPYING" />
    <install as="Horde/Timezone.php" name="lib/Horde/Timezone.php" />
    <install as="Horde/Timezone/Exception.php" name="lib/Horde/Timezone/Exception.php" />
    <install as="Horde/Timezone/Rule.php" name="lib/Horde/Timezone/Rule.php" />
@@ -159,10 +167,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-16</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add license file.
    </notes>
   </release>
  </changelog>
