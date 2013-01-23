@@ -84,7 +84,7 @@ class IMP_Dynamic_Compose_Common
             $view->compose_html = !empty($args['show_editor']);
             $view->rte = true;
 
-            $injector->getInstance('IMP_Ui_Editor')->init(!$view->compose_html);
+            $injector->getInstance('IMP_Editor')->init(!$view->compose_html);
         }
 
         /* Create list for sent-mail selection. */

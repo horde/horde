@@ -1049,7 +1049,7 @@ if ($redirect) {
 }
 
 if ($rtemode && !$redirect) {
-    $injector->getInstance('IMP_Ui_Editor')->init(false, 'composeMessage');
+    $injector->getInstance('IMP_Editor')->init(false, 'composeMessage');
 }
 
 if (!$showmenu) {

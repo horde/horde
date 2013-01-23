@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-22</date>
- <time>22:33:14</time>
+ <time>22:33:39</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -390,7 +390,6 @@
     <dir name="Ui">
      <file name="Compose.php" role="horde" />
      <file name="Contacts.php" role="horde" />
-     <file name="Editor.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
@@ -406,6 +405,7 @@
     <file name="Auth.php" role="horde" />
     <file name="Compose.php" role="horde" />
     <file name="Contents.php" role="horde" />
+    <file name="Editor.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
@@ -1383,6 +1383,7 @@
    <install as="imp/lib/Auth.php" name="lib/Auth.php" />
    <install as="imp/lib/Compose.php" name="lib/Compose.php" />
    <install as="imp/lib/Contents.php" name="lib/Contents.php" />
+   <install as="imp/lib/Editor.php" name="lib/Editor.php" />
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
@@ -1596,7 +1597,6 @@
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
-   <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
