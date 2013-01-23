@@ -274,9 +274,7 @@ class IMP_Auth
      * Returns the initial page.
      *
      * @return object  Object with the following properties:
-     *   - fullpath (string)
      *   - mbox (IMP_Mailbox)
-     *   - page (string)
      *   - url (Horde_Url)
      */
     static public function getInitialPage()
@@ -301,7 +299,6 @@ class IMP_Auth
 
         switch ($GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
-            $page = 'basic.php';
             $result->url = is_null($mbox)
                 ? IMP_Basic_Folders::url()
                 : $mbox->url('mailbox');
@@ -311,29 +308,19 @@ class IMP_Auth
             $result->url = IMP_Dynamic_Mailbox::url(array(
                 'mailbox' => is_null($mbox) ? 'INBOX' : $mbox
             ));
-            $page = 'dynamic.php';
             break;
 
         case Horde_Registry::VIEW_MINIMAL:
-            $page = 'minimal.php';
             $result->url = is_null($mbox)
                 ? IMP_Minimal_Folders::url()
                 : IMP_Minimal_Mailbox::url(array('mailbox' => $mbox));
             break;
 
         case Horde_Registry::VIEW_SMARTMOBILE:
-            $page = 'smartmobile.php';
-            if (!is_null($mbox)) {
-                $result->url = $mbox->url('mailbox');
-            }
+            $result->url = is_null($mbox)
+                ? Horde::url('smartmobile.php', true)
+                : $mbox->url('mailbox');
             break;
-        }
-
-        $result->fullpath = IMP_BASE . '/' . $page;
-        $result->page = $page;
-
-        if (!isset($result->url)) {
-            $result->url = Horde::url($page, true);
         }
 
         return $result;
