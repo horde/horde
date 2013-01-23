@@ -652,7 +652,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             /* Explicitly load the message here; non-existent messages are
              * ignored when the Ajax queue is processed. */
             $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->_base->indices);
-
             $this->_base->queue->message($this->_base->indices, $this->vars->preview, $this->vars->peek);
         } catch (Exception $e) {
             $result->error = $e->getMessage();

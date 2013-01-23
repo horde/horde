@@ -145,7 +145,7 @@ class IMP_Indices implements ArrayAccess, Countable, Iterator
                  * treated as numeric (not strings) when merging. */
                 foreach (array_keys($indices) as $key) {
                     $this->_indices[$key] = isset($this->_indices[$key])
-                        ? array_merge($this->_indices[$key], $indices[$key])
+                        ? array_keys(array_flip(array_merge($this->_indices[$key], $indices[$key])))
                         : $indices[$key];
                 }
             }
