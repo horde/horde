@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Else:: class represents a Sieve Else Statement.
+ * The Ingo_Script_Sieve_Else class represents a Sieve Else Statement.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Else
+class Ingo_Script_Sieve_Else implements Ingo_Script_Item
 {
     /**
      * A list of Ingo_Script_Sieve_Action objects that go into the else clause.
@@ -41,7 +42,7 @@ class Ingo_Script_Sieve_Else
      *
      * @return string  A Sieve script snippet.
      */
-     public function toCode()
+     public function generate()
      {
         if (count($this->_actions) == 0) {
             return '';
@@ -49,7 +50,7 @@ class Ingo_Script_Sieve_Else
 
         $code = 'else' . " { \n";
         foreach ($this->_actions as $action) {
-            $code .= '    ' . $action->toCode() . "\n";
+            $code .= '    ' . $action->generate() . "\n";
         }
         $code .= "} ";
 
@@ -104,5 +105,4 @@ class Ingo_Script_Sieve_Else
 
         return $requires;
     }
-
 }

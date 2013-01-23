@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -21,16 +22,15 @@ if (!$ingo_script->hasFeature('script_file')) {
 }
 
 /* Generate the script. */
-$script = $ingo_script->generate();
-$additional = $ingo_script->additionalScripts();
+$scripts = $ingo_script->generate();
 
 /* Activate/deactivate script if requested. */
 $actionID = Horde_Util::getFormData('actionID');
 switch ($actionID) {
 case 'action_activate':
-    if (!empty($script)) {
+    if (!empty($scripts)) {
         try {
-            Ingo::activateScript($script, false, $additional);
+            Ingo::activateScripts($scripts, false);
         } catch (Ingo_Exception $e) {
             $notification->push($e);
         }
@@ -39,20 +39,25 @@ case 'action_activate':
 
 case 'action_deactivate':
     try {
-        Ingo::activateScript('', true, $additional);
+        Ingo::activateScript('', true);
     } catch (Ingo_Exception $e) {
         $notification->push($e);
     }
     break;
 
 case 'show_active':
-    try {
-        $script = $injector->getInstance('Ingo_Factory_Transport')
-            ->create($session->get('ingo', 'backend/transport'))
-            ->getScript();
-    } catch (Ingo_Exception $e) {
-        $notification->push($e);
-        $script = '';
+    $scripts = array();
+    foreach ($session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY) as $transport) {
+        try {
+            $backend = $injector->getInstance('Ingo_Factory_Transport')
+                ->create($transport);
+            if (method_exists($backend, 'getScript')) {
+                $scripts[] = $backend->getScript();
+            }
+        } catch (Horde_Exception_NotFound $e) {
+        } catch (Ingo_Exception $e) {
+            $notification->push($e);
+        }
     }
     break;
 }
@@ -63,11 +68,19 @@ $view = new Horde_View(array(
 ));
 $view->addHelper('Text');
 
-$view->scriptexists = !empty($script);
+if (empty($scripts)) {
+    $view->scriptexists = false;
+} else {
+    $view->scriptexists = true;
+    foreach ($scripts as &$script) {
+        $script['lines'] = preg_split('(\r\n|\n|\r)', $script['script']);
+        $script['width'] = strlen(count($script['lines']));
+    }
+}
 $view->scripturl = Horde::url('script.php');
 $view->showactivate = ($actionID != 'show_active');
 if ($view->scriptexists) {
-    $view->lines = preg_split('(\r\n|\n|\r)', $script);
+    $view->scripts = $scripts;
 }
 
 $page_output->header(array(

@@ -5,6 +5,7 @@
  * PHP version 5
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
@@ -20,6 +21,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
@@ -30,7 +32,7 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
     /**
      * Returns a Ingo_Transport instance.
      *
-     * @param string $transport  A transport driver name.
+     * @param array $transport  A transport driver name and parameter hash.
      *
      * @return Ingo_Transport  The Ingo_Transport instance.
      * @throws Ingo_Exception
@@ -39,13 +41,9 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
     {
         global $registry, $session;
 
-        $transport = strlen($transport)
-            ? basename($transport)
-            : 'null';
-
         /* Get authentication parameters. */
         try {
-            $auth = Horde::callHook('transport_auth', array($transport), 'ingo');
+            $auth = Horde::callHook('transport_auth', array($transport['driver']), 'ingo');
         } catch (Horde_Exception_HookNotSet $e) {
             $auth = null;
         }
@@ -62,16 +60,13 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
         }
 
         /* Sieve configuration only. */
-        if (!isset($auth['euser']) && ($transport == 'timsieved')) {
+        if (!isset($auth['euser']) && ($transport['driver'] == 'timsieved')) {
             $auth['euser'] = Ingo::getUser(false);
         }
 
-        $class = 'Ingo_Transport_' . ucfirst($transport);
+        $class = 'Ingo_Transport_' . ucfirst($transport['driver']);
         if (class_exists($class)) {
-            return new $class(array_merge(
-                $session->get('ingo', 'backend/params', Horde_Session::TYPE_ARRAY),
-                $auth
-            ));
+            return new $class(array_merge($transport['params'], $auth));
         }
 
         throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));

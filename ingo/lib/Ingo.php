@@ -37,6 +37,17 @@ class Ingo
     const FILTER_SEEN = 2;
 
     /**
+     * Constants for rule types.
+     */
+    const RULE_ALL = 0;
+    const RULE_FILTER = 1;
+    const RULE_BLACKLIST = 2;
+    const RULE_WHITELIST = 3;
+    const RULE_VACATION = 4;
+    const RULE_FORWARD = 5;
+    const RULE_SPAM = 6;
+
+    /**
      * hasSharePermission() cache.
      *
      * @var integer
@@ -152,28 +163,28 @@ class Ingo
     }
 
     /**
-     * Connects to the backend and uploads the script and sets it active.
+     * Connects to the backend, uploads the scripts and sets them active.
      *
-     * @param string $script       The script to set active.
+     * @param array $scripts       A list of scripts to set active.
      * @param boolean $deactivate  If true, notification will identify the
      *                             script as deactivated instead of activated.
-     * @param array $additional    Any additional scripts that need to uploaded.
      *
      * @throws Ingo_Exception
      */
-    static public function activateScript($script, $deactivate = false,
-                                          $additional = array())
+    static public function activateScripts($scripts, $deactivate = false)
     {
-        try {
-            $GLOBALS['injector']
-                ->getInstance('Ingo_Factory_Transport')
-                ->create($GLOBALS['session']->get('ingo', 'backend/transport'))
-                ->setScriptActive($script, $additional);
-        } catch (Ingo_Exception $e) {
-            $msg = $deactivate
-              ? _("There was an error deactivating the script.")
-              : _("There was an error activating the script.");
-            throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
+        foreach ($scripts as $script) {
+            try {
+                $GLOBALS['injector']
+                    ->getInstance('Ingo_Factory_Transport')
+                    ->create($script['transport'])
+                  ->setScriptActive($script['script'], $script['name']);
+            } catch (Ingo_Exception $e) {
+                $msg = $deactivate
+                  ? _("There was an error deactivating the script.")
+                  : _("There was an error activating the script.");
+                throw new Ingo_Exception(sprintf(_("%s The driver said: %s"), $msg, $e->getMessage()));
+            }
         }
 
         $msg = ($deactivate)
@@ -191,13 +202,9 @@ class Ingo
     {
         if ($GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file')) {
             try {
-                $ingo_script = $GLOBALS['injector']->getInstance('Ingo_Script');
-
                 /* Generate and activate the script. */
                 self::activateScript(
-                    $ingo_script->generate(),
-                    false,
-                    $ingo_script->additionalScripts());
+                    $GLOBALS['injector']->getInstance('Ingo_Script')->generate());
             } catch (Ingo_Exception $e) {
                 throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
             }

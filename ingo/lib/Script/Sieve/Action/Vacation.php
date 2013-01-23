@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -42,7 +43,7 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         $start_year = $this->_vars['start_year'];
         $start_month = $this->_vars['start_month'];
@@ -229,5 +230,4 @@ class Ingo_Script_Sieve_Action_Vacation extends Ingo_Script_Sieve_Action
             . ') (\\\\(.*\\\\) )?... (\\\\(.*\\\\) )?.... (\\\\(.*\\\\) )?..:..:.. (\\\\(.*\\\\) )?((\\\\+|\\\\-)[[:digit:]]{4}|.{1,5})( \\\\(.*\\\\))?$" {'
             . "\n    ";
     }
-
 }

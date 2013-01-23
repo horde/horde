@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -45,9 +46,9 @@ class Ingo_Script_Sieve_Test_Not extends Ingo_Script_Sieve_Test
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
-        return 'not ' . $this->_test->toCode();
+        return 'not ' . $this->_test->generate();
     }
 
     /**
@@ -60,5 +61,4 @@ class Ingo_Script_Sieve_Test_Not extends Ingo_Script_Sieve_Test
     {
         return $this->_test->requires();
     }
-
 }

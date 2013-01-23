@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Elsif:: class represents a Sieve Elsif Statement.
+ * The Ingo_Script_Sieve_Elsif class represents a Sieve Elsif Statement.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Elsif
+class Ingo_Script_Sieve_Elsif implements Ingo_Script_Item
 {
     /**
      * The Ingo_Script_Sieve_Test object for the if test.
@@ -74,11 +75,11 @@ class Ingo_Script_Sieve_Elsif
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
-        $code = 'elsif ' . $this->_test->toCode() . " { \n";
+        $code = 'elsif ' . $this->_test->generate() . " { \n";
         foreach ($this->_actions as $action) {
-            $code .= '    ' . $action->toCode() . "\n";
+            $code .= '    ' . $action->generate() . "\n";
         }
         $code .= "} ";
 
@@ -124,5 +125,4 @@ class Ingo_Script_Sieve_Elsif
 
         return array_merge($requires, $this->_test->requires());
     }
-
 }

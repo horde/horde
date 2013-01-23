@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Procmail_Variable:: class represents a Procmail variable.
+ * The Ingo_Script_Procmail_Variable class represents a Procmail variable.
  *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Procmail_Variable
+class Ingo_Script_Procmail_Variable implements Ingo_Script_Item
 {
     /**
      */
@@ -43,5 +44,4 @@ class Ingo_Script_Procmail_Variable
     {
         return $this->_name . '=' . $this->_value;
     }
-
 }

@@ -6,6 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -99,13 +100,6 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
     );
 
     /**
-     * The blocks that make up the code.
-     *
-     * @var array
-     */
-    protected $_blocks = array();
-
-    /**
      * The blocks that have to appear at the end of the code.
      *
      * @var array
@@ -139,30 +133,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
      */
     public function check()
     {
-        foreach ($this->_blocks as $block) {
-            $res = $block->check();
+        foreach ($this->_recipes as $block) {
+            $res = $block['object']->check();
             if ($res !== true) {
                 return $res;
             }
         }
 
         return true;
-    }
-
-    /**
-     * Returns a list of sieve extensions required for this rule and any
-     * sub-rules.
-     *
-     * @return array  A Sieve extension list.
-     */
-    public function requires()
-    {
-        $requires = array();
-        foreach ($this->_blocks as $block) {
-            $requires = array_merge($requires, $block->requires());
-        }
-
-        return array_unique($requires);
     }
 
     /**
@@ -201,12 +179,12 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             }
         }
 
-        $this->_blocks[] = new Ingo_Script_Sieve_Comment(_("Forwards"));
+        $this->_addItem(Ingo::RULE_FORWARD, new Ingo_Script_Sieve_Comment(_("Forwards")));
 
         $test = new Ingo_Script_Sieve_Test_True();
         $if = new Ingo_Script_Sieve_If($test);
         $if->setActions($action);
-        $this->_blocks[] = $if;
+        $this->_addItem(Ingo::RULE_FORWARD, $if);
     }
 
     /**
@@ -239,7 +217,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
         $action[] = new Ingo_Script_Sieve_Action_Stop();
 
-        $this->_blocks[] = new Ingo_Script_Sieve_Comment(_("Blacklisted Addresses"));
+        $this->_addItem(Ingo::RULE_BLACKLIST, new Ingo_Script_Sieve_Comment(_("Blacklisted Addresses")));
 
         /* Split the test up to only do 5 addresses at a time. */
         $temp = array();
@@ -257,14 +235,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 $test = new Ingo_Script_Sieve_Test_Address(array('headers' => "From\nSender\nResent-From", 'addresses' => implode("\n", $temp)));
                 $if = new Ingo_Script_Sieve_If($test);
                 $if->setActions($action);
-                $this->_blocks[] = $if;
+                $this->_addItem(Ingo::RULE_BLACKLIST, $if);
                 $temp = array();
             }
             if (count($wildcards) == 5) {
                 $test = new Ingo_Script_Sieve_Test_Address(array('headers' => "From\nSender\nResent-From", 'match-type' => ':matches', 'addresses' => implode("\n", $wildcards)));
                 $if = new Ingo_Script_Sieve_If($test);
                 $if->setActions($action);
-                $this->_blocks[] = $if;
+                $this->_addItem(Ingo::RULE_BLACKLIST, $if);
                 $wildcards = array();
             }
         }
@@ -273,14 +251,14 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $test = new Ingo_Script_Sieve_Test_Address(array('headers' => "From\nSender\nResent-From", 'addresses' => implode("\n", $temp)));
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
-            $this->_blocks[] = $if;
+            $this->_addItem(Ingo::RULE_BLACKLIST, $if);
         }
 
         if ($wildcards) {
             $test = new Ingo_Script_Sieve_Test_Address(array('headers' => "From\nSender\nResent-From", 'match-type' => ':matches', 'addresses' => implode("\n", $wildcards)));
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
-            $this->_blocks[] = $if;
+            $this->_addItem(Ingo::RULE_BLACKLIST, $if);
         }
     }
 
@@ -300,13 +278,13 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             return;
         }
 
-        $this->_blocks[] = new Ingo_Script_Sieve_Comment(_("Whitelisted Addresses"));
+        $this->_addItem(Ingo::RULE_WHITELIST, new Ingo_Script_Sieve_Comment(_("Whitelisted Addresses")));
 
         $action = array(new Ingo_Script_Sieve_Action_Keep(), new Ingo_Script_Sieve_Action_Stop());
         $test = new Ingo_Script_Sieve_Test_Address(array('headers' => "From\nSender\nResent-From", 'addresses' => implode("\n", $wl_addr)));
         $if = new Ingo_Script_Sieve_If($test);
         $if->setActions($action);
-        $this->_blocks[] = $if;
+        $this->_addItem(Ingo::RULE_WHITELIST, $if);
     }
 
     /**
@@ -376,15 +354,15 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             $tests[] = new Ingo_Script_Sieve_Test_Not($tmp);
         }
 
-        $this->_blocks[] = new Ingo_Script_Sieve_Comment(_("Vacation"));
+        $this->_addItem(Ingo::RULE_VACATION, new Ingo_Script_Sieve_Comment(_("Vacation")));
 
         if ($tests) {
             $test = new Ingo_Script_Sieve_Test_Allof($tests);
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
-            $this->_blocks[] = $if;
+            $this->_addItem(Ingo::RULE_VACATION, $if);
         } else {
-            $this->_blocks[] = $action[0];
+            $this->_addItem(Ingo::RULE_VACATION, $action[0]);
         }
     }
 
@@ -403,7 +381,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
             return;
         }
 
-        $this->_blocks[] = new Ingo_Script_Sieve_Comment(_("Spam Filter"));
+        $this->_addItem(Ingo::RULE_SPAM, new Ingo_Script_Sieve_Comment(_("Spam Filter")));
 
         $actions = array();
         $actions[] = new Ingo_Script_Sieve_Action_Fileinto(array_merge($this->_params, array('folder' => $spam->getSpamFolder())));
@@ -430,17 +408,50 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
         $if = new Ingo_Script_Sieve_If($test);
         $if->setActions($actions);
-        $this->_blocks[] = $if;
+        $this->_addItem(Ingo::RULE_SPAM, $if);
     }
 
     /**
-     * Generates the Sieve script to do the filtering specified in
-     * the rules.
+     * Generates the scripts to do the filtering specified in the rules.
      *
-     * @return string  The Sieve script.
+     * @return array  The scripts.
      */
     public function generate()
     {
+        /* Build a list of required sieve extensions. */
+        $requires = array();
+        foreach ($this->_recipes as $item) {
+            $rule = isset($this->_params['transport'][$item['rule']])
+                ? $item['rule']
+                : Ingo::RULE_ALL;
+            if (!isset($requires[$rule])) {
+                $requires[$rule] = array();
+            }
+            $requires[$rule] = array_merge($requires[$rule],
+                                           $item['object']->requires());
+        }
+        foreach ($requires as $rule => $require) {
+            $this->_addItem(
+                $rule,
+                new Ingo_Script_Sieve_Require(array_unique($require))
+            );
+        }
+
+        return parent::generate();
+    }
+
+    /**
+     * Generates the Sieve script to do the filtering specified in the rules.
+     */
+    protected function _generate()
+    {
+        $this->_addItem(Ingo::RULE_ALL, new Ingo_Script_Sieve_Comment(
+            "Sieve Filter\n"
+            . _("Generated by Ingo") . ' (http://www.horde.org/apps/ingo/) ('
+            . trim(strftime($this->_params['date_format'] . ', ' . $this->_params['time_format']))
+            . ")\n\n"
+        ));
+
         $filters = $this->_params['storage']
              ->retrieve(Ingo_Storage::ACTION_FILTERS);
         foreach ($filters->getFilterList() as $filter) {
@@ -546,13 +557,12 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 continue 2;
             }
 
-            $this->_blocks[] = new Ingo_Script_Sieve_Comment($filter['name']);
+            $this->_addItem(Ingo::RULE_FILTER, new Ingo_Script_Sieve_Comment($filter['name']));
 
             if ($filter['stop']) {
                 $action[] = new Ingo_Script_Sieve_Action_Stop();
             }
 
-            $test = new Ingo_Script_Sieve_Test();
             if ($filter['combine'] == Ingo_Storage::COMBINE_ANY) {
                 $test = new Ingo_Script_Sieve_Test_Anyof();
             } else {
@@ -868,38 +878,12 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
             $if = new Ingo_Script_Sieve_If($test);
             $if->setActions($action);
-            $this->_blocks[] = $if;
+            $this->_addItem(Ingo::RULE_FILTER, $if);
         }
 
         /* Add blocks that have to go to the end. */
         foreach ($this->_endBlocks as $block) {
-            $this->_blocks[] = $block;
+            $this->_addItem(Ingo::RULE_FILTER, $block);
         }
-
-        $code = "# Sieve Filter\n# "
-            . _("Generated by Ingo") . ' (http://www.horde.org/apps/ingo/) ('
-            . trim(strftime($this->_params['date_format'] . ', ' . $this->_params['time_format']))
-            . ")\n\n";
-        $requires = $this->requires();
-
-        if (count($requires) > 1) {
-            $stringlist = '';
-            foreach ($this->requires() as $require) {
-                $stringlist .= (empty($stringlist)) ? '"' : ', "';
-                $stringlist .= $require . '"';
-            }
-            $code .= 'require [' . $stringlist . '];' . "\n\n";
-        } elseif (count($requires) == 1) {
-            foreach ($this->requires() as $require) {
-                $code .= 'require "' . $require . '";' . "\n\n";
-            }
-        }
-
-        foreach ($this->_blocks as $block) {
-            $code .= $block->toCode() . "\n";
-        }
-
-        return rtrim($code) . "\n";
     }
-
 }

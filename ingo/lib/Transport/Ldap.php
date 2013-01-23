@@ -9,6 +9,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -188,14 +189,12 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @todo No idea how to handle $additional.
-     *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param string $script      The filter script.
+     * @param string $scriptname  The script name.
      *
      * @throws Ingo_Exception
      */
-    protected function setScriptActive($script, $additional = array())
+    public function setScriptActive($script, $scriptname)
     {
         $ldapcn = $this->_connect();
         $values = $this->_getScripts($ldapcn, $userDN);
@@ -253,7 +252,14 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         }
 
         @ldap_close($ldapcn);
-        return $script;
+
+        if (!strlen($script)) {
+            throw new Horde_Exception_NotFound();
+        }
+        return array(
+            'name' => '',
+            'script' => $script
+        );
     }
 
 }

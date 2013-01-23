@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -31,7 +32,7 @@ class Ingo_Script_Sieve_Action_Reject extends Ingo_Script_Sieve_Action
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
         return 'reject "' . Ingo_Script_Sieve::escapeString($this->_vars['reason']) . '";';
     }
@@ -59,5 +60,4 @@ class Ingo_Script_Sieve_Action_Reject extends Ingo_Script_Sieve_Action
     {
         return array('reject');
     }
-
 }

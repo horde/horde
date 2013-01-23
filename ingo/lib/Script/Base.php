@@ -81,6 +81,13 @@ abstract class Ingo_Script_Base
     protected $_special_types = array();
 
     /**
+     * The recipes that make up the code.
+     *
+     * @var array
+     */
+    protected $_recipes = array();
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
@@ -196,26 +203,59 @@ abstract class Ingo_Script_Base
     }
 
     /**
-     * Generates the script to do the filtering specified in
-     * the rules.
+     * Generates the scripts to do the filtering specified in the rules.
      *
-     * @return string  The script.
+     * @return array  The scripts.
      */
     public function generate()
     {
-        return '';
+        $this->_generate();
+        $scripts = array();
+        foreach ($this->_recipes as $item) {
+            $rule = isset($this->_params['transport'][$item['rule']])
+                ? $item['rule']
+                : Ingo::RULE_ALL;
+            $name = strlen($item['name'])
+                ? $item['name']
+                : (isset($this->_params['transport'][$rule]['params']['filename'])
+                   ? $this->_params['transport'][$rule]['params']['filename']
+                   : '');
+
+            if (!isset($scripts[$rule . $name])) {
+                $scripts[$rule . $name] = array(
+                    'transport' => $this->_params['transport'][$rule],
+                    'name' => $name,
+                    'script' => ''
+                );
+            }
+            $scripts[$rule . $name]['script'] .= $item['object']->generate() . "\n";
+        }
+        return array_values($scripts);
     }
 
     /**
-     * Returns any additional scripts that need to be sent to the transport
-     * layer.
+     * Generates the scripts to do the filtering specified in the rules.
      *
-     * @return array  A list of scripts with script names as keys and script
-     *                code as values.
+     * @return array  The scripts.
      */
-    public function additionalScripts()
+    protected function _generate()
     {
-        return array();
+    }
+
+    /**
+     * Adds an item to the recipe list.
+     *
+     * @param integer $rule           One of the Ingo::RULE_* constants.
+     * @param Ingo_Script_Item $item  An item to add to the recipe list.
+     * @param string $name            A script name.
+     */
+    protected function _addItem($rule, Ingo_Script_Item $item, $name = null)
+    {
+        $this->_recipes[] = array(
+            'rule' => $rule,
+            'object' => $item,
+            'name' => $name
+        );
     }
 
     /**

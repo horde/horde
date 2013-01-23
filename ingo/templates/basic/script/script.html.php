@@ -1,6 +1,6 @@
 <h1 class="header"><?php echo _("Script") ?></h1>
-<table>
 <?php if ($this->scriptexists): ?>
+<table>
  <tr>
   <td align="center">
    <table class="scriptHeader">
@@ -36,20 +36,9 @@
   </td>
  </tr>
 </table>
-<?php endif; ?>
 
-<table>
- <tr>
-  <td class="item">
-   <pre>
-<?php if ($this->scriptexists): ?>
-<?php foreach ($this->lines as $k => $v): ?>
-    <?php printf("%3d: %s\n", ++$k, $this->h($v)) ?>
-<?php endforeach; ?>
+<?php echo $this->renderPartial('script', array('collection' => $this->scripts)) ?>
+
 <?php else: ?>
     [<?php echo _("No script generated.") ?>]
 <?php endif; ?>
-   </pre>
-  </td>
- </tr>
-</table>

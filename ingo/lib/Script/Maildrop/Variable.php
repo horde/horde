@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Maildrop_Variable:: class represents a Maildrop variable.
+ * The Ingo_Script_Maildrop_Variable class represents a Maildrop variable.
  *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Maildrop_Variable
+class Ingo_Script_Maildrop_Variable implements Ingo_Script_Item
 {
     /**
      */
@@ -43,5 +44,4 @@ class Ingo_Script_Maildrop_Variable
     {
         return $this->_name . '=' . $this->_value . "\n";
     }
-
 }

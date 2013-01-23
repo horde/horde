@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -19,9 +20,19 @@ class Ingo_Script_Sieve_Action_Addflag extends Ingo_Script_Sieve_Action_Flag
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
-        return $this->_toCode('addflag');
+        return $this->_generate('addflag');
     }
 
+    /**
+     * Checks if the rule parameters are valid.
+     *
+     * @return boolean|string  True if this rule is valid, an error message
+     *                         otherwise.
+     */
+    public function check()
+    {
+        return true;
+    }
 }

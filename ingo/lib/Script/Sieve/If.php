@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Sieve_If:: class represents a Sieve If Statement.
+ * The Ingo_Script_Sieve_If class represents a Sieve If Statement.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_If
+class Ingo_Script_Sieve_If implements Ingo_Script_Item
 {
     /**
      * The Ingo_Script_Sieve_Test object for the if test.
@@ -126,19 +127,19 @@ class Ingo_Script_Sieve_If
      *
      * @return string  A Sieve script snippet.
      */
-    public function toCode()
+    public function generate()
     {
-        $code = 'if ' . $this->_test->toCode() . " { \n";
+        $code = 'if ' . $this->_test->generate() . " { \n";
         foreach ($this->_actions as $action) {
-            $code .= '    ' . $action->toCode() . "\n";
+            $code .= '    ' . $action->generate() . "\n";
         }
         $code .= "} ";
 
         foreach ($this->_elsifs as $elsif) {
-            $code .= $elsif->toCode();
+            $code .= $elsif->generate();
         }
 
-        $code .= $this->_else->toCode();
+        $code .= $this->_else->generate();
 
         return $code . "\n";
     }
@@ -198,5 +199,4 @@ class Ingo_Script_Sieve_If
 
         return array_merge($requires, $this->_test->requires(), $this->_else->requires());
     }
-
 }

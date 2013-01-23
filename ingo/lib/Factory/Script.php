@@ -5,6 +5,7 @@
  * PHP version 5
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
@@ -20,6 +21,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @link     http://pear.horde.org/index.php?package=Ingo
@@ -42,6 +44,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Injector
         $params = $session->get('ingo', 'backend/scriptparams', Horde_Session::TYPE_ARRAY);
         $params['storage'] = $injector->getInstance('Ingo_Factory_Storage')
             ->create();
+        $params['transport'] = $session->get('ingo', 'backend/transport', Horde_Session::TYPE_ARRAY);
 
         if (!isset($params['spam_compare'])) {
             $params['spam_compare'] = $conf['spam']['compare'];

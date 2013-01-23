@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-20</date>
- <time>20:54:53</time>
+ <date>2013-01-23</date>
+ <time>18:43:17</time>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add composite transport backends.
 * [jan] Move shared ruleset selection to sidebar.
 * [mms] All Ingo templates now use Horde_View.
  </notes>
@@ -110,6 +111,7 @@
      </dir> <!-- /lib/Script/Maildrop -->
      <dir name="Procmail">
       <file name="Comment.php" role="horde" />
+      <file name="Default.php" role="horde" />
       <file name="Recipe.php" role="horde" />
       <file name="Variable.php" role="horde" />
      </dir> <!-- /lib/Script/Procmail -->
@@ -145,12 +147,16 @@
       <file name="Else.php" role="horde" />
       <file name="Elsif.php" role="horde" />
       <file name="If.php" role="horde" />
+      <file name="Require.php" role="horde" />
       <file name="Test.php" role="horde" />
      </dir> <!-- /lib/Script/Sieve -->
+     <file name="Base.php" role="horde" />
      <file name="Imap.php" role="horde" />
+     <file name="Item.php" role="horde" />
      <file name="Maildrop.php" role="horde" />
      <file name="Procmail.php" role="horde" />
      <file name="Sieve.php" role="horde" />
+     <file name="String.php" role="horde" />
     </dir> <!-- /lib/Script -->
     <dir name="Storage">
      <dir name="Filters">
@@ -181,6 +187,7 @@
      <file name="TestBase.php" role="horde" />
     </dir> <!-- /lib/tests -->
     <dir name="Transport">
+     <file name="Base.php" role="horde" />
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sivtest.php" role="horde" />
@@ -196,11 +203,9 @@
     <file name="Application.php" role="horde" />
     <file name="Exception.php" role="horde" />
     <file name="Ingo.php" role="horde" />
-    <file name="Script.php" role="horde" />
     <file name="Smartmobile.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Test.php" role="horde" />
-    <file name="Transport.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="ca">
@@ -426,6 +431,7 @@
      </dir> <!-- /templates/basic/rule -->
      <dir name="script">
       <file name="script.html.php" role="horde" />
+      <file name="_script.html.php" role="horde" />
      </dir> <!-- /templates/basic/script -->
      <dir name="whitelist">
       <file name="whitelist.html.php" role="horde" />
@@ -628,11 +634,9 @@
    <install as="ingo/lib/Application.php" name="lib/Application.php" />
    <install as="ingo/lib/Exception.php" name="lib/Exception.php" />
    <install as="ingo/lib/Ingo.php" name="lib/Ingo.php" />
-   <install as="ingo/lib/Script.php" name="lib/Script.php" />
    <install as="ingo/lib/Smartmobile.php" name="lib/Smartmobile.php" />
    <install as="ingo/lib/Storage.php" name="lib/Storage.php" />
    <install as="ingo/lib/Test.php" name="lib/Test.php" />
-   <install as="ingo/lib/Transport.php" name="lib/Transport.php" />
    <install as="ingo/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="ingo/lib/Ajax/Application/Smartmobile.php" name="lib/Ajax/Application/Smartmobile.php" />
    <install as="ingo/lib/Block/Overview.php" name="lib/Block/Overview.php" />
@@ -645,10 +649,13 @@
    <install as="ingo/lib/Form/Spam.php" name="lib/Form/Spam.php" />
    <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
+   <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
+   <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
    <install as="ingo/lib/Script/Sieve.php" name="lib/Script/Sieve.php" />
+   <install as="ingo/lib/Script/String.php" name="lib/Script/String.php" />
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
@@ -656,6 +663,7 @@
    <install as="ingo/lib/Script/Maildrop/Recipe.php" name="lib/Script/Maildrop/Recipe.php" />
    <install as="ingo/lib/Script/Maildrop/Variable.php" name="lib/Script/Maildrop/Variable.php" />
    <install as="ingo/lib/Script/Procmail/Comment.php" name="lib/Script/Procmail/Comment.php" />
+   <install as="ingo/lib/Script/Procmail/Default.php" name="lib/Script/Procmail/Default.php" />
    <install as="ingo/lib/Script/Procmail/Recipe.php" name="lib/Script/Procmail/Recipe.php" />
    <install as="ingo/lib/Script/Procmail/Variable.php" name="lib/Script/Procmail/Variable.php" />
    <install as="ingo/lib/Script/Sieve/Action.php" name="lib/Script/Sieve/Action.php" />
@@ -663,6 +671,7 @@
    <install as="ingo/lib/Script/Sieve/Else.php" name="lib/Script/Sieve/Else.php" />
    <install as="ingo/lib/Script/Sieve/Elsif.php" name="lib/Script/Sieve/Elsif.php" />
    <install as="ingo/lib/Script/Sieve/If.php" name="lib/Script/Sieve/If.php" />
+   <install as="ingo/lib/Script/Sieve/Require.php" name="lib/Script/Sieve/Require.php" />
    <install as="ingo/lib/Script/Sieve/Test.php" name="lib/Script/Sieve/Test.php" />
    <install as="ingo/lib/Script/Sieve/Action/Addflag.php" name="lib/Script/Sieve/Action/Addflag.php" />
    <install as="ingo/lib/Script/Sieve/Action/Discard.php" name="lib/Script/Sieve/Action/Discard.php" />
@@ -706,6 +715,7 @@
    <install as="ingo/lib/tests/TestBase.php" name="lib/tests/TestBase.php" />
    <install as="tests/_data/from_spammer" name="lib/tests/_data/from_spammer" />
    <install as="tests/_data/not_from_spammer" name="lib/tests/_data/not_from_spammer" />
+   <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
    <install as="ingo/lib/Transport/Null.php" name="lib/Transport/Null.php" />
    <install as="ingo/lib/Transport/Sivtest.php" name="lib/Transport/Sivtest.php" />
@@ -795,6 +805,7 @@
    <install as="ingo/templates/basic/menu/menu.html.php" name="templates/basic/menu/menu.html.php" />
    <install as="ingo/templates/basic/rule/rule.html.php" name="templates/basic/rule/rule.html.php" />
    <install as="ingo/templates/basic/script/script.html.php" name="templates/basic/script/script.html.php" />
+   <install as="ingo/templates/basic/script/_script.html.php" name="templates/basic/script/_script.html.php" />
    <install as="ingo/templates/basic/whitelist/whitelist.html.php" name="templates/basic/whitelist/whitelist.html.php" />
    <install as="ingo/templates/smartmobile/rule.html.php" name="templates/smartmobile/rule.html.php" />
    <install as="ingo/templates/smartmobile/rules.html.php" name="templates/smartmobile/rules.html.php" />
@@ -1187,10 +1198,12 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-07</date>
-   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <date>2013-01-23</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add composite transport backends.
 * [jan] Move shared ruleset selection to sidebar.
+* [mms] All Ingo templates now use Horde_View.
    </notes>
   </release>
  </changelog>

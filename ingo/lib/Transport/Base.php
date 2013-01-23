@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -44,15 +45,13 @@ abstract class Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param string $script      The filter script.
+     * @param string $scriptname  The script name.
      *
-     * @return boolean  True on success, false if script can't be activated.
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $additional = array())
+    public function setScriptActive($script, $scriptname)
     {
-        return false;
     }
 
     /**

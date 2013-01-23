@@ -1,9 +1,6 @@
 <?php
 /**
- * The Ingo_Script_Maildrop_Comment:: class represents a maildrop comment.
- * This is a pretty simple class, but it makes the code in
- * Ingo_Script_Maildrop:: cleaner as it provides a generate() function and can
- * be added to the recipe list the same way as a recipe can be.
+ * The Ingo_Script_Maildrop_Comment class represents a Maildrop comment.
  *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
@@ -11,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Maildrop_Comment
+class Ingo_Script_Maildrop_Comment implements Ingo_Script_Item
 {
     /**
      * The comment text.
@@ -51,5 +49,4 @@ class Ingo_Script_Maildrop_Comment
     {
         return $this->_comment;
     }
-
 }

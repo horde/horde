@@ -8,11 +8,12 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
+abstract class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
 {
     /**
      * Constructor.
@@ -47,7 +48,7 @@ class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
      *
      * @return string  A Sieve script snippet.
      */
-    public function _toCode($mode)
+    protected function _generate($mode)
     {
         $code  = '';
 
@@ -92,5 +93,4 @@ class Ingo_Script_Sieve_Action_Flag extends Ingo_Script_Sieve_Action
     {
         return array('imapflags');
     }
-
 }

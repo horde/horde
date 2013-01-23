@@ -8,6 +8,7 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
@@ -28,7 +29,7 @@ class Ingo_Script_Sieve_Action_Redirect extends Ingo_Script_Sieve_Action
 
     /**
      */
-    public function toCode($depth = 0)
+    public function generate($depth = 0)
     {
         return str_repeat(' ', $depth * 4) . 'redirect ' .
             '"' . Ingo_Script_Sieve::escapeString($this->_vars['address']) . '";';
@@ -46,5 +47,4 @@ class Ingo_Script_Sieve_Action_Redirect extends Ingo_Script_Sieve_Action
             ? _("Missing address to redirect message to")
             : true;
     }
-
 }
