@@ -286,6 +286,20 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     height: 18px;
 }
 
+/* Icons. */
+.ansel-browse {
+  background-image: url('graphics/browse.png');
+}
+.ansel-mygalleries {
+  background-image: url('graphics/mygalleries.png');
+}
+.ansel-allgalleries {
+  background-image: url('graphics/allgalleries.png');
+}
+.ansel-faces {
+  background-image: url('graphics/faces.png');
+}
+
  /* Map */
 #ansel_map {
     width:100%;
@@ -373,10 +387,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 .uploadnotification {
   min-height: 20px;
   padding-left: 8px;
-}
-.twitterbutton {
-  background: url('graphics/twitter.png') none-repeat;
-  padding-left: 16px !important;
 }
 
 /* Horizontal Carousel */
