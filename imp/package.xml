@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-22</date>
- <time>23:14:10</time>
+ <date>2013-01-23</date>
+ <time>00:23:58</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -133,6 +133,7 @@
      <file name="Compose.php" role="horde" />
      <file name="Contacts.php" role="horde" />
      <file name="Folders.php" role="horde" />
+     <file name="Saveimage.php" role="horde" />
     </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
@@ -1056,7 +1057,6 @@
    <file name="pgp.php" role="horde" />
    <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
-   <file name="saveimage.php" role="horde" />
    <file name="search-basic.php" role="horde" />
    <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
@@ -1423,6 +1423,7 @@
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
    <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
+   <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
@@ -1974,7 +1975,6 @@
    <install as="imp/pgp.php" name="pgp.php" />
    <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
-   <install as="imp/saveimage.php" name="saveimage.php" />
    <install as="imp/search-basic.php" name="search-basic.php" />
    <install as="imp/search.php" name="search.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
