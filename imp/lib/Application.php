@@ -515,7 +515,7 @@ class IMP_Application extends Horde_Registry_Application
 
         case 'download_mbox':
             $mlist = IMP_Mailbox::formFrom($vars->mbox_list);
-            $mbox = $injector->getInstance('IMP_Ui_Folder')->generateMbox($mlist);
+            $mbox = $injector->getInstance('IMP_Mbox_Generate')->generate($mlist);
             $name = is_array($mlist)
                 ? reset($mlist)
                 : $mlist;

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-18</date>
- <time>12:43:31</time>
+ <date>2013-01-22</date>
+ <time>22:16:03</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -245,6 +245,8 @@
      <file name="List.php" role="horde" />
     </dir> <!-- /lib/Mailbox -->
     <dir name="Mbox">
+     <file name="Generate.php" role="horde" />
+     <file name="Import.php" role="horde" />
      <file name="Parse.php" role="horde" />
     </dir> <!-- /lib/Mbox -->
     <dir name="Mime">
@@ -389,7 +391,6 @@
      <file name="Compose.php" role="horde" />
      <file name="Contacts.php" role="horde" />
      <file name="Editor.php" role="horde" />
-     <file name="Folder.php" role="horde" />
      <file name="Headers.php" role="horde" />
      <file name="Imageview.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
@@ -1489,6 +1490,8 @@
    <install as="imp/lib/Mailbox/List/Pop3.php" name="lib/Mailbox/List/Pop3.php" />
    <install as="imp/lib/Mailbox/List/Thread.php" name="lib/Mailbox/List/Thread.php" />
    <install as="imp/lib/Mailbox/List/Virtual.php" name="lib/Mailbox/List/Virtual.php" />
+   <install as="imp/lib/Mbox/Generate.php" name="lib/Mbox/Generate.php" />
+   <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
@@ -1593,7 +1596,6 @@
    <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
-   <install as="imp/lib/Ui/Folder.php" name="lib/Ui/Folder.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
    <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />

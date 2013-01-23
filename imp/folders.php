@@ -126,7 +126,7 @@ case 'download_mbox_zip':
 case 'import_mbox':
     if ($vars->import_mbox) {
         try {
-            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($vars->import_mbox, 'mbox_upload'), 'horde.success');
+            $notification->push($injector->getInstance('IMP_Mbox_Import')->import($vars->import_mbox, 'mbox_upload'), 'horde.success');
         } catch (Horde_Exception $e) {
             $notification->push($e);
         }

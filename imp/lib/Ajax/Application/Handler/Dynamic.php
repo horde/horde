@@ -454,7 +454,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $mbox = IMP_Mailbox::formFrom($this->vars->import_mbox);
 
         try {
-            $notification->push($injector->getInstance('IMP_Ui_Folder')->importMbox($mbox, 'import_file'), 'horde.success');
+            $notification->push($injector->getInstance('IMP_Mbox_Import')->import($mbox, 'import_file'), 'horde.success');
         } catch (Horde_Exception $e) {
             $notification->push($e);
             return false;

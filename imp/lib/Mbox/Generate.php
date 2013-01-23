@@ -1,26 +1,33 @@
 <?php
 /**
- * Common code shared among IMP's various folder UI views.
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Ui_Folder
+
+/**
+ * Method to generate MBOX data.
+ *
+ * @author    Didi Rieder <adrieder@sbox.tugraz.at>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Mbox_Generate
 {
     /**
      * Generates a string that can be saved out to an mbox format mailbox file
      * for a mailbox (or set of mailboxes), optionally including all
      * subfolders of the selected mailbox(es) as well. All mailboxes will be
      * output in the same string.
-     *
-     * @author Didi Rieder <adrieder@sbox.tugraz.at>
      *
      * @param mixed $mboxes  A mailbox name (UTF-8), or list of mailbox names,
      *                       to generate a mbox file for.
@@ -139,30 +146,6 @@ class IMP_Ui_Folder
         }
 
         return $body;
-    }
-
-    /**
-     * Import a MBOX file into a mailbox.
-     *
-     * @param string $mbox       The mailbox name to import into (UTF-8).
-     * @param string $form_name  The form field name that contains the MBOX
-     *                           data.
-     *
-     * @return string  Notification message.
-     * @throws Horde_Exception
-     */
-    public function importMbox($mbox, $form_name)
-    {
-        $GLOBALS['browser']->wasFileUploaded($form_name, _("mailbox file"));
-
-        $res = IMP_Mailbox::get($mbox)->importMbox($_FILES[$form_name]['tmp_name'], $_FILES[$form_name]['type']);
-        $mbox_name = basename(Horde_Util::dispelMagicQuotes($_FILES[$form_name]['name']));
-
-        if ($res === false) {
-            throw new IMP_Exception(sprintf(_("There was an error importing %s."), $mbox_name));
-        }
-
-        return sprintf(ngettext('Imported %d message from %s.', 'Imported %d messages from %s', $res), $res, $mbox_name);
     }
 
 }
