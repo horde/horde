@@ -212,8 +212,16 @@ class IMP_Ajax_Application_ShowMessage
         /* Process the subject. */
         $subject = $mime_headers->getValue('subject');
         if ($subject) {
-            $result['subject'] = $imp_ui->getDisplaySubject($subject, Horde_Text_Filter_Text2html::NOHTML);
-            $subjectlink = $imp_ui->getDisplaySubject($subject);
+            $text_filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
+            $filtered_subject = preg_replace("/\b\s+\b/", ' ', IMP::filterText($subject));
+
+            $result['subject'] = $text_filter->filter($filtered_subject, 'text2html', array(
+                'parselevel' => Horde_Text_Filter_Text2html::NOHTML
+            ));
+            $subjectlink = $text_filter->filter($filtered_subject, 'text2html', array(
+                'parselevel' => Horde_Text_Filter_Text2html::MICRO
+            ));
+
             if ($subjectlink != $result['subject']) {
                 $result['subjectlink'] = $subjectlink;
             }
