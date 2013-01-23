@@ -370,6 +370,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      * Javascript code needed for embedding a small gallery widget in
      * external websites.
      *
+     * @return Horde_Core_Ajax_Response_Raw  The Ajax response object.
      * @throws Ansel_Exception
      */
     public function embed()
