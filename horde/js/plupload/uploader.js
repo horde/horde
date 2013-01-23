@@ -116,15 +116,16 @@ var Horde_Uploader = Class.create({
             this.updateList();
         },
 
+        uploadcomplete: function(up, files) {
+            $(this._params['upload_button']).hide();
+        },
+
         // Handlers that may be useful for client code. Not used by default.
         // Override before creating object if needed.
         uploadfile: function(up, file) {},
         statechanged: function(up) {},
         filesremoved: function(up, files) {},
-        chunkuploaded: function(up, file, response) {},
-        uploadcomplete: function(up, files) {
-            $(this._params['upload_button']).hide();
-        }
+        chunkuploaded: function(up, file, response) {}
     },
 
     /**
