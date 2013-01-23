@@ -35,16 +35,6 @@ class IMP_Mailbox_List_Virtual extends IMP_Mailbox_List
 
     /**
      */
-    public function buildMailboxPage($page = 0, $start = 0)
-    {
-        $ret = parent::buildMailboxPage($page, $start);
-        $ret['index'] = $ret['begin'] - 1;
-
-        return $ret;
-    }
-
-    /**
-     */
     protected function _buildMailboxQuery()
     {
         $this->_sortedMbox = array();

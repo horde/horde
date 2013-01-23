@@ -282,7 +282,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      *             'msgcount' is 0, there may still be hidden deleted messages.
      *   - begin: (integer) The beginning message sequence number of the page.
      *   - end: (integer) The ending message sequence number of the page.
-     *   - index: (integer) The index of the starting message.
      *   - msgcount: (integer) The number of viewable messages in the current
      *               mailbox.
      *   - page: (integer) The current page number.
@@ -334,8 +333,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $ret['page'] = 1;
             $ret['pagecount'] = 1;
         }
-
-        $ret['index'] = $this->_index;
 
         /* If there are no viewable messages, check for deleted messages in
            the mailbox. */
@@ -848,16 +845,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     ? $index
                     : null;
             }
-        }
-    }
-
-    /**
-     */
-    protected function _rebuild($force = false)
-    {
-        if ($force ||
-            (!is_null($this->_index) && !isset($this->_sorted[$this->_index + 1]))) {
-            parent::rebuild();
         }
     }
 
