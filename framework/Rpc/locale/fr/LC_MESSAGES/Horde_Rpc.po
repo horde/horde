@@ -2,47 +2,55 @@
 # Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Rpc module.
 # Automatically generated, 2010.
-#
+# Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Rpc\n"
+"Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2013-01-14 09:19+0100\n"
+"PO-Revision-Date: 2013-01-16 17:37+0100\n"
+"Last-Translator: Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont."
+"fr>\n"
+"Language-Team: French <i18n@lists.horde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
-#: lib/Horde/Rpc/Webdav.php:347
+#: lib/Horde/Rpc/Webdav.php:352
 #, php-format
 msgid "Error deleting from path %s; must be [app]/[path]"
 msgstr "Erreur lors de la suppression du chemin %s : doit être [app]/[path]"
 
 #: lib/Horde/Rpc/Phpgw.php:80 lib/Horde/Rpc/Phpgw.php:81
-#: lib/Horde/Rpc/Soap.php:206 lib/Horde/Rpc/Soap.php:214
+#: lib/Horde/Rpc/Soap.php:185 lib/Horde/Rpc/Soap.php:193
 #, php-format
 msgid "Method \"%s\" is not defined"
 msgstr "La méthode « %s » n'est pas définie"
 
-#: lib/Horde/Rpc/Phpgw.php:160
-#, fuzzy
+#: lib/Horde/Rpc/Phpgw.php:134
 msgid "No valid XML data returned:"
-msgstr "Aucune donnée XML valide n'a été retournée"
+msgstr "Aucune donnée XML valide n'a été retournée:"
 
-#: lib/Horde/Rpc/Phpgw.php:158
+#: lib/Horde/Rpc/Phpgw.php:132
 msgid "Request couldn't be answered. Returned errorcode: "
-msgstr "Aucune réponse à votre requête. Code d'erreur retourné : "
+msgstr "Aucune réponse à votre requête. Code d'erreur retourné :"
 
-#: lib/Horde/Rpc/Webdav.php:408
+#: lib/Horde/Rpc/ActiveSync.php:106
+msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
+msgstr ""
+"Tentative d'accès au point d'accès ActiveSync depuis un navigateur. Ceci "
+"n'est pas supporté."
+
+#: lib/Horde/Rpc/Webdav.php:417
 #, php-format
 msgid "Unable to create directory %s; must be [app]/[path]"
 msgstr ""
 "Création du répertoire %s impossible ; doit être de la forme [app]/[path]"
 
-#: lib/Horde/Rpc/Webdav.php:443
+#: lib/Horde/Rpc/Webdav.php:452
 #, php-format
 msgid ""
 "Unable to rename %s; must be [app]/[path] and within the same application."

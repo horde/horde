@@ -3,26 +3,46 @@
 # This file is distributed under the same license as the Horde_Token module.
 # Automatically generated, 2010.
 #
+# Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont.fr>, 2013
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde_Token\n"
+"Project-Id-Version: Horde_Token \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-12-01 10:19+0100\n"
-"PO-Revision-Date: 2010-12-01 10:19+0100\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: i18n@lists.horde.org\n"
+"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"PO-Revision-Date: 2013-01-17 17:28+0100\n"
+"Last-Translator: Paul De Vlieger <paul.de_vlieger@moniut.univ-bpclermont."
+"fr>\n"
+"Language-Team: French <i18n@lists.horde.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
-#: lib/Horde/Token/Base.php:196
-msgid "This token has been used before!"
+#: lib/Horde/Token/Base.php:167
+#, php-format
+msgid ""
+"This request cannot be completed because the link you followed or the form "
+"you submitted was only valid for %s minutes. Please try again now."
 msgstr ""
+"La requête n'a pas pu aboutir car le lien fourni par le formulaire n'était "
+"valide que pour %s minutes. Merci de réessayer maintenant."
 
-#: lib/Horde/Token/Base.php:172
+#: lib/Horde/Token/Base.php:191
+msgid "This token has been used before!"
+msgstr "Ce jeton a déjà été utilisé auparavant!"
+
+#: lib/Horde/Token/Base.php:187
+msgid "This token is invalid!"
+msgstr "Ce jeton est invalide!"
+
+#: lib/Horde/Token/Base.php:161
 msgid ""
 "We cannot verify that this request was really sent by you. It could be a "
 "malicious request. If you intended to perform this action, you can retry it "
 "now."
 msgstr ""
+"Nous ne pouvons pas vérifier que cette requête émane de vous. Il se peut "
+"qu'elle soit malveillante, si vous en êtes vraiment l'auteur, merci de "
+"recommencer maintenant."

@@ -1021,6 +1021,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _renameMailbox(Horde_Imap_Client_Mailbox $old,
                                       Horde_Imap_Client_Mailbox $new)
     {
+        // Some IMAP servers will not allow a rename of a currently open
+        // mailbox.
+        if ($old->equals($this->_selected)) {
+            $this->close();
+        }
+
         // RENAME returns no untagged information (RFC 3501 [6.3.5])
         $cmd = $this->_clientCommand(array(
             'RENAME',

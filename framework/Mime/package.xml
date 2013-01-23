@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Never return decimal values from Horde_Mime_Part#getSize().
 * [mms] Added parsing limit for deeply nested MIME parts.
  </notes>
  <contents>
@@ -1052,6 +1053,7 @@
    <date>2013-01-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Never return decimal values from Horde_Mime_Part#getSize().
 * [mms] Added parsing limit for deeply nested MIME parts.
    </notes>
   </release>
