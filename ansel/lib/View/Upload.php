@@ -1,5 +1,14 @@
 <?php
 /**
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @package Ansel
+ */
+/**
  * The Ansel_View_Upload:: class provides a view for handling image uploads.
  *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
@@ -7,7 +16,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Ansel
  */
 
@@ -28,7 +37,7 @@ class Ansel_View_Upload
     /**
      * Force the older, non-javascript uploader view.
      *
-     * @var Boolean
+     * @var boolean
      */
     protected $_forceNoScript = false;
 
@@ -46,7 +55,7 @@ class Ansel_View_Upload
      *   'target'        - Url of the target page to upload images to.
      *   'drop_target'   - Dom id of the element to receive drag and drop images
      *                     (If runtime supports it).
-     *   'gallery'
+     *   'gallery'       - The gallery id we are uploading to.
      * </pre>
      * @param <type> $params
      */
@@ -67,7 +76,7 @@ class Ansel_View_Upload
 
     public function run()
     {
-        /* Check for file upload */
+        // Check for file upload
         $this->_handleFileUpload();
 
         // TODO: Configure which runtimes to allow?
@@ -124,6 +133,19 @@ class Ansel_View_Upload
             }
         });
         uploader.init();
+        $('twitter').observe('click', function() {
+            HordeCore.doAction(
+                'uploadNotification',
+                {
+                    s: 'twitter',
+                    g: '{$this->_gallery->id}'
+                },
+                {
+                     callback: function(r) { $('twitter').hide(); }
+
+                }
+            );
+        });
 EOT;
 
         $js .= $this->_doCarouselSetup();
