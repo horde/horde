@@ -155,7 +155,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
-            'URI_THREAD' => strval(Horde::url('thread.php')),
+            'URI_THREAD' => strval(IMP_Basic_Thread::url()),
 
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,

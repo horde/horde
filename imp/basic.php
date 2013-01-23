@@ -32,14 +32,12 @@ if (!class_exists($class)) {
 
 $ob = new $class($vars);
 
-Horde::startBuffer();
-IMP::status();
-$status = Horde::endBuffer();
+$status = $ob->status();
 
-$page_output->header(array(
+$page_output->header(array_merge(array(
     'title' => $ob->title,
     'view' => $registry::VIEW_BASIC
-));
+), $ob->header_params));
 
 echo $status;
 $ob->render();

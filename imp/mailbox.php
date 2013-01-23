@@ -221,7 +221,7 @@ case 'empty_mailbox':
     break;
 
 case 'view_messages':
-    $mailbox->url('thread.php', null, null, false)->add(array('mode' => 'msgview', 'muid' => strval($indices)))->redirect();
+    $mailbox->url(IMP_Basic_Thread::url(), null, false)->add(array('mode' => 'msgview', 'muid' => strval($indices)))->redirect();
 }
 
 /* Token to use in requests */

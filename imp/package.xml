@@ -22,8 +22,13 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
+<<<<<<< HEAD
  <date>2013-01-23</date>
  <time>00:23:58</time>
+=======
+ <date>2013-01-22</date>
+ <time>23:36:23</time>
+>>>>>>> 801a4da... Convert thread page to View library
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -134,6 +139,7 @@
      <file name="Contacts.php" role="horde" />
      <file name="Folders.php" role="horde" />
      <file name="Saveimage.php" role="horde" />
+     <file name="Thread.php" role="horde" />
     </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
@@ -1061,7 +1067,6 @@
    <file name="search.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
    <file name="smime.php" role="horde" />
-   <file name="thread.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -1424,6 +1429,7 @@
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
    <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
    <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
+   <install as="imp/lib/Basic/Thread.php" name="lib/Basic/Thread.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
@@ -1979,7 +1985,6 @@
    <install as="imp/search.php" name="search.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
    <install as="imp/smime.php" name="smime.php" />
-   <install as="imp/thread.php" name="thread.php" />
    <install as="imp/view.php" name="view.php" />
   </filelist>
  </phprelease>

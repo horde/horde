@@ -633,7 +633,7 @@ if (!$disable_compose) {
 
 if ($mailbox->access_sortthread) {
     $a_view->show_thread = Horde::widget(array(
-        'url' => $mailbox->url('thread.php', $buid)->add(array('start' => $msgindex)),
+        'url' => $mailbox->url(IMP_Basic_Thread::url(), $buid)->add(array('start' => $msgindex)),
         'title' => _("_View Thread"),
         'nocheck' => true
     ));

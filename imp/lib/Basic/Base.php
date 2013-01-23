@@ -73,6 +73,15 @@ abstract class IMP_Basic_Base
 
     /**
      */
+    public function status()
+    {
+        Horde::startBuffer();
+        IMP::status();
+        return Horde::endBuffer();
+    }
+
+    /**
+     */
     abstract protected function _init();
 
     /**

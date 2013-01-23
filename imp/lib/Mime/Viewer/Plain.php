@@ -65,7 +65,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
      */
     protected function _impRender($inline)
     {
-        global $prefs, $registry;
+        global $injector, $prefs, $registry;
 
         $mime_id = $this->_mimepart->getMimeId();
 
@@ -143,7 +143,7 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
                 $show = $prefs->getValue('show_quoteblocks');
                 $hideBlocks = $inline &&
                     (($show == 'hidden') ||
-                     (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
+                     (($show == 'thread') && ($injector->getInstance('Horde_Variables')->page == 'thread')));
                 if (!$hideBlocks &&
                     in_array($show, array('list', 'listthread'))) {
                     $header = $this->getConfigParam('imp_contents')->getHeader();
