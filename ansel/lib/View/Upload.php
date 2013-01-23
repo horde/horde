@@ -119,7 +119,6 @@ class Ansel_View_Upload
                     size: '{$sizeError}',
                     type: '{$typeError}'
             },
-            header_class: 'hordeUploaderHeader',
             container_class: 'uploaderContainer',
             return_target: '{$this->_params['return_target']}',
             multipart: {$multipart}
