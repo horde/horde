@@ -343,6 +343,7 @@
      <file name="Mercury32.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sql.php" role="horde" />
+     <file name="Ui.php" role="horde" />
     </dir> <!-- /lib/Quota -->
     <dir name="Script">
      <dir name="Package">
@@ -400,7 +401,6 @@
     <dir name="Ui">
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
-     <file name="Quota.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="View">
      <file name="Subinfo.php" role="horde" />
@@ -1570,6 +1570,7 @@
    <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Quota/Ui.php" name="lib/Quota/Ui.php" />
    <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
@@ -1609,7 +1610,6 @@
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
-   <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />
    <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />

@@ -167,7 +167,7 @@ class IMP_Ajax_Queue
 
         /* Add quota information. */
         if (($this->_quota !== false) &&
-            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota($this->_quota))) {
+            ($quotadata = $GLOBALS['injector']->getInstance('IMP_Quota_Ui')->quota($this->_quota))) {
             $ajax->addTask('quota', array(
                 'm' => $quotadata['message'],
                 'p' => round($quotadata['percent']),

@@ -47,7 +47,7 @@ class IMP_View_Subinfo extends Horde_View
         $config['templatePath'] = IMP_TEMPLATES . '/basic';
         parent::__construct($config);
 
-        $quotadata = $GLOBALS['injector']->getInstance('IMP_Ui_Quota')->quota(isset($config['mailbox']) ? $config['mailbox'] : null);
+        $quotadata = $GLOBALS['injector']->getInstance('IMP_Quota_Ui')->quota(isset($config['mailbox']) ? $config['mailbox'] : null);
         if (!empty($quotadata)) {
             $this->quotaClass = $quotadata['class'];
             $this->quotaText = $quotadata['message'];
