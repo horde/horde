@@ -241,13 +241,13 @@ var Horde_Uploader = Class.create({
               'class': this._params['filelist_class'] }).insert(new Element('ul', { 'class': 'hordeUploaderFileUl' }));
 
         /* Browse button */
-        var browse = new Element('a', { 'id': this._params['browse_button'], 'class': this._params['browsebutton_class'] }).update(this._params.text.add);
+        var browse = new Element('input', { 'id': this._params['browse_button'], 'type': 'button', 'class': this._params['browsebutton_class'], 'value': this._params.text.add });
 
         /* Upload button */
-        var upload = new Element('a', { 'id': this._params['upload_button'], 'class': this._params['uploadbutton_class'] }).update(this._params.text.start);
+        var upload = new Element('input', { 'id': this._params['upload_button'], 'type': 'button', 'class': this._params['uploadbutton_class'], 'value': this._params.text.start });
 
         /* Return button (Activated when uploader is DONE). */
-        var returnButton = new Element('a', { 'id': this._params['return_button'], 'class': this._params['returnbutton_class'] }).update(this._params.text.returnButton);
+        var returnButton = new Element('input', { 'id': this._params['return_button'], 'type': 'button', 'class': this._params['returnbutton_class'], 'value': this._params.text.returnButton });
 
         /* Header section */
         var subheader = new Element('div', { 'class': this._params['subheader_class'] }).update(this._params.text.subheader);
