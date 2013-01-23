@@ -428,7 +428,7 @@ class IMP_Ajax_Application_ListMessages
             if ($flags) {
                 if ($this->_flaghook) {
                     try {
-                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'dimp'), 'imp'));
+                        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
                     } catch (Horde_Exception_HookNotSet $e) {
                         $this->_flaghook = false;
                     }
@@ -471,7 +471,7 @@ class IMP_Ajax_Application_ListMessages
 
         /* Allow user to alter template array. */
         try {
-            $msgs = Horde::callHook('mailboxarray', array($msgs, 'dimp'), 'imp');
+            $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         return $msgs;

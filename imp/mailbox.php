@@ -18,7 +18,7 @@ function _outputSummaries($msgs, Horde_View $view)
 {
     /* Allow user to alter template array. */
     try {
-        $msgs = Horde::callHook('mailboxarray', array($msgs, 'imp'), 'imp');
+        $msgs = Horde::callHook('mailboxarray', array($msgs), 'imp');
     } catch (Horde_Exception_HookNotSet $e) {}
 
     $view->messages = $msgs;
@@ -874,7 +874,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
 
     /* Get all the flag information. */
     try {
-        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob, 'imp'), 'imp'));
+        $ob['flags'] = array_merge($ob['flags'], Horde::callHook('msglist_flags', array($ob), 'imp'));
     } catch (Horde_Exception_HookNotSet $e) {}
 
     $flag_parse = $imp_flags->parse(array(

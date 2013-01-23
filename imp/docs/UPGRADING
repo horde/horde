@@ -44,6 +44,10 @@ Hooks (hooks.php)
 
 The 'signature' hook has been removed.
 
+The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
+second argument ($mode). If the current view mode is needed, it can be
+obtained via a call to $GLOBALS['registry']->getView().
+
 
 MIME Viewer Options (mime_drivers.php)
 --------------------------------------

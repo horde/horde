@@ -307,17 +307,16 @@ class IMP_Hooks
      * Add additional message flags in the message listing screen for a
      * mailbox.
      *
-     * @param array $data   The overview information for a message as returned
-     *                      from the IMP_Mailbox_List::getMailboxArray() call
-     *                      (see lib/Mailbox/List.php for documentation on the
-     *                      structure of the array).
-     * @param string $mode  Either 'imp' or 'dimp'.
+     * @param array $data  The overview information for a message as returned
+     *                     from the IMP_Mailbox_List::getMailboxArray() call
+     *                     (see lib/Mailbox/List.php for documentation on the
+     *                     structure of the array).
      *
      * @return array  An array of additional flags to add. These flags must be
      *                defined in the 'msgflags' preference. On error, return
      *                an empty array.
      */
-//    public function msglist_flags($data, $mode)
+//    public function msglist_flags($data)
 //    {
 //        // Example #1: Add a icon if the message was sent from a user within
 //        // the same domain.
@@ -545,25 +544,24 @@ class IMP_Hooks
     /**
      * Allow additional information to be added/edited from the data that is
      * passed to the mailbox display template:
-     *   imp: imp/templates/basic/mailbox/mailbox.html
-     *   dimp: imp/templates/dynamic/msglist_[horiz|vert].html
+     *   basic: imp/templates/basic/mailbox/mailbox.html
+     *   dynamic: imp/templates/dynamic/msglist_[horiz|vert].html
      *
      * If you are going to add new columns, you also have to update these
      * fields:
-     *   imp: imp/mailbox.php to specify the column width.
-     *   dimp: imp/themes/dynamic/screen.css to specify the column width.
+     *   basic: imp/mailbox.php to specify the column width.
+     *   dynamic: imp/themes/dynamic/screen.css to specify the column width.
      *
-     * @param array $msgs   The mailbox data.
-     * @param string $view  Either 'imp' or 'dimp'.
+     * @param array $msgs  The mailbox data.
      *
      * @return array  The altered array to use in the template.
      */
-//    public function mailboxarray($msgs, $view)
+//    public function mailboxarray($msgs)
 //    {
 //        // Example #1: Adds a 'foo' entry to each message element.
-//        switch ($view) {
-//        case 'dimp':
-//        case 'imp':
+//        switch ($GLOBALS['registry']->getView()) {
+//        case Horde_Registry::VIEW_BASIC:
+//        case Horde_Registry::VIEW_DYNAMIC:
 //            foreach (array_keys($msgs) as $key) {
 //                $msgs[$key]['foo'] = true;
 //            }
