@@ -100,33 +100,40 @@ class Ansel_Application extends Horde_Registry_Application
         global $conf, $registry;
 
         /* Browse/Search */
-        $menu->add(Horde::url('browse.php'), _("_Browse"),
-                   'browse.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'browse' &&
-                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    (basename($_SERVER['PHP_SELF']) == 'browse.php'))
-                   ? 'current'
-                   : '__noselection');
+        $menu->add(
+            Horde::url('browse.php'),
+            _("_Browse"),
+            'ansel-browse', null, null, null,
+            (($GLOBALS['prefs']->getValue('defaultview') == 'browse' && basename($_SERVER['PHP_SELF']) == 'index.php') ||
+             (basename($_SERVER['PHP_SELF']) == 'browse.php')) ? 'current' : '__noselection'
+        );
 
         if ($GLOBALS['registry']->getAuth()) {
-            $url = Ansel::getUrlFor('view', array('owner' => $GLOBALS['registry']->getAuth(),
-                                    'groupby' => 'owner',
-                                    'view' => 'List'));
-            $menu->add($url, _("_My Galleries"), 'mygalleries.png', null, null,
-                       null,
-                       (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
-                       ? 'current' :
-                       '__noselection');
+            $url = Ansel::getUrlFor(
+                'view',
+                array(
+                    'owner' => $GLOBALS['registry']->getAuth(),
+                    'groupby' => 'owner',
+                    'view' => 'List')
+            );
+
+            $menu->add(
+                $url,
+                _("_My Galleries"), 'ansel-mygalleries', null, null, null,
+                (Horde_Util::getFormData('owner', false) == $GLOBALS['registry']->getAuth())
+                    ? 'current'
+                    : '__noselection'
+            );
         }
 
-        $menu->add(Ansel::getUrlFor('view', array('view' => 'List')), _("_All Galleries"),
-                   'galleries.png', null, null, null,
-                   (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' &&
-                    basename($_SERVER['PHP_SELF']) == 'index.php') ||
-                    ((basename($_SERVER['PHP_SELF']) == 'group.php') &&
-                     Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
+        $menu->add(
+            Ansel::getUrlFor('view', array('view' => 'List')),
+            _("_All Galleries"), 'ansel-allgalleries', null, null, null,
+           (($GLOBALS['prefs']->getValue('defaultview') == 'galleries' && basename($_SERVER['PHP_SELF']) == 'index.php') ||
+            (basename($_SERVER['PHP_SELF']) == 'group.php' && Horde_Util::getFormData('owner') !== $GLOBALS['registry']->getAuth())
                    ? 'current'
-                   : '__noselection'));
+                   : '__noselection')
+        );
 
         if ($conf['faces']['driver'] && $registry->isAuthenticated()) {
             $menu->add(Horde::url('faces/search/all.php'), _("_Faces"), 'ansel-faces');
