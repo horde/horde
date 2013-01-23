@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-23</date>
- <time>13:21:40</time>
+ <time>13:59:20</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -133,6 +133,7 @@
      <file name="Compose.php" role="horde" />
      <file name="Contacts.php" role="horde" />
      <file name="Folders.php" role="horde" />
+     <file name="Message.php" role="horde" />
      <file name="Saveimage.php" role="horde" />
      <file name="Search.php" role="horde" />
      <file name="Searchbasic.php" role="horde" />
@@ -257,6 +258,9 @@
      <file name="Import.php" role="horde" />
      <file name="Parse.php" role="horde" />
     </dir> <!-- /lib/Mbox -->
+    <dir name="Message">
+     <file name="Ui.php" role="horde" />
+    </dir> <!-- /lib/Message -->
     <dir name="Mime">
      <dir name="Viewer">
       <file name="Alternative.php" role="horde" />
@@ -400,7 +404,6 @@
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
      <file name="Mailbox.php" role="horde" />
-     <file name="Message.php" role="horde" />
     </dir> <!-- /lib/Ui -->
     <dir name="View">
      <file name="Subinfo.php" role="horde" />
@@ -1054,7 +1057,6 @@
    <file name="dynamic.php" role="horde" />
    <file name="index.php" role="horde" />
    <file name="mailbox.php" role="horde" />
-   <file name="message.php" role="horde" />
    <file name="minimal.php" role="horde" />
    <file name="pgp.php" role="horde" />
    <file name="README" role="doc" />
@@ -1422,6 +1424,7 @@
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
    <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
    <install as="imp/lib/Basic/Folders.php" name="lib/Basic/Folders.php" />
+   <install as="imp/lib/Basic/Message.php" name="lib/Basic/Message.php" />
    <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
    <install as="imp/lib/Basic/Search.php" name="lib/Basic/Search.php" />
    <install as="imp/lib/Basic/Searchbasic.php" name="lib/Basic/Searchbasic.php" />
@@ -1505,6 +1508,7 @@
    <install as="imp/lib/Mbox/Generate.php" name="lib/Mbox/Generate.php" />
    <install as="imp/lib/Mbox/Import.php" name="lib/Mbox/Import.php" />
    <install as="imp/lib/Mbox/Parse.php" name="lib/Mbox/Parse.php" />
+   <install as="imp/lib/Message/Ui.php" name="lib/Message/Ui.php" />
    <install as="imp/lib/Mime/Headers.php" name="lib/Mime/Headers.php" />
    <install as="imp/lib/Mime/Status.php" name="lib/Mime/Status.php" />
    <install as="imp/lib/Mime/Viewer/Alternative.php" name="lib/Mime/Viewer/Alternative.php" />
@@ -1609,7 +1613,6 @@
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
-   <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/View/Subinfo.php" name="lib/View/Subinfo.php" />
    <install as="imp/locale/.htaccess" name="locale/.htaccess" />
    <install as="imp/locale/imp.pot" name="locale/imp.pot" />
@@ -1971,7 +1974,6 @@
    <install as="imp/dynamic.php" name="dynamic.php" />
    <install as="imp/index.php" name="index.php" />
    <install as="imp/mailbox.php" name="mailbox.php" />
-   <install as="imp/message.php" name="message.php" />
    <install as="imp/minimal.php" name="minimal.php" />
    <install as="imp/pgp.php" name="pgp.php" />
    <install as="README" name="README" />

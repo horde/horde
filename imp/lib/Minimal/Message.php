@@ -38,7 +38,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             $mailbox_url->add('a', 'm')->redirect();
         }
 
-        $imp_ui = new IMP_Ui_Message();
+        $imp_ui = $injector->getInstance('IMP_Message_Ui');
 
         /* Run through action handlers */
         $msg_delete = false;

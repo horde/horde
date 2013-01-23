@@ -1543,7 +1543,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function replyMessage($type, $contents, array $opts = array())
     {
-        global $prefs;
+        global $injector, $language, $prefs;
 
         /* The headers of the message. */
         $header = array(
@@ -1593,12 +1593,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         /* We might need $list_info in the reply_all section. */
-        if (in_array($type, array(self::REPLY_AUTO, self::REPLY_LIST))) {
-            $imp_ui = new IMP_Ui_Message();
-            $list_info = $imp_ui->getListInformation($h);
-        } else {
-            $list_info = null;
-        }
+        $list_info = in_array($type, array(self::REPLY_AUTO, self::REPLY_LIST))
+            ? $injector->getInstance('IMP_Message_Ui')->getListInformation($h)
+            : null;
 
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {
             /* If To/Reply-To and List-Reply address are the same, no need
@@ -1614,7 +1611,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             /* Filter out our own address from the addresses we reply to. */
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $all_addrs = $identity->getAllFromAddresses();
 
             /* Build the To: header. It is either:
@@ -1734,7 +1731,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 break;
 
             case self::REPLY_LIST:
-                if (($list_parse = $GLOBALS['injector']->getInstance('Horde_ListHeaders')->parse('list-id', $h->getValue('list-id'))) &&
+                if (($list_parse = $injector->getInstance('Horde_ListHeaders')->parse('list-id', $h->getValue('list-id'))) &&
                     !is_null($list_parse->label)) {
                     $ret['reply_list_id'] = $list_parse->label;
                 }
@@ -1756,7 +1753,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
              * the user's native language. */
             if ((count($ret['lang']) == 1) &&
                 reset($ret['lang']) &&
-                (substr(key($ret['lang']), 0, 2) == substr($GLOBALS['language'], 0, 2))) {
+                (substr(key($ret['lang']), 0, 2) == substr($language, 0, 2))) {
                 unset($ret['lang']);
             }
         }

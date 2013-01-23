@@ -869,7 +869,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
             'mailbox' => $mailbox
         ));
     } else {
-        $target = $mailbox->url('message.php', $msg['buid']);
+        $target = $mailbox->url('message', $msg['buid']);
     }
 
     /* Get all the flag information. */
@@ -940,7 +940,7 @@ while (list(,$ob) = each($mbox_info['overview'])) {
         break;
 
     case 1:
-        $from_uri = $mailbox->url('message.php', $msg['buid']);
+        $from_uri = $mailbox->url('message', $msg['buid']);
         $msg['from'] = Horde::link($from_uri) . $msg['from'] . '</a>';
         break;
     }

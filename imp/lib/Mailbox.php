@@ -1177,6 +1177,15 @@ class IMP_Mailbox implements Serializable
             $url = clone $page;
         } else {
             switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_BASIC:
+                if ($page == 'message') {
+                    return IMP_Basic_Message::url(array(
+                        'buid' => $buid,
+                        'mailbox' => $this->form_to
+                    ))->setRaw(!$encode);
+                }
+                break;
+
             case Horde_Registry::VIEW_DYNAMIC:
                 $anchor = is_null($buid)
                     ? ('mbox:' . $this->form_to)

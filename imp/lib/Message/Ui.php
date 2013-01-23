@@ -1,18 +1,26 @@
 <?php
 /**
- * Common code shared among IMP's various UI views for the message page.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Ui_Message
+
+/**
+ * Common code dealing with message parsing relating to UI display.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Message_Ui
 {
     /**
      * Return a list of "basic" headers w/gettext translations.
@@ -175,63 +183,6 @@ class IMP_Ui_Message
 
         /* Else, it's today, use the time only. */
         return sprintf(_("Today, %s %s"), $time_str, $tz);
-    }
-
-    /**
-     * Parses all of the available mailing list headers.
-     *
-     * @param Horde_Mime_Headers $headers  A Horde_Mime_Headers object.
-     *
-     * @return array  Keys are the list header names, values are the
-     *                parsed list header values.
-     */
-    public function parseAllListHeaders($headers)
-    {
-        $ret = array();
-
-        foreach (array_keys($headers->listHeaders()) as $val) {
-            if ($data = $headers->getValue($val)) {
-                $ret[$val] = $this->parseListHeaders($val, $data);
-            }
-        }
-
-        return $ret;
-    }
-
-    /**
-     * Parse the information in mailing list headers.
-     *
-     * @param string $id    The header ID.
-     * @param string $data  The header text to process.
-     *
-     * @return string  The header value.
-     */
-    public function parseListHeaders($id, $data)
-    {
-        $output = '';
-        $parser = $GLOBALS['injector']->getInstance('Horde_ListHeaders');
-        $text_filter = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter');
-
-        foreach ($parser->parse($id, $data) as $val) {
-            /* RFC 2369 [2] states that we should only show the *FIRST* URL
-             * that appears in a header that we can adequately handle. */
-            if (stripos($val->url, 'mailto:') === 0) {
-                $url = substr($val->url, 7);
-                $output = Horde::link(IMP::composeLink($url)) . $url . '</a>';
-                foreach ($val->comments as $val2) {
-                    $output .= '&nbsp;(' . $val2 . ')';
-                }
-                break;
-            } elseif ($url = $text_filter->filter($val, 'linkurls')) {
-                $output = $url;
-                foreach ($val->comments as $val2) {
-                    $output .= '&nbsp;(' . $val2 . ')';
-                }
-                break;
-            }
-        }
-
-        return $output;
     }
 
     /**

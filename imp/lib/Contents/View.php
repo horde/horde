@@ -229,9 +229,8 @@ class IMP_Contents_View
             return $part;
         }
 
-        $imp_ui = new IMP_Ui_Message();
         $imp_ui_mbox = new IMP_Ui_Mailbox();
-        $basic_headers = $imp_ui->basicHeaders();
+        $basic_headers = $injector->getInstance('IMP_Message_Ui')->basicHeaders();
         unset($basic_headers['bcc'], $basic_headers['reply-to']);
         $headerob = $this->_contents->getHeader();
 

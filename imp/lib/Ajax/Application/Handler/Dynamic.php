@@ -731,8 +731,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         list($mbox, $uid) = $this->_base->indices->getSingle();
-        $imp_ui = new IMP_Ui_Message();
-        $imp_ui->MDNCheck($mbox, $uid, $contents->getHeaderAndMarkAsSeen(), true);
+        $GLOBALS['injector']->getInstance('IMP_Message_Ui')->MDNCheck($mbox, $uid, $contents->getHeaderAndMarkAsSeen(), true);
 
         $GLOBALS['notification']->push(_("The Message Disposition Notification was sent successfully."), 'horde.success');
 

@@ -67,7 +67,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         $subject = '';
         $page_label = $this->indices->mailbox->label;
 
-        $imp_ui = new IMP_Ui_Message();
+        $imp_ui = $injector->getInstance('IMP_Message_Ui');
 
         $query = new Horde_Imap_Client_Fetch_Query();
         $query->envelope();
@@ -119,7 +119,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
                 switch ($registry->getView()) {
                 case $registry::VIEW_BASIC:
-                    $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('message.php', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
+                    $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('message', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
                         ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
                     break;
                 }

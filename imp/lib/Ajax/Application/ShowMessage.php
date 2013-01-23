@@ -138,7 +138,7 @@ class IMP_Ajax_Application_ShowMessage
             : $this->_contents->getHeaderAndMarkAsSeen();
 
         $headers = array();
-        $imp_ui = new IMP_Ui_Message();
+        $imp_ui = $GLOBALS['injector']->getInstance('IMP_Message_Ui');
 
         /* Develop the list of Headers to display now. Deal with the 'basic'
          * header information first since there are various manipulations

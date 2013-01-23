@@ -71,7 +71,7 @@ if (count($ids)) {
             'title' => $imp_ui->getSubject($ob['envelope']->subject),
             'pubDate' => $ob['envelope']->date->format('r'),
             'description' => isset($ob['preview']) ? $ob['preview'] : '',
-            'url' => Horde::url($mailbox->url('message.php', $imp_mailbox->getBuid($mailbox, $ob['uid'])), true, array('append_session' => -1)),
+            'url' => Horde::url($mailbox->url('message', $imp_mailbox->getBuid($mailbox, $ob['uid'])), true, array('append_session' => -1)),
             'fromAddr' => strval($from_addr['from_list']),
             'toAddr' => strval($ob['envelope']->to)
         ));
@@ -92,7 +92,7 @@ $view->items = $items;
 $view->pubDate = date('r');
 $view->rss_url = Horde::url('rss.php', true, array('append_session' => -1));
 $view->title = $registry->get('name') . ' - ' . $mailbox->label;
-$view->url = Horde::url($mailbox->url('message.php'), true, array('append_session' => -1));
+$view->url = Horde::url($mailbox->url('message'), true, array('append_session' => -1));
 $view->xsl = Horde_Themes::getFeedXsl();
 
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
