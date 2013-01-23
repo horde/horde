@@ -411,7 +411,7 @@ if (isset($filter_url)) {
 }
 if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
     if (!$search_mbox) {
-        $hdr_view->search_url = $mailbox->url('search-basic.php');
+        $hdr_view->search_url = $mailbox->url(IMP_Basic_SearchBasic::url());
     } else {
         if ($mailbox->editvfolder) {
             $edit_search = _("Edit Virtual Folder");
@@ -421,7 +421,7 @@ if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             } else {
                 /* Basic search results. */
                 $search_mailbox = IMP_Mailbox::get($imp_search[$mailbox]->mboxes[0]);
-                $hdr_view->search_url = $search_mailbox->url('search-basic.php');
+                $hdr_view->search_url = $search_mailbox->url(IMP_Basic_SearchBasic::url());
                 $hdr_view->searchclose = $search_mailbox->url('mailbox.php');
             }
         }

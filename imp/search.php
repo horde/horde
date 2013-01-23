@@ -130,16 +130,16 @@ $constants = array(
     )
 );
 
-/* Load basic search if searching is not allowed (basic page will do the
- * required redirection). */
+$vars = $injector->getInstance('Horde_Variables');
+
+/* Check that searching is allowed. */
 if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
-    require IMP_BASE . '/search-basic.php';
-    exit;
+    $indices = new IMP_Indices_Mailbox($vars);
+    $indices->mailbox->url('mailbox.php')->redirect();
 }
 
 $imp_flags = $injector->getInstance('IMP_Flags');
 $imp_search = $injector->getInstance('IMP_Search');
-$vars = $injector->getInstance('Horde_Variables');
 
 $dimp_view = ($registry->getView() == Horde_Registry::VIEW_DYNAMIC);
 $js_vars = array();
