@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the folders tree view (standard view).
+ * Provides the javascript for the folders tree page in basic view.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -7,8 +7,8 @@
 
 var ImpFolders = {
 
-    // The following variables are defined in folders.php:
-    //   displayNames, folders_url, text
+    // The following variables are defined in PHP code:
+    //   displayNames, fixed_mboxes, folders_url, text
 
     getChecked: function()
     {
@@ -123,7 +123,7 @@ var ImpFolders = {
 
         this.getMboxes().each(function(f) {
             if (f.checked) {
-                if (IMP.conf.fixed_mboxes.indexOf(this.displayNames[j]) != -1) {
+                if (this.fixed_mboxes.indexOf(this.displayNames[j]) != -1) {
                     window.alert(this.text.no_rename + ' ' + this.displayNames[j]);
                 } else {
                     var tmp = window.prompt(this.text.rename1 + ' ' + this.displayNames[j] + "\n" + this.text.rename2, this.fullNames[j] ? this.fullNames[j] : this.displayNames[j]);

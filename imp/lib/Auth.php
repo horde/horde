@@ -302,7 +302,7 @@ class IMP_Auth
         switch ($GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_BASIC:
             if (is_null($mbox)) {
-                $page = 'folders.php';
+                $page = IMP_Basic_Folders::url();
             } else {
                 $page = 'mailbox.php';
                 $result->url = $mbox->url($page);
