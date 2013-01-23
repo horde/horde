@@ -37,7 +37,7 @@ class IMP_Prefs_Special_SmimePublicKey implements Horde_Core_Prefs_Ui_Special
             $pubkey_list = array();
         }
 
-        $smime_url = Horde::url('smime.php');
+        $smime_url = IMP_Basic_Smime::url();
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/prefs'

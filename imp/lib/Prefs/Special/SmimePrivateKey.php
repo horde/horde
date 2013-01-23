@@ -36,7 +36,7 @@ class IMP_Prefs_Special_SmimePrivateKey implements Horde_Core_Prefs_Ui_Special
         if (!Horde::isConnectionSecure()) {
             $view->notsecure = true;
         } else {
-            $smime_url = Horde::url('smime.php');
+            $smime_url = IMP_Basic_Smime::url();
 
             $view->has_key = ($prefs->getValue('smime_public_key') && $prefs->getValue('smime_private_key'));
 

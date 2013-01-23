@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-23</date>
- <time>16:15:30</time>
+ <time>16:27:46</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -139,6 +139,7 @@
      <file name="Saveimage.php" role="horde" />
      <file name="Search.php" role="horde" />
      <file name="Searchbasic.php" role="horde" />
+     <file name="Smime.php" role="horde" />
      <file name="Thread.php" role="horde" />
     </dir> <!-- /lib/Basic -->
     <dir name="Block">
@@ -1060,7 +1061,6 @@
    <file name="README" role="doc" />
    <file name="rss.php" role="horde" />
    <file name="smartmobile.php" role="horde" />
-   <file name="smime.php" role="horde" />
    <file name="view.php" role="horde" />
   </dir> <!-- / -->
  </contents>
@@ -1428,6 +1428,7 @@
    <install as="imp/lib/Basic/Saveimage.php" name="lib/Basic/Saveimage.php" />
    <install as="imp/lib/Basic/Search.php" name="lib/Basic/Search.php" />
    <install as="imp/lib/Basic/Searchbasic.php" name="lib/Basic/Searchbasic.php" />
+   <install as="imp/lib/Basic/Smime.php" name="lib/Basic/Smime.php" />
    <install as="imp/lib/Basic/Thread.php" name="lib/Basic/Thread.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
@@ -1977,7 +1978,6 @@
    <install as="README" name="README" />
    <install as="imp/rss.php" name="rss.php" />
    <install as="imp/smartmobile.php" name="smartmobile.php" />
-   <install as="imp/smime.php" name="smime.php" />
    <install as="imp/view.php" name="view.php" />
   </filelist>
  </phprelease>
