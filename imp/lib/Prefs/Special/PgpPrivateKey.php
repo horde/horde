@@ -36,7 +36,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
         if (!Horde::isConnectionSecure()) {
             $view->notsecure = true;
         } else {
-            $pgp_url = Horde::url('pgp.php');
+            $pgp_url = IMP_Basic_Pgp::url();
 
             $view->has_key = ($prefs->getValue('pgp_public_key') && $prefs->getValue('pgp_private_key'));
             if ($view->has_key) {
