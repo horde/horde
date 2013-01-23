@@ -11,7 +11,7 @@ var ImpMailbox = {
 
     countSelected: function()
     {
-        return $('messages').select('[name="indices[]"]').findAll(Form.Element.getValue).size();
+        return $('messages').select('[name="buid[]"]').findAll(Form.Element.getValue).size();
     },
 
     selectRow: function(id, select)
