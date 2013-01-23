@@ -16,13 +16,6 @@
 class Ingo_Script_Imap extends Ingo_Script_Base
 {
     /**
-     * The script class' additional parameters.
-     *
-     * @var array
-     */
-    protected $_params = array('mailbox' => 'INBOX');
-
-    /**
      * A list of driver features.
      *
      * @var array
@@ -124,11 +117,11 @@ class Ingo_Script_Imap extends Ingo_Script_Base
                 $bl_folder = null;
 
                 if ($rule['action'] == Ingo_Storage::ACTION_BLACKLIST) {
-                    $blacklist = $ingo_storage->retrieve(Ingo_Storage::ACTION_BLACKLIST);
+                    $blacklist = $this->_params['storage']->retrieve(Ingo_Storage::ACTION_BLACKLIST);
                     $addr = $blacklist->getBlacklist();
                     $bl_folder = $blacklist->getBlacklistFolder();
                 } else {
-                    $whitelist = $ingo_storage->retrieve(Ingo_Storage::ACTION_WHITELIST);
+                    $whitelist = $this->_params['storage']->retrieve(Ingo_Storage::ACTION_WHITELIST);
                     $addr = $whitelist->getWhitelist();
                 }
 
