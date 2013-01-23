@@ -51,59 +51,6 @@ class IMP
     static public $newUrl = null;
 
     /**
-     * Initialize the JS browser environment and output everything up to, and
-     * including, the <body> tag.
-     *
-     * @param string $title  The title of the page.
-     */
-    static public function header($title)
-    {
-        global $conf, $injector, $page_output, $registry;
-
-        switch ($registry->getView()) {
-        case Horde_Registry::VIEW_BASIC:
-            $code = array(
-                /* Variables used in core javascript files. */
-                'conf' => array(
-                    'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3),
-                    'fixed_mboxes' => empty($conf['server']['fixed_folders'])
-                        ? array()
-                        : $conf['server']['fixed_folders']
-                ),
-
-                /* Gettext strings used in core javascript files. */
-                'text' => array(
-                    'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
-                    'spam_report' => _("Are you sure you wish to report this message as spam?"),
-                    'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
-                    'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
-                    'no' => _("No"),
-                    'target_mbox' => _("You must select a target mailbox first."),
-                    'yes' => _("Yes")
-                )
-            );
-
-            $page_output->addInlineJsVars(array(
-                'var IMP' => $code
-            ), array('top' => true));
-
-            $page_output->addLinkTag(array(
-                'href' => IMP_Basic_Search::url(),
-                'rel' => 'search',
-                'type' => null
-            ));
-
-            $mimecss = new Horde_Themes_Element('mime.css');
-            $page_output->addStylesheet($mimecss->fs, $mimecss->uri);
-            break;
-        }
-
-        $GLOBALS['page_output']->header(array(
-            'title' => $title
-        ));
-    }
-
-    /**
      * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
