@@ -126,6 +126,7 @@ class Ansel_View_Upload
         },
         {
             'uploadcomplete': function(up, files) {
+                $('uploadimages').hide();
                 Ansel.uploadedImages = files;
                 if (Ansel.conf.havetwitter) {
                     $('twitter').toggleClassName('hidden');
