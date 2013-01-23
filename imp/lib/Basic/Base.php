@@ -53,7 +53,7 @@ abstract class IMP_Basic_Base
         $this->indices = new IMP_Indices_Mailbox($vars);
 
         $page_output->addLinkTag(array(
-            'href' => Horde::url('search.php', true),
+            'href' => IMP_Basic_Search::url(),
             'rel' => 'search',
             'type' => null
         ));

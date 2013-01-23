@@ -112,7 +112,7 @@ class IMP_Basic_Searchbasic extends IMP_Basic_Base
         $view->addHelper('Tag');
 
         $view->action = self::url();
-        $view->advsearch = Horde::link($this->indices->mailbox->url('search.php'));
+        $view->advsearch = Horde::link($this->indices->mailbox->url(IMP_Basic_Search::url()));
         $view->mbox = $this->indices->mailbox->form_to;
         $view->search_title = sprintf(_("Search %s"), $this->indices->mailbox->display_html);
         $view->flist = $flag_set;

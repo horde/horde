@@ -258,7 +258,7 @@ class IMP_Application extends Horde_Registry_Application
             $menu->addArray(array(
                 'icon' => 'imp-search',
                 'text' =>_("_Search"),
-                'url' => Horde::url('search.php')
+                'url' => IMP_Basic_Search::url()
             ));
         }
 
@@ -458,7 +458,7 @@ class IMP_Application extends Horde_Registry_Application
                 break;
 
             default:
-                $url = Horde::url('search.php');
+                $url = IMP_Basic_Search::url();
                 break;
             }
 

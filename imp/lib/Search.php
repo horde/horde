@@ -384,7 +384,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return IMP_Mailbox::get($this->createSearchId($id))->url('search.php')->add(array('edit_query' => 1));
+        return IMP_Mailbox::get($this->createSearchId($id))->url(IMP_Basic_Search::url())->add(array('edit_query' => 1));
     }
 
     /**

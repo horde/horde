@@ -1176,22 +1176,20 @@ class IMP_Mailbox implements Serializable
         if ($page instanceof Horde_Url) {
             $url = clone $page;
         } else {
-            if ($page != 'search.php') {
-                switch ($GLOBALS['registry']->getView()) {
-                case Horde_Registry::VIEW_DYNAMIC:
-                    $anchor = is_null($buid)
-                        ? ('mbox:' . $this->form_to)
-                        : ('msg:' . $this->form_to . ';' . $buid);
-                    return Horde::url('index.php')->setAnchor($anchor);
+            switch ($GLOBALS['registry']->getView()) {
+            case Horde_Registry::VIEW_DYNAMIC:
+                $anchor = is_null($buid)
+                    ? ('mbox:' . $this->form_to)
+                    : ('msg:' . $this->form_to . ';' . $buid);
+                return Horde::url('index.php')->setAnchor($anchor);
 
-                case Horde_Registry::VIEW_SMARTMOBILE:
-                    $url = Horde::url('smartmobile.php');
-                    $anchor = is_null($buid)
-                        ? ('mbox=' . $this->form_to)
-                        : ('msg=' . $this->form_to . ';' . $buid);
-                    $url->setAnchor('mailbox?' . $anchor);
-                    return $url;
-                }
+            case Horde_Registry::VIEW_SMARTMOBILE:
+                $url = Horde::url('smartmobile.php');
+                $anchor = is_null($buid)
+                    ? ('mbox=' . $this->form_to)
+                    : ('msg=' . $this->form_to . ';' . $buid);
+                $url->setAnchor('mailbox?' . $anchor);
+                return $url;
             }
 
             $url = Horde::url($page);

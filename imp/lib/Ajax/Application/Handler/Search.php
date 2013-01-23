@@ -34,7 +34,7 @@ class IMP_Ajax_Application_Handler_Search extends Horde_Core_Ajax_Application_Ha
      */
     public function searchMailboxList()
     {
-        $ob = $GLOBALS['injector']->getInstance('IMP_Ui_Search')->getSearchMboxList($this->vars->unsub);
+        $ob = $GLOBALS['injector']->getInstance('IMP_Search_Ui')->getSearchMboxList($this->vars->unsub);
 
         $result = new stdClass;
         $result->mbox_list = $ob->mbox_list;

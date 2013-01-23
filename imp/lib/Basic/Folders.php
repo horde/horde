@@ -335,8 +335,8 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         case 'search':
             if (!empty($mbox_list)) {
-                $url = new Horde_Url(Horde::url('search.php'));
-                $url->add('subfolder', 1)
+                $url = IMP_Basic_Search::url()
+                    ->add('subfolder', 1)
                     ->add('mailbox_list', IMP_Mailbox::formTo($mbox_list))
                     ->redirect();
             }
