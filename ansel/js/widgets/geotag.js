@@ -321,7 +321,9 @@ AnselGeoTagWidget = Class.create({
             a.observe('click', function(e) {
                 HordePopup.popup({
                     url: this.opts.relocateUrl,
-                    params: 'image=' + iid, width: 750, height: 600
+                    params: { 'image': iid },
+                    width: 750,
+                    height: 600
                 });
                 e.stop();
             }.bind(this));
