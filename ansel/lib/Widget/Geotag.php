@@ -81,7 +81,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $page_output->addScriptFile('widgets/geotag.js');
 
         // Values needed by map javascript
-        $url = Horde::url('map_edit.php', true);
+        $relocate_url = Horde::url('map_edit.php', true);
         $rtext = _("Relocate this image");
         $dtext = _("Delete geotag");
         $thisTitleText = _("This image");
@@ -193,7 +193,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             'smallMap' => 'ansel_map_small',
             'mainMap' => 'ansel_map',
             'viewType' => $viewType,
-            'relocateUrl' => strval($url),
+            'relocateUrl' => strval($relocate_url),
             'relocateText' => $rtext,
             'markerLayerTitle' => $thisTitleText,
             'imageLayerTitle' => $otherTitleText,
