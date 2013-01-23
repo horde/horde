@@ -172,8 +172,8 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
                         } else {
                             $data['title'] = sprintf(
                                 '%s %s',
-                                $this->_point2Deg($data['image_latitude'], true),
-                                $this->_point2Deg($data['image_longitude'])
+                                Ansel::point2Deg($data['image_latitude'], true),
+                                Ansel::point2Deg($data['image_longitude'])
                             );
                         }
                         $data['add_link'] = $addurl->link(array(
@@ -226,24 +226,6 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         return $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getImagesGeodata(array(), $this->_view->gallery->id);
-    }
-
-    /**
-     * Helper function for converting from decimal points to degrees lat/lng
-     *
-     * @param float   $value  The value
-     * @param boolean $lat    Does this value represent a latitude?
-     *
-     * @return string  The textual representation in degrees.
-     */
-    protected function _point2Deg($value, $lat = false)
-    {
-        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
-        $value = abs($value);
-        $deg = floor($value);
-        $min = floor(($value - $deg) * 60);
-        $sec = ($value - $deg - $min / 60) * 3600;
-        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
 }
