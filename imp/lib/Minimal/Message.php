@@ -77,8 +77,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         }
 
         /* We may have done processing that has taken us past the end of the
-         * message array, so we will return to mailbox.php if that is the
-         * case. */
+         * message array, so we will return to the mailbox. */
         if (!$imp_mailbox->isValidIndex() ||
             ($msg_delete && $prefs->getValue('mailbox_return'))) {
             $mailbox_url->add('s', $msg_index)->redirect();

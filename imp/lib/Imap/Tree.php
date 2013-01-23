@@ -1724,7 +1724,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     break;
 
                 default:
-                    $params['url'] = $val->url('mailbox.php')->setRaw(true);
+                    $params['url'] = $val->url('mailbox')->setRaw(true);
                     break;
                 }
 

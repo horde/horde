@@ -45,6 +45,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $imp_mailbox->setIndex($this->indices, true);
         if (!$imp_mailbox->isValidIndex()) {
             $this->_returnToMailbox(null, 'message_missing');
+            return;
         }
 
         $horde_token = $injector->getInstance('Horde_Token');
@@ -93,6 +94,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             );
             if ($prefs->getValue('mailbox_return')) {
                 $this->_returnToMailbox($imp_mailbox->getIndex());
+                return;
             }
             if ($imp_ui->moveAfterAction($mailbox)) {
                 $imp_mailbox->setIndex(1);
@@ -125,6 +127,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 );
                 if ($prefs->getValue('mailbox_return')) {
                     $this->_returnToMailbox($imp_mailbox->getIndex());
+                    return;
                 }
             }
             break;
@@ -141,6 +144,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             }
             if ($prefs->getValue('mailbox_return')) {
                 $this->_returnToMailbox($imp_mailbox->getIndex());
+                return;
             }
             break;
 
@@ -153,6 +157,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                 $imp_message->flag(array($flag['flag']), $this->indices, $flag['set']);
                 if ($prefs->getValue('mailbox_return')) {
                     $this->_returnToMailbox($imp_mailbox->getIndex());
+                    return;
                 }
             }
             break;
@@ -186,10 +191,10 @@ class IMP_Basic_Message extends IMP_Basic_Base
         }
 
         /* We may have done processing that has taken us past the end of the
-         * message array, so we will return to mailbox.php if that is the
-         * case. */
+         * message array, so we will return to the mailbox. */
         if (!$imp_mailbox->isValidIndex()) {
             $this->_returnToMailbox(count($imp_mailbox));
+            return;
         }
 
         /* Now that we are done processing, get the index and array index of
@@ -202,6 +207,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         } catch (IMP_Exception $e) {
             $imp_mailbox->removeMsgs(true);
             $this->_returnToMailbox(null, 'message_missing');
+            return;
         }
 
         /* Get envelope/flag/header information. */
@@ -221,6 +227,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             ));
         } catch (IMP_Imap_Exception $e) {
             $this->_returnToMailbox(null, 'message_missing');
+            return;
         }
 
         $envelope = $fetch_ret->first()->getEnvelope();
@@ -403,7 +410,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         }
 
         /* Generate the mailbox link. */
-        $mailbox_url = $mailbox->url('mailbox.php')->add('start', $msgindex);
+        $mailbox_url = $mailbox->url('mailbox')->add('start', $msgindex);
 
         /* Everything below here is related to preparing the output. */
 
@@ -443,7 +450,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $h_page_label = htmlspecialchars($page_label);
         $header_label = $h_page_label;
         if ($mailbox->search) {
-            $header_label .= ' [' . Horde::link(Horde::url('mailbox.php')->add('mailbox', $msg_index['m']->form_to)) . $msg_index['m']->display_html . '</a>]';
+            $header_label .= ' [' . $msg_index['m']->url('mailbox')->link() . $msg_index['m']->display_html . '</a>]';
         }
 
         /* Prepare the navbar top template. */
@@ -932,19 +939,18 @@ class IMP_Basic_Message extends IMP_Basic_Base
      */
     static public function url(array $opts = array())
     {
-        return IMP_Mailbox::get($opts['mailbox'])->url('basic.php', $opts['buid'])->add('page', 'message');
+        return IMP_Mailbox::get($opts['mailbox'])->url('basic', $opts['buid'])->add('page', 'message');
     }
 
     /**
      */
-    protected function _returnToMailbox($startIndex = null, $actID = null)
+    protected function _returnToMailbox($start = null, $actID = null)
     {
-        $GLOBALS['actionID'] = $actID;
-        $GLOBALS['from_message_page'] = true;
-        $GLOBALS['start'] = $startIndex;
+        $this->vars->actionID = $actID;
+        $this->vars->start = $start;
 
-        require IMP_BASE . '/mailbox.php';
-        exit;
+        $ob = new IMP_Basic_Mailbox($this->vars);
+        $this->output = $ob->output;
     }
 
     /**

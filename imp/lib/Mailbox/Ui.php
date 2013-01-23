@@ -1,18 +1,26 @@
 <?php
 /**
- * Common code shared among IMP's various UI views for the mailbox page.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Ui_Mailbox
+
+/**
+ * Common UI code for IMP's various mailbox views.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Mailbox_Ui
 {
      const DATE_FORCE = 1;
      const DATE_FULL = 2;
@@ -120,9 +128,9 @@ class IMP_Ui_Mailbox
      * @param mixed $date      The date object. Either a DateTime object or a
      *                         date string.
      * @param integer $format  Mask of formatting options:
-     *   - IMP_Ui_Mailbox::DATE_FORCE - Force use of date formatting, instead
+     *   - IMP_Mailbox_Ui::DATE_FORCE - Force use of date formatting, instead
      *                                  of time formatting, for all dates.
-     *   - IMP_Ui_Mailbox::DATE_FULL - Use full representation of date,
+     *   - IMP_Mailbox_Ui::DATE_FULL - Use full representation of date,
      *                                 including time information.
      *
      * @return string  The formatted date header.

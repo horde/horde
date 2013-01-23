@@ -82,7 +82,7 @@ class IMP_Block_Summary extends Horde_Core_Block
                  !empty($status[$mbox_str]['unseen']))) {
                 $mbox_status = $status[$mbox_str];
 
-                $label = $mbox->url('mailbox.php')->link() . $mbox->display_html . '</a>';
+                $label = $mbox->url('mailbox')->link() . $mbox->display_html . '</a>';
                 if (!empty($mbox_status['unseen'])) {
                     $label = '<strong>' . $label . '</strong>';
                     $anyUnseen = true;

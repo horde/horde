@@ -384,7 +384,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
                     $this->view->attach = true;
                     if (count($imp_compose)) {
-                        $imp_ui_mbox = new IMP_Ui_Mailbox();
+                        $imp_ui_mbox = new IMP_Mailbox_Ui();
                         $this->view->attach_name = $imp_compose[0]['part']->getName();
                         $this->view->attach_type = $imp_compose[0]['part']->getType();
                         $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());

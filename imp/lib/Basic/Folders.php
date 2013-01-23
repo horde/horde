@@ -34,7 +34,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $notification->push(_("The folder view is not enabled."), 'horde.error');
-            Horde::url('mailbox.php', true)->redirect();
+            Horde::url('mailbox', true)->redirect();
         }
 
         /* Decide whether or not to show all the unsubscribed mailboxes. */

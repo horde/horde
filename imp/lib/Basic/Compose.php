@@ -1112,13 +1112,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
      */
     protected function _mailboxReturnUrl($url = null)
     {
-        if (!$url) {
-            $url = Horde::url('mailbox.php');
-        }
+        $url = $this->indices->mailbox->url('mailbox');
 
-        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
-
-        foreach (array('start', 'page', 'mailbox') as $key) {
+        foreach (array('start', 'page') as $key) {
             if (isset($vars->$key)) {
                 $url->add($key, $vars->$key);
             }

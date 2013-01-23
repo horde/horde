@@ -549,7 +549,7 @@ class IMP_Hooks
      *
      * If you are going to add new columns, you also have to update these
      * fields:
-     *   basic: imp/mailbox.php to specify the column width.
+     *   basic: imp/lib/Basic/Mailbox.php to specify the column width.
      *   dynamic: imp/themes/dynamic/screen.css to specify the column width.
      *
      * @param array $msgs  The mailbox data.

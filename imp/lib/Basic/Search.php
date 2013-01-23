@@ -157,7 +157,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
 
         /* Check that searching is allowed. */
         if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
-            $default_mailbox->url('mailbox.php')->redirect();
+            $default_mailbox->url('mailbox')->redirect();
         }
 
         $imp_flags = $injector->getInstance('IMP_Flags');
@@ -339,7 +339,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
 
                 switch ($redirect_target) {
                 case 'mailbox':
-                    $q_ob->mbox_ob->url('mailbox.php')->redirect();
+                    $q_ob->mbox_ob->url('mailbox')->redirect();
                     break;
 
                 case 'prefs':

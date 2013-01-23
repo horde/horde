@@ -50,7 +50,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
             $m_url = ($val->enabled && ($view_mode == Horde_Registry::VIEW_BASIC))
-                ? $val->mbox_ob->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
+                ? $val->mbox_ob->url('mailbox')->link(array('class' => 'vfolderenabled'))
                 : null;
 
             if ($view_mode == Horde_Registry::VIEW_DYNAMIC) {

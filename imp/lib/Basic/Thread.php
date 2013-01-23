@@ -47,7 +47,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
 
         if (!count($imp_indices)) {
             $notification->push(_("Could not load message."), 'horde.error');
-            $this->indices->mailbox->url('mailbox.php')->redirect();
+            $this->indices->mailbox->url('mailbox')->redirect();
         }
 
         /* Run through action handlers. */
@@ -120,7 +120,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
                 switch ($registry->getView()) {
                 case $registry::VIEW_BASIC:
                     $curr_msg['link'] .= ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('message', $idx), 'title' => _("Go to Message"), 'nocheck' => true)) .
-                        ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('mailbox.php')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
+                        ' | ' . Horde::widget(array('url' => $this->indices->mailbox->url('mailbox')->add(array('start' => $imp_mailbox->getArrayIndex($idx))), 'title' => sprintf(_("Bac_k to %s"), $page_label)));
                     break;
                 }
 
@@ -148,7 +148,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
             switch ($registry->getView()) {
             case $registry::VIEW_BASIC:
                 $uid_list = $imp_indices[strval($this->indices->mailbox)];
-                $delete_link = $this->indices->mailbox->url('mailbox.php')->add(array(
+                $delete_link = $this->indices->mailbox->url('mailbox')->add(array(
                     'actionID' => 'delete_messages',
                     'indices' => strval($imp_indices),
                     'mailbox_token' => $injector->getInstance('Horde_Token')->get('imp.mailbox'),

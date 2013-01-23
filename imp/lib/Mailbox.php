@@ -1174,37 +1174,41 @@ class IMP_Mailbox implements Serializable
     public function url($page, $buid = null, $encode = true)
     {
         if ($page instanceof Horde_Url) {
-            $url = clone $page;
-        } else {
-            switch ($GLOBALS['registry']->getView()) {
-            case Horde_Registry::VIEW_BASIC:
-                if ($page == 'message') {
-                    return IMP_Basic_Message::url(array(
-                        'buid' => $buid,
-                        'mailbox' => $this->form_to
-                    ))->setRaw(!$encode);
-                }
-                break;
-
-            case Horde_Registry::VIEW_DYNAMIC:
-                $anchor = is_null($buid)
-                    ? ('mbox:' . $this->form_to)
-                    : ('msg:' . $this->form_to . ';' . $buid);
-                return Horde::url('index.php')->setAnchor($anchor);
-
-            case Horde_Registry::VIEW_SMARTMOBILE:
-                $url = Horde::url('smartmobile.php');
-                $anchor = is_null($buid)
-                    ? ('mbox=' . $this->form_to)
-                    : ('msg=' . $this->form_to . ';' . $buid);
-                $url->setAnchor('mailbox?' . $anchor);
-                return $url;
-            }
-
-            $url = Horde::url($page);
+            return $page->add($this->urlParams($buid))->setRaw(!$encode);
         }
 
-        return $url->add($this->urlParams($buid))->setRaw(!$encode);
+        switch ($GLOBALS['registry']->getView()) {
+        case Horde_Registry::VIEW_BASIC:
+            switch ($page) {
+            case 'message':
+                return IMP_Basic_Message::url(array(
+                    'buid' => $buid,
+                    'mailbox' => $this->_mbox
+                ))->setRaw(!$encode);
+
+            case 'mailbox':
+                return IMP_Basic_Mailbox::url(array(
+                    'mailbox' => $this->_mbox
+                ))->setRaw(!$encode);
+            }
+            break;
+
+        case Horde_Registry::VIEW_DYNAMIC:
+            $anchor = is_null($buid)
+                ? ('mbox:' . $this->form_to)
+                : ('msg:' . $this->form_to . ';' . $buid);
+            return Horde::url('index.php')->setAnchor($anchor);
+
+        case Horde_Registry::VIEW_SMARTMOBILE:
+            $url = Horde::url('smartmobile.php');
+            $anchor = is_null($buid)
+                ? ('mbox=' . $this->form_to)
+                : ('msg=' . $this->form_to . ';' . $buid);
+            $url->setAnchor('mailbox?' . $anchor);
+            return $url;
+        }
+
+        return Horde::url($page . '.php')->add($this->urlParams($buid))->setRaw(!$encode);
     }
 
     /**

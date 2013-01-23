@@ -30,7 +30,7 @@ class IMP_Basic_Searchbasic extends IMP_Basic_Base
 
         if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
             $notification->push(_("Searching is not available."), 'horde.error');
-            $this->indices->mailbox->url('mailbox.php')->redirect();
+            $this->indices->mailbox->url('mailbox')->redirect();
         }
 
         $imp_flags = $injector->getInstance('IMP_Flags');
@@ -88,7 +88,7 @@ class IMP_Basic_Searchbasic extends IMP_Basic_Base
                 ));
 
                 /* Redirect to the mailbox screen. */
-                IMP_Mailbox::get($q_ob)->url('mailbox.php')->redirect();
+                IMP_Mailbox::get($q_ob)->url('mailbox')->redirect();
             }
         }
 

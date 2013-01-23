@@ -119,7 +119,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         $this->view->title = $this->title;
 
         /* Build the array of message information. */
-        $imp_ui = new IMP_Ui_Mailbox($this->indices->mailbox);
+        $imp_ui = new IMP_Mailbox_Ui($this->indices->mailbox);
         $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array('headers' => true));
         $msgs = array();
 

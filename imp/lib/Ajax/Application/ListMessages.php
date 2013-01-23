@@ -412,7 +412,7 @@ class IMP_Ajax_Application_ListMessages
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $imp_ui = new IMP_Ui_Mailbox($mbox);
+        $imp_ui = new IMP_Mailbox_Ui($mbox);
 
         $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);
 

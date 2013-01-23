@@ -1,13 +1,14 @@
 /**
- * Provides the javascript for the mailbox.php script (standard view).
+ * Provides the javascript for the basic view mailbox page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
 var ImpMailbox = {
-    // The following variables are defined in mailbox.php:
-    //  text, unread
+
+    // The following variables are defined in PHP code:
+    //   pop3, text, unread
 
     countSelected: function()
     {
@@ -39,19 +40,19 @@ var ImpMailbox = {
 
         switch (actID) {
         case 'delete_messages':
-            if (IMP.conf.pop3 && !confirm(this.text.delete_messages)) {
+            if (this.pop3 && !confirm(this.text.delete_messages)) {
                 return;
             }
             break;
 
         case 'spam_report':
-            if (!confirm(IMP.text.spam_report)) {
+            if (!confirm(this.text.spam_report)) {
                 return;
             }
             break;
 
         case 'nostpam_report':
-            if (!confirm(IMP.text.notspam_report)) {
+            if (!confirm(this.text.notspam_report)) {
                 return;
             }
             break;
@@ -121,23 +122,23 @@ var ImpMailbox = {
 
             // Check for a mailbox actually being selected.
             if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
-                newMbox = prompt(IMP.text.newmbox, '');
+                newMbox = prompt(this.text.newmbox, '');
                 if (newMbox != null && newMbox != '') {
                     $('newMbox').setValue(1);
                     tmbox.setValue(newMbox);
                     this.submit(actID);
                 }
             } else if (target.empty()) {
-                alert(IMP.text.target_mbox);
+                alert(this.text.target_mbox);
             } else if (target.startsWith("notepad\0") ||
                        target.startsWith("tasklist\0")) {
                 this.actIDconfirm = actID;
                 HordeDialog.display({
-                    cancel_text: IMP.text.no,
+                    cancel_text: this.text.no,
                     form_id: 'RB_ImpMailboxConfirm',
                     noinput: true,
-                    ok_text: IMP.text.yes,
-                    text: IMP.text.moveconfirm
+                    ok_text: this.text.yes,
+                    text: this.text.moveconfirm
                 });
             } else {
                 this.submit(actID);
