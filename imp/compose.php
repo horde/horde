@@ -739,7 +739,7 @@ if ($redirect) {
             'id' => 'redirect_abook',
             'title' => _("Address Book")
         ));
-        $js_vars['ImpCompose.redirect_contacts'] = strval(Horde::url('contacts.php')->add(array('to_only' => 1))->setRaw(true));
+        $js_vars['ImpCompose.redirect_contacts'] = strval(IMP_Basic_Contacts::url()->add(array('to_only' => 1))->setRaw(true));
     }
 
     $view->input_value = $header['to'];
@@ -854,7 +854,7 @@ if ($redirect) {
             'img' => Horde::img('addressbook_browse.png'),
             'label' => $show_text ? _("Address Book") : ''
         );
-        $js_vars['ImpCompose.contacts_url'] = strval(Horde::url('contacts.php')->setRaw(true));
+        $js_vars['ImpCompose.contacts_url'] = strval(IMP_Basic_Contacts::url()->setRaw(true));
     }
     if ($spellcheck) {
         $compose_options[] = array(

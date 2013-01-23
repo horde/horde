@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-22</date>
- <time>22:40:23</time>
+ <time>23:08:52</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -129,7 +129,9 @@
      <file name="Queue.php" role="horde" />
     </dir> <!-- /lib/Ajax -->
     <dir name="Basic">
+     <file name="Base.php" role="horde" />
      <file name="Compose.php" role="horde" />
+     <file name="Contacts.php" role="horde" />
     </dir> <!-- /lib/Basic -->
     <dir name="Block">
      <file name="Newmail.php" role="horde" />
@@ -1042,8 +1044,8 @@
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
+   <file name="basic.php" role="horde" />
    <file name="compose.php" role="horde" />
-   <file name="contacts.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="dynamic.php" role="horde" />
    <file name="folders.php" role="horde" />
@@ -1417,7 +1419,9 @@
    <install as="imp/lib/Ajax/Imple/ImportEncryptKey.php" name="lib/Ajax/Imple/ImportEncryptKey.php" />
    <install as="imp/lib/Ajax/Imple/ItipRequest.php" name="lib/Ajax/Imple/ItipRequest.php" />
    <install as="imp/lib/Ajax/Imple/PassphraseDialog.php" name="lib/Ajax/Imple/PassphraseDialog.php" />
+   <install as="imp/lib/Basic/Base.php" name="lib/Basic/Base.php" />
    <install as="imp/lib/Basic/Compose.php" name="lib/Basic/Compose.php" />
+   <install as="imp/lib/Basic/Contacts.php" name="lib/Basic/Contacts.php" />
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
@@ -1958,8 +1962,8 @@
    <install as="imp/themes/default/minimal/screen.css" name="themes/default/minimal/screen.css" />
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="imp/attachment.php" name="attachment.php" />
+   <install as="imp/basic.php" name="basic.php" />
    <install as="imp/compose.php" name="compose.php" />
-   <install as="imp/contacts.php" name="contacts.php" />
    <install as="COPYING" name="COPYING" />
    <install as="imp/dynamic.php" name="dynamic.php" />
    <install as="imp/folders.php" name="folders.php" />

@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the contacts.php script.
+ * Provides the javascript for the contacts page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
