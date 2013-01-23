@@ -10,7 +10,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Sieve extends Ingo_Script
+class Ingo_Script_Sieve extends Ingo_Script_Base
 {
     /**
      * The list of actions allowed (implemented) for this driver.

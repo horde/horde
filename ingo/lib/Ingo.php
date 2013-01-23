@@ -27,6 +27,16 @@ class Ingo
     const USER_HEADER = '++USER_HEADER++';
 
     /**
+     * Only filter unseen messages.
+     */
+    const FILTER_UNSEEN = 1;
+
+    /**
+     * Only filter seen messages.
+     */
+    const FILTER_SEEN = 2;
+
+    /**
      * hasSharePermission() cache.
      *
      * @var integer

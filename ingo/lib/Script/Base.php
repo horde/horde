@@ -1,6 +1,6 @@
 <?php
 /**
- * The Ingo_Script:: class provides a common abstracted interface to the
+ * The Ingo_Script_Base class provides a common abstracted interface to the
  * script-generation subclasses.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
@@ -9,22 +9,13 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Brent J. Nordquist <bjn@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script
+abstract class Ingo_Script_Base
 {
-    /**
-     * Only filter unseen messages.
-     */
-    const FILTER_UNSEEN = 1;
-
-    /**
-     * Only filter seen messages.
-     */
-    const FILTER_SEEN = 2;
-
     /**
      * The script class' additional parameters.
      *

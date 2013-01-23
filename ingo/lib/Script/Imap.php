@@ -13,7 +13,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Imap extends Ingo_Script
+class Ingo_Script_Imap extends Ingo_Script_Base
 {
     /**
      * The script class' additional parameters.
@@ -376,9 +376,9 @@ class Ingo_Script_Imap extends Ingo_Script
     {
         $ob = new Horde_Imap_Client_Search_Query();
         $ob->flag('\\deleted', false);
-        if ($this->_params['filter_seen'] == Ingo_Script::FILTER_SEEN ||
-            $this->_params['filter_seen'] == Ingo_Script::FILTER_UNSEEN) {
-            $ob->flag('\\seen', $this->_params['filter_seen'] == Ingo_Script::FILTER_SEEN);
+        if ($this->_params['filter_seen'] == Ingo::FILTER_SEEN ||
+            $this->_params['filter_seen'] == Ingo::FILTER_UNSEEN) {
+            $ob->flag('\\seen', $this->_params['filter_seen'] == Ingo::FILTER_SEEN);
         }
 
         return $ob;

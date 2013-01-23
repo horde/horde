@@ -101,8 +101,8 @@
    <?php echo $this->hordeLabel('filter_seen', _("Filter Options")) ?>
    <select id="filter_seen" name="filter_seen">
     <?php echo $this->optionTag(0, _("Filter All Messages"), empty($this->flags)) ?>
-    <?php echo $this->optionTag(Ingo_Script::FILTER_UNSEEN, _("Filter Only Unseen Messages"), $this->flags == Ingo_Script::FILTER_UNSEEN) ?>
-    <?php echo $this->optionTag(Ingo_Script::FILTER_SEEN, _("Filter Only Seen Messages"), $this->flags == Ingo_Script::FILTER_SEEN) ?>
+    <?php echo $this->optionTag(Ingo::FILTER_UNSEEN, _("Filter Only Unseen Messages"), $this->flags == Ingo::FILTER_UNSEEN) ?>
+    <?php echo $this->optionTag(Ingo::FILTER_SEEN, _("Filter Only Seen Messages"), $this->flags == Ingo::FILTER_SEEN) ?>
    </select>
    <?php echo $this->hordeHelp('ingo', 'pref-filter_seen') ?>
   </p>

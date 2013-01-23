@@ -44,7 +44,7 @@ $_prefs['show_filter_msg'] = array(
 );
 
 // Only filter [un]seen messages?
-// Values: 0, Ingo_Script::FILTER_UNSEEN, Ingo_Script::FILTER_SEEN
+// Values: 0, Ingo::FILTER_UNSEEN, Ingo::FILTER_SEEN
 $_prefs['filter_seen'] = array(
     'value' => 0,
     'locked' => false,

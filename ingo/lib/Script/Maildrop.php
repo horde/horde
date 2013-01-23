@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Script_Maildrop extends Ingo_Script
+class Ingo_Script_Maildrop extends Ingo_Script_Base
 {
 
     /* Additional storage action since maildrop does not support the
