@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-22</date>
- <time>22:16:03</time>
+ <time>22:33:14</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -392,7 +392,6 @@
      <file name="Contacts.php" role="horde" />
      <file name="Editor.php" role="horde" />
      <file name="Headers.php" role="horde" />
-     <file name="Imageview.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Quota.php" role="horde" />
@@ -410,6 +409,7 @@
     <file name="Exception.php" role="horde" />
     <file name="Filter.php" role="horde" />
     <file name="Flags.php" role="horde" />
+    <file name="Images.php" role="horde" />
     <file name="Imap.php" role="horde" />
     <file name="IMP.php" role="horde" />
     <file name="Indices.php" role="horde" />
@@ -1386,6 +1386,7 @@
    <install as="imp/lib/Exception.php" name="lib/Exception.php" />
    <install as="imp/lib/Filter.php" name="lib/Filter.php" />
    <install as="imp/lib/Flags.php" name="lib/Flags.php" />
+   <install as="imp/lib/Images.php" name="lib/Images.php" />
    <install as="imp/lib/Imap.php" name="lib/Imap.php" />
    <install as="imp/lib/IMP.php" name="lib/IMP.php" />
    <install as="imp/lib/Indices.php" name="lib/Indices.php" />
@@ -1597,7 +1598,6 @@
    <install as="imp/lib/Ui/Contacts.php" name="lib/Ui/Contacts.php" />
    <install as="imp/lib/Ui/Editor.php" name="lib/Ui/Editor.php" />
    <install as="imp/lib/Ui/Headers.php" name="lib/Ui/Headers.php" />
-   <install as="imp/lib/Ui/Imageview.php" name="lib/Ui/Imageview.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />

@@ -148,8 +148,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
 
             if ($inline) {
-                $imgview = new IMP_Ui_Imageview();
-                $blockimg = !$imgview->showInlineImage($contents) &&
+                $blockimg = !$injector->getInstance('IMP_Images')->showInlineImage($contents) &&
                             ($registry->getView() != $registry::VIEW_SMARTMOBILE);
 //                $filters['emails'] = array(
 //                    'callback' => array($this, 'emailsCallback')

@@ -1,19 +1,26 @@
 <?php
 /**
- * Common code shared among MIME Viewers relating to image viewing
- * preferences.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Ui_Imageview
+
+/**
+ * Common code relating to image viewing preferences.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Images
 {
     /**
      * Show inline images in messages?
@@ -37,7 +44,7 @@ class IMP_Ui_Imageview
         }
 
         if ($registry->hasMethod('contacts/search')) {
-            $sparams = $injector->getInstance('IMP_Ui_Contacts')->getAddressbookSearchParams();
+            $sparams = $injector->getInstance('IMP_Contacts')->getAddressbookSearchParams();
             $res = $registry->call('contacts/search', array($from->bare_addresses, array(
                 'fields' => $sparams['fields'],
                 'returnFields' => array('email'),

@@ -107,8 +107,7 @@ class IMP_Mime_Viewer_Images extends Horde_Mime_Viewer_Images
         if ($GLOBALS['browser']->isViewable($this->_getType())) {
             if (!isset($this->_conf['inlinesize']) ||
                 ($this->_mimepart->getBytes() < $this->_conf['inlinesize'])) {
-                $imgview = new IMP_Ui_Imageview();
-                $showimg = $imgview->showInlineImage($this->getConfigParam('imp_contents'));
+                $showimg = $GLOBALS['injector']->getInstance('IMP_Images')->showInlineImage($this->getConfigParam('imp_contents'));
             } else {
                 /* For mimp - allow rendering of attachments inline (on the
                  * view parts page). */
