@@ -40,6 +40,7 @@ var Horde_Uploader = Class.create({
         filesadded: function(up, files)
         {
             this._queue = files;
+            $(this._params['upload_button']).show();
         },
 
         /**
@@ -121,7 +122,9 @@ var Horde_Uploader = Class.create({
         statechanged: function(up) {},
         filesremoved: function(up, files) {},
         chunkuploaded: function(up, file, response) {},
-        uploadcomplete: function(up, files) {}
+        uploadcomplete: function(up, files) {
+            $(this._params['upload_button']).hide();
+        }
     },
 
     /**
@@ -196,6 +199,7 @@ var Horde_Uploader = Class.create({
         }.bindAsEventListener(this));
         this.setReturnTarget(this._params['return_target']);
         $(this._params['return_button']).hide();
+        $(this._params['upload_button']).hide();
     },
 
     setReturnTarget: function(path)
@@ -227,9 +231,6 @@ var Horde_Uploader = Class.create({
 
     /**
      * Draw the upload widget.
-     *
-     * TODO: eh, make pretty :)
-     *
      */
     _build: function()
     {
