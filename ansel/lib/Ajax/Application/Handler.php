@@ -383,7 +383,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 
         try {
             $view = new $class($this->vars);
-            return new Horde_Core_Ajax_Response_Javascript($view->html());
+            return new Horde_Core_Ajax_Response_Raw($view->html(), 'text/javascript');
         } catch (Exception $e) {}
     }
 
