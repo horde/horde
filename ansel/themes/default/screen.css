@@ -259,15 +259,6 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     padding-right: 2px;
 }
 
-.success {
-    background: url('graphics/success.png') center left no-repeat;
-    padding-left: 15px;
-}
-.problem {
-    background: url('graphics/problem.png') center left no-repeat;
-    padding-left: 15px;
-}
-
 /* Image resizer/slider */
 #slider-track {
     background: url('graphics/scaler_slider_track.gif') no-repeat;
