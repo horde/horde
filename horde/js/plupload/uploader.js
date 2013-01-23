@@ -138,8 +138,8 @@ var Horde_Uploader = Class.create({
     initialize: function(params, handlers)
     {
         this._params = Object.extend({
-            browsebutton_class: 'button hordeUploaderAdd',
-            uploadbutton_class: 'button hordeUploaderStart',
+            browsebutton_class: 'horde-button',
+            uploadbutton_class: 'horde-button',
             header_class: 'hordeUploaderHeader',
             headercontent_class: 'hordeUploaderHeaderContent',
             subheader_class: 'hordeUploaderSubHeader',
@@ -152,7 +152,7 @@ var Horde_Uploader = Class.create({
             drop_target: 'filelist',
             upload_button: 'uploadimages',
             return_button: 'return',
-            returnbutton_class: 'button',
+            returnbutton_class: 'horde-button',
             success_class: 'hordeUploaderSuccess',
             error_class: 'hordeUploaderError',
             footer_class: 'hordeUploaderFooter',
@@ -223,7 +223,7 @@ var Horde_Uploader = Class.create({
                     .insert(new Element('div', { 'class': 'hordeUploaderFileaction' }).update(remove))
                     .insert(new Element('div', { 'class': 'hordeUploaderFilestatus' }).update('&nbsp'))
                     .insert(new Element('div', { 'class': 'hordeUploaderFilesize' }).update(plupload.formatSize(f.size)));
-                remove.observe('click', function() { var f = up.getFile(newdiv.id); up.removeFile(f); $(newdiv.id).remove(); });
+                remove.observe('click', function(e) { var f = this._puploader.getFile(newdiv.id); this._puploader.removeFile(f); $(newdiv.id).remove(); }.bind(this));
                 $(this._params['drop_target']).select('.hordeUploaderFileUl').each(function(p) { p.insert(newdiv) });
             }
         }.bind(this));
