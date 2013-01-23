@@ -79,7 +79,6 @@ if ($vars->actionID) {
 $readonly = $mailbox->readonly;
 
 $imp_flags = $injector->getInstance('IMP_Flags');
-$imp_hdr_ui = new IMP_Ui_Headers();
 $imp_ui = new IMP_Ui_Message();
 $peek = false;
 
@@ -317,7 +316,7 @@ if ($subject = $mime_headers->getValue('subject')) {
 }
 
 /* See if the priority has been set. */
-switch ($priority = $imp_hdr_ui->getPriority($mime_headers)) {
+switch ($priority = $injector->getInstance('IMP_Mime_Headers')->getPriority($mime_headers)) {
 case 'high':
     $basic_headers['priority'] = _("Priority");
     $display_headers['priority'] = '<div class="iconImg msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . _("High");

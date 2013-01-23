@@ -38,7 +38,6 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             $mailbox_url->add('a', 'm')->redirect();
         }
 
-        $imp_hdr_ui = new IMP_Ui_Headers();
         $imp_ui = new IMP_Ui_Message();
 
         /* Run through action handlers */
@@ -167,7 +166,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         $list_info = $imp_ui->getListInformation($mime_headers);
 
         /* See if the priority has been set. */
-        switch($priority = $imp_hdr_ui->getPriority($mime_headers)) {
+        switch($priority = $injector->getInstance('IMP_Mime_Headers')->getPriority($mime_headers)) {
         case 'high':
         case 'low':
             $basic_headers['priority'] = _("Priority");

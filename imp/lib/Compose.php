@@ -547,9 +547,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $header['subject'] = $headers->getValue('subject');
 
-        $imp_ui_hdrs = new IMP_Ui_Headers();
-        $priority = $imp_ui_hdrs->getPriority($headers);
-
         $mdn = new Horde_Mime_Mdn($headers);
         $readreceipt = (bool)$mdn->getMdnReturnAddr();
 
@@ -560,7 +557,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             'format' => $format,
             'headers' => $header,
             'identity' => $identity_id,
-            'priority' => $priority,
+            'priority' => $injector->getInstance('IMP_Mime_Headers')->getPriority($headers),
             'readreceipt' => $readreceipt,
             'type' => $type
         );
