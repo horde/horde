@@ -1345,7 +1345,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)
     {
-        $info = is_bool($var->getValue($vars)) ? $var->getValue($vars) : Horde_String::lower($vars->get($var->getVarName())) == 'on';
+        $info = Horde_String::lower($vars->get($var->getVarName())) == 'on';
     }
 
     /**
