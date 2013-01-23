@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-23</date>
- <time>13:15:10</time>
+ <time>13:21:40</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -145,6 +145,7 @@
     <dir name="Compose">
      <file name="Exception.php" role="horde" />
      <file name="References.php" role="horde" />
+     <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Contents">
@@ -397,7 +398,6 @@
      <file name="Simplehtml.php" role="horde" />
     </dir> <!-- /lib/Tree -->
     <dir name="Ui">
-     <file name="Compose.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="Message.php" role="horde" />
      <file name="Quota.php" role="horde" />
@@ -1050,7 +1050,6 @@
     </dir> <!-- /themes -->
    <file name="attachment.php" role="horde" />
    <file name="basic.php" role="horde" />
-   <file name="compose.php" role="horde" />
    <file name="COPYING" role="doc" />
    <file name="dynamic.php" role="horde" />
    <file name="index.php" role="horde" />
@@ -1431,6 +1430,7 @@
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
    <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
+   <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
@@ -1607,7 +1607,6 @@
    <install as="imp/lib/Tree/Flist.php" name="lib/Tree/Flist.php" />
    <install as="imp/lib/Tree/Jquerymobile.php" name="lib/Tree/Jquerymobile.php" />
    <install as="imp/lib/Tree/Simplehtml.php" name="lib/Tree/Simplehtml.php" />
-   <install as="imp/lib/Ui/Compose.php" name="lib/Ui/Compose.php" />
    <install as="imp/lib/Ui/Mailbox.php" name="lib/Ui/Mailbox.php" />
    <install as="imp/lib/Ui/Message.php" name="lib/Ui/Message.php" />
    <install as="imp/lib/Ui/Quota.php" name="lib/Ui/Quota.php" />
@@ -1968,7 +1967,6 @@
    <install as="imp/themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="imp/attachment.php" name="attachment.php" />
    <install as="imp/basic.php" name="basic.php" />
-   <install as="imp/compose.php" name="compose.php" />
    <install as="COPYING" name="COPYING" />
    <install as="imp/dynamic.php" name="dynamic.php" />
    <install as="imp/index.php" name="index.php" />

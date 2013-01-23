@@ -78,7 +78,7 @@ class IMP_Dynamic_Compose_Common
         $selected_identity = intval($identity->getDefault());
 
         /* Generate identities list. */
-        $injector->getInstance('IMP_Ui_Compose')->addIdentityJs();
+        $injector->getInstance('IMP_Compose_Ui')->addIdentityJs();
 
         if ($session->get('imp', 'rteavail')) {
             $view->compose_html = !empty($args['show_editor']);

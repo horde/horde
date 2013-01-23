@@ -37,13 +37,13 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Returns a compose window link.
      *
-     * @param string|array $args  List of arguments to pass to compose.php.
+     * @param string|array $args  List of arguments to pass to compose page.
      *                            If this is passed in as a string, it will be
      *                            parsed as a
      *                            toaddress?subject=foo&cc=ccaddress
      *                            (mailto-style) string.
      * @param array $extra        Hash of extra, non-standard arguments to
-     *                            pass to compose.php.
+     *                            pass to compose page.
      *
      * @return Horde_Url  The link to the message composition screen.
      */
@@ -56,13 +56,13 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Return a list of compose window links.
      *
-     * @param string|array $args  List of arguments to pass to compose.php.
+     * @param string|array $args  List of arguments to pass to compose page.
      *                            If this is passed in as a string, it will be
      *                            parsed as a
      *                            toaddress?subject=foo&cc=ccaddress
      *                            (mailto-style) string.
      * @param array $extra        List of hashes of extra, non-standard
-     *                            arguments to pass to compose.php.
+     *                            arguments to pass to compose page.
      *
      * @return array  The list of Horde_Url objects with links to the message
      *                composition screen.

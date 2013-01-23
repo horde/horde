@@ -3,8 +3,6 @@
  <?php echo $this->hiddenFieldTag('composeCache', $this->cacheid) ?>
  <?php echo $this->hiddenFieldTag('compose_requestToken', $this->token) ?>
 
- <?php echo $this->status ?>
-
  <h1 class="header">
   <?php echo $this->escape($this->title) ?>
  </h1>

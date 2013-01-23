@@ -542,7 +542,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
 
             if ($e->encrypt) {
-                $imp_ui = $injector->getInstance('IMP_Ui_Compose');
+                $imp_ui = $injector->getInstance('IMP_Compose_Ui');
                 switch ($e->encrypt) {
                 case 'pgp_symmetric_passphrase_dialog':
                     $imp_ui->passphraseDialog('pgp_symm', $imp_compose->getCacheId());

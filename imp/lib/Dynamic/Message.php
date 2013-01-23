@@ -103,7 +103,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
             $this->js_conf['qreply'] = 1;
 
             /* Attach spellchecker & auto completer. */
-            $imp_ui = new IMP_Ui_Compose();
+            $imp_ui = new IMP_Compose_Ui();
             $imp_ui->attachAutoCompleter(array('to', 'cc', 'bcc', 'redirect_to'));
             $imp_ui->attachSpellChecker();
         }

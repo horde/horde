@@ -1,18 +1,26 @@
 <?php
 /**
- * Common code shared among IMP's various compose UI views.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
-class IMP_Ui_Compose
+
+/**
+ * Common UI code shared among IMP's compose pages.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+class IMP_Compose_Ui
 {
     /**
      * Attach the auto-completer to the current compose form.
@@ -53,65 +61,6 @@ class IMP_Ui_Compose
             ),
             'targetId' => 'composeMessage'
         ));
-    }
-
-    /**
-     * Generate mailbox return URL.
-     *
-     * @param string $url  The URL to use instead of the default.
-     *
-     * @return string  The mailbox return URL.
-     */
-    public function mailboxReturnUrl($url = null)
-    {
-        if (!$url) {
-            $url = Horde::url('mailbox.php');
-        }
-
-        $vars = $GLOBALS['injector']->getInstance('Horde_Variables');
-
-        foreach (array('start', 'page', 'mailbox') as $key) {
-            if (isset($vars->$key)) {
-                $url->add($key, $vars->$key);
-            }
-        }
-
-        return $url;
-    }
-
-    /**
-     * Generate a compose message popup success window (compose.php).
-     */
-    public function popupSuccess()
-    {
-        global $page_output;
-
-        $page_output->topbar = $page_output->sidebar = false;
-
-        $page_output->addInlineScript(array(
-            '$("close_success").observe("click", function() { window.close(); })'
-        ), true);
-
-        IMP::header(_("Message Successfully Sent"));
-
-        $view = new Horde_View(array(
-            'templatePath' => IMP_TEMPLATES . '/basic/compose'
-        ));
-
-        $view->close = Horde::widget(array(
-            'id' => 'close_success',
-            'url' => new Horde_Url(),
-            'title' => _("Close this window")
-        ));
-        $view->new = Horde::widget(array(
-            'url' => Horde::url('compose.php'),
-            'title' => _("New Message")
-        ));
-
-        echo $view->render('success');
-
-        IMP::status();
-        $GLOBALS['page_output']->footer();
     }
 
     /**

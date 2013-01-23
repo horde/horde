@@ -1,5 +1,5 @@
 /**
- * Provides the javascript for the compose.php script (standard view).
+ * Provides the javascript for the basic view compose page.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -7,7 +7,7 @@
 
 var ImpCompose = {
 
-    // Variables defined in compose.php:
+    // Variables defined in PHP code:
     //   cancel_url, cursor_pos, editor_wait, last_msg, max_attachments,
     //   popup, redirect, reloaded, sc_submit, sm_check, skip_spellcheck,
     //   spellcheck, text

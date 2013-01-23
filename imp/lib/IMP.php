@@ -238,7 +238,7 @@ class IMP
 
             $url = ($view == Horde_Registry::VIEW_DYNAMIC)
                 ? IMP_Dynamic_Compose::url()
-                : 'compose.php';
+                : IMP_Basic_Compose::url();
             $raw = true;
             $callback = array(__CLASS__, 'composeLinkSimpleCallback');
         } elseif ($view == Horde_Registry::VIEW_SMARTMOBILE) {
@@ -247,12 +247,12 @@ class IMP
         } elseif (($view != Horde_Registry::VIEW_MINIMAL) &&
                   $GLOBALS['prefs']->getValue('compose_popup') &&
                   $GLOBALS['browser']->hasFeature('javascript')) {
-            $url = 'compose.php';
+            $url = IMP_Basic_Compose::url();
             $callback = array(__CLASS__, 'composeLinkJsCallback');
         } else {
             $url = ($view == Horde_Registry::VIEW_MINIMAL)
                 ? IMP_Minimal_Compose::url()
-                : 'compose.php';
+                : IMP_Basic_Compose::url();
         }
 
         if (isset($args['mailbox'])) {

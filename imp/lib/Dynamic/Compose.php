@@ -221,7 +221,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         }
 
         /* Attach spellchecker & auto completer. */
-        $imp_ui = new IMP_Ui_Compose();
+        $imp_ui = new IMP_Compose_Ui();
         if ($this->vars->type == 'forward_redirect') {
             $compose_opts['redirect'] = true;
             $imp_ui->attachAutoCompleter(array('redirect_to'));

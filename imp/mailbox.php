@@ -129,10 +129,10 @@ case 'template_edit':
 
         if ($prefs->getValue('compose_popup')) {
             $page_output->addInlineScript(array(
-                Horde::popupJs(Horde::url('compose.php'), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
+                Horde::popupJs(IMP_Basic_Compose::url(), array('novoid' => true, 'params' => array_merge(array('popup' => 1), $options)))
             ), true);
         } else {
-            Horde::url('compose.php', true)->add($options)->redirect();
+            IMP_Basic_Compose::url()->add($options)->redirect();
         }
     }
     break;

@@ -12,8 +12,6 @@
 
  <br />
 
- <?php echo $this->status ?>
-
  <table cellspacing="0">
   <tr>
    <td></td>

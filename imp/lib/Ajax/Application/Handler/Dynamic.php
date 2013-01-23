@@ -853,7 +853,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         }
 
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'text');
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->convertComposeText($this->vars->text, 'text');
 
         return $result;
     }
@@ -944,7 +944,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         }
 
-        $result->text = $GLOBALS['injector']->getInstance('IMP_Ui_Compose')->convertComposeText($this->vars->text, 'html');
+        $result->text = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->convertComposeText($this->vars->text, 'html');
 
         return $result;
     }
