@@ -259,8 +259,12 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
         ));
 
         // Sort test mailbox by thread - references algorithm (UIDs).
+        $thread_algo = (($thread = $this->imap->queryCapability('THREAD')) && isset($thread['REFERENCES']))
+            ? Horde_Imap_Client::THREAD_REFERENCES
+            : Horde_Imap_Client::THREAD_ORDEREDSUBJECT;
+
         $this->imap->thread($test_mbox, array(
-            'criteria' => Horde_Imap_Client::THREAD_REFERENCES
+            'criteria' => $thread_algo
         ));
 
         // Sort 1st 5 messages in test mailbox by thread - references
@@ -268,7 +272,7 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
         $ten_query = new Horde_Imap_Client_Search_Query();
         $ten_query->ids(new Horde_Imap_Client_Ids('1:5', true));
         $this->imap->thread($test_mbox, array(
-            'criteria' => Horde_Imap_Client::THREAD_REFERENCES,
+            'criteria' => $thread_algo,
             'search' => $ten_query
         ));
 
@@ -359,13 +363,16 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
         $complex_fetch->imapDate();
         $complex_fetch->size();
         $complex_fetch->uid();
-        $complex_fetch->modseq();
+
+        if ($this->imap->queryCapability('CONDSTORE')) {
+            $complex_fetch->modseq();
+        }
 
         $this->imap->fetch($test_mbox, $complex_fetch, array(
             'ids' => new Horde_Imap_Client_Ids($uid4)
         ));
 
-        // Fetching parsed header information (requires Horde MIME library)W.
+        // Fetching parsed header information (requires Horde MIME library).
         $hdr_fetch = new Horde_Imap_Client_Fetch_Query();
         $hdr_fetch->headers('headersearch1', array('message-id'), array(
             'parse' => true,
