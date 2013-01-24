@@ -46,6 +46,15 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
         $this->test_mbox = $test_mbox;
         $this->test_mbox_utf8 = $test_mbox_utf8;
 
+        try {
+            $imap_config['cache'] = array(
+                'cacheob' => new Horde_Cache(
+                    new Horde_Cache_Storage_Mock(),
+                    array('compress' => true)
+                )
+            );
+        } catch (Exception $e) {}
+
         $this->imap = new Horde_Imap_Client_Socket($imap_config);
         $this->imap->login();
     }
