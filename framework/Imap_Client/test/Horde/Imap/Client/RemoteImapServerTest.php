@@ -23,9 +23,9 @@
  */
 class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 {
-    // Test mailbox names (without namespace information)
-    private $test_mbox = 'TestMailboxTest';
-    private $test_mbox_utf8 = 'TestMailboxTest1è';
+    // Default test mailbox names (without namespace information)
+    private $test_mbox;
+    private $test_mbox_utf8;
 
     public function setUp()
     {
@@ -42,6 +42,9 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
         if (!isset($imap_config['password'])) {
             $this->fail('Missing password.');
         }
+
+        $this->test_mbox = $test_mbox;
+        $this->test_mbox_utf8 = $test_mbox_utf8;
 
         $this->imap = new Horde_Imap_Client_Socket($imap_config);
         $this->imap->login();
