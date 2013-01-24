@@ -42,7 +42,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Make sure we have a valid index. */
         $imp_mailbox = $mailbox->list_ob;
-        $imp_mailbox->setIndex($this->indices, true);
+        $imp_mailbox->setIndex($this->indices);
         if (!$imp_mailbox->isValidIndex()) {
             $this->_returnToMailbox(null, 'message_missing');
             return;

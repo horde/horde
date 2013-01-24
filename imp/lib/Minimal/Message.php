@@ -27,7 +27,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         global $conf, $injector, $notification, $page_output, $prefs;
 
         $imp_mailbox = $this->indices->mailbox->list_ob;
-        $imp_mailbox->setIndex($this->indices, true);
+        $imp_mailbox->setIndex($this->indices);
 
         $mailbox_url = IMP_Minimal_Mailbox::url(array(
             'mailbox' => $this->indices->mailbox

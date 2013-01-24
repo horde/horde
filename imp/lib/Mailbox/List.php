@@ -55,13 +55,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     protected $_cacheid = null;
 
     /**
-     * Check the IMAP cache ID?
-     *
-     * @var boolean
-     */
-    protected $_checkcache = true;
-
-    /**
      * The location in the sorted array we are at.
      *
      * @var integer
@@ -367,17 +360,15 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _buildMailbox()
     {
-        if ($this->isBuilt() &&
-            (!$this->_checkcache ||
-             ($this->_cacheid == $this->_mailbox->cacheid))) {
+        $cacheid = $this->_mailbox->cacheid;
+
+        if ($this->isBuilt() && ($this->_cacheid == $cacheid)) {
             return;
         }
 
         $this->changed = true;
+        $this->_cacheid = $cacheid;
         $this->_sorted = array();
-        if ($this->_checkcache) {
-            $this->_cacheid = $this->_mailbox->cacheid;
-        }
 
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
         $query_ob = $this->_buildMailboxQuery();
@@ -809,20 +800,12 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Updates the message array index.
      *
-     * @param mixed $data          If an integer, the number of messages to
-     *                             increase array index by. If an indices
-     *                             object, sets array index to the index
-     *                             value. If null, rebuilds the internal
-     *                             index.
-     * @param boolean $checkcache  Set checkcache variable based on value of
-     *                             $data?
+     * @param mixed $data  If an integer, the number of messages to increase
+     *                     the array index by. If an indices object, sets
+     *                     array index to the index value.
      */
-    public function setIndex($data, $checkcache = false)
+    public function setIndex($data)
     {
-        if ($checkcache) {
-            $this->_checkcache = is_null($indices);
-        }
-
         if ($data instanceof IMP_Indices) {
             list($mailbox, $uid) = $data->getSingle();
             $this->_index = $this->getArrayIndex($uid, $mailbox);
@@ -830,9 +813,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                 $this->rebuild();
                 $this->_index = $this->getArrayIndex($uid, $mailbox);
             }
-        } elseif (is_null($data) || is_null($this->_index)) {
-            $this->_index = null;
-            $this->rebuild();
         } else {
             $index = $this->_index += $data;
             if (isset($this->_sorted[$this->_index])) {
@@ -981,10 +961,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $data['c'] = $this->_cacheid;
         }
 
-        if (!is_null($this->_index)) {
-            $data['i'] = $this->_index;
-        }
-
         if (!is_null($this->_sorted)) {
             $data['so'] = $this->_sorted;
         }
@@ -1026,10 +1002,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 
         if (isset($data['c'])) {
             $this->_cacheid = $data['c'];
-        }
-
-        if (isset($data['i'])) {
-            $this->_index = $data['i'];
         }
 
         if (isset($data['so'])) {
