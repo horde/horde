@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
  </notes>
  <contents>
@@ -1183,6 +1184,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
    </notes>
   </release>
