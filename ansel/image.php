@@ -26,6 +26,9 @@ $watermark_valign = Horde_Util::getFormData('wvalign');
 $watermark = Horde_Util::getFormData('watermark', $prefs->getValue('watermark'));
 $date = Ansel::getDateParameter();
 
+// None of the views on this page display side or top bars.
+$page_output->topbar = $page_output->sidebar = false;
+
 // Are we watermarking the image?
 if ($watermark) {
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
