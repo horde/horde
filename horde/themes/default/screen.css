@@ -1466,16 +1466,15 @@ a.contextSelected:hover {
 /* Uploader */
 .hordeUploaderHeaderContent {
     font-size: 18px;
-    background: url("graphics/uploader/backgrounds.gif") no-repeat scroll 0 -317px transparent;
-    min-height: 56px;
-    padding-left: 60px;
-    color: white;
+    background-color: transparent;
+    padding: 5px 10px 10px 10px;
+    color: #000;
 }
 .hordeUploaderHeader {
-  background: url("graphics/uploader/backgrounds.gif") repeat-x scroll 0 0 #2A2C2E;
+    background-color: #BFC9CD;
 }
 .hordeUploaderFilelistHeader {
-    background: none repeat scroll 0 0 #DFDFDF;
+    background: none repeat scroll 0 0 #ebeff0;;
     color: #42454A;
     padding: 8px;
     height: 20px;
@@ -1488,24 +1487,16 @@ a.contextSelected:hover {
   height: 22px;
   line-height: 20px;
   vertical-align: middle;
-  background: none repeat scroll 0 0 #DFDFDF;
+  background: none repeat scroll 0 0 #ebeff0;
   color: #42454A;
   padding: 8px;
 }
-.hordeUploaderAdd {
-    background: url("graphics/plus.png") no-repeat !important;
-    padding-left: 16px !important;
-}
-.hordeUploaderStart {
-     background: url("graphics/uploader/up.png") no-repeat !important;
-    padding-left: 16px !important;
-}
+
 .hordeUploaderFilelist {
     height: 350px;
     overflow: auto;
 }
 .hordeUploaderFilelistItem {
-    background: url("graphics/uploader/backgrounds.gif") repeat-x scroll 0 -156px #F5F5F5;
     border-bottom: 1px solid #DDDDDD;
     padding: 10px 8px;
 }
@@ -1534,7 +1525,8 @@ a.contextSelected:hover {
 }
 .hordeUploaderFileaction
 {
-    width: 16px;
+    width: 20px;
+    line-height: 20px;
 }
 .hordeUploaderSuccess
 {

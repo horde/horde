@@ -889,4 +889,23 @@ class Ansel
         }
     }
 
+    /**
+     * Helper function for displaying Lat/Lng values
+     *
+     * @param float $value  The value to convert.
+     * @param boolean $lat  Is this a latitude value?
+     *
+     * @return string
+     */
+    static public function point2Deg($value, $lat = false)
+    {
+        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
+        $value = abs($value);
+        $deg = floor($value);
+        $min = floor(($value - $deg) * 60);
+        $sec = ($value - $deg - $min / 60) * 3600;
+
+        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
+    }
+
 }

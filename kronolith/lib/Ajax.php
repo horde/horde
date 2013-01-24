@@ -83,6 +83,7 @@ class Kronolith_Ajax
             'name' => $identity->getName(),
             'email' => $identity->getDefaultFromAddress(),
             'prefs_url' => strval($registry->getServiceLink('prefs', 'kronolith')->setRaw(true)),
+            'nag_prefs_url' => strval($registry->getServiceLink('prefs', 'nag')->setRaw(true)),
             'app_urls' => $app_urls,
             'name' => $registry->get('name'),
             'has_tasks' => intval($has_tasks),

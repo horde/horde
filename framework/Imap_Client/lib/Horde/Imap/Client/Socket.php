@@ -2382,6 +2382,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
         $mbox_ob = $this->_mailboxOb();
+        $sequence = $opts['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
@@ -2516,7 +2517,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* A UID FETCH will always return UID information (RFC 3501
                  * [6.4.8]). Don't add to query as it just creates a longer
                  * FETCH command. */
-                if ($options['ids']->sequence || (count($query) == 1)) {
+                if ($sequence || (count($query) == 1)) {
                     $fetch->add('UID');
                 }
                 break;
@@ -2550,7 +2551,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         $cmd = $this->_clientCommand(array_filter(array(
-            $options['ids']->sequence ? null : 'UID',
+            $sequence ? null : 'UID',
             'FETCH',
             strval($options['ids'])
         )));
@@ -2580,14 +2581,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
         }
 
-        $this->_temp['fetch_resp'] = $results;
+        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results(
+            $this->_fetchDataClass,
+            Horde_Imap_Client_Fetch_Results::SEQUENCE
+        );
 
         try {
             $this->_sendLine($cmd);
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most likely
             // means that messages were expunged. RFC 2180 [4.1]
-            if ($options['ids']->sequence &&
+            if ($sequence &&
                 ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
                 $this->_temp['expungeissued'] = true;
             }
@@ -2597,6 +2601,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         if (!empty($this->_temp['expungeissued'])) {
             unset($this->_temp['expungeissued']);
             $this->noop();
+        }
+
+        foreach ($this->_temp['fetch_resp'] as $k => $v) {
+            $results->get($sequence ? $k : $v->getUid())->merge($v);
         }
 
         unset($this->_temp['fetch_resp']);
@@ -2630,16 +2638,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseFetch($id, Horde_Imap_Client_Tokenize $data)
     {
-        $uid = null;
-
-        /* At this point, we don't have access to the UID of the entry. Thus,
-         * need to cache data locally until we reach the end. */
-        $ob = new $this->_fetchDataClass();
-        $ob->setSeq($id);
-
         if ($data->next() !== true) {
             return;
         }
+
+        $ob = $this->_temp['fetch_cache']->get($id);
+        $ob->setSeq($id);
 
         while (($tag = $data->next()) !== false) {
             $tag = strtoupper($tag);
@@ -2671,8 +2675,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'UID':
-                $uid = $data->next();
-                $ob->setUid($uid);
+                $ob->setUid($data->next());
                 break;
 
             case 'MODSEQ':
@@ -2761,21 +2764,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         if (isset($this->_temp['fetch_resp'])) {
-            switch ($this->_temp['fetch_resp']->key_type) {
-            case Horde_Imap_Client_Fetch_Results::SEQUENCE:
-                $this->_temp['fetch_resp']->get($id)->merge($ob);
-                break;
-
-            case Horde_Imap_Client_Fetch_Results::UID:
-                if (!is_null($uid)) {
-                    $this->_temp['fetch_resp']->get($uid)->merge($ob);
-                }
-                break;
-            }
-        }
-
-        if (!is_null($uid)) {
-            $this->_temp['fetch_cache']->get($uid)->merge($ob);
+            $this->_temp['fetch_resp']->get($id)->merge($ob);
         }
     }
 
@@ -3619,10 +3608,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _saveFetchCache($remove = false)
     {
         $this->_updateCache($this->_temp['fetch_cache']);
+
         if ($remove) {
             unset($this->_temp['fetch_cache']);
         } else {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results(
+                $this->_fetchDataClass,
+                Horde_Imap_Client_Fetch_Results::SEQUENCE
+            );
         }
     }
 
@@ -3658,7 +3651,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* Initialize internal data items at the beginning of a command. */
         if ($data instanceof Horde_Imap_Client_Interaction_Client) {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results(
+                $this->_fetchDataClass,
+                Horde_Imap_Client_Fetch_Results::SEQUENCE
+            );
             $this->_temp['lastcmd'] = $data;
             $this->_temp['modseqs'] = array();
         }

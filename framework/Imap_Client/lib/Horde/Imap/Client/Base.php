@@ -3568,7 +3568,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $cf = $this->_cacheFields();
         }
 
-        foreach ($data as $k => $v) {
+        foreach ($data as $v) {
             $tmp = array();
 
             foreach ($cf as $key => $val) {
