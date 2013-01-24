@@ -185,7 +185,7 @@ $backends['procmail'] = array(
             // 'PATH' => '/usr/bin',
             // Example for the $VACATION_DIR variable (used to store vacation files)
             // 'VACATION_DIR' => '$HOME',
-        )
+        ),
         // If you need procmail to be called from .forward in the user's home
         // directory, set the file and the content below:
         // 'forward_file' => '.forward',
