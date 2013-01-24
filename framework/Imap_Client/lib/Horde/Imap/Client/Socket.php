@@ -2382,7 +2382,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
         $mbox_ob = $this->_mailboxOb();
-        $sequence = $opts['ids']->sequence;
+        $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
