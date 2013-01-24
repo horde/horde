@@ -35,7 +35,7 @@ class IMP_Mbox_Generate
      * @return resource  A stream resource containing the text of a mbox
      *                   format mailbox file.
      */
-    public function generateMbox($mboxes)
+    public function generate($mboxes)
     {
         $body = fopen('php://temp', 'r+');
 
