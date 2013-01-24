@@ -68,7 +68,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             : $prefs->getValue('save_sent_mail');
 
         /* Determine if compose mode is disabled. */
-        $compose_disable = !IMP::canCompose();
+        $compose_disable = !IMP_Compose::canCompose();
 
         /* Initialize objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);

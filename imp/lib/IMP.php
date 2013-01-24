@@ -382,21 +382,6 @@ class IMP
     }
 
     /**
-     * Determine the status of composing.
-     *
-     * @return boolean  Is compose allowed?
-     * @throws Horde_Exception
-     */
-    static public function canCompose()
-    {
-        try {
-            return !Horde::callHook('disable_compose', array(), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {
-            return true;
-        }
-    }
-
-    /**
      * Workaround broken number_format() prior to PHP 5.4.0.
      *
      * @param integer $number    Number to format.

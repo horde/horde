@@ -569,7 +569,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             }
         }
 
-        $disable_compose = !IMP::canCompose();
+        $disable_compose = !IMP_Compose::canCompose();
 
         if (!$disable_compose) {
             $a_view->reply = Horde::widget(array(

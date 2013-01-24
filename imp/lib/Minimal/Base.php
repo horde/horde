@@ -83,7 +83,8 @@ abstract class IMP_Minimal_Base
             $items[] = array(_("Inbox"), IMP_Minimal_Mailbox::url(array('mailbox' => 'INBOX')));
         }
 
-        if (!in_array($page, array('compose', 'search')) && IMP::canCompose()) {
+        if (!in_array($page, array('compose', 'search')) &&
+            IMP_Compose::canCompose()) {
             $items[] = array(_("New Message"), IMP_Minimal_Compose::url());
         }
 

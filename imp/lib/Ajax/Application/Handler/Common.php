@@ -488,7 +488,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         try {
             list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup('sendMessage');
-            if (!IMP::canCompose()) {
+            if (!IMP_Compose::canCompose()) {
                 $result->success = 0;
                 return $result;
             }

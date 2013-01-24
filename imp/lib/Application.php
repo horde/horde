@@ -277,7 +277,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function sidebar($sidebar)
     {
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $sidebar->addNewButton(_("_New Message"), IMP::composeLink());
         }
 
@@ -432,7 +432,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector, $registry;
 
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $tree->addNode(array(
                 'id' => strval($parent) . 'compose',
                 'parent' => $parent,

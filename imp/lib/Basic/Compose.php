@@ -111,7 +111,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         }
 
         /* Determine if compose mode is disabled. */
-        $compose_disable = !IMP::canCompose();
+        $compose_disable = !IMP_Compose::canCompose();
 
         /* Determine if mailboxes are readonly. */
         $draft = IMP_Mailbox::getPref('drafts_folder');

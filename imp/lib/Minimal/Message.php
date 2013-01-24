@@ -230,7 +230,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         /* Add compose actions (Reply, Reply List, Reply All, Forward,
          * Redirect, Edit as New). */
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $menu[] = array(_("Reply"), IMP::composeLink(array(), array('a' => 'r') + $compose_params));
 
             if ($list_info['reply_list']) {

@@ -3063,6 +3063,21 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /* Static methods. */
 
     /**
+     * Is composing messages allowed?
+     *
+     * @return boolean  True if compose allowed.
+     * @throws Horde_Exception
+     */
+    static public function canCompose()
+    {
+        try {
+            return !Horde::callHook('disable_compose', array(), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {
+            return true;
+        }
+    }
+
+    /**
      * Can attachments be uploaded?
      *
      * @return boolean  True if attachments can be uploaded.

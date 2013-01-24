@@ -142,7 +142,7 @@ abstract class IMP_Dynamic_Base
             'URI_VIEW' => strval(Horde::url('view.php')),
 
             // Other variables
-            'disable_compose' => !IMP::canCompose(),
+            'disable_compose' => !IMP_Compose::canCompose(),
             'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3)
         ));
 

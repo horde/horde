@@ -62,7 +62,7 @@ class IMP_Smartmobile
         echo $this->view->render('folders');
         echo $this->view->render('mailbox');
         echo $this->view->render('message');
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             echo $this->view->render('compose');
         }
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
@@ -76,7 +76,7 @@ class IMP_Smartmobile
         /* jQuery Mobile plugins must be loaded AFTER the main mobile script
          * is loaded. */
         $page_output->addScriptFile('jquery.mobile/plugins/swipebutton.js', 'horde');
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $page_output->addScriptFile('jquery.mobile/plugins/autocomplete.js', 'horde');
         }
     }
@@ -102,7 +102,7 @@ class IMP_Smartmobile
         $this->view->canSpam = !empty($conf['spam']['reporting']);
         $this->view->canInnocent = !empty($conf['notspam']['reporting']);
 
-        if ($this->view->canCompose = IMP::canCompose()) {
+        if ($this->view->canCompose = IMP_Compose::canCompose()) {
             /* Setting up identities. */
             $identity = $injector->getInstance('IMP_Identity');
             $this->view->identities = array();
@@ -132,7 +132,7 @@ class IMP_Smartmobile
             /* Variables. */
             'conf' => array_filter(array(
                 'allow_folders' => $imp_imap->access(IMP_Imap::ACCESS_FOLDERS),
-                'disable_compose' => !IMP::canCompose(),
+                'disable_compose' => !IMP_Compose::canCompose(),
                 'flags' => array(
                     'deleted' => '\\deleted',
                     'draft' => '\\draft',

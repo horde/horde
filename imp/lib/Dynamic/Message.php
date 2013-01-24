@@ -91,7 +91,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $this->_pages[] = 'message';
 
         /* Determine if compose mode is disabled. */
-        if (IMP::canCompose()) {
+        if (IMP_Compose::canCompose()) {
             $this->view->qreply = $injector
                 ->getInstance('IMP_Dynamic_Compose_Common')
                 ->compose(

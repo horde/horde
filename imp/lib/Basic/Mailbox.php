@@ -652,7 +652,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 ));
             }
 
-            if (IMP::canCompose()) {
+            if (IMP_Compose::canCompose()) {
                 $a_view->forward = Horde::widget(array(
                     'url' => '#',
                     'class' => 'forwardAction',

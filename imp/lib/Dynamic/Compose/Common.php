@@ -54,7 +54,7 @@ class IMP_Dynamic_Compose_Common
         $view->addHelper('Tag');
         $view->addHelper('FormTag');
 
-        $view->compose_enable = IMP::canCompose();
+        $view->compose_enable = IMP_Compose::canCompose();
 
         if (!empty($args['redirect'])) {
             $this->_redirect($base, $view, $args);
