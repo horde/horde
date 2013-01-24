@@ -70,13 +70,15 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
             // Generate the image view url
             $url = Ansel::getUrlFor(
                 'view',
-                array('view' => 'Image',
-                      'slug' => $gallery->get('slug'),
-                      'gallery' => $gallery->id,
-                      'image' => $id,
-                      'gallery_view' => $style->gallery_view), true);
-            $images[$key]['icon'] = (string)Ansel::getImageUrl($images[$key]['image_id'], 'mini', true);
-            $images[$key]['link'] = (string)$url;
+                array(
+                    'view' => 'Image',
+                    'slug' => $gallery->get('slug'),
+                    'gallery' => $gallery->id,
+                    'image' => $id,
+                    'gallery_view' => $style->gallery_view),
+                true);
+            $images[$key]['icon'] = strval(Ansel::getImageUrl($images[$key]['image_id'], 'mini', true));
+            $images[$key]['link'] = strval($url);
             $images[$key]['markerOnly'] = false;
         }
 
@@ -88,7 +90,7 @@ class Ansel_Block_RecentlyAddedGeodata extends Horde_Core_Block
         $defaultLayer = $prefs->getValue('current_maplayer');
 
         $opts = array(
-            'layerUpdateEndpoint' => $layerUrl,
+            'layerUpdateEndpoint' => strval($layerUrl),
             'layerUpdatePref' => 'current_maplayer',
             'defaultBaseLayer' => $defaultLayer);
         $json = Horde_Serialize::serialize(array_values($images), Horde_Serialize::JSON);
