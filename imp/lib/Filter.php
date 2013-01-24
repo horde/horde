@@ -41,7 +41,7 @@ class IMP_Filter
      */
     public function filter($mbox)
     {
-        if (!IMP::applyFilters()) {
+        if (!IMP_Filter::canApplyFilters()) {
             return;
         }
 
@@ -134,6 +134,28 @@ class IMP_Filter
         }
 
         return true;
+    }
+
+    /* Static methods. */
+
+    /**
+     * Are appliable filters available?
+     *
+     * @return voolean  True if appliable filters are available.
+     */
+    static public function canApplyFilters()
+    {
+        global $registry, $session;
+
+        if (!$session->exists('imp', 'filteravail')) {
+            $apply = false;
+            try {
+                $apply = $registry->call('mail/canApplyFilters');
+            } catch (Horde_Exception $e) {}
+            $session->set('imp', 'filteravail', $apply);
+        }
+
+        return $session->get('imp', 'filteravail');
     }
 
 }

@@ -217,7 +217,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Deal with filter options. */
         if (!$readonly &&
-            IMP::applyFilters() &&
+            IMP_Filter::canApplyFilters() &&
             !$mailbox->filterOnDisplay() &&
             ($mailbox->inbox ||
             ($prefs->getValue('filter_any_mailbox') && !$search_mbox))) {

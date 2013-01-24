@@ -237,7 +237,7 @@ $_prefs['filter_on_login'] = array(
     'desc' => _("Apply filter rules upon logging on?"),
     'help' => 'filter-on-login',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 
@@ -247,7 +247,7 @@ $_prefs['filter_on_display'] = array(
     'desc' => _("Apply filter rules whenever Inbox is displayed?"),
     'help' => 'filter-on-display',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 
@@ -257,7 +257,7 @@ $_prefs['filter_any_mailbox'] = array(
     'desc' => _("Allow filter rules to be applied in any mailbox?"),
     'help' => 'filter-any-mailbox',
     'suppress' => function() {
-        return !IMP::applyFilters();
+        return !IMP_Filter::canApplyFilters();
     }
 );
 

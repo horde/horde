@@ -443,7 +443,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*flag' => _("Show Only"),
                 '*flagnot' => _("Don't Show")
             );
-            if (IMP::applyFilters()) {
+            if (IMP_Filter::canApplyFilters()) {
                 $context['ctx_filteropts']['_sub1'] = array(
                     '_sep1' => null,
                     'applyfilters' => _("Apply Filters")

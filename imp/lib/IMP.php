@@ -438,24 +438,4 @@ class IMP
         return $ob->bare_address;
     }
 
-    /**
-     * Are appliable filters available?
-     *
-     * @return voolean  True if appliable filters are available.
-     */
-    static public function applyFilters()
-    {
-        global $registry, $session;
-
-        if (!$session->exists('imp', 'filteravail')) {
-            $apply = false;
-            try {
-                $apply = $registry->call('mail/canApplyFilters');
-            } catch (Horde_Exception $e) {}
-            $session->set('imp', 'filteravail', $apply);
-        }
-
-        return $session->get('imp', 'filteravail');
-    }
-
 }
