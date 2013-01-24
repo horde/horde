@@ -1,12 +1,10 @@
 BEGIN:VCALENDAR
 VERSION:1.0
 PRODID:-//The Horde Project//Horde iCalendar Library//EN
-METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
 DTSTART:20080101T000000
 DTSTAMP:20080101T000000
 DESCRIPTION:Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aliquam sollicitudin faucibus mauris amet.
-SUMMARY:
 END:VEVENT
 END:VCALENDAR
