@@ -1,7 +1,7 @@
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 <div class="control anselActions" style="text-align: center">
 <?php
-$image_src = Ansel::getImageUrl($image_id, 'full')->add(array('time' => time()));
+$image_src = Ansel::getImageUrl($image_id, 'full')->unique();
 
 echo $galleryurl->link() . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';
 echo $imageGenerator_url->link() . Horde::img('galleries.png') . ' ' . _("Cancel") . '</a> ';
