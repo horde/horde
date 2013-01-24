@@ -4194,12 +4194,14 @@ KronolithCore = {
                 break;
 
             case 'kronolithTaskAlarmPrefs':
-                HordeCore.redirect(HordeCore.addURLParam(
-                    Kronolith.conf.nag_prefs_url,
-                    {
-                        group: 'notification'
-                    }
-                ));
+                if (Kronolith.conf.tasks.prefs_url) {
+                    HordeCore.redirect(HordeCore.addURLParam(
+                        Kronolith.conf.tasks.prefs_url,
+                        {
+                            group: 'notification'
+                        }
+                    ));
+                }
                 e.stop();
                 break;
 
