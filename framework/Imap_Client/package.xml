@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] More robust handling of split FETCH responses.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1510,7 +1510,7 @@
    <date>2013-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] More robust handling of split FETCH responses.
    </notes>
   </release>
  </changelog>
