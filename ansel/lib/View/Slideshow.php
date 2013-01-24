@@ -23,6 +23,10 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     {
         global $registry, $prefs;
         $imageIndex = $this->_revList[$this->resource->id];
+
+        $js = 'SlideController.initialize(' . self::json($this->gallery, array('view_links' => true)) . ','
+            . $imageIndex . ', "' . $GLOBALS['registry']->get('webroot') . '", ' . $this->gallery->id . ', "");';
+        $GLOBALS['page_output']->addInlineScript($js, true);
         Horde::startBuffer();
         require ANSEL_TEMPLATES . '/view/slideshow.inc';
         return Horde::endBuffer();

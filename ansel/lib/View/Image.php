@@ -479,7 +479,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         if (empty($this->_params['hide_slideshow'])) {
             $js .= '$$(\'.ssPlay\').each(function(n) { n.show();});';
         }
-        $js = '
+        $js .= '
 Event.observe($("photodiv"), "load", function() {
     new Effect.Appear($("photodiv"), { duration: 0.5,
         afterFinish: function() {$$(".imgloading").each(function(n) { n.setStyle({visibility: "hidden"});});
