@@ -381,13 +381,32 @@ case 'resizeedit':
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
         $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
-    }
+        $page_output->addScriptFile('scriptaculous/slider.js', 'horde');
+        $page_output->addScriptFile('resizeimage.js');
+        $js = array(
+            'window.Ansel = window.Ansel || {}',
+            'Ansel.image_geometry = ' . Horde_Serialize::serialize($geometry, Horde_Serialize::JSON),
+            "Ansel.slider = new Control.Slider(
+                'handle1',
+                'slider-track',
+                {
+                    minimum: 1,
+                    maximum: Ansel.image_geometry['width'],
+                    sliderValue: Ansel.image_geometry['width'],
+                    handleImage: 'ansel_slider_img',
+                    axis: 'horizontal',
+                    onChange: function(e) { resizeImage(e * Ansel.image_geometry['width']); },
+                    onSlide: function(e) { resizeImage(e * Ansel.image_geometry['width']); }
+                }
+            );"
 
+        );
+        $page_output->addInlineScript($js, true);
+    }
     $page_output->header(array(
         'title' => $title
     ));
     $notification->notify(array('listeners' => 'status'));
-
     if ($actionID == 'cropedit') {
         require ANSEL_TEMPLATES . '/image/crop_image.inc';
     } elseif ($actionID == 'resizeedit') {

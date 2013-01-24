@@ -263,15 +263,14 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 #slider-track {
     background: url('graphics/scaler_slider_track.gif') no-repeat;
     width:200px;
-    margin:10px 0;
+/*    margin:10px 0; */
     position: relative;
     height:18px;
     margin: 4px auto 4px auto;
 }
 
 .sliderHandle {
-    background: url('graphics/scaler_slider.gif') center left no-repeat;
-    cursor:move;
+    cursor: move;
     position: absolute;
     width: 18px;
     height: 18px;

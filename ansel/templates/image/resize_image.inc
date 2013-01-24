@@ -1,34 +1,3 @@
-<script type="text/javascript">
-document.observe(
-    'dom:loaded',
-    function()
-    {
-        document.slider = new Control.Slider(
-            'handle1',
-            'slider-track',
-            {
-                range: $R(1, <?php echo $geometry['height'] ?>),
-                sliderValue: <?php echo $geometry['height'] ?>,
-                axis:'horizontal',
-                onChange: function(value) {resizeImage(value)},
-                onSlide: function(value) {resizeImage(value)}
-            }
-        );
-    });
-
-function resizeImage(value)
-{
-    $('edit_image').height = value;
-    $('width').value = $('edit_image').width;
-    $('height').value = $('edit_image').height;
-
-}
-
-function resetImage()
-{
-    document.slider.setValue(<?php echo $geometry['height'] ?>);
-}
-</script>
 <h1 class="header"><?php echo htmlspecialchars($title) ?></h1>
 <div class="control anselActions" style="text-align: center">
 <?php
@@ -69,7 +38,9 @@ echo $selfUrl->copy()->add(array('actionID' => 'resizeedit'))->link() . Horde::i
   <?php echo _("height") ?>:
   <input type="text" name="height" id="height" size="5" readonly="readonly" value="<?php echo (int)$geometry['height'] ?>"/>
   <div id="slider-track">
-   <div id="handle1" class="sliderHandle"></div>
+   <div id="handle1" class="sliderHandle">
+     <?php echo Horde::img('scaler_slider.gif', '[slider]', array('id' => 'ansel_slider_img')); ?>
+   </div>
   </div>
    <input type="submit" name="submit" id="submit" value="<?php echo _("Save") ?>" />
   <input type="reset" name="reset" id="reset" value="<?php echo _("Reset") ?>" onclick="resetImage()"/>
