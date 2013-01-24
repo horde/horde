@@ -10,13 +10,6 @@
    that can be displayed in a gallery drop down list. If more than this number
    of galleries would appear, then selection list will be disabled."
    required="false"/>
-   <configinteger name="numlimit" desc="On installations with large
-   numbers of galleries, it can be useful when displaying gallery lists to guest
-   users to display only galleries with a certain number of photos. For example
-   to avoid listing empty galleries. Enter the minimum number of photos you
-   would like to require to be displayed in guest gallery lists. Note that this
-   setting will be ignored when specifically requesting all of a particular
-   user's galleries." required="false"/>
    <configboolean name="downloadzip" desc="Allow the ability to download an
    entire gallery as a .zip file? This is a potential performance hit, and will
    likely require a larger memory_limit value.">false</configboolean>
