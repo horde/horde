@@ -112,8 +112,6 @@ AnselGeoTagWidget = Class.create({
         this._bigMap = AnselMap.initMainMap('ansel_map', {
             'onHover': function(e) {
                 switch (e.type) {
-                case 'beforefeaturehighlighted':
-                    break;
                 case 'featurehighlighted':
                     if (this.opts.viewType == 'Gallery') {
                         $$('#imagetile_' + e.feature.attributes.image_id + ' img')[0].toggleClassName('image-tile-highlight');
@@ -323,7 +321,9 @@ AnselGeoTagWidget = Class.create({
             a.observe('click', function(e) {
                 HordePopup.popup({
                     url: this.opts.relocateUrl,
-                    params: 'image=' + iid, width: 750, height: 600
+                    params: { 'image': iid },
+                    width: 720,
+                    height: 520
                 });
                 e.stop();
             }.bind(this));

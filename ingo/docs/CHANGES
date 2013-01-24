@@ -11,6 +11,8 @@ v3.1.0-git
 v3.0.3-git
 ----------
 
+[mms] Require non-empty subject and reason fields when creating a vacation
+      message (crohmann@netcologne.de; Request #8376).
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 

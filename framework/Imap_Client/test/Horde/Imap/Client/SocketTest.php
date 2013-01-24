@@ -243,8 +243,8 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
     public function testBug11946()
     {
         $test = array(
-            '* 1 FETCH (UID 9 FLAGS (\Seen))',
-            '* 1 FETCH (FLAGS (\Seen \Flagged))'
+            '* 1 FETCH (FLAGS (\Seen \Flagged))',
+            '* 1 FETCH (UID 9)'
         );
 
         $res = new Horde_Imap_Client_Fetch_Results();
@@ -253,8 +253,13 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->test_ob->parseFetch($test[1], array('results' => $res));
 
         $this->assertEquals(
-            array('\seen'),
+            array('\seen', '\flagged'),
             $res->first()->getFlags()
+        );
+
+        $this->assertEquals(
+            9,
+            $res->first()->getUid()
         );
 
         $test[1] = '* 1 FETCH (UID 9 FLAGS (\Seen \Flagged))';

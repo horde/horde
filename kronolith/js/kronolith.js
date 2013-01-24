@@ -4184,16 +4184,24 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'kronolith', group: 'notification' });
+                HordeCore.redirect(HordeCore.addURLParam(
+                    Kronolith.conf.prefs_url,
+                    {
+                        group: 'notification'
+                    }
+                ));
                 e.stop();
                 break;
 
             case 'kronolithTaskAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'nag', group: 'notification' });
+                if (Kronolith.conf.tasks.prefs_url) {
+                    HordeCore.redirect(HordeCore.addURLParam(
+                        Kronolith.conf.tasks.prefs_url,
+                        {
+                            group: 'notification'
+                        }
+                    ));
+                }
                 e.stop();
                 break;
 
