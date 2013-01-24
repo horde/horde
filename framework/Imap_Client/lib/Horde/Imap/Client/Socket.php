@@ -2699,11 +2699,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $modseq = $data->next();
                 $data->next();
 
-                $ob->setModSeq($modseq);
+                /* MODSEQ must be greater than 0, so do sanity checking. */
+                if ($modseq > 0) {
+                    $ob->setModSeq($modseq);
 
-                /* Store MODSEQ value. It may be used as the highestmodseq
-                 * once a tagged response is received (RFC 5162 [5]). */
-                $this->_temp['modseqs'][] = $modseq;
+                    /* Store MODSEQ value. It may be used as the highestmodseq
+                     * once a tagged response is received (RFC 5162 [5]). */
+                    $this->_temp['modseqs'][] = $modseq;
+                }
                 break;
 
             default:
