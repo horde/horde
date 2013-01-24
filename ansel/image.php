@@ -372,6 +372,7 @@ case 'resizeedit':
         $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
         $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
         $page_output->addScriptFile('cropper.js');
+        $page_output->addInlineScript('imageCropper.init();', true);
 
         $page_output->addThemeStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {

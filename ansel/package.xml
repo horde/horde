@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-24</date>
- <time>13:16:02</time>
+ <time>13:24:06</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -504,6 +504,8 @@
       <file name="galleries.png" role="horde" />
       <file name="gallery-locked-mini.png" role="horde" />
       <file name="gallery-locked.png" role="horde" />
+      <file name="marqueeHoriz.gif" role="horde" />
+      <file name="marqueeVert.gif" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="mygalleries.png" role="horde" />
       <file name="photomarker-shadow.png" role="horde" />
@@ -1077,6 +1079,8 @@
    <install as="ansel/themes/default/graphics/galleries.png" name="themes/default/graphics/galleries.png" />
    <install as="ansel/themes/default/graphics/gallery-locked-mini.png" name="themes/default/graphics/gallery-locked-mini.png" />
    <install as="ansel/themes/default/graphics/gallery-locked.png" name="themes/default/graphics/gallery-locked.png" />
+   <install as="ansel/themes/default/graphics/marqueeHoriz.gif" name="themes/default/graphics/marqueeHoriz.gif" />
+   <install as="ansel/themes/default/graphics/marqueeVert.gif" name="themes/default/graphics/marqueeVert.gif" />
    <install as="ansel/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="ansel/themes/default/graphics/mygalleries.png" name="themes/default/graphics/mygalleries.png" />
    <install as="ansel/themes/default/graphics/photomarker-shadow.png" name="themes/default/graphics/photomarker-shadow.png" />

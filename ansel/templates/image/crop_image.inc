@@ -64,8 +64,6 @@ var imageCropper = {
      }
 }
 
-document.observe('dom:loaded', function() { imageCropper.init()});
-
 function changeRatio()
 {
     // First check if we are manual, then disable the orientation selector
@@ -89,7 +87,7 @@ function changeRatio()
 $image_src = Ansel::getImageUrl($image_id, 'full');
 
 echo $galleryurl->link() . Horde::img('galleries.png') . ' ' . _("Back to gallery") . '</a> ';
-echo $ImageGenerator_url->link() . Horde::img('galleries.png') . ' ' . _("Cancel") . '</a> ';
+echo $imageGenerator_url->link() . Horde::img('galleries.png') . ' ' . _("Cancel") . '</a> ';
 
 if (Ansel::isAvailable('rotate')) {
     echo $imageurl->copy()->add('actionID', 'previewrotate270')->link() . Horde::img('image/rotate-270.png') . ' ' . _("Rotate Left") . '</a> ';
