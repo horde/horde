@@ -117,6 +117,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     const CACHE_FLAGS = 'HICflags';
 
     /**
+     * Fetch cached entries.
+     *
+     * @var Horde_Imap_Client_Fetch_Results
+     */
+    protected $_fetch;
+
+    /**
      * Mapping of status fields to IMAP names.
      *
      * @var array
@@ -170,6 +177,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         ), $params);
 
         parent::__construct($params);
+    }
+
+    /**
+     */
+    protected function _initOb()
+    {
+        parent::_initOb();
+
+        $this->_fetch = new Horde_Imap_Client_Fetch_Results(
+            $this->_fetchDataClass,
+            Horde_Imap_Client_Fetch_Results::SEQUENCE
+        );
     }
 
     /**
@@ -2581,13 +2600,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             ));
         }
 
-        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results(
-            $this->_fetchDataClass,
-            Horde_Imap_Client_Fetch_Results::SEQUENCE
-        );
-
         try {
-            $this->_sendLine($cmd);
+            $this->_sendLine($cmd, array(
+                'keep_fetch' => true
+            ));
         } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
             // A NO response, when coupled with a sequence FETCH, most likely
             // means that messages were expunged. RFC 2180 [4.1]
@@ -2603,11 +2619,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->noop();
         }
 
-        foreach ($this->_temp['fetch_resp'] as $k => $v) {
+        foreach ($this->_fetch as $k => $v) {
             $results->get($sequence ? $k : $v->getUid())->merge($v);
         }
 
-        unset($this->_temp['fetch_resp']);
+        $this->_fetch->clear();
     }
 
     /**
@@ -2642,7 +2658,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return;
         }
 
-        $ob = $this->_temp['fetch_cache']->get($id);
+        $ob = $this->_fetch->get($id);
         $ob->setSeq($id);
 
         while (($tag = $data->next()) !== false) {
@@ -2761,10 +2777,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
                 break;
             }
-        }
-
-        if (isset($this->_temp['fetch_resp'])) {
-            $this->_temp['fetch_resp']->get($id)->merge($ob);
         }
     }
 
@@ -3580,7 +3592,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* If there are pending FETCH cache writes, we need to write them
          * before the UID -> sequence number mapping changes. */
-        $this->_saveFetchCache();
+        $this->_updateCache($this->_fetch);
 
         $res = parent::_deleteMsgs($mailbox, $ids);
 
@@ -3598,26 +3610,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /* Internal functions. */
-
-    /**
-     * Saves pending FETCH entries to the cache.
-     *
-     * @param boolean $remove  If true, removes the cached results object
-     *                         instead of clearing it
-     */
-    protected function _saveFetchCache($remove = false)
-    {
-        $this->_updateCache($this->_temp['fetch_cache']);
-
-        if ($remove) {
-            unset($this->_temp['fetch_cache']);
-        } else {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results(
-                $this->_fetchDataClass,
-                Horde_Imap_Client_Fetch_Results::SEQUENCE
-            );
-        }
-    }
 
     /**
      * Perform a command on the IMAP server. A connection to the server must
@@ -3639,6 +3631,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - debug: (string) When debugging, send this string instead of the
      *            actual command/data sent.
      *            DEFAULT: Raw data output to debug stream.
+     *   - keep_fetch: (boolean) Don't delete fetch cache object.
+     *                 DEFAULT: false
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
      *                    DEFAULT: false
      *
@@ -3651,10 +3645,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* Initialize internal data items at the beginning of a command. */
         if ($data instanceof Horde_Imap_Client_Interaction_Client) {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results(
-                $this->_fetchDataClass,
-                Horde_Imap_Client_Fetch_Results::SEQUENCE
-            );
+            $this->_fetch->clear();
             $this->_temp['lastcmd'] = $data;
             $this->_temp['modseqs'] = array();
         }
@@ -3683,7 +3674,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         while ($ob = $this->_getLine()) {
             switch (get_class($ob)) {
             case 'Horde_Imap_Client_Interaction_Server_Continuation':
+                break 2;
+
             case 'Horde_Imap_Client_Interaction_Server_Tagged':
+                if (empty($opts['keep_fetch'])) {
+                    $this->_fetch->clear();
+                }
                 break 2;
             }
         }
@@ -3863,7 +3859,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             /* Update cache items. */
-            $this->_saveFetchCache(true);
+            $this->_updateCache($this->_fetch);
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
@@ -4339,7 +4335,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($this->_temp['qresyncmbox'])) {
                 /* If there is any pending FETCH cache entries, flush them
                  * now before changing mailboxes. */
-                $this->_saveFetchCache();
+                $this->_updateCache($this->_fetch);
+                $this->_fetch->clear();
 
                 $this->_changeSelected(
                     $this->_temp['qresyncmbox'][0],

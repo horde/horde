@@ -35,8 +35,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function getClientSort($data, $sort)
     {
-        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_fetch->clear();
 
         $ids = array();
 
@@ -50,7 +49,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
             $ids[] = $id_str;
         }
 
-        return $this->sort_ob->clientSortProcess($ids, $this->_temp['fetch_resp'], $sort);
+        return $this->sort_ob->clientSortProcess($ids, $this->_fetch, $sort);
     }
 
     public function getThreadSort($data)
@@ -85,14 +84,15 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $msg_no = $token->next();
         $token->next();
 
-        $this->_temp['fetch_cache'] = isset($opts['results'])
-            ? $opts['results']
-            : new Horde_Imap_Client_Fetch_Results('Horde_Imap_Client_Data_Fetch', Horde_Imap_Client_Fetch_Results::SEQUENCE);
-        $this->_temp['fetch_resp'] = clone $this->_temp['fetch_cache'];
+        if (isset($opts['results'])) {
+            $this->_fetch = $opts['results'];
+        } else {
+            $this->_fetch->clear();
+        }
 
         $this->_parseFetch($msg_no, $token);
 
-        return $this->_temp['fetch_resp'];
+        return $this->_fetch;
     }
 
     public function responseCode($data)

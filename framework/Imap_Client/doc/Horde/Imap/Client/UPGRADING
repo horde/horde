@@ -17,6 +17,10 @@ Upgrading to 2.5.0
 
     The 'exists' option was added to fetch().
 
+  - Horde_Imap_Client_Fetch_Results
+
+    The clear() method was added.
+
 
 Upgrading to 2.4.0
 ==================
