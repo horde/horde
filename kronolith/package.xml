@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix some issues with workweek views if first day of week is Sunday (Bug #11973).
 * [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
@@ -2063,6 +2064,7 @@
    <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix some issues with workweek views if first day of week is Sunday (Bug #11973).
 * [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
