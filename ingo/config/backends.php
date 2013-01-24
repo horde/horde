@@ -150,11 +150,6 @@ $backends['procmail'] = array(
         // 'delivery_agent' => '/usr/local/sbin/dmail',
         // 'delivery_mailbox_prefix' => '+',
 
-        // If you need procmail to be called from .forward in the user's home
-        // directory, set the file and the content below:
-        // 'forward_file' => '.forward',
-        // 'forward_string' => '"|/usr/local/bin/procmail"',
-
         // if the GNU utilities cannot be found in the path
         // or have different names, you can specify their location below
         // 'date' => '/opt/csw/bin/gdate',
@@ -191,6 +186,10 @@ $backends['procmail'] = array(
             // Example for the $VACATION_DIR variable (used to store vacation files)
             // 'VACATION_DIR' => '$HOME',
         )
+        // If you need procmail to be called from .forward in the user's home
+        // directory, set the file and the content below:
+        // 'forward_file' => '.forward',
+        // 'forward_string' => '"|/usr/local/bin/procmail"',
     ),
     'shares' => false
 );
