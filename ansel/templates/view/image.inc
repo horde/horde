@@ -15,10 +15,12 @@
             $actionHTML .= ' | ' . $this->_urls['delete']->link(array('onclick' => 'return window.confirm(\'' . addslashes(sprintf(_("Do you want to permanently delete ''%s''?"), $this->resource->filename)) . '\');', 'id' => 'image_delete_link')) . _("Delete") . '</a>';
         }
         if (!empty($conf['ecard']['enable']) && !empty($this->_urls['ecard'])) {
-            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['ecard']->link(array('target' => '_blank', 'id' => 'image_ecard_link')) . _("Send an Ecard"); $needSeperator = true . '</a>';
+            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['ecard']->link(array('target' => '_blank', 'id' => 'image_ecard_link')) . _("Send an Ecard") . '</a>';
+            $needSeperator = true;
         }
         if ($this->gallery->canDownload()) {
-            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['download']->link(array('id' => 'image_download_link')) . _("Download Original Photo"); $needSeperator = true . '</a>';
+            $actionHTML .= (empty($this->_params['api']) && $needSeperator ? ' | ' : '') . $this->_urls['download']->link(array('id' => 'image_download_link')) . _("Download Original Photo") . '</a>';
+            $needSeperator = true;
         }
         if (empty($this->_params['api']) &&
             (!$GLOBALS['registry']->getAuth() ||
