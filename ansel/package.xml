@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-20</date>
- <time>17:44:59</time>
+ <date>2013-01-24</date>
+ <time>13:16:02</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -115,6 +115,7 @@
     <file name="lightbox.js" role="horde" />
     <file name="map.js" role="horde" />
     <file name="map_edit.js" role="horde" />
+    <file name="resizeimage.js" role="horde" />
     <file name="slideshow.js" role="horde" />
     <file name="slugcheck.js" role="horde" />
     <file name="smartmobile.js" role="horde" />
@@ -436,6 +437,7 @@
      <file name="actions.html.php" role="horde" />
      <file name="begin.html.php" role="horde" />
      <file name="end.html.php" role="horde" />
+     <file name="geotag.html.php" role="horde" />
      <file name="othergalleries.html.php" role="horde" />
      <file name="tags.html.php" role="horde" />
     </dir> <!-- /templates/widgets -->
@@ -445,6 +447,7 @@
      <file name="login.inc" role="horde" />
      <file name="new.inc" role="horde" />
     </dir> <!-- /templates/xppublish -->
+    <file name="map_edit.html.php" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Ansel">
@@ -490,17 +493,22 @@
        <file name="prevlabel.gif" role="horde" />
       </dir> <!-- /themes/default/graphics/lightbox -->
       <file name="add.png" role="horde" />
+      <file name="allgalleries.png" role="horde" />
       <file name="ansel.png" role="horde" />
       <file name="arrow_switch.png" role="horde" />
+      <file name="bookmark.png" role="horde" />
       <file name="browse.png" role="horde" />
       <file name="down.png" role="horde" />
+      <file name="faces.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="galleries.png" role="horde" />
       <file name="gallery-locked-mini.png" role="horde" />
       <file name="gallery-locked.png" role="horde" />
-      <file name="image_add.png" role="horde" />
       <file name="mini-error.png" role="horde" />
       <file name="mygalleries.png" role="horde" />
+      <file name="photomarker-shadow.png" role="horde" />
+      <file name="photomarker.png" role="horde" />
+      <file name="plus.png" role="horde" />
       <file name="point.png" role="horde" />
       <file name="prettythumb-error.png" role="horde" />
       <file name="problem.png" role="horde" />
@@ -512,10 +520,8 @@
       <file name="slideshow_pause.png" role="horde" />
       <file name="slideshow_play.png" role="horde" />
       <file name="slideshow_prev.png" role="horde" />
-      <file name="success.png" role="horde" />
       <file name="text.png" role="horde" />
       <file name="thumb-error.png" role="horde" />
-      <file name="twitter.png" role="horde" />
       <file name="up.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <dir name="smartmobile">
@@ -847,6 +853,7 @@
    <install as="ansel/js/lightbox.js" name="js/lightbox.js" />
    <install as="ansel/js/map.js" name="js/map.js" />
    <install as="ansel/js/map_edit.js" name="js/map_edit.js" />
+   <install as="ansel/js/resizeimage.js" name="js/resizeimage.js" />
    <install as="ansel/js/slideshow.js" name="js/slideshow.js" />
    <install as="ansel/js/slugcheck.js" name="js/slugcheck.js" />
    <install as="ansel/js/smartmobile.js" name="js/smartmobile.js" />
@@ -991,6 +998,7 @@
    <install as="ansel/migration/8_ansel_upgrade_sqlhierarchical.php" name="migration/8_ansel_upgrade_sqlhierarchical.php" />
    <install as="ansel/migration/9_ansel_upgrade_sqlng.php" name="migration/9_ansel_upgrade_sqlng.php" />
    <install as="ansel/migration/10_ansel_upgrade_computestylehashes.php" name="migration/10_ansel_upgrade_computestylehashes.php" />
+   <install as="ansel/templates/map_edit.html.php" name="templates/map_edit.html.php" />
    <install as="ansel/templates/browse/new.inc" name="templates/browse/new.inc" />
    <install as="ansel/templates/captions/captions.inc" name="templates/captions/captions.inc" />
    <install as="ansel/templates/faces/custom.inc" name="templates/faces/custom.inc" />
@@ -1038,6 +1046,7 @@
    <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
    <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
    <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />
+   <install as="ansel/templates/widgets/geotag.html.php" name="templates/widgets/geotag.html.php" />
    <install as="ansel/templates/widgets/othergalleries.html.php" name="templates/widgets/othergalleries.html.php" />
    <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />
    <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
@@ -1057,17 +1066,22 @@
    <install as="ansel/themes/default/lightbox.css" name="themes/default/lightbox.css" />
    <install as="ansel/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="ansel/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
+   <install as="ansel/themes/default/graphics/allgalleries.png" name="themes/default/graphics/allgalleries.png" />
    <install as="ansel/themes/default/graphics/ansel.png" name="themes/default/graphics/ansel.png" />
    <install as="ansel/themes/default/graphics/arrow_switch.png" name="themes/default/graphics/arrow_switch.png" />
+   <install as="ansel/themes/default/graphics/bookmark.png" name="themes/default/graphics/bookmark.png" />
    <install as="ansel/themes/default/graphics/browse.png" name="themes/default/graphics/browse.png" />
    <install as="ansel/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
+   <install as="ansel/themes/default/graphics/faces.png" name="themes/default/graphics/faces.png" />
    <install as="ansel/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="ansel/themes/default/graphics/galleries.png" name="themes/default/graphics/galleries.png" />
    <install as="ansel/themes/default/graphics/gallery-locked-mini.png" name="themes/default/graphics/gallery-locked-mini.png" />
    <install as="ansel/themes/default/graphics/gallery-locked.png" name="themes/default/graphics/gallery-locked.png" />
-   <install as="ansel/themes/default/graphics/image_add.png" name="themes/default/graphics/image_add.png" />
    <install as="ansel/themes/default/graphics/mini-error.png" name="themes/default/graphics/mini-error.png" />
    <install as="ansel/themes/default/graphics/mygalleries.png" name="themes/default/graphics/mygalleries.png" />
+   <install as="ansel/themes/default/graphics/photomarker-shadow.png" name="themes/default/graphics/photomarker-shadow.png" />
+   <install as="ansel/themes/default/graphics/photomarker.png" name="themes/default/graphics/photomarker.png" />
+   <install as="ansel/themes/default/graphics/plus.png" name="themes/default/graphics/plus.png" />
    <install as="ansel/themes/default/graphics/point.png" name="themes/default/graphics/point.png" />
    <install as="ansel/themes/default/graphics/prettythumb-error.png" name="themes/default/graphics/prettythumb-error.png" />
    <install as="ansel/themes/default/graphics/problem.png" name="themes/default/graphics/problem.png" />
@@ -1079,10 +1093,8 @@
    <install as="ansel/themes/default/graphics/slideshow_pause.png" name="themes/default/graphics/slideshow_pause.png" />
    <install as="ansel/themes/default/graphics/slideshow_play.png" name="themes/default/graphics/slideshow_play.png" />
    <install as="ansel/themes/default/graphics/slideshow_prev.png" name="themes/default/graphics/slideshow_prev.png" />
-   <install as="ansel/themes/default/graphics/success.png" name="themes/default/graphics/success.png" />
    <install as="ansel/themes/default/graphics/text.png" name="themes/default/graphics/text.png" />
    <install as="ansel/themes/default/graphics/thumb-error.png" name="themes/default/graphics/thumb-error.png" />
-   <install as="ansel/themes/default/graphics/twitter.png" name="themes/default/graphics/twitter.png" />
    <install as="ansel/themes/default/graphics/up.png" name="themes/default/graphics/up.png" />
    <install as="ansel/themes/default/graphics/carousel/left-disabled.gif" name="themes/default/graphics/carousel/left-disabled.gif" />
    <install as="ansel/themes/default/graphics/carousel/left.gif" name="themes/default/graphics/carousel/left.gif" />
