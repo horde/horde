@@ -46,7 +46,8 @@ class Horde_Support_Randomid
         if (function_exists('zend_thread_id')) {
             $elts[] = zend_thread_id();
         }
-        if ($loadavg = sys_getloadavg()) {
+        if (function_exists('sys_getloadavg') &&
+            $loadavg = sys_getloadavg()) {
             $elts = array_merge($elts, $loadavg);
         }
 
