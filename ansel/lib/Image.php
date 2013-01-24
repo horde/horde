@@ -919,8 +919,10 @@ class Ansel_Image Implements Iterator
                 throw new Ansel_Exception($e);
             }
             echo $data;
-        } else {
+        } elseif (!$this->_dirty) {
             $this->load($view, $style);
+            $this->_image->display();
+        } else {
             $this->_image->display();
         }
     }
