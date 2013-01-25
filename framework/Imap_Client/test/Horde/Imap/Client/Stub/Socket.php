@@ -89,6 +89,7 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         } else {
             $this->_fetch->clear();
         }
+        $this->_temp['modseqs_nouid'] = array();
 
         $this->_parseFetch($msg_no, $token);
 
@@ -101,6 +102,11 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         $server = Horde_Imap_Client_Interaction_Server::create($token);
 
         $this->_responseCode($server);
+    }
+
+    public function getModseqsNouid()
+    {
+        return $this->_temp['modseqs_nouid'];
     }
 
 }
