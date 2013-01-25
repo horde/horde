@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-01-24</date>
- <time>13:24:06</time>
+ <time>21:40:11</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -419,15 +419,16 @@
      <file name="javascript_defs.php" role="horde" />
     </dir> <!-- /templates/smartmobile -->
     <dir name="tile">
-     <file name="dategallery.inc" role="horde" />
+     <file name="dategallery.html.php" role="horde" />
      <file name="face.inc" role="horde" />
-     <file name="gallery.inc" role="horde" />
-     <file name="gallerymini.inc" role="horde" />
-     <file name="image.inc" role="horde" />
+     <file name="gallery.html.php" role="horde" />
+     <file name="gallerymini.html.php" role="horde" />
+     <file name="image.html.php" role="horde" />
     </dir> <!-- /templates/tile -->
     <dir name="view">
      <file name="gallery.inc" role="horde" />
      <file name="gallerylightbox.inc" role="horde" />
+     <file name="image.html.php" role="horde" />
      <file name="image.inc" role="horde" />
      <file name="list.inc" role="horde" />
      <file name="results.inc" role="horde" />
@@ -1034,13 +1035,14 @@
    <install as="ansel/templates/smartmobile/gallery.html.php" name="templates/smartmobile/gallery.html.php" />
    <install as="ansel/templates/smartmobile/image.html.php" name="templates/smartmobile/image.html.php" />
    <install as="ansel/templates/smartmobile/javascript_defs.php" name="templates/smartmobile/javascript_defs.php" />
-   <install as="ansel/templates/tile/dategallery.inc" name="templates/tile/dategallery.inc" />
+   <install as="ansel/templates/tile/dategallery.html.php" name="templates/tile/dategallery.html.php" />
    <install as="ansel/templates/tile/face.inc" name="templates/tile/face.inc" />
-   <install as="ansel/templates/tile/gallery.inc" name="templates/tile/gallery.inc" />
-   <install as="ansel/templates/tile/gallerymini.inc" name="templates/tile/gallerymini.inc" />
-   <install as="ansel/templates/tile/image.inc" name="templates/tile/image.inc" />
+   <install as="ansel/templates/tile/gallery.html.php" name="templates/tile/gallery.html.php" />
+   <install as="ansel/templates/tile/gallerymini.html.php" name="templates/tile/gallerymini.html.php" />
+   <install as="ansel/templates/tile/image.html.php" name="templates/tile/image.html.php" />
    <install as="ansel/templates/view/gallery.inc" name="templates/view/gallery.inc" />
    <install as="ansel/templates/view/gallerylightbox.inc" name="templates/view/gallerylightbox.inc" />
+   <install as="ansel/templates/view/image.html.php" name="templates/view/image.html.php" />
    <install as="ansel/templates/view/image.inc" name="templates/view/image.inc" />
    <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
    <install as="ansel/templates/view/results.inc" name="templates/view/results.inc" />
