@@ -118,7 +118,7 @@ class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, Iterato
     /**
      * Clears all fetch results.
      *
-     * @since 2.5.0
+     * @since 2.6.0
      */
     public function clear()
     {
