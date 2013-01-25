@@ -72,26 +72,6 @@ var ImpComposeBase = {
         }
 
         elt.setValue(v + address + ', ');
-    },
-
-    onDomLoad: function()
-    {
-        if (CKEDITOR) {
-            CKEDITOR.on('instanceReady', function(e) {
-                e.editor.on('contentDom', function(e1) {
-                    e1.editor.document.on('drop', function (e2) {
-                        e2.data.preventDefault(true);
-                    });
-                });
-                e.editor.on('paste', function(ev) {
-                    if (ev.data.html) {
-                        ev.data.html = ev.data.html.stripTags();
-                    }
-                });
-            });
-        }
     }
 
 };
-
-document.observe('dom:loaded', ImpComposeBase.onDomLoad.bind(ImpComposeBase));
