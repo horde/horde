@@ -827,7 +827,7 @@ Avoid array_push(), the [] operator is much faster::
 User defined functions
 ----------------------
 User defined functions are more expensive than "regular" functions.  Use them
-only if they improve the code readability more then regular functions.
+only if they improve the code readability more than regular functions.
 
 Dynamically created functions (eval and create_function)
 --------------------------------------------------------
