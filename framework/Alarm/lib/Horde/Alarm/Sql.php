@@ -9,11 +9,11 @@
  */
 
 /**
- * The Horde_Alarm_sql class is a Horde_Alarm storage implementation using the
- * PEAR DB package.
+ * The Horde_Alarm_Sql class is a Horde_Alarm storage implementation using the
+ * Horde Db package.
  *
  * The table structure can be created by the
- * horde/scripts/sql/horde_alarm.sql script.
+ * migration script.
  *
  * @author  Jan Schneider <jan@horde.org>
  * @package Alarm
@@ -33,7 +33,7 @@ class Horde_Alarm_Sql extends Horde_Alarm
      * @param array $params  Configuration parameters:
      * <pre>
      * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the tokens table in 'database'.
+     * 'table' - (string) The name of the alarm table in 'database'.
      *           DEFAULT: 'horde_alarms'
      * </pre>
      *

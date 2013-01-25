@@ -259,28 +259,18 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
     padding-right: 2px;
 }
 
-.success {
-    background: url('graphics/success.png') center left no-repeat;
-    padding-left: 15px;
-}
-.problem {
-    background: url('graphics/problem.png') center left no-repeat;
-    padding-left: 15px;
-}
-
 /* Image resizer/slider */
 #slider-track {
     background: url('graphics/scaler_slider_track.gif') no-repeat;
     width:200px;
-    margin:10px 0;
+/*    margin:10px 0; */
     position: relative;
     height:18px;
     margin: 4px auto 4px auto;
 }
 
 .sliderHandle {
-    background: url('graphics/scaler_slider.gif') center left no-repeat;
-    cursor:move;
+    cursor: move;
     position: absolute;
     width: 18px;
     height: 18px;
@@ -291,7 +281,7 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
   background-image: url('graphics/browse.png');
 }
 .ansel-mygalleries {
-  background-image: url('graphics/mygalleries.png');
+  background-image: url('graphics/galleries.png');
 }
 .ansel-allgalleries {
   background-image: url('graphics/allgalleries.png');

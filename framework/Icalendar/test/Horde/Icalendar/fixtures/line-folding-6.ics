@@ -1,7 +1,6 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//The Horde Project//Horde iCalendar Library//EN
-METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
 DTSTART;VALUE=DATE:20080101
@@ -22,6 +21,5 @@ DESCRIPTION:SYLVIE DAGORNE a écrit :\n\nBonjour\,\n\nsuite à mon appel
   disponibilités?\n...\nJe serai accompagné d'un collègue pour
   l'observatoire local (David Le foll) et de la chargée d'études de
   l'observatoire régional (Amélie Gicquel) pour la partie régionale.
-SUMMARY:
 END:VEVENT
 END:VCALENDAR

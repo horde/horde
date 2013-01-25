@@ -433,11 +433,91 @@ class Kronolith_Driver
     }
 
     /**
+     * Deletes an event.
+     *
+     * @param mixed $eventId   Either the event id to delete, or the event
+     *                         object.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     *
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
+     */
+    public function deleteEvent($eventId, $silent = false)
+    {
+        $event = $this->_deleteEvent($eventId, $silent);
+        if (!$event) {
+            return;
+        }
+
+        /* Log the deletion of this item in the history log. */
+        if ($event->uid) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->uid, array('action' => 'delete'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
+
+        /* Remove the event from any resources that are attached to it */
+        $resources = $event->getResources();
+        if (count($resources)) {
+            $rd = Kronolith::getDriver('Resource');
+            foreach ($resources as $uid => $resource) {
+                if ($resource['response'] !== Kronolith::RESPONSE_DECLINED) {
+                    $r = $rd->getResource($uid);
+                    $r->removeEvent($event);
+                }
+            }
+        }
+
+        /* Remove any pending alarms. */
+        $GLOBALS['injector']->getInstance('Horde_Alarm')->delete($event->uid);
+
+        /* Remove any tags */
+        $tagger = Kronolith::getTagger();
+        $tagger->replaceTags($event->uid, array(), $event->creator, 'event');
+
+        /* Remove any geolocation data */
+        try {
+            $GLOBALS['injector']->getInstance('Kronolith_Geo')->deleteLocation($event->id);
+        } catch (Kronolith_Exception $e) {
+        }
+
+        /* Notify about the deleted event. */
+        if (!$silent) {
+            $this->_handleNotifications($event, 'delete');
+        }
+
+        /* See if this event represents an exception - if so, touch the base
+         * event's history. The $isRecurring check is to prevent an infinite
+         * loop in the off chance that an exception is entered as a recurring
+         * event.
+         */
+        if ($event->baseid && !$event->recurs()) {
+            try {
+                $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $this->calendar . ':' . $event->baseid, array('action' => 'modify'), true);
+            } catch (Exception $e) {
+                Horde::logMessage($e, 'ERR');
+            }
+        }
+    }
+
+    /**
      * Stub to be overridden in the child class.
      *
-     * @param mixed $eventId  Either the event id to delete, or the event object.
+     * @param mixed $eventId   Either the event id to delete, or the event
+     *                         object.
+     * @param boolean $silent  Don't send notifications, used when deleting
+     *                         events in bulk from maintenance tasks.
+     *
+     * @return Kronolith_Event  Returns the deleted event.
+     * @throws Kronolith_Exception
+     * @throws Horde_Exception_NotFound
+     * @throws Horde_Mime_Exception
      */
-    public function deleteEvent($eventId)
+    protected function _deleteEvent($eventId)
     {
     }
 

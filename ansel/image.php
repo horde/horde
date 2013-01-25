@@ -26,6 +26,9 @@ $watermark_valign = Horde_Util::getFormData('wvalign');
 $watermark = Horde_Util::getFormData('watermark', $prefs->getValue('watermark'));
 $date = Ansel::getDateParameter();
 
+// None of the views on this page display side or top bars.
+$page_output->topbar = $page_output->sidebar = false;
+
 // Are we watermarking the image?
 if ($watermark) {
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
@@ -369,6 +372,7 @@ case 'resizeedit':
         $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
         $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
         $page_output->addScriptFile('cropper.js');
+        $page_output->addInlineScript('imageCropper.init();', true);
 
         $page_output->addThemeStylesheet('cropper.css');
     } elseif ($actionID == 'resizeedit') {
@@ -378,13 +382,32 @@ case 'resizeedit':
         $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
         $page_output->addScriptFile('scriptaculous/controls.js', 'horde');
         $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
-    }
+        $page_output->addScriptFile('scriptaculous/slider.js', 'horde');
+        $page_output->addScriptFile('resizeimage.js');
+        $js = array(
+            'window.Ansel = window.Ansel || {}',
+            'Ansel.image_geometry = ' . Horde_Serialize::serialize($geometry, Horde_Serialize::JSON),
+            "Ansel.slider = new Control.Slider(
+                'handle1',
+                'slider-track',
+                {
+                    minimum: 1,
+                    maximum: Ansel.image_geometry['width'],
+                    sliderValue: Ansel.image_geometry['width'],
+                    handleImage: 'ansel_slider_img',
+                    axis: 'horizontal',
+                    onChange: function(e) { resizeImage(e * Ansel.image_geometry['width']); },
+                    onSlide: function(e) { resizeImage(e * Ansel.image_geometry['width']); }
+                }
+            );"
 
+        );
+        $page_output->addInlineScript($js, true);
+    }
     $page_output->header(array(
         'title' => $title
     ));
     $notification->notify(array('listeners' => 'status'));
-
     if ($actionID == 'cropedit') {
         require ANSEL_TEMPLATES . '/image/crop_image.inc';
     } elseif ($actionID == 'resizeedit') {

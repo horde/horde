@@ -36,6 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t set METHOD property unconditionally (Bug #10741).
 * [jan] Convert test suite to PHPUnit.
  </notes>
  <contents>
@@ -1056,6 +1057,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <date>2013-01-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t set METHOD property unconditionally (Bug #10741).
 * [jan] Convert test suite to PHPUnit.
    </notes>
   </release>

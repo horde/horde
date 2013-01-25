@@ -1353,7 +1353,7 @@ class IMP_Contents
                         $atc_parts[$mime_id] = 1;
                     }
 
-                    if ($contents_mask && empty($info['nosummary'])) {
+                    if ($contents_mask) {
                         $msgtext[$mime_id] = array(
                             'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)
                         );
@@ -1372,7 +1372,6 @@ class IMP_Contents
 
             if (empty($render_part)) {
                 if ($contents_mask &&
-                    empty($info['nosummary']) &&
                     $this->isAttachment($mime_type)) {
                     $msgtext[$mime_id] = array(
                         'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)

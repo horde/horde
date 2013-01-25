@@ -126,7 +126,7 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
         $view->isImageView = $viewType == 'Image';
 
         // If this is an image view, get the other gallery images
-        if ($viewType == 'Image') {
+        if ($viewType == 'Image' && !empty($geodata)) {
             $image_id = $this->_view->resource->id;
             $others = $this->_getGalleryImagesWithGeodata();
             foreach ($others as $id => $data) {
