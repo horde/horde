@@ -32,7 +32,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry;
+        global $browser, $conf, $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Mailto link handler: redirect based on current view. */
         // TODO: preserve state
@@ -100,7 +100,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         /* Check for duplicate submits. */
         if ($reload = $this->vars->compose_formToken) {
             try {
-                if (!$tokenSource->verify($reload)) {
+                if (!$horde_token->verify($reload)) {
                     $notification->push(_("You have already submitted this page."), 'horde.error');
                     $this->vars->actionID = null;
                 }
