@@ -72,6 +72,24 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
         return $this->_temp['namespace'];
     }
 
+    public function parseACL($data)
+    {
+        $this->_serverResponse($data);
+        return $this->_temp['getacl'];
+    }
+
+    public function parseMyACLRights($data)
+    {
+        $this->_serverResponse($data);
+        return $this->_temp['myrights'];
+    }
+
+    public function parseListRights($data)
+    {
+        $this->_serverResponse($data);
+        return $this->_temp['listaclrights'];
+    }
+
     /**
      * @param array $data  Options:
      *   - results: (Horde_Imap_Client_Fetch_Results)

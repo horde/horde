@@ -3366,8 +3366,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data->next();
         $data->next();
 
-        $required = str_split($data->next());
-
         $this->_temp['listaclrights'] = new Horde_Imap_Client_Data_AclRights(
             str_split($data->next()),
             $data->flushIterator()

@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in parsing LISTRIGHTS results (Bug #11994).
 * [mms] Workaround QRESYNC errata that allows FETCH FLAGS results to be returned without UID information.
 * [mms] More robust handling of split FETCH responses.
  </notes>
@@ -1511,6 +1512,7 @@
    <date>2013-01-22</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in parsing LISTRIGHTS results (Bug #11994).
 * [mms] Workaround QRESYNC errata that allows FETCH FLAGS results to be returned without UID information.
 * [mms] More robust handling of split FETCH responses.
    </notes>

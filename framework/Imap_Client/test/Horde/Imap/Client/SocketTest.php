@@ -299,4 +299,37 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testBug11994()
+    {
+        $test = '* ACL INBOX foo lrswipcda cyrus lripcda';
+        $parsed = $this->test_ob->parseAcl($this->_serverResponse($test));
+
+        $this->assertEquals(
+            2,
+            count($parsed)
+        );
+
+        $this->assertTrue($parsed['foo']['s']);
+        $this->assertFalse($parsed['cyrus']['s']);
+
+        $test = '* MYRIGHTS INBOX lrwipkxtecda';
+        $parsed = $this->test_ob->parseMyACLRights($this->_serverResponse($test));
+
+        $this->assertTrue($parsed['l']);
+        $this->assertFalse($parsed['s']);
+
+        $test = '* LISTRIGHTS INBOX foo lkxca r s w i p t e d 0 1 3 4 5 6';
+        $parsed = $this->test_ob->parseListRights($this->_serverResponse($test));
+
+        $this->assertNotNull($parsed['l']);
+        $this->assertNull($parsed['2']);
+    }
+
+    protected function _serverResponse($data)
+    {
+        return Horde_Imap_Client_Interaction_Server::create(
+            new Horde_Imap_Client_Tokenize($data)
+        );
+    }
+
 }
