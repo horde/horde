@@ -2661,6 +2661,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $ob = $this->_fetch->get($id);
         $ob->setSeq($id);
 
+        $flags = $modseq = $uid = false;
+
         while (($tag = $data->next()) !== false) {
             $tag = strtoupper($tag);
 
@@ -2680,6 +2682,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'FLAGS':
                 $data->next();
                 $ob->setFlags($data->flushIterator());
+                $flags = true;
                 break;
 
             case 'INTERNALDATE':
@@ -2692,6 +2695,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
             case 'UID':
                 $ob->setUid($data->next());
+                $uid = true;
                 break;
 
             case 'MODSEQ':
@@ -2780,6 +2784,27 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 }
                 break;
             }
+        }
+
+        /* MODSEQ issue: Oh joy. Per RFC 5162 (see Errata #1807), FETCH FLAGS
+         * responses are NOT required to provide UID information, even if
+         * QRESYNC is explicitly enabled. Caveat: the FLAGS information
+         * returned during a SELECT/EXAMINE MUST contain UIDs so we are OK
+         * there.
+         * The good news: all decent IMAP servers (Cyrus, Dovecot) will always
+         * provide UID information, so this is not normally an issue.
+         * The bad news: spec-wise, this behavior cannot be 100% guaranteed.
+         * Compromise: We will watch for a FLAGS response with a MODSEQ and
+         * check if a UID exists also. If not, put the sequence number in a
+         * queue - it is possible the UID information may appear later in an
+         * untagged response. When the command is over, double check to make
+         * sure there are none of these MODSEQ/FLAGS that are still UID-less.
+         * In the (rare) event that there is, don't cache anything and
+         * immediately close the mailbox: flags will be correctly sync'd next
+         * mailbox open so we only lose a bit of caching efficiency.
+         * Otherwise, we could end up with an inconsistent cached state. */
+        if ($flags && $modseq && !$uid) {
+            $this->_temp['modseqs_nouid'][] = $id;
         }
     }
 
@@ -3341,8 +3366,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $data->next();
         $data->next();
 
-        $required = str_split($data->next());
-
         $this->_temp['listaclrights'] = new Horde_Imap_Client_Data_AclRights(
             str_split($data->next()),
             $data->flushIterator()
@@ -3651,6 +3674,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->_fetch->clear();
             $this->_temp['lastcmd'] = $data;
             $this->_temp['modseqs'] = array();
+            $this->_temp['modseqs_nouid'] = array();
         }
 
         try {
@@ -3853,6 +3877,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
             $this->_responseCode($server);
+
+            /* If any FLAGS responses contain MODSEQs but not UIDs, don't
+             * cache any data and immediately close the mailbox. */
+            foreach ($this->_temp['modseqs_nouid'] as $val) {
+                if (!$this->_fetch[$val]->getUid()) {
+                    $this->_debug->info('Server provided FLAGS MODSEQ without providing UID.');
+                    $data = clone $this->_fetch;
+                    $this->close();
+                    $this->_fetch = $data;
+                    break 2;
+                }
+            }
 
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {

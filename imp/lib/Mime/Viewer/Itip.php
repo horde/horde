@@ -362,8 +362,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         try {
             $end = $vevent->getAttribute('DTEND');
             $view->end = is_array($end)
-                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'] - 1, $end['year']))
+                : strftime($prefs->getValue('date_format'), $end - 1) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end - 1);
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }
