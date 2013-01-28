@@ -71,7 +71,6 @@ To function properly, IMP **requires** the following:
    to work best with IMP include:
 
    - Archiveopteryx (http://www.archiveopteryx.org/)
-   - Courier-IMAP (http://www.inter7.com/courierimap.html)
    - Cyrus (http://www.cyrusimap.org/)
    - Dovecot (http://www.dovecot.org/)
    - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
