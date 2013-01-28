@@ -72,13 +72,6 @@ if ($conf['compose']['link_attachments_notify']) {
         try {
             $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
 
-            /* Load $mail_user's preferences so that we can use their
-             * locale information for the notification message. */
-            $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
-                'cache' => false,
-                'user' => $mail_user
-            ));
-
             $mail_identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
