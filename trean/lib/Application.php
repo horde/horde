@@ -63,12 +63,6 @@ class Trean_Application extends Horde_Registry_Application
             ->create('trean', 'storage');
         $GLOBALS['trean_gateway'] = $GLOBALS['injector']
             ->getInstance('Trean_Bookmarks');
-
-        if ($GLOBALS['conf']['content_index']['enabled']) {
-            $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
-            $topbar->search = true;
-            $topbar->searchAction = Horde::url('search.php');
-        }
     }
 
     /**
