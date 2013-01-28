@@ -1,5 +1,5 @@
 /**
- * ckeditor/paste.js - Paste plugin for CKEditor.
+ * Paste ignore plugin for CKEditor.
  *
  * Copyright 2013 Horde LLC (http://www.horde.org/)
  *
@@ -7,7 +7,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  */
 
-CKEDITOR.plugins.add('paste', {
+CKEDITOR.plugins.add('pasteignore', {
     init: function(editor) {
         editor.on('contentDom', function(e1) {
             e1.editor.document.on('drop', function (e2) {
