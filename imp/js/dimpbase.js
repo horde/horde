@@ -634,8 +634,10 @@ var DimpBase = {
                     $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
+                this.showSearchbar(false);
             }
 
             if (this.rownum) {
@@ -663,10 +665,8 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
-                    this.showSearchbar(true);
                 } else if (tmp)  {
                     tmp.show();
-                    this.showSearchbar(false);
                 }
 
                 if (this.viewport.getMetaData('drafts')) {

@@ -365,29 +365,23 @@ class Horde_Prefs_Identity
      *
      * @param boolean $fullname  Include the fullname information.
      *
-     * @return string  The default from address.
+     * @return Horde_Mail_Rfc822_Address  The default from address (object
+     *                                    returned since 2.2.0).
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        $from_addr = '';
-
-        if ($fullname) {
-            $name = $this->getValue($this->_prefnames['fullname']);
-            if (!empty($name)) {
-                $from_addr = $name . ' ';
-            }
-        }
-
         $addr = $this->getValue($this->_prefnames['from_addr']);
         if (empty($addr)) {
             $addr = $this->_user;
         }
 
-        if (empty($from_addr)) {
-            return $addr;
+        $ob = new Horde_Mail_Rfc822_Address($addr);
+
+        if ($fullname) {
+            $ob->personal = $this->getValue($this->_prefnames['fullname']);
         }
 
-        return $from_addr . '<' . $addr . '>';
+        return $ob;
     }
 
 }

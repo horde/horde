@@ -67,19 +67,13 @@ To function properly, IMP **requires** the following:
    IMAP is **strongly** recommended over POP3.  See, e.g.,
    http://staff.washington.edu/gray/papers/imap.vs.pop.brief.html
 
-   Freely available IMAP servers (for \*nix systems) that have been verified
-   to work best with IMP include:
+   The Horde Project recommends either Cyrus or Dovecot (see
+   `docs/PERFORMANCE`_ for further information). Both are freely available
+   IMAP servers (for \*nix systems) that have been verified to work best with
+   IMP both feature and performance wise:
 
-   - Archiveopteryx (http://www.archiveopteryx.org/)
-   - Courier-IMAP (http://www.inter7.com/courierimap.html)
    - Cyrus (http://www.cyrusimap.org/)
    - Dovecot (http://www.dovecot.org/)
-   - UW-IMAP (ftp://ftp.cac.washington.edu/imap/)
-
-   Most of these packages also include POP3 support as well.
-
-   The Horde Project recommends either Cyrus or Dovecot (see
-   `docs/PERFORMANCE`_ for further information).
 
    The IMAP server MUST support IMAP4rev1 (RFC 3501).
    The POP server MUST support POP3 (RFC 1939/STD 53).
