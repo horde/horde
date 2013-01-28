@@ -2892,45 +2892,63 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     /**
      * Add uploaded file from form data.
      *
-     * @param string $field  The form field name.
+     * @param Horde_Variables $vars  Variables object.
+     * @param string $field          The form field name.
      *
      * @return string  Filename on successful add.
      * @throws IMP_Compose_Exception
      */
-    public function addFileFromUpload($field)
+    public function addFileFromUpload(Horde_Variables $vars, $field)
     {
         global $browser, $conf;
 
-        try {
-            $browser->wasFileUploaded($field, _("attachment"));
-        } catch (Horde_Browser_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
+        $type = 'application/octet-stream';
 
-        $finfo = $_FILES[$field];
-        $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-        $tempfile = $finfo['tmp_name'];
+        if ($vars->get($field . '_dataurl')) {
+            $filename = $vars->get($field . '_filename', _("None"));
+
+            $url_data = new Horde_Url_Data($vars->get($field));
+            $size = strlen($url_data->data);
+            $type = $url_data->type;
+
+            $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+            file_put_contents($atc_file, $url_data->data);
+        } else {
+            try {
+                $browser->wasFileUploaded($field, _("attachment"));
+            } catch (Horde_Browser_Exception $e) {
+                throw new IMP_Compose_Exception($e);
+            }
+
+            $finfo = $_FILES[$field];
+            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
+            $size = $finfo['size'];
+
+            if ($conf['compose']['use_vfs']) {
+                $atc_file = $finfo['tmp_name'];
+            } else {
+                $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+                if (move_uploaded_file($finfo['tmp_name'], $atc_file) === false) {
+                    throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
+                }
+            }
+        }
 
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $finfo['size']) < 0)) {
+            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $size) < 0)) {
             throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename));
         }
 
-        /* Determine the MIME type of the data. */
-        $type = empty($finfo['type'])
-            ? 'application/octet-stream'
-            : $finfo['type'];
-
         /* User hook to do file scanning/MIME magic determinations. */
         try {
-            $type = Horde::callHook('compose_attach', array($filename, $tempfile, $type), 'imp');
+            $type = Horde::callHook('compose_attach', array($filename, $atc_file, $type), 'imp');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         $part = new Horde_Mime_Part();
         $part->setType($type);
         if ($part->getPrimaryType() == 'text') {
-            if ($analyzetype = Horde_Mime_Magic::analyzeFile($tempfile, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
+            if ($analyzetype = Horde_Mime_Magic::analyzeFile($atc_file, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
                 $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
                 $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
             } else {
@@ -2940,20 +2958,11 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $part->setHeaderCharset('UTF-8');
         }
         $part->setName($filename);
-        $part->setBytes($finfo['size']);
+        $part->setBytes($size);
         $part->setDisposition('attachment');
 
-        if ($conf['compose']['use_vfs']) {
-            $attachment = $tempfile;
-        } else {
-            $attachment = Horde::getTempFile('impatt', false, '', false, true);
-            if (move_uploaded_file($tempfile, $attachment) === false) {
-                throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
-            }
-        }
-
         /* Store the data. */
-        $this->_storeAttachment($part, $attachment);
+        $this->_storeAttachment($part, $atc_file);
 
         return $filename;
     }

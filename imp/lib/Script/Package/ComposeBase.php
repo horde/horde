@@ -20,16 +20,26 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
      */
     public function __construct()
     {
-        global $page_output, $session;
+        global $page_output, $registry, $session;
 
         $this->_files[] = new Horde_Script_File_JsDir('compose-base.js', 'imp');
 
         if ($session->get('imp', 'rteavail')) {
-            $js = new Horde_Script_File_JsDir('ckeditor/pasteignore.js', 'imp');
+            switch ($registry->getView()) {
+            case $registry::VIEW_DYNAMIC:
+                $plugin = 'pasteattachment';
+                break;
+
+            default:
+                $plugin = 'pasteignore';
+                break;
+            }
+
+            $js = new Horde_Script_File_JsDir('ckeditor/' . $plugin . '.js', 'imp');
             $page_output->addInlineScript(array(
                 'CKEDITOR.on("loaded", function(e) {' .
-                  'CKEDITOR.plugins.addExternal("pasteignore", "' . $js->url->url . '", "");' .
-                  'CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("pasteignore").join(",");' .
+                  'CKEDITOR.plugins.addExternal("' . $plugin . '", "' . $js->url->url . '", "");' .
+                  'CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("' . $plugin . '").join(",");' .
                 '});'
             ), true);
         }

@@ -185,7 +185,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 if (isset($_FILES['upload_' . $i]) &&
                     strlen($_FILES['upload_' . $i]['name'])) {
                     try {
-                        $fname = $imp_compose->addFileFromUpload('upload_' . $i);
+                        $fname = $imp_compose->addFileFromUpload($this->vars, 'upload_' . $i);
                         if ($notify) {
                             $notification->push(sprintf(_("Added \"%s\" as an attachment."), $fname), 'horde.success');
                         }

@@ -302,7 +302,6 @@ var DimpCompose = {
 
                 $('upload_wait').hide();
                 this.initAttachList();
-                this.resizeMsgArea();
                 break;
             }
         } else {
@@ -759,7 +758,6 @@ var DimpCompose = {
                 afterFinish: function() {
                     n.remove();
                     this.initAttachList();
-                    this.resizeMsgArea();
                 }.bind(this),
                 duration: 0.4
             });
@@ -795,6 +793,8 @@ var DimpCompose = {
 
             u.clear().up().show();
         }
+
+        this.resizeMsgArea();
     },
 
     resizeMsgArea: function(e)

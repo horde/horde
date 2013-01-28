@@ -862,10 +862,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
+     *   - file_upload_dataurl: (boolean) If true, returns data in JSON; if
+     *                          false, data is returned in JSON-HTML.
      *
-     * @return object  Returns response object to display JSON HTML-encoded.
-     *                 Embedded data: false on failure, or an object with the
-     *                 following properties:
+     * @return object  False on failure, or an object with the following
+     *                 properties:
      *   - atc: (integer) The attachment ID.
      *   - error: (string) An error message.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
@@ -888,7 +889,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $filename = $imp_compose->addFileFromUpload('file_1');
+                    $filename = $imp_compose->addFileFromUpload($this->vars, 'file_upload');
                     $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
                     $result->atc = end($ajax_compose->getAttachmentInfo());
                     $result->success = 1;
@@ -902,7 +903,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             }
         }
 
-        return new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
+        return $this->vars->file_upload_dataurl
+            ? $result
+            : new Horde_Core_Ajax_Response_HordeCore_JsonHtml($result);
     }
 
     /**
