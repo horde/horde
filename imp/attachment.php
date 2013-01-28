@@ -105,6 +105,8 @@ if ($conf['compose']['link_attachments_notify']) {
             }
         } catch (Horde_Vfs_Exception $e) {
             Horde::log($e, 'ERR');
+        } catch (Horde_Mime_Exception $e) {
+            Horde::log($e, 'ERR');
         }
     }
 }
