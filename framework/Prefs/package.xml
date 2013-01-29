@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>12:50:59</time>
+ <time>12:51:14</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -955,6 +954,19 @@ Initial release as a PEAR package
    <notes>
 * [mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
