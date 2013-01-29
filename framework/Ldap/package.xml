@@ -17,8 +17,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>15:06:43</time>
+ <date>2013-01-29</date>
+ <time>12:43:57</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* 
+* [jan] Replace preg_replace() /e modifier.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -373,10 +373,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-29</date>
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
-* 
+* [jan] Replace preg_replace() /e modifier.
    </notes>
   </release>
  </changelog>
