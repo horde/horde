@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Passwd H5 (5.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,7 +44,7 @@ msgstr ""
 msgid "Cannot send command to server."
 msgstr ""
 
-#: index.php:221 templates/index.html.php:84
+#: index.php:222 templates/index.html.php:78
 msgid "Change Password"
 msgstr ""
 
@@ -160,10 +160,6 @@ msgstr ""
 msgid "Passwd is not properly configured."
 msgstr ""
 
-#: lib/Application.php:46
-msgid "Password"
-msgstr ""
-
 #: index.php:131
 #, php-format
 msgid "Password changed on %s."
@@ -185,15 +181,15 @@ msgstr ""
 msgid "Password module is not properly configured"
 msgstr ""
 
-#: index.php:214
+#: index.php:215
 msgid "Please provide a new password"
 msgstr ""
 
-#: index.php:213
+#: index.php:214
 msgid "Please provide your current password"
 msgstr ""
 
-#: index.php:215
+#: index.php:216
 msgid "Please verify your new password"
 msgstr ""
 
@@ -201,7 +197,7 @@ msgstr ""
 msgid "Required 'drivers' is misconfigured in Composite configuration."
 msgstr ""
 
-#: templates/index.html.php:85
+#: templates/index.html.php:79
 msgid "Reset"
 msgstr ""
 
@@ -281,7 +277,7 @@ msgstr ""
 msgid "Your password could not be changed."
 msgstr ""
 
-#: index.php:216
+#: index.php:217
 msgid "Your passwords do not match"
 msgstr ""
 
