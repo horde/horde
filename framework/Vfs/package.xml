@@ -471,6 +471,7 @@ Reading, writing and listing of files are all supported.</description>
     <name>ssh2</name>
     <channel>pecl.php.net</channel>
     <min>0.10</min>
+    <providesextension>ssh2</providesextension>
    </package>
    <extension>
     <name>ftp</name>

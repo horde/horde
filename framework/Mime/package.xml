@@ -434,14 +434,13 @@
    <package>
     <name>idn</name>
     <channel>pecl.php.net</channel>
+    <providesextension>idn</providesextension>
    </package>
    <package>
     <name>intl</name>
     <channel>pecl.php.net</channel>
+    <providesextension>intl</providesextension>
    </package>
-   <extension>
-    <name>intl</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
