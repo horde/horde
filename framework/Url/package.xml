@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>14:19:27</time>
+ <time>14:21:40</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Add Horde_Url_Data class.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -326,6 +326,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add Horde_Url_Data class.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
