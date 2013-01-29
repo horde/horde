@@ -1274,29 +1274,29 @@ class IMP_Contents
 
         switch ($ptype) {
         case 'audio':
-            return _("Audio part");
+            return _("Audio");
 
         case 'image':
-            return _("Image part");
+            return _("Image");
 
         case 'message':
         case '':
         case Horde_Mime_Part::UNKNOWN:
-            return _("Message part");
+            return _("Message");
 
         case 'multipart':
-            return _("Multipart part");
+            return _("Multipart");
 
         case 'text':
-            return _("Text part");
+            return _("Text");
 
         case 'video':
-            return _("Video part");
+            return _("Video");
 
         default:
             // Attempt to translate this type, if possible. Odds are that
             // it won't appear in the dictionary though.
-            return sprintf(_("%s part"), _(Horde_String::ucfirst($ptype)));
+            return _(Horde_String::ucfirst($ptype));
         }
     }
 
