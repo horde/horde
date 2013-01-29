@@ -61,7 +61,7 @@ extends Horde_Kolab_Format_TestCase
 
     private function _getMemoryMock()
     {
-        $this->logger = new Stub_Log();
+        $this->logger = new Horde_Kolab_Format_Stub_Log();
         return new Horde_Kolab_Format_Decorator_Memory(
             $this->getMock('Horde_Kolab_Format'),
             new Horde_Support_Memory(),

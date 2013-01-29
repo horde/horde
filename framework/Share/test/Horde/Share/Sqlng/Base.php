@@ -1,10 +1,5 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Base.php';
-
-/**
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
@@ -13,7 +8,7 @@ require_once __DIR__ . '/../Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
+class Horde_Share_Test_Sqlng_Base extends Horde_Share_TestBase
 {
     protected static $db;
 
@@ -193,7 +188,7 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_Test_Base
         require_once __DIR__ . '/../migration/sqlng.php';
         migrate_sqlng(self::$db);
 
-        $group = new Horde_Group_Test();
+        $group = new Horde_Share_Stub_Group();
         self::$share = new Horde_Share_Sqlng('test', 'john', new Horde_Perms_Sql(array('db' => self::$db)), $group);
         self::$share->setStorage(self::$db);
 

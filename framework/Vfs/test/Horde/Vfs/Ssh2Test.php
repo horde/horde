@@ -1,10 +1,5 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Base.php';
-
-/**
  * Test the SSH based virtual file system.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
@@ -18,7 +13,7 @@ require_once __DIR__ . '/Base.php';
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_Ssh2Test extends Horde_Vfs_Test_Base
+class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
 {
     protected static $reason;
 
