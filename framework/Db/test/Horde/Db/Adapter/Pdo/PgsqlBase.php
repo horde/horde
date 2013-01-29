@@ -22,46 +22,26 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
+class Horde_Db_Adapter_Pdo_PgsqlBase extends Horde_Test_Case
 {
-    public static $conn = null;
+    protected static $skip = true;
 
-    public static function suite()
+    protected static $conn;
+
+    public static function setUpBeforeClass()
     {
-        $suite = new self('Horde Framework - Horde_Db - PDO-PostgreSQL Adapter');
-
-        $skip = true;
         if (extension_loaded('pdo') &&
             in_array('pgsql', PDO::getAvailableDrivers())) {
             try {
-                self::$conn = $suite->getConnection();
-                $skip = false;
+                self::$conn = self::getConnection();
+                self::$skip = false;
             } catch (Exception $e) {
                 echo $e->getMessage() . "\n";
             }
         }
-
-        if ($skip) {
-            $skipTest = new Horde_Db_Adapter_MissingTest('testMissingAdapter');
-            $skipTest->adapter = 'PDO_PostgreSQL';
-            $suite->addTest($skipTest);
-            return $suite;
-        }
-
-        require_once __DIR__ . '/PgsqlTest.php';
-        require_once __DIR__ . '/../Postgresql/ColumnTest.php';
-        require_once __DIR__ . '/../Postgresql/ColumnDefinitionTest.php';
-        require_once __DIR__ . '/../Postgresql/TableDefinitionTest.php';
-
-        $suite->addTestSuite('Horde_Db_Adapter_Pdo_PgsqlTest');
-        $suite->addTestSuite('Horde_Db_Adapter_Postgresql_ColumnTest');
-        $suite->addTestSuite('Horde_Db_Adapter_Postgresql_ColumnDefinitionTest');
-        $suite->addTestSuite('Horde_Db_Adapter_Postgresql_TableDefinitionTest');
-
-        return $suite;
     }
 
-    public function getConnection()
+    public static function getConnection()
     {
         if (!is_null(self::$conn)) {
             return self::$conn;
@@ -89,6 +69,8 @@ class Horde_Db_Adapter_Pdo_PgsqlSuite extends PHPUnit_Framework_TestSuite
 
     protected function setUp()
     {
-        Horde_Db_AllTests::$connFactory = $this;
+        if (self::$skip) {
+            $this->markTestSkipped('The PDO_PostgreSQL adapter is not available');
+        }
     }
 }

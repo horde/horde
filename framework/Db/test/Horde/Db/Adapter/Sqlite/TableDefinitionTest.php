@@ -12,6 +12,8 @@
  * @subpackage UnitTests
  */
 
+require_once __DIR__ . '/../Pdo/SqliteBase.php';
+
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -22,11 +24,12 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Sqlite_TableDefinitionTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Sqlite_TableDefinitionTest extends Horde_Db_Adapter_Pdo_SqliteBase
 {
     protected function setUp()
     {
-        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+        list($this->_conn,) = self::getConnection();
     }
 
     protected function tearDown()

@@ -22,7 +22,7 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Sqlite_ColumnTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Sqlite_ColumnTest extends Horde_Test_Case
 {
     /*##########################################################################
     # Construction

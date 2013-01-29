@@ -22,19 +22,9 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Mysql_TableDefinitionTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Mysql_TableDefinition extends Horde_Test_Case
 {
-    protected function setUp()
-    {
-        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
-    }
-
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
+    public $conn;
 
     /*##########################################################################
     # Public methods
