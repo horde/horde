@@ -16,11 +16,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>18:42:27</time>
+ <date>2013-01-28</date>
+ <time>17:26:33</time>
  <version>
-  <release>2.0.2</release>
-  <api>1.1.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add Horde_Url_Data class.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -42,6 +42,7 @@
    <dir name="lib">
     <dir name="Horde">
      <dir name="Url">
+      <file name="Data.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Url -->
      <file name="Url.php" role="php" />
@@ -61,6 +62,7 @@
       <file name="RedirectTest.php" role="test" />
       <file name="RemoveTest.php" role="test" />
       <file name="TostringTest.php" role="test" />
+      <file name="UrlDataTest.php" role="test" />
      </dir> <!-- /test/Horde/Url -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -96,6 +98,7 @@
   <filelist>
    <install as="COPYING" name="doc/Horde/Url/COPYING" />
    <install as="Horde/Url.php" name="lib/Horde/Url.php" />
+   <install as="Horde/Url/Data.php" name="lib/Horde/Url/Data.php" />
    <install as="Horde/Url/Exception.php" name="lib/Horde/Url/Exception.php" />
    <install as="Horde/Url/AddTest.php" name="test/Horde/Url/AddTest.php" />
    <install as="Horde/Url/AllTests.php" name="test/Horde/Url/AllTests.php" />
@@ -108,6 +111,7 @@
    <install as="Horde/Url/RedirectTest.php" name="test/Horde/Url/RedirectTest.php" />
    <install as="Horde/Url/RemoveTest.php" name="test/Horde/Url/RemoveTest.php" />
    <install as="Horde/Url/TostringTest.php" name="test/Horde/Url/TostringTest.php" />
+   <install as="Horde/Url/UrlDataTest.php" name="test/Horde/Url/UrlDataTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -313,15 +317,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.2</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add Horde_Url_Data class.
    </notes>
   </release>
  </changelog>
