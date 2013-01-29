@@ -25,9 +25,9 @@
   <active>yes</active>
  </developer>
  <date>2013-01-29</date>
- <time>12:35:47</time>
+ <time>12:37:39</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -36,8 +36,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Don&apos;t set METHOD property unconditionally (Bug #10741).
-* [jan] Convert test suite to PHPUnit.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1059,6 +1058,19 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <notes>
 * [jan] Don&apos;t set METHOD property unconditionally (Bug #10741).
 * [jan] Convert test suite to PHPUnit.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
