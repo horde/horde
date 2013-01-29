@@ -1,1 +1,4 @@
 language: php
+script: php framework/bin/test_framework
+notifications:
+  email: jan@horde.org
