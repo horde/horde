@@ -22,8 +22,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-09</date>
- <time>15:46:34</time>
+ <date>2013-01-29</date>
+ <time>12:50:59</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -950,7 +950,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Horde_Prefs_Identity#getDefaultFromAddress() now returns a Horde_Mail_Rfc822_Address object.
