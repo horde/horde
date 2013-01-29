@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-01-29</date>
- <time>12:24:14</time>
+ <time>12:25:41</time>
  <version>
-  <release>2.1.6</release>
+  <release>2.1.7</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [mms] Fix spellchecking on HTML data (Bug #11986).
-* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2715,6 +2713,19 @@
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [mms] Fix spellchecking on HTML data (Bug #11986).
 * [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
