@@ -1032,7 +1032,7 @@ class Horde
          * base64 encoded size. */
         return (($dataurl === true) ||
                 (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? 'data:' . Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            ? strval(Horde_Url_Data::create(Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)), file_get_contents($in->fs)))
             : $in->uri;
     }
 
