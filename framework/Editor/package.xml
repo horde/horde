@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>12:31:48</time>
+ <time>12:33:46</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Move ckeditor javascript files into a separate ckeditor directory (Request #11950).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1194,6 +1194,19 @@ Initial packaging
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Move ckeditor javascript files into a separate ckeditor directory (Request #11950).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
