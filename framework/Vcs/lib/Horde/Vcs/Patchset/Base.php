@@ -15,14 +15,14 @@ abstract class Horde_Vcs_Patchset_Base
      * Constructor
      *
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
-     * @param string $file    The filename to create patchsets for.
      * @param array $opts     Additional options:
      * <pre>
+     * 'file' - (string) The filename to produce patchsets for.
      * 'range' - (array) The patchsets to process.
      *           DEFAULT: None (all patchsets are processed).
      * </pre>
      */
-    abstract public function __construct($rep, $file, $opts = array());
+    abstract public function __construct($rep, $opts = array());
 
     /**
      * TODO
