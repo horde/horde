@@ -2923,6 +2923,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             $finfo = $_FILES[$field];
             $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
             $size = $finfo['size'];
+            if (!empty($finfo['type'])) {
+                $type = $finfo['type'];
+            }
 
             if ($conf['compose']['use_vfs']) {
                 $atc_file = $finfo['tmp_name'];
