@@ -53,7 +53,7 @@ The following IMAP extensions/features are supported:
 :RFC 5957:          SORT=DISPLAY
 :RFC 6154:          SPECIAL-USE/CREATE-SPECIAL-USE
 :RFC 6203:          SEARCH=FUZZY
-:RFC XXXX:          MOVE
+:RFC 6851:          MOVE
 
 :draft-ietf-morg-inthread-01: THREAD=REFS
 :draft-daboo-imap-annotatemore-07: ANNOTATEMORE

@@ -60,7 +60,7 @@
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
  *   - RFC 6203: SEARCH=FUZZY
- *   - RFC XXXX: MOVE (draft-ietf-imapmove-command-02)
+ *   - RFC 6851: MOVE
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -3159,7 +3159,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_temp['copyuid'] = true;
         $this->_temp['trycreate'] = null;
 
-        /* Check for MOVE command. */
+        /* Check for MOVE command (RFC 6851). */
         $move_cmd = (!empty($options['move']) &&
                      $this->queryCapability('MOVE'));
 
