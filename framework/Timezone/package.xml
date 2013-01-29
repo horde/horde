@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-16</date>
- <time>10:53:04</time>
+ <date>2013-01-29</date>
+ <time>13:06:10</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -167,7 +167,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-16</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add license file.
