@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>12:29:12</time>
+ <time>12:30:22</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,9 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [jan] Fix error: DateTime::__construct(): Failed to parse time string (-001-11-01).
-* [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -887,6 +885,19 @@
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix error: DateTime::__construct(): Failed to parse time string (-001-11-01).
 * [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
