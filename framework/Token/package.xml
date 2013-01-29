@@ -16,8 +16,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>12:45:08</time>
+ <date>2013-01-29</date>
+ <time>14:06:57</time>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -861,7 +861,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
