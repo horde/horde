@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>12:20:14</time>
+ <time>12:20:30</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -35,9 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [jan] Fix argument reading in Samba drivers (Bug #11926).
-* [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+ (Bug #10965).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -824,6 +822,19 @@
 * [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix argument reading in Samba drivers (Bug #11926).
 * [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+ (Bug #10965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
