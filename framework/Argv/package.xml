@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2013-01-09</date>
- <time>14:57:49</time>
+ <date>2013-01-29</date>
+ <time>12:19:21</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -788,7 +788,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
