@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-01-29</date>
- <time>13:04:08</time>
+ <time>13:05:41</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mms] Fix detection of sys_getloadavg() on Windows (Bug #11972).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -400,6 +400,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mms] Fix detection of sys_getloadavg() on Windows (Bug #11972).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
