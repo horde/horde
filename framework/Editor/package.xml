@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-13</date>
- <time>20:59:57</time>
+ <date>2013-01-29</date>
+ <time>12:31:48</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -1190,7 +1190,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-13</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Move ckeditor javascript files into a separate ckeditor directory (Request #11950).
