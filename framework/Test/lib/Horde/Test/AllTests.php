@@ -96,11 +96,13 @@ class Horde_Test_AllTests
         $baseregexp = preg_quote($this->_dir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir)) as $file) {
-            if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
+            if ($file->isFile()) {
                 $pathname = $file->getPathname();
-                if (include $pathname) {
-                    $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                         preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+                if ((preg_match('/Test.php$/', $file->getFilename())) &&
+                    (include $pathname)) {
+                    $class = str_replace(
+                        DIRECTORY_SEPARATOR, '_',
+                        preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
                         $suite->addTestSuite($this->_package . '_' . $class);
                     } catch (InvalidArgumentException $e) {
@@ -143,7 +145,7 @@ class Horde_Test_AllTests
             if (basename($dirname) == 'test' &&
                 file_exists(dirname($dirname) . '/lib')) {
                 set_include_path(
-                    dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
+                    $dirname . PATH_SEPARATOR . dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
                 );
                 break;
             }
