@@ -2267,7 +2267,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $type = $analyzetype;
             }
         } else {
-            $data = Horde::getTempFile('impatt', false);
+            $data = Horde::getTempFile('impatt', false, '', false, true);
             $res = file_put_contents($data, $part->getContents());
             if ($res === false) {
                 throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()));
@@ -2946,7 +2946,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         if ($conf['compose']['use_vfs']) {
             $attachment = $tempfile;
         } else {
-            $attachment = Horde::getTempFile('impatt', false);
+            $attachment = Horde::getTempFile('impatt', false, '', false, true);
             if (move_uploaded_file($tempfile, $attachment) === false) {
                 throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
             }
