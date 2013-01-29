@@ -24,8 +24,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-11</date>
- <time>21:32:50</time>
+ <date>2013-01-29</date>
+ <time>12:35:47</time>
  <version>
   <release>2.0.3</release>
   <api>1.1.0</api>
@@ -1054,7 +1054,7 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-11</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Don&apos;t set METHOD property unconditionally (Bug #10741).
