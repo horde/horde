@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-01-29</date>
- <time>12:43:57</time>
+ <time>12:44:12</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
  <notes>
-* [jan] Replace preg_replace() /e modifier.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -377,6 +377,19 @@
    <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
    <notes>
 * [jan] Replace preg_replace() /e modifier.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://opensource.org/licenses/lgpl-3.0.html">LGPL-3.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
