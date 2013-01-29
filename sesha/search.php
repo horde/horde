@@ -17,7 +17,7 @@ Horde_Registry::appInit('sesha');
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 $topbar->searchAction = new Horde_Url('list.php');
-$topbar->searchLabel = _("Stock Id");
+$topbar->searchLabel = _("Stock ID");
 $topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 // Page variables.
