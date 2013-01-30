@@ -1,5 +1,7 @@
 language: php
 before_script:
+  - pear install channel://pear.horde.org/Horde_Role
+  - pear config-set -c pear.horde.org horde_dir /tmp
   - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
 script: ./framework/bin/test_framework
