@@ -25,6 +25,13 @@
 class IMP_Ajax_Queue
 {
     /**
+     * The compose cache ID.
+     *
+     * @var string
+     */
+    protected $_composeCacheId = null;
+
+    /**
      * Flag entries to add to response.
      *
      * @var array
@@ -69,6 +76,9 @@ class IMP_Ajax_Queue
     /**
      * Generates AJAX response task data from the queue.
      *
+     * For compose cacheid data (key: 'compose-cacheid'), the current cacheid
+     * of the compose message.
+     *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
      *   - remove: (array) The list of flags that were removed.
@@ -107,6 +117,12 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
+        /* Add compose cache ID information. */
+        if (!is_null($this->_composeCacheId)) {
+            $ajax->addTask('compose-cacheid', $this->_composeCacheId);
+            $this->_composeCacheId = null;
+        }
+
         /* Add flag information. */
         if (!empty($this->_flag)) {
             $ajax->addTask('flag', $this->_flag);
@@ -177,6 +193,16 @@ class IMP_Ajax_Queue
             ));
             $this->_quota = false;
         }
+    }
+
+    /**
+     * Add the compose cache ID to the output.
+     *
+     * @param IMP_Compose $ob  The compose object.
+     */
+    public function compose(IMP_Compose $ob)
+    {
+        $this->_composeCacheId = $ob->getCacheId();
     }
 
     /**

@@ -153,6 +153,8 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
             $ob->contents = $injector->getInstance('IMP_Factory_Contents')->create($this->indices);
         }
 
+        $this->queue->compose($ob->compose);
+
         return $ob;
     }
 

@@ -13,7 +13,7 @@ var DimpCompose = {
     //   auto_save_interval, compose_cursor, disabled, drafts_mbox,
     //   editor_wait, fwdattach, is_popup, knl, md5_hdrs, md5_msg, md5_msgOrig,
     //   onload_show, old_action, old_identity, rte, rte_loaded,
-    //   sc_submit, skip_spellcheck, spellcheck, uploading
+    //   sc_submit, skip_spellcheck, spellcheck, tasks, uploading
 
     checkbox_context: $H({
         ctx_atc: $H({
@@ -37,6 +37,12 @@ var DimpCompose = {
             : $('composeCache');
     },
 
+    actionParams: function(p)
+    {
+        p.imp_compose = $F(this.getCacheElt());
+        return p;
+    },
+
     confirmCancel: function()
     {
         if (window.confirm(DimpCore.text.compose_cancel)) {
@@ -45,9 +51,7 @@ var DimpCompose = {
                 HordeCore.base.focus();
             }
 
-            DimpCore.doAction('cancelCompose', {
-                imp_compose: $F(this.getCacheElt())
-            });
+            DimpCore.doAction('cancelCompose', this.actionParams({}));
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -245,10 +249,6 @@ var DimpCompose = {
 
     uniqueSubmitCallback: function(d)
     {
-        if (d.imp_compose) {
-            this.getCacheElt().setValue(d.imp_compose);
-        }
-
         if (d.success || d.action == 'addAttachment') {
             switch (d.action) {
             case 'autoSaveDraft':
@@ -374,11 +374,10 @@ var DimpCompose = {
             changed = (this.msgHash() != this.md5_msgOrig);
             text = this.rte.getData();
 
-            DimpCore.doAction('html2Text', {
+            DimpCore.doAction('html2Text', this.actionParams({
                 changed: Number(changed),
-                imp_compose: $F(this.getCacheElt()),
                 text: text
-            }, {
+            }), {
                 callback: this.setMessageText.bind(this, false)
             });
 
@@ -390,11 +389,10 @@ var DimpCompose = {
             if (!noupdate) {
                 tmp = $F('composeMessage');
                 if (!tmp.blank()) {
-                    DimpCore.doAction('text2Html', {
+                    DimpCore.doAction('text2Html', this.actionParams({
                         changed: Number(this.msgHash() != this.md5_msgOrig),
-                        imp_compose: $F(this.getCacheElt()),
                         text: tmp
-                    }, {
+                    }), {
                         callback: this.setMessageText.bind(this, true)
                     });
                 }
@@ -502,7 +500,7 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    // ob = body, format, header, identity, imp_compose, opts, type
+    // ob = body, format, header, identity, opts, type
     // ob.opts = auto, focus, fwd_list, noupdate, priority, readreceipt,
     //           reply_lang, reply_recip, reply_list_id, show_editor
     fillForm: function(ob)
@@ -510,10 +508,6 @@ var DimpCompose = {
         if (!document.loaded || $('dimpLoading').visible()) {
             this.fillForm.bind(this, ob).defer();
             return;
-        }
-
-        if (ob.imp_compose) {
-            this.getCacheElt().setValue(ob.imp_compose);
         }
 
         switch (ob.type) {
@@ -767,7 +761,9 @@ var DimpCompose = {
             $('attach_list').hide();
         }
 
-        DimpCore.doAction('deleteAttach', { atc_indices: Object.toJSON(ids), imp_compose: $F(this.getCacheElt()) });
+        DimpCore.doAction('deleteAttach', this.actionParams({
+            atc_indices: Object.toJSON(ids)
+        }));
     },
 
     initAttachList: function()
@@ -982,11 +978,10 @@ var DimpCompose = {
         case 'fwdattachnotice':
         case 'fwdbodynotice':
             this.fadeNotice(e.element());
-            DimpCore.doAction('GetForwardData', {
+            DimpCore.doAction('GetForwardData', this.actionParams({
                 dataonly: 1,
-                imp_compose: $F(this.getCacheElt()),
                 type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
-            }, {
+            }), {
                 callback: this.forwardAddCallback.bind(this)
             });
             this.fwdattach = false;
@@ -1004,11 +999,10 @@ var DimpCompose = {
         case 'replylist_revert':
             this.fadeNotice(e.element().up('LI'));
             $('to_loading_img').show();
-            DimpCore.doAction('getReplyData', {
+            DimpCore.doAction('getReplyData', this.actionParams({
                 headeronly: 1,
-                imp_compose: $F(this.getCacheElt()),
                 type: 'reply'
-            }, {
+            }), {
                 callback: this.swapToAddressCallback.bind(this)
             });
             e.memo.stop();
@@ -1108,6 +1102,10 @@ var DimpCompose = {
     tasksHandler: function(e)
     {
         var t = e.tasks;
+
+        if (t['imp:compose-cacheid']) {
+            this.getCacheElt().setValue(t['imp:compose-cacheid']);
+        }
 
         if (this.baseAvailable()) {
             if (t['imp:flag']) {
@@ -1217,6 +1215,8 @@ var DimpCompose = {
 
         $('dimpLoading').hide();
         $('composeContainer', 'compose').compact().invoke('show');
+
+        this.tasksHandler({ tasks: this.tasks });
 
         if (this.onload_show) {
             this.fillForm(this.onload_show);

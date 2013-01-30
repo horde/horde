@@ -805,13 +805,6 @@ var ImpMobile = {
      */
     composeLoaded: function(r, data)
     {
-        if (r.imp_compose) {
-            var cache = r.type == 'forward_redirect'
-                ? '#imp-redirect-cache'
-                : '#imp-compose-cache';
-            $(cache).val(r.imp_compose);
-        }
-
         if (r.type != 'forward_redirect') {
             if (!r.opts) {
                 r.opts = {};
@@ -877,14 +870,8 @@ var ImpMobile = {
 
     uniqueSubmitCallback: function(d)
     {
-        if (d) {
-            if (d.success) {
-                return ImpMobile.closeCompose();
-            }
-
-            if (d.imp_compose) {
-                $('#imp-compose-cache').val(d.imp_compose);
-            }
+        if (d && d.success) {
+            ImpMobile.closeCompose();
         }
     },
 
@@ -1134,6 +1121,10 @@ var ImpMobile = {
     runTasks: function(e, d)
     {
         var v;
+
+        if (v = d['imp:compose-cacheid']) {
+            $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v);
+        }
 
         if (v = d['imp:flag']) {
             ImpMobile.updateFlags(v);

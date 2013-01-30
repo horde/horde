@@ -70,6 +70,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
         $compose_ajax = new IMP_Ajax_Application_Compose($imp_compose, $this->vars->type);
 
+        $injector->getInstance('IMP_Ajax_Queue')->compose($imp_compose);
+
         $compose_opts = array(
             'title' => _("New Message")
         );
@@ -230,8 +232,10 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $imp_ui->attachSpellChecker();
         }
 
+
         $page_output->addInlineJsVars(array(
-            'DimpCompose.onload_show' => $onload
+            'DimpCompose.onload_show' => $onload,
+            'DimpCompose.tasks' => $injector->getInstance('Horde_Core_Factory_Ajax')->create('imp', $this->vars)->getTasks()
         ));
 
         $this->title = $compose_opts['title'];

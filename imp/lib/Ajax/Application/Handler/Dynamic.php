@@ -869,7 +869,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *                 properties:
      *   - atc: (integer) The attachment ID.
      *   - error: (string) An error message.
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
@@ -893,8 +892,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                     $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
                     $result->atc = end($ajax_compose->getAttachmentInfo());
                     $result->success = 1;
-                    $result->imp_compose = $imp_compose->getCacheId();
                     $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+
+                    $this->_base->queue->compose($imp_compose);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }

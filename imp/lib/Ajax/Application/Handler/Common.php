@@ -276,7 +276,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - opts: (array) Additional options needed for DimpCompose.fillForm().
      *   - type: (string) The input 'type' value.
      */
@@ -322,7 +321,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - opts: (array) Additional options needed for DimpCompose.fillForm().
      *   - type: (string) The input 'type' value.
      */
@@ -372,7 +370,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         $compose->compose->redirectMessage($compose->contents->getIndicesOb());
 
         $ob = new stdClass;
-        $ob->imp_compose = $compose->compose->getCacheId();
         $ob->type = $this->vars->type;
 
         return $ob;
@@ -396,7 +393,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - opts: (array) Additional options (atc, priority, readreceipt).
      *   - type: (string) The input 'type' value.
      */

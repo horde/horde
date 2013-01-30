@@ -118,7 +118,6 @@ class IMP_Ajax_Application_Compose
         $ob = new stdClass;
         $ob->body = '';
         $ob->header = array();
-        $ob->imp_compose = $this->_composeOb->getCacheId();
         $ob->opts = new stdClass;
         $ob->type = $this->_type;
 
