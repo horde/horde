@@ -13,8 +13,6 @@
  * @author   Heinz Schweiger <heinz@htl-steyr.ac.at>
  * @category Horde
  * @package  Prefs
- * @todo:    Improve exception and error handling,
- *           translation of error messages
  */
 class Horde_Prefs_Storage_Ldap extends Horde_Prefs_Storage_Base
 {
