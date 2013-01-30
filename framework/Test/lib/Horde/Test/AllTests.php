@@ -138,17 +138,15 @@ class Horde_Test_AllTests
      */
     public function setup()
     {
-        // Detect component root and add "lib" to the include path.
-        for ($dirname = $this->_dir, $i = 0;
-             $dirname != '/', $i < 5;
-             $dirname = dirname($dirname), $i++) {
-            if (basename($dirname) == 'test' &&
-                file_exists(dirname($dirname) . '/lib')) {
-                set_include_path(
-                    $dirname . PATH_SEPARATOR . dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
-                );
-                break;
-            }
+        // Detect component root and add "lib" and "test" to the include path.
+        $base = $this->_dir;
+        while ($base != '/' && basename($base) != 'test') {
+            $base = dirname($base);
+        }
+        if ($base) {
+            set_include_path(
+                $base . PATH_SEPARATOR . $base . '/../lib' . PATH_SEPARATOR . get_include_path()
+            );
         }
 
         require_once 'Horde/Test/Bootstrap.php';
