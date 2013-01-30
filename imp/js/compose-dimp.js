@@ -703,7 +703,7 @@ var DimpCompose = {
 
     // opts = (Object)
     //   fwdattach: (integer) Attachment is forwarded message
-    //   icon: (string) base64 encoded icon data (PNG).
+    //   icon: (string) Data url of icon data.
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
     //   size: (integer) Size, in KB
@@ -718,10 +718,10 @@ var DimpCompose = {
             canvas = new Element('CANVAS', { height: '16px', width: '16px' });
             li.insert(canvas);
             img = new Image();
-            img.src = 'data:image/png;base64,' + opts.icon;
             img.onload = function() {
                 canvas.getContext('2d').drawImage(img, 0, 0, 16, 16);
             };
+            img.src = opts.icon;
         }
 
         li.insert(span);

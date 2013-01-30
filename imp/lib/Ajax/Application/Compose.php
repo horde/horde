@@ -131,6 +131,7 @@ class IMP_Ajax_Application_Compose
      *
      * @return array  An array of arrays with the following keys:
      *   - fwdattach: (integer) If non-zero, this is a forward attachment
+     *   - icon: (string) Data url string containing icon information.
      *   - name: (string) The attachment name
      *   - num: (integer) The current attachment number
      *   - size: (string) The size of the attachment in KB
@@ -138,6 +139,8 @@ class IMP_Ajax_Application_Compose
      */
     public function getAttachmentInfo($type = IMP_Compose::COMPOSE)
     {
+        global $injector;
+
         $atc = array();
 
         foreach ($this->_composeOb as $atc_num => $data) {
@@ -146,7 +149,7 @@ class IMP_Ajax_Application_Compose
 
             $atc[] = array(
                 'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
-                'icon' => base64_encode(file_get_contents($GLOBALS['injector']->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs)),
+                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs))),
                 'name' => $mime->getName(true),
                 'num' => $atc_num,
                 'type' => $type,
