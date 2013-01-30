@@ -1,7 +1,6 @@
 language: php
 before_script:
-  - pear install channel://pear.horde.org/Horde_Autoloader
-  - pear install channel://pear.horde.org/Horde_Test
-script: php framework/bin/test_framework
+  - ./framework/bin/pear_batch_install
+script: ./framework/bin/test_framework
 notifications:
   email: jan@horde.org
