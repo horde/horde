@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2726,7 +2726,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
    </notes>
   </release>
  </changelog>
