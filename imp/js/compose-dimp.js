@@ -296,10 +296,6 @@ var DimpCompose = {
 
             case 'addAttachment':
                 this.uploading = false;
-                if (d.success) {
-                    this.addAttach(d.atc);
-                }
-
                 $('upload_wait').hide();
                 this.initAttachList();
                 break;
@@ -540,8 +536,6 @@ var DimpCompose = {
             $('request_read_receipt').setValue(true);
         }
 
-        this.processAttach(ob.opts.atc);
-
         switch (ob.opts.auto) {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
@@ -653,13 +647,6 @@ var DimpCompose = {
         }
     },
 
-    processAttach: function(f)
-    {
-        if (f && f.size()) {
-            f.each(this.addAttach.bind(this));
-        }
-    },
-
     swapToAddressCallback: function(r)
     {
         if (r.header) {
@@ -680,10 +667,6 @@ var DimpCompose = {
     {
         if (r.type) {
             switch (r.type) {
-            case 'forward_attach':
-                this.processAttach(r.opts.atc);
-                break;
-
             case 'forward_body':
                 this.removeAttach([ $('attach_list').down() ]);
                 this.setBodyText(r);
@@ -1105,6 +1088,10 @@ var DimpCompose = {
 
         if (t['imp:compose-cacheid']) {
             this.getCacheElt().setValue(t['imp:compose-cacheid']);
+        }
+
+        if (t['imp:compose-atc']) {
+            t['imp:compose-atc'].each(this.addAttach.bind(this));
         }
 
         if (this.baseAvailable()) {

@@ -25,6 +25,13 @@
 class IMP_Ajax_Queue
 {
     /**
+     * The list of attachments.
+     *
+     * @var array
+     */
+    protected $_atc = array();
+
+    /**
      * The compose cache ID.
      *
      * @var string
@@ -76,6 +83,15 @@ class IMP_Ajax_Queue
     /**
      * Generates AJAX response task data from the queue.
      *
+     * For compose attachment data (key: 'compose-atc'), an array of objects
+     * with these properties:
+     *   - fwdattach: (integer) If non-zero, this is a forward attachment
+     *   - icon: (string) Data url string containing icon information.
+     *   - name: (string) The attachment name
+     *   - num: (integer) The current attachment number
+     *   - size: (string) The size of the attachment in KB
+     *   - type: (string) The MIME type of the attachment
+     *
      * For compose cacheid data (key: 'compose-cacheid'), the current cacheid
      * of the compose message.
      *
@@ -117,6 +133,12 @@ class IMP_Ajax_Queue
      */
     public function add(IMP_Ajax_Application $ajax)
     {
+        /* Add compose attachment information. */
+        if (!empty($this->_atc)) {
+            $ajax->addTask('compose-atc', $this->_atc);
+            $this->_atc = array();
+        }
+
         /* Add compose cache ID information. */
         if (!is_null($this->_composeCacheId)) {
             $ajax->addTask('compose-cacheid', $this->_composeCacheId);
@@ -192,6 +214,38 @@ class IMP_Ajax_Queue
                     : ($quotadata['percent'] >= 75 ? 'warn' : '')
             ));
             $this->_quota = false;
+        }
+    }
+
+    /**
+     * Return information about the current attachments for a message.
+     *
+     * @param IMP_Compose $ob  The compose object.
+     * @param integer $type    The compose type.
+     * @param boolean $last    Only return last attachment?
+     */
+    public function attachment(IMP_Compose $ob, $type = IMP_Compose::COMPOSE,
+                               $last = false)
+    {
+        global $injector;
+
+        $parts = array_keys(iterator_to_array($ob));
+        if ($last) {
+            $parts = array_slice($parts, -1, 1, true);
+        }
+
+        foreach ($parts as $key) {
+            $mime = $ob[$key]['part'];
+            $type = $mime->getType();
+
+            $this->_atc[] = array(
+                'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
+                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs))),
+                'name' => $mime->getName(true),
+                'num' => $key,
+                'type' => $type,
+                'size' => $mime->getSize()
+            );
         }
     }
 

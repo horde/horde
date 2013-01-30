@@ -70,7 +70,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create();
         $compose_ajax = new IMP_Ajax_Application_Compose($imp_compose, $this->vars->type);
 
-        $injector->getInstance('IMP_Ajax_Queue')->compose($imp_compose);
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $ajax_queue->compose($imp_compose);
 
         $compose_opts = array(
             'title' => _("New Message")
@@ -134,7 +135,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 if ($show_editor) {
                     $onload->format = 'html';
                 }
-                $onload->opts->atc = $compose_ajax->getAttachmentInfo(IMP_Compose::FORWARD_ATTACH);
+
                 $onload->header['subject'] = $subject;
             } else {
                 try {
@@ -154,6 +155,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 $show_editor = ($result['format'] == 'html');
             }
+
+            $ajax_queue->attachment($imp_compose, IMP_Compose::FORWARD_ATTACH);
             break;
 
         case 'forward_redirect':
@@ -192,6 +195,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 $onload = $compose_ajax->getResponse($result);
                 $onload->header = array_merge($header, $onload->header);
+
+                $ajax_queue->attachment($imp_compose, $result['type']);
 
                 if (in_array($result['type'], array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))) {
                     $compose_opts['fwdattach'] = true;

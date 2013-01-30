@@ -321,7 +321,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
-     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
      *   - type: (string) The input 'type' value.
      */
     public function getForwardData()
@@ -340,10 +339,11 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 $result = $compose->ajax->getBaseResponse();
                 $result->body = $fwd_msg['body'];
                 $result->format = $fwd_msg['format'];
-                $result->opts->atc = $compose->ajax->getAttachmentInfo($fwd_msg['type']);
             } else {
                 $result = $compose->ajax->getResponse($fwd_msg);
             }
+
+            $this->_base->queue->attachment($compose->ajax, $fwd_msg['type']);
         } catch (Horde_Exception $e) {
             $notification->push($e);
             $this->_base->checkUidvalidity();

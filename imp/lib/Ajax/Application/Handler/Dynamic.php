@@ -867,8 +867,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
-     *   - atc: (integer) The attachment ID.
-     *   - error: (string) An error message.
+     *   - action: (string) The action.
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
@@ -888,13 +887,11 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $filename = $imp_compose->addFileFromUpload($this->vars, 'file_upload');
-                    $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
-                    $result->atc = end($ajax_compose->getAttachmentInfo());
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $imp_compose->addFileFromUpload($this->vars, 'file_upload')), 'horde.success');
                     $result->success = 1;
-                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
 
                     $this->_base->queue->compose($imp_compose);
+                    $this->_base->queue->attachment($imp_compose, null, true);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }
