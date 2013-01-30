@@ -23,8 +23,8 @@ owns or has access to.</description>
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>12:29:09</time>
+ <date>2013-01-30</date>
+ <time>14:09:10</time>
  <version>
   <release>2.0.3</release>
   <api>1.3.0</api>
@@ -363,11 +363,11 @@ owns or has access to.</description>
       </dir> <!-- /test/Horde/Share/Stub -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
-      <file name="Base.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="stress-test" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Share -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -557,11 +557,11 @@ owns or has access to.</description>
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Share.po" name="locale/zh_TW/LC_MESSAGES/Horde_Share.po" />
    <install as="Horde/Share/AllTests.php" name="test/Horde/Share/AllTests.php" />
    <install as="Horde/Share/Autoload.php" name="test/Horde/Share/Autoload.php" />
-   <install as="Horde/Share/Base.php" name="test/Horde/Share/Base.php" />
    <install as="Horde/Share/bootstrap.php" name="test/Horde/Share/bootstrap.php" />
    <install as="Horde/Share/conf.php.dist" name="test/Horde/Share/conf.php.dist" />
    <install as="Horde/Share/phpunit.xml" name="test/Horde/Share/phpunit.xml" />
    <install as="Horde/Share/stress-test" name="test/Horde/Share/stress-test" />
+   <install as="Horde/Share/TestBase.php" name="test/Horde/Share/TestBase.php" />
    <install as="Horde/Share/Kolab/MockTest.php" name="test/Horde/Share/Kolab/MockTest.php" />
    <install as="Horde/Share/Kolab/UnitTest.php" name="test/Horde/Share/Kolab/UnitTest.php" />
    <install as="Horde/Share/migration/sql.php" name="test/Horde/Share/migration/sql.php" />
@@ -948,7 +948,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

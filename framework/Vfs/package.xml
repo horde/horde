@@ -27,8 +27,8 @@ Reading, writing and listing of files are all supported.</description>
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>12:47:42</time>
+ <date>2013-01-30</date>
+ <time>14:25:34</time>
  <version>
   <release>2.0.5</release>
   <api>2.0.0</api>
@@ -373,7 +373,6 @@ Reading, writing and listing of files are all supported.</description>
        <file name="MysqlTest.php" role="test" />
       </dir> <!-- /test/Horde/Vfs/SqlFile -->
       <file name="AllTests.php" role="test" />
-      <file name="Base.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="conf.php.dist" role="test" />
       <file name="FileTest.php" role="test" />
@@ -382,6 +381,7 @@ Reading, writing and listing of files are all supported.</description>
       <file name="phpunit.xml" role="test" />
       <file name="SmbTest.php" role="test" />
       <file name="Ssh2Test.php" role="test" />
+      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Vfs -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -587,7 +587,6 @@ Reading, writing and listing of files are all supported.</description>
    <install as="migration/1_horde_vfs_base_tables.php" name="migration/Horde/Vfs/1_horde_vfs_base_tables.php" />
    <install as="migration/2_horde_vfs_upgrade_autoincrement.php" name="migration/Horde/Vfs/2_horde_vfs_upgrade_autoincrement.php" />
    <install as="Horde/Vfs/AllTests.php" name="test/Horde/Vfs/AllTests.php" />
-   <install as="Horde/Vfs/Base.php" name="test/Horde/Vfs/Base.php" />
    <install as="Horde/Vfs/bootstrap.php" name="test/Horde/Vfs/bootstrap.php" />
    <install as="Horde/Vfs/conf.php.dist" name="test/Horde/Vfs/conf.php.dist" />
    <install as="Horde/Vfs/FileTest.php" name="test/Horde/Vfs/FileTest.php" />
@@ -596,6 +595,7 @@ Reading, writing and listing of files are all supported.</description>
    <install as="Horde/Vfs/phpunit.xml" name="test/Horde/Vfs/phpunit.xml" />
    <install as="Horde/Vfs/SmbTest.php" name="test/Horde/Vfs/SmbTest.php" />
    <install as="Horde/Vfs/Ssh2Test.php" name="test/Horde/Vfs/Ssh2Test.php" />
+   <install as="Horde/Vfs/TestBase.php" name="test/Horde/Vfs/TestBase.php" />
    <install as="Horde/Vfs/fixtures/samba1.txt" name="test/Horde/Vfs/fixtures/samba1.txt" />
    <install as="Horde/Vfs/fixtures/samba2.txt" name="test/Horde/Vfs/fixtures/samba2.txt" />
    <install as="Horde/Vfs/Sql/Base.php" name="test/Horde/Vfs/Sql/Base.php" />
@@ -1141,7 +1141,7 @@ Added a class for providing garbage collection; removed all Horde dependancies.
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
