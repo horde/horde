@@ -15,6 +15,7 @@
  */
 class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
 {
+    static protected $reason;
 
     static public function setUpBeforeClass()
     {
