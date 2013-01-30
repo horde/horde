@@ -2905,11 +2905,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $type = 'application/octet-stream';
 
         if ($vars->get($field . '_dataurl')) {
-            $filename = $vars->get($field . '_filename', _("None"));
-
             $url_data = new Horde_Url_Data($vars->get($field));
             $size = strlen($url_data->data);
             $type = $url_data->type;
+
+            $filename = $vars->get($field . '_filename');
+            if (is_null($filename)) {
+                $filename = IMP_Contents::getPartLabel(reset(explode('/', $type)));
+            }
 
             $atc_file = Horde::getTempFile('impatt', false, '', false, true);
             file_put_contents($atc_file, $url_data->data);
@@ -2960,8 +2963,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         } else {
             $part->setHeaderCharset('UTF-8');
         }
-        $part->setName($filename);
         $part->setBytes($size);
+        $part->setName($filename);
         $part->setDisposition('attachment');
 
         /* Store the data. */

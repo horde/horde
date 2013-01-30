@@ -1272,32 +1272,7 @@ class IMP_Contents
             break;
         }
 
-        switch ($ptype) {
-        case 'audio':
-            return _("Audio");
-
-        case 'image':
-            return _("Image");
-
-        case 'message':
-        case '':
-        case Horde_Mime_Part::UNKNOWN:
-            return _("Message");
-
-        case 'multipart':
-            return _("Multipart");
-
-        case 'text':
-            return _("Text");
-
-        case 'video':
-            return _("Video");
-
-        default:
-            // Attempt to translate this type, if possible. Odds are that
-            // it won't appear in the dictionary though.
-            return _(Horde_String::ucfirst($ptype));
-        }
+        return self::getPartLabel($ptype);
     }
 
     /**
@@ -1529,6 +1504,46 @@ class IMP_Contents
         }
 
         return $res;
+    }
+
+    /* Static methods. */
+
+    /**
+     * Return the descriptive part label (translatable text) for the primary
+     * MIME types.
+     *
+     * @param string $type  Primary MIME type.
+     *
+     * @return string  The part label.
+     */
+    static public function getPartLabel($type)
+    {
+        switch ($type) {
+        case 'audio':
+            return _("Audio");
+
+        case 'image':
+            return _("Image");
+
+        case 'message':
+        case '':
+        case Horde_Mime_Part::UNKNOWN:
+            return _("Message");
+
+        case 'multipart':
+            return _("Multipart");
+
+        case 'text':
+            return _("Text");
+
+        case 'video':
+            return _("Video");
+
+        default:
+            // Attempt to translate this type, if possible. Odds are that
+            // it won't appear in the dictionary though.
+            return _(Horde_String::ucfirst($type));
+        }
     }
 
 }
