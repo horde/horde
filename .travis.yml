@@ -1,5 +1,6 @@
 language: php
 before_script:
+  - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
 script: ./framework/bin/test_framework
 notifications:
