@@ -40,6 +40,13 @@ class Horde_Test_Bootstrap
             error_reporting(E_ALL | E_STRICT);
 
             // Set up autoload
+            $base = $dir;
+            while ($base && basename($base) != 'test') {
+                $base = dirname($base);
+            }
+            set_include_path(
+                $base . PATH_SEPARATOR . $base . '/../lib' . PATH_SEPARATOR . get_include_path()
+            );
             require_once 'Horde/Test/Autoload.php';
             Horde_Test_Autoload::init();
         }
