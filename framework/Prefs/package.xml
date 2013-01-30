@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix LDAP driver and use Horde_Ldap (Heinz Schweiger &lt;heinz@htl-steyr.ac.at&gt;, Request #11697).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -966,7 +966,7 @@ Initial release as a PEAR package
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix LDAP driver and use Horde_Ldap (Heinz Schweiger &lt;heinz@htl-steyr.ac.at&gt;, Request #11697).
    </notes>
   </release>
  </changelog>
