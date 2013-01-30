@@ -22,24 +22,14 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Mysql_ColumnDefinition extends Horde_Test_Case
 {
-    protected function setUp()
-    {
-        list($this->_conn,) = Horde_Db_AllTests::$connFactory->getConnection();
-    }
-
-    protected function tearDown()
-    {
-        // close connection
-        $this->_conn->disconnect();
-    }
-
+    public $conn;
 
     public function testConstruct()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $this->assertEquals('col_name', $col->getName());
         $this->assertEquals('string',   $col->getType());
@@ -48,7 +38,7 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSql()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $this->assertEquals('`col_name` varchar(255)', $col->toSql());
     }
@@ -56,13 +46,13 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSqlLimit()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', 40
+            $this->conn, 'col_name', 'string', 40
         );
         $this->assertEquals('`col_name` varchar(40)', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setLimit(40);
         $this->assertEquals('`col_name` varchar(40)', $col->toSql());
@@ -71,13 +61,13 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSqlPrecisionScale()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'decimal', null, 5, 2
+            $this->conn, 'col_name', 'decimal', null, 5, 2
         );
         $this->assertEquals('`col_name` decimal(5, 2)', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'decimal'
+            $this->conn, 'col_name', 'decimal'
         );
         $col->setPrecision(5);
         $col->setScale(2);
@@ -87,13 +77,13 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSqlUnsigned()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'integer', null, null, null, true
+            $this->conn, 'col_name', 'integer', null, null, null, true
         );
         $this->assertEquals('`col_name` int(10) UNSIGNED', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'integer'
+            $this->conn, 'col_name', 'integer'
         );
         $col->setUnsigned(true);
         $this->assertEquals('`col_name` int(10) UNSIGNED', $col->toSql());
@@ -102,13 +92,13 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSqlNotNull()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, null, false
+            $this->conn, 'col_name', 'string', null, null, null, null, null, false
         );
         $this->assertEquals('`col_name` varchar(255) NOT NULL', $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setNull(false);
         $this->assertEquals('`col_name` varchar(255) NOT NULL', $col->toSql());
@@ -117,13 +107,13 @@ class Horde_Db_Adapter_Mysql_ColumnDefinitionTest extends PHPUnit_Framework_Test
     public function testToSqlDefault()
     {
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string', null, null, null, null, 'test'
+            $this->conn, 'col_name', 'string', null, null, null, null, 'test'
         );
         $this->assertEquals("`col_name` varchar(255) DEFAULT 'test'", $col->toSql());
 
         // set attribute instead
         $col = new Horde_Db_Adapter_Base_ColumnDefinition(
-            $this->_conn, 'col_name', 'string'
+            $this->conn, 'col_name', 'string'
         );
         $col->setDefault('test');
         $this->assertEquals("`col_name` varchar(255) DEFAULT 'test'", $col->toSql());

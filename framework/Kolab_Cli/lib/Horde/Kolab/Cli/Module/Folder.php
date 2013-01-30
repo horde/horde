@@ -236,7 +236,7 @@ implements Horde_Kolab_Cli_Module
 
     private function _showFolder($folder_name, $world, $cli)
     {
-        $folder = $world['storage']->getList()->getFolder($folder_name);
+        $folder = $world['storage']->getFolder($folder_name);
         $cli->writeln('Path:      ' . $folder->getPath());
         $cli->writeln('Title:     ' . $folder->getTitle());
         $cli->writeln('Owner:     ' . $folder->getOwner());

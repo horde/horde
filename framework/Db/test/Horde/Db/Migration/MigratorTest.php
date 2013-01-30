@@ -22,7 +22,7 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Migration_MigratorTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Migration_MigratorTest extends Horde_Test_Case
 {
     public function setUp()
     {

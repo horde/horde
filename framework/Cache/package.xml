@@ -124,11 +124,13 @@
     <name>APC</name>
     <channel>pecl.php.net</channel>
     <min>3.1.1</min>
+    <providesextension>apc</providesextension>
    </package>
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>eaccelerator</name>

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_ActiveSync \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,55 +17,55 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Horde/ActiveSync/Imap/Message.php:476
+#: lib/Horde/ActiveSync/Imap/Message.php:532
 #, php-format
 msgid "%s part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:455
+#: lib/Horde/ActiveSync/Imap/Message.php:511
 msgid "Audio part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:135
+#: lib/Horde/ActiveSync/Imap/Message.php:137
 msgid "Cc"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:115
+#: lib/Horde/ActiveSync/Imap/Message.php:117
 msgid "Date"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:119
+#: lib/Horde/ActiveSync/Imap/Message.php:121
 msgid "From"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:458
+#: lib/Horde/ActiveSync/Imap/Message.php:514
 msgid "Image part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:462
+#: lib/Horde/ActiveSync/Imap/Message.php:518
 msgid "Message part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:465
+#: lib/Horde/ActiveSync/Imap/Message.php:521
 msgid "Multipart part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:123
+#: lib/Horde/ActiveSync/Imap/Message.php:125
 msgid "Reply-To"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:127
+#: lib/Horde/ActiveSync/Imap/Message.php:129
 msgid "Subject"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:468
+#: lib/Horde/ActiveSync/Imap/Message.php:524
 msgid "Text part"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:131
+#: lib/Horde/ActiveSync/Imap/Message.php:133
 msgid "To"
 msgstr ""
 
-#: lib/Horde/ActiveSync/Imap/Message.php:471
+#: lib/Horde/ActiveSync/Imap/Message.php:527
 msgid "Video part"
 msgstr ""

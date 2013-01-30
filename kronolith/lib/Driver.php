@@ -522,6 +522,18 @@ class Kronolith_Driver
     }
 
     /**
+     * Wrapper for sending notifications, so that we can overwrite this action
+     * in Kronolith_Driver_Resource.
+     *
+     * @param Kronolith_Event $event
+     * @param string $action
+     */
+    protected function _handleNotifications(Kronolith_Event $event, $action)
+    {
+        Kronolith::sendNotification($event, $action);
+    }
+
+    /**
      * Stub to be overridden in the child class if it can implement.
      *
      * @throws Kronolith_Exception

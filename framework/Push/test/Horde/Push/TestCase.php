@@ -28,6 +28,6 @@
  * @link       http://www.horde.org/libraries/Horde_Push
  */
 class Horde_Push_TestCase
-extends PHPUnit_Framework_TestCase
+extends Horde_Test_Case
 {
 }

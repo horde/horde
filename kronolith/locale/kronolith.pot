@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Kronolith H5 (4.0.1-git)\n"
+"Project-Id-Version: Kronolith H5 (4.0.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "%d %s before the event starts"
 msgstr ""
 
-#: lib/Event.php:1967
+#: lib/Event.php:2041
 #, php-format
 msgid "%d day"
 msgid_plural "%d days"
@@ -48,14 +48,14 @@ msgstr[1] ""
 msgid "%d events"
 msgstr ""
 
-#: lib/Event.php:1970
+#: lib/Event.php:2044
 #, php-format
 msgid "%d hour"
 msgid_plural "%d hours"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Event.php:1973
+#: lib/Event.php:2047
 #, php-format
 msgid "%d minute"
 msgid_plural "%d minutes"
@@ -67,7 +67,7 @@ msgstr[1] ""
 msgid "%d times"
 msgstr ""
 
-#: lib/Event.php:1964
+#: lib/Event.php:2038
 #, php-format
 msgid "%d week"
 msgid_plural "%d weeks"
@@ -111,7 +111,7 @@ msgstr ""
 msgid "%s Private %s &mdash; hides details if calendar is public %s"
 msgstr ""
 
-#: lib/Event.php:1981
+#: lib/Event.php:2055
 #, php-format
 msgid "%s at %s"
 msgstr ""
@@ -136,17 +136,17 @@ msgstr ""
 msgid "%s has assigned the ownership of the calendar %s to you."
 msgstr ""
 
-#: lib/Kronolith.php:2119
+#: lib/Kronolith.php:2121
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr ""
 
-#: lib/Kronolith.php:2121
+#: lib/Kronolith.php:2123
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr ""
 
-#: lib/Kronolith.php:2137
+#: lib/Kronolith.php:2139
 #, php-format
 msgid "%s wants to notify you about changes of \"%s\"."
 msgstr ""
@@ -165,7 +165,7 @@ msgid ""
 "in this calendar."
 msgstr ""
 
-#: lib/Kronolith.php:2132
+#: lib/Kronolith.php:2134
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr ""
@@ -233,11 +233,11 @@ msgstr ""
 msgid "Accepted"
 msgstr ""
 
-#: lib/Kronolith.php:1750
+#: lib/Kronolith.php:1752
 msgid "Access permissions"
 msgstr ""
 
-#: templates/search/search.inc:9
+#: templates/search/search.inc:8
 msgid "Ad_vanced Search"
 msgstr ""
 
@@ -266,7 +266,7 @@ msgstr ""
 msgid "Add Resource Group"
 msgstr ""
 
-#: new.php:84
+#: new.php:86
 msgid "Add a new event"
 msgstr ""
 
@@ -311,7 +311,7 @@ msgstr ""
 msgid "Address Books"
 msgstr ""
 
-#: templates/search/search_advanced.inc:11
+#: templates/search/search_advanced.inc:10
 msgid "Advanced Search"
 msgstr ""
 
@@ -325,28 +325,28 @@ msgstr ""
 msgid "Alarm"
 msgstr ""
 
-#: lib/Event.php:3075
+#: lib/Event.php:3149
 #, php-format
 msgid "Alarm %d day before"
 msgid_plural "Alarm %d days before"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Event.php:3078
+#: lib/Event.php:3152
 #, php-format
 msgid "Alarm %d hour before"
 msgid_plural "Alarm %d hours before"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Event.php:3081
+#: lib/Event.php:3155
 #, php-format
 msgid "Alarm %d minute before"
 msgid_plural "Alarm %d minutes before"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Event.php:3072
+#: lib/Event.php:3146
 #, php-format
 msgid "Alarm %d week before"
 msgid_plural "Alarm %d weeks before"
@@ -418,7 +418,7 @@ msgid "All Visible"
 msgstr ""
 
 #: lib/Ajax.php:132 lib/Block/Month.php:177 lib/Block/Summary.php:179
-#: lib/Event.php:3193 lib/View/Day.php:94 lib/View/Day.php:97
+#: lib/Event.php:3267 lib/View/Day.php:94 lib/View/Day.php:97
 #: lib/View/Week.php:123 lib/View/Week.php:148 lib/View/Year.php:135
 #: templates/agenda/notification.html.php:24
 #: templates/agenda/notification.plain.php:6 templates/dynamic/day.inc:14
@@ -441,7 +441,7 @@ msgstr ""
 msgid "All of your events older than %d days will be permanently deleted."
 msgstr ""
 
-#: config/prefs.php:310
+#: config/prefs.php:313
 msgid ""
 "All state removed for your ActiveSync devices. They will resynchronize next "
 "time they connect to the server."
@@ -486,7 +486,7 @@ msgid ""
 "your local copy of the event."
 msgstr ""
 
-#: perms.php:83
+#: perms.php:62
 msgid "Attempt to edit a non-existent share."
 msgstr ""
 
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Availability"
 msgstr ""
 
-#: templates/search/search.inc:11
+#: templates/search/search.inc:10
 msgid "Basic Search"
 msgstr ""
 
@@ -545,7 +545,7 @@ msgstr ""
 
 #: lib/Block/Month.php:22 lib/Block/Monthlist.php:22
 #: lib/Block/Prevmonthlist.php:22 lib/Block/Summary.php:26
-#: lib/Calendars/Kolab.php:21
+#: lib/Calendars/Kolab.php:41
 msgid "Calendar"
 msgstr ""
 
@@ -562,7 +562,7 @@ msgstr ""
 msgid "Calendar not found"
 msgstr ""
 
-#: lib/Calendars/Default.php:46
+#: lib/Calendars/Default.php:45
 #, php-format
 msgid "Calendar of %s"
 msgstr ""
@@ -615,12 +615,12 @@ msgstr ""
 msgid "Cancelled"
 msgstr ""
 
-#: lib/Kronolith.php:2117
+#: lib/Kronolith.php:2119
 #, php-format
 msgid "Cancelled: %s"
 msgstr ""
 
-#: lib/Driver/Ical.php:501
+#: lib/Driver/Ical.php:507
 msgid "Cannot delete exceptions (yet)."
 msgstr ""
 
@@ -643,21 +643,21 @@ msgstr ""
 msgid "Choose how you want to receive reminders for events with alarms:"
 msgstr ""
 
-#: config/prefs.php:368
+#: config/prefs.php:371
 msgid ""
 "Choose if you want to be notified of new, edited, and deleted events by "
 "email:"
 msgstr ""
 
-#: config/prefs.php:381
+#: config/prefs.php:384
 msgid "Choose if you want to receive daily agenda email reminders:"
 msgstr ""
 
-#: config/prefs.php:400
+#: config/prefs.php:403
 msgid "Choose if you want to receive reminders for events with alarms:"
 msgstr ""
 
-#: config/prefs.php:473
+#: config/prefs.php:476
 msgid "Choose the calendars to include in the above Free/Busy URL:"
 msgstr ""
 
@@ -737,11 +737,11 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: config/prefs.php:464
+#: config/prefs.php:467
 msgid "Copy this URL for use wherever you need your Free/Busy URL:"
 msgstr ""
 
-#: lib/Driver/Ical.php:556
+#: lib/Driver/Ical.php:564
 #, php-format
 msgid "Could not open %s."
 msgstr ""
@@ -810,7 +810,7 @@ msgid "Date:"
 msgstr ""
 
 #: attendees.php:183 config/prefs.php:100 lib/Application.php:443
-#: lib/Kronolith.php:2602 templates/dynamic/index.inc:32
+#: lib/Kronolith.php:2603 templates/dynamic/index.inc:32
 #: templates/smartmobile/day.html.php:2 templates/smartmobile/day.html.php:7
 #: templates/smartmobile/month.html.php:7
 #: templates/smartmobile/summary.html.php:7
@@ -822,7 +822,7 @@ msgstr ""
 msgid "Day(s)"
 msgstr ""
 
-#: lib/Kronolith.php:2669
+#: lib/Kronolith.php:2670
 msgid "De_lete"
 msgstr ""
 
@@ -858,7 +858,7 @@ msgstr ""
 msgid "Delegate"
 msgstr ""
 
-#: lib/Event.php:2177 lib/Event.php:3138 lib/Form/DeleteCalendar.php:34
+#: lib/Event.php:2251 lib/Event.php:3212 lib/Form/DeleteCalendar.php:34
 #: lib/Form/DeleteResource.php:37 lib/Form/DeleteResourceGroup.php:39
 #: lib/Form/EditCalendar.php:125 lib/Form/EditCalendar.php:143
 #: lib/Form/EditResource.php:73 lib/Form/EditResource.php:133
@@ -881,7 +881,7 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Event.php:3135 lib/Form/DeleteCalendar.php:28
+#: lib/Event.php:3209 lib/Form/DeleteCalendar.php:28
 #: lib/Form/DeleteResource.php:31 lib/Form/DeleteResourceGroup.php:31
 #: lib/View/DeleteEvent.php:43
 #, php-format
@@ -900,7 +900,7 @@ msgstr ""
 msgid "Delete This and Future Events"
 msgstr ""
 
-#: lib/Event.php:2176
+#: lib/Event.php:2250
 #, php-format
 msgid "Delete exception on %s"
 msgstr ""
@@ -912,7 +912,7 @@ msgid_plural "Deleted %d events older than %d days."
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Driver/Ical.php:497
+#: lib/Driver/Ical.php:503
 msgid "Deleting events is not supported with this remote calendar."
 msgstr ""
 
@@ -952,7 +952,7 @@ msgstr ""
 msgid "Does not recur"
 msgstr ""
 
-#: config/prefs.php:387
+#: config/prefs.php:390
 msgid ""
 "Don't send me a notification if I've added, changed or deleted the event?"
 msgstr ""
@@ -973,19 +973,19 @@ msgstr ""
 msgid "Duration"
 msgstr ""
 
-#: lib/Event.php:2899
+#: lib/Event.php:2973
 msgid "Duration Day"
 msgstr ""
 
-#: lib/Event.php:2910
+#: lib/Event.php:2984
 msgid "Duration Hour"
 msgstr ""
 
-#: lib/Event.php:2920
+#: lib/Event.php:2994
 msgid "Duration Minute"
 msgstr ""
 
-#: lib/Event.php:3123 templates/chunks/permissions.inc:105
+#: lib/Event.php:3197 templates/chunks/permissions.inc:105
 #: templates/chunks/permissions.inc:132 templates/chunks/permissions.inc:160
 #: templates/chunks/permissions.inc:213 templates/chunks/permissions.inc:260
 #: templates/perms/perms.inc:57 templates/perms/perms.inc:75
@@ -998,7 +998,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/Event.php:3120 lib/Form/EditCalendar.php:36
+#: lib/Event.php:3194 lib/Form/EditCalendar.php:36
 #: lib/Form/EditRemoteCalendar.php:22 lib/Form/EditResource.php:34
 #: lib/Form/EditResourceGroup.php:34 lib/View/EditEvent.php:44
 #: templates/attendees/attendees.inc:58
@@ -1010,21 +1010,21 @@ msgstr ""
 msgid "Edit Attendees and Resources"
 msgstr ""
 
-#: perms.php:90
-msgid "Edit Permissions"
-msgstr ""
-
-#: perms.php:91
-#, php-format
-msgid "Edit Permissions for %s"
-msgstr ""
-
 #: templates/attendees/attendees.inc:126
 msgid "Edit attendee"
 msgstr ""
 
 #: attendees.php:266
 msgid "Edit attendees"
+msgstr ""
+
+#: perms.php:96
+msgid "Edit permissions"
+msgstr ""
+
+#: perms.php:95
+#, php-format
+msgid "Edit permissions for \"%s\""
 msgstr ""
 
 #: templates/perms/perms.inc:11
@@ -1067,19 +1067,19 @@ msgstr ""
 msgid "End Date"
 msgstr ""
 
-#: lib/Event.php:2872 templates/data/export.inc:161
+#: lib/Event.php:2946 templates/data/export.inc:161
 msgid "End Day"
 msgstr ""
 
-#: lib/Event.php:2884 templates/data/export.inc:178
+#: lib/Event.php:2958 templates/data/export.inc:178
 msgid "End Hour"
 msgstr ""
 
-#: lib/Event.php:2894 templates/data/export.inc:190
+#: lib/Event.php:2968 templates/data/export.inc:190
 msgid "End Minute"
 msgstr ""
 
-#: lib/Event.php:2864 templates/data/export.inc:148
+#: lib/Event.php:2938 templates/data/export.inc:148
 msgid "End Month"
 msgstr ""
 
@@ -1092,7 +1092,7 @@ msgstr ""
 msgid "End Time"
 msgstr ""
 
-#: lib/Event.php:2854 templates/data/export.inc:134
+#: lib/Event.php:2928 templates/data/export.inc:134
 msgid "End Year"
 msgstr ""
 
@@ -1137,25 +1137,25 @@ msgstr ""
 msgid "Event Status:"
 msgstr ""
 
-#: lib/Kronolith.php:2308
+#: lib/Kronolith.php:2310
 msgid "Event added:"
 msgstr ""
 
-#: lib/Kronolith.php:2318
+#: lib/Kronolith.php:2320
 msgid "Event deleted:"
 msgstr ""
 
-#: lib/Kronolith.php:2313
+#: lib/Kronolith.php:2315
 msgid "Event edited:"
 msgstr ""
 
-#: lib/Driver/Horde.php:167 lib/Driver/Ical.php:387 lib/Driver/Ical.php:406
+#: lib/Driver/Horde.php:167 lib/Driver/Ical.php:388 lib/Driver/Ical.php:407
 #: lib/Driver/Sql.php:467 lib/View/DeleteEvent.php:54
 #: lib/View/EditEvent.php:55 lib/View/Event.php:54 lib/View/ExportEvent.php:18
 msgid "Event not found"
 msgstr ""
 
-#: lib/Driver/Kolab.php:304 lib/Driver/Kolab.php:345 lib/Driver/Kolab.php:497
+#: lib/Driver/Kolab.php:305 lib/Driver/Kolab.php:345
 #, php-format
 msgid "Event not found: %s"
 msgstr ""
@@ -1182,15 +1182,15 @@ msgstr ""
 msgid "Events matching \"%s\""
 msgstr ""
 
-#: lib/Event.php:1721
+#: lib/Event.php:1791
 msgid "Events must have a start date."
 msgstr ""
 
-#: lib/Event.php:1691
+#: lib/Event.php:1758
 msgid "Events must have a title."
 msgstr ""
 
-#: lib/Ajax.php:164 lib/Event.php:2149 lib/Event.php:3090
+#: lib/Ajax.php:164 lib/Event.php:2223 lib/Event.php:3164
 #: templates/smartmobile/javascript_defs.php:178
 msgid "Exception"
 msgstr ""
@@ -1207,7 +1207,7 @@ msgstr ""
 msgid "Expand"
 msgstr ""
 
-#: lib/Kronolith.php:2676 templates/chunks/calendar.php:74
+#: lib/Kronolith.php:2677 templates/chunks/calendar.php:74
 #: templates/chunks/calendar.php:183 templates/data/export.inc:212
 #: templates/dynamic/edit.inc:111
 msgid "Export"
@@ -1255,12 +1255,12 @@ msgstr ""
 msgid "From"
 msgstr ""
 
-#: lib/Event.php:1857
+#: lib/Event.php:1931
 #, php-format
 msgid "From %s at %s to %s at %s"
 msgstr ""
 
-#: lib/Event.php:1854
+#: lib/Event.php:1928
 #, php-format
 msgid "From %s to %s"
 msgstr ""
@@ -1326,7 +1326,7 @@ msgstr ""
 msgid "How long should the time slots on the day and week views be?"
 msgstr ""
 
-#: config/prefs.php:420
+#: config/prefs.php:423
 msgid "How many days of Free/Busy information should be generated?"
 msgstr ""
 
@@ -1413,7 +1413,7 @@ msgstr ""
 msgid "Limit the time span to export:"
 msgstr ""
 
-#: config/prefs.php:429
+#: config/prefs.php:432
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -1439,7 +1439,7 @@ msgstr ""
 msgid "Loading..."
 msgstr ""
 
-#: data.php:57 lib/Event.php:3175 templates/dynamic/edit.inc:76
+#: data.php:57 lib/Event.php:3249 templates/dynamic/edit.inc:76
 #: templates/search/event_headers.inc:4 templates/view/view.inc:6
 msgid "Location"
 msgstr ""
@@ -1488,11 +1488,11 @@ msgstr ""
 msgid "Maximum number of events to display (0 = no limit)"
 msgstr ""
 
-#: lib/Event.php:3171
+#: lib/Event.php:3245
 msgid "Me"
 msgstr ""
 
-#: lib/Event.php:3100
+#: lib/Event.php:3174
 msgid "Meeting"
 msgstr ""
 
@@ -1512,7 +1512,7 @@ msgid "Monday"
 msgstr ""
 
 #: attendees.php:186 config/prefs.php:103 lib/Application.php:446
-#: lib/Kronolith.php:2620 templates/dynamic/index.inc:35
+#: lib/Kronolith.php:2621 templates/dynamic/index.inc:35
 #: templates/smartmobile/day.html.php:8 templates/smartmobile/month.html.php:2
 #: templates/smartmobile/month.html.php:8
 #: templates/smartmobile/summary.html.php:8
@@ -1552,7 +1552,7 @@ msgstr ""
 msgid "My Calendars:"
 msgstr ""
 
-#: config/prefs.php:464
+#: config/prefs.php:467
 msgid "My Free/Busy URL"
 msgstr ""
 
@@ -1619,7 +1619,7 @@ msgstr ""
 msgid "Next week"
 msgstr ""
 
-#: config/prefs.php:363 config/prefs.php:376 config/prefs.php:395
+#: config/prefs.php:366 config/prefs.php:379 config/prefs.php:398
 #: templates/dynamic/edit.inc:299
 msgid "No"
 msgstr ""
@@ -1689,11 +1689,11 @@ msgstr ""
 msgid "No items to display"
 msgstr ""
 
-#: lib/Event.php:2147 templates/edit/edit.inc:291
+#: lib/Event.php:2221 templates/edit/edit.inc:291
 msgid "No recurrence"
 msgstr ""
 
-#: lib/Event.php:2628
+#: lib/Event.php:2702
 msgid "No resources from this group were available"
 msgstr ""
 
@@ -1735,28 +1735,28 @@ msgstr ""
 msgid "On"
 msgstr ""
 
-#: lib/Event.php:1852
+#: lib/Event.php:1926
 #, php-format
 msgid "On %s"
 msgstr ""
 
-#: config/prefs.php:366
+#: config/prefs.php:369
 msgid "On all calendars I have explicitly read access to"
 msgstr ""
 
-#: config/prefs.php:379 config/prefs.php:398
+#: config/prefs.php:382 config/prefs.php:401
 msgid "On all calendars I have read access to"
 msgstr ""
 
-#: config/prefs.php:365 config/prefs.php:378 config/prefs.php:397
+#: config/prefs.php:368 config/prefs.php:381 config/prefs.php:400
 msgid "On all shown calendars"
 msgstr ""
 
-#: config/prefs.php:364 config/prefs.php:377 config/prefs.php:396
+#: config/prefs.php:367 config/prefs.php:380 config/prefs.php:399
 msgid "On my calendars only"
 msgstr ""
 
-#: lib/Kronolith.php:1627
+#: lib/Kronolith.php:1629
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -1795,12 +1795,12 @@ msgstr ""
 msgid "Owner:"
 msgstr ""
 
-#: lib/Event.php:3170
+#: lib/Event.php:3244
 #, php-format
 msgid "Owner: %s"
 msgstr ""
 
-#: lib/Kronolith.php:1640
+#: lib/Kronolith.php:1642
 msgid "Ownership assignment"
 msgstr ""
 
@@ -1827,8 +1827,8 @@ msgstr ""
 
 #: lib/Ajax/Application/Handler.php:1446 lib/Block/Month.php:70
 #: lib/Block/Monthlist.php:89 lib/Block/Prevmonthlist.php:82
-#: lib/Block/Summary.php:100 lib/Kronolith.php:2844 lib/Kronolith.php:2852
-#: lib/Kronolith.php:2858 lib/Kronolith.php:2864
+#: lib/Block/Summary.php:100 lib/Kronolith.php:2845 lib/Kronolith.php:2853
+#: lib/Kronolith.php:2859 lib/Kronolith.php:2865
 msgid "Permission Denied"
 msgstr ""
 
@@ -1901,7 +1901,7 @@ msgstr ""
 msgid "Priority"
 msgstr ""
 
-#: lib/Event.php:3095
+#: lib/Event.php:3169
 msgid "Private event"
 msgstr ""
 
@@ -1909,15 +1909,15 @@ msgstr ""
 msgid "Private?"
 msgstr ""
 
-#: config/prefs.php:490
+#: config/prefs.php:493
 msgid "Purge old events from your calendar?"
 msgstr ""
 
-#: config/prefs.php:497
+#: config/prefs.php:500
 msgid "Purge old events how often:"
 msgstr ""
 
-#: config/prefs.php:503
+#: config/prefs.php:506
 msgid "Purge old events older than this amount of days."
 msgstr ""
 
@@ -1980,15 +1980,15 @@ msgstr ""
 msgid "Recurrence End Date"
 msgstr ""
 
-#: lib/Event.php:2961
+#: lib/Event.php:3035
 msgid "Recurrence End Day"
 msgstr ""
 
-#: lib/Event.php:2947
+#: lib/Event.php:3021
 msgid "Recurrence End Month"
 msgstr ""
 
-#: lib/Event.php:2931
+#: lib/Event.php:3005
 msgid "Recurrence End Year"
 msgstr ""
 
@@ -2170,7 +2170,7 @@ msgstr ""
 msgid "Resource Response Type"
 msgstr ""
 
-#: lib/Driver/Resource/Sql.php:283
+#: lib/Driver/Resource/Sql.php:292
 msgid "Resource not valid."
 msgstr ""
 
@@ -2230,12 +2230,12 @@ msgstr ""
 msgid "Save %s"
 msgstr ""
 
-#: lib/Kronolith.php:2661 lib/View/EditEvent.php:98 lib/View/EditEvent.php:107
+#: lib/Kronolith.php:2662 lib/View/EditEvent.php:98 lib/View/EditEvent.php:107
 #: templates/dynamic/edit.inc:274 templates/edit/edit.inc:46
 msgid "Save As New"
 msgstr ""
 
-#: lib/View/EditEvent.php:101 new.php:66
+#: lib/View/EditEvent.php:101 new.php:68
 msgid "Save Event"
 msgstr ""
 
@@ -2243,8 +2243,8 @@ msgstr ""
 msgid "Save and Finish"
 msgstr ""
 
-#: lib/Application.php:448 search.php:109 templates/contacts/contacts.inc:156
-#: templates/search/search.inc:65 templates/search/search_advanced.inc:87
+#: lib/Application.php:451 search.php:109 templates/contacts/contacts.inc:156
+#: templates/search/search.inc:66 templates/search/search_advanced.inc:88
 msgid "Search"
 msgstr ""
 
@@ -2306,7 +2306,7 @@ msgstr ""
 msgid "Select the calendar(s) to export from"
 msgstr ""
 
-#: config/prefs.php:270
+#: config/prefs.php:273
 msgid ""
 "Select the calendars that, in addition to the default, should be used for "
 "synchronization with external devices:"
@@ -2456,19 +2456,19 @@ msgstr ""
 msgid "Start Date"
 msgstr ""
 
-#: lib/Event.php:2831 templates/data/export.inc:68
+#: lib/Event.php:2905 templates/data/export.inc:68
 msgid "Start Day"
 msgstr ""
 
-#: lib/Event.php:2841 templates/data/export.inc:87
+#: lib/Event.php:2915 templates/data/export.inc:87
 msgid "Start Hour"
 msgstr ""
 
-#: lib/Event.php:2850 templates/data/export.inc:102
+#: lib/Event.php:2924 templates/data/export.inc:102
 msgid "Start Minute"
 msgstr ""
 
-#: lib/Event.php:2823 templates/data/export.inc:54
+#: lib/Event.php:2897 templates/data/export.inc:54
 msgid "Start Month"
 msgstr ""
 
@@ -2481,7 +2481,7 @@ msgstr ""
 msgid "Start Time"
 msgstr ""
 
-#: lib/Event.php:2813 templates/data/export.inc:39
+#: lib/Event.php:2887 templates/data/export.inc:39
 msgid "Start Year"
 msgstr ""
 
@@ -2671,38 +2671,38 @@ msgstr ""
 msgid "The end date must be later than the start date."
 msgstr ""
 
-#: lib/Kronolith.php:2309
+#: lib/Kronolith.php:2311
 #, php-format
 msgid ""
 "The event \"%s\" has been added to \"%s\" calendar, which is on %s at %s."
 msgstr ""
 
-#: lib/Kronolith.php:2319
+#: lib/Kronolith.php:2321
 #, php-format
 msgid ""
 "The event \"%s\" has been deleted from \"%s\" calendar, which was on %s at "
 "%s."
 msgstr ""
 
-#: lib/Kronolith.php:2314
+#: lib/Kronolith.php:2316
 #, php-format
 msgid ""
 "The event \"%s\" has been edited on \"%s\" calendar, which is on %s at %s."
 msgstr ""
 
-#: lib/Driver/Ical.php:451
+#: lib/Driver/Ical.php:452
 msgid "The event could not be added to the remote server."
 msgstr ""
 
-#: lib/Driver/Ical.php:514
+#: lib/Driver/Ical.php:520
 msgid "The event could not be deleted from the remote server."
 msgstr ""
 
-#: lib/Driver/Ical.php:424
+#: lib/Driver/Ical.php:425
 msgid "The event could not be updated on the remote server."
 msgstr ""
 
-#: lib/Kronolith.php:2207
+#: lib/Kronolith.php:2209
 #, php-format
 msgid "The event notification to %s was successfully sent."
 msgstr ""
@@ -2715,14 +2715,14 @@ msgstr ""
 msgid "The following is a more detailed description of the event:"
 msgstr ""
 
-#: lib/Kronolith.php:2376
+#: lib/Kronolith.php:2378
 #, php-format
 msgid "The following resource has accepted your request: %s"
 msgid_plural "The following resources have accepted your request: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Kronolith.php:2369
+#: lib/Kronolith.php:2371
 #, php-format
 msgid "The following resource has declined your request: %s"
 msgid_plural "The following resources have declined your request: %s"
@@ -2735,11 +2735,11 @@ msgid "The free/busy url for %s cannot be retrieved."
 msgstr ""
 
 #: calendars/remote_edit.php:37 calendars/remote_unsubscribe.php:38
-#: lib/Kronolith.php:1927
+#: lib/Kronolith.php:1929
 msgid "The remote calendar was not found."
 msgstr ""
 
-#: lib/Driver/Ical.php:644
+#: lib/Driver/Ical.php:652
 msgid "The remote server URL does not point to a CalDAV directory."
 msgstr ""
 
@@ -2779,7 +2779,7 @@ msgstr ""
 msgid "The resource \"%s\" has been saved."
 msgstr ""
 
-#: lib/Event.php:500
+#: lib/Event.php:565
 #, php-format
 msgid "The resource \"%s\" was locked. Please try again."
 msgstr ""
@@ -2827,7 +2827,7 @@ msgstr ""
 msgid "The time span to show"
 msgstr ""
 
-#: lib/Kronolith.php:1629 lib/Kronolith.php:1763
+#: lib/Kronolith.php:1631 lib/Kronolith.php:1765
 #, php-format
 msgid "The user \"%s\" does not exist."
 msgstr ""
@@ -2846,7 +2846,7 @@ msgstr ""
 msgid "There was an error adding the event: %s"
 msgstr ""
 
-#: config/prefs.php:312
+#: config/prefs.php:315
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
 msgstr ""
@@ -2870,7 +2870,7 @@ msgstr ""
 msgid "There was an error removing calendars for %s. Details have been logged."
 msgstr ""
 
-#: lib/Kronolith.php:2212
+#: lib/Kronolith.php:2214
 #, php-format
 msgid "There was an error sending an event notification to %s: %s"
 msgstr ""
@@ -2914,7 +2914,7 @@ msgid ""
 "This is an exception to a recurring event originally scheduled on %s at %s"
 msgstr ""
 
-#: lib/Driver/Ical.php:559
+#: lib/Driver/Ical.php:567
 msgid "This is what the server said:"
 msgstr ""
 
@@ -2987,7 +2987,8 @@ msgid "To subscribe to this calendar, you need to click the following link:"
 msgstr ""
 
 #: lib/Block/Monthlist.php:161 lib/Block/Prevmonthlist.php:135
-#: lib/Block/Summary.php:154 templates/smartmobile/javascript_defs.php:138
+#: lib/Block/Summary.php:154 lib/Kronolith.php:2598
+#: templates/smartmobile/javascript_defs.php:138
 msgid "Today"
 msgstr ""
 
@@ -3015,7 +3016,7 @@ msgstr ""
 
 #: lib/Ajax/Application/Handler.php:1178 lib/Ajax/Application/Handler.php:1194
 #: lib/Form/DeleteResource.php:61 lib/Form/DeleteResourceGroup.php:62
-#: lib/Kronolith.php:1579
+#: lib/Kronolith.php:1581
 #, php-format
 msgid "Unable to delete \"%s\": %s"
 msgstr ""
@@ -3040,16 +3041,16 @@ msgstr ""
 msgid "Unable to locate requested address"
 msgstr ""
 
-#: lib/Event.php:861
+#: lib/Event.php:926
 msgid "Unable to parse event."
 msgstr ""
 
-#: lib/Kronolith.php:2006
+#: lib/Kronolith.php:2008
 #, php-format
 msgid "Unable to recognize \"%s\" as an email address."
 msgstr ""
 
-#: lib/Kronolith.php:1552
+#: lib/Kronolith.php:1554
 #, php-format
 msgid "Unable to save calendar \"%s\": %s"
 msgstr ""
@@ -3059,7 +3060,7 @@ msgstr ""
 msgid "Unable to save resource \"%s\": %s"
 msgstr ""
 
-#: lib/Driver/Ical.php:716
+#: lib/Driver/Ical.php:724
 msgid "Unexpected response from remote server."
 msgstr ""
 
@@ -3096,12 +3097,12 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: perms.php:77
+#: perms.php:85
 #, php-format
 msgid "Updated \"%s\"."
 msgstr ""
 
-#: lib/Kronolith.php:2136
+#: lib/Kronolith.php:2138
 #, php-format
 msgid "Updated: %s."
 msgstr ""
@@ -3154,7 +3155,7 @@ msgid "Wednesday"
 msgstr ""
 
 #: attendees.php:185 config/prefs.php:101 lib/Application.php:445
-#: lib/Kronolith.php:2614 templates/dynamic/index.inc:34
+#: lib/Kronolith.php:2615 templates/dynamic/index.inc:34
 msgid "Week"
 msgstr ""
 
@@ -3195,11 +3196,11 @@ msgid "Who:"
 msgstr ""
 
 #: attendees.php:184 config/prefs.php:102 lib/Application.php:444
-#: lib/Kronolith.php:2608 templates/dynamic/index.inc:33
+#: lib/Kronolith.php:2609 templates/dynamic/index.inc:33
 msgid "Work Week"
 msgstr ""
 
-#: lib/Application.php:447 lib/Kronolith.php:2626
+#: lib/Application.php:447 lib/Kronolith.php:2627
 #: templates/dynamic/index.inc:36
 msgid "Year"
 msgstr ""
@@ -3218,7 +3219,7 @@ msgstr ""
 msgid "Yesterday"
 msgstr ""
 
-#: lib/Kronolith.php:1541
+#: lib/Kronolith.php:1543
 msgid "You are not allowed to change this calendar."
 msgstr ""
 
@@ -3236,7 +3237,7 @@ msgstr ""
 msgid "You are not allowed to create new resources."
 msgstr ""
 
-#: calendars/delete.php:35 lib/Kronolith.php:1572
+#: calendars/delete.php:35 lib/Kronolith.php:1574
 msgid "You are not allowed to delete this calendar."
 msgstr ""
 
@@ -3278,7 +3279,7 @@ msgstr ""
 msgid "You can only use this form from the Edit Attendees screen."
 msgstr ""
 
-#: lib/Kronolith.php:2086
+#: lib/Kronolith.php:2088
 #, php-format
 msgid ""
 "You do not have an email address configured in your Personal Information "
@@ -3359,20 +3360,20 @@ msgstr ""
 msgid "You must specify a URL."
 msgstr ""
 
-#: lib/Kronolith.php:1873
+#: lib/Kronolith.php:1875
 msgid "You must specify a name and a URL."
 msgstr ""
 
-#: lib/Kronolith.php:2309
+#: lib/Kronolith.php:2311
 msgid "You requested to be notified when events are added to your calendars."
 msgstr ""
 
-#: lib/Kronolith.php:2319
+#: lib/Kronolith.php:2321
 msgid ""
 "You requested to be notified when events are deleted from your calendars."
 msgstr ""
 
-#: lib/Kronolith.php:2314
+#: lib/Kronolith.php:2316
 msgid "You requested to be notified when events are edited in your calendars."
 msgstr ""
 
@@ -3401,7 +3402,7 @@ msgstr ""
 msgid "Your default calendar:"
 msgstr ""
 
-#: lib/Event.php:2238 lib/Event/Horde.php:274 lib/Event/Ical.php:66
+#: lib/Event.php:2312 lib/Event/Horde.php:274 lib/Event/Ical.php:66
 msgid "[Unnamed event]"
 msgstr ""
 
@@ -3409,11 +3410,11 @@ msgstr ""
 msgid "_Alarm"
 msgstr ""
 
-#: templates/search/search_advanced.inc:9
+#: templates/search/search_advanced.inc:8
 msgid "_Basic Search"
 msgstr ""
 
-#: lib/Kronolith.php:2661
+#: lib/Kronolith.php:2662
 msgid "_Edit"
 msgstr ""
 
@@ -3437,7 +3438,7 @@ msgstr ""
 msgid "_Search"
 msgstr ""
 
-#: lib/Kronolith.php:2596 templates/dynamic/index.inc:25
+#: lib/Kronolith.php:2597 templates/dynamic/index.inc:25
 msgid "_Today"
 msgstr ""
 
@@ -3459,16 +3460,16 @@ msgstr ""
 msgid "before the event starts. A value of \"0\" means no default alarms."
 msgstr ""
 
-#: lib/Event.php:2237
+#: lib/Event.php:2311
 msgid "busy"
 msgstr ""
 
-#: lib/View/Event.php:77 lib/View/Event.php:86
+#: lib/Event.php:382 lib/Event.php:391
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: lib/View/Event.php:79 lib/View/Event.php:88
+#: lib/Event.php:384 lib/Event.php:393
 msgid "by me"
 msgstr ""
 
@@ -3490,11 +3491,11 @@ msgstr ""
 msgid "days"
 msgstr ""
 
-#: lib/Application.php:622 templates/data/export.inc:1
+#: lib/Application.php:619 templates/data/export.inc:1
 msgid "events.csv"
 msgstr ""
 
-#: lib/Application.php:645
+#: lib/Application.php:642
 msgid "events.ics"
 msgstr ""
 

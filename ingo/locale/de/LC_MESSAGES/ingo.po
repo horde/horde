@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: 2012-10-30 21:47+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Ingo.php:443
+#: lib/Ingo.php:441
 msgid " and"
 msgstr " und"
 
-#: lib/Ingo.php:444
+#: lib/Ingo.php:442
 msgid " or"
 msgstr " oder"
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:165
 #, php-format
 msgid "%s The driver said: %s"
 msgstr "%s Fehlermeldung des Treibers: %s"
@@ -126,7 +126,7 @@ msgstr "Ausgeschlossene Adressen"
 msgid "Body"
 msgstr "Text"
 
-#: lib/Ingo.php:438 rule.php:347
+#: lib/Ingo.php:436 rule.php:347
 msgid "Case Sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
@@ -152,7 +152,7 @@ msgstr "Enthält"
 msgid "Copy %s"
 msgstr "%s kopieren"
 
-#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:228
+#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:232
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopie von %s"
@@ -595,7 +595,7 @@ msgstr "Meine E-Mail-Adressen:"
 msgid "New Rule"
 msgstr "Neue Regel"
 
-#: lib/Ingo.php:248
+#: lib/Ingo.php:246
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "\"%s\" in der Backendkonfiguration nicht angegeben."
@@ -604,11 +604,11 @@ msgstr "\"%s\" in der Backendkonfiguration nicht angegeben."
 msgid "No Description"
 msgstr "Keine Beschreibung"
 
-#: lib/Ingo.php:240
+#: lib/Ingo.php:239
 msgid "No backend configured for this host"
 msgstr "Keine Backendkonfiguration für diesen Host angegeben"
 
-#: lib/Ingo.php:213
+#: lib/Ingo.php:211
 msgid "No backends configured in backends.php"
 msgstr "Keine Backends in backends.php konfiguriert"
 
@@ -803,16 +803,16 @@ msgstr "Skript"
 msgid "Script Updating"
 msgstr "Skript-Aktualisierung"
 
-#: lib/Ingo.php:193
+#: lib/Ingo.php:191
 #, php-format
 msgid "Script not updated: %s"
 msgstr "Skript nicht aktualisiert: %s"
 
-#: lib/Ingo.php:172
+#: lib/Ingo.php:170
 msgid "Script successfully activated."
 msgstr "Skript erfolgreich aktiviert."
 
-#: lib/Ingo.php:171
+#: lib/Ingo.php:169
 msgid "Script successfully deactivated."
 msgstr "Skript erfolgreich deaktiviert."
 
@@ -912,11 +912,11 @@ msgstr "Die Adresse \"%s\" wurde zu Ihrer Ausschlussliste hinzugefügt."
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "Die Adresse \"%s\" wurde zu Ihrer Positivliste hinzugefügt."
 
-#: lib/Ingo.php:166
+#: lib/Ingo.php:164
 msgid "There was an error activating the script."
 msgstr "Beim Aktivieren des Skripts ist ein Fehler aufgetreten."
 
-#: lib/Ingo.php:165
+#: lib/Ingo.php:163
 msgid "There was an error deactivating the script."
 msgstr "Beim Deaktivieren des Skripts ist ein Fehler aufgetreten."
 

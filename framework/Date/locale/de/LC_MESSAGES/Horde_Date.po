@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: 2011-03-15 13:42+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,33 +17,33 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Date/Utils.php:105
+#: lib/Horde/Date/Utils.php:109
 #, php-format
 msgid "%d days ago"
 msgstr "vor %d Tagen"
 
-#: lib/Horde/Date/Utils.php:95
+#: lib/Horde/Date/Utils.php:99
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "vor %d Stunde"
 msgstr[1] "vor %d Stunden"
 
-#: lib/Horde/Date/Utils.php:90
+#: lib/Horde/Date/Utils.php:94
 #, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "vor %d Minute"
 msgstr[1] "vor %d Minuten"
 
-#: lib/Horde/Date/Utils.php:85
+#: lib/Horde/Date/Utils.php:89
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
 msgstr[0] "vor %d Sekunde"
 msgstr[1] "vor %d Sekunden"
 
-#: lib/Horde/Date/Utils.php:110
+#: lib/Horde/Date/Utils.php:114
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
@@ -75,7 +75,7 @@ msgstr "Wöchentlich"
 msgid "Yearly"
 msgstr "Jährlich"
 
-#: lib/Horde/Date/Utils.php:100
+#: lib/Horde/Date/Utils.php:104
 #, php-format
 msgid "yesterday at %s"
 msgstr "gestern um %s"

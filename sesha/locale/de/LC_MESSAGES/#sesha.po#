@@ -1,14 +1,15 @@
-# German translations for Sesha H4 package.
+# German translations for Sesha package.
 # Copyright 2012-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Sesha package.
-# Jan Schneider <jan@horde.org>, 2012-2013.
+# Jan Schneider <jan@horde.org>, 2012.
 #
+# Stock: Artikel, Bestand
 msgid ""
 msgstr ""
-"Project-Id-Version: Sesha H4 (1.0-git)\n"
+"Project-Id-Version: Sesha H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:51+0100\n"
-"PO-Revision-Date: 2013-01-29 11:53+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"PO-Revision-Date: 2012-07-10 21:52+0200\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: de\n"
@@ -388,10 +389,13 @@ msgstr "Sortieren nach Artikelnummer"
 msgid "Stock"
 msgstr "Bestand"
 
-#: admin.php:17 config/prefs.php:28 lib/Form/Search.php:31
-#: lib/Form/Stock.php:51 lib/Form/Stock.php:53 lib/View/List.php:102
-#: list.php:31 search.php:20 stock.php:23
+#: config/prefs.php:28 lib/Form/Search.php:31 lib/Form/Stock.php:51
+#: lib/Form/Stock.php:53 lib/View/List.php:102
 msgid "Stock ID"
+msgstr "Artikelnummer"
+
+#: admin.php:17 list.php:31 search.php:20 stock.php:23
+msgid "Stock Id"
 msgstr "Artikelnummer"
 
 #: lib/Driver/Rdo.php:226
@@ -524,3 +528,9 @@ msgstr "_Bestand anzeigen"
 #: lib/Application.php:79
 msgid "_Search"
 msgstr "_Suche"
+
+#~ msgid "Go"
+#~ msgstr "Los"
+
+#~ msgid "Matching Inventory"
+#~ msgstr "Passende Artikel"

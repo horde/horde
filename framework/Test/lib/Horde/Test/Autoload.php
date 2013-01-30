@@ -42,14 +42,13 @@ class Horde_Test_Autoload
         }
 
         spl_autoload_register(
-            create_function(
-                '$class',
-                '$filename = Horde_Test_Autoload::resolve($class);'
-                . '$err_mask = error_reporting() & ~E_WARNING;'
-                . '$old_err = error_reporting($err_mask);'
-                . 'include "$filename.php";'
-                . 'error_reporting($old_err);'
-            )
+            function($class) {
+                $filename = Horde_Test_Autoload::resolve($class);
+                $err_mask = error_reporting() & ~E_WARNING;
+                $old_err = error_reporting($err_mask);
+                include "$filename.php";
+                error_reporting($old_err);
+            }
         );
 
         self::$_runonce = true;

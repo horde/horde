@@ -580,7 +580,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $user_permissions = array();
-        foreach (array_keys(Perms::integerToArray($permissions[$userName])) as $permission) {
+        foreach (array_keys(Horde_Perms::integerToArray($permissions[$userName])) as $permission) {
             $user_permissions[] = $perm_map[$permission];
         }
 
@@ -618,7 +618,7 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $group_permissions = array();
-        foreach (array_keys(Perms::integerToArray($permissions[$groupName])) as $permission) {
+        foreach (array_keys(Horde_Perms::integerToArray($permissions[$groupName])) as $permission) {
             $group_permissions[] = $perm_map[$permission];
         }
 
