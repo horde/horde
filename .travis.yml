@@ -1,4 +1,5 @@
 language: php
+before_script: pear install http://pear.horde.org/Test
 script: php framework/bin/test_framework
 notifications:
   email: jan@horde.org
