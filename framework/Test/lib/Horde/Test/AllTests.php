@@ -153,6 +153,10 @@ class Horde_Test_AllTests
 
         require_once 'Horde/Test/Bootstrap.php';
         Horde_Test_Bootstrap::bootstrap($this->_dir);
+
+        if (file_exists($this->_dir . '/Autoload.php')) {
+            require_once $this->_dir . '/Autoload.php';
+        }
     }
 
 }

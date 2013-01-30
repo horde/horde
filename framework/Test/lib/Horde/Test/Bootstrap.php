@@ -51,9 +51,8 @@ class Horde_Test_Bootstrap
             Horde_Test_Autoload::init();
         }
 
-        $autoload = $dir . DIRECTORY_SEPARATOR . 'Autoload.php';
-        if (file_exists($autoload)) {
-            require_once $autoload;
+        if (file_exists($dir . '/Autoload.php')) {
+            require_once $dir . '/Autoload.php';
         }
 
         self::$_runonce = true;
