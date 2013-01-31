@@ -218,31 +218,30 @@ class IMP_Ajax_Queue
     }
 
     /**
-     * Return information about the current attachments for a message.
+     * Return information about the current attachment(s) for a message.
      *
-     * @param IMP_Compose $ob  The compose object.
-     * @param integer $type    The compose type.
-     * @param boolean $last    Only return last attachment?
+     * @param mixed $ob      If an IMP_Compose object, return info on all
+     *                       attachments. If an IMP_Compose_Attachment object,
+     *                       only return information on that object.
+     * @param integer $type  The compose type.
      */
-    public function attachment(IMP_Compose $ob, $type = IMP_Compose::COMPOSE,
-                               $last = false)
+    public function attachment($ob, $type = IMP_Compose::COMPOSE)
     {
         global $injector;
 
-        $parts = array_keys(iterator_to_array($ob));
-        if ($last) {
-            $parts = array_slice($parts, -1, 1, true);
-        }
+        $parts = ($ob instanceof IMP_Compose)
+            ? iterator_to_array($ob)
+            : array($ob);
 
-        foreach ($parts as $key) {
-            $mime = $ob[$key]['part'];
+        foreach ($parts as $val) {
+            $mime = $val->getPart();
             $type = $mime->getType();
 
             $this->_atc[] = array(
                 'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
                 'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs))),
                 'name' => $mime->getName(true),
-                'num' => $key,
+                'num' => $val->id,
                 'type' => $type,
                 'size' => $mime->getSize()
             );

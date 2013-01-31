@@ -95,6 +95,7 @@ class IMP_Application extends Horde_Registry_Application
         /* Add IMP-specific factories. */
         $factories = array(
             'IMP_AuthImap' => 'IMP_Factory_AuthImap',
+            'IMP_ComposeVfs' => 'IMP_Factory_ComposeVfs',
             'IMP_Crypt_Pgp' => 'IMP_Factory_Pgp',
             'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',

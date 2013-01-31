@@ -887,11 +887,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
             if ($imp_compose->canUploadAttachment()) {
                 try {
-                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $imp_compose->addFileFromUpload($this->vars, 'file_upload')), 'horde.success');
+                    $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'file_upload');
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                     $result->success = 1;
 
                     $this->_base->queue->compose($imp_compose);
-                    $this->_base->queue->attachment($imp_compose, null, true);
+                    $this->_base->queue->attachment($atc_ob);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }

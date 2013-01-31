@@ -85,7 +85,6 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base
                 $changed = true;
                 break;
             }
-
         }
 
         if ($changed) {

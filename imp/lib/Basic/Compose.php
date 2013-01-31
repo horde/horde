@@ -185,9 +185,9 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 if (isset($_FILES['upload_' . $i]) &&
                     strlen($_FILES['upload_' . $i]['name'])) {
                     try {
-                        $fname = $imp_compose->addFileFromUpload($this->vars, 'upload_' . $i);
+                        $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'upload_' . $i);
                         if ($notify) {
-                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $fname), 'horde.success');
+                            $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                         }
                     } catch (IMP_Compose_Exception $e) {
                         /* Any error will cancel the current action. */
@@ -1013,15 +1013,15 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                     $atc = array();
                     $v = $injector->getInstance('Horde_Core_Factory_MimeViewer');
-                    foreach ($imp_compose as $atc_num => $data) {
-                        $mime = $data['part'];
+                    foreach ($imp_compose as $data) {
+                        $mime = $data->getPart();
                         $type = $mime->getType();
 
                         $entry = array(
                             'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
                             'name' => $mime->getName(true),
                             'icon' => $v->getIcon($type),
-                            'number' => $atc_num,
+                            'number' => $data->id,
                             'type' => $type,
                             'size' => $mime->getSize(),
                             'description' => $mime->getDescription(true)
@@ -1032,7 +1032,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                             $preview_url = Horde::url('view.php')->add(array(
                                 'actionID' => 'compose_attach_preview',
                                 'composeCache' => $composeCacheID,
-                                'id' => $atc_num
+                                'id' => $data->id
                             ));
                             $entry['name'] = $preview_url->link(array(
                                 'class' => 'link',

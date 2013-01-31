@@ -20,11 +20,8 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
+class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 {
-    /* The virtual path to use for VFS data. */
-    const VFS_ATTACH_PATH = '.horde/imp/compose';
-
     /* The virtual path to save linked attachments. */
     const VFS_LINK_ATTACH_PATH = '.horde/imp/attachments';
 
@@ -66,11 +63,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     public $charset;
 
     /**
-     * The cached attachment data.
+     * Attachment data.
      *
      * @var array
      */
     protected $_atc = array();
+
+    /**
+     * Attachment ID counter.
+     *
+     * @var integer
+     */
+    protected $_atcId = 0;
 
     /**
      * The cache ID used to store object in session.
@@ -109,6 +113,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     {
         $this->_cacheid = $cacheid;
         $this->charset = $GLOBALS['registry']->getEmailCharset();
+    }
+
+    /**
+     * Tasks to do upon unserialize().
+     */
+    public function __wakeup()
+    {
+        $this->changed = '';
     }
 
     /**
@@ -496,7 +508,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 }
 
                 try {
-                    $this->addMimePartAttachment($part);
+                    $this->addAttachmentFromPart($part);
                 } catch (IMP_Compose_Exception $e) {
                     $GLOBALS['notification']->push($e, 'horde.warning');
                 }
@@ -1375,8 +1387,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 $base = new Horde_Mime_Part();
                 $base->setType('multipart/mixed');
                 $base->addPart($textpart);
-                foreach (array_keys($this->_atc) as $id) {
-                    $base->addPart($this->buildAttachment($id));
+
+                $attach_flag = false;
+                foreach ($this->_atc as $val) {
+                    if (!$val->related) {
+                        $base->addPart($val->getPart(true));
+                        $attach_flag = true;
+                    }
+                }
+
+                if (!$attach_flag) {
+                    $base = $textpart;
                 }
             }
         } elseif (!empty($options['pgp_attach_pubkey']) ||
@@ -2174,7 +2195,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 ));
 
                 // Throws IMP_Compose_Exception.
-                $this->addMimePartAttachment($part);
+                $this->addAttachmentFromPart($part);
             }
         }
 
@@ -2237,72 +2258,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Adds an attachment to a Horde_Mime_Part from data existing in the part.
-     *
-     * @param Horde_Mime_Part $part  The object that contains the attachment
-     *                               data.
-     *
-     * @throws IMP_Compose_Exception
-     */
-    public function addMimePartAttachment($part)
-    {
-        global $conf;
-
-        $type = $part->getType();
-        $vfs = $conf['compose']['use_vfs'];
-
-        /* Try to determine the MIME type from 1) the extension and
-         * then 2) analysis of the file (if available). */
-        if ($type == 'application/octet-stream') {
-            $type = Horde_Mime_Magic::filenameToMIME($part->getName(true), false);
-        }
-
-        /* Extract the data from the currently existing Horde_Mime_Part.
-         * If this is an unknown MIME part, we must save to a temporary file
-         * to run the file analysis on it. */
-        if ($vfs) {
-            $data = $part->getContents();
-            if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_Mime_Magic::analyzeData($data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
-                $type = $analyzetype;
-            }
-        } else {
-            $data = Horde::getTempFile('impatt', false, '', false, true);
-            $res = file_put_contents($data, $part->getContents());
-            if ($res === false) {
-                throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()));
-            }
-
-            if (($type == 'application/octet-stream') &&
-                ($analyzetype = Horde_Mime_Magic::analyzeFile($data, !empty($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null))) {
-                $type = $analyzetype;
-            }
-        }
-
-        $part->setType($type);
-
-        /* Set the size of the part explicitly since the part will not
-         * contain the data until send time. */
-        $bytes = $part->getBytes();
-        $part->setBytes($bytes);
-
-        /* We don't want the contents stored in the serialized object, so
-         * remove. We store the data in VFS in binary format so indicate that
-         * to the part for use when we reconsitute it. */
-        $part->clearContents();
-        $part->setTransferEncoding('binary');
-
-        /* Check for filesize limitations. */
-        if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $part->getName()));
-        }
-
-        /* Store the data. */
-        $this->_storeAttachment($part, $data, !$vfs);
-    }
-
-    /**
      * Add an attachment referred to in a related part.
      *
      * @param Horde_Mime_Part $part  Attachment data.
@@ -2310,71 +2265,20 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      * @param string $attribute      Element attribute containing the
      *                               reference.
      *
-     * @return integer  The attachment ID.
+     * @return IMP_Compose_Attachment  The attachment object.
      */
     protected function _addRelatedAttachment(Horde_Mime_Part $part, $node,
                                              $attribute)
     {
-        $this->addMimePartAttachment($part);
-
-        end($this->_atc);
-        $key = key($this->_atc);
-        $this->_atc[$key]['related'] = true;
+        $atc_ob = $this->addAttachmentFromPart($part);
+        $atc_ob->related = true;
 
         $this->_metadata['compose_related'] = true;
 
         $node->setAttribute('imp_related_attr', $attribute);
-        $node->setAttribute('imp_related_attr_id', $key);
+        $node->setAttribute('imp_related_attr_id', $atc_ob->id);
 
-        return $key;
-    }
-
-    /**
-     * Stores the attachment data in its correct location.
-     *
-     * @param Horde_Mime_Part $part   The object to store.
-     * @param string $data            Either the filename of the attachment
-     *                                or, if $vfs_file is false, the
-     *                                attachment data.
-     * @param boolean $vfs_file       If using VFS, is $data a filename?
-     *
-     * @throws IMP_Compose_Exception
-     */
-    protected function _storeAttachment($part, $data, $vfs_file = true)
-    {
-        /* Store in VFS. */
-        if ($GLOBALS['conf']['compose']['use_vfs']) {
-            try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-                $cacheID = strval(new Horde_Support_Randomid());
-
-                if ($vfs_file) {
-                    $vfs->write(self::VFS_ATTACH_PATH, $cacheID, $data, true);
-                } else {
-                    $vfs->writeData(self::VFS_ATTACH_PATH, $cacheID, $data, true);
-                }
-            } catch (Horde_Vfs_Exception $e) {
-                throw new IMP_Compose_Exception($e);
-            }
-
-            $this->_atc[] = array(
-                'filename' => $cacheID,
-                'filetype' => 'vfs',
-                'part' => $part
-            );
-        } else {
-            chmod($data, 0600);
-            $this->_atc[] = array(
-                'filename' => $data,
-                'filetype' => 'file',
-                'part' => $part
-            );
-        }
-
-        $this->changed = 'changed';
-
-        /* Add the size information to the counter. */
-        $this->_size += $part->getBytes();
+        return $atc_ob;
     }
 
     /**
@@ -2395,35 +2299,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     public function sizeOfAttachments()
     {
         return $this->_size;
-    }
-
-    /**
-     * Build a single attachment part with its data.
-     *
-     * @param integer $id  The ID of the part to rebuild.
-     *
-     * @return Horde_Mime_Part  The Horde_Mime_Part with its contents.
-     */
-    public function buildAttachment($id)
-    {
-        $atc = $this[$id];
-
-        switch ($atc['filetype']) {
-        case 'file':
-            $fp = fopen($atc['filename'], 'r');
-            $atc['part']->setContents($fp);
-            fclose($fp);
-            break;
-
-        case 'vfs':
-            try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-                $atc['part']->setContents($vfs->read(self::VFS_ATTACH_PATH, $atc['filename']));
-            } catch (Horde_Vfs_Exception $e) {}
-            break;
-        }
-
-        return $atc['part'];
     }
 
     /**
@@ -2614,7 +2489,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute('imp_related_attr')) {
                 $id = $ids[] = $node->getAttribute('imp_related_attr_id');
-                $node->setAttribute($node->getAttribute('imp_related_attr'), 'cid:' . $this[$id]['part']->setContentId());
+                $node->setAttribute($node->getAttribute('imp_related_attr'), 'cid:' . $this[$id]->getPart()->setContentId());
 
                 $node->removeAttribute('imp_related_attr');
                 $node->removeAttribute('imp_related_attr_id');
@@ -2626,7 +2501,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         /* Add the root part and the various data to the multipart object. */
         $related->addPart($part);
         foreach ($ids as $id) {
-            $related->addPart($this->buildAttachment($id));
+            $related->addPart($this[$id]->getPart(true));
         }
 
         return $related;
@@ -2683,19 +2558,18 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         foreach ($this as $att) {
+            $part = $att->getPart();
+
             $trailer .= "\n" . $baseurl->copy()->add(array(
-                'f' => $att['part']->getName(),
+                'f' => $part->getName(),
                 't' => $ts,
                 'u' => $auth
             ));
 
+            /* We know that VFS is setup if we are linking attachments, so
+             * data can be moved within the VFS namespace. */
             try {
-                if ($att['filetype'] == 'vfs') {
-                    $vfs->rename(self::VFS_ATTACH_PATH, $att['filename'], $fullpath, escapeshellcmd($att['part']->getName()));
-                } else {
-                    $data = file_get_contents($att['filename']);
-                    $vfs->writeData($fullpath, escapeshellcmd($att['part']->getName()), $data, true);
-                }
+                $vfs->rename(self::VFS_ATTACH_PATH, $att->vfsfile, $fullpath, escapeshellcmd($part->getName()));
             } catch (Horde_Vfs_Exception $e) {
                 Horde::log($e, 'ERR');
                 return IMP_Compose_Exception($e);
@@ -2879,43 +2753,71 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        $key = $this->_addRelatedAttachment($this->getMetadata('related_contents')->getMIMEPart($id), $node, $attribute);
+        $atc_ob = $this->_addRelatedAttachment($this->getMetadata('related_contents')->getMIMEPart($id), $node, $attribute);
 
         return $this->getMetadata('related_contents')->urlView(null, 'compose_attach_preview', array(
             'params' => array(
                 'composeCache' => strval($this),
-                'id' => $key
+                'id' => $atc_ob->id
             )
         ));
     }
 
     /**
-     * Add uploaded file from form data.
+     * Adds an attachment from Horde_Mime_Part data.
+     *
+     * @param Horde_Mime_Part $part  The object that contains the attachment
+     *                               data.
+     *
+     * @return IMP_Compose_Attachment  Attachment object.
+     * @throws IMP_Compose_Exception
+     */
+    public function addAttachmentFromPart($part)
+    {
+        /* Extract the data from the Horde_Mime_Part. */
+        $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+        $stream = $part->getContents(array(
+            'stream' => true
+        ));
+        rewind($stream);
+
+        if (file_put_contents($atc_file, $stream) === false) {
+            throw new IMP_Compose_Exception(sprintf(_("Could not attach %s to the message."), $part->getName()));
+        }
+
+        return $this->_addAttachment(
+            $atc_file,
+            ftell($stream),
+            $part->getName(true),
+            $part->getType()
+        );
+    }
+
+    /**
+     * Add attachment from uploaded (form) data.
      *
      * @param Horde_Variables $vars  Variables object.
      * @param string $field          The form field name.
      *
-     * @return string  Filename on successful add.
+     * @return IMP_Compose_Attachment  Attachment object.
      * @throws IMP_Compose_Exception
      */
-    public function addFileFromUpload(Horde_Variables $vars, $field)
+    public function addAttachmentFromUpload(Horde_Variables $vars, $field)
     {
-        global $browser, $conf;
-
-        $type = 'application/octet-stream';
+        global $browser;
 
         if ($vars->get($field . '_dataurl')) {
             $url_data = new Horde_Url_Data($vars->get($field));
-            $size = strlen($url_data->data);
-            $type = $url_data->type;
 
+            $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+            file_put_contents($atc_file, $url_data->data);
+
+            $bytes = strlen($url_data->data);
             $filename = $vars->get($field . '_filename');
             if (is_null($filename)) {
                 $filename = IMP_Contents::getPartLabel(reset(explode('/', $type)));
             }
-
-            $atc_file = Horde::getTempFile('impatt', false, '', false, true);
-            file_put_contents($atc_file, $url_data->data);
+            $type = $url_data->type;
         } else {
             try {
                 $browser->wasFileUploaded($field, _("attachment"));
@@ -2924,53 +2826,87 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             }
 
             $finfo = $_FILES[$field];
-            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
-            $size = $finfo['size'];
-            if (!empty($finfo['type'])) {
-                $type = $finfo['type'];
-            }
 
-            if ($conf['compose']['use_vfs']) {
-                $atc_file = $finfo['tmp_name'];
-            } else {
-                $atc_file = Horde::getTempFile('impatt', false, '', false, true);
-                if (move_uploaded_file($finfo['tmp_name'], $atc_file) === false) {
-                    throw new IMP_Compose_Exception(sprintf(_("The file %s could not be attached."), $filename));
-                }
-            }
+            $atc_file = $finfo['tmp_name'];
+
+            $bytes = $finfo['size'];
+            $filename = Horde_Util::dispelMagicQuotes($finfo['name']);
+            $type = empty($finfo['type'])
+                ? 'application/octet-stream'
+                : $finfo['type'];
+
+            /* User hook to do file scanning/MIME magic determinations. */
+            try {
+                $type = Horde::callHook('compose_attach', array($filename, $atc_file, $type), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
+
+        return $this->_addAttachment(
+            $atc_file,
+            $bytes,
+            $filename,
+            $type
+        );
+    }
+
+    /**
+     * Adds an attachment to the outgoing compose message.
+     *
+     * @param string $atc_file  Temporary file containing attachment contents.
+     * @param integer $bytes    Size of data, in bytes.
+     * @param string $filename  Filename of data.
+     * @param string $type      MIME type of data.
+     *
+     * @return IMP_Compose_Attachment  Attachment object.
+     * @throws IMP_Compose_Exception
+     */
+    protected function _addAttachment($atc_file, $bytes, $filename, $type)
+    {
+        global $conf;
 
         /* Check for filesize limitations. */
         if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $size) < 0)) {
-            throw new IMP_Compose_Exception(sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename));
+            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
+            throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
         }
 
-        /* User hook to do file scanning/MIME magic determinations. */
-        try {
-            $type = Horde::callHook('compose_attach', array($filename, $atc_file, $type), 'imp');
-        } catch (Horde_Exception_HookNotSet $e) {}
+        /* Try to determine the MIME type from 1) the extension and
+         * then 2) analysis of the file (if available). */
+        if (strlen($filename)) {
+            $atc->setName($filename);
+            if ($type == 'application/octet-stream') {
+                $type = Horde_Mime_Magic::filenameToMIME($filename, false);
+            }
+        }
 
-        $part = new Horde_Mime_Part();
-        $part->setType($type);
-        if ($part->getPrimaryType() == 'text') {
-            if ($analyzetype = Horde_Mime_Magic::analyzeFile($atc_file, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array('nostrip' => true))) {
-                $analyzetype = Horde_Mime::decodeParam('Content-Type', $analyzetype);
-                $part->setCharset(isset($analyzetype['params']['charset']) ? $analyzetype['params']['charset'] : 'UTF-8');
+        $atc = new Horde_Mime_Part();
+        $atc->setBytes($bytes);
+        $atc->setType($type);
+
+        if (($atc->getType() == 'application/octet-stream') ||
+            ($atc->getPrimaryType() == 'text')) {
+            $analyze = Horde_Mime_Magic::analyzeFile($atc_file, empty($conf['mime']['magic_db']) ? null : $conf['mime']['magic_db'], array(
+                'nostrip' => true
+            ));
+
+            if ($analyze) {
+                $analyze = Horde_Mime::decodeParam('Content-Type', $analyze);
+                $atc->setType($analyze['val']);
+                $atc->setCharset(isset($analyze['params']['charset']) ? $analyze['params']['charset'] : 'UTF-8');
             } else {
-                $part->setCharset('UTF-8');
+                $atc->setCharset('UTF-8');
             }
         } else {
-            $part->setHeaderCharset('UTF-8');
+            $atc->setHeaderCharset('UTF-8');
         }
-        $part->setBytes($size);
-        $part->setName($filename);
-        $part->setDisposition('attachment');
 
-        /* Store the data. */
-        $this->_storeAttachment($part, $atc_file);
+        $atc_ob = new IMP_Compose_Attachment(++$this->_atcId, $atc, $atc_file);
 
-        return $filename;
+        $this->_atc[$atc_ob->id] = $atc_ob;
+        $this->_size += $bytes;
+        $this->changed = 'changed';
+
+        return $atc_ob;
     }
 
     /**
@@ -3144,26 +3080,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             return;
         }
 
-        $atc = &$this->_atc[$offset];
-
-        switch ($atc['filetype']) {
-        case 'file':
-            /* Delete from filesystem. */
-            @unlink($atc['filename']);
-            break;
-
-        case 'vfs':
-            /* Delete from VFS. */
-            try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-                $vfs->deleteFile(self::VFS_ATTACH_PATH, $atc['filename']);
-            } catch (Horde_Vfs_Exception $e) {}
-            break;
-        }
-
-        /* Remove the size information from the counter. */
-        $this->_size -= $atc['part']->getBytes();
-
+        $this->_size -= $this->_atc[$offset]->getPart()->getBytes();
+        $this->_atc[$offset]->delete();
         unset($this->_atc[$offset]);
 
         $this->changed = 'changed';
@@ -3188,87 +3106,16 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function count()
     {
-        return count(iterator_to_array($this));
+        return count($this->_atc);
     }
 
-    /* Iterator methods. */
-
-    public function current()
-    {
-        return current($this->_atc);
-    }
-
-    public function key()
-    {
-        return key($this->_atc);
-    }
-
-    public function next()
-    {
-        $this->_next();
-    }
-
-    protected function _next($rewind = false)
-    {
-        do {
-            if ($rewind) {
-                $rewind = false;
-            } else {
-                next($this->_atc);
-            }
-            if (($curr = $this->current()) && empty($curr['related'])) {
-                break;
-            }
-        } while ($this->valid());
-    }
-
-    public function rewind()
-    {
-        reset($this->_atc);
-        $this->_next(true);
-    }
-
-    public function valid()
-    {
-        return (key($this->_atc) !== null);
-    }
-
-    /* Serializable methods. */
+    /* IteratorAggregate method. */
 
     /**
      */
-    public function serialize()
+    public function getIterator()
     {
-        /* Make sure we don't have data in the Mime Part parts. */
-        $atc = array();
-        foreach ($this->_atc as $key => $val) {
-            $val['part'] = clone($val['part']);
-            $val['part']->clearContents();
-            $atc[$key] = $val;
-        }
-
-        return serialize(array(
-            $this->charset,
-            $atc,
-            $this->_cacheid,
-            $this->_metadata,
-            $this->_replytype,
-            $this->_size
-        ));
-    }
-
-    /**
-     */
-    public function unserialize($data)
-    {
-        list(
-            $this->charset,
-            $this->_atc,
-            $this->_cacheid,
-            $this->_metadata,
-            $this->_replytype,
-            $this->_size
-        ) = unserialize($data);
+        return new ArrayIterator($this->_atc);
     }
 
 }
