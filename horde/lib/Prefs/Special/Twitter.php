@@ -38,31 +38,32 @@ class Horde_Prefs_Special_Twitter implements Horde_Core_Prefs_Ui_Special
             $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {}
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => HORDE_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Text');
 
-        /* Could not find a valid auth token, and we are not in the process of getting one */
+        $view->appname = $registry->get('name');
+
+        /* Could not find a valid auth token, and we are not in the process of
+         * getting one */
         if (empty($profile)) {
             try {
                 $results = $twitter->auth->getRequestToken();
             } catch (Horde_Service_Twitter_Exception $e) {
-                $t->set('error', sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()), true);
-                exit;
+                throw new Horde_Exception(sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()));
             }
             $session->store($results->secret, false, 'twitter_request_secret');
-            $t->set('appname', $registry->get('name'));
-            $t->set('link', Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', 'openTwitterWindow(); return false;') . 'Twitter</a>');
-            $t->set('popupjs', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true)));
+            $view->link = Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true))) . 'Twitter</a>';
         } else {
-            $t->set('haveSession', true, true);
-            $t->set('profile_image_url', $profile->profile_image_url);
-            $t->set('profile_screenname', htmlspecialchars($profile->screen_name));
-            $t->set('profile_name', htmlspecialchars($profile->name));
-            $t->set('profile_location', htmlspecialchars($profile->location));
-            $t->set('appname', $registry->get('name'));
+            $view->haveSession = true;
+            $view->profile_image_url = $profile->profile_image_url;
+            $view->profile_screenname = $profile->screen_name;
+            $view->profile_name = $profile->name;
+            $view->profile_location = $profile->location;
         }
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/twitter.html');
+        return $view->render('twitter');
     }
 
     /**

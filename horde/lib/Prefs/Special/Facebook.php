@@ -34,9 +34,12 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
 
         $page_output->addThemeStylesheet('facebook.css');
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
-        $t->set('app_name', $registry->get('name', 'horde'));
+        $view = new Horde_View(array(
+            'templatePath' => HORDE_TEMPLATES . '/prefs'
+        ));
+
+        $view->app_name = $registry->get('name', 'horde');
+
         // Ensure we have authorized horde.
         try {
             $session_uid = $facebook->auth->getLoggedInUser();
@@ -55,15 +58,15 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
         }
 
         // Get a token generator
-        $token = $GLOBALS['injector']->getInstance('Horde_Token');
+        $token = $injector->getInstance('Horde_Token');
 
         // We have a session, build the template.
         if (!empty($haveSession)) {
             try {
                 $perms = $facebook->users->getAppPermissions();
-                $t->set('have_publish', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM]));
-                $t->set('have_read', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM]));
-                $t->set('have_friends', !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT]));
+                $view->have_publish = !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM]);
+                $view->have_read = !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_READSTREAM]);
+                $view->have_friends = !empty($perms[Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_ABOUT]);
             } catch (Horde_Service_Facebook_Exception $e) {
                 $notification->push($e->getMessage(), 'horde.error');
             }
@@ -81,12 +84,12 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
 
             // FB Perms links
             $cburl = Horde::url('services/facebook', true);
-            $t->set('have_session', true);
-            $t->set('user_pic_url', $user_info[0]['pic_with_logo']);
-            $t->set('user_name', $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name']);
+            $view->have_session = true;
+            $view->user_pic_url = $user_info[0]['pic_with_logo'];
+            $view->user_name = $user_info[0]['first_name'] . ' ' . $user_info[0]['last_name'];
 
             $url = $facebook->auth->getOAuthUrl($cburl, array(Horde_Service_Facebook_Auth::EXTEND_PERMS_PUBLISHSTREAM));
-            $t->set('publish_url', $url);
+            $view->publish_url = $url;
 
             // User read perms
             $url = $facebook->auth->getOAuthUrl($cburl, array(
@@ -97,7 +100,7 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_HOMETOWN,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_LOCATION,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_USER_PHOTOS), $state);
-            $t->set('read_url', Horde::signQueryString($url));
+            $view->read_url = Horde::signQueryString($url);
 
             // Friend read perms
             $url = $facebook->auth->getOAuthUrl($cburl, array(
@@ -106,17 +109,14 @@ class Horde_Prefs_Special_Facebook implements Horde_Core_Prefs_Ui_Special
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_HOMETOWN,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_LOCATION,
                 Horde_Service_Facebook_Auth::EXTEND_PERMS_FRIENDS_PHOTOS), $state);
-            $t->set('friends_url', Horde::signQueryString($url));
-
-            return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
+            $view->friends_url = Horde::signQueryString($url);
+        } else {
+            /* No existing session */
+            $state = $token->get();
+            $view->authUrl = $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true), array(), $state);
         }
 
-        /* No existing session */
-        $state = $token->get();
-        $t->set('have_session', false);
-        $t->set('authUrl', $facebook->auth->getOAuthUrl(Horde::url('services/facebook', true), array(), $state));
-
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/facebook.html');
+        return $view->render('facebook');
     }
 
     /**

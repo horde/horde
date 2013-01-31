@@ -62,17 +62,18 @@ if ($vars->submitbutton == _("Revert Configuration")) {
     $notification->push(_("There was an error in the configuration form. Perhaps you left out a required field."), 'horde.error');
 }
 
-/* Set up the template. */
-$template = $injector->createInstance('Horde_Template');
-$template->set('php', htmlspecialchars($php), true);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/config'
+));
+$view->addHelper('Text');
+
+$view->php = $php;
+
 /* Create the link for the diff popup only if stored in session. */
-$diff_link = '';
 if ($session->exists('horde', 'config/' . $app)) {
     $url = Horde::url('admin/config/diff.php', true)->add('app', $app);
-    $diff_link = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
+    $view->diff_popup = Horde::link('#', '', '', '', Horde::popupJs($url, array('height' => 480, 'width' => 640, 'urlencode' => true)) . 'return false;') . _("show differences") . '</a>';
 }
-$template->set('diff_popup', $diff_link, true);
-$template->setOption('gettext', true);
 
 Horde::startBuffer();
 require HORDE_TEMPLATES . '/admin/menu.inc';
@@ -85,7 +86,7 @@ $renderer->setAttrColumnWidth('50%');
 /* Buffer the form template */
 Horde::startBuffer();
 $form->renderActive($renderer, $vars, Horde::url('admin/config/config.php'), 'post');
-$template->set('form', Horde::endBuffer());
+$view->form = Horde::endBuffer();
 
 /* Send headers */
 $page_output->header(array(
@@ -93,6 +94,5 @@ $page_output->header(array(
 ));
 
 /* Output page */
-echo $menu_output;
-echo $template->fetch(HORDE_TEMPLATES . '/admin/config/config.html');
+echo $menu_output . $view->render('config');
 $page_output->footer();

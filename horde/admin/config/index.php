@@ -340,17 +340,18 @@ if (file_exists(Horde::getTempDir() . '/horde_configuration_upgrade.php')) {
                        'link' => Horde::link($url) . $action . '</a>');
 }
 
-/* Set up the template. */
-$template = $injector->createInstance('Horde_Template');
-$template->setOption('gettext', true);
-$template->set('versions', !empty($versions), true);
-$template->set('version_action', Horde::url('admin/config/index.php'));
-$template->set('version_input', Horde_Util::formInput());
-$template->set('config_outdated', $config_outdated && method_exists('Horde_Config', 'writePHPConfig'));
-$template->set('schema_outdated', $schema_outdated);
-$template->set('apps', $apps);
-$template->set('actions', $actions, true);
-$template->set('ftpform', $ftpform, true);
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/admin/config'
+));
+
+$view->actions = $actions;
+$view->apps = $apps;
+$view->config_outdated = $config_outdated;
+$view->ftpform = $ftpform;
+$view->schema_outdated = $schema_outdated;
+$view->version_action = Horde::url('admin/config/index.php');
+$view->version_input = Horde_Util::formInput();
+$view->versions = !empty($versions);
 
 $page_output->addScriptFile('stripe.js', 'horde');
 
@@ -358,5 +359,5 @@ $page_output->header(array(
     'title' => sprintf(_("%s Configuration"), $registry->get('name', 'horde'))
 ));
 require HORDE_TEMPLATES . '/admin/menu.inc';
-echo $template->fetch(HORDE_TEMPLATES . '/admin/config/index.html');
+echo $view->render('index');
 $page_output->footer();

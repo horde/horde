@@ -45,8 +45,9 @@ $tasks->runTasks(array(
     'user_confirmed' => $vars->logintasks_page
 ));
 
-/* Create the Horde_Template item. */
-$template = $injector->createInstance('Horde_Template');
+$view = new Horde_View(array(
+    'templatePath' => HORDE_TEMPLATES . '/logintasks'
+));
 
 /* Have the maintenance module do all necessary processing. */
 $tasklist = $tasks->displayTasks();
@@ -62,9 +63,9 @@ switch ($tasklist[0]->display) {
 case Horde_LoginTasks::DISPLAY_CONFIRM_NO:
 case Horde_LoginTasks::DISPLAY_CONFIRM_YES:
     /* Confirmation-style output. */
-    $template->set('confirm', true, true);
-    $template->set('agree', false, true);
-    $template->set('notice', false, true);
+    $view->confirm = true;
+    $view->agree = false;
+    $view->notice = false;
 
     $title = sprintf(_("%s Tasks - Confirmation"), $app_name);
     $header = sprintf(_("%s is ready to perform the tasks below. Select each operation to run at this time."), $app_name);
@@ -72,9 +73,9 @@ case Horde_LoginTasks::DISPLAY_CONFIRM_YES:
 
 case Horde_LoginTasks::DISPLAY_AGREE:
     /* Agreement-style output. */
-    $template->set('confirm', false, true);
-    $template->set('agree', true, true);
-    $template->set('notice', false, true);
+    $view->confirm = false;
+    $view->agree = true;
+    $view->notice = false;
 
     $title = sprintf(_("%s Terms of Agreement"), $app_name);
     $header = _("Please read the following text. You MUST agree with the terms to use the system.");
@@ -82,9 +83,9 @@ case Horde_LoginTasks::DISPLAY_AGREE:
 
 case Horde_LoginTasks::DISPLAY_NOTICE:
     /* Notice-style output. */
-    $template->set('confirm', false, true);
-    $template->set('agree', false, true);
-    $template->set('notice', true, true);
+    $view->confirm = false;
+    $view->agree = false;
+    $view->notice = true;
 
     $title = sprintf(_("%s - Notice"), $app_name);
     $header = '';
@@ -101,11 +102,10 @@ foreach ($tasklist as $key => $ob) {
     );
 }
 
-$template->setOption('gettext', true);
-$template->set('title', $title);
-$template->set('header', $header);
-$template->set('tasks', $display_tasks, true);
-$template->set('logintasks_url', $tasks->getLoginTasksUrl());
+$view->title = $title;
+$view->header = $header;
+$view->tasks = $display_tasks;
+$view->logintasks_url = $tasks->getLoginTasksUrl();
 
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_SMARTMOBILE:
@@ -128,11 +128,11 @@ $page_output->header(array(
 
 switch ($registry->getView()) {
 case Horde_Registry::VIEW_SMARTMOBILE:
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/smartmobile.html');
+    echo $view->render('smartmobile');
     break;
 
 default:
-    echo $template->fetch(HORDE_TEMPLATES . '/logintasks/logintasks.html');
+    echo $view->render('logintasks');
     break;
 }
 

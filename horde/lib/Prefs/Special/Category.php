@@ -37,63 +37,61 @@ class Horde_Prefs_Special_Category implements Horde_Core_Prefs_Ui_Special
         $colors = $cManager->colors();
         $fgcolors = $cManager->fgColors();
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => HORDE_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Horde_Core_View_Helper_Image');
+        $view->addHelper('Horde_Core_View_Helper_Label');
+        $view->addHelper('Text');
 
-        if (!$prefs->isLocked('category_colors')) {
-            $t->set('picker_img',  Horde::img('colorpicker.png', _("Color Picker")));
-        }
-        $t->set('delete_img',  Horde::img('delete.png'));
+        $view->picker_img = !$prefs->isLocked('category_colors');
 
         // Default Color
         $color = isset($colors['_default_'])
-            ? htmlspecialchars($colors['_default_'])
+            ? $colors['_default_']
             : '#FFFFFF';
         $fgcolor = isset($fgcolors['_default_'])
-            ? htmlspecialchars($fgcolors['_default_'])
+            ? $fgcolors['_default_']
             : '#000000';
         $color_b = 'color_' . hash('md5', '_default_');
 
-        $t->set('default_color', $color);
-        $t->set('default_fgcolor', $fgcolor);
-        $t->set('default_label', Horde::label($color_b, _("Default Color")));
-        $t->set('default_id', $color_b);
+        $view->default_color = $color;
+        $view->default_fgcolor = $fgcolor;
+        $view->default_id = $color_b;
 
         // Unfiled Color
         $color = isset($colors['_unfiled_'])
-            ? htmlspecialchars($colors['_unfiled_'])
+            ? $colors['_unfiled_']
             : '#FFFFFF';
         $fgcolor = isset($fgcolors['_unfiled_'])
-            ? htmlspecialchars($fgcolors['_unfiled_'])
+            ? $fgcolors['_unfiled_']
             : '#000000';
         $color_b = 'color_' . hash('md5', '_unfiled_');
 
-        $t->set('unfiled_color', $color);
-        $t->set('unfiled_fgcolor', $fgcolor);
-        $t->set('unfiled_label', Horde::label($color_b, _("Unfiled")));
-        $t->set('unfiled_id', $color_b);
+        $view->unfiled_color = $color;
+        $view->unfiled_fgcolor = $fgcolor;
+        $view->unfiled_id = $color_b;
 
         $entries = array();
         foreach ($categories as $name) {
             $color = isset($colors[$name])
-                ? htmlspecialchars($colors[$name])
+                ? $colors[$name]
                 : '#FFFFFF';
             $fgcolor = isset($fgcolors[$name])
-                ? htmlspecialchars($fgcolors[$name])
+                ? $fgcolors[$name]
                 : '#000000';
             $color_b = 'color_' . hash('md5', $name);
 
             $entries[] = array(
                 'color' => $color,
                 'fgcolor' => $fgcolor,
-                'label' => Horde::label($color_b, ($name == '_default_' ? _("Default Color") : htmlspecialchars($name))),
                 'id' => $color_b,
-                'name' => htmlspecialchars($name)
+                'name' => $name
             );
         }
-        $t->set('categories', $entries);
+        $view->categories = $entries;
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/category.html');
+        return $view->render('category');
     }
 
     /**

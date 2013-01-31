@@ -29,25 +29,27 @@ class Horde_Prefs_Special_Syncml implements Horde_Core_Prefs_Ui_Special
         $page_output->addScriptFile('syncmlprefs.js', 'horde');
         $devices = Horde_SyncMl_Backend::factory('Horde')->getUserAnchors($registry->getAuth());
 
-        $t = $injector->createInstance('Horde_Template');
-        $t->setOption('gettext', true);
+        $view = new Horde_View(array(
+            'templatePath' => HORDE_TEMPLATES . '/prefs'
+        ));
+        $view->addHelper('Text');
 
         $partners = array();
         $format = $prefs->getValue('date_format') . ' %H:%M';
 
         foreach ($devices as $device) {
             $partners[] = array(
-                'anchor'   => htmlspecialchars($device['syncml_clientanchor']),
-                'db'       => htmlspecialchars($device['syncml_db']),
+                'anchor'   => $device['syncml_clientanchor'],
+                'db'       => $device['syncml_db'],
                 'deviceid' => $device['syncml_syncpartner'],
                 'rawdb'    => $device['syncml_db'],
-                'device'   => htmlspecialchars($device['syncml_syncpartner']),
+                'device'   => $device['syncml_syncpartner'],
                 'time'     => strftime($format, $device['syncml_serveranchor'])
             );
         }
-        $t->set('devices', $partners);
+        $view->devices = $partners;
 
-        return $t->fetch(HORDE_TEMPLATES . '/prefs/syncml.html');
+        return $view->render('syncml');
     }
 
     /**
