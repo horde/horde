@@ -5,10 +5,10 @@
       <li><?php echo $this->slideshow_url->link(array('class' => 'widget')) . Horde::img('slideshow_play.png', _("Start Slideshow")) . ' ' . _("Start Slideshow") ?></a></li>
     <?php endif; ?>
     <?php if (!empty($this->uploadurl_link)): ?>
-      <li><?php echo $this->uploadurl_link . Horde::img('plus.png') . ' ' . _("Upload photos")?> </a></li>
+      <li><?php echo $this->uploadurl_link . Horde::img('add.png') . ' ' . _("Upload photos")?> </a></li>
     <?php endif; ?>
     <?php if (!empty($this->subgallery_link)): ?>
-      <li><?php echo $this->subgallery_link . Horde::img('add.png', '[icon]') . ' ' . _("Create a subgallery") ?></a></li>
+      <li><?php echo $this->subgallery_link . Horde::img('plus.png', '[icon]') . ' ' . _("Create a subgallery") ?></a></li>
     <?php endif; ?>
     </ul>
 

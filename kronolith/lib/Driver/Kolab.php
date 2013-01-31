@@ -481,7 +481,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Delete an event.
+     * Deletes an event.
      *
      * @param string $eventId  The ID of the event to delete.
      *
@@ -489,7 +489,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @throws Horde_Exception_NotFound
      * @throws Horde_Mime_Exception
      */
-    public function deleteEvent($eventId, $silent = false)
+    protected function _deleteEvent($eventId, $silent = false)
     {
         if ($eventId instanceof Kronolith_Event) {
             $event = $eventId;
@@ -500,19 +500,9 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         $this->_data->delete($event->uid);
 
-        // Notify about the deleted event.
-        if (!$silent) {
-            Kronolith::sendNotification($event, 'delete');
-        }
-
-        /* Log the deletion of this item in the history log. */
-        try {
-            $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
-        } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-        }
-
         unset($this->_events_cache[$event->id]);
+
+        return $event;
     }
 
 }

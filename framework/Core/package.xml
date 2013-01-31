@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-10</date>
- <time>11:49:57</time>
+ <date>2013-01-29</date>
+ <time>12:25:41</time>
  <version>
-  <release>2.1.6</release>
+  <release>2.1.7</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,9 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [mms] Fix spellchecking on HTML data (Bug #11986).
-* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1147,7 +1145,7 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1351,6 +1349,7 @@
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>dom</name>
@@ -2709,12 +2708,25 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [mms] Fix spellchecking on HTML data (Bug #11986).
 * [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
    </notes>
   </release>
  </changelog>

@@ -1,10 +1,5 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Base.php';
-
-/**
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Ralf Lang <lang@b1-systems.de>
@@ -13,7 +8,7 @@ require_once __DIR__ . '/../Base.php';
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_Test_Base
+class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_TestBase
 {
     protected static $db;
     protected static $EagerBaseObjectMapper;

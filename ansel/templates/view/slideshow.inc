@@ -1,8 +1,4 @@
 <script type="text/javascript">
-//<![CDATA[
-SlideController.initialize(<?php echo self::json($this->gallery, array('view_links' => true)) ?>, <?php echo $imageIndex ?>, "<?php echo $GLOBALS['registry']->get('webroot')?>", <?php echo $this->gallery->id ?>, "");
-//]]>
-
 function stopSlideShow()
 {
     location.href = SlideController.photos[SlideController.photoId][5];

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,7 +36,7 @@ msgstr ""
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr ""
 
-#: lib/Horde/Rpc/ActiveSync.php:112
+#: lib/Horde/Rpc/ActiveSync.php:106
 msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
 msgstr ""
 

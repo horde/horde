@@ -115,6 +115,16 @@ class Horde_Imap_Client_Fetch_Results implements ArrayAccess, Countable, Iterato
             : null;
     }
 
+    /**
+     * Clears all fetch results.
+     *
+     * @since 2.6.0
+     */
+    public function clear()
+    {
+        $this->_data = array();
+    }
+
     /* ArrayAccess methods. */
 
     /**

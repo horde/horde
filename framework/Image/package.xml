@@ -23,10 +23,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-09</date>
- <time>15:24:32</time>
+ <date>2013-01-29</date>
+ <time>12:39:59</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -945,7 +945,20 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix image watermarking for Imagick and ImageMagick drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

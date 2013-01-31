@@ -489,11 +489,16 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
      * @throws Horde_Exception_NotFound
      * @throws Horde_Mime_Exception
      */
-    public function deleteEvent($eventId, $silent = false)
+    protected function _deleteEvent($eventId, $silent = false)
     {
+        /* Fetch the event for later use. */
         if ($eventId instanceof Kronolith_Event) {
-            $eventId = $eventId->id;
+            $event = $eventId;
+            $eventId = $event->id;
+        } else {
+            $event = $this->getEvent($eventId);
         }
+
         if (!$this->isCalDAV()) {
             throw new Kronolith_Exception(_("Deleting events is not supported with this remote calendar."));
         }
@@ -514,6 +519,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                       $url, $response->code), 'INFO');
             throw new Kronolith_Exception(_("The event could not be deleted from the remote server."));
         }
+
+        return $event;
     }
 
     /**

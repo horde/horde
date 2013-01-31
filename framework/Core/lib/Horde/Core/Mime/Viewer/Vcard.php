@@ -169,7 +169,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     if ($browser->hasFeature('datauri') === true ||
                         $browser->hasFeature('datauri') >= strlen($photo['value'])) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),
-                                             '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
+                                             '<img src="' . Horde_Url_Data::create($photo['params']['TYPE'], base64_decode($photo['value'])) . '" />',
                                              false);
                     } elseif ($this->_imageUrl) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),

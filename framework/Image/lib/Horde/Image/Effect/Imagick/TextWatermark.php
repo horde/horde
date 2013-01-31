@@ -64,7 +64,7 @@ class Horde_Image_Effect_Imagick_TextWatermark extends Horde_Image_Effect
             $gravity = $v . $h;
         }
         /* Determine font point size */
-        $point = $this->_image->getFontSize($this->_params['fontsize']);
+        $point = Horde_Image::getFontSize($this->_params['fontsize']);
 
         //@TODO:
         throw new Horde_Image_Exception('Not Yet Implemented.');

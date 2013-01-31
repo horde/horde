@@ -10,6 +10,14 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.6.0
+==================
+
+  - Horde_Imap_Client_Fetch_Results
+
+    The clear() method was added.
+
+
 Upgrading to 2.5.0
 ==================
 

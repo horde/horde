@@ -120,6 +120,7 @@
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>bz2</name>

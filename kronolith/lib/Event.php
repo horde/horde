@@ -2642,8 +2642,8 @@ abstract class Kronolith_Event
                 // Notification.
                 if (Horde_Util::getFormData('alarm_change_method')) {
                     $types = Horde_Util::getFormData('event_alarms');
+                    $methods = array();
                     if (!empty($types)) {
-                        $methods = array();
                         foreach ($types as $type) {
                             $methods[$type] = array();
                             switch ($type){
@@ -2657,8 +2657,8 @@ abstract class Kronolith_Event
                                 break;
                             }
                         }
-                        $this->methods = $methods;
                     }
+                    $this->methods = $methods;
                 } else {
                     $this->methods = array();
                 }

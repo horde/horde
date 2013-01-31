@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo H5 (4.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: 2012-10-30 21:39+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@horde.org>\n"
@@ -104,7 +104,7 @@ msgstr "Erstellt"
 msgid "Date"
 msgstr "Datum"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:62
 msgid "Decrypt"
 msgstr "Entschlüsseln"
 
@@ -150,7 +150,7 @@ msgstr "Beschreibung"
 msgid "Display Preferences"
 msgstr "Anzeige-Einstellungen"
 
-#: config/prefs.php:99
+#: config/prefs.php:104
 msgid "Do you want to confirm deleting entries?"
 msgstr "Möchten Sie das Löschen von Einträgen bestätigen?"
 
@@ -215,7 +215,7 @@ msgstr "Notizen Import/Export"
 msgid "In: "
 msgstr "In: "
 
-#: templates/view/memo.inc:37
+#: templates/view/memo.inc:42
 msgid "Last Modified"
 msgstr "Letzte Änderung"
 
@@ -292,7 +292,7 @@ msgstr "Nicht gefunden"
 msgid "Note Category"
 msgstr "Notizkategorie"
 
-#: view.php:118
+#: view.php:89
 msgid "Note Details"
 msgstr "Notizdetails"
 
@@ -316,12 +316,12 @@ msgstr "Notiz_block:"
 msgid "Notepad"
 msgstr "Notizblock"
 
-#: lib/Notepads/Default.php:65
+#: lib/Notepads/Default.php:64
 #, php-format
 msgid "Notepad of %s"
 msgstr "Notizblock von %s"
 
-#: lib/Notepads/Kolab.php:38
+#: lib/Notepads/Kolab.php:58
 msgid "Notes"
 msgstr "Notizen"
 
@@ -484,11 +484,11 @@ msgstr "Beim Anzeigen dieses Notizblocks ist ein Fehler aufgetreten: %s"
 msgid "This file format is not supported."
 msgstr "Dieses Dateiformat wird nicht unterstützt."
 
-#: memo.php:38 view.php:103
+#: memo.php:38 view.php:74
 msgid "This note cannot be decrypted:"
 msgstr "Diese Notiz konnte nicht entschlüsselt werden:"
 
-#: memo.php:31 memo.php:41 view.php:98 view.php:106
+#: memo.php:31 memo.php:41 view.php:69 view.php:77
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
@@ -496,16 +496,16 @@ msgstr ""
 "Diese Notiz wurde verschlüsselt, kann ohne eine sichere Serververbindung "
 "aber nicht entschlüsselt werden"
 
-#: memo.php:28 view.php:95
+#: memo.php:28 view.php:66
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 "Diese Notiz wurde verschlüsselt, bitte geben Sie unten das Passwort ein"
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:291 lib/Driver/Sql.php:327
+#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Diese Notiz wurde verschlüsselt."
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
 #: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Nicht zugeordnet"
@@ -588,7 +588,7 @@ msgstr "Notizen _anzeigen"
 msgid "_New Note"
 msgstr "_Neue Notiz"
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:50
+#: templates/memo/memo.inc:19 templates/view/memo.inc:60
 msgid "_Password"
 msgstr "_Passwort"
 
@@ -608,12 +608,12 @@ msgstr "_Suche"
 msgid "_Title"
 msgstr "_Titel"
 
-#: view.php:68 view.php:77
+#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
 #, php-format
 msgid "by %s"
 msgstr "durch %s"
 
-#: view.php:70 view.php:79
+#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
 msgid "by me"
 msgstr "durch mich"
 
@@ -622,7 +622,7 @@ msgstr "durch mich"
 msgid "in %s"
 msgstr "in %s"
 
-#: lib/Application.php:267 templates/data/export.inc:3
+#: lib/Application.php:270 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notizen.csv"
 

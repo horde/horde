@@ -17,10 +17,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-04</date>
- <time>16:56:25</time>
+ <date>2013-01-29</date>
+ <time>12:45:16</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -29,8 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Never return decimal values from Horde_Mime_Part#getSize().
-* [mms] Added parsing limit for deeply nested MIME parts.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -326,6 +325,7 @@
      <dir name="Mime">
       <dir name="fixtures">
        <file name="attachment.bin" role="test" />
+       <file name="deeply_nested.txt" role="test" />
        <file name="flowed_msg.txt" role="test" />
        <file name="multiple_to.txt" role="test" />
        <file name="related_msg.txt" role="test" />
@@ -434,14 +434,13 @@
    <package>
     <name>idn</name>
     <channel>pecl.php.net</channel>
+    <providesextension>idn</providesextension>
    </package>
    <package>
     <name>intl</name>
     <channel>pecl.php.net</channel>
+    <providesextension>intl</providesextension>
    </package>
-   <extension>
-    <name>intl</name>
-   </extension>
   </optional>
  </dependencies>
  <phprelease>
@@ -555,6 +554,7 @@
    <install as="Horde/Mime/phpunit.xml" name="test/Horde/Mime/phpunit.xml" />
    <install as="Horde/Mime/RelatedTest.php" name="test/Horde/Mime/RelatedTest.php" />
    <install as="Horde/Mime/fixtures/attachment.bin" name="test/Horde/Mime/fixtures/attachment.bin" />
+   <install as="Horde/Mime/fixtures/deeply_nested.txt" name="test/Horde/Mime/fixtures/deeply_nested.txt" />
    <install as="Horde/Mime/fixtures/flowed_msg.txt" name="test/Horde/Mime/fixtures/flowed_msg.txt" />
    <install as="Horde/Mime/fixtures/multiple_to.txt" name="test/Horde/Mime/fixtures/multiple_to.txt" />
    <install as="Horde/Mime/fixtures/related_msg.txt" name="test/Horde/Mime/fixtures/related_msg.txt" />
@@ -1050,11 +1050,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-04</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Never return decimal values from Horde_Mime_Part#getSize().
 * [mms] Added parsing limit for deeply nested MIME parts.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

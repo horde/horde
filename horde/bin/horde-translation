@@ -4,7 +4,7 @@
  * Translation helper application for the Horde framework.
  *
  * For usage information call:
- * ./translation help
+ * ./horde-translation help
  *
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl LGPL-2
@@ -193,7 +193,7 @@ class Horde_Translation_Script
             }
         } else {
             $this->writeln('Usage:' . ' horde-translation [options] command [command-options]');
-            $this->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' translation [help|-h|--help] [command]');
+            $this->writeln(str_repeat(' ', Horde_String::length('Usage:')) . ' horde-translation [help|-h|--help] [command]');
             $this->writeln();
             $this->writeln('Helper application to create and maintain translations for the Horde');
             $this->writeln('framework and its applications.');

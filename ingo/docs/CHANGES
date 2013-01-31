@@ -11,6 +11,7 @@ v3.1.0-git
 v3.0.3-git
 ----------
 
+[jan] Fix configuration of 'forward_file' parameter (Bug #11989).
 [mms] Require non-empty subject and reason fields when creating a vacation
       message (crohmann@netcologne.de; Request #8376).
 [jan] Update French translation (Paul De Vlieger

@@ -9,7 +9,7 @@
  */
 
 /**
- * The Horde_Alarm_Handler_Mail class is a Horde_Alarm handler that notifies
+ * The Horde_Alarm_Handler_Desktop class is a Horde_Alarm handler that notifies
  * of active alarms by desktop notification through webkit browsers.
  *
  * @author  Jan Schneider <jan@horde.org>

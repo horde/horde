@@ -28,7 +28,7 @@ $session->set('sesha', 'search', strval($vars->searchfield));
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 $topbar->searchAction = new Horde_Url('list.php');
-$topbar->searchLabel =  $session->get('sesha', 'search') ?: _("Stock Id");
+$topbar->searchLabel =  $session->get('sesha', 'search') ?: _("Stock ID");
 $topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 /* While switching from Horde_Template to Horde_View, try to leave only lines which strictly need to be in this file */

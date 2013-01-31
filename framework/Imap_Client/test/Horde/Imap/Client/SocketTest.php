@@ -51,7 +51,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 
     public function testSimpleThreadParse()
     {
-        $data = '(1)';
+        $data = '* THREAD (1)';
         $thread = $this->test_ob->getThreadSort($data);
 
         $this->assertTrue($thread instanceof Horde_Imap_Client_Data_Thread);
@@ -93,7 +93,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 
     public function testComplexThreadParse()
     {
-        $data = '((1)(2)(3)(4 (5)(6))(7 8)(9)(10 (11 12)(13 (14 (15)))))(16 17)';
+        $data = '* THREAD ((1)(2)(3)(4 (5)(6))(7 8)(9)(10 (11 12)(13 (14 (15)))))(16 17)';
         $thread = $this->test_ob->getThreadSort($data);
 
         $list = $thread->messageList();
@@ -162,8 +162,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
 
     public function testBug11450()
     {
-        // * NAMESPACE (("INBOX." ".")) (("user." ".")) (("" "."))
-        $data = '(("INBOX." ".")) (("user." ".")) (("" "."))';
+        $data = '* NAMESPACE (("INBOX." ".")) (("user." ".")) (("" "."))';
 
         $this->assertEquals(
             3,
@@ -199,7 +198,7 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         // Bug #11453
         $test = '* NO [ALERT] Foo Bar';
 
-        $this->test_ob->responseCode($test);
+        $this->test_ob->doResponseCode($test);
 
         $alerts = $this->test_ob->alerts();
 
@@ -272,6 +271,63 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('\seen', '\flagged'),
             $res->first()->getFlags()
+        );
+    }
+
+    /* See RFC 5162 (Errata #1807) - QRESYNC/CONDSTORE has design flaw where
+     * it is allowable to send FETCH responses with MODSEQ/FLAGS but without
+     * UID. This makes the responses practically useless. */
+    public function testModseqFlagsWithoutUid()
+    {
+        $test = '* 1 FETCH (UID 2 MODSEQ (5) FLAGS (\Seen \Flagged))';
+
+        $this->test_ob->parseFetch($test);
+
+        $this->assertEquals(
+            0,
+            count($this->test_ob->getModseqsNouid())
+        );
+
+        $test = '* 1 FETCH (MODSEQ (5) FLAGS (\Seen \Flagged))';
+
+        $this->test_ob->parseFetch($test);
+
+        $this->assertEquals(
+            1,
+            count($this->test_ob->getModseqsNouid())
+        );
+    }
+
+    public function testBug11994()
+    {
+        $test = '* ACL INBOX foo lrswipcda cyrus lripcda';
+        $parsed = $this->test_ob->parseAcl($test);
+
+        $this->assertEquals(
+            2,
+            count($parsed)
+        );
+
+        $this->assertTrue($parsed['foo']['s']);
+        $this->assertFalse($parsed['cyrus']['s']);
+
+        $test = '* MYRIGHTS INBOX lrwipkxtecda';
+        $parsed = $this->test_ob->parseMyACLRights($test);
+
+        $this->assertTrue($parsed['l']);
+        $this->assertFalse($parsed['s']);
+
+        $test = '* LISTRIGHTS INBOX foo lkxca r s w i p t e d 0 1 3 4 5 6';
+        $parsed = $this->test_ob->parseListRights($test);
+
+        $this->assertNotNull($parsed['l']);
+        $this->assertNull($parsed['2']);
+    }
+
+    protected function _serverResponse($data)
+    {
+        return Horde_Imap_Client_Interaction_Server::create(
+            new Horde_Imap_Client_Tokenize($data)
         );
     }
 

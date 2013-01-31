@@ -350,6 +350,7 @@
    <package>
     <name>geoip</name>
     <channel>pecl.php.net</channel>
+    <providesextension>geoip</providesextension>
    </package>
   </optional>
  </dependencies>
