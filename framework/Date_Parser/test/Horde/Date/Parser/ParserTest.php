@@ -46,4 +46,20 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
         $this->assertEquals('morning', $tokens[1]->tags[0][1]);
         $this->assertEquals(2, count($tokens));
     }
+
+    public function testPreNormalizeAmPm()
+    {
+        $parser = Horde_Date_Parser::factory();
+        $text = $parser->preNormalize('5am');
+        $this->assertEquals('5 am', $text);
+
+        $text = $parser->preNormalize('5:00am');
+        $this->assertEquals('5:00 am', $text);
+
+        $text = $parser->preNormalize('5 am');
+        $this->assertEquals('5 am', $text);
+
+        $text = $parser->preNormalize('exam');
+        $this->assertEquals('exam', $text);
+    }
 }

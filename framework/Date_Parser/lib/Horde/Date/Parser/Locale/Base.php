@@ -166,7 +166,7 @@ class Horde_Date_Parser_Locale_Base
         $text = preg_replace('/\b(?:in|during) the (morning)\b/', '\1', $text);
         $text = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/', '\1', $text);
         $text = preg_replace('/\btonight\b/', 'this night', $text);
-        $text = preg_replace('/(?=\w)([ap]m|oclock)\b/', ' \1', $text);
+        $text = preg_replace('/((?=\w)\d+)([ap]m|oclock)\b/', '$1 $2', $text);
         $text = preg_replace('/\b(hence|after|from)\b/', 'future', $text);;
         $text = $this->numericizeOrdinals($text);
 
