@@ -20,7 +20,7 @@ var IngoRule = {
             $('rule').submit();
         });
 
-        $('rule').on('select', 'SELECT', function(e) {
+        $('rule').on('change', 'SELECT', function(e) {
             e.stop();
             $('rule').submit();
         });
