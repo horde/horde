@@ -11,6 +11,9 @@
 /* Don't die if time limit exceeded. */
 set_time_limit(0);
 
+/* Console_Getopt is not E_STRICT. */
+error_reporting(error_reporting() & ~E_STRICT);
+
 /* Get any arguments. */
 require_once 'Console/Getopt.php';
 $args = Console_Getopt::readPHPArgv();
