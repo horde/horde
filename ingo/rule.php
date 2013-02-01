@@ -281,11 +281,7 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
             '<option value="' . Ingo::USER_HEADER . '"' . ((!$option_selected) ? ' selected="selected"' : '') . '>' . _("Self-Defined Header") . (($lastfield) ? '' : ':') . "</option>\n";
         if (!$option_selected) {
             $header_entry = true;
-            if (empty($vars->userheader)) {
-                $vars->userheader = isset($condition['field']) ? $condition['field'] : '';
-            } else {
-                $vars->userheader = $vars->userheader[$cond_num];
-            }
+            $vars->userheader = isset($condition['field']) ? $condition['field'] : '';
         }
     }
 
