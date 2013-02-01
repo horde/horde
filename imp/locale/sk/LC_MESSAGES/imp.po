@@ -4,14 +4,14 @@
 # Ivan Noris <vix@vazka.sk>, 2002, 2003
 # Martin Matuška <martin@matuska.org>, 2008
 # Marika Schvarczova <schvarczova.marika@domeny.sk>, 2012
-# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012-2013
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP 4.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-28 01:03+0100\n"
-"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"POT-Creation-Date: 2013-01-13 21:04+0100\n"
+"PO-Revision-Date: 2013-02-01 17:54+0200\n"
 "Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -29,42 +29,42 @@ msgstr " a "
 msgid "\"%s\" is not a valid email address."
 msgstr "\"%s\" je neplatná e-mailová adresa."
 
-#: lib/LoginTasks/Task/RenameSentmailMonthly.php:60
+#: lib/LoginTasks/Task/RenameSentmailMonthly.php:68
 #, php-format
 msgid "\"%s\" mailbox being renamed at the start of the month."
 msgstr "Priečinok \"%s\" bude premenovaný začiatkom mesiaca."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:434
+#: lib/Ajax/Application/Handler/Dynamic.php:441
 #, php-format
 msgid "\"%s\" mailbox no longer polled for new mail."
-msgstr "\"%s\" schránka nie je vybraná pre novú správu."
+msgstr "\"%s\" priečinok nie je kontrolovaný pre novú poštu."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:431
+#: lib/Ajax/Application/Handler/Dynamic.php:438
 #, php-format
 msgid "\"%s\" mailbox now polled for new mail."
-msgstr "\"%s\" schránka je teraz vybraná pre novú správu."
+msgstr "\"%s\" priečinok je teraz kontrolovaný pre novú poštu."
 
-#: lib/Quota.php:48
+#: lib/Quota.php:49
 #, php-format
 msgid "%.0f %s"
 msgstr "%.0f %s"
 
-#: lib/Quota.php:45
+#: lib/Quota.php:46
 #, php-format
 msgid "%.0f%% of %.0f %s"
 msgstr "%.0f%% z %.0f %s"
 
-#: folders.php:302 folders.php:317 lib/Message.php:839
+#: folders.php:302 folders.php:317 lib/Message.php:849
 #, php-format
 msgid "%.2fMB"
 msgstr "%.2fMB"
 
-#: lib/Smartmobile.php:164
+#: lib/Smartmobile.php:165
 #, php-format
 msgid "%d - %d of %d Messages"
 msgstr "Správy %d až %d z %d správ"
 
-#: lib/Ajax/Application/ShowMessage.php:275
+#: lib/Ajax/Application/ShowMessage.php:283
 #, php-format
 msgid "%d Attachment"
 msgid_plural "%d Attachments"
@@ -77,7 +77,7 @@ msgstr[2] "%d Príloh"
 msgid "%d Messages"
 msgstr "Správy (%d)"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:754
+#: lib/Ajax/Application/Handler/Dynamic.php:741
 #, php-format
 msgid "%d message was purged from \"%s\"."
 msgid_plural "%d messages were purged from \"%s\"."
@@ -100,7 +100,7 @@ msgstr "Správy (%d) boli ohlásené ako bežná (nie nevyžiadaná) pošta."
 msgid "%d messages have been reported as spam."
 msgstr "Správy (%d) boli označené ako nevyžiadaná pošta (SPAM)."
 
-#: lib/Block/Newmail.php:95
+#: lib/Block/Newmail.php:103
 #, php-format
 msgid "%d more unseen message..."
 msgid_plural "%d more unseen messages..."
@@ -108,7 +108,7 @@ msgstr[0] "%d neprečítaná správa..."
 msgstr[1] "%d neprečítané správy..."
 msgstr[2] "%d neprečítaných správ..."
 
-#: lib/Block/Summary.php:89
+#: lib/Block/Summary.php:97
 #, php-format
 msgid "%d new"
 msgid_plural "%d new"
@@ -121,7 +121,7 @@ msgstr[2] "%d nových"
 msgid "%d of %d"
 msgstr "%d z %d"
 
-#: lib/Dynamic/Compose/Common.php:235
+#: lib/Dynamic/Compose/Common.php:238
 #, php-format
 msgid "%d recipients"
 msgstr "%d príjemcov"
@@ -141,12 +141,12 @@ msgstr "%d neprečítané"
 msgid "%s (Header) for \"%s\""
 msgstr "%s (Záhlavie) pre \"%s\""
 
-#: lib/Contents.php:755 lib/Ui/Mailbox.php:114
+#: lib/Contents.php:763 lib/Ui/Mailbox.php:114
 #, php-format
 msgid "%s KB"
 msgstr "%s KB"
 
-#: lib/Contents.php:754 lib/Ui/Mailbox.php:113
+#: lib/Contents.php:762 lib/Ui/Mailbox.php:113
 #, php-format
 msgid "%s MB"
 msgstr "%s MB"
@@ -156,32 +156,32 @@ msgstr "%s MB"
 msgid "%s for '%s'"
 msgstr "%s pre '%s'"
 
-#: lib/Mime/Viewer/Itip.php:336
+#: lib/Mime/Viewer/Itip.php:344
 #, php-format
 msgid "%s has cancelled \"%s\"."
 msgstr "%s zrušil \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:331
+#: lib/Mime/Viewer/Itip.php:339
 #, php-format
 msgid "%s has cancelled an instance of the recurring \"%s\"."
 msgstr "%s zrušil jeden termín z opakovania \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:169
+#: lib/Mime/Viewer/Itip.php:177
 #, php-format
 msgid "%s has replied to a free/busy request."
 msgstr "%s odpovedal(a) na požiadavku zisťovania zaneprázdnenosti."
 
-#: lib/Mime/Viewer/Itip.php:310
+#: lib/Mime/Viewer/Itip.php:318
 #, php-format
 msgid "%s has replied to the invitation to \"%s\"."
 msgstr "%s odpovedal na pozvanie na \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:160
+#: lib/Mime/Viewer/Itip.php:168
 #, php-format
 msgid "%s has sent you free/busy information."
 msgstr "%s Vám poslal informáciu o zaneprázdnenosti."
 
-#: lib/Contents.php:1286
+#: lib/Contents.php:1295
 #, php-format
 msgid "%s part"
 msgstr "%s časť"
@@ -191,48 +191,48 @@ msgstr "%s časť"
 msgid "%s report from %s"
 msgstr "%s správa od %s"
 
-#: lib/Mime/Viewer/Itip.php:165
+#: lib/Mime/Viewer/Itip.php:173
 #, php-format
 msgid "%s requests your free/busy information."
 msgstr "%s požaduje informáciu o Vašej zaneprázdnenosti."
 
-#: lib/Mime/Viewer/Itip.php:276
+#: lib/Mime/Viewer/Itip.php:284
 #, php-format
 msgid "%s requests your presence at \"%s\"."
 msgstr "%s vyžaduje Vašu prítomnosť na \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:263
+#: lib/Mime/Viewer/Itip.php:271
 #, php-format
 msgid "%s wants to notify you about changes in \"%s\"."
 msgstr "%s Vás chce upozorniť na zmeny v \"%s\"."
 
-#: lib/Message.php:445
+#: lib/Message.php:455
 #, php-format
 msgid "%s was successfully added to \"%s\"."
 msgstr "%s bol úspešne pridaný do \"%s\"."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:559
+#: lib/Ajax/Application/Handler/Dynamic.php:566
 #, php-format
 msgid "%s was successfully added to your address book."
 msgstr "Položka %s bola úspešne vložená do adresára."
 
-#: lib/Mime/Viewer/Itip.php:298
+#: lib/Mime/Viewer/Itip.php:306
 #, php-format
 msgid "%s wishes to amend \"%s\"."
 msgstr "%s by rád doplnil \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:252 lib/Mime/Viewer/Itip.php:266
-#: lib/Mime/Viewer/Itip.php:478
+#: lib/Mime/Viewer/Itip.php:260 lib/Mime/Viewer/Itip.php:274
+#: lib/Mime/Viewer/Itip.php:486
 #, php-format
 msgid "%s wishes to make you aware of \"%s\"."
 msgstr "%s by Vás rád upozornil na \"%s\"."
 
-#: lib/Mime/Viewer/Itip.php:305
+#: lib/Mime/Viewer/Itip.php:313
 #, php-format
 msgid "%s wishes to receive the latest information about \"%s\"."
 msgstr "%s by rád dostal najnovšie informácie o \"%s\"."
 
-#: compose.php:1055
+#: compose.php:1058
 #, php-format
 msgid "%s%% of allowed size"
 msgstr "%s%% z povolenej veľkosti"
@@ -242,12 +242,12 @@ msgstr "%s%% z povolenej veľkosti"
 msgid "%s: %s"
 msgstr "%s: %s"
 
-#: lib/Mime/Viewer/Html.php:194
+#: lib/Mime/Viewer/Html.php:201
 #, php-format
 msgid "%s: This message may not be from whom it claims to be."
 msgstr "%s: Táto správa nemusí byť od odosielateľa, od ktoého sa tvári byť."
 
-#: lib/Compose.php:2182
+#: lib/Compose.php:2195
 #, php-format
 msgid "%u Forwarded Messages"
 msgstr "%u preposlaných správ"
@@ -267,33 +267,33 @@ msgstr "(%d z %d)"
 msgid "(Message %d of %d)"
 msgstr "(Správa %d z %d)"
 
-#: config/prefs.php:1700
+#: config/prefs.php:1680
 msgid "100 characters"
 msgstr "100 znakov"
 
-#: config/prefs.php:1703
+#: config/prefs.php:1683
 msgid "1000 characters"
 msgstr "1000 znakov"
 
-#: config/prefs.php:1701
+#: config/prefs.php:1681
 msgid "250 characters"
 msgstr "250 znakov"
 
-#: config/prefs.php:1702
+#: config/prefs.php:1682
 msgid "500 characters"
 msgstr "500 znakov"
 
-#: lib/Mime/Viewer/Pgp.php:344
+#: lib/Mime/Viewer/Pgp.php:351
 msgid "A PGP Public Key is attached to the message."
 msgstr "Tento verejný PGP kľúč bol pripojený ku správe."
 
-#: lib/Mime/Viewer/Mdn.php:61
+#: lib/Mime/Viewer/Mdn.php:69
 msgid ""
 "A message you have sent has resulted in a return notification from the "
 "recipient."
 msgstr "Správa, ktorú ste poslali, spôsobila zaslanie potvrdenia od príjemcu."
 
-#: lib/Compose.php:3077
+#: lib/Compose.php:3079
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -312,31 +312,31 @@ msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
 msgstr ""
 "Všetky práva pre priečinky \"%s\" boli úspešne aktualizované pre \"%s\"."
 
-#: lib/Imap/Acl.php:26
+#: lib/Imap/Acl.php:41
 msgid "ACLs not configured for this server."
 msgstr "ACLs nie je pre tento server nakonfigurovaný."
 
-#: lib/Mime/Viewer/Itip.php:287
+#: lib/Mime/Viewer/Itip.php:295
 msgid "Accept and add to my calendar"
 msgstr "Prijať a pridať do môjho kalendára"
 
-#: lib/Mime/Viewer/Itip.php:284
+#: lib/Mime/Viewer/Itip.php:292
 msgid "Accept and update in my calendar"
 msgstr "Akceptovať a pridať do môjho kalendára"
 
-#: lib/Mime/Viewer/Itip.php:291
+#: lib/Mime/Viewer/Itip.php:299
 msgid "Accept request"
 msgstr "Prijať požiadavku"
 
-#: lib/Mime/Viewer/Itip.php:538
+#: lib/Mime/Viewer/Itip.php:546
 msgid "Accepted"
 msgstr "Prijatá"
 
-#: templates/dynamic/compose.html.php:13
+#: templates/dynamic/compose.html.php:14
 msgid "Accesskey Ctrl-Enter"
 msgstr "Klávesová skratka Ctrl-Enter"
 
-#: templates/dynamic/compose.html.php:8
+#: templates/dynamic/compose.html.php:9
 msgid "Accesskey Esc"
 msgstr "Klávesová skratka Esc"
 
@@ -347,18 +347,18 @@ msgstr "Akcia"
 #: templates/itip/action.html.php:94 templates/itip/action.html.php:96
 #: templates/prefs/searches.html.php:10 templates/prefs/searches.html.php:55
 msgid "Actions"
-msgstr "Akcie"
+msgstr "Operácie"
 
 #: lib/Ui/Message.php:317 lib/Ui/Message.php:345
 #, php-format
 msgid "Add %s to my Address Book"
 msgstr "Pridať %s do môjho adresára"
 
-#: templates/dynamic/compose.html.php:124
+#: templates/dynamic/compose.html.php:125
 msgid "Add Bcc"
 msgstr "Pridať Bcc"
 
-#: templates/dynamic/compose.html.php:121
+#: templates/dynamic/compose.html.php:122
 msgid "Add Cc"
 msgstr "Pridať Cc"
 
@@ -366,7 +366,7 @@ msgstr "Pridať Cc"
 msgid "Add OR clause"
 msgstr "Pridať podmienku ALEBO"
 
-#: config/prefs.php:1547
+#: config/prefs.php:1535
 msgid "Add a \"Printed By\" header to the top of printed messages?"
 msgstr "Pridať hlavičku \"Vytlačil\" na začiatok tlačenej správy?"
 
@@ -382,23 +382,23 @@ msgstr "Pridať priečinok pre vyhľadávanie:"
 msgid "Add these by clicking OK"
 msgstr "Pridajte kliknutím na OK"
 
-#: lib/Mime/Viewer/Itip.php:254
+#: lib/Mime/Viewer/Itip.php:262
 msgid "Add this to my calendar"
 msgstr "Pridať do môjho kalendára"
 
-#: lib/Mime/Viewer/Itip.php:480
+#: lib/Mime/Viewer/Itip.php:488
 msgid "Add this to my tasklist"
 msgstr "Pridať do môjho zoznamu úloh"
 
-#: lib/Dynamic/Base.php:144
+#: lib/Dynamic/Base.php:152
 msgid "Add to Address Book"
 msgstr "Pridať do môjho adresára"
 
-#: lib/Mime/Viewer/Itip.php:288
+#: lib/Mime/Viewer/Itip.php:296
 msgid "Add to my calendar"
 msgstr "Pridať do môjho kalendára"
 
-#: compose.php:175 lib/Ajax/Application/Handler/Dynamic.php:952
+#: compose.php:182 lib/Ajax/Application/Handler/Dynamic.php:939
 #: lib/Minimal/Compose.php:105
 #, php-format
 msgid "Added \"%s\" as an attachment."
@@ -409,11 +409,11 @@ msgstr "Príloha \"%s\" bola pripojená."
 msgid "Added flag \"%s\"."
 msgstr "Pridaná zástavka \"%s\"."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:553
+#: lib/Ajax/Application/Handler/Dynamic.php:560
 msgid "Adding group lists not currently supported."
 msgstr "Pridávanie skupinových zoznamov v súčasnosti nie je podporované."
 
-#: config/prefs.php:1162
+#: config/prefs.php:1155
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
@@ -421,13 +421,13 @@ msgstr ""
 "Ďalšie hlavičky zobrazované pri prezeraní: <em>(zadajte každú hlavičku na "
 "nový riadok)</em>"
 
-#: compose.php:753 compose.php:872 contacts.php:111
+#: compose.php:755 compose.php:874 contacts.php:111
 #: templates/basic/compose/redirect.html.php:22
 #: templates/contacts/contacts.html.php:8
 msgid "Address Book"
 msgstr "Adresár"
 
-#: config/prefs.php:941
+#: config/prefs.php:934
 msgid "Address Books"
 msgstr "Adresáre"
 
@@ -436,22 +436,22 @@ msgid ""
 "Addresses to BCC all messages: <em>(optional, enter each address on a new "
 "line)</em>"
 msgstr ""
-"Adresy, na ktoré sa majú posielať skryté kópie (BCC) všetkých správ: <em>"
-"(voliteľné, zadajte každú adresu na nový riadok)</em>"
+"Adresy, na ktoré sa majú posielať skryté kópie (Bcc) všetkých správ: <em>"
+"(nepovinné, zadajte každú adresu na nový riadok)</em>"
 
 #: config/prefs.php:43
 msgid ""
 "Addresses to explicitly tie to this identity: <em>(optional, enter each "
 "address on a new line)</em>"
 msgstr ""
-"Adresy, ktoré sa majú explicitne zviazať s touto identitou: <em>(voliteľné, "
+"Adresy, ktoré sa majú explicitne zviazať s touto identitou: <em>(nepovinné, "
 "zadajte každú adresu na nový riadok)</em>"
 
-#: lib/Imap/Acl.php:157
+#: lib/Imap/Acl.php:187
 msgid "Administer"
 msgstr "Spravovať"
 
-#: lib/Dynamic/Mailbox.php:452
+#: lib/Dynamic/Mailbox.php:464
 msgid "Advanced Search..."
 msgstr "Pokročilé Vyhľadávanie..."
 
@@ -460,7 +460,7 @@ msgstr "Pokročilé Vyhľadávanie..."
 msgid "After '%s'"
 msgstr "Po '%s'"
 
-#: lib/Dynamic/Mailbox.php:480
+#: lib/Dynamic/Mailbox.php:492
 msgid "Alerts _Log"
 msgstr "Logy _Upozorení"
 
@@ -470,9 +470,9 @@ msgstr "Všetky"
 
 #: lib/Search/Query.php:262 templates/search/search-all.html.php:2
 msgid "All Mailboxes"
-msgstr "Všetky schránky"
+msgstr "Všetky priečinky"
 
-#: lib/Dynamic/Mailbox.php:428
+#: lib/Dynamic/Mailbox.php:433
 msgid "All Parts"
 msgstr "Všetky časti"
 
@@ -483,7 +483,7 @@ msgid ""
 msgstr ""
 "Všetky správy v nasledujúcich priečinkoch sa stiahnu do jedného súboru MBOX:"
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:89
+#: lib/LoginTasks/Task/PurgeSentmail.php:97
 #, php-format
 msgid ""
 "All messages in the mailbox \"%s\" older than %s days will be permanently "
@@ -498,7 +498,7 @@ msgstr[1] ""
 msgstr[2] ""
 "Všetky správy v priečinkoch \"%s\" staršie ako %s dní budú trvale vymazané."
 
-#: lib/Dynamic/Mailbox.php:478
+#: lib/Dynamic/Mailbox.php:490
 msgid ""
 "All messages in this mailbox will be downloaded into one MBOX file. This may "
 "take some time. Are you sure you want to continue?"
@@ -506,7 +506,7 @@ msgstr ""
 "Všetky správy v tomto priečinku sa stiahnu do jedného súboru MBOX. Toto môže "
 "chvíľu trvať. Naozaj chcete pokračovať?"
 
-#: lib/LoginTasks/Task/PurgeSpam.php:72 lib/LoginTasks/Task/PurgeTrash.php:75
+#: lib/LoginTasks/Task/PurgeSpam.php:80 lib/LoginTasks/Task/PurgeTrash.php:83
 #, php-format
 msgid ""
 "All messages in your \"%s\" mailbox older than %s days will be permanently "
@@ -515,12 +515,12 @@ msgstr ""
 "Všetky správy vo Vašom priečinku \"%s\" staršie ako %s dní budú trvale "
 "vymazané."
 
-#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:77
+#: lib/LoginTasks/Task/DeleteAttachmentsMonthly.php:82
 #, php-format
 msgid "All old linked attachments more than %s months old will be deleted."
 msgstr "Všetky priložené súbory staršie ako %s mesiacov budú vymazané."
 
-#: lib/LoginTasks/Task/DeleteSentmailMonthly.php:83
+#: lib/LoginTasks/Task/DeleteSentmailMonthly.php:91
 #, php-format
 msgid "All old sent-mail mailboxes more than %s months old will be deleted."
 msgstr ""
@@ -535,64 +535,64 @@ msgstr ""
 
 #: config/prefs.php:267
 msgid "Allow filter rules to be applied in any mailbox?"
-msgstr "Povoliť aplikovanie filtrovacích pravidiel na ľubovoľnú schránku?"
+msgstr "Povoliť aplikovanie filtrovacích pravidiel na ľubovoľný priečinok?"
 
-#: lib/Application.php:174
+#: lib/Application.php:182
 msgid "Allow mailbox creation?"
 msgstr "Povoliť vytváranie priečinkov?"
 
-#: config/prefs.php:608
+#: config/prefs.php:607
 msgid "Always"
 msgstr "Vždy"
 
-#: config/prefs.php:1187
+#: config/prefs.php:1180
 msgid "Always prompt"
 msgstr "Vždy sa opýtať"
 
-#: lib/Ajax/Application/Handler/ImageUnblock.php:34
+#: lib/Ajax/Application/Handler/ImageUnblock.php:42
 #, php-format
 msgid "Always showing images in messages sent by %s."
 msgstr "Vždy zobrazovať obrázky v správach odoslaných z %s."
 
-#: lib/Minimal/Compose.php:481
+#: lib/Minimal/Compose.php:482
 msgid "Ambiguous address found."
 msgstr "Bola nájdená viacvýznamová adresa."
 
-#: lib/Minimal/Compose.php:410
+#: lib/Minimal/Compose.php:411
 #, php-format
 msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
 msgstr "Viacvyznamové zhody pre \"%s\" (zobrazených prvých 5 zhôd):"
 
-#: lib/Minimal/Compose.php:411
+#: lib/Minimal/Compose.php:412
 #, php-format
 msgid "Ambiguous matches for \"%s\":"
 msgstr "Viacvýznamové zhody pre \"%s\":"
 
-#: lib/Message.php:582
+#: lib/Message.php:592
 msgid "An error occured while attempting to strip the attachment."
 msgstr "Pri pokuse o odstránenie prílohy nastala chyba."
 
-#: lib/Message.php:420
+#: lib/Message.php:430
 msgid "An unknown error occured while creating the new note."
 msgstr "Pri vytváraní novej poznánky sa vyskytla neznáma chyba."
 
-#: lib/Message.php:416
+#: lib/Message.php:426
 msgid "An unknown error occured while creating the new task."
 msgstr "Pri vytváraní novej úlohy sa vyskytla neznáma chyba."
 
-#: lib/Mime/Viewer/Itip.php:473
+#: lib/Mime/Viewer/Itip.php:481
 msgid "An unknown person"
 msgstr "Neznáma osoba"
 
-#: lib/Flag/Imap/Answered.php:33
+#: lib/Flag/Imap/Answered.php:41
 msgid "Answered"
-msgstr "Odpovedané"
+msgstr "Zodpovedaná"
 
 #: templates/prefs/acl.html.php:41 templates/prefs/acl.html.php:76
 msgid "Append"
 msgstr "Pripojiť"
 
-#: templates/basic/mailbox/header.html.php:13
+#: lib/Dynamic/Mailbox.php:450 templates/basic/mailbox/header.html.php:13
 msgid "Apply Filters"
 msgstr "Aplikovať filtre"
 
@@ -606,15 +606,15 @@ msgstr "Aplikovať filtrovacie pravidlá pri každom zobrazení prijatých sprá
 
 #: message.php:849
 msgid "Are you sure you want to PERMANENTLY delete all attachments?"
-msgstr "Určite chcete NATRVALO vymazať všetky príloy?"
+msgstr "Naozaj chcete NATRVALO vymazať všetky prílohy?"
 
 #: message.php:567
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
-msgstr "Určite chcete NATRVALO vymazať tieto správy?"
+msgstr "Naozaj chcete NATRVALO vymazať označené správy?"
 
 #: thread.php:166
 msgid "Are you sure you want to delete all messages in this thread?"
-msgstr "Určite chcete vymazať všetky správy v tomto vlákne?"
+msgstr "Naozaj chcete vymazať všetky správy v tomto vlákne?"
 
 #: mailbox.php:354
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
@@ -628,7 +628,7 @@ msgstr "Naozaj chcete vymazať tento filter?"
 msgid "Are you sure you want to delete this flag?"
 msgstr "Naozaj chcete vymazať tento príznak?"
 
-#: lib/Smartmobile.php:153
+#: lib/Smartmobile.php:154
 msgid "Are you sure you want to delete this message?"
 msgstr "Naozaj chcete vymazať túto správu?"
 
@@ -647,11 +647,11 @@ msgid ""
 "Are you sure you want to delete your keypair? (This is NOT recommended!)"
 msgstr "Naozaj chcete vymazať tento kľúčový pár? (Neodporúčame!)"
 
-#: compose.php:714
+#: compose.php:716
 msgid "Are you sure you want to do this?"
 msgstr "Naozaj tak chcete urobiť?"
 
-#: lib/IMP.php:75
+#: lib/IMP.php:83
 msgid ""
 "Are you sure you want to move the message(s)? (Some message information "
 "might get lost, like message headers, text formatting or attachments!)"
@@ -663,7 +663,7 @@ msgstr ""
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
 msgstr "Určite chcete NATRVALO vymazať všetky tieto správy?"
 
-#: lib/Dynamic/Base.php:178 message.php:829
+#: lib/Dynamic/Base.php:186 message.php:829
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
 msgstr "Určite chcete NATRVALO vymazať túto prílohu?"
 
@@ -671,51 +671,51 @@ msgstr "Určite chcete NATRVALO vymazať túto prílohu?"
 msgid "Are you sure you wish to delete all mail in this mailbox?"
 msgstr "Naozaj chcete vymazať všetky správy v tomto priečinku?"
 
-#: lib/Application.php:235
+#: lib/Application.php:243
 msgid "Are you sure you wish to empty your spam mailbox?"
-msgstr "Naozaj chcete vyprázdniť Váš priečinok s nevyžiadanou poštou?"
+msgstr "Naozaj chcete vyprázdniť priečinok s nevyžiadanou poštou?"
 
-#: lib/Application.php:222
+#: lib/Application.php:230
 msgid "Are you sure you wish to empty your trash mailbox?"
-msgstr "Naozaj chcete vyprázdniť Váš odpadkový kôš?"
+msgstr "Naozaj chcete vyprázdniť kôš?"
 
-#: lib/IMP.php:77 lib/Smartmobile.php:154
+#: lib/IMP.php:85 lib/Smartmobile.php:155
 msgid "Are you sure you wish to report this message as innocent?"
 msgstr "Naozaj chcete ohlásiť túto správu ako neškodnú?"
 
-#: lib/IMP.php:76 lib/Smartmobile.php:155
+#: lib/IMP.php:84 lib/Smartmobile.php:156
 msgid "Are you sure you wish to report this message as spam?"
 msgstr "Naozaj chcete nahlásiť túto správu ako nevyžiadanú poštu (spam)?"
 
-#: lib/Dynamic/Mailbox.php:256
+#: lib/Dynamic/Mailbox.php:262
 msgid "Arrival (No Sort)"
 msgstr "Prijatie (bez triedenia)"
 
-#: lib/Dynamic/Mailbox.php:234
+#: lib/Dynamic/Mailbox.php:240
 msgid "Arrival Time"
 msgstr "Čas prijatia"
 
-#: config/prefs.php:1643
+#: config/prefs.php:1630
 msgid "Arrival time on server"
 msgstr "Čas prijatia na server"
 
-#: lib/Dynamic/Base.php:155 message.php:618
+#: lib/Dynamic/Base.php:163 message.php:618
 msgid "As Attachment"
 msgstr "Ako príloha"
 
-#: config/prefs.php:788
+#: config/prefs.php:781
 msgid "As attachment"
 msgstr "Ako príloha"
 
-#: config/prefs.php:790
+#: config/prefs.php:783
 msgid "As both body text and an attachment"
 msgstr "Zároveň ako text tela správy a príloha"
 
-#: config/prefs.php:1622
+#: config/prefs.php:1609
 msgid "Ascending"
 msgstr "Vzostupne"
 
-#: config/prefs.php:607
+#: config/prefs.php:606
 msgid "Ask"
 msgstr "Opýtať sa"
 
@@ -727,11 +727,11 @@ msgstr "Pripojiť kópiu Vášho verejného PGP kľúča do správy?"
 msgid "Attach your contact information to the message?"
 msgstr "Vložiť Vaše kontaktné informácie do správy?"
 
-#: templates/minimal/compose.html.php:62
+#: templates/minimal/compose.html.php:63
 msgid "Attach:"
 msgstr "Priložiť:"
 
-#: lib/Compose.php:2298 lib/Compose.php:2956
+#: lib/Compose.php:2311 lib/Compose.php:2969
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -739,7 +739,7 @@ msgstr ""
 "Pripojený súbor \"%s\" prekračuje limit pre veľkosť prílohy. Súbor NEBOL "
 "pripojený."
 
-#: lib/Compose.php:2660
+#: lib/Compose.php:2673
 #, php-format
 msgid ""
 "Attached file(s) exceeds the linked attachment size limit (%d KB too large). "
@@ -748,7 +748,7 @@ msgstr ""
 "Pripojený súbor prekračuje limit pre veľkosť nalinkovaných prílohy (%d KB "
 "príliš veľa). Pre pokračovanie vymažte jednu z príloh."
 
-#: lib/Ajax/Imple/ItipRequest.php:361
+#: lib/Ajax/Imple/ItipRequest.php:376
 msgid "Attached is a reply to a calendar request you sent."
 msgstr ""
 "V prílohe je odpoveď na Vašu požiadavku z kalendára, ktorú ste poslali."
@@ -762,24 +762,24 @@ msgstr "Príloha"
 msgid "Attachment %s deleted."
 msgstr "Príloha %s vymazaná."
 
-#: lib/Compose.php:2720
+#: lib/Compose.php:2733
 msgid "Attachment Information"
 msgstr "Informácie o prílohách"
 
-#: lib/Dynamic/Base.php:157 message.php:628
+#: lib/Dynamic/Base.php:165 message.php:628
 msgid "Attachment and Body Text"
 msgstr "Príloha a text tela správy"
 
-#: lib/Compose.php:898
+#: lib/Compose.php:906
 msgid "Attachment stripped: Original attachment type"
 msgstr "Príloha bola odstránená: Pôvodný typ prílohy"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:830 lib/Dynamic/Message.php:43
+#: lib/Ajax/Application/Handler/Dynamic.php:817 lib/Dynamic/Message.php:51
 #: message.php:195
 msgid "Attachment successfully stripped."
 msgstr "Príloha bola úspešne vymazaná."
 
-#: compose.php:891 lib/Compose.php:2677 message.php:860 message.php:892
+#: compose.php:893 lib/Compose.php:2690 message.php:860 message.php:892
 #: templates/basic/compose/compose.html.php:258
 #: templates/dynamic/message.html.php:74
 msgid "Attachments"
@@ -789,7 +789,7 @@ msgstr "Prílohy"
 msgid "Attendees"
 msgstr "Účastníci"
 
-#: lib/Contents.php:1265
+#: lib/Contents.php:1273
 msgid "Audio part"
 msgstr "Audio časť"
 
@@ -798,7 +798,7 @@ msgstr "Audio časť"
 msgid "Automatically Generated Messages"
 msgstr "Automaticky vytvorené správy"
 
-#: lib/Mime/Viewer/Itip.php:617
+#: lib/Mime/Viewer/Itip.php:625
 msgid "Awaiting Response"
 msgstr "Čaká sa na odpoveď"
 
@@ -811,8 +811,13 @@ msgstr "_Späť na %s"
 msgid "Back to Multiple Message View Index"
 msgstr "Späť na náhľad viacerých správ"
 
+#: config/prefs.php:632 config/prefs.php:639 config/prefs.php:1226
+#: config/prefs.php:1640 config/prefs.php:1652 config/prefs.php:1672
+msgid "Basic view only"
+msgstr "len pre základný režim"
+
 #: lib/Ui/Message.php:29 search.php:61 templates/contacts/contacts.html.php:44
-#: templates/dynamic/compose.html.php:108
+#: templates/dynamic/compose.html.php:109
 #: templates/dynamic/mailbox.html.php:132
 msgid "Bcc"
 msgstr "Bcc"
@@ -827,7 +832,7 @@ msgstr "Pred '%s'"
 msgid "Between '%s' and '%s'"
 msgstr "Medzi '%s' a '%s'"
 
-#: lib/Mime/Viewer/Html.php:195
+#: lib/Mime/Viewer/Html.php:202
 msgid ""
 "Beware of following any links in it or of providing the sender with any "
 "personal information."
@@ -835,23 +840,23 @@ msgstr ""
 "Vyvarujte sa klikaniu na odkazy v nej alebo poskytovaniu osobných údajov "
 "odosielateľovi."
 
-#: lib/Dynamic/Mailbox.php:311 lib/Dynamic/Mailbox.php:398
+#: lib/Dynamic/Mailbox.php:316 lib/Dynamic/Mailbox.php:403
 msgid "Blacklist"
 msgstr "Čierna listina"
 
-#: config/prefs.php:1078
+#: config/prefs.php:1071
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
 msgstr "Zablokovať obrázky v správach až do explicitného vyžiadania?"
 
-#: lib/Dynamic/Mailbox.php:444 search.php:73
+#: lib/Dynamic/Mailbox.php:456 search.php:73
 #: templates/smartmobile/search.html.php:11
 msgid "Body"
 msgstr "Telo"
 
-#: config/prefs.php:571
+#: config/prefs.php:570
 msgid "Bottom"
-msgstr "Dolu"
+msgstr "Dole"
 
 #: search.php:368
 msgid "Built-in Filters cannot be edited."
@@ -869,11 +874,11 @@ msgstr "Hromadné správy"
 #: templates/basic/folders/folders_confirm.html.php:27
 #: templates/basic/folders/import.html.php:17
 #: templates/contacts/contacts.html.php:70
-#: templates/minimal/compose.html.php:55
+#: templates/minimal/compose.html.php:56
 #: templates/minimal/redirect.html.php:29 templates/pgp/import_key.html.php:70
 #: templates/saveimage/saveimage.html.php:21
 #: templates/search/search.html.php:107
-#: templates/smartmobile/compose.html.php:40
+#: templates/smartmobile/compose.html.php:41
 #: templates/smartmobile/confirm.html.php:8
 #: templates/smartmobile/copymove.html.php:22
 #: templates/smime/import_key.html.php:79
@@ -885,7 +890,7 @@ msgstr "Zrušiť"
 msgid "Cancel Message"
 msgstr "Zrušiť správu"
 
-#: lib/Dynamic/Compose/Common.php:232
+#: lib/Dynamic/Compose/Common.php:235
 msgid ""
 "Cancelling this message will permanently discard its contents and will "
 "delete auto-saved drafts.\n"
@@ -895,54 +900,54 @@ msgstr ""
 "ukladané koncepty.\n"
 "Naozaj to chcete urobiť?"
 
-#: compose.php:714
+#: compose.php:716
 msgid "Cancelling this message will permanently discard its contents."
 msgstr "Zrušením tejto správy natrvalo odstránite jej obsah."
 
-#: lib/Imap/Tree.php:1540
+#: lib/Imap/Tree.php:1570
 msgid "Cannot directly create mailbox in this folder."
-msgstr "Nepodarilo sa priamo vytvoriť schránku v tomto priečinku."
+msgstr "Nepodarilo sa priamo vytvoriť podpriečinok v tomto priečinku."
 
-#: lib/Mime/Viewer/Partial.php:96
+#: lib/Mime/Viewer/Partial.php:103
 #, php-format
 msgid ""
 "Cannot display message - found only %s of %s parts of this message in the "
 "current mailbox."
 msgstr ""
-"Nemožno zobraziť - v tejto schránke je iba prvých %s z %s častí správy."
+"Nemožno zobraziť - v tomto priečinku je iba prvých %s z %s častí správy."
 
-#: lib/Message.php:149
+#: lib/Message.php:159
 msgid "Cannot move messages to Trash - no Trash mailbox set in preferences."
-msgstr "Nemožno presunúť správy do koša - odpadkový kôš nie je nastavený."
+msgstr "Nemožno presunúť správy do koša - kôš nie je nastavený."
 
-#: lib/Ajax/Imple/ItipRequest.php:66
+#: lib/Ajax/Imple/ItipRequest.php:74
 msgid "Cannot retrieve calendar data from message."
 msgstr "Zo správy nemožno získať údaje pre kalendár."
 
-#: lib/Ajax/Imple/ImportEncryptKey.php:64
+#: lib/Ajax/Imple/ImportEncryptKey.php:72
 msgid "Cannot retrieve public key from message."
 msgstr "Nemožno získať verejný kľúč zo správy."
 
-#: compose.php:899
+#: compose.php:902
 #, php-format
 msgid "Cannot save sent-mail message to \"%s\" as that mailbox is read-only."
 msgstr ""
-"Nemožno uložiť odoslané správy do \"%s\" pretože schránka slúži len na "
+"Nemožno uložiť odoslané správy do \"%s\", pretože priečinok slúži len na "
 "čítanie."
 
-#: lib/Message.php:481
+#: lib/Message.php:491
 msgid "Cannot strip the MIME part as the mailbox is read-only."
 msgstr ""
-"Nie je možné stiahnuť časť MIME, pretože schránka je určená len na čítanie."
+"Nie je možné stiahnuť časť MIME, pretože priečinok je určený len na čítanie."
 
-#: lib/Compose.php:2226 lib/Ui/Message.php:28 search.php:57
+#: lib/Compose.php:2239 lib/Ui/Message.php:28 search.php:57
 #: templates/contacts/contacts.html.php:43
-#: templates/dynamic/compose.html.php:97
+#: templates/dynamic/compose.html.php:98
 #: templates/dynamic/mailbox.html.php:128
 msgid "Cc"
 msgstr "Cc"
 
-#: templates/smartmobile/compose.html.php:25
+#: templates/smartmobile/compose.html.php:26
 msgid "Cc:"
 msgstr "Cc:"
 
@@ -950,7 +955,7 @@ msgstr "Cc:"
 msgid "Cc: "
 msgstr "Cc: "
 
-#: lib/Mime/Viewer/Itip.php:599
+#: lib/Mime/Viewer/Itip.php:607
 msgid "Chair Person"
 msgstr "Vedúci"
 
@@ -958,12 +963,12 @@ msgstr "Vedúci"
 msgid "Change"
 msgstr "Zmeniť"
 
-#: config/prefs.php:1557
+#: config/prefs.php:1545
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
 msgstr "Zmeniť predvoľby pre zobrazovanie výpisu správ v priečinku."
 
-#: config/prefs.php:1752
+#: config/prefs.php:1728
 msgid "Change folder navigation display preferences."
 msgstr "Zmeniť nastavania zobrazovania navigácie priečinkov."
 
@@ -974,25 +979,25 @@ msgid ""
 msgstr ""
 "Zmeniť meno, adresy a podpis, ktoré sa zobrazujú vo Vami napísaných správach."
 
-#: config/prefs.php:1705
+#: config/prefs.php:1685
 msgid "Characters to display in preview:"
 msgstr "Počet znakov na zobrazenie v náhľade:"
 
 #: templates/basic/folders/actions.html.php:14
 #: templates/basic/mailbox/message_headers.html.php:5
 msgid "Check All/None"
-msgstr "Vybrať všetky/žiadne"
+msgstr "Vybrať všetky / žiadne"
 
-#: lib/Ui/Compose.php:49 templates/dynamic/compose.html.php:23
+#: lib/Ui/Compose.php:49 templates/dynamic/compose.html.php:24
 msgid "Check Spelling"
 msgstr "Kontrolovať pravopis"
 
 #: templates/basic/folders/actions.html.php:13
 #: templates/basic/mailbox/message_headers.html.php:6
 msgid "Check _All/None"
-msgstr "Vybrať _všetky/žiadne"
+msgstr "Vybrať _všetky / žiadne"
 
-#: lib/Dynamic/Mailbox.php:357 templates/basic/folders/actions.html.php:36
+#: lib/Dynamic/Mailbox.php:362 templates/basic/folders/actions.html.php:36
 msgid "Check for New Mail"
 msgstr "Kontrolovať novú poštu"
 
@@ -1001,11 +1006,11 @@ msgid "Check for valid recipient PGP public keys while replying?"
 msgstr ""
 "Hľadať platný PGP verejný kľúč prijímateľa počas odpovedania na správu?"
 
-#: config/prefs.php:508
+#: config/prefs.php:507
 msgid "Check spelling before sending a message?"
 msgstr "Skontrolovať pravopis pred odoslaním správy?"
 
-#: lib/Dynamic/Mailbox.php:472 lib/Ui/Compose.php:50
+#: lib/Dynamic/Mailbox.php:484 lib/Ui/Compose.php:50
 msgid "Checking..."
 msgstr "Kontrolujem ..."
 
@@ -1014,7 +1019,7 @@ msgstr "Kontrolujem ..."
 msgid "Choose Action"
 msgstr "Vyberte operáciu"
 
-#: config/prefs.php:1013
+#: config/prefs.php:1006
 msgid "Choose the address book to use when adding addresses."
 msgstr "Vyberte adresár, ktorý sa použije pri pridávaní nových adries."
 
@@ -1026,7 +1031,7 @@ msgstr "Vymazať vyhľadávanie"
 msgid "Clear Sort"
 msgstr "Vymazať triedenie"
 
-#: lib/Mime/Viewer/Images.php:140
+#: lib/Mime/Viewer/Images.php:147
 #, php-format
 msgid ""
 "Click %s to convert the image file into a format your browser can attempt to "
@@ -1035,56 +1040,55 @@ msgstr ""
 "Kliknite %s pre konvertovanie obrázku do formátu, ktorý podporuje Váš "
 "prehliadač."
 
-#: lib/Contents.php:538
+#: lib/Contents.php:546
 #, php-format
 msgid "Click %s to download the data."
 msgstr "Kliknite %s pre stiahnutie dát."
 
-#: lib/Filter.php:125
+#: lib/Filter.php:133
 #, php-format
 msgid "Click %s to go to %s management page."
 msgstr "Kliknite %s pre prechod na stránku administrácie %s."
 
-#: lib/Ajax/Application/ShowMessage.php:249 message.php:802
+#: lib/Ajax/Application/ShowMessage.php:257 message.php:802
 #, php-format
 msgid "Click %s to send the notification message."
 msgstr "Kliknite %s pre poslanie upozorňujúcej správy."
 
-#: lib/Mime/Viewer/Smime.php:316 lib/Mime/Viewer/Smime.php:320
+#: lib/Mime/Viewer/Smime.php:322 lib/Mime/Viewer/Smime.php:326
 msgid "Click HERE to verify the data."
-msgstr "Kliknite TU pre overenie údajov."
+msgstr "Pre overenie údajov kliknite SEM."
 
-#: lib/Mime/Viewer/Pgp.php:437 lib/Mime/Viewer/Pgp.php:441
+#: lib/Mime/Viewer/Pgp.php:444 lib/Mime/Viewer/Pgp.php:448
 msgid "Click HERE to verify the message."
-msgstr "Kliknite TU pre overenie správy."
+msgstr "Pre overenie správy kliknite SEM."
 
 #: templates/dynamic/mailbox.html.php:180
 msgid "Click HERE to view the message in a new window."
-msgstr "Kliknite TU pre zobrazenie správy v novom okne."
+msgstr "Pre zobrazenie správy v novom okne kliknite SEM."
 
 #: templates/prefs/mailto.html.php:3
 #, php-format
 msgid "Click here to open all mailto: links using %s."
-msgstr "Kliknite sem pre otvorenie všetkých odkazov mailto: v %s."
+msgstr "Pre otvorenie všetkých odkazov mailto: cez %s kliknite sem."
 
-#: templates/dynamic/compose.html.php:163
+#: templates/dynamic/compose.html.php:164
 msgid "Click this box to add the original message as an attachment."
-msgstr "Pre pridanie pôvodnej správy ako príloha kliknite na túto schránku."
+msgstr "Pre pridanie pôvodnej správy do prílohy kliknite sem."
 
-#: templates/dynamic/compose.html.php:160
+#: templates/dynamic/compose.html.php:161
 msgid "Click this box to add the original message text to the body."
-msgstr ""
-"Pre pridanie pôvodnej správy ako telo správy kliknite na túto schránku."
+msgstr "Pre pridanie pôvodnej správy do tela súčasnej správy kliknite sem."
 
 #: lib/Script/Package/Imp.php:25
 msgid "Click to always show images from this sender."
 msgstr "Vždy zobraziť obrázky od tohto odosielateľa."
 
-#: config/prefs.php:1661
+#: config/prefs.php:1648
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr "Kliknutím na adresu začnete písať novú správu odosielateľovi"
 
-#: config/prefs.php:1662
+#: config/prefs.php:1649
 msgid "Clicking on the address will open the message to be read"
 msgstr "Kliknutím na adresu sa otvorí správa na čítanie"
 
@@ -1092,8 +1096,8 @@ msgstr "Kliknutím na adresu sa otvorí správa na čítanie"
 msgid "Close this window"
 msgstr "Zatvoriť okno"
 
-#: folders.php:408 lib/Dynamic/Mailbox.php:231 lib/Dynamic/Mailbox.php:286
-#: lib/Dynamic/Mailbox.php:367
+#: folders.php:408 lib/Dynamic/Mailbox.php:237 lib/Dynamic/Mailbox.php:292
+#: lib/Dynamic/Mailbox.php:372
 msgid "Collapse All"
 msgstr "Zbaliť všetko"
 
@@ -1109,7 +1113,7 @@ msgstr "Farba"
 msgid "Color Picker"
 msgstr "Výber farby"
 
-#: config/prefs.php:1789
+#: config/prefs.php:1765
 msgid "Combine all namespaces"
 msgstr "Skombinovať všetky menné oblasti"
 
@@ -1117,13 +1121,13 @@ msgstr "Skombinovať všetky menné oblasti"
 msgid "Comment"
 msgstr "Komentár"
 
-#: lib/Mime/Viewer/Itip.php:550
+#: lib/Mime/Viewer/Itip.php:558
 msgid "Completed"
 msgstr "Hotovo"
 
-#: config/prefs.php:471 config/prefs.php:663 config/prefs.php:708
-#: config/prefs.php:774 config/prefs.php:810 config/prefs.php:866
-#: config/prefs.php:940
+#: config/prefs.php:471 config/prefs.php:657 config/prefs.php:702
+#: config/prefs.php:767 config/prefs.php:803 config/prefs.php:859
+#: config/prefs.php:933
 msgid "Compose"
 msgstr "Vytvoriť"
 
@@ -1131,15 +1135,15 @@ msgstr "Vytvoriť"
 msgid "Compose Message"
 msgstr "Vytvoriť správu"
 
-#: config/prefs.php:664
+#: config/prefs.php:658
 msgid "Compose Templates"
-msgstr "Vytvoriť šablóny"
+msgstr "Vytváranie šablón"
 
 #: templates/prefs/composetemplates.html.php:3
 msgid "Compose Templates mailbox:"
 msgstr "Priečinok pre šablóny:"
 
-#: config/prefs.php:638
+#: config/prefs.php:632
 msgid "Compose messages in a separate window?"
 msgstr "Písať správy v novom okne?"
 
@@ -1155,7 +1159,7 @@ msgstr "Nastavenia podpory pre PGP šifrovanie."
 msgid "Configure S/MIME encryption support."
 msgstr "Nastavenia podpory pre S/MIME šifrovanie."
 
-#: config/prefs.php:1503
+#: config/prefs.php:1491
 msgid "Configure flag highlighting."
 msgstr "Nastavenia zvýraznenia príznakov."
 
@@ -1163,15 +1167,15 @@ msgstr "Nastavenia zvýraznenia príznakov."
 msgid "Configure how event or meeting requests should be handled."
 msgstr "Nastavenia požiadaviek pre podujatia a stretnutia."
 
-#: config/prefs.php:1033
+#: config/prefs.php:1026
 msgid "Configure how messages are displayed."
 msgstr "Nastavenia spôsobu zobrazenia správ."
 
-#: config/prefs.php:776
+#: config/prefs.php:769
 msgid "Configure how you forward mail."
 msgstr "Nastavenia pre preposielanie pošty."
 
-#: config/prefs.php:710
+#: config/prefs.php:704
 msgid "Configure how you reply to mail."
 msgstr "Nastavenia pre odpovedanie na poštu."
 
@@ -1179,11 +1183,11 @@ msgstr "Nastavenia pre odpovedanie na poštu."
 msgid "Configure how you send mail."
 msgstr "Nastavenia odosielania pošty."
 
-#: config/prefs.php:1538
+#: config/prefs.php:1526
 msgid "Configure message printing."
 msgstr "Nastavenia tlače správ."
 
-#: config/prefs.php:1358
+#: config/prefs.php:1346
 msgid "Configure spam reporting."
 msgstr "Nastavenia pre ohlasovanie nevyžiadanej pošty."
 
@@ -1193,9 +1197,9 @@ msgstr "Potvrdzovanie"
 
 #: search.php:110
 msgid "Contains Attachment(s)"
-msgstr "Obsahuje prílohu/y"
+msgstr "Obsahuje prílohu"
 
-#: config/prefs.php:1455
+#: config/prefs.php:1443
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
@@ -1203,11 +1207,11 @@ msgstr ""
 "Nastavenia, ktoré určujú, kedy sa budú kontrolovať nové správy a či sa "
 "zobrazí informácia o príchode novej správy."
 
-#: lib/Mime/Viewer/Html.php:101
+#: lib/Mime/Viewer/Html.php:108
 msgid "Convert HTML data to plain text and view in new window."
 msgstr "Konvertovať HTML údaje do čistého textu a ukázať v novom okne."
 
-#: config/prefs.php:1140
+#: config/prefs.php:1133
 msgid "Convert textual emoticons into graphical ones?"
 msgstr "Skonvertovať textové emotikony na grafické?"
 
@@ -1215,31 +1219,31 @@ msgstr "Skonvertovať textové emotikony na grafické?"
 msgid "Copy"
 msgstr "Kopírovať"
 
-#: lib/Dynamic/Mailbox.php:473
+#: lib/Dynamic/Mailbox.php:485
 #, php-format
 msgid "Copy %s to %s"
 msgstr "Kopírovať %s do %s"
 
-#: lib/Smartmobile.php:163 templates/smartmobile/copymove.html.php:3
+#: lib/Smartmobile.php:164 templates/smartmobile/copymove.html.php:3
 #: templates/smartmobile/message.html.php:38
 msgid "Copy/Move"
-msgstr "Kopírovať/Presunúť"
+msgstr "Kopírovať / Presunúť"
 
-#: lib/Imap/Acl.php:77
+#: lib/Imap/Acl.php:107
 #, php-format
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "Nepodarilo sa pridať práva používateľovi \"%s\" pre priečinok \"%s\"."
 
-#: lib/Compose.php:2273
+#: lib/Compose.php:2286
 #, php-format
 msgid "Could not attach %s to the message."
 msgstr "Nepodarilo sa pripojiť %s ku správe."
 
-#: lib/Compose/View.php:46 lib/Contents/View.php:149
+#: lib/Compose/View.php:54 lib/Contents/View.php:157
 msgid "Could not auto-determine data type."
 msgstr "Nepodarilo sa stanoviť typ údajov."
 
-#: lib/Crypt/Pgp.php:345
+#: lib/Crypt/Pgp.php:353
 msgid "Could not connect to public PGP keyserver"
 msgstr "Nepodarilo sa vytvoriť spojenie s verejným PGP serverom"
 
@@ -1248,22 +1252,22 @@ msgstr "Nepodarilo sa vytvoriť spojenie s verejným PGP serverom"
 msgid "Could not create the VFS backend: %s"
 msgstr "Nepodarilo sa vytvoriť VFS koncovku: %s"
 
-#: lib/Mailbox.php:823
+#: lib/Mailbox.php:843
 #, php-format
 msgid "Could not delete Virtual Folder \"%s\"."
 msgstr "Nepodarilo sa vymazať virtuálny priečinok \"%s\"."
 
-#: lib/Message.php:782
+#: lib/Message.php:792
 #, php-format
 msgid "Could not delete messages from %s. This mailbox is read-only."
 msgstr ""
-"Nepodarilo sa vymazať správy z %s. Táto schránka je určená len na čítanie."
+"Nepodarilo sa vymazať správy z %s. Tento priečinok je určený len na čítanie."
 
-#: lib/Compose/View.php:31
+#: lib/Compose/View.php:39
 msgid "Could not display attachment data."
 msgstr "Nepodaril sa zobraziť údaje z prílohy."
 
-#: lib/Auth.php:349
+#: lib/Auth.php:359
 msgid "Could not initialize mail server configuration."
 msgstr "Nepodarilo sa inicializovať nastavenia e-mailového serveru."
 
@@ -1275,25 +1279,25 @@ msgstr ""
 "Nepodarilo sa presunúť správu do priečinka s nevyžiadanou poštou - priečinok "
 "nevyžiadanej poštu nie je nastavený."
 
-#: lib/Ajax/Application.php:320
+#: lib/Ajax/Application/Handler/Common.php:663
 msgid "Could not open mailbox."
 msgstr "Nepodarilo sa otvoriť schránku."
 
-#: lib/Imap/Acl.php:104
+#: lib/Imap/Acl.php:134
 #, php-format
 msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
 msgstr ""
 "Nepodarilo sa odstrániť práva pre používateľa \"%s\" pre schránku \"%s\"."
 
-#: lib/Imap/Acl.php:53
-msgid "Could not retrieve ACL"
-msgstr "Nepodarilo sa obnoviť ACL"
+#: lib/Imap/Acl.php:80
+msgid "Could not retrieve ACL."
+msgstr "Nepodarilo sa obnoviť ACL."
 
 #: lib/Ui/Compose.php:84
 msgid "Could not retrieve message data from the mail server."
 msgstr "Nepodarilo sa obnoviť údaje správy z e-mailového servera."
 
-#: lib/Crypt/Pgp.php:241
+#: lib/Crypt/Pgp.php:249
 #, php-format
 msgid "Could not retrieve public key for %s."
 msgstr "Nepodarilo sa obnoviť verejný kľúč pre %s."
@@ -1311,13 +1315,13 @@ msgstr "Vytvoriť kľúče"
 msgid "Create New Mailbox"
 msgstr "Vytvoriť nový priečinok"
 
-#: lib/Dynamic/Mailbox.php:263 mailbox.php:644
+#: lib/Dynamic/Mailbox.php:269 mailbox.php:644
 msgid "Create New Template"
 msgstr "Vytvoriť novú šablónu"
 
-#: lib/Imap/Acl.php:161
+#: lib/Imap/Acl.php:191
 msgid "Create Subfolders/Rename Mailbox"
-msgstr "Vytvoriť podpriečinky/Premenovať schránku"
+msgstr "Vytvoriť podpriečinky / Premenovať schránku"
 
 #: lib/Prefs/Special/Sentmail.php:39
 msgid "Create a new sent-mail mailbox"
@@ -1331,28 +1335,28 @@ msgstr ""
 "Vytváranie filtrovacích pravidiel na usporiadanie Vašej prichádzajúcej "
 "pošty, jej triedenie do priečinkov a mazanie nevyžiadanej pošty."
 
-#: lib/Dynamic/Mailbox.php:474
+#: lib/Dynamic/Mailbox.php:486
 msgid "Create mailbox:"
 msgstr "Vytvoriť schránku:"
 
-#: config/prefs.php:683
+#: config/prefs.php:677
 msgid "Create new Template"
 msgstr "Vytvoriť novú šablónu"
 
-#: lib/Dynamic/Mailbox.php:223 lib/Dynamic/Mailbox.php:350
+#: lib/Dynamic/Mailbox.php:229 lib/Dynamic/Mailbox.php:355
 msgid "Create subfolder"
 msgstr "Vytvoriť podpriečinok"
 
-#: lib/Dynamic/Mailbox.php:475
+#: lib/Dynamic/Mailbox.php:487
 #, php-format
 msgid "Create subfolder of %s:"
 msgstr "Vytvoriť priečinky pre %s:"
 
-#: lib/Imap/Acl.php:160
+#: lib/Imap/Acl.php:190
 msgid "Create subfolders and rename mailbox"
 msgstr "Vytvoriť podpriečinky a premenovať schránku"
 
-#: config/prefs.php:1646
+#: config/prefs.php:1633
 msgid "Criteria to use when sorting by date:"
 msgstr "Kritériá, ktoré majú byť použité pre triedení podľa dátumu:"
 
@@ -1377,8 +1381,8 @@ msgstr "Bežná hlavička:"
 msgid "Dat_e"
 msgstr "Dát_um"
 
-#: config/prefs.php:1607 lib/Compose.php:2206 lib/Dynamic/Mailbox.php:203
-#: lib/Dynamic/Mailbox.php:253 lib/Ui/Message.php:25 search.php:81
+#: config/prefs.php:1594 lib/Compose.php:2219 lib/Dynamic/Mailbox.php:209
+#: lib/Dynamic/Mailbox.php:259 lib/Ui/Message.php:25 search.php:81
 #: templates/dynamic/mailbox.html.php:120
 msgid "Date"
 msgstr "Dátum"
@@ -1403,7 +1407,7 @@ msgstr "Dátum od"
 msgid "Date Until"
 msgstr "Dátum do"
 
-#: config/prefs.php:1644
+#: config/prefs.php:1631
 msgid "Date in message headers"
 msgstr "Dátum v hlavičkách správ"
 
@@ -1411,32 +1415,32 @@ msgstr "Dátum v hlavičkách správ"
 msgid "Days"
 msgstr "Dni"
 
-#: lib/Mime/Viewer/Itip.php:541
+#: lib/Mime/Viewer/Itip.php:549
 msgid "Declined"
 msgstr "Klesajúci"
 
-#: config/prefs.php:1174
+#: config/prefs.php:1167
 msgid "Default (US-ASCII)"
 msgstr "Štandard (US-ASCII)"
 
-#: config/prefs.php:527
+#: config/prefs.php:526
 msgid "Default method to compose messages:"
 msgstr "Prednastavený spôsob vytvárania správ:"
 
-#: config/prefs.php:1614
+#: config/prefs.php:1601
 msgid "Default sorting criteria:"
 msgstr "Prednastavený spôsob triedenia:"
 
-#: config/prefs.php:1625
+#: config/prefs.php:1612
 msgid "Default sorting direction:"
 msgstr "Prednastavený smer triedenia:"
 
-#: lib/Mime/Viewer/Itip.php:547
+#: lib/Mime/Viewer/Itip.php:555
 msgid "Delegated"
 msgstr "Postúpené"
 
-#: lib/Dynamic/Mailbox.php:313 lib/Dynamic/Mailbox.php:353
-#: lib/Imap/Acl.php:169 lib/Minimal/Message.php:228 lib/Smartmobile.php:158
+#: lib/Dynamic/Mailbox.php:318 lib/Dynamic/Mailbox.php:358
+#: lib/Imap/Acl.php:199 lib/Minimal/Message.php:228 lib/Smartmobile.php:159
 #: templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/minimal/mailbox.html.php:36 templates/prefs/acl.html.php:43
@@ -1469,50 +1473,50 @@ msgstr "Vymazať vybrané priečinky"
 msgid "Delete Thread"
 msgstr "Vymazať vlákno"
 
-#: lib/Dynamic/Mailbox.php:274
+#: lib/Dynamic/Mailbox.php:280
 msgid "Delete Virtual Folder"
 msgstr "Vymazať virtuálny priečinok"
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:489
 #, php-format
 msgid "Delete all subfolders of %s?"
 msgstr "Vymazať všetky podpriečinky priečinku %s?"
 
-#: lib/Imap/Acl.php:164
+#: lib/Imap/Acl.php:194
 msgid "Delete and rename mailbox"
 msgstr "Vymazať a premenovať schránku"
 
-#: lib/Mime/Viewer/Itip.php:338
+#: lib/Mime/Viewer/Itip.php:346
 msgid "Delete from my calendar"
 msgstr "Vymazať z môjho kalendára"
 
-#: config/prefs.php:1390
+#: config/prefs.php:1378
 msgid "Delete message"
 msgstr "Vymazať správu"
 
-#: lib/Imap/Acl.php:168
+#: lib/Imap/Acl.php:198
 msgid "Delete messages"
 msgstr "Vymazať správy"
 
-#: config/prefs.php:594
+#: config/prefs.php:593
 msgid ""
 "Delete old linked attachments after this many months (0 to never delete)?"
 msgstr ""
 "Vymazať pripojené prílohy staršie ako uvedený počet mesiacov (0 znamená "
 "nikdy nevymazať)?"
 
-#: config/prefs.php:904
+#: config/prefs.php:897
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete)?"
 msgstr ""
 "Vymazať priečinky odoslanej pošty staršie ako uverený počet mesiacov (0 "
 "znamená nikdy nevymazať)?"
 
-#: lib/Dynamic/Mailbox.php:225
+#: lib/Dynamic/Mailbox.php:231
 msgid "Delete subfolders"
 msgstr "Vymazať podpriečinky"
 
-#: lib/Imap/Acl.php:165
+#: lib/Imap/Acl.php:195
 msgid "Delete/Rename Mailbox"
 msgstr "Vymazať/Premenovať schránku"
 
@@ -1520,16 +1524,16 @@ msgstr "Vymazať/Premenovať schránku"
 msgid "Delete?"
 msgstr "Vymazať?"
 
-#: lib/Flag/Imap/Deleted.php:37
+#: lib/Flag/Imap/Deleted.php:45
 msgid "Deleted"
-msgstr "Vymazané"
+msgstr "Vymazaná"
 
-#: lib/Mailbox.php:819
+#: lib/Mailbox.php:839
 #, php-format
 msgid "Deleted Virtual Folder \"%s\"."
 msgstr "Vymazať virtuálny priečinok \"%s\"."
 
-#: compose.php:163 lib/Ajax/Application/Handler/Dynamic.php:718
+#: compose.php:170 lib/Ajax/Application/Handler/Dynamic.php:705
 #, php-format
 msgid "Deleted attachment \"%s\"."
 msgstr "Príloha \"%s\" bola vymazaná."
@@ -1539,19 +1543,19 @@ msgstr "Príloha \"%s\" bola vymazaná."
 msgid "Deleted flag \"%s\"."
 msgstr "Príznak \"%s\" bol vymazaný."
 
-#: config/prefs.php:1225
+#: config/prefs.php:1213
 msgid "Deleting and Moving Messages"
 msgstr "Vymazávanie a presúvanie správ"
 
-#: lib/Mime/Viewer/Itip.php:293
+#: lib/Mime/Viewer/Itip.php:301
 msgid "Deny request"
 msgstr "Zamietnuť požiadavku"
 
-#: lib/Mime/Viewer/Itip.php:218
+#: lib/Mime/Viewer/Itip.php:226
 msgid "Deny request for free/busy information"
 msgstr "Zamietnuť požiadavku na zistenie zaneprázdnenosti"
 
-#: config/prefs.php:1623
+#: config/prefs.php:1610
 msgid "Descending"
 msgstr "Zostupne"
 
@@ -1568,11 +1572,11 @@ msgstr "Popis"
 msgid "Details"
 msgstr "Podrobnosti"
 
-#: config/prefs.php:1133
+#: config/prefs.php:1126
 msgid "Dim signatures?"
 msgstr "Zobrazovať signatúry menej výrazne?"
 
-#: lib/Dynamic/Compose/Common.php:237
+#: lib/Dynamic/Compose/Common.php:240
 msgid ""
 "Discard all text formatting information (by converting from HTML to plain "
 "text)? This conversion cannot be reversed."
@@ -1580,27 +1584,27 @@ msgstr ""
 "Naozaj vymazať informácie o formátovaní (prekonvertovaním z HTML do čistého "
 "textu)? Túto operáciu nie je možné vrátiť späť."
 
-#: config/prefs.php:1675
+#: config/prefs.php:1662
 msgid "Display attachment information about a message in the mailbox listing?"
-msgstr "Zobraziť informácie z prílohy o správe v zozname schránok?"
+msgstr "Zobraziť v zozname správ informáciu, či správa obsahuje prílohu?"
 
-#: config/prefs.php:645
+#: config/prefs.php:639
 msgid "Display confirmation in popup window after sending a message?"
 msgstr "Zobraziť potvrdenie po odoslaní správy vo vyskakovacom okne?"
 
-#: config/prefs.php:1480
+#: config/prefs.php:1468
 msgid "Display notification when new mail arrives?"
 msgstr "Zobraziť oznámenie o prijatí novej správy?"
 
-#: config/prefs.php:1742
+#: config/prefs.php:1718
 msgid "Display only the first 250 characters of a message initially?"
 msgstr "Zobraziť len prvých 250 znakov správy?"
 
-#: config/prefs.php:1418
+#: config/prefs.php:1406
 msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "Zobraziť odkaz \"Vyprázdniť nevyžiadanú poštu\" v menu?"
 
-#: config/prefs.php:1310
+#: config/prefs.php:1298
 msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "Zobraziť odkaz \"Vyprázdniť kôš\" v menu?"
 
@@ -1613,27 +1617,27 @@ msgstr "Vykonať operáciu"
 msgid "Do NOT Match"
 msgstr "Nezhoduje sa"
 
-#: lib/Dynamic/Mailbox.php:358 templates/basic/folders/actions.html.php:37
+#: lib/Dynamic/Mailbox.php:363 templates/basic/folders/actions.html.php:37
 msgid "Do Not Check for New Mail"
 msgstr "Nekontrolovať novú poštu"
 
-#: config/prefs.php:1663
+#: config/prefs.php:1650
 msgid "Do not generate a link in the From: column"
 msgstr "Nevytvárať odkaz zo stĺpca Od:"
 
-#: config/prefs.php:882
+#: config/prefs.php:875
 msgid "Do not save attachments"
 msgstr "Neukladať prílohy"
 
-#: config/prefs.php:1150
+#: config/prefs.php:1143
 msgid "Do not show parts"
 msgstr "Nezobrazovať časti"
 
-#: compose.php:715
+#: compose.php:717
 msgid "Doing so will discard this message permanently."
 msgstr "Táto operácia trvale odstráni túto správu."
 
-#: lib/Dynamic/Mailbox.php:440
+#: lib/Dynamic/Mailbox.php:445
 msgid "Don't Show"
 msgstr "Nezobrazuj"
 
@@ -1641,12 +1645,12 @@ msgstr "Nezobrazuj"
 msgid "Don't Show:"
 msgstr "Nezobrazuj:"
 
-#: lib/Contents.php:790 templates/basic/folders/actions.html.php:41
+#: lib/Contents.php:798 templates/basic/folders/actions.html.php:41
 #: templates/minimal/message.html.php:22
 msgid "Download"
 msgstr "Stiahnuť"
 
-#: lib/Contents.php:801
+#: lib/Contents.php:809
 #, php-format
 msgid "Download %s in .zip Format"
 msgstr "Stiahnuť %s vo formáte .zip"
@@ -1667,15 +1671,15 @@ msgstr "Stiahnuť prílohu"
 msgid "Download attachment:"
 msgstr "Stiahnuť prílohu:"
 
-#: lib/Flag/Imap/Draft.php:37
+#: lib/Flag/Imap/Draft.php:45
 msgid "Draft"
 msgstr "Koncept"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:1054
+#: lib/Ajax/Application/Handler/Dynamic.php:1041
 msgid "Draft automatically saved."
 msgstr "Koncept bol automaticky uložený"
 
-#: config/prefs.php:811 lib/Mailbox.php:1620 lib/Mailbox.php:1710
+#: config/prefs.php:804 lib/Mailbox.php:1652 lib/Mailbox.php:1742
 msgid "Drafts"
 msgstr "Koncepty"
 
@@ -1691,19 +1695,19 @@ msgstr "E-mailová adresa"
 msgid "END"
 msgstr "KONIEC"
 
-#: lib/Mime/Viewer/Status.php:102
+#: lib/Mime/Viewer/Status.php:110
 msgid "ERROR: Your message could not be delivered."
 msgstr "CHYBA: Vašu správu nebolo možné doručiť"
 
-#: lib/Mime/Viewer/Html.php:196
+#: lib/Mime/Viewer/Html.php:203
 msgid "EXAMPLE LINK"
 msgstr "PRÍKLAD ODKAZU"
 
-#: lib/Imap/Tree.php:1718
+#: lib/Imap/Tree.php:1748
 msgid "Edit"
 msgstr "Upraviť"
 
-#: lib/Dynamic/Mailbox.php:374
+#: lib/Dynamic/Mailbox.php:379
 msgid "Edit ACL"
 msgstr "Upraviť ACL"
 
@@ -1715,25 +1719,25 @@ msgstr "Upraviť filter"
 msgid "Edit Search Query"
 msgstr "Upraviť hľadanie"
 
-#: lib/Dynamic/Mailbox.php:262 lib/Dynamic/Mailbox.php:297 mailbox.php:638
+#: lib/Dynamic/Mailbox.php:268 lib/Dynamic/Mailbox.php:303 mailbox.php:638
 msgid "Edit Template"
 msgstr "Upraviť šablónu"
 
-#: lib/Dynamic/Mailbox.php:273 lib/Imap/Tree.php:1718 mailbox.php:422
+#: lib/Dynamic/Mailbox.php:279 lib/Imap/Tree.php:1748 mailbox.php:422
 #: templates/search/search.html.php:8
 msgid "Edit Virtual Folder"
 msgstr "Upraviť virtuálny priečinok"
 
-#: lib/Dynamic/Mailbox.php:268
+#: lib/Dynamic/Mailbox.php:274
 msgid "Edit Virtual Folders"
 msgstr "Upraviť virtuálne priečinky"
 
-#: config/prefs.php:791 lib/Dynamic/Base.php:159 lib/Dynamic/Mailbox.php:302
-#: lib/Minimal/Message.php:250 message.php:641
+#: config/prefs.php:784 lib/Dynamic/Base.php:167 lib/Minimal/Message.php:250
+#: message.php:641
 msgid "Edit as New"
 msgstr "Upraviť ako nové"
 
-#: config/prefs.php:665
+#: config/prefs.php:659
 msgid "Edit compose templates."
 msgstr "Upraviť šablóny."
 
@@ -1749,32 +1753,32 @@ msgstr "Upraviť Vaše filtrovacie pravidlá"
 msgid "Edit your Whitelist"
 msgstr "Upraviť Vašu bielu listinu"
 
-#: lib/Message.php:809
+#: lib/Message.php:819
 #, php-format
 msgid "Emptied all messages from %s."
-msgstr "Vymazané všetky správy z %s."
+msgstr "Všetky správy z priečinku %s boli vymazané."
 
-#: lib/Message.php:788
+#: lib/Message.php:798
 msgid "Emptied all messages from Virtual Trash Folder."
-msgstr "Vymazané všetky správy z virtuálneho koša."
+msgstr "Všetky správy z virtuálneho koša boli vymazané."
 
-#: lib/Dynamic/Mailbox.php:352 templates/basic/folders/actions.html.php:27
+#: lib/Dynamic/Mailbox.php:357 templates/basic/folders/actions.html.php:27
 msgid "Empty"
 msgstr "Vyprázdniť"
 
 #: templates/basic/mailbox/header.html.php:33
 msgid "Empty Mailbox"
-msgstr "Vyprázdniť schránku"
+msgstr "Vyprázdniť priečinok"
 
 #: templates/basic/folders/folders_confirm.html.php:26
 msgid "Empty Selected Mailboxes"
 msgstr "Vyprázdniť vybrané priečinky"
 
-#: lib/Application.php:236
+#: lib/Application.php:244
 msgid "Empty _Spam"
 msgstr "Vyprázdniť _nevyžiadanú poštu"
 
-#: lib/Application.php:223
+#: lib/Application.php:231
 msgid "Empty _Trash"
 msgstr "Vyprázdniť _kôš"
 
@@ -1786,7 +1790,7 @@ msgstr "Povoliť podporu pre PGP?"
 msgid "Enable S/MIME functionality?"
 msgstr "Povoliť podporu pre S/MIME?"
 
-#: config/prefs.php:1692
+#: config/prefs.php:1672
 msgid "Enable message previews?"
 msgstr "Povoliť zobrazovanie ukážok správ?"
 
@@ -1798,7 +1802,7 @@ msgstr "Povolené?"
 msgid "Encr_yption Options"
 msgstr "Nastavenia ši_frovania"
 
-#: templates/dynamic/compose.html.php:59
+#: templates/dynamic/compose.html.php:60
 msgid "Encryption"
 msgstr "Šifrovanie"
 
@@ -1806,15 +1810,15 @@ msgstr "Šifrovanie"
 msgid "End"
 msgstr "End"
 
-#: lib/Compose.php:1987
+#: lib/Compose.php:2000
 msgid "End forwarded message"
 msgstr "Koniec preposlanej správy"
 
-#: lib/Compose.php:1804
+#: lib/Compose.php:1817
 msgid "End message"
 msgstr "Koniec správy"
 
-#: lib/Compose.php:1804
+#: lib/Compose.php:1817
 #, php-format
 msgid "End message from %s"
 msgstr "Koniec správy od %s"
@@ -1838,23 +1842,23 @@ msgstr "Zadajte názov Vášho nového priečinku pre nevyžiadanú poštu."
 
 #: lib/Prefs/Special/Trash.php:31
 msgid "Enter the name for your new trash mailbox."
-msgstr "Zadajte názov Vášho nového priečinku pre odpadkový koš."
+msgstr "Zadajte názov Vášho nového priečinku pre koš."
 
-#: lib/Ajax/Imple/PassphraseDialog.php:54
+#: lib/Ajax/Imple/PassphraseDialog.php:62
 msgid "Enter the passphrase used to encrypt this message."
 msgstr ""
 "Na zobrazenie tejto správy musíte zadať kľúčová frázu, ktorá bola použitá na "
 "jej zašifrovanie."
 
-#: lib/Ajax/Imple/PassphraseDialog.php:50
+#: lib/Ajax/Imple/PassphraseDialog.php:58
 msgid "Enter your personal PGP passphrase."
 msgstr "Zadajte Vaše osobné PGP heslo."
 
-#: lib/Ajax/Imple/PassphraseDialog.php:58
+#: lib/Ajax/Imple/PassphraseDialog.php:66
 msgid "Enter your personal S/MIME passphrase."
 msgstr "Zadajte Vaše osobné S/MIME heslo."
 
-#: lib/Dynamic/Mailbox.php:443 search.php:77
+#: lib/Dynamic/Mailbox.php:455 search.php:77
 #: templates/basic/search/search-basic.html.php:21
 #: templates/smartmobile/search.html.php:10
 msgid "Entire Message"
@@ -1864,25 +1868,25 @@ msgstr "Celá správa"
 msgid "Entire Message (including Headers)"
 msgstr "Celá správa (vrátane hlavičiek)"
 
-#: lib/Compose.php:1186 message.php:178 thread.php:62
+#: lib/Compose.php:1190 message.php:178 thread.php:62
 #, php-format
 msgid "Entry \"%s\" was successfully added to the address book"
 msgstr "Položka \"%s\" bola úspešne vložená do adresára"
 
-#: lib/Mime/Status.php:65
+#: lib/Mime/Status.php:73
 msgid "Error"
 msgstr "Chyba"
 
-#: lib/Contents.php:122
+#: lib/Contents.php:130
 msgid "Error displaying message: message does not exist on server."
 msgstr "Chyba pri zobrazení správy: správa na serveri neexistuje."
 
-#: lib/Ajax/Imple/ItipRequest.php:290 lib/Ajax/Imple/ItipRequest.php:401
+#: lib/Ajax/Imple/ItipRequest.php:305 lib/Ajax/Imple/ItipRequest.php:416
 #, php-format
 msgid "Error sending reply: %s."
 msgstr "Chyba pri odosielaní odpovede: %s."
 
-#: lib/Compose.php:2065
+#: lib/Compose.php:2078
 msgid "Error when redirecting message."
 msgstr "Pri presmerovaní správy došlo ku chybe."
 
@@ -1897,27 +1901,27 @@ msgstr ""
 msgid "Event Requests"
 msgstr "Pozvánky na udalosti"
 
-#: lib/Ajax/Imple/ItipRequest.php:95
+#: lib/Ajax/Imple/ItipRequest.php:103
 msgid "Event successfully deleted."
 msgstr "Udalosť bola úspešne vymazaná."
 
-#: config/prefs.php:1470
+#: config/prefs.php:1458
 msgid "Every 15 minutes"
 msgstr "Každých 15 minút"
 
-#: config/prefs.php:1467
+#: config/prefs.php:1455
 msgid "Every 30 seconds"
 msgstr "Každých 30 sekúnd"
 
-#: config/prefs.php:856 config/prefs.php:1469
+#: config/prefs.php:849 config/prefs.php:1457
 msgid "Every 5 minutes"
 msgstr "Každých 5 minút"
 
-#: config/prefs.php:1471
+#: config/prefs.php:1459
 msgid "Every half hour"
 msgstr "Každú pol hodinu"
 
-#: config/prefs.php:855 config/prefs.php:1468
+#: config/prefs.php:848 config/prefs.php:1456
 msgid "Every minute"
 msgstr "Každú minútu"
 
@@ -1925,8 +1929,8 @@ msgstr "Každú minútu"
 msgid "Exit Search"
 msgstr "Ukončiť vyhľadávanie"
 
-#: folders.php:400 lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:285
-#: lib/Dynamic/Mailbox.php:366
+#: folders.php:400 lib/Dynamic/Mailbox.php:236 lib/Dynamic/Mailbox.php:291
+#: lib/Dynamic/Mailbox.php:371
 msgid "Expand All"
 msgstr "Rozbaliť všetko"
 
@@ -1935,12 +1939,12 @@ msgid "Expand Headers"
 msgstr "Rozbaliť hlavičky"
 
 #: lib/Minimal/Compose.php:104 lib/Minimal/Compose.php:157
-#: templates/minimal/compose.html.php:54
+#: templates/minimal/compose.html.php:55
 #: templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "Rozbaliť mená"
 
-#: config/prefs.php:1777
+#: config/prefs.php:1753
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr "Implicitne rozbaliť celý strom priečinkov v zozname priečinkov?"
 
@@ -1948,7 +1952,7 @@ msgstr "Implicitne rozbaliť celý strom priečinkov v zozname priečinkov?"
 msgid "Expiration"
 msgstr "Exspirácia"
 
-#: lib/Dynamic/Mailbox.php:370
+#: lib/Dynamic/Mailbox.php:375
 msgid "Export"
 msgstr "Exportovať"
 
@@ -1956,11 +1960,11 @@ msgstr "Exportovať"
 msgid "Expunge"
 msgstr "Odstrániť"
 
-#: lib/Application.php:260
+#: lib/Application.php:268
 msgid "Fi_lters"
 msgstr "Fi_ltre"
 
-#: compose.php:716 templates/basic/compose/compose.html.php:277
+#: compose.php:718 templates/basic/compose/compose.html.php:277
 msgid "File"
 msgstr "Súbor"
 
@@ -1984,7 +1988,7 @@ msgstr "Filter %s vymazaný."
 msgid "Filter \"%s\" edited successfully."
 msgstr "Fileter \"%s\" bol úspešne upravený."
 
-#: lib/Dynamic/Mailbox.php:438
+#: lib/Dynamic/Mailbox.php:443
 msgid "Filter By"
 msgstr "Filtrovať podľa"
 
@@ -1993,7 +1997,7 @@ msgstr "Filtrovať podľa"
 msgid "Filter Messages"
 msgstr "Filtrovať správy"
 
-#: config/prefs.php:1048
+#: config/prefs.php:1041
 msgid "Filter message content for unwanted text (e.g. profanity)?"
 msgstr "Filtrovať v obsahu správ nechcený obsah (napr. neslušné výrazy)?"
 
@@ -2001,7 +2005,7 @@ msgstr "Filtrovať v obsahu správ nechcený obsah (napr. neslušné výrazy)?"
 msgid "Filters"
 msgstr "Filtre"
 
-#: lib/Filter.php:124
+#: lib/Filter.php:132
 #, php-format
 msgid "Filters: %s management page"
 msgstr "Filtre: stránka na správu %s"
@@ -2010,24 +2014,24 @@ msgstr "Filtre: stránka na správu %s"
 msgid "Find"
 msgstr "Nájsť"
 
-#: config/prefs.php:1589
+#: config/prefs.php:1576
 msgid "First (oldest) Unseen Message"
 msgstr "Najstaršia neprečítaná správa"
 
-#: config/prefs.php:1591 lib/Minimal/Mailbox.php:201
+#: config/prefs.php:1578 lib/Minimal/Mailbox.php:201
 #: templates/basic/mailbox/navbar.html.php:9
 msgid "First Page"
-msgstr "Prvá stránka"
+msgstr "Prvá strana"
 
 #: search.php:486
 msgid "Flag:"
 msgstr "Príznak:"
 
-#: lib/Flag/Imap/Flagged.php:37
+#: lib/Flag/Imap/Flagged.php:45
 msgid "Flagged for Followup"
 msgstr "Čakajúce na odpoveď"
 
-#: config/prefs.php:1502
+#: config/prefs.php:1490
 msgid "Flags"
 msgstr "Príznaky"
 
@@ -2035,11 +2039,11 @@ msgstr "Príznaky"
 msgid "Fo_rward"
 msgstr "P_reposlať"
 
-#: lib/Mailbox.php:1688
+#: lib/Mailbox.php:1720
 msgid "Folder"
 msgstr "Priečinok"
 
-#: lib/Dynamic/Mailbox.php:79
+#: lib/Dynamic/Mailbox.php:85
 msgid "Folder Actions"
 msgstr "Operácie v priečinkoch"
 
@@ -2047,7 +2051,7 @@ msgstr "Operácie v priečinkoch"
 msgid "Folder Actions - Confirmation"
 msgstr "Operácie priečinka - potvrdenie"
 
-#: config/prefs.php:1751
+#: config/prefs.php:1727
 msgid "Folder Display"
 msgstr "Zobrazenie priečinkov"
 
@@ -2059,17 +2063,17 @@ msgstr "Správa priečinkov"
 #: templates/smartmobile/folders.html.php:2
 #: templates/smartmobile/mailbox.html.php:2
 msgid "Folders"
-msgstr "_Priečinky"
+msgstr "Priečinky"
 
-#: config/prefs.php:1066
+#: config/prefs.php:1059
 msgid ""
 "For messages with alternative representations of the text part, which part "
-"should we display?"
+"should be displayed?"
 msgstr ""
-"Ktorá časť správy sa má zobraziť pri správach s alternatívnym zobrazovaním "
+"Ktorá časť správy sa má zobraziť pri správach s alternatívnym zobrazením "
 "textovej časti?"
 
-#: lib/Compose.php:1932 lib/Compose.php:1935 lib/Dynamic/Mailbox.php:301
+#: lib/Compose.php:1945 lib/Compose.php:1948 lib/Dynamic/Mailbox.php:307
 #: lib/Minimal/Compose.php:217 lib/Minimal/Message.php:248
 #: lib/Notification/Event/Status.php:27 templates/dynamic/mailbox.html.php:32
 #: templates/dynamic/message.html.php:15
@@ -2077,32 +2081,32 @@ msgstr ""
 msgid "Forward"
 msgstr "Preposlať"
 
-#: lib/Flag/Imap/Forwarded.php:33
+#: lib/Flag/Imap/Forwarded.php:40
 msgid "Forwarded"
-msgstr "Preposlané"
+msgstr "Preposlaná"
 
-#: lib/Compose.php:2169
+#: lib/Compose.php:2182
 msgid "Forwarded Message"
 msgstr "Preposlaná správa"
 
-#: lib/Compose.php:1985
+#: lib/Compose.php:1998
 msgid "Forwarded message"
 msgstr "Preposlaná správa"
 
-#: lib/Compose.php:1985
+#: lib/Compose.php:1998
 #, php-format
 msgid "Forwarded message from %s"
 msgstr "Preposlaná správa od %s"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:39 lib/Minimal/Compose.php:216
+#: lib/Ajax/Application/Handler/Smartmobile.php:47 lib/Minimal/Compose.php:216
 msgid "Forwarded message will be automatically added to your outgoing message."
 msgstr "Preposlané správy sa automaticky presunú do odoslanej pošty."
 
-#: config/prefs.php:775
+#: config/prefs.php:768
 msgid "Forwards"
-msgstr "Preposlané správu"
+msgstr "Preposlané správy"
 
-#: lib/Ajax/Imple/ItipRequest.php:393
+#: lib/Ajax/Imple/ItipRequest.php:408
 msgid "Free/Busy Request Response"
 msgstr "Odpoveď na žiadosť o zistenie zaneprázdnenosti"
 
@@ -2110,25 +2114,25 @@ msgstr "Odpoveď na žiadosť o zistenie zaneprázdnenosti"
 msgid "Fro_m"
 msgstr "_Od"
 
-#: lib/Compose.php:2210 lib/Dynamic/Mailbox.php:183
-#: lib/Dynamic/Mailbox.php:249 lib/Dynamic/Mailbox.php:445
+#: lib/Compose.php:2223 lib/Dynamic/Mailbox.php:189
+#: lib/Dynamic/Mailbox.php:255 lib/Dynamic/Mailbox.php:457
 #: lib/Ui/Message.php:26 search.php:45
 #: templates/basic/compose/compose.html.php:38
 #: templates/basic/search/search-basic.html.php:17
 #: templates/basic/thread/thread.html.php:19
-#: templates/dynamic/compose.html.php:76
+#: templates/dynamic/compose.html.php:77
 #: templates/dynamic/mailbox.html.php:116
 #: templates/minimal/mailbox.html.php:13
 #: templates/smartmobile/search.html.php:12
 msgid "From"
 msgstr "Od"
 
-#: config/prefs.php:1608
+#: config/prefs.php:1595
 msgid "From Address"
-msgstr "Spiatočná adresa"
+msgstr "Odosielateľ"
 
-#: lib/Ui/Mailbox.php:80 templates/minimal/compose.html.php:6
-#: templates/smartmobile/compose.html.php:14
+#: lib/Ui/Mailbox.php:80 templates/minimal/compose.html.php:7
+#: templates/smartmobile/compose.html.php:15
 msgid "From:"
 msgstr "Od:"
 
@@ -2159,28 +2163,28 @@ msgstr "Prejsť na správu"
 msgid "Go to address book entry of \"%s\""
 msgstr "Prejsť na záznam v adresári \"%s\""
 
-#: lib/Block/Newmail.php:58
+#: lib/Block/Newmail.php:66
 msgid "Go to your Inbox..."
 msgstr "Prejsť na prijaté správy..."
 
-#: lib/Ajax/Application/ShowMessage.php:249 lib/Contents.php:538
-#: lib/Filter.php:124 lib/Mime/Viewer/Appledouble.php:90
-#: lib/Mime/Viewer/Images.php:139 lib/Mime/Viewer/Mdn.php:78
-#: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Status.php:103
-#: lib/Mime/Viewer/Status.php:115 lib/Mime/Viewer/Status.php:126
+#: lib/Ajax/Application/ShowMessage.php:257 lib/Contents.php:546
+#: lib/Filter.php:132 lib/Mime/Viewer/Appledouble.php:97
+#: lib/Mime/Viewer/Images.php:146 lib/Mime/Viewer/Mdn.php:86
+#: lib/Mime/Viewer/Mdn.php:94 lib/Mime/Viewer/Status.php:111
+#: lib/Mime/Viewer/Status.php:123 lib/Mime/Viewer/Status.php:134
 #: message.php:802
 msgid "HERE"
 msgstr "TU"
 
-#: lib/Compose.php:1308
+#: lib/Compose.php:1318
 msgid "HTML Message"
 msgstr "HTML správa"
 
-#: templates/dynamic/compose.html.php:38
+#: templates/dynamic/compose.html.php:39
 msgid "HTML composition"
 msgstr "Prepnúť na písanie správ v HTML"
 
-#: config/prefs.php:1063
+#: config/prefs.php:1056
 msgid "HTML part"
 msgstr "HTML časť"
 
@@ -2188,19 +2192,19 @@ msgstr "HTML časť"
 msgid "Headers"
 msgstr "Hlavičky"
 
-#: config/prefs.php:1123
+#: config/prefs.php:1116
 msgid "Hidden"
 msgstr "Skryté"
 
-#: config/prefs.php:1121
+#: config/prefs.php:1114
 msgid "Hidden in List Messages"
 msgstr "Skryté v správach z poštových konferencií"
 
-#: config/prefs.php:1120
+#: config/prefs.php:1113
 msgid "Hidden in Thread View"
 msgstr "Skryté v zobrazení vlákien"
 
-#: config/prefs.php:1122
+#: config/prefs.php:1115
 msgid "Hidden in Thread View and List Messages"
 msgstr "Skryté v zobrazení vlákien a poštových konferencií"
 
@@ -2208,51 +2212,51 @@ msgstr "Skryté v zobrazení vlákien a poštových konferencií"
 msgid "Hide Addresses"
 msgstr "Skryť adresy"
 
-#: lib/Dynamic/Mailbox.php:480
+#: lib/Dynamic/Mailbox.php:492
 msgid "Hide Alerts _Log"
 msgstr "Skryť _záznamy upozornení"
 
-#: lib/Dynamic/Mailbox.php:406 mailbox.php:281
+#: lib/Dynamic/Mailbox.php:411 mailbox.php:281
 msgid "Hide Deleted"
 msgstr "Skryť vymazané"
 
-#: lib/Dynamic/Mailbox.php:389
+#: lib/Dynamic/Mailbox.php:394
 msgid "Hide Preview"
 msgstr "Skryť ukážku"
 
-#: folders.php:381 lib/Dynamic/Mailbox.php:283
+#: folders.php:381 lib/Dynamic/Mailbox.php:289
 msgid "Hide Unsubscribed"
 msgstr "Skryť neprihlásené"
 
-#: config/prefs.php:1303
+#: config/prefs.php:1291
 msgid "Hide deleted messages even if using the Trash mailbox?"
-msgstr "Skryť vymazané správy aj v prípade, že sa používa Odpadkový kôš?"
+msgstr "Skryť vymazané správy aj v prípade, že sa používa kôš?"
 
-#: compose.php:845 lib/Dynamic/Compose/Common.php:201 message.php:327
+#: compose.php:847 lib/Dynamic/Compose/Common.php:204 message.php:327
 msgid "High"
 msgstr "Vysoká"
 
-#: lib/Flag/System/HighPriority.php:37 message.php:327
+#: lib/Flag/System/HighPriority.php:45 message.php:327
 msgid "High Priority"
 msgstr "Vysoká priorita"
 
-#: lib/Dynamic/Mailbox.php:391
+#: lib/Dynamic/Mailbox.php:396
 msgid "Horizontal Layout"
 msgstr "Horizontálne usporiadanie"
 
-#: config/prefs.php:793
+#: config/prefs.php:786
 msgid "How should messages be forwarded by default?"
 msgstr "Ako majú byť správy štandardne preposielané?"
 
-#: config/prefs.php:1792
+#: config/prefs.php:1768
 msgid "How should namespaces be displayed in the folder tree view?"
 msgstr "Ako majú byť menné oblasti zobrazené v strome priečinkov?"
 
-#: config/prefs.php:755
+#: config/prefs.php:748
 msgid "How to attribute quoted lines in a reply"
 msgstr "Ako označiť citované riadky v odpovedi"
 
-#: lib/Mime/Viewer/Pgp.php:282
+#: lib/Mime/Viewer/Pgp.php:289
 msgid ""
 "However, no personal private key exists so the message cannot be decrypted."
 msgstr "Správu nemožno dešifrovať, pretože neexistuje žiadny súkromný kľúč."
@@ -2270,15 +2274,15 @@ msgstr ""
 msgid "Image"
 msgstr "Obrázok"
 
-#: lib/Contents.php:1268
+#: lib/Contents.php:1276
 msgid "Image part"
 msgstr "Obrázková časť"
 
-#: lib/Mime/Viewer/Html.php:216
+#: lib/Mime/Viewer/Html.php:223
 msgid "Images have been blocked in this message part."
-msgstr "Obrázky boli blokované v tejto časti správy."
+msgstr "V tejto časti správy boli obrázky zablokované."
 
-#: lib/Dynamic/Mailbox.php:371 templates/basic/folders/import.html.php:16
+#: lib/Dynamic/Mailbox.php:376 templates/basic/folders/import.html.php:16
 #: templates/pgp/import_key.html.php:69 templates/smime/import_key.html.php:78
 msgid "Import"
 msgstr "Importovať"
@@ -2292,11 +2296,11 @@ msgstr "Importovať kľúčový pár"
 msgid "Import Messages"
 msgstr "Importovať správy"
 
-#: lib/Crypt/Pgp.php:670
+#: lib/Crypt/Pgp.php:678
 msgid "Import PGP Key"
 msgstr "Importovať PGP kľúč"
 
-#: templates/prefs/smimeprivatekey.html.php:44
+#: templates/prefs/smimeprivatekey.html.php:47
 msgid "Import Personal Certificate"
 msgstr "Importovať osobný certifikát"
 
@@ -2304,9 +2308,9 @@ msgstr "Importovať osobný certifikát"
 msgid "Import Personal Keys"
 msgstr "Importovať osobné kľúče"
 
-#: templates/smime/import_key.html.php:12
-msgid "Import Personal S/MIME Certificates"
-msgstr "Importovať osobné S/MIME certifikáty"
+#: lib/Crypt/Smime.php:508 templates/smime/import_key.html.php:12
+msgid "Import Personal S/MIME Certificate"
+msgstr "Importovať osobný S/MIME certifikát"
 
 #: templates/pgp/import_key.html.php:33
 #: templates/prefs/pgppublickey.html.php:40
@@ -2322,15 +2326,11 @@ msgstr "Importovať verejný PGP kľúč"
 msgid "Import Public S/MIME Key"
 msgstr "Importovať verejný S/MIME kľúč"
 
-#: lib/Crypt/Smime.php:500
-msgid "Import S/MIME Key"
-msgstr "Importovať S/MIME kľúč"
-
 #: templates/basic/folders/import.html.php:12
 msgid "Import mbox or .eml file"
 msgstr "Importovať mbox alebo .eml súbor"
 
-#: lib/Ui/Folder.php:145
+#: lib/Ui/Folder.php:165
 #, php-format
 msgid "Imported %d message from %s."
 msgid_plural "Imported %d messages from %s"
@@ -2338,31 +2338,31 @@ msgstr[0] "Importovaná %d správa z %s."
 msgstr[1] "Importované %d správy z %s."
 msgstr[2] "Importovaných %d správ z %s."
 
-#: lib/Dynamic/Base.php:156 message.php:623
+#: lib/Dynamic/Base.php:164 message.php:623
 msgid "In Body Text"
 msgstr "Iba text v tele"
 
-#: lib/Mime/Viewer/Itip.php:553
+#: lib/Mime/Viewer/Itip.php:561
 msgid "In Process"
 msgstr "Spracúva sa"
 
-#: config/prefs.php:789
+#: config/prefs.php:782
 msgid "In the body text"
 msgstr "V tele správy"
 
-#: lib/Mailbox.php:1608 lib/Mailbox.php:1698 lib/Minimal/Base.php:76
+#: lib/Mailbox.php:1640 lib/Mailbox.php:1730 lib/Minimal/Base.php:76
 msgid "Inbox"
 msgstr "Prijaté správy"
 
-#: config/prefs.php:737
+#: config/prefs.php:730
 msgid "Include a brief summary of the header in a reply?"
 msgstr "Vložiť do odpovede najdôležitejšie hlavičky pôvodnej správy?"
 
-#: config/prefs.php:747
+#: config/prefs.php:740
 msgid "Include original message in a reply?"
 msgstr "Vložiť pôvodnú správu do odpovede?"
 
-#: lib/Mime/Viewer/Mdn.php:62
+#: lib/Mime/Viewer/Mdn.php:70
 msgid "Info"
 msgstr "Info"
 
@@ -2390,7 +2390,7 @@ msgstr "Informácie o osobnom verejnom kľúči"
 msgid "Innocent"
 msgstr "Neškodná pošta"
 
-#: lib/Imap/Acl.php:149
+#: lib/Imap/Acl.php:179
 msgid "Insert"
 msgstr "Vložiť"
 
@@ -2398,32 +2398,32 @@ msgstr "Vložiť"
 msgid "Insert Certificate Here"
 msgstr "Sem vložte certifikát"
 
-#: lib/Imap/Acl.php:148
+#: lib/Imap/Acl.php:178
 msgid "Insert messages"
 msgstr "Vložiť správy"
 
-#: lib/Ajax/Imple/ItipRequest.php:404
+#: lib/Ajax/Imple/ItipRequest.php:419
 msgid "Invalid Action selected for this component."
 msgstr "Pre tento komponent bola vybraná neplatná akcia."
 
-#: lib/Dynamic/Mailbox.php:469 lib/Smartmobile.php:166 lib/Ui/Mailbox.php:84
+#: lib/Dynamic/Mailbox.php:481 lib/Smartmobile.php:167 lib/Ui/Mailbox.php:84
 msgid "Invalid Address"
 msgstr "Neplatná adresa"
 
-#: lib/Dynamic/Mailbox.php:470
+#: lib/Dynamic/Mailbox.php:482
 msgid "Invalid Subject"
 msgstr "Neplatný predmet"
 
-#: lib/Compose.php:1155
+#: lib/Compose.php:1159
 #, php-format
 msgid "Invalid e-mail address (%s)."
 msgstr "Neplatná e-mailová adresa (%s)."
 
-#: lib/Compose.php:705
+#: lib/Compose.php:716
 msgid "Invalid e-mail address."
 msgstr "Neplatná e-mailová adresa."
 
-#: lib/Crypt/Smime.php:465
+#: lib/Crypt/Smime.php:473
 msgid "Invalid key"
 msgstr "Neplatný kľúč"
 
@@ -2431,12 +2431,12 @@ msgstr "Neplatný kľúč"
 msgid "Invalid mailbox."
 msgstr "Neplatný priečinok."
 
-#: lib/Ajax/Application/Handler/Passphrase.php:49
-#: lib/Ajax/Application/Handler/Passphrase.php:63
+#: lib/Ajax/Application/Handler/Passphrase.php:57
+#: lib/Ajax/Application/Handler/Passphrase.php:71
 msgid "Invalid passphrase entered."
 msgstr "Zadali ste nesprávnu frázu."
 
-#: lib/Flag/Imap/Junk.php:34
+#: lib/Flag/Imap/Junk.php:42
 msgid "Junk"
 msgstr "Odpad"
 
@@ -2480,33 +2480,33 @@ msgstr "Kľúč bol úspešne odoslaný na server verejných kľúčov."
 msgid "Label"
 msgstr "Názov"
 
-#: config/prefs.php:1590
+#: config/prefs.php:1577
 msgid "Last (newest) Unseen Message"
 msgstr "Posledná (najnovšia) neprečítaná správa"
 
-#: config/prefs.php:1592 lib/Minimal/Mailbox.php:206
+#: config/prefs.php:1579 lib/Minimal/Mailbox.php:206
 #: templates/basic/mailbox/navbar.html.php:26
 msgid "Last Page"
-msgstr "Posledná stránka"
+msgstr "Posledná strana"
 
-#: compose.php:1008
+#: compose.php:1011
 msgid "Link Attachments?"
 msgstr "Nalinkovať prílohy?"
 
-#: attachment.php:26 lib/Compose.php:2653
+#: attachment.php:26 lib/Compose.php:2666
 msgid "Linked attachments are forbidden."
 msgstr "Nalinkované prílohy sú zakázané."
 
-#: lib/Compose.php:2684
+#: lib/Compose.php:2697
 #, php-format
 msgid "Links will expire on %s"
 msgstr "Odkazy (linky) expirujú %s"
 
-#: lib/Imap/Acl.php:133
+#: lib/Imap/Acl.php:163
 msgid "List"
 msgstr "Zoznam"
 
-#: config/prefs.php:967
+#: config/prefs.php:960
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -2518,11 +2518,11 @@ msgstr ""
 msgid "Load All Addresses"
 msgstr "Nahraj všetky adresy"
 
-#: lib/Mime/Viewer/Html.php:229
+#: lib/Mime/Viewer/Html.php:236
 msgid "Load Styling?"
 msgstr "Nahrať styling?"
 
-#: lib/Dynamic/Base.php:177 lib/Mime/Viewer/Html.php:76 search.php:487
+#: lib/Dynamic/Base.php:185 lib/Mime/Viewer/Html.php:83 search.php:487
 #: templates/dynamic/compose-base.html.php:4
 #: templates/dynamic/mailbox.html.php:2
 #: templates/dynamic/mailbox_subinfo.html.php:5
@@ -2536,41 +2536,41 @@ msgstr "Miesto"
 
 #: lib/Minimal/Base.php:88
 msgid "Log out"
-msgstr "_Odhlásiť sa"
+msgstr "Odhlásiť sa"
 
-#: lib/Dynamic/Mailbox.php:488
+#: lib/Dynamic/Mailbox.php:500
 msgid "Logging Out..."
 msgstr "Odhlasovanie..."
 
-#: compose.php:847 lib/Dynamic/Compose/Common.php:210 message.php:332
+#: compose.php:849 lib/Dynamic/Compose/Common.php:213 message.php:332
 msgid "Low"
 msgstr "Nízka"
 
-#: lib/Flag/System/LowPriority.php:29 message.php:332
+#: lib/Flag/System/LowPriority.php:37 message.php:332
 msgid "Low Priority"
 msgstr "Nízka priorita"
 
-#: lib/Mime/Viewer/Appledouble.php:92
+#: lib/Mime/Viewer/Appledouble.php:99
 msgid "Macintosh File"
 msgstr "Súbor Macintosh"
 
-#: config/prefs.php:1555 config/prefs.php:1750 lib/Block/Summary.php:102
-#: lib/Mailbox.php:1735 templates/basic/folders/folders_size.html.php:8
+#: config/prefs.php:1543 config/prefs.php:1726 lib/Block/Summary.php:110
+#: lib/Mailbox.php:1767 templates/basic/folders/folders_size.html.php:8
 #: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
-msgstr "Schránka"
+msgstr "Priečinok"
 
-#: folders.php:148 lib/Ajax/Application/Handler/Dynamic.php:72
+#: folders.php:148 lib/Ajax/Application/Handler/Dynamic.php:80
 #, php-format
 msgid "Mailbox \"%s\" already exists."
 msgstr "Priečinok \"%s\" už existuje."
 
-#: lib/Ajax/Application/ListMessages.php:251
+#: lib/Ajax/Application/ListMessages.php:256
 #, php-format
 msgid "Mailbox %s does not exist."
-msgstr "Schránka %s neexistuje."
+msgstr "Priečinok %s neexistuje."
 
-#: config/prefs.php:1556
+#: config/prefs.php:1544
 msgid "Mailbox Display"
 msgstr "Zobrazenie schránky"
 
@@ -2578,11 +2578,11 @@ msgstr "Zobrazenie schránky"
 msgid "Mailbox Sizes"
 msgstr "Veľkosti priečinkov"
 
-#: lib/Block/Summary.php:27
+#: lib/Block/Summary.php:35
 msgid "Mailbox Summary"
 msgstr "Zhrnutie priečinkov"
 
-#: lib/Mailbox.php:683
+#: lib/Mailbox.php:703
 msgid "Mailbox structure on server has changed."
 msgstr "Štruktúra schránky na serveri bola zmenená."
 
@@ -2590,7 +2590,7 @@ msgstr "Štruktúra schránky na serveri bola zmenená."
 msgid "Mailboxes"
 msgstr "Priečinky"
 
-#: lib/Flag/System/List.php:29
+#: lib/Flag/System/List.php:37
 msgid "Mailing List Message"
 msgstr "Správa z e-mailovej konferencie"
 
@@ -2599,11 +2599,11 @@ msgstr "Správa z e-mailovej konferencie"
 msgid "Mailing List Messages"
 msgstr "Správy z e-mailových konferencií"
 
-#: config/prefs.php:812
+#: config/prefs.php:805
 msgid "Manage message drafts."
 msgstr "Spravovať koncepty správ."
 
-#: config/prefs.php:868
+#: config/prefs.php:861
 msgid "Manage sent mail."
 msgstr "Spravovať odoslanú poštu."
 
@@ -2611,13 +2611,13 @@ msgstr "Spravovať odoslanú poštu."
 msgid "Manage your saved searches"
 msgstr "Spravovať Vaše uložené vyhľadávania."
 
-#: lib/Imap/Acl.php:145
+#: lib/Imap/Acl.php:175
 msgid "Mark (Other)"
 msgstr "Označíť (Iné)"
 
-#: lib/Imap/Acl.php:141
+#: lib/Imap/Acl.php:171
 msgid "Mark (Seen)"
-msgstr "Označiť (Prečítané)"
+msgstr "Označiť (Prečítaná)"
 
 #: templates/basic/folders/actions.html.php:39
 msgid "Mark All Messages as Seen"
@@ -2637,11 +2637,11 @@ msgstr "Označiť správu"
 msgid "Mark Messages"
 msgstr "Označiť správy"
 
-#: lib/Dynamic/Mailbox.php:355
+#: lib/Dynamic/Mailbox.php:360
 msgid "Mark all as"
 msgstr "Označiť všetky ako"
 
-#: lib/Dynamic/Mailbox.php:305 lib/Dynamic/Mailbox.php:395
+#: lib/Dynamic/Mailbox.php:310 lib/Dynamic/Mailbox.php:400
 msgid "Mark as"
 msgstr "Označiť ako"
 
@@ -2650,39 +2650,39 @@ msgstr "Označiť ako"
 msgid "Mark as:"
 msgstr "Označiť ako:"
 
-#: config/prefs.php:1103
+#: config/prefs.php:1096
 msgid "Mark different levels of quoting with different colors?"
 msgstr "Rozlišovať vnorené citáty rôznymi farbami?"
 
-#: config/prefs.php:1246
+#: config/prefs.php:1234
 msgid "Mark messages as Seen when deleting?"
 msgstr "Označiť správy ako prečítané pri vymazávaní?"
 
-#: config/prefs.php:1111
+#: config/prefs.php:1104
 msgid "Mark simple markup?"
 msgstr "Označiť jednoduché formátovanie?"
 
-#: lib/Imap/Acl.php:140
+#: lib/Imap/Acl.php:170
 msgid "Mark with Seen/Unseen flags"
-msgstr "Označiť príznakmi Prečítané/Neprečítané"
+msgstr "Označiť príznakmi Prečítaná / Neprečítaná"
 
-#: lib/Imap/Acl.php:144
+#: lib/Imap/Acl.php:174
 msgid "Mark with other flags (e.g. Important/Answered)"
-msgstr "Označiť inými príznakmi (napr. Dôležité/Odpovedané)"
+msgstr "Označiť inými príznakmi (napr. Dôležitá / Zodpovedaná)"
 
 #: templates/basic/compose/compose.html.php:283
 msgid "Maximum Attachment Size"
 msgstr "Maximálna veľkosť prílohy"
 
-#: lib/Application.php:178
+#: lib/Application.php:186
 msgid "Maximum Number of Mailboxes"
 msgstr "Maximálny počet priečinkov"
 
-#: lib/Application.php:182
+#: lib/Application.php:190
 msgid "Maximum Number of Recipients per Message"
 msgstr "Maximálny počet príjemcov na správu"
 
-#: lib/Application.php:186
+#: lib/Application.php:194
 msgid "Maximum Number of Recipients per Time Period"
 msgstr "Maximálny počet príjemcov na časový úsek"
 
@@ -2694,11 +2694,11 @@ msgstr "Bol dosiahnutý maximálny počet príloh."
 msgid "Maximum total attachment size reached."
 msgstr "Bola dosiahnutá maximálna celková veľkosť príloh."
 
-#: lib/Dynamic/Mailbox.php:379
+#: lib/Dynamic/Mailbox.php:384
 msgid "Mbox"
 msgstr "Mbox"
 
-#: lib/Dynamic/Mailbox.php:481
+#: lib/Dynamic/Mailbox.php:493
 msgid "Mbox or .eml file:"
 msgstr "Mbox alebo .eml súbor:"
 
@@ -2706,18 +2706,18 @@ msgstr "Mbox alebo .eml súbor:"
 msgid "Menu"
 msgstr "Menu"
 
-#: config/prefs.php:1031 config/prefs.php:1224 config/prefs.php:1356
-#: config/prefs.php:1453 config/prefs.php:1501 config/prefs.php:1536
-#: lib/Compose.php:1798 lib/Dynamic/Mailbox.php:484 lib/Dynamic/Message.php:90
+#: config/prefs.php:1024 config/prefs.php:1212 config/prefs.php:1344
+#: config/prefs.php:1441 config/prefs.php:1489 config/prefs.php:1524
+#: lib/Compose.php:1811 lib/Dynamic/Mailbox.php:496 lib/Dynamic/Message.php:98
 msgid "Message"
 msgstr "Správa"
 
-#: lib/Ajax/Application/Handler/Common.php:565
+#: lib/Ajax/Application/Handler/Common.php:616
 #, php-format
 msgid "Message \"%s\" redirected successfully."
 msgstr "Správa \"%s\" bola úspešne presmerovaná."
 
-#: lib/Ajax/Application/Handler/Common.php:486
+#: lib/Ajax/Application/Handler/Common.php:537
 #, php-format
 msgid "Message \"%s\" sent successfully."
 msgstr "Správa \"%s\" bola úspešne odoslaná."
@@ -2727,11 +2727,11 @@ msgstr "Správa \"%s\" bola úspešne odoslaná."
 msgid "Message Body"
 msgstr "Telo správy"
 
-#: lib/Minimal/Compose.php:397
+#: lib/Minimal/Compose.php:398
 msgid "Message Composition"
 msgstr "Písanie správy"
 
-#: lib/Dynamic/Mailbox.php:235
+#: lib/Dynamic/Mailbox.php:241
 msgid "Message Date"
 msgstr "Dátum správy"
 
@@ -2739,36 +2739,40 @@ msgstr "Dátum správy"
 msgid "Message Log"
 msgstr "Záznam správy"
 
-#: config/prefs.php:1611
+#: config/prefs.php:1598
 msgid "Message Size"
 msgstr "Veľkosť správy"
 
-#: lib/Contents/View.php:167 message.php:673
+#: lib/Contents/View.php:175 message.php:673
 msgid "Message Source"
 msgstr "Zdrojový text správy"
 
-#: lib/Compose.php:1798
+#: lib/Ui/Compose.php:146
+msgid "Message Successfully Sent"
+msgstr "Správa bola úspešne odoslaná"
+
+#: lib/Compose.php:1811
 #, php-format
 msgid "Message from %s"
 msgstr "Správa od %s"
 
-#: lib/Flag/System/Attachment.php:29
+#: lib/Flag/System/Attachment.php:37
 msgid "Message has Attachments"
-msgstr "Správa má prílohy"
+msgstr "Správa obsahuje prílohy"
 
-#: lib/Flag/System/Encrypted.php:29
+#: lib/Flag/System/Encrypted.php:37
 msgid "Message is Encrypted"
 msgstr "Správa je zašifrovaná"
 
-#: lib/Flag/System/Signed.php:29
+#: lib/Flag/System/Signed.php:37
 msgid "Message is Signed"
 msgstr "Správa je podpísaná"
 
-#: lib/Contents.php:1272
+#: lib/Contents.php:1281
 msgid "Message part"
 msgstr "Časť správy"
 
-#: compose.php:389 compose.php:395 lib/Ajax/Application/Handler/Common.php:565
+#: compose.php:396 compose.php:402 lib/Ajax/Application/Handler/Common.php:616
 #: lib/Minimal/Compose.php:231
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
@@ -2776,17 +2780,17 @@ msgstr[0] "Správa bola úspešne presmerovaná."
 msgstr[1] "Správy boli úspešne presmerované."
 msgstr[2] "Správ bolo úspešne presmerovaných."
 
-#: lib/Compose.php:928
+#: lib/Compose.php:932
 #, php-format
 msgid "Message sent successfully, but not saved to %s."
 msgstr "Správa bola úspešne odoslaná, ale nie uložená do %s."
 
-#: compose.php:550 compose.php:556 lib/Ajax/Application/Handler/Common.php:486
+#: compose.php:557 compose.php:563 lib/Ajax/Application/Handler/Common.php:537
 #: lib/Minimal/Compose.php:314
 msgid "Message sent successfully."
 msgstr "Správa bola úspešne odoslaná."
 
-#: lib/Mime/Viewer/Html.php:228
+#: lib/Mime/Viewer/Html.php:235
 msgid ""
 "Message styling has been suppressed in this message part since the style "
 "data lives on a remote server."
@@ -2794,15 +2798,15 @@ msgstr ""
 "Dáta pre štýlovanie sú uložené na vzdialený server, preto bolo štýlovanie v "
 "správe potlačené."
 
-#: templates/minimal/compose.html.php:42
+#: templates/minimal/compose.html.php:43
 msgid "Message:"
 msgstr "Správa:"
 
-#: lib/Dynamic/Mailbox.php:485
+#: lib/Dynamic/Mailbox.php:497
 msgid "Messages"
 msgstr "Správy"
 
-#: lib/Dynamic/Mailbox.php:495
+#: lib/Dynamic/Mailbox.php:507
 #, php-format
 msgid "Messages %d - %d"
 msgstr "Správy %d - %d"
@@ -2811,9 +2815,9 @@ msgstr "Správy %d - %d"
 msgid "Messages From Personal Contacts"
 msgstr "Správy od osobných kontaktov"
 
-#: config/prefs.php:1653
+#: config/prefs.php:1640
 msgid "Messages per page in the mailbox view."
-msgstr "Správ na stranu v zozname správ."
+msgstr "Správ na stranu v zozname správ:"
 
 #: mailbox.php:243
 msgid "Messages to"
@@ -2823,10 +2827,14 @@ msgstr "Správy do"
 msgid "Messages with Attachments"
 msgstr "Správy s prílohami"
 
+#: config/prefs.php:1197 config/prefs.php:1204 config/prefs.php:1718
+msgid "Minimal view only"
+msgstr "len pre minimálny režim"
+
 #: config/prefs.php:297
-msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
+msgid "Minutes needed to consider a event as non-conflicting in iTip"
 msgstr ""
-"Minúty potrebné na to aby udalosť nebola považovaná za konfliktnú v iTip"
+"Minúty potrebné na to, aby udalosť nebola považovaná za konfliktnú v iTip"
 
 #: smartmobile.php:24
 msgid "Mobile Mail"
@@ -2844,24 +2852,24 @@ msgstr "Viac..."
 msgid "Move"
 msgstr "Presunúť"
 
-#: lib/Dynamic/Mailbox.php:486
+#: lib/Dynamic/Mailbox.php:498
 #, php-format
 msgid "Move %s to %s"
 msgstr "Presunúť %s do %s"
 
-#: lib/Dynamic/Mailbox.php:85
+#: lib/Dynamic/Mailbox.php:91
 msgid "Move to Base Level"
 msgstr "Presunúť na základnú uroveň"
 
-#: config/prefs.php:1405
+#: config/prefs.php:1393
 msgid "Move to Inbox"
 msgstr "Presunúť do priečinka Prijatá pošta"
 
-#: config/prefs.php:1393
+#: config/prefs.php:1381
 msgid "Move to spam mailbox"
 msgstr "Presunúť do priečinka nevyžiadaná pošta"
 
-#: lib/Contents.php:1275
+#: lib/Contents.php:1284
 msgid "Multipart part"
 msgstr "Multipart čast"
 
@@ -2869,11 +2877,11 @@ msgstr "Multipart čast"
 msgid "Multiple Message View"
 msgstr "Zobrazenie viacerých správ"
 
-#: lib/Dynamic/Compose.php:118
+#: lib/Dynamic/Compose.php:126
 msgid "Multiple messages can only be forwarded as attachments."
 msgstr "Hromadné správy môžu byť preposlané len ako prílohy."
 
-#: config/prefs.php:1606
+#: config/prefs.php:1593
 msgid "NONE"
 msgstr "ŽIADEN"
 
@@ -2889,11 +2897,11 @@ msgstr "Meno a/alebo e-mailová adresa nemôžu byť prázdne"
 msgid "Need at least one date in the date range search."
 msgstr "Pri vyhľadávaní pomocou rozsah dátumov zadajte aspoň jeden dátum."
 
-#: lib/Compose.php:707
+#: lib/Compose.php:718
 msgid "Need at least one message recipient."
 msgstr "Musíte zadať aspoň jedného príjemcu."
 
-#: lib/Mime/Viewer/Itip.php:558
+#: lib/Mime/Viewer/Itip.php:566
 msgid "Needs Action"
 msgstr "Vyžaduje akciu"
 
@@ -2901,12 +2909,12 @@ msgstr "Vyžaduje akciu"
 msgid "Negative Right"
 msgstr "Záporné oprávnenie"
 
-#: config/prefs.php:606 config/prefs.php:915 config/prefs.php:1322
-#: config/prefs.php:1428 config/prefs.php:1466
+#: config/prefs.php:605 config/prefs.php:908 config/prefs.php:1310
+#: config/prefs.php:1416 config/prefs.php:1454
 msgid "Never"
 msgstr "Nikdy"
 
-#: config/prefs.php:1186
+#: config/prefs.php:1179
 msgid "Never send read receipt"
 msgstr "Neposielať potvrdenie o prečítaní správy"
 
@@ -2914,17 +2922,17 @@ msgstr "Neposielať potvrdenie o prečítaní správy"
 msgid "New Flag"
 msgstr "Nový príznak"
 
-#: config/prefs.php:1454
+#: config/prefs.php:1442
 msgid "New Mail"
 msgstr "Nová pošta"
 
-#: lib/Dynamic/Mailbox.php:282
+#: lib/Dynamic/Mailbox.php:288
 msgid "New Mailbox"
 msgstr "Nový priečinok"
 
-#: compose.php:195 lib/Application.php:435 lib/Compose.php:1908
-#: lib/Dynamic/Base.php:143 lib/Dynamic/Compose.php:69
-#: lib/Dynamic/Mailbox.php:97 lib/Minimal/Base.php:80 lib/Smartmobile.php:165
+#: compose.php:202 lib/Application.php:443 lib/Compose.php:1921
+#: lib/Dynamic/Base.php:151 lib/Dynamic/Compose.php:77
+#: lib/Dynamic/Mailbox.php:103 lib/Minimal/Base.php:80 lib/Smartmobile.php:166
 #: lib/Ui/Compose.php:159 templates/dynamic/mailbox.html.php:54
 #: templates/smartmobile/compose.html.php:2
 #: templates/smartmobile/folders.html.php:13
@@ -2935,7 +2943,7 @@ msgstr "Nová správa"
 #: lib/Ui/Message.php:307 lib/Ui/Message.php:335 mailbox.php:946
 #, php-format
 msgid "New Message to %s"
-msgstr "Nová správu pre %s"
+msgstr "Napísať novú správu pre %s"
 
 #: lib/Minimal/Mailbox.php:193
 #, php-format
@@ -2950,7 +2958,7 @@ msgstr "Nový používateľ"
 msgid "New mailbox name:"
 msgstr "Nový názov priečinku:"
 
-#: lib/Block/Newmail.php:27
+#: lib/Block/Newmail.php:35
 msgid "Newest Unseen Messages"
 msgstr "Najnovšie neprečítané správy"
 
@@ -2961,13 +2969,13 @@ msgstr "Ďalej"
 
 #: lib/Minimal/Message.php:258 message.php:532
 msgid "Next Message"
-msgstr "Ďalšia správa"
+msgstr "Nasledujúca správa"
 
 #: lib/Minimal/Mailbox.php:205 templates/basic/mailbox/navbar.html.php:21
 msgid "Next Page"
-msgstr "Ďalšia strana"
+msgstr "Nasledujúca strana"
 
-#: config/prefs.php:854 config/prefs.php:1773 lib/IMP.php:79
+#: config/prefs.php:847 config/prefs.php:1749 lib/IMP.php:87
 #: templates/basic/compose/compose.html.php:302
 msgid "No"
 msgstr "Nie"
@@ -2985,7 +2993,7 @@ msgstr "Bez exspirácie"
 msgid "No Keys in Keyring"
 msgstr "Databáza kľúčov je prázdna"
 
-#: lib/Dynamic/Mailbox.php:487 mailbox.php:379 rss.php:82
+#: lib/Dynamic/Mailbox.php:499 mailbox.php:379 rss.php:82
 msgid "No Messages"
 msgstr "Žiadne správy"
 
@@ -3021,15 +3029,15 @@ msgstr "Žiadny zvuk"
 msgid "No Subject"
 msgstr "Bez predmetu"
 
-#: lib/Dynamic/Mailbox.php:246
+#: lib/Dynamic/Mailbox.php:252
 msgid "No actions available"
 msgstr "K nidpozícii nie sú žiadne operácie"
 
-#: lib/Crypt/Smime.php:152
+#: lib/Crypt/Smime.php:160
 msgid "No email information located in the public key."
 msgstr "Vo verejnom kľúči nebola nájdená informácia o e-maile."
 
-#: lib/Ui/Quota.php:67
+#: lib/Ui/Quota.php:68
 msgid "No limit"
 msgstr "Bez limitu"
 
@@ -3037,19 +3045,19 @@ msgstr "Bez limitu"
 msgid "No mailboxes were specified"
 msgstr "Neboli špecifikované priečinky"
 
-#: lib/Block/Summary.php:99
+#: lib/Block/Summary.php:107
 msgid "No mailboxes with unseen messages"
 msgstr "Žiadne priečinky s neprečítanými správami"
 
-#: lib/Compose.php:1829
+#: lib/Compose.php:1842
 msgid "No message body text"
 msgstr "Žiaden text v tele správy"
 
-#: lib/Dynamic/Message.php:25
+#: lib/Dynamic/Message.php:33
 msgid "No message index given."
 msgstr "Nebol zadaný index správy."
 
-#: lib/Dynamic/Mailbox.php:498
+#: lib/Dynamic/Mailbox.php:510
 msgid "No messages matched the search query."
 msgstr "Žiadna správa nevyhovuje hľadanému výrazu."
 
@@ -3061,8 +3069,8 @@ msgstr "Žiadna správa nevyhovuje Vsšim kritériám."
 msgid "No messages."
 msgstr "Žiadne správy"
 
-#: lib/Ajax/Application/Handler/Passphrase.php:52
-#: lib/Ajax/Application/Handler/Passphrase.php:66
+#: lib/Ajax/Application/Handler/Passphrase.php:60
+#: lib/Ajax/Application/Handler/Passphrase.php:74
 msgid "No passphrase entered."
 msgstr "Nebola zadaná kľúčová fráza."
 
@@ -3074,7 +3082,11 @@ msgstr "Nebol importovaný žiaden privátny PGP kľúč."
 msgid "No personal PGP public key imported."
 msgstr "Nebol importovaný žiaden verejný PGP kľúč."
 
-#: lib/Mime/Viewer/Smime.php:182
+#: templates/prefs/smimeprivatekey.html.php:43
+msgid "No personal certificate"
+msgstr "Žiadny osobný certifikát"
+
+#: lib/Mime/Viewer/Smime.php:189
 msgid "No personal private key exists so the data is unable to be decrypted."
 msgstr "Správu nemožno dešifrovať, lebo neexistuje žiaden súkromný kľúč."
 
@@ -3082,19 +3094,19 @@ msgstr "Správu nemožno dešifrovať, lebo neexistuje žiaden súkromný kľú�
 msgid "No search criteria specified."
 msgstr "Neboli zadané žiadne kritériá pre vyhľadávanie."
 
-#: lib/Dynamic/Compose/Common.php:236
+#: lib/Dynamic/Compose/Common.php:239
 msgid "No spelling errors found."
 msgstr "Žiadne pravopisné chyby."
 
-#: lib/Block/Newmail.php:60
+#: lib/Block/Newmail.php:68
 msgid "No unread messages"
 msgstr "Žiadne neprečítané správy"
 
-#: lib/Mime/Viewer/Itip.php:607
+#: lib/Mime/Viewer/Itip.php:615
 msgid "Non Participant"
 msgstr "Nie je účastník"
 
-#: lib/IMP.php:475 lib/Mime/Viewer/Itip.php:369 lib/Mime/Viewer/Itip.php:495
+#: lib/IMP.php:482 lib/Mime/Viewer/Itip.php:377 lib/Mime/Viewer/Itip.php:503
 #: templates/basic/search/search-basic.html.php:15
 #: templates/basic/search/search-basic.html.php:32
 #: templates/prefs/acl.html.php:38 templates/prefs/acl.html.php:73
@@ -3104,20 +3116,20 @@ msgstr "Nie je účastník"
 msgid "None"
 msgstr "Žiadne"
 
-#: compose.php:846 lib/Dynamic/Compose/Common.php:205
+#: compose.php:848 lib/Dynamic/Compose/Common.php:208
 msgid "Normal"
 msgstr "Normálna"
 
-#: lib/Flag/Base.php:172
+#: lib/Flag/Base.php:182
 #, php-format
 msgid "Not %s"
 msgstr "Nie %s"
 
-#: lib/Flag/Imap/NotJunk.php:30
+#: lib/Flag/Imap/NotJunk.php:38
 msgid "Not Junk"
 msgstr "Nie nevyžiadaná pošta"
 
-#: lib/Crypt/Pgp.php:143 lib/Crypt/Smime.php:146
+#: lib/Crypt/Pgp.php:151 lib/Crypt/Smime.php:154
 msgid "Not a valid public key."
 msgstr "Neplatný verejný kľúč."
 
@@ -3126,7 +3138,7 @@ msgstr "Neplatný verejný kľúč."
 msgid "Notepads"
 msgstr "Poznámkové bloky"
 
-#: config/prefs.php:1389 config/prefs.php:1404
+#: config/prefs.php:1377 config/prefs.php:1392
 msgid "Nothing"
 msgstr "Nič"
 
@@ -3143,7 +3155,7 @@ msgstr "OK"
 msgid "OR"
 msgstr "ALEBO"
 
-#: lib/LoginTasks/Task/DeleteSentmailMonthly.php:62
+#: lib/LoginTasks/Task/DeleteSentmailMonthly.php:70
 msgid "Old sent-mail mailboxes being purged."
 msgstr "Staré priečinky odoslaných správ sa vymazávajú."
 
@@ -3156,7 +3168,7 @@ msgstr "Staršie ako"
 msgid "On '%s'"
 msgstr "Dňa '%s'"
 
-#: lib/Block/Summary.php:44
+#: lib/Block/Summary.php:52
 msgid "Only display mailboxes with unread messages in them?"
 msgstr "Zobraziť len priečinky s neprečítanými správami?"
 
@@ -3164,7 +3176,7 @@ msgstr "Zobraziť len priečinky s neprečítanými správami?"
 msgid "Only one mailbox should be selected for this action."
 msgstr "Pre túto akciu môže byť vybraný iba jeden priečinok."
 
-#: config/prefs.php:1209
+#: config/prefs.php:1197
 msgid ""
 "Only show download confirmation page if message part is greater than this "
 "size, in bytes. Set to 0 to always require the confirmation page."
@@ -3176,11 +3188,11 @@ msgstr ""
 msgid "Open in new window"
 msgstr "Otvoriť v novom okne"
 
-#: lib/Mailbox.php:1684
+#: lib/Mailbox.php:1716
 msgid "Opened Folder"
 msgstr "Otvorený priečinok"
 
-#: lib/Mime/Viewer/Itip.php:603
+#: lib/Mime/Viewer/Itip.php:611
 msgid "Optional Participant"
 msgstr "Nepovinný účastník"
 
@@ -3188,12 +3200,12 @@ msgstr "Nepovinný účastník"
 msgid "Other"
 msgstr "Ďalšie"
 
-#: templates/dynamic/compose.html.php:65
+#: templates/dynamic/compose.html.php:66
 #: templates/dynamic/mailbox.html.php:106
 msgid "Other Options"
 msgstr "Iné nastavenia"
 
-#: lib/Mailbox.php:1574
+#: lib/Mailbox.php:1606
 msgid "Other Users"
 msgstr "Priečinky iných používateľov"
 
@@ -3201,15 +3213,15 @@ msgstr "Priečinky iných používateľov"
 msgid "PGP"
 msgstr "PGP"
 
-#: lib/Crypt/Pgp.php:37
+#: lib/Crypt/Pgp.php:45
 msgid "PGP Encrypt Message"
 msgstr "Zašifrovať správu pomocou PGP"
 
-#: lib/Crypt/Pgp.php:48
+#: lib/Crypt/Pgp.php:56
 msgid "PGP Encrypt Message with passphrase"
 msgstr "Zašifrovať správu pomocou PGP s heslom"
 
-#: lib/Compose.php:1474
+#: lib/Compose.php:1484
 msgid "PGP Error: "
 msgstr "Chyba PGP: "
 
@@ -3233,19 +3245,19 @@ msgstr "Verejný PGP kľúč pre \"%s\" bol úspešne vymazaný."
 msgid "PGP Public Keyring"
 msgstr "Databáza verejných PGP kľúčov"
 
-#: lib/Crypt/Pgp.php:42
+#: lib/Crypt/Pgp.php:50
 msgid "PGP Sign Message"
 msgstr "Podpísať správu pomocou PGP"
 
-#: lib/Crypt/Pgp.php:43
+#: lib/Crypt/Pgp.php:51
 msgid "PGP Sign/Encrypt Message"
 msgstr "Podpísať/zašifrovať správu pomocou PGP"
 
-#: lib/Crypt/Pgp.php:49
+#: lib/Crypt/Pgp.php:57
 msgid "PGP Sign/Encrypt Message with passphrase"
 msgstr "Podpísať/zašifrovať správu pomocou PGP s heslom"
 
-#: compose.php:694
+#: compose.php:696
 msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
@@ -3253,7 +3265,7 @@ msgstr ""
 "Šifrovanie PGP nemožno štandardne použiť, lebo neboli nájdené verejné kľúče "
 "pre všetkých adresátov."
 
-#: lib/Ajax/Application/Handler/Passphrase.php:47
+#: lib/Ajax/Application/Handler/Passphrase.php:55
 msgid "PGP passhprase stored in session."
 msgstr "PGP heslo uložené do relácie."
 
@@ -3271,11 +3283,11 @@ msgstr ""
 "momentálne blokuje vyskakovacie okná, musíte toto nastavenie zmeniť, inak "
 "nebude PGP fungovať správne."
 
-#: lib/Compose.php:1428
+#: lib/Compose.php:1438
 msgid "PGP: Need passphrase for personal private key."
 msgstr "PGP: treba zadať heslo pre osobný privátny kľúč."
 
-#: lib/Compose.php:1440
+#: lib/Compose.php:1450
 msgid "PGP: Need passphrase to encrypt your message with."
 msgstr "PGP: treba zadať kľúčovú frázu pre zašifrovanie správy."
 
@@ -3288,7 +3300,7 @@ msgstr "Strana"
 msgid "Page %d of %d"
 msgstr "Strana %d z %d"
 
-#: lib/Ajax/Application/ShowMessage.php:274 lib/Dynamic/Base.php:176
+#: lib/Ajax/Application/ShowMessage.php:282 lib/Dynamic/Base.php:184
 #: message.php:892
 msgid "Parts"
 msgstr "Časti"
@@ -3331,19 +3343,19 @@ msgstr ""
 "Vaše kľúče alebo skombinujte obe metódy. Prvý rozpoznaný verejný a súkromný "
 "kľúč bude použitý ako Vas osobný kľúč."
 
-#: lib/Dynamic/Mailbox.php:476
+#: lib/Dynamic/Mailbox.php:488
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Navždy vymazať %s?"
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:491
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr "Naozaj chcete vymazať všetky %d správy v %s?"
 
-#: lib/Flag/System/Personal.php:29
+#: lib/Flag/System/Personal.php:37
 msgid "Personal"
-msgstr "Osobné"
+msgstr "Osobná"
 
 #: config/prefs.php:15
 msgid "Personal Information"
@@ -3378,15 +3390,15 @@ msgstr "Osobné S/MIME certifikáty NEBOLI naimportované: "
 msgid "Personal S/MIME keys deleted successfully."
 msgstr "Osobné S/MIME kľúče boli úspešne vymazané."
 
-#: config/prefs.php:524
+#: config/prefs.php:523
 msgid "Plain Text"
 msgstr "Čistý text"
 
-#: lib/Compose.php:1327
+#: lib/Compose.php:1337
 msgid "Plaintext Message"
 msgstr "Správa s čistým textom"
 
-#: config/prefs.php:1064
+#: config/prefs.php:1057
 msgid "Plaintext part"
 msgstr "Čistý text"
 
@@ -3398,11 +3410,11 @@ msgstr ""
 "Prehrať zvuk pri novej pošte? Väčšina prehliadačov podporuje zabudované "
 "zvukové súbory, ale niektoré môžu vyžadovať prídavný zásuvný modul."
 
-#: lib/Application.php:340
+#: lib/Application.php:348
 msgid "Please choose a mail server."
 msgstr "Vyberte, prosím, poštový server."
 
-#: lib/IMP.php:78
+#: lib/IMP.php:86
 msgid "Please enter a name for the new mailbox:"
 msgstr "Zadajte, prosím, názov pre nový priečinok:"
 
@@ -3434,15 +3446,15 @@ msgstr "Vyberte, prosím, aspoň jeden priečinok pre vyhľadávanie."
 msgid "Please select at least one search criteria."
 msgstr "Vyberte, prosím, aspoň jedno kritérium pre vyhľadávanie."
 
-#: config/prefs.php:1812
+#: config/prefs.php:1788
 msgid "Poll all mailboxes for new mail?"
 msgstr "Kontrolovať novú poštu vo všetkých priečinkoch?"
 
-#: config/prefs.php:1473
+#: config/prefs.php:1461
 msgid "Poll for New Mail:"
 msgstr "Kontrolovať novú poštu:"
 
-#: lib/Dynamic/Mailbox.php:489
+#: lib/Dynamic/Mailbox.php:501
 msgid "Portal"
 msgstr "Brána"
 
@@ -3450,35 +3462,27 @@ msgstr "Brána"
 msgid "Possible Conflicts"
 msgstr "Možné konflikty"
 
-#: lib/Imap/Acl.php:153 templates/prefs/acl.html.php:40
+#: lib/Imap/Acl.php:183 templates/prefs/acl.html.php:40
 #: templates/prefs/acl.html.php:75
 msgid "Post"
 msgstr "Odoslať"
 
-#: lib/Imap/Acl.php:152
+#: lib/Imap/Acl.php:182
 msgid "Post to this mailbox (not enforced by IMAP)"
 msgstr "Napísať do tejto schránky (nepodporované cez IMAP)"
 
 #: config/prefs.php:64
 msgid "Precede your text signature with dashes ('-- ')?"
-msgstr "Oddeliť signatúru od správy pomlčkami ('-- ')?"
+msgstr "Oddeliť podpis od správy pomlčkami ('-- ')?"
 
-#: config/prefs.php:630 config/prefs.php:1679
-msgid "Preferences affecting only the Basic View"
-msgstr "Nastavenia ovplyvňujúce oba Základný režim"
-
-#: config/prefs.php:1200 config/prefs.php:1734
-msgid "Preferences affecting only the Minimal View"
-msgstr "Nastavenia ovplyvňujúce oba Minimalistický režim"
-
-#: compose.php:1045
+#: compose.php:1048
 msgid "Preview"
 msgstr "Ukážka"
 
 #: templates/smartmobile/mailbox.html.php:4
 #: templates/smartmobile/message.html.php:40
 msgid "Previous"
-msgstr "Predchádzajúca stránka"
+msgstr "Predchádzajúca strana"
 
 #: lib/Minimal/Message.php:255 message.php:525
 msgid "Previous Message"
@@ -3486,22 +3490,22 @@ msgstr "Predchádzajúca správa"
 
 #: lib/Minimal/Mailbox.php:202 templates/basic/mailbox/navbar.html.php:14
 msgid "Previous Page"
-msgstr "Predchádzajúca stránka"
+msgstr "Predchádzajúca strana"
 
-#: lib/Contents.php:818 lib/Contents.php:819
+#: lib/Contents.php:826 lib/Contents.php:827
 msgid "Print"
-msgstr "Tlačiť"
+msgstr "Vytlačiť"
 
-#: lib/Contents/View.php:248
+#: lib/Contents/View.php:256
 msgid "Printed By"
 msgstr "Vytlačené programom"
 
-#: config/prefs.php:1537
+#: config/prefs.php:1525
 msgid "Printing"
-msgstr "Tlačiť"
+msgstr "Tlač"
 
 #: lib/Minimal/Message.php:171 message.php:326 message.php:331
-#: templates/dynamic/compose.html.php:53 templates/itip/action.html.php:20
+#: templates/dynamic/compose.html.php:54 templates/itip/action.html.php:20
 msgid "Priority"
 msgstr "Priorita"
 
@@ -3509,14 +3513,14 @@ msgstr "Priorita"
 msgid "Private Key Password"
 msgstr "Heslo k súkromnému kľúču"
 
-#: config/prefs.php:1192
+#: config/prefs.php:1185
 msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
 msgstr ""
 "Opýtať sa, či odoslať oznámenie o prečítaní, ak ho vyžaduje odosielateľ?"
 
-#: lib/Crypt/Pgp.php:329
+#: lib/Crypt/Pgp.php:337
 msgid "Public PGP keyserver support has been disabled."
 msgstr "Podpora PGP kľúčových serverov bola zakázaná."
 
@@ -3524,43 +3528,43 @@ msgstr "Podpora PGP kľúčových serverov bola zakázaná."
 msgid "Pur_ge Deleted"
 msgstr "O_dstrániť vymazané"
 
-#: lib/Imap/Acl.php:173
+#: lib/Imap/Acl.php:203
 msgid "Purge"
 msgstr "Vyprázdniť"
 
-#: lib/Dynamic/Mailbox.php:402 lib/Minimal/Mailbox.php:185
+#: lib/Dynamic/Mailbox.php:407 lib/Minimal/Mailbox.php:185
 msgid "Purge Deleted"
 msgstr "Odstrániť vymazané"
 
-#: config/prefs.php:1429
+#: config/prefs.php:1417
 msgid "Purge Spam how often:"
 msgstr "Ako často vyprázdniť nevyžiadanú poštu:"
 
-#: config/prefs.php:1323
+#: config/prefs.php:1311
 msgid "Purge Trash how often:"
-msgstr "Ako často vyprázdniť odpadkový kôš:"
+msgstr "Ako často vyprázdniť kôš:"
 
-#: lib/Imap/Acl.php:172
+#: lib/Imap/Acl.php:202
 msgid "Purge messages"
 msgstr "Vyprázdniť správy"
 
-#: config/prefs.php:1440
+#: config/prefs.php:1428
 msgid "Purge messages in Spam mailbox older than this amount of days."
 msgstr "Odstrániť z nevyžiadanej pošty správy staršie ako tento počet dní."
 
-#: config/prefs.php:1336
+#: config/prefs.php:1324
 msgid "Purge messages in Trash mailbox older than this amount of days."
 msgstr "Odstrániť z koša správy staršie ako tento počet dní."
 
-#: config/prefs.php:927
+#: config/prefs.php:920
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
 msgstr "Odstrániť z odoslanej pošty správy staršie ako tento počet dní."
 
-#: config/prefs.php:916
+#: config/prefs.php:909
 msgid "Purge sent mail how often:"
 msgstr "Ako často vyprázdniť odoslanú poštu:"
 
-#: lib/LoginTasks/Task/PurgeSpam.php:57
+#: lib/LoginTasks/Task/PurgeSpam.php:65
 #, php-format
 msgid "Purging %d message from Spam mailbox."
 msgid_plural "Purging %d messages from Spam mailbox."
@@ -3568,7 +3572,7 @@ msgstr[0] "Odstraňujem %d správu z nevyžiadanej pošty."
 msgstr[1] "Odstraňujem %d správy z nevyžiadanej pošty."
 msgstr[2] "Odstraňujem %d správ z nevyžiadanej pošty."
 
-#: lib/LoginTasks/Task/PurgeTrash.php:63
+#: lib/LoginTasks/Task/PurgeTrash.php:71
 #, php-format
 msgid "Purging %d message from Trash mailbox."
 msgid_plural "Purging %d messages from Trash mailbox."
@@ -3576,31 +3580,31 @@ msgstr[0] "Odstraňujem %d správu z koša."
 msgstr[1] "Odstraňujem %d správy z koša."
 msgstr[2] "Odstraňujem %d správ z koša."
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:66
+#: lib/LoginTasks/Task/PurgeSentmail.php:74
 #, php-format
 msgid "Purging %d messages from sent-mail mailbox."
 msgstr "Odstraňujem správy (%d) z odoslanej pošty."
 
-#: lib/LoginTasks/Task/PurgeSentmail.php:64
+#: lib/LoginTasks/Task/PurgeSentmail.php:72
 #, php-format
 msgid "Purging 1 message from sent-mail mailbox %s."
 msgstr "Odstraňujem 1 správu z priečinka s odoslanou poštou %s."
 
-#: config/prefs.php:752
+#: config/prefs.php:745
 #, php-format
 msgid "Quoting %f:"
 msgstr "Citát %f:"
 
-#: lib/Imap/Acl.php:137 templates/prefs/acl.html.php:39
+#: lib/Imap/Acl.php:167 templates/prefs/acl.html.php:39
 #: templates/prefs/acl.html.php:74
 msgid "Read"
 msgstr "Čítať"
 
-#: lib/Dynamic/Compose/Common.php:168
+#: lib/Dynamic/Compose/Common.php:171
 msgid "Read Receipt"
 msgstr "Vyžiadať si správu o prečítaní"
 
-#: lib/Imap/Acl.php:136
+#: lib/Imap/Acl.php:166
 msgid "Read messages"
 msgstr "Prečítané správy"
 
@@ -3610,7 +3614,7 @@ msgstr "Prečítané správy"
 msgid "Read-Only"
 msgstr "Iba na čítanie"
 
-#: lib/Dynamic/Mailbox.php:288
+#: lib/Dynamic/Mailbox.php:294
 msgid "Rebuild Folder List"
 msgstr "Znovu vytvoriť zoznam priečinkov"
 
@@ -3623,26 +3627,26 @@ msgstr "Znovu vytvoriť strom priečinkov"
 msgid "Recent Searches"
 msgstr "Posledné vyhľadávania"
 
-#: lib/Compose.php:721
+#: lib/Compose.php:732
 msgid "Recipient address does not match the currently selected identity."
 msgstr "Adresa príjemcu sa nezhoduje s práve zvolenou identitou."
 
-#: lib/Dynamic/Mailbox.php:446 search.php:49
+#: lib/Dynamic/Mailbox.php:458 search.php:49
 #: templates/basic/search/search-basic.html.php:18
 #: templates/smartmobile/search.html.php:13
 msgid "Recipients (To/Cc/Bcc)"
-msgstr "Príjemcovia (Komu/Cc/Bcc)"
+msgstr "Príjemcovia (Pre/Cc/Bcc)"
 
 #: lib/Search/Element/Recipient.php:61
 #, php-format
 msgid "Recipients (To/Cc/Bcc) for '%s'"
-msgstr "Príjemcovia (Komu/Cc/Bcc) pre '%s'"
+msgstr "Príjemcovia (Pre/Cc/Bcc) pre '%s'"
 
 #: message.php:635 message.php:716
 msgid "Redirec_t"
 msgstr "Pre_smerovať"
 
-#: compose.php:377 lib/Dynamic/Base.php:161 lib/Dynamic/Compose.php:159
+#: compose.php:384 lib/Dynamic/Base.php:169 lib/Dynamic/Compose.php:167
 #: lib/Minimal/Compose.php:223 lib/Minimal/Compose.php:226
 #: lib/Minimal/Message.php:249 lib/Notification/Event/Status.php:32
 #: mailbox.php:675 templates/basic/compose/redirect.html.php:53
@@ -3652,7 +3656,7 @@ msgstr "Pre_smerovať"
 msgid "Redirect"
 msgstr "Presmerovať"
 
-#: compose.php:377
+#: compose.php:384
 msgid "Redirect Messages"
 msgstr "Presmerovať správy"
 
@@ -3668,42 +3672,42 @@ msgstr "Obnoviť"
 msgid "Refresh Search Results"
 msgstr "Obnoviť výsledky vyhľadávania"
 
-#: lib/Mime/Viewer/Itip.php:203
+#: lib/Mime/Viewer/Itip.php:211
 msgid "Remember the free/busy information."
 msgstr "Pamätať si informácie o zaneprázdnenosti."
 
-#: config/prefs.php:1775
+#: config/prefs.php:1751
 msgid "Remember the last view"
 msgstr "Pamätať si posledné zobrazenie"
 
-#: lib/Dynamic/Compose/Common.php:234 templates/contacts/contacts.html.php:60
+#: lib/Dynamic/Compose/Common.php:237 templates/contacts/contacts.html.php:60
 msgid "Remove"
 msgstr "Odstrániť"
 
-#: lib/Dynamic/Mailbox.php:224 lib/Dynamic/Mailbox.php:351
+#: lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:356
 #: templates/basic/folders/actions.html.php:25
 msgid "Rename"
 msgstr "Premenovať"
 
-#: lib/Dynamic/Mailbox.php:491
+#: lib/Dynamic/Mailbox.php:503
 #, php-format
 msgid "Rename %s to:"
 msgstr "Premenovať %s na:"
 
-#: config/prefs.php:892
+#: config/prefs.php:885
 msgid "Rename sent mail mailbox at beginning of month?"
 msgstr "Premenovať priečinok odoslanej pošty na začiatku mesiaca?"
 
-#: lib/Mailbox.php:890
+#: lib/Mailbox.php:910
 #, php-format
 msgid "Renaming \"%s\" to \"%s\" failed. This is what the server said"
 msgstr "Premenovanie \"%s\" na \"%s\" zlyhalo. Server zaslal túto odpoveď"
 
-#: config/prefs.php:709
+#: config/prefs.php:703
 msgid "Replies"
 msgstr "Odpovede"
 
-#: lib/Dynamic/Compose.php:92 lib/Dynamic/Mailbox.php:300
+#: lib/Dynamic/Compose.php:100 lib/Dynamic/Mailbox.php:306
 #: lib/Minimal/Compose.php:201 lib/Minimal/Message.php:234
 #: lib/Notification/Event/Status.php:39 templates/dynamic/mailbox.html.php:29
 #: templates/dynamic/message.html.php:12
@@ -3715,54 +3719,54 @@ msgstr "Odpovedať"
 msgid "Reply All"
 msgstr "Odpovedať všetkým"
 
-#: lib/Ajax/Imple/ItipRequest.php:287 lib/Ajax/Imple/ItipRequest.php:398
+#: lib/Ajax/Imple/ItipRequest.php:302 lib/Ajax/Imple/ItipRequest.php:413
 msgid "Reply Sent."
 msgstr "Odpoveď bola odoslaná."
 
 #: templates/basic/compose/compose.html.php:160
 #: templates/basic/compose/compose.html.php:174
-#: templates/dynamic/compose.html.php:153
-#: templates/dynamic/compose.html.php:157
+#: templates/dynamic/compose.html.php:154
+#: templates/dynamic/compose.html.php:158
 msgid "Reply To Sender instead"
-msgstr "Odpovedať odosielateľovi"
+msgstr "Odpovedať len odosielateľovi"
 
 #: lib/Minimal/Compose.php:200
 msgid "Reply text will be automatically appended to your outgoing message."
 msgstr "Text odpovede bude automaticky pripojený k Vašej oschádzajúcej správe."
 
-#: lib/Dynamic/Compose.php:96
+#: lib/Dynamic/Compose.php:104
 msgid "Reply to All"
 msgstr "Odpovedať všetkým"
 
-#: compose.php:312
+#: compose.php:319
 msgid "Reply to All:"
 msgstr "Odpovedať všetkým:"
 
-#: lib/Dynamic/Compose.php:100 lib/Minimal/Message.php:237
+#: lib/Dynamic/Compose.php:108 lib/Minimal/Message.php:237
 msgid "Reply to List"
 msgstr "Odpovedať na e-mailovú konferenciu"
 
-#: compose.php:325
+#: compose.php:332
 msgid "Reply to List:"
 msgstr "Odpovedať na e-mailovú konferenciu:"
 
-#: lib/Mime/Viewer/Itip.php:206 lib/Mime/Viewer/Itip.php:215
+#: lib/Mime/Viewer/Itip.php:214 lib/Mime/Viewer/Itip.php:223
 msgid "Reply with Not Supported Message"
 msgstr "Odpovedať so správou: Nepodporované"
 
-#: lib/Mime/Viewer/Itip.php:213
+#: lib/Mime/Viewer/Itip.php:221
 msgid "Reply with free/busy for next 2 months."
 msgstr "Odpovedať správou o zaneprázdnenosti na nasledujúce 2 mesiace."
 
-#: lib/Mime/Viewer/Itip.php:212
+#: lib/Mime/Viewer/Itip.php:220
 msgid "Reply with requested free/busy information."
 msgstr "Odpovedať s požadovanou informáciou o zaneprázdnenosti."
 
-#: lib/Compose.php:2214 lib/Ui/Message.php:30
+#: lib/Compose.php:2227 lib/Ui/Message.php:30
 msgid "Reply-To"
 msgstr "Odpovedať-na"
 
-#: compose.php:300
+#: compose.php:307
 msgid "Reply:"
 msgstr "Odpovedať:"
 
@@ -3774,13 +3778,13 @@ msgstr "Ohlásiť ako neškodnú poštu"
 msgid "Report As Spam"
 msgstr "Ohlásiť ako nevyžiadanú poštu"
 
-#: lib/Dynamic/Mailbox.php:310 lib/Minimal/Message.php:270
-#: lib/Smartmobile.php:159 mailbox.php:693 message.php:709
+#: lib/Dynamic/Mailbox.php:315 lib/Minimal/Message.php:270
+#: lib/Smartmobile.php:160 mailbox.php:693 message.php:709
 msgid "Report as Innocent"
 msgstr "Ohlásiť ako neškodnú poštu"
 
-#: lib/Dynamic/Mailbox.php:309 lib/Minimal/Message.php:265
-#: lib/Smartmobile.php:160 mailbox.php:684 message.php:699
+#: lib/Dynamic/Mailbox.php:314 lib/Minimal/Message.php:265
+#: lib/Smartmobile.php:161 mailbox.php:684 message.php:699
 msgid "Report as Spam"
 msgstr "Ohlásiť ako nevyžiadanú poštu"
 
@@ -3788,16 +3792,17 @@ msgstr "Ohlásiť ako nevyžiadanú poštu"
 msgid "Request a _Read Receipt"
 msgstr "Vyžiadať si správu o p_rečítaní"
 
-#: config/prefs.php:610
+#: config/prefs.php:609
 msgid "Request read receipts?"
 msgstr "Vyžadovať správu o prečítaní?"
 
-#: lib/Ajax/Application.php:309 lib/Ajax/Application/Handler/Dynamic.php:680
-#: lib/Ajax/Application/ShowMessage.php:80 mailbox.php:110
+#: lib/Ajax/Application/Handler/Common.php:652
+#: lib/Ajax/Application/Handler/Dynamic.php:677
+#: lib/Ajax/Application/ShowMessage.php:88 mailbox.php:110
 msgid "Requested message not found."
 msgstr "Požadovaná správa nebola nájdená."
 
-#: lib/Mime/Viewer/Itip.php:595
+#: lib/Mime/Viewer/Itip.php:603
 msgid "Required Participant"
 msgstr "Požadovaný účastník"
 
@@ -3807,11 +3812,11 @@ msgstr "Požadovaný účastník"
 msgid "Reset"
 msgstr "Vymazať formulár"
 
-#: lib/Ajax/Imple/ItipRequest.php:113 lib/Mime/Viewer/Itip.php:319
+#: lib/Ajax/Imple/ItipRequest.php:121 lib/Mime/Viewer/Itip.php:327
 msgid "Respondent Status Updated."
 msgstr "Stav účastníka bol aktualizovaný."
 
-#: lib/Dynamic/Mailbox.php:493
+#: lib/Dynamic/Mailbox.php:505
 #, php-format
 msgid "Results are %d Minutes Old"
 msgstr "Výsledky su %d minút staré"
@@ -3820,7 +3825,7 @@ msgstr "Výsledky su %d minút staré"
 msgid "Resume"
 msgstr "Obnoviť"
 
-#: lib/Dynamic/Mailbox.php:295 templates/dynamic/mailbox.html.php:94
+#: lib/Dynamic/Mailbox.php:301 templates/dynamic/mailbox.html.php:94
 msgid "Resume Draft"
 msgstr "Obnoviť z Konceptu"
 
@@ -3841,13 +3846,13 @@ msgstr "Návrat do Prehľadu priečinkov"
 msgid "Return to message view"
 msgstr "Návrat do prezerania správy"
 
-#: config/prefs.php:1238
+#: config/prefs.php:1226
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
 "Vrátiť sa na zoznam správ po vymazaní, presunu alebo kopírovaniu správy?"
 
-#: config/prefs.php:525
+#: config/prefs.php:524
 msgid "Rich Text (HTML)"
 msgstr "Text (HTML) "
 
@@ -3863,15 +3868,15 @@ msgstr "Prehľadávať"
 msgid "S/MIME"
 msgstr "S/MIME"
 
-#: lib/Crypt/Smime.php:35
+#: lib/Crypt/Smime.php:43
 msgid "S/MIME Encrypt Message"
 msgstr "Zašifrovať správu pomocou S/MIME"
 
-#: lib/Compose.php:1507
+#: lib/Compose.php:1517
 msgid "S/MIME Error: "
 msgstr "Chyba S/MIME: "
 
-#: lib/Compose.php:1484
+#: lib/Compose.php:1494
 msgid "S/MIME Error: Need passphrase for personal private key."
 msgstr "Chyba S/MIME: Pre osobný privátny kľúč treba zadať heslo."
 
@@ -3894,15 +3899,15 @@ msgstr "Databáza verejných S/MIME kľúčov"
 msgid "S/MIME Public/Private Keypair successfully added."
 msgstr "Verejný/súkromný kľúčový pár bol úspešne pridaný."
 
-#: lib/Crypt/Smime.php:40
+#: lib/Crypt/Smime.php:48
 msgid "S/MIME Sign Message"
 msgstr "Podpísať správu pomocou S/MIME"
 
-#: lib/Crypt/Smime.php:41
+#: lib/Crypt/Smime.php:49
 msgid "S/MIME Sign/Encrypt Message"
 msgstr "Podpísať/zašifrovať správu pomocou S/MIME"
 
-#: lib/Ajax/Application/Handler/Passphrase.php:61
+#: lib/Ajax/Application/Handler/Passphrase.php:69
 msgid "S/MIME passphrase stored in session."
 msgstr "Heslo S/MIME bolo uložené do relácie."
 
@@ -3914,14 +3919,14 @@ msgstr "Heslo S/MIME bolo úspešne odstránené."
 msgid "S/MIME public key successfully added."
 msgstr "Verejný S/MIME kľúč bol úspešne pridaný."
 
-#: lib/Mime/Viewer/Smime.php:177
+#: lib/Mime/Viewer/Smime.php:184
 msgid ""
 "S/MIME support is not currently enabled so the data is unable to be "
 "decrypted."
 msgstr ""
 "Podpora S/MIME nie je momentálne aktivovaná, preto nemožno správu dešifrovať."
 
-#: lib/Mime/Viewer/Smime.php:241
+#: lib/Mime/Viewer/Smime.php:256
 msgid ""
 "S/MIME support is not enabled so the digital signature is unable to be "
 "verified."
@@ -3951,23 +3956,23 @@ msgstr "U_ložiť kópiu do"
 msgid "Sa_ve as"
 msgstr "Uložiť _ako"
 
-#: lib/Dynamic/Mailbox.php:426 templates/dynamic/message.html.php:50
+#: lib/Dynamic/Mailbox.php:431 templates/dynamic/message.html.php:50
 #: templates/search/search.html.php:106
 msgid "Save"
 msgstr "Uložiť"
 
-#: lib/Ajax/Application/ShowMessage.php:277
+#: lib/Ajax/Application/ShowMessage.php:285
 msgid "Save All"
 msgstr "Uložiť všetko"
 
-#: lib/Dynamic/Compose/Common.php:171
+#: lib/Dynamic/Compose/Common.php:174
 msgid "Save Attachments in Sent Mailbox"
 msgstr "Uložiť prílohy do priečinka odoslanej pošty"
 
 #: lib/Minimal/Compose.php:239 lib/Minimal/Compose.php:242
 #: lib/Minimal/Compose.php:289 templates/basic/compose/compose.html.php:27
 #: templates/basic/compose/compose.html.php:212
-#: templates/minimal/compose.html.php:52
+#: templates/minimal/compose.html.php:53
 msgid "Save Draft"
 msgstr "Uložiť koncept"
 
@@ -3975,7 +3980,7 @@ msgstr "Uložiť koncept"
 msgid "Save Image"
 msgstr "Uložiť obrázok"
 
-#: lib/Contents.php:810
+#: lib/Contents.php:818
 msgid "Save Image in Gallery"
 msgstr "Uložiť obrázok do galérie"
 
@@ -3985,7 +3990,7 @@ msgstr "Uložiť vyhľadávanie"
 
 #: templates/basic/compose/compose.html.php:30
 #: templates/basic/compose/compose.html.php:215
-#: templates/dynamic/compose.html.php:19
+#: templates/dynamic/compose.html.php:20
 msgid "Save Template"
 msgstr "Uložiť šablónu"
 
@@ -3994,43 +3999,43 @@ msgstr "Uložiť šablónu"
 msgid "Save _Draft"
 msgstr "Uložiť _koncept"
 
-#: templates/dynamic/compose.html.php:26
+#: templates/dynamic/compose.html.php:27
 msgid "Save as Draft"
 msgstr "Uložiť ako koncept"
 
-#: config/prefs.php:881
+#: config/prefs.php:874
 msgid "Save attachments"
 msgstr "Uložiť prílohy"
 
-#: compose.php:1001
+#: compose.php:1004
 msgid "Save attachments with message in sent-mail mailbox?"
 msgstr "Uložiť prílohy so správou do priečinka odoslanej pošty?"
 
-#: config/prefs.php:845
+#: config/prefs.php:838
 msgid "Save drafts as unseen?"
 msgstr "Uložiť koncepty ako neprečítané?"
 
-#: config/prefs.php:858
+#: config/prefs.php:851
 msgid "Save drafts automatically while composing?"
 msgstr "Automaticky ukladať koncepty počas písania?"
 
-#: templates/dynamic/compose.html.php:45
+#: templates/dynamic/compose.html.php:46
 msgid "Save in"
 msgstr "Uložiť do"
 
-#: config/prefs.php:958
+#: config/prefs.php:951
 msgid "Save recipients automatically to the default address book?"
 msgstr "Ukladať príjemcov automaticky do štandardného adresára kontaktov?"
 
 #: config/prefs.php:86
 msgid "Save sent mail?"
-msgstr "Uložiť odoslanú poštu?"
+msgstr "Ukladať odoslanú poštu?"
 
-#: lib/Mime/Viewer/Smime.php:304
+#: lib/Mime/Viewer/Smime.php:310
 msgid "Save the certificate to your Address Book."
 msgstr "Uložiť certifikát do Vášho Adresára."
 
-#: lib/Mime/Viewer/Pgp.php:360
+#: lib/Mime/Viewer/Pgp.php:367
 msgid "Save the key to your address book."
 msgstr "Uložiť kľúč do Vášho adresára."
 
@@ -4042,33 +4047,33 @@ msgstr "Uložené vyhľadávania"
 msgid "Saved searches require a label."
 msgstr "Virtuálne priečinky vyžadujú názov."
 
-#: lib/Compose.php:227
+#: lib/Compose.php:236
 #, php-format
 msgid ""
 "Saving the draft failed because it contains an invalid e-mail address: %s."
 msgstr ""
 "Ukladanie konceptu zlyhalo pretože obsahuje neplatnú e-mailovú adresu: %s."
 
-#: lib/Compose.php:285
+#: lib/Compose.php:294
 msgid "Saving the draft failed. Could not create a drafts mailbox."
 msgstr ""
 "Ukladanie konceptu zlyhalo. Nepodarilo sa vytvoriť priečinok pre koncepty."
 
-#: lib/Compose.php:280
+#: lib/Compose.php:289
 msgid "Saving the draft failed. No drafts mailbox specified."
 msgstr "Ukladanie konceptu zlyhalo. Priečinok pre koncepty nie je nastavený."
 
-#: lib/Compose.php:604
+#: lib/Compose.php:615
 msgid "Saving the template failed: could not create the templates mailbox."
 msgstr ""
 "Ukladanie šablóny zlyhalo: nepodarilo sa vytvoriť priečinok pre šablóny."
 
-#: lib/Compose.php:599
+#: lib/Compose.php:610
 msgid "Saving the template failed: no template mailbox exists."
 msgstr "Ukladanie šablóny zlyhalo: neexistuje žiadný priečinok pre šablóny."
 
-#: lib/Application.php:463 lib/Dynamic/Mailbox.php:227
-#: lib/Dynamic/Mailbox.php:362 lib/Dynamic/Mailbox.php:492
+#: lib/Application.php:471 lib/Dynamic/Mailbox.php:233
+#: lib/Dynamic/Mailbox.php:367 lib/Dynamic/Mailbox.php:504
 #: lib/Minimal/Mailbox.php:195 search-basic.php:114 search.php:507
 #: templates/basic/folders/actions.html.php:47
 #: templates/basic/mailbox/header.html.php:18
@@ -4092,11 +4097,11 @@ msgstr "Hľadať %s v %s"
 msgid "Search All Mailboxes"
 msgstr "Hľadať vo všetkých priečinkoch"
 
-#: lib/Dynamic/Mailbox.php:228 lib/Dynamic/Mailbox.php:363
+#: lib/Dynamic/Mailbox.php:234 lib/Dynamic/Mailbox.php:368
 msgid "Search All Subfolders"
 msgstr "Hľadať vo všetkých podpriečinkoch"
 
-#: lib/Dynamic/Mailbox.php:450 templates/smartmobile/search.html.php:8
+#: lib/Dynamic/Mailbox.php:462 templates/smartmobile/search.html.php:8
 msgid "Search By"
 msgstr "Hľadať podľa"
 
@@ -4116,7 +4121,7 @@ msgstr "Hľadať v príznakoch:"
 msgid "Search Mailboxes"
 msgstr "Hľadať v priečinkoch"
 
-#: lib/Search/Query.php:136 lib/Smartmobile.php:168
+#: lib/Search/Query.php:136 lib/Smartmobile.php:169
 #: templates/contacts/contacts.html.php:32
 msgid "Search Results"
 msgstr "Výsledky vyhľadávania"
@@ -4129,7 +4134,7 @@ msgstr "Hľadať termín:"
 msgid "Search all subfolders?"
 msgstr "Hľadať vo všetkých podpriečinkoch?"
 
-#: lib/Minimal/Compose.php:474
+#: lib/Minimal/Compose.php:475
 #, php-format
 msgid "Search for \"%s\" failed: no address found."
 msgstr "Vyhľadávanie pre \"%s\" neúspešné: žiadna adresa nebola nájdená."
@@ -4142,9 +4147,9 @@ msgstr "Hľadať:"
 msgid "Searching is not available."
 msgstr "Vyhľadávanie nie je k dispozícii."
 
-#: lib/Dynamic/Mailbox.php:240 lib/Flag/Imap/Seen.php:34
+#: lib/Dynamic/Mailbox.php:246 lib/Flag/Imap/Seen.php:42
 msgid "Seen"
-msgstr "Prečítané"
+msgstr "Prečítaná"
 
 #: templates/itip/action.html.php:98
 msgid "Select"
@@ -4155,7 +4160,7 @@ msgstr "Označiť"
 msgid "Select All"
 msgstr "Označiť všetko"
 
-#: config/prefs.php:942
+#: config/prefs.php:935
 msgid "Select address book sources for adding and searching for addresses."
 msgstr "Vyberte adresárové zdroje pre pridávanie a hľadanie adries."
 
@@ -4168,8 +4173,8 @@ msgid "Selected Addresses"
 msgstr "Vybrané adresy"
 
 #: lib/Minimal/Compose.php:240 lib/Minimal/Compose.php:248
-#: lib/Minimal/Compose.php:301 templates/dynamic/compose.html.php:13
-#: templates/minimal/compose.html.php:49
+#: lib/Minimal/Compose.php:301 templates/dynamic/compose.html.php:14
+#: templates/minimal/compose.html.php:50
 msgid "Send"
 msgstr "Poslať"
 
@@ -4178,34 +4183,34 @@ msgstr "Poslať"
 msgid "Send Key to Public Keyserver"
 msgstr "Odoslať kľúč na server verejných kľúčov"
 
-#: lib/Mime/Viewer/Itip.php:306
+#: lib/Mime/Viewer/Itip.php:314
 msgid "Send Latest Information"
 msgstr "Odoslať najnovšie informácie"
 
 #: templates/basic/compose/compose.html.php:24
 #: templates/basic/compose/compose.html.php:209
-#: templates/smartmobile/compose.html.php:39
+#: templates/smartmobile/compose.html.php:40
 msgid "Send Message"
 msgstr "Odoslať správu"
 
-#: compose.php:717 lib/Smartmobile.php:167
+#: compose.php:719 lib/Smartmobile.php:168
 msgid "Send message without a Subject?"
 msgstr "Odoslať správu bez predmetu?"
 
-#: lib/Dynamic/Compose/Common.php:233
+#: lib/Dynamic/Compose/Common.php:236
 msgid "Send message without a subject?"
 msgstr "Odoslať správu bez predmetu?"
 
-#: lib/Mime/Viewer/Smime.php:288
+#: lib/Mime/Viewer/Smime.php:294
 #, php-format
 msgid "Sender: %s"
 msgstr "Odosielateľ: %s"
 
-#: lib/Mailbox.php:1625 lib/Mailbox.php:1630 lib/Mailbox.php:1729
+#: lib/Mailbox.php:1657 lib/Mailbox.php:1662 lib/Mailbox.php:1761
 msgid "Sent"
 msgstr "Odoslané"
 
-#: config/prefs.php:867
+#: config/prefs.php:860
 msgid "Sent Mail"
 msgstr "Odoslaná pošta"
 
@@ -4213,7 +4218,7 @@ msgstr "Odoslaná pošta"
 msgid "Sent mail mailbox:"
 msgstr "Priečinok odoslanej pošty:"
 
-#: lib/Application.php:332
+#: lib/Application.php:340
 msgid "Server"
 msgstr "Server"
 
@@ -4221,19 +4226,19 @@ msgstr "Server"
 msgid "Server Suggestion"
 msgstr "Odporúčania servera"
 
-#: lib/Imap/Acl.php:30
+#: lib/Imap/Acl.php:45
 msgid "Server does not support ACLs."
 msgstr "Tento server nepodporuje ACL."
 
-#: config/prefs.php:516
+#: config/prefs.php:515
 msgid "Set a priority header when composing messages?"
-msgstr "Nastaviť prioritnú hlavičku pri písaní správy?"
+msgstr "Nastaviť prioritu pri písaní správ?"
 
-#: lib/Imap/Acl.php:156
+#: lib/Imap/Acl.php:186
 msgid "Set permissions for other users"
-msgstr "Natavi s inými používateľmi."
+msgstr "Nastaviť oprávnenia pre iných používateľov"
 
-#: config/prefs.php:1226
+#: config/prefs.php:1214
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr "Nastavenia pri presúvaní a vymazavání správ."
 
@@ -4245,21 +4250,25 @@ msgstr "Zdieľané priečinky"
 msgid "Share your mailboxes with other users."
 msgstr "Zdieľať Vaše priečinky s inými používateľmi."
 
-#: lib/Mailbox.php:1577
+#: lib/Mailbox.php:1609
 msgid "Shared"
 msgstr "Zdieľané"
 
 #: config/prefs.php:358
-msgid "Should PGP signed messages automatically be verified when viewed?"
+msgid "Should PGP signed messages be automatically verified when viewed?"
 msgstr ""
-"Majú byť správy podpísané pomocou PGP pri čítaní automaticky overované?"
+"Majú byť správy podpísané pomocou PGP pri otvorení automaticky overené?"
 
 #: config/prefs.php:435
-msgid "Should S/MIME signed messages automatically be verified when viewed?"
+msgid "Should S/MIME signed messages be automatically verified when viewed?"
 msgstr ""
-"Majú byť správy podpísané pomocou S/MIME pri čítaní automaticky overované?"
+"Majú byť správy podpísané pomocou S/MIME pri otvorení automaticky overené?"
 
-#: config/prefs.php:1125
+#: config/prefs.php:877
+msgid "Should attachments be saved in the sent-mail message?"
+msgstr "Majú sa uložiť prílohy v odoslanej správe?"
+
+#: config/prefs.php:1118
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
@@ -4271,13 +4280,9 @@ msgstr ""
 msgid "Should the body of text/plain messages be scanned for PGP data?"
 msgstr "Majú sa v tele správ typu text/plain skenovať údaje pre PGP?"
 
-#: config/prefs.php:837
+#: config/prefs.php:830
 msgid "Should the compose window be closed after saving a draft?"
 msgstr "Má sa okno na písanie správy zatvoriť po uložení konceptu?"
-
-#: config/prefs.php:884
-msgid "Should we save attachments in the sent-mail message?"
-msgstr "Majú sa uložiť prílohy v odoslanej správe?"
 
 #: config/prefs.php:342
 msgid "Should your PGP public key to be attached to your messages by default?"
@@ -4297,7 +4302,7 @@ msgstr "Zobraziť všetky"
 msgid "Show All Headers"
 msgstr "Zobraziť všetky hlavičky"
 
-#: lib/Dynamic/Mailbox.php:284 lib/Minimal/Folders.php:61
+#: lib/Dynamic/Mailbox.php:290 lib/Minimal/Folders.php:61
 msgid "Show All Mailboxes"
 msgstr "Zobraziť všetky priečinky"
 
@@ -4309,11 +4314,11 @@ msgstr "Zobraziť všetky časti"
 msgid "Show Common Headers"
 msgstr "Zobraziť bežné hlavičky"
 
-#: lib/Dynamic/Mailbox.php:405 mailbox.php:279
+#: lib/Dynamic/Mailbox.php:410 mailbox.php:279
 msgid "Show Deleted"
 msgstr "Ukázať vymazané"
 
-#: lib/Mime/Viewer/Html.php:220
+#: lib/Mime/Viewer/Html.php:227
 msgid "Show Images?"
 msgstr "Zobraziť obrázky?"
 
@@ -4321,7 +4326,7 @@ msgstr "Zobraziť obrázky?"
 msgid "Show Mailing List Information"
 msgstr "Zobraziť informácie o e-mailovej konferencii"
 
-#: lib/Dynamic/Mailbox.php:439
+#: lib/Dynamic/Mailbox.php:444
 msgid "Show Only"
 msgstr "Zobraziť len"
 
@@ -4333,7 +4338,7 @@ msgstr "Zobraziť len:"
 msgid "Show Polled"
 msgstr "Zobraziť kontrolované"
 
-#: lib/Dynamic/Mailbox.php:390
+#: lib/Dynamic/Mailbox.php:395
 msgid "Show Preview"
 msgstr "Zobraziť ukážku"
 
@@ -4349,17 +4354,17 @@ msgstr "Zobraziť prihlásené priečinky"
 msgid "Show Unsubscribed Mailboxes"
 msgstr "Zobraziť neprihlásené priečinky"
 
-#: config/prefs.php:1149
+#: config/prefs.php:1142
 msgid "Show all attachments"
 msgstr "Zobraziť všetky prílohy"
 
-#: config/prefs.php:1528
+#: config/prefs.php:1516
 msgid "Show all flags (including flags set by other mail programs)?"
 msgstr ""
 "Ukázať všetky príznaky (vrátane príznakov nastavených v iných e-mailových "
 "programoch)?"
 
-#: config/prefs.php:1216
+#: config/prefs.php:1204
 msgid ""
 "Show all inline parts by default in message view? If unchecked, will treat "
 "all but the first viewable inline part as attachments."
@@ -4367,31 +4372,31 @@ msgstr ""
 "Štandardne zobrazovať všetky vnútorné časti? Ak je vypnuté, všetky vnútorné "
 "časti, okrem prvej, budú zobrazené ako prílohy."
 
-#: config/prefs.php:1148
+#: config/prefs.php:1141
 msgid "Show all parts"
 msgstr "Zobraziť všetky hlavičky"
 
-#: config/prefs.php:1055
+#: config/prefs.php:1048
 msgid "Show an icon to allow stripping of attachments from messages?"
 msgstr "Zobraziť ikonu na odstránenie príloh zo správ?"
 
-#: config/prefs.php:1790
+#: config/prefs.php:1766
 msgid "Show non-private mailboxes in separate folders"
 msgstr "Zobraziť nesúkromné schránky v samostatných priečinkoch"
 
-#: config/prefs.php:1721
+#: config/prefs.php:1701
 msgid "Show previews for unread messages only?"
 msgstr "Zobrazovať ukážky iba pre neprečítané správy?"
 
-#: config/prefs.php:1729
+#: config/prefs.php:1709
 msgid "Show previews in tooltips?"
 msgstr "Zobrazovať ukážky ako popisky?"
 
-#: config/prefs.php:501
+#: config/prefs.php:500
 msgid "Show the Bcc: header field when composing mail?"
 msgstr "Zobraziť hlavičku Bcc: pri písaní správy?"
 
-#: config/prefs.php:494
+#: config/prefs.php:493
 msgid "Show the Cc: header field when composing mail?"
 msgstr "Zobraziť hlavičku Cc: pri písaní správy?"
 
@@ -4399,7 +4404,7 @@ msgstr "Zobraziť hlavičku Cc: pri písaní správy?"
 msgid "Show the filter icon on the menubar?"
 msgstr "Zobraziť ikonu filtrov v menu?"
 
-#: config/prefs.php:1119
+#: config/prefs.php:1112
 msgid "Shown"
 msgstr "Zobrazené"
 
@@ -4407,7 +4412,7 @@ msgstr "Zobrazené"
 msgid "Si_ze"
 msgstr "Veľko_sť"
 
-#: lib/Dynamic/Mailbox.php:212 templates/basic/compose/compose.html.php:324
+#: lib/Dynamic/Mailbox.php:218 templates/basic/compose/compose.html.php:324
 #: templates/basic/compose/compose.html.php:328
 #: templates/basic/folders/folders_size.html.php:9
 msgid "Size"
@@ -4457,14 +4462,14 @@ msgstr "Triediť podľa vlákna"
 msgid "Sort by To Address"
 msgstr "Triediť podľa adresy príjemcu"
 
-#: lib/Mailbox.php:1638 lib/Mailbox.php:1716
+#: lib/Mailbox.php:1670 lib/Mailbox.php:1748
 #: templates/dynamic/mailbox.html.php:36 templates/dynamic/message.html.php:19
 #: templates/smartmobile/mailbox.html.php:25
 #: templates/smartmobile/message.html.php:32
 msgid "Spam"
 msgstr "Nevyžiadaná pošta"
 
-#: config/prefs.php:1357
+#: config/prefs.php:1345
 msgid "Spam Reporting"
 msgstr "Oznamovanie nevyžiadanej pošty"
 
@@ -4492,15 +4497,15 @@ msgstr "Stav"
 msgid "Strip All Attachments"
 msgstr "Odstrániť všetky prílohy"
 
-#: lib/Contents.php:829
+#: lib/Contents.php:837
 msgid "Strip Attachment"
 msgstr "Odstrániť prílohu"
 
-#: config/prefs.php:1713
+#: config/prefs.php:1693
 msgid "Strip linebreaks in preview?"
 msgstr "Odstrániť konce riadkov?"
 
-#: config/prefs.php:762
+#: config/prefs.php:755
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr "Odstrániť podpis odosielateľa z odpovedí v čistom texte?"
 
@@ -4508,18 +4513,18 @@ msgstr "Odstrániť podpis odosielateľa z odpovedí v čistom texte?"
 msgid "Sub_ject"
 msgstr "P_redmet"
 
-#: config/prefs.php:1610 lib/Compose.php:2218 lib/Dynamic/Mailbox.php:194
-#: lib/Dynamic/Mailbox.php:251 lib/Dynamic/Mailbox.php:447
-#: lib/Smartmobile.php:169 lib/Ui/Message.php:31 search.php:65
+#: config/prefs.php:1597 lib/Compose.php:2231 lib/Dynamic/Mailbox.php:200
+#: lib/Dynamic/Mailbox.php:257 lib/Dynamic/Mailbox.php:459
+#: lib/Smartmobile.php:170 lib/Ui/Message.php:31 search.php:65
 #: templates/basic/search/search-basic.html.php:19
-#: templates/dynamic/compose.html.php:130
+#: templates/dynamic/compose.html.php:131
 #: templates/minimal/mailbox.html.php:14
 #: templates/smartmobile/search.html.php:14
 msgid "Subject"
 msgstr "Predmet"
 
-#: templates/minimal/compose.html.php:37
-#: templates/smartmobile/compose.html.php:29
+#: templates/minimal/compose.html.php:38
+#: templates/smartmobile/compose.html.php:30
 msgid "Subject:"
 msgstr "Predmet:"
 
@@ -4529,19 +4534,19 @@ msgstr "Predmet:"
 msgid "Submit"
 msgstr "Odoslať"
 
-#: lib/Dynamic/Mailbox.php:359 templates/basic/folders/actions.html.php:32
+#: lib/Dynamic/Mailbox.php:364 templates/basic/folders/actions.html.php:32
 msgid "Subscribe"
 msgstr "Prihlásiť"
 
-#: lib/Mime/Status.php:69
+#: lib/Mime/Status.php:77
 msgid "Success"
 msgstr "Úspešne"
 
-#: lib/Ajax/Imple/ImportEncryptKey.php:83
+#: lib/Ajax/Imple/ImportEncryptKey.php:91
 msgid "Successfully added certificate from message."
 msgstr "Certifikát zo správy bol úspešne pridaný."
 
-#: lib/Ajax/Imple/ImportEncryptKey.php:71
+#: lib/Ajax/Imple/ImportEncryptKey.php:79
 msgid "Successfully added public key from message."
 msgstr "Verejný kľúč zo správy bol úspešne pridaný."
 
@@ -4553,7 +4558,7 @@ msgstr "Suma"
 msgid "Summary"
 msgstr "Zhrnutie"
 
-#: compose.php:940 templates/basic/compose/compose.html.php:147
+#: compose.php:943 templates/basic/compose/compose.html.php:147
 msgid "Switch Composition Method"
 msgstr "Prepnúť spôsob písania správ"
 
@@ -4582,71 +4587,71 @@ msgstr "Zoznamy úloh"
 msgid "Te_xt"
 msgstr "Te_xt"
 
-#: lib/Mime/Viewer/Mdn.php:78 lib/Mime/Viewer/Status.php:103
-#: lib/Mime/Viewer/Status.php:115
+#: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Status.php:111
+#: lib/Mime/Viewer/Status.php:123
 msgid "Technical details"
 msgstr "Technické detaily"
 
-#: lib/Mime/Viewer/Mdn.php:78
+#: lib/Mime/Viewer/Mdn.php:86
 #, php-format
 msgid "Technical details can be viewed %s."
 msgstr "Technické detaily správy môžu byť zobrazené %s."
 
-#: lib/Mime/Viewer/Status.php:103
+#: lib/Mime/Viewer/Status.php:111
 #, php-format
 msgid "Technical error details can be viewed %s."
 msgstr "Detaily technickej chyby byť zobrazené %s."
 
-#: lib/Mime/Viewer/Status.php:115
+#: lib/Mime/Viewer/Status.php:123
 #, php-format
 msgid "Technical message details can be viewed %s."
 msgstr "Technické detaily správy môžu byť zobrazené %s."
 
-#: lib/Mailbox.php:1616 templates/prefs/acl.html.php:36
+#: lib/Mailbox.php:1648 templates/prefs/acl.html.php:36
 #: templates/prefs/acl.html.php:71
 msgid "Templates"
 msgstr "Šablóny"
 
-#: lib/Mime/Viewer/Itip.php:292
+#: lib/Mime/Viewer/Itip.php:300
 msgid "Tentatively Accept request"
 msgstr "Predbežne akceptovať požiadavku"
 
-#: lib/Mime/Viewer/Itip.php:544
+#: lib/Mime/Viewer/Itip.php:552
 msgid "Tentatively Accepted"
 msgstr "Predbežne akceptovaná"
 
-#: lib/Contents.php:1278
+#: lib/Contents.php:1287
 msgid "Text part"
 msgstr "Textová časť"
 
-#: templates/smartmobile/compose.html.php:32
+#: templates/smartmobile/compose.html.php:33
 msgid "Text:"
 msgstr "Text:"
 
-#: config/prefs.php:1665
+#: config/prefs.php:1652
 msgid "The From: column of the message should be linked:"
 msgstr "Pole Od: v správe má byť prepojené s:"
 
-#: lib/Mime/Viewer/Appledouble.php:90
+#: lib/Mime/Viewer/Appledouble.php:97
 msgid "The Macintosh resource fork"
 msgstr "Zdrojová ladička Macintosh"
 
-#: lib/Mime/Viewer/Appledouble.php:90
+#: lib/Mime/Viewer/Appledouble.php:97
 #, php-format
 msgid "The Macintosh resource fork can be downloaded %s."
 msgstr "Zdrojová ladička Macintosh sa dá stiahnuť %s."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:782
+#: lib/Ajax/Application/Handler/Dynamic.php:769
 msgid ""
 "The Message Disposition Notification was not sent. This is what the server "
 "said"
 msgstr "Oznámenie o prečítaní neboo odoslané. Server odpovedal"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:790
+#: lib/Ajax/Application/Handler/Dynamic.php:777
 msgid "The Message Disposition Notification was sent successfully."
 msgstr "Oznámenie o prečítaní bolo úspešne odoslané."
 
-#: templates/dynamic/compose.html.php:140
+#: templates/dynamic/compose.html.php:141
 msgid "The attachment limit has been reached."
 msgstr "Limit pre veľkosť prílohy bol dosiahnutý."
 
@@ -4654,27 +4659,27 @@ msgstr "Limit pre veľkosť prílohy bol dosiahnutý."
 msgid "The attachment was not found."
 msgstr "Príloha nebola nájdená."
 
-#: lib/Ajax/Imple/ItipRequest.php:68 lib/Mime/Viewer/Itip.php:79
+#: lib/Ajax/Imple/ItipRequest.php:76 lib/Mime/Viewer/Itip.php:87
 msgid "The calendar data is invalid"
 msgstr "Údaje kalendára sú neplatné"
 
-#: lib/LoginTasks/Task/RenameSentmailMonthly.php:107
+#: lib/LoginTasks/Task/RenameSentmailMonthly.php:115
 #, php-format
 msgid "The current sent-mail mailbox(es) \"%s\" will be renamed."
 msgstr "Aktuálny priečinok odoslaných správ \"%s\" bude premenovaný."
 
-#: lib/Mime/Viewer/Pgp.php:297
+#: lib/Mime/Viewer/Pgp.php:304
 msgid ""
 "The data in this part does not appear to be a valid PGP encrypted message. "
 "Error: "
 msgstr ""
 "Údaje v tejto správe pravdepodobne nie sú zašifrované pomocou PGP. Chyba: "
 
-#: lib/Mime/Viewer/Pgp.php:263
+#: lib/Mime/Viewer/Pgp.php:270
 msgid "The data in this part has been compressed via PGP."
 msgstr "Údaje v tejto správe boli skomprimované pomocou PGP."
 
-#: lib/Mime/Viewer/Pgp.php:403
+#: lib/Mime/Viewer/Pgp.php:410
 msgid ""
 "The data in this part has been digitally signed via PGP, but the signature "
 "cannot be verified."
@@ -4682,15 +4687,15 @@ msgstr ""
 "Údaje v tejto správe boli digitálne podpísané pomocou PGP, ale podpis nemôže "
 "byť overený."
 
-#: lib/Mime/Viewer/Pgp.php:310 lib/Mime/Viewer/Pgp.php:407
+#: lib/Mime/Viewer/Pgp.php:317 lib/Mime/Viewer/Pgp.php:414
 msgid "The data in this part has been digitally signed via PGP."
 msgstr "Táto správa bola digitálne podpísaná pomocou PGP."
 
-#: lib/Mime/Viewer/Smime.php:231
+#: lib/Mime/Viewer/Smime.php:246
 msgid "The data in this part has been digitally signed via S/MIME."
 msgstr "Táto správa bola digitálne podpísaná pomocou S/MIME."
 
-#: lib/Mime/Viewer/Pgp.php:213
+#: lib/Mime/Viewer/Pgp.php:220
 msgid ""
 "The data in this part has been encrypted via PGP, however, PGP support is "
 "disabled so the message cannot be decrypted."
@@ -4698,45 +4703,45 @@ msgstr ""
 "Správa uvedená nižšie bola zašifrovaná pomocou PGP, ale správa nemohla byť "
 "dešifrovaná, lebo podpora PGP nie je zapnutá."
 
-#: lib/Mime/Viewer/Pgp.php:234 lib/Mime/Viewer/Pgp.php:265
+#: lib/Mime/Viewer/Pgp.php:241 lib/Mime/Viewer/Pgp.php:272
 msgid "The data in this part has been encrypted via PGP."
 msgstr "Táto spáva bola zašifrovaná pomocou PGP."
 
-#: lib/Mime/Viewer/Smime.php:167
+#: lib/Mime/Viewer/Smime.php:174
 msgid "The data in this part has been encrypted via S/MIME."
 msgstr "Táto spáva bola zašifrovaná pomocou S/MIME."
 
-#: config/prefs.php:1176
+#: config/prefs.php:1169
 msgid "The default charset for messages with no charset information:"
 msgstr "Prednastavené kódovanie pre správy bez informácie o kódovaní:"
 
-#: config/prefs.php:537
+#: config/prefs.php:536
 msgid "The default font family to use in the HTML editor."
 msgstr "Štandardný font, ktorý bude použitý v HTML editore."
 
-#: config/prefs.php:547
+#: config/prefs.php:546
 msgid "The default font size to use in the HTML editor (in pixels)."
 msgstr ""
 "Prednastavená veľkosť písma, ktorá bude použitá pre HTML editor (v pixeloch)."
 
-#: lib/Compose.php:309
+#: lib/Compose.php:318
 #, php-format
 msgid "The draft has been saved to the \"%s\" mailbox."
 msgstr "Koncept bol uložený do priečinka \"%s\"."
 
-#: lib/Compose.php:311
+#: lib/Compose.php:320
 msgid "The draft was not successfully saved."
 msgstr "Koncept nebol úspešne uložený."
 
-#: lib/Ajax/Imple/ItipRequest.php:177
+#: lib/Ajax/Imple/ItipRequest.php:192
 msgid "The event was added to your calendar."
 msgstr "Udalosť bola pridaná do Vášho kalendára."
 
-#: lib/Ajax/Imple/ItipRequest.php:153
+#: lib/Ajax/Imple/ItipRequest.php:168
 msgid "The event was updated in your calendar."
 msgstr "Udalosť bola aktualizovaná vo Vášom kalendári."
 
-#: lib/Compose.php:2990
+#: lib/Compose.php:3003
 #, php-format
 msgid "The file %s could not be attached."
 msgstr "Nepodarilo sa pripojiť súbor %s."
@@ -4745,11 +4750,11 @@ msgstr "Nepodarilo sa pripojiť súbor %s."
 msgid "The folder view is not enabled."
 msgstr "Prehľad priečinkov nie je povolený."
 
-#: lib/Contents.php:544
+#: lib/Contents.php:552
 msgid "The initial portion of this text part is displayed below."
 msgstr "Dole je zobrazená počiatočná časť textovej časti."
 
-#: lib/Mime/Viewer/Html.php:196
+#: lib/Mime/Viewer/Html.php:203
 msgid "The links that caused this warning have this background color:"
 msgstr "Odkazy, ktoré spôsobili toto upozornenie majú túto farbu pozadia:"
 
@@ -4761,55 +4766,55 @@ msgstr ""
 "Zoznam adries, v ktorých sa štandardne NEBUDÚ blokovať obrázky (každú vložte "
 "na nový riadok)"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:192
+#: lib/Ajax/Application/Handler/Dynamic.php:199
 #, php-format
 msgid "The mailbox \"%s\" is already empty."
 msgstr "Priečinok \"%s\" je už prázdny."
 
-#: folders.php:237 lib/Mailbox.php:840
+#: folders.php:237 lib/Mailbox.php:860
 #, php-format
 msgid "The mailbox \"%s\" may not be deleted."
 msgstr "Priečinok \"%s\" nemôže byť vymazaný."
 
-#: folders.php:244 lib/Ajax/Application/Handler/Dynamic.php:186
+#: folders.php:244 lib/Ajax/Application/Handler/Dynamic.php:193
 #, php-format
 msgid "The mailbox \"%s\" may not be emptied."
 msgstr "Priečinok \"%s\" nemôže byť vyprázdnený."
 
-#: lib/Mailbox.php:880
+#: lib/Mailbox.php:900
 #, php-format
 msgid "The mailbox \"%s\" may not be renamed."
 msgstr "Priečinok \"%s\" nemôže byť premenovaný."
 
-#: lib/Mailbox.php:778
+#: lib/Mailbox.php:798
 #, php-format
 msgid "The mailbox \"%s\" was not created. This is what the server said"
 msgstr "Priečinok \"%s\" nebol vytvorený. Server odpovedal"
 
-#: lib/Mailbox.php:849
+#: lib/Mailbox.php:869
 #, php-format
 msgid "The mailbox \"%s\" was not deleted. This is what the server said"
 msgstr "Priečinok \"%s\" nebol vymazaný. Server odpovedal"
 
-#: lib/Mailbox.php:782
+#: lib/Mailbox.php:802
 #, php-format
 msgid "The mailbox \"%s\" was successfully created."
 msgstr "Priečinok \"%s\" bol úspešne vytvorený."
 
-#: lib/Mailbox.php:846
+#: lib/Mailbox.php:866
 #, php-format
 msgid "The mailbox \"%s\" was successfully deleted."
 msgstr "Priečinok \"%s\" bol úspešne vymazaný."
 
-#: lib/Mailbox.php:894
+#: lib/Mailbox.php:914
 #, php-format
 msgid "The mailbox \"%s\" was successfully renamed to \"%s\"."
 msgstr "Priečinok \"%s\" bol úspešne premenovaný na \"%s\"."
 
-#: lib/Message.php:797
+#: lib/Message.php:807
 #, php-format
 msgid "The mailbox %s is already empty."
-msgstr "Schránka %s je už prázdna."
+msgstr "Priečinok %s je už prázdny."
 
 #: lib/Spam.php:209
 #, php-format
@@ -4825,11 +4830,11 @@ msgstr "Správa \"%s\" bola ohlásená ako nevyžiadaná pošta (SPAM)."
 msgid "The message being composed has been closed."
 msgstr "Správa, na ktorej ste pracovali, bola zatvorená."
 
-#: compose.php:717 lib/Smartmobile.php:167
+#: compose.php:719 lib/Smartmobile.php:168
 msgid "The message does not have a Subject entered."
 msgstr "Správa nemá uvedený predmet."
 
-#: lib/Dynamic/Compose/Common.php:233
+#: lib/Dynamic/Compose/Common.php:236
 msgid "The message does not have a subject entered."
 msgstr "Správa nemá uvedený predmet."
 
@@ -4843,27 +4848,19 @@ msgstr "Správa od bola \"%s\" ohlásená ako neškodná (nie nevyžiadaná) po�
 msgid "The message from \"%s\" has been reported as spam."
 msgstr "Správa od \"%s\" bola ohlásená ako nevyžiadaná pošta (SPAM)."
 
-#: lib/Filter.php:68 lib/Spam.php:250
+#: lib/Filter.php:76 lib/Spam.php:250
 msgid "The message has been deleted."
 msgstr "Správa bola vymazaná."
 
-#: lib/Compose.php:3046
-msgid ""
-"The message you were composing has been saved as a draft. The next time you "
-"login, you may resume composing your message."
-msgstr ""
-"Správa, ktorú píšte bola uložená ako koncept. Pri najbližšom prihlásení "
-"môžete dokončiť písanie správy."
-
-#: lib/Filter.php:68
+#: lib/Filter.php:76
 msgid "The messages have been deleted."
 msgstr "Správy boli vymazané."
 
-#: lib/Block/Newmail.php:37
+#: lib/Block/Newmail.php:45
 msgid "The number of unseen messages to show"
 msgstr "Počet neprečítaných správ"
 
-#: templates/dynamic/compose.html.php:169
+#: templates/dynamic/compose.html.php:170
 msgid "The recipient has indicated that they prefer replies in these languages"
 msgstr "Prjímateľ správy naznačil, že uprednostňuje odpovede v týchto jazykoch"
 
@@ -4880,22 +4877,22 @@ msgid ""
 msgstr ""
 "Odosielateľ tejto správy vyžaduje od Vás potvrdenie o prečítaní správy."
 
-#: lib/Ajax/Application/ShowMessage.php:248
+#: lib/Ajax/Application/ShowMessage.php:256
 msgid ""
 "The sender of this message is requesting notification from you when you have "
 "read this message."
 msgstr ""
 "Odosielateľ tejto správy vyžaduje od Vás potrvdenie o prečítaní správy."
 
-#: lib/Dynamic/Mailbox.php:482
+#: lib/Dynamic/Mailbox.php:494
 msgid "The server is still generating the message list."
 msgstr "Server stále generuje zoznam správ."
 
-#: lib/Dynamic/Mailbox.php:483
+#: lib/Dynamic/Mailbox.php:495
 msgid "The server was unable to generate the message list."
 msgstr "Server nemohol vygenerovať zoznam správ."
 
-#: lib/Message.php:92
+#: lib/Message.php:102
 msgid "The source directory is read-only."
 msgstr "Zdrojový priečinok slúži len na čítanie."
 
@@ -4910,67 +4907,67 @@ msgstr ""
 msgid "The specified file cannot be read."
 msgstr "Uvedený súbor nemožno čítať."
 
-#: lib/Message.php:88
+#: lib/Message.php:98
 msgid "The target directory is read-only."
 msgstr "Cieľový priečinok slúži len na čítanie."
 
-#: lib/Ajax/Imple/ItipRequest.php:219
+#: lib/Ajax/Imple/ItipRequest.php:234
 msgid "The task has been added to your tasklist."
 msgstr "Úloha bola pridaná do Vášho zoznamu úloh."
 
-#: lib/Compose.php:629
+#: lib/Compose.php:640
 msgid "The template has been saved."
 msgstr "Šablóna bola uložená."
 
-#: lib/Compose.php:626
+#: lib/Compose.php:637
 msgid "The template was not successfully saved."
 msgstr "Šablóna nebola úspešne uložená."
 
-#: lib/Mime/Viewer/Status.php:119
+#: lib/Mime/Viewer/Status.php:127
 msgid "The text of the message"
 msgstr "Text správy"
 
-#: lib/Mime/Viewer/Status.php:118
+#: lib/Mime/Viewer/Status.php:126
 #, php-format
 msgid "The text of the message can be viewed %s."
 msgstr "Text správy môže byť zobrazený %s."
 
-#: lib/Mime/Viewer/Status.php:107
+#: lib/Mime/Viewer/Status.php:115
 msgid "The text of the returned message"
 msgstr "Text vrátenej správy"
 
-#: lib/Mime/Viewer/Status.php:106
+#: lib/Mime/Viewer/Status.php:114
 #, php-format
 msgid "The text of the returned message can be viewed %s."
 msgstr "Text vrátenej správy môže byť zobrazený %s."
 
-#: lib/Mime/Viewer/Mdn.php:86
+#: lib/Mime/Viewer/Mdn.php:94
 msgid "The text of the sent message"
 msgstr "Text odoslanej správy"
 
-#: lib/Mime/Viewer/Mdn.php:86
+#: lib/Mime/Viewer/Mdn.php:94
 #, php-format
 msgid "The text of the sent message can be viewed %s."
 msgstr "Text odoslanej správy môže byť zobrazený %s."
 
-#: lib/Mailbox.php:1318
+#: lib/Mailbox.php:1336 lib/Mailbox.php:1342
 msgid "The uploaded file cannot be opened."
 msgstr "Nahraný súbor nie je možné otvoriť."
 
-#: lib/Ajax/Imple/ItipRequest.php:199 lib/Mime/Viewer/Itip.php:198
+#: lib/Ajax/Imple/ItipRequest.php:214 lib/Mime/Viewer/Itip.php:206
 msgid "The user's free/busy information was sucessfully stored."
 msgstr "Informácia o zaneprázdnenosti používateľa bola úspešne uložená."
 
-#: lib/Mime/Viewer/Alternative.php:92
+#: lib/Mime/Viewer/Alternative.php:99
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "Nie sú k dispozícii žiadne alternatívne časti na zobrazenie."
 
-#: lib/Dynamic/Mailbox.php:497
+#: lib/Dynamic/Mailbox.php:509
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
-msgstr "Táto schránka je prázdna."
+msgstr "Tento priečinok je prázdny."
 
-#: lib/Contents.php:1439
+#: lib/Contents.php:1448
 msgid "There are no parts that can be shown inline."
 msgstr "Nie je k dispozícii žiaden text na zobrazenie v tele správy."
 
@@ -4978,7 +4975,7 @@ msgstr "Nie je k dispozícii žiaden text na zobrazenie v tele správy."
 msgid "There is no text that can be displayed inline."
 msgstr "Nie je k dispozícii žiaden text na zobrazenie v tele správy."
 
-#: lib/Message.php:79
+#: lib/Message.php:89
 #, php-format
 msgid ""
 "There was an error copying messages from \"%s\" to \"%s\". This is what the "
@@ -4986,61 +4983,61 @@ msgid ""
 msgstr ""
 "Vyskytol sa problém pri kopírovaní správ z \"%s\" do \"%s\". Server odpovedal"
 
-#: lib/Message.php:190
+#: lib/Message.php:200
 #, php-format
 msgid "There was an error deleting messages from the mailbox \"%s\"."
 msgstr "Vyskytla sa chyba pri mazaní správ z priečinka \"%s\"."
 
-#: lib/Ajax/Imple/ItipRequest.php:98
+#: lib/Ajax/Imple/ItipRequest.php:106
 #, php-format
 msgid "There was an error deleting the event: %s"
 msgstr "Nastala chyba pri vymazávaní udalosti: %s"
 
-#: lib/Message.php:644
+#: lib/Message.php:654
 #, php-format
 msgid "There was an error flagging messages in the mailbox \"%s\": %s."
 msgstr ""
 "Vyskytla sa chyba pri nastavovaní príznakov správ v priečinku \"%s\": %s."
 
-#: lib/Ui/Folder.php:142
+#: lib/Ui/Folder.php:162
 #, php-format
 msgid "There was an error importing %s."
 msgstr "Nastala chyba pri importovaní %s."
 
-#: lib/Ajax/Imple/ItipRequest.php:187
+#: lib/Ajax/Imple/ItipRequest.php:202
 #, php-format
 msgid "There was an error importing the event: %s"
 msgstr "Nastala chyba pri importovaní udalosti: %s"
 
-#: lib/Ajax/Imple/ItipRequest.php:228
+#: lib/Ajax/Imple/ItipRequest.php:243
 #, php-format
 msgid "There was an error importing the task: %s"
 msgstr "Nastala chyba pri importovaní úlohy: %s"
 
-#: lib/Ajax/Imple/ItipRequest.php:202 lib/Mime/Viewer/Itip.php:200
+#: lib/Ajax/Imple/ItipRequest.php:217 lib/Mime/Viewer/Itip.php:208
 #, php-format
 msgid "There was an error importing user's free/busy information: %s"
 msgstr ""
 "Nastala chyba pri importe informácií o zaneprázdnenosti používateľa: %s"
 
-#: lib/Message.php:75
+#: lib/Message.php:85
 #, php-format
 msgid ""
 "There was an error moving messages from \"%s\" to \"%s\". This is what the "
 "server said"
 msgstr "Nastala chyba pri presúvaní správ z \"%s\" do \"%s\". Server odpovedal"
 
-#: lib/Compose.php:832
+#: lib/Compose.php:843
 #, php-format
 msgid "There was an error sending your message: %s"
 msgstr "Chyba pri posielaní správy: %s"
 
-#: lib/Ajax/Imple/ItipRequest.php:116 lib/Mime/Viewer/Itip.php:321
+#: lib/Ajax/Imple/ItipRequest.php:124 lib/Mime/Viewer/Itip.php:329
 #, php-format
 msgid "There was an error updating the event: %s"
 msgstr "Nastala chyba pri aktualizácii udalosti: %s"
 
-#: lib/Ajax/Imple/ItipRequest.php:164
+#: lib/Ajax/Imple/ItipRequest.php:179
 #, php-format
 msgid ""
 "There was an error updating the event: %s Trying to import the event instead."
@@ -5052,27 +5049,27 @@ msgstr ""
 msgid "There was an error viewing the requested message."
 msgstr "Nastala chyba pri zobrazovaní tejto správy."
 
-#: lib/Ajax/Imple/ItipRequest.php:101 lib/Ajax/Imple/ItipRequest.php:119
-#: lib/Ajax/Imple/ItipRequest.php:191 lib/Ajax/Imple/ItipRequest.php:205
-#: lib/Ajax/Imple/ItipRequest.php:231 lib/Ajax/Imple/ItipRequest.php:237
-#: lib/Ajax/Imple/ItipRequest.php:293 lib/Ajax/Imple/ItipRequest.php:411
+#: lib/Ajax/Imple/ItipRequest.php:109 lib/Ajax/Imple/ItipRequest.php:127
+#: lib/Ajax/Imple/ItipRequest.php:206 lib/Ajax/Imple/ItipRequest.php:220
+#: lib/Ajax/Imple/ItipRequest.php:246 lib/Ajax/Imple/ItipRequest.php:252
+#: lib/Ajax/Imple/ItipRequest.php:308 lib/Ajax/Imple/ItipRequest.php:426
 msgid "This action is not supported."
 msgstr "Táto akcia nie je podporovaná."
 
-#: lib/Mime/Viewer/Audio.php:48
+#: lib/Mime/Viewer/Audio.php:55
 #, php-format
 msgid "This audio file is reported to be %d minutes, %d seconds in length."
 msgstr "Tento audio súbor má dĺžku %d minút a %d sekúnd."
 
-#: lib/Mime/Viewer/Pdf.php:79
+#: lib/Mime/Viewer/Pdf.php:86
 msgid "This is a thumbnail of a PDF file attachment."
-msgstr "Miniatúra pripojeného PDF súbora."
+msgstr "Miniatúra pripojeného PDF súboru."
 
-#: lib/Mime/Viewer/Images.php:166
+#: lib/Mime/Viewer/Images.php:173
 msgid "This is a thumbnail of an image attachment."
 msgstr "Miniatúra pripojeného obrázku."
 
-#: lib/Message.php:185 lib/Message.php:632
+#: lib/Message.php:195 lib/Message.php:642
 msgid "This mailbox is read-only."
 msgstr "Tento priečinok je iba na čítanie."
 
@@ -5084,22 +5081,22 @@ msgstr "Tento priečinok nemôže byť premenovaný:"
 msgid "This may take some time. Are you sure you want to continue?"
 msgstr "Toto môže chvíľu trvať. Naozaj chcete pokračovať?"
 
-#: lib/Mime/Viewer/Appledouble.php:89
+#: lib/Mime/Viewer/Appledouble.php:96
 #, php-format
 msgid "This message contains a Macintosh file (named \"%s\")."
 msgstr "Táto správa obsahuje súbor Macintosh (s názvom \"%s\")."
 
-#: lib/Contents.php:537
+#: lib/Contents.php:545
 msgid "This message part cannot be viewed because it is too large."
 msgstr "Túto časť správy nemožno zobraziť, lebo je príliš veľká."
 
-#: lib/Mime/Viewer/Html.php:99
+#: lib/Mime/Viewer/Html.php:106
 msgid ""
 "This message part contains HTML data, but inline HTML display is disabled."
 msgstr ""
 "Táto časť správy obsahuje HTML údaje, ale zobrazovanie HTML nie je povolené."
 
-#: lib/Mime/Viewer/Html.php:65
+#: lib/Mime/Viewer/Html.php:72
 msgid ""
 "This message part contains HTML data, but this data can not be displayed "
 "inline."
@@ -5109,7 +5106,7 @@ msgstr "Táto správa obsahuje HTML údaje, ale tieto údaje nemôžu byť zobra
 msgid "This message to"
 msgstr "Túto správu do"
 
-#: lib/Mime/Viewer/Related.php:124
+#: lib/Mime/Viewer/Related.php:131
 msgid ""
 "This part contains an attachment that can not be displayed within this part:"
 msgstr ""
@@ -5119,12 +5116,12 @@ msgstr ""
 msgid "This part is empty."
 msgstr "Táto časť je prázdna."
 
-#: lib/Mime/Viewer/Video.php:47
+#: lib/Mime/Viewer/Video.php:55
 #, php-format
 msgid "This video file is reported to be %d minutes, %d seconds in length."
 msgstr "Tento video súbor má %d minút, %d sekúnd."
 
-#: config/prefs.php:1612 lib/Dynamic/Mailbox.php:252
+#: config/prefs.php:1599 lib/Dynamic/Mailbox.php:258
 msgid "Thread"
 msgstr "Vlákno"
 
@@ -5136,7 +5133,7 @@ msgstr "Zobrazenie vlákien"
 msgid "Thread List"
 msgstr "Zoznam vlákien"
 
-#: lib/Dynamic/Mailbox.php:259
+#: lib/Dynamic/Mailbox.php:265
 msgid "Thread Sort"
 msgstr "Zoradiť podľa vlákien"
 
@@ -5144,12 +5141,12 @@ msgstr "Zoradiť podľa vlákien"
 msgid "Thread View"
 msgstr "Zobraziť vlákna"
 
-#: lib/Compose.php:2222 lib/Dynamic/Mailbox.php:189
-#: lib/Dynamic/Mailbox.php:250 lib/Ui/Message.php:27 mailbox.php:717
+#: lib/Compose.php:2235 lib/Dynamic/Mailbox.php:195
+#: lib/Dynamic/Mailbox.php:256 lib/Ui/Message.php:27 mailbox.php:717
 #: search.php:53 templates/basic/compose/redirect.html.php:32
 #: templates/basic/thread/thread.html.php:19
 #: templates/contacts/contacts.html.php:41
-#: templates/dynamic/compose.html.php:87
+#: templates/dynamic/compose.html.php:88
 #: templates/dynamic/mailbox.html.php:124
 msgid "To"
 msgstr "Pre"
@@ -5159,19 +5156,19 @@ msgstr "Pre"
 msgid "To %s"
 msgstr "Pre %s"
 
-#: config/prefs.php:1609
+#: config/prefs.php:1596
 msgid "To Address"
-msgstr "Na adresu"
+msgstr "Príjemca"
 
-#: lib/Dynamic/Base.php:148
+#: lib/Dynamic/Base.php:156
 msgid "To All"
 msgstr "Všetkým"
 
-#: lib/Dynamic/Base.php:149
+#: lib/Dynamic/Base.php:157
 msgid "To List"
 msgstr "Do e-mailovej konferencie"
 
-#: lib/Dynamic/Base.php:147 message.php:584
+#: lib/Dynamic/Base.php:155 message.php:584
 msgid "To Sender"
 msgstr "Odosielateľovi"
 
@@ -5185,7 +5182,7 @@ msgstr "Do e-mailovej _konferencie"
 
 #: lib/Ui/Mailbox.php:67 templates/dynamic/redirect.html.php:14
 #: templates/smartmobile/compose.html.php:7
-#: templates/smartmobile/compose.html.php:21 thread.php:112 thread.php:113
+#: templates/smartmobile/compose.html.php:22 thread.php:112 thread.php:113
 msgid "To:"
 msgstr "Pre:"
 
@@ -5198,11 +5195,11 @@ msgstr "Pre: "
 msgid "Today, %s %s"
 msgstr "Dnes, %s %s"
 
-#: config/prefs.php:570
+#: config/prefs.php:569
 msgid "Top"
 msgstr "Hore"
 
-#: lib/Block/Summary.php:102
+#: lib/Block/Summary.php:110
 msgid "Total"
 msgstr "Celkom"
 
@@ -5210,7 +5207,7 @@ msgstr "Celkom"
 msgid "Total Size"
 msgstr "Celková veľkosť"
 
-#: lib/Mailbox.php:1642 lib/Mailbox.php:1722
+#: lib/Mailbox.php:1674 lib/Mailbox.php:1754
 msgid "Trash"
 msgstr "Kôš"
 
@@ -5232,23 +5229,23 @@ msgstr "Nemožno získať informáciu o kvóte"
 msgid "Unable to view message in preview pane."
 msgstr "Nemožno zobraziť náhľad správy."
 
-#: lib/Dynamic/Mailbox.php:314 lib/Dynamic/Mailbox.php:403
+#: lib/Dynamic/Mailbox.php:319 lib/Dynamic/Mailbox.php:408
 #: lib/Minimal/Message.php:227 message.php:556
 #: templates/minimal/mailbox.html.php:37
 msgid "Undelete"
 msgstr "Nemazať"
 
-#: lib/Ajax/Application/ShowMessage.php:415 lib/Ui/Mailbox.php:73
+#: lib/Ajax/Application/ShowMessage.php:423 lib/Ui/Mailbox.php:73
 #: lib/Ui/Message.php:360
 msgid "Undisclosed Recipients"
 msgstr "Nezverejnení príjemcovia"
 
-#: lib/Mime/Viewer/Itip.php:131
+#: lib/Mime/Viewer/Itip.php:139
 #, php-format
 msgid "Unhandled component of type: %s"
 msgstr "Neošetrený komponent typu: %s"
 
-#: lib/Mime/Viewer/Itip.php:591
+#: lib/Mime/Viewer/Itip.php:599
 msgid "Unknown"
 msgstr "Neznáme"
 
@@ -5256,11 +5253,11 @@ msgstr "Neznáme"
 msgid "Unknown Date"
 msgstr "Neznámy dátum"
 
-#: lib/Mime/Viewer/Itip.php:368
+#: lib/Mime/Viewer/Itip.php:376
 msgid "Unknown Meeting"
 msgstr "Neznáma schôdzka"
 
-#: lib/Mime/Viewer/Itip.php:494
+#: lib/Mime/Viewer/Itip.php:502
 msgid "Unknown Task"
 msgstr "Neznáma úloha"
 
@@ -5269,7 +5266,7 @@ msgstr "Neznáma úloha"
 msgid "Unload Passphrase"
 msgstr "Odstrániť heslo z pamäti"
 
-#: lib/Dynamic/Mailbox.php:306 lib/Dynamic/Mailbox.php:396
+#: lib/Dynamic/Mailbox.php:311 lib/Dynamic/Mailbox.php:401
 msgid "Unmark as"
 msgstr "Odznačiť ako"
 
@@ -5278,12 +5275,12 @@ msgstr "Odznačiť ako"
 msgid "Unmark as:"
 msgstr "Odznačiť ako:"
 
-#: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:241
-#: lib/Flag/System/Unseen.php:39
+#: lib/Block/Summary.php:110 lib/Dynamic/Mailbox.php:247
+#: lib/Flag/System/Unseen.php:47
 msgid "Unseen"
-msgstr "Neprečítané"
+msgstr "Neprečítaná"
 
-#: lib/Dynamic/Mailbox.php:360 templates/basic/folders/actions.html.php:33
+#: lib/Dynamic/Mailbox.php:365 templates/basic/folders/actions.html.php:33
 msgid "Unsubscribe"
 msgstr "Odhlásiť"
 
@@ -5291,15 +5288,15 @@ msgstr "Odhlásiť"
 msgid "Update"
 msgstr "Aktualizovať"
 
-#: lib/Mime/Viewer/Itip.php:285 lib/Mime/Viewer/Itip.php:333
+#: lib/Mime/Viewer/Itip.php:293 lib/Mime/Viewer/Itip.php:341
 msgid "Update in my calendar"
 msgstr "Aktualizovať v mojom kalendári"
 
-#: lib/Mime/Viewer/Itip.php:324
+#: lib/Mime/Viewer/Itip.php:332
 msgid "Update respondent status"
 msgstr "Aktualizovať stav účastníka"
 
-#: lib/Mime/Viewer/Itip.php:300
+#: lib/Mime/Viewer/Itip.php:308
 msgid "Update this event on my calendar"
 msgstr "Aktualizovať túto udalosť v mojom kalendári"
 
@@ -5307,7 +5304,7 @@ msgstr "Aktualizovať túto udalosť v mojom kalendári"
 msgid "Upload"
 msgstr "Nahrať"
 
-#: lib/Dynamic/Compose/Common.php:238
+#: lib/Dynamic/Compose/Common.php:241
 msgid "Uploading..."
 msgstr "Nahráva sa..."
 
@@ -5315,20 +5312,20 @@ msgstr "Nahráva sa..."
 msgid "Use Default Value"
 msgstr "Použiť prednastavenú hodnotu"
 
-#: config/prefs.php:1762
+#: config/prefs.php:1738
 msgid "Use IMAP mailbox subscriptions?"
 msgstr "Použiť prihlásenie do priečinkov IMAP?"
 
-#: lib/Dynamic/Mailbox.php:296 templates/dynamic/mailbox.html.php:48
+#: lib/Dynamic/Mailbox.php:302 templates/dynamic/mailbox.html.php:48
 #: templates/dynamic/mailbox.html.php:100
 msgid "Use Template"
 msgstr "Použiť šablónu"
 
 #: templates/prefs/trash.html.php:9
 msgid "Use Virtual Trash"
-msgstr "Používať virtuálny odpadkový kôš"
+msgstr "Používať virtuálny kôš"
 
-#: config/prefs.php:728
+#: config/prefs.php:721
 msgid "Use the charset of the original message when replying?"
 msgstr "Použiť pri odpovedaní znakovú sadu pôvodnej správy?"
 
@@ -5336,27 +5333,27 @@ msgstr "Použiť pri odpovedaní znakovú sadu pôvodnej správy?"
 msgid "User"
 msgstr "Používateľ"
 
-#: lib/Dynamic/Mailbox.php:490
+#: lib/Dynamic/Mailbox.php:502
 msgid "User Options"
 msgstr "Možnosti používateľa"
 
-#: lib/Imap/Acl.php:132
+#: lib/Imap/Acl.php:162
 msgid "User can see the mailbox"
 msgstr "Používateľ môže vidieť schránku"
 
-#: lib/Application.php:497
+#: lib/Application.php:505
 msgid "User is not authenticated."
 msgstr "Používateľ nie je prihlásený."
 
-#: lib/Dynamic/Base.php:179
+#: lib/Dynamic/Base.php:187
 msgid "Verifying..."
 msgstr "Overovanie..."
 
-#: lib/Dynamic/Mailbox.php:392
+#: lib/Dynamic/Mailbox.php:397
 msgid "Vertical Layout"
 msgstr "Vertikálne zobrazovanie"
 
-#: lib/Contents.php:1281
+#: lib/Contents.php:1290
 msgid "Video part"
 msgstr "Časť pre video"
 
@@ -5370,7 +5367,7 @@ msgstr "Časť pre video"
 msgid "View"
 msgstr "Zobraziť"
 
-#: lib/Contents.php:775 lib/Contents.php:932 lib/Mime/Viewer/Zip.php:99
+#: lib/Contents.php:783 lib/Contents.php:940 lib/Mime/Viewer/Zip.php:107
 #, php-format
 msgid "View %s"
 msgstr "Zobraziť %s"
@@ -5385,7 +5382,7 @@ msgstr "Zobraziť %s verejný kľúč"
 msgid "View All Parts"
 msgstr "Zobraziť všetky časti"
 
-#: lib/Mime/Viewer/Images.php:171 lib/Mime/Viewer/Images.php:175
+#: lib/Mime/Viewer/Images.php:178 lib/Mime/Viewer/Images.php:182
 #: lib/Minimal/Messagepart.php:53
 msgid "View Attachment"
 msgstr "Zobraziť prílohu"
@@ -5394,11 +5391,11 @@ msgstr "Zobraziť prílohu"
 msgid "View Full Message"
 msgstr "Zobraziť celú správy"
 
-#: lib/Mime/Viewer/Html.php:66 lib/Mime/Viewer/Html.php:100
+#: lib/Mime/Viewer/Html.php:73 lib/Mime/Viewer/Html.php:107
 msgid "View HTML data in new window."
 msgstr "Zobraziť HTML údaje v novom okne."
 
-#: lib/Dynamic/Mailbox.php:298
+#: lib/Dynamic/Mailbox.php:304
 msgid "View Message"
 msgstr "Zobraziť správu"
 
@@ -5406,7 +5403,7 @@ msgstr "Zobraziť správu"
 msgid "View Messages"
 msgstr "Zobraziť správy"
 
-#: lib/Mime/Viewer/Pdf.php:153
+#: lib/Mime/Viewer/Pdf.php:160
 msgid "View PDF File"
 msgstr "Zobraziť PDF súbor"
 
@@ -5423,21 +5420,21 @@ msgstr "Zobraziť osobný verejný certifikát"
 msgid "View Personal Public Key"
 msgstr "Zobraziť osobný verejný kľúč"
 
-#: lib/Dynamic/Mailbox.php:317 lib/Dynamic/Mailbox.php:427
+#: lib/Dynamic/Mailbox.php:322 lib/Dynamic/Mailbox.php:432
 #: templates/dynamic/message.html.php:43
 msgid "View Source"
 msgstr "Zobraziť zdrojový kód"
 
-#: lib/Mime/Viewer/Smime.php:306
+#: lib/Mime/Viewer/Smime.php:312
 msgid "View certificate details."
 msgstr "Zobraziť detaily certifikátu."
 
-#: lib/Ajax/Imple/ItipRequest.php:154 lib/Ajax/Imple/ItipRequest.php:155
-#: lib/Ajax/Imple/ItipRequest.php:178 lib/Ajax/Imple/ItipRequest.php:179
+#: lib/Ajax/Imple/ItipRequest.php:169 lib/Ajax/Imple/ItipRequest.php:170
+#: lib/Ajax/Imple/ItipRequest.php:193 lib/Ajax/Imple/ItipRequest.php:194
 msgid "View event"
 msgstr "Zobraziť udalosť"
 
-#: lib/Mime/Viewer/Pgp.php:362
+#: lib/Mime/Viewer/Pgp.php:369
 msgid "View key details."
 msgstr "Zobraziť detaily kľúča."
 
@@ -5450,11 +5447,11 @@ msgstr "Zobraziť správy v %s"
 msgid "View or mailbox to display after login:"
 msgstr "Po prihlásení zobraziť:"
 
-#: lib/Ajax/Imple/ItipRequest.php:220 lib/Ajax/Imple/ItipRequest.php:221
+#: lib/Ajax/Imple/ItipRequest.php:235 lib/Ajax/Imple/ItipRequest.php:236
 msgid "View task"
 msgstr "Zobraziť úlohu"
 
-#: config/prefs.php:1032
+#: config/prefs.php:1025
 msgid "Viewing"
 msgstr "Zobrazovanie"
 
@@ -5478,12 +5475,12 @@ msgstr "Virtuálny priečinok \"%s\" bol vymazaný."
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr "Virtuálny priečinok \"%s\" bol úspešne upravený."
 
-#: lib/Dynamic/Mailbox.php:496
+#: lib/Dynamic/Mailbox.php:508
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr "Virtuálny priečinok: %s"
 
-#: lib/Dynamic/Mailbox.php:266 lib/Mailbox.php:1580
+#: lib/Dynamic/Mailbox.php:272 lib/Mailbox.php:1612
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr "Virtuálne priečinky"
@@ -5494,17 +5491,17 @@ msgstr "Virtuálne prijaté správy"
 
 #: lib/Search/Vfolder/Vtrash.php:30
 msgid "Virtual Trash"
-msgstr "Virtuálny odpadkový kôš"
+msgstr "Virtuálny kôš"
 
-#: lib/Mime/Viewer/Html.php:194
+#: lib/Mime/Viewer/Html.php:201
 msgid "WARNING"
 msgstr "VAROVANIE"
 
-#: lib/Contents.php:540 lib/Mime/Status.php:73
+#: lib/Contents.php:548 lib/Mime/Status.php:81
 msgid "Warning"
 msgstr "Varovanie"
 
-#: config/prefs.php:621
+#: config/prefs.php:620
 msgid ""
 "What language(s) do you prefer replies to your messages to be in? (Hold down "
 "the CTRL key when clicking to add multiple languages)"
@@ -5512,62 +5509,56 @@ msgstr ""
 "V akom jazyku majú byť odpovede na Vaše správy? (Stlačte tlačidlo CTRL pri "
 "výbere viacerých jazykov)"
 
-#: config/prefs.php:1407
-msgid ""
-"What should we do with messages after they have been reported as innocent?"
-msgstr "Čo sa má urobiť so správami ak boli označené ako neškodná pošta?"
+#: config/prefs.php:1395
+msgid "What to do with messages after they have been reported as innocent?"
+msgstr ""
+"Čo sa má urobiť so správami potom, ako boli označené ako neškodná pošta?"
 
-#: config/prefs.php:1385
-msgid "What should we do with messages after they have been reported as spam?"
-msgstr "Čo urobiť so spávami, ktoré boli nahlásené ako nevyžiadaná pošta?"
+#: config/prefs.php:1373
+msgid "What to do with messages after they have been reported as spam?"
+msgstr ""
+"Čo sa má urobiť so správami potom, ako boli označené ako nevyžiadaná pošta?"
 
-#: config/prefs.php:1254
+#: config/prefs.php:1242
 msgid ""
 "When deleting messages, move them to your Trash mailbox instead of marking "
 "them as deleted?"
-msgstr ""
-"Presunúť vymazané správy do odpadkového koša namiesto ich označenia za "
-"vymazané?"
+msgstr "Presunúť vymazané správy do koša namiesto ich označenia za vymazané?"
 
-#: config/prefs.php:802
+#: config/prefs.php:795
 msgid ""
-"When forwarding a message in the body text, should we use the same format as "
-"the original message?"
+"When forwarding a message in the body text, should the same format as the "
+"original message be used?"
 msgstr ""
-"Pri preposielaní správy sa má použiť ten istý formát tela správy ako v "
-"pôvodnej správe?"
+"Má sa použiť formát pôvodnej správy pri jej preposielaní v tele novej správy?"
 
-#: config/prefs.php:1594
+#: config/prefs.php:1581
 msgid "When opening a mailbox for the first time, where do you want to start?"
 msgstr ""
-"Na ktorej strane chcete začať prezeranie správ pri prvom otvorení novej "
-"schránky?"
+"Na ktorej strane chcete začať prezeranie správ pri prvom otvorení priečinku?"
 
-#: config/prefs.php:722
+#: config/prefs.php:715
 msgid ""
-"When replying to a message, should we use the same format as the original "
-"message?"
-msgstr ""
-"Pri odpovedi na správu alebo jej preposlaní, má sa použiť ten istý formát "
-"ako v pôvodnej správe?"
+"When replying to a message, use the same format as the original message?"
+msgstr "Má sa použiť formát pôvodnej správy pri odpovedaní na ňu?"
 
-#: config/prefs.php:555
+#: config/prefs.php:554
 msgid ""
-"When sending mail or expanding addresses, what domain should we append to "
+"When sending mail or expanding addresses, what domain should be appended to "
 "unqualified addresses (email addresses without \"@\")?"
 msgstr ""
 "Pri odosielaní pošty alebo dopĺňaní adries, ktorá doména sa má pripojiť k "
 "nekvalifikovaným adresám (e-mailové adresy bez zavináča \"@\")?"
 
-#: config/prefs.php:573
+#: config/prefs.php:572
 msgid "Where should the cursor be located in the compose text area by default?"
 msgstr "Kde sa má štandardne nachádzať kurzor v textovom poli pri písaní?"
 
-#: config/prefs.php:1152
+#: config/prefs.php:1145
 msgid "Which message parts do you want to display in the summary?"
 msgstr "Ktoré časti správy sa majú zobraziť v prehľade správ?"
 
-#: lib/Dynamic/Mailbox.php:312 lib/Dynamic/Mailbox.php:399
+#: lib/Dynamic/Mailbox.php:317 lib/Dynamic/Mailbox.php:404
 msgid "Whitelist"
 msgstr "Biela listina"
 
@@ -5579,13 +5570,13 @@ msgstr "Písať"
 msgid "Years"
 msgstr "Roky"
 
-#: config/prefs.php:1774 lib/IMP.php:81
+#: config/prefs.php:1750 lib/IMP.php:89
 #: templates/basic/compose/compose.html.php:301
 msgid "Yes"
 msgstr "Áno"
 
 #: templates/basic/compose/compose.html.php:159
-#: templates/dynamic/compose.html.php:152
+#: templates/dynamic/compose.html.php:153
 msgid "You are"
 msgstr "Vy ste"
 
@@ -5599,7 +5590,7 @@ msgstr "Chystáte sa vymazať všetky správy v nasledujúcich priečinkoch."
 msgid "You are attempting to delete the following mailbox(es)."
 msgstr "Chystáte sa vymazať nasledujúce priečinky."
 
-#: lib/IMP.php:78
+#: lib/IMP.php:86
 msgid "You are copying/moving to a new mailbox."
 msgstr "Kopírujete/presúvate do nového priečinka."
 
@@ -5611,57 +5602,61 @@ msgstr "Vytvárate podpriečinok v"
 msgid "You are creating a top-level mailbox."
 msgstr "Vytvárate priečinok najvyššej úrovne."
 
-#: lib/Mailbox.php:751
+#: lib/Mailbox.php:771
 msgid "You are not allowed to create mailboxes."
 msgstr "Nemáte právo vytvárať priečinky."
 
-#: lib/Mailbox.php:759
+#: lib/Mailbox.php:779
 #, php-format
 msgid "You are not allowed to create more than %d mailboxes."
 msgstr "Nemáte právo vytvoriť viac ako %d priečinkov."
 
-#: lib/Compose.php:1106
+#: lib/Compose.php:1110
 #, php-format
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
 msgstr "Nemáte právo odoslať správy viac ako %d adresátom počas %d hodín."
 
-#: lib/Compose.php:1113
+#: lib/Compose.php:1117
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
 msgstr "Nemáte právo odoslať správy viac ako %d adresátom."
 
-#: lib/Message.php:226
+#: lib/Message.php:236
 msgid ""
 "You are over your quota, so your messages will be permanently deleted "
 "instead of moved to the Trash mailbox."
 msgstr ""
 "Prekročili ste kvótu takže správy budú natrvalo vymazané miesto ich presunu "
-"do odpadkového koša."
+"do koša."
 
 #: folders.php:50
 msgid "You are renaming the mailbox:"
 msgstr "Premenúvate priečinok:"
 
 #: templates/basic/compose/compose.html.php:173
-#: templates/dynamic/compose.html.php:156
+#: templates/dynamic/compose.html.php:157
 msgid "You are replying to a mailing list"
 msgstr "Odpovedáte na zoznam správ"
 
-#: lib/Mailbox.php:919
+#: lib/Mailbox.php:939
 #, php-format
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "Nemôžete sa odhlásiť z \"%s\"."
 
-#: lib/Prefs/Special/Acl.php:45
+#: lib/Prefs/Special/Acl.php:40
 msgid "You do not have permission to change access to this mailbox."
 msgstr "Nemáte právo zmeniť prístup k tomuto priečinku."
 
-#: lib/Maillog.php:222
+#: lib/Imap/Acl.php:77
+msgid "You do not have permission to view the ACLs on this mailbox."
+msgstr "Nemáte právo zobraziť ACL k tomuto priečinku."
+
+#: lib/Maillog.php:230
 #, php-format
 msgid "You forwarded this message on %%s to: %s."
-msgstr "Presmerovali ste túto správu %s %%s."
+msgstr "Správu ste presmerovali dňa %%s na adresy: %s."
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:106
 #, php-format
@@ -5671,112 +5666,111 @@ msgstr[0] "Máte %d novú správu v %s."
 msgstr[1] "Máte %d nové správy v %s."
 msgstr[2] "Máte %d nových správ v %s."
 
-#: config/prefs.php:1261 config/prefs.php:1288
+#: config/prefs.php:1249 config/prefs.php:1276
 msgid ""
 "You have activated move to Trash but no Trash mailbox is defined. You will "
 "be unable to delete messages until you set a Trash mailbox in the "
 "preferences."
 msgstr ""
-"Nastavili ste presun do koša ale nie je zvolený žiadny priečinok pre "
-"odpadkový kôš. Správy môžete zmazať až po zvolení priečinka pre odpadkový "
-"kôš v nastaveniach."
+"Nastavili ste presun do koša ale nie je zvolený žiadny priečinok pre kôš. "
+"Správy môžete zmazať až po zvolení priečinka pre kôš v nastaveniach."
 
 #: compose.php:92
 msgid "You have already submitted this page."
 msgstr "Túto stranu ste už odoslali."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:43
+#: lib/Ajax/Application/Handler/Dynamic.php:51
 #, php-format
 msgid "You may not create child mailboxes in \"%s\"."
 msgstr "Nemôžete vytvoriť podpriečinky v \"%s\"."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:106
+#: lib/Ajax/Application/Handler/Dynamic.php:114
 #, php-format
 msgid "You may not delete \"%s\"."
 msgstr "Nemôžete vymazať \"%s\"."
 
-#: lib/Ajax/Application/Handler/Dynamic.php:110
+#: lib/Ajax/Application/Handler/Dynamic.php:118
 #, php-format
 msgid "You may not rename \"%s\"."
 msgstr "Nemôžete premenovať \"%s\"."
 
-#: lib/Mime/Viewer/Pgp.php:276
+#: lib/Mime/Viewer/Pgp.php:283
 msgid ""
 "You must enter the passphrase for your PGP private key to view this message."
 msgstr ""
 "Na zobrazenie tejto správy musíte zadať heslo pre Váš osobný privátny PGP "
 "kľúč."
 
-#: lib/Mime/Viewer/Smime.php:192
+#: lib/Mime/Viewer/Smime.php:199
 msgid ""
 "You must enter the passphrase for your S/MIME private key to view this data."
 msgstr ""
 "Na zobrazenie tejto správy musíte zadať heslo pre Váš osobný privátny S/MIME "
 "kľúč."
 
-#: lib/Mime/Viewer/Pgp.php:244
+#: lib/Mime/Viewer/Pgp.php:251
 msgid "You must enter the passphrase used to encrypt this message to view it."
 msgstr ""
 "Na zobrazenie tejto správy musíte zadať heslo, ktoré bolo použité na jej "
 "zašifrovanie."
 
-#: lib/IMP.php:80
+#: lib/IMP.php:88
 msgid "You must select a target mailbox first."
-msgstr "Musíte najprv vybrať cieľovú schránku."
+msgstr "Najskôr musíte vybrať cieľovú schránku."
 
 #: contacts.php:105
 msgid "You must select an address first."
-msgstr "Musíte najprv vybrať adresu."
+msgstr "Najskôr musíte vybrať adresu."
 
 #: mailbox.php:355 mailbox.php:357
 msgid "You must select at least one message first."
-msgstr "Musíte najprv vybrať aspoň jednu správu."
+msgstr "Najskôr musíte vybrať aspoň jednu správu."
 
 #: mailbox.php:356
 msgid "You must select only one message for this action."
 msgstr "Pre túto akciu musíte vybrať iba jednu správu."
 
-#: compose.php:718
+#: compose.php:720
 msgid "You must specify a recipient."
 msgstr "Musíte zadať príjemcu."
 
-#: lib/Maillog.php:230
+#: lib/Maillog.php:238
 #, php-format
 msgid "You redirected this message to %s on %%s."
 msgstr "Preposlalii ste túto správu %s na %%s."
 
-#: lib/Maillog.php:238
+#: lib/Maillog.php:246
 #, php-format
 msgid "You replied to all recipients of this message on %s."
-msgstr "Odpovedali ste všetkým príjemcom tejto správy %s."
-
-#: lib/Maillog.php:234
-#, php-format
-msgid "You replied to this message on %s."
-msgstr "Odpovedali ste na túto správu %s."
+msgstr "Odpovedali ste všetkým príjemcom tejto správy dňa %s."
 
 #: lib/Maillog.php:242
 #, php-format
+msgid "You replied to this message on %s."
+msgstr "Odpovedali ste na túto správu dňa %s."
+
+#: lib/Maillog.php:250
+#, php-format
 msgid "You replied to this message via the mailing list on %s."
 msgstr ""
-"Odpovedali ste na túto správu prostredníctvom e-mailovej konferencie na %s."
+"Odpovedali ste na túto správu prostredníctvom e-mailovej konferencie dňa %s."
 
-#: lib/Mailbox.php:927
+#: lib/Mailbox.php:947
 #, php-format
 msgid "You were not subscribed to \"%s\". Here is what the server said"
 msgstr "Neboli ste prihlásený do \"%s\". Server odpovedal"
 
-#: lib/Mailbox.php:929
+#: lib/Mailbox.php:949
 #, php-format
 msgid "You were not unsubscribed from \"%s\". Here is what the server said"
 msgstr "Neboli ste odhlásený z \"%s\". Server odpovedal"
 
-#: lib/Mailbox.php:935
+#: lib/Mailbox.php:955
 #, php-format
 msgid "You were successfully subscribed to \"%s\"."
 msgstr "Boli ste úspešne prihlásený do \"%s\"."
 
-#: lib/Mailbox.php:938
+#: lib/Mailbox.php:958
 #, php-format
 msgid "You were successfully unsubscribed from \"%s\"."
 msgstr "Boli ste úspešne odhlásený z \"%s\"."
@@ -5814,16 +5808,16 @@ msgid "Your Reply-to: address: <em>(optional)</em>"
 msgstr "Vaša Odpoveď-na(Reply-to): adresa: <em>(nepovinné)</em>"
 
 #: templates/prefs/smimeprivatekey.html.php:4
-msgid "Your S/MIME Public/Private Certificate"
-msgstr "Vaše S/MIME verejné/privátne certifikáty"
+msgid "Your S/MIME Personal Certificate"
+msgstr "Váš S/MIME osobný certifikát"
 
 #: config/prefs.php:36
 msgid ""
 "Your alias addresses: <em>(optional, enter each address on a new line)</em>"
 msgstr ""
-"Vaše aliasy: <em>(voliteľné, zadajte každú adresu do nového riadku)</em>"
+"Vaše aliasy: <em>(nepovinné, zadajte každú adresu do nového riadku)</em>"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:942
+#: lib/Ajax/Application/Handler/Dynamic.php:929
 msgid ""
 "Your attachment was not uploaded. Most likely, the file exceeded the maximum "
 "size allowed by the server configuration."
@@ -5831,7 +5825,7 @@ msgstr ""
 "Príloha nebola nahratá. Súbor, pravdepodobne, prekročil maximálnu povolenú "
 "veľkosť nastavenú serverom."
 
-#: lib/Mime/Viewer/Images.php:127
+#: lib/Mime/Viewer/Images.php:134
 msgid "Your browser does not support inline display of this image type."
 msgstr "Váš prehliadač nepodporuje priame zobrazenie tohto typu obrázkov."
 
@@ -5839,17 +5833,17 @@ msgstr "Váš prehliadač nepodporuje priame zobrazenie tohto typu obrázkov."
 msgid "Your default encryption method for sending messages:"
 msgstr "Váš prednastavený spôsob šifrovania pre posielanie správ:"
 
-#: templates/dynamic/compose.html.php:166
+#: templates/dynamic/compose.html.php:167
 msgid ""
 "Your identity has been switched to the identity associated with the current "
 "recipient address. Click this box to revert to the original identity. The "
 "identity will not be checked again during this compose action."
 msgstr ""
 "Vaša identita bola prepnutá na identitu spojenú so súčasnou adresou "
-"prijímateľa. Kliknite tu pre návrat na pôvodnú identitu. Identita nebude "
+"prijímateľa. Pre návrat na pôvodnú identitu kliknite sem. Identita nebude "
 "znova kontrolovaná počas písania správy."
 
-#: compose.php:529 lib/Minimal/Compose.php:322
+#: compose.php:536 lib/Minimal/Compose.php:322
 msgid ""
 "Your identity has been switched to the identity associated with the current "
 "recipient address. The identity will not be checked again during this "
@@ -5877,7 +5871,7 @@ msgstr ""
 "Kliknite na nasledujúci link pre trvalé vymazanie prílohy:\n"
 "%s"
 
-#: lib/Mime/Viewer/Status.php:114
+#: lib/Mime/Viewer/Status.php:122
 msgid "Your message was successfully delivered."
 msgstr "Správa bola úspešne doručená."
 
@@ -5893,11 +5887,11 @@ msgstr ""
 msgid "Your signature:"
 msgstr "Váš podpis:"
 
-#: lib/Dynamic/Mailbox.php:380
+#: lib/Dynamic/Mailbox.php:385
 msgid "Zip"
 msgstr "Zip"
 
-#: lib/Message.php:523
+#: lib/Message.php:533
 #, php-format
 msgid "[Attachment stripped: Original attachment type: %s, name: %s]"
 msgstr "[Príloha bola odstránená: Pôvodný typ prílohy: %s, názov: %s]"
@@ -5906,9 +5900,9 @@ msgstr "[Príloha bola odstránená: Pôvodný typ prílohy: %s, názov: %s]"
 msgid "[Hide Addresses]"
 msgstr "[Skryť adresy]"
 
-#: lib/Ajax/Application/ShowMessage.php:224
-#: lib/Ajax/Application/ShowMessage.php:226 lib/Compose.php:2188
-#: lib/Compose.php:2464 lib/Minimal/Message.php:143 lib/Ui/Mailbox.php:180
+#: lib/Ajax/Application/ShowMessage.php:232
+#: lib/Ajax/Application/ShowMessage.php:234 lib/Compose.php:2201
+#: lib/Compose.php:2477 lib/Minimal/Message.php:143 lib/Ui/Mailbox.php:180
 #: message.php:319
 msgid "[No Subject]"
 msgstr "[Bez predmetu]"
@@ -5918,11 +5912,11 @@ msgstr "[Bez predmetu]"
 msgid "[Show Addresses - %d recipients]"
 msgstr "[Zobraziť adresy - %d príjemcov]"
 
-#: lib/Compose.php:2812
+#: lib/Compose.php:2825
 msgid "[Truncated Text]"
 msgstr "[Zrezaný text]"
 
-#: compose.php:826
+#: compose.php:828
 msgid "_Bcc"
 msgstr "_Bcc"
 
@@ -5930,7 +5924,7 @@ msgstr "_Bcc"
 msgid "_Blacklist"
 msgstr "Čierna _listina"
 
-#: compose.php:823
+#: compose.php:825
 msgid "_Cc"
 msgstr "_Cc"
 
@@ -5938,7 +5932,7 @@ msgstr "_Cc"
 msgid "_Delete"
 msgstr "_Vymazať"
 
-#: lib/Application.php:244
+#: lib/Application.php:252
 msgid "_Folders"
 msgstr "_Priečinky"
 
@@ -5950,7 +5944,7 @@ msgstr "_Identita"
 msgid "_Message Source"
 msgstr "_Zdrojový text správy"
 
-#: lib/Application.php:274
+#: lib/Application.php:282
 msgid "_New Message"
 msgstr "_Nová správa"
 
@@ -5966,20 +5960,20 @@ msgstr "_Obnoviť"
 msgid "_Reply"
 msgstr "_Odpovedať"
 
-#: lib/Application.php:252
+#: lib/Application.php:260
 msgid "_Search"
 msgstr "_Hľadať"
 
 #: templates/basic/compose/compose.html.php:24
 #: templates/basic/compose/compose.html.php:209
 msgid "_Send Message"
-msgstr "_Poslať správu"
+msgstr "_Odoslať správu"
 
 #: mailbox.php:727
 msgid "_Thread"
 msgstr "_Vlákno"
 
-#: compose.php:821
+#: compose.php:823
 msgid "_To"
 msgstr "_Pre"
 
@@ -6004,19 +5998,19 @@ msgstr "a"
 #, php-format
 msgid "and %d more mailbox"
 msgid_plural "and %d more mailboxes"
-msgstr[0] "a %d ďalšia schránka"
-msgstr[1] "a %d ďalšie schránky"
-msgstr[2] "a %d ďalších schránok"
+msgstr[0] "a %d ďalší priečinok"
+msgstr[1] "a %d ďalšie priečinky"
+msgstr[2] "a %d ďalších priečinkov"
 
-#: lib/Compose.php:2944
+#: lib/Compose.php:2957
 msgid "attachment"
 msgstr "príloha"
 
-#: lib/Contents/View.php:39
+#: lib/Contents/View.php:47
 msgid "attachments.zip"
 msgstr "prilohy.zip"
 
-#: lib/Dynamic/Mailbox.php:471
+#: lib/Dynamic/Mailbox.php:483
 msgid "base level of the folder tree"
 msgstr "základná úroveň stromu priečinkov"
 
@@ -6042,11 +6036,11 @@ msgstr "z"
 msgid "into mailbox"
 msgstr "do priečinka"
 
-#: lib/Crypt/Smime.php:539 pgp.php:32 pgp.php:60
+#: lib/Crypt/Smime.php:547 pgp.php:32 pgp.php:60
 msgid "key"
 msgstr "kľúč"
 
-#: lib/Ui/Folder.php:136
+#: lib/Ui/Folder.php:156
 msgid "mailbox file"
 msgstr "súbor s poštou"
 
@@ -6074,7 +6068,7 @@ msgstr "správy bez príloh"
 msgid "months"
 msgstr "mesiacov"
 
-#: lib/Compose.php:898
+#: lib/Compose.php:906
 msgid "name"
 msgstr "meno"
 
@@ -6085,7 +6079,7 @@ msgstr "meno"
 msgid "not"
 msgstr "nie"
 
-#: lib/Contents/View.php:52
+#: lib/Contents/View.php:60
 #, php-format
 msgid "part %s"
 msgstr "časť %s"
@@ -6095,11 +6089,11 @@ msgid "recipients"
 msgstr "príjemcovia"
 
 #: templates/basic/compose/compose.html.php:159
-#: templates/dynamic/compose.html.php:152
+#: templates/dynamic/compose.html.php:153
 msgid "replying to ALL"
 msgstr "odpovedať VŠETKÝM"
 
-#: lib/Dynamic/Mailbox.php:494
+#: lib/Dynamic/Mailbox.php:506
 msgid "selected"
 msgstr "vybrané"
 
@@ -6111,10 +6105,10 @@ msgstr "pre"
 msgid "years"
 msgstr "roky"
 
-#: lib/Filter.php:63
+#: lib/Filter.php:71
 msgid "your blacklist"
 msgstr "Vaša čierna listina"
 
-#: lib/Filter.php:85
+#: lib/Filter.php:93
 msgid "your whitelist"
 msgstr "Vaša biela listina"
