@@ -250,12 +250,10 @@ class Horde_ActiveSync_Imap_Adapter
 
             // Prepare the changes and flags array, ensuring no changes after
             // $modseq sneak in yet (they will be caught on the next PING or
-            // SYNC) and no \deleted messages are included since EAS doesn't
-            // support that flag.
+            // SYNC).
             $changes = array();
             foreach ($fetch_ret as $uid => $data) {
-                if ($data->getModSeq() <= $modseq &&
-                    array_search('\deleted', $data->getFlags()) === false) {
+                if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
