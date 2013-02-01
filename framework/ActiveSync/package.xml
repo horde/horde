@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix setting flags on messages marked for deletion (Bug #12007).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1186,7 +1186,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix setting flags on messages marked for deletion (Bug #12007).
    </notes>
   </release>
  </changelog>
