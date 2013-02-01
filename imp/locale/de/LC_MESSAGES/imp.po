@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-01-29 11:44+0100\n"
-"PO-Revision-Date: 2013-01-29 12:02+0100\n"
+"PO-Revision-Date: 2013-02-01 13:00+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -774,7 +774,7 @@ msgstr "Anhang"
 #: attachment.php:63
 #, php-format
 msgid "Attachment %s deleted."
-msgstr "Anlage %s wurde gelöscht."
+msgstr "Anhang %s wurde gelöscht."
 
 #: lib/Compose.php:2731
 msgid "Attachment Information"
@@ -1656,7 +1656,7 @@ msgstr "Kein Link in der Von: Spalte erzeugen"
 
 #: config/prefs.php:875
 msgid "Do not save attachments"
-msgstr "Anlagen nicht speichern"
+msgstr "Anhänge nicht speichern"
 
 #: config/prefs.php:1143
 msgid "Do not show parts"
@@ -1694,11 +1694,11 @@ msgstr "Alle Anhänge (als ZIP-Datei) herunterladen"
 
 #: lib/Minimal/Messagepart.php:46
 msgid "Download Attachment"
-msgstr "Anlage herunterladen"
+msgstr "Anhang herunterladen"
 
 #: templates/minimal/messagepart.html.php:5
 msgid "Download attachment:"
-msgstr "Anlage herunterladen:"
+msgstr "Anhang herunterladen:"
 
 #: lib/Flag/Imap/Draft.php:45
 msgid "Draft"
