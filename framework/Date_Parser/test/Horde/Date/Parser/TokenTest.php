@@ -48,4 +48,30 @@ class Horde_Date_Parser_TokenTest extends Horde_Test_Case
         $this->assertInstanceOf('Horde_Date_Repeater_DayName', $repeater);
         $this->assertEquals('sunday', $repeater->type);
     }
+
+    public function testScanForTimezones()
+    {
+        $parser = Horde_Date_Parser::factory();
+        $tokenizer = $parser->componentFactory('Timezone');
+
+        $token = new Horde_Date_Parser_Token('9:00 est');
+        $results = $tokenizer->scan(array($token));
+        $this->assertEquals('tz', $results[0]->getTag('timezone'));
+
+        $token = new Horde_Date_Parser_Token('this is test at 9est');
+        $results = $tokenizer->scan(array($token));
+        $this->assertEquals('tz', $results[0]->getTag('timezone'));
+
+        $token = new Horde_Date_Parser_Token('this is test at 9 est');
+        $results = $tokenizer->scan(array($token));
+        $this->assertEquals('tz', $results[0]->getTag('timezone'));
+
+        $token = new Horde_Date_Parser_Token('testing');
+        $results = $tokenizer->scan(array($token));
+        $this->assertEquals(null, $results[0]->getTag('timezone'));
+
+        $token = new Horde_Date_Parser_Token('this is test');
+        $results = $tokenizer->scan(array($token));
+        $this->assertEquals(null, $results[0]->getTag('timezone'));
+    }
 }

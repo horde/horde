@@ -62,4 +62,5 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
         $text = $parser->preNormalize('exam');
         $this->assertEquals('exam', $text);
     }
+
 }
