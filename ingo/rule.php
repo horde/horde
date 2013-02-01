@@ -229,7 +229,7 @@ $view->addHelper('FormTag');
 $view->addHelper('Tag');
 $view->addHelper('Text');
 
-$view->avail_type = $ingo_script->availableTypes();
+$view->avail_types = $ingo_script->availableTypes();
 $view->edit = $vars->edit;
 $view->fields = $ingo_fields;
 $view->formurl = Horde::url('rule.php');
