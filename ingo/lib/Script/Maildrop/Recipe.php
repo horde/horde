@@ -95,7 +95,8 @@ class Ingo_Script_Maildrop_Recipe implements Ingo_Script_Item
             break;
 
         case Ingo_Storage::ACTION_REJECT:
-            $this->_action[] = '   EXITCODE=77'; # EX_NOPERM (permanent failure)
+            // EX_NOPERM (permanent failure)
+            $this->_action[] = '   EXITCODE=77';
             $this->_action[] = '   echo "5.7.1 ' . $params['action-value'] . '"';
             $this->_action[] = '   exit';
             break;

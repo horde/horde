@@ -251,9 +251,7 @@ foreach ($rule['conditions'] as $cond_num => $condition) {
     if ($view->userheader &&
         ($condition['type'] == Ingo_Storage::TYPE_HEADER) &&
         !isset($ingo_fields[$tmp['field']])) {
-        $tmp['userheader'] = empty($vars->userheader)
-            ? $tmp['field']
-            : $vars->userheader[$cond_num];
+        $tmp['userheader'] = $tmp['field'];
     }
 
     if ($tmp['lastfield']) {

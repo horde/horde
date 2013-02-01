@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
  </notes>
  <contents>
@@ -2726,6 +2727,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
    </notes>
   </release>

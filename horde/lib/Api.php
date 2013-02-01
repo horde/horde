@@ -221,12 +221,8 @@ class Horde_Api extends Horde_Registry_Api
         $GLOBALS['registry']->removeUserData($user, $app);
 
         if ($GLOBALS['conf']['activesync']['enabled']) {
-            try {
-                $GLOBALS['injector']->getInstance('Horde_ActiveSyncState')
-                    ->removeState(array('user' => $user));
-            } catch (Horde_ActiveSync_Exception $e) {
-                throw Horde_Exception($e);
-            }
+            $GLOBALS['injector']->getInstance('Horde_ActiveSyncState')
+                ->removeState(array('user' => $user));
         }
     }
 
@@ -246,13 +242,9 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to add groups."));
         }
 
-        try {
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->create($name);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->create($name);
     }
 
     /**
@@ -268,11 +260,7 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to delete groups."));
         }
 
-        try {
-            $GLOBALS['injector']->getInstance('Horde_Group')->remove($group);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $GLOBALS['injector']->getInstance('Horde_Group')->remove($group);
     }
 
     /**
@@ -289,13 +277,9 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->addUser($group, $user);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->addUser($group, $user);
     }
 
     /**
@@ -312,13 +296,9 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change groups."));
         }
 
-        try {
-            $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->removeUser($group, $user);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->removeUser($group, $user);
     }
 
     /**
@@ -335,13 +315,9 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to list users of groups."));
         }
 
-        try {
-            return $GLOBALS['injector']
-                ->getInstance('Horde_Group')
-                ->listUsers($group);
-        } catch (Horde_Group_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        return $GLOBALS['injector']
+            ->getInstance('Horde_Group')
+            ->listUsers($group);
     }
 
     /* Shares. */
@@ -364,13 +340,9 @@ class Horde_Api extends Horde_Registry_Api
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
-        try {
-            $share = $shares->newShare($GLOBALS['registry']->getAuth(), $shareName, $shareTitle);
-            $share->set('owner', $userName);
-            $shares->addShare($share);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $share = $shares->newShare($GLOBALS['registry']->getAuth(), $shareName, $shareTitle);
+        $share->set('owner', $userName);
+        $shares->addShare($share);
     }
 
     /**
@@ -385,16 +357,12 @@ class Horde_Api extends Horde_Registry_Api
     public function removeShare($scope, $shareName)
     {
         if (!$GLOBALS['registry']->isAdmin()) {
-            throw new Horde_Exceptionr(_("You are not allowed to delete shares."));
+            throw new Horde_Exception(_("You are not allowed to delete shares."));
         }
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
         $share = $shares->getShare($shareName);
-        try {
-            $shares->removeShare($share);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception_Wrapped($e);
-        }
+        $shares->removeShare($share);
     }
 
     /**
@@ -444,22 +412,18 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        try {
-            $share = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Share')
-                ->create($scope)
-                ->getShare($shareName);
-            $perm = $share->getPermission();
-            foreach ($permissions as $permission) {
-                $permission = Horde_String::upper($permission);
-                if (defined('Horde_Perms::' . $permission)) {
-                    $perm->addUserPermission($userName, constant('Horde_Perms::' . $permission), false);
-                }
+        $share = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Share')
+            ->create($scope)
+            ->getShare($shareName);
+        $perm = $share->getPermission();
+        foreach ($permissions as $permission) {
+            $permission = Horde_String::upper($permission);
+            if (defined('Horde_Perms::' . $permission)) {
+                $perm->addUserPermission($userName, constant('Horde_Perms::' . $permission), false);
             }
-            $share->setPermission($perm);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($e);
         }
+        $share->setPermission($perm);
     }
 
     /**
@@ -481,22 +445,18 @@ class Horde_Api extends Horde_Registry_Api
             throw new Horde_Exception(_("You are not allowed to change shares."));
         }
 
-        try {
-            $share = $GLOBALS['injector']
-                ->getInstance('Horde_Core_Factory_Share')
-                ->create($scope)
-                ->getShare($shareName);
-            $perm = $share->getPermission();
-            foreach ($permissions as $permission) {
-                $permission = Horde_String::upper($permission);
-                if (defined('Horde_Perms::' . $permission)) {
-                    $perm->addGroupPermission($groupId, constant('Horde_Perms::' . $permission), false);
-                }
+        $share = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_Share')
+            ->create($scope)
+            ->getShare($shareName);
+        $perm = $share->getPermission();
+        foreach ($permissions as $permission) {
+            $permission = Horde_String::upper($permission);
+            if (defined('Horde_Perms::' . $permission)) {
+                $perm->addGroupPermission($groupId, constant('Horde_Perms::' . $permission), false);
             }
-            $share->setPermission($perm);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($e);
         }
+        $share->setPermission($perm);
     }
 
     /**
@@ -517,11 +477,7 @@ class Horde_Api extends Horde_Registry_Api
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
         $share = $shares->getShare($shareName);
-        try {
-            $share->removeUser($userName);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $share->removeUser($userName);
     }
 
     /**
@@ -542,11 +498,7 @@ class Horde_Api extends Horde_Registry_Api
 
         $shares = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')->create($scope);
         $share = $shares->getShare($shareName);
-        try {
-            $share->removeGroup($groupId);
-        } catch (Horde_Share_Exception $e) {
-            throw new Horde_Exception($e);
-        }
+        $share->removeGroup($groupId);
     }
 
     /**
@@ -684,5 +636,4 @@ class Horde_Api extends Horde_Registry_Api
 
         return $share->listGroups($perm);
     }
-
 }
