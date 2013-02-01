@@ -149,25 +149,24 @@ class Horde_Date_Parser_Locale_Base
     */
     public function preNormalize($text)
     {
-        $text = strtolower($text);
         $text = $this->numericizeNumbers($text);
         $text = preg_replace('/[\'"\.]/', '', $text);
         $text = preg_replace('/([\/\-\,\@])/', ' \1 ', $text);
-        $text = preg_replace('/\btoday\b/', 'this day', $text);
-        $text = preg_replace('/\btomm?orr?ow\b/', 'next day', $text);
-        $text = preg_replace('/\byesterday\b/', 'last day', $text);
-        $text = preg_replace('/\bnoon\b/', '12:00', $text);
-        $text = preg_replace('/\bmidnight\b/', '24:00', $text);
-        $text = preg_replace('/\bbefore now\b/', 'past', $text);
-        $text = preg_replace('/\bnow\b/', 'this second', $text);
-        $text = preg_replace('/\b(ago|before)\b/', 'past', $text);
-        $text = preg_replace('/\bthis past\b/', 'last', $text);
-        $text = preg_replace('/\bthis last\b/', 'last', $text);
-        $text = preg_replace('/\b(?:in|during) the (morning)\b/', '\1', $text);
-        $text = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/', '\1', $text);
-        $text = preg_replace('/\btonight\b/', 'this night', $text);
-        $text = preg_replace('/((?=\w)\d+)([ap]m|oclock)\b/', '$1 $2', $text);
-        $text = preg_replace('/\b(hence|after|from)\b/', 'future', $text);;
+        $text = preg_replace('/\btoday\b/i', 'this day', $text);
+        $text = preg_replace('/\btomm?orr?ow\b/i', 'next day', $text);
+        $text = preg_replace('/\byesterday\b/i', 'last day', $text);
+        $text = preg_replace('/\bnoon\b/i', '12:00', $text);
+        $text = preg_replace('/\bmidnight\b/i', '24:00', $text);
+        $text = preg_replace('/\bbefore now\b/i', 'past', $text);
+        $text = preg_replace('/\bnow\b/i', 'this second', $text);
+        $text = preg_replace('/\b(ago|before)\b/i', 'past', $text);
+        $text = preg_replace('/\bthis past\b/i', 'last', $text);
+        $text = preg_replace('/\bthis last\b/i', 'last', $text);
+        $text = preg_replace('/\b(?:in|during) the (morning)\b/i', '\1', $text);
+        $text = preg_replace('/\b(?:in the|during the|at) (afternoon|evening|night)\b/i', '\1', $text);
+        $text = preg_replace('/\btonight\b/i', 'this night', $text);
+        $text = preg_replace('/((?=\w)\d+)([ap]m|oclock)\b/i', '$1 $2', $text);
+        $text = preg_replace('/\b(hence|after|from)\b/i', 'future', $text);
         $text = $this->numericizeOrdinals($text);
 
         return $text;
