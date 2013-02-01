@@ -177,9 +177,9 @@ var DimpCore = {
             tmp = tmp.down('.largeaddrlist');
             if (limit && alist.limit) {
                 base.down('.largeaddrlistlimit').show();
-                tmp.setText(tmp.textContent.replace('%d', alist.limit));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
             } else {
-                tmp.setText(tmp.textContent.replace('%d', alist.addr.size()));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.addr.size()));
             }
         } else {
             base = elt;

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix usage of textContent property on IE8 (Bug #12012).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
 * [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
@@ -2911,6 +2912,7 @@
    <date>2013-01-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix usage of textContent property on IE8 (Bug #12012).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
 * [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
