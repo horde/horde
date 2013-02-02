@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-02</date>
- <time>14:35:14</time>
+ <time>14:40:08</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix handling of deleting or moving messages from the client that no longer exist on the server (Bug #12013).
-* [mjr] Fix setting flags on messages marked for deletion (Bug #12007).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1189,6 +1188,19 @@
    <notes>
 * [mjr] Fix handling of deleting or moving messages from the client that no longer exist on the server (Bug #12013).
 * [mjr] Fix setting flags on messages marked for deletion (Bug #12007).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
