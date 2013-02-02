@@ -162,6 +162,8 @@ class Horde_ActiveSync_Connector_Importer
      *
      * @param array $ids          Server message uids to delete
      * @param string $collection  The server collection type.
+     *
+     * @return array An array of successfully deleted uids.
      */
     public function importMessageDeletion(array $ids, $collection)
     {
@@ -202,7 +204,7 @@ class Horde_ActiveSync_Connector_Importer
         }
 
         // Tell backend about the deletion
-        $this->_backend->deleteMessage($this->_folderId, $ids);
+        return $this->_backend->deleteMessage($this->_folderId, $ids);
     }
 
     /**
