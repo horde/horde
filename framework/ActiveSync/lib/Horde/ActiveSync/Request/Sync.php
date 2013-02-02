@@ -582,7 +582,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCHRONIZE);
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-        $this->_encoder->content(1);
+        $this->_encoder->content(self::STATUS_SUCCESS);
         $this->_encoder->endTag();
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERS);
         foreach ($this->_collections as $collection) {
