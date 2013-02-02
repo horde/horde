@@ -930,9 +930,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param array $ids           Message UIDs to move.
      * @param string $newfolderid  The new folder id to move to.
      *
-     * @return array  An array containing the following:
-     *   - results: An array of old uids as keys and new uids as values
-     *   - missing: An array of uids not found on the server.
+     * @return array  An array of successfully moved messages.
      * @throws Horde_Exception
      */
     public function moveMessage($folderid, array $ids, $newfolderid)
