@@ -691,47 +691,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($statusCode == self::STATUS_SUCCESS) {
-                // Output server IDs for new items we received and added from PIM
-                if (isset($collection['clientids']) || count($collection['fetchids']) > 0) {
+                if (isset($collection['clientids']) || count($collection['fetchids']) > 0 || !empty($collection['missing'])) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
-                    foreach ($collection['clientids'] as $clientid => $serverid) {
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
-                        $this->_encoder->content($clientid);
-                        $this->_encoder->endTag();
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                        $this->_encoder->content($serverid);
-                        $this->_encoder->endTag();
-                        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                        $this->_encoder->content(1);
-                        $this->_encoder->endTag();
-                        $this->_encoder->endTag();
-                    }
 
-                    // Output any FETCH requests
-                    foreach ($collection['fetchids'] as $id) {
-                        try {
-                            $data = $this->_driver->fetch($collection['id'], $id, $collection);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($id);
-                            $this->_encoder->endTag();
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                            $this->_encoder->content(self::STATUS_SUCCESS);
-                            $this->_encoder->endTag();
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-                            $data->encodeStream($this->_encoder);
-                            $this->_encoder->endTag();
-                            $this->_encoder->endTag();
-                        } catch (Horde_Exception_NotFound $e) {
-                            $this->_logger->err(sprintf(
-                                '[%s] Unable to fetch %s',
-                                $this->_procid,
-                                $id)
-                            );
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
-                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-                            $this->_encoder->content($id);
+                    // Output any errors from missing messages in REMOVE requests.
+                    if (!empty($collection['missing'])) {
+                        foreach ($collection['missing'] as $uid) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_REMOVE);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+                            $this->_encoder->content($uid);
                             $this->_encoder->endTag();
                             $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
                             $this->_encoder->content(self::STATUS_NOTFOUND);
@@ -739,6 +707,58 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             $this->_encoder->endTag();
                         }
                     }
+
+                    // Output server IDs for new items we received and added from PIM
+                    if (!empty($collection['clientids'])) {
+                        foreach ($collection['clientids'] as $clientid => $serverid) {
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_ADD);
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_CLIENTENTRYID);
+                            $this->_encoder->content($clientid);
+                            $this->_encoder->endTag();
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                            $this->_encoder->content($serverid);
+                            $this->_encoder->endTag();
+                            $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                            $this->_encoder->content(self::STATUS_SUCCESS);
+                            $this->_encoder->endTag();
+                            $this->_encoder->endTag();
+                        }
+                    }
+
+                    if (!empty($collection['fetchids'])) {
+                        // Output any FETCH requests
+                        foreach ($collection['fetchids'] as $id) {
+                            try {
+                                $data = $this->_driver->fetch($collection['id'], $id, $collection);
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                                $this->_encoder->content($id);
+                                $this->_encoder->endTag();
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                                $this->_encoder->content(self::STATUS_SUCCESS);
+                                $this->_encoder->endTag();
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+                                $data->encodeStream($this->_encoder);
+                                $this->_encoder->endTag();
+                                $this->_encoder->endTag();
+                            } catch (Horde_Exception_NotFound $e) {
+                                $this->_logger->err(sprintf(
+                                    '[%s] Unable to fetch %s',
+                                    $this->_procid,
+                                    $id)
+                                );
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_FETCH);
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+                                $this->_encoder->content($id);
+                                $this->_encoder->endTag();
+                                $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                                $this->_encoder->content(self::STATUS_NOTFOUND);
+                                $this->_encoder->endTag();
+                                $this->_encoder->endTag();
+                            }
+                        }
+                    }
+
                     $this->_encoder->endTag();
                 }
 
@@ -1143,9 +1163,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         if (!empty($collection['removes']) &&
             !empty($collection['synckey'])) {
             if (isset($collection['deletesasmoves']) && $folderid = $this->_driver->getWasteBasket($collection['class'])) {
-                $importer->importMessageMove($collection['removes'], $folderid);
+                $results = $importer->importMessageMove($collection['removes'], $folderid);
             } else {
-                $importer->importMessageDeletion($collection['removes'], $collection['class']);
+                $results = $importer->importMessageDeletion($collection['removes'], $collection['class']);
+                $results['results'] = $results;
+                $results['missing'] = array_diff($collection['removes'], $results['results']);
+            }
+            if (!empty($results['missing'])) {
+                $collection['missing'] = $results['missing'];
             }
             unset($collection['removes']);
             $collection['importedchanges'] = true;
