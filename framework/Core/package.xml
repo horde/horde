@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-29</date>
- <time>12:25:41</time>
+ <date>2013-02-02</date>
+ <time>14:44:24</time>
  <version>
   <release>2.1.7</release>
   <api>2.1.0</api>
@@ -2725,7 +2725,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Fix handling of moving or deleting messages that have been removed from the server (Bug #12013).
