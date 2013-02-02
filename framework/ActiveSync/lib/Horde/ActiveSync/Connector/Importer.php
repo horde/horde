@@ -238,11 +238,21 @@ class Horde_ActiveSync_Connector_Importer
      * @param array $uids  The source message ids.
      * @param string $dst  The destination folder id.
      *
-     * @return array  An array with old uids as keys and new uids as values.
+     * @return array  An array containing the following keys:
+     *   - results: An array with old uids as keys and new uids as values.
+     *   - missing: An array containing source uids that were not found on the
+     *              IMAP server.
      */
     public function importMessageMove(array $uids, $dst)
     {
         $results = $this->_backend->moveMessage($this->_folderId, $uids, $dst);
+
+        // Check for any missing (not found) source messages.
+        if (count($results) != count($uids)) {
+            $missing = array_diff($uids, array_keys($results));
+        } else {
+            $missing = array();
+        }
 
         // Update client state. For MOVES, we treat it as a delete from the
         // DST folder.
@@ -253,7 +263,7 @@ class Horde_ActiveSync_Connector_Importer
             $change['parent'] = $this->_folderId;
         }
 
-        return $results;
+        return array('results' => $results, 'missing' => $missing);
     }
 
     /**
