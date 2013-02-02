@@ -1166,8 +1166,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 $results = $importer->importMessageMove($collection['removes'], $folderid);
             } else {
                 $results = $importer->importMessageDeletion($collection['removes'], $collection['class']);
-                $results['results'] = $results;
-                $results['missing'] = array_diff($collection['removes'], $results['results']);
+                if (is_array($results['results'])) {
+                    $results['results'] = $results;
+                    $results['missing'] = array_diff($collection['removes'], $results['results']);
+                }
             }
             if (!empty($results['missing'])) {
                 $collection['missing'] = $results['missing'];
