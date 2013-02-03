@@ -2509,8 +2509,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Remove all attachments from an email message and replace with
-     * urls to downloadable links. Should properly save all attachments to a
-     * new mailbox and remove the Horde_Mime_Parts for the attachments.
+     * urls to downloadable links.
      *
      * @param Horde_Mime_Part $part  The body of the message.
      *
@@ -2569,7 +2568,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* We know that VFS is setup if we are linking attachments, so
              * data can be moved within the VFS namespace. */
             try {
-                $vfs->rename(self::VFS_ATTACH_PATH, $att->vfsfile, $fullpath, escapeshellcmd($part->getName()));
+                $vfs->rename(IMP_Compose_Attachment::VFS_ATTACH_PATH, $att->vfsfile, $fullpath, escapeshellcmd($part->getName()));
             } catch (Horde_Vfs_Exception $e) {
                 Horde::log($e, 'ERR');
                 return IMP_Compose_Exception($e);
