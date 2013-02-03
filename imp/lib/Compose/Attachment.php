@@ -154,7 +154,7 @@ class IMP_Compose_Attachment implements Serializable
         }
 
         return serialize(array(
-            'i' => $id,
+            'i' => $this->id,
             'p' => $part,
             'r' => $this->related,
             'v' => $this->vfsname
