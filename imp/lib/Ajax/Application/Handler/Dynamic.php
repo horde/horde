@@ -868,6 +868,9 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action.
+     *   - atc_id: (integer) The attachment ID.
+     *   - img: (string) The image tag to replace the data with, if
+     *          'file_upload_dataurl' is set.
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
@@ -889,7 +892,26 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                 try {
                     $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'file_upload');
                     $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
+
+                    $result->atc_id = $atc_ob->id;
                     $result->success = 1;
+
+                    /* This currently only occurs when pasting/dropping image
+                     * into HTML editor. */
+                    if ($this->vars->file_upload_dataurl) {
+                        $dom_doc = new DOMDocument();
+                        $img = $dom_doc->createElement('img');
+                        $img->setAttribute('src', strval($atc_ob->viewUrl($imp_compose)->setRaw(true)));
+                        $imp_compose->addRelatedAttachment($atc_ob, $img, 'src');
+
+                        /* Complicated to grab single element from a
+                         * DOMDocument object, so build tag ourselves. */
+                        $img_tag = '<img';
+                        foreach ($img->attributes as $node) {
+                            $img_tag .= ' ' . $node->name . '="' . htmlspecialchars($node->value) . '"';
+                        }
+                        $result->img = $img_tag . '/>';
+                    }
 
                     $this->_base->queue->compose($imp_compose);
                     $this->_base->queue->attachment($atc_ob);

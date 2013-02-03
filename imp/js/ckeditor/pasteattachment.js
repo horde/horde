@@ -14,10 +14,8 @@ CKEDITOR.plugins.add('pasteattachment', {
         function attachCallback(r)
         {
             if (r.success) {
-                DimpCompose.addAttach(r.atc);
+                editor.insertHtml(r.img);
             }
-
-            // TODO: Image processing in editor window
         };
 
         function frOnload(n, e)
@@ -51,18 +49,18 @@ CKEDITOR.plugins.add('pasteattachment', {
 
         editor.on('paste', function(ev) {
             if (ev.data.html) {
-                var span = new Element('SPAN').insert(ev.data.html);
+                var span = new Element('SPAN').insert(ev.data.html).down();
 
-                if (span.down().match('IMG')) {
+                if (span.match('IMG')) {
                     HordeCore.doAction('addAttachment', {
                         composeCache: $F(DimpCompose.getCacheElt()),
-                        file_upload: span.down().readAttribute('src'),
+                        file_upload: span.readAttribute('src'),
                         file_upload_dataurl: true
                     }, {
                         callback: attachCallback
                     });
 
-                    ev.data.preventDefault();
+                    ev.data.html = '';
                 } else {
                     ev.data.html = ev.data.html.stripTags();
                 }

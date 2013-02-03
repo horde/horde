@@ -44,6 +44,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     const EDITASNEW = 12;
     const TEMPLATE = 13;
 
+    /* Related part attribute names. */
+    const RELATED_ATTR = 'imp_related_attr';
+    const RELATED_ATTR_ID = 'imp_related_attr_id';
+
     /* The blockquote tag to use to indicate quoted text in HTML data. */
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
@@ -1353,10 +1357,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             /* Now, all parts referred to in the HTML data have been added
              * to the attachment list. Convert to multipart/related if
              * this is the case. */
-            $textpart->addPart((empty($options['nofinal']) && $this->getMetadata('compose_related'))
-                ? $this->_convertToRelated($htmlBody)
-                : $htmlBody
-            );
+            $textpart->addPart(empty($options['nofinal']) ? $this->_convertToRelated($htmlBody) : $htmlBody);
 
             $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
                 'charset' => $this->charset
@@ -2270,13 +2271,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         $atc_ob->related = true;
 
-        if (!isset($this->_metadata['compose_related'])) {
-            $this->_metadata['compose_related'] = 0;
-        }
-        ++$this->_metadata['compose_related'];
-
-        $node->setAttribute('imp_related_attr', $attribute);
-        $node->setAttribute('imp_related_attr_id', $atc_ob->id);
+        $node->setAttribute(self::RELATED_ATTR, $attribute);
+        $node->setAttribute(self::RELATED_ATTR_ID, $atc_ob->id);
     }
 
     /**
@@ -2438,7 +2434,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
          * attachment. */
         foreach ($dom->dom->getElementsByTagName('img') as $node) {
             if ($node->hasAttribute('src') &&
-                !$node->hasAttribute('imp_related_attr')) {
+                !$node->hasAttribute(self::RELATED_ATTR)) {
                 /* Attempt to download the image data. */
                 $response = $client->get($node->getAttribute('src'));
                 if ($response->code == 200) {
@@ -2474,6 +2470,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _convertToRelated(Horde_Mime_Part $part)
     {
+        $r_part = false;
+        foreach ($this as $atc) {
+            if ($atc->related) {
+                $r_part = true;
+                break;
+            }
+        }
+
+        if (!$r_part) {
+            return $part;
+        }
+
         /* Create new multipart/related part. */
         $related = new Horde_Mime_Part();
         $related->setType('multipart/related');
@@ -2489,12 +2497,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         foreach ($dom as $node) {
             if (($node instanceof DOMElement) &&
-                $node->hasAttribute('imp_related_attr')) {
-                $id = $ids[] = $node->getAttribute('imp_related_attr_id');
-                $node->setAttribute($node->getAttribute('imp_related_attr'), 'cid:' . $this[$id]->getPart()->setContentId());
+                $node->hasAttribute(self::RELATED_ATTR)) {
+                $id = $ids[] = $node->getAttribute(self::RELATED_ATTR_ID);
+                $node->setAttribute($node->getAttribute(self::RELATED_ATTR), 'cid:' . $this[$id]->getPart()->setContentId());
 
-                $node->removeAttribute('imp_related_attr');
-                $node->removeAttribute('imp_related_attr_id');
+                $node->removeAttribute(self::RELATED_ATTR);
+                $node->removeAttribute(self::RELATED_ATTR_ID);
             }
         }
 
@@ -3083,10 +3091,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         if (($atc = $this->_atc[$offset]) === null) {
             return;
-        }
-
-        if ($atc->related) {
-            --$this->_metadata['compose_related'];
         }
 
         $this->_size -= $atc->getPart()->getBytes();
