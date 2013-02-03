@@ -123,7 +123,7 @@ class IMP_Dynamic_Compose_Common
 
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->is_template = !empty($args['template']);
-        $view->read_receipt_set = (strcasecmp($prefs->getValue('request_mdn') == 'always') === 0);
+        $view->read_receipt_set = (strcasecmp($prefs->getValue('request_mdn'), 'always') === 0);
         $view->user = $registry->getAuth();
 
         if (IMP_Compose::canUploadAttachment()) {
