@@ -2264,21 +2264,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @param DOMElement $node       Node element containg the reference.
      * @param string $attribute      Element attribute containing the
      *                               reference.
-     *
-     * @return IMP_Compose_Attachment  The attachment object.
      */
-    protected function _addRelatedAttachment(Horde_Mime_Part $part, $node,
-                                             $attribute)
+    public function addRelatedAttachment(IMP_Compose_Attachment $atc_ob,
+                                         DOMElement $node, $attribute)
     {
-        $atc_ob = $this->addAttachmentFromPart($part);
         $atc_ob->related = true;
 
-        $this->_metadata['compose_related'] = true;
+        if (!isset($this->_metadata['compose_related'])) {
+            $this->_metadata['compose_related'] = 0;
+        }
+        ++$this->_metadata['compose_related'];
 
         $node->setAttribute('imp_related_attr', $attribute);
         $node->setAttribute('imp_related_attr_id', $atc_ob->id);
-
-        return $atc_ob;
     }
 
     /**
@@ -2452,7 +2450,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $part->setContents($response->getBody());
                     $part->setDisposition('attachment');
 
-                    $this->_addRelatedAttachment($part, $node, 'src');
+                    $this->addRelatedAttachment(
+                        $this->addAttachmentFromPart($part),
+                        $node,
+                        'src'
+                    );
                     $downloaded = true;
                 }
             }
@@ -2754,7 +2756,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        $atc_ob = $this->_addRelatedAttachment($this->getMetadata('related_contents')->getMIMEPart($id), $node, $attribute);
+        $atc_ob = $this->addRelatedAttachment(
+            $this->addAttachmentFromPart($this->getMetadata('related_contents')->getMIMEPart($id)),
+            $node,
+            $attribute
+        );
 
         return $this->getMetadata('related_contents')->urlView(null, 'compose_attach_preview', array(
             'params' => array(
@@ -2816,7 +2822,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $bytes = strlen($url_data->data);
             $filename = $vars->get($field . '_filename');
             if (is_null($filename)) {
-                $filename = IMP_Contents::getPartLabel(reset(explode('/', $type)));
+                $filename = IMP_Contents::getPartLabel(reset(explode('/', $url_data->type)));
             }
             $type = $url_data->type;
         } else {
@@ -3077,12 +3083,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
     public function offsetUnset($offset)
     {
-        if (!isset($this->_atc[$offset])) {
+        if (($atc = $this->_atc[$offset]) === null) {
             return;
         }
 
-        $this->_size -= $this->_atc[$offset]->getPart()->getBytes();
-        $this->_atc[$offset]->delete();
+        if ($atc->related) {
+            --$this->_metadata['compose_related'];
+        }
+
+        $this->_size -= $atc->getPart()->getBytes();
+        $atc->delete();
         unset($this->_atc[$offset]);
 
         $this->changed = 'changed';
