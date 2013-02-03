@@ -45,6 +45,8 @@ class Ansel_Tile_Image
                 ->getGallery($image->gallery);
         } catch (Ansel_Exception $e) {
             // @TODO: Short circuit here and return a generic error tile.
+        } catch (Horde_Exception_NotFound $e) {
+            // @TODO: Ditto above.
         }
         if (is_null($style)) {
             $style = $view->parent->getStyle();
