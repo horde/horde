@@ -2753,6 +2753,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
     /**
      * Callback used in _getMessageText().
+     *
+     * @return Horde_Url
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
@@ -2762,12 +2764,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $attribute
         );
 
-        return $this->getMetadata('related_contents')->urlView(null, 'compose_attach_preview', array(
-            'params' => array(
-                'composeCache' => strval($this),
-                'id' => $atc_ob->id
-            )
-        ));
+        return $atc_ob->viewUrl($this);
     }
 
     /**

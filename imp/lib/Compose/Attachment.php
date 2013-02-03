@@ -132,6 +132,22 @@ class IMP_Compose_Attachment implements Serializable
         }
     }
 
+    /**
+     * Get a URL of the data.
+     *
+     * @param IMP_Compose $ob  The compose object containing this attachment.
+     *
+     * @return Horde_Url  URL to display the attachment data.
+     */
+    public function viewUrl(IMP_Compose $ob)
+    {
+        return Horde::url('view.php')->add(array(
+            'actionID' => 'compose_attach_preview',
+            'composeCache' => strval($ob),
+            'id' => $this->id
+        ));
+    }
+
     /* Serializable methods. */
 
     /**
