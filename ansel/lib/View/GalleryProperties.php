@@ -463,5 +463,5 @@ class Ansel_View_GalleryProperties
 
         return $views;
     }
-}
 
+}
