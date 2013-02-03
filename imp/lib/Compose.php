@@ -2874,6 +2874,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
         }
 
+        $atc = new Horde_Mime_Part();
+        $atc->setBytes($bytes);
+
         /* Try to determine the MIME type from 1) the extension and
          * then 2) analysis of the file (if available). */
         if (strlen($filename)) {
@@ -2883,8 +2886,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $atc = new Horde_Mime_Part();
-        $atc->setBytes($bytes);
         $atc->setType($type);
 
         if (($atc->getType() == 'application/octet-stream') ||
