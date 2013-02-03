@@ -865,6 +865,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *
      * @param string $folderid  The folder id
      * @param array $ids        The message ids to delete
+     *
+     * @return array  An array of succesfully deleted messages (currently
+     *                only guarenteed for email messages).
      */
     public function deleteMessage($folderid, array $ids)
     {
@@ -874,6 +877,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $folderid,
             print_r($ids, true))
         );
+        // TODO: Need to have the various connector methods report back
+        //       successfully deleted ids. Currently the APIs do not report
+        //       this for anything other than email.
+        $results = $ids;
+
         ob_start();
         switch ($folderid) {
         case self::APPOINTMENTS_FOLDER_UID:
@@ -905,13 +913,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $id = array($id);
             }
             try {
-                $this->_imap->deleteMessages($ids, $folderid);
+                $results = $this->_imap->deleteMessages($ids, $folderid);
             } catch (Horde_ActiveSync_Exception $e) {
                 $this->_logger->err($e->getMessage());
             }
         }
-
         $this->_endBuffer();
+
+        return $results;
     }
 
     /**
@@ -921,7 +930,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * @param array $ids           Message UIDs to move.
      * @param string $newfolderid  The new folder id to move to.
      *
-     * @return array  An array of old uids as keys and new uids as values
+     * @return array  An array of successfully moved messages.
      * @throws Horde_Exception
      */
     public function moveMessage($folderid, array $ids, $newfolderid)

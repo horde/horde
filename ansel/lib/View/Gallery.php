@@ -1,14 +1,25 @@
 <?php
 /**
+ *
+ * @copyright 2003-2013 Horde LLC (http://www.horde.org)
+ * @author Chuck Hagenbuch <chuck@horde.org>
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Ansel
+ */
+/**
  * The Ansel_View_Gallery:: class wraps display of individual images.
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
+ * @copyright 2003-2013 Horde LLC (http://www.horde.org)
  * @author  Chuck Hagenbuch <chuck@horde.org>
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- *
- * @package Ansel
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Ansel
  */
 class Ansel_View_Gallery extends Ansel_View_Ansel
 {
@@ -39,20 +50,23 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
         // Check user age
         if (!$this->gallery->isOldEnough()) {
             if (!empty($params['api'])) {
-                throw new Horde_Exception('Locked galleries are not viewable via the api.');
+                throw new Ansel_Exception('Locked galleries are not viewable via the api.');
             }
             $date = Ansel::getDateParameter(
                 array('year' => isset($this->_params['year']) ? $this->_params['year'] : 0,
                       'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
                       'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
-            $galleryurl = Ansel::getUrlFor('view', array_merge(
-                               array('gallery' => $this->gallery->id,
-                                     'slug' => empty($params['slug']) ? '' : $params['slug'],
-                                     'page' => empty($params['page']) ? 0 : $params['page'],
-                                     'view' => 'Gallery'),
-                               $date),
-                               true);
+            $galleryurl = Ansel::getUrlFor(
+                'view',
+                array_merge(
+                    array(
+                        'gallery' => $this->gallery->id,
+                        'slug' => empty($params['slug']) ? '' : $params['slug'],
+                        'page' => empty($params['page']) ? 0 : $params['page'],
+                        'view' => 'Gallery'),
+                    $date),
+                true);
 
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
             Horde::url('disclamer.php')->add($params)->setRaw(true)->redirect();
@@ -68,21 +82,23 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
                       'month' => isset($this->_params['month']) ? $this->_params['month'] : 0,
                       'day' => isset($this->_params['day']) ? $this->_params['day'] : 0));
 
-                $galleryurl = Ansel::getUrlFor('view', array_merge(
-                    array('gallery' => $this->gallery->id,
-                          'slug' => empty($params['slug']) ? '' : $params['slug'],
-                          'page' => empty($params['page']) ? 0 : $params['page'],
-                          'view' => 'Gallery'),
-                    $date),
+                $galleryurl = Ansel::getUrlFor(
+                    'view',
+                    array_merge(
+                        array(
+                            'gallery' => $this->gallery->id,
+                            'slug' => empty($params['slug']) ? '' : $params['slug'],
+                            'page' => empty($params['page']) ? 0 : $params['page'],
+                            'view' => 'Gallery'),
+                        $date),
                     true);
-
             $params = array('gallery' => $this->gallery->id, 'url' => $galleryurl);
             Horde::url('protect.php')->add($params)->setRaw(true)->redirect();
             exit;
         }
 
         if (!$this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
-            throw new Horde_Exception('Access denied viewing this gallery.');
+            throw new Horde_Exception_PermissionDenied();
         }
 
         // Since this is a gallery view, the resource is the gallery.

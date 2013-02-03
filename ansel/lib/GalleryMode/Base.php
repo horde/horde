@@ -13,6 +13,8 @@
  */
 abstract class Ansel_GalleryMode_Base
 {
+    const MODE_NORMAL = 0;
+    const MODE_DATE   = 1;
     /**
      * @var Ansel_Gallery
      */

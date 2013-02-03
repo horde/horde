@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-24</date>
- <time>21:40:11</time>
+ <date>2013-02-03</date>
+ <time>01:58:10</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -102,6 +102,10 @@
     <dir name="blocks">
      <file name="geotag.js" role="horde" />
     </dir> <!-- /js/blocks -->
+    <dir name="views">
+     <file name="gallery-common.js" role="horde" />
+     <file name="gallery-lightbox.js" role="horde" />
+    </dir> <!-- /js/views -->
     <dir name="widgets">
      <file name="geotag.js" role="horde" />
      <file name="tagactions.js" role="horde" />
@@ -323,6 +327,7 @@
      <dir name="LC_MESSAGES">
       <file name="ansel.mo" role="horde" />
       <file name="ansel.po" role="horde" />
+      <file name="ansel.po.tmp" role="horde" />
      </dir> <!-- /locale/sk/LC_MESSAGES -->
     </dir> <!-- /locale/sk -->
     <dir name="sl">
@@ -426,8 +431,10 @@
      <file name="image.html.php" role="horde" />
     </dir> <!-- /templates/tile -->
     <dir name="view">
-     <file name="gallery.inc" role="horde" />
-     <file name="gallerylightbox.inc" role="horde" />
+     <dir name="api">
+      <file name="gallery.html.php" role="horde" />
+     </dir> <!-- /templates/view/api -->
+     <file name="gallery.html.php" role="horde" />
      <file name="image.html.php" role="horde" />
      <file name="image.inc" role="horde" />
      <file name="list.inc" role="horde" />
@@ -862,6 +869,8 @@
    <install as="ansel/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
+   <install as="ansel/js/views/gallery-common.js" name="js/views/gallery-common.js" />
+   <install as="ansel/js/views/gallery-lightbox.js" name="js/views/gallery-lightbox.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
@@ -983,6 +992,7 @@
    <install as="ansel/locale/lv/LC_MESSAGES/ansel.po" name="locale/lv/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.mo" name="locale/sk/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/sk/LC_MESSAGES/ansel.po" name="locale/sk/LC_MESSAGES/ansel.po" />
+   <install as="ansel/locale/sk/LC_MESSAGES/ansel.po.tmp" name="locale/sk/LC_MESSAGES/ansel.po.tmp" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.mo" name="locale/sl/LC_MESSAGES/ansel.mo" />
    <install as="ansel/locale/sl/LC_MESSAGES/ansel.po" name="locale/sl/LC_MESSAGES/ansel.po" />
    <install as="ansel/locale/sv/LC_MESSAGES/ansel.mo" name="locale/sv/LC_MESSAGES/ansel.mo" />
@@ -1040,13 +1050,13 @@
    <install as="ansel/templates/tile/gallery.html.php" name="templates/tile/gallery.html.php" />
    <install as="ansel/templates/tile/gallerymini.html.php" name="templates/tile/gallerymini.html.php" />
    <install as="ansel/templates/tile/image.html.php" name="templates/tile/image.html.php" />
-   <install as="ansel/templates/view/gallery.inc" name="templates/view/gallery.inc" />
-   <install as="ansel/templates/view/gallerylightbox.inc" name="templates/view/gallerylightbox.inc" />
+   <install as="ansel/templates/view/gallery.html.php" name="templates/view/gallery.html.php" />
    <install as="ansel/templates/view/image.html.php" name="templates/view/image.html.php" />
    <install as="ansel/templates/view/image.inc" name="templates/view/image.inc" />
    <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
    <install as="ansel/templates/view/results.inc" name="templates/view/results.inc" />
    <install as="ansel/templates/view/slideshow.inc" name="templates/view/slideshow.inc" />
+   <install as="ansel/templates/view/api/gallery.html.php" name="templates/view/api/gallery.html.php" />
    <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
    <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
    <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />

@@ -1763,6 +1763,7 @@ var DimpBase = {
         e.dataTransfer.setData(
             'DownloadURL',
             base.down('IMG').readAttribute('title') + ':' +
+            // IE8 doesn't use this code so textContent is OK to use
             base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );

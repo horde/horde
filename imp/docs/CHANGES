@@ -33,6 +33,8 @@ v6.1.0-git
 v6.0.4
 ------
 
+[mms] Fix usage of textContent property on IE8 (Bug #12012).
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
 [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
 [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
 [mms] Fix deleting virtual folders/filters from preferences page (Bug #11982).

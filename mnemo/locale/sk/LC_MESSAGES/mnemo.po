@@ -2,14 +2,14 @@
 # Copyright 2002, 2004 Ivan Noris
 # Ivan Noris <vix@vazka.sk>, 2002, 2004
 # Martin Matuška <martin@matuska.org>, 2008
-# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2012-2013
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Mnemo 2.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-12-29 19:52+0100\n"
-"PO-Revision-Date: 2012-12-30 17:54+0200\n"
+"POT-Creation-Date: 2013-01-13 21:04+0100\n"
+"PO-Revision-Date: 2013-02-01 17:54+0200\n"
 "Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -50,9 +50,8 @@ msgid "An error occurred displaying %s"
 msgstr "Chyba pri zobrazení %s"
 
 #: lib/Block/Note.php:93
-#, fuzzy
 msgid "An error occurred displaying the note"
-msgstr "Pri vytváraní novej poznánky sa vyskytla neznáma chyba."
+msgstr "Pri zobrazovaní poznámky sa vyskytla chyba."
 
 #: config/prefs.php:58
 msgid "Ascending"
@@ -76,9 +75,8 @@ msgid "Change Permissions"
 msgstr "Zmeniť práva"
 
 #: config/prefs.php:14
-#, fuzzy
 msgid "Change your note sorting and display preferences."
-msgstr "Zmeniť spôsob triedenia úloh a nastavenia zobrazenia."
+msgstr "Zmeniť spôsob triedenia poznámok a nastavenie zobrazenia."
 
 #: config/prefs.php:21
 msgid "Choose your default Notepad."
@@ -108,7 +106,7 @@ msgstr "Vytvorené"
 msgid "Date"
 msgstr "Dátum"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:62
 msgid "Decrypt"
 msgstr "Dešifrovať"
 
@@ -154,7 +152,7 @@ msgstr "Popis"
 msgid "Display Preferences"
 msgstr "Nastavenia zobrazenia"
 
-#: config/prefs.php:99
+#: config/prefs.php:104
 msgid "Do you want to confirm deleting entries?"
 msgstr "Chcete potvrdiť vymazanie záznamov?"
 
@@ -219,7 +217,7 @@ msgstr "Import/Export poznámok"
 msgid "In: "
 msgstr "V: "
 
-#: templates/view/memo.inc:37
+#: templates/view/memo.inc:42
 msgid "Last Modified"
 msgstr "Posledná aktualizácia"
 
@@ -240,10 +238,9 @@ msgid "More Options..."
 msgstr "Dalšie možnosti..."
 
 #: lib/Api.php:367
-#, fuzzy
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
-"Bolo nájdených viacero komponentov iCalendar; podporovaný je len jeden vTodo."
+"Bolo nájdených viacero komponentov iCalendar; podporovaný je len jeden vNote."
 
 #: lib/Application.php:102
 msgid "My Notepads"
@@ -270,9 +267,8 @@ msgid "No iCalendar data was found."
 msgstr "Neboli nájdené žiadne údaje iCalendar."
 
 #: lib/Block/Note.php:82
-#, fuzzy
 msgid "No note loaded"
-msgstr "Súbor nebol nahraný."
+msgstr "Žiadné poznámky neboli nahrané"
 
 #: templates/list/memo_footers.inc:4
 msgid "No notes match"
@@ -298,7 +294,7 @@ msgstr "Nenájdené"
 msgid "Note Category"
 msgstr "Kategória poznámky"
 
-#: view.php:118
+#: view.php:89
 msgid "Note Details"
 msgstr "Detaily poznámky"
 
@@ -322,12 +318,12 @@ msgstr "_Poznámkový blok:"
 msgid "Notepad"
 msgstr "Poznámkový blok"
 
-#: lib/Notepads/Default.php:65
-#, fuzzy, php-format
+#: lib/Notepads/Default.php:64
+#, php-format
 msgid "Notepad of %s"
-msgstr "Poznámkové bloky"
+msgstr "Poznámkový blok osoby %s"
 
-#: lib/Notepads/Kolab.php:38
+#: lib/Notepads/Kolab.php:58
 msgid "Notes"
 msgstr "Poznámky"
 
@@ -462,10 +458,10 @@ msgid "There was an error importing the iCalendar data."
 msgstr "Nastala chyba pri importe údajov iCalendar."
 
 #: lib/Application.php:233
-#, fuzzy, php-format
+#, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
-"Pri odstraňovaní úloh pre %s nastala chyba. Podrobnosti boli zaznamenané."
+"Pri odstraňovaní poznámok pre %s nastala chyba. Podrobnosti boli zaznamenané."
 
 #: memo.php:257
 #, php-format
@@ -482,35 +478,31 @@ msgstr "Nastala chyba pri ukladaní poznámky: %s"
 msgid "There was an error viewing this notepad: %s"
 msgstr "Nastala chyba pri prezeraní tohto poznámkového bloku: %s."
 
-#: lib/Application.php:254
-msgid "There were no memos to export."
-msgstr "Nie sú žiadne poznámky pre export."
-
 #: data.php:70
 msgid "This file format is not supported."
 msgstr "Tento formát súboru nie je podporovaný."
 
-#: memo.php:38 view.php:103
+#: memo.php:38 view.php:74
 msgid "This note cannot be decrypted:"
 msgstr "Táto poznámka nemôže byť dešifrovaná:"
 
-#: memo.php:31 memo.php:41 view.php:98 view.php:106
-#, fuzzy
+#: memo.php:31 memo.php:41 view.php:69 view.php:77
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
-msgstr "Šifrovanie vyžaduje bezpečné pripojenie (https)."
+msgstr ""
+"Táto poznámka bola zašifrovaná a nemoze byť dešifrovaná bez použitia "
+"bezpečného pripojenia (https)."
 
-#: memo.php:28 view.php:95
-#, fuzzy
+#: memo.php:28 view.php:66
 msgid "This note has been encrypted, please provide the password below"
-msgstr "Táto poznámka bola zašifrovaná, prosím zadajte heslo nižšie."
+msgstr "Táto poznámka bola zašifrovaná, prosím zadajte heslo nižšie"
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:291 lib/Driver/Sql.php:327
+#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Táto poznámka bola zašifrovaná."
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
 #: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Nenastavená"
@@ -531,26 +523,23 @@ msgstr "Do ktorého poznámkového bloku sa majú pridať poznámky?"
 #: data.php:34 data.php:91 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Nemáte právo vytvoriť viac ako %d poznámok."
+msgstr "Nemáte oprávnenie vytvoriť viac ako %d poznámok."
 
 #: notepads/delete.php:30
 msgid "You are not allowed to delete this notepad."
-msgstr "Nemáte právo na zmazanie tohto poznámkového bloku."
+msgstr "Nemáte oprávnenie na zmazanie tohto poznámkového bloku."
 
 #: notepads/edit.php:32
-#, fuzzy
 msgid "You are not allowed to see this notepad."
-msgstr "Nemáte právo na zmazanie tohto poznámkového bloku."
+msgstr "Nemáte oprávnenie na zobrazenie tohto poznámkového bloku."
 
 #: lib/Ajax/Imple/EditNote.php:27
-#, fuzzy
 msgid "You do not have permission to edit this note."
-msgstr "Nemáte právo na úpravu tejto udalosti."
+msgstr "Nemáte oprávnenie na úpravu tejto poznámky."
 
 #: note/pdf.php:46 view.php:46
-#, fuzzy
 msgid "You do not have permission to view this notepad."
-msgstr "Nemáte právo na zobrazenie poznámkového bloku %s."
+msgstr "Nemáte oprávnenie na zobrazenie tohto poznámkového bloku."
 
 #: config/prefs.php:80
 msgid "Your default notepad:"
@@ -596,7 +585,7 @@ msgstr "_Zoznam poznámok"
 msgid "_New Note"
 msgstr "_Nová poznámka"
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:50
+#: templates/memo/memo.inc:19 templates/view/memo.inc:60
 msgid "_Password"
 msgstr "_Heslo"
 
@@ -616,12 +605,12 @@ msgstr "_Hľadať"
 msgid "_Title"
 msgstr "_Názov"
 
-#: view.php:68 view.php:77
+#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
 #, php-format
 msgid "by %s"
 msgstr "používateľom %s"
 
-#: view.php:70 view.php:79
+#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
 msgid "by me"
 msgstr "Vami"
 
@@ -630,7 +619,7 @@ msgstr "Vami"
 msgid "in %s"
 msgstr "v %s"
 
-#: lib/Application.php:270 templates/data/export.inc:3
+#: lib/Application.php:267 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "poznamky.csv"
 

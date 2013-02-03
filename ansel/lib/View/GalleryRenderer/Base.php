@@ -1,5 +1,12 @@
 <?php
 /**
+ * @copyright 2008-2013 Horde LLC (http://www.horde.org)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Ansel
+ */
+/**
  * Ansel_View_GalleryRenderer::  Base class for all gallery renderers.
  *
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
@@ -7,8 +14,11 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
- * @package Ansel
+ * @copyright 2008-2013 Horde LLC (http://www.horde.org)
+ * @author Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Ansel
  */
 abstract class Ansel_View_GalleryRenderer_Base
 {
@@ -121,11 +131,10 @@ abstract class Ansel_View_GalleryRenderer_Base
      * Initialize the renderer. This *must* be called before any attempt is made
      * to display or otherwise interact with the renderer.
      *
-     * @TODO: Not sure why I didn't put this in the const'r - try moving it.
      */
     public function init()
     {
-        global $prefs, $conf;
+        global $prefs, $conf, $registry, $page_output;
 
         $this->galleryId = $this->view->gallery->id;
         $this->gallerySlug = $this->view->gallery->get('slug');
@@ -135,8 +144,9 @@ abstract class Ansel_View_GalleryRenderer_Base
         if ($this->view->tilesperpage) {
             $this->perpage = $this->view->tilesperpage;
         } else {
-            $this->perpage = min($prefs->getValue('tilesperpage'),
-                                 $conf['thumbnail']['perpage']);
+            $this->perpage = min(
+                $prefs->getValue('tilesperpage'),
+                $conf['thumbnail']['perpage']);
         }
         $this->pagestart = ($this->page * $this->perpage) + 1;
 
@@ -156,10 +166,10 @@ abstract class Ansel_View_GalleryRenderer_Base
             // Special case widgets - these are built in
             if (array_key_exists('Actions', $this->style->widgets)) {
                 // Don't show action widget if no actions
-                if ($GLOBALS['registry']->getAuth() ||
+                if ($registry->getAuth() ||
                     !empty($conf['report_content']['driver']) &&
                     (($conf['report_content']['allow'] == 'authenticated' &&
-                      $GLOBALS['registry']->isAuthenticated()) ||
+                      $registry->isAuthenticated()) ||
                      $conf['report_content']['allow'] == 'all')) {
 
                     $this->view->addWidget(Ansel_Widget::factory('Actions'));
@@ -176,30 +186,167 @@ abstract class Ansel_View_GalleryRenderer_Base
             }
         }
 
-        /* See if any renderer specific tasks need to be done as well */
+        if (empty($this->view->api)) {
+            $page_output->addScriptFile('views/gallery-common.js');
+            $page_output->addScriptFile('popup.js', 'horde');
+
+            $strings = array (
+                'delete_conf' => _("Are you sure you want to delete the selected photos?"),
+                'choose_gallery_move' => _("You must choose a gallery to move photos to."),
+                'choose_images' => _("You must first choose photos.")
+            );
+            $urls = array(
+                'image_date' => Horde::url('edit_dates.php')->add(array('gallery' => $this->galleryId))
+            );
+            $js = array(
+                'Ansel = window.Ansel || {};',
+                'Ansel.galleryview_strings = ' . Horde_Serialize::serialize($strings, Horde_Serialize::JSON),
+                'Ansel.galleryview_urls = ' . Horde_Serialize::serialize($urls, Horde_Serialize::JSON),
+            );
+            $page_output->addInlineScript($js, true);
+        }
+
+        // Perform any initialization of the subclasses.
         $this->_init();
+    }
+
+    /**
+     * Stub to be overridden by child classes if needed.
+     */
+    protected function _init()
+    {
+    }
+
+    /**
+     * Return an initialized Horde_View instance, populated with all the values
+     * common to all Gallery views.
+     *
+     * @return Horde_View
+     */
+    protected function _getHordeView()
+    {
+        global $registry, $injector;
+
+        $view = $injector->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES .  '/view' . (!empty($this->view->api) ? '/api' : ''));
+        $view->gallery = $this->view->gallery;
+        $view->numTiles = $this->numTiles;
+        $view->pergage = $this->perpage;
+        $view->pagestart = $this->pagestart;
+        $view->pageend = $this->pageend;
+        $view->gallery_desc = $injector
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter(
+                $this->view->gallery->get('desc'),
+                'text2html',
+                array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $view->children = $this->children;
+        $view->view = $this->view;
+
+        // Don't bother if we are being called from the api
+        if (empty($this->view->api)) {
+            $view->option_edit = $this->view->gallery->hasPermission(
+                $registry->getAuth(), Horde_Perms::EDIT);
+
+            $view->option_select = $view->option_delete = $this->view->gallery->hasPermission(
+                $registry->getAuth(), Horde_Perms::DELETE);
+
+            $view->option_move = ($view->option_delete && $injector
+                ->getInstance('Ansel_Storage')
+                ->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
+
+            $view->option_copy = ($view->option_edit && $injector
+                ->getInstance('Ansel_Storage')
+                ->countGalleries($registry->getAuth(), array('perm' => Horde_Perms::EDIT)));
+
+            // See if we requested a show_actions change (fallback for non-js)
+            if (Horde_Util::getFormData('actionID', '') == 'show_actions') {
+                $prefs->setValue('show_actions', (int)!$prefs->getValue('show_actions'));
+            }
+        }
+        $view->tilesperrow = $this->view->tilesperrow ? $this->view->tilesperrow : $GLOBALS['prefs']->getValue('tilesperrow');
+        $view->cellwidth = round(100 / $view->tilesperrow);
+        $this->_setupPager($view);
+
+        return $view;
+    }
+
+    /**
+     * Populate the Horde_View with the $pager object.
+     *
+     * @param Horde_View $view  The Horde_View object.
+     */
+    protected function _setupPager(Horde_View &$view)
+    {
+        $date_params = Ansel::getDateParameter(array(
+            'year' => !empty($this->view->year) ? $this->view->year : 0,
+            'month' => !empty($this->view->month) ? $this->view->month : 0,
+            'day' => !empty($this->view->day) ? $this->view->day : 0));
+
+        $vars = Horde_Variables::getDefaultVariables();
+        if (!empty($this->view->page)) {
+            $vars->add('page', $this->view->page);
+            $view->page = $this->view->page;
+        } else {
+            $view->page = 0;
+        }
+        if (!empty($this->view->gallery_view_url)) {
+            $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
+            $pagerurl->add($date_params)->setRaw(true);
+        } else {
+            // Build the pager url. Add the needed variables directly to the
+            // url instead of passing it as a preserved variable to the pager
+            // since the logic to build the URL is already in getUrlFor()
+            $pager_params =  array_merge(
+                array('gallery' => $this->galleryId,
+                      'view' => 'Gallery',
+                      'slug' => $this->view->gallery->get('slug')),
+                $date_params);
+            $pagerurl = Ansel::getUrlfor('view', $pager_params, true);
+        }
+        if (!empty($this->view->urlCallback)) {
+            $callback = $this->view->urlCallback;
+        } else {
+            $callback = null;
+        }
+
+        $params = array(
+            'num' => $this->numTiles,
+            'url' => $pagerurl,
+            'perpage' => $this->perpage,
+            'url_callback' => $callback);
+        $view->pager = new Horde_Core_Ui_Pager('page', $vars, $params);
     }
 
     /**
      * Default implementation for fetching children/images for this view.
      * Other view classes can override this if they need anything special.
+     *
+     * @param boolean $noauto  Flag to indicate if we shouldn't automatically
+     *                         drill down on views that support this. E.g.,
+     *                         DateMode.
      */
     public function fetchChildren($noauto)
     {
-        /* Total number of tiles for this gallery view */
+        // Total number of tiles for this gallery view
         $this->numTiles = $this->view->gallery->countGalleryChildren(Horde_Perms::SHOW, false, $noauto);
 
-        /* Children to display on this page */
+        // Children to display on this page
         $this->children = $this->view->gallery->getGalleryChildren(
             Horde_Perms::SHOW,
             $this->page * $this->perpage,
             $this->perpage,
             !empty($this->view->force_grouping));
 
-        /* The last tile number to display on the current page */
+        // The last tile number to display on the current page
         $this->pageend = min($this->numTiles, $this->pagestart + $this->perpage - 1);
     }
 
+    /**
+     * Return the image ids contained in the gallery.
+     *
+     * @return array  An array of image ids.
+     */
     public function getChildImageIds()
     {
         $ids = array();
@@ -208,6 +355,7 @@ abstract class Ansel_View_GalleryRenderer_Base
                 $ids[] = $child->id;
             }
         }
+
         return $ids;
     }
 
@@ -218,5 +366,4 @@ abstract class Ansel_View_GalleryRenderer_Base
      * @return string
      */
     abstract public function html();
-    abstract protected function _init();
 }
