@@ -39,10 +39,13 @@ class Ansel_Tile_Image
         $view->addTemplatePath(ANSEL_TEMPLATES . '/tile');
         $view->image = $image;
         $view->view_type = $view_type;
-
-        $view->parent = $injector
-            ->getInstance('Ansel_Storage')
-            ->getGallery($image->gallery);
+        try {
+            $view->parent = $injector
+                ->getInstance('Ansel_Storage')
+                ->getGallery($image->gallery);
+        } catch (Ansel_Exception $e) {
+            // @TODO: Short circuit here and return a generic error tile.
+        }
         if (is_null($style)) {
             $style = $view->parent->getStyle();
         }
