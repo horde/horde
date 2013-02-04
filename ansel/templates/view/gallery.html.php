@@ -31,7 +31,7 @@
             <?php echo $this->contentTag('a', _("All"), array('title' => _("Select All"), 'id' => 'anselgallery_select_all')) ?>
             <?php echo $this->contentTag('a', _("None"), array('title' => _("Select None"), 'id' => 'anselgallery_select_none')) ?>
           </td>
-          <td align="right">
+          <td class="rightAlign">
             <?php if ($this->option_delete || $this->option_move || $this->option_copy) echo _("Actions: ") ?>
             <?php if ($GLOBALS['conf']['gallery']['downloadzip']): ?>
               <?php echo $this->contentTag('a', _("Download selected photos"), array('class' => 'widget', 'id' => 'anselgallery_download')) ?> |
