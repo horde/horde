@@ -28,6 +28,65 @@
 class Ansel_ActionHandler
 {
     /**
+     * Check for download action.
+     *
+     * @param string $actionID  The action identifier.
+     */
+    public static function download($actionID)
+    {
+        global $notification, $registry;
+
+        if ($actionID == 'downloadzip') {
+            $gallery_id = Horde_Util::getFormData('gallery');
+            $image_id = Horde_Util::getFormData('image');
+            $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
+            if (!is_array($image_id)) {
+                $image_id = array($image_id);
+            } else {
+                $image_id = array_keys($image_id);
+            }
+
+            // All from same gallery.
+            if ($gallery_id) {
+                $gallery = $ansel_storage->getGallery($gallery_id);
+                if (!$registry->getAuth() ||
+                    !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
+                    $gallery->hasPasswd() || !$gallery->isOldEnough()) {
+
+                    $notification->push(
+                        _("Access denied downloading photos from this gallery."),
+                        'horde.error');
+                    return true;
+                }
+                $image_ids = $gallery->listImages();
+            } else {
+                $image_ids = array();
+                foreach ($image_id as $image) {
+                    $img = $ansel_storage->getImage($image);
+                    $galleries[$img->gallery][] = $image;
+                }
+                foreach ($galleries as $gid => $images) {
+                    $gallery = $ansel_storage->getGallery($gid);
+                    if (!$registry->getAuth() || !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) |
+                        $gallery->hasPasswd() || !$gallery->isOldEnough()) {
+
+                        continue;
+                    }
+                    $image_ids = array_merge($image_ids, $images);
+                }
+            }
+            if (count($image_ids)) {
+                Ansel::downloadImagesAsZip(null, $image_ids);
+            } else {
+                $notification->push(_("You must select images to download."), 'horde.error');
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Check for, and handle, common image related actions.
      *
      * @param string $actionID  The action identifier.
@@ -35,9 +94,13 @@ class Ansel_ActionHandler
      * @return boolean  True if an action was handled, otherwise false.
      * @throws Ansel_Exception
      */
-    static function imageActions($actionID)
+    public static function imageActions($actionID)
     {
         global $notification, $registry;
+
+        if (self::download($actionID)) {
+            return true;
+        }
 
         switch($actionID) {
         case 'delete':
@@ -206,7 +269,7 @@ class Ansel_ActionHandler
      * @return boolean  True if an action was handled, otherwise false.
      * @throws Ansel_Exception
      */
-    static function editActions($actionID)
+    public static function editActions($actionID)
     {
         global $notification, $page_output, $registry;
 
@@ -796,6 +859,118 @@ class Ansel_ActionHandler
                     $image->display();
                 }
                 exit;
+        }
+
+        return false;
+    }
+
+    public static function galleryActions($actionID)
+    {
+        global $registry, $notification, $page_output;
+
+        if (self::download($actionID)) {
+            return true;
+        }
+
+        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
+
+        switch ($actionID) {
+        case 'add':
+        case 'addchild':
+        case 'save':
+        case 'modify':
+            $view = new Ansel_View_GalleryProperties(
+                array(
+                    'actionID' => $actionID,
+                    'url' => new Horde_Url(Horde_Util::getFormData('url')),
+                    'gallery' => Horde_Util::getFormData('gallery')));
+            $view->run();
+            exit;
+
+        case 'downloadzip':
+            $galleryId = Horde_Util::getFormData('gallery');
+            try {
+                $gallery = $ansel_storage->getGallery($galleryId);
+                if (!$registry->getAuth() ||
+                    !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ)) {
+
+                    $notification->push(_("Access denied downloading photos from this gallery."), 'horde.error');
+                    Horde::url('view.php?view=List', true)->redirect();
+                    exit;
+                }
+                Ansel::downloadImagesAsZip($gallery);
+            } catch (Ansel_Exception $e) {
+                $notification->push($gallery->getMessage(), 'horde.error');
+                Horde::url('view.php?view=List', true)->redirect();
+                exit;
+            }
+            exit;
+
+        case 'delete':
+        case 'empty':
+            // Print the confirmation screen.
+            $galleryId = Horde_Util::getFormData('gallery');
+            if ($galleryId) {
+                try {
+                    $gallery = $ansel_storage->getGallery($galleryId);
+                    $page_output->header();
+                    $notification->notify(array('listeners' => 'status'));
+                    require ANSEL_TEMPLATES . '/gallery/delete_confirmation.inc';
+                    $page_output->footer();
+                    exit;
+                } catch (Ansel_Exception $e) {
+                    $notification->push($gallery->getMessage(), 'horde.error');
+                }
+            }
+
+            // Return to the gallery list.
+            Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
+            exit;
+
+        case 'generateDefault':
+            // Re-generate the default pretty gallery image.
+            $galleryId = Horde_Util::getFormData('gallery');
+            try {
+                $gallery = $ansel_storage->getGallery($galleryId);
+                $gallery->clearStacks();
+                $notification->push(_("The gallery's default photo has successfully been reset."), 'horde.success');
+                Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
+                exit;
+            } catch (Ansel_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+                Horde::url('index.php', true)->redirect();
+                exit;
+            }
+
+        case 'generateThumbs':
+            // Re-generate all of this gallery's prettythumbs.
+            $galleryId = Horde_Util::getFormData('gallery');
+            try {
+                $gallery = $ansel_storage->getGallery($galleryId);
+            } catch (Ansel_Exception $e) {
+                $notification->push($gallery->getMessage(), 'horde.error');
+                Horde::url('index.php', true)->redirect();
+                exit;
+            }
+            $gallery->clearThumbs();
+            $notification->push(_("The gallery's thumbnails have successfully been reset."), 'horde.success');
+            Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
+            exit;
+
+        case 'deleteCache':
+            // Delete all cached image views.
+            $galleryId = Horde_Util::getFormData('gallery');
+            try {
+                $gallery = $ansel_storage->getGallery($galleryId);
+            } catch (Ansel_Exception $e) {
+                $notification->push($gallery->getMessage(), 'horde.error');
+                Horde::url('index.php', true)->redirect();
+                exit;
+            }
+            $gallery->clearViews();
+            $notification->push(_("The gallery's views have successfully been reset."), 'horde.success');
+            Horde::url('view.php', true)->add('gallery', $galleryId)->redirect();
+            exit;
         }
 
         return false;
