@@ -154,9 +154,13 @@ class IMP_Compose_Attachment implements Serializable
      */
     public function serialize()
     {
-        /* Don't store Mime_Part data. */
-        $part = clone $this->_part;
-        $part->clearContents();
+        /* Don't store Mime_Part data. Can't use clone here ATTM, since there
+         * appears to be a PHP bug. Since this is an object specific to IMP
+         * (and we are only using in a certain predictable way), it should
+         * be ok to directly alter the MIME part object without any ill
+         * effects. */
+        $this->_part->clearContents();
+        $this->_isBuilt = false;
 
         if (!is_null($this->_tmpfile)) {
             try {
@@ -171,7 +175,7 @@ class IMP_Compose_Attachment implements Serializable
 
         return serialize(array(
             'i' => $this->id,
-            'p' => $part,
+            'p' => $this->_part,
             'r' => $this->related,
             'v' => $this->vfsname
         ));
