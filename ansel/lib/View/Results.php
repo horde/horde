@@ -1,5 +1,16 @@
 <?php
 /**
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Ansel
+ */
+/**
  * The Ansel_View_Results:: class wraps display of images/galleries from
  * multiple parent sources..
  *
@@ -8,8 +19,7 @@
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @TODO: Should extend Base, not Ansel
- * @author  Michael J. Rubinsky <mrubinsk@horde.org>
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
@@ -19,9 +29,9 @@ class Ansel_View_Results extends Ansel_View_Ansel
     /**
      * Instance of our tag search
      *
-     * @var Ansel_Tag_Search
+     * @var Ansel_TagBrowser
      */
-    protected $_search;
+    protected $_browser;
 
     /**
      * Gallery owner id
@@ -35,14 +45,14 @@ class Ansel_View_Results extends Ansel_View_Ansel
      *
      * @var integer
      */
-    private $_page;
+    protected $_page;
 
     /**
      * Number of resources per page.
      *
      * @var integer
      */
-    private $_perPage;
+    protected $_perPage;
 
     /**
      * Contructor.
@@ -53,60 +63,54 @@ class Ansel_View_Results extends Ansel_View_Ansel
      */
     public function __construct()
     {
-        global $prefs, $conf;
+        global $prefs, $conf, $injector, $notification;
 
-        $notification = $GLOBALS['injector']->getInstance('Horde_Notification');
-        $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
-
+        $ansel_storage = $injector->getInstance('Ansel_Storage');
         $this->_owner = Horde_Util::getFormData('owner', '');
-        //@TODO: Inject the search object when we have more then just a tag search
-        $this->_search = new Ansel_Search_Tag($GLOBALS['injector']->getInstance('Ansel_Tagger'), null, $this->_owner);
+        $this->_browser = new Ansel_TagBrowser(
+            $injector->getInstance('Ansel_Tagger'), null, $this->_owner);
+
         $this->_page = Horde_Util::getFormData('page', 0);
         $action = Horde_Util::getFormData('actionID', '');
         $image_id = Horde_Util::getFormData('image');
         $vars = Horde_Variables::getDefaultVariables();
 
-        /* Number perpage from prefs or config. */
-        $this->_perPage = min($prefs->getValue('tilesperpage'), $conf['thumbnail']['perpage']);
+        // Number perpage from prefs or config.
+        $this->_perPage = min(
+            $prefs->getValue('tilesperpage'),
+            $conf['thumbnail']['perpage']);
 
         switch ($action) {
-        /*  Image related actions */
         case 'delete':
-             if (is_array($image_id)) {
-                 $images = array_keys($image_id);
-             } else {
-                 $images = array($image_id);
-             }
-
-             foreach ($images as $image) {
-                 $img = $ansel_storage->getImage($image);
-                 $gallery = $ansel_storage->getgallery($img->gallery);
-                 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
-                     $notification->push(
-                        _("Access denied deleting photos from this gallery."), 'horde.error');
-                 } else {
-                     try {
-                         $gallery->removeImage($image);
-                         $notification->push(_("Deleted the photo."), 'horde.success');
-                     } catch (Ansel_Exception $e) {
+            if (is_array($image_id)) {
+                $images = array_keys($image_id);
+            } else {
+                $images = array($image_id);
+            }
+            foreach ($images as $image) {
+                $img = $ansel_storage->getImage($image);
+                $gallery = $ansel_storage->getgallery($img->gallery);
+                if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+                    $notification->push(_("Access denied deleting photos from this gallery."), 'horde.error');
+                } else {
+                    try {
+                        $gallery->removeImage($image);
+                        $notification->push(_("Deleted the photo."), 'horde.success');
+                    } catch (Ansel_Exception $e) {
                         $notification->push(
                             sprintf(_("There was a problem deleting photos: %s"), $e->getMessage()), 'horde.error');
-                     }
-                 }
-             }
+                    }
+                }
+            }
 
-             Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
-             exit;
-
+            Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
+            exit;
         case 'move':
             if (is_array($image_id)) {
                 $images = array_keys($image_id);
             } else {
                 $images = array($image_id);
             }
-
-            // Move the images if we're provided with at least one
-            // valid image ID.
             $newGallery = Horde_Util::getFormData('new_gallery');
             if ($images && $newGallery) {
                 try {
@@ -136,7 +140,6 @@ class Ansel_View_Results extends Ansel_View_Ansel
                     $notification->push(_("Bad input."), 'horde.error');
                 }
             }
-
             Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
             exit;
 
@@ -150,7 +153,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
             $newGallery = Horde_Util::getFormData('new_gallery');
             if ($images && $newGallery) {
                 try {
-                    /* Group by gallery first, then process in bulk by gallery. */
+                    // Group by gallery first, then process in bulk by gallery.
                     $newGallery = $ansel_storage->getGallery($newGallery);
                     $galleries = array();
                     foreach ($images as $image) {
@@ -179,12 +182,12 @@ class Ansel_View_Results extends Ansel_View_Ansel
             Ansel::getUrlFor('view', array('view' => 'Results'), true)->redirect();
             exit;
 
-        /* Tag related actions */
+        // Tag related actions
         case 'remove':
             $tag = Horde_Util::getFormData('tag');
             if (isset($tag)) {
-                $this->_search->removeTag($tag);
-                $this->_search->save();
+                $this->_browser->removeTag($tag);
+                $this->_browser->save();
             }
             break;
 
@@ -192,14 +195,14 @@ class Ansel_View_Results extends Ansel_View_Ansel
         default:
             $tag = Horde_Util::getFormData('tag');
             if (isset($tag)) {
-                $this->_search->addTag($tag);
-                $this->_search->save();
+                $this->_browser->addTag($tag);
+                $this->_browser->save();
             }
             break;
         }
 
-        /* Check for empty tag search and redirect if empty */
-        if ($this->_search->tagCount() < 1) {
+        // Check for empty tag search and redirect if empty
+        if ($this->_browser->tagCount() < 1) {
             Horde::url('browse.php', true)->redirect();
             exit;
         }
@@ -226,52 +229,67 @@ class Ansel_View_Results extends Ansel_View_Ansel
     {
         global $conf, $prefs;
 
-        /* Ansel Storage*/
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
+        $view->perPage = $this->_perPage;
+
+        // Ansel Storage
         $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
 
         // Get the slice of galleries/images to view on this page.
         try {
-            $results = $this->_search->getSlice($this->_page, $this->_perPage);
+            $view->results = $this->_browser->getSlice($this->_page, $this->_perPage);
         } catch (Ansel_Exception $e) {
             Horde::logMessage($e->getMessage(), 'ERR');
             return _("An error has occured retrieving the image. Details have been logged.");
         }
-        $total = $this->_search->count();
-        $total = $total['galleries'] + $total['images'];
+        $view->total = $this->_browser->count();
+        $view->total = $view->total['galleries'] + $view->total['images'];
 
         // The number of resources to display on this page.
-        $numimages = count($results);
-        $tilesperrow = $prefs->getValue('tilesperrow');
+        $view->numimages = count($view->results);
+        $view->tilesperrow = $prefs->getValue('tilesperrow');
+        $view->cellwidth = round(100 / $this->tilesperrow);
 
         // Get any related tags to display.
         if ($conf['tags']['relatedtags']) {
-            $rtags = $this->_search->getRelatedTags();
-            $rtaghtml = '<ul class="horde-tags">';
-
-            $links = Ansel::getTagLinks($rtags, 'add');
-            foreach ($rtags as $id => $taginfo) {
-                if (!empty($this->_owner)) {
-                    $links[$id]->add('owner', $this->_owner);
-                }
-                $rtaghtml .= '<li>' . $links[$id]->link(array('title' => sprintf(ngettext("%d photo", "%d photos",$taginfo['total']),$taginfo['total']))) . $taginfo['tag_name'] . '</a></li>';
-            }
-            $rtaghtml .= '</ul>';
+            $view->rtags = $this->_browser->getRelatedTags();
+            $view->taglinks = Ansel::getTagLinks($view->rtags, 'add');
         }
-        $style = Ansel::getStyleDefinition($GLOBALS['prefs']->getValue('default_gallerystyle'));
-        $viewurl = Horde::url('view.php')->add(array('view' => 'Results',
-                                                     'actionID' => 'add'));
-
         $vars = Horde_Variables::getDefaultVariables();
-        $option_move = $option_copy = $ansel_storage->countGalleries($GLOBALS['registry']->getAuth(), array('perm' => Horde_Perms::EDIT));
+        $option_move = $option_copy = $ansel_storage->countGalleries(
+            $GLOBALS['registry']->getAuth(),
+            array('perm' => Horde_Perms::EDIT));
 
         $this->_pagestart = ($this->_page * $this->_perPage) + 1;
-        $this->_pageend = min($this->_pagestart + $numimages - 1, $this->_pagestart + $this->_perPage - 1);
-        $this->_pager = new Horde_Core_Ui_Pager('page', $vars, array('num' => $total,
-                                                         'url' => $viewurl,
-                                                         'perpage' => $this->_perPage));
-        Horde::startBuffer();
-        include ANSEL_TEMPLATES . '/view/results.inc';
-        return Horde::endBuffer();
+        $this->_pageend = min(
+            $this->_pagestart + $view->numimages - 1,
+            $this->_pagestart + $this->_perPage - 1);
+
+        $view->pageStart = $this->_pageStart;
+        $view->pageEnd = $this->_pageEnd;
+        $view->owner = $this->_owner;
+        $view->tagTrail = $this->_browser->getTagTrail();
+        $view->title = $this->getTitle();
+        $view->params = $this->_params;
+
+        $view->style = Ansel::getStyleDefinition(
+            $GLOBALS['prefs']->getValue('default_gallerystyle'));
+
+        $viewurl = Horde::url('view.php')->add(array(
+            'view' => 'Results',
+            'actionID' => 'add'));
+        $view->pager = new Horde_Core_Ui_Pager(
+            'page',
+            $vars,
+            array(
+                'num' => $view->total,
+                'url' => $viewurl,
+                'perpage' => $this->_perPage)
+        );
+        $GLOBALS['page_output']->addScriptFile('views/common.js');
+
+        return $view->render('results');
     }
 
     public function viewType()
