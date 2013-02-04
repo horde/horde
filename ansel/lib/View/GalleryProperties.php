@@ -380,8 +380,8 @@ class Ansel_View_GalleryProperties
 
                 $galleryId = $gallery->id;
                 $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-                Horde::logMessage($msg, 'DEBUG');
                 $GLOBALS['notification']->push($msg, 'horde.success');
+                Horde::url('img/upload.php')->add('gallery', $galleryId)->redirect();
             } catch (Ansel_Exception $e) {
                 $galleryId = null;
                 $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),

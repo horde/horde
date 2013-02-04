@@ -81,7 +81,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
 
             if ($this->_view->gallery->hasFeature('subgalleries')) {
                 $view->subgallery_link = $galleryurl->copy()
-                    ->add('actionID', 'addchild')
+                    ->add(array('actionID' => 'addchild', 'url' => Horde::selfUrl(true, false, true)))
                     ->link(array('class' => 'widget'));
             }
         }
