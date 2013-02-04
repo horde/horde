@@ -2280,6 +2280,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function deleteAllAttachments()
     {
+        $this->_size = 0;
+
         foreach (array_keys($this->_atc) as $key) {
             unset($this[$key]);
         }
@@ -3090,7 +3092,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return;
         }
 
-        $this->_size -= $atc->getPart()->getBytes();
+        if ($this->_size) {
+            $this->_size -= $atc->getPart()->getBytes();
+        }
         $atc->delete();
         unset($this->_atc[$offset]);
 
