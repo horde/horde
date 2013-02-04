@@ -17,21 +17,21 @@ class Ansel_Storage
      *
      * @var Horde_Db_Adapter
      */
-    private $_db;
+    protected $_db;
 
     /**
      * The Horde_Shares object to use for this scope.
      *
      * @var Horde_Share
      */
-    private $_shares;
+    protected $_shares;
 
     /**
      * Local cache of retrieved images
      *
      * @var array
      */
-    private $_images = array();
+    protected $_images = array();
 
     /**
      * Const'r
