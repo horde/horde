@@ -95,6 +95,8 @@ class IMP_Dynamic_Compose_Common
             $view->save_sent_mail = true;
 
             if (!$prefs->isLocked('sent_mail_folder')) {
+                $view->save_sent_mail_select = true;
+
                 /* Check to make sure the sent-mail mailboxes are created;
                  * they need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
