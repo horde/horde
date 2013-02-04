@@ -22,11 +22,11 @@
 <h1 class="header">
  <?php echo $this->h($this->title); ?>
 </h1>
-<table cellspacing="0" width="100%" class="striped headerbox">
+<table cellspacing="0">
 
 <!-- Parent -->
 <tr>
- <td align="right" valign="top"><strong><?php echo _("Gallery Parent") ?></strong>&nbsp;</td>
+ <td class="rightAlign"><strong><?php echo _("Gallery Parent") ?></strong>&nbsp;</td>
  <td>
   <select name="gallery_parent" id="gallery_parent">
    <option value=""><?php echo _("Top Level Gallery") ?></option>
@@ -41,7 +41,7 @@
 
 <!-- Display Mode -->
 <tr>
-  <td align="right" valign="top"><strong><?php echo _("Display Mode") ?></strong></td>
+  <td class="rightAlign"><strong><?php echo _("Display Mode") ?></strong></td>
   <td>
     <select name="view_mode">
      <option value="Normal" <?php echo ((empty($this->properties['mode']) || $this->properties['mode'] == 'Normal') ? 'selected="selected"' : '') ?>><?php echo _("Normal") ?></option>
@@ -52,7 +52,7 @@
 
 <!-- Display Name -->
 <tr>
-  <td align="right" valign="top"><?php echo Horde::img('required.png') ?><strong><?php echo _("Gallery Display Name") ?></strong>&nbsp;</td>
+  <td class="rightAlign"><?php echo Horde::img('required.png') ?><strong><?php echo _("Gallery Display Name") ?></strong>&nbsp;</td>
   <td>
     <input name="gallery_name" id="gallery_name" type="text" value="<?php echo $this->h($this->properties['name']) ?>" size="50" maxlength="100" />
   </td>
@@ -60,7 +60,7 @@
 
 <!-- Description -->
 <tr>
-  <td align="right" valign="top"><strong><?php echo _("Gallery Description") ?></strong>&nbsp;</td>
+  <td class="rightAlign" valign="top"><strong><?php echo _("Gallery Description") ?></strong>&nbsp;</td>
   <td>
     <textarea name="gallery_desc" cols="50" rows="5"><?php echo $this->h($this->properties['desc']) ?></textarea>
   </td>
@@ -68,7 +68,7 @@
 
 <!-- Slug -->
 <tr>
-  <td align="right" valign="top"><strong id="slug_flag"><?php echo _("Gallery Slug") ?></strong>&nbsp;</td>
+  <td class="rightAlign" valign="top"><strong id="slug_flag"><?php echo _("Gallery Slug") ?></strong>&nbsp;</td>
   <td>
    <input name="gallery_slug" id="gallery_slug" type="text" value="<?php echo $this->h($this->properties['slug']) ?>" size="50" /><br />
    <?php if ($this->havePretty == 'rewrite'): echo _("Slugs allows direct access to this gallery by visiting:") . ': ' . Horde::url('gallery/slugname', true) ?><br /> <?php endif; ?>
@@ -78,7 +78,7 @@
 
 <!-- Tags -->
 <tr>
-  <td align="right" valign="top"><strong><?php echo _("Gallery Tags") ?></strong>&nbsp;</td>
+  <td class="rightAlign" valign="top"><strong><?php echo _("Gallery Tags") ?></strong>&nbsp;</td>
   <td><input name="gallery_tags" type="text" value="<?php echo $this->h($this->properties['tags']) ?>" size="50" /><br />
    <?php echo _("Separate tags with commas."); ?>
  </td>
@@ -87,7 +87,7 @@
 <!-- Age Limit -->
 <?php if (!empty($this->ages)): ?>
 <tr>
-  <td align="right" valign="top"><strong><?php echo _("Gallery Ages") ?></strong>&nbsp;</td>
+  <td class="rightAlign"><strong><?php echo _("Gallery Ages") ?></strong>&nbsp;</td>
   <td>
    <select name="gallery_age">
      <option value="0" <?php echo (empty($this->properties['age']) ? 'selected="selected"' : '') ?>><?php echo _("Allow all ages") ?></option>
@@ -104,7 +104,7 @@
   <input type="hidden" name="default_download" value="<?php echo $this->properties['download'] ?>" />
 <?php else: ?>
   <tr>
-    <td align="right" valign="top"><strong><?php echo _("Who should be allowed to download original photos?") ?></strong>&nbsp;</td>
+    <td class="rightAlign"><strong><?php echo _("Who should be allowed to download original photos?") ?></strong>&nbsp;</td>
     <td>
       <select name="gallery_download">
         <option value="all" <?php if ($this->properties['download'] == 'all')  echo 'selected="selected"'; ?>><?php echo _("Anyone") ?></option>
@@ -118,7 +118,7 @@
 <!-- Password -->
 <?php if ($this->isOwner): ?>
   <tr>
-    <td align="right" valign="top"><strong><?php echo _("Gallery Password") ?></strong>&nbsp;</td>
+    <td class="rightAlign"><strong><?php echo _("Gallery Password") ?></strong>&nbsp;</td>
     <td><input name="gallery_passwd" type="password" value="<?php echo $this->h($this->properties['passwd']) ?>" size="50" /></td>
   </tr>
 <?php endif; ?>
@@ -128,10 +128,11 @@
 
 <!-- Submission -->
 <tr>
-  <td></td>
-  <td>
-   <input type="submit" id="gallery_submit" name="gallery_submit" class="button" value="<?php echo _("Save Gallery") ?>" />&nbsp;
-   <input type="reset" class="button" value="<?php echo _("Undo Changes") ?>"  />&nbsp;
+  <td class="horde-form-buttons"></td>
+  <td class="horde-form-buttons">
+   <input type="submit" id="gallery_submit" name="gallery_submit" class="horde-default" value="<?php echo _("Save Gallery") ?>" />&nbsp;
+   <input type="reset" class="horde-reset" value="<?php echo _("Undo Changes") ?>"  />&nbsp;
+   <?php echo $this->contentTag('a', _("Cancel"), array('href' => $this->url->toString(), 'class' => 'horde-cancel')) ?>
   </td>
 </tr>
 </table>
