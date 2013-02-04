@@ -4,8 +4,9 @@
       <?php echo ($this->numTiles > $this->perpage
         ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles)
         : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) ?>
-    </span> <?php echo Ansel::getBreadCrumbs($this->gallery) ?>
+    </span>
   <?php endif; ?>
+  <?php echo Ansel::getBreadCrumbs($this->gallery) ?>
 </div>
 <div class="gallery-desc" id="galleryDescription"><?php echo $this->gallery_desc ?></div>
 
@@ -14,7 +15,7 @@
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
     <?php if (empty($this->view->api) && $this->option_select && $this->numTiles): ?>
-      <form name="gallery" action="<?php echo Horde::url('image.php', true)?>" method="get">
+      <form name="gallery" action="<?php echo Horde::selfUrl(true, true, true) ?>" method="get">
       <?php echo Horde_Util::formInput() ?>
       <input type="hidden" name="actionID" value="" />
       <input type="hidden" name="gallery" value="<?php echo $this->gallery->id ?>" />
@@ -31,7 +32,7 @@
             <?php echo $this->contentTag('a', _("All"), array('title' => _("Select All"), 'id' => 'anselgallery_select_all')) ?>
             <?php echo $this->contentTag('a', _("None"), array('title' => _("Select None"), 'id' => 'anselgallery_select_none')) ?>
           </td>
-          <td align="right">
+          <td class="rightAlign">
             <?php if ($this->option_delete || $this->option_move || $this->option_copy) echo _("Actions: ") ?>
             <?php if ($GLOBALS['conf']['gallery']['downloadzip']): ?>
               <?php echo $this->contentTag('a', _("Download selected photos"), array('class' => 'widget', 'id' => 'anselgallery_download')) ?> |
@@ -50,7 +51,7 @@
             <?php endif; ?>
             <select name="new_gallery">
               <option value="-1"><?php echo _("Selected photos to") ?></option>
-              <?php echo Ansel::selectGalleries(array('selected' => $this->gallery->id, 'perm' => Horde_Perms::EDIT)) ?>
+              <?php echo Ansel::selectGalleries(array('perm' => Horde_Perms::EDIT)) ?>
             </select>
           </td>
         </tr>
@@ -60,7 +61,7 @@
       <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
       <table width="100%" style="background-color:<?php echo $this->view->style->background ?>;">
-        <tr>
+        <tbody><tr>
           <td colspan="<?php echo $this->tilesperrow ?>"><?php echo $this->pager->render() ?></td>
         </tr>
         <tr>
@@ -79,7 +80,7 @@
        }?>
        </tr>
        <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
-      </table>
+      </tbody></table>
      <?php endif; ?>
      <?php if (!empty($this->option_select) && $this->numTiles): ?>
        </form>

@@ -52,6 +52,7 @@
     </div>
 <?php endif; ?>
 <?php if ($this->save_sent_mail): ?>
+<?php if ($this->save_sent_mail_select): ?>
     <div style="display:none">
      <label>
       <?php echo $this->checkBoxTag('save_sent_mail', 1, false, array('class' => 'checkbox')) . _("Save in") ?>
@@ -59,6 +60,11 @@
      </label>
      <?php echo $this->hiddenFieldTag('save_sent_mail_mbox') ?>
     </div>
+<?php else: ?>
+    <div>
+     <?php echo $this->checkBoxTag('save_sent_mail', 1, false, array('class' => 'checkbox')) . _("Save sent mail") ?>
+    </div>
+<?php endif; ?>
 <?php endif; ?>
 <?php if ($this->priority): ?>
     <div>

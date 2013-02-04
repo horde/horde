@@ -96,10 +96,12 @@ class Ansel_View_GalleryProperties
      */
     private function _output()
     {
-        $view = new Horde_View(array('templatePath' => array(ANSEL_TEMPLATES . '/gallery',
-                                                             ANSEL_TEMPLATES . '/gallery/partial',
-                                                             ANSEL_TEMPLATES . '/gallery/layout')));
-        $view->addHelper('Text');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(array(
+            ANSEL_TEMPLATES . '/gallery',
+            ANSEL_TEMPLATES . '/gallery/partial',
+            ANSEL_TEMPLATES . '/gallery/layout'));
+
         $view->properties = $this->_properties;
         $view->title = $this->_title;
         $view->action = $this->_params['actionID'];
@@ -137,7 +139,6 @@ class Ansel_View_GalleryProperties
 
         global $page_output;
         $page_output->addInlineScript($js, true);
-        $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('popup.js', 'horde');
         $page_output->addScriptFile('slugcheck.js');
         $page_output->addInlineJsVars(array(
@@ -379,8 +380,8 @@ class Ansel_View_GalleryProperties
 
                 $galleryId = $gallery->id;
                 $msg = sprintf(_("The gallery \"%s\" was created successfully."), $gallery_name);
-                Horde::logMessage($msg, 'DEBUG');
                 $GLOBALS['notification']->push($msg, 'horde.success');
+                Horde::url('img/upload.php')->add('gallery', $galleryId)->redirect();
             } catch (Ansel_Exception $e) {
                 $galleryId = null;
                 $error = sprintf(_("The gallery \"%s\" couldn't be created: %s"),

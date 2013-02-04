@@ -269,11 +269,8 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             $resource = $storage->getImage($id);
             $parent = $storage->getGallery($resource->gallery);
         }
-
-        $tags = explode(',', rawurldecode($tags));
         $tagger = $injector->getInstance('Ansel_Tagger');
-
-        $tagger->tag($id, $tags, $registry->getAuth(), $type);
+        $tagger->tag($id, $tagger->split(rawurldecode($tags)), $registry->getAuth(), $type);
 
         // Get the tags again since we need the newly added tag_ids
         $newTags = $tagger->getTags($id, $type);

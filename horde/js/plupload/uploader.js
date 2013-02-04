@@ -205,7 +205,7 @@ var Horde_Uploader = Class.create({
 
     setReturnTarget: function(path)
     {
-        $(this._params['return_button']).href = path;
+        $(this._params['return_button']).observe('click', function() { window.location = path });
     },
 
     updateList: function()
