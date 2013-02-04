@@ -119,23 +119,6 @@ class Horde_Argv_Parser extends Horde_Argv_OptionContainer
         $this->_initParsingState();
     }
 
-    /**
-     *  Declare that you are done with this Horde_Argv_Parser.  This cleans up
-     *  reference cycles so the Horde_Argv_Parser (and all objects referenced by
-     *  it) can be garbage-collected promptly.  After calling destroy(), the
-     *  Horde_Argv_Parser is unusable.
-     */
-    public function __destruct()
-    {
-        foreach ($this->optionGroups as &$group) {
-            unset($group);
-        }
-
-        unset($this->optionList);
-        unset($this->optionGroups);
-        unset($this->formatter);
-    }
-
     // -- Private methods -----------------------------------------------
     // (used by our OptionContainer's constructor)
 
