@@ -89,8 +89,8 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
 
         // Clear the tag cache?
         if (Horde_Util::getFormData('havesearch', 0) == 0) {
-            $browser = new Ansel_TagBrowser($injector->getInstance('Ansel_Tagger'));
-            $browser->clearSearch();
+            $tag_browser = new Ansel_TagBrowser($GLOBALS['injector']->getInstance('Ansel_Tagger'));
+            $tag_browser->clearSearch();
         }
 
         $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');

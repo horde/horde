@@ -16,8 +16,8 @@ $layout = new Horde_Core_Block_Layout_View(
 );
 
 $layout_html = $layout->toHtml();
-$browser = new Ansel_TagBrowser($injector->getInstance('Ansel_Tagger'));
-$browser->clearSearch();
+$tag_browser = new Ansel_TagBrowser($injector->getInstance('Ansel_Tagger'));
+$tag_browser->clearSearch();
 
 Ansel::initJSVariables();
 $page_output->header(array(
