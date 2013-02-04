@@ -15,7 +15,6 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     public function __construct($params = array())
     {
         parent::__construct($params);
-
         $GLOBALS['page_output']->addScriptFile('slideshow.js');
     }
 

@@ -96,7 +96,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
      * @param array  Parameters for the view.
      * @throws Ansel_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         parent::__construct($params);
 

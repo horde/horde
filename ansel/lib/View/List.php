@@ -44,7 +44,7 @@ class Ansel_View_List extends Ansel_View_Ansel
      *  pager_url    -  The url for the pager to use see Ansel_Gallery for
      *                  more information on the url parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         global $prefs;
 

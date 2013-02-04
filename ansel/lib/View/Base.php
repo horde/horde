@@ -71,7 +71,7 @@ abstract class Ansel_View_Base
      *                         when clicking on breadcrumb links, for example.
      * </pre>
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
