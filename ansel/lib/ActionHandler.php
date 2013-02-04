@@ -926,6 +926,73 @@ class Ansel_ActionHandler
             // Return to the gallery list.
             Horde::url(Ansel::getUrlFor('view', array('view' => 'List'), true))->redirect();
             exit;
+        case 'do_delete':
+        case 'do_empty':
+            $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
+            $galleryId = Horde_Util::getPost('gallery');
+           try {
+                $gallery = $ansel_storage->getGallery($galleryId);
+            } catch (Ansel_Exception $e) {
+                $notification->push($e->getMessage(), 'horde.error');
+                Ansel::getUrlFor('default_view', array())->redirect();
+                exit;
+            }
+            switch ($actionID) {
+            case 'do_delete':
+                if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+                    $notification->push(
+                        _("Access denied deleting this gallery."),
+                        'horde.error');
+                } else {
+                    try {
+                        $ansel_storage->removeGallery($gallery);
+                        $notification->push(sprintf(
+                            _("Successfully deleted %s."),
+                            $gallery->get('name')), 'horde.success');
+                    } catch (Ansel_Exception $e) {
+                        $notification->push(sprintf(
+                            _("There was a problem deleting %s: %s"),
+                            $gallery->get('name'), $e->getMessage()),
+                            'horde.error');
+                    } catch (Horde_Exception_NotFound $e) {
+                        Horde::logMessage($e, 'err');
+                    }
+                }
+
+                // Return to the default view.
+                Ansel::getUrlFor('default_view', array())->redirect();
+                exit;
+
+            case 'do_empty':
+                if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
+                    $notification->push(
+                        _("Access denied deleting this gallery."),
+                        'horde.error');
+                } else {
+                    $ansel_storage->emptyGallery($gallery);
+                    $notification->push(sprintf(
+                        _("Successfully emptied \"%s\""),
+                        $gallery->get('name')),
+                        'horde.success');
+                }
+                Ansel::getUrlFor(
+                    'view',
+                    array(
+                        'view' => 'Gallery',
+                        'gallery' => $galleryId,
+                        'slug' => $gallery->get('slug')),
+                    true)->redirect();
+                exit;
+            default:
+                 Ansel::getUrlFor(
+                    'view',
+                    array(
+                        'view' => 'Gallery',
+                        'gallery' => $galleryId,
+                        'slug' => $gallery->get('slug')),
+                    true)->redirect();
+                exit;
+            }
 
         case 'generateDefault':
             // Re-generate the default pretty gallery image.
