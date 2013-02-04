@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-09-06</date>
- <time>18:10:46</time>
+ <date>2013-02-04</date>
+ <time>17:42:42</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [jan] Add reST renderers for blockquote and emphasis.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -196,9 +196,11 @@
      </dir> <!-- /lib/Text_Wiki/Parse -->
      <dir name="Render">
       <dir name="Rst">
+       <file name="Blockquote.php" role="horde" />
        <file name="Bold.php" role="horde" />
        <file name="Code.php" role="horde" />
        <file name="Deflist.php" role="horde" />
+       <file name="Emphasis.php" role="horde" />
        <file name="Freelink.php" role="horde" />
        <file name="Heading.php" role="horde" />
        <file name="Links.php" role="horde" />
@@ -738,9 +740,11 @@
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Tiki/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Tiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Blockquote.php" name="lib/Text_Wiki/Render/Rst/Blockquote.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Emphasis.php" name="lib/Text_Wiki/Render/Rst/Emphasis.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Heading.php" name="lib/Text_Wiki/Render/Rst/Heading.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
@@ -939,10 +943,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-09-06</date>
+   <date>2013-02-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [jan] Add reST renderers for blockquote and emphasis.
    </notes>
   </release>
  </changelog>
