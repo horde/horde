@@ -50,7 +50,7 @@
             <?php endif; ?>
             <select name="new_gallery">
               <option value="-1"><?php echo _("Selected photos to") ?></option>
-              <?php echo Ansel::selectGalleries(array('selected' => $this->gallery->id, 'perm' => Horde_Perms::EDIT)) ?>
+              <?php echo Ansel::selectGalleries(array('perm' => Horde_Perms::EDIT)) ?>
             </select>
           </td>
         </tr>
