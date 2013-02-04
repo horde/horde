@@ -104,8 +104,9 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         }
 
         $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');
-        $hasEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(),
-                                                        Horde_Perms::EDIT);
+        $hasEdit = $this->_view->gallery->hasPermission(
+            $GLOBALS['registry']->getAuth(),
+            Horde_Perms::EDIT);
         $owner = $this->_view->gallery->get('owner');
         $tags = $tagger->getTags((int)$this->_view->resource->id, $this->_resourceType);
 
@@ -113,9 +114,14 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
             $tags = $tagger->getTagInfo(array_keys($tags), 500, $this->_resourceType);
         }
         if ($this->_resourceType != 'image') {
-            $removeLink = Horde::url('gallery.php')->add(array('actionID' => 'removeTags', 'gallery' => $this->_view->gallery->id));
+            $removeLink = Horde::url('gallery.php')->add(array(
+                'actionID' => 'removeTags',
+                'gallery' => $this->_view->gallery->id));
         } else {
-            $removeLink = Horde::url('image.php')->add(array('actionID' => 'removeTags', 'gallery' => $this->_view->gallery->id, 'image' => $this->_view->resource->id));
+            $removeLink = Horde::url('image.php')->add(array(
+                'actionID' => 'removeTags',
+                'gallery' => $this->_view->gallery->id,
+                'image' => $this->_view->resource->id));
         }
         $links = Ansel::getTagLinks($tags, 'add', $owner);
         $html = '<ul class="horde-tags">';
