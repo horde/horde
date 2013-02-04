@@ -82,7 +82,7 @@
                 <?php if (!empty($this->owner)): ?>
                 <?php   $this->taglinks[$id]->add('owner', $this->owner) ?>
                 <?php endif ?>
-                <li><?php echo $this->contentTag('a', $this->h($taginfo['tag_name']), array('title' => sprintf(ngettext("%d photo", "%d photos",$taginfo['total']),$taginfo['total']))) ?></li>
+                <li><?php echo $this->contentTag('a', $this->h($taginfo['tag_name']), array('href' => strval($this->taglinks[$id]), 'title' => sprintf(ngettext("%d photo", "%d photos",$taginfo['total']),$taginfo['total']))) ?></li>
               <?php endforeach ?>
             </ul></div>
           </div>
