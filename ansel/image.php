@@ -68,6 +68,30 @@ try {
     exit;
 }
 
+if (Ansel_ActionHandler::imageActions($actionID)) {
+    $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
+    $perpage = min(
+        $prefs->getValue('tilesperpage'),
+        $conf['thumbnail']['perpage']);
+    $pages = ceil($children / $perpage);
+    if ($page > $pages) {
+        $page = $pages;
+    }
+
+    // Return to the image list.
+    Ansel::getUrlFor(
+        'view',
+        array_merge(
+            array(
+                'gallery' => $gallery_id,
+                'view' => 'Gallery',
+                'page' => $page,
+                'slug' => $gallery->get('slug')),
+            $date),
+        true)->redirect();
+    exit;
+}
+
 // Run through the action handlers.
 switch ($actionID) {
 case 'modify':
@@ -597,178 +621,6 @@ case 'imagewatermark':
     $image->watermark(
         $view, $watermark, $watermark_halign, $watermark_valign, $watermark_font);
     $image->display($view);
-    exit;
-
-case 'delete':
-    if (is_array($image_id)) {
-        $images = array_keys($image_id);
-    } else {
-        $images = array($image_id);
-    }
-    if (count($images)) {
-        if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)) {
-            $notification->push(
-                _("Access denied deleting photos from this gallery."),
-                'horde.error');
-        } else {
-            foreach ($images as $image) {
-                try {
-                    $gallery->removeImage($image);
-                    $notification->push(_("Deleted the photo."), 'horde.success');
-                } catch (Ansel_Exception $e) {
-                    $notification->push(
-                        sprintf(_("There was a problem deleting photos: %s"), $e->getMessage()), 'horde.error');
-                }
-            }
-        }
-    }
-
-    // Recalculate the number of pages, since it might have changed
-    $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
-    $perpage = min(
-        $prefs->getValue('tilesperpage'),
-        $conf['thumbnail']['perpage']);
-    $pages = ceil($children / $perpage);
-    if ($page > $pages) {
-        $page = $pages;
-    }
-
-    // Return to the image list.
-    Ansel::getUrlFor(
-        'view',
-        array_merge(
-            array(
-                'gallery' => $gallery_id,
-                'view' => 'Gallery',
-                'page' => $page,
-                'slug' => $gallery->get('slug')),
-            $date),
-        true)->redirect();
-    exit;
-
-case 'move':
-    if (is_array($image_id)) {
-        $images = array_keys($image_id);
-    } else {
-        $images = array($image_id);
-    }
-    $newGallery = Horde_Util::getFormData('new_gallery');
-    if ($images && $newGallery) {
-        try {
-            $newGallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($newGallery);
-            $result = $gallery->moveImagesTo($images, $newGallery);
-            $notification->push(
-                sprintf(ngettext(
-                    "Moved %d photo from \"%s\" to \"%s\"",
-                    "Moved %d photos from \"%s\" to \"%s\"",
-                    $result),
-                $result, $gallery->get('name'), $newGallery->get('name')),
-            'horde.success');
-        } catch (Ansel_Exception $e) {
-            $notification->push(_("Bad input."), 'horde.error');
-        }
-    }
-
-    // Recalculate the number of pages, since it might have changed
-    $children = $gallery->countGalleryChildren(Horde_Perms::SHOW);
-    $perpage = min(
-        $prefs->getValue('tilesperpage'),
-        $conf['thumbnail']['perpage']);
-    $pages = ceil($children / $perpage);
-    if ($page > $pages) {
-        $page = $pages;
-    }
-
-    // Return to the image list.
-    Ansel::getUrlFor(
-        'view',
-        array_merge(
-            array(
-                'gallery' => $gallery_id,
-                'view' => 'Gallery',
-                'page' => $page,
-                'slug' => $gallery->get('slug')),
-            $date),
-        true)->redirect();
-    exit;
-
-case 'copy':
-    if (is_array($image_id)) {
-        $images = array_keys($image_id);
-    } else {
-        $images = array($image_id);
-    }
-    $newGallery = Horde_Util::getFormData('new_gallery');
-    if ($images && $newGallery) {
-        try {
-            $newGallery = $GLOBALS['injector']
-                ->getInstance('Ansel_Storage')
-                ->getGallery($newGallery);
-            $result = $gallery->copyImagesTo($images, $newGallery);
-            $notification->push(
-                sprintf(
-                    ngettext(
-                        "Copied %d photo to %s",
-                        "Copied %d photos to %s",
-                        $result),
-                    $result, $newGallery->get('name')),
-                'horde.success');
-        } catch (Ansel_Exception $e) {
-            $notification->push(_("Bad input."), 'horde.error');
-
-       }
-    }
-
-    //Return to the image list.
-    Ansel::getUrlFor(
-        'view',
-        array_merge(
-            array(
-                'gallery' => $gallery_id,
-                'view' => 'Gallery',
-                'page' => $page,
-                'slug' => $gallery->get('slug')),
-            $date),
-        true)->redirect();
-    exit;
-
-case 'downloadzip':
-    $galleryId = Horde_Util::getFormData('gallery');
-    if ($galleryId) {
-        $gallery = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getGallery($galleryId);
-        if (!$registry->getAuth() ||
-            !$gallery->hasPermission($registry->getAuth(), Horde_Perms::READ) ||
-            $gallery->hasPasswd() || !$gallery->isOldEnough()) {
-
-            $notification->push(
-                _("Access denied downloading photos from this gallery."),
-                'horde.error');
-            Horde::url('view.php?view=List', true)->redirect();
-            exit;
-        }
-    }
-    if (count($image_id)) {
-        Ansel::downloadImagesAsZip(null, array_keys($image_id));
-    } else {
-        $notification->push(_("You must select images to download."), 'horde.error');
-        if ($galleryId) {
-            $url = Ansel::getUrlFor(
-                'view',
-                array(
-                    'gallery' => $galleryId,
-                    'view' => 'Gallery',
-                    'page' => $page,
-                    'slug' => $gallery->get('slug')));
-        } else {
-            $url = Ansel::getUrlFor('view', array('view' => 'List'));
-        }
-        $url->redirect();
-        exit;
-    }
     exit;
 
 case 'previewcrop':
