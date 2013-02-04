@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:33:46</time>
+ <date>2013-02-04</date>
+ <time>15:30:16</time>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Update CKEditor to v3.6.6.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -130,6 +130,7 @@
         <file name="he.js" role="horde" />
         <file name="it.js" role="horde" />
         <file name="ku.js" role="horde" />
+        <file name="lv.js" role="horde" />
         <file name="mk.js" role="horde" />
         <file name="nb.js" role="horde" />
         <file name="nl.js" role="horde" />
@@ -190,6 +191,7 @@
         <file name="hr.js" role="horde" />
         <file name="it.js" role="horde" />
         <file name="ku.js" role="horde" />
+        <file name="lv.js" role="horde" />
         <file name="nb.js" role="horde" />
         <file name="nl.js" role="horde" />
         <file name="no.js" role="horde" />
@@ -312,6 +314,7 @@
         <file name="hr.js" role="horde" />
         <file name="it.js" role="horde" />
         <file name="ku.js" role="horde" />
+        <file name="lv.js" role="horde" />
         <file name="nb.js" role="horde" />
         <file name="nl.js" role="horde" />
         <file name="no.js" role="horde" />
@@ -398,10 +401,12 @@
         <file name="hr.js" role="horde" />
         <file name="it.js" role="horde" />
         <file name="ku.js" role="horde" />
+        <file name="lv.js" role="horde" />
         <file name="nb.js" role="horde" />
         <file name="nl.js" role="horde" />
         <file name="no.js" role="horde" />
         <file name="pt-br.js" role="horde" />
+        <file name="sk.js" role="horde" />
         <file name="tr.js" role="horde" />
         <file name="ug.js" role="horde" />
         <file name="zh-cn.js" role="horde" />
@@ -474,6 +479,7 @@
         <file name="hr.js" role="horde" />
         <file name="it.js" role="horde" />
         <file name="ku.js" role="horde" />
+        <file name="lv.js" role="horde" />
         <file name="mk.js" role="horde" />
         <file name="nb.js" role="horde" />
         <file name="nl.js" role="horde" />
@@ -714,6 +720,7 @@
    <install as="js/ckeditor/plugins/a11yhelp/lang/he.js" name="js/ckeditor/plugins/a11yhelp/lang/he.js" />
    <install as="js/ckeditor/plugins/a11yhelp/lang/it.js" name="js/ckeditor/plugins/a11yhelp/lang/it.js" />
    <install as="js/ckeditor/plugins/a11yhelp/lang/ku.js" name="js/ckeditor/plugins/a11yhelp/lang/ku.js" />
+   <install as="js/ckeditor/plugins/a11yhelp/lang/lv.js" name="js/ckeditor/plugins/a11yhelp/lang/lv.js" />
    <install as="js/ckeditor/plugins/a11yhelp/lang/mk.js" name="js/ckeditor/plugins/a11yhelp/lang/mk.js" />
    <install as="js/ckeditor/plugins/a11yhelp/lang/nb.js" name="js/ckeditor/plugins/a11yhelp/lang/nb.js" />
    <install as="js/ckeditor/plugins/a11yhelp/lang/nl.js" name="js/ckeditor/plugins/a11yhelp/lang/nl.js" />
@@ -751,6 +758,7 @@
    <install as="js/ckeditor/plugins/devtools/lang/hr.js" name="js/ckeditor/plugins/devtools/lang/hr.js" />
    <install as="js/ckeditor/plugins/devtools/lang/it.js" name="js/ckeditor/plugins/devtools/lang/it.js" />
    <install as="js/ckeditor/plugins/devtools/lang/ku.js" name="js/ckeditor/plugins/devtools/lang/ku.js" />
+   <install as="js/ckeditor/plugins/devtools/lang/lv.js" name="js/ckeditor/plugins/devtools/lang/lv.js" />
    <install as="js/ckeditor/plugins/devtools/lang/nb.js" name="js/ckeditor/plugins/devtools/lang/nb.js" />
    <install as="js/ckeditor/plugins/devtools/lang/nl.js" name="js/ckeditor/plugins/devtools/lang/nl.js" />
    <install as="js/ckeditor/plugins/devtools/lang/no.js" name="js/ckeditor/plugins/devtools/lang/no.js" />
@@ -808,6 +816,7 @@
    <install as="js/ckeditor/plugins/placeholder/lang/hr.js" name="js/ckeditor/plugins/placeholder/lang/hr.js" />
    <install as="js/ckeditor/plugins/placeholder/lang/it.js" name="js/ckeditor/plugins/placeholder/lang/it.js" />
    <install as="js/ckeditor/plugins/placeholder/lang/ku.js" name="js/ckeditor/plugins/placeholder/lang/ku.js" />
+   <install as="js/ckeditor/plugins/placeholder/lang/lv.js" name="js/ckeditor/plugins/placeholder/lang/lv.js" />
    <install as="js/ckeditor/plugins/placeholder/lang/nb.js" name="js/ckeditor/plugins/placeholder/lang/nb.js" />
    <install as="js/ckeditor/plugins/placeholder/lang/nl.js" name="js/ckeditor/plugins/placeholder/lang/nl.js" />
    <install as="js/ckeditor/plugins/placeholder/lang/no.js" name="js/ckeditor/plugins/placeholder/lang/no.js" />
@@ -870,10 +879,12 @@
    <install as="js/ckeditor/plugins/specialchar/lang/hr.js" name="js/ckeditor/plugins/specialchar/lang/hr.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/it.js" name="js/ckeditor/plugins/specialchar/lang/it.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/ku.js" name="js/ckeditor/plugins/specialchar/lang/ku.js" />
+   <install as="js/ckeditor/plugins/specialchar/lang/lv.js" name="js/ckeditor/plugins/specialchar/lang/lv.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/nb.js" name="js/ckeditor/plugins/specialchar/lang/nb.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/nl.js" name="js/ckeditor/plugins/specialchar/lang/nl.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/no.js" name="js/ckeditor/plugins/specialchar/lang/no.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/pt-br.js" name="js/ckeditor/plugins/specialchar/lang/pt-br.js" />
+   <install as="js/ckeditor/plugins/specialchar/lang/sk.js" name="js/ckeditor/plugins/specialchar/lang/sk.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/tr.js" name="js/ckeditor/plugins/specialchar/lang/tr.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/ug.js" name="js/ckeditor/plugins/specialchar/lang/ug.js" />
    <install as="js/ckeditor/plugins/specialchar/lang/zh-cn.js" name="js/ckeditor/plugins/specialchar/lang/zh-cn.js" />
@@ -910,6 +921,7 @@
    <install as="js/ckeditor/plugins/uicolor/lang/hr.js" name="js/ckeditor/plugins/uicolor/lang/hr.js" />
    <install as="js/ckeditor/plugins/uicolor/lang/it.js" name="js/ckeditor/plugins/uicolor/lang/it.js" />
    <install as="js/ckeditor/plugins/uicolor/lang/ku.js" name="js/ckeditor/plugins/uicolor/lang/ku.js" />
+   <install as="js/ckeditor/plugins/uicolor/lang/lv.js" name="js/ckeditor/plugins/uicolor/lang/lv.js" />
    <install as="js/ckeditor/plugins/uicolor/lang/mk.js" name="js/ckeditor/plugins/uicolor/lang/mk.js" />
    <install as="js/ckeditor/plugins/uicolor/lang/nb.js" name="js/ckeditor/plugins/uicolor/lang/nb.js" />
    <install as="js/ckeditor/plugins/uicolor/lang/nl.js" name="js/ckeditor/plugins/uicolor/lang/nl.js" />
@@ -1203,10 +1215,10 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Update CKEditor to v3.6.6.
    </notes>
   </release>
  </changelog>
