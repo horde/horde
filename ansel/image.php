@@ -68,85 +68,8 @@ try {
     exit;
 }
 
-// Do we have tags to update?
-if (!is_null($tags) && strlen($tags)) {
-    $tags = explode(',', $tags);
-    if (!empty($image_id)) {
-        $resource = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImage($image_id);
-    } else {
-        $resource = $gallery;
-    }
-    $resource->setTags($tags, false);
-
-    // If no other action requested, redirect back to the appropriate view
-    if (empty($actionID)) {
-        if (empty($image_id)) {
-            $url = Ansel::getUrlFor(
-                'view',
-                array_merge(
-                    array(
-                        'view' => 'Gallery',
-                        'gallery' => $gallery_id,
-                        'slug' => $gallery->get('slug')
-                    ),
-                    $date
-                ),
-                true
-            );
-        } else {
-            $url = Ansel::getUrlFor(
-                'view',
-                array_merge(
-                    array(
-                        'view' => 'Image',
-                        'gallery' => $gallery_id,
-                        'image' => $image_id,
-                        'slug' => $gallery->get('slug')
-                    ),
-                    $date
-                ),
-               true
-            );
-        }
-        $url->redirect();
-        exit;
-    }
-}
-
 // Run through the action handlers.
 switch ($actionID) {
-case 'deletetags':
-    $tag = Horde_Util::getFormData('tag');
-    if (!empty($image_id)) {
-        $resource = $GLOBALS['injector']
-            ->getInstance('Ansel_Storage')
-            ->getImage($image_id);
-        $page = Horde_Util::getFormData('page', 0);
-        $url = Ansel::getUrlFor(
-            'view',
-            array_merge(
-                array('view' => 'Image',
-                      'gallery' => $gallery_id,
-                      'image' => $image_id,
-                      'page' => $page),
-                $date),
-            true);
-    } else {
-        $resource = $gallery;
-        $url = Ansel::getUrlFor(
-            'view',
-            array_merge(
-                array('view' => 'Gallery',
-                      'gallery' => $gallery_id),
-                $date),
-            true);
-    }
-    $resource->removeTag($tag);
-    $url->redirect();
-    exit;
-
 case 'modify':
     try {
         $image = $GLOBALS['injector']

@@ -40,6 +40,16 @@ class Ansel_Widget_Tags extends Ansel_Widget_Base
         parent::__construct($params);
         $this->_resourceType = $params['view'];
         $this->_title = _("Tags");
+
+        // Handle any incoming tag changes from non-script browsers.
+        $tags = Horde_Util::getFormData('addtag');
+        if (!is_null($tags) && strlen($tags)) {
+            $tagger = $GLOBALS['injector']->getInstance('Ansel_Tagger');
+            $this->_view->resource->setTags($tags, $tagger->split($tags));
+        } elseif (Horde_Util::getFormData('actionID') == 'deleteTags') {
+            $tag = Horde_Util::getFormData('tag');
+            $this->_view->resource->removeTag($tag);
+        }
     }
 
     /**
