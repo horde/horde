@@ -196,7 +196,7 @@ abstract class Ansel_View_GalleryRenderer_Base
                 'choose_images' => _("You must first choose photos.")
             );
             $urls = array(
-                'image_date' => Horde::url('edit_dates.php')->add(array('gallery' => $this->galleryId))
+                'image_date' => strval(Horde::url('edit_dates.php')->add(array('gallery' => $this->galleryId)))
             );
             $js = array(
                 'Ansel = window.Ansel || {};',
