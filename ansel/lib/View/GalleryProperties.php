@@ -96,10 +96,12 @@ class Ansel_View_GalleryProperties
      */
     private function _output()
     {
-        $view = new Horde_View(array('templatePath' => array(ANSEL_TEMPLATES . '/gallery',
-                                                             ANSEL_TEMPLATES . '/gallery/partial',
-                                                             ANSEL_TEMPLATES . '/gallery/layout')));
-        $view->addHelper('Text');
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(array(
+            ANSEL_TEMPLATES . '/gallery',
+            ANSEL_TEMPLATES . '/gallery/partial',
+            ANSEL_TEMPLATES . '/gallery/layout'));
+
         $view->properties = $this->_properties;
         $view->title = $this->_title;
         $view->action = $this->_params['actionID'];
