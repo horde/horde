@@ -60,7 +60,7 @@
       <div class="text"><em><?php echo _("There are no photos in this gallery.") ?></em></div>
     <?php else: ?>
       <table width="100%" style="background-color:<?php echo $this->view->style->background ?>;">
-        <tr>
+        <tbody><tr>
           <td colspan="<?php echo $this->tilesperrow ?>"><?php echo $this->pager->render() ?></td>
         </tr>
         <tr>
@@ -79,7 +79,7 @@
        }?>
        </tr>
        <tr><td colspan="<?php echo $tilesperrow ?>"><?php echo $this->pager->render() ?></td></tr>
-      </table>
+      </tbody></table>
      <?php endif; ?>
      <?php if (!empty($this->option_select) && $this->numTiles): ?>
        </form>
