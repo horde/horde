@@ -198,6 +198,14 @@ class Ansel_ActionHandler
         return false;
     }
 
+    /**
+     * Check for, and handle, image editing actions.
+     *
+     * @param string $actionID  The action identifier.
+     *
+     * @return boolean  True if an action was handled, otherwise false.
+     * @throws Ansel_Exception
+     */
     static function editActions($actionID)
     {
         global $notification, $page_output, $registry;
