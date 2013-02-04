@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-03</date>
- <time>01:58:10</time>
+ <date>2013-02-04</date>
+ <time>11:34:58</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -103,8 +103,7 @@
      <file name="geotag.js" role="horde" />
     </dir> <!-- /js/blocks -->
     <dir name="views">
-     <file name="gallery-common.js" role="horde" />
-     <file name="gallery-lightbox.js" role="horde" />
+     <file name="common.js" role="horde" />
     </dir> <!-- /js/views -->
     <dir name="widgets">
      <file name="geotag.js" role="horde" />
@@ -207,10 +206,6 @@
      <file name="mail.php" role="horde" />
      <file name="tickets.php" role="horde" />
     </dir> <!-- /lib/Report -->
-    <dir name="Search">
-     <file name="exif.php" role="horde" />
-     <file name="Tag.php" role="horde" />
-    </dir> <!-- /lib/Search -->
     <dir name="Tile">
      <file name="DateGallery.php" role="horde" />
      <file name="Gallery.php" role="horde" />
@@ -249,6 +244,7 @@
      <file name="SimilarPhotos.php" role="horde" />
      <file name="Tags.php" role="horde" />
     </dir> <!-- /lib/Widget -->
+    <file name="ActionHandler.php" role="horde" />
     <file name="Ansel.php" role="horde" />
     <file name="Api.php" role="horde" />
     <file name="Application.php" role="horde" />
@@ -259,9 +255,9 @@
     <file name="Image.php" role="horde" />
     <file name="ImageGenerator.php" role="horde" />
     <file name="Report.php" role="horde" />
-    <file name="Search.php" role="horde" />
     <file name="Storage.php" role="horde" />
     <file name="Style.php" role="horde" />
+    <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Test.php" role="horde" />
     <file name="Widget.php" role="horde" />
@@ -438,7 +434,7 @@
      <file name="image.html.php" role="horde" />
      <file name="image.inc" role="horde" />
      <file name="list.inc" role="horde" />
-     <file name="results.inc" role="horde" />
+     <file name="results.html.php" role="horde" />
      <file name="slideshow.inc" role="horde" />
     </dir> <!-- /templates/view -->
     <dir name="widgets">
@@ -869,10 +865,10 @@
    <install as="ansel/js/smartmobile.js" name="js/smartmobile.js" />
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
-   <install as="ansel/js/views/gallery-common.js" name="js/views/gallery-common.js" />
-   <install as="ansel/js/views/gallery-lightbox.js" name="js/views/gallery-lightbox.js" />
+   <install as="ansel/js/views/common.js" name="js/views/common.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
+   <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
    <install as="ansel/lib/Ansel.php" name="lib/Ansel.php" />
    <install as="ansel/lib/Api.php" name="lib/Api.php" />
    <install as="ansel/lib/Application.php" name="lib/Application.php" />
@@ -883,9 +879,9 @@
    <install as="ansel/lib/Image.php" name="lib/Image.php" />
    <install as="ansel/lib/ImageGenerator.php" name="lib/ImageGenerator.php" />
    <install as="ansel/lib/Report.php" name="lib/Report.php" />
-   <install as="ansel/lib/Search.php" name="lib/Search.php" />
    <install as="ansel/lib/Storage.php" name="lib/Storage.php" />
    <install as="ansel/lib/Style.php" name="lib/Style.php" />
+   <install as="ansel/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="ansel/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="ansel/lib/Test.php" name="lib/Test.php" />
    <install as="ansel/lib/Widget.php" name="lib/Widget.php" />
@@ -937,8 +933,6 @@
    <install as="ansel/lib/Report/letter.php" name="lib/Report/letter.php" />
    <install as="ansel/lib/Report/mail.php" name="lib/Report/mail.php" />
    <install as="ansel/lib/Report/tickets.php" name="lib/Report/tickets.php" />
-   <install as="ansel/lib/Search/exif.php" name="lib/Search/exif.php" />
-   <install as="ansel/lib/Search/Tag.php" name="lib/Search/Tag.php" />
    <install as="ansel/lib/Tile/DateGallery.php" name="lib/Tile/DateGallery.php" />
    <install as="ansel/lib/Tile/Gallery.php" name="lib/Tile/Gallery.php" />
    <install as="ansel/lib/Tile/Image.php" name="lib/Tile/Image.php" />
@@ -1054,7 +1048,7 @@
    <install as="ansel/templates/view/image.html.php" name="templates/view/image.html.php" />
    <install as="ansel/templates/view/image.inc" name="templates/view/image.inc" />
    <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
-   <install as="ansel/templates/view/results.inc" name="templates/view/results.inc" />
+   <install as="ansel/templates/view/results.html.php" name="templates/view/results.html.php" />
    <install as="ansel/templates/view/slideshow.inc" name="templates/view/slideshow.inc" />
    <install as="ansel/templates/view/api/gallery.html.php" name="templates/view/api/gallery.html.php" />
    <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
