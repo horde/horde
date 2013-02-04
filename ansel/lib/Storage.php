@@ -292,12 +292,13 @@ class Ansel_Storage
         }
 
         try {
-            $result = $this->buildGallery(
-                $this->_shares->getShareById($gallery_id)
-            );
+            $result = $this->buildGallery($this->_shares->getShareById($gallery_id));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
+        } catch (Horde_Exception_NotFound $e) {
+            throw new Ansel_Exception($e);
         }
+
         // Don't cache if we have overridden anything
         if (!count($overrides)) {
             if ($GLOBALS['conf']['ansel_cache']['usecache']) {
@@ -332,6 +333,8 @@ class Ansel_Storage
                         'attribtues' => array('slugs' => $slugs))));
         } catch (Horde_Share_Exception $e) {
             throw new Ansel_Exception($e);
+        } catch (Horde_Exception_NotFound $e) {
+            throw new Ansel_Exception($e);
         }
     }
 
@@ -347,9 +350,10 @@ class Ansel_Storage
     public function getGalleries(array $ids, $perms = Horde_Perms::SHOW)
     {
         try {
-            $shares = $this->buildGalleries(
-                $this->_shares->getShares($ids));
+            $shares = $this->buildGalleries($this->_shares->getShares($ids));
         } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
+        } catch (Horde_Exception_NotFound $e) {
             throw new Ansel_Exception($e);
         }
         $galleries = array();
@@ -426,6 +430,8 @@ class Ansel_Storage
         try {
             $this->_shares->removeShare($gallery->getShare());
         } catch (Horde_Share_Exception $e) {
+            throw new Ansel_Exception($e);
+        } catch (Horde_Exception_NotFound $e) {
             throw new Ansel_Exception($e);
         }
 
