@@ -891,8 +891,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             if ($imp_compose->canUploadAttachment()) {
                 try {
                     $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'file_upload');
-                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
-
                     $result->atc_id = $atc_ob->id;
                     $result->success = 1;
 
@@ -911,10 +909,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                             $img_tag .= ' ' . $node->name . '="' . htmlspecialchars($node->value) . '"';
                         }
                         $result->img = $img_tag . '/>';
+                    } else {
+                        $this->_base->queue->attachment($atc_ob);
+                        $notification->push(sprintf(_("Added \"%s\" as an attachment."), $atc_ob->getPart()->getName()), 'horde.success');
                     }
 
                     $this->_base->queue->compose($imp_compose);
-                    $this->_base->queue->attachment($atc_ob);
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e, 'horde.error');
                 }

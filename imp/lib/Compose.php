@@ -2826,9 +2826,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             $bytes = strlen($url_data->data);
             $filename = $vars->get($field . '_filename');
-            if (is_null($filename)) {
-                $filename = IMP_Contents::getPartLabel(reset(explode('/', $url_data->type)));
-            }
             $type = $url_data->type;
         } else {
             try {
