@@ -43,6 +43,7 @@ class Ansel_ActionHandler
         case 'delete':
             $image_id = Horde_Util::getFormData('image');
             $gallery_id = Horde_Util::getFormData('gallery');
+            $ansel_storage = $GLOBALS['injector']->getInstance('Ansel_Storage');
             if (is_array($image_id)) {
                 $images = array_keys($image_id);
             } else {
@@ -53,7 +54,7 @@ class Ansel_ActionHandler
                 if (empty($gallery_id)) {
                     $gallery_id = $img->gallery;
                 }
-                $gallery = $GLOBALS['injector']->getInstance('ansel_storage')->getgallery($gallery_id);
+                $gallery = $ansel_storage->getgallery($gallery_id);
                 if (!$gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
                     $notification->push(_("Access denied deleting photos from this gallery."), 'horde.error');
                 } else {

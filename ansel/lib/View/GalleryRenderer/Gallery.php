@@ -28,6 +28,7 @@ class Ansel_View_GalleryRenderer_Gallery extends Ansel_View_GalleryRenderer_Base
     {
         parent::__construct($view);
         $this->title = _("Standard Gallery");
+        Ansel_ActionHandler::imageActions(Horde_Util::getFormData('actionID'));
     }
 
     /**

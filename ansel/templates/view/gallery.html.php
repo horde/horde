@@ -14,7 +14,7 @@
  <tr>
   <td style="vertical-align:top;width:<?php echo ($this->view->countWidgets() ? "75%" : "100%") ?>;">
     <?php if (empty($this->view->api) && $this->option_select && $this->numTiles): ?>
-      <form name="gallery" action="<?php echo Horde::url('image.php', true)?>" method="get">
+      <form name="gallery" action="<?php echo Horde::selfUrl(true, true, true) ?>" method="get">
       <?php echo Horde_Util::formInput() ?>
       <input type="hidden" name="actionID" value="" />
       <input type="hidden" name="gallery" value="<?php echo $this->gallery->id ?>" />
