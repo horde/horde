@@ -4,8 +4,9 @@
       <?php echo ($this->numTiles > $this->perpage
         ? sprintf(_("%d to %d of %d Items"), $this->pagestart, $this->pageend, $this->numTiles)
         : sprintf(ngettext("%d Item", "%d Items", $this->numTiles), $this->numTiles)) ?>
-    </span> <?php echo Ansel::getBreadCrumbs($this->gallery) ?>
+    </span>
   <?php endif; ?>
+  <?php echo Ansel::getBreadCrumbs($this->gallery) ?>
 </div>
 <div class="gallery-desc" id="galleryDescription"><?php echo $this->gallery_desc ?></div>
 
