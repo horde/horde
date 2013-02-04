@@ -139,7 +139,6 @@ class Ansel_View_GalleryProperties
 
         global $page_output;
         $page_output->addInlineScript($js, true);
-        $page_output->addScriptFile('stripe.js', 'horde');
         $page_output->addScriptFile('popup.js', 'horde');
         $page_output->addScriptFile('slugcheck.js');
         $page_output->addInlineJsVars(array(
