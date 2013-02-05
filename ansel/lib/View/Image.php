@@ -96,20 +96,17 @@ class Ansel_View_Image extends Ansel_View_Ansel
      * @param array  Parameters for the view.
      * @throws Ansel_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         parent::__construct($params);
 
         // Get the Ansel_Image
-        $image = $GLOBALS['injector']
+        $this->resource = $GLOBALS['injector']
             ->getInstance('Ansel_Storage')
             ->getImage($params['image_id']);
 
         // Get the Ansel_Gallery
         $this->gallery = $this->_getGallery();
-
-        // Save the image reference
-        $this->resource = $image;
 
         // Check user age
         if (!$this->gallery->isOldEnough()) {
@@ -129,7 +126,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Image',
-                          'image' => $image->id),
+                          'image' => $this->resource->id),
                     $date),
                 true);
 
@@ -156,7 +153,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
                           'slug' => empty($params['slug']) ? '' : $params['slug'],
                           'page' => empty($params['page']) ? 0 : $params['page'],
                           'view' => 'Image',
-                          'image' => $image->id),
+                          'image' => $this->resource->id),
                     $date),
                 true);
 

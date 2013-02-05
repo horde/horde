@@ -61,7 +61,7 @@ class Ansel_View_Results extends Ansel_View_Ansel
      *
      * @return Ansel_View_Results
      */
-    public function __construct()
+    public function __construct(array $params = array())
     {
         global $prefs, $conf, $injector, $notification;
 

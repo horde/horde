@@ -30,10 +30,6 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
             $part->getType()
         );
         $this->assertEquals(
-            1434,
-            $part->getBytes()
-        );
-        $this->assertEquals(
             '=_k4kgcwkwggwc',
             $part->getContentTypeParameter('boundary')
         );
@@ -83,7 +79,7 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
         // Test the length of the resulting MIME string to ensure
         // the incoming multipart data was not output twice.
-        $this->assertEquals(1795, strlen($part->toString()));
+        $this->assertEquals(1777, strlen($part->toString()));
     }
 
     public function testParsingMultipartAlternativeDoesNotProduceAttachment()
@@ -101,6 +97,25 @@ class Horde_Mime_PartTest extends PHPUnit_Framework_TestCase
 
         $part_one = $test_part->getPart(1);
         $this->assertEquals('', $test_part->getPart(1)->getDisposition());
+    }
+
+    public function testAddingSizeToContentDisposition()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents('123');
+        $part->setBytes(3);
+
+        $this->assertEquals(
+            "Content-Type: text/plain\r\n" .
+            "Content-Disposition: attachment; size=3\r\n" .
+            "\r\n" .
+            '123',
+            $part->toString(array(
+                'canonical' => true,
+                'headers' => true
+            ))
+        );
     }
 
     public function testArrayAccessImplementation()

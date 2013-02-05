@@ -35,7 +35,7 @@ class Ansel_View_Gallery extends Ansel_View_Ansel
      *
      * @see Ansel_View_Base::__construct
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         parent::__construct($params);
 

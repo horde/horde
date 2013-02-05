@@ -1072,9 +1072,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         $disposition = $this->getDisposition();
         $disp_params = $this->getAllDispositionParameters();
         $name = $this->getName();
-        $disp_params_copy = $disp_params;
-        unset($disp_params_copy['size']);
-        if ($disposition || !empty($name) || !empty($disp_params_copy)) {
+        if ($disposition || !empty($name) || !empty($disp_params)) {
             if (!$disposition) {
                 $disposition = 'attachment';
             }
@@ -1980,7 +1978,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
 
             if (!empty($body)) {
                 $ob->setContents($body);
-                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
             }
 
             return $ob;
@@ -2027,12 +2024,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             $ob->setContentId($tmp);
         }
 
-        /* Get file size (if 'body' text is set). */
         if (!empty($body) && $ob->getPrimaryType() != 'multipart') {
             $ob->setContents($body);
-            if ($ob->getType() != '/message/rfc822') {
-                $ob->setBytes(strlen(str_replace(array("\r\n", "\n"), array("\n", "\r\n"), $body)));
-            }
         }
 
         if (++$level >= self::NESTING_LIMIT) {

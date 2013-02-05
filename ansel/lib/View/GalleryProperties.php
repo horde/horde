@@ -39,7 +39,7 @@ class Ansel_View_GalleryProperties
      *
      * @param array $params  Parameters for the view
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
