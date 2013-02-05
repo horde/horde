@@ -239,7 +239,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         /* Build the list of messages in the mailbox. */
         $imp_mailbox = $mailbox->list_ob;
-        $pageOb = $imp_mailbox->buildMailboxPage($this->vars->page, $this->vars->start);
+        $pageOb = $imp_mailbox->buildMailboxPage($this->vars->mpage, $this->vars->start);
         $show_preview = $prefs->getValue('preview_enabled');
 
         $mbox_info = $imp_mailbox->getMailboxArray(range($pageOb['begin'], $pageOb['end']), array(
@@ -281,9 +281,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 $pages_first = 'navfirstgreyImg';
                 $pages_prev = 'navleftgreyImg';
             } else {
-                $url_first = $mailbox_imp_url->copy()->add('page', 1);
+                $url_first = $mailbox_imp_url->copy()->add('mpage', 1);
                 $pages_first = 'navfirstImg';
-                $url_prev = $mailbox_imp_url->copy()->add('page', $pageOb['page'] - 1);
+                $url_prev = $mailbox_imp_url->copy()->add('mpage', $pageOb['page'] - 1);
                 $pages_prev = 'navleftImg';
             }
 
@@ -292,9 +292,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 $pages_last = 'navlastgreyImg';
                 $pages_next = 'navrightgreyImg';
             } else {
-                $url_next = $mailbox_imp_url->copy()->add('page', $pageOb['page'] + 1);
+                $url_next = $mailbox_imp_url->copy()->add('mpage', $pageOb['page'] + 1);
                 $pages_next = 'navrightImg';
-                $url_last = $mailbox_imp_url->copy()->add('page', $pageOb['pagecount']);
+                $url_last = $mailbox_imp_url->copy()->add('mpage', $pageOb['pagecount']);
                 $pages_last = 'navlastImg';
             }
         }
@@ -324,9 +324,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         }
 
         /* If user wants the mailbox to be refreshed, set time here. */
-        $refresh_url = $mailbox_imp_url->copy()->add('page', $pageOb['page']);
+        $refresh_url = $mailbox_imp_url->copy()->add('mpage', $pageOb['page']);
         if (isset($filter_url)) {
-            $filter_url->add('page', $pageOb['page']);
+            $filter_url->add('mpage', $pageOb['page']);
         }
 
         /* Determine if we are showing previews. */
@@ -587,7 +587,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
             $mboxactions = array();
             if ($showdelete['purge']) {
-                $mailbox_link = $mailbox_imp_url->copy()->add('page', $pageOb['page']);
+                $mailbox_link = $mailbox_imp_url->copy()->add('mpage', $pageOb['page']);
                 if (isset($deleted_prompt)) {
                     $mboxactions[] = Horde::widget(array(
                         'url' => $mailbox_link->copy()->add(array(

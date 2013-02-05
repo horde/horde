@@ -14,8 +14,8 @@
 <?php else: ?>
     <span class="iconImg <?php echo $this->pages_prev ?>"></span>
 <?php endif; ?>
-    <label for="page<?php echo $this->id ?>" class="hidden"><?php echo _("Page") ?>:</label>
-    <input type="text" id="page<?php echo $this->id ?>" name="page" value="<?php echo $this->escape($this->page_val) ?>" size="<?php echo $this->page_size ?>" />
+    <label for="mpage<?php echo $this->id ?>" class="hidden"><?php echo _("Page") ?>:</label>
+    <input type="text" id="mpage<?php echo $this->id ?>" name="mpage" value="<?php echo $this->escape($this->page_val) ?>" size="<?php echo $this->page_size ?>" />
 <?php if ($this->url_next): ?>
     <a href="<?php echo $this->url_next ?>" title="<?php echo _("Next Page") ?>"><span class="iconImg <?php echo $this->pages_next ?>"></span></a>
 <?php else: ?>
