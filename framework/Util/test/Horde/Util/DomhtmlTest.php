@@ -30,12 +30,22 @@ EOT;
             trim($dom->returnBody())
         );
 
+        $this->assertEquals(
+            'iso-8859-1',
+            $dom->getCharset()
+        );
+
         /* Test auto-detect. */
         $dom = new Horde_Domhtml(quoted_printable_decode($text));
 
         $this->assertEquals(
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-1'),
             trim($dom->returnBody())
+        );
+
+        $this->assertEquals(
+            'iso-8859-1',
+            $dom->getCharset()
         );
     }
 
@@ -50,12 +60,24 @@ EOT;
             trim($dom->returnBody())
         );
 
+        /* iso-8859-15 is not recognized, so UTF-8 is used internally. */
+        $this->assertEquals(
+            'UTF-8',
+            $dom->getCharset()
+        );
+
         /* Test auto-detect. */
         $dom = new Horde_Domhtml(quoted_printable_decode($text));
 
         $this->assertEquals(
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-15'),
             trim($dom->returnBody())
+        );
+
+        /* iso-8859-1 is used for auto-detection. */
+        $this->assertEquals(
+            'iso-8859-1',
+            $dom->getCharset()
         );
     }
 
@@ -68,6 +90,11 @@ EOT;
         $this->assertEquals(
             Horde_String::convertCharset($expected, 'UTF-8', 'iso-8859-2'),
             trim($dom->returnBody())
+        );
+
+        $this->assertEquals(
+            'UTF-8',
+            $dom->getCharset()
         );
     }
 
@@ -115,6 +142,11 @@ EOT;
                 );
             }
         }
+
+        $this->assertEquals(
+            'UTF-8',
+            $dom->getCharset()
+        );
     }
 
     public function testHeadGeneration()
@@ -123,6 +155,11 @@ EOT;
         $head = $dom->getHead();
 
         $this->assertNull($head->previousSibling);
+
+        $this->assertEquals(
+            'iso-8859-1',
+            $dom->getCharset()
+        );
     }
 
 }

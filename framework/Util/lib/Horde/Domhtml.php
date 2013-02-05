@@ -149,6 +149,20 @@ class Horde_Domhtml implements Iterator
         return Horde_String::convertCharset($text, 'UTF-8', $this->_origCharset);
     }
 
+    /**
+     * Get the charset of the DOM data.
+     *
+     * @since 2.1.0
+     *
+     * @return string  Charset of DOM data.
+     */
+    public function getCharset()
+    {
+        return $this->dom->encoding
+            ? $this->dom->encoding
+            : ($this->_xmlencoding ? 'UTF-8' : $this->_origCharset);
+    }
+
     /* Iterator methods. */
 
     /**
