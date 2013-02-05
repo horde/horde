@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
 
-            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;
@@ -193,7 +193,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_processDomDocument($data->dom);
         }
 
-        $data = $data->returnHtml();
+        if ($inline) {
+            $charset = 'UTF-8';
+            $data = $data->returnHtml(array(
+                'charset' => $charset,
+                'metacharset' => true
+            ));
+        } else {
+            $charset = $this->_mimepart->getCharset();
+            $data = $data->returnHtml();
+        }
 
         $status = array();
         if ($this->_phishWarn) {
@@ -214,7 +223,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
-                'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
+                'type' => 'text/plain; charset=' . $charset
             );
         }
 
@@ -250,7 +259,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         return array(
             'data' => $data,
             'status' => $status,
-            'type' => $this->_mimepart->getType(true)
+            'type' => 'text/html; charset=' . $charset
         );
     }
 
