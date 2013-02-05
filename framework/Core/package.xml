@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2741,7 +2741,7 @@
    <date>2013-02-02</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
    </notes>
   </release>
  </changelog>
