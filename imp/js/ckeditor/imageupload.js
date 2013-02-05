@@ -40,6 +40,17 @@ document.observe('dom:loaded', function() {
                 },
                 target: 'info:txtUrl'
             };
+
+            definition.getContents('info').add({
+                align: 'center',
+                id: 'uploadshortcut',
+                label: ev.editor.lang.common.upload,
+                onClick: function() {
+                    definition.dialog.selectPage('Upload');
+                },
+                style: 'display:inline-block;margin-top:10px;',
+                type: 'button'
+            }, 'browse');
         }
     });
 });
