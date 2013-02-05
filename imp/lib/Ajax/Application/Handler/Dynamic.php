@@ -929,6 +929,58 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
+     * AJAX action: Add an attachment to a compose message (from the ckeditor
+     * plugin).
+     *
+     * Variables used:
+     *   - CKEditorFuncNum: (integer) CKEditor function identifier to call
+     *                      when returning URL data
+     *   - composeCache: (string) The IMP_Compose cache identifier.
+     *
+     * @return Horde_Core_Ajax_Response_Raw  text/html return containing
+     *                                       javascript code to update the
+     *                                       URL parameter in CKEditor.
+     */
+    public function addAttachmentCkeditor()
+    {
+        global $injector;
+
+        $data = $url = null;
+
+        if (isset($this->vars->composeCache)) {
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
+
+            if ($imp_compose->canUploadAttachment()) {
+                try {
+                    $atc_ob = $imp_compose->addAttachmentFromUpload($this->vars, 'upload');
+                    $atc_ob->related = true;
+
+                    $data = array(
+                        IMP_Compose::RELATED_ATTR => 'src',
+                        IMP_Compose::RELATED_ATTR_ID => 1
+                    );
+                    $url = strval($atc_ob->viewUrl($imp_compose));
+                } catch (IMP_Compose_Exception $e) {
+                    $data = $e->getMessage();
+                }
+            } else {
+                $data = _("Uploading attachments has been disabled on this server.");
+            }
+        } else {
+            $data = _("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration.");
+        }
+
+        return new Horde_Core_Ajax_Response_Raw(
+            '<html>' .
+                Horde::wrapInlineScript(array(
+                    'window.parent.CKEDITOR.tools.callFunction(' . $this->vars->CKEditorFuncNum . ',' . Horde_Serialize::serialize($url, Horde_Serialize::JSON) . ',' . Horde_Serialize::serialize($data, Horde_Serialize::JSON) . ')'
+                )) .
+            '</html>',
+            'text/html'
+        );
+    }
+
+    /**
      * AJAX action: Convert text to HTML (compose data).
      *
      * Variables used:

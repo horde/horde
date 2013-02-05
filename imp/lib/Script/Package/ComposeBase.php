@@ -27,11 +27,15 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
         if ($session->get('imp', 'rteavail')) {
             switch ($registry->getView()) {
             case $registry::VIEW_DYNAMIC:
+                $this->_files[] = new Horde_Script_File_JsDir('ckeditor/imageupload.js', 'imp');
+
                 $plugin = 'pasteattachment';
+                $upload_url = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachmentCkeditor';
                 break;
 
             default:
                 $plugin = 'pasteignore';
+                $upload_url = '';
                 break;
             }
 
@@ -40,8 +44,10 @@ class IMP_Script_Package_ComposeBase extends Horde_Script_Package
                 'CKEDITOR.on("loaded", function(e) {' .
                   'CKEDITOR.plugins.addExternal("' . $plugin . '", "' . $js->url->url . '", "");' .
                   'CKEDITOR.config.extraPlugins = CKEDITOR.config.extraPlugins.split(",").concat("' . $plugin . '").join(",");' .
+                  'CKEDITOR.config.filebrowserImageUploadUrl = "' . $upload_url . '";' .
                 '});'
             ), true);
+
         }
     }
 

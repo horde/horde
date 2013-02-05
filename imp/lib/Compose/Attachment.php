@@ -141,7 +141,7 @@ class IMP_Compose_Attachment implements Serializable
      */
     public function viewUrl(IMP_Compose $ob)
     {
-        return Horde::url('view.php')->add(array(
+        return Horde::url('view.php', true)->add(array(
             'actionID' => 'compose_attach_preview',
             'composeCache' => strval($ob),
             'id' => $this->id
