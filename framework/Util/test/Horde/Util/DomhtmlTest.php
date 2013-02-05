@@ -117,4 +117,12 @@ EOT;
         }
     }
 
+    public function testHeadGeneration()
+    {
+        $dom = new Horde_Domhtml('<div>foo</div>');
+        $head = $dom->getHead();
+
+        $this->assertNull($head->previousSibling);
+    }
+
 }

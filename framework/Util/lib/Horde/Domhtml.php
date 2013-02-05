@@ -88,6 +88,11 @@ class Horde_Domhtml implements Iterator
         }
 
         $this->dom = $doc;
+
+        /* Sanity checking: make sure we have the documentElement object. */
+        if (!$this->dom->documentElement) {
+            $this->dom->appendChild($this->dom->createElement('html'));
+        }
     }
 
     /**
@@ -103,7 +108,7 @@ class Horde_Domhtml implements Iterator
         }
 
         $headelt = $this->dom->createElement('head');
-        $this->dom->appendChild($headelt);
+        $this->dom->documentElement->insertBefore($headelt, $this->dom->documentElement->firstChild);
 
         return $headelt;
     }

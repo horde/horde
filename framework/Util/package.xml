@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -572,7 +572,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
    </notes>
   </release>
  </changelog>
