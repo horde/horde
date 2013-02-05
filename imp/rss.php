@@ -17,11 +17,13 @@ require_once __DIR__ . '/lib/Application.php';
 try {
     Horde_Registry::appInit('imp', array('authentication' => 'throw'));
 } catch (Horde_Exception $e) {
-    //!$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null)))) {
-    header('WWW-Authenticate: Basic realm="IMP RSS Interface"');
-    header('HTTP/1.0 401 Unauthorized');
-    echo '401 Unauthorized';
-    exit;
+    $auth = $injector->getInstance('Horde_Core_Factory_Auth')->create('imp');
+    if (!$auth->authenticate($_SERVER['PHP_AUTH_USER'], array('password' => isset($_SERVER['PHP_AUTH_PW']) ? $_SERVER['PHP_AUTH_PW'] : null))) {
+        header('WWW-Authenticate: Basic realm="IMP RSS Interface"');
+        header('HTTP/1.0 401 Unauthorized');
+        echo '401 Unauthorized';
+        exit;
+    }
 }
 
 $items = array();
