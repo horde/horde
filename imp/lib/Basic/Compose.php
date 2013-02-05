@@ -167,7 +167,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             /* Update the attachment information. */
             foreach ($imp_compose as $key => $val) {
                 if (!in_array($key, $deleteList)) {
-                    $val['part']->setDescription($this->vars->filter('file_description_' . $key));
+                    $val->getPart()->setDescription($this->vars->filter('file_description_' . $key));
                     $imp_compose[$key] = $val;
                 }
             }
@@ -175,7 +175,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             /* Delete attachments. */
             foreach ($deleteList as $val) {
                 if ($notify) {
-                    $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]['part']->getName(true))), 'horde.success');
+                    $notification->push(sprintf(_("Deleted attachment \"%s\"."), $imp_compose[$val]->getPart()->getName(true)), 'horde.success');
                 }
                 unset($imp_compose[$val]);
             }
