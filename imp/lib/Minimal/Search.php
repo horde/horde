@@ -44,7 +44,7 @@ class IMP_Minimal_Search extends IMP_Minimal_Base
     {
         $opts = array_merge(array('mailbox' => 'INBOX'), $opts);
 
-        return IMP_Mailbox::get($opts['mailbox'])->url('minimal.php')->add('page', 'search');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal')->add('page', 'search');
     }
 
 }

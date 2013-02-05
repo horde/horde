@@ -231,7 +231,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
     {
         $opts = array_merge(array('mailbox' => 'INBOX'), $opts);
 
-        return IMP_Mailbox::get($opts['mailbox'])->url('minimal.php')->add('page', 'mailbox');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal')->add('page', 'mailbox');
     }
 
 }

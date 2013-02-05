@@ -65,7 +65,7 @@ class IMP_Minimal_Messagepart extends IMP_Minimal_Base
      */
     static public function url(array $opts = array())
     {
-        return IMP_Mailbox::get($opts['mailbox'])->url('minimal.php', $opts['buid'])->add('page', 'messagepart');
+        return IMP_Mailbox::get($opts['mailbox'])->url('minimal', $opts['buid'])->add('page', 'messagepart');
     }
 
 }
