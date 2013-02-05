@@ -96,4 +96,4 @@ $view->url = Horde::url($mailbox->url('message'), true, array('append_session' =
 $view->xsl = Horde_Themes::getFeedXsl();
 
 $browser->downloadHeaders('mailbox.rss', 'text/xml', true);
-echo $view->render('mailbox.rss');
+echo $view->render('mailbox.rss.php');
