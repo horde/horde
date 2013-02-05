@@ -52,6 +52,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     const HTML_BLOCKQUOTE = '<blockquote type="cite" style="border-left:2px solid blue;margin-left:2px;padding-left:12px;">';
 
     /**
+     * Attachment ID counter.
+     *
+     * @var integer
+     */
+    public $atcId = 0;
+
+    /**
      * Mark as changed for purposes of storing in the session.
      * Either empty, 'changed', or 'deleted'.
      *
@@ -72,13 +79,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @var array
      */
     protected $_atc = array();
-
-    /**
-     * Attachment ID counter.
-     *
-     * @var integer
-     */
-    protected $_atcId = 0;
 
     /**
      * The cache ID used to store object in session.
@@ -2768,13 +2768,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        $atc_ob = $this->addRelatedAttachment(
+        return $this->addRelatedAttachment(
             $this->addAttachmentFromPart($this->getMetadata('related_contents')->getMIMEPart($id)),
             $node,
             $attribute
-        );
-
-        return $atc_ob->viewUrl($this);
+        )->viewUrl();
     }
 
     /**
@@ -2912,7 +2910,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $atc->setHeaderCharset('UTF-8');
         }
 
-        $atc_ob = new IMP_Compose_Attachment(++$this->_atcId, $atc, $atc_file);
+        $atc_ob = new IMP_Compose_Attachment($this, $atc, $atc_file);
 
         $this->_atc[$atc_ob->id] = $atc_ob;
         $this->_size += $bytes;

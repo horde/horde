@@ -47,6 +47,13 @@ class IMP_Compose_Attachment implements Serializable
     public $vfsname = null;
 
     /**
+     * Compose object cache ID.
+     *
+     * @var string
+     */
+    protected $_composeCache;
+
+    /**
      * Does the part contain the attachment contents?
      *
      * @var boolean
@@ -70,13 +77,15 @@ class IMP_Compose_Attachment implements Serializable
     /**
      * Constructor.
      *
-     * @param integer $id            The attachment ID.
+     * @param IMP_Compose $ob        Compose object.
      * @param Horde_Mime_Part $part  MIME part object.
      * @param string $tmp_file       Temporary filename containing the data.
      */
-    public function __construct($id, Horde_Mime_Part $part, $tmp_file)
+    public function __construct(IMP_Compose $ob, Horde_Mime_Part $part,
+                                $tmp_file)
     {
-        $this->id = $id;
+        $this->id = ++$ob->atcId;
+        $this->_composeCache = strval($ob);
         $this->_part = $part;
         $this->_tmpfile = $tmp_file;
     }
@@ -135,15 +144,13 @@ class IMP_Compose_Attachment implements Serializable
     /**
      * Get a URL of the data.
      *
-     * @param IMP_Compose $ob  The compose object containing this attachment.
-     *
      * @return Horde_Url  URL to display the attachment data.
      */
-    public function viewUrl(IMP_Compose $ob)
+    public function viewUrl()
     {
         return Horde::url('view.php', true)->add(array(
             'actionID' => 'compose_attach_preview',
-            'composeCache' => strval($ob),
+            'composeCache' => strval($GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->_composeCache)),
             'id' => $this->id
         ));
     }
@@ -174,6 +181,7 @@ class IMP_Compose_Attachment implements Serializable
         }
 
         return serialize(array(
+            'c' => $this->_composeCache,
             'i' => $this->id,
             'p' => $this->_part,
             'r' => $this->related,
@@ -187,6 +195,7 @@ class IMP_Compose_Attachment implements Serializable
     {
         $data = @unserialize($data);
 
+        $this->_composeCache = $data['c'];
         $this->id = $data['i'];
         $this->_part = $data['p'];
         $this->related = !empty($data['r']);

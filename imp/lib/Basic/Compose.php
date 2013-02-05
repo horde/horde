@@ -1029,7 +1029,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                         if (empty($entry['fwdattach']) &&
                             ($type != 'application/octet-stream')) {
-                            $entry['name'] = $data->viewUrl($imp_compose)->link(array(
+                            $entry['name'] = $data->viewUrl()->link(array(
                                 'class' => 'link',
                                 'target' => 'compose_preview_window',
                                 'title' => _("Preview")

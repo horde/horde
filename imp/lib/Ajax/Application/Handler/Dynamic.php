@@ -899,7 +899,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                     if ($this->vars->file_upload_dataurl) {
                         $dom_doc = new DOMDocument();
                         $img = $dom_doc->createElement('img');
-                        $img->setAttribute('src', strval($atc_ob->viewUrl($imp_compose)->setRaw(true)));
+                        $img->setAttribute('src', strval($atc_ob->viewUrl()->setRaw(true)));
                         $imp_compose->addRelatedAttachment($atc_ob, $img, 'src');
 
                         /* Complicated to grab single element from a
@@ -959,7 +959,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
                         IMP_Compose::RELATED_ATTR => 'src',
                         IMP_Compose::RELATED_ATTR_ID => $atc_ob->id
                     );
-                    $url = strval($atc_ob->viewUrl($imp_compose));
+                    $url = strval($atc_ob->viewUrl());
                 } catch (IMP_Compose_Exception $e) {
                     $data = $e->getMessage();
                 }
