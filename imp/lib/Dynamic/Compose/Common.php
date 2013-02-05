@@ -28,6 +28,7 @@ class IMP_Dynamic_Compose_Common
      * @param IMP_Dynamic_Base $base  Base dynamic view object.
      * @param array $args             Configuration parameters:
      *   - redirect: (string) Display the redirect interface?
+     *   - resume: (boolean) Are we resuming a saved draft?
      *   - show_editor: (boolean) Show the HTML editor?
      *   - template: (string) Display the edit template interface?
      *
@@ -125,6 +126,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
+        $view->resume = !empty($args['resume']);
         $view->is_template = !empty($args['template']);
         $view->read_receipt_set = (strcasecmp($prefs->getValue('request_mdn'), 'always') === 0);
         $view->user = $registry->getAuth();

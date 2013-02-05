@@ -43,7 +43,7 @@ var DimpCompose = {
         return p;
     },
 
-    confirmCancel: function()
+    confirmCancel: function(discard)
     {
         if (window.confirm(DimpCore.text.compose_cancel)) {
             if (!DimpCore.conf.qreply &&
@@ -51,7 +51,9 @@ var DimpCompose = {
                 HordeCore.base.focus();
             }
 
-            DimpCore.doAction('cancelCompose', this.actionParams({}));
+            DimpCore.doAction('cancelCompose', this.actionParams({
+                discard: Number(discard)
+            }));
             this.updateDraftsMailbox();
             return this.closeCompose();
         }
@@ -889,6 +891,10 @@ var DimpCompose = {
         case 'compose_close':
         case 'redirect_close':
             this.confirmCancel();
+            break;
+
+        case 'discard_button':
+            this.confirmCancel(true);
             break;
 
         case 'draft_button':

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
 * [mms] Allow drag &amp; drop/pasting of images into the HTML editor.
@@ -2970,6 +2971,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add discard draft option to draft compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
 * [mms] Allow drag &amp; drop/pasting of images into the HTML editor.

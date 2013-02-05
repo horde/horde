@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Add discard draft option to compose page allowing the user to cancel
+      composition and permanently delete the original draft (Request #12017).
 [mms] Minimal menu entries are now accessible via numbered accesskeys (Request
       #5847).
 [mms] Add image upload feature to the HTML editor image plugin.

@@ -27,6 +27,9 @@
     <?php echo $this->submitTag(_("Save Template"), array('name' => 'btn_save_template')) ?>
 <?php endif; ?>
     <?php echo $this->submitTag(_("Cancel Message"), array('class' => 'horde-cancel', 'name' => 'btn_cancel_compose', 'title' => _("Cancel Message"))) ?>
+<?php if ($this->resume): ?>
+    <?php echo $this->submitTag(_("Discard Draft"), array('class' => 'horde-cancel', 'name' => 'btn_discard_compose', 'title' => _("Discard Draft"))) ?>
+<?php endif; ?>
    </td>
   </tr>
 

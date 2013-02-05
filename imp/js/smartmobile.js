@@ -68,7 +68,9 @@ var ImpMobile = {
             break;
 
         case 'compose-cancel':
+        case 'compose-discard':
             HordeMobile.doAction('cancelCompose', {
+                discard: Number(view == 'compose-discard'),
                 imp_compose: $('#imp-compose-cache').val()
             });
             ImpMobile.closeCompose();
@@ -752,7 +754,7 @@ var ImpMobile = {
         }
 
         $('#imp-compose-form').show();
-        $('#imp-redirect-form').hide();
+        $('#compose :jqmData(role=footer) a[href$="compose-discard"],#imp-redirect-form').hide();
 
         switch (purl.params.type) {
         case 'reply_auto':
@@ -774,6 +776,10 @@ var ImpMobile = {
             break;
 
         case 'resume':
+            $('#compose :jqmData(role=footer) a[href$="compose-discard"]').show();
+            $('#compose-discard').show();
+            // Fall-through
+
         case 'template':
             func = 'getResumeData';
             cache = '#imp-compose-cache';

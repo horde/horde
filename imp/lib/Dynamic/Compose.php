@@ -181,6 +181,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 case 'resume':
                     $result = $imp_compose->resumeDraft($this->indices);
+                    $compose_opts['resume'] = true;
                     break;
 
                 case 'template':

@@ -52,7 +52,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $header = array();
         $msg = '';
 
-        $redirect = $showmenu = $spellcheck = false;
+        $redirect = $resume = $showmenu = $spellcheck = false;
         $oldrtemode = $rtemode = null;
 
         /* Set the current identity. */
@@ -246,6 +246,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 switch ($this->vars->actionID) {
                 case 'draft':
                     $result = $imp_compose->resumeDraft($this->indices);
+                    $resume = true;
                     break;
 
                 case 'editasnew':
@@ -585,7 +586,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             break;
 
         case 'cancel_compose':
-            $imp_compose->destroy('cancel');
+        case 'discard_compose':
+            $imp_compose->destroy($this->vars->actionID == 'cancel_compose' ? 'cancel' : 'discard');
             if ($isPopup) {
                 echo Horde::wrapInlineScript(array('window.close();'));
             } else {
@@ -617,25 +619,22 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
         $max_attach = $imp_compose->additionalAttachmentsAllowed();
 
-        /* Get the URL to use for the cancel action. */
-        $cancel_url = '';
+        /* Get the URL to use for the cancel action. If the attachments cache
+         * is not empty, or this is the resume drafts page, we must reload
+         * this page and delete the attachments and/or the draft message. */
         if ($isPopup) {
-            /* If the attachments cache is not empty, we must reload this page
-             * and delete the attachments. */
-            if (count($imp_compose)) {
+            if ($resume || count($imp_compose)) {
                 $cancel_url = self::url()->setRaw(true)->add(array(
-                    'actionID' => 'cancel_compose',
                     'compose_requestToken' => $horde_token->get('imp.compose'),
                     'composeCache' => $composeCacheID,
                     'popup' => 1
                 ));
+            } else {
+                $cancel_url = '';
             }
         } else {
-            /* If the attachments cache is not empty, we must reload this page
-             * and delete the attachments. */
-            if (count($imp_compose)) {
+            if ($resume || count($imp_compose)) {
                 $cancel_url = $this->_mailboxReturnUrl(self::url()->setRaw(true))->add(array(
-                    'actionID' => 'cancel_compose',
                     'compose_requestToken' => $horde_token->get('imp.compose'),
                     'composeCache' => $composeCacheID
                 ));
@@ -661,7 +660,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
         /* If this is the first page load for this compose item, add auto BCC
          * addresses. */
-        if (!$reload && ($this->vars->actionID != 'draft')) {
+        if (!$reload && !$resume) {
             $header['bcc'] = strval($identity->getBccAddresses());
         }
 
@@ -786,6 +785,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 $view->send_msg = true;
                 $view->save_draft = ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$readonly_drafts);
             }
+
+            $view->resume = $resume;
 
             $view->di_locked = $prefs->isLocked('default_identity');
             if ($view->di_locked) {

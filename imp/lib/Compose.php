@@ -131,25 +131,31 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * Destroys an IMP_Compose instance.
      *
      * @param string $action  The action performed to cause the end of this
-     *                        instance.  Either 'cancel', 'save_draft', or
-     *                        'send'.
+     *                        instance.  Either 'cancel', 'discard',
+     *                        'save_draft', or 'send'.
      */
     public function destroy($action)
     {
         switch ($action) {
+        case 'discard':
+        case 'send':
+            /* Delete the draft. */
+            $GLOBALS['injector']->getInstance('IMP_Message')->delete(
+                new IMP_Indices($this->getMetadata('draft_uid')),
+                array('nuke' => true)
+            );
+            break;
+
         case 'save_draft':
             /* Don't delete any drafts. */
             $this->changed = 'deleted';
             return;
 
         case 'cancel':
-        case 'send':
-            /* Delete the draft. */
-            $uids = new IMP_Indices($this->getMetadata('draft_uid'));
+        default:
+            // No-op
             break;
         }
-
-        $GLOBALS['injector']->getInstance('IMP_Message')->delete($uids, array('nuke' => true));
 
         $this->deleteAllAttachments();
 

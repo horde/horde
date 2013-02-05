@@ -21,22 +21,27 @@
 <?php if ($this->compose_enable): ?>
 <?php if (!$this->is_template): ?>
   <ul>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('htmltitle' => _("Accesskey Ctrl-Enter"), 'icon' => 'Forward', 'id' => 'send_button', 'title' => _("Send"))) ?>
+   </li>
 <?php endif; ?>
 <?php endif; ?>
 <?php if ($this->is_template): ?>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Templates', 'id' => 'template_button', 'title' => _("Save Template"))) ?>
+   </li>
 <?php else: ?>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
-  </li>
-  <li class="horde-icon">
-   <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
-  </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Spellcheck', 'id' => 'spellcheck', 'title' => _("Check Spelling"))) ?>
+   </li>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Drafts', 'id' => 'draft_button', 'title' => _("Save as Draft"))) ?>
+   </li>
+<?php endif; ?>
+<?php if ($this->resume): ?>
+   <li class="horde-icon">
+    <?php echo $this->actionButton(array('icon' => 'Delete', 'id' => 'discard_button', 'title' => _("Discard Draft"))) ?>
+   </li>
 <?php endif; ?>
   </ul>
  </div>

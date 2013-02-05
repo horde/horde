@@ -124,6 +124,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     $result = $imp_compose->resumeDraft($this->indices, array(
                         'format' => 'text'
                     ));
+                    $this->view->resume = true;
                     break;
 
                 case 'en':
@@ -326,6 +327,11 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
 
         case _("Cancel"):
             $imp_compose->destroy('cancel');
+            IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
+            exit;
+
+        case _("Discard Draft"):
+            $imp_compose->destroy('discard');
             IMP_Minimal_Mailbox::url(array('mailbox' => $this->indices->mailbox))->redirect();
             exit;
         }

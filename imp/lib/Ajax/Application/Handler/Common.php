@@ -439,13 +439,14 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * AJAX action: Cancel compose.
      *
      * Variables used:
+     *   - discard: (boolean) If true, discard draft.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *
      * @return boolean  True.
      */
     public function cancelCompose()
     {
-        $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose)->destroy('cancel');
+        $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose)->destroy($this->vars->discard ? 'discard' : 'cancel');
         return true;
     }
 

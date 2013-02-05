@@ -15,20 +15,21 @@ var ImpCompose = {
     display_unload_warning: true,
     seed: 3,
 
-    confirmCancel: function(e)
+    confirmCancel: function(discard, e)
     {
         e.stop();
 
         if (window.confirm(this.text.cancel)) {
             this.display_unload_warning = false;
+
             if (this.popup) {
                 if (this.cancel_url) {
-                    self.location = this.cancel_url;
+                    self.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
                 } else {
                     self.close();
                 }
             } else {
-                window.location = this.cancel_url;
+                window.location = this.cancel_url + '&actionID=' + (discard ? 'discard_compose' : 'cancel_compose');
             }
         }
     },
@@ -246,7 +247,8 @@ var ImpCompose = {
                     break;
 
                 case 'btn_cancel_compose':
-                    this.confirmCancel(e.memo);
+                case 'btn_discard_compose':
+                    this.confirmCancel(name == 'btn_discard_compose', e.memo);
                     break;
                 }
             }
