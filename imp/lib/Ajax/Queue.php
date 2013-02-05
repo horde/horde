@@ -243,7 +243,8 @@ class IMP_Ajax_Queue
                 'name' => $mime->getName(true),
                 'num' => $val->id,
                 'type' => $type,
-                'size' => $mime->getSize()
+                'size' => $mime->getSize(),
+                'url' => strval($val->viewUrl()->setRaw(true))
             );
         }
     }

@@ -1029,12 +1029,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                         if (empty($entry['fwdattach']) &&
                             ($type != 'application/octet-stream')) {
-                            $preview_url = Horde::url('view.php')->add(array(
-                                'actionID' => 'compose_attach_preview',
-                                'composeCache' => $composeCacheID,
-                                'id' => $data->id
-                            ));
-                            $entry['name'] = $preview_url->link(array(
+                            $entry['name'] = $data->viewUrl($imp_compose)->link(array(
                                 'class' => 'link',
                                 'target' => 'compose_preview_window',
                                 'title' => _("Preview")

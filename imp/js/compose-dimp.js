@@ -686,15 +686,16 @@ var DimpCompose = {
 
     // opts = (Object)
     //   fwdattach: (integer) Attachment is forwarded message
-    //   icon: (string) Data url of icon data.
+    //   icon: (string) Data url of icon data
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
     //   size: (integer) Size, in KB
     //   type: (string) MIME type
+    //   url: (string) Data view URL
     addAttach: function(opts)
     {
         var canvas, img,
-            li = new Element('LI').store('atc_id', opts.num),
+            li = new Element('LI').store('atc_url', opts.url),
             span = new Element('SPAN').insert(opts.name.escapeHTML());
 
         if (opts.icon) {
@@ -872,7 +873,7 @@ var DimpCompose = {
             return;
         }
 
-        var atc_num, tmp;
+        var tmp;
 
         switch (e.element().readAttribute('id')) {
         case 'togglebcc':
@@ -943,14 +944,7 @@ var DimpCompose = {
             if (elt.match('SPAN.remove')) {
                 this.removeAttach([ elt.up() ]);
             } else if (elt.match('SPAN.attachName')) {
-                atc_num = elt.up('LI').retrieve('atc_id');
-                HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
-                    actionID: 'compose_attach_preview',
-                    composeCache: $F(this.getCacheElt()),
-                    id: atc_num
-                }, {
-                    name: $F(this.getCacheElt()) + '|' + atc_num
-                });
+                HordeCore.popupWindow(elt.up('LI').retrieve('atc_url'));
             }
             break;
 
