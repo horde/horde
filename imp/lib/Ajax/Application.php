@@ -372,7 +372,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         } elseif (($indices instanceof IMP_Indices_Mailbox) &&
                   ($force || $this->indices->mailbox->hideDeletedMsgs(true))) {
             $vp = $this->viewPortOb();
-            $vp->disappear = $indices->buids->toArray();
+            $vp->disappear = $indices->buids[strval($this->indices->mailbox)];
             $this->addTask('viewport', $vp);
         }
 
