@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Minimal menu entries are now accessible via numbered accesskeys (Request
+      #5847).
 [mms] Add image upload feature to the HTML editor image plugin.
 [mms] Allow drag & drop/pasting of images into the HTML editor.
 [mms] All basic view pages are now routed through the basic.php endpoint.

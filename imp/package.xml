@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Minimal menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
 * [mms] Allow drag &amp; drop/pasting of images into the HTML editor.
 * [mms] All basic view pages are now routed through the basic.php endpoint.
@@ -2968,6 +2969,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Minimal menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
 * [mms] Allow drag &amp; drop/pasting of images into the HTML editor.
 * [mms] All basic view pages are now routed through the basic.php endpoint.
