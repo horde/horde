@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added &apos;charset&apos; and &apos;metacharset&apos; parameters to returnHtml().
 * [mms] Added Horde_Domhtml#getCharset() to get best-guess charset of current encoding within the DOM object.
 * [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
  </notes>
@@ -573,6 +574,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added &apos;charset&apos; and &apos;metacharset&apos; parameters to returnHtml().
 * [mms] Added Horde_Domhtml#getCharset() to get best-guess charset of current encoding within the DOM object.
 * [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
    </notes>

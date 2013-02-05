@@ -124,11 +124,36 @@ class Horde_Domhtml implements Iterator
     /**
      * Returns the full HTML text in the original charset.
      *
+     * @param array $opts  Additional options: (since 2.1.0)
+     *   - charset: (string) Return using this charset. If set but empty, will
+     *              return as currently stored in the DOM object.
+     *   - metacharset: (boolean) If true, will add a META tag containing the
+     *                  charset information.
+     *
      * @return string  HTML text.
      */
-    public function returnHtml()
+    public function returnHtml(array $opts = array())
     {
-        $text = Horde_String::convertCharset($this->dom->saveHTML(), $this->dom->encoding || $this->_origCharset, $this->_origCharset);
+        $curr_charset = $this->getCharset();
+        $charset = array_key_exists('charset', $opts)
+            ? (empty($opts['charset']) ? $curr_charset : $opts['charset'])
+            : $this->_origCharset;
+
+        if (empty($opts['metacharset'])) {
+            $text = $this->dom->saveHTML();
+        } else {
+            $meta = $this->dom->createElement('meta');
+            $meta->setAttribute('http-equiv', 'content-type');
+            $meta->setAttribute('content', 'text/html; charset=' . $charset);
+            $head = $this->getHead();
+            $head->insertBefore($meta, $head->firstChild);
+            $text = $this->dom->saveHTML();
+            $head->removeChild($meta);
+        }
+
+        if (strcasecmp($curr_charset, $charset) !== 0) {
+            $text = Horde_String::convertCharset(html_entity_decode($text, ENT_COMPAT | ENT_HTML401, $curr_charset), $curr_charset, $charset);
+        }
 
         if (!$this->_xmlencoding ||
             (($pos = strpos($text, $this->_xmlencoding)) === false)) {

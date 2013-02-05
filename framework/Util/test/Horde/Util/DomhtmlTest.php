@@ -162,4 +162,24 @@ EOT;
         );
     }
 
+    public function testReturnHtmlCharset()
+    {
+        $dom = new Horde_DomHtml('<html><body><div>préparer à vendre d’août</div></body></html>', 'UTF-8');
+
+        $this->assertNotEquals(
+            $dom->returnHtml(),
+            $dom->returnHtml(array('charset' => 'iso-8859-1'))
+        );
+    }
+
+    public function testReturnHtmlMetaCharset()
+    {
+        $dom = new Horde_Domhtml('<html><body><div>foo</div></body></html>', 'UTF-8');
+
+        $this->assertRegExp(
+            '/"text\/html; charset=utf-8"/',
+            $dom->returnHtml(array('metacharset' => true))
+        );
+    }
+
 }
