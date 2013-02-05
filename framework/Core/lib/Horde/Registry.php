@@ -506,6 +506,7 @@ class Horde_Registry
         $GLOBALS['page_output'] = $injector->getInstance('Horde_PageOutput');
 
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+        $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
         $GLOBALS['notification']->attach('status', null, $notify_class);
 
         register_shutdown_function(array($this, 'shutdown'));

@@ -37,6 +37,7 @@ v6.1.0-git
 v6.0.4
 ------
 
+[mms] Improved detection of charset in text/html message parts.
 [mms] Fix displaying dynamic compose screen when sent-mail preferences are
       locked (Bug #12009).
 [mms] Fix usage of textContent property on IE8 (Bug #12012).
