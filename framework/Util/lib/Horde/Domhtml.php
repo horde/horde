@@ -93,6 +93,14 @@ class Horde_Domhtml implements Iterator
         if (!$this->dom->documentElement) {
             $this->dom->appendChild($this->dom->createElement('html'));
         }
+
+        /* Remove old charset information. */
+        $xpath = new DOMXPath($this->dom);
+        $domlist = $xpath->query('/html/head/meta[@http-equiv="content-type"]');
+        for ($i = $domlist->length; $i > 0; --$i) {
+            $meta = $domlist->item($i - 1);
+            $meta->parentNode->removeChild($meta);
+        }
     }
 
     /**
