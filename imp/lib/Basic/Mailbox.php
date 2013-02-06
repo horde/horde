@@ -851,7 +851,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'date' => $imp_ui->getDate($ob['envelope']->date),
                 'preview' => '',
                 'status' => '',
-                'size' => $imp_ui->getSize($ob['size'])
+                'size' => IMP::sizeFormat($ob['size'])
             );
 
             /* Generate the target link. */

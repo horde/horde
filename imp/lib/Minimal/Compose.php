@@ -392,10 +392,8 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     if (count($imp_compose)) {
                         $atc_part = $imp_compose[0]->getPart();
                         $this->view->attach_name = $atc_part->getName();
+                        $this->view->attach_size = IMP::sizeFormat($atc_part->getBytes());
                         $this->view->attach_type = $atc_part->getType();
-
-                        $imp_ui_mbox = new IMP_Mailbox_Ui();
-                        $this->view->attach_size = $imp_ui_mbox->getSize($atc_part->getBytes());
                     }
                 }
             } catch (Horde_Exception_HookNotSet $e) {}

@@ -109,20 +109,6 @@ class IMP_Mailbox_Ui
     }
 
     /**
-     * Get size display information.
-     *
-     * @param integer $size  The size of the message, in bytes.
-     *
-     * @return string  A formatted size string.
-     */
-    public function getSize($size)
-    {
-        return ($size >= 1048576)
-            ? sprintf(_("%s MB"), IMP::numberFormat($size / 1048576, 1))
-            : sprintf(_("%s KB"), IMP::numberFormat($size / 1024, 0));
-    }
-
-    /**
      * Formats the date header.
      *
      * @param mixed $date      The date object. Either a DateTime object or a

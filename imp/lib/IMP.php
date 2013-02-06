@@ -382,6 +382,20 @@ class IMP
     }
 
     /**
+     * Get size display information.
+     *
+     * @param integer $size  The byte size of data.
+     *
+     * @return string  A formatted size string.
+     */
+    public function sizeFormat($size)
+    {
+        return ($size >= 1048576)
+            ? sprintf(_("%s MB"), self::numberFormat($size / 1048576, 1))
+            : sprintf(_("%s KB"), self::numberFormat($size / 1024, 0));
+    }
+
+    /**
      * Workaround broken number_format() prior to PHP 5.4.0.
      *
      * @param integer $number    Number to format.

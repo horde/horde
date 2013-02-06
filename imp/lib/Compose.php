@@ -2562,14 +2562,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $trailer .= ":\n";
 
         $i = 0;
-        $ui = new IMP_Mailbox_Ui();
 
         foreach ($this as $att) {
             if (!$att->related) {
                 $apart = $att->getPart();
                 $trailer .= "\n" . ++$i . '. ' .
                     $apart->getName(true) .
-                    ' (' . $ui->getSize($apart->getBytes()) . ')' .
+                    ' (' . IMP::sizeFormat($apart->getBytes()) . ')' .
                     ' [' . $apart->getType() . "]\n" .
                     sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($att)->getUrl()) . "\n";
             }
