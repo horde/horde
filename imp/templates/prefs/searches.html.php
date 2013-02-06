@@ -31,8 +31,6 @@
 <?php if ($v['edit']): ?>
     <a class="vfolderedit" href="<?php echo $v['edit'] ?>"><span class="iconImg editImg"></span></a>
     <a class="vfolderdelete" href="#"><span class="iconImg deleteImg"></span></a>
-<?php else: ?>
-    <?php echo _("No Actions Available") ?>
 <?php endif; ?>
    </td>
   </tr>
@@ -68,8 +66,6 @@
 <?php if ($v['edit']): ?>
     <a class="filteredit" href="<?php echo $v['edit'] ?>"><span class="iconImg editImg"></span></a>
     <a class="filterdelete" href="#"><span class="iconImg deleteImg"></span></a>
-<?php else: ?>
-    <?php echo _("No Actions Available") ?>
 <?php endif; ?>
    </td>
   </tr>
