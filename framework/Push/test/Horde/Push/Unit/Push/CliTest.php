@@ -30,11 +30,6 @@
 class Horde_Push_Unit_Push_CliTest
 extends Horde_Push_TestCase
 {
-    public function tearDown()
-    {
-        unset($_SERVER);
-    }
-
     public function testEmpty()
     {
         ob_start();

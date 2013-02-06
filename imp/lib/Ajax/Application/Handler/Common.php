@@ -126,7 +126,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function moveMessages()
     {
-        if ((!$this->vars->mboxto && !$this->vars->newmbox) ||
+        if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($this->_base->indices)) {
             return false;
         }
@@ -137,7 +137,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             return false;
         }
 
-        if ($this->vars->newmbox) {
+        if (isset($this->vars->newmbox)) {
             $mbox = IMP_Mailbox::prefFrom($this->vars->newmbox);
             $newMbox = true;
         } else {
@@ -173,12 +173,12 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function copyMessages()
     {
-        if ((!$this->vars->mboxto && !$this->vars->newmbox) ||
+        if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($this->_base->indices)) {
             return false;
         }
 
-        if ($this->vars->newmbox) {
+        if (isset($this->vars->newmbox)) {
             $mbox = IMP_Mailbox::prefFrom($this->vars->newmbox);
             $newMbox = true;
         } else {

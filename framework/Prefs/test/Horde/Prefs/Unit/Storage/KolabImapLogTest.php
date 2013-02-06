@@ -43,7 +43,6 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
                 'nobody',
                 array(
                     'kolab' => $this->_createDefaultStorage(),
-                    'logger' => $this->getLogger()
                 )
             )
         );
@@ -58,7 +57,6 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
                 'nobody',
                 array(
                     'kolab' => $this->_createStorage(),
-                    'logger' => $this->getLogger()
                 )
             )
         );
@@ -75,7 +73,6 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
                     'test',
                     array(
                         'kolab' => $this->_createStorage(),
-                        'logger' => $this->getLogger()
                     )
                 ),
                 new Horde_Prefs_Stub_Storage('test')
@@ -120,6 +117,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
                     'data' => array('queryset' => 'horde'),
                 ),
                 'cache'  => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+                'logger' => $this->getLogger()
             )
         );
         return $factory->create();
