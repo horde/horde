@@ -49,6 +49,13 @@ second argument ($mode). If the current view mode is needed, it can be
 obtained via a call to $GLOBALS['registry']->getView().
 
 
+Linked Attachments
+------------------
+
+Due to the way attachments are stored in the VFS backend, attachments sent
+using previous versions of IMP prior to 6.1 are no longer accessible.
+
+
 MIME Viewer Options (mime_drivers.php)
 --------------------------------------
 

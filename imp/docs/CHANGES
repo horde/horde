@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Rewritten/improved linked attachment code.
 [mms] Add discard draft option to compose page allowing the user to cancel
       composition and permanently delete the original draft (Request #12017).
 [mms] Minimal view menu entries are now accessible via numbered accesskeys

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-04</date>
- <time>18:47:14</time>
+ <date>2013-02-05</date>
+ <time>23:24:55</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Rewritten/improved linked attachment code.
 * [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal view menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
@@ -159,6 +160,7 @@
     <dir name="Compose">
      <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
+     <file name="LinkedAttachment.php" role="horde" />
      <file name="References.php" role="horde" />
      <file name="Ui.php" role="horde" />
      <file name="View.php" role="horde" />
@@ -1449,6 +1451,7 @@
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Attachment.php" name="lib/Compose/Attachment.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/LinkedAttachment.php" name="lib/Compose/LinkedAttachment.php" />
    <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
    <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
@@ -2971,7 +2974,8 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Add discard draft option to draft compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
+* [mms] Rewritten/improved linked attachment code.
+* [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal view menu entries are now accessible via numbered accesskeys (Request #5847).
 * [mms] Add image upload feature to the HTML editor image plugin.
 * [mms] Allow drag &amp; drop/pasting of images into the HTML editor.

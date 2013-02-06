@@ -22,9 +22,6 @@
  */
 class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 {
-    /* The virtual path to save linked attachments. */
-    const VFS_LINK_ATTACH_PATH = '.horde/imp/attachments';
-
     /* The virtual path to save drafts. */
     const VFS_DRAFTS_PATH = '.horde/imp/drafts';
 
@@ -2537,7 +2534,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _linkAttachments($part)
     {
-        global $conf, $prefs;
+        global $conf;
 
         if (!$conf['compose']['link_attachments']) {
             throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
@@ -2551,47 +2548,30 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $auth = $GLOBALS['registry']->getAuth();
-        $baseurl = Horde::url('attachment.php', true)->setRaw(true);
-
-        try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
-        } catch (Horde_Vfs_Exception $e) {
-            throw new IMP_Compose_Exception($e);
-        }
-
-        $ts = time();
-        $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
         if (($charset = $part->getCharset()) === null) {
             $charset = $this->charset;
         }
 
         $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
-
-        if ($damk = $prefs->getValue('delete_attachments_monthly_keep')) {
-            /* Determine the first day of the month in which the current
-             * attachments will be ripe for deletion, then subtract 1 second
-             * to obtain the last day of the previous month. */
-            $del_time = mktime(0, 0, 0, date('n') + $damk + 1, 1, date('Y')) - 1;
-            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("Links will expire on %s"), strftime('%x', $del_time)) . ')', 'UTF-8', $charset);
+        if ($del_time = IMP_Compose_LinkedAttachment::keepDate(false)) {
+            /* Subtract 1 from time to get the last day of the previous
+             * month. */
+            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("links will expire on %s"), strftime('%x', $del_time - 1)) . ')', 'UTF-8', $charset);
         }
 
+        $trailer .= ":\n";
+
+        $i = 0;
+        $ui = new IMP_Mailbox_Ui();
+
         foreach ($this as $att) {
-            $part = $att->getPart();
-
-            $trailer .= "\n" . $baseurl->copy()->add(array(
-                'f' => $part->getName(),
-                't' => $ts,
-                'u' => $auth
-            ));
-
-            /* We know that VFS is setup if we are linking attachments, so
-             * data can be moved within the VFS namespace. */
-            try {
-                $vfs->rename(IMP_Compose_Attachment::VFS_ATTACH_PATH, $att->vfsfile, $fullpath, escapeshellcmd($part->getName()));
-            } catch (Horde_Vfs_Exception $e) {
-                Horde::log($e, 'ERR');
-                return IMP_Compose_Exception($e);
+            if (!$att->related) {
+                $apart = $att->getPart();
+                $trailer .= "\n" . ++$i . '. ' .
+                    $apart->getName(true) .
+                    ' (' . $ui->getSize($apart->getBytes()) . ')' .
+                    ' [' . $apart->getType() . "]\n" .
+                    sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($att)->getUrl()) . "\n";
             }
         }
 

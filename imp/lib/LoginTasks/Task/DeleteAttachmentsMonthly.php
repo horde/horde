@@ -39,36 +39,12 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        /* Find the UNIX timestamp of the last second that we will not
-         * purge. */
-        $del_time = gmmktime(0, 0, 0, date('n') - $GLOBALS['prefs']->getValue('delete_attachments_monthly_keep'), 1, date('Y'));
-
         try {
-            $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+            $link_attach = new IMP_Compose_LinkedAttachment($GLOBALS['registry']->getAuth());
+            return $link_attach->clean();
         } catch (Horde_Vfs_Exception $e) {
             return false;
         }
-        $path = IMP_Compose::VFS_LINK_ATTACH_PATH . '/' . $GLOBALS['registry']->getAuth();
-
-        /* Make sure cleaning is done recursively. */
-        try {
-            $files = $vfs->listFolder($path, null, true, false, true);
-        } catch (Horde_Vfs_Exception $e) {
-            return false;
-        }
-
-        $retval = false;
-        foreach ($files as $dir) {
-            $filetime = (isset($dir['date'])) ? $dir['date'] : intval(basename($dir['name']));
-            if ($del_time > $filetime) {
-                try {
-                    $vfs->deleteFolder($path, $dir['name'], true);
-                    $retval = true;
-                } catch (Horde_Vfs_Exception $e) {}
-            }
-        }
-
-        return $retval;
     }
 
     /**
