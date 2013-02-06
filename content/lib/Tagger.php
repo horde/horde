@@ -688,7 +688,7 @@ class Content_Tagger
      * @param string|array $tags    The tag names to check.
      * @param boolean      $create  If true, create the tag in the tags table.
      *
-     * @return array
+     * @return array  A hash of tag_name => tag_id values.
      */
     protected function _checkTags($tags, $create = true)
     {
@@ -735,7 +735,7 @@ class Content_Tagger
      *
      * @param array $tags  Array of tag names or ids.
      *
-     * @return array  Array of tag ids.
+     * @return array  Hash of tag_name => tag_id values.
      */
     public function ensureTags($tags)
     {

@@ -792,9 +792,11 @@ var DimpCompose = {
             return;
         }
 
-        var cmp = $('composeMessageParent'), mah;
+        var mah,
+            cmp = $('composeMessageParent'),
+            qreply = $('qreply');
 
-        if (!cmp || !$('qreply').visible()) {
+        if (!cmp || (qreply && !qreply.visible())) {
             return;
         }
 
