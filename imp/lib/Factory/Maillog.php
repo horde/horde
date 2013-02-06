@@ -32,7 +32,7 @@ class IMP_Factory_Maillog extends Horde_Core_Factory_Injector
     {
         return empty($GLOBALS['conf']['maillog']['use_maillog'])
             ? null
-            : $GLOBALS['injector']->getInstance('IMP_Maillog');
+            : new IMP_Maillog();
     }
 
 }
