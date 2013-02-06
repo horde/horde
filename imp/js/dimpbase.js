@@ -2544,11 +2544,13 @@ var DimpBase = {
 
             if (this.viewport.getMetaData('templates')) {
                 DimpCore.compose('template', {
-                    buid: tmp.get('uid').toViewportUidString()
+                    buid: tmp.get('uid').toViewportUidString(),
+                    mailbox: this.view
                 });
             } else if (this.isDraft(tmp)) {
                 DimpCore.compose('resume', {
-                    buid: tmp.get('uid').toViewportUidString()
+                    buid: tmp.get('uid').toViewportUidString(),
+                    mailbox: this.view
                 });
             } else {
                 this.msgWindow(tmp.get('dataob').first());
