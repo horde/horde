@@ -3633,12 +3633,6 @@ var DimpBase = {
     {
         var DM = DimpCore.DMenu, tmp;
 
-        /* Wait for DimpCore to be loaded. */
-        if (!DM) {
-            this.onDomLoad.defer();
-            return;
-        }
-
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
         HordeCore.initHandler('click');
@@ -3902,7 +3896,14 @@ document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(Dim
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
 /* Initialize onload handler. */
-document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // For IE 8
+        DimpBase.onDomLoad.bind(DimpBase).defer();
+    } else {
+        DimpBase.onDomLoad();
+    }
+});
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));
