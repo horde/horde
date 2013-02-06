@@ -335,19 +335,21 @@ class IMP_Ajax_Queue
      */
     public function maillog(IMP_Indices $indices, $msg_id)
     {
-        if (!empty($GLOBALS['conf']['maillog']['use_maillog'])) {
-            if ($indices instanceof IMP_Indices_Mailbox) {
-                $indices = $indices->joinIndices();
-            }
+        if (!$GLOBALS['injector']->getInstance('IMP_Maillog')) {
+            return;
+        }
 
-            foreach ($indices as $val) {
-                foreach ($val->uids as $val2) {
-                    $this->_maillog[] = array(
-                        'buid' => $val2,
-                        'mailbox' => $val->mbox,
-                        'msg_id' => $msg_id
-                    );
-                }
+        if ($indices instanceof IMP_Indices_Mailbox) {
+            $indices = $indices->joinIndices();
+        }
+
+        foreach ($indices as $val) {
+            foreach ($val->uids as $val2) {
+                $this->_maillog[] = array(
+                    'buid' => $val2,
+                    'mailbox' => $val->mbox,
+                    'msg_id' => $msg_id
+                );
             }
         }
     }

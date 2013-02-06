@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-05</date>
- <time>23:24:55</time>
+ <date>2013-02-06</date>
+ <time>00:51:29</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -197,6 +197,7 @@
      <file name="Mail.php" role="horde" />
      <file name="Mailbox.php" role="horde" />
      <file name="MailboxList.php" role="horde" />
+     <file name="Maillog.php" role="horde" />
      <file name="MimeViewer.php" role="horde" />
      <file name="Pgp.php" role="horde" />
      <file name="PrefsSort.php" role="horde" />
@@ -1504,6 +1505,7 @@
    <install as="imp/lib/Factory/Mail.php" name="lib/Factory/Mail.php" />
    <install as="imp/lib/Factory/Mailbox.php" name="lib/Factory/Mailbox.php" />
    <install as="imp/lib/Factory/MailboxList.php" name="lib/Factory/MailboxList.php" />
+   <install as="imp/lib/Factory/Maillog.php" name="lib/Factory/Maillog.php" />
    <install as="imp/lib/Factory/MimeViewer.php" name="lib/Factory/MimeViewer.php" />
    <install as="imp/lib/Factory/Pgp.php" name="lib/Factory/Pgp.php" />
    <install as="imp/lib/Factory/PrefsSort.php" name="lib/Factory/PrefsSort.php" />

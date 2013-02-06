@@ -160,11 +160,12 @@ class IMP_Message
             return false;
         }
 
-        $maillog_update = (empty($opts['keeplog']) && !empty($conf['maillog']['use_maillog']));
-        $return_value = 0;
-
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $maillog = $injector->getInstance('IMP_Maillog');
+
+        $maillog_update = (empty($opts['keeplog']) && $maillog);
+        $return_value = 0;
 
         /* Check for Trash mailbox. */
         $no_expunge = $use_trash_mbox = $use_vtrash = false;
@@ -301,7 +302,7 @@ class IMP_Message
                         }
                     }
 
-                    $injector->getInstance('IMP_Maillog')->deleteLog($msg_ids);
+                    $maillog->deleteLog($msg_ids);
                 }
             }
         }

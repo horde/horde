@@ -81,6 +81,7 @@ class IMP_Message_Ui
         global $conf, $injector, $prefs;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $maillog = $injector->getInstance('IMP_Maillog');
         $pref_val = $prefs->getValue('send_mdn');
 
         if (!$pref_val || $mailbox->readonly) {
@@ -111,9 +112,9 @@ class IMP_Message_Ui
                 ));
                 $mdn_sent = in_array('$mdnsent', $res->first()->getFlags());
             } catch (IMP_Imap_Exception $e) {}
-        } else {
+        } elseif ($maillog) {
             /* 2nd test: Use Maillog as a fallback. */
-            $mdn_sent = $injector->getInstance('IMP_Maillog')->sentMDN($msg_id, 'displayed');
+            $mdn_sent = $maillog->sentMDN($msg_id, 'displayed');
         }
 
         if ($mdn_sent) {
@@ -146,7 +147,9 @@ class IMP_Message_Ui
                     'from_addr' => $injector->getInstance('Horde_Core_Factory_Identity')->create()->getDefaultFromAddress()
                 )
             );
-            $injector->getInstance('IMP_Maillog')->log(IMP_Maillog::MDN, $msg_id, 'displayed');
+            if ($maillog) {
+                $maillog->log($maillog::MDN, $msg_id, 'displayed');
+            }
             $success = true;
 
             if ($mdn_flag) {

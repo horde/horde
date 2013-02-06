@@ -915,9 +915,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $page_output->noDnsPrefetch();
 
-        if (!empty($conf['maillog']['use_maillog'])) {
+        if ($maillog = $injector->getInstance('IMP_Maillog')) {
             Horde::startBuffer();
-            $injector->getInstance('IMP_Maillog')->displayLog($envelope->message_id);
+            $maillog->displayLog($envelope->message_id);
             $this->output = Horde::endBuffer();
         }
 
