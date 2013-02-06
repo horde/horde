@@ -14,6 +14,7 @@ class Content_Test_Base extends Horde_Test_Case
      * @static Content_Tagger
      */
     static $tagger;
+    static $type_mgr;
 
     /**
      * Primes the fixture, and tests basic tagging functionality where all
@@ -46,6 +47,17 @@ class Content_Test_Base extends Horde_Test_Case
         $this->assertEmpty(self::$tagger->getTags(array()));
         $this->assertEmpty(self::$tagger->getRecentTags());
         $this->assertEmpty(self::$tagger->getRecentObjects());
+    }
+
+    /**
+     * Test types
+     *
+     */
+    protected function _testEnsureTypes()
+    {
+        $this->assertEquals(array(0 => 1, 1 => 2), self::$type_mgr->ensureTypes(array('event', 'blog')));
+        $this->assertEquals(array(0 => 2, 1 => 1), self::$type_mgr->ensureTypes(array('blog', 'event')));
+        $this->assertEquals(array(0 => 3, 1 => 2), self::$type_mgr->ensureTypes(array('foo', 'blog')));
     }
 
     /**
