@@ -67,7 +67,7 @@
 /* IMAP Example */
 $backends['imap'] = array(
     // ENABLED by default
-    'disabled' => true,
+    'disabled' => false,
     'transport' => array(
         Ingo::RULE_ALL => array(
             'driver' => 'null',
@@ -219,7 +219,7 @@ $backends['procmail'] = array(
 /* Sieve Example */
 $backends['sieve'] = array(
     // Disabled by default
-    'disabled' => false,
+    'disabled' => true,
     'transport' => array(
         Ingo::RULE_ALL => array(
             'driver' => 'timsieved',
