@@ -7,7 +7,9 @@
  *
  * URL Parameters:
  *   - d: (string) A token requesting deletion of the attachment
+ *   - f: (string) [DEPRECATED] Filename
  *   - id: (string) Attachment ID
+ *   - t: (string) [DEPRECATED] Timestamp
  *   - u: (string) Attachment owner
  *
  *
@@ -43,6 +45,11 @@ if (!$vars->u || !$vars->id) {
 
 /* This will throw exception if VFS/linked attachments are not available. */
 $linked_atc = new IMP_Compose_LinkedAttachment($vars->u, $vars->id);
+
+/* Check for old linked attachment data, and convert if necessary. */
+if (isset($vars->t)) {
+    $linked_atc->convert($vars->t, $vars->f);
+}
 
 /* Check for delete request. */
 if ($vars->d) {

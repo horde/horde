@@ -95,7 +95,7 @@ class IMP_Compose_LinkedAttachment
      *
      * @param IMP_Compose_Attachment $atc  Attachment object.
      *
-     * @throw Horde_Vfs_Exception
+     * @throws Horde_Vfs_Exception
      */
     public function save(IMP_Compose_Attachment $atc)
     {
@@ -132,7 +132,7 @@ class IMP_Compose_LinkedAttachment
     /**
      * Send data to the browser.
      *
-     * @throw IMP_Exception
+     * @throws IMP_Exception
      */
     public function sendData()
     {
@@ -152,7 +152,6 @@ class IMP_Compose_LinkedAttachment
         $type = isset($this->_md[$this->_id]['m'])
             ? $this->_md[$this->_id]['m']
             : null;
-
 
         if (method_exists($this->_vfs, 'readStream')) {
             $data = $this->_vfs->readStream($path, $this->_id);
@@ -202,6 +201,50 @@ class IMP_Compose_LinkedAttachment
         $this->_saveMetadata();
 
         return $fname;
+    }
+
+    /**
+     * Convert filename from old (pre-6.1) format.
+     *
+     * @param string $ts    Timestamp.
+     * @param string $file  Filename.
+     *
+     * @throws IMP_Exception
+     */
+    public function convert($ts, $file)
+    {
+        /* Build reproducible ID value from old data. */
+        $this->_id = hash('md5', $ts . '|' . $file);
+        $path = $this->_getPath() . '/' . $ts;
+
+        if (!$this->_vfs->exists($path, $file)) {
+            return;
+        }
+
+        try {
+            $this->_vfs->rename($path, $file, $this->_getPath(), $this->_id);
+        } catch (Exception $e) {
+            return;
+        }
+
+        $d_id = null;
+        $notify = $file . '.notify';
+
+        if ($this->_vfs->exists($path, $notify)) {
+            try {
+                $d_id = $this->_vfs->read($path, $notify);
+                $this->_vfs->deleteFile($path, $notify);
+            } catch (Exception $e) {}
+        }
+
+        $this->_loadMetadata();
+        $this->_md[$this->_id] = array_filter(array(
+            'd' => $d_id,
+            'f' => $file,
+            'm' => 'application/octet-stream',
+            't' => $ts
+        ));
+        $this->_saveMetadata();
     }
 
     /**
@@ -312,7 +355,7 @@ class IMP_Compose_LinkedAttachment
      * @param IMP_Compose_Attachment $atc  Attachment object.
      *
      * @return IMP_Compose_LinkedAttachment  Linked attachment object.
-     * @throw IMP_Exception
+     * @throws IMP_Exception
      */
     static public function create(IMP_Compose_Attachment $atc)
     {
