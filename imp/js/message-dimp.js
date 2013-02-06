@@ -154,10 +154,11 @@ var DimpMessage = {
             break;
 
         case 'msg_all_parts':
-            DimpCore.doAction('messageMimeTree', {}, {
+            DimpCore.doAction('messageMimeTree', {
+                view: this.mbox,
+            }, {
                 callback: this._mimeTreeCallback.bind(this),
-                uids: [ this.buid ],
-                view: this.mbox
+                uids: [ this.buid ]
             });
             break;
 
