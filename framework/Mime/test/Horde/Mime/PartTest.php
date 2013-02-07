@@ -333,6 +333,20 @@ C
         );
     }
 
+    public function testQuotedPrintableEncodingWithEolSpace()
+    {
+        $part = new Horde_Mime_Part();
+        $part->setType('text/plain');
+        $part->setContents(str_repeat('abcdü ', 10) . " \nEND");
+
+        print quoted_printable_encode("abcdü abcdü abcdü abcdü abcdü abcdü abcdü abcdü abcdü abcdü \r\nEND");
+
+        $this->assertNotRegExp(
+            "/\s\n/",
+            $part->toString()
+        );
+    }
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
