@@ -38,11 +38,6 @@ Horde_Registry::appInit('imp', array(
 
 $vars = $injector->getInstance('Horde_Variables');
 
-/* Sanity checking. */
-if (!$vars->u || !$vars->id) {
-    throw new IMP_Exception('Missing required URL parameters.');
-}
-
 /* This will throw exception if VFS/linked attachments are not available. */
 $linked_atc = new IMP_Compose_LinkedAttachment($vars->u, $vars->id);
 
