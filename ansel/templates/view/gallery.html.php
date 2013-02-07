@@ -87,7 +87,7 @@
      <?php endif; ?>
    </td>
    <td class="anselWidgets">
-     <?php echo $this->view->renderWidgets() ?>
+     <?php $this->view->renderWidgets() ?>
    </td>
  </tr>
 </table>
