@@ -1,7 +1,7 @@
 <!-- Image title/breadcrumbs -->
 <h1 class="header" id="ansel-photoname"><?php echo Ansel::getBreadCrumbs($this->gallery) ?></h1>
 
-<table style="width: 100%; border-collapse: collapse">
+<table style="width: 100%;">
  <tr>
   <td valign="top" style="background-color:<?php echo $this->background; ?>;">
     <!-- Image Actions -->
