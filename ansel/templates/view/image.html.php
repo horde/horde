@@ -64,7 +64,7 @@
     </div>
 
     <!-- Exif Display -->
-    <?php if (!empty($this->exif)): ?><br class="spacer">
+    <?php if (!empty($this->exif)): ?>
       <div id="exif">
         <table id="ansel-exif-table" class="box striped" cellspacing="0">
           <?php foreach ($this->exif as $elem): ?>
