@@ -725,7 +725,7 @@ class Horde_Core_Auth_Application extends Horde_Auth_Base
         if (($browser->getBrowser() == 'msie') &&
             ($browser->getMajor() < 8) &&
             ($mode != 'mobile')) {
-            $notification->push(Horde_Core_Translation::t("You are using an old, unsupported version of Internet Explorer. You must use the minimal view until you upgrade your browser."));
+            $notification->push(Horde_Core_Translation::t("You are using an old, unsupported version of Internet Explorer. You need at least Internet Explorer 8. If you already run IE8 or higher, disable the Compatibility View. Minimal view will be used until you upgrade your browser."));
             $mode = 'mobile';
         }
 
