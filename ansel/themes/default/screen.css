@@ -244,6 +244,12 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 .image-tile-highlight {
     background-color: #ccc;
 }
+
+/* Exif data */
+#ansel-exif-table {
+  width: 100%;
+}
+
 /* Actions */
 .anselActions {
     margin-left: 0;

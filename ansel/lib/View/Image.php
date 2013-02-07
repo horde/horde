@@ -166,6 +166,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         if (empty($this->_params['api'])) {
             $GLOBALS['page_output']->addScriptFile('scriptaculous/effects.js', 'horde');
             $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
+            $GLOBALS['page_output']->addScriptFile('views/image.js');
         }
     }
 
@@ -201,15 +202,13 @@ class Ansel_View_Image extends Ansel_View_Ansel
     }
 
     /**
-     * Build variables needed to output the html
+     * Build variables needed to output the html. Extracted to this method so
+     * child classes can use this as well.
      */
     protected function _prepare()
     {
-        // Gallery slug and the page this image is one, if specified
         $this->_page = isset($this->_params['page']) ? $this->_params['page'] : 0;
         $this->_slug = $this->gallery->get('slug');
-
-        // Get any date info and style info the gallery has
         $this->_date = $this->gallery->getDate();
         $this->_style = (empty($this->_params['style']) ?
              $this->gallery->getStyle() :
@@ -229,12 +228,6 @@ class Ansel_View_Image extends Ansel_View_Ansel
 
         // Not needed when being called via api
         if (empty($this->_params['api'])) {
-            $this->_urls['ecard'] = Horde::url('img/ecard.php')->add(
-                array_merge(array('gallery' => $this->gallery->id,
-                                  'image' => $this->resource->id),
-                            $this->_date)
-            );
-
             // Build the various urls
             $imageActionUrl = Horde::url('image.php')->add(
                 array_merge(array('gallery' => $this->gallery->id,
@@ -243,26 +236,43 @@ class Ansel_View_Image extends Ansel_View_Ansel
                             $this->_date)
             );
 
-            // Create the popup code seperately to avoid encoding issues
-            $this->_urls['prop_popup'] = Horde::popupJs(
-                $imageActionUrl,
-                array('urlencode' => true,
-                      'height' => 360,
-                      'width' => 500,
-                      'params' => array(
-                        'actionID' => 'modify',
-                        'ret' => 'image',
-                        'gallery' => $this->gallery->id,
-                        'image' => $this->resource->id,
-                        'page' => $this->_page))
-            );
+            if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
+                $this->_urls['prop_popup'] = Horde::popupJs(
+                    $imageActionUrl,
+                    array('urlencode' => true,
+                          'height' => 360,
+                          'width' => 500,
+                          'params' => array(
+                              'actionID' => 'modify',
+                              'ret' => 'image',
+                              'gallery' => $this->gallery->id,
+                              'image' => $this->resource->id,
+                              'page' => $this->_page))
+                );
+                $this->_urls['edit'] = $imageActionUrl->copy()->add('actionID', 'editimage');
+            }
+            if ($this->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::DELETE)) {
+                $this->_urls['delete'] = $imageActionUrl->copy()->add('actionID', 'delete');
+            }
+            if (!empty($conf['ecard']['enable']) && !empty($this->_urls['ecard'])) {
+                $this->_urls['ecard'] = Horde::url('img/ecard.php')->add(
+                    array_merge(array('gallery' => $this->gallery->id,
+                                      'image' => $this->resource->id),
+                                $this->_date)
+                );
+            }
+            if ($this->gallery->canDownload()) {
+                $this->_urls['download'] = Horde::url('img/download.php', true)->add('image', $this->resource->id);
+            }
+            if ((!$GLOBALS['registry']->getAuth() || $this->gallery->get('owner') != $GLOBALS['registry']->getAuth()) &&
+                !empty($GLOBALS['conf']['report_content']['driver']) &&
+                (($conf['report_content']['allow'] == 'authenticated' && $GLOBALS['registry']->isAuthenticated()) ||
+                 $conf['report_content']['allow'] == 'all')) {
 
-            $this->_urls['edit'] = $imageActionUrl->copy()->add('actionID', 'editimage');
-            $this->_urls['delete'] = $imageActionUrl->copy()->add('actionID', 'delete');
-            $this->_urls['download'] = Horde::url('img/download.php', true)->add('image', $this->resource->id);
-            $this->_urls['report'] = Horde::url('report.php')->add(
+                $this->_urls['report'] = Horde::url('report.php')->add(
                     array('gallery' =>  $this->gallery->id,
                           'image' => $this->resource->id));
+            }
         }
 
         // Check for an explicit gallery view url to use
@@ -311,31 +321,19 @@ class Ansel_View_Image extends Ansel_View_Ansel
     {
         global $conf, $registry, $prefs, $page_output;
 
+        // Build initial view properties
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
+        $view->filename = $this->_resource->filename;
+        $view->caption = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($this->_resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $view->hide_slideshow = !empty($this->_params['hide_slideshow']);
+        $view->view = $this;
+        $view->geometry = $this->_geometry;
+
         // Starting image
         $imageIndex = $this->_revList[$this->resource->id];
-
-        // Get comments before any output in sent.
-        if (($conf['comments']['allow'] == 'all' || ($conf['comments']['allow'] == 'authenticated' && $GLOBALS['registry']->getAuth())) &&
-            $registry->hasMethod('forums/doComments')) {
-            $hasComments = true;
-            if (!empty($this->_params['comment_url'])) {
-                $this->_params['comment_url'] = str_replace(
-                    array('%i', '%g', '%s'),
-                    array($imageId, $galleryId, $gallerySlug),
-                    urldecode($this->_params['comment_url']));
-            }
-            $url = empty($this->_params['comment_url']) ? null : $this->_params['comment_url'];
-            try {
-                $comments = $registry->forums->doComments(
-                  'ansel', $this->resource->id, 'commentCallback', true, null, $url);
-            } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
-                $comments = array();
-            }
-        } else {
-            $comments = array();
-            $hasComments = false;
-        }
 
         // Get the next and previous image ids
         if (isset($this->_imageList[$imageIndex + 1])) {
@@ -355,21 +353,21 @@ class Ansel_View_Image extends Ansel_View_Ansel
         $pageend = min(count($this->_imageList), $pagestart + $perpage - 1);
         $page_next = $this->_page;
         if ($this->_revList[$this->resource->id] + 1 > $pageend) {
-            $page_next++;
+            ++$page_next;
         }
         $page_prev = $this->_page;
         if ($this->_revList[$this->resource->id] - 1 < $pagestart) {
-            $page_prev--;
+            --$page_prev;
         }
 
         // Previous image link
         if (!empty($this->_params['image_view_url'])) {
-            $prev_url = str_replace(
+            $view->prev_url = str_replace(
                 array('%i', '%g', '%s'),
                 array($prev, $this->gallery->id, $this->_slug),
                 urldecode($this->_params['image_view_url']));
         } else {
-            $prev_url = Ansel::getUrlFor('view', array_merge(
+            $view->prev_url = Ansel::getUrlFor('view', array_merge(
                 array('gallery' => $this->gallery->id,
                       'slug' => $this->_slug,
                       'image' => $prev,
@@ -377,16 +375,16 @@ class Ansel_View_Image extends Ansel_View_Ansel
                       'page' => $page_prev),
                 $this->_date));
         }
-        $prvImgUrl = Ansel::getImageUrl($prev, 'screen', true, $this->_style);
+        $prevImgSrc = Ansel::getImageUrl($prev, 'screen', true, $this->_style);
 
         // Next image link
         if (!empty($this->_params['image_view_url'])) {
-            $next_url = str_replace(
+            $view->next_url = str_replace(
                 array('%i', '%g', '%s'),
                 array($prev, $this->gallery->id, $this->_slug),
                 urldecode($this->_params['image_view_url']));
         } else {
-            $next_url = Ansel::getUrlFor(
+            $view->next_url = Ansel::getUrlFor(
                 'view',
                 array_merge(
                     array(
@@ -397,7 +395,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
                         'page' => $page_next),
                     $this->_date));
         }
-        $nextImgUrl = Ansel::getImageUrl($next, 'screen', true, $this->_style);
+        $nextImgSrc = Ansel::getImageUrl($next, 'screen', true, $this->_style);
 
         // Slideshow link
         if (!empty($this->_params['slideshow_link'])) {
@@ -413,42 +411,14 @@ class Ansel_View_Image extends Ansel_View_Ansel
                             $this->_date));
         }
 
-        $commentHtml = '';
-        if (isset($hasComments)) {
-            if (!empty($comments['threads'])) {
-                $commentHtml .= '<br>' . $comments['threads'];
-            }
-            if (!empty($comments['comments'])) {
-                $commentHtml .= '<br>' . $comments['comments'];
-            }
-        }
-
-        if ($prefs->getValue('showexif')) {
-            $exifHtml = $this->_getExifHtml();
-        } else {
-            $exifHtml = '';
-        }
-
-        // Buffer the template file and return the html
-        Horde::startBuffer();
-
         // These items don't work when viewing through the api
         if (empty($this->_params['api'])) {
-            // Tag widget
             $this->addWidget(Ansel_Widget::factory('Tags', array('view' => 'image')));
-
-            // Similar photos
             $this->addWidget(Ansel_Widget::factory('SimilarPhotos'));
-
-           // Geolocation
-           $this->addWidget(Ansel_Widget::factory('Geotag', array('images' => array($this->resource->id))));
-
-            // Faces
+            $this->addWidget(Ansel_Widget::factory('Geotag', array('images' => array($this->resource->id))));
             if ($conf['faces']['driver']) {
                 $this->addWidget(Ansel_Widget::factory('ImageFaces', array('selfUrl' => $this->_urls['self'])));
             }
-
-            // Links
             $this->addWidget(Ansel_Widget::factory('Links', array()));
 
             // In line caption editing
@@ -468,85 +438,76 @@ class Ansel_View_Image extends Ansel_View_Ansel
         if (!empty($this->_params['api'])) {
             foreach (array('prototype.js', 'stripe.js', 'scriptaculous/effects.js') as $val) {
                 $tmp = new Horde_Script_File_JsDir($val, 'horde');
+                Horde::startBuffer();
                 echo $tmp->tag_full;
+                $html = Horde::endBuffer();
+            }
+        } else {
+          $html = '';
+        }
+
+        $js = array();
+        if (empty($this->_params['hide_slideshow'])) {
+            $js[] = '$$(\'.ssPlay\').each(function(n) { n.show(); });';
+        }
+        $js = array_merge($js, array(
+          'AnselImageView.nextImgSrc = "' . $nextImgSrc . '"',
+          'AnselImageView.prevImgSrc = "' . $prevImgSrc . '"',
+          'AnselImageView.urls = { "imgsrc": "' . $this->_urls['imgsrc'] . '" }',
+          'AnselImageView.onload()'
+        ));
+        $page_output->addInlineScript($js);
+
+        // Pass the urls now that we have them all.
+        $view->urls = $this->_urls;
+
+        // Get the exif data if needed.
+        if ($prefs->getValue('showexif')) {
+            $view->exif = array_chunk($this->resource->getAttributes(), 3, true);
+        }
+
+        // Comments
+        if ($comments = $this->_getCommentData()) {
+            if (!empty($comments['threads'])) {
+                $this->view->commentHtml = '<br>' . $comments['threads'];
+            }
+            if (!empty($comments['comments'])) {
+                $this->view->commentHtml .= '<br>' . $comments['comments'];
             }
         }
 
-        $js = '';
-        if (empty($this->_params['hide_slideshow'])) {
-            $js .= '$$(\'.ssPlay\').each(function(n) { n.show();});';
-        }
-        $js .= '
-Event.observe($("photodiv"), "load", function() {
-    new Effect.Appear($("photodiv"), { duration: 0.5,
-        afterFinish: function() {$$(".imgloading").each(function(n) { n.setStyle({visibility: "hidden"});});
-        new Effect.Appear($("Caption"), { duration: 0.5 });
-    }});
-    var nextImg = new Image();
-    var prvImg = new Image();
-    nextImg.src = "' . $nextImgUrl . '";
-    prvImg.src = "' . $prvImgUrl . '";
-});
-
-new Effect.Opacity("photodiv", {to: 0, duration: 0.5, afterFinish: function() {$("photodiv").src = "' . $this->_urls['imgsrc'] . '"} });
-
-// Arrow keys for navigation
-document.observe("keydown", arrowHandler);
-
-function arrowHandler(e)
-{
-    if (e.altKey || e.shiftKey || e.ctrlKey) {
-        return;
-    }
-
-    theElement = Event.element(e);
-    switch (theElement.tagName) {
-    case "INPUT":
-    case "SELECT":
-    case "TEXTAREA":
-        return;
-    }
-    switch (e.keyCode || e.charCode) {
-    case Event.KEY_LEFT:
-        if ($("PrevLink")) {
-            document.location.href = $("PrevLink").href;
-        }
-        break;
-
-    case Event.KEY_RIGHT:
-        if ($("NextLink")) {
-            document.location.href = $("NextLink").href;
-        }
-        break;
-    }
-}';
-        $page_output->addInlineScript($js, true);
-
-        require ANSEL_TEMPLATES . '/view/image.inc';
-        return Horde::endBuffer();
+        return $html . $view->render('image');
     }
 
     /**
-     * Helper function for generating the HTML for EXIF data.
+     * Helper for comments
      *
-     * @return string  The HTML
+     * @return boolean|array  Either an array of comment data or false on failure
      */
-    private function _getExifHtml()
+    protected function _getCommentData()
     {
-        $data = $this->resource->getAttributes(true);
+        global $conf, $registry;
 
-        $html = '';
-        if (count($data)) {
-            $data = array_chunk($data, 3);
-            $html .= '<table class="box striped" cellspacing="0" style="width:100%; padding:4px">';
-            $i = 0;
-            foreach ($data as $elem) {
-                $html .= '<tr class="' . (($i++ % 2 == 0) ? 'rowEven' : 'rowOdd')
-                         . '">' . implode('', $elem) . '</tr>';
+        if (($conf['comments']['allow'] == 'all' ||
+            ($conf['comments']['allow'] == 'authenticated' && $registry->getAuth())) &&
+            $registry->hasMethod('forums/doComments')) {
+
+            if (!empty($this->_params['comment_url'])) {
+                $this->_params['comment_url'] = str_replace(
+                    array('%i', '%g', '%s'),
+                    array($imageId, $galleryId, $gallerySlug),
+                    urldecode($this->_params['comment_url']));
             }
-            $html .= '</table>';
+            $url = empty($this->_params['comment_url']) ? null : $this->_params['comment_url'];
+            try {
+                return $registry->forums->doComments('ansel', $this->resource->id, 'commentCallback', true, null, $url);
+            } catch (Horde_Exception $e) {
+                Horde::logMessage($e, 'DEBUG');
+                return false;
+            }
+        } else {
+            return false;
         }
-        return $html;
     }
 
     public function viewType()
