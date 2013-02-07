@@ -2,17 +2,21 @@
  <?php echo $this->smartmobileHeader(array('logout' => true, 'portal' => true, 'title' => _("Browse"))) ?>
 
  <div data-role="content">
-  <ul data-role="listview" data-filter="true" id="turba-browse-list">
 <?php if (empty($this->list)): ?>
+  <ul data-role="listview">
    <li><?php echo _("No browseable address books") ?></li>
+  </ul>
 <?php else: ?>
 <?php foreach ($this->list as $k => $v): ?>
-   <li data-role="list-divider"><?php echo $this->h($k) ?></li>
+  <div data-role="collapsible" data-theme="b" data-inset="false">
+   <h3><?php echo $this->h($k) ?></h3>
+   <ul data-role="listview" data-filter="true">
 <?php foreach ($v as $v2): ?>
-   <li><a href="<?php echo $v2['url'] ?>"><?php echo $this->h($v2['name']) ?></a></li>
+    <li><a href="<?php echo $v2['url'] ?>"><?php echo $this->h($v2['name']) ?></a></li>
 <?php endforeach; ?>
+   </ul>
+  </div>
 <?php endforeach; ?>
 <?php endif; ?>
-  </ul>
  </div>
 </div>
