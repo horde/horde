@@ -428,7 +428,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
                     'Ansel_Ajax_Imple_EditCaption',
                     array(
                         'width' => $this->_geometry['width'],
-                        'id' => "Caption",
+                        'id' => 'anselcaption',
                         'dataid' => $this->resource->id
                     )
                 );

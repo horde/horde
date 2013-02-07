@@ -33,14 +33,13 @@ th {
 .slideControls {
     text-align: center;
     margin: 5px;
-    padding: 2px;
 }
 .slideControls a {
     margin: 2px;
     padding: 3px;
 }
 .slideControls a:hover {
-    background: #e9e9e9;
+    background: #ebeff0;
     padding: 2px;
     border: 1px solid #ccc;
 }
@@ -59,15 +58,15 @@ th {
     padding: 1em;
 }
 
-#Container {
+#anselimagecontainer {
     text-align: center;
 }
-#CaptionContainer {
+#anselcaptioncontainer {
     margin: 0 auto;
     text-align: left;
     font-size: 125%;
 }
-#Caption {
+#anselcaption {
     padding: 1em;
 }
 
@@ -248,13 +247,12 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 /* Exif data */
 #ansel-exif-table {
   width: 100%;
+  t
 }
 
 /* Actions */
 .anselActions {
     margin-left: 0;
-    background: #e9e9e9;
-    padding: 4px;
     border: 1px #cccccc solid;
 }
 .anselActions a, .anselActions a:visited, .anselActions label {

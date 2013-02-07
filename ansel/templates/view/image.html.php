@@ -39,13 +39,13 @@
     </div>
 
     <!-- Main Image Container -->
-    <div id="Container">
+    <div id="anselimagecontainer">
      <noscript>
         <?php echo $this->tag('img', array('src' => $this->urls['imgsrc'], 'alt' => $this->h($this->filename))) ?>
      </noscript>
-     <?php echo Horde::img('blank.gif', '', array('id' => 'photodiv', 'width' => $this->geometry['width'], 'height' => $this->geometry['height'])) ?>
-     <div id="CaptionContainer" style="width:<?php echo $this->geometry['width']?>px;">
-       <p id="Caption" style="display:none;">
+     <?php echo Horde::img('blank.gif', '', array('id' => 'ansel-photodiv', 'width' => $this->geometry['width'], 'height' => $this->geometry['height'])) ?>
+     <div id="anselcaptioncontainer" style="width:<?php echo $this->geometry['width']?>px;">
+       <p id="anselcaption" style="display:none;">
          <?php echo $this->caption ?>
      </p>
      </div>

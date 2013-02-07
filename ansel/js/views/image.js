@@ -30,12 +30,12 @@ AnselImageView = {
 
     onload: function()
     {
-        Event.observe($('photodiv'), 'load', function() {
-            new Effect.Appear($('photodiv'), {
+        Event.observe($('ansel-photodiv'), 'load', function() {
+            new Effect.Appear($('ansel-photodiv'), {
                 duration: 0.5,
                 afterFinish: function() {
                     $$('.imgloading').each(function(n) { n.setStyle({ visibility: 'hidden' }) });
-                   new Effect.Appear($('Caption'), { duration: 0.5 });
+                   new Effect.Appear($('anselcaption'), { duration: 0.5 });
                 }
             });
             var nextImg = new Image();
@@ -43,10 +43,10 @@ AnselImageView = {
             nextImg.src = AnselImageView.nextImgSrc;
             prvImg.src = AnselImageView.prevImgSrc;
         });
-        new Effect.Opacity('photodiv', {
+        new Effect.Opacity('ansel-photodiv', {
             to: 0,
             duration: 0.5,
-            afterFinish: function() { $('photodiv').src = AnselImageView.urls['imgsrc'] }
+            afterFinish: function() { $('ansel-photodiv').src = AnselImageView.urls['imgsrc'] }
         });
 
         // Arrow keys for navigation
