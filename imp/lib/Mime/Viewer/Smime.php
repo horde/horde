@@ -290,14 +290,18 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                     }
                 }
 
-                if (strlen($email)) {
-                    $status->addText(sprintf(_("Sender: %s"), htmlspecialchars($email)));
-                }
-
                 if (!empty($sig_result->cert) &&
                     isset($sig_result->email) &&
                     $GLOBALS['registry']->hasMethod('contacts/addField') &&
                     $GLOBALS['prefs']->getValue('add_source')) {
+                    $status->addText(sprintf(_("Sender: %s"), $imp_contents->linkViewJS($this->_mimepart, 'view_attach', htmlspecialchars(strlen($email) ? $email : $sig_result->email), array(
+                        'jstext' => _("View certificate details"),
+                        'params' => array(
+                            'mode' => IMP_Contents::RENDER_INLINE,
+                            'view_smime_key' => 1
+                        )
+                    ))));
+
                     try {
                         $this->_impsmime->getPublicKey($sig_result->email);
                     } catch (Horde_Exception $e) {
@@ -308,7 +312,8 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
                         ));
                         $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the certificate to your Address Book.") . '</a>');
                     }
-                    $status->addText($imp_contents->linkViewJS($this->_mimepart, 'view_attach', _("View certificate details."), array('params' => array('mode' => IMP_Contents::RENDER_INLINE, 'view_smime_key' => 1))));
+                } elseif (strlen($email)) {
+                    $status->addText(sprintf(_("Sender: %s"), htmlspecialchars($email)));
                 }
             } catch (Horde_Exception $e) {
                 $status->action(IMP_Mime_Status::ERROR);
