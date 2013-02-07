@@ -43,8 +43,8 @@ class Ansel_Widget_Links extends Ansel_Widget_Base
 
         }
 
-        $embed = htmlentities(Ansel::embedCode($params));
-        $html .= '<div class="embedInput">' . _("Embed: ") . '<br /><input type="text" readonly="readonly" value="' . $embed . '" /></div>';
+        $embed = Ansel::embedCode($params);
+        $html .= '<div class="embedInput">' . _("Embed: ") . '<br /><textarea style="width:100%;" readonly="readonly">' . $embed . '"</textarea></div>';
         $html .= $this->_htmlEnd();
 
         return $html;
