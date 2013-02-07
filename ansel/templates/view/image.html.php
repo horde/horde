@@ -70,7 +70,7 @@
           <?php foreach ($this->exif as $elem): ?>
             <tr>
               <?php foreach ($elem as $field => $value): ?>
-                <td><strong><?php echo $field ?></strong><td><?php echo $this->h($value) ?></td>
+                <td style="text-align: left;"><strong><?php echo $field ?></strong><td style="text-align: left;"><?php echo $this->h($value) ?></td>
               <?php endforeach; ?>
             </tr>
           <?php endforeach ?>
