@@ -1,9 +1,8 @@
 <!-- Image title/breadcrumbs -->
 <h1 class="header" id="ansel-photoname"><?php echo Ansel::getBreadCrumbs($this->gallery) ?></h1>
 
-<table style="width: 100%;">
- <tr>
-  <td valign="top" style="background-color:<?php echo $this->background; ?>;">
+<div id="ansel-contentwrapper">
+  <div id="ansel-content" style="background-color:<?php echo $this->background; ?>;">
     <!-- Image Actions -->
     <div class="control anselActions" style="text-align:center;">
     <?php if (!empty($this->urls['prop_popup'])): ?>
@@ -65,7 +64,7 @@
 
     <!-- Exif Display -->
     <?php if (!empty($this->exif)): ?>
-      <div id="exif">
+      <div id="exif" style="text-align: center;margin:10px;">
         <table id="ansel-exif-table" class="box striped" cellspacing="0">
           <?php foreach ($this->exif as $elem): ?>
             <tr>
@@ -84,15 +83,13 @@
         <?php echo $this->commentHtml; ?>
       </div>
     <?php endif; ?>
+  </div>
+</div>
 
-  </td>
-
-  <!-- Widgets -->
-  <?php if ($this->view->countWidgets()): ?>
-    <td width="20%" valign="top">
-      <!-- Widgets -->
-     <?php $this->view->renderWidgets() ?>
-    </td>
-  <?php endif ?>
- </tr>
-</table>
+<!-- Widgets -->
+<?php if ($this->view->countWidgets()): ?>
+  <div id="ansel-widgetcontent">
+    <!-- Widgets -->
+   <?php $this->view->renderWidgets() ?>
+  </div>
+<?php endif ?>

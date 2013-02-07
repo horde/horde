@@ -58,6 +58,25 @@ th {
     padding: 1em;
 }
 
+#ansel-contentwrapper {
+    width: 100%;
+    float: right;
+}
+#ansel-content {
+    vertical-align: top;
+    margin-left: 5px;
+    margin-right: 255px;
+}
+#ansel-widgetcontent {
+    float: right;
+    width: 250px;
+    margin-left: 5px;
+    margin-right: -100%;
+    margin-top: 5px;
+    vertical-align: top;
+}
+
+/* Image view */
 #anselimagecontainer {
     text-align: center;
 }
@@ -95,7 +114,6 @@ th {
 }
 .anselWidgets {
     margin-right: 5px;
-    margin-left:5px;
     vertical-align: top;
 }
 .anselWidgets .header {
@@ -252,8 +270,7 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 
 /* Actions */
 .anselActions {
-    margin-left: 0;
-    border: 1px #cccccc solid;
+    /*border: 1px #cccccc solid;*/
 }
 .anselActions a, .anselActions a:visited, .anselActions label {
     white-space: nowrap;
