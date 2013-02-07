@@ -331,6 +331,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         $view->hide_slideshow = !empty($this->_params['hide_slideshow']);
         $view->view = $this;
         $view->geometry = $this->_geometry;
+        $view->background = $this->_style->background;
 
         // Starting image
         $imageIndex = $this->_revList[$this->resource->id];
