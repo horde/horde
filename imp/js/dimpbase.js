@@ -3391,15 +3391,14 @@ var DimpBase = {
         }
     },
 
-    /* Flag actions for message list. */
-    _getFlagSelection: function(opts)
+    _getSelection: function(opts)
     {
         var vs;
 
         if (opts.vs) {
             vs = opts.vs;
         } else if (opts.uid) {
-            vs = this.viewport.createSelection('dataob', opts.uid, opts.mailbox ? opts.mailbox : this.view);
+            vs = this.viewport.createSelection('uid', [ opts.uid ], opts.mailbox ? opts.mailbox : this.view);
         } else {
             vs = this.viewport.getSelected();
         }
@@ -3412,7 +3411,7 @@ var DimpBase = {
     // args = (Object) Parameters to pass to AJAX call
     _doMsgAction: function(type, opts, args)
     {
-        var vs = this._getFlagSelection(opts);
+        var vs = this._getSelection(opts);
 
         if (vs.size()) {
             // This needs to be synchronous Ajax if we are calling from a
@@ -3450,7 +3449,7 @@ var DimpBase = {
     deleteMsg: function(opts)
     {
         opts = opts || {};
-        opts.vs = this._getFlagSelection(opts);
+        opts.vs = this._getSelection(opts);
 
         this._doMsgAction('deleteMessages', opts, {});
         this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
@@ -3465,7 +3464,7 @@ var DimpBase = {
 
         var need,
             params = $H(opts.params),
-            vs = this._getFlagSelection(opts);
+            vs = this._getSelection(opts);
 
         need = vs.get('dataob').any(function(ob) {
             return add
