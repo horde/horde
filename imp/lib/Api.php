@@ -238,10 +238,10 @@ class IMP_Api extends Horde_Registry_Api
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         return array(
-            'hostspec' => $imap_ob->ob->getParam('hostspec'),
-            'port' => $imap_ob->ob->getParam('port'),
+            'hostspec' => $imap_ob->getParam('hostspec'),
+            'port' => $imap_ob->getParam('port'),
             'protocol' => $imap_ob->isImap() ? 'imap' : 'pop',
-            'secure' => $imap_ob->ob->getParam('secure')
+            'secure' => $imap_ob->getParam('secure')
         );
     }
 

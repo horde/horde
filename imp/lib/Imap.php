@@ -22,6 +22,8 @@
  * @package   IMP
  *
  * @property-read boolean $changed  If true, this object has changed.
+ * @property-read Horde_Imap_Client_Base $ob  The client object for the base
+ *                                            connection.
  */
 class IMP_Imap implements Serializable
 {
@@ -31,13 +33,6 @@ class IMP_Imap implements Serializable
     const ACCESS_FLAGS = 3;
     const ACCESS_UNSEEN = 4;
     const ACCESS_TRASH = 5;
-
-    /**
-     * The Horde_Imap_Client object.
-     *
-     * @var Horde_Imap_Client
-     */
-    public $ob = null;
 
     /**
      * Server configuration file.
@@ -68,6 +63,13 @@ class IMP_Imap implements Serializable
     protected $_nsdefault = null;
 
     /**
+     * The Horde_Imap_Client object.
+     *
+     * @var Horde_Imap_Client
+     */
+    protected $_ob = null;
+
+    /**
      * Temporary data cache (destroyed at end of request).
      *
      * @var array
@@ -80,7 +82,10 @@ class IMP_Imap implements Serializable
     {
         switch ($key) {
         case 'changed':
-            return $this->_changed || ($this->ob && $this->ob->changed);
+            return $this->_changed || ($this->_ob && $this->_ob->changed);
+
+        case 'ob':
+            return $this->_ob;
         }
     }
 
@@ -95,7 +100,7 @@ class IMP_Imap implements Serializable
      */
     public function isImap($mbox = null)
     {
-        return !$this->ob || ($this->ob instanceof Horde_Imap_Client_Socket);
+        return !$this->_ob || ($this->_ob instanceof Horde_Imap_Client_Socket);
     }
 
     /**
@@ -112,8 +117,8 @@ class IMP_Imap implements Serializable
     {
         global $prefs;
 
-        if (!is_null($this->ob)) {
-            return $this->ob;
+        if (!is_null($this->_ob)) {
+            return $this->_ob;
         }
 
         if (($server = $this->loadServerConfig($key)) === false) {
@@ -155,7 +160,7 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
-        $this->ob = $ob;
+        $this->_ob = $ob;
 
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
@@ -210,12 +215,12 @@ class IMP_Imap implements Serializable
     {
         if ($this->isImap()) {
             $special = IMP_Mailbox::getSpecialMailboxes();
-            $cache = $this->ob->getParam('cache');
+            $cache = $this->_ob->getParam('cache');
             $cache['fetch_ignore'] = array_filter(array(
                 strval($special[IMP_Mailbox::SPECIAL_SPAM]),
                 strval($special[IMP_Mailbox::SPECIAL_TRASH])
             ));
-            $this->ob->setParam('cache', $cache);
+            $this->_ob->setParam('cache', $cache);
         }
     }
 
@@ -369,7 +374,7 @@ class IMP_Imap implements Serializable
      */
     public function __call($method, $params)
     {
-        if (!$this->ob) {
+        if (!$this->_ob) {
             /* Fallback for these methods. */
             switch ($method) {
             case 'getIdsOb':
@@ -382,7 +387,7 @@ class IMP_Imap implements Serializable
                 break;
             }
         } else {
-            $error = !method_exists($this->ob, $method);
+            $error = !method_exists($this->_ob, $method);
         }
 
         if ($error) {
@@ -432,7 +437,7 @@ class IMP_Imap implements Serializable
         }
 
         try {
-            $result = call_user_func_array(array($this->ob, $method), $params);
+            $result = call_user_func_array(array($this->_ob, $method), $params);
         } catch (Horde_Imap_Client_Exception $e) {
             $error = new IMP_Imap_Exception($e);
             Horde::log($error);
@@ -570,7 +575,7 @@ class IMP_Imap implements Serializable
     public function serialize()
     {
         return serialize(array(
-            $this->ob,
+            $this->_ob,
             $this->_nsdefault,
             $this->_login
         ));
@@ -581,7 +586,7 @@ class IMP_Imap implements Serializable
     public function unserialize($data)
     {
         list(
-            $this->ob,
+            $this->_ob,
             $this->_nsdefault,
             $this->_login
         ) = unserialize($data);
