@@ -26,7 +26,7 @@ class Horde_Itip_Resource_Identity implements Horde_Itip_Resource
     /**
      * The identity.
      *
-     * @var IMP_Prefs_Identity
+     * @var Horde_Prefs_Identity
      */
     protected $_identity;
 
@@ -40,11 +40,11 @@ class Horde_Itip_Resource_Identity implements Horde_Itip_Resource
     /**
      * Constructor.
      *
-     * @param IMP_Prefs_Identity $identity  The IMP identity of the invited
-     *                                      resource.
-     * @param array              $attendees The attendees of the invitation.
-     * @param string             $reply_to  The selected identity for sending the
-     *                                      reply.
+     * @param Horde_Prefs_Identity $identity  The identity of the invited
+     *                                        resource.
+     * @param array $attendees                The attendees of the invitation.
+     * @param string $reply_to                The selected identity for sending
+     *                                        the reply.
      * @todo Parse mailto using parse_url
      */
     public function __construct($identity, $attendees, $reply_to)
@@ -80,11 +80,7 @@ class Horde_Itip_Resource_Identity implements Horde_Itip_Resource
      */
     public function getReplyTo()
     {
-        $original = $this->_identity->getDefault();
-        $this->_identity->setDefault($this->_reply_to);
-        $reply_to = $this->_identity->getValue('replyto_addr');
-        $this->_identity->setDefault($original);
-        return $reply_to;
+        return $this->_identity->getValue('replyto_addr', $this->_reply_to);
     }
 
     /**
@@ -104,11 +100,6 @@ class Horde_Itip_Resource_Identity implements Horde_Itip_Resource
      */
     public function getFrom()
     {
-        $cn = $this->getCommonName();
-        if (!empty($cn)) {
-            return sprintf("%s <%s>", $cn, $this->getMailAddress());
-        } else {
-            return $this->getMailAddress();
-        }
+        return (string)$this->_identity->getDefaultFromAddress(true);
     }
 }

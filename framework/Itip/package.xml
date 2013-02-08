@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Don&apos;t depend on an IMP identity object.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -389,6 +389,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>2.3.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
@@ -743,7 +750,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Don&apos;t depend on an IMP identity object.
    </notes>
   </release>
  </changelog>
