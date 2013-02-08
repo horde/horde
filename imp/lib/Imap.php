@@ -85,7 +85,13 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * @param IMP_Mailbox $mbox
+     * Determine if this is a connection to an IMAP server.
+     *
+     * @param IMP_Mailbox $mbox  Specifically check this mailbox. Otherwise,
+     *                           checks the base IMAP objecct.
+     *
+     * @return boolean  True if connected to IMAP server, false if connected
+     *                  to a POP3 server.
      */
     public function isImap($mbox = null)
     {
