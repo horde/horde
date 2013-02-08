@@ -152,7 +152,11 @@ class Horde_Domhtml implements Iterator
         }
 
         if (strcasecmp($curr_charset, $charset) !== 0) {
-            $text = Horde_String::convertCharset(html_entity_decode($text, ENT_COMPAT | ENT_HTML401, $curr_charset), $curr_charset, $charset);
+            $mask = ENT_COMPAT;
+            if (defined('ENT_HTML401')) {
+                $mask |= constant('ENT_HTML401');
+            }
+            $text = Horde_String::convertCharset(html_entity_decode($text, $mask, $curr_charset), $curr_charset, $charset);
         }
 
         if (!$this->_xmlencoding ||
