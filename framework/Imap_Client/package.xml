@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-08</date>
- <time>16:06:12</time>
+ <time>16:11:29</time>
  <version>
-  <release>2.6.0</release>
+  <release>2.6.1</release>
   <api>2.6.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in parsing LISTRIGHTS results (Bug #11994).
-* [mms] Workaround QRESYNC errata that allows FETCH FLAGS results to be returned without UID information.
-* [mms] More robust handling of split FETCH responses.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1515,6 +1513,19 @@
 * [mms] Fix regression in parsing LISTRIGHTS results (Bug #11994).
 * [mms] Workaround QRESYNC errata that allows FETCH FLAGS results to be returned without UID information.
 * [mms] More robust handling of split FETCH responses.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.6.1</release>
+    <api>2.6.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
