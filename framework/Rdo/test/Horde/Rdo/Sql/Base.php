@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Rdo_Test_Sql_Base extends Horde_Rdo_TestBase
+class Horde_Rdo_Test_Sql_Base extends Horde_Test_Case
 {
     protected static $db;
     protected static $EagerBaseObjectMapper;
