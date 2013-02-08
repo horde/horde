@@ -47,7 +47,8 @@ class Horde_Test_AllTests
 
         $parts = array();
         foreach (array_reverse(explode(DIRECTORY_SEPARATOR, $file)) as $val) {
-            if ($val == 'test') {
+            if ($val == 'test' ||
+                $val == implode('_', array_reverse($parts))) {
                 break;
             }
             $parts[] = $val;
