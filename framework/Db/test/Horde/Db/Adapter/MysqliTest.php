@@ -39,6 +39,9 @@ class Horde_Db_Adapter_MysqliTest extends Horde_Test_Case
         if (extension_loaded('mysqli')) {
             self::$skip = false;
             list($conn,) = self::getConnection();
+            if (self::$skip) {
+                return;
+            }
             $conn->disconnect();
         }
         require_once __DIR__ . '/Mysql/ColumnDefinition.php';
