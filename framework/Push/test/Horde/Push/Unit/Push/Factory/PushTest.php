@@ -77,6 +77,7 @@ extends Horde_Push_TestCase
             array(
                 'kolab' => array(
                     'driver' => 'mock',
+                    'logger' => $this->getMock('Horde_Log_Logger'),
                     'queryset' => array('list' => array('queryset' => 'horde')),
                     'params' => array(
                         'username' => 'test',

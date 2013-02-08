@@ -42,6 +42,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
     options: {
         callback: null,
+        delay: 600,
         icon: 'arrow-r',
         link: null,
         matchFromStart: true,
@@ -53,7 +54,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
     _create: function()
     {
-        var buildItems,
+        var buildItems, keyupHandler, timeout,
             el = this.element,
             self = this,
             opts = this.options,
@@ -95,10 +96,12 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
             $target.listview("refresh");
         };
 
-        el.off(".autocomplete");
-        el.on("keyup.autocomplete", function() {
+        keyupHandler = function()
+        {
             var id = el.attr("id"),
                 text = el.val();
+
+            timeout = null;
 
             // If we don't have enough text zero out the target
             if (text.length < opts.minLength) {
@@ -132,6 +135,12 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
                     );
                 }
             }
+        };
+
+        el.off(".autocomplete");
+        el.on("keyup.autocomplete", function() {
+            window.clearTimeout(timeout);
+            timeout = window.setTimeout(keyupHandler, opts.delay);
         });
     },
 

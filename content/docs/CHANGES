@@ -2,6 +2,8 @@
 v2.0.2-git
 ----------
 
+[mjr] Fix logic that could possibly lead to incorrect content types being
+      applied to objects (Bug #12016).
 
 
 ------

@@ -59,7 +59,7 @@ class Ansel_View_Upload
      * </pre>
      * @param <type> $params
      */
-    public function __construct($params)
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
         $this->_gallery = $this->_params['gallery'];

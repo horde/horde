@@ -44,7 +44,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $notification;
 
         $imp_message = $injector->getInstance('IMP_Message');
 

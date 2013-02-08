@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression in outputting Content-Disposition &apos;size&apos; parameter if no other Content-Disposition parameter is present.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1067,7 +1067,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression in outputting Content-Disposition &apos;size&apos; parameter if no other Content-Disposition parameter is present.
    </notes>
   </release>
  </changelog>

@@ -1,11 +1,18 @@
 <?php
 /**
- * This class provides an interface to all identities a user might have.
- *
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Prefs
+ */
+
+/**
+ * This class provides an interface to all identities a user might have.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -361,6 +368,26 @@ class Horde_Prefs_Identity
     }
 
     /**
+     * Returns the from address based on the chosen identity.
+     *
+     * If no address can be found it is built from the current user.
+     *
+     * @since Horde_Prefs 2.3.0
+     *
+     * @param integer $ident  The identity to retrieve the address from.
+     *
+     * @return Horde_Mail_Rfc822_Address  A valid from address.
+     */
+    public function getFromAddress($ident = null)
+    {
+        $val = $this->getValue($this->_prefnames['from_addr'], $ident);
+        if (!strlen($val)) {
+            $val = $this->_user;
+        }
+        return new Horde_Mail_Rfc822_Address($val);
+    }
+
+    /**
      * Generates the from address to use for the default identity.
      *
      * @param boolean $fullname  Include the fullname information.
@@ -370,12 +397,8 @@ class Horde_Prefs_Identity
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        $addr = $this->getValue($this->_prefnames['from_addr']);
-        if (empty($addr)) {
-            $addr = $this->_user;
-        }
-
-        $ob = new Horde_Mail_Rfc822_Address($addr);
+        $addr = $this->getFromAddress();
+        $ob = new Horde_Mail_Rfc822_Address($addr->bare_address);
 
         if ($fullname) {
             $ob->personal = $this->getValue($this->_prefnames['fullname']);
@@ -383,5 +406,4 @@ class Horde_Prefs_Identity
 
         return $ob;
     }
-
 }

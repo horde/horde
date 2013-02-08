@@ -133,7 +133,7 @@ EOL;
             try {
                 $history->log(array());
                 $this->fail('No exception!');
-            } catch (Horde_History_Exception $e) {
+            } catch (InvalidArgumentException $e) {
             }
         }
     }

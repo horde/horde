@@ -34,6 +34,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Improved detection of charset in text/html message parts.
+* [mms] Fix displaying dynamic compose screen when sent-mail preferences are locked (Bug #12009).
+* [mms] Fix usage of textContent property on IE8 (Bug #12012).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
 * [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
@@ -1272,7 +1275,7 @@
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -2911,6 +2914,9 @@
    <date>2013-01-18</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Improved detection of charset in text/html message parts.
+* [mms] Fix displaying dynamic compose screen when sent-mail preferences are locked (Bug #12009).
+* [mms] Fix usage of textContent property on IE8 (Bug #12012).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
 * [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).

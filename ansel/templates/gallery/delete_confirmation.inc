@@ -5,9 +5,9 @@
 </h1>
 <div class="headerbox" style="padding:10px">
  <p><?php echo $actionID == 'delete' ? _("Really delete this gallery and all of the photos and subgalleries in it? This action cannot be undone.") : _("Really empty this gallery and all of the photos in it? This action cannot be undone.") ?></p>
-<form method="post" action="gallery/delete.php">
+<form method="post" action="gallery.php">
 <?php echo Horde_Util::formInput() ?>
-<input type="hidden" name="action" value="<?php echo $actionID ?>" />
+<input type="hidden" name="actionID" value="<?php echo 'do_' . $actionID ?>" />
 <input type="hidden" name="gallery" value="<?php echo htmlspecialchars($galleryId) ?>" />
 <input type="submit" class="horde-delete" value="<?php echo $actionID == 'delete' ? _("Really Delete") : _("Really Empty") ?>" />
 <input type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" onclick="history.back()" />

@@ -1312,36 +1312,30 @@ class Ansel_Image Implements Iterator
     /**
      * Get the image attributes from the backend.
      *
-     * @param boolean $format     Format the EXIF data. If false, the raw data
-     *                            is returned.
-     *
-     * @return array  The EXIF data.
+     * @return array  A hash of Exif fieldnames => values.
      */
-    public function getAttributes($format = false)
+    public function getAttributes()
     {
-        $attributes = $GLOBALS['injector']->getInstance('Ansel_Storage')
+        $attributes = $GLOBALS['injector']
+            ->getInstance('Ansel_Storage')
             ->getImageAttributes($this->id);
         $exif = Horde_Image_Exif::factory(
             $GLOBALS['conf']['exif']['driver'],
-            !empty($GLOBALS['conf']['exif']['params']) ?
-                $GLOBALS['conf']['exif']['params'] :
-                array());
+            !empty($GLOBALS['conf']['exif']['params'])
+                ? $GLOBALS['conf']['exif']['params']
+                : array()
+        );
         $fields = Horde_Image_Exif::getFields($exif);
-        $output = array();
 
+        $output = array();
         foreach ($fields as $field => $data) {
             if (!isset($attributes[$field])) {
                 continue;
             }
-            $value = Horde_Image_Exif::getHumanReadable(
+            $output[$field] = $value = Horde_Image_Exif::getHumanReadable(
                 $field,
-                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8'));
-            if (!$format) {
-                $output[$field] = $value;
-            } else {
-                $description = isset($data['description']) ? $data['description'] : $field;
-                $output[] = '<td><strong>' . $description . '</strong></td><td>' . htmlspecialchars($value) . '</td>';
-            }
+                Horde_String::convertCharset($attributes[$field], $GLOBALS['conf']['sql']['charset'], 'UTF-8')
+            );
         }
 
         return $output;

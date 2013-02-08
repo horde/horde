@@ -51,42 +51,6 @@ class Horde_Text_Filter_Xss extends Horde_Text_Filter_Base
     );
 
     /**
-     * Returns a hash with replace patterns.
-     *
-     * @return array  Patterns hash.
-     */
-    public function getPatterns()
-    {
-        return array('regexp' => array(
-            /* Remove all control characters. */
-            '/[\x00-\x08\x0e-\x1f]/' => '',
-
-            /* Change space entities to space characters. */
-            '/&#(?:x0*20|0*32);?/i' => ' ',
-
-            /* If we have a semicolon, it is deterministically detectable and
-             * fixable, without introducing collateral damage. */
-            '/&#x?0*(?:[9A-D]|1[0-3]);/i' => '&nbsp;',
-
-            /* Hex numbers (usually having an x prefix) are also deterministic,
-             * even if we don't have the semi. Note that some browsers will
-             * treat &#a or &#0a as a hex number even without the x prefix;
-             * hence /x?/ which will cover those cases in this rule. */
-            '/&#x?0*[9A-D]([^0-9A-F]|$)/i' => '&nbsp\\1',
-
-            /* Decimal numbers without trailing semicolons. The problem is
-             * that some browsers will interpret &#10a as "\na", some as
-             * "&#x10a" so we have to clean the &#10 to be safe for the "\na"
-             * case at the expense of mangling a valid entity in other cases.
-             * (Solution for valid HTML authors: always use the semicolon.) */
-            '/&#0*(?:9|1[0-3])([^0-9]|$)/i' => '&nbsp\\1',
-
-            /* Remove overly long numeric entities. */
-            '/&#x?0*[0-9A-F]{6,};?/i' => '&nbsp;'
-        ));
-    }
-
-    /**
      * Executes any code necessary after applying the filter patterns.
      *
      * @param string $text  The text after the filtering.

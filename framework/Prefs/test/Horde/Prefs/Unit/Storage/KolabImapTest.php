@@ -71,6 +71,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFolder()
     {
+        $this->markTestIncomplete();
         $storage = $this->_createStorage();
         $p = new Horde_Prefs(
             'test@example.com',
@@ -159,6 +160,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
                     'data' => array('queryset' => 'horde'),
                 ),
                 'cache'  => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+                'logger' => $this->getMock('Horde_Log_Logger'),
             )
         );
         return $factory->create();

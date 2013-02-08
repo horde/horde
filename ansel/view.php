@@ -47,11 +47,11 @@ try {
 }
 
 Ansel::initJSVariables();
-
+$page_output->growler = true;
 $page_output->header(array(
-    'title' => $view->getTitle()
+    'title' => $view->getTitle(),
+    'growler_log' => true,
 ));
 $notification->notify(array('listeners' => 'status'));
-$view_html = $view->html();
-echo $view_html;
+echo $view->html();
 $page_output->footer();

@@ -1004,11 +1004,18 @@ var ImpMobile = {
      */
     copymoveSelected: function(e)
     {
-        var source = $('#imp-copymove-mbox').val(),
-            value = $(e.currentTarget).attr('id') == 'imp-copymove-list'
-                ? $('#imp-copymove-list').val()
-                : $('#imp-copymove-new').val(),
+        var value,
+            opts = {},
+            source = $('#imp-copymove-mbox').val(),
             move = ($('#imp-copymove-action').val() == 'move');
+
+        if ($(e.currentTarget).attr('id') == 'imp-copymove-list') {
+            value = $('#imp-copymove-list').val();
+            opts.mboxto = value;
+        } else {
+            value = $('#imp-copymove-new').val();
+            opts.newmbox = value;
+        }
 
         if (value === '') {
             $('#imp-copymove-newdiv').show();
@@ -1023,9 +1030,7 @@ var ImpMobile = {
                 checkcache: 1,
                 force: Number(move),
                 view: source
-            }), {
-                mboxto: value,
-                newmbox: $('#imp-copymove-new').val(),
+            }), opts, {
                 uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
             })
         );

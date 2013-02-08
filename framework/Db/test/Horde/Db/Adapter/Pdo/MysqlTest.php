@@ -32,17 +32,15 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
 
     protected static $skip = true;
 
+    protected static $reason = 'The PDO_MySQL adapter is not available';
+
     public static function setUpBeforeClass()
     {
         if (extension_loaded('pdo') &&
             in_array('mysql', PDO::getAvailableDrivers())) {
-            try {
-                list($conn,) = self::getConnection();
-                self::$skip = false;
-                $conn->disconnect();
-            } catch (Exception $e) {
-                echo $e->getMessage() . "\n";
-            }
+            self::$skip = false;
+            list($conn,) = self::getConnection();
+            $conn->disconnect();
         }
         require_once __DIR__ . '/../Mysql/ColumnDefinition.php';
         require_once __DIR__ . '/../Mysql/TableDefinition.php';
@@ -62,7 +60,9 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
             $config = $config['db']['adapter']['pdo']['mysql']['test'];
         }
         if (!is_array($config)) {
-            throw new Exception('No configuration for pdo_mysql test');
+            self::$skip = true;
+            self::$reason = 'No configuration for pdo_mysql test';
+            return;
         }
         $config = array_merge($config, $overrides);
 
@@ -77,7 +77,7 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
     protected function setUp()
     {
         if (self::$skip) {
-            $this->markTestSkipped('The PDO_MySQL adapter is not available');
+            $this->markTestSkipped(self::$reason);
         }
 
         list($this->_conn, $this->_cache) = self::getConnection();

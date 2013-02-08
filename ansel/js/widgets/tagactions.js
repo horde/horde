@@ -48,6 +48,9 @@ var AnselTagActions = {
     updateTags: function(r)
     {
         $('tags').down('ul').remove();
+        if (r.length == 0) {
+            return;
+        }
         var ul = new Element('ul', { 'class': 'horde-tags' });
         $H(r).each(function(x) {
             var a = new Element('a', { 'href': x[1].link }).update(x[1].tag_name + '&nbsp;');

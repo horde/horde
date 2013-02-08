@@ -250,12 +250,10 @@ class Horde_ActiveSync_Imap_Adapter
 
             // Prepare the changes and flags array, ensuring no changes after
             // $modseq sneak in yet (they will be caught on the next PING or
-            // SYNC) and no \deleted messages are included since EAS doesn't
-            // support that flag.
+            // SYNC).
             $changes = array();
             foreach ($fetch_ret as $uid => $data) {
-                if ($data->getModSeq() <= $modseq &&
-                    array_search('\deleted', $data->getFlags()) === false) {
+                if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
@@ -358,17 +356,34 @@ class Horde_ActiveSync_Imap_Adapter
             $status = $imap->status($to, Horde_Imap_Client::STATUS_UIDNEXT_FORCE);
             $uidnext = $status[Horde_Imap_Client::STATUS_UIDNEXT];
         }
-        $ids = new Horde_Imap_Client_Ids($ids);
+        $ids_obj = new Horde_Imap_Client_Ids($ids);
+
+        // Need to ensure the source message exists so we may properly notify
+        // the client of the error.
+        $search_q = new Horde_Imap_Client_Search_Query();
+        $search_q->ids($ids_obj);
+        $fetch_res = $imap->search($from, $search_q);
+        if ($fetch_res['count'] != count($ids)) {
+            $ids_obj = $fetch_res['match'];
+        }
+
         try {
-            $copy_res = $imap->copy($from, $to, array('ids' => $ids, 'move' => true));
+            $copy_res = $imap->copy($from, $to, array('ids' => $ids_obj, 'move' => true));
         } catch (Horde_Imap_Client_Exception $e) {
+            // We already got rid of the missing ids, this must be something
+            // else.
+            $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        // old_id => new_id
         if (is_array($copy_res)) {
             return $copy_res;
         }
+
+        // No UIDPLUS
         $ret = array();
-        foreach ($ids as $id) {
+        foreach ($ids_obj->ids as $id) {
             $ret[$id] = $uidnext++;
         }
 
@@ -405,22 +420,35 @@ class Horde_ActiveSync_Imap_Adapter
      * @param array $uids       The message UIDs
      * @param string $folderid  The folder id.
      *
+     * @return array  An array of uids that were successfully deleted.
      * @throws Horde_ActiveSync_Exception
      */
     public function deleteMessages(array $uids, $folderid)
     {
         $imap = $this->_getImapOb();
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $ids = new Horde_Imap_Client_Ids($uids);
+        $ids_obj = new Horde_Imap_Client_Ids($uids);
+
+        // Need to ensure the source message exists so we may properly notify
+        // the client of the error.
+        $search_q = new Horde_Imap_Client_Search_Query();
+        $search_q->ids($ids_obj);
+        $fetch_res = $imap->search($from, $search_q);
+        if ($fetch_res['count'] != count($uids)) {
+            $ids_obj = $fetch_res['match'];
+        }
+
         try {
             $imap->store($mbox, array(
-                'ids' => $ids,
+                'ids' => $ids_obj,
                 'add' => array('\deleted'))
             );
-            $imap->expunge($mbox, array('ids' => $ids));
+            $imap->expunge($mbox, array('ids' => $ids_obj));
         } catch (Horde_Imap_Client_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
+
+        return $ids_obj->ids;
     }
 
     /**

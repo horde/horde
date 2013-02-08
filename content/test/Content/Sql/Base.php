@@ -49,6 +49,11 @@ class Content_Test_Sql_Base extends Content_Test_Base
         $this->_testEnsureTags();
     }
 
+    public function testEnsureTypes()
+    {
+        $this->_testEnsureTypes();
+    }
+
     /**
      * @depends testCreate
      */
@@ -184,6 +189,7 @@ class Content_Test_Sql_Base extends Content_Test_Base
 
         self::$migrator->up();
         self::$tagger = self::$injector->getInstance('Content_Tagger');
+        self::$type_mgr = self::$injector->createInstance('Content_Types_Manager');
     }
 
     public static function tearDownAfterClass()

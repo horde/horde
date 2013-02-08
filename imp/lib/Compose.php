@@ -2683,7 +2683,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
-        $charset = $part->getCharset();
+        if (($charset = $part->getCharset()) === null) {
+            $charset = $this->charset;
+        }
 
         $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
 

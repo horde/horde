@@ -79,7 +79,7 @@ HordeMap.Map.Horde = Class.create({
                     backgroundXOffset: 0,
                     backgroundYOffset: -7,
                     backgroundGraphicZIndex: 10,
-                    pointRadius: (opts.pointRadius) ? opts.pointRadius : 10,
+                    pointRadius: (opts.pointRadius) ? opts.pointRadius : 10
                 }
             })
         };
@@ -162,7 +162,7 @@ HordeMap.Map.Horde = Class.create({
             opts.markerLayerTitle,
             {
                 'styleMap': styleMap,
-                'rendererOptions': { zIndexing: true },
+                'rendererOptions': { zIndexing: true }
             }
         );
         if (opts.hide) {
@@ -260,20 +260,20 @@ HordeMap.Map.Horde = Class.create({
     {
         var style = new OpenLayers.Style({ 'pointRadius': 20, 'externalGraphic': '${thumbnail}' });
         var layer = new OpenLayers.Layer.GML(name, feed_url, {
-            projection: new OpenLayers.Projection("EPSG:4326"),
+            projection: new OpenLayers.Projection('EPSG:4326'),
             format: OpenLayers.Format.GeoRSS,
             formatOptions: {
                 createFeatureFromItem: function(item) {
-                        var feature = OpenLayers.Format.GeoRSS.prototype
-                                .createFeatureFromItem.apply(this, arguments);
-                        feature.attributes.thumbnail =
-                                this.getElementsByTagNameNS(
-                                item, "*", "thumbnail")[0].getAttribute("url");
-                        return feature;
+                    var feature = OpenLayers.Format.GeoRSS.prototype
+                        .createFeatureFromItem.apply(this, arguments);
+                    feature.attributes.thumbnail =
+                        this.getElementsByTagNameNS(
+                            item, '*', 'thumbnail')[0].getAttribute('url');
+                    return feature;
                 }
             },
             styleMap: new OpenLayers.StyleMap({
-                    "default": style
+                'default': style
             })
         });
         this.map.addLayer(layer);
@@ -413,7 +413,7 @@ HordeMap.Map.Horde = Class.create({
 // Extension to OpenLayers to allow better abstraction:
 OpenLayers.Feature.Vector.prototype.getLonLat = function() {
     var ll = new OpenLayers.LonLat(this.geometry.x, this.geometry.y);
-    ll.transform(new OpenLayers.Projection("EPSG:900913"), new OpenLayers.Projection("EPSG:4326"));
+    ll.transform(new OpenLayers.Projection('EPSG:900913'), new OpenLayers.Projection('EPSG:4326'));
     return ll;
 };
 
