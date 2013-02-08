@@ -22,7 +22,7 @@ class IMP_Minimal_Folders extends IMP_Minimal_Base
     {
         global $injector, $notification, $prefs, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Redirect back to the mailbox if folder use is not allowed. */
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {

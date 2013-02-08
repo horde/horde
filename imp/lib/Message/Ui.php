@@ -80,7 +80,7 @@ class IMP_Message_Ui
     {
         global $conf, $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $maillog = $injector->getInstance('IMP_Maillog');
         $pref_val = $prefs->getValue('send_mdn');
 

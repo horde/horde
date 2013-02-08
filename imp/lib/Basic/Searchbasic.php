@@ -28,7 +28,7 @@ class IMP_Basic_Searchbasic extends IMP_Basic_Base
     {
         global $injector, $notification;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_SEARCH)) {
+        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_SEARCH)) {
             $notification->push(_("Searching is not available."), 'horde.error');
             $this->indices->mailbox->url('mailbox')->redirect();
         }

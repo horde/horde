@@ -62,7 +62,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
             $prefs->isLocked('sent_mail_folder')) {

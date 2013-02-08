@@ -240,7 +240,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Add information necessary to log replies/forwards when finally
          * sent. */
         if ($this->_replytype) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
             try {
                 $indices = $this->getMetadata('indices');
 
@@ -305,7 +305,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add the message to the mailbox. */
         try {
-            $ids = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
+            $ids = $GLOBALS['injector']->getInstance('IMP_Imap')->append($drafts_mbox, array(array('data' => $data, 'flags' => $append_flags)));
 
             if ($old_uid) {
                 $GLOBALS['injector']->getInstance('IMP_Message')->delete($old_uid, array('nuke' => true));
@@ -551,7 +551,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 try {
                     if (($imap_url->protocol == $protocol) &&
-                        ($imap_url->username == $injector->getInstance('IMP_Factory_Imap')->create()->getParam('username')) &&
+                        ($imap_url->username == $injector->getInstance('IMP_Imap')->getParam('username')) &&
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
@@ -619,7 +619,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add the message to the mailbox. */
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($mbox, array(array(
+            $GLOBALS['injector']->getInstance('IMP_Imap')->append($mbox, array(array(
                 'data' => $this->_saveDraftMsg($headers, $message, $opts),
                 'flags' => $append_flags
             )));
@@ -935,7 +935,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             );
 
             try {
-                $injector->getInstance('IMP_Factory_Imap')->create()->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
+                $injector->getInstance('IMP_Imap')->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
             }

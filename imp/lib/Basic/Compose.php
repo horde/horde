@@ -134,7 +134,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
         /* Init objects. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_ui = new IMP_Compose_Ui();
 
         /* Is this a popup window? */

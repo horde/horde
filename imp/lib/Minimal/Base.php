@@ -89,7 +89,7 @@ abstract class IMP_Minimal_Base
         }
 
         if (!in_array($page, array('folders', 'search')) &&
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            $GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
             $items[] = array(_("Folders"), IMP_Minimal_Folders::url());
         }
 

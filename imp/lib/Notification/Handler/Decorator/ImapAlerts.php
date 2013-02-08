@@ -30,7 +30,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
                            Horde_Notification_Listener $listener)
     {
         if (($listener instanceof Horde_Notification_Listener_Status) &&
-            ($ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()) &&
+            ($ob = $GLOBALS['injector']->getInstance('IMP_Imap')) &&
             $ob->ob) {
             /* Display IMAP alerts. */
             foreach ($ob->alerts() as $alert) {

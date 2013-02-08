@@ -27,7 +27,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
     {
         global $injector, $notification, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_search = $injector->getInstance('IMP_Search');
 
         /* Determine if mailbox is readonly. */

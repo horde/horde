@@ -20,67 +20,16 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Base
+class IMP_Factory_Imap extends Horde_Core_Factory_Injector
 {
     /**
-     * Default server ID to use.
-     *
-     * @var string
      */
-    public $defaultID;
-
-    /**
-     * Default instance. Used before successful authentication.
-     *
-     * @var IMP_Imap
-     */
-    private $_default = null;
-
-    /**
-     * Instances.
-     *
-     * @var array
-     */
-    private $_instances = array();
-
-    /**
-     */
-    public function __construct(Horde_Injector $injector)
-    {
-        parent::__construct($injector);
-
-        $this->defaultID = $GLOBALS['session']->get('imp', 'server_key');
-    }
-
-    /**
-     * Return the IMP_Imap instance.
-     *
-     * @param string $id  The server ID.
-     *
-     * @return IMP_Imap  The singleton instance.
-     * @throws IMP_Exception
-     */
-    public function create($id = null)
+    public function create(Horde_Injector $injector)
     {
         global $session;
 
-        if (is_null($id)) {
-            $id = $this->defaultID;
-        }
-
-        if (is_null($id)) {
-            if (!isset($this->_default)) {
-                $this->_default = new IMP_Imap();
-            }
-            return $this->_default;
-        }
-
-        if (isset($this->_instances[$id])) {
-            return $this->_instances[$id];
-        }
-
         try {
-            $ob = $session->get('imp', 'imap_ob/' . $id);
+            $ob = $session->get('imp', 'imap_ob');
         } catch (Exception $e) {
             // This indicates an unserialize() error.  This is fatal, so
             // logout.
@@ -93,29 +42,23 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Base
             /* Explicitly save object when first creating. Prevents losing
              * authentication information in case a misconfigured server
              * crashes before shutdown operations can occur. */
-            $session->set('imp', 'imap_ob/' . $id, $ob);
+            $session->set('imp', 'imap_ob', $ob);
         }
 
-        if (empty($this->_instances)) {
-            register_shutdown_function(array($this, 'shutdown'));
-        }
+        register_shutdown_function(array($this, 'shutdown'), $ob);
 
-        $this->_instances[$id] = $ob;
-
-        return $this->_instances[$id];
+        return $ob;
     }
 
     /**
-     * Saves IMP_Imap instances to the session on shutdown.
+     * Saves IMP_Imap instance to the session on shutdown.
+     *
+     * @param IMP_Imap $ob  Imap object.
      */
-    public function shutdown()
+    public function shutdown($ob)
     {
-        if ($GLOBALS['registry']->getAuth() !== false) {
-            foreach ($this->_instances as $id => $ob) {
-                if ($ob->changed) {
-                    $GLOBALS['session']->set('imp', 'imap_ob/' . $id, $ob);
-                }
-            }
+        if ($ob->changed && ($GLOBALS['registry']->getAuth() !== false)) {
+            $GLOBALS['session']->set('imp', 'imap_ob', $ob);
         }
     }
 

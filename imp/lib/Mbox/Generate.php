@@ -50,7 +50,7 @@ class IMP_Mbox_Generate
             return $body;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         foreach ($mboxes as $val) {
             try {

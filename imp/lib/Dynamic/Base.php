@@ -143,7 +143,7 @@ abstract class IMP_Dynamic_Base
 
             // Other variables
             'disable_compose' => !IMP_Compose::canCompose(),
-            'pop3' => intval($injector->getInstance('IMP_Factory_Imap')->create()->pop3)
+            'pop3' => intval($injector->getInstance('IMP_Imap')->pop3)
         ));
 
         /* Context menu definitions.

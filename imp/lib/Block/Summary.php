@@ -64,7 +64,7 @@ class IMP_Block_Summary extends Horde_Core_Block
         /* Filter on INBOX display.  INBOX is always polled. */
         IMP_Mailbox::get('INBOX')->filterOnDisplay();
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Get list of mailboxes to poll. */
         $poll = $injector->getInstance('IMP_Imap_Tree')->getPollList(true);

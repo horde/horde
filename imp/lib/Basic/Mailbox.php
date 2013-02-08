@@ -46,7 +46,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
         $horde_token = $injector->getInstance('Horde_Token');
         $imp_flags = $injector->getInstance('IMP_Flags');
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_search = $injector->getInstance('IMP_Search');
 
         /* Run through the action handlers */

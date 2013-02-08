@@ -67,7 +67,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
                 if ($mailbox->search) {
                     $ob = new IMP_Mailbox_List_Virtual($mailbox);
                 } else {
-                    $ob = $injector->getInstance('IMP_Factory_Imap')->create()->pop3
+                    $ob = $injector->getInstance('IMP_Imap')->pop3
                         ? new IMP_Mailbox_List_Pop3($mailbox)
                         : new IMP_Mailbox_List($mailbox);
                 }

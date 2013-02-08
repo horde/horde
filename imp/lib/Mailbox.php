@@ -314,13 +314,13 @@ class IMP_Mailbox implements Serializable
 
         case 'access_filters':
             return !$this->search &&
-                   !$injector->getInstance('IMP_Factory_Imap')->create()->pop3;
+                   !$injector->getInstance('IMP_Imap')->pop3;
 
         case 'access_sort':
             /* Although possible to abstract other sorting methods, all other
              * non-sequence methods require a download of ALL messages, which
              * is too much overhead.*/
-            return !$injector->getInstance('IMP_Factory_Imap')->create()->pop3;
+            return !$injector->getInstance('IMP_Imap')->pop3;
 
         case 'access_sortthread':
             /* Thread sort is always available for IMAP servers, since
@@ -328,7 +328,7 @@ class IMP_Mailbox implements Serializable
              * implementation. We will always prefer REFERENCES, but will
              * fallback to ORDEREDSUBJECT if the server doesn't support THREAD
              * sorting. */
-            return $injector->getInstance('IMP_Factory_Imap')->create()->imap;
+            return $injector->getInstance('IMP_Imap')->imap;
 
         case 'acl':
             if (isset($this->_cache[self::CACHE_ACL])) {
@@ -413,7 +413,7 @@ class IMP_Mailbox implements Serializable
             }
 
             try {
-                return (bool)$injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->imap_mbox_ob, null, array('flat' => true));
+                return (bool)$injector->getInstance('IMP_Imap')->listMailboxes($this->imap_mbox_ob, null, array('flat' => true));
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
@@ -479,7 +479,7 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
 
         case 'namespace_append':
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Imap');
             $def_ns = $imp_imap->defaultNamespace();
             if (is_null($def_ns)) {
                 return $this;
@@ -530,7 +530,7 @@ class IMP_Mailbox implements Serializable
                 return $ret;
             }
 
-            $ns_info = $injector->getInstance('IMP_Factory_Imap')->create()->getNamespace($this->_mbox);
+            $ns_info = $injector->getInstance('IMP_Imap')->getNamespace($this->_mbox);
             if (is_null($ns_info)) {
                 $this->_cache[self::CACHE_NAMESPACE] = null;
             } else {
@@ -558,7 +558,7 @@ class IMP_Mailbox implements Serializable
                 : null;
 
         case 'permflags':
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Imap');
 
             if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
                 try {
@@ -579,7 +579,7 @@ class IMP_Mailbox implements Serializable
             $info->unseen = 0;
 
             try {
-                if ($msgs_info = $injector->getInstance('IMP_Factory_Imap')->create()->status($this->_mbox, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
+                if ($msgs_info = $injector->getInstance('IMP_Imap')->status($this->_mbox, Horde_Imap_Client::STATUS_RECENT | Horde_Imap_Client::STATUS_UNSEEN | Horde_Imap_Client::STATUS_MESSAGES)) {
                     if (!empty($msgs_info['recent'])) {
                         $info->recent = intval($msgs_info['recent']);
                     }
@@ -670,7 +670,7 @@ class IMP_Mailbox implements Serializable
             return $this->get(array_merge(array($this->_mbox), $this->subfolders_only));
 
         case 'subfolders_only':
-            return $this->get($injector->getInstance('IMP_Factory_Imap')->create()->listMailboxes($this->imap_mbox_ob->list_escape . $this->namespace_delimiter . '*', null, array('flat' => true)));
+            return $this->get($injector->getInstance('IMP_Imap')->listMailboxes($this->imap_mbox_ob->list_escape . $this->namespace_delimiter . '*', null, array('flat' => true)));
 
         case 'systemquery':
             return $injector->getInstance('IMP_Search')->isSystemQuery($this->_mbox);
@@ -684,7 +684,7 @@ class IMP_Mailbox implements Serializable
             return ($this->_mbox == $special[self::SPECIAL_TRASH]);
 
         case 'uidvalid':
-            $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $injector->getInstance('IMP_Imap');
 
             // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
             if ($imp_imap->pop3 || $this->nonimap) {
@@ -786,7 +786,7 @@ class IMP_Mailbox implements Serializable
 
         /* Attempt to create the mailbox. */
         try {
-            $injector->getInstance('IMP_Factory_Imap')->create()->createMailbox($this->_mbox, array('special_use' => $special_use));
+            $injector->getInstance('IMP_Imap')->createMailbox($this->_mbox, array('special_use' => $special_use));
         } catch (IMP_Imap_Exception $e) {
             if ($e->getCode() == $e::USEATTR) {
                 unset($opts['special_use']);
@@ -843,7 +843,7 @@ class IMP_Mailbox implements Serializable
         }
 
         $deleted = array();
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if (empty($opts['subfolders'])) {
             $to_delete = array($this);
         } else {
@@ -903,7 +903,7 @@ class IMP_Mailbox implements Serializable
         $old_list = $this->subfolders;
 
         try {
-            $injector->getInstance('IMP_Factory_Imap')->create()->renameMailbox($this->_mbox, strval($new_mbox));
+            $injector->getInstance('IMP_Imap')->renameMailbox($this->_mbox, strval($new_mbox));
         } catch (IMP_Imap_Exception $e) {
             $e->notify(sprintf(_("Renaming \"%s\" to \"%s\" failed. This is what the server said"), $this->display, $new_mbox->display) . ': ' . $e->getMessage());
             return false;
@@ -939,7 +939,7 @@ class IMP_Mailbox implements Serializable
         }
 
         try {
-            $injector->getInstance('IMP_Factory_Imap')->create()->subscribeMailbox($this->_mbox, $sub);
+            $injector->getInstance('IMP_Imap')->subscribeMailbox($this->_mbox, $sub);
         } catch (IMP_Imap_Exception $e) {
             if ($sub) {
                 $e->notify(sprintf(_("You were not subscribed to \"%s\". Here is what the server said"), $this->display) . ': ' . $e->getMessage());
@@ -1076,7 +1076,7 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
             return $imp_imap->imap;
         }
@@ -1118,7 +1118,7 @@ class IMP_Mailbox implements Serializable
                                    $sortby = null, $sortdir = null)
     {
         try {
-            $results = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->search($this, $query, array(
+            $results = $GLOBALS['injector']->getInstance('IMP_Imap')->search($this, $query, array(
                 'sort' => is_null($sortby) ? null : array($sortby)
             ));
             if ($sortdir) {
@@ -1395,7 +1395,7 @@ class IMP_Mailbox implements Serializable
      */
     static public function prefFrom($mbox)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         if (!isset(self::$_temp[self::CACHE_NSDEFAULT])) {
             self::$_temp[self::CACHE_NSDEFAULT] = $imp_imap->defaultNamespace();
@@ -1425,7 +1425,7 @@ class IMP_Mailbox implements Serializable
      */
     static public function prefTo($mbox)
     {
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $def_ns = $imp_imap->defaultNamespace();
         $empty_ns = $imp_imap->getNamespace('');
 
@@ -1476,7 +1476,7 @@ class IMP_Mailbox implements Serializable
         }
 
         try {
-            return $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->getCacheId($this->_mbox, $addl);
+            return $GLOBALS['injector']->getInstance('IMP_Imap')->getCacheId($this->_mbox, $addl);
         } catch (IMP_Imap_Exception $e) {
             /* Assume an error means that a mailbox can not be trusted. */
             return strval(new Horde_Support_Randomid());

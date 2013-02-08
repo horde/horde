@@ -190,7 +190,7 @@ class IMP_Mbox_Import
         }
 
         try {
-            $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->append($this->_mbox, $this->_import['data']);
+            $GLOBALS['injector']->getInstance('IMP_Imap')->append($this->_mbox, $this->_import['data']);
             $this->_import['msgs'] += count($this->_import['data']);
         } catch (IMP_Imap_Exception $e) {}
 

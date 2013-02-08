@@ -29,7 +29,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
     {
         global $injector, $notification, $page_output, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $imp_mailbox = $this->indices->mailbox->list_ob;
 
         switch ($mode = $this->vars->get('mode', 'thread')) {

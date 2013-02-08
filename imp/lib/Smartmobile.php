@@ -57,7 +57,7 @@ class IMP_Smartmobile
     {
         global $injector, $page_output;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         echo $this->view->render('folders');
         echo $this->view->render('mailbox');
@@ -87,7 +87,7 @@ class IMP_Smartmobile
     {
         global $conf, $injector, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $this->view->options = IMP::flistSelect(array(
                 'heading' => _("This message to"),
@@ -126,7 +126,7 @@ class IMP_Smartmobile
     {
         global $conf, $injector, $page_output, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         $code = array(
             /* Variables. */

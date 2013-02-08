@@ -22,8 +22,7 @@
  *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
  *   - imap_admin: (array) See 'admin' entry in config/backends.php.
  *   - imap_namespace: (array) See 'namespace' entry in config/backends.php
- *   - imap_ob/*: (Horde_Imap_Client_Base) The IMAP client objects. Stored by
- *                server key.
+ *   - imap_ob: (IMP_Imap) The IMAP client object.
  *   - imap_quota: (array) See 'quota' entry in config/backends.php.
  *   - imap_thread: (string) The trheading algorithm supported by the server.
  *   - maildomain: (string) See 'maildomain' entry in config/backends.php.
@@ -80,8 +79,7 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $imp_imap_factory = $injector->getInstance('IMP_Factory_Imap');
-        $imp_imap = $imp_imap_factory->create($credentials['server']);
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -104,7 +102,6 @@ class IMP_Auth
 
         try {
             $imp_imap->login();
-            $imp_imap_factory->defaultID = $credentials['server'];
         } catch (IMP_Imap_Exception $e) {
             self::_log(false, $imp_imap);
             throw $e->authException();
@@ -246,7 +243,7 @@ class IMP_Auth
      */
     static protected function _canAutoLogin($server_key = null, $force = false)
     {
-        if (($servers = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->loadServerConfig()) === false) {
+        if (($servers = $GLOBALS['injector']->getInstance('IMP_Imap')->loadServerConfig()) === false) {
             return false;
         }
 
@@ -281,7 +278,7 @@ class IMP_Auth
     {
         $init_url = $GLOBALS['prefs']->getValue('initial_page');
         if (!$init_url ||
-            !$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+            !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
             $init_url = 'INBOX';
         }
 
@@ -336,7 +333,7 @@ class IMP_Auth
     {
         global $browser, $conf, $injector, $prefs, $registry, $session;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
         if ($ptr === false) {
             throw new Horde_Exception(_("Could not initialize mail server configuration."));

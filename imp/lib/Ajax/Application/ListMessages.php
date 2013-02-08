@@ -136,7 +136,7 @@ class IMP_Ajax_Application_ListMessages
         $result->cacheid = $mbox->cacheid_date;
         $result->totalrows = $msgcount;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
@@ -411,7 +411,7 @@ class IMP_Ajax_Application_ListMessages
             'headers' => true,
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $imp_ui = new IMP_Mailbox_Ui($mbox);
 
         $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);

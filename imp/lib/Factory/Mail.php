@@ -39,7 +39,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
          * current IMAP / POP3 connection are valid for SMTP authentication as
          * well. */
         if (!empty($params['auth'])) {
-            $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
+            $imap_ob = $injector->getInstance('IMP_Imap');
             if (empty($params['username'])) {
                 $params['username'] = $imap_ob->getParam('username');
             }

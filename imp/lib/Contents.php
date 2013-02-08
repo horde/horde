@@ -374,7 +374,7 @@ class IMP_Contents
 
             if (isset($this->_header)) {
                 try {
-                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+                    $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
                     $imp_imap->store($this->getMailbox(), array(
                         'add' => array(
                             Horde_Imap_Client::FLAG_SEEN
@@ -1516,7 +1516,7 @@ class IMP_Contents
         }
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
             $res = $imp_imap->fetch($this->getMailbox(), $query, array(
                 'ids' => $imp_imap->getIdsOb($this->getUid())
             ))->first();

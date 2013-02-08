@@ -271,7 +271,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
          * on the IMAP server (saves some STATUS calls). */
         if (!is_null($rw)) {
             try {
-                $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
+                $GLOBALS['injector']->getInstance('IMP_Imap')->openMailbox($this->indices->mailbox, $rw ? Horde_Imap_Client::OPEN_READWRITE : Horde_Imap_Client::OPEN_AUTO);
             } catch (IMP_Imap_Exception $e) {
                 $e->notify();
                 return null;

@@ -89,7 +89,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         /* Create list for sent-mail selection. */
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) &&
+        if ($injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS) &&
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
 

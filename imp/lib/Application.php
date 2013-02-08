@@ -100,6 +100,7 @@ class IMP_Application extends Horde_Registry_Application
             'IMP_Crypt_Smime' => 'IMP_Factory_Smime',
             'IMP_Flags' => 'IMP_Factory_Flags',
             'IMP_Identity' => 'IMP_Factory_Identity',
+            'IMP_Imap' => 'IMP_Factory_Imap',
             'IMP_Imap_Tree' => 'IMP_Factory_Imaptree',
             'IMP_Mail' => 'IMP_Factory_Mail',
             'IMP_Maillog' => 'IMP_Factory_Maillog',
@@ -218,7 +219,7 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector, $prefs, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         if ($imp_imap->access(IMP_Imap::ACCESS_TRASH) &&
             $prefs->getValue('use_trash') &&
@@ -284,7 +285,7 @@ class IMP_Application extends Horde_Registry_Application
         }
 
         /* Folders. */
-        if ($GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
+        if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
             $tree = $GLOBALS['injector']
                 ->getInstance('Horde_Core_Factory_Tree')
                 ->create('imp_menu',
@@ -447,7 +448,7 @@ class IMP_Application extends Horde_Registry_Application
             ));
         }
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             $onclick = null;
             switch ($registry->getView()) {

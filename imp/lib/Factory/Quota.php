@@ -47,7 +47,7 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
             $params['password'] = $secret->read($secret->getKey(), $params['password']);
         }
 
-        $imap_ob = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imap_ob = $injector->getInstance('IMP_Imap');
 
         switch (Horde_String::lower($driver)) {
         case 'imap':

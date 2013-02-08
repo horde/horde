@@ -29,7 +29,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
     {
         global $conf, $injector, $notification, $page_output, $prefs, $registry;
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         list(,$buid) = $this->indices->buids->getSingle();
         $mailbox = $this->indices->mailbox;
 

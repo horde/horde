@@ -31,7 +31,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
         global $injector, $notification, $page_output, $prefs, $registry, $session;
 
         /* Redirect back to the mailbox if folder use is not allowed. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $notification->push(_("The folder view is not enabled."), 'horde.error');
             Horde::url('mailbox', true)->redirect();

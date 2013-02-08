@@ -104,7 +104,7 @@ class IMP_Flags implements ArrayAccess, Serializable
      */
     public function getList(array $opts = array())
     {
-        if (!$GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
+        if (!$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
             return array();
         }
 
@@ -230,7 +230,7 @@ class IMP_Flags implements ArrayAccess, Serializable
             'personal' => null
         ), $opts);
 
-        $imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->imap;
+        $imap = $GLOBALS['injector']->getInstance('IMP_Imap')->imap;
         $ret = array();
 
         foreach (array_merge($this->_flags, $this->_userflags) as $val) {

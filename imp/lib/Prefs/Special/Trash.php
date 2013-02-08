@@ -74,7 +74,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         }
 
         if ($this->_updateSpecialMboxes('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
-            $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
+            $injector->getInstance('IMP_Imap')->updateFetchIgnore();
             return true;
         }
 

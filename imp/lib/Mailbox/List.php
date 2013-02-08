@@ -173,7 +173,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             ));
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         if (empty($options['preview'])) {
             $cache = null;
@@ -332,7 +332,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         $ret['anymsg'] = true;
         if (!$ret['msgcount'] && !$this->_mailbox->search) {
             try {
-                $status = $injector->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
+                $status = $injector->getInstance('IMP_Imap')->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
                 $ret['anymsg'] = (bool)$status['messages'];
             } catch (IMP_Imap_Exception $e) {
                 $ret['anymsg'] = false;
@@ -370,7 +370,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         $this->_cacheid = $cacheid;
         $this->_sorted = array();
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $query_ob = $this->_buildMailboxQuery();
         $sortpref = $this->_mailbox->getSort(true);
         $thread_sort = ($sortpref->sortby == Horde_Imap_Client::SORT_THREAD);
@@ -454,7 +454,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         $criteria = new Horde_Imap_Client_Search_Query();
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         if ($this->_mailbox->hideDeletedMsgs()) {
             $criteria->flag(Horde_Imap_Client::FLAG_DELETED, false);
@@ -509,7 +509,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
              * information is returned via a SELECT/EXAMINE call. */
             if ($sortpref->sortby == Horde_Imap_Client::SORT_SEQUENCE) {
                 try {
-                    $res = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
+                    $res = $GLOBALS['injector']->getInstance('IMP_Imap')->status($this->_mailbox, Horde_Imap_Client::STATUS_FIRSTUNSEEN | Horde_Imap_Client::STATUS_MESSAGES);
                     if (!is_null($res['firstunseen'])) {
                         return $sortpref->sortdir
                             ? ($res['messages'] - $res['firstunseen'] + 1)
@@ -715,7 +715,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     {
         if (!isset($this->_thread[strval($mbox)])) {
             try {
-                $thread = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->thread($mbox, array_merge($extra, array(
+                $thread = $GLOBALS['injector']->getInstance('IMP_Imap')->thread($mbox, array_merge($extra, array(
                     'criteria' => $GLOBALS['session']->get('imp', 'imap_thread')
                 )));
             } catch (Horde_Imap_Client_Exception $e) {

@@ -191,7 +191,7 @@ class IMP_Ajax_Queue
             $poll_list[strval($val)] = 1;
         }
 
-        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
         if ($imap_ob->ob) {
             foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                 $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
@@ -270,7 +270,7 @@ class IMP_Ajax_Queue
     {
         global $injector;
 
-        if (!$injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FLAGS)) {
+        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
             return;
         }
 

@@ -45,7 +45,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $this->_addMailboxVars();
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
@@ -286,7 +286,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         );
 
         /* Folder options context menu. */
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $context['ctx_folderopts'] = array(
                 'new' => _("Create Mailbox"),

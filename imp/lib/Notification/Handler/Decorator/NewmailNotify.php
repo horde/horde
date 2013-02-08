@@ -36,7 +36,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
             'logintasks' => false
         ));
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         if (!$prefs->getValue('newmail_notify') ||
             !($listener instanceof Horde_Notification_Listener_Status) ||

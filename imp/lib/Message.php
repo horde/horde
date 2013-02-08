@@ -90,7 +90,7 @@ class IMP_Message
             break;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         foreach ($indices as $ob) {
             try {
@@ -161,7 +161,7 @@ class IMP_Message
         }
 
         $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $maillog = $injector->getInstance('IMP_Maillog');
 
         $maillog_update = (empty($opts['keeplog']) && $maillog);
@@ -503,7 +503,7 @@ class IMP_Message
         $url->uid = $uid;
         $url->uidvalidity = $uidvalidity;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         /* Always add the header to output. */
         $url->section = 'HEADER';
@@ -634,7 +634,7 @@ class IMP_Message
             ? array('add' => $flags)
             : array('remove' => $flags);
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $ret = true;
 
         foreach ($indices as $ob) {
@@ -681,7 +681,7 @@ class IMP_Message
             ? array('add' => $flags)
             : array('remove' => $flags);
         $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
 
         $ajax_queue->poll($mboxes);
 
@@ -725,7 +725,7 @@ class IMP_Message
             return $msg_list ? new IMP_Indices() : null;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $process_list = $update_list = array();
 
         foreach ($mbox_list as $key => $val) {
@@ -783,7 +783,7 @@ class IMP_Message
     {
         global $notification, $prefs;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         $trash = ($prefs->getValue('use_trash'))
             ? IMP_Mailbox::getPref('trash_folder')
             : null;
@@ -837,7 +837,7 @@ class IMP_Message
         $query->size();
 
         try {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
             $res = $imp_imap->fetch($mbox, $query, array(
                 'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
             ));
