@@ -159,9 +159,7 @@ class IMP_Smartmobile
                         'spam' => _("Report as Spam")
                     ),
                 ),
-                'copymove' => _("Copy/Move"),
                 'more_msgs' => _("Load More Messages..."),
-                'nav' => _("%d - %d of %d Messages"),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),
