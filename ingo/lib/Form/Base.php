@@ -15,6 +15,25 @@
 class Ingo_Form_Base extends Horde_Form
 {
     /**
+     * List of the supported form fields.  If empty, all features are supported.
+     *
+     * @var array
+     */
+    protected $_features;
+
+    public function __construct($vars, $title = '', $name = null, $features = array())
+    {
+        parent::__construct($vars, $title, $name);
+        $this->_features = $features;
+    }
+
+    public function hasFeature($what)
+    {
+        // either we support the feature or (if _features is empty) we support all
+        return in_array($what, $this->_features) || empty($this->_features);
+    }
+
+    /**
      * Sets the form buttons.
      *
      * @param boolean $disabled  Whether the rule is currently disabled.
