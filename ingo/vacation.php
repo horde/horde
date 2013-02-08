@@ -36,7 +36,9 @@ if ($vars->submitbutton == _("Return to Rules List")) {
 }
 
 /* Build form. */
-$form = new Ingo_Form_Vacation($vars);
+$ingo_script = $injector->getInstance('Ingo_Script');
+$features = $ingo_script->availableCategoryFeatures(Ingo_Storage::ACTION_VACATION);
+$form = new Ingo_Form_Vacation($vars, '', null, $features);
 
 /* Perform requested actions. */
 if ($form->validate($vars)) {
