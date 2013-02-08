@@ -2274,7 +2274,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         if (!is_array($data) ||
             !isset($data[0]) ||
             (array_shift($data) != self::VERSION)) {
-            throw new Horde_Mime_Exception('Cache version change');
+            throw new Exception('Cache version change');
         }
 
         foreach ($this->_serializedVars as $key => $val) {

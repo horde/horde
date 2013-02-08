@@ -1455,7 +1455,7 @@ class Horde_Registry
         }
 
         /* Bail out if application is not present or inactive. */
-        if (!isset($this->applications[$app]) || $this->isInactive($app)) {
+        if ($this->isInactive($app)) {
             throw new Horde_Exception_PushApp($app . ' is not activated.', self::NOT_ACTIVE, $app);
         }
 

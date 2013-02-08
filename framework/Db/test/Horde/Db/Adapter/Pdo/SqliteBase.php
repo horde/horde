@@ -28,17 +28,15 @@ class Horde_Db_Adapter_Pdo_SqliteBase extends Horde_Test_Case
 {
     protected static $skip = true;
 
+    protected static $reason = 'The PDO_SQLite adapter is not available';
+
     public static function setUpBeforeClass()
     {
         if (extension_loaded('pdo') &&
             in_array('sqlite', PDO::getAvailableDrivers())) {
-            try {
-                list($conn,) = self::getConnection();
-                self::$skip = false;
-                $conn->disconnect();
-            } catch (Exception $e) {
-                echo $e->getMessage() . "\n";
-            }
+            self::$skip = false;
+            list($conn,) = self::getConnection();
+            $conn->disconnect();
         }
     }
 
@@ -59,7 +57,7 @@ class Horde_Db_Adapter_Pdo_SqliteBase extends Horde_Test_Case
     protected function setUp()
     {
         if (self::$skip) {
-            $this->markTestSkipped('The PDO_SQLite adapter is not available');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

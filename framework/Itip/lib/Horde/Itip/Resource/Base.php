@@ -1,8 +1,10 @@
 <?php
 /**
- * Simple information provider for an invited resource.
+ * Copyright 2010 Kolab Systems AG
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, see http://www.horde.org/licenses/lgpl21 LGPL.
  *
  * @category Horde
  * @package  Itip
@@ -14,34 +16,27 @@
 /**
  * Simple information provider for an invited resource.
  *
- * Copyright 2010 Kolab Systems AG
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * {@link http://www.horde.org/licenses/lgpl21 LGPL}.
- *
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
-class Horde_Itip_Resource_Base
-implements Horde_Itip_Resource
+class Horde_Itip_Resource_Base implements Horde_Itip_Resource
 {
     /**
      * The mail address.
      *
      * @var string
      */
-    private $_mail;
+    protected $_mail;
 
     /**
      * The common name.
      *
      * @var string
      */
-    private $_common_name;
+    protected $_common_name;
 
     /**
      * Constructor.
@@ -91,6 +86,6 @@ implements Horde_Itip_Resource
      */
     public function getFrom()
     {
-        return sprintf("%s <%s>", $this->_common_name, $this->_mail);
+        return sprintf('%s <%s>', $this->_common_name, $this->_mail);
     }
 }

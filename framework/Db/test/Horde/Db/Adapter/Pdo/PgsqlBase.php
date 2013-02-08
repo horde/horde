@@ -26,18 +26,16 @@ class Horde_Db_Adapter_Pdo_PgsqlBase extends Horde_Test_Case
 {
     protected static $skip = true;
 
+    protected static $reason = 'The PDO_PostgreSQL adapter is not available';
+
     protected static $conn;
 
     public static function setUpBeforeClass()
     {
         if (extension_loaded('pdo') &&
             in_array('pgsql', PDO::getAvailableDrivers())) {
-            try {
-                self::$conn = self::getConnection();
-                self::$skip = false;
-            } catch (Exception $e) {
-                echo $e->getMessage() . "\n";
-            }
+            self::$skip = false;
+            self::$conn = self::getConnection();
         }
     }
 
@@ -56,7 +54,9 @@ class Horde_Db_Adapter_Pdo_PgsqlBase extends Horde_Test_Case
             $config = $config['db']['adapter']['pdo']['pgsql']['test'];
         }
         if (!is_array($config)) {
-            throw new Exception('No configuration for pdo_pgsql test');
+            self::$skip = true;
+            self::$reason = 'No configuration for pdo_pgsql test';
+            return;
         }
 
         $conn = new Horde_Db_Adapter_Pdo_Pgsql($config);
@@ -70,7 +70,7 @@ class Horde_Db_Adapter_Pdo_PgsqlBase extends Horde_Test_Case
     protected function setUp()
     {
         if (self::$skip) {
-            $this->markTestSkipped('The PDO_PostgreSQL adapter is not available');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

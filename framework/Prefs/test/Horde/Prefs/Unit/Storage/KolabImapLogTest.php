@@ -65,6 +65,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
 
     public function testCreateFolder()
     {
+        $this->markTestIncomplete('The mock driver confuses user/test/Preferences with INBOX/Preferences');
         setlocale(LC_MESSAGES, 'C');
         $p = new Horde_Prefs(
             'test',
