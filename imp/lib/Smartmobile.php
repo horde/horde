@@ -159,6 +159,9 @@ class IMP_Smartmobile
                         'spam' => _("Report as Spam")
                     ),
                 ),
+                'message_0' => _("No messages"),
+                'message_1' => _("1 message"),
+                'message_2' => _("%d messages"),
                 'more_msgs' => _("Load More Messages..."),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),

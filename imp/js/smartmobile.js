@@ -401,6 +401,22 @@ var ImpMobile = {
         list = $('#imp-mailbox-list');
         list.empty();
 
+        list.append(tmp = $('<li data-role="list-divider"></li>'));
+
+        switch (ob.totalrows) {
+        case 0:
+            tmp.text(IMP.text.message_0);
+            break;
+
+        case 1:
+            tmp.text(IMP.text.message_1);
+            break;
+
+        default:
+            tmp.text(IMP.text.message_2.replace('%d', ob.totalrows));
+            break;
+        }
+
         $.each(ob.rows(), function(key, val) {
             var c = $('<li class="imp-message"></li>')
                     .jqmData('buid', val.buid),
