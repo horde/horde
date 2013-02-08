@@ -563,7 +563,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
                     'title' => _("_Delete"),
                     'nocheck' => true
                 ));
-                if ($imp_imap->pop3) {
+                if (!$msg_index['m']->is_imap) {
                     $js_vars['ImpMessage.pop3delete'] = _("Are you sure you want to PERMANENTLY delete these messages?");
                 }
             }

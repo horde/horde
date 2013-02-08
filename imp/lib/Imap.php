@@ -22,8 +22,6 @@
  * @package   IMP
  *
  * @property-read boolean $changed  If true, this object has changed.
- * @property-read boolean $imap  If true, this is an IMAP connection.
- * @property-read boolean $pop3  If true, this is a POP3 connection.
  */
 class IMP_Imap implements Serializable
 {
@@ -83,13 +81,15 @@ class IMP_Imap implements Serializable
         switch ($key) {
         case 'changed':
             return $this->_changed || ($this->ob && $this->ob->changed);
-
-        case 'imap':
-            return $this->ob && ($this->ob instanceof Horde_Imap_Client_Socket);
-
-        case 'pop3':
-            return $this->ob && ($this->ob instanceof Horde_Imap_Client_Socket_Pop3);
         }
+    }
+
+    /**
+     * @param IMP_Mailbox $mbox
+     */
+    public function isImap($mbox = null)
+    {
+        return !$this->ob || ($this->ob instanceof Horde_Imap_Client_Socket);
     }
 
     /**
@@ -202,7 +202,7 @@ class IMP_Imap implements Serializable
      */
     public function updateFetchIgnore()
     {
-        if ($this->imap) {
+        if ($this->isImap()) {
             $special = IMP_Mailbox::getSpecialMailboxes();
             $cache = $this->ob->getParam('cache');
             $cache['fetch_ignore'] = array_filter(array(
@@ -226,12 +226,12 @@ class IMP_Imap implements Serializable
         case self::ACCESS_FOLDERS:
         case self::ACCESS_TRASH:
             return (!empty($GLOBALS['conf']['user']['allow_folders']) &&
-                    !$this->pop3);
+                    $this->isImap());
 
         case self::ACCESS_FLAGS:
         case self::ACCESS_SEARCH:
         case self::ACCESS_UNSEEN:
-            return !$this->pop3;
+            return $this->isImap();
         }
 
         return false;
@@ -263,7 +263,7 @@ class IMP_Imap implements Serializable
      */
     public function getNamespace($mailbox = null, $personal = false)
     {
-        if ($this->pop3) {
+        if (!$this->isImap($mailbox)) {
             return null;
         }
 
@@ -293,7 +293,7 @@ class IMP_Imap implements Serializable
      */
     public function defaultNamespace()
     {
-        if ($this->pop3) {
+        if (!$this->isImap()) {
             return null;
         }
 
@@ -448,7 +448,7 @@ class IMP_Imap implements Serializable
         case 'login':
             if (!$this->_login) {
                 /* Check for POP3 UIDL support. */
-                if ($this->pop3 &&
+                if (!$this->isImap() &&
                     !$this->queryCapability('UIDL')) {
                     $error = new IMP_Imap_Exception('The POP3 server does not support the REQUIRED UIDL capability.');
                     Horde::log($error);

@@ -163,10 +163,6 @@ class IMP_Auth
             $user .= ' (Horde user ' . $auth_id . ')';
         }
 
-        $protocol = $imap_ob->imap
-            ? 'imap'
-            : ($imap_ob->pop3 ? 'pop' : '');
-
         $msg = sprintf(
             $msg . ' for %s [%s]%s to {%s:%s%s}',
             $user,
@@ -174,7 +170,7 @@ class IMP_Auth
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
             $imap_ob->ob ? $imap_ob->getParam('hostspec') : '',
             $imap_ob->ob ? $imap_ob->getParam('port') : '',
-            $protocol ? ' [' . $protocol . ']' : ''
+            ' [' . ($imap_ob->isImap() ? 'imap' : 'pop') . ']'
         );
 
         Horde::log($msg, $level);
@@ -344,46 +340,45 @@ class IMP_Auth
         $session->set('imp', 'maildomain', $maildomain ? $maildomain : (isset($ptr['maildomain']) ? $ptr['maildomain'] : ''));
 
         /* Store some basic IMAP server information. */
-        if ($imp_imap->imap) {
-            /* Can't call this until now, since we need prefs to be properly
-             * loaded to grab the special mailboxes information. */
-            $imp_imap->updateFetchIgnore();
 
-            if (!empty($ptr['acl'])) {
-                $session->set('imp', 'imap_acl', $ptr['acl']);
-            }
+        /* Can't call this until now, since we need prefs to be properly
+         * loaded to grab the special mailboxes information. */
+        $imp_imap->updateFetchIgnore();
 
-            $secret = $injector->getInstance('Horde_Secret');
-            if (!empty($ptr['admin'])) {
-                $tmp = $ptr['admin'];
-                if (isset($tmp['password'])) {
-                    $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
-                }
-                $session->set('imp', 'imap_admin', $tmp);
-            }
-
-            if (!empty($ptr['namespace'])) {
-                $session->set('imp', 'imap_namespace', $ptr['namespace']);
-            }
-
-            if (!empty($ptr['quota'])) {
-                $tmp = $ptr['quota'];
-                if (isset($tmp['params']['password'])) {
-                    $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
-                }
-                $session->set('imp', 'imap_quota', $tmp);
-            }
-
-            /* Set the IMAP threading algorithm. */
-            $thread_cap = $imp_imap->queryCapability('THREAD');
-            $session->set(
-                'imp',
-                'imap_thread',
-                in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', is_array($thread_cap) ? $thread_cap : array())
-                    ? 'REFERENCES'
-                    : 'ORDEREDSUBJECT'
-            );
+        if (!empty($ptr['acl'])) {
+            $session->set('imp', 'imap_acl', $ptr['acl']);
         }
+
+        $secret = $injector->getInstance('Horde_Secret');
+        if (!empty($ptr['admin'])) {
+            $tmp = $ptr['admin'];
+            if (isset($tmp['password'])) {
+                $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
+            }
+            $session->set('imp', 'imap_admin', $tmp);
+        }
+
+        if (!empty($ptr['namespace'])) {
+            $session->set('imp', 'imap_namespace', $ptr['namespace']);
+        }
+
+        if (!empty($ptr['quota'])) {
+            $tmp = $ptr['quota'];
+            if (isset($tmp['params']['password'])) {
+                $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
+            }
+            $session->set('imp', 'imap_quota', $tmp);
+        }
+
+        /* Set the IMAP threading algorithm. */
+        $thread_cap = $imp_imap->queryCapability('THREAD');
+        $session->set(
+            'imp',
+            'imap_thread',
+            in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', is_array($thread_cap) ? $thread_cap : array())
+                ? 'REFERENCES'
+                : 'ORDEREDSUBJECT'
+        );
 
         /* Set the SMTP configuration. */
         if ($conf['mailer']['type'] == 'smtp') {

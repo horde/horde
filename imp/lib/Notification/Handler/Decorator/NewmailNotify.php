@@ -39,9 +39,7 @@ extends Horde_Core_Notification_Handler_Decorator_Base
         $imp_imap = $injector->getInstance('IMP_Imap');
 
         if (!$prefs->getValue('newmail_notify') ||
-            !($listener instanceof Horde_Notification_Listener_Status) ||
-            !$imp_imap->imap) {
-
+            !($listener instanceof Horde_Notification_Listener_Status)) {
             if ($pushed) {
                 $registry->popApp();
             }

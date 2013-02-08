@@ -247,7 +247,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $imap_url = new Horde_Imap_Client_Url();
                 $imap_url->hostspec = $imp_imap->getParam('hostspec');
                 list($imap_url->mailbox, $imap_url->uid) = $indices->getSingle();
-                $imap_url->protocol = $imp_imap->pop3 ? 'pop' : 'imap';
+                $imap_url->protocol = $imp_imap->isImap() ? 'imap' : 'pop';
                 $imap_url->uidvalidity = $imap_url->mailbox->uidvalid;
                 $imap_url->username = $imp_imap->getParam('username');
 
@@ -547,7 +547,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             if ($draft_url) {
                 $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
-                $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
+                $protocol = $imp_imap->isImap() ? 'imap' : 'pop';
 
                 try {
                     if (($imap_url->protocol == $protocol) &&

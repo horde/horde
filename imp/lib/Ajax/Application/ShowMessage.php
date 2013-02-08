@@ -354,9 +354,8 @@ class IMP_Ajax_Application_ShowMessage
         }
 
         /* Add changed flag information. */
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-        if (!$this->_peek && $imp_imap->imap) {
-            $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
+        if (!$this->_peek && $mbox->is_imap) {
+            $status = $injector->getInstance('IMP_Imap')->status($mbox, Horde_Imap_Client::STATUS_PERMFLAGS);
             if (in_array(Horde_Imap_Client::FLAG_SEEN, $status['permflags'])) {
                 $ajax_queue->flag(array(Horde_Imap_Client::FLAG_SEEN), true, $this->_indices);
             }

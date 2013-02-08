@@ -183,6 +183,9 @@ class IMP_Ajax_Application_ListMessages
 
         /* Actions only done on 'initial' request. */
         if ($args['initial']) {
+            if (!$mbox->is_imap) {
+                $md->pop3 = 1;
+            }
             if ($sortpref->sortby_locked) {
                 $md->sortbylock = 1;
             }

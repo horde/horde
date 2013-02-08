@@ -69,6 +69,7 @@
  *                                                         object.
  * @property-read boolean $inbox  Is this the INBOX?
  * @property-read boolean $invisible  Is this mailbox invisible?
+ * @property-read boolean $is_imap  Is this an IMAP mailbox?
  * @property-read boolean $is_open  Is this level expanded?
  * @property-read string $label  The mailbox label. Essentially is $display
  *                               that can be modified by user hook.
@@ -313,14 +314,13 @@ class IMP_Mailbox implements Serializable
                     ($acl[Horde_Imap_Client::ACL_EXPUNGE])));
 
         case 'access_filters':
-            return !$this->search &&
-                   !$injector->getInstance('IMP_Imap')->pop3;
+            return !$this->search && $this->is_imap;
 
         case 'access_sort':
             /* Although possible to abstract other sorting methods, all other
              * non-sequence methods require a download of ALL messages, which
              * is too much overhead.*/
-            return !$injector->getInstance('IMP_Imap')->pop3;
+            return $this->is_imap;
 
         case 'access_sortthread':
             /* Thread sort is always available for IMAP servers, since
@@ -328,7 +328,7 @@ class IMP_Mailbox implements Serializable
              * implementation. We will always prefer REFERENCES, but will
              * fallback to ORDEREDSUBJECT if the server doesn't support THREAD
              * sorting. */
-            return $injector->getInstance('IMP_Imap')->imap;
+            return $this->is_imap;
 
         case 'acl':
             if (isset($this->_cache[self::CACHE_ACL])) {
@@ -436,6 +436,9 @@ class IMP_Mailbox implements Serializable
 
         case 'invisible':
             return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);
+
+        case 'is_imap':
+            return $injector->getInstance('IMP_Imap')->isImap($this);
 
         case 'is_open':
             return $injector->getInstance('IMP_Imap_Tree')->isOpen($this->_mbox);
@@ -687,7 +690,7 @@ class IMP_Mailbox implements Serializable
             $imp_imap = $injector->getInstance('IMP_Imap');
 
             // POP3 and non-IMAP mailboxes does not support UIDVALIDITY.
-            if ($imp_imap->pop3 || $this->nonimap) {
+            if (!$this->is_imap || $this->nonimap) {
                 return;
             }
 
@@ -1076,9 +1079,8 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $prefs;
 
-        $imp_imap = $injector->getInstance('IMP_Imap');
-        if (!$imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
-            return $imp_imap->imap;
+        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
+            return $this->is_imap;
         }
 
         if ($prefs->getValue('use_trash')) {

@@ -630,7 +630,7 @@ $prefGroups['composetemplates'] = array(
     'desc' => _("Edit compose templates."),
     'members' => array('composetemplates_management', 'composetemplates_new'),
     'suppress' => function() {
-        return $GLOBALS['injector']->getInstance('IMP_Imap')->pop3;
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->isImap();
     }
 );
 

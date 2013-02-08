@@ -340,7 +340,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
         $page_output->addInlineJsVars(array(
-            'ImpMailbox.pop3' => intval($imp_imap->pop3),
+            'ImpMailbox.pop3' => intval(!$mailbox->is_imap),
             'ImpMailbox.text' => array(
                 'delete_messages' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
                 'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),

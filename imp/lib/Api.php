@@ -240,7 +240,7 @@ class IMP_Api extends Horde_Registry_Api
         return array(
             'hostspec' => $imap_ob->ob->getParam('hostspec'),
             'port' => $imap_ob->ob->getParam('port'),
-            'protocol' => $imap_ob->pop3 ? 'pop' : 'imap',
+            'protocol' => $imap_ob->isImap() ? 'imap' : 'pop',
             'secure' => $imap_ob->ob->getParam('secure')
         );
     }

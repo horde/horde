@@ -455,7 +455,7 @@ var DimpBase = {
                 }
 
                 /* Generate the status flags. */
-                if (!DimpCore.conf.pop3 && r.flag) {
+                if (r.flag) {
                     r.flag.each(function(a) {
                         var ptr = DimpCore.conf.flags[a];
                         if (ptr.u) {
@@ -1270,7 +1270,8 @@ var DimpBase = {
             sel = this.viewport.getSelected();
 
             if ($('ctx_oa_setflag')) {
-                if (this.viewport.getMetaData('readonly')) {
+                if (this.viewport.getMetaData('readonly') ||
+                    this.viewport.getMetaData('pop3')) {
                     $('ctx_oa_setflag').up().hide();
                 } else {
                     tmp.push($('ctx_oa_setflag').up());
@@ -1281,16 +1282,21 @@ var DimpBase = {
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
             if (tmp = $('ctx_oa_purge_deleted')) {
-                if (this.viewport.getMetaData('noexpunge')) {
-                    tmp.hide();
+                if (this.viewport.getMetaData('pop3')) {
+                    tmp.up().hide();
                 } else {
-                    tmp.show();
-                    [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
+                    tmp.up().show();
+                    if (this.viewport.getMetaData('noexpunge')) {
+                        tmp.hide();
+                    } else {
+                        tmp.show();
+                        [ tmp.up() ].invoke(tmp.up().select('> a').any(Element.visible) ? 'show' : 'hide');
+                    }
                 }
             }
 
             if (tmp = $('ctx_oa_hide_deleted')) {
-                if (this.isThreadSort()) {
+                if (this.isThreadSort() || this.viewport.getMetaData('pop3')) {
                     $(tmp, 'ctx_oa_show_deleted').invoke('hide');
                 } else if (this.viewport.getMetaData('delhide')) {
                     tmp.hide();
@@ -1329,9 +1335,10 @@ var DimpBase = {
 
         case 'ctx_message':
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
-            $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+            [ $('ctx_message_delete') ].compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
+            [ $('ctx_message_undelete') ].compact().invoke(this.viewport.getMetaData('nodelete') || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke(this.viewport.getMetaData('flags').size() & this.viewport.getMetaData('readonly') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) || this.viewport.getMetaData('pop3') ? 'hide' : 'show');
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {

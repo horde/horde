@@ -221,7 +221,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $this->track = false;
 
         /* Do IMAP specific initialization. */
-        if ($imp_imap->imap) {
+        if ($imp_imap->isImap()) {
             $ns = $imp_imap->getNamespaceList();
             $ptr = reset($ns);
             $this->_delimiter = $ptr['delimiter'];
