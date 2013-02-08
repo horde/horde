@@ -1,8 +1,5 @@
 <?php
 /**
- * The Horde_Pdf_Writer class provides a PHP-only implementation of a PDF
- * generation library. No external libs or PHP extensions are required.
- *
  * Based on the FPDF class by Olivier Plathey (http://www.fpdf.org/).
  *
  * Minimal conversion to PHP 5 by Maintainable Software
@@ -1258,7 +1255,7 @@ class Horde_Pdf_Writer
      */
     public function getFormatHeight()
     {
-        return $this->fhPt;
+        return $this->_default_orientation == 'P' ? $this->fhPt : $this->fwPt;
     }
 
     /**
@@ -1266,7 +1263,7 @@ class Horde_Pdf_Writer
      */
     public function getFormatWidth()
     {
-        return $this->fwPt;
+        return $this->_default_orientation == 'P' ? $this->fwPt : $this->fhPt;
     }
 
     /**
