@@ -29,6 +29,7 @@
  *   - maildrop:  Maildrop scripts.
  *   - procmail:  Procmail scripts.
  *   - sieve:  Sieve scripts.
+ *   - ispconfig:  ISPConfig SOAP Server (only for vacation notices).
  *
  * scriptparams: (array) An array containing any additional information that
  *               the script driver needs. See below for further details.
@@ -57,6 +58,7 @@
  *            does not use scripts).
  *   - timsieved:  Timsieved (managesieve) server.
  *   - vfs:  Use Horde VFS.
+ *   - ispconfig:  ISPConfig SOAP Server (only for vacation notices).
  *
  *   NOTE: By default, the transport driver will use Horde credentials to
  *         authenticate to the backend. If a different username/password is
@@ -329,3 +331,21 @@ $backends['ldapsieve'] = array(
     'script' => 'sieve',
     'scriptparams' => array()
 );
+
+$backends['ispconfig'] = array(
+    'disabled' => true,
+    'transport' => 'ispconfig',
+    // enabling transport_auth() in hooks.php is likely to be required
+    'params' => array(
+        'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
+        // This user must be created in the ISPConfig webinterface // under
+        // System -> Remote Users.  The required permissions ("functions")
+        // is "mail user functions" only.
+        'soap_user' => 'horde',
+        'soap_pass' => 'secret'
+        ),
+    'script' => 'ispconfig',
+    'scriptparams' => array(),
+    'shares' => false
+);
+
