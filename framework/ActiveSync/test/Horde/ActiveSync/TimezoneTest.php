@@ -164,6 +164,7 @@ class Horde_ActiveSync_TimezoneTest extends Horde_Test_Case
      */
     public function testGuessTimezoneFromOffsets()
     {
+        $this->markTestIncomplete('Bug #12029');
         $timezones = new Horde_ActiveSync_Timezone();
 
         // Test general functionality, with expected timezone.

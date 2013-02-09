@@ -30,6 +30,15 @@ class Horde_PageOutput
     public $css;
 
     /**
+     * Activate debugging output.
+     *
+     * @internal
+     *
+     * @var boolean
+     */
+    public $debug = false;
+
+    /**
      * Defer loading of scripts until end of page?
      *
      * @var boolean
@@ -72,18 +81,18 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
-     * Load the topbar in this page?
-     *
-     * @var boolean
-     */
-    public $topbar = true;
-
-    /**
      * Load the sidebar in this page?
      *
      * @var boolean
      */
     public $sidebar = true;
+
+    /**
+     * Load the topbar in this page?
+     *
+     * @var boolean
+     */
+    public $topbar = true;
 
     /**
      * Has PHP userspace page compression been started?
@@ -664,7 +673,7 @@ class Horde_PageOutput
 
         case $registry::VIEW_SMARTMOBILE:
             $smobile_files = array(
-                'jquery.mobile/jquery.min.js',
+                ($this->debug ? 'jquery.mobile/jquery.js' : 'jquery.mobile/jquery.min.js'),
                 'growler-jquery.js',
                 'horde-jquery.js',
                 'smartmobile.js'
@@ -838,7 +847,7 @@ class Horde_PageOutput
      */
     public function outputSmartmobileFiles()
     {
-        $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+        $this->addScriptFile($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js', 'horde');
         $this->includeScriptFiles();
     }
 

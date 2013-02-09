@@ -76,9 +76,7 @@ This message is in MIME format.
 Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
 Content-Disposition: inline; filename="Kolab Groupware Information"
 
-This is a Kolab Groupware object. To view this object you will need an email
-client that understands the Kolab Groupware format. For a list of such email
-clients please visit http://www.kolab.org/content/kolab-clients
+This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit http://www.kolab.org/content/kolab-clients
 --=_
 Content-Type: application/x-vnd.kolab.note; name=kolab.xml
 Content-Disposition: inline; x-kolab-type=xml; filename=kolab.xml

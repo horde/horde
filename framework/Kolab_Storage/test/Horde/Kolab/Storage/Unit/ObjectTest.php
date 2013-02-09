@@ -580,9 +580,7 @@ extends PHPUnit_Framework_TestCase
         $this->assertContains('Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8', $driver->messages['INBOX'][0]);
         $this->assertContains('Content-Disposition: inline; filename="Kolab Groupware Information"', $driver->messages['INBOX'][0]);
         $this->assertContains(
-            "This is a Kolab Groupware object. To view this object you will need an email\r
-client that understands the Kolab Groupware format. For a list of such email\r
-clients please visit http://www.kolab.org/content/kolab-clients",
+            "This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit http://www.kolab.org/content/kolab-clients",
             $driver->messages['INBOX'][0]
         );
         $this->assertContains('User-Agent: Horde_Kolab_Storage ' . Horde_Kolab_Storage::VERSION, $driver->messages['INBOX'][0]);

@@ -695,6 +695,9 @@ class Horde_Icalendar
 
                     foreach ($values[1] as $value) {
                         $stamp = $this->_parseDateTime($value);
+                        if (!is_int($stamp)) {
+                            continue;
+                        }
                         $dates[] = array('year' => date('Y', $stamp),
                                          'month' => date('m', $stamp),
                                          'mday' => date('d', $stamp));
