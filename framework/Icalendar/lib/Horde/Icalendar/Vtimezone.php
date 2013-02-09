@@ -62,11 +62,14 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         $result['to'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
-            $start = getdate($child->getAttribute('DTSTART'));
+            $start = $child->getAttribute('DTSTART');
         } catch (Horde_Icalendar_Exception $e) {
             return array();
         }
-
+        if (!is_int($start)) {
+            return array();
+        }
+        $start = getdate($start);
         if ($start['year'] > $year) {
             return array();
         }
