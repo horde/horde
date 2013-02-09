@@ -696,7 +696,7 @@ class Horde_Icalendar
                     foreach ($values[1] as $value) {
                         $stamp = $this->_parseDateTime($value);
                         if (!is_int($stamp)) {
-                            throw new Icalendar_Exception(sprintf('Cannot parse %s into a timestamp', var_export($value, true)));
+                            throw new Horde_Icalendar_Exception(sprintf('Cannot parse %s into a timestamp', var_export($value, true)));
                         }
                         $dates[] = array('year' => date('Y', $stamp),
                                          'month' => date('m', $stamp),
