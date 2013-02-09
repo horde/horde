@@ -384,7 +384,7 @@ EOT;
     public function testHtml2textQuoting()
     {
         $html = <<<EOT
-<p>Zitat von Roberto Maurizzi &lt;roberto.maurizzi@gmail.com&gt;:</p>
+<p>Zitat von Roberto Maurizzi &lt;foo@example.com&gt;:</p>
   <blockquote type="cite">
     <div class="gmail_quote">
       <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">
@@ -410,7 +410,7 @@ Do you need professional PHP or Horde consulting?<br /> <a target="_blank" href=
 EOT;
 
         $text = <<<EOT
-Zitat von Roberto Maurizzi <roberto.maurizzi@gmail.com>:
+Zitat von Roberto Maurizzi <foo@example.com>:
 
 >>>> 4) In Turba, I can select a VFS driver to use. Currently it is
 >>>> set to
