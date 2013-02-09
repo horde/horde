@@ -162,7 +162,8 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
     private function formTagHtml($htmlOptions)
     {
         list($extraTags, $htmlOptions) = $this->extraTagsForForm($htmlOptions);
-        return $this->tag('form', $htmlOptions, true) . $extraTags;
+        return substr($this->contentTag('form', '', $htmlOptions), 0, -7)
+            . $extraTags;
     }
 
     /** @todo url_for */
