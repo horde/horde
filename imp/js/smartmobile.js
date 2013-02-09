@@ -370,6 +370,7 @@ var ImpMobile = {
         }
         if (r.rowlist_reset) {
             ob.rowlist = {};
+            ob.totalrows = 0;
         }
         if (r.data) {
             ob.update(r.data, r.rowlist, r.totalrows);
