@@ -1017,8 +1017,7 @@ var ImpMobile = {
                 force: Number(move),
                 view: source
             }), opts, {
-                buid: $('#imp-copymove-buid').val(),
-                newmbox: source
+                buid: $('#imp-copymove-buid').val()
             })
         );
 
