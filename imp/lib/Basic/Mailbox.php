@@ -405,7 +405,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
         if (isset($filter_url)) {
             $hdr_view->filter_url = $filter_url;
         }
-        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+        if ($mailbox->access_search) {
             if (!$search_mbox) {
                 $hdr_view->search_url = $mailbox->url(IMP_Basic_Searchbasic::url());
             } else {
@@ -482,7 +482,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             $n_view->readonly = $readonly;
 
             $filtermsg = false;
-            if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            if ($mailbox->access_flags) {
                 $args = array(
                     'imap' => true,
                     'mailbox' => $search_mbox ? null : $mailbox
@@ -507,7 +507,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 $n_view->flaglist_set = $form_set;
                 $n_view->flaglist_unset = $form_unset;
 
-                if (!$search_mbox && $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+                if (!$search_mbox && $mailbox->access_search) {
                     $filtermsg = $n_view->flag_filter = true;
                 }
             }

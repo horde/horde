@@ -409,15 +409,13 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Get mailbox information. */
+        $flags = $mbox->access_flags;
+        $imp_ui = new IMP_Mailbox_Ui($mbox);
         $list_ob = $mbox->list_ob;
         $overview = $list_ob->getMailboxArray($msglist, array(
             'headers' => true,
             'type' => $GLOBALS['prefs']->getValue('atc_flag')
         ));
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-        $imp_ui = new IMP_Mailbox_Ui($mbox);
-
-        $flags = $imp_imap->access(IMP_Imap::ACCESS_FLAGS);
 
         /* Display message information. */
         reset($overview['overview']);

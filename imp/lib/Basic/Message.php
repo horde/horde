@@ -472,7 +472,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $n_view->readonly = $readonly;
         $n_view->id = 1;
 
-        if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+        if ($mailbox->access_flags) {
             $n_view->mailbox = $mailbox->form_to;
 
             $args = array(

@@ -192,7 +192,7 @@ class IMP_Ajax_Queue
         }
 
         $imap_ob = $GLOBALS['injector']->getInstance('IMP_Imap');
-        if ($imap_ob->ob) {
+        if ($imap_ob->init) {
             foreach ($imap_ob->statusMultiple(array_keys($poll_list), Horde_Imap_Client::STATUS_UNSEEN) as $key => $val) {
                 $poll[IMP_Mailbox::formTo($key)] = intval($val['unseen']);
             }
@@ -270,8 +270,12 @@ class IMP_Ajax_Queue
     {
         global $injector;
 
-        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
-            return;
+        if ($indices instanceof IMP_Indices_Mailbox) {
+            $indices = $indices->joinIndices();
+
+            if (!count($indices) || !$indices->mailbox->access_flags) {
+                return;
+            }
         }
 
         $changed = $injector->getInstance('IMP_Flags')->changed($flags, $add);
@@ -284,14 +288,8 @@ class IMP_Ajax_Queue
             $result->remove = array_map('strval', $changed['remove']);
         }
 
-        if ($indices instanceof IMP_Indices_Mailbox) {
-            $indices = $indices->joinIndices();
-        }
-
-        if (count($indices)) {
-            $result->buids = $indices->toArray();
-            $this->_flag[] = $result;
-        }
+        $result->buids = $indices->toArray();
+        $this->_flag[] = $result;
     }
 
     /**

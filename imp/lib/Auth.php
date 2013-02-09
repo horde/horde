@@ -82,7 +82,7 @@ class IMP_Auth
         $imp_imap = $injector->getInstance('IMP_Imap');
 
         // Check for valid IMAP Client object.
-        if (!$imp_imap->ob) {
+        if (!$imp_imap->init) {
             if (!isset($credentials['userId']) ||
                 !isset($credentials['password'])) {
                 throw new Horde_Auth_Exception('', Horde_Auth::REASON_BADLOGIN);
@@ -168,8 +168,8 @@ class IMP_Auth
             $user,
             $_SERVER['REMOTE_ADDR'],
             empty($_SERVER['HTTP_X_FORWARDED_FOR']) ? '' : ' (forwarded for [' . $_SERVER['HTTP_X_FORWARDED_FOR'] . '])',
-            $imap_ob->ob ? $imap_ob->getParam('hostspec') : '',
-            $imap_ob->ob ? $imap_ob->getParam('port') : '',
+            $imap_ob->init ? $imap_ob->getParam('hostspec') : '',
+            $imap_ob->init ? $imap_ob->getParam('port') : '',
             ' [' . ($imap_ob->isImap() ? 'imap' : 'pop') . ']'
         );
 

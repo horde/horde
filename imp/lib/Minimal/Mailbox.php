@@ -79,7 +79,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         // 'ds' = do search
         case 'ds':
             if (!empty($this->vars->search) &&
-                $imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+                $this->indices->mailbox->access_search) {
                 /* Create the search query and reset the global mailbox
                  * variable. */
                 $q_ob = $imp_search->createQuery(array(new IMP_Search_Element_Text($this->vars->search, false)), array(
@@ -188,7 +188,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         }
 
         /* Add search link. */
-        if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
+        if ($this->indices->mailbox->access_search) {
             if ($search_mbox) {
                 $mboxes = $imp_search[strval($this->indices->mailbox)]->mboxes;
                 $orig_mbox = IMP_Mailbox::get(reset($mboxes));

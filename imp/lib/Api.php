@@ -299,7 +299,7 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function imapOb()
     {
-        return $GLOBALS['injector']->getInstance('IMP_Imap')->ob;
+        return $GLOBALS['injector']->getInstance('IMP_Imap')->getOb();
     }
 
     /**
@@ -312,10 +312,6 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function flagList($mailbox = null)
     {
-        if (!$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
-            return array();
-        }
-
         return $GLOBALS['injector']->getInstance('IMP_Flags')->getList(array(
             'imap' => true,
             'mailbox' => $mailbox

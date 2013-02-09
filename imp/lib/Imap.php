@@ -22,8 +22,7 @@
  * @package   IMP
  *
  * @property-read boolean $changed  If true, this object has changed.
- * @property-read Horde_Imap_Client_Base $ob  The client object for the base
- *                                            connection.
+ * @property-read boolean $init  Has the base IMAP object been initialized?
  */
 class IMP_Imap implements Serializable
 {
@@ -84,9 +83,16 @@ class IMP_Imap implements Serializable
         case 'changed':
             return $this->_changed || ($this->_ob && $this->_ob->changed);
 
-        case 'ob':
-            return $this->_ob;
+        case 'init':
+            return !is_null($this->_ob);
         }
+    }
+
+    /**
+     */
+    public function getOb($mbox = null)
+    {
+        return $this->_ob;
     }
 
     /**
@@ -229,7 +235,7 @@ class IMP_Imap implements Serializable
      *
      * @param integer $right  Access right.
      *
-     * @return boolean  Does the mailbox have the access right?
+     * @return boolean  Does the access right exist?
      */
     public function access($right)
     {

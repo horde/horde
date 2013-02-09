@@ -33,6 +33,8 @@
  * @property-read boolean $access_expunge  Can messages be expunged in this
  *                                    mailbox?
  * @property-read boolean $access_filters  Is filtering available?
+ * @property-read boolean $access_flags  Are flags available?
+ * @property-read boolean $access_search  Is searching available?
  * @property-read boolean $access_sort  Is sorting available?
  * @property-read boolean $access_sortthread  Is thread sort available?
  * @property-read mixed $acl  Either an ACL object for the mailbox, or null if
@@ -316,6 +318,12 @@ class IMP_Mailbox implements Serializable
         case 'access_filters':
             return !$this->search && $this->is_imap;
 
+        case 'access_flags':
+            return $this->is_imap;
+
+        case 'access_search':
+            return $this->is_imap;
+
         case 'access_sort':
             /* Although possible to abstract other sorting methods, all other
              * non-sequence methods require a download of ALL messages, which
@@ -561,9 +569,8 @@ class IMP_Mailbox implements Serializable
                 : null;
 
         case 'permflags':
-            $imp_imap = $injector->getInstance('IMP_Imap');
-
-            if ($imp_imap->access(IMP_Imap::ACCESS_FLAGS)) {
+            if ($this->access_flags) {
+                $imp_imap = $injector->getInstance('IMP_Imap');
                 try {
                     /* Make sure we are in R/W mailbox mode (SELECT). No flags
                      * are allowed in EXAMINE mode. */
@@ -1079,7 +1086,7 @@ class IMP_Mailbox implements Serializable
     {
         global $injector, $prefs;
 
-        if (!$injector->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FLAGS)) {
+        if (!$this->access_flags) {
             return $this->is_imap;
         }
 
