@@ -32,33 +32,33 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
 
     public function testTag()
     {
-        $this->assertEquals('<br>', $this->view->tag('br'));
-        $this->assertEquals('<br clear="left">',
+        $this->assertEquals('<br />', $this->view->tag('br'));
+        $this->assertEquals('<br clear="left" />',
                             $this->view->tag('br', array('clear' => 'left')));
     }
 
     public function testTagOptions()
     {
-        $this->assertRegExp('/\A<p class="(show|elsewhere)">\z/',
+        $this->assertRegExp('/\A<p class="(show|elsewhere)" \\/>\z/',
                             $this->view->tag('p', array('class' => 'show',
                                                         'class' => 'elsewhere')));
     }
 
     public function testTagOptionsRejectsNullOption()
     {
-        $this->assertEquals('<p>',
+        $this->assertEquals('<p />',
                             $this->view->tag('p', array('ignored' => null)));
     }
 
     public function testTagOptionsAcceptsBlankOption()
     {
-        $this->assertEquals('<p included="">',
+        $this->assertEquals('<p included="" />',
                             $this->view->tag('p', array('included' => '')));
     }
 
     public function testTagOptionsConvertsBooleanOption()
     {
-        $this->assertEquals('<p disabled multiple readonly>',
+        $this->assertEquals('<p disabled multiple readonly />',
                             $this->view->tag('p', array('disabled' => true,
                                                         'multiple' => true,
                                                         'readonly' => true)));
@@ -84,7 +84,7 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
     {
         $attributes = array('1&amp;2', '1 &lt; 2', '&#8220;test&#8220;');
         foreach ($attributes as $escaped) {
-            $this->assertEquals("<a href=\"$escaped\">",
+            $this->assertEquals("<a href=\"$escaped\" />",
                                 $this->view->tag('a', array('href' => $escaped)));
         }
     }
@@ -93,7 +93,7 @@ class Horde_View_Helper_TagTest extends Horde_Test_Case
     {
         $attributes = array('&1;', '&#1dfa3;', '& #123;');
         foreach ($attributes as $escaped) {
-            $this->assertEquals('<a href="' . str_replace('&', '&amp;', $escaped) . '">',
+            $this->assertEquals('<a href="' . str_replace('&', '&amp;', $escaped) . '" />',
                                 $this->view->tag('a', array('href' => $escaped)));
         }
     }
