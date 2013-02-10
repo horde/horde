@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Html2text filter now has improved handling of extra whitespace.
 * [mms] Fix XSS filter removing control characters that cause certain charsets (ISO-2022-JP) to break (Bug #12015).
  </notes>
  <contents>
@@ -900,6 +901,7 @@ Initial release as a PEAR package
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Html2text filter now has improved handling of extra whitespace.
 * [mms] Fix XSS filter removing control characters that cause certain charsets (ISO-2022-JP) to break (Bug #12015).
    </notes>
   </release>
