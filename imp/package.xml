@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-02-10</date>
- <time>00:28:34</time>
+ <time>01:56:38</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Spam/innocent reporting on the smartmobile message page now uses a popup instead of a modal dialog.
 * [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
 * [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
@@ -862,7 +863,6 @@
     </dir> <!-- /templates/search -->
     <dir name="smartmobile">
      <file name="compose.html.php" role="horde" />
-     <file name="confirm.html.php" role="horde" />
      <file name="copymove.html.php" role="horde" />
      <file name="folders.html.php" role="horde" />
      <file name="mailbox.html.php" role="horde" />
@@ -1860,7 +1860,6 @@
    <install as="imp/templates/search/search-all.html.php" name="templates/search/search-all.html.php" />
    <install as="imp/templates/search/search.html.php" name="templates/search/search.html.php" />
    <install as="imp/templates/smartmobile/compose.html.php" name="templates/smartmobile/compose.html.php" />
-   <install as="imp/templates/smartmobile/confirm.html.php" name="templates/smartmobile/confirm.html.php" />
    <install as="imp/templates/smartmobile/copymove.html.php" name="templates/smartmobile/copymove.html.php" />
    <install as="imp/templates/smartmobile/folders.html.php" name="templates/smartmobile/folders.html.php" />
    <install as="imp/templates/smartmobile/mailbox.html.php" name="templates/smartmobile/mailbox.html.php" />
@@ -3003,6 +3002,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Spam/innocent reporting on the smartmobile message page now uses a popup instead of a modal dialog.
 * [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
 * [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).

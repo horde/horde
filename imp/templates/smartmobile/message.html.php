@@ -30,6 +30,36 @@
   <ul data-role="listview" data-inset="true"></ul>
  </div>
 
+<?php if ($this->canInnocent): ?>
+ <div data-role="popup" data-history="false" id="imp-innocent-confirm">
+  <div data-role="header" class="ui-corner-top">
+  <h1><?php echo _("Report as Innocent") ?></h1>
+  </div>
+  <div data-role="content" class="ui-corner-bottom ui-content">
+   <h3 class="ui-title">
+    <?php echo _("Are you sure you wish to report this message as innocent?") ?>
+   </h3>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
+   <a href="#message-innocent-confirm" data-role="button" data-inline="true" data-theme="b">Report</a>
+  </div>
+ </div>
+<?php endif; ?>
+
+<?php if ($this->canSpam): ?>
+ <div data-role="popup" data-history="false" id="imp-spam-confirm">
+  <div data-role="header" class="ui-corner-top">
+  <h1><?php echo _("Report as Spam") ?></h1>
+  </div>
+  <div data-role="content" class="ui-corner-bottom ui-content">
+   <h3 class="ui-title">
+    <?php echo _("Are you sure you wish to report this message as spam?") ?>
+   </h3>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
+   <a href="#message-spam-confirm" data-role="button" data-inline="true" data-theme="b">Report</a>
+  </div>
+ </div>
+<?php endif; ?>
+
  <ul id="imp-message-more-data" style="display:none">
 <?php if ($this->canCompose): ?>
   <li data-icon="forward">
@@ -41,12 +71,12 @@
 <?php endif; ?>
 <?php if ($this->canSpam): ?>
   <li data-icon="alert">
-   <a href="#" id="imp-message-spam"><?php echo _("Spam") ?></a>
+   <a href="#message-spam" id="imp-message-spam"><?php echo _("Spam") ?></a>
   </li>
 <?php endif ?>
 <?php if ($this->canInnocent): ?>
   <li data-icon="check">
-   <a href="#" id="imp-message-innocent"><?php echo _("Innocent") ?></a>
+   <a href="#message-innocent" id="imp-message-innocent"><?php echo _("Innocent") ?></a>
   </li>
 <?php endif ?>
 <?php if ($this->allowFolders): ?>

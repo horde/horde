@@ -84,16 +84,6 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'confirm':
-            ImpMobile.confirm(data);
-            e.preventDefault();
-            break;
-
-        case 'confirmed':
-            ImpMobile.confirmed(data);
-            e.preventDefault();
-            break;
-
         case 'copymove':
             if (IMP.conf.allow_folders) {
                 ImpMobile.copymove(data);
@@ -213,6 +203,27 @@ var ImpMobile = {
                 mbox: ImpMobile.mailbox,
                 type: 'reply_auto'
             }));
+            e.preventDefault();
+            break;
+
+        case 'message-innocent':
+        case 'message-spam':
+            $(view.match(/innocent/) ? '#imp-innocent-confirm' : '#imp-spam-confirm').popup('open');
+            e.preventDefault();
+            break;
+
+        case 'message-innocent-confirm':
+        case 'message-spam-confirm':
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: ImpMobile.mailbox
+            }), {
+                data: { noajax: true }
+            });
+
+            ImpMobile.reportSpam(
+                (view.match(/innocent/) ? 'innocent' : 'spam'),
+                ImpMobile.buid
+            );
             e.preventDefault();
             break;
 
@@ -632,15 +643,7 @@ var ImpMobile = {
                     break;
 
                 case 'imp-message-innocent':
-                    if (ImpMobile.mailbox != IMP.conf.spam_mbox && !IMP.conf.spam_innocent_spammbox) {
-                        skip = true;
-                    } else {
-                        a.attr('href', HordeMobile.createUrl('confirm', {
-                            action: 'innocent',
-                            buid: ImpMobile.buid,
-                            mbox: ImpMobile.mailbox
-                        }));
-                    }
+                    skip = (ImpMobile.mailbox != IMP.conf.spam_mbox && !IMP.conf.spam_innocent_spammbox);
                     break;
 
                 case 'imp-message-next':
@@ -652,15 +655,7 @@ var ImpMobile = {
                     break;
 
                 case 'imp-message-spam':
-                    if (ImpMobile.mailbox == IMP.conf.spam_mbox && !IMP.conf.spam_spammbox) {
-                        skip = true;
-                    } else {
-                        a.attr('href', HordeMobile.createUrl('confirm', {
-                            action: 'spam',
-                            buid: ImpMobile.buid,
-                            mbox: ImpMobile.mailbox
-                        }));
-                    }
+                    skip = (ImpMobile.mailbox == IMP.conf.spam_mbox && !IMP.conf.spam_spammbox);
                     break;
                 }
             }
@@ -918,50 +913,6 @@ var ImpMobile = {
     {
         $('#imp-compose-form')[0].reset();
         window.history.back();
-    },
-
-    /**
-     * Opens a confirmation dialog.
-     *
-     * @param object data  Page change data object.
-     */
-    confirm: function(data)
-    {
-        var purl = data.options.parsedUrl;
-
-        HordeMobile.changePage('confirm');
-
-        $('#imp-confirm-text').html(IMP.text.confirm.text[purl.params.action]);
-        $('#imp-confirm-action')
-            .attr('href', purl.parsed.hash.replace(/\#confirm/, '\#confirmed'))
-            .find('.ui-btn-text')
-            .text(IMP.text.confirm.action[purl.params.action]);
-    },
-
-    /**
-     * Executes confirmed actions.
-     *
-     * @param object data  Page change data object.
-     */
-    confirmed: function(data)
-    {
-        var purl = data.options.parsedUrl;
-
-        switch (purl.params.action) {
-        case 'innocent':
-        case 'spam':
-            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
-                mbox: purl.params.mbox
-            }), {
-                data: { noajax: true }
-            });
-
-            ImpMobile.reportSpam(
-                purl.params.action,
-                purl.params.buid
-            );
-            break;
-        }
     },
 
     /**

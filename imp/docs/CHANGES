@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Spam/innocent reporting on the smartmobile message page now uses a popup
+      instead of a modal dialog.
 [mms] Re-add alerts log to dynamic mailbox view.
 [mms] Rewritten/improved linked attachment code.
 [mms] Add discard draft option to compose page allowing the user to cancel

@@ -68,7 +68,6 @@ class IMP_Smartmobile
         if ($imp_imap->access(IMP_Imap::ACCESS_SEARCH)) {
             echo $this->view->render('search');
         }
-        echo $this->view->render('confirm');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             echo $this->view->render('copymove');
         }
@@ -147,18 +146,6 @@ class IMP_Smartmobile
 
             /* Gettext strings. */
             'text' => array(
-                'confirm' => array(
-                    'text' => array(
-                        'delete' => _("Are you sure you want to delete this message?"),
-                        'innocent' => _("Are you sure you wish to report this message as innocent?"),
-                        'spam' => _("Are you sure you wish to report this message as spam?")
-                    ),
-                    'action' => array(
-                        'delete' => _("Delete"),
-                        'innocent' => _("Report as Innocent"),
-                        'spam' => _("Report as Spam")
-                    ),
-                ),
                 'message_0' => _("No messages"),
                 'message_1' => _("1 message"),
                 'message_2' => _("%d messages"),
