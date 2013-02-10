@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-06</date>
- <time>00:51:29</time>
+ <date>2013-02-10</date>
+ <time>00:28:34</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -918,7 +918,6 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
-      <file name="ie7.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -1891,7 +1890,6 @@
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/basic/screen.css" name="themes/default/basic/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
-   <install as="imp/themes/default/dynamic/ie7.css" name="themes/default/dynamic/ie7.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
