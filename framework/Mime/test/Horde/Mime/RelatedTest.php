@@ -29,6 +29,11 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
         $this->_relatedOb = new Horde_Mime_Related($this->_part);
     }
 
+    public function tearDown()
+    {
+        unset($this->_part, $this->_relatedOb);
+    }
+
     public function testStart()
     {
         $this->assertEquals(

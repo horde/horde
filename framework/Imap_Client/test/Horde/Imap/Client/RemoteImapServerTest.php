@@ -23,6 +23,8 @@
  */
 class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 {
+    private $imap;
+
     // Default test mailbox names (without namespace information)
     private $test_mbox;
     private $test_mbox_utf8;
@@ -57,6 +59,11 @@ class Horde_Imap_Client_RemoteImapServerTest extends PHPUnit_Framework_TestCase
 
         $this->imap = new Horde_Imap_Client_Socket($imap_config);
         $this->imap->login();
+    }
+
+    public function tearDown()
+    {
+        unset($this->imap, $this->test_mbox, $this->test_mbox_utf8);
     }
 
     public function testCommands()
