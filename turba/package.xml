@@ -51,12 +51,24 @@
     <file name="index.php" role="horde" />
    </dir> <!-- /addressbooks -->
    <dir name="bin">
-    <file name="turba-convert-datatree-shares-to-sql" role="script" />
-    <file name="turba-convert-sql-shares-to-sqlng" role="script" />
-    <file name="turba-import-squirrelmail-file-abook" role="script" />
-    <file name="turba-import-squirrelmail-sql-abook" role="script" />
-    <file name="turba-import-vcards" role="script" />
-    <file name="turba-public-to-horde-share" role="script" />
+    <file name="turba-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="turba-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="turba-import-squirrelmail-file-abook" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="turba-import-squirrelmail-sql-abook" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="turba-import-vcards" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="turba-public-to-horde-share" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
