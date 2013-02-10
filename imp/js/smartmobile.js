@@ -617,7 +617,7 @@ var ImpMobile = {
         $('#imp-message-more-data').children().clone().each(function() {
             var elt = $(this),
                 a = elt.find('a:first'),
-                id = a.attr('tempid'),
+                id = a.attr('id'),
                 skip = false;
 
             if (id) {
@@ -663,15 +663,11 @@ var ImpMobile = {
                     }
                     break;
                 }
-
-                if (skip) {
-                    return true;
-                }
-
-                elt.removeAttr('tempid').attr('id', id);
             }
 
-            list.append(elt);
+            if (!skip) {
+                list.append(elt.removeAttr('id'));
+            }
         });
 
         list.listview('refresh');

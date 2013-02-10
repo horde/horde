@@ -41,24 +41,24 @@
 <?php endif; ?>
 <?php if ($this->canSpam): ?>
   <li data-icon="alert">
-   <a href="#" tempid="imp-message-spam" data-rel="dialog"><?php echo _("Spam") ?></a>
+   <a href="#" id="imp-message-spam"><?php echo _("Spam") ?></a>
   </li>
 <?php endif ?>
 <?php if ($this->canInnocent): ?>
   <li data-icon="check">
-   <a href="#" tempid="imp-message-innocent" data-rel="dialog"><?php echo _("Innocent") ?></a>
+   <a href="#" id="imp-message-innocent"><?php echo _("Innocent") ?></a>
   </li>
 <?php endif ?>
 <?php if ($this->allowFolders): ?>
   <li data-icon="plus">
-   <a href="#" tempid="imp-message-copymove" data-rel="dialog"><?php echo _("Copy/Move") ?></a>
+   <a href="#" id="imp-message-copymove" data-rel="dialog"><?php echo _("Copy/Move") ?></a>
   </li>
 <?php endif; ?>
   <li data-icon="arrow-l">
-   <a href="#message-prev" tempid="imp-message-prev"><?php echo _("Previous") ?></a>
+   <a href="#message-prev" id="imp-message-prev"><?php echo _("Previous") ?></a>
   </li>
   <li data-icon="arrow-r">
-   <a href="#message-next" tempid="imp-message-next"><?php echo _("Next") ?></a>
+   <a href="#message-next" id="imp-message-next"><?php echo _("Next") ?></a>
   </li>
  </ul>
 </div>
