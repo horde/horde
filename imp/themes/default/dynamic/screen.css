@@ -948,6 +948,9 @@ span.logoutIcon {
 #ctx_message_whitelist span.iconImg, #ctx_oa_whitelist span.iconImg {
     background-image: url("../graphics/whitelist.png");
 }
+#ctx_oa_growler_log span.iconImg {
+    background-image: url("../graphics/info_icon.png");
+}
 #ctx_message_editasnew span.iconImg, #ctx_contacts_new span.iconImg, #ctx_forward_editasnew span.iconImg {
     background-image: url("../graphics/compose.png");
 }

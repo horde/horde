@@ -401,6 +401,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             ),
             'show_deleted' => _("Show Deleted"),
             'hide_deleted' => _("Hide Deleted"),
+            '_sub3' => array(
+                '_sep3' => null,
+                'growler_log' => _("Toggle Alerts Log")
+            )
         );
         if ($prefs->getValue('use_trash')) {
             unset($context['ctx_oa']['_sub2']);

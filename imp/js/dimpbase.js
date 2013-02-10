@@ -1094,6 +1094,10 @@ var DimpBase = {
             this.viewport.reload({ delhide: Number(id == 'ctx_oa_hide_deleted') });
             break;
 
+        case 'ctx_oa_growler_log':
+            HordeCore.Growler.toggleLog();
+            break;
+
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
         case 'ctx_sortopts_to':
@@ -1426,6 +1430,10 @@ var DimpBase = {
 
         case 'ctx_folderopts':
             $('ctx_folderopts_sub').hide();
+            break;
+
+        case 'ctx_oa':
+            [ $('ctx_oa_growler_log').up() ].invoke($('GrowlerLog') ? 'show' : 'remove');
             break;
         }
     },
@@ -2612,10 +2620,6 @@ var DimpBase = {
             e.memo.stop();
             break;
 
-        case 'alertsloglink':
-            HordeCore.Growler.toggleLog();
-            break;
-
         case 'appprefs':
             this.go('prefs');
             e.memo.stop();
@@ -3736,10 +3740,6 @@ var DimpBase = {
 
         if (this._getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
-        }
-
-        if (!$('GrowlerLog')) {
-            //$('alertsloglink').remove();
         }
 
         /* Check for new mail. */

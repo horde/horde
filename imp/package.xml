@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
 * [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal view menu entries are now accessible via numbered accesskeys (Request #5847).
@@ -3004,6 +3005,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
 * [mms] Add discard draft option to compose page allowing the user to cancel composition and permanently delete the original draft (Request #12017).
 * [mms] Minimal view menu entries are now accessible via numbered accesskeys (Request #5847).
