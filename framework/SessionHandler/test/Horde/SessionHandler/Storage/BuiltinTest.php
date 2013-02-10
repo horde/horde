@@ -113,6 +113,7 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         parent::tearDownAfterClass();
         unset($_SESSION);
         session_destroy();
+        session_name(ini_get('session.name'));
     }
 
 }
