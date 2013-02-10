@@ -99,18 +99,42 @@
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <file name="horde-active-sessions" role="script" />
-    <file name="horde-alarms" role="script" />
-    <file name="horde-check-logger" role="script" />
-    <file name="horde-clear-cache" role="script" />
-    <file name="horde-crond" role="script" />
-    <file name="horde-db-migrate" role="script" />
-    <file name="horde-import-squirrelmail-prefs" role="script" />
-    <file name="horde-memcache-stats" role="script" />
-    <file name="horde-run-task" role="script" />
-    <file name="horde-set-perms" role="script" />
-    <file name="horde-themes" role="script" />
-    <file name="horde-translation" role="script" />
+    <file name="horde-active-sessions" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-alarms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-check-logger" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-clear-cache" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-crond" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-db-migrate" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-import-squirrelmail-prefs" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-memcache-stats" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-run-task" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-set-perms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-themes" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-translation" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
