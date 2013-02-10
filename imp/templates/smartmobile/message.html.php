@@ -26,7 +26,7 @@
   <a href="#message-more" data-rel="popup"><?php echo _("More...") ?></a>
  </div>
 
- <div data-role="popup" data-history="false" data-role="popup" data-theme="a" id="message-more">
+ <div data-role="popup" data-history="false" data-theme="a" id="message-more">
   <ul data-role="listview" data-inset="true"></ul>
  </div>
 
