@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-04</date>
- <time>15:30:16</time>
+ <date>2013-02-11</date>
+ <time>19:05:34</time>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -1215,7 +1215,7 @@ Initial packaging
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-04</date>
+   <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Update CKEditor to v3.6.6.
