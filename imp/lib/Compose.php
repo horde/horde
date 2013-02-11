@@ -2439,15 +2439,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
          * put the CID in the 'start' parameter. */
         $related->setContentTypeParameter('start', $part->setContentId());
 
+        $related->addPart($part);
+
         /* Go through the HTML part and generate internal Content-ID links. */
         $dom = new Horde_Domhtml($part->getContents(), $part->getCharset());
-        $ids = array();
 
         foreach ($dom as $node) {
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
-                $id = $ids[] = $node->getAttribute(self::RELATED_ATTR_ID);
-                $node->setAttribute($node->getAttribute(self::RELATED_ATTR), 'cid:' . $this[$id]->getPart()->setContentId());
+                $r_atc = $this[$node->getAttribute(self::RELATED_ATTR_ID)];
+
+                if ($r_atc->linked) {
+                    $attr = strval($r_atc->createLinkedAtc()->getUrl());
+                } else {
+                    $related_part = $r_atc->getPart(true);
+                    $attr = 'cid:' . $related_part->setContentId();
+                    $related->addPart($related_part);
+                }
+
+                $node->setAttribute($node->getAttribute(self::RELATED_ATTR), $attr);
 
                 $node->removeAttribute(self::RELATED_ATTR);
                 $node->removeAttribute(self::RELATED_ATTR_ID);
@@ -2455,12 +2465,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $part->setContents($dom->returnHtml());
-
-        /* Add the root part and the various data to the multipart object. */
-        $related->addPart($part);
-        foreach ($ids as $id) {
-            $related->addPart($this[$id]->getPart(true));
-        }
 
         return $related;
     }
