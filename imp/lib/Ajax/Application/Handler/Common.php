@@ -458,7 +458,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - encrypt: (integer) The encryption method to use (IMP ENCRYPT
      *              constants).
      *   - html: (integer) In HTML compose mode?
-     *   - link_attachments_select: (boolean) Whether to link attachments.
      *   - message: (string) The message text.
      *   - pgp_attach_pubkey: (boolean) True if PGP public key should be
      *                        attached to the message.
@@ -500,13 +499,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
 
-        if ($conf['compose']['link_attachments']) {
-            $link_attach = $prefs->isLocked('link_attach')
-                ? $prefs->getValue('link_attach')
-                : $this->vars->link_attachments_select;
-        } else {
-            $link_attach = false;
-        }
         $sm_displayed = !$prefs->isLocked('sent_mail_folder');
 
         $options = array(
@@ -514,7 +506,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             'encrypt' => ($prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt),
             'html' => $this->vars->html,
             'identity' => $identity,
-            'link_attachments' => $link_attach,
             'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
             'priority' => $this->vars->priority,
             'readreceipt' => $this->vars->request_read_receipt,

@@ -520,7 +520,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     'encrypt' => $prefs->isLocked('default_encrypt') ? $prefs->getValue('default_encrypt') : $this->vars->encrypt_options,
                     'html' => $rtemode,
                     'identity' => $identity,
-                    'link_attachments' => $this->vars->link_attachments,
                     'pgp_attach_pubkey' => $this->vars->pgp_attach_pubkey,
                     'priority' => $priority,
                     'save_sent' => $save_sent_mail,
@@ -981,32 +980,15 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                 $view->attach_size = IMP::numberFormat($imp_compose->maxAttachmentSize(), 0);
 
-                $link_attach = $prefs->getValue('link_attach');
                 $save_attach = $prefs->getValue('save_attachments');
-                $show_link_attach = ($conf['compose']['link_attachments'] && !$prefs->isLocked('link_attach'));
-                $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || $show_link_attach || $link_attach));
 
-                if ($show_link_attach || $show_save_attach) {
+                if ($view->ssm && !$prefs->isLocked('save_attachments')) {
                     $view->show_link_save_attach = true;
-                    $attach_options = array();
-                    if ($show_save_attach) {
-                        $save_attach_val = $reload
-                            ? $this->vars->save_attachments_select
-                            : ($save_attach == 'always');
-                        $attach_options[] = array(
-                            'label' => _("Save attachments with message in sent-mail mailbox?"),
-                            'name' => 'save_attachments_select',
-                            'val' => $save_attach_val
-                        );
-                    }
-                    if ($show_link_attach) {
-                        $attach_options[] = array(
-                            'label' => _("Link Attachments?"),
-                            'name' => 'link_attachments',
-                            'val' => (isset($this->vars->link_attachments) ? $this->vars->link_attachments : $link_attach)
-                        );
-                    }
-                    $view->attach_options = $attach_options;
+                    $view->attach_options = array(
+                        'label' => _("Save attachments with message in sent-mail mailbox?"),
+                        'name' => 'save_attachments_select',
+                        'val' => ($reload ? $this->vars->save_attachments_select : ($save_attach == 'always'))
+                    );
                 }
 
                 if (count($imp_compose)) {

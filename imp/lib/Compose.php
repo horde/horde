@@ -675,9 +675,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *             addresses.
      *  </li>
      *  <li>
-     *   link_attachments: (bool) Link attachments?
-     *  </li>
-     *  <li>
      *   pgp_attach_pubkey: (boolean) Attach the user's PGP public key to the
      *                      message?
      *  </li>
@@ -750,7 +747,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $msg_options = array(
             'encrypt' => $encrypt,
             'html' => !empty($opts['html']),
-            'linkattach' => !empty($opts['link_attachments']),
             'pgp_attach_pubkey' => (!empty($opts['pgp_attach_pubkey']) && $prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')),
             'signature' => isset($opts['add_signature']) ? $opts['add_signature'] : null,
             'vcard_attach' => ((!empty($opts['vcard_attach']) && $registry->hasMethod('contacts/ownVCard')) ? ((strlen($opts['vcard_attach']) ? $opts['vcard_attach'] : 'vcard') . '.vcf') : null)
@@ -1248,7 +1244,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - from: (string) The outgoing from address - only needed for multiple
      *           PGP encryption.
      *   - html: (boolean) Is this a HTML message?
-     *   - linkattach: (boolean) Link attachments?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
      *   - pgp_attach_pubkey: (boolean) Attach the user's PGP public key?
@@ -1369,69 +1364,34 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $textpart = $textBody;
         }
 
-        /* Add attachments now. */
-        $attach_flag = true;
-        if (empty($options['noattach']) && count($this)) {
-            if (!empty($options['linkattach']) &&
-                $conf['compose']['link_attachments'] &&
-                (!$prefs->isLocked('link_attach') ||
-                 $prefs->isLocked('link_attach'))) {
-                $base = $this->_linkAttachments($textpart);
+        /* Add attachments. */
+        $base = $textpart;
+        if (empty($options['noattach'])) {
+            $parts = $this->_getAttachments($textpart);
 
-                if (!empty($options['pgp_attach_pubkey']) ||
-                    !empty($options['attach_vcard'])) {
-                    $new_body = new Horde_Mime_Part();
-                    $new_body->setType('multipart/mixed');
-                    $new_body->addPart($base);
-                    $base = $new_body;
-                } else {
-                    $attach_flag = false;
-                }
-            } else {
-                $base = new Horde_Mime_Part();
-                $base->setType('multipart/mixed');
-                $base->addPart($textpart);
-
-                $attach_flag = false;
-                foreach ($this->_atc as $val) {
-                    if (!$val->related) {
-                        $base->addPart($val->getPart(true));
-                        $attach_flag = true;
-                    }
-                }
-
-                if (!$attach_flag) {
-                    $base = $textpart;
-                }
-            }
-        } elseif (!empty($options['pgp_attach_pubkey']) ||
-                  !empty($options['attach_vcard'])) {
-            $base = new Horde_Mime_Part();
-            $base->setType('multipart/mixed');
-            $base->addPart($textpart);
-        } else {
-            $base = $textpart;
-            $attach_flag = false;
-        }
-
-        if ($attach_flag) {
             if (!empty($options['pgp_attach_pubkey'])) {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
-                $base->addPart($imp_pgp->publicKeyMIMEPart());
+                $parts[] = $injector->getInstance('IMP_Crypt_Pgp')->publicKeyMIMEPart();
             }
 
             if (!empty($options['attach_vcard'])) {
                 try {
-                    $vcard = $registry->call('contacts/ownVCard');
-
                     $vpart = new Horde_Mime_Part();
                     $vpart->setType('text/x-vcard');
                     $vpart->setCharset('UTF-8');
-                    $vpart->setContents($vcard);
+                    $vpart->setContents($registry->call('contacts/ownVCard'));
                     $vpart->setName($options['attach_vcard']);
 
-                    $base->addPart($vpart);
+                    $parts[] = $vpart;
                 } catch (Horde_Exception $e) {}
+            }
+
+            if (!empty($parts)) {
+                $base = new Horde_Mime_Part();
+                $base->setType('multipart/mixed');
+                $base->addPart($textpart);
+                foreach ($parts as $val) {
+                    $base->addPart($val);
+                }
             }
         }
 
@@ -2523,79 +2483,85 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Remove all attachments from an email message and replace with
-     * urls to downloadable links.
+     * Adds attachments to message (as either MIME parts or links).
      *
      * @param Horde_Mime_Part $part  The body of the message.
      *
-     * @return Horde_Mime_Part  Modified MIME part with links to attachments.
-     *
+     * @return array  The list of attachments to add to the message.
      * @throws IMP_Compose_Exception
      */
-    protected function _linkAttachments($part)
+    protected function _getAttachments(Horde_Mime_Part $part)
     {
         global $conf;
 
-        if (!$conf['compose']['link_attachments']) {
-            throw new IMP_Compose_Exception(_("Linked attachments are forbidden."));
-        }
+        $atc = $linked = array();
+        $link_total = 0;
+        $size_limit = empty($conf['compose']['link_attach_size_limit'])
+            ? null
+            : 0;
 
-        /* Verify that message is below the linked attachment size limit. */
-        if (!empty($conf['compose']['link_attach_size_limit'])) {
-            $size_check = $conf['compose']['link_attach_size_limit'] - $this->sizeOfAttachments();
-            if ($size_check < 0) {
-                throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the linked attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size_check) / 1024, 0)));
+        foreach ($this as $val) {
+            if (!$val->related) {
+                if ($val->linked) {
+                    $linked[] = $val;
+                } else {
+                    $atc[] = $val;
+                }
             }
         }
 
-        if (($charset = $part->getCharset()) === null) {
-            $charset = $this->charset;
-        }
+        if (!empty($linked)) {
+            if (($charset = $part->getCharset()) === null) {
+                $charset = $this->charset;
+            }
 
-        $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
-        if ($del_time = IMP_Compose_LinkedAttachment::keepDate(false)) {
-            /* Subtract 1 from time to get the last day of the previous
-             * month. */
-            $trailer .= Horde_String::convertCharset(' (' . sprintf(_("links will expire on %s"), strftime('%x', $del_time - 1)) . ')', 'UTF-8', $charset);
-        }
+            $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
+            if ($del_time = IMP_Compose_LinkedAttachment::keepDate(false)) {
+                /* Subtract 1 from time to get the last day of the previous
+                 * month. */
+                $trailer .= Horde_String::convertCharset(' (' . sprintf(_("links will expire on %s"), strftime('%x', $del_time - 1)) . ')', 'UTF-8', $charset);
+            }
 
-        $trailer .= ":\n";
+            $trailer .= ":\n";
 
-        $i = 0;
+            $i = 0;
 
-        foreach ($this as $att) {
-            if (!$att->related) {
-                $apart = $att->getPart();
+            foreach ($linked as $val) {
+                $apart = $val->getPart();
+                $size = $apart->getBytes();
+
+                if (!is_null($size_limit)) {
+                    /* Verify that message is below the linked attachment size
+                     * limit. */
+                    $size_limit += $size;
+                    if (($size_check = $size_limit - $link_total) < 0) {
+                        throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size_check) / 1024, 0)));
+                    }
+                }
+
                 $trailer .= "\n" . ++$i . '. ' .
                     $apart->getName(true) .
-                    ' (' . IMP::sizeFormat($apart->getBytes()) . ')' .
+                    ' (' . IMP::sizeFormat($size) . ')' .
                     ' [' . $apart->getType() . "]\n" .
-                    sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($att)->getUrl()) . "\n";
+                    sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($val)->getUrl()) . "\n";
+            }
+
+            if ($part->getPrimaryType() == 'multipart') {
+                $link_part = new Horde_Mime_Part();
+                $link_part->setType('text/plain');
+                $link_part->setCharset($charset);
+                $link_part->setLanguage($GLOBALS['language']);
+                $link_part->setDisposition('inline');
+                $link_part->setContents($trailer);
+                $link_part->setDescription(_("Attachment Information"));
+
+                $atc[] = $link_part;
+            } else {
+                $part->appendContents("\n-----\n" . $trailer);
             }
         }
 
-        $this->deleteAllAttachments();
-
-        if ($part->getPrimaryType() == 'multipart') {
-            $mixed_part = new Horde_Mime_Part();
-            $mixed_part->setType('multipart/mixed');
-            $mixed_part->addPart($part);
-
-            $link_part = new Horde_Mime_Part();
-            $link_part->setType('text/plain');
-            $link_part->setCharset($charset);
-            $link_part->setLanguage($GLOBALS['language']);
-            $link_part->setDisposition('inline');
-            $link_part->setContents($trailer);
-            $link_part->setDescription(_("Attachment Information"));
-
-            $mixed_part->addPart($link_part);
-            return $mixed_part;
-        }
-
-        $part->appendContents("\n-----\n" . $trailer);
-
-        return $part;
+        return $atc;
     }
 
     /**

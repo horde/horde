@@ -3,9 +3,6 @@
  <?php echo $this->hiddenFieldTag('composeCache') ?>
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>
  <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
-<?php if (isset($this->link_attach_select)): ?>
- <?php echo $this->hiddenFieldTag('link_attachments_select', intval($this->link_attach_select)) ?>
-<?php endif; ?>
 <?php if ($this->attach): ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
 <?php endif; ?>

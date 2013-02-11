@@ -19,6 +19,8 @@
  * @copyright 2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   IMP
+ *
+ * @property-read boolean $linked  Should this attachment be linked?
  */
 class IMP_Compose_Attachment implements Serializable
 {
@@ -88,6 +90,19 @@ class IMP_Compose_Attachment implements Serializable
         $this->_composeCache = strval($ob);
         $this->_part = $part;
         $this->_tmpfile = $tmp_file;
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        global $conf;
+
+        switch ($name) {
+        case 'linked':
+            return (!empty($conf['compose']['link_attachments']) &&
+                    ($this->_part->getBytes() > intval($conf['compose']['link_attach_threshold'])));
+        }
     }
 
     /**

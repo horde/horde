@@ -35,8 +35,7 @@ Upgrading IMP From 6.0.x To 6.1
 Configuration Options (conf.php)
 --------------------------------
 
-The $conf['compose']['link_all_attachments'] option was removed and replaced
-by the 'link_attach' preference.
+The $conf['compose']['link_all_attachments'] option was removed.
 
 
 Hooks (hooks.php)
@@ -69,6 +68,7 @@ a user logs into IMP 6 for the first time)::
 
    compose_bcc
    compose_cc
+   link_attach
 
 
 
@@ -202,6 +202,14 @@ API Changes
   - searchMailbox
 
     The $mailbox parameter is now required to be a UTF-8 string.
+
+
+Compose: Linked Attachments
+---------------------------
+
+Linking attachments is no longer a user-configurable action. If enabled, ALL
+attachments are now linked unless the size of the attachment is less than
+$conf['compose']['link_attach_threshold'].
 
 
 

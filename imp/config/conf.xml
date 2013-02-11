@@ -116,13 +116,17 @@
    <configheader>Attachments</configheader>
    <configboolean name="use_vfs" desc="Should the Horde VFS system be used for
    storing uploaded attachments?">false</configboolean>
-   <configswitch name="link_attachments" desc="Should users be allowed to send
-   attachments as links?">true
+   <configswitch name="link_attachments" desc="Should attachments be sent as
+   web-accessible links?">true
     <case name="true" desc="Yes">
      <configboolean name="link_attachments_notify" desc="Send an e-mail
      notification to the sender when the first person attempts to download the
      linked attachment? This notification includes a link to delete the
      file.">true</configboolean>
+     <configinteger name="link_attach_threshold" desc="The size of an
+     attachment (in bytes) at which point the file is linked. Files below
+     this threshold will be directly attached to the message. Set to 0 to
+     attach all files as links.">5242880</configinteger>
      <configinteger name="link_attach_size_limit" desc="The maximum total size
      of linked attachments allowed per message (in bytes)? Set to 0 for no
      limit.">0</configinteger>

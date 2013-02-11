@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Attachments can now be configured to be linked only if over a configurable size threshold.
+* [mms] Linked attachments are no longer a user-configurable action.
 * [mms] Spam/innocent reporting on the smartmobile message page now uses a popup instead of a modal dialog.
 * [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
@@ -48,7 +50,7 @@
 * [mms] Support attaching vCard in dynamic compose.
 * [mms] Support attaching PGP public keys in dynamic compose.
 * [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
-* [mms] Converted &apos;link_all_attachments&apos; configuration option to the &apos;link_attach&apos; preference.
+* [mms] Removed &apos;link_all_attachments&apos; configuration option.
 * [mms] Support link attachment feature in dynamic view.
 * [mms] Display Virtual Folders in smartmobile view.
 * [mms] Abstract all UIDs used for mailbox/message navigation on the browser to BUIDs (browser UIDs) (Bug #10719).
@@ -3008,6 +3010,8 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Attachments can now be configured to be linked only if over a configurable size threshold.
+* [mms] Linked attachments are no longer a user-configurable action.
 * [mms] Spam/innocent reporting on the smartmobile message page now uses a popup instead of a modal dialog.
 * [mms] Re-add alerts log to dynamic mailbox view.
 * [mms] Rewritten/improved linked attachment code.
@@ -3022,7 +3026,7 @@
 * [mms] Support attaching vCard in dynamic compose.
 * [mms] Support attaching PGP public keys in dynamic compose.
 * [mms] Smartmobile view now uses additive loading instead of pagination on the mailbox page.
-* [mms] Converted &apos;link_all_attachments&apos; configuration option to the &apos;link_attach&apos; preference.
+* [mms] Removed &apos;link_all_attachments&apos; configuration option.
 * [mms] Support link attachment feature in dynamic view.
 * [mms] Display Virtual Folders in smartmobile view.
 * [mms] Abstract all UIDs used for mailbox/message navigation on the browser to BUIDs (browser UIDs) (Bug #10719).

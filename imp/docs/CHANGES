@@ -2,6 +2,9 @@
 v6.1.0-git
 ----------
 
+[mms] Attachments can now be configured to be linked only if over a
+      configurable size threshold.
+[mms] Linked attachments are no longer a user-configurable action.
 [mms] Spam/innocent reporting on the smartmobile message page now uses a popup
       instead of a modal dialog.
 [mms] Re-add alerts log to dynamic mailbox view.
@@ -22,8 +25,7 @@ v6.1.0-git
 [mms] Support attaching PGP public keys in dynamic compose.
 [mms] Smartmobile view now uses additive loading instead of pagination on the
       mailbox page.
-[mms] Converted 'link_all_attachments' configuration option to the
-      'link_attach' preference.
+[mms] Removed the 'link_all_attachments' configuration option.
 [mms] Support link attachment feature in dynamic view.
 [mms] Display Virtual Folders in smartmobile view.
 [mms] Abstract all UIDs used for mailbox/message navigation on the browser to
