@@ -3,4 +3,4 @@ before_script:
   - pear install channel://pear.horde.org/Horde_Role
   - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
-script: php ./framework/Icalendar/test/Horde/Icalendar/AllTests.php
+script: ./framework/bin/test_framework
