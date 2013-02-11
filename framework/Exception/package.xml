@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-02-11</date>
- <time>19:11:34</time>
+ <time>19:16:04</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -754,6 +754,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
