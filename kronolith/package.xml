@@ -45,12 +45,24 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="kronolith-agenda" role="script" />
-    <file name="kronolith-convert-datatree-shares-to-sql" role="script" />
-    <file name="kronolith-convert-sql-shares-to-sqlng" role="script" />
-    <file name="kronolith-convert-to-utc" role="script" />
-    <file name="kronolith-import-icals" role="script" />
-    <file name="kronolith-import-squirrelmail-calendar" role="script" />
+    <file name="kronolith-agenda" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-to-utc" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-icals" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-squirrelmail-calendar" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="calendars">
     <file name="create.php" role="horde" />
