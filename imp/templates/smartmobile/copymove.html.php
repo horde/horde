@@ -17,8 +17,8 @@
    <div id="imp-copymove-newdiv">
     <label for="imp-copymove-new"><?php echo _("New mailbox name:") ?></label>
     <input id="imp-copymove-new" type="text" />
-    <a href="#copymove-new-submit" data-role="button" data-theme="a"><?php echo _("Create") ?></a>
    </div>
+   <a href="#copymove-submit" data-role="button" data-theme="a"><?php echo _("Submit") ?></a>
    <a href="#" data-role="button" data-rel="back"><?php echo _("Cancel") ?></a>
   </form>
  </div>

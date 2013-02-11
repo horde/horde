@@ -91,7 +91,7 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
-        case 'copymove-new-submit':
+        case 'copymove-submit':
             ImpMobile.copymoveSelected(e);
             e.preventDefault();
             break;
@@ -950,11 +950,6 @@ var ImpMobile = {
             opts.newmbox = value;
         }
 
-        if (value === '') {
-            $('#imp-copymove-newdiv').show();
-            return;
-        }
-
         $('#copymove').dialog('close');
 
         HordeMobile.doAction(
@@ -1198,10 +1193,6 @@ var ImpMobile = {
                     target: $('#imp-compose-' + v + '-suggestions')
                 });
             });
-        }
-
-        if (IMP.conf.allow_folders) {
-            $('#imp-copymove-list').on('change', ImpMobile.copymoveSelected);
         }
     }
 
