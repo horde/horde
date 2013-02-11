@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-02-11</date>
- <time>18:57:40</time>
+ <time>19:04:23</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -40,10 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.2.
-* [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
-* [jan] Fix notifications while authenticating transparently.
-* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2748,6 +2745,19 @@
 * [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
 * [jan] Fix notifications while authenticating transparently.
 * [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
