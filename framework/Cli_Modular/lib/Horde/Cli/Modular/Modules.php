@@ -93,6 +93,7 @@ implements Iterator, Countable
                 }
             }
         }
+        sort($this->_modules);
     }
 
     /**
