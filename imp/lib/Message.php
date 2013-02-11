@@ -296,12 +296,9 @@ class IMP_Message
                 if (!is_null($fetch)) {
                     $msg_ids = array();
                     foreach ($fetch as $v) {
-                        if ($msg_id = $v->getEnvelope()->message_id) {
-                            $msg_ids[] = $msg_id;
-                        }
+                        $msg_ids[] = $v->getEnvelope()->message_id;
                     }
-
-                    $injector->getInstance('IMP_Maillog')->deleteLog($msg_ids);
+                    $injector->getInstance('IMP_Maillog')->deleteLog(array_filter($msg_ids));
                 }
             }
         }
