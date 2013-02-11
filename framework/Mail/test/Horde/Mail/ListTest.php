@@ -16,6 +16,11 @@ class Horde_Mail_ListTest extends PHPUnit_Framework_TestCase
         $this->rfc822 = new Horde_Mail_Rfc822();
     }
 
+    public function tearDown()
+    {
+        unset($this->rfc822);
+    }
+
     public function testSingleAddress()
     {
         $email = 'Test <test@example.com>';

@@ -60,7 +60,7 @@ var HordeMobile = {
         }
 
         HordeMobile.loading++;
-        $.mobile.showPageLoadingMsg();
+        $.mobile.loading('show');
 
         return $.ajax($.extend({
             data: params,
@@ -104,9 +104,8 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = false;
 
-        HordeMobile.loading--;
-        if (!HordeMobile.loading) {
-            $.mobile.hidePageLoadingMsg();
+        if (!(--HordeMobile.loading)) {
+            $.mobile.loading('hide');
         }
     },
 

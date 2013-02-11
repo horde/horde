@@ -685,7 +685,7 @@ class Horde_PageOutput
             $init_js = implode('', array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
-                '$.mobile.loadingMessage = "' . Horde_Core_Translation::t("loading") . '";'
+                '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
 
             $this->addInlineJsVars(array(

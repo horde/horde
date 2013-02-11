@@ -33,6 +33,11 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         ));
     }
 
+    public function tearDown()
+    {
+        unset($this->test_ob);
+    }
+
     public function testBug10503()
     {
         // Test file is base64 encoded to obfuscate the data.
