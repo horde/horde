@@ -22,6 +22,19 @@ class Horde_Icalendar_TimezonesTest extends Horde_Test_Case
         $this->assertEquals(-2840140800, mktime("00", "00", "00", "01", "01", "1880"));
     }
 
+    public function testMkTimeOnTravis2()
+    {
+        $this->assertEquals(-2840140800, mktime(0, 0, 0, 1, 1, 1880));
+    }
+
+    public function testMkTimeOnTravis3()
+    {
+        for ($year = 1960; $year > 1700; $year -= 10) {
+            $this->assertLessThan(0, mktime(0, 0, 0, 1, 1, $year), "Year $year failed");
+            $this->assertLessThan(0, mktime("00", "00", "00", "01", "01", "$year"), "Year $year failed");
+        }
+    }
+
     public function testFiles()
     {
         $test_files = glob(__DIR__ . '/fixtures/vTimezone/*.ics');
