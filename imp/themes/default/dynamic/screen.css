@@ -714,6 +714,12 @@ div.dimpActionsMsg #windowclose {
     font-weight: bold;
 }
 
+#upload_limit {
+    color: darkred;
+    display: -moz-inline-stack;
+    display: inline-block;
+    margin-top: 4px;
+}
 #upload_wait {
     display: -moz-inline-stack;
     display: inline-block;

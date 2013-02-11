@@ -32,11 +32,11 @@ class IMP_Ajax_Queue
     protected $_atc = array();
 
     /**
-     * The compose cache ID.
+     * The compose object.
      *
-     * @var string
+     * @var IMP_Compose
      */
-    protected $_composeCacheId = null;
+    protected $_compose;
 
     /**
      * Flag entries to add to response.
@@ -92,8 +92,10 @@ class IMP_Ajax_Queue
      *   - size: (string) The size of the attachment in KB
      *   - type: (string) The MIME type of the attachment
      *
-     * For compose cacheid data (key: 'compose-cacheid'), the current cacheid
-     * of the compose message.
+     * For compose cacheid data (key: 'compose'), an object with these
+     * properties:
+     *   - atclimit: (integer) If set, no further attachments are allowed.
+     *   - cacheid: (string) Current cache ID of the compose message.
      *
      * For flag data (key: 'flag'), an array of objects with these properties:
      *   - add: (array) The list of flags that were added.
@@ -139,10 +141,16 @@ class IMP_Ajax_Queue
             $this->_atc = array();
         }
 
-        /* Add compose cache ID information. */
-        if (!is_null($this->_composeCacheId)) {
-            $ajax->addTask('compose-cacheid', $this->_composeCacheId);
-            $this->_composeCacheId = null;
+        /* Add compose information. */
+        if (!is_null($this->_compose)) {
+            $compose = new stdClass;
+            if (!$this->_compose->additionalAttachmentsAllowed()) {
+                $compose->atclimit = 1;
+            }
+            $compose->cacheid = $this->_compose->getCacheId();
+
+            $ajax->addTask('compose', $compose);
+            $this->_compose = null;
         }
 
         /* Add flag information. */
@@ -250,13 +258,13 @@ class IMP_Ajax_Queue
     }
 
     /**
-     * Add the compose cache ID to the output.
+     * Add compose data to the output.
      *
      * @param IMP_Compose $ob  The compose object.
      */
     public function compose(IMP_Compose $ob)
     {
-        $this->_composeCacheId = $ob->getCacheId();
+        $this->_compose = $ob;
     }
 
     /**

@@ -756,24 +756,17 @@ var DimpCompose = {
         var u = $('upload'),
             u_parent = u.up();
 
-        if (DimpCore.conf.attach_limit != -1 &&
-            $('attach_list').childElements().size() >= DimpCore.conf.attach_limit) {
-            $('upload_limit').show();
-        } else if (!u_parent.visible()) {
-            $('upload_limit').hide();
-
-            if (Prototype.Browser.IE) {
-                // Trick to allow us to clear the file input on IE without
-                // creating a new node.  Need to re-add the event handler
-                // however, as it won't survive this assignment.
-                u.stopObserving();
-                u_parent.innerHTML = u_parent.innerHTML;
-                u = $('upload');
-                u.observe('change', this.changeHandler.bindAsEventListener(this));
-            }
-
-            u.clear().up().show();
+        if (Prototype.Browser.IE) {
+            // Trick to allow us to clear the file input on IE without
+            // creating a new node.  Need to re-add the event handler however,
+            // as it won't survive this assignment.
+            u.stopObserving();
+            u_parent.innerHTML = u_parent.innerHTML;
+            u = $('upload');
+            u.observe('change', this.changeHandler.bindAsEventListener(this));
         }
+
+        u.clear();
 
         this.resizeMsgArea();
     },
@@ -1087,8 +1080,15 @@ var DimpCompose = {
     {
         var t = e.tasks;
 
-        if (t['imp:compose-cacheid']) {
-            this.getCacheElt().setValue(t['imp:compose-cacheid']);
+        if (t['imp:compose']) {
+            this.getCacheElt().setValue(t['imp:compose'].cacheid);
+            if (t['imp:compose'].atclimit) {
+                $('upload_limit').show();
+                $('upload').up().hide();
+            } else {
+                $('upload_limit').hide();
+                $('upload').up().show();
+            }
         }
 
         if (t['imp:compose-atc']) {
