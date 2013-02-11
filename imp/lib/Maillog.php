@@ -51,7 +51,7 @@ class IMP_Maillog
             $msg_ids = array($msg_ids);
         }
 
-        foreach ($msg_ids as $val) {
+        foreach (array_filter($msg_ids) as $val) {
             switch ($type) {
             case IMP_Compose::FORWARD:
             case IMP_Compose::FORWARD_ATTACH:
@@ -126,7 +126,9 @@ class IMP_Maillog
      */
     public function getLog($msg_id)
     {
-        return $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id));
+        return strlen($msg_id)
+            ? $GLOBALS['injector']->getInstance('Horde_History')->getHistory(self::_getUniqueHistoryId($msg_id))
+            : new Horde_History_Log(new Horde_Support_Uuid());
     }
 
     /**
@@ -171,11 +173,9 @@ class IMP_Maillog
             return false;
         }
 
-        if ($msg_history) {
-            foreach ($msg_history as $entry) {
-                if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
-                    return true;
-                }
+        foreach ($msg_history as $entry) {
+            if (($entry['action'] == 'mdn') && ($entry['type'] == $type)) {
+                return true;
             }
         }
 
@@ -208,10 +208,12 @@ class IMP_Maillog
     public function parseLog($msg_id)
     {
         try {
-            if (!$msg_history = self::getLog($msg_id)) {
-                return array();
-            }
+            $msg_history = self::getLog($msg_id);
         } catch (Horde_Exception $e) {
+            return array();
+        }
+
+        if (!count($msg_history)) {
             return array();
         }
 
@@ -276,8 +278,9 @@ class IMP_Maillog
         if (!is_array($msg_ids)) {
             $msg_ids = array($msg_ids);
         }
+
         $GLOBALS['injector']->getInstance('Horde_History')->removeByNames(
-            array_map(array($this, '_getUniqueHistoryId'), $msg_ids)
+            array_map(array($this, '_getUniqueHistoryId'), array_filter($msg_ids))
         );
     }
 
