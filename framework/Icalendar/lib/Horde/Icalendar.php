@@ -1284,6 +1284,9 @@ class Horde_Icalendar
 
         if (!($date = $this->_parseDate($dateParts[0])) ||
             !($time = $this->_parseTime($dateParts[1]))) {
+        if ($result === false && getenv('TRAVIS') == 'true') {
+            throw new Exception(sprintf('Cannot parse %s: %s', $text, print_r($time, true) . print_r($date, true)));
+        }
             return $text;
         }
 
@@ -1300,10 +1303,11 @@ class Horde_Icalendar
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            // FIXME: shouldn't this be based on the user's timezone
-            // preference rather than the server's timezone?
             $result = @mktime($time['hour'], $time['minute'], $time['second'],
                               $date['month'], $date['mday'], $date['year']);
+        }
+        if ($result === false && getenv('TRAVIS') == 'true') {
+            throw new Exception(sprintf('Cannot parse %s: %s', $text, print_r($time, true) . print_r($date, true)));
         }
 
         return ($result !== false) ? $result : $text;
