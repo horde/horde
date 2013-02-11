@@ -1284,7 +1284,7 @@ class Horde_Icalendar
 
         if (!($date = $this->_parseDate($dateParts[0])) ||
             !($time = $this->_parseTime($dateParts[1]))) {
-        if ($result === false && getenv('TRAVIS') == 'true') {
+        if (getenv('TRAVIS') == 'true') {
             throw new Exception(sprintf('Cannot parse %s: %s', $text, print_r($time, true) . print_r($date, true)));
         }
             return $text;
@@ -1296,14 +1296,14 @@ class Horde_Icalendar
                      ? $this->_parseTZID($date, $time, $tzid)
                      : false;
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
-            $result = @gmmktime($time['hour'], $time['minute'], $time['second'],
+            $result = gmmktime($time['hour'], $time['minute'], $time['second'],
                                 $date['month'], $date['mday'], $date['year']);
-            if ($tzoffset) {
+            if ($result !== false && $tzoffset) {
                 $result -= $tzoffset;
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            $result = @mktime($time['hour'], $time['minute'], $time['second'],
+            $result = mktime($time['hour'], $time['minute'], $time['second'],
                               $date['month'], $date['mday'], $date['year']);
         }
         if ($result === false && getenv('TRAVIS') == 'true') {
