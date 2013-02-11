@@ -166,6 +166,9 @@ class Horde_Domhtml implements Iterator
     public function returnHtml(array $opts = array())
     {
         $curr_charset = $this->getCharset();
+        if (strcasecmp($curr_charset, 'US-ASCII') === 0) {
+            $curr_charset = 'UTF-8';
+        }
         $charset = array_key_exists('charset', $opts)
             ? (empty($opts['charset']) ? $curr_charset : $opts['charset'])
             : $this->_origCharset;
