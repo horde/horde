@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-10</date>
- <time>12:42:40</time>
+ <date>2013-02-11</date>
+ <time>22:47:44</time>
  <version>
   <release>2.0.5</release>
   <api>1.1.0</api>
@@ -898,7 +898,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Html2text filter now has improved handling of extra whitespace.
