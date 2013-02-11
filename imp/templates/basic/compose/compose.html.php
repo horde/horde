@@ -260,11 +260,6 @@
 
  <table width="100%" cellspacing="0">
   <tr class="item" id="upload_atc">
-<?php if ($this->maxattachsize): ?>
-   <td>
-    <?php echo _("Maximum total attachment size reached.") ?>
-   </td>
-<?php else: ?>
 <?php if ($this->maxattachmentnumber): ?>
    <td>
     <?php echo _("Maximum number of attachments reached.") ?>
@@ -285,7 +280,6 @@
      </tr>
     </table>
    </td>
-<?php endif; ?>
 <?php endif; ?>
    <td class="rightAlign">
     <input type="submit" name="btn_add_attachment" value="<?php echo _("Update") ?>" />
@@ -311,7 +305,7 @@
  <br />
 
  <div class="smallheader leftAlign">
-  <?php echo _("Current Attachments") ?> (<?php echo _("Total Size") ?>: <?php echo $this->total_attach_size ?> <?php echo _("KB") ?><?php echo $this->perc_attach ?>)
+  <?php echo _("Current Attachments") ?>
  </div>
 
  <table class="leftAlign attachList">

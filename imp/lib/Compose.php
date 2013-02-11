@@ -99,13 +99,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     protected $_replytype = self::COMPOSE;
 
     /**
-     * The aggregate size of all attachments (in bytes).
-     *
-     * @var integer
-     */
-    protected $_size = 0;
-
-    /**
      * Constructor.
      *
      * @param string $cacheid  The cache ID string.
@@ -2243,21 +2236,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function deleteAllAttachments()
     {
-        $this->_size = 0;
-
         foreach (array_keys($this->_atc) as $key) {
             unset($this[$key]);
         }
-    }
-
-    /**
-     * Returns the size of the attachments in bytes.
-     *
-     * @return integer  The size of the attachments (in bytes).
-     */
-    public function sizeOfAttachments()
-    {
-        return $this->_size;
     }
 
     /**
@@ -2356,14 +2337,16 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function additionalAttachmentsAllowed()
     {
-        return empty($GLOBALS['conf']['compose']['attach_count_limit']) ||
-               ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
+        global $conf;
+
+        return empty($conf['compose']['attach_count_limit']) ||
+               ($conf['compose']['attach_count_limit'] - count($this));
     }
 
     /**
-     * What is the maximum attachment size remaining?
+     * What is the maximum attachment size?
      *
-     * @return integer  The maximum attachment size remaining (in bytes).
+     * @return integer  The maximum attachment size (in bytes).
      */
     public function maxAttachmentSize()
     {
@@ -2371,7 +2354,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         return empty($GLOBALS['conf']['compose']['attach_size_limit'])
             ? $size
-            : min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
+            : min($size, $GLOBALS['conf']['compose']['attach_size_limit']);
     }
 
     /**
@@ -2492,13 +2475,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _getAttachments(Horde_Mime_Part $part)
     {
-        global $conf;
-
         $atc = $linked = array();
-        $link_total = 0;
-        $size_limit = empty($conf['compose']['link_attach_size_limit'])
-            ? null
-            : 0;
 
         foreach ($this as $val) {
             if (!$val->related) {
@@ -2528,20 +2505,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             foreach ($linked as $val) {
                 $apart = $val->getPart();
-                $size = $apart->getBytes();
-
-                if (!is_null($size_limit)) {
-                    /* Verify that message is below the linked attachment size
-                     * limit. */
-                    $size_limit += $size;
-                    if (($size_check = $size_limit - $link_total) < 0) {
-                        throw new IMP_Compose_Exception(sprintf(_("Attached file(s) exceeds the attachment size limit (%d KB too large). Delete one of the attachments to continue."), IMP::numberFormat(abs($size_check) / 1024, 0)));
-                    }
-                }
-
                 $trailer .= "\n" . ++$i . '. ' .
                     $apart->getName(true) .
-                    ' (' . IMP::sizeFormat($size) . ')' .
+                    ' (' . IMP::sizeFormat($apart->getBytes()) . ')' .
                     ' [' . $apart->getType() . "]\n" .
                     sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($val)->getUrl()) . "\n";
             }
@@ -2824,12 +2790,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $conf;
 
-        /* Check for filesize limitations. */
-        if (!empty($conf['compose']['attach_size_limit']) &&
-            (($conf['compose']['attach_size_limit'] - $this->sizeOfAttachments() - $bytes) < 0)) {
-            throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
-        }
-
         $atc = new Horde_Mime_Part();
         $atc->setBytes($bytes);
 
@@ -2863,8 +2823,31 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         $atc_ob = new IMP_Compose_Attachment($this, $atc, $atc_file);
 
+        /* Check for attachment size limitations. */
+        $size_limit = null;
+        if ($atc_ob->linked) {
+            if (!empty($conf['compose']['link_attach_size_limit'])) {
+                $linked = true;
+                $size_limit = 'link_attach_size_limit';
+            }
+        } elseif (!empty($conf['compose']['attach_size_limit'])) {
+            $linked = false;
+            $size_limit = 'attach_size_limit';
+        }
+
+        if (!is_null($size_limit)) {
+            $total_size = $conf['compose'][$size_limit] - $bytes;
+            foreach ($this as $val) {
+                if ($val->linked == $linked) {
+                    $total_size -= $val->getPart()->getBytes();
+                    if ($total_size < 0) {
+                        throw new IMP_Compose_Exception(strlen($filename) ? sprintf(_("Attached file \"%s\" exceeds the attachment size limits. File NOT attached."), $filename) : _("Attached file exceeds the attachment size limits. File NOT attached."));
+                    }
+                }
+            }
+        }
+
         $this->_atc[$atc_ob->id] = $atc_ob;
-        $this->_size += $bytes;
         $this->changed = 'changed';
 
         return $atc_ob;
@@ -3041,9 +3024,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             return;
         }
 
-        if ($this->_size) {
-            $this->_size -= $atc->getPart()->getBytes();
-        }
         $atc->delete();
         unset($this->_atc[$offset]);
 

@@ -770,7 +770,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             );
 
             if ($attach_upload) {
-                $hidden['MAX_FILE_SIZE'] = $imp_compose->maxAttachmentSize();
+                $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
             }
             foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
                 $hidden[$val] = $this->vars->$val;
@@ -972,13 +972,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
 
             if ($attach_upload) {
-                if (!$imp_compose->maxAttachmentSize()) {
-                    $view->maxattachsize = true;
-                } elseif (!$max_attach) {
-                    $view->maxattachmentnumber = true;
-                }
-
                 $view->attach_size = IMP::numberFormat($imp_compose->maxAttachmentSize(), 0);
+                $view->maxattachmentnumber = !$max_attach;
 
                 $save_attach = $prefs->getValue('save_attachments');
 
@@ -1022,11 +1017,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $atc[] = $entry;
                     }
                     $view->atc = $atc;
-                    $view->total_attach_size = IMP::numberFormat($imp_compose->sizeOfAttachments() / 1024, 2);
-                    if (!empty($conf['compose']['attach_size_limit']) &&
-                        ($conf['compose']['attach_size_limit'] > 0)) {
-                        $view->perc_attach = sprintf(_("%s%% of allowed size"), IMP::numberFormat($imp_compose->sizeOfAttachments() / $conf['compose']['attach_size_limit'] * 100, 2));
-                    }
                 }
             }
 
