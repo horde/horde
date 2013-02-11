@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-02-11</date>
- <time>22:47:44</time>
+ <time>22:52:03</time>
  <version>
-  <release>2.0.5</release>
+  <release>2.0.6</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Html2text filter now has improved handling of extra whitespace.
-* [mms] Fix XSS filter removing control characters that cause certain charsets (ISO-2022-JP) to break (Bug #12015).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -903,6 +902,19 @@ Initial release as a PEAR package
    <notes>
 * [mms] Html2text filter now has improved handling of extra whitespace.
 * [mms] Fix XSS filter removing control characters that cause certain charsets (ISO-2022-JP) to break (Bug #12015).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.6</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
