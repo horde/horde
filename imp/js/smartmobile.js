@@ -97,7 +97,6 @@ var ImpMobile = {
             break;
 
         case 'folders-refresh':
-            // TODO: Bug(?)
             $('#folders :jqmData(role=footer) a[href$="refresh"]').removeClass($.mobile.activeBtnClass).blur();
             e.preventDefault();
             // Fall-through
