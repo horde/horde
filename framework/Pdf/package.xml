@@ -24,9 +24,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-11</date>
- <time>19:33:30</time>
+ <time>19:37:38</time>
  <version>
-  <release>2.0.3</release>
+  <release>2.0.4</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix getFormatHeight() and getFormatWidth() in landscape mode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -335,6 +335,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix getFormatHeight() and getFormatWidth() in landscape mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
