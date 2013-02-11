@@ -170,6 +170,23 @@ class IMP_Compose_Attachment implements Serializable
         ));
     }
 
+    /**
+     * Create a linked attachment object from attachment data.
+     *
+     * @return IMP_Compose_LinkedAttachment  Linked attachment object.
+     * @throws IMP_Exception
+     */
+    public function createLinkedAtc()
+    {
+        $ob = new IMP_Compose_LinkedAttachment(
+            $GLOBALS['registry']->getAuth(),
+            strval(new Horde_Support_Uuid())
+        );
+        $ob->save($this);
+
+        return $ob;
+    }
+
     /* Serializable methods. */
 
     /**

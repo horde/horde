@@ -2509,7 +2509,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                     $apart->getName(true) .
                     ' (' . IMP::sizeFormat($apart->getBytes()) . ')' .
                     ' [' . $apart->getType() . "]\n" .
-                    sprintf(_("Download link: %s"), IMP_Compose_LinkedAttachment::create($val)->getUrl()) . "\n";
+                    sprintf(_("Download link: %s"), $val->createLinkedAtc()->getUrl()) . "\n";
             }
 
             if ($part->getPrimaryType() == 'multipart') {

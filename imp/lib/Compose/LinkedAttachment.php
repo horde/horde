@@ -350,26 +350,6 @@ class IMP_Compose_LinkedAttachment
     /* Static methods. */
 
     /**
-     * Create a linked attachment object from attachment data.
-     *
-     * @param IMP_Compose_Attachment $atc  Attachment object.
-     *
-     * @return IMP_Compose_LinkedAttachment  Linked attachment object.
-     * @throws IMP_Exception
-     */
-    static public function create(IMP_Compose_Attachment $atc)
-    {
-        $ob = new self(
-            $GLOBALS['registry']->getAuth(),
-            strval(new Horde_Support_Uuid())
-        );
-
-        $ob->save($atc);
-
-        return $ob;
-    }
-
-    /**
      * Return UNIX timestamp of linked attachment expiration time.
      *
      * @param boolean $past  If true, determine maximim creation time for
