@@ -270,12 +270,10 @@ class IMP_Ajax_Queue
     {
         global $injector;
 
-        if ($indices instanceof IMP_Indices_Mailbox) {
-            $indices = $indices->joinIndices();
-
-            if (!count($indices) || !$indices->mailbox->access_flags) {
-                return;
-            }
+        if (($indices instanceof IMP_Indices_Mailbox) &&
+            (!$indices->mailbox->access_flags ||
+             !count($indices = $indices->joinIndices()))) {
+            return;
         }
 
         $changed = $injector->getInstance('IMP_Flags')->changed($flags, $add);
