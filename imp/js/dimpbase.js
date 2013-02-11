@@ -926,6 +926,8 @@ var DimpBase = {
 
             HordeDialog.display({
                 form: new Element('DIV').insert(
+                          new Element('INPUT', { name: 'MAX_FILE_SIZE', value: DimpCore.conf.MAX_FILE_SIZE }).hide()
+                      ).insert(
                           new Element('INPUT', { name: 'import_file', type: 'file' })
                       ).insert(
                           new Element('INPUT', { name: 'import_mbox', value: tmp }).hide()

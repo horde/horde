@@ -5,6 +5,7 @@
  <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
 <?php if ($this->attach): ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
+ <?php echo $this->hiddenFieldTag('MAX_FILE_SIZE', intval($this->max_size)) ?>
 <?php endif; ?>
 <?php if (isset($this->pgp_pubkey)): ?>
  <?php echo $this->hiddenFieldTag('pgp_attach_pubkey', intval($this->pgp_pubkey)) ?>

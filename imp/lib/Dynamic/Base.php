@@ -133,11 +133,12 @@ abstract class IMP_Dynamic_Base
      */
     protected function _addBaseVars()
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $session;
 
         /* Variables used in core javascript files. */
         $this->js_conf = array_filter(array(
             // URL variables
+            'MAX_FILE_SIZE' => intval($session->get('imp', 'file_upload')),
             'URI_COMPOSE' => strval(IMP_Dynamic_Compose::url()->setRaw(true)),
             'URI_VIEW' => strval(Horde::url('view.php')),
 
