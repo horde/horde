@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-11</date>
- <time>22:42:30</time>
+ <time>22:46:57</time>
  <version>
-  <release>2.2.0</release>
+  <release>2.2.1</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Add test/ directory to include_path to allow autoloading of test classes.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -385,6 +385,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Add test/ directory to include_path to allow autoloading of test classes.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
