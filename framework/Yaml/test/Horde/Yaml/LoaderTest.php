@@ -790,7 +790,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     public function testUnfolding()
     {
         $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
-        $expected = "Line 1 Line 2";
+        $expected = "Line 1 Line 2\n";
         $this->assertEquals($expected, $parsed['foldedStringTest']);
     }
 
