@@ -7,7 +7,7 @@ v3.0.3-git
 [jan] Use more portable procmail recipe for rejects (Bug #7520).
 [jan] Fix configuration of 'forward_file' parameter (Bug #11989).
 [mms] Require non-empty subject and reason fields when creating a vacation
-      message (crohmann@netcologne.de; Request #8376).
+      message (crohmann@netcologne.de, Request #8376).
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 

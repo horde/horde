@@ -10,33 +10,30 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MINORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE, Horde_Release::FOCUS_MINORBUG);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the
-Gollem File Manager version H5 (3.0.0).
+The Horde Team is pleased to announce the final release of the Gollem File
+Manager version H5 (3.0.0).
 
 Gollem is a web-based file manager, providing the ability to fully manage a
 hierarchical file system stored in a variety of backends such as a SQL
 database, as part of a real filesystem, or on FTP, Samba or SSH servers. For
 more information on Gollem, visit http://www.horde.org/apps/gollem.
 
-We encourage widespread testing and feedback via the mailing lists or our bug
-tracking system. Updated translations are very welcome.
-
-The major changes compared to Gollem version H5 (3.0.0RC1) are:
+The major changes compared to Gollem version H4 (2.0) are:
+    * Completely redesigned user interface.
     * Changed recursive deletion preference to ask by default.
-    * Fixed downloading if backend key doesn't match driver name.
-    * Updated Basque translation.
+    * Changed to short date format in file listing.
     * Further bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
+Completely redesigned user interface.
 Changed recursive deletion preference to ask by default.
-Fixed downloading if backend key doesn't match driver name.
-Updated Basque translation.
+Changed to short date format in file listing.
 Further bugfixes and improvements.
 FM;
 
