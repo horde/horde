@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-11</date>
- <time>19:28:28</time>
+ <time>19:32:36</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in outputting Content-Disposition &apos;size&apos; parameter if no other Content-Disposition parameter is present.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1068,6 +1068,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in outputting Content-Disposition &apos;size&apos; parameter if no other Content-Disposition parameter is present.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
