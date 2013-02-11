@@ -31,7 +31,7 @@
  </div>
 
 <?php if ($this->canInnocent): ?>
- <div data-role="popup" data-history="false" id="imp-innocent-confirm">
+ <div data-role="popup" data-overlay-theme="a" data-history="false" id="imp-innocent-confirm">
   <div data-role="header" class="ui-corner-top">
   <h1><?php echo _("Report as Innocent") ?></h1>
   </div>
@@ -46,7 +46,7 @@
 <?php endif; ?>
 
 <?php if ($this->canSpam): ?>
- <div data-role="popup" data-history="false" id="imp-spam-confirm">
+ <div data-role="popup" data-overlay-theme="a" data-history="false" id="imp-spam-confirm">
   <div data-role="header" class="ui-corner-top">
   <h1><?php echo _("Report as Spam") ?></h1>
   </div>
