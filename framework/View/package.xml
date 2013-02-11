@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-11</date>
- <time>22:57:20</time>
+ <time>23:01:36</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix generating form tags.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -412,6 +412,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix generating form tags.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
