@@ -62,9 +62,15 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="imp-bounce-spam" role="script" />
-    <file name="imp-mailbox-decode" role="script" />
-    <file name="imp-query-imap-cache" role="script" />
+    <file name="imp-bounce-spam" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="imp-mailbox-decode" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="imp-query-imap-cache" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />

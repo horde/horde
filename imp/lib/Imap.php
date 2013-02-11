@@ -389,17 +389,14 @@ class IMP_Imap implements Serializable
                 return $ob;
 
             default:
-                $error = true;
+                if (!$GLOBALS['registry']->getAuth()) {
+                    throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
+                }
                 break;
             }
-        } else {
-            $error = !method_exists($this->_ob, $method);
         }
 
-        if ($error) {
-            if ($GLOBALS['registry']->getAuth()) {
-                throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
-            }
+        if (!method_exists($this->_ob, $method)) {
             throw new BadMethodCallException(sprintf('%s: Invalid method call "%s".', __CLASS__, $method));
         }
 

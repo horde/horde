@@ -1295,13 +1295,11 @@ class Horde_Icalendar
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
             $result = @gmmktime($time['hour'], $time['minute'], $time['second'],
                                 $date['month'], $date['mday'], $date['year']);
-            if ($tzoffset) {
+            if ($result !== false && $tzoffset) {
                 $result -= $tzoffset;
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            // FIXME: shouldn't this be based on the user's timezone
-            // preference rather than the server's timezone?
             $result = @mktime($time['hour'], $time['minute'], $time['second'],
                               $date['month'], $date['mday'], $date['year']);
         }
