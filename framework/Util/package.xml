@@ -35,6 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Can&apos;t add charset directly to HTML document or else DOM will alter document when generating HTML.
 * [mms] Added Horde_Domhtml#getBody().
  </notes>
  <contents>
@@ -587,6 +588,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Can&apos;t add charset directly to HTML document or else DOM will alter document when generating HTML.
 * [mms] Added Horde_Domhtml#getBody().
    </notes>
   </release>
