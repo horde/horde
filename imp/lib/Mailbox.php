@@ -1084,7 +1084,7 @@ class IMP_Mailbox implements Serializable
      */
     public function hideDeletedMsgs($deleted = false)
     {
-        global $injector, $prefs;
+        global $prefs;
 
         if (!$this->access_flags) {
             return $this->is_imap;

@@ -50,7 +50,7 @@ class IMP_Message
     public function copy($targetMbox, $action, IMP_Indices $indices,
                          array $opts = array())
     {
-        global $conf, $notification;
+        global $conf, $injector, $notification;
 
         if (!count($indices)) {
             return false;
@@ -90,7 +90,7 @@ class IMP_Message
             break;
         }
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Imap');
 
         foreach ($indices as $ob) {
             try {
@@ -147,7 +147,7 @@ class IMP_Message
      */
     public function delete(IMP_Indices $indices, array $opts = array())
     {
-        global $conf, $injector, $notification, $prefs;
+        global $injector, $notification, $prefs;
 
         if (!count($indices)) {
             return false;
@@ -335,12 +335,12 @@ class IMP_Message
     protected function _createTasksOrNotes($list, $action,
                                            IMP_Indices $indices, $type)
     {
-        global $registry, $notification;
+        global $injector, $registry, $notification;
 
         foreach ($indices as $ob) {
             foreach ($ob->uids as $uid) {
                 /* Fetch the message contents. */
-                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
+                $imp_contents = $injector->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($uid));
 
                 /* Fetch the message headers. */
                 $imp_headers = $imp_contents->getHeader();
@@ -362,7 +362,7 @@ class IMP_Message
 
                 /* Create a new iCalendar. */
                 $vCal = new Horde_Icalendar();
-                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $GLOBALS['registry']->getVersion() . '//EN');
+                $vCal->setAttribute('PRODID', '-//The Horde Project//IMP ' . $registry->getVersion() . '//EN');
                 $vCal->setAttribute('METHOD', 'PUBLISH');
 
                 switch ($type) {
@@ -778,9 +778,9 @@ class IMP_Message
      */
     public function emptyMailbox($mbox_list)
     {
-        global $notification, $prefs;
+        global $injector, $notification, $prefs;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $trash = ($prefs->getValue('use_trash'))
             ? IMP_Mailbox::getPref('trash_folder')
             : null;

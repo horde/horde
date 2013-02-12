@@ -327,7 +327,7 @@ class IMP_Auth
      */
     static public function authenticateCallback()
     {
-        global $browser, $conf, $injector, $prefs, $registry, $session;
+        global $browser, $conf, $injector, $prefs, $session;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
         $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));

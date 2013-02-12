@@ -540,11 +540,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             if ($draft_url) {
                 $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
-                $protocol = $imp_imap->isImap() ? 'imap' : 'pop';
+                $imp_imap = $injector->getInstance('IMP_Imap');
 
                 try {
-                    if (($imap_url->protocol == $protocol) &&
-                        ($imap_url->username == $injector->getInstance('IMP_Imap')->getParam('username')) &&
+                    if (($imap_url->protocol == ($imp_imap->isImap() ? 'imap' : 'pop')) &&
+                        ($imap_url->username == $imp_imap->getParam('username')) &&
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
@@ -1323,7 +1323,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if (strlen($html_trailer)) {
                     $t_dom = new Horde_Domhtml($html_trailer, 'UTF-8');
                     foreach ($t_dom->getBody()->childNodes as $child) {
-                        $body_html_body->appendChild($t_html->dom->importNode($child, true));
+                        $body_html_body->appendChild($t_dom->dom->importNode($child, true));
                     }
                 }
             }
@@ -1996,8 +1996,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function forwardMessageText($contents, array $opts = array())
     {
-        global $prefs;
-
         $h = $contents->getHeader();
 
         $from = strval($h->getOb('from'));

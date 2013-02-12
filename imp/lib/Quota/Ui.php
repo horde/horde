@@ -68,7 +68,7 @@ class IMP_Quota_Ui
 
             $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
-        } elseif ($quotaDriver->getHideWhenUnlimited()) {
+        } elseif ($quotaDriver->isHiddenWhenUnlimited()) {
             return false;
         } elseif ($quota['usage'] != 0) {
             $quota['usage'] = $quota['usage'] / $calc;

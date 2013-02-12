@@ -36,7 +36,7 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $page_output, $prefs, $registry;
+        global $page_output, $prefs;
 
         $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
@@ -70,7 +70,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _compose($base, $view, $args)
     {
-        global $conf, $injector, $registry, $prefs, $session;
+        global $injector, $registry, $prefs, $session;
 
         $view->title = $args['title'];
 
@@ -177,7 +177,7 @@ class IMP_Dynamic_Compose_Common
      */
     protected function _addComposeVars($base)
     {
-        global $browser, $conf, $prefs, $registry;
+        global $browser, $prefs, $registry;
 
         /* Context menu definitions. */
         $base->js_context['ctx_other'] = new stdClass;
@@ -186,7 +186,7 @@ class IMP_Dynamic_Compose_Common
         }
 
         $base->js_context['ctx_atc'] = new stdClass;
-        if ($attach_upload = IMP_Compose::canUploadAttachment() &&
+        if (IMP_Compose::canUploadAttachment() &&
             (!$prefs->isLocked('save_attachments') &&
              (!$prefs->isLocked('save_sent_mail') ||
               $prefs->getValue('save_sent_mail')))) {

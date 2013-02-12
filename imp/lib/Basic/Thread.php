@@ -63,7 +63,6 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         }
 
         $msgs = $tree = array();
-        $rowct = 0;
         $subject = '';
         $page_label = $this->indices->mailbox->label;
 

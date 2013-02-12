@@ -68,7 +68,7 @@ abstract class IMP_Quota
      *
      * @return boolean  Whether to hide the quota.
      */
-    public function getHideWhenUnlimited()
+    public function isHiddenWhenUnlimited()
     {
         return $this->_params['hide_when_unlimited'];
     }

@@ -51,7 +51,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base
      */
     public function create($mailbox)
     {
-        global $injector, $registry, $session;
+        global $session;
 
         $key = strval($mailbox);
 

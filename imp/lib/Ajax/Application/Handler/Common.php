@@ -480,7 +480,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      */
     public function sendMessage()
     {
-        global $conf, $injector, $notification, $page_output, $prefs;
+        global $injector, $notification, $page_output, $prefs;
 
         try {
             list($result, $imp_compose, $headers, $identity) = $this->_base->composeSetup('sendMessage');

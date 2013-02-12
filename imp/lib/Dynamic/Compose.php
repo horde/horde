@@ -271,8 +271,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
      */
     protected function _getContents()
     {
-        $ob = null;
-
         if (!is_null($this->indices)) {
             try {
                 return $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($this->indices);

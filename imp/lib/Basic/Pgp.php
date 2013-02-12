@@ -34,7 +34,6 @@ class IMP_Basic_Pgp extends IMP_Basic_Base
         global $browser, $injector;
 
         $this->_pgp = $injector->getInstance('IMP_Crypt_Pgp');
-        $secure_check = Horde::isConnectionSecure();
 
         /* Run through the action handlers */
         switch ($this->vars->actionID) {

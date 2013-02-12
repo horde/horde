@@ -58,7 +58,7 @@ class IMP_Indices_Mailbox extends IMP_Indices
                     if (isset($args[0]->buid)) {
                         $this->buids = new IMP_Indices($this->mailbox, $args[0]->buid);
                         parent::__construct($this->mailbox->fromBuids($this->buids));
-                    } elseif (isset($vars->uid)) {
+                    } elseif (isset($args[0]->uid)) {
                         parent::__construct($this->mailbox, $args[0]->uid);
                     }
                 }

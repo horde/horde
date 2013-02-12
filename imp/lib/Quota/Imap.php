@@ -23,7 +23,7 @@ class IMP_Quota_Imap extends IMP_Quota
     public function __construct(array $params = array())
     {
         if (!isset($params['imap_ob'])) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter');
+            throw new InvalidArgumentException('Missing imap_ob parameter');
         }
 
         parent::__construct($params);

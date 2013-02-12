@@ -875,7 +875,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function addAttachment()
     {
-        global $injector, $notification, $session;
+        global $injector, $notification;
 
         $result = new stdClass;
         $result->action = 'addAttachment';

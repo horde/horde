@@ -133,7 +133,7 @@ abstract class IMP_Dynamic_Base
      */
     protected function _addBaseVars()
     {
-        global $injector, $prefs, $session;
+        global $prefs, $session;
 
         /* Variables used in core javascript files. */
         $this->js_conf = array_filter(array(

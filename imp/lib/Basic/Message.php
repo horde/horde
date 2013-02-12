@@ -311,7 +311,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         }
 
         /* See if the priority has been set. */
-        switch ($priority = $injector->getInstance('IMP_Mime_Headers')->getPriority($mime_headers)) {
+        switch ($injector->getInstance('IMP_Mime_Headers')->getPriority($mime_headers)) {
         case 'high':
             $basic_headers['priority'] = _("Priority");
             $display_headers['priority'] = '<div class="iconImg msgflags flagHighpriority" title="' . htmlspecialchars(_("High Priority")) . '"></div>&nbsp;' . _("High");
@@ -349,18 +349,18 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         /* Display all headers or, optionally, the user-specified headers for
          * the current identity. */
-        $custom_headers = $full_headers = array();
+        $full_headers = array();
         if ($all_headers) {
             $header_array = $mime_headers->toArray();
             foreach ($header_array as $head => $val) {
                 $lc_head = strtolower($head);
 
                 /* Skip the header if we have already dealt with it. */
-                if (!isset($display_headers[$head]) &&
-                    !isset($all_list_headers[$head]) &&
-                    (!in_array($head, array('importance', 'x-priority')) ||
+                if (!isset($display_headers[$lc_head]) &&
+                    !isset($all_list_headers[$lc_head]) &&
+                    (!in_array($lc_head, array('importance', 'x-priority')) ||
                     !isset($display_headers['priority']))) {
-                    $full_headers[$head] = $val;
+                    $full_headers[$lc_head] = $val;
                 }
             }
         } elseif (!empty($user_hdrs)) {

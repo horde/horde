@@ -335,10 +335,10 @@ class IMP_Basic_Folders extends IMP_Basic_Base
 
         case 'search':
             if (!empty($mbox_list)) {
-                $url = IMP_Basic_Search::url()
-                    ->add('subfolder', 1)
-                    ->add('mailbox_list', IMP_Mailbox::formTo($mbox_list))
-                    ->redirect();
+                IMP_Basic_Search::url()->add(array(
+                    'mailbox_list' => IMP_Mailbox::formTo($mbox_list),
+                    'subfolder' => 1
+                ))->redirect();
             }
             break;
         }

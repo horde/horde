@@ -33,7 +33,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session, $registry;
+        global $injector, $notification, $prefs, $registry;
 
         /* The message text and headers. */
         $expand = array();
