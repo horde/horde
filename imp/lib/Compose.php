@@ -1281,6 +1281,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
+        /* Add linked attachments. */
+        if (empty($options['nofinal'])) {
+            $this->_linkAttachments($body, $body_html);
+        }
+
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
@@ -1374,7 +1379,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Add attachments. */
         $base = $textpart;
         if (empty($options['noattach'])) {
-            $parts = $this->_getAttachments($textpart);
+            $parts = array();
+
+            foreach ($this as $val) {
+                if (!$val->related && !$val->linked) {
+                    $parts[] = $val;
+                }
+            }
 
             if (!empty($options['pgp_attach_pubkey'])) {
                 $parts[] = $injector->getInstance('IMP_Crypt_Pgp')->publicKeyMIMEPart();
@@ -2470,68 +2481,65 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Adds attachments to message (as either MIME parts or links).
+     * Adds linked attachments to message.
      *
-     * @param Horde_Mime_Part $part  The body of the message.
+     * @param string &$body         Plaintext data.
+     * @param Horde_Domhtml &$html  HTML data.
      *
-     * @return array  The list of attachments to add to the message.
      * @throws IMP_Compose_Exception
      */
-    protected function _getAttachments(Horde_Mime_Part $part)
+    protected function _linkAttachments(&$body, Horde_Domhtml $html)
     {
-        $atc = $linked = array();
+        $linked = array();
 
         foreach ($this as $val) {
-            if (!$val->related) {
-                if ($val->linked) {
-                    $linked[] = $val;
-                } else {
-                    $atc[] = $val;
-                }
+            if (!$val->related && $val->linked) {
+                $linked[] = $val;
             }
         }
 
-        if (!empty($linked)) {
-            if (($charset = $part->getCharset()) === null) {
-                $charset = $this->charset;
-            }
-
-            $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
-            if ($del_time = IMP_Compose_LinkedAttachment::keepDate(false)) {
-                /* Subtract 1 from time to get the last day of the previous
-                 * month. */
-                $trailer .= Horde_String::convertCharset(' (' . sprintf(_("links will expire on %s"), strftime('%x', $del_time - 1)) . ')', 'UTF-8', $charset);
-            }
-
-            $trailer .= ":\n";
-
-            $i = 0;
-
-            foreach ($linked as $val) {
-                $apart = $val->getPart();
-                $trailer .= "\n" . ++$i . '. ' .
-                    $apart->getName(true) .
-                    ' (' . IMP::sizeFormat($apart->getBytes()) . ')' .
-                    ' [' . $apart->getType() . "]\n" .
-                    sprintf(_("Download link: %s"), $val->createLinkedAtc()->getUrl()) . "\n";
-            }
-
-            if ($part->getPrimaryType() == 'multipart') {
-                $link_part = new Horde_Mime_Part();
-                $link_part->setType('text/plain');
-                $link_part->setCharset($charset);
-                $link_part->setLanguage($GLOBALS['language']);
-                $link_part->setDisposition('inline');
-                $link_part->setContents($trailer);
-                $link_part->setDescription(_("Attachment Information"));
-
-                $atc[] = $link_part;
-            } else {
-                $part->appendContents("\n-----\n" . $trailer);
-            }
+        if (empty($linked)) {
+            return;
         }
 
-        return $atc;
+        if ($del_time = IMP_Compose_LinkedAttachment::keepDate(false)) {
+            /* Subtract 1 from time to get the last day of the previous
+             * month. */
+            $expire = ' (' . sprintf(_("links will expire on %s"), strftime('%x', $del_time - 1)) . ')';
+        }
+
+        $body .= "\n-----\n" . _("Attachments") . $expire . ":\n";
+        if ($html) {
+            $body = $html->getBody();
+            $dom = $html->dom;
+
+            $body->appendChild($dom->createElement('HR'));
+            $body->appendChild($div = $dom->createElement('DIV'));
+            $div->appendChild($dom->createElement('H4', _("Attachments") . $expire . ':'));
+            $div->appendChild($ol = $dom->createElement('OL'));
+        }
+
+        $i = 0;
+        foreach ($linked as $val) {
+            $apart = $val->getPart();
+            $name = $apart->getName(true);
+            $size = IMP::sizeFormat($apart->getBytes());
+            $url = strval($val->createLinkedAtc()->getUrl()->setRaw(true));
+
+            $body .= "\n" . ++$i . '. ' .
+                $name .' (' . $size . ') [' . $apart->getType() . "]\n" .
+                sprintf(_("Download link: %s"), $url) . "\n";
+
+            if ($html) {
+                $ol->appendChild($li = $dom->createElement('LI'));
+                $li->appendChild($dom->createElement('STRONG', $name));
+                $li->appendChild($dom->createTextNode(' (' . $size . ') [' . htmlspecialchars($apart->getType()) . ']'));
+                $li->appendChild($dom->createElement('BR'));
+                $li->appendChild($dom->createTextNode(_("Download link") . ': '));
+                $li->appendChild($a = $dom->createElement('A', htmlspecialchars($url)));
+                $a->setAttribute('href', $url);
+            }
+        }
     }
 
     /**

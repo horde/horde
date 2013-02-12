@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add linked attachment information directly to main body text.
 * [mms] Added argument to the &apos;trailer&apos; hook to allow HTML trailers to be generated.
 * [mms] Attachments can now be configured to be linked only if over a configurable size threshold.
 * [mms] Linked attachments are no longer a user-configurable action.
@@ -3011,6 +3012,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add linked attachment information directly to main body text.
 * [mms] Added argument to the &apos;trailer&apos; hook to allow HTML trailers to be generated.
 * [mms] Attachments can now be configured to be linked only if over a configurable size threshold.
 * [mms] Linked attachments are no longer a user-configurable action.

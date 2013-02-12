@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add linked attachment information directly to main body text.
 [mms] Added argument to the 'trailer' hook to allow HTML trailers to be
       generated.
 [mms] Attachments can now be configured to be linked only if over a
