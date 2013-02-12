@@ -49,6 +49,10 @@ obtained via a call to $GLOBALS['registry']->getView().
 
 The $html argument to the 'trailer' hook has been added.
 
+The 'attach_body_check' hook has been added. This hook handles the attachment
+word checking code that previously was provided as an example in the
+'pre_sent' hook.
+
 
 MIME Viewer Options (mime_drivers.php)
 --------------------------------------

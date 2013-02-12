@@ -1261,6 +1261,25 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
+        /* We need to do the attachment check before any of the body text
+         * has been altered. */
+        if (!count($this) && !$this->getMetadata('attach_body_check')) {
+            $this->_metadata['attach_body_check'] = true;
+            $this->changed = 'changed';
+
+            try {
+                $check = Horde::callHook('attach_body_check', array($body), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {
+                $check = array();
+            }
+
+            if (!empty($check) &&
+                preg_match('/\b(' . implode('|', array_map('preg_quote', $check)) . ')\b/i', $body, $matches)) {
+                throw IMP_Compose_Exception::createAndLog('DEBUG', sprintf(_("Found the word %s in the message text although there are no files attached to the message. Did you forget to attach a file? (This check will not be performed again for this message.)"), $matches[0]));
+            }
+        }
+
+
         /* Add signature data. */
         if (isset($options['signature'])) {
             $identity = $injector->getInstance('IMP_Identity');
