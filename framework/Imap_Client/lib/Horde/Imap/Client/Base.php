@@ -1583,7 +1583,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
-        $smailbox = strval($mailbox);
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
@@ -2462,7 +2461,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $query = clone $query;
 
         $cache_array = $header_cache = $new_query = array();
-        $res_seq = null;
 
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
