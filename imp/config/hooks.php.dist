@@ -271,13 +271,21 @@ class IMP_Hooks
     /**
      * Dynamically create the contents of the message trailer text.
      *
+     * @param boolean $html  If true, the trailer text to be used in the HTML
+                             part. If null is returned, the plaintext trailer
+                             text will be used.
+     *
      * @return string  The trailer text to be used.
      */
-//    public function trailer()
+//    public function trailer($html = false)
 //    {
 //        // Example #1: Static trailer text.
-//        return "--------------------------------\n" .
-//               "This message was sent using IMP.";
+//        if ($html) {
+//            return "<hr /><div>This message was sent using IMP.</div>";
+//        } else {
+//            return "--------------------------------\n" .
+//                "This message was sent using IMP.";
+//        }
 //
 //
 //        // Example #2: Set the trailer from the system taglines file,

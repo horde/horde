@@ -47,6 +47,8 @@ The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
 second argument ($mode). If the current view mode is needed, it can be
 obtained via a call to $GLOBALS['registry']->getView().
 
+The $html argument to the 'trailer' hook has been added.
+
 
 MIME Viewer Options (mime_drivers.php)
 --------------------------------------

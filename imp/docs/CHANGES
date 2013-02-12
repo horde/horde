@@ -2,6 +2,8 @@
 v6.1.0-git
 ----------
 
+[mms] Added argument to the 'trailer' hook to allow HTML trailers to be
+      generated.
 [mms] Attachments can now be configured to be linked only if over a
       configurable size threshold.
 [mms] Linked attachments are no longer a user-configurable action.
