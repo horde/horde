@@ -58,12 +58,7 @@ class Horde_Session_Null extends Horde_Session
         session_start();
         $this->_active = true;
         session_write_close();
-        register_shutdown_function(array($this, 'shutdown'));
-    }
-
-    public function shutdown()
-    {
-        session_destroy();
+        register_shutdown_function(array($this, 'destroy'));
     }
 
     /**
@@ -79,9 +74,7 @@ class Horde_Session_Null extends Horde_Session
             return false;
         }
         session_regenerate_id(true);
-        session_unset();
-        $this->_data = array();
-        $this->_cleansession = true;
+        $this->destroy();
         return true;
     }
 
@@ -98,7 +91,8 @@ class Horde_Session_Null extends Horde_Session
      */
     public function destroy()
     {
-        session_destroy();
+        session_unset();
+        $this->_data = array();
         $this->_cleansession = true;
     }
 

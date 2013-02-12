@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix destroying session data when the null session driver is used.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2757,7 +2757,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix destroying session data when the null session driver is used.
    </notes>
   </release>
  </changelog>
