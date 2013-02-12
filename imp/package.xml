@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-18</date>
- <time>12:43:31</time>
+ <date>2013-02-12</date>
+ <time>15:41:33</time>
  <version>
   <release>6.0.4</release>
   <api>6.0.0</api>
@@ -2917,7 +2917,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-18</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Improved detection of charset in text/html message parts.
