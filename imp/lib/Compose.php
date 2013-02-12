@@ -2364,8 +2364,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $conf;
 
-        return empty($conf['compose']['attach_count_limit']) ||
-               ($conf['compose']['attach_count_limit'] - count($this));
+        return empty($conf['compose']['attach_count_limit'])
+            ? true
+            : ($conf['compose']['attach_count_limit'] - count($this));
     }
 
     /**
