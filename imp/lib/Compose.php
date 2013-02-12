@@ -1279,11 +1279,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (empty($options['nofinal'])) {
             try {
                 if ($trailer = Horde::callHook('trailer', array(), 'imp')) {
+                    $trailer = Horde_String::convertCharset($trailer, 'UTF-8', $this->charset);
                     $body .= $trailer;
                 }
 
                 if ($html_trailer = Horde::callHook('trailer', array(true), 'imp')) {
-                    $body_html .= $html_trailer;
+                    $body_html .= Horde_String::convertCharset($html_trailer, 'UTF-8', $this->charset);
                 } elseif ($trailer) {
                     $body_html .= $this->text2html($trailer);
                 }
