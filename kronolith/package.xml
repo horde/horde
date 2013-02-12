@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-06</date>
- <time>11:41:08</time>
+ <date>2013-02-12</date>
+ <time>15:54:44</time>
  <version>
   <release>4.0.4</release>
   <api>4.0.0</api>
@@ -2071,7 +2071,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-06</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
