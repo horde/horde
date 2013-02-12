@@ -22,15 +22,15 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>16:23:20</time>
+ <date>2013-02-12</date>
+ <time>15:33:54</time>
  <version>
-  <release>3.0.0RC3</release>
+  <release>3.0.0</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
@@ -770,12 +770,12 @@
   </release>
   <release>
    <version>
-    <release>3.0.0RC3</release>
+    <release>3.0.0</release>
     <api>3.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2013-01-10</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
