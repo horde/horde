@@ -1444,7 +1444,9 @@ class Horde
             if (!isset($options['params'])) {
                 $options['params'] = array();
             }
-            $options['params'] = array_merge($url->parameters, $options['params']);
+            foreach (array_merge($url->parameters, $options['params']) as $key => $val) {
+                $options['params'][$key] = addcslashes($val, '"');
+            }
         }
 
         if (!empty($options['menu'])) {
