@@ -251,11 +251,12 @@ class IMP
      */
     static public function filterText($text)
     {
-        if ($GLOBALS['prefs']->getValue('filtering') && strlen($text)) {
-            return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', array(
-                'replacement' => $GLOBALS['conf']['msgsettings']['filtering']['replacement'],
-                'words_file' => $GLOBALS['conf']['msgsettings']['filtering']['words']
-            ));
+        global $injector, $prefs;
+
+        if ($prefs->getValue('filtering') && strlen($text)) {
+            try {
+                return $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($text, 'words', Horde::callHook('msg_filter', array(), 'imp'));
+            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         return $text;

@@ -37,17 +37,6 @@
  </configtab>
 
  <configtab name="msgsettings" desc="Message and Spam">
-  <configheader>Message Settings</configheader>
-  <configsection name="msgsettings">
-   <configsection name="filtering">
-    <configstring name="words" desc="If message content filtering is enabled
-    (see 'filtering' preference), this is the filesystem location of the
-    filtered words list.">./config/filter.txt</configstring>
-    <configstring name="replacement" desc="What should filtered words be
-    replaced with?">****</configstring>
-   </configsection>
-  </configsection>
-
   <configsection name="spam">
    <configheader>Spam Reporting</configheader>
    <configswitch name="reporting" desc="Should a spam reporting link be

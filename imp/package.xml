@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-10</date>
- <time>01:56:38</time>
+ <date>2013-02-12</date>
+ <time>02:57:38</time>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add the &apos;msg_filter&apos; hook.
 * [mms] Added the &apos;attach_body_check&apos; hook.
 * [mms] Add linked attachment information directly to main body text.
 * [mms] Added argument to the &apos;trailer&apos; hook to allow HTML trailers to be generated.
@@ -81,7 +82,6 @@
     <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
     <file name="conf.xml" role="horde" />
-    <file name="filter.txt.dist" role="horde" />
     <file name="hooks.php.dist" role="horde" />
     <file name="menu.php.dist" role="horde" />
     <file name="mime_drivers.php" role="horde" />
@@ -1290,7 +1290,7 @@
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1396,7 +1396,6 @@
    <install as="imp/config/.htaccess" name="config/.htaccess" />
    <install as="imp/config/backends.php" name="config/backends.php" />
    <install as="imp/config/conf.xml" name="config/conf.xml" />
-   <install as="imp/config/filter.txt.dist" name="config/filter.txt.dist" />
    <install as="imp/config/hooks.php.dist" name="config/hooks.php.dist" />
    <install as="imp/config/menu.php.dist" name="config/menu.php.dist" />
    <install as="imp/config/mime_drivers.php" name="config/mime_drivers.php" />
@@ -3013,6 +3012,7 @@
     <api>stable</api></stability>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Add the &apos;msg_filter&apos; hook.
 * [mms] Added the &apos;attach_body_check&apos; hook.
 * [mms] Add linked attachment information directly to main body text.
 * [mms] Added argument to the &apos;trailer&apos; hook to allow HTML trailers to be generated.

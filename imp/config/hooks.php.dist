@@ -343,6 +343,28 @@ class IMP_Hooks
 //    }
 
 
+
+    /**
+     * If message content filtering is enabled (see 'filtering' preference),
+     * this defines the message filtering configuration.
+     *
+     * @return array  An array with the following keys:
+     *   - replacement: (string) The string filtered words will be replaced
+     *                  with.
+     *   - words: (array) The list of words to filter.
+     */
+    public function msg_filter()
+    {
+        return array(
+            'replacement' => '****',
+            'words' => array(
+                'poop'
+            )
+        );
+    }
+
+
+
     /**
      * When a mailbox is opened in IMP, allow redirection based on the mailbox
      * name.

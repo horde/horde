@@ -37,6 +37,10 @@ Configuration Options (conf.php)
 
 The $conf['compose']['link_all_attachments'] option was removed.
 
+The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
+options have been removed. This feature has been moved to the 'msg_filter'
+hook.
+
 
 Hooks (hooks.php)
 -----------------
@@ -52,6 +56,8 @@ The $html argument to the 'trailer' hook has been added.
 The 'attach_body_check' hook has been added. This hook handles the attachment
 word checking code that previously was provided as an example in the
 'pre_sent' hook.
+
+The 'msg_filter' hook has been added.
 
 
 MIME Viewer Options (mime_drivers.php)

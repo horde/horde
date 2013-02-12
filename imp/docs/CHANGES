@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add the 'msg_filter' hook.
 [mms] Added the 'attach_body_check' hook.
 [mms] Add linked attachment information directly to main body text.
 [mms] Added argument to the 'trailer' hook to allow HTML trailers to be
