@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-12</date>
- <time>15:48:53</time>
+ <time>15:53:36</time>
  <version>
-  <release>3.0.3</release>
+  <release>3.0.4</release>
   <api>3.0.0</api>
  </version>
  <stability>
@@ -34,11 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Fix multiple user-defined headers in a single rule (Zephaniah E. Loss-Cutler-Hull, Bug #11893).
-* [jan] Use more portable procmail recipe for rejects (Bug #7520).
-* [jan] Fix configuration of &apos;forward_file&apos; parameter (Bug #11989).
-* [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1198,6 +1194,19 @@
 * [jan] Fix configuration of &apos;forward_file&apos; parameter (Bug #11989).
 * [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
