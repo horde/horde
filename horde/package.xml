@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>14:25:49</time>
+ <date>2013-02-12</date>
+ <time>15:26:19</time>
  <version>
   <release>5.0.4</release>
   <api>5.0.0</api>
@@ -1332,9 +1332,6 @@
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/keys -->
       <dir name="map">
-       <file name="marker-blue.png" role="horde" />
-       <file name="marker-gold.png" role="horde" />
-       <file name="marker-green.png" role="horde" />
        <file name="marker-shadow.png" role="horde" />
        <file name="marker.png" role="horde" />
       </dir> <!-- /themes/default/graphics/map -->
@@ -1422,10 +1419,6 @@
        <file name="rev-plusonly.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
-      <dir name="uploader">
-       <file name="backgrounds.gif" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/default/graphics/uploader -->
       <file name="add_group.png" role="horde" />
       <file name="administration.png" role="horde" />
       <file name="app-unknown.png" role="horde" />
@@ -2955,9 +2948,6 @@
    <install as="themes/default/graphics/keys/left.png" name="themes/default/graphics/keys/left.png" />
    <install as="themes/default/graphics/keys/right.png" name="themes/default/graphics/keys/right.png" />
    <install as="themes/default/graphics/keys/up.png" name="themes/default/graphics/keys/up.png" />
-   <install as="themes/default/graphics/map/marker-blue.png" name="themes/default/graphics/map/marker-blue.png" />
-   <install as="themes/default/graphics/map/marker-gold.png" name="themes/default/graphics/map/marker-gold.png" />
-   <install as="themes/default/graphics/map/marker-green.png" name="themes/default/graphics/map/marker-green.png" />
    <install as="themes/default/graphics/map/marker-shadow.png" name="themes/default/graphics/map/marker-shadow.png" />
    <install as="themes/default/graphics/map/marker.png" name="themes/default/graphics/map/marker.png" />
    <install as="themes/default/graphics/mime/audio.png" name="themes/default/graphics/mime/audio.png" />
@@ -3038,8 +3028,6 @@
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
-   <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
-   <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
    <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
@@ -3602,7 +3590,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
