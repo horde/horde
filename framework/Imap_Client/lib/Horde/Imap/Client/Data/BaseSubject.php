@@ -159,7 +159,8 @@ class Horde_Imap_Client_Data_BaseSubject
     /**
      * Remove "[...]" text.
      *
-     * @param string &$str  The subject string.
+     * @param string $str  The subject string.
+     * @param integer $i   Current position.
      *
      * @return boolean  True if string was altered.
      */
@@ -191,7 +192,7 @@ class Horde_Imap_Client_Data_BaseSubject
             ++$i;
         }
 
-        return $i;
+        return (bool)$i;
     }
 
     /**
