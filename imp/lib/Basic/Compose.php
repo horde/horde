@@ -979,11 +979,11 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
                 if ($view->ssm && !$prefs->isLocked('save_attachments')) {
                     $view->show_link_save_attach = true;
-                    $view->attach_options = array(
+                    $view->attach_options = array(array(
                         'label' => _("Save attachments with message in sent-mail mailbox?"),
                         'name' => 'save_attachments_select',
                         'val' => ($reload ? $this->vars->save_attachments_select : ($save_attach == 'always'))
-                    );
+                    ));
                 }
 
                 if (count($imp_compose)) {
