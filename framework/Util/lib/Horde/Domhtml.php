@@ -1,13 +1,24 @@
 <?php
 /**
- * Utility class to help in loading DOM data from HTML strings.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Util
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ */
+
+/**
+ * Parse DOM data from HTML strings.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Domhtml implements Iterator
 {
