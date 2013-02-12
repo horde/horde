@@ -2731,7 +2731,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if ($qresync) {
-            return $this->_vanished($modseq, $opts['ids']);
+            return $this->_vanished(max(1, $modseq), $opts['ids']);
         }
 
         $ids = $this->resolveIds($mailbox, $opts['ids']);

@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1525,7 +1525,7 @@
    <date>2013-02-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
    </notes>
   </release>
  </changelog>
