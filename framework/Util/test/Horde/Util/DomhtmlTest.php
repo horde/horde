@@ -162,6 +162,22 @@ EOT;
         );
     }
 
+    public function testBodyGeneration()
+    {
+        $dom = new Horde_Domhtml('<div>foo</div>');
+        $body = $dom->getBody();
+
+        $this->assertEquals(
+            1,
+            $body->childNodes->length
+        );
+
+        $this->assertEquals(
+            'div',
+            $body->childNodes->item(0)->tagName
+        );
+    }
+
     public function testReturnHtmlCharset()
     {
         $dom = new Horde_DomHtml('<html><body><div>préparer à vendre d’août</div></body></html>', 'UTF-8');

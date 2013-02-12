@@ -26,8 +26,8 @@
  <date>2013-02-11</date>
  <time>22:56:36</time>
  <version>
-  <release>2.1.1</release>
-  <api>2.1.0</api>
+  <release>2.2.0</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Added Horde_Domhtml#getBody().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -579,15 +579,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.1.1</release>
-    <api>2.1.0</api></version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Added Horde_Domhtml#getBody().
    </notes>
   </release>
  </changelog>

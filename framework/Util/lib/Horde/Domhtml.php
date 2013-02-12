@@ -133,6 +133,26 @@ class Horde_Domhtml implements Iterator
     }
 
     /**
+     * Returns the BODY element, or creates one if it doesn't exist.
+     *
+     * @since 2.2.0
+     *
+     * @return DOMElement  BODY element.
+     */
+    public function getBody()
+    {
+        $body = $this->dom->getElementsByTagName('body');
+        if ($body->length) {
+            return $body->item(0);
+        }
+
+        $bodyelt = $this->dom->createElement('body');
+        $this->dom->documentElement->appendChild($body);
+
+        return $bodyelt;
+    }
+
+    /**
      * Returns the full HTML text in the original charset.
      *
      * @param array $opts  Additional options: (since 2.1.0)
