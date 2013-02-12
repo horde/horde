@@ -177,7 +177,7 @@ class Horde_Date_Parser_Locale_Base
      */
     public function numericizeNumbers($text)
     {
-        return Horde_Support_Numerizer::numerize($text, $this->args);
+        return Horde_Support_Numerizer::numerize(strtolower($text), $this->args);
     }
 
     /**

@@ -1,23 +1,29 @@
 <?php
 /**
- * Filters the given text based on the words found in a word list
- * file.
- *
- * Parameters:
- * <pre>
- * words_file  -- Filename containing the words to replace.
- * replacement -- The replacement string.  Defaults to "*****".
- * </pre>
- *
  * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Text_Filter
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Text_Filter
+ */
+
+/**
+ * Filters the given text based on the words found in a word list.
+ *
+ * Parameters:
+ *   - replacement: (string) The replacement string. Defaults to "*****".
+ *   - words: (array) List of words to replace. (Since 2.1.0)
+ *   - words_file: (string) Filename containing the words to replace.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Text_Filter
  */
 class Horde_Text_Filter_Words extends Horde_Text_Filter_Base
 {
@@ -37,19 +43,28 @@ class Horde_Text_Filter_Words extends Horde_Text_Filter_Base
      */
     public function getPatterns()
     {
-        $regexp = array();
+        $regexp = $words = array();
 
-        if (is_readable($this->_params['words_file'])) {
+        if (isset($this->_params['words_file']) &&
+            is_readable($this->_params['words_file'])) {
             /* Read the file and iterate through the lines. */
             $lines = file($this->_params['words_file']);
             foreach ($lines as $line) {
                 /* Strip whitespace and comments. */
-                $line = preg_replace('|#.*$|', '', trim($line));
+                $words[] = preg_replace('|#.*$|', '', trim($line));
+            }
+        }
 
-                /* Filter the text. */
-                if (!empty($line)) {
-                    $regexp["/(\b(\w*)$line\b|\b$line(\w*)\b)/i"] = $this->_getReplacement($line);
-                }
+        if (isset($this->_params['words'])) {
+            $words = array_merge(
+                $words,
+                array_map('trim', $this->_params['words'])
+            );
+        }
+
+        foreach ($words as $val) {
+            if (strlen($val)) {
+                $regexp["/(\b(\w*)$val\b|\b$val(\w*)\b)/i"] = $this->_getReplacement($val);
             }
         }
 

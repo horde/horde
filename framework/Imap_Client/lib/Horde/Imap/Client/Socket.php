@@ -303,7 +303,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 continue;
             }
 
-            while (($v = $data->next()) !== false) {
+            while ($data->next() !== false) {
                 $ob = Horde_Imap_Client_Mailbox::get($data->next(), true);
 
                 $c[strval($ob)] = array(
@@ -3129,7 +3129,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($cmds as $val) {
             try {
-                $this->_sendLine($cmdtmp);
+                $this->_sendLine($val);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 /* A NO response, when coupled with a sequence STORE and
                  * non-SILENT behavior, most likely means that messages were

@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
 * [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
  </notes>
  <contents>
@@ -1525,6 +1526,7 @@
    <date>2013-02-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
 * [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
    </notes>
   </release>

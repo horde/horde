@@ -1,6 +1,12 @@
 ----------
-v3.0.3-git
+v3.0.4-git
 ----------
+
+
+
+------
+v3.0.3
+------
 
 [jan] Fix multiple user-defined headers in a single rule (Zephaniah E.
       Loss-Cutler-Hull, Bug #11893).

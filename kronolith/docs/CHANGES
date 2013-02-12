@@ -1,6 +1,12 @@
 ----------
-v4.0.4-git
+v4.0.5-git
 ----------
+
+
+
+------
+v4.0.4
+------
 
 [jan] Update alarms, resources, and tags when deleting Kolab events (Bug
       #11988).
