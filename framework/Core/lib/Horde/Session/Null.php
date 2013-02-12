@@ -1,23 +1,35 @@
 <?php
 /**
- * The Horde_Session_Null:: class provides a set of methods for handling the
- * administration and contents of the Horde session variable when the PHP
- * session is not desired. Needed so things like application authentication can
- * work within a single HTTP request when we don't need the overhead of a
- * full PHP session.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * The null driver provides a set of methods for handling the administration
+ * and contents of the Horde session variable when the PHP session is not
+ * desired. Needed so things like application authentication can work within a
+ * single HTTP request when we don't need the overhead of a full PHP session.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Session_Null extends Horde_Session
 {
+    /**
+     * Store session data internally.
+     *
+     * @var array
+     */
     protected $_data = array();
     private $_cleansession = false;
 
@@ -26,17 +38,10 @@ class Horde_Session_Null extends Horde_Session
      */
     public function __construct()
     {
+        // Don't call default constructor.
     }
 
     /**
-     * Sets a custom session handler up, if there is one.
-     *
-     * @param boolean $start         Initiate the session?
-     * @param string $cache_limiter  Override for the session cache limiter
-     *                               value.
-     * @param string $session_id     The session ID to use.
-     *
-     * @throws Horde_Exception
      */
     public function setup($start = true, $cache_limiter = null, $session_id = null)
     {
@@ -48,7 +53,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Starts the session.
      */
     public function start()
     {
@@ -58,15 +62,11 @@ class Horde_Session_Null extends Horde_Session
         session_start();
         $this->_active = true;
         session_write_close();
+
         register_shutdown_function(array($this, 'destroy'));
     }
 
     /**
-     * Destroys any existing session on login and make sure to use a new
-     * session ID, to avoid session fixation issues. Should be called before
-     * checking a login.
-     *
-     * @return boolean  True if the session was cleaned.
      */
     public function clean()
     {
@@ -79,7 +79,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Close the current session.
      */
     public function close()
     {
@@ -87,7 +86,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Destroy session data.
      */
     public function destroy()
     {
@@ -96,25 +94,9 @@ class Horde_Session_Null extends Horde_Session
         $this->_cleansession = true;
     }
 
-    /**
-     * Is the current session active (read/write)?
-     *
-     * @return boolean  True if the current session is active.
-     */
-    public function isActive()
-    {
-        return $this->_active;
-    }
-
     /* Session variable access. */
 
     /**
-     * Does the session variable exist?
-     *
-     * @param string $app   Application name.
-     * @param string $name  Session variable name.
-     *
-     * @return boolean  True if session variable exists.
      */
     public function exists($app, $name)
     {
@@ -123,15 +105,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Get the value of a session variable.
-     *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
-     * @param integer $mask  One of:
-     *   - self::TYPE_ARRAY - Return an array value.
-     *   - self::TYPE_OBJECT - Return an object value.
-     *
-     * @return mixed  The value or null if the value doesn't exist.
      */
     public function get($app, $name, $mask = 0)
     {
@@ -166,14 +139,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Sets the value of a session variable.
-     *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
-     * @param mixed $value   Session variable value.
-     * @param integer $mask  One of:
-     *   - self::TYPE_ARRAY - Force save as an array value.
-     *   - self::TYPE_OBJECT - Force save as an object value.
      */
     public function set($app, $name, $value, $mask = 0)
     {
@@ -192,10 +157,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Remove session key(s).
-     *
-     * @param string $app    Application name.
-     * @param string $name   Session variable name.
      */
     public function remove($app, $name = null)
     {
@@ -232,12 +193,6 @@ class Horde_Session_Null extends Horde_Session
     }
 
     /**
-     * Return the list of subkeys for a master key.
-     *
-     * @param string $app   Application name.
-     * @param string $name  Session variable name.
-     *
-     * @return array  Subkeyname (keys) and session variable name (values).
      */
     private function _subkeys($app, $name)
     {
@@ -259,13 +214,6 @@ class Horde_Session_Null extends Horde_Session
     /* Session object storage. */
 
     /**
-     * Store an arbitrary piece of data in the session.
-     *
-     * @param mixed $data     Data to save.
-     * @param boolean $prune  Is data pruneable?
-     * @param string $id      ID to use (otherwise, is autogenerated).
-     *
-     * @return string  The session storage id (used to retrieve session data).
      */
     public function store($data, $prune = true, $id = null)
     {
