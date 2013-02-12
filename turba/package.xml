@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-10</date>
- <time>15:09:28</time>
+ <date>2013-02-12</date>
+ <time>16:13:50</time>
  <version>
   <release>4.0.3</release>
   <api>4.0.0</api>
@@ -1566,7 +1566,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
