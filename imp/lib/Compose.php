@@ -839,7 +839,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 }
                 throw new IMP_Compose_Exception(sprintf(_("There was an error sending your message: %s"), $e->getMessage()));
             }
-
         }
 
         $recipients = strval($recip['list']);
