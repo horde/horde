@@ -1,13 +1,24 @@
 <?php
 /**
- * Utility class to help in loading DOM data from HTML strings.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Util
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ */
+
+/**
+ * Parse DOM data from HTML strings.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Domhtml implements Iterator
 {
@@ -119,6 +130,26 @@ class Horde_Domhtml implements Iterator
         $this->dom->documentElement->insertBefore($headelt, $this->dom->documentElement->firstChild);
 
         return $headelt;
+    }
+
+    /**
+     * Returns the BODY element, or creates one if it doesn't exist.
+     *
+     * @since 2.2.0
+     *
+     * @return DOMElement  BODY element.
+     */
+    public function getBody()
+    {
+        $body = $this->dom->getElementsByTagName('body');
+        if ($body->length) {
+            return $body->item(0);
+        }
+
+        $bodyelt = $this->dom->createElement('body');
+        $this->dom->documentElement->appendChild($body);
+
+        return $bodyelt;
     }
 
     /**
