@@ -182,7 +182,7 @@ EOT;
     {
         $dom = new Horde_DomHtml('<html><body><div>préparer à vendre d’août</div></body></html>', 'UTF-8');
 
-        $this->assertNotEquals(
+        $this->assertEquals(
             $dom->returnHtml(),
             $dom->returnHtml(array('charset' => 'iso-8859-1'))
         );

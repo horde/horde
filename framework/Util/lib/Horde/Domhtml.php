@@ -173,17 +173,26 @@ class Horde_Domhtml implements Iterator
         if (empty($opts['metacharset'])) {
             $text = $this->dom->saveHTML();
         } else {
+            /* Add placeholder for META tag. Can't add charset yet because DOM
+             * extension will alter output if it exists. */
             $meta = $this->dom->createElement('meta');
             $meta->setAttribute('http-equiv', 'content-type');
-            $meta->setAttribute('content', 'text/html; charset=' . $charset);
+            $meta->setAttribute('horde_dom_html_charset', '');
+
             $head = $this->getHead();
             $head->insertBefore($meta, $head->firstChild);
-            $text = $this->dom->saveHTML();
+
+            $text = str_replace(
+                'horde_dom_html_charset=""',
+                'content="text/html; charset=' . $charset . '"',
+                $this->dom->saveHTML()
+            );
+
             $head->removeChild($meta);
         }
 
         if (strcasecmp($curr_charset, $charset) !== 0) {
-            $text = Horde_String::convertCharset(html_entity_decode($text, null, $curr_charset), $curr_charset, $charset);
+            $text = Horde_String::convertCharset($text, $curr_charset, $charset);
         }
 
         if (!$this->_xmlencoding ||
