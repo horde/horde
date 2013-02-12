@@ -236,7 +236,7 @@ var SpellChecker = Class.create({
 
         [ 'Corrected', 'Incorrect' ].each(function(i) {
             this.reviewDiv.select('span.spellcheck' + i).each(function(n) {
-                n.replace(n.innerHTML);
+                n.insert({ before: n.innerHTML }).remove();
             });
         }, this);
 
