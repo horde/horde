@@ -1256,7 +1256,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Get body text. */
         if (!empty($options['html'])) {
-            $body_html = $body;
+            $body_html = new Horde_Domhtml($body, 'UTF-8');
+            $body_html_body = $body_html->getBody();
+
             $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
@@ -1271,31 +1273,42 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 if (!strlen($html_sig) && strlen($sig)) {
                     $html_sig = $this->text2html($sig);
                 }
-                $body_html .= $html_sig;
+
+                $sig_dom = new Horde_Domhtml($html_sig, 'UTF-8');
+                foreach ($sig_dom->getBody()->childNodes as $child) {
+                    $body_html_body->appendChild($body_html->dom->importNode($child, true));
+                }
             }
         }
 
         /* Get trailer text (if any). */
         if (empty($options['nofinal'])) {
             try {
-                if ($trailer = Horde::callHook('trailer', array(), 'imp')) {
-                    $trailer = Horde_String::convertCharset($trailer, 'UTF-8', $this->charset);
-                    $body .= $trailer;
+                $trailer = Horde::callHook('trailer', array(), 'imp');
+                $html_trailer = Horde::callHook('trailer', array(true), 'imp');
+            } catch (Horde_Exception_HookNotSet $e) {
+                $trailer = $html_trailer = null;
+            }
+
+            $body .= strval($trailer);
+
+            if (!empty($options['html'])) {
+                if (is_null($html_trailer) && strlen($trailer)) {
+                    $html_trailer = $this->text2html($trailer);
                 }
 
-                if ($html_trailer = Horde::callHook('trailer', array(true), 'imp')) {
-                    $body_html .= Horde_String::convertCharset($html_trailer, 'UTF-8', $this->charset);
-                } elseif ($trailer) {
-                    $body_html .= $this->text2html($trailer);
+                if (strlen($html_trailer)) {
+                    $t_dom = new Horde_Domhtml($html_trailer, 'UTF-8');
+                    foreach ($t_dom->getBody()->childNodes as $child) {
+                        $body_html_body->appendChild($t_html->dom->importNode($child, true));
+                    }
                 }
-            } catch (Horde_Exception_HookNotSet $e) {}
+            }
         }
 
-        /* Convert to sending charset. */
+        /* Convert text to sending charset. HTML text will be converted
+         * via Horde_Domhtml. */
         $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
-        if (!empty($options['html'])) {
-            $body_html = Horde_String::convertCharset($body_html, 'UTF-8', $this->charset);
-        }
 
         /* Set up the body part now. */
         $textBody = new Horde_Mime_Part();
@@ -1319,9 +1332,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $htmlBody->setDisposition('inline');
             $htmlBody->setDescription(Horde_String::convertCharset(_("HTML Message"), 'UTF-8', $this->charset));
 
-            /* Add default font CSS information here. The data comes to us
-             * with no HTML body tag - so simply wrap the data in a body
-             * tag with the CSS information. */
+            /* Add default font CSS information here. */
             $styles = array();
             if ($font_family = $prefs->getValue('compose_html_font_family')) {
                 $styles[] = 'font-family:' . $font_family;
@@ -1331,9 +1342,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             if (!empty($styles)) {
-                $body_html = '<body style="' . implode(';', $styles) . '">' .
-                    $body_html .
-                    '</body>';
+                $body_html_body->setAttribute('style', implode(';', $styles));
             }
 
             $textBody->setDescription(Horde_String::convertCharset(_("Plaintext Message"), 'UTF-8', $this->charset));
@@ -1344,17 +1353,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $textpart->setHeaderCharset($this->charset);
 
             if (empty($options['nofinal'])) {
-                $body_html = $this->_addExternalData($body_html);
+                $this->_addExternalData($body_html);
             }
-
-            $htmlBody->setContents($body_html);
 
             /* Now, all parts referred to in the HTML data have been added
              * to the attachment list. Convert to multipart/related if
              * this is the case. */
-            $textpart->addPart(empty($options['nofinal']) ? $this->_convertToRelated($htmlBody) : $htmlBody);
+            $textpart->addPart(empty($options['nofinal']) ? $this->_convertToRelated($body_html, $htmlBody) : $htmlBody);
 
-            $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
+            $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body_html->returnHtml(array(
+                'charset' => $this->charset,
+                'metacharset' => true
+            )), 'cleanhtml', array(
                 'charset' => $this->charset
             )));
         } else {
@@ -2364,27 +2374,23 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Convert external image links into internal links to attachment data.
      *
-     * @param string $html  The HTML data.
-     *
-     * @return string  HTML with external data moved to attachments.
+     * @param Horde_Domhtml $html  The HTML data.
      */
-    protected function _addExternalData($html)
+    protected function _addExternalData(Horde_Domhtml $html)
     {
+        global $conf, $injector;
+
         /* Return immediately if related conversion is turned off via
          * configuration. */
-        if (empty($GLOBALS['conf']['compose']['convert_to_related'])) {
-            return $html;
+        if (empty($conf['compose']['convert_to_related'])) {
+            return;
         }
 
-        $client = $GLOBALS['injector']
-          ->getInstance('Horde_Core_Factory_HttpClient')
-          ->create();
-        $dom = new Horde_Domhtml($html, $this->charset);
-        $downloaded = false;
+        $client = $injector->getInstance('Horde_Core_Factory_HttpClient')->create();
 
         /* Find external images, download the image, and add as an
          * attachment. */
-        foreach ($dom->dom->getElementsByTagName('img') as $node) {
+        foreach ($html->dom->getElementsByTagName('img') as $node) {
             if ($node->hasAttribute('src') &&
                 !$node->hasAttribute(self::RELATED_ATTR)) {
                 /* Attempt to download the image data. */
@@ -2403,24 +2409,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         $node,
                         'src'
                     );
-                    $downloaded = true;
                 }
             }
         }
-
-        return $downloaded
-            ? $dom->returnHtml()
-            : $html;
     }
 
     /**
-     * Converts an HTML part to a multipart/related part.
+     * Converts an HTML part to a multipart/related part, if necessary.
      *
+     * @param Horde_Domhtml $html    HTML data.
      * @param Horde_Mime_Part $part  The HTML part.
      *
-     * @return Horde_Mime_Part  The multipart/related part.
+     * @return Horde_Mime_Part  The part to add to the compose output.
      */
-    protected function _convertToRelated(Horde_Mime_Part $part)
+    protected function _convertToRelated(Horde_Domhtml $html,
+                                         Horde_Mime_Part $part)
     {
         $r_part = false;
         foreach ($this as $atc) {
@@ -2437,18 +2440,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         /* Create new multipart/related part. */
         $related = new Horde_Mime_Part();
         $related->setType('multipart/related');
-
         /* Get the CID for the 'root' part. Although by default the first part
          * is the root part (RFC 2387 [3.2]), we may as well be explicit and
          * put the CID in the 'start' parameter. */
         $related->setContentTypeParameter('start', $part->setContentId());
-
         $related->addPart($part);
 
-        /* Go through the HTML part and generate internal Content-ID links. */
-        $dom = new Horde_Domhtml($part->getContents(), $part->getCharset());
-
-        foreach ($dom as $node) {
+        foreach ($html as $node) {
             if (($node instanceof DOMElement) &&
                 $node->hasAttribute(self::RELATED_ATTR)) {
                 $r_atc = $this[$node->getAttribute(self::RELATED_ATTR_ID)];
@@ -2467,8 +2465,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $node->removeAttribute(self::RELATED_ATTR_ID);
             }
         }
-
-        $part->setContents($dom->returnHtml());
 
         return $related;
     }
