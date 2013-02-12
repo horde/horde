@@ -22,11 +22,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-11</date>
- <time>22:52:03</time>
+ <date>2013-02-12</date>
+ <time>03:13:06</time>
  <version>
-  <release>2.0.6</release>
-  <api>1.1.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add &apos;words&apos; option to the Words filter.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -359,6 +359,7 @@
        <file name="phpunit.xml" role="test" />
        <file name="Space2htmlTest.php" role="test" />
        <file name="Text2htmlTest.php" role="test" />
+       <file name="WordsTest.php" role="test" />
        <file name="XssTest.php" role="test" />
       </dir> <!-- /test/Horde/Text/Filter -->
      </dir> <!-- /test/Horde/Text -->
@@ -538,6 +539,7 @@
    <install as="Horde/Text/Filter/phpunit.xml" name="test/Horde/Text/Filter/phpunit.xml" />
    <install as="Horde/Text/Filter/Space2htmlTest.php" name="test/Horde/Text/Filter/Space2htmlTest.php" />
    <install as="Horde/Text/Filter/Text2htmlTest.php" name="test/Horde/Text/Filter/Text2htmlTest.php" />
+   <install as="Horde/Text/Filter/WordsTest.php" name="test/Horde/Text/Filter/WordsTest.php" />
    <install as="Horde/Text/Filter/XssTest.php" name="test/Horde/Text/Filter/XssTest.php" />
    <install as="Horde/Text/Filter/fixtures/bug_11116.txt" name="test/Horde/Text/Filter/fixtures/bug_11116.txt" />
   </filelist>
@@ -906,15 +908,15 @@ Initial release as a PEAR package
   </release>
   <release>
    <version>
-    <release>2.0.6</release>
-    <api>1.1.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add &apos;words&apos; option to the Words filter.
    </notes>
   </release>
  </changelog>
