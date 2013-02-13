@@ -41,6 +41,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
 * [mms] Fix destroying session data when the null session driver is used.
  </notes>
  <contents>
@@ -2759,6 +2760,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
 * [mms] Fix destroying session data when the null session driver is used.
    </notes>
   </release>

@@ -129,6 +129,9 @@ div.msgActions, #fmanager div.folderActions {
     margin-left: 4px;
     vertical-align: top;
 }
+#mailboxLabel .flagUser {
+    margin-left: 4px;
+}
 #mailboxLabel .msgflags.flagPersonal {
     background-image: url("../graphics/flags/personal-inv.png");
 }
