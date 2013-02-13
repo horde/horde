@@ -125,7 +125,7 @@ class Components_Qc_Tasks
 
             $numErrors = $task->run($options);
 
-            $output->bold("\n");
+            $output->plain('');
             if ($numErrors == 1) {
                 $output->warn("$numErrors error!");
             } else if ($numErrors) {
