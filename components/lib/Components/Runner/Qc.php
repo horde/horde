@@ -91,6 +91,10 @@ class Components_Runner_Qc
             $sequence[] = 'loc';
         }
 
+        if ($this->_doTask('dcd')) {
+            $sequence[] = 'dcd';
+        }
+
         if (!empty($sequence)) {
             $this->_qc->run(
                 $sequence,
