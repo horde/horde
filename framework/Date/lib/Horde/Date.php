@@ -993,7 +993,7 @@ class Horde_Date
         }
 
         if ($mask & self::MASK_MONTH) {
-            $this->_correctMonth($down);
+            $this->_correctMonth();
             /* When correcting the month, always correct the day too. Months
              * have different numbers of days. */
             $mask |= self::MASK_DAY;
@@ -1008,11 +1008,11 @@ class Horde_Date
                     $this->_mday -= Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
                     $this->_month++;
                 }
-                $this->_correctMonth($down);
+                $this->_correctMonth();
             }
             while ($this->_mday < 1) {
                 --$this->_month;
-                $this->_correctMonth($down);
+                $this->_correctMonth();
                 $this->_mday += Horde_Date_Utils::daysInMonth($this->_month, $this->_year);
             }
         }
@@ -1023,10 +1023,8 @@ class Horde_Date
      *
      * This cannot be done in _correct() because that would also trigger a
      * correction of the day, which would result in an infinite loop.
-     *
-     * @param integer $down  Whether to correct the date up or down.
      */
-    protected function _correctMonth($down = false)
+    protected function _correctMonth()
     {
         $this->_year += (int)($this->_month / 12);
         $this->_month %= 12;
