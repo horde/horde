@@ -87,6 +87,10 @@ class Components_Runner_Qc
             $sequence[] = 'lint';
         }
 
+        if ($this->_doTask('loc')) {
+            $sequence[] = 'loc';
+        }
+
         if (!empty($sequence)) {
             $this->_qc->run(
                 $sequence,

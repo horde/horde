@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2011-11-12</date>
- <time>18:45:57</time>
+ <date>2013-02-13</date>
+ <time>02:15:29</time>
  <version>
   <release>0.99.1</release>
   <api>1.0</api>
@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added PHPLOC QC test.
 * [jan] Fix post-release incrementing of version numbers (Bug #11659).
 * [jan] Increment release state instead of version after releasing unstable versions.
 * [jan] Use new version name scheme, matching PEAR&apos;s.
@@ -60,9 +61,15 @@
       <dir name="templates-php-horde">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde -->
+      <dir name="templates-php-horde-ansel">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-ansel -->
       <dir name="templates-php-horde-content">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-content -->
+      <dir name="templates-php-horde-gollem">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-gollem -->
       <dir name="templates-php-horde-groupware">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-groupware -->
@@ -90,6 +97,9 @@
       <dir name="templates-php-horde-passwd">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-passwd -->
+      <dir name="templates-php-horde-sesha">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-sesha -->
       <dir name="templates-php-horde-turba">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-turba -->
@@ -99,6 +109,9 @@
       <dir name="templates-php-horde-webmail">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-webmail -->
+      <dir name="templates-php-horde-whups">
+       <file name="rules" role="horde" />
+      </dir> <!-- /data/distribute/debian/templates-php-horde-whups -->
       <dir name="templates-php-horde-wicked">
        <file name="rules" role="data" />
       </dir> <!-- /data/distribute/debian/templates-php-horde-wicked -->
@@ -203,6 +216,7 @@
        <file name="Cpd.php" role="horde" />
        <file name="Cs.php" role="horde" />
        <file name="Lint.php" role="horde" />
+       <file name="Loc.php" role="horde" />
        <file name="Md.php" role="horde" />
        <file name="Unit.php" role="horde" />
       </dir> <!-- /lib/Components/Qc/Task -->
@@ -486,6 +500,7 @@
      </dir> <!-- /test/Components/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="StoryTestCase.php" role="test" />
      <file name="TestCase.php" role="test" />
@@ -566,6 +581,10 @@
     <channel>pear.phpunit.de</channel>
    </package>
    <package>
+    <name>phploc</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
+   <package>
     <name>PHP_PMD</name>
     <channel>pear.phpmd.org</channel>
    </package>
@@ -585,7 +604,9 @@
    <install as="distribute/debian/templates/watch" name="data/distribute/debian/templates/watch" />
    <install as="distribute/debian/templates/source/format" name="data/distribute/debian/templates/source/format" />
    <install as="distribute/debian/templates-php-horde/rules" name="data/distribute/debian/templates-php-horde/rules" />
+   <install as="distribute/debian/templates-php-horde-ansel/rules" name="data/distribute/debian/templates-php-horde-ansel/rules" />
    <install as="distribute/debian/templates-php-horde-content/rules" name="data/distribute/debian/templates-php-horde-content/rules" />
+   <install as="distribute/debian/templates-php-horde-gollem/rules" name="data/distribute/debian/templates-php-horde-gollem/rules" />
    <install as="distribute/debian/templates-php-horde-groupware/rules" name="data/distribute/debian/templates-php-horde-groupware/rules" />
    <install as="distribute/debian/templates-php-horde-imp/rules" name="data/distribute/debian/templates-php-horde-imp/rules" />
    <install as="distribute/debian/templates-php-horde-ingo/rules" name="data/distribute/debian/templates-php-horde-ingo/rules" />
@@ -595,9 +616,11 @@
    <install as="distribute/debian/templates-php-horde-mnemo/rules" name="data/distribute/debian/templates-php-horde-mnemo/rules" />
    <install as="distribute/debian/templates-php-horde-nag/rules" name="data/distribute/debian/templates-php-horde-nag/rules" />
    <install as="distribute/debian/templates-php-horde-passwd/rules" name="data/distribute/debian/templates-php-horde-passwd/rules" />
+   <install as="distribute/debian/templates-php-horde-sesha/rules" name="data/distribute/debian/templates-php-horde-sesha/rules" />
    <install as="distribute/debian/templates-php-horde-turba/rules" name="data/distribute/debian/templates-php-horde-turba/rules" />
    <install as="distribute/debian/templates-php-horde-ulaform/rules" name="data/distribute/debian/templates-php-horde-ulaform/rules" />
    <install as="distribute/debian/templates-php-horde-webmail/rules" name="data/distribute/debian/templates-php-horde-webmail/rules" />
+   <install as="distribute/debian/templates-php-horde-whups/rules" name="data/distribute/debian/templates-php-horde-whups/rules" />
    <install as="distribute/debian/templates-php-horde-wicked/rules" name="data/distribute/debian/templates-php-horde-wicked/rules" />
    <install as="distribute/openpkg/package.spec" name="data/distribute/openpkg/package.spec" />
    <install as="distribute/openSUSE/components.php" name="data/distribute/openSUSE/components.php" />
@@ -670,6 +693,7 @@
    <install as="Components/Qc/Task/Cpd.php" name="lib/Components/Qc/Task/Cpd.php" />
    <install as="Components/Qc/Task/Cs.php" name="lib/Components/Qc/Task/Cs.php" />
    <install as="Components/Qc/Task/Lint.php" name="lib/Components/Qc/Task/Lint.php" />
+   <install as="Components/Qc/Task/Loc.php" name="lib/Components/Qc/Task/Loc.php" />
    <install as="Components/Qc/Task/Md.php" name="lib/Components/Qc/Task/Md.php" />
    <install as="Components/Qc/Task/Unit.php" name="lib/Components/Qc/Task/Unit.php" />
    <install as="Components/Release/Notes.php" name="lib/Components/Release/Notes.php" />
@@ -701,6 +725,7 @@
    <install as="Components/Runner/Webdocs.php" name="lib/Components/Runner/Webdocs.php" />
    <install as="Components/AllTests.php" name="test/Components/AllTests.php" />
    <install as="Components/Autoload.php" name="test/Components/Autoload.php" />
+   <install as="Components/bootstrap.php" name="test/Components/bootstrap.php" />
    <install as="Components/phpunit.xml" name="test/Components/phpunit.xml" />
    <install as="Components/StoryTestCase.php" name="test/Components/StoryTestCase.php" />
    <install as="Components/TestCase.php" name="test/Components/TestCase.php" />
@@ -832,9 +857,10 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-11-12</date>
+   <date>2013-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added PHPLOC QC test.
 * [jan] Fix post-release incrementing of version numbers (Bug #11659).
 * [jan] Increment release state instead of version after releasing unstable versions.
 * [jan] Use new version name scheme, matching PEAR&apos;s.

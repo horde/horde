@@ -95,6 +95,7 @@ The available checks are:
  - cs  : Runs a checkstyle analysis of the component.
  - cpd : Checks for copied segments within the component.
  - lint: Runs a lint check of the source code.
+ - loc : Measure the size and analyze the structure of the component.
 
 The following example would solely run the PHPUnit test for the package:
 
