@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix regression that broke Horde_Prefs_Identity#getDefaultFromAddress() in 2.3.0.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -982,7 +982,7 @@ Initial release as a PEAR package
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix regression that broke Horde_Prefs_Identity#getDefaultFromAddress() in 2.3.0.
    </notes>
   </release>
  </changelog>
