@@ -48,7 +48,7 @@ extends Components_Qc_Task_Base
      */
     public function validate($options)
     {
-        if (!class_exists('PHPCPD_Detector')) {
+        if (!class_exists('SebastianBergmann\\PHPCPD\\Detector\\Detector')) {
             return array('PHP CPD is not available!');
         }
     }
@@ -62,6 +62,8 @@ extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
+        require 'SebastianBergmann/PHPCPD/autoload.php';
+
         $lib = realpath($this->_config->getPath() . '/lib');
 
         $factory = new File_Iterator_Factory();
@@ -69,12 +71,12 @@ extends Components_Qc_Task_Base
             $lib, 'php'
         )));
 
-        $detector = new PHPCPD_Detector(new PHPCPD_Detector_Strategy_Default());
+        $detector = new SebastianBergmann\PHPCPD\Detector\Detector(new SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy());
         $clones   = $detector->copyPasteDetection(
             $files, 5, 70
         );
 
-        $printer = new PHPCPD_TextUI_ResultPrinter;
+        $printer = new SebastianBergmann\PHPCPD\TextUI\ResultPrinter;
         $printer->printResult($clones, $lib, true);
 
         return count($clones);

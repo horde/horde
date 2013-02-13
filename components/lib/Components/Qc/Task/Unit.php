@@ -70,14 +70,7 @@ extends Components_Qc_Task_Base
 
         foreach ($iterator as $file) {
             if ($file->getFilename() == 'AllTests.php') {
-                $runner = new PHPUnit_TextUI_Command();
-                $result = $runner->run(
-                    array(
-                        $this->getComponent()->getName() . '_AllTests',
-                        $file->getPath()
-                    ),
-                    false
-                );
+                $result = Horde_Test_AllTests::init(strval($file))->run();
             }
         }
 

@@ -75,12 +75,13 @@ class Horde_Test_AllTests
     }
 
     /**
-     *
      * Main entry point for running the suite.
+     *
+     * @return boolean
      */
     public function run()
     {
-        PHPUnit_TextUI_TestRunner::run($this->suite());
+        return PHPUnit_TextUI_TestRunner::run($this->suite());
     }
 
     /**
