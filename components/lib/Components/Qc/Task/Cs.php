@@ -68,6 +68,7 @@ extends Components_Qc_Task_Base
         $argc = $_SERVER['argv'];
         $_SERVER['argv'] = array();
         $_SERVER['argc'] = 0;
+        define('PHPCS_DEFAULT_WARN_SEV', 0);
         $phpcs = new PHP_CodeSniffer();
         $phpcs->process(
             $lib,
