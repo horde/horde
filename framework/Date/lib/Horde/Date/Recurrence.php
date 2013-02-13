@@ -568,6 +568,10 @@ class Horde_Date_Recurrence
                 $next = clone $estart;
                 $next->setNthWeekday($weekday, $nth);
 
+                if ($next->month != $estart->month) {
+                    // We're already in the next month.
+                    continue;
+                }
                 if ($next->compareDateTime($after) < 0) {
                     // We haven't made it past $after yet, try again.
                     continue;
