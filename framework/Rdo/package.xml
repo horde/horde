@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-30</date>
- <time>16:50:37</time>
+ <date>2013-02-13</date>
+ <time>13:42:21</time>
  <version>
   <release>2.0.2</release>
   <api>1.2.0</api>
@@ -94,7 +94,6 @@
       <file name="Autoload.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
-      <file name="TestBase.php" role="test" />
      </dir> <!-- /test/Horde/Rdo -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -162,7 +161,6 @@
    <install as="Horde/Rdo/Autoload.php" name="test/Horde/Rdo/Autoload.php" />
    <install as="Horde/Rdo/bootstrap.php" name="test/Horde/Rdo/bootstrap.php" />
    <install as="Horde/Rdo/phpunit.xml" name="test/Horde/Rdo/phpunit.xml" />
-   <install as="Horde/Rdo/TestBase.php" name="test/Horde/Rdo/TestBase.php" />
    <install as="Horde/Rdo/fixtures/unit_tests.sql" name="test/Horde/Rdo/fixtures/unit_tests.sql" />
    <install as="Horde/Rdo/Objects/ManyToManyA.php" name="test/Horde/Rdo/Objects/ManyToManyA.php" />
    <install as="Horde/Rdo/Objects/ManyToManyAMapper.php" name="test/Horde/Rdo/Objects/ManyToManyAMapper.php" />
@@ -351,7 +349,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-30</date>
+   <date>2013-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
