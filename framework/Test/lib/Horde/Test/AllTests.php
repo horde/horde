@@ -70,8 +70,6 @@ class Horde_Test_AllTests
     {
         $this->_package = $package;
         $this->_dir = $dir;
-
-        chdir($dir);
     }
 
     /**
@@ -81,7 +79,11 @@ class Horde_Test_AllTests
      */
     public function run()
     {
-        return PHPUnit_TextUI_TestRunner::run($this->suite());
+        $old_dir = getcwd();
+        chdir($this->_dir);
+        $result = PHPUnit_TextUI_TestRunner::run($this->suite());
+        chdir($old_dir);
+        return $result;
     }
 
     /**
