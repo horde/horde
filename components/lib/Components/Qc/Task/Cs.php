@@ -62,6 +62,7 @@ extends Components_Qc_Task_Base
      */
     public function run(&$options)
     {
+        $old_dir = getcwd();
         $lib = realpath($this->_config->getPath() . '/lib');
         $argv = $_SERVER['argv'];
         $argc = $_SERVER['argv'];
@@ -77,6 +78,7 @@ extends Components_Qc_Task_Base
 
         $reporting = new PHP_CodeSniffer_Reporting();
         $filesViolations = $phpcs->getFilesErrors();
+        chdir($old_dir);
         return $reporting->printReport('emacs', $filesViolations, false, null);
     }
 }
