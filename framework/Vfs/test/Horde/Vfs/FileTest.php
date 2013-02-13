@@ -178,7 +178,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $dir = '.horde/foo';
         $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
         self::$vfs->writeData($dir, $file, 'some content', true);
-        system('ls -R ' . sys_get_temp_dir() . '/vfsfiletest/');
+        system('ls -aR ' . sys_get_temp_dir() . '/vfsfiletest/');
         $this->assertFileExists($path);
         $this->assertStringEqualsFile($path, 'some content');
         self::$vfs->delete($dir, $file);
