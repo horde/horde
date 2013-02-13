@@ -52,7 +52,7 @@ class Components_Qc_Task_Loc extends Components_Qc_Task_Base
      *
      * @param array &$options Additional options.
      *
-     * @return NULL
+     * @return integer Number of errors.
      */
     public function run(&$options)
     {
