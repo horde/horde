@@ -1,16 +1,14 @@
 <?php
 /**
- * Skeleton application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Skeleton through this API.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @package Skeleton
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
  */
 
 /* Determine the base directories. */
@@ -32,6 +30,17 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+/**
+ * Skeleton application API.
+ *
+ * This class defines Horde's core API interface. Other core Horde libraries
+ * can interact with Skeleton through this API.
+ *
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
+ */
 class Skeleton_Application extends Horde_Registry_Application
 {
     /**
