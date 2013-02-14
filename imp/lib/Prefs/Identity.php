@@ -1,19 +1,27 @@
 <?php
 /**
- * This class provides an IMP-specific interface to all identities a
- * user might have. Its methods take care of any site-specific
- * restrictions configured in prefs.php and conf.php.
- *
  * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Jan Schneider <jan@horde.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class provides an IMP-specific interface to all identities a
+ * user might have. Its methods take care of any site-specific
+ * restrictions configured in prefs.php and conf.php.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2001-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
 {
