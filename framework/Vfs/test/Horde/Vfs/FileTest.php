@@ -176,6 +176,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         putenv('LANG=en_US.UTF-8');
         $file = '高&执&行&力&的&打&造.txt';
         $dir = '.horde/foo';
+        $this->_getNativePath($dir, $file);
         $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
         self::$vfs->writeData($dir, $file, 'some content', true);
         system('ls -aR ' . sys_get_temp_dir() . '/vfsfiletest/');
@@ -183,6 +184,38 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->assertStringEqualsFile($path, 'some content');
         self::$vfs->delete($dir, $file);
         $this->assertFileNotExists($path);
+    }
+
+    protected function _getNativePath($path = '', $name = '')
+    {
+        $name = basename($name);
+        var_dump($name);
+        if (strlen($name)) {
+            if ($name == '..') {
+                $name = '';
+            }
+            if (substr($name, 0, 1) != '/') {
+                $name = '/' . $name;
+            }
+        }
+        var_dump($name);
+
+        if (strlen($path)) {
+            if (isset($this->_params['home']) &&
+                preg_match('|^~/?(.*)$|', $path, $matches)) {
+                $path = $this->_params['home'] . '/' . $matches[1];
+            }
+            var_dump($path);
+
+            $path = str_replace('..', '', $path);
+            if (substr($path, 0, 1) == '/') {
+                return $this->_params['vfsroot'] . rtrim($path, '/') . $name;
+            } else {
+                return $this->_params['vfsroot'] . '/' . rtrim($path, '/') . $name;
+            }
+        }
+
+        return $this->_params['vfsroot'] . $name;
     }
 
     static public function setUpBeforeClass()
