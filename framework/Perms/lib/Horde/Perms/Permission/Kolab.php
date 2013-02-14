@@ -69,10 +69,23 @@ class Horde_Perms_Permission_Kolab extends Horde_Perms_Permission
     }
 
     /**
-     * Gets the current permission of the folder and stores the values in the
-     * cache.
+     * Returns an array of all user permissions on this object.
      *
-     * @return NULL
+     * @param integer $perm  List only users with this permission level.
+     *                       Defaults to all users.
+     *
+     * @return array  All user permissions for this object, indexed by user.
+     */
+    public function getUserPermissions($perm = null)
+    {
+        $users = parent::getUserPermissions($perm);
+        unset($users[$this->_storage->getOwner()]);
+        return $users;
+    }
+
+    /**
+     * Returns the current permission of the folder and stores the values in
+     * the cache.
      */
     public function getCurrentPermissions()
     {

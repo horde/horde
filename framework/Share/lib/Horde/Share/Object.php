@@ -211,8 +211,9 @@ abstract class Horde_Share_Object implements Serializable
         $perm = $this->getPermission();
         $results = array_keys($perm->getUserPermissions($perm_level));
         // Always return the share's owner.
-        if ($this->get('owner')) {
-            $results[] = $this->get('owner');
+        $owner = $this->get('owner');
+        if ($owner && !in_array($owner, $results)) {
+            $results[] = $owner;
         }
         return $results;
     }

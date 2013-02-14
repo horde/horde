@@ -213,8 +213,12 @@ class Horde_Share_TestBase extends Horde_Test_Case
         $users = $janeshare->listUsers();
         sort($users);
         $this->assertEquals(array('jane', 'john', 'peter'), $users);
-        $this->assertEquals(array('john', 'jane'), $janeshare->listUsers(Horde_Perms::EDIT));
-        $this->assertEquals(array('jane'), $janeshare->listUsers(Horde_Perms::DELETE));
+        $users = $janeshare->listUsers(Horde_Perms::EDIT);
+        sort($users);
+        $this->assertEquals(array('jane', 'john'), $users);
+        $users = $janeshare->listUsers(Horde_Perms::DELETE);
+        sort($users);
+        $this->assertEquals(array('jane'), $users);
         $this->assertEquals('Jane\'s Share', $janeshare->get('name'));
         $this->assertTrue($janeshare->hasPermission('john', Horde_Perms::EDIT));
 
