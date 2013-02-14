@@ -1,10 +1,8 @@
 <?php
 /**
- * Horde YAML package
- *
- * This package is heavily inspired by the Spyc PHP YAML
- * implementation (http://spyc.sourceforge.net/), and portions are
- * copyright 2005-2006 Chris Wanstrath.
+ * This package is heavily inspired by the Spyc PHP YAML implementation
+ * (http://spyc.sourceforge.net/), and portions are copyright 2005-2006 Chris
+ * Wanstrath.
  *
  * @author   Chris Wanstrath <chris@ozmm.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -17,6 +15,10 @@
 /**
  * Dump PHP data structures to YAML.
  *
+ * @author   Chris Wanstrath <chris@ozmm.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Mike Naberezny <mike@maintainable.com>
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Yaml
  */
@@ -25,7 +27,7 @@ class Horde_Yaml_Dumper
     protected $_options = array();
 
     /**
-     * Dump PHP array to YAML
+     * Dumps PHP array to YAML.
      *
      * The dump method, when supplied with an array, will do its best
      * to convert the array into valid YAML.
@@ -36,9 +38,10 @@ class Horde_Yaml_Dumper
      *    `wordwrap`:
      *       wordwrap column number (default 40)
      *
-     * @param  array|Traversable  $array     PHP array or traversable object
-     * @param  integer            $options   Options for dumping
-     * @return string                        YAML representation of $value
+     * @param array|Traversable $array  PHP array or traversable object.
+     * @param integer $options          Options for dumping.
+     *
+     * @return string  YAML representation of $value.
      */
     public function dump($value, $options = array())
     {
@@ -47,15 +50,16 @@ class Horde_Yaml_Dumper
             throw new InvalidArgumentException('Options must be an array');
         }
 
-        $defaults = array('indent'   => 2,
-                          'wordwrap' => 40);
-        $this->_options = array_merge($defaults, $options);
+        $this->_options = array_merge(
+            array('indent' => 2, 'wordwrap' => 40),
+            $options
+        );
 
-        if (! is_int($this->_options['indent'])) {
+        if (!is_int($this->_options['indent'])) {
             throw new InvalidArgumentException('Indent must be an integer');
         }
 
-        if (! is_int($this->_options['wordwrap'])) {
+        if (!is_int($this->_options['wordwrap'])) {
             throw new InvalidArgumentException('Wordwrap column must be an integer');
         }
 
@@ -69,7 +73,7 @@ class Horde_Yaml_Dumper
     }
 
     /**
-     * Attempts to convert a key / value array item to YAML
+     * Attempts to convert a key/value array item to YAML.
      *
      * @param string $key          The name of the key.
      * @param string|array $value  The value of the item.
@@ -81,8 +85,10 @@ class Horde_Yaml_Dumper
     protected function _yamlize($key, $value, $indent, $sequence = false)
     {
         if ($value instanceof Serializable) {
-            // Dump serializable objects as !php/object::classname serialize_data
-            $data = '!php/object::' . get_class($value) . ' ' . $value->serialize();
+            // Dump serializable objects as !php/object::classname
+            // serialize_data
+            $data = '!php/object::' . get_class($value)
+                . ' ' . $value->serialize();
             $string = $this->_dumpNode($key, $data, $indent, $sequence);
         } elseif (is_array($value) || $value instanceof Traversable) {
             // It has children.  Make it the right kind of item.
@@ -104,8 +110,9 @@ class Horde_Yaml_Dumper
     /**
      * Attempts to convert an array to YAML
      *
-     * @param  array    $array The array you want to convert
-     * @param  integer  $indent The indent of the current level
+     * @param array $array     The array you want to convert.
+     * @param integer $indent  The indent of the current level.
+     *
      * @return string
      */
     protected function _yamlizeArray($array, $indent)
@@ -139,9 +146,9 @@ class Horde_Yaml_Dumper
     {
         $literal = false;
         // Do some folding here, for blocks.
-        if (strpos($value, "\n") !== false
-            || strpos($value, ': ') !== false
-            || strpos($value, '- ') !== false) {
+        if (strpos($value, "\n") !== false ||
+            strpos($value, ': ') !== false ||
+            strpos($value, '- ') !== false) {
             $value = $this->_doLiteralBlock($value, $indent);
             $literal = true;
         } else {
@@ -163,7 +170,9 @@ class Horde_Yaml_Dumper
         $spaces = str_repeat(' ', $indent);
 
         // Quote strings if necessary, and not folded
-        if (!$literal && strpos($value, "\n") === false && strchr($value, '#')) {
+        if (!$literal &&
+            strpos($value, "\n") === false &&
+            strchr($value, '#')) {
             $value = "'{$value}'";
         }
 
@@ -179,10 +188,11 @@ class Horde_Yaml_Dumper
     }
 
     /**
-     * Creates a literal block for dumping
+     * Creates a literal block for dumping.
      *
-     * @param  string   $value
-     * @param  integer  $indent  The value of the indent.
+     * @param string $value
+     * @param integer $indent  The value of the indent.
+     *
      * @return string
      */
     protected function _doLiteralBlock($value, $indent)
@@ -198,15 +208,16 @@ class Horde_Yaml_Dumper
     }
 
     /**
-     * Folds a string of text, if necessary
+     * Folds a string of text, if necessary.
      *
-     * @param   $value   The string you wish to fold
-     * @return  string
+     * @param $value The string you wish to fold.
+     *
+     * @return string
      */
     protected function _fold($value, $indent)
     {
         // Don't do anything if wordwrap is set to 0
-        if (! $this->_options['wordwrap']) {
+        if (!$this->_options['wordwrap']) {
             return $value;
         }
 
@@ -219,5 +230,4 @@ class Horde_Yaml_Dumper
 
         return $value;
     }
-
 }

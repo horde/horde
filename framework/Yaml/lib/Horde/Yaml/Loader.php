@@ -1,10 +1,8 @@
 <?php
 /**
- * Horde YAML package
- *
- * This package is heavily inspired by the Spyc PHP YAML
- * implementation (http://spyc.sourceforge.net/), and portions are
- * copyright 2005-2006 Chris Wanstrath.
+ * This package is heavily inspired by the Spyc PHP YAML implementation
+ * (http://spyc.sourceforge.net/), and portions are copyright 2005-2006 Chris
+ * Wanstrath.
  *
  * @author   Chris Wanstrath <chris@ozmm.org>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -17,6 +15,10 @@
 /**
  * Parse YAML strings into PHP data structures
  *
+ * @author   Chris Wanstrath <chris@ozmm.org>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Mike Naberezny <mike@maintainable.com>
+ * @license  http://www.horde.org/licenses/bsd BSD
  * @category Horde
  * @package  Yaml
  */
@@ -86,9 +88,9 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Return the PHP built from all YAML parsed so far.
+     * Returns the PHP built from all YAML parsed so far.
      *
-     * @return array PHP version of parsed YAML
+     * @return array  PHP version of parsed YAML.
      */
     public function toArray()
     {
@@ -101,10 +103,11 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Parse a line of a YAML file.
+     * Parses a line of a YAML file.
      *
-     * @param  string           $line  The line of YAML to parse.
-     * @return Horde_Yaml_Node         YAML Node
+     * @param string $line  The line of YAML to parse.
+     *
+     * @return Horde_Yaml_Node YAML Node.
      */
     public function parse($line)
     {
@@ -138,7 +141,8 @@ class Horde_Yaml_Loader
                     $parent =& $this->_allNodes[$this->_lastNode];
                     $parent->data[key($parent->data)] .= trim($line) . $this->_blockEnd;
                 } else {
-                    // The current node's parent is the same as the previous node's
+                    // The current node's parent is the same as the previous
+                    // node's
                     if (isset($this->_allNodes[$this->_lastNode])) {
                         $node->parent = $this->_allNodes[$this->_lastNode]->parent;
                     }
@@ -227,14 +231,19 @@ class Horde_Yaml_Loader
                 if ($isset) {
                     $nodeval = $node->data[$key];
                 }
-                if (($is_array && $isset && !is_array($nodeval) && !is_object($nodeval))
-                    && (strlen($nodeval) && ($nodeval[0] == '&' || $nodeval[0] == '*') && $nodeval[1] != ' ')) {
+                if ($is_array && $isset && !is_array($nodeval) &&
+                    !is_object($nodeval) && strlen($nodeval) &&
+                    ($nodeval[0] == '&' || $nodeval[0] == '*') &&
+                    $nodeval[1] != ' ') {
                     $this->_haveRefs[] =& $this->_allNodes[$node->id];
                 } elseif ($is_array && $isset && is_array($nodeval)) {
                     // Incomplete reference making code. Needs to be
                     // cleaned up.
                     foreach ($node->data[$key] as $d) {
-                        if (!is_array($d) && strlen($d) && (($d[0] == '&' || $d[0] == '*') && $d[1] != ' ')) {
+                        if (!is_array($d) &&
+                            strlen($d) &&
+                            ($d[0] == '&' || $d[0] == '*') &&
+                            $d[1] != ' ') {
                             $this->_haveRefs[] =& $this->_allNodes[$node->id];
                         }
                     }
@@ -244,24 +253,25 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Finds and returns the indentation of a YAML line
+     * Finds and returns the indentation of a YAML line.
      *
-     * @param  string  $line  A line from the YAML file
-     * @return int            Indentation level
+     * @param string $line  A line from the YAML file.
+     *
+     * @return integer  Indentation level.
      */
     protected function _getIndent($line)
     {
         if (preg_match('/^\s+/', $line, $match)) {
             return strlen($match[0]);
-        } else {
-            return 0;
         }
+        return 0;
     }
 
     /**
-     * Parses YAML code and returns an array for a node
+     * Parses YAML code and returns an array for a node.
      *
-     * @param  string  $line  A line from the YAML file
+     * @param string $line  A line from the YAML file.
+     *
      * @return array
      */
     protected function _parseLine($line)
@@ -309,7 +319,8 @@ class Horde_Yaml_Loader
     /**
      * Finds the type of the passed value, returns the value as the new type.
      *
-     * @param  string   $value
+     * @param string $value
+     *
      * @return mixed
      */
     protected function _toType($value)
@@ -343,7 +354,8 @@ class Horde_Yaml_Loader
         } elseif (preg_match('/^\\{(\s*)\\}$/', $value)) {
             // empty inline mapping
             $value = array();
-        } elseif (strpos($value, ': ') !== false && !preg_match('/^{(.+)/', $value)) {
+        } elseif (strpos($value, ': ') !== false &&
+                  !preg_match('/^{(.+)/', $value)) {
             // inline mapping
             $array = explode(': ', $value);
             $key = trim($array[0]);
@@ -393,9 +405,9 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Handle PHP serialized data.
+     * Handles PHP serialized data.
      *
-     * @param string &$data Data to check for serialized PHP types.
+     * @param string &$data  Data to check for serialized PHP types.
      */
     protected function _unserialize(&$data)
     {
@@ -437,22 +449,22 @@ class Horde_Yaml_Loader
 
             if (is_null($class)) {
                 $data = $array_data['a'];
-            } else {
-                if (!class_exists($class)) {
-                    throw new Horde_Yaml_Exception("$class is not defined");
-                }
-
-                $array = new $class;
-                if (!$array instanceof ArrayAccess) {
-                    throw new Horde_Yaml_Exception("$class does not implement ArrayAccess");
-                }
-
-                foreach ($array_data['a'] as $key => $val) {
-                    $array[$key] = $val;
-                }
-
-                $data = $array;
+                break;
             }
+            if (!class_exists($class)) {
+                throw new Horde_Yaml_Exception("$class is not defined");
+            }
+
+            $array = new $class;
+            if (!$array instanceof ArrayAccess) {
+                throw new Horde_Yaml_Exception("$class does not implement ArrayAccess");
+            }
+
+            foreach ($array_data['a'] as $key => $val) {
+                $array[$key] = $val;
+            }
+
+            $data = $array;
             break;
         }
     }
@@ -465,7 +477,8 @@ class Horde_Yaml_Loader
      *        pure mappings and mappings with sequences inside
      *        can't go very deep.  This needs to be fixed.
      *
-     * @param  string  $inline  Inline data
+     * @param string $inline  Inline data.
+     *
      * @return array
      */
     protected function _inlineEscape($inline)
@@ -531,7 +544,7 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Builds the PHP array from all the YAML nodes we've gathered
+     * Builds the PHP array from all the YAML nodes we've gathered.
      *
      * @return array
      */
@@ -546,7 +559,8 @@ class Horde_Yaml_Loader
             if (empty($n->parent)) {
                 $this->_nodeArrayizeData($n);
 
-                // Check for references and copy the needed data to complete them.
+                // Check for references and copy the needed data to complete
+                // them.
                 $this->_makeReferences($n);
 
                 // Merge our data with the big array we're building
@@ -558,40 +572,37 @@ class Horde_Yaml_Loader
     }
 
     /**
-     * Traverses node-space and sets references (& and *) accordingly
-     *
-     * @return bool
+     * Traverses node-space and sets references (& and *) accordingly.
      */
     protected function _linkReferences()
     {
-        if (is_array($this->_haveRefs)) {
-            foreach ($this->_haveRefs as $node) {
-                if (!empty($node->data)) {
-                    $key = key($node->data);
-                    // If it's an array, don't check.
-                    if (is_array($node->data[$key])) {
-                        foreach ($node->data[$key] as $k => $v) {
-                            $this->_linkRef($node, $key, $k, $v);
-                        }
-                    } else {
-                        $this->_linkRef($node, $key);
+        if (!is_array($this->_haveRefs)) {
+            return;
+        }
+
+        foreach ($this->_haveRefs as $node) {
+            if (!empty($node->data)) {
+                $key = key($node->data);
+                // If it's an array, don't check.
+                if (is_array($node->data[$key])) {
+                    foreach ($node->data[$key] as $k => $v) {
+                        $this->_linkRef($node, $key, $k, $v);
                     }
+                } else {
+                    $this->_linkRef($node, $key);
                 }
             }
         }
-
-        return true;
     }
 
     /**
-     * Helper for _linkReferences()
+     * Helper for _linkReferences().
      *
-     * @param  Horde_Yaml_Node  $n   Node
-     * @param  string           $k   Key
-     * @param  mixed            $v   Value
-     * @return void
+     * @param Horde_Yaml_Node $n  Node.
+     * @param string $k           Key.
+     * @param mixed $v            Value.
      */
-    function _linkRef(&$n, $key, $k = null, $v = null)
+    protected function _linkRef(&$n, $key, $k = null, $v = null)
     {
         if (empty($k) && empty($v)) {
             // Look for &refs
@@ -652,8 +663,7 @@ class Horde_Yaml_Loader
     /**
      * Turns a node's data and its children's data into a PHP array
      *
-     * @param  array    $node  The node which you want to arrayize
-     * @return boolean
+     * @param array $node  The node which you want to arrayize.
      */
     protected function _nodeArrayizeData(&$node)
     {
@@ -662,13 +672,15 @@ class Horde_Yaml_Loader
                 // This node has children, so we need to find them
                 $children = $this->_gatherChildren($node->id);
 
-                // We've gathered all our children's data and are ready to use it
+                // We've gathered all our children's data and are ready to use
+                // it
                 $key = key($node->data);
                 $key = empty($key) ? 0 : $key;
                 // If it's an array, add to it of course
                 if (isset($node->data[$key])) {
                     if (is_array($node->data[$key])) {
-                        $node->data[$key] = $this->_array_kmerge($node->data[$key], $children);
+                        $node->data[$key] =
+                            $this->_array_kmerge($node->data[$key], $children);
                     } else {
                         $node->data[$key] = $children;
                     }
@@ -687,8 +699,10 @@ class Horde_Yaml_Loader
                 $key = key($node->data);
                 $key = empty($key) ? 0 : $key;
 
-                if (!isset($node->data[$key]) || is_array($node->data[$key]) || is_object($node->data[$key])) {
-                    return true;
+                if (!isset($node->data[$key]) ||
+                    is_array($node->data[$key]) ||
+                    is_object($node->data[$key])) {
+                    return;
                 }
 
                 self::_unserialize($node->data[$key]);
@@ -696,43 +710,40 @@ class Horde_Yaml_Loader
                 self::_unserialize($node->data);
             }
         }
-
-        // We edited $node by reference, so just return true
-        return true;
     }
 
     /**
      * Traverses node-space and copies references to / from this object.
      *
-     * @param  Horde_Yaml_Node  $z  A node whose references we wish to make real
-     * @return bool
+     * @param Horde_Yaml_Node $z  A node whose references we wish to make real.
      */
     protected function _makeReferences(&$z)
     {
-        // It is a reference
         if (isset($z->ref)) {
+            // It is a reference
             $key = key($z->data);
             // Copy the data to this object for easy retrieval later
             $this->ref[$z->ref] =& $z->data[$key];
-            // It has a reference
         } elseif (isset($z->refKey)) {
+            // It has a reference
             if (isset($this->ref[$z->refKey])) {
                 $key = key($z->data);
-                // Copy the data from this object to make the node a real reference
+                // Copy the data from this object to make the node a real
+                // reference
                 $z->data[$key] =& $this->ref[$z->refKey];
             }
         }
-
-        return true;
     }
 
     /**
-     * Merges two arrays, maintaining numeric keys. If two numeric
-     * keys clash, the second one will be appended to the resulting
-     * array. If string keys clash, the last one wins.
+     * Merges two arrays, maintaining numeric keys.
      *
-     * @param  array  $arr1
-     * @param  array  $arr2
+     * If two numeric keys clash, the second one will be appended to the
+     * resulting array. If string keys clash, the last one wins.
+     *
+     * @param array $arr1
+     * @param array $arr2
+     *
      * @return array
      */
     protected function _array_kmerge($arr1, $arr2)
@@ -747,5 +758,4 @@ class Horde_Yaml_Loader
 
         return $arr1;
     }
-
 }
