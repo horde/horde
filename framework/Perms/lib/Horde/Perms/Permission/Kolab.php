@@ -1,19 +1,5 @@
 <?php
 /**
- * Maps folder permissions into the Horde_Permission system.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Perms
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Perms
- */
-
-/**
- * Maps folder permissions into the Horde_Permission system.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -25,10 +11,21 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Perms_Permission_Kolab
-extends Horde_Perms_Permission
+
+/**
+ * Maps folder permissions into the Horde_Permission system.
+ *
+ * @category Horde
+ * @package  Perms
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://pear.horde.org/index.php?package=Perms
+ */
+class Horde_Perms_Permission_Kolab extends Horde_Perms_Permission
 {
-    /** Kolab ACL speak for all permissions on a shared object. */
+    /**
+     * Kolab ACL speak for all permissions on a shared object.
+     */
     const ALL = 'lrid';
 
     /**
@@ -36,14 +33,14 @@ extends Horde_Perms_Permission
      *
      * @var Horde_Perms_Permission_Kolab_Storage
      */
-    private $_storage;
+    protected $_storage;
 
     /**
      * The group handler.
      *
      * @var Horde_Group_Base
      */
-    private $_groups;
+    protected $_groups;
 
     /**
      * A cache for the folder acl settings. The cache holds the permissions
@@ -95,8 +92,6 @@ extends Horde_Perms_Permission
 
     /**
      * Saves the current permission values from the cache to the IMAP folder.
-     *
-     * @return NULL
      */
     public function save()
     {
@@ -130,5 +125,4 @@ extends Horde_Perms_Permission
         // Load the permission from the folder again
         $this->data = $this->getCurrentPermissions();
     }
-
 }
