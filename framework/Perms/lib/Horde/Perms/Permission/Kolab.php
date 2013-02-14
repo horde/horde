@@ -90,7 +90,6 @@ extends Horde_Perms_Permission
             $element->toHorde($data);
         }
         $data['type'] = 'matrix';
-        unset($data['users'][$this->_storage->getOwner()]);
         return $data;
     }
 
