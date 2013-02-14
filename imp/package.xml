@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).
 * [mms] Add the &apos;msg_filter&apos; hook.
 * [mms] Added the &apos;attach_body_check&apos; hook.
 * [mms] Add linked attachment information directly to main body text.

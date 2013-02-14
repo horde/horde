@@ -20,58 +20,15 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Prefs_Sort_FixedDate extends IMP_Prefs_Sort
+class IMP_Prefs_Sort_FixedDate extends IMP_Prefs_Sort_None
 {
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Garbage collection.
-     */
-    public function gc()
-    {
-    }
-
-    /**
-     * Upgrade the preference from IMP 4 value.
-     */
-    public function upgradePrefs()
-    {
-    }
-
-    /**
-     * Save the preference to the backend.
-     */
-    protected function _save()
-    {
-    }
-
-    /* ArrayAccess methods. */
-
-    public function offsetExists($offset)
-    {
-        return true;
-    }
-
     public function offsetGet($offset)
     {
-        return new IMP_Prefs_Sort_Sortpref(
+        return new IMP_Prefs_Sort_Sortpref_Locked(
             $offset,
             IMP::IMAP_SORT_DATE,
             1
         );
-    }
-
-    public function offsetSet($offset, $value)
-    {
-    }
-
-    public function offsetUnset($offset)
-    {
     }
 
 }

@@ -1030,12 +1030,16 @@ class IMP_Mailbox implements Serializable
      */
     public function getSort($convert = false)
     {
-        $mbox = $this->search
-            ? $this->_mbox
-            : $this->pref_from;
+        global $injector, $prefs;
 
-        $sortob = $GLOBALS['injector']->getInstance('IMP_Prefs_Sort');
-        $ob = $sortob[$mbox];
+        $mbox = $this->search
+            ? $this
+            : IMP_Mailbox::get($this->pref_from);
+        $sortob = $injector->getInstance('IMP_Imap')->canSort($mbox)
+            ? $injector->getInstance('IMP_Prefs_Sort')
+            : $injector->getInstance('IMP_Prefs_Sort_None');
+
+        $ob = $sortob[strval($mbox)];
         $ob->convertSortby();
 
         if ($convert && ($ob->sortby == IMP::IMAP_SORT_DATE)) {
@@ -1054,10 +1058,14 @@ class IMP_Mailbox implements Serializable
      */
     public function setSort($by = null, $dir = null, $delete = false)
     {
+        global $injector;
+
         $mbox = $this->search
-            ? $this->_mbox
-            : $this->pref_from;
-        $sortob = $GLOBALS['injector']->getInstance('IMP_Prefs_Sort');
+            ? $this
+            : IMP_Mailbox::get($this->pref_from);
+        $sortob = $injector->getInstance('IMP_Imap')->canSort($mbox)
+            ? $injector->getInstance('IMP_Prefs_Sort')
+            : $injector->getInstance('IMP_Prefs_Sort_None');
 
         if ($delete) {
             unset($sortob[$mbox]);

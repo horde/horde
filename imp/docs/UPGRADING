@@ -32,6 +32,14 @@ outdated.
 Upgrading IMP From 6.0.x To 6.1
 ===============================
 
+Server Options (backends.php)
+-----------------------------
+
+Sorting on non-IMAP servers, or IMAP servers that do not support the SORT
+extension, has been disabled by default in IMP 6.1. To restore the old
+behavior (NOT RECOMMENDED), see the 'sort_force' option in backends.php.
+
+
 Configuration Options (conf.php)
 --------------------------------
 

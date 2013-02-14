@@ -284,6 +284,15 @@
  *   selected by default on the login screen. Otherwise the first entry in the
  *   list is selected.
  *
+ * sort_force: (boolean) By default, IMP only allows sorting by criteria
+ *   other than arrival time if using IMAP and the remote IMAP server supports
+ *   the SORT extension (RFC 5256). If this setting is true, IMP will
+ *   implement sorting on the web server. However, this requires that the
+ *   selected sort criteria be downloaded from the remote server for EVERY
+ *   message in a mailbox before the mailbox can be displayed. For mailboxes
+ *   that contain more than a few hundred messages, this can be a tremendously
+ *   expensive operation. Enable sorting on these installations at your peril.
+ *
  * thread: [IMAP only] (string) Set the preferred thread sort algorithm. This
  *   algorithm must be supported by the remote server. By default, IMP
  *   attempts to use REFERENCES sorting and, if this is not available, will

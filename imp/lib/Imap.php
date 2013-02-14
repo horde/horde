@@ -110,6 +110,21 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Is sorting available for a mailbox?
+     *
+     * @param IMP_Mailbox $mbox  The mailbox to query.
+     *
+     * @return boolean  True if sorting is available.
+     */
+    public function canSort(IMP_Mailbox $mbox)
+    {
+        $ob = $this->getOb($mbox);
+
+        return ($ob->getParam('imp:sort_force') ||
+                $ob->queryCapability('SORT'));
+    }
+
+    /**
      * Create a new Horde_Imap_Client object.
      *
      * @param string $username  The username to authenticate with.
@@ -151,6 +166,8 @@ class IMP_Imap implements Serializable
             'secure' => isset($server['secure']) ? $server['secure'] : false,
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
+            // IMP specific config.
+            'imp:sort_force' => !empty($server['sort_force'])
         );
 
         /* Initialize caching. */
