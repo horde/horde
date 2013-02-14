@@ -176,7 +176,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         putenv('LANG=en_US.UTF-8');
         $file = '高&执&行&力&的&打&造.txt';
         $dir = '.horde/foo';
-        $this->_getNativePath($dir, $file);
+        var_dump($this->_getNativePath($dir, $file));
         $path = sys_get_temp_dir() . '/vfsfiletest/' . $dir . '/' . $file;
         self::$vfs->writeData($dir, $file, 'some content', true);
         system('ls -aR ' . sys_get_temp_dir() . '/vfsfiletest/');
@@ -188,6 +188,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
 
     protected function _getNativePath($path = '', $name = '')
     {
+        $vfsroot = sys_get_temp_dir() . '/vfsfiletest';
         $name = basename($name);
         var_dump($name);
         if (strlen($name)) {
@@ -209,13 +210,13 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
 
             $path = str_replace('..', '', $path);
             if (substr($path, 0, 1) == '/') {
-                return $this->_params['vfsroot'] . rtrim($path, '/') . $name;
+                return $vfsroot . rtrim($path, '/') . $name;
             } else {
-                return $this->_params['vfsroot'] . '/' . rtrim($path, '/') . $name;
+                return $vfsroot . '/' . rtrim($path, '/') . $name;
             }
         }
 
-        return $this->_params['vfsroot'] . $name;
+        return $vfsroot . $name;
     }
 
     static public function setUpBeforeClass()
