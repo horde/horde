@@ -435,13 +435,12 @@ extends PHPUnit_Framework_TestCase
 
     public function testGetPermission()
     {
-        $this->markTestSkipped('Broken at the moment');
         $share = $this->_getPrefilledDriver();
         $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $this->assertEquals(
-            30,
-            $share->getShareById($this->_getId('john', 'Test'))->getPermission()->getCreatorPermissions()
+            array('john' => 30),
+            $share->getShareById($this->_getId('john', 'Test'))->getPermission()->getUserPermissions()
         );
     }
 
