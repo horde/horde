@@ -65,7 +65,7 @@ The 'attach_body_check' hook has been added. This hook handles the attachment
 word checking code that previously was provided as an example in the
 'pre_sent' hook.
 
-The 'msg_filter' hook has been added.
+The 'link_attach_vfs' and 'msg_filter' hooks have been added.
 
 
 MIME Viewer Options (mime_drivers.php)

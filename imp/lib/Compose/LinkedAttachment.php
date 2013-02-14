@@ -74,7 +74,12 @@ class IMP_Compose_LinkedAttachment
 
         $this->_id = $id;
         $this->_user = $user;
-        $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+
+        try {
+            $this->_vfs = Horde::callHook('link_attach_vfs', array($user), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {
+            $this->_vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+        }
     }
 
     /**

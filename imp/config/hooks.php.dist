@@ -225,6 +225,27 @@ class IMP_Hooks
 
 
     /**
+     * For linked attachment, allows a custom VFS driver to be specified
+     * instead of the base Horde driver.
+     *
+     * @param string $user  The attachment owner.
+     *
+     * @return Horde_Vfs_Base  The VFS driver to use.
+     * @throws IMP_Exception
+     */
+//    public function link_attach_vfs($user)
+//    {
+//        // Example: Use a custom local driver (extending Horde_Vfs_Base)
+//        // written to interface with the organization's cloud storage
+//        // system.
+//        return new Vfs_Local_Cloud_Storage(array(
+//            'user' => $user
+//        ));
+//    }
+
+
+
+    /**
      * Perform an action before a message has been sent.
      *
      * If an exception is thrown, sending is cancelled and the exception text
