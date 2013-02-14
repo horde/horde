@@ -453,7 +453,7 @@ class IMP_Imap implements Serializable
              * performance reasons only do a display sort if it is supported
              * on the server. */
             $sort_cap = $this->queryCapability('SORT');
-            if (!is_array($sort_cap) || in_array('DISPLAY', $sort_cap)) {
+            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;
