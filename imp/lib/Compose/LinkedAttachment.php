@@ -106,7 +106,6 @@ class IMP_Compose_LinkedAttachment
         try {
             $this->_vfs->rename($atc::VFS_ATTACH_PATH, $atc->vfsname, $this->_getPath(), $this->_id);
 
-            $this->_loadMetadata();
             $part = $atc->getPart();
 
             // Prevent 'jar:' attacks on Firefox.  See Ticket #5892.
@@ -116,12 +115,12 @@ class IMP_Compose_LinkedAttachment
                 $type = 'application/octet-stream';
             }
 
+            $this->_loadMetadata();
             $this->_md[$this->_id] = array(
                 'f' => $part->getName(true),
                 'm' => $type,
                 't' => time()
             );
-
             $this->_saveMetadata();
         } catch (Horde_Vfs_Exception $e) {
             Horde::log($e, 'ERR');
@@ -132,6 +131,7 @@ class IMP_Compose_LinkedAttachment
     /**
      * Send data to the browser.
      *
+     * @throws Horde_Vfs_Exception
      * @throws IMP_Exception
      */
     public function sendData()
@@ -144,6 +144,22 @@ class IMP_Compose_LinkedAttachment
             throw new IMP_Exception(_("The linked attachment does not exist. It may have been deleted by the original sender or it may have expired."));
         }
 
+        try {
+            if (method_exists($this->_vfs, 'readStream')) {
+                $data = $this->_vfs->readStream($path, $this->_id);
+            } else {
+                $data = fopen('php://temp', 'w+');
+                fwrite($data, $this->_vfs->read($path, $this->_id));
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            Horde::log($e, 'ERR');
+            throw $e;
+        }
+
+        fseek($data, 0, SEEK_END);
+        $size = ftell($data);
+        rewind($data);
+
         $this->_loadMetadata();
 
         $fname = isset($this->_md[$this->_id]['f'])
@@ -152,17 +168,6 @@ class IMP_Compose_LinkedAttachment
         $type = isset($this->_md[$this->_id]['m'])
             ? $this->_md[$this->_id]['m']
             : null;
-
-        if (method_exists($this->_vfs, 'readStream')) {
-            $data = $this->_vfs->readStream($path, $this->_id);
-        } else {
-            $data = fopen('php://temp', 'w+');
-            fwrite($data, $this->_vfs->read($path, $this->_id));
-        }
-
-        fseek($data, 0, SEEK_END);
-        $size = ftell($data);
-        rewind($data);
 
         $browser->downloadHeaders($fname, $type, false, $size);
 
@@ -182,13 +187,9 @@ class IMP_Compose_LinkedAttachment
      */
     public function delete($token)
     {
-        if (empty($GLOBALS['conf']['compose']['link_attachments_notify'])) {
-            return false;
-        }
-
-        $this->_loadMetadata();
-        if (!isset($this->_md[$this->_id]['d']) ||
-            ($this->_md[$this->_id]['d'] != $token)) {
+        if (empty($GLOBALS['conf']['compose']['link_attachments_notify']) ||
+            !($dtoken = $this->_getDeleteToken()) ||
+            ($dtoken != $token)) {
             return false;
         }
 
@@ -263,16 +264,9 @@ class IMP_Compose_LinkedAttachment
             $address = $identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */
-            if (strlen($address) < 3) {
+            if ((strlen($address) < 3) || !$this->_getDeleteToken()) {
                 return;
             }
-
-            $this->_loadMetadata();
-            if (!isset($this->_md[$this->_id]) ||
-                isset($this->_md[$this->_id]['d'])) {
-                return;
-            }
-            $md = $this->_md[$this->_id];
 
             $address_full = $identity->getDefaultFromAddress(true);
 
@@ -293,22 +287,17 @@ class IMP_Compose_LinkedAttachment
             $msg->setType('text/plain');
             $msg->setCharset('UTF-8');
 
-            /* Create a delete token for this file. */
-            $delete_id = strval(new Horde_Support_Uuid());
-
+            $md = $this->_md[$this->_id];
             $msg->setContents(Horde_String::wrap(
                 _("Your linked attachment has been downloaded by at least one user.") . "\n\n" .
                 sprintf(_("Name: %s"), $md['f']) . "\n" .
                 sprintf(_("Type: %s"), $md['m']) . "\n" .
                 sprintf(_("Sent Date: %s"), date('r', $md['t'])) . "\n\n" .
                 _("Click on the following link to permanently delete the attachment:") . "\n" .
-                strval($this->getUrl()->add('d', $delete_id))
+                strval($this->getUrl()->add('d', $this->_getDeleteToken(true)))
             ));
 
             $msg->send($address, $h, $injector->getInstance('Horde_Mail'));
-
-            $this->_md[$this->_id]['d'] = $delete_id;
-            $this->_saveMetadata();
         } catch (Exception $e) {
             Horde::log($e, 'ERR');
         }
@@ -369,6 +358,31 @@ class IMP_Compose_LinkedAttachment
     /* Private methods. */
 
     /**
+     * Get/create the delete token.
+     *
+     * @param boolean $create  Create token if it doesn't exist?
+     *
+     * @return string  The delete token, or null if it doesn't exist.
+     */
+    protected function _getDeleteToken($create = false)
+    {
+        $this->_loadMetadata();
+
+        if (!isset($this->_md[$this->_id]['d'])) {
+            if (!$create) {
+                return null;
+            }
+
+            $this->_md[$this->_id]['d'] = strval(new Horde_Support_Uuid);
+            try {
+                $this->_saveMetadata();
+            } catch (Exception $e) {}
+        }
+
+        return $this->_md[$this->_id]['d'];
+    }
+
+    /**
      * Generate the user's VFS path.
      *
      * @return string  The user's VFS path.
@@ -399,7 +413,7 @@ class IMP_Compose_LinkedAttachment
     /**
      * Save the user's attachment metadata.
      *
-     * @throws IMP_Exception
+     * @throws Horde_Vfs_Exception
      */
     protected function _saveMetadata()
     {
