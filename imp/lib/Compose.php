@@ -1401,7 +1401,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             foreach ($this as $val) {
                 if (!$val->related && !$val->linked) {
-                    $parts[] = $val;
+                    $parts[] = $val->getPart(true);
                 }
             }
 
