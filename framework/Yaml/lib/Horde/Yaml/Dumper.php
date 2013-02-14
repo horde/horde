@@ -63,29 +63,30 @@ class Horde_Yaml_Dumper
         $dump = "---\n";
 
         // iterate through array and yamlize it
-        foreach ($value as $key => $value) {
-            $dump .= $this->_yamlize($key, $value, 0);
-        }
+        $dump .= $this->_yamlizeArray($value, 0);
+
         return $dump;
     }
 
     /**
      * Attempts to convert a key / value array item to YAML
      *
-     * @param  string        $key     The name of the key
-     * @param  string|array  $value   The value of the item
-     * @param  integer       $indent  The indent of the current node
+     * @param string $key          The name of the key.
+     * @param string|array $value  The value of the item.
+     * @param integer $indent      The indent of the current node.
+     * @param boolean $sequence    Is this an entry of a sequence?
+     *
      * @return string
      */
-    protected function _yamlize($key, $value, $indent)
+    protected function _yamlize($key, $value, $indent, $sequence = false)
     {
         if ($value instanceof Serializable) {
             // Dump serializable objects as !php/object::classname serialize_data
             $data = '!php/object::' . get_class($value) . ' ' . $value->serialize();
-            $string = $this->_dumpNode($key, $data, $indent);
+            $string = $this->_dumpNode($key, $data, $indent, $sequence);
         } elseif (is_array($value) || $value instanceof Traversable) {
             // It has children.  Make it the right kind of item.
-            $string = $this->_dumpNode($key, null, $indent);
+            $string = $this->_dumpNode($key, null, $indent, $sequence);
 
             // Add the indent.
             $indent += $this->_options['indent'];
@@ -94,7 +95,7 @@ class Horde_Yaml_Dumper
             $string .= $this->_yamlizeArray($value, $indent);
         } elseif (!is_array($value)) {
             // No children.
-            $string = $this->_dumpNode($key, $value, $indent);
+            $string = $this->_dumpNode($key, $value, $indent, $sequence);
         }
 
         return $string;
@@ -109,26 +110,32 @@ class Horde_Yaml_Dumper
      */
     protected function _yamlizeArray($array, $indent)
     {
-        if (!is_array($array)) {
+        if ($array instanceof Traversable) {
+            $array = iterator_to_array($array);
+        } elseif (!is_array($array)) {
             return false;
         }
 
+        $sequence = array_keys($array) === range(0, count($array) - 1);
+
         $string = '';
         foreach ($array as $key => $value) {
-            $string .= $this->_yamlize($key, $value, $indent);
+            $string .= $this->_yamlize($key, $value, $indent, $sequence);
         }
         return $string;
     }
 
     /**
-     * Returns YAML from a key and a value
+     * Returns YAML from a key and a value.
      *
-     * @param  string   $key     The name of the key
-     * @param  string   $value   The value of the item
-     * @param  integer  $indent  The indent of the current node
+     * @param string $key        The name of the key.
+     * @param string $value      The value of the item.
+     * @param integer $indent    The indent of the current node.
+     * @param boolean $sequence  Is this an entry of a sequence?
+     *
      * @return string
      */
-    protected function _dumpNode($key, $value, $indent)
+    protected function _dumpNode($key, $value, $indent, $sequence = false)
     {
         $literal = false;
         // Do some folding here, for blocks.
@@ -160,7 +167,7 @@ class Horde_Yaml_Dumper
             $value = "'{$value}'";
         }
 
-        if (is_int($key)) {
+        if ($sequence) {
             // It's a sequence.
             $string = $spaces . '- ' . $value . "\n";
         } else {

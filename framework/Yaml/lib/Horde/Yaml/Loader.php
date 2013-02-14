@@ -269,11 +269,11 @@ class Horde_Yaml_Loader
         $array = array();
 
         $line = trim($line);
-        if (preg_match('/^-(.*):$/', $line)) {
+        if (preg_match('/^- (.*):$/', $line)) {
             // It's a mapped sequence
             $key = trim(substr(substr($line, 1), 0, -1));
             $array[$key] = '';
-        } elseif ($line[0] == '-' && substr($line, 0, 3) != '---') {
+        } elseif (substr($line, 0, 2) == '- ') {
             // It's a list item but not a new stream
             if (strlen($line) > 1) {
                 // Set the type of the value. Int, string, etc
