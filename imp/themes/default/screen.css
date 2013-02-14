@@ -362,9 +362,12 @@ table.searchesmanagement .vfolderenabled {
 
 /* Large addresslist display. */
 .largeaddrlist, .largeaddrlistlimit {
+    background: #bbb;
+    color: blue;
     cursor: pointer;
-    background: #aaa;
+    font-weight: bold;
     margin-right: 5px;
+    padding: 1px;
 }
 .largeaddrlist:hover, .largeaddrlistlimit:hover {
     text-decoration: underline;
