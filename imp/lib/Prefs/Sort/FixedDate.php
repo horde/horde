@@ -12,7 +12,7 @@
  */
 
 /**
- * A fixed (read-only) implementation of the sortpref preference.
+ * A fixed date (read-only) implementation of the sortpref preference.
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Prefs_Sort_Fixed extends IMP_Prefs_Sort
+class IMP_Prefs_Sort_FixedDate extends IMP_Prefs_Sort
 {
     /**
      * Constructor.

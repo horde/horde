@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
+ <date>2013-02-13</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -341,7 +341,7 @@
      </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
      <dir name="Sort">
-      <file name="Fixed.php" role="horde" />
+      <file name="FixedDate.php" role="horde" />
       <file name="Sortpref.php" role="horde" />
      </dir> <!-- /lib/Prefs/Sort -->
      <dir name="Special">
@@ -1605,7 +1605,7 @@
    <install as="imp/lib/Notification/Handler/Decorator/NewmailNotify.php" name="lib/Notification/Handler/Decorator/NewmailNotify.php" />
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
-   <install as="imp/lib/Prefs/Sort/Fixed.php" name="lib/Prefs/Sort/Fixed.php" />
+   <install as="imp/lib/Prefs/Sort/FixedDate.php" name="lib/Prefs/Sort/FixedDate.php" />
    <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
    <install as="imp/lib/Prefs/Special/Acl.php" name="lib/Prefs/Special/Acl.php" />
    <install as="imp/lib/Prefs/Special/ComposeTemplates.php" name="lib/Prefs/Special/ComposeTemplates.php" />

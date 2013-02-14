@@ -32,7 +32,7 @@ class IMP_Factory_PrefsSort extends Horde_Core_Factory_Injector
         switch ($GLOBALS['registry']->getView()) {
         case Horde_Registry::VIEW_MINIMAL:
         case Horde_Registry::VIEW_SMARTMOBILE:
-            return new IMP_Prefs_Sort_Fixed();
+            return new IMP_Prefs_Sort_FixedSort();
 
         default:
             return new IMP_Prefs_Sort();
