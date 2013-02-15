@@ -513,7 +513,7 @@ HermesCore = {
     replaceSliceInCache: function(sid, slice, cache)
     {
         if (!cache) {
-            cache = time;
+            cache = 'time';
         }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {
