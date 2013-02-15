@@ -3,7 +3,7 @@ env: VFS_SQL_PDO_PGSQL_TEST_CONFIG='{"vfs":{"sql":{"pdo_pgsql":{"adapter":"pdo_p
 services:
   - memcache
 before_install:
-  - locale-gen de_DE.UTF-8 tr_TR.UTF-8
+  - sudo locale-gen de_DE.UTF-8 tr_TR.UTF-8
   - apt-get install -qq libwbxml2-utils
 before_script:
   - pecl install memcache
