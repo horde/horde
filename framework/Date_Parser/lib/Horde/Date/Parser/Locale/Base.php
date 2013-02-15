@@ -149,7 +149,6 @@ class Horde_Date_Parser_Locale_Base
     */
     public function preNormalize($text)
     {
-        $text = strtolower($text);
         $text = $this->numericizeNumbers($text);
         $text = preg_replace('/[\'"\.]/', '', $text);
         $text = preg_replace('/([\/\-\,\@])/', ' \1 ', $text);
