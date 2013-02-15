@@ -19,7 +19,7 @@ class Horde_Alarm_HandlerTest extends PHPUnit_Framework_TestCase
             $this->markTestSkipped('Horde_Notification not installed');
             return;
         }
-        if (!class_exists('Horde_Mail')) {
+        if (!class_exists('Horde_Mail_Transport_Mock')) {
             $this->markTestSkipped('Horde_Mail not installed');
             return;
         }
