@@ -23,8 +23,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:39:59</time>
+ <date>2013-02-15</date>
+ <time>18:37:39</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -383,10 +383,10 @@
     <dir name="Horde">
      <dir name="Image">
       <dir name="Exif">
-       <file name="Base.php" role="test" />
        <file name="BundledTest.php" role="test" />
        <file name="ExiftoolTest.php" role="test" />
        <file name="PhpTest.php" role="test" />
+       <file name="TestBase.php" role="test" />
       </dir> <!-- /test/Horde/Image/Exif -->
       <dir name="Fixtures">
        <file name="img_exif.jpg" role="test" />
@@ -628,12 +628,12 @@
    <install as="Horde/Image/bootstrap.php" name="test/Horde/Image/bootstrap.php" />
    <install as="Horde/Image/conf.php.dist" name="test/Horde/Image/conf.php.dist" />
    <install as="Horde/Image/phpunit.xml" name="test/Horde/Image/phpunit.xml" />
-   <install as="Horde/Image/Exif/Base.php" name="test/Horde/Image/Exif/Base.php" />
    <install as="Horde/Image/Exif/BundledTest.php" name="test/Horde/Image/Exif/BundledTest.php" />
    <install as="Horde/Image/Exif/ExiftoolTest.php" name="test/Horde/Image/Exif/ExiftoolTest.php" />
    <install as="Horde/Image/Exif/PhpTest.php" name="test/Horde/Image/Exif/PhpTest.php" />
+   <install as="Horde/Image/Exif/TestBase.php" name="test/Horde/Image/Exif/TestBase.php" />
    <install as="Horde/Image/Fixtures/img_exif.jpg" name="test/Horde/Image/Fixtures/img_exif.jpg" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
@@ -958,7 +958,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
