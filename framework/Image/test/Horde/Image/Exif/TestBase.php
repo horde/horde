@@ -56,7 +56,7 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
         $lat = self::$_data['GPSLatitude'];
         $lon = self::$_data['GPSLongitude'];
         $this->assertEquals(44.3535, $lat);
-        $this->assertEquals(-68.223, $lon);
+        $this->assertEquals(68.223, $lon);
     }
 
     protected function _testKeywords()
