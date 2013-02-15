@@ -83,7 +83,6 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
 
         $this->assertEquals('24:00', $parser->preNormalize('Midnight'));
         $this->assertEquals('24:00', $parser->preNormalize('midnight'));
-        //var_dump($text);
     }
 
 }
