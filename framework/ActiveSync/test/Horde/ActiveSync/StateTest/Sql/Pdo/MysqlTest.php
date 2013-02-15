@@ -20,6 +20,8 @@ class Horde_ActiveSync_StateTest_Sql_Pdo_MysqlTest extends Horde_ActiveSync_Stat
         if ($config && !empty($config['activesync']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['activesync']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_mysql configuration';
         }
     }
 }
