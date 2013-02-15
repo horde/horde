@@ -59,6 +59,7 @@ class Horde_Db_Adapter_Pdo_PgsqlBase extends Horde_Test_Case
             return;
         }
 
+        var_dump($config);
         $conn = new Horde_Db_Adapter_Pdo_Pgsql($config);
 
         $cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
