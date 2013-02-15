@@ -220,6 +220,7 @@ class Horde_Date_Parser_Locale_BaseTest extends Horde_Test_Case
 
     public function testParseGuessDates_rdn_rm_rd_rt_rtz_ry()
     {
+        $this->markTestIncomplete('Bug #12006');
         $time = $this->parser->parse("Mon Apr 02 17:00:00 PDT 2007");
         $this->assertEquals(new Horde_Date('2007-04-02 17:00:00'), $time);
 
