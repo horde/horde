@@ -17,11 +17,11 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:46:58</time>
+ <date>2013-02-15</date>
+ <time>10:48:49</time>
  <version>
-  <release>2.0.4</release>
-  <api>1.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add Horde_Perms_Permission_Kolab#getOwnerPermissions().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -901,15 +901,15 @@ Converted to package.xml 2.0 for pear.horde.org
   </release>
   <release>
    <version>
-    <release>2.0.4</release>
-    <api>1.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add Horde_Perms_Permission_Kolab#getOwnerPermissions().
    </notes>
   </release>
  </changelog>

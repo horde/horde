@@ -69,6 +69,19 @@ class Horde_Perms_Permission_Kolab extends Horde_Perms_Permission
     }
 
     /**
+     * Returns the permissions of the owner on this object.
+     *
+     * @since Horde_Perms 2.1.0
+     *
+     * @return integer  All owner permissions for this object.
+     */
+    public function getOwnerPermissions()
+    {
+        $users = parent::getUserPermissions();
+        return $users[$this->_storage->getOwner()];
+    }
+
+    /**
      * Returns an array of all user permissions on this object.
      *
      * @param integer $perm  List only users with this permission level.
