@@ -43,6 +43,10 @@ class Horde_ActiveSync_Utils
             'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
                 . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
                 . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
+        // Long integers might overflow on 32bit systems.
+        if ($arr_ret['PolKey'] < 0) {
+            $arr_ret['PolKey'] += pow(2, 32);
+        }
         $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
         $uri = substr($uri, $pos);
         while (strlen($uri) > 0) {
