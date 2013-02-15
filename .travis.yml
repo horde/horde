@@ -4,7 +4,7 @@ env: ACTIVESYNC_SQL_PDO_MYSQL_TEST_CONFIG='{"activesync":{"sql":{"pdo_mysql":{"a
 #  - memcache
 before_install:
   - sudo locale-gen cs_CZ.UTF-8 de_DE.UTF-8 tr_TR
-  - sudo apt-get install -qq libwbxml2-utils aspell rcs cvs cvsps libimage-exiftool-perl
+  - sudo apt-get -qq install libwbxml2-utils aspell rcs cvs cvsps libimage-exiftool-perl
 before_script:
   - yes | pecl -q install memcache
   - pear install channel://pear.horde.org/Horde_Role
