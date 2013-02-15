@@ -25,6 +25,8 @@ class Horde_Share_Sqlng_MysqlTest extends Horde_Share_Test_Sqlng_Base
         if ($config && !empty($config['share']['sql']['mysql'])) {
             self::$db = new Horde_Db_Adapter_Mysql($config['share']['sql']['mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysql configuration';
         }
     }
 }

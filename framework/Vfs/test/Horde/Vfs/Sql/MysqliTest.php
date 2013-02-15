@@ -26,6 +26,8 @@ class Horde_Vfs_Sql_MysqliTest extends Horde_Vfs_Test_Sql_Base
         if ($config && !empty($config['vfs']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['vfs']['sql']['mysqli']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysqli configuration';
         }
     }
 }
