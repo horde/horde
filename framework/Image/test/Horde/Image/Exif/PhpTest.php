@@ -12,11 +12,6 @@ class Horde_Image_Exif_PhpTest extends Horde_Image_Exif_TestBase
 {
     public static function setUpBeforeClass()
     {
-        $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG',
-                                  __DIR__ . '/..');
-        if ($config && !empty($config['image']['exiftool'])) {
-            self::$_exif = new Horde_Image_Exif_Php();
-            parent::setUpBeforeClass();
-        }
+        self::$_exif = new Horde_Image_Exif_Php();
     }
 }

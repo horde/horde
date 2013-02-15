@@ -20,17 +20,9 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
      */
     protected static $_data;
 
-    public function setUp()
-    {
-        if (self::$_exif === null) {
-            $this->markTestSkipped('Setup is missing!');
-        }
-    }
-
     /**
-     * Tests ability to extract EXIF data without errors. Does not test
-     * data for validity.
-     *
+     * Tests ability to extract EXIF data without errors. Does not test data
+     * for validity.
      */
     public function testExtract()
     {
@@ -41,7 +33,6 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
     }
 
     /**
-     *
      * @depends testExtract
      */
     public function testKeywordIsString()

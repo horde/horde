@@ -12,11 +12,16 @@ class Horde_Image_Exif_ExiftoolTest extends Horde_Image_Exif_TestBase
 {
     public static function setUpBeforeClass()
     {
-        $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG',
-                                  __DIR__ . '/..');
+        $config = self::getConfig('IMAGE_EXIF_TEST_CONFIG', __DIR__ . '/..');
         if ($config && !empty($config['image']['exiftool'])) {
             self::$_exif = new Horde_Image_Exif_Exiftool(array('exiftool' => $config['image']['exiftool']));
-            parent::setUpBeforeClass();
+        }
+    }
+
+    public function setUp()
+    {
+        if (self::$_exif === null) {
+            $this->markTestSkipped('No exiftool configuration');
         }
     }
 
