@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Image_Test_Exif_Base extends Horde_Test_Case
+class Horde_Image_Exif_TestBase extends Horde_Test_Case
 {
     /**
      * @var Horde_Image_Exif_Base
@@ -49,11 +49,17 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
         $this->_testKeywordIsString();
     }
 
+    /**
+     * @depends testExtract
+     */
     public function testKeywords()
     {
         $this->_testKeywords();
     }
 
+    /**
+     * @depends testExtract
+     */
     public function testGPS()
     {
         $lat = self::$_data['GPSLatitude'];
