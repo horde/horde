@@ -79,10 +79,10 @@ class Horde_ActiveSync_Utils
                 $type = 'unknown' . ord($uri{0});
                 break;
             }
-           $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
-           $arr_ret[$type] = $value['Value'];
-           $pos = 2 + $lenToken;
-           $uri = substr($uri, $pos);
+            $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
+            $arr_ret[$type] = $value['Value'];
+            $pos = 2 + $lenToken;
+            $uri = substr($uri, $pos);
         }
         return $arr_ret;
     }
