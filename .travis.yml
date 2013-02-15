@@ -6,7 +6,7 @@ before_install:
   - sudo locale-gen de_DE.UTF-8 tr_TR.UTF-8
   - sudo apt-get install -qq libwbxml2-utils
 before_script:
-  - yes | pecl install memcache
+  - yes | pecl -q install memcache
   - pear install channel://pear.horde.org/Horde_Role
   - pear install channel://pear.phpunit.de/PHPUnit_Story
   - ./framework/bin/pear_batch_install
