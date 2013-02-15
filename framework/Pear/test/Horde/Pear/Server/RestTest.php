@@ -39,7 +39,7 @@ extends Horde_Pear_TestCase
         }
         $config = self::getConfig('PEAR_TEST_CONFIG');
         if ($config && !empty($config['pear']['server'])) {
-            $this->_server = 'http://' . $config['pear']['server'];
+            $this->_server = $config['pear']['server'];
         } else {
             $this->markTestSkipped('Missing configuration!');
         }
