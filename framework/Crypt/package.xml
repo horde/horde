@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:26:40</time>
+ <date>2013-02-15</date>
+ <time>14:28:45</time>
  <version>
   <release>2.1.3</release>
   <api>1.2.0</api>
@@ -330,6 +330,7 @@
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <file name="AllTests.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
       <file name="PgpTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
@@ -496,6 +497,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
    <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
    <install as="Horde/Crypt/bootstrap.php" name="test/Horde/Crypt/bootstrap.php" />
+   <install as="Horde/Crypt/conf.php.dist" name="test/Horde/Crypt/conf.php.dist" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
    <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
    <install as="Horde/Crypt/phpunit.xml" name="test/Horde/Crypt/phpunit.xml" />
@@ -874,7 +876,7 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 
