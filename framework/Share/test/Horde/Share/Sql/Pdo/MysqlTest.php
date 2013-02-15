@@ -19,6 +19,7 @@ class Horde_Share_Sql_Pdo_MysqlTest extends Horde_Share_Test_Sql_Base
     {
         if (!extension_loaded('pdo') ||
             !in_array('mysql', PDO::getAvailableDrivers())) {
+            self::$reason = 'No mysql extension or no mysql PDO driver';
             return;
         }
         $config = self::getConfig('SHARE_SQL_PDO_MYSQL_TEST_CONFIG',

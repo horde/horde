@@ -18,6 +18,7 @@ class Horde_Share_Sql_MysqliTest extends Horde_Share_Test_Sql_Base
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('mysqli')) {
+            self::$reason = 'No mysqli extension';
             return;
         }
         $config = self::getConfig('SHARE_SQL_MYSQLI_TEST_CONFIG',
