@@ -269,16 +269,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * Removes a resource from storage, along with any events in the resource's
      * calendar.
      *
-     * @param Kronolith_Resource $resource  The kronolith resource to remove
+     * @param Kronolith_Resource_Base $resource  The kronolith resource to remove
      *
      * @throws Kronolith_Exception
      */
-    public function delete($resource)
+    public function delete(Kronolith_Resource_Base $resource)
     {
-        if (!($resource instanceof Kronolith_Resource_Base)) {
-            throw new InvalidArgumentException('Argument is not a resource');
-        }
-
         if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
         }
