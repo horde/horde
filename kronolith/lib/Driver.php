@@ -465,7 +465,8 @@ class Kronolith_Driver
         if (count($resources)) {
             $rd = Kronolith::getDriver('Resource');
             foreach ($resources as $uid => $resource) {
-                if ($resource['response'] !== Kronolith::RESPONSE_DECLINED) {
+                if ($resource['response'] !== Kronolith::RESPONSE_DECLINED &&
+                    $resource['response'] !== Kronolith::RESPONSE_NONE) {
                     $r = $rd->getResource($uid);
                     $r->removeEvent($event);
                 }
