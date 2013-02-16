@@ -115,9 +115,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected function _buildResourceEvent($driver_event)
     {
         $resource_event = new $this->_eventClass($this);
-        $resource_event->fromDriver($driver_event->toProperties());
-        $resource_event->id = $driver_event->id;
-        $resource_event->uid = $driver_event->uid;
+        $resource_event->fromDriver($driver_event->toProperties(true));
         $resource_event->calendar = $this->calendar;
 
         return $resource_event;
@@ -138,9 +136,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     {
        $event = new $this->_eventClass($this);
        $driver_event = $this->_driver->getByUID($uid, $calendars, $getAll);
-       $event->fromDriver($driver_event->toProperties());
-       $event->id = $driver_event->id;
-       $event->uid = $driver_event->uid;
+       $event->fromDriver($driver_event->toProperties(true));
        $event->calendar = $this->calendar;
        return $event;
     }
@@ -201,9 +197,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
         } else {
             $delete_event = $this->_driver->getEvent($eventId);
         }
-        $resource_event->fromDriver($delete_event->toProperties());
-        $resource_event->id = $eventId;
-        $resource_event->uid = $delete_event->uid;
+        $resource_event->fromDriver($delete_event->toProperties(true));
         $resource_event->calendar = $this->calendar;
 
         $uid = $delete_event->uid;

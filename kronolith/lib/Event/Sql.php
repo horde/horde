@@ -157,11 +157,20 @@ class Kronolith_Event_Sql extends Kronolith_Event
 
     /**
      * Prepares this event to be saved to the backend.
+     *
+     * @param boolean $full  Return full data, including uid and id.
+     *
+     * @return array  The event properties.
      */
-    public function toProperties()
+    public function toProperties($full = false)
     {
         $driver = $this->getDriver();
         $properties = array();
+
+        if ($full) {
+            $properties['event_id'] = $this->id;
+            $properties['event_uid'] = $this->uid;
+        }
 
         /* Basic fields. */
         $properties['event_creator_id'] = $driver->convertToDriver($this->creator);
