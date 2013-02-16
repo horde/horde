@@ -127,6 +127,9 @@ EOT;
 
             $tmp = new Horde_Script_File_JsDir('lightbox.js');
             echo $tmp->tag_full;
+
+            $page_output->outputInlineScript();
+
             $html = Horde::endBuffer();
 
             return $html . $view->render('gallery');
