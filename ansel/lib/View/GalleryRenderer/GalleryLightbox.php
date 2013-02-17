@@ -82,6 +82,27 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             }
         }
 
+        // Set up the pager
+        $date_params = Ansel::getDateParameter(array(
+            'year' => !empty($this->view->year) ? $this->view->year : 0,
+            'month' => !empty($this->view->month) ? $this->view->month : 0,
+            'day' => !empty($this->view->day) ? $this->view->day : 0));
+
+        if (!empty($this->view->gallery_view_url)) {
+            $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
+            $pagerurl->add($date_params)->setRaw(true);
+        } else {
+            // Build the pager url. Add the needed variables directly to the
+            // url instead of passing it as a preserved variable to the pager
+            // since the logic to build the URL is already in getUrlFor()
+            $pager_params = array_merge(
+                array('gallery' => $this->galleryId,
+                      'view' => 'Gallery',
+                      'slug' => $this->view->gallery->get('slug')),
+                $date_params);
+            $pagerurl = Ansel::getUrlfor('view', $pager_params, true);
+        }
+
         $graphics_dir = Horde::url(Horde_Themes::img(), true, -1);
         $image_text = _("Photo");
         $of = _("of");
