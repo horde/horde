@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-11</date>
- <time>22:56:36</time>
+ <date>2013-02-17</date>
+ <time>14:07:08</time>
  <version>
   <release>2.2.0</release>
   <api>2.2.0</api>
@@ -585,7 +585,7 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-02-17</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Can&apos;t add charset directly to HTML document or else DOM will alter document when generating HTML.
