@@ -355,8 +355,12 @@ implements Serializable, Horde_Perms_Permission_Kolab_Storage
      */
     public function hasPermission($userid, $permission, $creator = null)
     {
+        $owner = $this->getOwner();
+        if ($userid !== false && $userid == $owner) {
+            return (bool)($this->getPermission()->getOwnerPermissions() & $permission);
+        }
         if (empty($creator)) {
-            $creator = $this->getOwner();
+            $creator = $owner;
         }
         return $this->getShareOb()->getPermsObject()->hasPermission($this->getPermission(), $userid, $permission, $creator);
     }

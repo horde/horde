@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2087,7 +2087,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
    </notes>
   </release>
  </changelog>

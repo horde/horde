@@ -26,6 +26,8 @@ class Horde_Prefs_Unit_Storage_Sql_MysqlTest extends Horde_Prefs_Test_Sql_Base
         if ($config && !empty($config['prefs']['sql']['mysql'])) {
             self::$db = new Horde_Db_Adapter_Mysql($config['prefs']['sql']['mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysql configuration';
         }
     }
 }

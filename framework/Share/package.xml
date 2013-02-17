@@ -35,7 +35,7 @@ owns or has access to.</description>
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix testing for owner and user permissions in Kolab shares.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -405,7 +405,7 @@ owns or has access to.</description>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -951,7 +951,7 @@ Initial release as a PEAR package
    <date>2013-01-30</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix testing for owner and user permissions in Kolab shares.
    </notes>
   </release>
  </changelog>

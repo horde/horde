@@ -1,19 +1,5 @@
 <?php
 /**
- * Maps Horde permission elements into Kolab_Storage ACL.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Perms
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Perms
- */
-
-/**
- * Maps Horde permission elements into Kolab_Storage ACL.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -25,15 +11,24 @@
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Perms_Permission_Kolab_ElementIterator
-implements IteratorAggregate
+
+/**
+ * Maps Horde permission elements into Kolab_Storage ACL.
+ *
+ * @category Horde
+ * @package  Perms
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @link     http://pear.horde.org/index.php?package=Perms
+ */
+class Horde_Perms_Permission_Kolab_ElementIterator implements IteratorAggregate
 {
     /**
      * The Horde permission elements.
      *
      * @var array
      */
-    private $_elements = array();
+    protected $_elements = array();
 
     /**
      * Constructor.

@@ -181,7 +181,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
         $this->assertFileExists($path);
         $this->assertStringEqualsFile($path, 'some content');
         self::$vfs->delete($dir, $file);
-        $this->assertThat(true, $this->logicalNot($this->fileExists($path)));
+        $this->assertFileNotExists($path);
     }
 
     static public function setUpBeforeClass()

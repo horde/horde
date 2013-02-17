@@ -437,10 +437,12 @@ extends PHPUnit_Framework_TestCase
     {
         $share = $this->_getPrefilledDriver();
         $object = $share->newShare('john', 'IGNORED', 'Test');
+        $object->addUserPermission('tina', Horde_Perms::SHOW);
         $share->addShare($object);
         $this->assertEquals(
-            30,
-            $share->getShareById($this->_getId('john', 'Test'))->getPermission()->getCreatorPermissions()
+            array('tina' => Horde_Perms::SHOW),
+            $share->getShareById($this->_getId('john', 'Test'))
+                ->getPermission()->getUserPermissions()
         );
     }
 
@@ -452,18 +454,18 @@ extends PHPUnit_Framework_TestCase
         $share->addShare($object);
         $this->assertTrue(
             $share->getShareById($this->_getId('john', 'Test'))
-            ->hasPermission('tina', Horde_Perms::SHOW)
+                ->hasPermission('tina', Horde_Perms::SHOW)
         );
     }
 
-    public function testCreatorPermission()
+    public function testOwnerPermission()
     {
         $share = $this->_getPrefilledDriver();
         $object = $share->newShare('john', 'IGNORED', 'Test');
         $share->addShare($object);
         $this->assertTrue(
             $share->getShareById($this->_getId('john', 'Test'))
-            ->hasPermission('john', Horde_Perms::SHOW)
+                ->hasPermission('john', Horde_Perms::SHOW)
         );
     }
 

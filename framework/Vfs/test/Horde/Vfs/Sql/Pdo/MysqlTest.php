@@ -27,6 +27,8 @@ class Horde_Vfs_Sql_Pdo_MysqlTest extends Horde_Vfs_Test_Sql_Base
         if ($config && !empty($config['vfs']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['vfs']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_mysql configuration';
         }
     }
 }

@@ -63,10 +63,9 @@ class Horde_SessionHandler_Storage_MemcacheTest extends Horde_SessionHandler_Sto
         $config = self::getConfig('SESSIONHANDLER_MEMCACHE_TEST_CONFIG',
                                   dirname(__FILE__) . '/..');
         if (!$config || empty($config['sessionhandler']['memcache'])) {
-            self::$reason = 'No memcache configuration';
-            return;
+            $config['sessionhandler']['memcache'] = array();
         }
-        $memcache = new Horde_Memcache($config);
+        $memcache = new Horde_Memcache($config['sessionhandler']['memcache']);
         $memcache->delete('sessionid');
         $memcache->delete('sessionid2');
         self::$handler = new Horde_SessionHandler_Storage_Memcache(

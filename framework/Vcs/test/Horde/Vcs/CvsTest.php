@@ -17,7 +17,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
     public function setUp()
     {
         if (!self::$conf) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('No test configuration');
         }
         $conf = self::$conf;
         $conf['paths']['cvsps_home'] = Horde_Util::createTempDir(

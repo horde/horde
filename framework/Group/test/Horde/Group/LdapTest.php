@@ -12,6 +12,8 @@ class Horde_Group_LdapTest extends Horde_Group_TestBase
 {
     protected static $ldap;
 
+    protected static $reason;
+
     public function testCreate()
     {
         $this->_create();
@@ -116,6 +118,7 @@ class Horde_Group_LdapTest extends Horde_Group_TestBase
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('ldap')) {
+            self::$reason = 'No ldap extension';
             return;
         }
         $config = self::getConfig('GROUP_LDAP_TEST_CONFIG');
@@ -123,6 +126,8 @@ class Horde_Group_LdapTest extends Horde_Group_TestBase
             self::$ldap = new Horde_Ldap($config['group']['ldap']);
             $config['group']['ldap']['ldap'] = self::$ldap;
             self::$group = new Horde_Group_Ldap($config['group']['ldap']);
+        } else {
+            self::$reason = 'No ldap configuration';
         }
     }
 
@@ -147,7 +152,7 @@ class Horde_Group_LdapTest extends Horde_Group_TestBase
     public function setUp()
     {
         if (!self::$ldap) {
-            $this->markTestSkipped('No ldap extension or no ldap configuration');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

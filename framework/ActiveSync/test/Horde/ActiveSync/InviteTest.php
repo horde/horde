@@ -27,6 +27,7 @@ class Horde_ActiveSync_InviteTest extends Horde_Test_Case
      */
     public function testInvite()
     {
+        $this->markTestIncomplete('Has issues on 32bit systems');
         $fixture = file_get_contents(__DIR__ . '/fixtures/invitation_one.eml');
         $mime = Horde_Mime_Part::parseMessage($fixture);
         $msg = new Horde_ActiveSync_Message_MeetingRequest();

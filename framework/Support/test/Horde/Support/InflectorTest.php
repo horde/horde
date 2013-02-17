@@ -82,7 +82,7 @@ class Horde_Support_InflectorTest extends PHPUnit_Framework_TestCase
 
     public function testTitleize()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
     /**
@@ -173,12 +173,12 @@ class Horde_Support_InflectorTest extends PHPUnit_Framework_TestCase
 
     public function testForeignKey()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
     public function testOrdinalize()
     {
-        $this->markTestSkipped();
+        $this->markTestIncomplete();
     }
 
 

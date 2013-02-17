@@ -1251,6 +1251,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($headers->getValue('Content-Transfer-Encoding')) {
                     $copy->setTransferEncoding($headers->getValue('Content-Transfer-Encoding'), array('send' => true));
                 }
+                $headers = $copy->addMimeHeaders(array('headers' => $headers));
+
                 $msg = $copy->toString(array('headers' => $headers->toString(array('charset' => 'UTF-8')), 'stream' => true));
                 $this->_imap->appendMessage($sf, $msg, $flags);
             }

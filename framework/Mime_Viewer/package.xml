@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Spreadsheet conversion now works without using temporary files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -971,7 +971,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Spreadsheet conversion now works without using temporary files.
    </notes>
   </release>
  </changelog>

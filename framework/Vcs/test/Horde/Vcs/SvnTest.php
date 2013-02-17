@@ -17,7 +17,7 @@ class Horde_Vcs_SvnTest extends Horde_Vcs_TestBase
     public function setUp()
     {
         if (!self::$conf) {
-            $this->markTestSkipped();
+            $this->markTestSkipped('No test configuration');
         }
         $this->vcs = Horde_Vcs::factory(
             'Svn',

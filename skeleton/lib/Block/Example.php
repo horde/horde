@@ -1,6 +1,9 @@
 <?php
 /**
- * @package Skeleton
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
  */
 class Skeleton_Block_Example extends Horde_Core_Block
 {

@@ -62,15 +62,27 @@ class Horde_Mime_Viewer_Msexcel extends Horde_Mime_Viewer_Base
             return array();
         }
 
-        $tmp_in = $this->_getTempFile();
-        $tmp_out = $this->_getTempFile();
+        $process = proc_open(
+            escapeshellcmd($location) . ' --import-type=Gnumeric_Excel:excel --export-type=Gnumeric_html:html40 fd://0 fd://1',
+            array(
+                0 => array('pipe', 'r'),
+                1 => array('pipe', 'w')
+            ),
+            $pipes
+        );
 
-        file_put_contents($tmp_in, $this->_mimepart->getContents());
+        if (is_resource($process)) {
+            fwrite($pipes[0], $this->_mimepart->getContents());
+            fclose($pipes[0]);
 
-        exec($location . ' -E Gnumeric_Excel:excel_dsf -T Gnumeric_html:html40 ' . $tmp_in . ' ' . $tmp_out);
+            $out = stream_get_contents($pipes[1]);
+            fclose($pipes[1]);
+        } else {
+            $out = '';
+        }
 
         return $this->_renderReturn(
-            file_get_contents($tmp_out),
+            $out,
             'text/html; charset=UTF-8'
         );
     }

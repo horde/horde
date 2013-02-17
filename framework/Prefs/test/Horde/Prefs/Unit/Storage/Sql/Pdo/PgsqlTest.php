@@ -27,6 +27,8 @@ class Horde_Prefs_Unit_Storage_Sql_Pdo_PgsqlTest extends Horde_Prefs_Test_Sql_Ba
         if ($config && !empty($config['prefs']['sql']['pdo_pgsql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['prefs']['sql']['pdo_pgsql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_pgsql configuration';
         }
     }
 }

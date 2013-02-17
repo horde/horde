@@ -171,6 +171,8 @@ class Horde_Vfs_Ssh2Test extends Horde_Vfs_TestBase
         $config = self::getConfig('VFS_SSH2_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ssh2'])) {
             self::$vfs = Horde_Vfs::factory('Ssh2', $config['vfs']['ssh2']);
+        } else {
+            self::$reason = 'No ssh2 configuration';
         }
     }
 

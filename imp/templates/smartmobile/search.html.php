@@ -4,7 +4,7 @@
  </div>
 
  <div data-role="content" class="ui-body">
-  <form id="imp-search-form" action="#">
+  <form id="imp-search-form" action="#search-submit">
    <label for="imp-search-by"><?php echo _("Search By") ?></label>
    <select id="imp-search-by" name="">
     <option value="all"><?php echo _("Entire Message") ?></option>

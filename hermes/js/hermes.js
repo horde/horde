@@ -509,11 +509,12 @@ HermesCore = {
      *
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
+     * @param cache  The cache to replace the data in (time|search)
      */
     replaceSliceInCache: function(sid, slice, cache)
     {
         if (!cache) {
-            cache = time;
+            cache = 'time';
         }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {

@@ -8,7 +8,7 @@
  * @subpackage UnitTests
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Image_Test_Exif_Base extends Horde_Test_Case
+class Horde_Image_Exif_TestBase extends Horde_Test_Case
 {
     /**
      * @var Horde_Image_Exif_Base
@@ -20,17 +20,9 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
      */
     protected static $_data;
 
-    public function setUp()
-    {
-        if (self::$_exif === null) {
-            $this->markTestSkipped('Setup is missing!');
-        }
-    }
-
     /**
-     * Tests ability to extract EXIF data without errors. Does not test
-     * data for validity.
-     *
+     * Tests ability to extract EXIF data without errors. Does not test data
+     * for validity.
      */
     public function testExtract()
     {
@@ -41,7 +33,6 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
     }
 
     /**
-     *
      * @depends testExtract
      */
     public function testKeywordIsString()
@@ -49,17 +40,23 @@ class Horde_Image_Test_Exif_Base extends Horde_Test_Case
         $this->_testKeywordIsString();
     }
 
+    /**
+     * @depends testExtract
+     */
     public function testKeywords()
     {
         $this->_testKeywords();
     }
 
+    /**
+     * @depends testExtract
+     */
     public function testGPS()
     {
         $lat = self::$_data['GPSLatitude'];
         $lon = self::$_data['GPSLongitude'];
         $this->assertEquals(44.3535, $lat);
-        $this->assertEquals(-68.223, $lon);
+        $this->assertEquals(68.223, $lon);
     }
 
     protected function _testKeywords()
