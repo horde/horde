@@ -46,9 +46,9 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
     public function testDirectory()
     {
         $dir = $this->vcs->getDirectory('');
+        $dir->applySort();
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $files = $dir->getFiles();
-        var_dump($files);
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $files[0]);
@@ -58,6 +58,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $this->assertEquals(array(), $dir->getBranches());
 
         $dir = $this->vcs->getDirectory('dir1');
+        $dir->applySort();
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $this->assertEquals(array(), $dir->getDirectories());
         $files = $dir->getFiles();

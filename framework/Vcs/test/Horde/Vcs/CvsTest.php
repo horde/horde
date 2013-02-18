@@ -48,6 +48,7 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
     public function testDirectory()
     {
         $dir = $this->vcs->getDirectory('module');
+        $dir->applySort();
         $this->assertInstanceOf('Horde_Vcs_Directory_Cvs', $dir);
         $this->assertEquals(array('dir1'), $dir->getDirectories());
         $files = $dir->getFiles();
