@@ -13,8 +13,8 @@
  <date>2013-02-08</date>
  <time>16:11:29</time>
  <version>
-  <release>2.6.1</release>
-  <api>2.6.0</api>
+  <release>2.7.0</release>
+  <api>2.7.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Ensure that a FETCH call will not exceed maximum allowed command length on the IMAP server (Bug #12001).
+* [mms] Add Horde_Imap_Client_ids#split().
 * [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
 * [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
  </notes>
@@ -1518,14 +1520,16 @@
   </release>
   <release>
    <version>
-    <release>2.6.1</release>
-    <api>2.6.0</api></version>
+    <release>2.7.0</release>
+    <api>2.7.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-02-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Ensure that a FETCH call will not exceed maximum allowed command length on the IMAP server (Bug #12001).
+* [mms] Add Horde_Imap_Client_ids#split().
 * [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
 * [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
    </notes>

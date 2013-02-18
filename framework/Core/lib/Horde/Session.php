@@ -172,6 +172,12 @@ class Horde_Session
      */
     public function start()
     {
+        /* Limit session ID to 32 bytes. Session IDs are NOT cryptographically
+         * secure hashes. Instead, they are nothing more than a way to
+         * generate random strings. */
+        ini_set('session.hash_function', 0);
+        ini_set('session.hash_bits_per_character', 5);
+
         session_start();
         $this->_active = true;
         $this->_data = &$_SESSION;
