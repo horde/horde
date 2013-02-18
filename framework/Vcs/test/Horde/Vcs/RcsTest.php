@@ -48,6 +48,7 @@ class Horde_Vcs_RcsTest extends Horde_Vcs_TestBase
         $dir = $this->vcs->getDirectory('');
         $this->assertInstanceOf('Horde_Vcs_Directory_Rcs', $dir);
         $files = $dir->getFiles();
+        var_dump($files);
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Rcs', $files[0]);
