@@ -304,6 +304,8 @@ var ImpMobile = {
                 return;
             }
             params.checkcache = 1;
+        } else {
+            params.initial = 1;
         }
 
         HordeMobile.doAction(

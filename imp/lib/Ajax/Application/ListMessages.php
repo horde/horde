@@ -310,7 +310,7 @@ class IMP_Ajax_Application_ListMessages
                 : (isset($rownum) ? ($rownum + 1) : null);
 
         /* Determine the row slice to process. */
-        if (is_null($rownum)) {
+        if (is_null($rownum) || isset($args['slice_start'])) {
             $slice_start = $args['slice_start'];
             $slice_end = $args['slice_end'];
         } else {
@@ -321,7 +321,9 @@ class IMP_Ajax_Application_ListMessages
             } elseif ($slice_end > $msgcount) {
                 $slice_start -= $slice_end - $msgcount;
             }
+        }
 
+        if (!is_null($rownum)) {
             $result->rownum = $rownum;
         }
 
