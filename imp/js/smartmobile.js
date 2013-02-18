@@ -355,9 +355,11 @@ var ImpMobile = {
             if (r.metadata.readonly || r.metadata.nodelete) {
                 ob.readonly = 1;
             }
+            ob.innocent = r.metadata.innocent_show;
             ob.label = r.metadata.slabel
                 ? r.metadata.slabel
                 : r.label;
+            ob.spam = r.metadata.spam_show;
         }
         ob.cacheid = r.cacheid;
         if (r.data_reset) {
@@ -642,7 +644,7 @@ var ImpMobile = {
                     break;
 
                 case 'imp-message-innocent':
-                    skip = (ImpMobile.mailbox != IMP.conf.spam_mbox && !IMP.conf.spam_innocent_spammbox);
+                    skip = !cache.innocent;
                     break;
 
                 case 'imp-message-next':
@@ -654,7 +656,7 @@ var ImpMobile = {
                     break;
 
                 case 'imp-message-spam':
-                    skip = (ImpMobile.mailbox == IMP.conf.spam_mbox && !IMP.conf.spam_spammbox);
+                    skip = !cache.spam;
                     break;
                 }
             }
@@ -1131,21 +1133,23 @@ var ImpMobile = {
      */
     swipeButtons: function(e, ob)
     {
+        var cache = ImpMobile.cache[ImpMobile.mailbox];
+
         $.each($('#imp-mailbox-buttons').children(), function(k, v) {
             var add = true;
             v = $(v);
 
             switch (v.jqmData('swipe')) {
             case 'delete':
-                add = !ImpMobile.cache[ImpMobile.mailbox].readonly;
+                add = !cache.readonly;
                 break;
 
             case 'innocent':
-                add = (ImpMobile.mailbox == IMP.conf.spam_mbox || IMP.conf.spam_innocent_spammbox);
+                add = cache.innocent;
                 break;
 
             case 'spam':
-                add = (ImpMobile.mailbox != IMP.conf.spam_mbox || IMP.conf.spam_spammbox);
+                add = cache.spam;
                 break;
             }
 

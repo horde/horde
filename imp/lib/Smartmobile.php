@@ -137,11 +137,8 @@ class IMP_Smartmobile
                     'draft' => '\\draft',
                     'seen' => '\\seen'
                 ),
-                'innocent_spammbox' => !empty($conf['notspam']['spamfolder']),
                 'mailbox_return' => $prefs->getValue('mailbox_return'),
-                'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH),
-                'spam_mbox' => IMP_Mailbox::formTo($prefs->getValue('spam_folder')),
-                'spam_spammbox' => !empty($conf['spam']['spamfolder'])
+                'qsearchid' => IMP_Mailbox::formTo(IMP_Search::MBOX_PREFIX . IMP_Search::DIMP_QUICKSEARCH)
             )),
 
             /* Gettext strings. */

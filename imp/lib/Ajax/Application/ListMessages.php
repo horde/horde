@@ -47,7 +47,7 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $injector;
+        global $conf, $injector, $notification, $registry;
 
         $initial = $args['initial'];
         $is_search = false;
@@ -118,7 +118,7 @@ class IMP_Ajax_Application_ListMessages
         }
 
         /* Set the current time zone. */
-        $GLOBALS['registry']->setTimeZone();
+        $registry->setTimeZone();
 
         /* Run filters now. */
         if (!empty($args['applyfilter'])) {
@@ -203,11 +203,19 @@ class IMP_Ajax_Application_ListMessages
                     $md->templates = 1;
                 }
             } elseif ($mbox->spam) {
-                $md->spam = 1;
+                $md->innocent_show = 1;
+                if (!empty($conf['spam']['spamfolder'])) {
+                    $md->spam_show = 1;
+                }
+            } else {
+                if (empty($conf['notspam']['spamfolder'])) {
+                    $md->innocent_show = 1;
+                }
+                $md->spam_show = 1;
             }
 
             if ($is_search) {
-                $md->search = 1;
+                $md->innocent_show = $md->search = $md->spam_show = 1;
             }
 
             /* Generate flag array. */
@@ -255,7 +263,7 @@ class IMP_Ajax_Application_ListMessages
          * 1 message, we don't need this check. */
         if (empty($msgcount) && !$is_search) {
             if (!$mbox->exists) {
-                $GLOBALS['notification']->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
+                $notification->push(sprintf(_("Mailbox %s does not exist."), $mbox->label), 'horde.error');
             }
 
             if (!empty($args['change'])) {

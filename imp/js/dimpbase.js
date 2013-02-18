@@ -607,9 +607,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
-            var flags, ssc, tmp,
-                innocent = 'show',
-                spam = 'show';
+            var flags, ssc, tmp;
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -678,21 +676,8 @@ var DimpBase = {
                 } else {
                     $('button_resume', 'button_template').compact().invoke('up').invoke('hide');
                     $('button_reply', 'button_forward').compact().invoke('up').invoke('show');
-
-                    if (this.viewport.getMetaData('spam')) {
-                        if (!DimpCore.conf.spam_spammbox) {
-                            spam = 'hide';
-                        }
-                    } else if (DimpCore.conf.innocent_spammbox) {
-                        innocent = 'hide';
-                    }
-
-                    if (tmp = $('button_innocent')) {
-                        [ tmp.up() ].invoke(innocent);
-                    }
-                    if (tmp = $('button_spam')) {
-                        [ tmp.up() ].invoke(spam);
-                    }
+                    [ $('button_innocent') ].compact().invoke('up').invoke(this.viewport.getMetaData('innocent_show') ? 'show' : 'hide');
+                    [ $('button_spam') ].compact().invoke('up').invoke(this.viewport.getMetaData('spam_show') ? 'show' : 'hide');
                 }
 
                 /* Read-only changes. */
