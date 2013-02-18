@@ -404,13 +404,9 @@ class IMP_Imap implements Serializable
                 $ob = new Horde_Imap_Client_Ids();
                 call_user_func_array(array($ob, 'add'), $params);
                 return $ob;
-
-            default:
-                if (!$GLOBALS['registry']->getAuth()) {
-                    throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
-                }
-                break;
             }
+
+            throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
         }
 
         if (!method_exists($this->_ob, $method)) {
