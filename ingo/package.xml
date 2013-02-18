@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
- <time>15:53:36</time>
+ <date>2013-02-18</date>
+ <time>18:11:23</time>
  <version>
   <release>3.0.4</release>
   <api>3.0.0</api>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1203,10 +1203,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-02-18</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
    </notes>
   </release>
  </changelog>
