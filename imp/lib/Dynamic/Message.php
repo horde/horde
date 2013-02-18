@@ -112,7 +112,8 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
 
         $this->view->show_delete = $this->indices->mailbox->access_deletemsgs;
 
-        $spam_mbox = $this->indices->mailbox->spam;
+        list($real_mbox,) = $this->indices->getSingle();
+        $spam_mbox = $real_mbox->spam;
         $this->view->show_innocent = (!empty($conf['notspam']['reporting']) && (!$conf['notspam']['spamfolder'] || $spam_mbox));
         $this->view->show_spam = (!empty($conf['spam']['reporting']) && ($conf['spam']['spamfolder'] || !$spam_mbox));
 
