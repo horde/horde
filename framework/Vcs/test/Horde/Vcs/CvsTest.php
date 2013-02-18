@@ -48,15 +48,15 @@ class Horde_Vcs_CvsTest extends Horde_Vcs_TestBase
     public function testDirectory()
     {
         $dir = $this->vcs->getDirectory('module');
-        $dir->applySort();
+        $dir->applySort(Horde_Vcs::SORT_NAME);
         $this->assertInstanceOf('Horde_Vcs_Directory_Cvs', $dir);
         $this->assertEquals(array('dir1'), $dir->getDirectories());
         $files = $dir->getFiles();
         $this->assertInternalType('array', $files);
         $this->assertEquals(2, count($files));
         $this->assertInstanceOf('Horde_Vcs_File_Cvs', $files[0]);
-        $this->assertEquals('umläüte', $files[0]->getFileName());
-        $this->assertEquals('file1', $files[1]->getFileName());
+        $this->assertEquals('file1', $files[0]->getFileName());
+        $this->assertEquals('umläüte', $files[1]->getFileName());
         $this->assertEquals(2, count($dir->getFiles(true)));
         $this->assertEquals(array('HEAD'), $dir->getBranches());
         // If we ever implement branch listing on directories:
