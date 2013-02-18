@@ -1197,8 +1197,7 @@ var DimpBase = {
                     [ $('ctx_mbox_unsub') ].invoke(tmp ? 'hide' : 'show');
                 }
 
-                if (DimpCore.conf.fixed_mboxes &&
-                    DimpCore.conf.fixed_mboxes.indexOf(baseelt.retrieve('mbox')) != -1) {
+                if (baseelt.retrieve('fixed')) {
                     elts.shift();
                     elts.invoke('hide');
                 } else {
@@ -3172,6 +3171,7 @@ var DimpBase = {
 
         li = new Element('DIV', { className: 'horde-subnavi', title: title })
             .addClassName(cname)
+            .store('fixed', ob.f)
             .store('l', label)
             .store('mbox', ob.m)
             .insert(div)

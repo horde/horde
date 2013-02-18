@@ -173,9 +173,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
             ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
-            'fixed_mboxes' => empty($conf['server']['fixed_folders'])
-                ? array()
-                : array_map(array('IMP_Mailbox', 'formTo'), array_map(array('IMP_Mailbox', 'prefFrom'), $conf['server']['fixed_folders'])),
             'flags' => $flags,
             /* Needed to maintain flag ordering. */
             'flags_o' => array_keys($flags),
