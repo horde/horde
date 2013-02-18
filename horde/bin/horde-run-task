@@ -3,11 +3,6 @@
 /**
  * Script to run a Horde_LoginTasks task and/or system task.
  *
- * Usage: horde-run-task -a [app] -t [taskname] -u [username]
- *   Taskname is the name of the file in the application's SystemTask/Task
- *   directory without the .php extension - this script will automatically
- *   build the full class name.
- *
  * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -29,54 +24,41 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('horde', array('cli' => true));
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, 'a:t:u:');
-if ($options instanceof PEAR_Error) {
-    $cli->fatal($options->getMessage());
-    exit;
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-a', '--app', array(
+    'dest' => 'app',
+    'help' => 'Application name'
+));
+$parser->addOption('-t', '--taskname', array(
+    'dest' => 'taskname',
+    'help' => 'Name of the file in the application\'s SystemTask/Task directory without the .php extension'
+));
+$parser->addOption('-u', '--username', array(
+    'dest' => 'username',
+    'help' => 'Username'
+));
+list($values,) = $parser->parseArgs();
+
+if (!isset($values->app)) {
+    $cli->fatal('Missing application name.');
 }
 
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case 'a':
-        $app = $val[1];
-        break;
-
-    case 't':
-        $taskname = $val[1];
-        break;
-
-    case 'u':
-        $username = $val[1];
-        break;
-    }
+if (!isset($values->taskname)) {
+    $cli->fatal('Missing taskname.');
 }
 
-if (empty($app)) {
-    $cli->fatal('Missing argument to -a.');
-    exit;
+if (!isset($values->username)) {
+    $cli->fatal('Missing username.');
 }
 
-if (empty($taskname)) {
-    $cli->fatal('Missing argument to -t.');
-    exit;
-}
+$registry->setAuth($values->username, array());
+$registry->pushApp($values->app, array('check_perms' => false));
 
-if (empty($username)) {
-    $cli->fatal('Missing argument to -u.');
-    exit;
-}
-
-$registry->setAuth($username, array());
-$registry->pushApp($app, array('check_perms' => false));
-
-$class = $app . '_LoginTasks_SystemTask_' . $taskname;
+$class = $values->app . '_LoginTasks_SystemTask_' . $values->taskname;
 if (!class_exists($class)) {
-    $class = $app . '_LoginTasks_Task_' . $taskname;
+    $class = $values->app . '_LoginTasks_Task_' . $values->taskname;
     if (!class_exists($class)) {
-        $cli->fatal('Could not find task "' . $taskname . '".');
+        $cli->fatal('Could not find task "' . $values->taskname . '".');
     }
 }
 
