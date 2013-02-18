@@ -32,6 +32,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
+        putenv('LANG=C');
         $factory = new Horde_Kolab_Format_Factory();
         $writer = new Horde_Kolab_Storage_Object_Writer_Format(
             $factory
