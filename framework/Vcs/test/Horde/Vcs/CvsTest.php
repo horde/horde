@@ -278,6 +278,7 @@ and here.',
         if (!date_default_timezone_set('Europe/Berlin')) {
             $this->markTestSkipped('Cannot set timezone Europe/Berlin');
         }
+        putenv('TZ=Europe/Berlin');
         $ps = $this->vcs->getPatchset(array('file' => 'module/file1'));
         $this->assertInstanceOf('Horde_Vcs_Patchset_Cvs', $ps);
         $sets = $ps->getPatchsets();
