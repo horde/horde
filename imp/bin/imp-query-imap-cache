@@ -24,37 +24,25 @@ if (file_exists($baseFile)) {
 }
 Horde_Registry::appInit('imp', array('cli' => true));
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, '', array('user=', 'pass=', 'server='));
-
-if (PEAR::isError($options)) {
-    _usage();
-}
-
-$pass = $server = $user = null;
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case '--help':
-        _usage();
-
-    case '--pass':
-        $pass = $val[1];
-        break;
-
-    case '--server':
-        $server = $val[1];
-        break;
-
-    case '--user':
-        $user = $val[1];
-        break;
-    }
-}
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-p', '--pass', array(
+    'action' => 'store',
+    'dest' => 'pass',
+    'help' => 'Password (otherwise, is prompted)'
+));
+$parser->addOption('-s', '--server', array(
+    'dest' => 'server',
+    'help' => 'Server key (otherwise, is prompted)'
+));
+$parser->addOption('-u', '--user', array(
+    'dest' => 'user',
+    'help' => 'Username (otherwise, is prompted)'
+));
+list($values,) = $parser->parseArgs();
 
 $imp_imap = $injector->getInstance('IMP_Imap');
 
+$server = $values->server;
 if (is_null($server)) {
     /* Set first entry to 1, not 0. */
     $sconfig = $slookup = array('');
@@ -75,6 +63,7 @@ if (is_null($server)) {
     $cli->message('Server: ' . $server);
 }
 
+$user = $values->user;
 if (is_null($user)) {
     while (is_null($user)) {
         $user = $cli->prompt('Username:');
@@ -86,6 +75,7 @@ if (is_null($user)) {
     $cli->message('Username: ' . $user);
 }
 
+$pass = $values->pass;
 while (is_null($pass)) {
     $pass = $cli->passwordPrompt('Password:');
     if (!strlen($pass)) {
@@ -311,18 +301,4 @@ while (true) {
         }
         break;
     }
-}
-
-function _usage()
-{
-    global $cli;
-
-    $cli->writeln($cli->bold('Usage: imp-query-imap-cache [--user=username]'));
-    $cli->writeln($cli->bold('                            [--pass=password]'));
-    $cli->writeln($cli->bold('                            [--server=serverkey]'));
-    $cli->writeln();
-    $cli->writeln($cli->indent('--pass    Use this password (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--server  Use this server key (otherwise, is prompted)'));
-    $cli->writeln($cli->indent('--user    Use this username (otherwise, is prompted)'));
-    exit;
 }
