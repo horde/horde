@@ -202,4 +202,37 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testSplit()
+    {
+        // ~5000 non-sequential IDs
+        $ids = new Horde_Imap_Client_Ids(range(1, 10000, 2));
+
+        $split = $ids->split(2000);
+
+        $this->assertGreaterThan(1, count($split));
+
+        foreach (array_slice($split, 0, -1) as $val) {
+            $this->assertGreaterThan(
+                2000,
+                strlen($val)
+            );
+
+            $this->assertNotEquals(
+                ',',
+                substr($val, -1)
+            );
+        }
+
+        $last = array_pop($split);
+        $this->assertLessThan(
+            2001,
+            strlen($last)
+        );
+
+        $this->assertNotEquals(
+            ',',
+            substr($last, -1)
+        );
+    }
+
 }

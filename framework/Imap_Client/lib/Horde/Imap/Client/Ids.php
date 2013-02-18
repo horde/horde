@@ -210,6 +210,29 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     }
 
     /**
+     * Split the sequence string at an approximate length.
+     *
+     * @since 2.7.0
+     *
+     * @param integer $length  Length to split.
+     *
+     * @return array  A list containing individual sequence strings.
+     */
+    public function split($length)
+    {
+        $id = new Horde_Stream_Temp();
+        $id->add($this->tostring_sort, true);
+
+        $out = array();
+
+        do {
+            $out[] = stream_get_contents($id->stream, 2000) . $id->getToChar(',');
+        } while (!feof($id->stream));
+
+        return $out;
+    }
+
+    /**
      * Create an IMAP message sequence string from a list of indices.
      *
      * Index Format: range_start:range_end,uid,uid2,...
