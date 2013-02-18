@@ -1206,6 +1206,10 @@ var ImpMobile = {
 // JQuery Mobile setup
 $(ImpMobile.onDocumentReady);
 
+$(document).on('mobileinit', function() {
+    $.mobile.buttonMarkup.hoverDelay = 80;
+    $.mobile.defaultPageTransition = 'none';
+});
 
 var ImpMobileMbox = {
     // Vars used: cacheid, label, readonly
