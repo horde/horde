@@ -170,6 +170,7 @@ class IMP_Mailbox implements Serializable
     const CACHE_NSEMPTY = 'ne';
     const CACHE_READONLYHOOK = 'roh';
     const CACHE_SPECIALMBOXES = 's';
+    const CACHE_PREFTO = 'pt';
 
     /**
      * Cached data.
@@ -282,7 +283,7 @@ class IMP_Mailbox implements Serializable
      */
     public function __get($key)
     {
-        global $injector;
+        global $conf, $injector;
 
         switch ($key) {
         case 'abbrev_label':
@@ -427,8 +428,8 @@ class IMP_Mailbox implements Serializable
             }
 
         case 'fixed':
-            return (!empty($GLOBALS['conf']['server']['fixed_folders']) &&
-                    in_array($this->pref_to, $GLOBALS['conf']['server']['fixed_folders']));
+            return (!empty($conf['server']['fixed_folders']) &&
+                    in_array($this->pref_to, $conf['server']['fixed_folders']));
 
         case 'form_to':
             return $this->formTo($this->_mbox);
@@ -608,7 +609,10 @@ class IMP_Mailbox implements Serializable
             return $this->prefFrom($this->_mbox);
 
         case 'pref_to':
-            return $this->prefTo($this->_mbox);
+            if (!isset(self::$_temp[self::CACHE_PREFTO])) {
+                self::$_temp[self::CACHE_PREFTO] = $this->prefTo($this->_mbox);
+            }
+            return self::$_temp[self::CACHE_PREFTO];
 
         case 'query':
             return $injector->getInstance('IMP_Search')->isQuery($this->_mbox);
