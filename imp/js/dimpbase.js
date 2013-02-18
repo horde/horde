@@ -3575,7 +3575,7 @@ var DimpBase = {
     /* AJAX tasks handler. */
     tasksHandler: function(e)
     {
-        var t = e.tasks;
+        var t = e.tasks || {};
 
         if (t['imp:message']) {
             this.messageCallback(t['imp:message']);

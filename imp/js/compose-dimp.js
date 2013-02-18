@@ -1078,7 +1078,7 @@ var DimpCompose = {
 
     tasksHandler: function(e)
     {
-        var t = e.tasks;
+        var t = e.tasks || {};
 
         if (t['imp:compose']) {
             this.getCacheElt().setValue(t['imp:compose'].cacheid);
