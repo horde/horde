@@ -73,7 +73,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t) {
+        ajaxopts.onSuccess = function(t) {
             this.doActionComplete(t, opts);
         }.bind(this);
 
@@ -90,7 +90,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t, o) {
+        ajaxopts.onSuccess = function(t, o) {
             this.doActionComplete(t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
