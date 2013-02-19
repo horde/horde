@@ -955,7 +955,7 @@ var DimpCompose = {
         case 'fwdattachnotice':
         case 'fwdbodynotice':
             this.fadeNotice(e.element());
-            DimpCore.doAction('GetForwardData', this.actionParams({
+            DimpCore.doAction('getForwardData', this.actionParams({
                 dataonly: 1,
                 type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
             }), {
