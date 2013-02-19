@@ -44,13 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Storage place for an altered version of the current URL.
-     *
-     * @var string
-     */
-    static public $newUrl = null;
-
-    /**
      * Current mailbox/UID information.
      *
      * @var array
@@ -496,17 +489,25 @@ class IMP
     }
 
     /**
-     * Return a selfURL that has had index/mailbox/actionID information
-     * removed/altered based on an action that has occurred on the present
-     * page.
+     * Create a self URL of the current page, building the parameter list from
+     * the current Horde_Variables object rather than the original request
+     * data
+     *
+     * @param Horde_Url $url  Use this as the base URL.
      *
      * @return Horde_Url  The self URL.
      */
-    static public function selfUrl()
+    static public function selfUrl($url = null)
     {
-        return self::$newUrl
-            ? self::$newUrl->copy()
-            : Horde::selfUrl(true);
+        if (is_null($url)) {
+            $url = Horde::selfUrl();
+        }
+
+        return $url->add(
+            iterator_to_array($GLOBALS['injector']->getInstance('Horde_Variables'))
+        )->remove(
+            array_keys($_COOKIE)
+        );
     }
 
     /**

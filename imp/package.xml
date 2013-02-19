@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).
 * [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
  </notes>
  <contents>
@@ -2933,6 +2934,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).
 * [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
    </notes>
   </release>

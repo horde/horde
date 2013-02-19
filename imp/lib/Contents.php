@@ -833,8 +833,21 @@ class IMP_Contents
             ($id != 0) &&
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
-            $url = Horde::selfUrl(true)->remove(array('actionID', 'imapid', 'uid'))->add(array('actionID' => 'strip_attachment', 'imapid' => $id, 'uid' => $this->_uid, 'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents')));
-            $part['strip'] = Horde::link($url, _("Strip Attachment"), 'iconImg deleteImg stripAtc', null, null, null, null, array('mimeid' => $id)) . '</a>';
+            $part['strip'] = Horde::link(
+                IMP::selfUrl()->add(array(
+                    'actionID' => 'strip_attachment',
+                    'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents'),
+                    'imapid' => $id,
+                    'uid' => $this->_uid
+                )),
+                _("Strip Attachment"),
+                'iconImg deleteImg stripAtc',
+                null,
+                null,
+                null,
+                null,
+                array('mimeid' => $id)
+            ) . '</a>';
         }
 
         return $part;
