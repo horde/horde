@@ -235,7 +235,7 @@ var ViewPort = Class.create({
         this.opts.container = $(opts.container);
         this.opts.pane_data = $(opts.pane_data);
 
-        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ float: 'left' });
+        this.opts.content = new Element('DIV', { className: opts.list_class }).setStyle({ cssFloat: 'left' });
         this.opts.list_container = new Element('DIV');
         if (this.opts.list_header) {
             this.opts.list_container.insert(this.opts.list_header);
@@ -493,7 +493,7 @@ var ViewPort = Class.create({
             h += lh * this.page_size;
             this.opts.list_container.setStyle({
                 height: h + 'px',
-                float: 'none',
+                cssFloat: 'none',
                 overflow: 'hidden',
                 width: 'auto'
             });
@@ -515,7 +515,7 @@ var ViewPort = Class.create({
 
             h += lh * this.page_size - this.opts.container.getLayout().get('border-bottom');
             this.opts.list_container.setStyle({
-                float: 'left',
+                cssFloat: 'left',
                 height: h + 'px'
             });
             this.opts.content.setStyle({ width: sp.vert.width + 'px' });
@@ -538,7 +538,7 @@ var ViewPort = Class.create({
             }
 
             this.opts.list_container.setStyle({
-                float: 'none',
+                cssFloat: 'none',
                 height: (h + (lh * this.page_size)) + 'px',
                 overflow: 'hidden',
                 width: 'auto'
@@ -1147,7 +1147,7 @@ var ViewPort = Class.create({
 
         case 'vert':
             new Drag(sp.currbar.setStyle({
-                float: 'left',
+                cssFloat: 'left',
                 position: 'relative'
             }), {
                 constraint: 'horizontal',
@@ -1347,7 +1347,7 @@ ViewPort_Scroller = Class.create({
         var c = this.vp.opts.content;
 
         // Create the outer div.
-        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ float: 'left', overflow: 'hidden' }).hide();
+        this.scrollDiv = new Element('DIV', { className: 'vpScroll' }).setStyle({ cssFloat: 'left', overflow: 'hidden' }).hide();
         c.insert({ after: this.scrollDiv });
 
         this.scrollDiv.observe('Slider2:change', function() {
