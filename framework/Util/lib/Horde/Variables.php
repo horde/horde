@@ -22,7 +22,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Util
  */
-class Horde_Variables implements Countable, Iterator, ArrayAccess
+class Horde_Variables implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * The list of expected variables.
@@ -384,31 +384,11 @@ class Horde_Variables implements Countable, Iterator, ArrayAccess
         return count($this->_vars);
     }
 
-    /* Iterator methods. */
+    /* IteratorAggregate method. */
 
-    public function current()
+    public function getIterator()
     {
-        return current($this->_vars);
-    }
-
-    public function key()
-    {
-        return key($this->_vars);
-    }
-
-    public function next()
-    {
-        next($this->_vars);
-    }
-
-    public function rewind()
-    {
-        reset($this->_vars);
-    }
-
-    public function valid()
-    {
-        return (key($this->_vars) !== null);
+        return new ArrayIterator($this->_vars);
     }
 
 }
