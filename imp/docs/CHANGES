@@ -2,6 +2,8 @@
 v6.0.5-git
 ----------
 
+[mms] Fix possible issue creating folder tree if multiple special mailboxes
+      appeared in the same branch (Bug #12050).
 
 
 ------

@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2933,7 +2933,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
    </notes>
   </release>
  </changelog>
