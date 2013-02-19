@@ -684,7 +684,9 @@ var DimpCompose = {
     addAttach: function(opts)
     {
         var canvas, img,
-            li = new Element('LI').store('atc_url', opts.url),
+            li = new Element('LI')
+                .store('atc_id', opts.num)
+                .store('atc_url', opts.url),
             span = new Element('SPAN').insert(opts.name.escapeHTML());
 
         if (opts.icon) {
