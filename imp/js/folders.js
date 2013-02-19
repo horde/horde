@@ -158,16 +158,6 @@ var ImpFolders = {
         new Ajax.Request(this.ajax + type + 'Mailboxes', { parameters: { mboxes: Object.toJSON([ e.memo ]) } });
     },
 
-    changeHandler: function(e)
-    {
-        switch (e.element().readAttribute('id')) {
-        case 'action_choose0':
-        case 'action_choose1':
-            this.chooseAction(e);
-            break;
-        }
-    },
-
     clickHandler: function(e)
     {
         switch (e.element().readAttribute('id')) {
@@ -192,7 +182,7 @@ var ImpFolders = {
         HordeCore.initHandler('click');
 
         // Observe actual form element since IE does not bubble change events.
-        $('action_choose0', 'action_choose1').compact().invoke('observe', 'change', this.changeHandler.bindAsEventListener(this));
+        $('action_choose0', 'action_choose1').compact().invoke('observe', 'change', this.chooseAction.bindAsEventListener(this));
 
         if (this.mbox_expand) {
             $('fmanager').observe('Horde_Tree:collapse', this.toggleSubfolder.bindAsEventListener(this, 'collapse'));

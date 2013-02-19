@@ -3719,7 +3719,7 @@ var DimpBase = {
         new Drop('dropbase', this._mboxDropConfig);
 
         // See: http://www.thecssninja.com/javascript/gmail-dragout
-        $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bindAsEventListener(this));
+        $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bind(this));
 
         if (this._getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));

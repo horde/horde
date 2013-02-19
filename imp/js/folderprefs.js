@@ -10,10 +10,9 @@ var ImpFolderPrefs = {
     // Variables defined by other code: origtext, sentmail
     mboxes: {},
 
-    newMboxName: function(e)
+    newMboxName: function(e, f)
     {
-        var mbox, tmp,
-            f = e.element(),
+        var mbox,
             id = f.identify(),
             txt = this.mboxes.get(id),
             newmbox = $(id + '_new'),
@@ -45,18 +44,10 @@ var ImpFolderPrefs = {
             }
             break;
         }
-    },
-
-    onDomLoad: function()
-    {
-        this.mboxes = $H(this.mboxes);
-
-        this.mboxes.keys().each(function(f) {
-            $(f).observe('change', this.newMboxName.bindAsEventListener(this));
-        }, this);
     }
 
 };
 
 document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
 document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));
+document.on('select', '.folderPrefSelect', ImpFolderPrefs.newMboxName.bind(ImpFolderPrefs));

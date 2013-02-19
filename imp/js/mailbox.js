@@ -424,13 +424,6 @@ var ImpMailbox = {
         e.stop();
     },
 
-    submitHandler: function(e)
-    {
-        if (e.element().hasClassName('navbarselect')) {
-            e.stop();
-        }
-    },
-
     onDomLoad: function()
     {
         HordeCore.initHandler('click');
@@ -454,7 +447,7 @@ document.observe('dom:loaded', ImpMailbox.onDomLoad.bind(ImpMailbox));
 
 document.observe('HordeCore:click', ImpMailbox.clickHandler.bindAsEventListener(ImpMailbox));
 document.observe('keydown', ImpMailbox.keyDownHandler.bindAsEventListener(ImpMailbox));
-document.observe('submit', ImpMailbox.submitHandler.bindAsEventListener(ImpMailbox));
+document.on('submit', '.navbarselect', Event.stop);
 
 document.observe('HordeDialog:onClick', function(e) {
     switch (e.element().identify()) {
