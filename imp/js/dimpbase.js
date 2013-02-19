@@ -2792,16 +2792,6 @@ var DimpBase = {
         }
     },
 
-    mouseoverHandler: function(e)
-    {
-        if (DragDrop.Drags.drag) {
-            var elt = e.element();
-            if (elt.hasClassName('exp')) {
-                this._toggleSubFolder(elt.up(), 'tog');
-            }
-        }
-    },
-
     loadingStartHandler: function(e)
     {
         this.loadingImg(e.memo, true);
@@ -3620,7 +3610,11 @@ var DimpBase = {
         DimpCore.conf.sort = $H(DimpCore.conf.sort);
 
         /* Limit to folders sidebar only. */
-        $('foldersSidebar').observe('mouseover', this.mouseoverHandler.bindAsEventListener(this));
+        $('foldersSidebar').on('mouseover', '.exp', function(e, elt) {
+            if (DragDrop.Drags.drag) {
+                this._toggleSubFolder(elt.up(), 'tog');
+            }
+        }.bind(this));
 
         /* Create splitbar for sidebar. */
         this.splitbar = $('horde-slideleft');
