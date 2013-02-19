@@ -334,7 +334,7 @@ $_prefs['pgp_attach_pubkey'] = array(
 $_prefs['pgp_scan_body'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Should the body of text/plain messages be scanned for PGP data?"),
+    'desc' => _("Should the body of plaintext messages be scanned for PGP data?"),
     'help' => 'pgp-option-scan-body',
     'requires' => array('use_pgp')
 );
@@ -555,7 +555,7 @@ $_prefs['delete_attachments_monthly_keep'] = array(
     'advanced' => true,
     'type' => 'number',
     'zero' => true,
-    'desc' => _("Delete old linked attachments after this many months (0 to never delete)?"),
+    'desc' => _("Delete linked attachments after this many months (0 to never delete)?"),
     'help' => 'prefs-delete_attachments_monthly_keep',
     'suppress' => function() {
         return empty($GLOBALS['conf']['compose']['link_attachments']);
@@ -672,7 +672,7 @@ $prefGroups['reply'] = array(
 $_prefs['reply_format'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When replying to a message, use the same format as the original message?")
+    'desc' => _("When replying, use the same format as the original message?")
 );
 
 $_prefs['reply_charset'] = array(
@@ -683,7 +683,7 @@ $_prefs['reply_charset'] = array(
 );
 
 $_prefs['reply_headers'] = array(
-    'desc' => _("Include a brief summary of the header in a reply?"),
+    'desc' => _("Include a brief summary of the original message's header in a reply?"),
     'value' => 0,
     'type' => 'checkbox'
 );
@@ -699,7 +699,7 @@ $_prefs['attrib_text'] = array(
     'value' => _("Quoting %f:"),
     'advanced' => true,
     'type' => 'text',
-    'desc' => _("How to attribute quoted lines in a reply"),
+    'desc' => _("How to attribute quoted lines in a reply?"),
     'help' => 'prefs-attrib_text',
     'requires' => array('reply_quote')
 );
@@ -777,7 +777,7 @@ $_prefs['drafts_folder'] = array(
 $_prefs['close_draft'] = array(
     'value' => 1,
     'type' => 'checkbox',
-    'desc' => _("Should the compose window be closed after saving a draft?")
+    'desc' => _("Close the compose window after saving a draft?")
 );
 
 $_prefs['unseen_drafts'] = array(
@@ -822,7 +822,7 @@ $_prefs['save_attachments'] = array(
         'always' => _("Save attachments"),
         'never' => _("Do not save attachments")
     ),
-    'desc' => _("Should attachments be saved in the sent-mail message?"),
+    'desc' => _("Save attachments in the sent-mail message?"),
     'help' => 'prefs-save_attachments'
 );
 
@@ -876,7 +876,7 @@ $_prefs['purge_sentmail_keep'] = array(
 $prefGroups['addressbooks'] = array(
     'column' => _("Compose"),
     'label' => _("Address Books"),
-    'desc' => _("Select address book sources for adding and searching for addresses."),
+    'desc' => _("Select address book sources for adding/searching."),
    'members' => array(
         'save_recipients', 'display_contact', 'sourceselect', 'add_source'
     ),
@@ -983,7 +983,7 @@ $_prefs['filtering'] = array(
 $_prefs['strip_attachments'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("Show an icon to allow stripping of attachments from messages?"));
+    'desc' => _("Allow attachments to be stripped from messages?"));
 
 $_prefs['alternative_display'] = array(
     'value' => 'html',
@@ -993,7 +993,7 @@ $_prefs['alternative_display'] = array(
         'html' => _("HTML part"),
         'text' => _("Plaintext part")
     ),
-    'desc' => _("For messages with alternative representations of the text part, which part should be displayed?"),
+    'desc' => _("For messages with alternative representations of a text part, which part should be displayed?"),
     'suppress' => function() {
         $mock_part = new Horde_Mime_Part();
         $mock_part->setType('text/html');
@@ -1048,7 +1048,7 @@ $_prefs['show_quoteblocks'] = array(
         'listthread' => _("Hidden in Thread View and List Messages"),
         'hidden' => _("Hidden")
     ),
-    'desc' => _("Should large blocks of quoted text be shown or hidden by default? It can be toggled easily whichever you choose.")
+    'desc' => _("How should large blocks of quoted text be shown by default? (Toggling the block will always be available).")
 );
 
 $_prefs['dim_signature'] = array(
@@ -1095,7 +1095,7 @@ $_prefs['default_msg_charset'] = array(
     'enum' => array_merge(
         array('' => _("Default (US-ASCII)")), $GLOBALS['registry']->nlsconfig->encodings_sort
     ),
-    'desc' => _("The default charset for messages with no charset information:"),
+    'desc' => _("The default charset for messages:"),
     'help' => 'prefs-default_msg_charset'
 );
 
@@ -1157,7 +1157,7 @@ $_prefs['delete_mark_seen'] = array(
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Mark messages as Seen when deleting?")
+    'desc' => _("Mark messages as seen when deleting?")
 );
 
 $_prefs['use_trash'] = array(
@@ -1297,7 +1297,7 @@ $_prefs['delete_spam_after_report'] = array(
             1 => _("Delete message")
         );
         if ($GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $enum[2] = _("Move to spam mailbox");
+            $enum[2] = _("Move to Spam mailbox");
         }
         $ui->prefs['delete_spam_after_report']['enum'] = $enum;
     }
@@ -1330,7 +1330,7 @@ $_prefs['purge_spam_interval'] = array(
     'value' => 0,
     'type' => 'enum',
     'enum' => array_merge(array(0 => _("Never")), Horde_LoginTasks::getLabels()),
-    'desc' => _("Purge Spam how often:"),
+    'desc' => _("Purge Spam mailbox how often:"),
     'help' => 'prefs-purge_spam_interval',
     'suppress' => function() {
         return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_FOLDERS);
@@ -1373,7 +1373,7 @@ $_prefs['refresh_time'] = array(
         900 => _("Every 15 minutes"),
         1800 => _("Every half hour")
     ),
-    'desc' => _("Poll for New Mail:"),
+    'desc' => _("Poll for new mail:"),
 );
 
 $_prefs['newmail_notify'] = array(
@@ -1561,10 +1561,11 @@ $_prefs['from_link'] = array(
 $_prefs['atc_flag'] = array(
     // Disabled by default since display requires a bit of extra overhead to
     // obtain the MIME Content-Type of the base portion of the message.
+    // Additionally, this algorithm is not 100% accurate.
     'value' => 0,
     'advanced' => true,
     'type' => 'checkbox',
-    'desc' => _("Display attachment information about a message in the mailbox listing?")
+    'desc' => _("Indicate whether attachments exist in a message in the mailbox listing?")
 );
 
 $_prefs['preview_enabled'] = array(
