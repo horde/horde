@@ -996,7 +996,6 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                         $type = $mime->getType();
 
                         $entry = array(
-                            'fwdattach' => (isset($fwd_msg) && ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)),
                             'name' => $mime->getName(true),
                             'icon' => $v->getIcon($type),
                             'number' => $data->id,
@@ -1005,7 +1004,8 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                             'description' => $mime->getDescription(true)
                         );
 
-                        if (empty($entry['fwdattach']) &&
+                        if (!(isset($fwd_msg) &&
+                              ($fwd_msg['type'] != IMP_Compose::FORWARD_BODY)) &&
                             ($type != 'application/octet-stream')) {
                             $entry['name'] = $data->viewUrl()->link(array(
                                 'class' => 'link',

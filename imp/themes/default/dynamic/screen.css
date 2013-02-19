@@ -710,9 +710,6 @@ div.dimpActionsMsg #windowclose {
 #attach_list span.attachName:hover, #attach_list span.remove:hover {
     color: red;
 }
-#attach_list span.attachNameFwdmsg {
-    font-weight: bold;
-}
 
 #upload_limit {
     color: darkred;

@@ -664,18 +664,6 @@ var DimpCompose = {
         $('to_loading_img').hide();
     },
 
-    forwardAddCallback: function(r)
-    {
-        if (r.type) {
-            switch (r.type) {
-            case 'forward_body':
-                this.removeAttach([ $('attach_list').down() ]);
-                this.setBodyText(r);
-                break;
-            }
-        }
-    },
-
     focusEditor: function()
     {
         try {
@@ -686,13 +674,13 @@ var DimpCompose = {
     },
 
     // opts = (Object)
-    //   fwdattach: (integer) Attachment is forwarded message
     //   icon: (string) Data url of icon data
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
     //   size: (integer) Size, in KB
     //   type: (string) MIME type
     //   url: (string) Data view URL
+    //   view: (boolean) Link to attachment preview page
     addAttach: function(opts)
     {
         var canvas, img,
@@ -711,16 +699,12 @@ var DimpCompose = {
 
         li.insert(span);
 
-        if (opts.fwdattach) {
-            li.insert(' (' + opts.size + ' KB)');
-            span.addClassName('attachNameFwdmsg');
-        } else {
-            canvas.writeAttribute('title', opts.type);
-            li.insert(' (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
-            if (opts.type != 'application/octet-stream') {
-                span.addClassName('attachName');
-            }
+        canvas.writeAttribute('title', opts.type);
+        li.insert(' (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
+        if (opts.view) {
+            span.addClassName('attachName');
         }
+
         $('attach_list').insert(li).show();
 
         this.resizeMsgArea();
@@ -859,7 +843,7 @@ var DimpCompose = {
     /* Click observe handler. */
     clickHandler: function(e)
     {
-        var elt = e.memo.element();
+        var elt = e.memo.element(), tmp;
 
         /* Needed because reply/forward buttons need to be of type="submit"
          * for FF to correctly size. */
@@ -868,8 +852,6 @@ var DimpCompose = {
             e.memo.hordecore_stop = true;
             return;
         }
-
-        var tmp;
 
         switch (e.element().readAttribute('id')) {
         case 'togglebcc':
@@ -953,14 +935,23 @@ var DimpCompose = {
             break;
 
         case 'fwdattachnotice':
+            this.fadeNotice(e.element());
+            DimpCore.doAction('getForwardData', this.actionParams({
+                dataonly: 1,
+                type: 'forward_body'
+            }), {
+                callback: this.setBodyText.bind(this)
+            });
+            this.fwdattach = false;
+            e.memo.stop();
+            break;
+
         case 'fwdbodynotice':
             this.fadeNotice(e.element());
             DimpCore.doAction('getForwardData', this.actionParams({
                 dataonly: 1,
-                type: (e.element().identify() == 'fwdattachnotice' ? 'forward_body' : 'forward_attach')
-            }), {
-                callback: this.forwardAddCallback.bind(this)
-            });
+                type: 'forward_attach'
+            }));
             this.fwdattach = false;
             e.memo.stop();
             break;

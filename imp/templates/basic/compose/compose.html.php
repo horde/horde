@@ -314,18 +314,12 @@
    <td>
     <img style="padding-right:5px" src="<?php echo $v['icon'] ?>" />
     <strong><?php echo $v['name'] ?></strong>
-<?php if ($v['fwdattach']): ?>
-    (<strong><?php echo _("Size") ?>:</strong>
-    <?php echo $v['size'] . ' ' . _("KB") ?>)
-<?php else: ?>
     (<?php echo $this->escape($v['type']) ?>)
     <strong><?php echo _("Size") ?>:</strong>
     <?php echo $v['size'] . ' ' . _("KB") ?>
-<?php endif; ?>
    </td>
   </tr>
   <tr class="item">
-<?php if (!$v['fwdattach']): ?>
    <td style="padding-left:30px">
     <table>
      <tr>
@@ -346,7 +340,6 @@
      </tr>
     </table>
    </td>
-<?php endif; ?>
 <?php endforeach; ?>
   </tr>
  </table>

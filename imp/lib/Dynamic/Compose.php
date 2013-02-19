@@ -148,11 +148,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $result = $imp_compose->forwardMessage($compose_ajax->forward_map[$this->vars->type], $contents);
                 $onload = $compose_ajax->getResponse($result);
 
-                if (in_array($result['type'], array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))) {
-                    $compose_opts['fwdattach'] = true;
-                }
                 $compose_opts['title'] = $result['headers']['title'];
-
                 $show_editor = ($result['format'] == 'html');
             }
 
@@ -199,9 +195,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 $ajax_queue->attachment($imp_compose, $result['type']);
 
-                if (in_array($result['type'], array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))) {
-                    $compose_opts['fwdattach'] = true;
-                }
                 $show_editor = ($result['format'] == 'html');
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e);

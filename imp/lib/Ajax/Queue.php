@@ -85,12 +85,12 @@ class IMP_Ajax_Queue
      *
      * For compose attachment data (key: 'compose-atc'), an array of objects
      * with these properties:
-     *   - fwdattach: (integer) If non-zero, this is a forward attachment
      *   - icon: (string) Data url string containing icon information.
      *   - name: (string) The attachment name
      *   - num: (integer) The current attachment number
      *   - size: (string) The size of the attachment in KB
      *   - type: (string) The MIME type of the attachment
+     *   - view: (boolean) Link to attachment preivew page
      *
      * For compose cacheid data (key: 'compose'), an object with these
      * properties:
@@ -243,16 +243,16 @@ class IMP_Ajax_Queue
 
         foreach ($parts as $val) {
             $mime = $val->getPart();
-            $type = $mime->getType();
+            $mtype = $mime->getType();
 
             $this->_atc[] = array(
-                'fwdattach' => intval(in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH))),
-                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($type)->fs))),
+                'icon' => strval(Horde_Url_Data::create('image/png', file_get_contents($injector->getInstance('Horde_Core_Factory_MimeViewer')->getIcon($mtype)->fs))),
                 'name' => $mime->getName(true),
                 'num' => $val->id,
-                'type' => $type,
+                'type' => $mtype,
                 'size' => $mime->getSize(),
-                'url' => strval($val->viewUrl()->setRaw(true))
+                'url' => strval($val->viewUrl()->setRaw(true)),
+                'view' => intval(!in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)) && ($mtype != 'application/octet-stream'))
             );
         }
     }
