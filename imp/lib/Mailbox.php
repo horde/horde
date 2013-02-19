@@ -1072,7 +1072,7 @@ class IMP_Mailbox implements Serializable
             : $injector->getInstance('IMP_Prefs_Sort_None');
 
         if ($delete) {
-            unset($sortob[$mbox]);
+            unset($sortob[strval($mbox)]);
         } else {
             $change = array();
             if (!is_null($by)) {
@@ -1081,7 +1081,7 @@ class IMP_Mailbox implements Serializable
             if (!is_null($dir)) {
                 $change['dir'] = $dir;
             }
-            $sortob[$mbox] = $change;
+            $sortob[strval($mbox)] = $change;
         }
     }
 
