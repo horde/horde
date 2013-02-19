@@ -1,37 +1,28 @@
 <?php
 /**
- * Test the itip response handling.
- *
- * PHP version 5
- *
- * @category   Horde
- * @package    IMP
- * @subpackage UnitTests
- * @author     Gunnar Wrobel <wrobel@pardus.de>
- * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
- */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
- * Test the itip response handling.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
+ */
+
+/**
+ * Test the itip response handling.
+ *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @author     Gunnar Wrobel <wrobel@pardus.de>
+ * @category   Horde
+ * @copyright 2010-2013 Horde LLC
+ * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
+ * @package    IMP
+ * @subpackage UnitTests
  */
 class Imp_Unit_Mime_Viewer_ItipTest
 extends PHPUnit_Framework_TestCase
@@ -49,8 +40,6 @@ extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        require_once __DIR__ . '/../../../Stub/ItipRequest.php';
-
         $this->_oldtz = date_default_timezone_get();
         date_default_timezone_set('UTC');
 

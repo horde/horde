@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -31,7 +31,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -204,6 +204,13 @@ class Horde_ActiveSync_Message_Base
         throw new BadMethodCallException('Unknown method: ' . $method . ' in class: ' . __CLASS__);
     }
 
+    /**
+     * Magic method.
+     *
+     * @param string $property  The property name to check.
+     *
+     * @return boolean.
+     */
     public function __isset($property)
     {
         return isset($this->_properties[$property]);
@@ -306,7 +313,7 @@ class Horde_ActiveSync_Message_Base
                             if (!isset($this->$map[self::KEY_ATTRIBUTE])) {
                                 $this->$map[self::KEY_ATTRIBUTE] = array($decoded);
                             } else {
-                                array_push($this->$map[self::KEY_ATTRIBUTE], $decoded);
+                                $this->{$map[self::KEY_ATTRIBUTE]}[] = $decoded;
                             }
                             if (!$decoder->getElementEndTag()) {
                                 throw new Horde_ActiveSync_Exception('Missing expected wbxml end tag');

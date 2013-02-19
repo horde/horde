@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,45 +47,6 @@ $share = $GLOBALS['nag_shares']->getShare($tasklist_id);
 if (!$share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::READ)) {
     $notification->push(_("You do not have permission to view this tasklist."), 'horde.error');
     Horde::url('list.php', true)->redirect();
-}
-
-/* Get the task's history. */
-$created = null;
-$modified = null;
-$completed = null;
-$userId = $GLOBALS['registry']->getAuth();
-$createdby = '';
-$modifiedby = '';
-if (!empty($task->uid)) {
-    try {
-        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('nag:' . $tasklist_id . ':' . $task->uid);
-        foreach ($log as $entry) {
-            switch ($entry['action']) {
-            case 'add':
-                $created = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $createdby = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                } else {
-                    $createdby = _("by me");
-                }
-                break;
-
-            case 'modify':
-                $modified = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $modifiedby = sprintf(_("by %s"), Nag::getUserName($entry['who']));
-                } else {
-                    $modifiedby = _("by me");
-                }
-                break;
-
-            case 'complete':
-                if (!empty($entry['ts'])) {
-                    $completed = $entry['ts'];
-                }
-            }
-        }
-    } catch (Exception $e) {}
 }
 
 $links = array();

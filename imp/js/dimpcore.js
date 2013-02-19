@@ -1,7 +1,7 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -33,7 +33,7 @@ var DimpCore = {
             params.set('uid', this.toUIDString(opts.uids));
         }
 
-        HordeCore.doAction(action, params, opts);
+        return HordeCore.doAction(action, params, opts);
     },
 
     // Dimp specific methods.
@@ -177,9 +177,9 @@ var DimpCore = {
             tmp = tmp.down('.largeaddrlist');
             if (limit && alist.limit) {
                 base.down('.largeaddrlistlimit').show();
-                tmp.setText(tmp.textContent.replace('%d', alist.limit));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
             } else {
-                tmp.setText(tmp.textContent.replace('%d', alist.addr.size()));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.addr.size()));
             }
         } else {
             base = elt;
@@ -399,8 +399,11 @@ document.observe('ContextSensitive:click', DimpCore.contextOnClick.bindAsEventLi
 document.observe('ContextSensitive:show', DimpCore.contextOnShow.bindAsEventListener(DimpCore));
 document.observe('ContextSensitive:trigger', DimpCore.contextOnTrigger.bindAsEventListener(DimpCore));
 
-/* Dialog events. */
-document.observe('ImpPassphraseDialog:success', DimpCore.reloadMessage.bind(DimpCore, {}));
+/* Dialog events. Since reloadMessage() can be extended, don't immediately
+ * bind function call now. */
+document.observe('ImpPassphraseDialog:success', function() {
+    DimpCore.reloadMessage({});
+});
 
 /* Notification events. */
 document.observe('HordeCore:showNotifications', function(e) {
@@ -425,7 +428,7 @@ document.observe('IMP_Ajax_Imple_ImageUnblock:do', function(e) {
 /* Disable text selection for everything but compose/message body and FORM
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
-    if (!e.element().up('.messageBody') &&
+    if (!e.findElement('.allowTextSelection') &&
         !e.element().match('SELECT') &&
         !e.element().match('TEXTAREA') &&
         !e.element().match('INPUT')) {

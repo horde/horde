@@ -11,7 +11,7 @@
  *
  * $Horde: hermes/lib/Data/iif.php,v 1.21 2009/01/06 17:50:09 jan Exp $
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -61,7 +61,6 @@ class Hermes_Data_Iif extends Horde_Data_Base
         $this->_mapped = true;
 
         foreach ($this->_rawData as &$row) {
-            $row = $row->toArray();
             $row['description'] = str_replace(array("\r", "\n"), array('', ' '), $row['description']);
             $row['note'] = str_replace(array("\r", "\n"), array('', ' '), $row['note']);
             $this->_iifData[] = array(

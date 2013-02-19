@@ -16,7 +16,7 @@
  * Components_Release_Task_NextVersion:: updates the package.xml file with
  * information about the next component version.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -58,10 +58,14 @@ extends Components_Release_Task_Base
     {
         $api_state = isset($options['next_apistate']) ? $options['next_apistate'] : null;
         $rel_state = isset($options['next_relstate']) ? $options['next_relstate'] : null;
-        $next_version = empty($options['next_version'])
-            ? Components_Helper_Version::nextPearVersion(
-                $this->getComponent()->getVersion())
-            : $options['next_version'];
+        if (empty($options['next_version'])) {
+            if (empty($options['old_version'])) {
+                $options['old_version'] = $this->getComponent()->getVersion();
+            }
+            $next_version = Components_Helper_Version::nextPearVersion($options['old_version']);
+        } else {
+            $next_version = $options['next_version'];
+        }
         $result = $this->getComponent()->nextVersion(
             Components_Helper_Version::validatePear($next_version),
             $options['next_note'],

@@ -1,13 +1,8 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Base.php';
-
-/**
  * Test the file based virtual file system.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,7 +14,7 @@ require_once __DIR__ . '/Base.php';
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
+class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
 {
 
     public function testListEmpty()
@@ -186,7 +181,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_Test_Base
         $this->assertFileExists($path);
         $this->assertStringEqualsFile($path, 'some content');
         self::$vfs->delete($dir, $file);
-        $this->assertThat(true, $this->logicalNot($this->fileExists($path)));
+        $this->assertFileNotExists($path);
     }
 
     static public function setUpBeforeClass()

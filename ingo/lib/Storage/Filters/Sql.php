@@ -3,7 +3,7 @@
  * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
  * rule information.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -197,7 +197,11 @@ class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
         }
 
         /* Remove the rule from the filter list. */
-        parent::deleteRule($id);
+        unset($this->_filters[$id]);
+        $this->_filters = array_combine(
+            range(1, count($this->_filters)),
+            array_values($this->_filters)
+        );
 
         $query = sprintf('UPDATE %s SET rule_order = rule_order - 1 WHERE rule_owner = ? AND rule_order > ?',
                          $this->_params['table_rules']);

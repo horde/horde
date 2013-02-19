@@ -2,7 +2,7 @@
 /**
  * Horde Kronolith driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,7 +22,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     private $_kolab = null;
 
     /**
-     * Internal cache of Kronolith_Event_Kolab. eventID/UID is key
+     * Internal cache of Kronolith_Event_Kolab. eventID is key
      *
      * @var array
      */
@@ -110,15 +110,16 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         // build internal event cache
-        $this->_events_cache = array();
+        $this->_events_cache = $uids = array();
         $events = $this->_data->getObjects();
         foreach ($events as $event) {
-            $this->_events_cache[$event['uid']] = new Kronolith_Event_Kolab($this, $event);
+            $this->_events_cache[Horde_Url::uriB64Encode($event['uid'])] = new Kronolith_Event_Kolab($this, $event);
+            $uids[] = $event['uid'];
         }
-        $tags = Kronolith::getTagger()->getTags(array_keys($this->_events_cache));
-        foreach ($this->_events_cache as $uid => &$event) {
-            if (isset($tags[$uid])) {
-                $event->synchronizeTags($tags[$uid]);
+        $tags = Kronolith::getTagger()->getTags(array_unique($uids));
+        foreach ($this->_events_cache as &$event) {
+            if (isset($tags[$event->uid])) {
+                $event->synchronizeTags($tags[$event->uid]);
             }
         }
 
@@ -255,7 +256,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $endDate->min = $endDate->sec = 59;
 
         $events = array();
-        foreach($this->_events_cache as $event) {
+        foreach ($this->_events_cache as $event) {
             if ($options['has_alarm'] && !$event->alarm) {
                 continue;
             }
@@ -297,7 +298,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
 
         $this->synchronize();
 
-        if (array_key_exists($eventId, $this->_events_cache)) {
+        if (isset($this->_events_cache[$eventId])) {
             return $this->_events_cache[$eventId];
         }
 
@@ -321,25 +322,24 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         if (!is_array($calendars)) {
             $calendars = array_keys(Kronolith::listInternalCalendars(true, Horde_Perms::READ));
         }
+        $id = Horde_Url::uriB64Encode($uid);
 
         foreach ($calendars as $calendar) {
             $this->open($calendar);
             $this->synchronize();
 
-            if (!array_key_exists($uid, $this->_events_cache)) {
+            if (!isset($this->_events_cache[$id])) {
                 continue;
             }
 
             // Ok, found event
-            $event = $this->_events_cache[$uid];
+            $event = $this->_events_cache[$id];
 
             if ($getAll) {
-                $events = array();
-                $events[] = $event;
-                return $events;
-            } else {
-                return $event;
+                return array($event);
             }
+
+            return $event;
         }
 
         throw new Horde_Exception_NotFound(sprintf(_("Event not found: %s"), $uid));
@@ -388,7 +388,8 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             : array('action' => 'add');
 
         if (!$event->uid) {
-            $event->id = $event->uid = $this->_data->generateUID();
+            $event->uid = $this->_data->generateUID();
+            $event->id = Horde_Url::uriB64Encode($event->uid);
         }
 
         $object = $event->toKolab();
@@ -422,7 +423,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
             //Kolab::triggerFreeBusyUpdate($this->_data->parseFolder($event->calendar));
         }
 
-        return $event->uid;
+        return $event->id;
     }
 
     /**
@@ -440,13 +441,15 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         $event = $this->getEvent($eventId);
         $this->synchronize();
 
-        $target = $GLOBALS['injector']->getInstance('Kronolith_Shares')->getShare($newCalendar);
-        $folder = $target->getId();
+        $target = $GLOBALS['injector']
+            ->getInstance('Kronolith_Shares')
+            ->getShare($newCalendar)
+            ->get('folder');
 
-        $this->_data->move($eventId, $folder);
+        $this->_data->move($event->uid, $target);
         unset($this->_events_cache[$eventId]);
         try {
-            $this->_kolab->getData($target->get('folder'), 'contact')->synchronize();
+            $this->_kolab->getData($target, 'event')->synchronize();
         } catch (Kolab_Storage_Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -478,7 +481,7 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
     }
 
     /**
-     * Delete an event.
+     * Deletes an event.
      *
      * @param string $eventId  The ID of the event to delete.
      *
@@ -486,33 +489,20 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
      * @throws Horde_Exception_NotFound
      * @throws Horde_Mime_Exception
      */
-    public function deleteEvent($eventId, $silent = false)
+    protected function _deleteEvent($eventId, $silent = false)
     {
         if ($eventId instanceof Kronolith_Event) {
-            $eventId = $eventId->id;
-        }
-        $this->synchronize();
-
-        if (!$this->_data->objectIdExists($eventId)) {
-            throw new Kronolith_Exception(sprintf(_("Event not found: %s"), $eventId));
+            $event = $eventId;
+            $this->synchronize();
+        } else {
+            $event = $this->getEvent($eventId);
         }
 
-        $event = $this->getEvent($eventId);
-        $this->_data->delete($eventId);
+        $this->_data->delete($event->uid);
 
-        // Notify about the deleted event.
-        if (!$silent) {
-            Kronolith::sendNotification($event, 'delete');
-        }
+        unset($this->_events_cache[$event->id]);
 
-        /* Log the deletion of this item in the history log. */
-        try {
-            $GLOBALS['injector']->getInstance('Horde_History')->log('kronolith:' . $event->calendar . ':' . $event->uid, array('action' => 'delete'), true);
-        } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
-        }
-
-        unset($this->_events_cache[$eventId]);
+        return $event;
     }
 
 }

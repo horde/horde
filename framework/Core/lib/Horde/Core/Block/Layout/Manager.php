@@ -2,7 +2,7 @@
 /**
  * Provides manipulation of block layouts.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,7 +75,6 @@ class Horde_Core_Block_Layout_Manager extends Horde_Core_Block_Layout implements
      * Constructor.
      *
      * @param Horde_Core_Block_Collection $collection  TODO
-     * @param array $layout                            TODO
      */
     public function __construct(Horde_Core_Block_Collection $collection)
     {

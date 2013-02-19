@@ -34,6 +34,7 @@ class Nag_Api extends Horde_Registry_Api
             'default_due' => (bool)$GLOBALS['prefs']->getValue('default_due'),
             'default_due_days' => (int)$GLOBALS['prefs']->getValue('default_due_days'),
             'default_due_time' => $GLOBALS['prefs']->getValue('default_due_time'),
+            'prefs_url' => strval($GLOBALS['registry']->getServiceLink('prefs', 'nag')->setRaw(true)),
         );
     }
 
@@ -1253,7 +1254,11 @@ class Nag_Api extends Horde_Registry_Api
         $tasks->reset();
         while ($task = $tasks->each()) {
             // If there's no due date, it's not a time object.
-            if (!$task->due || $task->due + 1 < $start_ts || $task->due > $end_ts) {
+            if (!$task->due ||
+                $task->due > $end_ts ||
+                (!$task->recurs() && $task->due + 1 < $start_ts) ||
+                ($task->recurs() && $task->recurrence->getRecurEnd() &&
+                 $task->recurrence->getRecurEnd()->timestamp() + 1 < $start_ts)) {
                 continue;
             }
             $due_date = date('Y-m-d\TH:i:s', $task->due);

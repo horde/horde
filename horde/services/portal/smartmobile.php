@@ -2,14 +2,14 @@
 /**
  * Smartmobile portal page.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -26,7 +26,7 @@ $links = $mobile_links = array();
 foreach (array_diff($registry->listApps(), array('horde')) as $app) {
     $name = $registry->get('name', $app);
     $tmp = array(
-        Horde::url('', true, array('app' => $app)),
+        Horde::url($registry->getInitialPage($app)),
         $registry->get('icon', $app)
     );
     if ($registry->hasView($registry::VIEW_SMARTMOBILE, $app)) {

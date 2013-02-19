@@ -2,7 +2,7 @@
 /**
  * Gollem base library.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -31,6 +31,13 @@ class Gollem
      * @var array
      */
     static public $backend;
+
+    /**
+     * Cache for display columns.
+     *
+     * @var array
+     */
+    static protected $_columns;
 
     /**
      * Changes the current directory of the Gollem session to the supplied
@@ -291,7 +298,6 @@ class Gollem
      * @param Horde_Vfs_Base $gollem_vfs  A VFS instance to use.
      *
      * @throws Gollem_Exception
-     * @throws Horde_Vfs_Exception
      */
     static public function createFolder($dir, $name, $gollem_vfs = null)
     {
@@ -309,11 +315,15 @@ class Gollem
         if (!$gollem_vfs) {
             $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
         }
-        $gollem_vfs->autocreatePath($dir);
-        $gollem_vfs->createFolder($dir, $name);
+        try {
+            $gollem_vfs->autocreatePath($dir);
+            $gollem_vfs->createFolder($dir, $name);
 
-        if (!empty(self::$backend['params']['permissions'])) {
-            $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
+            if (!empty(self::$backend['params']['permissions'])) {
+                $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
         }
     }
 
@@ -325,13 +335,17 @@ class Gollem
      * @param string $newDir  New directory name.
      * @param string $old     New file name.
      *
-     * @throws Horde_Vfs_Exception
+     * @throws Gollem_Exception
      */
     static public function renameItem($oldDir, $old, $newDir, $new)
     {
-        $GLOBALS['injector']
-            ->getInstance('Gollem_Vfs')
-            ->rename($oldDir, $old, $newDir, $new);
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Gollem_Vfs')
+                ->rename($oldDir, $old, $newDir, $new);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
 
         $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
         $backend = $GLOBALS['session']->get('gollem', 'backend_key');
@@ -352,7 +366,6 @@ class Gollem
      * @param string $name  The folder name to delete.
      *
      * @throws Gollem_Exception
-     * @throws Horde_Vfs_Exception
      */
     static public function deleteFolder($dir, $name)
     {
@@ -360,11 +373,16 @@ class Gollem
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
 
-        $GLOBALS['injector']
-            ->getInstance('Gollem_Vfs')
-            ->deleteFolder($dir,
-                           $name,
-                           $GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled');
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Gollem_Vfs')
+                ->deleteFolder(
+                    $dir,
+                    $name,
+                    $GLOBALS['prefs']->getValue('recursive_deletes') != 'disabled');
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
 
         $shares = $GLOBALS['injector']->getInstance('Gollem_Shares');
         try {
@@ -385,16 +403,19 @@ class Gollem
      * @param string $name  The filename to delete.
      *
      * @throws Gollem_Exception
-     * @throws Horde_Vfs_Exception
      */
     static public function deleteFile($dir, $name)
     {
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        $GLOBALS['injector']
-            ->getInstance('Gollem_Vfs')
-            ->deleteFile($dir, $name);
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Gollem_Vfs')
+                ->deleteFile($dir, $name);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
     }
 
     /**
@@ -405,16 +426,19 @@ class Gollem
      * @param string $permission  The permission mode to set.
      *
      * @throws Gollem_Exception
-     * @throws Horde_Vfs_Exception
      */
     static public function changePermissions($dir, $name, $permission)
     {
         if (!self::verifyDir($dir)) {
             throw new Gollem_Exception(sprintf(_("Access denied to folder \"%s\"."), $dir));
         }
-        $GLOBALS['injector']
-            ->getInstance('Gollem_Vfs')
-            ->changePermissions($dir, $name, $permission);
+        try {
+            $GLOBALS['injector']
+                ->getInstance('Gollem_Vfs')
+                ->changePermissions($dir, $name, $permission);
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
+        }
     }
 
     /**
@@ -424,14 +448,18 @@ class Gollem
      * @param string $name      The filename to create.
      * @param string $filename  The local file containing the file data.
      *
-     * @thows Horde_Vfs_Exception
+     * @thows Gollem_Exception
      */
     static public function writeFile($dir, $name, $filename)
     {
         $gollem_vfs = $GLOBALS['injector']->getInstance('Gollem_Vfs');
-        $gollem_vfs->write($dir, $name, $filename, true);
-        if (!empty(self::$backend['params']['permissions'])) {
-            $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
+        try {
+            $gollem_vfs->write($dir, $name, $filename, true);
+            if (!empty(self::$backend['params']['permissions'])) {
+                $gollem_vfs->changePermissions($dir, $name, self::$backend['params']['permissions']);
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
         }
     }
 
@@ -444,7 +472,7 @@ class Gollem
      * @param string $backend_t The backend to move the file to.
      * @param string $newdir    The directory to move the file to.
      *
-     * @throws Horde_Vfs_Exception
+     * @throws Gollem_Exception
      */
     static public function moveFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
@@ -461,7 +489,7 @@ class Gollem
      * @param string $backend_t The backend to copy the file to.
      * @param string $newdir    The directory to copy the file to.
      *
-     * @throws Horde_Vfs_Exception
+     * @throws Gollem_Exception
      */
     static public function copyFile($backend_f, $dir, $name, $backend_t,
                                     $newdir)
@@ -472,45 +500,64 @@ class Gollem
     /**
      * Private function that copies/moves files.
      *
-     * @throws Horde_Vfs_Exception
+     * @throws Gollem_Exception
      */
     static protected function _copyFile($mode, $backend_f, $dir, $name,
                                         $backend_t, $newdir)
     {
         $backend_key = $GLOBALS['session']->get('gollem', 'backend_key');
+        $factory = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs');
 
         /* If the from/to backends are the same, we can just use the built-in
          * VFS functions. */
         if ($backend_f == $backend_t) {
-            $ob = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_f);
-            if ($backend_f != $backend_key) {
-                $ob->checkCredentials();
+            $ob = $factory->create($backend_f);
+            try {
+                if ($backend_f != $backend_key) {
+                    $ob->checkCredentials();
+                }
+                if ($mode == 'copy') {
+                    $ob->copy($dir, $name, $newdir);
+                } else {
+                    $ob->move($dir, $name, $newdir);
+                }
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Gollem_Exception($e);
             }
-            return $mode == 'copy'
-                ? $ob->copy($dir, $name, $newdir)
-                : $ob->move($dir, $name, $newdir);
         }
 
         /* Else, get the two VFS objects and copy/move the files. */
-        $from_be = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_f);
+        $from_be = $factory->create($backend_f);
         if ($backend_f != $backend_key) {
-            $from_be->checkCredentials();
+            try {
+                $from_be->checkCredentials();
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Gollem_Exception($e);
+            }
         }
 
-        $to_be = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($backend_t);
+        $to_be = $factory->create($backend_t);
         if ($backend_t != $backend_key) {
-            $to_be->checkCredentials();
+            try {
+                $to_be->checkCredentials();
+            } catch (Horde_Vfs_Exception $e) {
+                throw new Gollem_Exception($e);
+            }
         }
 
-        /* Read the source data. */
-        $data = $from_be->read($dir, $name);
+        try {
+            /* Read the source data. */
+            $data = $from_be->read($dir, $name);
 
-        /* Write the target data. */
-        $to_be->writeData($newdir, $name, $data);
+            /* Write the target data. */
+            $to_be->writeData($newdir, $name, $data);
 
-        /* If moving, delete the source data. */
-        if ($mode == 'move') {
-            $from_be->deleteFile($dir, $name);
+            /* If moving, delete the source data. */
+            if ($mode == 'move') {
+                $from_be->deleteFile($dir, $name);
+            }
+        } catch (Horde_Vfs_Exception $e) {
+            throw new Gollem_Exception($e);
         }
     }
 
@@ -524,6 +571,29 @@ class Gollem
     static public function verifyDir($dir)
     {
         return Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length(self::$backend['root'])) == self::$backend['root'];
+    }
+
+    /**
+     * Parses the 'columns' preference.
+     *
+     * @return array  The list of columns to be displayed.
+     */
+    static public function getColumns($backend)
+    {
+        if (!isset(self::$_columns)) {
+            self::$_columns = array();
+            $sources = json_decode($GLOBALS['prefs']->getValue('columns'));
+            foreach ($sources as $source) {
+                self::$_columns[array_shift($source)] = $source;
+            }
+        }
+
+        if (empty(self::$_columns[$backend])) {
+            $info = Gollem_Auth::getBackend($backend);
+            self::$_columns[$backend] = $info['attributes'];
+        }
+
+        return self::$_columns[$backend];
     }
 
     /**
@@ -631,64 +701,6 @@ class Gollem
         }
 
         return implode('/', $label);
-    }
-
-    /**
-     * Build Gollem's menu.
-     *
-     * @return string  Menu.
-     */
-    static public function menu()
-    {
-        $t = $GLOBALS['injector']->createInstance('Horde_Template');
-
-        $t->set('login_url', $GLOBALS['registry']->getServiceLink('login', 'horde'));
-        $t->set('forminput', Horde_Util::formInput());
-        $t->set('hidden', array(array('key' => 'url', 'value' => (string)Horde::url('manager.php', true)),
-                                array('key' => 'app', 'value' => 'gollem')));
-        $t->set('be_select', self::backendSelect(), true);
-        if ($t->get('be_select')) {
-            $t->set('accesskey', $GLOBALS['prefs']->getValue('widget_accesskey') ? Horde::getAccessKey(_("_Change Server")) : '');
-            $menu_view = $GLOBALS['prefs']->getValue('menu_view');
-            $link = Horde::link('#', _("Change Server"), '', '', 'serverSubmit(true);return false;');
-            $t->set('slink', sprintf('<ul><li>%s%s<br />%s</a></li></ul>', $link, ($menu_view != 'text') ? Horde::img('gollem.png') : '', ($menu_view != 'icon') ? Horde::highlightAccessKey(_("_Change Server"), $t->get('accesskey')) : ''));
-        }
-
-        return $t->fetch(GOLLEM_TEMPLATES . '/menu.html');
-    }
-
-    /**
-     * Outputs Gollem's status/notification bar.
-     */
-    static public function status()
-    {
-        $GLOBALS['notification']->notify(array('listeners' => 'status'));
-    }
-
-    /**
-     * Generate the backend selection list for use in the menu.
-     *
-     * @return string  The backend selection list.
-     */
-    static public function backendSelect()
-    {
-        $backends = Gollem_Auth::getBackend();
-        $backend = Gollem_Auth::getPreferredBackend();
-        $text = '';
-
-        if ($GLOBALS['conf']['backend']['backend_list'] == 'shown' &&
-            count($backends) > 1) {
-            foreach ($backends as $key => $val) {
-                $sel = ($backend == $key) ? ' selected="selected"' : '';
-                $text .= sprintf('<option value="%s"%s>%s</option>%s',
-                                 empty($sel) ? $key : '',
-                                 $sel,
-                                 $val['name'],
-                                 "\n");
-            }
-        }
-
-        return $text;
     }
 
     /**

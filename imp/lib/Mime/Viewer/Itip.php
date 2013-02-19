@@ -1,20 +1,28 @@
 <?php
 /**
- * Displays vCalendar/iCalendar data and provides an option to import the data
- * into a calendar source, if available.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @author   Gunnar Wrobel <wrobel@pardus.de>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Displays vCalendar/iCalendar data and provides an option to import the data
+ * into a calendar source, if available.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @author    Gunnar Wrobel <wrobel@pardus.de>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 {
@@ -355,8 +363,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         try {
             $end = $vevent->getAttribute('DTEND');
             $view->end = is_array($end)
-                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'] - 1, $end['year']))
+                : strftime($prefs->getValue('date_format'), $end - 1) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end - 1);
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }

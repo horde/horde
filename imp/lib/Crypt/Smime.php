@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Crypt_Smime:: class contains all functions related to handling
- * S/MIME messages within IMP.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Crypt_Smime:: class contains all functions related to handling
+ * S/MIME messages within IMP.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Crypt_Smime extends Horde_Crypt_Smime
 {
@@ -441,7 +449,7 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      * @return string  The contents embedded in the signed data.
      * @throws Horde_Crypt_Exception
      */
-    public function extractSignedContents($data)
+    public function extractSignedContents($data, $sslpath = null)
     {
         $sslpath = empty($GLOBALS['conf']['openssl']['path'])
             ? null
@@ -457,9 +465,9 @@ class IMP_Crypt_Smime extends Horde_Crypt_Smime
      *
      * @param string $cert  The S/MIME certificate.
      */
-    public function printCertInfo($key = '')
+    public function printCertInfo($cert = '')
     {
-        $cert_info = $this->certToHTML($key);
+        $cert_info = $this->certToHTML($cert);
 
         if (empty($cert_info)) {
             $this->textWindowOutput('S/MIME Key Information', _("Invalid key"));

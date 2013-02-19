@@ -4,7 +4,7 @@
  *
  * Based on a striped down version of Pear's HTML_TagCloud
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -99,7 +99,7 @@ class Horde_Core_Ui_TagCloud
     /**
      * Add a Tag Element to build Tag Cloud.
      *
-     * @param string $tag         TODO
+     * @param string $name        TODO
      * @param string $url         TODO
      * @param integer $count      TODO
      * @param integer $timestamp  UNIX timestamp.

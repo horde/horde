@@ -2,7 +2,7 @@
 /**
  * The Ansel_View_List:: provides a view for handling lists of galleries.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -44,7 +44,7 @@ class Ansel_View_List extends Ansel_View_Ansel
      *  pager_url    -  The url for the pager to use see Ansel_Gallery for
      *                  more information on the url parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         global $prefs;
 

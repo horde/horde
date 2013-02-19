@@ -74,7 +74,7 @@ $_prefs['memo_colors'] = array(
 // default notepad
 // Set locked to true if you don't want users to have multiple notepads.
 $_prefs['default_notepad'] = array(
-    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default notepad:"),
@@ -84,6 +84,11 @@ $_prefs['default_notepad'] = array(
             $enum[$key] = Mnemo::getLabel($val);
         }
         $ui->prefs['default_notepad']['enum'] = $enum;
+    },
+    'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_notepad'));
     },
 );
 

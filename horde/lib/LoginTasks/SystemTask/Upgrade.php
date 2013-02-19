@@ -2,14 +2,14 @@
 /**
  * Login system task for automated upgrade tasks.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask_Upgrade
@@ -18,7 +18,8 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
      */
     protected $_versions = array(
         '4.0',
-        '4.0.12'
+        '4.0.12',
+        '5.0.1'
     );
 
     /**
@@ -33,6 +34,10 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
 
         case '4.0.12':
             $this->_replaceWeatherBlock();
+            break;
+
+        case '5.0.1':
+            $this->_upgradeSendingCharsetPref();
             break;
         }
     }
@@ -79,6 +84,14 @@ class Horde_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTa
         if ($m->updated()) {
             $GLOBALS['prefs']->setValue('portal_layout', $m->serialize());
         }
+    }
+
+    /**
+     * In H5, default to UTF-8 for sending_charset.
+     */
+    protected function _upgradeSendingCharsetPref()
+    {
+        $GLOBALS['prefs']->remove('sending_charset');
     }
 
 }

@@ -7,8 +7,6 @@
  * @subpackage UnitTests
  */
 
-require_once __DIR__ . '/Autoload.php';
-
 /**
  * @author     Chuck Hagenbuch <chuck@horde.org>
  * @license    http://www.horde.org/licenses/bsd BSD

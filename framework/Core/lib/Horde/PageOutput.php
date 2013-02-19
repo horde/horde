@@ -3,7 +3,7 @@
  * This object consolidates the elements needed to output a page to the
  * browser.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,6 +28,15 @@ class Horde_PageOutput
      * @var Horde_Themes_Css
      */
     public $css;
+
+    /**
+     * Activate debugging output.
+     *
+     * @internal
+     *
+     * @var boolean
+     */
+    public $debug = false;
 
     /**
      * Defer loading of scripts until end of page?
@@ -72,18 +81,18 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
-     * Load the topbar in this page?
-     *
-     * @var boolean
-     */
-    public $topbar = true;
-
-    /**
      * Load the sidebar in this page?
      *
      * @var boolean
      */
     public $sidebar = true;
+
+    /**
+     * Load the topbar in this page?
+     *
+     * @var boolean
+     */
+    public $topbar = true;
 
     /**
      * Has PHP userspace page compression been started?
@@ -435,7 +444,7 @@ class Horde_PageOutput
             )));
         }
 
-        echo '<link href="' . $img . '" rel="SHORTCUT ICON" />';
+        echo '<link type="image/x-icon" href="' . $img . '" rel="SHORTCUT ICON" />';
     }
 
     /**
@@ -445,9 +454,9 @@ class Horde_PageOutput
      * @param string $content      The content of the META tag.
      * @param boolean $http_equiv  Output http-equiv instead of name?
      */
-    public function addMetaTag($type, $content, $http_equiv = true)
+    public function addMetaTag($name, $content, $http_equiv = true)
     {
-        $this->metaTags[$type] = array(
+        $this->metaTags[$name] = array(
             'c' => $content,
             'h' => $http_equiv
         );
@@ -664,7 +673,7 @@ class Horde_PageOutput
 
         case $registry::VIEW_SMARTMOBILE:
             $smobile_files = array(
-                'jquery.mobile/jquery.min.js',
+                ($this->debug ? 'jquery.mobile/jquery.js' : 'jquery.mobile/jquery.min.js'),
                 'growler-jquery.js',
                 'horde-jquery.js',
                 'smartmobile.js'
@@ -674,9 +683,9 @@ class Horde_PageOutput
             }
 
             $init_js = implode('', array_merge(array(
-                '$.mobile.page.prototype.options.backBtnText = "' . _("Back") .'";',
-                '$.mobile.dialog.prototype.options.closeBtnText = "' . _("Close") .'";',
-                '$.mobile.loadingMessage = "' . _("loading") . '";'
+                '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
+                '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
+                '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
 
             $this->addInlineJsVars(array(
@@ -733,23 +742,23 @@ class Horde_PageOutput
 
             /* Gettext strings used in core javascript files. */
             $js_text = array(
-                'ajax_error' => _("Error when communicating with the server."),
-                'ajax_recover' => _("The connection to the server has been restored."),
-                'ajax_timeout' => _("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
-                'snooze' => sprintf(_("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
+                'ajax_error' => Horde_Core_Translation::t("Error when communicating with the server."),
+                'ajax_recover' => Horde_Core_Translation::t("The connection to the server has been restored."),
+                'ajax_timeout' => Horde_Core_Translation::t("There has been no contact with the server for several minutes. The server may be temporarily unavailable or network problems may be interrupting your session. You will not see any updates until the connection is restored."),
+                'snooze' => sprintf(Horde_Core_Translation::t("You can snooze it for %s or %s dismiss %s it entirely"), '#{time}', '#{dismiss_start}', '#{dismiss_end}'),
                 'snooze_select' => array(
-                    '0' => _("Select..."),
-                    '5' => _("5 minutes"),
-                    '15' => _("15 minutes"),
-                    '60' => _("1 hour"),
-                    '360' => _("6 hours"),
-                    '1440' => _("1 day")
+                    '0' => Horde_Core_Translation::t("Select..."),
+                    '5' => Horde_Core_Translation::t("5 minutes"),
+                    '15' => Horde_Core_Translation::t("15 minutes"),
+                    '60' => Horde_Core_Translation::t("1 hour"),
+                    '360' => Horde_Core_Translation::t("6 hours"),
+                    '1440' => Horde_Core_Translation::t("1 day")
                 )
             );
 
             if (!empty($opts['growler_log'])) {
-                $js_text['growlerinfo'] = _("This is the notification log.");
-                $js_text['growlernoalerts'] = _("No Alerts");
+                $js_text['growlerinfo'] = Horde_Core_Translation::t("This is the notification log.");
+                $js_text['growlernoalerts'] = Horde_Core_Translation::t("No Alerts");
             }
 
             $this->addInlineJsVars(array(
@@ -838,7 +847,7 @@ class Horde_PageOutput
      */
     public function outputSmartmobileFiles()
     {
-        $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+        $this->addScriptFile($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js', 'horde');
         $this->includeScriptFiles();
     }
 

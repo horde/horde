@@ -1,7 +1,7 @@
 /**
  * dimpbase.js - Javascript used in the base DIMP page.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,9 +14,7 @@ var DimpBase = {
     //   template, uid, view, viewaction, viewport, viewswitch
 
     INBOX: 'SU5CT1g', // 'INBOX' base64url encoded
-    lastrow: -1,
     mboxes: {},
-    pivotrow: -1,
     ppcache: {},
     ppfifo: [],
     showunsub: 0,
@@ -59,20 +57,20 @@ var DimpBase = {
             sel = this.isSelected('domid', id),
             selcount = this.selectedCount();
 
-        this.lastrow = row;
+        this.viewport.setMetaData({ lastrow: row });
 
         this.resetSelectAll();
 
         if (opts.shift) {
             if (selcount) {
                 if (!sel || selcount != 1) {
-                    bounds = [ row.get('rownum').first(), this.pivotrow.get('rownum').first() ];
+                    bounds = [ row.get('rownum').first(), this.viewport.getMetaData('pivotrow').get('rownum').first() ];
                     this.viewport.select($A($R(bounds.min(), bounds.max())));
                 }
                 return;
             }
         } else if (opts.ctrl) {
-            this.pivotrow = row;
+            this.viewport.setMetaData({ pivotrow:  row });
             if (sel) {
                 this.viewport.deselect(row, { right: opts.right });
                 return;
@@ -412,7 +410,12 @@ var DimpBase = {
         this.viewport = new ViewPort({
             // Mandatory config
             ajax: function(params) {
-                DimpCore.doAction('viewPort', params, { loading: 'viewport' });
+                /* Store the requestid locally, so we don't need to
+                 * round-trip to the server. We'll re-add it later. */
+                var r_id = params.unset('requestid');
+                DimpCore.doAction('viewPort', params, {
+                    loading: 'viewport'
+                }).rid = r_id;
             },
             container: container,
             onContent: function(r, mode) {
@@ -535,7 +538,8 @@ var DimpBase = {
 
             // Callbacks
             onAjaxRequest: function(params) {
-                var tmp = params.get('cache'),
+                var r_id = params.unset('requestid'),
+                    tmp = params.get('cache'),
                     view = params.get('view');
 
                 if (this.viewswitch &&
@@ -561,6 +565,7 @@ var DimpBase = {
                 }
 
                 params = $H({
+                    requestid: r_id,
                     viewport: Object.toJSON(params),
                     view: view
                 });
@@ -627,8 +632,10 @@ var DimpBase = {
                     $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
+                this.showSearchbar(false);
             }
 
             if (this.rownum) {
@@ -656,22 +663,8 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
-                    this.showSearchbar(true);
                 } else if (tmp)  {
                     tmp.show();
-                    this.showSearchbar(false);
-                }
-
-                tmp = $('applyfilterlink');
-                if (tmp) {
-                    if (this.isSearch() ||
-                        (!DimpCore.conf.filter_any && this.view != this.INBOX)) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                    }
-
-                    this._sizeFolderlist();
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
@@ -718,7 +711,10 @@ var DimpBase = {
             var sel = this.viewport.getSelected(),
                 count = sel.size();
             if (!count) {
-                this.lastrow = this.pivotrow = -1;
+                this.viewport.setMetaData({
+                    lastrow: null,
+                    pivotrow: null
+                });
             }
 
             this.toggleButtons();
@@ -752,7 +748,10 @@ var DimpBase = {
         container.observe('ViewPort:select', function(e) {
             var d = e.memo.vs.get('rownum');
             if (d.size() == 1) {
-                this.lastrow = this.pivotrow = e.memo.vs;
+                this.viewport.setMetaData({
+                    lastrow: e.memo.vs,
+                    pivotrow: e.memo.vs
+                });
             }
 
             this.setMsgHash();
@@ -1156,6 +1155,12 @@ var DimpBase = {
             this.go('search', tmp);
             break;
 
+        case 'ctx_filteropts_applyfilters':
+            if (this.viewport) {
+                this.viewport.reload({ applyfilter: 1 });
+            }
+            break;
+
         default:
             if (menu == 'ctx_filteropts_filter') {
                 this.search = {
@@ -1329,7 +1334,7 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
             $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke(this.viewport.getMetaData('flags').size() & this.viewport.getMetaData('readonly') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) ? 'hide' : 'show');
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1391,6 +1396,13 @@ var DimpBase = {
 
         case 'ctx_template':
             [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
+            break;
+
+        case 'ctx_filteropts':
+            tmp = $('ctx_filteropts_applyfilters');
+            if (tmp) {
+                [ tmp.up('DIV') ].invoke(this.isSearch() || (!DimpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
+            }
             break;
         }
     },
@@ -1752,6 +1764,7 @@ var DimpBase = {
         e.dataTransfer.setData(
             'DownloadURL',
             base.down('IMG').readAttribute('title') + ':' +
+            // IE8 doesn't use this code so textContent is OK to use
             base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );
@@ -1944,7 +1957,7 @@ var DimpBase = {
         if (Object.isUndefined(unseen)) {
             unseen = this.getUnseenCount(elt.retrieve('mbox'));
         } else {
-            if (Object.isUndefined(elt.retrieve('u')) ||
+            if (!Object.isUndefined(elt.retrieve('u')) &&
                 elt.retrieve('u') == unseen) {
                 return;
             }
@@ -2045,19 +2058,14 @@ var DimpBase = {
     quotaCallback: function(r)
     {
         var quota = $('quota-text');
-        quota.setText(r.m);
+        quota.removeClassName('quotaalert').
+            removeClassName('quotawarn').
+            setText(r.m);
+
         switch (r.l) {
         case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.addClassName('quotaalert');
-            break;
         case 'warn':
-            quota.removeClassName('quotaalert');
-            quota.addClassName('quotawarn');
-            break;
-        case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.removeClassName('quotaalert');
+            quota.addClassName('quota' + r.l);
             break;
         }
     },
@@ -2371,8 +2379,9 @@ var DimpBase = {
         case Event.KEY_LEFT:
         case Event.KEY_RIGHT:
             prev = kc == Event.KEY_UP || kc == Event.KEY_LEFT;
-            if (e.shiftKey && this.lastrow != -1) {
-                row = this.viewport.createSelection('rownum', this.lastrow.get('rownum').first() + ((prev) ? -1 : 1));
+            tmp = this.viewport.getMetaData('lastrow');
+            if (e.shiftKey && tmp) {
+                row = this.viewport.createSelection('rownum', tmp.get('rownum').first() + ((prev) ? -1 : 1));
                 if (row.size()) {
                     row = row.get('dataob').first();
                     this.viewport.scrollTo(row.VP_rownum, { bottom: true });
@@ -2596,13 +2605,6 @@ var DimpBase = {
 
         case 'alertsloglink':
             HordeCore.Growler.toggleLog();
-            break;
-
-        case 'applyfilterlink':
-            if (this.viewport) {
-                this.viewport.reload({ applyfilter: 1 });
-            }
-            e.memo.stop();
             break;
 
         case 'appprefs':
@@ -2979,9 +2981,9 @@ var DimpBase = {
     {
         r.each(function(entry) {
             $H(DimpCore.parseUIDString(entry.uids)).each(function(m) {
-                var s = this.viewport.createSelectionBuffer(m.key).search({
+                var s = this.viewport.createSelectionBuffer(this.isSearch() ? null : m.key).search({
                     uid: { equal: m.value },
-                    mbox: { equal: [ m.key ] }
+                    mbox: { equal: m.key }
                 });
 
                 if (entry.add) {
@@ -3607,6 +3609,7 @@ var DimpBase = {
         var t = e.tasks;
 
         if (this.viewport && t['imp:viewport']) {
+            t['imp:viewport'].requestid = e.response.request.rid;
             this.viewport.parseJSONResponse(t['imp:viewport']);
         }
 
@@ -3901,7 +3904,14 @@ document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(Dim
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
 /* Initialize onload handler. */
-document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // For IE 8
+        DimpBase.onDomLoad.bind(DimpBase).defer();
+    } else {
+        DimpBase.onDomLoad();
+    }
+});
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));

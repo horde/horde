@@ -1,7 +1,7 @@
 /**
  * hermes.js - Base Hermes application logic.
  *
- * Copyright 2010 - 2012 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,10 +22,14 @@ HermesCore = {
     slices: [],
     searchSlices: [],
     sortbyfield: 'sortDate',
+    searchSortbyfield: 'sortDate',
     reverseSort: false,
+    searchReverseSort: false,
     sortDir: 'up',
+    searchSortDir: 'up',
     today: null,
     redBoxLoading: false,
+    fromSearch: false,
 
     onException: function(parentfunc, r, e)
     {
@@ -64,7 +68,8 @@ HermesCore = {
             return;
         }
         var locParts = fullloc.split(':'),
-            loc = locParts.shift();
+            loc = locParts.shift(),
+            locCap;
 
         if (this.openLocation == fullloc) {
             return;
@@ -75,8 +80,9 @@ HermesCore = {
         switch (loc) {
         case 'time':
         case 'search':
+        case 'adminjobs':
             this.closeView(loc);
-            var locCap = loc.capitalize();
+            locCap = loc.capitalize();
             $('hermesNav' + locCap).up().addClassName('horde-active');
             switch (loc) {
             case 'time':
@@ -160,7 +166,7 @@ HermesCore = {
         while (Object.isElement(elt)) {
             id = elt.readAttribute('id');
             switch (id) {
-            /* Main navigation links */
+            // Main navigation links
             case 'hermesNavTime':
                 this.go('time');
                 e.stop();
@@ -171,7 +177,12 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Time entry form actions */
+            case 'hermesNavAdminjobs':
+                this.go('adminjobs');
+                e.stop();
+                return;
+
+            // Time entry form actions
             case 'hermesTimeSaveAsNew':
                 $('hermesTimeFormId').value = null;
             case 'hermesTimeSave':
@@ -179,19 +190,44 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesJobSaveAsNew':
+                $('hermesJobFormId').value = null;
+            case 'hermesJobSave':
+                this.saveJobType();
+                e.stop();
+                return;
             case 'hermesTimeReset':
                 $('hermesTimeSaveAsNew').hide();
                 $('hermesTimeForm').reset();
                 $('hermesTimeFormId').value = 0;
                 e.stop();
                 return;
-
-            /* Slice list actions */
+            case 'hermesSearchReset':
+                $('hermesSearchForm').reset();
+                e.stop();
+                return;
+            // Slice list actions
             case 'hermesTimeListSubmit':
+            case 'hermesSearchListSubmit':
                 this.submitSlices();
                 e.stop();
                 return;
 
+            case 'hermesSearchListHeader':
+                var el = e.element().identify();
+                if (el == 'sSortDate' ||
+                    el == 'sSortClient' ||
+                    el == 'sSortEmployee' ||
+                    el == 'sSortCostObject' ||
+                    el == 'sSortType' ||
+                    el == 'sSortHours' ||
+                    el == 'sSortBill' ||
+                    el == 'sSortDesc') {
+
+                    this.handleSearchSort(e.element());
+                    e.stop();
+                }
+                return;
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' ||
@@ -202,7 +238,7 @@ HermesCore = {
                     el == 'sortBill' ||
                     el == 'sortDesc') {
 
-                    this.handleSort(e.element());
+                    this.handleEntrySort(e.element());
                     e.stop();
                 }
                 return;
@@ -220,7 +256,7 @@ HermesCore = {
                 e.stop();
                 return;
 
-            /* Timer form */
+            // Timer form
             case 'hermesAddTimer':
                 RedBox.showHtml($('hermesTimerDialog').show());
                 return;
@@ -231,12 +267,28 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesExportCancel':
             case 'hermesTimerCancel':
                 this.closeRedBox();
                 e.stop();
                 return;
 
-            /* Search Form */
+            // Export
+            case 'hermesExport':
+                RedBox.showHtml($('hermesExportDialog').show());
+                return;
+
+            case 'hermesDoExport':
+                var keys = this.getSearchResultKeys(),
+                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
+                      'f': $F('hermesExportFormat'),
+                      'm': $F('hermesExportMark'),
+                      's': keys.join(',') });
+                HordeCore.redirect(url);
+                e.stop();
+                return;
+
+            // Search Form
             case 'hermesSearch':
                 this.search();
                 e.stop();
@@ -252,11 +304,13 @@ HermesCore = {
             }
 
             if (elt.hasClassName('hermesTimeListSelect')) {
-                if (elt.up().identify() == 'hermesTimeListHeader') {
+                if (elt.up().identify() == 'hermesTimeListHeader' ||
+                    elt.up().identify() == 'hermesSearchListHeader') {
                     this.toggleAllRows(elt);
                     e.stop();
                     return;
                 }
+
                 elt.up().toggleClassName('hermesSelectedRow');
                 elt.toggleClassName('hermesSelectedSlice');
                 elt.toggleClassName('hermesUnselectedSlice');
@@ -296,11 +350,16 @@ HermesCore = {
     // elt Element for the checkall checkbox
     toggleAllRows: function(elt)
     {
-        var select = false;
+        var select = false, target;
         if (elt.hasClassName('hermesUnselectedSlice')) {
            select = true;
         }
-        $('hermesTimeListInternal').select('.hermesTimeListRow').each(function(e) {
+        if (elt.up().identify() == 'hermesTimeListHeader') {
+            target = $('hermesTimeListInternal');
+        } else {
+            target = $('hermesSearchListInternal');
+        }
+        target.select('.hermesTimeListRow').each(function(e) {
             var c = e.down();
             if (select && !e.hasClassName('QuickFinderNoMatch')) {
                 c.addClassName('hermesSelectedSlice');
@@ -324,14 +383,26 @@ HermesCore = {
     checkSelected: function()
     {
         var haveSelected = false;
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
-            haveSelected = true;
-            throw $break;
-        }.bind(this));
-        if (haveSelected) {
-            $('hermesTimeListSubmit').enable()
-        } else {
-            $('hermesTimeListSubmit').disable();
+        if (this.view == 'time') {
+            $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesTimeListSubmit').enable()
+            } else {
+                $('hermesTimeListSubmit').disable();
+            }
+        } else if (this.view == 'search') {
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                haveSelected = true;
+                throw $break;
+            }.bind(this));
+            if (haveSelected) {
+                $('hermesSearchListSubmit').enable()
+            } else {
+                $('hermesSearchListSubmit').disable();
+            }
         }
     },
 
@@ -342,19 +413,19 @@ HermesCore = {
      */
     populateSliceForm: function(sid)
     {
-        var slice = this.getSliceFromCache(sid),
+        var slice = this.getSliceFromCache(sid, this.view),
             d = this.parseDate(slice.d);
 
         $('hermesTimeSaveAsNew').show();
         $('hermesTimeFormClient').setValue(slice.c);
 
         HordeCore.doAction('listDeliverables',
-              { 'c': $F('hermesTimeFormClient') },
-              { 'callback': function(r) {
-                    this.listDeliverablesCallback(r);
-                    $('hermesTimeFormCostobject').setValue(slice.co);
+            { 'c': $F('hermesTimeFormClient') },
+            { 'callback': function(r) {
+                  this.listDeliverablesCallback(r);
+                  $('hermesTimeFormCostobject').setValue(slice.co);
                 }.bind(this)
-              }
+            }
         );
         $('hermesTimeFormStartDate').setValue(d.toString(Hermes.conf.date_format));
         $('hermesTimeFormHours').setValue(slice.h);
@@ -363,6 +434,10 @@ HermesCore = {
         $('hermesTimeFormNotes').setValue(slice.n);
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
+
+        // We might be on the search form when we click edit.
+        this.fromSearch = (this.view == 'search');
+        this.go('time');
     },
 
     /**
@@ -410,13 +485,21 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid)
+    getSliceFromCache: function(sid, cache)
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (!cache || cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
 
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                return this.slices[i];
+            if (c[i].i == sid) {
+                return c[i];
             }
         }
     },
@@ -426,11 +509,19 @@ HermesCore = {
      *
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
+     * @param cache  The cache to replace the data in (time|search)
      */
-    replaceSliceInCache: function(sid, slice)
+    replaceSliceInCache: function(sid, slice, cache)
     {
-        this.removeSliceFromCache(sid);
-        this.slices.push(slice);
+        if (!cache) {
+            cache = 'time';
+        }
+        this.removeSliceFromCache(sid, cache);
+        if (cache == 'time') {
+            this.slices.push(slice);
+        } else if (cache == 'search') {
+            this.searchSlices.push(slice);
+        }
     },
 
     /**
@@ -438,15 +529,35 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid)
+    removeSliceFromCache: function(sid, cache)
     {
-        var s = this.slices.length;
+        var s, c;
+
+        if (!cache || cache == 'time') {
+           s = this.slices.length;
+           c = this.slices;
+        } else if (cache == 'search') {
+            s = this.searchSlices.length;
+            c = this.searchSlices;
+        }
         for (var i = 0; i <= (s - 1); i++) {
-            if (this.slices[i].i == sid) {
-                this.slices.splice(i, 1);
+            if (c[i].i == sid) {
+                c.splice(i, 1);
                 break;
             }
         }
+    },
+
+    getSearchResultKeys: function()
+    {
+        var s = this.searchSlices.length,
+            c = this.searchSlices,
+            k = [];
+        for (var i = 0; i <= (s - 1); i++) {
+            k.push(c[i].i);
+        }
+
+        return k;
     },
 
     /**
@@ -464,11 +575,38 @@ HermesCore = {
      */
     clientChangeHandler: function(e)
     {
-        $('hermesLoadingTime').show();
-        HordeCore.doAction('listDeliverables',
-            { 'c': $F('hermesTimeFormClient') },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesTimeFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            HordeCore.doAction('listDeliverables',
+                { 'c': $F('hermesSearchFormClient') },
+                { 'callback': this.listDeliverablesCallback.bind(this) }
+            );
+        }
+    },
+
+    jobtypeChangeHandler: function(e)
+    {
+        HordeCore.doAction('listJobTypes',
+            { 'id': $F('hermesJobTypeSelect') },
+            { 'callback': this.listJobtypeCallback.bind(this) }
         );
+    },
+
+    listJobtypeCallback: function(r)
+    {
+        var job = r[0];
+        $('hermesJobFormName').setValue(job.name);
+        $('hermesJobFormId').setValue(job.id);
+        $('hermesJobFormBillable').setValue(job.billable == 1);
+        $('hermesJobFormEnabled').setValue(job.enabled == 1);
+        $('hermesJobFormRate').setValue(job.rate);
+        $('hermesJobSaveAsNew').show();
     },
 
     /**
@@ -476,15 +614,53 @@ HermesCore = {
      */
     listDeliverablesCallback: function(r)
     {
-        var h = $H(r);
+        this.updateCostObjects(r, this.view);
+    },
 
-        $('hermesLoadingTime').hide();
-        $('hermesTimeFormCostobject').childElements().each(function(el) {
+    updateCostObjects: function(r, view)
+    {
+        var h = $H(r), elm;
+
+        if (view == 'time') {
+            $('hermesLoadingTime').hide();
+            elm = $('hermesTimeFormCostobject');
+        } else if (view == 'search') {
+            $('hermesLoadingSearch').hide();
+            elm = $('hermesSearchFormCostobject');
+        }
+        elm.childElements().each(function(el) {
             el.remove();
         });
         h.each(function(i) {
-           $('hermesTimeFormCostobject').insert(new Element('option', { 'value': i.key }).insert(i.value));
+           elm.insert(new Element('option', { 'value': i.key }).insert(i.value));
         });
+    },
+
+    saveJobType: function()
+    {
+        var params = $H($('hermesJobForm').serialize({ hash: true }));
+        if ($F('hermesJobFormId') > 0) {
+            HordeCore.doAction('updateJobType',
+               params,
+               { 'callback': this.updateJobTypeCallback.bind(this) }
+            );
+        } else {
+            HordeCore.doAction('createJobType',
+                params,
+                { 'callback': this.createJobTypeCallback.bind(this) }
+            );
+
+        }
+    },
+
+    createJobTypeCallback: function(r)
+    {
+        // Build the new select list in the admin,time,search form.
+    },
+
+    updateJobTypeCallback: function(r)
+    {
+        // Update the jobtype select list in the admin,time,search form.
     },
 
     /**
@@ -561,13 +737,23 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
-        this.replaceSliceInCache(sid, r);
-        this.reverseSort = false;
-        this.updateView(this.view);
-        this.buildTimeTable();
+        if (this.getSliceFromCache(sid)) {
+            this.replaceSliceInCache(sid, r);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
+        }
         $('hermesTimeForm').reset();
         $('hermesTimeFormId').value = null;
         $('hermesTimeSaveAsNew').hide();
+
+        if (this.fromSearch) {
+            this.fromSearch = false;
+            this.replaceSliceInCache(sid, r, 'search');
+            this.updateView('search');
+            this.buildSearchResultsTable();
+            this.go('search');
+        }
     },
 
     /**
@@ -732,10 +918,18 @@ HermesCore = {
     submitSlices: function()
     {
         var sliceIds = [],
-        slices = [];
+        slices = [],
+        elt;
 
-        $('hermesLoadingTime').show();
-        $('hermesTimeListInternal').select('.hermesSelectedSlice').each(function(s) {
+        if (this.view == 'time') {
+            $('hermesLoadingTime').show();
+            elt = $('hermesTimeListInternal');
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').show();
+            elt = $('hermesSearchListInternal');
+        }
+
+        elt.select('.hermesSelectedSlice').each(function(s) {
             sliceIds.push(s.up().retrieve('sid'));
             slices.push(s.up());
         }.bind(this));
@@ -754,8 +948,18 @@ HermesCore = {
      */
     submitSlicesCallback: function(slices)
     {
-        $('hermesLoadingTime').hide();
-        slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        if (this.view == 'time') {
+            $('hermesLoadingTime').hide();
+            slices.each(function(i) { this.removeSliceFromUI(i); }.bind(this));
+        } else if (this.view == 'search') {
+            $('hermesLoadingSearch').hide();
+            $('hermesSearchListInternal').select('.hermesSelectedSlice').each(function(s) {
+                s.removeClassName('hermesSelectedSlice')
+                    .removeClassName('hermesTimeListSelect')
+                    .addClassName('hermesTimeListUnselectable');
+            }.bind(this));
+
+        }
         this.checkSelected();
     },
 
@@ -768,14 +972,24 @@ HermesCore = {
     {
         switch (view) {
         case 'time':
-            var tbody = $('hermesTimeListInternal');
-            // TODO: Probably more effecient way
-            tbody.childElements().each(function(row) {
+            $('hermesTimeListInternal').childElements().each(function(row) {
                 row.purge();
                 row.remove();
             });
             if ($('hermesTimeListHeader')) {
                 $('hermesTimeListHeader').select('div').each(function(d) {
+                   d.removeClassName('sortup');
+                   d.removeClassName('sortdown');
+                });
+            }
+            break;
+        case 'search':
+            $('hermesSearchListInternal').childElements().each(function(row) {
+                row.purge();
+                row.remove();
+            });
+            if ($('hermesSearchListHeader')) {
+                $('hermesSearchListHeader').select('div').each(function(d) {
                    d.removeClassName('sortup');
                    d.removeClassName('sortdown');
                 });
@@ -790,7 +1004,7 @@ HermesCore = {
     {
         $('hermesLoadingTime').show();
         this.slices = [];
-        HordeCore.doAction('getTimeSlices',
+        HordeCore.doAction('loadSlices',
             { 'e': Hermes.conf.user, 's': false },
             { 'callback': this.loadSlicesCallback.bind(this) }
         );
@@ -889,37 +1103,37 @@ HermesCore = {
     buildSearchResultsTable: function()
     {
         var t = $('hermesSearchListInternal'),
-            slices;
+            slices, total = 0;
 
         t.update();
-        if (this.reverseSort) {
+        if (this.searchReverseSort) {
             slices = this.searchSlices.reverse();
-            this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
+            this.searchSortDir = (this.searchSortDir == 'up') ? 'down' : 'up';
         } else {
-            this.sortDir = 'down';
-            switch (this.sortbyfield) {
-            case 'sortDate':
+            this.searchSortDir = 'down';
+            switch (this.searchSortbyfield) {
+            case 'sSortDate':
                 // Date defaults to reverse
-                this.sortDir = 'up';
+                this.searchSortDir = 'up';
                 slices = this.searchSlices.sort(this.sortDate).reverse();
                 break;
-            case 'sortClient':
+            case 'sSortClient':
                slices = this.searchSlices.sort(this.sortClient);
                break;
-            case 'sortCostObject':
+            case 'sSortCostObject':
                 slices = this.searchSlices.sort(this.sortCostObject);
                 break;
-            case 'sortType':
+            case 'sSortType':
                 slices = this.searchSlices.sort(this.sortType);
                 break;
-            case 'sortHours':
-                this.sortDir = 'up';
-                slices = this.searcSlices.sort(this.sortHours).reverse();
+            case 'sSortHours':
+                this.searchSortDir = 'up';
+                slices = this.searchSlices.sort(this.sortHours).reverse();
                 break;
-            case 'sortBill':
+            case 'sSortBill':
                 slices = this.searchSlices.sort(this.sortBill);
                 break;
-            case 'sortDesc':
+            case 'sSortDesc':
                 slices = this.searchSlices.sort(this.sortDesc);
                 break;
             default:
@@ -931,10 +1145,12 @@ HermesCore = {
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildSearchRow(slice).toggle());
+            total = total + parseFloat(slice.h);
         }.bind(this));
-        $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+        $(this.searchSortbyfield).up('div').addClassName('sort' + this.searchSortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
+        $('hermesSearchSum').update(total);
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
@@ -995,6 +1211,13 @@ HermesCore = {
         row.addClassName('hermesTimeListRow');
         row.removeAttribute('id');
         row.store('sid', slice.i);
+        if (!slice.x) {
+            row.down().removeClassName('hermesUnselectedSlice')
+                .removeClassName('hermesTimeListSelect')
+                .addClassName('hermesTimeListUnselectable')
+                .next().next().next().next().next().next().next().next().next()
+                .update();
+        }
         d = this.parseDate(slice.d);
         cell = row.down().update(' ');
         cell = cell.next().update(d.toString(Hermes.conf.date_format));
@@ -1013,7 +1236,7 @@ HermesCore = {
         return row;
     },
 
-    handleSort: function(e)
+    handleEntrySort: function(e)
     {
         if (this.sortbyfield == e.identify()) {
             this.reverseSort = true;
@@ -1023,6 +1246,18 @@ HermesCore = {
         this.sortbyfield = e.identify();
         this.updateView(this.view);
         this.buildTimeTable();
+    },
+
+    handleSearchSort: function(e)
+    {
+        if (this.searchSortbyfield == e.identify()) {
+            this.searchReverseSort = true;
+        } else {
+            this.searchReverseSort = false;
+        }
+        this.searchSortbyfield = e.identify();
+        this.updateView(this.view);
+        this.buildSearchResultsTable();
     },
 
     /**
@@ -1099,6 +1334,11 @@ HermesCore = {
         return (a.desc < b.desc) ? -1 : (a.desc > b.desc) ? 1 : 0;
     },
 
+    sortEmployee: function(a, b)
+    {
+        return (a.e < b.e) ? -1 : (a.e > b.e) ? 1 : 0;
+    },
+
     /**
      * Closes a RedBox overlay, after saving its content to the body.
      */
@@ -1169,8 +1409,15 @@ HermesCore = {
     /* Onload function. */
     onDomLoad: function()
     {
+        // General click handler.
         document.observe('click', HermesCore.clickHandler.bindAsEventListener(HermesCore));
+
+        // Change handler for loading cost objects per client.
         $('hermesTimeFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+        $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
+
+        // Handler for the jobtype selection
+        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;
@@ -1189,6 +1436,10 @@ HermesCore = {
         }
         if (!tmp.empty()) {
             this.go(decodeURIComponent(tmp));
+            if (decodeURIComponent(tmp) != 'time') {
+                // We need to load the slices so the time summary can display.
+                this.loadSlices();
+            }
         } else {
             this.go(Hermes.conf.login_view);
         }
@@ -1210,9 +1461,12 @@ HermesCore = {
         // Populate the deliverables with the default list.
         HordeCore.doAction('listDeliverables',
             { },
-            { 'callback': this.listDeliverablesCallback.bind(this) }
+            { 'callback': function(r) {
+                this.updateCostObjects(r, 'time');
+                this.updateCostObjects(r, 'search');}.bind(this)
+            }
         );
-        new PeriodicalExecuter(HordeCore.doAction.bind(this, 'poll'), 60);
+        new PeriodicalExecuter(HordeCore.doAction.bind(HordeCore, 'poll'), 60);
     }
 };
 document.observe('dom:loaded', HermesCore.onDomLoad.bind(HermesCore));

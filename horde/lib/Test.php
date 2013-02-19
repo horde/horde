@@ -3,17 +3,17 @@
  * The Horde_Test:: class provides functions used in the test scripts
  * used in the various applications (test.php).
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jon Parise <jon@horde.org>
  * @author   Brent J. Nordquist <bjn@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -274,10 +274,6 @@ class Horde_Test
     protected $_pearList = array(
         'Cache' => array(
             'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
-        ),
-        'Crypt_Blowfish' => array(
-            'error' => 'Crypt_Blowfish is required to store authentication credentials securely within the session data.',
-            'required' => true
         ),
         'File_Fstab' => array(
             'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'

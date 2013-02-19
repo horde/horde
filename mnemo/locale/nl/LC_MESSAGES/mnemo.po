@@ -1,20 +1,22 @@
 # Mnemo Dutch translation.
 # Copyright 2002 Jan Kuipers.
-# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2002-2007.
 #
+# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2002-2007.
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Mneno H3 (2.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-28 23:03+0100\n"
+"PO-Revision-Date: 2012-11-30 10:42+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: templates/memo/memo.inc:51
 #, php-format
@@ -57,7 +59,7 @@ msgstr "Toenemend"
 
 #: data.php:21 templates/data/import.inc:10
 msgid "CSV"
-msgstr ""
+msgstr "CSV"
 
 #: lib/Form/DeleteNotepad.php:36 lib/Form/DeleteNotepad.php:43
 #: lib/Form/EditNotepad.php:78 lib/Form/EditNotepad.php:95
@@ -132,11 +134,11 @@ msgstr "Verwijder %s"
 
 #: config/prefs.php:27
 msgid "Delete Confirmation"
-msgstr "Bevestiging verwijderen"
+msgstr "Verwijderbevestiging"
 
 #: config/prefs.php:28
 msgid "Delete button behaviour"
-msgstr "Verwijderknop gedrag"
+msgstr "Gedrag verwijderknop"
 
 #: templates/memo/memo.inc:58
 msgid "Delete this note"
@@ -347,6 +349,9 @@ msgid ""
 "Really delete the notepad \"%s\"? This cannot be undone and all data on this "
 "notepad will be permanently removed."
 msgstr ""
+"Weet u zeker dat u notitieboek \"%s\" wilt verwijderen? Dit kan niet "
+"ongedaan worden gemaakt en alle gegevens van dit notitieboek zullen "
+"permanent worden verwijderd."
 
 #: templates/view/memo.inc:15
 msgid "Really delete this note?"
@@ -415,7 +420,7 @@ msgstr "\"%s\" met succes opgeslagen."
 
 #: lib/Form/EditNotepad.php:50
 msgid "System"
-msgstr ""
+msgstr "Systeem"
 
 #: data.php:154
 #, php-format
@@ -457,7 +462,8 @@ msgstr "Een fout bij het importeren van de data: %s"
 
 #: lib/Api.php:202 lib/Api.php:354
 msgid "There was an error importing the iCalendar data."
-msgstr "Een fout bij het importeren van de iCalendar data."
+msgstr ""
+"Er is een fout opgetreden bij het importeren van de iCalendar gegevens."
 
 #: lib/Application.php:233
 #, php-format
@@ -530,7 +536,7 @@ msgstr "Aan welk notitieboek dienen de notities toegevoegd te worden?"
 #: data.php:34 data.php:91 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
-msgstr "Het is u niet toegestaan om meer dan %d notities te maken."
+msgstr "U mag niet meer dan %d notities aanmaken."
 
 #: notepads/delete.php:30
 msgid "You are not allowed to delete this notepad."
@@ -538,7 +544,7 @@ msgstr "U mag dit notitieboek niet verwijderen."
 
 #: notepads/edit.php:32
 msgid "You are not allowed to see this notepad."
-msgstr "U mag dit notitieboek niet zien."
+msgstr "U mag dit notitieboek niet inzien."
 
 #: lib/Ajax/Imple/EditNote.php:27
 msgid "You do not have permission to edit this note."

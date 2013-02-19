@@ -38,7 +38,7 @@
  *
  * Additional cleanups/code by the Horde Project.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -147,7 +147,7 @@ class Horde_Text_Filter_JavascriptMinify_JsMin
         case self::ACTION_DELETE_A_B:
             $this->_b = $this->_next();
 
-            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?{};\n')) {
+            if ($this->_b === '/' && strspn($this->_a, '(,=:[!&|?+-~*\n')) {
                 $this->_output .= $this->_a . $this->_b;
 
                 while (true) {

@@ -1,7 +1,38 @@
 ----------
-v4.0.1-git
+v4.0.3-git
 ----------
 
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v4.0.2
+------
+
+[mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+[mjr] Fix displaying and editing tasks from search results (Bug #11847).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[mjr] Fix incoming task sync with certain combinations of due date values.
+[mjr] Fix quick task addition without session cookies enabled (Bug #11875,
+      Thomas Jarosch <thomas.jarosch@intra2net.com>).
+[jan] Fix editing tasks from the merged list view in smartmobile mode (Bug
+      #11840).
+[jan] Use default Kolab folder for default taks list preference.
+[jan] Mark Kolab folder as default when changing default task list preference.
+
+
+------
+v4.0.1
+------
+
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+[gwr] Ignore empty dates (Bug #11736).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[mjr] Fix support for due/start dates for certain ActiveSync clients (Bug
+      #11693).
+[jan] Fix importing tasks from iCalendar (Bug #11681).
+[jan] Fix listing of recurring tasks via timeobjects API.
 
 
 ------

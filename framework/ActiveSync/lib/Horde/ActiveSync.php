@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -374,20 +374,20 @@ class Horde_ActiveSync
      * @return boolean  True on successful authentication to the backend.
      * @throws Horde_ActiveSync_Exception
      */
-    public function authenticate()
+    public function authenticate($username = '')
     {
         // Get credentials
         $serverVars = $this->_request->getServerVars();
         $user = $pass = '';
-        if (!empty($serverVars['PHP_AUTH_USER'])) {
-            $user = $serverVars['PHP_AUTH_USER'];
+        if (!empty($serverVars['PHP_AUTH_PW'])) {
+            $user = empty($username) ? $serverVars['PHP_AUTH_USER'] : $username;
             $pass = $serverVars['PHP_AUTH_PW'];
         } elseif (!empty($serverVars['Authorization'])) {
-            $hash = str_replace('Basic ', '', $serverVars['Authorization']);
-            $hash = base64_decode($hash);
+            $hash = base64_decode(str_replace('Basic ', '', $serverVars['Authorization']));
             if (strpos($hash, ':') !== false) {
                 list($user, $pass) = explode(':', $hash, 2);
             }
+            $user = !empty($username) ? $username : $user;
         } else {
             // No provided username or Authorization header.
             $this->_logger->debug('Client did not provide authentication data.');
@@ -551,6 +551,8 @@ class Horde_ActiveSync
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            $request->setLogger($this->_logger);
+
             return $request->handle();
         }
 
@@ -565,8 +567,8 @@ class Horde_ActiveSync
         $this->setProvisioning($this->_driver->getProvisioning());
 
         $this->_logger->debug(sprintf(
-            "[%s] %s request received for user %s",
-            $devId,
+            '[%s] %s request received for user %s',
+            getmypid(),
             strtoupper($cmd),
             $this->_driver->getUser())
         );
@@ -591,7 +593,7 @@ class Horde_ActiveSync
             // Device might exist, but with a new (additional) user account
             $device = new StdClass();
             if ($this->_state->deviceExists($devId)) {
-                $d = $this->_state->loadDeviceInfo($devId);
+                $device = $this->_state->loadDeviceInfo($devId);
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');
@@ -807,12 +809,12 @@ class Horde_ActiveSync
                 }
 
                 $this->_get = $results;
-                return $results;
             }
         } else {
             $this->_get = $get;
-            return $get;
         }
+
+        return $this->_get;
     }
 
     /**

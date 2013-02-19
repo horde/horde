@@ -2,14 +2,14 @@
 /**
  * Compose page for minimal view.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
 class IMP_Minimal_Compose extends IMP_Minimal_Base
@@ -33,7 +33,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $injector, $notification, $prefs, $session;
+        global $injector, $notification, $prefs, $session, $registry;
 
         /* The message text and headers. */
         $expand = array();
@@ -65,7 +65,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $drafts = IMP_Mailbox::getPref('drafts_folder');
         $readonly_drafts = $drafts && $drafts->readonly;
         $sent_mail = $identity->getValue('sent_mail_folder');
-        $save_sent_mail = ($sent_mail && $sent_mail->readonly)
+        $save_sent_mail = (!$sent_mail || $sent_mail->readonly)
             ? false
             : $prefs->getValue('save_sent_mail');
 
@@ -75,6 +75,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         /* Initialize objects. */
         $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
         $imp_ui = new IMP_Ui_Compose();
+
+        /* Are attachments allowed? */
+        $attach_upload = $imp_compose->canUploadAttachment();
 
         foreach (array_keys($display_hdrs) as $val) {
             $header[$val] = $this->vars->$val;
@@ -96,7 +99,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         }
 
         /* Add attachment. */
-        if ($session->get('imp', 'file_upload') &&
+        if ($attach_upload &&
             isset($_FILES['upload_1']) &&
             strlen($_FILES['upload_1']['name'])) {
             try {
@@ -308,11 +311,11 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 );
 
                 try {
-                    $imp_compose->buildAndSendMessage($message . $identity->getSignature(), $header, $options);
+                    $imp_compose->buildAndSendMessage($message, $header, $options);
                     $imp_compose->destroy('send');
 
                     $notification->push(_("Message sent successfully."), 'horde.success');
-                    $this->redirect('mailbox')->redirect();
+                    IMP_Minimal_Mailbox::url()->redirect();
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
 
@@ -343,6 +346,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $this->view->cacheid = $imp_compose->getCacheId();
         $this->view->menu = $this->getMenu('compose');
         $this->view->url = self::url();
+        $this->view->user = $registry->getAuth();
 
         switch ($this->vars->a) {
         case 'rc':
@@ -380,19 +384,18 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             $this->view->identities = $tmp;
 
             /* Activate advanced compose attachments UI? */
-            if ($session->get('imp', 'file_upload')) {
-                try {
-                    if (Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
-                        $this->view->attach = true;
-                        if (count($imp_compose)) {
-                            $imp_ui_mbox = new IMP_Ui_Mailbox();
-                            $this->view->attach_name = $imp_compose[0]['part']->getName();
-                            $this->view->attach_type = $imp_compose[0]['part']->getType();
-                            $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
-                        }
+            try {
+                if ($attach_upload &&
+                    Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
+                    $this->view->attach = true;
+                    if (count($imp_compose)) {
+                        $imp_ui_mbox = new IMP_Ui_Mailbox();
+                        $this->view->attach_name = $imp_compose[0]['part']->getName();
+                        $this->view->attach_type = $imp_compose[0]['part']->getType();
+                        $this->view->attach_size = $imp_ui_mbox->getSize($imp_compose[0]['part']->getBytes());
                     }
-                } catch (Horde_Exception_HookNotSet $e) {}
-            }
+                }
+            } catch (Horde_Exception_HookNotSet $e) {}
 
             $this->title = _("Message Composition");
         }

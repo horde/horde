@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Related class.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -10,11 +10,6 @@
  * @package    Mime
  * @subpackage UnitTests
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -32,6 +27,11 @@ class Horde_Mime_RelatedTest extends PHPUnit_Framework_TestCase
     {
         $this->_part = Horde_Mime_Part::parseMessage(file_get_contents(__DIR__ . '/fixtures/related_msg.txt'));
         $this->_relatedOb = new Horde_Mime_Related($this->_part);
+    }
+
+    public function tearDown()
+    {
+        unset($this->_part, $this->_relatedOb);
     }
 
     public function testStart()

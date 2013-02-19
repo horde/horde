@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 20:41+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:54+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde.php:1343
+#: lib/Horde.php:1239
 #, php-format
 msgid " (Accesskey %s)"
 msgstr "(アクセスキイ %s)"
@@ -46,27 +46,27 @@ msgid "-- select --"
 msgstr "-- 選択 --"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:743
+#: lib/Horde/PageOutput.php:746
 msgid "1 day"
 msgstr "１日"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:741
+#: lib/Horde/PageOutput.php:744
 msgid "1 hour"
 msgstr "１時間"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:740
+#: lib/Horde/PageOutput.php:743
 msgid "15 minutes"
 msgstr "15 分"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:739
+#: lib/Horde/PageOutput.php:742
 msgid "5 minutes"
 msgstr "5 分"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:742
+#: lib/Horde/PageOutput.php:745
 msgid "6 hours"
 msgstr "6 時間"
 
@@ -202,7 +202,7 @@ msgstr "８月"
 msgid "Available address books:"
 msgstr "使用可能なアドレス帳："
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:674
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:677
 msgid "Back"
 msgstr "戻る"
 
@@ -247,7 +247,7 @@ msgstr "アドレスを展開する際に検索するアドレス帳の順序を
 msgid "Click to add caption..."
 msgstr "クリックして説明を追加..."
 
-#: lib/Horde/PageOutput.php:675
+#: lib/Horde/PageOutput.php:678
 msgid "Close"
 msgstr "閉じる"
 
@@ -378,7 +378,7 @@ msgstr "以下の文字を入力："
 msgid "Error"
 msgstr "エラー"
 
-#: lib/Horde/PageOutput.php:733
+#: lib/Horde/PageOutput.php:736
 msgid "Error when communicating with the server."
 msgstr "サーバとの通信エラーです。"
 
@@ -458,7 +458,7 @@ msgstr "自宅の住所"
 msgid "Home Phone"
 msgstr "自宅の電話番号"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1800
+#: lib/Horde/Core/ActiveSync/Driver.php:1804
 msgid "Inbox"
 msgstr "INBOX"
 
@@ -587,7 +587,7 @@ msgstr "次のページ>"
 msgid "No"
 msgstr "いいえ"
 
-#: lib/Horde/PageOutput.php:749
+#: lib/Horde/PageOutput.php:752
 msgid "No Alerts"
 msgstr "警告なし"
 
@@ -607,7 +607,7 @@ msgstr "アドレス帳が選択されていません。"
 msgid "No children can be added to this permission."
 msgstr "このアクセス権にはサブアクセス権は追加できません。"
 
-#: lib/Horde.php:669
+#: lib/Horde.php:565
 #, php-format
 msgid "No configuration information specified for %s."
 msgstr "%s の設定情報が指定されていません。"
@@ -745,7 +745,7 @@ msgstr "削除"
 msgid "Remove source"
 msgstr "ソースを削除"
 
-#: lib/Horde.php:678
+#: lib/Horde.php:574
 #, php-format
 msgid "Required \"%s\" not specified in %s configuration."
 msgstr "要求された \"%s\" は %s の設定に指定されていません。"
@@ -804,7 +804,7 @@ msgstr "どれも選択しない"
 msgid "Select the identity you want to change:"
 msgstr "変更したいIDを選択:"
 
-#: lib/Horde/PageOutput.php:738
+#: lib/Horde/PageOutput.php:741
 msgid "Select..."
 msgstr "-- 選択 --"
 
@@ -816,7 +816,7 @@ msgstr "選択されたアドレス帳："
 msgid "Send SMS"
 msgstr "SMS 送信"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1795
+#: lib/Horde/Core/ActiveSync/Driver.php:1799
 msgid "Sent"
 msgstr "送信控え"
 
@@ -876,7 +876,7 @@ msgstr "木"
 msgid "The History system is disabled."
 msgstr "履歴システムは無効になっています。"
 
-#: lib/Horde/PageOutput.php:734
+#: lib/Horde/PageOutput.php:737
 msgid "The connection to the server has been restored."
 msgstr "サーバへの接続が回復しました。"
 
@@ -889,16 +889,16 @@ msgstr ""
 "メールアドレス %s があなたの ID に追加されました。このウインドーは閉じても構"
 "いません。"
 
-#: lib/Horde.php:452
+#: lib/Horde.php:348
 msgid "The encryption features require a secure web connection."
 msgstr "暗号化には安全なウェブ接続が必要です。"
 
-#: lib/Horde.php:679
+#: lib/Horde.php:575
 #, php-format
 msgid "The file %s should contain a %s setting."
 msgstr "ファイル %s には %s の設定が必須です。"
 
-#: lib/Horde.php:670
+#: lib/Horde.php:566
 #, php-format
 msgid "The file %s should contain some %s settings."
 msgstr "ファイル %s には %s のいくつかの設定が必須です。"
@@ -950,7 +950,7 @@ msgstr "確認すべきメールアドレスがありません。"
 msgid "There are no preferences available for this application."
 msgstr "このアプリケーションに指定できる個人設定はありません。"
 
-#: lib/Horde/PageOutput.php:735
+#: lib/Horde/PageOutput.php:738
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -972,7 +972,7 @@ msgstr "連絡先データの読み込み中にエラーが発生しました。
 msgid "There were errors encountered while updating your preferences."
 msgstr "あなたの設定を更新中にエラーが発生しました。"
 
-#: lib/Horde/PageOutput.php:748
+#: lib/Horde/PageOutput.php:751
 msgid "This is the notification log."
 msgstr "これが通知ログです"
 
@@ -1004,7 +1004,7 @@ msgstr ""
 "複数の項目を選択するには、PCではControlキイ、MacならCommandキイを押しながらク"
 "リックします。"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1790
+#: lib/Horde/Core/ActiveSync/Driver.php:1794
 msgid "Trash"
 msgstr "ゴミ箱"
 
@@ -1107,7 +1107,7 @@ msgstr ""
 "お使いの Internet Explorer は古く、サポートされていないバージョンです。文字だ"
 "け表示を使用するか、ブラウザを更新して下さい。"
 
-#: lib/Horde/PageOutput.php:736
+#: lib/Horde/PageOutput.php:739
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "%s スヌーズにするか、あるいは %s 解除 %s できます"
@@ -1197,7 +1197,7 @@ msgstr "h:"
 msgid "hh"
 msgstr "hh"
 
-#: lib/Horde/PageOutput.php:676
+#: lib/Horde/PageOutput.php:679
 msgid "loading"
 msgstr "ロード中"
 

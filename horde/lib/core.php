@@ -5,13 +5,13 @@
  * This file sets up any necessary include path variables and includes
  * the minimum required Horde libraries.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -54,4 +54,4 @@ $__autoloader->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/
 set_exception_handler(array('Horde_ErrorHandler', 'fatal'));
 
 /* Catch errors. */
-set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL);
+set_error_handler(array('Horde_ErrorHandler', 'errorHandler'), E_ALL | E_STRICT);

@@ -2,8 +2,8 @@
 <package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>passwd</name>
  <channel>pear.horde.org</channel>
- <summary> Horde password changing application</summary>
- <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc...</description>
+ <summary>Horde password changing application</summary>
+ <description>An application to change any user passwords stored in various backends like SQL, LDAP, Kolab, passwd files etc.</description>
  <lead>
   <name>Jan Schneider</name>
   <user>jan</user>
@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-07-19</date>
- <time>22:36:20</time>
+ <date>2012-12-12</date>
+ <time>11:08:53</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -28,10 +28,15 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
+   <dir name="bin">
+    <file name="passwd-expect" role="script" />
+    <file name="passwd-expect-kerberos" role="script" />
+   </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
     <file name="backends.php" role="horde" />
@@ -289,11 +294,6 @@
     <file name=".htaccess" role="horde" />
     <file name="passwd.pot" role="horde" />
    </dir> <!-- /locale -->
-   <dir name="scripts">
-    <file name=".htaccess" role="horde" />
-    <file name="passwd-expect" role="horde" />
-    <file name="passwd-expect-kerberos" role="horde" />
-   </dir> <!-- /scripts -->
    <dir name="templates">
     <file name=".htaccess" role="horde" />
     <file name="index.html.php" role="horde" />
@@ -310,6 +310,8 @@
      </dir> <!-- /test/Passwd/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
+     <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Passwd -->
    </dir> <!-- /test -->
@@ -319,9 +321,8 @@
       <file name="favicon.ico" role="horde" />
       <file name="passwd.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
-     <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
-    </dir> <!-- /themes -->
+   </dir> <!-- /themes -->
    <file name="COPYING" role="doc" />
    <file name="index.php" role="horde" />
    <file name="README" role="doc" />
@@ -345,42 +346,42 @@
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Injector</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -392,20 +393,21 @@
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Ldap</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
-    <min>2.0.0beta1</min>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -424,11 +426,18 @@
    </extension>
   </optional>
  </dependencies>
+ <usesrole>
+ <role>horde</role>
+ <package>Role</package>
+ <channel>pear.horde.org</channel>
+</usesrole>
  <phprelease>
   <filelist>
    <install as="COPYING" name="COPYING" />
    <install as="passwd/index.php" name="index.php" />
    <install as="README" name="README" />
+   <install as="passwd-expect" name="bin/passwd-expect" />
+   <install as="passwd-expect-kerberos" name="bin/passwd-expect-kerberos" />
    <install as="passwd/config/.htaccess" name="config/.htaccess" />
    <install as="passwd/config/backends.php" name="config/backends.php" />
    <install as="passwd/config/conf.xml" name="config/conf.xml" />
@@ -542,20 +551,18 @@
    <install as="passwd/locale/zh_CN/LC_MESSAGES/passwd.po" name="locale/zh_CN/LC_MESSAGES/passwd.po" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.mo" name="locale/zh_TW/LC_MESSAGES/passwd.mo" />
    <install as="passwd/locale/zh_TW/LC_MESSAGES/passwd.po" name="locale/zh_TW/LC_MESSAGES/passwd.po" />
-   <install as="passwd/scripts/.htaccess" name="scripts/.htaccess" />
-   <install as="passwd/scripts/passwd-expect" name="scripts/passwd-expect" />
-   <install as="passwd/scripts/passwd-expect-kerberos" name="scripts/passwd-expect-kerberos" />
    <install as="passwd/templates/.htaccess" name="templates/.htaccess" />
    <install as="passwd/templates/index.html.php" name="templates/index.html.php" />
    <install as="Passwd/AllTests.php" name="test/Passwd/AllTests.php" />
    <install as="Passwd/Autoload.php" name="test/Passwd/Autoload.php" />
+   <install as="Passwd/bootstrap.php" name="test/Passwd/bootstrap.php" />
+   <install as="Passwd/phpunit.xml" name="test/Passwd/phpunit.xml" />
    <install as="Passwd/TestCase.php" name="test/Passwd/TestCase.php" />
    <install as="Passwd/Unit/Driver/SqlTest.php" name="test/Passwd/Unit/Driver/SqlTest.php" />
    <install as="Passwd/Unit/Factory/DriverTest.php" name="test/Passwd/Unit/Factory/DriverTest.php" />
-   <install as="passwd/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="passwd/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="passwd/themes/default/graphics/passwd.png" name="themes/default/graphics/passwd.png" />
-   </filelist>
+  </filelist>
  </phprelease>
  <changelog>
   <release>

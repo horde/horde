@@ -3,7 +3,7 @@
  * Mnemo storage implementation for Horde's Horde_Db database abstraction
  * layer.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -337,13 +337,47 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
         }
 
         // Create a new task based on $row's values.
-        return array('memolist_id' => $row['memo_owner'],
-                     'memo_id' => $row['memo_id'],
-                     'uid' => Horde_String::convertCharset($row['memo_uid'], $this->_charset, 'UTF-8'),
-                     'desc' => Horde_String::convertCharset($row['memo_desc'], $this->_charset, 'UTF-8'),
-                     'body' => $body,
-                     'category' => Horde_String::convertCharset($row['memo_category'], $this->_charset, 'UTF-8'),
-                     'encrypted' => $encrypted);
+        $memo = array(
+            'memolist_id' => $row['memo_owner'],
+            'memo_id' => $row['memo_id'],
+            'uid' => Horde_String::convertCharset(
+                $row['memo_uid'], $this->_charset, 'UTF-8'),
+            'desc' => Horde_String::convertCharset(
+                $row['memo_desc'], $this->_charset, 'UTF-8'),
+            'body' => $body,
+            'category' => Horde_String::convertCharset(
+                $row['memo_category'], $this->_charset, 'UTF-8'),
+            'encrypted' => $encrypted);
+
+        try {
+            $userId = $GLOBALS['registry']->getAuth();
+            $log = $GLOBALS['injector']->getInstance('Horde_History')
+                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['memo_uid']);
+            foreach ($log as $entry) {
+                switch ($entry['action']) {
+                case 'add':
+                    $memo['created'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $memo['createdby'] = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
+                    } else {
+                        $memo['createdby'] = _("by me");
+                    }
+                    break;
+
+                case 'modify':
+                    $memo['modified'] = new Horde_Date($entry['ts']);
+                    if ($userId != $entry['who']) {
+                        $memo['modifiedby'] = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
+                    } else {
+                        $memo['modifiedby'] = _("by me");
+                    }
+                    break;
+                }
+            }
+        } catch (Horde_Exception $e) {
+        }
+
+        return $memo;
     }
 
     /**

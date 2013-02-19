@@ -2,7 +2,7 @@
 /**
  * The Horde_Help:: class provides an interface to the online help subsystem.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -55,7 +55,7 @@ class Horde_Help
 
         case self::SOURCE_FILE:
             if (!@is_file($data)) {
-                throw new Horde_Exception(Horde_Core_Translation::t(_("Help file not found.")));
+                throw new Horde_Exception(Horde_Core_Translation::t("Help file not found."));
             }
             $dom->load($data);
             break;

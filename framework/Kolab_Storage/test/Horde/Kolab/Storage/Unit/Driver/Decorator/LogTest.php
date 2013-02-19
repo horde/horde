@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the log decorator for the backend drivers.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -178,4 +173,31 @@ extends Horde_Kolab_Storage_TestCase
         $log->rename('INBOX/Test', 'FOO');
     }
 
+    public function testSetAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('setAcl')
+            ->with('a', 'b', 'c');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $driver,
+            $this->getMockLogger()
+        );
+        $logger->setAcl('a', 'b', 'c');
+        $this->assertLogCount(2);
+    }
+
+    public function testDeleteAclLogsEntry()
+    {
+        $driver = $this->getMock('Horde_Kolab_Storage_Driver');
+        $driver->expects($this->once())
+            ->method('deleteAcl')
+            ->with('a', 'b');
+        $logger = new Horde_Kolab_Storage_Driver_Decorator_Log(
+            $driver,
+            $this->getMockLogger()
+        );
+        $logger->deleteAcl('a', 'b');
+        $this->assertLogCount(2);
+    }
 }

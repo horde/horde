@@ -21,6 +21,6 @@
 
 </div>
 
-<div id="horde-slideleft" class="horde-splitbar-vert" style="left:<?php echo $this->width ?>px">
+<div id="horde-slideleft" class="horde-splitbar-vert" style="<?php echo $this->left ?>px">
   <div id="horde-slideleftcursor" class="horde-splitbar-vert-handle"></div>
 </div>

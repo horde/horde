@@ -1,16 +1,24 @@
 <?php
 /**
- * Object representation of an IMAP string (RFC 3501 [4.3]).
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Object representation of an IMAP string (RFC 3501 [4.3]).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
 {
@@ -22,20 +30,40 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
     protected $_filter;
 
     /**
+     * @param array $opts  Additional options:
+     *   - eol: (boolean) If true, normalize EOLs in input. @since 2.2.0
+     *   - skipscan: (boolean) If true, don't scan input for
+     *               binary/literal/quoted data. @since 2.2.0
      */
-    public function __construct($data)
+    public function __construct($data, array $opts = array())
     {
         /* String data is stored in a stream. */
         $this->_data = new Horde_Stream_Temp();
 
-        stream_filter_register('horde_imap_client_string', 'Horde_Imap_Client_Data_Format_Filter_String');
-
         $this->_filter = $this->_filterParams();
-        $res = stream_filter_append($this->_data->stream, 'horde_imap_client_string', STREAM_FILTER_WRITE, $this->_filter);
+
+        if (empty($opts['skipscan'])) {
+            stream_filter_register('horde_imap_client_string', 'Horde_Imap_Client_Data_Format_Filter_String');
+            $res = stream_filter_append($this->_data->stream, 'horde_imap_client_string', STREAM_FILTER_WRITE, $this->_filter);
+        } else {
+            $res = null;
+        }
+
+        if (empty($opts['eol'])) {
+            $res2 = null;
+        } else {
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            $res2 = stream_filter_append($this->_data->stream, 'horde_eol', STREAM_FILTER_WRITE);
+        }
 
         $this->_data->add($data);
 
-        stream_filter_remove($res);
+        if (!is_null($res)) {
+            stream_filter_remove($res);
+        }
+        if (!is_null($res2)) {
+            stream_filter_remove($res2);
+        }
     }
 
     /**
@@ -152,6 +180,30 @@ class Horde_Imap_Client_Data_Format_String extends Horde_Imap_Client_Data_Format
         $this->_filter->binary = true;
         $this->_filter->literal = true;
         $this->_filter->quoted = false;
+    }
+
+    /**
+     * Return the length of the data.
+     *
+     * @since 2.2.0
+     *
+     * @return integer  Data length.
+     */
+    public function length()
+    {
+        return $this->_data->length();
+    }
+
+    /**
+     * Return the contents of the string as a stream object.
+     *
+     * @since 2.3.0
+     *
+     * @return Horde_Stream  The stream object.
+     */
+    public function getStream()
+    {
+        return $this->_data;
     }
 
 }

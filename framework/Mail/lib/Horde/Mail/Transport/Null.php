@@ -1,9 +1,6 @@
 <?php
 /**
- * Null implementation of the mail transport interface.
- *
- * LICENSE:
- *
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2010 Phil Kernick
  * All rights reserved.
  *
@@ -32,18 +29,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category    Horde
- * @package     Mail
- * @author      Phil Kernick <philk@rotfl.com.au>
- * @copyright   2010 Phil Kernick
- * @license     http://www.horde.org/licenses/bsd New BSD License
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @copyright 2010 Phil Kernick
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Null implementation of the mail transport interface.
  *
- * @category Horde
- * @package  Mail
+ * @author    Phil Kernick <philk@rotfl.com.au>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @copyright 2010 Phil Kernick
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 class Horde_Mail_Transport_Null extends Horde_Mail_Transport
 {

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,6 +18,8 @@ $vars->set('id', $id = $ticket->getId());
 foreach ($ticket->getDetails() as $varname => $value) {
     $vars->add($varname, $value);
 }
+
+Whups::addTopbarSearch();
 
 $addform = new Whups_Form_AddListener($vars, _("Add Watcher"));
 $delform = new Whups_Form_DeleteListener($vars, _("Remove Watcher"));

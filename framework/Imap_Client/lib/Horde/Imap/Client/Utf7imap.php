@@ -1,7 +1,5 @@
 <?php
 /**
- * Allows conversions between UTF-8 and UTF7-IMAP (RFC 3501 [5.1.3]).
- *
  * Originally based on code:
  *
  *  Copyright (C) 2000 Edmund Grimley Evans <edmundo@rano.org>
@@ -12,15 +10,27 @@
  *    SVN revision 1757
  *  The RoundCube project is released under the GPL (version 2)
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2000 Edmund Grimley Evans <edmundo@rano.org>
+ * @copyright 2008-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Allows conversions between UTF-8 and UTF7-IMAP (RFC 3501 [5.1.3]).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2000 Edmund Grimley Evans <edmundo@rano.org>
+ * @copyright 2008-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Utf7imap
 {

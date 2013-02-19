@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -50,8 +50,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     /**
      * Start reading the wbxml stream, pulling off the initial header and
      * populate the properties.
-     *
-     * @return void
      */
     public function readWbxmlHeader()
     {
@@ -66,7 +64,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 
     /**
      * Returns either start, content or end, and auto-concatenates successive
-     * content
+     * content.
+     *
+     * @return mixed  The element requested or false on failure.
      */
     public function getElement()
     {
@@ -96,6 +96,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     }
 
     /**
+     * Peek at the next element in the stream.
      *
      * @return array  The next element in the stream.
      */
@@ -112,7 +113,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      *
      * @param string $tag  The element that this should be a start tag for.
      *
-     * @return mixed  The start tag array | false on failure.
+     * @return array|boolean  The start tag array | false on failure.
      */
     public function getElementStartTag($tag)
     {
@@ -132,7 +133,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     /**
      * Get the next tag, which is assumed to be an end tag.
      *
-     * @return mixed  The element array | false on failure.
+     * @return array|boolean The element array | false on failure.
      */
     public function getElementEndTag()
     {
@@ -140,7 +141,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
             return $element;
         } else {
-            $this->_logger->err('Unmatched end tag:');
+            $this->_logger->err(sprintf(
+                '[%s] Unmatched end tag:',
+                $this->_procid));
             $this->_logger->err(print_r($element, true));
             $this->_ungetElement($element);
         }
@@ -159,8 +162,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT) {
             return $element[Horde_ActiveSync_Wbxml::EN_CONTENT];
         } else {
-            $this->_logger->err('Unmatched content:');
-            $this->_logger->err(print_r($element, true));
+            $this->_logger->info('Possible unmatched content (peeking or empty tag?)');
             $this->_ungetElement($element);
         }
 
@@ -200,18 +202,34 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         switch ($el[Horde_ActiveSync_Wbxml::EN_TYPE]) {
         case Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG:
             if ($el[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT) {
-                $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '>');
-                array_push($this->_logStack, $el[Horde_ActiveSync_Wbxml::EN_TAG]);
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s<%s>',
+                    $this->_procid,
+                    $spaces,
+                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
+                $this->_logStack[] = $el[Horde_ActiveSync_Wbxml::EN_TAG];
             } else {
-                $this->_logger->debug('I ' . $spaces . ' <' . $el[Horde_ActiveSync_Wbxml::EN_TAG] . '/>');
+                $this->_logger->debug(sprintf(
+                    '[%s] I %s<%s />',
+                    $this->_procid,
+                    $spaces,
+                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
             }
             break;
         case Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG:
             $tag = array_pop($this->_logStack);
-            $this->_logger->debug('I ' . $spaces . '</' . $tag . '>');
+            $this->_logger->debug(sprintf(
+                '[%s] I %s</%s>',
+                $this->_procid,
+                $spaces,
+                $tag));
             break;
         case Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT:
-            $this->_logger->debug('I ' . $spaces . ' ' . $el[Horde_ActiveSync_Wbxml::EN_CONTENT]);
+            $this->_logger->debug(sprintf(
+                '[%s] I %s %s',
+                $this->_procid,
+                $spaces,
+                $el[Horde_ActiveSync_Wbxml::EN_CONTENT]));
             break;
         }
     }
@@ -498,7 +516,6 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $ch = fread($this->_stream, 1);
         if (strlen($ch) > 0) {
             $ch = ord($ch);
-            //$this->_logger->debug('_getByte: ' . $ch);
             return $ch;
         } else {
             return;

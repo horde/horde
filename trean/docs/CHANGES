@@ -1,6 +1,34 @@
---------
-v0.1-git
---------
+----------
+v1.0.1-git
+----------
+
+
+
+------
+v1.0.0
+------
+
+[cjh] Strip utm_ parameters from incoming bookmarks, and provide a script to
+      strip them from already-saved bookmarks (Request #10751).
+[cjh] Implement listTagInfo and searchTags API calls for Trean (Bug #11816).
+[cjh] Fix fetching, saving, and display of favicons.
+
+
+-----------
+v1.0.0beta2
+-----------
+
+[cjh] Add a list of tags to the sidebar.
+[cjh] Crawl all bookmarks when they are saved or edited for fulltext searching
+      if elasticsearch is available.
+[cjh] Turn search off by default (Bug #11701).
+[jan] Allow to set custom SQL parameters.
+[jan] Move search box to top menu.
+
+
+-----------
+v1.0.0beta1
+-----------
 
 [jan] Merge tag browser into bookmark listing.
 [mjr] Add tagging support.

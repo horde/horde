@@ -16,10 +16,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:25:10</time>
+ <date>2013-01-29</date>
+ <time>12:30:22</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [jan] Fix strftime() formatting of certain locale-specific format specifiers.
+* [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -139,6 +138,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Date.mo" role="data" />
       <file name="Horde_Date.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -340,8 +340,9 @@
        <file name="YearTest.php" role="test" />
       </dir> <!-- /test/Horde/Date/Repeater -->
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="DateTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="RecurrenceTest.php" role="test" />
       <file name="SpanTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
@@ -385,6 +386,13 @@
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -439,6 +447,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Date.po" name="locale/es/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Date.mo" name="locale/et/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Date.po" name="locale/et/LC_MESSAGES/Horde_Date.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Date.mo" name="locale/eu/LC_MESSAGES/Horde_Date.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Date.po" name="locale/eu/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Date.po" name="locale/fa/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Date.mo" name="locale/fi/LC_MESSAGES/Horde_Date.mo" />
@@ -495,8 +504,9 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Date.po" name="locale/zh_CN/LC_MESSAGES/Horde_Date.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Date.po" name="locale/zh_TW/LC_MESSAGES/Horde_Date.po" />
    <install as="Horde/Date/AllTests.php" name="test/Horde/Date/AllTests.php" />
-   <install as="Horde/Date/Autoload.php" name="test/Horde/Date/Autoload.php" />
+   <install as="Horde/Date/bootstrap.php" name="test/Horde/Date/bootstrap.php" />
    <install as="Horde/Date/DateTest.php" name="test/Horde/Date/DateTest.php" />
+   <install as="Horde/Date/phpunit.xml" name="test/Horde/Date/phpunit.xml" />
    <install as="Horde/Date/RecurrenceTest.php" name="test/Horde/Date/RecurrenceTest.php" />
    <install as="Horde/Date/SpanTest.php" name="test/Horde/Date/SpanTest.php" />
    <install as="Horde/Date/UtilsTest.php" name="test/Horde/Date/UtilsTest.php" />
@@ -841,11 +851,53 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [jan] Fix strftime() formatting of certain locale-specific format specifiers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix more strftime() formatting of certain locale-specific format specifiers (Bug #11831).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix error: DateTime::__construct(): Failed to parse time string (-001-11-01).
+* [jan] Catch DateTime exception in Horde_Date_Utils:daysInMonth() (Bug #11916).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
    </notes>
   </release>
  </changelog>

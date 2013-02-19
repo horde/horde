@@ -34,26 +34,4 @@ class Turba_Hooks
            return $primary;
        }
    }
-
-   public function prefs_change($pref)
-   {
-       switch ($pref) {
-       case 'default_dir':
-           $value = $GLOBALS['prefs']->getValue('default_dir');
-           $addressbooks = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Share')
-               ->create()
-               ->listShares(
-                   $GLOBALS['registry']->getAuth(),
-                   array('perm' => Horde_Perms::SHOW,
-                         'attributes' => $GLOBALS['registry']->getAuth()));
-           foreach ($addressbooks as $id => $addressbook) {
-               if ($id == $value) {
-                   $addressbook->set('default', true);
-                   $addressbook->save();
-                   break;
-               }
-           }
-           break;
-       }
-   }
 }

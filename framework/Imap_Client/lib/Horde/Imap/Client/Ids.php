@@ -1,28 +1,40 @@
 <?php
 /**
- * An object that provides a way to identify a list of IMAP indices.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An object that provides a way to identify a list of IMAP indices.
  *
- * @property boolean $all  Does this represent an ALL message set?
- * @property array $ids  The list of IDs.
- * @property boolean $largest  Does this represent the largest ID in use?
- * @property string $range_string  Generates a range string consisting of all
- *                                 messages between begin and end of ID list.
- * @property boolean $search_res  Does this represent a search result?
- * @property boolean $sequence  Are these sequence IDs? If false, these are
- *                              UIDs.
- * @property boolean $special  True if this is a "special" ID representation.
- * @property string $tostring  Return the non-sorted string representation.
- * @property string $tostring_sort  Return the sorted string representation.
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ *
+ * @property-read boolean $all  Does this represent an ALL message set?
+ * @property-read array $ids  The list of IDs.
+ * @property-read boolean $largest  Does this represent the largest ID in use?
+ * @property-read string $range_string  Generates a range string consisting of
+ *                                      all messages between begin and end of
+ *                                      ID list.
+ * @property-read boolean $search_res  Does this represent a search result?
+ * @property-read boolean $sequence  Are these sequence IDs? If false, these
+ *                                   are UIDs.
+ * @property-read boolean $special  True if this is a "special" ID
+ *                                  representation.
+ * @property-read string $tostring  Return the non-sorted string
+ *                                  representation.
+ * @property-read string $tostring_sort  Return the sorted string
+ *                                       representation.
  */
 class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
 {
@@ -198,12 +210,35 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
     }
 
     /**
+     * Split the sequence string at an approximate length.
+     *
+     * @since 2.7.0
+     *
+     * @param integer $length  Length to split.
+     *
+     * @return array  A list containing individual sequence strings.
+     */
+    public function split($length)
+    {
+        $id = new Horde_Stream_Temp();
+        $id->add($this->tostring_sort, true);
+
+        $out = array();
+
+        do {
+            $out[] = stream_get_contents($id->stream, 2000) . $id->getToChar(',');
+        } while (!feof($id->stream));
+
+        return $out;
+    }
+
+    /**
      * Create an IMAP message sequence string from a list of indices.
      *
      * Index Format: range_start:range_end,uid,uid2,...
      *
-     * @param boolean $nosort  Numerically sort the IDs before creating the
-     *                         range?
+     * @param boolean $sort  Numerically sort the IDs before creating the
+     *                       range?
      *
      * @return string  The IMAP message sequence string.
      */

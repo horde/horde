@@ -1,9 +1,14 @@
 <?php
 /**
- * Login tasks module that deletes old linked attachments.
- *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  IMP
+ */
+/**
+ * Login tasks module that deletes old linked attachments.
  *
  * @author   Andrew Coleman <mercury@appisolutions.net>
  * @category Horde

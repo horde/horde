@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-10-31</date>
- <time>20:34:27</time>
+ <date>2013-02-11</date>
+ <time>19:04:23</time>
  <version>
-  <release>2.0.2</release>
-  <api>2.0.0</api>
+  <release>2.2.1</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,11 +40,11 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mjr] Fix detected email changes on certain IMAP servers.
-* [mjr] Fix determining special mailboxes and generating folder hierarchy on some ActiveSync clients (Bug #11626).
-* [mjr] Limit the length of ActiveSync folder serverids to 64 per ActiveSync specs.
-* [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
+* [mjr] Fix saving ActiveSync sent mail when the message contains MIME parts (Bug #12040).
+* [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
+* [mms] Fix destroying session data when the null session driver is used.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -447,6 +447,7 @@
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="ShareBase.php" role="php" />
+       <file name="SpellChecker.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
        <file name="ThemesCache.php" role="php" />
@@ -699,6 +700,7 @@
     </dir> <!-- /locale/et -->
     <dir name="eu">
      <dir name="LC_MESSAGES">
+      <file name="Horde_Core.mo" role="data" />
       <file name="Horde_Core.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
@@ -900,8 +902,9 @@
       <dir name="Stub">
        <file name="Registry.php" role="test" />
       </dir> <!-- /test/Horde/Core/Stub -->
+      <file name="ActiveSyncTests.php" role="test" />
       <file name="AllTests.php" role="test" />
-      <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="RegistryTest.php" role="test" />
       <file name="SmartmobileUrlTest.php" role="test" />
@@ -1146,7 +1149,7 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1172,7 +1175,7 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.6</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1200,14 +1203,14 @@
    <package>
     <name>Horde_ElasticSearch</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta2</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1310,6 +1313,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1343,6 +1353,7 @@
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>dom</name>
@@ -1702,6 +1713,7 @@
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
+   <install as="Horde/Core/Factory/SpellChecker.php" name="lib/Horde/Core/Factory/SpellChecker.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
    <install as="Horde/Core/Factory/ThemesCache.php" name="lib/Horde/Core/Factory/ThemesCache.php" />
@@ -1806,6 +1818,7 @@
    <install as="locale/es/LC_MESSAGES/Horde_Core.po" name="locale/es/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Core.mo" name="locale/et/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Core.po" name="locale/et/LC_MESSAGES/Horde_Core.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Core.mo" name="locale/eu/LC_MESSAGES/Horde_Core.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_Core.po" name="locale/eu/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fa/LC_MESSAGES/Horde_Core.po" name="locale/fa/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Core.mo" name="locale/fi/LC_MESSAGES/Horde_Core.mo" />
@@ -1862,8 +1875,9 @@
    <install as="locale/zh_CN/LC_MESSAGES/Horde_Core.po" name="locale/zh_CN/LC_MESSAGES/Horde_Core.po" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Core.po" name="locale/zh_TW/LC_MESSAGES/Horde_Core.po" />
    <install as="migration/1_horde_core_base_tables.php" name="migration/Horde/Core/1_horde_core_base_tables.php" />
+   <install as="Horde/Core/ActiveSyncTests.php" name="test/Horde/Core/ActiveSyncTests.php" />
    <install as="Horde/Core/AllTests.php" name="test/Horde/Core/AllTests.php" />
-   <install as="Horde/Core/Autoload.php" name="test/Horde/Core/Autoload.php" />
+   <install as="Horde/Core/bootstrap.php" name="test/Horde/Core/bootstrap.php" />
    <install as="Horde/Core/phpunit.xml" name="test/Horde/Core/phpunit.xml" />
    <install as="Horde/Core/RegistryTest.php" name="test/Horde/Core/RegistryTest.php" />
    <install as="Horde/Core/SmartmobileUrlTest.php" name="test/Horde/Core/SmartmobileUrlTest.php" />
@@ -2364,7 +2378,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-06-29</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] SECURITY: Fix XSS in tooltip javascript.
@@ -2562,14 +2576,196 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-31</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Fix translations (Bug #11606).
 * [mjr] Fix detected email changes on certain IMAP servers.
 * [mjr] Fix determining special mailboxes and generating folder hierarchy on some ActiveSync clients (Bug #11626).
 * [mjr] Limit the length of ActiveSync folder serverids to 64 per ActiveSync specs.
 * [mjr] Fix displaying maps in Chrome while using SSL connections (Bug #11618).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-22</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix synchronizing device message flag changes over ActiveSync (Bug #11732).
+* [mms] Fix returning session start time if session has been closed (read-only) in the current page access (Bug #11685).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix class name when using the Kolab group backend (Bug #11737).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix various issues with charset encoding when sending ActiveSync email.
+* [jan] Link back to application from preference screen.
+* [mjr] Fix GAL searching via ActiveSync (horde@albasoft.com, Bug #11808).
+* [mjr] Fix saving sent mail when using ActiveSync (horde@albasoft.com, Bug #11805).
+* [jan] Reset NLS information when changing languages.
+* [jan] Fix downloading files with special characters in Gollem (Bug #11770).
+* [mms] Added Horde_Core_Factory_SpellChecker.
+* [mms] Don&apos;t log backtrace for E_STRICT errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improve logging in ActiveSync drivers to better track down issues.
+* [jan] Fix returning complete groups with auto-completer.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix restoring cached theme data (Bug #11906).
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix dismissing reminders without session cookies enabled (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11875).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-27</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Improvements to ActiveSync authentication failure handling.
+* [mjr] Fix issue with Null session driver that could cause authentication to be lost.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix multiple AJAX submits to same hidden IFRAME on the same page (Bug #11928).
+* [mjr] Fix some MIME related issues when sending email via ActiveSync (Bug #11931).
+* [mjr] Fix detecting non-default ActiveSync policies.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix sourceselect preferences UI that includes multiple sources.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.6</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [mms] Fix spellchecking on HTML data (Bug #11986).
+* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix handling of moving or deleting messages that have been removed from the server (Bug #12013).
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.2.
+* [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
+* [jan] Fix notifications while authenticating transparently.
+* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
+* [mjr] Fix saving ActiveSync sent mail when the message contains MIME parts (Bug #12040).
+* [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
+* [mms] Fix destroying session data when the null session driver is used.
    </notes>
   </release>
  </changelog>

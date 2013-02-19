@@ -6,7 +6,7 @@
  * 'preauthenticate' hook should return LDAP connection information in the
  * 'ldap' credentials key.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -368,9 +368,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
         try {
             if ($oldID != $newID) {
                 $this->_ldap->move($olddn, $newdn);
-                $this->_ldap->modify($newdn, $entry);
+                $this->_ldap->modify($newdn, array('replace' => $entry));
             } else {
-                $this->_ldap->modify($olddn, $entry);
+                $this->_ldap->modify($olddn, array('replace' => $entry));
             }
         } catch (Horde_Ldap_Exception $e) {
             throw new Horde_Auth_Exception(sprintf(__CLASS__ . ': Unable to update user "%s"', $newID));

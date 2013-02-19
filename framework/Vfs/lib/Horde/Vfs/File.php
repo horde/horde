@@ -2,7 +2,7 @@
 /**
  * VFS implementation for a filesystem.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -265,10 +265,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
-        $orig = $this->_getNativePath($path, $name);
-        if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
-        }
+        $this->_checkDestination($path, $dest);
 
         if ($autocreate) {
             $this->autocreatePath($dest);
@@ -280,6 +277,7 @@ class Horde_Vfs_File extends Horde_Vfs_Base
             }
         }
 
+        $orig = $this->_getNativePath($path, $name);
         $this->_checkQuotaWrite('file', $orig);
 
         if (!@copy($orig, $this->_getNativePath($dest, $name))) {

@@ -2,14 +2,14 @@
 /**
  * @package Alarm
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  */
 
 /**
- * The Horde_Alarm_Handler_Mail class is a Horde_Alarm handler that notifies
+ * The Horde_Alarm_Handler_Desktop class is a Horde_Alarm handler that notifies
  * of active alarms by desktop notification through webkit browsers.
  *
  * @author  Jan Schneider <jan@horde.org>

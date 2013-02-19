@@ -5,10 +5,10 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @package Horde
  */
@@ -21,7 +21,7 @@ class Horde_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = '5.0.1-git';
+    public $version = '5.0.5-git';
 
     /**
      */
@@ -91,7 +91,29 @@ class Horde_Application extends Horde_Registry_Application
             return $apps;
 
         case 'languages':
-            return array_map(create_function('$val', 'return preg_replace(array("/&#x([0-9a-f]{4});/ie", "/(&[^;]+;)/e"), array("Horde_String::convertCharset(pack(\"H*\", \"$1\"), \"ucs-2\", \"UTF-8\")", "Horde_String::convertCharset(html_entity_decode(\"$1\", ENT_COMPAT, \"iso-8859-1\"), \"iso-8859-1\", \"UTF-8\")"), $val);'), $GLOBALS['registry']->nlsconfig->languages);
+            $convert_numeric = function($num) {
+                return Horde_String::convertCharset(pack('H*', $num[1]),
+                                                    'ucs-2',
+                                                    'UTF-8');
+            };
+            $convert_symbolic = function($symbol) {
+                return Horde_String::convertCharset(
+                    html_entity_decode($symbol[1], ENT_COMPAT, 'iso-8859-1'),
+                    'iso-8859-1',
+                    'UTF-8');
+            };
+            return array_map(
+                function($val) {
+                    return preg_replace_callback(
+                        array('/&#x([0-9a-f]{4});/i',
+                              '/(&[^;]+;)/'),
+                        array($convert_numeric,
+                              $convert_symbolic),
+                        $val
+                    );
+                },
+                $GLOBALS['registry']->nlsconfig->languages
+            );
 
         case 'blocks':
             return $GLOBALS['injector']->getInstance('Horde_Core_Factory_BlockCollection')->create()->getBlocksList();

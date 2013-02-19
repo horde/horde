@@ -10,6 +10,50 @@
 
 This lists the API changes between releases of the package.
 
+Upgrading to 2.6.0
+==================
+
+  - Horde_Imap_Client_Ids
+
+    The split() method was added.
+
+
+Upgrading to 2.6.0
+==================
+
+  - Horde_Imap_Client_Fetch_Results
+
+    The clear() method was added.
+
+
+Upgrading to 2.5.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The 'exists' option was added to fetch().
+
+
+Upgrading to 2.4.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The following 'sort' criteria have been added to search():
+
+      - SORT_DISPLAYFROM_FALLBACK
+      - SORT_DISPLAYTO_FALLBACK
+
+
+Upgrading to 2.3.0
+==================
+
+  - Horde_Imap_Client_String
+
+    The following methods have been added:
+
+      - getStream()
+
 
 Upgrading to 2.2.0
 ==================

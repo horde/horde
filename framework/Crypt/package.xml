@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:24:07</time>
+ <date>2013-02-15</date>
+ <time>14:28:45</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
-* [mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -330,8 +329,11 @@
        <file name="smime_subjectAltName.pem" role="test" />
       </dir> <!-- /test/Horde/Crypt/fixtures -->
       <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="PgpKeyserverTest.php" role="test" />
       <file name="PgpTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
       <file name="SmimeTest.php" role="test" />
      </dir> <!-- /test/Horde/Crypt -->
     </dir> <!-- /test/Horde -->
@@ -388,6 +390,15 @@
     <name>openssl</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -485,8 +496,11 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.mo" />
    <install as="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" name="locale/zh_TW/LC_MESSAGES/Horde_Crypt.po" />
    <install as="Horde/Crypt/AllTests.php" name="test/Horde/Crypt/AllTests.php" />
+   <install as="Horde/Crypt/bootstrap.php" name="test/Horde/Crypt/bootstrap.php" />
+   <install as="Horde/Crypt/conf.php.dist" name="test/Horde/Crypt/conf.php.dist" />
    <install as="Horde/Crypt/PgpKeyserverTest.php" name="test/Horde/Crypt/PgpKeyserverTest.php" />
    <install as="Horde/Crypt/PgpTest.php" name="test/Horde/Crypt/PgpTest.php" />
+   <install as="Horde/Crypt/phpunit.xml" name="test/Horde/Crypt/phpunit.xml" />
    <install as="Horde/Crypt/SmimeTest.php" name="test/Horde/Crypt/SmimeTest.php" />
    <install as="Horde/Crypt/fixtures/bug_6601.asc" name="test/Horde/Crypt/fixtures/bug_6601.asc" />
    <install as="Horde/Crypt/fixtures/clear.txt" name="test/Horde/Crypt/fixtures/clear.txt" />
@@ -822,11 +836,50 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
 * [mms] Add Horde_Crypt_Pgp#getPublicKeyFromPrivateKey().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-15</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

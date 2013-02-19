@@ -25,7 +25,7 @@
  * - type: (string) The type of the remote FTP server. Possible values: 'unix',
  *         'win', 'netware' By default, we attempt to auto-detect type.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2002-2007 Michael Varghese <mike.varghese@ascellatech.com>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
@@ -328,7 +328,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
         }
 
         if ($isDir) {
-            $dir = ltrim($path . '/' . $name, '/');
+            $dir = $path . '/' . $name;
             $file_list = $this->listFolder($dir);
             if (count($file_list) && !$recursive) {
                 throw new Horde_Vfs_Exception(sprintf('Unable to delete "%s", as the directory is not empty.', $this->_getPath($path, $name)));
@@ -647,10 +647,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
      */
     public function copy($path, $name, $dest, $autocreate = false)
     {
-        $orig = $this->_getPath($path, $name);
-        if (preg_match('|^' . preg_quote($orig) . '/?$|', $dest)) {
-            throw new Horde_Vfs_Exception('Cannot copy file(s) - source and destination are the same.');
-        }
+        $this->_checkDestination($path, $dest);
 
         $this->_connect();
 
@@ -660,7 +657,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
 
         foreach ($this->listFolder($dest, null, true) as $file) {
             if ($file['name'] == $name) {
-                throw new Horde_Vfs_Exception(sprintf('%s already exists.'), $this->_getPath($dest, $name));
+                throw new Horde_Vfs_Exception(sprintf('%s already exists.', $this->_getPath($dest, $name)));
             }
         }
 
@@ -668,6 +665,7 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
             $this->_copyRecursive($path, $name, $dest);
         } else {
             $tmpFile = Horde_Util::getTempFile('vfs');
+            $orig = $this->_getPath($path, $name);
             $fetch = @ftp_get($this->_stream, $tmpFile, $orig, FTP_BINARY);
             if (!$fetch) {
                 unlink($tmpFile);
@@ -765,31 +763,6 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
         if (!@ftp_chdir($this->_stream, $path)) {
             throw new Horde_Vfs_Exception(sprintf('Unable to change to %s.', $path));
         }
-    }
-
-    /**
-     * Returns the parent directory of the specified path.
-     *
-     * @param string $path  The path to get the parent of.
-     *
-     * @return string  The parent directory.
-     * @throws Horde_Vfs_Exception
-     */
-    protected function _parentDir($path)
-    {
-        $this->_connect();
-
-        $olddir = $this->getCurrentDirectory();
-        @ftp_cdup($this->_stream);
-
-        $parent = $this->getCurrentDirectory();
-        $this->_setPath($olddir);
-
-        if (!$parent) {
-            throw new Horde_Vfs_Exception('Unable to determine current directory.');
-        }
-
-        return $parent;
     }
 
     /**

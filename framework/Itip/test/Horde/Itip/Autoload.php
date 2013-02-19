@@ -12,10 +12,5 @@
  * @link       http://pear.horde.org/index.php?package=Itip
  */
 
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
-
 /** Load dependencies from the test suite */
 require_once __DIR__ . '/Stub/Identity.php';

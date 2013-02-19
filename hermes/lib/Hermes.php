@@ -51,29 +51,54 @@ class Hermes
         return self::$_clients[$name];
     }
 
-    public static function getClientSelect($id)
+    /**
+     * Return the HTML needed to build an enum or multienum for selecting
+     * clients.
+     *
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML to render the select element.
+     */
+    public static function getClientSelect($id, $multi = false)
     {
         $clients = self::listClients();
-        $select = '<select name="client" id="' . $id . '">';
+        $select = '<select name="'
+            . ($multi ? 'client[]' : 'client')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple = "multiple"' : '') . '>';
         $select .= '<option value="">' . _("--- Select A Client ---") . '</option>';
         foreach ($clients as $cid => $client) {
-            $select .= '<option value="' . $cid . '">' . $client . '</option>';
+            $select .= '<option value="' . $cid . '">' . htmlspecialchars($client) . '</option>';
         }
 
         return $select . '</select>';
     }
 
     /**
-     * @TODO: Build these via ajax once we have UI support for editing jobtypes
+     * Return HTML needed to build an enum or multienum for jobtype selection.
      *
-     * @return string
+     * @param string $id      The DOM id to identify the select list.
+     * @param boolean $multi  Allow multi select?
+     *
+     * @return string  The HTML needed to render the select element.
      */
-    public static function getJobTypeSelect($id)
+    public static function getJobTypeSelect($id, $multi = false, $show_disabled = false)
     {
-        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')->listJobTypes(array('enabled' => true));
-        $select = '<select name="type" id="' . $id . '">';
+        if ($show_disabled) {
+            $params = array();
+        } else {
+            $params = array('enabled' => true);
+        }
+        $types = $GLOBALS['injector']->getInstance('Hermes_Driver')
+            ->listJobTypes($params);
+        $select = '<select name="'
+            . ($multi ? 'type[]' : 'type')
+            . '" id="' . $id . '" '
+            . ($multi ? 'multiple="multiple"' : '') . '>';
+        $select .= '<option value="">' . _("--- Select a Job Type ---") . '</option>';
         foreach ($types as $tid => $type) {
-            $select .= '<option value="' . $tid . '">' . $type['name'] . '</option>';
+            $select .= '<option value="' . $tid . '">' . htmlspecialchars($type['name']) . '</option>';
         }
 
         return $select . '</select>';
@@ -126,8 +151,9 @@ class Hermes
 
         $clients = Hermes::listClients();
         $namecache = array();
+        $results = array();
         for ($i = 0; $i < count($hours); $i++) {
-            $timeentry = &$hours[$i];
+            $timeentry = $hours[$i]->toArray();
             $timeentry['item'] = $timeentry['_type_name'];
             if (isset($clients[$timeentry['client']])) {
                 $timeentry['client'] = $clients[$timeentry['client']];
@@ -145,9 +171,10 @@ class Hermes
                     $namecache[$emp] = $emp;
                 }
             }
+            $results[] = $timeentry;
         }
 
-        return $hours;
+        return $results;
     }
 
     /**
@@ -184,7 +211,7 @@ class Hermes
             $employees[$user] = $label;
         }
 
-        return array($enumtype, array($employees));
+        return array($enumtype, $employees);
     }
 
     public static function getCostObjectByID($id)
@@ -212,43 +239,56 @@ class Hermes
     }
 
     /**
+     * Return data for costobjects, optionally filtered by client_ids.
+     *
+     * @param mixed $client_ids  A client id or an array of client ids to
+     *                           filter cost obejcts by.
+     *
+     * @return array  An array of cost objects data.
      */
-    public static function getCostObjectType($clientID = null)
+    public static function getCostObjectType($client_ids = null)
     {
         global $registry;
 
-        /* Check to see if any other active applications are exporting cost
-         * objects to which we might want to bill our time. */
-        $criteria = array('user'   => $GLOBALS['registry']->getAuth(),
-                          'active' => true);
-        if (!empty($clientID)) {
-            $criteria['client_id'] = $clientID;
+        // Check to see if any other active applications are exporting cost
+        // objects to which we might want to bill our time.
+        $criteria = array(
+            'user'   => $GLOBALS['registry']->getAuth(),
+            'active' => true
+        );
+        if (empty($client_ids)) {
+            $client_ids = array('');
+        } elseif (!is_array($client_ids)) {
+            $client_ids = array($client_ids);
         }
 
         $costobjects = array();
-        foreach ($registry->listApps() as $app) {
-            if (!$registry->hasMethod('listCostObjects', $app)) {
-                continue;
-            }
-
-            try {
-                $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
-            } catch (Horde_Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
-                continue;
-            }
-
-            foreach (array_keys($result) as $catkey) {
-                foreach (array_keys($result[$catkey]['objects']) as $okey){
-                    $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
-                        $result[$catkey]['objects'][$okey]['id'];
+        foreach ($client_ids as $client_id) {
+            $criteria['client_id'] = $client_id;
+            foreach ($registry->listApps() as $app) {
+                if (!$registry->hasMethod('listCostObjects', $app)) {
+                    continue;
                 }
-            }
 
-            if ($app == $registry->getApp()) {
-                $costobjects = array_merge($result, $costobjects);
-            } else {
-                $costobjects = array_merge($costobjects, $result);
+                try {
+                    $result = $registry->callByPackage($app, 'listCostObjects', array($criteria));
+                } catch (Horde_Exception $e) {
+                    $GLOBALS['notification']->push(sprintf(_("Error retrieving cost objects from \"%s\": %s"), $registry->get('name', $app), $e->getMessage()), 'horde.error');
+                    continue;
+                }
+
+                foreach (array_keys($result) as $catkey) {
+                    foreach (array_keys($result[$catkey]['objects']) as $okey){
+                        $result[$catkey]['objects'][$okey]['id'] = $app . ':' .
+                            $result[$catkey]['objects'][$okey]['id'];
+                    }
+                }
+
+                if ($app == $registry->getApp()) {
+                    $costobjects = array_merge($result, $costobjects);
+                } else {
+                    $costobjects = array_merge($costobjects, $result);
+                }
             }
         }
 
@@ -426,6 +466,16 @@ class Hermes
          }
          $timers[$id] = $timer;
          $prefs->setValue('running_timers', serialize($timers));
+    }
+
+    /**
+     * Returns true if we are showing the Ajax view.
+     *
+     * @return boolean
+     */
+    static public function showAjaxView()
+    {
+        return $GLOBALS['registry']->getView() == Horde_Registry::VIEW_DYNAMIC && $GLOBALS['prefs']->getValue('dynamic_view');
     }
 
 }

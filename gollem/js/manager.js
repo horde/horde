@@ -50,53 +50,6 @@ var Gollem = {
         }).compact().join("\n");
     },
 
-    chooseAction: function(i)
-    {
-        var action = $F('action' + i);
-
-        switch (action) {
-        case 'paste_items':
-            $('actionID').setValue('paste_items');
-            $('manager').submit();
-            break;
-
-        default:
-            if (!this.getChecked().size()) {
-                alert(GollemText.select_item);
-                break;
-            }
-            switch (action) {
-            case 'rename_items':
-                this.renameItems();
-                break;
-
-            case 'delete_items':
-                this.deleteItems();
-                break;
-
-            case 'chmod_modify':
-                HordeDialog.display({
-                    form: $('attributes').clone(true).show(),
-                    form_id: 'chmodfrm',
-                    form_opts: { action: GollemVar.actionUrl },
-                    header: GollemText.permissions
-                });
-                break;
-
-            case 'cut_items':
-                $('actionID').setValue('cut_items');
-                $('manager').submit();
-                break;
-
-            case 'copy_items':
-                $('actionID').setValue('copy_items');
-                $('manager').submit();
-                break;
-            }
-            break;
-        }
-    },
-
     _clearChecks: function()
     {
         this.getChecked().each(function(e) {
@@ -123,7 +76,7 @@ var Gollem = {
         var cont = true, sf;
 
         if (window.confirm(GollemText.delete_confirm_1 + '\n' + this.getSelected() + '\n' + GollemText.delete_confirm_2)) {
-            if (warn_recursive) {
+            if (GollemVar.warn_recursive) {
                 sf = this.getSelectedFoldersList();
                 if (!sf.empty() &&
                     !window.confirm(GollemText.delete_recurs_1 + '\n' + sf + '\n' + GollemText.delete_recurs_2)) {
@@ -207,17 +160,6 @@ var Gollem = {
         }
     },
 
-    applyFilter: function()
-    {
-        $('manager').submit();
-    },
-
-    clearFilter: function()
-    {
-        $('filter').setValue('');
-        this.applyFilter();
-    },
-
     uploadFields: function()
     {
         return $('manager').getInputs('file').collect(function(m) {
@@ -281,7 +223,7 @@ var Gollem = {
             id = elt.readAttribute('id');
 
             switch (id) {
-            case 'changefolder':
+            case 'gollem-changefolder':
                 this._clearChecks();
                 HordeDialog.display({
                     form_id: 'cdfrm',
@@ -294,7 +236,7 @@ var Gollem = {
                 this.toggleSelection();
                 break;
 
-            case 'createfolder':
+            case 'gollem-createfolder':
                 this._clearChecks();
                 HordeDialog.display({
                     form_id: 'createfrm',
@@ -303,16 +245,55 @@ var Gollem = {
                 e.stop();
                 return;
 
-            case 'filterapply':
-                this.applyFilter();
-                break;
-
-            case 'filterclear':
-                this.clearFilter();
-                break;
-
             case 'uploadfile':
                 this.uploadFile();
+                break;
+
+            case 'gollem-rename':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.renameItems();
+                break;
+
+            case 'gollem-delete':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                this.deleteItems();
+                break;
+
+            case 'gollem-chmod':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                HordeDialog.display({
+                    form: $('gollem-attributes').clone(true).show(),
+                    form_id: 'chmodfrm',
+                    form_opts: { action: GollemVar.actionUrl },
+                    header: GollemText.permissions
+                });
+                break;
+
+            case 'gollem-cut':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('cut_items');
+                $('manager').submit();
+                break;
+
+            case 'gollem-copy':
+                if (!this.getChecked().size()) {
+                    alert(GollemText.select_item);
+                    break;
+                }
+                $('actionID').setValue('copy_items');
+                $('manager').submit();
                 break;
             }
 
@@ -349,14 +330,6 @@ var Gollem = {
     onDomLoad: function()
     {
         var tmp;
-
-        // Observe actual event since IE does not bubble change events.
-        if (tmp = $('action1')) {
-            tmp.observe('change', function() {
-                this.chooseAction(1);
-                $('action1').selectedIndex = 0;
-            }.bind(this));
-        }
 
         if (tmp = $('file_upload_1')) {
             tmp.observe('change', this.uploadChanged.bind(this));

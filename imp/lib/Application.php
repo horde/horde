@@ -1,19 +1,14 @@
 <?php
 /**
- * IMP application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with IMP through this API.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 
 /* Determine the base directories. */
@@ -35,6 +30,18 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
+/**
+ * IMP application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with IMP through this API.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
 class IMP_Application extends Horde_Registry_Application
 {
 
@@ -74,9 +81,10 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector;
 
-        if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-            $injector->getInstance('Horde_Variables')->composeCache) {
+        switch ($e->getCode()) {
+        case Horde_Registry::AUTH_FAILURE:
             $injector->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft($injector->getInstance('Horde_Variables'));
+            break;
         }
     }
 

@@ -11,10 +11,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:33:45</time>
+ <date>2013-01-09</date>
+ <time>15:31:03</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -96,6 +96,9 @@
          <dir name="EventDate">
           <file name="V1.php" role="php" />
          </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/EventDate -->
+         <dir name="EventDateTime">
+          <file name="V1.php" role="php" />
+         </dir> <!-- /lib/Horde/Kolab/Format/Xml/Type/EventDateTime -->
          <dir name="Multiple">
           <file name="Address.php" role="php" />
           <file name="Attendee.php" role="php" />
@@ -127,6 +130,7 @@
          <file name="Date.php" role="php" />
          <file name="DateTime.php" role="php" />
          <file name="EventDate.php" role="php" />
+         <file name="EventDateTime.php" role="php" />
          <file name="Integer.php" role="php" />
          <file name="ModificationDate.php" role="php" />
          <file name="Multiple.php" role="php" />
@@ -247,6 +251,7 @@
        </dir> <!-- /test/Horde/Kolab/Format/Unit -->
        <file name="AllTests.php" role="test" />
        <file name="Autoload.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="phpunit.xml" role="test" />
        <file name="TestCase.php" role="test" />
       </dir> <!-- /test/Horde/Kolab/Format -->
@@ -276,16 +281,16 @@
   </required>
   <optional>
    <package>
-    <name>Horde_Test</name>
+    <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Support</name>
+    <name>Horde_Test</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -339,6 +344,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Date.php" name="lib/Horde/Kolab/Format/Xml/Type/Date.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime.php" />
    <install as="Horde/Kolab/Format/Xml/Type/EventDate.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDate.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/EventDateTime.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDateTime.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Integer.php" name="lib/Horde/Kolab/Format/Xml/Type/Integer.php" />
    <install as="Horde/Kolab/Format/Xml/Type/ModificationDate.php" name="lib/Horde/Kolab/Format/Xml/Type/ModificationDate.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple.php" />
@@ -370,6 +376,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/Date/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/Date/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/DateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/DateTime/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/EventDate/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDate/V1.php" />
+   <install as="Horde/Kolab/Format/Xml/Type/EventDateTime/V1.php" name="lib/Horde/Kolab/Format/Xml/Type/EventDateTime/V1.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Address.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Address.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Attendee.php" />
    <install as="Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" name="lib/Horde/Kolab/Format/Xml/Type/Multiple/Boolean.php" />
@@ -383,6 +390,7 @@
    <install as="Horde/Kolab/Format/Xml/Type/String/Empty/List.php" name="lib/Horde/Kolab/Format/Xml/Type/String/Empty/List.php" />
    <install as="Horde/Kolab/Format/AllTests.php" name="test/Horde/Kolab/Format/AllTests.php" />
    <install as="Horde/Kolab/Format/Autoload.php" name="test/Horde/Kolab/Format/Autoload.php" />
+   <install as="Horde/Kolab/Format/bootstrap.php" name="test/Horde/Kolab/Format/bootstrap.php" />
    <install as="Horde/Kolab/Format/phpunit.xml" name="test/Horde/Kolab/Format/phpunit.xml" />
    <install as="Horde/Kolab/Format/TestCase.php" name="test/Horde/Kolab/Format/TestCase.php" />
    <install as="Horde/Kolab/Format/fixtures/contact-kyr.xml" name="test/Horde/Kolab/Format/fixtures/contact-kyr.xml" />
@@ -658,7 +666,34 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Deprecate timezone parameters, always write UTC datetime values (Bug #11695).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Return date-only values as floating dates (Bug #11767).
+* [jan] Correctly format all-day events (Bug #11767).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

@@ -186,7 +186,7 @@ class IMP_Hooks
 //        // This example uses the open source ClamAV binary (tested with
 //        // v0.96). See: http://www.clamav.net/
 //        $clamscan = '/path/to/clamscan';
-//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), null, $return_var);
+//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), $output, $return_var);
 //        switch ($return_var) {
 //        case 1:
 //            // Virus found.
@@ -426,7 +426,7 @@ class IMP_Hooks
 //    {
 //        // Example #1: Default Kolab redirection scheme
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->listFolderTypes();
+//            ->getList()->getQuery()->listTypes();
 //
 //        $icons = array();
 //        foreach ($types as $f => $type) {
@@ -622,7 +622,7 @@ class IMP_Hooks
 //
 //        // Example #2: Kolab default
 //        $types = $GLOBALS['injector']->getInstance('Horde_Kolab_Storage')
-//            ->getList()->listFolderTypes();
+//            ->getList()->getQuery()->listTypes();
 //        return empty($types[$mailbox]) || ($types[$mailbox] == 'mail');
 //    }
 

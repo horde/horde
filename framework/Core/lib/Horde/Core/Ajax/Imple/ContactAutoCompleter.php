@@ -2,7 +2,7 @@
 /**
  * Javascript autocompleter for contacts.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -83,8 +83,8 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
         }
 
         $sort_list = array();
-        foreach ($search->addresses as $val) {
-            $sort_list[$val] = @levenshtein($str, $val);
+        foreach ($search->base_addresses as $val) {
+            $sort_list[strval($val)] = @levenshtein($str, $val);
         }
         asort($sort_list, SORT_NUMERIC);
 

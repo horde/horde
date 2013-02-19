@@ -2,7 +2,7 @@
 /**
  * Library to interact with the OpenSSL library and implement S/MIME.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -661,8 +661,8 @@ class Horde_Crypt_Smime extends Horde_Crypt
      * Convert a PKCS 12 encrypted certificate package into a private key,
      * public key, and any additional keys.
      *
-     * @param string $text   The PKCS 12 data.
-     * @param array $params  The parameters needed for parsing.
+     * @param string $pkcs12  The PKCS 12 data.
+     * @param array $params   The parameters needed for parsing.
      * <pre>
      * Parameters:
      * ===========

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
@@ -13,11 +13,13 @@ class Sesha_Form_PropertyList extends Horde_Form
 {
     public function __construct($vars)
     {
-        parent::Horde_Form($vars);
+        parent::__construct($vars);
         // This is probably wrong. The library should get the driver 
         // or the properties passed
         $sesha_driver = $GLOBALS['injector']->getInstance('Sesha_Factory_Driver')->create();
-        $this->setButtons(array(_("Edit Property"), _("Delete Property")));
+        $this->setButtons(array(
+            _("Edit Property"),
+            array('class' => 'horde-delete', 'value' => _("Delete Property"))));
         $properties = $sesha_driver->getProperties();
         $params = array();
         foreach ($properties as $property) {

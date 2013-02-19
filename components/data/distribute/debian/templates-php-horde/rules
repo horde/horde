@@ -8,9 +8,9 @@ DESTDIR=$(CURDIR)/debian/php-horde
 
 binary: build
 	dh binary --buildsystem=phppear --with phppear --until dh_install
-	dh_installdirs etc/horde4
+	dh_installdirs etc/horde
 	# config of "horde" app:
-	mv $(DESTDIR)/usr/share/horde4/config $(DESTDIR)/etc/horde4/horde
-	dh_link etc/horde4/horde usr/share/horde4/config
+	mv $(DESTDIR)/usr/share/horde/config $(DESTDIR)/etc/horde/horde
+	dh_link etc/horde/horde usr/share/horde/config
 	# back to debhelper:
 	dh binary --buildsystem=phppear --with phppear --after dh_install

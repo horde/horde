@@ -14,14 +14,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the OWA parser.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2011 Kolab Systems AG
  *
  * See the enclosed file COPYING for license information (LGPL). If you

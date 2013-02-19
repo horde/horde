@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -55,35 +55,6 @@ if (!$memo || !isset($memo['memo_id'])) {
 
 /* Get the note's history. */
 $userId = $GLOBALS['registry']->getAuth();
-$createdby = '';
-$modifiedby = '';
-if (!empty($memo['uid'])) {
-    try {
-        $log = $GLOBALS['injector']->getInstance('Horde_History')->getHistory('mnemo:' . $memolist_id . ':' . $memo['uid']);
-        foreach ($log as $entry) {
-            switch ($entry['action']) {
-            case 'add':
-                $created = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $createdby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $createdby = _("by me");
-                }
-                break;
-
-            case 'modify':
-                $modified = $entry['ts'];
-                if ($userId != $entry['who']) {
-                    $modifiedby = sprintf(_("by %s"), Mnemo::getUserName($entry['who']));
-                } else {
-                    $modifiedby = _("by me");
-                }
-                break;
-            }
-        }
-    } catch (Horde_Exception $e) {
-    }
-}
 
 /* Encryption tests. */
 $show_passphrase = false;

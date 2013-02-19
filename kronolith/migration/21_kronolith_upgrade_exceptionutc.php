@@ -2,7 +2,7 @@
 /**
  * Fix exceptionoriginaldate field to be UTC time.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -27,7 +27,7 @@ class KronolithUpgradeExceptionUtc extends Horde_Db_Migration_Base
                 return;
             }
             $registry->importConfig('kronolith');
-            if (empty($GLOALS['conf']['calendar']['params']['utc'])) {
+            if (empty($GLOBALS['conf']['calendar']['params']['utc'])) {
                 return;
             }
         } catch (Exception $e) {

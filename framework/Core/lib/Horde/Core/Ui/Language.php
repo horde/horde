@@ -3,7 +3,7 @@
  * The Horde_Core_Ui_Language:: class provides a widget for changing the
  * currently selected language.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -17,9 +17,6 @@ class Horde_Core_Ui_Language {
 
     /**
      * Render the language selection.
-     *
-     * @param boolean $form  Return the selection box as a complete standalone
-     *                       form.
      *
      * @return string  The HTML selection box.
      */

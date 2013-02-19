@@ -1,33 +1,27 @@
 <?php
 /**
- * Tests for the Imap Client Auth features.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
- */
-
-/**
- * Tests for the Imap Client ACL Auth features.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @package  Imap_Client
+ */
+
+/**
+ * Tests for the Imap Client ACL Auth features.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @ignore
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_AuthTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    static public function setUpBeforeClass()
     {
         require_once __DIR__ . '/Stub/DigestMD5.php';
     }

@@ -112,6 +112,34 @@ class Nag_Task
     public $completed_date;
 
     /**
+     * The creation time.
+     *
+     * @var Horde_Date
+     */
+    public $created;
+
+    /**
+     * The creator string.
+     *
+     * @var string
+     */
+    public $createdby;
+
+    /**
+     * The last modification time.
+     *
+     * @var Horde_Date
+     */
+    public $modified;
+
+    /**
+     * The last-modifier string.
+     *
+     * @var string
+     */
+    public $modifiedby;
+
+    /**
      * The task alarm threshold.
      *
      * @var integer
@@ -650,6 +678,43 @@ class Nag_Task
     }
 
     /**
+     * Helper method for getting only a slice of the total tasks in this list.
+     *
+     * @param integer $page     The starting page.
+     * @param integer $perpage  The count of tasks per page.
+     *
+     * @return Nag_Task  The resulting task list.
+     */
+    public function getSlice($page = 0, $perpage = null)
+    {
+        $this->reset();
+
+        // Position at start task
+        $start = $page * (empty($perpage) ? 0 : $perpage);
+        $count = 0;
+        while ($count < $start) {
+            if (!$this->each()) {
+                return new Nag_Task();
+            }
+            ++$count;
+        }
+
+        $count = 0;
+        $results = new Nag_Task();
+        $max = (empty($perpage) ? ($this->count() - $start) : $perpage);
+        while ($count < $max) {
+            if ($next = $this->each()) {
+                $results->add($next);
+                ++$count;
+            } else {
+                $count = $max;
+            }
+        }
+        $results->process();
+        return $results;
+    }
+
+    /**
      * Processes a list of tasks by adding action links, obscuring details of
      * private tasks and calculating indentation.
      *
@@ -1172,11 +1237,13 @@ class Nag_Task
         /* Due Date */
         if (!empty($this->due)) {
             $message->utcduedate = new Horde_Date($this->due);
+            $message->duedate = clone $message->utcduedate;
         }
 
         /* Start Date */
         if (!empty($this->start)) {
             $message->utcstartdate = new Horde_Date($this->start);
+            $message->startdate = clone $message->utcstartdate;
         }
 
         /* Priority */
@@ -1217,6 +1284,9 @@ class Nag_Task
      */
     public function fromiCalendar(Horde_Icalendar_Vtodo $vTodo)
     {
+        /* Owner is always current user. */
+        $this->owner = $GLOBALS['registry']->getAuth();
+
         try {
             $name = $vTodo->getAttribute('SUMMARY');
             if (!is_array($name)) { $this->name = $name; }
@@ -1321,7 +1391,7 @@ class Nag_Task
      */
     public function fromASTask(Horde_ActiveSync_Message_Task $message)
     {
-        /* Owner is always current user for ActiveSync */
+        /* Owner is always current user. */
         $this->owner = $GLOBALS['registry']->getAuth();
 
         /* Notes and Title */
@@ -1340,12 +1410,12 @@ class Nag_Task
         }
 
         /* Due Date */
-        if ($due = $message->utcduedate) {
+        if (($due = $message->utcduedate) || ($due = $message->duedate)) {
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
-        if ($start = $message->utcstartdate) {
+        if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
             $this->start = $start->timestamp();
         }
 

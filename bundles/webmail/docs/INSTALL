@@ -431,13 +431,15 @@ the PEAR installation you just created, e.g.::
    /var/www/webmail/pear/pear -c /var/www/webmail/pear.conf \
        channel-discover pear.horde.org
 
-Finally update the .htaccess file in ``/var/www/webmail/`` or configure your
-web server in some other way to point PHP's ``include_path`` setting to the
-PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the
-web root::
+Finally configure your web server in some way to point PHP's ``include_path``
+setting to the PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment
+variable to the web root::
 
    php_value include_path /var/www/webmail/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/webmail
+
+It is recommended to not use the .htaccess file in ``/var/www/webmail/`` to set
+these values because it will be overwritten with every further update.
 
 
 Finishing installation
@@ -535,7 +537,7 @@ Configuring Horde Groupware Webmail Edition
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde Groupware Webmail Edition through PEAR of if PEAR's
+   If not installing Horde Groupware Webmail Edition through PEAR or if PEAR's
    ``bin_dir`` configuration doesn't point to ``/usr/bin/``, replace
    ``/usr/bin/horde-alarms`` with the path to the ``horde-alarms`` script in
    your Horde installation.
@@ -644,9 +646,18 @@ setup).  For various reasons, some of these files may not be removed when the
 user's session ends. To reclaim this disk space, it may be necessary to
 periodically delete these old temporary files.
 
-An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
-Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
-similar to remove old files (see http://www.redhat.com/).
+An example cron-based solution can be found at
+``horde/scripts/temp-cleanup.cron`` in PEAR's ``data_dir`` directory.  Another
+possible solution is to use utilities like ``tmpwatch``, ``tmpreaper`` or
+anything similar to remove old files.
+
+Stale sessions are automatically pruned by PHP according to the
+`session.gc_probability`_, `session.gc_divisor`_, and
+`session.gc_maxlifetime`_ settings located in ``php.ini``. However, the
+default settings are very aggressive: the garbage collection routine runs on
+average 1% of the time a page is loaded. For most installations, a lower
+garbage collection rate is recommended (setting session.gc_divisor to 10,000
+or higher is much more reasonable).
 
 
 Translations

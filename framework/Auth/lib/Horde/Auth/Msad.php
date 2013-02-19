@@ -3,7 +3,7 @@
  * The Horde_Auth_Msad class provides an experimental MSAD extension of the
  * LDAP implementation of the Horde authentication system.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -249,7 +249,7 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
         foreach ($this->_params['uid'] as $uid) {
             $entries = array($uid);
             if ($uid != $this->_params['authId']) {
-                array_push($entries, $this->_params['authId']);
+                $entries[] = $this->_params['authId'];
             }
             $search = @ldap_search($this->_ds, $this->_params['basedn'],
                                $uid . '=' . $userId,

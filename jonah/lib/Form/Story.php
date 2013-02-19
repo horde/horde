@@ -13,7 +13,7 @@ require_once 'Horde/Form/Action.php';
  * This class extends Horde_Form to provide the form to add/edit
  * stories.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://cvs.horde.org/co.php/jonah/LICENSE.
@@ -28,7 +28,7 @@ class Jonah_Form_Story extends Horde_Form
      */
     function __construct(&$vars)
     {
-        parent::Horde_Form($vars, $vars->get('id') ? _("Edit Story") : _("Add New Story"));
+        parent::__construct($vars, $vars->get('id') ? _("Edit Story") : _("Add New Story"));
 
         $this->setButtons(_("Save"));
         $channel_id = $this->addHidden('', 'channel_id', 'int', false);

@@ -3,7 +3,7 @@
  * The Horde_Auth_Smbclient class provides an smbclient implementation of
  * the Horde authentication system.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -35,7 +35,9 @@ class Horde_Auth_Smbclient extends Horde_Auth_Base
     public function __construct(array $params = array())
     {
         foreach (array('hostspec', 'domain', 'smbclient_path') as $val) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            if (empty($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
 
         parent::__construct($params);

@@ -3,7 +3,7 @@
  * The IMP_Search:: class contains all code related to mailbox searching
  * in IMP.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -456,7 +456,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Alter the current IMAP search query.
      *
-     * @param string $id               The search query id.
+     * @param string $offset           The search query id.
      * @param IMP_Search_Query $value  The query object.
      *
      * @throws InvalidArgumentException
@@ -491,7 +491,7 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
     /**
      * Deletes an IMAP search query.
      *
-     * @param string $id  The search query id.
+     * @param string $offset  The search query id.
      */
     public function offsetUnset($offset)
     {

@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -12,32 +12,36 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('trean');
 
-require_once TREAN_BASE . '/lib/Forms/Search.php';
+$vars = Horde_Variables::getDefaultVariables();
+
+$bookmarks = null;
+if (strlen($vars->searchfield)) {
+    // Get the bookmarks.
+    try {
+        $bookmarks = $trean_gateway->searchBookmarks($vars->searchfield);
+    } catch (Trean_Exception $e) {
+        $notification->push($e);
+    }
+}
 
 Trean::addFeedLink();
+
 $page_output->header(array(
     'title' => _("Search")
 ));
 $notification->notify(array('listeners' => 'status'));
 
-// Set up the search form.
-$vars = Horde_Variables::getDefaultVariables();
-$form = new SearchForm($vars);
-
-// Render the search form.
-$form->renderActive(new Horde_Form_Renderer(), $vars, Horde::selfUrl(), 'post');
-echo '<br />';
-
-if ($form->validate($vars)) {
-    $q = Horde_Util::getFormData('q');
-    if ($q) {
-        // Get the bookmarks.
-        $bookmarks = $trean_gateway->searchBookmarks($q);
-        $search_title = sprintf(_("Search Results (%s)"), count($bookmarks));
-
-        // Display the results.
-        require TREAN_TEMPLATES . '/search.php';
+// Display the results.
+if (strlen($vars->searchfield)) {
+    if (!$bookmarks) {
+        echo '<p><em>' . _("No bookmarks found") . '</em></p>';
+    } else {
+        $view = new Trean_View_BookmarkList($bookmarks);
+        $view->showTagBrowser(false);
+        echo $view->render(sprintf(_("Search results (%s)"), count($bookmarks)));
     }
+} else {
+    echo '<p><em>' . _("No search") . '</em></p>';
 }
 
 $page_output->footer();

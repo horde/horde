@@ -5,7 +5,7 @@
 require_once __DIR__ . '/../Base.php';
 
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -27,6 +27,8 @@ class Horde_Vfs_Sql_Pdo_MysqlTest extends Horde_Vfs_Test_Sql_Base
         if ($config && !empty($config['vfs']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['vfs']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_mysql configuration';
         }
     }
 }

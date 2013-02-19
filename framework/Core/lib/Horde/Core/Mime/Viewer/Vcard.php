@@ -2,7 +2,7 @@
 /**
  * The Horde_Core_Mime_Viewer_Vcard class renders out vCards in HTML format.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -36,15 +36,12 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
     /**
      * Constructor.
      *
-     * @param Horde_Mime_Part $mime_part  The object with the data to be
-     *                                    rendered.
-     * @param array $conf                 Configuration:
-     * <pre>
-     * 'browser' - (Horde_Browser) Browser object.
-     * 'notification' - (Horde_Notification_Base) Notification object.
-     * 'prefs' - (Horde_Prefs) Prefs object.
-     * 'registry' - (Horde_Registry) Registry object.
-     * </pre>
+     * @param Horde_Mime_Part $part  The object with the data to be rendered.
+     * @param array $conf            Configuration:
+     *   - browser: (Horde_Browser) Browser object.
+     *   - notification: (Horde_Notification_Base) Notification object.
+     *   - prefs: (Horde_Prefs) Prefs object.
+     *   - registry: (Horde_Registry) Registry object.
      *
      * @throws InvalidArgumentException
      */
@@ -172,7 +169,7 @@ class Horde_Core_Mime_Viewer_Vcard extends Horde_Mime_Viewer_Base
                     if ($browser->hasFeature('datauri') === true ||
                         $browser->hasFeature('datauri') >= strlen($photo['value'])) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),
-                                             '<img src="data:' . htmlspecialchars($photo['params']['TYPE'] . ';base64,' . $photo['value']) . '" />',
+                                             '<img src="' . Horde_Url_Data::create($photo['params']['TYPE'], base64_decode($photo['value'])) . '" />',
                                              false);
                     } elseif ($this->_imageUrl) {
                         $html .= $this->_row(Horde_Core_Translation::t("Photo"),

@@ -1,16 +1,24 @@
 <?php
 /**
- * Compose page for dynamic view.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Compose page for dynamic view.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 {
@@ -181,7 +189,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
 
                 case 'template':
                     $result = $imp_compose->useTemplate($indices_ob);
-                    $compose_opts['template'] = true;
                     break;
 
                 case 'template_edit':
@@ -203,14 +210,21 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             break;
 
         case 'new':
+        case 'template_new':
         default:
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
             $onload = $compose_ajax->getBaseResponse();
-            $onload->body = strval($this->vars->body);
+            $onload->body = isset($args['body'])
+                ? strval($args['body'])
+                : '';
             $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';
+            }
+
+            if ($this->vars->type == 'template_new') {
+                $compose_opts['template'] = true;
             }
             break;
         }

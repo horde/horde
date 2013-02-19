@@ -1,1075 +1,813 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
-    <entry id="compose-actions" state="new">
-        <title>Compose: Actions</title>
-        <para>
-            "Send Message" transmits your e-mail message to the recipient(s). Make sure you want to send your message as this action is final and cannot be reversed.
-        </para>
-        <para>
-            "Save Draft" places an unfinished message in a drafts mailbox, accessible through any folder list. You can then finish the message later by switching to the drafts mailbox, clicking on the saved message to open it, and then clicking on "Resume".
-        </para>
-        <tip>
-            Entering a Subject in the e-mail before saving as a draft will allow you to more easily identify later which message you want to resume within the drafts mailbox.
-        </tip>
-        <para>
-            "Cancel Message" drops the compose message in progress and, if composing in a non-popup window, returns you to the last mailbox you were viewing.
-        </para>
-    </entry>
 
-    <entry id="compose-identity" md5="6b2272c5440c753e783d000db88fea07" state="changed">
-    <title>Mezu-idazketa: Identitatea</title>
-    <heading>Identitatea</heading> <para>Aukeratu mezuak bidaltzeko erabiliko den identitatea, <qt>Aukerak-&gt;Informazio pertsonala</qt> atalean sartuta dauzkazun identitateen goitibeherako zerrendan.</para><!-- English entry (2012-10-24):
-<entry id="compose-identity">
-        <title>Compose: Identity</title>
-        <para>
-            Choose the identity to send e-mail as from a drop-down list of identities that you entered under Preferences-&gt;Personal Information.
-        </para>
-    </entry>--></entry>
+<entry id="keyboard-navigation" md5="885a83e5ce7c455f8d7d40a17ca901df" state="uptodate">
+    <title>Teklatua: Nabigazioa</title>
+    <para>Teklatua erabil dezakezu postontziko zerrendako mezuen artean mugitzeko, aurreko edo hurrengo mezura joateko mezu bat ikusten ari zaren bitartean, eta postontziko zerrendako orrien artean mugitzeko.</para>
+    <heading>Nabigatu teklatu bidez mezu-zerrendan</heading>
+    <para>Teklatua erabil dezakezu mezu-zerrendako mezuak hautatzeko eta ikusteko. Mezuen artean mugitzeko, erabili Gora eta Behera gezi-teklak, Kontrol (Ktrl) tekla sakatuta daukazula. Orriaren hasieran hasiko zara (bistaratutako azken mezuan) Gora sakatzen baduzu, eta orriaren amaieran (bistaratutako lehen mezuan) Behera sakatzen baduzu.</para>
+    <para>Uneko mezua nabarmenduta agertuko da, sagua gainean jarrita izango bazenu bezala. Postontziko zerrendan gora eta behera mugitzen ari zaren bitartean, Zuriune-barra saka dezakezu mezua hautatzeko edo desautatzeko, eta Itzuli saka dezakezu mezua ikusteko.</para>
+    <para>Alt tekla sakatuta badaukazu Ktrl teklaren ordez mezu-zerrendan nabigatzen ari zarenean, automatikoki hautatu edo desautatuko dira pasatzen ari zaren mezuak.</para>
+    <heading>Mezu-zerrenda: Aurreko/hurrengo orria</heading>
+    <para>Erabili Ezkerrera eta Gora teklak, postontziko mezuen aurreko orrira edo hurrengo orria joateko, hurrenez hurren.</para>
+    <heading>Mezu-bistaratzea: Aurreko/hurrengo mezua</heading>
+    <para>Erabili Ezkerrera eta Gora teklak, aurreko mezura edo hurrengo mezura joateko, hurrenez hurren.</para>
+</entry>
 
-    <entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="changed">
-    <title>Mezu-idazketa: Nori</title>
-    <heading>Nori</heading> <para>Idatzi mezuaren hartzailearen helbide elektronikoa. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.</para><!-- English entry (2012-10-24):
-<entry id="compose-to">
-        <title>Compose: To</title>
-        <para>
-            Enter the correct e-mail address for the recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
-        </para>
-        <warn>
-            Do NOT separate e-mail addresses with semicolons (;).
-        </warn>
-    </entry>--></entry>
+<!--
+<entry id="keyboard-shortcuts">
+    <title>Keyboard: Shortcuts</title>
+    <heading>Using Keyboard Shortcuts</heading>
+</entry>
+-->
 
-    <entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="changed">
-    <title>Mezu-idazketa: Cc</title>
-    <heading>Cc</heading> <para>Idatzi mezuaren kopiaren hartzailearen helbide elektronikoa. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.</para> <para>Mezuaren zuzeneko hartzaileak ez diren hartzaileei mezuaren kopia bat bidaltzeko erabiltzen da, mezua jaso dezaten mezuko informazioaren berri izateko; izan ere, normalean, mezuko gaiarekin nolabaiteko erlazioren bat izaten dute hartzaile hauek. "Nori:" hartzaileek eta "Cc:" hartzaileek bi hartzaile mota horien zerrenda osoa ikus dezakete.</para><!-- English entry (2012-10-24):
-<entry id="compose-cc">
-        <title>Compose: Cc</title>
-        <para>
-            Enter the correct e-mail address for the carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
-        </para>
-        <warn>
-            Do NOT separate e-mail addresses with semicolons (;).
-        </warn>
-        <para>
-            Carbon copies are usually sent to recipients who need not be the direct recipients of the message, but may need to receive the message for their information, usually indirectly concerned about the subject of the e-mail. All "To:" recipients and "Cc:" recipients can see the entire list of both kinds of recipients.
-        </para>
-    </entry>--></entry>
-
-    <entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="changed">
-    <title>Mezu-idazketa: Bcc</title>
-    <heading>BCc</heading> <para>Idatzi mezuaren kopiaren hartzaile ikusezinen helbide elektronikoak. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.</para> <para>Idatzitakoa irakurriko duten hartzaileei Bcc ezkutuko kopiak bidali ohi zaizkie, EZ bada nahi beste hartzaileek jakitea gainerakoek ere mezua jaso dutenik. Beraz, "ezkutukoak" esan nahi du, mezu horretako hartzaileen identitatea ezkutatu egiten dela eta gainerako hartzaileek ez dutela ikusiko. Bidaltzaileak eta "Bcc" hartzaileek bakarrik jakingo dute kopia bat jaso dutela.</para><!-- English entry (2012-10-24):
-<entry id="compose-bcc">
-        <title>Compose: Bcc</title>
-        <para>
-            Enter the correct e-mail address for the blind carbon copy recipient(s) of your message. To enter multiple recipients, separate the e-mail addresses with commas (,).
-        </para>
-        <warn>
-            Do NOT separate e-mail addresses with semicolons (;).
-        </warn>
-        <para>
-            Blind carbon copies are usually sent to recipients who may need to read what is being written WITHOUT the other recipients knowing that they are receiving the e-mail. Thus "blind" means that the identity of these recipients is hidden from all other recipients of the e-mail. Only you (as the sender) and the "Bcc" recipients will know that they received a copy.
-        </para>
-    </entry>--></entry>
-
-    <entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="changed">
-    <title>Mezu-idazketa: Gaia</title>
-    <heading>Gaia</heading> <para>Idatzi mezuaren gaia. Hobe da gaia laburra, erraza eta deskribatzailea izatea. Gaia lerroa erabiltzea da zuk eta zure hartzaileek mezuan zer dagoen gogoratzeko biderik errazena. Beraz, oso garrantzitsua da posta antolatzeko eta mezu garrantzitsuak bilatzeko.</para> <para>Gainera, mezu bati "Erantzuten" diozunean edo "Birbidaltzen" duzunean, gai hau kopiatu egiten da mezu berrian. Hortaz, baliagarria da mezu-elkarrizketa bateko "haria" osatzen duten mezuak identifikatzeko. Iradokizun gisa, erantzundako edo birbidalitako mezu batean ideia berriak badaude, "Gaia" lerroa pixka bat aldatzea gomendatzen dizugu; horrela, hartzaileek "hariaren" bilakaera jarrai dezakete.</para><!-- English entry (2012-10-24):
-<entry id="compose-subject">
-        <title>Compose: Subject</title>
-        <para>
-            Enter the subject of your message. It is best to keep the subject short, simple and descriptive. The subject line is the easiest way for you and your correspondents to remember what was in the e-mail, and is generally used as the basis for quickly scanning e-mails in a mailbox.
-        </para>
-        <para>
-            When you "Reply" or "Forward" an e-mail, this subject line is copied over into the new message so that is becomes a valuable way of identifying which messages go together to form a "thread" to an e-mail conversation.
-        </para>
-        <tip>
-            If a replied or forwarded message contains new ideas, you may want to alter the "Subject" line so that recipients can follow the progression of the "thread" and to indicate that the content of the thread has deviated from the initial topic.
-        </tip>
-    </entry>--></entry>
-
-    <entry id="compose-spellcheck" state="new">
-        <title>Compose: Spell Check</title>
-        <warn>
-            This action may not be available if your administrator has disabled it.
-        </warn>
-        <para>
-            Click "Spell Check" to check your spelling. Incorrectly spelled words will be indicated in red and will be underlined; clicking on this word will reveal a list of suggested replacements. Click on a replacement word to replace in your original message, or click anyhere else to close the popup. When done spell checking, click on the "Resume Editing" button to continue editing your message.
-        </para>
-    </entry>
-
-    <entry id="compose-sentmail" state="new">
-        <title>Compose: Save Sent Mail</title>
-        <warn>
-            This action may not be available if your administrator has disabled it.
-        </warn>
-        <para>
-            To keep a copy of the message you send, activate the checkbox next to "Save". The destination mailbox will default to the mailbox selected for this purpose under "Options-&gt;Personal Information-&gt;Identities". Your administrator may also allow selection of an alternate sent mail destination chosen via a drop-down list located next to this option.
-        </para>
-        <para>
-            Saving copies of important e-mails you send could be useful for record keeping of what was discussed. This feature can be activated by default by going to "Options-&gt;Personal Information-&gt;Edit your identities". In your options you can also setup maintenance tasks that empty or rename these sent mail mailboxes periodically.
-        </para>
-        <tip>
-            You may not want to save every e-mail since you could have problems with your disk storage quota being used up quickly, especially when you send large attachments. A mailbox with full storage quota will not be able to receive new incoming e-mail.
-        </tip>
-    </entry>
-
-    <entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="changed">
-    <title>Mezu-idazketa: Lehentasuna</title>
-    <heading>Lehentasuna</heading> <para> "X lehentasunaren" goiburua ezartzen du bidaliko duzun mezuan. "X lehentasuna" etiketa "sasiestandar" mota bat da; eta Netscape, Mozilla, Opera eta Outlook posta-bezeroek onartzen dute. Goiburu hori maneiatu ezin duen beste edozein bezerok ez ikusi egingo dio.</para><!-- English entry (2012-10-24):
-<entry id="compose-priority">
-        <title>Compose: Priority</title>
-        <para>
-            This sets the message priority on your outgoing message. The priority tag is a pseudo-standard that most major e-mail clients can handle. Mail clients that do not handle this header will ignore it.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-edit-rules" md5="5baa5708ac9449e797f967313a9e1a27" state="changed">
-    <title>Iragazkiak: Editatu iragazki-arauak</title>
-    <heading>Editatu iragazki-arauak</heading> <para>Egin klik "Editatu honen aukerak: iragazkiak" koadroan, aktibatuta dauden iragazki-arauak gehitu, ezabatu eta editatzeko orrira joateko.</para><!-- English entry (2012-10-24):
-<entry id="filter-edit-rules">
-        <title>Filters: Preferences: Edit Filter Rules</title>
-        <para>
-            Click "Edit your filter rules" to access the page where you can add, delete, and edit the currently active set of filter rules.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-edit-blacklist" md5="80ff7803c66599c7035f7f8811d218cc" state="changed">
-    <title>Iragazkiak: Editatu zerrenda beltza</title>
-    <heading>Editatu zerrenda beltza</heading> <para>Egin klik "Zerrenda beltza" aukeran, INOIZ mezurik onartzen ez diezun helbide elektronikoen zerrendan helbideak gehitu, ezabatu eta editatzeko orrira joateko.</para><!-- English entry (2012-10-24):
-<entry id="filter-edit-blacklist">
-        <title>Filters: Preferences: Edit Blacklist</title>
-        <para>
-            Click on "Edit your blacklist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS refuse mail from.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="changed">
-    <title>Iragazkiak: Editatu zerrenda zuria</title>
-    <heading>Editatu zerrenda zuria</heading> <para>Egin klik "Editatu zerrenda zuria" aukeran, mezuak BETI onartzen dizkiezun helbide elektronikoen zerrendan helbideak gehitu, ezabatu eta editatzeko orrira joateko.</para><!-- English entry (2012-10-24):
-<entry id="filter-edit-whitelist">
-        <title>Filters: Preferences: Edit Whitelist</title>
-        <para>
-            Click on "Edit your whitelist" to access the page where you can add, delete, and edit the list of e-mail addresses you ALWAYS accept mail from.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="changed">
-    <title>Iragazkiak: Aplikatu iragazkia saioa hastean</title>
-    <heading>Iragazki-arauak aplikatu saioa hastean?</heading> <para>Hautatu aukera hau, iragazki hauek beti aplikatzeko IMPko saioa hastean.</para><!-- English entry (2012-10-24):
-<entry id="filter-on-login">
-        <title>Filters: Preferences: Filter on Login</title>
-        <para>
-            Check this option to always apply filters when first logging on.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="changed">
-    <title>Iragazkiak: Aplikatu iragazkia freskatzean</title>
-    <heading>Aplikatu iragazki-arauak SARRERAKO ONTZIA bistaratzen den bakoitzean?</heading> <para>Aukera hau hautatu nahi duzu, SARRERAKO ONTZIA ikusten duzun bakoitzean iragazkiak beti aplika daitezen?</para><!-- English entry (2012-10-24):
-<entry id="filter-on-display">
-        <title>Filters: Preferences: Filter on Refresh</title>
-        <para>
-            Check this option to always apply filters whenever your view the Inbox.
-        </para>
-    </entry>--></entry>
-
-    <entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="changed">
-    <title>Iragazkiak: Aplikatu iragazkia edozein postontzitan</title>
-    <heading>Onartu iragazki-arauak edozein postontzitan aplikatzea?</heading> <para>Hautatu aukera hau, iragazki-arauak edozein postontzitan aplikatzea nahi baduzu. Normalean, SARRERAKO ONTZIra heltzen diren mezu berrietan soilik aplikatzen dira iragazki-arauak. Aukera hau hautatuta badago, ikono bat agertuko da postontzi-orri guztietan; eta horrela, iragazki-arauak uneko postontzian dauden mezuetan aplikatu ahal izango dira. OHARRA: SARRERAKO ONTZIAz gain beste postontzi batzuk iragaziz gero, gauza arraroak (adib. iragazkiak mezua bidali den postontzi berdinera kopia bat bidal dezake) eta/edo nahi ez diren emaitzak sor daitezke (adib. mezuak lekuz aldatuko/ezabatuko ditu, mezuak uneko postontzira bidali ondoren, iragazki-arau berriak inplementatzen badira).</para><!-- English entry (2012-10-24):
-<entry id="filter-any-mailbox">
-        <title>Filters: Preferences: Filter any Mailbox</title>
-        <para>
-            Check this option if you want to be allowed to apply filter rules to any mailbox. Normally, filtering rules are only applied to new mail that is delivered to your Inbox. If this option is checked, an icon will appear on all mailbox pages that will allow you to apply filter rules to the messages in the current mailbox.
-        </para>
-        <tip>
-            Filtering in mailboxes other than Inbox may produce strange (e.g. the filter may cause a copy of messages to be delivered to the same mailbox) and/or undesired results (e.g. it may cause messages to be moved/deleted if new filtering rules have been implemented since the message has been delivered to the current mailbox).
-        </tip>
-    </entry>--></entry>
-
-    <entry id="pgp-compose-attach-pubkey" md5="97446dbbb27616b4fa39be801e10df2d" state="changed">
-    <title>PGP: Erantsi gako publikoa</title>
-    <heading>Erantsi gako publikoa</heading> <para>PGP gako publikoaren kopia bat hautatuz gero, halakorik baldin badago, irteerako mezuari erantsiko zaio. Portaera lehenetsia ezar dezakezu PGP aukeren pantailaren bidez.</para><!-- English entry (2012-10-24):
-<entry id="pgp-compose-attach-pubkey">
-        <title>PGP: Preferences: Attach Public Key</title>
-        <para>
-            If selected then a copy of your PGP public key, if it exists, will be attached to the outgoing message. You can set the default behavior via the PGP Preferences screen.
-        </para>
-    </entry>--></entry>
-
-    <entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="changed">
-    <title>PGP: Eskaneatu testu-gorputzak</title>
-    <heading>Eskaneatu testu-gorputzak</heading> <para>Hautatzen bada, PGP datuetarako testu-mezu guztien gorputzak eskaneatuko ditu IMPk, eta daturen bat aurkitzen badu, emaitzak bistaratuko ditu. Kontuan izan horrek sistema motelduko duela, testu-mezu guztiak osorik eskaneatu behar baitira PGP datuetarako.</para><!-- English entry (2012-10-24):
-<entry id="pgp-option-scan-body">
-        <title>PGP: Preferences: Scan Text Bodies</title>
-        <para>
-            If selected, all plaintext messages will be scanned for PGP data. Note that this may slow down the system as every text message must be scanned in its entirety for PGP data. This was the old format for sending PGP messages - most mail clients now use the modern format for sending these messages, which does not require any additional scanning.
-        </para>
-    </entry>--></entry>
-
-    <entry id="pgp-option-reply-pubkey" state="new">
-    <title>PGP: Validate PGP Public Keys When Replying</title>
-    <heading>Validate PGP Public Keys When Replying</heading>
+<entry id="compose-buttons" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a" state="uptodate">
+    <title>Mezu-idazketa: Ekintzak</title>
+    <heading>Ekintzak</heading>
     <para>
-    If set, and PGP encryption is used by default for composing messages, IMP will verify that it can access all recipients' public keys when the reply is first created. This has the disadvantage that it may cause a delay in opening the reply window. However, it has the advantage of informing you immediately if you will be able to correctly send the encrypted message to all recipients immediately.
+    "Bidali mezua" aukerak hartzaileari bidaltzen dio mezua. Ziurtatu ekintza honekin bidali nahi duzun mezua ondo dagoela, ezin baita atzera egin.
+    </para>
+    <para>
+    "Gorde zirriborroa" aukerak "Zirriborroak" izeneko karpetan jartzen ditu amaitu gabeko mezuak. Karpeta horretara, pantailaren goi-eskuinaldean dagoen goitibeherako koadroko karpetaren bidez joan zaitezke. Mezua gero amai dezakezu, "Zirriborroak" karpetara joanez. Horretarako, egin klik gordetako mezuan ireki dadin, eta gero, egin klik "Berrekin" aukeran. Ziurtatu zirriborroa gorde aurretik mezuaren gaia idatzi duzula, Zirriborroak karpetan errazago identifikatuko baituzu zein mezu ireki nahi duzun.
+    </para>
+    <tip>
+    Zure instalazioaren arabera hobespenak alda ditzakezu, ikusten ari zinen azken karpetara joateko, edo, bestela, mezu bat zirriborro gisa gorde ondoren, mezu berdinera joateko.
+    </tip>
+    <para>
+    "Utzi mezua" aukera hautatuz gero, idazten ari zaren mezua utzi eta ikusten ari zinen azken karpetara itzuliko zara.
     </para>
 </entry>
 
-    <entry id="compose-options-encrypt" md5="78ff9bd91687efb91d2798ca0458b5cb" state="changed">
+<entry id="compose-identity" md5="9841f0cde4bf109a8f637c3e5a2cf8cf" state="uptodate">
+    <title>Mezu-idazketa: Identitatea</title>
+    <heading>Identitatea</heading>
+    <para>
+    Aukeratu mezuak bidaltzeko erabiliko den identitatea, Aukerak-&gt;Informazio pertsonala atalean sartuta dauzkazun identitateen goitibeherako zerrendan.
+    </para>
+</entry>
+
+<entry id="compose-from" md5="4395043c22323cc80d50709c5d20637e" state="uptodate">
+    <title>Mezu-idazketa: Nork</title>
+    <heading>Nork</heading>
+    <para>
+    Idatzi mezua bidaltzeko erabili nahi duzun helbide elektronikoa.
+    </para>
+</entry>
+
+<entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="uptodate">
+    <title>Mezu-idazketa: Nori</title>
+    <heading>Nori</heading>
+    <para>
+    Idatzi mezuaren hartzailearen helbide elektronikoa. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.
+    </para>
+</entry>
+
+<entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="uptodate">
+    <title>Mezu-idazketa: Cc</title>
+    <heading>Cc</heading>
+    <para>
+    Idatzi mezuaren kopiaren hartzailearen helbide elektronikoa. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.
+    </para>
+    <para>
+    Mezuaren zuzeneko hartzaileak ez diren hartzaileei mezuaren kopia bat bidaltzeko erabiltzen da, mezua jaso eta mezuko informazioaren berri izan dezaten. Normalean, mezuko gaiarekin nolabaiteko erlazioren bat izaten dute hartzaile hauek. "Nori:" hartzaileek eta "Cc:" hartzaileek bi hartzaile mota horien zerrenda osoa ikus dezakete.
+    </para>
+</entry>
+
+<entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="uptodate">
+    <title>Mezu-idazketa: Bcc</title>
+    <heading>Bcc</heading>
+    <para>
+    Idatzi mezuaren kopiaren hartzaile ikusezinen helbide elektronikoak. Hartzaile bat baino gehiago jartzeko, bereizi helbide elektronikoak koma bidez. Helbide elektronikoak bereizteko beste puntuazio-marka bat erabiltzen baduzu, errorea emango du aplikazioak.
+    </para>
+    <para>
+    Idatzitakoa irakurriko duten hartzaileei Bcc ezkutuko kopiak bidali ohi zaizkie, EZ bada nahi beste hartzaileek jakitea gainerakoek ere mezua jaso dutenik. Beraz, "ezkutukoak" esan nahi du, mezu horretako hartzaileen identitatea ezkutatu egiten dela eta gainerako hartzaileek ez dutela ikusiko. Bidaltzaileak eta "Bcc" hartzaileek bakarrik jakingo dute kopia bat jaso dutela.
+    </para>
+</entry>
+
+<entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="uptodate">
+    <title>Mezu-idazketa: Gaia</title>
+    <heading>Gaia</heading>
+    <para>
+    Idatzi mezuaren gaia. Hobe da gaia laburra, erraza eta deskribatzailea izatea. Gaia lerroa erabiltzea da zuk eta zure hartzaileek mezuan zer dagoen gogoratzeko biderik errazena. Horregatik, oso garrantzitsua da posta antolatzeko eta mezu garrantzitsuak bilatzeko.
+    </para>
+    <para>
+    Gainera, mezu bati "Erantzuten" diozunean edo "Birbidaltzen" duzunean, gai hau kopiatu egiten da mezu berrian. Hortaz, baliagarria da mezu-elkarrizketa bateko "haria" osatzen duten mezuak identifikatzeko. Iradokizun gisa, erantzundako edo birbidalitako mezu batean ideia berriak badaude, "Gaia" lerroa pixka bat aldatzea gomendatzen dizugu; horrela, hartzaileek "hariaren" bilakaera jarrai dezakete.
+    </para>
+</entry>
+
+<entry id="compose-charset" md5="c2c878070445af81407da5bfc4083ea3" state="uptodate">
+    <title>Mezu-idazketa: Karaktere-jokoa</title>
+    <heading>Karaktere-jokoa</heading>
+    <para>
+    Bidaltzen den mezuari ezarriko zaion karaktere-jokoa hautatzen du.
+    </para>
+</entry>
+
+<entry id="compose-options" md5="5f1d50a733c8b7e46aecece28822ff70" state="uptodate">
+    <title>Mezu-idazketa: Aukerak</title>
+    <heading>Aukerak</heading>
+    <para>
+    Aukera hauek mezua prestatzen lagunduko dizute.
+    </para>
+    <para>
+    Egin klik "Ortografia-egiaztapena" aukeran, ortografia zuzentzeko.
+    </para>
+    <para>
+    Egin klik "Eranskinak" aukeran orriaren beheko aldera joateko, eta mezuari fitxategiak itsasteko.
+    </para>
+    <para>
+    Bidalitako mezuak gordetzea gaitu badu administratzaileak, "Gorde kopia hemen: sent-mail" aukeraren ondoko kontrol-laukia aktiba dezakezu, bidaliko duzun mezuaren kopia gordetzeko. Helburuko karpeta lehenetsitakoa izango da, edo, bestela, "Aukerak-&gt;Informazio pertsonala-&gt;Identitateak" aukeran horretarako hautatutakoa. Administratzaileak bidalitako mezuentzako helburua hautatu badu, aukera honen beheko aldean dagoen goitibeherako karpeta bat aukeratu ahal izango duzu.
+    </para>
+    <para>
+    Bidali dituzun mezu garrantzitsuen kopiak gordetzea erabilgarria izan daiteke, zer eztabaidatu den jakiteko. Nolanahi ere, ezaugarri hau "aktibatuta" izan dezakezu zure Identitatean, "Aukerak-&gt;Informazio pertsonala-&gt;Gorde bidalitako mezuak?" aukerara joanez. Aukeretan, hainbat mantentze-ataza konfigura ditzakezu, aldiro-aldiro karpetak husten joateko edo izena aldatzeko.
+    </para>
+    <warn>
+    Hobe da mezu guztiak ez gordetzea; bestela, arazoak izan ditzakezu biltegiratze-kuotarekin, erraz agor baitaiteke, batez ere eranskin handiak bidaltzen dituzunean. Biltegiratze-kuota betea duen postontzi batean ezin da mezu berririk jaso.
+    </warn>
+</entry>
+
+<entry id="compose-attachments" md5="c61d86cfad0842f122278366bb2804b0" state="uptodate">
+    <title>Mezu-idazketa: Gehitu eranskinak</title>
+    <heading>Gehitu eranskinak</heading>
+    <para>
+    Mezuan fitxategiak erants ditzakezu, zure arakatzaileak fitxategiak kargatzea onartzen badu. Fitxategi bat baino gehiago karga ditzakezu aldi berean.
+    </para>
+    <para>1. urratsa: Mezu honetan erantsi nahi duzun fitxategiaren bide-izena eta izena idatzi, edo egin klik "Arakatzailea" botoian eta hautatu erantsi nahi duzun fitxategia. Fitxategiaren bide-izena eta izena Eranskin-koadroan agertuko dira orain. Arakatzaileak JavaScript onartzen badu, kargatzeko sarrera gehigarri bat ere ikusiko duzu, beste fitxategi batzuk kargatzeko aldi berean.
+    </para>
+    <para>2. urratsa: Erabaki fitxategia nola ikusi nahi duzun, eranskin gisa edo mezuaren barnean. Hartzailearen mezuak irakurtzen dituen softwareak mota honetako fitxategien barne-bistaratzea maneiatzeko gai izan behar du; bestela, zati hori eranskin gisa ikusiko da.
+    </para>
+    <para>
+    Eranskinaren azalpena aldatu nahi ez baduzu, edo hartzaileari mezuaren barnean bistaratu behar zaiola zehaztu nahi ez baduzu, amaitu duzu. Eranskinak kargatu egingo dira mezua bidaltzen duzunean. Azalpena edo eranskin-antolaera aldatu nahi baduzu, "Eguneratu" botoian klik egin dezakezu eranskinak berehala kargatzeko, eta eranskinetan egindako aldaketak gordetzeko.
+    </para>
+
+    <tip>
+    Fitxategia handia denean eta/edo Interneteko konexioa motel dabilenean, denbora dezente beharko da fitxategia kargatzeko eta mezuari eransteko. Itxaron eta ez egin klik esteketan edo botoietan, fitxategia kargatzeko zain zaudenean.
+    </tip>
+</entry>
+
+<entry id="compose-current-attachments" md5="1dac09e0dba4d062ec6a4f82718956b7" state="uptodate">
+    <title>Mezu-idazketa: Uneko eranskinak</title>
+    <heading>Uneko eranskinak</heading>
+    <para>
+    Mezuari itsatsitako fitxategien zerrenda bistaratzen du atal honek.
+    </para>
+    <heading>Ezabatu erantsitako fitxategiak</heading>
+    <para>
+    Erantsitako fitxategi bat ezabatzeko:
+    </para>
+    <para>
+    1. urratsa: Aktibatu ezabatu nahi dituzun fitxategi-izenen ondoan dagoen kontrol-botoia.
+    </para>
+    <para>
+    2. urratsa: Egin klik Uneko eranskinen gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
+    </para>
+    <heading>Aldatu eranskinen antolamendua</heading>
+    <para>
+    Eranskinen antolamendua aldatzeko:
+    </para>
+    <para>
+    1. urratsa: Aldatu eranskin bakoitzaren antolaera - hautatu "barnean" edo "eranskin gisa" - nahi duzun aukera.
+    </para>
+    <para>
+    2. urratsa: Egin klik Uneko eranskinen atalaren gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
+    </para>
+    <heading>Aldatu eranskinaren azalpena</heading>
+    <para>
+    Eranskinen azalpenak aldatzeko (hartzaileek eranskinen azalpen gisa ikusiko dituzten testuak dira):
+    </para>
+    <para>
+    1. urratsa: Idatzi azalpen bat Azalpenaren eremuan.
+    </para>
+    <para>
+    2. urratsa: Egin klik Uneko eranskinen atalaren gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
+    </para>
+</entry>
+
+<entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
+    <title>Mezu-idazketa: Lehentasuna</title>
+    <heading>Lehentasuna</heading>
+    <para>
+    "X lehentasuna"ren goiburua ezartzen du bidaliko duzun mezuan. "X lehentasuna" etiketa "sasiestandar" mota bat da; eta Netscape, Mozilla, Opera eta Outlook posta-bezeroek onartzen dute. Goiburu hori maneiatu ezin duen beste edozein bezerok ez ikusi egingo dio.
+    </para>
+</entry>
+
+<entry id="compose-save-attachments" md5="eee31308484dc59cb84d8b7de3e8465a" state="uptodate">
+    <title>Mezu-idazketa: Gorde eranskinak</title>
+    <para>
+    Mezua bidalitako mezuen karpetan gordetakoan, eranskinak mezuarekin batera gordeko diren ala ez zehazten du. "Bai" aukeratuz gero, eranskinaren datuak gorde egingo dira. "Ez" aukeratuz gero, eranskinaren datuak kendu egingo dira mezutik, hartzaile guztiei bidali ondoren. "Ez" aukeratuz gero, gordetako mezuen eranskinak (handiak izan daitezke) kendu egingo dira. Diskoan leku gehiago izango duzu horrela.
+    </para>
+</entry>
+
+<entry id="compose-link-attachments" md5="63b3841c95aed31b5372f0fa770ee382" state="uptodate">
+    <title>Mezu-idazketa: Estekatu eranskinak</title>
+    <para>
+    Mezuaren eranskinak bidalitako mezuaren zati gisa bidaliko diren ala eranskin horiek zerbitzari lokal batean gordeko diren zehazten du.  Eranskinak estekatuak badira, mezuaren hartzaileak web-esteka bat izango du, eta esteka horretatik eranskinak deskargatu ahal izango ditu.  Estekatutako eranskinen abantaila hauxe da: bidalitako mezuen tamaina ikaragarri gutxitzen dela.  Eranskinak estekatzeak duen desabantaila, berriz, hauxe: eranskinen edukia agian ez dela eskuragarri egongo etorkizunean, eranskineko datuak mezu elektronikoan ez badira gordetzen.
+    </para>
+</entry>
+
+<entry id="folder-options" md5="08ee3e450a82431727763b9db082ec08" state="uptodate">
+    <title>Karpetak: Karpeta-ekintzak</title>
+    <para>
+      Ezkerreko zutabeko botoiak erabiliz hauta ditzakezu karpetak. Hori egindakoan, hautatu karpetan egin nahi duzun ekintza ezkerreko koadroan.
+    </para>
+    <heading>Sortu</heading>
+    <para>
+      Sortu karpeta berri bat, posible bada. Karpeta bat sortzeko oinarrizko mailan, hautatu 'Sortu' ezkerreko zutabean karpetarik hautatu gabe, Azpikarpeta bat sortzeko lehendik dagoen beste karpeta batean, hautatu karpeta ezkerreko zutabean eta hautatu 'Sortu'.
+    </para>
+    <heading>Aldatu izena</heading>
+    <para>
+      Aldatu izena karpeta bati. Izena aldatzeko, hautatu izena aldatu nahi diezun karpetak ezkerreko zutabean eta egin klik 'Aldatu izena' aukeran. Izena aldatzean, automatikoki izena aldatuko zaie azpikarpeta guztiei.
+    </para>
+    <heading>Ezabatu</heading>
+    <para>
+      Ezabatu karpeta bat eta karpetaren barneko mezu guztiak. Ezabatzeko, aldatu ezabatu nahi dituzun karpetak ezkerreko zutabean eta egin klik 'Ezabatu' aukeran. Umeak dituen karpeta bat ezabatzean, azpikarpetak ez dira automatikoki ezabatuko. Ume horiek kentzeko, ezkerreko zutabean eskuz hautatu behar dituzu ezabatu nahi dituzun karpeta guztiak.
+    </para>
+    <heading>Hustu</heading>
+    <para>
+       Karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Hustu' aukeran.
+    </para>
+    <heading>Borratu betiko</heading>
+    <para>
+       Ezabatutako gisa markatutako karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpeta ezkerreko zutabean eta egin klik 'Borratu betiko' aukeran. Aukera hau erabiltzeko ezinbestekoa da zakarrontzirik ez erabiltzea.
+    </para>
+    <heading>Harpidetu/Harpidetza kendu</heading>
+    <para>
+      Karpeta bat harpidetutako gisa edo harpidetza kendutako gisa markatzen du. Karpeta bat harpidetzen denean, goitibeherako karpeta-zerrenda guztietan agertzen da. Aukera horiek agertzeko ezinbestekoa da IMAP karpeta-harpidetzak erabiltzea.
+    </para>
+    <para>
+      Harpidetzeko, hautatu ezabatzeko karpetak ezkerreko zutabean eta egin klik 'Harpidetu' aukeran. Harpidetza kentzeko, aldatu karpetak ezkerreko zutabean eta egin klik 'Kendu harpidetza' aukeran.
+    </para>
+    <heading>Begiratu mezu berririk dagoen/Ez begiratu mezu berririk dagoen</heading>
+    <para>
+      Mezu berririk dagoen begiratzeko markatzen du karpeta bat karpeta-nabigazioan eta alboko barran (aktibatuta badago).
+    </para>
+    <para>
+       Marka hau ezartzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Begiratu mezu berririk dagoen'. Marka hau kentzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Ez begiratu mezu berririk dagoen'.
+    </para>
+    <heading>Markatu mezu guztiak Ikusitako/Ikusi gabeko gisa</heading>
+    <para>
+       Karpeta bateko mezu guztiak ikusitako gisa markatzeko, hautatu karpeta ezkerreko zutabean eta hautatu 'Markatu mezu guztiak ikusitako gisa'. Karpeta bateko mezu guztiak ikusi gabeko gisa markatzeko, hautatu karpeta ezkerreko zutabean eta hautatu 'Markatu mezu guztiak ikusi gabeko gisa'.
+    </para>
+    <heading>Deskargatu</heading>
+    <para>
+       Karpeta bateko fitxategi guztiak deskargatzeko fitxategi bakar batean (mbox formatuko fitxategi batean), hautatu karpeta ezkerreko zutabean eta egin klik 'Deskargatu' botoian. Fitxategia ZIP formatu konprimatuan deskargatzeko, hautatu 'Deskargatu [.zip formatua]'.
+    </para>
+    <heading>Inportatu mezuak</heading>
+    <para>
+      Aukera honek mbox edo eml fitxategiak aukeratu duzun karpetara inportatzen ditu. Aukeratu mezuak inportatzeko karpeta bat ezkerreko zutabean, eta ondoren hautatu aukera hau. Zein mbox edo eml fitxategi inportatu nahi duzun zehazteko orri batera joango zara.
+    </para>
+    <heading>Berreraiki karpeta-zuhaitza</heading>
+    <para>
+      Berreraiki karpeta-zuhaitzaren irudikapen grafikoa, posta-zerbitzarian berriro kontsulta eginez. Normalean ez zenuke hori egin behar, ez bazara ari aldi berean posta-zerbitzaria atzitzen beste posta-bezero batekin eta posta-bezero horrek aldaketak egin baditu karpeta-egituran.
+    </para>
+
+    <heading>Erakutsi/Ezkutatu harpidetu gabeak</heading>
+    <para>
+    IMAP karpetako harpidetzak erabiltzen badituzu, erakutsi/ezkutatu harpidetu gabeko karpetak. Karpeta bat harpidetzeko/harpidetza kentzeko, hautatu karpeta-izenaren ondoan dagoen kontrol-laukia eta erabili goitibeherako Karpeta-ekintza menuko Harpidetu/Harpidetza kendu aukera.
+    </para>
+    <heading>Zabaldu denak</heading>
+    <para>
+    Karpeta-sarrera guztiak zabaltzen ditu.
+    </para>
+    <heading>Tolestu denak</heading>
+    <para>
+    Karpeta-sarrera guztiak zabaltzen ditu
+    </para>
+</entry>
+
+<entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
+    <title>Iragazkiak: Aplikatu</title>
+    <heading>Aplikatu iragazki-arauak</heading>
+    <para>
+    Egin klik postontziaren ikuspegiko SARRERAKO ONTZIA izenaren ondoan dagoen "Aplikatu iragazkiak" ikonoan, mezu guztiak iragazteko zehaztutako arauen arabera.
+    </para>
+</entry>
+
+<entry id="filter-edit-rules" md5="5baa5708ac9449e797f967313a9e1a27" state="uptodate">
+    <title>Iragazkiak: Editatu iragazki-arauak</title>
+    <heading>Editatu iragazki-arauak</heading>
+    <para>
+    Egin klik "Editatu honen aukerak: iragazkiak" koadroan, aktibatuta dauden iragazki-arauak gehitu, ezabatu eta editatzeko orrira joateko.
+    </para>
+</entry>
+
+<entry id="filter-edit-blacklist" md5="80ff7803c66599c7035f7f8811d218cc" state="uptodate">
+    <title>Iragazkiak: Editatu zerrenda beltza</title>
+    <heading>Editatu zerrenda beltza</heading>
+    <para>
+    Egin klik "Zerrenda beltza" aukeran, INOIZ mezurik onartzen ez diezun helbide elektronikoen zerrendan helbideak gehitu, ezabatu eta editatzeko orrira joateko.
+    </para>
+</entry>
+
+<entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="uptodate">
+    <title>Iragazkiak: Editatu zerrenda zuria</title>
+    <heading>Editatu zerrenda zuria</heading>
+    <para>
+    Egin klik "Editatu zerrenda zuria" aukeran, mezuak BETI onartzen dizkiezun helbide elektronikoen zerrendan helbideak gehitu, ezabatu eta editatzeko orrira joateko.
+    </para>
+</entry>
+
+<entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="uptodate">
+    <title>Iragazkiak: Aplikatu iragazkia saioa hastean</title>
+    <heading>Iragazki-arauak aplikatu saioa hastean?</heading>
+    <para>
+    Hautatu aukera hau, iragazki hauek beti aplikatzeko IMPko saioa hastean.
+    </para>
+</entry>
+
+<entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="uptodate">
+    <title>Iragazkiak: Aplikatu iragazkia freskatzean</title>
+    <heading>Aplikatu iragazki-arauak SARRERAKO ONTZIA bistaratzen den bakoitzean?</heading>
+    <para>
+    Aukera hau hautatu nahi duzu, SARRERAKO ONTZIA ikusten duzun bakoitzean iragazkiak beti aplika daitezen?
+    </para>
+</entry>
+
+<entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="uptodate">
+    <title>Iragazkiak: Aplikatu iragazkia edozein postontzitan</title>
+    <heading>Onartu iragazki-arauak edozein postontzitan aplikatzea?</heading>
+    <para>
+    Hautatu aukera hau, iragazki-arauak edozein postontzitan aplikatzea nahi baduzu. Normalean, SARRERAKO ONTZIra heltzen diren mezu berrietan soilik aplikatzen dira iragazki-arauak. Aukera hau hautatuta badago, ikono bat agertuko da postontzi-orri guztietan; eta horrela, iragazki-arauak uneko postontzian dauden mezuetan aplikatu ahal izango dira. OHARRA: SARRERAKO ONTZIAz gain beste postontzi batzuk iragaziz gero, gauza arraroak gerta daitezke (adib. mezua bidali den postontzi berera kopia bat bidal dezake iragazkiak) eta/edo nahi ez diren emaitzak sor daitezke (adib. mezuak lekuz aldatuko/ezabatuko dira, mezuak uneko postontzira bidali ondoren, iragazki-arau berriak inplementatzen badira).
+    </para>
+</entry>
+
+<entry id="pgp-compose-attach-pubkey" md5="2550f39bd071650d6e4ebeba1af76e25" state="uptodate">
+    <title>PGP: Erantsi gako publikoa</title>
+    <heading>Erantsi gako publikoa</heading>
+    <para>
+    PGP gako publikoaren kopia bat hautatuz gero, halakorik baldin badago, irteerako mezuari erantsiko zaio. Portaera lehenetsia ezar dezakezu PGP aukeren pantailaren bidez.
+    </para>
+</entry>
+
+<entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="uptodate">
+    <title>PGP: Eskaneatu testu-gorputzak</title>
+    <heading>Eskaneatu testu-gorputzak</heading>
+    <para>
+    Hautatzen bada, PGP datuetarako testu-mezu guztien gorputzak eskaneatuko ditu IMPk, eta daturen bat aurkitzen badu, emaitzak bistaratuko ditu. Kontuan izan horrek sistema motelduko duela, testu-mezu guztiak osorik eskaneatu behar baitira PGP datuetarako.
+    </para>
+</entry>
+
+<entry id="pgp-option-reply-pubkey" md5="9eeec8178d39bd61ecbd74d175179587" state="uptodate">
+    <title>PGP: Balidatu PGP gako publikoak erantzutean</title>
+    <heading>Balidatu PGP gako publikoak erantzutean</heading>
+    <para>
+    Ezarrita badago, eta PGP enkriptatzea erabiltzen bada lehenespenez mezuak idaztean, erantzuna lehen aldiz sortzean hartzaile guztien gako publikoak atzi ditzakeela egiaztatuko du IMPk.  Desabantaila bat du: erantzuteko leihoa irekitzean atzerapena eragin dezake. Bestalde, abantaila bat ere badu: berehala jakinaraziko dizu mezu enkriptatua hartzaile guztiei bidal diezaiekezun segituan.
+    </para>
+</entry>
+
+<entry id="compose-options-encrypt" md5="78ff9bd91687efb91d2798ca0458b5cb" state="uptodate">
     <title>Mezu-idazketa: Enkriptatze-aukerak</title>
-    <heading>Enkriptatzerik ez</heading> <para>Mezua enkriptatu gabe bidaltzen du (testu osoa).</para> <heading>PGP enkriptatzedun mezua</heading> <para>Aukera honek uneko mezua enkriptatuko du, PGP eta hartzaileen gako publiko pertsonala erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen gako publikoa gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzaileen gako publikoa helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko posta elektronikoa eta gako publikoan gordeta dagoen helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.</para> <heading>PGP sinaduradun mezua</heading> <para>Aukera honek uneko mezua digitalki sinatuko du PGP eta zure gako pribatu pertsonala erabiliz. Oraindik ez baduzu zure gako pribatuaren pasaesaldia sartu saio honetan, pasaesaldia sartu nahi duzun galdetuko dizu. Hartzaileak zure gako publikoaren kopia bat eduki behar du zure sinadura digitalki egiaztatzeko.</para> <heading>PGP bidez sinatutako/enkriptatutako mezua</heading> <para>Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "PGP enkriptatzedun mezua" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.</para> <heading>PGP enkriptatzedun mezua pasaesaldiarekin</heading> <para>Aukera honek uneko mezua enkriptatuko du, PGP eta pasaesaldi bat erabiliz, eta ondoren, mezua bidaliko du. Enkriptatzeko erabili beharreko pasaesaldia zein den galdetuko zaizu. Eman pasaesaldia hartzaileari kanal seguru baten bitartez (pertsonalki, telefonoz, etab.) Enkriptatutako datuak irteerako mezuari erantsiko zaizkio.</para> <heading>PGP bidez sinatutako/enkriptatutako mezua pasaesaldiarekin</heading> <para>Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du pasaesaldi batekin. Ikus "PGP enkriptatzedun mezua pasaesaldiarekin" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.</para> <heading>S/MIME enkriptatzedun mezua</heading> <para>Aukera honek uneko mezua enkriptatuko du, S/MIME eta hartzaileen ziurtagiria erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen ziurtagiria gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzailearen ziurtagiria helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko helbide elektronikoa eta ziurtagiria gordetako helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.</para> <heading> 	S/MIMErekin sinatutako mezua</heading> <para>Aukera honek digitalki sinatuko du uneko mezua, S/MIME eta zure ziurtagiria erabiliz. Saioan zehar oraindik ez baduzu zure ziurtagiriaren pasaesaldia sartu, eskatu egingo zaizu.</para> <heading>S/MIME bidez sinatutako/enkriptatutako mezua</heading> <para>Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "S/MIME enkriptatzedun mezua" eta "S/MIME sinaduradun mezua" atalak informazio gehiago nahi izanez gero.</para><!-- English entry (2012-10-24):
-<entry id="compose-options-encrypt">
-        <title>Compose: Encryption Options</title>
-        <heading>No Encryption</heading>
-        <para>
-            Send the message with no encryption (cleartext).
-        </para>
-        <heading>PGP Encrypt Message</heading>
-        <para>
-            This option will encrypt the current message, using PGP and the recipients personal public key, and then send it. You MUST have the public key of the recipient stored in your addressbook or else this option will fail. If you have the public key for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the public key is stored. The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>PGP Sign Message</heading>
-        <para>
-            This option will digitally sign the current message using PGP and your personal private key. If you have not already entered the passphrase for your private key during this session you will be prompted for it. The recipient must have a copy of your public key to digitally verify your signature.
-        </para>
-        <heading>PGP Sign/Encrypt Message</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output. See the "PGP Encrypt Message" and "PGP Sign Message" entries for further information.
-        </para>
-        <heading>PGP Encrypt Message with passphrase</heading>
-        <para>
-            This option will encrypt the current message, using PGP and a passphrase, and then send it. You will be prompted for the passphrase that should be used for the encryption. Give the passphrase to the recipient through a secure channel (e.g. personal conversation, phone). The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>PGP Sign/Encrypt Message with passphrase</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output with a passphrase. See the "PGP Encrypt Message with passphrase" and "PGP Sign Message" entries for further information.
-        </para>
-        <heading>S/MIME Encrypt Message</heading>
-        <para>
-            This option will encrypt the current message, using S/MIME and the recipients certificate, and then send it. You MUST have the certificate of the recipient stored in your addressbook or else this option will fail. If you have the certificate for the recipient in your addressbook and are still receiving errors, verify that the e-mail address in the recipient field matches the e-mail address where the certificate is stored. The encrypted data will be attached to the outgoing message.
-        </para>
-        <heading>S/MIME Sign Message</heading>
-        <para>
-            This option will digitally sign the current message using S/MIME and your certificate. If you have not already entered the passphrase for your certificate during this session you will be prompted for it.
-        </para>
-        <heading>S/MIME Sign/Encrypt Message</heading>
-        <para>
-            This option will first digitally sign your message and then will encrypt the resulting output. See the "S/MIME Encrypt Message" and "S/MIME Sign Message" entries for further information.
-        </para>
-    </entry>--></entry>
+    <heading>Enkriptatzerik ez</heading>
+    <para>
+    Mezua enkriptatu gabe bidaltzen du (testu osoa).
+    </para>
+    <heading>PGP enkriptatzedun mezua</heading>
+    <para>
+    Aukera honek uneko mezua enkriptatuko du, PGP eta hartzaileen gako publiko pertsonala erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen gako publikoa gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzaileen gako publikoa helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko posta elektronikoa eta gako publikoan gordeta dagoen helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
+    </para>
+    <heading>PGP sinaduradun mezua</heading>
+    <para>
+    Aukera honek uneko mezua digitalki sinatuko du PGP eta gako pribatu pertsonala erabiliz. Oraindik ez baduzu gako pribatuaren pasaesaldia sartu saio honetan, pasaesaldia sartu nahi duzun galdetuko dizu. Hartzaileak zure gako publikoaren kopia bat eduki behar du zure sinadura digitalki egiaztatzeko.
+    </para>
+    <heading>PGP sinaduradun/enkriptatzedun mezua</heading>
+    <para>
+    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "PGP enkriptatzedun mezua" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
+    </para>
+    <heading>PGP enkriptatzedun mezua pasaesaldiarekin</heading>
+    <para>
+    Aukera honek uneko mezua enkriptatuko du, PGP eta pasaesaldi bat erabiliz, eta ondoren, mezua bidaliko du. Enkriptatzeko erabili beharreko pasaesaldia zein den galdetuko zaizu. Eman pasaesaldia hartzaileari kanal seguru baten bitartez (pertsonalki, telefonoz, etab.) Enkriptatutako datuak irteerako mezuari erantsiko zaizkio.
+    </para>
+    <heading>PGP sinaduradun/enkriptatzedun mezua pasaesaldiarekin</heading>
+    <para>
+    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du pasaesaldi batekin. Ikus "PGP enkriptatzedun mezua pasaesaldiarekin" eta "PGP sinaduradun mezua" atalak informazio gehiago nahi izanez gero.
+    </para>
+    <heading>S/MIME enkriptatzedun mezua</heading>
+    <para>
+    Aukera honek uneko mezua enkriptatuko du, S/MIME eta hartzaileen ziurtagiria erabiliz, eta ondoren, mezua bidaliko du. Hartzaileen ziurtagiria gordeta eduki BEHAR duzu helbide-liburuan; bestela, aukerak honek huts egingo du. Hartzailearen ziurtagiria helbide-liburuan badaukazu, baina hala ere erroreak jasotzen badituzu, egiaztatu hartzaileen eremuko helbide elektronikoa eta ziurtagiria gordetako helbide elektronikoa bat datozela. Enkriptatutako datuak irteerako mezuan erantsiko dira.
+    </para>
+    <heading>S/MIME sinaduradun mezua</heading>
+    <para>
+    Aukera honek digitalki sinatuko du uneko mezua, S/MIME eta zure ziurtagiria erabiliz. Oraindik ez baduzu ziurtagiriaren pasaesaldia sartu saio honetan, pasaesaldia sartzeko eskatuko zaizu.
+    </para>
+    <heading>S/MIME sinaduradun/enkriptatzedun mezua</heading>
+    <para>
+    Aukera honek mezua digitalki sinatuko du lehendabizi, eta ondoren irteerako emaitza enkriptatuko du. Ikus "S/MIME enkriptatzedun mezua" eta "S/MIME sinaduradun mezua" sarrerak informazio gehiago nahi izanez gero.
+    </para>
+</entry>
 
-    <entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="changed">
+<entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
     <title>PGP: Ikuspegi orokorra</title>
-    <heading>Zer da PGP?</heading> <para>PGP komunikazio segururako eta datuak gordetzeko tresna bat da, eta batik bat posta elektronikoan erabiltzen da. Datuak enkriptatzeko eta sinadura digitalak sortzeko erabil daiteke. IMPk GnuPG (GNU Privacy Guard) erabiltzen du funtzionaltasun hau eskaintzeko.</para> <heading>Gaitu PGP funtzionaltasuna?</heading> <para>Aukera hau hautatuz gero, PGP gako pertsonalak sortu/ikusi ahal izango dituzu, beste pertsona batzuen gako publikoa gehitu/ezabatu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.</para><!-- English entry (2012-10-24):
-<entry id="pgp-overview">
-        <title>PGP: Overview</title>
-        <heading>What is PGP?</heading>
-        <para>
-            PGP is a tool for secure communication and data storage, especially for use with e-mail. It can be used to encrypt data and to create digital signatures. GnuPG (GNU Privacy Guard) is used to provide this functionality.
-        </para>
-        <heading>Enable PGP functionality?</heading>
-        <para>
-            If this option is selected, you will be able to create/view your personal PGP keys, add/delete public keys from other individuals, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
-        </para>
-    </entry>--></entry>
+    <heading>Zer da PGP?</heading>
+    <para>
+    PGP komunikazio segururako eta datuak gordetzeko tresna bat da, eta batik bat posta elektronikoan erabiltzen da. Datuak enkriptatzeko eta sinadura digitalak sortzeko erabil daiteke. IMPk GnuPG (GNU Privacy Guard) erabiltzen du funtzionaltasun hau eskaintzeko.
+    </para>
+    <heading>Gaitu PGP funtzionaltasuna?</heading>
+    <para>
+    Aukera hau hautatuz gero, PGP gako pertsonalak sortu/ikusi ahal izango dituzu, beste pertsona batzuen gako publikoa gehitu/ezabatu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.
+    </para>
+</entry>
 
-    <entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="changed">
+<entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
     <title>PGP: Aukerak - Erantsi gako publikoa</title>
-    <heading>Aukerak - Erantsi gako publikoa</heading> <para>Hautatuz gero, PGP gako publikoaren kopia bat (halakorik badago) erantsiko da bidaltzen dituzun mezu guztietan.</para><!-- English entry (2012-10-24):
-<entry id="pgp-option-attach-pubkey">
-        <title>PGP: Preferences: Attach Public Key</title>
-        <para>
-            If selected then a copy of your PGP public key, if it exists, will be attached to all outgoing messages.
-        </para>
-    </entry>--></entry>
+    <heading>Aukerak - Erantsi gako publikoa</heading>
+    <para>
+    Hautatuz gero, PGP gako publikoaren kopia bat (halakorik badago) erantsiko da bidaltzen dituzun mezu guztietan.
+    </para>
+</entry>
 
-    <entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="changed">
+<entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
     <title>PGP: Kudeatu gako publikoak</title>
-    <heading>Informazio orokorra</heading> <para>Pantaila honetan PGP gako publikoak dituzten helbide-liburuko uneko erabiltzaileak zerrendatzen dira. Erabiltzaile hauek dira SOILIK 1) enkriptatutako mezu bat bidal diezaiekezunak -EDO- 2) sinadura digital bat egiazta diezaiekezunak.</para> <heading>Ikusi</heading> <para>PGP gako publikoa ikusteko leiho bat irekitzen du.</para> <heading>Xehetasunak</heading> <para>PGP gako publikoari buruzko xehetasun batzuk bistaratzen ditu.</para> <heading>Ezabatu</heading> <para>Zure helbide-liburuko gako publikoa ezabatzen du.</para><!-- English entry (2012-10-24):
-<entry id="pgp-manage-pubkey">
-        <title>PGP: Preferences: Manage Public Keys</title>
-        <heading>Overview</heading>
-        <para>
-            This section lists all of the current users in your addressbook that have PGP public keys. These users are the ONLY users that you can either 1) send an encrypted message to -OR- 2) verify a digital signature.
-        </para>
-        <heading>View</heading>
-        <para>
-            Opens a window to view the PGP public key.
-        </para>
-        <heading>Details</heading>
-        <para>
-            Displays some details about the PGP public key.
-        </para>
-        <heading>Delete</heading>
-        <para>
-            Deletes the public key from your addressbook.
-        </para>
-    </entry>--></entry>
+    <heading>Ikuspegi orokorra</heading>
+    <para>
+    Pantaila honetan PGP gako publikoak dituzten helbide-liburuko erabiltzaile guztiak zerrendatzen dira. Erabiltzaile hauek dira SOILIK 1) enkriptatutako mezu bat bidal diezaiekezunak -EDO- 2) sinadura digital bat egiazta diezaiekezunak.
+    </para>
+    <heading>Ikusi</heading>
+    <para>
+    PGP gako publikoa ikusteko leiho bat irekitzen du.
+    </para>
+    <heading>Xehetasunak</heading>
+    <para>
+    PGP gako publikoari buruzko xehetasun batzuk bistaratzen ditu.
+    </para>
+    <heading>Ezabatu</heading>
+    <para>
+    Zure helbide-liburuko gako publikoa ezabatzen du.
+    </para>
+</entry>
 
-    <entry id="pgp-import-pubkey" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382" state="changed">
+<entry id="pgp-import-pubkey" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382" state="uptodate">
     <title>PGP: Kudeatu gako publikoak - Inportatu</title>
-    <heading>Inportatu gako publikoak</heading> <para>Botoi honek PGP gako publiko bat eskuz inportatzeko leiho bat irekiko du. Gako publikoa testu-eremu batean ere itsats daiteke, edo gakoa ordenagailu lokaleko fitxategi batean badago, inporta dezakezu. Gakoa baliozkoa bada, helbide-liburuan sartuko da eta leihoa itxi egingo da; ez bada baliozkoa, errore-mezu bat agertuko da zergatia azaltzeko.</para><!-- English entry (2012-10-24):
-<entry id="pgp-import-pubkey">
-        <title>PGP: Preferences: Manage Public Keys: Import</title>
-        <para>
-            This button will open a window where you can manually import a PGP public key. The key can either be pasted into a textfield or, if the key resides in a file on your local computer, you can import it. If the key is valid it will be inserted into your addressbook and the window will close; if not valid, an error message will be returned explaining why.
-        </para>
-    </entry>--></entry>
+    <heading>Inportatu gako publikoak</heading>
+    <para>
+    Botoi honek PGP gako publiko bat eskuz inportatzeko leiho bat irekiko du. Gako publikoa testu-eremu batean ere itsats daiteke, edo gakoa ordenagailu lokaleko fitxategi batean badago, inporta dezakezu. Gakoa baliozkoa bada, helbide-liburuan sartuko da eta leihoa itxi egingo da; ez bada baliozkoa, errore-mezu bat agertuko da zergatia azaltzeko.
+    </para>
+</entry>
 
-    <entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="changed">
+<entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak</title>
-    <heading>Informazio orokorra</heading> <para>Mezuak digitalki sinatu nahi badituzu edo beste batzuk zuri enkriptatutako mezuak bidaltzea gaitu, zure PGP gako-pare publikoa/pertsonala izan behar duzu.</para> <heading>Gako publikoa</heading> <para>Zure gako publikoa zuri enkriptatutako mezuak bidaltzea nahi duzun edozein pertsonak izan behar du erabilgarri; mezuak ZUK bakarrik desenkriptatu ahal izango dituzu (zure gako pribatua erabiliz). Gainera, zure gako publikoa digitalki sinatutako mezu bat bidaltzen diozun edonork izan behar du eskuragarri, sinadura digitala egiaztatzeko behar baita gako publikoa.</para> <heading>Gako pribatua</heading> <para>Zure gako pribatua beharrezkoa da, zure gako publikoa erabiliz enkriptatutako edozein mezu desenkriptatzeko. Horrez gain, gako pribatua beharrezkoa da mezu bat digitalki sinatu nahi izanez gero. Gako pribatua pasaesaldi batekin babestuko da, gakoak sortu zirenean sortu zenarekin, hain zuzen ere. Beraz, gako pribatua eskatzen duen edozein jarduera egiteko, pasaesaldia eskatuko dizu IMPk. Pasaesaldia saio bakoitzean behin sartu behar duzu. IMPk zure pasaesaldia gordeko du saioa amaitu arte (ez ahaztu saioa amaitzea, beraz!)</para><!-- English entry (2012-10-24):
-<entry id="pgp-overview-personalkey">
-        <title>PGP: Preferences: Manage Personal Keys</title>
-        <heading>Overview</heading>
-        <para>
-            If you want to digitally sign messages or enable others to send you encrypted messages, you must have your own personal public/private PGP keypair.
-        </para>
-        <heading>Your Public Key</heading>
-        <para>
-            Your public key should be made available to any person that you want to be able to send you encrypted messages that only YOU can decrypt (using your private key). Additionally, your public key needs to be made available to anybody you send a digitally signed message to - a public key is required to verify the digital signature.
-        </para>
-        <heading>Your Private Key</heading>
-        <para>
-            Your private key is necessary to decrypt any message encrypted using your public key. Additionally, your private key is needed if you want to digitally sign a message. Your private key will be protected via a passphrase created when the keys are generated. Thus, to perform any activity that requires your private key, you will be prompted for your passphrase. Entry of your passphrase is only needed once per session.
-        </para>
-    </entry>--></entry>
+    <heading>Ikuspegi orokorra</heading>
+    <para>
+    Mezuak digitalki sinatu nahi badituzu edo beste batzuk zuri enkriptatutako mezuak bidaltzea gaitu, zure PGP gako-pare publikoa/pertsonala izan behar duzu.
+    </para>
+    <heading>Zure gako publikoa</heading>
+    <para>
+    Zure gako publikoa zuri enkriptatutako mezuak bidaltzea nahi duzun edozein pertsonak izan behar du erabilgarri; mezuak ZUK bakarrik desenkriptatu ahal izango dituzu (zure gako pribatua erabiliz). Gainera, zure gako publikoa digitalki sinatutako mezu bat bidaltzen diozun edonork izan behar du eskuragarri, sinadura digitala egiaztatzeko behar baita gako publikoa.
+    </para>
+    <heading>Gako pribatua</heading>
+    <para>
+    Zure gako publikoa erabiliz enkriptatutako edozein mezu desenkriptatzeko beharko duzu zure gako pribatua. Horrez gain, gako pribatua beharrezkoa da mezu bat digitalki sinatu nahi izanez gero. Gako pribatua pasaesaldi batekin babestuko da, gakoak sortu zirenean sortu zenarekin, hain zuzen ere. Beraz, gako pribatua eskatzen duen edozein jarduera egiteko, pasaesaldia eskatuko dizu IMPk. Pasaesaldia saio bakoitzean behin sartu behar duzu. IMPk zure pasaesaldia gordeko du saioa itxi arte (ez ahaztu saioa ixtea, beraz!)
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="changed">
+<entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Gako publikoa</title>
-    <heading>Ikusi</heading> <para>PGP gako publikoa ikusteko leiho bat irekitzen du.</para> <heading>Xehetasunak</heading> <para>PGP gako publikoari buruzko xehetasun batzuk bistaratzen ditu.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-public">
-        <title>PGP: Preferences: Manage Personal Keys: Public Key</title>
-        <heading>View</heading>
-        <para>
-            Opens a window to view the PGP public key.
-        </para>
-        <heading>Details</heading>
-        <para>
-            Displays some details about the PGP public key.
-        </para>
-    </entry>--></entry>
+    <heading>Ikusi</heading>
+    <para>
+    PGP gako publikoa ikusteko leiho bat irekitzen du.
+    </para>
+    <heading>Xehetasunak</heading>
+    <para>
+    PGP gako publikoari buruzko xehetasun batzuk bistaratzen ditu.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="changed">
+<entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Gako pribatua</title>
-    <heading>Sartu pasaesaldia</heading> <para>Pasaesaldiaren elkarrizketa-koadroa irekitzen du. Pasaesaldia sartutakoan, zuzena bada, IMPk gorde egingo du saioa amaitu arte.</para> <heading>Ahaztu pasaesaldia</heading> <para>IMPn gordetako pasaesaldia kentzen du. Gako pribatua gehiago erabili behar izanez gero, berriro pasaesaldia sartu beharko duzu.</para> <heading>Ikusi</heading> <para>PGP gako pribatua ikusteko leiho bat irekitzen du. EZ BIDALI GAKO HAU INORI - aukera hau honetarako da bakarrik: IMP gako pribatu pertsonala esportatzeko, gero beste programetan erabili ahal izateko.</para> <heading>Xehetasunak</heading> <para>PGP gako pribatuari buruzko xehetasun batzuk bistaratzen ditu.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-private">
-        <title>PGP: Preferences: Manage Personal Keys: Private Key</title>
-        <heading>Enter Passphrase</heading>
-        <para>
-            Opens the passphrase dialog window. The passphrase entered, if correct, will be stored until your session ends.
-        </para>
-        <heading>Unload Passphrase</heading>
-        <para>
-            Removes the stored passphrase. Any additional usage of the private key will require you to re-enter the passphrase.
-        </para>
-        <heading>View</heading>
-        <para>
-            Opens a window to view the PGP private key. DO NOT SEND THIS KEY TO ANYONE. This option exists only so that you can export your personal private key for use in another program.
-        </para>
-        <heading>Details</heading>
-        <para>
-            Displays some technical details about the PGP private key.
-        </para>
-    </entry>--></entry>
+    <heading>Idatzi pasaesaldia</heading>
+    <para>
+    Pasaesaldiaren elkarrizketa-koadroa irekitzen du. Pasaesaldia sartutakoan, zuzena bada, IMPk gorde egingo du saioa itxi arte.
+    </para>
+    <heading>Ahaztu pasaesaldia</heading>
+    <para>
+    IMPn gordetako pasaesaldia kentzen du. Gako pribatua gehiago erabili behar izanez gero, berriro pasaesaldia sartu beharko duzu.
+    </para>
+    <heading>Ikusi</heading>
+    <para>
+    PGP gako pribatua ikusteko leiho bat irekitzen du. EZ BIDALI GAKO HAU INORI - aukera hau honetarako da bakarrik: IMP gako pribatu pertsonala esportatzeko, gero beste programetan erabili ahal izateko.
+    </para>
+    <heading>Xehetasunak</heading>
+    <para>
+    PGP gako pribatuari buruzko xehetasun batzuk bistaratzen ditu.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="changed">
+<entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Ezabatu</title>
-    <heading>Ezabatu gako pertsonalak</heading> <para>Botoi honek zure gako-pare pertsonal publikoa/pribatua ezabatuko du IMPko hobespenetatik.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-delete">
-        <title>PGP: Preferences: Manage Personal Keys: Delete</title>
-        <para>
-            This button will delete your personal public/private keypair.
-        </para>
-    </entry>--></entry>
+    <heading>Ezabatu gako pertsonalak</heading>
+    <para>
+    Botoi honek zure gako-pare pertsonal publikoa/pribatua ezabatuko du IMPko hobespenetatik.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="changed">
+<entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Izena</title>
-    <heading>Izena</heading> <para>Gako pertsonaletan kapsulatu nahi duzun izena da. Nahitaezko eremua da.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-name">
-        <title>PGP: Preferences: Create Personal Key: Name</title>
-        <para>
-            The name you want embedded in your personal keys. A required field.
-        </para>
-    </entry>--></entry>
+    <heading>Izena</heading>
+    <para>
+    Gako pertsonaletan kapsulatu nahi duzun izena da. Nahitaezko eremua da.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="changed">
+<entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Iruzkina</title>
-    <heading>Iruzkina</heading> <para>Gako pertsonaletan kapsulatu nahi duzun iruzkin-katea da. Aukerako eremua da.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-comment">
-        <title>PGP: Preferences: Create Personal Key: Comment</title>
-        <para>
-        A comment string you want embedded in your personal keys. An optional field.
-        </para>
-    </entry>--></entry>
+    <heading>Iruzkina</heading>
+    <para>
+    Gako pertsonaletan kapsulatu nahi duzun iruzkin-katea da. Aukerako eremua da.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="changed">
+<entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Helbide elektronikoa</title>
-    <heading>Helbide elektronikoa</heading> <para>Gako pertsonalekin lotu nahi duzun helbide elektronikoa da. Nahitaezko eremua da.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-email">
-        <title>PGP: Preferences: Create Personal Key: E-mail Address</title>
-        <para>
-            The e-mail address you want associated with your personal keys. A required field.
-        </para>
-    </entry>--></entry>
+    <heading>Helbide elektronikoa</heading>
+    <para>
+    Gako pertsonalekin lotu nahi duzun helbide elektronikoa da. Nahitaezko eremua da.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-keylength" md5="24ca641c63fb5ff310a39ee0d3b1ee55" state="changed">
+<entry id="pgp-personalkey-create-keylength" md5="24ca641c63fb5ff310a39ee0d3b1ee55" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Gako-luzera</title>
-    <heading>Gako-luzera</heading> <para>Sortutako gakoaren gako-luzera da, bit-etan. Zenbat eta balio handiagoa, orduan eta babes handiagoa (baina denbora gehiago beharko du sortzeko eta enkriptatzeko). 1024 biteko balioa da lehenetsia. Balio honek babes bikaina eskaintzen du.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-keylength">
-        <title>PGP: Preferences: Create Personal Key: Keylength</title>
-        <para>
-            The keylength, in bits, of your generated key. The greater the value, the greater the protection (but will take significantly longer to generate). 1024 bits should be sufficient for most users.
-        </para>
-    </entry>--></entry>
+    <heading>Gako-luzera</heading>
+    <para>
+    Sortutako gakoaren gako-luzera da, bit-etan. Zenbat eta balio handiagoa, orduan eta babes handiagoa (baina denbora gehiago beharko du sortzeko eta enkriptatzeko). 1024 bitekoa da balio lehenetsia. Balio honek babes bikaina eskaintzen du.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="changed">
+<entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Pasaesaldia</title>
-    <heading>Pasaesaldia</heading> <para>Gako pribatu pertsonala babesteko/enkriptatzeko erabiliko den pasaesaldia da. GUTXIENEZ 6 karaktere izan behar ditu, baina pasaesaldiak eta saioa hasteko pasahitzak EZ dute berdinak izan behar, EZ du hiztegi batean oinarritutako hitz bat izan behar eta zenbakiak nahiz letrak eduki behar ditu. Egiaztatzeko, pasaesaldia bi aldiz sartu behar duzu. Nahitaezko eremua da.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-passphrase">
-        <title>PGP: Preferences: Create Personal Key: Passphrase</title>
-        <para>
-            The passphrase used to protect/encrypt your personal private key. This should be AT LEAST 6 characters, should NOT be the same as your login password, should NOT be based on a dictionary word, and should include both numbers and letters. You must enter this passphrase twice for verification purposes. A required field.
-        </para>
-    </entry>--></entry>
+    <heading>Pasaesaldia</heading>
+    <para>
+    Gako pribatu pertsonala babesteko/enkriptatzeko erabiliko den pasaesaldia da. GUTXIENEZ 6 karaktere izan behar ditu, baina pasaesaldiak eta saioa hasteko pasahitzak EZ dute berdinak izan behar, EZ du hiztegi batean oinarritutako hitz bat izan behar eta zenbakiak nahiz letrak eduki behar ditu. Egiaztatzeko, pasaesaldia bi aldiz sartu behar duzu. Nahitaezko eremua da.
+    </para>
+</entry>
 
-    <entry id="pgp-personalkey-create-actions" md5="0f8234935b964c83533b4ec4c15eb712" state="changed">
+<entry id="pgp-personalkey-create-actions" md5="0f8234935b964c83533b4ec4c15eb712" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Ekintzak</title>
-    <heading>Sortu gakoak</heading> <para>Gako-pare publikoa/pribatua sortu eta gordetzen du.</para> <heading>Inportatu gako-bikotea</heading> <para>Gako-bikote pertsonala/pribatua inportatzen du. Botoi honek PGP gako-bikote pertsonal publikoa/pribatua eskuz inportatzeko leihoa irekitzen du. Gako publikoak testu-eremu batean ere itsats daitezke, edo gakoak ordenagailu lokaleko fitxategi batean badaude, inporta ditzakezu. Gakoak baliozkoak badira, hobespenetan sartuko dira eta leihoa itxi egingo da; ez badira baliozkoak, errore-mezu bat agertuko da zergatia azaltzeko.</para><!-- English entry (2012-10-24):
-<entry id="pgp-personalkey-create-actions">
-        <title>PGP: Preferences: Create Personal Key: Actions</title>
-        <heading>Create Keys</heading>
-        <para>
-            Create and store your personal public/private keypair.
-        </para>
-        <heading>Import Keypair</heading>
-        <para>
-            Import a personal/private keypair. This button opens a window where you can manually import your existing PGP personal public/private keypair. The keys can either be pasted into a textfield or, if the keys reside in a file on your local computer, you can import them. If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining why.
-        </para>
-    </entry>--></entry>
+    <heading>Sortu gakoak</heading>
+    <para>
+    Gako-pare publikoa/pribatua sortu eta gordetzen du.
+    </para>
+    <heading>Inportatu gako-parea</heading>
+    <para>
+    Gako-pare pertsonala/pribatua inportatzen du. Botoi honek PGP gako-pare pertsonal publikoa/pribatua eskuz inportatzeko leihoa irekitzen du. Gako publikoak testu-eremu batean ere itsats daitezke, edo gakoak ordenagailu lokaleko fitxategi batean badaude, inporta ditzakezu. Gakoak baliozkoak badira, hobespenetan sartuko dira eta leihoa itxi egingo da; ez badira baliozkoak, errore-mezu bat agertuko da zergatia azaltzeko.
+    </para>
+</entry>
 
-    <entry id="smime-overview" md5="d3c752b1345fb2eccfe575c07461963f" state="changed">
-    <title>S/MIME: Informazio orokorra</title>
-    <heading>Zer da S/MIME?</heading> <para>S/MIME gako-bikote sistema pribatu/publiko bat da, eta sinadura digitalak, mezu-pribatutasuna eta manipulazio-detekzioa eskaintzen ditu modu elkarreraginkorrean. S/MIMEk mezuaren pribatutasuna eskain dezake, bidaltzaileak eta hartzaileek soilik deskodetu ditzaketen mezuak enkriptatuz. Mezu baten bidaltzailea identifika dezakezu sinadura digitalaren bidez. Biek batera, enkriptatzeak eta sinadura digitalak, manipulazioak detektatzen laguntzen dute; horrela, bidaltzaileek hartzaileei mezua bidali ondoren aldatu den ala ez jakin dezakete hartzaileek.</para> <heading>Gaitu S/MIME funtzionaltasuna?</heading> <para>Aukera hau hautatuz gero, S/MIME gako pertsonalak inportatu ahal izango dituzu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.</para><!-- English entry (2012-10-24):
-<entry id="smime-overview">
-        <title>S/MIME: Overview</title>
-        <heading>What is S/MIME?</heading>
-        <para>
-            S/MIME is a private/public key pair system which provides digital signatures, message privacy, and tamper detection in a open, interoperable way. S/MIME can provide message privacy by encrypting messages that only the sender and the intended recipients can decode. It allows you to identify the sender of a message via a digital signature. Together, this encryption and digital signing help provide tamper detection, allowing recipients to determine whether a message was altered after it was sent.
-        </para>
-        <heading>Enable S/MIME functionality?</heading>
-        <para>
-            If this option is selected, you will be able to import your personal S/MIME keys, read encrypted mail, verify digitally signed mail, and encrypt/sign your outgoing mail.
-        </para>
-    </entry>--></entry>
+<entry id="smime-overview" md5="d3c752b1345fb2eccfe575c07461963f" state="uptodate">
+    <title>S/MIME: Ikuspegi orokorra</title>
+    <heading>Zer da S/MIME?</heading>
+    <para>
+    S/MIME gako-pare sistema pribatu/publiko bat da, eta sinadura digitalak, mezu-pribatutasuna eta manipulazio-detekzioa eskaintzen ditu modu elkarreraginkorrean. S/MIMEk mezuaren pribatutasuna eskain dezake, bidaltzaileak eta hartzaileek soilik deskodetu ditzaketen mezuak enkriptatuz. Mezu baten bidaltzailea identifika dezakezu sinadura digitalaren bidez. Biek batera, enkriptatzeak eta sinadura digitalak, manipulazioak detektatzen laguntzen dute; horrela, bidaltzaileek hartzaileei mezua bidali ondoren aldatu den ala ez jakin dezakete hartzaileek.
+    </para>
+    <heading>Gaitu S/MIME funtzionaltasuna?</heading>
+    <para>
+    Aukera hau hautatuz gero, S/MIME gako pertsonalak inportatu ahal izango dituzu, enkriptatutako mezuak irakurri, digitalki sinatutako mezuak egiaztatu eta bidaliko dituzun mezuak enkriptatu/sinatu.
+    </para>
+</entry>
 
-    <entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="changed">
+<entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
     <title>S/MIME: Gako pertsonalak</title>
-    <heading>Informazio orokorra</heading> <para>Mezuak digitalki sinatu edo enkriptatu nahi badituzu, zure S/MIME gako-pare publiko/pribatu pertsonala izan behar duzu.</para><!-- English entry (2012-10-24):
-<entry id="smime-overview-personalkey">
-        <title>S/MIME: Preferences: Personal Certificates</title>
-        <para>
-            If you want to digitally sign or encrypt messages you must have your own personal public/private S/MIME certificates.
-        </para>
-    </entry>--></entry>
+    <heading>Ikuspegi orokorra</heading>
+    <para>
+    Mezuak digitalki sinatu edo enkriptatu nahi badituzu, zure S/MIME gako-pare publiko/pribatu pertsonala izan behar duzu.
+    </para>
+</entry>
 
-    <entry id="smime-import-personal-certs" md5="cf0ed2e3e24d30dedf8cfef2c2645759" state="changed">
+<entry id="smime-import-personal-certs" md5="cf0ed2e3e24d30dedf8cfef2c2645759" state="uptodate">
     <title>S/MIME: Inportatu ziurtagiri pertsonalak</title>
-    <heading>Inportatu ziurtagiri pertsonalak</heading> <para>Ziurtagiri pertsonalak inportatzea PKCS #12 fitxategi-formatu batetik. Arakatzaile batetik (adib. Internet Explorer edo Firefox-etik) edo sistema eragile batek (adib. Windows XP) mantendutako ziurtagiri-biltegi batetik esportatzen denean gako bat, normalean sortzen den fitxategia PKCS #12 fitxategia izan ohi da. Gakoak baliozkoak badira, hobespenetan sartuko dira eta leihoa itxi egingo da; ez badira baliozkoak, errore-mezu bat agertuko da zergatia azaltzeko.</para><!-- English entry (2012-10-24):
-<entry id="smime-import-personal-certs">
-        <title>S/MIME: Preferences: Personal Certificates: Import</title>
-        <para>
-            Import personal certificates from a PKCS #12 format file. PKCS #12 files are usually generated when exporting a key from a browser (e.g. Internet Explorer, Firefox) or from a certificate store maintained by an Operating System (e.g. Windows). If the keys are valid they will be inserted into your preferences and the window will close; if not valid, an error message will be returned explaining the problem.
-        </para>
-    </entry>--></entry>
+    <heading>Inportatu ziurtagiri pertsonalak</heading>
+    <para>
+    Inportatu ziurtagiri pertsonalak PKCS #12 fitxategi-formatu batetik. Arakatzaile batetik (adib. Internet Explorer edo Firefox-etik) edo sistema eragile batek (adib. Windows XP) mantendutako ziurtagiri-biltegi batetik esportatzen denean gako bat, normalean sortzen den fitxategia PKCS #12 fitxategia izan ohi da. Gakoak baliozkoak badira, hobespenetan sartuko dira eta leihoa itxi egingo da; ez badira baliozkoak, errore-mezu bat agertuko da zergatia azaltzeko.
+    </para>
+</entry>
 
-    <entry id="smime-delete-personal-certs" md5="018bb6b61a7e416892de288ad1c880f4" state="changed">
+<entry id="smime-delete-personal-certs" md5="018bb6b61a7e416892de288ad1c880f4" state="uptodate">
     <title>S/MIME: Ezabatu ziurtagiri pertsonalak</title>
-    <heading>Ezabatu ziurtagiri pertsonalak</heading> <para>Ezabatu ziurtagiri pertsonalak hobespenetatik.  Ezingo dituzu S/MIME mezuak sinatu edo zuri bidalitako S/MIME mezu enkriptatuak ikusi.</para><!-- English entry (2012-10-24):
-<entry id="smime-delete-personal-certs">
-        <title>S/MIME: Preferences: Personal Certificates: Delete</title>
-        <para>
-            Delete your personal certificates from your preferences.  You will no longer be able to sign S/MIME messages or view any S/MIME encrypted messages addressed to you.
-        </para>
-    </entry>--></entry>
+    <heading>Ezabatu ziurtagiri pertsonalak</heading>
+    <para>
+    Ezabatu ziurtagiri pertsonalak hobespenetatik.  Ezingo dituzu S/MIME mezuak sinatu edo zuri bidalitako S/MIME mezu enkriptatuak ikusi.
+    </para>
+</entry>
 
-    <entry id="smime-manage-pubkey" md5="8b6c63684d3d73b3d084025a78fe7e88" state="changed">
+<entry id="smime-manage-pubkey" md5="8b6c63684d3d73b3d084025a78fe7e88" state="uptodate">
     <title>S/MIME: Kudeatu gako publikoak</title>
-    <heading>S/MIME: Kudeatu gako publikoak</heading> <para>Kudeatu S/MIME gako publikoen zerrenda.</para> <heading>Ikusi</heading> <para>Ikusi gako publikoaren testu gordina.</para> <heading>Xehetasunak</heading> <para>Gako publikoaren xehetasun teknikoak ikustea.</para> <heading>Ezabatu</heading> <para>Biltegian hautatutako gako publikoa ezabatzen du.  Gako publikoa ezabatuz gero, erabiltzaile horri enkriptatutako mezuak bidaltzea eragotziko duzu.</para><!-- English entry (2012-10-24):
-<entry id="smime-manage-pubkey">
-        <title>S/MIME: Preferences: Manage Public Keys</title>
-        <para>
-            Manage your S/MIME public key list.
-        </para>
-        <heading>View</heading>
-        <para>
-            View the raw text of the public key.
-        </para>
-        <heading>Details</heading>
-        <para>
-            View technical details of the public key.
-        </para>
-        <heading>Delete</heading>
-        <para>
-            Deletes the selected public key from storage.  Deleting a public key for a user will prevent your from encrypting a message to that user.
-        </para>
-    </entry>--></entry>
+    <heading>S/MIME: Kudeatu gako publikoak</heading>
+    <para>
+    Kudeatu S/MIME gako publikoen zerrenda.
+    </para>
+    <heading>Ikusi</heading>
+    <para>
+    Ikusi gako publikoaren testu gordina.
+    </para>
+    <heading>Xehetasunak</heading>
+    <para>
+    Ikusi gako publikoaren xehetasun teknikoak.
+    </para>
+    <heading>Ezabatu</heading>
+    <para>
+    Biltegian hautatutako gako publikoa ezabatzen du.  Gako publikoa ezabatuz gero, erabiltzaile horri enkriptatutako mezuak bidaltzea eragotziko duzu.
+    </para>
+</entry>
 
-    <entry id="printing" md5="f233c11b6b4a6bedeb68f1d5a2a976db" state="changed">
+<entry id="printing" md5="f233c11b6b4a6bedeb68f1d5a2a976db" state="uptodate">
     <title>Inprimatu</title>
-    <heading>Inprimatu mezu bat</heading> <para>Ikusten ari zaren mezu bat inprimatzeko, egin klik mezuaren goiko edo beheko "Inprimatu" estekan. Inprimatzeko formatua duen leiho berri batean irekiko da mezua. Zure web-arakatzailearen eta sistema eragilearen arabera, inprimatzeko elkarrizketa-koadroa irekiko da beharbada. Irekitzen ez bada, hautatu web-arakatzaileko "Fitxategia" menua eta aukeratu "Inprimatu", inprimatzeko elkarrizketa-koadroa irekitzeko.</para><!-- English entry (2012-10-24):
-<entry id="printing">
-        <title>Message: Printing</title>
-        <para>
-            To print a message you are viewing, click on the "Print" icon located next to the part of the message you want to print. The message will open in a new window formated for printing. Depending on your web browser and operating system, the print dialog box may open for you. If it does not open, then pull down the web browser's "File" menu and choose "Print" to open the print dialog box.
-        </para>
-    </entry>--></entry>
+    <heading>Inprimatu mezu bat</heading>
+    <para>
+    Ikusten ari zaren mezu bat inprimatzeko, egin klik mezuaren goiko edo beheko "Inprimatu" estekan. Inprimatzeko formatua duen leiho berri batean irekiko da mezua. Zure web-arakatzailearen eta sistema eragilearen arabera, inprimatzeko elkarrizketa-koadroa irekiko da beharbada. Irekitzen ez bada, hautatu web-arakatzaileko "Fitxategia" menua eta aukeratu "Inprimatu", inprimatzeko elkarrizketa-koadroa irekitzeko.
+    </para>
+</entry>
 
-    <entry id="sorting" md5="18cdeac38027fe5c42bab693f2a4260a" state="changed">
+<entry id="sorting" md5="18cdeac38027fe5c42bab693f2a4260a" state="uptodate">
     <title>Ordena eta haria</title>
-    <heading>Ordenatu mezuak</heading> <para>Mezuen zerrenda ikustean, mezuak edozein zutaberen arabera ordena ditzakezu zutabe egokian klik eginez gero. Goranzko edo beheranzko ordenara aldatzeko, klik egin zutabearen goiburuko geziaren ikonoan.</para> <heading>Haria</heading> <para>Mezuak hariaren (gaiaren) arabera taldekatzeko, horrela mezu bakoitza bere erantzun guztiekin batera taldean egon dadin, egin klik gaiaren zutabe-izenburuko [Haria] estekan. Berriro gaiaren ordena normala jartzeko, egin klik gaiaren zutabeko izenburuaren [Gaia] estekan.</para><!-- English entry (2012-10-24):
-<entry id="sorting">
-        <title>Mailbox: Sorting and Threading</title>
-        <heading>Sorting Entries</heading>
-        <para>
-            When viewing a list of messages, you can sort the messages by any column by clicking on the appropriate column heading. To switch columns between ascending and descending order, click on the arrow icon in the column heading.
-        </para>
-        <heading>Threading</heading>
-        <para>
-            The subject field can be sorted either alphabeticaly or by threading - messages that are all related to each other.
-        </para>
-    </entry>--></entry>
+    <heading>Ordenatu sarrerak</heading>
+    <para>
+    Mezuen zerrenda ikustean, mezuak edozein zutaberen arabera ordena ditzakezu zutabe egokian klik eginez gero. Goranzko edo beheranzko ordenara aldatzeko, egin klik zutabearen goiburuko geziaren ikonoan.
+    </para>
+    <heading>Hariak</heading>
+    <para>
+    Mezuak hariaren (gaiaren) arabera taldekatzeko, horrela mezu bakoitza bere erantzun guztiekin batera taldean egon dadin, egin klik gaiaren zutabe-izenburuko [Haria] estekan. Berriro gaiaren ordena normala jartzeko, egin klik gaiaren zutabeko izenburuaren [Gaia] estekan.
+    </para>
+</entry>
 
-    <entry id="prefs-rename_sentmail_monthly" md5="530fa20e0afbc25ffd40877948832899" state="changed">
-    <title>Hobespenak: Mantentzea: Izena aldatu bidalitako mezuen karpetari hilero</title>
-    <para>Hautatu aukera hau, bidalitako mezuen karpetari izena aldatu nahi badiozu hilabete bakoitzaren hasieran. Karpetaren izena aldatuko da (urtea eta hilabetea dituen izen batekin) eta bidalitako mezuen karpeta berri bat sortuko da.</para><!-- English entry (2012-10-24):
-<entry id="prefs-rename_sentmail_monthly">
-        <title>Compose: Sent Mail: Preferences: Rename Sent Mail Folder Monthly</title>
-        <para>
-            Turn this preference on if you would like to rename your sent mail folder at the beginning of every month. The folder will be renamed (to a name that contains the month and year) and a new sent mail folder will be created.
-        </para>
-    </entry>--></entry>
+<entry id="prefs-rename_sentmail_monthly" md5="767b05efbb4370c32783ea4dc1808f91" state="uptodate">
+    <title>Hobespenak: Aldatu izena bidalitako mezuen karpetari hilero</title>
+    <para>
+    Hautatu hobespen hau, bidalitako mezuen karpetari izena aldatu nahi badiozu hilabete bakoitzaren hasieran. Karpetaren izena aldatuko da (urtea eta hilabetea dituen izen batekin) eta bidalitako mezuen karpeta berri bat sortuko da.
+    </para>
+</entry>
 
-    <entry id="prefs-delete_sentmail_monthly_keep" md5="71ed1c2eab48b91a25b5bcd4b14ccea9" state="changed">
-    <title>Hobespenak: Mantentzea: Ezabatu bidalitako mezuen karpeta hilero - Mantentzeko karpeta kopurua</title>
-    <para>Bidalitako mezuen karpeta zaharrak ezabatzen badituzu hilero, zenbat hilabetez mantendu nahi dituzu karpeta zaharrak?  Hilabete kopuru hori baino gehiago duen edozein karpeta ezabatu egingo da.</para><!-- English entry (2012-10-24):
-<entry id="prefs-delete_sentmail_monthly_keep">
-        <title>Compose: Sent Mail: Preferences: Delete Sent Mail Folder Monthly</title>
-        <para>
-            This option will purge old sent mail folders after a given number of months.  Any folders older than this value will be deleted.  This may be useful if you have a quota, for example.
-        </para>
-    </entry>--></entry>
+<entry id="prefs-delete_sentmail_monthly_keep" md5="041cf1a5b14058dbfd680f5af2c0fd52" state="uptodate">
+    <title>Hobespenak: Ezabatu bidalitako mezuen karpeta hilero</title>
+    <para>
+    Aukera hau hautatuz gero, bidalitako mezuen karpeta zaharrak ezabatuko dira hilabete kopuru jakin bat iragan ondoren.  Hilabete kopuru hori baino gehiago duen edozein karpeta ezabatu egingo da.  Erabilgarria izan daiteke, adibidez, kuota edo muga bat badaukazu.
+    </para>
+</entry>
 
-    <entry id="prefs-purge_sentmail_interval" md5="423f3c1b0645cee1bc58e6e22a6d8b68" state="changed">
-    <title>Hobespenak: Mantentzea: Bidalitako mezuak borratzeko bitartea</title>
-    <para>Bidalitako mezuen karpetak borratzen badituzu, zenbatean behin borratu behar dira?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_sentmail_interval">
-        <title>Compose: Sent Mail: Preferences: Purge Sent Mail</title>
-        <para>
-            How often should your sent mail folder(s) be purged?
-        </para>
-    </entry>--></entry>
+<entry id="prefs-purge_sentmail_interval" md5="6b8d80249b439bb08dbc1a31d00a7286" state="uptodate">
+    <title>Hobespenak: Betiko borratu bidalitako mezuak</title>
+    <para>
+    Zein maiztasunekin borratuko dira betiko bidalitako mezuen karpetak?
+    </para>
+</entry>
 
-    <entry id="prefs-purge_sentmail_keep" md5="fcba2b7e5da61a7fdda7970f926f8d8a" state="changed">
-    <title>Hobespenak: Mantentzea: Bidalitako mezuak mantentzea</title>
-    <para>Bidalitako mezuen karpetak borratzen ari bazara, zenbat egun izan behar dituzte mezuek borratzeko?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_sentmail_keep">
-        <title>Compose: Sent Mail: Preferences: Purge Sent Mail Keep</title>
-        <para>
-            If you are purging your sent mail folder(s), message older than how many days should be purged?
-        </para>
-    </entry>--></entry>
+<entry id="prefs-purge_sentmail_keep" md5="07df30a1ca8ef9ff46ca1c7407eb9004" state="uptodate">
+    <title>Hobespenak: Betiko borratzen den bidalitako mezuen karpetaren mantentzea</title>
+    <para>
+    Bidalitako mezuen karpetak borratzen ari bazara, zenbat egun izan behar dituzte mezuek borratzeko?
+    </para>
+</entry>
 
-    <entry id="prefs-delete_attachments_monthly_keep" md5="1b340a60214dffd04aec02cc1127df5d" state="changed">
-    <title>Hobespenak: Mantentzea: Ezabatu estekatutako eranskinak hilero - gordetzeko hilabete kopurua</title>
-    <para>Bidalitako eranskin zahar estekatuak hilero ezabatzen badituzu, zenbat hilabetez gorde nahi dituzu eranskin zaharrak?  Hilabete kopuru hau baino gehiago duen edozein eranskin ezabatu egingo da.</para><!-- English entry (2012-10-24):
-<entry id="prefs-delete_attachments_monthly_keep">
-        <title>Compose: Preferences: Delete Linked Attachments Monthly</title>
-        <para>
-            If your local account is configured to allow sending linked attachments in outgoing compose messages, this option will purge old linked attachments after a given number of months.  Any attachments older than this value will be deleted.  This may be useful if you have a quota, for example.
-        </para>
-    </entry>--></entry>
+<entry id="prefs-delete_attachments_monthly_keep" md5="79d70b75d5a282bc06366b80311b115b" state="uptodate">
+    <title>Hobespenak: Ezabatu estekatutako eranskinak hilero</title>
+    <para>
+    Zure kontu lokala irteerako mezuetan estekatutako eranskinak bidaltzeko konfiguratuta badago, aukera honek betiko borratuko ditu estekatutako eranskin zaharrak hilabete kopuru jakin bat igarotakoan.  Hilabete kopuru hori baino gehiago duen edozein eranskin ezabatu egingo da.  Erabilgarria izan daiteke, adibidez, kuota edo muga bat badaukazu.
+    </para>
+</entry>
 
-    <entry id="prefs-purge_trash_interval" md5="7be91fbeb05b2d87289d4c5602d5a32f" state="changed">
-    <title>Hobespenak: Mantentzea: Zakarrontzia betiko borratzeko bitartea</title>
-    <para>Zakarrontzi-karpeta betiko borratzen baduzu, zenbatean behin borratu behar da?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_trash_interval">
-        <title>Login Tasks: Preferences: Purge Trash</title>
-        <para>
-            How often should your trash folder be purged?
-        </para>
-    </entry>--></entry>
+<entry id="prefs-purge_trash_interval" md5="e805e6311aeae336cfa1cca10bdcfa35" state="uptodate">
+    <title>Hobespenak: Mantentzea: Betiko borratu zakarrontzia</title>
+    <para>
+    Zein maiztasunekin borratuko da betiko zakarrontziaren karpeta?
+    </para>
+</entry>
 
-    <entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="changed">
+<entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
     <title>Hobespenak: Mantentzea: Betiko borratzen den zakarrontziaren mantentzea</title>
-    <para>Zakarrontzi-karpeta betiko borratzen baduzu, zenbat egun izan behar dira mezuak betiko borratzeko?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_trash_keep">
-        <title>Login Tasks: Preferences: Purge Trash Keep</title>
-        <para>
-            If you are purging your trash folder, message older than how many days should be purged?
-        </para>
-    </entry>--></entry>
+    <para>
+    Zakarrontzi-karpeta betiko borratzen baduzu, zenbat egun izan behar dira mezuak betiko borratzeko?
+    </para>
+</entry>
 
-    <entry id="prefs-purge_spam_interval" md5="fe0f7289693d19bd386638e25beeb276" state="changed">
-    <title>Hobespenak: Mantentzea: Mezu baztergarriak betiko borratzeko bitartea</title>
-    <para>Mezu baztergarrien karpeta betiko borratzen baduzu, zenbatean behin borratu behar da?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_spam_interval">
-        <title>Login Tasks: Preferences: Purge Spam</title>
-        <para>
-            How often should your spam folder be purged?
-        </para>
-    </entry>--></entry>
+<entry id="prefs-purge_spam_interval" md5="dacc3d8a1d90ff928fdb72db9ceb76e1" state="uptodate">
+    <title>Hobespenak: Mantentzea: Mezu baztergarriak betiko borratzea</title>
+    <para>
+    Zein maiztasunekin borratuko da betiko mezu baztergarrien karpeta?
+    </para>
+</entry>
 
-    <entry id="prefs-purge_spam_keep" md5="f4748aba20cf4a9b6ce92822bd185de6" state="changed">
+<entry id="prefs-purge_spam_keep" md5="f4748aba20cf4a9b6ce92822bd185de6" state="uptodate">
     <title>Hobespenak: Mantentzea: Betiko borratzen den mezu baztergarrien karpetaren mantentzea</title>
-    <para>Mezu baztergarrien karpeta betiko borratzen baduzu, zenbat egun izan behar dira mezuak betiko borratzeko?</para><!-- English entry (2012-10-24):
-<entry id="prefs-purge_spam_keep">
-        <title>Login Tasks: Preferences: Purge Spam Keep</title>
-        <para>
-            If you are purging your spam folder, message older than how many days should be purged?
-        </para>
-    </entry>--></entry>
+    <para>
+    Mezu baztergarrien karpeta betiko borratzen baduzu, zenbat egun igaro behar dira mezuak betiko borratzeko?
+    </para>
+</entry>
 
-    <entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="changed">
-     <title>Hobespenak: Mezu idazketa: Goiburuaren laburpena</title>
-     <para>Bidaltzen dituzun erantzunetan komatxo arteko aipamen-testua baino lehenago agertzea nahi duzun esaldia idatz dezakezu hemen.</para> <para>Erantzuten ari zaren mezuari buruzko informazioa txertatzeko leku-marka berezi bat edo gehiago sar ditzakezu. Leku-markek '%' ikurra eta ondoren letra bakar bat izaten dute. Leku-marka hauek daude erabilgarri:</para>
+<entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="uptodate">
+     <title>Hobespenak: Mezu-idazketa: Goiburuaren laburpena</title>
+     <para>
+     Bidaltzen dituzun erantzunetan komatxo arteko aipamen-testua baino lehenago agertzea nahi duzun esaldia idatz dezakezu hemen.
+     </para>
+     <para>
+     Erantzuten ari zaren mezuari buruzko informazioa txertatzeko leku-marka berezi bat edo gehiago sar ditzakezu. Leku-markek '%' ikurra eta ondoren letra bakar bat izaten dute. Leku-marka hauek daude erabilgarri:
+     </para>
 
-     <para> %f : Bidaltzailearen izena eta helbide elektronikoa</para> <para> %a : Bidaltzailearen helbide elektronikoa</para> <para> %p : Bidaltzailearen izena</para> <para> %r : RFC 2822 estiloko data eta ordu-zona osoa</para> <para> %d : Data horrela: UUUU hhhh ee</para> <para> %x : Data konfigurazio lokalaren ezarpen lehenetsiaren arabera</para> <para> %c : Data eta ordua konfigurazio lokalaren ezarpen lehenetsiaren arabera</para> <para> %m : Mezuaren IDa</para> <para> %s : Gaia</para> <para> %n : Lerro berri bat</para> <para> %% : '%' karakterea</para>
+     <para> %f : Bidaltzailearen izena eta helbide elektronikoa</para>
+     <para> %a : Bidaltzailearen helbide elektronikoa</para>
+     <para> %p : Bidaltzailearen izena</para>
+     <para> %r : RFC 2822 estiloko data eta ordu-zona osoa</para>
+     <para> %d : Data horrela: aaa, UUUU hhhh ee</para>
+     <para> %x : Data konfigurazio lokalaren formatu lehenetsian</para>
+     <para> %c : Data eta ordua konfigurazio lokalaren formatu lehenetsian</para>
+     <para> %m : Mezuaren IDa</para>
+     <para> %s : Gaia</para>
+     <para> %n : Lerro berri bat</para>
+     <para> %% : '%' karakterea</para>
 
-<!-- English entry (2012-10-24):
-<entry id="prefs-attrib_text">
-        <title>Compose: Preferences: Attribution Text</title>
-        <para>
-            Here you can enter the phrase that you wish to appear before any quoted text in a reply that you send.
-        </para>
-        <para>
-            You can include one or more special placeholders to insert information about the message to which you are replying. Placeholders consist of a '%' followed by a single letter. The following placeholders are available:
-        </para>
-        <raw>
-            %f : The sender's name and email address
-        </raw>
-        <raw>
-            %a : The sender's email address
-        </raw>
-        <raw>
-            %p : The sender's name
-        </raw>
-        <raw>
-            %r : The full RFC 822/2822/5322 style date and time zone
-        </raw>
-        <raw>
-            %d : The date as www, dd mmm YYYY
-        </raw>
-        <raw>
-            %x : The date in the locale's default
-        </raw>
-        <raw>
-            %c : The date and time in the locale's default
-        </raw>
-        <raw>
-            %m : The Message-ID
-        </raw>
-        <raw>
-            %s : The subject
-        </raw>
-         <raw>
-            %n : A new line
-        </raw>
-        <raw>
-            %% : The '%' character
-        </raw>
-    </entry>--></entry>
+</entry>
 
-    <entry id="prefs-default_msg_charset" md5="4ef4fb2090e703f6f8e03f39ab96e717" state="changed">
+<entry id="prefs-default_msg_charset" md5="4ef4fb2090e703f6f8e03f39ab96e717" state="uptodate">
     <title>Hobespenak: Mezuaren karaktere-joko lehenetsia</title>
-    <para>Definitu karaktere-jokoari buruzko informazio zehatzik ez duten testu-mezu zatietan ezarri behar den karaktere lehenetsia. RFC 2045ren arabera, karaktere-jokoaren parametrorik ez duten mezuak 'US-ASCII' karaktere-jokoa erabiliz bistaratzen dira. Nolanahi ere, mezu-zerbitzu akastun batzuek testu-mezuak bidal ditzakete bestelako karaktere-joko batzuetan, mezuaren goiburuan parametro egokiak ezarri gabe. Parametro hau karaktere-joko lehenetsian ezartzea komeni da lokalki erabiltzeko. Hautatu "Lehenetsia" MIME lehenespenak erabiltzeko.</para><!-- English entry (2012-10-24):
-<entry id="prefs-default_msg_charset">
-        <title>Message: Preferences: Default Message Character Set</title>
-        <para>
-            Define the default character set to use for text message parts that do not contain explicit character set information. Per the MIME e-mail standard, messages send without character set information must be displayed using the basic 'US-ASCII' character set. However, certain badly broken mailers may send out text messages in other character sets without setting the proper parameters in the message header. Set this parameter to the default character set string to use locally. Select "Default" to use the MIME defaults.
-        </para>
-    </entry>--></entry>
+    <para>
+    Definitu karaktere-jokoari buruzko informazio zehatzik ez duten testu-mezu zatietan ezarri behar den karaktere lehenetsia. RFC 2045ren arabera, karaktere-jokoaren parametrorik ez duten mezuak 'US-ASCII' karaktere-jokoa erabiliz bistaratzen dira. Nolanahi ere, mezu-zerbitzu akastun batzuek testu-mezuak bidal ditzakete bestelako karaktere-joko batzuetan, mezuaren goiburuan parametro egokiak ezarri gabe. Parametro hau karaktere-joko lehenetsian ezartzea komeni da lokalki erabiltzeko. Hautatu "Lehenetsia" MIME lehenespenak erabiltzeko.
+    </para>
+</entry>
 
-    <entry id="prefs-request_mdn" state="new">
-        <title>Compose: Preferences: Request Read Receipts</title>
-        <para>
-            "Request a Read Receipt" sends a read receipt request (also known as a Message Dispositon Notification) to the recipients of a composed message to notify you when this message is opened by the recipients. Not all clients support / honor this.
-        </para>
-    </entry>
+<entry id="prefs-request_mdn" md5="d1848b54921777465fd46758a2f59ddc" state="uptodate">
+    <title>Hobespenak: Eskatu irakurragiriak</title>
+    <para>
+    "Eskatu irakurragiria?" hautatuz gero, mezuaren hartzaileei eskaera bat bidaltzen zaie, hartzaileek mezua ireki dutela jakinarazteko zuri. Hori ez dute bezero guztiek onartzen/ baliatzen.
+    </para>
+</entry>
 
-    <entry id="prefs-send_mdn" state="new">
-        <title>Message: Preferences: Send Read Receipt</title>
-        <para>
-            "Send a Read Receipt" sends a read receipt (also known as a Message Disposition Notification) when you view a message in which the user has requested that they receive notification that you have read the message. By default, you will be prompted to send the notification.
-        </para>
-    </entry>
+<entry id="prefs-send_mdn" md5="13244cac1f471ef717e8e380e6aed4ab" state="uptodate">
+    <title>Hobespenak: Bidali irakurragiria</title>
+    <para>
+    "Bidali irakurragiria" aukerak irakurragiria bidaltzen du, mezu bat irakurtzen duzunean bidaltzaileak mezua irakurri duzula jakiteko. Lehenespenez, jakinarazpena bidali nahi duzun galdetuko zaizu.
+    </para>
+</entry>
 
-    <entry id="prefs-delete_spam_after_report" md5="cefa8b52e09b0ada90e0889a3959efea" state="changed">
+<entry id="prefs-delete_spam_after_report" md5="8d1eb1fb6f3c10802d20630a5f5ad132" state="uptodate">
     <title>Hobespenak: Ezabatu mezu baztergarriak sailkatu ondoren</title>
-    <para>Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.</para> <para>Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri edo seguru gisa sailkatuko da, baina, zure postontzian aldatu gabe geratuko da.</para> <para>Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.  Ezarpen honek ez du eraginik izango mezu bat seguru gisa sailkatzen denean.</para> <para>Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.  Bestela, mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta SARRERAKO ONTZIra eramango da.</para><!-- English entry (2010-08-16):
-<entry id="prefs-delete_spam_after_report">
-    <title>Preferences: Delete Spam After Reporting</title>
     <para>
-    You may elect to do one of three items after reporting a message as spam.
+    Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri gisa sailkatu ondoren.
     </para>
     <para>
-    First, you can decide to do nothing - the message will be reported as spam but will otherwise remain unchanged in your mailbox.
+    Lehenengoan, ezer ez egitea erabaki dezakezu - mezua baztergarri gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
     </para>
     <para>
-    Second, if reporting a message as spam, you can instead have the message be immediately deleted.
+    Bigarrengoan, mezua baztergarri gisa sailkatuz gero, mezua berehala ezabatuko da.
     </para>
     <para>
-    Third, after reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
+    Hirugarrenean, mezu bat baztergarri gisa sailkatzen denean, mezua uneko postontzitik ezabatuko da eta baztergarrien karpetara eramango da.
     </para>
-</entry>--><!-- English entry (2012-10-24):
-<entry id="prefs-delete_spam_after_report">
-        <title>Message: Preferences: Delete Spam After Reporting</title>
-        <para>
-            You may elect to do one of three items after reporting a message as spam.
-        </para>
-        <para>
-            1. Do nothing. The message will be reported as spam but will otherwise remain unchanged in your mailbox.
-        </para>
-        <para>
-            2. If reporting a message as spam, you can instead have the message be immediately deleted.
-        </para>
-        <para>
-            3. After reporting a message as spam the message will be deleted from the current mailbox and moved to your spam folder.
-        </para>
-    </entry>--></entry>
+</entry>
 
-    <entry id="prefs-move_innocent_after_report" state="new">
-        <title>Message: Preferences: Move Spam After Reporting As Innocent</title>
-        <para>
-            You may elect to do one of two items after reporting a message previously marked as spam as innocent.
-        </para>
-        <para>
-            1. Do nothing. The message will be reported as innocent but will otherwise remain unchanged in your mailbox.
-        </para>
-        <para>
-            2. If reporting a message as innocent the message will be deleted from the current mailbox and moved to your Inbox.
-        </para>
-    </entry>
+<entry id="prefs-move_ham_after_report" md5="4b971b84ed993e6a6fff8d45a50d03c5" state="uptodate">
+    <title>Hobespenak: Lekuz aldatu mezu baztergarriak seguru gisa sailkatu ondoren</title>
+    <para>
+    Bi aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.
+    </para>
+    <para>
+    Lehenengoan, ezer ez egitea erabaki dezakezu - mezua seguru gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
+    </para>
+    <para>
+    Bestela, mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta Sarrerako ontzira eramango da.
+    </para>
+</entry>
 
-    <entry id="prefs-image_replacement" state="new">
-        <title>Message: Preferences: Image Replacement</title>
-        <para>
-            For messages displayed inline (i.e. on the message view page), should all image tags be blocked until you specifically decide to view those images? Note that, if explicitly viewing the attachment, images will always be displayed.
-        </para>
-    </entry>
+<entry id="prefs-image_replacement" md5="f518db9fb16b91e44b4a39b8d3bdcb8a" state="uptodate">
+    <title>Hobespenak: Irudiak ordeztea</title>
+    <para>
+    Barnean bistaratzen diren mezuetan, irudi-etiketa guztiak blokeatu egin behar dira irudi horiek ikustea erabakitzen duzun arte? Kontuan izan, eranskin bat bistaratzen ari bazara, irudiak beti ikusiko direla.
+    </para>
+</entry>
 
-    <entry id="prefs-mailbox_start" md5="62fcc38a15f54dae7eb8bdafa93ed341" state="changed">
+<entry id="prefs-image_addrbook" md5="0110ec5a179c32ae36cbda1d10000c5f" state="uptodate">
+    <title>Hobespenak: Irudiak ordeztea/Helbide-liburua erakustea</title>
+    <para>
+    Mezuen barneko irudiak blokeatuta edukiz gero, automatikoki bistaratuko dira bidaltzailea zure helbide-liburuan badago?
+    </para>
+</entry>
+
+<entry id="prefs-mailbox_start" md5="62fcc38a15f54dae7eb8bdafa93ed341" state="uptodate">
     <title>Hobespenak: Postontziaren hasierako orria</title>
-    <para>Postontzian lehen aldiz sartzen zarenean postontziaren aurrebistan zein orri bistaratuko den zehazten du.</para><!-- English entry (2012-10-24):
-<entry id="prefs-mailbox_start">
-        <title>Mailbox: Preferences: Start Page</title>
-        <para>
-            Determines which page in the mailbox view will be displayed when you access a mailbox for the first time.
-        </para>
-    </entry>--></entry>
+    <para>
+    Postontzian lehen aldiz sartzen zarenean postontziaren aurrebistan zein orri bistaratuko den zehazten du.
+    </para>
+</entry>
 
-    <entry id="prefs-save_attachments" md5="35b46334cdcc7fa416b9f9fca5874e80" state="changed">
+<entry id="prefs-save_attachments" md5="d61dfb1fd20829a48af8d04402f857cb" state="uptodate">
     <title>Hobespenak: Gorde bidalitako mezuetako eranskinak</title>
-    <para>Idatzitako mezu bat bidalitako mezuen karpetan gordez gero, zehaztu erantsitako datu guztiak gorde behar diren ala ez. Aukera hauek daude erabilgarri:</para>
+    <para>
+    Idatzitako mezu bat bidalitako mezuen karpetan gordez gero, zehaztu erantsitako datu guztiak gorde behar diren ala ez. Aukera hauek daude erabilgarri:
+    </para>
 
-    <para>* "Beti gorde eranskinak" - INOIZ ez da galdetuko mezuak idazteko pantailan eranskinak gorde behar diren ala ez, eranskinak BETI gordeko baitira mezuarekin batera.</para> <para>* "Galdetu eranskin bat bidaltzen den bakoitzean; lehenespena: BAI" - BETI galdetuko da mezuak idazteko pantailan eranskinak gorde behar diren ala ez; lehenespena: eranskinak gordetzea.</para> <para>* "Galdetu eranskin bat bidaltzen den bakoitzean; lehenespena: EZ" - BETI galdetuko da mezuak idazteko pantailan eranskinak gorde behar diren ala ez; lehenespena: eranskinak ez gordetzea.</para> <para>* "Inoiz ez gorde eranskinak" - INOIZ ez da galdetuko mezuak idazteko pantailan eranskinak gorde behar diren ala ez, eta eranskinak ez dira INOIZ gordeko mezuarekin batera.</para><!-- English entry (2012-10-24):
-<entry id="prefs-save_attachments">
-        <title>Compose: Sent Mail: Preferences: Save Attachments on Sent Messages</title>
-        <para>
-            If saving a composed message in a sent mail folder, determine if attachment data is saved by default.
-        </para>
-    </entry>--></entry>
+    <para>* "Beti gorde eranskinak" - INOIZ ez da galdetuko mezuak idazteko pantailan eranskinak gorde behar diren ala ez, eranskinak BETI gordeko baitira mezuarekin batera.</para>
+     <para>* "Galdetu eranskin bat bidaltzen den bakoitzean; lehenespena: BAI" - BETI galdetuko da mezuak idazteko pantailan eranskinak gorde behar diren ala ez; lehenespena: eranskinak gordetzea.</para>
+     <para>* "Galdetu eranskin bat bidaltzen den bakoitzean; lehenespena: EZ" - BETI galdetuko da mezuak idazteko pantailan eranskinak gorde behar diren ala ez; lehenespena: eranskinak ez gordetzea.</para>
+     <para>* "Inoiz ez gorde eranskinak" - INOIZ ez da galdetuko mezuak idazteko pantailan eranskinak gorde behar diren ala ez, eta eranskinak ez dira INOIZ gordeko mezuarekin batera.</para>
+</entry>
 
-    <entry id="virtual_inbox" md5="a91e01732bb8129cbc6a7f5c6dca3ab3" state="changed">
+<entry id="virtual_inbox" md5="a91e01732bb8129cbc6a7f5c6dca3ab3" state="uptodate">
     <title>Karpetak: Sarrerako ontzi birtuala</title>
-    <para>Postontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago berri gisa markatutako mezuak postontzi guztietan bilatzeko beharrik.  Hala, une horretan harpidetutako postontzietan automatikoki bilatzen dira mezu berriak eta emaitzak postontzi bakarrean bistaratzen dira.</para><!-- English entry (2012-10-24):
-<entry id="virtual_inbox">
-        <title>Folders: Virtual Inbox</title>
-        <para>
-            Virtual Inbox is a saved search that does away with the need to search every mailbox for messages marked as new.  Instead, all currently subscribed mailboxes are searched for new messages and the results are displayed in a single mailbox.
-        </para>
-    </entry>--></entry>
+    <para>
+    Postontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago berri gisa markatutako mezuak postontzi guztietan bilatzeko beharrik.  Hala, une horretan harpidetutako postontzietan automatikoki bilatzen dira mezu berriak eta emaitzak postontzi bakarrean bistaratzen dira.
+    </para>
+</entry>
 
-    <entry id="virtual_trash" md5="b83f73ed56dff0addcbd4702e5a21a3d" state="changed">
+<entry id="virtual_trash" md5="b83f73ed56dff0addcbd4702e5a21a3d" state="uptodate">
     <title>Karpetak: Zakarrontzi birtuala</title>
-    <para>Zakarrontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago beste Zakarrontzi-karpeta bereizi bat izateko beharrik.  Mezuak zakarrontzi-karpeta zentralizatu batera eraman beharrean, mezuak dauden uneko karpetan ezabatu gisa markatzen dira. 'Erakutsi ezabatutako mezuak' aukera desaktibatzen denean, mezuak ez dira postontziaren aurrebistan agertuko.  Erabiltzaileak Zakarrontzi birtualean klik egiten duenean, *guztiak* aukerarekin, ezabatzeko markatutako mezuak postontzi guztietan egiten da bilaketa, eta mezuak postontzi bakarrean bistaratzen dira.</para><!-- English entry (2012-10-24):
-<entry id="virtual_trash">
-        <title>Folders: Virtual Trash</title>
-        <para>
-        Virtual Trash is a saved search that does away with the need for a separate Trash folder.  Instead of moving messages to a centralized trash folder, messages are simply marked as deleted in the current folder they live in.  When 'show deleted messages' is turned off, this results in these messages not appearing in a mailbox view.  When a user clicks on Virtual Trash, *all* mailboxes are searched for messages that are flagged deleted and these messages are displayed in a single mailbox.
-        </para>
-    </entry>--></entry>
+    <para>
+    Zakarrontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago beste Zakarrontzi-karpeta bereizi bat izateko beharrik.  Mezuak zakarrontzi-karpeta zentralizatu batera eraman beharrean, mezuak dauden uneko karpetan ezabatu gisa markatzen dira. 'Erakutsi ezabatutako mezuak' aukera desaktibatzen denean, mezuak ez dira postontziaren aurrebistan agertuko.  Erabiltzaileak Zakarrontzi birtualean klik egiten duenean, *guztiak* aukerarekin, ezabatzeko markatutako mezuak postontzi guztietan bilatzen dira, eta mezuak postontzi bakarrean bistaratzen dira.
+    </para>
+</entry>
 
-    <view id="basic">
-        <entry id="mailbox-keyboard" state="new">
-            <title>Mailbox: Keyboard Shortcuts</title>
-            <para>
-                You can use your keyboard to select and view messages in your mailbox. In order to move between messages, use the <css class="iconImg keyupImg"/> and <css class="iconImg keydownImg"/>keys while holding the <css class="kbd">Ctrl</css> key. You will start at the bottom of the page (last displayed message) if you press <css class="iconImg keyupImg"/> and at the top of the page (first displayed message) if you press <css class="iconImg keydownImg"/>.
-            </para>
-            <para>
-                The current message is highlighted just as if you were mousing over it. While you are moving up and down through the mailbox list, you can press <css class="kbd">Space</css> to select or deselect that message, and you can press <css class="kbd">Enter</css> to view that message.
-            </para>
-            <para>
-                If you are holding <css class="kbd">Alt</css> instead of <css class="kbd">Ctrl</css> while navigating through the mailbox, the messages you are passing are automatically selected or deselected.
-            </para>
-            <para>
-                Use the <css class="iconImg keyleftImg"/> and <css class="iconImg keyrightImg"/> keys on your keyboard to go to the previous page of messages in your mailbox or the next page of messages.
-            </para>
-        </entry>
-
-        <entry id="message-keyboard" state="new">
-            <title>Message: Previous/Next Message</title>
-            <para>
-                Use the <css class="iconImg keyleftImg"/> and <css class="iconImg keyrightImg"/> keys on your keyboard to go to the previous message or the next message.
-            </para>
-        </entry>
-
-        <entry id="compose-attachments" state="new">
-            <title>Compose: Adding Attachments</title>
-            <para>
-                You may attach files to your message if your browser supports uploading of files.
-            </para>
-            <para>
-                Click the "Browse" button and select the file to be attached. An additional upload input will appear, if you have not exceed your limit for the number of attachments allowed in a message, for uploading additional attachments.
-            </para>
-            <para>
-                If you want to change the description, you can click the "Update" button to upload your attachments immediately and save any other changes you've made to existing attachments.
-            </para>
-            <tip>
-                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
-            </tip>
-        </entry>
-
-        <entry id="compose-current-attachments" state="new">
-            <title>Compose: Current Attachments</title>
-            <heading>Current Attachments</heading>
-            <para>
-                This section displays a list of files already attached to your message.
-            </para>
-            <heading>Delete Attachments</heading>
-            <para>
-                To delete an attached file(s):
-            </para>
-            <para>
-                Step 1: Activate the check-button next to the attached filename(s) you want to delete.
-            </para>
-            <para>
-                Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
-            </para>
-            <heading>Change Attachment Description</heading>
-            <para>
-                To change the description for your attachments (the text the recipient will see that describes the attachment):
-            </para>
-            <para>
-                Step 1: Enter a description into the Description field.
-            </para>
-            <para>
-                Step 2: Either click the "Update" button above the Current Attachments section to immediately view changes or the changes will automatically be performed when the message is sent.
-            </para>
-        </entry>
-
-        <entry id="compose-link-attachments" state="new">
-            <title>Compose: Link Attachments</title>
-            <para>
-                Determines whether the attachments in your composition are sent as a part of the mail message or whether those attachments are kept on a local server.  If attachments are linked, the recipient(s) of your message will be provided a web link where they can download the attachment(s).
-            </para>
-            <para>
-                Linking attachments has the advantage of reducing the size of outgoing messages, especially for large attachments.  Linking attachments has the disadvantage that the content of the attachments cannot be guaranteed to be available in the future since the attachment data is not located within the e-mail message itself.
-            </para>
-        </entry>
-
-        <entry id="folders" state="new">
-            <title>Folders</title>
-            <para>
-                You can select folders by using the buttons along the left column. Once you have done this, select the action you wish to perform on the folders via the select box to the left.
-            </para>
-        </entry>
-
-        <entry id="folders-create" state="new">
-            <title>Folders: Create</title>
-            <para>
-                Create a new folder, if possible. To create a folder in the base level, select 'Create' without selecting a folder in the left column. To create a subfolder in a currently existing folder, select the existing folder in the left column before selecting 'Create'.
-            </para>
-        </entry>
-
-        <entry id="folders-rename" state="new">
-            <title>Folders: Rename</title>
-            <para>
-                Rename a folder. To rename, select the folders in the left column to rename and click 'Rename'. When renaming, all subfolders will automatically be renamed.
-            </para>
-        </entry>
-
-        <entry id="folders-delete" state="new">
-            <title>Folders: Delete</title>
-            <para>
-                Delete a folder and all messages inside the folder. To delete, select the folders in the left column to delete and click 'Delete'. When deleting a folder with children, these subfolders will not be automatically deleted. To remove these children, you must manually select all folders to delete using the left column.
-            </para>
-        </entry>
-
-        <entry id="folders-empty" state="new">
-            <title>Folders: Empty</title>
-            <para>
-                To delete all messages inside a folder, but not delete the folder itself, select the folders in the left column and click 'Empty'.
-            </para>
-        </entry>
-
-        <entry id="folders-purge" state="new">
-            <title>Folders: Purge</title>
-            <para>
-                To delete all messages inside a folder marked as deleted, but not delete the folder itself, select the folders in the left column and click 'Purge'. This option only appears if not using a trash folder.
-            </para>
-        </entry>
-
-        <entry id="folders-subscribe" state="new">
-            <title>Folders: Subscribe/Unsubscribe</title>
-            <para>
-                Flags a folder as either subscribed or unsubscribed. When a folder is subscribed, it will appear in all drop down folder lists. These options only appear if using IMAP folder subscriptions.
-            </para>
-            <para>
-                To subscribe, select the folders in the left column and click 'Subscribe'. To unsubscribe, select the folders in the left column and click 'Unsubscribe'.
-            </para>
-        </entry>
-
-        <entry id="folders-newmail" state="new">
-            <title>Folders: Check for New Mail/Do Not Check for New Mail</title>
-            <warn>
-                This action may not be available if your administrator has disabled it.
-            </warn>
-            <para>
-                Flags a folder to be checked for new mail in the Folder Navigator and the sidebar.
-            </para>
-            <para>
-                To set this flag, select the folders in the left column to check and click 'Check for New Mail'. To unset this flag, select the folders in the left column to check and click 'Do Not Check for New Mail'.
-            </para>
-        </entry>
-
-        <entry id="folders-markseen" state="new">
-            <title>Folders: Mark All Messages as Seen/Unseen</title>
-            <para>
-                To mark all messages in a folder as seen, select the folders in the left column and click 'Mark All Messages as Seen'. To mark all messages in a folder as unseen, select the folders in the left column and click 'Mark All Messages as Unseen'.
-            </para>
-        </entry>
-
-        <entry id="folders-download" state="new">
-            <title>Folders: Download</title>
-            <para>
-                To download all messages in a folder in a single file (mbox format), select the folder in the left column and click 'Download'. To download the file in ZIP compressed format, instead select 'Download [.zip format].
-            </para>
-        </entry>
-
-        <entry id="folders-import" state="new">
-            <title>Folders: Import Messages</title>
-            <para>
-                This option will import mbox format or .eml files into the folder of your choice. Choose one folder via the left column to import the messages into and then select this option. You will then be taken to a page that will prompt for the mbox or .eml file to import.
-            </para>
-        </entry>
-
-        <entry id="folders-rebuild" state="new">
-            <title>Folders: Rebuild Folder Tree</title>
-            <para>
-                Rebuild the graphical representation of the folder tree by requerying the mail server. You should not normally need to do this unless you are simultaneously accessing the mail server with another mail client and that mail client has made changes to the folder structure.
-            </para>
-        </entry>
-
-        <entry id="folders-showsub" state="new">
-            <title>Folders: Show/Hide Unsubscribed</title>
-            <para>
-                If using IMAP folder subscriptions, show/hide the unsubscribed folders. To subscribe/unsubscribe to a folder, select the checkbox next to the foldername and use the Subscribe/Unsubscribe action in the Folder Action drop-down menu.
-            </para>
-        </entry>
-
-        <entry id="folders-expandall" state="new">
-            <heading>Folders: Expand All</heading>
-            <para>
-                Expand all folder entries.
-            </para>
-        </entry>
-
-        <entry id="folders-collapseall" state="new">
-            <heading>Folders: Collapse All</heading>
-            <para>
-                Collapse all folder entries.
-            </para>
-        </entry>
-
-        <entry id="filter-apply" state="new">
-            <title>Filters: Apply Rules</title>
-            <para>
-                Click on the "Apply Filter" icon next to the Inbox name in the mailbox view to filter all messages according to the specified rules.
-            </para>
-        </entry>
-    </view>
-
-    <view id="dynamic">
-        <entry id="compose-attachments" state="new">
-            <title>Compose: Adding Attachments</title>
-            <para>
-                You may attach files to your message if your browser supports uploading of files.
-            </para>
-            <para>
-                Click the "Browse" button and select the file to be attached. An additional upload input will appear, if you have not exceed your limit for the number of attachments allowed in a message, for uploading additional attachments.
-            </para>
-            <tip>
-                Please note that for large files and/or slower Internet connections, the process of uploading and attaching your file to the e-mail may take some time.
-            </tip>
-        </entry>
-
-        <entry id="compose-current-attachments" state="new">
-            <title>Compose: Current Attachments</title>
-            <heading>Viewing Attachments</heading>
-            <para>
-                If the attachment filename is clickable, the attachment data can be viewed in the browser. Click on the attachment name to view the contents of the attachment in a popup window.
-            </para>
-            <heading>Delete Attachments</heading>
-            <para>
-                To delete an attachment, click the "Remove" button next to the name of the attachment you want to delete
-            </para>
-        </entry>
-
-        <entry id="mailbox" state="new">
-            <title>Mailbox</title>
-            <para>
-                To preview a message, select it from the message list.
-            </para>
-            <para>
-                A right-click on a message or a mailbox will display available actions.
-            </para>
-            <warn>
-                Opera does not support right-click actions.  Instead, a left click + <css class="kbd">Shift</css> + <css class="kbd">Ctrl</css> will display available actions.
-            </warn>
-            <para>
-                Click on a message while holding down the <css class="kbd">Ctrl</css> key to select multiple messages.  To select a range of messages, click the first message of the range, navigate to the last message of the range, and then click on the last message while holding down the <css class="kbd">Shift</css> key.
-            </para>
-        </entry>
-
-        <entry id="mailbox-keyboard" state="new">
-            <title>Mailbox: Keyboard Shortcuts</title>
-            <para>
-                The following keyboard shortcuts are available:
-            </para>
-            <para>
-                <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/> : Move up/down through the message list.
-            </para>
-            <para>
-                <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Move one page up/down through the message list.
-            </para>
-            <para>
-                <css class="kbd">Alt</css> + <css class="kbd">PgUp</css> / <css class="kbd">PgDown</css> : Scroll up/down through the display of the previewed message.
-            </para>
-            <para>
-                <css class="kbd">Home</css> / <css class="kbd">End</css> : Move to the beginning/end of the message list.
-            </para>
-            <para>
-                <css class="kbd">Del</css> : Delete the currently selected message(s). <css class="kbd">Shift</css> + <css class="kbd">Del</css> will delete the current message and move to the next message if a single message is selected.
-            </para>
-            <para>
-                <css class="kbd">Shift</css> + <css class="kbd">N</css> : Move to the next unseen message (non-search mailboxes only).
-            </para>
-            <para>
-                <css class="kbd">Enter</css> : Open message in a popup window.
-            </para>
-            <para>
-                <css class="kbd">Ctrl</css> + <css class="kbd">A</css> : Select all messages in the current mailbox.
-            </para>
-        </entry>
-    </view>
 </help>

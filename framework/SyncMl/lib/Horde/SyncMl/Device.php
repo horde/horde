@@ -10,7 +10,7 @@
  * the client, the Source/LocURI of the device request might be sufficent to
  * identify it.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -77,6 +77,7 @@ class Horde_SyncMl_Device
             strpos($database, 'card') !== false) {
             return 'text/x-vcard';
         } elseif (strpos($database, 'note') !== false ||
+                  strpos($database, 'snote') !== false ||
                   strpos($database, 'memo') !== false) {
             return 'text/plain';
         } elseif (strpos($database, 'task') !== false ||
@@ -129,6 +130,7 @@ class Horde_SyncMl_Device
             strpos($database, 'card') !== false) {
             return 'text/x-vcard';
         } elseif (strpos($database, 'note') !== false ||
+                  strpos($database, 'snote') !== false ||
                   strpos($database, 'memo') !== false) {
             // SyncML conformance suite expects this rather than text/x-vnote
             return 'text/plain';

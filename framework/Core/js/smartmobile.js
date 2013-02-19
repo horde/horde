@@ -1,7 +1,7 @@
 /**
  * Base logic for all jQuery Mobile applications.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,7 +60,7 @@ var HordeMobile = {
         }
 
         HordeMobile.loading++;
-        $.mobile.showPageLoadingMsg();
+        $.mobile.loading('show');
 
         return $.ajax($.extend({
             data: params,
@@ -69,7 +69,7 @@ var HordeMobile = {
                 HordeMobile.doActionComplete(d, callback);
             },
             type: 'post',
-            url: HordeMobile.conf.ajax_url + action,
+            url: HordeMobile.conf.ajax_url + action
         }, opts || {}));
     },
 
@@ -104,9 +104,8 @@ var HordeMobile = {
 
         HordeMobile.inAjaxCallback = false;
 
-        HordeMobile.loading--;
-        if (!HordeMobile.loading) {
-            $.mobile.hidePageLoadingMsg();
+        if (!(--HordeMobile.loading)) {
+            $.mobile.loading('hide');
         }
     },
 

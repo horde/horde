@@ -115,10 +115,14 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    PHP is the interpreted language in which Horde is written.
 
-   It may be possible to install PHP using the package manager for your
-   operating system. Alternatively, you can obtain PHP sources at
+   You can obtain PHP sources at::
 
       http://www.php.net/
+
+   .. Note:: While it may be possible to install PHP using the package manager
+      for your operating system, it is highly recommended to install PHP from
+      source, since distribution packages often do not contain the most recent
+      bug and security patches.
 
    Follow the instructions in the PHP package to build PHP for your system. If
    you use Apache, be sure to build PHP as a library with one of the following
@@ -302,15 +306,6 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
                   i.e. using the PEAR installer, you can skip the remainder of
                   this section. Installing Horde through PEAR will
                   automatically download and install all required PEAR modules.
-
-   These PEAR modules are **REQUIRED** to be installed for complete Horde
-   functionality:
-
-   a. Crypt_Blowfish (>= 1.0.1)
-
-      To install, enter the following at the command prompt::
-
-        pear install Crypt_Blowfish
 
    These PEAR modules are **RECOMMENDED** to be installed:
 
@@ -509,13 +504,15 @@ the PEAR installation you just created, e.g.::
    /var/www/horde/pear/pear -c /var/www/horde/pear.conf channel-discover \
        pear.horde.org
 
-Finally update the .htaccess file in ``/var/www/horde/`` or configure your web
-server in some other way to point PHP's ``include_path`` setting to the PEAR
-installation and the ``PHP_PEAR_SYSCONF_DIR`` environment variable to the web
-root::
+Finally configure your web server in some way to point PHP's ``include_path``
+setting to the PEAR installation and the ``PHP_PEAR_SYSCONF_DIR`` environment
+variable to the web root::
 
    php_value include_path /var/www/horde/pear/php
    SetEnv PHP_PEAR_SYSCONF_DIR /var/www/horde
+
+It is recommended to not use the .htaccess file in ``/var/www/horde/`` to set
+these values because it will be overwritten with every further update.
 
 
 Installing from Git
@@ -662,7 +659,7 @@ Configuring Horde
       # Horde Alarms
       */5 * * * * /usr/bin/horde-alarms
 
-   If not installing Horde through PEAR of if PEAR's ``bin_dir`` configuration
+   If not installing Horde through PEAR or if PEAR's ``bin_dir`` configuration
    doesn't point to ``/usr/bin/``, replace ``/usr/bin/horde-alarms`` with the
    path to the ``horde-alarms`` script in your Horde installation.
 
@@ -776,9 +773,10 @@ reasons, some of these files may not be removed when the user's session
 ends. To reclaim this disk space, it may be necessary to periodically delete
 these old temporary files.
 
-An example cron-based solution can be found at ``scripts/temp-cleanup.cron``.
-Another possible solution is to use Red Hat's ``tmpwatch`` utility or anything
-similar to remove old files (see http://www.redhat.com/).
+An example cron-based solution can be found at
+``horde/scripts/temp-cleanup.cron`` in PEAR's ``data_dir`` directory.  Another
+possible solution is to use utilities like ``tmpwatch``, ``tmpreaper`` or
+anything similar to remove old files.
 
 Stale sessions are automatically pruned by PHP according to the
 `session.gc_probability`_, `session.gc_divisor`_, and

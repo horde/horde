@@ -3,7 +3,7 @@
  * Ansel_Ajax_Imple_ToggleOtherGalleries:: class for performing Ajax setting of
  * the gallery show_actions user pref.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -18,7 +18,7 @@ class Ansel_Ajax_Imple_ToggleOtherGalleries extends Horde_Core_Ajax_Imple
             $GLOBALS['page_output']->addScriptFile('togglewidget.js');
         }
 
-        return 'doActionToggle("' . $this->_getDomId() . '", "show_othergalleries")';
+        return 'doActionToggle("' . $this->getDomId() . '", "show_othergalleries")';
     }
 
     /**

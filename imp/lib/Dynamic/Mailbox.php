@@ -1,16 +1,24 @@
 <?php
 /**
- * Mailbox page for dynamic view.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Mailbox page for dynamic view.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 {
@@ -39,8 +47,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
-        $this->view->filter_avail = IMP::applyFilters();
-        $this->view->show_folders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS);
         $this->view->show_notspam = !empty($conf['notspam']['reporting']);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
         $this->view->show_spam = !empty($conf['spam']['reporting']);
@@ -437,6 +443,13 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '*flag' => _("Show Only"),
                 '*flagnot' => _("Don't Show")
             );
+            if (IMP::applyFilters()) {
+                $context['ctx_filteropts']['_sub1'] = array(
+                    '_sep1' => null,
+                    'applyfilters' => _("Apply Filters")
+                );
+            }
+
             $context['ctx_qsearchopts'] = array(
                 '*all' => _("Entire Message"),
                 '*body' => _("Body"),

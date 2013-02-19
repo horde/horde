@@ -2,7 +2,7 @@
 /**
  * Compose script for basic view.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -17,7 +17,8 @@
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
     'impmode' => Horde_Registry::VIEW_BASIC,
-    'session_control' => 'netscape'
+    'session_control' => 'netscape',
+    'timezone' => true
 ));
 
 $vars = $injector->getInstance('Horde_Variables');
@@ -35,8 +36,6 @@ if ($vars->actionID == 'mailto_link') {
         exit;
     }
 }
-
-$registry->setTimeZone();
 
 /* The message headers and text. */
 $header = array();
@@ -84,11 +83,11 @@ if ($vars->actionID) {
 }
 
 /* Check for duplicate submits. */
-if ($vars->compose_formToken) {
+if ($reload = $vars->compose_formToken) {
     $tokenSource = $injector->getInstance('Horde_Token');
 
     try {
-        if (!$tokenSource->verify($vars->compose_formToken)) {
+        if (!$tokenSource->verify($reload)) {
             $notification->push(_("You have already submitted this page."), 'horde.error');
             $vars->actionID = null;
         }
@@ -105,10 +104,17 @@ $compose_disable = !IMP::canCompose();
 $draft = IMP_Mailbox::getPref('drafts_folder');
 $readonly_drafts = $draft && $draft->readonly;
 
-$save_sent_mail = $vars->save_sent_mail;
 $sent_mail = $identity->getValue('sent_mail_folder');
-if ($readonly_sentmail = ($sent_mail && $sent_mail->readonly)) {
+if (!$sent_mail) {
+    $readonly_sentmail = $save_sent_mail = false;
+} elseif ($sent_mail->readonly) {
+    $readonly_sentmail = true;
     $save_sent_mail = false;
+} else {
+    $readonly_sentmail = false;
+    $save_sent_mail = $reload
+        ? (bool)$vars->save_sent_mail
+        : true;
 }
 
 /* Initialize the IMP_Compose:: object. */
@@ -143,7 +149,8 @@ if ($session->get('imp', 'rteavail')) {
 }
 
 /* Update the file attachment information. */
-if ($session->get('imp', 'file_upload')) {
+$attach_upload = $imp_compose->canUploadAttachment();
+if ($attach_upload) {
     /* Only notify if we are reloading the compose screen. */
     $notify = !in_array($vars->actionID, array('send_message', 'save_draft'));
 
@@ -600,13 +607,8 @@ if ($redirect) {
     $imp_ui->attachAutoCompleter($auto_complete);
 
     if (!empty($conf['spell']['driver'])) {
-        try {
-            Horde_SpellChecker::factory($conf['spell']['driver'], array());
-            $spellcheck = true;
-            $imp_ui->attachSpellChecker();
-        } catch (Exception $e) {
-            Horde::log($e, 'ERR');
-        }
+        $spellcheck = true;
+        $imp_ui->attachSpellChecker();
     }
 
     $page_output->addScriptFile('ieescguard.js', 'horde');
@@ -658,7 +660,7 @@ if (!is_null($oldrtemode) && ($oldrtemode != $rtemode)) {
 
 /* If this is the first page load for this compose item, add auto BCC
  * addresses. */
-if (!$vars->compose_formToken && ($vars->actionID != 'draft')) {
+if (!$reload && ($vars->actionID != 'draft')) {
     $header['bcc'] = strval($identity->getBccAddresses());
 }
 
@@ -681,7 +683,7 @@ if ($prefs->getValue('use_pgp') &&
     !$prefs->isLocked('default_encrypt') &&
     $prefs->getValue('pgp_reply_pubkey')) {
     $default_encrypt = $prefs->getValue('default_encrypt');
-    if (!$vars->compose_formToken &&
+    if (!$reload &&
         in_array($default_encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGNENC))) {
         $addrs = $imp_compose->recipientList($header);
         if (!empty($addrs['list'])) {
@@ -707,7 +709,7 @@ $js_vars = array(
     'ImpCompose.max_attachments' => (($max_attach === true) ? null : $max_attach),
     'ImpCompose.popup' => intval($isPopup),
     'ImpCompose.redirect' => intval($redirect),
-    'ImpCompose.reloaded' => intval($vars->compose_formToken),
+    'ImpCompose.reloaded' => intval($reload),
     'ImpCompose.sm_check' => intval(!$prefs->isLocked('sent_mail_folder')),
     'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
     'ImpCompose.text' => array(
@@ -729,7 +731,6 @@ $view->addHelper('Horde_Core_View_Helper_Help');
 $view->addHelper('Horde_Core_View_Helper_Image');
 $view->addHelper('Horde_Core_View_Helper_Label');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $view->allow_compose = !$compose_disable;
 $view->post_action = Horde::url('compose.php')->unique();
@@ -739,7 +740,7 @@ $blank_url = new Horde_Url('#');
 if ($redirect) {
     /* Prepare the redirect template. */
     $view->cacheid = $composeCacheID;
-    $view->title = htmlspecialchars($title);
+    $view->title = $title;
     $view->token = $injector->getInstance('Horde_Token')->get('imp.compose');
 
     Horde::startBuffer();
@@ -760,7 +761,7 @@ if ($redirect) {
     $view_output = $view->render('redirect');
 } else {
     /* Prepare the compose template. */
-    $view->file_upload = $session->get('imp', 'file_upload');
+    $view->file_upload = $attach_upload;
     $view->forminput = Horde_Util::formInput();
 
     $hidden = array(
@@ -775,8 +776,8 @@ if ($redirect) {
         'user' => $registry->getAuth()
     );
 
-    if ($session->exists('imp', 'file_upload')) {
-        $hidden['MAX_FILE_SIZE'] = $session->get('imp', 'file_upload');
+    if ($attach_upload) {
+        $hidden['MAX_FILE_SIZE'] = $imp_compose->maxAttachmentSize();
     }
     foreach (array('page', 'start', 'popup', 'template_mode') as $val) {
         $hidden[$val] = $vars->$val;
@@ -883,7 +884,7 @@ if ($redirect) {
             'label' => ''
         );
     }
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         $url = new Horde_Url('#attachments');
         $compose_options[] = array(
             'url' => $url->link(array('class' => 'widget')),
@@ -893,13 +894,14 @@ if ($redirect) {
     }
     $view->compose_options = $compose_options;
 
-    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) && !$prefs->isLocked('save_sent_mail')) {
+    if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+        !$prefs->isLocked('save_sent_mail')) {
         $view->ssm = true;
         if ($readonly_sentmail) {
             $notification->push(sprintf(_("Cannot save sent-mail message to \"%s\" as that mailbox is read-only.", $sent_mail->display), 'horde.warning'));
         }
-        $view->ssm_selected = $vars->compose_formToken
-            ? ($save_sent_mail == 'on')
+        $view->ssm_selected = $reload
+            ? $save_sent_mail
             : ($sent_mail && $identity->saveSentmail());
         if ($vars->sent_mail) {
             $sent_mail = IMP_Mailbox::formFrom($vars->sent_mail);
@@ -967,7 +969,7 @@ if ($redirect) {
 
         if ($prefs->getValue('use_pgp') && $prefs->getValue('pgp_public_key')) {
             $view->pgp_options = true;
-            $view->pgp_attach_pubkey = isset($vars->pgp_attach_pubkey)
+            $view->pgp_attach_pubkey = $reload
                 ? $vars->pgp_attach_pubkey
                 : $prefs->getValue('pgp_attach_pubkey');
         }
@@ -978,7 +980,7 @@ if ($redirect) {
         $view->attach_vcard = $vars->vcard;
     }
 
-    if ($session->get('imp', 'file_upload')) {
+    if ($attach_upload) {
         if (!$imp_compose->maxAttachmentSize()) {
             $view->maxattachsize = true;
         } elseif (!$max_attach) {
@@ -989,12 +991,12 @@ if ($redirect) {
 
         $save_attach = $prefs->getValue('save_attachments');
         $show_link_attach = ($conf['compose']['link_attachments'] && !$conf['compose']['link_all_attachments']);
-        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && (!$conf['compose']['link_attachments'] || !$conf['compose']['link_all_attachments']));
+        $show_save_attach = ($view->ssm && !$prefs->isLocked('save_attachments') && !$conf['compose']['link_all_attachments']);
         if ($show_link_attach || $show_save_attach) {
             $view->show_link_save_attach = true;
             $attach_options = array();
             if ($show_save_attach) {
-                $save_attach_val = isset($vars->save_attachments_select)
+                $save_attach_val = $reload
                     ? $vars->save_attachments_select
                     : ($save_attach == 'always');
                 $attach_options[] = array(
@@ -1043,7 +1045,7 @@ if ($redirect) {
                         'class' => 'link',
                         'target' => 'compose_preview_window',
                         'title' => _("Preview")
-                    )) . $entry['name'] . '</a>';
+                    )) . htmlspecialchars($entry['name']) . '</a>';
                 }
 
                 $atc[] = $entry;
@@ -1071,7 +1073,7 @@ if ($rtemode && !$redirect) {
 if (!$showmenu) {
     $page_output->topbar = $page_output->sidebar = false;
 }
-$page_output->addScriptFile('compose-base.js');
+$page_output->addScriptPackage('IMP_Script_Package_ComposeBase');
 $page_output->addScriptFile('compose.js');
 $page_output->addScriptFile('md5.js', 'horde');
 $page_output->addInlineJsVars($js_vars);

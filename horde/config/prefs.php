@@ -310,6 +310,11 @@ $_prefs['default_identity'] = array(
     'value' => 0
 );
 
+// Identities are built automatically from the default values of all
+// preferences from all applications that make up an identity. This only works
+// if no identities exist yet, or when creating new identities manually. If you
+// provide a default value for the complete identities list, it has to include
+// all preferences from all applications.
 $_prefs['identities'] = array(
     // default value = serialize(array())
     'value' => 'a:0:{}'
@@ -440,9 +445,9 @@ $_prefs['date_format'] = array(
         '%a, %b %e' => strftime('%a, %b %e'),
         '%a, %e %b %Y' => strftime('%a, %e %b %Y'),
         '%a, %e %b %y' => strftime('%a, %e %b %y'),
-        '%a %d %b %Y' => strftime ('%a %d %b %Y'),
-        '%a %x' => strftime ('%a %x'),
-        '%a %Y-%m-%d' => strftime ('%a %Y-%m-%d'),
+        '%a %d %b %Y' => strftime('%a %d %b %Y'),
+        '%a %x' => strftime('%a %x'),
+        '%a %Y-%m-%d' => strftime('%a %Y-%m-%d'),
         '%e %b %Y' => strftime('%e %b %Y'),
         '%e. %b %Y' => strftime('%e. %b %Y'),
         '%e. %m %Y' => strftime('%e %m %Y'),
@@ -577,7 +582,7 @@ $_prefs['last_login'] = array(
 );
 
 $_prefs['theme'] = array(
-    'value' => 'silver',
+    'value' => 'default',
     'type' => 'enum',
     'enum' => Horde_Themes::themeList(),
     'desc' => _("Select your color scheme.")
@@ -714,7 +719,10 @@ $prefGroups['syncml'] = array(
     'column' => _("Other Information"),
     'label' => _("SyncML"),
     'desc' => _("Configuration for syncing with PDAs, Smartphones and Outlook."),
-    'members' => array('syncmlmanagement')
+    'members' => array('syncmlmanagement'),
+    'suppress' => function() {
+        return !class_exists('Horde_SyncMl_Backend');
+    }
 );
 
 $_prefs['syncmlmanagement'] = array(

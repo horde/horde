@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,13 +16,14 @@ $layout = new Horde_Core_Block_Layout_View(
 );
 
 $layout_html = $layout->toHtml();
-Ansel_Search_Tag::clearSearch();
+$tag_browser = new Ansel_TagBrowser($injector->getInstance('Ansel_Tagger'));
+$tag_browser->clearSearch();
 
 Ansel::initJSVariables();
 $page_output->header(array(
     'title' => _("Photo Galleries")
 ));
 $notification->notify(array('listeners' => 'status'));
-echo '<div id="menuBottom"><a href="' . Horde::url('browse_edit.php') . '">' . _("Add Content") . '</a></div><div class="clear">&nbsp;</div>';
+include ANSEL_TEMPLATES . '/browse/new.inc';
 echo $layout_html;
 $page_output->footer();

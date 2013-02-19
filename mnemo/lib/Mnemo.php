@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -226,25 +226,31 @@ class Mnemo
      * Returns the default notepad for the current user at the specified
      * permissions level.
      *
-     * @return mixed  The notepad identifier, or false if none found
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
+     *
+     * @return string  The notepad identifier, or null if none.
      */
     public static function getDefaultNotepad($permission = Horde_Perms::SHOW)
     {
-        global $prefs;
-
-        $default_notepad = $prefs->getValue('default_notepad');
         $notepads = self::listNotepads(false, $permission);
 
+        $default_notepad = $GLOBALS['prefs']->getValue('default_notepad');
         if (isset($notepads[$default_notepad])) {
             return $default_notepad;
-        } elseif ($prefs->isLocked('default_notepad')) {
-            return $GLOBALS['registry']->getAuth();
-        } elseif (count($notepads)) {
-            reset($notepads);
-            return key($notepads);
         }
 
-        return false;
+        $default_notepad = $GLOBALS['injector']
+            ->getInstance('Mnemo_Factory_Notepads')
+            ->create()
+            ->getDefaultShare();
+        if (isset($notepads[$default_notepad])) {
+            $GLOBALS['prefs']->setValue('default_notepad', $default_notepad);
+            return $default_notepad;
+        }
+
+        reset($notepads);
+        return key($notepads);
     }
 
     /**

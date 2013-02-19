@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -63,6 +63,18 @@ class Turba_Driver_Share extends Turba_Driver
     }
 
     /**
+     * Checks if this backend has a certain capability.
+     *
+     * @param string $capability  The capability to check for.
+     *
+     * @return boolean  Supported or not.
+     */
+    public function hasCapability($capability)
+    {
+        return $this->_driver->hasCapability($capability);
+    }
+
+    /**
      * Translates the keys of the first hash from the generalized Turba
      * attributes to the driver-specific fields. The translation is based on
      * the contents of $this->map.
@@ -74,6 +86,23 @@ class Turba_Driver_Share extends Turba_Driver
     public function toDriverKeys(array $hash)
     {
         return $this->_driver->toDriverKeys($hash);
+    }
+
+    /**
+     * Searches the current address book for duplicate entries.
+     *
+     * Duplicates are determined by comparing email and name or last name and
+     * first name values.
+     *
+     * @return array  A hash with the following format:
+     * <code>
+     * array('name' => array('John Doe' => Turba_List, ...), ...)
+     * </code>
+     * @throws Turba_Exception
+     */
+    public function searchDuplicates()
+    {
+        return $this->_driver->searchDuplicates();
     }
 
     /**
@@ -115,6 +144,39 @@ class Turba_Driver_Share extends Turba_Driver
         }
 
         throw new Turba_Exception(_("Unable to find contact owner."));
+    }
+
+    /**
+     * Runs any actions after setting a new default tasklist.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+        $this->_driver->setDefaultShare($share);
+    }
+
+    /**
+     * Creates an object key for a new object.
+     *
+     * @param array $attributes  The attributes (in driver keys) of the
+     *                           object being added.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeKey(array $attributes)
+    {
+        return $this->_driver->_makeKey($attributes);
+    }
+
+    /**
+     * Creates an object UID for a new object.
+     *
+     * @return string  A unique ID for the new object.
+     */
+    protected function _makeUid()
+    {
+        return $this->_driver->_makeUid();
     }
 
     /**

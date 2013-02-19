@@ -11,9 +11,9 @@ function hideFace(id)
     $('facedivname' + id).style.display = 'none';
 }
 document.observe('dom:loaded', function() {
-    Event.observe($('photodiv'), 'load', function() {
+    Event.observe($('ansel-photodiv'), 'load', function() {
         $('faces-on-image').immediateDescendants().collect(function(element) {
-            element.clonePosition($('photodiv'), {setWidth: false, setHeight: false});
+            element.clonePosition($('ansel-photodiv'), {setWidth: false, setHeight: false});
         });
     });
 });

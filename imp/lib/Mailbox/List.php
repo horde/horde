@@ -1,17 +1,25 @@
 <?php
 /**
- * This class contains code related to generating and handling a mailbox
- * message list.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class contains code related to generating and handling a mailbox
+ * message list.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
 {
@@ -188,6 +196,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                     }
 
                     $f = $fetch_res[$v];
+                    $uid = $f->getUid();
                     $v = array(
                         'envelope' => $f->getEnvelope(),
                         'flags' => $f->getFlags(),
@@ -195,32 +204,38 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
                         'idx' => $k,
                         'mailbox' => $mbox,
                         'size' => $f->getSize(),
-                        'uid' => $f->getUid()
+                        'uid' => $uid
                     );
 
                     if (($options['preview'] === 2) ||
                         (($options['preview'] === 1) &&
                          (!$GLOBALS['prefs']->getValue('preview_show_unread') ||
                           !in_array(Horde_Imap_Client::FLAG_SEEN, $v['flags'])))) {
-                        if (empty($preview_info[$v])) {
+                        if (empty($preview_info[$uid])) {
                             try {
-                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $v));
+                                $imp_contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create(new IMP_Indices($mbox, $uid));
                                 $prev = $imp_contents->generatePreview();
-                                $preview_info[$v] = array('IMPpreview' => $prev['text'], 'IMPpreviewc' => $prev['cut']);
+                                $preview_info[$uid] = array(
+                                    'IMPpreview' => $prev['text'],
+                                    'IMPpreviewc' => $prev['cut']
+                                );
                                 if (!is_null($cache)) {
-                                    $tostore[$v] = $preview_info[$v];
+                                    $tostore[$uid] = $preview_info[$uid];
                                 }
                             } catch (Exception $e) {
-                                $preview_info[$v] = array('IMPpreview' => '', 'IMPpreviewc' => false);
+                                $preview_info[$uid] = array(
+                                    'IMPpreview' => '',
+                                    'IMPpreviewc' => false
+                                );
                             }
                         }
 
-                        $v['preview'] = $preview_info[$v]['IMPpreview'];
-                        $v['previewcut'] = $preview_info[$v]['IMPpreviewc'];
+                        $v['preview'] = $preview_info[$uid]['IMPpreview'];
+                        $v['previewcut'] = $preview_info[$uid]['IMPpreviewc'];
                     }
 
                     $overview[] = $v;
-                    $mbox_ids[] = $v['uid'];
+                    $mbox_ids[] = $uid;
                 }
 
                 $uids[$mbox] = $mbox_ids;
@@ -365,93 +380,6 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
         } catch (IMP_Imap_Exception $e) {
             return $count ? 0 : array();
         }
-    }
-
-    /**
-     * Using the preferences and the current mailbox, determines the messages
-     * to view on the current page.
-     *
-     * @param integer $page   The page number currently being displayed.
-     * @param integer $start  The starting message number.
-     *
-     * @return array  An array with the following fields:
-     *   anymsg: (boolean) Are there any messages at all in mailbox? E.g. If
-     *           'msgcount' is 0, there may still be hidden deleted messages.
-     *   begin: (integer) The beginning message sequence number of the page.
-     *   end: (integer) The ending message sequence number of the page.
-     *   index: (integer) The index of the starting message.
-     *   msgcount: (integer) The number of viewable messages in the current
-     *             mailbox.
-     *   page: (integer) The current page number.
-     *   pagecount: (integer) The number of pages in this mailbox.
-     */
-    public function buildMailboxPage($page = 0, $start = 0)
-    {
-        $this->_buildMailbox();
-
-        $ret = array('msgcount' => count($this->_sorted));
-
-        $page_size = max($GLOBALS['prefs']->getValue('max_msgs'), 1);
-
-        if ($ret['msgcount'] > $page_size) {
-            $ret['pagecount'] = ceil($ret['msgcount'] / $page_size);
-
-            /* Determine which page to display. */
-            if (empty($page) || strcspn($page, '0123456789')) {
-                if (!empty($start)) {
-                    /* Messages set this when returning to a mailbox. */
-                    $page = ceil($start / $page_size);
-                } else {
-                    /* Search for the last visited page first. */
-                    if ($GLOBALS['session']->exists('imp', 'mbox_page/' . $this->_mailbox)) {
-                        $page = $GLOBALS['session']->get('imp', 'mbox_page/' . $this->_mailbox);
-                    } elseif ($this->_mailbox->search) {
-                        $page = 1;
-                    } else {
-                        $page = ceil($this->mailboxStart($ret['msgcount']) / $page_size);
-                    }
-                }
-            }
-
-            /* Make sure we're not past the end or before the beginning, and
-               that we have an integer value. */
-            $ret['page'] = intval($page);
-            if ($ret['page'] > $ret['pagecount']) {
-                $ret['page'] = $ret['pagecount'];
-            } elseif ($ret['page'] < 1) {
-                $ret['page'] = 1;
-            }
-
-            $ret['begin'] = (($ret['page'] - 1) * $page_size) + 1;
-            $ret['end'] = $ret['begin'] + $page_size - 1;
-            if ($ret['end'] > $ret['msgcount']) {
-                $ret['end'] = $ret['msgcount'];
-            }
-        } else {
-            $ret['begin'] = 1;
-            $ret['end'] = $ret['msgcount'];
-            $ret['page'] = 1;
-            $ret['pagecount'] = 1;
-        }
-
-        $ret['index'] = $ret['begin'] - 1;
-
-        /* If there are no viewable messages, check for deleted messages in
-           the mailbox. */
-        $ret['anymsg'] = true;
-        if (!$ret['msgcount'] && !$this->_mailbox->search) {
-            try {
-                $status = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create()->status($this->_mailbox, Horde_Imap_Client::STATUS_MESSAGES);
-                $ret['anymsg'] = (bool)$status['messages'];
-            } catch (IMP_Imap_Exception $e) {
-                $ret['anymsg'] = false;
-            }
-        }
-
-        /* Store the page value now. */
-        $GLOBALS['session']->set('imp', 'mbox_page/' . $this->_mailbox, $ret['page']);
-
-        return $ret;
     }
 
     /**

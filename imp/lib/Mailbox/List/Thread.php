@@ -1,21 +1,30 @@
 <?php
 /**
- * This class represents thread information for a single message.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * This class represents thread information for a single message.
  *
- * @property string $img  An image HTML tag of the thread.
- * @property string $raw  The raw thread data.
- * @property string $reverse_img  An image HTML tag of the thread (reversed).
- * @property string $reverse_raw  The raw thread data (reversed).
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ *
+ * @property-read string $img  An image HTML tag of the thread.
+ * @property-read string $raw  The raw thread data.
+ * @property-read string $reverse_img  An image HTML tag of the thread
+ *                                     (reversed).
+ * @property-read string $reverse_raw  The raw thread data (reversed).
  */
 class IMP_Mailbox_List_Thread
 {

@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test importing iCalendar events.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If you did not
  * receive this file, see http://www.horde.org/licenses/gpl
@@ -94,6 +89,19 @@ class Kronolith_Integration_FromIcalendarTest extends Kronolith_TestCase
             array ('20080722', '20080729'),
             $event->recurrence->exceptions
         );
+
+        unset($GLOBALS['injector']);
+        unset($GLOBALS['conf']);
+    }
+
+    public function testInvalidTimezone()
+    {
+        $this->markTestIncomplete();
+
+        $GLOBALS['conf']['calendar']['driver'] = 'Mock';
+        $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
+        $event = $this->_getFixture('bug11688.ics', 1);
+        $event->start->toDateTime();
 
         unset($GLOBALS['injector']);
         unset($GLOBALS['conf']);

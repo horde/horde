@@ -2,7 +2,7 @@
 /**
  * This file contains the Horde_Date_Recurrence class and according constants.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -208,14 +208,19 @@ class Horde_Date_Recurrence
     public function getRecurName()
     {
         switch ($this->getRecurType()) {
-        case self::RECUR_NONE: return Horde_Date_Translation::t("No recurrence");
-        case self::RECUR_DAILY: return Horde_Date_Translation::t("Daily");
-        case self::RECUR_WEEKLY: return Horde_Date_Translation::t("Weekly");
+        case self::RECUR_NONE:
+            return Horde_Date_Translation::t("No recurrence");
+        case self::RECUR_DAILY:
+            return Horde_Date_Translation::t("Daily");
+        case self::RECUR_WEEKLY:
+            return Horde_Date_Translation::t("Weekly");
         case self::RECUR_MONTHLY_DATE:
-        case self::RECUR_MONTHLY_WEEKDAY: return Horde_Date_Translation::t("Monthly");
+        case self::RECUR_MONTHLY_WEEKDAY:
+            return Horde_Date_Translation::t("Monthly");
         case self::RECUR_YEARLY_DATE:
         case self::RECUR_YEARLY_DAY:
-        case self::RECUR_YEARLY_WEEKDAY: return Horde_Date_Translation::t("Yearly");
+        case self::RECUR_YEARLY_WEEKDAY:
+            return Horde_Date_Translation::t("Yearly");
         }
     }
 
@@ -568,6 +573,10 @@ class Horde_Date_Recurrence
                 $next = clone $estart;
                 $next->setNthWeekday($weekday, $nth);
 
+                if ($next->month != $estart->month) {
+                    // We're already in the next month.
+                    continue;
+                }
                 if ($next->compareDateTime($after) < 0) {
                     // We haven't made it past $after yet, try again.
                     continue;
@@ -1416,13 +1425,17 @@ class Horde_Date_Recurrence
         // Exceptions.
         if (isset($hash['exclusion'])) {
             foreach ($hash['exclusion'] as $exception) {
-                $this->exceptions[] = $exception->format('Ymd');
+                if ($exception instanceof DateTime) {
+                    $this->exceptions[] = $exception->format('Ymd');
+                }
             }
         }
 
         if (isset($hash['complete'])) {
             foreach ($hash['complete'] as $completion) {
-                $this->completions[] = $completion->format('Ymd');
+                if ($exception instanceof DateTime) {
+                    $this->completions[] = $completion->format('Ymd');
+                }
             }
         }
 

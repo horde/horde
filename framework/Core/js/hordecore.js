@@ -10,7 +10,7 @@
  *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -73,7 +73,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t) {
+        ajaxopts.onSuccess = function(t) {
             this.doActionComplete(t, opts);
         }.bind(this);
 
@@ -90,7 +90,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t, o) {
+        ajaxopts.onSuccess = function(t, o) {
             this.doActionComplete(t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
@@ -134,21 +134,22 @@ var HordeCore = {
         form = $(form);
         opts = opts || {};
 
-        if (this.submit_frame[form.identify()]) {
-            return;
+        var sf, fid = form.identify();
+
+        if (!this.submit_frame[fid]) {
+            sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+            $(document.body).insert(sf);
+
+            sf.observe('load', function(sf) {
+                this.doActionComplete({
+                    responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
+                }, opts);
+            }.bind(this, sf));
+
+            this.submit_frame[fid] = sf;
         }
 
-        var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
-        $(document.body).insert(sf);
-        $(form).writeAttribute('target', 'submit_frame');
-
-        sf.observe('load', function(sf) {
-            this.doActionComplete({
-                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
-            }, opts);
-        }.bind(this, sf));
-
-        this.submit_frame[form.identify()] = sf;
+        form.writeAttribute('target', 'submit_frame');
     },
 
     // params: (Hash) URL parameters
@@ -315,11 +316,13 @@ var HordeCore = {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
+                            var ajax_params = $H({
+                                alarm: alarm.id,
+                                snooze: e.element().getValue()
+                            });
+                            this.addRequestParams(ajax_params);
                             new Ajax.Request(this.conf.URI_SNOOZE, {
-                                parameters: {
-                                    alarm: alarm.id,
-                                    snooze: e.element().getValue()
-                                }
+                                parameters: ajax_params
                             });
                         }
                     }.bindAsEventListener(this))
@@ -327,11 +330,13 @@ var HordeCore = {
                         e.stop();
                     });
                     message.down('input[type=button]').observe('click', function(e) {
+                        var ajax_params = $H({
+                            alarm: alarm.id,
+                            snooze: -1
+                        });
+                        this.addRequestParams(ajax_params);
                         new Ajax.Request(this.conf.URI_SNOOZE, {
-                            parameters: {
-                                alarm: alarm.id,
-                                snooze: -1
-                            }
+                            parameters: ajax_params
                         });
                     }.bindAsEventListener(this));
                 }

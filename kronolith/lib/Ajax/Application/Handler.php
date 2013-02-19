@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX actions used in Kronolith.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -824,68 +824,6 @@ class Kronolith_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Han
     }
 
     /**
-     * Handle a tag action.
-     *  - action: (add, remove, list)
-     *  - tags:
-     *  - resource:
-     *  - type:
-     *
-     * @return string  HTML for all current tags for the current resource.
-     */
-    public function tagAction()
-    {
-        global $injector, $registry;
-
-        $res = new stdClass;
-
-        // Check perms; Only calendar owners my tag a calendar, and only
-        // event creator can tag an event.
-        if ($this->vars->type == 'event') {
-            $event = Kronolith::getDriver()->getByUID($this->vars->resource);
-            $cal = $injector->getInstance('Kronolith_Shares')
-                ->getShare($event->calendar);
-            $e_owner = $event->creator;
-        } else {
-            $cal = $injector->getInstance('Kronolith_Shares')
-                ->getShare($this->vars->resource);
-        }
-        $c_owner = $cal->get('owner');
-
-        // $owner is null for system-owned shares, so an admin has perms.
-        // Otherwise, make sure the resource owner is the current user.
-        $perm = empty($c_owner)
-            ? $registry->isAdmin()
-            : ($c_owner == $registry->getAuth());
-
-        if ($perm) {
-            $tagger = Kronolith::getTagger();
-            $tags = rawurldecode($this->vars->tags);
-
-            switch ($this->vars->action) {
-            case 'remove':
-                $tagger->untag($this->vars->resource, (integer)$tags, $this->vars->type);
-                $res->removed = $tags;
-                break;
-            case 'add':
-                $tagger->tag(
-                    $this->vars->resource, $tags, $c_owner, $this->vars->type);
-                if (!empty($e_owner)) {
-                    $tagger->tag(
-                        $this->vars->resource, $tags, $e_owner, $this->vars->type);
-                }
-                // Fallthrough
-            case 'list':
-                $res->tags = $tagger->getTags($this->vars->resource, $this->vars->type);
-                if (empty($res->tags)) {
-                    $res->tags = new StdClass();
-                }
-            }
-        }
-
-        return $res;
-    }
-
-    /**
      * Return fb information for the requested attendee or resource.
      *
      * Uses the following request parameters:
@@ -1485,22 +1423,20 @@ EOT;
             $cal = $event->calendarType . '|' . $event->calendar;
         }
         $result = $this->_signedResponse($cal);
-        if (!$this->vars->view_start || !$this->vars->view_end) {
-            $result->events = array();
-            return $result;
-        }
         $events = array();
         try {
             $event->save();
-            if ($this->vars->view_start && $this->vars->view_end) {
-                $end = new Horde_Date($this->vars->view_end);
-                $end->hour = 23;
-                $end->min = $end->sec = 59;
-                Kronolith::addEvents(
-                    $events, $event,
-                    new Horde_Date($this->vars->view_start),
-                    $end, true, true);
+            if (!$this->vars->view_start || !$this->vars->view_end) {
+              $result->events = array();
+              return $result;
             }
+            $end = new Horde_Date($this->vars->view_end);
+            $end->hour = 23;
+            $end->min = $end->sec = 59;
+            Kronolith::addEvents(
+                $events, $event,
+                new Horde_Date($this->vars->view_start),
+                $end, true, true);
             // If this is an exception, we re-add the original event also;
             // cstart and cend are the cacheStart and cacheEnd dates from the
             // client.

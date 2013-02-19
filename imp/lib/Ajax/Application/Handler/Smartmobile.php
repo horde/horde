@@ -1,16 +1,24 @@
 <?php
 /**
- * Defines AJAX actions used exclusively in the IMP smartmobile view.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Defines AJAX actions used exclusively in the IMP smartmobile view.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Application_Handler
 {
@@ -38,7 +46,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     {
         $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
 
-        return $this->_base->getForwardData();
+        return $this->_base->callAction('getForwardData');
     }
 
     /**
@@ -51,7 +59,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function smartmobileShowMessage()
     {
-        $output = $this->_base->showMessage();
+        $output = $this->_base->callAction('showMessage');
 
         if (IMP_Mailbox::formFrom($this->vars->view)->search) {
             $output->suid = IMP_Ajax_Application_ListMessages::searchUid(IMP_Mailbox::formFrom($output->mbox), $output->uid);
@@ -78,6 +86,35 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
             'poll_info' => true,
             'render_type' => 'IMP_Tree_Jquerymobile'
         ))->getTree(true);
+    }
+
+    /**
+     * AJAX action: Send message.
+     *
+     * @see IMP_Ajax_Application#getForwardData()
+     *
+     * @return string  HTML to use for the folder tree.
+     */
+    public function smartmobileSendMessage()
+    {
+        global $injector, $prefs;
+
+        $identity = $injector->getInstance('IMP_Identity');
+        $send_id = $prefs->isLocked('default_identity')
+            ? null
+            : $this->vars->identity;
+
+        /* There is no sent-mail config option on smartmobile compose page,
+         * so need to add that information now. */
+        if ($identity->getValue('save_sent_mail', $send_id)) {
+            $sent_mbox = $identity->getValue('sent_mail_folder', $send_id);
+            if ($sent_mbox && !$sent_mbox->readonly) {
+                $this->vars->save_sent_mail = true;
+                $this->vars->save_sent_mail_mbox = $sent_mbox->form_to;
+            }
+        }
+
+        return $this->_base->callAction('sendMessage');
     }
 
 }

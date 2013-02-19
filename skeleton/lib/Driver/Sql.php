@@ -1,14 +1,22 @@
 <?php
 /**
- * Skeleton storage implementation for the Horde_Db database abstraction layer.
- *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Your Name <you@example.com>
  * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
+ */
+
+/**
+ * Skeleton storage implementation for the Horde_Db database abstraction layer.
+ *
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Skeleton
  */
 class Skeleton_Driver_Sql extends Skeleton_Driver

@@ -1,5 +1,5 @@
 # Basque translations for Horde_Crypt module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Crypt module.
 # Automatically generated, 2010.
 #
@@ -7,10 +7,392 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2010-10-13 01:27+0200\n"
-"PO-Revision-Date: 2010-10-13 01:27+0200\n"
-"Last-Translator: Automatically generated\n"
+"POT-Creation-Date: 2012-10-17 10:52+0200\n"
+"PO-Revision-Date: 2012-10-18 12:45+0100\n"
+"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ASCII\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: lib/Horde/Crypt/Pgp.php:1272
+#, fuzzy
+msgid "A passphrase is required to decrypt a message."
+msgstr "Sartu mezu hau enkriptatzeko erabilitako pasaesaldia."
+
+#: lib/Horde/Crypt/Pgp.php:1343
+#, fuzzy
+msgid "A public PGP key is required to verify a signed message."
+msgstr "PGP gako publiko hau erantsi zaio mezuari."
+
+#: lib/Horde/Crypt/Pgp.php:1203
+msgid ""
+"A public PGP key, private PGP key, and passphrase are required to sign a "
+"message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:266
+#, fuzzy
+msgid "A public S/MIME key is required to encrypt a message."
+msgstr "PGP gako publiko hau erantsi zaio mezuari."
+
+#: lib/Horde/Crypt/Smime.php:394
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to "
+"decrypt a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:325
+msgid ""
+"A public S/MIME key, private S/MIME key, and passphrase are required to sign "
+"a message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:465
+msgid "CRL Distribution Points"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:516
+#, fuzzy
+msgid "Certificate Details"
+msgstr "Oharraren xehetasunak"
+
+#: lib/Horde/Crypt/Smime.php:474
+#, fuzzy
+msgid "Certificate Owner"
+msgstr "Sartu ziurtagiria hemen:"
+
+#: lib/Horde/Crypt/Smime.php:464
+#, fuzzy
+msgid "Certificate Policies"
+msgstr "Ikusi ziurtagiria"
+
+#: lib/Horde/Crypt/Pgp.php:436
+#, fuzzy
+msgid "Comment"
+msgstr "Iruzkina:"
+
+#: lib/Horde/Crypt/Smime.php:448
+#, fuzzy
+msgid "Common Name"
+msgstr "Telefono arrunta"
+
+#: lib/Horde/Crypt/Pgp.php:978
+#, fuzzy
+msgid "Connection refused to the public keyserver."
+msgstr "Gakoa behar bezala bidali da gako-zerbitzari publikora."
+
+#: lib/Horde/Crypt/Pgp.php:989
+#, fuzzy, php-format
+msgid "Connection refused to the public keyserver. Reason: %s (%s)"
+msgstr "Gakoa behar bezala bidali da gako-zerbitzari publikora."
+
+#: lib/Horde/Crypt/Pgp.php:1171
+#, fuzzy
+msgid "Could not PGP encrypt message: "
+msgstr "PGP enkriptazioko mezua"
+
+#: lib/Horde/Crypt/Pgp.php:1240
+#, fuzzy
+msgid "Could not PGP sign message: "
+msgstr "Ezin izan zaio %s erantsi mezuari."
+
+#: lib/Horde/Crypt/Smime.php:295
+#, fuzzy
+msgid "Could not S/MIME encrypt message."
+msgstr "S/MIMErekin enkriptatutako mezua"
+
+#: lib/Horde/Crypt/Smime.php:356
+#, fuzzy
+msgid "Could not S/MIME sign message."
+msgstr "S/MIMErekin sinatutako mezua"
+
+#: lib/Horde/Crypt/Pgp.php:1311
+#, fuzzy
+msgid "Could not decrypt PGP data: "
+msgstr "Ezin izan da datu mota automatikoki zehaztu."
+
+#: lib/Horde/Crypt/Smime.php:412
+msgid "Could not decrypt S/MIME data."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:671
+msgid "Could not determine the recipient's e-mail address."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:772 lib/Horde/Crypt/Pgp.php:886
+#, fuzzy
+msgid "Could not obtain public key from the keyserver."
+msgstr "Ezin izan da eskuratu %s(r)en gako publikoa."
+
+#: lib/Horde/Crypt/Smime.php:451
+msgid "Country"
+msgstr "Herrialdea"
+
+#: lib/Horde/Crypt/Smime.php:446
+msgid "Description"
+msgstr "Azalpena"
+
+#: lib/Horde/Crypt/Pgp.php:437
+#, fuzzy
+msgid "E-Mail"
+msgstr "Posta"
+
+#: lib/Horde/Crypt/Smime.php:447
+msgid "Email Address"
+msgstr "Helbide elektronikoa"
+
+#: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
+msgid "Error while talking to pgp binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:718 lib/Horde/Crypt/Smime.php:736
+#: lib/Horde/Crypt/Smime.php:751
+msgid "Error while talking to smime binary."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:434
+#, fuzzy
+msgid "Expiration Date"
+msgstr "Aldatze-data"
+
+#: lib/Horde/Crypt/Smime.php:457
+#, fuzzy
+msgid "Given Name"
+msgstr "Fitxategi-izena"
+
+#: lib/Horde/Crypt/Pgp.php:438
+msgid "Hash-Algorithm"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:485
+msgid "Issuer"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:433
+#, fuzzy
+msgid "Key Creation"
+msgstr "Objektu-sortzailea"
+
+#: lib/Horde/Crypt/Pgp.php:440
+msgid "Key Fingerprint"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:439
+msgid "Key ID"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:435
+#, fuzzy
+msgid "Key Length"
+msgstr "Gako-luzera:"
+
+#: lib/Horde/Crypt/Pgp.php:432
+#, fuzzy
+msgid "Key Type"
+msgstr "Fitxategi mota"
+
+#: lib/Horde/Crypt/Smime.php:466
+msgid "Key Usage"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:795
+#, fuzzy
+msgid "Key already exists on the public keyserver."
+msgstr "Gakoa behar bezala bidali da gako-zerbitzari publikora."
+
+#: lib/Horde/Crypt/Smime.php:453
+msgid "Location"
+msgstr "Kokalekua"
+
+#: lib/Horde/Crypt/Smime.php:143
+msgid ""
+"Message verified successfully but the signer's certificate could not be "
+"verified."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:131
+#, fuzzy
+msgid "Message verified successfully."
+msgstr "Mezua behar bezala birbideratu da."
+
+#: lib/Horde/Crypt/Pgp.php:431
+msgid "Name"
+msgstr "Izena"
+
+#: lib/Horde/Crypt/Pgp.php:463
+msgid "Never"
+msgstr "Inoiz ez"
+
+#: lib/Horde/Crypt/Smime.php:684
+msgid ""
+"No path to the OpenSSL binary provided. The OpenSSL binary is necessary to "
+"work with PKCS 12 data."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:465 lib/Horde/Crypt/Pgp.php:466
+msgid "None"
+msgstr "Bat ere ez"
+
+#: lib/Horde/Crypt/Smime.php:498
+#, fuzzy
+msgid "Not After"
+msgstr "Ez-pribatua"
+
+#: lib/Horde/Crypt/Smime.php:497
+#, fuzzy
+msgid "Not Before"
+msgstr "Aurreko hilabeteak"
+
+#: lib/Horde/Crypt/Smime.php:182
+msgid "OpenSSL error: Could not extract data from signed S/MIME part."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:449
+#, fuzzy
+msgid "Organisation"
+msgstr "Erakundea"
+
+#: lib/Horde/Crypt/Smime.php:450
+#, fuzzy
+msgid "Organisational Unit"
+msgstr "Erakundea"
+
+#: lib/Horde/Crypt/Pgp.php:1442
+#, fuzzy
+msgid "PGP Digital Signature"
+msgstr "Ilundu sinadurak?"
+
+#: lib/Horde/Crypt/Pgp.php:1486
+#, fuzzy
+msgid "PGP Encrypted Data"
+msgstr "PGP enkriptazioko mezua"
+
+#: lib/Horde/Crypt/Pgp.php:1547
+msgid "PGP Public Key"
+msgstr "PGP gako publikoa"
+
+#: lib/Horde/Crypt/Pgp.php:1529
+#, fuzzy
+msgid "PGP Signed/Encrypted Data"
+msgstr "PGP sinaduradun/enkriptatzedun mezua"
+
+#: lib/Horde/Crypt/Smime.php:723
+#, fuzzy
+msgid "Password incorrect"
+msgstr "Pasahitz zaharra okerra da."
+
+#: lib/Horde/Crypt/Pgp.php:461
+#, fuzzy
+msgid "Private Key"
+msgstr "Zure gako pribatua:"
+
+#: lib/Horde/Crypt/Pgp.php:461
+#, fuzzy
+msgid "Public Key"
+msgstr "PGP gako publikoa"
+
+#: lib/Horde/Crypt/Pgp.php:231
+#, fuzzy
+msgid "Public/Private keypair not generated successfully."
+msgstr "PGP gako-bikote pertsonala behar bezala sortu da."
+
+#: lib/Horde/Crypt/Pgp.php:233
+#, fuzzy
+msgid "Returned error message:"
+msgstr "Itzuli mezu-ikuspegira"
+
+#: lib/Horde/Crypt/Pgp.php:1680
+#, fuzzy
+msgid "Revocation key not generated successfully."
+msgstr "PGP gako-bikote pertsonala behar bezala sortu da."
+
+#: lib/Horde/Crypt/Smime.php:204
+msgid "S/MIME Cryptographic Signature"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:238
+#, fuzzy
+msgid "S/MIME Encrypted Message"
+msgstr "S/MIMErekin enkriptatutako mezua"
+
+#: lib/Horde/Crypt/Smime.php:518
+msgid "Serial Number"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:452
+#, fuzzy
+msgid "State or Province"
+msgstr "Herrialdea/probintzia (etxea)"
+
+#: lib/Horde/Crypt/Smime.php:454
+#, fuzzy
+msgid "Street Address"
+msgstr "Kale-helbidea (etxea)"
+
+#: lib/Horde/Crypt/Smime.php:456
+#, fuzzy
+msgid "Surname"
+msgstr "Erabiltzaile-izena"
+
+#: lib/Horde/Crypt/Smime.php:455
+msgid "Telephone Number"
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:1347
+msgid ""
+"The detached PGP signature block is required to verify the signed message."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:613
+msgid "The openssl module is required for the Horde_Crypt_Smime:: class."
+msgstr ""
+
+#: lib/Horde/Crypt/Pgp.php:467 lib/Horde/Crypt/Pgp.php:468
+#: lib/Horde/Crypt/Pgp.php:469
+msgid "Unknown"
+msgstr "Ezezaguna"
+
+#: lib/Horde/Crypt/Smime.php:496
+#, fuzzy
+msgid "Validity"
+msgstr "Hezetasuna"
+
+#: lib/Horde/Crypt/Smime.php:138
+msgid "Verification failed - an unknown error has occurred."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:140
+msgid "Verification failed - this message may have been tampered with."
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:517
+#, fuzzy
+msgid "Version"
+msgstr "Baimena"
+
+#: lib/Horde/Crypt/Smime.php:461
+msgid "X509v3 Basic Constraints"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:460
+msgid "X509v3 Extended Key Usage"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:462
+msgid "X509v3 Subject Alternative Name"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:463
+msgid "X509v3 Subject Key Identifier"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:503
+msgid "X509v3 extensions"
+msgstr ""
+
+#: lib/Horde/Crypt/Smime.php:602
+#, fuzzy
+msgid "not yet implemented"
+msgstr "Ekintza hau ez da inplementatu oraindik."

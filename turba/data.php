@@ -2,7 +2,7 @@
 /**
  * Turba data.php.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -184,11 +184,14 @@ if (!$error && $vars->import_format) {
     try {
         switch ($vars->import_format) {
         case 'ldif':
-            $data = new Turba_Data_Ldif(array(
-                'browser' => $injector->getInstance('Horde_Browser'),
-                'cleanup' => array($app_ob, 'cleanupData'),
-                'vars' => $vars
-            ));
+            $data = new Turba_Data_Ldif(
+                $injector->getInstance('Horde_Core_Data_Storage'),
+                array(
+                    'browser' => $injector->getInstance('Horde_Browser'),
+                    'cleanup' => array($app_ob, 'cleanupData'),
+                    'vars' => $vars
+                )
+            );
             break;
 
         case 'csv':

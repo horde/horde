@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -72,6 +72,13 @@ class Horde_ActiveSync_SyncCache
     protected $_devid;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver
@@ -83,12 +90,14 @@ class Horde_ActiveSync_SyncCache
     public function __construct(
         Horde_ActiveSync_State_Base $state,
         $devid,
-        $user)
+        $user,
+        $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;
         $this->_user = $user;
         $this->_data = $state->getSyncCache($devid, $user);
+        $this->_logger = $logger;
     }
 
     public function __get($property)
@@ -96,7 +105,8 @@ class Horde_ActiveSync_SyncCache
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        return $this->_data[$property];
+
+        return !empty($this->_data[$property]) ? $this->_data[$property] : false;
     }
 
     public function __set($property, $value)
@@ -186,7 +196,7 @@ class Horde_ActiveSync_SyncCache
         $collections = array();
         foreach ($this->_data['collections'] as $key => $value) {
             $collection = $value;
-            if (!$requireKey || ($requireKey && isset($collection['synckey']))) {
+            if (!$requireKey || ($requireKey && !empty($collection['synckey']))) {
                 $collection['id'] = $key;
                 $collections[$key] = $collection;
             }

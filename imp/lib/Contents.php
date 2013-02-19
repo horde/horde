@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Contents:: class contains all functions related to handling the
- * content and output of mail messages in IMP.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Contents:: class contains all functions related to handling the
+ * content and output of mail messages in IMP.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Contents
 {
@@ -950,7 +958,7 @@ class IMP_Contents
      * downloaded by itself (i.e. all the data needed to view the part is
      * contained within the download data).
      *
-     * @param string $mime_part  The MIME type.
+     * @param string $mime_type  The MIME type.
      *
      * @return boolean  True if an attachment.
      */
@@ -1029,7 +1037,7 @@ class IMP_Contents
     /**
      * Can this MIME part be displayed in the given mode?
      *
-     * @param mixed $id      The MIME part or a MIME ID string.
+     * @param mixed $part    The MIME part or a MIME ID string.
      * @param integer $mask  One of the RENDER_ constants.
      * @param string $type   The type to use (overrides the MIME ID if $id is
      *                       a MIME part).
@@ -1268,6 +1276,7 @@ class IMP_Contents
             return _("Image part");
 
         case 'message':
+        case '':
         case Horde_Mime_Part::UNKNOWN:
             return _("Message part");
 
@@ -1340,7 +1349,7 @@ class IMP_Contents
                         $atc_parts[$mime_id] = 1;
                     }
 
-                    if ($contents_mask && empty($info['nosummary'])) {
+                    if ($contents_mask) {
                         $msgtext[$mime_id] = array(
                             'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)
                         );
@@ -1359,7 +1368,6 @@ class IMP_Contents
 
             if (empty($render_part)) {
                 if ($contents_mask &&
-                    empty($info['nosummary']) &&
                     $this->isAttachment($mime_type)) {
                     $msgtext[$mime_id] = array(
                         'text' => $this->_formatSummary($mime_id, $contents_mask, $part_info_display, true)

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -80,7 +80,6 @@ if (count($memos)) {
 
     require MNEMO_TEMPLATES . '/list/memo_headers.inc';
 
-    $history = $GLOBALS['injector']->getInstance('Horde_History');
     foreach ($memos as $memo_id => $memo) {
         $viewurl = Horde::url('view.php')->add(
             array('memo' => $memo['memo_id'],
@@ -96,12 +95,14 @@ if (count($memos)) {
             $notepad = $memo['memolist_id'];
         }
 
-        // Get memo`s most recent modification date or, if nonexistent,
+        // Get memo's most recent modification date or, if nonexistent,
         // the creation (add) date
-        $guid = 'mnemo:' . $memo['memolist_id'] . ':' . $memo['uid'];
-        $modDate = $history->getActionTimestamp($guid, 'modify');
-        if ($modDate == 0) {
-            $modDate = $history->getActionTimestamp($guid, 'add');
+        if (isset($memo['modified'])) {
+            $modified = $memo['modified'];
+        } elseif (isset($memo['created'])) {
+            $modified = $memo['created'];
+        } else {
+            $modified = null;
         }
 
         require MNEMO_TEMPLATES . '/list/memo_summaries.inc';

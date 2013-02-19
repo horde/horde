@@ -49,7 +49,11 @@ class Horde_Date_Parser_Token
      */
     public function __toString()
     {
-        return '(' . implode(', ', $this->tags) . ') ';
+        $tags = array();
+        foreach ($this->tags as $t) {
+            $tags[] = implode(': ', $t);
+        }
+        return '(' . implode(', ', $tags) . ') ';
     }
 
 }

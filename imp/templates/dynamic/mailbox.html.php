@@ -75,9 +75,9 @@
        <a id="msg_newwin"><span class="iconImg" title="<?php echo _("Open in new window") ?>"></span></a>
        <span class="date"></span>
        <span class="iconImg" id="th_expand"></span>
-       <span class="subject" title="<?php echo _("Expand Headers") ?>"></span>
+       <span class="subject allowTextSelection" title="<?php echo _("Expand Headers") ?>"></span>
        <span class="fromcontainer"><?php echo _("from") ?>
-        <span class="from"></span>
+        <span class="from allowTextSelection"></span>
        </span>
       </div>
       <div id="msgHeaders" style="display:none">
@@ -109,28 +109,28 @@
        </div>
        <div id="msgHeadersContent">
         <span class="iconImg" id="th_collapse"></span>
-        <p class="subject" title="<?php echo _("Collapse Headers") ?>"></p>
+        <p class="subject allowTextSelection" title="<?php echo _("Collapse Headers") ?>"></p>
         <table>
          <thead>
           <tr id="msgHeaderFrom">
            <td class="label"><?php echo _("From") ?>:</td>
-           <td class="from"></td>
+           <td class="from allowTextSelection"></td>
           </tr>
           <tr id="msgHeaderDate">
            <td class="label"><?php echo _("Date") ?>:</td>
-           <td class="date"></td>
+           <td class="date allowTextSelection"></td>
           </tr>
           <tr id="msgHeaderTo">
            <td class="label"><?php echo _("To") ?>:</td>
-           <td class="to"></td>
+           <td class="to allowTextSelection"></td>
           </tr>
           <tr id="msgHeaderCc">
            <td class="label"><?php echo _("Cc") ?>:</td>
-           <td class="cc"></td>
+           <td class="cc allowTextSelection"></td>
           </tr>
           <tr id="msgHeaderBcc">
            <td class="label"><?php echo _("Bcc") ?>:</td>
-           <td class="bcc"></td>
+           <td class="bcc allowTextSelection"></td>
           </tr>
           <tr id="msgAtc" style="display:none">
            <td class="label" id="partlist_toggle">
@@ -162,7 +162,7 @@
        </div>
       </div>
      </div>
-     <div id="messageBody" class="messageBody"></div>
+     <div id="messageBody" class="messageBody allowTextSelection"></div>
     </div>
    </div>
   </div>

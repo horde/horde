@@ -23,10 +23,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:18:15</time>
+ <date>2013-01-29</date>
+ <time>12:20:30</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.4</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -100,12 +100,24 @@
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/et/LC_MESSAGES -->
     </dir> <!-- /locale/et -->
+    <dir name="eu">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/eu/LC_MESSAGES -->
+    </dir> <!-- /locale/eu -->
     <dir name="fi">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
       <file name="Horde_Auth.po" role="data" />
      </dir> <!-- /locale/fi/LC_MESSAGES -->
     </dir> <!-- /locale/fi -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_Auth.mo" role="data" />
+      <file name="Horde_Auth.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_Auth.mo" role="data" />
@@ -148,6 +160,7 @@
       </dir> <!-- /test/Horde/Auth/Unit -->
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="TestCase.php" role="test" />
      </dir> <!-- /test/Horde/Auth -->
@@ -239,12 +252,21 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>pam</name>
     <channel>pecl.php.net</channel>
+    <providesextension>pam</providesextension>
    </package>
    <package>
     <name>sasl</name>
     <channel>pecl.php.net</channel>
+    <providesextension>sasl</providesextension>
    </package>
    <extension>
     <name>ctype</name>
@@ -289,8 +311,12 @@
    <install as="locale/es/LC_MESSAGES/Horde_Auth.po" name="locale/es/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.mo" name="locale/et/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/et/LC_MESSAGES/Horde_Auth.po" name="locale/et/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Auth.mo" name="locale/eu/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/eu/LC_MESSAGES/Horde_Auth.po" name="locale/eu/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/fi/LC_MESSAGES/Horde_Auth.mo" name="locale/fi/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/fi/LC_MESSAGES/Horde_Auth.po" name="locale/fi/LC_MESSAGES/Horde_Auth.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Auth.mo" name="locale/fr/LC_MESSAGES/Horde_Auth.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_Auth.po" name="locale/fr/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.mo" name="locale/ja/LC_MESSAGES/Horde_Auth.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_Auth.po" name="locale/ja/LC_MESSAGES/Horde_Auth.po" />
    <install as="locale/lv/LC_MESSAGES/Horde_Auth.mo" name="locale/lv/LC_MESSAGES/Horde_Auth.mo" />
@@ -298,6 +324,7 @@
    <install as="migration/1_horde_auth_base_tables.php" name="migration/Horde/Auth/1_horde_auth_base_tables.php" />
    <install as="Horde/Auth/AllTests.php" name="test/Horde/Auth/AllTests.php" />
    <install as="Horde/Auth/Autoload.php" name="test/Horde/Auth/Autoload.php" />
+   <install as="Horde/Auth/bootstrap.php" name="test/Horde/Auth/bootstrap.php" />
    <install as="Horde/Auth/phpunit.xml" name="test/Horde/Auth/phpunit.xml" />
    <install as="Horde/Auth/TestCase.php" name="test/Horde/Auth/TestCase.php" />
    <install as="Horde/Auth/fixtures/test.passwd" name="test/Horde/Auth/fixtures/test.passwd" />
@@ -764,7 +791,49 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix updating users in LDAP driver (Bug #11791).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix argument reading in Samba drivers (Bug #11926).
+* [mms] Remove call-time pass-by-reference, which was causing PAM authentication driver to fail in PHP 5.4+ (Bug #10965).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

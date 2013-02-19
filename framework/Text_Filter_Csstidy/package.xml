@@ -11,10 +11,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:56:45</time>
+ <date>2012-11-19</date>
+ <time>18:33:16</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -59,7 +59,7 @@
       <dir name="Filter">
        <dir name="Csstidy">
         <file name="AllTests.php" role="test" />
-        <file name="Autoload.php" role="test" />
+        <file name="bootstrap.php" role="test" />
         <file name="CsstidyTest.php" role="test" />
         <file name="phpunit.xml" role="test" />
        </dir> <!-- /test/Horde/Text/Filter/Csstidy -->
@@ -88,6 +88,15 @@
     <name>ctype</name>
    </extension>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -98,7 +107,7 @@
    <install as="Horde/Text/Filter/Csstidy/class.csstidy_print.php" name="lib/Horde/Text/Filter/Csstidy/class.csstidy_print.php" />
    <install as="Horde/Text/Filter/Csstidy/data.inc.php" name="lib/Horde/Text/Filter/Csstidy/data.inc.php" />
    <install as="Horde/Text/Filter/Csstidy/AllTests.php" name="test/Horde/Text/Filter/Csstidy/AllTests.php" />
-   <install as="Horde/Text/Filter/Csstidy/Autoload.php" name="test/Horde/Text/Filter/Csstidy/Autoload.php" />
+   <install as="Horde/Text/Filter/Csstidy/bootstrap.php" name="test/Horde/Text/Filter/Csstidy/bootstrap.php" />
    <install as="Horde/Text/Filter/Csstidy/CsstidyTest.php" name="test/Horde/Text/Filter/Csstidy/CsstidyTest.php" />
    <install as="Horde/Text/Filter/Csstidy/phpunit.xml" name="test/Horde/Text/Filter/Csstidy/phpunit.xml" />
   </filelist>
@@ -251,7 +260,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Use new Horde_Test layout.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

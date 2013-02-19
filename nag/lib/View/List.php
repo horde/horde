@@ -1,8 +1,8 @@
 <?php
 /**
- * Tag list view
+ * Task list view.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -370,10 +370,12 @@ class Nag_View_List
     {
         $rtags = $this->_browser->getRelatedTags();
         if (count($rtags)) {
-            $t = Horde::img('tags.png');
-            $html = sprintf('<div class="nag-tags-related">%s<ul class="horde-tags">', $t);
+            $html = '<div class="nag-tags-related">'
+                . Horde::img('tags.png')
+                . ' <ul class="horde-tags">';
             foreach ($rtags as $id => $taginfo) {
-                $html .= '<li>' . $this->_linkAddTag($taginfo['tag_name'])->link()
+                $html .= '<li>'
+                    . $this->_linkAddTag($taginfo['tag_name'])->link()
                     . htmlspecialchars($taginfo['tag_name']) . '</a></li>';
             }
             return $html . '</ul></div>';

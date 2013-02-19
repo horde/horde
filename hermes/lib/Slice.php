@@ -2,7 +2,7 @@
 /**
  * Hermes_Slice:: Lightweight wrapper around a single timeslice
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -92,6 +92,7 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
      * t    - type id
      * tn   - type name
      * b    - billable
+     * x    - can edit
      *</pre>
      *
      * @return array
@@ -115,7 +116,8 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
             's' => $this->_properties['submitted'],
             't' => $this->_properties['type'],
             'tn' => $this->_properties['_type_name'],
-            'b'  => $this->_properties['billable']
+            'b'  => $this->_properties['billable'],
+            'x'  => Hermes::canEditTimeslice($this->_properties['id'])
         );
 
         return $json;

@@ -16,7 +16,7 @@
  * TODO: options = autoSelect, frequency, minChars, onSelect, onShow, onType,
  *                 paramName, tokens
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -334,7 +334,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
             var pos = t.indexOf(entry);
             if (pos != -1 &&
-                ((pos == 0 && t.length != entry_len) ||
+                ((pos === 0 && t.length != entry_len) ||
                  (entry_len >= o.partialChars &&
                   o.partialSearch &&
                   (o.fullSearch || /\s/.test(t.substr(pos - 1, 1)))))) {

@@ -1,19 +1,27 @@
 <?php
 /**
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
  * IMP external API interface.
  *
  * This file defines IMP's external API interface. Other applications
  * can interact with IMP through this API.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Api extends Horde_Registry_Api
 {
@@ -211,8 +219,8 @@ class IMP_Api extends Horde_Registry_Api
     public function searchMailbox($mailbox, $query)
     {
         $results = IMP_Mailbox::get($mailbox)->runSearchQuery($query);
-        return isset($results[$mailbox])
-            ? $results[$mailbox]
+        return isset($results[strval($mailbox)])
+            ? $results[strval($mailbox)]
             : array();
     }
 

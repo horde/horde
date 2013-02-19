@@ -1,16 +1,24 @@
 <?php
 /**
- * Defines AJAX actions used exclusively in the IMP dynamic view.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Defines AJAX actions used exclusively in the IMP dynamic view.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_Handler
 {
@@ -157,7 +165,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
-                $this->_base->queue->poll($new_name);
                 $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
                 return true;
             }
@@ -347,53 +354,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         if ($this->vars->initial) {
             $GLOBALS['session']->start();
-        }
-
-        return true;
-    }
-
-    /**
-     * AJAX action: Expand mailboxes (saves expanded state in prefs).
-     *
-     * Variables used:
-     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded).
-     *
-     * @return boolean  True.
-     */
-    public function expandMailboxes()
-    {
-        if (!empty($this->vars->mboxes)) {
-            $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->expand(IMP_Mailbox::formFrom($val));
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * AJAX action: Collapse mailboxes.
-     *
-     * Variables used:
-     *   - all: (integer) 1 to show all mailboxes.
-     *   - mboxes: (string) The list of mailboxes to process (JSON encoded
-     *             array; mailboxes are base64url encoded) if 'all' is 0.
-     *
-     * @return boolean  True.
-     */
-    public function collapseMailboxes()
-    {
-        $imptree = $GLOBALS['injector']->getInstance('IMP_Imap_Tree');
-
-        if ($this->vars->all) {
-            $imptree->collapseAll();
-        } elseif (!empty($this->vars->mboxes)) {
-            foreach (Horde_Serialize::unserialize($this->vars->mboxes, Horde_Serialize::JSON) as $val) {
-                $imptree->collapse(IMP_Mailbox::formFrom($val));
-            }
         }
 
         return true;
@@ -608,16 +568,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
-     * AJAX action: Generate data necessary to display a message.
-     *
-     * @see IMP_Ajax_Application#showMessage
-     */
-    public function showMessage()
-    {
-        return $this->_base->showMessage();
-    }
-
-    /**
      * AJAX action: Return the MIME tree representation of the message.
      *
      * See the list of variables needed for IMP_Ajax_Application#changed() and
@@ -688,16 +638,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         $result->hdr_data->$hdr = (object)$show_msg->getAddressHeader($this->vars->header, null);
 
         return $result;
-    }
-
-    /**
-     * AJAX action: Get forward compose data.
-     *
-     * @see IMP_Ajax_Application#getForwardData()
-     */
-    public function getForwardData()
-    {
-        return $this->_base->getForwardData();
     }
 
     /**
@@ -940,18 +880,22 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
          * empty. Catch that here. */
         if (!isset($this->vars->composeCache)) {
             $notification->push(_("Your attachment was not uploaded. Most likely, the file exceeded the maximum size allowed by the server configuration."), 'horde.warning');
-        } elseif ($session->get('imp', 'file_upload')) {
+        } else {
             $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->composeCache);
 
-            try {
-                $filename = $imp_compose->addFileFromUpload('file_1');
-                $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
-                $result->atc = end($ajax_compose->getAttachmentInfo());
-                $result->success = 1;
-                $result->imp_compose = $imp_compose->getCacheId();
-                $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
-            } catch (IMP_Compose_Exception $e) {
-                $notification->push($e, 'horde.error');
+            if ($imp_compose->canUploadAttachment()) {
+                try {
+                    $filename = $imp_compose->addFileFromUpload('file_1');
+                    $ajax_compose = new IMP_Ajax_Application_Compose($imp_compose);
+                    $result->atc = end($ajax_compose->getAttachmentInfo());
+                    $result->success = 1;
+                    $result->imp_compose = $imp_compose->getCacheId();
+                    $notification->push(sprintf(_("Added \"%s\" as an attachment."), $filename), 'horde.success');
+                } catch (IMP_Compose_Exception $e) {
+                    $notification->push($e, 'horde.error');
+                }
+            } else {
+                $notification->push(_("Uploading attachments has been disabled on this server."), 'horde.error');
             }
         }
 

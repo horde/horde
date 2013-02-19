@@ -1,7 +1,7 @@
 /**
  * Javascript to add events to form elements
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,9 +33,9 @@ function addEvent(element, event, code)
         element.addEventListener(event.replace(/on/, ''), code, false);
     } else if (element.attachEvent) {
         element.attachEvent(event, code);
-    } else if (element.onload != null) {
+    } else if (element.onload !== null) {
         var oldEvent = element[event];
-        newCode = Function(e)
+        newCode = function(e)
         {
             oldEvent(e);
             code();
@@ -57,11 +57,9 @@ function addEvent(element, event, code)
  */
 function toNumber(val)
 {
-    if (isNaN(val)) {
-        return 0;
-    } else {
-        return Number(val);
-    }
+    return isNaN(val)
+        ? 0
+        : Number(val);
 }
 
 /**

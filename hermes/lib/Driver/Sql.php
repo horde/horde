@@ -162,9 +162,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * Fetch time slices
+     * Fetch time slices with optional filter.
      *
-     * @param array $filters
+     * @param array $filters  An array of properties to filter on. Each entry
+     *                        is a field => value format. Possible field values:
+     *                        client, jobtype, submitted, exported, billable,
+     *                        start, end, employee, id, costobject.
      * @param array $fields
      *
      * @return array  Array of timeslice objects
@@ -245,7 +248,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                     break;
 
                 case 'id':
-                    $where .= $glue . $this->_equalClause('timeslice_id', (int)$filter, false);
+                    if (is_array($filter)) {
+                        foreach ($filter as &$id) {
+                            $id = (int)$id;
+                        }
+                    }
+                    $where .= $glue . $this->_equalClause('timeslice_id', $filter, false);
                     $glue = ' AND';
                     break;
 
@@ -364,10 +372,19 @@ class Hermes_Driver_Sql extends Hermes_Driver
     }
 
     /**
-     * @TODO
+     * Return a list of optionally filtered jobtypes.
      *
-     * @param <type> $criteria
-     * @return <type>
+     * @param array $criteria  An array of optional criteria. Can include:
+     *   - id:      (string) The jobtype id.
+     *   - enabled: (boolean) The enabled property of the jobtype.
+     *
+     * @return array  An array of jobtype hashes. Each hash contains the
+     *                following keys:
+     *   - id:        The jobtype id.
+     *   - name:      The name.
+     *   - rate:      The hourly rate.
+     *   - billable:  The billable flag.
+     *   - enabled:   The enabled flag.
      */
     public function listJobTypes(array $criteria = array())
     {

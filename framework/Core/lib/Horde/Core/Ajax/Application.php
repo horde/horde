@@ -2,7 +2,7 @@
 /**
  * Defines the AJAX interface for an application.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -186,9 +186,14 @@ abstract class Horde_Core_Ajax_Application
      */
     public function send()
     {
-        $response = ($this->data instanceof Horde_Core_Ajax_Response)
-            ? clone $this->data
-            : new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
+        if ($this->data instanceof Horde_Core_Ajax_Response) {
+            $response = clone $this->data;
+            if ($response instanceof Horde_Core_Ajax_Response_HordeCore) {
+                $response->tasks = $this->tasks;
+            }
+        } else {
+            $response = new Horde_Core_Ajax_Response_HordeCore($this->data, $this->tasks);
+        }
         $response->sendAndExit();
     }
 

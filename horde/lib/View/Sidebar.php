@@ -28,14 +28,14 @@
  * - content: (string, optional) HTML content of the sidebar, if 'containers'
  *            is not specified.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  horde
  */
 class Horde_View_Sidebar extends Horde_View
@@ -55,6 +55,8 @@ class Horde_View_Sidebar extends Horde_View
 
         $this->containers = array();
         $this->width = $GLOBALS['prefs']->getValue('sidebar_width');
+        $this->left = ($GLOBALS['registry']->nlsconfig->curr_rtl ? 'right:' : 'left:')
+            . $this->width;
 
         $pageOutput = $GLOBALS['injector']->getInstance('Horde_PageOutput');
         $pageOutput->addScriptFile('sidebar.js', 'horde');

@@ -2,7 +2,7 @@
 /**
  * Gollem view script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -78,6 +78,7 @@ if (empty($ret)) {
         echo $data;
     }
 } elseif (strpos($ret[$key]['type'], 'text/html') !== false) {
+    $page_output->topbar = $page_output->sidebar = false;
     $page_output->header();
     echo $ret[$key]['data'];
     $page_output->footer();

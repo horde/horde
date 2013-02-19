@@ -1,5 +1,5 @@
 # Japanese translation for Horde.
-# Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde package.
 # Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>
 #
@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-30 20:43+0900\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-08 09:53+0900\n"
 "Last-Translator: Hiromi Kimura <hiromi@tac.tsukuba.ac.jp>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: ja\n"
@@ -18,15 +18,15 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Poedit 1.5.4\n"
 
-#: lib/Horde/Crypt/Pgp.php:1272
+#: lib/Horde/Crypt/Pgp.php:1262
 msgid "A passphrase is required to decrypt a message."
 msgstr "メッセージを復号するためにパスフレーズが必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:1343
+#: lib/Horde/Crypt/Pgp.php:1333
 msgid "A public PGP key is required to verify a signed message."
 msgstr "PGP公開鍵が署名されたメッセージの検証に必要です。"
 
-#: lib/Horde/Crypt/Pgp.php:1203
+#: lib/Horde/Crypt/Pgp.php:1193
 msgid ""
 "A public PGP key, private PGP key, and passphrase are required to sign a "
 "message."
@@ -75,20 +75,20 @@ msgstr "コメント"
 msgid "Common Name"
 msgstr "一般名"
 
-#: lib/Horde/Crypt/Pgp.php:978
+#: lib/Horde/Crypt/Pgp.php:968
 msgid "Connection refused to the public keyserver."
 msgstr "公開鍵サーバへの接続が拒否されました。"
 
-#: lib/Horde/Crypt/Pgp.php:989
+#: lib/Horde/Crypt/Pgp.php:979
 #, php-format
 msgid "Connection refused to the public keyserver. Reason: %s (%s)"
 msgstr "公開鍵サーバへの接続が拒否されました。理由：%s (%s)"
 
-#: lib/Horde/Crypt/Pgp.php:1171
+#: lib/Horde/Crypt/Pgp.php:1161
 msgid "Could not PGP encrypt message: "
 msgstr "メッセージの PGP 暗号化ができませんでした："
 
-#: lib/Horde/Crypt/Pgp.php:1240
+#: lib/Horde/Crypt/Pgp.php:1230
 msgid "Could not PGP sign message: "
 msgstr "メッセージの PGP 署名ができませんでした："
 
@@ -100,7 +100,7 @@ msgstr "メッセージの S/MIME 暗号化ができませんでした。"
 msgid "Could not S/MIME sign message."
 msgstr "メッセージの S/MIME 署名ができませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:1311
+#: lib/Horde/Crypt/Pgp.php:1301
 msgid "Could not decrypt PGP data: "
 msgstr "PGP データの復号化ができませんでした:"
 
@@ -108,11 +108,11 @@ msgstr "PGP データの復号化ができませんでした:"
 msgid "Could not decrypt S/MIME data."
 msgstr "S/MIME データの復号化ができませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:671
+#: lib/Horde/Crypt/Pgp.php:661
 msgid "Could not determine the recipient's e-mail address."
 msgstr "受信者の電子メールアドレスが確定できませんでした。"
 
-#: lib/Horde/Crypt/Pgp.php:772 lib/Horde/Crypt/Pgp.php:886
+#: lib/Horde/Crypt/Pgp.php:762 lib/Horde/Crypt/Pgp.php:876
 msgid "Could not obtain public key from the keyserver."
 msgstr "公開鍵を鍵サーバから取得できませんでした。"
 
@@ -137,7 +137,7 @@ msgstr "電子メールアドレス"
 msgid "Error parsing S/MIME certficate: %s"
 msgstr "S/MIME 証明書の解析エラー：%s"
 
-#: lib/Horde/Crypt/Pgp.php:1620 lib/Horde/Crypt/Pgp.php:1628
+#: lib/Horde/Crypt/Pgp.php:1610 lib/Horde/Crypt/Pgp.php:1618
 msgid "Error while talking to pgp binary."
 msgstr "PGP プログラムとの通信中にエラーが起きました。"
 
@@ -186,7 +186,7 @@ msgstr "鍵種"
 msgid "Key Usage"
 msgstr "鍵の使用"
 
-#: lib/Horde/Crypt/Pgp.php:795
+#: lib/Horde/Crypt/Pgp.php:785
 msgid "Key already exists on the public keyserver."
 msgstr "電子鍵がすでに公衆鍵サーバに存在します。"
 
@@ -245,19 +245,19 @@ msgstr "組織"
 msgid "Organisational Unit"
 msgstr "部署"
 
-#: lib/Horde/Crypt/Pgp.php:1442
+#: lib/Horde/Crypt/Pgp.php:1432
 msgid "PGP Digital Signature"
 msgstr "PGP 電子署名"
 
-#: lib/Horde/Crypt/Pgp.php:1486
+#: lib/Horde/Crypt/Pgp.php:1476
 msgid "PGP Encrypted Data"
 msgstr "PGP 暗号文"
 
-#: lib/Horde/Crypt/Pgp.php:1547
+#: lib/Horde/Crypt/Pgp.php:1537
 msgid "PGP Public Key"
 msgstr "PGP 公開鍵"
 
-#: lib/Horde/Crypt/Pgp.php:1529
+#: lib/Horde/Crypt/Pgp.php:1519
 msgid "PGP Signed/Encrypted Data"
 msgstr "PGP 署名済/暗号化データ"
 
@@ -281,7 +281,7 @@ msgstr "公衆鍵/秘密鍵が生成できませんでした。"
 msgid "Returned error message:"
 msgstr "返ってきたエラーメッセージ："
 
-#: lib/Horde/Crypt/Pgp.php:1680
+#: lib/Horde/Crypt/Pgp.php:1670
 msgid "Revocation key not generated successfully."
 msgstr "失効鍵は生成できませんでした。"
 
@@ -313,7 +313,7 @@ msgstr "姓"
 msgid "Telephone Number"
 msgstr "電話番号"
 
-#: lib/Horde/Crypt/Pgp.php:1347
+#: lib/Horde/Crypt/Pgp.php:1337
 msgid ""
 "The detached PGP signature block is required to verify the signed message."
 msgstr "電子署名されたメッセージを検証するには、PGP 署名が必要です。"

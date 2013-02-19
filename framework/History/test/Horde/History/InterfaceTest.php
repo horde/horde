@@ -12,15 +12,10 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
-
-/**
  * A test suite for the Horde_History:: interface. DOX format is suggested for
  * the PHPUnit test report.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -138,7 +133,7 @@ EOL;
             try {
                 $history->log(array());
                 $this->fail('No exception!');
-            } catch (Horde_History_Exception $e) {
+            } catch (InvalidArgumentException $e) {
             }
         }
     }

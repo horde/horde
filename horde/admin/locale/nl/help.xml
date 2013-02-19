@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<help>
+
+<entry id="admin-phpshell">
+    <title>Beheergereedschappen: PHP Shell</title>
+    <heading>Gebruiksaanwijzing PHP Shell</heading>
+    <para>De PHP command shell maakt het u mogelijk om willekeurige
+          PHP commando's op de server uit te voeren. Deze commando's
+          worden uitgevoerd door middel van de <code>eval()</code> functie
+          en worden uitgevoerd in de context van de huidige sessie. Deze
+          shell is bedoeld om syntax uit te proberen en willekeurige eenvoudige
+          code uit te voeren. Let er op dat als u uitvoer wilt zien, u
+          echo of print dient te gebruiken in uw code fragment.</para>
+</entry>
+
+<entry id="admin-sqlshell">
+    <title>Beheergereedschappen: SQL Shell</title>
+    <heading>Gebruiksaanwijzing SQL Shell</heading>
+    <para>De SQL query shell maakt het u mogelijk willekeurige SQL opdrachten
+          uit te voeren op uw database. Deze commando's worden uitgevoerd op
+          de database die is opgegeven in $conf['sql'] met de PEAR::DB klassen.
+          U kunt deze tool gebruiken om gegevens op te vragen uit de database,
+          gecompliceerde SQL wijzigingen of verwijderingen en dergelijke te doen
+          of eenvoudige rapporten te maken. Het stuurt de SQL opdrachten direct
+          naar de database en geeft de resultaten van deze opdrachten weer.</para>
+</entry>
+
+<entry id="admin-cmdshell">
+    <title>Beheergereedschappen: Command Shell</title>
+    <heading>Gebruiksaanwijzing Command Shell</heading>
+    <para>De commando shell maakt het u mogelijk om willekeurige shell commando's
+          uit te voeren op uw server. U kunt dit gebruiken om snel shell
+          opdrachten uit te voeren of als een shell verder niet beschikbaar is.
+          </para>
+</entry>
+
+</help>

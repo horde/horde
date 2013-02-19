@@ -39,7 +39,7 @@ class Horde_Controller_FilterRunner implements Horde_Controller_FilterCollection
      */
     public function addPreFilter(Horde_Controller_PreFilter $filter)
     {
-        array_push($this->_preFilters, $filter);
+        $this->_preFilters[] = $filter;
     }
 
     /**

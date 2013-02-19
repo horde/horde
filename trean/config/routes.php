@@ -11,3 +11,8 @@ $mapper->connect('/b/delete',
     array(
         'controller' => 'DeleteBookmark',
     ));
+
+$mapper->connect('/tag/:tag',
+    array(
+        'controller' => 'BrowseByTag',
+    ));

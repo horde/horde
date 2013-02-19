@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/gpl.php.
@@ -203,6 +203,7 @@ if ($view->showlist) {
                             htmlspecialchars($backends[$backend_key]['name']));
 }
 
+$page_output->sidebar = false;
 $page_output->addScriptFile('stripe.js', 'horde');
 $page_output->addScriptFile('passwd.js');
 $page_output->addInlineScript(array(

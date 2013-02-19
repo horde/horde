@@ -92,7 +92,7 @@ Array.prototype.numericSort = function()
     }).sort(function(a, b) {
         return (a > b) ? 1 : ((a < b) ? -1 : 0);
     });
-}
+};
 
 /**
  */
@@ -110,7 +110,7 @@ String.prototype.toQueryParams = function()
     });
 
     return params;
-}
+};
 
 /**
  */

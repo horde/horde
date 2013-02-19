@@ -2,7 +2,7 @@
 /**
  * Mnemo_Driver:: defines an API for implementing storage backends for Mnemo.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -273,14 +273,14 @@ abstract class Mnemo_Driver
      */
     public function deleteAll()
     {
-        $ids = $this->_deleteAll();
+        $uids = $this->_deleteAll();
 
         // Update History.
         $history = $GLOBALS['injector']->getInstance('Horde_History');
         try {
-            foreach ($ids as $id) {
+            foreach ($uids as $uid) {
                 $history->log(
-                    'mnemo:' . $this->_notepad . ':' . $id,
+                    'mnemo:' . $this->_notepad . ':' . $uid,
                     array('action' => 'delete'),
                     true);
             }

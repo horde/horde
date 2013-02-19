@@ -1,17 +1,25 @@
 <?php
 /**
- * The IMP_Crypt_Pgp:: class contains all functions related to handling
- * PGP messages within IMP.
- *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * The IMP_Crypt_Pgp:: class contains all functions related to handling
+ * PGP messages within IMP.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
 {
@@ -53,7 +61,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
     /**
      * Generate the personal Public/Private keypair and store in prefs.
      *
-     * @param string $realname    See Horde_Crypt_Pgp::.
+     * @param string $name        See Horde_Crypt_Pgp::.
      * @param string $email       See Horde_Crypt_Pgp::.
      * @param string $passphrase  See Horde_Crypt_Pgp::.
      * @param string $comment     See Horde_Crypt_Pgp::.
@@ -615,7 +623,7 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
      *
      * @return Horde_Mime_Part  See Horde_Crypt_Pgp::publicKeyMimePart().
      */
-    public function publicKeyMimePart()
+    public function publicKeyMimePart($key = null)
     {
         return parent::publicKeyMimePart($this->getPersonalPublicKey());
     }

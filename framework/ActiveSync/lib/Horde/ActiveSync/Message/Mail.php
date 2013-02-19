@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,9 +30,35 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string     to
+ * @property string     cc
+ * @property string     from
+ * @property string     subject
+ * @property string     threadtopic
+ * @property Horde_Date datereceived
+ * @property string     displayto
+ * @property integer    importance
+ * @property integer    mimetruncated
+ * @property string     mimedata
+ * @property integer    mimesize
+ * @property integer    messageclass
+ * @property Horde_ActiveSync_Message_MeetingRequest  meetingrequest
+ * @property string     reply_to
+ * @property integer    read
+ * @property cpid       integer  The codepage id.
+ * @property Horde_ActiveSync_Message_Attachments attachments (EAS 2.5 only).
+ * @property integer    bodytruncated (EAS 2.5 only)
+ * @property integer    bodysize (EAS 2.5 only)
+ * @property mixed stream|string  body (EAS 2.5 only)
+ * @property integer    airsyncbasenativebodytype (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseBody airsyncbasebody (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_AirSyncBaseAttachments airsyncbaseattachments (EAS > 2.5 only).
+ * @property integer contentclass (EAS > 2.5 only).
+ * @property Horde_ActiveSync_Message_Flag flag (EAS > 2.5 only).
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
@@ -87,6 +113,23 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
     const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
 
+    /* Mail message types */
+    const CLASS_NOTE                 = 'IPM.Note';
+    const CLASS_MEETING_REQUEST      = 'IPM.Schedule.Meeting.Request';
+    const CLASS_MEETING_NOTICE       = 'IPM.Notification.Meeting';
+
+    /* Flags */
+    const FLAG_READ_UNSEEN           = 0;
+    const FLAG_READ_SEEN             = 1;
+
+    /* UTF-8 codepage id. */
+    const INTERNET_CPID_UTF8         = 65001;
+
+    /* Importance */
+    const IMPORTANCE_LOW             = 0;
+    const IMPORTANCE_NORM            = 1;
+    const IMPORTANCE_HIGH            = 2;
+
     /**
      * Property mappings
      *
@@ -108,18 +151,21 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_MESSAGECLASS   => array(self::KEY_ATTRIBUTE => 'messageclass'),
         self::POOMMAIL_MEETINGREQUEST => array(self::KEY_ATTRIBUTE => 'meetingrequest', self::KEY_TYPE => 'Horde_ActiveSync_Message_MeetingRequest'),
         self::POOMMAIL_REPLY_TO       => array(self::KEY_ATTRIBUTE => 'reply_to'),
+        self::POOMMAIL_INTERNETCPID   => array(self::KEY_ATTRIBUTE => 'cpid'),
     );
 
-    /* Mail message types */
-    const CLASS_NOTE            = 'IPM.Note';
-    const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
-    const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
-
-    /* Flags */
-    const FLAG_READ_UNSEEN = 0;
-    const FLAG_READ_SEEN   = 1;
-
+    /**
+     * Read flag.
+     *
+     * @var integer
+     */
     public $read = false;
+
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'to'             => false,
         'cc'             => false,
@@ -136,6 +182,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         'meetingrequest' => false,
         'reply_to'       => false,
         'read'           => false,
+        'cpid'           => false,
     );
 
     /**

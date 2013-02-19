@@ -12,11 +12,7 @@
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
 
-$mappings = array('Nag' => __DIR__ . '/../../lib/');
-require_once 'Horde/Test/Autoload.php';
-
-/** Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
+Horde_Test_Autoload::addPrefix('Nag', __DIR__ . '/../../lib');
 
 /** Load the basic test definition */
 require_once __DIR__ . '/TestCase.php';

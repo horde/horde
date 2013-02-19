@@ -1,15 +1,15 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 
@@ -25,7 +25,7 @@ $layout->handle($vars->action, intval($vars->row), intval($vars->col));
 
 if ($layout->updated()) {
     $prefs->setValue('portal_layout', $layout->serialize());
-    if (isset($vars->url)) {
+    if ($vars->url) {
         $url = new Horde_Url($vars->url);
         $url->unique()->redirect();
     }

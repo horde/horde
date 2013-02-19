@@ -1,17 +1,25 @@
 <?php
 /**
- * Defines common (i.e. used in dynamic and smartmobile views) AJAX actions
- * used in IMP.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Defines common (i.e. used in dynamic and smartmobile views) AJAX actions
+ * used in IMP.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Handler
 {
@@ -47,7 +55,6 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - checkcache: (integer) If 1, only send data if cache has been
      *                 invalidated.
      *   - rangeslice: (string) Range slice. See js/viewport.js.
-     *   - requestid: (string) Request ID. See js/viewport.js.
      *   - sortby: (integer) The Horde_Imap_Client sort constant.
      *   - sortdir: (integer) 0 for ascending, 1 for descending.
      *
@@ -77,13 +84,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         $changed = $this->_base->changed(true);
 
         if (is_null($changed)) {
-            $vp = $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_base->mbox);
-
-            if (isset($vp_vars->requestid)) {
-                $vp->requestid = intval($vp_vars->requestid);
-            }
-
-            $this->_base->addTask('viewport', $vp);
+            $this->_base->addTask('viewport', $GLOBALS['injector']->getInstance('IMP_Ajax_Application_ListMessages')->getBaseOb($this->_base->mbox));
             return true;
         }
 
@@ -127,7 +128,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     public function moveMessages()
     {
         $indices = new IMP_Indices_Form($this->vars->uid);
-        if ((!$this->vars->mboxto && !$this->vars->newmbox) ||
+        if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($indices)) {
             return false;
         }
@@ -138,7 +139,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             return false;
         }
 
-        if ($this->vars->newmbox) {
+        if (isset($this->vars->newmbox)) {
             $mbox = IMP_Mailbox::prefFrom($this->vars->newmbox);
             $newMbox = true;
         } else {
@@ -176,12 +177,12 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
     public function copyMessages()
     {
         $indices = new IMP_Indices_Form($this->vars->uid);
-        if ((!$this->vars->mboxto && !$this->vars->newmbox) ||
+        if ((!isset($this->vars->mboxto) && !isset($this->vars->newmbox)) ||
             !count($indices)) {
             return false;
         }
 
-        if ($this->vars->newmbox) {
+        if (isset($this->vars->newmbox)) {
             $mbox = IMP_Mailbox::prefFrom($this->vars->newmbox);
             $newMbox = true;
         } else {
@@ -308,6 +309,56 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             }
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
+            $this->_base->checkUidvalidity();
+            $result = false;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get forward compose data.
+     *
+     * See the list of variables needed for checkUidvalidity(). Additional
+     * variables used:
+     *   - dataonly: (boolean) Only return data information (DEFAULT: false).
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - type: (string) Forward type.
+     *   - uid: (string) Indices of the messages to forward (IMAP sequence
+     *          string; mailboxes are base64url encoded).
+     *
+     * @return mixed  False on failure, or an object with the following
+     *                entries:
+     *   - body: (string) The body text of the message.
+     *   - format: (string) Either 'text' or 'html'.
+     *   - header: (array) The headers of the message.
+     *   - identity: (integer) The identity ID to use for this message.
+     *   - imp_compose: (string) The IMP_Compose cache identifier.
+     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - type: (string) The input 'type' value.
+     */
+    public function getForwardData()
+    {
+        global $notification;
+
+        /* Can't open session read-only since we need to store the message
+         * cache id. */
+
+        try {
+            $compose = $this->_base->initCompose();
+
+            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents);
+
+            if ($this->vars->dataonly) {
+                $result = $compose->ajax->getBaseResponse();
+                $result->body = $fwd_msg['body'];
+                $result->format = $fwd_msg['format'];
+                $result->opts->atc = $compose->ajax->getAttachmentInfo($fwd_msg['type']);
+            } else {
+                $result = $compose->ajax->getResponse($fwd_msg);
+            }
+        } catch (Horde_Exception $e) {
+            $notification->push($e);
             $this->_base->checkUidvalidity();
             $result = false;
         }
@@ -569,6 +620,73 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $result->success = 0;
+        }
+
+        return $result;
+    }
+
+    /**
+     * Generate data necessary to display a message.
+     *
+     * See the list of variables needed for changed() and
+     * checkUidvalidity().  Additional variables used:
+     *   - peek: (integer) If set, don't set seen flag.
+     *   - preview: (integer) If set, return preview data. Otherwise, return
+     *              full data.
+     *   - uid: (string) Index of the message to display (IMAP sequence
+     *          string; mailbox is base64url encoded) - must be single index.
+     *
+     * @return object  Object with the following entries:
+     *   - error: (string) On error, the error string.
+     *   - errortype: (string) On error, the error type.
+     *   - mbox: (string) The message mailbox (base64url encoded).
+     *   - uid: (string) The message UID.
+     *   - view: (string) The view ID.
+     */
+    public function showMessage()
+    {
+        $indices = new IMP_Indices_Form($this->vars->uid);
+        list($mbox, $uid) = $indices->getSingle();
+
+        if (!$uid) {
+            throw new IMP_Exception(_("Requested message not found."));
+        }
+
+        $result = new stdClass;
+        $result->mbox = $mbox->form_to;
+        $result->uid = $uid;
+        $result->view = $this->vars->view;
+
+        try {
+            $change = $this->_base->changed(true);
+            if (is_null($change)) {
+                throw new IMP_Exception(_("Could not open mailbox."));
+            }
+
+            /* Explicitly load the message here; non-existent messages are
+             * ignored when the Ajax queue is processed. */
+            $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+
+            $this->_base->queue->message($mbox, $uid, $this->vars->preview, $this->vars->peek);
+        } catch (Exception $e) {
+            $result->error = $e->getMessage();
+            $result->errortype = 'horde.error';
+
+            $change = true;
+        }
+
+        if ($this->vars->preview || $this->vars->viewport->force) {
+            if ($change) {
+                $this->_base->addTask('viewport', $this->_base->viewPortData(true));
+            } elseif ($this->_base->mbox->cacheid_date != $this->vars->viewport->cacheid) {
+                /* Cache ID has changed due to viewing this message. So update
+                 * the cacheid in the ViewPort. */
+                $this->_base->addTask('viewport', $this->_base->viewPortOb());
+            }
+
+            if ($this->vars->preview) {
+                $this->_base->queue->poll($mbox);
+            }
         }
 
         return $result;

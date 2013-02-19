@@ -11,7 +11,7 @@
  * and not equal to each other. In other words, to use this module you must
  * have a domain with at least one PDC and one BDC.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
@@ -46,7 +46,9 @@ class Horde_Auth_Smb extends Horde_Auth_Base
         }
 
         foreach (array('domain', 'hostspec') as $val) {
-            throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            if (empty($params[$val])) {
+                throw new InvalidArgumentException('Missing ' . $val . ' parameter.');
+            }
         }
 
         $params = array_merge(array(

@@ -29,6 +29,9 @@ class Horde_Form_Type
         return $this->setProperty($property, $value);
     }
 
+    /**
+     * Initialize (kind of constructor) - Parameter list may vary on overloading
+     */
     function init()
     {
     }
@@ -215,6 +218,9 @@ class Horde_Form_Type_number extends Horde_Form_Type {
 
 }
 
+/**
+ * A Form type for an input line validating to an integer
+ */
 class Horde_Form_Type_int extends Horde_Form_Type {
 
     function isValid(&$var, &$vars, $value, &$message)
@@ -296,6 +302,9 @@ class Horde_Form_Type_intlist extends Horde_Form_Type {
 
 }
 
+/**
+ * A Text Box form type
+ */
 class Horde_Form_Type_text extends Horde_Form_Type {
 
     var $_regex;
@@ -1345,7 +1354,7 @@ class Horde_Form_Type_boolean extends Horde_Form_Type {
 
     function getInfo(&$vars, &$var, &$info)
     {
-        $info = is_bool($var->getValue($vars)) ? $var->getValue($vars) : Horde_String::lower($vars->get($var->getVarName())) == 'on';
+        $info = Horde_String::lower($vars->get($var->getVarName())) == 'on';
     }
 
     /**
@@ -2236,12 +2245,19 @@ class Horde_Form_Type_passwordconfirm extends Horde_Form_Type {
     }
 
 }
-
+/**
+ * Horde_Form_Type for selecting a single value out of a list
+ * For selecting multiple values, use Horde_Form_Type_multienum
+ */
 class Horde_Form_Type_enum extends Horde_Form_Type {
 
     var $_values;
     var $_prompt;
-
+    /**
+     * Initialize (kind of constructor)
+     * @param array $values            A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
+     * @param string|boolean  $prompt  A null value text to prompt user selecting a value. Use a default if boolean true, else use the supplied string. No prompt on false.
+     */
     function init($values, $prompt = null)
     {
         $this->setValues($values);
@@ -2376,10 +2392,20 @@ class Horde_Form_Type_mlenum extends Horde_Form_Type {
 
 }
 
+
+/**
+ * A Horde_Form_Type_multienum for a multiselect box
+ * @see Horde_Form_Type_enum
+ */
 class Horde_Form_Type_multienum extends Horde_Form_Type_enum {
 
     var $size = 5;
 
+    /**
+     * Initialize (kind of constructor)
+     * @param array $values  A hash map where the key is the internal 'value' to process and the value is the caption presented to the user
+     * @param integer $size  The number of rows the multienum should display before scrolling
+     */
     function init($values, $size = null)
     {
         if (!is_null($size)) {

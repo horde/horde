@@ -10,13 +10,6 @@
  * @author     Ralf Lang <lang@b1-systems.de>
  * @link       http://www.horde.org/apps/sesha
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
-
-
 class Sesha_Unit_Driver_RdoTest extends Sesha_TestCase
 {
 
@@ -28,7 +21,6 @@ class Sesha_Unit_Driver_RdoTest extends Sesha_TestCase
                ' VALUES ("books", "Book inventory", "3")';
 
         self::$db->insert($categoryAddSql);
-
     }
 
     public function testSetup()

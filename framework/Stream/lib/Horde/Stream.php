@@ -3,7 +3,7 @@
  * Object that adds convenience/utility methods to interacting with PHP
  * streams.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,9 +45,9 @@ class Horde_Stream implements Serializable
      */
     protected function _init()
     {
-        // Sane default: read-only, 0-length stream.
+        // Sane default: read-write, 0-length stream.
         if (!$this->stream) {
-            $this->stream = @fopen('php://temp', 'r');
+            $this->stream = @fopen('php://temp', 'r+');
         }
     }
 
@@ -62,6 +62,7 @@ class Horde_Stream implements Serializable
     }
 
     /**
+     * @since 1.1.0
      */
     public function __toString()
     {
@@ -84,11 +85,15 @@ class Horde_Stream implements Serializable
 
         if (is_resource($data)) {
             $dpos = ftell($data);
-            stream_copy_to_stream($data, $this->stream);
+            while (!feof($data)) {
+                fwrite($this->stream, fread($data, 8192));
+            }
             fseek($data, $dpos);
         } elseif ($data instanceof Horde_Stream) {
             $dpos = ftell($data->stream);
-            stream_copy_to_stream($data->stream, $this->stream);
+            while (!feof($data->stream)) {
+                fwrite($this->stream, fread($data->stream, 8192));
+            }
             fseek($data->stream, $dpos);
         } else {
             fwrite($this->stream, $data);

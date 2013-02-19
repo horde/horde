@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../../Autoload.php';
-
-/**
  * Test the defaults helper.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -54,7 +49,7 @@ extends PHPUnit_Framework_TestCase
                 'Mr. Foo' => array(
                     'TypeFOO' => 'FooA',
                     'TypeFOOBAR' => 'FooC',
-                ), 
+                ),
                 'Mr. Bar' => array(
                     'TypeBAR' => 'BarA',
                     'TypeFOOBAR' => 'BarC',

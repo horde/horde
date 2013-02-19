@@ -1,5 +1,5 @@
 # Turba Slovak translation.
-# Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2002-2013 Horde LLC (http://www.horde.org/)
 # Leo Mrafko <leo@oel.sk>, 2002
 # Ivan Noris <vix@vazka.sk>, 2002, 2003
 # Martin Matuška <martin@matuska.org>, 2008
@@ -11,7 +11,7 @@ msgstr ""
 "Project-Id-Version: Turba 2.0\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-03 15:40+0200\n"
+"PO-Revision-Date: 2012-12-30 17:54+0200\n"
 "Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: Slovak <vix@vazka.sk>\n"
 "Language: sk\n"
@@ -39,7 +39,7 @@ msgstr "\"%s\" aktualizované."
 #: lib/View/Browse.php:196
 #, php-format
 msgid "\"%s\" was not copied because it is a list."
-msgstr "\"%s\" sa nepodarilo skopírovať, pretože je to konferencia"
+msgstr "\"%s\" sa nepodarilo skopírovať, pretože je to konferencia."
 
 #: lib/View/Browse.php:191
 #, php-format
@@ -57,7 +57,7 @@ msgstr "\"Priezvisko, Meno\" (napr. Doe, John)"
 #: lib/Driver.php:722
 #, php-format
 msgid "%d. %s of %s"
-msgstr "%d. %s má %s"
+msgstr "%d. %s z %s"
 
 #: lib/Form/AddContact.php:88
 #, php-format
@@ -77,7 +77,7 @@ msgstr "%s v %s"
 #: templates/list/numPager.inc:6
 #, php-format
 msgid "%s to %s of %s"
-msgstr "%s z %s do %s"
+msgstr "%s z %s z %s"
 
 #: templates/search/duplicate/contact_header.html.php:14
 msgid "<< Merge this into the first contact"
@@ -105,14 +105,14 @@ msgstr "Pridať do"
 msgid "Added or updated %d contact, but at least one contact failed:"
 msgid_plural "Added or updated %d contacts, but at least one contact failed:"
 msgstr[0] ""
-"Pridaný alebo aktualizovaný %d kontakt, ale apoň jeden kontakt sa nepodarilo "
-"aktualizovať"
+"Pridaný alebo aktualizovaný %d kontakt, ale minimálne jeden kontakt sa "
+"nepodarilo aktualizovať:"
 msgstr[1] ""
-"Pridané alebo aktualizované %d kontakty, ale apoň jeden kontakt sa "
-"nepodarilo aktualizovať"
+"Pridané alebo aktualizované %d kontakty, ale minimálne jeden kontakt sa "
+"nepodarilo aktualizovať:"
 msgstr[2] ""
-"Pridané alebo aktualizované %d kontakty, ale apoň jeden kontakt sa "
-"nepodarilo aktualizovať"
+"Pridaných alebo aktualizovaných %d kontaktov, ale minimálne jeden kontakt sa "
+"nepodarilo aktualizovať:"
 
 #: lib/Driver.php:2831
 msgid "Adding contacts is not available."
@@ -138,7 +138,7 @@ msgstr "Adresár neexistuje"
 #: lib/Turba.php:646
 #, php-format
 msgid "Address book of %s"
-msgstr "Adresáre %s"
+msgstr "Adresár %s"
 
 #: data.php:268
 msgid "Address book successfully purged."
@@ -227,7 +227,7 @@ msgstr "Obchodná kategória"
 
 #: data.php:54
 msgid "CSV"
-msgstr "CSV (hodnoty oddelené čiarkou)"
+msgstr "CSV"
 
 #: lib/Object/Group.php:65
 msgid "Can't add a group to itself."
@@ -240,7 +240,7 @@ msgstr "Zrušiť"
 
 #: config/attributes.php:329
 msgid "Car Phone"
-msgstr "Telefón (auto)"
+msgstr "Telefón (v aute)"
 
 #: config/attributes.php:468
 msgid "Category"
@@ -276,7 +276,7 @@ msgid ""
 "Choose which address books to use for synchronization with external devices."
 msgstr ""
 "Vyberte adresáre, ktoré majú byť použité na synchronizáciu s externými "
-"zariadeniami:"
+"zariadeniami."
 
 #: config/prefs.php:14
 msgid "Choose which address books to use."
@@ -519,7 +519,7 @@ msgstr "Upraviť skupinu \"%s\""
 
 #: lib/Form/EditContact.php:104
 msgid "Edit/View Group Members"
-msgstr "Upraviť/Zobraziť Členov Skupiny"
+msgstr "Upraviť/Zobraziť členov skupiny"
 
 #: config/attributes.php:276
 msgid "Email"
@@ -547,7 +547,7 @@ msgstr "Nastala chyba pri pridávaní %d z %d požadovaných kontaktov do zoznam
 #, php-format
 msgid "Error deleting %d contact."
 msgid_plural "Error deleting %d contacts."
-msgstr[0] "Nastala chyba pri vymazávaní %d kontaktov."
+msgstr[0] "Nastala chyba pri vymazávaní %d kontaktu."
 msgstr[1] "Nastala chyba pri vymazávaní %d kontaktov."
 msgstr[2] "Nastala chyba pri vymazávaní %d kontaktov."
 
@@ -555,7 +555,7 @@ msgstr[2] "Nastala chyba pri vymazávaní %d kontaktov."
 #, php-format
 msgid "Error deleting %d of %d requested contact."
 msgid_plural "Error deleting %d of %d requested contacts."
-msgstr[0] "Nastala chyba pri vymazávaní %d z %d požadovaných kontaktov."
+msgstr[0] "Nastala chyba pri vymazávaní %d z %d požadovaného kontaktu."
 msgstr[1] "Nastala chyba pri vymazávaní %d z %d požadovaných kontaktov."
 msgstr[2] "Nastala chyba pri vymazávaní %d z %d požadovaných kontaktov."
 
@@ -821,7 +821,7 @@ msgstr "Priezvisko"
 
 #: templates/search/duplicate/contact_header.html.php:4
 msgid "Last change: "
-msgstr "Posledná zmena"
+msgstr "Posledná zmena: "
 
 #: config/attributes.php:518
 msgid "Latitude"
@@ -985,7 +985,7 @@ msgstr "Nebol zadaný žiaden adresár"
 
 #: templates/smartmobile/browse.html.php:7
 msgid "No browseable address books"
-msgstr "Žiadne adresáre nie sú prístupné na prezeranie."
+msgstr "Žiadne adresáre nie sú prístupné na prezeranie"
 
 #: lib/Ajax/Application/Handler/Minisearch.php:72
 msgid "No contacts found"
@@ -1030,7 +1030,7 @@ msgstr "Poznámky"
 
 #: config/prefs.php:118
 msgid "Number of items per page"
-msgstr "Počet položiek na stránku"
+msgstr "Počet položiek na stranu"
 
 #: lib/Api.php:791 lib/Api.php:1000
 msgid "Object not found."
@@ -1051,7 +1051,7 @@ msgstr "Pracovisko"
 
 #: lib/Api.php:983
 msgid "Only one vcard supported."
-msgstr "Iba jedna vcard je podporovaná"
+msgstr "Iba jedna vcard je podporovaná."
 
 #: config/backends.php:344 config/backends.php:668
 msgid "Organization"
@@ -1107,7 +1107,7 @@ msgstr "PTT"
 
 #: config/attributes.php:353
 msgid "Pager"
-msgstr "Stránkovač"
+msgstr "Pager"
 
 #: lib/View/DeleteContact.php:57
 msgid "Permanently delete this contact?"
@@ -1290,11 +1290,11 @@ msgstr "Zvoľte formát zdrojového súboru:"
 
 #: config/prefs.php:136
 msgid "Select the format used to <em>display</em> names:"
-msgstr "Zvoľte formát zobrazovania mien<em>display</em>:"
+msgstr "Zvoľte formát <em>zobrazovania</em> mien:"
 
 #: config/prefs.php:148
 msgid "Select the format used to <em>sort</em> names:"
-msgstr "Zvoľte formát triedenia mien <em>sort</em>:"
+msgstr "Zvoľte formát <em>zoradenia</em> mien:"
 
 #: config/prefs.php:35
 msgid "Select view to display by default and paging preferences."
@@ -1384,9 +1384,9 @@ msgstr "Úspešne vytvorený virtuálny adresár \"%s\""
 #, php-format
 msgid "Successfully deleted %d contact."
 msgid_plural "Successfully deleted %d contacts."
-msgstr[0] "Úspešne vymazaný(ch) %d kontakt(ov)."
-msgstr[1] "Úspešne vymazaný(ch) %d kontakt(ov)."
-msgstr[2] "Úspešne vymazaný(ch) %d kontakt(ov)."
+msgstr[0] "Úspešne vymazaný %d kontakt."
+msgstr[1] "Úspešne vymazané %d kontakty."
+msgstr[2] "Úspešne vymazaných %d kontaktov."
 
 #: merge.php:33
 msgid "Successfully merged two contacts."
@@ -1519,7 +1519,7 @@ msgstr ""
 #: config/prefs.php:81
 #, php-format
 msgid "There was an error communicating with the ActiveSync server: %s"
-msgstr "Nastala chyba prikomunikácii so serverom ActiveSync : %s"
+msgstr "Nastala chyba prikomunikácii so serverom ActiveSync: %s"
 
 #: lib/View/Browse.php:364
 msgid "There was an error creating a new list."
@@ -1533,7 +1533,7 @@ msgstr "Nastala chyba pri vymazávaní \"%s\" zo zdrojového adresára."
 #: delete.php:38
 #, php-format
 msgid "There was an error deleting this contact: %s"
-msgstr "Nastala chyba pri vymazávaní tohto kontaktu: %s."
+msgstr "Nastala chyba pri vymazávaní tohto kontaktu: %s"
 
 #: lib/View/Browse.php:435
 msgid "There was an error displaying the list"
@@ -1580,7 +1580,7 @@ msgstr "Tento formát súboru nie je podporovaný."
 #: lib/Api.php:1591 lib/Api.php:1605
 #, php-format
 msgid "This person already has a %s entry in the address book"
-msgstr "Táto osoba už má záznam %s v adresári."
+msgstr "Táto osoba už má záznam %s v adresári"
 
 #: config/prefs.php:162
 msgid ""
@@ -1719,11 +1719,11 @@ msgstr ""
 
 #: lib/Driver/Vbook.php:115
 msgid "You cannot add new contacts to a virtual address book"
-msgstr "Do virtuálneho adresára nemôžete pridávať kontakty."
+msgstr "Do virtuálneho adresára nemôžete pridávať nové kontakty"
 
 #: lib/Driver/Vbook.php:126
 msgid "You cannot delete contacts from a virtual address book"
-msgstr "Z virtuálneho adresára nemôžete vymazať kontakty."
+msgstr "Z virtuálneho adresára nemôžete vymazať kontakty"
 
 #: lib/Api.php:834
 msgid "You didn't mark a contact as your own yet."
@@ -1879,8 +1879,8 @@ msgstr "do iného adresára"
 
 #: data.php:56 templates/data/export.inc:15 templates/data/import.inc:15
 msgid "vCard"
-msgstr "virtuálne vizitka"
+msgstr "vCard"
 
 #: templates/data/export.inc:16
 msgid "vCard (3.0)"
-msgstr "virtuálna vizitka (3.0)"
+msgstr "vCard (3.0)"

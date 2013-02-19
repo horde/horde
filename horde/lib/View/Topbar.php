@@ -8,15 +8,16 @@
  * - searchAction: (string) The form action attribute of the search form.
  * - searchMenu: (boolean) whether to show a drop down icon inside the search
  *               field.
+ * - searchLabel: (string) Ghost label of the search field.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  horde
  */
 class Horde_View_Topbar extends Horde_View
@@ -54,6 +55,7 @@ class Horde_View_Topbar extends Horde_View
         /* Search form. */
         $this->searchAction = '#';
         $this->searchIcon = Horde_Themes::img('search-topbar.png');
+        $this->searchLabel = _("Search");
 
         /* Login/Logout. */
         if ($registry->getAuth()) {
@@ -87,7 +89,7 @@ class Horde_View_Topbar extends Horde_View
                 Horde_Core_Script_Package_Datejs::translateFormat(
                     $GLOBALS['prefs']->getValue('date_format')),
             'refresh' =>
-                $GLOBALS['prefs']->getValue('menu_refresh_time'),
+                (int)$GLOBALS['prefs']->getValue('menu_refresh_time'),
         )));
 
         /* Sidebar. */

@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -12,10 +12,15 @@
 require_once __DIR__ . '/../lib/Application.php';
 Horde_Registry::appInit('whups');
 
-$ticket = Whups::getCurrentTicket();
 $vars = Horde_Variables::getDefaultVariables();
+if ($vars->searchfield) {
+    $vars->id = $vars->searchfield;
+}
+$ticket = Whups::getCurrentTicket();
 $ticket->setDetails($vars);
 $page_output->addLinkTag($ticket->feedLink());
+
+Whups::addTopbarSearch();
 
 Whups::addFeedLink();
 $page_output->header(array(

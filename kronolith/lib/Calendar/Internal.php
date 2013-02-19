@@ -3,7 +3,7 @@
  * Kronolith_Calendar_Internal defines an API for single internal (share)
  * calendars.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -133,8 +133,7 @@ class Kronolith_Calendar_Internal extends Kronolith_Calendar
             $this->owner() == $GLOBALS['registry']->getAuth();
 
         $hash = parent::toHash();
-        $hash['name']  = $this->name()
-          . ($owner || !$this->owner() ? '' : ' [' . $GLOBALS['registry']->convertUsername($this->owner(), false) . ']');
+        $hash['name']  = $this->name();
         $hash['owner'] = $owner;
         $hash['show']  = in_array($id, $GLOBALS['display_calendars']);
         $hash['edit']  = $this->hasPermission(Horde_Perms::EDIT);

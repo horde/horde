@@ -1,29 +1,24 @@
 <?php
 /**
- * A Horde_Injector:: based Horde_Mime_Viewer factory for IMP drivers.
- *
- * PHP version 5
- *
- * @category Horde
- * @package  IMP
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
- */
-
-/**
- * A Horde_Injector:: based Horde_Mime_Viewer factory for IMP drivers.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @category Horde
- * @package  IMP
- * @author   Michael Slusarz <slusarz@horde.org>
- * @license  http://www.horde.org/licenses/gpl GPL
- * @link     http://pear.horde.org/index.php?package=IMP
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * A Horde_Injector based Horde_Mime_Viewer factory for IMP drivers.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Factory_MimeViewer extends Horde_Core_Factory_Base
 {

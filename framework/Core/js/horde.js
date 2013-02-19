@@ -175,15 +175,15 @@ Object.extend(Date.prototype, {
         }
 
         var hb_negativeyear = year < 0,
-            century = year / 100 | 0,
-            year = year % 100;
+            century = year / 100 | 0;
+        year = year % 100;
 
         if (hb_negativeyear) {
             // Subtract 1 because year 0 is a leap year;
             // And N.B. that we must treat the leap years as occurring
             // one year earlier than they do, because for the purposes
             // of calculation, the year starts on 1st March:
-            return ((14609700 * century + (year == 0 ? 1 : 0)) / 400 | 0) +
+            return ((14609700 * century + (year === 0 ? 1 : 0)) / 400 | 0) +
                    ((1461 * year + 1) / 4 | 0) +
                    ((153 * month + 2) / 5 | 0) +
                    day + 1721118;

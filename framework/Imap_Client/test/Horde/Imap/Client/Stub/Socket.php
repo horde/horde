@@ -1,31 +1,24 @@
 <?php
 /**
- * Stub for testing the IMAP Socket library.
- * Needed because we need to access protected methods.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
- * @package  Imap_Client
- * @author   Michael Slusarz <slusarz@horde.org>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @package  Imap_Client
  */
 
 /**
  * Stub for testing the IMAP Socket library.
  * Needed because we need to access protected methods.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @category Horde
- * @package  Imap_Client
  * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @ignore
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @link     http://pear.horde.org/index.php?package=Imap_Client
+ * @package  Imap_Client
  */
 class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 {
@@ -42,65 +35,88 @@ class Horde_Imap_Client_Stub_Socket extends Horde_Imap_Client_Socket
 
     public function getClientSort($data, $sort)
     {
-        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
+        $this->_fetch->clear();
 
         $ids = array();
 
         foreach (array_filter($data) as $val) {
             $token = new Horde_Imap_Client_Tokenize($val);
             $token->rewind();
-            $id_str = $token->next();
             $token->next();
-            $token->next();
-            $this->_parseFetch($id_str, $token);
-            $ids[] = $id_str;
+            $ids[] = $token->next();
+
+            $this->doServerResponse($val);
         }
 
-        return $this->sort_ob->clientSortProcess($ids, $this->_temp['fetch_resp'], $sort);
+        return $this->sort_ob->clientSortProcess($ids, $this->_fetch, $sort);
     }
 
     public function getThreadSort($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
-        $token->rewind();
-
-        $this->_parseThread($token);
-
+        $this->doServerResponse($data);
         return new Horde_Imap_Client_Data_Thread($this->_temp['threadparse'], 'uid');
     }
 
     public function parseNamespace($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
-        $token->rewind();
-
-        $this->_parseNamespace($token);
-
+        $this->doServerResponse($data);
         return $this->_temp['namespace'];
     }
 
-    public function parseFetch($data)
+    public function parseACL($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
-        $token->rewind();
-        $msg_no = $token->next();
-        $token->next();
-        $token->next();
-
-        $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        $this->_temp['fetch_resp'] = new Horde_Imap_Client_Fetch_Results();
-
-        $this->_parseFetch($msg_no, $token);
-
-        return $this->_temp['fetch_resp'];
+        $this->doServerResponse($data);
+        return $this->_temp['getacl'];
     }
 
-    public function responseCode($data)
+    public function parseMyACLRights($data)
     {
-        $token = new Horde_Imap_Client_Tokenize($data);
-        $server = Horde_Imap_Client_Interaction_Server::create($token);
+        $this->doServerResponse($data);
+        return $this->_temp['myrights'];
+    }
 
+    public function parseListRights($data)
+    {
+        $this->doServerResponse($data);
+        return $this->_temp['listaclrights'];
+    }
+
+    /**
+     * @param array $data  Options:
+     *   - results: (Horde_Imap_Client_Fetch_Results)
+     */
+    public function parseFetch($data, array $opts = array())
+    {
+        if (isset($opts['results'])) {
+            $this->_fetch = $opts['results'];
+        } else {
+            $this->_fetch->clear();
+        }
+        $this->_temp['modseqs_nouid'] = array();
+
+        $this->doServerResponse($data);
+
+        return $this->_fetch;
+    }
+
+    public function getModseqsNouid()
+    {
+        return $this->_temp['modseqs_nouid'];
+    }
+
+    public function doServerResponse($data)
+    {
+        $server = Horde_Imap_Client_Interaction_Server::create(
+            new Horde_Imap_Client_Tokenize($data)
+        );
+        $this->_serverResponse($server);
+    }
+
+    public function doResponseCode($data)
+    {
+        $server = Horde_Imap_Client_Interaction_Server::create(
+            new Horde_Imap_Client_Tokenize($data)
+        );
         $this->_responseCode($server);
     }
 

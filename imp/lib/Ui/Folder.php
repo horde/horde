@@ -2,7 +2,7 @@
 /**
  * Common code shared among IMP's various folder UI views.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -88,7 +88,10 @@ class IMP_Ui_Folder
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->envelope();
             $query->imapDate();
-            $query->fullText(array(
+            $query->headerText(array(
+                'peek' => true
+            ));
+            $query->bodyText(array(
                 'peek' => true
             ));
 
@@ -112,7 +115,24 @@ class IMP_Ui_Folder
                     $imap_date = $ptr->getImapDate();
                     $date = sprintf('%s %2s %s', $imap_date->format('D M'), $imap_date->format('j'), $imap_date->format('H:i:s Y'));
                     fwrite($body, 'From ' . $from . ' ' . $date . "\r\n");
-                    stream_copy_to_stream($ptr->getFullMsg(true), $body);
+
+                    /* Remove spurious 'From ' line in headers. */
+                    $stream = $ptr->getHeaderText(0, Horde_Imap_Client_Data_Fetch::HEADER_STREAM);
+                    while (!feof($stream)) {
+                        $line = fgets($stream);
+                        if (substr($line, 0, 5) != 'From ') {
+                            fwrite($body, $line);
+                        }
+                    }
+
+                    fwrite($body, "\r\n");
+
+                    /* Add Body text. */
+                    $stream = $ptr->getBodyText(0, true);
+                    while (!feof($stream)) {
+                        fwrite($body, fread($stream, 8192));
+                    }
+
                     fwrite($body, "\r\n");
                 }
             }

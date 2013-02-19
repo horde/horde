@@ -2,7 +2,7 @@
 /**
  * Common code dealing with quota handling.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -58,14 +58,14 @@ class IMP_Ui_Quota
 
             $ret['message'] = sprintf($strings['short'], $ret['percent'], $quota['limit'], $unit);
             $ret['percent'] = sprintf("%.2f", $ret['percent']);
-        } else {
-            if ($quota['usage'] != 0) {
-                $quota['usage'] = $quota['usage'] / $calc;
+        } elseif ($quotaDriver->getHideWhenUnlimited()) {
+            return false;
+        } elseif ($quota['usage'] != 0) {
+            $quota['usage'] = $quota['usage'] / $calc;
 
-                $ret['message'] = sprintf($strings['nolimit_short'], $quota['usage'], $unit);
-            } else {
-                $ret['message'] = _("No limit");
-            }
+            $ret['message'] = sprintf($strings['nolimit_short'], $quota['usage'], $unit);
+        } else {
+            $ret['message'] = _("No limit");
         }
 
         return $ret;

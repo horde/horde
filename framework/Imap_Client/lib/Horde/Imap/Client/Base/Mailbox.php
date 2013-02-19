@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
  * An object allowing management of mailbox state within a
  * Horde_Imap_Client_Base object.
  *
@@ -7,15 +19,12 @@
  * There is NO guarantees that the API of this class will not change across
  * versions.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @internal
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Base_Mailbox
 {
@@ -25,6 +34,13 @@ class Horde_Imap_Client_Base_Mailbox
      * @var Horde_Imap_Client_Ids_Map
      */
     public $map;
+
+    /**
+     * Is mailbox opened?
+     *
+     * @var boolean
+     */
+    public $open;
 
     /**
      * Is mailbox sync'd with remote server (via CONDSTORE/QRESYNC)?
@@ -84,11 +100,6 @@ class Horde_Imap_Client_Base_Mailbox
                 : array();
             $flags[] = "\\*";
             return $flags;
-
-        case Horde_Imap_Client::STATUS_UIDNEXT:
-            /* UIDNEXT is not strictly required on mailbox open.
-             * See RFC 3501 [6.3.1]. */
-            return 0;
 
         case Horde_Imap_Client::STATUS_UIDNOTSTICKY:
             /* In the absence of explicit uidnotsticky identification, assume
@@ -151,7 +162,7 @@ class Horde_Imap_Client_Base_Mailbox
         }
 
         $this->map = new Horde_Imap_Client_Ids_Map();
-        $this->sync = false;
+        $this->open = $this->sync = false;
     }
 
 }

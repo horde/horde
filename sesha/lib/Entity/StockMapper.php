@@ -3,7 +3,7 @@
  * The Sesha_Entity_StockMapper class contains all functions related to handling
  * stock mapping in Sesha.
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -19,7 +19,7 @@
  * The Sesha_Entity_StockMapper class contains all functions related to handling
  * stock mapping in Sesha.
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

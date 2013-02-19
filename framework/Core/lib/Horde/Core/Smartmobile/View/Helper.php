@@ -2,7 +2,7 @@
 /**
  * View helper class for smartmobile pages.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +43,7 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
                     $params['backlink'][1] . '</a>';
             } else {
                 $out .= '<a class="smartmobile-back ui-btn-left" href="#" ' .
-                    'data-icon="arrow-l" data-rel="back">' . _("Back") . '</a>';
+                    'data-icon="arrow-l" data-rel="back">' . Horde_Core_Translation::t("Back") . '</a>';
             }
         }
 
@@ -51,7 +51,7 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
             ($portal = $registry->getServiceLink('portal', 'horde')->setRaw(false))) {
             $out .= '<a class="smartmobile-portal ui-btn-left" ' .
                 'data-ajax="false" href="' . $portal . '">' .
-                _("Applications") . '</a>';
+                Horde_Core_Translation::t("Applications") . '</a>';
         }
 
         if (isset($params['title']) && strlen($params['title'])) {
@@ -59,11 +59,12 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
         }
 
         if (!empty($params['logout']) &&
+            $registry->showService('logout') &&
             ($logout = $registry->getServiceLink('logout')->setRaw(false))) {
             $out .= '<a class="smartmobile-logout ui-btn-right" href="' .
                 $logout .
                 '" data-ajax="false" data-theme="e" data-icon="delete">' .
-                _("Log out") . '</a>';
+                Horde_Core_Translation::t("Log out") . '</a>';
         }
 
         return $out . '</div>';

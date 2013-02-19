@@ -28,22 +28,19 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:05:29</time>
+ <date>2013-02-12</date>
+ <time>15:31:28</time>
  <version>
-  <release>5.0.1</release>
+  <release>5.0.5</release>
   <api>5.0.0</api>
  </version>
  <stability>
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
-* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
-* [mms] Fix topbar javascript on IE8 (Bug #11614).
-* [jan] Fix LDAP example for authusername hook.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -79,6 +76,9 @@
      <dir name="lv">
       <file name="help.xml" role="horde" />
      </dir> <!-- /admin/locale/lv -->
+     <dir name="nl">
+      <file name="help.xml" role="horde" />
+     </dir> <!-- /admin/locale/nl -->
     </dir> <!-- /admin/locale -->
     <dir name="perms">
      <file name="addchild.php" role="horde" />
@@ -99,18 +99,42 @@
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <file name="horde-active-sessions" role="script" />
-    <file name="horde-alarms" role="script" />
-    <file name="horde-check-logger" role="script" />
-    <file name="horde-clear-cache" role="script" />
-    <file name="horde-crond" role="script" />
-    <file name="horde-db-migrate" role="script" />
-    <file name="horde-import-squirrelmail-prefs" role="script" />
-    <file name="horde-memcache-stats" role="script" />
-    <file name="horde-run-task" role="script" />
-    <file name="horde-set-perms" role="script" />
-    <file name="horde-themes" role="script" />
-    <file name="horde-translation" role="script" />
+    <file name="horde-active-sessions" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-alarms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-check-logger" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-clear-cache" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-crond" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-db-migrate" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-import-squirrelmail-prefs" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-memcache-stats" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-run-task" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-set-perms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-themes" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-translation" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
@@ -648,7 +672,6 @@
       <file name="list.html.php" role="horde" />
      </dir> <!-- /templates/admin/locks -->
      <dir name="user">
-      <file name="add.inc" role="horde" />
       <file name="approve.inc" role="horde" />
       <file name="clear.inc" role="horde" />
       <file name="list.inc" role="horde" />
@@ -1309,9 +1332,6 @@
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/keys -->
       <dir name="map">
-       <file name="marker-blue.png" role="horde" />
-       <file name="marker-gold.png" role="horde" />
-       <file name="marker-green.png" role="horde" />
        <file name="marker-shadow.png" role="horde" />
        <file name="marker.png" role="horde" />
       </dir> <!-- /themes/default/graphics/map -->
@@ -1399,114 +1419,6 @@
        <file name="rev-plusonly.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
-      <dir name="uploader">
-       <file name="backgrounds.gif" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/default/graphics/uploader -->
-      <dir name="weather">
-       <dir name="23x23">
-        <file name="0.png" role="horde" />
-        <file name="1.png" role="horde" />
-        <file name="2.png" role="horde" />
-        <file name="3.png" role="horde" />
-        <file name="4.png" role="horde" />
-        <file name="5.png" role="horde" />
-        <file name="6.png" role="horde" />
-        <file name="7.png" role="horde" />
-        <file name="8.png" role="horde" />
-        <file name="9.png" role="horde" />
-        <file name="10.png" role="horde" />
-        <file name="11.png" role="horde" />
-        <file name="12.png" role="horde" />
-        <file name="13.png" role="horde" />
-        <file name="14.png" role="horde" />
-        <file name="15.png" role="horde" />
-        <file name="16.png" role="horde" />
-        <file name="17.png" role="horde" />
-        <file name="18.png" role="horde" />
-        <file name="19.png" role="horde" />
-        <file name="20.png" role="horde" />
-        <file name="21.png" role="horde" />
-        <file name="22.png" role="horde" />
-        <file name="23.png" role="horde" />
-        <file name="24.png" role="horde" />
-        <file name="25.png" role="horde" />
-        <file name="26.png" role="horde" />
-        <file name="27.png" role="horde" />
-        <file name="28.png" role="horde" />
-        <file name="29.png" role="horde" />
-        <file name="30.png" role="horde" />
-        <file name="31.png" role="horde" />
-        <file name="32.png" role="horde" />
-        <file name="33.png" role="horde" />
-        <file name="34.png" role="horde" />
-        <file name="35.png" role="horde" />
-        <file name="36.png" role="horde" />
-        <file name="37.png" role="horde" />
-        <file name="38.png" role="horde" />
-        <file name="39.png" role="horde" />
-        <file name="40.png" role="horde" />
-        <file name="41.png" role="horde" />
-        <file name="42.png" role="horde" />
-        <file name="43.png" role="horde" />
-        <file name="44.png" role="horde" />
-        <file name="45.png" role="horde" />
-        <file name="46.png" role="horde" />
-        <file name="47.png" role="horde" />
-        <file name="na.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/weather/23x23 -->
-       <dir name="32x32">
-        <file name="0.png" role="horde" />
-        <file name="1.png" role="horde" />
-        <file name="2.png" role="horde" />
-        <file name="3.png" role="horde" />
-        <file name="4.png" role="horde" />
-        <file name="5.png" role="horde" />
-        <file name="6.png" role="horde" />
-        <file name="7.png" role="horde" />
-        <file name="8.png" role="horde" />
-        <file name="9.png" role="horde" />
-        <file name="10.png" role="horde" />
-        <file name="11.png" role="horde" />
-        <file name="12.png" role="horde" />
-        <file name="13.png" role="horde" />
-        <file name="14.png" role="horde" />
-        <file name="15.png" role="horde" />
-        <file name="16.png" role="horde" />
-        <file name="17.png" role="horde" />
-        <file name="18.png" role="horde" />
-        <file name="19.png" role="horde" />
-        <file name="20.png" role="horde" />
-        <file name="21.png" role="horde" />
-        <file name="22.png" role="horde" />
-        <file name="23.png" role="horde" />
-        <file name="24.png" role="horde" />
-        <file name="25.png" role="horde" />
-        <file name="26.png" role="horde" />
-        <file name="27.png" role="horde" />
-        <file name="28.png" role="horde" />
-        <file name="29.png" role="horde" />
-        <file name="30.png" role="horde" />
-        <file name="31.png" role="horde" />
-        <file name="32.png" role="horde" />
-        <file name="33.png" role="horde" />
-        <file name="34.png" role="horde" />
-        <file name="35.png" role="horde" />
-        <file name="36.png" role="horde" />
-        <file name="37.png" role="horde" />
-        <file name="38.png" role="horde" />
-        <file name="39.png" role="horde" />
-        <file name="40.png" role="horde" />
-        <file name="41.png" role="horde" />
-        <file name="42.png" role="horde" />
-        <file name="43.png" role="horde" />
-        <file name="44.png" role="horde" />
-        <file name="45.png" role="horde" />
-        <file name="46.png" role="horde" />
-        <file name="47.png" role="horde" />
-        <file name="na.png" role="horde" />
-       </dir> <!-- /themes/default/graphics/weather/32x32 -->
-      </dir> <!-- /themes/default/graphics/weather -->
       <file name="add_group.png" role="horde" />
       <file name="administration.png" role="horde" />
       <file name="app-unknown.png" role="horde" />
@@ -1543,6 +1455,7 @@
       <file name="external.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="feed.png" role="horde" />
+      <file name="filter-topbar.png" role="horde" />
       <file name="filter.png" role="horde" />
       <file name="google.png" role="horde" />
       <file name="group.png" role="horde" />
@@ -1674,35 +1587,35 @@
    <package>
     <name>Horde_Alarm</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Argv</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1716,161 +1629,161 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Group</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Http</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Rpc</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Diff</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1896,56 +1809,56 @@
    <package>
     <name>Horde_ActiveSync</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0alpha</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Feed</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Oauth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Facebook</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Twitter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Service_Weather</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_SyncMl</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1959,6 +1872,10 @@
    </package>
    <package>
     <name>File_Find</name>
+    <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>File_Fstab</name>
     <channel>pear.php.net</channel>
    </package>
    <extension>
@@ -1996,6 +1913,7 @@
    <install as="admin/locale/hr/help.xml" name="admin/locale/hr/help.xml" />
    <install as="admin/locale/hu/help.xml" name="admin/locale/hu/help.xml" />
    <install as="admin/locale/lv/help.xml" name="admin/locale/lv/help.xml" />
+   <install as="admin/locale/nl/help.xml" name="admin/locale/nl/help.xml" />
    <install as="admin/perms/addchild.php" name="admin/perms/addchild.php" />
    <install as="admin/perms/delete.php" name="admin/perms/delete.php" />
    <install as="admin/perms/edit.php" name="admin/perms/edit.php" />
@@ -2301,7 +2219,6 @@
    <install as="templates/admin/groups/delete.inc" name="templates/admin/groups/delete.inc" />
    <install as="templates/admin/groups/edit.inc" name="templates/admin/groups/edit.inc" />
    <install as="templates/admin/locks/list.html.php" name="templates/admin/locks/list.html.php" />
-   <install as="templates/admin/user/add.inc" name="templates/admin/user/add.inc" />
    <install as="templates/admin/user/approve.inc" name="templates/admin/user/approve.inc" />
    <install as="templates/admin/user/clear.inc" name="templates/admin/user/clear.inc" />
    <install as="templates/admin/user/list.inc" name="templates/admin/user/list.inc" />
@@ -2430,6 +2347,7 @@
    <install as="themes/default/graphics/external.png" name="themes/default/graphics/external.png" />
    <install as="themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="themes/default/graphics/feed.png" name="themes/default/graphics/feed.png" />
+   <install as="themes/default/graphics/filter-topbar.png" name="themes/default/graphics/filter-topbar.png" />
    <install as="themes/default/graphics/filter.png" name="themes/default/graphics/filter.png" />
    <install as="themes/default/graphics/google.png" name="themes/default/graphics/google.png" />
    <install as="themes/default/graphics/group.png" name="themes/default/graphics/group.png" />
@@ -3023,9 +2941,6 @@
    <install as="themes/default/graphics/keys/left.png" name="themes/default/graphics/keys/left.png" />
    <install as="themes/default/graphics/keys/right.png" name="themes/default/graphics/keys/right.png" />
    <install as="themes/default/graphics/keys/up.png" name="themes/default/graphics/keys/up.png" />
-   <install as="themes/default/graphics/map/marker-blue.png" name="themes/default/graphics/map/marker-blue.png" />
-   <install as="themes/default/graphics/map/marker-gold.png" name="themes/default/graphics/map/marker-gold.png" />
-   <install as="themes/default/graphics/map/marker-green.png" name="themes/default/graphics/map/marker-green.png" />
    <install as="themes/default/graphics/map/marker-shadow.png" name="themes/default/graphics/map/marker-shadow.png" />
    <install as="themes/default/graphics/map/marker.png" name="themes/default/graphics/map/marker.png" />
    <install as="themes/default/graphics/mime/audio.png" name="themes/default/graphics/mime/audio.png" />
@@ -3106,106 +3021,6 @@
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
-   <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
-   <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
-   <install as="themes/default/graphics/weather/23x23/0.png" name="themes/default/graphics/weather/23x23/0.png" />
-   <install as="themes/default/graphics/weather/23x23/1.png" name="themes/default/graphics/weather/23x23/1.png" />
-   <install as="themes/default/graphics/weather/23x23/2.png" name="themes/default/graphics/weather/23x23/2.png" />
-   <install as="themes/default/graphics/weather/23x23/3.png" name="themes/default/graphics/weather/23x23/3.png" />
-   <install as="themes/default/graphics/weather/23x23/4.png" name="themes/default/graphics/weather/23x23/4.png" />
-   <install as="themes/default/graphics/weather/23x23/5.png" name="themes/default/graphics/weather/23x23/5.png" />
-   <install as="themes/default/graphics/weather/23x23/6.png" name="themes/default/graphics/weather/23x23/6.png" />
-   <install as="themes/default/graphics/weather/23x23/7.png" name="themes/default/graphics/weather/23x23/7.png" />
-   <install as="themes/default/graphics/weather/23x23/8.png" name="themes/default/graphics/weather/23x23/8.png" />
-   <install as="themes/default/graphics/weather/23x23/9.png" name="themes/default/graphics/weather/23x23/9.png" />
-   <install as="themes/default/graphics/weather/23x23/10.png" name="themes/default/graphics/weather/23x23/10.png" />
-   <install as="themes/default/graphics/weather/23x23/11.png" name="themes/default/graphics/weather/23x23/11.png" />
-   <install as="themes/default/graphics/weather/23x23/12.png" name="themes/default/graphics/weather/23x23/12.png" />
-   <install as="themes/default/graphics/weather/23x23/13.png" name="themes/default/graphics/weather/23x23/13.png" />
-   <install as="themes/default/graphics/weather/23x23/14.png" name="themes/default/graphics/weather/23x23/14.png" />
-   <install as="themes/default/graphics/weather/23x23/15.png" name="themes/default/graphics/weather/23x23/15.png" />
-   <install as="themes/default/graphics/weather/23x23/16.png" name="themes/default/graphics/weather/23x23/16.png" />
-   <install as="themes/default/graphics/weather/23x23/17.png" name="themes/default/graphics/weather/23x23/17.png" />
-   <install as="themes/default/graphics/weather/23x23/18.png" name="themes/default/graphics/weather/23x23/18.png" />
-   <install as="themes/default/graphics/weather/23x23/19.png" name="themes/default/graphics/weather/23x23/19.png" />
-   <install as="themes/default/graphics/weather/23x23/20.png" name="themes/default/graphics/weather/23x23/20.png" />
-   <install as="themes/default/graphics/weather/23x23/21.png" name="themes/default/graphics/weather/23x23/21.png" />
-   <install as="themes/default/graphics/weather/23x23/22.png" name="themes/default/graphics/weather/23x23/22.png" />
-   <install as="themes/default/graphics/weather/23x23/23.png" name="themes/default/graphics/weather/23x23/23.png" />
-   <install as="themes/default/graphics/weather/23x23/24.png" name="themes/default/graphics/weather/23x23/24.png" />
-   <install as="themes/default/graphics/weather/23x23/25.png" name="themes/default/graphics/weather/23x23/25.png" />
-   <install as="themes/default/graphics/weather/23x23/26.png" name="themes/default/graphics/weather/23x23/26.png" />
-   <install as="themes/default/graphics/weather/23x23/27.png" name="themes/default/graphics/weather/23x23/27.png" />
-   <install as="themes/default/graphics/weather/23x23/28.png" name="themes/default/graphics/weather/23x23/28.png" />
-   <install as="themes/default/graphics/weather/23x23/29.png" name="themes/default/graphics/weather/23x23/29.png" />
-   <install as="themes/default/graphics/weather/23x23/30.png" name="themes/default/graphics/weather/23x23/30.png" />
-   <install as="themes/default/graphics/weather/23x23/31.png" name="themes/default/graphics/weather/23x23/31.png" />
-   <install as="themes/default/graphics/weather/23x23/32.png" name="themes/default/graphics/weather/23x23/32.png" />
-   <install as="themes/default/graphics/weather/23x23/33.png" name="themes/default/graphics/weather/23x23/33.png" />
-   <install as="themes/default/graphics/weather/23x23/34.png" name="themes/default/graphics/weather/23x23/34.png" />
-   <install as="themes/default/graphics/weather/23x23/35.png" name="themes/default/graphics/weather/23x23/35.png" />
-   <install as="themes/default/graphics/weather/23x23/36.png" name="themes/default/graphics/weather/23x23/36.png" />
-   <install as="themes/default/graphics/weather/23x23/37.png" name="themes/default/graphics/weather/23x23/37.png" />
-   <install as="themes/default/graphics/weather/23x23/38.png" name="themes/default/graphics/weather/23x23/38.png" />
-   <install as="themes/default/graphics/weather/23x23/39.png" name="themes/default/graphics/weather/23x23/39.png" />
-   <install as="themes/default/graphics/weather/23x23/40.png" name="themes/default/graphics/weather/23x23/40.png" />
-   <install as="themes/default/graphics/weather/23x23/41.png" name="themes/default/graphics/weather/23x23/41.png" />
-   <install as="themes/default/graphics/weather/23x23/42.png" name="themes/default/graphics/weather/23x23/42.png" />
-   <install as="themes/default/graphics/weather/23x23/43.png" name="themes/default/graphics/weather/23x23/43.png" />
-   <install as="themes/default/graphics/weather/23x23/44.png" name="themes/default/graphics/weather/23x23/44.png" />
-   <install as="themes/default/graphics/weather/23x23/45.png" name="themes/default/graphics/weather/23x23/45.png" />
-   <install as="themes/default/graphics/weather/23x23/46.png" name="themes/default/graphics/weather/23x23/46.png" />
-   <install as="themes/default/graphics/weather/23x23/47.png" name="themes/default/graphics/weather/23x23/47.png" />
-   <install as="themes/default/graphics/weather/23x23/na.png" name="themes/default/graphics/weather/23x23/na.png" />
-   <install as="themes/default/graphics/weather/32x32/0.png" name="themes/default/graphics/weather/32x32/0.png" />
-   <install as="themes/default/graphics/weather/32x32/1.png" name="themes/default/graphics/weather/32x32/1.png" />
-   <install as="themes/default/graphics/weather/32x32/2.png" name="themes/default/graphics/weather/32x32/2.png" />
-   <install as="themes/default/graphics/weather/32x32/3.png" name="themes/default/graphics/weather/32x32/3.png" />
-   <install as="themes/default/graphics/weather/32x32/4.png" name="themes/default/graphics/weather/32x32/4.png" />
-   <install as="themes/default/graphics/weather/32x32/5.png" name="themes/default/graphics/weather/32x32/5.png" />
-   <install as="themes/default/graphics/weather/32x32/6.png" name="themes/default/graphics/weather/32x32/6.png" />
-   <install as="themes/default/graphics/weather/32x32/7.png" name="themes/default/graphics/weather/32x32/7.png" />
-   <install as="themes/default/graphics/weather/32x32/8.png" name="themes/default/graphics/weather/32x32/8.png" />
-   <install as="themes/default/graphics/weather/32x32/9.png" name="themes/default/graphics/weather/32x32/9.png" />
-   <install as="themes/default/graphics/weather/32x32/10.png" name="themes/default/graphics/weather/32x32/10.png" />
-   <install as="themes/default/graphics/weather/32x32/11.png" name="themes/default/graphics/weather/32x32/11.png" />
-   <install as="themes/default/graphics/weather/32x32/12.png" name="themes/default/graphics/weather/32x32/12.png" />
-   <install as="themes/default/graphics/weather/32x32/13.png" name="themes/default/graphics/weather/32x32/13.png" />
-   <install as="themes/default/graphics/weather/32x32/14.png" name="themes/default/graphics/weather/32x32/14.png" />
-   <install as="themes/default/graphics/weather/32x32/15.png" name="themes/default/graphics/weather/32x32/15.png" />
-   <install as="themes/default/graphics/weather/32x32/16.png" name="themes/default/graphics/weather/32x32/16.png" />
-   <install as="themes/default/graphics/weather/32x32/17.png" name="themes/default/graphics/weather/32x32/17.png" />
-   <install as="themes/default/graphics/weather/32x32/18.png" name="themes/default/graphics/weather/32x32/18.png" />
-   <install as="themes/default/graphics/weather/32x32/19.png" name="themes/default/graphics/weather/32x32/19.png" />
-   <install as="themes/default/graphics/weather/32x32/20.png" name="themes/default/graphics/weather/32x32/20.png" />
-   <install as="themes/default/graphics/weather/32x32/21.png" name="themes/default/graphics/weather/32x32/21.png" />
-   <install as="themes/default/graphics/weather/32x32/22.png" name="themes/default/graphics/weather/32x32/22.png" />
-   <install as="themes/default/graphics/weather/32x32/23.png" name="themes/default/graphics/weather/32x32/23.png" />
-   <install as="themes/default/graphics/weather/32x32/24.png" name="themes/default/graphics/weather/32x32/24.png" />
-   <install as="themes/default/graphics/weather/32x32/25.png" name="themes/default/graphics/weather/32x32/25.png" />
-   <install as="themes/default/graphics/weather/32x32/26.png" name="themes/default/graphics/weather/32x32/26.png" />
-   <install as="themes/default/graphics/weather/32x32/27.png" name="themes/default/graphics/weather/32x32/27.png" />
-   <install as="themes/default/graphics/weather/32x32/28.png" name="themes/default/graphics/weather/32x32/28.png" />
-   <install as="themes/default/graphics/weather/32x32/29.png" name="themes/default/graphics/weather/32x32/29.png" />
-   <install as="themes/default/graphics/weather/32x32/30.png" name="themes/default/graphics/weather/32x32/30.png" />
-   <install as="themes/default/graphics/weather/32x32/31.png" name="themes/default/graphics/weather/32x32/31.png" />
-   <install as="themes/default/graphics/weather/32x32/32.png" name="themes/default/graphics/weather/32x32/32.png" />
-   <install as="themes/default/graphics/weather/32x32/33.png" name="themes/default/graphics/weather/32x32/33.png" />
-   <install as="themes/default/graphics/weather/32x32/34.png" name="themes/default/graphics/weather/32x32/34.png" />
-   <install as="themes/default/graphics/weather/32x32/35.png" name="themes/default/graphics/weather/32x32/35.png" />
-   <install as="themes/default/graphics/weather/32x32/36.png" name="themes/default/graphics/weather/32x32/36.png" />
-   <install as="themes/default/graphics/weather/32x32/37.png" name="themes/default/graphics/weather/32x32/37.png" />
-   <install as="themes/default/graphics/weather/32x32/38.png" name="themes/default/graphics/weather/32x32/38.png" />
-   <install as="themes/default/graphics/weather/32x32/39.png" name="themes/default/graphics/weather/32x32/39.png" />
-   <install as="themes/default/graphics/weather/32x32/40.png" name="themes/default/graphics/weather/32x32/40.png" />
-   <install as="themes/default/graphics/weather/32x32/41.png" name="themes/default/graphics/weather/32x32/41.png" />
-   <install as="themes/default/graphics/weather/32x32/42.png" name="themes/default/graphics/weather/32x32/42.png" />
-   <install as="themes/default/graphics/weather/32x32/43.png" name="themes/default/graphics/weather/32x32/43.png" />
-   <install as="themes/default/graphics/weather/32x32/44.png" name="themes/default/graphics/weather/32x32/44.png" />
-   <install as="themes/default/graphics/weather/32x32/45.png" name="themes/default/graphics/weather/32x32/45.png" />
-   <install as="themes/default/graphics/weather/32x32/46.png" name="themes/default/graphics/weather/32x32/46.png" />
-   <install as="themes/default/graphics/weather/32x32/47.png" name="themes/default/graphics/weather/32x32/47.png" />
-   <install as="themes/default/graphics/weather/32x32/na.png" name="themes/default/graphics/weather/32x32/na.png" />
    <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
@@ -3236,7 +3051,7 @@
     <api>alpha</api>
    </stability>
    <date>2011-03-09</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First alpha release for Horde 4.
    </notes>
@@ -3251,7 +3066,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * Fix updating schema for individual libraries.
 * Improved control over which application view to load.
@@ -3268,7 +3083,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-23</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First release candidate for Horde 4.
 * [gwr] Allow disabling applications for administrators.
@@ -3284,7 +3099,7 @@
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Rename all scripts in bin/ to be prefixed with horde- and installed in bin_dir (Request #9647).
 * [jan] Fire access keys on hidden elements in Internet Explorer (Bug #8057).
@@ -3302,7 +3117,7 @@
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Add pushapp_post hook.
 * [jan] Fix application-specific permission checks (Bug #9786).
@@ -3320,7 +3135,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-04-20</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix LDAP parameters of account portal block (Klaus Steinberger, Bug #9770).
 * [mjr] Fix some display issues when geocoding with HordeMap (Bug #9883).
@@ -3339,7 +3154,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-03</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix authentication failure when TOS is not accepted.
 * [jan] Fix adding categories.
@@ -3354,7 +3169,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-05-18</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix return link after reporting problem (Bug #10069).
 * [jan] Add button to update all configurations with default values at once.
@@ -3371,7 +3186,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Fix colorpicker on categories preferences screen (Bug #10118).
 * [mjr] Fix Metar portal block.
@@ -3386,7 +3201,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-01</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Remove debug code.
    </notes>
@@ -3399,7 +3214,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-06-14</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix extracting of translation strings in a release.
 * [rla] Enable giving users specific admin permissions (Enhancement #9350)
@@ -3415,7 +3230,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-07-05</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Don&apos;t use CSS cache in mobile interfaces because it breaks jQuery Mobile CSS.
 * [jan] Allow configuration of split read databases for PostgreSQL (Request #7025).
@@ -3432,7 +3247,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-02</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [cjh] Add mobile maintenance screens.
 * [jan] Update Latvian translation.
@@ -3448,7 +3263,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-08-31</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [rla] Add account locking similar to the former kolab-specific option.
 * [jan] Add missing configuration for LDAP groups write support.
@@ -3465,7 +3280,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-10-11</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Update javascript map library.
 * [mms] Allow in-page base64 image encoding to be disabled via configuration.
@@ -3480,7 +3295,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-02</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [cjh] Add Hordevetica theme.
 * [mjr] Fix issue with ajax uploader and file sizes over 1mb (Bug #10641).
@@ -3495,7 +3310,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-11-22</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Replace Weatherdotcom portal block with generic Weather block supported by Horde_Service_Weather.
 * [jan] Add configuration option to disable password resets (Request #10640).
@@ -3509,7 +3324,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2011-12-13</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Make the lifetime of cached weather information configurable (Arjen de Korte, Request #10848).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
@@ -3525,7 +3340,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-02-28</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Added more atomic control over ActiveSync security policies for better device compatibility.
 * [mms] Add &apos;sendmail_eol&apos; configuration parameter.
@@ -3541,7 +3356,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update Swedish translation (Jakob Alvermark &lt;jakob.alvermark@bsdlabs.com&gt;).
 * [jan] Update Italian translation (Emilien &lt;emilien@wifi.e4a.it&gt;).
@@ -3560,7 +3375,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix adding attachments to problem tickets (Bug #10654).
 * [jan] Update Turkish translation (İstanbul Technical University).
@@ -3578,7 +3393,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * First alpha release for Horde 5.
 * [jan] Implement new user interface.
@@ -3605,7 +3420,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-20</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Remove DataTree support.
 * [jan] Allow to configure encryption in global IMAP configuration (Request #11272).
@@ -3621,7 +3436,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-21</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mjr] Request SSL connection from map providers if using SSL (Bug #11193).
 * [jan] Remove optional dependency on Horde_DataTree.
@@ -3635,7 +3450,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-07-22</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix dependency on Horde_Service_Weather.
    </notes>
@@ -3648,7 +3463,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-08-07</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix logging in without JavaScript (Bug #11328).
 * [mms] Fix sidebar element wrapping.
@@ -3663,7 +3478,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-08-29</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Fix cancelling problem report.
 * [jan] Fix audio notification path printed in page output.
@@ -3677,7 +3492,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-12</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [mms] Show non-javascript enhanced login screen for non-smartmobile mobile browsers (Bug #11215).
 * [mms] Add version parameter to CSS/javascript file URLs to help with cache busting when these files change between releases.
@@ -3692,7 +3507,7 @@
     <release>beta</release>
     <api>beta</api></stability>
    <date>2012-10-26</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Port VAT identification block to use SOAP extension.
 * [jan] Fix dynamic updating of portal blocks.
@@ -3708,7 +3523,7 @@
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-10-30</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
 * [jan] Update Dutch translation (Arjen de Korte &lt;arjen+horde@de-korte.org&gt;).
@@ -3721,13 +3536,70 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
-   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <date>2012-11-07</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug # 11624).
+* [jan] Fix form for editing and removing of users.
+* [mjr] Workaround for broken iOS ActiveSync AUTODISCOVER requests (Bug #11624).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] Fix topbar javascript on IE8 (Bug #11614).
 * [jan] Fix LDAP example for authusername hook.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.2</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-11-14</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Fix adding user in admin actions (Bug #11690).
+* [mms] Fix removing user in admin actions (Bug #11690).
+* [jan] Allow to set custom search field label.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.3</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Fix setting menu refresh rate to none (Bug #11867).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Fix JavaScript errors after updating the top menu.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.4</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

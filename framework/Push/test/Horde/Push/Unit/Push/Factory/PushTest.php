@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../../Autoload.php';
-
-/**
  * Test the push factory.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -82,6 +77,7 @@ extends Horde_Push_TestCase
             array(
                 'kolab' => array(
                     'driver' => 'mock',
+                    'logger' => $this->getMock('Horde_Log_Logger'),
                     'queryset' => array('list' => array('queryset' => 'horde')),
                     'params' => array(
                         'username' => 'test',

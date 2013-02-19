@@ -2,7 +2,7 @@
 /**
  * Registry connector for Horde backend.
  *
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -11,7 +11,7 @@
  * Registry connector for Horde backend. Provides the communication between
  * the Horde Registry on the local machine and the ActiveSync Horde driver.
  *
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -112,7 +112,7 @@ class Horde_Core_ActiveSync_Connector
      * Import a Horde_Icalendar_vEvent into a user's calendar. Used for creating
      * events from meeting invitations.
      *
-     * @param Horde_Icalendar_vEvent $event  The event data.
+     * @param Horde_Icalendar_vEvent $vEvent  The event data.
      *
      * @return string The event's UID.
      */
@@ -125,10 +125,11 @@ class Horde_Core_ActiveSync_Connector
      * Import an event response into a user's calendar. Used for updating
      * attendee information from a meeting response.
      *
-     * @param Horde_Icalendar_vEvent $event  The event data.
-     * @param string $attendee               The attendee.
+     * @param Horde_Icalendar_vEvent $vEvent  The event data.
+     * @param string $attendee                The attendee.
      */
-    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent, $attendee)
+    public function calendar_import_attendee(Horde_Icalendar_vEvent $vEvent,
+                                             $attendee)
     {
         if ($this->_registry->hasMethod('calendar/updateAttendee')) {
             // If the mail interface (i.e., IMP) provides a mime driver for
@@ -298,13 +299,14 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query)
     {
-        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
-            $fields = array($GLOBALS['conf']['gal']['addressbook'] => array('firstname', 'lastname', 'alias', 'name', 'email'));
+        $gal = $this->contacts_getGal();
+        if (!empty($gal)) {
+            $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
             $opts = array(
                 'fields' => $fields,
                 'matchBegin' => true,
                 'forceSource' => true,
-                'sources' => array($this->contacts_getGal())
+                'sources' => array($gal)
             );
             return $this->_registry->contacts->search($query, $opts);
         }

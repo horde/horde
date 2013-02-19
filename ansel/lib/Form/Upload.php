@@ -13,7 +13,7 @@ class Ansel_Form_Upload extends Horde_Form
     {
         global $gallery, $conf;
 
-        parent::Horde_Form($vars, $title);
+        parent::__construct($vars, $title);
 
         $filesize = ini_get('upload_max_filesize');
         if (substr($filesize, -1) == 'M') {

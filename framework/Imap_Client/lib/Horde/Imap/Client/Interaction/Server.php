@@ -1,17 +1,25 @@
 <?php
 /**
- * An object representing an IMAP server command interaction (RFC 3501
- * [2.2.2]).
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * An object representing an IMAP server command interaction (RFC 3501
+ * [2.2.2]).
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Interaction_Server
 {
@@ -62,7 +70,8 @@ class Horde_Imap_Client_Interaction_Server
      */
     static public function create(Horde_Imap_Client_Tokenize $t)
     {
-        $tag = $t->rewind();
+        $t->rewind();
+        $tag = $t->next();
         $t->next();
 
         switch ($tag) {
@@ -113,7 +122,7 @@ class Horde_Imap_Client_Interaction_Server
                         }
                         $resp->data[] = is_string($elt)
                             ? $elt
-                            : iterator_to_array($elt);
+                            : $token->flushIterator();
                     }
                 }
 

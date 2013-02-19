@@ -1,18 +1,21 @@
 # Dutch translations for Horde_Crypt module.
-# Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2010-2013 Horde LLC (http://www.horde.org/)
 #
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Crypt\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-03 20:40+0100\n"
+"PO-Revision-Date: 2012-11-30 09:53+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: i18n@lists.horde.org\n"
+"Language-Team: American English <kde-i18n-doc@kde.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: en_US\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: lib/Horde/Crypt/Pgp.php:1272
 msgid "A passphrase is required to decrypt a message."
@@ -195,7 +198,7 @@ msgstr "Sleutel bestaat al op de openbare sleutel server."
 
 #: lib/Horde/Crypt/Smime.php:453
 msgid "Location"
-msgstr "Plaats"
+msgstr "Locatie"
 
 #: lib/Horde/Crypt/Smime.php:143
 msgid ""

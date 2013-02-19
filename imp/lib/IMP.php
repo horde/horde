@@ -1,18 +1,26 @@
 <?php
 /**
- * IMP Base Class.
- *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Jon Parise <jon@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * IMP base class.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Jon Parise <jon@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP
 {
@@ -223,7 +231,7 @@ class IMP
     static public function getComposeArgs(Horde_Variables $vars)
     {
         $args = array();
-        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
+        $fields = array('to', 'cc', 'bcc', 'body', 'subject');
 
         foreach ($fields as $val) {
             if (isset($vars->$val)) {
@@ -385,14 +393,13 @@ class IMP
      * Returns whether the specified permission is granted.
      *
      * @param string $permission  The permission to check.
-     * @param mixed $allowed      The allowed permissions.
      * @param array $opts         Additional options:
      *   - For 'max_recipients' and 'max_timelimit', 'value' is the number of
      *     recipients in the current message.
      *
      * @return boolean  Whether the specified permission is allowed.
      */
-    public function hasPermission($permission, $opts = array())
+    static public function hasPermission($permission, $opts = array())
     {
         $allowed = $GLOBALS['injector']->getInstance('Horde_Core_Perms')
             ->hasAppPermission($permission);

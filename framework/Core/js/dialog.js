@@ -37,7 +37,7 @@
  * HordeDialog:onClick
  *   params: Event object
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -89,10 +89,10 @@ var HordeDialog = {
 
         n.insert(
             new Element('INPUT', { type: 'button', className: 'horde-default', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bindAsEventListener(this))
-        )
+        );
         n.insert(
             new Element('INPUT', { type: 'button', className: 'horde-cancel', value: data.cancel_text || this.cancel_text }).observe('click', this.close.bind(this))
-        )
+        );
 
         n.observe('keydown', function(e) {
             switch (e.keyCode || e.charCode) {

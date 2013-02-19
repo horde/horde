@@ -6,7 +6,7 @@
  <?php echo $this->status ?>
 
  <h1 class="header">
-  <?php echo $this->h($this->title) ?>
+  <?php echo $this->escape($this->title) ?>
  </h1>
 
  <table width="100%" border="0" cellpadding="0" cellspacing="0">
@@ -35,7 +35,7 @@
     <table border="0" width="100%" cellpadding="0">
      <tr>
       <td class="leftAlign">
-       <input type="text" id="to" size="55" name="to" value="<?php echo $this->h($this->input_value) ?>" />
+       <input type="text" id="to" size="55" name="to" value="<?php echo $this->escape($this->input_value) ?>" />
        <span class="loadingImg" id="to_loading_img" style="display:none;"></span>
       </td>
       <td class="rightAlign">

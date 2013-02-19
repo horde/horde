@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,13 +30,12 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
 class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
 {
-
     /** Search code page **/
     const SEARCH_SEARCH              = 'Search:Search';
     const SEARCH_STORE               = 'Search:Store';
@@ -64,6 +63,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const SEARCH_USERNAME            = 'Search:UserName';
     const SEARCH_PASSWORD            = 'Search:Password';
     const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
+
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
@@ -77,7 +77,6 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const STORE_STATUS_CONNECTIONERR = 7;
     const STORE_STATUS_COMPLEX       = 8;
 
-
     /**
      * Handle request
      *
@@ -86,7 +85,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            '[%s] Beginning SEARCH',
+            '[%s] Handling SEARCH command.',
             $this->_device->id));
 
         $search_range = '0';
@@ -124,7 +123,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $search_status = self::SEARCH_STATUS_ERROR;
             $store_status = self::STORE_STATUS_PROTERR;
         }
-
+        $mime = Horde_ActiveSync::MIME_SUPPORT_NONE;
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
@@ -202,6 +201,12 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                         }
                     }
                 }
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
+                    $bodypreference['mimesupport'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        return false;
+                    }
+                }
                 $e = $this->_decoder->peek();
                 if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                     $this->_decoder->getElementEndTag();
@@ -225,8 +230,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             // not supported
             break;
         case 'mailbox':
-            $search_query['rebuildresults'] = $search_queryrebuildresults;
-            $search_query['deeptraversal'] =  $search_querydeeptraversal;
+            $search_query['rebuildresults'] = !empty($search_queryrebuildresults);
+            $search_query['deeptraversal'] =  !empty($search_querydeeptraversal);
             break;
         }
 
@@ -318,7 +323,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u['searchfolderid']);
                     $this->_encoder->endTag();
                     $this->_encoder->startTag(self::SEARCH_PROPERTIES);
-                    $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference);
+                    $msg = $this->_driver->ItemOperationsFetchMailbox($u['uniqueid'], $searchbodypreference, $mime);
                     $msg->encodeStream($this->_encoder);
                     $this->_encoder->endTag();//properties
                     $this->_encoder->endTag();//result

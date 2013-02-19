@@ -2,7 +2,7 @@
 /**
  * This class provides cache storage in eAccelerator (version 0.9.5+).
  *
- * Copyright 2006-2007 Duck <duck@obala.net>
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.

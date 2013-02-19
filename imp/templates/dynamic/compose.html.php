@@ -2,7 +2,10 @@
  <?php echo $this->hiddenFieldTag('html', intval($this->rte && $this->compose_html)) ?>
  <?php echo $this->hiddenFieldTag('composeCache') ?>
  <?php echo $this->hiddenFieldTag('request_read_receipt', intval($this->read_receipt_set)) ?>
+ <?php echo $this->hiddenFieldTag('user', $this->h($this->user)) ?>
+<?php if ($this->attach): ?>
  <?php echo $this->hiddenFieldTag('save_attachments_select', intval($this->save_attach_set)) ?>
+<?php endif; ?>
 
  <div class="horde-buttonbar">
   <div class="iconImg headercloseimg closeImg" id="compose_close" title="<?php echo _("Accesskey Esc") ?>"></div>
@@ -40,6 +43,7 @@
     </div>
 <?php endif; ?>
 <?php if ($this->save_sent_mail): ?>
+<?php if ($this->save_sent_mail_select): ?>
     <div style="display:none">
      <label>
       <?php echo $this->checkBoxTag('save_sent_mail', 1, false, array('class' => 'checkbox')) . _("Save in") ?>
@@ -47,6 +51,11 @@
      </label>
      <?php echo $this->hiddenFieldTag('save_sent_mail_mbox') ?>
     </div>
+<?php else: ?>
+    <div>
+     <?php echo $this->checkBoxTag('save_sent_mail', 1, false, array('class' => 'checkbox')) . _("Save sent mail") ?>
+    </div>
+<?php endif; ?>
 <?php endif; ?>
 <?php if ($this->priority): ?>
     <div>
@@ -133,6 +142,7 @@
      </td>
     </tr>
     <tr class="atcrow">
+<?php if ($this->attach): ?>
      <td class="label">
       <span class="iconImg attachmentImg"></span>:
      </td>
@@ -142,6 +152,10 @@
       <span>
        <?php echo $this->fileFieldTag('file_1', array('id' => 'upload')) ?>
       </span>
+<?php else: ?>
+     <td></td>
+     <td>
+<?php endif; ?>
       <ul id="attach_list" style="display:none"></ul>
      </td>
     </tr>

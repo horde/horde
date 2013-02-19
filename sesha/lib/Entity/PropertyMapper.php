@@ -3,7 +3,7 @@
  * The Sesha_Entity_PropertyMapper class contains all functions related to handling
  * property mapping in Sesha.
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -19,7 +19,7 @@
  * The Sesha_Entity_PropertyMapper class contains all functions related to handling
  * property mapping in Sesha.
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -74,6 +74,9 @@ class Sesha_Entity_PropertyMapper extends Horde_Rdo_Mapper
         if (!is_string($property['parameters'])) {
             $property['parameters'] = serialize($property['parameters']);
         }
+        if (array_key_exists('property_id', $property) &&
+            $property['property_id'] == null)
+            unset($property['property_id']);
         return parent::create($property);
     }
 

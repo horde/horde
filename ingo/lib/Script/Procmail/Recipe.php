@@ -2,7 +2,7 @@
 /**
  * The Ingo_Script_Procmail_Recipe:: class represents a Procmail recipe.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -108,8 +108,29 @@ class Ingo_Script_Procmail_Recipe
 
         case Ingo_Storage::ACTION_REJECT:
             $this->_action[] = '{';
-            $this->_action[] = '  EXITCODE=' . $params['action-value'];
-            $this->_action[] = '  HOST="no.address.here"';
+            $this->_action[] = '  :0 h';
+            $this->_action[] = '  SUBJECT=| formail -xSubject:';
+            $this->_action[] = '';
+            $this->_action[] = '  :0 h';
+            $this->_action[] = '  SENDER=| formail -zxFrom:';
+            $this->_action[] = '';
+            $this->_action[] = '  :0 Wh';
+            $this->_action[] = '  * !^FROM_DAEMON';
+            $this->_action[] = '  * !^X-Loop: $SENDER';
+            $this->_action[] = '  :0 eh';
+            $this->_action[] = '  | (formail -rA"X-Loop: $SENDER" \\';
+            $reason = $params['action-value'];
+            if (Horde_Mime::is8bit($reason)) {
+                $this->_action[] = '    -i"Subject: Re: $SUBJECT" \\';
+                $this->_action[] = '    -i"Content-Transfer-Encoding: quoted-printable" \\';
+                $this->_action[] = '    -i"Content-Type: text/plain; charset=UTF-8" ; \\';
+                $reason = Horde_Mime::quotedPrintableEncode($reason, "\n");
+            } else {
+                $this->_action[] = '    -i"Subject: Re: $SUBJECT" ; \\';
+            }
+            $reason = addcslashes($reason, "\\\n\r\t\"`");
+            $this->_action[] = '    ' . $this->_params['echo'] . ' -e "' . $reason . '" \\';
+            $this->_action[] = '  ) | $SENDMAIL -oi -t';
             $this->_action[] = '}';
             break;
 
@@ -142,7 +163,7 @@ class Ingo_Script_Procmail_Recipe
                     if ($timed) {
                         $this->_action[] = '    * ? test $DATE -gt $START && test $END -gt $DATE';
                     }
-		    $this->_action[] = '    {';
+                    $this->_action[] = '    {';
                     $this->_action[] = '      :0 Wh';
                     $this->_action[] = '      * ^TO_' . $address;
                     $this->_action[] = '      * !^X-Loop: ' . $address;

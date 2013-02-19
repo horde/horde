@@ -1,11 +1,7 @@
 <?php
 /**
- * Provides the code needed to authenticate via the DIGEST-MD5 SASL mechanism
- * (defined in RFC 2831). This method has been obsoleted by RFC 6331, but
- * still is in use on legacy servers.
- *
  * Copyright (c) 2002-2003 Richard Heyes
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * This code is based on the original code contained in the PEAR Auth_SASL
  * package (v0.5.1):
@@ -42,13 +38,25 @@
  * | OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.  |
  * +-----------------------------------------------------------------------+
  *
- * @author   Richard Heyes <richard@php.net>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2002-2003 Richard Heyes
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 
+/**
+ * Provides the code needed to authenticate via the DIGEST-MD5 SASL mechanism
+ * (defined in RFC 2831). This method has been obsoleted by RFC 6331, but
+ * still is in use on legacy servers.
+ *
+ * @author    Richard Heyes <richard@php.net>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @copyright 2002-2003 Richard Heyes
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
 class Horde_Imap_Client_Auth_DigestMD5
 {
     /**

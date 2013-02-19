@@ -2,7 +2,7 @@
 /**
  * Common code shared among IMP's various compose UI views.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -143,7 +143,7 @@ class IMP_Ui_Compose
             '$("close_success").observe("click", function() { window.close(); })'
         ), true);
 
-        IMP::header();
+        IMP::header(_("Message Successfully Sent"));
 
         $view = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/basic/compose'

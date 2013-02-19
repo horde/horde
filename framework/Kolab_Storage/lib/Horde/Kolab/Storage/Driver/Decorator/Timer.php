@@ -14,7 +14,7 @@
 /**
  * A stop watch decorator for outgoing requests from the Kolab storage drivers.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -75,6 +75,66 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
             )
         );
         return $result;
+    }
+
+    /**
+     * Create the specified folder.
+     *
+     * @param string $folder The folder to create.
+     *
+     * @return NULL
+     */
+    public function create($folder)
+    {
+        $this->_timer->push();
+        $result = parent::create($folder);
+        $this->_logger->debug(
+            sprintf(
+                'REQUEST OUT IMAP: %s ms [createFolder]',
+                floor($this->_timer->pop() * 1000)
+            )
+        );
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        $this->_timer->push();
+        parent::setAcl($folder, $user, $acl);
+        $this->_logger->debug(
+            sprintf(
+                'REQUEST OUT IMAP: %s ms [setAcl]',
+                floor($this->_timer->pop() * 1000)
+            )
+        );
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        $this->_timer->push();
+        parent::deleteAcl($folder, $user);
+        $this->_logger->debug(
+            sprintf(
+                'REQUEST OUT IMAP: %s ms [deleteAcl]',
+                floor($this->_timer->pop() * 1000)
+            )
+        );
     }
 
     /**

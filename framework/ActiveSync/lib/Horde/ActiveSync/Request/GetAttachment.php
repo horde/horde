@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -44,7 +44,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling GETATTACHMENT command.",
+            '[%s] Handling GETATTACHMENT command.',
             $this->_device->id)
         );
         $get = $this->_activeSync->getGetVars();
@@ -54,7 +54,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         $attname = $get['AttachmentName'];
 
         $this->_logger->debug(sprintf(
-            "[%s] Fetching attachement: %s",
+            '[%s] Fetching attachement: %s',
             $this->_device->id,
             $attname));
 

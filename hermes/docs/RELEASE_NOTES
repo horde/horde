@@ -10,36 +10,41 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORFEATURE, Horde_Release::FOCUS_MAJORBUG);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the second release candidate of the
-Hermes Time Tracking Application version H3 (1.0).
+The Horde Team is pleased to announce the first beta release of the Hermes Time
+Tracking Application version H5 (2.0).
 
 Hermes is a time tracking and reporting application written for the Horde
 Framework. Taking advantage of the Framework for authentication and
 presentation, it integrates seamlessly with other Horde applications allowing
 users to track time against to do items (from Nag), tickets (from Whups), or
 pre-configured projects within Hermes itself. The list of billable clients is
-taken from the address book (Turba). Additionally, there is an OS X Widget to
-allow Mac users to enter time directly from his or her Dashboard.
+taken from the address book (Turba).
 
-Barring any problems, this code will be released as Hermes H3 (1.0).
-Testing is requested and comments are encouraged.
-Updated translations would also be great.
+IMPORTANT! This is a preview version that should not be used on production
+systems. This version is not feature complete yet and there are likely to be
+bugs. You should not use this preview version with existing production data.
 
-Major changes compared to the Hermes H3 (1.0-RC1) version are:
-    * Improved permissions checking.
-    * Added ability to return to search results after editing.
+We encourage widespread testing and feedback via the mailing lists or our bug
+tracking system. Updated translations are very welcome, though some strings
+might still change before the release candidates are prepared.
+
+Major changes compared to the Hermes H3 (1.0.1) version are:
+    * Redesigned UI.
+    * Added Ajax view.
+    * Added support for pausing/restarting timers.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Improved permissions checking and the ability to return to search results after editing time slices have been added.
+The UI has been redesigned. An Ajax view has been added. Timers now support
+being paused and restarted.
 FM;
 
 $this->notes['name'] = 'Hermes';
 $this->notes['list'] = 'horde';
 $this->notes['fm']['project'] = 'horde-hermes';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';

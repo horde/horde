@@ -1,34 +1,24 @@
 <?php
 /**
- * Test compose related code.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright 2011-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Autoload.php';
-
-/**
  * Test compose related code.
- *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
+ * @copyright 2011-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
- * @link       http://pear.horde.org/index.php?package=Imp
  * @package    IMP
  * @subpackage UnitTests
  */

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Imp 5.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-29 07:51:24+0200\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2012-11-07 17:33:23+0200\n"
 "Last-Translator: Leena Heino <liinu@uta.fi>\n"
 "Language-Team: Finnish <i18n@lists.horde.org>\n"
 "Language: fi\n"
@@ -225,7 +225,7 @@ msgstr "%s haluaa ilmoittaa sinulle \"%s\"."
 msgid "%s wishes to receive the latest information about \"%s\"."
 msgstr "%s haluaa vastaanottaa viimeisimmät tiedot \"%s\"."
 
-#: compose.php:1043
+#: compose.php:1055
 #, php-format
 msgid "%s%% of allowed size"
 msgstr "%s%% sallitusta koosta"
@@ -250,7 +250,7 @@ msgstr "%u Välitettyä viestiä"
 msgid "%u of %u messages in %s unread."
 msgstr "%u / %u viestistä kansiossa %s on lukemattomia."
 
-#: message.php:902
+#: message.php:904
 #, php-format
 msgid "(%d of %d)"
 msgstr "(%d / %d)"
@@ -260,19 +260,19 @@ msgstr "(%d / %d)"
 msgid "(Message %d of %d)"
 msgstr "(Viesti %d / %d)"
 
-#: config/prefs.php:1700
+#: config/prefs.php:1680
 msgid "100 characters"
 msgstr "100 merkkiä"
 
-#: config/prefs.php:1703
+#: config/prefs.php:1683
 msgid "1000 characters"
 msgstr "1000 merkkiä"
 
-#: config/prefs.php:1701
+#: config/prefs.php:1681
 msgid "250 characters"
 msgstr "250 merkkiä"
 
-#: config/prefs.php:1702
+#: config/prefs.php:1682
 msgid "500 characters"
 msgstr "500 merkkiä"
 
@@ -286,7 +286,7 @@ msgid ""
 "recipient."
 msgstr "Lähettämäsi viesti aiheutti palautusilmoituksen vastaanottajalta."
 
-#: lib/Compose.php:3099
+#: lib/Compose.php:3077
 msgid ""
 "A message you were composing when your session expired has been recovered. "
 "You may resume composing your message by going to your Drafts mailbox."
@@ -304,7 +304,7 @@ msgstr "Onnistuttiin asettamaan ACL-oikeus \"%s\" kansioon \"%s\"."
 msgid "ACL rights for \"%s\" updated for the mailbox \"%s\"."
 msgstr "ACL-oikeuksien päivitys käyttäjälle \"%s\" kansioon \"%s\" onnistui."
 
-#: lib/Imap/Acl.php:26
+#: lib/Imap/Acl.php:33
 msgid "ACLs not configured for this server."
 msgstr "ACL-oikeuksia ei ole asennettu käyttöön tälle palvelimelle."
 
@@ -358,7 +358,7 @@ msgstr "Lisää kopio"
 msgid "Add OR clause"
 msgstr "Lisää TAI määre"
 
-#: config/prefs.php:1547
+#: config/prefs.php:1535
 msgid "Add a \"Printed By\" header to the top of printed messages?"
 msgstr "Lisää \"Tulostanut\" otsake tulostettavaan viestiin?"
 
@@ -390,7 +390,8 @@ msgstr "Lisää osoitekirjaani"
 msgid "Add to my calendar"
 msgstr "Lisää kalenteriini"
 
-#: lib/Compose.php:3013
+#: compose.php:175 lib/Ajax/Application/Handler/Dynamic.php:952
+#: lib/Minimal/Compose.php:105
 #, php-format
 msgid "Added \"%s\" as an attachment."
 msgstr "Liitettiin \"%s\" liitteeksi."
@@ -404,7 +405,7 @@ msgstr "Liitettiin lippu \"%s\"."
 msgid "Adding group lists not currently supported."
 msgstr "Lisäys ryhmälistoihin ei ole tällä hetkellä tuettu."
 
-#: config/prefs.php:1162
+#: config/prefs.php:1155
 msgid ""
 "Additional headers to display when viewing: <em>(enter each header on a new "
 "line)</em>"
@@ -412,13 +413,13 @@ msgstr ""
 "Näytettävät lisäotsakkeet: <em>(vapaaehtoinen, laita jokainen otsake omalle "
 "rivilleen)</em>"
 
-#: compose.php:741 compose.php:860 contacts.php:111
+#: compose.php:753 compose.php:872 contacts.php:111
 #: templates/basic/compose/redirect.html.php:22
 #: templates/contacts/contacts.html.php:8
 msgid "Address Book"
 msgstr "Osoitteet"
 
-#: config/prefs.php:941
+#: config/prefs.php:934
 msgid "Address Books"
 msgstr "Osoitekirjat"
 
@@ -438,11 +439,11 @@ msgstr ""
 "Osoitteet jotka liittyvät tähän profiiliin: <em>(vapaaehtoinen, laita "
 "jokainen osoite omalle rivilleen)</em>"
 
-#: lib/Imap/Acl.php:157
+#: lib/Imap/Acl.php:179
 msgid "Administer"
 msgstr "Hallinta"
 
-#: lib/Dynamic/Mailbox.php:435
+#: lib/Dynamic/Mailbox.php:451
 msgid "Advanced Search..."
 msgstr "Tarkempi haku..."
 
@@ -451,7 +452,7 @@ msgstr "Tarkempi haku..."
 msgid "After '%s'"
 msgstr "Jälkeen '%s'"
 
-#: lib/Dynamic/Mailbox.php:463
+#: lib/Dynamic/Mailbox.php:479
 msgid "Alerts _Log"
 msgstr "Hälytys_loki"
 
@@ -463,7 +464,7 @@ msgstr "Kaikki"
 msgid "All Mailboxes"
 msgstr "Kaikki postilaatikot"
 
-#: lib/Dynamic/Mailbox.php:411
+#: lib/Dynamic/Mailbox.php:427
 msgid "All Parts"
 msgstr "Kaikki osiot"
 
@@ -490,7 +491,7 @@ msgstr[1] ""
 "Kaikki kansiossa \"%s\" olevat %s päivää vanhemmat viestit poistetaan "
 "lopullisesti."
 
-#: lib/Dynamic/Mailbox.php:461
+#: lib/Dynamic/Mailbox.php:477
 msgid ""
 "All messages in this mailbox will be downloaded into one MBOX file. This may "
 "take some time. Are you sure you want to continue?"
@@ -531,11 +532,11 @@ msgstr "Sallitaanko suodatinsääntöjen käyttö kaikkiin postilaatikoihin?"
 msgid "Allow mailbox creation?"
 msgstr "Sallitaanko kansioiden luonti?"
 
-#: config/prefs.php:608
+#: config/prefs.php:607
 msgid "Always"
 msgstr "Aina"
 
-#: config/prefs.php:1187
+#: config/prefs.php:1180
 msgid "Always prompt"
 msgstr "Kysy aina"
 
@@ -544,16 +545,16 @@ msgstr "Kysy aina"
 msgid "Always showing images in messages sent by %s."
 msgstr "Näytä kuvat aina %s lähettämissä viesteissä."
 
-#: lib/Minimal/Compose.php:473
+#: lib/Minimal/Compose.php:481
 msgid "Ambiguous address found."
 msgstr "Löytyi epämääräinen osoite."
 
-#: lib/Minimal/Compose.php:402
+#: lib/Minimal/Compose.php:410
 #, php-format
 msgid "Ambiguous matches for \"%s\" (first 5 matches displayed):"
 msgstr "Epämääräinen täsmäävyys \"%s\" (vain viisi ensimmäistä näytetään):"
 
-#: lib/Minimal/Compose.php:403
+#: lib/Minimal/Compose.php:411
 #, php-format
 msgid "Ambiguous matches for \"%s\":"
 msgstr "Epämääräinen täsmäys - \"%s\":"
@@ -594,17 +595,17 @@ msgstr "Suodatetaanko viestit sisäänkirjautumisen yhteydessä?"
 msgid "Apply filter rules whenever Inbox is displayed?"
 msgstr "Suodatetaanko viestit kun INBOX-kansiota päivitetään?"
 
-#: message.php:847
+#: message.php:849
 msgid "Are you sure you want to PERMANENTLY delete all attachments?"
 msgstr "Oletko aivan varma, että haluat LOPULLISESTI poistaa liitteet?"
 
-#: message.php:565
+#: message.php:567
 msgid "Are you sure you want to PERMANENTLY delete these messages?"
 msgstr "Oletko aivan varma, että haluat LOPULLISESTI poistaa nämä viestit?"
 
 #: thread.php:166
 msgid "Are you sure you want to delete all messages in this thread?"
-msgstr "Oletko varma, että haluat poistaa tämän ketjun kaikki viestit?"
+msgstr "Oletko varma, että haluat poistaa tämän keskustelun kaikki viestit?"
 
 #: mailbox.php:354
 msgid "Are you sure you want to delete this Virtual Folder Definition?"
@@ -638,7 +639,7 @@ msgid ""
 msgstr ""
 "Oletko varma, että haluat poistaa oman avainparisi? (Tätä EI suositella!)"
 
-#: compose.php:702
+#: compose.php:714
 msgid "Are you sure you want to do this?"
 msgstr "Oletko varma, että haluat tehdä tämän toimenpiteen?"
 
@@ -654,7 +655,7 @@ msgstr ""
 msgid "Are you sure you wish to PERMANENTLY delete these messages?"
 msgstr "Oletko aivan varma, että haluat LOPULLISESTI poistaa nämä viestit?"
 
-#: lib/Dynamic/Base.php:178 message.php:827
+#: lib/Dynamic/Base.php:178 message.php:829
 msgid "Are you sure you wish to PERMANENTLY delete this attachment?"
 msgstr "Oletko aivan varma, että haluat LOPULLISESTI poistaa tämän liitteen?"
 
@@ -679,43 +680,43 @@ msgstr "Oletko varma, että haluat raportoida tämän viestin ei-roskapostina?"
 msgid "Are you sure you wish to report this message as spam?"
 msgstr "Oletko varma, että haluat raportoida tämän viestin roskapostina?"
 
-#: lib/Dynamic/Mailbox.php:254
+#: lib/Dynamic/Mailbox.php:256
 msgid "Arrival (No Sort)"
 msgstr "Saapisaika (Ei järjestetä)"
 
-#: lib/Dynamic/Mailbox.php:232
+#: lib/Dynamic/Mailbox.php:234
 msgid "Arrival Time"
 msgstr "Saapumisaika"
 
-#: config/prefs.php:1643
+#: config/prefs.php:1630
 msgid "Arrival time on server"
 msgstr "Saapumisaika palvelimelle"
 
-#: lib/Dynamic/Base.php:155 message.php:616
+#: lib/Dynamic/Base.php:155 message.php:618
 msgid "As Attachment"
 msgstr "Liitteenä"
 
-#: config/prefs.php:788
+#: config/prefs.php:781
 msgid "As attachment"
 msgstr "Liitteenä"
 
-#: config/prefs.php:790
+#: config/prefs.php:783
 msgid "As both body text and an attachment"
 msgstr "leipätekstinä ja liitteenä"
 
-#: config/prefs.php:1622
+#: config/prefs.php:1609
 msgid "Ascending"
 msgstr "Nouseva"
 
-#: config/prefs.php:607
+#: config/prefs.php:606
 msgid "Ask"
 msgstr "Kysy"
 
-#: templates/basic/compose/compose.html.php:240
+#: templates/basic/compose/compose.html.php:238
 msgid "Attach a copy of your PGP public key to the message?"
 msgstr "Liitetäänkö viesteihin kopio julkisesta PGP-avaimestasi?"
 
-#: templates/basic/compose/compose.html.php:250
+#: templates/basic/compose/compose.html.php:248
 msgid "Attach your contact information to the message?"
 msgstr "Liitetäänkö yhteystietosi viestiin?"
 
@@ -723,7 +724,7 @@ msgstr "Liitetäänkö yhteystietosi viestiin?"
 msgid "Attach:"
 msgstr "Liitä:"
 
-#: lib/Compose.php:2298 lib/Compose.php:2968
+#: lib/Compose.php:2298 lib/Compose.php:2956
 #, php-format
 msgid ""
 "Attached file \"%s\" exceeds the attachment size limits. File NOT attached."
@@ -757,7 +758,7 @@ msgstr "Liite %s on poistettu."
 msgid "Attachment Information"
 msgstr "Liitteiden tiedot"
 
-#: lib/Dynamic/Base.php:157 message.php:626
+#: lib/Dynamic/Base.php:157 message.php:628
 msgid "Attachment and Body Text"
 msgstr "Liitteenä ja leipätekstinä"
 
@@ -770,8 +771,8 @@ msgstr "Liite poistettu: Alkuperäisen liitteen tyyppi"
 msgid "Attachment successfully stripped."
 msgstr "Liitteen poisto onnistui."
 
-#: compose.php:879 lib/Compose.php:2677 message.php:858 message.php:890
-#: templates/basic/compose/compose.html.php:260
+#: compose.php:891 lib/Compose.php:2677 message.php:860 message.php:892
+#: templates/basic/compose/compose.html.php:258
 #: templates/dynamic/message.html.php:74
 msgid "Attachments"
 msgstr "Liitteet"
@@ -793,7 +794,7 @@ msgstr "Automaattisesti luodut viestit"
 msgid "Awaiting Response"
 msgstr "Odotetaan vastausta"
 
-#: message.php:518 thread.php:133
+#: message.php:520 thread.php:133
 #, php-format
 msgid "Bac_k to %s"
 msgstr "P_alaa - %s"
@@ -801,6 +802,11 @@ msgstr "P_alaa - %s"
 #: thread.php:130
 msgid "Back to Multiple Message View Index"
 msgstr "Takaisin usean viestin hakemistonäkymään"
+
+#: config/prefs.php:632 config/prefs.php:639 config/prefs.php:1226
+#: config/prefs.php:1640 config/prefs.php:1652 config/prefs.php:1672
+msgid "Basic view only"
+msgstr "Ainoastaan peruskäyttötila"
 
 #: lib/Ui/Message.php:29 search.php:61 templates/contacts/contacts.html.php:44
 #: templates/dynamic/compose.html.php:108
@@ -826,23 +832,23 @@ msgstr ""
 "Suhtaudu varoen kaikkiin viestissä oleviin linkkeihin ja vältä lähettämästä "
 "mitään henkilökohtaisia tietoja."
 
-#: lib/Dynamic/Mailbox.php:309 lib/Dynamic/Mailbox.php:390
+#: lib/Dynamic/Mailbox.php:310 lib/Dynamic/Mailbox.php:397
 msgid "Blacklist"
 msgstr "Musta lista"
 
-#: config/prefs.php:1078
+#: config/prefs.php:1071
 msgid ""
 "Block images in messages unless they are specifically requested to be loaded?"
 msgstr ""
 "Oletuksena estä kuvien näyttö viesteissä ja näytä kuvat vain erikseen "
 "pyydettäessä?"
 
-#: lib/Dynamic/Mailbox.php:427 search.php:73
+#: lib/Dynamic/Mailbox.php:443 search.php:73
 #: templates/smartmobile/search.html.php:11
 msgid "Body"
 msgstr "Leipäteksti"
 
-#: config/prefs.php:571
+#: config/prefs.php:570
 msgid "Bottom"
 msgstr "Alla"
 
@@ -858,7 +864,7 @@ msgstr "Sisäänrakennettuja virtuaalikansioita ei voi muokata."
 msgid "Bulk Messages"
 msgstr "Bulkkiviestit"
 
-#: lib/Minimal/Compose.php:321 templates/basic/compose/redirect.html.php:55
+#: lib/Minimal/Compose.php:329 templates/basic/compose/redirect.html.php:55
 #: templates/basic/folders/folders_confirm.html.php:27
 #: templates/basic/folders/import.html.php:17
 #: templates/contacts/contacts.html.php:70
@@ -874,7 +880,7 @@ msgid "Cancel"
 msgstr "Peru"
 
 #: templates/basic/compose/compose.html.php:32
-#: templates/basic/compose/compose.html.php:219
+#: templates/basic/compose/compose.html.php:217
 msgid "Cancel Message"
 msgstr "Peru viesti"
 
@@ -888,7 +894,7 @@ msgstr ""
 "automaattisesti tallenneta luonnoskansioon.\n"
 "Oletko aivan varma, että haluat tehdä tämän?"
 
-#: compose.php:702
+#: compose.php:714
 msgid "Cancelling this message will permanently discard its contents."
 msgstr "Viestin peruuttaminen poistaa lopullisesti viestin sisällön."
 
@@ -919,7 +925,7 @@ msgstr "Viestistä ei löytynyt Kalenteritietoja."
 msgid "Cannot retrieve public key from message."
 msgstr "Viestistä ei löytynyt Julkista avainta."
 
-#: compose.php:887
+#: compose.php:899
 #, php-format
 msgid "Cannot save sent-mail message to \"%s\" as that mailbox is read-only."
 msgstr ""
@@ -954,12 +960,12 @@ msgstr "Puheenjohtaja"
 msgid "Change"
 msgstr "Muuta"
 
-#: config/prefs.php:1557
+#: config/prefs.php:1545
 msgid ""
 "Change display preferences for viewing the listing of messages in a mailbox."
 msgstr "Voit muuttaa asetuksia liittyen viestien näyttämiseen kansioissa."
 
-#: config/prefs.php:1752
+#: config/prefs.php:1728
 msgid "Change folder navigation display preferences."
 msgstr "Muuta millä tavalla kansiot näytetään."
 
@@ -971,7 +977,7 @@ msgstr ""
 "Voit muuttaa lähettämissäsi sähköposteissa näkyviä nimi- tai osoitetietoja "
 "ja käyttämääsi allekirjoitusta."
 
-#: config/prefs.php:1705
+#: config/prefs.php:1685
 msgid "Characters to display in preview:"
 msgstr "Esikatselussa näytettävien merkkien määrä:"
 
@@ -989,7 +995,7 @@ msgstr "Tarkista oikeinkirjoitus"
 msgid "Check _All/None"
 msgstr "Valitse _kaikki/Ei mitään"
 
-#: lib/Dynamic/Mailbox.php:349 templates/basic/folders/actions.html.php:36
+#: lib/Dynamic/Mailbox.php:356 templates/basic/folders/actions.html.php:36
 msgid "Check for New Mail"
 msgstr "Tarkista uudet viestit"
 
@@ -997,11 +1003,11 @@ msgstr "Tarkista uudet viestit"
 msgid "Check for valid recipient PGP public keys while replying?"
 msgstr "Tarkistetaanko viestiin vastatessa onko vastaanottajalla PGP-avainta?"
 
-#: config/prefs.php:508
+#: config/prefs.php:507
 msgid "Check spelling before sending a message?"
 msgstr "Tarkistetaanko viestin oikeinkirjoitus viestiä lähetettäessä?"
 
-#: lib/Dynamic/Mailbox.php:455 lib/Ui/Compose.php:50
+#: lib/Dynamic/Mailbox.php:471 lib/Ui/Compose.php:50
 msgid "Checking..."
 msgstr "Tarkistetaan..."
 
@@ -1010,7 +1016,7 @@ msgstr "Tarkistetaan..."
 msgid "Choose Action"
 msgstr "Valitse toiminto"
 
-#: config/prefs.php:1013
+#: config/prefs.php:1006
 msgid "Choose the address book to use when adding addresses."
 msgstr "Valitse osoitekirja, johon osoitteet lisätään."
 
@@ -1041,7 +1047,7 @@ msgstr "Napsauta %s tallentaaksesi tiedot."
 msgid "Click %s to go to %s management page."
 msgstr "Napsauta %s mennäkseni %s hallintasivulle."
 
-#: lib/Ajax/Application/ShowMessage.php:249 message.php:800
+#: lib/Ajax/Application/ShowMessage.php:249 message.php:802
 #, php-format
 msgid "Click %s to send the notification message."
 msgstr "Napsauta %s lähettääksesi ilmoitusviestin."
@@ -1075,11 +1081,11 @@ msgstr "Valitse tästä lisätäksesi alkuperäisen viestin leipätektiksi."
 msgid "Click to always show images from this sender."
 msgstr "Napsauta näyttääksesi tämän lähettäjän kuvat."
 
-#: config/prefs.php:1661
+#: config/prefs.php:1648
 msgid "Clicking on the address will compose a new message to the sender"
 msgstr "Napsauttamalla osoitetta voit kirjoittaa uuden viestin lähettäjälle."
 
-#: config/prefs.php:1662
+#: config/prefs.php:1649
 msgid "Clicking on the address will open the message to be read"
 msgstr "Napsauttamalla osoitetta voit aukaista viestin luettavaksi."
 
@@ -1087,8 +1093,8 @@ msgstr "Napsauttamalla osoitetta voit aukaista viestin luettavaksi."
 msgid "Close this window"
 msgstr "Sulje tämä ikkuna"
 
-#: folders.php:408 lib/Dynamic/Mailbox.php:229 lib/Dynamic/Mailbox.php:284
-#: lib/Dynamic/Mailbox.php:359
+#: folders.php:408 lib/Dynamic/Mailbox.php:231 lib/Dynamic/Mailbox.php:286
+#: lib/Dynamic/Mailbox.php:366
 msgid "Collapse All"
 msgstr "Pienennä kaikki"
 
@@ -1104,7 +1110,7 @@ msgstr "Väri"
 msgid "Color Picker"
 msgstr "Värivalitsin"
 
-#: config/prefs.php:1789
+#: config/prefs.php:1765
 msgid "Combine all namespaces"
 msgstr "Yhdistä kaikki nimiavaruudet"
 
@@ -1116,9 +1122,9 @@ msgstr "Kommentti"
 msgid "Completed"
 msgstr "Valmis"
 
-#: config/prefs.php:471 config/prefs.php:663 config/prefs.php:708
-#: config/prefs.php:774 config/prefs.php:810 config/prefs.php:866
-#: config/prefs.php:940
+#: config/prefs.php:471 config/prefs.php:657 config/prefs.php:702
+#: config/prefs.php:767 config/prefs.php:803 config/prefs.php:859
+#: config/prefs.php:933
 msgid "Compose"
 msgstr "Luo"
 
@@ -1126,7 +1132,7 @@ msgstr "Luo"
 msgid "Compose Message"
 msgstr "Kirjoita viesti"
 
-#: config/prefs.php:664
+#: config/prefs.php:658
 msgid "Compose Templates"
 msgstr "Kirjoita kirjepohja"
 
@@ -1134,7 +1140,7 @@ msgstr "Kirjoita kirjepohja"
 msgid "Compose Templates mailbox:"
 msgstr "Kirjepohjien postilaatikko:"
 
-#: config/prefs.php:638
+#: config/prefs.php:632
 msgid "Compose messages in a separate window?"
 msgstr "Kirjoitetaanko viestit erillisessä ikkunassa?"
 
@@ -1150,7 +1156,7 @@ msgstr "Muokkaa käyttöön PGP-salaustoiminto."
 msgid "Configure S/MIME encryption support."
 msgstr "Muokkaa S/MIME-salaustoiminto."
 
-#: config/prefs.php:1503
+#: config/prefs.php:1491
 msgid "Configure flag highlighting."
 msgstr "Muokkaa lippujen korostuksia."
 
@@ -1158,15 +1164,15 @@ msgstr "Muokkaa lippujen korostuksia."
 msgid "Configure how event or meeting requests should be handled."
 msgstr "Muokkaa miten tapahtumat ja tapaamiset tulisi käsitellä."
 
-#: config/prefs.php:1033
+#: config/prefs.php:1026
 msgid "Configure how messages are displayed."
 msgstr "Voit määritellä kuinka viestit näytetään."
 
-#: config/prefs.php:776
+#: config/prefs.php:769
 msgid "Configure how you forward mail."
 msgstr "Voit muokata viestien välitykseen liittyviä asetuksia."
 
-#: config/prefs.php:710
+#: config/prefs.php:704
 msgid "Configure how you reply to mail."
 msgstr "Voit muokata viestien vastaamiseen liittyviä asetuksia."
 
@@ -1174,11 +1180,11 @@ msgstr "Voit muokata viestien vastaamiseen liittyviä asetuksia."
 msgid "Configure how you send mail."
 msgstr "Voit muokata viestien lähettämiseen liittyviä asetuksia."
 
-#: config/prefs.php:1538
+#: config/prefs.php:1526
 msgid "Configure message printing."
 msgstr "Muokkaa roskaposti-ilmoituksia"
 
-#: config/prefs.php:1358
+#: config/prefs.php:1346
 msgid "Configure spam reporting."
 msgstr "Muokkaa roskaposti-ilmoituksia"
 
@@ -1190,7 +1196,7 @@ msgstr "Varmistus"
 msgid "Contains Attachment(s)"
 msgstr "Nykyiset liitteet"
 
-#: config/prefs.php:1455
+#: config/prefs.php:1443
 msgid ""
 "Control when new mail will be checked for, and whether or not to notify you "
 "when it arrives."
@@ -1204,15 +1210,15 @@ msgstr ""
 "Muutetaan HTML viesti tavalliseksi tekstiksi ja näytetään se erillisessä "
 "ikkunassa."
 
-#: config/prefs.php:1140
+#: config/prefs.php:1133
 msgid "Convert textual emoticons into graphical ones?"
 msgstr "Muutetaanko tekstimuotoiset hymiöt graafisiksi?"
 
-#: mailbox.php:554 message.php:505 templates/smartmobile/copymove.html.php:11
+#: mailbox.php:554 message.php:507 templates/smartmobile/copymove.html.php:11
 msgid "Copy"
 msgstr "Kopioi"
 
-#: lib/Dynamic/Mailbox.php:456
+#: lib/Dynamic/Mailbox.php:472
 #, php-format
 msgid "Copy %s to %s"
 msgstr "Kopioi %s -- %s"
@@ -1222,7 +1228,7 @@ msgstr "Kopioi %s -- %s"
 msgid "Copy/Move"
 msgstr "Kopioi/Siirrä"
 
-#: lib/Imap/Acl.php:77
+#: lib/Imap/Acl.php:99
 #, php-format
 msgid "Could not add rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "Ei voitu lisätä oikeuksia käyttäjälle \"%s\" kansioon \"%s\"."
@@ -1271,18 +1277,18 @@ msgstr ""
 "Et voi siirtää viestejä roskapostikansioon - roskapostikansiota ei ole "
 "määritelty asetuksissa."
 
-#: lib/Ajax/Application.php:321
+#: lib/Ajax/Application.php:320
 msgid "Could not open mailbox."
 msgstr "Ei voitu aukaista postilaatikkoa."
 
-#: lib/Imap/Acl.php:104
+#: lib/Imap/Acl.php:126
 #, php-format
 msgid "Could not remove rights for user \"%s\" for the mailbox \"%s\"."
 msgstr "Ei voitu poistaa käyttäjältä \"%s\" oikeuksia kansioon \"%s\"."
 
-#: lib/Imap/Acl.php:53
-msgid "Could not retrieve ACL"
-msgstr "Ei voitu hakea ACL-oikeustietoja"
+#: lib/Imap/Acl.php:72
+msgid "Could not retrieve ACL."
+msgstr "Ei voitu hakea ACL-oikeustietoja."
 
 #: lib/Ui/Compose.php:84
 msgid "Could not retrieve message data from the mail server."
@@ -1306,11 +1312,11 @@ msgstr "Luo avaimet"
 msgid "Create New Mailbox"
 msgstr "Luo uusi kirjepohja"
 
-#: lib/Dynamic/Mailbox.php:261 mailbox.php:644
+#: lib/Dynamic/Mailbox.php:263 mailbox.php:644
 msgid "Create New Template"
 msgstr "Luo uusi kirjepohja"
 
-#: lib/Imap/Acl.php:161
+#: lib/Imap/Acl.php:183
 msgid "Create Subfolders/Rename Mailbox"
 msgstr "Luo alikansio/Uudelleennimeä kansio"
 
@@ -1326,32 +1332,32 @@ msgstr ""
 "Voit luoda suodatinsääntöjä, joilla voit siirtää viestejä kansioihin tai "
 "poistaa roskapostiviestejä."
 
-#: lib/Dynamic/Mailbox.php:457
+#: lib/Dynamic/Mailbox.php:473
 msgid "Create mailbox:"
 msgstr "Luo uusi kansio:"
 
-#: config/prefs.php:683
+#: config/prefs.php:677
 msgid "Create new Template"
 msgstr "Luo uusi kirjepohja"
 
-#: lib/Dynamic/Mailbox.php:221 lib/Dynamic/Mailbox.php:342
+#: lib/Dynamic/Mailbox.php:223 lib/Dynamic/Mailbox.php:349
 msgid "Create subfolder"
 msgstr "Luo alikansio"
 
-#: lib/Dynamic/Mailbox.php:458
+#: lib/Dynamic/Mailbox.php:474
 #, php-format
 msgid "Create subfolder of %s:"
 msgstr "Luo alikansio kansiolle %s:"
 
-#: lib/Imap/Acl.php:160
+#: lib/Imap/Acl.php:182
 msgid "Create subfolders and rename mailbox"
 msgstr "Luo alikansioita ja uudelleennimeä kansioita"
 
-#: config/prefs.php:1646
+#: config/prefs.php:1633
 msgid "Criteria to use when sorting by date:"
 msgstr "Kriteeri kun järjestetään viestit päiväyksen mukaan:"
 
-#: templates/basic/compose/compose.html.php:316
+#: templates/basic/compose/compose.html.php:314
 msgid "Current Attachments"
 msgstr "Nykyiset liitteet"
 
@@ -1362,7 +1368,7 @@ msgstr "Nykyiset oikeudet kansioon %s"
 
 #: search.php:69
 msgid "Custom Header"
-msgstr "Muut otsakkeet"
+msgstr "Muu otsake"
 
 #: search.php:483
 msgid "Custom Header:"
@@ -1372,8 +1378,8 @@ msgstr "Muu otsake:"
 msgid "Dat_e"
 msgstr "Päivä_ys"
 
-#: config/prefs.php:1607 lib/Compose.php:2206 lib/Dynamic/Mailbox.php:201
-#: lib/Dynamic/Mailbox.php:251 lib/Ui/Message.php:25 search.php:81
+#: config/prefs.php:1594 lib/Compose.php:2206 lib/Dynamic/Mailbox.php:203
+#: lib/Dynamic/Mailbox.php:253 lib/Ui/Message.php:25 search.php:81
 #: templates/dynamic/mailbox.html.php:120
 msgid "Date"
 msgstr "Päiväys"
@@ -1398,7 +1404,7 @@ msgstr "Päiväys jälkeen"
 msgid "Date Until"
 msgstr "Päiväys ennen"
 
-#: config/prefs.php:1644
+#: config/prefs.php:1631
 msgid "Date in message headers"
 msgstr "Päiväys viestin otsakkeessa"
 
@@ -1410,19 +1416,19 @@ msgstr "Päivää"
 msgid "Declined"
 msgstr "Kieltäytyi"
 
-#: config/prefs.php:1174
+#: config/prefs.php:1167
 msgid "Default (US-ASCII)"
 msgstr "Oletus (US-ASCII)"
 
-#: config/prefs.php:527
+#: config/prefs.php:526
 msgid "Default method to compose messages:"
 msgstr "Käytä oletuksena kirjoitustilaa:"
 
-#: config/prefs.php:1614
+#: config/prefs.php:1601
 msgid "Default sorting criteria:"
 msgstr "Oletusjärjestys:"
 
-#: config/prefs.php:1625
+#: config/prefs.php:1612
 msgid "Default sorting direction:"
 msgstr "Oletusjärjestyksen suunta:"
 
@@ -1430,8 +1436,8 @@ msgstr "Oletusjärjestyksen suunta:"
 msgid "Delegated"
 msgstr "Delegoitu"
 
-#: lib/Dynamic/Mailbox.php:311 lib/Dynamic/Mailbox.php:345
-#: lib/Imap/Acl.php:169 lib/Minimal/Message.php:228 lib/Smartmobile.php:158
+#: lib/Dynamic/Mailbox.php:312 lib/Dynamic/Mailbox.php:352
+#: lib/Imap/Acl.php:191 lib/Minimal/Message.php:228 lib/Smartmobile.php:158
 #: templates/basic/folders/actions.html.php:26
 #: templates/dynamic/mailbox.html.php:51 templates/dynamic/message.html.php:29
 #: templates/minimal/mailbox.html.php:36 templates/prefs/acl.html.php:43
@@ -1462,18 +1468,18 @@ msgstr "Poista valitut kansiot"
 
 #: thread.php:164
 msgid "Delete Thread"
-msgstr "Poista ketju"
+msgstr "Poista Keskustelu"
 
-#: lib/Dynamic/Mailbox.php:272
+#: lib/Dynamic/Mailbox.php:274
 msgid "Delete Virtual Folder"
 msgstr "Poista virtuaalikansio"
 
-#: lib/Dynamic/Mailbox.php:460
+#: lib/Dynamic/Mailbox.php:476
 #, php-format
 msgid "Delete all subfolders of %s?"
 msgstr "Poista kaikki %s alikansiot"
 
-#: lib/Imap/Acl.php:164
+#: lib/Imap/Acl.php:186
 msgid "Delete and rename mailbox"
 msgstr "Poistaa ja uudelleennimetä kansio"
 
@@ -1481,37 +1487,37 @@ msgstr "Poistaa ja uudelleennimetä kansio"
 msgid "Delete from my calendar"
 msgstr "Poista kalenteristani"
 
-#: config/prefs.php:1390
+#: config/prefs.php:1378
 msgid "Delete message"
 msgstr "Poista viesti"
 
-#: lib/Imap/Acl.php:168
+#: lib/Imap/Acl.php:190
 msgid "Delete messages"
 msgstr "Poista viestit"
 
-#: config/prefs.php:594
+#: config/prefs.php:593
 msgid ""
 "Delete old linked attachments after this many months (0 to never delete)?"
 msgstr ""
 "Poistetaanko kaikki %s kuukautta vanhemmat linkitetyt liitteet (0 ei "
 "poisteta koskaan)?"
 
-#: config/prefs.php:904
+#: config/prefs.php:897
 msgid ""
 "Delete old sent mail mailboxes after this many months (0 to never delete)?"
 msgstr ""
 "Poistetaanko kaikki tätä kuukautta vanhemmat lähetettyjen viestien kansiot "
 "(0 ei poisteta koskaan)?"
 
-#: lib/Dynamic/Mailbox.php:223
+#: lib/Dynamic/Mailbox.php:225
 msgid "Delete subfolders"
 msgstr "Poista alikansio"
 
-#: lib/Imap/Acl.php:165
+#: lib/Imap/Acl.php:187
 msgid "Delete/Rename Mailbox"
 msgstr "Poista/Uudelleenimeä kansio"
 
-#: templates/basic/compose/compose.html.php:349
+#: templates/basic/compose/compose.html.php:347
 msgid "Delete?"
 msgstr "Poista?"
 
@@ -1534,7 +1540,7 @@ msgstr "Poistettiin liite \"%s\"."
 msgid "Deleted flag \"%s\"."
 msgstr "Poistettiin lippu \"%s\"."
 
-#: config/prefs.php:1225
+#: config/prefs.php:1213
 msgid "Deleting and Moving Messages"
 msgstr "Viestien poistaminen ja siirtäminen"
 
@@ -1546,11 +1552,11 @@ msgstr "Kiellä pyyntö"
 msgid "Deny request for free/busy information"
 msgstr "Kiellä vapaa/varattu tietojen pyyntö"
 
-#: config/prefs.php:1623
+#: config/prefs.php:1610
 msgid "Descending"
 msgstr "Laskeva"
 
-#: templates/basic/compose/compose.html.php:341
+#: templates/basic/compose/compose.html.php:339
 #: templates/itip/action.html.php:40
 msgid "Description"
 msgstr "Kuvaus"
@@ -1563,7 +1569,7 @@ msgstr "Kuvaus"
 msgid "Details"
 msgstr "Tarkemmat tiedot"
 
-#: config/prefs.php:1133
+#: config/prefs.php:1126
 msgid "Dim signatures?"
 msgstr "Himmennä allekirjoitukset."
 
@@ -1575,27 +1581,27 @@ msgstr ""
 "Poistetaan kaikki muotoilutieto (muuntamalla HTML-muodosta tavalliseksi "
 "tekstiksi)? Tätä operaatiota ei voi peruuttaa."
 
-#: config/prefs.php:1675
+#: config/prefs.php:1662
 msgid "Display attachment information about a message in the mailbox listing?"
 msgstr "Näytetäänkö liitetieto viestilistauksessa?"
 
-#: config/prefs.php:645
+#: config/prefs.php:639
 msgid "Display confirmation in popup window after sending a message?"
 msgstr "Näytetäänkö varmistusviesti ponnahdusikkunassa lähetyksen jälkeen?"
 
-#: config/prefs.php:1480
+#: config/prefs.php:1468
 msgid "Display notification when new mail arrives?"
 msgstr "Näytetäänkö ilmoitukset uusista viesteistä?"
 
-#: config/prefs.php:1742
+#: config/prefs.php:1718
 msgid "Display only the first 250 characters of a message initially?"
 msgstr "Näytetään aluksi vain viestin 250 ensimmäistä merkkiä?"
 
-#: config/prefs.php:1418
+#: config/prefs.php:1406
 msgid "Display the \"Empty Spam\" link in the menubar?"
 msgstr "Näytä '\"tyhjennä roskapostit\"-linkki muiden ikonien joukossa."
 
-#: config/prefs.php:1310
+#: config/prefs.php:1298
 msgid "Display the \"Empty Trash\" link in the menubar?"
 msgstr "Näytä '\"tyhjennä roskakori\"-linkki muiden ikonien joukossa."
 
@@ -1608,27 +1614,27 @@ msgstr "Tee toiminnot"
 msgid "Do NOT Match"
 msgstr "EI täsmää"
 
-#: lib/Dynamic/Mailbox.php:350 templates/basic/folders/actions.html.php:37
+#: lib/Dynamic/Mailbox.php:357 templates/basic/folders/actions.html.php:37
 msgid "Do Not Check for New Mail"
 msgstr "Älä tarkista uusia sähköpostiviestejä"
 
-#: config/prefs.php:1663
+#: config/prefs.php:1650
 msgid "Do not generate a link in the From: column"
 msgstr "Älä muodosta linkkejä Lähettäjä: sarakkeessa"
 
-#: config/prefs.php:882
+#: config/prefs.php:875
 msgid "Do not save attachments"
 msgstr "Älä tallenna liite"
 
-#: config/prefs.php:1150
+#: config/prefs.php:1143
 msgid "Do not show parts"
 msgstr "Älä näytä osoioita"
 
-#: compose.php:703
+#: compose.php:715
 msgid "Doing so will discard this message permanently."
 msgstr "Tekemällä näin tuhoat tämän viestin lopullisesti."
 
-#: lib/Dynamic/Mailbox.php:423
+#: lib/Dynamic/Mailbox.php:439
 msgid "Don't Show"
 msgstr "Älä näytä"
 
@@ -1650,7 +1656,7 @@ msgstr "Tallenna %s zip-muodossa"
 msgid "Download (.zip format)"
 msgstr "Tallenna (zip-tiedosto)"
 
-#: message.php:836
+#: message.php:838
 msgid "Download All Attachments (in .zip file)"
 msgstr "Tallenna kaikki liitteet (zip-tiedostoksi)"
 
@@ -1666,11 +1672,11 @@ msgstr "Tallenna liite:"
 msgid "Draft"
 msgstr "Luonnos"
 
-#: lib/Ajax/Application/Handler/Dynamic.php:1050
+#: lib/Ajax/Application/Handler/Dynamic.php:1054
 msgid "Draft automatically saved."
 msgstr "Luonnos tallennettiin automaattisesti."
 
-#: config/prefs.php:811 lib/Mailbox.php:1620 lib/Mailbox.php:1710
+#: config/prefs.php:804 lib/Mailbox.php:1620 lib/Mailbox.php:1710
 msgid "Drafts"
 msgstr "Luonnokset"
 
@@ -1698,7 +1704,7 @@ msgstr "ESIMERKKI LINKKI"
 msgid "Edit"
 msgstr "Muokkaa"
 
-#: lib/Dynamic/Mailbox.php:366
+#: lib/Dynamic/Mailbox.php:373
 msgid "Edit ACL"
 msgstr "Muokkaa ACL"
 
@@ -1710,25 +1716,25 @@ msgstr "Muokkaa suodatinta"
 msgid "Edit Search Query"
 msgstr "Muokkaa hakulauseketta"
 
-#: lib/Dynamic/Mailbox.php:260 lib/Dynamic/Mailbox.php:295 mailbox.php:638
+#: lib/Dynamic/Mailbox.php:262 lib/Dynamic/Mailbox.php:297 mailbox.php:638
 msgid "Edit Template"
 msgstr "Muokkaa kirjepohjaa"
 
-#: lib/Dynamic/Mailbox.php:271 lib/Imap/Tree.php:1718 mailbox.php:422
+#: lib/Dynamic/Mailbox.php:273 lib/Imap/Tree.php:1718 mailbox.php:422
 #: templates/search/search.html.php:8
 msgid "Edit Virtual Folder"
 msgstr "Muokkaa virtuaalista kansiota"
 
-#: lib/Dynamic/Mailbox.php:266
+#: lib/Dynamic/Mailbox.php:268
 msgid "Edit Virtual Folders"
 msgstr "Muokkaa virtuaalisia kansiota"
 
-#: config/prefs.php:791 lib/Dynamic/Base.php:159 lib/Dynamic/Mailbox.php:300
-#: lib/Minimal/Message.php:250 message.php:639
+#: config/prefs.php:784 lib/Dynamic/Base.php:159 lib/Minimal/Message.php:250
+#: message.php:641
 msgid "Edit as New"
 msgstr "Muokkaa uutena"
 
-#: config/prefs.php:665
+#: config/prefs.php:659
 msgid "Edit compose templates."
 msgstr "Muokkaa uusi viesti kirjepohjia."
 
@@ -1753,7 +1759,7 @@ msgstr "Tyjennettiin kaikki viestit lähettäjältä %s."
 msgid "Emptied all messages from Virtual Trash Folder."
 msgstr "Poistettiin kaikki viestit virtuaalisesta roskakorikansiosta."
 
-#: lib/Dynamic/Mailbox.php:344 templates/basic/folders/actions.html.php:27
+#: lib/Dynamic/Mailbox.php:351 templates/basic/folders/actions.html.php:27
 msgid "Empty"
 msgstr "Tyhjennä"
 
@@ -1781,7 +1787,7 @@ msgstr "Otetaanko käyttöön PGP-toiminto?"
 msgid "Enable S/MIME functionality?"
 msgstr "Otetaanko käyttöön PGP-toimintoa?"
 
-#: config/prefs.php:1692
+#: config/prefs.php:1672
 msgid "Enable message previews?"
 msgstr "Otetaanko käyttöön viestien esikatselu?"
 
@@ -1789,7 +1795,7 @@ msgstr "Otetaanko käyttöön viestien esikatselu?"
 msgid "Enabled?"
 msgstr "Käytössä?"
 
-#: templates/basic/compose/compose.html.php:227
+#: templates/basic/compose/compose.html.php:225
 msgid "Encr_yption Options"
 msgstr "Salau_ksen asetukset"
 
@@ -1847,7 +1853,7 @@ msgstr "Anna henkilökohtainen PGP-salasanatekstisi."
 msgid "Enter your personal S/MIME passphrase."
 msgstr "Anna henkilökohtainen S/MIME-salasanatekstisi."
 
-#: lib/Dynamic/Mailbox.php:426 search.php:77
+#: lib/Dynamic/Mailbox.php:442 search.php:77
 #: templates/basic/search/search-basic.html.php:21
 #: templates/smartmobile/search.html.php:10
 msgid "Entire Message"
@@ -1895,23 +1901,23 @@ msgstr "Tapahtumapyynnöt"
 msgid "Event successfully deleted."
 msgstr "Tapahtuman poisto onnitui."
 
-#: config/prefs.php:1470
+#: config/prefs.php:1458
 msgid "Every 15 minutes"
 msgstr "15 minuutin välein"
 
-#: config/prefs.php:1467
+#: config/prefs.php:1455
 msgid "Every 30 seconds"
 msgstr "30 sekunnin välein"
 
-#: config/prefs.php:856 config/prefs.php:1469
+#: config/prefs.php:849 config/prefs.php:1457
 msgid "Every 5 minutes"
 msgstr "5 minuutin välein"
 
-#: config/prefs.php:1471
+#: config/prefs.php:1459
 msgid "Every half hour"
 msgstr "Puolen tunnin välein"
 
-#: config/prefs.php:855 config/prefs.php:1468
+#: config/prefs.php:848 config/prefs.php:1456
 msgid "Every minute"
 msgstr "Minuutin välein"
 
@@ -1919,8 +1925,8 @@ msgstr "Minuutin välein"
 msgid "Exit Search"
 msgstr "Poistu hausta"
 
-#: folders.php:400 lib/Dynamic/Mailbox.php:228 lib/Dynamic/Mailbox.php:283
-#: lib/Dynamic/Mailbox.php:358
+#: folders.php:400 lib/Dynamic/Mailbox.php:230 lib/Dynamic/Mailbox.php:285
+#: lib/Dynamic/Mailbox.php:365
 msgid "Expand All"
 msgstr "Laajenna kaikki"
 
@@ -1928,13 +1934,13 @@ msgstr "Laajenna kaikki"
 msgid "Expand Headers"
 msgstr "Laajenna otsakkeet"
 
-#: lib/Minimal/Compose.php:100 lib/Minimal/Compose.php:101
-#: lib/Minimal/Compose.php:149 templates/minimal/compose.html.php:54
+#: lib/Minimal/Compose.php:104 lib/Minimal/Compose.php:157
+#: templates/minimal/compose.html.php:54
 #: templates/minimal/redirect.html.php:28
 msgid "Expand Names"
 msgstr "Laajenna nimet"
 
-#: config/prefs.php:1777
+#: config/prefs.php:1753
 msgid "Expand the entire folder tree by default in the folders view?"
 msgstr "Laajennetaako oletuksena koko kansiopuu kansionäkymässä hallinnassa?"
 
@@ -1942,7 +1948,7 @@ msgstr "Laajennetaako oletuksena koko kansiopuu kansionäkymässä hallinnassa?"
 msgid "Expiration"
 msgstr "Vanhenee"
 
-#: lib/Dynamic/Mailbox.php:362
+#: lib/Dynamic/Mailbox.php:369
 msgid "Export"
 msgstr "Vie"
 
@@ -1954,7 +1960,7 @@ msgstr "Tyhjennä poistetut"
 msgid "Fi_lters"
 msgstr "Suo_datus"
 
-#: compose.php:704 templates/basic/compose/compose.html.php:279
+#: compose.php:716 templates/basic/compose/compose.html.php:277
 msgid "File"
 msgstr "Tiedosto"
 
@@ -1978,7 +1984,7 @@ msgstr "Suodatin \"%s\" on poistettu."
 msgid "Filter \"%s\" edited successfully."
 msgstr "Suodattimen \"%s\" muokkaus onnistui."
 
-#: lib/Dynamic/Mailbox.php:421
+#: lib/Dynamic/Mailbox.php:437
 msgid "Filter By"
 msgstr "Suodattaen"
 
@@ -1987,7 +1993,7 @@ msgstr "Suodattaen"
 msgid "Filter Messages"
 msgstr "Suodata viestit"
 
-#: config/prefs.php:1048
+#: config/prefs.php:1041
 msgid "Filter message content for unwanted text (e.g. profanity)?"
 msgstr "Suodata viesti loukkaavista sanoista."
 
@@ -2004,11 +2010,11 @@ msgstr "Suodatus: %s hallintasivu"
 msgid "Find"
 msgstr "Haku"
 
-#: config/prefs.php:1589
+#: config/prefs.php:1576
 msgid "First (oldest) Unseen Message"
 msgstr "Ensimmäinen (vanhin) lukematon viesti"
 
-#: config/prefs.php:1591 lib/Minimal/Mailbox.php:201
+#: config/prefs.php:1578 lib/Minimal/Mailbox.php:201
 #: templates/basic/mailbox/navbar.html.php:9
 msgid "First Page"
 msgstr "Ensimmäinen sivu"
@@ -2021,11 +2027,11 @@ msgstr "Lippu:"
 msgid "Flagged for Followup"
 msgstr "Liputettu jatkokäsittelyyn"
 
-#: config/prefs.php:1502
+#: config/prefs.php:1490
 msgid "Flags"
 msgstr "Liput"
 
-#: mailbox.php:670 message.php:610
+#: mailbox.php:670 message.php:612
 msgid "Fo_rward"
 msgstr "Väli_tä"
 
@@ -2033,7 +2039,7 @@ msgstr "Väli_tä"
 msgid "Folder"
 msgstr "Kansio"
 
-#: lib/Dynamic/Mailbox.php:77
+#: lib/Dynamic/Mailbox.php:79
 msgid "Folder Actions"
 msgstr "Toiminnot kansioille"
 
@@ -2041,7 +2047,7 @@ msgstr "Toiminnot kansioille"
 msgid "Folder Actions - Confirmation"
 msgstr "Toiminnot kansioille: Varmistus"
 
-#: config/prefs.php:1751
+#: config/prefs.php:1727
 msgid "Folder Display"
 msgstr "Kansionäkymä"
 
@@ -2055,15 +2061,16 @@ msgstr "Kansioiden selaus"
 msgid "Folders"
 msgstr "Kansiot"
 
-#: config/prefs.php:1066
+#: config/prefs.php:1059
 msgid ""
 "For messages with alternative representations of the text part, which part "
-"should we display?"
+"should be displayed?"
 msgstr ""
-"Jos viesteissä on useita tekstiosioita, niin mikä osio näytetään oletuksena?"
+"Jos viesteissä on useita vaihtoehtoisia tekstiosioita, niin mikä osio "
+"näytetään oletuksena?"
 
-#: lib/Compose.php:1932 lib/Compose.php:1935 lib/Dynamic/Mailbox.php:299
-#: lib/Minimal/Compose.php:209 lib/Minimal/Message.php:248
+#: lib/Compose.php:1932 lib/Compose.php:1935 lib/Dynamic/Mailbox.php:301
+#: lib/Minimal/Compose.php:217 lib/Minimal/Message.php:248
 #: lib/Notification/Event/Status.php:27 templates/dynamic/mailbox.html.php:32
 #: templates/dynamic/message.html.php:15
 #: templates/smartmobile/message.html.php:28
@@ -2087,11 +2094,11 @@ msgstr "Välitetty viesti"
 msgid "Forwarded message from %s"
 msgstr "Välitetty viesti lähettäjältä %s"
 
-#: lib/Ajax/Application/Handler/Smartmobile.php:39 lib/Minimal/Compose.php:208
+#: lib/Ajax/Application/Handler/Smartmobile.php:39 lib/Minimal/Compose.php:216
 msgid "Forwarded message will be automatically added to your outgoing message."
 msgstr "Välitetty viesti liitetään automaattisesti lähetettävään viestiin."
 
-#: config/prefs.php:775
+#: config/prefs.php:768
 msgid "Forwards"
 msgstr "Välitä"
 
@@ -2103,8 +2110,8 @@ msgstr "Vastaus vapaa/varattu pyyntöön"
 msgid "Fro_m"
 msgstr "Lähettä_jä"
 
-#: lib/Compose.php:2210 lib/Dynamic/Mailbox.php:181
-#: lib/Dynamic/Mailbox.php:247 lib/Dynamic/Mailbox.php:428
+#: lib/Compose.php:2210 lib/Dynamic/Mailbox.php:183
+#: lib/Dynamic/Mailbox.php:249 lib/Dynamic/Mailbox.php:444
 #: lib/Ui/Message.php:26 search.php:45
 #: templates/basic/compose/compose.html.php:38
 #: templates/basic/search/search-basic.html.php:17
@@ -2116,7 +2123,7 @@ msgstr "Lähettä_jä"
 msgid "From"
 msgstr "Lähettäjä"
 
-#: config/prefs.php:1608
+#: config/prefs.php:1595
 msgid "From Address"
 msgstr "Lähettäjän osoite"
 
@@ -2161,7 +2168,7 @@ msgstr "Mene virtuaaliseen Inboxiin..."
 #: lib/Mime/Viewer/Images.php:139 lib/Mime/Viewer/Mdn.php:78
 #: lib/Mime/Viewer/Mdn.php:86 lib/Mime/Viewer/Status.php:103
 #: lib/Mime/Viewer/Status.php:115 lib/Mime/Viewer/Status.php:126
-#: message.php:800
+#: message.php:802
 msgid "HERE"
 msgstr "TÄSTÄ"
 
@@ -2173,55 +2180,55 @@ msgstr "HTML Viesti"
 msgid "HTML composition"
 msgstr "HTML-kirjoitustila"
 
-#: config/prefs.php:1063
+#: config/prefs.php:1056
 msgid "HTML part"
 msgstr "HTML-osio"
 
-#: message.php:721
+#: message.php:723
 msgid "Headers"
 msgstr "Otsikot"
 
-#: config/prefs.php:1123
+#: config/prefs.php:1116
 msgid "Hidden"
 msgstr "Piilotettu"
 
-#: config/prefs.php:1121
+#: config/prefs.php:1114
 msgid "Hidden in List Messages"
 msgstr "Piilotettu listaviesteissä"
 
-#: config/prefs.php:1120
+#: config/prefs.php:1113
 msgid "Hidden in Thread View"
-msgstr "Piilotettu ketjunäkymässä"
+msgstr "Piilotettu keskustelunäkymässä"
 
-#: config/prefs.php:1122
+#: config/prefs.php:1115
 msgid "Hidden in Thread View and List Messages"
-msgstr "Piilotettu ketjunäkymässä ja listaviesteissä"
+msgstr "Piilotettu keskustelunäkymässä ja listaviesteissä"
 
 #: templates/dynamic/header.html.php:5
 msgid "Hide Addresses"
 msgstr "Piilota osoitteet"
 
-#: lib/Dynamic/Mailbox.php:463
+#: lib/Dynamic/Mailbox.php:479
 msgid "Hide Alerts _Log"
 msgstr "Piilota hälytys_loki"
 
-#: lib/Dynamic/Mailbox.php:398 mailbox.php:281
+#: lib/Dynamic/Mailbox.php:405 mailbox.php:281
 msgid "Hide Deleted"
 msgstr "Piilota poistetut"
 
-#: lib/Dynamic/Mailbox.php:381
+#: lib/Dynamic/Mailbox.php:388
 msgid "Hide Preview"
 msgstr "Piilota esikatselu"
 
-#: folders.php:381 lib/Dynamic/Mailbox.php:281
+#: folders.php:381 lib/Dynamic/Mailbox.php:283
 msgid "Hide Unsubscribed"
 msgstr "Piilota tilaamattomat"
 
-#: config/prefs.php:1303
+#: config/prefs.php:1291
 msgid "Hide deleted messages even if using the Trash mailbox?"
 msgstr "Piilota poistetut viestit silloinkin kun käytetään roskakorikansiota?"
 
-#: compose.php:833 lib/Dynamic/Compose/Common.php:201 message.php:327
+#: compose.php:845 lib/Dynamic/Compose/Common.php:201 message.php:327
 msgid "High"
 msgstr "Korkea"
 
@@ -2229,19 +2236,19 @@ msgstr "Korkea"
 msgid "High Priority"
 msgstr "Korkea prioriteetti"
 
-#: lib/Dynamic/Mailbox.php:383
+#: lib/Dynamic/Mailbox.php:390
 msgid "Horizontal Layout"
-msgstr "Vaakasuora asettelu"
+msgstr "Vaaka-asettelu"
 
-#: config/prefs.php:793
+#: config/prefs.php:786
 msgid "How should messages be forwarded by default?"
 msgstr "Miten viestit välitetään oletuksena?"
 
-#: config/prefs.php:1792
+#: config/prefs.php:1768
 msgid "How should namespaces be displayed in the folder tree view?"
 msgstr "Mikä nimiavaruus tulisi näyttää kansiopuunäkymässä."
 
-#: config/prefs.php:755
+#: config/prefs.php:748
 msgid "How to attribute quoted lines in a reply"
 msgstr "Miten vastaukseen merkitään kenelle lainatut rivit kuuluvat"
 
@@ -2272,7 +2279,7 @@ msgstr "Kuvaosio"
 msgid "Images have been blocked in this message part."
 msgstr "Tämän osion kuvien näyttäminen on estetty."
 
-#: lib/Dynamic/Mailbox.php:363 templates/basic/folders/import.html.php:16
+#: lib/Dynamic/Mailbox.php:370 templates/basic/folders/import.html.php:16
 #: templates/pgp/import_key.html.php:69 templates/smime/import_key.html.php:78
 msgid "Import"
 msgstr "Tuo"
@@ -2290,7 +2297,7 @@ msgstr "Tuo viestejä"
 msgid "Import PGP Key"
 msgstr "Tuo PGP-avain"
 
-#: templates/prefs/smimeprivatekey.html.php:44
+#: templates/prefs/smimeprivatekey.html.php:47
 msgid "Import Personal Certificate"
 msgstr "Tuo henkilökohtainen sertifikaatti"
 
@@ -2298,9 +2305,9 @@ msgstr "Tuo henkilökohtainen sertifikaatti"
 msgid "Import Personal Keys"
 msgstr "Tuo henkilökohtaiset avaimet"
 
-#: templates/smime/import_key.html.php:12
-msgid "Import Personal S/MIME Certificates"
-msgstr "Tuo henkilökohtaiset S/MIME-sertifikaatit"
+#: lib/Crypt/Smime.php:500 templates/smime/import_key.html.php:12
+msgid "Import Personal S/MIME Certificate"
+msgstr "Tuo henkilökohtainen S/MIME-sertifikaatti"
 
 #: templates/pgp/import_key.html.php:33
 #: templates/prefs/pgppublickey.html.php:40
@@ -2316,10 +2323,6 @@ msgstr "Tuo julkinen PGP-avain"
 msgid "Import Public S/MIME Key"
 msgstr "Tuo julkinen S/MIME-avain"
 
-#: lib/Crypt/Smime.php:500
-msgid "Import S/MIME Key"
-msgstr "Tuo S/MIME-avain"
-
 #: templates/basic/folders/import.html.php:12
 msgid "Import mbox or .eml file"
 msgstr "Tuo mbox- tai eml-tiedosto"
@@ -2331,7 +2334,7 @@ msgid_plural "Imported %d messages from %s"
 msgstr[0] "Tuotiin %d viesti kohteesta %s."
 msgstr[1] "Tuotiin %d viestiä kohteesta %s."
 
-#: lib/Dynamic/Base.php:156 message.php:621
+#: lib/Dynamic/Base.php:156 message.php:623
 msgid "In Body Text"
 msgstr "Viestin leipätekstinä"
 
@@ -2339,7 +2342,7 @@ msgstr "Viestin leipätekstinä"
 msgid "In Process"
 msgstr "Tekeillä"
 
-#: config/prefs.php:789
+#: config/prefs.php:782
 msgid "In the body text"
 msgstr "Viestin leipätekstissä"
 
@@ -2347,11 +2350,11 @@ msgstr "Viestin leipätekstissä"
 msgid "Inbox"
 msgstr "Inbox"
 
-#: config/prefs.php:737
+#: config/prefs.php:730
 msgid "Include a brief summary of the header in a reply?"
 msgstr "Liitetäänkö vastaukseen lyhyt yhteenveto otsaketiedoista?"
 
-#: config/prefs.php:747
+#: config/prefs.php:740
 msgid "Include original message in a reply?"
 msgstr "Liitetäänkö alkuperäinen viesti vastaukseen?"
 
@@ -2383,7 +2386,7 @@ msgstr "Tietoja henkilökohtaisesta julkisesta avaimestasi"
 msgid "Innocent"
 msgstr "Harmiton"
 
-#: lib/Imap/Acl.php:149
+#: lib/Imap/Acl.php:171
 msgid "Insert"
 msgstr "Liitä"
 
@@ -2391,7 +2394,7 @@ msgstr "Liitä"
 msgid "Insert Certificate Here"
 msgstr "Liitä sertifikaatti tähän:"
 
-#: lib/Imap/Acl.php:148
+#: lib/Imap/Acl.php:170
 msgid "Insert messages"
 msgstr "Liitä viestejä"
 
@@ -2399,11 +2402,11 @@ msgstr "Liitä viestejä"
 msgid "Invalid Action selected for this component."
 msgstr "Tälle komponentille on valittu väärä toiminto."
 
-#: lib/Dynamic/Mailbox.php:452 lib/Smartmobile.php:166 lib/Ui/Mailbox.php:84
+#: lib/Dynamic/Mailbox.php:468 lib/Smartmobile.php:166 lib/Ui/Mailbox.php:84
 msgid "Invalid Address"
 msgstr "Virheellinen osoite"
 
-#: lib/Dynamic/Mailbox.php:453
+#: lib/Dynamic/Mailbox.php:469
 msgid "Invalid Subject"
 msgstr "Virheellinen Otsikko"
 
@@ -2433,9 +2436,9 @@ msgstr "Annoit väärän salasanatekstin."
 msgid "Junk"
 msgstr "Roskaposti"
 
-#: templates/basic/compose/compose.html.php:316
-#: templates/basic/compose/compose.html.php:327
-#: templates/basic/compose/compose.html.php:331
+#: templates/basic/compose/compose.html.php:314
+#: templates/basic/compose/compose.html.php:325
+#: templates/basic/compose/compose.html.php:329
 msgid "KB"
 msgstr "KB"
 
@@ -2465,7 +2468,7 @@ msgstr ""
 "Avainten tuonti ei ole käytettävissä. Et ole määritellyt osoitekirjaa "
 "yhteystiedoillesi."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:134
+#: lib/Prefs/Special/PgpPrivateKey.php:144
 msgid "Key successfully sent to the public keyserver."
 msgstr "Avaimen lähetys julkiselle avainpalvelimelle onnistui."
 
@@ -2473,16 +2476,16 @@ msgstr "Avaimen lähetys julkiselle avainpalvelimelle onnistui."
 msgid "Label"
 msgstr "Tunniste"
 
-#: config/prefs.php:1590
+#: config/prefs.php:1577
 msgid "Last (newest) Unseen Message"
 msgstr "Sivu, jossa on (uusin) lukematon viesti"
 
-#: config/prefs.php:1592 lib/Minimal/Mailbox.php:206
+#: config/prefs.php:1579 lib/Minimal/Mailbox.php:206
 #: templates/basic/mailbox/navbar.html.php:26
 msgid "Last Page"
 msgstr "Viimeinen sivu"
 
-#: compose.php:996
+#: compose.php:1008
 msgid "Link Attachments?"
 msgstr "Linkitetäänkö liitteet?"
 
@@ -2495,11 +2498,11 @@ msgstr "Linkitetyt liitteet on kielletty."
 msgid "Links will expire on %s"
 msgstr "Linkit vanhentuvat %s"
 
-#: lib/Imap/Acl.php:133
+#: lib/Imap/Acl.php:155
 msgid "List"
 msgstr "Lista"
 
-#: config/prefs.php:967
+#: config/prefs.php:960
 msgid ""
 "List all contacts when loading the contacts screen? (if disabled, you will "
 "only see contacts that you search for explicitly)"
@@ -2531,11 +2534,11 @@ msgstr "Paikka"
 msgid "Log out"
 msgstr "Poistu"
 
-#: lib/Dynamic/Mailbox.php:471
+#: lib/Dynamic/Mailbox.php:487
 msgid "Logging Out..."
 msgstr "Kirjaudutaan ulos..."
 
-#: compose.php:835 lib/Dynamic/Compose/Common.php:210 message.php:332
+#: compose.php:847 lib/Dynamic/Compose/Common.php:210 message.php:332
 msgid "Low"
 msgstr "Matala"
 
@@ -2547,7 +2550,7 @@ msgstr "Matala prioriteetti"
 msgid "Macintosh File"
 msgstr "Macintosh tiedosto"
 
-#: config/prefs.php:1555 config/prefs.php:1750 lib/Block/Summary.php:102
+#: config/prefs.php:1543 config/prefs.php:1726 lib/Block/Summary.php:102
 #: lib/Mailbox.php:1735 templates/basic/folders/folders_size.html.php:8
 #: templates/smartmobile/message.html.php:2
 msgid "Mailbox"
@@ -2563,7 +2566,7 @@ msgstr "Kansio \"%s\" on jo olemassa."
 msgid "Mailbox %s does not exist."
 msgstr "Postilaatikkoa %s ei ole olemassa."
 
-#: config/prefs.php:1556
+#: config/prefs.php:1544
 msgid "Mailbox Display"
 msgstr "Postilaatikkonäkymä"
 
@@ -2592,11 +2595,11 @@ msgstr "Postilistaviesti"
 msgid "Mailing List Messages"
 msgstr "Postilistaviestit"
 
-#: config/prefs.php:812
+#: config/prefs.php:805
 msgid "Manage message drafts."
 msgstr "Hallinnoi viestiluonnoksia."
 
-#: config/prefs.php:868
+#: config/prefs.php:861
 msgid "Manage sent mail."
 msgstr "Hallinnoi lähetettyjä viestejä."
 
@@ -2604,11 +2607,11 @@ msgstr "Hallinnoi lähetettyjä viestejä."
 msgid "Manage your saved searches"
 msgstr "Hallinnoi tallennettuja hakuja"
 
-#: lib/Imap/Acl.php:145
+#: lib/Imap/Acl.php:167
 msgid "Mark (Other)"
 msgstr "Merkitse (Muut)"
 
-#: lib/Imap/Acl.php:141
+#: lib/Imap/Acl.php:163
 msgid "Mark (Seen)"
 msgstr "Merkitse (Luettu)"
 
@@ -2630,11 +2633,11 @@ msgstr "Merkitse viesti"
 msgid "Mark Messages"
 msgstr "Merkitse viestejä"
 
-#: lib/Dynamic/Mailbox.php:347
+#: lib/Dynamic/Mailbox.php:354
 msgid "Mark all as"
 msgstr "Merkitse kaikki"
 
-#: lib/Dynamic/Mailbox.php:303 lib/Dynamic/Mailbox.php:387
+#: lib/Dynamic/Mailbox.php:304 lib/Dynamic/Mailbox.php:394
 msgid "Mark as"
 msgstr "Merkitse:"
 
@@ -2643,27 +2646,27 @@ msgstr "Merkitse:"
 msgid "Mark as:"
 msgstr "Merkitse:"
 
-#: config/prefs.php:1103
+#: config/prefs.php:1096
 msgid "Mark different levels of quoting with different colors?"
 msgstr "Merkitäänkö eri lainaukset eri väreillä?"
 
-#: config/prefs.php:1246
+#: config/prefs.php:1234
 msgid "Mark messages as Seen when deleting?"
 msgstr "Merkitäänkö kaikki viestit luetuiksi samalla kun ne poistetaan?"
 
-#: config/prefs.php:1111
+#: config/prefs.php:1104
 msgid "Mark simple markup?"
 msgstr "Merkitkäänkö yksinkertaisella merkinnällä?"
 
-#: lib/Imap/Acl.php:140
+#: lib/Imap/Acl.php:162
 msgid "Mark with Seen/Unseen flags"
 msgstr "Merkitse Luettu/Lukematon lipuilla"
 
-#: lib/Imap/Acl.php:144
+#: lib/Imap/Acl.php:166
 msgid "Mark with other flags (e.g. Important/Answered)"
 msgstr "Merkitse muilla lipuilla (esim. Tärkeä/Vastattu)"
 
-#: templates/basic/compose/compose.html.php:285
+#: templates/basic/compose/compose.html.php:283
 msgid "Maximum Attachment Size"
 msgstr "Liitetiedoston suurin sallittu koko"
 
@@ -2679,19 +2682,19 @@ msgstr "Suurin sallittu määrä vastaanottajia viestissä"
 msgid "Maximum Number of Recipients per Time Period"
 msgstr "Suurin sallittu määrä vastaanottajia aikajaksolla"
 
-#: templates/basic/compose/compose.html.php:272
+#: templates/basic/compose/compose.html.php:270
 msgid "Maximum number of attachments reached."
 msgstr "Liitteiden sallittu määrä saavutettu."
 
-#: templates/basic/compose/compose.html.php:267
+#: templates/basic/compose/compose.html.php:265
 msgid "Maximum total attachment size reached."
 msgstr "Liitteiden suurin sallittu koko saavutettu."
 
-#: lib/Dynamic/Mailbox.php:371
+#: lib/Dynamic/Mailbox.php:378
 msgid "Mbox"
 msgstr "Mbox"
 
-#: lib/Dynamic/Mailbox.php:464
+#: lib/Dynamic/Mailbox.php:480
 msgid "Mbox or .eml file:"
 msgstr "Mbox- tai eml-tiedosto:"
 
@@ -2699,9 +2702,9 @@ msgstr "Mbox- tai eml-tiedosto:"
 msgid "Menu"
 msgstr "Valikko"
 
-#: config/prefs.php:1031 config/prefs.php:1224 config/prefs.php:1356
-#: config/prefs.php:1453 config/prefs.php:1501 config/prefs.php:1536
-#: lib/Compose.php:1798 lib/Dynamic/Mailbox.php:467 lib/Dynamic/Message.php:90
+#: config/prefs.php:1024 config/prefs.php:1212 config/prefs.php:1344
+#: config/prefs.php:1441 config/prefs.php:1489 config/prefs.php:1524
+#: lib/Compose.php:1798 lib/Dynamic/Mailbox.php:483 lib/Dynamic/Message.php:90
 msgid "Message"
 msgstr "Viesti"
 
@@ -2720,11 +2723,11 @@ msgstr "Viestin \"%s\" lähetys onnistui."
 msgid "Message Body"
 msgstr "Viestin sisältö"
 
-#: lib/Minimal/Compose.php:389
+#: lib/Minimal/Compose.php:397
 msgid "Message Composition"
 msgstr "Viestin kirjoitus"
 
-#: lib/Dynamic/Mailbox.php:233
+#: lib/Dynamic/Mailbox.php:235
 msgid "Message Date"
 msgstr "Viestin päiväys"
 
@@ -2732,11 +2735,11 @@ msgstr "Viestin päiväys"
 msgid "Message Log"
 msgstr "Viestiloki"
 
-#: config/prefs.php:1611
+#: config/prefs.php:1598
 msgid "Message Size"
 msgstr "Viestin koko"
 
-#: lib/Contents/View.php:167 message.php:671
+#: lib/Contents/View.php:167 message.php:673
 msgid "Message Source"
 msgstr "Viestin raakamuoto"
 
@@ -2761,8 +2764,8 @@ msgstr "Viestin on allekirjoitettu"
 msgid "Message part"
 msgstr "Viestiosio"
 
-#: compose.php:377 compose.php:383 lib/Ajax/Application/Handler/Common.php:565
-#: lib/Minimal/Compose.php:223
+#: compose.php:389 compose.php:395 lib/Ajax/Application/Handler/Common.php:565
+#: lib/Minimal/Compose.php:231
 msgid "Message redirected successfully."
 msgid_plural "Messages redirected successfully"
 msgstr[0] "Viestin ohjaus onnistui."
@@ -2773,8 +2776,8 @@ msgstr[1] "Viestien ohjaus onnistui."
 msgid "Message sent successfully, but not saved to %s."
 msgstr "Viestin lähetys onnistui, mutta sitä ei tallennettu kansioon %s."
 
-#: compose.php:538 compose.php:544 lib/Ajax/Application/Handler/Common.php:486
-#: lib/Minimal/Compose.php:306
+#: compose.php:550 compose.php:556 lib/Ajax/Application/Handler/Common.php:486
+#: lib/Minimal/Compose.php:314
 msgid "Message sent successfully."
 msgstr "Viestin lähetys onnistui."
 
@@ -2790,11 +2793,11 @@ msgstr ""
 msgid "Message:"
 msgstr "Viesti:"
 
-#: lib/Dynamic/Mailbox.php:468
+#: lib/Dynamic/Mailbox.php:484
 msgid "Messages"
 msgstr "Viestit"
 
-#: lib/Dynamic/Mailbox.php:478
+#: lib/Dynamic/Mailbox.php:494
 #, php-format
 msgid "Messages %d - %d"
 msgstr "Viesti %d - %d"
@@ -2803,7 +2806,7 @@ msgstr "Viesti %d - %d"
 msgid "Messages From Personal Contacts"
 msgstr "Viestit oman osoitekirjan tiedoista"
 
-#: config/prefs.php:1653
+#: config/prefs.php:1640
 msgid "Messages per page in the mailbox view."
 msgstr "Sivulla näytettävien viestien lukumäärä."
 
@@ -2815,9 +2818,14 @@ msgstr "Viestit kansioon"
 msgid "Messages with Attachments"
 msgstr "Viestit liitteillä"
 
+#: config/prefs.php:1197 config/prefs.php:1204 config/prefs.php:1718
+msgid "Minimal view only"
+msgstr "Ainoastaan minimaalinen käyttötila"
+
 #: config/prefs.php:297
-msgid "Minutes needed to consider a event as a non-conflicting one in iTip"
-msgstr "Minuuttien ero, jotta tapahtuma ei ole ristiriidassa iTip:ssä."
+msgid "Minutes needed to consider a event as non-conflicting in iTip"
+msgstr ""
+"Aikaero minuuteissa, kun tapahtumatiedot eivät ole ristiriidassa iTip:ssä."
 
 #: smartmobile.php:24
 msgid "Mobile Mail"
@@ -2831,24 +2839,24 @@ msgstr "Kuukausia"
 msgid "More..."
 msgstr "Lisää..."
 
-#: mailbox.php:548 message.php:499 templates/smartmobile/copymove.html.php:12
+#: mailbox.php:548 message.php:501 templates/smartmobile/copymove.html.php:12
 msgid "Move"
 msgstr "Siirrä"
 
-#: lib/Dynamic/Mailbox.php:469
+#: lib/Dynamic/Mailbox.php:485
 #, php-format
 msgid "Move %s to %s"
 msgstr "Siirrä %s - %s"
 
-#: lib/Dynamic/Mailbox.php:83
+#: lib/Dynamic/Mailbox.php:85
 msgid "Move to Base Level"
 msgstr "Siirry perustasolle"
 
-#: config/prefs.php:1405
+#: config/prefs.php:1393
 msgid "Move to Inbox"
 msgstr "Siirrä Inboxiin"
 
-#: config/prefs.php:1393
+#: config/prefs.php:1381
 msgid "Move to spam mailbox"
 msgstr "Siirrä roskapostikansioon"
 
@@ -2864,7 +2872,7 @@ msgstr "Moniviestinäkymä"
 msgid "Multiple messages can only be forwarded as attachments."
 msgstr "Usean viestin välitys onnistuu vain liitetiedostona."
 
-#: config/prefs.php:1606
+#: config/prefs.php:1593
 msgid "NONE"
 msgstr "EI MITÄÄN"
 
@@ -2872,7 +2880,7 @@ msgstr "EI MITÄÄN"
 msgid "Name"
 msgstr "Nimi"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:111
+#: lib/Prefs/Special/PgpPrivateKey.php:120
 msgid "Name and/or email cannot be empty"
 msgstr "Nimi tai sähköpostiosoite ei saa olla tyhjä"
 
@@ -2892,12 +2900,12 @@ msgstr "Vaatii toimenpidettä"
 msgid "Negative Right"
 msgstr "Oikeusnegaatio"
 
-#: config/prefs.php:606 config/prefs.php:915 config/prefs.php:1322
-#: config/prefs.php:1428 config/prefs.php:1466
+#: config/prefs.php:605 config/prefs.php:908 config/prefs.php:1310
+#: config/prefs.php:1416 config/prefs.php:1454
 msgid "Never"
 msgstr "Ei koskaan"
 
-#: config/prefs.php:1186
+#: config/prefs.php:1179
 msgid "Never send read receipt"
 msgstr "Älä koskaan lähetä ilmoitusta viestin lukemisesta"
 
@@ -2905,17 +2913,17 @@ msgstr "Älä koskaan lähetä ilmoitusta viestin lukemisesta"
 msgid "New Flag"
 msgstr "Uusi lippu"
 
-#: config/prefs.php:1454
+#: config/prefs.php:1442
 msgid "New Mail"
 msgstr "Uudet viestit"
 
-#: lib/Dynamic/Mailbox.php:280
+#: lib/Dynamic/Mailbox.php:282
 msgid "New Mailbox"
 msgstr "Uusi kansio"
 
-#: compose.php:183 lib/Application.php:435 lib/Compose.php:1908
+#: compose.php:195 lib/Application.php:435 lib/Compose.php:1908
 #: lib/Dynamic/Base.php:143 lib/Dynamic/Compose.php:69
-#: lib/Dynamic/Mailbox.php:95 lib/Minimal/Base.php:80 lib/Smartmobile.php:165
+#: lib/Dynamic/Mailbox.php:97 lib/Minimal/Base.php:80 lib/Smartmobile.php:165
 #: lib/Ui/Compose.php:159 templates/dynamic/mailbox.html.php:54
 #: templates/smartmobile/compose.html.php:2
 #: templates/smartmobile/folders.html.php:13
@@ -2950,7 +2958,7 @@ msgstr "Uusin lukemattomista viesteistä"
 msgid "Next"
 msgstr "Seuraava"
 
-#: lib/Minimal/Message.php:258 message.php:530
+#: lib/Minimal/Message.php:258 message.php:532
 msgid "Next Message"
 msgstr "Seuraava viesti"
 
@@ -2958,8 +2966,8 @@ msgstr "Seuraava viesti"
 msgid "Next Page"
 msgstr "Seuraava sivu"
 
-#: config/prefs.php:854 config/prefs.php:1773 lib/IMP.php:79
-#: templates/basic/compose/compose.html.php:304
+#: config/prefs.php:847 config/prefs.php:1749 lib/IMP.php:79
+#: templates/basic/compose/compose.html.php:302
 msgid "No"
 msgstr "Ei"
 
@@ -2976,7 +2984,7 @@ msgstr "Ei vanhene"
 msgid "No Keys in Keyring"
 msgstr "Ei avaimia avainrenkaassa"
 
-#: lib/Dynamic/Mailbox.php:470 mailbox.php:379 rss.php:82
+#: lib/Dynamic/Mailbox.php:486 mailbox.php:379 rss.php:82
 msgid "No Messages"
 msgstr "Ei viestejä"
 
@@ -3012,7 +3020,7 @@ msgstr "Ei ääniä"
 msgid "No Subject"
 msgstr "Ei otsikkoa"
 
-#: lib/Dynamic/Mailbox.php:244
+#: lib/Dynamic/Mailbox.php:246
 msgid "No actions available"
 msgstr "Ei toimintoja käytettävissä"
 
@@ -3040,7 +3048,7 @@ msgstr "Tyhjä viesti"
 msgid "No message index given."
 msgstr "Viesti-indeksi puuttuu."
 
-#: lib/Dynamic/Mailbox.php:481
+#: lib/Dynamic/Mailbox.php:497
 msgid "No messages matched the search query."
 msgstr "Hakuehdoilla ei löytynyt ainuttakaan viestiä."
 
@@ -3065,6 +3073,10 @@ msgstr "Ei ole tuotu henkilökohtaista salaista PGP-avainta"
 msgid "No personal PGP public key imported."
 msgstr "Ei ole tuotu henkilökohtaista julkista PGP-avainta"
 
+#: templates/prefs/smimeprivatekey.html.php:43
+msgid "No personal certificate"
+msgstr "Ei henkilökohtaista sertifikaattia"
+
 #: lib/Mime/Viewer/Smime.php:182
 msgid "No personal private key exists so the data is unable to be decrypted."
 msgstr ""
@@ -3087,7 +3099,7 @@ msgstr "Ei lukemattomia viestejä"
 msgid "Non Participant"
 msgstr "Ei osallistuja"
 
-#: lib/IMP.php:473 lib/Mime/Viewer/Itip.php:369 lib/Mime/Viewer/Itip.php:495
+#: lib/IMP.php:475 lib/Mime/Viewer/Itip.php:369 lib/Mime/Viewer/Itip.php:495
 #: templates/basic/search/search-basic.html.php:15
 #: templates/basic/search/search-basic.html.php:32
 #: templates/prefs/acl.html.php:38 templates/prefs/acl.html.php:73
@@ -3097,7 +3109,7 @@ msgstr "Ei osallistuja"
 msgid "None"
 msgstr "Ei mitään"
 
-#: compose.php:834 lib/Dynamic/Compose/Common.php:205
+#: compose.php:846 lib/Dynamic/Compose/Common.php:205
 msgid "Normal"
 msgstr "Normaali"
 
@@ -3119,7 +3131,7 @@ msgstr "Virheellinen julkinen avain."
 msgid "Notepads"
 msgstr "Muistilistat"
 
-#: config/prefs.php:1389 config/prefs.php:1404
+#: config/prefs.php:1377 config/prefs.php:1392
 msgid "Nothing"
 msgstr "Ei mitään"
 
@@ -3157,7 +3169,7 @@ msgstr "Näytä vain ne kansiot, joissa on lukemattomia viestejä."
 msgid "Only one mailbox should be selected for this action."
 msgstr "Valitse vain yksi kansio tähän toimintoon."
 
-#: config/prefs.php:1209
+#: config/prefs.php:1197
 msgid ""
 "Only show download confirmation page if message part is greater than this "
 "size, in bytes. Set to 0 to always require the confirmation page."
@@ -3179,7 +3191,7 @@ msgstr "Valinnainen osallistuja"
 
 #: templates/dynamic/mailbox.html.php:21
 msgid "Other"
-msgstr "Muu"
+msgstr "Muut"
 
 #: templates/dynamic/compose.html.php:65
 #: templates/dynamic/mailbox.html.php:106
@@ -3236,7 +3248,7 @@ msgstr "PGP-salaa ja allekirjoita viesti"
 msgid "PGP Sign/Encrypt Message with passphrase"
 msgstr "PGP-salaa ja allekirjoita viesti salasanatekstillä"
 
-#: compose.php:682
+#: compose.php:694
 msgid ""
 "PGP encryption cannot be used by default as public keys cannot be found for "
 "all recipients."
@@ -3248,7 +3260,7 @@ msgstr ""
 msgid "PGP passhprase stored in session."
 msgstr "PGP salasanatekstin tallennettiin istuntotietoihin."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:140
+#: lib/Prefs/Special/PgpPrivateKey.php:150
 msgid "PGP passphrase successfully unloaded."
 msgstr "Salasanatekstin poisto onnistui."
 
@@ -3280,7 +3292,7 @@ msgid "Page %d of %d"
 msgstr "Sivu %d / %d"
 
 #: lib/Ajax/Application/ShowMessage.php:274 lib/Dynamic/Base.php:176
-#: message.php:890
+#: message.php:892
 msgid "Parts"
 msgstr "Osiot"
 
@@ -3292,11 +3304,11 @@ msgstr "Salasanateksti"
 msgid "Passphrase (Again)"
 msgstr "Salasanateksti (Uudestaan)"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:114
+#: lib/Prefs/Special/PgpPrivateKey.php:123
 msgid "Passphrases cannot be empty"
 msgstr "Salasanateksti ei saa olla tyhjä"
 
-#: lib/Prefs/Special/PgpPrivateKey.php:116
+#: lib/Prefs/Special/PgpPrivateKey.php:125
 msgid "Passphrases do not match"
 msgstr "Salasanatekstit eivät täsmää"
 
@@ -3322,12 +3334,12 @@ msgstr ""
 "salaisen PGP-avaimen sisältämä tiedosto, tai yhdistä tavat. Ensimmäinen "
 "julkinen ja salainen avain merkitään henkilökohtaiseksi avaimeksi."
 
-#: lib/Dynamic/Mailbox.php:459
+#: lib/Dynamic/Mailbox.php:475
 #, php-format
 msgid "Permanently delete %s?"
 msgstr "Poistetaanko lopullisesti %s?"
 
-#: lib/Dynamic/Mailbox.php:462
+#: lib/Dynamic/Mailbox.php:478
 #, php-format
 msgid "Permanently delete all %d messages in %s?"
 msgstr "Poistetaanko lopullisesti kaikki %d viestiä kansiosta %s?"
@@ -3349,7 +3361,7 @@ msgstr "Henkilökohtaiset viestit"
 msgid "Personal PGP key successfully added."
 msgstr "Henkilökohtaisten PGP-avaimien lisäys onnistui."
 
-#: lib/Prefs/Special/PgpPrivateKey.php:125
+#: lib/Prefs/Special/PgpPrivateKey.php:135
 msgid "Personal PGP keypair generated successfully."
 msgstr "Henkilökohtaisen PGP-avainparin luonti onnistui."
 
@@ -3369,7 +3381,7 @@ msgstr "Henkilökohtaisia S/MIME-sertifikaatteja EI tuotu: "
 msgid "Personal S/MIME keys deleted successfully."
 msgstr "Henkilökohtaisten S/MIME-avaimien poisto onnistui."
 
-#: config/prefs.php:524
+#: config/prefs.php:523
 msgid "Plain Text"
 msgstr "Muotoilematon teksti"
 
@@ -3377,7 +3389,7 @@ msgstr "Muotoilematon teksti"
 msgid "Plaintext Message"
 msgstr "Muotoilematon teksti"
 
-#: config/prefs.php:1064
+#: config/prefs.php:1057
 msgid "Plaintext part"
 msgstr "Muotoilematon tekstiosio"
 
@@ -3426,15 +3438,15 @@ msgstr "Sinun pitää valita ainakin yksi etsittävä kansio."
 msgid "Please select at least one search criteria."
 msgstr "Sinun pitää antaa ainakin yksi hakukriteeri"
 
-#: config/prefs.php:1812
+#: config/prefs.php:1788
 msgid "Poll all mailboxes for new mail?"
 msgstr "Tarkistetaanko uudet viestit kaikista kansioista?"
 
-#: config/prefs.php:1473
+#: config/prefs.php:1461
 msgid "Poll for New Mail:"
 msgstr "Tarkista uudet viestit:"
 
-#: lib/Dynamic/Mailbox.php:472
+#: lib/Dynamic/Mailbox.php:488
 msgid "Portal"
 msgstr "Portaali"
 
@@ -3442,12 +3454,12 @@ msgstr "Portaali"
 msgid "Possible Conflicts"
 msgstr "Mahdolliset ristiriidat"
 
-#: lib/Imap/Acl.php:153 templates/prefs/acl.html.php:40
+#: lib/Imap/Acl.php:175 templates/prefs/acl.html.php:40
 #: templates/prefs/acl.html.php:75
 msgid "Post"
 msgstr "Vastaanottaa"
 
-#: lib/Imap/Acl.php:152
+#: lib/Imap/Acl.php:174
 msgid "Post to this mailbox (not enforced by IMAP)"
 msgstr "Vastaanottaa viestejä tähän kansioon (IMAP-protokolla ei pakota)"
 
@@ -3455,15 +3467,7 @@ msgstr "Vastaanottaa viestejä tähän kansioon (IMAP-protokolla ei pakota)"
 msgid "Precede your text signature with dashes ('-- ')?"
 msgstr "Laitetaanko allekirjoituksen eteen erottimet ('-- ')?"
 
-#: config/prefs.php:630 config/prefs.php:1679
-msgid "Preferences affecting only the Basic View"
-msgstr "Vain peruskäyttötilaan vaikuttavat asetukset"
-
-#: config/prefs.php:1200 config/prefs.php:1734
-msgid "Preferences affecting only the Minimal View"
-msgstr "Vain minimaaliseen käyttötilaan vaikuttava asetukset"
-
-#: compose.php:1033
+#: compose.php:1045
 msgid "Preview"
 msgstr "Esikatselu"
 
@@ -3472,7 +3476,7 @@ msgstr "Esikatselu"
 msgid "Previous"
 msgstr "Edellinen"
 
-#: lib/Minimal/Message.php:255 message.php:523
+#: lib/Minimal/Message.php:255 message.php:525
 msgid "Previous Message"
 msgstr "Edellinen viesti"
 
@@ -3488,7 +3492,7 @@ msgstr "Tulosta"
 msgid "Printed By"
 msgstr "Tulostanut"
 
-#: config/prefs.php:1537
+#: config/prefs.php:1525
 msgid "Printing"
 msgstr "Tulostetaan"
 
@@ -3501,7 +3505,7 @@ msgstr "Prioriteetti"
 msgid "Private Key Password"
 msgstr "Salaisen avaimen salasana:"
 
-#: config/prefs.php:1192
+#: config/prefs.php:1185
 msgid ""
 "Prompt to send read receipt (a/k/a message disposition notification) when "
 "requested by the sender?"
@@ -3517,39 +3521,39 @@ msgstr "Julkisen PGP-avainpalvelimen käyttö on estetty."
 msgid "Pur_ge Deleted"
 msgstr "_Tyhjennä poistetut"
 
-#: lib/Imap/Acl.php:173
+#: lib/Imap/Acl.php:195
 msgid "Purge"
 msgstr "Tyhjennä"
 
-#: lib/Dynamic/Mailbox.php:394 lib/Minimal/Mailbox.php:185
+#: lib/Dynamic/Mailbox.php:401 lib/Minimal/Mailbox.php:185
 msgid "Purge Deleted"
 msgstr "Tyhjennä poistetut"
 
-#: config/prefs.php:1429
+#: config/prefs.php:1417
 msgid "Purge Spam how often:"
 msgstr "Miten usein roskapostikansio tyhjennetään:"
 
-#: config/prefs.php:1323
+#: config/prefs.php:1311
 msgid "Purge Trash how often:"
 msgstr "Miten usein roskakorikansio tyhjennetään:"
 
-#: lib/Imap/Acl.php:172
+#: lib/Imap/Acl.php:194
 msgid "Purge messages"
 msgstr "Tyhjentää poistetut viestit"
 
-#: config/prefs.php:1440
+#: config/prefs.php:1428
 msgid "Purge messages in Spam mailbox older than this amount of days."
 msgstr "Poista tätä päivää vanhemmat viestit roskapostikansiosta."
 
-#: config/prefs.php:1336
+#: config/prefs.php:1324
 msgid "Purge messages in Trash mailbox older than this amount of days."
 msgstr "Poista tätä päivää vanhemmat viestit roskakorikansiosta."
 
-#: config/prefs.php:927
+#: config/prefs.php:920
 msgid "Purge messages in sent mail mailbox(es) older than this amount of days."
 msgstr "Poista tätä päivää vanhemmat viestit lähetettyjen viestien kansioista."
 
-#: config/prefs.php:916
+#: config/prefs.php:909
 msgid "Purge sent mail how often:"
 msgstr "Poista lähetetyt viestit näin usein:"
 
@@ -3577,12 +3581,12 @@ msgstr "Poistettiin %d viestiä lähetettyjen viestien kansiosta."
 msgid "Purging 1 message from sent-mail mailbox %s."
 msgstr "Poistettiin 1 viesti lähetettyjen viestien kansiosta %s."
 
-#: config/prefs.php:752
+#: config/prefs.php:745
 #, php-format
 msgid "Quoting %f:"
 msgstr "Lainaus %f:"
 
-#: lib/Imap/Acl.php:137 templates/prefs/acl.html.php:39
+#: lib/Imap/Acl.php:159 templates/prefs/acl.html.php:39
 #: templates/prefs/acl.html.php:74
 msgid "Read"
 msgstr "Luku"
@@ -3591,7 +3595,7 @@ msgstr "Luku"
 msgid "Read Receipt"
 msgstr "Lukukuittaus"
 
-#: lib/Imap/Acl.php:136
+#: lib/Imap/Acl.php:158
 msgid "Read messages"
 msgstr "Lue viestejä"
 
@@ -3601,7 +3605,7 @@ msgstr "Lue viestejä"
 msgid "Read-Only"
 msgstr "Vain luku"
 
-#: lib/Dynamic/Mailbox.php:286
+#: lib/Dynamic/Mailbox.php:288
 msgid "Rebuild Folder List"
 msgstr "Päivitä kansiolista"
 
@@ -3618,7 +3622,7 @@ msgstr "Viimeisimmät haut"
 msgid "Recipient address does not match the currently selected identity."
 msgstr "Vastaanottajan osoite ei vastaa valittua profiilia."
 
-#: lib/Dynamic/Mailbox.php:429 search.php:49
+#: lib/Dynamic/Mailbox.php:445 search.php:49
 #: templates/basic/search/search-basic.html.php:18
 #: templates/smartmobile/search.html.php:13
 msgid "Recipients (To/Cc/Bcc)"
@@ -3629,12 +3633,12 @@ msgstr "Vastaanottajat (Vastaanottaja/Kopio/Piilokopio)"
 msgid "Recipients (To/Cc/Bcc) for '%s'"
 msgstr "Vastaanottajat (Vastaanottaja/Kopio/Piilokopio) - '%s'"
 
-#: message.php:633 message.php:714
+#: message.php:635 message.php:716
 msgid "Redirec_t"
 msgstr "Uu_delleenohjaa"
 
-#: compose.php:365 lib/Dynamic/Base.php:161 lib/Dynamic/Compose.php:159
-#: lib/Minimal/Compose.php:215 lib/Minimal/Compose.php:218
+#: compose.php:377 lib/Dynamic/Base.php:161 lib/Dynamic/Compose.php:159
+#: lib/Minimal/Compose.php:223 lib/Minimal/Compose.php:226
 #: lib/Minimal/Message.php:249 lib/Notification/Event/Status.php:32
 #: mailbox.php:675 templates/basic/compose/redirect.html.php:53
 #: templates/dynamic/redirect.html.php:7
@@ -3643,7 +3647,7 @@ msgstr "Uu_delleenohjaa"
 msgid "Redirect"
 msgstr "Ohjaa"
 
-#: compose.php:365
+#: compose.php:377
 msgid "Redirect Messages"
 msgstr "Ohjaa viestit"
 
@@ -3663,7 +3667,7 @@ msgstr "Päivitä haun tulokset"
 msgid "Remember the free/busy information."
 msgstr "Muista vapaa/varattu tiedot."
 
-#: config/prefs.php:1775
+#: config/prefs.php:1751
 msgid "Remember the last view"
 msgstr "Muista edellinen näkymä"
 
@@ -3671,17 +3675,17 @@ msgstr "Muista edellinen näkymä"
 msgid "Remove"
 msgstr "Poista"
 
-#: lib/Dynamic/Mailbox.php:222 lib/Dynamic/Mailbox.php:343
+#: lib/Dynamic/Mailbox.php:224 lib/Dynamic/Mailbox.php:350
 #: templates/basic/folders/actions.html.php:25
 msgid "Rename"
 msgstr "Uudelleennimeä"
 
-#: lib/Dynamic/Mailbox.php:474
+#: lib/Dynamic/Mailbox.php:490
 #, php-format
 msgid "Rename %s to:"
 msgstr "Uudelleennimeä %s kansio:"
 
-#: config/prefs.php:892
+#: config/prefs.php:885
 msgid "Rename sent mail mailbox at beginning of month?"
 msgstr "Uudelleennimeä lähetettyjen viestien kansio kuukauden alussa?"
 
@@ -3692,12 +3696,12 @@ msgstr ""
 "Kansion \"%s\" uudelleennimeäminen \"%s\" epäonnistui. Palvelimen ilmoitus "
 "oli"
 
-#: config/prefs.php:709
+#: config/prefs.php:703
 msgid "Replies"
 msgstr "Vastaa"
 
-#: lib/Dynamic/Compose.php:92 lib/Dynamic/Mailbox.php:298
-#: lib/Minimal/Compose.php:193 lib/Minimal/Message.php:234
+#: lib/Dynamic/Compose.php:92 lib/Dynamic/Mailbox.php:300
+#: lib/Minimal/Compose.php:201 lib/Minimal/Message.php:234
 #: lib/Notification/Event/Status.php:39 templates/dynamic/mailbox.html.php:29
 #: templates/dynamic/message.html.php:12
 #: templates/smartmobile/message.html.php:24
@@ -3719,7 +3723,7 @@ msgstr "Vastaus lähetetty."
 msgid "Reply To Sender instead"
 msgstr "Vastaa lähettäjälle"
 
-#: lib/Minimal/Compose.php:192
+#: lib/Minimal/Compose.php:200
 msgid "Reply text will be automatically appended to your outgoing message."
 msgstr "Vastausteksti liitetään automaattisesti lähetettävään viestiin."
 
@@ -3727,7 +3731,7 @@ msgstr "Vastausteksti liitetään automaattisesti lähetettävään viestiin."
 msgid "Reply to All"
 msgstr "Vastaa kaikille"
 
-#: compose.php:300
+#: compose.php:312
 msgid "Reply to All:"
 msgstr "Vastaa kaikille:"
 
@@ -3735,7 +3739,7 @@ msgstr "Vastaa kaikille:"
 msgid "Reply to List"
 msgstr "Vastaa listalle"
 
-#: compose.php:313
+#: compose.php:325
 msgid "Reply to List:"
 msgstr "Vastaa listalle:"
 
@@ -3755,7 +3759,7 @@ msgstr "Vastaa pyydetyllä vapaa/varattu tiedolla."
 msgid "Reply-To"
 msgstr "Vastausosoite"
 
-#: compose.php:288
+#: compose.php:300
 msgid "Reply:"
 msgstr "Vastaus:"
 
@@ -3767,13 +3771,13 @@ msgstr "Ilmoita harmittomana"
 msgid "Report As Spam"
 msgstr "Ilmoita roskapostina"
 
-#: lib/Dynamic/Mailbox.php:308 lib/Minimal/Message.php:270
-#: lib/Smartmobile.php:159 mailbox.php:693 message.php:707
+#: lib/Dynamic/Mailbox.php:309 lib/Minimal/Message.php:270
+#: lib/Smartmobile.php:159 mailbox.php:693 message.php:709
 msgid "Report as Innocent"
 msgstr "Ilmoita harmittomana"
 
-#: lib/Dynamic/Mailbox.php:307 lib/Minimal/Message.php:265
-#: lib/Smartmobile.php:160 mailbox.php:684 message.php:697
+#: lib/Dynamic/Mailbox.php:308 lib/Minimal/Message.php:265
+#: lib/Smartmobile.php:160 mailbox.php:684 message.php:699
 msgid "Report as Spam"
 msgstr "Ilmoita roskapostina"
 
@@ -3781,11 +3785,11 @@ msgstr "Ilmoita roskapostina"
 msgid "Request a _Read Receipt"
 msgstr "Pyydä ilmoitus viestin _lukemisesta"
 
-#: config/prefs.php:610
+#: config/prefs.php:609
 msgid "Request read receipts?"
 msgstr "Pyydetäänkö ilmoitusta viestin lukemisesta?"
 
-#: lib/Ajax/Application.php:310 lib/Ajax/Application/Handler/Dynamic.php:680
+#: lib/Ajax/Application.php:309 lib/Ajax/Application/Handler/Dynamic.php:680
 #: lib/Ajax/Application/ShowMessage.php:80 mailbox.php:110
 msgid "Requested message not found."
 msgstr "Pyydettyä viestiä ei löytynyt."
@@ -3804,16 +3808,16 @@ msgstr "Tyhjennä"
 msgid "Respondent Status Updated."
 msgstr "Vastaajan tilatiedot on päivitetty"
 
-#: lib/Dynamic/Mailbox.php:476
+#: lib/Dynamic/Mailbox.php:492
 #, php-format
 msgid "Results are %d Minutes Old"
 msgstr "Tulokset ovat %d minuuttia vanhat"
 
-#: message.php:680 templates/dynamic/mailbox.html.php:45
+#: message.php:682 templates/dynamic/mailbox.html.php:45
 msgid "Resume"
 msgstr "Jatka"
 
-#: lib/Dynamic/Mailbox.php:293 templates/dynamic/mailbox.html.php:94
+#: lib/Dynamic/Mailbox.php:295 templates/dynamic/mailbox.html.php:94
 msgid "Resume Draft"
 msgstr "Jatka luonnosta"
 
@@ -3834,14 +3838,14 @@ msgstr "Palaa kansionäkymään"
 msgid "Return to message view"
 msgstr "Palaa viestinäkymään"
 
-#: config/prefs.php:1238
+#: config/prefs.php:1226
 msgid ""
 "Return to the mailbox listing after deleting, moving, or copying a message?"
 msgstr ""
 "Palaa takaisin viestilistaukseen kun viesti on poistettu, siirretty tai "
 "kopioitu?"
 
-#: config/prefs.php:525
+#: config/prefs.php:524
 msgid "Rich Text (HTML)"
 msgstr "Muotoiltu teksti (HTML)"
 
@@ -3940,11 +3944,11 @@ msgstr "Ot_sikko"
 msgid "Sa_ve a copy in"
 msgstr "Talle_nna kopio kansioon "
 
-#: message.php:688
+#: message.php:690
 msgid "Sa_ve as"
 msgstr "Talle_nna nimellä"
 
-#: lib/Dynamic/Mailbox.php:409 templates/dynamic/message.html.php:50
+#: lib/Dynamic/Mailbox.php:425 templates/dynamic/message.html.php:50
 #: templates/search/search.html.php:106
 msgid "Save"
 msgstr "Tallenna"
@@ -3957,9 +3961,9 @@ msgstr "Tallenna kaikki"
 msgid "Save Attachments in Sent Mailbox"
 msgstr "Tallenna liitteet lähetettyjen viestin kansioon"
 
-#: lib/Minimal/Compose.php:231 lib/Minimal/Compose.php:234
-#: lib/Minimal/Compose.php:281 templates/basic/compose/compose.html.php:27
-#: templates/basic/compose/compose.html.php:214
+#: lib/Minimal/Compose.php:239 lib/Minimal/Compose.php:242
+#: lib/Minimal/Compose.php:289 templates/basic/compose/compose.html.php:27
+#: templates/basic/compose/compose.html.php:212
 #: templates/minimal/compose.html.php:52
 msgid "Save Draft"
 msgstr "Tallenna luonnos"
@@ -3977,13 +3981,13 @@ msgid "Save Search"
 msgstr "Tallenna haku"
 
 #: templates/basic/compose/compose.html.php:30
-#: templates/basic/compose/compose.html.php:217
+#: templates/basic/compose/compose.html.php:215
 #: templates/dynamic/compose.html.php:19
 msgid "Save Template"
 msgstr "Tallenna kirjepohja"
 
 #: templates/basic/compose/compose.html.php:27
-#: templates/basic/compose/compose.html.php:214
+#: templates/basic/compose/compose.html.php:212
 msgid "Save _Draft"
 msgstr "Tallenna _luonnos"
 
@@ -3991,19 +3995,19 @@ msgstr "Tallenna _luonnos"
 msgid "Save as Draft"
 msgstr "Tallenna luonnokseksi"
 
-#: config/prefs.php:881
+#: config/prefs.php:874
 msgid "Save attachments"
 msgstr "Tallenna liitteet"
 
-#: compose.php:989
+#: compose.php:1001
 msgid "Save attachments with message in sent-mail mailbox?"
 msgstr "Tallenna viesti ja sen liitteet lähetettyjen viestin kansioon?"
 
-#: config/prefs.php:845
+#: config/prefs.php:838
 msgid "Save drafts as unseen?"
 msgstr "Tallenna luonnokset lukemattomana?"
 
-#: config/prefs.php:858
+#: config/prefs.php:851
 msgid "Save drafts automatically while composing?"
 msgstr "Tallenna luonnos automaattisesti viestiä kirjoitettaessa?"
 
@@ -4011,7 +4015,7 @@ msgstr "Tallenna luonnos automaattisesti viestiä kirjoitettaessa?"
 msgid "Save in"
 msgstr "Tallenna -"
 
-#: config/prefs.php:958
+#: config/prefs.php:951
 msgid "Save recipients automatically to the default address book?"
 msgstr "Tallenna vastaanottajat automaattisesti oletus osoitekirjaan?"
 
@@ -4059,8 +4063,8 @@ msgstr "Luonnoksen tallennus epäonnistui. Ei voitu luoda luonnoskansiota."
 msgid "Saving the template failed: no template mailbox exists."
 msgstr "Luonnoksen tallennus epäonnistui. Luonnoskansiota ei ole olemassa."
 
-#: lib/Application.php:463 lib/Dynamic/Mailbox.php:225
-#: lib/Dynamic/Mailbox.php:354 lib/Dynamic/Mailbox.php:475
+#: lib/Application.php:463 lib/Dynamic/Mailbox.php:227
+#: lib/Dynamic/Mailbox.php:361 lib/Dynamic/Mailbox.php:491
 #: lib/Minimal/Mailbox.php:195 search-basic.php:114 search.php:507
 #: templates/basic/folders/actions.html.php:47
 #: templates/basic/mailbox/header.html.php:18
@@ -4084,11 +4088,11 @@ msgstr "Haku %s kohteessa %s"
 msgid "Search All Mailboxes"
 msgstr "Hae kaikista kansioista"
 
-#: lib/Dynamic/Mailbox.php:226 lib/Dynamic/Mailbox.php:355
+#: lib/Dynamic/Mailbox.php:228 lib/Dynamic/Mailbox.php:362
 msgid "Search All Subfolders"
 msgstr "Hae kaikista alikansioista"
 
-#: lib/Dynamic/Mailbox.php:433 templates/smartmobile/search.html.php:8
+#: lib/Dynamic/Mailbox.php:449 templates/smartmobile/search.html.php:8
 msgid "Search By"
 msgstr "Haku ehdoilla"
 
@@ -4121,7 +4125,7 @@ msgstr "Haun ehdot:"
 msgid "Search all subfolders?"
 msgstr "Hae kaikista alikansioista?"
 
-#: lib/Minimal/Compose.php:466
+#: lib/Minimal/Compose.php:474
 #, php-format
 msgid "Search for \"%s\" failed: no address found."
 msgstr "Haku \"%s\" epäonnistui: ei löytynyt osoitetta."
@@ -4134,7 +4138,7 @@ msgstr "Haku:"
 msgid "Searching is not available."
 msgstr "Haku ei ole käytettävissä."
 
-#: lib/Dynamic/Mailbox.php:238 lib/Flag/Imap/Seen.php:34
+#: lib/Dynamic/Mailbox.php:240 lib/Flag/Imap/Seen.php:34
 msgid "Seen"
 msgstr "Luettu"
 
@@ -4147,7 +4151,7 @@ msgstr "Valitse"
 msgid "Select All"
 msgstr "Valitse kaikki"
 
-#: config/prefs.php:942
+#: config/prefs.php:935
 msgid "Select address book sources for adding and searching for addresses."
 msgstr ""
 "Voit valita osoitekirjat, joihin lisätään ja joista haetaan osoitteita."
@@ -4160,8 +4164,8 @@ msgstr "Valitse galleria mihin kuva tallennetaan."
 msgid "Selected Addresses"
 msgstr "Valitse osoitteet"
 
-#: lib/Minimal/Compose.php:232 lib/Minimal/Compose.php:240
-#: lib/Minimal/Compose.php:293 templates/dynamic/compose.html.php:13
+#: lib/Minimal/Compose.php:240 lib/Minimal/Compose.php:248
+#: lib/Minimal/Compose.php:301 templates/dynamic/compose.html.php:13
 #: templates/minimal/compose.html.php:49
 msgid "Send"
 msgstr "Lähetä"
@@ -4176,12 +4180,12 @@ msgid "Send Latest Information"
 msgstr "Lähetä viimeisimmät tiedot"
 
 #: templates/basic/compose/compose.html.php:24
-#: templates/basic/compose/compose.html.php:211
+#: templates/basic/compose/compose.html.php:209
 #: templates/smartmobile/compose.html.php:39
 msgid "Send Message"
 msgstr "Lähetä viesti"
 
-#: compose.php:705 lib/Smartmobile.php:167
+#: compose.php:717 lib/Smartmobile.php:167
 msgid "Send message without a Subject?"
 msgstr "Lähetä viesti ilman otsikkoa?"
 
@@ -4198,7 +4202,7 @@ msgstr "Lähettäjä: %s"
 msgid "Sent"
 msgstr "Lähetetyt"
 
-#: config/prefs.php:867
+#: config/prefs.php:860
 msgid "Sent Mail"
 msgstr "Viestin lähetys"
 
@@ -4214,19 +4218,19 @@ msgstr "Palvelin"
 msgid "Server Suggestion"
 msgstr "Palvelimen ehdotus"
 
-#: lib/Imap/Acl.php:30
+#: lib/Imap/Acl.php:37
 msgid "Server does not support ACLs."
 msgstr "Palvelin ei tue ACL-toimintoja."
 
-#: config/prefs.php:516
+#: config/prefs.php:515
 msgid "Set a priority header when composing messages?"
 msgstr "Aseta prioriteetti otsake viestin kirjoituksessa?"
 
-#: lib/Imap/Acl.php:156
+#: lib/Imap/Acl.php:178
 msgid "Set permissions for other users"
 msgstr "Voit antaa oikeuksia toisille käyttäjille"
 
-#: config/prefs.php:1226
+#: config/prefs.php:1214
 msgid "Set preferences for what happens when you move and delete messages."
 msgstr ""
 "Voit muuttaa viestin kopioimiseen tai siirtämiseen liittyviä asetuksia."
@@ -4244,18 +4248,22 @@ msgid "Shared"
 msgstr "Jaettu"
 
 #: config/prefs.php:358
-msgid "Should PGP signed messages automatically be verified when viewed?"
+msgid "Should PGP signed messages be automatically verified when viewed?"
 msgstr ""
 "Tarkistetaan PGP-allekirjoitettujen viestien allekirjoitus automaattisesti "
 "avaamisen yhteydessä?"
 
 #: config/prefs.php:435
-msgid "Should S/MIME signed messages automatically be verified when viewed?"
+msgid "Should S/MIME signed messages be automatically verified when viewed?"
 msgstr ""
 "Tarkistetaan S/MIME-allekirjoitettujen viestien allekirjoitus "
 "automaattisesti avaamisen yhteydessä?"
 
-#: config/prefs.php:1125
+#: config/prefs.php:877
+msgid "Should attachments be saved in the sent-mail message?"
+msgstr "Tallennetaanko liitteet lähetettyjen viestin kansioon?"
+
+#: config/prefs.php:1118
 msgid ""
 "Should large blocks of quoted text be shown or hidden by default? It can be "
 "toggled easily whichever you choose."
@@ -4267,14 +4275,10 @@ msgstr ""
 msgid "Should the body of text/plain messages be scanned for PGP data?"
 msgstr "Etsi text/plain tyyppisistä viesteistä PGP-tietoja."
 
-#: config/prefs.php:837
+#: config/prefs.php:830
 msgid "Should the compose window be closed after saving a draft?"
 msgstr ""
 "Suljetaanko viestinkirjoitusikkuna kun viesti on tallennettu luonnoksiin?"
-
-#: config/prefs.php:884
-msgid "Should we save attachments in the sent-mail message?"
-msgstr "Tallennetaanko liitteet lähetettyjen viestin kansioon"
 
 #: config/prefs.php:342
 msgid "Should your PGP public key to be attached to your messages by default?"
@@ -4290,23 +4294,23 @@ msgstr "Näytä osoitteet (%d)"
 msgid "Show All"
 msgstr "Näytä kaikki"
 
-#: message.php:734
+#: message.php:736
 msgid "Show All Headers"
 msgstr "Näytä kaikki otsakkeet"
 
-#: lib/Dynamic/Mailbox.php:282 lib/Minimal/Folders.php:61
+#: lib/Dynamic/Mailbox.php:284 lib/Minimal/Folders.php:61
 msgid "Show All Mailboxes"
 msgstr "Näytä kaikki kansiot"
 
-#: message.php:818
+#: message.php:820
 msgid "Show All Parts"
 msgstr "Näytä kaikki osiot"
 
-#: message.php:727
+#: message.php:729
 msgid "Show Common Headers"
 msgstr "Näytä yleisimmät otsakkeet"
 
-#: lib/Dynamic/Mailbox.php:397 mailbox.php:279
+#: lib/Dynamic/Mailbox.php:404 mailbox.php:279
 msgid "Show Deleted"
 msgstr "Näytä poistetut"
 
@@ -4314,11 +4318,11 @@ msgstr "Näytä poistetut"
 msgid "Show Images?"
 msgstr "Näytä kuvat?"
 
-#: message.php:741
+#: message.php:743
 msgid "Show Mailing List Information"
 msgstr "Näytä postituslistan tiedot"
 
-#: lib/Dynamic/Mailbox.php:422
+#: lib/Dynamic/Mailbox.php:438
 msgid "Show Only"
 msgstr "Näytä vain"
 
@@ -4330,7 +4334,7 @@ msgstr "Näytä vain:"
 msgid "Show Polled"
 msgstr "Näytä tarkastellut"
 
-#: lib/Dynamic/Mailbox.php:382
+#: lib/Dynamic/Mailbox.php:389
 msgid "Show Preview"
 msgstr "Näytä esikatselu"
 
@@ -4346,15 +4350,15 @@ msgstr "Näytä tilatut kansiot"
 msgid "Show Unsubscribed Mailboxes"
 msgstr "Näytä tilaamattomat kansiot"
 
-#: config/prefs.php:1149
+#: config/prefs.php:1142
 msgid "Show all attachments"
 msgstr "Näytä kaikki liitteet"
 
-#: config/prefs.php:1528
+#: config/prefs.php:1516
 msgid "Show all flags (including flags set by other mail programs)?"
 msgstr "Näytä kaikki liput (myös ne jotka on asetettu muista ohjelmista)?"
 
-#: config/prefs.php:1216
+#: config/prefs.php:1204
 msgid ""
 "Show all inline parts by default in message view? If unchecked, will treat "
 "all but the first viewable inline part as attachments."
@@ -4362,31 +4366,31 @@ msgstr ""
 "Näytä oletuksena kaikki sisällytetyt osiot? Jos ei, niin näytetään vain "
 "ensimmäinen osio ja muut näkyvät liitteinä."
 
-#: config/prefs.php:1148
+#: config/prefs.php:1141
 msgid "Show all parts"
 msgstr "Näytä kaikki osiot"
 
-#: config/prefs.php:1055
+#: config/prefs.php:1048
 msgid "Show an icon to allow stripping of attachments from messages?"
 msgstr "Näytetäänkö ikoni, jolla voi poistaa liitteet viesteistä?"
 
-#: config/prefs.php:1790
+#: config/prefs.php:1766
 msgid "Show non-private mailboxes in separate folders"
 msgstr "Näytä jaetut postilaatikot erillisessä kansiossa"
 
-#: config/prefs.php:1721
+#: config/prefs.php:1701
 msgid "Show previews for unread messages only?"
 msgstr "Käytetäänkö esikatselua vain lukemattomiin viesteihin?"
 
-#: config/prefs.php:1729
+#: config/prefs.php:1709
 msgid "Show previews in tooltips?"
 msgstr "Näytä esikatselu tooltips:inä."
 
-#: config/prefs.php:501
+#: config/prefs.php:500
 msgid "Show the Bcc: header field when composing mail?"
 msgstr "Näytäänkö Piilokopio: -kenttä viestin kirjoituksessa?"
 
-#: config/prefs.php:494
+#: config/prefs.php:493
 msgid "Show the Cc: header field when composing mail?"
 msgstr "Näytäänkö Kopio: -kenttä viestin kirjoituksessa?"
 
@@ -4394,7 +4398,7 @@ msgstr "Näytäänkö Kopio: -kenttä viestin kirjoituksessa?"
 msgid "Show the filter icon on the menubar?"
 msgstr "Näytä suodatus ikoni valikossa muiden ikonien joukossa?"
 
-#: config/prefs.php:1119
+#: config/prefs.php:1112
 msgid "Shown"
 msgstr "Näytetty"
 
@@ -4402,8 +4406,8 @@ msgstr "Näytetty"
 msgid "Si_ze"
 msgstr "Ko_ko"
 
-#: lib/Dynamic/Mailbox.php:210 templates/basic/compose/compose.html.php:326
-#: templates/basic/compose/compose.html.php:330
+#: lib/Dynamic/Mailbox.php:212 templates/basic/compose/compose.html.php:324
+#: templates/basic/compose/compose.html.php:328
 #: templates/basic/folders/folders_size.html.php:9
 msgid "Size"
 msgstr "Koko"
@@ -4446,7 +4450,7 @@ msgstr "Järjestä otsikon mukaan"
 
 #: mailbox.php:726
 msgid "Sort by Thread"
-msgstr "Järjestä ketjuittain"
+msgstr "Järjestä keskusteluittain"
 
 #: mailbox.php:716
 msgid "Sort by To Address"
@@ -4459,7 +4463,7 @@ msgstr "Järjestä vastaanottajan mukaan"
 msgid "Spam"
 msgstr "Roskaposti"
 
-#: config/prefs.php:1357
+#: config/prefs.php:1345
 msgid "Spam Reporting"
 msgstr "Roskapostin ilmoitus"
 
@@ -4483,7 +4487,7 @@ msgstr "Aloita haku"
 msgid "Status"
 msgstr "Tila"
 
-#: message.php:843
+#: message.php:845
 msgid "Strip All Attachments"
 msgstr "Poista kaikki liitetiedostot"
 
@@ -4491,11 +4495,11 @@ msgstr "Poista kaikki liitetiedostot"
 msgid "Strip Attachment"
 msgstr "Poista liitetiedosto"
 
-#: config/prefs.php:1713
+#: config/prefs.php:1693
 msgid "Strip linebreaks in preview?"
 msgstr "Poistaanko rivinvaihdot esikatselussa?"
 
-#: config/prefs.php:762
+#: config/prefs.php:755
 msgid "Strip the sender's signature from plaintext replies?"
 msgstr "Poista lähettäjän allekirjoitus tekstivastauksista?"
 
@@ -4503,8 +4507,8 @@ msgstr "Poista lähettäjän allekirjoitus tekstivastauksista?"
 msgid "Sub_ject"
 msgstr "_Otsikko"
 
-#: config/prefs.php:1610 lib/Compose.php:2218 lib/Dynamic/Mailbox.php:192
-#: lib/Dynamic/Mailbox.php:249 lib/Dynamic/Mailbox.php:430
+#: config/prefs.php:1597 lib/Compose.php:2218 lib/Dynamic/Mailbox.php:194
+#: lib/Dynamic/Mailbox.php:251 lib/Dynamic/Mailbox.php:446
 #: lib/Smartmobile.php:169 lib/Ui/Message.php:31 search.php:65
 #: templates/basic/search/search-basic.html.php:19
 #: templates/dynamic/compose.html.php:130
@@ -4524,7 +4528,7 @@ msgstr "Otsikko:"
 msgid "Submit"
 msgstr "Suorita"
 
-#: lib/Dynamic/Mailbox.php:351 templates/basic/folders/actions.html.php:32
+#: lib/Dynamic/Mailbox.php:358 templates/basic/folders/actions.html.php:32
 msgid "Subscribe"
 msgstr "Tilaa"
 
@@ -4548,7 +4552,7 @@ msgstr "Yht"
 msgid "Summary"
 msgstr "Yhteenveto"
 
-#: compose.php:928 templates/basic/compose/compose.html.php:147
+#: compose.php:940 templates/basic/compose/compose.html.php:147
 msgid "Switch Composition Method"
 msgstr "Vaihda kirjoitustilaa"
 
@@ -4618,7 +4622,7 @@ msgstr "Tekstiosio"
 msgid "Text:"
 msgstr "Teksti:"
 
-#: config/prefs.php:1665
+#: config/prefs.php:1652
 msgid "The From: column of the message should be linked:"
 msgstr "Viestin Lähettäjä: rivi on linkki: "
 
@@ -4701,15 +4705,15 @@ msgstr "Tässä osiossa oleva tieto on salattu PGP:llä."
 msgid "The data in this part has been encrypted via S/MIME."
 msgstr "Tässä osiossa oleva tieto on salattu S/MIME:llä."
 
-#: config/prefs.php:1176
+#: config/prefs.php:1169
 msgid "The default charset for messages with no charset information:"
 msgstr "Tämä on oletusmerkistö, jos viestissä ei ole merkistötietoa:"
 
-#: config/prefs.php:537
+#: config/prefs.php:536
 msgid "The default font family to use in the HTML editor."
 msgstr "Oletusfontti käytettäessä HTML-editoria."
 
-#: config/prefs.php:547
+#: config/prefs.php:546
 msgid "The default font size to use in the HTML editor (in pixels)."
 msgstr "Oletusfonttikoko käytettäessä HTML-editoria (pixeleinä)"
 
@@ -4730,7 +4734,7 @@ msgstr "Tapahtuma lisättiin kalenteriisi."
 msgid "The event was updated in your calendar."
 msgstr "Tapahtuma päivitettiin kalenteriisi."
 
-#: lib/Compose.php:3004
+#: lib/Compose.php:2990
 #, php-format
 msgid "The file %s could not be attached."
 msgstr "Tiedostoa %s ei voitu liittää."
@@ -4819,7 +4823,7 @@ msgstr "Viesti \"%s\" on raportoitu roskapostina."
 msgid "The message being composed has been closed."
 msgstr "Kirjoittamasi viesti on suljettu."
 
-#: compose.php:705 lib/Smartmobile.php:167
+#: compose.php:717 lib/Smartmobile.php:167
 msgid "The message does not have a Subject entered."
 msgstr "Viestillä ei ole otsikkoa."
 
@@ -4841,7 +4845,7 @@ msgstr "Viesti lähettäjältä \"%s\" on raportoitu roskapostina."
 msgid "The message has been deleted."
 msgstr "Viesti on poistettu."
 
-#: lib/Compose.php:3068
+#: lib/Compose.php:3046
 msgid ""
 "The message you were composing has been saved as a draft. The next time you "
 "login, you may resume composing your message."
@@ -4868,7 +4872,7 @@ msgid ""
 msgstr ""
 "Lähettäjä on ilmoittanut, että hän haluaisi vastauksen näillä kielillä:"
 
-#: message.php:799
+#: message.php:801
 msgid ""
 "The sender of this message is requesting a notification from you when you "
 "have read this message."
@@ -4884,11 +4888,11 @@ msgstr ""
 "Viestin lähettäjä pyytää sinulta ilmoitusta kun olet saanut ja lukenut tämän "
 "viestin."
 
-#: lib/Dynamic/Mailbox.php:465
+#: lib/Dynamic/Mailbox.php:481
 msgid "The server is still generating the message list."
 msgstr "Postipalvelin on vielä luomassa viestilistausta."
 
-#: lib/Dynamic/Mailbox.php:466
+#: lib/Dynamic/Mailbox.php:482
 msgid "The server was unable to generate the message list."
 msgstr "Postipalvelin ei pystynyt luomaan viestilistausta."
 
@@ -4963,7 +4967,7 @@ msgstr "Käyttäjän vapaa/varattu tiedon tallennus onnistui."
 msgid "There are no alternative parts that can be displayed inline."
 msgstr "Ei ole vaihtoehtoisia osioita, joita voisi näyttää sisällytettynä."
 
-#: lib/Dynamic/Mailbox.php:480
+#: lib/Dynamic/Mailbox.php:496
 #: templates/basic/mailbox/empty_mailbox.html.php:6
 msgid "There are no messages in this mailbox."
 msgstr "Tässä postilaatikossa ei ole viestejä."
@@ -5108,7 +5112,7 @@ msgstr ""
 "Tämä viestiosio sisältää HTML-muotoilua, mutta tietoa ei voida näyttää "
 "sisällytettynä."
 
-#: lib/Smartmobile.php:94 message.php:509
+#: lib/Smartmobile.php:94 message.php:511
 msgid "This message to"
 msgstr "Tämä viesti kansioon"
 
@@ -5128,28 +5132,28 @@ msgstr "Tämä osio on tyhjä."
 msgid "This video file is reported to be %d minutes, %d seconds in length."
 msgstr "Tämän videon pituudeksi on ilmoitettu %d minuuttia ja %d sekunttia"
 
-#: config/prefs.php:1612 lib/Dynamic/Mailbox.php:250
+#: config/prefs.php:1599 lib/Dynamic/Mailbox.php:252
 msgid "Thread"
-msgstr "Ketju"
+msgstr "Keskustelu"
 
 #: templates/basic/thread/thread.html.php:2
 msgid "Thread Display"
-msgstr "Ketjunäkymä"
+msgstr "Keskustelunäkymä"
 
 #: thread.php:128
 msgid "Thread List"
-msgstr "Ketju listaus"
+msgstr "Keskustelu listaus"
 
-#: lib/Dynamic/Mailbox.php:257
+#: lib/Dynamic/Mailbox.php:259
 msgid "Thread Sort"
-msgstr "Ketju järjestys"
+msgstr "Keskustelu järjestys"
 
 #: thread.php:178
 msgid "Thread View"
-msgstr "Ketjunäkymä"
+msgstr "Keskustelunäkymä"
 
-#: lib/Compose.php:2222 lib/Dynamic/Mailbox.php:187
-#: lib/Dynamic/Mailbox.php:248 lib/Ui/Message.php:27 mailbox.php:717
+#: lib/Compose.php:2222 lib/Dynamic/Mailbox.php:189
+#: lib/Dynamic/Mailbox.php:250 lib/Ui/Message.php:27 mailbox.php:717
 #: search.php:53 templates/basic/compose/redirect.html.php:32
 #: templates/basic/thread/thread.html.php:19
 #: templates/contacts/contacts.html.php:41
@@ -5163,7 +5167,7 @@ msgstr "Vastaanottaja"
 msgid "To %s"
 msgstr "Kansioon %s"
 
-#: config/prefs.php:1609
+#: config/prefs.php:1596
 msgid "To Address"
 msgstr "Osoitteeseen"
 
@@ -5175,15 +5179,15 @@ msgstr "Kaikille"
 msgid "To List"
 msgstr "Listalle"
 
-#: lib/Dynamic/Base.php:147 message.php:582
+#: lib/Dynamic/Base.php:147 message.php:584
 msgid "To Sender"
 msgstr "Lähettäjälle"
 
-#: message.php:601
+#: message.php:603
 msgid "To _All"
 msgstr "K_aikille"
 
-#: message.php:589
+#: message.php:591
 msgid "To _List"
 msgstr "_Listalle"
 
@@ -5202,7 +5206,7 @@ msgstr "Vastaanottaja: "
 msgid "Today, %s %s"
 msgstr "Tänään, %s %s"
 
-#: config/prefs.php:570
+#: config/prefs.php:569
 msgid "Top"
 msgstr "Ylös"
 
@@ -5210,7 +5214,7 @@ msgstr "Ylös"
 msgid "Total"
 msgstr "Yhteensä"
 
-#: templates/basic/compose/compose.html.php:316
+#: templates/basic/compose/compose.html.php:314
 msgid "Total Size"
 msgstr "Koko yhteensä"
 
@@ -5236,8 +5240,8 @@ msgstr "Ei voitu hakea postikiintiön tietoja"
 msgid "Unable to view message in preview pane."
 msgstr "Ei voitu katsoa viestiä esikatselunäkymässä."
 
-#: lib/Dynamic/Mailbox.php:312 lib/Dynamic/Mailbox.php:395
-#: lib/Minimal/Message.php:227 message.php:554
+#: lib/Dynamic/Mailbox.php:313 lib/Dynamic/Mailbox.php:402
+#: lib/Minimal/Message.php:227 message.php:556
 #: templates/minimal/mailbox.html.php:37
 msgid "Undelete"
 msgstr "Palauta"
@@ -5273,7 +5277,7 @@ msgstr "Tuntematon tehtävä"
 msgid "Unload Passphrase"
 msgstr "Poista salasanateksti"
 
-#: lib/Dynamic/Mailbox.php:304 lib/Dynamic/Mailbox.php:388
+#: lib/Dynamic/Mailbox.php:305 lib/Dynamic/Mailbox.php:395
 msgid "Unmark as"
 msgstr "Poista merkintä"
 
@@ -5282,16 +5286,16 @@ msgstr "Poista merkintä"
 msgid "Unmark as:"
 msgstr "Poista merkintä:"
 
-#: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:239
+#: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:241
 #: lib/Flag/System/Unseen.php:39
 msgid "Unseen"
 msgstr "Lukematon"
 
-#: lib/Dynamic/Mailbox.php:352 templates/basic/folders/actions.html.php:33
+#: lib/Dynamic/Mailbox.php:359 templates/basic/folders/actions.html.php:33
 msgid "Unsubscribe"
 msgstr "Lopeta tilaus"
 
-#: templates/basic/compose/compose.html.php:293
+#: templates/basic/compose/compose.html.php:291
 msgid "Update"
 msgstr "Päivitä"
 
@@ -5319,11 +5323,11 @@ msgstr "Tuodaan..."
 msgid "Use Default Value"
 msgstr "Käytä oletusarvoa"
 
-#: config/prefs.php:1762
+#: config/prefs.php:1738
 msgid "Use IMAP mailbox subscriptions?"
 msgstr "Käytä IMAP-protokollan kansioiden tilausta?"
 
-#: lib/Dynamic/Mailbox.php:294 templates/dynamic/mailbox.html.php:48
+#: lib/Dynamic/Mailbox.php:296 templates/dynamic/mailbox.html.php:48
 #: templates/dynamic/mailbox.html.php:100
 msgid "Use Template"
 msgstr "Käytä kirjepohja"
@@ -5332,7 +5336,7 @@ msgstr "Käytä kirjepohja"
 msgid "Use Virtual Trash"
 msgstr "Käytä virtuaaliroskakoria"
 
-#: config/prefs.php:728
+#: config/prefs.php:721
 msgid "Use the charset of the original message when replying?"
 msgstr "Käytetäänkö alkuperäisen viestin merkistöä vastausviestissä?"
 
@@ -5340,11 +5344,11 @@ msgstr "Käytetäänkö alkuperäisen viestin merkistöä vastausviestissä?"
 msgid "User"
 msgstr "Käyttäjä"
 
-#: lib/Dynamic/Mailbox.php:473
+#: lib/Dynamic/Mailbox.php:489
 msgid "User Options"
-msgstr "Muut asetukset"
+msgstr "Käyttäjän asetukset"
 
-#: lib/Imap/Acl.php:132
+#: lib/Imap/Acl.php:154
 msgid "User can see the mailbox"
 msgstr "Käyttäjä voi nähdä postilaatikon"
 
@@ -5356,9 +5360,9 @@ msgstr "Käyttäjä ei ole autentikoitunut."
 msgid "Verifying..."
 msgstr "Tarkistetaan..."
 
-#: lib/Dynamic/Mailbox.php:384
+#: lib/Dynamic/Mailbox.php:391
 msgid "Vertical Layout"
-msgstr "Pystysuora asettelu"
+msgstr "Pystyasettelu"
 
 #: lib/Contents.php:1281
 msgid "Video part"
@@ -5402,7 +5406,7 @@ msgstr "Näytä koko viesti"
 msgid "View HTML data in new window."
 msgstr "Näytä nämä HTLM tiedot erillisessä ikkunassa."
 
-#: lib/Dynamic/Mailbox.php:296
+#: lib/Dynamic/Mailbox.php:298
 msgid "View Message"
 msgstr "Näytä viesti"
 
@@ -5427,7 +5431,7 @@ msgstr "Näytä henkilökohtainen julkinen sertifikaatti"
 msgid "View Personal Public Key"
 msgstr "Näytä henkilökohtainen julkinen avain"
 
-#: lib/Dynamic/Mailbox.php:315 lib/Dynamic/Mailbox.php:410
+#: lib/Dynamic/Mailbox.php:316 lib/Dynamic/Mailbox.php:426
 #: templates/dynamic/message.html.php:43
 msgid "View Source"
 msgstr "Näytä raakamuoto"
@@ -5458,7 +5462,7 @@ msgstr "Näkymä tai postikansio, joka näytetään sisäänkirjautumisen jälke
 msgid "View task"
 msgstr "Näytä tehtävä"
 
-#: config/prefs.php:1032
+#: config/prefs.php:1025
 msgid "Viewing"
 msgstr "Näytä"
 
@@ -5482,12 +5486,12 @@ msgstr "Virtuaalikansio \"%s\" on poistettu."
 msgid "Virtual Folder \"%s\" edited successfully."
 msgstr "Virtuaalikansion \"%s\" muokkaus onnistui."
 
-#: lib/Dynamic/Mailbox.php:479
+#: lib/Dynamic/Mailbox.php:495
 #, php-format
 msgid "Virtual Folder: %s"
 msgstr "Virtuaalikansiot: %s"
 
-#: lib/Dynamic/Mailbox.php:264 lib/Mailbox.php:1580
+#: lib/Dynamic/Mailbox.php:266 lib/Mailbox.php:1580
 #: templates/basic/flist/flist.html.php:27
 msgid "Virtual Folders"
 msgstr "Virtuaalikansiot"
@@ -5508,7 +5512,7 @@ msgstr "VAROITUS"
 msgid "Warning"
 msgstr "Varoitus"
 
-#: config/prefs.php:621
+#: config/prefs.php:620
 msgid ""
 "What language(s) do you prefer replies to your messages to be in? (Hold down "
 "the CTRL key when clicking to add multiple languages)"
@@ -5516,19 +5520,15 @@ msgstr ""
 "Millä kielillä haluat vastaukset viestiisi? (Pidä CTRL-näppäintä pohjassa "
 "valitaksesi useamman kielen)"
 
-#: config/prefs.php:1407
-msgid ""
-"What should we do with messages after they have been reported as innocent?"
-msgstr ""
-"Mitä tehdään roskapostiviesteille kun ne on raportoitu joko roskapostina tai "
-"harmittomina."
+#: config/prefs.php:1395
+msgid "What to do with messages after they have been reported as innocent?"
+msgstr "Mitä tehdään roskapostiviesteille kun ne on raportoitu harmittomina."
 
-#: config/prefs.php:1385
-msgid "What should we do with messages after they have been reported as spam?"
-msgstr ""
-"Mitä tehdään roskapostiviesteille kun ne on raportoitu joko roskapostina?"
+#: config/prefs.php:1373
+msgid "What to do with messages after they have been reported as spam?"
+msgstr "Mitä tehdään roskapostiviesteille kun ne on raportoitu roskapostina?"
 
-#: config/prefs.php:1254
+#: config/prefs.php:1242
 msgid ""
 "When deleting messages, move them to your Trash mailbox instead of marking "
 "them as deleted?"
@@ -5536,45 +5536,44 @@ msgstr ""
 "Kun poistetaan viestejä, niin siirretäänkö ne roskakorikansioon vai "
 "merkitäänkö ne poistetuksi?"
 
-#: config/prefs.php:802
+#: config/prefs.php:795
 msgid ""
-"When forwarding a message in the body text, should we use the same format as "
-"the original message?"
+"When forwarding a message in the body text, should the same format as the "
+"original message be used?"
 msgstr ""
-"Kun välitetään viestin tekstissä, niin käytetäänkö samaa muotoa kuin "
+"Kun välitetään viestin tekstissä, niin käytetäänkö samaa viestimuotoa kuin "
 "alkuperäisessä viestissä?"
 
-#: config/prefs.php:1594
+#: config/prefs.php:1581
 msgid "When opening a mailbox for the first time, where do you want to start?"
 msgstr ""
 "Kun postilaatikko avataan ensimmäisen kerran, niin mistä haluat aloittaa?"
 
-#: config/prefs.php:722
+#: config/prefs.php:715
 msgid ""
-"When replying to a message, should we use the same format as the original "
-"message?"
+"When replying to a message, use the same format as the original message?"
 msgstr ""
-"Kun vastataan viestiin, niin käytetäänkö samaa muotoa kuin alkuperäisessä "
-"viestissä."
+"Kun vastataan viestiin, niin käytetäänkö samaa viestimuotoa kuin "
+"alkuperäisessä viestissä."
 
-#: config/prefs.php:555
+#: config/prefs.php:554
 msgid ""
-"When sending mail or expanding addresses, what domain should we append to "
+"When sending mail or expanding addresses, what domain should be appended to "
 "unqualified addresses (email addresses without \"@\")?"
 msgstr ""
 "Kun lähetetään viestiä tai laajennetaan osoitteita, niin mikä "
 "toimialuetarkenne tulisi lisätä tarkentamattomiin osoitteisiin "
 "(sähköpostiosoitteet ilman \"@\"-merkkiä)?"
 
-#: config/prefs.php:573
+#: config/prefs.php:572
 msgid "Where should the cursor be located in the compose text area by default?"
 msgstr "Missä kursori on oletuksena kun kirjoitetaan tekstiä?"
 
-#: config/prefs.php:1152
+#: config/prefs.php:1145
 msgid "Which message parts do you want to display in the summary?"
 msgstr "Mitkä viestiosiot haluat näkyvän yhteenvedossa?"
 
-#: lib/Dynamic/Mailbox.php:310 lib/Dynamic/Mailbox.php:391
+#: lib/Dynamic/Mailbox.php:311 lib/Dynamic/Mailbox.php:398
 msgid "Whitelist"
 msgstr "Valkoinen lista"
 
@@ -5586,8 +5585,8 @@ msgstr "Kirjoita"
 msgid "Years"
 msgstr "Vuosia"
 
-#: config/prefs.php:1774 lib/IMP.php:81
-#: templates/basic/compose/compose.html.php:303
+#: config/prefs.php:1750 lib/IMP.php:81
+#: templates/basic/compose/compose.html.php:301
 msgid "Yes"
 msgstr "Kyllä"
 
@@ -5661,9 +5660,13 @@ msgstr "Olet vastaamassa postituslistalle"
 msgid "You cannot unsubscribe from \"%s\"."
 msgstr "Et voi lopettaa tilausta kansioon \"%s\"."
 
-#: lib/Prefs/Special/Acl.php:45
+#: lib/Prefs/Special/Acl.php:40
 msgid "You do not have permission to change access to this mailbox."
 msgstr "Sinulla ei ole oikeuksia muuttaa tämän kansion oikeuksia."
+
+#: lib/Imap/Acl.php:69
+msgid "You do not have permission to view the ACLs on this mailbox."
+msgstr "Sinulla ei ole oikeuksia nähdä tämän kansion oikeuksia."
 
 #: lib/Maillog.php:222
 #, php-format
@@ -5677,7 +5680,7 @@ msgid_plural "You have %d new mail messages in %s."
 msgstr[0] "Sinulle on %d viesti kansiossa %s."
 msgstr[1] "Sinulle on %d uutta viestiä kansiossa %s."
 
-#: config/prefs.php:1261 config/prefs.php:1288
+#: config/prefs.php:1249 config/prefs.php:1276
 msgid ""
 "You have activated move to Trash but no Trash mailbox is defined. You will "
 "be unable to delete messages until you set a Trash mailbox in the "
@@ -5742,7 +5745,7 @@ msgstr "Sinun pitää ensin valita ainakin yksi viesti."
 msgid "You must select only one message for this action."
 msgstr "Sinun pitää valita tähän toimintoon ainakin yksi viesti."
 
-#: compose.php:706
+#: compose.php:718
 msgid "You must specify a recipient."
 msgstr "Sinun pitää antaa ainakin yksi vastaanottaja."
 
@@ -5819,8 +5822,8 @@ msgid "Your Reply-to: address: <em>(optional)</em>"
 msgstr "Vastausosoitteesi (Reply-To): <em>(vapaaehtoinen)</em>"
 
 #: templates/prefs/smimeprivatekey.html.php:4
-msgid "Your S/MIME Public/Private Certificate"
-msgstr "Henkilökohtainen Julkinen/Salainen S/MIME-sertifikaatti"
+msgid "Your S/MIME Personal Certificate"
+msgstr "Henkilökohtainen S/MIME-sertifikaatti"
 
 #: config/prefs.php:36
 msgid ""
@@ -5855,7 +5858,7 @@ msgstr ""
 "osoitteeseen. Napsauta tästä palauttaaksesi alkuperäisen profiilin. Käytössä "
 "olevaa profiilia ei enää tarkasteta sinä aikana kun kirjoitat tätä viestiä."
 
-#: compose.php:517 lib/Minimal/Compose.php:314
+#: compose.php:529 lib/Minimal/Compose.php:322
 msgid ""
 "Your identity has been switched to the identity associated with the current "
 "recipient address. The identity will not be checked again during this "
@@ -5900,7 +5903,7 @@ msgstr ""
 msgid "Your signature:"
 msgstr "Allekirjoituksesi:"
 
-#: lib/Dynamic/Mailbox.php:372
+#: lib/Dynamic/Mailbox.php:379
 msgid "Zip"
 msgstr "Zip"
 
@@ -5929,19 +5932,19 @@ msgstr "[Näytä osoitteet - %d vastaanottajaa]"
 msgid "[Truncated Text]"
 msgstr "[Lyhennetty teksti]"
 
-#: compose.php:814
+#: compose.php:826
 msgid "_Bcc"
 msgstr "_Piilokopio"
 
-#: mailbox.php:654 message.php:655
+#: mailbox.php:654 message.php:657
 msgid "_Blacklist"
 msgstr "_Musta lista"
 
-#: compose.php:811
+#: compose.php:823
 msgid "_Cc"
 msgstr "_Kopio"
 
-#: mailbox.php:587 message.php:560
+#: mailbox.php:587 message.php:562
 msgid "_Delete"
 msgstr "Pois_ta"
 
@@ -5953,7 +5956,7 @@ msgstr "_Kansiot"
 msgid "_Identity"
 msgstr "_Profiili"
 
-#: message.php:669
+#: message.php:671
 msgid "_Message Source"
 msgstr "_Viesti raakamuodossa"
 
@@ -5969,7 +5972,7 @@ msgstr "_Prioriteetti"
 msgid "_Refresh"
 msgstr "_Päivitä"
 
-#: message.php:577
+#: message.php:579
 msgid "_Reply"
 msgstr "_Vastaa"
 
@@ -5978,15 +5981,15 @@ msgid "_Search"
 msgstr "_Haku"
 
 #: templates/basic/compose/compose.html.php:24
-#: templates/basic/compose/compose.html.php:211
+#: templates/basic/compose/compose.html.php:209
 msgid "_Send Message"
 msgstr "_Lähetä viesti"
 
 #: mailbox.php:727
 msgid "_Thread"
-msgstr "_Ketju"
+msgstr "_Keskustelu"
 
-#: compose.php:809
+#: compose.php:821
 msgid "_To"
 msgstr "_Vastaanottaja"
 
@@ -5994,11 +5997,11 @@ msgstr "_Vastaanottaja"
 msgid "_Undelete"
 msgstr "Pa_lauta"
 
-#: message.php:647
+#: message.php:649
 msgid "_View Thread"
-msgstr "Nä_ytä ketju"
+msgstr "Nä_ytä keskustelu"
 
-#: mailbox.php:662 message.php:663
+#: mailbox.php:662 message.php:665
 msgid "_Whitelist"
 msgstr "Valkoinen li_sta"
 
@@ -6014,7 +6017,7 @@ msgid_plural "and %d more mailboxes"
 msgstr[0] "ja %d muussa postilaatikossa"
 msgstr[1] "ja %d muussa postilaatikossa"
 
-#: lib/Compose.php:2952
+#: lib/Compose.php:2944
 msgid "attachment"
 msgstr "liite"
 
@@ -6022,11 +6025,11 @@ msgstr "liite"
 msgid "attachments.zip"
 msgstr "attachments.zip"
 
-#: lib/Dynamic/Mailbox.php:454
+#: lib/Dynamic/Mailbox.php:470
 msgid "base level of the folder tree"
 msgstr "tämän kansiopuun perustaso"
 
-#: templates/basic/compose/compose.html.php:285
+#: templates/basic/compose/compose.html.php:283
 msgid "bytes"
 msgstr "tavua"
 
@@ -6105,7 +6108,7 @@ msgstr "vastaanottajat"
 msgid "replying to ALL"
 msgstr "vastaamassa KAIKILLE"
 
-#: lib/Dynamic/Mailbox.php:477
+#: lib/Dynamic/Mailbox.php:493
 msgid "selected"
 msgstr "valittu"
 

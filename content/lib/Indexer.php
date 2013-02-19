@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @license  http://www.horde.org/licenses/bsd BSD
@@ -49,12 +49,20 @@ class Content_Indexer
 
     public function index($index, $type, $id, $data)
     {
-        $this->_es->add($index, $type, $id, $data);
+        try {
+            $this->_es->add($index, $type, $id, $data);
+        } catch (Horde_ElasticSearch_Exception $e) {
+            throw new Content_Exception($e);
+        }
     }
 
     public function search($index, $type, $query)
     {
-        return $this->_es->search($index, $type, $query);
+        try {
+            return $this->_es->search($index, $type, $query);
+        } catch (Horde_ElasticSearch_Exception $e) {
+            throw new Content_Exception($e);
+        }
     }
 
     /**

@@ -1,23 +1,25 @@
 # Dutch translations for Imp package.
-# Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2006-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Imp package.
-# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
-# Updated Han Spruyt, 2005
-# Updated Pieterjan Heyse, 2011
 #
+# Jan Kuipers <jrkuipers@lauwerscollege.nl>, 2001-2007.
+# Updated Han Spruyt, 2005.
+# Updated Pieterjan Heyse, 2011.
+# Arjen de Korte <build+horde@de-korte.org>, 2012.
 msgid ""
 msgstr ""
 "Project-Id-Version: Imp H3 (4.2-cvs)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-10-28 17:45+0100\n"
+"PO-Revision-Date: 2012-11-30 10:20+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
-"Language-Team: Dutch <i18n@lists.horde.org>\n"
+"Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 1.4\n"
 
 #: lib/Notification/Handler/Decorator/NewmailNotify.php:94
 msgid " and "
@@ -101,8 +103,8 @@ msgstr "%d berichten zijn gerapporteerd als spam."
 #, php-format
 msgid "%d more unseen message..."
 msgid_plural "%d more unseen messages..."
-msgstr[0] "nog %d ongelezen bericht..."
-msgstr[1] "nog %d ongelezen berichten..."
+msgstr[0] "nog %d ongezien bericht..."
+msgstr[1] "nog %d ongeziene berichten..."
 
 #: lib/Block/Summary.php:89
 #, php-format
@@ -129,7 +131,7 @@ msgstr "%d in totaal"
 #: lib/Minimal/Mailbox.php:110
 #, php-format
 msgid "%d unseen"
-msgstr "%d ungelezen"
+msgstr "%d ongezien"
 
 #: lib/Search/Element/Header.php:49
 #, php-format
@@ -332,11 +334,11 @@ msgstr "Geaccepteerd"
 
 #: templates/dynamic/compose.html.php:13
 msgid "Accesskey Ctrl-Enter"
-msgstr ""
+msgstr "Toetscombinatue Ctrl-Enter"
 
 #: templates/dynamic/compose.html.php:8
 msgid "Accesskey Esc"
-msgstr ""
+msgstr "Toetscombinatie Esc"
 
 #: templates/minimal/mailbox.html.php:34
 msgid "Action"
@@ -792,7 +794,7 @@ msgstr "Bijlagen"
 
 #: templates/itip/action.html.php:54
 msgid "Attendees"
-msgstr "Aanwezigen"
+msgstr "Deelnemers"
 
 #: lib/Contents.php:1265
 msgid "Audio part"
@@ -1498,11 +1500,11 @@ msgstr "Verwijder uit mijn agenda"
 
 #: config/prefs.php:1390
 msgid "Delete message"
-msgstr "Verwijderd bericht"
+msgstr "Verwijder bericht"
 
 #: lib/Imap/Acl.php:168
 msgid "Delete messages"
-msgstr "Verwijderde berichten"
+msgstr "Verwijder berichten"
 
 #: config/prefs.php:594
 msgid ""
@@ -1951,7 +1953,7 @@ msgstr "Naamsuitbreiding"
 
 #: config/prefs.php:1777
 msgid "Expand the entire folder tree by default in the folders view?"
-msgstr "Standaard de complete tree uitklappen in de mapweergave?"
+msgstr "Standaard de complete mappen structuur uitklappen in de mapweergave?"
 
 #: templates/prefs/pgpprivatekey.html.php:121
 msgid "Expiration"
@@ -2021,7 +2023,7 @@ msgstr "Vinden"
 
 #: config/prefs.php:1589
 msgid "First (oldest) Unseen Message"
-msgstr "Filter eerst (oudste) ongeopende berichten"
+msgstr "Filter eerst (oudste) ongeziene berichten"
 
 #: config/prefs.php:1591 lib/Minimal/Mailbox.php:201
 #: templates/basic/mailbox/navbar.html.php:9
@@ -2151,7 +2153,7 @@ msgstr "Album"
 #: config/prefs.php:178 config/prefs.php:287 config/prefs.php:305
 #: config/prefs.php:397
 msgid "General"
-msgstr "Algemene opties"
+msgstr "Algemeen"
 
 #: templates/itip/action.html.php:104
 msgid "Go"
@@ -2518,7 +2520,7 @@ msgstr "Links verlopen op %s"
 
 #: lib/Imap/Acl.php:133
 msgid "List"
-msgstr "Groepen"
+msgstr "Lijst"
 
 #: config/prefs.php:967
 msgid ""
@@ -2550,7 +2552,7 @@ msgstr "Locatie"
 
 #: lib/Minimal/Base.php:88
 msgid "Log out"
-msgstr "_Afmelden"
+msgstr "Afmelden"
 
 #: lib/Dynamic/Mailbox.php:471
 msgid "Logging Out..."
@@ -2627,7 +2629,7 @@ msgstr "Beheer bewaarde zoekopdrachten"
 
 #: lib/Imap/Acl.php:145
 msgid "Mark (Other)"
-msgstr "Markeer (Anders)"
+msgstr "Markeer (overig)"
 
 #: lib/Imap/Acl.php:141
 msgid "Mark (Seen)"
@@ -3202,16 +3204,16 @@ msgstr "Extra deelnemer"
 
 #: templates/dynamic/mailbox.html.php:21
 msgid "Other"
-msgstr "Andere"
+msgstr "Overig"
 
 #: templates/dynamic/compose.html.php:65
 #: templates/dynamic/mailbox.html.php:106
 msgid "Other Options"
-msgstr "Andere opties"
+msgstr "Overige opties"
 
 #: lib/Mailbox.php:1574
 msgid "Other Users"
-msgstr "Andere gebruikers"
+msgstr "Overige gebruikers"
 
 #: config/prefs.php:306
 msgid "PGP"
@@ -3633,7 +3635,7 @@ msgstr "Mappenlijst vernieuwen"
 
 #: templates/basic/folders/actions.html.php:49
 msgid "Rebuild Folder Tree"
-msgstr "Maptree vernieuwen"
+msgstr "Mappen structuur vernieuwen"
 
 #: templates/search/search.html.php:18 templates/search/search.html.php:22
 #: templates/search/search.html.php:24
@@ -4249,7 +4251,7 @@ msgstr "Instellen van de X-Priority header bij het maken van berichten?"
 
 #: lib/Imap/Acl.php:156
 msgid "Set permissions for other users"
-msgstr "Rechten instellen voor anderen"
+msgstr "Rechten instellen voor overige gebruikers"
 
 #: config/prefs.php:1226
 msgid "Set preferences for what happens when you move and delete messages."
@@ -4887,7 +4889,7 @@ msgstr "De berichten zijn verwijderd."
 
 #: lib/Block/Newmail.php:37
 msgid "The number of unseen messages to show"
-msgstr "Aantal ongelezen berichten om weer te geven"
+msgstr "Aantal ongeziene berichten om weer te geven"
 
 #: templates/dynamic/compose.html.php:169
 msgid "The recipient has indicated that they prefer replies in these languages"
@@ -5308,12 +5310,12 @@ msgstr "Wachtwoord vergeten"
 
 #: lib/Dynamic/Mailbox.php:304 lib/Dynamic/Mailbox.php:388
 msgid "Unmark as"
-msgstr "Markeer niet als"
+msgstr "Markeer als niet"
 
 #: templates/basic/mailbox/navbar.html.php:48
 #: templates/basic/message/navbar_navigate.html.php:34
 msgid "Unmark as:"
-msgstr "Markeer niet als:"
+msgstr "Markeer als niet:"
 
 #: lib/Block/Summary.php:102 lib/Dynamic/Mailbox.php:239
 #: lib/Flag/System/Unseen.php:39
@@ -5668,16 +5670,12 @@ msgstr "U mag niet meer dan %d mappen maken."
 msgid ""
 "You are not allowed to send messages to more than %d recipients within %d "
 "hours."
-msgstr ""
-"Het is u niet toegestaan om berichten te verzenden aan meer dan %d "
-"ontvangers binnen %d uur."
+msgstr "U mag niet aan meer dan %d ontvangers berichten zenden binnen %d uur."
 
 #: lib/Compose.php:1113
 #, php-format
 msgid "You are not allowed to send messages to more than %d recipients."
-msgstr ""
-"Het is u niet toegestaan om berichten te verzenden aan meer dan %d "
-"ontvangers."
+msgstr "U mag niet aan meer dan %d ontvangers berichten zenden."
 
 #: lib/Message.php:226
 msgid ""
@@ -6065,7 +6063,7 @@ msgstr "bijlagen.zip"
 
 #: lib/Dynamic/Mailbox.php:454
 msgid "base level of the folder tree"
-msgstr "basis niveau van de mappenstructuur"
+msgstr "basis niveau van de mappen structuur"
 
 #: templates/basic/compose/compose.html.php:285
 msgid "bytes"

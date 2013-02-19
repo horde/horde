@@ -1,16 +1,31 @@
 <?php
 /**
- * An object to provide tokenization of an IMAP data stream.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Tokenization of an IMAP data stream.
+ *
+ * NOTE: This class is NOT intended to be accessed outside of this package.
+ * There is NO guarantees that the API of this class will not change across
+ * versions.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @internal
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ *
+ * @property-read boolean $eos  Has the end of the stream been reached?
  */
 class Horde_Imap_Client_Tokenize implements Iterator
 {
@@ -29,61 +44,58 @@ class Horde_Imap_Client_Tokenize implements Iterator
     protected $_key = false;
 
     /**
-     * Parent Tokenize object.
-     *
-     * @var Horde_Imap_Client_Tokenize
-     */
-    protected $_parent;
-
-    /**
-     * Stream starting position.
+     * Sublevel.
      *
      * @var integer
      */
-    protected $_start = 0;
-
-    /**
-     * Is this object the currently active stream reader?
-     *
-     * @var boolean
-     */
-    public $active = true;
+    protected $_level = false;
 
     /**
      * Data stream.
      *
      * @var Horde_Stream
      */
-    public $stream;
+    protected $_stream;
 
     /**
      * Constructor.
      *
-     * @param mixed $data    Data to add (string, resource, or Horde_Stream
-     *                       object), or a Tokenize object.
+     * @param mixed $data  Data to add (string, resource, or Horde_Stream
+     *                     object).
      */
     public function __construct($data = null)
     {
-        if ($data instanceof Horde_Imap_Client_Tokenize) {
-            $this->stream = $data->stream;
-            $this->_parent = $data;
-            $this->_start = ftell($this->stream->stream);
-        } else {
-            $this->stream = new Horde_Stream_Temp();
+        $this->_stream = new Horde_Stream_Temp();
 
-            if (!is_null($data)) {
-                $this->add($data);
-            }
+        if (!is_null($data)) {
+            $this->add($data);
         }
+    }
+
+    /**
+     */
+    public function __get($name)
+    {
+        switch ($name) {
+        case 'eos':
+            return feof($this->_stream->stream);
+        }
+    }
+
+    /**
+     */
+    public function __sleep()
+    {
+        throw new LogicException('Object can not be serialized.');
     }
 
     /**
      */
     public function __toString()
     {
-        $pos = ftell($this->stream->stream);
-        $out = $this->_current . ' ' . $this->stream->getString();
-        fseek($this->stream->stream, $pos);
+        $pos = ftell($this->_stream->stream);
+        $out = $this->_current . ' ' . $this->_stream->getString();
+        fseek($this->_stream->stream, $pos);
         return $out;
     }
 
@@ -95,30 +107,72 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function add($data)
     {
-        if (!$this->_parent) {
-            $this->stream->add($data);
-        }
+        $this->_stream->add($data);
     }
 
     /**
      * Flush the remaining entries left in the iterator.
      *
-     * @param boolean $return_entry  If true, don't return entries.
+     * @param boolean $return    If true, return entries. Only returns entries
+     *                           on the current level.
+     * @param boolean $sublevel  Only flush items in current sublevel?
      *
-     * @return array  The remaining iterator entries if $return_entry is true.
+     * @return array  The entries if $return is true.
      */
-    public function flushIterator($return_entry = true)
+    public function flushIterator($return = true, $sublevel = true)
     {
         $out = array();
 
-        while ($this->valid()) {
-            if ($return_entry) {
-                $out[] = $this->current();
+        if ($return) {
+            $level = $sublevel ? $this->_level : 0;
+            do {
+                $curr = $this->next();
+                if ($this->_level < $level) {
+                    break;
+                }
+
+                if (!is_bool($curr) && ($level == $this->_level)) {
+                    $out[] = $curr;
+                }
+            } while (($curr !== false) || $this->_level || !$this->eos);
+        } elseif ($sublevel && $this->_level) {
+            $level = $this->_level;
+            while ($level <= $this->_level) {
+                $this->next();
             }
-            $this->next();
+        } else {
+            fseek($this->_stream->stream, 0, SEEK_END);
+            fgetc($this->_stream->stream);
+            $this->_current = $this->_key = $this->_level = false;
         }
 
         return $out;
+    }
+
+    /**
+     * Return literal length data located at the end of the stream.
+     *
+     * @return mixed  Null if no literal data found, or an array with these
+     *                keys:
+     *   - binary: (boolean) True if this is a literal8.
+     *   - length: (integer) Length of the literal.
+     */
+    public function getLiteralLength()
+    {
+        fseek($this->_stream->stream, -1, SEEK_END);
+        if ($this->_stream->peek() == '}') {
+            $literal_data = $this->_stream->getString($this->_stream->search('{', true) - 1);
+            $literal_len = substr($literal_data, 2, -1);
+
+            if (is_numeric($literal_len)) {
+                return array(
+                    'binary' => ($literal_data[0] == '~'),
+                    'length' => intval($literal_len)
+                );
+            }
+        }
+
+        return null;
     }
 
     /* Iterator methods. */
@@ -138,13 +192,17 @@ class Horde_Imap_Client_Tokenize implements Iterator
     }
 
     /**
+     * @return mixed  Either a string, boolean (true for open paren, false for
+     *                close paren/EOS), or null.
      */
     public function next()
     {
-        $this->_current = $this->_parseStream();
-        $this->_key = ($this->_current === false)
-            ? false
-            : (($this->_key === false) ? 0 : ($this->_key + 1));
+        if ((($this->_current = $this->_parseStream()) === false) &&
+            $this->eos) {
+            $this->_key = $this->_level = false;
+        } else {
+            ++$this->_key;
+        }
 
         return $this->_current;
     }
@@ -153,50 +211,35 @@ class Horde_Imap_Client_Tokenize implements Iterator
      */
     public function rewind()
     {
-        fseek($this->stream->stream, $this->_start);
-        $this->_current = $this->_key = false;
-
-        if ($this->_parent) {
-            $this->_parent->active = false;
-        }
-
-        return $this->next();
+        fseek($this->_stream->stream, 0);
+        $this->_current = false;
+        $this->_key = -1;
+        $this->_level = 0;
     }
 
     /**
      */
     public function valid()
     {
-        return ($this->_key !== false);
+        return ($this->_level !== false);
     }
 
     /**
      * Returns the next token and increments the internal stream pointer.
      *
-     * @return mixed  Either a string, array, false, or null.
+     * @see next()
      */
     protected function _parseStream()
     {
         $in_quote = false;
+        $stream = $this->_stream->stream;
         $text = '';
 
-        /* If active is false, we delegated the stream to a child tokenizer,
-         * which did not reach the end of the list.  Thus, we have to manually
-         * iterate through until we reach a closing paren. */
-        if (!$this->active) {
-            $this->active = true;
-
-            $old_parent = $this->_parent;
-            $this->_parent = null;
-            while ($this->next() !== false) {}
-            $this->_parent = $old_parent;
-        }
-
-        while (($c = fgetc($this->stream->stream)) !== false) {
+        while (($c = fgetc($stream)) !== false) {
             switch ($c) {
             case '\\':
                 $text .= $in_quote
-                    ? fgetc($this->stream->stream)
+                    ? fgetc($stream)
                     : $c;
                 break;
 
@@ -216,19 +259,15 @@ class Horde_Imap_Client_Tokenize implements Iterator
 
                 switch ($c) {
                 case '(':
-                    $this->active = false;
-                    return new Horde_Imap_Client_Tokenize($this);
+                    ++$this->_level;
+                    return true;
 
                 case ')':
                     if (strlen($text)) {
-                        fseek($this->stream->stream, -1, SEEK_CUR);
+                        fseek($stream, -1, SEEK_CUR);
                         break 3;
                     }
-
-                    if ($this->_parent) {
-                        $this->_parent->active = true;
-                        $this->_current = $this->_key = false;
-                    }
+                    --$this->_level;
                     return false;
 
                 case '~':
@@ -237,8 +276,7 @@ class Horde_Imap_Client_Tokenize implements Iterator
                     break;
 
                 case '{':
-                    $literal_len = $this->stream->getToChar('}');
-                    return stream_get_contents($this->stream->stream, $literal_len);
+                    return stream_get_contents($stream, $this->_stream->getToChar('}'));
 
                 case ' ':
                     if (strlen($text)) {
@@ -254,9 +292,19 @@ class Horde_Imap_Client_Tokenize implements Iterator
             }
         }
 
-        return strlen($text)
-            ? ((strcasecmp($text, 'NIL') === 0) ? null : $text)
-            : false;
+        switch (strlen($text)) {
+        case 0:
+            return false;
+
+        case 3:
+            if (strcasecmp($text, 'NIL') === 0) {
+                return null;
+            }
+            // Fall-through
+
+        default:
+            return $text;
+        }
     }
 
 }

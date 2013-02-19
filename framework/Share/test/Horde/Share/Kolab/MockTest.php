@@ -13,14 +13,9 @@
  */
 
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../Base.php';
-
-/**
  * Integration test for the Kolab driver based on the in-memory mock driver.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,7 +27,7 @@ require_once __DIR__ . '/../Base.php';
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link       http://pear.horde.org/index.php?package=Share
  */
-class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
+class Horde_Share_Kolab_MockTest extends Horde_Share_TestBase
 {
     private static $_data;
 
@@ -55,7 +50,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
         );
         self::$cache = new Horde_Cache(new Horde_Cache_Storage_Mock());
 
-        $group = new Horde_Group_Test();
+        $group = new Horde_Share_Stub_Group();
         // FIXME
         $GLOBALS['injector'] = new Horde_Injector(new Horde_Injector_TopLevel());
         $GLOBALS['injector']->setInstance('Horde_Group', $group);
@@ -231,7 +226,7 @@ class Horde_Share_Kolab_MockTest extends Horde_Share_Test_Base
 
     public function testCallback()
     {
-        $this->callback(new Horde_Share_Object_Sql(array()));
+        $this->callbackSetShareOb(new Horde_Share_Object_Sql(array()));
     }
 
     protected function switchAuth($user)

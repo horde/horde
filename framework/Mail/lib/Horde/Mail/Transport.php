@@ -1,9 +1,6 @@
 <?php
 /**
- * Mail transport base class.
- *
- * LICENSE:
- *
+ * Copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2002-2007, Richard Heyes
  * All rights reserved.
  *
@@ -32,21 +29,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category    Mail
- * @package     Mail
- * @author      Chuck Hagenbuch <chuck@horde.org>
- * @author      Michael Slusarz <slusarz@horde.org>
- * @copyright   1997-2010 Chuck Hagenbuch
- * @copyright   2010 Michael Slusarz
- * @license     http://www.horde.org/licenses/bsd New BSD License
+ * @category  Horde
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2002-2007 Richard Heyes
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * Mail transport base class.
  *
- * @access public
- * @version $Revision: 294747 $
- * @package Mail
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Richard Heyes <richard@phpguru.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
+ * @copyright 2002-2007 Richard Heyes
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 abstract class Horde_Mail_Transport
 {

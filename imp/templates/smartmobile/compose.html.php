@@ -10,6 +10,7 @@
 
   <form id="imp-compose-form">
    <input type="hidden" id="imp-compose-cache" name="composeCache" value="<?php echo $this->h($this->composeCache) ?>" />
+   <input type="hidden" name="user" value="<?php echo $this->h($this->user) ?>" />
    <div data-role="fieldcontain">
     <label for="imp-compose-identity"><?php echo _("From:") ?></label>
     <select id="imp-compose-identity" name="identity">

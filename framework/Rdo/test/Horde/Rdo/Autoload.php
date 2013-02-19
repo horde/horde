@@ -4,7 +4,7 @@
  *
  * PHP version 5
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -15,11 +15,6 @@
  * @author     Ralf Lang <lang@b1-systems.de>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-
-require_once 'Horde/Test/Autoload.php';
-
-/* Catch strict standards */
-error_reporting(E_ALL | E_STRICT);
 
 /** Load Mapper definitions */
 require_once __DIR__ . '/Objects/SomeLazyBaseObjectMapper.php';

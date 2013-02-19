@@ -2,7 +2,7 @@
  <tr id="row<?php echo $v['id'] ?>"<?php if ($v['class']): ?> class="<?php echo $v['class'] ?>"<?php endif; ?><?php if ($v['bg']): ?> style="background-color:<?php echo $v['bg'] ?>"<?php endif; ?>>
   <td>
    <label>
-    <input type="checkbox" class="checkbox" name="indices[]" value="<?php echo $this->h($v['uid']) ?>" />
+    <input type="checkbox" class="checkbox" name="indices[]" value="<?php echo $this->escape($v['uid']) ?>" />
     <?php echo $v['status'] ?>
    </label>
   </td>
@@ -13,10 +13,10 @@
    <?php echo $v['subject'] ?>
   </td>
   <td>
-   <?php echo $this->h($v['date']) ?>
+   <?php echo $this->escape($v['date']) ?>
   </td>
   <td class="rightAlign">
-   <?php echo $this->h($v['size']) ?>
+   <?php echo $this->escape($v['size']) ?>
   </td>
  </tr>
 <?php endforeach; ?>

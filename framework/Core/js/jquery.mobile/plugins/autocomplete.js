@@ -1,7 +1,7 @@
 /**
  * Autocomplete widget for jQuery Mobile.
  *
- * Copyright (c) 2012 The Horde Project (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * - Original released under MIT license -
  *
@@ -42,6 +42,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
     options: {
         callback: null,
+        delay: 600,
         icon: 'arrow-r',
         link: null,
         matchFromStart: true,
@@ -53,7 +54,7 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
     _create: function()
     {
-        var buildItems,
+        var buildItems, keyupHandler, timeout,
             el = this.element,
             self = this,
             opts = this.options,
@@ -75,8 +76,8 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
 
             if (data) {
                 $.each(data, function(i, v) {
-                    var li = $('<li>').jqmData('icon', opts.icon),
-                        a = $('<a>').jqmData('transition', opts.transition).appendTo(li);
+                    var li = $('<li></li>').jqmData('icon', opts.icon),
+                        a = $('<a></a>').jqmData('transition', opts.transition).appendTo(li);
 
                     // are we working with objects or strings?
                     if ($.isPlainObject(v)) {
@@ -95,10 +96,12 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
             $target.listview("refresh");
         };
 
-        el.off(".autocomplete");
-        el.on("keyup.autocomplete", function() {
+        keyupHandler = function()
+        {
             var id = el.attr("id"),
                 text = el.val();
+
+            timeout = null;
 
             // If we don't have enough text zero out the target
             if (text.length < opts.minLength) {
@@ -132,6 +135,12 @@ $.widget('mobile.autocomplete', $.mobile.widget, {
                     );
                 }
             }
+        };
+
+        el.off(".autocomplete");
+        el.on("keyup.autocomplete", function() {
+            window.clearTimeout(timeout);
+            timeout = window.setTimeout(keyupHandler, opts.delay);
         });
     },
 

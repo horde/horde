@@ -4,7 +4,7 @@
  * between Horde applications and keeping track of application
  * configuration information.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -458,6 +458,7 @@ class Horde_Registry
             /* Never start a session if the session flags include
                SESSION_NONE. */
             $GLOBALS['session'] = $session = new Horde_Session_Null();
+            $session->setup(true, $args['session_cache_limiter']);
         } elseif (PHP_SAPI == 'cli' ||
                   ((PHP_SAPI == 'cgi' || PHP_SAPI == 'cgi-fcgi') &&
                     empty($_SERVER['SERVER_NAME']))) {
@@ -505,6 +506,7 @@ class Horde_Registry
         $GLOBALS['page_output'] = $injector->getInstance('Horde_PageOutput');
 
         $GLOBALS['notification'] = $injector->getInstance('Horde_Notification');
+        $injector->getInstance('Horde_Core_Factory_Notification')->addApplicationHandlers();
         $GLOBALS['notification']->attach('status', null, $notify_class);
 
         register_shutdown_function(array($this, 'shutdown'));
@@ -1453,7 +1455,7 @@ class Horde_Registry
         }
 
         /* Bail out if application is not present or inactive. */
-        if (!isset($this->applications[$app]) || $this->isInactive($app)) {
+        if ($this->isInactive($app)) {
             throw new Horde_Exception_PushApp($app . ' is not activated.', self::NOT_ACTIVE, $app);
         }
 
@@ -1631,7 +1633,7 @@ class Horde_Registry
      *
      * @param string $app     The name of the application
      * @param integer $perms  The permission level to check for.
-     * @param array $options  Additional options:
+     * @param array $params   Additional options:
      *   - notransparent: (boolean) Do not attempt transparent authentication.
      *                    DEFAULT: false
      *
@@ -2223,13 +2225,13 @@ class Horde_Registry
             /* Add the filename to the end of the URL. Although not necessary
              * for many browsers, this should allow every browser to download
              * correctly. */
-            ->add('fn', '/' . rawurlencode($filename));
+            ->add('fn', '/' . $filename);
     }
 
     /**
      * Converts an authentication username to a unique Horde username.
      *
-     * @param string $username  The username to convert.
+     * @param string $userId    The username to convert.
      * @param boolean $toHorde  If true, convert to a Horde username. If
      *                          false, convert to the auth username.
      *
@@ -2744,9 +2746,9 @@ class Horde_Registry
      * too, charsets have to be updated etc. This method takes care of all
      * this.
      *
-     * @param string $language  The new language.
-     * @param string $app       The application for reloading the gettext
-     *                          catalog. The current application if empty.
+     * @param string $lang  The new language.
+     * @param string $app   The application for reloading the gettext catalog.
+     *                      Uses current application if null.
      */
     public function setLanguageEnvironment($lang = null, $app = null)
     {
@@ -2759,6 +2761,8 @@ class Horde_Registry
             $app,
             $this->get('fileroot', $app) . '/locale'
         );
+
+        $GLOBALS['session']->remove('horde', 'nls/');
     }
 
     /**

@@ -11,7 +11,7 @@
  *     - view_face
  *     - view_source
  *   - autodetect: (integer) If set, tries to autodetect MIME type when
- *                 viewing based on data.
+ *                 viewing based on data ('view_attach' only).
  *   - composeCache: (string) Cache ID for compose object.
  *   - ctype: (string) The content-type to use instead of the content-type
  *            found in the original Horde_Mime_Part object.
@@ -19,7 +19,7 @@
  *   - mode: (integer) The view mode to use.
  *           DEFAULT: IMP_Contents::RENDER_FULL
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -32,7 +32,9 @@
  */
 
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp');
+Horde_Registry::appInit('imp', array(
+    'session_control' => 'readonly'
+));
 
 $vars = $injector->getInstance('Horde_Variables');
 
@@ -40,7 +42,7 @@ $vars = $injector->getInstance('Horde_Variables');
 switch ($vars->actionID) {
 case 'compose_attach_preview':
     $view_ob = new IMP_Compose_View($vars->composeCache);
-    $res = $view_ob->composeAttachPreview($vars->id, $vars->autodetect, $vars->ctype);
+    $res = $view_ob->composeAttachPreview($vars->id, true, $vars->ctype);
     break;
 
 case 'print_attach':

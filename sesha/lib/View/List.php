@@ -10,7 +10,7 @@
  * - shownProperties: (array) The list of property objects to use.
  * - shownStock: (array) The stock display matrix
  *
- * Copyright 2012-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -24,17 +24,18 @@ class Sesha_View_List extends Sesha_View_Base
 {
     public function __construct(array $config)
     {
-        if (!is_null($what) && !is_null($where)) {
-            $title = _("Search Inventory");
-            $this->header = _("Matching Inventory");
+        if (!empty($config['what']) && !empty($config['loc'])) {
+            $this->title = _("Search Results");
+            $this->header = _("Search Results");
+            $url = new Horde_Url('list.php');
+            $this->backToList = $url->link() . _('Back to stock list') . '</a>';
         } else {
             $this->header = $category_id
                 ? sprintf(_("Available Inventory in %s"),
                           $selectedCategory->category)
                 : _("Available Inventory");
+            $this->title = _("Inventory List");
         }
-
-        $this->title = _("Inventory List");
         $this->selectedCategories = is_array($config['selectedCategories'])
             ? $config['selectedCategories']
             : array($config['selectedCategories']);
@@ -48,23 +49,28 @@ class Sesha_View_List extends Sesha_View_Base
         $filters = array();
         if (!empty($this->selectedCategories)) {
             $filters[] = array('type' => 'categories',
-                               'value' => $this->selectedCategories);
+                               'value' => $this->selectedCategories,
+                               'exact' => $config['exact']);
         }
         if (in_array(Sesha::SEARCH_ID, $config['loc'])) {
             $filters[] = array('type' => 'stock_id',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_NAME, $config['loc'])) {
             $filters[] = array('type' => 'stock_name',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_NOTE, $config['loc'])) {
             $filters[] = array('type' => 'note',
+                               'exact' => $config['exact'],
                                'value' => $config['what']);
         }
         if (in_array(Sesha::SEARCH_PROPERTY, $config['loc'])) {
             $filters[] = array(
                 'type' => 'values',
+                'exact' => $config['exact'],
                 'value' => array(array('values' => array($config['what']))));
         }
         $this->shownStock = $this->stock($filters);

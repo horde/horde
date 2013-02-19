@@ -119,7 +119,8 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id, nocolon)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + (nocolon ? ' ' : ': ');
+        var sca = $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]');
+        return (sca.textContent || sca.innerText) + (nocolon ? ' ' : ': ');
     },
 
     deleteCriteria: function(div)
@@ -458,6 +459,7 @@ var ImpSearch = {
                 break;
 
             case 'customhdr':
+                this.criteria[c].n = Number(Boolean($F($(c).down('INPUT[type=checkbox]'))));
                 this.criteria[c].v = { h: $F($(c).down('INPUT')), s: $F($(c).down('INPUT', 1)) };
                 data.push(this.criteria[c]);
                 break;

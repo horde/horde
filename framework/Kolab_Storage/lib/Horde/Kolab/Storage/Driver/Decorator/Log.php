@@ -14,7 +14,7 @@
 /**
  * A log decorator definition for the Kolab storage drivers.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -143,6 +143,65 @@ extends Horde_Kolab_Storage_Driver_Decorator_Base
                 $this->getDriverName(),
                 $old,
                 $new
+            )
+        );
+    }
+
+    /**
+     * Set the access rights for a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to set the ACL for.
+     * @param string $acl     The ACL.
+     *
+     * @return NULL
+     */
+    public function setAcl($folder, $user, $acl)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Setting ACL %s for user %s on folder %s.',
+                $this->getDriverName(),
+                $acl,
+                $user,
+                $folder
+            )
+        );
+        parent::setAcl($folder, $user, $acl);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully set ACL on folder %s to %s.',
+                $this->getDriverName(),
+                $folder,
+                $acl
+            )
+        );
+    }
+
+    /**
+     * Delete the access rights for user on a folder.
+     *
+     * @param string $folder  The folder to act upon.
+     * @param string $user    The user to delete the ACL for
+     *
+     * @return NULL
+     */
+    public function deleteAcl($folder, $user)
+    {
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Deleting ACL for user %s on folder %s.',
+                $this->getDriverName(),
+                $user,
+                $folder
+            )
+        );
+        parent::deleteAcl($folder, $user);
+        $this->_logger->debug(
+            sprintf(
+                'Driver "%s": Successfully deleted ACL on folder %s.',
+                $this->getDriverName(),
+                $folder
             )
         );
     }

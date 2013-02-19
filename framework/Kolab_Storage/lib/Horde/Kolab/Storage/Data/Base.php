@@ -14,7 +14,7 @@
 /**
  * The basic handler for data objects in a Kolab storage folder.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -284,7 +284,8 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(
                         $result => $object
                     ),
-                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array()
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array(
+                        $obid => $object['uid'])
                 )
             );
         }
@@ -553,7 +554,7 @@ implements Horde_Kolab_Storage_Data, Horde_Kolab_Storage_Data_Query
             array(
                 'changes' => array(
                     Horde_Kolab_Storage_Folder_Stamp::ADDED => array(),
-                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array($object_id)
+                    Horde_Kolab_Storage_Folder_Stamp::DELETED => array($uid => $object_id)
                 )
             )
         );

@@ -22,29 +22,24 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-06</date>
- <time>01:52:40</time>
+ <date>2013-02-12</date>
+ <time>15:47:23</time>
  <version>
-  <release>6.1.0</release>
-  <api>6.0.0</api>
- </version>
- <stability>
-  <release>stable</release>
-  <api>stable</api>
- </stability>
- <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
- <notes>
-* [mms] Add message thread view to dynamic mailbox preview.
-* [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
-* [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
-* [mms] Importing a PGP personal key now only requires the private key.
+  <release>6.0.5</release>
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="imp-bounce-spam" role="script" />
-    <file name="imp-mailbox-decode" role="script" />
-    <file name="imp-query-imap-cache" role="script" />
+    <file name="imp-bounce-spam" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="imp-mailbox-decode" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="imp-query-imap-cache" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -97,6 +92,7 @@
        <file name="Common.php" role="horde" />
        <file name="Dynamic.php" role="horde" />
        <file name="ImageUnblock.php" role="horde" />
+       <file name="Mboxtoggle.php" role="horde" />
        <file name="Passphrase.php" role="horde" />
        <file name="Search.php" role="horde" />
        <file name="Smartmobile.php" role="horde" />
@@ -120,6 +116,7 @@
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
      <file name="Exception.php" role="horde" />
+     <file name="References.php" role="horde" />
      <file name="View.php" role="horde" />
     </dir> <!-- /lib/Compose -->
     <dir name="Contents">
@@ -316,6 +313,7 @@
     </dir> <!-- /lib/Quota -->
     <dir name="Script">
      <dir name="Package">
+      <file name="ComposeBase.php" role="horde" />
       <file name="Imp.php" role="horde" />
      </dir> <!-- /lib/Script/Package -->
     </dir> <!-- /lib/Script -->
@@ -853,9 +851,11 @@
       <file name="ComposeTest.php" role="test" />
       <file name="MboxParseTest.php" role="test" />
       <file name="QuotaTest.php" role="test" />
+      <file name="ReferencesTest.php" role="test" />
      </dir> <!-- /test/Imp/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
     </dir> <!-- /test/Imp -->
    </dir> <!-- /test -->
@@ -1051,35 +1051,35 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0beta1</min>
+    <min>5.0.0</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Browser</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Compress</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1093,42 +1093,42 @@
    <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Editor</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Icalendar</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Image</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1142,133 +1142,133 @@
    <package>
     <name>Horde_Itip</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_ListHeaders</name>
     <channel>pear.horde.org</channel>
-    <min>1.0.0beta1</min>
+    <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_LoginTasks</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mail</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Mime_Viewer</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Nls</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Notification</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Serialize</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_SpellChecker</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Text_Flowed</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Token</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Tree</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_View</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1289,14 +1289,14 @@
    <package>
     <name>Horde_Text_Filter_Csstidy</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1382,6 +1382,7 @@
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
    <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
    <install as="imp/lib/Ajax/Application/Handler/Passphrase.php" name="lib/Ajax/Application/Handler/Passphrase.php" />
    <install as="imp/lib/Ajax/Application/Handler/Search.php" name="lib/Ajax/Application/Handler/Search.php" />
    <install as="imp/lib/Ajax/Application/Handler/Smartmobile.php" name="lib/Ajax/Application/Handler/Smartmobile.php" />
@@ -1392,6 +1393,7 @@
    <install as="imp/lib/Block/Newmail.php" name="lib/Block/Newmail.php" />
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
@@ -1527,6 +1529,7 @@
    <install as="imp/lib/Quota/Mercury32.php" name="lib/Quota/Mercury32.php" />
    <install as="imp/lib/Quota/Null.php" name="lib/Quota/Null.php" />
    <install as="imp/lib/Quota/Sql.php" name="lib/Quota/Sql.php" />
+   <install as="imp/lib/Script/Package/ComposeBase.php" name="lib/Script/Package/ComposeBase.php" />
    <install as="imp/lib/Script/Package/Imp.php" name="lib/Script/Package/Imp.php" />
    <install as="imp/lib/Search/Element.php" name="lib/Search/Element.php" />
    <install as="imp/lib/Search/Filter.php" name="lib/Search/Filter.php" />
@@ -1779,6 +1782,7 @@
    <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
+   <install as="Imp/bootstrap.php" name="test/Imp/bootstrap.php" />
    <install as="Imp/phpunit.xml" name="test/Imp/phpunit.xml" />
    <install as="Imp/fixtures/maildirsize" name="test/Imp/fixtures/maildirsize" />
    <install as="Imp/fixtures/test.eml" name="test/Imp/fixtures/test.eml" />
@@ -1788,6 +1792,7 @@
    <install as="Imp/Unit/ComposeTest.php" name="test/Imp/Unit/ComposeTest.php" />
    <install as="Imp/Unit/MboxParseTest.php" name="test/Imp/Unit/MboxParseTest.php" />
    <install as="Imp/Unit/QuotaTest.php" name="test/Imp/Unit/QuotaTest.php" />
+   <install as="Imp/Unit/ReferencesTest.php" name="test/Imp/Unit/ReferencesTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
    <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
@@ -2579,8 +2584,8 @@
    <date>2012-07-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Don&apos;t attempt to use non-IMAP mailbox names in IMAP server commands (Bug #11623).
 * [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from the browser&apos;s local filesystem that has a filename that contains HTML.
+* [mms] Don&apos;t attempt to use non-IMAP mailbox names in IMAP server commands (Bug #11623).
 * [mms] Catch failure to add attachments in dynamic view because PHP&apos;s maximum allowed POST size was exceeded.
 * [jan] Fix search link from portal if using dynamic view (Bug #11314).
 * [mms] Fix regression in using Virtual Trash (Bug #11478; tonyb@go-concepts.com).
@@ -2812,9 +2817,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-06</date>
+   <date>2012-11-07</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix shift-clicking in dynamic mailbox view when navigating to other mailboxes (Bug #11520).
+* [mms] Disallow pasting non-text elements into the HTML editor (Bug #11650).
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [mms] If persistent IMAP caching is disabled, use an in-memory cache for the current page load.
 * [mms] Fix importing personal S/MIME certificate.
@@ -2834,18 +2841,80 @@
   </release>
   <release>
    <version>
-    <release>6.1.0</release>
+    <release>6.0.2</release>
     <api>6.0.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* [mms] Add message thread view to dynamic mailbox preview.
-* [mms] Better UI for changing quicksearch criteria in dynamic mailbox screen.
-* [mms] Collapse multiple mailbox export options in dynamic mailbox view to single action.
-* [mms] Importing a PGP personal key now only requires the private key.
+* [mms] Always add MDNSent flag when saving a draft/sent message.
+* [mms] Fix preview message text in basic view (Bug #11724).
+* [mms] Don&apos;t delete saved draft on session close.
+* [mms] Improved generation and parsing of mbox files.
+* [mms] Fix adding mailboxes with mull delimiters to the IMAP folder tree (Bug #11672).
+* [mms] Fix editing/sending templates in dynamic view.
+* [mms] Allow iCalendar events to be added to the calendar even if they are missing the required UID parameter (Bug #11669).
+* [mms] Fix displaying flag changes for messages in search mailboxes in dynamic view (Bug #11622).
+* [mms] Save sent-mail when composing in the smartmobile view (Bug #11670).
+* [mms] Don&apos;t try to save sent-mail to a non-existent sent-mail mailbox.
+* [mms] Fix displaying encrypted message in dynamic preview when correct passphrase is entered (Bug #11661).
+* [mms] Purge IMAP cache data when upgrading from IMP 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.3</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Re-add apply mail filters action in dynamic view.
+* [mms] Improved parsing of References header when replying to a message.
+* [mms] Fix verifying an enveloped signed &amp; encrypted S/MIME message (Bug #11874).
+* [mms] Fix converting charset of signature/trailer in compose message if not sending in UTF-8 (Bug #11898).
+* [mms] Fix redirection to mailbox page after sending message in minimal view (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11897).
+* [mms] Fix duplicate signature being added to compose messages in minimal view (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11896).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mms] Fix loss of HTML body if related conversion is turned off (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11883).
+* [mms] Ensure that polled mailboxes in dynamic view continue to show unseen message count if its child status changes (Bug #11864).
+* [jan] Include address groups in auto-completion list if address book is below AJAX lookup threshold.
+* [jan] Update French translation (Laurent Foucher &lt;laurent.foucher@iut-tlse3.fr&gt;).
+* [mms] Correctly remember form state when refreshing basic view compose page (Bug #11794).
+* [mms] Fix NOT criteria for custom header searches (Bug #11802).
+* [mms] Fix saving compose message to draft mailbox when session expires (Bug #11795).
+* [mms] Honor &apos;hide_when_unlimited&apos; option for the quota driver (Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;, Bug #11782).
+* [mms] Fix toggling other options in dynamic compose screen.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>6.0.4</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Improved detection of charset in text/html message parts.
+* [mms] Fix displaying dynamic compose screen when sent-mail preferences are locked (Bug #12009).
+* [mms] Fix usage of textContent property on IE8 (Bug #12012).
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [jan] Fix display of end dates/times of iTip attachments (Bug #11976).
+* [mms] Fix Reply all/list buttons on basic compose page (Bug #11990).
+* [mms] Fix deleting virtual folders/filters from preferences page (Bug #11982).
+* [mms] Fix saving mailbox expansion state in basic folders view (Bug #11979).
+* [mms] Hide attachment upload UI in dynamic view if file uploads are disabled.
+* [jan] Fix JavaScript errors with Internet Explorer 8.
+* [mms] Fix display of mail log icons on the basic message page (Bug #11964).
+* [jan] Fix stripping attachments in dynamic view (aarno.sandvik@helsinki.fi, Bug #11959).
+* [mms] Workaround broken Message-IDs generated by Outlook when replying to a message (Bug #11953).
+* [mms] Fix display of attachment name in basic compose screen (Bug #11947).
    </notes>
   </release>
  </changelog>

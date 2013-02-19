@@ -1,6 +1,6 @@
 # Turkish language for Horde 4
 # Horde 4 için türkçe dili
-# Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2008-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Horde_Core package.
 # İstanbul Technical University - Office of Information Technologies - System Support Group sistemdestek [at] itu.edu.tr
 # İstanbul Teknik Üniversitesi - Bilgi İşleml Daire Başkanlığı - Sistem Destek Grubu - sistemdestek [at] itu.edu.tr

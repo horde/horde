@@ -2,7 +2,7 @@
 /**
  * CVS patchset class.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -19,12 +19,11 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
      * @param Horde_Vcs $rep  A Horde_Vcs repository object.
      * @param string $file    The filename to create a patchset for.
      * @param array $opts     Additional options.
-     * <pre>
-     * 'file' - (string) The filename to process.
-     *          REQUIRED for this driver.
-     * 'range' - (array) The patchsets to process.
-     *           DEFAULT: None (all patchsets are processed).
-     * </pre>
+     * - 'file': (string) The filename to process.
+     *           REQUIRED for this driver.
+     * - 'range': (array) The patchsets to process.
+     *            DEFAULT: None (all patchsets are processed).
+     * - 'timezone': (string) The current timezone.
      *
      * @throws Horde_Vcs_Exception
      */
@@ -37,18 +36,25 @@ class Horde_Vcs_Patchset_Cvs extends Horde_Vcs_Patchset_Base
             throw new Horde_Vcs_Exception('File Not Found');
         }
 
+        /* Set environment. */
+        $env = array();
+        if (!empty($opts['timezone'])) {
+            $env[] = 'TZ=' . escapeshellarg($opts['timezone']);
+        }
+
         /* Call cvsps to retrieve all patchsets for this file. */
         $cvsps_home = $rep->getPath('cvsps_home');
-        $HOME = !empty($cvsps_home) ?
-            'HOME=' . escapeshellarg($cvsps_home) . ' ' :
-            '';
+        if (!empty($cvsps_home)) {
+            $env[] = 'HOME=' . escapeshellarg($cvsps_home);
+        }
 
         $rangecmd = empty($opts['range'])
             ? ''
             : ' -s ' . escapeshellarg(implode(',', $opts['range']));
 
         $ret_array = array();
-        $cmd = $HOME . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd
+        $cmd = implode(' ', $env) . ' '
+            . escapeshellcmd($rep->getPath('cvsps')) . $rangecmd
             . ' -u --cvs-direct --root ' . escapeshellarg($rep->sourceroot)
             . ' -f ' . escapeshellarg(basename($file))
             . ' -q ' . escapeshellarg(dirname($file));

@@ -1,16 +1,24 @@
 <?php
 /**
- * Base class for dynamic view pages.
- *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Base class for dynamic view pages.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2012-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 abstract class IMP_Dynamic_Base
 {
@@ -180,12 +188,14 @@ abstract class IMP_Dynamic_Base
         );
     }
 
+    static public function url(array $opts = array())
+    {
+        throw new Exception('Missing implementation for url method.');
+    }
+
     /**
      */
     abstract protected function _init();
 
-    /**
-     */
-    abstract static public function url(array $opts = array());
 
 }

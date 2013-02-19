@@ -2,7 +2,7 @@
 /**
  * Imple to allow in-place editing of a HTML element.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -43,7 +43,6 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
             $page_output->addScriptFile('inplaceeditor.js', 'horde');
 
-
             $value_url = $this->getImpleUrl()->add(array(
                 'id' => $this->_params['dataid'],
                 'input' => 'value'
@@ -54,9 +53,9 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             $config = new stdClass;
             $config->config = array(
                 'cancelClassName' => '',
-                'cancelText' => _("Cancel"),
-                'emptyText' => _("Click to add caption..."),
-                'okText' => _("Ok")
+                'cancelText' => Horde_Core_Translation::t("Cancel"),
+                'emptyText' => Horde_Core_Translation::t("Click to add caption..."),
+                'okText' => Horde_Core_Translation::t("Ok")
             );
             $config->ids = new stdClass;
             $config->ids->{$this->getDomId()} = array(
@@ -70,17 +69,19 @@ abstract class Horde_Core_Ajax_Imple_InPlaceEditor extends Horde_Core_Ajax_Imple
             }
 
             $page_output->addInlineJsVars(array(
-                'HordeImple.InPlaceEditor' => $config
+                'HordeImple.InPlaceEditor' . $this->getDomId() => $config
             ));
             $page_output->addInlineScript(array(
-                '$H(HordeImple.InPlaceEditor.ids).each(function(pair) {
-                     new InPlaceEditor(pair.key, pair.value.value_url, Object.extend(HordeImple.InPlaceEditor.config, {
+                '$H(HordeImple.InPlaceEditor' . $this->getDomId() . '.ids).each(function(pair) {
+                     new InPlaceEditor(pair.key, pair.value.value_url, Object.extend(HordeImple.InPlaceEditor' . $this->getDomId() . '.config, {
                          htmlResponse: false,
                          callback: function(form, value) {
                              return "value=" + encodeURIComponent(value);
                          },
                          onComplete: function(ipe, opts) {
-                            $("' . $this->getDomId() . '").update(opts.responseJSON)
+                            if (opts) {
+                                $("' . $this->getDomId() . '").update(opts.responseJSON)
+                            }
                              ipe.checkEmpty()
                          },
                          loadTextURL: pair.value.load_url,

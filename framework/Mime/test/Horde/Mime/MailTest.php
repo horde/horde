@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Mail class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -10,11 +10,6 @@
  * @package    Mime
  * @subpackage UnitTests
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Autoload.php';
 
 /**
  * @author     Michael Slusarz <slusarz@horde.org>
@@ -25,10 +20,16 @@ require_once __DIR__ . '/Autoload.php';
  */
 class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    static public function setUpBeforeClass()
     {
         $_SERVER['SERVER_NAME'] = 'mail.example.com';
         setlocale(LC_ALL, 'C');
+    }
+
+    static public function functiontearDownAfterClass()
+    {
+        unset($_SERVER['SERVER_NAME']);
+
     }
 
     public function testConstructor()

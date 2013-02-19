@@ -66,22 +66,29 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
         $this->_cachekey .= '|' . __FILE__;
 
+        $data = null;
+
         if (extension_loaded('apc')) {
-            $this->_cache = apc_fetch($this->_cachekey);
+            $data = apc_fetch($this->_cachekey);
             $this->_cachetype = self::APC;
         } elseif (extension_loaded('xcache')) {
-            $this->_cache = xcache_get($this->_cachekey);
+            $data = xcache_get($this->_cachekey);
             $this->_cachetype = self::XCACHE;
         } elseif (extension_loaded('eaccelerator')) {
-            $this->_cache = eaccelerator_get($this->_cachekey);
+            $data = eaccelerator_get($this->_cachekey);
             $this->_cachetype = self::EACCELERATOR;
         } elseif (($this->_tempdir = sys_get_temp_dir()) &&
                   is_readable($this->_tempdir)) {
             $this->_cachekey = hash('md5', $this->_cachekey);
-            if (($data = file_get_contents($this->_tempdir . '/' . $this->_cachekey)) !== false) {
-                $this->_cache = @json_decode($data, true);
-            }
+            $data = file_get_contents($this->_tempdir . '/' . $this->_cachekey);
             $this->_cachetype = self::TEMPFILE;
+        }
+
+        if ($data) {
+            if (extension_loaded('lzf')) {
+                $data = lzf_decompress($data);
+            }
+            $this->_cache = @json_decode($data, true);
         }
     }
 
@@ -93,25 +100,30 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function __destruct()
     {
-        if (!$this->_changed) {
+        if (!$this->_changed || !$this->_cachetype) {
             return;
+        }
+
+        $data = json_encode($this->_cache);
+        if (extension_loaded('lzf')) {
+            $data = lzf_compress($data);
         }
 
         switch ($this->_cachetype) {
         case self::APC:
-            apc_store($this->_cachekey, $this->_cache);
+            apc_store($this->_cachekey, $data);
             break;
 
         case self::XCACHE:
-            xcache_set($this->_cachekey, $this->_cache);
+            xcache_set($this->_cachekey, $data);
             break;
 
         case self::EACCELERATOR:
-            eaccelerator_put($this->_cachekey, $this->_cache);
+            eaccelerator_put($this->_cachekey, $data);
             break;
 
         case self::TEMPFILE:
-            file_put_contents($this->_tempdir . '/' . $this->_cachekey, json_encode($this->_cache));
+            file_put_contents($this->_tempdir . '/' . $this->_cachekey, $data);
             break;
         }
     }

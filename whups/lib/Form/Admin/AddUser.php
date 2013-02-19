@@ -3,7 +3,7 @@
  * This file contains all Horde_Form classes for administrating responsible
  * users.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -17,7 +17,7 @@ class Whups_Form_Admin_AddUser extends Horde_Form
 
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Add Users"));
+        parent::__construct($vars, _("Add Users"));
 
         $this->addHidden('', 'queue', 'int', true, true);
 

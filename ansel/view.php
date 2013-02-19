@@ -2,7 +2,7 @@
 /**
  * Delegates to the correct view.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -36,9 +36,6 @@ $params['gallery_slug'] = Horde_Util::getFormData('slug');
 $params['force_grouping'] = Horde_Util::getFormData('force_grouping');
 $params['image_id'] = Horde_Util::getFormData('image');
 
-// @TODO Need to refactor views to use Horde_View, and make it work with
-// defered scripts.
-$page_output->deferScripts = false;
 try {
     $view = new $view($params);
 } catch (Horde_Exception $e) {
@@ -50,11 +47,11 @@ try {
 }
 
 Ansel::initJSVariables();
-
+$page_output->growler = true;
 $page_output->header(array(
-    'title' => $view->getTitle()
+    'title' => $view->getTitle(),
+    'growler_log' => true,
 ));
 $notification->notify(array('listeners' => 'status'));
-$view_html = $view->html();
-echo $view_html;
+echo $view->html();
 $page_output->footer();

@@ -1,5 +1,5 @@
 # TURBA Romanian Translation.
-# Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2003-2013 Horde LLC (http://www.horde.org/)
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Marius Dragulescu <mariusd@urban-grafx.ro>, 2003.
 #

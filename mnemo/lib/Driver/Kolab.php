@@ -2,7 +2,7 @@
 /**
  * Horde Mnemo driver for the Kolab_Storage backend.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -65,7 +65,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         }
 
         foreach ($note_list as $note) {
-            $this->_memos[$note['uid']] = $this->_buildNote($note);
+            $this->_memos[Horde_Url::uriB64Encode($note['uid'])] = $this->_buildNote($note);
         }
     }
 
@@ -83,8 +83,9 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     public function get($noteId, $passphrase = null)
     {
         try {
-            if ($this->_getData()->objectIdExists($noteId)) {
-                $note = $this->_getData()->getObject($noteId);
+            $uid = Horde_Url::uriB64Decode($noteId);
+            if ($this->_getData()->objectIdExists($uid)) {
+                $note = $this->_getData()->getObject($uid);
                 return $this->_buildNote($note, $passphrase);
             } else {
                 throw new Horde_Exception_NotFound();
@@ -108,7 +109,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     public function getByUID($uid, $passphrase = null)
     {
         //@todo: search across notepads
-        return $this->get($uid, $passphrase);
+        return $this->get(Horde_Url::uriB64Encode($uid), $passphrase);
     }
 
     /**
@@ -124,8 +125,9 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _add($noteId, $desc, $body, $category)
     {
+        $uid = Horde_Url::uriB64Decode($noteId);
         $object = array(
-            'uid' => $noteId,
+            'uid' => $uid,
             'summary' => $desc,
             'body' => $body,
             'categories' => array($category),
@@ -135,7 +137,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        return $noteId;
+        return $uid;
     }
 
     /**
@@ -151,10 +153,11 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _modify($noteId, $desc, $body, $category)
     {
+        $uid = Horde_Url::uriB64Decode($noteId);
         try {
             $this->_getData()->modify(
                 array(
-                    'uid' => $noteId,
+                    'uid' => $uid,
                     'summary' => $desc,
                     'body' => $body,
                     'categories' => array($category),
@@ -163,7 +166,7 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        return $noteId;
+        return $uid;
     }
 
     /**
@@ -177,16 +180,17 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _move($noteId, $newNotepad)
     {
+        $uid = Horde_Url::uriB64Decode($noteId);
         try {
             $this->_getData()->move(
-                $noteId,
+                $uid,
                 $GLOBALS['mnemo_shares']->getShare($newNotepad)->get('folder')
             );
             $this->_getDataForNotepad($newNotepad)->synchronize();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        return $noteId;
+        return $uid;
     }
 
     /**
@@ -199,13 +203,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _delete($noteId)
     {
-        $note = $this->get($noteId);
+        $uid = Horde_Url::uriB64Decode($noteId);
         try {
-            $this->_getData()->delete($noteId);
+            $this->_getData()->delete($uid);
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
-        return $noteId;
+        return $uid;
     }
 
     /**
@@ -217,13 +221,13 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     protected function _deleteAll()
     {
         try {
-            $ids = $this->_getData()->getObjectIds();
+            $uids = $this->_getData()->getObjectIds();
             $this->_getData()->deleteAll();
         } catch (Horde_Kolab_Storage_Exception $e) {
             throw new Mnemo_Exception($e);
         }
 
-        return $ids;
+        return $uids;
     }
 
     /**
@@ -281,11 +285,12 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
     {
         $encrypted = false;
         $body = $note['body'];
+        $id = Horde_Url::uriB64Encode($note['uid']);
 
         if (strpos($body, '-----BEGIN PGP MESSAGE-----') === 0) {
             $encrypted = true;
             if (empty($passphrase)) {
-                $passphrase = Mnemo::getPassphrase($note['memo_id']);
+                $passphrase = Mnemo::getPassphrase($id);
             }
             if (empty($passphrase)) {
                 $body = new Mnemo_Exception(_("This note has been encrypted."), Mnemo::ERR_NO_PASSPHRASE);
@@ -295,19 +300,28 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
                 } catch (Mnemo_Exception $e) {
                     $body = $e;
                 }
-                Mnemo::storePassphrase($note['uid'], $passphrase);
+                Mnemo::storePassphrase($id, $passphrase);
             }
         }
 
-        return array(
+        $result = array(
             'memolist_id' => $this->_notepad,
-            'memo_id' => $note['uid'],
+            'memo_id' => $id,
             'uid' => $note['uid'],
             'category' => empty($note['categories']) ? '' : $note['categories'][0],
             'desc' => $note['summary'],
             'encrypted' => $encrypted,
             'body' => $body,
         );
+
+        if (!empty($note['creation-date'])) {
+            $result['created'] = new Horde_Date($note['creation-date']);
+        }
+        if (!empty($note['last-modification-date'])) {
+            $result['modified'] = new Horde_Date($note['last-modification-date']);
+        }
+
+        return $result;
     }
 
     /**
@@ -317,6 +331,6 @@ class Mnemo_Driver_Kolab extends Mnemo_Driver
      */
     protected function _generateId()
     {
-        return $this->_getData()->generateUid();
+        return Horde_Url::uriB64Encode($this->_getData()->generateUid());
     }
 }

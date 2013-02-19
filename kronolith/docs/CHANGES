@@ -1,7 +1,62 @@
 ----------
-v4.0.1-git
+v4.0.5-git
 ----------
 
+[mjr] Fix deletion of resource events after deleting resource (Bug #12034).
+
+
+------
+v4.0.4
+------
+
+[jan] Update alarms, resources, and tags when deleting Kolab events (Bug
+      #11988).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix some issues with workweek views if first day of week is Sunday (Bug
+      #11973).
+[jan] Fix adding holiday calendars if not using English locale (Bug #11961).
+[jan] More robust date parsing during event importing (Bug #11916).
+[jan] Always export year numbers with four digits to CSV (Request #11917).
+[jan] Fix JavaScript error if Nag is not installed.
+
+
+------
+v4.0.3
+------
+
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
+[jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11880).
+[jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
+[jan] Fix moving events between calendars (Bug #11830).
+[jan] Fix fatal error on recurring events with custom timezone (Bug #11587).
+[jan] Fix double owner name on shared calendars.
+[jan] Use default Kolab folder for default calendar preference.
+[jan] Mark Kolab folder as default when changing default calendar preference.
+[jan] Defer navigation in dynamic view until environment has been initialized.
+[jan] Fix receiving resource calendars in dynamic view (Bug #11776).
+
+
+------
+v4.0.2
+------
+
+[jan] Use Kolab modification and creation dates in the UI (Bug #11591).
+[jan] Try to translate holiday drivers (Request #11755).
+[jan] Fix timezone when reading events from Kolab (Bug #11695).
+[jan] Use encoded UIDs as IDs in Kolab driver.
+[jan] Fix saving of events if no calendar has been loaded yet.
+[mjr] Fix importing events from ActiveSync with empty descriptions in EAS
+      version 2.5
+
+
+------
+v4.0.1
+------
+
+[jan] Fix migration of exceptionoriginaldate field (Bug #11654).
 [jan] Fix generating calendar names when exporting non-internal calendars to
       iCalendar.
 [jan] Fix authentication to remote calendars (Bug #11643).

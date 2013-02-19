@@ -2,7 +2,7 @@
 /**
  * Factory for creating Horde_SessionHandler objects.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @category Horde
  * @package  Core
@@ -11,11 +11,6 @@ class Horde_Core_Factory_SessionHandler extends Horde_Core_Factory_Injector
 {
     /**
      * Attempts to return a concrete instance based on $driver.
-     *
-     * @param string $driver  The type of concrete subclass to return
-     *                        (case-insensitive).
-     * @param array $params   A hash containing any additional configuration or
-     *                        connection parameters a subclass might need.
      *
      * @return Horde_SessionHandler_Driver  The newly created concrete
      *                                      instance.

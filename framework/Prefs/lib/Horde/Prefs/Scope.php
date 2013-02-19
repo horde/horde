@@ -2,7 +2,7 @@
 /**
  * This class provides the storage for a preference scope.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -74,7 +74,11 @@ class Horde_Prefs_Scope implements Iterator, Serializable
             return false;
         }
 
-        unset($this->_prefs[$pref]);
+        if (isset($this->_prefs[$pref]['d'])) {
+            $this->_prefs[$pref]['v'] = $this->_prefs[$pref]['d'];
+            unset($this->_prefs[$pref]['d']);
+        }
+
         if (!$this->init) {
             $this->setDirty($pref, true);
         }

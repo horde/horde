@@ -133,7 +133,7 @@ $backends['hordesql'] = array (
               'user_col' => 'user_uid',
               'pass_col' => 'user_pass',
               'show_encryption' => false,
-              'encryption' => $GLOBALS['conf']['auth']['params']['encryption'])
+              'encryption' => isset($GLOBALS['conf']['auth']['params']['encryption']) ? $GLOBALS['conf']['auth']['params']['encryption'] : false)
     ),
 );
 

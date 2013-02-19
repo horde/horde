@@ -1,20 +1,31 @@
 <?php
 /**
- * Determines the "base subject" of a string (RFC 5256 [2.1]).
- *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * getBaseSubject() code adapted from imap-base-subject.c (Dovecot 1.2)
- *   Original code released under the LGPL-2.0.1
+ *   Original code released under the LGPL-2.1
  *   Copyright (c) 2002-2008 Timo Sirainen <tss@iki.fi>
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Imap_Client
+ * @category  Horde
+ * @copyright 2002-2008 Timo Sirainen
+ * @copyright 2008-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
+ */
+
+/**
+ * Determines the "base subject" of a string (RFC 5256 [2.1]).
+ *
+ * @author    Timo Sirainen <tss@iki.fi>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2002-2008 Timo Sirainen
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Imap_Client
  */
 class Horde_Imap_Client_Data_BaseSubject
 {
@@ -28,8 +39,8 @@ class Horde_Imap_Client_Data_BaseSubject
     /**
      * Constructor.
      *
-     * @param string $str     The subject string.
-     * @param array $options  Additional options:
+     * @param string $str  The subject string.
+     * @param array $opts  Additional options:
      *   - keepblob: (boolean) Don't remove any "blob" information (i.e. text
      *               leading text between square brackets) from string.
      *
@@ -148,9 +159,11 @@ class Horde_Imap_Client_Data_BaseSubject
     /**
      * Remove "[...]" text.
      *
-     * @param string &$str  The subject string.
+     * @param string $str  The subject string.
+     * @param integer $i   Current position.
      *
-     * @return boolean  True if string was altered.
+     * @return boolean|integer  False if blob was not found, otherwise the
+     *                          string position of the first non-blob char.
      */
     protected function _removeBlob($str, $i)
     {

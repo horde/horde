@@ -2,7 +2,7 @@
 /**
  * Ingo base class.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -118,9 +118,7 @@ class Ingo
     static public function getUser($full = true)
     {
         if (empty($GLOBALS['ingo_shares'])) {
-            $baseuser = ($full ||
-                        ($GLOBALS['session']->get('ingo', 'backend/hordeauth') === 'full'));
-            return $GLOBALS['registry']->getAuth($baseuser ? null : 'bare');
+            return $GLOBALS['registry']->getAuth($full ? null : 'bare');
         }
 
         list(, $user) = explode(':', $GLOBALS['session']->get('ingo', 'current_share'), 2);
@@ -233,6 +231,7 @@ class Ingo
                     $backend = $name;
                 }
             }
+            $backends[$name]['id'] = $name;
         }
 
         /* Check for valid backend configuration. */
@@ -240,7 +239,6 @@ class Ingo
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
-        $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         foreach (array('script', 'transport') as $val) {

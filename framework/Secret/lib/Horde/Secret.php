@@ -3,7 +3,7 @@
  * Provides an API for encrypting and decrypting small pieces of data with the
  * use of a shared key stored in a cookie.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -89,7 +89,7 @@ class Horde_Secret
     {
         $ciphertext = strval($ciphertext);
         return (strlen($key) && strlen($ciphertext))
-            ? rtrim($this->_getCipherOb($key)->decrypt($ciphertext), "\0")
+            ? $this->_getCipherOb($key)->decrypt($ciphertext)
             : '';
     }
 
@@ -116,10 +116,7 @@ class Horde_Secret
 
         $idx = hash('md5', $key);
         if (!isset($this->_cipherCache[$idx])) {
-            if (!class_exists('Crypt_Blowfish')) {
-                throw new Horde_Secret_Exception('Crypt_Blowfish library not found.', Horde_Secret_Exception::NO_BLOWFISH_LIB);
-            }
-            $this->_cipherCache[$idx] = new Crypt_Blowfish($key);
+            $this->_cipherCache[$idx] = new Horde_Crypt_Blowfish($key);
         }
 
         return $this->_cipherCache[$idx];

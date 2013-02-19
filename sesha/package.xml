@@ -16,19 +16,19 @@
   <email>lang@b1-systems.de</email>
   <active>yes</active>
  </lead>
- <date>2012-10-27</date>
- <time>00:25:54</time>
+ <date>2013-01-10</date>
+ <time>14:58:47</time>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.0RC4</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* First stable release.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -132,7 +132,6 @@
     <dir name="view">
      <file name="list.php" role="horde" />
     </dir> <!-- /templates/view -->
-    <file name="menu.inc" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
     <dir name="Sesha">
@@ -143,6 +142,8 @@
      </dir> <!-- /test/Sesha/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
+     <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Sesha -->
    </dir> <!-- /test -->
@@ -180,70 +181,70 @@
    <package>
     <name>horde</name>
     <channel>pear.horde.org</channel>
-    <min>5.0.0beta1</min>
+    <min>5.0.0</min>
     <max>6.0.0alpha1</max>
     <exclude>6.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Auth</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Autoloader</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Form</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Perms</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Prefs</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Rdo</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0beta1</min>
+    <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -311,10 +312,11 @@
    <install as="sesha/locale/lv/LC_MESSAGES/sesha.po" name="locale/lv/LC_MESSAGES/sesha.po" />
    <install as="sesha/migration/1_sesha_base_tables.php" name="migration/1_sesha_base_tables.php" />
    <install as="sesha/migration/2_sesha_upgrade_autoincrement.php" name="migration/2_sesha_upgrade_autoincrement.php" />
-   <install as="sesha/templates/menu.inc" name="templates/menu.inc" />
    <install as="sesha/templates/view/list.php" name="templates/view/list.php" />
    <install as="Sesha/AllTests.php" name="test/Sesha/AllTests.php" />
    <install as="Sesha/Autoload.php" name="test/Sesha/Autoload.php" />
+   <install as="Sesha/bootstrap.php" name="test/Sesha/bootstrap.php" />
+   <install as="Sesha/phpunit.xml" name="test/Sesha/phpunit.xml" />
    <install as="Sesha/TestCase.php" name="test/Sesha/TestCase.php" />
    <install as="Sesha/Unit/Driver/RdoTest.php" name="test/Sesha/Unit/Driver/RdoTest.php" />
    <install as="sesha/themes/default/screen.css" name="themes/default/screen.css" />
@@ -370,7 +372,7 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-10-27</date>
+   <date>2012-12-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update to work with latest Horde 5 code.
@@ -378,15 +380,42 @@
   </release>
   <release>
    <version>
-    <release>1.0.0</release>
+    <release>1.0.0RC2</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2012-10-27</date>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2012-12-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* First stable release.
+* [rla] Improved display of search results (Request #11656).
+* [rla] Search now allows to select partial or full value match (Request #11655).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [rla] QuickSearch now works by Name or Id (Request #11657).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC4</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

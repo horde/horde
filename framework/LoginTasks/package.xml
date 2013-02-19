@@ -10,10 +10,10 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>19:37:56</time>
+ <date>2013-01-09</date>
+ <time>15:35:08</time>
  <version>
-  <release>2.0.1</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -313,6 +313,7 @@
      <dir name="LoginTasks">
       <file name="AllTests.php" role="test" />
       <file name="Autoload.php" role="test" />
+      <file name="bootstrap.php" role="test" />
       <file name="LoginTasksTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="Stubs.php" role="test" />
@@ -342,6 +343,13 @@
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -445,6 +453,7 @@
    <install as="locale/zh_TW/LC_MESSAGES/Horde_LoginTasks.po" name="locale/zh_TW/LC_MESSAGES/Horde_LoginTasks.po" />
    <install as="Horde/LoginTasks/AllTests.php" name="test/Horde/LoginTasks/AllTests.php" />
    <install as="Horde/LoginTasks/Autoload.php" name="test/Horde/LoginTasks/Autoload.php" />
+   <install as="Horde/LoginTasks/bootstrap.php" name="test/Horde/LoginTasks/bootstrap.php" />
    <install as="Horde/LoginTasks/LoginTasksTest.php" name="test/Horde/LoginTasks/LoginTasksTest.php" />
    <install as="Horde/LoginTasks/phpunit.xml" name="test/Horde/LoginTasks/phpunit.xml" />
    <install as="Horde/LoginTasks/Stubs.php" name="test/Horde/LoginTasks/Stubs.php" />
@@ -616,10 +625,36 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

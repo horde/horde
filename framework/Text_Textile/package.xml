@@ -10,8 +10,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2011-09-15</date>
- <time>23:10:29</time>
+ <date>2012-11-19</date>
+ <time>14:08:26</time>
  <version>
   <release>1.0.0alpha1</release>
   <api>1.0.0</api>
@@ -49,8 +49,10 @@
        <file name="AllTests.php" role="test" />
        <file name="AttributesTest.php" role="test" />
        <file name="BlockModifiersTest.php" role="test" />
+       <file name="bootstrap.php" role="test" />
        <file name="ExternalReferencesTest.php" role="test" />
        <file name="ListsTest.php" role="test" />
+       <file name="phpunit.xml" role="test" />
        <file name="PhraseModifiersTest.php" role="test" />
        <file name="TablesTest.php" role="test" />
        <file name="TestCase.php" role="test" />
@@ -71,6 +73,15 @@
     <min>1.7.0</min>
    </pearinstaller>
   </required>
+  <optional>
+   <package>
+    <name>Horde_Test</name>
+    <channel>pear.horde.org</channel>
+    <min>2.1.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
@@ -79,8 +90,10 @@
    <install as="Horde/Text/Textile/AllTests.php" name="test/Horde/Text/Textile/AllTests.php" />
    <install as="Horde/Text/Textile/AttributesTest.php" name="test/Horde/Text/Textile/AttributesTest.php" />
    <install as="Horde/Text/Textile/BlockModifiersTest.php" name="test/Horde/Text/Textile/BlockModifiersTest.php" />
+   <install as="Horde/Text/Textile/bootstrap.php" name="test/Horde/Text/Textile/bootstrap.php" />
    <install as="Horde/Text/Textile/ExternalReferencesTest.php" name="test/Horde/Text/Textile/ExternalReferencesTest.php" />
    <install as="Horde/Text/Textile/ListsTest.php" name="test/Horde/Text/Textile/ListsTest.php" />
+   <install as="Horde/Text/Textile/phpunit.xml" name="test/Horde/Text/Textile/phpunit.xml" />
    <install as="Horde/Text/Textile/PhraseModifiersTest.php" name="test/Horde/Text/Textile/PhraseModifiersTest.php" />
    <install as="Horde/Text/Textile/TablesTest.php" name="test/Horde/Text/Textile/TablesTest.php" />
    <install as="Horde/Text/Textile/TestCase.php" name="test/Horde/Text/Textile/TestCase.php" />
@@ -98,7 +111,7 @@
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2011-09-15</date>
+   <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * Initial Horde 4 package.

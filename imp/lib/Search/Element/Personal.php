@@ -5,7 +5,7 @@
  * This query matches if one of the e-mails defined in the identities
  * matches the To/Cc/Bcc header of an email.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.

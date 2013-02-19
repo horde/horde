@@ -74,7 +74,6 @@ table.messageList .sortup, table.messageList .sortdown {
 .messageList th {
     cursor: pointer;
     overflow: hidden;
-    padding: 0 0 1px 2px;
     text-align: left;
     white-space: nowrap;
 }
@@ -129,6 +128,9 @@ div.msgActions, #fmanager div.folderActions {
     margin-top: -2px;
     margin-left: 4px;
     vertical-align: top;
+}
+#mailboxLabel .flagUser {
+    margin-left: 4px;
 }
 #mailboxLabel .msgflags.flagPersonal {
     background-image: url("../graphics/flags/personal-inv.png");

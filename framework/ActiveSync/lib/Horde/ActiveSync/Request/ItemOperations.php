@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -249,7 +249,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                     // Not supported
                 default :
                     $this->_logger->debug(sprintf(
-                        "[%s] %s not supported by HANDLEITEMOPERATIONS.",
+                        '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                         $this->_device->id,
                         $value['type'])
                     );
@@ -258,7 +258,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                 break;
             default :
                 $this->_logger->debug(sprintf(
-                    "[%s] %s not supported by HANDLEITEMOPERATIONS.",
+                    '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                     $this->_device->id,
                     $value['type'])
                 );
@@ -273,6 +273,9 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
             : 'application/vnd.ms-sync.wbxml';
     }
 
+    /**
+     * Helper to send the status output.
+     */
     protected function _outputStatus()
     {
         $this->_encoder->startTag(self::ITEMOPERATIONS_STATUS);
@@ -280,6 +283,13 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
         $this->_encoder->endTag();
     }
 
+    /**
+     * Return the size of the specified data.
+     *
+     * @param string|stream  The data to obtain the size of.
+     *
+     * @return integer  The size of the data.
+     */
     protected function _getDataSize($data)
     {
         if (is_resource($data)) {

@@ -1,16 +1,24 @@
 <?php
 /**
- * Attach the contact auto completer to a javascript element.
- *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Attach the contact auto completer to a javascript element.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactAutoCompleter
 {
@@ -58,9 +66,12 @@ class IMP_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Ajax_Imple_ContactA
         }
 
         if (!self::$_listOutput) {
-            $addrlist = $this->getAddressList();
+            $addrlist = array();
+            foreach ($this->getAddressList() as $address) {
+                $addrlist[] = strval($address);
+            }
             $page_output->addInlineJsVars(array(
-                'IMP_ac_list' => $addrlist->addresses
+                'IMP_ac_list' => $addrlist
             ));
             self::$_listOutput = true;
         }

@@ -591,7 +591,7 @@ class Horde_Routes_Mapper
         // If the URL didn't depend on the SCRIPT_NAME, we'll cache it
         // keyed by just the $kargs; otherwise we need to cache it with
         // both SCRIPT_NAME and $kargs:
-        $cacheKey = $kargs;
+        $cacheKey = serialize($kargs);
         if (!empty($environ['SCRIPT_NAME'])) {
             $cacheKeyScriptName = sprintf('%s:%s', $environ['SCRIPT_NAME'], $cacheKey);
         } else {

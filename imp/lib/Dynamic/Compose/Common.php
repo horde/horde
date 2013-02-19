@@ -1,16 +1,24 @@
 <?php
 /**
- * Compose code common to various dynamic views.
- *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Compose code common to various dynamic views.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Dynamic_Compose_Common
 {
@@ -27,9 +35,9 @@ class IMP_Dynamic_Compose_Common
      */
     public function compose(IMP_Dynamic_Base $base, array $args = array())
     {
-        global $page_output, $prefs;
+        global $page_output, $prefs, $registry;
 
-        $page_output->addScriptFile('compose-base.js');
+        $page_output->addScriptPackage('Imp_Script_Package_ComposeBase');
         $page_output->addScriptFile('compose-dimp.js');
         $page_output->addScriptFile('md5.js', 'horde');
         $page_output->addScriptFile('textarearesize.js', 'horde');
@@ -82,10 +90,13 @@ class IMP_Dynamic_Compose_Common
         }
 
         /* Create list for sent-mail selection. */
-        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS)) {
-            $view->save_sent_mail = !$prefs->isLocked('save_sent_mail');
+        if ($injector->getInstance('IMP_Factory_Imap')->create()->access(IMP_Imap::ACCESS_FOLDERS) &&
+            !$prefs->isLocked('save_sent_mail')) {
+            $view->save_sent_mail = true;
 
             if (!$prefs->isLocked('sent_mail_folder')) {
+                $view->save_sent_mail_select = true;
+
                 /* Check to make sure the sent-mail mailboxes are created;
                  * they need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
@@ -115,10 +126,15 @@ class IMP_Dynamic_Compose_Common
             }
         }
 
-        $compose_link = $registry->getServiceLink('ajax', 'imp');
-        $view->compose_link = $compose_link->url . 'addAttachment';
-
+        $view->compose_link = $registry->getServiceLink('ajax', 'imp')->url . 'addAttachment';
         $view->is_template = !empty($args['template']);
+        if (IMP_Compose::canUploadAttachment()) {
+            $view->attach = true;
+            $view->save_attach_set = (strcasecmp($prefs->getValue('save_attachments'), 'always') === 0);
+        } else {
+            $view->attach = false;
+        }
+        $view->user = $registry->getAuth();
 
         $d_read = $prefs->getValue('request_mdn');
         if ($d_read != 'never') {
@@ -140,11 +156,6 @@ class IMP_Dynamic_Compose_Common
             );
         }
         $view->select_list = $select_list;
-
-        $save_attach = $prefs->getValue('save_attachments');
-        if (strpos($save_attach, 'prompt') !== false) {
-            $view->save_attach_set = strpos($save_attach, 'yes') !== false;
-        }
     }
 
     /**
@@ -164,10 +175,12 @@ class IMP_Dynamic_Compose_Common
         /* Context menu definitions. */
         $base->js_context['ctx_msg_other'] = new stdClass;
 
-        if ($prefs->getValue('request_mdn') == 'never') {
+        if ($prefs->getValue('request_mdn') == 'ask') {
             $base->js_context['ctx_msg_other']->rr = _("Read Receipt");
         }
-        if (strpos($prefs->getValue('save_attachments'), 'prompt') === false) {
+
+        if (($attach_upload = IMP_Compose::canUploadAttachment()) &&
+            !$prefs->isLocked('save_attachments')) {
             $base->js_context['ctx_msg_other']->saveatc = _("Save Attachments in Sent Mailbox");
         }
 
@@ -179,7 +192,7 @@ class IMP_Dynamic_Compose_Common
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),
 
-            'attach_limit' => ($conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
+            'attach_limit' => ($attach_upload && $conf['compose']['attach_count_limit'] ? intval($conf['compose']['attach_count_limit']) : -1),
             'auto_save_interval_val' => intval($prefs->getValue('auto_save_drafts')),
             'bcc' => intval($prefs->getValue('compose_bcc')),
             'cc' => intval($prefs->getValue('compose_cc')),

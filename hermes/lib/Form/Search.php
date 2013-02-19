@@ -2,7 +2,7 @@
 /**
  * @package Hermes
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -21,13 +21,13 @@ class Hermes_Form_Search extends Horde_Form
 
     public function __construct(&$vars)
     {
-        parent::Horde_Form($vars, _("Search For Time"));
+        parent::__construct($vars, _("Search For Time"));
         $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
         if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
             $type = Hermes::getEmployeesType();
             $this->addVariable(_("Employees"), 'employees', $type[0], false,
-                               false, null, $type[1]);
+                               false, null, array($type[1]));
         }
         $type = $this->getClientsType();
         $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);

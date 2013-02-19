@@ -2,7 +2,7 @@
 /**
  * Test the SQL driver.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPLv2). If
  * you did not receive this file, see
@@ -17,11 +17,6 @@
  * @link       http://www.horde.org/apps/wicked
  * @license    http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-
-/**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/../../Autoload.php';
 
 /**
  * Test the restructured text renderer.

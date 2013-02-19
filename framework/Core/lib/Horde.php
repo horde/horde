@@ -2,7 +2,7 @@
 /**
  * Provides the base functionality shared by all Horde applications.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -72,7 +72,6 @@ class Horde
                 $options['trace'] = 0;
             }
             $options['trace'] += 2;
-
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         }
     }
@@ -819,8 +818,8 @@ class Horde
      * Returns an anchor sequence with the relevant parameters for a widget
      * with accesskey and text.
      *
-     * @param array $opts  A hash with widget options (other options will be
-     *                     passed as attributes to the link tag):
+     * @param array $params  A hash with widget options (other options will be
+     *                       passed as attributes to the link tag):
      *   - url: (string) The full URL to be linked to.
      *   - title: (string) The link title/description.
      *   - nocheck: (boolean, optional) Don't check if the accesskey already
@@ -1033,7 +1032,7 @@ class Horde
          * base64 encoded size. */
         return (($dataurl === true) ||
                 (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? 'data:' . Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)) . ';base64,' . base64_encode(file_get_contents($in->fs))
+            ? strval(Horde_Url_Data::create(Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)), file_get_contents($in->fs)))
             : $in->uri;
     }
 
@@ -1445,7 +1444,9 @@ class Horde
             if (!isset($options['params'])) {
                 $options['params'] = array();
             }
-            $options['params'] = array_merge($url->parameters, $options['params']);
+            foreach (array_merge($url->parameters, $options['params']) as $key => $val) {
+                $options['params'][$key] = addcslashes($val, '"');
+            }
         }
 
         if (!empty($options['menu'])) {

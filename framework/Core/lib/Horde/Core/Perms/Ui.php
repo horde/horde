@@ -3,7 +3,7 @@
  * The Horde_Core_Perms_Ui class provides UI methods for the Horde permissions
  * system.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -495,7 +495,7 @@ class Horde_Core_Perms_Ui
         $this->_formInit();
 
         $this->_form->setTitle(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\""), $this->_corePerms->getTitle($permission->getName())));
-        $this->_form->setButtons(array(Horde_Core_Translation::t("Delete"), Horde_Core_Translation::t("Do not delete")));
+        $this->_form->setButtons(array(array('class' => 'horde-delete', 'value' => Horde_Core_Translation::t("Delete")), array('class' => 'horde-cancel', 'value' => Horde_Core_Translation::t("Do not delete"))));
         $this->_form->addHidden('', 'perm_id', 'text', false);
         $this->_form->addVariable(sprintf(Horde_Core_Translation::t("Delete permissions for \"%s\" and any sub-permissions?"), $this->_corePerms->getTitle($permission->getName())), 'prompt', 'description', false);
     }

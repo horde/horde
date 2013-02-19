@@ -1,16 +1,24 @@
 <?php
 /**
- * Message listing action for AJAX application handler.
- *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl GPL
- * @package  IMP
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+/**
+ * Message listing action for AJAX application handler.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
  */
 class IMP_Ajax_Application_ListMessages
 {
@@ -129,9 +137,6 @@ class IMP_Ajax_Application_ListMessages
         /* Create the base object. */
         $result = $this->getBaseOb($mbox);
         $result->cacheid = $mbox->cacheid_date;
-        if (!empty($args['requestid'])) {
-            $result->requestid = intval($args['requestid']);
-        }
         $result->totalrows = $msgcount;
 
         $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
@@ -284,11 +289,11 @@ class IMP_Ajax_Application_ListMessages
             $cached = array_flip($cached);
         }
 
-        if (!empty($args['search_unseen'])) {
+        if (!$is_search && !empty($args['search_unseen'])) {
             /* Do an unseen search.  We know what messages the browser
              * doesn't have based on $cached. Thus, search for the first
              * unseen message not located in $cached. */
-            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MATCH, true);
+            $unseen_search = $mailbox_list->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_MATCH, array('uids' => true));
             if (!($uid_search = array_diff($unseen_search['match']->ids, array_keys($cached)))) {
                 return $result;
             }
