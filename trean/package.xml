@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Make Horde_Queue a mandatory dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -351,6 +351,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -392,13 +399,6 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Queue</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -578,7 +578,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Make Horde_Queue a mandatory dependency.
    </notes>
   </release>
  </changelog>
