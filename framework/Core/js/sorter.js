@@ -22,7 +22,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
     /* Sorter variables. */
     this._header = '';
     this.minLength = 0;
-    if (header != '') {
+    if (header !== '') {
         this._header = header;
         this.minLength = 1;
     }
@@ -31,10 +31,10 @@ function Horde_Form_Sorter(instanceName, varName, header)
 
     this.deselectHeader = function()
     {
-        if (this._header != '') {
+        if (this._header !== '') {
             this.sorterList[0].selected = false;
         }
-    }
+    };
 
     this.setHidden = function()
     {
@@ -47,7 +47,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
         }
 
         this.sorterArray.value = tmpArray.join("\t");
-    }
+    };
 
     this.moveColumnUp = function()
     {
@@ -61,7 +61,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
 
         tmp = [];
         for (i = this.minLength; i < this.sorterList.length; i++) {
-            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value)
+            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value);
         }
 
         for (i = 0; i < tmp.length; i++) {
@@ -77,7 +77,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
         this.sorterList.selectedIndex = sel - 1;
 
         this.setHidden();
-    }
+    };
 
     this.moveColumnDown = function()
     {
@@ -91,7 +91,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
 
         tmp = [];
         for (i = this.minLength; i < this.sorterList.length; i++) {
-            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value)
+            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value);
         }
 
         for (i = 0; i < tmp.length; i++) {
@@ -107,5 +107,5 @@ function Horde_Form_Sorter(instanceName, varName, header)
         this.sorterList.selectedIndex = sel + 1;
 
         this.setHidden();
-    }
+    };
 }

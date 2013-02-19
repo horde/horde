@@ -397,13 +397,13 @@ var Horde_Tree = Class.create({
         }
 
         node.expanded = !node.expanded;
-        if (children = $(this.childid + nodeId)) {
+        if ((children = $(this.childid + nodeId))) {
             children.setStyle({ display: node.expanded ? 'block' : 'none' });
         }
 
         // Toggle the node's icon if it has separate open and closed
         // icons.
-        if (icon = $('horde-node-icon-' + nodeId)) {
+        if ((icon = $('horde-node-icon-' + nodeId))) {
             // Image.
             if (node.icon) {
                 icon.writeAttribute('src', (node.expanded && node.iconopen) ? node.iconopen : node.icon);
@@ -418,7 +418,7 @@ var Horde_Tree = Class.create({
             this.stripe();
         }
 
-        if (toggle = $(this.toggleid + nodeId)) {
+        if ((toggle = $(this.toggleid + nodeId))) {
             toggle.writeAttribute('class', 'horde-tree-toggle horde-tree-image').addClassName('horde-tree-image-' + this._getNodeToggle(nodeId));
         }
 
@@ -475,7 +475,7 @@ var Horde_Tree = Class.create({
 
         if (begin == -1) {
             begin = dc.indexOf(prefix);
-            if (begin != 0) {
+            if (begin !== 0) {
                 return '';
             }
         } else {

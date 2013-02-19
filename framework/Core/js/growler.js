@@ -200,7 +200,7 @@
                 if (tmp.down('.GrowlerNoAlerts')) {
                     tmp.down('.GrowlerNoAlerts').remove();
                 }
-                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'GrowlerAlertDate'} ).insert('[' + (new Date).toLocaleString() + ']'));
+                log = new Element('LI', { className: opts.className.empty() ? null : opts.className }).insert(msg).insert(new Element('SPAN', { className: 'GrowlerAlertDate'} ).insert('[' + (new Date()).toLocaleString() + ']'));
                 logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
                 logExit.observe('click', removeLog.curry(log));
                 log.insert(logExit);
@@ -217,7 +217,7 @@
             notice.insert(noticeExit);
 
             if (!opts.header.empty()) {
-                notice.insert(new Element('DIV', { className: 'GrowlerNoticeHead' }).update(opts.header))
+                notice.insert(new Element('DIV', { className: 'GrowlerNoticeHead' }).update(opts.header));
             }
 
             notice.insert(new Element('DIV', { className: 'GrowlerNoticeBody' }).update(msg));

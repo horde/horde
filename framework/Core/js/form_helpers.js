@@ -33,9 +33,9 @@ function addEvent(element, event, code)
         element.addEventListener(event.replace(/on/, ''), code, false);
     } else if (element.attachEvent) {
         element.attachEvent(event, code);
-    } else if (element.onload != null) {
+    } else if (element.onload !== null) {
         var oldEvent = element[event];
-        newCode = Function(e)
+        newCode = function(e)
         {
             oldEvent(e);
             code();
@@ -57,11 +57,9 @@ function addEvent(element, event, code)
  */
 function toNumber(val)
 {
-    if (isNaN(val)) {
-        return 0;
-    } else {
-        return Number(val);
-    }
+    return isNaN(val)
+        ? 0
+        : Number(val);
 }
 
 /**
