@@ -710,34 +710,39 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    removeAttach: function(e)
+    getAttach: function(id)
     {
-        var ids = [];
+        return $('attach_list').childElements().detect(function(e) {
+            return e.retrieve('atc_id') == id;
+        });
+    },
 
-        e.each(function(n) {
-            n = $(n);
-            ids.push(n.retrieve('atc_id'));
-            n.fade({
+    removeAttach: function(elt)
+    {
+        DimpCore.doAction('deleteAttach', this.actionParams({
+            atc_indices: Object.toJSON([ elt.retrieve('atc_id') ])
+        }), {
+            callback: this.removeAttachCallback.bind(this)
+        });
+    },
+
+    removeAttachCallback: function(r)
+    {
+        r.collect(this.getAttach.bind(this)).compact().each(function(elt) {
+            elt.fade({
                 afterFinish: function() {
-                    n.remove();
+                    elt.remove();
                     this.initAttachList();
                 }.bind(this),
                 duration: 0.4
             });
         }, this);
-
-        if (!$('attach_list').childElements().size()) {
-            $('attach_list').hide();
-        }
-
-        DimpCore.doAction('deleteAttach', this.actionParams({
-            atc_indices: Object.toJSON(ids)
-        }));
     },
 
     initAttachList: function()
     {
-        var u = $('upload'),
+        var al = $('attach_list'),
+            u = $('upload'),
             u_parent = u.up();
 
         if (Prototype.Browser.IE) {
@@ -751,6 +756,10 @@ var DimpCompose = {
         }
 
         u.clear();
+
+        if (!al.childElements().size()) {
+            al.hide();
+        }
 
         this.resizeMsgArea();
     },
@@ -924,7 +933,7 @@ var DimpCompose = {
 
         case 'attach_list':
             if (elt.match('SPAN.remove')) {
-                this.removeAttach([ elt.up() ]);
+                this.removeAttach(elt.up());
             } else if (elt.match('SPAN.attachName')) {
                 HordeCore.popupWindow(elt.up('LI').retrieve('atc_url'));
             }

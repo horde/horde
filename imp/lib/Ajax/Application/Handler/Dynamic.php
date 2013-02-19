@@ -652,21 +652,30 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      *   - atc_indices: (string) [JSON array] Attachment IDs to delete.
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *
-     * @return boolean  True.
+     * @return array  The list of attchment IDs that were deleted.
      */
     public function deleteAttach()
     {
+        global $injector, $notification;
+
+        $result = array();
+
         if (isset($this->vars->atc_indices)) {
-            $imp_compose = $GLOBALS['injector']->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose);
+            $imp_compose = $injector->getInstance('IMP_Factory_Compose')->create($this->vars->imp_compose);
             foreach (Horde_Serialize::unserialize($this->vars->atc_indices, Horde_Serialize::JSON) as $val) {
                 if (isset($imp_compose[$val])) {
-                    $GLOBALS['notification']->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
+                    $notification->push(sprintf(_("Deleted attachment \"%s\"."), Horde_Mime::decode($imp_compose[$val]->getPart()->getName(true))), 'horde.success');
                     unset($imp_compose[$val]);
+                    $result[] = $val;
                 }
             }
         }
 
-        return true;
+        if (empty($result)) {
+            $notification->push(_("At least one attachment could not be deleted."), 'horde.error');
+        }
+
+        return $result;
     }
 
     /**
