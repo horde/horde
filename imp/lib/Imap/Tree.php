@@ -1925,7 +1925,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
             if ($elt->inbox || $elt->special) {
                 $ob->s = 1;
-            } elseif (empty($ob->v) && $this->hasChildren($elt, true)) {
+            } elseif (empty($ob->v) && !empty($ob->ch)) {
                 $ob->cl = 'exp';
             }
         }
