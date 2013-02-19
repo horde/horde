@@ -1,17 +1,26 @@
 <?php
 /**
- * Horde_Variables:: class. Provides OO-way to access form variables.
- *
  * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Robert E. Coyle <robertecoyle@hotmail.com>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Util
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Util
+ */
+
+/**
+ * An OO-way to access form variables.
+ *
+ * @author    Robert E. Coyle <robertecoyle@hotmail.com>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Util
  */
 class Horde_Variables implements Countable, Iterator, ArrayAccess
 {
