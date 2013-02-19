@@ -190,6 +190,7 @@ class Horde_Vfs_FileTest extends Horde_Vfs_TestBase
     {
         $vfsroot = sys_get_temp_dir() . '/vfsfiletest';
 
+        var_dump($name);
         $name = basename($name);
         var_dump($name);
         if (strlen($name)) {
