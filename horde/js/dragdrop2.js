@@ -559,7 +559,7 @@ Drag = Class.create({
 
     _updateCaption: function(d, div, e, x, y)
     {
-        var caption, cname, c_opt, vo;
+        var caption, cname, c_opt;
 
         if (d && DragDrop.validDrop(this.element)) {
             d_cap = d.options.caption;
