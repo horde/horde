@@ -9,7 +9,7 @@
  * @package    Support
  * @license    http://www.horde.org/licenses/bsd
  */
-class Horde_Support_Array implements ArrayAccess, Countable, Iterator
+class Horde_Support_Array implements ArrayAccess, Countable, IteratorAggregate
 {
     /**
      * Array variables
@@ -152,43 +152,10 @@ class Horde_Support_Array implements ArrayAccess, Countable, Iterator
     }
 
     /**
-     * Gets the current value of this array's Iterator
      */
-    public function current()
+    public function getIterator()
     {
-        return current($this->_array);
-    }
-
-    /**
-     * Advances this array's Iterator to the next value
-     */
-    public function next()
-    {
-        return next($this->_array);
-    }
-
-    /**
-     * Returns the current key of this array's Iterator
-     */
-    public function key()
-    {
-        return key($this->_array);
-    }
-
-    /**
-     * Checks if this array's Iterator is in a valid position
-     */
-    public function valid()
-    {
-        return $this->current() !== false;
-    }
-
-    /**
-     * Rewinds this array's Iterator
-     */
-    public function rewind()
-    {
-        reset($this->_array);
+        return new ArrayIterator($this->_array);
     }
 
     /**

@@ -28,7 +28,7 @@
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
 abstract class Horde_Kolab_Storage_Folder_Namespace
-implements Iterator, Serializable
+implements IteratorAggregate, Serializable
 {
     /** The possible namespace types (RFC 2342 [5]) */
     const PERSONAL = 'personal';
@@ -265,54 +265,10 @@ implements Iterator, Serializable
     }
 
     /**
-     * Implementation of the Iterator rewind() method. Rewinds the namespace list.
-     *
-     * return NULL
      */
-    public function rewind()
+    public function getIterator()
     {
-        return reset($this->_namespaces);
-    }
-
-    /**
-     * Implementation of the Iterator current(). Returns the current namespace.
-     *
-     * @return Horde_Kolab_Storage_Folder_Namespace_Element|null The current namespace.
-     */
-    public function current()
-    {
-        return current($this->_namespaces);
-    }
-
-    /**
-     * Implementation of the Iterator key() method. Returns the key of the current namespace.
-     *
-     * @return mixed The key for the current position.
-     */
-    public function key()
-    {
-        return key($this->_namespaces);
-    }
-
-    /**
-     * Implementation of the Iterator next() method. Returns the next namespace.
-     *
-     * @return Horde_Kolab_Storage_Folder_Namespace_Element|null The next
-     * namespace or null if there are no more namespaces.
-     */
-    public function next()
-    {
-        return next($this->_namespaces);
-    }
-
-    /**
-     * Implementation of the Iterator valid() method. Indicates if the current element is a valid element.
-     *
-     * @return boolean Whether the current element is valid
-     */
-    public function valid()
-    {
-        return key($this->_namespaces) !== null;
+        return new ArrayIterator($this->_namespaces);
     }
 
     /**
