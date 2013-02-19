@@ -1730,11 +1730,6 @@ var DimpBase = {
                 : r.msgtext
         );
 
-        // See: http://www.thecssninja.com/javascript/gmail-dragout
-        if (Prototype.Browser.WebKit) {
-            $('messageBody').select('DIV.mimePartInfo A.downloadAtc').invoke('observe', 'dragstart', this._dragAtc);
-        }
-
         $('previewInfo').hide();
         $('previewPane').scrollTop = 0;
         pm.show();
@@ -1757,6 +1752,12 @@ var DimpBase = {
 
     _dragAtc: function(e)
     {
+        // As of now, only WebKit supports DownloadURL
+        if (!Prototype.Browser.Webkit) {
+            e.stop();
+            return;
+        }
+
         var base = e.element().up();
 
         e.dataTransfer.setData(
@@ -3722,6 +3723,9 @@ var DimpBase = {
         }
 
         new Drop('dropbase', this._mboxDropConfig);
+
+        // See: http://www.thecssninja.com/javascript/gmail-dragout
+        $('messageBody').on('dragstart', 'DIV.mimePartInfo A.downloadAtc', this._dragAtc.bindAsEventListener(this));
 
         if (this._getPref('toggle_hdrs')) {
             this._toggleHeaders($('th_expand'));
