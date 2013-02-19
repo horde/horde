@@ -102,11 +102,11 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         /* Check for global poll task. */
         if (isset($this->_vars->poll)) {
             $poll = Horde_Serialize::unserialize($this->_vars->poll, Horde_Serialize::JSON);
-            if (empty($poll)) {
-                $this->queue->poll($injector->getInstance('IMP_Imap_Tree')->getPollList());
-            } else {
-                $this->queue->poll(IMP_Mailbox::formFrom($poll));
-            }
+            $this->queue->poll(
+                empty($poll)
+                    ? $injector->getInstance('IMP_Imap_Tree')->getPollList()
+                    : IMP_Mailbox::formFrom($poll)
+            );
         }
     }
 
