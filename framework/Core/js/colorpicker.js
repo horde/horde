@@ -293,12 +293,12 @@ var ColorPicker = Class.create({
         e.stop();
     }
 
-});
+}),
 
 /**
  * Color utility class
  */
-var Color = {
+Color = {
 
     normalizehex: function(h)
     {

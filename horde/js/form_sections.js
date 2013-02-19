@@ -42,12 +42,12 @@ function Horde_Form_Sections(instanceName, openSection)
 
         /* Store the newly opened section. */
         this._set(sectionId);
-    }
+    };
 
     this._get = function()
     {
         return this._openSection;
-    }
+    };
 
     this._set = function(sectionId)
     {
@@ -57,7 +57,7 @@ function Horde_Form_Sections(instanceName, openSection)
             form.__formOpenSection.value = sectionId;
         }
         this._openSection = sectionId;
-    }
+    };
 
     this._set(openSection);
 }

@@ -108,9 +108,9 @@ var Horde_Facebook = Class.create({
 
     _getOlderEntriesCallback: function(response)
     {
-        var content = response.responseJSON.c;
+        var content = response.responseJSON.c,
+            h = $(this.opts.content).scrollHeight;
         this.oldest = response.responseJSON.o;
-        var h = $(this.opts.content).scrollHeight
         $(this.opts.content).insert(content);
         $(this.opts.content).scrollTop = h;
     },

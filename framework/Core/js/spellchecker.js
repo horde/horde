@@ -49,8 +49,6 @@ var SpellChecker = Class.create({
     //   url = (string) URL of specllchecker handler
     initialize: function(opts)
     {
-        var d, lc, tmp, ul;
-
         this.url = opts.url;
         this.target = $(opts.target);
         this.statusButton = $(opts.statusButton);

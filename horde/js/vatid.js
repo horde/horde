@@ -23,7 +23,7 @@ var HordeBlockVatid = {
 
     onFailure: function(e, r)
     {
-        elt.down('IMG').hide();
+        e.element().down('IMG').hide();
     },
 
     onSuccess: function(e, r)
@@ -31,7 +31,6 @@ var HordeBlockVatid = {
         var elt = e.element();
 
         elt.down('DIV.vatidResults').update(r.responseJSON.response).scrollTo();
-
         elt.down('IMG').hide();
     }
 
