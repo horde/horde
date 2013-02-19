@@ -304,8 +304,6 @@ var ImpMobile = {
                 return;
             }
             params.checkcache = 1;
-        } else {
-            params.initial = 1;
         }
 
         HordeMobile.doAction(
@@ -329,6 +327,7 @@ var ImpMobile = {
             params.cacheid = ob.cacheid;
             slice = ob.slice;
         } else {
+            params.initial = 1;
             slice = ImpMobile.mbox_slice;
         }
 
