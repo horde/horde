@@ -364,9 +364,9 @@ v6.0.0alpha1
       (Request #10723).
 
 
------------
-v5.0.24-git
------------
+-------
+v5.0.24
+-------
 
 [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
       the browser's local filesystem that has a filename that contains HTML.

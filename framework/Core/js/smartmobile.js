@@ -69,7 +69,7 @@ var HordeMobile = {
                 HordeMobile.doActionComplete(d, callback);
             },
             type: 'post',
-            url: HordeMobile.conf.ajax_url + action,
+            url: HordeMobile.conf.ajax_url + action
         }, opts || {}));
     },
 

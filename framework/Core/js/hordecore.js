@@ -137,7 +137,7 @@ var HordeCore = {
         var sf, fid = form.identify();
 
         if (!this.submit_frame[fid]) {
-            var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+            sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
             $(document.body).insert(sf);
 
             sf.observe('load', function(sf) {

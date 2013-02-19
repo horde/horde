@@ -2,6 +2,8 @@
 v3.0.4-git
 ----------
 
+[jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request
+      #11457).
 
 
 ------

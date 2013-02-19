@@ -142,7 +142,7 @@ var SpellChecker = Class.create({
             // Go through and see if we matched anything inside a tag (i.e.
             // class/spellcheckIncorrect is often matched if using a
             // non-English lang).
-            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '\$1' + node + '\$2');
+            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '$1' + node + '$2');
         }, this);
 
         if (!this.reviewDiv) {

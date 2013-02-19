@@ -29,11 +29,11 @@ var PrettyAutocompleter = Class.create({
             minTriggerWidth: 100,
             // Allow for a function that filters the display value
             // This function should *always* return escaped HTML
-            displayFilter: function(t) { return t.escapeHTML() },
+            displayFilter: function(t) { return t.escapeHTML(); },
             filterCallback: this._filterChoices.bind(this),
             onAdd: Prototype.K,
             onRemove: Prototype.K,
-            requireSelection: false,
+            requireSelection: false
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -77,7 +77,7 @@ var PrettyAutocompleter = Class.create({
         this.p.onSelect = this._updateElement.bind(this);
 
         // Look for clicks on the box to simulate clicking in an input box
-        $(this.p.box).observe('click', function() { trigger.focus() });
+        $(this.p.box).observe('click', function() { trigger.focus(); });
         trigger.observe('blur', this._resize.bind(this));
         trigger.observe('keydown', this._resize.bind(this));
         trigger.observe('keypress', this._resize.bind(this));
@@ -219,8 +219,8 @@ var PrettyAutocompleter = Class.create({
         }
 
         var displayValue = this.p.displayFilter(value),
-            newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue),
-            x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
+            newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue);
+        x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
         x.observe('click', this._removeItemHandler.bindAsEventListener(this));
         newItem.insert(x);
         $(this.p.triggerContainer).insert({ before: newItem });

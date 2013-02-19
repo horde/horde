@@ -26,7 +26,7 @@ var ColorPicker = Class.create({
             resizable: false,
             offsetParent: null,
             offset: 10
-        }, options || {})
+        }, options || {});
 
         this.stop = 1;
         this.zIndex = 1000;
@@ -95,7 +95,7 @@ var ColorPicker = Class.create({
         $('color-picker-hex').update(this.options.color);
 
         // Set cursor to initial position.
-        this.coords(parseInt($('color-picker-sphere').getStyle('width')));
+        this.coords(parseInt($('color-picker-sphere').getStyle('width'), 10));
 
         if (!this.options.resizable) {
             $('color-picker-resize').hide();
@@ -179,7 +179,7 @@ var ColorPicker = Class.create({
     commit: function(o, v, oH)
     {
         if (o == 'color-picker-cursor') {
-            var W = parseInt($('color-picker-sphere').getStyle('width')),
+            var W = parseInt($('color-picker-sphere').getStyle('width'), 10),
                 W2 = W / 2,
                 W3 = W2 / 2,
                 x = v[0] - W2 - 3,
@@ -235,10 +235,10 @@ var ColorPicker = Class.create({
         if (o == 'color-picker-resize') {
             oX = -(e.pointerX()),
             oY = -(e.pointerY()),
-            oH = parseInt($('color-picker-sphere').getStyle('height'));
+            oH = parseInt($('color-picker-sphere').getStyle('height'), 10);
         } else {
-            oX = parseInt($(o).getStyle('left')) - e.pointerX(),
-            oY = parseInt($(o).getStyle('top')) - e.pointerY(),
+            oX = parseInt($(o).getStyle('left'), 10) - e.pointerX(),
+            oY = parseInt($(o).getStyle('top'), 10) - e.pointerY(),
             oH = null;
         }
 
@@ -287,7 +287,7 @@ var ColorPicker = Class.create({
         var hex = $F(e.element().down('INPUT'));
         $('color-picker-hex').update(hex);
         this.hsv = Color.hex2hsv(hex);
-        this.coords(parseInt($('color-picker-sphere').getStyle('width')));
+        this.coords(parseInt($('color-picker-sphere').getStyle('width'), 10));
         this.updateColor();
         e.element().down().show().next().hide();
         e.stop();
@@ -424,7 +424,7 @@ var Color = {
             delta = max - Math.min(r[0], r[1], r[2]),
             H, S;
 
-        if (max != 0) {
+        if (max !== 0) {
             S = Math.round(delta / max * 100);
 
             if (r[0] == max) {
@@ -450,4 +450,4 @@ var Color = {
         return Math.round((rgb[0] * 299 + rgb[1] * 587 + rgb[2] * 114) / 1000);
     }
 
-}
+};

@@ -67,7 +67,7 @@
                     });
                 }
             });
-        },
+        }
 
     };
 
@@ -78,7 +78,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         }
-        $.error('Unknown method')
+        $.error('Unknown method');
     };
 
 })(jQuery);
