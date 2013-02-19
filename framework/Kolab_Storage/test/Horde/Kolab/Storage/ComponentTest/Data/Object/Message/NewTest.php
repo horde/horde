@@ -32,6 +32,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
+        setlocale(LC_MESSAGES, 'C');
         $factory = new Horde_Kolab_Format_Factory();
         $writer = new Horde_Kolab_Storage_Object_Writer_Format(
             $factory
@@ -49,10 +50,7 @@ extends PHPUnit_Framework_TestCase
         $object->setData(
             array('summary' => 'TEST', 'description' => 'test', 'uid' => 'ABC1234')
         );
-        putenv('LANG=C');
-        putenv('LC_MESSAGES=C');
         $object->create($folder, $writer, 'note');
-        system('locale');
 
         $result = $driver->messages['INBOX'][0];
         $result = preg_replace('/Date: .*/', 'Date: ', $result);
