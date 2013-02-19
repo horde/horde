@@ -46,6 +46,6 @@ var HordeActiveSyncAdmin = {
     {
         $('activesyncadmin').observe('click', this.clickHandler.bindAsEventListener(this));
     }
-}
+};
 
 document.observe('dom:loaded', HordeActiveSyncAdmin.onDomLoad.bind(HordeActiveSyncAdmin));

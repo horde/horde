@@ -87,12 +87,12 @@ var QuickFinder = {
 
         try {
             if (input.filterEmpty) {
-                (matched == 0) ? input.filterEmpty.show() : input.filterEmpty.hide();
+                (matched === 0) ? input.filterEmpty.show() : input.filterEmpty.hide();
             }
         } catch (e) {}
     }
 
-}
+};
 
 document.observe('dom:loaded', function() {
     $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));

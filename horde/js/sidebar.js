@@ -24,7 +24,7 @@ var HordeSidebar = {
 
         var elt = e.element(),
             params = ';DOMAIN=' + this.opts.cookieDomain
-                + ';PATH=' + this.opts.cookiePath + ';'
+                + ';PATH=' + this.opts.cookiePath + ';';
 
         while (Object.isElement(elt)) {
             switch (elt.className) {

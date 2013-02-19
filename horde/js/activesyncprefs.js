@@ -35,6 +35,6 @@ var HordeActiveSyncPrefs = {
     {
         $('prefs').observe('click', this.clickHandler.bindAsEventListener(this));
     }
-}
+};
 
 document.observe('dom:loaded', HordeActiveSyncPrefs.onDomLoad.bind(HordeActiveSyncPrefs));

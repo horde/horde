@@ -108,7 +108,7 @@ var FormGhost = Class.create({
 
         this.unghost();
         this.elt.fire('FormGhost:submit');
-        if (action == '' || action == '#') {
+        if (action.empty() || action == '#') {
             e.stop();
         }
     },
@@ -137,7 +137,7 @@ var FormGhost = Class.create({
                 //this.unghost();
                 this.elt.fire('FormGhost:submit');
                 action = form.readAttribute('action');
-                if (action == '' || action == '#') {
+                if (action.empty() || action == '#') {
                     e.stop();
                 }
                 break;

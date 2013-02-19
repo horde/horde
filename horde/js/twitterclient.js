@@ -40,7 +40,7 @@ var Horde_Twitter = Class.create({
             refreshrate: 300
         }, opts);
 
-        $(this.opts.input).observe('focus', function() {this.clearInput()}.bind(this));
+        $(this.opts.input).observe('focus', function() { this.clearInput(); }.bind(this));
         $(this.opts.input).observe('blur', function() {
             if (!$(this.opts.input).value.length) {
                 $(this.opts.input).value = this.opts.strings.defaultText;
@@ -232,7 +232,7 @@ var Horde_Twitter = Class.create({
         var content = response.responseJSON.c;
         if (response.responseJSON.o) {
             this.oldestId = response.responseJSON.o;
-            var h = $(this.opts.content).scrollHeight
+            var h = $(this.opts.content).scrollHeight;
             $(this.opts.content).insert(content);
             $(this.opts.content).scrollTop = h;
         }
@@ -249,7 +249,7 @@ var Horde_Twitter = Class.create({
         // If no more available, the oldest id will be null
         if (response.responseJSON.o) {
             this.oldestMention = response.responseJSON.o;
-            var h = $(this.opts.mentions).scrollHeight
+            var h = $(this.opts.mentions).scrollHeight;
             $(this.opts.mentions).insert(content);
             $(this.opts.mentions).scrollTop = h;
         }
@@ -264,7 +264,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestId) {
-            var h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight;
             $(this.opts.content).insert({ 'top': content });
             if (this.activeTab != 'stream') {
                 $(this.opts.contenttab).addClassName('hordeSmNew');
@@ -295,7 +295,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestMention) {
-            h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight;
             $(this.opts.mentions).insert({ 'top': content });
             if (this.activeTab != 'mentions') {
                 $(this.opts.mentiontab).addClassName('hordeSmNew');

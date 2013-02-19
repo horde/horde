@@ -54,7 +54,7 @@ var HordeCategoryPrefs = {
     onDomLoad: function()
     {
         $('prefs').observe('reset', function() {
-            this.resetBackgrounds.defer()
+            this.resetBackgrounds.defer();
         }.bind(this));
         $('add_category').observe('click', this.addCategory.bind(this));
 

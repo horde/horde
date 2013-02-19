@@ -52,9 +52,10 @@ var Horde_Facebook = Class.create({
     updateStatus: function()
     {
         $(this.opts.spinner).toggle();
-        params = new Object();
-        params.actionID = 'updateStatus';
-        params.statusText = $F(this.opts.input);
+        params = {
+            actionID: 'updateStatus',
+            statusText: $F(this.opts.input)
+        };
         new Ajax.Request(this.opts.endpoint, {
             method: 'post',
             parameters: params,
@@ -63,7 +64,7 @@ var Horde_Facebook = Class.create({
                 $(this.opts.spinner).toggle();
                 $(this.opts.content).insert({ 'top': response.responseText });
             }.bind(this),
-            onFailure: function() {$(this.opts.spinner).toggle()}
+            onFailure: function() { $(this.opts.spinner).toggle(); }
         });
     },
 
@@ -80,8 +81,8 @@ var Horde_Facebook = Class.create({
              {
                  method: 'post',
                  parameters: params,
-                 onComplete: function() {$(this.opts.spinner).toggle()}.bind(this),
-                 onFailure: function() {$(this.opts.spinner).toggle()}.bind(this)
+                 onComplete: function() { $(this.opts.spinner).toggle(); }.bind(this),
+                 onFailure: function() { $(this.opts.spinner).toggle(); }.bind(this)
              }
        );
 
@@ -110,7 +111,7 @@ var Horde_Facebook = Class.create({
     {
         var content = response.responseJSON.c;
         this.oldest = response.responseJSON.o;
-        var h = $(this.opts.content).scrollHeight
+        var h = $(this.opts.content).scrollHeight;
         $(this.opts.content).insert(content);
         $(this.opts.content).scrollTop = h;
     },

@@ -221,7 +221,7 @@ var Slider2 = Class.create({
              * absolute bottom or top. */
             if (isNaN(this.handlevalue)) {
                 this.handlevalue = 0;
-            } else if (this.handlevalue == 0 && this.value != 0) {
+            } else if (this.handlevalue === 0 && this.value !== 0) {
                 this.handlevalue += 1;
             } else if (this.handlevalue == this.handletop &&
                        ((this.options.totalsize - this.options.pagesize) != this.value)) {
