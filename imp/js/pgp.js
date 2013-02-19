@@ -14,13 +14,15 @@ var ImpPgp = {
 
     clickHandler: function(e)
     {
-        switch (e.element().readAttribute('id')) {
+        var elt = e.element();
+
+        switch (elt.readAttribute('id')) {
         case 'generate_expire':
-            e.element().next().toggle();
+            elt.next().toggle();
             break;
 
         default:
-            if (e.element().hasClassName('calendarImg')) {
+            if (elt.hasClassName('calendarImg')) {
                 Horde_Calendar.open(elt.identify(), new Date(Number($('generate_expire_date').getValue())));
                 e.memo.stop();
             }
