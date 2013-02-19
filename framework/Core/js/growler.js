@@ -81,28 +81,19 @@
         info: 'This is the notification backlog'
     };
 
-    function removeNotice(n, o)
+    function removeNotice(n, so)
     {
-        o = o || noticeOptions;
-
-        $(n).fade({
-            duration: o.speedout,
+        n.fade({
             afterFinish: function() {
                 try {
-                    var ne = n.down('DIV.GrowlerNoticeExit');
-                    if (!Object.isUndefined(ne)) {
-                        ne.stopObserving('click', removeNotice);
-                    }
                     n.fire('Growler:destroyed');
-                } catch (e) {}
-
-                try {
                     n.remove();
                     if (!$('Growler').childElements().size()) {
                         $('Growler').hide();
                     }
                 } catch (e) {}
-            }
+            },
+            duration: n.retrieve('so')
         });
     }
 
@@ -127,6 +118,9 @@
             this.opts = Object.extend(Object.clone(growlerOptions), opts || {});
 
             this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: 'fixed', padding: '10px', zIndex: 50000 }).hide();
+            this.growler.on('click', 'DIV.GrowlerNoticeExit', function(e, elt) {
+                removeNotice(elt.up('DIV.GrowlerNotice'));
+            });
 
             if (this.opts.log) {
                 var logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
@@ -183,7 +177,7 @@
         growl: function(msg, options)
         {
             options = options || {};
-            var exists, notice, noticeExit, log, logExit, tmp,
+            var exists, notice, log, logExit, tmp,
                 opts = Object.clone(noticeOptions);
             Object.extend(opts, options);
 
@@ -207,14 +201,14 @@
                 tmp.insert(log);
             }
 
-            notice = new Element('DIV', { className: 'GrowlerNotice' }).setStyle({ display: 'block', opacity: 0 });
+            notice = new Element('DIV', { className: 'GrowlerNotice' })
+                .setStyle({ display: 'block', opacity: 0 })
+                .store('so', opts.speedout);
             if (!opts.className.empty()) {
                 notice.addClassName(opts.className);
             }
 
-            noticeExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
-            notice.observe('click', removeNotice.curry(notice, opts));
-            notice.insert(noticeExit);
+            notice.insert(new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;"));
 
             if (!opts.header.empty()) {
                 notice.insert(new Element('DIV', { className: 'GrowlerNoticeHead' }).update(opts.header));
@@ -229,7 +223,7 @@
             if (opts.sticky) {
                 notice.addClassName('GrowlerSticky');
             } else {
-                removeNotice.delay(opts.life, notice, opts);
+                removeNotice.delay(opts.life, notice);
             }
 
             notice.fire('Growler:created');
@@ -237,9 +231,9 @@
             return notice;
         },
 
-        ungrowl: function(n, o)
+        ungrowl: function(n)
         {
-            removeNotice(n, o);
+            removeNotice(n);
         },
 
         toggleLog: function()
