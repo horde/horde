@@ -267,8 +267,7 @@ var DimpBase = {
 
     setMsgHash: function()
     {
-        var msg,
-            vs = this.viewport.getSelection(),
+        var vs = this.viewport.getSelection(),
             view = vs.getBuffer().getView();
 
         if (this.isQSearch()) {
@@ -606,7 +605,7 @@ var DimpBase = {
         }.bindAsEventListener(this));
 
         container.observe('ViewPort:contentComplete', function() {
-            var flags, ssc, tmp;
+            var ssc, tmp;
 
             this.setMessageListTitle();
             this.setMsgHash();
@@ -2119,14 +2118,9 @@ var DimpBase = {
     // 'noload' = (boolean) If true, don't load the mailbox
     quicksearchClear: function(noload)
     {
-        var f = this.view,
-            qs = $('horde-search');
+        var qs = $('horde-search');
 
-        if (!qs) {
-            return;
-        }
-
-        if (this.isSearch()) {
+        if (qs && this.isSearch()) {
             $(qs, 'horde-search-dropdown', 'horde-search-input').invoke('show');
             if (!noload) {
                 this.go('mbox', (this.search ? this.search.mbox : this.INBOX));

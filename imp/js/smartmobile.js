@@ -258,8 +258,6 @@ var ImpMobile = {
      */
     pageShow: function(e, opts)
     {
-        var tmp;
-
         switch (HordeMobile.currentPage()) {
         case 'message':
             $('#imp-message-headers,#imp-message-atc').trigger('collapse');

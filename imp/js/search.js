@@ -423,7 +423,6 @@ var ImpSearch = {
         var criteria,
             data = [],
             f_out = { mbox: [], subfolder: [] },
-            sflist = [],
             type = $F('search_type');
 
         if (type && !$('search_label').present()) {
@@ -465,10 +464,10 @@ var ImpSearch = {
                 break;
 
             case 'size':
-                tmp2 = Number($F($(c).down('INPUT')));
-                if (!isNaN(tmp2)) {
+                tmp = Number($F($(c).down('INPUT')));
+                if (!isNaN(tmp)) {
                     // Convert KB to bytes
-                    this.criteria[c].v = tmp2 * 1024;
+                    this.criteria[c].v = tmp * 1024;
                     data.push(this.criteria[c]);
                 }
                 break;
@@ -522,7 +521,7 @@ var ImpSearch = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(), tmp;
+        var elt = e.element();
 
         switch (elt.readAttribute('id')) {
         case 'search_submit':

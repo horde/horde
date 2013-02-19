@@ -1045,12 +1045,12 @@ var ViewPort = Class.create({
 
     _getLineHeight: function()
     {
-        var mode = this.pane_mode || 'horiz';
+        var d, mode = this.pane_mode || 'horiz';
 
         if (!this.split_pane[mode].lh) {
             // To avoid hardcoding the line height, create a temporary row to
             // figure out what the CSS says.
-            var d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
+            d = new Element('DIV', { className: this.opts.list_class }).insert(this.prepareRow({ VP_domid: null }, mode)).hide();
             $(document.body).insert(d);
             this.split_pane[mode].lh = d.getHeight();
             d.remove();
