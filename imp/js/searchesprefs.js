@@ -31,7 +31,7 @@ var ImpSearchesPrefs = {
 
     _sendData: function(a, d)
     {
-        $('searches_action').setValue(a)
+        $('searches_action').setValue(a);
         $('searches_data').setValue(d);
         $('prefs').submit();
     },

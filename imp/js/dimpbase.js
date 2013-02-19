@@ -137,7 +137,7 @@ var DimpBase = {
             }
             curr = num;
         } else {
-            if (num == 0) {
+            if (num === 0) {
                 return;
             }
 
@@ -516,14 +516,13 @@ var DimpBase = {
                     r.VP_bg.unshift('vpRowVert');
                     r.className = r.VP_bg.join(' ');
                     return this.template.vert.evaluate(r);
-
-                default:
-                    $('msglistHeaderVert').hide();
-                    $('msglistHeaderHoriz').show();
-                    r.VP_bg.unshift('vpRowHoriz');
-                    r.className = r.VP_bg.join(' ');
-                    return this.template.horiz.evaluate(r);
                 }
+
+                $('msglistHeaderVert').hide();
+                $('msglistHeaderHoriz').show();
+                r.VP_bg.unshift('vpRowHoriz');
+                r.className = r.VP_bg.join(' ');
+                return this.template.horiz.evaluate(r);
             }.bind(this),
 
             // Optional config
@@ -684,7 +683,7 @@ var DimpBase = {
                 [ $('mailboxName').next('SPAN.readonlyImg') ].invoke(this.viewport.getMetaData('readonly') ? 'show' : 'hide');
 
                 /* ACL changes. */
-                if (tmp = $('button_delete')) {
+                if ((tmp = $('button_delete'))) {
                     [ tmp.up() ].invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
                 }
             } else if (this.filtertoggle && this.isThreadSort()) {
@@ -750,7 +749,7 @@ var DimpBase = {
                             limit: 1,
                             scope: 'previewInfo'
                         }
-                    })
+                    });
                 } else if (e.memo.opts.delay) {
                     this.initPreviewPane.bind(this).delay(e.memo.opts.delay);
                 } else {
@@ -823,7 +822,7 @@ var DimpBase = {
         var d, id = $(elt).readAttribute('id');
 
         if (id) {
-            if (d = DragDrop.Drags.getDrag(id)) {
+            if ((d = DragDrop.Drags.getDrag(id))) {
                 d.destroy();
             }
 
@@ -1155,7 +1154,7 @@ var DimpBase = {
                     filter: elt.identify().substring('ctx_filter_'.length),
                     label: this.viewport.getMetaData('label'),
                     mbox: this.view
-                }
+                };
                 this.go('mbox', DimpCore.conf.fsearchid);
             } else if (menu.endsWith('_setflag')) {
                 tmp = elt.down('DIV');
@@ -1220,7 +1219,6 @@ var DimpBase = {
             [ $('ctx_mbox_expand').up() ].invoke(this.getSubMboxElt(baseelt) ? 'show' : 'hide');
 
             [ $('ctx_mbox_acl').up() ].invoke(DimpCore.conf.acl ? 'show' : 'hide');
-
             // Fall-through
 
         case 'ctx_container':
@@ -1271,7 +1269,7 @@ var DimpBase = {
 
             tmp.compact().invoke(sel.size() ? 'show' : 'hide');
 
-            if (tmp = $('ctx_oa_purge_deleted')) {
+            if ((tmp = $('ctx_oa_purge_deleted'))) {
                 if (this.viewport.getMetaData('pop3')) {
                     tmp.up().hide();
                 } else {
@@ -1285,7 +1283,7 @@ var DimpBase = {
                 }
             }
 
-            if (tmp = $('ctx_oa_hide_deleted')) {
+            if ((tmp = $('ctx_oa_hide_deleted'))) {
                 if (this.isThreadSort() || this.viewport.getMetaData('pop3')) {
                     $(tmp, 'ctx_oa_show_deleted').invoke('hide');
                 } else if (this.viewport.getMetaData('delhide')) {
@@ -1468,7 +1466,7 @@ var DimpBase = {
             if (this.isQSearch()) {
                 label += ' (' + this.search.label + ')';
             }
-        } else if (elt = this.getMboxElt(this.view)) {
+        } else if ((elt = this.getMboxElt(this.view))) {
             unseen = elt.retrieve('u');
         }
 
@@ -1543,7 +1541,7 @@ var DimpBase = {
             if (sortby != s.value.v) {
                 return false;
             }
-            if (elt = m.down('.' + s.value.c)) {
+            if ((elt = m.down('.' + s.value.c))) {
                 elt.addClassName(this.viewport.getMetaData('sortdir') ? 'sortup' : 'sortdown').store('sortby', s.value.v);
             }
             return true;
@@ -2187,7 +2185,7 @@ var DimpBase = {
     /* Enable/Disable action buttons as needed. */
     toggleButtons: function()
     {
-        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() == 0);
+        DimpCore.toggleButtons($('dimpmain_folder_top').select('DIV.horde-buttonbar A.noselectDisable'), this.selectedCount() === 0);
     },
 
     /* Drag/Drop handler. */
@@ -2731,7 +2729,7 @@ var DimpBase = {
             }, {
                 callback: this._mimeTreeCallback.bind(this),
                 loading: 'msg',
-                uids: [ this.pp.VP_id ],
+                uids: [ this.pp.VP_id ]
             });
             break;
 

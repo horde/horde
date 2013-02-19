@@ -60,8 +60,8 @@ var ImpMessage = {
     {
         var f1 = $('flag1'), f2 = $('flag2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('flag_message');
         }
@@ -79,7 +79,7 @@ var ImpMessage = {
         // Check for a mailbox actually being selected.
         if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
             newMbox = window.prompt(this.text.newmbox, '');
-            if (newMbox != null && newMbox != '') {
+            if (newMbox !== null && !newMbox.empty()) {
                 $('newMbox').setValue(1);
                 tmbox.setValue(newMbox);
                 this.submit(actID);
@@ -124,7 +124,7 @@ var ImpMessage = {
             fixcopy.clonePosition(ul);
 
             zindex = li.getStyle('zIndex');
-            if (zindex === null || zindex == '') {
+            if (zindex === null || zindex.empty()) {
                 li.setStyle({ zIndex: 2 });
                 fixcopy.setStyle({ zIndex: 1 });
             } else {

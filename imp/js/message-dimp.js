@@ -155,7 +155,7 @@ var DimpMessage = {
 
         case 'msg_all_parts':
             DimpCore.doAction('messageMimeTree', {
-                view: this.mbox,
+                view: this.mbox
             }, {
                 callback: this._mimeTreeCallback.bind(this),
                 uids: [ this.buid ]
@@ -254,7 +254,7 @@ var DimpMessage = {
             DimpCore.addPopdownButton('reply_link', 'reply');
             DimpCore.addPopdownButton('forward_link', 'forward');
             if (!this.reply_list) {
-                delete DimpCore.context.ctx_reply['reply_list'];
+                delete DimpCore.context.ctx_reply.reply_list;
             }
         }
 

@@ -333,7 +333,7 @@ var ImpSearch = {
     deleteMailbox: function(div)
     {
         var first, keys,
-            id = div.identify()
+            id = div.identify();
 
         this.disableMailbox(false, this.mboxes.get(id));
         this.mboxes.unset(id);

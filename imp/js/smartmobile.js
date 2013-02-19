@@ -387,7 +387,7 @@ var ImpMobile = {
      */
     refreshMailbox: function(ob)
     {
-        var list, ob, tmp,
+        var list, tmp,
             cid = ImpMobile.mailbox + '|' + ob.cacheid + '|' + ob.slice;
 
         if (cid == ImpMobile.mailboxCache) {
@@ -515,13 +515,13 @@ var ImpMobile = {
             ob = ImpMobile.cache[ImpMobile.mailbox],
             pos = ob.rowlist[ImpMobile.rowid] + dir;
 
-        if (pos > 0 && pos <= ob.totalrows) {
-            if (buid = ob.rowToBuid(pos)) {
-                $.mobile.changePage(HordeMobile.createUrl('message', {
-                    buid: buid,
-                    mbox: ImpMobile.mailbox
-                }));
-            }
+        if (pos > 0 &&
+            pos <= ob.totalrows &&
+            (buid = ob.rowToBuid(pos))) {
+            $.mobile.changePage(HordeMobile.createUrl('message', {
+                buid: buid,
+                mbox: ImpMobile.mailbox
+            }));
         }
     },
 
@@ -727,7 +727,7 @@ var ImpMobile = {
 
         // TODO: Workaround bug(?) in jQuery Mobile where inset style is not
         // applied until listview is visible.
-        window.setTimeout(function() { list.listview('refresh') }, 0);
+        window.setTimeout(function() { list.listview('refresh'); }, 0);
     },
 
     /**
@@ -893,7 +893,7 @@ var ImpMobile = {
             : $('#imp-compose-form');
 
         if (action == 'sendMessage' &&
-            ($('#imp-compose-subject').val() == '') &&
+            $('#imp-compose-subject').val().empty() &&
             !window.confirm(IMP.text.nosubject)) {
             return;
         }
@@ -1104,17 +1104,17 @@ var ImpMobile = {
     {
         var v;
 
-        if (v = d['imp:compose-cacheid']) {
+        if ((v = d['imp:compose-cacheid'])) {
             $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v);
         }
 
-        if (v = d['imp:flag']) {
+        if ((v = d['imp:flag'])) {
             ImpMobile.updateFlags(v);
             // Force a viewport update.
             ImpMobile.mailboxCache = null;
         }
 
-        if (v = d['imp:message']) {
+        if ((v = d['imp:message'])) {
             ImpMobile.message = v.shift().data;
         }
 
@@ -1122,11 +1122,11 @@ var ImpMobile = {
              ImpMobile.foldersLoaded = false;
         }
 
-        if (v = d['imp:poll']) {
+        if ((v = d['imp:poll'])) {
             ImpMobile.updateFolders(v);
         }
 
-        if (v = d['imp:viewport']) {
+        if ((v = d['imp:viewport'])) {
             ImpMobile.viewport(v);
         }
     },
@@ -1271,7 +1271,7 @@ var ImpMobileMbox = {
 
     rowToBuid: function(row)
     {
-        var buid = undefined;
+        var buid;
 
         $.each(this.rowlist, function(b, p) {
             if (p == row) {

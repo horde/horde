@@ -19,7 +19,7 @@ var ImpFlagPrefs = {
 
     _sendData: function(a, d)
     {
-        $('flag_action').setValue(a)
+        $('flag_action').setValue(a);
         $('flag_data').setValue(d);
         $('prefs').submit();
     },

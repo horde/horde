@@ -45,5 +45,5 @@ var ImpPgp = {
 };
 
 document.observe('dom:loaded', ImpPgp.onDomLoad.bind(ImpPgp));
-document.observe('HordeCore:click', ImpPgp.clickHandler.bindAsEventListener(ImpPgp))
+document.observe('HordeCore:click', ImpPgp.clickHandler.bindAsEventListener(ImpPgp));
 document.observe('Horde_Calendar:select', ImpPgp.calendarSelectHandler.bindAsEventListener(ImpPgp));

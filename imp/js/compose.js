@@ -85,7 +85,7 @@ var ImpCompose = {
 
         switch (actionID) {
         case 'redirect':
-            if ($F('to') == '') {
+            if ($F('to').empty()) {
                 alert(this.text.recipient);
                 $('to').focus();
                 return;
@@ -106,7 +106,7 @@ var ImpCompose = {
                 return;
             }
 
-            if (($F('subject') == '') &&
+            if ($F('subject').empty() &&
                 !window.confirm(this.text.nosubject)) {
                 return;
             }
@@ -116,7 +116,6 @@ var ImpCompose = {
             if (sc) {
                 sc.resume();
             }
-
             // fall through
 
         case 'add_attachment':
@@ -197,7 +196,7 @@ var ImpCompose = {
         if (usedFields == fields.length) {
             lastRow = $('attachment_row_' + usedFields);
             if (lastRow) {
-                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;')
+                td = new Element('TD', { align: 'left' }).insert(new Element('STRONG').insert(this.text.file + ' ' + (usedFields + 1) + ':')).insert('&nbsp;');
 
                 input = new Element('INPUT', { type: 'file', id: 'upload_' + (usedFields + 1), name: 'upload_' + (usedFields + 1), size: 25 });
                 if (Prototype.Browser.IE) {

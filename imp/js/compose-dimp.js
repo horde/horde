@@ -190,27 +190,25 @@ var DimpCompose = {
             return this.uniqueSubmit.bind(this, action).defer();
         }
 
-        if (action == 'sendMessage' ||
-            action == 'saveDraft' ||
-            action == 'saveTemplate') {
-            switch (action) {
-            case 'sendMessage':
-                if (!this.skip_spellcheck &&
-                    DimpCore.conf.spellcheck &&
-                    sc &&
-                    !sc.isActive()) {
-                    this.sc_submit = action;
-                    sc.spellCheck();
-                    return;
-                }
-
-                if (($F('subject') == '') &&
-                    !window.confirm(DimpCore.text.nosubject)) {
-                    return;
-                }
-                break;
+        switch (action) {
+        case 'sendMessage':
+            if (!this.skip_spellcheck &&
+                DimpCore.conf.spellcheck &&
+                sc &&
+                !sc.isActive()) {
+                this.sc_submit = action;
+                sc.spellCheck();
+                return;
             }
 
+            if ($F('subject').empty() &&
+                !window.confirm(DimpCore.text.nosubject)) {
+                return;
+            }
+            // Fall-through
+
+        case 'saveDraft':
+        case 'saveTemplate':
             // Don't send/save until uploading is completed.
             if (this.uploading) {
                 (function() { if (this.disabled) { this.uniqueSubmit(action); } }).bind(this).delay(0.25);
@@ -341,7 +339,7 @@ var DimpCompose = {
             HordeCore.loadingImg('sendingImg', 'composeMessageParent', disable);
             DimpCore.toggleButtons($('compose').select('DIV.dimpActions A'), disable);
             [ $('compose') ].invoke(disable ? 'disable' : 'enable');
-            if (sc = ImpComposeBase.getSpellChecker()) {
+            if ((sc = ImpComposeBase.getSpellChecker())) {
                 sc.disable(disable);
             }
             if (ImpComposeBase.editor_on) {
@@ -361,7 +359,7 @@ var DimpCompose = {
         }
 
         noupdate = noupdate || false;
-        if (sc = ImpComposeBase.getSpellChecker()) {
+        if ((sc = ImpComposeBase.getSpellChecker())) {
            sc.resume();
         }
 
@@ -541,16 +539,16 @@ var DimpCompose = {
         case 'forward_attach':
             $('noticerow', 'fwdattachnotice').invoke('show');
             this.fwdattach = true;
-            break
+            break;
 
         case 'forward_body':
             $('noticerow', 'fwdbodynotice').invoke('show');
-            break
+            break;
 
         case 'reply_all':
             $('replyallnotice').down('SPAN.replyAllNoticeCount').setText(DimpCore.text.replyall.sub('%d', ob.opts.reply_recip));
             $('noticerow', 'replyallnotice').invoke('show');
-            break
+            break;
 
         case 'reply_list':
             $('replylistnotice').down('SPAN.replyListNoticeId').setText(ob.opts.reply_list_id ? (' (' + ob.opts.reply_list_id + ')') : '');
@@ -791,7 +789,7 @@ var DimpCompose = {
 
         try {
             mah = document.viewport.getHeight() - cmp.get('top') - cmp.get('margin-box-height') + cmp.get('height');
-        } catch (e) {
+        } catch (ex) {
             return;
         }
 

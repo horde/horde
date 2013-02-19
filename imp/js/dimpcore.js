@@ -301,7 +301,7 @@ var DimpCore = {
             return new Element('DIV', { className: 'mboxName' }).insert(pair.value.escapeHTML());
         }
         if (pair.key.startsWith('_sub')) {
-            var elt = new Element('DIV').hide();
+            elt = new Element('DIV').hide();
             $H(pair.value).each(function(v) {
                 elt.insert(this._contextOnTrigger(v, ctx));
             }, this);

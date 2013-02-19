@@ -321,7 +321,7 @@ var ViewPort = Class.create({
             this.view = view;
         }
 
-        if (curr = this.views[view]) {
+        if ((curr = this.views[view])) {
             this._updateContent(curr.getMetaData('offset') || 0, f_opts);
             if (!opts.background) {
                 this.opts.container.fire('ViewPort:fetch', view);
@@ -1139,7 +1139,7 @@ var ViewPort = Class.create({
                 nodrop: true,
                 snap: function(x, y, elt) {
                     var sp = this.split_pane,
-                        l = parseInt((y - sp.pos) / sp.lh);
+                        l = parseInt((y - sp.pos) / sp.lh, 10);
                     if (l < 1) {
                         l = 1;
                     } else if (l > sp.max) {
@@ -1526,14 +1526,14 @@ ViewPort_Buffer = Class.create({
         range = $A($R(offset + 1, Math.min(offset + this.vp.getPageSize() - 1, tr)));
 
         return rows
-            ? (range.diff(this.rowlist.keys().concat(rows)).size() == 0)
+            ? (range.diff(this.rowlist.keys().concat(rows)).size() === 0)
             : !this._rangeCheck(range);
     },
 
     isNearingLimit: function(offset)
     {
         if (this.rowlist.size() != this.getMetaData('total_rows')) {
-            if (offset != 0 &&
+            if (offset !== 0 &&
                 this._rangeCheck($A($R(Math.max(offset + 1 - this.vp.limitTolerance(), 1), offset)))) {
                 return 'top';
             } else if (this._rangeCheck($A($R(offset + 1, Math.min(offset + this.vp.limitTolerance() + this.vp.getPageSize() - 1, this.getMetaData('total_rows')))).reverse())) {
@@ -1811,6 +1811,8 @@ ViewPort_Selection = Class.create({
             return $H(params).all(function(k) {
                 // k.key = search key; k.value = search criteria
                 return $H(k.value).all(function(s) {
+                    var r;
+
                     // Normalize dynamically created values. We know the
                     // required types for these values, and certain browsers
                     // do strict type-checking (e.g. Chrome).
@@ -1832,12 +1834,12 @@ ViewPort_Selection = Class.create({
                     switch (s.key) {
                     case 'equal':
                     case 'notequal':
-                        var r = i[k.key] && s.value.include(i[k.key]);
+                        r = i[k.key] && s.value.include(i[k.key]);
                         return (s.key == 'equal') ? r : !r;
 
                     case 'include':
                     case 'notinclude':
-                        var r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
+                        r = i[k.key] && Object.isArray(i[k.key]) && i[k.key].include(s.value);
                         return (s.key == 'include') ? r : !r;
 
                     case 'regex':

@@ -54,7 +54,7 @@ var ImpFolders = {
 
         default:
             if (!this.getChecked().size()) {
-                if (action != '') {
+                if (!action.empty()) {
                     alert(this.text.select);
                 }
                 break;

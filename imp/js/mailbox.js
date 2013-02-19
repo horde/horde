@@ -123,7 +123,7 @@ var ImpMailbox = {
             // Check for a mailbox actually being selected.
             if ($(elt[elt.selectedIndex]).hasClassName('flistCreate')) {
                 newMbox = prompt(this.text.newmbox, '');
-                if (newMbox != null && newMbox != '') {
+                if (newMbox !== null && !newMbox.empty()) {
                     $('newMbox').setValue(1);
                     tmbox.setValue(newMbox);
                     this.submit(actID);
@@ -152,8 +152,8 @@ var ImpMailbox = {
     {
         var f1 = $('flag1'), f2 = $('flag2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             if (this.countSelected()) {
                 $('messages').down('[name=flag]').setValue((form == 1) ? $F(f1) : $F(f2));
                 this.submit('flag_messages');
@@ -172,8 +172,8 @@ var ImpMailbox = {
     {
         var f1 = $('filter1'), f2 = $('filter2');
 
-        if ((form == 1 && $F(f1) != "") ||
-            (form == 2 && $F(f2) != "")) {
+        if ((form == 1 && !$F(f1).empty()) ||
+            (form == 2 && !$F(f2).empty())) {
             $('messages').down('[name=filter]').setValue((form == 1) ? $F(f1) : $F(f2));
             this.submit('filter_messages');
         }
