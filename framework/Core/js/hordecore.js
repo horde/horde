@@ -463,18 +463,19 @@ var HordeCore = {
     // params: (object) List of parameters to add to URL
     addURLParam: function(url, params)
     {
-        var q = url.indexOf('?');
-        params = $H(params);
-
-        this.addRequestParams(params);
+        var p = $H(),
+            q = url.indexOf('?');
 
         if (q != -1) {
-            params.update(url.toQueryParams());
+            p = $H(url.toQueryParams());
             url = url.substring(0, q);
         }
 
-        return params.size()
-            ? (url + '?' + params.toQueryString())
+        p.update(params);
+        this.addRequestParams(p);
+
+        return p.size()
+            ? (url + '?' + p.toQueryString())
             : url;
     },
 
