@@ -1,13 +1,22 @@
 <?php
 /**
- * The Horde_Auth_Customsql class provides a sql implementation of the Horde
- * authentication system with the possibility to set custom-made queries.
- *
  * Copyright 2002 Ronnie Garcia <ronnie@mk2.net>
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Ronnie Garcia <ronnie@mk2.net>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Joel Vandal <joel@scopserv.com>
+ * @category Horde
+ * @license  http://opensource.org/licenses/lgpl-2.1.php LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Customsql class provides a sql implementation of the Horde
+ * authentication system with the possibility to set custom-made queries.
  *
  * @author   Ronnie Garcia <ronnie@mk2.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
@@ -231,7 +240,9 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
@@ -256,6 +267,8 @@ class Horde_Auth_Customsql extends Horde_Auth_Sql
 
     /**
      * Checks if a userId exists in the system.
+     *
+     * @param string $userId  User ID for which to check
      *
      * @return boolean  Whether or not the userId already exists.
      */

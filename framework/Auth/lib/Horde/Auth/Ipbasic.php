@@ -1,10 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Ipbasic class provides access control based on CIDR masks
- * (client IP addresses). It is not meant for user-based systems, but
- * for times when you want a block of IPs to be able to access a site,
- * and that access is simply on/off - no preferences, etc.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -12,7 +7,21 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Ipbasic class provides access control based on CIDR masks
+ * (client IP addresses).
+ *
+ * It is not meant for user-based systems, but for times when you want a block
+ * of IPs to be able to access a site, and that access is simply on/off - no
+ * preferences, etc.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Ipbasic extends Horde_Auth_Base
@@ -54,12 +63,14 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
      */
     public function transparent()
     {
-        if (isset($_SERVER['REMOTE_ADDR'])) {
-            foreach ($this->_params['blocks'] as $cidr) {
-                if ($this->_addressWithinCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
-                    $this->_credentials['userId'] = $cidr;
-                    return true;
-                }
+        if (!isset($_SERVER['REMOTE_ADDR'])) {
+            return false;
+        }
+
+        foreach ($this->_params['blocks'] as $cidr) {
+            if ($this->_addressWithinCIDR($_SERVER['REMOTE_ADDR'], $cidr)) {
+                $this->_credentials['userId'] = $cidr;
+                return true;
             }
         }
 
@@ -67,13 +78,9 @@ class Horde_Auth_Ipbasic extends Horde_Auth_Base
     }
 
     /**
-     * Authentication stub.
+     * Not implemented
      *
-     * On failure, Horde_Auth_Exception should pass a message string (if any)
-     * in the message field, and the Horde_Auth::REASON_* constant in the code
-     * field (defaults to Horde_Auth::REASON_MESSAGE).
-     *
-     * @param string $userID      The userID to check.
+     * @param string $userId      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception

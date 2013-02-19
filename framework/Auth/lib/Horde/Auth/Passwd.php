@@ -1,8 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Passwd:: class provides a passwd-file implementation of
- * the Horde authentication system.
- *
  * Copyright 1997-2007 Rasmus Lerdorf <rasmus@php.net>
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
@@ -12,7 +9,18 @@
  * @author   Rasmus Lerdorf <rasmus@php.net>
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Passwd class provides a passwd-file implementation of the
+ * Horde authentication system.
+ *
+ * @author   Rasmus Lerdorf <rasmus@php.net>
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Passwd extends Horde_Auth_Base
@@ -282,7 +290,9 @@ class Horde_Auth_Passwd extends Horde_Auth_Base
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
