@@ -92,7 +92,7 @@ var ImpMobile = {
             break;
 
         case 'copymove-submit':
-            ImpMobile.copymoveSelected(e);
+            ImpMobile.copymoveSelected();
             e.preventDefault();
             break;
 
@@ -935,22 +935,18 @@ var ImpMobile = {
 
     /**
      * Moves or copies a message to a selected mailbox.
-     *
-     * @param object e  An event object.
      */
-    copymoveSelected: function(e)
+    copymoveSelected: function()
     {
-        var value,
-            opts = {},
+        var opts = {},
+            cmlist = $('#imp-copymove-list'),
             source = $('#imp-copymove-mbox').val(),
             move = ($('#imp-copymove-action').val() == 'move');
 
-        if ($(e.currentTarget).attr('id') == 'imp-copymove-list') {
-            value = $('#imp-copymove-list').val();
-            opts.mboxto = value;
+        if (cmlist.find(':selected').hasClass('flistCreate')) {
+            opts.newmbox = $('#imp-copymove-new').val();
         } else {
-            value = $('#imp-copymove-new').val();
-            opts.newmbox = value;
+            opts.mboxto = cmlist.val();
         }
 
         $('#copymove').dialog('close');
@@ -1197,6 +1193,12 @@ var ImpMobile = {
                     source: 'smartmobileAutocomplete',
                     target: $('#imp-compose-' + v + '-suggestions')
                 });
+            });
+        }
+
+        if (IMP.conf.allow_folders) {
+            $('#imp-copymove-list').change(function(e) {
+                $.fn[$(this[this.selectedIndex]).hasClass('flistCreate') ? 'show' : 'hide'].call($('#imp-copymove-newdiv'));
             });
         }
     }
