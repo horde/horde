@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-19</date>
- <time>12:18:04</time>
+ <time>12:23:39</time>
  <version>
-   <release>1.0.0</release>
+   <release>1.0.1</release>
    <api>1.0.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* First stable release for Horde 5.
-* [cjh] Modify the RequestShutdown runner to handle tasks that spawn other tasks.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -107,6 +106,19 @@
    <notes>
 * First stable release for Horde 5.
 * [cjh] Modify the RequestShutdown runner to handle tasks that spawn other tasks.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-19</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
