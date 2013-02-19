@@ -608,7 +608,7 @@ class IMP
     /**
      * Are appliable filters available?
      *
-     * @return voolean  True if appliable filters are available.
+     * @return boolean  True if appliable filters are available.
      */
     static public function applyFilters()
     {
