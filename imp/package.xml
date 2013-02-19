@@ -3005,5 +3005,18 @@
 * [mms] Fix display of attachment name in basic compose screen (Bug #11947).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>6.0.5</release>
+    <api>6.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
+   </notes>
+  </release>
  </changelog>
 </package>
