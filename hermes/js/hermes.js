@@ -435,6 +435,10 @@ HermesCore = {
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
 
+        if ($('hermesTimeFormEmployee')) {
+            $('hermesTimeFormEmployee').setValue(slice.e);
+        }
+
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
         this.go('time');
