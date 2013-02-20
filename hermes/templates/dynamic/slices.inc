@@ -16,7 +16,8 @@
           <?php else: ?>
             <select name="employee" id="hermesTimeFormEmployee">
               <?php foreach ($userType[1] as $username => $user_label): ?>
-                <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
+              <?php $selected = ($username == $GLOBALS['registry']->getAuth()) ? 'selected="selected"' : ''; ?>
+                <option <?php echo $selected ?>value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
               <?php endforeach ?>
             </select>
           <?php endif; ?>
