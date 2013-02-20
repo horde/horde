@@ -96,7 +96,7 @@ class Trean_Queue_Task_Crawl implements Horde_Queue_Task
         }
 
         if ($changed) {
-            $bookmark->save($crawl = false);
+            $bookmark->save(false);
         }
 
         // @TODO: crawl resources from the page to make a fully local version

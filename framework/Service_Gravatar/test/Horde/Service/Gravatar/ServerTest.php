@@ -46,7 +46,7 @@ class Horde_Service_Gravatar_ServerTest extends Horde_Test_Case
         $g = new Horde_Service_Gravatar($this->_server);
         $profile = $g->getProfile('wrobel@horde.org');
         $this->assertEquals(
-            'http://gravatar.com/gunnarwrobel',
+            'http://gravatar.com/abc1xyz2',
             $profile['entry'][0]['profileUrl']
         );
     }

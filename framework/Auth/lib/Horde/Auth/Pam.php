@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
  * The Horde_Auth_Pam:: class provides a PAM-based implementation of the Horde
  * authentication system.
  *
@@ -11,14 +23,9 @@
  *
  *      http://pecl.php.net/package/PAM
  *
- * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
- *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Pam extends Horde_Auth_Base

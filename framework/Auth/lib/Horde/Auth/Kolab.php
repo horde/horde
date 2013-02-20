@@ -1,9 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Kolab implementation of the Horde authentication system.
- * Derives from the Horde_Auth_Imap authentication object, and provides
- * parameters to it based on the global Kolab configuration.
- *
  * Copyright 2004-2007 Stuart Binge <s.binge@codefusion.co.za>
  * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
@@ -13,6 +9,19 @@
  * @author   Stuart Binge <s.binge@codefusion.co.za>
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Kolab implementation of the Horde authentication system.
+ * Derives from the Horde_Auth_Imap authentication object, and provides
+ * parameters to it based on the global Kolab configuration.
+ *
+ * @author   Stuart Binge <s.binge@codefusion.co.za>
+ * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Kolab extends Horde_Auth_Base
@@ -30,7 +39,7 @@ class Horde_Auth_Kolab extends Horde_Auth_Base
     /**
      * Constructor.
      *
-     * @params array $params  Parameters:
+     * @param array $params  Parameters:
      * <pre>
      * 'kolab' - (Horde_Kolab_Session) [REQUIRED] TODO
      * </pre>

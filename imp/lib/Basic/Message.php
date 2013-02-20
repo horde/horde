@@ -377,8 +377,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
          * as it may have changed if we deleted/copied/moved messages. We may
          * need other stuff in the query string, so we need to do an
          * add/remove of uid info. */
-        $selfURL = Horde::selfUrl(true);
-        IMP::$newUrl = $selfURL = $mailbox->url($selfURL->remove(array('actionID')), $buid)->add('message_token', $message_token);
+        $selfURL = $mailbox->url(Horde::selfUrlParams()->remove(array('actionID')), $buid)->add('message_token', $message_token);
         $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
         /* Generate previous/next links. */
@@ -837,7 +836,10 @@ class IMP_Basic_Message extends IMP_Basic_Base
             ));
             if ($prefs->getValue('strip_attachments')) {
                 $a_view->strip_all = Horde::widget(array(
-                    'url' => Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)),
+                    'url' => Horde::selfUrlParams()->add(array(
+                        'actionID' => 'strip_all',
+                        'message_token' => $message_token
+                    )),
                     'class' => 'stripAllAtc',
                     'title' => _("Strip All Attachments"),
                     'nocheck' => true

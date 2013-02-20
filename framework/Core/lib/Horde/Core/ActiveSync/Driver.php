@@ -1401,13 +1401,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folders = $this->_imap->getSpecialMailboxes();
         $folder = $folders[$type];
         if (!is_null($folder)) {
-            if (is_array($folder)) {
-                $folder = array_pop($folder);
-            }
-
             return $folder->value;
-        } else {
-            return $folder;
         }
     }
 

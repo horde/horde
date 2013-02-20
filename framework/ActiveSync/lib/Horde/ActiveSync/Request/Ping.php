@@ -163,7 +163,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 // Since the client is explicitly sending FOLDERS, we reset the
                 // pingable collections in the syncCache in anticipation of
                 // empty PING or empty FOLDERS in future requests.
-                Horde::debug($cache_collections);
                 foreach ($cache_collections as $value) {
                     if (!empty($collections[$value['id']]['synckey'])) {
                         $syncCache->setPingableCollection($value['id']);

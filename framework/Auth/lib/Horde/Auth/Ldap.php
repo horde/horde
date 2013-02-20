@@ -1,11 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Ldap class provides an LDAP implementation of the Horde
- * authentication system.
- *
- * 'preauthenticate' hook should return LDAP connection information in the
- * 'ldap' credentials key.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -13,7 +7,20 @@
  *
  * @author   Jon Parise <jon@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Ldap class provides an LDAP implementation of the Horde
+ * authentication system.
+ *
+ * 'preauthenticate' hook should return LDAP connection information in the
+ * 'ldap' credentials key.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Ldap extends Horde_Auth_Base
@@ -426,7 +433,9 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     }
 
     /**
-     * List Users
+     * Lists users.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  List of Users
      * @throws Horde_Auth_Exception

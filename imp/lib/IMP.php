@@ -44,13 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Storage place for an altered version of the current URL.
-     *
-     * @var string
-     */
-    static public $newUrl = null;
-
-    /**
      * Generates a select form input from a mailbox list. The &lt;select&gt;
      * and &lt;/select&gt; tags are NOT included in the output.
      *
@@ -369,21 +362,6 @@ class IMP
     }
 
     /**
-     * Return a selfURL that has had index/mailbox/actionID information
-     * removed/altered based on an action that has occurred on the present
-     * page.
-     *
-     * @return Horde_Url  The self URL.
-     */
-    static public function selfUrl()
-    {
-        return self::$newUrl
-            ? self::$newUrl->copy()
-            : Horde::selfUrl(true);
-    }
-
-    /**
-     * Get size display information.
      *
      * @param integer $size  The byte size of data.
      *

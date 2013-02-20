@@ -1,11 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Radius class provides a RADIUS implementation of the Horde
- * authentication system.
- *
- * This class requires the 'radius' PECL extension:
- *   http://pecl.php.net/package/radius
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -13,7 +7,20 @@
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Radius class provides a RADIUS implementation of the Horde
+ * authentication system.
+ *
+ * This class requires the 'radius' PECL extension:
+ *   http://pecl.php.net/package/radius
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Radius extends Horde_Auth_Base

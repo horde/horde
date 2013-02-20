@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/libraries/Horde_Cli_Modular
  */
 class Horde_Cli_Modular_Modules
-implements Iterator, Countable
+implements IteratorAggregate, Countable
 {
     /**
      * Parameters.
@@ -107,54 +107,10 @@ implements Iterator, Countable
     }
 
     /**
-     * Implementation of the Iterator rewind() method. Rewinds the module list.
-     *
-     * return NULL
      */
-    public function rewind()
+    public function getIterator()
     {
-        reset($this->_modules);
-    }
-
-    /**
-     * Implementation of the Iterator current(). Returns the current module.
-     *
-     * @return mixed The current module.
-     */
-    public function current()
-    {
-        return current($this->_modules);
-    }
-
-    /**
-     * Implementation of the Iterator key() method. Returns the key of the current module.
-     *
-     * @return mixed The class name of the current module.
-     */
-    public function key()
-    {
-        return key($this->_modules);
-    }
-
-    /**
-     * Implementation of the Iterator next() method. Returns the next module.
-     *
-     * @return Cli_Modular_Module|null The next module or null if there are no more
-     * modules.
-     */
-    public function next()
-    {
-        return next($this->_modules);
-    }
-
-    /**
-     * Implementation of the Iterator valid() method. Indicates if the current element is a valid element.
-     *
-     * @return boolean Whether the current element is valid
-     */
-    public function valid()
-    {
-        return key($this->_modules) !== null;
+        return new ArrayIterator($this->_modules);
     }
 
     /**
