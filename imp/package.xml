@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
- <time>15:47:23</time>
+ <date>2013-02-20</date>
+ <time>00:20:23</time>
  <version>
   <release>6.0.5</release>
   <api>6.0.0</api>
@@ -877,7 +877,6 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/block -->
      <dir name="dynamic">
-      <file name="ie7.css" role="horde" />
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/dynamic -->
      <dir name="graphics">
@@ -1020,7 +1019,6 @@
      <dir name="smartmobile">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
-     <file name="ie7.css" role="horde" />
      <file name="mime.css" role="horde" />
      <file name="rtl.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -1803,13 +1801,11 @@
    <install as="Imp/Unit/ReferencesTest.php" name="test/Imp/Unit/ReferencesTest.php" />
    <install as="Imp/Unit/Mime/Viewer/HtmlTest.php" name="test/Imp/Unit/Mime/Viewer/HtmlTest.php" />
    <install as="Imp/Unit/Mime/Viewer/ItipTest.php" name="test/Imp/Unit/Mime/Viewer/ItipTest.php" />
-   <install as="imp/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="imp/themes/default/mime.css" name="themes/default/mime.css" />
    <install as="imp/themes/default/rtl.css" name="themes/default/rtl.css" />
    <install as="imp/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="imp/themes/default/basic/screen.css" name="themes/default/basic/screen.css" />
    <install as="imp/themes/default/block/screen.css" name="themes/default/block/screen.css" />
-   <install as="imp/themes/default/dynamic/ie7.css" name="themes/default/dynamic/ie7.css" />
    <install as="imp/themes/default/dynamic/screen.css" name="themes/default/dynamic/screen.css" />
    <install as="imp/themes/default/graphics/addressbook_browse.png" name="themes/default/graphics/addressbook_browse.png" />
    <install as="imp/themes/default/graphics/add_contact.png" name="themes/default/graphics/add_contact.png" />
@@ -2931,7 +2927,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).

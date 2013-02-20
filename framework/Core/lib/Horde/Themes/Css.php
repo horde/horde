@@ -263,8 +263,6 @@ class Horde_Themes_Css
             $ie_major = $GLOBALS['browser']->getMajor();
             if ($ie_major == 8) {
                 $css_list[] = 'ie8.css';
-            } elseif ($ie_major == 7) {
-                $css_list[] = 'ie7.css';
             }
             break;
 

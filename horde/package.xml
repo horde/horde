@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
- <time>15:31:28</time>
+ <date>2013-02-20</date>
+ <time>00:20:19</time>
  <version>
   <release>5.0.5</release>
   <api>5.0.0</api>
@@ -1551,7 +1551,6 @@
      <file name="embed.css" role="horde" />
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
-     <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
      <file name="info.php" role="horde" />
      <file name="mozilla.css" role="horde" />
@@ -2309,7 +2308,6 @@
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
-   <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="themes/default/info.php" name="themes/default/info.php" />
    <install as="themes/default/mozilla.css" name="themes/default/mozilla.css" />
@@ -3603,7 +3601,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * 

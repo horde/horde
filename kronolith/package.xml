@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-12</date>
- <time>16:03:44</time>
+ <date>2013-02-20</date>
+ <time>00:20:27</time>
  <version>
   <release>4.0.5</release>
   <api>4.0.0</api>
@@ -751,7 +751,6 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
      <file name="embed.css" role="horde" />
-     <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -1403,7 +1402,6 @@
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
-   <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
@@ -2084,7 +2082,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
