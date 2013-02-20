@@ -687,15 +687,11 @@ class Ansel
      */
     static public function getStyleDefinition($style)
     {
-        if ($style instanceof Ansel_Style) {
-            return $style;
-        }
-
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
         if (isset($styles[$style])) {
             return new Ansel_Style($styles[$style]);
         } else {
-            return new Ansel_Style($styles['ansel_default']);
+            return  new Ansel_Style($styles['ansel_default']);
         }
     }
 
