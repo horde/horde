@@ -691,7 +691,7 @@ class Ansel
         if (isset($styles[$style])) {
             return new Ansel_Style($styles[$style]);
         } else {
-            return  new Ansel_Style($styles['ansel_default']);
+            return new Ansel_Style($styles['ansel_default']);
         }
     }
 
