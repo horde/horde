@@ -433,7 +433,7 @@ class Horde_ActiveSync_Imap_Adapter
         // the client of the error.
         $search_q = new Horde_Imap_Client_Search_Query();
         $search_q->ids($ids_obj);
-        $fetch_res = $imap->search($from, $search_q);
+        $fetch_res = $imap->search($mbox, $search_q);
         if ($fetch_res['count'] != count($uids)) {
             $ids_obj = $fetch_res['match'];
         }
