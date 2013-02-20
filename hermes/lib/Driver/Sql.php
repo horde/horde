@@ -113,7 +113,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *                        If any rows contain a 'delete' entry, those rows
      *                        will be deleted instead of updated.
      *
-     * @return mixed  boolean
+     * @return integer  The number of successful updates.
      * @throws Horde_Exception_PermissionDenied
      * @throws Hermes_Exception
      */
