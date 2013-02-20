@@ -367,7 +367,7 @@ class IMP
      *
      * @return string  A formatted size string.
      */
-    public function sizeFormat($size)
+    static public function sizeFormat($size)
     {
         return ($size >= 1048576)
             ? sprintf(_("%s MB"), self::numberFormat($size / 1048576, 1))
