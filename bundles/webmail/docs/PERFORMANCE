@@ -229,6 +229,9 @@ MySQL tuning
 Horde tuning
 ============
 
+Autoloading
+-----------
+
 * Horde Groupware Webmail Edition automatically loads PHP source files on
   demand which relies on the PHP autoloading feature introduced with PHP 5 and
   the Horde Autoloader library.  Both allow to limit the set of source code
