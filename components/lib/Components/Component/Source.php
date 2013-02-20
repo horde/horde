@@ -70,6 +70,25 @@ class Components_Component_Source extends Components_Component_Base
     }
 
     /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        $data = new stdClass;
+        $package = $this->getPackageXml();
+        $data->name = $package->getName();
+        $data->summary = $package->getSummary();
+        $data->description = $package->getDescription();
+        $data->version = $package->getVersion();
+        $data->releaseDate = $package->getDate();
+        $data->hasCi = $this->_hasCi();
+        return $data;
+    }
+
+    /**
      * Indicate if the component has a local package.xml.
      *
      * @return boolean True if a package.xml exists.

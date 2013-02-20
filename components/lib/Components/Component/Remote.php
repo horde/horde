@@ -276,23 +276,4 @@ class Components_Component_Remote extends Components_Component_Base
         }
         return $this->_package;
     }
-
-    /**
-     * Check if the library has a CI job.
-     *
-     * @return boolean True if a CI job is defined.
-     */
-    private function _hasCi()
-    {
-        if ($this->_channel != 'pear.horde.org') {
-            return false;
-        }
-        $client = new Horde_Http_Client(array('request.timeout' => 15));
-        try {
-            $response = $client->get('http://ci.horde.org/job/' . str_replace('Horde_', '', $this->_name . '/api/json'));
-        } catch (Horde_Http_Exception $e) {
-            return false;
-        }
-        return $response->code != 404;
-    }
 }
