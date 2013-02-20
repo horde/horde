@@ -3432,8 +3432,9 @@ var DimpBase = {
         opts = opts || {};
         opts.vs = this._getSelection(opts);
 
-        this._doMsgAction('deleteMessages', opts, {});
-        this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
+        if (this._doMsgAction('deleteMessages', opts, {})) {
+            this.updateFlag(opts.vs, DimpCore.conf.FLAG_DELETED, true);
+        }
     },
 
     // flag = (string) IMAP flag name
