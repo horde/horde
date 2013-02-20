@@ -161,10 +161,9 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
         $element = $this->getToken();
         if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT) {
             return $element[Horde_ActiveSync_Wbxml::EN_CONTENT];
-        } else {
-            $this->_logger->info('Possible unmatched content (peeking or empty tag?)');
-            $this->_ungetElement($element);
         }
+        $this->_logger->info('Possible unmatched content (peeking or empty tag?)');
+        $this->_ungetElement($element);
 
         return false;
     }
