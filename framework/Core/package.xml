@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Use csstidy library to parse CSS files when creating static CSS (Bug #12043).
 * [mms] Add Horde_Url#selfUrlParams().
 * [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
 * [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
@@ -2764,6 +2765,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Use csstidy library to parse CSS files when creating static CSS (Bug #12043).
 * [mms] Add Horde_Url#selfUrlParams().
 * [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
 * [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
