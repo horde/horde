@@ -63,21 +63,21 @@ XML Specification:
 Each SyncML Packet consists of one SyncMLHdr Element an one SyncMLBody Element.
 
 The header contains authorisation and session information.
-A typical header sent from the server might look like this:
+A typical header sent from the server might look like this::
 
-<SyncHdr>
-  <VerDTD>1.0</VerDTD>
-  <VerProto>SyncML/1.0</VerProto>
-  <SessionID>424242424242</SessionID>
-  <MsgID>2</MsgID>
-  <Target>
-   <LocURI>111111-00-222222-4</LocURI>
-  </Target>
-  <Source>
-    <LocURI>http://mysyncmlserver.com/horde/rpc.php</LocURI>
-  </Source>
-  <RespURI>http://mysyncmlserver.com/horde/rpc.php</RespURI>
-</SyncHdr>
+  <SyncHdr>
+    <VerDTD>1.0</VerDTD>
+    <VerProto>SyncML/1.0</VerProto>
+    <SessionID>424242424242</SessionID>
+    <MsgID>2</MsgID>
+    <Target>
+     <LocURI>111111-00-222222-4</LocURI>
+    </Target>
+    <Source>
+      <LocURI>http://mysyncmlserver.com/horde/rpc.php</LocURI>
+    </Source>
+    <RespURI>http://mysyncmlserver.com/horde/rpc.php</RespURI>
+  </SyncHdr>
 
 The SyncBody contains the following elements (called "commands") as specified
 in the DTD:
@@ -118,16 +118,16 @@ side. (For exception see the spec.)
 The Status includes a CmdID (like any command).  It has a MsgRef and CmdRef to
 identify the command it responds to: MsgRef identifies the packet (given in
 the Header) and CmdRef the CmdId of the original command. There's also a <cmd>
-Element to specify the type
+Element to specify the type::
 
-<Status>
-  <CmdID>3</CmdID>
-  <MsgRef>1</MsgRef>
-  <CmdRef>2</CmdRef>
-  <Cmd>Put</Cmd>
-  <SourceRef>./devinf10</SourceRef>
-  <Data>200</Data> <!--Statuscode for OK-->
-</Status>
+  <Status>
+    <CmdID>3</CmdID>
+    <MsgRef>1</MsgRef>
+    <CmdRef>2</CmdRef>
+    <Cmd>Put</Cmd>
+    <SourceRef>./devinf10</SourceRef>
+    <Data>200</Data> <!--Statuscode for OK-->
+  </Status>
 
 Sync
 
