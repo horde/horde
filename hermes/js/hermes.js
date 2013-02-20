@@ -1422,7 +1422,9 @@ HermesCore = {
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         // Handler for the jobtype selection
-        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        if ($('hermesJobTypeSelect')) {
+            $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        }
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

@@ -14,6 +14,7 @@
   <div class="horde-sidebar-split"></div>
 
   <!-- Admin section -->
+  <?php if ($GLOBALS['registry']->isAdmin()): ?>
   <div class="hermesAdmin">
     <div id="hermesNavAdminjobs" class="horde-subnavi">
       <div class="horde-subnavi-icon">
@@ -23,6 +24,8 @@
     </div>
   </div>
   <div class="horde-sidebar-split"></div>
+  <?php endif; ?>
+
   <!-- Stats -->
   <div class="hermesTimeStats">
     <h3><?php echo _("Unsubmitted Time Summary") ?>:</h3>
