@@ -14,16 +14,16 @@
  */
 class Ansel_View_List extends Ansel_View_Ansel
 {
-    private $_groupby;
-    private $_owner;
-    private $_special;
-    private $_page;
-    private $_start;
-    private $_g_perPage;
-    private $_numGalleries;
-    private $_galleryList;
-    private $_sortBy;
-    private $_sortDir;
+    protected $_groupby;
+    protected $_owner;
+    protected $_special;
+    protected $_page;
+    protected $_start;
+    protected $_g_perPage;
+    protected $_numGalleries;
+    protected $_galleryList;
+    protected $_sortBy;
+    protected $_sortDir;
 
     /**
      * Const'r
