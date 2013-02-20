@@ -1162,7 +1162,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // Do all the SYNC_REMOVE requests at once
         if (!empty($collection['removes']) &&
             !empty($collection['synckey'])) {
-            if (isset($collection['deletesasmoves']) && $folderid = $this->_driver->getWasteBasket($collection['class'])) {
+            if (!empty($collection['deletesasmoves']) && $folderid = $this->_driver->getWasteBasket($collection['class'])) {
                 $results = $importer->importMessageMove($collection['removes'], $folderid);
             } else {
                 $results = $importer->importMessageDeletion($collection['removes'], $collection['class']);
