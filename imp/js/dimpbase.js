@@ -3416,7 +3416,11 @@ var DimpBase = {
     {
         opts = opts || {};
         opts.loading = 'viewport';
-        this._doMsgAction('reportSpam', opts, { spam: Number(spam) });
+        opts.vs = this._getSelection(opts);
+
+        if (this._doMsgAction('reportSpam', opts, { spam: Number(spam) })) {
+            this.updateFlag(opts.vs, spam ? DimpCore.conf.FLAG_SPAM : DimpCore.conf.FLAG_INNOCENT, true);
+        }
     },
 
     // blacklist = (boolean) True for blacklist, false for whitelist

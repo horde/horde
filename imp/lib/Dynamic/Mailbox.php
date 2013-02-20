@@ -160,7 +160,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
             'FLAG_DRAFT' => Horde_Imap_Client::FLAG_DRAFT,
+            'FLAG_INNOCENT' => Horde_Imap_Client::FLAG_NOTJUNK,
             'FLAG_SEEN' => Horde_Imap_Client::FLAG_SEEN,
+            'FLAG_SPAM' => Horde_Imap_Client::FLAG_JUNK,
 
             // Message list templates
             'msglist_template_horiz' => file_get_contents(IMP_TEMPLATES . '/dynamic/msglist_horiz.html'),
