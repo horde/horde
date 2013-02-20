@@ -473,16 +473,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         foreach ($style->css as $key => $val) {
             foreach ($val as $key2 => $val2) {
-                foreach ($val2 as $val3) {
+                foreach ($val2 as $key3 => $val3) {
                     foreach ($val3['p'] as $val4) {
                         if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
                             $was_blocked = true;
-                            unset($style->css[$key][$key2]);
-                            break 3;
+                            unset($style->css[$key][$key2][$key3]);
+                            break 2;
                         }
                     }
+                    unset($style_blocked->css[$key][$key2][$key3]);
                 }
-                unset($style_blocked->css[$key][$key2]);
             }
         }
 
