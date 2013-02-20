@@ -489,28 +489,6 @@ class IMP
     }
 
     /**
-     * Create a self URL of the current page, building the parameter list from
-     * the current Horde_Variables object rather than the original request
-     * data
-     *
-     * @param Horde_Url $url  Use this as the base URL.
-     *
-     * @return Horde_Url  The self URL.
-     */
-    static public function selfUrl($url = null)
-    {
-        if (is_null($url)) {
-            $url = Horde::selfUrl();
-        }
-
-        return $url->add(
-            iterator_to_array($GLOBALS['injector']->getInstance('Horde_Variables'))
-        )->remove(
-            array_keys($_COOKIE)
-        );
-    }
-
-    /**
      * Determine the status of composing.
      *
      * @return boolean  Is compose allowed?

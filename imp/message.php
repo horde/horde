@@ -384,7 +384,7 @@ ksort($full_headers);
 /* For the self URL link, we can't trust the index in the query string as it
  * may have changed if we deleted/copied/moved messages. We may need other
  * stuff in the query string, so we need to do an add/remove of 'uid'. */
-$selfURL = IMP::mailbox()->url(IMP::selfUrl()->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $uid, $mailbox)->add('message_token', $message_token);
+$selfURL = IMP::mailbox()->url(Horde::selfUrlParams()->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $uid, $mailbox)->add('message_token', $message_token);
 $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
 /* Generate previous/next links. */
@@ -838,7 +838,7 @@ if (count($inlineout['atc_parts']) > 2) {
     ));
     if ($prefs->getValue('strip_attachments')) {
         $a_view->strip_all = Horde::widget(array(
-            'url' => IMP::selfUrl()->add(array(
+            'url' => Horde::selfUrlParams()->add(array(
                 'actionID' => 'strip_all',
                 'message_token' => $message_token
             )),

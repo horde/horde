@@ -834,7 +834,7 @@ class IMP_Contents
             (intval($id) != 1) &&
             (strpos($id, '.') === false)) {
             $part['strip'] = Horde::link(
-                IMP::selfUrl()->add(array(
+                Horde::selfUrlParams()->add(array(
                     'actionID' => 'strip_attachment',
                     'message_token' => $GLOBALS['injector']->getInstance('Horde_Token')->get('imp.impcontents'),
                     'imapid' => $id,
