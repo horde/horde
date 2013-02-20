@@ -108,6 +108,7 @@ class Hermes_Driver_Sql extends Hermes_Driver
      *              'rate'         The hourly rate the work was done at.
      *              'billable'     Whether or not the work is billable hours.
      *              'description'  A short description of the work.
+     *              'employee'     The employee
      *
      *                        If any rows contain a 'delete' entry, those rows
      *                        will be deleted instead of updated.
@@ -130,18 +131,17 @@ class Hermes_Driver_Sql extends Hermes_Driver
                 }
             } else {
                 if (isset($info['employee'])) {
-                    $employee_cl = ' employee_id = ?,';
-
-                    $values = array($info['employee']);
+                    $employee_cl = ' ,employee_id = ?';
                 } else {
                     $employee_cl = '';
                 }
                 $dt = new Horde_Date($info['date']);
-                $sql = 'UPDATE hermes_timeslices SET' . $employee_cl .
+                $sql = 'UPDATE hermes_timeslices SET' .
                        ' clientjob_id = ?, jobtype_id = ?,' .
                        ' timeslice_hours = ?, timeslice_isbillable = ?,' .
                        ' timeslice_date = ?, timeslice_description = ?,' .
                        ' timeslice_note = ?, costobject_id = ?' .
+                       $employee_cl .
                        ' WHERE timeslice_id = ?';
                 $values = array($info['client'],
                                 $info['type'],
@@ -150,8 +150,12 @@ class Hermes_Driver_Sql extends Hermes_Driver
                                 $dt->timestamp(),
                                 $this->_convertToDriver($info['description']),
                                 $this->_convertToDriver($info['note']),
-                                (empty($info['costobject']) ? null : $info['costobject']),
-                                (int)$info['id']);
+                                (empty($info['costobject']) ? null : $info['costobject']));
+                if (!empty($employee_cl)) {
+                    $values[] = $info['employee'];
+                }
+                $values[] = (int)$info['id'];
+
                 try {
                     return $this->_db->update($sql, $values);
                 } catch (Horde_Db_Exception $e) {
