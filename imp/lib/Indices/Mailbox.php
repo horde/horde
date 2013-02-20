@@ -39,18 +39,21 @@ class IMP_Indices_Mailbox extends IMP_Indices
     /**
      * Constructor.
      *
-     * @param Horde_Variables  Variables object. These GET/POST parameters are
-     *                         reserved in IMP:
-     *   - buid: (string) BUID [Browser UID].
-     *   - mailbox: (string) Base64url encoded mailbox.
-     *   - muid: (string) MUID [Mailbox + UID].
-     *   - uid: (string) UID [Actual mail UID].
+     * @param mixed  Two possible inputs:
+     *   - 1 argument: Horde_Variables object. These GET/POST parameters are
+     *     reserved in IMP:
+     *     - buid: (string) BUID [Browser UID].
+     *     - mailbox: (string) Base64url encoded mailbox.
+     *     - muid: (string) MUID [Mailbox + UID].
+     *     - uid: (string) UID [Actual mail UID].
+     *   - 2 arguments: IMP_Mailbox object, IMP_Indices argument
      */
     public function __construct()
     {
-        if (func_num_args() == 1) {
-            $args = func_get_args();
+        $args = func_get_args();
 
+        switch (func_num_args()) {
+        case 1:
             if ($args[0] instanceof Horde_Variables) {
                 if (isset($args[0]->mailbox)) {
                     $this->mailbox = IMP_Mailbox::formFrom($args[0]->mailbox);
@@ -67,6 +70,16 @@ class IMP_Indices_Mailbox extends IMP_Indices
                     parent::__construct($args[0]->muid);
                 }
             }
+            break;
+
+        case 2:
+            if (($args[0] instanceof IMP_Mailbox) &&
+                ($args[1] instanceof IMP_Indices)) {
+                $this->mailbox = $args[0];
+                $this->buids = $args[0]->toBuids($args[1]);
+                parent::__construct($args[1]);
+            }
+            break;
         }
 
         if (!isset($this->buids)) {

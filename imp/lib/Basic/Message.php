@@ -175,11 +175,14 @@ class IMP_Basic_Message extends IMP_Basic_Base
         case 'strip_attachment':
             if (!$readonly) {
                 try {
-                    $imp_message->stripPart(
-                        $this->indices,
-                        ($this->vars->actionID == 'strip_all') ? null : $this->vars->imapid,
-                        array(
-                            'mailboxob' => $imp_mailbox
+                    $this->indices = new IMP_Indices_Mailbox(
+                        $this->indices->mailbox,
+                        $imp_message->stripPart(
+                            $this->indices,
+                            ($this->vars->actionID == 'strip_all') ? null : $this->vars->imapid,
+                            array(
+                                'mailboxob' => $imp_mailbox
+                            )
                         )
                     );
                     $notification->push(_("Attachment successfully stripped."), 'horde.success');

@@ -40,12 +40,14 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
         $js_vars = array();
-        $indices = $this->indices;
 
         switch ($this->vars->actionID) {
         case 'strip_attachment':
             try {
-                $indices = $injector->getInstance('IMP_Message')->stripPart($this->indices, $this->vars->id);
+                $this->indices = new IMP_Indices_Mailbox(
+                    $this->indices->mailbox,
+                    $injector->getInstance('IMP_Message')->stripPart($this->indices, $this->vars->id)
+                );
                 $js_vars['-DimpMessage.strip'] = 1;
                 $notification->push(_("Attachment successfully stripped."), 'horde.success');
             } catch (IMP_Exception $e) {
@@ -55,7 +57,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
         }
 
         try {
-            $show_msg = new IMP_Ajax_Application_ShowMessage($indices);
+            $show_msg = new IMP_Ajax_Application_ShowMessage($this->indices);
             $msg_res = $show_msg->showMessage(array(
                 'headers' => array_diff(array_keys($injector->getInstance('IMP_Message_Ui')->basicHeaders()), array('subject')),
                 'preview' => false

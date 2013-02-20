@@ -764,6 +764,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function stripAttachment()
     {
+        global $injector, $notification;
+
         if (count($this->_base->indices) != 1) {
             return false;
         }
@@ -774,20 +776,22 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         try {
-            $indices = $this->_base->mailbox->toBuids($GLOBALS['injector']->getInstance('IMP_Message')->stripPart($this->_base->indices, $this->vars->id));
+            $this->_base->indices = new IMP_Indices_Mailbox(
+                $this->_base->mailbox,
+                $injector->getInstance('IMP_Message')->stripPart($this->_base->indices, $this->vars->id)
+            );
         } catch (IMP_Exception $e) {
-            $GLOBALS['notification']->push($e);
+            $notification->push($e);
             return false;
         }
 
-        $GLOBALS['notification']->push(_("Attachment successfully stripped."), 'horde.success');
-
+        $notification->push(_("Attachment successfully stripped."), 'horde.success');
 
         $result = new stdClass;
-        list($result->newmbox, $result->newbuid) = $indices->getSingle();
+        list($result->newmbox, $result->newbuid) = $this->_base->indices->getSingle();
         $result->newmbox = $result->newmbox->form_to;
 
-        $this->_base->queue->message($indices, true);
+        $this->_base->queue->message($this->_base->indices, true);
         $this->_base->addTask('viewport', $this->_base->viewPortData(true));
 
         return $result;
