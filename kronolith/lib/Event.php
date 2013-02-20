@@ -1707,6 +1707,8 @@ abstract class Kronolith_Event
 
                 $message->addAttendee($attendee);
             }
+        } else {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
 
        // Resources
