@@ -58,6 +58,7 @@ th {
     padding: 1em;
 }
 
+/* Main view containers */
 #ansel-contentwrapper {
     width: 100%;
     float: right;
@@ -103,15 +104,7 @@ th {
     cursor: move;
 }
 
-/* Widgets */
-.anselWidget {
-    border: 1px solid #ccc;
-}
-.anselWidget .control {
-    background: #eee;
-    text-align: center;
-    border: 0;
-}
+/* Widgets container*/
 .anselWidgets {
     margin-right: 5px;
     vertical-align: top;
@@ -123,18 +116,35 @@ th {
 .anselWidgets .header a {
     color: #333333;
 }
-.anselWidgets #similar img {
+.anselWidgets img {
     padding: 1px;
 }
-.embedInput {
-    border-top: 1px solid #ccc;
-    color: #aaa;
+
+/* Widget blocks */
+.anselWidget {
+    border: 1px solid #ccc;
+    padding: 4px;
 }
-.embedInput input {
-    color: #aaa;
-    width: 250px;
-    margin: 5px;
+.anselWidget .control {
+    background: #eee;
+    text-align: center;
+    border: 0;
 }
+.anselWidget {
+    padding: 4px;
+}
+
+/* Specific widgets */
+.ansel-embedlink {
+   border-top: 1px solid #ccc;
+}
+.ansel-embedlink textarea {
+    color: #aaa;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+}
+
 .tagTitle {
     font-size: 100%;
     border: none;
