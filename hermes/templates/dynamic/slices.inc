@@ -8,6 +8,20 @@
     <div id="hermesTimeFormInputs">
       <div class="hermesTimeFormGeneral">
         <div id="hermesLoadingTime" class="hermesLoading" style="display:none"></div>
+        <?php if ($registry->isAdmin(array('permission' => 'hermes:timeadmin'))): ?>
+        <label for="hermesTimeFormEmployee"><?php echo _("Employee") ?>
+          <?php $userType = Hermes::getEmployeesType();
+          if ($userType[0] == 'text'):?>
+            <input type="text" id="hermesTimeFormEmployee" name="employee" />
+          <?php else: ?>
+            <select name="employee" id="hermesTimeFormEmployee">
+              <?php foreach ($userType[1] as $username => $user_label): ?>
+                <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
+              <?php endforeach ?>
+            </select>
+          <?php endif; ?>
+        </label>
+        <?php endif; ?>
         <label for="hermesTimeFormClient">
           <?php echo _("Client")?>
           <?php echo Hermes::getClientSelect('hermesTimeFormClient');?>

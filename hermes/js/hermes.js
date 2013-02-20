@@ -703,6 +703,11 @@ HermesCore = {
     saveTimeCallback: function(r)
     {
         $('hermesLoadingTime').hide();
+
+        if (r === true) {
+            // Successfully entered, but not for current user. Don't add to UI.
+            return;
+        }
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
