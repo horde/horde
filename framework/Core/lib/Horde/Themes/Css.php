@@ -15,6 +15,9 @@
  */
 class Horde_Themes_Css
 {
+    /* @since Horde 2.3.0 */
+    const CSS_URL_REGEX = '/url\s*\(["\']?(.*?)["\']?\)/i';
+
     /**
      * The theme cache ID.
      *
@@ -35,6 +38,13 @@ class Horde_Themes_Css
      * @var array
      */
     protected $_cssThemeFiles = array();
+
+    /**
+     * Temp data used in loadCssFiles() callback.
+     *
+     * @var array
+     */
+    protected $_tmp;
 
     /**
      * Adds an external stylesheet to the output.
@@ -124,13 +134,6 @@ class Horde_Themes_Css
 
         if (!$exists) {
             $out = $this->loadCssFiles($css);
-
-            /* Use CSS tidy to clean up file. */
-            if ($conf['cachecssparams']['compress'] == 'php') {
-                try {
-                    $out = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($out, 'csstidy');
-                } catch (Horde_Exception $e) {}
-            }
 
             switch ($cache_type) {
             case 'filesystem':
@@ -290,59 +293,70 @@ class Horde_Themes_Css
      */
     public function loadCssFiles($files)
     {
-        $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
+        global $browser, $injector;
+
+        $this->_tmp = array(
+            'dataurl' => $browser->hasFeature('dataurl')
+        );
         $out = '';
 
         foreach ($files as $file) {
-            $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
+            $data = file_get_contents($file['fs']);
+            $this->_tmp['path'] = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
 
-            // Fix relative URLs, convert graphics URLs to data URLs
-            // (if possible), remove multiple whitespaces, and strip
-            // comments.
-            $tmp = preg_replace(array('/(url\(["\']?)([^\/])/i', '/\s+/', '/\/\*.*?\*\//'), array('$1' . $path . '$2', ' ', ''), implode('', file($file['fs'], FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES)));
-            if ($dataurl) {
-                $tmp = preg_replace_callback('/(background(?:-image)?:[^;}]*(?:url\(["\']?))(.*?)((?:["\']?\)))/i', array($this, '_base64Callback'), $tmp);
+            try {
+                $css = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'csstidy', array(
+                    'ob' => true
+                ));
+
+                foreach ($css->tokens as $k => $v) {
+                    if (stripos($v[1], 'url(') !== false) {
+                        $this->_tmp['type'] = $css->tokens[$k - 1][1];
+                        $css->tokens[$k][1] = preg_replace_callback(self::CSS_URL_REGEX, array($this, '_loadCssFilesCallback'), $v[1]);
+                    }
+                }
+
+                foreach ($css->import as $val) {
+                    if (preg_match_all(self::CSS_URL_REGEX, $val, $matches)) {
+                        foreach ($matches[1] as $val2) {
+                            $ob = Horde_Themes_Element::fromUri($this->_tmp['path'] . $val2);
+                            $out .= $this->loadCssFiles(array(array(
+                                'app' => null,
+                                'fs' => $ob->fs,
+                                'uri' => $ob->uri
+                            )));
+                        }
+                    }
+                }
+                $css->import = array();
+
+                $out .= $css->print->plain();
+            } catch (Horde_Exception $e) {
+                $out .= $data;
             }
-
-            /* Scan to grab any @import tags within the CSS file. */
-            $tmp = preg_replace_callback('/@import\s+url\(["\']?(.*?)["\']?\)(?:\s*;\s*)*/i', array($this, '_importCallback'), $tmp);
-
-            $out .= $tmp;
         }
 
         return $out;
     }
 
     /**
-     * Callback for loadCssFiles() to convert images to base64 data
-     * strings.
+     * Callback for loadCssFiles() to convert URL data.
      *
      * @param array $matches  The list of matches from preg_replace_callback.
      *
-     * @return string  The image string.
+     * @return string  The converted string.
      */
-    protected function _base64Callback($matches)
+    protected function _loadCssFilesCallback($matches)
     {
-        /* Limit data to 16 KB in stylesheets. */
-        return $matches[1] . Horde::base64ImgData($matches[2], 16384) . $matches[3];
-    }
+        $url = $this->_tmp['path'] . $matches[1];
 
-    /**
-     * Callback for loadCssFiles() to process import tags.
-     *
-     * @param array $matches  The list of matches from preg_replace_callback.
-     *
-     * @return string  CSS string.
-     */
-    protected function _importCallback($matches)
-    {
-        $ob = Horde_Themes_Element::fromUri($matches[1]);
+        if ($this->_tmp['dataurl'] &&
+            (stripos(ltrim($this->_tmp['type']), 'background') === 0)) {
+            /* Limit data to 16 KB in stylesheets. */
+            return 'url(' . Horde::base64ImgData($url, 16384) . ')';
+        }
 
-        return $this->loadCssFiles(array(array(
-            'app' => null,
-            'fs' => $ob->fs,
-            'uri' => $ob->uri
-        )));
+        return 'url(\'' . $url . '\')';
     }
 
 }
