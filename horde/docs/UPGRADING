@@ -29,6 +29,16 @@ application, you **always** need to update configurations and database
 schemes. Log in as an administrator, go to Administration => Configuration and
 update anything that's highlighted as outdated.
 
+
+Upgrading Horde from 5.0.x to 5.1.x
+===================================
+
+Configuration Options (conf.php)
+--------------------------------
+
+The $conf['cachecssparams']['compress'] option was removed.
+
+
 Upgrading Horde from 5.0 to 5.0.1
 =================================
 
@@ -38,7 +48,6 @@ Weather portal block
 Google no longer provides a weather API. Support for this has therefore been
 removed from Horde. If you were using Google as a source for weather, you will
 need to pick a new provider and update the Horde configuration.
-
 
 
 Upgrading Horde from 4.x to 5.x
@@ -129,7 +138,6 @@ service in Horde's configuration::
 Upgrading Horde from 4.0.x to 4.0.10
 ====================================
 
-
 Configuration changes
 ---------------------
 
@@ -138,7 +146,6 @@ The 'nobase64_img' option was added.
 
 Upgrading Horde from 4.0 to 4.0.1
 =================================
-
 
 Configuration Values
 --------------------
@@ -156,7 +163,6 @@ details on this hook.
 
 Upgrading Horde from 3.3.x to 4.x
 =================================
-
 
 New installation method
 -----------------------
@@ -328,7 +334,6 @@ installed on your system::
 Upgrading Horde from 3.1.x to 3.2.x
 ===================================
 
-
 SQL Backends
 ------------
 
@@ -406,7 +411,6 @@ exploits.
 Upgrading Horde from 3.1.1 to 3.1.2
 ===================================
 
-
 Session Configuration
 ---------------------
 
@@ -437,7 +441,6 @@ if you have large preference tables.
 Upgrading Horde from 3.1 to 3.1.1
 =================================
 
-
 MySQL Session Handler
 ---------------------
 
@@ -456,7 +459,6 @@ to change the table type to InnoDB, execute the following SQL statement::
 
 Upgrading Horde from 3.0.x to 3.1.x
 ===================================
-
 
 SQL Backends
 ------------

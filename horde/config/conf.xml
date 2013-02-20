@@ -1106,12 +1106,6 @@
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">86400</configinteger>
-     <configswitch name="compress" desc="How should we compress the static
-     cached files?">php
-      <case name="none" desc="No compression" />
-      <case name="php" desc="Built-in compressor (Good compression, good
-      speed)" />
-     </configswitch>
     </configsection>
    </case>
   </configswitch>
