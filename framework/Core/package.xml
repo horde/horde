@@ -31,8 +31,8 @@
  <date>2013-02-11</date>
  <time>19:04:23</time>
  <version>
-  <release>2.2.1</release>
-  <api>2.1.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add Horde_Url#selfUrlParams().
 * [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
 * [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
 * [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
@@ -2755,14 +2756,15 @@
   </release>
   <release>
    <version>
-    <release>2.2.1</release>
-    <api>2.1.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add Horde_Url#selfUrlParams().
 * [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
 * [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
 * [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
