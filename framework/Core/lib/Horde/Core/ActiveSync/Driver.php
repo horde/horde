@@ -909,9 +909,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         default:
             // Must be mail folder
-            if (!is_array($id)) {
-                $id = array($id);
-            }
             try {
                 $results = $this->_imap->deleteMessages($ids, $folderid);
             } catch (Horde_ActiveSync_Exception $e) {
