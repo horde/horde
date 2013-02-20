@@ -212,7 +212,7 @@ class Ansel_View_Image extends Ansel_View_Ansel
         $this->_date = $this->gallery->getDate();
         $this->_style = (empty($this->_params['style']) ?
              $this->gallery->getStyle() :
-             $this->_params['style']);
+             Ansel::getStyleDefinition($this->_params['style']));
 
         // Make sure the screen view is loaded and get the geometry
         try {
