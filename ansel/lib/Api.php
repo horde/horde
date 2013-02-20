@@ -1098,9 +1098,6 @@ class Ansel_Api extends Horde_Registry_Api
         $classname = 'Ansel_View_' . basename($view);
         $params['api'] = true;
         $params['view'] = $view;
-        if ($params['style']) {
-            $params['style'] = Ansel::getStyleDefinition($params['style']);
-        }
 
         $trail = array();
         $return = array();
