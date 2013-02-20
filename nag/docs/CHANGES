@@ -2,6 +2,7 @@
 v4.0.3-git
 ----------
 
+[mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 
