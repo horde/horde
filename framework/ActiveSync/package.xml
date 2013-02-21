@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-02</date>
- <time>14:40:08</time>
+ <date>2013-02-21</date>
+ <time>12:38:06</time>
  <version>
   <release>2.2.1</release>
   <api>2.2.0</api>
@@ -1197,7 +1197,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-02</date>
+   <date>2013-02-21</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Always output the optional POOMCAL_MEETINGSTATUS property to avoid issues with some versions of iOS (Bug #12056).
