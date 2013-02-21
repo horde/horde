@@ -22,12 +22,11 @@ class Hermes_Form_Search extends Horde_Form
     public function __construct(&$vars)
     {
         parent::__construct($vars, _("Search For Time"));
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
 
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review')) {
             $type = Hermes::getEmployeesType();
-            $this->addVariable(_("Employees"), 'employees', $type[0], false,
-                               false, null, array($type[1]));
+            $this->addVariable(
+                _("Employees"), 'employees', $type[0], false, false, null, array($type[1]));
         }
         $type = $this->getClientsType();
         $cli = &$this->addVariable(_("Clients"), 'clients', $type[0], false, false, null, $type[1]);
@@ -151,10 +150,8 @@ class Hermes_Form_Search extends Horde_Form
             return null;
         }
         $this->getInfo($vars, $info);
-        $perms = $GLOBALS['injector']->getInstance('Horde_Perms');
-
         $criteria = array();
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)) {
+        if ($registry->isAdmin(array('permission' => 'hermes:review')) {
             if (!empty($info['employees'])) {
                 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
                 if (!$auth->hasCapability('list')) {
