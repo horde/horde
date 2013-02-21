@@ -23,7 +23,7 @@
   <active>yes</active>
  </lead>
  <date>2013-02-21</date>
- <time>11:55:44</time>
+ <time>13:57:26</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -433,7 +433,7 @@
      </dir> <!-- /templates/view/api -->
      <file name="gallery.html.php" role="horde" />
      <file name="image.html.php" role="horde" />
-     <file name="list.inc" role="horde" />
+     <file name="list.html.php" role="horde" />
      <file name="results.html.php" role="horde" />
      <file name="slideshow.html.php" role="horde" />
     </dir> <!-- /templates/view -->
@@ -1049,7 +1049,7 @@
    <install as="ansel/templates/tile/image.html.php" name="templates/tile/image.html.php" />
    <install as="ansel/templates/view/gallery.html.php" name="templates/view/gallery.html.php" />
    <install as="ansel/templates/view/image.html.php" name="templates/view/image.html.php" />
-   <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
+   <install as="ansel/templates/view/list.html.php" name="templates/view/list.html.php" />
    <install as="ansel/templates/view/results.html.php" name="templates/view/results.html.php" />
    <install as="ansel/templates/view/slideshow.html.php" name="templates/view/slideshow.html.php" />
    <install as="ansel/templates/view/api/gallery.html.php" name="templates/view/api/gallery.html.php" />

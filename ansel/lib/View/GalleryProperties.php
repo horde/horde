@@ -146,6 +146,7 @@ class Ansel_View_GalleryProperties
         ));
 
         $page_output->header();
+        $GLOBALS['notification']->notify(array('listeners' => 'status'));
         echo $view->render('properties');
         $page_output->footer();
     }
