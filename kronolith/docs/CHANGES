@@ -2,6 +2,8 @@
 v4.0.5-git
 ----------
 
+[mjr] Always populate the meetingstatus property in ActiveSync requests  to
+      avoid issues with some versions of iOS (Bug #12056).
 [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
 
 

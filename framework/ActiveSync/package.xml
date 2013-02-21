@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Always output the optional POOMCAL_MEETINGSTATUS property to avoid issues with some versions of iOS (Bug #12056).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1200,7 +1200,7 @@
    <date>2013-02-02</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Always output the optional POOMCAL_MEETINGSTATUS property to avoid issues with some versions of iOS (Bug #12056).
    </notes>
   </release>
  </changelog>

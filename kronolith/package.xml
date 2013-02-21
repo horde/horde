@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
 * [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
  </notes>
  <contents>
@@ -2085,6 +2086,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
 * [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
    </notes>
   </release>
