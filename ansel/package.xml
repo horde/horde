@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-04</date>
- <time>11:34:58</time>
+ <date>2013-02-21</date>
+ <time>11:55:44</time>
  <version>
   <release>3.0.0</release>
   <api>3.0.0</api>
@@ -83,7 +83,6 @@
    </dir> <!-- /faces -->
    <dir name="gallery">
     <file name="captions.php" role="horde" />
-    <file name="delete.php" role="horde" />
     <file name="index.php" role="horde" />
     <file name="sort.php" role="horde" />
    </dir> <!-- /gallery -->
@@ -104,6 +103,8 @@
     </dir> <!-- /js/blocks -->
     <dir name="views">
      <file name="common.js" role="horde" />
+     <file name="image.js" role="horde" />
+     <file name="slideshow.js" role="horde" />
     </dir> <!-- /js/views -->
     <dir name="widgets">
      <file name="geotag.js" role="horde" />
@@ -432,16 +433,16 @@
      </dir> <!-- /templates/view/api -->
      <file name="gallery.html.php" role="horde" />
      <file name="image.html.php" role="horde" />
-     <file name="image.inc" role="horde" />
      <file name="list.inc" role="horde" />
      <file name="results.html.php" role="horde" />
-     <file name="slideshow.inc" role="horde" />
+     <file name="slideshow.html.php" role="horde" />
     </dir> <!-- /templates/view -->
     <dir name="widgets">
      <file name="actions.html.php" role="horde" />
      <file name="begin.html.php" role="horde" />
      <file name="end.html.php" role="horde" />
      <file name="geotag.html.php" role="horde" />
+     <file name="links.html.php" role="horde" />
      <file name="othergalleries.html.php" role="horde" />
      <file name="tags.html.php" role="horde" />
     </dir> <!-- /templates/widgets -->
@@ -503,6 +504,7 @@
       <file name="bookmark.png" role="horde" />
       <file name="browse.png" role="horde" />
       <file name="down.png" role="horde" />
+      <file name="embed.png" role="horde" />
       <file name="faces.png" role="horde" />
       <file name="favicon.ico" role="horde" />
       <file name="galleries.png" role="horde" />
@@ -838,7 +840,6 @@
    <install as="ansel/faces/search/owner.php" name="faces/search/owner.php" />
    <install as="ansel/faces/search/tabs.php" name="faces/search/tabs.php" />
    <install as="ansel/gallery/captions.php" name="gallery/captions.php" />
-   <install as="ansel/gallery/delete.php" name="gallery/delete.php" />
    <install as="ansel/gallery/index.php" name="gallery/index.php" />
    <install as="ansel/gallery/sort.php" name="gallery/sort.php" />
    <install as="ansel/img/download.php" name="img/download.php" />
@@ -866,6 +867,8 @@
    <install as="ansel/js/togglewidget.js" name="js/togglewidget.js" />
    <install as="ansel/js/blocks/geotag.js" name="js/blocks/geotag.js" />
    <install as="ansel/js/views/common.js" name="js/views/common.js" />
+   <install as="ansel/js/views/image.js" name="js/views/image.js" />
+   <install as="ansel/js/views/slideshow.js" name="js/views/slideshow.js" />
    <install as="ansel/js/widgets/geotag.js" name="js/widgets/geotag.js" />
    <install as="ansel/js/widgets/tagactions.js" name="js/widgets/tagactions.js" />
    <install as="ansel/lib/ActionHandler.php" name="lib/ActionHandler.php" />
@@ -1046,15 +1049,15 @@
    <install as="ansel/templates/tile/image.html.php" name="templates/tile/image.html.php" />
    <install as="ansel/templates/view/gallery.html.php" name="templates/view/gallery.html.php" />
    <install as="ansel/templates/view/image.html.php" name="templates/view/image.html.php" />
-   <install as="ansel/templates/view/image.inc" name="templates/view/image.inc" />
    <install as="ansel/templates/view/list.inc" name="templates/view/list.inc" />
    <install as="ansel/templates/view/results.html.php" name="templates/view/results.html.php" />
-   <install as="ansel/templates/view/slideshow.inc" name="templates/view/slideshow.inc" />
+   <install as="ansel/templates/view/slideshow.html.php" name="templates/view/slideshow.html.php" />
    <install as="ansel/templates/view/api/gallery.html.php" name="templates/view/api/gallery.html.php" />
    <install as="ansel/templates/widgets/actions.html.php" name="templates/widgets/actions.html.php" />
    <install as="ansel/templates/widgets/begin.html.php" name="templates/widgets/begin.html.php" />
    <install as="ansel/templates/widgets/end.html.php" name="templates/widgets/end.html.php" />
    <install as="ansel/templates/widgets/geotag.html.php" name="templates/widgets/geotag.html.php" />
+   <install as="ansel/templates/widgets/links.html.php" name="templates/widgets/links.html.php" />
    <install as="ansel/templates/widgets/othergalleries.html.php" name="templates/widgets/othergalleries.html.php" />
    <install as="ansel/templates/widgets/tags.html.php" name="templates/widgets/tags.html.php" />
    <install as="ansel/templates/xppublish/javascript.inc" name="templates/xppublish/javascript.inc" />
@@ -1080,6 +1083,7 @@
    <install as="ansel/themes/default/graphics/bookmark.png" name="themes/default/graphics/bookmark.png" />
    <install as="ansel/themes/default/graphics/browse.png" name="themes/default/graphics/browse.png" />
    <install as="ansel/themes/default/graphics/down.png" name="themes/default/graphics/down.png" />
+   <install as="ansel/themes/default/graphics/embed.png" name="themes/default/graphics/embed.png" />
    <install as="ansel/themes/default/graphics/faces.png" name="themes/default/graphics/faces.png" />
    <install as="ansel/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
    <install as="ansel/themes/default/graphics/galleries.png" name="themes/default/graphics/galleries.png" />
