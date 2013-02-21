@@ -314,6 +314,26 @@ class Ansel_View_Image extends Ansel_View_Ansel
     }
 
     /**
+     * Generate the Horde_View and populate with basic/common properties.
+     *
+     * @return Horde_View
+     */
+    protected function _getView()
+    {
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
+        $view->filename = $this->_resource->filename;
+        $view->caption = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_TextFilter')
+            ->filter($this->_resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $view->view = $this;
+        $view->geometry = $this->_geometry;
+        $view->background = $this->_style->background;
+
+        return $view;
+    }
+
+    /**
      * Image view specific HTML - done so we can extend View_Image for things
      * like the slideshow view etc...
      */
@@ -322,16 +342,8 @@ class Ansel_View_Image extends Ansel_View_Ansel
         global $conf, $registry, $prefs, $page_output;
 
         // Build initial view properties
-        $view = $GLOBALS['injector']->createInstance('Horde_View');
-        $view->addTemplatePath(ANSEL_TEMPLATES . '/view');
-        $view->filename = $this->_resource->filename;
-        $view->caption = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_TextFilter')
-            ->filter($this->_resource->caption, 'text2html', array('parselevel' => Horde_Text_Filter_Text2html::MICRO));
+        $view = $this->_getView();
         $view->hide_slideshow = !empty($this->_params['hide_slideshow']);
-        $view->view = $this;
-        $view->geometry = $this->_geometry;
-        $view->background = $this->_style->background;
 
         // Starting image
         $imageIndex = $this->_revList[$this->resource->id];

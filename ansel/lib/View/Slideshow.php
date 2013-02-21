@@ -16,19 +16,24 @@ class Ansel_View_Slideshow extends Ansel_View_Image
     {
         parent::__construct($params);
         $GLOBALS['page_output']->addScriptFile('slideshow.js');
+        $GLOBALS['page_output']->addScriptFile('views/slideshow.js');
     }
 
     protected function _html()
     {
         global $registry, $prefs;
-        $imageIndex = $this->_revList[$this->resource->id];
 
+        $view = $this->_getView();
+        $view->hasEdit = $this->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT);
+        $view->hasDelete = $this->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE);
+        $view->urls = $this->_urls;
+
+        $imageIndex = $this->_revList[$this->resource->id];
         $js = 'SlideController.initialize(' . self::json($this->gallery, array('view_links' => true)) . ','
-            . $imageIndex . ', "' . $GLOBALS['registry']->get('webroot') . '", ' . $this->gallery->id . ', "");';
+            . $imageIndex . ', "' . $registry->get('webroot') . '", ' . $this->gallery->id . ', "");';
         $GLOBALS['page_output']->addInlineScript($js, true);
-        Horde::startBuffer();
-        require ANSEL_TEMPLATES . '/view/slideshow.inc';
-        return Horde::endBuffer();
+
+        return $view->render('slideshow');
     }
 
     public function viewType()

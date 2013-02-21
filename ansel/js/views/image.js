@@ -54,4 +54,4 @@ AnselImageView = {
     }
 };
 
-//document.observe('dom:loaded', AnselImageView.onload);
+document.observe('dom:loaded', AnselImageView.onload);

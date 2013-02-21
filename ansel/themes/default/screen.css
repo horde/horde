@@ -76,17 +76,20 @@ th {
     margin-top: 5px;
     vertical-align: top;
 }
+#ansel-content-nowidgets {
+  vertical-align: top;
+}
 
 /* Image view */
-#anselimagecontainer {
+#anselimagecontainer, #Photo {
     text-align: center;
 }
-#anselcaptioncontainer {
+#anselcaptioncontainer, #CaptionContainer {
     margin: 0 auto;
     text-align: left;
     font-size: 125%;
 }
-#anselcaption {
+#anselcaption, #Caption {
     padding: 1em;
 }
 
