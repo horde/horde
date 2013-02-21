@@ -20,15 +20,16 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
     private $_supported_views = array('Image');
 
     /**
-     * Constructor
+     * Attach widget to supplied view.
      *
-     * @param array $params  Any parameters for this widget
-     * @return Ansel_Widget_ImageFaces
+     * @param Ansel_View_Base $view
      */
-    public function __construct($params)
+    public function attach(Ansel_View_Base $view)
     {
-        parent::__construct($params);
-        $this->_title = _("People in this photo");
+      if (empty($GLOBALS['conf']['faces']['driver'])) {
+        return false;
+      }
+      parent::attach($view);
     }
 
     /**
@@ -38,6 +39,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     public function html()
     {
+        $this->_title = _("People in this photo");
         if ($GLOBALS['conf']['faces']['driver']) {
             $html = $this->_getFaceNames();
             return $this->_htmlBegin() . $html . $this->_htmlEnd();
