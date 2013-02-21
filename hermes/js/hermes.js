@@ -746,7 +746,13 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
-        if (this.getSliceFromCache(sid)) {
+
+        if (r === true && this.getSliceFromCache(sid)) {
+            this.removeSliceFromCache(sid);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
+        } else if (this.getSliceFromCache(sid)) {
             this.replaceSliceInCache(sid, r);
             this.reverseSort = false;
             this.updateView(this.view);
