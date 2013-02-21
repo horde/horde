@@ -390,9 +390,7 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
         $vars = $this->vars;
 
         $criteria = array();
-        if ($perms->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::SHOW)
-            || $GLOBALS['registry']->isAdmin()) {
-
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review'))) {
             if (!empty($vars->employees[0])) {
                 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
                 if (!$auth->hasCapability('list')) {
