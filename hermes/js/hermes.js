@@ -279,13 +279,9 @@ HermesCore = {
                 return;
 
             case 'hermesDoExport':
-                var keys = this.getSearchResultKeys(),
-                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
-                      'f': $F('hermesExportFormat'),
-                      'm': (Hermes.conf.has_review_edit ? $F('hermesExportMark') : 'off'),
-                      's': keys.join(',') });
-                HordeCore.redirect(url);
-                e.stop();
+                var keys = this.getSearchResultKeys();
+                $('hermesExportFormS').setValue(keys.join(','));
+                $('hermesExportForm').submit();
                 return;
 
             // Search Form
