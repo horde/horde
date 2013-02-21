@@ -282,7 +282,7 @@ HermesCore = {
                 var keys = this.getSearchResultKeys(),
                 url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
                       'f': $F('hermesExportFormat'),
-                      'm': $F('hermesExportMark'),
+                      'm': (Hermes.conf.has_review_edit ? $F('hermesExportMark') : 'off'),
                       's': keys.join(',') });
                 HordeCore.redirect(url);
                 e.stop();
