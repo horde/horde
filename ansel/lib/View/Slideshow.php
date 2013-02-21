@@ -8,13 +8,9 @@
  */
 class Ansel_View_Slideshow extends Ansel_View_Image
 {
-    /**
-     * const'r
-     *
-     */
-    public function __construct($params = array())
+
+    protected function _includeViewSpecificScripts()
     {
-        parent::__construct($params);
         $GLOBALS['page_output']->addScriptFile('slideshow.js');
         $GLOBALS['page_output']->addScriptFile('views/slideshow.js');
     }

@@ -166,8 +166,8 @@ class Ansel_View_Image extends Ansel_View_Ansel
         if (empty($this->_params['api'])) {
             $GLOBALS['page_output']->addScriptFile('scriptaculous/effects.js', 'horde');
             $GLOBALS['page_output']->addScriptFile('stripe.js', 'horde');
-            $GLOBALS['page_output']->addScriptFile('views/image.js');
         }
+        $this->_includeViewSpecificScripts();
     }
 
     /**
@@ -521,6 +521,11 @@ class Ansel_View_Image extends Ansel_View_Ansel
         } else {
             return false;
         }
+    }
+
+    protected function _includeViewSpecificScripts()
+    {
+      $GLOBALS['page_output']->addScriptFile('views/image.js');
     }
 
     public function viewType()
