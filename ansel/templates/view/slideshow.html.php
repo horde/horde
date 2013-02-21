@@ -30,7 +30,7 @@
     <div id="anselimagecontainer">
       <?php echo Horde::img('blank.gif', '', array('id' => 'Photo', 'width' => $this->geometry['width'], 'height' => $this->geometry['height'])) ?>
       <div id="CaptionContainer" style="width:<?php echo $this->geometry['width']?>px;">
-        <p id="Caption" style="display:none;">
+        <p id="Caption">
           <?php echo $this->caption ?>
         </p>
       </div>
