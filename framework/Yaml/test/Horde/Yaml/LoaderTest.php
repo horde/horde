@@ -256,9 +256,12 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     public function testNan()
     {
         // NAN !== NAN, but NAN == NAN
-        $this->assertEquals(array('n' => NAN), Horde_Yaml::load('n: .nan'));
-        $this->assertEquals(array('n' => NAN), Horde_Yaml::load('n: .NaN'));
-        $this->assertEquals(array('n' => NAN), Horde_Yaml::load('n: .NAN'));
+        $yaml = Horde_Yaml::load('n: .nan');
+        $this->assertTrue(is_nan($yaml['n']));
+        $yaml = Horde_Yaml::load('n: .NaN');
+        $this->assertTrue(is_nan($yaml['n']));
+        $yaml = Horde_Yaml::load('n: .NAN');
+        $this->assertTrue(is_nan($yaml['n']));
     }
 
     public function testArray()
@@ -790,7 +793,7 @@ class Horde_Yaml_LoaderTest extends PHPUnit_Framework_TestCase
     public function testUnfolding()
     {
         $parsed = Horde_Yaml::loadFile($this->fixture('basic'));
-        $expected = "Line 1 Line 2";
+        $expected = "Line 1 Line 2\n";
         $this->assertEquals($expected, $parsed['foldedStringTest']);
     }
 

@@ -856,18 +856,25 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($elt && isset($this->_parent[$elt['v']])) {
             foreach ($this->_parent[$elt['v']] as $val) {
+                $v = $this->_tree[$val];
+
                 if (($this->_showunsub &&
-                     !$this->isContainer($this->_tree[$val]) &&
-                     !$this->isNamespace($this->_tree[$val])) ||
-                    $this->isSubscribed($this->_tree[$val]) ||
-                    $this->hasChildren($this->_tree[$val])) {
+                     !$this->isContainer($v) &&
+                     !$this->isNamespace($v)) ||
+                    $this->isSubscribed($v)) {
                     /* If skipping special mailboxes, need to check an element
-                     * for at least one non-special children. */
+                     * for at least one non-special child. */
                     if (!$filter ||
                         !($this->_cache['filter']['mask'] & self::FLIST_NOSPECIALMBOXES) ||
                         !IMP_Mailbox::get($val)->special) {
                         return true;
                     }
+                }
+
+                /* So this element is not a visible child, but its children
+                 * may still be. */
+                if ($this->hasChildren($v, $filter)) {
+                    return true;
                 }
             }
         }

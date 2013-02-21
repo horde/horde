@@ -1,13 +1,11 @@
 BEGIN:VCALENDAR
 VERSION:2.0
 PRODID:-//The Horde Project//Horde iCalendar Library//EN
-METHOD:PUBLISH
 BEGIN:VEVENT
 UID:XXX
 DTSTART;VALUE=DATE:20080101
 DTSTAMP;VALUE=DATE:20080101
 DESCRIPTION:Lörem ipsüm dölör sit ämet\, cönsectetüer ädipiscing elit.
   Aliqüäm söllicitüdin fäücibüs mäüris ämet.
-SUMMARY:
 END:VEVENT
 END:VCALENDAR

@@ -632,8 +632,10 @@ var DimpBase = {
                     $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
+                this.showSearchbar(false);
             }
 
             if (this.rownum) {
@@ -661,10 +663,8 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
-                    this.showSearchbar(true);
                 } else if (tmp)  {
                     tmp.show();
-                    this.showSearchbar(false);
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
@@ -1334,7 +1334,7 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
             $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke(this.viewport.getMetaData('flags').size() & this.viewport.getMetaData('readonly') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) ? 'hide' : 'show');
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1763,6 +1763,7 @@ var DimpBase = {
         e.dataTransfer.setData(
             'DownloadURL',
             base.down('IMG').readAttribute('title') + ':' +
+            // IE8 doesn't use this code so textContent is OK to use
             base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );
@@ -2056,19 +2057,14 @@ var DimpBase = {
     quotaCallback: function(r)
     {
         var quota = $('quota-text');
-        quota.setText(r.m);
+        quota.removeClassName('quotaalert').
+            removeClassName('quotawarn').
+            setText(r.m);
+
         switch (r.l) {
         case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.addClassName('quotaalert');
-            break;
         case 'warn':
-            quota.removeClassName('quotaalert');
-            quota.addClassName('quotawarn');
-            break;
-        case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.removeClassName('quotaalert');
+            quota.addClassName('quota' + r.l);
             break;
         }
     },
@@ -3900,7 +3896,14 @@ document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(Dim
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
 /* Initialize onload handler. */
-document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // For IE 8
+        DimpBase.onDomLoad.bind(DimpBase).defer();
+    } else {
+        DimpBase.onDomLoad();
+    }
+});
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));

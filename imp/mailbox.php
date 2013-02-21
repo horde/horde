@@ -348,7 +348,7 @@ $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 $page_output->addInlineJsVars(array(
     'ImpMailbox.text' => array(
-        'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
+        'delete_messages' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
         'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
         'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
         'selectone' => _("You must select at least one message first."),
@@ -373,21 +373,15 @@ if (IMP::mailbox()->editvfolder) {
 
 /* Generate mailbox summary string. */
 $subinfo = $injector->getInstance('IMP_View_Subinfo');
-$subinfo->value = $pagetitle;
+$subinfo->value = $pagetitle . ' (';
 if (empty($pageOb['end'])) {
     $subinfo->value .= _("No Messages");
 } else {
-    $subinfo->value .= ' (';
-    if ($pageOb['pagecount'] > 1) {
-        $subinfo->value .=
-              sprintf(_("%d Messages"), $pageOb['msgcount'])
-            . ' / '
-            .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
-    } else {
-        $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
-    }
-    $subinfo->value .= ')';
+    $subinfo->value .= ($pageOb['pagecount'] > 1)
+        ? sprintf(_("%d Messages"), $pageOb['msgcount']) . ' / ' . sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount'])
+        : sprintf(_("%d Messages"), $pageOb['msgcount']);
 }
+$subinfo->value .= ')';
 $injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 $page_output->addScriptFile('hordecore.js', 'horde');

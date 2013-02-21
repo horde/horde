@@ -1,11 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Sql class provides a SQL implementation of the Horde
- * authentication system.
- *
- * The table structure for the Auth system is in
- * horde/scripts/sql/horde_users.sql.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -13,7 +7,20 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Sql class provides a SQL implementation of the Horde
+ * authentication system.
+ *
+ * The table structure for the Auth system needs to be created with the shipped
+ * migration scripts. See "horde-db-migrate-component --help" for details.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Sql extends Horde_Auth_Base
@@ -296,6 +303,8 @@ class Horde_Auth_Sql extends Horde_Auth_Base
     /**
      * List all users in the system.
      *
+     * @param boolean $sort  Sort the users?
+     *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
@@ -318,6 +327,8 @@ class Horde_Auth_Sql extends Horde_Auth_Base
 
     /**
      * Checks if a userId exists in the system.
+     *
+     * @param string $userId  User ID for which to check
      *
      * @return boolean  Whether or not the userId already exists.
      */

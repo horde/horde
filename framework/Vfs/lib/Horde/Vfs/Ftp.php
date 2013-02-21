@@ -766,31 +766,6 @@ class Horde_Vfs_Ftp extends Horde_Vfs_Base
     }
 
     /**
-     * Returns the parent directory of the specified path.
-     *
-     * @param string $path  The path to get the parent of.
-     *
-     * @return string  The parent directory.
-     * @throws Horde_Vfs_Exception
-     */
-    protected function _parentDir($path)
-    {
-        $this->_connect();
-
-        $olddir = $this->getCurrentDirectory();
-        @ftp_cdup($this->_stream);
-
-        $parent = $this->getCurrentDirectory();
-        $this->_setPath($olddir);
-
-        if (!$parent) {
-            throw new Horde_Vfs_Exception('Unable to determine current directory.');
-        }
-
-        return $parent;
-    }
-
-    /**
      * Attempts to open a connection to the FTP server.
      *
      * @throws Horde_Vfs_Exception

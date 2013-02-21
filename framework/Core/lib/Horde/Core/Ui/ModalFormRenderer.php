@@ -16,20 +16,6 @@ class Horde_Core_Ui_ModalFormRenderer extends Horde_Form_Renderer
 {
     var $_stripedRows = false;
 
-    /**
-     * Constructor
-     *
-     * @param array $params  This is a hash of renderer-specific parameters.
-     *                       Possible keys:
-     *                       - 'varrenderer_driver': specifies the driver
-     *                         parameter to Horde_Core_Ui_VarRenderer::factory().
-     *                       - 'encode_title': @see $_encodeTitle
-     */
-    public function __construct($params = array())
-    {
-        parent::__construct_Renderer($params);
-    }
-
     function _renderSectionBegin(&$form, $section)
     {
         $open_section = $form->getOpenSection();

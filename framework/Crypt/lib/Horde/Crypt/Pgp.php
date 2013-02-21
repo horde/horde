@@ -1683,7 +1683,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function getPublicKeyFromPrivateKey($data)
     {
-        $keyring = $this->_putInKeyring(array($data), 'private');
+        $this->_putInKeyring(array($data), 'private');
         $fingerprints = $this->getFingerprintsFromKey($data);
         reset($fingerprints);
 

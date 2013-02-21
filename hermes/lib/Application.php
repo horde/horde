@@ -184,7 +184,10 @@ class Hermes_Application extends Horde_Registry_Application
             ),
             'invoicing' => array(
                 'title' => _("Invoicing")
-            )
+            ),
+            'timeadmin' => array(
+                'title' => _("Time Administration"),
+                'type' => 'boolean')
         );
     }
 

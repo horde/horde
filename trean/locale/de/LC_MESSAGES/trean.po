@@ -1,14 +1,14 @@
 # German translations for Trean
 # Copyright 2002-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Trean package.
-# Jan Schneider <jan@horde.org>, 2002-2012.
+# Jan Schneider <jan@horde.org>, 2002-2013.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Trean H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-07-19 19:38+0200\n"
+"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"PO-Revision-Date: 2013-01-29 11:58+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -41,13 +41,17 @@ msgstr "25 Zeilen"
 msgid "3 Line"
 msgstr "3 Zeilen"
 
-#: templates/add.html.php:43
+#: templates/add.html.php:49
 msgid "Add"
 msgstr "Hinzufügen"
 
 #: templates/bookmarklet.html.php:1
 msgid "Add to Bookmarks"
 msgstr "Zu Lesezeichen hinzufügen"
+
+#: templates/list.html.php:13
+msgid "Added"
+msgstr "Hinzugefügt"
 
 #: config/prefs.php:36
 msgid "Ascending (A to Z or oldest to newest)"
@@ -67,11 +71,11 @@ msgid "Bookmarked on"
 msgstr "Datum"
 
 #: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
-#: lib/View/BookmarkList.php:116
+#: lib/View/BookmarkList.php:120
 msgid "Bookmarks"
 msgstr "Lesezeichen"
 
-#: lib/Trean.php:82
+#: lib/Trean.php:71
 msgid "Bookmarks Feed"
 msgstr "Lesezeichen-Feed"
 
@@ -79,29 +83,17 @@ msgstr "Lesezeichen-Feed"
 msgid "Browse"
 msgstr "Liste"
 
-#: lib/View/BookmarkList.php:197
-msgid "Browsing for tags:"
-msgstr "Tags anzeigen:"
-
-#: templates/add.html.php:44 templates/edit.html.php:51
+#: templates/add.html.php:50 templates/edit.html.php:60
 msgid "Cancel"
 msgstr "Abbrechen"
-
-#: templates/add.html.php:31 templates/edit.html.php:39
-msgid "Categorize your bookmark with comma separated tags."
-msgstr "Kategorisieren Sie das Lesezeichen durch kommagetrennte Tags."
 
 #: templates/list.html.php:14
 msgid "Clicks"
 msgstr "Klicks"
 
-#: lib/Api.php:74
+#: lib/Api.php:130
 msgid "Close"
 msgstr "Schließen"
-
-#: templates/list.html.php:52
-msgid "Delete"
-msgstr "Löschen"
 
 #: app/controllers/DeleteBookmark.php:13
 msgid "Deleted bookmark: "
@@ -111,7 +103,7 @@ msgstr "Lesezeichen gelöscht: "
 msgid "Descending (9 to 1 or newest to oldest)"
 msgstr "Absteigend (9 nach 1 oder neuste nach älteste)"
 
-#: templates/add.html.php:24 templates/edit.html.php:32
+#: templates/add.html.php:25 templates/edit.html.php:34
 msgid "Description"
 msgstr "Beschreibung"
 
@@ -123,40 +115,40 @@ msgstr "Anzeige-Einstellungen"
 msgid "Display Rows"
 msgstr "Angezeigte Zeilen"
 
-#: templates/add.html.php:57
+#: templates/add.html.php:61
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
 "Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Links\"-"
 "Symbolleiste"
 
-#: templates/add.html.php:55
+#: templates/add.html.php:59
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
 "Ziehen Sie den \"Zu Lesezeichen hinzufügen\" Link auf die \"Persönliche "
 "Symbolleiste\""
 
-#: templates/list.html.php:48
+#: templates/list.html.php:55
 msgid "Edit"
 msgstr "Bearbeiten"
 
-#: edit.php:28
+#: edit.php:31
 msgid "Edit Bookmark"
 msgstr "Lesezeichen bearbeiten"
 
-#: templates/add.html.php:54
+#: templates/add.html.php:58
 msgid "Firefox/Mozilla"
 msgstr "Firefox/Mozilla"
 
-#: templates/add.html.php:56
+#: templates/add.html.php:60
 msgid "Internet Explorer"
 msgstr "Internet Explorer"
 
-#: templates/add.html.php:34 templates/edit.html.php:42
+#: templates/add.html.php:38 templates/edit.html.php:47
 msgid "Loading..."
 msgstr "Lade..."
 
-#: lib/Application.php:71
+#: lib/Application.php:74
 msgid "Maximum Number of Bookmarks"
 msgstr "Maximale Anzahl an Lesezeichen"
 
@@ -168,12 +160,12 @@ msgstr "Am häufigsten geklickt"
 msgid "Most-clicked Bookmarks"
 msgstr "Meistgeklickte Lesezeichen"
 
-#: add.php:66 templates/add.html.php:9
+#: add.php:73 templates/add.html.php:9
 msgid "New Bookmark"
 msgstr "Neues Lesezeichen"
 
-#: templates/search.php:3
-msgid "No Bookmarks found"
+#: search.php:37
+msgid "No bookmarks found"
 msgstr "Keine Lesezeichen gefunden"
 
 #: lib/Block/Bookmarks.php:94 lib/Block/Mostclicked.php:75
@@ -184,7 +176,11 @@ msgstr "Keine Lesezeichen"
 msgid "No bookmarks yet."
 msgstr "Keine Lesezeichen"
 
-#: templates/add.html.php:60
+#: search.php:44
+msgid "No search"
+msgstr "Keine Suche"
+
+#: templates/add.html.php:64
 msgid "Note:"
 msgstr "Anmerkung:"
 
@@ -192,7 +188,7 @@ msgstr "Anmerkung:"
 msgid "Number of bookmarks to show"
 msgstr "Anzahl der angezeigten Lesezeichen"
 
-#: templates/add.html.php:61
+#: templates/add.html.php:65
 #, php-format
 msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
@@ -209,38 +205,26 @@ msgstr "Links in neuem Fenster öffnen?"
 msgid "Other Preferences"
 msgstr "Andere Einstellungen"
 
-#: templates/add.html.php:33 templates/edit.html.php:41
+#: templates/add.html.php:41 templates/edit.html.php:50
 msgid "Previously used tags"
 msgstr "Bisher verwendete Tags"
 
-#: lib/View/BookmarkList.php:181
-msgid "Related Tags:"
-msgstr "Ähnliche Tags:"
-
-#: lib/View/BookmarkList.php:201
+#: lib/View/BookmarkList.php:210
 msgid "Remove from search"
 msgstr "Aus der Suche entfernen"
 
-#: templates/edit.html.php:50
+#: templates/edit.html.php:59
 msgid "Save"
 msgstr "Speichern"
 
-#: lib/Forms/Search.php:11 search.php:19
+#: search.php:30
 msgid "Search"
 msgstr "Suche"
 
-#: lib/Forms/Search.php:9
-msgid "Search Bookmarks"
-msgstr "Lesezeichen suchen"
-
-#: search.php:36
+#: search.php:41
 #, php-format
-msgid "Search Results (%s)"
+msgid "Search results (%s)"
 msgstr "Suchergebnisse (%s)"
-
-#: lib/Forms/Search.php:12
-msgid "Search for"
-msgstr "Suchen nach"
 
 #: config/prefs.php:14
 msgid "Set how to display bookmark listings and how to open links."
@@ -259,6 +243,10 @@ msgstr "Sortieren nach"
 #: config/prefs.php:38
 msgid "Sort direction:"
 msgstr "Sortierrichtung:"
+
+#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+msgid "Tags"
+msgstr "Tags"
 
 #: lib/Block/Bookmarks.php:48 lib/Block/Mostclicked.php:39
 msgid "Template"
@@ -279,20 +267,20 @@ msgstr "Beim Hinzufügen des Lesezeichens ist ein Fehler aufgetreten: %s"
 msgid "There was an error saving the bookmark: %s"
 msgstr "Beim Speichern des Lesezeichens ist ein Fehler aufgetreten: %s"
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:19
-#: templates/edit.html.php:27 templates/list.html.php:13
+#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
 msgid "Title"
 msgstr "Titel"
 
-#: templates/add.html.php:53
+#: templates/add.html.php:57
 msgid "To be able to quickly add bookmarks from your web browser:"
 msgstr "Um schnell Lesezeichen von Ihrem Browser hinzuzufügen:"
 
-#: templates/add.html.php:14 templates/edit.html.php:22
+#: templates/add.html.php:15 templates/edit.html.php:24
 msgid "URL"
 msgstr "Homepage"
 
-#: templates/add.html.php:58
+#: templates/add.html.php:62
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
@@ -305,17 +293,13 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr "Sie dürfen nicht mehr als %d Lesezeichen erstellen."
 
-#: lib/Application.php:81
+#: lib/Application.php:84
 msgid "_Browse"
 msgstr "_Liste"
 
-#: lib/Application.php:82
+#: lib/Application.php:94
 msgid "_New Bookmark"
 msgstr "_Neues Lesezeichen"
-
-#: lib/Application.php:83
-msgid "_Search"
-msgstr "_Suche"
 
 #: templates/block/1line.inc:21 templates/block/2line.inc:24
 #: templates/block/standard.inc:22
@@ -326,3 +310,8 @@ msgstr "Klick"
 #: templates/block/standard.inc:22
 msgid "clicks"
 msgstr "Klicks"
+
+#: app/controllers/BrowseByTag.php:17
+#, php-format
+msgid "tagged %s"
+msgstr "Mit \"%s\" getaggt."

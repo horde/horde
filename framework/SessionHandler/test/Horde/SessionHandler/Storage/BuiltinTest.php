@@ -107,4 +107,13 @@ class Horde_SessionHandler_Storage_BuiltinTest extends Horde_SessionHandler_Stor
         ini_set('session.save_path', self::$dir);
         self::$handler = new Horde_SessionHandler_Storage_Builtin(array('path' => self::$dir));
     }
+
+    public static function tearDownAfterClass()
+    {
+        parent::tearDownAfterClass();
+        unset($_SESSION);
+        session_destroy();
+        session_name(ini_get('session.name'));
+    }
+
 }

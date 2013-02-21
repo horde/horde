@@ -60,7 +60,7 @@
  *   - RFC 5957: SORT=DISPLAY
  *   - RFC 6154: SPECIAL-USE/CREATE-SPECIAL-USE
  *   - RFC 6203: SEARCH=FUZZY
- *   - RFC XXXX: MOVE (draft-ietf-imapmove-command-02)
+ *   - RFC 6851: MOVE
  *
  * Implements the following non-RFC extensions:
  * <ul>
@@ -117,6 +117,13 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     const CACHE_FLAGS = 'HICflags';
 
     /**
+     * Fetch cached entries.
+     *
+     * @var Horde_Imap_Client_Fetch_Results
+     */
+    protected $_fetch;
+
+    /**
      * Mapping of status fields to IMAP names.
      *
      * @var array
@@ -170,6 +177,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         ), $params);
 
         parent::__construct($params);
+    }
+
+    /**
+     */
+    protected function _initOb()
+    {
+        parent::_initOb();
+
+        $this->_fetch = new Horde_Imap_Client_Fetch_Results(
+            $this->_fetchDataClass,
+            Horde_Imap_Client_Fetch_Results::SEQUENCE
+        );
     }
 
     /**
@@ -284,7 +303,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 continue;
             }
 
-            while (($v = $data->next()) !== false) {
+            while ($data->next() !== false) {
                 $ob = Horde_Imap_Client_Mailbox::get($data->next(), true);
 
                 $c[strval($ob)] = array(
@@ -1021,6 +1040,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     protected function _renameMailbox(Horde_Imap_Client_Mailbox $old,
                                       Horde_Imap_Client_Mailbox $new)
     {
+        // Some IMAP servers will not allow a rename of a currently open
+        // mailbox.
+        if ($old->equals($this->_selected)) {
+            $this->close();
+        }
+
         // RENAME returns no untagged information (RFC 3501 [6.3.5])
         $cmd = $this->_clientCommand(array(
             'RENAME',
@@ -2376,6 +2401,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
         $mbox_ob = $this->_mailboxOb();
+        $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
@@ -2510,7 +2536,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 /* A UID FETCH will always return UID information (RFC 3501
                  * [6.4.8]). Don't add to query as it just creates a longer
                  * FETCH command. */
-                if ($options['ids']->sequence || (count($query) == 1)) {
+                if ($sequence || (count($query) == 1)) {
                     $fetch->add('UID');
                 }
                 break;
@@ -2543,27 +2569,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $cmd = $this->_clientCommand(array_filter(array(
-            $options['ids']->sequence ? null : 'UID',
-            'FETCH',
-            strval($options['ids'])
-        )));
-
+        /* Add changedsince parameters. */
         if (empty($options['changedsince'])) {
-            $cmd->add($fetch);
+            $fetch_cmd = $fetch;
+        } elseif (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Exception::MBOXNOMODSEQ
+            );
         } else {
-            if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
-                );
-            }
-
             /* We might just want the list of UIDs changed since a given
              * modseq. In that case, we don't have any other FETCH attributes,
-             * but RFC 3501 requires at least one attribute to be
-             * specified. */
-            $cmd->add(array(
+             * but RFC 3501 requires at least one specified attribute. */
+            $fetch_cmd = array(
                 count($fetch)
                     ? $fetch
                     : new Horde_Imap_Client_Data_Format_List('UID'),
@@ -2571,19 +2589,39 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     'CHANGEDSINCE',
                     new Horde_Imap_Client_Data_Format_Number($options['changedsince'])
                 ))
-            ));
+            );
         }
 
-        $this->_temp['fetch_resp'] = $results;
+        /* RFC 2683 [3.2.1.5] recommends that lines should be limited to
+         * "approximately 1000 octets". However, servers should allow a
+         * command line of at least "8000 octets". As a compromise, assume
+         * all modern IMAP servers handle ~2000 octets. The FETCH command
+         * should be the only command issued by this library that should ever
+         * approach this limit. For simplification, assume that the UID list
+         * is the limiting factor and split this list at a sequence comma
+         * delimiter if it exceeds 2000 characters. */
+        $cmd_list = array();
+        foreach ($options['ids']->split(2000) as $val) {
+            $cmd_list[] = $this->_clientCommand(array_filter(array(
+                $sequence ? null : 'UID',
+                'FETCH',
+                $val,
+                $fetch_cmd
+            )));
+        }
 
-        try {
-            $this->_sendLine($cmd);
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            // A NO response, when coupled with a sequence FETCH, most likely
-            // means that messages were expunged. RFC 2180 [4.1]
-            if ($options['ids']->sequence &&
-                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
+        foreach ($cmd_list as $val) {
+            try {
+                $this->_sendLine($val, array(
+                   'keep_fetch' => true
+                ));
+            } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+                // A NO response, when coupled with a sequence FETCH, most
+                // likely means that messages were expunged. RFC 2180 [4.1]
+                if ($sequence &&
+                    ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
+                    $this->_temp['expungeissued'] = true;
+                }
             }
         }
 
@@ -2593,7 +2631,11 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $this->noop();
         }
 
-        unset($this->_temp['fetch_resp']);
+        foreach ($this->_fetch as $k => $v) {
+            $results->get($sequence ? $k : $v->getUid())->merge($v);
+        }
+
+        $this->_fetch->clear();
     }
 
     /**
@@ -2624,16 +2666,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _parseFetch($id, Horde_Imap_Client_Tokenize $data)
     {
-        $uid = null;
-
-        /* At this point, we don't have access to the UID of the entry. Thus,
-         * need to cache data locally until we reach the end. */
-        $ob = new $this->_fetchDataClass();
-        $ob->setSeq($id);
-
         if ($data->next() !== true) {
             return;
         }
+
+        $ob = $this->_fetch->get($id);
+        $ob->setSeq($id);
+
+        $flags = $modseq = $uid = false;
 
         while (($tag = $data->next()) !== false) {
             $tag = strtoupper($tag);
@@ -2654,6 +2694,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             case 'FLAGS':
                 $data->next();
                 $ob->setFlags($data->flushIterator());
+                $flags = true;
                 break;
 
             case 'INTERNALDATE':
@@ -2665,8 +2706,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 break;
 
             case 'UID':
-                $uid = $data->next();
-                $ob->setUid($uid);
+                $ob->setUid($data->next());
+                $uid = true;
                 break;
 
             case 'MODSEQ':
@@ -2674,11 +2715,14 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 $modseq = $data->next();
                 $data->next();
 
-                $ob->setModSeq($modseq);
+                /* MODSEQ must be greater than 0, so do sanity checking. */
+                if ($modseq > 0) {
+                    $ob->setModSeq($modseq);
 
-                /* Store MODSEQ value. It may be used as the highestmodseq
-                 * once a tagged response is received (RFC 5162 [5]). */
-                $this->_temp['modseqs'][] = $modseq;
+                    /* Store MODSEQ value. It may be used as the highestmodseq
+                     * once a tagged response is received (RFC 5162 [5]). */
+                    $this->_temp['modseqs'][] = $modseq;
+                }
                 break;
 
             default:
@@ -2754,12 +2798,25 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        if (isset($this->_temp['fetch_resp'])) {
-            $this->_temp['fetch_resp']->get(is_null($uid) ? $id : $uid)->merge($ob);
-        }
-
-        if (!is_null($uid)) {
-            $this->_temp['fetch_cache']->get($uid)->merge($ob);
+        /* MODSEQ issue: Oh joy. Per RFC 5162 (see Errata #1807), FETCH FLAGS
+         * responses are NOT required to provide UID information, even if
+         * QRESYNC is explicitly enabled. Caveat: the FLAGS information
+         * returned during a SELECT/EXAMINE MUST contain UIDs so we are OK
+         * there.
+         * The good news: all decent IMAP servers (Cyrus, Dovecot) will always
+         * provide UID information, so this is not normally an issue.
+         * The bad news: spec-wise, this behavior cannot be 100% guaranteed.
+         * Compromise: We will watch for a FLAGS response with a MODSEQ and
+         * check if a UID exists also. If not, put the sequence number in a
+         * queue - it is possible the UID information may appear later in an
+         * untagged response. When the command is over, double check to make
+         * sure there are none of these MODSEQ/FLAGS that are still UID-less.
+         * In the (rare) event that there is, don't cache anything and
+         * immediately close the mailbox: flags will be correctly sync'd next
+         * mailbox open so we only lose a bit of caching efficiency.
+         * Otherwise, we could end up with an inconsistent cached state. */
+        if ($flags && $modseq && !$uid) {
+            $this->_temp['modseqs_nouid'][] = $id;
         }
     }
 
@@ -3084,7 +3141,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($cmds as $val) {
             try {
-                $this->_sendLine($cmdtmp);
+                $this->_sendLine($val);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 /* A NO response, when coupled with a sequence STORE and
                  * non-SILENT behavior, most likely means that messages were
@@ -3114,7 +3171,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $this->_temp['copyuid'] = true;
         $this->_temp['trycreate'] = null;
 
-        /* Check for MOVE command. */
+        /* Check for MOVE command (RFC 6851). */
         $move_cmd = (!empty($options['move']) &&
                      $this->queryCapability('MOVE'));
 
@@ -3320,8 +3377,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         // Ignore mailbox and identifier arguments
         $data->next();
         $data->next();
-
-        $required = str_split($data->next());
 
         $this->_temp['listaclrights'] = new Horde_Imap_Client_Data_AclRights(
             str_split($data->next()),
@@ -3575,7 +3630,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* If there are pending FETCH cache writes, we need to write them
          * before the UID -> sequence number mapping changes. */
-        $this->_saveFetchCache();
+        $this->_updateCache($this->_fetch);
 
         $res = parent::_deleteMsgs($mailbox, $ids);
 
@@ -3593,22 +3648,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     }
 
     /* Internal functions. */
-
-    /**
-     * Saves pending FETCH entries to the cache.
-     *
-     * @param boolean $remove  If true, removes the cached results object
-     *                         instead of clearing it
-     */
-    protected function _saveFetchCache($remove = false)
-    {
-        $this->_updateCache($this->_temp['fetch_cache']);
-        if ($remove) {
-            unset($this->_temp['fetch_cache']);
-        } else {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
-        }
-    }
 
     /**
      * Perform a command on the IMAP server. A connection to the server must
@@ -3630,6 +3669,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      *   - debug: (string) When debugging, send this string instead of the
      *            actual command/data sent.
      *            DEFAULT: Raw data output to debug stream.
+     *   - keep_fetch: (boolean) Don't delete fetch cache object.
+     *                 DEFAULT: false
      *   - noliteralplus: (boolean) If true, don't use LITERAL+ extension.
      *                    DEFAULT: false
      *
@@ -3642,9 +3683,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
     {
         /* Initialize internal data items at the beginning of a command. */
         if ($data instanceof Horde_Imap_Client_Interaction_Client) {
-            $this->_temp['fetch_cache'] = new Horde_Imap_Client_Fetch_Results();
+            $this->_fetch->clear();
             $this->_temp['lastcmd'] = $data;
             $this->_temp['modseqs'] = array();
+            $this->_temp['modseqs_nouid'] = array();
         }
 
         try {
@@ -3671,7 +3713,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         while ($ob = $this->_getLine()) {
             switch (get_class($ob)) {
             case 'Horde_Imap_Client_Interaction_Server_Continuation':
+                break 2;
+
             case 'Horde_Imap_Client_Interaction_Server_Tagged':
+                if (empty($opts['keep_fetch'])) {
+                    $this->_fetch->clear();
+                }
                 break 2;
             }
         }
@@ -3843,6 +3890,18 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         case 'Horde_Imap_Client_Interaction_Server_Tagged':
             $this->_responseCode($server);
 
+            /* If any FLAGS responses contain MODSEQs but not UIDs, don't
+             * cache any data and immediately close the mailbox. */
+            foreach ($this->_temp['modseqs_nouid'] as $val) {
+                if (!$this->_fetch[$val]->getUid()) {
+                    $this->_debug->info('Server provided FLAGS MODSEQ without providing UID.');
+                    $data = clone $this->_fetch;
+                    $this->close();
+                    $this->_fetch = $data;
+                    break 2;
+                }
+            }
+
             /* Update HIGHESTMODSEQ value. */
             if (!empty($this->_temp['modseqs'])) {
                 $modseq = max($this->_temp['modseqs']);
@@ -3851,7 +3910,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
 
             /* Update cache items. */
-            $this->_saveFetchCache(true);
+            $this->_updateCache($this->_fetch);
             break;
 
         case 'Horde_Imap_Client_Interaction_Server_Untagged':
@@ -4327,7 +4386,8 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             if (isset($this->_temp['qresyncmbox'])) {
                 /* If there is any pending FETCH cache entries, flush them
                  * now before changing mailboxes. */
-                $this->_saveFetchCache();
+                $this->_updateCache($this->_fetch);
+                $this->_fetch->clear();
 
                 $this->_changeSelected(
                     $this->_temp['qresyncmbox'][0],

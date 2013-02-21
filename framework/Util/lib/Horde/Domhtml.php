@@ -1,13 +1,24 @@
 <?php
 /**
- * Utility class to help in loading DOM data from HTML strings.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @package  Util
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ */
+
+/**
+ * Parse DOM data from HTML strings.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @package   Util
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
 class Horde_Domhtml implements Iterator
 {
@@ -88,6 +99,19 @@ class Horde_Domhtml implements Iterator
         }
 
         $this->dom = $doc;
+
+        /* Sanity checking: make sure we have the documentElement object. */
+        if (!$this->dom->documentElement) {
+            $this->dom->appendChild($this->dom->createElement('html'));
+        }
+
+        /* Remove old charset information. */
+        $xpath = new DOMXPath($this->dom);
+        $domlist = $xpath->query('/html/head/meta[@http-equiv="content-type"]');
+        for ($i = $domlist->length; $i > 0; --$i) {
+            $meta = $domlist->item($i - 1);
+            $meta->parentNode->removeChild($meta);
+        }
     }
 
     /**
@@ -103,19 +127,76 @@ class Horde_Domhtml implements Iterator
         }
 
         $headelt = $this->dom->createElement('head');
-        $this->dom->appendChild($headelt);
+        $this->dom->documentElement->insertBefore($headelt, $this->dom->documentElement->firstChild);
 
         return $headelt;
     }
 
     /**
+     * Returns the BODY element, or creates one if it doesn't exist.
+     *
+     * @since 2.2.0
+     *
+     * @return DOMElement  BODY element.
+     */
+    public function getBody()
+    {
+        $body = $this->dom->getElementsByTagName('body');
+        if ($body->length) {
+            return $body->item(0);
+        }
+
+        $bodyelt = $this->dom->createElement('body');
+        $this->dom->documentElement->appendChild($body);
+
+        return $bodyelt;
+    }
+
+    /**
      * Returns the full HTML text in the original charset.
+     *
+     * @param array $opts  Additional options: (since 2.1.0)
+     *   - charset: (string) Return using this charset. If set but empty, will
+     *              return as currently stored in the DOM object.
+     *   - metacharset: (boolean) If true, will add a META tag containing the
+     *                  charset information.
      *
      * @return string  HTML text.
      */
-    public function returnHtml()
+    public function returnHtml(array $opts = array())
     {
-        $text = Horde_String::convertCharset($this->dom->saveHTML(), $this->dom->encoding || $this->_origCharset, $this->_origCharset);
+        $curr_charset = $this->getCharset();
+        if (strcasecmp($curr_charset, 'US-ASCII') === 0) {
+            $curr_charset = 'UTF-8';
+        }
+        $charset = array_key_exists('charset', $opts)
+            ? (empty($opts['charset']) ? $curr_charset : $opts['charset'])
+            : $this->_origCharset;
+
+        if (empty($opts['metacharset'])) {
+            $text = $this->dom->saveHTML();
+        } else {
+            /* Add placeholder for META tag. Can't add charset yet because DOM
+             * extension will alter output if it exists. */
+            $meta = $this->dom->createElement('meta');
+            $meta->setAttribute('http-equiv', 'content-type');
+            $meta->setAttribute('horde_dom_html_charset', '');
+
+            $head = $this->getHead();
+            $head->insertBefore($meta, $head->firstChild);
+
+            $text = str_replace(
+                'horde_dom_html_charset=""',
+                'content="text/html; charset=' . $charset . '"',
+                $this->dom->saveHTML()
+            );
+
+            $head->removeChild($meta);
+        }
+
+        if (strcasecmp($curr_charset, $charset) !== 0) {
+            $text = Horde_String::convertCharset($text, $curr_charset, $charset);
+        }
 
         if (!$this->_xmlencoding ||
             (($pos = strpos($text, $this->_xmlencoding)) === false)) {
@@ -142,6 +223,20 @@ class Horde_Domhtml implements Iterator
         }
 
         return Horde_String::convertCharset($text, 'UTF-8', $this->_origCharset);
+    }
+
+    /**
+     * Get the charset of the DOM data.
+     *
+     * @since 2.1.0
+     *
+     * @return string  Charset of DOM data.
+     */
+    public function getCharset()
+    {
+        return $this->dom->encoding
+            ? $this->dom->encoding
+            : ($this->_xmlencoding ? 'UTF-8' : $this->_origCharset);
     }
 
     /* Iterator methods. */

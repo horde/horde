@@ -47,7 +47,8 @@ class Horde_Test_AllTests
 
         $parts = array();
         foreach (array_reverse(explode(DIRECTORY_SEPARATOR, $file)) as $val) {
-            if ($val == 'test') {
+            if ($val == 'test' ||
+                $val == implode('_', array_reverse($parts))) {
                 break;
             }
             $parts[] = $val;
@@ -69,17 +70,20 @@ class Horde_Test_AllTests
     {
         $this->_package = $package;
         $this->_dir = $dir;
-
-        chdir($dir);
     }
 
     /**
-     *
      * Main entry point for running the suite.
+     *
+     * @return boolean
      */
     public function run()
     {
-        PHPUnit_TextUI_TestRunner::run($this->suite());
+        $old_dir = getcwd();
+        chdir($this->_dir);
+        $result = PHPUnit_TextUI_TestRunner::run($this->suite());
+        chdir($old_dir);
+        return $result;
     }
 
     /**
@@ -96,11 +100,13 @@ class Horde_Test_AllTests
         $baseregexp = preg_quote($this->_dir . DIRECTORY_SEPARATOR, '/');
 
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->_dir)) as $file) {
-            if ($file->isFile() && preg_match('/Test.php$/', $file->getFilename())) {
+            if ($file->isFile()) {
                 $pathname = $file->getPathname();
-                if (include $pathname) {
-                    $class = str_replace(DIRECTORY_SEPARATOR, '_',
-                                         preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
+                if ((preg_match('/Test.php$/', $file->getFilename())) &&
+                    (include $pathname)) {
+                    $class = str_replace(
+                        DIRECTORY_SEPARATOR, '_',
+                        preg_replace("/^$baseregexp(.*)\.php/", '\\1', $pathname));
                     try {
                         $suite->addTestSuite($this->_package . '_' . $class);
                     } catch (InvalidArgumentException $e) {
@@ -136,21 +142,23 @@ class Horde_Test_AllTests
      */
     public function setup()
     {
-        // Detect component root and add "lib" to the include path.
-        for ($dirname = $this->_dir, $i = 0;
-             $dirname != '/', $i < 5;
-             $dirname = dirname($dirname), $i++) {
-            if (basename($dirname) == 'test' &&
-                file_exists(dirname($dirname) . '/lib')) {
-                set_include_path(
-                    dirname($dirname) . '/lib' . PATH_SEPARATOR . get_include_path()
-                );
-                break;
-            }
+        // Detect component root and add "lib" and "test" to the include path.
+        $base = $this->_dir;
+        while ($base != '/' && basename($base) != 'test') {
+            $base = dirname($base);
+        }
+        if ($base) {
+            set_include_path(
+                $base . PATH_SEPARATOR . $base . '/../lib' . PATH_SEPARATOR . get_include_path()
+            );
         }
 
         require_once 'Horde/Test/Bootstrap.php';
         Horde_Test_Bootstrap::bootstrap($this->_dir);
+
+        if (file_exists($this->_dir . '/Autoload.php')) {
+            require_once $this->_dir . '/Autoload.php';
+        }
     }
 
 }

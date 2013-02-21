@@ -40,6 +40,7 @@ var Horde_Uploader = Class.create({
         filesadded: function(up, files)
         {
             this._queue = files;
+            $(this._params['upload_button']).show();
         },
 
         /**
@@ -115,13 +116,16 @@ var Horde_Uploader = Class.create({
             this.updateList();
         },
 
+        uploadcomplete: function(up, files) {
+            $(this._params['upload_button']).hide();
+        },
+
         // Handlers that may be useful for client code. Not used by default.
         // Override before creating object if needed.
         uploadfile: function(up, file) {},
         statechanged: function(up) {},
         filesremoved: function(up, files) {},
-        chunkuploaded: function(up, file, response) {},
-        uploadcomplete: function(up, files) {}
+        chunkuploaded: function(up, file, response) {}
     },
 
     /**
@@ -134,8 +138,8 @@ var Horde_Uploader = Class.create({
     initialize: function(params, handlers)
     {
         this._params = Object.extend({
-            browsebutton_class: 'button hordeUploaderAdd',
-            uploadbutton_class: 'button hordeUploaderStart',
+            browsebutton_class: 'horde-button',
+            uploadbutton_class: 'horde-button',
             header_class: 'hordeUploaderHeader',
             headercontent_class: 'hordeUploaderHeaderContent',
             subheader_class: 'hordeUploaderSubHeader',
@@ -148,7 +152,7 @@ var Horde_Uploader = Class.create({
             drop_target: 'filelist',
             upload_button: 'uploadimages',
             return_button: 'return',
-            returnbutton_class: 'button',
+            returnbutton_class: 'horde-button',
             success_class: 'hordeUploaderSuccess',
             error_class: 'hordeUploaderError',
             footer_class: 'hordeUploaderFooter',
@@ -196,11 +200,12 @@ var Horde_Uploader = Class.create({
         }.bindAsEventListener(this));
         this.setReturnTarget(this._params['return_target']);
         $(this._params['return_button']).hide();
+        $(this._params['upload_button']).hide();
     },
 
     setReturnTarget: function(path)
     {
-        $(this._params['return_button']).href = path;
+        $(this._params['return_button']).observe('click', function() { window.location = path });
     },
 
     updateList: function()
@@ -218,7 +223,7 @@ var Horde_Uploader = Class.create({
                     .insert(new Element('div', { 'class': 'hordeUploaderFileaction' }).update(remove))
                     .insert(new Element('div', { 'class': 'hordeUploaderFilestatus' }).update('&nbsp'))
                     .insert(new Element('div', { 'class': 'hordeUploaderFilesize' }).update(plupload.formatSize(f.size)));
-                remove.observe('click', function() { var f = up.getFile(newdiv.id); up.removeFile(f); $(newdiv.id).remove(); });
+                remove.observe('click', function(e) { var f = this._puploader.getFile(newdiv.id); this._puploader.removeFile(f); $(newdiv.id).remove(); }.bind(this));
                 $(this._params['drop_target']).select('.hordeUploaderFileUl').each(function(p) { p.insert(newdiv) });
             }
         }.bind(this));
@@ -227,9 +232,6 @@ var Horde_Uploader = Class.create({
 
     /**
      * Draw the upload widget.
-     *
-     * TODO: eh, make pretty :)
-     *
      */
     _build: function()
     {
@@ -239,13 +241,13 @@ var Horde_Uploader = Class.create({
               'class': this._params['filelist_class'] }).insert(new Element('ul', { 'class': 'hordeUploaderFileUl' }));
 
         /* Browse button */
-        var browse = new Element('a', { 'id': this._params['browse_button'], 'class': this._params['browsebutton_class'] }).update(this._params.text.add);
+        var browse = new Element('input', { 'id': this._params['browse_button'], 'type': 'button', 'class': this._params['browsebutton_class'], 'value': this._params.text.add });
 
         /* Upload button */
-        var upload = new Element('a', { 'id': this._params['upload_button'], 'class': this._params['uploadbutton_class'] }).update(this._params.text.start);
+        var upload = new Element('input', { 'id': this._params['upload_button'], 'type': 'button', 'class': this._params['uploadbutton_class'], 'value': this._params.text.start });
 
         /* Return button (Activated when uploader is DONE). */
-        var returnButton = new Element('a', { 'id': this._params['return_button'], 'class': this._params['returnbutton_class'] }).update(this._params.text.returnButton);
+        var returnButton = new Element('input', { 'id': this._params['return_button'], 'type': 'button', 'class': this._params['returnbutton_class'], 'value': this._params.text.returnButton });
 
         /* Header section */
         var subheader = new Element('div', { 'class': this._params['subheader_class'] }).update(this._params.text.subheader);

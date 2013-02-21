@@ -1,7 +1,17 @@
 ----------
-v4.0.3-git
+v4.0.4-git
 ----------
 
+
+
+------
+v4.0.3
+------
+
+[jan] Update Slovak translation (Jozef Sudolský <jozef.sudolsky@elbia.sk>).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix exporting bodies of encrypted notes (Bug #11960).
 
 
 ------

@@ -522,7 +522,7 @@
             this.addYears(config.year - this.getFullYear());
         }
 
-	    /* day has to go last because you can't validate the day without first knowing the month */
+        /* day has to go last because you can't validate the day without first knowing the month */
         if ($D.validateDay(config.day, this.getFullYear(), this.getMonth())) {
             this.addDays(config.day - this.getDate());
         }
@@ -1124,21 +1124,21 @@
         mx = ("january february march april may june july august september october november december").split(/\s/),
         px = ("Millisecond Second Minute Hour Day Week Month Year").split(/\s/),
         pxf = ("Milliseconds Seconds Minutes Hours Date Week Month FullYear").split(/\s/),
-		nth = ("final first second third fourth fifth").split(/\s/),
+        nth = ("final first second third fourth fifth").split(/\s/),
         de;
 
    /**
      * Returns an object literal of all the date parts.
      * Example
     <pre><code>
-	var o = new Date().toObject();
+    var o = new Date().toObject();
 
-	// { year: 2008, month: 4, week: 20, day: 13, hour: 18, minute: 9, second: 32, millisecond: 812 }
+    // { year: 2008, month: 4, week: 20, day: 13, hour: 18, minute: 9, second: 32, millisecond: 812 }
 
-	// The object properties can be referenced directly from the object.
+    // The object properties can be referenced directly from the object.
 
-	alert(o.day);  // alerts "13"
-	alert(o.year); // alerts "2008"
+    alert(o.day);  // alerts "13"
+    alert(o.year); // alerts "2008"
     </code></pre>
      *
      * @return {Date}    An object literal representing the original date object.
@@ -1155,9 +1155,9 @@
      * Returns a date created from an object literal. Ignores the .week property if set in the config.
      * Example
     <pre><code>
-	var o = new Date().toObject();
+    var o = new Date().toObject();
 
-	return Date.fromObject(o); // will return the same date.
+    return Date.fromObject(o); // will return the same date.
 
     var o2 = {month: 1, day: 20, hour: 18}; // birthday party!
     Date.fromObject(o2);
@@ -1556,9 +1556,9 @@
             };
         },
 
-	    //
-	    // Composite Operators
-	    //
+        //
+        // Composite Operators
+        //
 
         between: function (d1, p, d2) {
             d2 = d2 || d1;
@@ -1620,17 +1620,17 @@
                         last = true;
                     }
 
-				    // if we parsed the delimiter and now there's no more input,
-				    // that means we shouldn't have parsed the delimiter at all
-				    // so don't update r and mark this as the last element ...
+                    // if we parsed the delimiter and now there's no more input,
+                    // that means we shouldn't have parsed the delimiter at all
+                    // so don't update r and mark this as the last element ...
                     if (!last && q[1].length === 0) {
                         last = true;
                     }
 
 
-				    // so, if this isn't the last element, we're going to see if
-				    // we can get any more matches from the remaining (unmatched)
-				    // elements ...
+                    // so, if this isn't the last element, we're going to see if
+                    // we can get any more matches from the remaining (unmatched)
+                    // elements ...
                     if (!last) {
 
                         // build a list of the remaining rules we can match against,
@@ -1659,31 +1659,31 @@
                         }
                     }
 
-				    // at this point, rx either contains the last matched element
-				    // or the entire matched set that starts with this element.
+                    // at this point, rx either contains the last matched element
+                    // or the entire matched set that starts with this element.
 
-				    // now we just check to see if this variation is better than
-				    // our best so far, in terms of how much of the input is parsed
+                    // now we just check to see if this variation is better than
+                    // our best so far, in terms of how much of the input is parsed
                     if (rx[1].length < best[1].length) {
                         best = rx;
                     }
 
-				    // if we've parsed all the input, then we're finished
+                    // if we've parsed all the input, then we're finished
                     if (best[1].length === 0) {
                         break;
                     }
                 }
 
-			    // so now we've either gone through all the patterns trying them
-			    // as the initial match; or we found one that parsed the entire
-			    // input string ...
+                // so now we've either gone through all the patterns trying them
+                // as the initial match; or we found one that parsed the entire
+                // input string ...
 
-			    // if best has no matches, just return empty set ...
+                // if best has no matches, just return empty set ...
                 if (best[0].length === 0) {
                     return best;
                 }
 
-			    // if a closing delimiter is provided, then we have to check it also
+                // if a closing delimiter is provided, then we have to check it also
                 if (c) {
                     // we try this even if there is no remaining input because the pattern
                     // may well be optional or match empty input ...
@@ -1697,8 +1697,8 @@
                     best[1] = q[1];
                 }
 
-			    // if we're here, either there was no closing delimiter or we parsed it
-			    // so now we have the best match; just return it!
+                // if we're here, either there was no closing delimiter or we parsed it
+                // so now we have the best match; just return it!
                 return best;
             };
         },
@@ -1735,27 +1735,27 @@
     };
 
 
-	// Generator Operators And Vector Operators
+    // Generator Operators And Vector Operators
 
-	// Generators are operators that have a signature of F(R) => R,
-	// taking a given rule and returning another rule, such as
-	// ignore, which parses a given rule and throws away the result.
+    // Generators are operators that have a signature of F(R) => R,
+    // taking a given rule and returning another rule, such as
+    // ignore, which parses a given rule and throws away the result.
 
-	// Vector operators are those that have a signature of F(R1,R2,...) => R,
-	// take a list of rules and returning a new rule, such as each.
+    // Vector operators are those that have a signature of F(R1,R2,...) => R,
+    // take a list of rules and returning a new rule, such as each.
 
-	// Generator operators are converted (via the following _generator
-	// function) into functions that can also take a list or array of rules
-	// and return an array of new rules as though the function had been
-	// called on each rule in turn (which is what actually happens).
+    // Generator operators are converted (via the following _generator
+    // function) into functions that can also take a list or array of rules
+    // and return an array of new rules as though the function had been
+    // called on each rule in turn (which is what actually happens).
 
-	// This allows generators to be used with vector operators more easily.
-	// Example:
-	// each(ignore(foo, bar)) instead of each(ignore(foo), ignore(bar))
+    // This allows generators to be used with vector operators more easily.
+    // Example:
+    // each(ignore(foo, bar)) instead of each(ignore(foo), ignore(bar))
 
-	// This also turns generators into vector operators, which allows
-	// constructs like:
-	// not(cache(foo, bar))
+    // This also turns generators into vector operators, which allows
+    // constructs like:
+    // not(cache(foo, bar))
 
     var _generator = function (op) {
         return function () {
@@ -2144,7 +2144,7 @@
     g.yyy = _.cache(_.process(_.rtoken(/^(\d\d?\d?\d?)/), t.year));
     g.yyyy = _.cache(_.process(_.rtoken(/^(\d\d\d\d)/), t.year));
 
-	// rolling these up into general purpose rules
+    // rolling these up into general purpose rules
     _fn = function () {
         return _.each(_.any.apply(null, arguments), _.not(g.ctoken2("timeContext")));
     };
@@ -2227,18 +2227,18 @@
     );
 
     var _F = {
-		//"M/d/yyyy": function (s) {
-		//	var m = s.match(/^([0-2]\d|3[0-1]|\d)\/(1[0-2]|0\d|\d)\/(\d\d\d\d)/);
-		//	if (m!=null) {
-		//		var r =  [ t.month.call(this,m[1]), t.day.call(this,m[2]), t.year.call(this,m[3]) ];
-		//		r = t.finishExact.call(this,r);
-		//		return [ r, "" ];
-		//	} else {
-		//		throw new Date.Parsing.Exception(s);
-		//	}
-		//}
-		//"M/d/yyyy": function (s) { return [ new Date(Date._parse(s)), ""]; }
-	};
+        //"M/d/yyyy": function (s) {
+        //  var m = s.match(/^([0-2]\d|3[0-1]|\d)\/(1[0-2]|0\d|\d)\/(\d\d\d\d)/);
+        //  if (m!=null) {
+        //      var r =  [ t.month.call(this,m[1]), t.day.call(this,m[2]), t.year.call(this,m[3]) ];
+        //      r = t.finishExact.call(this,r);
+        //      return [ r, "" ];
+        //  } else {
+        //      throw new Date.Parsing.Exception(s);
+        //  }
+        //}
+        //"M/d/yyyy": function (s) { return [ new Date(Date._parse(s)), ""]; }
+    };
     var _get = function (f) {
         return _F[f] = (_F[f] || g.format(f)[0]);
     };
@@ -2255,7 +2255,7 @@
         }
     };
 
-	// check for these formats first
+    // check for these formats first
     g._formats = g.formats([
         "\"yyyy-MM-ddTHH:mm:ssZ\"",
         "yyyy-MM-ddTHH:mm:ssZ",
@@ -2278,12 +2278,12 @@
         "d"
     ]);
 
-	// starting rule for general purpose grammar
+    // starting rule for general purpose grammar
     g._start = _.process(_.set([ g.date, g.time, g.expression ],
         g.generalDelimiter, g.whiteSpace), t.finish);
 
-	// real starting rule: tries selected formats first,
-	// then general purpose rule
+    // real starting rule: tries selected formats first,
+    // then general purpose rule
     g.start = function (s) {
         try {
             var r = g._formats.call({}, s);
@@ -2294,7 +2294,7 @@
         return g._start.call({}, s);
     };
 
-	$D._parse = $D.parse;
+    $D._parse = $D.parse;
 
     /**
      * Converts the specified string value into its JavaScript Date equivalent using CultureInfo specific format information.

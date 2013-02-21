@@ -44,7 +44,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling GETATTACHMENT command.",
+            '[%s] Handling GETATTACHMENT command.',
             $this->_device->id)
         );
         $get = $this->_activeSync->getGetVars();
@@ -54,7 +54,7 @@ class Horde_ActiveSync_Request_GetAttachment extends Horde_ActiveSync_Request_Ba
         $attname = $get['AttachmentName'];
 
         $this->_logger->debug(sprintf(
-            "[%s] Fetching attachement: %s",
+            '[%s] Fetching attachement: %s',
             $this->_device->id,
             $attname));
 

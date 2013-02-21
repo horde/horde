@@ -159,9 +159,11 @@ class Horde_Imap_Client_Data_BaseSubject
     /**
      * Remove "[...]" text.
      *
-     * @param string &$str  The subject string.
+     * @param string $str  The subject string.
+     * @param integer $i   Current position.
      *
-     * @return boolean  True if string was altered.
+     * @return boolean|integer  False if blob was not found, otherwise the
+     *                          string position of the first non-blob char.
      */
     protected function _removeBlob($str, $i)
     {

@@ -18,6 +18,7 @@ class Horde_Share_Sqlng_MysqliTest extends Horde_Share_Test_Sqlng_Base
     public static function setUpBeforeClass()
     {
         if (!extension_loaded('mysqli')) {
+            self::$reason = 'No mysqli extension';
             return;
         }
         $config = self::getConfig('SHARE_SQL_MYSQLI_TEST_CONFIG',
@@ -25,6 +26,8 @@ class Horde_Share_Sqlng_MysqliTest extends Horde_Share_Test_Sqlng_Base
         if ($config && !empty($config['share']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['share']['sql']['mysqli']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysqli configuration';
         }
     }
 }

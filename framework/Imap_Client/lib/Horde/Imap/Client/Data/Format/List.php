@@ -50,10 +50,10 @@ class Horde_Imap_Client_Data_Format_List extends Horde_Imap_Client_Data_Format i
             foreach ($data as $val) {
                 $this->add($val);
             }
-        } else {
-            $this->_data[] = ($data instanceof Horde_Imap_Client_Data_Format)
-                ? $data
-                : new Horde_Imap_Client_Data_Format_Atom($data);
+        } elseif ($data instanceof Horde_Imap_Client_Data_Format) {
+            $this->_data[] = $data;
+        } else if (!is_null($data)) {
+            $this->_data[] = new Horde_Imap_Client_Data_Format_Atom($data);
         }
     }
 

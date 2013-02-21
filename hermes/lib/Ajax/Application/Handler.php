@@ -87,18 +87,25 @@ class Hermes_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handle
     {
         $slice = new Hermes_Slice();
         $slice->readForm();
-        $employee = $GLOBALS['registry']->getAuth();
+
         try {
             $id = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
-                ->enterTime($employee, $slice);
+                ->enterTime($slice['employee'], $slice);
             $new = $GLOBALS['injector']
                 ->getInstance('Hermes_Driver')
                 ->getHours(array('id' => $id));
-            $GLOBALS['notification']
-                ->push(_("Your time was successfully entered."), 'horde.success');
 
-            return current($new)->toJson();
+            if ($slice['employee'] == $GLOBALS['registry']->getAuth()) {
+                $GLOBALS['notification']
+                    ->push(_("Your time was successfully entered."), 'horde.success');
+
+                return current($new)->toJson();
+            } else {
+                $GLOBALS['notification']
+                    ->push(sprintf(_("The time was successfully entered for %s."), $slice['employee']), 'horde.success');
+                return true;
+            }
         } catch (Hermes_Exception $e) {
             $GLOBALS['notification']->push($e, 'horde.error');
         }

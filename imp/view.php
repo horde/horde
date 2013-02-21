@@ -11,7 +11,7 @@
  *     - view_face
  *     - view_source
  *   - autodetect: (integer) If set, tries to autodetect MIME type when
- *                 viewing based on data.
+ *                 viewing based on data ('view_attach' only).
  *   - composeCache: (string) Cache ID for compose object.
  *   - ctype: (string) The content-type to use instead of the content-type
  *            found in the original Horde_Mime_Part object.
@@ -42,7 +42,7 @@ $vars = $injector->getInstance('Horde_Variables');
 switch ($vars->actionID) {
 case 'compose_attach_preview':
     $view_ob = new IMP_Compose_View($vars->composeCache);
-    $res = $view_ob->composeAttachPreview($vars->id, $vars->autodetect, $vars->ctype);
+    $res = $view_ob->composeAttachPreview($vars->id, true, $vars->ctype);
     break;
 
 case 'print_attach':

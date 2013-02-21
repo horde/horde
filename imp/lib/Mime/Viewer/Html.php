@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
 
-            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;
@@ -193,7 +193,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_processDomDocument($data->dom);
         }
 
-        $data = $data->returnHtml();
+        if ($inline) {
+            $charset = 'UTF-8';
+            $data = $data->returnHtml(array(
+                'charset' => $charset,
+                'metacharset' => true
+            ));
+        } else {
+            $charset = $this->_mimepart->getCharset();
+            $data = $data->returnHtml();
+        }
 
         $status = array();
         if ($this->_phishWarn) {
@@ -214,7 +223,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
-                'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
+                'type' => 'text/plain; charset=' . $charset
             );
         }
 
@@ -250,7 +259,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         return array(
             'data' => $data,
             'status' => $status,
-            'type' => $this->_mimepart->getType(true)
+            'type' => 'text/html; charset=' . $charset
         );
     }
 
@@ -467,15 +476,15 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         foreach ($style->css as $key => $val) {
             foreach ($val as $key2 => $val2) {
                 foreach ($val2 as $key3 => $val3) {
-                    foreach ($val3['p'] as $key4 => $val4) {
+                    foreach ($val3['p'] as $val4) {
                         if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
                             $was_blocked = true;
-                            unset($style->css[$key][$key2]);
-                            break 3;
+                            unset($style->css[$key][$key2][$key3]);
+                            break 2;
                         }
                     }
+                    unset($style_blocked->css[$key][$key2][$key3]);
                 }
-                unset($style_blocked->css[$key][$key2]);
             }
         }
 

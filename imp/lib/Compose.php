@@ -2535,24 +2535,23 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function additionalAttachmentsAllowed()
     {
-        return empty($GLOBALS['conf']['compose']['attach_count_limit']) ||
-               ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
+        return empty($GLOBALS['conf']['compose']['attach_count_limit'])
+            ? true
+            : ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
     }
 
     /**
-     * What is the maximum attachment size allowed?
+     * What is the maximum attachment size remaining?
      *
-     * @return integer  The maximum attachment size allowed (in bytes).
+     * @return integer  The maximum attachment size remaining (in bytes).
      */
     public function maxAttachmentSize()
     {
         $size = $GLOBALS['session']->get('imp', 'file_upload');
 
-        if (!empty($GLOBALS['conf']['compose']['attach_size_limit'])) {
-            return min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
-        }
-
-        return $size;
+        return empty($GLOBALS['conf']['compose']['attach_size_limit'])
+            ? $size
+            : min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
     }
 
     /**
@@ -2685,7 +2684,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
-        $charset = $part->getCharset();
+        if (($charset = $part->getCharset()) === null) {
+            $charset = $this->charset;
+        }
 
         $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
 
@@ -3011,22 +3012,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Shortcut function to convert text -> HTML for purposes of composition.
-     *
-     * @param string $msg  The message text.
-     *
-     * @return string  HTML text.
-     */
-    static public function text2html($msg)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
-            'always_mailto' => true,
-            'flowed' => self::HTML_BLOCKQUOTE,
-            'parselevel' => Horde_Text_Filter_Text2html::MICRO
-        ));
-    }
-
-    /**
      * Store draft compose data if session expires.
      *
      * @param Horde_Variables $vars  Object with the form data.
@@ -3126,6 +3111,34 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return null;
         }
+    }
+
+    /* Static methods. */
+
+    /**
+     * Can attachments be uploaded?
+     *
+     * @return boolean  True if attachments can be uploaded.
+     */
+    static public function canUploadAttachment()
+    {
+        return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+    }
+
+    /**
+     * Shortcut function to convert text -> HTML for purposes of composition.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
+            'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+        ));
     }
 
     /* ArrayAccess methods. */

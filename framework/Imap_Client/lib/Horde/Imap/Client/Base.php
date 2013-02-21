@@ -1583,7 +1583,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
-        $smailbox = strval($mailbox);
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
@@ -2442,6 +2441,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   thrown. If valid, this option implicity adds the
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
+     *   - exists: (boolean) Ensure that all ids returned exist on the server.
+     *             If false, the list of ids returned in the results object
+     *             is not guaranteed to reflect the current state of the
+     *             remote mailbox.
+     *             DEFAULT: false
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
      *
@@ -2457,7 +2461,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $query = clone $query;
 
         $cache_array = $header_cache = $new_query = array();
-        $res_seq = null;
 
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
@@ -2482,7 +2485,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ) &&
             !isset($this->_init['enabled']['CONDSTORE'])) {
-            unset($query[$k]);
+            unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
         }
 
         /* Determine if caching is available and if anything in $query is
@@ -2532,7 +2535,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : clone $ret;
 
         /* Convert special searches to UID lists and create mapping. */
-        $ids = $this->resolveIds($this->_selected, $options['ids'], 1);
+        $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
 
         /* Get the cached values. */
         $mbox_ob = $this->_mailboxOb();
@@ -2726,7 +2729,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if ($qresync) {
-            return $this->_vanished($modseq, $opts['ids']);
+            return $this->_vanished(max(1, $modseq), $opts['ids']);
         }
 
         $ids = $this->resolveIds($mailbox, $opts['ids']);
@@ -3563,7 +3566,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $cf = $this->_cacheFields();
         }
 
-        foreach ($data as $k => $v) {
+        foreach ($data as $v) {
             $tmp = array();
 
             foreach ($cf as $key => $val) {

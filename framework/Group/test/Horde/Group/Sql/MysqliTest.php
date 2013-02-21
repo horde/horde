@@ -26,6 +26,8 @@ class Horde_Group_Sql_MysqliTest extends Horde_Group_Test_Sql_Base
         if ($config && !empty($config['group']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['group']['sql']['mysqli']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysqli configuration';
         }
     }
 }

@@ -54,6 +54,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
 
         switch ($registry->getView()) {
         case $registry::VIEW_BASIC:
+            $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;
@@ -61,6 +62,7 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         case $registry::VIEW_DYNAMIC:
             $this->addHandler('IMP_Ajax_Application_Handler_Dynamic');
             $this->addHandler('IMP_Ajax_Application_Handler_Common');
+            $this->addHandler('IMP_Ajax_Application_Handler_Mboxtoggle');
             $this->addHandler('IMP_Ajax_Application_Handler_Passphrase');
             $this->addHandler('IMP_Ajax_Application_Handler_Search');
             break;

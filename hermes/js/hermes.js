@@ -509,11 +509,12 @@ HermesCore = {
      *
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
+     * @param cache  The cache to replace the data in (time|search)
      */
     replaceSliceInCache: function(sid, slice, cache)
     {
         if (!cache) {
-            cache = time;
+            cache = 'time';
         }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {
@@ -702,6 +703,11 @@ HermesCore = {
     saveTimeCallback: function(r)
     {
         $('hermesLoadingTime').hide();
+
+        if (r === true) {
+            // Successfully entered, but not for current user. Don't add to UI.
+            return;
+        }
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -1416,7 +1422,9 @@ HermesCore = {
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         // Handler for the jobtype selection
-        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        if ($('hermesJobTypeSelect')) {
+            $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        }
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

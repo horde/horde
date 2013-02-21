@@ -184,11 +184,14 @@ if (!$error && $vars->import_format) {
     try {
         switch ($vars->import_format) {
         case 'ldif':
-            $data = new Turba_Data_Ldif(array(
-                'browser' => $injector->getInstance('Horde_Browser'),
-                'cleanup' => array($app_ob, 'cleanupData'),
-                'vars' => $vars
-            ));
+            $data = new Turba_Data_Ldif(
+                $injector->getInstance('Horde_Core_Data_Storage'),
+                array(
+                    'browser' => $injector->getInstance('Horde_Browser'),
+                    'cleanup' => array($app_ob, 'cleanupData'),
+                    'vars' => $vars
+                )
+            );
             break;
 
         case 'csv':

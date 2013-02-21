@@ -22,8 +22,8 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
         $options = array('orientation' => 'L', 'unit' => 'pt', 'format' => 'A3');
         $pdf = new Horde_Pdf_Writer($options);
 
-        $this->assertEquals('L',     $pdf->getDefaultOrientation());
-        $this->assertEquals(841.89,  $pdf->getFormatHeight());
+        $this->assertEquals('L', $pdf->getDefaultOrientation());
+        $this->assertEquals(841.89, $pdf->getFormatHeight());
         $this->assertEquals(1190.55, $pdf->getFormatWidth());
     }
 
@@ -31,10 +31,10 @@ class Horde_Pdf_WriterTest extends PHPUnit_Framework_TestCase
     {
         $pdf = new Horde_Pdf_Writer();
 
-        $this->assertEquals('P',     $pdf->getDefaultOrientation());
+        $this->assertEquals('P', $pdf->getDefaultOrientation());
         $this->assertTrue(abs($pdf->getScale() - 2.8346456692913) < 0.000001);
-        $this->assertEquals(595.28,  $pdf->getFormatHeight());
-        $this->assertEquals(841.89,  $pdf->getFormatWidth());
+        $this->assertEquals(841.89, $pdf->getFormatHeight());
+        $this->assertEquals(595.28, $pdf->getFormatWidth());
     }
 
     public function testHelloWorldUncompressed()

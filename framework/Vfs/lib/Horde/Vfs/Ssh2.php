@@ -647,7 +647,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         } else {
             $tmpFile = Horde_Util::getTempFile('vfs');
             if (!$this->_recv($this->_getPath($path, $name), $tmpFile)) {
-                throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $orig));
+                throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $this->_getPath($path, $name)));
             }
 
             clearstatcache();

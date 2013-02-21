@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-10</date>
- <time>11:49:57</time>
+ <date>2013-02-11</date>
+ <time>19:04:23</time>
  <version>
-  <release>2.1.6</release>
-  <api>2.1.0</api>
+  <release>2.3.0</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,7 +40,15 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Use csstidy library to parse CSS files when creating static CSS (Bug #12043).
+* [mms] Add Horde_Url#selfUrlParams().
+* [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
+* [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
+* [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
+* [mjr] Fix saving ActiveSync sent mail when the message contains MIME parts (Bug #12040).
+* [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
+* [mms] Fix destroying session data when the null session driver is used.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1145,7 +1153,7 @@
    <package>
     <name>Horde_Url</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1349,6 +1357,7 @@
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
+    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>dom</name>
@@ -2707,10 +2716,64 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [mms] Fix spellchecking on HTML data (Bug #11986).
+* [jan] Fix fatal error in signup and password reset forms (Bug #11952).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.7</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-02</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix handling of moving or deleting messages that have been removed from the server (Bug #12013).
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [mms] Be sure tasks are passed to any derivative of the HordeCore AJAX response handler.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.2.
+* [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
+* [jan] Fix notifications while authenticating transparently.
+* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use csstidy library to parse CSS files when creating static CSS (Bug #12043).
+* [mms] Add Horde_Url#selfUrlParams().
+* [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
+* [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
+* [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
+* [mjr] Fix saving ActiveSync sent mail when the message contains MIME parts (Bug #12040).
+* [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
+* [mms] Fix destroying session data when the null session driver is used.
    </notes>
   </release>
  </changelog>

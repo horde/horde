@@ -2,15 +2,17 @@
 # Copyright 2011-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Ansel package.
 # Martin Matuška <martin@matuska.org>, 2011
+# Jozef Sudolský <jozef.sudolsky@elbia.sk>, 2013
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Ansel H4 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-11 19:12+0200\n"
-"PO-Revision-Date: 2011-10-19 14:48+0100\n"
-"Last-Translator: Martin Matuška <martin@matuska.org>\n"
+"POT-Creation-Date: 2013-01-13 21:04+0100\n"
+"PO-Revision-Date: 2013-02-01 17:54+0200\n"
+"Last-Translator: Jozef Sudolsky <jozef.sudolsky@elbia.sk>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -57,7 +59,7 @@ msgstr[0] "%d album"
 msgstr[1] "%d albumy"
 msgstr[2] "%d albumov"
 
-#: templates/view/gallery.inc:105
+#: templates/view/gallery.inc:103
 #, php-format
 msgid "%d item"
 msgid_plural "%d items"
@@ -65,8 +67,8 @@ msgstr[0] "%d položka"
 msgstr[1] "%d položky"
 msgstr[2] "%d položiek"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/View/Results.php:256
-#: lib/Widget/Tags.php:91 templates/faces/search.inc:12
+#: lib/Ajax/Application/Handler.php:352 lib/View/Results.php:256
+#: lib/Widget/Tags.php:86 templates/faces/search.inc:12
 #, php-format
 msgid "%d photo"
 msgid_plural "%d photos"
@@ -74,7 +76,7 @@ msgstr[0] "%d fotografia"
 msgstr[1] "%d fotografie"
 msgstr[2] "%d fotografií"
 
-#: lib/View/Upload.php:235
+#: lib/View/Upload.php:233
 #, php-format
 msgid "%d photo was uploaded."
 msgid_plural "%d photos were uploaded."
@@ -97,12 +99,12 @@ msgstr "%d až %d z %d skupín"
 msgid "%d to %d of %d Items"
 msgstr "%d až %d z %d položiek"
 
-#: templates/view/gallery.inc:105
+#: templates/view/gallery.inc:103
 #, php-format
 msgid "%d to %d of %d items"
 msgstr "%d až %d z %d položiek"
 
-#: gallery/sort.php:65
+#: gallery/sort.php:64
 #, php-format
 msgid "%s :: Sort"
 msgstr "%s :: Zoradiť"
@@ -117,8 +119,8 @@ msgstr "%s od %s"
 msgid "%s on %s"
 msgstr "%s dňa %s"
 
-#: lib/Ansel.php:549 lib/Ansel.php:554 lib/View/List.php:178
-#: lib/View/List.php:183 lib/Widget/OtherGalleries.php:28
+#: lib/Ansel.php:562 lib/Ansel.php:567 lib/View/List.php:178
+#: lib/View/List.php:183 lib/Widget/OtherGalleries.php:34
 #: templates/group/owner.inc:17 templates/group/owner.inc:22
 #, php-format
 msgid "%s's Galleries"
@@ -129,7 +131,7 @@ msgstr "Albumy používateľa %s"
 msgid "%s: faces %s"
 msgstr "%s: tváre %s"
 
-#: lib/Image.php:1072
+#: lib/Image.php:1076
 #, php-format
 msgid "(c) %s %s"
 msgstr "(c) %s %s"
@@ -150,28 +152,25 @@ msgstr "štýl inšpirovaný Lightboxom (biele pozadie)"
 msgid "A gallery to add this photo to is required."
 msgstr "Na pridanie tejto fotografie je potrebné vybrať album."
 
-#: lib/View/GalleryProperties.php:160
-#, php-format
-msgid "Access denied adding a gallery to \"%s\"."
-msgstr "Nemáte oprávnenie pridávať albumy do \"%s\"."
+#: lib/View/GalleryProperties.php:185
+msgid "Access denied adding a sub gallery to this gallery."
+msgstr "Nemáte oprávnenie pridávať podalbumy do tohto albumu."
 
-#: lib/Api.php:198 lib/Api.php:350 xppublish.php:175
-#, php-format
-msgid "Access denied adding photos to \"%s\"."
-msgstr "Nemáte oprávnenie pridávať fotografie do \"%s\"."
+#: lib/Api.php:198 lib/Api.php:350 xppublish.php:178
+msgid "Access denied adding photos to this gallery."
+msgstr "Nemáte oprávnenie pridávať fotky do tohto albumu."
 
-#: lib/Gallery.php:847
+#: lib/Gallery.php:871
 msgid "Access denied adding tags to this gallery."
 msgstr "Nemáte oprávnenie pridávať tagy do tohto albumu."
 
-#: lib/Image.php:1220
+#: lib/Image.php:1224
 msgid "Access denied adding tags to this photo."
 msgstr "Nemáte oprávnenie pridávať tagy k tejto fotografii."
 
-#: lib/Gallery.php:457
-#, php-format
-msgid "Access denied copying photos to \"%s\"."
-msgstr "Nemáte oprávnenie kopírovať fotografie do \"%s\"."
+#: lib/Gallery.php:478
+msgid "Access denied copying photos to this gallery."
+msgstr "Nemáte oprávnenie kopírovať fotografie do tohto albumu."
 
 #: lib/Api.php:457
 msgid "Access denied creating new galleries."
@@ -181,76 +180,66 @@ msgstr "Nemáte oprávnenie vytvárať nové albumy."
 msgid "Access denied deleting galleries."
 msgstr "Nemáte oprávnenie vymazať albumy."
 
-#: gallery/delete.php:30 gallery/delete.php:57 lib/Api.php:515
-#, php-format
-msgid "Access denied deleting gallery \"%s\"."
-msgstr "Nemáte oprávnenie vymazať album \"%s\"."
+#: image.php:665 lib/Api.php:428 lib/View/Results.php:86
+msgid "Access denied deleting photos from this gallery."
+msgstr "Nemáte oprávnenie vymazať fotografie z tohto albumu."
 
-#: image.php:572 lib/Api.php:428 lib/View/Results.php:86
-#, php-format
-msgid "Access denied deleting photos from \"%s\"."
-msgstr "Nemáte oprávnenie vymazať fotografie z \"%s\"."
+#: gallery/delete.php:32 gallery/delete.php:66 lib/Api.php:515
+msgid "Access denied deleting this gallery."
+msgstr "Nemáte oprávnenie vymazať tento album."
 
 #: lib/Api.php:663
-#, php-format
-msgid "Access denied downloading full sized photos from \"%s\"."
-msgstr "Nemáte oprávnenie sťahovať plnú veľkosť fotografií z \"%s\"."
+msgid "Access denied downloading full sized photos from this gallery."
+msgstr "Nemáte oprávnenie sťahovať plnú veľkosť fotografií z tohto albumu."
 
-#: gallery.php:40 image.php:694 lib/Image.php:905
-#, php-format
-msgid "Access denied downloading photos from \"%s\"."
-msgstr "Nemáte oprávnenie sťahovať fotografie z \"%s\"."
+#: gallery.php:44 image.php:802 lib/Image.php:909
+msgid "Access denied downloading photos from this gallery."
+msgstr "Nemáte oprávnenie sťahovať fotografie z tohto albumu."
 
-#: lib/View/GalleryProperties.php:220
+#: lib/View/GalleryProperties.php:244
 msgid "Access denied editing galleries."
 msgstr "Nemáte oprávnenie upravovať albumy."
 
-#: faces/gallery.php:32 gallery/sort.php:30
-#, php-format
-msgid "Access denied editing gallery \"%s\"."
-msgstr "Nemáte oprávnenie upravovať album \"%s\"."
-
-#: faces/custom.php:36 image.php:304 image.php:720
+#: faces/custom.php:36 image.php:344 image.php:830 lib/Faces/Base.php:431
+#: lib/Faces/Base.php:519
 msgid "Access denied editing the photo."
 msgstr "Nemáte oprávnenie upravovať fotografiu."
 
-#: lib/GalleryMode/Date.php:452 lib/GalleryMode/Normal.php:161
-#, php-format
-msgid "Access denied moving photos to \"%s\"."
-msgstr "Nemáte oprávnenie presúvať fotografie do \"%s\"."
+#: faces/gallery.php:32 gallery/sort.php:30 lib/Faces/Base.php:708
+msgid "Access denied editing this gallery."
+msgstr "Nemáte oprávnenie upravovať tento album."
 
-#: lib/GalleryMode/Date.php:454 lib/GalleryMode/Normal.php:163
-#, php-format
-msgid "Access denied removing photos from \"%s\"."
-msgstr "Nemáte oprávnenie odstraňovať fotografie z \"%s\"."
+#: lib/GalleryMode/Date.php:457
+msgid "Access denied moving photos to this gallery."
+msgstr "Nemáte oprávnenie presúvať fotografie do tohto albumu."
 
-#: lib/View/GalleryProperties.php:264
-#, php-format
-msgid "Access denied saving gallery \"%s\"."
-msgstr "Nemáte oprávnenie uložiť album \"%s\"."
+#: lib/GalleryMode/Date.php:459 lib/GalleryMode/Normal.php:163
+msgid "Access denied removing photos from this gallery."
+msgstr "Nemáte oprávnenie odstraňovať fotografie z tohto albumu."
 
-#: image.php:169 image.php:358 image.php:395
-#, php-format
-msgid "Access denied saving photo to \"%s\"."
-msgstr "Nemáte oprávnenie uložiť fotografiu do \"%s\"."
+#: image.php:190 image.php:401 image.php:445
+msgid "Access denied saving photo to this gallery."
+msgstr "Nemáte oprávnenie ukladať fotografie do tohto albumu."
 
-#: gallery/captions.php:28
-#, php-format
-msgid "Access denied setting captions for %s."
-msgstr "Nemáte oprávnenie nastaviť popisky pre %s."
+#: lib/View/GalleryProperties.php:288
+msgid "Access denied saving this gallery."
+msgstr "Nemáte oprávnenie ukladať tento album."
+
+#: gallery/captions.php:33
+msgid "Access denied setting captions for this gallery."
+msgstr "Nemáte oprávnenie nastaviť popisky pre tento album."
 
 #: lib/View/Base.php:142
-#, php-format
-msgid "Access denied to gallery \"%s\"."
-msgstr "Nemáte oprávnenie prístupu do albumu \"%s\"."
+msgid "Access denied to this gallery."
+msgstr "Nemáte oprávnenie prezerať tento album."
 
 #: lib/Block/Gallery.php:162 lib/Block/RecentComments.php:175
-#: lib/Block/RecentlyAdded.php:204 lib/Gallery.php:814
+#: lib/Block/RecentlyAdded.php:205 lib/Gallery.php:838
 msgid "Access denied viewing this gallery."
 msgstr "Nemáte oprávnenie prezerať tento album."
 
 #: img/download.php:17 img/full.php:17 img/index.php:17 img/mini.php:17
-#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1182
+#: img/screen.php:17 img/thumb.php:31 lib/Image.php:1186
 msgid "Access denied viewing this photo."
 msgstr "Nemáte oprávnenie prezerať túto fotografiu."
 
@@ -262,19 +251,19 @@ msgstr "Operácia bola zrušená."
 msgid "Actions: "
 msgstr "Operácie:"
 
-#: lib/Widget/Tags.php:55
+#: lib/Widget/Tags.php:50
 msgid "Add"
 msgstr "Pridať"
 
-#: browse.php:26
+#: templates/browse/new.inc:2
 msgid "Add Content"
 msgstr "Pridať obsah"
 
-#: lib/View/Upload.php:63
+#: lib/View/Upload.php:83
 msgid "Add Images"
 msgstr "Pridať obrázky"
 
-#: img/upload.php:51
+#: img/upload.php:55
 msgid "Add Photo"
 msgstr "Pridať fotografiu"
 
@@ -282,7 +271,7 @@ msgstr "Pridať fotografiu"
 msgid "Add a custom face range"
 msgstr "Pridať vlastný rozsah pre tvár"
 
-#: lib/View/Upload.php:66
+#: lib/View/Upload.php:86
 msgid "Add files to the upload queue and click the start button."
 msgstr ""
 "Prosím vložte súbory do fronty na nahranie a kliknite na tlačítko štart."
@@ -291,20 +280,20 @@ msgstr ""
 msgid "Add to bookmarks"
 msgstr "Pridať do záložiek"
 
-#: lib/View/GalleryProperties.php:336
+#: lib/View/GalleryProperties.php:360
 msgid "Adding A New Gallery"
 msgstr "Pridanie nového albumu"
 
-#: lib/View/GalleryProperties.php:169
+#: lib/View/GalleryProperties.php:193
 #, php-format
 msgid "Adding A Subgallery to %s"
 msgstr "Pridanie podalbumu do %s"
 
-#: lib/View/GalleryProperties.php:135
+#: lib/View/GalleryProperties.php:160
 msgid "Adding a New Gallery"
 msgstr "Pridanie nového albumu"
 
-#: lib/Application.php:85
+#: lib/Application.php:91
 msgid "Administrators"
 msgstr "Administrátori"
 
@@ -312,7 +301,7 @@ msgstr "Administrátori"
 msgid "Advertisement content"
 msgstr "Reklamný obsah"
 
-#: templates/view/gallery.inc:134 templates/view/gallerylightbox.inc:149
+#: templates/view/gallery.inc:132 templates/view/gallerylightbox.inc:149
 #: templates/view/results.inc:78
 msgid "All"
 msgstr "Všetko"
@@ -321,7 +310,7 @@ msgstr "Všetko"
 msgid "All Galleries"
 msgstr "Všetky albumy"
 
-#: lib/GalleryMode/Date.php:111
+#: lib/GalleryMode/Date.php:116
 msgid "All dates"
 msgstr "Všetky dátumy"
 
@@ -329,17 +318,21 @@ msgstr "Všetky dátumy"
 msgid "All faces"
 msgstr "Všetky tváre"
 
-#: templates/gallery/properties.html.php:91
+#: templates/gallery/properties.html.php:93
 msgid "Allow all ages"
 msgstr "Povoliť pre všetky veky"
 
-#: lib/View/Results.php:237 map_edit.php:25
+#: lib/View/Results.php:237 map_edit.php:26
 msgid "An error has occured retrieving the image. Details have been logged."
 msgstr "Chyba pri sťahovaní obrázku. Podrobnosti boli zaznamenané do logu."
 
-#: config/prefs.php:198 templates/gallery/properties.html.php:108
+#: config/prefs.php:200 templates/gallery/properties.html.php:110
 msgid "Anyone"
 msgstr "Každý"
+
+#: templates/smartmobile/galleries.html.php:4
+msgid "Applications"
+msgstr "Aplikácie"
 
 #: templates/view/gallery.inc:32 templates/view/gallerylightbox.inc:33
 #: templates/view/results.inc:20
@@ -350,26 +343,26 @@ msgstr "Naozaj chcete vymazať vybrané fotografie?"
 msgid "Ascending"
 msgstr "Vzostupne"
 
-#: perms.php:50
+#: perms.php:52
 msgid "Attempt to edit a non-existent share."
 msgstr "Pokus o úpravu neexistujúceho zdieľania"
 
-#: config/prefs.php:199 templates/gallery/properties.html.php:109
+#: config/prefs.php:201 templates/gallery/properties.html.php:111
 msgid "Authenticated users"
 msgstr "Autorizovaní používatelia"
 
-#: config/prefs.php:191
+#: config/prefs.php:193
 msgid "Automatically watermark photos?"
 msgstr "Automaticky pridať do fotografií vodotlač?"
 
-#: lib/Application.php:209 templates/mobile/image.html.php:3
+#: templates/smartmobile/image.html.php:3
 msgid "Back"
 msgstr "Naspäť"
 
 #: templates/image/crop_image.inc:91 templates/image/edit_image.inc:7
-#: templates/image/resize_image.inc:37 templates/view/image.inc:97
-#: templates/view/image.inc:98 templates/view/image.inc:124
-#: templates/view/image.inc:125
+#: templates/image/resize_image.inc:37 templates/view/image.inc:48
+#: templates/view/image.inc:49 templates/view/image.inc:75
+#: templates/view/image.inc:76
 msgid "Back to gallery"
 msgstr "Naspäť na album"
 
@@ -377,7 +370,7 @@ msgstr "Naspäť na album"
 msgid "Background Color"
 msgstr "Farba pozadia"
 
-#: image.php:627 image.php:670 lib/View/Results.php:136
+#: image.php:724 image.php:773 lib/View/Results.php:136
 #: lib/View/Results.php:176
 msgid "Bad input."
 msgstr "Zlý vstup."
@@ -386,15 +379,15 @@ msgstr "Zlý vstup."
 msgid "Basic Thumbnails"
 msgstr "Jednoduché náhľady"
 
-#: config/prefs.php:170 lib/Form/Watermark.php:49
+#: config/prefs.php:172 lib/Form/Watermark.php:49
 msgid "Bottom"
 msgstr "Nadol"
 
-#: config/prefs.php:60
+#: config/prefs.php:61
 msgid "Browse"
 msgstr "Prehliadať"
 
-#: lib/Ansel.php:618
+#: lib/Ansel.php:632
 msgid "Browse Tags"
 msgstr "Prehliadať tagy"
 
@@ -402,15 +395,14 @@ msgstr "Prehliadať tagy"
 msgid "By"
 msgstr "Od"
 
-#: lib/Ansel.php:436
+#: lib/Ansel.php:446
 #, php-format
 msgid "Can't get unknown file type \"%s\"."
 msgstr "Neviem zistiť typ súboru \"%s\"."
 
 #: disclamer.php:30 disclamer.php:33 faces/claim.php:34 faces/report.php:37
-#: faces/savecustom.php:28 lib/Ajax/Imple/EditCaption.php:45
-#: lib/Form/Upload.php:30 lib/View/Upload.php:236 report.php:43
-#: templates/faces/custom.inc:52 templates/faces/define.inc:38
+#: faces/savecustom.php:28 lib/Form/Upload.php:30 lib/View/Upload.php:234
+#: report.php:43 templates/faces/custom.inc:53 templates/faces/define.inc:39
 #: templates/gallery/delete_confirmation.inc:13
 #: templates/image/crop_image.inc:92 templates/image/edit_image.inc:8
 #: templates/image/resize_image.inc:38
@@ -439,19 +431,19 @@ msgstr "Nepodarilo sa uložiť fotografiu na hľadanie"
 msgid "Caption"
 msgstr "Popisok"
 
-#: gallery/captions.php:58
+#: gallery/captions.php:70
 msgid "Caption Editor"
 msgstr "Editor popiskov"
 
-#: gallery/captions.php:50
+#: gallery/captions.php:56
 msgid "Captions Saved."
 msgstr "Popisky uložené."
 
-#: config/prefs.php:72
+#: config/prefs.php:73
 msgid "Category"
 msgstr "Kategória"
 
-#: config/prefs.php:158 config/prefs.php:169 lib/Form/Watermark.php:41
+#: config/prefs.php:160 config/prefs.php:171 lib/Form/Watermark.php:41
 #: lib/Form/Watermark.php:48
 msgid "Center"
 msgstr "Do stredu"
@@ -464,7 +456,7 @@ msgstr ""
 "Zmeniť nastavenia zobrazenia ako prednastavený náhľad, počet fotografií na "
 "stránku a prednastavený štýl albumu."
 
-#: config/prefs.php:24
+#: config/prefs.php:25
 msgid "Change preferences dealing with tags and image metadata."
 msgstr "Zmeniť nastavenia kľúčových slov a metadát obrázkov."
 
@@ -472,7 +464,7 @@ msgstr "Zmeniť nastavenia kľúčových slov a metadát obrázkov."
 msgid "Change properties"
 msgstr "Zmeniť nastavenia"
 
-#: config/prefs.php:31
+#: config/prefs.php:32
 msgid ""
 "Change your user permission preferences such as who can download original "
 "photos, and what permissions newly created galleries should have by default."
@@ -480,7 +472,7 @@ msgstr ""
 "Zmeniť nastavenia oprávnení ako sťahovanie originálnych fotografií a práva "
 "pre novovytvorené albumy."
 
-#: config/prefs.php:41
+#: config/prefs.php:42
 msgid "Change your watermark preferences."
 msgstr "Zmeniť nastavenia vodotlače."
 
@@ -495,10 +487,6 @@ msgstr "Pomenovať"
 #: map_edit.php:90
 msgid "Click on a thumbnail to locate at the same point."
 msgstr "Kliknite na náhľad pre geografickú polohu na to isté miesto."
-
-#: lib/Ajax/Imple/EditCaption.php:43
-msgid "Click to add caption..."
-msgstr "Kliknite pre pridanie popisku..."
 
 #: lib/Form/Ecard.php:33
 msgid "Comments:"
@@ -526,7 +514,7 @@ msgstr[0] "%d fotografia bola skopírovaná z %s do %s"
 msgstr[1] "%d fotografie boli skopírované z %s do %s"
 msgstr[2] "%d fotografií bolo skopírovaných z %s do %s"
 
-#: image.php:665
+#: image.php:767
 #, php-format
 msgid "Copied %d photo to %s"
 msgid_plural "Copied %d photos to %s"
@@ -534,7 +522,7 @@ msgstr[0] "%d fotografia bola skopírovaná do %s"
 msgstr[1] "%d fotografie boli skopírované do %s"
 msgstr[2] "%d fotografií bolo skopírovaných do %s"
 
-#: lib/View/GalleryRenderer/Gallery.php:128
+#: lib/View/GalleryRenderer/Gallery.php:127
 #: templates/view/gallerylightbox.inc:166 templates/view/results.inc:88
 msgid "Copy"
 msgstr "Kopírovať"
@@ -543,20 +531,20 @@ msgstr "Kopírovať"
 msgid "Copyright infringement"
 msgstr "Porušenie autorských práv"
 
-#: lib/View/Upload.php:425
+#: lib/View/Upload.php:481
 msgid "Could not extract image data from zip archive."
 msgstr "Nepodarilo sa extrahovať obrázky z archívu zip."
 
-#: lib/View/Upload.php:411
+#: lib/View/Upload.php:467
 msgid "Could not open zip archive."
 msgstr "Nepodarilo sa otvoriť archív zip."
 
-#: lib/Gallery.php:210
+#: lib/Gallery.php:215
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", already exists."
 msgstr "Nepodarilo sa uložiť album, skrátený názov \"%s\" už existuje."
 
-#: lib/Gallery.php:202
+#: lib/Gallery.php:207
 #, php-format
 msgid "Could not save gallery, the slug, \"%s\", contains invalid characters."
 msgstr ""
@@ -566,7 +554,7 @@ msgstr ""
 msgid "Create"
 msgstr "Vytvoriť"
 
-#: faces/custom.php:67 faces/search/image_define.php:23
+#: faces/custom.php:77 faces/search/image_define.php:23
 msgid "Create a new face"
 msgstr "Pridať novú tvár"
 
@@ -586,7 +574,7 @@ msgstr "Vytvoriť podalbum"
 msgid "Created:"
 msgstr "Vytvorené:"
 
-#: image.php:731 templates/image/crop_image.inc:113
+#: image.php:844 templates/image/crop_image.inc:113
 #: templates/image/edit_image.inc:30 templates/image/resize_image.inc:60
 msgid "Crop"
 msgstr "Odstrihnúť"
@@ -595,7 +583,7 @@ msgstr "Odstrihnúť"
 msgid "Custom Watermark"
 msgstr "Text vodotlače"
 
-#: config/prefs.php:53
+#: config/prefs.php:54
 msgid ""
 "Custom text to display describing your galleries. This will be displayed in "
 "place of your username when grouping galleries by username."
@@ -603,11 +591,11 @@ msgstr ""
 "Text popisujúci Vaše albumy. Tento text bude zobrazený pri zoraďovaní "
 "albumov podľa používateľov namiesto Vášho používateľského mena."
 
-#: config/prefs.php:113 config/prefs.php:150
+#: config/prefs.php:114 config/prefs.php:152
 msgid "Custom watermark to use for photos"
 msgstr "Prednastavený text vodotlače pre fotografie"
 
-#: lib/Block/RecentComments.php:122 lib/Block/RecentlyAdded.php:117
+#: lib/Block/RecentComments.php:122 lib/Block/RecentlyAdded.php:118
 #: templates/view/list.inc:19
 msgid "Date"
 msgstr "Dátum"
@@ -616,12 +604,13 @@ msgstr "Dátum"
 msgid "Default"
 msgstr "Prednastavené"
 
-#: lib/Application.php:175
+#: lib/Prefs/Special/GallerySelect.php:27
+#: lib/Prefs/Special/GalleryStyle.php:27
 msgid "Default style for galleries"
 msgstr "Prednastavený štýl pre albumy"
 
-#: lib/View/GalleryRenderer/Gallery.php:122
-#: templates/view/gallerylightbox.inc:160 templates/view/image.inc:64
+#: lib/View/GalleryRenderer/Gallery.php:121
+#: templates/view/gallerylightbox.inc:160 templates/view/image.inc:15
 #: templates/view/results.inc:83 templates/view/slideshow.inc:21
 msgid "Delete"
 msgstr "Vymazať"
@@ -642,7 +631,7 @@ msgstr "Vymazať tvár"
 msgid "Delete geotag"
 msgstr "Vymazať geografický tag"
 
-#: image.php:577 lib/View/Results.php:90
+#: image.php:671 lib/View/Results.php:90
 msgid "Deleted the photo."
 msgstr "Fotografia bola vymazaná."
 
@@ -654,13 +643,19 @@ msgstr "Zostupne"
 msgid "Desired dimensions:"
 msgstr "Vlastná veľkosť:"
 
-#: templates/gallery/properties.html.php:42
+#: templates/gallery/properties.html.php:44
 msgid "Display Mode"
 msgstr "Mód zobrazenia"
 
 #: config/prefs.php:12
 msgid "Display Preferences"
 msgstr "Nastavenia zobrazenia"
+
+#: config/prefs.php:259
+msgid ""
+"Do not use the ajax-enabled uploader? Select this if your browser is having "
+"trouble uploading images with the ajax uploader."
+msgstr "Vypnúť ajaxové nahrávanie fotografií? Zvoľte, ak má váš prehliadač problémý s ajaxovým nahrávaním fotografií."
 
 #: lib/Faces.php:159
 msgid "Do you know someone in this photo?"
@@ -674,7 +669,7 @@ msgstr "Naozaj chcete nahlásiť tento album?"
 msgid "Do you really want to report this photo?"
 msgstr "Naozaj chcete nahlásiť túto fotografiu?"
 
-#: templates/view/image.inc:64
+#: templates/view/image.inc:15
 #, php-format
 msgid "Do you want to permanently delete ''%s''?"
 msgstr "Chcete trvalo vymazať ''%s''?"
@@ -683,7 +678,7 @@ msgstr "Chcete trvalo vymazať ''%s''?"
 msgid "Done"
 msgstr "Vykonané"
 
-#: templates/view/image.inc:70 templates/view/slideshow.inc:28
+#: templates/view/image.inc:21 templates/view/slideshow.inc:28
 msgid "Download Original Photo"
 msgstr "Stiahnuť originál fotografie"
 
@@ -691,7 +686,7 @@ msgstr "Stiahnuť originál fotografie"
 msgid "Download as zip file"
 msgstr "Stiahnuť vo formáte zip"
 
-#: lib/View/GalleryRenderer/Gallery.php:116
+#: lib/View/GalleryRenderer/Gallery.php:115
 msgid "Download selected images"
 msgstr "Stiahnuť vybrané obrázky"
 
@@ -699,7 +694,7 @@ msgstr "Stiahnuť vybrané obrázky"
 msgid "Download selected photos"
 msgstr "Stiahnuť vybrané fotografie"
 
-#: lib/Ansel.php:722
+#: lib/Ansel.php:736
 msgid ""
 "Downloading zip files is not enabled. Talk to your server administrator."
 msgstr "Sťahovanie vo formáte zip nie je povolené. Kontaktujte administrátora."
@@ -712,7 +707,7 @@ msgstr "Presuňte fotografie do želanej pozície triedenia."
 msgid "Drop Shadows"
 msgstr "Tiene"
 
-#: xppublish.php:207
+#: xppublish.php:210
 #, php-format
 msgid "ERROR: %s"
 msgstr "CHYBA: %s"
@@ -721,35 +716,35 @@ msgstr "CHYBA: %s"
 msgid "Ecard - "
 msgstr "Elektronický pozdrav -"
 
-#: templates/tile/image.inc:21 templates/view/image.inc:61
+#: templates/tile/image.inc:21 templates/view/image.inc:12
 #: templates/view/slideshow.inc:18
 msgid "Edit"
 msgstr "Upraviť"
 
-#: image.php:314
+#: image.php:357
 #, php-format
 msgid "Edit %s :: %s"
 msgstr "Upraviť %s :: %s"
 
-#: edit_dates.php:44 lib/View/GalleryRenderer/Gallery.php:119
+#: edit_dates.php:44 lib/View/GalleryRenderer/Gallery.php:118
 #: templates/view/gallerylightbox.inc:157
 msgid "Edit Dates"
 msgstr "Upraviť dátumy"
 
-#: perms.php:244
+#: perms.php:254
 msgid "Edit Permissions"
 msgstr "Upraviť oprávnenia"
 
-#: perms.php:250
+#: perms.php:260
 #, php-format
 msgid "Edit Permissions for %s"
 msgstr "Upraviť oprávnenia pre %s"
 
-#: image.php:506
+#: image.php:592
 msgid "Edit Photo"
 msgstr "Upraviť fotografiu"
 
-#: image.php:185
+#: image.php:211
 msgid "Edit a photo"
 msgstr "Upraviť fotografiu"
 
@@ -761,7 +756,7 @@ msgstr "Upraviť oblasť tváre"
 msgid "Edit faces"
 msgstr "Upraviť tváre"
 
-#: image.php:140
+#: image.php:158
 #, php-format
 msgid "Edit properties :: %s"
 msgstr "Upraviť nastavenia :: %s"
@@ -774,7 +769,7 @@ msgstr "Upraviť dátumy pre nasledovné fotografie"
 msgid "Embed: "
 msgstr "Vložiť:"
 
-#: gallery/captions.php:22
+#: gallery/captions.php:25
 #, php-format
 msgid "Error accessing %s: %s"
 msgstr "Chyba pri prístupe k %s: %s"
@@ -783,7 +778,7 @@ msgstr "Chyba pri prístupe k %s: %s"
 msgid "Error retrieving feed"
 msgstr "Chyba pri sťahovaní feedu"
 
-#: templates/mobile/javascript_defs.php:29
+#: templates/smartmobile/javascript_defs.php:28
 msgid "Error when communicating with the server."
 msgstr "Chyba pri komunikácii so serverom."
 
@@ -791,7 +786,7 @@ msgstr "Chyba pri komunikácii so serverom."
 msgid "Existing galleries:"
 msgstr "Existujúce albumy:"
 
-#: faces/claim.php:50 faces/face.php:29 faces/report.php:53
+#: faces/claim.php:50 faces/face.php:32 faces/report.php:53
 msgid "Face"
 msgstr "Tvár"
 
@@ -824,7 +819,7 @@ msgstr "Tvár, ktorá sa má hľadať"
 msgid "Faces"
 msgstr "Tváre"
 
-#: map_edit.php:66
+#: map_edit.php:67
 msgid "Fetching location"
 msgstr "Sťahujem geografickú polohu"
 
@@ -837,7 +832,7 @@ msgstr "Súbor %s"
 msgid "File not found."
 msgstr "Súbor nebol nájdený."
 
-#: lib/View/Upload.php:67
+#: lib/View/Upload.php:87
 msgid "File size error."
 msgstr "Neplatná veľkosť súboru."
 
@@ -845,7 +840,7 @@ msgstr "Neplatná veľkosť súboru."
 msgid "File to upload"
 msgstr "Súbor na nahranie"
 
-#: lib/View/Upload.php:68
+#: lib/View/Upload.php:88
 msgid "File type error."
 msgstr "Neplatný typ súboru."
 
@@ -853,7 +848,7 @@ msgstr "Neplatný typ súboru."
 msgid "Filename"
 msgstr "Názov súboru"
 
-#: map_edit.php:65
+#: map_edit.php:66
 msgid "Find"
 msgstr "Hľadať"
 
@@ -892,7 +887,7 @@ msgstr "V systémových albumoch"
 msgid "From: "
 msgstr "Od: "
 
-#: config/prefs.php:61 lib/Ansel.php:615
+#: config/prefs.php:62 lib/Ansel.php:629
 msgid "Galleries"
 msgstr "Albumy"
 
@@ -904,11 +899,11 @@ msgstr "Albumy zoskupené podľa %s"
 #: lib/Block/Gallery.php:26 lib/Block/Gallery.php:35
 #: lib/Block/RecentComments.php:40 lib/Block/RecentComments.php:68
 #: lib/Block/RecentlyAdded.php:33 lib/Block/RecentlyAdded.php:74
-#: lib/Block/RecentlyAdded.php:117 templates/faces/face.inc:30
+#: lib/Block/RecentlyAdded.php:118 templates/faces/face.inc:30
 msgid "Gallery"
 msgstr "Album"
 
-#: image.php:58 img/upload.php:21 lib/Storage.php:268
+#: image.php:63 img/upload.php:21 lib/Storage.php:268
 #, php-format
 msgid "Gallery %s not found."
 msgstr "Album %s nebola nájdený."
@@ -917,16 +912,16 @@ msgstr "Album %s nebola nájdený."
 msgid "Gallery Actions"
 msgstr "Operácie albumu"
 
-#: templates/gallery/properties.html.php:88
+#: templates/gallery/properties.html.php:90
 msgid "Gallery Ages"
 msgstr "Povolené veky pre album"
 
 #: faces/claim.php:47 faces/report.php:50 report.php:65
-#: templates/gallery/properties.html.php:61
+#: templates/gallery/properties.html.php:63
 msgid "Gallery Description"
 msgstr "Popis albumu"
 
-#: templates/gallery/properties.html.php:53
+#: templates/gallery/properties.html.php:55
 msgid "Gallery Display Name"
 msgstr "Zobrazený názov albumu"
 
@@ -947,7 +942,7 @@ msgstr "Názov albumu"
 msgid "Gallery Parent"
 msgstr "Nadradený album"
 
-#: templates/gallery/properties.html.php:119
+#: templates/gallery/properties.html.php:121
 msgid "Gallery Password"
 msgstr "Heslo albumu"
 
@@ -955,11 +950,11 @@ msgstr "Heslo albumu"
 msgid "Gallery Properties"
 msgstr "Nastavenia albumu"
 
-#: templates/gallery/properties.html.php:69
+#: templates/gallery/properties.html.php:71
 msgid "Gallery Slug"
 msgstr "Skrátený názov albumu"
 
-#: templates/gallery/properties.html.php:79
+#: templates/gallery/properties.html.php:81
 msgid "Gallery Tags"
 msgstr "Tagy albumu"
 
@@ -967,7 +962,7 @@ msgstr "Tagy albumu"
 msgid "Gallery does not exist."
 msgstr "Album neexistuje."
 
-#: lib/Block/RecentlyAdded.php:202
+#: lib/Block/RecentlyAdded.php:203
 msgid "Gallery not found."
 msgstr "Album nebol nájdený."
 
@@ -983,12 +978,12 @@ msgstr "Album nebol nahlásený."
 msgid "Gallery was reported."
 msgstr "Album bol nahlásený."
 
-#: config/prefs.php:11 config/prefs.php:22 config/prefs.php:29
-#: config/prefs.php:39
+#: config/prefs.php:11 config/prefs.php:23 config/prefs.php:30
+#: config/prefs.php:40
 msgid "General Preferences"
 msgstr "Všeobecné nastavenia"
 
-#: config/prefs.php:183 lib/Form/Watermark.php:35
+#: config/prefs.php:185 lib/Form/Watermark.php:35
 msgid "Giant"
 msgstr "Obrovské"
 
@@ -997,7 +992,7 @@ msgstr "Obrovské"
 msgid "Grayscale"
 msgstr "Čiernobiele"
 
-#: templates/gallery/properties.html.php:46
+#: templates/gallery/properties.html.php:48
 msgid "Group By Date"
 msgstr "Zoskupiť podľa dátumu"
 
@@ -1005,7 +1000,7 @@ msgstr "Zoskupiť podľa dátumu"
 msgid "Group by:"
 msgstr "Zoskupiť podľa:"
 
-#: config/prefs.php:75
+#: config/prefs.php:76
 msgid "Group galleries by"
 msgstr "Zoskupiť albumy podľa"
 
@@ -1013,7 +1008,7 @@ msgstr "Zoskupiť albumy podľa"
 msgid "Height of map (width automatically adjusts to block)"
 msgstr "Výška mapy (šírka sa automaticky upraví bloku)"
 
-#: config/prefs.php:161 lib/Form/Watermark.php:43
+#: config/prefs.php:163 lib/Form/Watermark.php:43
 msgid "Horizontal Alignment"
 msgstr "Horizontálne zarovnanie"
 
@@ -1025,15 +1020,15 @@ msgstr "Vieme, kto je na jednej z Vašich fotografií"
 msgid "Image"
 msgstr "Obrázok"
 
-#: lib/Gallery.php:482
+#: lib/Gallery.php:502
 msgid "Image already has existing attributes."
 msgstr "Obrázok už má atribúty."
 
-#: lib/GalleryMode/Date.php:528 lib/GalleryMode/Normal.php:205
+#: lib/GalleryMode/Date.php:538 lib/GalleryMode/Normal.php:205
 msgid "Image not found in gallery."
 msgstr "Obrázok nebol nájdený v albume."
 
-#: lib/Storage.php:682
+#: lib/Storage.php:689
 msgid "Images not found"
 msgstr "Obrázky neboli nájdené"
 
@@ -1041,11 +1036,11 @@ msgstr "Obrázky neboli nájdené"
 msgid "Incorrect password"
 msgstr "Nesprávne heslo"
 
-#: xppublish.php:83 xppublish.php:170
+#: xppublish.php:86 xppublish.php:173
 msgid "Invalid gallery specified."
 msgstr "Bol zadaný neplatný album."
 
-#: lib/Ajax/Imple/TagActions.php:52
+#: lib/Ajax/Application/Handler.php:271 lib/Ajax/Application/Handler.php:316
 #, php-format
 msgid "Invalid input %s"
 msgstr "Neplatný vstup %s"
@@ -1054,7 +1049,7 @@ msgstr "Neplatný vstup %s"
 msgid "Landscape"
 msgstr "Na šírku"
 
-#: config/prefs.php:182 lib/Form/Watermark.php:34
+#: config/prefs.php:184 lib/Form/Watermark.php:34
 msgid "Large"
 msgstr "Veľké"
 
@@ -1066,7 +1061,7 @@ msgstr "Naposledy upravené"
 msgid "Learn how to publish photos directly from Windows."
 msgstr "Informácie, ako publikovať fotografie priamo zo systému Windows."
 
-#: config/prefs.php:157 lib/Form/Watermark.php:40
+#: config/prefs.php:159 lib/Form/Watermark.php:40
 msgid "Left"
 msgstr "Naľavo"
 
@@ -1086,13 +1081,12 @@ msgstr "Odkazy"
 msgid "Loading ..."
 msgstr "Nahrávam ..."
 
-#: lib/Ajax/Imple/EditFaces.php:25 lib/Ajax/Imple/EditGalleryFaces.php:24
-#: map_edit.php:83 templates/faces/gallery.inc:28
-#: templates/faces/gallery.inc:39
+#: lib/Ajax/Imple/EditFaces.php:20 map_edit.php:83
+#: templates/faces/gallery.inc:28 templates/faces/gallery.inc:39
 msgid "Loading..."
 msgstr "Nahrávam..."
 
-#: map_edit.php:67
+#: map_edit.php:68
 msgid "Locate image at:"
 msgstr "Zamerať obrázok na:"
 
@@ -1104,7 +1098,7 @@ msgstr "Geografická poloha"
 msgid "Locked galleries are not viewable via the api."
 msgstr "Uzamknuté albumy nie možné prehliadať cez API."
 
-#: templates/mobile/galleries.html.php:6
+#: templates/smartmobile/galleries.html.php:6
 msgid "Log out"
 msgstr "Odhlásenie"
 
@@ -1154,7 +1148,7 @@ msgstr "Maximálna veľkosť fotografie:"
 msgid "Maximum photo size: %s; with a total of: %s"
 msgstr "Maximálna veľkosť fotografie: %s; s celkovou veľkosťou: %s"
 
-#: config/prefs.php:181 lib/Form/Watermark.php:33
+#: config/prefs.php:183 lib/Form/Watermark.php:33
 msgid "Medium"
 msgstr "Stredne"
 
@@ -1163,7 +1157,7 @@ msgstr "Stredne"
 msgid "Mirror"
 msgstr "Zrkadliť"
 
-#: lib/View/GalleryProperties.php:181
+#: lib/View/GalleryProperties.php:205
 msgid "Missing gallery parameter"
 msgstr "Chýba parameter albumu"
 
@@ -1175,7 +1169,7 @@ msgstr "Mobilný náhľad"
 msgid "Modified"
 msgstr "Upravené"
 
-#: lib/View/GalleryProperties.php:201
+#: lib/View/GalleryProperties.php:225
 #, php-format
 msgid "Modifying: %s"
 msgstr "Upravujem: %s"
@@ -1188,12 +1182,12 @@ msgstr ""
 "Na fotografii bola nájdená viac ako jedna tvár. Upozorňujeme Vás, že naraz "
 "môžete hľadať iba jednu tvár."
 
-#: lib/View/GalleryRenderer/Gallery.php:125
+#: lib/View/GalleryRenderer/Gallery.php:124
 #: templates/view/gallerylightbox.inc:163 templates/view/results.inc:85
 msgid "Move"
 msgstr "Presunúť"
 
-#: image.php:621 lib/View/Results.php:125
+#: image.php:718 lib/View/Results.php:125
 #, php-format
 msgid "Moved %d photo from \"%s\" to \"%s\""
 msgid_plural "Moved %d photos from \"%s\" to \"%s\""
@@ -1205,13 +1199,13 @@ msgstr[2] "%d fotografií bolo presunutých z \"%s\" do \"%s\""
 msgid "Multiple Photos"
 msgstr "Viaceré fotografie"
 
-#: config/prefs.php:62 lib/Ansel.php:530 lib/Block/MyGalleries.php:19
+#: config/prefs.php:63 lib/Ansel.php:543 lib/Block/MyGalleries.php:19
 #: lib/Block/MyGalleries.php:45 lib/View/List.php:162
-#: templates/group/owner.inc:3 templates/mobile/galleries.html.php:3
+#: templates/group/owner.inc:3 templates/smartmobile/galleries.html.php:3
 msgid "My Galleries"
 msgstr "Moje albumy"
 
-#: browse_edit.php:24
+#: browse_edit.php:28
 msgid "My Photos :: Add Content"
 msgstr "Moje fotografie :: Vložiť obsah"
 
@@ -1219,7 +1213,8 @@ msgstr "Moje fotografie :: Vložiť obsah"
 msgid "Name"
 msgstr "Meno"
 
-#: faces/search/named.php:14 faces/search/tabs.php:23
+#: faces/search/named.php:14 faces/search/named.php:37
+#: faces/search/tabs.php:23
 msgid "Named faces"
 msgstr "Tváre s  menom"
 
@@ -1231,22 +1226,21 @@ msgstr "Nový popis albumu"
 msgid "New Gallery Title"
 msgstr "Nový nadpis albumu"
 
-#: lib/Ajax/Imple/UploadNotification.php:45
+#: lib/Ajax/Application/Handler.php:65
 #, php-format
 msgid "New images uploaded to %s. %s"
 msgstr "Nové obrázky boli nahrané do %s. %s"
 
-#: templates/mobile/image.html.php:10 templates/view/image.inc:95
-#: templates/view/image.inc:96 templates/view/image.inc:122
-#: templates/view/image.inc:123 templates/view/slideshow.inc:41
+#: templates/smartmobile/image.html.php:10 templates/view/image.inc:46
+#: templates/view/image.inc:47 templates/view/image.inc:73
+#: templates/view/image.inc:74 templates/view/slideshow.inc:41
 #: templates/view/slideshow.inc:42
 msgid "Next"
 msgstr "Ďalej"
 
-#: faces/image.php:42 faces/search/image.php:71
-#: lib/Ajax/Imple/EditFaces.php:66 lib/Ajax/Imple/EditGalleryFaces.php:43
-#: lib/Ajax/Imple/EditGalleryFaces.php:84 lib/Widget/GalleryFaces.php:57
-#: lib/Widget/ImageFaces.php:89 templates/faces/faces.inc:10
+#: faces/image.php:47 faces/search/image.php:71
+#: lib/Ajax/Imple/EditFaces.php:54 lib/Widget/GalleryFaces.php:57
+#: lib/Widget/ImageFaces.php:88 templates/faces/faces.inc:10
 #: templates/faces/index.inc:14 templates/faces/search.inc:23
 msgid "No faces found"
 msgstr "Neboli nájdené žiadne tváre"
@@ -1255,7 +1249,7 @@ msgstr "Neboli nájdené žiadne tváre"
 msgid "No faces found. Define you own."
 msgstr "Neboli nájdené žiadne tváre. Označte tváre manuálne."
 
-#: xppublish.php:184
+#: xppublish.php:187
 msgid "No file specified"
 msgstr "Nebol zadaný žiaden súbor"
 
@@ -1263,11 +1257,11 @@ msgstr "Nebol zadaný žiaden súbor"
 msgid "No gallery specified"
 msgstr "Nebol zadaný žiaden album"
 
-#: lib/Widget/Geotag.php:201
+#: lib/Widget/Geotag.php:198
 msgid "No location data present."
 msgstr "Žiadne údaje o polohe."
 
-#: lib/Widget/Geotag.php:196
+#: lib/Widget/Geotag.php:193
 #, php-format
 msgid ""
 "No location data present. Place using %s map %s or click on image to place "
@@ -1276,7 +1270,7 @@ msgstr ""
 "Žiadne údaje o polohe. Vložte použitím %s mapy %s alebo kliknite na obrázok "
 "s rovnakým miestom pre použitie tohto miesta."
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:82
+#: lib/Ajax/Application/Handler.php:180
 #, php-format
 msgid ""
 "No location data present. Place using %smap%s or click on image to place at "
@@ -1285,38 +1279,34 @@ msgstr ""
 "Žiadne údaje o polohe. Vložte použitím %smapy%s alebo kliknite na obrázok s "
 "rovnakým miestom pre použitie tohto miesta."
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:195
 #, php-format
 msgid "No location data present. You may add some %s."
 msgstr "Žiadne údaje o polohe. Možete tieto vložiť %s."
 
-#: config/prefs.php:73 config/prefs.php:209 config/prefs.php:230
-#: lib/Application.php:162 templates/view/gallery.inc:136
+#: config/prefs.php:74 config/prefs.php:211 config/prefs.php:232
+#: config/prefs.php:251 templates/view/gallery.inc:134
 #: templates/view/gallerylightbox.inc:150 templates/view/results.inc:79
 msgid "None"
 msgstr "Žiadne"
 
-#: config/prefs.php:220
+#: config/prefs.php:222
 msgid "None (Owner only)"
 msgstr "Žiadne (iba vlastník)"
 
-#: templates/gallery/properties.html.php:45
+#: templates/gallery/properties.html.php:47
 msgid "Normal"
 msgstr "Normálne"
 
-#: map_edit.php:35
+#: map_edit.php:36
 msgid "Not Authorized. Details have been logged for the server administrator."
 msgstr "Neautorizované. Podrobnosti boli zaznamenané pre administrátora."
 
-#: templates/mobile/notice.html.php:3
-msgid "Notice"
-msgstr "Upozornenie"
-
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "Number of faces per page"
 msgstr "Počet tvárí na stránku"
 
-#: config/prefs.php:101
+#: config/prefs.php:102
 msgid "Number of groups per page"
 msgstr "Počet skupín na stránku"
 
@@ -1324,11 +1314,11 @@ msgstr "Počet skupín na stránku"
 msgid "Number of tags to display"
 msgstr "Počet tagov na zobrazenie"
 
-#: config/prefs.php:88
+#: config/prefs.php:89
 msgid "Number of tiles per page"
 msgstr "Počet nadpisov na stránku"
 
-#: config/prefs.php:82
+#: config/prefs.php:83
 msgid "Number of tiles per row"
 msgstr "Počet nadpisov na riadok"
 
@@ -1336,11 +1326,7 @@ msgstr "Počet nadpisov na riadok"
 msgid "Offensive content"
 msgstr "Nevhodný obsah"
 
-#: lib/Ajax/Imple/EditCaption.php:46
-msgid "Ok"
-msgstr "Ok"
-
-#: perms.php:66
+#: perms.php:70
 msgid ""
 "Only the owner or system administrator may change ownership or owner "
 "permissions for a share"
@@ -1369,12 +1355,12 @@ msgstr "Ďalší"
 msgid "Owned by: %s"
 msgstr "Vlastník: %s"
 
-#: config/prefs.php:71 templates/tile/gallery.inc:11
+#: config/prefs.php:72 templates/tile/gallery.inc:11
 #: templates/view/list.inc:21
 msgid "Owner"
 msgstr "Vlastník"
 
-#: lib/Gallery.php:332
+#: lib/Gallery.php:347
 #, php-format
 msgid "Page %d"
 msgstr "Stránka %d"
@@ -1400,7 +1386,7 @@ msgstr "Ľudia v tomto albume"
 msgid "People in this photo"
 msgstr "Ľudia na tejto fotografii"
 
-#: config/prefs.php:30
+#: config/prefs.php:31
 msgid "Permission Preferences"
 msgstr "Nastavenia oprávnení"
 
@@ -1412,8 +1398,8 @@ msgstr "Osoba"
 msgid "Person in photo"
 msgstr "Osoba na fotografii"
 
-#: lib/Block/RecentlyAdded.php:117 lib/View/EmbeddedRenderer/Mini.php:191
-#: lib/View/GalleryRenderer/GalleryLightbox.php:141
+#: lib/Block/RecentlyAdded.php:118 lib/View/EmbeddedRenderer/Mini.php:192
+#: lib/View/GalleryRenderer/GalleryLightbox.php:148
 #: templates/faces/face.inc:27 templates/faces/gallery.inc:6
 msgid "Photo"
 msgstr "Fotografia"
@@ -1422,7 +1408,7 @@ msgstr "Fotografia"
 msgid "Photo Count"
 msgstr "Počet fotografií"
 
-#: browse.php:19 mobile.php:18
+#: browse.php:23 smartmobile.php:18
 msgid "Photo Galleries"
 msgstr "Fotoalbumy"
 
@@ -1443,15 +1429,15 @@ msgstr ""
 "Fotografia je príliš malá. Hľadaná fotografia musí mať minimálne 50x50 "
 "pixelov."
 
-#: lib/Storage.php:467
+#: lib/Storage.php:474
 msgid "Photo not found"
 msgstr "Fotografia nebola nájdená"
 
-#: image.php:135
+#: image.php:154
 msgid "Photo not found."
 msgstr "Fotografia nebola nájdená."
 
-#: faces/search/image_search.php:42
+#: faces/search/image_search.php:54
 msgid "Photo search"
 msgstr "Hľadať fotografie"
 
@@ -1469,7 +1455,7 @@ msgstr "Fotografie v tomto albume"
 msgid "Photos tagged with %s on %s"
 msgstr "Fotografie označené s %s na %s"
 
-#: templates/view/image.inc:91 templates/view/image.inc:118
+#: templates/view/image.inc:42 templates/view/image.inc:69
 #: templates/view/slideshow.inc:37
 msgid "Play"
 msgstr "Prehrať"
@@ -1480,7 +1466,7 @@ msgid ""
 "etc..."
 msgstr "Prosím napíšte dôvod, napr. že nechcete byť spomenutý."
 
-#: xppublish.php:50
+#: xppublish.php:53
 msgid "Please enter your username and password."
 msgstr "Prosím zadajte Vaše používateľské meno a heslo."
 
@@ -1500,15 +1486,11 @@ msgstr "Náhľady v štýle Polaroid (biele pozadie)."
 msgid "Polaroids"
 msgstr "Polaroidy"
 
-#: templates/mobile/galleries.html.php:4
-msgid "Portal"
-msgstr "Portál"
-
 #: templates/image/crop_image.inc:149
 msgid "Portrait"
 msgstr "Na výšku"
 
-#: xppublish.php:95 xppublish.php:145
+#: xppublish.php:98 xppublish.php:148
 msgid "Press the \"Back\" button and try again."
 msgstr "Stlačte tlačidlo \"Naspäť\" a skúste znova."
 
@@ -1516,19 +1498,19 @@ msgstr "Stlačte tlačidlo \"Naspäť\" a skúste znova."
 msgid "Preview"
 msgstr "Náhľad"
 
-#: image.php:511 image.php:736
+#: image.php:598 image.php:851
 #, php-format
 msgid "Preview changes for %s :: %s"
 msgstr "Náhľad zmien pre %s :: %s"
 
-#: templates/mobile/image.html.php:9 templates/view/image.inc:93
-#: templates/view/image.inc:94 templates/view/image.inc:120
-#: templates/view/image.inc:121 templates/view/slideshow.inc:39
+#: templates/smartmobile/image.html.php:9 templates/view/image.inc:44
+#: templates/view/image.inc:45 templates/view/image.inc:71
+#: templates/view/image.inc:72 templates/view/slideshow.inc:39
 #: templates/view/slideshow.inc:40
 msgid "Previous"
 msgstr "Predchádzajúce"
 
-#: templates/tile/image.inc:20 templates/view/image.inc:60
+#: templates/tile/image.inc:20 templates/view/image.inc:11
 #: templates/view/slideshow.inc:17
 msgid "Properties"
 msgstr "Vlastnosti"
@@ -1537,7 +1519,7 @@ msgstr "Vlastnosti"
 msgid "Publish Photos to:"
 msgstr "Publikovať fotografie do:"
 
-#: xppublish.php:31
+#: xppublish.php:34
 #, php-format
 msgid "Publish to %s"
 msgstr "Publikovať do %s"
@@ -1559,15 +1541,15 @@ msgstr "Náhodný album"
 msgid "Random photo"
 msgstr "Náhodná fotografia"
 
-#: config/prefs.php:211 config/prefs.php:232
+#: config/prefs.php:213 config/prefs.php:234
 msgid "Read and write"
 msgstr "Čítať a zapisovať"
 
-#: config/prefs.php:233
+#: config/prefs.php:235
 msgid "Read, write, and delete"
 msgstr "Čítať, zapisovať a vymazať"
 
-#: config/prefs.php:210 config/prefs.php:221 config/prefs.php:231
+#: config/prefs.php:212 config/prefs.php:223 config/prefs.php:233
 msgid "Read-only"
 msgstr "Iba čítať"
 
@@ -1685,7 +1667,7 @@ msgstr "Nanovo určiť geografickú polohu pre tento obrázok"
 msgid "Remove %s from search"
 msgstr "Odstrániť %s z vyhľadávania"
 
-#: lib/Ajax/Imple/TagActions.php:106 lib/Widget/Tags.php:91
+#: lib/Ajax/Application/Handler.php:352 lib/Widget/Tags.php:86
 msgid "Remove Tag"
 msgstr "Odstrániť tag"
 
@@ -1695,7 +1677,7 @@ msgstr "Nahradiť fotografiu týmto súborom"
 
 #: lib/Widget/Actions.php:196 report.php:43 report.php:62
 #: templates/faces/face.inc:11 templates/faces/search.inc:15
-#: templates/tile/face.inc:31 templates/view/image.inc:80
+#: templates/tile/face.inc:31 templates/view/image.inc:31
 msgid "Report"
 msgstr "Nahlásiť"
 
@@ -1724,7 +1706,7 @@ msgstr "Dôvod hlásenia"
 msgid "Report type"
 msgstr "Typ hlásenia"
 
-#: templates/faces/custom.inc:53 templates/faces/define.inc:39
+#: templates/faces/custom.inc:52 templates/faces/define.inc:38
 #: templates/image/crop_image.inc:165 templates/image/resize_image.inc:75
 msgid "Reset"
 msgstr "Obnoviť"
@@ -1742,11 +1724,11 @@ msgstr "Zrušiť prednastavenú fotografiu"
 msgid "Resize"
 msgstr "Zmeniť veľkosť"
 
-#: map_edit.php:64
+#: map_edit.php:65
 msgid "Return to Image View"
 msgstr "Návrat na náhľad obrázkov"
 
-#: config/prefs.php:159 lib/Form/Watermark.php:42
+#: config/prefs.php:161 lib/Form/Watermark.php:42
 msgid "Right"
 msgstr "Napravo"
 
@@ -1778,7 +1760,7 @@ msgid "Rounded Thumbnails (White Background)"
 msgstr "Zarovnané náhľady (biele pozadie)"
 
 #: lib/Form/Image.php:21 lib/Form/ImageDate.php:21 lib/Form/Watermark.php:21
-#: map_edit.php:63 templates/faces/custom.inc:51
+#: map_edit.php:64 templates/faces/custom.inc:51
 #: templates/image/resize_image.inc:74
 msgid "Save"
 msgstr "Uložiť"
@@ -1793,11 +1775,11 @@ msgstr "Uložiť popisky"
 msgid "Save Change"
 msgstr "Uložiť zmeny"
 
-#: templates/gallery/properties.html.php:131
+#: templates/gallery/properties.html.php:133
 msgid "Save Gallery"
 msgstr "Uložiť album"
 
-#: image.php:167
+#: image.php:187
 msgid "Save Photo"
 msgstr "Uložiť fotografiu"
 
@@ -1809,7 +1791,11 @@ msgstr "Uložiť meno k tvári"
 msgid "Search"
 msgstr "Hľadať"
 
-#: faces/search/name.php:43 faces/search/tabs.php:24
+#: gallery/sort.php:66
+msgid "Search Forums"
+msgstr "Hľadať v diskusiách"
+
+#: faces/search/name.php:44 faces/search/tabs.php:24
 msgid "Search by name"
 msgstr "Hľadať podľa mena"
 
@@ -1843,7 +1829,7 @@ msgstr "Nevybrať nič"
 msgid "Select for Action"
 msgstr "Vybrať pre operácie"
 
-#: templates/view/gallery.inc:132
+#: templates/view/gallery.inc:130
 msgid "Select:"
 msgstr "Vybrať:"
 
@@ -1852,7 +1838,7 @@ msgstr "Vybrať:"
 msgid "Select: %s, %s"
 msgstr "Vybrať: %s, %s"
 
-#: templates/view/gallery.inc:140 templates/view/gallerylightbox.inc:168
+#: templates/view/gallery.inc:138 templates/view/gallerylightbox.inc:168
 #: templates/view/results.inc:90
 msgid "Selected photos to"
 msgstr "Vybrané fotografie do"
@@ -1866,7 +1852,7 @@ msgstr "Odoslať"
 msgid "Send Ecard :: %s"
 msgstr "Odoslať elektronický pozdrav :: %s"
 
-#: templates/view/image.inc:67 templates/view/slideshow.inc:26
+#: templates/view/image.inc:18 templates/view/slideshow.inc:26
 msgid "Send an Ecard"
 msgstr "Elektronický pozdrav odoslaný"
 
@@ -1874,7 +1860,7 @@ msgstr "Elektronický pozdrav odoslaný"
 msgid "Send ecard to the following address:"
 msgstr "Odoslať elektronický pozdrav na nasledovnú adresu:"
 
-#: lib/Form/Upload.php:44 templates/gallery/properties.html.php:81
+#: lib/Form/Upload.php:44 templates/gallery/properties.html.php:83
 msgid "Separate tags with commas."
 msgstr "Oddelte viaceré tagy s čiarkou"
 
@@ -1890,7 +1876,7 @@ msgstr "Nastaviť oprávnenia"
 msgid "Shadowed Thumbnails (White Background)"
 msgstr "Náhľady s tienmi (biele pozadie)"
 
-#: config/prefs.php:247
+#: config/prefs.php:253
 msgid ""
 "Should we automatically set the image title on upload if able? If so, choose "
 "the field to obtain the title from."
@@ -1898,7 +1884,7 @@ msgstr ""
 "Má byť pri nahraní automaticky nastavený nadpis obrázka? Ak áno, vyberte "
 "pole, ktoré sa má na nadpis použiť."
 
-#: config/prefs.php:107
+#: config/prefs.php:108
 msgid "Show EXIF data"
 msgstr "Zobraziť údaje EXIF"
 
@@ -1922,15 +1908,15 @@ msgstr "Jednoduchý Lightbox"
 msgid "Single Photo"
 msgstr "Samostatná fotografia"
 
-#: templates/gallery/properties.html.php:73
+#: templates/gallery/properties.html.php:75
 msgid "Slug names may contain only letters, numbers, @, or _ (underscore)."
 msgstr "Skrátené názvy môžu obsahovaťa iba písmená, čísla, @ a _ (podčiarka)."
 
-#: templates/gallery/properties.html.php:72
+#: templates/gallery/properties.html.php:74
 msgid "Slugs allows direct access to this gallery by visiting:"
 msgstr "Skrátené názvy umožnujú priamy prístup do albumu navštívením:"
 
-#: config/prefs.php:180 lib/Form/Watermark.php:32
+#: config/prefs.php:182 lib/Form/Watermark.php:32
 msgid "Small"
 msgstr "Malé"
 
@@ -1950,8 +1936,8 @@ msgstr "Štvorcové náhľady"
 msgid "Standard Gallery"
 msgstr "Prednastavený album"
 
-#: lib/Widget/Actions.php:66 templates/view/image.inc:90
-#: templates/view/image.inc:117 templates/view/slideshow.inc:37
+#: lib/Widget/Actions.php:66 templates/view/image.inc:41
+#: templates/view/image.inc:68 templates/view/slideshow.inc:37
 msgid "Start Slideshow"
 msgstr "Začať slideshow"
 
@@ -1959,12 +1945,12 @@ msgstr "Začať slideshow"
 msgid "Subject"
 msgstr "Predmet"
 
-#: gallery/delete.php:35
+#: gallery/delete.php:40
 #, php-format
 msgid "Successfully deleted %s."
 msgstr "Úspešne zmazané: %s"
 
-#: gallery/delete.php:62
+#: gallery/delete.php:73
 #, php-format
 msgid "Successfully emptied \"%s\""
 msgstr "Úspešne vyprázdnené: \"%s\""
@@ -1974,7 +1960,7 @@ msgstr "Úspešne vyprázdnené: \"%s\""
 msgid "Successfully modified the date on %d photos."
 msgstr "Dátum na %d fotografiách bol úspešne zmenený."
 
-#: lib/Ansel.php:528
+#: lib/Ansel.php:541
 msgid "System Galleries"
 msgstr "Systémové albumy"
 
@@ -1986,7 +1972,7 @@ msgstr "Tag Cloud"
 msgid "Tags"
 msgstr "Tagy"
 
-#: config/prefs.php:23
+#: config/prefs.php:24
 msgid "Tags and Metadata Preferences"
 msgstr "Nastavenia tagov a metadát"
 
@@ -1998,12 +1984,12 @@ msgstr "Povedzte nám, kto je na tejto fotografii"
 msgid "Terms and conditions infringement"
 msgstr "Poruženie pravidiel"
 
-#: lib/Ansel.php:425
+#: lib/Ansel.php:435
 #, php-format
 msgid "The file \"%s\" doesn't exist."
 msgstr "Súbor \"%s\" neexistuje."
 
-#: image.php:201 lib/Api.php:337 lib/View/Upload.php:197
+#: image.php:223 lib/Api.php:337 lib/View/Upload.php:197
 msgid "The file you uploaded does not appear to be a valid photo."
 msgstr "Súbor, ktorý ste nahrali, pravdepodobne nie je platná fotografia."
 
@@ -2012,29 +1998,29 @@ msgstr "Súbor, ktorý ste nahrali, pravdepodobne nie je platná fotografia."
 msgid "The gallery \"%s\" could not be created: %s"
 msgstr "Nepodarilo sa vytvoriť album \"%s\": %s"
 
-#: lib/View/GalleryProperties.php:362 xppublish.php:123
+#: lib/View/GalleryProperties.php:386 xppublish.php:126
 #, php-format
 msgid "The gallery \"%s\" couldn't be created: %s"
 msgstr "Nepodarilo sa vytvoriť album \"%s\": %s"
 
-#: lib/View/GalleryProperties.php:357 xppublish.php:120
+#: lib/View/GalleryProperties.php:381 xppublish.php:123
 #, php-format
 msgid "The gallery \"%s\" was created successfully."
 msgstr "Album \"%s\" bol úspešne vytvorený."
 
-#: lib/View/GalleryProperties.php:305
+#: lib/View/GalleryProperties.php:329
 msgid "The gallery was saved."
 msgstr "Album bol uložený."
 
-#: gallery.php:76
+#: gallery.php:81
 msgid "The gallery's default photo has successfully been reset."
 msgstr "Prednastavená fotografia albumu bola úspešne zrušená."
 
-#: gallery.php:96
+#: gallery.php:101
 msgid "The gallery's thumbnails have successfully been reset."
 msgstr "Náhľady albumu boli úspešne zrušené."
 
-#: gallery.php:111
+#: gallery.php:116
 msgid "The gallery's views have successfully been reset."
 msgstr "Zobrazenia albumu boli úspešne zrušené."
 
@@ -2051,7 +2037,7 @@ msgstr "Vlasník fotografie, ktorý prepošle meno tváre, bol upozornený."
 msgid "The slug \"%s\" already exists."
 msgstr "Skrátený názov \"%s\" už existuje."
 
-#: lib/View/Upload.php:173
+#: lib/View/Upload.php:170
 msgid ""
 "The uploaded file appears to be empty. It may not exist on your computer."
 msgstr "Nahraný súbor vyzerá byť prázdny. Možno nie je na Vašom počítači."
@@ -2060,45 +2046,45 @@ msgstr "Nahraný súbor vyzerá byť prázdny. Možno nie je na Vašom počíta�
 msgid "There are no photo galleries available."
 msgstr "Žiadne albumy nie sú k dispozícii."
 
-#: lib/Ansel.php:740
+#: lib/Ansel.php:754
 #, php-format
 msgid "There are no photos in %s to download."
 msgstr "Žiadne fotografie v %s nie sú k dispozícii na stiahnuie."
 
-#: templates/captions/captions.inc:52 templates/view/gallery.inc:144
+#: templates/captions/captions.inc:52 templates/view/gallery.inc:142
 #: templates/view/gallerylightbox.inc:172 templates/view/results.inc:100
 msgid "There are no photos in this gallery."
 msgstr "V tomto albume nie sú žiadne fotografie."
 
-#: gallery/delete.php:38
+#: gallery/delete.php:44
 #, php-format
 msgid "There was a problem deleting %s: %s"
 msgstr "Chyba pri vymazávaní %s: %s"
 
-#: image.php:580 lib/View/Results.php:93
+#: image.php:674 lib/View/Results.php:93
 #, php-format
 msgid "There was a problem deleting photos: %s"
 msgstr "Chyba pri vymazávaní fotografií: %s"
 
-#: lib/View/Upload.php:212
+#: lib/View/Upload.php:215
 #, php-format
 msgid "There was a problem saving the photo: %s"
 msgstr "Chyba pri ukladaní fotografie: %s"
 
-#: xppublish.php:199
+#: xppublish.php:202
 msgid "There was a problem uploading the photo."
 msgstr "Chyba pri nahrávaní fotografie."
 
-#: lib/View/Upload.php:171
+#: lib/View/Upload.php:167
 #, php-format
 msgid "There was a problem uploading the photo: %s"
 msgstr "Chyba pri nahrávaní fotografie: %s"
 
-#: xppublish.php:89
+#: xppublish.php:92
 msgid "There was an error accessing the gallery"
 msgstr "Chyba pri prístupe do albumu"
 
-#: gallery/sort.php:24 xppublish.php:180
+#: gallery/sort.php:24 xppublish.php:183
 msgid "There was an error accessing the gallery."
 msgstr "Chyba pri prístupe do albumu."
 
@@ -2107,17 +2093,17 @@ msgstr "Chyba pri prístupe do albumu."
 msgid "There was an error editing the dates: %s"
 msgstr "Chyba pri úprave dátumov: %s"
 
-#: lib/Widget/Tags.php:38
+#: lib/Widget/Tags.php:36
 #, php-format
 msgid "There was an error fetching tags: %s"
 msgstr "Chyba pri získavaní tagov: %s"
 
-#: lib/View/Upload.php:334
+#: lib/View/Upload.php:388
 #, php-format
 msgid "There was an error processing the uploaded archive: %s"
 msgstr "Chyba pri spracovaní nahraného archívu: %s"
 
-#: image.php:219
+#: image.php:244
 msgid "There was an error replacing the photo."
 msgstr "Chyba pri výmene fotografie."
 
@@ -2134,7 +2120,7 @@ msgstr "Album je chránený heslom. Prosím zadajte heslo nižšie."
 msgid "This image"
 msgstr "Tento obrázok"
 
-#: lib/ImageGenerator.php:123
+#: lib/ImageGenerator.php:122
 #, php-format
 msgid ""
 "This install does not support the %s feature. Please contact your "
@@ -2146,11 +2132,11 @@ msgstr ""
 msgid "Thumbnail Style"
 msgstr "Štýl náhľadov"
 
-#: config/prefs.php:179 lib/Form/Watermark.php:31
+#: config/prefs.php:181 lib/Form/Watermark.php:31
 msgid "Tiny"
 msgstr "Drobné"
 
-#: config/prefs.php:168 lib/Form/Watermark.php:47
+#: config/prefs.php:170 lib/Form/Watermark.php:47
 msgid "Top"
 msgstr "Nahor"
 
@@ -2162,7 +2148,7 @@ msgstr "Najvyššií album"
 msgid "Tweet"
 msgstr "Tweet"
 
-#: map_edit.php:68
+#: map_edit.php:69
 msgid "Unable to find location. Error code:"
 msgstr "Nepodarilo sa nájsť polohu. Chybový kód:"
 
@@ -2175,11 +2161,11 @@ msgstr "Nepodarilo sa nahrať definíciu %s."
 msgid "Unable to retrieve requested feed"
 msgstr "Nepodarilo sa nahrať požadovaný feed"
 
-#: templates/gallery/properties.html.php:132
+#: templates/gallery/properties.html.php:134
 msgid "Undo Changes"
 msgstr "Vrátiť zmeny"
 
-#: lib/View/GalleryProperties.php:203
+#: lib/View/GalleryProperties.php:227
 msgid "Unknown Gallery"
 msgstr "Neznámy album"
 
@@ -2191,21 +2177,21 @@ msgstr "Bez mena"
 msgid "Unsupported"
 msgstr "Nepodporované"
 
-#: xppublish.php:131
+#: xppublish.php:134
 msgid "Untitled"
 msgstr "Bez nadpisu"
 
-#: map_edit.php:157
+#: map_edit.php:152
 #, php-format
 msgid "Update position of %s"
 msgstr "Aktualizovať geografickú polohu %s"
 
-#: perms.php:236
+#: perms.php:246
 #, php-format
 msgid "Updated %s."
 msgstr "Aktualizované %s."
 
-#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:62
+#: faces/search/image.php:18 lib/Form/Upload.php:30 lib/View/Upload.php:82
 msgid "Upload"
 msgstr "Nahrať"
 
@@ -2214,15 +2200,15 @@ msgstr "Nahrať"
 msgid "Upload Photos to %s"
 msgstr "Nahrať fotografie do %s"
 
-#: faces/search/image.php:61
+#: faces/search/image.php:62
 msgid "Upload face photo"
 msgstr "Nahrať fotografiu tváre"
 
-#: lib/View/Upload.php:153 lib/Widget/Actions.php:71
+#: lib/View/Upload.php:141 lib/Widget/Actions.php:71
 msgid "Upload photos"
 msgstr "Nahrať fotografie"
 
-#: lib/View/Upload.php:64
+#: lib/View/Upload.php:84
 msgid "Upload to gallery"
 msgstr "Nahrať do albumu"
 
@@ -2234,7 +2220,7 @@ msgstr "Použiť lightbox na zobrazenie fotografií"
 msgid "Use the following return address:"
 msgstr "Použiť nasledovnú e-mailovú adresu odosielateľa pre odpoveď:"
 
-#: templates/gallery/properties.html.php:93
+#: templates/gallery/properties.html.php:95
 #, php-format
 msgid "User must be over %d"
 msgstr "Používateľ musí byť starší ako %d rokov"
@@ -2243,15 +2229,15 @@ msgstr "Používateľ musí byť starší ako %d rokov"
 msgid "Username"
 msgstr "Používateľské meno"
 
-#: xppublish.php:46
+#: xppublish.php:49
 msgid "Username or password are incorrect."
 msgstr "Používateľské meno a heslo sú nesprávne"
 
-#: config/prefs.php:200 templates/gallery/properties.html.php:110
+#: config/prefs.php:202 templates/gallery/properties.html.php:112
 msgid "Users with edit permissions"
 msgstr "Používatelia s právom upravovať"
 
-#: config/prefs.php:172 config/prefs.php:185 lib/Form/Watermark.php:50
+#: config/prefs.php:174 config/prefs.php:187 lib/Form/Watermark.php:50
 msgid "Vertical Alignment"
 msgstr "Vertikálne zarovnanie"
 
@@ -2264,7 +2250,7 @@ msgstr "Zobrazenie %s"
 msgid "View All Results"
 msgstr "Zobraziť všetky výsledky"
 
-#: lib/View/Upload.php:65
+#: lib/View/Upload.php:85
 msgid "View Gallery"
 msgstr "Zobraziť album"
 
@@ -2284,11 +2270,11 @@ msgstr "Zobraziť štýl"
 msgid "View or leave comments"
 msgstr "Zobraziť alebo odoslať komentáre"
 
-#: config/prefs.php:64
+#: config/prefs.php:65
 msgid "View to display by default"
 msgstr "Prednastavené zobrazenie"
 
-#: image.php:461 image.php:472 templates/image/crop_image.inc:110
+#: image.php:543 image.php:555 templates/image/crop_image.inc:110
 #: templates/image/edit_image.inc:26 templates/image/resize_image.inc:56
 msgid "Watermark"
 msgstr "Vodotlač"
@@ -2297,11 +2283,11 @@ msgstr "Vodotlač"
 msgid "Watermark Font"
 msgstr "Písmo vodotlače"
 
-#: config/prefs.php:40
+#: config/prefs.php:41
 msgid "Watermark Preferences"
 msgstr "Nastavenia vodotlače"
 
-#: config/prefs.php:235
+#: config/prefs.php:237
 msgid ""
 "When a new gallery is created, what default permissions should be given to "
 "groups that the user is a member of?"
@@ -2309,7 +2295,7 @@ msgstr ""
 "Pri vytváraní nového albumu, ake prednastavené oprávnenia dať skupinám, "
 "ktorých je používateľ členom?"
 
-#: config/prefs.php:213
+#: config/prefs.php:215
 msgid ""
 "When a new gallery is created, what permissions should be given to "
 "authenticated users by default?"
@@ -2317,7 +2303,7 @@ msgstr ""
 "Pri vytváraní nového albumu, ake prednastavené oprávnenia dať prihláseným "
 "používateľom?"
 
-#: config/prefs.php:223
+#: config/prefs.php:225
 msgid ""
 "When a new gallery is created, what permissions should be given to guests by "
 "default?"
@@ -2325,18 +2311,18 @@ msgstr ""
 "Pri vytváraní nového albumu, ake prednastavené oprávnenia dať anonymným "
 "používateľom)?"
 
-#: config/prefs.php:241
+#: config/prefs.php:244
 msgid ""
 "Which metadata fields should we automatically add as image tags during "
 "upload?"
 msgstr ""
 "Ktoré metadáta sa majú automaticky pridať do tagov pri nahraní obrázkov?"
 
-#: config/prefs.php:202
+#: config/prefs.php:204
 msgid "Who should be allowed to download original photos"
 msgstr "Kto má mať oprávnenie na stiahnutie originálov fotografií"
 
-#: templates/gallery/properties.html.php:105
+#: templates/gallery/properties.html.php:107
 msgid "Who should be allowed to download original photos?"
 msgstr "Kto má mať oprávnenie na stiahnutie originálov fotografií?"
 
@@ -2348,14 +2334,13 @@ msgstr "Nemáte oprávnenie upravovať tieto fotografie."
 msgid "You are not authorized to upload photos to this gallery."
 msgstr "Nemáte oprávnenie nahrať fotografie do tohto albumu."
 
-#: lib/View/Upload.php:237
+#: lib/View/Upload.php:235
 msgid "You did not select any photos to upload."
 msgstr "Nevybrali ste žiadne fotografie na nahratie."
 
-#: lib/View/GalleryProperties.php:322
-#, php-format
-msgid "You do not have permission to add children to %s."
-msgstr "Nemáte oprávnenie pridávať podradené objekty do %s."
+#: lib/View/GalleryProperties.php:346
+msgid "You do not have permission to add sub galleries to this gallery."
+msgstr "Nemáte oprávnenie na pridávanie podalbumov do tohto albumu."
 
 #: img/ecard.php:42
 msgid ""
@@ -2372,7 +2357,7 @@ msgstr ""
 msgid "You have no photo galleries, add one!"
 msgstr "Nemáte žiadne albumy, môžete skúsiť vytvoriť nový!"
 
-#: lib/Ajax/Imple/UploadNotification.php:62
+#: lib/Ajax/Application/Handler.php:70
 #, php-format
 msgid ""
 "You have not properly connected your Twitter account with Horde. You should "
@@ -2403,7 +2388,7 @@ msgstr "Musíte zadať e-mailovú adresu, na ktorú má byť zaslaná správa."
 msgid "You must enter your e-mail address."
 msgstr "Musíte zadať Vašu e-mailovú adresu."
 
-#: lib/View/GalleryProperties.php:333
+#: lib/View/GalleryProperties.php:357
 msgid "You must provide a display name for your new gallery."
 msgstr "Musíte zadať zobrazovaný názov pre Váš nový album."
 
@@ -2411,7 +2396,7 @@ msgstr "Musíte zadať zobrazovaný názov pre Váš nový album."
 msgid "You must select at least on photo to edit."
 msgstr "Musíte vybrať aspoň jednu fotografiu na jej úpravu."
 
-#: image.php:702
+#: image.php:811
 msgid "You must select images to download."
 msgstr "Musíte vybrať obrázky na stiahnutie."
 
@@ -2420,31 +2405,39 @@ msgstr "Musíte vybrať obrázky na stiahnutie."
 msgid "You must upload the search photo first"
 msgstr "Najprv musíte nahrať fotografiu, podľa ktorej sa bude hľadať"
 
+#: lib/View/GalleryProperties.php:127
+3 fuzzy
+msgid ""
+"Your server does not support thumbnails with transparent backgrounds.  "
+"Either select a background color or use the 'Basic Thumbnail' type. Please "
+"contact your server administrator for more information."
+msgstr "Server nepodporuje vytváranie náhľadov s priesvitným pozadím. Buď zvoľte farbu pozadia alebo použite jednoduché náhľady. Pre bližšie informácie, prosím, kontaktujte administrátora."
+
 #: lib/Form/Upload.php:63
 msgid "Zip File Upload"
 msgstr "Nahranie súboru zip"
 
-#: lib/Application.php:97
+#: lib/Application.php:103
 msgid "_Browse"
 msgstr "_Prehliadať"
 
-#: lib/Application.php:138
+#: lib/Application.php:132
 msgid "_Faces"
 msgstr "_Tváre"
 
-#: lib/Application.php:105
+#: lib/Application.php:111
 msgid "_Galleries"
 msgstr "_Albumy"
 
-#: lib/Application.php:118
+#: lib/Application.php:124
 msgid "_My Galleries"
 msgstr "_Moje albumy"
 
-#: lib/Application.php:130
+#: lib/Application.php:158
 msgid "_New Gallery"
 msgstr "_Nový album"
 
-#: lib/Application.php:144
+#: lib/Application.php:138
 msgid "_Print"
 msgstr "_Vytlačiť"
 
@@ -2457,20 +2450,16 @@ msgstr "od"
 msgid "height"
 msgstr "výška"
 
-#: lib/Ajax/Imple/ImageSaveGeotag.php:84 lib/Widget/Geotag.php:198
+#: lib/Ajax/Application/Handler.php:182 lib/Widget/Geotag.php:195
 msgid "here"
 msgstr "tu"
-
-#: lib/Application.php:210
-msgid "loading"
-msgstr "nahrávam"
 
 #: group.php:82
 msgid "none"
 msgstr "žiadne"
 
-#: lib/View/EmbeddedRenderer/Mini.php:192
-#: lib/View/GalleryRenderer/GalleryLightbox.php:142
+#: lib/View/EmbeddedRenderer/Mini.php:193
+#: lib/View/GalleryRenderer/GalleryLightbox.php:149
 msgid "of"
 msgstr "z"
 
@@ -2478,11 +2467,11 @@ msgstr "z"
 msgid "owner"
 msgstr "vlastník"
 
-#: xppublish.php:187
+#: xppublish.php:190
 msgid "photo"
 msgstr "fotografia"
 
-#: lib/Ajax/Imple/UploadNotification.php:62
+#: lib/Ajax/Application/Handler.php:70
 msgid "preferences"
 msgstr "nastavenia"
 

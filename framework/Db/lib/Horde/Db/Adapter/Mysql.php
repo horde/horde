@@ -13,7 +13,7 @@
  */
 
 /**
- * MySQL Improved Horde_Db_Adapter
+ * MySQL Horde_Db_Adapter
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>

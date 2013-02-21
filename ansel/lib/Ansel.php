@@ -361,7 +361,7 @@ class Ansel
                 $image = $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
                     ->getImage($imageId);
-            } catch (Ansel_Exception $e) {
+            } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
@@ -691,7 +691,7 @@ class Ansel
         if (isset($styles[$style])) {
             return new Ansel_Style($styles[$style]);
         } else {
-            return  new Ansel_Style($styles['ansel_default']);
+            return new Ansel_Style($styles['ansel_default']);
         }
     }
 
@@ -887,6 +887,25 @@ class Ansel
                 'var Ansel' => $code
             ));
         }
+    }
+
+    /**
+     * Helper function for displaying Lat/Lng values
+     *
+     * @param float $value  The value to convert.
+     * @param boolean $lat  Is this a latitude value?
+     *
+     * @return string
+     */
+    static public function point2Deg($value, $lat = false)
+    {
+        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
+        $value = abs($value);
+        $deg = floor($value);
+        $min = floor(($value - $deg) * 60);
+        $sec = ($value - $deg - $min / 60) * 3600;
+
+        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
 }

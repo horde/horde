@@ -7,7 +7,7 @@
  *
  * @category  Horde
  * @copyright 2012-2013 Horde LLC
- * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 
@@ -17,7 +17,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2012-2013 Horde LLC
- * @license   http://www.horde.org/licenses/gpl21 GPL
+ * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
 class IMP_Dynamic_Message extends IMP_Dynamic_Base
@@ -27,7 +27,7 @@ class IMP_Dynamic_Message extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $page_output, $prefs;
+        global $conf, $injector, $notification, $page_output, $prefs;
 
         if (!IMP::uid() || !IMP::mailbox()) {
             throw new IMP_Exception(_("No message index given."));

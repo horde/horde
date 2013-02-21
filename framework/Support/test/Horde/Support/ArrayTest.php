@@ -22,10 +22,10 @@ class Horde_Support_ArrayTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('ArrayAccess', $o);
     }
 
-    public function testImplementsIterator()
+    public function testImplementsTraversable()
     {
         $o = new Horde_Support_Array();
-        $this->assertInstanceOf('Iterator', $o);
+        $this->assertInstanceOf('Traversable', $o);
     }
 
     public function testImplementsCountable()

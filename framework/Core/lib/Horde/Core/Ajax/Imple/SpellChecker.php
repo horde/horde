@@ -86,9 +86,10 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     {
         global $conf, $injector, $language;
 
-        $args = isset($vars->locale)
-            ? array('locale' => $vars->locale)
-            : array();
+        $args = array('html' => !empty($vars->html));
+        if (isset($vars->locale)) {
+            $args['locale'] = $vars->locale;
+        }
         $input = $vars->get($vars->input);
 
         try {

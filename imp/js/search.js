@@ -119,7 +119,8 @@ var ImpSearch = {
 
     getCriteriaLabel: function(id, nocolon)
     {
-        return $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]').textContent + (nocolon ? ' ' : ': ');
+        var sca = $('search_criteria_add').down('[value="' + RegExp.escape(id) + '"]');
+        return (sca.textContent || sca.innerText) + (nocolon ? ' ' : ': ');
     },
 
     deleteCriteria: function(div)

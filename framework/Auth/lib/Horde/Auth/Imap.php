@@ -1,12 +1,21 @@
 <?php
 /**
- * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
- * authentication system.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Imap:: class provides an IMAP implementation of the Horde
+ * authentication system.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Gaudenz Steinlin <gaudenz@soziologie.ch>
@@ -123,7 +132,9 @@ class Horde_Auth_Imap extends Horde_Auth_Base
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception

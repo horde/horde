@@ -491,7 +491,6 @@ class Horde_Icalendar
         // Default values.
         // TODO: HORDE_VERSION does not exist.
         $requiredAttributes['PRODID'] = '-//The Horde Project//Horde iCalendar Library' . (defined('HORDE_VERSION') ? ', Horde ' . constant('HORDE_VERSION') : '') . '//EN';
-        $requiredAttributes['METHOD'] = 'PUBLISH';
 
         foreach ($requiredAttributes as $name => $default_value) {
             try {
@@ -696,6 +695,9 @@ class Horde_Icalendar
 
                     foreach ($values[1] as $value) {
                         $stamp = $this->_parseDateTime($value);
+                        if (!is_int($stamp)) {
+                            continue;
+                        }
                         $dates[] = array('year' => date('Y', $stamp),
                                          'month' => date('m', $stamp),
                                          'mday' => date('d', $stamp));
@@ -1293,13 +1295,11 @@ class Horde_Icalendar
         if ($time['zone'] == 'UTC' || $tzoffset !== false) {
             $result = @gmmktime($time['hour'], $time['minute'], $time['second'],
                                 $date['month'], $date['mday'], $date['year']);
-            if ($tzoffset) {
+            if ($result !== false && $tzoffset) {
                 $result -= $tzoffset;
             }
         } else {
             // We don't know the timezone so assume local timezone.
-            // FIXME: shouldn't this be based on the user's timezone
-            // preference rather than the server's timezone?
             $result = @mktime($time['hour'], $time['minute'], $time['second'],
                               $date['month'], $date['mday'], $date['year']);
         }

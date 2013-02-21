@@ -12,6 +12,8 @@
  * @subpackage UnitTests
  */
 
+require_once __DIR__ . '/PgsqlBase.php';
+
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -22,11 +24,13 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_Pdo_PgsqlBase
 {
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+
+        list($this->_conn, $this->_cache) = self::getConnection();
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();

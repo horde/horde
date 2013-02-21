@@ -64,7 +64,7 @@ class Horde_Image_Effect_Im_TextWatermark extends Horde_Image_Effect
             $gravity = $v . $h;
         }
         /* Determine font point size */
-        $point = $this->_image->getFontSize($this->_params['fontsize']);
+        $point = Horde_Image::getFontSize($this->_params['fontsize']);
         $this->_image->raw();
         $this->_image->addPostSrcOperation(' -font ' . $this->_params['font'] . ' -pointsize ' . $point . ' \( +clone -resize 1x1 -fx 1-intensity -threshold 50% -scale 32x32 -write mpr:color +delete \) -tile mpr:color -gravity ' . $gravity . ' -annotate +20+10 "' . $this->_params['text'] . '"');
         $this->_image->raw();

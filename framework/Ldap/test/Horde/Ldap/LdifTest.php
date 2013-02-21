@@ -46,16 +46,16 @@ class Horde_Ldap_LdifTest extends PHPUnit_Framework_TestCase
             'cn'          => 'test blabla',
             'attr3'       => array('foo', 'bar'),
             'attr1'       => 12345,
-            'attr4'       => 'blablaöäü',
+            'attr4'       => 'blablaÃ¶Ã¤Ã¼',
             'objectclass' => 'oc2',
             'attr2'       => array('1234', 'baz'),
             'verylong'    => 'fhu08rhvt7b478vt5hv78h45nfgt45h78t34hhhhhhhhhv5bg8h6ttttttttt3489t57nhvgh4788trhg8999vnhtgthgui65hgb5789thvngwr789cghm738'),
 
-        'cn=test öäü,ou=example,dc=cno' => array(
-            'cn'          => 'test öäü',
+        'cn=test Ã¶Ã¤Ã¼,ou=example,dc=cno' => array(
+            'cn'          => 'test Ã¶Ã¤Ã¼',
             'attr3'       => array('foo', 'bar'),
             'attr1'       => 12345,
-            'attr4'       => 'blablaöäü',
+            'attr4'       => 'blablaÃ¶Ã¤Ã¼',
             'objectclass' => 'oc3',
             'attr2'       => array('1234', 'baz'),
             'attr5'       => 'endspace ',

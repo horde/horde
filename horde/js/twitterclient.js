@@ -229,10 +229,10 @@ var Horde_Twitter = Class.create({
      * @param object response  The response object from the Ajax request.
      */
     _getOlderEntriesCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
         if (response.responseJSON.o) {
             this.oldestId = response.responseJSON.o;
-            var h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert(content);
             $(this.opts.content).scrollTop = h;
         }
@@ -245,11 +245,11 @@ var Horde_Twitter = Class.create({
      * @param object response  The response object from the Ajax request.
      */
     _getOlderMentionsCallback: function(response) {
-        var content = response.responseJSON.c;
+        var h, content = response.responseJSON.c;
         // If no more available, the oldest id will be null
         if (response.responseJSON.o) {
             this.oldestMention = response.responseJSON.o;
-            var h = $(this.opts.mentions).scrollHeight
+            h = $(this.opts.mentions).scrollHeight
             $(this.opts.mentions).insert(content);
             $(this.opts.mentions).scrollTop = h;
         }
@@ -264,7 +264,7 @@ var Horde_Twitter = Class.create({
         var h, content = response.responseJSON.c;
 
         if (response.responseJSON.n != this.newestId) {
-            var h = $(this.opts.content).scrollHeight
+            h = $(this.opts.content).scrollHeight
             $(this.opts.content).insert({ 'top': content });
             if (this.activeTab != 'stream') {
                 $(this.opts.contenttab).addClassName('hordeSmNew');
@@ -344,8 +344,8 @@ var Horde_Twitter = Class.create({
      * Build and display the node for a new tweet.
      */
     buildNewTweet: function(response) {
-        var tweet = new Element('div', {'class':'hordeSmStreamstory'});
-        var tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
+        var tweet = new Element('div', {'class':'hordeSmStreamstory'}),
+            tPic = new Element('div', {'class':'solidbox hordeSmAvatar'}).update(
             new Element('a', {'href': 'http://twitter.com/' + response.user.screen_name}).update(
                 new Element('img', {'src':response.user.profile_image_url})
             )

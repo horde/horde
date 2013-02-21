@@ -91,7 +91,7 @@ class Horde_ActiveSync_SyncCache
         Horde_ActiveSync_State_Base $state,
         $devid,
         $user,
-        Horde_Log_Logger $logger = null)
+        $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;

@@ -168,7 +168,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
                 $imgsrc = '<div class="ansel_location_sameas">';
                 foreach ($imgs as $id => $data) {
                     $title = empty($data['image_location'])
-                        ? $this->_point2Deg($data['image_latitude'], true) . ' ' . $this->_point2Deg($data['image_longitude'])
+                        ? Ansel::point2Deg($data['image_latitude'], true) . ' ' . Ansel::point2Deg($data['image_longitude'])
                         : $data['image_location'];
                     $imgsrc .= $addurl->link(array(
                         'title' => $title,
@@ -187,21 +187,6 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         return new Horde_Core_Ajax_Response_Prototypejs($result);
-    }
-
-    /**
-     */
-    protected function _point2Deg($value, $lat = false)
-    {
-        $letter = $lat
-            ? ($value > 0 ? "N" : "S")
-            : ($value > 0 ? "E" : "W");
-        $value = abs($value);
-        $deg = floor($value);
-        $min = floor(($value - $deg) * 60);
-        $sec = ($value - $deg - $min / 60) * 3600;
-
-        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
     /**
@@ -251,6 +236,10 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
     }
 
     /**
+     * Adds a new tag to a resource.
+     *
+     * @return array  An array of tag hashes representing the objects's current
+     *                tags (after the new tag is added).
      */
     public function addTag()
     {
@@ -271,7 +260,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             throw new Ansel_Exception(_("Invalid input %s"), $id);
         }
 
-        /* Get the resource owner */
+        // Get the resource owner
         $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
@@ -280,22 +269,26 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
             $resource = $storage->getImage($id);
             $parent = $storage->getGallery($resource->gallery);
         }
-
-        $tags = explode(',', rawurldecode($tags));
         $tagger = $injector->getInstance('Ansel_Tagger');
+        $tagger->tag($id, $tagger->split(rawurldecode($tags)), $registry->getAuth(), $type);
 
-        $tagger->tag($id, $tags, $registry->getAuth(), $type);
-
-        /* Get the tags again since we need the newly added tag_ids */
+        // Get the tags again since we need the newly added tag_ids
         $newTags = $tagger->getTags($id, $type);
         if (count($newTags)) {
             $newTags = $tagger->getTagInfo(array_keys($newTags));
         }
-
-        return new Horde_Core_Ajax_Response_Raw($this->_getTagHtml($newTags, $parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)), 'text/html');
+        $links = Ansel::getTagLinks($newTags, 'add');
+        foreach ($newTags as &$tag_info) {
+            $tag_info['link'] = strval($links[$tag_info['tag_id']]);
+        }
+        return $newTags;
     }
 
     /**
+     * Remove tag(s) from a resource.
+     *
+     * @return array An array of tag hashes representing the objects's current
+     *               tags (after the tags are deleted).
      */
     public function removeTag()
     {
@@ -315,8 +308,6 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         if (!is_numeric($id)) {
             throw new Ansel_Exception(_("Invalid input %s"), $id);
         }
-
-        /* Get the resource owner */
         $storage = $injector->getInstance('Ansel_Storage');
         if ($type == 'gallery') {
             $resource = $storage->getGallery($id);
@@ -327,17 +318,19 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         }
 
         $tagger = $injector->getInstance('Ansel_Tagger');
-
         $tagger->untag($resource->id, (int)$tags, $type);
-
-        $existingTags = $tagger->getTags($resource->id, $type);
-        if (count($existingTags)) {
-            $newTags = $tagger->getTagInfo(array_keys($existingTags));
+        $currentTags = $tagger->getTags($resource->id, $type);
+        if (count($currentTags)) {
+            $newTags = $tagger->getTagInfo(array_keys($currentTags));
         } else {
             $newTags = array();
         }
+        $links = Ansel::getTagLinks($newTags, 'add');
+        foreach ($newTags as &$tag_info) {
+            $tag_info['link'] = strval($links[$tag_info['tag_id']]);
+        }
 
-        return new Horde_Core_Ajax_Response_Raw($this->_getTagHtml($newTags, $parent->hasPermission($registry->getAuth(), Horde_Perms::EDIT)), 'text/html');
+        return $newTags;
     }
 
     /**
@@ -359,6 +352,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
      * Javascript code needed for embedding a small gallery widget in
      * external websites.
      *
+     * @return Horde_Core_Ajax_Response_Raw  The Ajax response object.
      * @throws Ansel_Exception
      */
     public function embed()
@@ -372,7 +366,7 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
 
         try {
             $view = new $class($this->vars);
-            return new Horde_Core_Ajax_Response_Javascript($view->html());
+            return new Horde_Core_Ajax_Response_Raw($view->html(), 'text/javascript');
         } catch (Exception $e) {}
     }
 

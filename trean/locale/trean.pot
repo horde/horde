@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Trean H5 (1.0-git)\n"
+"Project-Id-Version: Trean H5 (1.0.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"POT-Creation-Date: 2013-01-29 11:44+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,12 +41,16 @@ msgstr ""
 msgid "3 Line"
 msgstr ""
 
-#: templates/add.html.php:43
+#: templates/add.html.php:49
 msgid "Add"
 msgstr ""
 
 #: templates/bookmarklet.html.php:1
 msgid "Add to Bookmarks"
+msgstr ""
+
+#: templates/list.html.php:13
+msgid "Added"
 msgstr ""
 
 #: config/prefs.php:36
@@ -67,11 +71,11 @@ msgid "Bookmarked on"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:20 lib/Block/Bookmarks.php:65
-#: lib/View/BookmarkList.php:116
+#: lib/View/BookmarkList.php:120
 msgid "Bookmarks"
 msgstr ""
 
-#: lib/Trean.php:82
+#: lib/Trean.php:71
 msgid "Bookmarks Feed"
 msgstr ""
 
@@ -79,28 +83,16 @@ msgstr ""
 msgid "Browse"
 msgstr ""
 
-#: lib/View/BookmarkList.php:197
-msgid "Browsing for tags:"
-msgstr ""
-
-#: templates/add.html.php:44 templates/edit.html.php:51
+#: templates/add.html.php:50 templates/edit.html.php:60
 msgid "Cancel"
-msgstr ""
-
-#: templates/add.html.php:31 templates/edit.html.php:39
-msgid "Categorize your bookmark with comma separated tags."
 msgstr ""
 
 #: templates/list.html.php:14
 msgid "Clicks"
 msgstr ""
 
-#: lib/Api.php:74
+#: lib/Api.php:130
 msgid "Close"
-msgstr ""
-
-#: templates/list.html.php:52
-msgid "Delete"
 msgstr ""
 
 #: app/controllers/DeleteBookmark.php:13
@@ -111,7 +103,7 @@ msgstr ""
 msgid "Descending (9 to 1 or newest to oldest)"
 msgstr ""
 
-#: templates/add.html.php:24 templates/edit.html.php:32
+#: templates/add.html.php:25 templates/edit.html.php:34
 msgid "Description"
 msgstr ""
 
@@ -123,36 +115,36 @@ msgstr ""
 msgid "Display Rows"
 msgstr ""
 
-#: templates/add.html.php:57
+#: templates/add.html.php:61
 msgid "Drag the \"Add to Bookmarks\" link below onto your \"Links\" Bar"
 msgstr ""
 
-#: templates/add.html.php:55
+#: templates/add.html.php:59
 msgid ""
 "Drag the \"Add to Bookmarks\" link below onto your \"Personal Toolbar\"."
 msgstr ""
 
-#: templates/list.html.php:48
+#: templates/list.html.php:55
 msgid "Edit"
 msgstr ""
 
-#: edit.php:28
+#: edit.php:31
 msgid "Edit Bookmark"
 msgstr ""
 
-#: templates/add.html.php:54
+#: templates/add.html.php:58
 msgid "Firefox/Mozilla"
 msgstr ""
 
-#: templates/add.html.php:56
+#: templates/add.html.php:60
 msgid "Internet Explorer"
 msgstr ""
 
-#: templates/add.html.php:34 templates/edit.html.php:42
+#: templates/add.html.php:38 templates/edit.html.php:47
 msgid "Loading..."
 msgstr ""
 
-#: lib/Application.php:71
+#: lib/Application.php:74
 msgid "Maximum Number of Bookmarks"
 msgstr ""
 
@@ -164,12 +156,12 @@ msgstr ""
 msgid "Most-clicked Bookmarks"
 msgstr ""
 
-#: add.php:66 templates/add.html.php:9
+#: add.php:73 templates/add.html.php:9
 msgid "New Bookmark"
 msgstr ""
 
-#: templates/search.php:3
-msgid "No Bookmarks found"
+#: search.php:37
+msgid "No bookmarks found"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:94 lib/Block/Mostclicked.php:75
@@ -180,7 +172,11 @@ msgstr ""
 msgid "No bookmarks yet."
 msgstr ""
 
-#: templates/add.html.php:60
+#: search.php:44
+msgid "No search"
+msgstr ""
+
+#: templates/add.html.php:64
 msgid "Note:"
 msgstr ""
 
@@ -188,7 +184,7 @@ msgstr ""
 msgid "Number of bookmarks to show"
 msgstr ""
 
-#: templates/add.html.php:61
+#: templates/add.html.php:65
 #, php-format
 msgid ""
 "On newer versions of Internet Explorer, you may have to add %s://%s to your "
@@ -203,37 +199,25 @@ msgstr ""
 msgid "Other Preferences"
 msgstr ""
 
-#: templates/add.html.php:33 templates/edit.html.php:41
+#: templates/add.html.php:41 templates/edit.html.php:50
 msgid "Previously used tags"
 msgstr ""
 
-#: lib/View/BookmarkList.php:181
-msgid "Related Tags:"
-msgstr ""
-
-#: lib/View/BookmarkList.php:201
+#: lib/View/BookmarkList.php:210
 msgid "Remove from search"
 msgstr ""
 
-#: templates/edit.html.php:50
+#: templates/edit.html.php:59
 msgid "Save"
 msgstr ""
 
-#: lib/Forms/Search.php:11 search.php:19
+#: search.php:30
 msgid "Search"
 msgstr ""
 
-#: lib/Forms/Search.php:9
-msgid "Search Bookmarks"
-msgstr ""
-
-#: search.php:36
+#: search.php:41
 #, php-format
-msgid "Search Results (%s)"
-msgstr ""
-
-#: lib/Forms/Search.php:12
-msgid "Search for"
+msgid "Search results (%s)"
 msgstr ""
 
 #: config/prefs.php:14
@@ -250,6 +234,10 @@ msgstr ""
 
 #: config/prefs.php:38
 msgid "Sort direction:"
+msgstr ""
+
+#: lib/Application.php:99 templates/add.html.php:30 templates/edit.html.php:39
+msgid "Tags"
 msgstr ""
 
 #: lib/Block/Bookmarks.php:48 lib/Block/Mostclicked.php:39
@@ -271,20 +259,20 @@ msgstr ""
 msgid "There was an error saving the bookmark: %s"
 msgstr ""
 
-#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:19
-#: templates/edit.html.php:27 templates/list.html.php:13
+#: config/prefs.php:24 lib/Block/Bookmarks.php:33 templates/add.html.php:20
+#: templates/edit.html.php:29 templates/list.html.php:12
 msgid "Title"
 msgstr ""
 
-#: templates/add.html.php:53
+#: templates/add.html.php:57
 msgid "To be able to quickly add bookmarks from your web browser:"
 msgstr ""
 
-#: templates/add.html.php:14 templates/edit.html.php:22
+#: templates/add.html.php:15 templates/edit.html.php:24
 msgid "URL"
 msgstr ""
 
-#: templates/add.html.php:58
+#: templates/add.html.php:62
 msgid ""
 "While browsing you will be able to bookmark the current page by clicking "
 "your new \"Add to Bookmarks\" shortcut."
@@ -295,16 +283,12 @@ msgstr ""
 msgid "You are not allowed to create more than %d bookmarks."
 msgstr ""
 
-#: lib/Application.php:81
+#: lib/Application.php:84
 msgid "_Browse"
 msgstr ""
 
-#: lib/Application.php:82
+#: lib/Application.php:94
 msgid "_New Bookmark"
-msgstr ""
-
-#: lib/Application.php:83
-msgid "_Search"
 msgstr ""
 
 #: templates/block/1line.inc:21 templates/block/2line.inc:24
@@ -315,4 +299,9 @@ msgstr ""
 #: templates/block/1line.inc:21 templates/block/2line.inc:24
 #: templates/block/standard.inc:22
 msgid "clicks"
+msgstr ""
+
+#: app/controllers/BrowseByTag.php:17
+#, php-format
+msgid "tagged %s"
 msgstr ""

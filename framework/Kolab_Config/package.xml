@@ -95,6 +95,10 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>PHPUnit_Story</name>
+    <channel>pear.phpunit.de</channel>
+   </package>
   </optional>
  </dependencies>
  <phprelease>

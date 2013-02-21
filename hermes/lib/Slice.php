@@ -71,6 +71,13 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties['type'] = Horde_Util::getPost('type');
         $this->_properties['costobject'] = Horde_Util::getPost('costobject');
         $this->_properties['note'] = Horde_Util::getPost('notes');
+
+        // Admin only
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:timeadmin'))) {
+            $this->_properties['employee'] = Horde_Util::getPost('employee', $GLOBALS['registry']->getAuth());
+        } else {
+            $this->_properties['employee'] = $GLOBALS['registry']->getAuth();
+        }
     }
 
     /**

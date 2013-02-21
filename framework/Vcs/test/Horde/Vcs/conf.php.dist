@@ -1,0 +1,12 @@
+<?php
+$conf['paths']['ci'] = '/usr/bin/ci';
+$conf['paths']['co'] = '/usr/bin/co';
+$conf['paths']['rcs'] = '/usr/bin/rcs';
+$conf['paths']['rcsdiff'] = '/usr/bin/rcsdiff';
+$conf['paths']['rlog'] = '/usr/bin/rlog';
+$conf['paths']['cvs'] = '/usr/bin/cvs';
+$conf['paths']['cvsps'] = '/usr/bin/cvsps';
+$conf['paths']['cvsps_home'] = '/tmp';
+$conf['paths']['svn'] = '/usr/bin/svn';
+$conf['paths']['diff'] = '/usr/bin/diff';
+$conf['paths']['git'] = '/usr/bin/git';

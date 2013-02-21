@@ -20,10 +20,16 @@
  */
 class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    static public function setUpBeforeClass()
     {
         $_SERVER['SERVER_NAME'] = 'mail.example.com';
         setlocale(LC_ALL, 'C');
+    }
+
+    static public function functiontearDownAfterClass()
+    {
+        unset($_SERVER['SERVER_NAME']);
+
     }
 
     public function testConstructor()

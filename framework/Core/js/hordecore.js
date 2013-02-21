@@ -73,7 +73,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t) {
+        ajaxopts.onSuccess = function(t) {
             this.doActionComplete(t, opts);
         }.bind(this);
 
@@ -90,7 +90,7 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t, o) {
+        ajaxopts.onSuccess = function(t, o) {
             this.doActionComplete(t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
@@ -137,7 +137,7 @@ var HordeCore = {
         var sf, fid = form.identify();
 
         if (!this.submit_frame[fid]) {
-            var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+            sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
             $(document.body).insert(sf);
 
             sf.observe('load', function(sf) {
@@ -261,6 +261,8 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
+            var alarm, growl, message, select;
+
             if (!Object.isString(m.message)) {
                 return;
             }
@@ -272,7 +274,7 @@ var HordeCore = {
                 return true;
 
             case 'horde.alarm':
-                var alarm = m.flags.alarm;
+                alarm = m.flags.alarm;
                 // Only show one instance of an alarm growl.
                 if (this.alarms.include(alarm.id)) {
                     break;
@@ -280,7 +282,7 @@ var HordeCore = {
 
                 this.alarms.push(alarm.id);
 
-                var message = alarm.title.escapeHTML();
+                message = alarm.title.escapeHTML();
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
                         message = new Element('A', { href: alarm.params.notify.url }).insert(message);
@@ -296,14 +298,14 @@ var HordeCore = {
                     message.insert(new Element('BR')).insert(alarm.params.notify.subtitle);
                 }
                 if (alarm.user) {
-                    var select = '<select>';
+                    select = '<select>';
                     $H(this.text.snooze_select).each(function(snooze) {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
                     message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
                 }
-                var growl = this.Growler.growl(message, {
+                growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
                     life: 8,
                     log: false,
@@ -461,18 +463,19 @@ var HordeCore = {
     // params: (object) List of parameters to add to URL
     addURLParam: function(url, params)
     {
-        var q = url.indexOf('?');
-        params = $H(params);
-
-        this.addRequestParams(params);
+        var p = $H(),
+            q = url.indexOf('?');
 
         if (q != -1) {
-            params.update(url.toQueryParams());
+            p = $H(url.toQueryParams());
             url = url.substring(0, q);
         }
 
-        return params.size()
-            ? (url + '?' + params.toQueryString())
+        p.update(params);
+        this.addRequestParams(p);
+
+        return p.size()
+            ? (url + '?' + p.toQueryString())
             : url;
     },
 

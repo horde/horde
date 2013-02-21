@@ -46,4 +46,43 @@ class Horde_Date_Parser_ParserTest extends Horde_Test_Case
         $this->assertEquals('morning', $tokens[1]->tags[0][1]);
         $this->assertEquals(2, count($tokens));
     }
+
+    public function testPreNormalizeAmPm()
+    {
+        $parser = Horde_Date_Parser::factory();
+        $text = $parser->preNormalize('5am');
+        $this->assertEquals('5 am', $text);
+
+        $text = $parser->preNormalize('5:00am');
+        $this->assertEquals('5:00 am', $text);
+
+        $text = $parser->preNormalize('5 am');
+        $this->assertEquals('5 am', $text);
+
+        $text = $parser->preNormalize('exam');
+        $this->assertEquals('exam', $text);
+    }
+
+    public function testPreNormalizeCase()
+    {
+        $parser = Horde_Date_Parser::factory();
+        $this->assertEquals('this day', $parser->preNormalize('Today'));
+        $this->assertEquals('this day', $parser->preNormalize('today'));
+        $this->assertEquals('this day', $parser->preNormalize('toDay'));
+
+        $this->assertEquals('next day', $parser->preNormalize('Tommorow'));
+        $this->assertEquals('next day', $parser->preNormalize('tommorow'));
+        $this->assertEquals('next day', $parser->preNormalize('TOMMOROW'));
+        $this->assertEquals('next day', $parser->preNormalize('tomorow'));
+
+        $this->assertEquals('last day', $parser->preNormalize('Yesterday'));
+        $this->assertEquals('last day', $parser->preNormalize('yesterday'));
+
+        $this->assertEquals('12:00', $parser->preNormalize('Noon'));
+        $this->assertEquals('12:00', $parser->preNormalize('noon'));
+
+        $this->assertEquals('24:00', $parser->preNormalize('Midnight'));
+        $this->assertEquals('24:00', $parser->preNormalize('midnight'));
+    }
+
 }

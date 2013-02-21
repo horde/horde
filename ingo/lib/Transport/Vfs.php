@@ -108,8 +108,6 @@ class Ingo_Transport_Vfs extends Ingo_Transport
     {
         /* Do variable substitution. */
         if (!empty($this->_params['vfs_path'])) {
-            $user = Ingo::getUser();
-            $domain = Ingo::getDomain();
             $this->_params['vfs_path'] = str_replace(
                 array('%u', '%d', '%U'),
                 array(Ingo::getUser(), Ingo::getDomain(), $this->_params['username']),

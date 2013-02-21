@@ -34,22 +34,27 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
      */
     public function execute()
     {
-        /* Purge non-existent nav_poll entries. */
-        $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->prunePollList();
+        global $conf, $injector;
+
+        /* These require mail server authentication. */
+        try {
+            /* Purge non-existent nav_poll entries. */
+            $injector->getInstance('IMP_Imap_Tree')->prunePollList();
+
+            /* Purge non-existent search sorts. */
+            $injector->getInstance('IMP_Prefs_Sort')->gc();
+        } catch (Exception $e) {}
 
         /* Do garbage collection on sentmail entries. */
-        $GLOBALS['injector']->getInstance('IMP_Sentmail')->gc();
+        $injector->getInstance('IMP_Sentmail')->gc();
 
         /* Do garbage collection on compose VFS data. */
-        if ($GLOBALS['conf']['compose']['use_vfs']) {
+        if ($conf['compose']['use_vfs']) {
             try {
-                $vfs = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Vfs')->create();
+                $vfs = $injector->getInstance('Horde_Core_Factory_Vfs')->create();
                 Horde_Vfs_Gc::gc($vfs, IMP_Compose::VFS_ATTACH_PATH, 86400);
             } catch (Horde_Vfs_Exception $e) {}
         }
-
-        /* Purge non-existent search sorts. */
-        $GLOBALS['injector']->getInstance('IMP_Prefs_Sort')->gc();
     }
 
 }

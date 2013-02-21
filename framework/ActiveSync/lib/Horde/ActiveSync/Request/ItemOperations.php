@@ -249,7 +249,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                     // Not supported
                 default :
                     $this->_logger->debug(sprintf(
-                        "[%s] %s not supported by HANDLEITEMOPERATIONS.",
+                        '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                         $this->_device->id,
                         $value['type'])
                     );
@@ -258,7 +258,7 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                 break;
             default :
                 $this->_logger->debug(sprintf(
-                    "[%s] %s not supported by HANDLEITEMOPERATIONS.",
+                    '[%s] %s not supported by HANDLEITEMOPERATIONS.',
                     $this->_device->id,
                     $value['type'])
                 );

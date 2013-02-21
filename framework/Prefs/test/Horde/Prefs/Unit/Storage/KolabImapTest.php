@@ -1,8 +1,9 @@
 <?php
 /**
- * Test the preferences storage backend for Kolab.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Prefs
@@ -13,11 +14,6 @@
 
 /**
  * Test the preferences storage backend for Kolab.
- *
- * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Prefs
@@ -71,6 +67,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
 
     public function testCreateFolder()
     {
+        $this->markTestIncomplete();
         $storage = $this->_createStorage();
         $p = new Horde_Prefs(
             'test@example.com',
@@ -159,6 +156,7 @@ class Horde_Prefs_Unit_Storage_KolabImapTest extends PHPUnit_Framework_TestCase
                     'data' => array('queryset' => 'horde'),
                 ),
                 'cache'  => new Horde_Cache(new Horde_Cache_Storage_Mock()),
+                'logger' => $this->getMock('Horde_Log_Logger'),
             )
         );
         return $factory->create();

@@ -1,8 +1,9 @@
 <?php
 /**
- * Maps a single Kolab_Storage group ACL element to the Horde permission system.
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -13,11 +14,6 @@
 
 /**
  * Maps a single Kolab_Storage group ACL element to the Horde permission system.
- *
- * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -33,35 +29,25 @@ extends Horde_Perms_Permission_Kolab_Acl
      *
      * @var string
      */
-    private $_id;
-
-    /**
-     * The group handler.
-     *
-     * @var Group
-     */
-    private $_groups;
+    protected $_id;
 
     /**
      * Constructor.
      *
-     * @param string $acl               The folder ACL element as provided by
-     *                                  the driver.
-     * @param string $id                The group id.
+     * @param string $acl  The folder ACL element as provided by the driver.
+     * @param string $id   The group id.
      */
     public function __construct($acl, $id)
     {
-        $this->_id     = $id;
+        $this->_id = $id;
         parent::__construct($acl);
     }
 
     /**
-     * Convert the Acl string to a Horde_Perms:: mask and store it in the
+     * Converts the ACL string to a Horde_Perms mask and stores it in the
      * provided data array.
      *
      * @param array &$data The horde permission data.
-     *
-     * @return NULL
      */
     public function toHorde(array &$data)
     {

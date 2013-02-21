@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H5 (3.0.1-git)\n"
+"Project-Id-Version: Ingo H5 (3.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,15 +17,15 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Ingo.php:443
+#: lib/Ingo.php:441
 msgid " and"
 msgstr ""
 
-#: lib/Ingo.php:444
+#: lib/Ingo.php:442
 msgid " or"
 msgstr ""
 
-#: lib/Ingo.php:167
+#: lib/Ingo.php:165
 #, php-format
 msgid "%s The driver said: %s"
 msgstr ""
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: lib/Ingo.php:438 rule.php:347
+#: lib/Ingo.php:436 rule.php:347
 msgid "Case Sensitive"
 msgstr ""
 
@@ -152,7 +152,7 @@ msgstr ""
 msgid "Copy %s"
 msgstr ""
 
-#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:228
+#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:232
 #, php-format
 msgid "Copy of %s"
 msgstr ""
@@ -575,7 +575,7 @@ msgstr ""
 msgid "New Rule"
 msgstr ""
 
-#: lib/Ingo.php:248
+#: lib/Ingo.php:246
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr ""
@@ -584,11 +584,11 @@ msgstr ""
 msgid "No Description"
 msgstr ""
 
-#: lib/Ingo.php:240
+#: lib/Ingo.php:239
 msgid "No backend configured for this host"
 msgstr ""
 
-#: lib/Ingo.php:213
+#: lib/Ingo.php:211
 msgid "No backends configured in backends.php"
 msgstr ""
 
@@ -781,16 +781,16 @@ msgstr ""
 msgid "Script Updating"
 msgstr ""
 
-#: lib/Ingo.php:193
+#: lib/Ingo.php:191
 #, php-format
 msgid "Script not updated: %s"
 msgstr ""
 
-#: lib/Ingo.php:172
+#: lib/Ingo.php:170
 msgid "Script successfully activated."
 msgstr ""
 
-#: lib/Ingo.php:171
+#: lib/Ingo.php:169
 msgid "Script successfully deactivated."
 msgstr ""
 
@@ -889,11 +889,11 @@ msgstr ""
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr ""
 
-#: lib/Ingo.php:166
+#: lib/Ingo.php:164
 msgid "There was an error activating the script."
 msgstr ""
 
-#: lib/Ingo.php:165
+#: lib/Ingo.php:163
 msgid "There was an error deactivating the script."
 msgstr ""
 

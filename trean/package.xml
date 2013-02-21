@@ -22,19 +22,19 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>15:05:56</time>
+ <date>2013-02-12</date>
+ <time>16:26:07</time>
  <version>
-  <release>1.0.0RC2</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Make Horde_Queue a mandatory dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -351,6 +351,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -392,13 +399,6 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Queue</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0alpha1</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
    </package>
   </optional>
  </dependencies>
@@ -557,15 +557,28 @@
   </release>
   <release>
    <version>
-    <release>1.0.0RC2</release>
+    <release>1.0.0</release>
     <api>1.0.0</api></version>
    <stability>
-    <release>beta</release>
-    <api>beta</api></stability>
-   <date>2013-01-10</date>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Make Horde_Queue a mandatory dependency.
    </notes>
   </release>
  </changelog>

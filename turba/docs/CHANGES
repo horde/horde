@@ -1,7 +1,17 @@
 ----------
-v4.0.3-git
+v4.0.4-git
 ----------
 
+
+
+------
+v4.0.3
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix emptying shared address books.
+[jan] Fix importing of LDIF data (Bug #11972).
 
 
 ------

@@ -27,6 +27,8 @@ class Horde_Group_Sql_Pdo_MysqlTest extends Horde_Group_Test_Sql_Base
         if ($config && !empty($config['group']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['group']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_mysql configuration';
         }
     }
 }

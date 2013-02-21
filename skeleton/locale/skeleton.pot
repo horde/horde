@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Skeleton H5 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,16 +17,56 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: lib/Application.php:125
+msgid "Bar"
+msgstr ""
+
+#: templates/list.html.php:31
+msgid "Cancel"
+msgstr ""
+
 #: lib/Block/Example.php:23 lib/Block/Example.php:33
 msgid "Color"
+msgstr ""
+
+#: templates/list.html.php:13
+msgid "Column 1"
+msgstr ""
+
+#: templates/list.html.php:14
+msgid "Column 2"
+msgstr ""
+
+#: lib/Application.php:94
+msgid "Create a new Foo"
+msgstr ""
+
+#: templates/list.html.php:30
+msgid "Delete"
 msgstr ""
 
 #: lib/Block/Example.php:13
 msgid "Example Block"
 msgstr ""
 
-#: lib/Application.php:52 list.php:17
+#: lib/Application.php:90 templates/list.html.php:6 templates/list.html.php:29
+msgid "Foo"
+msgstr ""
+
+#: list.php:20
+msgid "Header"
+msgstr ""
+
+#: lib/Application.php:70
+msgid "Import/Export"
+msgstr ""
+
+#: lib/Application.php:62 list.php:33
 msgid "List"
+msgstr ""
+
+#: lib/Application.php:102 lib/Application.php:133
+msgid "One"
 msgstr ""
 
 #: config/prefs.php:13
@@ -41,6 +81,22 @@ msgstr ""
 msgid "Set your sample preference."
 msgstr ""
 
+#: list.php:21
+msgid "Some Content"
+msgstr ""
+
 #: config/prefs.php:22
 msgid "This is your sample preference."
+msgstr ""
+
+#: lib/Application.php:113 lib/Application.php:144
+msgid "Two"
+msgstr ""
+
+#: lib/Application.php:81
+msgid "_Add Item"
+msgstr ""
+
+#: templates/list.html.php:5
+msgid "_Delete"
 msgstr ""

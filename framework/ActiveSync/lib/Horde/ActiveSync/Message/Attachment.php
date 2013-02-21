@@ -62,12 +62,12 @@ class Horde_ActiveSync_Message_Attachment extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_mapping = array(
-        self::POOMMAIL_ATTMETHOD   => array (self::KEY_ATTRIBUTE => "attmethod"),
-        self::POOMMAIL_ATTSIZE     => array (self::KEY_ATTRIBUTE => "attsize"),
-        self::POOMMAIL_DISPLAYNAME => array (self::KEY_ATTRIBUTE => "displayname"),
-        self::POOMMAIL_ATTNAME     => array (self::KEY_ATTRIBUTE => "attname"),
-        self::POOMMAIL_ATTOID      => array (self::KEY_ATTRIBUTE => "attoid"),
-        self::POOMMAIL_ATTREMOVED  => array (self::KEY_ATTRIBUTE => "attremoved"),
+        self::POOMMAIL_ATTMETHOD   => array (self::KEY_ATTRIBUTE => 'attmethod'),
+        self::POOMMAIL_ATTSIZE     => array (self::KEY_ATTRIBUTE => 'attsize'),
+        self::POOMMAIL_DISPLAYNAME => array (self::KEY_ATTRIBUTE => 'displayname'),
+        self::POOMMAIL_ATTNAME     => array (self::KEY_ATTRIBUTE => 'attname'),
+        self::POOMMAIL_ATTOID      => array (self::KEY_ATTRIBUTE => 'attoid'),
+        self::POOMMAIL_ATTREMOVED  => array (self::KEY_ATTRIBUTE => 'attremoved'),
     );
 
     /**

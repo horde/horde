@@ -34,6 +34,7 @@ class Nag_Api extends Horde_Registry_Api
             'default_due' => (bool)$GLOBALS['prefs']->getValue('default_due'),
             'default_due_days' => (int)$GLOBALS['prefs']->getValue('default_due_days'),
             'default_due_time' => $GLOBALS['prefs']->getValue('default_due_time'),
+            'prefs_url' => strval($GLOBALS['registry']->getServiceLink('prefs', 'nag')->setRaw(true)),
         );
     }
 

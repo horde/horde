@@ -1,6 +1,6 @@
 <?php
 
-class Stub_Log
+class Horde_Kolab_Format_Stub_Log
 {
     public $log = array();
 

@@ -181,9 +181,12 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     public function loadState(array $collection, $syncKey, $type = null, $id = null)
     {
+        // Initialize the local members.
         $this->_collection = $collection;
         $this->_changes = null;
         $this->_type = $type;
+
+        // If this is a FOLDERSYNC, mock the device id.
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC && empty($id)) {
             $id = Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC;
         }
@@ -211,6 +214,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         if (!preg_match('/^s{0,1}\{([0-9A-Za-z-]+)\}([0-9]+)$/', $syncKey, $matches)) {
             throw new Horde_ActiveSync_Exception('Invalid sync key');
         }
+
         $this->_syncKey = $syncKey;
 
         // Cleanup older syncstates
@@ -219,10 +223,18 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Load the previous syncState from storage
         try {
             $results = $this->_db->selectOne('SELECT sync_data, sync_devid, sync_time, sync_pending FROM '
-                . $this->_syncStateTable . ' WHERE sync_key = ?', array($this->_syncKey));
+                . $this->_syncStateTable . ' WHERE sync_key = ?', array($syncKey));
         } catch (Horde_Db_Exception $e) {
             $this->_logger->err('Error in loading state from DB: ' . $e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
+        }
+
+        if (empty($results)) {
+            $this->_logger->err(sprintf(
+                '[%s] Could not find state for synckey %s.',
+                $this->_procid,
+                $syncKey));
+            throw new Horde_ActiveSync_Exception_StateGone();
         }
 
         $this->_loadStateFromResults($results, $type);
@@ -238,10 +250,6 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _loadStateFromResults($results, $type = Horde_ActiveSync::REQUEST_TYPE_SYNC)
     {
-        if (!$results) {
-            throw new Horde_ActiveSync_Exception_StateGone();
-        }
-
         // Load the last known sync time for this collection
         $this->_lastSyncTS = !empty($results['sync_time'])
             ? $results['sync_time']
@@ -550,7 +558,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     public function loadDeviceInfo($devId, $user = null)
     {
         $this->_logger->debug(sprintf(
-            "[%s] loadDeviceInfo: %s",
+            '[%s] loadDeviceInfo: %s',
             $devId,
             $user));
 
@@ -775,14 +783,14 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 : 0);
 
             $this->_logger->debug(sprintf(
-                "[%s] Initializing message diff engine for %s",
+                '[%s] Initializing message diff engine for %s',
                 $this->_procid,
                 $this->_collection['id']));
 
             if ($this->_collection['id'] != Horde_ActiveSync::FOLDER_TYPE_DUMMY) {
                 if (!empty($this->_changes)) {
                     $this->_logger->debug(sprintf(
-                        "[%s] Returning previously found changes.",
+                        '[%s] Returning previously found changes.',
                         $this->_procid));
                     return $this->_changes;
                 }
@@ -801,7 +809,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
 
             $this->_logger->debug(sprintf(
-                "[%s] Found %d message changes in %s.",
+                '[%s] Found %d message changes in %s.',
                 $this->_procid,
                 count($changes),
                 $this->_collection['id']));
@@ -809,7 +817,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_changes = array();
             if (count($changes) && $this->_havePIMChanges($this->_collection['class'])) {
                 $this->_logger->debug(sprintf(
-                    "[%s] Checking for PIM initiated changes.",
+                    '[%s] Checking for PIM initiated changes.',
                     $this->_procid));
 
                 switch ($this->_collection['class']) {
@@ -819,7 +827,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                             if ($this->_isPIMChange($change['id'], $change['flags'], $change['type'])) {
                                 $this->_logger->debug(sprintf(
-                                    "[%s] Ignoring PIM initiated flag change for %s",
+                                    '[%s] Ignoring PIM initiated flag change for %s',
                                     $this->_procid,
                                     $change['id']));
                                 $change['ignore'] = true;
@@ -830,7 +838,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         case Horde_ActiveSync::CHANGE_TYPE_DELETE:
                             if ($this->_isPIMChange($change['id'], true, $change['type'])) {
                                $this->_logger->debug(sprintf(
-                                    "[%s] Ignoring PIM initiated deletion for %s",
+                                    '[%s] Ignoring PIM initiated deletion for %s',
                                     $this->_procid,
                                     $change['id']));
                                 $change['ignore'] = true;
@@ -849,7 +857,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                         $ts = $this->_getPIMChangeTS($change['id']);
                         if ($ts && $ts >= $stat['mod']) {
                             $this->_logger->debug(sprintf(
-                                "[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)",
+                                '[%s] Ignoring PIM initiated change for %s (PIM TS: %s Stat TS: %s)',
                                 $this->_procid,
                                 $change['id'], $ts, $stat['mod']));
                         } else {
@@ -859,7 +867,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 }
             } elseif (count($changes)) {
                 $this->_logger->debug(sprintf(
-                    "[%s] No PIM changes present, returning all messages.",
+                    '[%s] No PIM changes present, returning all messages.',
                     $this->_procid));
                 $this->_changes = $changes;
             }
@@ -876,7 +884,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected function _getFolderChanges()
     {
         $this->_logger->debug(sprintf(
-            "[%s] Initializing folder diff engine",
+            '[%s] Initializing folder diff engine',
             $this->_procid));
         $folderlist = $this->_backend->getFolderList();
         if ($folderlist === false) {
@@ -888,11 +896,11 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
 
         if (!count($this->_changes)) {
             $this->_logger->debug(sprintf(
-                "[%s] No folder changes found.",
+                '[%s] No folder changes found.',
                 $this->_procid));
         } else {
             $this->_logger->debug(sprintf(
-                "[%s] Found folder changes: %s",
+                '[%s] Found folder changes: %s',
                 $this->_procid,
                 print_r($this->_changes, true)));
         }
@@ -1324,7 +1332,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     protected function _isPIMChange($id, $flags, $type)
     {
         $this->_logger->debug(sprintf(
-            "_isPIMChange: %s, %s, %s",
+            '_isPIMChange: %s, %s, %s',
             $id, print_r($flags, true), $type));
         if ($type == Horde_ActiveSync::CHANGE_TYPE_FLAGS) {
             if ($this->_isPIMChangeQuery($id, $flags['read'], 'sync_read')) {
@@ -1479,12 +1487,19 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      */
     protected function _resetDeviceState($id)
     {
-        $this->_logger->debug(sprintf('[%s] Resetting device state.', $this->_procid));
-        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
-        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ?';
+        $this->_logger->debug(sprintf(
+            '[%s] Resetting device state for device: %s, user: %s, and collection: %s.',
+            $this->_procid,
+            $this->_deviceInfo->id,
+            $this->_deviceInfo->user,
+            $id));
+        $state_query = 'DELETE FROM ' . $this->_syncStateTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
+        $map_query = 'DELETE FROM ' . $this->_syncMapTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
+        $mailmap_query = 'DELETE FROM ' . $this->_syncMailMapTable . ' WHERE sync_devid = ? AND sync_folderid = ? AND sync_user = ?';
         try {
-            $this->_db->delete($state_query, array($this->_deviceInfo->id, $id));
-            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id));
+            $this->_db->delete($state_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
+            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
+            $this->_db->delete($map_query, array($this->_deviceInfo->id, $id, $this->_deviceInfo->user));
         } catch (Horde_Db_Exception $e) {
             throw new Horde_ActiveSync_Exception($e);
         }
