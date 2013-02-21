@@ -68,7 +68,7 @@
   <!-- End Time Entry Form -->
 
   <!-- Time Slice Grid -->
-  <div class="header"><?php echo _("Unsubmitted Time")?>
+  <div class="header"><?php echo _("My Unsubmitted Time")?>
     <span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" title="<?php echo _("Quick Filter")?>" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
   </div>
 
