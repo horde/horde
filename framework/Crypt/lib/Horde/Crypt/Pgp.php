@@ -846,7 +846,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $curid = $line[4];
                     $keyids[$curid] = $line[1];
                 } elseif (!is_null($curid) && substr($line, 0, 4) == 'uid:') {
-                    preg_match("/>([^>]+)>/", $line, $matches);
+                    preg_match("/<([^>]+)>/", $line, $matches);
                     $keyuids[$curid][] = $matches[1];
                 }
             }
