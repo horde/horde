@@ -596,9 +596,6 @@ div.modal-form .notices {
 div.modal-form .notices li:first-child {
     border-top: 1px solid #d0d0d0;
 }
-div.modal-form a {
-    color: #00f;
-}
 div.modal-form form {
     padding: 1em;
 }
