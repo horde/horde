@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Crypt
+ */
+
+/**
  * Horde_Crypt_Pgp:: provides a framework for Horde applications to interact
  * with the GNU Privacy Guard program ("GnuPG").  GnuPG implements the OpenPGP
  * standard (RFC 2440).
@@ -9,11 +21,7 @@
  * This class has been developed with, and is only guaranteed to work with,
  * Version 1.21 or above of GnuPG.
  *
- * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
+ * @todo     Use Horde_Http_Client for keyserver communication.
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
