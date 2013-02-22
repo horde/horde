@@ -77,7 +77,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     );
 
     /* The default public PGP keyserver to use. */
-    const KEYSERVER_PUBLIC = 'pgp.mit.edu';
+    const KEYSERVER_PUBLIC = 'pool.sks-keyservers.net';
 
     /* The number of times the keyserver refuses connection before an error is
      * returned. */
