@@ -82,6 +82,11 @@ class Ansel_View_GalleryRenderer_GalleryLightbox extends Ansel_View_GalleryRende
             }
         }
 
+        $date_params = Ansel::getDateParameter(array(
+            'year' => !empty($this->view->year) ? $this->view->year : 0,
+            'month' => !empty($this->view->month) ? $this->view->month : 0,
+            'day' => !empty($this->view->day) ? $this->view->day : 0));
+
         $pagerurl = $this->_getPagerUrl();
         $graphics_dir = Horde::url(Horde_Themes::img(), true, -1);
         $image_text = _("Photo");
