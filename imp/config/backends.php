@@ -87,6 +87,8 @@
  *   this array will overwrite the default Horde SMTP parameters. The
  *   following configuration parameters are available:
  *     - auth: (integer) Authentication method to use.
+ *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
+ *              parameter below for acceptable values.
  *     - host: (string) SMTP server host.
  *     - localhost: (string) The local hostname.
  *     - password: (string) Password to use for SMTP server authentication (if
@@ -320,6 +322,7 @@ $servers['imap'] = array(
     'maildomain' => '',
     'smtp' => array(
     //    'auth' => true,
+    //    'debug' => false,
     //    'localhost' => 'localhost',
     //    'host' => 'smtp.example.com',
     //    'password' => null,
@@ -341,17 +344,18 @@ $servers['advanced'] = array(
     'maildomain' => '',
     'smtp' => array(
     //    'auth' => true,
+    //    'debug' => false,
     //    'localhost' => 'localhost',
     //    'host' => 'smtp.example.com',
     //    'password' => null,
     //    'port' => 25,
     //    'username' => null
     ),
-    // 'admin' => array(
+    'admin' => array(
     //     'user' => 'cyrus',
     //     'password' => 'cyrus_pass',
     //     'userhierarchy' => 'user.'
-    // ),
+    ),
     'quota' => array(
         'driver' => 'imap',
         'params' => array(
@@ -375,6 +379,7 @@ $servers['pop'] = array(
     'maildomain' => '',
     'smtp' => array(
     //    'auth' => true,
+    //    'debug' => false,
     //    'localhost' => 'localhost',
     //    'host' => 'smtp.example.com',
     //    'password' => null,
@@ -396,6 +401,7 @@ $servers['secure-imap'] = array(
     'maildomain' => '',
     'smtp' => array(
     //    'auth' => true,
+    //    'debug' => false,
     //    'localhost' => 'localhost',
     //    'host' => 'smtp.example.com',
     //    'password' => null,

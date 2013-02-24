@@ -23,6 +23,13 @@
 class IMP_Factory_Mail extends Horde_Core_Factory_Injector
 {
     /**
+     * Debug stream.
+     *
+     * @var resource
+     */
+    private $_debug;
+
+    /**
      * Return the Horde_Mail instance.
      *
      * @return Horde_Mail  The singleton instance.
@@ -48,8 +55,35 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
             }
         }
 
+        if (!empty($params['debug'])) {
+            $this->_debug = fopen($params['debug'], 'a');
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+            stream_filter_append($this->_debug, 'horde_eol', STREAM_FILTER_WRITE, array(
+                'eol' => "\n"
+            ));
+
+            unset($params['debug']);
+        }
+
         $class = $this->_getDriverName($GLOBALS['conf']['mailer']['type'], 'Horde_Mail_Transport');
-        return new $class($params);
+        $ob = new $class($params);
+
+        if (isset($this->_debug)) {
+            $ob->getSMTPObject()->setDebug(true, array($this, 'smtpDebug'));
+        }
+
+        return $ob;
+    }
+
+    /**
+     * SMTP debug handler.
+     */
+    public function smtpDebug($smtp, $message)
+    {
+        fwrite($this->_debug, $message);
+        if (substr($message, -1) !== "\n") {
+            fwrite($this->_debug, "\n");
+        }
     }
 
 }

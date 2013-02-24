@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add SMTP debugging.
 * [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).
 * [mms] Add the &apos;msg_filter&apos; hook.
 * [mms] Added the &apos;attach_body_check&apos; hook.
@@ -1350,7 +1351,6 @@
   </required>
   <optional>
    <package>
-   <package>
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1359,6 +1359,13 @@
    </package>
    <package>
     <name>Horde_Http</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>

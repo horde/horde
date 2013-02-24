@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add SMTP debugging.
 [mms] Disable mailbox sorting by default if the remote server does not natively
       support it (Bug #12001).
 [mms] Add the 'msg_filter' hook.
