@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
+class IMP_Factory_Mailbox extends Horde_Core_Factory_Base implements Horde_Queue_Task
 {
     const STORAGE_KEY = 'mbox/';
 
@@ -41,17 +41,19 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
      */
     public function create($mbox)
     {
+        global $session;
+
         if ($mbox instanceof IMP_Mailbox) {
             return $mbox;
         }
 
         if (!isset($this->_instances[$mbox])) {
             if (empty($this->_instances)) {
-                register_shutdown_function(array($this, 'shutdown'));
+                $this->_injector->getInstance('Horde_Queue_Storage')->add($this);
             }
 
             $ob = new IMP_Mailbox($mbox);
-            $ob->cache = $GLOBALS['session']->get('imp', self::STORAGE_KEY . $mbox, Horde_Session::TYPE_ARRAY);
+            $ob->cache = $session->get('imp', self::STORAGE_KEY . $mbox, Horde_Session::TYPE_ARRAY);
 
             $this->_instances[$mbox] = $ob;
         }
@@ -71,16 +73,18 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base
      * in the session; thus, the slightly unorthodox way we store the
      * mailbox data in the session.
      */
-    public function shutdown()
+    public function run()
     {
+        global $session;
+
         foreach ($this->_instances as $ob) {
             switch ($ob->changed) {
             case IMP_Mailbox::CHANGED_YES:
-                $GLOBALS['session']->set('imp', self::STORAGE_KEY . $ob, $ob->cache);
+                $session->set('imp', self::STORAGE_KEY . $ob, $ob->cache);
                 break;
 
             case IMP_Mailbox::CHANGED_DELETE:
-                $GLOBALS['session']->remove('imp', self::STORAGE_KEY . $ob);
+                $session->remove('imp', self::STORAGE_KEY . $ob);
                 break;
             }
         }

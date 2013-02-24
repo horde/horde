@@ -20,8 +20,13 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Injector
+class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Queue_Task
 {
+    /**
+     * @var IMP_Imap
+     */
+    private $_instance;
+
     /**
      */
     public function create(Horde_Injector $injector)
@@ -29,36 +34,36 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Injector
         global $session;
 
         try {
-            $ob = $session->get('imp', 'imap_ob');
+            $this->_instance = $session->get('imp', 'imap_ob');
         } catch (Exception $e) {
             // This indicates an unserialize() error.  This is fatal, so
             // logout.
             throw new Horde_Exception_AuthenticationFailure('', Horde_Auth::REASON_SESSION);
         }
 
-        if (!$ob) {
-            $ob = new IMP_Imap();
+        if (!$this->_instance) {
+            $this->_instance = new IMP_Imap();
 
             /* Explicitly save object when first creating. Prevents losing
              * authentication information in case a misconfigured server
              * crashes before shutdown operations can occur. */
-            $session->set('imp', 'imap_ob', $ob);
+            $session->set('imp', 'imap_ob', $this->_instance);
         }
 
-        register_shutdown_function(array($this, 'shutdown'), $ob);
+        $injector->getInstance('Horde_Queue_Storage')->add($this);
 
-        return $ob;
+        return $this->_instance;
     }
 
     /**
      * Saves IMP_Imap instance to the session on shutdown.
-     *
-     * @param IMP_Imap $ob  Imap object.
      */
-    public function shutdown($ob)
+    public function run()
     {
-        if ($ob->changed && ($GLOBALS['registry']->getAuth() !== false)) {
-            $GLOBALS['session']->set('imp', 'imap_ob', $ob);
+        global $registry, $session;
+
+        if ($this->_instance->changed && ($registry->getAuth() !== false)) {
+            $session->set('imp', 'imap_ob', $this->_instance);
         }
     }
 

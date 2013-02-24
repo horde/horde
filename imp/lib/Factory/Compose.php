@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Compose extends Horde_Core_Factory_Base
+class IMP_Factory_Compose extends Horde_Core_Factory_Base implements Horde_Queue_Task
 {
     /**
      * Instances.
@@ -35,7 +35,7 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base
     {
         parent::__construct($injector);
 
-        register_shutdown_function(array($this, 'shutdown'));
+        $injector->getInstance('Horde_Queue_Storage')->add($this);
     }
 
     /**
@@ -64,7 +64,7 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base
     /**
      * Tasks to perform on shutdown.
      */
-    public function shutdown()
+    public function run()
     {
         global $session;
 
