@@ -2,6 +2,8 @@
 v6.0.5-git
 ----------
 
+[mms] Fix links to virtual folders on search preferences page.
+[mms] Fix edit links for virtual folders in dynamic view.
 [mms] Fix regression in displaying user-defined virtual folders in folder
       listings.
 [mms] Correctly generate self URLs if a URL parameter is altered by the current

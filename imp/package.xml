@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix links to virtual folders on search preferences page.
+* [mms] Fix edit links for virtual folders in dynamic view.
 * [mms] Fix regression in displaying user-defined virtual folders in folder listings.
 * [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).
 * [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
@@ -2931,6 +2933,8 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix links to virtual folders on search preferences page.
+* [mms] Fix edit links for virtual folders in dynamic view.
 * [mms] Fix regression in displaying user-defined virtual folders in folder listings.
 * [mms] Correctly generate self URLs if a URL parameter is altered by the current message action (Bug #12058).
 * [mms] Fix possible issue creating folder tree if multiple special mailboxes appeared in the same branch (Bug #12050).
