@@ -2128,12 +2128,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         // Check for SORT-related options.
         if (!empty($options['sort'])) {
             $sort = $this->queryCapability('SORT');
-            if (!is_array($sort) || !in_array('DISPLAY', $sort)) {
-                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK, $options['sort'])) !== false) {
-                    $options['sort'][$pos] = Horde_Imap_Client::SORT_FROM;
-                }
-                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK, $options['sort'])) !== false) {
-                    $options['sort'][$pos] = Horde_Imap_Client::SORT_TO;
+            foreach ($options['sort'] as $key => $val) {
+                switch ($val) {
+                case Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_FROM
+                        : Horde_Imap_Client::SORT_DISPLAYFROM;
+                    break;
+
+                case Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_TO
+                        : Horde_Imap_Client::SORT_DISPLAYTO;
+                    break;
                 }
             }
         }
