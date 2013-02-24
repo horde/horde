@@ -514,12 +514,16 @@ class IMP_Imap implements Serializable
              * Although there is a fallback to a PHP-based display sort, for
              * performance reasons only do a display sort if it is supported
              * on the server. */
-            if (($pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort'])) !== false) {
-                $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK;
-            }
+            foreach ($opts['sort'] as $key => $val) {
+                switch ($val) {
+                case Horde_Imap_Client::SORT_FROM:
+                    $opts['sort'][$key] = Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK;
+                    break;
 
-            if (($pos = array_search(Horde_Imap_Client::SORT_TO, $opts['sort'])) !== false) {
-                $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK;
+                case Horde_Imap_Client::SORT_TO:
+                    $opts['sort'][$key] = Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK;
+                    break;
+                }
             }
         }
 
