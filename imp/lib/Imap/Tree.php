@@ -2188,8 +2188,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         $c = &$this->_cache['filter'];
 
         /* Skip virtual folders unless told to display them. */
-        if (!($c['mask'] & self::FLIST_VFOLDER) && $elt->vfolder) {
-            return false;
+        if ($elt->vfolder) {
+            return (!$child_check && ($c['mask'] & self::FLIST_VFOLDER));
         }
 
         if ($child_check) {
