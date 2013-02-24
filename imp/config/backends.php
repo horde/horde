@@ -86,7 +86,9 @@
  * smtp: (array) If Horde is configured to use SMTP as the mailer, entries in
  *   this array will overwrite the default Horde SMTP parameters. The
  *   following configuration parameters are available:
- *     - auth: (integer) Authentication method to use.
+ *     - auth: (integer|boolean) Authentication method to use. Set to boolean
+ *             true to choose the best available authenticate method
+ *             (RECOMMENDED).
  *     - debug: (string) If set, enables SMTP debugging. See the 'debug'
  *              parameter below for acceptable values.
  *     - host: (string) SMTP server host.
