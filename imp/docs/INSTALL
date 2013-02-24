@@ -10,8 +10,7 @@
 This document contains instructions for installing the IMP web-based mail
 client on your system.
 
-For information on the capabilities and features of IMP, see the file
-`docs/README`_.
+For information on the capabilities and features of IMP, see the file README_.
 
 
 Prerequisites
@@ -350,7 +349,7 @@ Thanks for using IMP!
 The IMP team
 
 
-.. _`docs/README`: README
+.. _README: README
 .. _`horde/docs/INSTALL`: ../../horde/docs/INSTALL
 .. _`docs/PERFORMANCE`: PERFORMANCE
 .. _`horde/docs/SECURITY`: ../../horde/docs/SECURITY

@@ -667,7 +667,7 @@ Note for international users: Horde Groupware Webmail Edition uses GNU gettext
 to provide local translations of text displayed by applications; the
 translations are found in the po/ directory.  If a translation is not yet
 available for your locale (and you wish to create one), or if you're having
-trouble using a provided translation, please see the `horde/docs/TRANSLATIONS`_
+trouble using a provided translation, please see the `docs/TRANSLATIONS`_
 file for instructions.
 
 
@@ -705,7 +705,11 @@ Thanks for using Horde Groupware Webmail Edition!
 The Horde Team
 
 
-.. _README: ?f=README.html
-.. _docs/SECURITY: ?f=SECURITY.html
-.. _`horde/docs/TRANSLATIONS`: ?f=TRANSLATIONS.html
+.. _README: README
+.. _docs/PERFORMANCE: PERFORMANCE
+.. _docs/SECURITY: ../../horde/docs/SECURITY
+.. _docs/TRANSLATIONS: ../../horde/docs/TRANSLATIONS
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
+.. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability
+.. _`session.gc_divisor`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-divisor
+.. _`session.gc_maxlifetime`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-maxlifetime

@@ -36,8 +36,14 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
     {
         global $injector;
 
-        /* Purge non-existent nav_poll entries. */
-        $injector->getInstance('IMP_Imap_Tree')->prunePollList();
+        /* These require mail server authentication. */
+        try {
+            /* Purge non-existent nav_poll entries. */
+            $injector->getInstance('IMP_Imap_Tree')->prunePollList();
+
+            /* Purge non-existent search sorts. */
+            $injector->getInstance('IMP_Prefs_Sort')->gc();
+        } catch (Exception $e) {}
 
         /* Do garbage collection on sentmail entries. */
         $injector->getInstance('IMP_Sentmail')->gc();
@@ -46,9 +52,6 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
         try {
             Horde_Vfs_Gc::gc($injector->getInstance('IMP_ComposeVfs'), IMP_Compose_Attachment::VFS_ATTACH_PATH, 86400);
         } catch (Horde_Vfs_Exception $e) {}
-
-        /* Purge non-existent search sorts. */
-        $injector->getInstance('IMP_Prefs_Sort')->gc();
     }
 
 }

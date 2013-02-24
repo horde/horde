@@ -20,15 +20,16 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
     private $_supported_views = array('Image');
 
     /**
-     * Constructor
+     * Attach widget to supplied view.
      *
-     * @param array $params  Any parameters for this widget
-     * @return Ansel_Widget_ImageFaces
+     * @param Ansel_View_Base $view
      */
-    public function __construct($params)
+    public function attach(Ansel_View_Base $view)
     {
-        parent::__construct($params);
-        $this->_title = _("People in this photo");
+      if (empty($GLOBALS['conf']['faces']['driver'])) {
+        return false;
+      }
+      parent::attach($view);
     }
 
     /**
@@ -38,12 +39,12 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     public function html()
     {
-        if ($GLOBALS['conf']['faces']['driver']) {
-            $html = $this->_getFaceNames();
-            return $this->_htmlBegin() . $html . $this->_htmlEnd();
-        } else {
-            return '';
-        }
+        $view = $GLOBALS['injector']->getInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+        $view->title = _("Faces");
+        $view->background = $this->_style->background;
+        $this->_title = _("People in this photo");
+        return $view->render('begin') . $this->_getFaceNames() . $view->render('end');
     }
 
     /**
@@ -90,7 +91,7 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
 
         // Start the image overlay node to show the face rectangles
         $faces_html = '<div id="faces-on-image">';
-
+        $faces_js = '';
         // Iterate over all the found faces and build the tiles.
         foreach ($images as $face) {
 
@@ -107,17 +108,15 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
                 . $face['face_name'] . '</div></div>' . "\n";
 
             // Attach events to the face tile for showing the overlay
-            $faces_html .= '<script type = "text/javascript">';
-            $faces_html .= '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
+            $faces_js .= '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
                 . '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});'
                 . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
-                . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});'
-                . "\n</script>\n";
+                . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});';
         }
 
         // Close up the nodes
         $html .= $faces_html . '</div></div>';
-
+        $GLOBALS['page_output']->addInlineScript($faces_js, 'dom');
         $GLOBALS['page_output']->addScriptFile('imagefaces.js');
 
         return $html;

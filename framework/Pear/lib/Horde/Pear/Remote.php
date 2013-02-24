@@ -46,7 +46,7 @@ class Horde_Pear_Remote
     {
         if ($rest === null) {
             $this->_rest = new Horde_Pear_Rest(
-                new Horde_Http_Client(),
+                new Horde_Http_Client(array('request.timeout' => 10)),
                 $server
             );
         } else {

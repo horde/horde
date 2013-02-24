@@ -149,7 +149,7 @@ Configuring Whups
      - Assigning a ticket
      - Closing a ticket
 
-4. Creating tickets from email messages
+4. _`Creating tickets from email messages`
 
    Whups provides functionality that can be used to create and update tickets
    from email messages. One part of this functionality is the

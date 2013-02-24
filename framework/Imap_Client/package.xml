@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix from/to searches on servers that support SORT=DISPLAY when using the *_FALLBACK sort criteria.
 * [mms] Ensure that a FETCH call will not exceed maximum allowed command length on the IMAP server (Bug #12001).
 * [mms] Add Horde_Imap_Client_ids#split().
 * [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
@@ -1528,6 +1529,7 @@
    <date>2013-02-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix from/to searches on servers that support SORT=DISPLAY when using the *_FALLBACK sort criteria.
 * [mms] Ensure that a FETCH call will not exceed maximum allowed command length on the IMAP server (Bug #12001).
 * [mms] Add Horde_Imap_Client_ids#split().
 * [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.

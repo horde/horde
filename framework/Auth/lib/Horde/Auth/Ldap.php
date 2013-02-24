@@ -433,11 +433,11 @@ class Horde_Auth_Ldap extends Horde_Auth_Base
     }
 
     /**
-     * Lists users.
+     * Lists all users in the system.
      *
      * @param boolean $sort  Sort the users?
      *
-     * @return array  List of Users
+     * @return array  The array of userIds.
      * @throws Horde_Auth_Exception
      */
     public function listUsers($sort = false)

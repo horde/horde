@@ -1368,7 +1368,7 @@ div.GrowlerNoticeExit {
     padding:0;
 }
 .hordeACList li {
-    display:inline-block;
+    display: inline-block;
     font-size:90%;
     white-space:nowrap;
 }

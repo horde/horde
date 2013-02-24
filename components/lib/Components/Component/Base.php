@@ -457,4 +457,23 @@ abstract class Components_Component_Base implements Components_Component
         $installation_options['nodeps'] = !empty($options['nodeps']);
         return $installation_options;
     }
+
+    /**
+     * Check if the library has a CI job.
+     *
+     * @return boolean True if a CI job is defined.
+     */
+    protected function _hasCi()
+    {
+        if ($this->getChannel() != 'pear.horde.org') {
+            return false;
+        }
+        $client = new Horde_Http_Client(array('request.timeout' => 15));
+        try {
+            $response = $client->get('http://ci.horde.org/job/' . str_replace('Horde_', '', $this->getName() . '/api/json'));
+        } catch (Horde_Http_Exception $e) {
+            return false;
+        }
+        return $response->code != 404;
+    }
 }

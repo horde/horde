@@ -53,9 +53,10 @@
  *              (e.g. caching, searching, sorting).
  *
  * secure: (mixed) Security method used to connect to the server. One of:
- *     - 'ssl': Use SSL to connect to the server.
- *     - 'tls': Use TLS to connect to the server.
- *     - false: [DEFAULT] Do not use any encryption.
+ *     - 'ssl': [DEPRECATED; see below] Use SSL to connect to the server.
+ *     - 'tls': [DEFAULT on IMAP; RECOMMENDED] Use TLS to connect to the
+ *              server.
+ *     - false: [DEFAULT on POP3; NOT RECOMMENED] Do not use any encryption.
  *
  *   The 'ssl' and 'tls' options will only work if you've compiled PHP
  *   with SSL support and the mail server supports secure connections.
@@ -63,13 +64,14 @@
  *   The use of 'ssl' is STRONGLY DISCOURAGED. If a secure connection
  *   is needed, 'tls' should be used and the connection should be made
  *   to the base protocol port (110 for POP3, 143 for IMAP).
+ *   See: http://wiki2.dovecot.org/SSL
  *
  * port: (integer) The port that the mail service/protocol you selected runs
  *   on. Default values:
  *     - imap (unsecure or w/TLS):  143
- *     - imap (w/SSL):  993 (DISCOURAGED - use TLS on port 143)
+ *     - imap (w/SSL):  993 (DEPRECATED - use TLS on port 143)
  *     - pop (unsecure or w/TLS):  110
- *     - pop (w/SSL):  995 (DISCOURAGED - use TLS on port 110)
+ *     - pop (w/SSL):  995 (DEPRECATED - use TLS on port 110)
  *
  * maildomain: (string) What to put after the @ when sending mail. This
  *   setting is generally useful when the sending host is different from the

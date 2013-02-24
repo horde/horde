@@ -392,6 +392,7 @@ class Horde_ActiveSync_Timezone
     static protected function _isNthOcurrenceOfWeekdayInMonth($timestamp, $occurence)
     {
         $original = new Horde_Date($timestamp);
+        $original->setTimezone('UTC');
         if ($occurence == 5) {
             $modified = $original->add(array('mday' => 7));
             return $modified->month > $original->month;
