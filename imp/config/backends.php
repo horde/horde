@@ -251,6 +251,9 @@
  *     - IMP_Imap::DISABLE_FOLDERS: Disable folder navigation (other than
  *       INBOX) for IMAP backends. This option has no effect on POP backends.
  *
+ * autocreate_special: (boolean) If true, automatically create special
+ *                     mailboxes (Drafts, Sent Mail, Spam, Trash) on login?
+ *
  *
  * *** The following options should NOT be set unless you REALLY know what ***
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
@@ -376,7 +379,8 @@ $servers['advanced'] = array(
     ),
     'disable_features' => array(
         // IMP_Imap::DISABLE_FOLDERS,
-    )
+    ),
+    'autocreate_special' => false,
 );
 
 $servers['pop'] = array(

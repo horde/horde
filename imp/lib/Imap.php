@@ -21,6 +21,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
+ * @property-read boolean $autocreate_special  Auto-create special mailboxes?
  * @property-read boolean $changed  If true, this object has changed.
  * @property-read boolean $init  Has the base IMAP object been initialized?
  */
@@ -83,6 +84,9 @@ class IMP_Imap implements Serializable
     public function __get($key)
     {
         switch ($key) {
+        case 'autocreate_special':
+            return ($this->init && $this->_ob->getParam('imp:autocreate_special') && $this->access(self::ACCESS_FOLDERS));
+
         case 'changed':
             return $this->_changed || ($this->_ob && $this->_ob->changed);
 
@@ -170,6 +174,7 @@ class IMP_Imap implements Serializable
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
             // IMP specific config
+            'imp:autocreate_special' => !empty($server['autocreate_special']),
             'imp:disable_folders' => in_array(self::DISABLE_FOLDERS, $server['disable_features']),
             'imp:sort_force' => !empty($server['sort_force'])
         );
