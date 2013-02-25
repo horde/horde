@@ -145,4 +145,35 @@ class Horde_Themes
          return $GLOBALS['registry']->get('themesuri', 'horde') . '/default/feed-rss.xsl';
     }
 
+    /**
+     * Return the view-specific directory for a Horde view.
+     *
+     * @since 2.4.0
+     *
+     * @param integer $view  The Horde view type.
+     *
+     * @return string  The directory prefix.
+     */
+    static public function viewDir($view)
+    {
+        global $registry;
+
+        switch ($view) {
+        case $registry::VIEW_BASIC:
+            return 'basic';
+
+        case $registry::VIEW_DYNAMIC:
+            return 'dynamic';
+
+        case $registry::VIEW_MINIMAL:
+            return 'minimal';
+
+        case $registry::VIEW_SMARTMOBILE:
+            return 'smartmobile';
+
+        default:
+            return null;
+        }
+    }
+
 }
