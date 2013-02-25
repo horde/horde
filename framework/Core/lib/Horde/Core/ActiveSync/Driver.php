@@ -1255,7 +1255,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 // available.
                 try {
                     $this->_imap->appendMessage($sf, $msg, $flags);
-                } catch (Horde_Imap_Client_Exception $e) {
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                     $this->_logger->err($e->getMessage());
                 }
             }
