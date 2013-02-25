@@ -358,6 +358,10 @@ $servers['advanced'] = array(
     //     'password' => 'cyrus_pass',
     //     'userhierarchy' => 'user.'
     ),
+    'acl' => true,
+    'cache' => false,
+    // 'debug' => '/tmp/imp_imap.log',
+    // 'debug_raw' => false,
     'quota' => array(
         'driver' => 'imap',
         'params' => array(
@@ -365,8 +369,6 @@ $servers['advanced'] = array(
             'unit' => 'MB'
         )
     ),
-    'acl' => true,
-    'cache' => false,
 );
 
 $servers['pop'] = array(
