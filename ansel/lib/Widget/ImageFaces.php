@@ -26,10 +26,11 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
      */
     public function attach(Ansel_View_Base $view)
     {
-      if (empty($GLOBALS['conf']['faces']['driver'])) {
-        return false;
-      }
-      parent::attach($view);
+        if (empty($GLOBALS['conf']['faces']['driver'])) {
+            return false;
+        }
+        $GLOBALS['page_output']->addScriptFile('imagefaces.js');
+        parent::attach($view);
     }
 
     /**
@@ -41,85 +42,38 @@ class Ansel_Widget_ImageFaces extends Ansel_Widget_Base
     {
         $view = $GLOBALS['injector']->getInstance('Horde_View');
         $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
-        $view->title = _("Faces");
+        $view->title = _("People in this Photo");
         $view->background = $this->_style->background;
-        $this->_title = _("People in this photo");
-        return $view->render('begin') . $this->_getFaceNames() . $view->render('end');
-    }
+        $view->hasEdit = $this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT);
 
-    /**
-     * Helper function for getting faces for this image.
-     *
-     * @return string  The HTML
-     */
-    protected function _getFaceNames()
-    {
         $faces = $GLOBALS['injector']->getInstance('Ansel_Faces');
+        $view->images = $faces->getImageFacesData($this->_view->resource->id, true);
 
-        // Check for existing faces for this image.
-        $html = '';
-        $images = $faces->getImageFacesData($this->_view->resource->id, true);
-
-        // Generate the top ajax action links and attach the edit actions. Falls
-        // back on going to the find all faces in gallery page if no js...
-        // although, currently, *that* page requires js as well so...
-        if ($this->_view->gallery->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $link_text = (empty($images) ? _("Find faces") : _("Edit faces"));
-            $html .= Horde::url('faces/gallery.php')->add('gallery', $this->_view->gallery->id)->link(
-                    array('id' => 'edit_faces',
-                          'class' => 'widget'))
-                  . $link_text . '</a> | '
-                  . Horde::url('faces/custom.php')->add(
-                            array('image' => $this->_view->resource->id,
-                                  'url' => $this->_params['selfUrl']))->link(array('class' => 'widget'))
-                    . _("Manual face selection") . '</a>';
+        if ($view->hasEdit) {
+            $view->editUrl = strval(Horde::url('faces/gallery.php')->add('gallery', $this->_view->gallery->id));
+            $view->manualUrl = strval(Horde::url('faces/custom.php')->add(array('image' => $this->_view->resource->id, 'url' => $this->_params['selfUrl'])));
 
             // Attach the ajax edit actions
-            Horde::startBuffer();
-            $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('Ansel_Ajax_Imple_EditFaces', array(
-                'id' => 'edit_faces',
-                'image_id' => $this->_view->resource->id
-            ));
-            $html .= Horde::endBuffer();
+            $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Imple')
+                ->create(
+                    'Ansel_Ajax_Imple_EditFaces',
+                    array('id' => 'edit_faces', 'image_id' => $this->_view->resource->id)
+                );
         }
 
-        // Build the main content area of the widget
-        $html .= '<div id="faces_widget_content">';
-        if (empty($images)) {
-            return $html .= '<br /><em>' . _("No faces found") . '</em></div>';
-        }
-
-        // Start the image overlay node to show the face rectangles
-        $faces_html = '<div id="faces-on-image">';
         $faces_js = '';
         // Iterate over all the found faces and build the tiles.
-        foreach ($images as $face) {
-
-            // Get the tile for this face
-            $html .= Ansel_Faces::getFaceTile($face);
-
-            // Build the overlay for the image
-            $faces_html .= '<div id="facediv' . $face['face_id'] . '" class="face-div" style="'
-                . 'width: ' . ($face['face_x2'] - $face['face_x1']) . 'px;'
-                . ' margin-left: ' . $face['face_x1'] . 'px; '
-                . ' height: ' . ($face['face_y2'] - $face['face_y1']) . 'px;'
-                . ' margin-top: ' . $face['face_y1'] . 'px;" >'
-                . '<div id="facedivname' . $face['face_id'] . '" class="face-div-name" style="display:none;">'
-                . $face['face_name'] . '</div></div>' . "\n";
-
+        foreach ($view->images as $face) {
             // Attach events to the face tile for showing the overlay
             $faces_js .= '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
                 . '$(\'facediv' . $face['face_id'] . '\').observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});'
                 . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseover\', function() {showFace(' . $face['face_id'] . ')});'
                 . '$(\'face' . $face['face_id'] . '\').firstDescendant().observe(\'mouseout\', function() {hideFace(' . $face['face_id'] . ')});';
         }
-
-        // Close up the nodes
-        $html .= $faces_html . '</div></div>';
         $GLOBALS['page_output']->addInlineScript($faces_js, 'dom');
-        $GLOBALS['page_output']->addScriptFile('imagefaces.js');
 
-        return $html;
+        return $view->render('imagefaces');
     }
 
 }
