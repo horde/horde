@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-02-24</date>
- <time>22:41:03</time>
+ <time>22:52:09</time>
  <version>
-  <release>2.7.0</release>
+  <release>2.7.1</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -22,13 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] More efficient implementation of Horde_Imap_Client_Ids#range_string.
-* [mms] Fix APPENDs on IMAP servers that do not support CATENATE.
-* [mms] Fix from/to searches on servers that support SORT=DISPLAY when using the *_FALLBACK sort criteria.
-* [mms] Ensure that a FETCH and/or SELECT/EXAMINE (w/QRESYNC) will not exceed maximum allowed command length on the IMAP server (Bug #12001).
-* [mms] Add Horde_Imap_Client_ids#split().
-* [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
-* [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1538,6 +1532,19 @@
 * [mms] Add Horde_Imap_Client_ids#split().
 * [mms] Fix regression in the replace argument, and multiple arguments to add/delete, for the store() command.
 * [mms] Make sure the modseq given to the vanished() command is always at least 1 (Bug #12031).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.1</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-24</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
