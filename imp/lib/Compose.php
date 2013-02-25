@@ -1254,7 +1254,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         global $conf, $injector, $prefs, $registry;
 
         /* Get body text. */
-        if (!empty($options['html'])) {
+        if (empty($options['html'])) {
+            $body_html = null;
+        } else {
             $body_html = new Horde_Domhtml($body, 'UTF-8');
             $body_html_body = $body_html->getBody();
 
@@ -2500,12 +2502,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     /**
      * Adds linked attachments to message.
      *
-     * @param string &$body         Plaintext data.
-     * @param Horde_Domhtml &$html  HTML data.
+     * @param string &$body  Plaintext data.
+     * @param mixed $html    HTML data (Horde_Domhtml) or null.
      *
      * @throws IMP_Compose_Exception
      */
-    protected function _linkAttachments(&$body, Horde_Domhtml $html)
+    protected function _linkAttachments(&$body, $html)
     {
         $linked = array();
 
