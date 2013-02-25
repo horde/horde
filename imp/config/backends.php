@@ -254,6 +254,9 @@
  * autocreate_special: (boolean) If true, automatically create special
  *                     mailboxes (Drafts, Sent Mail, Spam, Trash) on login?
  *
+ * fixed_mboxes: (array) A list of mailboxes that can't be modified (deleted,
+ *               renamed, etc.) by the user.
+ *
  *
  * *** The following options should NOT be set unless you REALLY know what ***
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
@@ -381,6 +384,7 @@ $servers['advanced'] = array(
         // IMP_Imap::DISABLE_FOLDERS,
     ),
     'autocreate_special' => false,
+    'fixed_mboxes' => array(),
 );
 
 $servers['pop'] = array(

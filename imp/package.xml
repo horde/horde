@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Move fixed mailbox configuration into backends.php.
 * [mms] Move special mailboxes autocreation configuration into backends.php.
 * [mms] Move folder disabling configuration into backends.php.
 * [mms] Add SMTP debugging.

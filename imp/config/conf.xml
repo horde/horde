@@ -19,9 +19,6 @@
     <case name="shown" desc="Shown" />
     <case name="hidden" desc="Hidden" />
    </configswitch>
-   <configlist name="fixed_folders" required="false" desc="A comma separated
-   list of mailboxes that can't be modified (deleted, renamed, etc) by the
-   user, e.g.: &quot;Drafts, Trash&quot;."/>
   </configsection>
  </configtab>
 

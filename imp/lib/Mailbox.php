@@ -428,8 +428,7 @@ class IMP_Mailbox implements Serializable
             }
 
         case 'fixed':
-            return (!empty($conf['server']['fixed_folders']) &&
-                    in_array($this->pref_to, $conf['server']['fixed_folders']));
+            return $injector->getInstance('IMP_Imap')->isFixedMbox($this);
 
         case 'form_to':
             return $this->formTo($this->_mbox);

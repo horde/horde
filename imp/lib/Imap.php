@@ -117,6 +117,19 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Is this a fixed mailbox?
+     *
+     * @param IMP_Mailbox $mbox  The mailbox to check.
+     *
+     * @return boolean  True if the mailbox is fixed.
+     */
+    public function isFixed(IMP_Mailbox $mbox)
+    {
+        return ($this->_ob &&
+                in_array($mbox->pref_to, $this->_ob->getParam('imp:fixed_mboxes')));
+    }
+
+    /**
      * Is sorting available for a mailbox?
      *
      * @param IMP_Mailbox $mbox  The mailbox to query.
@@ -176,6 +189,7 @@ class IMP_Imap implements Serializable
             // IMP specific config
             'imp:autocreate_special' => !empty($server['autocreate_special']),
             'imp:disable_folders' => in_array(self::DISABLE_FOLDERS, $server['disable_features']),
+            'imp:fixed_mboxes' => $server['fixed_mboxes'],
             'imp:sort_force' => !empty($server['sort_force'])
         );
 
@@ -570,8 +584,10 @@ class IMP_Imap implements Serializable
 
             foreach (array_keys($servers) as $key) {
                 if (empty($servers[$key]['disabled'])) {
-                    if (!isset($servers[$key]['disable_features'])) {
-                        $servers[$key]['disable_features'] = array();
+                    foreach (array('disable_features', 'fixed_mboxes') as $v) {
+                        if (!isset($servers[$key][$v])) {
+                            $servers[$key][$v] = array();
+                        }
                     }
                 } else {
                     unset($servers[$key]);
