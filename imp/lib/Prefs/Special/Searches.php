@@ -38,8 +38,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         $page_output->addScriptFile('searchesprefs.js');
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $fout = $mailboxids = $vout = array();
-        $view_mode = $registry->getView();
+        $fout = $vout = array();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
         $vfolder_locked = $prefs->isLocked('vfolder');
@@ -57,13 +56,9 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
             }
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
-            $m_url = ($val->enabled && ($view_mode == Horde_Registry::VIEW_BASIC))
-                ? $val->mbox_ob->url('mailbox')->link(array('class' => 'vfolderenabled'))
+            $m_url = $val->enabled
+                ? $val->mbox_ob->url('mailbox')->link()
                 : null;
-
-            if ($view_mode == Horde_Registry::VIEW_DYNAMIC) {
-                $mailboxids['enable_' . $key] = $val->formid;
-            }
 
             $vout[] = array(
                 'description' => Horde_String::truncate($val->querytext, 200),
@@ -87,10 +82,6 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($editable && ($view_mode == Horde_Registry::VIEW_DYNAMIC)) {
-                $mailboxids['enable_' . $key] = $val->formid;
-            }
-
             $fout[] = array(
                 'description' => Horde_String::truncate($val->querytext, 200),
                 'edit' => ($editable ? $imp_search->editUrl($val) : null),
@@ -107,8 +98,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         } else {
             $GLOBALS['page_output']->addInlineJsVars(array(
                 'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
-                'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
-                'ImpSearchesPrefs.mailboxids' => $mailboxids
+                'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?")
             ));
         }
 

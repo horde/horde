@@ -1114,14 +1114,19 @@ var DimpBase = {
             break;
 
         case 'ctx_vfolder_edit':
-            tmp = {
+            this.go('search', {
                 edit_query: 1,
                 mailbox: this.contextMbox(e).retrieve('mbox')
-            };
-            // Fall through
+            });
+            break;
 
         case 'ctx_vcontainer_edit':
-            this.go('prefs', { group: 'searches' });
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                {
+                    group: 'searches'
+                }
+            ));
             break;
 
         case 'ctx_qsearchopts_all':

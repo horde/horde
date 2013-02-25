@@ -15,11 +15,7 @@
   <tr>
    <td>
 <?php if ($v['enabled']): ?>
-<?php if ($v['m_url']): ?>
     <?php echo $v['m_url'] ?><?php echo $this->h($v['label']) ?></a>
-<?php else: ?>
-    <span class="vfolderenabled"><?php echo $this->h($v['label']) ?></span>
-<?php endif; ?>
 <?php else: ?>
     <?php echo $this->h($v['label']) ?>
 <?php endif; ?>

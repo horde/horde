@@ -23,9 +23,6 @@ var ImpSearchesPrefs = {
                 this._sendData('delete', elt.up().previous('.enabled').down('INPUT').readAttribute('name'));
             }
             e.memo.stop();
-        } else if (elt.match('SPAN.vfolderenabled')) {
-            e.memo.hordecore_stop = true;
-            window.parent.DimpBase.go('mbox', this.mailboxids[elt.up().next('.enabled').down('INPUT').readAttribute('name')]);
         }
     },
 
