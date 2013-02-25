@@ -153,7 +153,9 @@ class IMP_Imap implements Serializable
 
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false);
+            $prefs->setValue('save_sent_mail', false, array(
+                'nosave' => true
+            ));
             $prefs->setLocked('save_sent_mail', true);
             $prefs->setLocked('sent_mail_folder', true);
             $prefs->setLocked('drafts_folder', true);
