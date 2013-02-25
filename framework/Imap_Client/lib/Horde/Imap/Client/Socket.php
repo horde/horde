@@ -1490,10 +1490,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return $result;
         }
 
-        // If the mailbox is currently selected read-only, we need to close
-        // because some IMAP implementations won't allow an append.
-        $this->close();
-
         // Check for CATENATE extension (RFC 4469)
         $catenate = $this->queryCapability('CATENATE');
 
@@ -1581,6 +1577,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * may send BAD after initial command. */
             $noliteralplus = $this->queryCapability('BINARY');
         }
+
+        // If the mailbox is currently selected read-only, we need to close
+        // because some IMAP implementations won't allow an append. And some
+        // implementations don't support append on ANY open mailbox. Be safe
+        // and always make sure we are in a non-selected state.
+        $this->close();
 
         try {
             $this->_sendLine($cmd, array(
