@@ -368,14 +368,14 @@ class IMP_Basic_Search extends IMP_Basic_Base
                     $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
                 }
                 $view->edit_query = true;
-                $view->edit_query_vfolder = $default_mailbox->formTo;
+                $view->edit_query_vfolder = $default_mailbox->form_to;
             } elseif ($imp_search->isFilter($q_ob)) {
                 if (!$imp_search->isFilter($q_ob, true)) {
                     $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
                     $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
                 }
                 $view->edit_query = true;
-                $view->edit_query_filter = $default_mailbox->formTo;
+                $view->edit_query_filter = $default_mailbox->form_to;
             }
 
             if ($view->edit_query) {
