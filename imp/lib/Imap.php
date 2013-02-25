@@ -123,10 +123,11 @@ class IMP_Imap implements Serializable
      *
      * @return boolean  True if the mailbox is fixed.
      */
-    public function isFixed(IMP_Mailbox $mbox)
+    public function isFixedMbox(IMP_Mailbox $mbox)
     {
         return ($this->_ob &&
-                in_array($mbox->pref_to, $this->_ob->getParam('imp:fixed_mboxes')));
+                ($fm = $this->_ob->getParam('imp:fixed_mboxes')) &&
+                in_array($mbox->pref_to, $fm));
     }
 
     /**
@@ -188,8 +189,8 @@ class IMP_Imap implements Serializable
             'username' => $username,
             // IMP specific config
             'imp:autocreate_special' => !empty($server['autocreate_special']),
-            'imp:disable_folders' => in_array(self::DISABLE_FOLDERS, $server['disable_features']),
-            'imp:fixed_mboxes' => $server['fixed_mboxes'],
+            'imp:disable_features' => isset($server['disable_features']) ? $server['disable_features'] : null,
+            'imp:fixed_mboxes' => isset($server['fixed_mboxes']) ? $server['fixed_mboxes'] : null,
             'imp:sort_force' => !empty($server['sort_force'])
         );
 
@@ -282,8 +283,11 @@ class IMP_Imap implements Serializable
         switch ($right) {
         case self::ACCESS_FOLDERS:
         case self::ACCESS_TRASH:
-            return (!$this->getOb()->getParam('imp:disable_folders') &&
-                    $this->isImap());
+            if ($this->isImap()) {
+                $df = $this->_ob->getParam('imp:disable_features');
+                return (empty($df) || !in_array(self::DISABLE_FOLDERS, $df));
+            }
+            return false;
 
         case self::ACCESS_FLAGS:
         case self::ACCESS_SEARCH:
@@ -583,13 +587,7 @@ class IMP_Imap implements Serializable
             }
 
             foreach (array_keys($servers) as $key) {
-                if (empty($servers[$key]['disabled'])) {
-                    foreach (array('disable_features', 'fixed_mboxes') as $v) {
-                        if (!isset($servers[$key][$v])) {
-                            $servers[$key][$v] = array();
-                        }
-                    }
-                } else {
+                if (!empty($servers[$key]['disabled'])) {
                     unset($servers[$key]);
                 }
             }
