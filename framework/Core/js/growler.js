@@ -165,12 +165,10 @@
             this.growler.wrap(document.body);
 
             if (!opts.noclick) {
-                this.growler.observe('click', function(e) {
-                    if (e.element().match('A')) {
-                        e.stop();
-                        this.growler.fire('Growler:linkClick', e.element());
-                    }
-                }.bindAsEventListener(this));
+                this.growler.on('click', 'A', function(e) {
+                    e.stop();
+                    this.growler.fire('Growler:linkClick', e.element());
+                }.bind(this));
             }
         },
 
