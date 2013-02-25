@@ -10,8 +10,7 @@ var HordeActiveSyncPrefs = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(),
-            id = elt.readAttribute('id') || '';
+        var id = e.element().readAttribute('id');
 
         if (id.startsWith('wipe_')) {
             $('wipeid').setValue(this.devices[id.substr(5)].id);
