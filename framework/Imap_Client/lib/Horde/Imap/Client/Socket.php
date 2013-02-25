@@ -913,7 +913,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
             if (isset($md[self::CACHE_MODSEQ])) {
-                $uids = $this->_cache->get($mailbox);
+                if ($uids = $this->_cache->get($mailbox)) {
+                    $uids = $this->getIdsOb($uids);
+
+                    /* Check for extra long UID string. Assume that any
+                     * server that can handle QRESYNC can also handle long
+                     * input strings (at least 8 KB), so 7 KB is as good as
+                     * any guess as to an upper limit. If this occurs, provide
+                     * a range string (min -> max) instead. */
+                    if (strlen($uid_str = strval($uids)) > 7000) {
+                        $uid_str = $uids->range_string;
+                    }
+                } else {
+                    $uid_str = null;
+                }
 
                 /* Several things can happen with a QRESYNC:
                  * 1. UIDVALIDITY may have changed.  If so, we need to expire
@@ -929,7 +942,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     new Horde_Imap_Client_Data_Format_List(array_filter(array(
                         $md['uidvalid'],
                         $md[self::CACHE_MODSEQ],
-                        empty($uids) ? null : strval($this->getIdsOb($uids))
+                        $uid_str
                     )))
                 )));
             }

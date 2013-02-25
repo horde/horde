@@ -98,7 +98,7 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
 
     public function testRangeGeneration()
     {
-        $ids = new Horde_Imap_Client_Ids('100,200,300');
+        $ids = new Horde_Imap_Client_Ids('100,300,200');
 
         $this->assertEquals(
             '100:300',
@@ -109,6 +109,13 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '',
+            $ids->range_string
+        );
+
+        $ids = new Horde_Imap_Client_Ids('50');
+
+        $this->assertEquals(
+            '50',
             $ids->range_string
         );
     }
