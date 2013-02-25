@@ -1912,7 +1912,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $ob->un = 1;
         }
 
-        if ($elt->fixed) {
+        if (!$elt->access_deletembox) {
             $ob->f = 1;
         }
 
