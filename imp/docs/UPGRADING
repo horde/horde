@@ -47,6 +47,10 @@ Configuration Options (conf.php)
 
 The $conf['compose']['link_all_attachments'] option was removed.
 
+The $conf['user']['allow_folders'] option has been removed. This can now be
+set on a per-backend basis in config/backends.local.php (see
+'disable_features' options).
+
 The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
 options have been removed. This feature has been moved to the 'msg_filter'
 hook.

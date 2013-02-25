@@ -33,6 +33,9 @@ class IMP_Imap implements Serializable
     const ACCESS_UNSEEN = 4;
     const ACCESS_TRASH = 5;
 
+    /* Feature disable constants. */
+    const DISABLE_FOLDERS = 1;
+
     /**
      * Server configuration file.
      *
@@ -166,7 +169,8 @@ class IMP_Imap implements Serializable
             'secure' => isset($server['secure']) ? $server['secure'] : false,
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
-            // IMP specific config.
+            // IMP specific config
+            'imp:disable_folders' => in_array(self::DISABLE_FOLDERS, $server['disable_features']),
             'imp:sort_force' => !empty($server['sort_force'])
         );
 
@@ -259,7 +263,7 @@ class IMP_Imap implements Serializable
         switch ($right) {
         case self::ACCESS_FOLDERS:
         case self::ACCESS_TRASH:
-            return (!empty($GLOBALS['conf']['user']['allow_folders']) &&
+            return (!$this->getOb()->getParam('imp:disable_folders') &&
                     $this->isImap());
 
         case self::ACCESS_FLAGS:
@@ -560,7 +564,11 @@ class IMP_Imap implements Serializable
             }
 
             foreach (array_keys($servers) as $key) {
-                if (!empty($servers[$key]['disabled'])) {
+                if (empty($servers[$key]['disabled'])) {
+                    if (!isset($servers[$key]['disable_features'])) {
+                        $servers[$key]['disable_features'] = array();
+                    }
+                } else {
                     unset($servers[$key]);
                 }
             }

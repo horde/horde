@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Move folder disabling configuration into backends.php.
 * [mms] Add SMTP debugging.
 * [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).
 * [mms] Add the &apos;msg_filter&apos; hook.

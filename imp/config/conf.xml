@@ -3,16 +3,9 @@
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
   <configsection name="user">
-   <configswitch name="allow_folders" desc="Are users allowed to use
-    folders? (Only affects IMAP servers; POP servers never support
-    folders)">true
-    <case name="true" desc="Yes">
-     <configboolean name="autocreate_special" required="false"
-     desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
-     Trash) on login?">false</configboolean>
-    </case>
-    <case name="false" desc="No" />
-   </configswitch>
+   <configboolean name="autocreate_special" required="false"
+    desc="Automatically create special mailboxes (Drafts, Sent Mail, Spam,
+    Trash) on login?">false</configboolean>
    <configboolean name="allow_view_source" desc="If true, a user will be
    allowed to view the raw source of a message.">true</configboolean>
   </configsection>

@@ -246,6 +246,11 @@
  *                               Placeholders are the same as in
  *                               'query_quota'.
  *
+ * disable_features: (array) A list of features to disable for this backend.
+ *   One or more of the following:
+ *     - IMP_Imap::DISABLE_FOLDERS: Disable folder navigation (other than
+ *       INBOX) for IMAP backends. This option has no effect on POP backends.
+ *
  *
  * *** The following options should NOT be set unless you REALLY know what ***
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
@@ -369,6 +374,9 @@ $servers['advanced'] = array(
             'unit' => 'MB'
         )
     ),
+    'disable_features' => array(
+        // IMP_Imap::DISABLE_FOLDERS,
+    )
 );
 
 $servers['pop'] = array(
