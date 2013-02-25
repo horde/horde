@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
 * [mms] Add Horde_Themes::viewDir().
 * [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
  </notes>
@@ -2788,6 +2789,7 @@
    <date>2013-02-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
 * [mms] Add Horde_Themes::viewDir().
 * [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
    </notes>

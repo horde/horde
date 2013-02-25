@@ -28,6 +28,7 @@ class Horde_Themes_Cache implements Serializable
     const APP_DEFAULT = 2;
     const HORDE_THEME = 4;
     const APP_THEME = 8;
+    const VIEW = 16;
 
     /**
      * Has the data changed?
@@ -140,6 +141,15 @@ class Horde_Themes_Cache implements Serializable
      */
     public function get($item, $mask = 0)
     {
+        if ($mask & self::VIEW) {
+            $item_dir = Horde_Themes::viewDir($GLOBALS['registry']->getView()) . '/' . $item;
+            $mask &= ~self::VIEW;
+
+            if (!is_null($out = $this->get($item_dir, $mask))) {
+                return $out;
+            }
+        }
+
         if (!($entry = $this->_get($item))) {
             return null;
         }

@@ -72,6 +72,8 @@ class Horde_Themes_Element
      *                   'uri' - the element URI. If set, use as the data
      *                   values instead of auto determining.
      *   - nohorde: (boolean) If true, do not fallback to horde for element.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
      *   - theme: (string) Use this theme instead of the Horde default.
      *   - uri: (string) Use this as the URI value.
      */
@@ -130,6 +132,9 @@ class Horde_Themes_Element
                 $mask = empty($this->_opts['nohorde'])
                     ? 0
                     : Horde_Themes_Cache::APP_DEFAULT | Horde_Themes_Cache::APP_THEME;
+                if (empty($this->_opts['noview'])) {
+                    $mask |= Horde_Themes_Cache::VIEW;
+                }
 
                 $this->_data = $cache->get((strlen($this->_dirname) ? $this->_dirname . '/' : '') . $this->_name, $mask);
             }

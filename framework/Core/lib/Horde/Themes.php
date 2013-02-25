@@ -33,6 +33,8 @@ class Horde_Themes
      *                        options are available:
      *   - app: (string) Use this application instead of the current app.
      *   - nohorde: (boolean) If true, do not fallback to horde for image.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
      *   - theme: (string) Use this theme instead of the Horde default.
      *
      * @return Horde_Themes_Image  An object which contains the URI
@@ -58,6 +60,8 @@ class Horde_Themes
      *                        options are available:
      *   - app: (string) Use this application instead of the current app.
      *   - nohorde: (boolean) If true, do not fallback to horde for sound.
+     *   - noview: (boolean) If true, do not load images from view-specific
+     *             directories. (Since 2.4.0)
      *   - theme: (string) Use this theme instead of the Horde default.
      *
      * @return Horde_Themes_Sound  An object which contains the URI
