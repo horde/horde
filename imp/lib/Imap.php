@@ -209,7 +209,20 @@ class IMP_Imap implements Serializable
 
         $this->_ob = $ob;
 
-        if ($protocol == 'pop') {
+        switch ($protocol) {
+        case 'imap':
+            /* Overwrite default special mailbox names. */
+            if (!empty($server['special_mboxes']) &&
+                is_array($server['special_mboxes'])) {
+                foreach ($server['special_mboxes'] as $key => $val) {
+                    $prefs->setValue($key, $val, array(
+                        'nosave' => true
+                    ));
+                }
+            }
+            break;
+
+        case 'pop':
             /* Turn some options off if we are working with POP3. */
             $prefs->setValue('save_sent_mail', false);
             $prefs->setLocked('save_sent_mail', true);
@@ -218,6 +231,7 @@ class IMP_Imap implements Serializable
             $prefs->setLocked(IMP_Mailbox::MBOX_SPAM, true);
             $prefs->setLocked(IMP_Mailbox::MBOX_TEMPLATES, true);
             $prefs->setLocked(IMP_Mailbox::MBOX_TRASH, true);
+            break;
         }
 
         return $ob;

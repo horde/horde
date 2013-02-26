@@ -82,11 +82,9 @@ $_prefs['save_sent_mail'] = array(
 // sent mail mailbox
 $_prefs['sent_mail_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Sent'
-    // Exchange servers use this default value instead.
-    // 'value' => 'Sent Items'
 );
 
 // sent mail mailbox selection widget.
@@ -650,8 +648,8 @@ $_prefs['composetemplates_new'] = array(
 // Compose templates mailbox
 $_prefs['composetemplates_mbox'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Templates'
 );
 
@@ -769,8 +767,8 @@ $_prefs['draftsselect'] = array(
 // drafts mailbox
 $_prefs['drafts_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Drafts'
 );
 
@@ -1189,11 +1187,9 @@ $_prefs['trashselect'] = array(
 // trash mailbox
 $_prefs['trash_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Trash',
-    // Exchange servers use this default value instead.
-    // 'value' => 'Deleted Items',
     'on_change' => function() {
         if ($GLOBALS['prefs']->getValue('use_trash') &&
             !$GLOBALS['prefs']->getValue('trash_folder')) {
@@ -1280,8 +1276,8 @@ $_prefs['spamselect'] = array(
 // spam mailbox
 $_prefs['spam_folder'] = array(
     // NOTE: Localization of this name for display purposes is done
-    // automatically. This entry only needs to be changed if the mailbox name
-    // on the IMAP server is different than this value.
+    // automatically. To change the default value based on the backend, see
+    // the 'special_mboxes' option in config/backends.php.
     'value' => 'Spam'
 );
 

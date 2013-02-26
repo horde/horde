@@ -251,11 +251,23 @@
  *     - IMP_Imap::DISABLE_FOLDERS: Disable folder navigation (other than
  *       INBOX) for IMAP backends. This option has no effect on POP backends.
  *
- * autocreate_special: (boolean) If true, automatically create special
- *                     mailboxes (Drafts, Sent Mail, Spam, Trash) on login?
+ * fixed_mboxes: (array) [IMAP only] A list of mailboxes that can't be
+ *               modified (deleted, renamed, etc.) by the user.
  *
- * fixed_mboxes: (array) A list of mailboxes that can't be modified (deleted,
- *               renamed, etc.) by the user.
+ * special_mboxes: (array) [IMAP only] The list of mailbox names to use for
+ *   special mailboxes. These values override the default preference values
+ *   for a backend.
+ *
+ *   The array keys are the special mailbox type, the array values are the
+ *   IMAP mailbox name to use on the server. Available keys:
+ *     - IMP_Mailbox::MBOX_DRAFTS
+ *     - IMP_Mailbox::MBOX_SENT
+ *     - IMP_Mailbox::MBOX_SPAM
+ *     - IMP_Mailbox::MBOX_TEMPLATES
+ *     - IMP_Mailbox::MBOX_TRASH
+ *
+ * autocreate_special: (boolean) [IMAP only] If true, automatically create
+ *                     special mailboxes on login?
  *
  *
  * *** The following options should NOT be set unless you REALLY know what ***
@@ -383,8 +395,15 @@ $servers['advanced'] = array(
     'disable_features' => array(
         // IMP_Imap::DISABLE_FOLDERS,
     ),
-    'autocreate_special' => false,
     'fixed_mboxes' => array(),
+    'special_mboxes' => array(
+    //     IMP_Mailbox::MBOX_DRAFTS => 'Drafts',
+    //     IMP_Mailbox::MBOX_SENT => 'Sent',
+    //     IMP_Mailbox::MBOX_SPAM => 'Spam',
+    //     IMP_Mailbox::MBOX_TEMPLATES => 'Templates',
+    //     IMP_Mailbox::MBOX_TRASH => 'Trash',
+    ),
+    'autocreate_special' => false,
 );
 
 $servers['pop'] = array(

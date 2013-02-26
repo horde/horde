@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Allow default special mailbox names to be overriden by a backend.
 [mms] Move fixed mailbox configuration into backends.php.
 [mms] Move special mailboxes autocreation configuration into backends.php.
 [mms] Move folder disabling configuration into backends.php.
