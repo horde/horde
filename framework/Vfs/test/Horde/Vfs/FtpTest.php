@@ -171,6 +171,8 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
         $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ftp'])) {
             self::$vfs = Horde_Vfs::factory('Ftp', $config['vfs']['ftp']);
+        } else {
+            self::$reason = 'No ftp configuration';
         }
     }
 

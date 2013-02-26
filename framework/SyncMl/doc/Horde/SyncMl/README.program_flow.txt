@@ -60,15 +60,16 @@ $this->output->startElement(...);
 After the XML parser is istalled, it is fired and the execution takes place
 in the element handler functions.
 
-A syncml message (input as well as output) has this structure:
-<SyncML>
-  <SyncHdr>
-    ...stuff...
-  </SyncHdr>
-  <SyncBody>
-    ...stuff...
-  </SyncBody>
-<SyncML>
+A syncml message (input as well as output) has this structure::
+
+  <SyncML>
+    <SyncHdr>
+      ...stuff...
+    </SyncHdr>
+    <SyncBody>
+      ...stuff...
+    </SyncBody>
+  <SyncML>
 
 the content handler in Horde_RPC_syncml delegate the work for header and
 body to the two sub-content handlers SyncML_SyncMLHdr and
@@ -105,13 +106,3 @@ from the client have been processed. This is done in TwoWaySync.php.
 Some care has to be taken to avoid that the changes that are received
 from the client are considered "new changes" and echoed back to the
 client. That would result in severe data duplication meltdown.
-
-
-Files in SymcML:
-
-./SyncML.php:
-	definition of SyncML_ContentHandler, parent for Header- and Body-Handler
-	SyncML_SyncMLHdr
-		getStateFromSession() initialize session
-		outputSyncHdr() write the Sync Header
-	SyncML_SyncMLBody

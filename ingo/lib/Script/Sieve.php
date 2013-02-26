@@ -497,7 +497,10 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                 break;
 
             case Ingo_Storage::ACTION_REDIRECT:
-                $action[] = new Ingo_Script_Sieve_Action_Redirect(array('address' => $filter['action-value']));
+                $parser = new Horde_Mail_Rfc822();
+                foreach($parser->parseAddressList($filter['action-value']) as $address){
+                    $action[] = new Ingo_Script_Sieve_Action_Redirect(array('address' => $address));
+                }
                 break;
 
             case Ingo_Storage::ACTION_REDIRECTKEEP:
@@ -505,7 +508,11 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
                     $action[] = new Ingo_Script_Sieve_Action_Addflag(array('flags' => $filter['flags']));
                 }
 
-                $action[] = new Ingo_Script_Sieve_Action_Redirect(array('address' => $filter['action-value']));
+                $parser = new Horde_Mail_Rfc822();
+                foreach($parser->parseAddressList($filter['action-value']) as $address){
+                    $action[] = new Ingo_Script_Sieve_Action_Redirect(array('address' => $address));
+                }
+
                 $action[] = new Ingo_Script_Sieve_Action_Keep();
 
                 if (!empty($filter['flags'])) {

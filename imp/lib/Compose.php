@@ -2535,8 +2535,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function additionalAttachmentsAllowed()
     {
-        return empty($GLOBALS['conf']['compose']['attach_count_limit']) ||
-               ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
+        return empty($GLOBALS['conf']['compose']['attach_count_limit'])
+            ? true
+            : ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
     }
 
     /**

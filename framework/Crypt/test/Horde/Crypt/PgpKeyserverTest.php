@@ -9,13 +9,16 @@
  * @subpackage UnitTests
  */
 
-class Horde_Crypt_PgpKeyserverTest extends PHPUnit_Framework_TestCase
+class Horde_Crypt_PgpKeyserverTest extends Horde_Test_Case
 {
     protected $_pgp;
 
     protected function setUp()
     {
-        $this->markTestSkipped('Need to manually activate keyserver test.');
+        $config = self::getConfig('CRYPT_TEST_CONFIG');
+        if (!$config || empty($config['crypt']['keyserver'])) {
+            $this->markTestSkipped('Keyserver test has not been enabled.');
+        }
 
         if (!is_executable('/usr/bin/gpg')) {
             $this->markTestSkipped('GPG binary not found at /usr/bin/gpg.');

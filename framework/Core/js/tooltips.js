@@ -69,7 +69,7 @@ var Horde_ToolTips =
             $(document.body).insert(d);
         }
 
-        d.update('<pre>' + e.element().readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br\>") + '</pre>');
+        d.update('<pre>' + e.element().readAttribute('nicetitle').evalJSON(true).invoke('toString').invoke('escapeHTML').join("<br>") + '</pre>');
 
         // Make sure all of the tooltip is visible.
         left = pos[0] + 10;

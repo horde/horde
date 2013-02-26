@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-06</date>
- <time>11:41:08</time>
+ <date>2013-02-20</date>
+ <time>00:20:27</time>
  <version>
-  <release>4.0.4</release>
+  <release>4.0.5</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,23 +34,30 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [jan] Fix some issues with workweek views if first day of week is Sunday (Bug #11973).
-* [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
-* [jan] More robust date parsing during event importing (Bug #11916).
-* [jan] Always export year numbers with four digits to CSV (Request #11917).
-* [jan] Fix JavaScript error if Nag is not installed.
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="kronolith-agenda" role="script" />
-    <file name="kronolith-convert-datatree-shares-to-sql" role="script" />
-    <file name="kronolith-convert-sql-shares-to-sqlng" role="script" />
-    <file name="kronolith-convert-to-utc" role="script" />
-    <file name="kronolith-import-icals" role="script" />
-    <file name="kronolith-import-squirrelmail-calendar" role="script" />
+    <file name="kronolith-agenda" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-convert-to-utc" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-icals" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="kronolith-import-squirrelmail-calendar" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="calendars">
     <file name="create.php" role="horde" />
@@ -745,7 +752,6 @@
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
      <file name="embed.css" role="horde" />
-     <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
      <file name="opera.css" role="horde" />
      <file name="screen.css" role="horde" />
@@ -1397,7 +1403,6 @@
    <install as="Kronolith/Stub/Tagger.php" name="test/Kronolith/Stub/Tagger.php" />
    <install as="Kronolith/Stub/Types.php" name="test/Kronolith/Stub/Types.php" />
    <install as="kronolith/themes/default/embed.css" name="themes/default/embed.css" />
-   <install as="kronolith/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="kronolith/themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="kronolith/themes/default/opera.css" name="themes/default/opera.css" />
    <install as="kronolith/themes/default/screen.css" name="themes/default/screen.css" />
@@ -2059,7 +2064,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-06</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
@@ -2069,6 +2074,20 @@
 * [jan] More robust date parsing during event importing (Bug #11916).
 * [jan] Always export year numbers with four digits to CSV (Request #11917).
 * [jan] Fix JavaScript error if Nag is not installed.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.5</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
    </notes>
   </release>
  </changelog>

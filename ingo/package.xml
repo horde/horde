@@ -41,9 +41,15 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
-    <file name="ingo-convert-prefs-to-sql" role="script" />
-    <file name="ingo-convert-sql-shares-to-sqlng" role="script" />
-    <file name="ingo-postfix-policyd" role="script" />
+    <file name="ingo-convert-prefs-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ingo-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="ingo-postfix-policyd" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -1185,7 +1191,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Fix multiple user-defined headers in a single rule (Zephaniah E. Loss-Cutler-Hull, Bug #11893).
@@ -1193,6 +1199,19 @@
 * [jan] Fix configuration of &apos;forward_file&apos; parameter (Bug #11989).
 * [mms] Require non-empty subject and reason fields when creating a vacation message (crohmann@netcologne.de; Request #8376).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.4</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-18</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request #11457).
    </notes>
   </release>
   <release>

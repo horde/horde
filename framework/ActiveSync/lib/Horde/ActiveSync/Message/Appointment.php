@@ -753,4 +753,20 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         return 'Calendar';
     }
 
+    /**
+     * Check if we should send a specific property even if it's empty.
+     *
+     * @param string $tag  The property tag.
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        if ($tag == self::POOMCAL_MEETINGSTATUS) {
+            return true;
+        }
+
+        return false;
+    }
+
 }

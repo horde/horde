@@ -35,6 +35,7 @@ extends Horde_Kolab_Server_LdapTestCase
 {
     public function testMethodConstructHasParameterNetldap2ReadConnectionAndParameterNetldap2WriteConnection()
     {
+        $this->skipIfNoLdap();
         $ldap_read = $this->getMock('Horde_Ldap');
         $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
@@ -42,6 +43,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodConstructHasPostconditionThatTheGivenServersWereStored()
     {
+        $this->skipIfNoLdap();
         $ldap_read = $this->getMock('Horde_Ldap');
         $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
@@ -51,6 +53,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetreadHasResultNetldap2TheHandledConnection()
     {
+        $this->skipIfNoLdap();
         $ldap_read = $this->getMock('Horde_Ldap');
         $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);
@@ -60,6 +63,7 @@ extends Horde_Kolab_Server_LdapTestCase
 
     public function testMethodGetwriteHasResultNetldap2TheHandledConnection()
     {
+        $this->skipIfNoLdap();
         $ldap_read = $this->getMock('Horde_Ldap');
         $ldap_write = $this->getMock('Horde_Ldap');
         $conn = new Horde_Kolab_Server_Connection_Splittedldap($ldap_read, $ldap_write);

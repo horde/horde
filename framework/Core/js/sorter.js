@@ -22,7 +22,7 @@ function Horde_Form_Sorter(instanceName, varName, header)
     /* Sorter variables. */
     this._header = '';
     this.minLength = 0;
-    if (header != '') {
+    if (header !== '') {
         this._header = header;
         this.minLength = 1;
     }
@@ -31,37 +31,37 @@ function Horde_Form_Sorter(instanceName, varName, header)
 
     this.deselectHeader = function()
     {
-        if (this._header != '') {
+        if (this._header !== '') {
             this.sorterList[0].selected = false;
         }
-    }
+    };
 
     this.setHidden = function()
     {
-        var tmpArray = [];
+        var i, tmpArray = [];
 
-        for (var i = this.minLength; i < this.sorterList.length; i++) {
+        for (i = this.minLength; i < this.sorterList.length; i++) {
             if (this.sorterList[i].value) {
                 tmpArray[i - this.minLength] = this.sorterList[i].value;
             }
         }
 
         this.sorterArray.value = tmpArray.join("\t");
-    }
+    };
 
     this.moveColumnUp = function()
     {
-        var sel = this.sorterList.selectedIndex;
+        var up, sel = this.sorterList.selectedIndex;
 
         if (sel <= this.minLength || this.sorterList.length <= this.minLength + 1) return;
 
         /* Deselect everything but the first selected item. */
         this.sorterList.selectedIndex = sel;
-        var up = this.sorterList[sel].value;
+        up = this.sorterList[sel].value;
 
         tmp = [];
         for (i = this.minLength; i < this.sorterList.length; i++) {
-            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value)
+            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value);
         }
 
         for (i = 0; i < tmp.length; i++) {
@@ -77,21 +77,21 @@ function Horde_Form_Sorter(instanceName, varName, header)
         this.sorterList.selectedIndex = sel - 1;
 
         this.setHidden();
-    }
+    };
 
     this.moveColumnDown = function()
     {
-        var sel = this.sorterList.selectedIndex;
+        var down, sel = this.sorterList.selectedIndex;
 
         if (sel == -1 || sel == this.sorterList.length - 1) return;
 
         /* Deselect everything but the first selected item. */
         this.sorterList.selectedIndex = sel;
-        var down = this.sorterList[sel].value;
+        down = this.sorterList[sel].value;
 
         tmp = [];
         for (i = this.minLength; i < this.sorterList.length; i++) {
-            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value)
+            tmp[i - this.minLength] = new Option(this.sorterList[i].text, this.sorterList[i].value);
         }
 
         for (i = 0; i < tmp.length; i++) {
@@ -107,5 +107,5 @@ function Horde_Form_Sorter(instanceName, varName, header)
         this.sorterList.selectedIndex = sel + 1;
 
         this.setHidden();
-    }
+    };
 }

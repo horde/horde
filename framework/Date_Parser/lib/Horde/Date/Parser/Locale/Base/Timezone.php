@@ -2,7 +2,7 @@
 class Horde_Date_Parser_Locale_Base_Timezone
 {
     public $scanner = array(
-        '/\d+\s*[PMCE][DS]T\b/i' => 'tz',
+        '/^[PMCE][DS]T$/i' => 'tz',
     );
 
     public function scan($tokens)

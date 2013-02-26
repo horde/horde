@@ -27,6 +27,8 @@ class Horde_Prefs_Unit_Storage_Sql_Pdo_MysqlTest extends Horde_Prefs_Test_Sql_Ba
         if ($config && !empty($config['prefs']['sql']['pdo_mysql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Mysql($config['prefs']['sql']['pdo_mysql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_mysql configuration';
         }
     }
 }

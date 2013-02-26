@@ -1,11 +1,18 @@
 <?php
 /**
- * Horde_Auth_Translation is the translation wrapper class for Horde_Auth.
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * Horde_Auth_Translation is the translation wrapper class for Horde_Auth.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
@@ -17,7 +24,7 @@ class Horde_Auth_Translation extends Horde_Translation
     /**
      * Returns the translation of a message.
      *
-     * @var string $message  The string to translate.
+     * @param string $message  The string to translate.
      *
      * @return string  The string translation, or the original string if no
      *                 translation exists.

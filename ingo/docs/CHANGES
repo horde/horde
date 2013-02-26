@@ -8,15 +8,23 @@ v3.1.0-git
 
 
 ----------
-v3.0.3-git
+v3.0.4-git
 ----------
+
+[jan] Allow multiple addresses for Sieve redirects (it@wenn.com, Request
+      #11457).
+
+
+------
+v3.0.3
+------
 
 [jan] Fix multiple user-defined headers in a single rule (Zephaniah E.
       Loss-Cutler-Hull, Bug #11893).
 [jan] Use more portable procmail recipe for rejects (Bug #7520).
 [jan] Fix configuration of 'forward_file' parameter (Bug #11989).
 [mms] Require non-empty subject and reason fields when creating a vacation
-      message (crohmann@netcologne.de; Request #8376).
+      message (crohmann@netcologne.de, Request #8376).
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 

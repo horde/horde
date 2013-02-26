@@ -1,12 +1,20 @@
 <?php
 /**
- * The Horde_Auth class provides some useful authentication-related utilities
- * and constants for the Auth package.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth class provides some useful authentication-related utilities
+ * and constants for the Auth package.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
@@ -407,7 +415,7 @@ class Horde_Auth
      * @param string $password  A password.
      * @param array $dict       A dictionary to check for similarity, for
      *                          example the user name or an old password.
-     * @param float $percent    The maximum allowed similarity in percent.
+     * @param float $max        The maximum allowed similarity in percent.
      *
      * @throws Horde_Auth_Exception if the password is too similar.
      */

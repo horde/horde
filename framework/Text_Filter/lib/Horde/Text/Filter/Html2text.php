@@ -191,7 +191,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'p':
                         if ($tmp = $this->_node($doc, $child)) {
-                            $out .= "\n" . $tmp . "\n";
+                            if (!strspn(substr($out, -2), "\n")) {
+                                $out .= "\n";
+                            }
+                            $out .= $tmp . "\n";
                         }
                         break;
 
@@ -231,7 +234,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                             $flowed->setOptLength($this->_params['width']);
                             $tmp = $flowed->toFlowed(true);
                         }
-                        $out .= "\n\n" . $tmp . "\n";
+                        if (!strspn(substr($out, -1), " \r\n\t")) {
+                            $out .= "\n";
+                        }
+                        $out .= "\n" . rtrim($tmp) . "\n\n";
                         break;
 
                     case 'div':
@@ -246,17 +252,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         $out .= $this->_node($doc, $child);
                         break;
                     }
-                } elseif ((get_class($child) == 'DOMText') &&
-                          !$child->isWhitespaceInElementContent()) {
+                } elseif ($child instanceof DOMText) {
                     $tmp = $child->textContent;
-                    if ($child->parentNode->tagName == 'body' ||
-                        !$child->previousSibling) {
-                        $tmp = ltrim($tmp);
-                    }
-                    if (!$child->nextSibling) {
-                        $tmp = rtrim($tmp);
-                    }
-                    $out .= $tmp;
+                    $out .= strspn(substr($out, -1), " \r\n\t")
+                        ? ltrim($child->textContent)
+                        : $child->textContent;
                 }
             }
         }

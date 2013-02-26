@@ -1,4 +1,3 @@
-==========
 Migrations
 ----------
 
@@ -20,7 +19,6 @@ Migrations
   the nativeDatabaseTypes() list from the connection for this.
 
 
-=====
 Dates
 -----
 

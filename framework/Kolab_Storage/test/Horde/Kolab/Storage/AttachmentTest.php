@@ -36,8 +36,7 @@ class Horde_Kolab_Storage_AttachmentTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        // No 'auth' in world, so this won't work yet. Skip it.
-        $this->markTestSkipped();
+        $this->markTestIncomplete('Broken test, prepareBasicSetup() doesn\'t exist');
 
         $world = $this->prepareBasicSetup();
 

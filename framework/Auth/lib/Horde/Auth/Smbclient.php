@@ -1,8 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Smbclient class provides an smbclient implementation of
- * the Horde authentication system.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -11,7 +8,18 @@
  * @author   Jon Parise <jon@horde.org>
  * @author   Marcus I. Ryan <marcus@riboflavin.net>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Smbclient class provides an smbclient implementation of
+ * the Horde authentication system.
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Marcus I. Ryan <marcus@riboflavin.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Smbclient extends Horde_Auth_Base

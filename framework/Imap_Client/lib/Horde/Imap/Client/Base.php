@@ -1583,7 +1583,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
-        $smailbox = strval($mailbox);
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
@@ -2129,12 +2128,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
         // Check for SORT-related options.
         if (!empty($options['sort'])) {
             $sort = $this->queryCapability('SORT');
-            if (!is_array($sort) || !in_array('DISPLAY', $sort)) {
-                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK, $options['sort'])) !== false) {
-                    $options['sort'][$pos] = Horde_Imap_Client::SORT_FROM;
-                }
-                if (($pos = array_search(Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK, $options['sort'])) !== false) {
-                    $options['sort'][$pos] = Horde_Imap_Client::SORT_TO;
+            foreach ($options['sort'] as $key => $val) {
+                switch ($val) {
+                case Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_FROM
+                        : Horde_Imap_Client::SORT_DISPLAYFROM;
+                    break;
+
+                case Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_TO
+                        : Horde_Imap_Client::SORT_DISPLAYTO;
+                    break;
                 }
             }
         }
@@ -2462,7 +2468,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $query = clone $query;
 
         $cache_array = $header_cache = $new_query = array();
-        $res_seq = null;
 
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
@@ -2731,7 +2736,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if ($qresync) {
-            return $this->_vanished($modseq, $opts['ids']);
+            return $this->_vanished(max(1, $modseq), $opts['ids']);
         }
 
         $ids = $this->resolveIds($mailbox, $opts['ids']);

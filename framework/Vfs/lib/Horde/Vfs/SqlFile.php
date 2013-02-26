@@ -94,7 +94,7 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
             throw new Horde_Vfs_Exception('Unable to write VFS file data.');
         }
 
-        if ($this->_writeSQLData($path, $name, $autocreate) instanceof PEAR_Error) {
+        if ($this->_writeSQLData($path, $name) instanceof PEAR_Error) {
             @unlink($this->_getNativePath($path, $name));
             throw new Horde_Vfs_Exception('Unable to write VFS file data.');
         }
@@ -423,11 +423,10 @@ class Horde_Vfs_SqlFile extends Horde_Vfs_File
      *
      * @param string $path         The path to store the file in.
      * @param string $name         The filename to use.
-     * @param boolean $autocreate  Automatically create directories?
      *
      * @throws Horde_Vfs_Exception
      */
-    protected function _writeSQLData($path, $name, $autocreate = false)
+    protected function _writeSQLData($path, $name)
     {
         $this->_connect();
 

@@ -41,5 +41,5 @@ foreach ($ids as $bookmark_id) {
         $bookmark->url = $location;
     }
 
-    $bookmark->save($crawl = false);
+    $bookmark->save(false);
 }

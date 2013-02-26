@@ -88,21 +88,37 @@ var HordeDialog = {
         }
 
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'horde-default', value: data.ok_text || this.ok_text }).observe('click', this._onClick.bindAsEventListener(this))
-        )
+            new Element('INPUT', {
+                className: 'horde-default',
+                type: 'button',
+                value: data.ok_text || this.ok_text
+            })
+        );
         n.insert(
-            new Element('INPUT', { type: 'button', className: 'horde-cancel', value: data.cancel_text || this.cancel_text }).observe('click', this.close.bind(this))
-        )
+            new Element('INPUT', {
+                className: 'horde-cancel',
+                type: 'button',
+                value: data.cancel_text || this.cancel_text
+            })
+        );
 
+        n.observe('click', function(e) {
+            var elt = e.element();
+            if (elt.hasClassName('horde-cancel')) {
+                this.close();
+            } else if (elt.hasClassName('horde-default')) {
+                RedBox.getWindowContents().fire('HordeDialog:onClick', e);
+            }
+        }.bindAsEventListener(this));
         n.observe('keydown', function(e) {
             switch (e.keyCode || e.charCode) {
             case Event.KEY_RETURN:
-                this._onClick(e);
+                RedBox.getWindowContents().fire('HordeDialog:onClick', e);
                 e.stop();
                 break;
 
             case Event.KEY_ESC:
-                this.close(e);
+                this.close();
                 e.stop();
                 break;
             }
@@ -118,11 +134,6 @@ var HordeDialog = {
         c.fire('HordeDialog:close');
         c.remove();
         RedBox.close();
-    },
-
-    _onClick: function(e)
-    {
-        RedBox.getWindowContents().fire('HordeDialog:onClick', e);
     }
 
 };

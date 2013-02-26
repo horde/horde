@@ -1,18 +1,25 @@
 <?php
 /**
- * The Horde_Auth_Msad class provides an experimental MSAD extension of the
- * LDAP implementation of the Horde authentication system.
- *
  * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
  *
+ * @author   Francois Helly <fhelly@bebop-design.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Msad class provides an experimental MSAD extension of the
+ * LDAP implementation of the Horde authentication system.
+ *
  * @todo Use Horde_Ldap
  *
  * @author   Francois Helly <fhelly@bebop-design.net>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Msad extends Horde_Auth_Ldap
@@ -141,9 +148,11 @@ class Horde_Auth_Msad extends Horde_Auth_Ldap
     /**
      * Update a set of authentication credentials.
      *
-     * @param string $oldID       The old userId.
-     * @param string $newID       The new userId.
-     * @param array $credentials  The new credentials
+     * @param string $oldId       The old userId.
+     * @param string $newId       The new userId.
+     * @param array $credentials  The new credentials.
+     * @param string $olddn       The old user DN.
+     * @param string $newdn       The new user DN.
      *
      * @throws Horde_Auth_Exception
      */

@@ -58,15 +58,38 @@ th {
     padding: 1em;
 }
 
-#anselimagecontainer {
+/* Main view containers */
+#ansel-contentwrapper {
+    width: 100%;
+    float: right;
+}
+#ansel-content {
+    vertical-align: top;
+    margin-left: 5px;
+    margin-right: 255px;
+}
+#ansel-widgetcontent {
+    float: right;
+    width: 250px;
+    margin-left: 5px;
+    margin-right: -100%;
+    margin-top: 5px;
+    vertical-align: top;
+}
+#ansel-content-nowidgets {
+  vertical-align: top;
+}
+
+/* Image view */
+#anselimagecontainer, #Photo {
     text-align: center;
 }
-#anselcaptioncontainer {
+#anselcaptioncontainer, #CaptionContainer {
     margin: 0 auto;
     text-align: left;
     font-size: 125%;
 }
-#anselcaption {
+#anselcaption, #Caption {
     padding: 1em;
 }
 
@@ -84,18 +107,9 @@ th {
     cursor: move;
 }
 
-/* Widgets */
-.anselWidget {
-    border: 1px solid #ccc;
-}
-.anselWidget .control {
-    background: #eee;
-    text-align: center;
-    border: 0;
-}
+/* Widgets container*/
 .anselWidgets {
     margin-right: 5px;
-    margin-left:5px;
     vertical-align: top;
 }
 .anselWidgets .header {
@@ -105,18 +119,35 @@ th {
 .anselWidgets .header a {
     color: #333333;
 }
-.anselWidgets #similar img {
+.anselWidgets img {
     padding: 1px;
 }
-.embedInput {
-    border-top: 1px solid #ccc;
-    color: #aaa;
+
+/* Widget blocks */
+.anselWidget {
+    border: 1px solid #ccc;
+    padding: 4px;
 }
-.embedInput input {
-    color: #aaa;
-    width: 250px;
-    margin: 5px;
+.anselWidget .control {
+    background: #eee;
+    text-align: center;
+    border: 0;
 }
+.anselWidget {
+    padding: 4px;
+}
+
+/* Specific widgets */
+.ansel-embedlink {
+   border-top: 1px solid #ccc;
+}
+.ansel-embedlink textarea {
+    color: #aaa;
+    width: 100%;
+    resize: none;
+    overflow: auto;
+}
+
 .tagTitle {
     font-size: 100%;
     border: none;
@@ -252,8 +283,7 @@ a.latest:link, a.latest:visited, a.latest:hover, a.latest:active {
 
 /* Actions */
 .anselActions {
-    margin-left: 0;
-    border: 1px #cccccc solid;
+    /*border: 1px #cccccc solid;*/
 }
 .anselActions a, .anselActions a:visited, .anselActions label {
     white-space: nowrap;

@@ -17,8 +17,8 @@
   <email>mike@maintainable.com</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:19:38</time>
+ <date>2013-02-18</date>
+ <time>16:40:04</time>
  <version>
   <release>2.0.5</release>
   <api>1.0.0</api>
@@ -29,14 +29,19 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* Add extensive documention.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="doc">
     <dir name="Horde">
      <dir name="Argv">
+      <file name="ADVANCED" role="doc" />
+      <file name="CALLBACKS" role="doc" />
       <file name="COPYING" role="doc" />
+      <file name="DOCS_ORIGIN" role="doc" />
+      <file name="EXTEND" role="doc" />
+      <file name="README" role="doc" />
      </dir> <!-- /doc/Horde/Argv -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -404,7 +409,12 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="ADVANCED" name="doc/Horde/Argv/ADVANCED" />
+   <install as="CALLBACKS" name="doc/Horde/Argv/CALLBACKS" />
    <install as="COPYING" name="doc/Horde/Argv/COPYING" />
+   <install as="DOCS_ORIGIN" name="doc/Horde/Argv/DOCS_ORIGIN" />
+   <install as="EXTEND" name="doc/Horde/Argv/EXTEND" />
+   <install as="README" name="doc/Horde/Argv/README" />
    <install as="Horde/Argv/AmbiguousOptionException.php" name="lib/Horde/Argv/AmbiguousOptionException.php" />
    <install as="Horde/Argv/BadOptionException.php" name="lib/Horde/Argv/BadOptionException.php" />
    <install as="Horde/Argv/Exception.php" name="lib/Horde/Argv/Exception.php" />
@@ -801,10 +811,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-18</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* Add extensive documention.
    </notes>
   </release>
  </changelog>

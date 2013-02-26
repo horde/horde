@@ -28,7 +28,7 @@ if (!class_exists($class)) {
     throw new IMP_Exception('Page not found: ' . $vars->page);
 }
 
-$ob = new $class($vars);
+$ob = new $class($injector->getInstance('Horde_Variables'));
 
 $page_output->header(array(
     'body_class' => 'horde-ajax',

@@ -1,17 +1,25 @@
 <?php
 /**
- * This class is responsible for parsing/building theme elements and then
- * caching these results.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
+ */
+
+/**
+ * This class is responsible for parsing/building theme elements and then
+ * caching these results.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Core
  */
 class Horde_Themes_Cache implements Serializable
 {
@@ -20,6 +28,7 @@ class Horde_Themes_Cache implements Serializable
     const APP_DEFAULT = 2;
     const HORDE_THEME = 4;
     const APP_THEME = 8;
+    const VIEW = 16;
 
     /**
      * Has the data changed?
@@ -132,6 +141,15 @@ class Horde_Themes_Cache implements Serializable
      */
     public function get($item, $mask = 0)
     {
+        if ($mask & self::VIEW) {
+            $item_dir = Horde_Themes::viewDir($GLOBALS['registry']->getView()) . '/' . $item;
+            $mask &= ~self::VIEW;
+
+            if (!is_null($out = $this->get($item_dir, $mask))) {
+                return $out;
+            }
+        }
+
         if (!($entry = $this->_get($item))) {
             return null;
         }

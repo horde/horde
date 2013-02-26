@@ -1,10 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Auto class transparently logs users in to Horde using ONE
- * username, either defined in the config or defaulting to 'horde_user'.
- * This is only for use in testing or behind a firewall; it should NOT be
- * used on a public, production machine.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -12,7 +7,20 @@
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Auto class transparently logs users in to Horde using ONE
+ * username, either defined in the config or defaulting to 'horde_user'.
+ *
+ * This is only for use in testing or behind a firewall; it should NOT be used
+ * on a public, production machine.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Auto extends Horde_Auth_Base
@@ -53,11 +61,9 @@ class Horde_Auth_Auto extends Horde_Auth_Base
     }
 
     /**
-     * Horde_Auth_Exception should pass a message string (if any) in the message
-     * field, and the REASON_* constant in the code field (defaults to
-     * REASON_MESSAGE).
+     * Not implemented.
      *
-     * @param string $userID      The userID to check.
+     * @param string $userId      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
@@ -68,7 +74,7 @@ class Horde_Auth_Auto extends Horde_Auth_Base
     }
 
     /**
-     * Automatic authentication: Set the user allowed IP block.
+     * Automatic authentication.
      *
      * @return boolean  Whether or not the client is allowed.
      */

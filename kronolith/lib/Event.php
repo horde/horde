@@ -571,7 +571,7 @@ abstract class Kronolith_Event
              * calendars. Otherwise, clear the lock. */
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
                 $add_events[] = $resource;
-            } else {
+            } elseif ($haveLock) {
                 $locks->clearLock($lock[$resource->getId()]);
             }
 
@@ -1707,6 +1707,8 @@ abstract class Kronolith_Event
 
                 $message->addAttendee($attendee);
             }
+        } else {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
 
        // Resources

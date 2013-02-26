@@ -153,7 +153,9 @@ class IMP_Imap implements Serializable
 
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false);
+            $prefs->setValue('save_sent_mail', false, array(
+                'nosave' => true
+            ));
             $prefs->setLocked('save_sent_mail', true);
             $prefs->setLocked('sent_mail_folder', true);
             $prefs->setLocked('drafts_folder', true);
@@ -456,7 +458,7 @@ class IMP_Imap implements Serializable
              * performance reasons only do a display sort if it is supported
              * on the server. */
             $sort_cap = $this->queryCapability('SORT');
-            if (!is_array($sort_cap) || in_array('DISPLAY', $sort_cap)) {
+            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;

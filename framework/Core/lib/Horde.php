@@ -857,6 +857,8 @@ class Horde
      *
      * @param boolean $script_params Include script parameters like
      *                               QUERY_STRING and PATH_INFO?
+     *                               (Deprecated: use Horde::selfUrlParams()
+     *                               instead.)
      * @param boolean $nocache       Include a cache-buster parameter in the
      *                               URL?
      * @param boolean $full          Return a full URL?
@@ -902,6 +904,46 @@ class Horde
         return ($nocache && $GLOBALS['browser']->hasQuirk('cache_same_url'))
             ? $url->unique()
             : $url;
+    }
+
+    /**
+     * Create a self URL of the current page, building the parameter list from
+     * the current Horde_Variables object (or via another Variables object
+     * passed as an optional argument) rather than the original request data.
+     *
+     * @since 2.3.0
+     *
+     * @param array $opts  Additional options:
+     *   - force_ssl: (boolean) Force creation of an SSL URL?
+     *                DEFAULT: false
+     *   - full: (boolean) Return a full URL?
+     *           DEFAULT: false
+     *   - nocache: (boolean) Include a cache-buster parameter in the URL?
+     *              DEFAULT: true
+     *   - vars: (Horde_Variables) Use this Horde_Variables object instead of
+     *           the Horde global object.
+     *           DEFAULT: Use the Horde global object.
+     *
+     * @return Horde_Url  The self URL.
+     */
+    static public function selfUrlParams(array $opts = array())
+    {
+        $vars = isset($opts['vars'])
+            ? $opts['vars']
+            : $GLOBALS['injector']->getInstance('Horde_Variables');
+
+        $url = Horde::selfUrl(
+            false,
+            (!array_key_exists('nocache', $opts) || empty($opts['nocache'])),
+            !empty($opts['full']),
+            !empty($opts['force_ssl'])
+        )->add(iterator_to_array($vars));
+
+        if (!isset($opts['vars'])) {
+            $url->remove(array_keys($_COOKIE));
+        }
+
+        return $url;
     }
 
     /**
@@ -1444,7 +1486,9 @@ class Horde
             if (!isset($options['params'])) {
                 $options['params'] = array();
             }
-            $options['params'] = array_merge($url->parameters, $options['params']);
+            foreach (array_merge($url->parameters, $options['params']) as $key => $val) {
+                $options['params'][$key] = addcslashes($val, '"');
+            }
         }
 
         if (!empty($options['menu'])) {

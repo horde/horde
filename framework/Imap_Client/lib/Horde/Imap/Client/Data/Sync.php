@@ -183,7 +183,7 @@ class Horde_Imap_Client_Data_Sync
                     ? $status_sync['syncvanisheduids']
                     : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncvanisheduids']->ids));
             } else {
-                $vanished = $base_ob->vanished($mailbox, isset($sync['H']) ? $sync['H'] : 0, array(
+                $vanished = $base_ob->vanished($mailbox, isset($sync['H']) ? $sync['H'] : 1, array(
                     'ids' => $ids
                 ));
             }

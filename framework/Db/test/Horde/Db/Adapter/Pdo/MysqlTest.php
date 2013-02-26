@@ -40,6 +40,9 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
             in_array('mysql', PDO::getAvailableDrivers())) {
             self::$skip = false;
             list($conn,) = self::getConnection();
+            if (self::$skip) {
+                return;
+            }
             $conn->disconnect();
         }
         require_once __DIR__ . '/../Mysql/ColumnDefinition.php';

@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>13:02:57</time>
+ <date>2013-02-20</date>
+ <time>16:43:24</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -30,8 +30,10 @@
     <dir name="Horde">
      <dir name="Service">
       <dir name="Facebook">
+       <dir name="examples">
+        <file name="facebook_example.php" role="doc" />
+       </dir> <!-- /doc/Horde/Service/Facebook/examples -->
        <file name="COPYING" role="doc" />
-       <file name="facebook_example.php" role="doc" />
        <file name="UPGRADING" role="doc" />
       </dir> <!-- /doc/Horde/Service/Facebook -->
      </dir> <!-- /doc/Horde/Service -->
@@ -379,8 +381,8 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Service/Facebook/COPYING" />
-   <install as="facebook_example.php" name="doc/Horde/Service/Facebook/facebook_example.php" />
    <install as="UPGRADING" name="doc/Horde/Service/Facebook/UPGRADING" />
+   <install as="examples/facebook_example.php" name="doc/Horde/Service/Facebook/examples/facebook_example.php" />
    <install as="Horde/Service/Facebook.php" name="lib/Horde/Service/Facebook.php" />
    <install as="Horde/Service/Facebook/Auth.php" name="lib/Horde/Service/Facebook/Auth.php" />
    <install as="Horde/Service/Facebook/Base.php" name="lib/Horde/Service/Facebook/Base.php" />
@@ -762,7 +764,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

@@ -1,5 +1,18 @@
 <?php
 /**
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Jon Parise <jon@horde.org>
+ * @author   Marcus I. Ryan <marcus@riboflavin.net>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
  * The Horde_Auth_Smb class provides a SMB implementation of the Horde
  * authentication system.
  *
@@ -11,15 +24,10 @@
  * and not equal to each other. In other words, to use this module you must
  * have a domain with at least one PDC and one BDC.
  *
- * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you did
- * not receive this file, http://www.horde.org/licenses/lgpl21
- *
  * @author   Jon Parise <jon@horde.org>
  * @author   Marcus I. Ryan <marcus@riboflavin.net>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Smb extends Horde_Auth_Base

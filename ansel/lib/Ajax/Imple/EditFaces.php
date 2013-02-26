@@ -21,7 +21,7 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
                  ')'
             );
             $this->_jsOnComplete(
-                '$("faces_widget_content").update(e.memo.response)'
+                '$("faces_widget_content").update(e.memo)'
             );
 
             $GLOBALS['page_output']->addScriptFile('editfaces.js');
@@ -54,11 +54,13 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
             return new Horde_Core_Ajax_Response_Raw(_("No faces found"));
         }
 
-        $url = Horde::url('faces/custom.php');
+        $customurl = Horde::url('faces/custom.php');
         Horde::startBuffer();
         include ANSEL_TEMPLATES . '/faces/image.inc';
+        $response = new stdClass();
+        $response->response = Horde::endBuffer();
 
-        return new Horde_Core_Ajax_Response_Raw(Horde::endBuffer(), 'text/html');
+        return new Horde_Core_Ajax_Response($response);
     }
 
 }

@@ -303,7 +303,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                 continue;
             }
 
-            while (($v = $data->next()) !== false) {
+            while ($data->next() !== false) {
                 $ob = Horde_Imap_Client_Mailbox::get($data->next(), true);
 
                 $c[strval($ob)] = array(
@@ -913,7 +913,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
             if (isset($md[self::CACHE_MODSEQ])) {
-                $uids = $this->_cache->get($mailbox);
+                if ($uids = $this->_cache->get($mailbox)) {
+                    $uids = $this->getIdsOb($uids);
+
+                    /* Check for extra long UID string. Assume that any
+                     * server that can handle QRESYNC can also handle long
+                     * input strings (at least 8 KB), so 7 KB is as good as
+                     * any guess as to an upper limit. If this occurs, provide
+                     * a range string (min -> max) instead. */
+                    if (strlen($uid_str = strval($uids)) > 7000) {
+                        $uid_str = $uids->range_string;
+                    }
+                } else {
+                    $uid_str = null;
+                }
 
                 /* Several things can happen with a QRESYNC:
                  * 1. UIDVALIDITY may have changed.  If so, we need to expire
@@ -929,7 +942,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     new Horde_Imap_Client_Data_Format_List(array_filter(array(
                         $md['uidvalid'],
                         $md[self::CACHE_MODSEQ],
-                        empty($uids) ? null : strval($this->getIdsOb($uids))
+                        $uid_str
                     )))
                 )));
             }
@@ -1490,10 +1503,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return $result;
         }
 
-        // If the mailbox is currently selected read-only, we need to close
-        // because some IMAP implementations won't allow an append.
-        $this->close();
-
         // Check for CATENATE extension (RFC 4469)
         $catenate = $this->queryCapability('CATENATE');
 
@@ -1581,6 +1590,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * may send BAD after initial command. */
             $noliteralplus = $this->queryCapability('BINARY');
         }
+
+        // If the mailbox is currently selected read-only, we need to close
+        // because some IMAP implementations won't allow an append. And some
+        // implementations don't support append on ANY open mailbox. Be safe
+        // and always make sure we are in a non-selected state.
+        $this->close();
 
         try {
             $this->_sendLine($cmd, array(
@@ -2569,27 +2584,19 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             }
         }
 
-        $cmd = $this->_clientCommand(array_filter(array(
-            $sequence ? null : 'UID',
-            'FETCH',
-            strval($options['ids'])
-        )));
-
+        /* Add changedsince parameters. */
         if (empty($options['changedsince'])) {
-            $cmd->add($fetch);
+            $fetch_cmd = $fetch;
+        } elseif (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Exception::MBOXNOMODSEQ
+            );
         } else {
-            if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-                throw new Horde_Imap_Client_Exception(
-                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
-                );
-            }
-
             /* We might just want the list of UIDs changed since a given
              * modseq. In that case, we don't have any other FETCH attributes,
-             * but RFC 3501 requires at least one attribute to be
-             * specified. */
-            $cmd->add(array(
+             * but RFC 3501 requires at least one specified attribute. */
+            $fetch_cmd = array(
                 count($fetch)
                     ? $fetch
                     : new Horde_Imap_Client_Data_Format_List('UID'),
@@ -2597,19 +2604,39 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     'CHANGEDSINCE',
                     new Horde_Imap_Client_Data_Format_Number($options['changedsince'])
                 ))
-            ));
+            );
         }
 
-        try {
-            $this->_sendLine($cmd, array(
-                'keep_fetch' => true
-            ));
-        } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
-            // A NO response, when coupled with a sequence FETCH, most likely
-            // means that messages were expunged. RFC 2180 [4.1]
-            if ($sequence &&
-                ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
-                $this->_temp['expungeissued'] = true;
+        /* RFC 2683 [3.2.1.5] recommends that lines should be limited to
+         * "approximately 1000 octets". However, servers should allow a
+         * command line of at least "8000 octets". As a compromise, assume
+         * all modern IMAP servers handle ~2000 octets. The FETCH command
+         * should be the only command issued by this library that should ever
+         * approach this limit. For simplification, assume that the UID list
+         * is the limiting factor and split this list at a sequence comma
+         * delimiter if it exceeds 2000 characters. */
+        $cmd_list = array();
+        foreach ($options['ids']->split(2000) as $val) {
+            $cmd_list[] = $this->_clientCommand(array_filter(array(
+                $sequence ? null : 'UID',
+                'FETCH',
+                $val,
+                $fetch_cmd
+            )));
+        }
+
+        foreach ($cmd_list as $val) {
+            try {
+                $this->_sendLine($val, array(
+                   'keep_fetch' => true
+                ));
+            } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
+                // A NO response, when coupled with a sequence FETCH, most
+                // likely means that messages were expunged. RFC 2180 [4.1]
+                if ($sequence &&
+                    ($e->status == Horde_Imap_Client_Interaction_Server::NO)) {
+                    $this->_temp['expungeissued'] = true;
+                }
             }
         }
 
@@ -3129,7 +3156,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         foreach ($cmds as $val) {
             try {
-                $this->_sendLine($cmdtmp);
+                $this->_sendLine($val);
             } catch (Horde_Imap_Client_Exception_ServerResponse $e) {
                 /* A NO response, when coupled with a sequence STORE and
                  * non-SILENT behavior, most likely means that messages were

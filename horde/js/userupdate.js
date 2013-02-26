@@ -17,13 +17,8 @@ var HordeAdminUserUpdate = {
             window.alert(this.pass_error);
             e.stop();
         }
-    },
-
-    onDomLoad: function()
-    {
-        $('updateuser').observe('submit', this.onSubmit.bindAsEventListener(this));
     }
 
 };
 
-document.observe('dom:loaded', HordeAdminUserUpdate.onDomLoad.bind(HordeAdminUserUpdate));
+document.on('submit', '#updateuser', HordeAdminUserUpdate.onSubmit.bind(HordeAdminUserUpdate));

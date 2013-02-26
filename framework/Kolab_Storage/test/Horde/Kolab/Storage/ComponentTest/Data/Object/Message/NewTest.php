@@ -32,6 +32,7 @@ extends PHPUnit_Framework_TestCase
 {
     public function testStore()
     {
+        setlocale(LC_MESSAGES, 'C');
         $factory = new Horde_Kolab_Format_Factory();
         $writer = new Horde_Kolab_Storage_Object_Writer_Format(
             $factory
@@ -76,9 +77,7 @@ This message is in MIME format.
 Content-Type: text/plain; name="Kolab Groupware Information"; charset=utf-8
 Content-Disposition: inline; filename="Kolab Groupware Information"
 
-This is a Kolab Groupware object. To view this object you will need an email
-client that understands the Kolab Groupware format. For a list of such email
-clients please visit http://www.kolab.org/content/kolab-clients
+This is a Kolab Groupware object. To view this object you will need an email client that understands the Kolab Groupware format. For a list of such email clients please visit http://www.kolab.org/content/kolab-clients
 --=_
 Content-Type: application/x-vnd.kolab.note; name=kolab.xml
 Content-Disposition: inline; x-kolab-type=xml; filename=kolab.xml

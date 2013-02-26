@@ -115,9 +115,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     protected function _buildResourceEvent($driver_event)
     {
         $resource_event = new $this->_eventClass($this);
-        $resource_event->fromDriver($driver_event->toProperties());
-        $resource_event->id = $driver_event->id;
-        $resource_event->uid = $driver_event->uid;
+        $resource_event->fromDriver($driver_event->toProperties(true));
         $resource_event->calendar = $this->calendar;
 
         return $resource_event;
@@ -138,9 +136,7 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     {
        $event = new $this->_eventClass($this);
        $driver_event = $this->_driver->getByUID($uid, $calendars, $getAll);
-       $event->fromDriver($driver_event->toProperties());
-       $event->id = $driver_event->id;
-       $event->uid = $driver_event->uid;
+       $event->fromDriver($driver_event->toProperties(true));
        $event->calendar = $this->calendar;
        return $event;
     }
@@ -194,17 +190,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     public function deleteEvent($eventId, $silent = false)
     {
         $resource_event = new $this->_eventClass($this);
-        $this->_driver->open($this->calendar);
-        if ($eventId instanceof Kronolith_Event) {
-            $deleteEvent = $eventId;
-            $eventId = $deleteEvent->id;
+        if ($eventId instanceof Kronolith_Event_Resource_Sql) {
+            $delete_event = $eventId;
+            $eventId = $delete_event->id;
         } else {
-            $delete_event = $this->_driver->getEvent($eventId);
+            $delete_event = $this->getEvent($eventId);
         }
-        $resource_event->fromDriver($delete_event->toProperties());
-        $resource_event->id = $eventId;
-        $resource_event->uid = $delete_event->uid;
-        $resource_event->calendar = $this->calendar;
 
         $uid = $delete_event->uid;
         $events = $this->_driver->getByUID($uid, null, true);
@@ -216,8 +207,8 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
                 $e->save();
             }
         }
-
-        $this->_driver->deleteEvent($resource_event, $silent);
+        $this->_driver->open($this->calendar);
+        $this->_driver->deleteEvent($delete_event, $silent);
     }
 
     /**
@@ -278,16 +269,12 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
      * Removes a resource from storage, along with any events in the resource's
      * calendar.
      *
-     * @param Kronolith_Resource $resource  The kronolith resource to remove
+     * @param Kronolith_Resource_Base $resource  The kronolith resource to remove
      *
      * @throws Kronolith_Exception
      */
-    public function delete($resource)
+    public function delete(Kronolith_Resource_Base $resource)
     {
-        if (!($resource instanceof Kronolith_Resource_Base)) {
-            throw new InvalidArgumentException('Argument is not a resource');
-        }
-
         if (!$resource->getId()) {
             throw new Kronolith_Exception(_("Resource not valid."));
         }
@@ -302,9 +289,8 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
             $rg->save();
         }
 
-        $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE calendar_id = ?';
+        $this->_deleteResourceCalendar($resource->get('calendar'));
         try {
-            $this->_db->delete($query, array($resource->get('calendar')));
             $query = 'DELETE FROM ' . $this->_params['table'] . ' WHERE resource_id = ?';
             $this->_db->delete($query, array($resource->getId()));
         } catch (Horde_Db_Exception $e) {
@@ -483,6 +469,22 @@ class Kronolith_Driver_Resource_Sql extends Kronolith_Driver
     public function convertToDriver($value)
     {
         return Horde_String::convertCharset($value, 'UTF-8', $this->_params['charset']);
+    }
+
+    /**
+     * Delete the resource calendar
+     *
+     * @param string $calendar  The calendar id.
+     */
+    public function _deleteResourceCalendar($calendar)
+    {
+        $this->open($calendar);
+        $events = $this->listEvents(null, null, array('cover_dates' => false));
+        foreach ($events as $dayevents) {
+            foreach ($dayevents as $event) {
+                $this->deleteEvent($event, true);
+            }
+        }
     }
 
     /**

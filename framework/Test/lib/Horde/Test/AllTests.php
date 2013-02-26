@@ -70,17 +70,20 @@ class Horde_Test_AllTests
     {
         $this->_package = $package;
         $this->_dir = $dir;
-
-        chdir($dir);
     }
 
     /**
-     *
      * Main entry point for running the suite.
+     *
+     * @return boolean
      */
     public function run()
     {
-        PHPUnit_TextUI_TestRunner::run($this->suite());
+        $old_dir = getcwd();
+        chdir($this->_dir);
+        $result = PHPUnit_TextUI_TestRunner::run($this->suite());
+        chdir($old_dir);
+        return $result;
     }
 
     /**

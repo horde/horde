@@ -12,6 +12,8 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_TestBase
 {
     protected static $db;
 
+    protected static $reason;
+
     public function testGetApp()
     {
         $this->getApp('test');
@@ -211,7 +213,7 @@ class Horde_Share_Test_Sqlng_Base extends Horde_Share_TestBase
     public function setUp()
     {
         if (!self::$db) {
-            $this->markTestSkipped('No sqlite extension or no sqlite PDO driver.');
+            $this->markTestSkipped(self::$reason);
         }
     }
 }

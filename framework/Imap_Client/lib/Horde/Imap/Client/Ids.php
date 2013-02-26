@@ -100,9 +100,17 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             return ($this->_ids === self::LARGEST);
 
         case 'range_string':
-            return is_array($this->_ids)
-                ? min($this->_ids) . ':' . max($this->_ids)
-                : '';
+            if (!count($this)) {
+                return '';
+            }
+
+            $this->sort();
+            $min = reset($this->_ids);
+            $max = end($this->_ids);
+
+            return ($min == $max)
+                ? $min
+                : $min . ':' . $max;
 
         case 'search_res':
             return ($this->_ids === self::SEARCH_RES);
@@ -207,6 +215,29 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             sort($this->_ids, SORT_NUMERIC);
             $this->_sorted = true;
         }
+    }
+
+    /**
+     * Split the sequence string at an approximate length.
+     *
+     * @since 2.7.0
+     *
+     * @param integer $length  Length to split.
+     *
+     * @return array  A list containing individual sequence strings.
+     */
+    public function split($length)
+    {
+        $id = new Horde_Stream_Temp();
+        $id->add($this->tostring_sort, true);
+
+        $out = array();
+
+        do {
+            $out[] = stream_get_contents($id->stream, 2000) . $id->getToChar(',');
+        } while (!feof($id->stream));
+
+        return $out;
     }
 
     /**

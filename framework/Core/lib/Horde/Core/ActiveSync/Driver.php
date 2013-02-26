@@ -909,9 +909,6 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             break;
         default:
             // Must be mail folder
-            if (!is_array($id)) {
-                $id = array($id);
-            }
             try {
                 $results = $this->_imap->deleteMessages($ids, $folderid);
             } catch (Horde_ActiveSync_Exception $e) {
@@ -1251,8 +1248,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 if ($headers->getValue('Content-Transfer-Encoding')) {
                     $copy->setTransferEncoding($headers->getValue('Content-Transfer-Encoding'), array('send' => true));
                 }
+                $headers = $copy->addMimeHeaders(array('headers' => $headers));
                 $msg = $copy->toString(array('headers' => $headers->toString(array('charset' => 'UTF-8')), 'stream' => true));
-                $this->_imap->appendMessage($sf, $msg, $flags);
+
+                // Ignore issues sending to sent, in case the folder isn't
+                // available.
+                try {
+                    $this->_imap->appendMessage($sf, $msg, $flags);
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err($e->getMessage());
+                }
             }
         }
 
@@ -1399,13 +1404,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $folders = $this->_imap->getSpecialMailboxes();
         $folder = $folders[$type];
         if (!is_null($folder)) {
-            if (is_array($folder)) {
-                $folder = array_pop($folder);
-            }
-
             return $folder->value;
-        } else {
-            return $folder;
         }
     }
 

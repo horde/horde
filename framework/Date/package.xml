@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -897,7 +897,7 @@
    <date>2013-01-29</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
    </notes>
   </release>
  </changelog>

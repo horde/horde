@@ -16,10 +16,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-15</date>
- <time>00:20:19</time>
+ <date>2013-02-11</date>
+ <time>23:39:34</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [mjr] Fix logic that could possibly lead to incorrect content types being applied to objects (Bug #12016).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -45,12 +45,24 @@
     </dir> <!-- /app/views -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="content-object-add" role="script" />
-    <file name="content-object-delete" role="script" />
-    <file name="content-tag" role="script" />
-    <file name="content-tag-add" role="script" />
-    <file name="content-tag-delete" role="script" />
-    <file name="content-untag" role="script" />
+    <file name="content-object-add" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="content-object-delete" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="content-tag" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="content-tag-add" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="content-tag-delete" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="content-untag" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name="routes.php" role="horde" />
@@ -443,10 +455,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-15</date>
+   <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [mjr] Fix logic that could possibly lead to incorrect content types being applied to objects (Bug #12016).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

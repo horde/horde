@@ -208,14 +208,19 @@ class Horde_Date_Recurrence
     public function getRecurName()
     {
         switch ($this->getRecurType()) {
-        case self::RECUR_NONE: return Horde_Date_Translation::t("No recurrence");
-        case self::RECUR_DAILY: return Horde_Date_Translation::t("Daily");
-        case self::RECUR_WEEKLY: return Horde_Date_Translation::t("Weekly");
+        case self::RECUR_NONE:
+            return Horde_Date_Translation::t("No recurrence");
+        case self::RECUR_DAILY:
+            return Horde_Date_Translation::t("Daily");
+        case self::RECUR_WEEKLY:
+            return Horde_Date_Translation::t("Weekly");
         case self::RECUR_MONTHLY_DATE:
-        case self::RECUR_MONTHLY_WEEKDAY: return Horde_Date_Translation::t("Monthly");
+        case self::RECUR_MONTHLY_WEEKDAY:
+            return Horde_Date_Translation::t("Monthly");
         case self::RECUR_YEARLY_DATE:
         case self::RECUR_YEARLY_DAY:
-        case self::RECUR_YEARLY_WEEKDAY: return Horde_Date_Translation::t("Yearly");
+        case self::RECUR_YEARLY_WEEKDAY:
+            return Horde_Date_Translation::t("Yearly");
         }
     }
 
@@ -568,6 +573,10 @@ class Horde_Date_Recurrence
                 $next = clone $estart;
                 $next->setNthWeekday($weekday, $nth);
 
+                if ($next->month != $estart->month) {
+                    // We're already in the next month.
+                    continue;
+                }
                 if ($next->compareDateTime($after) < 0) {
                     // We haven't made it past $after yet, try again.
                     continue;

@@ -42,9 +42,9 @@ function table_makeSortable(table)
         cell.setAttribute('columnIndex', i++);
         cell.setStyle({ cursor: 'pointer' });
         cell.observe('click', function(e) {
-            var c = e.findElement('th');
+            var c = e.findElement('th'),
+                a = c.down('a');
             e.stop();
-            var a = c.down('a');
             if (a && !a.hasClassName('sortlink')) {
                 return true;
             }
@@ -94,7 +94,7 @@ function table_resortTable(th)
 {
     var table = th.up('table'),
         th_siblings = th.up().childElements(),
-        sortfn,
+        itm, sortfn,
         sortDown = 0;
 
     th_siblings.each(function(e) {
@@ -121,10 +121,10 @@ function table_resortTable(th)
     }
 
     SORT_COLUMN_INDEX = th.readAttribute('columnIndex');
-    var itm = table_getSortValue(table.down('tbody > tr').cells[SORT_COLUMN_INDEX]);
+    itm = table_getSortValue(table.down('tbody > tr').cells[SORT_COLUMN_INDEX]);
 
-    if (itm.match(/^\d\d[\/-]\d\d[\/-]\d\d\d\d$/) ||
-        itm.match(/^\d\d[\/-]\d\d[\/-]\d\d$/)) {
+    if (itm.match(/^\d\d[\/\-]\d\d[\/\-]\d\d\d\d$/) ||
+        itm.match(/^\d\d[\/\-]\d\d[\/\-]\d\d$/)) {
         sortfn = table_sort_date;
     } else if (itm.match(/^[£$]/)) {
         sortfn = table_sort_currency;
@@ -184,7 +184,7 @@ function table_sort_date(a, b)
         dt1 = aa.substr(6, 4) + aa.substr(3, 2) + aa.substr(0, 2);
     } else {
         yr = aa.substr(6, 2);
-        if (parseInt(yr) < 50) {
+        if (parseInt(yr, 10) < 50) {
             yr = '20' + yr;
         } else {
             yr = '19' + yr;
@@ -195,7 +195,7 @@ function table_sort_date(a, b)
         dt2 = bb.substr(6, 4) + bb.substr(3, 2) + bb.substr(0, 2);
     } else {
         yr = bb.substr(6, 2);
-        if (parseInt(yr) < 50) {
+        if (parseInt(yr, 10) < 50) {
             yr = '20' + yr;
         } else {
             yr = '19' + yr;
@@ -219,11 +219,11 @@ function table_sort_currency(a, b)
 
 function table_sort_numeric(a, b)
 {
-    var aa = parseFloat(table_getSortValue(a.cells[SORT_COLUMN_INDEX]));
+    var aa = parseFloat(table_getSortValue(a.cells[SORT_COLUMN_INDEX])),
+        bb = parseFloat(table_getSortValue(b.cells[SORT_COLUMN_INDEX]));
     if (isNaN(aa)) {
         aa = 0;
     }
-    var bb = parseFloat(table_getSortValue(b.cells[SORT_COLUMN_INDEX]));
     if (isNaN(bb)) {
         bb = 0;
     }

@@ -15,7 +15,7 @@ $this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
 The Horde Team is pleased to announce the final release of the Mnemo Note
-Manager version H5 (4.0.2).
+Manager version H5 (4.0.3).
 
 The Mnemo Note Manager is the Horde notes/memos application. It allows users to
 keep web-based notes and freeform text. Notes may be shared with other users
@@ -23,15 +23,15 @@ via shared notepads. It requires the Horde Application Framework and an SQL
 database or Kolab server for backend storage. For more information on Mnemo,
 visit http://www.horde.org/apps/mnemo.
 
-The major changes compared to the Mnemo version H5 (4.0.1) are:
-    * Improved Kolab compatibility.
-    * Fixed import.
+The major changes compared to the Mnemo version H5 (4.0.2) are:
+    * Updated translations.
+    * Small bugfixes.
 ML;
 
 /* Freshmeat release notes. */
 $this->notes['fm']['changes'] = <<<FM
-Improved Kolab compatibility.
-Fixed import.
+Updated translations.
+Small bugfixes.
 FM;
 
 $this->notes['name'] = 'Mnemo';

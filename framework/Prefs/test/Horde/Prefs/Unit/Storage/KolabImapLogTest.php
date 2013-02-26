@@ -37,6 +37,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
 
     public function testMissingScope()
     {
+        $this->markTestIncomplete();
         $a = new Horde_Prefs(
             'test',
             new Horde_Prefs_Storage_KolabImap(
@@ -51,6 +52,7 @@ class Horde_Prefs_Unit_Storage_KolabImapLogTest extends Horde_Test_Log
 
     public function testMissingFolder()
     {
+        $this->markTestIncomplete();
         $a = new Horde_Prefs(
             'test',
             new Horde_Prefs_Storage_KolabImap(

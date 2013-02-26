@@ -1,8 +1,9 @@
 <?php
 /**
- * Maps a single Horde group permission element to a Kolab_Storage ACL.
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -13,11 +14,6 @@
 
 /**
  * Maps a single Horde group permission element to a Kolab_Storage ACL.
- *
- * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -33,14 +29,14 @@ extends Horde_Perms_Permission_Kolab_Element
      *
      * @var string
      */
-    private $_horde_id;
+    protected $_horde_id;
 
     /**
      * The Kolab group id.
      *
      * @var string
      */
-    private $_kolab_id;
+    protected $_kolab_id;
 
     /**
      * Constructor.
@@ -71,8 +67,6 @@ extends Horde_Perms_Permission_Kolab_Element
      * Unset the element in the provided permission array.
      *
      * @param array &$current The current permission array.
-     *
-     * @return NULL
      */
     public function unsetInCurrent(&$current)
     {

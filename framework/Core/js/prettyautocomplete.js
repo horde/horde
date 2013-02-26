@@ -29,11 +29,11 @@ var PrettyAutocompleter = Class.create({
             minTriggerWidth: 100,
             // Allow for a function that filters the display value
             // This function should *always* return escaped HTML
-            displayFilter: function(t) { return t.escapeHTML() },
+            displayFilter: function(t) { return t.escapeHTML(); },
             filterCallback: this._filterChoices.bind(this),
             onAdd: Prototype.K,
             onRemove: Prototype.K,
-            requireSelection: false,
+            requireSelection: false
         }, params || {});
 
         // Array to hold the currently selected items to ease with removing
@@ -77,7 +77,7 @@ var PrettyAutocompleter = Class.create({
         this.p.onSelect = this._updateElement.bind(this);
 
         // Look for clicks on the box to simulate clicking in an input box
-        $(this.p.box).observe('click', function() { trigger.focus() });
+        $(this.p.box).observe('click', function() { trigger.focus(); });
         trigger.observe('blur', this._resize.bind(this));
         trigger.observe('keydown', this._resize.bind(this));
         trigger.observe('keypress', this._resize.bind(this));
@@ -133,13 +133,13 @@ var PrettyAutocompleter = Class.create({
     buildStructure: function()
     {
         // Build the outter box
-        var box = new Element('div', { id: this.p.box, className: this.p.boxClass }).setStyle({ position: 'relative' });
+        var box = new Element('div', { id: this.p.box, className: this.p.boxClass }).setStyle({ position: 'relative' }),
 
         // The list - where the choosen items are placed as <li> nodes
-        var list = new Element('ul', { className: this.p.listClass });
+            list = new Element('ul', { className: this.p.listClass }),
 
         // The input element and the <li> wraper
-        var inputListItem = new Element('li', { id: this.p.triggerContainer }),
+            inputListItem = new Element('li', { id: this.p.triggerContainer }),
             growingInput = new Element('input', {
                 className: this.p.growingInputClass,
                 id: this.p.trigger,
@@ -148,7 +148,7 @@ var PrettyAutocompleter = Class.create({
 
         // Create a hidden span node to help calculate the needed size
         // of the input field.
-        this.sizer = new Element('span').setStyle({ float: 'left', display: 'inline-block', position: 'absolute', left: '-1000px' });
+        this.sizer = new Element('span').setStyle({ cssFloat: 'left', display: 'inline-block', position: 'absolute', left: '-1000px' });
 
         inputListItem.update(growingInput);
         list.update(inputListItem);
@@ -210,17 +210,19 @@ var PrettyAutocompleter = Class.create({
      */
     addNewItemNode: function(value)
     {
+        var displayValue, newItem, x;
+
         // Don't add if it's already present.
-        for (var x = 0, len = this.selectedItems.length; x < len; x++) {
+        for (x = 0, len = this.selectedItems.length; x < len; x++) {
             if (this.selectedItems[x].rawValue == value) {
                 $(this.p.trigger).value = '';
                 return false;
             }
         }
 
-        var displayValue = this.p.displayFilter(value),
-            newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue),
-            x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
+        displayValue = this.p.displayFilter(value);
+        newItem = new Element('li', { className: this.p.listClass + 'Item' }).update(displayValue);
+        x = new Element('img', { className: 'hordeACItemRemove', src: this.p.deleteIcon });
         x.observe('click', this._removeItemHandler.bindAsEventListener(this));
         newItem.insert(x);
         $(this.p.triggerContainer).insert({ before: newItem });
@@ -241,8 +243,8 @@ var PrettyAutocompleter = Class.create({
 
     removeItemNode: function(item)
     {
-        var value = item.collectTextNodesIgnoreClass('informal');
-        for (var x = 0, len = this.selectedItems.length; x < len; x++) {
+        var x, value = item.collectTextNodesIgnoreClass('informal');
+        for (x = 0, len = this.selectedItems.length; x < len; x++) {
             if (this.selectedItems[x].displayValue.unescapeHTML() == value) {
                this.selectedItems.splice(x, 1);
                break;

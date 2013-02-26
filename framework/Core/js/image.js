@@ -23,13 +23,13 @@
  */
 function showImage(src, target, no_cache)
 {
-    var img = document.getElementById(target);
+    var img = document.getElementById(target), now;
     if (typeof no_cache == 'undefined') {
         no_cache = false;
     }
 
     if (no_cache) {
-        var now = new Date();
+        now = new Date();
         src = src + '&' + now.getTime();
     }
 
@@ -49,8 +49,8 @@ function showImage(src, target, no_cache)
  */
 function getResizeSrc(src, target, ratio)
 {
-    var width = document.getElementById('_w_' + target).value;
-    var height = document.getElementById('_h_' + target).value;
+    var width = document.getElementById('_w_' + target).value,
+        height = document.getElementById('_h_' + target).value;
     if (typeof ratio == 'undefined') {
         ratio = 0;
     }

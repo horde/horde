@@ -1,6 +1,20 @@
 ----------
-v6.0.4-git
+v6.0.5-git
 ----------
+
+[mms] Fix links to virtual folders on search preferences page.
+[mms] Fix edit links for virtual folders in dynamic view.
+[mms] Fix regression in displaying user-defined virtual folders in folder
+      listings.
+[mms] Correctly generate self URLs if a URL parameter is altered by the current
+      message action (Bug #12058).
+[mms] Fix possible issue creating folder tree if multiple special mailboxes
+      appeared in the same branch (Bug #12050).
+
+
+------
+v6.0.4
+------
 
 [mms] Improved detection of charset in text/html message parts.
 [mms] Fix displaying dynamic compose screen when sent-mail preferences are
@@ -314,9 +328,9 @@ v6.0.0alpha1
       (Request #10723).
 
 
------------
-v5.0.24-git
------------
+-------
+v5.0.24
+-------
 
 [mms] SECURITY: Fix obscure XSS issue if uploading a file in dynamic view from
       the browser's local filesystem that has a filename that contains HTML.

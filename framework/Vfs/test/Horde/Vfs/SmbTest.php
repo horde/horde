@@ -26,6 +26,8 @@ class Horde_Vfs_SmbTest extends Horde_Vfs_TestBase
                 return;
             }
             self::$vfs = Horde_Vfs::factory('Smb', $config['vfs']['smb']);
+        } else {
+            self::$reason = 'No smb configuration';
         }
     }
 

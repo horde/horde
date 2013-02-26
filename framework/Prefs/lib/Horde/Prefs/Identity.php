@@ -397,12 +397,10 @@ class Horde_Prefs_Identity
      */
     public function getDefaultFromAddress($fullname = false)
     {
-        $addr = $this->getFromAddress();
-        $ob = new Horde_Mail_Rfc822_Address($addr->bare_address);
-
-        if ($fullname) {
-            $ob->personal = $this->getValue($this->_prefnames['fullname']);
-        }
+        $ob = new Horde_Mail_Rfc822_Address($this->getFromAddress());
+        $ob->personal = $fullname
+            ? $this->getValue($this->_prefnames['fullname'])
+            : null;
 
         return $ob;
     }

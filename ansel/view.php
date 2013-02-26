@@ -50,7 +50,7 @@ Ansel::initJSVariables();
 $page_output->growler = true;
 $page_output->header(array(
     'title' => $view->getTitle(),
-    'growler_log' => true,
+    'ajax' => true,
 ));
 $notification->notify(array('listeners' => 'status'));
 echo $view->html();

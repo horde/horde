@@ -99,6 +99,7 @@ class Ansel_Tile_DateGallery
                 str_replace(array('%g', '%s'),
                 array($dgallery->id, $dgallery->get('slug')),
                 urldecode($params['gallery_view_url'])));
+            $view->view_link->add($next_date);
         }
         $view->gallery_count = $dgallery->countImages(true);
 

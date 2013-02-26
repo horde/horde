@@ -32,8 +32,12 @@ class Horde_View_Helper_DebugTest extends PHPUnit_Framework_TestCase
     // test truncate
     public function testDebug()
     {
+        $color = ini_get('xdebug.cli_color');
+        ini_set('xdebug.cli_color', 0);
         $expected = '<pre class="debug_dump">string(7) &quot;foo&amp;bar&quot;';
-        $this->assertContains($expected, $this->helper->debug('foo&bar'));
+        $output = $this->helper->debug('foo&bar');
+        ini_set('xdebug.cli_color', $color);
+        $this->assertContains($expected, $output);
     }
 
 }

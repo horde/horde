@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
  </notes>
  <contents>
@@ -45,10 +46,18 @@
     </dir> <!-- /app/controllers -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="nag-convert-datatree-shares-to-sql" role="script" />
-    <file name="nag-convert-sql-shares-to-sqlng" role="script" />
-    <file name="nag-create-missing-add-histories-sql" role="script" />
-    <file name="nag-import-vtodos" role="script" />
+    <file name="nag-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-create-missing-add-histories-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-import-vtodos" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -1288,6 +1297,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
    </notes>
   </release>

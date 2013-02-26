@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>14:25:49</time>
+ <date>2013-02-20</date>
+ <time>00:20:19</time>
  <version>
-  <release>5.0.4</release>
+  <release>5.0.5</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -99,18 +99,42 @@
     <file name="user.php" role="horde" />
    </dir> <!-- /admin -->
    <dir name="bin">
-    <file name="horde-active-sessions" role="script" />
-    <file name="horde-alarms" role="script" />
-    <file name="horde-check-logger" role="script" />
-    <file name="horde-clear-cache" role="script" />
-    <file name="horde-crond" role="script" />
-    <file name="horde-db-migrate" role="script" />
-    <file name="horde-import-squirrelmail-prefs" role="script" />
-    <file name="horde-memcache-stats" role="script" />
-    <file name="horde-run-task" role="script" />
-    <file name="horde-set-perms" role="script" />
-    <file name="horde-themes" role="script" />
-    <file name="horde-translation" role="script" />
+    <file name="horde-active-sessions" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-alarms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-check-logger" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-clear-cache" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-crond" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-db-migrate" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-import-squirrelmail-prefs" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-memcache-stats" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-run-task" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-set-perms" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-themes" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="horde-translation" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <dir name="registry.d">
@@ -1308,9 +1332,6 @@
        <file name="up.png" role="horde" />
       </dir> <!-- /themes/default/graphics/keys -->
       <dir name="map">
-       <file name="marker-blue.png" role="horde" />
-       <file name="marker-gold.png" role="horde" />
-       <file name="marker-green.png" role="horde" />
        <file name="marker-shadow.png" role="horde" />
        <file name="marker.png" role="horde" />
       </dir> <!-- /themes/default/graphics/map -->
@@ -1398,10 +1419,6 @@
        <file name="rev-plusonly.png" role="horde" />
        <file name="rev-plustop.png" role="horde" />
       </dir> <!-- /themes/default/graphics/tree -->
-      <dir name="uploader">
-       <file name="backgrounds.gif" role="horde" />
-       <file name="up.png" role="horde" />
-      </dir> <!-- /themes/default/graphics/uploader -->
       <file name="add_group.png" role="horde" />
       <file name="administration.png" role="horde" />
       <file name="app-unknown.png" role="horde" />
@@ -1534,7 +1551,6 @@
      <file name="embed.css" role="horde" />
      <file name="facebook.css" role="horde" />
      <file name="feed-rss.xsl" role="horde" />
-     <file name="ie7.css" role="horde" />
      <file name="ie8.css" role="horde" />
      <file name="info.php" role="horde" />
      <file name="mozilla.css" role="horde" />
@@ -2292,7 +2308,6 @@
    <install as="themes/default/embed.css" name="themes/default/embed.css" />
    <install as="themes/default/facebook.css" name="themes/default/facebook.css" />
    <install as="themes/default/feed-rss.xsl" name="themes/default/feed-rss.xsl" />
-   <install as="themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="themes/default/ie8.css" name="themes/default/ie8.css" />
    <install as="themes/default/info.php" name="themes/default/info.php" />
    <install as="themes/default/mozilla.css" name="themes/default/mozilla.css" />
@@ -2931,9 +2946,6 @@
    <install as="themes/default/graphics/keys/left.png" name="themes/default/graphics/keys/left.png" />
    <install as="themes/default/graphics/keys/right.png" name="themes/default/graphics/keys/right.png" />
    <install as="themes/default/graphics/keys/up.png" name="themes/default/graphics/keys/up.png" />
-   <install as="themes/default/graphics/map/marker-blue.png" name="themes/default/graphics/map/marker-blue.png" />
-   <install as="themes/default/graphics/map/marker-gold.png" name="themes/default/graphics/map/marker-gold.png" />
-   <install as="themes/default/graphics/map/marker-green.png" name="themes/default/graphics/map/marker-green.png" />
    <install as="themes/default/graphics/map/marker-shadow.png" name="themes/default/graphics/map/marker-shadow.png" />
    <install as="themes/default/graphics/map/marker.png" name="themes/default/graphics/map/marker.png" />
    <install as="themes/default/graphics/mime/audio.png" name="themes/default/graphics/mime/audio.png" />
@@ -3014,8 +3026,6 @@
    <install as="themes/default/graphics/tree/rev-plusbottom.png" name="themes/default/graphics/tree/rev-plusbottom.png" />
    <install as="themes/default/graphics/tree/rev-plusonly.png" name="themes/default/graphics/tree/rev-plusonly.png" />
    <install as="themes/default/graphics/tree/rev-plustop.png" name="themes/default/graphics/tree/rev-plustop.png" />
-   <install as="themes/default/graphics/uploader/backgrounds.gif" name="themes/default/graphics/uploader/backgrounds.gif" />
-   <install as="themes/default/graphics/uploader/up.png" name="themes/default/graphics/uploader/up.png" />
    <install as="themes/default/smartmobile/screen.css" name="themes/default/smartmobile/screen.css" />
    <install as="themes/default/sounds/doorbell.wav" name="themes/default/sounds/doorbell.wav" />
    <install as="themes/default/sounds/gnid3.wav" name="themes/default/sounds/gnid3.wav" />
@@ -3578,10 +3588,23 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>5.0.5</release>
+    <api>5.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

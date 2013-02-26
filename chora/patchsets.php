@@ -21,7 +21,7 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     Chora::url('browsefile', $where)->redirect();
 }
 
-$ps_opts = array();
+$ps_opts = array('timezone' => $prefs->getValue('timezone'));
 if ($where) {
     $ps_opts['file'] = $where;
     if (!isset($title)) {

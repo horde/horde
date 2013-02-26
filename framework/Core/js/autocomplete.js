@@ -334,7 +334,7 @@ Autocompleter.Local = Class.create(Autocompleter.Base, {
 
             var pos = t.indexOf(entry);
             if (pos != -1 &&
-                ((pos == 0 && t.length != entry_len) ||
+                ((pos === 0 && t.length != entry_len) ||
                  (entry_len >= o.partialChars &&
                   o.partialSearch &&
                   (o.fullSearch || /\s/.test(t.substr(pos - 1, 1)))))) {

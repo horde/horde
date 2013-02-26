@@ -15,13 +15,13 @@ var AccessKeys = {
         if ((this.macos && e.ctrlKey) ||
             (!this.macos && e.altKey && !e.ctrlKey)) {
             // Need to search for both upper and lowercase value
-            key = String.fromCharCode(e.keyCode || e.charCode).sub('"', '\\"');;
+            key = String.fromCharCode(e.keyCode || e.charCode).sub('"', '\\"');
             elts = $$('[accesskey="' + key.toUpperCase() + '"]');
             if (key.toUpperCase() != key.toLowerCase()) {
                 elts = elts.concat($$('[accesskey="' + key.toLowerCase() + '"]'));
             }
 
-            if (elt = elts.first()) {
+            if ((elt = elts.first())) {
                 // Remove duplicate accesskeys
                 if (elts.size() > 1) {
                     elts.slice(1).invoke('writeAttribute', 'accesskey', null);
@@ -38,8 +38,7 @@ var AccessKeys = {
 
                 try {
                     elt.focus();
-                } catch (e) {
-                }
+                } catch (ex) {}
 
                 if (navigator.userAgent.indexOf('Chrome/') > -1 && !this.macos &&
                     elt.tagName == 'A') {
@@ -54,7 +53,7 @@ var AccessKeys = {
                 } else if (elt.match('A') && Prototype.Browser.IE &&
                            (href = elt.readAttribute('href')) &&
                            href.substr(0, 1) != '#') {
-                    if (href.indexOf('javascript:') == 0) {
+                    if (href.indexOf('javascript:') === 0) {
                         eval(href.substr(11));
                     } else {
                         window.open(href);

@@ -24,5 +24,5 @@ $ids = $trean_db->selectValues('SELECT bookmark_id FROM trean_bookmarks');
 foreach ($ids as $bookmark_id) {
     $bookmark = $trean_gateway->getBookmark($bookmark_id);
     $bookmark->url = (string)new Trean_Url($bookmark->url);
-    $bookmark->save($crawl = false);
+    $bookmark->save(false);
 }

@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-02</date>
- <time>14:47:33</time>
+ <date>2013-02-25</date>
+ <time>19:49:08</time>
  <version>
-  <release>2.1.8</release>
-  <api>2.1.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,10 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.3.
-* [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
-* [jan] Fix notifications while authenticating transparently.
-* [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
+* [mms] Add Horde_Themes::viewDir().
+* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -446,6 +445,7 @@
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="ShareBase.php" role="php" />
+       <file name="ShutdownRunner.php" role="php" />
        <file name="SpellChecker.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
@@ -1074,6 +1074,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Secret</name>
@@ -1712,6 +1719,7 @@
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
+   <install as="Horde/Core/Factory/ShutdownRunner.php" name="lib/Horde/Core/Factory/ShutdownRunner.php" />
    <install as="Horde/Core/Factory/SpellChecker.php" name="lib/Horde/Core/Factory/SpellChecker.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
@@ -2736,18 +2744,54 @@
   </release>
   <release>
    <version>
-    <release>2.1.8</release>
+    <release>2.2.0</release>
     <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-02</date>
+   <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.3.
+* [mms] Upgrade jQuery Mobile to v1.2/jQuery Core to v1.8.2.
 * [mjr] Fix bug in OpenLayers that caused Prototype&apos;s Event object to be overwritten (Bug #12019).
 * [jan] Fix notifications while authenticating transparently.
 * [mms] Add a configurable delay to the jQuery Mobile autocomplete plugin.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-21</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Use csstidy library to parse CSS files when creating static CSS (Bug #12043).
+* [mms] Add Horde_Url#selfUrlParams().
+* [mjr] Fix determination of ActiveSync sent-mail folder in certain cases (Bug #11828).
+* [mms] Fix order of adding URL parameters in HordeCore.addURLParam (Bug #12058).
+* [mms] Ensure that session IDs are always 32 bytes long (Bug #12041).
+* [mjr] Fix saving ActiveSync sent mail when the message contains MIME parts (Bug #12040).
+* [mms] Fix replacing spellchecker elements within tables (Bug #12028).
+* [mms] Fix encoding of JSON parameters to Horde::popupJs() (Bug #12037).
+* [mms] Fix destroying session data when the null session driver is used.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-25</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
+* [mms] Add Horde_Themes::viewDir().
+* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
    </notes>
   </release>
  </changelog>

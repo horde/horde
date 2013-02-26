@@ -44,13 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Storage place for an altered version of the current URL.
-     *
-     * @var string
-     */
-    static public $newUrl = null;
-
-    /**
      * Current mailbox/UID information.
      *
      * @var array
@@ -496,20 +489,6 @@ class IMP
     }
 
     /**
-     * Return a selfURL that has had index/mailbox/actionID information
-     * removed/altered based on an action that has occurred on the present
-     * page.
-     *
-     * @return Horde_Url  The self URL.
-     */
-    static public function selfUrl()
-    {
-        return self::$newUrl
-            ? self::$newUrl->copy()
-            : Horde::selfUrl(true);
-    }
-
-    /**
      * Determine the status of composing.
      *
      * @return boolean  Is compose allowed?
@@ -608,7 +587,7 @@ class IMP
     /**
      * Are appliable filters available?
      *
-     * @return voolean  True if appliable filters are available.
+     * @return boolean  True if appliable filters are available.
      */
     static public function applyFilters()
     {

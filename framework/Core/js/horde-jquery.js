@@ -66,9 +66,9 @@ Number.prototype.toPaddedString = function(len,pad)
     if (isNaN(len)) {
       return null;
     }
-    var dflt = (isNaN(this.toString())) ? " " : "0";
+    var dflt = (isNaN(this.toString())) ? " " : "0",
+        str = this.toString();
     pad = (pad) ? pad.toString().substr(0,1) : dflt;
-    var str = this.toString();
     if (dflt=="0") {
         while (str.length < len) {
             str=pad+str;
@@ -92,7 +92,7 @@ Array.prototype.numericSort = function()
     }).sort(function(a, b) {
         return (a > b) ? 1 : ((a < b) ? -1 : 0);
     });
-}
+};
 
 /**
  */
@@ -110,7 +110,7 @@ String.prototype.toQueryParams = function()
     });
 
     return params;
-}
+};
 
 /**
  */
