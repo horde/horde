@@ -255,7 +255,7 @@ class IMP_Spam
                     break;
 
                 case 2:
-                    if ($targetMbox = IMP_Mailbox::getPref('spam_folder')) {
+                    if ($targetMbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) {
                         if (!$imp_message->copy($targetMbox, 'move', $indices, array_merge($mbox_args, array('create' => true)))) {
                             $result = 0;
                         }

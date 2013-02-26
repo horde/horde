@@ -60,9 +60,9 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         }
 
         /* Determine if mailboxes are readonly. */
-        $drafts = IMP_Mailbox::getPref('drafts_folder');
+        $drafts = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
         $readonly_drafts = $drafts && $drafts->readonly;
-        $sent_mail = $identity->getValue('sent_mail_folder');
+        $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
         $save_sent_mail = (!$sent_mail || $sent_mail->readonly)
             ? false
             : $prefs->getValue('save_sent_mail');
@@ -146,7 +146,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                     ($result['identity'] != $identity->getDefault()) &&
                     !$prefs->isLocked('default_identity')) {
                     $identity->setDefault($result['identity']);
-                    $sent_mail = $identity->getValue('sent_mail_folder');
+                    $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
                 }
             } catch (IMP_Compose_Exception $e) {
                 $notification->push($e);

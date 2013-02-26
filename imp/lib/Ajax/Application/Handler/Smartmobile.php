@@ -93,7 +93,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         /* There is no sent-mail config option on smartmobile compose page,
          * so need to add that information now. */
         if ($identity->getValue('save_sent_mail', $send_id)) {
-            $sent_mbox = $identity->getValue('sent_mail_folder', $send_id);
+            $sent_mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $send_id);
             if ($sent_mbox && !$sent_mbox->readonly) {
                 $this->vars->save_sent_mail = true;
                 $this->vars->save_sent_mail_mbox = $sent_mbox->form_to;

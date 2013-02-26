@@ -153,7 +153,7 @@ class IMP_Message
             return false;
         }
 
-        $trash = IMP_Mailbox::getPref('trash_folder');
+        $trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH);
         $use_trash = $prefs->getValue('use_trash');
         if ($use_trash && !$trash) {
             $notification->push(_("Cannot move messages to Trash - no Trash mailbox set in preferences."), 'horde.error');
@@ -789,7 +789,7 @@ class IMP_Message
 
         $imp_imap = $injector->getInstance('IMP_Imap');
         $trash = ($prefs->getValue('use_trash'))
-            ? IMP_Mailbox::getPref('trash_folder')
+            ? IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)
             : null;
 
         foreach (IMP_Mailbox::get($mbox_list) as $mbox) {

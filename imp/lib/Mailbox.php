@@ -138,6 +138,13 @@ class IMP_Mailbox implements Serializable
     const CHANGED_YES = 1;
     const CHANGED_DELETE = 2;
 
+    /* Special mailbox prefs. */
+    const MBOX_DRAFTS = 'drafts_folder';
+    const MBOX_SENT = 'sent_mail_folder';
+    const MBOX_SPAM = 'spam_folder';
+    const MBOX_TEMPLATES = 'composetemplates_mbox';
+    const MBOX_TRASH = 'trash_folder';
+
     /* Special mailbox identifiers. */
     const SPECIAL_COMPOSETEMPLATES = 'composetemplates';
     const SPECIAL_DRAFTS = 'drafts';
@@ -1104,7 +1111,7 @@ class IMP_Mailbox implements Serializable
         if ($prefs->getValue('use_trash')) {
             /* If using Virtual Trash, only show deleted messages in
              * the Virtual Trash mailbox. */
-            return $this->get($prefs->getValue('trash_folder'))->vtrash
+            return $this->get($prefs->getValue(self::MBOX_TRASH))->vtrash
                 ? !$this->vtrash
                 : ($prefs->getValue('delhide_trash') ? true : $deleted);
         }
@@ -1360,11 +1367,11 @@ class IMP_Mailbox implements Serializable
             $sm = &self::$_temp[self::CACHE_SPECIALMBOXES];
 
             $sm = array(
-                self::SPECIAL_COMPOSETEMPLATES => self::getPref('composetemplates_mbox'),
-                self::SPECIAL_DRAFTS => self::getPref('drafts_folder'),
+                self::SPECIAL_COMPOSETEMPLATES => self::getPref(self::MBOX_TEMPLATES),
+                self::SPECIAL_DRAFTS => self::getPref(self::MBOX_DRAFTS),
                 self::SPECIAL_SENT => $GLOBALS['injector']->getInstance('IMP_Identity')->getAllSentmail(),
-                self::SPECIAL_SPAM => self::getPref('spam_folder'),
-                self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref('trash_folder') : null,
+                self::SPECIAL_SPAM => self::getPref(self::MBOX_SPAM),
+                self::SPECIAL_TRASH => $GLOBALS['prefs']->getValue('use_trash') ? self::getPref(self::MBOX_TRASH) : null,
                 self::SPECIAL_USERHOOK => array()
             );
 
@@ -1575,7 +1582,7 @@ class IMP_Mailbox implements Serializable
                 if (count($val) == 1) {
                     $sub[strval(reset($val))] = _("Sent");
                 } else {
-                    $sent = self::getPref('sent_mail_folder');
+                    $sent = self::getPref(self::MBOX_SENT);
                     foreach ($val as $mbox) {
                         if ($mbox == $sent) {
                             $sub[strval($mbox)] = _("Sent");

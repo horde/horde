@@ -40,7 +40,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
 
         $js = array();
         foreach (array_keys($identity->getAll('id')) as $key) {
-            $js[$key] = $identity->getValue('sent_mail_folder', $key)->form_to;
+            $js[$key] = $identity->getValue(IMP_Mailbox::MBOX_SENT, $key)->form_to;
         };
 
         $page_output->addInlineJsVars(array(
@@ -73,7 +73,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
         $imp_imap = $injector->getInstance('IMP_Imap');
 
         if (!$imp_imap->access(IMP_Imap::ACCESS_FOLDERS) ||
-            $prefs->isLocked('sent_mail_folder')) {
+            $prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
             return false;
         }
 
@@ -84,7 +84,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
             if (strpos($sent_mail, self::PREF_SPECIALUSE) === 0) {
                 $sent_mail = IMP_Mailbox::get(substr($sent_mail, strlen(self::PREF_SPECIALUSE)));
             } elseif (($sent_mail == self::PREF_DEFAULT) &&
-                      ($sm_default = $prefs->getDefault('sent_mail_folder'))) {
+                      ($sm_default = $prefs->getDefault(IMP_Mailbox::MBOX_SENT))) {
                 $sent_mail = IMP_Mailbox::get($sm_default)->namespace_append;
             }
         }
@@ -93,7 +93,7 @@ class IMP_Prefs_Special_Sentmail extends IMP_Prefs_Special_SpecialMboxes impleme
             return false;
         }
 
-        return $injector->getInstance('IMP_Identity')->setValue('sent_mail_folder', $sent_mail);
+        return $injector->getInstance('IMP_Identity')->setValue(IMP_Mailbox::MBOX_SENT, $sent_mail);
     }
 
 }

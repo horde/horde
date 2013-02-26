@@ -45,7 +45,8 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function execute()
     {
         /* If there is no Spam mailbox set, or it doesn't exist, exit. */
-        if (!($spam = IMP_Mailbox::getPref('spam_folder')) || !$spam->exists) {
+        if (!($spam = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)) ||
+            !$spam->exists) {
             return false;
         }
 
@@ -78,7 +79,7 @@ class IMP_LoginTasks_Task_PurgeSpam extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('spam_folder')->display_html,
+                       IMP_Mailbox::getPref(IMP_Mailbox::MBOX_SPAM)->display_html,
                        $GLOBALS['prefs']->getValue('purge_spam_keep'));
     }
 

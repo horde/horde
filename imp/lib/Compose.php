@@ -276,7 +276,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     protected function _saveDraftServer($data)
     {
-        if (!$drafts_mbox = IMP_Mailbox::getPref('drafts_folder')) {
+        if (!$drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) {
             throw new IMP_Compose_Exception(_("Saving the draft failed. No drafts mailbox specified."));
         }
 
@@ -593,7 +593,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function saveTemplate($headers, $message, array $opts = array())
     {
-        if (!$mbox = IMP_Mailbox::getPref('composetemplates_mbox')) {
+        if (!$mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES)) {
             throw new IMP_Compose_Exception(_("Saving the template failed: no template mailbox exists."));
         }
 

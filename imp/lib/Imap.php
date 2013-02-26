@@ -213,9 +213,11 @@ class IMP_Imap implements Serializable
             /* Turn some options off if we are working with POP3. */
             $prefs->setValue('save_sent_mail', false);
             $prefs->setLocked('save_sent_mail', true);
-            $prefs->setLocked('sent_mail_folder', true);
-            $prefs->setLocked('drafts_folder', true);
-            $prefs->setLocked('trash_folder', true);
+            $prefs->setLocked(IMP_Mailbox::MBOX_DRAFTS, true);
+            $prefs->setLocked(IMP_Mailbox::MBOX_SENT, true);
+            $prefs->setLocked(IMP_Mailbox::MBOX_SPAM, true);
+            $prefs->setLocked(IMP_Mailbox::MBOX_TEMPLATES, true);
+            $prefs->setLocked(IMP_Mailbox::MBOX_TRASH, true);
         }
 
         return $ob;

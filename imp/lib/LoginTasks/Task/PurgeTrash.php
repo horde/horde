@@ -46,7 +46,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
         global $injector, $notification, $prefs;
 
         if (!$prefs->getValue('use_trash') ||
-            !($trash = IMP_Mailbox::getPref('trash_folder')) ||
+            !($trash = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)) ||
             $trash->vtrash ||
             !$trash->exists) {
             return false;
@@ -81,7 +81,7 @@ class IMP_LoginTasks_Task_PurgeTrash extends Horde_LoginTasks_Task
     public function describe()
     {
         return sprintf(_("All messages in your \"%s\" mailbox older than %s days will be permanently deleted."),
-                       IMP_Mailbox::getPref('trash_folder')->display_html,
+                       IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TRASH)->display_html,
                        $GLOBALS['prefs']->getValue('purge_trash_keep'));
     }
 

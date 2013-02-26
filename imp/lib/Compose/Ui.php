@@ -103,7 +103,7 @@ class IMP_Compose_Ui
         $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
 
         foreach (array_keys($identity->getAll('id')) as $ident) {
-            $sm = $identity->getValue('sent_mail_folder', $ident);
+            $sm = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
 
             $identities[] = array(
                 // Sent mail mailbox name

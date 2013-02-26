@@ -114,10 +114,10 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         $compose_disable = !IMP_Compose::canCompose();
 
         /* Determine if mailboxes are readonly. */
-        $draft = IMP_Mailbox::getPref('drafts_folder');
+        $draft = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
         $readonly_drafts = $draft && $draft->readonly;
 
-        $sent_mail = $identity->getValue('sent_mail_folder');
+        $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
         if (!$sent_mail) {
             $readonly_sentmail = $save_sent_mail = false;
         } elseif ($sent_mail->readonly) {
@@ -272,7 +272,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     ($result['identity'] != $identity->getDefault()) &&
                     !$prefs->isLocked('default_identity')) {
                     $identity->setDefault($result['identity']);
-                    $sent_mail = $identity->getValue('sent_mail_folder');
+                    $sent_mail = $identity->getValue(IMP_Mailbox::MBOX_SENT);
                 }
                 $priority = $result['priority'];
                 $request_read_receipt = $result['readreceipt'];
@@ -709,7 +709,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             'ImpCompose.popup' => intval($isPopup),
             'ImpCompose.redirect' => intval($redirect),
             'ImpCompose.reloaded' => intval($reload),
-            'ImpCompose.sm_check' => intval(!$prefs->isLocked('sent_mail_folder')),
+            'ImpCompose.sm_check' => intval(!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)),
             'ImpCompose.spellcheck' => intval($spellcheck && $prefs->getValue('compose_spellcheck')),
             'ImpCompose.text' => array(
                 'cancel' => _("Cancelling this message will permanently discard its contents.") . "\n" . _("Are you sure you want to do this?"),
@@ -899,7 +899,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 if ($this->vars->sent_mail) {
                     $sent_mail = IMP_Mailbox::formFrom($this->vars->sent_mail);
                 }
-                if (!$prefs->isLocked('sent_mail_folder')) {
+                if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
                     $ssm_options = array(
                         'abbrev' => false,
                         'basename' => true,

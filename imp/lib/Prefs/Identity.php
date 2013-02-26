@@ -44,7 +44,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
      */
     protected $_impPrefs = array(
         'replyto_addr', 'alias_addr', 'tieto_addr', 'bcc_addr', 'signature',
-        'signature_html', 'save_sent_mail', 'sent_mail_folder'
+        'signature_html', 'save_sent_mail', IMP_Mailbox::MBOX_SENT
     );
 
     /**
@@ -448,7 +448,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         $val = parent::getValue($key, $identity);
 
         switch ($key) {
-        case 'sent_mail_folder':
+        case IMP_Mailbox::MBOX_SENT:
             return (is_string($val) && strlen($val))
                 ? IMP_Mailbox::get(IMP_Mailbox::prefFrom($val))
                 : null;
@@ -491,7 +491,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             $val = $ob->addresses;
             break;
 
-        case 'sent_mail_folder':
+        case IMP_Mailbox::MBOX_SENT:
             if ($val) {
                 $val->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
             } else {
@@ -514,7 +514,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
         $list = array();
 
         foreach (array_keys($this->_identities) as $key) {
-            if ($mbox = $this->getValue('sent_mail_folder', $key)) {
+            if ($mbox = $this->getValue(IMP_Mailbox::MBOX_SENT, $key)) {
                 $list[strval($mbox)] = 1;
             }
         }

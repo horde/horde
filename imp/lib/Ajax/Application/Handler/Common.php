@@ -498,7 +498,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
         $headers['replyto'] = $identity->getValue('replyto_addr');
 
-        $sm_displayed = !$prefs->isLocked('sent_mail_folder');
+        $sm_displayed = !$prefs->isLocked(IMP_Mailbox::MBOX_SENT);
 
         $options = array(
             'add_signature' => $identity->getDefault(),
@@ -513,8 +513,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                             ? (bool)$this->vars->save_sent_mail
                             : $identity->getValue('save_sent_mail')),
             'sent_mail' => ($sm_displayed
-                              ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue('sent_mail_folder'))
-                              : $identity->getValue('sent_mail_folder')),
+                              ? (isset($this->vars->save_sent_mail_mbox) ? IMP_Mailbox::formFrom($this->vars->save_sent_mail_mbox) : $identity->getValue(IMP_Mailbox::MBOX_SENT))
+                              : $identity->getValue(IMP_Mailbox::MBOX_SENT)),
             'vcard_attach' => ($this->vars->vcard_attach ? $identity->getValue('fullname') : null)
         );
 

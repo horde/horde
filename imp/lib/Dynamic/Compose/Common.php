@@ -93,13 +93,13 @@ class IMP_Dynamic_Compose_Common
             !$prefs->isLocked('save_sent_mail')) {
             $view->save_sent_mail = true;
 
-            if (!$prefs->isLocked('sent_mail_folder')) {
+            if (!$prefs->isLocked(IMP_Mailbox::MBOX_SENT)) {
                 $view->save_sent_mail_select = true;
 
                 /* Check to make sure the sent-mail mailboxes are created;
                  * they need to exist to show up in drop-down list. */
                 foreach (array_keys($identity->getAll('id')) as $ident) {
-                    $mbox = $identity->getValue('sent_mail_folder', $ident);
+                    $mbox = $identity->getValue(IMP_Mailbox::MBOX_SENT, $ident);
                     if ($mbox instanceof IMP_Mailbox) {
                         $mbox->create();
                     }
@@ -204,8 +204,8 @@ class IMP_Dynamic_Compose_Common
 
         /* Variables used in compose page. */
         $compose_cursor = $prefs->getValue('compose_cursor');
-        $drafts_mbox = IMP_Mailbox::getPref('drafts_folder');
-        $templates_mbox = IMP_Mailbox::getPref('composetemplates_mbox');
+        $drafts_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS);
+        $templates_mbox = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES);
 
         $base->js_conf += array_filter(array(
             'URI_MAILBOX' => strval(IMP_Dynamic_Mailbox::url()),

@@ -34,7 +34,7 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
     {
         global $page_output, $prefs;
 
-        if ($prefs->isLocked('composetemplates_mbox')) {
+        if ($prefs->isLocked(IMP_Mailbox::MBOX_TEMPLATES)) {
             return '';
         }
 
@@ -52,7 +52,7 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
-            'selected' => IMP_Mailbox::getPref('composetemplates_mbox')
+            'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_TEMPLATES)
         ));
         $view->mbox_nomailbox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
 
@@ -63,12 +63,12 @@ class IMP_Prefs_Special_ComposeTemplates extends IMP_Prefs_Special_SpecialMboxes
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        if ($GLOBALS['prefs']->isLocked('composetemplates_mbox')) {
+        if ($GLOBALS['prefs']->isLocked(IMP_Mailbox::MBOX_TEMPLATES)) {
             return false;
         }
 
         return $this->_updateSpecialMboxes(
-            'composetemplates_mbox',
+            IMP_Mailbox::MBOX_TEMPLATES,
             IMP_Mailbox::formFrom($ui->vars->templates),
             $ui->vars->templates_new,
             null,

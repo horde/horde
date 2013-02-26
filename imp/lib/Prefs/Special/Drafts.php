@@ -48,7 +48,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
             'basename' => true,
             'filter' => array('INBOX'),
             'new_mbox' => true,
-            'selected' => IMP_Mailbox::getPref('drafts_folder')
+            'selected' => IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)
         ));
         $view->nombox = IMP_Mailbox::formTo(self::PREF_NO_MBOX);
         $view->special_use = $this->_getSpecialUse(Horde_Imap_Client::SPECIALUSE_DRAFTS);
@@ -61,7 +61,7 @@ class IMP_Prefs_Special_Drafts extends IMP_Prefs_Special_SpecialMboxes implement
     public function update(Horde_Core_Prefs_Ui $ui)
     {
         return $this->_updateSpecialMboxes(
-            'drafts_folder',
+            IMP_Mailbox::MBOX_DRAFTS,
             IMP_Mailbox::formFrom($ui->vars->drafts),
             $ui->vars->drafts_new,
             Horde_Imap_Client::SPECIALUSE_DRAFTS,
