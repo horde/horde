@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Add composite transport backends.
 * [jan] Move shared ruleset selection to sidebar.
 * [mms] All Ingo templates now use Horde_View.
@@ -1224,6 +1225,7 @@
    <date>2013-01-23</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Add composite transport backends.
 * [jan] Move shared ruleset selection to sidebar.
 * [mms] All Ingo templates now use Horde_View.

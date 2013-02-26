@@ -2,6 +2,8 @@
 v3.1.0-git
 ----------
 
+[jan] Hide unsupported form fields of vacation form (Michael Bunk
+      <mb@computer-leipzig.com>).
 [jan] Add composite transport backends.
 [jan] Move shared ruleset selection to sidebar.
 [mms] All Ingo templates now use Horde_View.
