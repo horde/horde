@@ -53,7 +53,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
      */
     protected function _getFaceNames()
     {
-        if ($this->_view->resource->get('faces')) {
+        if ($this->_view->resource->get('faces') <= 0) {
             return '<div id="faces_widget_content"><br /><em>' . _("No faces found") . '</em></div>';
         }
 
