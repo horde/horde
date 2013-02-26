@@ -1035,7 +1035,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for meeting requests and POOMMAIL_FLAG data
-        if ($this->version >= Horde_ActiveSync::VERSION_TWELVE) {
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             if ($mime_part = $imap_message->hasiCalendar()) {
                 $data = $mime_part->getContents();

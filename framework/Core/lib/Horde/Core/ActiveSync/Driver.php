@@ -1749,7 +1749,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $type, $options);
             $flags = array(Horde_Imap_Client::FLAG_SEEN);
             $msg = $body->toString(array('headers' => $headers));
-            $this->_imap->appendMessage($sf, $msg, $flags);
+            try {
+                $this->_imap->appendMessage($sf, $msg, $flags);
+            } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                $this->_logger->err('No Sent Folder. Could not copy.');
+            }
         }
 
         // Delete the original request. EAS Specs require this. Most clients

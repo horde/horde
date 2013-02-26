@@ -1342,11 +1342,12 @@ class Horde_Registry
      *   - prefs: Preferences UI.
      *   - problem: Problem reporting page.
      * @param string $app        The name of the current Horde application.
+     * @param boolean $full      Return a full url? @since 2.4.0
      *
      * @return Horde_Url  The link.
      * @throws Horde_Exception
      */
-    public function getServiceLink($type, $app = null)
+    public function getServiceLink($type, $app = null, $full = false)
     {
         $opts = array('app' => 'horde');
 
@@ -1355,35 +1356,35 @@ class Horde_Registry
             if (is_null($app)) {
                 $app = 'horde';
             }
-            return Horde::url('services/ajax.php/' . $app . '/', false, $opts)
+            return Horde::url('services/ajax.php/' . $app . '/', $full, $opts)
                        ->add('token', $GLOBALS['session']->getToken());
 
         case 'cache':
             $opts['append_session'] = -1;
-            return Horde::url('services/cache.php', false, $opts);
+            return Horde::url('services/cache.php', $full, $opts);
 
         case 'download':
-            return Horde::url('services/download/', false, $opts)
+            return Horde::url('services/download/', $full, $opts)
                 ->add('app', $app);
 
         case 'emailconfirm':
-            return Horde::url('services/confirm.php', false, $opts);
+            return Horde::url('services/confirm.php', $full, $opts);
 
         case 'go':
-            return Horde::url('services/go.php', false, $opts);
+            return Horde::url('services/go.php', $full, $opts);
 
         case 'help':
-            return Horde::url('services/help/', false, $opts)
+            return Horde::url('services/help/', $full, $opts)
                 ->add('module', $app);
 
         case 'imple':
-            return Horde::url('services/imple.php', false, $opts);
+            return Horde::url('services/imple.php', $full, $opts);
 
         case 'login':
-            return Horde::url('login.php', false, $opts);
+            return Horde::url('login.php', $full, $opts);
 
         case 'logintasks':
-            return Horde::url('services/logintasks.php', false, $opts)
+            return Horde::url('services/logintasks.php', $full, $opts)
                 ->add('app', $app);
 
         case 'logout':
@@ -1392,11 +1393,11 @@ class Horde_Registry
             ));
 
         case 'pixel':
-            return Horde::url('services/images/pixel.php', false, $opts);
+            return Horde::url('services/images/pixel.php', $full, $opts);
 
         case 'prefs':
             if (!in_array($GLOBALS['conf']['prefs']['driver'], array('', 'none'))) {
-                $url = Horde::url('services/prefs.php', false, $opts);
+                $url = Horde::url('services/prefs.php', $full, $opts);
                 if (!is_null($app)) {
                     $url->add('app', $app);
                 }
@@ -1406,16 +1407,16 @@ class Horde_Registry
 
         case 'portal':
             return ($this->getView() == Horde_Registry::VIEW_SMARTMOBILE)
-                ? Horde::url('services/portal/smartmobile.php', false, $opts)
-                : Horde::url('services/portal/', false, $opts);
+                ? Horde::url('services/portal/smartmobile.php', $full, $opts)
+                : Horde::url('services/portal/', $full, $opts);
             break;
 
         case 'problem':
-            return Horde::url('services/problem.php', false, $opts)
+            return Horde::url('services/problem.php', $full, $opts)
                 ->add('return_url', Horde::selfUrl(true, true, true));
 
         case 'sidebar':
-            return Horde::url('services/sidebar.php', false, $opts);
+            return Horde::url('services/sidebar.php', $full, $opts);
 
         case 'twitter':
             return Horde::url('services/twitter/', true);
