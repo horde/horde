@@ -372,6 +372,7 @@ class Horde_Registry
             'Horde_Service_Twitter' => 'Horde_Core_Factory_Twitter',
             'Horde_Service_UrlShortener' => 'Horde_Core_Factory_UrlShortener',
             'Horde_SessionHandler' => 'Horde_Core_Factory_SessionHandler',
+            'Horde_ShutdownRunner' => 'Horde_Core_Factory_ShutdownRunner',
             'Horde_Template' => 'Horde_Core_Factory_Template',
             'Horde_Token' => 'Horde_Core_Factory_Token',
             'Horde_Variables' => 'Horde_Core_Factory_Variables',

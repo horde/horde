@@ -9,13 +9,13 @@
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
-/* Finds all text inputs (input type="text") and textarea tags, and
- * attaches the onkeydown listener to them to avoid ESC clearing the
- * text. */
 if (Prototype.Browser.IE) {
-    document.observe('dom:loaded', function() {
-        [ $$('TEXTAREA'), $$('INPUT[type="text"]') ].flatten().each(function(t) {
-            t.observe('keydown', function(e) { return e.keyCode != 27; });
-        });
+    document.observe('keydown', function(e) {
+        var elt = e.element();
+
+        if ((e.keyCode || e.charCode) == Event.KEY_ESC &&
+            (elt.match('TEXTAREA') || elt.match('INPUT[type="text"]'))) {
+            e.stop();
+        }
     });
 }

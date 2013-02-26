@@ -28,11 +28,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-21</date>
- <time>12:37:29</time>
+ <date>2013-02-25</date>
+ <time>19:49:08</time>
  <version>
-  <release>2.3.1</release>
-  <api>2.3.0</api>
+  <release>2.4.0</release>
+  <api>2.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,7 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
+* [mms] Add Horde_Themes::viewDir().
+* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -443,6 +445,7 @@
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="ShareBase.php" role="php" />
+       <file name="ShutdownRunner.php" role="php" />
        <file name="SpellChecker.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
@@ -1716,6 +1719,7 @@
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
+   <install as="Horde/Core/Factory/ShutdownRunner.php" name="lib/Horde/Core/Factory/ShutdownRunner.php" />
    <install as="Horde/Core/Factory/SpellChecker.php" name="lib/Horde/Core/Factory/SpellChecker.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
@@ -2777,15 +2781,17 @@
   </release>
   <release>
    <version>
-    <release>2.3.1</release>
-    <api>2.3.0</api></version>
+    <release>2.4.0</release>
+    <api>2.4.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-21</date>
+   <date>2013-02-25</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
+* [mms] Add Horde_Themes::viewDir().
+* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
    </notes>
   </release>
  </changelog>

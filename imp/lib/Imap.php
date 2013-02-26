@@ -224,7 +224,9 @@ class IMP_Imap implements Serializable
 
         case 'pop':
             /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false);
+            $prefs->setValue('save_sent_mail', false, array(
+                'nosave' => true
+            ));
             $prefs->setLocked('save_sent_mail', true);
             $prefs->setLocked(IMP_Mailbox::MBOX_DRAFTS, true);
             $prefs->setLocked(IMP_Mailbox::MBOX_SENT, true);
