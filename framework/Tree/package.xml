@@ -32,9 +32,9 @@
   <release>stable</release>
   <api>stable</api>
  </stability>
- <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004 (Bug #12070).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -141,7 +141,7 @@ Initial release as a PEAR package
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 Converted to package.xml 2.0 for pear.horde.org
    </notes>
@@ -156,7 +156,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>alpha</api>
    </stability>
    <date>2011-03-08</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 4.
 * Remove ability to set HTML &apos;onclick&apos; parameter.
@@ -178,7 +178,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-16</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 4.
    </notes>
@@ -193,7 +193,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-22</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release candidate for Horde 4.
    </notes>
@@ -208,7 +208,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>beta</api>
    </stability>
    <date>2011-03-29</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * Second release candidate for Horde 4.
    </notes>
@@ -223,7 +223,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <api>stable</api>
    </stability>
    <date>2011-04-06</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 4.
    </notes>
@@ -236,7 +236,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-04-10</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [rla] Add license file.
    </notes>
@@ -249,7 +249,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-05-26</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 *
    </notes>
@@ -262,7 +262,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>alpha</release>
     <api>alpha</api></stability>
    <date>2012-07-06</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First alpha release for Horde 5.
 * [jan] Separate tree object from tree renderers.
@@ -276,7 +276,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>alpha</api></stability>
    <date>2012-07-19</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First beta release for Horde 5.
    </notes>
@@ -289,7 +289,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>beta</release>
     <api>alpha</api></stability>
    <date>2012-10-12</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Tweak CSS names.
    </notes>
@@ -302,7 +302,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-10-30</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First stable release for Horde 5.
    </notes>
@@ -315,7 +315,7 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-22</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Re-packaged 2.0.0 release.
    </notes>
@@ -328,9 +328,9 @@ Converted to package.xml 2.0 for pear.horde.org
     <release>stable</release>
     <api>stable</api></stability>
    <date>2012-11-22</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004.
    </notes>
   </release>
  </changelog>
