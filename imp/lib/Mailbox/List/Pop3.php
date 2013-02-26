@@ -59,7 +59,7 @@ class IMP_Mailbox_List_Pop3 extends IMP_Mailbox_List
 
     /**
      */
-    public function resolveUid($buid)
+    public function resolveBuid($buid)
     {
         if (!isset($this->_buids[$buid])) {
             return null;
@@ -67,7 +67,7 @@ class IMP_Mailbox_List_Pop3 extends IMP_Mailbox_List
 
         return array(
             'm' => $this->_mailbox,
-            'u' => intval($this->_buids[$buid])
+            'u' => $this->_buids[$buid]
         );
     }
 
