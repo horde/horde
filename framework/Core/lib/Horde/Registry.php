@@ -1342,7 +1342,7 @@ class Horde_Registry
      *   - prefs: Preferences UI.
      *   - problem: Problem reporting page.
      * @param string $app        The name of the current Horde application.
-     * @param boolean $full      Return a full url?
+     * @param boolean $full      Return a full url? @since 2.4.0
      *
      * @return Horde_Url  The link.
      * @throws Horde_Exception
