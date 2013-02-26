@@ -1,6 +1,7 @@
 <?php
 /**
- * The Ingo_Script_Ispconfig:: class represents an ISPConfig Vacation "script generator".
+ * The Ingo_Script_Ispconfig class represents an ISPConfig Vacation "script
+ * generator".
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -56,7 +57,6 @@ class Ingo_Script_Ispconfig extends Ingo_Script
 
         return '';
     }
-
 
     /**
      * Returns any additional scripts that need to be sent to the transport

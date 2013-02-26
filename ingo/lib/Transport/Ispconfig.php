@@ -10,7 +10,6 @@
  * @author  Michael Bunk <mb@computer-leipzig.com>
  * @package Ingo
  */
-
 class Ingo_Transport_Ispconfig extends Ingo_Transport
 {
     /**
@@ -41,14 +40,13 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
      * @param string $script     The filter script.
      * @param array $additional  Any additional scripts that need to uploaded.
      *
-     * @return boolean  True on success, Ingo_exception if script can't be activated.
      * @throws Ingo_Exception
      */
     public function setScriptActive($script, $additional = array())
     {
         $v = $additional['vacation'];
 
-        // fill mailuser_id and client_id
+        // Fill mailuser_id and client_id.
         $this->_getUserDetails($this->_params['password']);
 
         try {
@@ -56,7 +54,8 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
                 $this->_soap_session, $this->_details['mailuser_id']);
 
             $user['autoresponder'] = $additional['disable'] ? 'n' : 'y';
-            $start = $v->getVacationStart();# UNIX timestamp
+            // UNIX timestamp.
+            $start = $v->getVacationStart();
             $end = $v->getVacationEnd();
             if (empty($start)) {
                 $start = time();
@@ -76,7 +75,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
                 'day' => date('d', $end),
                 'hour' => 23,
                 'minute' => 59);
-            # $vacation->getVacationSubject() not supported by ISPConfig
+            // $vacation->getVacationSubject() not supported by ISPConfig
             $user['autoresponder_text'] = $v->getVacationReason();
             // otherwise ISPConfig calculates the hash of this hash... braindead
             unset($user['password']);
@@ -88,8 +87,6 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
             throw new Ingo_Exception(sprintf(_("SOAP fault: %s"),
                 $e->getMessage()));
         }
-
-        return true;// success
     }
 
     /**
@@ -116,10 +113,11 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
         } catch (SoapFault $e) {
             throw new Ingo_Exception(sprintf(_("SOAP fault: %s"), $e->getMessage()));
         }
-	if (count($users) != 1) {
-                throw new Ingo_Exception(
-                    sprintf(_("%i users with login %s found, one expected."),
-                        count($users), $this->_params['username']));
+        if (count($users) != 1) {
+            throw new Ingo_Exception(
+                sprintf(_("%i users with login %s found, one expected."),
+                        count($users),
+                        $this->_params['username']));
         }
 
         $user = $users[0];
@@ -127,7 +125,8 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
             ($user['autoresponder'] === 'y') ? 'Y' : 'N';
         $this->_details['message'] = $user['autoresponder_text'];
         $this->_details['mailuser_id'] = $user['mailuser_id'];
-        $this->_details['client_id'] = 0;// 0 == admin
+        // 0 == admin
+        $this->_details['client_id'] = 0;
         $this->_details['autoresponder_start_date'] =
             $user['autoresponder_start_date'];
         $this->_details['autoresponder_end_date'] =
@@ -181,5 +180,4 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
         $this->_soap = &$client;
         $this->_soap_session = $session_id;
     }
-
 }
