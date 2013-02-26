@@ -555,18 +555,15 @@ var ImpMobile = {
         $('#message .smartmobile-title').text(data.title);
         document.title = $('#message .smartmobile-title').text();
 
-        tmp = $('#message .smartmobile-back');
-        if (ImpMobile.mailbox == IMP.conf.qsearchid) {
-            tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                mbox: IMP.conf.qsearchid
-            }));
-            tmp.find('.ui-btn-text').text(IMP.text.searchresults);
-        } else {
-            tmp.attr('href', HordeMobile.createUrl('mailbox', {
-                mbox: ImpMobile.mailbox
-            }));
-            tmp.find('.ui-btn-text').text(cache.label);
-        }
+        tmp = (ImpMobile.mailbox == IMP.conf.qsearchid);
+        $('#message .smartmobile-back').attr(
+            'href',
+            HordeMobile.createUrl('mailbox', {
+                mbox: (tmp ? IMP.conf.qsearchid : ImpMobile.mailbox)
+            })
+        ).find('.ui-btn-text').text(
+            tmp ? IMP.text.searchresults : cache.label
+        );
 
         if (!data.from) {
             $('#imp-message-from').text(IMP.text.nofrom);
