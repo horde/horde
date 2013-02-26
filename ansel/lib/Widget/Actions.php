@@ -155,7 +155,7 @@ class Ansel_Widget_Actions extends Ansel_Widget_Base
                 }
                 $view->regenerate_url = $galleryurl->copy()->add(array('actionID' => 'generateThumbs'))->link(array('class' => 'widget'));
                 $view->regenerate_all = $galleryurl->copy()->add(array('actionID' => 'deleteCache'))->link(array('class' => 'widget'));
-                if ($conf['faces']['driver'] && $this->_view->gallery->hasFeature('faces')) {
+                if ($conf['faces']['driver'] && $conf['faces']['driver'] !== 'user' && $this->_view->gallery->hasFeature('faces')) {
                     $view->faces_url = Horde::url('faces/gallery.php')->add(
                         array_merge($date, array('gallery' => $id, 'page' => (!empty($this->_view->_params['page']) ? $this->_view->_params['page'] : 0))))
                             ->link(array('class' => 'widget'));
