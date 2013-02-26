@@ -30,7 +30,9 @@ var HordeImple = {
                 params.imple_submit = Object.toJSON(e.element().serialize(true));
             }
             $(id).fire(params.imple + ':do', params);
-            HordeCore.doAction('imple', params, { 'callback': this.impleCallback.bind(this, id) } );
+            HordeCore.doAction('imple', params, {
+                callback: this.impleCallback.bind(this, id)
+            });
         }
 
         if (e) {
