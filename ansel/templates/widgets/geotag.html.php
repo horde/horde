@@ -3,21 +3,21 @@
 <div id="ansel_geo_widget">
   <?php if (!empty($this->isImageView) && empty($this->geodata)): ?>
     <?php if ($this->haveEdit): ?>
-        <div class="ansel_location_sameas">
-        <?php echo sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $this->addLink, '</a>');?>
+      <div class="ansel_location_sameas">
+        <?php echo sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $this->addLink, '');?>
         <?php foreach($this->imgs as $id => $data):?>
-            <?php echo $data['add_link']?><img src="<?php echo Ansel::getImageUrl($id, 'mini', true)?>" alt="[image]" /></a>
+          <?php echo $data['add_link']?><img src="<?php echo Ansel::getImageUrl($id, 'mini', true)?>" alt="[image]" /></a>
         <?php endforeach;?>
-        </div>
+      </div>
     <?php else: ?>
-        <?php echo _("No location data present."); ?>
+      <?php echo _("No location data present."); ?>
     <?php endif; ?>
   <?php elseif (!empty($this->isImageView)):?>
     <div id="ansel_map"></div>
     <div class="ansel_geolocation">
-    <div id="ansel_locationtext"></div>
-    <div id="ansel_latlng"></div>
-    <div id="ansel_relocate"></div><div id="ansel_deleteGeotag"></div>
+      <div id="ansel_locationtext"></div>
+      <div id="ansel_latlng"></div>
+      <div id="ansel_relocate"></div><div id="ansel_deleteGeotag"></div>
     </div>
     <div id="ansel_map_small"></div>
   <?php else: ?>
