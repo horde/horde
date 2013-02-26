@@ -49,6 +49,16 @@ class Ingo_Script
     protected $_categories = array();
 
     /**
+     * Which form fields are supported in each category by this driver?
+     * This is an associative array with the keys taken from $_actions,
+     * each value is a list of strings with the supported feature names.
+     * An absent key is interpreted as "all features supported".
+     *
+     * @var array
+     */
+    protected $_categoryFeatures = array();
+
+    /**
      * The list of tests allowed (implemented) for this driver.
      * This SHOULD be defined in each subclass.
      *
@@ -162,6 +172,16 @@ class Ingo_Script
     public function availableCategories()
     {
         return $this->_categories;
+    }
+
+    /**
+     * Returns the supported form fields for this driver.
+     *
+     * @return array  An array with the supported field names of the requested category.
+     */
+    public function availableCategoryFeatures($category)
+    {
+        return isset($this->_categoryFeatures[$category]) ? $this->_categoryFeatures[$category] : array();
     }
 
     /**
