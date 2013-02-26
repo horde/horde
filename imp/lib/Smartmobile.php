@@ -48,6 +48,9 @@ class IMP_Smartmobile
             new Horde_Themes_Element('mime.css')
         );
 
+        // Load full jQuery Mobile source.
+        //$page_output->debug = true;
+
         $notification->notify(array('listeners' => 'status'));
     }
 
