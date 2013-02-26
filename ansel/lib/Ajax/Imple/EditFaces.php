@@ -40,8 +40,8 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
 
         $faces = $injector->getInstance('Ansel_Faces');
         $image_id = intval($vars->image_id);
-
         $results = $faces->getImageFacesData($image_id);
+
         // Attempt to get faces from the picture if we don't already have
         // results, or if we were asked to explicitly try again.
         if (empty($results)) {
@@ -51,7 +51,9 @@ class Ansel_Ajax_Imple_EditFaces extends Horde_Core_Ajax_Imple
         }
 
         if (empty($results)) {
-            return new Horde_Core_Ajax_Response_Raw(_("No faces found"));
+            $results = new stdClass();
+            $results->response = _("No faces found");
+            return new Horde_Core_Ajax_Response($results);
         }
 
         $customurl = Horde::url('faces/custom.php');
