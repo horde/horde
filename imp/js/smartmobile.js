@@ -251,6 +251,10 @@ var ImpMobile = {
             $('#imp-copymove-action').selectmenu(ImpMobile.cache[ImpMobile.mailbox].readonly ? 'disable' : 'enable');
             $('#imp-copymove-newdiv').hide();
             break;
+
+        case 'search':
+            $('#imp-search-form').trigger('reset').find('select').selectmenu('refresh');
+            break;
         }
     },
 
@@ -286,7 +290,6 @@ var ImpMobile = {
 
         if (mailbox != IMP.conf.qsearchid) {
             delete ImpMobile.search;
-            $('#imp-search-input').val('');
             $('#mailbox :jqmData(role=footer) a[href$="search"]').show();
         } else if (ImpMobile.search) {
             params = ImpMobile.search;
