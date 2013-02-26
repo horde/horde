@@ -4,7 +4,7 @@
   <?php if (!empty($this->isImageView) && empty($this->geodata)): ?>
     <?php if ($this->haveEdit): ?>
       <div class="ansel_location_sameas">
-        <?php echo sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $this->addLink, '');?>
+        <?php echo sprintf(_("No location data present. Place using %s map %s or click on image to place at the same location."), $this->addLink, '</a>');?>
         <?php foreach($this->imgs as $id => $data):?>
           <?php echo $data['add_link']?><img src="<?php echo Ansel::getImageUrl($id, 'mini', true)?>" alt="[image]" /></a>
         <?php endforeach;?>

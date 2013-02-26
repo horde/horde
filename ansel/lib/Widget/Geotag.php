@@ -148,43 +148,41 @@ class Ansel_Widget_Geotag extends Ansel_Widget_Base
             }
             $geodata = array_values(array_merge($geodata, $others));
             $view->geodata = $geodata;
+        }
+        if ($permsEdit) {
+            // Image view, but no geotags, provide ability to add it.
+            $addurl = Horde::url('map_edit.php')->add(
+                'image',
+                $this->_params['images'][0]);
 
-            if ($permsEdit) {
-                // Image view, but no geotags, provide ability to add it.
-                $addurl = Horde::url('map_edit.php')->add(
-                    'image',
-                    $this->_params['images'][0]);
+            $view->addLink = $addurl->link(
+                array('onclick' => Horde::popupJs(
+                    Horde::url('map_edit.php'),
+                    array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
+                . 'return false;'));
 
-                $view->addLink = $addurl->link(
-                    array('onclick' => Horde::popupJs(
-                        Horde::url('map_edit.php'),
-                        array('params' => array('image' => $this->_params['images'][0]), 'urlencode' => true, 'width' => '750', 'height' => '600'))
-                    . 'return false;'));
+            $view->imgs = $ansel_storage
+                ->getRecentImagesGeodata($GLOBALS['registry']
+                ->getAuth());
 
-                $view->imgs = $ansel_storage
-                    ->getRecentImagesGeodata($GLOBALS['registry']
-                    ->getAuth());
-
-                if (count($view->imgs) > 0) {
-                    foreach ($view->imgs as $id => &$data) {
-                        if (!empty($data['image_location'])) {
-                            $data['title'] = $data['image_location'];
-                        } else {
-                            $data['title'] = sprintf(
-                                '%s %s',
-                                Ansel::point2Deg($data['image_latitude'], true),
-                                Ansel::point2Deg($data['image_longitude'])
-                            );
-                        }
-                        $data['add_link'] = $addurl->link(array(
-                            'title' => $title,
-                            'onclick' => "Ansel.widgets.geotag.setLocation(" . $image_id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "'); return false"
-                            )
+            if (count($view->imgs) > 0) {
+                foreach ($view->imgs as $id => &$data) {
+                    if (!empty($data['image_location'])) {
+                        $data['title'] = $data['image_location'];
+                    } else {
+                        $data['title'] = sprintf(
+                            '%s %s',
+                            Ansel::point2Deg($data['image_latitude'], true),
+                            Ansel::point2Deg($data['image_longitude'])
                         );
                     }
+                    $data['add_link'] = $addurl->link(array(
+                        'title' => $title,
+                        'onclick' => "Ansel.widgets.geotag.setLocation(" . $image_id . ",'" . $data['image_latitude'] . "', '" . $data['image_longitude'] . "'); return false"
+                        )
+                    );
                 }
             }
-
         }
 
         // Build the javascript to handle the map on the gallery/image views.
