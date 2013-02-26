@@ -49,7 +49,7 @@ class IMP_Factory_Mailbox extends Horde_Core_Factory_Base implements Horde_Queue
 
         if (!isset($this->_instances[$mbox])) {
             if (empty($this->_instances)) {
-                $this->_injector->getInstance('Horde_Queue_Storage')->add($this);
+                $this->_injector->getInstance('Horde_ShutdownRunner')->add($this);
             }
 
             $ob = new IMP_Mailbox($mbox);

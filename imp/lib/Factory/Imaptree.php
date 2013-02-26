@@ -67,7 +67,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
             break;
         }
 
-        $injector->getInstance('Horde_Queue_Storage')->add($this);
+        $injector->getInstance('Horde_ShutdownRunner')->add($this);
 
         return $this->_instance;
     }

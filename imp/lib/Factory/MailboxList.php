@@ -38,7 +38,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Q
     {
         parent::__construct($injector);
 
-        $injector->getInstance('Horde_Queue_Storage')->add($this);
+        $injector->getInstance('Horde_ShutdownRunner')->add($this);
     }
 
     /**

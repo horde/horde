@@ -35,7 +35,7 @@ class IMP_Factory_Compose extends Horde_Core_Factory_Base implements Horde_Queue
     {
         parent::__construct($injector);
 
-        $injector->getInstance('Horde_Queue_Storage')->add($this);
+        $injector->getInstance('Horde_ShutdownRunner')->add($this);
     }
 
     /**
