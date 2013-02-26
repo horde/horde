@@ -34,10 +34,10 @@
  * scriptparams: (array) An array containing any additional information that
  *               the script driver needs. See below for further details.
  *
- * shares: (boolean) Some transport drivers (timsieved, vfs) support sharing
- *         filter rules with other users. Users can then configure filters for
- *         each other if they give them permissions to do so. If you want to
- *         enable this feature, you need to set this parameter to
+ * shares: (boolean) Some transport drivers (timsieved, vfs, ispconfig) support
+ *         sharing filter rules with other users. Users can then configure
+ *         filters for each other if they give them permissions to do so. If
+ *         you want to enable this feature, you need to set this parameter to
  *         true. Transport backend authentication needs to be configured, so
  *         that it allows to upload other users' rules, e.g. by granting FTP
  *         access to .procmail files, or using an administrative user for
@@ -348,4 +348,3 @@ $backends['ispconfig'] = array(
     'scriptparams' => array(),
     'shares' => false
 );
-
