@@ -226,6 +226,14 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'search-exit':
+            $('#mailbox .smartmobile-back').removeClass($.mobile.activeBtnClass).blur();
+            $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                mbox: data.options.parsedUrl.params.mbox
+            }));
+            e.preventDefault();
+            break;
+
         case 'search-submit':
             ImpMobile.search = {
                 qsearch: $('#imp-search-input').val(),
@@ -277,24 +285,44 @@ var ImpMobile = {
     toMailbox: function(data)
     {
         var purl = data.options.parsedUrl,
+            footer = $('#mailbox :jqmData(role=footer)'),
             mailbox = purl.params.mbox || ImpMobile.INBOX,
             title = $('#imp-mailbox-' + mailbox).text(),
-            params = {}, ob;
+            params, ob;
 
         document.title = title;
         $('#mailbox .smartmobile-title').text(title);
+
         if (ImpMobile.mailbox != mailbox) {
             $('#imp-mailbox-list').empty();
+
+            if (mailbox == IMP.conf.qsearchid) {
+                if (!ImpMobile.search) {
+                    $.mobile.changePage(HordeMobile.createUrl('mailbox', {
+                        mbox: ImpMobile.INBOX
+                    }));
+                    return;
+                }
+
+                $('#mailbox .smartmobile-back').attr(
+                    'href',
+                    HordeMobile.createUrl('search-exit', {
+                        mbox: ImpMobile.search.qsearchmbox
+                    })
+                ).find('.ui-btn-text').text(IMP.text.exitsearch);
+                footer.children('a[href$="search"]').hide();
+            } else if (ImpMobile.search) {
+                delete ImpMobile.search;
+                $('#mailbox .smartmobile-back').attr('href', '#folders')
+                    .find('.ui-btn-text').text(IMP.text.folders);
+                footer.children('a[href$="search"]').show();
+                HordeMobile.updateHash(purl);
+            }
+
             ImpMobile.mailbox = mailbox;
         }
 
-        if (mailbox != IMP.conf.qsearchid) {
-            delete ImpMobile.search;
-            $('#mailbox :jqmData(role=footer) a[href$="search"]').show();
-        } else if (ImpMobile.search) {
-            params = ImpMobile.search;
-            $('#mailbox :jqmData(role=footer) a[href$="search"]').hide();
-        }
+        params = ImpMobile.search || {};
 
         HordeMobile.changePage('mailbox', data);
 

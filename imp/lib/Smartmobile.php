@@ -146,6 +146,8 @@ class IMP_Smartmobile
 
             /* Gettext strings. */
             'text' => array(
+                'exitsearch' => _("Exit Search"),
+                'folders' => _("Folders"),
                 'message_0' => _("No messages"),
                 'message_1' => _("1 message"),
                 'message_2' => _("%d messages"),
