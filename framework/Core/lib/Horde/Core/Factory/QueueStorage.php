@@ -7,6 +7,9 @@ class Horde_Core_Factory_QueueStorage extends Horde_Core_Factory_Injector
 {
     public function create(Horde_Injector $injector)
     {
-        return $injector->getInstance('Horde_ShutdownRunner');
+        $ob = new Horde_Queue_Storage_Array();
+        new Horde_Queue_Runner_RequestShutdown($ob);
+        return $ob;
     }
+
 }
