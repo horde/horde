@@ -298,11 +298,7 @@ class Hermes
             Horde_Array::arraySort($category['objects'], 'name');
             $elts['category%' . $counter++] = sprintf('--- %s ---', $category['category']);
             foreach ($category['objects'] as $object) {
-                $name = $object['name'];
-                if (Horde_String::length($name) > 80) {
-                    $name = Horde_String::substr($name, 0, 76) . ' ...';
-                }
-
+                $name = Horde_String::truncate($object['name'], 80);
                 $hours = 0.0;
                 $filter = array('costobject' => $object['id']);
                 if (!empty($GLOBALS['conf']['time']['sum_billable_only'])) {
