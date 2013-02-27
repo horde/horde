@@ -238,12 +238,14 @@ var ImpMobile = {
             ImpMobile.search = {
                 qsearch: $('#imp-search-input').val(),
                 qsearchfield: $('#imp-search-by').val(),
-                qsearchmbox: ImpMobile.mailbox
+                qsearchmbox: (ImpMobile.search ? ImpMobile.search.qsearchmbox : ImpMobile.mailbox)
             };
+            delete ImpMobile.mailboxCache;
             delete ImpMobile.cache[IMP.conf.qsearchid];
             $.mobile.changePage(HordeMobile.createUrl('mailbox', {
                 mbox: IMP.conf.qsearchid
             }));
+            e.preventDefault();
             break;
         }
     },
@@ -261,7 +263,9 @@ var ImpMobile = {
             break;
 
         case 'search':
-            $('#imp-search-form').trigger('reset').find('select').selectmenu('refresh');
+            if (!ImpMobile.search) {
+                $('#imp-search-form').trigger('reset').find('select').selectmenu('refresh');
+            }
             break;
         }
     },
@@ -271,6 +275,12 @@ var ImpMobile = {
     pageShow: function(e, opts)
     {
         switch (HordeMobile.currentPage()) {
+        case 'mailbox':
+            // Need to do here since Exit Search does not trigger beforeShow.
+            $.fn[ImpMobile.search ? 'hide' : 'show'].call($('#imp-mailbox-search'));
+            $.fn[ImpMobile.search ? 'show' : 'hide'].call($('#imp-mailbox-searchedit'));
+            break;
+
         case 'message':
             $('#imp-message-headers,#imp-message-atc').trigger('collapse');
             break;
@@ -285,7 +295,6 @@ var ImpMobile = {
     toMailbox: function(data)
     {
         var purl = data.options.parsedUrl,
-            footer = $('#mailbox :jqmData(role=footer)'),
             mailbox = purl.params.mbox || ImpMobile.INBOX,
             title = $('#imp-mailbox-' + mailbox).text(),
             params, ob;
@@ -310,12 +319,10 @@ var ImpMobile = {
                         mbox: ImpMobile.search.qsearchmbox
                     })
                 ).find('.ui-btn-text').text(IMP.text.exitsearch);
-                footer.children('a[href$="search"]').hide();
             } else if (ImpMobile.search) {
                 delete ImpMobile.search;
                 $('#mailbox .smartmobile-back').attr('href', '#folders')
                     .find('.ui-btn-text').text(IMP.text.folders);
-                footer.children('a[href$="search"]').show();
                 HordeMobile.updateHash(purl);
             }
 

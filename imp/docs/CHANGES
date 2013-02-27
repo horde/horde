@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Allow the active search query to be edited in the smartmobile view.
 [mms] Add link to exit out of search view in smartmobile view into the
       original mailbox.
 [mms] Allow default special mailbox names to be overriden by a backend.
