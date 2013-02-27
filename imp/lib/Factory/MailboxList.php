@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Queue_Task
+class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Shutdown_Task
 {
     /* Session storage key for list objects. */
     const STORAGE_KEY = 'mboxlist/';
@@ -38,7 +38,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Q
     {
         parent::__construct($injector);
 
-        $injector->getInstance('Horde_ShutdownRunner')->add($this);
+        Horde_Shutdown::add($this);
     }
 
     /**
@@ -82,7 +82,7 @@ class IMP_Factory_MailboxList extends Horde_Core_Factory_Base implements Horde_Q
     /**
      * Tasks to perform on shutdown.
      */
-    public function run()
+    public function shutdown()
     {
         foreach ($this->_instances as $key => $val) {
             if ($val->changed) {

@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_Queue_Task
+class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
     /**
      * @var IMP_Imap_Tree
@@ -67,7 +67,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
             break;
         }
 
-        $injector->getInstance('Horde_ShutdownRunner')->add($this);
+        Horde_Shutdown::add($this);
 
         return $this->_instance;
     }
@@ -75,7 +75,7 @@ class IMP_Factory_Imaptree extends Horde_Core_Factory_Injector implements Horde_
     /**
      * Store serialized version of object in the current session.
      */
-    public function run()
+    public function shutdown()
     {
         global $session;
 

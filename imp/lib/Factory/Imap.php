@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Queue_Task
+class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
     /**
      * @var IMP_Imap
@@ -50,7 +50,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Queu
             $session->set('imp', 'imap_ob', $this->_instance);
         }
 
-        $injector->getInstance('Horde_ShutdownRunner')->add($this);
+        Horde_Shutdown::add($this);
 
         return $this->_instance;
     }
@@ -58,7 +58,7 @@ class IMP_Factory_Imap extends Horde_Core_Factory_Injector implements Horde_Queu
     /**
      * Saves IMP_Imap instance to the session on shutdown.
      */
-    public function run()
+    public function shutdown()
     {
         global $registry, $session;
 

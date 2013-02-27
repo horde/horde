@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
-class IMP_Factory_Search extends Horde_Core_Factory_Injector implements Horde_Queue_Task
+class IMP_Factory_Search extends Horde_Core_Factory_Injector implements Horde_Shutdown_Task
 {
     /**
      * @var IMP_Search
@@ -44,7 +44,7 @@ class IMP_Factory_Search extends Horde_Core_Factory_Injector implements Horde_Qu
             $this->_instance = new IMP_Search();
         }
 
-        $injector->getInstance('Horde_ShutdownRunner')->add($this);
+        Horde_Shutdown::add($this);
 
         return $this->_instance;
     }
@@ -52,7 +52,7 @@ class IMP_Factory_Search extends Horde_Core_Factory_Injector implements Horde_Qu
     /**
      * Store serialized version of object in the current session.
      */
-    public function run()
+    public function shutdown()
     {
         /* Only need to store the object if the object has changed. */
         if ($this->_instance->changed) {
