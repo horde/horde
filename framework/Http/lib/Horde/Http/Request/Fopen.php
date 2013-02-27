@@ -101,6 +101,7 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $opts['http']['max_redirects'] = $this->redirects;
         $opts['http']['ignore_errors'] = true;
         $opts['ssl']['verify_peer'] = $this->verifyPeer;
+        $opts['ssl']['allow_self_signed'] = true;
 
         $context = stream_context_create($opts);
         set_error_handler(array($this, '_errorHandler'), E_WARNING | E_NOTICE);
