@@ -180,35 +180,14 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function perms()
     {
-        return array(
-            'create_folders' => array(
-                'title' => _("Allow mailbox creation?"),
-                'type' => 'boolean'
-            ),
-            'max_folders' => array(
-                'title' => _("Maximum Number of Mailboxes"),
-                'type' => 'int'
-            ),
-            'max_recipients' => array(
-                'title' => _("Maximum Number of Recipients per Message"),
-                'type' => 'int'
-            ),
-            'max_timelimit' => array(
-                'title' => _("Maximum Number of Recipients per Time Period"),
-                'type' => 'int'
-            )
-        );
+        return $GLOBALS['injector']->getInstance('IMP_Perms')->perms();
     }
 
     /**
      */
     public function hasPermission($permission, $allowed, $opts = array())
     {
-        if (is_array($allowed)) {
-            $allowed = max($allowed);
-        }
-
-        return $allowed;
+        return $GLOBALS['injector']->getInstance('IMP_Perms')->hasPermission($permission, $allowed, $opts);
     }
 
     /* Menu methods. */

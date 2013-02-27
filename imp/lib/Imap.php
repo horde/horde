@@ -24,6 +24,14 @@
  * @property-read boolean $autocreate_special  Auto-create special mailboxes?
  * @property-read boolean $changed  If true, this object has changed.
  * @property-read boolean $init  Has the base IMAP object been initialized?
+ * @property-read integer $max_compose_recipients  The maximum number of
+ *                                                 recipients to send to per
+ *                                                 compose message.
+ * @property-read integer $max_compose_timelimit  The maximum number of
+ *                                                recipients to send to in the
+ *                                                configured timelimit.
+ * @property-read integer $max_create_mboxes  The maximum number of mailboxes
+ *                                            a user can create.
  */
 class IMP_Imap implements Serializable
 {
@@ -33,9 +41,10 @@ class IMP_Imap implements Serializable
     const ACCESS_FLAGS = 3;
     const ACCESS_UNSEEN = 4;
     const ACCESS_TRASH = 5;
-
-    /* Feature disable constants. */
-    const DISABLE_FOLDERS = 1;
+    const ACCESS_CREATEMBOX = 6;
+    const ACCESS_CREATEMBOX_MAX = 7;
+    const ACCESS_COMPOSE_RECIPIENTS = 8;
+    const ACCESS_COMPOSE_TIMELIMIT = 9;
 
     /**
      * Server configuration file.
@@ -92,7 +101,26 @@ class IMP_Imap implements Serializable
 
         case 'init':
             return !is_null($this->_ob);
+
+        case 'max_compose_recipients':
+        case 'max_compose_timelimit':
+        case 'max_create_mboxes':
+            return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth());
         }
+    }
+
+    /**
+     * Get the full permission name for a permission.
+     *
+     * @param string $perm  The permission.
+     *
+     * @return string  The full (backend-specific) permission name.
+     */
+    private function _getPerm($perm)
+    {
+        return $this->init
+            ? $this->getOb()->getParam('imp:backend') . ':' . $perm
+            : $perm;
     }
 
     /**
@@ -157,7 +185,7 @@ class IMP_Imap implements Serializable
      */
     public function createImapObject($username, $password, $key)
     {
-        global $prefs;
+        global $injector, $prefs;
 
         if (!is_null($this->_ob)) {
             return $this->_ob;
@@ -168,10 +196,6 @@ class IMP_Imap implements Serializable
             Horde::log($error);
             throw $error;
         }
-
-        $protocol = isset($server['protocol'])
-            ? strtolower($server['protocol'])
-            : 'imap';
 
         $imap_config = array(
             'capability_ignore' => empty($server['capability_ignore']) ? array() : $server['capability_ignore'],
@@ -189,7 +213,7 @@ class IMP_Imap implements Serializable
             'username' => $username,
             // IMP specific config
             'imp:autocreate_special' => !empty($server['autocreate_special']),
-            'imp:disable_features' => isset($server['disable_features']) ? $server['disable_features'] : null,
+            'imp:backend' => $key,
             'imp:fixed_mboxes' => isset($server['fixed_mboxes']) ? $server['fixed_mboxes'] : null,
             'imp:sort_force' => !empty($server['sort_force'])
         );
@@ -198,7 +222,7 @@ class IMP_Imap implements Serializable
         $imap_config['cache'] = $this->loadCacheConfig(isset($server['cache']) ? $server['cache'] : null);
 
         try {
-            $ob = ($protocol == 'imap')
+            $ob = ($server['protocol'] == 'imap')
                 ? new Horde_Imap_Client_Socket($imap_config)
                 : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -209,7 +233,7 @@ class IMP_Imap implements Serializable
 
         $this->_ob = $ob;
 
-        switch ($protocol) {
+        switch ($server['protocol']) {
         case 'imap':
             /* Overwrite default special mailbox names. */
             if (!empty($server['special_mboxes']) &&
@@ -299,18 +323,44 @@ class IMP_Imap implements Serializable
     public function access($right)
     {
         switch ($right) {
+        case self::ACCESS_CREATEMBOX:
+            return ($this->isImap() &&
+                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('create_mboxes')));
+
+        case self::ACCESS_CREATEMBOX_MAX:
+            return ($this->isImap() &&
+                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_create_mboxes')));
+
         case self::ACCESS_FOLDERS:
         case self::ACCESS_TRASH:
-            if ($this->isImap()) {
-                $df = $this->_ob->getParam('imp:disable_features');
-                return (empty($df) || !in_array(self::DISABLE_FOLDERS, $df));
-            }
-            return false;
+            return ($this->isImap() &&
+                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('access_folders')));
 
         case self::ACCESS_FLAGS:
         case self::ACCESS_SEARCH:
         case self::ACCESS_UNSEEN:
             return $this->isImap();
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks compose access rights for a server.
+     *
+     * @param integer $right        Access right.
+     * @param integer $email_count  The number of e-mail recipients.
+     *
+     * @return boolean  Is the access allowed?
+     */
+    public function accessCompose($right, $email_count)
+    {
+        switch ($right) {
+        case self::ACCESS_COMPOSE_RECIPIENTS:
+            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_compose_recipients'), array('opts' => array('value' => $email_count)));
+
+        case self::ACCESS_COMPOSE_TIMELIMIT:
+            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_compose_timelimit'), array('opts' => array('value' => $email_count)));
         }
 
         return false;
@@ -604,8 +654,13 @@ class IMP_Imap implements Serializable
                 return false;
             }
 
-            foreach (array_keys($servers) as $key) {
-                if (!empty($servers[$key]['disabled'])) {
+            foreach ($servers as $key => $val) {
+                if (empty($val['disabled'])) {
+                    /* Normalize protocol string. */
+                    $servers[$key]['protocol'] = isset($val['protocol'])
+                        ? ((strcasecmp($val['protocol'], 'pop') === 0) ? 'pop' : 'imap')
+                        : 'imap';
+                } else {
                     unset($servers[$key]);
                 }
             }

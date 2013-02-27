@@ -781,20 +781,22 @@ class IMP_Mailbox implements Serializable
             return true;
         }
 
+        $imp_imap = $injector->getInstance('IMP_Imap');
+
         /* Check permissions. */
-        if (!IMP::hasPermission('create_folders')) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX)) {
             Horde::permissionDeniedError(
                 'imp',
-                'create_folders',
+                'create_mboxes',
                 _("You are not allowed to create mailboxes.")
             );
             return false;
         }
-        if (!IMP::hasPermission('max_folders')) {
+        if (!$imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX_MAX)) {
             Horde::permissionDeniedError(
                 'imp',
-                'max_folders',
-                sprintf(_("You are not allowed to create more than %d mailboxes."), $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))
+                'max_create_mboxes',
+                sprintf(_("You are not allowed to create more than %d mailboxes."), $imp_imap->max_create_mboxes)
             );
             return false;
         }
@@ -806,7 +808,7 @@ class IMP_Mailbox implements Serializable
 
         /* Attempt to create the mailbox. */
         try {
-            $injector->getInstance('IMP_Imap')->createMailbox($this->_mbox, array('special_use' => $special_use));
+            $imp_imap->createMailbox($this->_mbox, array('special_use' => $special_use));
         } catch (IMP_Imap_Exception $e) {
             if ($e->getCode() == $e::USEATTR) {
                 unset($opts['special_use']);

@@ -376,7 +376,7 @@ class IMP_Basic_Folders extends IMP_Basic_Base
             'title' => _("_Refresh"),
             'url' => $folders_url->copy()
         ));
-        $actions->create_mbox = ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') && $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'));
+        $actions->create_mbox = ($imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX) && $imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX_MAX));
         if ($prefs->getValue('subscribe')) {
             $actions->subscribe = true;
             $subToggleText = $showAll

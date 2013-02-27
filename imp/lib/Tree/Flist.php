@@ -90,10 +90,12 @@ class IMP_Tree_Flist extends Horde_Tree_Renderer_Select
         }
 
         /* New mailbox entry. */
-        if ($this->getOption('new_mbox') &&
-            ($injector->getInstance('Horde_Core_Perms')->hasAppPermission('create_folders') &&
-             $injector->getInstance('Horde_Core_Perms')->hasAppPermission('max_folders'))) {
-            $view->new_mbox = true;
+        if ($this->getOption('new_mbox')) {
+            $imp_imap = $injector->getInstance('IMP_Imap');
+            if ($imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX) &&
+                $imp_imap->access(IMP_Imap::ACCESS_CREATEMBOX_MAX)) {
+                $view->new_mbox = true;
+            }
         }
 
         /* Virtual folders. */

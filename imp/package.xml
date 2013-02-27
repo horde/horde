@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-13</date>
+ <date>2013-02-28</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -33,12 +33,13 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Move folder disabling configuration into the permission system.
+* [mms] Upgraded IMP permissions to allow permissions to be set per active backend.
 * [mms] Allow the active search query to be edited in the smartmobile view.
 * [mms] Add link to exit out of search view in smartmobile view into the original mailbox.
 * [mms] Allow default special mailbox names to be overriden by a backend.
 * [mms] Move fixed mailbox configuration into backends.php.
 * [mms] Move special mailboxes autocreation configuration into backends.php.
-* [mms] Move folder disabling configuration into backends.php.
 * [mms] Add SMTP debugging.
 * [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).
 * [mms] Add the &apos;msg_filter&apos; hook.
@@ -75,6 +76,7 @@
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="bin">
+    <file name="imp-admin-upgrade" role="script" />
     <file name="imp-bounce-spam" role="script">
      <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
     </file>
@@ -349,7 +351,11 @@
      </dir> <!-- /lib/Notification -->
     <dir name="Prefs">
      <dir name="Sort">
+      <dir name="Sortpref">
+       <file name="Locked.php" role="horde" />
+      </dir> <!-- /lib/Prefs/Sort/Sortpref -->
       <file name="FixedDate.php" role="horde" />
+      <file name="None.php" role="horde" />
       <file name="Sortpref.php" role="horde" />
      </dir> <!-- /lib/Prefs/Sort -->
      <dir name="Special">
@@ -462,6 +468,7 @@
     <file name="Mailbox.php" role="horde" />
     <file name="Maillog.php" role="horde" />
     <file name="Message.php" role="horde" />
+    <file name="Perms.php" role="horde" />
     <file name="Quota.php" role="horde" />
     <file name="Search.php" role="horde" />
     <file name="Sentmail.php" role="horde" />
@@ -1403,6 +1410,7 @@
  </usesrole>
  <phprelease>
   <filelist>
+   <install as="imp-admin-upgrade" name="bin/imp-admin-upgrade" />
    <install as="imp-bounce-spam" name="bin/imp-bounce-spam" />
    <install as="imp-mailbox-decode" name="bin/imp-mailbox-decode" />
    <install as="imp-query-imap-cache" name="bin/imp-query-imap-cache" />
@@ -1465,6 +1473,7 @@
    <install as="imp/lib/Mailbox.php" name="lib/Mailbox.php" />
    <install as="imp/lib/Maillog.php" name="lib/Maillog.php" />
    <install as="imp/lib/Message.php" name="lib/Message.php" />
+   <install as="imp/lib/Perms.php" name="lib/Perms.php" />
    <install as="imp/lib/Quota.php" name="lib/Quota.php" />
    <install as="imp/lib/Search.php" name="lib/Search.php" />
    <install as="imp/lib/Sentmail.php" name="lib/Sentmail.php" />
@@ -1620,7 +1629,9 @@
    <install as="imp/lib/Prefs/Identity.php" name="lib/Prefs/Identity.php" />
    <install as="imp/lib/Prefs/Sort.php" name="lib/Prefs/Sort.php" />
    <install as="imp/lib/Prefs/Sort/FixedDate.php" name="lib/Prefs/Sort/FixedDate.php" />
+   <install as="imp/lib/Prefs/Sort/None.php" name="lib/Prefs/Sort/None.php" />
    <install as="imp/lib/Prefs/Sort/Sortpref.php" name="lib/Prefs/Sort/Sortpref.php" />
+   <install as="imp/lib/Prefs/Sort/Sortpref/Locked.php" name="lib/Prefs/Sort/Sortpref/Locked.php" />
    <install as="imp/lib/Prefs/Special/Acl.php" name="lib/Prefs/Special/Acl.php" />
    <install as="imp/lib/Prefs/Special/ComposeTemplates.php" name="lib/Prefs/Special/ComposeTemplates.php" />
    <install as="imp/lib/Prefs/Special/Drafts.php" name="lib/Prefs/Special/Drafts.php" />

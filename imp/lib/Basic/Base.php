@@ -23,6 +23,11 @@
 abstract class IMP_Basic_Base
 {
     /**
+     * @var array
+     */
+    public $header_params = array();
+
+    /**
      * @var IMP_Indices_Mailbox
      */
     public $indices;

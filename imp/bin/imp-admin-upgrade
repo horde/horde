@@ -1,0 +1,88 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Perform admin upgrade tasks specific to IMP.
+ *
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   IMP
+ */
+
+$baseFile = __DIR__ . '/../lib/Application.php';
+if (file_exists($baseFile)) {
+    require_once $baseFile;
+} else {
+    require_once 'PEAR/Config.php';
+    require_once PEAR_Config::singleton()
+        ->get('horde_dir', null, 'pear.horde.org') . '/imp/lib/Application.php';
+}
+Horde_Registry::appInit('imp', array('cli' => true));
+
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-t', '--task', array(
+    'dest' => 'task',
+    'help' => 'Upgrade task'
+));
+list($values,) = $parser->parseArgs();
+
+switch ($values->task) {
+case 'backend_perms':
+case 'backend_perms_force':
+    $upgrade = array(
+        'create_folders' => 'create_mboxes',
+        'max_folders' => 'max_create_mboxes',
+        'max_recipients' => 'max_compose_recipients',
+        'max_timelimit' => 'max_compose_timelimit'
+    );
+
+    $backends = IMP_Imap::loadServerConfig();
+    $perms = $injector->getInstance('Horde_Perms');
+
+    $cli->message($cli->bold('Upgrading permissions.'));
+
+    if ($values->task == 'backend_perms_force') {
+        foreach (array_keys($backends) as $backend) {
+            try {
+                $perms->removePermission($perms->getPermission('imp:' . $backend), true);
+                $cli->message(sprintf('Force deletion of all "%s" backend permissions.', $backend));
+            } catch (Horde_Exception $e) {}
+        }
+    }
+
+    foreach ($upgrade as $key => $val) {
+        $pkey = 'imp:' . $key;
+
+        try {
+            if ($perms->exists($pkey)) {
+                $pval = $perms->getPermission($pkey);
+
+                foreach (array_keys($backends) as $backend) {
+                    $parent_perm = 'imp:' . $backend;
+                    if (!$perms->exists($parent_perm)) {
+                        $perms->addPermission($perms->newPermission($parent_perm));
+                    }
+
+                    $perm_edit = clone $pval;
+                    $perm_edit->setName($parent_perm . ':' . $key);
+                    $perms->addPermission($perm_edit);
+                    $cli->message(sprintf('Added "%s" permission to the "%s" backend.', $key, $backend));
+                }
+
+                $perms->removePermission($pval);
+                $cli->message(sprintf('Removed obsolete "%s" permission.', $key));
+            }
+        } catch (Horde_Exception $e) {
+            $cli->message(sprintf('Error upgrading "%s" permission: %s.', $key, $e->getMessage()), 'cli.error');
+        }
+    }
+
+    $cli->message($cli->bold('DONE upgrading permissions.'));
+    break;
+}

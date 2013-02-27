@@ -246,11 +246,6 @@
  *                               Placeholders are the same as in
  *                               'query_quota'.
  *
- * disable_features: (array) A list of features to disable for this backend.
- *   One or more of the following:
- *     - IMP_Imap::DISABLE_FOLDERS: Disable folder navigation (other than
- *       INBOX) for IMAP backends. This option has no effect on POP backends.
- *
  * fixed_mboxes: (array) [IMAP only] A list of mailboxes that can't be
  *               modified (deleted, renamed, etc.) by the user.
  *
@@ -391,9 +386,6 @@ $servers['advanced'] = array(
             'hide_when_unlimited' => true,
             'unit' => 'MB'
         )
-    ),
-    'disable_features' => array(
-        // IMP_Imap::DISABLE_FOLDERS,
     ),
     'fixed_mboxes' => array(),
     'special_mboxes' => array(

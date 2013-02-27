@@ -45,11 +45,8 @@ The 'debug' option has been added to the SMTP configuration.
 Configuration Options (conf.php)
 --------------------------------
 
-The $conf['compose']['link_all_attachments'] option was removed.
-
 The $conf['user']['allow_folders'] option has been removed. This can now be
-set on a per-backend basis in config/backends.local.php ('disable_features'
-option).
+set per-backend using the Horde permissions system.
 
 The $conf['user']['autocreate_special'] option has been removed. This can now
 be set on a per-backend basis in config/backends.local.php
@@ -62,6 +59,10 @@ option).
 The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
 options have been removed. This feature has been moved to the 'msg_filter'
 hook.
+
+The following options have been removed::
+
+   $conf['compose']['link_all_attachments']
 
 
 Hooks (hooks.php)
@@ -86,6 +87,15 @@ MIME Viewer Options (mime_drivers.php)
 --------------------------------------
 
 Thumbnails can now be disabled for images and PDF attachments.
+
+
+Permissions
+-----------
+
+IMP permissions are now applied per backend. To upgrade existing permissions,
+an admin needs to run the following script::
+
+   bin/imp-admin-upgrade --task=backend_perms
 
 
 Preferences (prefs.php)
