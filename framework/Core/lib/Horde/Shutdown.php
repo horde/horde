@@ -37,7 +37,7 @@ class Horde_Shutdown
      */
     static public function add(Horde_Shutdown_Task $task)
     {
-        $GLOBALS['injector']->getInstance(self)->addTask($task);
+        $GLOBALS['injector']->getInstance('Horde_Shutdown')->addTask($task);
     }
 
     /**
@@ -45,7 +45,7 @@ class Horde_Shutdown
      */
     public function __construct()
     {
-        register_shutdown_function(array($this, '_runTasks'));
+        register_shutdown_function(array($this, 'runTasks'));
     }
 
     /**
@@ -61,11 +61,11 @@ class Horde_Shutdown
     /**
      * Run shutdown tasks.
      */
-    private function _runTasks()
+    public function runTasks()
     {
         foreach ($this->_tasks as $val) {
             try {
-                $tasks->shutdown();
+                $val->shutdown();
             } catch (Exception $e) {}
         }
     }
