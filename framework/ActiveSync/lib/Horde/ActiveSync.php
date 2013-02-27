@@ -710,13 +710,26 @@ class Horde_ActiveSync
      */
     public function commandsHeader()
     {
+        header('MS-ASProtocolCommands: ' . $this->getSupportedCommands());
+    }
+
+    /**
+     * Return the supported commands in a comma delimited string suitable for
+     * sending as the MS-ASProtocolCommands header.
+     *
+     * @return string
+     */
+    public function getSupportedCommands()
+    {
         switch ($this->_maxVersion) {
         case self::VERSION_TWOFIVE:
-            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping');
-            break;
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Search,Ping';
+
         case self::VERSION_TWELVE:
         case self::VERSION_TWELVEONE:
-            header('MS-ASProtocolCommands: Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations');
+        case self::VERSION_FOURTEEN:
+        case self::VERSION_FOURTEENONE:
+            return 'Sync,SendMail,SmartForward,SmartReply,GetAttachment,GetHierarchy,CreateCollection,DeleteCollection,MoveCollection,FolderSync,FolderCreate,FolderDelete,FolderUpdate,MoveItems,GetItemEstimate,MeetingResponse,ResolveRecipients,ValidateCert,Provision,Settings,Search,Ping,ItemOperations';
         }
     }
 
