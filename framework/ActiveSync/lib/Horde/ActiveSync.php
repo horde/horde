@@ -231,9 +231,11 @@ class Horde_ActiveSync
 
     const FOLDER_ROOT                           = 0;
 
-    const VERSION_TWOFIVE                       = 2.5;
-    const VERSION_TWELVE                        = 12;
-    const VERSION_TWELVEONE                     = 12.1;
+    const VERSION_TWOFIVE                       = '2.5';
+    const VERSION_TWELVE                        = '12';
+    const VERSION_TWELVEONE                     = '12.1';
+    const VERSION_FOURTEEN                      = '14';
+    const VERSION_FOURTEENONE                   = '14.1';
 
     const MIME_SUPPORT_NONE                     = 0;
     const MIME_SUPPORT_SMIME                    = 1;
@@ -270,7 +272,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_maxVersion = self::VERSION_TWELVEONE;
+    protected $_maxVersion = self::VERSION_FOURTEENONE;
 
     /**
      * The actual version we are supporting.
@@ -333,6 +335,19 @@ class Horde_ActiveSync
         20 => 'Provision',
         21 => 'ResolveRecipients',
         22 => 'ValidateCert'
+    );
+
+    /**
+     * Supported EAS versions.
+     *
+     * @var array
+     */
+    static protected $_supportedVersions = array(
+        self::VERSION_TWOFIVE,
+        self::VERSION_TWELVE,
+        self::VERSION_TWELVEONE,
+        self::VERSION_FOURTEEN,
+        self::VERSION_FOURTEENONE
     );
 
     /**
@@ -660,6 +675,12 @@ class Horde_ActiveSync
             break;
         case self::VERSION_TWELVEONE:
             header('MS-Server-ActiveSync: 12.1');
+            break;
+        case self::VERSION_FOURTEEN:
+            header('MS-Server-ActiveSync: 14.0');
+            break;
+        case self::VERSION_FOURTEENONE:
+            header('MS-Server-ActiveSync: 14.1');
         }
     }
 
@@ -669,17 +690,18 @@ class Horde_ActiveSync
      */
     public function versionHeader()
     {
-        switch ($this->_maxVersion) {
-        case self::VERSION_TWOFIVE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5');
-            break;
-        case self::VERSION_TWELVE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0');
-            break;
-        case self::VERSION_TWELVEONE:
-            header('MS-ASProtocolVersions: 1.0,2.0,2.1,2.5,12.0,12.1');
-            header('MS-ASProtocolRevisions: 12.1r1');
-        }
+        header('MS-ASProtocolVersions: ' . $this->getSupportedVersions());
+    }
+
+    /**
+     * Return supported versions in a comma delimited string suitable for
+     * sending as the MS-ASProtocolVersions header.
+     *
+     * @return string
+     */
+    public function getSupportedVersions()
+    {
+        return implode(',', array_slice(self::$_supportedVersions, 0, (array_search($this->_maxVersion, self::$_supportedVersions) + 1)));
     }
 
     /**
