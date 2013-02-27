@@ -45,7 +45,7 @@ class Horde_Shutdown
      */
     public function __construct()
     {
-        register_shutdown_function(array($this, '_runTasks'));
+        register_shutdown_function(array($this, 'runTasks'));
     }
 
     /**
@@ -61,11 +61,11 @@ class Horde_Shutdown
     /**
      * Run shutdown tasks.
      */
-    private function _runTasks()
+    public function runTasks()
     {
         foreach ($this->_tasks as $val) {
             try {
-                $tasks->shutdown();
+                $val->shutdown();
             } catch (Exception $e) {}
         }
     }
