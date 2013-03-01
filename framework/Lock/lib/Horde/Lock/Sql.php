@@ -174,12 +174,14 @@ class Horde_Lock_Sql extends Horde_Lock
     public function setLock($requestor, $scope, $principal,
                             $lifetime = 1, $type = Horde_Lock::TYPE_SHARED)
     {
-        $oldlocks = $this->getLocks($scope, $principal, Horde_Lock::TYPE_EXCLUSIVE);
+        $oldlocks = $this->getLocks(
+            $scope, $principal,
+            $type == Horde_Lock::TYPE_SHARED ? Horde_Lock::TYPE_EXCLUSIVE : null);
 
         if (count($oldlocks) != 0) {
-            // An exclusive lock exists.  Deny the new request.
+            // A lock exists.  Deny the new request.
             if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock requested for %s denied due to existing exclusive lock.', $principal), 'NOTICE');
+                $this->_logger->log(sprintf('Lock requested for %s denied due to existing lock.', $principal), 'NOTICE');
             }
             return false;
         }
