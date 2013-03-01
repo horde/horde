@@ -37,9 +37,7 @@ case 'backend_perms':
 case 'backend_perms_force':
     $upgrade = array(
         'create_folders' => 'create_mboxes',
-        'max_folders' => 'max_create_mboxes',
-        'max_recipients' => 'max_compose_recipients',
-        'max_timelimit' => 'max_compose_timelimit'
+        'max_folders' => 'max_create_mboxes'
     );
 
     $backends = IMP_Imap::loadServerConfig();

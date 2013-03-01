@@ -364,10 +364,15 @@ class IMP_Imap implements Serializable
     {
         switch ($right) {
         case self::ACCESS_COMPOSE_RECIPIENTS:
-            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_compose_recipients'), array('opts' => array('value' => $email_count)));
-
         case self::ACCESS_COMPOSE_TIMELIMIT:
-            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_compose_timelimit'), array('opts' => array('value' => $email_count)));
+            return $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission(
+                ($right == self::ACCESS_COMPOSE_RECIPIENTS) ? 'max_recipients' : 'max_timelimit',
+                array(
+                    'opts' => array(
+                        'value' => $email_count
+                    )
+                )
+            );
         }
 
         return false;

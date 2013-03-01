@@ -45,7 +45,8 @@ class IMP_Perms
                 'title' => _("Allow mailbox creation?"),
                 'type' => 'boolean'
             ),
-            'max_compose_recipients' => array(
+            'max_recipients' => array(
+                'global' => true,
                 'handle' => function($allowed, $opts) {
                     return isset($opts['value'])
                         ? (intval($allowed) >= $opts['value'])
@@ -54,7 +55,8 @@ class IMP_Perms
                 'title' => _("Maximum Number of Recipients per Message"),
                 'type' => 'int'
             ),
-            'max_compose_timelimit' => array(
+            'max_timelimit' => array(
+                'global' => true,
                 'handle' => function($allowed, $opts) {
                     if (!isset($opts['value'])) {
                         return $allowed;
@@ -97,6 +99,12 @@ class IMP_Perms
             )
         );
 
+        foreach ($this->_perms as $key => $val) {
+            if (!empty($val['global'])) {
+                $perms[$key] = $val;
+            }
+        }
+
         // Run through every active backend.
         foreach (IMP_Imap::loadServerConfig() as $key => $val) {
             $bkey = 'backends:' . $key;
@@ -106,7 +114,9 @@ class IMP_Perms
             );
 
             foreach ($this->_perms as $key2 => $val2) {
-                if (empty($val2['imaponly']) || ($val['protocol'] == 'imap')) {
+                if (empty($val2['global']) &&
+                    (empty($val2['imaponly']) ||
+                    ($val['protocol'] == 'imap'))) {
                     $perms[$bkey . ':' . $key2] = array(
                         'title' => $val2['title'],
                         'type' => $val2['type']
