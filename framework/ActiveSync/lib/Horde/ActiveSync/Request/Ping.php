@@ -309,6 +309,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $dataavailable = true;
                         $changes[$collection['id']] = $changecount;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
+                        $syncCache->setPingChangeFlag($collection['id']);
+                        $this->_logger->debug('Setting PingChangeFlag on ' . $collection['id']);
                     }
                 }
 
@@ -319,6 +321,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     break;
                 }
                 sleep($timeout);
+
                 // Need to refresh collection data in case a SYNC was performed
                 // while the PING was still alive. Note that just killing the
                 // PING if a SYNC is detected will cause the device to stop
