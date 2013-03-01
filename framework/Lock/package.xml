@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Don&apos;t make lock non-permanent when resetting a permanent lock.
 * [jan] Fix retrieving information for permanent locks.
 * [jan] Add unit tests.
  </notes>
@@ -274,6 +275,7 @@
    <date>2013-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Don&apos;t make lock non-permanent when resetting a permanent lock.
 * [jan] Fix retrieving information for permanent locks.
 * [jan] Add unit tests.
    </notes>

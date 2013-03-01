@@ -153,8 +153,8 @@ class Horde_Lock_Sql extends Horde_Lock
 
         $sql = 'UPDATE ' . $this->_params['table'] . ' SET ' .
                'lock_update_timestamp = ?, lock_expiry_timestamp = ? ' .
-               'WHERE lock_id = ?';
-        $values = array($now, $expiration, $lockid);
+               'WHERE lock_id = ? AND lock_expiry_timestamp <> ?';
+        $values = array($now, $expiration, $lockid, Horde_Lock::PERMANENT);
 
         try {
             $this->_db->update($sql, $values);
