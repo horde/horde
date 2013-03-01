@@ -279,6 +279,48 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Set the ping change flag on a collection. Indicatates that the last
+     * PING was terminated with a change in this collection.
+     *
+     * @param string $collectionid  The collection id.
+     * @throws InvalidArgumentException
+     * @since 2.3.0
+     */
+    public function setPingChangeFlag($collectionid)
+    {
+        if (empty($this->_data['collections'][$collectionid])) {
+            throw new InvalidArgumentException('Collection does not exist.');
+        }
+
+        $this->_data['collections'][$collectionid]['pingchange'] = true;
+    }
+
+    /**
+     * Checks the status of the ping change flag. If true, the last PING request
+     * detected a change in the specified collection.
+     *
+     * @param string $collectionid  The collection id to check.
+     *
+     * @return boolean
+     * @since 2.3.0
+     */
+    public function hasPingChangeFlag($collectionid)
+    {
+        return !empty($this->_data['collections'][$collectionid]['pingchange']);
+    }
+
+    /**
+     * Reset the specified collection's ping change flag.
+     *
+     * @param string  $collectionid  The collectionid to reset.
+     * @since 2.3.0
+     */
+    public function resetPingChangeFlag($collectionid)
+    {
+        $this->_data['collections'][$collectionid]['pingchange'] = false;
+    }
+
+    /**
      * Refresh the cached collections from the state backend.
      *
      */
@@ -394,12 +436,14 @@ class Horde_ActiveSync_SyncCache
      *             DEFAULT: false (Do not set the new synckey).
      *  - unsetChanges: (boolean) Unset the GETCHANGES flag in the collection.
      *             DEFAULT: false (Do not unset the GETCHANGES flag).
-     *
+     *  - unsetPingChangeFlag: (boolean) Unset the PINGCHANGES flag in the collection.
+     *             DEFUALT: false (Do not uset the PINGCHANGES flag).
+     *             @since 2.3.0
      */
     public function updateCollection(array $collection, array $options = array())
     {
         $options = array_merge(
-            array('newsynckey' => false, 'unsetChanges' => false),
+            array('newsynckey' => false, 'unsetChanges' => false, 'unsetPingChangeFlag' => false),
             $options
         );
         if (!empty($collection['id'])) {
@@ -443,6 +487,9 @@ class Horde_ActiveSync_SyncCache
             }
             if ($options['unsetChanges']) {
                 unset($this->_data['collections'][$collection['id']]['getchanges']);
+            }
+            if ($options['unsetPingChangeFlag']) {
+                unset($this->_data['collections'][$collection['id']]['pingchange']);
             }
 
         } else {

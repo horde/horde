@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0http://pear.php.net/dtd/package-2.0.xsd">
  <name>Horde_Core</name>
  <channel>pear.horde.org</channel>
  <summary>Horde Core Framework libraries</summary>
@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-25</date>
- <time>19:49:08</time>
+ <date>2013-02-27</date>
+ <time>01:24:37</time>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -40,10 +40,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
 * [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
 * [mms] Add Horde_Themes::viewDir().
-* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -446,7 +446,6 @@
        <file name="SessionHandler.php" role="php" />
        <file name="Share.php" role="php" />
        <file name="ShareBase.php" role="php" />
-       <file name="ShutdownRunner.php" role="php" />
        <file name="SpellChecker.php" role="php" />
        <file name="Template.php" role="php" />
        <file name="TextFilter.php" role="php" />
@@ -617,6 +616,9 @@
      <dir name="Session">
       <file name="Null.php" role="php" />
      </dir> <!-- /lib/Horde/Session -->
+     <dir name="Shutdown">
+      <file name="Task.php" role="php" />
+     </dir> <!-- /lib/Horde/Shutdown -->
      <dir name="Themes">
       <file name="Cache.php" role="php" />
       <file name="Css.php" role="php" />
@@ -631,6 +633,7 @@
      <file name="PageOutput.php" role="php" />
      <file name="Registry.php" role="php" />
      <file name="Session.php" role="php" />
+     <file name="Shutdown.php" role="php" />
      <file name="Themes.php" role="php" />
     </dir> <!-- /lib/Horde -->
     <file name="Horde.php" role="php" />
@@ -1077,13 +1080,6 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
-    <name>Horde_Queue</name>
-    <channel>pear.horde.org</channel>
-    <min>1.0.0</min>
-    <max>2.0.0alpha1</max>
-    <exclude>2.0.0alpha1</exclude>
-   </package>
-   <package>
     <name>Horde_Secret</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1297,6 +1293,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Routes</name>
@@ -1597,6 +1600,7 @@
    <install as="Horde/PageOutput.php" name="lib/Horde/PageOutput.php" />
    <install as="Horde/Registry.php" name="lib/Horde/Registry.php" />
    <install as="Horde/Session.php" name="lib/Horde/Session.php" />
+   <install as="Horde/Shutdown.php" name="lib/Horde/Shutdown.php" />
    <install as="Horde/Themes.php" name="lib/Horde/Themes.php" />
    <install as="Horde/Config/Form.php" name="lib/Horde/Config/Form.php" />
    <install as="Horde/Core/Block.php" name="lib/Horde/Core/Block.php" />
@@ -1720,7 +1724,6 @@
    <install as="Horde/Core/Factory/SessionHandler.php" name="lib/Horde/Core/Factory/SessionHandler.php" />
    <install as="Horde/Core/Factory/Share.php" name="lib/Horde/Core/Factory/Share.php" />
    <install as="Horde/Core/Factory/ShareBase.php" name="lib/Horde/Core/Factory/ShareBase.php" />
-   <install as="Horde/Core/Factory/ShutdownRunner.php" name="lib/Horde/Core/Factory/ShutdownRunner.php" />
    <install as="Horde/Core/Factory/SpellChecker.php" name="lib/Horde/Core/Factory/SpellChecker.php" />
    <install as="Horde/Core/Factory/Template.php" name="lib/Horde/Core/Factory/Template.php" />
    <install as="Horde/Core/Factory/TextFilter.php" name="lib/Horde/Core/Factory/TextFilter.php" />
@@ -1802,6 +1805,7 @@
    <install as="Horde/Script/File/JsDir.php" name="lib/Horde/Script/File/JsDir.php" />
    <install as="Horde/Script/File/JsFramework.php" name="lib/Horde/Script/File/JsFramework.php" />
    <install as="Horde/Session/Null.php" name="lib/Horde/Session/Null.php" />
+   <install as="Horde/Shutdown/Task.php" name="lib/Horde/Shutdown/Task.php" />
    <install as="Horde/Themes/Cache.php" name="lib/Horde/Themes/Cache.php" />
    <install as="Horde/Themes/Css.php" name="lib/Horde/Themes/Css.php" />
    <install as="Horde/Themes/Element.php" name="lib/Horde/Themes/Element.php" />
@@ -2787,13 +2791,13 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-25</date>
+   <date>2013-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
 * [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
 * [mms] Add Horde_Themes::viewDir().
-* [jan] Add a Horde_ShutdownRunner factory on top of Horde_Queue.
    </notes>
   </release>
  </changelog>
