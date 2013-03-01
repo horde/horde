@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Include parent tasks in cost object labels.
+* [jan] Only return completed tasks up to a week old as cost objects.
 * [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
  </notes>
@@ -1297,6 +1299,8 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Include parent tasks in cost object labels.
+* [jan] Only return completed tasks up to a week old as cost objects.
 * [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
    </notes>

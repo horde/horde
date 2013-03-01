@@ -2188,7 +2188,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
     {
         /* Skip invisible elements. */
         if ($this->isInvisible($elt)) {
-            return false;
+            return (!($c['mask'] & self::FLIST_NOCONTAINER) &&
+                    $this->hasChildren($elt, true));
         }
 
         $c = &$this->_cache['filter'];
