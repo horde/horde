@@ -37,7 +37,8 @@ Server Options (backends.php)
 
 Sorting on non-IMAP servers, or IMAP servers that do not support the SORT
 extension, has been disabled by default in IMP 6.1. To restore the old
-behavior (NOT RECOMMENDED), see the 'sort_force' option in backends.php.
+behavior (NOT RECOMMENDED), see the 'sort_force' option in
+``config/backends.local.php``.
 
 The 'debug' option has been added to the SMTP configuration.
 
@@ -49,11 +50,11 @@ The $conf['user']['allow_folders'] option has been removed. This can now be
 set per-backend using the Horde permissions system.
 
 The $conf['user']['autocreate_special'] option has been removed. This can now
-be set on a per-backend basis in config/backends.local.php
+be set on a per-backend basis in ``config/backends.local.php``
 ('autocreate_special' option).
 
 The $conf['server']['fixed_folders'] option has been removed. This can now be
-set on a per-backend basis in config/backends.local.php ('fixed_mboxes'
+set on a per-backend basis in ``config/backends.local.php`` ('fixed_mboxes'
 option).
 
 The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
