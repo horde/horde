@@ -124,6 +124,13 @@ class IMP_Imap implements Serializable
     }
 
     /**
+     * Returns the IMAP Client object.
+     *
+     * @param IMP_Mailbox $mbox  Get the IMAP client for a given mailbox. If
+     *                           null, returns the IMAP client for the login
+     *                           backend.
+     *
+     * @return Horde_Imap_Client_Base  An IMAP Client object.
      */
     public function getOb($mbox = null)
     {
