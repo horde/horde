@@ -78,11 +78,13 @@ class Horde_Lock_Sql extends Horde_Lock
     public function getLockInfo($lockid)
     {
         $now = time();
-        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
-               'lock_origin_timestamp, lock_update_timestamp, ' .
-               'lock_expiry_timestamp, lock_type FROM ' . $this->_params['table'] .
-               ' WHERE lock_id = ? AND lock_expiry_timestamp >= ?';
-        $values = array($lockid, $now);
+        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, '
+            . 'lock_origin_timestamp, lock_update_timestamp, '
+            . 'lock_expiry_timestamp, lock_type FROM '
+            . $this->_params['table']
+            . ' WHERE lock_id = ? AND '
+            . '(lock_expiry_timestamp >= ? OR lock_expiry_timestamp = ?)';
+        $values = array($lockid, $now, Horde_Lock::PERMANENT);
 
         try {
             return $this->_db->selectOne($sql, $values);
