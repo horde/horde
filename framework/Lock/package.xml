@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2012-11-22</date>
- <time>13:16:31</time>
+ <date>2013-03-01</date>
+ <time>16:26:33</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Add unit tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,6 +52,16 @@
      </dir> <!-- /migration/Horde/Lock -->
     </dir> <!-- /migration/Horde -->
    </dir> <!-- /migration -->
+   <dir name="test">
+    <dir name="Horde">
+     <dir name="Lock">
+      <file name="AllTests.php" role="test" />
+      <file name="bootstrap.php" role="test" />
+      <file name="LockTest.php" role="test" />
+      <file name="phpunit.xml" role="test" />
+     </dir> <!-- /test/Horde/Lock -->
+    </dir> <!-- /test/Horde -->
+   </dir> <!-- /test -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -104,6 +114,10 @@
    <install as="migration/1_horde_lock_base_tables.php" name="migration/Horde/Lock/1_horde_lock_base_tables.php" />
    <install as="migration/2_horde_lock_upgrade_column_types.php" name="migration/Horde/Lock/2_horde_lock_upgrade_column_types.php" />
    <install as="migration/3_horde_lock_fix_owner_width.php" name="migration/Horde/Lock/3_horde_lock_fix_owner_width.php" />
+   <install as="Horde/Lock/AllTests.php" name="test/Horde/Lock/AllTests.php" />
+   <install as="Horde/Lock/bootstrap.php" name="test/Horde/Lock/bootstrap.php" />
+   <install as="Horde/Lock/LockTest.php" name="test/Horde/Lock/LockTest.php" />
+   <install as="Horde/Lock/phpunit.xml" name="test/Horde/Lock/phpunit.xml" />
   </filelist>
  </phprelease>
  <changelog>
@@ -256,10 +270,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2013-03-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Add unit tests.
    </notes>
   </release>
  </changelog>
