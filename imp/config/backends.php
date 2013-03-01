@@ -254,12 +254,17 @@
  *   for a backend.
  *
  *   The array keys are the special mailbox type, the array values are the
- *   IMAP mailbox name to use on the server. Available keys:
+ *   IMAP mailbox name (UTF-8) to use on the server. Available keys:
  *     - IMP_Mailbox::MBOX_DRAFTS
  *     - IMP_Mailbox::MBOX_SENT
  *     - IMP_Mailbox::MBOX_SPAM
  *     - IMP_Mailbox::MBOX_TEMPLATES
  *     - IMP_Mailbox::MBOX_TRASH
+ *
+ *   It is also possible to define local-specifc special mailboxes. To do so,
+ *   use the array key IMP_Mailbox::MBOX_USERSPECIAL and list the special
+ *   mailboxes in an array, with keys as the IMAP mailbox name (in UTF-8) and
+ *   values as the mailbox display label.
  *
  * autocreate_special: (boolean) [IMAP only] If true, automatically create
  *                     special mailboxes on login?
@@ -394,6 +399,9 @@ $servers['advanced'] = array(
     //     IMP_Mailbox::MBOX_SPAM => 'Spam',
     //     IMP_Mailbox::MBOX_TEMPLATES => 'Templates',
     //     IMP_Mailbox::MBOX_TRASH => 'Trash',
+    //     IMP_Mailbox::MBOX_USERSPECIAL => array(
+    //         'Example' => _("Example Special Mailbox")
+    //     )
     ),
     'autocreate_special' => false,
 );

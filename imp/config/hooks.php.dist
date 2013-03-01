@@ -504,21 +504,6 @@ class IMP_Hooks
 //    }
 
 
-    /**
-     * Provide additional mailboxes to be treated as "special".
-     *
-     * @return array  An array of mailboxes to be treated as special. Keys
-     *                are the IMAP mailbox name (in UTF-8), values are the
-     *                mailbox display label.
-     */
-//    public function mbox_special()
-//    {
-//        // Example #1: Mark the 'Foo' mailbox as a special mailbox.
-//        return array(
-//            'Foo' => _("Foo Special Mailbox")
-//        );
-//    }
-
 
     /**
      * Dynamically alter a mailbox display label.

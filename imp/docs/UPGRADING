@@ -71,6 +71,9 @@ Hooks (hooks.php)
 
 The 'signature' hook has been removed.
 
+The 'mbox_special' hook has been removed. Additional special mailboxes can
+now be defined per-backend in ``config/backends.local.php``.
+
 The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
 second argument ($mode). If the current view mode is needed, it can be
 obtained via a call to $GLOBALS['registry']->getView().

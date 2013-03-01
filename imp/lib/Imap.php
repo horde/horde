@@ -32,6 +32,8 @@
  *                                                configured timelimit.
  * @property-read integer $max_create_mboxes  The maximum number of mailboxes
  *                                            a user can create.
+ * @property-read array $userspecial_mboxes  The list of user-defined special
+ *                                           mailboxes.
  */
 class IMP_Imap implements Serializable
 {
@@ -106,6 +108,11 @@ class IMP_Imap implements Serializable
         case 'max_compose_timelimit':
         case 'max_create_mboxes':
             return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth());
+
+        case 'userspecial_mboxes':
+            return ($this->init && ($mboxes = $this->_ob->getParam('imp:userspecial_mboxes')))
+                ? $mboxes
+                : array();
         }
     }
 
@@ -246,9 +253,19 @@ class IMP_Imap implements Serializable
             if (!empty($server['special_mboxes']) &&
                 is_array($server['special_mboxes'])) {
                 foreach ($server['special_mboxes'] as $key => $val) {
-                    $prefs->setValue($key, $val, array(
-                        'nosave' => true
-                    ));
+                    switch ($key) {
+                    case IMP_Mailbox::MBOX_USERSPECIAL:
+                        if (is_array($val) && !empty($val)) {
+                            $ob->setParam('imp:userspecial_mboxes', $val);
+                        }
+                        break;
+
+                    default:
+                        $prefs->setValue($key, $val, array(
+                            'nosave' => true
+                        ));
+                        break;
+                    }
                 }
             }
             break;
