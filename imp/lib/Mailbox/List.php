@@ -714,9 +714,11 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
     protected function _getThread($mbox, array $extra = array())
     {
         if (!isset($this->_thread[strval($mbox)])) {
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+
             try {
-                $thread = $GLOBALS['injector']->getInstance('IMP_Imap')->thread($mbox, array_merge($extra, array(
-                    'criteria' => $GLOBALS['session']->get('imp', 'imap_thread')
+                $thread = $imp_imap->thread($mbox, array_merge($extra, array(
+                    'criteria' => $imp_imap->thread_algo
                 )));
             } catch (Horde_Imap_Client_Exception $e) {
                 $thread = new Horde_Imap_Client_Data_Thread(array(), 'uid');

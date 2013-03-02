@@ -21,9 +21,12 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
+ * @property-read boolean $admin  Are IMAP admin features available?
+ * @property-read array $admin_params  Admin parameters.
  * @property-read boolean $autocreate_special  Auto-create special mailboxes?
  * @property-read boolean $changed  If true, this object has changed.
  * @property-read boolean $init  Has the base IMAP object been initialized?
+ * @property-read string $maildomain  Default maildomain.
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
  *                                                 compose message.
@@ -32,6 +35,11 @@
  *                                                configured timelimit.
  * @property-read integer $max_create_mboxes  The maximum number of mailboxes
  *                                            a user can create.
+ * @property-read boolean $quota  Is the quota active?
+ * @property-read array $quota_params  Quota parameters.
+ * @property-read string $server_key  Server key used to login.
+ * @property-read array $smtp_params  SMTP parameters.
+ * @property-read string $thread_algo  The threading algorithm to use.
  * @property-read array $userspecial_mboxes  The list of user-defined special
  *                                           mailboxes.
  */
@@ -96,6 +104,14 @@ class IMP_Imap implements Serializable
     public function __get($key)
     {
         switch ($key) {
+        case 'admin':
+            return ($this->init && $this->_ob->getParam('imp:admin'));
+
+        case 'admin_params':
+            return ((($sc = $this->loadServerConfig($key)) === false) || empty($sc['admin']) || !is_array($sc['admin']))
+                ? array()
+                : $sc['admin'];
+
         case 'autocreate_special':
             return ($this->init && $this->_ob->getParam('imp:autocreate_special') && $this->access(self::ACCESS_FOLDERS));
 
@@ -105,10 +121,72 @@ class IMP_Imap implements Serializable
         case 'init':
             return !is_null($this->_ob);
 
+        case 'maildomain':
+            return ($this->init && ($md = $this->_ob->getParam('imp:maildomain')))
+                ? $md
+                : '';
+
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
         case 'max_create_mboxes':
             return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth());
+
+        case 'quota':
+            return (bool) ($this->init && $this->_ob->getParam('imp:quota'));
+
+        case 'quota_params':
+            if (!$this->init ||
+                !($params = $this->_ob->getParam('imp:quota'))) {
+                return array();
+            }
+
+            if (isset($params['password'])) {
+                $secret = $injector->getInstance('Horde_Secret');
+                $params['password'] = $secret->read($secret->getKey(), $params['password']);
+            }
+
+            return $params;
+
+        case 'server_key':
+            return $this->init
+                ? $this->_ob->getParam('imp:backend')
+                : null;
+
+        case 'smtp_params':
+            if (!$this->init || !($params = $this->_ob->getParam('imp:smtp'))) {
+                return array();
+            }
+
+            if (!empty($params['auth'])) {
+                if (empty($params['username'])) {
+                    $params['username'] = $this->_ob->getParam('username');
+                }
+                if (empty($params['password'])) {
+                    $params['password'] = $this->_ob->getParam('password');
+                }
+            }
+
+            return $params;
+
+        case 'thread_algo':
+            if (!$this->init) {
+                return 'ORDEREDSUBJECT';
+            }
+
+            if ($thread = $this->_ob->getParam('imp:thread_algo')) {
+                return $thread;
+            }
+
+            $thread = $this->_ob->getParam('imp:thread');
+            $thread_cap = $this->queryCapability('THREAD');
+            if (!in_array($thread, is_array($thread_cap) ? $thread_cap : array())) {
+                $thread = 'ORDEREDSUBJECT';
+            }
+
+            $this->_ob->setParam('imp:thread_algo', $thread);
+            $this->_changed = true;
+
+            return $thread;
 
         case 'userspecial_mboxes':
             return ($this->init && ($mboxes = $this->_ob->getParam('imp:userspecial_mboxes')))
@@ -214,10 +292,24 @@ class IMP_Imap implements Serializable
             'username' => $username,
             // IMP specific config
             'imp:acl' => !empty($sc['acl']),
+            'imp:admin' => !empty($sc['admin']),
             'imp:autocreate_special' => !empty($sc['autocreate_special']),
             'imp:backend' => $key,
-            'imp:sort_force' => !empty($sc['sort_force'])
+            'imp:maildomain' => isset($sc['maildomain']) ? $sc['maildomain'] : null,
+            'imp:namespace' => empty($sc['namespace']) ? null : $sc['namespace'],
+            'imp:smtp' => (!empty($sc['smtp']) && is_array($sc['smtp'])) ? $sc['smtp'] : null,
+            'imp:sort_force' => !empty($sc['sort_force']),
+            'imp:thread' => isset($sc['thread']) ? $sc['thread'] : 'REFERENCES'
         );
+
+        /* Quota configuration. */
+        if (!empty($sc['quota'])) {
+            if (isset($sc['quota']['password'])) {
+                $secret = $injector->getInstance('Horde_Secret');
+                $sc['quota']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
+            }
+            $imap_config['imp:quota'] = $sc['quota'];
+        }
 
         /* Initialize caching. */
         $imap_config['cache'] = $this->loadCacheConfig(isset($sc['cache']) ? $sc['cache'] : null);
@@ -400,7 +492,7 @@ class IMP_Imap implements Serializable
     public function getNamespaceList()
     {
         try {
-            return $this->getNamespaces($GLOBALS['session']->get('imp', 'imap_namespace', Horde_Session::TYPE_ARRAY));
+            return $this->getNamespaces($this->_ob->getParam('imp:namespace'));
         } catch (Horde_Imap_Client_Exception $e) {
             return array();
         }

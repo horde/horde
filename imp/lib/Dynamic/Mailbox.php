@@ -55,7 +55,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'templatePath' => IMP_TEMPLATES . '/dynamic'
         ));
         $impSubinfo->addHelper('Text');
-        $impSubinfo->quota = $session->get('imp', 'imap_quota');
+        $impSubinfo->quota = $imp_imap->quota;
 
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = $this->view->show_search;

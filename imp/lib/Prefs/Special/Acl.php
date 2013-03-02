@@ -32,7 +32,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification, $page_output, $registry, $session;
+        global $injector, $notification, $page_output, $registry;
 
         $page_output->addScriptFile('acl.js');
 
@@ -101,7 +101,7 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
              $view->curr_acl = $cval;
         }
 
-        if ($session->get('imp', 'imap_admin')) {
+        if ($injector->getInstance('IMP_Imap')->admin) {
             $current_users = array_keys($curr_acl);
             $new_user = array();
 

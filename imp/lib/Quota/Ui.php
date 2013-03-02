@@ -33,7 +33,7 @@ class IMP_Quota_Ui
     {
         global $injector, $session;
 
-        if (!$session->get('imp', 'imap_quota')) {
+        if (!$injector->getInstance('IMP_Imap')->quota) {
             return false;
         }
 

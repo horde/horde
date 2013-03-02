@@ -37,22 +37,15 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $params = $GLOBALS['session']->get('imp', 'smtp', Horde_Session::TYPE_ARRAY);
+        global $conf;
 
-        /* If SMTP authentication has been requested, use either the username
-         * and password provided in the configuration or populate the username
-         * and password fields based on the current values for the user. Note
-         * that we assume that the username and password values from the
-         * current IMAP / POP3 connection are valid for SMTP authentication as
-         * well. */
-        if (!empty($params['auth'])) {
-            $imap_ob = $injector->getInstance('IMP_Imap');
-            if (empty($params['username'])) {
-                $params['username'] = $imap_ob->getParam('username');
-            }
-            if (empty($params['password'])) {
-                $params['password'] = $imap_ob->getParam('password');
-            }
+        $params = $conf['mailer']['params'];
+
+        if ($conf['mailer']['type'] == 'smtp') {
+            $params = array_merge(
+                $params,
+                $injector->getInstance('IMP_Imap')->smtp_params
+            );
         }
 
         if (!empty($params['debug'])) {

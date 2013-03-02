@@ -113,13 +113,6 @@ class IMP_Application extends Horde_Registry_Application
         foreach ($factories as $key => $val) {
             $GLOBALS['injector']->bindFactory($key, $val, 'create');
         }
-
-        /* Methods only available if admin config is set for this
-         * server/login. */
-        if (!isset($GLOBALS['session']) ||
-            !$GLOBALS['session']->get('imp', 'imap_admin')) {
-            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
-        }
     }
 
     /**
@@ -133,7 +126,13 @@ class IMP_Application extends Horde_Registry_Application
      */
     protected function _init()
     {
-        global $prefs, $registry;
+        global $injector, $prefs, $registry;
+
+        /* Methods only available if admin config is set for this
+         * server/login. */
+        if (!$injector->getInstance('IMP_Imap')->admin) {
+            $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
+        }
 
         // Set default message character set.
         if ($registry->getAuth()) {
@@ -171,7 +170,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Grab the current server from the session to correctly populate
          * login form. */
-        $this->_oldserver = $GLOBALS['session']->get('imp', 'server_key');
+        $this->_oldserver = $GLOBALS['injector']->getInstance('IMP_Imap')->server_key;
     }
 
     /* Horde permissions. */
@@ -351,11 +350,11 @@ class IMP_Application extends Horde_Registry_Application
                 : $credentials['imp_server_key'];
         }
 
-        $this->_addSessVars(IMP_Auth::authenticate(array(
+        IMP_Auth::authenticate(array(
             'password' => $credentials['password'],
             'server' => $server,
             'userId' => $userId
-        )));
+        ));
     }
 
     /**

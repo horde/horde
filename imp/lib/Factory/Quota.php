@@ -30,7 +30,8 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
      */
     public function create(Horde_Injector $injector)
     {
-        $qparams = $GLOBALS['session']->get('imp', 'imap_quota');
+        $imap_ob = $injector->getInstance('IMP_Imap');
+        $qparams = $imap_ob->quota_params;
 
         if (!isset($qparams['driver'])) {
             throw new IMP_Exception('Quota config missing driver parameter.');
@@ -40,15 +41,6 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
             ? $qparams['params']
             : array();
 
-        /* If 'password' exists in params, it has been encrypted in the
-         * session so we need to decrypt. */
-        if (isset($params['password'])) {
-            $secret = $injector->getInstance('Horde_Secret');
-            $params['password'] = $secret->read($secret->getKey(), $params['password']);
-        }
-
-        $imap_ob = $injector->getInstance('IMP_Imap');
-
         switch (Horde_String::lower($driver)) {
         case 'imap':
             $params['imap_ob'] = $imap_ob;
@@ -56,7 +48,6 @@ class IMP_Factory_Quota extends Horde_Core_Factory_Injector
 
         case 'sql':
             $params['db'] = $injector->getInstance('Horde_Core_Factory_Db')->create('imp', $params);
-            break;
         }
 
         $params['username'] = $imap_ob->getParam('username');

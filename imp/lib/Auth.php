@@ -19,18 +19,12 @@
  *                    garbage collected.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
- *   - imap_admin: (array) See 'admin' entry in config/backends.php.
- *   - imap_namespace: (array) See 'namespace' entry in config/backends.php
  *   - imap_ob: (IMP_Imap) The IMAP client object.
- *   - imap_quota: (array) See 'quota' entry in config/backends.php.
- *   - imap_thread: (string) The trheading algorithm supported by the server.
  *   - maildomain: (string) See 'maildomain' entry in config/backends.php.
  *   - pgp: (array) Cached PGP passhprase values.
  *   - rteavail: (boolean) Is the HTML editor available?
  *   - search: (IMP_Search) The IMP_Search object.
- *   - server_key: (string) Server used to login.
  *   - smime: (array) Settings related to the S/MIME viewer.
- *   - smtp: (array) SMTP configuration.
  *   - showunsub: (boolean) Show unsusubscribed mailboxes on the folders
  *                screen.
  *
@@ -53,23 +47,18 @@ class IMP_Auth
      *   - server: (string) The server key to use (from backends.php).
      *   - userId: (string) The username.
      *
-     * @return mixed  If authentication was successful, and no session
-     *                exists, an array of data to add to the session.
-     *                Otherwise returns false.
      * @throws Horde_Auth_Exception
      */
     static public function authenticate($credentials = array())
     {
         global $injector, $registry;
 
-        $result = false;
-
         // Do 'horde' authentication.
         $imp_app = $registry->getApiInstance('imp', 'application');
         if (!empty($imp_app->initParams['authentication']) &&
             ($imp_app->initParams['authentication'] == 'horde')) {
             if ($registry->getAuth()) {
-                return $result;
+                return;
             }
             throw new Horde_Auth_Exception('', Horde_Auth::REASON_FAILED);
         }
@@ -93,10 +82,6 @@ class IMP_Auth
                 self::_log(false, $imp_imap);
                 throw $e->authException();
             }
-
-            $result = array(
-                'server_key' => $credentials['server']
-            );
         }
 
         try {
@@ -105,8 +90,6 @@ class IMP_Auth
             self::_log(false, $imp_imap);
             throw $e->authException();
         }
-
-        return $result;
     }
 
     /**
@@ -329,59 +312,14 @@ class IMP_Auth
         global $browser, $conf, $injector, $prefs, $session;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
-        $ptr = $imp_imap->loadServerConfig($session->get('imp', 'server_key'));
-        if ($ptr === false) {
-            throw new Horde_Exception(_("Could not initialize mail server configuration."));
-        }
 
         /* Set the maildomain. */
         $maildomain = $prefs->getValue('mail_domain');
-        $session->set('imp', 'maildomain', $maildomain ? $maildomain : (isset($ptr['maildomain']) ? $ptr['maildomain'] : ''));
-
-        /* Store some basic IMAP server information. */
+        $session->set('imp', 'maildomain', $maildomain ? $maildomain : $imp_imap->maildomain);
 
         /* Can't call this until now, since we need prefs to be properly
          * loaded to grab the special mailboxes information. */
         $imp_imap->updateFetchIgnore();
-
-        $secret = $injector->getInstance('Horde_Secret');
-        if (!empty($ptr['admin'])) {
-            $tmp = $ptr['admin'];
-            if (isset($tmp['password'])) {
-                $tmp['password'] = $secret->write($secret->getKey(), $tmp['password']);
-            }
-            $session->set('imp', 'imap_admin', $tmp);
-        }
-
-        if (!empty($ptr['namespace'])) {
-            $session->set('imp', 'imap_namespace', $ptr['namespace']);
-        }
-
-        if (!empty($ptr['quota'])) {
-            $tmp = $ptr['quota'];
-            if (isset($tmp['params']['password'])) {
-                $tmp['params']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
-            }
-            $session->set('imp', 'imap_quota', $tmp);
-        }
-
-        /* Set the IMAP threading algorithm. */
-        $thread_cap = $imp_imap->queryCapability('THREAD');
-        $session->set(
-            'imp',
-            'imap_thread',
-            in_array(isset($ptr['thread']) ? strtoupper($ptr['thread']) : 'REFERENCES', is_array($thread_cap) ? $thread_cap : array())
-                ? 'REFERENCES'
-                : 'ORDEREDSUBJECT'
-        );
-
-        /* Set the SMTP configuration. */
-        if ($conf['mailer']['type'] == 'smtp') {
-            $session->set('imp', 'smtp', array_merge(
-                $conf['mailer']['params'],
-                empty($ptr['smtp']) ? array() : $ptr['smtp']
-            ));
-        }
 
         /* Does the server allow file uploads? If yes, store the
          * value, in bytes, of the maximum file size. */
