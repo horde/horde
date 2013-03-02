@@ -192,38 +192,38 @@ class IMP_Imap implements Serializable
             return $this->_ob;
         }
 
-        if (($server = $this->loadServerConfig($key)) === false) {
+        if (($sc = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
             Horde::log($error);
             throw $error;
         }
 
         $imap_config = array(
-            'capability_ignore' => empty($server['capability_ignore']) ? array() : $server['capability_ignore'],
-            'comparator' => empty($server['comparator']) ? false : $server['comparator'],
-            'debug' => isset($server['debug']) ? $server['debug'] : null,
-            'debug_literal' => !empty($server['debug_raw']),
+            'capability_ignore' => empty($sc['capability_ignore']) ? array() : $sc['capability_ignore'],
+            'comparator' => empty($sc['comparator']) ? false : $sc['comparator'],
+            'debug' => isset($sc['debug']) ? $sc['debug'] : null,
+            'debug_literal' => !empty($sc['debug_raw']),
             'encryptKey' => array(__CLASS__, 'getEncryptKey'),
-            'hostspec' => isset($server['hostspec']) ? $server['hostspec'] : null,
-            'id' => empty($server['id']) ? false : $server['id'],
-            'lang' => empty($server['lang']) ? false : $server['lang'],
+            'hostspec' => isset($sc['hostspec']) ? $sc['hostspec'] : null,
+            'id' => empty($sc['id']) ? false : $sc['id'],
+            'lang' => empty($sc['lang']) ? false : $sc['lang'],
             'password' => $password,
-            'port' => isset($server['port']) ? $server['port'] : null,
-            'secure' => isset($server['secure']) ? $server['secure'] : false,
-            'timeout' => empty($server['timeout']) ? null : $server['timeout'],
+            'port' => isset($sc['port']) ? $sc['port'] : null,
+            'secure' => isset($sc['secure']) ? $sc['secure'] : false,
+            'timeout' => empty($sc['timeout']) ? null : $sc['timeout'],
             'username' => $username,
             // IMP specific config
-            'imp:acl' => !empty($server['acl']),
-            'imp:autocreate_special' => !empty($server['autocreate_special']),
+            'imp:acl' => !empty($sc['acl']),
+            'imp:autocreate_special' => !empty($sc['autocreate_special']),
             'imp:backend' => $key,
-            'imp:sort_force' => !empty($server['sort_force'])
+            'imp:sort_force' => !empty($sc['sort_force'])
         );
 
         /* Initialize caching. */
-        $imap_config['cache'] = $this->loadCacheConfig(isset($server['cache']) ? $server['cache'] : null);
+        $imap_config['cache'] = $this->loadCacheConfig(isset($sc['cache']) ? $sc['cache'] : null);
 
         try {
-            $ob = ($server['protocol'] == 'imap')
+            $ob = ($sc['protocol'] == 'imap')
                 ? new Horde_Imap_Client_Socket($imap_config)
                 : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -234,12 +234,12 @@ class IMP_Imap implements Serializable
 
         $this->_ob = $ob;
 
-        switch ($server['protocol']) {
+        switch ($sc['protocol']) {
         case 'imap':
             /* Overwrite default special mailbox names. */
-            if (!empty($server['special_mboxes']) &&
-                is_array($server['special_mboxes'])) {
-                foreach ($server['special_mboxes'] as $key => $val) {
+            if (!empty($sc['special_mboxes']) &&
+                is_array($sc['special_mboxes'])) {
+                foreach ($sc['special_mboxes'] as $key => $val) {
                     switch ($key) {
                     case IMP_Mailbox::MBOX_USERSPECIAL:
                         if (is_array($val) && !empty($val)) {
