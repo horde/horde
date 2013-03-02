@@ -359,12 +359,10 @@ class IMP_Mailbox implements Serializable
             $this->_changed = self::CHANGED_YES;
 
             if (!$this->nonimap) {
-                try {
-                    $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
-                    /* Store string representation of ACL for a more compact
-                     * serialized format. */
-                    $this->_cache[self::CACHE_ACL] = strval($acl);
-                } catch (IMP_Exception $e) {}
+                $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
+                /* Store string representation of ACL for a more compact
+                 * serialized format. */
+                $this->_cache[self::CACHE_ACL] = strval($acl);
             }
 
             return $acl;

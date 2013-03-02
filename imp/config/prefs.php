@@ -104,12 +104,7 @@ $prefGroups['acl'] = array(
     'desc' => _("Share your mailboxes with other users."),
     'members' => array('aclmanagement'),
     'suppress' => function() {
-        try {
-            $GLOBALS['injector']->getInstance('IMP_Imap_Acl');
-            return false;
-        } catch (IMP_Exception $e) {
-            return true;
-        }
+        return !$GLOBALS['injector']->getInstance('IMP_Imap')->access(IMP_Imap::ACCESS_ACL);
     }
 );
 

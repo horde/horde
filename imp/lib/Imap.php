@@ -47,6 +47,7 @@ class IMP_Imap implements Serializable
     const ACCESS_CREATEMBOX_MAX = 7;
     const ACCESS_COMPOSE_RECIPIENTS = 8;
     const ACCESS_COMPOSE_TIMELIMIT = 9;
+    const ACCESS_ACL = 10;
 
     /**
      * Server configuration file.
@@ -226,6 +227,7 @@ class IMP_Imap implements Serializable
             'timeout' => empty($server['timeout']) ? null : $server['timeout'],
             'username' => $username,
             // IMP specific config
+            'imp:acl' => !empty($server['acl']),
             'imp:autocreate_special' => !empty($server['autocreate_special']),
             'imp:backend' => $key,
             'imp:fixed_mboxes' => isset($server['fixed_mboxes']) ? $server['fixed_mboxes'] : null,
@@ -353,6 +355,10 @@ class IMP_Imap implements Serializable
         }
 
         switch ($right) {
+        case self::ACCESS_ACL:
+            return ($this->_ob->getParam('imp:acl') &&
+                    $this->queryCapability('ACL'));
+
         case self::ACCESS_CREATEMBOX:
             return ($this->isImap() &&
                     $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('create_mboxes')));

@@ -142,12 +142,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         }
 
         /* Does server support ACLs? */
-        try {
-            $injector->getInstance('IMP_Imap_Acl');
-            $acl = true;
-        } catch (IMP_Exception $e) {
-            $acl = false;
-        }
+        $imp_imap = $injector->getInstance('IMP_Imap');
+        $acl = $imp_imap->access(IMP_Imap::ACCESS_ACL);
 
         $this->js_conf += array_filter(array(
             // URLs
@@ -283,7 +279,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         );
 
         /* Folder options context menu. */
-        $imp_imap = $injector->getInstance('IMP_Imap');
         if ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
             $context['ctx_folderopts'] = array(
                 'new' => _("Create Mailbox"),

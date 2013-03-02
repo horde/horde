@@ -19,7 +19,6 @@
  *                    garbage collected.
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
- *   - imap_acl: (boolean) See 'acl' entry in config/backends.php.
  *   - imap_admin: (array) See 'admin' entry in config/backends.php.
  *   - imap_namespace: (array) See 'namespace' entry in config/backends.php
  *   - imap_ob: (IMP_Imap) The IMAP client object.
@@ -344,10 +343,6 @@ class IMP_Auth
         /* Can't call this until now, since we need prefs to be properly
          * loaded to grab the special mailboxes information. */
         $imp_imap->updateFetchIgnore();
-
-        if (!empty($ptr['acl'])) {
-            $session->set('imp', 'imap_acl', $ptr['acl']);
-        }
 
         $secret = $injector->getInstance('Horde_Secret');
         if (!empty($ptr['admin'])) {
