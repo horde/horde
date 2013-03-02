@@ -384,19 +384,15 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             }
             $this->view->identities = $tmp;
 
-            /* Activate advanced compose attachments UI? */
-            try {
-                if ($attach_upload &&
-                    Horde::callHook('mimp_advanced', array('compose_attach'), 'imp')) {
-                    $this->view->attach = true;
-                    if (count($imp_compose)) {
-                        $atc_part = $imp_compose[0]->getPart();
-                        $this->view->attach_name = $atc_part->getName();
-                        $this->view->attach_size = IMP::sizeFormat($atc_part->getBytes());
-                        $this->view->attach_type = $atc_part->getType();
-                    }
+            if ($attach_upload) {
+                $this->view->attach = true;
+                if (count($imp_compose)) {
+                    $atc_part = $imp_compose[0]->getPart();
+                    $this->view->attach_name = $atc_part->getName();
+                    $this->view->attach_size = IMP::sizeFormat($atc_part->getBytes());
+                    $this->view->attach_type = $atc_part->getType();
                 }
-            } catch (Horde_Exception_HookNotSet $e) {}
+            }
 
             $this->title = _("Message Composition");
         }

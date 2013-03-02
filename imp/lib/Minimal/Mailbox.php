@@ -210,14 +210,9 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
 
         $this->view->menu = $this->getMenu('mailbox', $menu);
 
-        /* Activate advanced checkbox UI? */
-        try {
-            if (Horde::callHook('mimp_advanced', array('checkbox'), 'imp')) {
-                $this->view->checkbox = $mailbox_url->copy()->add('p', $pageOb['page']);
-                $this->view->delete = $this->indices->mailbox->access_deletemsgs;
-                $this->view->mt = $injector->getInstance('Horde_Token')->get('imp.message-mimp');
-            }
-        } catch (Horde_Exception_HookNotSet $e) {}
+        $this->view->checkbox = $mailbox_url->copy()->add('p', $pageOb['page']);
+        $this->view->delete = $this->indices->mailbox->access_deletemsgs;
+        $this->view->mt = $injector->getInstance('Horde_Token')->get('imp.message-mimp');
 
         $this->_pages[] = 'mailbox';
         $this->_pages[] = 'menu';
