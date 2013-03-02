@@ -45,9 +45,9 @@
  *     - false: Don't use Horde authentication; always require separate login.
  *
  * protocol: (string) The server protocol.  One of:
- *     - 'imap': [DEFAULT] IMAP. Requires a IMAP4rev1 (RFC 3501) compliant
+ *     - imap: [DEFAULT] IMAP. Requires a IMAP4rev1 (RFC 3501) compliant
  *               server.
- *     - 'pop': POP3. Requires a POP3 (RFC 1939) compliant server. All
+ *     - pop: POP3. Requires a POP3 (RFC 1939) compliant server. All
  *              mailbox options will be disabled (POP3 does not support
  *              mailboxes). Other advanced functions will also be disabled
  *              (e.g. caching, searching, sorting).
@@ -83,6 +83,113 @@
  *
  *   set 'maildomain' to 'example.com'.
  *
+ * cache: (mixed) Enables caching for the server. This requires configuration
+ *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
+ *   enabled on any non-false value.
+ *
+ *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
+ *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the
+ *   server does not support these extensions, and caching is enabled, any
+ *   flags changed by another mail agent while the IMP session is active will
+ *   not be updated. If IMP will be the exclusive method of accessing the IMAP
+ *   server, or you do not care about this behavior, caching should also be
+ *   enabled on these servers.
+ *
+ *   The following optional parameters are available:
+ *     - lifetime: (integer) The lifetime, in seconds, of the cached data.
+ *     - slicesize: (integer) The number of messages stored in each cache
+ *                    slice.  (The default should be fine for most users.)
+ *
+ * quota: (array) Use this if you want to display a user's quota status. Set
+ *   to an empty value to disable quota status (DEFAULT).
+ *
+ *   To enable, set the 'driver' key to the name of the driver. The 'params'
+ *   key can contain optional configuration parameters.
+ *
+ *   These 'params' keys are available for ALL drivers:
+ *     - hide_when_unlimited: (boolean) True if you want to hide quota
+ *                            output when the server reports an unlimited
+ *                            quota.
+ *     - format: (array) Specifies the formats of the quota messages displayed
+ *               to the user. The array must contain the following four keys:
+ *                 - long
+ *                 - short
+ *                 - nolimit_long
+ *                 - nolimit_short
+ *               The values for each of these keys are strings that will be
+ *               passed through PHP's sprintf() command.
+ *
+ *               The default values for each key is as follows (these might
+ *               appear slightly different based on the current language;
+ *               [UNIT] will be replaced with the value of the 'unit'
+ *               parameter):
+ *                 - long: Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
+ *                 - nolimit_long: Quota status: %.2f [UNIT] / NO LIMIT
+ *                 - short: %.0f%% of %.0f [UNIT]
+ *                 - nolimit_short: %.0f [UNIT]
+ *     - unit: (string) What storage unit the quota messages should be
+ *             displayed in.  One of:
+ *               - GB
+ *               - MB [DEFAULT]
+ *               - KB
+ *
+ *   These are the available drivers, along with their optional parameters:
+ *     - command:  Use the UNIX quota command to handle quotas. Parameters:
+ *       - quota_path: (string) [REQUIRED] Path to the quota binary. Command
+ *                     line parameters can be specified in this value.
+ *       - grep_path: (string) [REQUIRED] Path to the grep binary.
+ *       - partition: (string) If all user mailboxes are on a single
+ *                    partition, the partition label. By default, will
+ *                    determine quota information using the user's home
+ *                    directory value.
+ *     - hook: Use the quota hook to handle quotas (see imp/config/hooks.php).
+ *             All parameters defined for this driver will be passed to the
+ *             quota hook function.
+ *     - imap: Use the IMAP QUOTA extension to handle quotas. The IMAP server
+ *             server must support the QUOTAROOT command to use this driver.
+ *             This is the RECOMMENDED way of handling quotas.
+ *     - maildir: Use Maildir++ quota files to handle quotas. Parameters:
+ *         - msg_count: (boolean) Display information on the message limit
+ *                      rather than the storage limit? The storage limit
+ *                      information is displayed by default.
+ *         - path: (string) The path to the user's Maildir directory. You may
+ *                 use the two-character sequence "~U" to represent the user's
+ *                 account name, and the actual username will be substituted
+ *                 in that location. Example:
+ *                   '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'.
+ *     - mdaemon: Use Mdaemon server to handle quotas. Parameters:
+ *         - app_location: (string) Location of the application.
+ *     - mercury32: Use Mercury/32 server to handle quotas. Parameters:
+ *         - mail_user_folder: (string) The path to folder mail mercury.
+ *     - sql: Use arbitrary SQL queries to handle quotas. This driver accepts
+ *            these SQL connection parameters:
+ *              - database
+ *              - hostspec
+ *              - password
+ *              - phptype
+ *              - username
+ *            See horde/config/conf.php for further information on these
+ *            parameters. If using the Horde DB, these parameters can be found
+ *            in Horde's $GLOBALS['conf']['sql'] variable and may be merged
+ *            into the parameter configuration like this:
+ *              'params' => array_merge(
+ *                  $GLOBALS['conf']['sql'],
+ *                  array(
+ *                      'query_quota' => [...],
+ *                      'query_used' => [...],
+ *                  )
+ *              )
+ *
+ *            Additional SQL parameters:
+ *              - query_quota: (string) SQL query which returns single
+ *                             row/column with user quota (in bytes). %u is
+ *                             replaced with current user name, %U with the
+ *                             user name without the domain part, and %d
+ *                             with the domain.
+ *              - query_used: (string) SQL query which returns single
+ *                            row/column with user used space (in bytes).
+ *                            Placeholders are the same as in 'query_quota'.
+ *
  * smtp: (array) If Horde is configured to use SMTP as the mailer, entries in
  *   this array will overwrite the default Horde SMTP parameters. The
  *   following configuration parameters are available:
@@ -99,156 +206,34 @@
  *     - username: (string) Username to use for SMTP server authentication (if
  *                 empty, uses IMP authentication username).
  *
- * admin: [IMAP only] (array) Use this if you want to enable mailbox
- *   management for administrators via Horde's user administration interface.
- *   The mailbox management gets enabled if you let IMP handle the Horde
- *   authentication with the 'application' authentication driver.  Your IMAP
- *   server needs to support mailbox management via IMAP commands.
+ *
+ * Properties that only apply to IMAP servers:
+ * ===========================================
+ *
+ * acl: (boolean) Access Control Lists (ACLs).  One of:
+ *   - true:  Enable ACLs. (Not all IMAP servers support this feature).
+ *   - false:  [DEFAULT] Disable ACLs.
+ *
+ * admin: (array) Use this if you want to enable mailbox management for
+ *   administrators via Horde's user administration interface. The mailbox
+ *   management gets enabled if you let IMP handle the Horde authentication
+ *   the 'application' authentication driver.  Your IMAP server needs to
+ *   support mailbox management via IMAP commands.
  *
  *   Do not define this value if you do not want mailbox management [DEFAULT].
  *
  *   The following parameters are available:
- *     - 'password': (string) The admin user's password.
- *     - 'user': (string) The admin user.
- *     - 'userhierarchy': (string) The hierarchy where user mailboxes are
- *                        stored.
+ *     - password: (string) The admin user's password.
+ *     - user: (string) The admin user.
+ *     - userhierarchy: (string) The hierarchy where user mailboxes are
+ *                      stored.
  *
- * acl: [IMAP only] (boolean) Access Control Lists (ACLs).  One of:
- *     - true:  Enable ACLs. (Not all IMAP servers support this feature).
- *     - false:  [DEFAULT] Disable ACLs.
+ * autocreate_special: (boolean) If true, automatically create special
+ *                     mailboxes on login (see 'special_mboxes')?
  *
- * cache: (mixed) Enables caching for the server. This requires configuration
- *   of a Horde_Cache driver in Horde. Will be disabled on any empty value and
- *   enabled on any non-false value.
- *
- *   Caching is HIGHLY RECOMMENDED. There is no reason not to cache if the
- *   IMAP server supports the CONDSTORE and/or QRESYNC IMAP extensions. If the
- *   server does not support these extensions, and caching is enabled, any
- *   flags changed by another mail agent while the IMP session is active will
- *   not be updated. If IMP will be the exclusive method of accessing the IMAP
- *   server, or you do not care about this behavior, caching should also be
- *   enabled on these servers.
- *
- *   The following optional parameters are available:
- *     - 'lifetime': (integer) The lifetime, in seconds, of the cached data.
- *     - 'slicesize': (integer) The number of messages stored in each cache
- *                    slice.  (The default should be fine for most users.)
- *
- * debug: (string) If set, will output debug information from the IMAP
- *   library. The value can be any PHP supported wrapper that can be opened
- *   via PHP's fopen() command. This setting should not be enabled by default
- *   on production servers, since the log file will quickly grow very large.
- *
- *   Example: To output to a file, provide the full path to the file (a bare
- *   string is interpreted by PHP to be a filename). This file must be
- *   writable by the PHP process.
- *
- *   Example 2: To restrict logging to a certain user ('foo'), and to log this
- *   output to the file '/tmp/imaplog', the following can be used:
- *
- *     ($GLOBALS['registry']->getAuth() == 'foo') ? '/tmp/imaplog' : false
- *
- * debug_raw: (boolean) By default, IMAP debugging (see 'debug') will only
- *   output a short summary of the message text sent to and received from the
- *   server. If you want the debug stream to output the full, raw data of the
- *   client/server communication, set this option to true.
- *
- * quota: (array) Use this if you want to display a user's quota status. Set
- *   to an empty value to disable quota status (DEFAULT).
- *
- *   To enable, set the 'driver' key to the name of the driver. The 'params'
- *   key can contain optional configuration parameters.
- *
- *   These 'params' keys are available for ALL drivers:
- *     - 'hide_when_unlimited': (boolean) True if you want to hide quota
- *                              output when the server reports an unlimited
- *                              quota.
- *     - 'format': (array) Specifies the formats of the quota messages
- *                 disaplayed to the user. The array must contain the
- *                 following four keys:
- *                   - 'long'
- *                   - 'short'
- *                   - 'nolimit_long'
- *                   - 'nolimit_short'
- *                 The values for each of these keys are strings that will be
- *                 passed through PHP's sprintf() command.
- *
- *                 The default values for each key is as follows (these might
- *                 appear slightly different based on the current language;
- *                 [UNIT] will be replaced with the value of the 'unit'
- *                 parameter):
- *                   - 'long': Quota status: %.2f [UNIT] / %.2f [UNIT] (%.2f%%)
- *                   - 'nolimit_long: Quota status: %.2f [UNIT] / NO LIMIT
- *                   - 'short': %.0f%% of %.0f [UNIT]
- *                   - 'nolimit_short': %.0f [UNIT]
- *     - 'unit': (string) What storage unit the quota messages should be
- *               displayed in.  One of:
- *                 - 'GB'
- *                 - 'MB' [DEFAULT]
- *                 - 'KB'
- *
- *   These are the available drivers, along with their optional parameters:
- *     - 'command':  Use the UNIX quota command to handle quotas. Parameters:
- *         - 'quota_path': (string) [REQUIRED] Path to the quota binary.
- *                         binary. Command line parameters can be specified in
- *                         this value.
- *         - 'grep_path': (string) [REQUIRED] Path to the grep binary.
- *         - 'partition': (string) If all user mailboxes are on a single
- *                        partition, the partition label. By default, will
- *                        determine quota information using the user's home
- *                        directory value.
- *     - 'hook': Use the quota hook to handle quotas (see
- *               imp/config/hooks.php). All parameters defined for this driver
- *               will be passed to the quota hook function.
- *     - 'imap': Use the IMAP QUOTA extension to handle quotas. The IMAP
- *               server must support the QUOTAROOT command to use this driver.
- *               This is the RECOMMENDED way of handling quotas.
- *     - 'maildir': Use Maildir++ quota files to handle quotas. Parameters:
- *         - 'msg_count': (boolean) Display information on the message limit
- *                        rather than the storage limit? The storage limit
- *                        information is displayed by default.
- *         - 'path': (string) The path to the user's Maildir directory. You
- *                   may use the two-character sequence "~U" to represent the
- *                   user's account name, and the actual username will be
- *                   substituted in that location. Example:
- *                     '/home/~U/Maildir/' or '/var/mail/~U/Maildir/'.
- *     - 'mdaemon': Use Mdaemon server to handle quotas. Parameters:
- *         - 'app_location': (string) Location of the application.
- *     - 'mercury32': Use Mercury/32 server to handle quotas. Parameters:
- *         - 'mail_user_folder': (string) The path to folder mail mercury.
- *     - 'sql': Use arbitrary SQL queries to handle quotas. This driver
- *              accepts these SQL connection parameters:
- *                - 'database'
- *                - 'hostspec'
- *                - 'password'
- *                - 'phptype'
- *                - 'username'
- *              See horde/config/conf.php for further information on these
- *              parameters. If using the Horde DB, these parameters can be
- *              found in Horde's $GLOBALS['conf']['sql'] variable and may be
- *              merged into the parameter configuration like this:
- *                'params' => array_merge(
- *                    $GLOBALS['conf']['sql'],
- *                    array(
- *                        'query_quota' => [...],
- *                        'query_used' => [...],
- *                    )
- *                )
- *
- *             Additional SQL parameters:
- *               - 'query_quota': (string) SQL query which returns single
- *                                row/column with user quota (in bytes). %u is
- *                                replaced with current user name, %U with the
- *                                user name without the domain part, and %d
- *                                with the domain.
- *               - 'query_used': (string) SQL query which returns single
- *                               row/column with user used space (in bytes).
- *                               Placeholders are the same as in
- *                               'query_quota'.
- *
- * special_mboxes: (array) [IMAP only] The list of mailbox names to use for
- *   special mailboxes. These values override the default preference values
- *   for a backend.
+ * special_mboxes: (array) The list of mailbox names to use for special
+ *   mailboxes. These values override the default preference values for a
+ *   backend.
  *
  *   The array keys are the special mailbox type, the array values are the
  *   IMAP mailbox name (UTF-8) to use on the server. Available keys:
@@ -263,9 +248,28 @@
  *   mailboxes in an array, with keys as the IMAP mailbox name (in UTF-8) and
  *   values as the mailbox display label.
  *
- * autocreate_special: (boolean) [IMAP only] If true, automatically create
- *                     special mailboxes on login?
  *
+ * Debugging properties:
+ * =====================
+ *
+ * debug: (string) If set, will output debug information about the
+ *   client/server communication. The value can be any PHP supported wrapper
+ *   that can be opened via PHP's fopen() command. This setting should not be
+ *   enabled by default on production servers, since the log file will quickly
+ *   grow very large.
+ *
+ *   Example: To output to a file, provide the full path to the file (a bare
+ *   string is interpreted by PHP to be a filename). This file must be
+ *   writable by the PHP process.
+ *
+ * debug_raw: (boolean) By default, debugging will only output a short summary
+ *   of message body content sent to and received from the server. If you want
+ *   the debug stream to output the full, raw data of the client/server
+ *   communication, set this option to true.
+ *
+ *
+ * Advanced properties:
+ * ====================
  *
  * *** The following options should NOT be set unless you REALLY know what ***
  * *** you are doing! FOR MOST PEOPLE, AUTO-DETECTION OF THESE PARAMETERS  ***
