@@ -71,7 +71,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 
             /* Delete the old mailboxes now. */
             foreach (IMP_Mailbox::get($purge) as $val) {
-                if ($val->delete(array('force' => true))) {
+                if ($val->delete()) {
                     $return_val = true;
                 }
             }

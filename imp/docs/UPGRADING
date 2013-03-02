@@ -49,13 +49,13 @@ Configuration Options (conf.php)
 The $conf['user']['allow_folders'] option has been removed. This can now be
 set per-backend using the Horde permissions system.
 
+The $conf['server']['fixed_folders'] option has been removed. Preventing
+actions on a specific mailbox can be controlled via native IMAP ACLs or,
+alternatively, by the 'mbox_acl' hook.
+
 The $conf['user']['autocreate_special'] option has been removed. This can now
 be set on a per-backend basis in ``config/backends.local.php``
 ('autocreate_special' option).
-
-The $conf['server']['fixed_folders'] option has been removed. This can now be
-set on a per-backend basis in ``config/backends.local.php`` ('fixed_mboxes'
-option).
 
 The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
 options have been removed. This feature has been moved to the 'msg_filter'
@@ -71,6 +71,9 @@ Hooks (hooks.php)
 
 The 'signature' hook has been removed.
 
+The 'mbox_readonly' hook has been removed. Mailbox permissions can instead be
+controlled via native IMAP ACLs or, alternatively, by the 'mbox_acl' hook.
+
 The 'mbox_special' hook has been removed. Additional special mailboxes can
 now be defined per-backend in ``config/backends.local.php``.
 
@@ -84,7 +87,11 @@ The 'attach_body_check' hook has been added. This hook handles the attachment
 word checking code that previously was provided as an example in the
 'pre_sent' hook.
 
-The 'link_attach_vfs' and 'msg_filter' hooks have been added.
+The following hooks have been added:
+
+   link_attach_vfs
+   mbox_acl
+   msg_filter
 
 
 MIME Viewer Options (mime_drivers.php)

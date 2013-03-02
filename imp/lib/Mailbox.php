@@ -56,7 +56,6 @@
  * @property-read boolean $editquery  Can this search query be edited?
  * @property-read boolean $editvfolder  Can this virtual folder be edited?
  * @property-read boolean $exists  Does this mailbox exist on the IMAP server?
- * @property-read boolean $fixed  Is this mailbox fixed (i.e. unchangable)?
  * @property-read string $form_to  Converts this mailbox to a form
  *                                 representation.
  * @property-read object $icon  Icon information for the mailbox. Properties:
@@ -166,20 +165,18 @@ class IMP_Mailbox implements Serializable
     const CACHE_LABEL = 'l';
     // (array) Namespace information
     const CACHE_NAMESPACE = 'n';
-    // (boolean) Read-only?
-    const CACHE_READONLY = 'ro';
     // (integer) UIDVALIDITY
     const CACHE_UIDVALIDITY = 'v';
 
     /* Cache identifiers - temporary data. */
+    const CACHE_HASACLHOOK = 'ah';
     const CACHE_HASICONHOOK = 'ih';
-    const CACHE_ICONHOOK = 'ic';
     const CACHE_HASLABELHOOK = 'lh';
+    const CACHE_ICONHOOK = 'ic';
     const CACHE_NSDEFAULT = 'nd';
     const CACHE_NSEMPTY = 'ne';
-    const CACHE_READONLYHOOK = 'roh';
-    const CACHE_SPECIALMBOXES = 's';
     const CACHE_PREFTO = 'pt';
+    const CACHE_SPECIALMBOXES = 's';
 
     /**
      * Cached data.
@@ -275,7 +272,8 @@ class IMP_Mailbox implements Serializable
 
         $this->_mbox = $mbox;
 
-        if (!isset(self::$_temp[self::CACHE_HASICONHOOK])) {
+        if (!isset(self::$_temp[self::CACHE_HASACLHOOK])) {
+            self::$_temp[self::CACHE_HASACLHOOK] = Horde::hookExists('mbox_acl', 'imp');
             self::$_temp[self::CACHE_HASICONHOOK] = Horde::hookExists('mbox_icons', 'imp');
             self::$_temp[self::CACHE_HASLABELHOOK] = Horde::hookExists('mbox_label', 'imp');
         }
@@ -306,24 +304,22 @@ class IMP_Mailbox implements Serializable
                     ($acl[Horde_Imap_Client::ACL_CREATEMBOX]));
 
         case 'access_deletembox':
-            return ($this->access_deletembox_acl && !$this->fixed);
+            return ($this->access_deletembox_acl);
 
         case 'access_deletembox_acl':
             return (!($acl = $this->acl) ||
                     ($acl[Horde_Imap_Client::ACL_DELETEMBOX]));
 
         case 'access_deletemsgs':
-            return (!$this->readonly &&
-                    (!($acl = $this->acl) ||
-                    ($acl[Horde_Imap_Client::ACL_DELETEMSGS])));
+            return (!($acl = $this->acl) ||
+                    ($acl[Horde_Imap_Client::ACL_DELETEMSGS]));
 
         case 'access_empty':
             return ($this->access_deletemsgs && $this->access_expunge);
 
         case 'access_expunge':
-            return (!$this->readonly &&
-                    (!($acl = $this->acl) ||
-                    ($acl[Horde_Imap_Client::ACL_EXPUNGE])));
+            return (!($acl = $this->acl) ||
+                    ($acl[Horde_Imap_Client::ACL_EXPUNGE]));
 
         case 'access_filters':
             return !$this->search && $this->is_imap;
@@ -360,6 +356,11 @@ class IMP_Mailbox implements Serializable
 
             if (!$this->nonimap) {
                 $acl = $injector->getInstance('IMP_Imap_Acl')->getACL($this, true);
+
+                if (self::$_temp[self::CACHE_HASACLHOOK]) {
+                    Horde::callHook('mbox_acl', array($this, $acl), 'imp');
+                }
+
                 /* Store string representation of ACL for a more compact
                  * serialized format. */
                 $this->_cache[self::CACHE_ACL] = strval($acl);
@@ -433,9 +434,6 @@ class IMP_Mailbox implements Serializable
             } catch (IMP_Imap_Exception $e) {
                 return false;
             }
-
-        case 'fixed':
-            return $injector->getInstance('IMP_Imap')->isFixedMbox($this);
 
         case 'form_to':
             return $this->formTo($this->_mbox);
@@ -624,27 +622,13 @@ class IMP_Mailbox implements Serializable
             return $injector->getInstance('IMP_Search')->isQuery($this->_mbox);
 
         case 'readonly':
-            if (isset($this->_cache[self::CACHE_READONLY])) {
-                return $this->_cache[self::CACHE_READONLY];
-            }
-
-            $this->_cache[self::CACHE_READONLY] = false;
-            $this->_changed = self::CHANGED_YES;
-
-            /* This check works for regular and search mailboxes. */
-            if (empty(self::$_temp[self::CACHE_READONLYHOOK])) {
-                try {
-                    if (Horde::callHook('mbox_readonly', array($this->_mbox), 'imp')) {
-                        $this->_cache[self::CACHE_READONLY] = true;
-                    }
-                } catch (Horde_Exception_HookNotSet $e) {
-                    self::$_temp[self::CACHE_READONLYHOOK] = true;
-                }
-            }
-
-            /* The UIDNOTSTICKY check would go here. */
-
-            return $this->_cache[self::CACHE_READONLY];
+            return (($acl = $this->acl) &&
+                    !$acl[Horde_Imap_Client::ACL_DELETEMBOX] &&
+                    !$acl[Horde_Imap_Client::ACL_DELETEMSGS] &&
+                    !$acl[Horde_Imap_Client::ACL_EXPUNGE] &&
+                    !$acl[Horde_Imap_Client::ACL_INSERT] &&
+                    !$acl[Horde_Imap_Client::ACL_SEEN] &&
+                    !$acl[Horde_Imap_Client::ACL_WRITE]);
 
         case 'search':
             return $injector->getInstance('IMP_Search')->isSearchMbox($this->_mbox);
@@ -837,8 +821,6 @@ class IMP_Mailbox implements Serializable
      * Deletes mailbox.
      *
      * @param array $opts  Addtional options:
-     *   - force: (boolean) Delete even if fixed?
-     *     DEFAULT: false
      *   - subfolders: (boolean) Delete all subfolders?
      *     DEFAULT: false
      *   - subfolders_only: (boolean) If deleting subfolders, delete only
@@ -875,8 +857,7 @@ class IMP_Mailbox implements Serializable
         }
 
         foreach ($to_delete as $val) {
-            if ((empty($opts['force']) && $val->fixed) ||
-                !$val->access_deletembox_acl)  {
+            if (!$val->access_deletembox_acl)  {
                 $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $val->display), 'horde.error');
                 continue;
             }
@@ -903,11 +884,10 @@ class IMP_Mailbox implements Serializable
      * same.  All subfolders will also be renamed.
      *
      * @param string $new_name  The new mailbox name (UTF-8).
-     * @param boolean $force    Rename mailbox even if it is fixed?
      *
      * @return boolean  True on success
      */
-    public function rename($new_name, $force = false)
+    public function rename($new_name)
     {
         global $injector, $notification;
 
@@ -916,7 +896,7 @@ class IMP_Mailbox implements Serializable
             return false;
         }
 
-        if ((!$force && $this->fixed) || !$this->access_deletembox_acl) {
+        if (!$this->access_deletembox_acl) {
             $notification->push(sprintf(_("The mailbox \"%s\" may not be renamed."), $this->display), 'horde.error');
             return false;
         }

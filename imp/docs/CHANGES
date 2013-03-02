@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add the 'mbox_acl' hook.
 [mms] Move folder disabling configuration into the permissions system.
 [mms] Upgraded IMP permissions to allow permissions to be set per active
       backend.
@@ -9,7 +10,6 @@ v6.1.0-git
 [mms] Add link to exit out of search view in smartmobile view into the
       original mailbox.
 [mms] Allow default special mailbox names to be overriden by a backend.
-[mms] Move fixed mailbox configuration into backends.php.
 [mms] Move special mailboxes autocreation configuration into backends.php.
 [mms] Add SMTP debugging.
 [mms] Disable mailbox sorting by default if the remote server does not natively

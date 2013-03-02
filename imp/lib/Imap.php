@@ -160,20 +160,6 @@ class IMP_Imap implements Serializable
     }
 
     /**
-     * Is this a fixed mailbox?
-     *
-     * @param IMP_Mailbox $mbox  The mailbox to check.
-     *
-     * @return boolean  True if the mailbox is fixed.
-     */
-    public function isFixedMbox(IMP_Mailbox $mbox)
-    {
-        return ($this->_ob &&
-                ($fm = $this->_ob->getParam('imp:fixed_mboxes')) &&
-                in_array($mbox->pref_to, $fm));
-    }
-
-    /**
      * Is sorting available for a mailbox?
      *
      * @param IMP_Mailbox $mbox  The mailbox to query.
@@ -230,7 +216,6 @@ class IMP_Imap implements Serializable
             'imp:acl' => !empty($server['acl']),
             'imp:autocreate_special' => !empty($server['autocreate_special']),
             'imp:backend' => $key,
-            'imp:fixed_mboxes' => isset($server['fixed_mboxes']) ? $server['fixed_mboxes'] : null,
             'imp:sort_force' => !empty($server['sort_force'])
         );
 

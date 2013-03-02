@@ -33,12 +33,12 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add the &apos;mbox_acl&apos; hook.
 * [mms] Move folder disabling configuration into the permission system.
 * [mms] Upgraded IMP permissions to allow permissions to be set per active backend.
 * [mms] Allow the active search query to be edited in the smartmobile view.
 * [mms] Add link to exit out of search view in smartmobile view into the original mailbox.
 * [mms] Allow default special mailbox names to be overriden by a backend.
-* [mms] Move fixed mailbox configuration into backends.php.
 * [mms] Move special mailboxes autocreation configuration into backends.php.
 * [mms] Add SMTP debugging.
 * [mms] Disable mailbox sorting by default if the remote server does not natively support it (Bug #12001).

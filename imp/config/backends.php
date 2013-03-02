@@ -246,9 +246,6 @@
  *                               Placeholders are the same as in
  *                               'query_quota'.
  *
- * fixed_mboxes: (array) [IMAP only] A list of mailboxes that can't be
- *               modified (deleted, renamed, etc.) by the user.
- *
  * special_mboxes: (array) [IMAP only] The list of mailbox names to use for
  *   special mailboxes. These values override the default preference values
  *   for a backend.
@@ -392,7 +389,6 @@ $servers['advanced'] = array(
             'unit' => 'MB'
         )
     ),
-    'fixed_mboxes' => array(),
     'special_mboxes' => array(
     //     IMP_Mailbox::MBOX_DRAFTS => 'Drafts',
     //     IMP_Mailbox::MBOX_SENT => 'Sent',

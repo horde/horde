@@ -382,6 +382,45 @@ class IMP_Hooks
 
 
     /**
+     * Alter access permissions for a mailbox.
+     *
+     * The better way to accomplish this is to directly manipulate the ACLs
+     * on the IMAP server (admins can do this via the ACL management page in
+     * IMP's preferences). However, if ACL is not available on the remote
+     * server, or mailbox permissions need to be dynamically altered, this
+     * hook can be used instead.
+     *
+     * NOTE: This hook is only called once during a user's session - the
+     * results of this hook are cached within the session.
+     *
+     * @param IMP_Mailbox $mailbox             The mailbox.
+     * @param Horde_Imap_Client_Data_Acl $acl  The mailbox ACL.
+     */
+//    public function mbox_acl(IMP_Mailbox $mailbox,
+//                             Horde_Imap_Client_Data_Acl $acl)
+//    {
+//        // Example #1: Make the 'Foo' mailbox a "fixed" folder (can't be
+//        // renamed or deleted).
+//        if ($mailbox == 'Foo') {
+//            unset($acl[Horde_Imap_Client::ACL_DELETEMBOX]);
+//        }
+//
+//
+//        // Example #2: Make the 'Bar' mailbox read-only.
+//        if ($mailbox == 'Bar') {
+//            unset(
+//                $acl[Horde_Imap_Client::ACL_DELETEMBOX],
+//                $acl[Horde_Imap_Client::ACL_DELETEMSGS],
+//                $acl[Horde_Imap_Client::ACL_EXPUNGE],
+//                $acl[Horde_Imap_Client::ACL_INSERT],
+//                $acl[Horde_Imap_Client::ACL_SEEN],
+//                $acl[Horde_Imap_Client::ACL_WRITE]
+//            );
+//        }
+//    }
+
+
+    /**
      * When a mailbox is opened in IMP, allow redirection based on the mailbox
      * name.
      *
@@ -517,20 +556,6 @@ class IMP_Hooks
 
 
     /**
-     * Mark a mailbox as read-only.
-     *
-     * @param string $mailbox  The mailbox name.
-     *
-     * @return boolean  Is the mailbox read-only?
-     */
-//    public function mbox_readonly($mailbox)
-//    {
-//        // Example #1: Make messages in the 'foo' mailbox readonly.
-//        return ($mailbox == 'foo');
-//    }
-
-
-    /**
      * Override sort preferences for a mailbox.
      *
      * @param IMP_Prefs_Sort_Sortpref $ob  A sortpref object.
@@ -617,7 +642,7 @@ class IMP_Hooks
 
 
     /**
-     * Hide specified IMAP mailboxes in folder listings.
+     * Hide IMAP mailboxes in folder listings.
      *
      * @param string $mailbox  The mailbox name.
      *
