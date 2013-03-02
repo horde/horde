@@ -346,24 +346,30 @@ class IMP_Imap implements Serializable
      */
     public function access($right)
     {
+        global $injector;
+
+        if (!$this->_ob) {
+            return false;
+        }
+
         switch ($right) {
         case self::ACCESS_CREATEMBOX:
             return ($this->isImap() &&
-                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('create_mboxes')));
+                    $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('create_mboxes')));
 
         case self::ACCESS_CREATEMBOX_MAX:
             return ($this->isImap() &&
-                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_create_mboxes')));
-
-        case self::ACCESS_FOLDERS:
-        case self::ACCESS_TRASH:
-            return ($this->isImap() &&
-                    $GLOBALS['injector']->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('access_folders')));
+                    $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('max_create_mboxes')));
 
         case self::ACCESS_FLAGS:
         case self::ACCESS_SEARCH:
         case self::ACCESS_UNSEEN:
             return $this->isImap();
+
+        case self::ACCESS_FOLDERS:
+        case self::ACCESS_TRASH:
+            return ($this->isImap() &&
+                    $injector->getInstance('Horde_Core_Perms')->hasAppPermission($this->_getPerm('access_folders')));
         }
 
         return false;
