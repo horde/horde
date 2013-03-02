@@ -202,7 +202,6 @@ class IMP_Hooks
     }
 
 
-
     /**
      * Checks the raw text of the outoging compose message for words that
      * might indicate an attachment is present, and issues a warning if no
@@ -223,7 +222,6 @@ class IMP_Hooks
 //     }
 
 
-
     /**
      * For linked attachment, allows a custom VFS driver to be specified
      * instead of the base Horde driver.
@@ -242,7 +240,6 @@ class IMP_Hooks
 //            'user' => $user
 //        ));
 //    }
-
 
 
     /**
@@ -364,7 +361,6 @@ class IMP_Hooks
 //    }
 
 
-
     /**
      * If message content filtering is enabled (see 'filtering' preference),
      * this defines the message filtering configuration.
@@ -383,7 +379,6 @@ class IMP_Hooks
             )
         );
     }
-
 
 
     /**
@@ -502,7 +497,6 @@ class IMP_Hooks
 //
 //        return $icons;
 //    }
-
 
 
     /**
