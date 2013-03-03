@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
 * [mms] Fix edit links for virtual folders in dynamic view.
 * [mms] Fix regression in displaying user-defined virtual folders in folder listings.
@@ -2933,6 +2934,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
 * [mms] Fix edit links for virtual folders in dynamic view.
 * [mms] Fix regression in displaying user-defined virtual folders in folder listings.

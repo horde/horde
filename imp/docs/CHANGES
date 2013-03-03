@@ -2,6 +2,8 @@
 v6.0.5-git
 ----------
 
+[mms] Update virtual folder name in folder tree when editing the label (Bug
+      #12079).
 [mms] Fix links to virtual folders on search preferences page.
 [mms] Fix edit links for virtual folders in dynamic view.
 [mms] Fix regression in displaying user-defined virtual folders in folder

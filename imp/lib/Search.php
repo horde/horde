@@ -155,6 +155,11 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
+            $ob->mbox_ob->expire(array(
+                IMP_Mailbox::CACHE_DISPLAY,
+                IMP_Mailbox::CACHE_LABEL
+            ));
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete(strval($ob));
             $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
             break;
         }
