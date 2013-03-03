@@ -3663,9 +3663,6 @@ var DimpBase = {
             $('horde-search-input').up('FORM').observe('submit', Event.stop);
         }
 
-        /* Store these text strings for updating purposes. */
-        //DimpCore.text.showalog = $('alertsloglink').down('A').innerHTML;
-
         /* Initialize the starting page. The initial call to viewPort will
          * return the mailbox list and pending notifications. */
         tmp = decodeURIComponent(location.hash);
@@ -3884,8 +3881,3 @@ document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bi
 DimpCore.reloadMessage = function(params) {
     DimpBase.loadPreview(null, params);
 };
-
-/* Growler handlers. */
-document.observe('Growler:toggled', function(e) {
-    $('alertsloglink').down('A').update(e.memo.visible ? DimpCore.text.hidealog : DimpCore.text.showalog);
-});
