@@ -156,6 +156,11 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
             /* This will overwrite previous value, if it exists. */
             $this->_search['vfolders'][$ob->id] = $ob;
             $this->setVFolders($this->_search['vfolders']);
+            $ob->mbox_ob->expire(array(
+                IMP_Mailbox::CACHE_DISPLAY,
+                IMP_Mailbox::CACHE_LABEL
+            ));
+            $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->delete(strval($ob));
             $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->insert($ob);
             break;
         }
@@ -384,7 +389,24 @@ class IMP_Search implements ArrayAccess, Iterator, Serializable
      */
     public function editUrl($id)
     {
-        return IMP_Mailbox::get($this->createSearchId($id))->url(IMP_Basic_Search::url())->add(array('edit_query' => 1));
+        global $registry;
+
+        $mbox = IMP_Mailbox::get($this->createSearchId($id));
+
+        switch ($registry->getView()) {
+        case $registry::VIEW_BASIC:
+            return $mbox->url(IMP_Basic_Search::url())->add(array(
+                'edit_query' => 1
+            ));
+
+        case $registry::VIEW_DYNAMIC:
+            return IMP_Dynamic_Mailbox::url()->setAnchor(
+                'search:' . Horde_Serialize::serialize(array(
+                    'edit_query' => 1,
+                    'mailbox' => $mbox->form_to
+                ), Horde_Serialize::JSON, 'UTF-8')
+            );
+        }
     }
 
     /**
