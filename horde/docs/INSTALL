@@ -395,8 +395,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    b. lzf
 
-      If the lzf module is available, Horde can compress cached data within
-      the current session, thus reducing the size of the current session.
+      If the lzf module is available, Horde can perform real-time compression
+      on certain data, resulting in reduced storage load on the server.
 
       To install, enter the following at the command prompt::
 
