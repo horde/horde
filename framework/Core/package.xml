@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Always compress cache data, if possible.
 * [mms] Abstract data compression out into Horde_Compress_Fast package.
 * [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
@@ -2797,6 +2798,7 @@
    <date>2013-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Always compress cache data, if possible.
 * [mms] Abstract data compression out into Horde_Compress_Fast package.
 * [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
