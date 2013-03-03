@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-21</date>
- <time>12:43:00</time>
+ <date>2013-03-01</date>
+ <time>11:14:13</time>
  <version>
-  <release>2.2.2</release>
-  <api>2.2.0</api>
+  <release>2.3.1</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -1205,12 +1205,25 @@
   </release>
   <release>
    <version>
-    <release>2.2.2</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-21</date>
+   <date>2013-03-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix updating state when a PING detected changed has been removed before SYNC runs (Bug #12075).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
