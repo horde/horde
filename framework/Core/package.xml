@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
 * [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
@@ -2794,6 +2795,7 @@
    <date>2013-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
 * [mms] Allow graphics/sounds to be loaded from view-specific theme directories.

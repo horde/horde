@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Fix regression introduced in 2.2.1 caused by fix for Bug #12056.
+* [mjr] Fix synchronizing email messages containing ICalendar attachments with no METHOD parameter (Bug #12083).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1226,7 +1227,8 @@
    <date>2013-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix regression introduced in 2.2.1 caused by fix for Bug #12056.
+* [mjr] Fix synchronizing email messages containing ICalendar attachments with no METHOD parameter (Bug #12083).
    </notes>
   </release>
  </changelog>
