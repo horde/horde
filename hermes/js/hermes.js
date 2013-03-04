@@ -279,13 +279,9 @@ HermesCore = {
                 return;
 
             case 'hermesDoExport':
-                var keys = this.getSearchResultKeys(),
-                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
-                      'f': $F('hermesExportFormat'),
-                      'm': $F('hermesExportMark'),
-                      's': keys.join(',') });
-                HordeCore.redirect(url);
-                e.stop();
+                var keys = this.getSearchResultKeys();
+                $('hermesExportFormS').setValue(keys.join(','));
+                $('hermesExportForm').submit();
                 return;
 
             // Search Form
@@ -434,6 +430,10 @@ HermesCore = {
         $('hermesTimeFormNotes').setValue(slice.n);
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
+
+        if ($('hermesTimeFormEmployee')) {
+            $('hermesTimeFormEmployee').setValue(slice.e);
+        }
 
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
@@ -703,6 +703,11 @@ HermesCore = {
     saveTimeCallback: function(r)
     {
         $('hermesLoadingTime').hide();
+
+        if (r === true) {
+            // Successfully entered, but not for current user. Don't add to UI.
+            return;
+        }
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -737,7 +742,13 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
-        if (this.getSliceFromCache(sid)) {
+
+        if (r === true && this.getSliceFromCache(sid)) {
+            this.removeSliceFromCache(sid);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
+        } else if (this.getSliceFromCache(sid)) {
             this.replaceSliceInCache(sid, r);
             this.reverseSort = false;
             this.updateView(this.view);
@@ -1417,7 +1428,9 @@ HermesCore = {
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         // Handler for the jobtype selection
-        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        if ($('hermesJobTypeSelect')) {
+            $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        }
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

@@ -913,7 +913,20 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             $md = $this->_cache->getMetaData($mailbox, null, array(self::CACHE_MODSEQ, 'uidvalid'));
 
             if (isset($md[self::CACHE_MODSEQ])) {
-                $uids = $this->_cache->get($mailbox);
+                if ($uids = $this->_cache->get($mailbox)) {
+                    $uids = $this->getIdsOb($uids);
+
+                    /* Check for extra long UID string. Assume that any
+                     * server that can handle QRESYNC can also handle long
+                     * input strings (at least 8 KB), so 7 KB is as good as
+                     * any guess as to an upper limit. If this occurs, provide
+                     * a range string (min -> max) instead. */
+                    if (strlen($uid_str = strval($uids)) > 7000) {
+                        $uid_str = $uids->range_string;
+                    }
+                } else {
+                    $uid_str = null;
+                }
 
                 /* Several things can happen with a QRESYNC:
                  * 1. UIDVALIDITY may have changed.  If so, we need to expire
@@ -929,7 +942,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     new Horde_Imap_Client_Data_Format_List(array_filter(array(
                         $md['uidvalid'],
                         $md[self::CACHE_MODSEQ],
-                        empty($uids) ? null : strval($this->getIdsOb($uids))
+                        $uid_str
                     )))
                 )));
             }
@@ -1490,10 +1503,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             return $result;
         }
 
-        // If the mailbox is currently selected read-only, we need to close
-        // because some IMAP implementations won't allow an append.
-        $this->close();
-
         // Check for CATENATE extension (RFC 4469)
         $catenate = $this->queryCapability('CATENATE');
 
@@ -1581,6 +1590,12 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
              * may send BAD after initial command. */
             $noliteralplus = $this->queryCapability('BINARY');
         }
+
+        // If the mailbox is currently selected read-only, we need to close
+        // because some IMAP implementations won't allow an append. And some
+        // implementations don't support append on ANY open mailbox. Be safe
+        // and always make sure we are in a non-selected state.
+        $this->close();
 
         try {
             $this->_sendLine($cmd, array(

@@ -1,8 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Base:: class provides a common abstracted interface to
- * creating various authentication backends.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -11,7 +8,18 @@
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Base class provides a common abstracted interface to creating
+ * various authentication backends.
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 abstract class Horde_Auth_Base
@@ -198,7 +206,7 @@ abstract class Horde_Auth_Base
      * in the message field, and the Horde_Auth::REASON_* constant in the code
      * field (defaults to Horde_Auth::REASON_MESSAGE).
      *
-     * @param string $userID      The userID to check.
+     * @param string $userId      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
@@ -402,6 +410,8 @@ abstract class Horde_Auth_Base
     /**
      * Lists all users in the system.
      *
+     * @param boolean $sort  Sort the users?
+     *
      * @return mixed  The array of userIds.
      * @throws Horde_Auth_Exception
      */
@@ -487,19 +497,17 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Retrieve internal credential value(s).
+     * Returns internal credential value(s).
      *
      * @param mixed $name  The credential value to get. If null, will return
      *                     the entire credential list. Valid names:
-     * <pre>
-     * 'change' - (boolean) Do credentials need to be changed?
-     * 'credentials' - (array) The credentials needed to authenticate.
-     * 'expire' - (integer) UNIX timestamp of the credential expiration date.
-     * 'userId' - (string) The user ID.
-     * </pre>
+     * - 'change': (boolean) Do credentials need to be changed?
+     * - 'credentials': (array) The credentials needed to authenticate.
+     * - 'expire': (integer) UNIX timestamp of the credential expiration date.
+     * - 'userId': (string) The user ID.
      *
-     * @return mixed  Return the credential information, or null if the
-     *                credential doesn't exist.
+     * @return mixed  The credential information, or null if the credential
+     *                doesn't exist.
      */
     public function getCredential($name = null)
     {
@@ -513,11 +521,11 @@ abstract class Horde_Auth_Base
     }
 
     /**
-     * Set internal credential value.
+     * Sets an internal credential value.
      *
-     * @param string $name  The credential name to set.
-     * @param mixed $value  The credential value to set. See getCredential()
+     * @param string $type  The credential name to set. See getCredential()
      *                      for the list of valid credentials/types.
+     * @param mixed $value  The credential value to set.
      */
     public function setCredential($type, $value)
     {

@@ -128,7 +128,7 @@ class Horde_Imap_Client_Data_Sync
                 $squery->ids($new_ids);
                 $sres = $base_ob->search($mailbox, $squery);
 
-                $this->newmsgs = $sres['match'];
+                $this->_newmsgsuids = $sres['match'];
             }
         }
 
@@ -156,7 +156,7 @@ class Horde_Imap_Client_Data_Sync
         if ($sync_all || ($criteria & Horde_Imap_Client::SYNC_FLAGSUIDS)) {
             if (isset($sync['H'])) {
                 if ($sync['H'] == $status_sync['syncmodseq']) {
-                    $this->flags = is_null($ids)
+                    $this->_flagsuids = is_null($ids)
                         ? $status_sync['syncflaguids']
                         : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncflaguids']->ids));
                 } else {
@@ -165,11 +165,11 @@ class Horde_Imap_Client_Data_Sync
                     $sres = $base_ob->search($mailbox, $squery, array(
                         'ids' => $ids
                     ));
-                    $this->flags = $sres['match'];
+                    $this->_flagsuids = $sres['match'];
                 }
             } else {
                 /* Without MODSEQ, need to mark all FLAGS as changed. */
-                $this->flags = $base_ob->resolveIds($mailbox, is_null($ids) ? $base_ob->getIdsOb(Horde_Imap_Client_Ids::ALL) : $ids);
+                $this->_flagsuids = $base_ob->resolveIds($mailbox, is_null($ids) ? $base_ob->getIdsOb(Horde_Imap_Client_Ids::ALL) : $ids);
             }
         }
 
@@ -189,7 +189,7 @@ class Horde_Imap_Client_Data_Sync
             }
 
             $this->vanished = (bool)count($vanished);
-            $this->vanisheduids = $vanished;
+            $this->_vanisheduids = $vanished;
         }
     }
 

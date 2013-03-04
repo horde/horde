@@ -555,7 +555,7 @@ class Kronolith_Application extends Horde_Registry_Application
                     $vars->start_month,
                     $vars->start_day
                 );
-                $start = new Horde_Date(
+                $end = new Horde_Date(
                     $vars->end_year,
                     $vars->end_month,
                     $vars->end_day

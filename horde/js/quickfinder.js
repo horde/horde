@@ -19,16 +19,17 @@
 var QuickFinder = {
 
     attachBehavior: function(input) {
-        var filterTarget = input.readAttribute('for');
+        var filterEmpty, i, t, targets,
+            filterTarget = input.readAttribute('for');
         if (!filterTarget) {
             return;
         }
 
         if (filterTarget.indexOf(',') != -1) {
             input.filterTargets = [];
-            var targets = filterTarget.split(',');
-            for (var i = 0; i < targets.length; ++i) {
-                var t = $(targets[i]);
+            targets = filterTarget.split(',');
+            for (i = 0; i < targets.length; ++i) {
+                t = $(targets[i]);
                 if (t) {
                     input.filterTargets.push(t);
                 }
@@ -43,14 +44,14 @@ var QuickFinder = {
             }
         }
 
-        var filterEmpty = input.readAttribute('empty');
+        filterEmpty = input.readAttribute('empty');
         if (filterEmpty) {
             input.filterEmpty = $(filterEmpty);
         }
 
         input.observe('keyup', this.onKeyUp.bindAsEventListener(this));
 
-        for (var i = 0, i_max = input.filterTargets.length; i < i_max; i++) {
+        for (i = 0, i_max = input.filterTargets.length; i < i_max; i++) {
             input.filterTargets[i].childElements().each(function(line) {
                 var filterText = line.filterText || line.readAttribute('filterText');
                 if (!filterText) {
@@ -71,9 +72,9 @@ var QuickFinder = {
     },
 
     filter: function(input) {
-        var matched = 0,
+        var i, matched = 0,
             val = input.value.toLowerCase();
-        for (var i = 0, i_max = input.filterTargets.length; i < i_max; i++) {
+        for (i = 0, i_max = input.filterTargets.length; i < i_max; i++) {
             input.filterTargets[i].childElements().each(function(line) {
                 var filterText = line.filterText;
                 if (filterText.indexOf(val) == -1) {

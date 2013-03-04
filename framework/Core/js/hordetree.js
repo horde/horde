@@ -389,7 +389,7 @@ var Horde_Tree = Class.create({
 
     toggle: function(nodeId)
     {
-        var icon, nodeToggle, toggle, children,
+        var icon, toggle, children,
             node = this.nodes[nodeId];
 
         if (!node.children) {

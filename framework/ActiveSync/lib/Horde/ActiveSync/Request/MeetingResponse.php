@@ -1,5 +1,16 @@
 <?php
 /**
+ *
+ * @license   http://www.horde.org/licenses/gpl GPLv2
+ *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
+ *            Version 2, the distribution of the Horde_ActiveSync module in or
+ *            to the United States of America is excluded from the scope of this
+ *            license.
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
+ * @author    Michael J Rubinsky <mrubinsk@horde.org>
+ * @package   ActiveSync
+ */
+/**
  * Horde_ActiveSync_Request_MeetingResponse::
  *
  * Portions of this class were ported from the Z-Push project:
@@ -22,21 +33,8 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-/**
- * Handle MeetingResponse requests
- *
- * @license   http://www.horde.org/licenses/gpl GPLv2
- *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
- *            Version 2, the distribution of the Horde_ActiveSync module in or
- *            to the United States of America is excluded from the scope of this
- *            license.
- * @copyright 2009-2013 Horde LLC (http://www.horde.org)
- * @author    Michael J Rubinsky <mrubinsk@horde.org>
- * @package   ActiveSync
- */
 class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_Base
 {
-
     const MEETINGRESPONSE_CALENDARID      = 'MeetingResponse:CalendarId';
     const MEETINGRESPONSE_FOLDERID        = 'MeetingResponse:FolderId';
     const MEETINGRESPONSE_MEETINGRESPONSE = 'MeetingResponse:MeetingResponse';
@@ -47,17 +45,17 @@ class Horde_ActiveSync_Request_MeetingResponse extends Horde_ActiveSync_Request_
     const MEETINGRESPONSE_USERRESPONSE    = 'MeetingResponse:UserResponse';
     const MEETINGRESPONSE_VERSION         = 'MeetingResponse:Version';
 
+    // Response constants
     const RESPONSE_ACCEPTED               = 1;
     const RESPONSE_TENTATIVE              = 2;
     const RESPONSE_DECLINED               = 3;
 
+    // Status constants
     const STATUS_SUCCESS                  = 1;
-    // Invalid meeting response sent
     const STATUS_INVALID_REQUEST          = 2;
-    // Invalid device state on server
     const STATUS_STATE_ERROR              = 3;
-    // Meeting not found or canceled.
     const STATUS_SERVER_ERROR             = 4;
+
     /**
      * Handle request
      *

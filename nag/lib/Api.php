@@ -1195,10 +1195,20 @@ class Nag_Api extends Horde_Registry_Api
         $tasks = Nag::listTasks(array('completed' => Nag::VIEW_ALL));
         $result = array();
         $tasks->reset();
+        $last_week = time() - 7 * 86400;
         while ($task = $tasks->each()) {
-            $result[$task->id] = array('id' => $task->id,
+            if ($task->completed && $task->completed_date < $last_week) {
+                continue;
+            }
+            $result[$task->id] = array(
+                'id' => $task->id,
                 'active' => !$task->completed,
-                'name' => $task->name);
+                'name' => $task->name
+            );
+            for ($parent = $task->parent; $parent->parent; $parent = $parent->parent) {
+                $result[$task->id]['name'] = $parent->name . ': '
+                    . $result[$task->id]['name'];
+            }
             if (!empty($task->estimate)) {
                 $result[$task->id]['estimate'] = $task->estimate;
             }

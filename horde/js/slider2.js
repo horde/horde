@@ -57,8 +57,6 @@
 
 var Slider2 = Class.create({
 
-    value: 0,
-
     initialize: function(track, options)
     {
         this.track = $(track);
@@ -76,7 +74,6 @@ var Slider2 = Class.create({
             this.sbup = new Element('DIV', { className: this.options.buttonclass.up });
             this.sbdown = new Element('DIV', { className: this.options.buttonclass.down }).makePositioned();
             this.handle.insert({ before: this.sbup, after: this.sbdown });
-            [ this.sbup, this.sbdown ].invoke('observe', 'mousedown', this._arrowClick.bindAsEventListener(this));
         }
 
         if (Prototype.Browser.IE) {
@@ -90,8 +87,7 @@ var Slider2 = Class.create({
             this._initScroll();
         }
 
-        [ this.handle, this.track ].invoke('observe', 'mousedown', this._startDrag.bindAsEventListener(this));
-
+        this.track.observe('mousedown', this._mousedownHandler.bindAsEventListener(this));
         document.observe('mouseup', this._endDrag.bindAsEventListener(this));
         document.observe('mousemove', this._update.bindAsEventListener(this));
     },
@@ -105,26 +101,39 @@ var Slider2 = Class.create({
         }
     },
 
-    _startDrag: function(e)
+    _mousedownHandler: function(e)
     {
         var dir,
             elt = e.element();
 
-        if (!e.isLeftClick() || elt == this.sbup || elt == this.sbdown) {
+        if (!e.isLeftClick()) {
+            e.stop();
             return;
         }
 
-        if (elt == this.track) {
-            dir = (e.pointerY() < this.handle.cumulativeOffset()[1]) ? -1 : 1;
-            this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
-        } else {
+        switch (elt) {
+        case this.handle:
             this.curroffsets = this.track.cumulativeOffset();
             this.offsetY = e.pointerY() - this.handle.cumulativeOffset()[1] + this.sbup.offsetHeight;
             this.active = true;
             this.track.fire('Slider2:start');
-        }
+            e.stop();
+            break;
 
-        e.stop();
+        case this.sbdown:
+            this.setScrollPosition(this.getValue() + 1);
+            break;
+
+        case this.sbup:
+            this.setScrollPosition(this.getValue() - 1);
+            break;
+
+        case this.track:
+            dir = (e.pointerY() < this.handle.cumulativeOffset()[1]) ? -1 : 1;
+            this.setScrollPosition(this.getValue() - dir + (this.options.pagesize * dir));
+            e.stop();
+            break;
+        }
     },
 
     _update: function(e)
@@ -150,11 +159,6 @@ var Slider2 = Class.create({
             this.track.fire('Slider2:end');
         }
         this.active = this.dragging = false;
-    },
-
-    _arrowClick: function(e)
-    {
-        this.setScrollPosition(this.getValue() + ((e.element() == this.sbup) ? -1 : 1));
     },
 
     _updateFinished: function()

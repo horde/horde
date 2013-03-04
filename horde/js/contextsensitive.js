@@ -286,7 +286,8 @@ var ContextSensitive = Class.create({
      */
     _displayMenu: function(elt_id, x, y)
     {
-        var elt = $(elt_id);
+        var eltL, h, id, v, w,
+            elt = $(elt_id);
 
         if (!elt) {
             document.fire('ContextSensitive:trigger', elt_id);
@@ -305,8 +306,7 @@ var ContextSensitive = Class.create({
             });
         }
 
-        var eltL, h, v, w,
-            id = elt.identify();
+        id = elt.identify();
 
         this.baseelt.fire('ContextSensitive:show', id);
 

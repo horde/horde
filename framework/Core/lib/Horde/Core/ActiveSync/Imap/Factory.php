@@ -85,14 +85,26 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
      */
     public function getSpecialMailboxes()
     {
+        global $injector, $registry;
+
         if (empty($this->_specialMailboxlist)) {
             try {
-                $this->_specialMailboxlist = $GLOBALS['registry']->mail->getSpecialMailboxes();
+                $this->_specialMailboxlist = $registry->mail->getSpecialMailboxes();
             } catch (Horde_Exception $e) {
                 Horde::log(sprintf(
                     'Error retrieving specialmailbox list: %s',
                     $e->getMessage()), 'ERR');
                 throw new Horde_ActiveSync_Exception($e);
+            }
+
+            // Sentmail is dependent on Identity.
+            if (count($this->_specialMailboxlist['sent']) > 1) {
+                $this->_specialMailboxlist['sent'] = $injector
+                    ->getInstance('Horde_Core_Factory_Identity')
+                    ->create($registry->getAuth(), $registry->hasInterface('mail'))
+                    ->getValue('sent_mail_folder');
+            } else {
+                $this->_specialMailboxlist['sent'] = current($this->_specialMailboxlist['sent']);
             }
         }
 

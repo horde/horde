@@ -28,7 +28,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Change default keyserver to pool.sks-keyservers.net.
+* [jan] Fix finding key ID for an email address on a keyserver (o@immerda.ch).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -879,7 +880,8 @@ Initial release as a PEAR package
    <date>2013-02-15</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Change default keyserver to pool.sks-keyservers.net.
+* [jan] Fix finding key ID for an email address on a keyserver (o@immerda.ch).
    </notes>
   </release>
  </changelog>

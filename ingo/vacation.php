@@ -68,7 +68,7 @@ if ($form->validate($vars)) {
             Ingo::updateScript();
         }
     } catch (Ingo_Exception $e) {
-        $notification->push($result);
+        $notification->push($e);
     }
 
     /* Update the timestamp for the rules. */

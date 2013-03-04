@@ -37,17 +37,17 @@ class Horde_Core_Ajax_Response_Raw extends Horde_Core_Ajax_Response
     {
         parent::__construct($data);
 
-        $this->_charset = $charset;
-        $this->_type = $type;
+        $this->charset = $charset;
+        $this->type = $type;
     }
 
     /**
      */
     public function send()
     {
-        $type = trim($this->_type);
+        $type = trim($this->type);
         if (stripos($type, 'text/') === 0) {
-            $type .= '; charset=' . $this->_charset;
+            $type .= '; charset=' . $this->charset;
         }
 
         header('Content-Type: ' . $type);

@@ -1,6 +1,10 @@
 <?php
+/**
+ */
 class HordeAuthBaseTables extends Horde_Db_Migration_Base
 {
+    /**
+     */
     public function up()
     {
         if (!in_array('horde_users', $this->tables())) {
@@ -13,6 +17,8 @@ class HordeAuthBaseTables extends Horde_Db_Migration_Base
         }
     }
 
+    /**
+     */
     public function down()
     {
         $this->dropTable('horde_users');

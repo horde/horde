@@ -12,19 +12,21 @@ class Ansel_Widget_Links extends Ansel_Widget_Base
     public function __construct($params)
     {
         parent::__construct($params);
-        $this->_title = _("Links");
     }
 
     public function html()
     {
         global $registry;
 
-        $feedurl = Horde::url('rss.php', true);
-        $owner = $this->_view->gallery->get('owner');
-        $html = $this->_htmlBegin();
-        $html .= Ansel::getUrlFor('rss_user', array('owner' => $owner))->link() . Horde::img('feed.png') . ' ' . ($owner ? sprintf(_("Recent photos by %s"), $owner) : _("Recent system photos")) . '</a>';
-        $slug = $this->_view->gallery->get('slug');
-        $html .= '<br />' . Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug))->link() . ' ' .  Horde::img('feed.png') . ' ' . sprintf(_("Recent photos in %s"), htmlspecialchars($this->_view->gallery->get('name'))) . '</a>';
+        $view = $GLOBALS['injector']->createInstance('Horde_View');
+        $view->addTemplatePath(ANSEL_TEMPLATES . '/widgets');
+
+        $view->owner = $this->_view->gallery->get('owner');
+        $view->userfeedurl = Ansel::getUrlFor('rss_user', array('owner' => $owner));
+        $view->slug = $this->_view->gallery->get('slug');
+        $view->galleryname = $this->_view->gallery->get('name');
+        $view->galleryfeedurl = Ansel::getUrlFor('rss_gallery', array('gallery' => $this->_view->gallery->id, 'slug' => $slug));
+        $view->title = _("Links");
 
         /* Embed html */
         if (empty($this->_view->_params['image_id'])) {
@@ -37,17 +39,13 @@ class Ansel_Widget_Links extends Ansel_Widget_Base
             }
         } else {
             // This is an image view
-            $params = array('thumbsize' => 'screen',
-                            'images' => $this->_view->_params['image_id'],
-                            'count' => 10);
-
+            $params = array(
+                'thumbsize' => 'screen',
+                'images' => $this->_view->_params['image_id'],
+                'count' => 10);
         }
+        $view->embed = Ansel::embedCode($params);
 
-        $embed = Ansel::embedCode($params);
-        $html .= '<div class="embedInput">' . _("Embed: ") . '<br /><textarea style="width:100%;" readonly="readonly">' . $embed . '"</textarea></div>';
-        $html .= $this->_htmlEnd();
-
-        return $html;
+        return $view->render('links');
     }
-
 }

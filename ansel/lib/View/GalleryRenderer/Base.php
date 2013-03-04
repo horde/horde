@@ -272,24 +272,17 @@ abstract class Ansel_View_GalleryRenderer_Base
     }
 
     /**
-     * Populate the Horde_View with the $pager object.
+     * Return the current pagerurl.
      *
-     * @param Horde_View $view  The Horde_View object.
+     * @return Horde_Url  The url
      */
-    protected function _setupPager(Horde_View &$view)
+    protected function _getPagerUrl()
     {
         $date_params = Ansel::getDateParameter(array(
             'year' => !empty($this->view->year) ? $this->view->year : 0,
             'month' => !empty($this->view->month) ? $this->view->month : 0,
             'day' => !empty($this->view->day) ? $this->view->day : 0));
 
-        $vars = Horde_Variables::getDefaultVariables();
-        if (!empty($this->view->page)) {
-            $vars->add('page', $this->view->page);
-            $view->page = $this->view->page;
-        } else {
-            $view->page = 0;
-        }
         if (!empty($this->view->gallery_view_url)) {
             $pagerurl = new Horde_Url(str_replace(array('%g', '%s'), array($this->galleryId, $this->gallerySlug), urldecode($this->view->gallery_view_url)));
             $pagerurl->add($date_params)->setRaw(true);
@@ -304,6 +297,25 @@ abstract class Ansel_View_GalleryRenderer_Base
                 $date_params);
             $pagerurl = Ansel::getUrlfor('view', $pager_params, true);
         }
+
+        return $pagerurl;
+    }
+
+    /**
+     * Populate the Horde_View with the $pager object.
+     *
+     * @param Horde_View $view  The Horde_View object.
+     */
+    protected function _setupPager(Horde_View &$view)
+    {
+        $vars = Horde_Variables::getDefaultVariables();
+        if (!empty($this->view->page)) {
+            $vars->add('page', $this->view->page);
+            $view->page = $this->view->page;
+        } else {
+            $view->page = 0;
+        }
+        $pagerurl = $this->_getPagerUrl();
         if (!empty($this->view->urlCallback)) {
             $callback = $this->view->urlCallback;
         } else {

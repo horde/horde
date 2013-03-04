@@ -633,14 +633,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Get new synckey if needed. We need a new synckey if there were
-            // any changes (incoming or outgoing) or if this is during the
-            // initial sync pairing of the collection.
+            // any changes (incoming or outgoing), if this is during the
+            // initial sync pairing of the collection, or if we received a
+            // SYNC due to changes found during a PING (since those changes
+            // may be changes to items that never even made it to the PIM in
+            // the first place (See Bug: 12075).
             if ($statusCode == self::STATUS_SUCCESS &&
-                (isset($collection['importedchanges']) ||
+                (!empty($collection['importedchanges']) ||
                 !empty($changecount) ||
                 $collection['synckey'] == '0' ||
                 $this->_stateDriver->getSyncKeyCounter($collection['synckey']) == 1 ||
-                !empty($collection['fetchids']))) {
+                !empty($collection['fetchids']) ||
+                $this->_syncCache->hasPingChangeFlag($collection['id']))) {
 
                 // Increment the loop detection counter.
                 ++$counters[$collection['id']][$collection['synckey']];
@@ -670,7 +674,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCKEY);
-            if (isset($collection['newsynckey'])) {
+            if (!empty($collection['newsynckey'])) {
                 $this->_encoder->content($collection['newsynckey']);
             } else {
                 $this->_encoder->content($collection['synckey']);
@@ -691,7 +695,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($statusCode == self::STATUS_SUCCESS) {
-                if (isset($collection['clientids']) || count($collection['fetchids']) > 0 || !empty($collection['missing'])) {
+                if (!empty($collection['clientids']) || count($collection['fetchids']) > 0 || !empty($collection['missing'])) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
                     // Output any errors from missing messages in REMOVE requests.
@@ -795,7 +799,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
 
                 // Save the sync state for the next time
-                if (isset($collection['newsynckey'])) {
+                if (!empty($collection['newsynckey'])) {
                     if (!empty($sync) || !empty($importer) || !empty($exporter) || $collection['synckey'] == 0)  {
                         $this->_stateDriver->setNewSyncKey($collection['newsynckey']);
                         $this->_stateDriver->save();
@@ -812,7 +816,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_syncCache->addConfirmedKey($collection['newsynckey']);
                     }
                     $this->_syncCache->updateCollection(
-                        $collection, array('newsynckey' => true, 'unsetChanges' => true)
+                        $collection, array('newsynckey' => true, 'unsetChanges' => true, 'unsetPingChangeFlag' => true)
                     );
                     $this->_syncCache->synckeycounter = $counters;
                 }
@@ -962,7 +966,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             $this->_collections[] = $collection;
-            if ($collection['importedchanges']) {
+            if (!empty($collection['importedchanges'])) {
                 $this->_importedChanges = true;
             }
             if ($collection['fetchids']) {
@@ -971,7 +975,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if (!$this->_syncCache->collectionExists($collection['id'])) {
                 $this->_logger->debug('Creating new sync_cache entry for: ' . $collection['id']);
                 $this->_syncCache->addCollection($collection);
-            } elseif (isset($collection['windowsize'])) {
+            } elseif (!empty($collection['windowsize'])) {
                 $this->_syncCache->updateWindowSize($collection['id'], $collection['windowsize']);
             }
         }
@@ -1162,7 +1166,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // Do all the SYNC_REMOVE requests at once
         if (!empty($collection['removes']) &&
             !empty($collection['synckey'])) {
-            if (isset($collection['deletesasmoves']) && $folderid = $this->_driver->getWasteBasket($collection['class'])) {
+            if (!empty($collection['deletesasmoves']) && $folderid = $this->_driver->getWasteBasket($collection['class'])) {
                 $results = $importer->importMessageMove($collection['removes'], $folderid);
             } else {
                 $results = $importer->importMessageDeletion($collection['removes'], $collection['class']);
@@ -1358,7 +1362,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         // Get new synckey if needed
         if ($this->_statusCode == self::STATUS_KEYMISM ||
-            isset($collection['importedchanges']) ||
+            !empty($collection['importedchanges']) ||
             !empty($collection['getchanges']) ||
             $collection['synckey'] == '0') {
 
@@ -1375,7 +1379,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         $this->_encoder->startTag(Horde_ActiveSync::SYNC_SYNCKEY);
-        if (isset($collection['newsynckey'])) {
+        if (!empty($collection['newsynckey'])) {
             $this->_encoder->content($collection['newsynckey']);
         } else {
             $this->_encoder->content($collection['synckey']);

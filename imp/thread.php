@@ -114,12 +114,12 @@ foreach ($imp_indices as $ob) {
 
         if (IMP::mailbox()->special_outgoing) {
             $curr_msg['addr_to'] = true;
-            $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrl(true));
+            $curr_msg['addr'] = _("To:") . ' ' . $imp_ui->buildAddressLinks($envelope->to, Horde::selfUrlParams());
             $addr = _("To:") . ' ' . htmlspecialchars(strval($envelope->to[0]), ENT_COMPAT, $charset);
         } else {
             $from = $envelope->from;
             $curr_msg['addr_to'] = false;
-            $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrl(true));
+            $curr_msg['addr'] = $imp_ui->buildAddressLinks($from, Horde::selfUrlParams());
             $addr = htmlspecialchars(strval($from), ENT_COMPAT, $charset);
         }
 

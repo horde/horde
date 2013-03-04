@@ -11,8 +11,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-13</date>
- <time>13:42:21</time>
+ <date>2013-02-20</date>
+ <time>16:01:10</time>
  <version>
   <release>2.0.2</release>
   <api>1.2.0</api>
@@ -45,7 +45,7 @@
        <file name="users.sqlite.sql" role="doc" />
       </dir> <!-- /doc/Horde/Rdo/examples -->
       <file name="COPYING" role="doc" />
-      <file name="TODO.txt" role="doc" />
+      <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/Rdo -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -135,7 +135,7 @@
  <phprelease>
   <filelist>
    <install as="COPYING" name="doc/Horde/Rdo/COPYING" />
-   <install as="TODO.txt" name="doc/Horde/Rdo/TODO.txt" />
+   <install as="TODO" name="doc/Horde/Rdo/TODO" />
    <install as="examples/clotho.data.php" name="doc/Horde/Rdo/examples/clotho.data.php" />
    <install as="examples/clotho.mysql.sql" name="doc/Horde/Rdo/examples/clotho.mysql.sql" />
    <install as="examples/Clotho.php" name="doc/Horde/Rdo/examples/Clotho.php" />
@@ -349,7 +349,7 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-13</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

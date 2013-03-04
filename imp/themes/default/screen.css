@@ -294,11 +294,6 @@ table.searchesmanagement td.searchdescription {
     width: 500px;
     border-top-width: 0;
 }
-table.searchesmanagement .vfolderenabled {
-    color: blue;
-    cursor: pointer;
-    text-decoration: underline;
-}
 
 /* Prefs styles. */
 .prefsPgpContainer, .prefsSmimeContainer {

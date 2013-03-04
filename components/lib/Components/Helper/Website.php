@@ -218,6 +218,7 @@ class Components_Helper_Website
         foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path)) as $file) {
             if ($file->isFile() &&
                 preg_match('/[A-Z_]+/', $file->getFilename()) &&
+                !preg_match('/\.(html|php)$/', $file->getFilename()) &&
                 !in_array($file->getFilename(), array('COPYING', 'LICENSE')) &&
                 !preg_match('#/examples/#', $file->getPathname())) {
                 $doc_files[$file->getPathname()] = $file->getFilename();

@@ -10,8 +10,7 @@ var HordeActiveSyncAdmin = {
 
     clickHandler: function(e)
     {
-        var elt = e.element(),
-            id = elt.readAttribute('id') || '';
+        var id = e.element().readAttribute('id');
 
         switch (id) {
         case 'reset':

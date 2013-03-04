@@ -99,25 +99,28 @@ order - of associated objects?
 
 
 - Single table inheritance ?
-class Company extends Rdo
-class Firm extends Company
-class Client extends Company
-class PriorityClient extends Client
 
-CREATE TABLE companies (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  client_of int(11),
-  name varchar(255),
-  type varchar(100),
-  PRIMARY KEY (id)
-);
+::
 
-CREATE TABLE people (
-  id int(11) unsigned NOT NULL AUTO_INCREMENT,
-  name text,
-  company_id text,
-  PRIMARY KEY (id)
-);
+  class Company extends Rdo
+  class Firm extends Company
+  class Client extends Company
+  class PriorityClient extends Client
+
+  CREATE TABLE companies (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    client_of int(11),
+    name varchar(255),
+    type varchar(100),
+    PRIMARY KEY (id)
+  );
+
+  CREATE TABLE people (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    name text,
+    company_id text,
+    PRIMARY KEY (id)
+  );
 
 
 potential field parameters:

@@ -28,8 +28,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-12</date>
- <time>16:18:58</time>
+ <date>2013-02-20</date>
+ <time>00:20:30</time>
  <version>
   <release>4.0.4</release>
   <api>4.0.0</api>
@@ -584,7 +584,6 @@
      <dir name="smartmobile">
       <file name="screen.css" role="horde" />
      </dir> <!-- /themes/default/smartmobile -->
-     <file name="ie7.css" role="horde" />
      <file name="screen.css" role="horde" />
     </dir> <!-- /themes/default -->
     </dir> <!-- /themes -->
@@ -1063,7 +1062,6 @@
    <install as="Turba/Unit/Turba/KolabTest.php" name="test/Turba/Unit/Turba/KolabTest.php" />
    <install as="Turba/Unit/Turba/Sql/Base.php" name="test/Turba/Unit/Turba/Sql/Base.php" />
    <install as="Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" name="test/Turba/Unit/Turba/Sql/Pdo/SqliteTest.php" />
-   <install as="turba/themes/default/ie7.css" name="themes/default/ie7.css" />
    <install as="turba/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="turba/themes/default/block/screen.css" name="themes/default/block/screen.css" />
    <install as="turba/themes/default/graphics/az.png" name="themes/default/graphics/az.png" />
@@ -1579,7 +1577,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-12</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/asl">ASL</license>
    <notes>
 * 

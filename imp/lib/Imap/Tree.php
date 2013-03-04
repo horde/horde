@@ -856,18 +856,25 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($elt && isset($this->_parent[$elt['v']])) {
             foreach ($this->_parent[$elt['v']] as $val) {
+                $v = $this->_tree[$val];
+
                 if (($this->_showunsub &&
-                     !$this->isContainer($this->_tree[$val]) &&
-                     !$this->isNamespace($this->_tree[$val])) ||
-                    $this->isSubscribed($this->_tree[$val]) ||
-                    $this->hasChildren($this->_tree[$val])) {
+                     !$this->isContainer($v) &&
+                     !$this->isNamespace($v)) ||
+                    $this->isSubscribed($v)) {
                     /* If skipping special mailboxes, need to check an element
-                     * for at least one non-special children. */
+                     * for at least one non-special child. */
                     if (!$filter ||
                         !($this->_cache['filter']['mask'] & self::FLIST_NOSPECIALMBOXES) ||
                         !IMP_Mailbox::get($val)->special) {
                         return true;
                     }
+                }
+
+                /* So this element is not a visible child, but its children
+                 * may still be. */
+                if ($this->hasChildren($v, $filter)) {
+                    return true;
                 }
             }
         }
@@ -917,8 +924,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         return ($elt &&
                 (($elt['a'] & self::ELT_NOSELECT) ||
-                 (!$this->_showunsub &&
-                  !$this->isSubscribed($elt) &&
+                 (((!$this->_showunsub && !$this->isSubscribed($elt)) ||
+                   $this->isInvisible($elt)) &&
                   $this->hasChildren($elt, true))));
     }
 
@@ -1448,6 +1455,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $ed['d'][$id],
                     $ed['o'][$id]
                 );
+
+                /* Check for virutal folder change. */
+                if ($this->isVfolder($elt)) {
+                    $ed['c'][$id] = 1;
+                }
                 return;
             }
         } else {
@@ -1999,7 +2011,7 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
             $this->_showunsub = true;
         }
 
-        if ($this->_activeElt($curr, true)) {
+        if ($this->_activeEltChild($curr)) {
             /* Move into child element. */
             $this->_currkey = 0;
             $this->_currparent = $curr->value;
@@ -2166,72 +2178,80 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      * Is the given element an "active" element (i.e. an element that should
      * be worked with given the current viewing parameters).
      *
-     * @param IMP_Mailbox $elt      A mailbox element.
-     * @param boolean $child_check  Check children?
+     * @param IMP_Mailbox $elt  A mailbox element.
      *
-     * @return boolean  True if it is an active element.
+     * @return boolean  True if $elt is an active element.
      */
-    protected function _activeElt($elt, $child_check = false)
+    protected function _activeElt($elt)
     {
-        /* Skip invisible elements. */
-        if ($this->isInvisible($elt)) {
-            return false;
-        }
-
         $c = &$this->_cache['filter'];
 
         /* Skip virtual folders unless told to display them. */
-        if (!($c['mask'] & self::FLIST_VFOLDER) && $elt->vfolder) {
+        if ($elt->vfolder) {
+            return ($c['mask'] & self::FLIST_VFOLDER);
+        }
+
+        /* Show containers if NOCONTAINER is not set and children exist. */
+        if ($this->isContainer($elt)) {
+            if (($c['mask'] & self::FLIST_NOCONTAINER) ||
+                !$this->hasChildren($elt, true)) {
+                return false;
+            }
+        } elseif ($this->isInvisible($elt)) {
+            /* Skip invisible elements (do after container check since it may
+             * need to be shown as a container). */
+            return false;
+        } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
+            /* Don't show element if not subscribed. */
+            return false;
+        } elseif ($elt->special) {
+            /* Skip special mailboxes if requested. Otherwise, always show. */
+            if ($c['mask'] & self::FLIST_NOSPECIALMBOXES) {
+                return false;
+            }
+        } elseif (($c['mask'] & self::FLIST_POLLED) && !$elt->polled) {
+            /* Skip non-polled mailboxes if requested. */
             return false;
         }
 
-        if ($child_check) {
-            /* Checks done when determining whether to proceed into child
-             * node. */
+        return true;
+    }
 
-            if (!isset($this->_parent[$elt->value])) {
-               return false;
-            }
+    /**
+     * Determine whether an element has any "active" children.
+     *
+     * @param IMP_Mailbox $elt  A mailbox element.
+     *
+     * @return boolean  True if $elt contains active children.
+     */
+    protected function _activeEltChild($elt)
+    {
+        $c = &$this->_cache['filter'];
 
-            /* If element exists in ancestors list, it is valid. */
-            if (isset($c['ancestors']) &&
-                isset($c['ancestors'][$this->_currparent]) &&
-                ($c['ancestors'][$this->_currparent] == $this->_currkey)) {
-                return true;
-            }
+        /* Skip virtual folders unless told to display them. */
+        if ($elt->vfolder) {
+            return false;
+        }
 
-            /* If expanded is requested, we assume it overrides nochildren. */
-            if ($c['mask'] & self::FLIST_EXPANDED) {
-                return $this->isOpen($elt);
-            }
+        if (!isset($this->_parent[$elt->value])) {
+            return false;
+        }
 
-            /* Explicitly don't return child elements. */
-            if ($c['mask'] & self::FLIST_NOCHILDREN) {
-                return false;
-            }
-        } else {
-            /* Checks done when determining whether to mark current element as
-             * valid. */
+        /* If element exists in ancestors list, it is valid. */
+        if (isset($c['ancestors']) &&
+            isset($c['ancestors'][$this->_currparent]) &&
+            ($c['ancestors'][$this->_currparent] == $this->_currkey)) {
+            return true;
+        }
 
-            /* Show containers if NOCONTAINER is not set and children exist. */
-            if ($this->isContainer($elt)) {
-                if (($c['mask'] & self::FLIST_NOCONTAINER) ||
-                    !$this->hasChildren($elt, true)) {
-                    return false;
-                }
-            } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
-                /* Don't show element if not subscribed. */
-                return false;
-            } elseif ($elt->special) {
-                /* Skip special mailboxes if requested. Otherwise, always
-                 * show. */
-                if ($c['mask'] & self::FLIST_NOSPECIALMBOXES) {
-                    return false;
-                }
-            } elseif (($c['mask'] & self::FLIST_POLLED) && !$elt->polled) {
-                /* Skip non-polled mailboxes if requested. */
-                return false;
-            }
+        /* If expanded is requested, we assume it overrides nochildren. */
+        if ($c['mask'] & self::FLIST_EXPANDED) {
+            return $this->isOpen($elt);
+        }
+
+        /* Explicitly don't return child elements. */
+        if ($c['mask'] & self::FLIST_NOCHILDREN) {
+            return false;
         }
 
         return true;

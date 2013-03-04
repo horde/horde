@@ -165,7 +165,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'organizeremail' => false,
         'organizername'  => false,
         'location'       => false,
-        'meetingstatus'  => false,
+        'meetingstatus'  => self::MEETING_NOT_MEETING,
         'recurrence'     => false,
         'reminder'       => false,
         'sensitivity'    => false,

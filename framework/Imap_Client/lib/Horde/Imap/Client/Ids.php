@@ -100,9 +100,17 @@ class Horde_Imap_Client_Ids implements Countable, Iterator, Serializable
             return ($this->_ids === self::LARGEST);
 
         case 'range_string':
-            return is_array($this->_ids)
-                ? min($this->_ids) . ':' . max($this->_ids)
-                : '';
+            if (!count($this)) {
+                return '';
+            }
+
+            $this->sort();
+            $min = reset($this->_ids);
+            $max = end($this->_ids);
+
+            return ($min == $max)
+                ? $min
+                : $min . ':' . $max;
 
         case 'search_res':
             return ($this->_ids === self::SEARCH_RES);

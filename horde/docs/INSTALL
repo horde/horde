@@ -273,6 +273,15 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       This module can be enabled by adding the ``--enable-intl`` option when
       compiling PHP.
 
+   h. _curl ``--with-curl``
+
+      The curl module, if installed, will be used instead of PHP's fopen() when
+      retrieving data from external HTTP servers (remote calendars, web APIs,
+      etc.). This is much more reliable and flexible, so it's recommended to
+      either enable it or install the http_ extension.
+
+      This module can be enabled by adding the ``--with-curl`` option when
+      compiling PHP.
 
 3. PEAR Modules
 
@@ -386,8 +395,8 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
 
    b. lzf
 
-      If the lzf module is available, Horde can compress cached data within
-      the current session, thus reducing the size of the current session.
+      If the lzf module is available, Horde can perform real-time compression
+      on certain data, resulting in reduced storage load on the server.
 
       To install, enter the following at the command prompt::
 
@@ -400,6 +409,17 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       To install, enter the following at the command prompt::
 
         pecl install memcache
+
+   d. _http
+
+      The http module, if installed, will be used instead of PHP's fopen() when
+      retrieving data from external HTTP servers (remote calendars, web APIs,
+      etc.). This is much more reliable and flexible, so it recommended to
+      either install this or enable the curl_ module.
+
+      To install, enter the following at the command prompt::
+
+        pecl install http
 
    For additional help on using the pear command-line program to install PECL
    extensions, see the PEAR installation section above.
@@ -794,7 +814,7 @@ Note for international users: Horde uses GNU gettext to provide local
 translations of text displayed by applications; the translations are found in
 the po/ directory.  If a translation is not yet available for your locale (and
 you wish to create one), or if you're having trouble using a provided
-translation, please see the `horde/docs/TRANSLATIONS`_ file for instructions.
+translation, please see the docs/TRANSLATIONS_ file for instructions.
 
 
 Obtaining Support
@@ -827,7 +847,7 @@ The Horde Team
 
 .. _README: README
 .. _docs/SECURITY: SECURITY
-.. _`horde/docs/TRANSLATIONS`: TRANSLATIONS
+.. _docs/TRANSLATIONS: TRANSLATIONS
 .. _`File Uploads`: http://wiki.horde.org/FAQ/Admin/FileUploads
 .. _`Firebug`: http://www.getfirebug.com/
 .. _`session.gc_probability`: http://www.php.net/manual/en/session.configuration.php#ini.session.gc-probability

@@ -1,11 +1,11 @@
 /**
+ * Javascript for handling edit faces actions.
  */
-
 var AnselEditFaces = {
 
     delete: function(params)
     {
-        HordeCore.doAction('deleteFaceNames', params);
+        HordeCore.doAction('deleteFaces', params);
         $('face' + params.face_id).remove();
     },
 

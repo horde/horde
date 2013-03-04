@@ -1,10 +1,5 @@
 <?php
 /**
- * The Horde_Auth_Shibboleth class only provides transparent authentication
- * based on the headers set by a Shibboleth SP.  Note that this class does
- * not provide any actual SP functionality, it just takes the username
- * from the HTTP headers that should be set by the Shibboleth SP.
- *
  * Copyright 9Star Research, Inc. 2006 http://www.protectnetwork.org/
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
@@ -12,7 +7,19 @@
  *
  * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
  * @category Horde
- * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Shibboleth class only provides transparent authentication
+ * based on the headers set by a Shibboleth SP.  Note that this class does
+ * not provide any actual SP functionality, it just takes the username
+ * from the HTTP headers that should be set by the Shibboleth SP.
+ *
+ * @author   Cassio Nishiguchi <cassio@protectnetwork.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
  * @package  Auth
  */
 class Horde_Auth_Shibboleth extends Horde_Auth_Base
@@ -59,13 +66,9 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
-     * Authentication stub.
+     * Not implemented.
      *
-     * On failure, Horde_Auth_Exception should pass a message string (if any)
-     * in the message field, and the Horde_Auth::REASON_* constant in the code
-     * field (defaults to Horde_Auth::REASON_MESSAGE).
-     *
-     * @param string $userID      The userID to check.
+     * @param string $userId      The userID to check.
      * @param array $credentials  An array of login credentials.
      *
      * @throws Horde_Auth_Exception
@@ -76,7 +79,7 @@ class Horde_Auth_Shibboleth extends Horde_Auth_Base
     }
 
     /**
-     * Automatic authentication: check if the username is set in the
+     * Automatic authentication: checks if the username is set in the
      * configured header.
      *
      * @return boolean  Whether or not the client is allowed.

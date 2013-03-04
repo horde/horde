@@ -23,8 +23,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>18:21:19</time>
+ <date>2013-02-20</date>
+ <time>16:01:05</time>
  <version>
   <release>2.0.2</release>
   <api>1.2.0</api>
@@ -48,8 +48,8 @@
     <dir name="Horde">
      <dir name="Db">
       <file name="COPYING" role="doc" />
-      <file name="README.TESTING.txt" role="doc" />
-      <file name="TODO.txt" role="doc" />
+      <file name="README_TESTING" role="doc" />
+      <file name="TODO" role="doc" />
      </dir> <!-- /doc/Horde/Db -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -254,8 +254,8 @@
   <filelist>
    <install as="horde-db-migrate-component" name="bin/horde-db-migrate-component" />
    <install as="COPYING" name="doc/Horde/Db/COPYING" />
-   <install as="README.TESTING.txt" name="doc/Horde/Db/README.TESTING.txt" />
-   <install as="TODO.txt" name="doc/Horde/Db/TODO.txt" />
+   <install as="README_TESTING" name="doc/Horde/Db/README_TESTING" />
+   <install as="TODO" name="doc/Horde/Db/TODO" />
    <install as="Horde/Db.php" name="lib/Horde/Db.php" />
    <install as="Horde/Db/Adapter.php" name="lib/Horde/Db/Adapter.php" />
    <install as="Horde/Db/Exception.php" name="lib/Horde/Db/Exception.php" />
@@ -658,7 +658,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

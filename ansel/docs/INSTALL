@@ -50,7 +50,7 @@ To function properly, Ansel **requires** the following:
 4. The following PECL modules:
    (See `horde/docs/INSTALL`_ for instructions on installing PECL modules)
 
-   a. imagick
+   a. _`imagick`
 
       The imagick module provides a quicker, more efficient interface to
       ImageMagick's capabilities. It provides better results when doing things
@@ -80,7 +80,7 @@ To function properly, Ansel **requires** the following:
 
       .. _`libpuzzle library`: http://libpuzzle.pureftpd.org/project/libpuzzle
 
-5. The ImageMagick software.
+5. The _`ImageMagick` software.
 
    If using the `ImageMagick software`_ you need to set the path to the
    ``convert`` utility in Horde's configuration screen

@@ -649,7 +649,6 @@ class Horde_PageOutput
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
             $this->_addBasicScripts();
-            $view->stylesheetOpts['sub'] = 'basic';
             break;
 
         case $registry::VIEW_DYNAMIC:
@@ -658,12 +657,9 @@ class Horde_PageOutput
 
             $this->_addBasicScripts();
             $this->addScriptPackage('Popup');
-
-            $view->stylesheetOpts['sub'] = 'dynamic';
             break;
 
         case $registry::VIEW_MINIMAL:
-            $view->stylesheetOpts['sub'] = 'minimal';
             $view->stylesheetOpts['subonly'] = true;
 
             $view->minimalView = true;
@@ -701,7 +697,6 @@ class Horde_PageOutput
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
             $view->stylesheetOpts['nocache'] = true;
-            $view->stylesheetOpts['sub'] = 'smartmobile';
             $view->stylesheetOpts['subonly'] = true;
 
             $this->addStylesheet(
@@ -718,6 +713,8 @@ class Horde_PageOutput
             $this->sidebar = $this->topbar = false;
             break;
         }
+
+        $view->stylesheetOpts['sub'] = Horde_Themes::viewDir($this->_view);
 
         if ($this->ajax || $this->growler) {
             $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));

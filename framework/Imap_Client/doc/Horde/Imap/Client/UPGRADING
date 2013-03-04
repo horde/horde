@@ -535,7 +535,7 @@ The following methods are deprecated and will be removed in 2.0.0:
     Use Horde_Imap_Client_Utils#parseCommandArray() instead.
 
 Deprecated Parameters
-------------------
+---------------------
 
   - Horde_Imap_Client_Base#currentMailbox()
 

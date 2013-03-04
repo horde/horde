@@ -114,7 +114,7 @@
 
         initialize: function(opts)
         {
-            var ch, cw, sl, st;
+            var logExit;
             this.opts = Object.extend(Object.clone(growlerOptions), opts || {});
 
             this.growler = new Element('DIV', { id: 'Growler' }).setStyle({ position: 'fixed', padding: '10px', zIndex: 50000 }).hide();
@@ -123,7 +123,7 @@
             });
 
             if (this.opts.log) {
-                var logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
+                logExit = new Element('DIV', { className: 'GrowlerNoticeExit' }).update("&times;");
                 logExit.observe('click', this.toggleLog.bind(this));
                 this.growlerlog = new Element('DIV', { id: 'GrowlerLog' })
                     .insert(new Element('DIV').hide()
@@ -165,12 +165,10 @@
             this.growler.wrap(document.body);
 
             if (!opts.noclick) {
-                this.growler.observe('click', function(e) {
-                    if (e.element().match('A')) {
-                        e.stop();
-                        this.growler.fire('Growler:linkClick', e.element());
-                    }
-                }.bindAsEventListener(this));
+                this.growler.on('click', 'A', function(e) {
+                    e.stop();
+                    this.growler.fire('Growler:linkClick', e.element());
+                }.bind(this));
             }
         },
 

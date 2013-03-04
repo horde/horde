@@ -1,12 +1,19 @@
 <?php
 /**
- * The Horde_Auth_Composite class provides a way to combine two separate
- * drivers for admin vs. authentication purposes.
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, http://www.horde.org/licenses/lgpl21
+ *
+ * @author   Chuck Hagenbuch <chuck@horde.org>
+ * @category Horde
+ * @license http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package  Auth
+ */
+
+/**
+ * The Horde_Auth_Composite class provides a way to combine two separate
+ * drivers for admin vs. authentication purposes.
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @category Horde
@@ -70,8 +77,7 @@ class Horde_Auth_Composite extends Horde_Auth_Base
     }
 
     /**
-     * Automatic authentication: Find out if the client matches an allowed IP
-     * block.
+     * Automatic authentication.
      *
      * @return boolean  Whether or not the client is allowed.
      */
@@ -138,7 +144,9 @@ class Horde_Auth_Composite extends Horde_Auth_Base
     }
 
     /**
-     * List all users in the system.
+     * Lists all users in the system.
+     *
+     * @param boolean $sort  Sort the users?
      *
      * @return array  The array of userIds.
      * @throws Horde_Auth_Exception

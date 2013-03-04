@@ -141,9 +141,9 @@ function sumFields()
     if (arguments.length > 2) {
         objFrm = arguments[0];
         objTarget = objFrm.elements[arguments[1]];
-        var sum = 0;
+        var i, j, sum = 0;
         if (objTarget) {
-            for (var i = 2; i < arguments.length; ++i) {
+            for (i = 2; i < arguments.length; ++i) {
                 objSrc = objFrm.elements[arguments[i]];
                 if (objSrc) {
                     switch (objSrc.type.toLowerCase()) {
@@ -152,7 +152,7 @@ function sumFields()
                         break;
 
                     case 'select-multiple' :
-                        for (var j = 0; j < objSrc.length; ++j) {
+                        for (j = 0; j < objSrc.length; ++j) {
                             sum += toNumber(objSrc.options[j].value);
                         }
                         break;
@@ -179,7 +179,7 @@ function sumFields()
  */
 function form_setCursorPosition(id, pos)
 {
-    var input = document.getElementById(id);
+    var input = document.getElementById(id), range;
     if (!input) {
         return;
     }
@@ -190,7 +190,7 @@ function form_setCursorPosition(id, pos)
         input.setSelectionRange(pos, pos);
     } else if (input.createTextRange) {
         /* This works in IE. */
-        var range = input.createTextRange();
+        range = input.createTextRange();
         range.collapse(true);
         range.moveStart('character', pos);
         range.moveEnd('character', 0);
