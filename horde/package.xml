@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* 
+* [jan] Fix searching from topbar if search URL contains parameters.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -3604,7 +3604,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
-* 
+* [jan] Fix searching from topbar if search URL contains parameters.
    </notes>
   </release>
  </changelog>
