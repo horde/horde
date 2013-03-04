@@ -43,14 +43,18 @@ class Text_Wiki_Render_Xhtml_Image2 extends Text_Wiki_Render
                 $params = array('page' => $page,
                                 'mime' => '1',
                                 'file' => $options['src']);
-                $options['src'] = Horde::url('view.php', true)->add($params)->setRaw(true);
+                $options['src'] = $GLOBALS['registry']
+                    ->downloadUrl($options['src'], $params)
+                    ->setRaw(true);
             }
         } else {
-            $options['src'] = Horde::externalUrl($options['src'])->add('untrusted', 1)->setRaw(true);
+            $options['src'] = new Horde_Url(Horde::externalUrl($options['src']));
+            $options['src']->setRaw(true);
         }
 
         // Send external links through Horde::externalUrl().
-        if (isset($options['attr']['link']) && strpos($options['attr']['link'], '://')) {
+        if (isset($options['attr']['link']) &&
+            strpos($options['attr']['link'], '://')) {
             $href = htmlspecialchars($options['attr']['link']);
             unset($options['attr']['link']);
             return Horde::link(Horde::externalUrl($href), $href) . $this->_token($options) . '</a>';
