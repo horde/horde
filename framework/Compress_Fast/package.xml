@@ -85,12 +85,12 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <extension>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
     <providesextension>lzf</providesextension>
-   </extension>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
