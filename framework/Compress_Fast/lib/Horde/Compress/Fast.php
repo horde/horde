@@ -43,9 +43,13 @@ class Horde_Compress_Fast
     public function __construct(array $opts = array())
     {
         if (empty($opts['drivers'])) {
-            $this->_compress = Horde_Compress_Fast_Lzf::supported()
-                ? new Horde_Compress_Fast_Lzf()
-                : new Horde_Compress_Fast_Null();
+            if (Horde_Compress_Fast_Lz4::supported()) {
+                $this->_compress = new Horde_Compress_Fast_Lz4();
+            } else {
+                $this->_compress = Horde_Compress_Fast_Lzf::supported()
+                    ? new Horde_Compress_Fast_Lzf()
+                    : new Horde_Compress_Fast_Null();
+            }
         } else {
             foreach ($opts['drivers'] as $val) {
                 if (($ob = new $val()) &&

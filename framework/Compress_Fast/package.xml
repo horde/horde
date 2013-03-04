@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add horde_lz4 compression driver.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -40,6 +40,7 @@
       <dir name="Fast">
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Lz4.php" role="php" />
        <file name="Lzf.php" role="php" />
        <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Compress/Fast -->
@@ -86,6 +87,11 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>horde_lz4</name>
+    <channel>pear.horde.org</channel>
+    <providesextension>horde_lz4</providesextension>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
@@ -99,6 +105,7 @@
    <install as="Horde/Compress/Fast.php" name="lib/Horde/Compress/Fast.php" />
    <install as="Horde/Compress/Fast/Base.php" name="lib/Horde/Compress/Fast/Base.php" />
    <install as="Horde/Compress/Fast/Exception.php" name="lib/Horde/Compress/Fast/Exception.php" />
+   <install as="Horde/Compress/Fast/Lz4.php" name="lib/Horde/Compress/Fast/Lz4.php" />
    <install as="Horde/Compress/Fast/Lzf.php" name="lib/Horde/Compress/Fast/Lzf.php" />
    <install as="Horde/Compress/Fast/Null.php" name="lib/Horde/Compress/Fast/Null.php" />
    <install as="Horde/Compress/Fast/AllTests.php" name="test/Horde/Compress/Fast/AllTests.php" />
@@ -133,7 +140,7 @@
    <date>2013-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add horde_lz4 compression driver.
    </notes>
   </release>
  </changelog>
