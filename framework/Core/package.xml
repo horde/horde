@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Always compress cache data, if possible.
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
 * [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
@@ -1184,6 +1186,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Compress_Fast</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1359,12 +1368,6 @@
    <package>
     <name>Text_LanguageDetect</name>
     <channel>pear.php.net</channel>
-   </package>
-   <package>
-    <name>lzf</name>
-    <channel>pecl.php.net</channel>
-    <min>1.5.2</min>
-    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>dom</name>
@@ -2795,6 +2798,8 @@
    <date>2013-02-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Always compress cache data, if possible.
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
 * [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.

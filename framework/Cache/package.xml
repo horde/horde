@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -100,6 +100,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_Compress_Fast</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Db</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -125,12 +132,6 @@
     <channel>pecl.php.net</channel>
     <min>3.1.1</min>
     <providesextension>apc</providesextension>
-   </package>
-   <package>
-    <name>lzf</name>
-    <channel>pecl.php.net</channel>
-    <min>1.5.2</min>
-    <providesextension>lzf</providesextension>
    </package>
    <extension>
     <name>eaccelerator</name>
@@ -412,7 +413,7 @@ Initial packaging.
    <date>2012-11-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
    </notes>
   </release>
  </changelog>
