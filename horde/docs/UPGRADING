@@ -36,7 +36,10 @@ Upgrading Horde from 5.0.x to 5.1.x
 Configuration Options (conf.php)
 --------------------------------
 
-The $conf['cachecssparams']['compress'] option was removed.
+The following options were removed::
+
+   $conf['cache']['compress']
+   $conf['cachecssparams']['compress']
 
 
 Upgrading Horde from 5.0 to 5.0.1
