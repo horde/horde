@@ -4,13 +4,6 @@ This extension allows LZ4 compression.
 
 Documentation for LZ4 can be found at [» http://code.google.com/p/lz4/](http://code.google.com/p/lz4/).
 
-## Build ##
-
-    % phpize
-    % ./configure
-    % make
-    % make install
-
 ## Configration ##
 
 php.ini:
@@ -26,7 +19,7 @@ php.ini:
 
 #### Description ####
 
-string **horde\_lz4\_compress** (string _$data_ [, bool _$high_ = false, string _$extra_ = NULL ])
+string **horde\_lz4\_compress** (string _$data_ [, bool _$high_ = false])
 
 LZ4 compression.
 
@@ -40,10 +33,6 @@ LZ4 compression.
 
   High Compression Mode.
 
-* _extra_
-
-  Prefix to compressed data.
-
 #### Return Values ####
 
 Returns the compressed data or FALSE if an error occurred.
@@ -53,7 +42,7 @@ Returns the compressed data or FALSE if an error occurred.
 
 #### Description ####
 
-string **horde\_lz4\_uncompress** (string _$data_ [, long _$maxsize_ = -1, long _$offset_ = -1 ])
+string **horde\_lz4\_uncompress** (string _$data_)
 
 LZ4 decompression.
 
@@ -63,22 +52,13 @@ LZ4 decompression.
 
   The compressed string.
 
-* _maxsize_
-
-  Allocate size output data.
-
-* _offset_
-
-  Offset to decompressed data.
-
 #### Return Values ####
 
 Returns the decompressed data or FALSE if an error occurred.
 
+
 ## Examples ##
 
     $compressed = horde_lz4_compress('test');
-    $compressed = lz4_compress('test', false, 'PREFIX');
 
-    $uncompressed = horde_lz4_uncompress($compressed_data);
-    $uncompressed = horde_lz4_uncompress($compressed_data, 256, 6);
+    $uncompressed = horde_lz4_uncompress($compressed);

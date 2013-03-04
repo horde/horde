@@ -10,15 +10,15 @@ if (!extension_loaded('horde_lz4')) {
 <?php
 
 // Zero arguments
-var_dump(horde_lz4_uncompress());
+horde_lz4_uncompress();
 
 // Test horde_lz4_uncompress with one more than the expected number of arguments
 $data = 'string_val';
 $extra_arg = 10;
-var_dump(horde_lz4_uncompress($data, -1, -1, $extra_arg));
+horde_lz4_uncompress($data, $extra_arg);
 
 // Testing with incorrect arguments
-var_dump(horde_lz4_uncompress(123));
+horde_lz4_uncompress(123);
 
 class Tester
 {
@@ -29,19 +29,15 @@ class Tester
 }
 
 $testclass = new Tester();
-var_dump(horde_lz4_uncompress($testclass));
+horde_lz4_uncompress($testclass);
 
 ?>
 --EXPECTF--
 
-Warning: horde_lz4_uncompress() expects at least 1 parameter, 0 given in %s on line %d
-bool(false)
+Warning: horde_lz4_uncompress() expects exactly 1 parameter, 0 given in %s on line %d
 
-Warning: horde_lz4_uncompress() expects at most 3 parameters, 4 given in %s on line %d
-bool(false)
+Warning: horde_lz4_uncompress() expects exactly 1 parameter, 2 given in %s on line %d
 
-Warning: horde_lz4_uncompress: expects parameter to be string. in %s on line %d
-bool(false)
+Warning: horde_lz4_uncompress: compressed data must be a string. in %s on line %d
 
-Warning: horde_lz4_uncompress: expects parameter to be string. in %s on line %d
-bool(false)
+Warning: horde_lz4_uncompress: compressed data must be a string. in %s on line %d

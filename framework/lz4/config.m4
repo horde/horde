@@ -30,7 +30,7 @@ if test "$PHP_HORDE_LZ4" != "no"; then
 
   ifdef([PHP_INSTALL_HEADERS],
   [
-    PHP_INSTALL_HEADERS([ext/horde_lz4/], [php_horde_lz4.h])
+    PHP_INSTALL_HEADERS([ext/horde_lz4/], [horde_lz4.h])
   ], [
     PHP_ADD_MAKEFILE_FRAGMENT
   ])

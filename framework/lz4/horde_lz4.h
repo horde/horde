@@ -3,6 +3,7 @@
 
 #define HORDE_LZ4_EXT_VERSION "1.0.0"
 
+extern char headerid;
 extern zend_module_entry horde_lz4_module_entry;
 #define phpext_horde_lz4_ptr &horde_lz4_module_entry
 

@@ -12,12 +12,12 @@ if (!extension_loaded('horde_lz4')) {
 include(dirname(__FILE__) . '/data.inc');
 
 // Zero arguments
-var_dump(horde_lz4_compress());
+horde_lz4_compress();
 
 // Test horde_lz4_compress with one more than the expected number of arguments
 $data = 'string_val';
 $extra_arg = 10;
-var_dump(horde_lz4_compress($data, false, false, $extra_arg));
+horde_lz4_compress($data, false, $extra_arg);
 
 class Tester {
     function Hello() {
@@ -26,16 +26,13 @@ class Tester {
 }
 
 $testclass = new Tester();
-var_dump(horde_lz4_compress($testclass));
+horde_lz4_compress($testclass);
 
 ?>
 --EXPECTF--
 
 Warning: horde_lz4_compress() expects at least 1 parameter, 0 given in %s on line %d
-bool(false)
 
-Warning: horde_lz4_compress() expects at most 3 parameters, 4 given in %s on line %d
-bool(false)
+Warning: horde_lz4_compress() expects at most 2 parameters, 3 given in %s on line %d
 
-Warning: horde_lz4_compress: expects parameter to be string. in %s on line %d
-bool(false)
+Warning: horde_lz4_compress: uncompressed data must be a string. in %s on line %d
