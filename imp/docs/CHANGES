@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Support showing blocked Data URIs in HTML message data.
 [mms] Add the 'mbox_acl' hook.
 [mms] Move folder disabling configuration into the permissions system.
 [mms] Upgraded IMP permissions to allow permissions to be set per active

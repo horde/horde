@@ -335,8 +335,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                 /* Block images.*/
                 if (!empty($this->_imptmp['img'])) {
-                    $url = new Horde_Url($val);
-                    $url->setScheme();
+                    if (Horde_Url_Data::isData($val)) {
+                        $url = new Horde_Url_Data($val);
+                    } else {
+                        $url = new Horde_Url($val);
+                        $url->setScheme();
+                    }
                     $node->setAttribute('htmlimgblocked', $url);
                     $node->setAttribute('src', $this->_imptmp['blockimg']);
                     $this->_imptmp['imgblock'] = true;
