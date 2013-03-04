@@ -46,14 +46,16 @@ class Chora_Application extends Horde_Registry_Application
     {
         global $acts, $conf, $defaultActs, $where, $atdir, $fullname, $sourceroot;
 
+        // TODO: If chora isn't fully/properly setup, init() will throw fatal
+        // errors. Don't want that if this class is being loaded simply to
+        // obtain basic chora application information.
+        $initial_app = ($GLOBALS['registry']->initialApp == 'chora');
+
         try {
             $GLOBALS['sourceroots'] = Horde::loadConfiguration('backends.php', 'sourceroots');
         } catch (Horde_Exception $e) {
             $GLOBALS['sourceroots'] = array();
-            // If chora isn't fully/properly setup, init() will throw fatal
-            // errors. Don't want that if this class is being loaded simply to
-            // obtain basic chora application information.
-            if ($GLOBALS['registry']->initialApp != 'chora') {
+            if (!$initial_app) {
                 return;
             }
             $GLOBALS['notification']->push($e);
@@ -108,13 +110,19 @@ class Chora_Application extends Horde_Registry_Application
                 }
 
                 if (is_null($acts['rt'])) {
-                    Chora::fatal(new Chora_Exception(_("No repositories found.")));
+                    if ($initial_app) {
+                        Chora::fatal(new Chora_Exception(_("No repositories found.")));
+                    }
+                    return;
                 }
             }
         }
 
         if (!isset($sourceroots[$acts['rt']])) {
-            Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
+            if ($initial_app) {
+                Chora::fatal(new Chora_Exception(sprintf(_("The repository with the slug '%s' was not found"), $acts['rt'])));
+            }
+            return;
         }
 
         $sourcerootopts = $sourceroots[$acts['rt']];
@@ -145,6 +153,10 @@ class Chora_Application extends Horde_Registry_Application
             'username' => isset($sourcerootopts['username']) ? $sourcerootopts['username'] : '',
             'password' => isset($sourcerootopts['password']) ? $sourcerootopts['password'] : ''
         ));
+
+        if (!$initial_app) {
+            return;
+        }
 
         $where = Horde_Util::getFormData('f', '/');
 
