@@ -683,7 +683,7 @@ class IMP_Hooks
      *
      * @param string $action        Either 'spam' or 'innocent'.
      * @param IMP_Indices $indices  The list of indices that have been
-                                    reported as spam/innocent.
+     *                              reported as spam/innocent.
      */
 //    public function post_spam($action, $indices)
 //    {
