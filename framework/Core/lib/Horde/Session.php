@@ -68,15 +68,6 @@ class Horde_Session
     private $_data;
 
     /**
-     * Use LZF compression?
-     * We use LZF compression on arrays and objects. Compressing numbers and
-     * most strings is not enought of an benefit for the overhead.
-     *
-     * @var boolean
-     */
-    private $_lzf = false;
-
-    /**
      * Indicates that session data is read-only.
      *
      * @var boolean
@@ -95,8 +86,6 @@ class Horde_Session
      */
     public function __construct()
     {
-        $this->_lzf = Horde_Util::extensionExists('lzf');
-
         /* Make sure global session variable is always initialized. */
         $_SESSION = array();
         $this->_data = &$_SESSION;
@@ -306,18 +295,14 @@ class Horde_Session
      */
     public function get($app, $name, $mask = 0)
     {
+        global $injector;
+
         if (isset($this->_data[$app][self::NOT_SERIALIZED . $name])) {
             return $this->_data[$app][self::NOT_SERIALIZED . $name];
         } elseif (isset($this->_data[$app][self::IS_SERIALIZED . $name])) {
-            $data = $this->_data[$app][self::IS_SERIALIZED . $name];
-
-            if ($this->_lzf &&
-                (($data = @lzf_decompress($data)) === false)) {
-                $this->remove($app, $name);
-                return $this->get($app, $name);
-            }
-
-            return @unserialize($data);
+            return @unserialize(
+                $injector->getInstance('Horde_Compress_Fast')->decompress($this->_data[$app][self::IS_SERIALIZED . $name])
+            );
         }
 
         if ($subkeys = $this->_subkeys($app, $name)) {
@@ -355,6 +340,8 @@ class Horde_Session
      */
     public function set($app, $name, $value, $mask = 0)
     {
+        global $injector;
+
         if ($this->_readonly) {
             return;
         }
@@ -365,11 +352,7 @@ class Horde_Session
          * does not need to be rebuilt every time the session is reloaded. */
         if (is_object($value) || ($mask & self::TYPE_OBJECT) ||
             is_array($value) || ($mask & self::TYPE_ARRAY)) {
-            $value = serialize($value);
-            if ($this->_lzf) {
-                $value = lzf_compress($value);
-            }
-            $this->_data[$app][self::IS_SERIALIZED . $name] = $value;
+            $this->_data[$app][self::IS_SERIALIZED . $name] = $injector->getInstance('Horde_Compress_Fast')->compress(serialize($value));
             unset($this->_data[$app][self::NOT_SERIALIZED . $name]);
         } else {
             $this->_data[$app][self::NOT_SERIALIZED . $name] = $value;

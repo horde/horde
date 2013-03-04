@@ -1703,7 +1703,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
             $type = new Horde_Itip_Response_Type_Accept($resource);
             break;
-        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DENIED:
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
             $type = new Horde_Itip_Response_Type_Decline($resource);
             break;
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
