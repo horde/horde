@@ -65,4 +65,15 @@ class Horde_Url_UrlDataTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testIsData()
+    {
+        $this->assertFalse(Horde_Url_Data::isData(new Horde_Url()));
+        $this->assertFalse(Horde_Url_Data::isData('foo'));
+        $this->assertFalse(Horde_Url_Data::isData(333));
+        $this->assertFalse(Horde_Url_Data::isData(array(new Horde_Url_Data())));
+
+        $this->assertTrue(Horde_Url_Data::isData(new Horde_Url_Data()));
+        $this->assertTrue(Horde_Url_Data::isData('data:text/plain,Foo'));
+    }
+
 }
