@@ -1156,7 +1156,7 @@ $_prefs['delete_mark_seen'] = array(
 $_prefs['use_trash'] = array(
     'value' => 0,
     'type' => 'checkbox',
-    'desc' => _("When deleting messages, move them to your Trash mailbox instead of marking them as deleted?"),
+    'desc' => _("Move deleted messages to your Trash mailbox instead of marking them as deleted in the current mailbox?"),
     'on_change' => function() {
         if ($trash_mbox = IMP_Mailbox::getPref('trash_folder')) {
             $trash_mbox->expire(IMP_Mailbox::CACHE_SPECIALMBOXES);
