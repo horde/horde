@@ -662,23 +662,6 @@ class IMP_Hooks
 
 
     /**
-     * Provide email to use for spam reporting. This is handy for spam
-     * reporting software (e.g. DSPAM) which has different e-mail aliases for
-     * spam reporting for each user.
-     *
-     * @param string $action  Either 'spam' or 'innocent'.
-     *
-     * @return string  An e-mail address.
-     */
-//    public function spam_email($action)
-//    {
-//        // Example #1: Create e-mail for DSPAM setup.
-//        $prefix = ($action == 'spam') ? 'spam-' : 'fp-';
-//        return $prefix . $GLOBALS['registry']->getAuth('bare') . '@example.com';
-//    }
-
-
-    /**
      * Perform an action after messages have been reported as spam/innocent.
      *
      * @param string $action        Either 'spam' or 'innocent'.

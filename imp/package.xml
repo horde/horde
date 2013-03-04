@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Spam reporting configuration has been moved to the backends file.
 * [mms] Support showing blocked Data URIs in HTML message data.
 * [mms] Add the &apos;mbox_acl&apos; hook.
 * [mms] Move folder disabling configuration into the permission system.

@@ -26,6 +26,8 @@
  * @property-read boolean $autocreate_special  Auto-create special mailboxes?
  * @property-read boolean $changed  If true, this object has changed.
  * @property-read boolean $init  Has the base IMAP object been initialized?
+ * @property-read array $innocent_params  Return params used for innocent
+ *                                        message reporting.
  * @property-read string $maildomain  Default maildomain.
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
@@ -39,6 +41,8 @@
  * @property-read array $quota_params  Quota parameters.
  * @property-read string $server_key  Server key used to login.
  * @property-read array $smtp_params  SMTP parameters.
+ * @property-read array $spam_params  Return params used for spam message
+ *                                    reporting.
  * @property-read string $thread_algo  The threading algorithm to use.
  * @property-read array $userspecial_mboxes  The list of user-defined special
  *                                           mailboxes.
@@ -121,6 +125,11 @@ class IMP_Imap implements Serializable
         case 'init':
             return !is_null($this->_ob);
 
+        case 'innocent_params':
+            return ($this->init && ($p = $this->_ob->getParam('imp:innocent')))
+                ? $p
+                : array();
+
         case 'maildomain':
             return ($this->init && ($md = $this->_ob->getParam('imp:maildomain')))
                 ? $md
@@ -167,6 +176,11 @@ class IMP_Imap implements Serializable
             }
 
             return $params;
+
+        case 'spam_params':
+            return ($this->init && ($p = $this->_ob->getParam('imp:spam')))
+                ? $p
+                : array();
 
         case 'thread_algo':
             if (!$this->init) {
@@ -309,6 +323,15 @@ class IMP_Imap implements Serializable
                 $sc['quota']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
             }
             $imap_config['imp:quota'] = $sc['quota'];
+        }
+
+        /* Spam configuration. */
+        if (!empty($sc['spam'])) {
+            foreach (array('innocent', 'spam') as $val) {
+                if (!empty($sc[$val])) {
+                    $imap_config['imp:' . $val] = $sc[$val];
+                }
+            }
         }
 
         /* Initialize caching. */

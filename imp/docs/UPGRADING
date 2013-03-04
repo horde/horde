@@ -61,6 +61,20 @@ The $conf['msgsettings']['filtering'] and $conf['msgsettings']['replacement']
 options have been removed. This feature has been moved to the 'msg_filter'
 hook.
 
+The following spam-reporting options have been removed and can now be
+configured per-backend in ``config/backends.local.php``::
+
+   $conf['notspam']['email']
+   $conf['notspam']['email_format']
+   $conf['notspam']['program']
+   $conf['notspam']['reporting']
+   $conf['notspam']['spamfolder']
+   $conf['spam']['email']
+   $conf['spam']['email_format']
+   $conf['spam']['program']
+   $conf['spam']['reporting']
+   $conf['spam']['spamfolder']
+
 The following options have been removed::
 
    $conf['compose']['link_all_attachments']
@@ -74,6 +88,9 @@ controlled via native IMAP ACLs or, alternatively, by the 'mbox_acl' hook.
 
 The 'mbox_special' hook has been removed. Additional special mailboxes can
 now be defined per-backend in ``config/backends.local.php``.
+
+The 'spam_email' hook has been removed. This configuration can now be defined
+per-backend in ``config/backends.local.php``.
 
 The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
 second argument ($mode). If the current view mode is needed, it can be

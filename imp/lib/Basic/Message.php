@@ -134,8 +134,12 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         case 'spam_report':
         case 'notspam_report':
-            $action = str_replace('_report', '', $this->vars->actionID);
-            switch (IMP_Spam::reportSpam($this->indices, $action, array('mailboxob' => $imp_mailbox))) {
+            $res = $injector->getInstance('IMP_Spam')->report(
+                $this->indices,
+                ($this->vars->actionID == 'spam_report') ? IMP_Spam::SPAM : IMP_Spam::INNOCENT,
+                array('mailbox' => $imp_mailbox)
+            );
+            switch ($res) {
             case 1:
                 if ($imp_ui->moveAfterAction($mailbox)) {
                     $imp_mailbox->setIndex(1);

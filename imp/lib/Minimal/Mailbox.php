@@ -60,7 +60,7 @@ class IMP_Minimal_Mailbox extends IMP_Minimal_Base
         // 'ri' = report innocent
         case 'rs':
         case 'ri':
-            IMP_Spam::reportSpam($this->indices, $this->vars->checkbox == 'rs' ? 'spam' : 'notspam');
+            $injector->getInstance('IMP_Spam')->report($this->indices, $this->vars->checkbox == 'rs' ? IMP_Spam::SPAM : IMP_Spam::INNOCENT);
             break;
         }
 

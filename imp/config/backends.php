@@ -206,6 +206,38 @@
  *     - username: (string) Username to use for SMTP server authentication (if
  *                 empty, uses IMP authentication username).
  *
+ * spam: (array) Spam reporting configuration. This array can contains two
+ *   keys - 'innocent' and 'spam' - that defines the behavior when a user
+ *   flags a message with one of these actions.
+ *
+ *   To activate reporting, define either an 'email' or 'program' option (or
+ *   both) for an action. These placeholders are available in these options
+ *   and will be expanded at run-time:
+ *      - %u: The Horde username.
+ *      - %l: The short username (no domain information).
+ *      - %d: The domain name.
+ *
+ *   These options are available for each action:
+ *     - display: (boolean) This option depends on the action.
+ *       - innocent: If true, the innocent action only appears in the user's
+ *                   spam mailbox (default). If false, the action appears in
+ *                   all mailboxes.
+ *       - spam: If false, the spam action appears in all mailboxes other than
+ *               the user's spam mailbox (default). If true, the action appears
+ *               in all mailboxes.
+ *     - email: (string) The e-mail address to use for reporting.
+ *     - email_format: (string) Either 'digest' or 'redirect'.
+ *     - program: (string) An external program to report the spam message to.
+ *                Messages will be reported to the program via standard input.
+ *       - digest: [DEFAULT; RECOMMENDED] Packages the raw data of all
+ *                 messages reported by the user in their marking action and
+ *                 sends to the reporting e-mail address ('email' option) in a
+ *                 single multipart/digest message.
+ *       - redirect: Redirects the message to the reporting e-mail address
+ *                   ('email' option). Note that this alters the original
+ *                   message's headers and may break embedded spam reporting
+ *                   signature information contained in the original message.
+ *
  *
  * Properties that only apply to IMAP servers:
  * ===========================================
@@ -365,6 +397,20 @@ $servers['advanced'] = array(
     //    'password' => null,
     //    'port' => 25,
     //    'username' => null
+    ),
+    'spam' => array(
+        // 'innocent' => array(
+        //     'display' => true,
+        //     'email' => null,
+        //     'email_format' => 'digest',
+        //     'program' => null
+        // ),
+        // 'spam' => array(
+        //     'display' => false,
+        //     'email' => null,
+        //     'email_format' => 'digest',
+        //     'program' => null
+        // )
     ),
     'admin' => array(
     //     'user' => 'cyrus',

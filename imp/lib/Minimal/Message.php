@@ -68,7 +68,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         case 'rs':
         case 'ri':
             $msg_index = $imp_mailbox->getIndex();
-            $msg_delete = (IMP_Spam::reportSpam($this->indices, $this->vars->a == 'rs' ? 'spam' : 'notspam', array('mailboxob' => $imp_mailbox)) === 1);
+            $msg_delete = ($injector->getInstanc('IMP_Spam')->report($this->indices, $this->vars->a == 'rs' ? IMP_Spam::SPAM : IMP_Spam::INNOCENT, array('mailboxob' => $imp_mailbox)) === 1);
             break;
         }
 
