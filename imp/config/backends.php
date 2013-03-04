@@ -345,17 +345,6 @@ $servers['imap'] = array(
     // [6.2.3]), so TLS is the only guaranteed authentication available by
     // default.
     'secure' => 'tls',
-    'maildomain' => '',
-    'smtp' => array(
-    //    'auth' => true,
-    //    'debug' => false,
-    //    'localhost' => 'localhost',
-    //    'host' => 'smtp.example.com',
-    //    'password' => null,
-    //    'port' => 25,
-    //    'username' => null
-    ),
-    'cache' => false,
 );
 
 $servers['advanced'] = array(
@@ -414,39 +403,6 @@ $servers['pop'] = array(
     'hordeauth' => false,
     'protocol' => 'pop3',
     'port' => 110,
-    'secure' => false,
-    'maildomain' => '',
-    'smtp' => array(
-    //    'auth' => true,
-    //    'debug' => false,
-    //    'localhost' => 'localhost',
-    //    'host' => 'smtp.example.com',
-    //    'password' => null,
-    //    'port' => 25,
-    //    'username' => null
-    ),
-    'cache' => false,
-);
-
-$servers['secure-imap'] = array(
-    // Disabled by default
-    'disabled' => true,
-    'name' => 'Secure IMAP Server',
-    'hostspec' => 'localhost',
-    'hordeauth' => false,
-    'protocol' => 'imap',
-    'port' => 143,
+    // Default to secure TLS authentication by default (see RFC 2595 [4]).
     'secure' => 'tls',
-    'maildomain' => '',
-    'smtp' => array(
-    //    'auth' => true,
-    //    'debug' => false,
-    //    'localhost' => 'localhost',
-    //    'host' => 'smtp.example.com',
-    //    'password' => null,
-    //    'port' => 25,
-    //    'username' => null
-    ),
-    'acl' => false,
-    'cache' => false,
 );
