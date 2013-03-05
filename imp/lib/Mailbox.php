@@ -452,7 +452,8 @@ class IMP_Mailbox implements Serializable
 
         case 'innocent_show':
             $p = $injector->getInstance('IMP_Imap')->innocent_params;
-            return (!empty($p) && (empty($p['display']) || $this->spam));
+            return (!empty($p) &&
+                    ((isset($p['display']) && empty($p['display'])) || $this->spam));
 
         case 'invisible':
             return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);
