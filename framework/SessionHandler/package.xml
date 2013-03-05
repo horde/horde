@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-05</date>
- <time>17:57:31</time>
+ <time>18:04:18</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix unit tests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -468,6 +468,19 @@ Initial release as a PEAR package
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
