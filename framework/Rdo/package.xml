@@ -12,9 +12,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-05</date>
- <time>17:23:32</time>
+ <time>17:28:35</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -23,7 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Improve unit tests.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -353,6 +353,19 @@ Major improvements including inflection, eager or lazy loading of relationships 
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Improve unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
