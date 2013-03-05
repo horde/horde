@@ -12,7 +12,14 @@
    <h3><?php echo $this->h($k) ?></h3>
    <ul data-role="listview" data-filter="true">
 <?php foreach ($v as $v2): ?>
-    <li><a href="<?php echo $v2['url'] ?>"><?php echo $this->h($v2['name']) ?></a></li>
+    <li>
+     <a href="<?php echo $v2['url'] ?>">
+<?php if (!empty($v2['group'])): ?>
+      <?php echo $this->hordeImage('group.png', '', 'class="ui-li-icon"') ?>
+<?php endif; ?>
+      <?php echo $this->h($v2['name']) ?>
+     </a>
+    </li>
 <?php endforeach; ?>
    </ul>
   </div>

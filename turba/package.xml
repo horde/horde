@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
  <notes>
+* [mms] Add group icon to group contacts in smartmobile browse view.
 * [jan] Allow to search all search fields at once in basic searching.
  </notes>
  <contents>

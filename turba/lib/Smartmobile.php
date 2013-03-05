@@ -44,6 +44,7 @@ class Turba_Smartmobile
             'templatePath' => TURBA_TEMPLATES . '/smartmobile'
         ));
         $this->view->addHelper('Horde_Core_Smartmobile_View_Helper');
+        $this->view->addHelper('Horde_Core_View_Helper_Image');
         $this->view->addHelper('Text');
 
         $this->_initPages();
@@ -91,6 +92,7 @@ class Turba_Smartmobile
                     while ($contact = $contacts->next()) {
                         $name = Turba::formatName($contact);
                         $tmp[] = array(
+                            'group' => $contact->isGroup(),
                             'name' => strlen($name) ? $name : ('[' . _("No Name") . ']'),
                             'url' => strval($url->add('key', $contact->getValue('__key')))
                         );
