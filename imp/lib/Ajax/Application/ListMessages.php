@@ -204,11 +204,11 @@ class IMP_Ajax_Application_ListMessages
                 }
             } elseif ($mbox->spam) {
                 $md->innocent_show = 1;
-                if (!empty($conf['spam']['spamfolder'])) {
+                if ($mbox->spam_show) {
                     $md->spam_show = 1;
                 }
             } else {
-                if (empty($conf['notspam']['spamfolder'])) {
+                if ($mbox->innocent_show) {
                     $md->innocent_show = 1;
                 }
                 $md->spam_show = 1;

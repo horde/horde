@@ -29,7 +29,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs, $registry;
+        global $injector, $notification, $page_output, $prefs, $registry;
 
         $mailbox = $this->indices->mailbox;
 
@@ -665,8 +665,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 ));
             }
 
-            if ($conf['spam']['reporting'] &&
-                ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
+            if ($mailbox->spam_show) {
                 $a_view->spam = Horde::widget(array(
                     'url' => '#',
                     'class' => 'spamAction',
@@ -674,8 +673,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 ));
             }
 
-            if ($conf['notspam']['reporting'] &&
-                (!$conf['notspam']['spamfolder'] || $mailbox->spam)) {
+            if ($mailbox->innocent_show) {
                 $a_view->notspam = Horde::widget(array(
                     'url' => '#',
                     'class' => 'notspamAction',

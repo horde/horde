@@ -696,8 +696,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             'nocheck' => true
         ));
 
-        if ($conf['spam']['reporting'] &&
-            ($conf['spam']['spamfolder'] || !$msg_index['m']->spam)) {
+        if ($msg_index['m']->spam_show) {
             $a_view->spam = Horde::widget(array(
                 'url' => '#',
                 'class' => 'spamAction',
@@ -706,8 +705,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
             ));
         }
 
-        if ($conf['notspam']['reporting'] &&
-            (!$conf['notspam']['spamfolder'] || $msg_index['m']->spam)) {
+        if ($msg_index['m']->innocent_show) {
             $a_view->notspam = Horde::widget(array(
                 'url' => '#',
                 'class' => 'notspamAction',

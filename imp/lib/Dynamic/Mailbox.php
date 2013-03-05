@@ -30,7 +30,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $page_output, $registry, $session;
+        global $injector, $page_output, $registry, $session;
 
         $page_output->addScriptFile('dimpbase.js');
         $page_output->addScriptFile('passphrase.js');
@@ -47,9 +47,9 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $imp_imap = $injector->getInstance('IMP_Imap');
 
-        $this->view->show_notspam = !empty($conf['notspam']['reporting']);
+        $this->view->show_notspam = !empty($imp_imap->innocent_params);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
-        $this->view->show_spam = !empty($conf['spam']['reporting']);
+        $this->view->show_spam = !empty($imp_imap->spam_params);
 
         $impSubinfo = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/dynamic'
@@ -319,10 +319,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        if (empty($conf['spam']['reporting'])) {
+        if (empty($imp_imap->spam_params)) {
             unset($context['ctx_message']['spam']);
         }
-        if (empty($conf['notspam']['reporting'])) {
+        if (empty($imp_imap->innocent_params)) {
             unset($context['ctx_message']['innocent']);
         }
         if (!$registry->hasMethod('mail/blacklistFrom')) {

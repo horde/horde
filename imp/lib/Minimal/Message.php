@@ -24,7 +24,7 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
      */
     protected function _init()
     {
-        global $conf, $injector, $notification, $page_output, $prefs;
+        global $injector, $notification, $page_output, $prefs;
 
         $imp_mailbox = $this->indices->mailbox->list_ob;
         $imp_mailbox->setIndex($this->indices);
@@ -266,13 +266,11 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
 
         $menu[] = array(sprintf(_("To %s"), $this->indices->mailbox->label), $mailbox_link);
 
-        if ($conf['spam']['reporting'] &&
-            ($conf['spam']['spamfolder'] || !$mailbox->spam)) {
+        if ($mailbox->spam_show) {
             $menu[] = array(_("Report as Spam"), $self_link->copy()->add(array('a' => 'rs', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
         }
 
-        if ($conf['notspam']['reporting'] &&
-            (!$conf['notspam']['spamfolder'] || $mailbox->spam)) {
+        if ($mailbox->innocent_show) {
             $menu[] = array(_("Report as Innocent"), $self_link->copy()->add(array('a' => 'ri', 'mt' => $injector->getInstance('Horde_Token')->get('imp.message-mimp'))));
         }
 

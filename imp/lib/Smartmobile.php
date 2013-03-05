@@ -87,7 +87,7 @@ class IMP_Smartmobile
      */
     protected function _initPages()
     {
-        global $conf, $injector, $registry;
+        global $injector, $registry;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -101,8 +101,8 @@ class IMP_Smartmobile
         }
 
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
-        $this->view->canSpam = !empty($conf['spam']['reporting']);
-        $this->view->canInnocent = !empty($conf['notspam']['reporting']);
+        $this->view->canSpam = !empty($imp_imap->spam_params);
+        $this->view->canInnocent = !empty($imp_imap->innocent_params);
 
         if ($this->view->canCompose = IMP_Compose::canCompose()) {
             /* Setting up identities. */

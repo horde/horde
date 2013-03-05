@@ -69,6 +69,8 @@
  *                                                         Imap_Client mailbox
  *                                                         object.
  * @property-read boolean $inbox  Is this the INBOX?
+ * @property-read boolean $innocent_show  Show the innocent action in this
+ *                                        mailbox?
  * @property-read boolean $invisible  Is this mailbox invisible?
  * @property-read boolean $is_imap  Is this an IMAP mailbox?
  * @property-read boolean $is_open  Is this level expanded?
@@ -104,6 +106,7 @@
  * @property-read boolean $readonly  Is this mailbox read-only?
  * @property-read boolean $search  Is this a search mailbox?
  * @property-read boolean $spam  Is this a Spam mailbox?
+ * @property-read boolean $spam_show  Show the spam action in this mailbox?
  * @property-read boolean $special  Is this is a "special" element?
  * @property-read boolean $special_outgoing  Is this a "special" element
  *                                           dealing with outgoing messages?
@@ -447,6 +450,10 @@ class IMP_Mailbox implements Serializable
         case 'inbox':
             return (strcasecmp($this->_mbox, 'INBOX') === 0);
 
+        case 'innocent_show':
+            $p = $injector->getInstance('IMP_Imap')->innocent_params;
+            return (!empty($p) && (empty($p['display']) || $this->spam));
+
         case 'invisible':
             return $injector->getInstance('IMP_Imap_Tree')->isInvisible($this->_mbox);
 
@@ -636,6 +643,10 @@ class IMP_Mailbox implements Serializable
         case 'spam':
             $special = $this->getSpecialMailboxes();
             return ($this->_mbox == $special[self::SPECIAL_SPAM]);
+
+        case 'spam_show':
+            $p = $injector->getInstance('IMP_Imap')->spam_params;
+            return (!empty($p) && (!empty($p['display']) || !$this->spam));
 
         case 'special':
             $special = $this->getSpecialMailboxes();
