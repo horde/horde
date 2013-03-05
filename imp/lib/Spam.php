@@ -98,7 +98,7 @@ class IMP_Spam
                     /* Use a pipe to write the message contents. This should
                      * be secure. */
                     $proc = proc_open(
-                        $this->_expand($config['program']),
+                        $this->_expand($config['program'], true),
                         array(
                             0 => array('pipe', 'r'),
                             1 => array('pipe', 'w'),
@@ -295,23 +295,24 @@ class IMP_Spam
     /**
      * Expand placeholders in 'email' and 'program' options.
      *
-     * @param string $str  The option.
+     * @param string $str      The option.
+     * @param boolean $escape  Shell escape the replacements?
      *
      * @return string  The expanded option.
      */
-    private function _expand($str)
+    private function _expand($str, $escape = false)
     {
         global $registry;
 
         $replace = array(
-            '%u' => escapeshellarg($registry->getAuth()),
-            '%l' => escapeshellarg($registry->getAuth('bare')),
-            '%d' => escapeshellarg($registry->getAuth('domain'))
+            '%u' => $registry->getAuth(),
+            '%l' => $registry->getAuth('bare'),
+            '%d' => $registry->getAuth('domain')
         );
 
         return str_replace(
             array_keys($replace),
-            array_values($replace),
+            $escape ? array_map('escapeshellarg', array_values($replace)) : array_values($replace),
             $str
         );
     }
