@@ -328,8 +328,8 @@ class IMP_Imap implements Serializable
         /* Spam configuration. */
         if (!empty($sc['spam'])) {
             foreach (array('innocent', 'spam') as $val) {
-                if (!empty($sc[$val])) {
-                    $imap_config['imp:' . $val] = $sc[$val];
+                if (!empty($sc['spam'][$val])) {
+                    $imap_config['imp:' . $val] = $sc['spam'][$val];
                 }
             }
         }

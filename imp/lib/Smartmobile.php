@@ -100,9 +100,9 @@ class IMP_Smartmobile
             ));
         }
 
+        $this->view->canInnocent = (bool)$imp_imap->innocent_params;
         $this->view->canSearch = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
-        $this->view->canSpam = !empty($imp_imap->spam_params);
-        $this->view->canInnocent = !empty($imp_imap->innocent_params);
+        $this->view->canSpam = (bool)$imp_imap->spam_params;
 
         if ($this->view->canCompose = IMP_Compose::canCompose()) {
             /* Setting up identities. */
