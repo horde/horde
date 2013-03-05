@@ -23,9 +23,9 @@
   <active>yes</active>
  </developer>
  <date>2013-03-05</date>
- <time>13:54:12</time>
+ <time>13:58:42</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -34,7 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004 (Bug #12070).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -331,6 +331,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004 (Bug #12070).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
