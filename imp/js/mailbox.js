@@ -51,8 +51,8 @@ var ImpMailbox = {
             }
             break;
 
-        case 'nostpam_report':
-            if (!confirm(this.text.notspam_report)) {
+        case 'innocent_report':
+            if (!confirm(this.text.innocent_report)) {
                 return;
             }
             break;
@@ -271,8 +271,8 @@ var ImpMailbox = {
                 e.memo.stop();
                 break;
 
-            case 'notspamAction':
-                this.submit('notspam_report');
+            case 'innocentAction':
+                this.submit('innocent_report');
                 e.memo.stop();
                 break;
 

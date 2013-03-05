@@ -88,7 +88,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             $injector->getInstance('IMP_Spam')->report($this->indices, IMP_Spam::SPAM);
             break;
 
-        case 'notspam_report':
+        case 'innocent_report':
             $injector->getInstance('IMP_Spam')->report($this->indices, IMP_Spam::INNOCENT);
             break;
 
@@ -345,10 +345,10 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                 'delete_messages' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
                 'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
                 'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
+                'innocent_report' => _("Are you sure you wish to report this message as innocent?"),
                 'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
                 'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
                 'no' => _("No"),
-                'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
                 'selectone' => _("You must select at least one message first."),
                 'selectonlyone' => _("You must select only one message for this action."),
                 'spam_report' => _("Are you sure you wish to report this message as spam?"),
@@ -674,9 +674,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             }
 
             if ($mailbox->innocent_show) {
-                $a_view->notspam = Horde::widget(array(
+                $a_view->innocent = Horde::widget(array(
                     'url' => '#',
-                    'class' => 'notspamAction',
+                    'class' => 'innocentAction',
                     'title' => _("Report as Innocent")
                 ));
             }

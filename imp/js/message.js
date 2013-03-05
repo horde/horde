@@ -45,8 +45,8 @@ var ImpMessage = {
             }
             break;
 
-        case 'notspam_report':
-            if (!window.confirm(this.text.notspam_report)) {
+        case 'innocent_report':
+            if (!window.confirm(this.text.innocent_report)) {
                 return;
             }
             break;
@@ -200,8 +200,8 @@ var ImpMessage = {
                 this.submit('spam_report');
                 break;
 
-            case 'notspamAction':
-                this.submit('notspam_report');
+            case 'innocentAction':
+                this.submit('innocent_report');
                 break;
 
             case 'stripAllAtc':

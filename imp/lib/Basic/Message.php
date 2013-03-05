@@ -132,8 +132,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
             }
             break;
 
+        case 'innocent_report':
         case 'spam_report':
-        case 'notspam_report':
             $res = $injector->getInstance('IMP_Spam')->report(
                 $this->indices,
                 ($this->vars->actionID == 'spam_report') ? IMP_Spam::SPAM : IMP_Spam::INNOCENT,
@@ -422,9 +422,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
         $js_vars = array(
             'ImpMessage.text' => array(
+                'innocent_report' => _("Are you sure you wish to report this message as innocent?"),
                 'moveconfirm' => _("Are you sure you want to move the message(s)? (Some message information might get lost, like message headers, text formatting or attachments!)"),
                 'newmbox' => _("You are copying/moving to a new mailbox.") . "\n" . _("Please enter a name for the new mailbox:") . "\n",
-                'notspam_report' => _("Are you sure you wish to report this message as innocent?"),
                 'spam_report' => _("Are you sure you wish to report this message as spam?"),
                 'target_mbox' => _("You must select a target mailbox first.")
             )
@@ -706,9 +706,9 @@ class IMP_Basic_Message extends IMP_Basic_Base
         }
 
         if ($msg_index['m']->innocent_show) {
-            $a_view->notspam = Horde::widget(array(
+            $a_view->innocent = Horde::widget(array(
                 'url' => '#',
-                'class' => 'notspamAction',
+                'class' => 'innocentAction',
                 'title' => _("Report as Innocent"),
                 'nocheck' => true
             ));
