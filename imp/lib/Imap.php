@@ -492,7 +492,8 @@ class IMP_Imap implements Serializable
     public function getNamespaceList()
     {
         try {
-            return $this->getNamespaces($this->_ob->getParam('imp:namespace'));
+            $ns = $this->_ob->getParam('imp:namespace');
+            return $this->getNamespaces(is_null($ns) ? array() : $ns);
         } catch (Horde_Imap_Client_Exception $e) {
             return array();
         }
