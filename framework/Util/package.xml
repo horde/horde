@@ -24,9 +24,9 @@
   <active>yes</active>
  </developer>
  <date>2013-03-05</date>
- <time>18:26:39</time>
+ <time>18:31:49</time>
  <version>
-  <release>2.2.1</release>
+  <release>2.2.2</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Simplify Horde_Variables iterator.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -602,6 +602,19 @@ Converted to package.xml 2.0 for pear.horde.org
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Simplify Horde_Variables iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
