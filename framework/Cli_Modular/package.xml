@@ -10,8 +10,8 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:17:17</time>
+ <date>2013-03-05</date>
+ <time>14:34:25</time>
  <version>
   <release>2.0.2</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Simplify Horde_Cli_Modular_Modules iterator.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -236,10 +236,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Simplify Horde_Cli_Modular_Modules iterator.
    </notes>
   </release>
  </changelog>
