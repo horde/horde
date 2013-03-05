@@ -365,8 +365,9 @@
 
 /* Example configurations: */
 
+// IMAP server
 $servers['imap'] = array(
-    // ENABLED by default
+    // ENABLED by default; will connect to IMAP port on local server
     'disabled' => false,
     'name' => 'IMAP Server',
     'hostspec' => 'localhost',
@@ -379,6 +380,23 @@ $servers['imap'] = array(
     'secure' => 'tls',
 );
 
+
+// POP3 server
+$servers['pop'] = array(
+    // Disabled by default
+    'disabled' => true,
+    'name' => 'POP3 Server',
+    'hostspec' => 'localhost',
+    'hordeauth' => false,
+    'protocol' => 'pop3',
+    'port' => 110,
+    // Default to secure TLS authentication by default (see RFC 2595 [4]).
+    'secure' => 'tls',
+);
+
+
+// Advanced example - mainly here to demonstrate the syntax of all available
+// options.
 $servers['advanced'] = array(
     // Disabled by default
     'disabled' => true,
@@ -439,16 +457,4 @@ $servers['advanced'] = array(
     //     )
     ),
     'autocreate_special' => false,
-);
-
-$servers['pop'] = array(
-    // Disabled by default
-    'disabled' => true,
-    'name' => 'POP3 Server',
-    'hostspec' => 'localhost',
-    'hordeauth' => false,
-    'protocol' => 'pop3',
-    'port' => 110,
-    // Default to secure TLS authentication by default (see RFC 2595 [4]).
-    'secure' => 'tls',
 );
