@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-24</date>
- <time>22:52:09</time>
+ <date>2013-03-04</date>
+ <time>21:49:22</time>
  <version>
   <release>2.7.1</release>
   <api>2.7.0</api>
@@ -1542,7 +1542,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-24</date>
+   <date>2013-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix SETQUOTA, GETQUOTA, and GETQUOTAROOT commands on mailboxes that contain non-7bit characters (Bug #12059).
