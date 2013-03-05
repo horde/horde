@@ -10,8 +10,8 @@
   <email>ben@alkaloid.net</email>
   <active>yes</active>
  </lead>
- <date>2013-03-01</date>
- <time>16:26:33</time>
+ <date>2013-03-05</date>
+ <time>12:45:29</time>
  <version>
   <release>2.0.2</release>
   <api>1.1.0</api>
@@ -274,7 +274,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-01</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix retrieving lock list if permanent locks exist (piper@hrz.uni-marburg.de, Bug #12077).
