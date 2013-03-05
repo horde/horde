@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:50:32</time>
+ <date>2013-03-05</date>
+ <time>14:46:37</time>
  <version>
   <release>1.0.2</release>
   <api>1.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [rla] Add license file.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -43,6 +43,7 @@
        <file name="search.php" role="doc" />
        <file name="status.php" role="doc" />
       </dir> <!-- /doc/Horde/ElasticSearch/examples -->
+      <file name="COPYING" role="doc" />
      </dir> <!-- /doc/Horde/ElasticSearch -->
     </dir> <!-- /doc/Horde -->
    </dir> <!-- /doc -->
@@ -84,6 +85,7 @@
  </dependencies>
  <phprelease>
   <filelist>
+   <install as="COPYING" name="doc/Horde/ElasticSearch/COPYING" />
    <install as="examples/add.php" name="doc/Horde/ElasticSearch/examples/add.php" />
    <install as="examples/count.php" name="doc/Horde/ElasticSearch/examples/count.php" />
    <install as="examples/get.php" name="doc/Horde/ElasticSearch/examples/get.php" />
@@ -159,10 +161,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [rla] Add license file.
    </notes>
   </release>
  </changelog>
