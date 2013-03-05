@@ -23,9 +23,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-05</date>
- <time>17:17:16</time>
+ <time>17:22:47</time>
  <version>
-  <release>2.3.2</release>
+  <release>2.3.3</release>
   <api>2.2.0</api>
  </version>
  <stability>
@@ -34,8 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Improve unit tests.
-* [mms] Simplify Horde_Prefs_Scope iterator.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -998,6 +997,19 @@ Initial release as a PEAR package
    <notes>
 * [jan] Improve unit tests.
 * [mms] Simplify Horde_Prefs_Scope iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.3</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
