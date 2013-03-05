@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-05</date>
- <time>17:10:27</time>
+ <time>17:16:01</time>
  <version>
-  <release>1.0.0alpha4</release>
+  <release>1.0.0alpha5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Ignore symbolic links when building content lists.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -484,6 +484,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Ignore symbolic links when building content lists.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0alpha5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
