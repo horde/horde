@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Auth \n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2012-07-19 18:59+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,37 +17,37 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Auth.php:353
+#: lib/Horde/Auth.php:361
 #, php-format
 msgid ""
 "The password is too long; passwords may not be more than %d characters long!"
 msgstr ""
 "Das Passwort ist zu lang, das Passwort darf nicht länger als %d Zeichen sein!"
 
-#: lib/Horde/Auth.php:421 lib/Horde/Auth.php:430
+#: lib/Horde/Auth.php:429 lib/Horde/Auth.php:438
 msgid "The password is too simple to guess."
 msgstr "Das Passwort ist zu leicht zu erraten."
 
-#: lib/Horde/Auth.php:349
+#: lib/Horde/Auth.php:357
 #, php-format
 msgid "The password must be at least %d characters long!"
 msgstr "Das Passwort muss mindestens %d Zeichen lang sein!"
 
-#: lib/Horde/Auth.php:385
+#: lib/Horde/Auth.php:393
 #, php-format
 msgid "The password must contain at least %d alphabetic character."
 msgid_plural "The password must contain at least %d alphabetic characters."
 msgstr[0] "Das Passwort muss mindestens %d Buchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Buchstaben enthalten."
 
-#: lib/Horde/Auth.php:388
+#: lib/Horde/Auth.php:396
 #, php-format
 msgid "The password must contain at least %d alphanumeric character."
 msgid_plural "The password must contain at least %d alphanumeric characters."
 msgstr[0] "Das Passwort muss mindestens %d Buchstaben oder Zahl enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Buchstaben oder Zahlen enthalten."
 
-#: lib/Horde/Auth.php:391
+#: lib/Horde/Auth.php:399
 #, php-format
 msgid ""
 "The password must contain at least %d different types of characters. The "
@@ -56,48 +56,48 @@ msgstr ""
 "Das Passwort muss mindestens %d verschiedenen Zeichentypen enhalten. Typen "
 "sind: Kleinbuchstaben, Großbuchstaben, Zahlen und Sonderzeichen."
 
-#: lib/Horde/Auth.php:379
+#: lib/Horde/Auth.php:387
 #, php-format
 msgid "The password must contain at least %d lowercase character."
 msgid_plural "The password must contain at least %d lowercase characters."
 msgstr[0] "Das Passwort muss mindestens %d Kleinbuchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Kleinbuchstaben enthalten."
 
-#: lib/Horde/Auth.php:382
+#: lib/Horde/Auth.php:390
 #, php-format
 msgid "The password must contain at least %d numeric character."
 msgid_plural "The password must contain at least %d numeric characters."
 msgstr[0] "Das Passwort muss mindestens %d Zahl enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Zahlen enthalten."
 
-#: lib/Horde/Auth.php:400
+#: lib/Horde/Auth.php:408
 #, php-format
 msgid "The password must contain at least %d symbol character."
 msgid_plural "The password must contain at least %d symbol characters."
 msgstr[0] "Das Passwort muss mindestens %d Symbolzeichen enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Symbolzeichen enthalten."
 
-#: lib/Horde/Auth.php:376
+#: lib/Horde/Auth.php:384
 #, php-format
 msgid "The password must contain at least %d uppercase character."
 msgid_plural "The password must contain at least %d uppercase characters."
 msgstr[0] "Das Passwort muss mindestens %d Großbuchstaben enthalten."
 msgstr[1] "Das Passwort muss mindestens %d Großbuchstaben enthalten."
 
-#: lib/Horde/Auth.php:395
+#: lib/Horde/Auth.php:403
 #, php-format
 msgid "The password must contain less than %d whitespace characters."
 msgstr "Das Passwort darf nicht mehr als %d Leerzeichen enthalten."
 
-#: lib/Horde/Auth.php:397
+#: lib/Horde/Auth.php:405
 msgid "The password must not contain whitespace characters."
 msgstr "Das Passwort darf keine Leerzeichen enthalten."
 
-#: lib/Horde/Auth/Base.php:148
+#: lib/Horde/Auth/Base.php:156
 #, php-format
 msgid "Your account has been locked for %d minutes"
 msgstr "Ihr Konto wurde für %d Minuten gesperrt"
 
-#: lib/Horde/Auth/Base.php:146
+#: lib/Horde/Auth/Base.php:154
 msgid "Your account has been permanently locked"
 msgstr "Ihr Konto wurde gesperrt"

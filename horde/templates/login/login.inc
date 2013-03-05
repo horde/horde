@@ -11,6 +11,21 @@
 <?php foreach ($loginparams as $key => $val): ?>
 <?php if ($val['type'] == 'hidden'): ?>
 <input type="hidden" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" />
+<?php elseif ($val['type'] == 'horde_select_view'): ?>
+<div id="horde_select_view" style="display:none">
+ <div><?php echo Horde::label('horde_select_view', _("Mode")) ?></div>
+ <div>
+  <select id="horde_select_view" name="<?php echo $key ?>">
+   <option value="auto"><?php echo _("Automatic") ?></option>
+   <option value="" disabled="disabled">- - - - - - - - - -</option>
+   <option value="basic"><?php echo _("Basic") ?></option>
+   <option value="dynamic"><?php echo _("Dynamic") ?></option>
+   <option value="smartmobile"><?php echo _("Mobile (Smartphone/Tablet)") ?></option>
+   <option value="mobile"><?php echo _("Mobile (Minimal)") ?></option>
+   <option value="mobile_nojs" selected="selected"></option>
+  </select>
+ </div>
+</div>
 <?php else: ?>
 <div><?php echo Horde::label($key, $val['label']) ?></div>
 <div>
