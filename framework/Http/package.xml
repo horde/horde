@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-05</date>
- <time>12:39:07</time>
+ <time>12:43:46</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Allow self-signed certificates when using the fopen driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -385,6 +385,19 @@
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * [jan] Allow self-signed certificates when using the fopen driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
