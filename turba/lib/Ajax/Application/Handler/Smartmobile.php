@@ -21,11 +21,7 @@ class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applica
      *   - key: (string) UID of entry.
      *   - source: (string) UID of source addressbook.
      *
-     * @return object  An object with the following properties:
-     *   - email: (string) If exists, the e-mail address of the entry.
-     *   - email_link: (string) URL to email compose page.
-     *   - error: (boolean) If true, viewing entry was unsuccessful.
-     *   - name: (string) The name associated with the entry.
+     * @return object  TODO
      */
     public function smartmobileEntry()
     {
