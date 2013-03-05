@@ -22,8 +22,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-22</date>
- <time>13:24:00</time>
+ <date>2013-03-05</date>
+ <time>13:54:12</time>
  <version>
   <release>2.0.2</release>
   <api>2.0.0</api>
@@ -327,10 +327,10 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-22</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004.
+* [mms] Fix licensing documentation; Horde_Tree has been released under LGPL 2.1 since 2004 (Bug #12070).
    </notes>
   </release>
  </changelog>
