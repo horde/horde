@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-09</date>
- <time>14:55:57</time>
+ <date>2013-03-05</date>
+ <time>14:14:56</time>
  <version>
   <release>2.0.4</release>
   <api>1.0.0</api>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix unit tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -832,10 +832,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-09</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix unit tests.
    </notes>
   </release>
  </changelog>
