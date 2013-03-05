@@ -54,6 +54,8 @@ var HordeLogin = {
 
     onDomLoad: function()
     {
+        var s = $('horde_select_view');
+
         // Need to capture hash information if it exists in URL
         if (location.hash) {
             $('anchor_string').setValue(this._removeHash(location.hash));
@@ -67,14 +69,13 @@ var HordeLogin = {
             $('login-button').focus();
         }
 
-        /* Activate dynamic view(s). */
-        var s = $('horde_select_view');
+        /* Programtically activate views that require javascript. */
         if (s) {
-            s.down('option[value=dynamic]').show();
-            s.down('option[value=smartmobile]').show();
+            s.down('SELECT option[value=mobile_nojs]').remove();
             if (this.pre_sel) {
-                s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
+                s.down('SELECT').selectedIndex = s.down('SELECT option[value=' + this.pre_sel + ']').index;
             }
+            s.show();
         }
     }
 
