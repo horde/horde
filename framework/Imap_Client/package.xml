@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fix SETQUOTA, GETQUOTA, and GETQUOTAROOT commands on mailboxes that contain non-7bit characters (Bug #12059).
 * [mms] Fix returning UID data from the Horde_Imap_Client_Data_Sync object (Bug #12071).
  </notes>
  <contents>
@@ -1544,6 +1545,7 @@
    <date>2013-02-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fix SETQUOTA, GETQUOTA, and GETQUOTAROOT commands on mailboxes that contain non-7bit characters (Bug #12059).
 * [mms] Fix returning UID data from the Horde_Imap_Client_Data_Sync object (Bug #12071).
    </notes>
   </release>
