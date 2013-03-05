@@ -16,8 +16,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-11</date>
- <time>22:46:57</time>
+ <date>2013-03-05</date>
+ <time>13:42:08</time>
  <version>
   <release>2.2.1</release>
   <api>2.0.0</api>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Return to old directory after running all tests.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -394,10 +394,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-11</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Return to old directory after running all tests.
    </notes>
   </release>
  </changelog>
