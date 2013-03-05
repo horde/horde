@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Skeleton H5 (0.1-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Application.php:125
+#: lib/Application.php:134
 msgid "Bar"
 msgstr ""
 
@@ -25,7 +25,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Block/Example.php:23 lib/Block/Example.php:33
+#: lib/Block/Example.php:26 lib/Block/Example.php:36
 msgid "Color"
 msgstr ""
 
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Column 2"
 msgstr ""
 
-#: lib/Application.php:94
+#: lib/Application.php:103
 msgid "Create a new Foo"
 msgstr ""
 
@@ -45,11 +45,11 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-#: lib/Block/Example.php:13
+#: lib/Block/Example.php:16
 msgid "Example Block"
 msgstr ""
 
-#: lib/Application.php:90 templates/list.html.php:6 templates/list.html.php:29
+#: lib/Application.php:99 templates/list.html.php:6 templates/list.html.php:29
 msgid "Foo"
 msgstr ""
 
@@ -57,15 +57,15 @@ msgstr ""
 msgid "Header"
 msgstr ""
 
-#: lib/Application.php:70
+#: lib/Application.php:79
 msgid "Import/Export"
 msgstr ""
 
-#: lib/Application.php:62 list.php:33
+#: lib/Application.php:71 list.php:33
 msgid "List"
 msgstr ""
 
-#: lib/Application.php:102 lib/Application.php:133
+#: lib/Application.php:111 lib/Application.php:142
 msgid "One"
 msgstr ""
 
@@ -89,11 +89,11 @@ msgstr ""
 msgid "This is your sample preference."
 msgstr ""
 
-#: lib/Application.php:113 lib/Application.php:144
+#: lib/Application.php:122 lib/Application.php:153
 msgid "Two"
 msgstr ""
 
-#: lib/Application.php:81
+#: lib/Application.php:90
 msgid "_Add Item"
 msgstr ""
 
