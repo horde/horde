@@ -1,8 +1,8 @@
 /**
  * Javascript for the Vatid block.
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  */
 
 var HordeBlockVatid = {
@@ -23,7 +23,7 @@ var HordeBlockVatid = {
 
     onFailure: function(e, r)
     {
-        elt.down('IMG').hide();
+        e.element().down('IMG').hide();
     },
 
     onSuccess: function(e, r)
@@ -31,7 +31,6 @@ var HordeBlockVatid = {
         var elt = e.element();
 
         elt.down('DIV.vatidResults').update(r.responseJSON.response).scrollTo();
-
         elt.down('IMG').hide();
     }
 

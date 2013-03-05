@@ -3,7 +3,7 @@
  * Horde_Ldap_Entry represents an LDAP entry.
  *
  * Copyright 2003-2007 Tarjej Huse, Jan Wagner, Benedikt Hallinger
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @package   Ldap
  * @author    Jan Wagner <wagner@netsols.de>
@@ -826,7 +826,7 @@ class Horde_Ldap_Entry
         foreach ($attr as $thisvalue) {
             if (preg_match($regex, $thisvalue, $matches_int)) {
                 $match = true;
-                array_push($matches, $matches_int);
+                $matches[] = $matches_int;
             }
         }
 

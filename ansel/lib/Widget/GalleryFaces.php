@@ -3,7 +3,7 @@
  * Horde_Widget_GalleryFaces:: class to display a widget containing mini
  * thumbnails of faces in the gallery.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author Duck <duck@obala.net>
  * @author Michael J. Rubinsky <mrubinsk@horde.org>
@@ -53,7 +53,7 @@ class Ansel_Widget_GalleryFaces extends Ansel_Widget_Base
      */
     protected function _getFaceNames()
     {
-        if ($this->_view->resource->get('faces')) {
+        if ($this->_view->resource->get('faces') <= 0) {
             return '<div id="faces_widget_content"><br /><em>' . _("No faces found") . '</em></div>';
         }
 

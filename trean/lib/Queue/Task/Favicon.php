@@ -91,7 +91,7 @@ class Trean_Queue_Task_Favicon implements Horde_Queue_Task
         $bookmark = $gateway->getBookmark($this->_bookmarkId);
         if ($bookmark) {
             $bookmark->favicon_url = $response->uri;
-            $bookmark->save($crawl = false);
+            $bookmark->save(false);
         }
 
         // Initialize VFS

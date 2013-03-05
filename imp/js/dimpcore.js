@@ -1,7 +1,7 @@
 /**
  * dimpcore.js - Dimp UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -177,9 +177,9 @@ var DimpCore = {
             tmp = tmp.down('.largeaddrlist');
             if (limit && alist.limit) {
                 base.down('.largeaddrlistlimit').show();
-                tmp.setText(tmp.textContent.replace('%d', alist.limit));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.limit));
             } else {
-                tmp.setText(tmp.textContent.replace('%d', alist.addr.size()));
+                tmp.setText((tmp.textContent || tmp.innerText).replace('%d', alist.addr.size()));
             }
         } else {
             base = elt;

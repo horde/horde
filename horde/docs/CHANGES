@@ -1,7 +1,23 @@
 ----------
-v5.0.3-git
+v5.0.5-git
 ----------
 
+[jan] Fix searching from topbar if search URL contains parameters.
+
+
+------
+v5.0.4
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v5.0.3
+------
+
+[jan] Fix setting menu refresh rate to none (Bug #11867).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix JavaScript errors after updating the top menu.
 

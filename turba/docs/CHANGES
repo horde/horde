@@ -4,10 +4,22 @@ v4.1.0-git
 
 [jan] Allow to search all search fields at once in basic searching.
 
-----------
-v4.0.2-git
-----------
 
+------
+v4.0.3
+------
+
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix emptying shared address books.
+[jan] Fix importing of LDIF data (Bug #11972).
+
+
+------
+v4.0.2
+------
+
+[mjr] Avoid sending broken datetime values to ActiveSync.
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Update French translation (Laurent Foucher
       <laurent.foucher@iut-tlse3.fr>).

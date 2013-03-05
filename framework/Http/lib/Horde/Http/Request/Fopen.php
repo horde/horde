@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * Resources:
  * http://wezfurlong.org/blog/2006/nov/http-post-from-php-without-curl
@@ -101,13 +101,15 @@ class Horde_Http_Request_Fopen extends Horde_Http_Request_Base
         $opts['http']['max_redirects'] = $this->redirects;
         $opts['http']['ignore_errors'] = true;
         $opts['ssl']['verify_peer'] = $this->verifyPeer;
+        $opts['ssl']['allow_self_signed'] = true;
 
         $context = stream_context_create($opts);
         set_error_handler(array($this, '_errorHandler'), E_WARNING | E_NOTICE);
         $stream = fopen($uri, 'rb', false, $context);
         restore_error_handler();
         if (!$stream) {
-            if (preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $this->_errors[0]['message'], $matches)) {
+            if (isset($this->_errors[0]['message']) &&
+                preg_match('/HTTP\/(\d+\.\d+) (\d{3}) (.*)$/', $this->_errors[0]['message'], $matches)) {
                 // Create a Response for the HTTP error code
                 return new Horde_Http_Response_Fopen($uri, null, $matches[0]);
             } else {

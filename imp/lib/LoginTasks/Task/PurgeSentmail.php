@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2001-2012 Horde LLC
+ * @copyright 2001-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  * @author    Jan Schneider <jan@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2001-2012 Horde LLC
+ * @copyright 2001-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -44,7 +44,7 @@ class IMP_LoginTasks_Task_PurgeSentmail extends Horde_LoginTasks_Task
      */
     public function execute()
     {
-        global $injector, $prefs;
+        global $injector, $prefs, $notification;
 
         $imp_message = $injector->getInstance('IMP_Message');
 

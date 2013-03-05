@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -98,7 +98,7 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
 
     public function testRangeGeneration()
     {
-        $ids = new Horde_Imap_Client_Ids('100,200,300');
+        $ids = new Horde_Imap_Client_Ids('100,300,200');
 
         $this->assertEquals(
             '100:300',
@@ -109,6 +109,13 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '',
+            $ids->range_string
+        );
+
+        $ids = new Horde_Imap_Client_Ids('50');
+
+        $this->assertEquals(
+            '50',
             $ids->range_string
         );
     }
@@ -199,6 +206,39 @@ class Horde_Imap_Client_IdsTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('10:12'),
             $ids->ids
+        );
+    }
+
+    public function testSplit()
+    {
+        // ~5000 non-sequential IDs
+        $ids = new Horde_Imap_Client_Ids(range(1, 10000, 2));
+
+        $split = $ids->split(2000);
+
+        $this->assertGreaterThan(1, count($split));
+
+        foreach (array_slice($split, 0, -1) as $val) {
+            $this->assertGreaterThan(
+                2000,
+                strlen($val)
+            );
+
+            $this->assertNotEquals(
+                ',',
+                substr($val, -1)
+            );
+        }
+
+        $last = array_pop($split);
+        $this->assertLessThan(
+            2001,
+            strlen($last)
+        );
+
+        $this->assertNotEquals(
+            ',',
+            substr($last, -1)
         );
     }
 

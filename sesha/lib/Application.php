@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Skeleton through this API.
  *
- * Copyright 2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -73,7 +73,7 @@ class Sesha_Application extends Horde_Registry_Application
         if (empty($this->highlight) && basename($_SERVER['PHP_SELF']) == 'index.php') {
            $this->highlight = 'sesha-list';
         }
-        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, $this->highlight == 'sesha-list' ? 'current' : '__noselection');
+        $menu->add(Horde::url('list.php'), _("_List Stock"), 'sesha-list', null, null, null, $this->highlight == 'sesha-list' ? 'current' : null);
 
         /* Search. */
         $menu->add(Horde::url('search.php'), _("_Search"), 'sesha-search', null, null, null, $this->highlight == 'sesha-search' ? 'current' : null);

@@ -3,7 +3,7 @@
  * Displays and handles the form to move a ticket to a different queue.
  *
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -22,6 +22,8 @@ if ($form != 'whups_form_queue_stepone') {
     $v = $vars->get('version');
     $t = $vars->get('type');
 }
+
+Whups::addTopbarSearch();
 
 // Get all ticket details from storage, then override any values that are
 // in the process of being edited.

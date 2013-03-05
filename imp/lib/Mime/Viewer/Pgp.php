@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -25,7 +25,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -441,7 +441,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         } else {
             switch ($GLOBALS['registry']->getView()) {
             case Horde_Registry::VIEW_BASIC:
-                $status->addText(Horde::link(IMP::selfUrl()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
+                $status->addText(Horde::link(Horde::selfUrlParams()->add(array('pgp_verify_msg' => 1))) . _("Click HERE to verify the message.") . '</a>');
                 break;
 
             case Horde_Registry::VIEW_DYNAMIC:

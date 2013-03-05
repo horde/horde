@@ -14,7 +14,7 @@
 /**
  * Represents a source component.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -67,6 +67,28 @@ class Components_Component_Source extends Components_Component_Base
     {
         $this->_directory = realpath($directory);
         parent::__construct($config, $factory);
+    }
+
+    /**
+     * Return a data array with the most relevant information about this
+     * component.
+     *
+     * @return array Information about this component.
+     */
+    public function getData()
+    {
+        $data = new stdClass;
+        $package = $this->getPackageXml();
+        $data->name = $package->getName();
+        $data->summary = $package->getSummary();
+        $data->description = $package->getDescription();
+        $data->version = $package->getVersion();
+        $data->releaseDate = $package->getDate()
+            . ' ' . $package->getNodeText('/p:package/p:time');
+        $data->download = sprintf('http://pear.horde.org/get/%s-%s.tgz',
+                                  $data->name, $data->version);
+        $data->hasCi = $this->_hasCi();
+        return $data;
     }
 
     /**
@@ -148,10 +170,15 @@ class Components_Component_Source extends Components_Component_Base
         }
 
         $package_xml = $this->getPackageXml();
-        $package_xml->updateContents(
-            $this->getFactory()->createContentList($this->_directory),
-            $options
-        );
+
+        /* Skip updating if this is a PECL package. */
+        if (!$package_xml->findNode('/p:package/p:providesextension')) {
+            $package_xml->updateContents(
+                $this->getFactory()->createContentList($this->_directory),
+                $options
+            );
+        }
+
         switch($action) {
         case 'print':
             return (string) $package_xml;

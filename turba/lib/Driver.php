@@ -4,7 +4,7 @@
  * various directory search drivers.  It includes functions for searching,
  * adding, removing, and modifying directory entries.
  *
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -144,6 +144,9 @@ class Turba_Driver implements Countable
         'spouse' => 'spouse',
         'website' => 'webpage',
         'assistant' => 'assistantname',
+        'manager' => 'managername',
+        'yomifirstname' => 'yomifirstname',
+        'yomilastname' => 'yomilastname',
         'imaddress' => 'imaddress',
         'imaddress2' => 'imaddress2',
         'imaddress3' => 'imaddress3',
@@ -2470,6 +2473,7 @@ class Turba_Driver implements Countable
 
             case 'workCountry':
                 $message->businesscountry = !empty($hash['workCountry']) ? Horde_Nls::getCountryISO($hash['workCountry']) : null;
+                break;
 
             case 'email':
                 $message->email1address = $value;
@@ -2529,11 +2533,17 @@ class Turba_Driver implements Countable
 
             case 'birthday':
             case 'anniversary':
-                if (!empty($value)) {
+                if (!empty($value) && $value != '0000-00-00') {
                     try {
                         $date = new Horde_Date($value);
-                        $message->{$field} = $date;
                     } catch (Horde_Date_Exception $e) {
+                        $message->$field = null;
+                    }
+                    // Some sanity checking to make sure the date was
+                    // successfully parsed.
+                    if ($date->month != 0) {
+                        $message->$field = $date;
+                    } else {
                         $message->$field = null;
                     }
                 } else {

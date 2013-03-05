@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -20,7 +20,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @author    Gunnar Wrobel <wrobel@pardus.de>
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -363,8 +363,8 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
         try {
             $end = $vevent->getAttribute('DTEND');
             $view->end = is_array($end)
-                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'], $end['year']))
-                : strftime($prefs->getValue('date_format'), $end) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end);
+                ? strftime($prefs->getValue('date_format'), mktime(0, 0, 0, $end['month'], $end['mday'] - 1, $end['year']))
+                : strftime($prefs->getValue('date_format'), $end - 1) . ' ' . date($prefs->getValue('twentyFour') ? ' G:i' : ' g:i a', $end - 1);
         } catch (Horde_Icalendar_Exception $e) {
             $end = null;
         }

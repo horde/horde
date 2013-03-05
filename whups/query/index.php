@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,6 +18,8 @@ $qManager = new Whups_Query_Manager();
 // Set up the page config vars.
 $showEditQuery = true;
 $showExtraForm = null;
+
+Whups::addTopbarSearch();
 
 // Find our current query.
 if ($whups_query = $session->get('whups', 'query')) {

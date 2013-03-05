@@ -2,7 +2,7 @@
 /**
  * Face recognition class
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -163,7 +163,7 @@ class Ansel_Faces
         if (Horde_Util::loadExtension('libpuzzle') !== false) {
             $html .= Horde::url('faces/search/image_search.php')->add('face_id', $face_id)->link() . _("Find similar") . '</a>';
         }
-        $html .= '</div></td></tr></table>';
+        $html .= '</td></tr></table></div>';
 
         return $html;
     }

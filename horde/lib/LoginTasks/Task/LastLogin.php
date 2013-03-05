@@ -2,14 +2,14 @@
 /**
  * Login task to output last login information.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 class Horde_LoginTasks_Task_LastLogin extends Horde_LoginTasks_Task

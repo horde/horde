@@ -18,7 +18,7 @@
  * Geoffrey T. Dairiki <dairiki@dairiki.org>. The original PHP version of this
  * code was written by him, and is used/adapted with his permission.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.

@@ -2,10 +2,10 @@
 /**
  * Perform search request for the horde-wide tag cloud block.
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
  * @TODO: If/when more apps support the searchTags api calls, probably
  *        should not hardcode the supported apps.  Also should allow excluding
@@ -13,7 +13,7 @@
  *
  * @author   Michael J. Rubinksy <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @license  http://www.horde.org/licenses/lgpl LGPL-2
  * @package  Horde
  */
 

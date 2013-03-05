@@ -1,7 +1,40 @@
 ----------
-v4.0.3-git
+v4.0.5-git
 ----------
 
+[jan] Re-enable users in drop-down list after revoking permissions (Bug
+      #12000).
+[jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de,
+      Bug #12074).
+[mjr] Always populate the meetingstatus property in ActiveSync requests  to
+      avoid issues with some versions of iOS (Bug #12056).
+[mjr] Fix deletion of resource events after deleting resource (Bug #12034).
+
+
+------
+v4.0.4
+------
+
+[jan] Update alarms, resources, and tags when deleting Kolab events (Bug
+      #11988).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+[jan] Fix some issues with workweek views if first day of week is Sunday (Bug
+      #11973).
+[jan] Fix adding holiday calendars if not using English locale (Bug #11961).
+[jan] More robust date parsing during event importing (Bug #11916).
+[jan] Always export year numbers with four digits to CSV (Request #11917).
+[jan] Fix JavaScript error if Nag is not installed.
+
+
+------
+v4.0.3
+------
+
+[jan] Fix setting default start time in new event dialog of basic view (Bug
+      #11861).
+[jan] Fix saving alarm methods to Kolab backend (Thomas Jarosch
+      <thomas.jarosch@intra2net.com>, Bug #11880).
 [jan] Update Basque translation (Ibon Igartua <ibon.igartua@ehu.es>).
 [jan] Fix moving events between calendars (Bug #11830).
 [jan] Fix fatal error on recurring events with custom timezone (Bug #11587).

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>horde_lz4</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde LZ4 Compression Extension</summary>
+ <description>PHP extension that implements the LZ4 compression algorithm - an extremely fast lossless compression algorithm.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2013-03-04</date>
+ <version>
+  <release>1.0.0beta3</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+ <notes>
+* 
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="001.phpt" role="test" />
+    <file name="002.phpt" role="test" />
+    <file name="003.phpt" role="test" />
+    <file name="004.phpt" role="test" />
+    <file name="005.phpt" role="test" />
+    <file name="006.phpt" role="test" />
+    <file name="007.phpt" role="test" />
+    <file name="data.inc" role="test" />
+   </dir> <!-- /tests -->
+   <file name="config.m4" role="src" />
+   <file name="CREDITS" role="doc" />
+   <file name="horde_lz4.c" role="src" />
+   <file name="horde_lz4.h" role="src" />
+   <file name="LICENSE" role="doc" />
+   <file name="LICENSE.lz4" role="doc" />
+   <file name="lz4.c" role="src" />
+   <file name="lz4.h" role="src" />
+   <file name="lz4hc.c" role="src" />
+   <file name="lz4hc.h" role="src" />
+   <file name="php_verdep.h" role="src" />
+   <file name="README.md" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.0.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <providesextension>horde_lz4</providesextension>
+ <extsrcrelease/>
+ <changelog>
+  <release>
+   <date>2013-03-03</date>
+   <version>
+    <release>1.0.0beta1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+   <notes>
+* [mms] Initial release of package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-03-04</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0beta3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-03-04</date>
+   <license uri="http://www.php.net/license/3_01.txt">PHP 3.01</license>
+   <notes>
+* 
+   </notes>
+  </release>
+ </changelog>
+</package>

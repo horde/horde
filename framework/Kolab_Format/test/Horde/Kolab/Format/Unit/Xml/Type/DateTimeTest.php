@@ -15,7 +15,7 @@
 /**
  * Test the date-time attribute handler.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -30,6 +30,11 @@
 class Horde_Kolab_Format_Unit_Xml_Type_DateTimeTest
 extends Horde_Kolab_Format_TestCase
 {
+    public function setUp()
+    {
+        date_default_timezone_set('Europe/Berlin');
+    }
+
     public function testLoadDate()
     {
         $attributes = $this->load(
@@ -46,7 +51,7 @@ extends Horde_Kolab_Format_TestCase
 <kolab version="1.0" a="b"><datetime>2011-06-29</datetime>c</kolab>'
         );
         $this->assertEquals(
-            '2011-06-29T00:00:00+00:00',
+            '2011-06-29T00:00:00+02:00',
             $attributes['datetime']['date']->format('c')
         );
     }
@@ -58,7 +63,7 @@ extends Horde_Kolab_Format_TestCase
 <kolab version="1.0" a="b"><datetime type="strange"><b/>2011-06-29<a/></datetime>c</kolab>'
         );
         $this->assertEquals(
-            '2011-06-29T00:00:00+00:00',
+            '2011-06-29T00:00:00+02:00',
             $attributes['datetime']['date']->format('c')
         );
     }

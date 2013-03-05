@@ -391,6 +391,9 @@ class Horde_Date_RecurrenceTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('FREQ=MONTHLY;INTERVAL=1;BYDAY=2FR;COUNT=2', $r->toRRule20($this->ical));
     }
 
+    /**
+     * @see http://bugs.horde.org/ticket/11181
+     */
     public function testMonthlyWeekdayFifth()
     {
         $r = new Horde_Date_Recurrence('2012-05-31 10:00:00');

@@ -102,7 +102,12 @@ var IMP_JS = {
 
         id.observe('load', function(i) {
             i.stopObserving('load');
-            this.iframeResize.bind(this, i).defer(0.3);
+            if (Prototype.Browser.IE && !document.addEventListener) {
+                // IE8
+                this.iframeResize.bind(this, i).delay(1);
+            } else {
+                this.iframeResize.bind(this, i).defer();
+            }
         }.bind(this, id));
 
         d.open();

@@ -1,7 +1,7 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -776,14 +776,16 @@ var DimpCompose = {
         }
 
         // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
-        if (e && Prototype.Browser.IE) {
+        if (e && Prototype.Browser.IE && !document.addEventListener) {
             this.resizeMsgArea.bind(this).delay(0.1);
             return;
         }
 
-        var cmp = $('composeMessageParent'), mah;
+        var mah,
+            cmp = $('composeMessageParent'),
+            qreply = $('qreply');
 
-        if (!cmp) {
+        if (!cmp || (qreply && !qreply.visible())) {
             return;
         }
 

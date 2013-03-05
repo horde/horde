@@ -2,7 +2,7 @@
 /**
  * Basic view mailbox display page.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -28,14 +28,13 @@ function _outputSummaries($msgs, Horde_View $view)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
 
 if (!IMP::mailbox()) {
     throw new IMP_Exception(_("Invalid mailbox."));
 }
-
-$registry->setTimeZone();
 
 /* Call the mailbox redirection hook, if requested. */
 try {
@@ -349,7 +348,7 @@ $unread = $imp_mailbox->unseenMessages(Horde_Imap_Client::SEARCH_RESULTS_COUNT);
 
 $page_output->addInlineJsVars(array(
     'ImpMailbox.text' => array(
-        'delete' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
+        'delete_messages' => _("Are you sure you wish to PERMANENTLY delete these messages?"),
         'delete_all' => _("Are you sure you wish to delete all mail in this mailbox?"),
         'delete_vfolder' => _("Are you sure you want to delete this Virtual Folder Definition?"),
         'selectone' => _("You must select at least one message first."),
@@ -374,21 +373,15 @@ if (IMP::mailbox()->editvfolder) {
 
 /* Generate mailbox summary string. */
 $subinfo = $injector->getInstance('IMP_View_Subinfo');
-$subinfo->value = $pagetitle;
+$subinfo->value = $pagetitle . ' (';
 if (empty($pageOb['end'])) {
     $subinfo->value .= _("No Messages");
 } else {
-    $subinfo->value .= ' (';
-    if ($pageOb['pagecount'] > 1) {
-        $subinfo->value .=
-              sprintf(_("%d Messages"), $pageOb['msgcount'])
-            . ' / '
-            .  sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount']);
-    } else {
-        $subinfo->value .= sprintf(_("%d Messages"), $pageOb['msgcount']);
-    }
-    $subinfo->value .= ')';
+    $subinfo->value .= ($pageOb['pagecount'] > 1)
+        ? sprintf(_("%d Messages"), $pageOb['msgcount']) . ' / ' . sprintf(_("Page %d of %d"), $pageOb['page'], $pageOb['pagecount'])
+        : sprintf(_("%d Messages"), $pageOb['msgcount']);
 }
+$subinfo->value .= ')';
 $injector->getInstance('Horde_View_Topbar')->subinfo = $subinfo->render();
 
 $page_output->addScriptFile('hordecore.js', 'horde');
@@ -406,7 +399,6 @@ $view = new Horde_View(array(
 $view->addHelper('FormTag');
 $view->addHelper('Horde_Core_View_Helper_Accesskey');
 $view->addHelper('Tag');
-$view->addHelper('Text');
 
 $hdr_view = clone $view;
 $hdr_view->readonly = $readonly;
@@ -528,7 +520,7 @@ if ($pageOb['msgcount']) {
         $imp_search->setIteratorFilter(IMP_Search::LIST_FILTER);
         foreach ($imp_search as $val) {
             $filters[] = array(
-                'l' => htmlspecialchars($val->label),
+                'l' => $val->label,
                 'v' => IMP_Mailbox::formTo($val)
             );
         }

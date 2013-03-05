@@ -1,7 +1,6 @@
 /* Mailbox page styling. */
 #mailboxLabel {
     margin-left: 20px;
-    white-space: nowrap;
 }
 
 .mboxheader {
@@ -294,11 +293,6 @@ table.searchesmanagement td.searchdescription {
     background-color: #ffa;
     width: 500px;
     border-top-width: 0;
-}
-table.searchesmanagement .vfolderenabled {
-    color: blue;
-    cursor: pointer;
-    text-decoration: underline;
 }
 
 /* Prefs styles. */

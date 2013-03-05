@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  *
@@ -128,7 +128,7 @@ class Horde_Imap_Client_Data_Sync
                 $squery->ids($new_ids);
                 $sres = $base_ob->search($mailbox, $squery);
 
-                $this->newmsgs = $sres['match'];
+                $this->_newmsgsuids = $sres['match'];
             }
         }
 
@@ -156,7 +156,7 @@ class Horde_Imap_Client_Data_Sync
         if ($sync_all || ($criteria & Horde_Imap_Client::SYNC_FLAGSUIDS)) {
             if (isset($sync['H'])) {
                 if ($sync['H'] == $status_sync['syncmodseq']) {
-                    $this->flags = is_null($ids)
+                    $this->_flagsuids = is_null($ids)
                         ? $status_sync['syncflaguids']
                         : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncflaguids']->ids));
                 } else {
@@ -165,11 +165,11 @@ class Horde_Imap_Client_Data_Sync
                     $sres = $base_ob->search($mailbox, $squery, array(
                         'ids' => $ids
                     ));
-                    $this->flags = $sres['match'];
+                    $this->_flagsuids = $sres['match'];
                 }
             } else {
                 /* Without MODSEQ, need to mark all FLAGS as changed. */
-                $this->flags = $base_ob->resolveIds($mailbox, is_null($ids) ? $base_ob->getIdsOb(Horde_Imap_Client_Ids::ALL) : $ids);
+                $this->_flagsuids = $base_ob->resolveIds($mailbox, is_null($ids) ? $base_ob->getIdsOb(Horde_Imap_Client_Ids::ALL) : $ids);
             }
         }
 
@@ -183,13 +183,13 @@ class Horde_Imap_Client_Data_Sync
                     ? $status_sync['syncvanisheduids']
                     : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncvanisheduids']->ids));
             } else {
-                $vanished = $base_ob->vanished($mailbox, isset($sync['H']) ? $sync['H'] : 0, array(
+                $vanished = $base_ob->vanished($mailbox, isset($sync['H']) ? $sync['H'] : 1, array(
                     'ids' => $ids
                 ));
             }
 
             $this->vanished = (bool)count($vanished);
-            $this->vanisheduids = $vanished;
+            $this->_vanisheduids = $vanished;
         }
     }
 

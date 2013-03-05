@@ -8,6 +8,21 @@
     <div id="hermesTimeFormInputs">
       <div class="hermesTimeFormGeneral">
         <div id="hermesLoadingTime" class="hermesLoading" style="display:none"></div>
+        <?php if ($registry->isAdmin(array('permission' => 'hermes:timeadmin'))): ?>
+        <label for="hermesTimeFormEmployee"><?php echo _("Employee") ?>
+          <?php $userType = Hermes::getEmployeesType();
+          if ($userType[0] == 'text'):?>
+            <input type="text" id="hermesTimeFormEmployee" name="employee" />
+          <?php else: ?>
+            <select name="employee" id="hermesTimeFormEmployee">
+              <?php foreach ($userType[1] as $username => $user_label): ?>
+              <?php $selected = ($username == $GLOBALS['registry']->getAuth()) ? 'selected="selected"' : ''; ?>
+                <option <?php echo $selected ?>value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
+              <?php endforeach ?>
+            </select>
+          <?php endif; ?>
+        </label>
+        <?php endif; ?>
         <label for="hermesTimeFormClient">
           <?php echo _("Client")?>
           <?php echo Hermes::getClientSelect('hermesTimeFormClient');?>
@@ -53,7 +68,7 @@
   <!-- End Time Entry Form -->
 
   <!-- Time Slice Grid -->
-  <div class="header"><?php echo _("Unsubmitted Time")?>
+  <div class="header"><?php echo _("My Unsubmitted Time")?>
     <span class="QuickFinderWrapper"><input type="text" name="quicksearchT" id="quicksearchT" title="<?php echo _("Quick Filter")?>" for="hermesTimeListInternal" empty="hermesTimeListEmpty" /></span>
   </div>
 

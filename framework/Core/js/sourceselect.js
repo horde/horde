@@ -21,9 +21,12 @@ var HordeSourceSelectPrefs = {
             if (ss) {
                 this.source_list.each(function(s) {
                     if (s.source == ss) {
-                        s.selected = $F('selected_sources');
+                        s.selected = [];
+                        $A($('selected_sources').options).slice(1).each(function(o) {
+                            s.selected.push(o.value);
+                        });
                     }
-                    out.push([ s.source, s.selected ]);
+                    out.push([ s.source ].concat(s.selected));
                 });
             }
         } else {
@@ -114,7 +117,7 @@ var HordeSourceSelectPrefs = {
                 sel.insert(new Option(s.v, s.l));
             });
             source.unselected.each(function(u) {
-                unsel.insert(new Option(s.v, s.l));
+                unsel.insert(new Option(u.v, u.l));
             });
         }
     },

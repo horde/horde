@@ -16,7 +16,7 @@
  * Components_Qc_Tasks:: organizes the different tasks required for
  * releasing a package.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -125,7 +125,7 @@ class Components_Qc_Tasks
 
             $numErrors = $task->run($options);
 
-            $output->bold("\n");
+            $output->plain('');
             if ($numErrors == 1) {
                 $output->warn("$numErrors error!");
             } else if ($numErrors) {

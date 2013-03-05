@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -18,6 +18,8 @@ if (!Whups::hasPermission($ticket->get('queue'), 'queue', 'update')) {
     Horde::url($prefs->getValue('whups_default_view') . '.php', true)
         ->redirect();
 }
+
+Whups::addTopbarSearch();
 
 $vars = Horde_Variables::getDefaultVariables();
 $vars->set('id', $id = $ticket->getId());

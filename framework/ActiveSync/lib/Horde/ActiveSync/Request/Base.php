@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -160,7 +160,7 @@ abstract class Horde_ActiveSync_Request_Base
     public function checkPolicyKey($sentKey)
     {
         $this->_logger->debug(sprintf(
-            "[%s] Checking policykey for device: %s user: %s",
+            '[%s] Checking policykey for device: %s user: %s',
             $this->_device->id,
             $sentKey,
             $this->_driver->getUser()));
@@ -209,7 +209,7 @@ abstract class Horde_ActiveSync_Request_Base
     {
         $this->_version = $this->_activeSync->getProtocolVersion();
         $this->_logger->info(sprintf(
-            "Request being handled for device: %s Supporting protocol version: %s",
+            'Request being handled for device: %s Supporting protocol version: %s',
             $this->_device->id,
             $this->_version)
         );

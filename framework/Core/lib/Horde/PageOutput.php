@@ -3,7 +3,7 @@
  * This object consolidates the elements needed to output a page to the
  * browser.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -28,6 +28,15 @@ class Horde_PageOutput
      * @var Horde_Themes_Css
      */
     public $css;
+
+    /**
+     * Activate debugging output.
+     *
+     * @internal
+     *
+     * @var boolean
+     */
+    public $debug = false;
 
     /**
      * Defer loading of scripts until end of page?
@@ -72,18 +81,18 @@ class Horde_PageOutput
     public $metaTags = array();
 
     /**
-     * Load the topbar in this page?
-     *
-     * @var boolean
-     */
-    public $topbar = true;
-
-    /**
      * Load the sidebar in this page?
      *
      * @var boolean
      */
     public $sidebar = true;
+
+    /**
+     * Load the topbar in this page?
+     *
+     * @var boolean
+     */
+    public $topbar = true;
 
     /**
      * Has PHP userspace page compression been started?
@@ -640,7 +649,6 @@ class Horde_PageOutput
         switch ($this->_view) {
         case $registry::VIEW_BASIC:
             $this->_addBasicScripts();
-            $view->stylesheetOpts['sub'] = 'basic';
             break;
 
         case $registry::VIEW_DYNAMIC:
@@ -649,12 +657,9 @@ class Horde_PageOutput
 
             $this->_addBasicScripts();
             $this->addScriptPackage('Popup');
-
-            $view->stylesheetOpts['sub'] = 'dynamic';
             break;
 
         case $registry::VIEW_MINIMAL:
-            $view->stylesheetOpts['sub'] = 'minimal';
             $view->stylesheetOpts['subonly'] = true;
 
             $view->minimalView = true;
@@ -664,7 +669,7 @@ class Horde_PageOutput
 
         case $registry::VIEW_SMARTMOBILE:
             $smobile_files = array(
-                'jquery.mobile/jquery.min.js',
+                ($this->debug ? 'jquery.mobile/jquery.js' : 'jquery.mobile/jquery.min.js'),
                 'growler-jquery.js',
                 'horde-jquery.js',
                 'smartmobile.js'
@@ -676,7 +681,7 @@ class Horde_PageOutput
             $init_js = implode('', array_merge(array(
                 '$.mobile.page.prototype.options.backBtnText = "' . Horde_Core_Translation::t("Back") .'";',
                 '$.mobile.dialog.prototype.options.closeBtnText = "' . Horde_Core_Translation::t("Close") .'";',
-                '$.mobile.loadingMessage = "' . Horde_Core_Translation::t("loading") . '";'
+                '$.mobile.loader.prototype.options.text = "' . Horde_Core_Translation::t("loading") . '";'
             ), isset($opts['smartmobileinit']) ? $opts['smartmobileinit'] : array()));
 
             $this->addInlineJsVars(array(
@@ -692,7 +697,6 @@ class Horde_PageOutput
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
             $view->stylesheetOpts['nocache'] = true;
-            $view->stylesheetOpts['sub'] = 'smartmobile';
             $view->stylesheetOpts['subonly'] = true;
 
             $this->addStylesheet(
@@ -709,6 +713,8 @@ class Horde_PageOutput
             $this->sidebar = $this->topbar = false;
             break;
         }
+
+        $view->stylesheetOpts['sub'] = Horde_Themes::viewDir($this->_view);
 
         if ($this->ajax || $this->growler) {
             $this->addScriptFile(new Horde_Script_File_JsFramework('hordecore.js', 'horde'));
@@ -838,7 +844,7 @@ class Horde_PageOutput
      */
     public function outputSmartmobileFiles()
     {
-        $this->addScriptFile('jquery.mobile/jquery.mobile.min.js', 'horde');
+        $this->addScriptFile($this->debug ? 'jquery.mobile/jquery.mobile.js' : 'jquery.mobile/jquery.mobile.min.js', 'horde');
         $this->includeScriptFiles();
     }
 

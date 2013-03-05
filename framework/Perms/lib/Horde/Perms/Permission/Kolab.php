@@ -1,8 +1,9 @@
 <?php
 /**
- * Maps folder permissions into the Horde_Permission system.
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -14,21 +15,17 @@
 /**
  * Maps folder permissions into the Horde_Permission system.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @category Horde
  * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Perms_Permission_Kolab
-extends Horde_Perms_Permission
+class Horde_Perms_Permission_Kolab extends Horde_Perms_Permission
 {
-    /** Kolab ACL speak for all permissions on a shared object. */
+    /**
+     * Kolab ACL speak for all permissions on a shared object.
+     */
     const ALL = 'lrid';
 
     /**
@@ -36,14 +33,14 @@ extends Horde_Perms_Permission
      *
      * @var Horde_Perms_Permission_Kolab_Storage
      */
-    private $_storage;
+    protected $_storage;
 
     /**
      * The group handler.
      *
      * @var Horde_Group_Base
      */
-    private $_groups;
+    protected $_groups;
 
     /**
      * A cache for the folder acl settings. The cache holds the permissions
@@ -72,10 +69,36 @@ extends Horde_Perms_Permission
     }
 
     /**
-     * Gets the current permission of the folder and stores the values in the
-     * cache.
+     * Returns the permissions of the owner on this object.
      *
-     * @return NULL
+     * @since Horde_Perms 2.1.0
+     *
+     * @return integer  All owner permissions for this object.
+     */
+    public function getOwnerPermissions()
+    {
+        $users = parent::getUserPermissions();
+        return $users[$this->_storage->getOwner()];
+    }
+
+    /**
+     * Returns an array of all user permissions on this object.
+     *
+     * @param integer $perm  List only users with this permission level.
+     *                       Defaults to all users.
+     *
+     * @return array  All user permissions for this object, indexed by user.
+     */
+    public function getUserPermissions($perm = null)
+    {
+        $users = parent::getUserPermissions($perm);
+        unset($users[$this->_storage->getOwner()]);
+        return $users;
+    }
+
+    /**
+     * Returns the current permission of the folder and stores the values in
+     * the cache.
      */
     public function getCurrentPermissions()
     {
@@ -95,8 +118,6 @@ extends Horde_Perms_Permission
 
     /**
      * Saves the current permission values from the cache to the IMAP folder.
-     *
-     * @return NULL
      */
     public function save()
     {
@@ -130,5 +151,4 @@ extends Horde_Perms_Permission
         // Load the permission from the folder again
         $this->data = $this->getCurrentPermissions();
     }
-
 }

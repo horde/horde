@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-17</date>
- <time>13:31:27</time>
+ <date>2013-03-03</date>
+ <time>18:19:54</time>
  <version>
-  <release>2.0.12</release>
-  <api>2.0.0</api>
+  <release>2.3.2</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -141,6 +141,12 @@
       <file name="Horde_ActiveSync.po" role="data" />
      </dir> <!-- /locale/eu/LC_MESSAGES -->
     </dir> <!-- /locale/eu -->
+    <dir name="fr">
+     <dir name="LC_MESSAGES">
+      <file name="Horde_ActiveSync.mo" role="data" />
+      <file name="Horde_ActiveSync.po" role="data" />
+     </dir> <!-- /locale/fr/LC_MESSAGES -->
+    </dir> <!-- /locale/fr -->
     <dir name="ja">
      <dir name="LC_MESSAGES">
       <file name="Horde_ActiveSync.mo" role="data" />
@@ -184,25 +190,33 @@
        <file name="default_policies.wbxml" role="test" />
        <file name="default_policies.xml" role="test" />
        <file name="dst.wbxml" role="test" />
-       <file name="FolderSyncRequest.txt" role="test" />
        <file name="invitation_one.eml" role="test" />
+       <file name="iOSMultipartAlternative.eml" role="test" />
        <file name="meeting_request_one.wbxml" role="test" />
        <file name="recurrence.wbxml" role="test" />
        <file name="simpleexception.wbxml" role="test" />
       </dir> <!-- /test/Horde/ActiveSync/fixtures -->
+      <dir name="StateTest">
+       <dir name="Sql">
+        <dir name="Pdo">
+         <file name="MysqlTest.php" role="test" />
+        </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql/Pdo -->
+        <file name="Base.php" role="test" />
+       </dir> <!-- /test/Horde/ActiveSync/StateTest/Sql -->
+       <file name="Base.php" role="test" />
+      </dir> <!-- /test/Horde/ActiveSync/StateTest -->
       <file name="AllTests.php" role="test" />
       <file name="AppointmentTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
       <file name="CacheTest.php" role="test" />
+      <file name="conf.php.dist" role="test" />
       <file name="ContactTest.php" role="test" />
-      <file name="FolderSyncTest.php" role="test" />
-      <file name="HordeDriverTest.php" role="test" />
       <file name="InviteTest.php" role="test" />
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
+      <file name="Rfc822Test.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
-      <file name="{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
     </dir> <!-- /test/Horde -->
    </dir> <!-- /test -->
@@ -276,6 +290,13 @@
    </package>
    <package>
     <name>Horde_Mail</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Text_Filter</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -365,6 +386,8 @@
    <install as="locale/de/LC_MESSAGES/Horde_ActiveSync.po" name="locale/de/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/eu/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/eu/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" name="locale/eu/LC_MESSAGES/Horde_ActiveSync.po" />
+   <install as="locale/fr/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/fr/LC_MESSAGES/Horde_ActiveSync.mo" />
+   <install as="locale/fr/LC_MESSAGES/Horde_ActiveSync.po" name="locale/fr/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.mo" />
    <install as="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" name="locale/ja/LC_MESSAGES/Horde_ActiveSync.po" />
    <install as="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" name="locale/nl/LC_MESSAGES/Horde_ActiveSync.mo" />
@@ -388,24 +411,26 @@
    <install as="Horde/ActiveSync/AppointmentTest.php" name="test/Horde/ActiveSync/AppointmentTest.php" />
    <install as="Horde/ActiveSync/bootstrap.php" name="test/Horde/ActiveSync/bootstrap.php" />
    <install as="Horde/ActiveSync/CacheTest.php" name="test/Horde/ActiveSync/CacheTest.php" />
+   <install as="Horde/ActiveSync/conf.php.dist" name="test/Horde/ActiveSync/conf.php.dist" />
    <install as="Horde/ActiveSync/ContactTest.php" name="test/Horde/ActiveSync/ContactTest.php" />
-   <install as="Horde/ActiveSync/FolderSyncTest.php" name="test/Horde/ActiveSync/FolderSyncTest.php" />
-   <install as="Horde/ActiveSync/HordeDriverTest.php" name="test/Horde/ActiveSync/HordeDriverTest.php" />
    <install as="Horde/ActiveSync/InviteTest.php" name="test/Horde/ActiveSync/InviteTest.php" />
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
+   <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
-   <install as="Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" name="test/Horde/ActiveSync/{137c3bb0-838d-499a-9f0e-fb6c0761da51}1" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.wbxml" name="test/Horde/ActiveSync/fixtures/default_policies.wbxml" />
    <install as="Horde/ActiveSync/fixtures/default_policies.xml" name="test/Horde/ActiveSync/fixtures/default_policies.xml" />
    <install as="Horde/ActiveSync/fixtures/dst.wbxml" name="test/Horde/ActiveSync/fixtures/dst.wbxml" />
-   <install as="Horde/ActiveSync/fixtures/FolderSyncRequest.txt" name="test/Horde/ActiveSync/fixtures/FolderSyncRequest.txt" />
    <install as="Horde/ActiveSync/fixtures/invitation_one.eml" name="test/Horde/ActiveSync/fixtures/invitation_one.eml" />
+   <install as="Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" name="test/Horde/ActiveSync/fixtures/iOSMultipartAlternative.eml" />
    <install as="Horde/ActiveSync/fixtures/meeting_request_one.wbxml" name="test/Horde/ActiveSync/fixtures/meeting_request_one.wbxml" />
    <install as="Horde/ActiveSync/fixtures/recurrence.wbxml" name="test/Horde/ActiveSync/fixtures/recurrence.wbxml" />
    <install as="Horde/ActiveSync/fixtures/simpleexception.wbxml" name="test/Horde/ActiveSync/fixtures/simpleexception.wbxml" />
+   <install as="Horde/ActiveSync/StateTest/Base.php" name="test/Horde/ActiveSync/StateTest/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Base.php" name="test/Horde/ActiveSync/StateTest/Sql/Base.php" />
+   <install as="Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" name="test/Horde/ActiveSync/StateTest/Sql/Pdo/MysqlTest.php" />
   </filelist>
  </phprelease>
  <changelog>
@@ -1033,7 +1058,186 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-12-17</date>
+   <date>2012-12-23</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix non empty PING requests with empty FOLDERS element.
+* [mjr] Fix exporting folder deletions (Bug #11918).
+* [mjr] Improvements to fetching and sending message body.
+* [mjr] Fix searching mailboxes on certain devices that send MIMESUPPORT flag, like iOS (Bug #11900).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.13</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-25</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix regression caused by incorrectly named variable (martin.ament@gmx.de, Bug #11919)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.14</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2012-12-27</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix DB migration for some RDBMS (Bug #11877).
+* [mjr] Fix authentication related errors.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix some possible character set related issues with HTML email.
+* [mjr] Fix sending boolean policy values.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-04</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix regression caused by fixing some logging in the sync cache.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.2</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-15</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix handling missing state when processing COMMANDS.
+* [mjr] Fix loading state for FOLDERSYNC requests for certain clients.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.3</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-19</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix behavior when attempting to fetch attachment of a vanished message.
+* [mjr] Fix multiple accounts on a single client (Bug #11963).
+* [mjr] Fix setting PINGable collections on non-empty PING requests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-20</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix existence checking, again.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.5</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-29</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Add French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-02</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix handling of deleting or moving messages from the client that no longer exist on the server (Bug #12013).
+* [mjr] Fix setting flags on messages marked for deletion (Bug #12007).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-21</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Always output the optional POOMCAL_MEETINGSTATUS property to avoid issues with some versions of iOS (Bug #12056).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-01</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix updating state when a PING detected changed has been removed before SYNC runs (Bug #12075).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix regression introduced in 2.2.1 caused by fix for Bug #12056.
+* [mjr] Fix synchronizing email messages containing ICalendar attachments with no METHOD parameter (Bug #12083).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.2</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-03</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 

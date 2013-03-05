@@ -1,7 +1,7 @@
 /**
  * jQuery Mobile UI application logic.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -402,7 +402,7 @@ var ImpMobile = {
         list.empty();
 
         $.each(ob.rows(), function(key, data) {
-            var c = $('<li class="imp-message">')
+            var c = $('<li class="imp-message"></li>')
                     .jqmData('mbox', data.mbox)
                     .jqmData('uid', data.uid),
                 url = HordeMobile.createUrl('message', {
@@ -434,11 +434,11 @@ var ImpMobile = {
 
             list.append(
                 c.append(
-                    $('<a href="' + url + '">').html(data.subject)).append(
-                    $('<div class="imp-mailbox-secondrow">').append(
-                        $('<span class="imp-mailbox-date">').text(
+                    $('<a href="' + url + '"></a>').html(data.subject)).append(
+                    $('<div class="imp-mailbox-secondrow"></div>').append(
+                        $('<span class="imp-mailbox-date"></span>').text(
                             data.date)).append(
-                        $('<span class="imp-mailbox-from">').text(
+                        $('<span class="imp-mailbox-from"></span>').text(
                             data.from))));
         });
 
@@ -500,7 +500,7 @@ var ImpMobile = {
                 force: 1,
                 view: (ImpMobile.search ? IMP.conf.qsearchid : purl.params.mbox)
             })), {
-                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ]),
+                uid: ImpMobile.toUIDStringSingle(purl.params.mbox, [ purl.params.uid ])
             }),
             ImpMobile.messageLoaded
         );
@@ -696,10 +696,10 @@ var ImpMobile = {
 
         $.each(ImpMobile.headers, function(k, header) {
             if (header.value) {
-                h.append($('<tr>')
-                    .append($('<td class="imp-header-label">')
+                h.append($('<tr></tr>')
+                    .append($('<td class="imp-header-label"></td>')
                         .html(header.name + ':'))
-                    .append($('<td>').html(header.value)
+                    .append($('<td></td>').html(header.value)
                 ));
             }
         });
@@ -720,7 +720,7 @@ var ImpMobile = {
         $.each(ImpMobile.atc, function(k, v) {
             list.append(
                 $('<li class="imp-message-atc"></li>').append(
-                    $('<a>').attr({
+                    $('<a></a>').attr({
                         href: v.download_url,
                         target: 'download'
                     }).append(
@@ -1004,11 +1004,18 @@ var ImpMobile = {
      */
     copymoveSelected: function(e)
     {
-        var source = $('#imp-copymove-mbox').val(),
-            value = $(e.currentTarget).attr('id') == 'imp-copymove-list'
-                ? $('#imp-copymove-list').val()
-                : $('#imp-copymove-new').val(),
+        var value,
+            opts = {},
+            source = $('#imp-copymove-mbox').val(),
             move = ($('#imp-copymove-action').val() == 'move');
+
+        if ($(e.currentTarget).attr('id') == 'imp-copymove-list') {
+            value = $('#imp-copymove-list').val();
+            opts.mboxto = value;
+        } else {
+            value = $('#imp-copymove-new').val();
+            opts.newmbox = value;
+        }
 
         if (value === '') {
             $('#imp-copymove-newdiv').show();
@@ -1023,10 +1030,8 @@ var ImpMobile = {
                 checkcache: 1,
                 force: Number(move),
                 view: source
-            }), {
-                mboxto: value,
-                newmbox: $('#imp-copymove-new').val(),
-                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ]),
+            }), opts, {
+                uid: ImpMobile.toUIDStringSingle(source, [ $('#imp-copymove-uid').val() ])
             })
         );
 

@@ -5,7 +5,7 @@
  *
  * Requires: prototype.js (v1.6.1+), KeyNavList.js
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * Custom Events:
  * --------------
@@ -49,8 +49,6 @@ var SpellChecker = Class.create({
     //   url = (string) URL of specllchecker handler
     initialize: function(opts)
     {
-        var d, lc, tmp, ul;
-
         this.url = opts.url;
         this.target = $(opts.target);
         this.statusButton = $(opts.statusButton);
@@ -142,7 +140,7 @@ var SpellChecker = Class.create({
             // Go through and see if we matched anything inside a tag (i.e.
             // class/spellcheckIncorrect is often matched if using a
             // non-English lang).
-            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '\$1' + node + '\$2');
+            content = content.replace(new RegExp("(<[^>]*)" + RegExp.escape(re_text) + "([^>]*>)", 'g'), '$1' + node + '$2');
         }, this);
 
         if (!this.reviewDiv) {
@@ -236,7 +234,7 @@ var SpellChecker = Class.create({
 
         [ 'Corrected', 'Incorrect' ].each(function(i) {
             this.reviewDiv.select('span.spellcheck' + i).each(function(n) {
-                n.replace(n.innerHTML);
+                n.insert({ before: n.innerHTML }).remove();
             });
         }, this);
 

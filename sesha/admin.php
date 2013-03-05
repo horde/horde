@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,7 +14,7 @@ Horde_Registry::appInit('sesha');
 $topbar = $injector->getInstance('Horde_View_Topbar');
 $topbar->search = true;
 $topbar->searchAction = new Horde_Url('list.php');
-$topbar->searchLabel = _("Stock Id");
+$topbar->searchLabel = _("Stock ID");
 $topbar->searchIcon = Horde_Themes::img('search-topbar.png');
 
 $perms = $GLOBALS['injector']->getInstance('Horde_Perms');

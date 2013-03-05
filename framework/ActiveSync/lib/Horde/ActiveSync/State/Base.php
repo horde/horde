@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -115,6 +115,8 @@ abstract class Horde_ActiveSync_State_Base
         $this->_params = $params;
         if (empty($params['logger'])) {
             $this->_logger = new Horde_Support_Stub();
+        } else {
+            $this->_logger = $params['logger'];
         }
     }
 

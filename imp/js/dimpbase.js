@@ -1,7 +1,7 @@
 /**
  * dimpbase.js - Javascript used in the base DIMP page.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -236,6 +236,8 @@ var DimpBase = {
         case 'search':
             if (!data) {
                 data = { mailbox: this.view };
+            } else if (data.isJSON()) {
+                data = data.evalJSON(true);
             }
             this.highlightSidebar();
             this.setTitle(DimpCore.text.search);
@@ -561,7 +563,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(true), view))));
                 }
 
                 params = $H({
@@ -632,8 +634,10 @@ var DimpBase = {
                     $('search_label').update(tmp.escapeHTML());
                 }
                 [ $('search_edit') ].invoke(this.search || this.viewport.getMetaData('noedit') ? 'hide' : 'show');
+                this.showSearchbar(true);
             } else {
                 this.setMboxLabel(this.view);
+                this.showSearchbar(false);
             }
 
             if (this.rownum) {
@@ -661,22 +665,8 @@ var DimpBase = {
                     if (!this.search || !this.search.qsearch) {
                         $('horde-search').hide();
                     }
-                    this.showSearchbar(true);
                 } else if (tmp)  {
                     tmp.show();
-                    this.showSearchbar(false);
-                }
-
-                tmp = $('applyfilterlink');
-                if (tmp) {
-                    if (this.isSearch() ||
-                        (!DimpCore.conf.filter_any && this.view != this.INBOX)) {
-                        tmp.hide();
-                    } else {
-                        tmp.show();
-                    }
-
-                    this._sizeFolderlist();
                 }
 
                 if (this.viewport.getMetaData('drafts')) {
@@ -1140,18 +1130,23 @@ var DimpBase = {
             break;
 
         case 'ctx_vfolder_edit':
-            tmp = {
+            this.go('search', {
                 edit_query: 1,
                 mailbox: this.contextMbox(e).retrieve('mbox')
-            };
-            // Fall through
+            });
+            break;
 
         case 'ctx_qsearchopts_advanced':
             this.go('search', tmp);
             break;
 
         case 'ctx_vcontainer_edit':
-            this.go('prefs', { group: 'searches' });
+            HordeCore.redirect(HordeCore.addURLParam(
+                DimpCore.conf.URI_PREFS_IMP,
+                {
+                    group: 'searches'
+                }
+            ));
             break;
 
         case 'ctx_qsearchby_all':
@@ -1164,6 +1159,12 @@ var DimpBase = {
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
+            }
+            break;
+
+        case 'ctx_filteropts_applyfilters':
+            if (this.viewport) {
+                this.viewport.reload({ applyfilter: 1 });
             }
             break;
 
@@ -1340,7 +1341,7 @@ var DimpBase = {
             [ $('ctx_message_source').up() ].invoke(this._getPref('preview') ? 'hide' : 'show');
             $('ctx_message_delete', 'ctx_message_undelete').compact().invoke(this.viewport.getMetaData('nodelete') ? 'hide' : 'show');
 
-            [ $('ctx_message_setflag').up() ].invoke(this.viewport.getMetaData('flags').size() & this.viewport.getMetaData('readonly') ? 'hide' : 'show');
+            [ $('ctx_message_setflag').up() ].invoke((this.viewport.getMetaData('flags').size() && this.viewport.getMetaData('readonly')) ? 'hide' : 'show');
 
             sel = this.viewport.getSelected();
             if (sel.size() == 1) {
@@ -1401,6 +1402,13 @@ var DimpBase = {
 
         case 'ctx_template':
             [ $('ctx_template_edit') ].invoke(this.viewport.getSelected().size() == 1 ? 'show' : 'hide');
+            break;
+
+        case 'ctx_filteropts':
+            tmp = $('ctx_filteropts_applyfilters');
+            if (tmp) {
+                [ tmp.up('DIV') ].invoke(this.isSearch() || (!DimpCore.conf.filter_any && this.view != this.INBOX) ? 'hide' : 'show');
+            }
             break;
         }
     },
@@ -1762,6 +1770,7 @@ var DimpBase = {
         e.dataTransfer.setData(
             'DownloadURL',
             base.down('IMG').readAttribute('title') + ':' +
+            // IE8 doesn't use this code so textContent is OK to use
             base.down('SPAN.mimePartInfoDescrip A').textContent.gsub(':', '-') + ':' +
             window.location.origin + e.element().readAttribute('href')
         );
@@ -2055,19 +2064,14 @@ var DimpBase = {
     quotaCallback: function(r)
     {
         var quota = $('quota-text');
-        quota.setText(r.m);
+        quota.removeClassName('quotaalert').
+            removeClassName('quotawarn').
+            setText(r.m);
+
         switch (r.l) {
         case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.addClassName('quotaalert');
-            break;
         case 'warn':
-            quota.removeClassName('quotaalert');
-            quota.addClassName('quotawarn');
-            break;
-        case 'alert':
-            quota.removeClassName('quotawarn');
-            quota.removeClassName('quotaalert');
+            quota.addClassName('quota' + r.l);
             break;
         }
     },
@@ -2607,13 +2611,6 @@ var DimpBase = {
 
         case 'alertsloglink':
             HordeCore.Growler.toggleLog();
-            break;
-
-        case 'applyfilterlink':
-            if (this.viewport) {
-                this.viewport.reload({ applyfilter: 1 });
-            }
-            e.memo.stop();
             break;
 
         case 'appprefs':
@@ -3641,7 +3638,7 @@ var DimpBase = {
     /* Onload function. */
     onDomLoad: function()
     {
-        var DM = DimpCore.DMenu, tmp;
+        var DM = DimpCore.DMenu, tmp, tmp2;
 
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
@@ -3708,8 +3705,8 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            tmp = tmp.split(':', 2);
-            this.go(tmp[0], tmp[1]);
+            tmp2 = tmp.indexOf(':');
+            this.go(tmp.substring(0, tmp2), tmp.substring(tmp2 + 1));
         } else if (DimpCore.conf.initial_page) {
             this.go('mbox', DimpCore.conf.initial_page);
         } else {
@@ -3906,7 +3903,14 @@ document.observe('FormGhost:reset', DimpBase.searchReset.bindAsEventListener(Dim
 document.observe('FormGhost:submit', DimpBase.searchSubmit.bindAsEventListener(DimpBase));
 
 /* Initialize onload handler. */
-document.observe('dom:loaded', DimpBase.onDomLoad.bind(DimpBase));
+document.observe('dom:loaded', function() {
+    if (Prototype.Browser.IE && !document.addEventListener) {
+        // For IE 8
+        DimpBase.onDomLoad.bind(DimpBase).defer();
+    } else {
+        DimpBase.onDomLoad();
+    }
+});
 
 /* DimpCore handlers. */
 document.observe('DimpCore:updateAddressHeader', DimpBase.updateAddressHeader.bindAsEventListener(DimpBase));

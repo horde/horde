@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Turba through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (APL). If you
  * did not receive this file, see http://www.horde.org/licenses/apl.html.
@@ -44,7 +44,7 @@ class Turba_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (4.0.2-git)';
+    public $version = 'H5 (4.0.4-git)';
 
     /**
      */

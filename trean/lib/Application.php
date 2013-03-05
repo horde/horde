@@ -2,7 +2,7 @@
 /**
  * Trean application API
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -33,7 +33,7 @@ class Trean_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (1.0.0-git)';
+    public $version = 'H5 (1.0.1-git)';
 
     /**
      * Global variables defined:
@@ -63,12 +63,6 @@ class Trean_Application extends Horde_Registry_Application
             ->create('trean', 'storage');
         $GLOBALS['trean_gateway'] = $GLOBALS['injector']
             ->getInstance('Trean_Bookmarks');
-
-        if ($GLOBALS['conf']['content_index']['enabled']) {
-            $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
-            $topbar->search = true;
-            $topbar->searchAction = Horde::url('search.php');
-        }
     }
 
     /**

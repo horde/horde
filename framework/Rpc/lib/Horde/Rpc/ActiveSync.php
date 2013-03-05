@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,15 +32,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @var string
      */
     protected $_contentType = 'application/vnd.ms-sync.wbxml';
-
-    /**
-     * Do we need an authenticated user?
-     *
-     * ActiveSync handles the authentication directly.
-     *
-     * @var boolean
-     */
-    protected $_requireAuthorization = false;
 
     /**
      * Constructor.
@@ -176,12 +167,24 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     }
 
     /**
+     * Override the authorize method and always return true. The ActiveSync
+     * server classes handld authentication directly since we need complete
+     * control over what responses are sent.
+     *
+     * @return boolean
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      *
      * @see framework/Rpc/lib/Horde/Horde_Rpc#sendOutput($output)
      */
     public function sendOutput($output)
     {
-        // Unfortunately, even though zpush can stream the data to the client
+        // Unfortunately, even though we can stream the data to the client
         // with a chunked encoding, using chunked encoding also breaks the
         // progress bar on the PDA. So we de-chunk here and just output a
         // content-length header and send it as a 'normal' packet. If the output

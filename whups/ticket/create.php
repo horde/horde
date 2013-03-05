@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2001-2002 Robert E. Coyle <robertecoyle@hotmail.com>
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -16,6 +16,8 @@ $wereerrors = 0;
 
 $vars = Horde_Variables::getDefaultVariables($empty);
 $formname = $vars->get('formname');
+
+Whups::addTopbarSearch();
 
 $form1 = new Whups_Form_Ticket_CreateStepOne($vars);
 $form2 = new Whups_Form_Ticket_CreateStepTwo($vars);

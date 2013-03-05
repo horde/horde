@@ -24,7 +24,7 @@
  *   - subfolder: (boolean) If set, search mailbox will default to subfolder
  *                search.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -362,14 +362,14 @@ if ($vars->edit_query && $default_mailbox->search) {
             $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $view->edit_query = true;
-        $view->edit_query_vfolder = $default_mailbox->formTo;
+        $view->edit_query_vfolder = $default_mailbox->form_to;
     } elseif ($imp_search->isFilter($q_ob)) {
         if (!$imp_search->isFilter($q_ob, true)) {
             $notification->push(_("Built-in Filters cannot be edited."), 'horde.error');
             $registry->getServiceLink('prefs', 'imp')->add('group', 'searches')->redirect();
         }
         $view->edit_query = true;
-        $view->edit_query_filter = $default_mailbox->formTo;
+        $view->edit_query_filter = $default_mailbox->form_to;
     }
 
     if ($view->edit_query) {

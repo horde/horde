@@ -1,11 +1,4 @@
 <?php
-/**
- * Copyright 2005-2007 Ben Klang <ben@alkaloid.net>
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.
- */
-
 if (Beatnik::needCommit($_SESSION['beatnik']['curdomain']['zonename'])) {
     $commit = Horde::url('commit.php')->add(array('domain' => 'current'));
     echo Horde::link($commit, _('Commit Changes'), 'button') . _('Commit Changes') . '</a><br /><br />';

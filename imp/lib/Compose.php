@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2002-2012 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -538,7 +538,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             );
 
             if ($val = $headers->getValue('references')) {
-                $this->_metadata['references'] = $val;
+                $ref_ob = new IMP_Compose_References();
+                $ref_ob->parse($val);
+                $this->_metadata['references'] = $ref_ob->references;
 
                 if ($val = $headers->getValue('in-reply-to')) {
                     $this->_metadata['in_reply_to'] = $val;
@@ -988,8 +990,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         }
 
         if ($this->replyType(true) == self::REPLY) {
-            if ($this->getMetadata('references')) {
-                $ob->addHeader('References', implode(' ', preg_split('|\s+|', trim($this->getMetadata('references')))));
+            if ($refs = $this->getMetadata('references')) {
+                $ob->addHeader('References', implode(' ', $refs));
             }
             if ($this->getMetadata('in_reply_to')) {
                 $ob->addHeader('In-Reply-To', $this->getMetadata('in_reply_to'));
@@ -1252,17 +1254,17 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     protected function _createMimeMessage(Horde_Mail_Rfc822_List $to, $body,
                                           array $options = array())
     {
-        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
+        global $conf, $injector, $prefs, $registry;
 
         /* Get body text. */
         if (!empty($options['html'])) {
             $body_html = $body;
-            $body = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false, 'charset' => $this->charset));
+            $body = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($body, 'Html2text', array('wrap' => false));
         }
 
         /* Add signature data. */
         if (isset($options['signature'])) {
-            $identity = $GLOBALS['injector']->getInstance('IMP_Identity');
+            $identity = $injector->getInstance('IMP_Identity');
             $sig = $identity->getSignature('text', $options['signature']);
             $body .= $sig;
 
@@ -1285,6 +1287,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                     }
                 }
             } catch (Horde_Exception_HookNotSet $e) {}
+        }
+
+        /* Convert to sending charset. */
+        $body = Horde_String::convertCharset($body, 'UTF-8', $this->charset);
+        if (!empty($options['html'])) {
+            $body_html = Horde_String::convertCharset($body_html, 'UTF-8', $this->charset);
         }
 
         /* Set up the body part now. */
@@ -1313,10 +1321,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
              * with no HTML body tag - so simply wrap the data in a body
              * tag with the CSS information. */
             $styles = array();
-            if ($font_family = $GLOBALS['prefs']->getValue('compose_html_font_family')) {
+            if ($font_family = $prefs->getValue('compose_html_font_family')) {
                 $styles[] = 'font-family:' . $font_family;
             }
-            if ($font_size = intval($GLOBALS['prefs']->getValue('compose_html_font_size'))) {
+            if ($font_size = intval($prefs->getValue('compose_html_font_size'))) {
                 $styles[] = 'font-size:' . $font_size . 'px';
             }
 
@@ -1347,7 +1355,7 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
                 : $htmlBody
             );
 
-            $htmlBody->setContents($GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
+            $htmlBody->setContents($injector->getInstance('Horde_Core_Factory_TextFilter')->filter($htmlBody->getContents(), 'cleanhtml', array(
                 'charset' => $this->charset
             )));
         } else {
@@ -1358,8 +1366,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $attach_flag = true;
         if (empty($options['noattach']) && count($this)) {
             if (($this->_linkAttach &&
-                 $GLOBALS['conf']['compose']['link_attachments']) ||
-                !empty($GLOBALS['conf']['compose']['link_all_attachments'])) {
+                 $conf['compose']['link_attachments']) ||
+                !empty($conf['compose']['link_all_attachments'])) {
                 $base = $this->linkAttachments($textpart);
 
                 if ($this->_pgpAttachPubkey ||
@@ -1391,13 +1399,13 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         if ($attach_flag) {
             if ($this->_pgpAttachPubkey) {
-                $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                 $base->addPart($imp_pgp->publicKeyMIMEPart());
             }
 
             if ($this->_attachVCard !== false) {
                 try {
-                    $vcard = $GLOBALS['registry']->call('contacts/ownVCard');
+                    $vcard = $registry->call('contacts/ownVCard');
 
                     $vpart = new Horde_Mime_Part();
                     $vpart->setType('text/x-vcard');
@@ -1414,10 +1422,10 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         $encrypt = empty($options['encrypt'])
             ? IMP::ENCRYPT_NONE
             : $options['encrypt'];
-        if ($GLOBALS['prefs']->getValue('use_pgp') &&
-            !empty($GLOBALS['conf']['gnupg']['path']) &&
+        if ($prefs->getValue('use_pgp') &&
+            !empty($conf['gnupg']['path']) &&
             in_array($encrypt, array(IMP_Crypt_Pgp::ENCRYPT, IMP_Crypt_Pgp::SIGN, IMP_Crypt_Pgp::SIGNENC, IMP_Crypt_Pgp::SYM_ENCRYPT, IMP_Crypt_Pgp::SYM_SIGNENC))) {
-            $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
+            $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
             $symmetric_passphrase = null;
 
             switch ($encrypt) {
@@ -1475,9 +1483,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             } catch (Horde_Exception $e) {
                 throw new IMP_Compose_Exception(_("PGP Error: ") . $e->getMessage(), $e->getCode());
             }
-        } elseif ($GLOBALS['prefs']->getValue('use_smime') &&
+        } elseif ($prefs->getValue('use_smime') &&
                   in_array($encrypt, array(IMP_Crypt_Smime::ENCRYPT, IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
-            $imp_smime = $GLOBALS['injector']->getInstance('IMP_Crypt_Smime');
+            $imp_smime = $injector->getInstance('IMP_Crypt_Smime');
 
             /* Check to see if we have the user's passphrase yet. */
             if (in_array($encrypt, array(IMP_Crypt_Smime::SIGN, IMP_Crypt_Smime::SIGNENC))) {
@@ -1566,11 +1574,14 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if (($msg_id = $h->getValue('message-id'))) {
                 $this->_metadata['in_reply_to'] = chop($msg_id);
 
-                if (($refs = $h->getValue('references'))) {
-                    $refs .= ' ' . $this->_metadata['in_reply_to'];
+                if ($refs = $h->getValue('references')) {
+                    $ref_ob = new IMP_Compose_References();
+                    $ref_ob->parse($refs);
+                    $refs = $ref_ob->references;
                 } else {
-                    $refs = $this->_metadata['in_reply_to'];
+                    $refs = array();
                 }
+                $refs[] = $this->_metadata['in_reply_to'];
                 $this->_metadata['references'] = $refs;
             }
         }
@@ -2524,24 +2535,23 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
      */
     public function additionalAttachmentsAllowed()
     {
-        return empty($GLOBALS['conf']['compose']['attach_count_limit']) ||
-               ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
+        return empty($GLOBALS['conf']['compose']['attach_count_limit'])
+            ? true
+            : ($GLOBALS['conf']['compose']['attach_count_limit'] - count($this));
     }
 
     /**
-     * What is the maximum attachment size allowed?
+     * What is the maximum attachment size remaining?
      *
-     * @return integer  The maximum attachment size allowed (in bytes).
+     * @return integer  The maximum attachment size remaining (in bytes).
      */
     public function maxAttachmentSize()
     {
         $size = $GLOBALS['session']->get('imp', 'file_upload');
 
-        if (!empty($GLOBALS['conf']['compose']['attach_size_limit'])) {
-            return min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
-        }
-
-        return $size;
+        return empty($GLOBALS['conf']['compose']['attach_size_limit'])
+            ? $size
+            : min($size, max($GLOBALS['conf']['compose']['attach_size_limit'] - $this->sizeOfAttachments(), 0));
     }
 
     /**
@@ -2674,7 +2684,9 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
         $ts = time();
         $fullpath = sprintf('%s/%s/%d', self::VFS_LINK_ATTACH_PATH, $auth, $ts);
-        $charset = $part->getCharset();
+        if (($charset = $part->getCharset()) === null) {
+            $charset = $this->charset;
+        }
 
         $trailer = Horde_String::convertCharset(_("Attachments"), 'UTF-8', $charset);
 
@@ -3000,22 +3012,6 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
     }
 
     /**
-     * Shortcut function to convert text -> HTML for purposes of composition.
-     *
-     * @param string $msg  The message text.
-     *
-     * @return string  HTML text.
-     */
-    static public function text2html($msg)
-    {
-        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
-            'always_mailto' => true,
-            'flowed' => self::HTML_BLOCKQUOTE,
-            'parselevel' => Horde_Text_Filter_Text2html::MICRO
-        ));
-    }
-
-    /**
      * Store draft compose data if session expires.
      *
      * @param Horde_Variables $vars  Object with the form data.
@@ -3115,6 +3111,34 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
         default:
             return null;
         }
+    }
+
+    /* Static methods. */
+
+    /**
+     * Can attachments be uploaded?
+     *
+     * @return boolean  True if attachments can be uploaded.
+     */
+    static public function canUploadAttachment()
+    {
+        return ($GLOBALS['session']->get('imp', 'file_upload') != 0);
+    }
+
+    /**
+     * Shortcut function to convert text -> HTML for purposes of composition.
+     *
+     * @param string $msg  The message text.
+     *
+     * @return string  HTML text.
+     */
+    static public function text2html($msg)
+    {
+        return $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter($msg, 'Text2html', array(
+            'always_mailto' => true,
+            'flowed' => self::HTML_BLOCKQUOTE,
+            'parselevel' => Horde_Text_Filter_Text2html::MICRO
+        ));
     }
 
     /* ArrayAccess methods. */

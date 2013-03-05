@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -165,7 +165,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         'organizeremail' => false,
         'organizername'  => false,
         'location'       => false,
-        'meetingstatus'  => false,
+        'meetingstatus'  => self::MEETING_NOT_MEETING,
         'recurrence'     => false,
         'reminder'       => false,
         'sensitivity'    => false,

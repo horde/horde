@@ -12,7 +12,7 @@
   <label for="mbox_upload"><?php echo _("Import mbox or .eml file") ?></label>
   <input id="mbox_upload" name="mbox_upload" type="file" size="30" />
   <?php echo _("into mailbox") ?>
-  <strong><?php echo $this->h($this->import_mbox) ?></strong>.
+  <strong><?php echo $this->escape($this->import_mbox) ?></strong>.
   <input id="btn_import" type="button" class="horde-default" value="<?php echo _("Import") ?>" />
   <input id="btn_return" type="button" class="horde-cancel" value="<?php echo _("Cancel") ?>" />
  </div>

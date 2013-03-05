@@ -22,10 +22,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>13:04:12</time>
+ <date>2013-01-10</date>
+ <time>14:54:51</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.3</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -34,14 +34,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
-* [mjr] Fix displaying and editing tasks from search results (Bug #11847).
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [mjr] Fix incoming task sync with certain combinations of due date values.
-* [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
-* [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
-* [jan] Use default Kolab folder for default taks list preference.
-* [jan] Mark Kolab folder as default when changing default task list preference.
+* [jan] Include parent tasks in cost object labels.
+* [jan] Only return completed tasks up to a week old as cost objects.
+* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -52,10 +48,18 @@
     </dir> <!-- /app/controllers -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="nag-convert-datatree-shares-to-sql" role="script" />
-    <file name="nag-convert-sql-shares-to-sqlng" role="script" />
-    <file name="nag-create-missing-add-histories-sql" role="script" />
-    <file name="nag-import-vtodos" role="script" />
+    <file name="nag-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-create-missing-add-histories-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-import-vtodos" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -1272,7 +1276,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
@@ -1283,6 +1287,22 @@
 * [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
 * [jan] Use default Kolab folder for default taks list preference.
 * [jan] Mark Kolab folder as default when changing default task list preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Include parent tasks in cost object labels.
+* [jan] Only return completed tasks up to a week old as cost objects.
+* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
    </notes>
   </release>
  </changelog>

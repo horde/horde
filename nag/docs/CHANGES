@@ -1,6 +1,17 @@
 ----------
-v4.0.2-git
+v4.0.3-git
 ----------
+
+[jan] Include parent tasks in cost object labels.
+[jan] Only return completed tasks up to a week old as cost objects.
+[mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+[jan] Update French translation (Paul De Vlieger
+      <paul.de_vlieger@moniut.univ-bpclermont.fr>).
+
+
+------
+v4.0.2
+------
 
 [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
 [mjr] Fix displaying and editing tasks from search results (Bug #11847).

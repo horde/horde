@@ -23,7 +23,7 @@ var HordeLogin = {
         }
     },
 
-    _selectLang: function()
+    selectLang: function()
     {
         // We need to reload the login page here, but only if the user hasn't
         // already entered a username and password.
@@ -32,6 +32,18 @@ var HordeLogin = {
             var params = { new_lang: $F('new_lang') };
             self.location = 'login.php?' + Object.toQueryString(params);
         }
+    },
+
+    loginButton: function(e)
+    {
+        if (e.isRightClick()) {
+            return;
+        }
+
+        if (!e.element().readAttribute('disabled')) {
+            this.submit();
+        }
+        e.stop();
     },
 
     /* Removes any leading hash that might be on a location string. */
@@ -64,41 +76,10 @@ var HordeLogin = {
                 s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
             }
         }
-    },
-
-    changeHandler: function(e)
-    {
-        switch (e.element().readAttribute('id')) {
-        case 'new_lang':
-            this._selectLang();
-            break;
-        }
-    },
-
-    clickHandler: function(e)
-    {
-        if (e.isRightClick()) {
-            return;
-        }
-
-        var elt = e.element();
-
-        while (Object.isElement(elt)) {
-            switch (elt.readAttribute('id')) {
-            case 'login-button':
-                if (!elt.readAttribute('disabled')) {
-                    this.submit();
-                }
-                e.stop();
-                break;
-            }
-
-            elt = elt.up();
-        }
     }
 
 };
 
 document.observe('dom:loaded', HordeLogin.onDomLoad.bind(HordeLogin));
-document.observe('change', HordeLogin.changeHandler.bindAsEventListener(HordeLogin));
-document.observe('click', HordeLogin.clickHandler.bindAsEventListener(HordeLogin));
+document.on('change', '#new_lang', HordeLogin.selectLang.bind(HordeLogin));
+document.on('click', '#login-button', HordeLogin.loginButton.bind(HordeLogin));

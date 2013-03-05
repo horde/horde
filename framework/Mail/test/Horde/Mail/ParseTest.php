@@ -16,6 +16,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->rfc822 = new Horde_Mail_Rfc822();
     }
 
+    public function tearDown()
+    {
+        unset($this->rfc822);
+    }
+
     /* Test case for PEAR Mail:: bug #13659 */
     public function testParseBug13659()
     {

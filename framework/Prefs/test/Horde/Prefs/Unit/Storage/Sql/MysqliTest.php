@@ -5,7 +5,7 @@
 require_once __DIR__ . '/Base.php';
 
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -26,6 +26,8 @@ class Horde_Prefs_Unit_Storage_Sql_MysqliTest extends Horde_Prefs_Test_Sql_Base
         if ($config && !empty($config['prefs']['sql']['mysqli'])) {
             self::$db = new Horde_Db_Adapter_Mysqli($config['prefs']['sql']['mysqli']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No mysqli configuration';
         }
     }
 }

@@ -2,7 +2,7 @@
 /**
  * Imple to attach the spellchecker to an HTML element.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -86,9 +86,10 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     {
         global $conf, $injector, $language;
 
-        $args = isset($vars->locale)
-            ? array('locale' => $vars->locale)
-            : array();
+        $args = array('html' => !empty($vars->html));
+        if (isset($vars->locale)) {
+            $args['locale'] = $vars->locale;
+        }
         $input = $vars->get($vars->input);
 
         try {

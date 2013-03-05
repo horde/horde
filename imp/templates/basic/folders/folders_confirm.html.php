@@ -18,7 +18,7 @@
 
 <?php foreach ($this->mboxes as $v): ?>
  <div class="striped">
-  <label><input type="checkbox" class="checkbox" name="mbox_list[]" value="<?php echo $v['val'] ?>" checked="checked" /> <?php echo $this->h($v['name']) ?> (<?php echo $v['msgs'] ?> <?php echo _("messages") ?>)</label>
+  <label><input type="checkbox" class="checkbox" name="mbox_list[]" value="<?php echo $v['val'] ?>" checked="checked" /> <?php echo $this->escape($v['name']) ?> (<?php echo $v['msgs'] ?> <?php echo _("messages") ?>)</label>
  </div>
 <?php endforeach; ?>
 

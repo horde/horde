@@ -14,7 +14,7 @@
 /**
  * Components_Runner_Qc:: checks the component for quality.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -85,6 +85,14 @@ class Components_Runner_Qc
 
         if ($this->_doTask('lint')) {
             $sequence[] = 'lint';
+        }
+
+        if ($this->_doTask('loc')) {
+            $sequence[] = 'loc';
+        }
+
+        if ($this->_doTask('dcd')) {
+            $sequence[] = 'dcd';
         }
 
         if (!empty($sequence)) {

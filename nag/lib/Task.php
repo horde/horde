@@ -1402,20 +1402,27 @@ class Nag_Task
         }
 
         $this->name = $message->subject;
+        $tz = date_default_timezone_get();
 
         /* Completion */
         if ($this->completed = $message->complete) {
-            $dateCompleted = $message->datecompleted;
-            $this->completed_date = empty($dateCompleted) ? null : $dateCompleted;
+            if ($message->datecompleted) {
+                $message->datecompleted->setTimezone($tz);
+                $this->completed_date = $message->datecompleted->timestamp();
+            } else {
+                $this->completed_date = null;
+            }
         }
 
         /* Due Date */
         if (($due = $message->utcduedate) || ($due = $message->duedate)) {
+            $due->setTimezone($tz);
             $this->due = $due->timestamp();
         }
 
         /* Start Date */
         if (($start = $message->utcstartdate) || ($start = $message->startdate)) {
+            $start->setTimezone($tz);
             $this->start = $start->timestamp();
         }
 
@@ -1435,6 +1442,7 @@ class Nag_Task
         }
 
         if (($alarm = $message->getReminder()) && $this->due) {
+            $alarm->setTimezone($tz);
             $this->alarm = $this->due - $alarm->timestamp();
         }
 

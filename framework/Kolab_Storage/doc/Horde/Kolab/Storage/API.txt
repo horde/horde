@@ -102,7 +102,7 @@ These are however a topic for the queries based on the list.
 For information about namespace/ownership handling you should refer to
 the "Folder Namespace" section within "Other Elements" below.
 
-Core methods of the list handler:
+Core methods of the list handler::
 
     /**
      * Returns the list of folders visible to the current user.
@@ -129,7 +129,7 @@ A number of relevant queries can be based on this relatively small dataset:
  - Identify the default folder of a specific folder type
  - Identify the default folder of another user (again given a specific folder type)
 
-Core methods of the basic list query:
+Core methods of the basic list query::
 
     /**
      * Returns the folder types as associative array.
@@ -170,7 +170,7 @@ Core methods of the basic list query:
 
 3. Synchronization
 
-In order to synchronize the cache with the server backend two IMAP commands are needed:
+In order to synchronize the cache with the server backend two IMAP commands are needed::
 
  A0002 LIST "" "*"
  A0003 GETANNOTATION "*" ("/vendor/kolab/folder-type") ("value.shared")

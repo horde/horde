@@ -1495,7 +1495,9 @@
   <configsection name="mime">
    <configheader>MIME Detection Settings</configheader>
    <configstring name="magic_db" required="false" desc="Location of the MIME
-   magic database. Usually /usr/share/misc/magic or /etc/magic."/>
+   magic database. This only needs to be set if PHP cannot auto-determine the
+   value (the output from the test script will clearly indiciate if this is
+   an issue)."/>
   </configsection>
  </configtab>
 

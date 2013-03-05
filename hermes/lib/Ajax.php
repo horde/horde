@@ -2,14 +2,14 @@
 /**
  * Hermes wrapper for the base AJAX framework handler.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @author   Michael J Rubinsky <mrubinsk@horde.org>
  * @category Horde
- * @license  http://www.horde.org/licenses/gpl21 GPL
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Hermes
  */
 class Hermes_Ajax
@@ -72,7 +72,10 @@ class Hermes_Ajax
                 array('%e', '%d', '%a', '%A', '%m', '%h', '%b', '%B', '%y', '%Y'),
                 array('d', 'dd', 'ddd', 'dddd', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy'),
                 Horde_Nls::getLangInfo(D_FMT)),
-            'client_name_field' => $conf['client']['field']
+            'client_name_field' => $conf['client']['field'],
+            'has_review_edit' => $injector->getInstance('Horde_Perms')->hasPermission('hermes:review', $GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
+            'has_review' => $registry->isAdmin(array('permission' => 'hermes:review')),
+            'has_timeadmin' => $registry->isAdmin(array('permission' => 'hermes:timeadmin'))
         );
 
         /* Gettext strings used in core javascript files. */

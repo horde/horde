@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007-2008 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -162,7 +162,8 @@ class Horde_View_Helper_FormTag extends Horde_View_Helper_Base
     private function formTagHtml($htmlOptions)
     {
         list($extraTags, $htmlOptions) = $this->extraTagsForForm($htmlOptions);
-        return $this->tag('form', $htmlOptions, true) . $extraTags;
+        return substr($this->contentTag('form', '', $htmlOptions), 0, -7)
+            . $extraTags;
     }
 
     /** @todo url_for */

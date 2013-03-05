@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-27</date>
- <time>13:09:37</time>
+ <date>2013-02-12</date>
+ <time>16:12:35</time>
  <version>
-  <release>4.0.2</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -28,13 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-<<<<<<< HEAD
-* [mjr] Fix importing notepads (Bug #11849).
-=======
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
->>>>>>> Update eu translation.
-* [jan] Use default Kolab folder for default notepad preference.
-* [jan] Mark Kolab folder as default when changing default notepad preference.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -968,16 +962,41 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-27</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-<<<<<<< HEAD
-* [mjr] Fix importing notepads (Bug #11849).
-=======
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
->>>>>>> Update eu translation.
+* [mjr] Fix importing notepads (Bug #11849).
 * [jan] Use default Kolab folder for default notepad preference.
 * [jan] Mark Kolab folder as default when changing default notepad preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix exporting bodies of encrypted notes (Bug #11960).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

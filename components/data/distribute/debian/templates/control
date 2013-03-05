@@ -3,8 +3,8 @@ Section: php
 Priority: extra
 Maintainer: Gunnar Wrobel <wrobel@horde.org>
 Build-Depends: debhelper (>= 8.0.0), pkg-php-tools, pear-horde-channel
-Standards-Version: 3.9.2
-Homepage: http://${phppear:channel}/
+Standards-Version: 3.9.4
+Homepage: http://www.horde.org/
 
 Package: <?php echo $name . "\n"; ?>
 Architecture: all

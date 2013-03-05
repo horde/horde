@@ -1,38 +1,4 @@
 <h1 class="header"><?php echo $title ?></h1>
-
-<script type="text/javascript">
-
-function onEndCrop(coords, dimensions) {
-    $('x1').value = coords.x1;
-    $('y1').value = coords.y1;
-    $('x2').value = coords.x2;
-    $('y2').value = coords.y2;
-}
-
-Event.observe(
-    window,
-    'load',
-    function() {
-        new Cropper.ImgWithPreview(
-            'faceImage',
-            {
-                minWidth: 50,
-                minHeight: 50,
-                ratioDim: {
-                    x: 50,
-                    y: 50
-                },
-                onEndCrop: onEndCrop,
-                <?php if ($x1): ?>
-                onloadCoords: { x1: <?php echo $x1 ?>, y1: <?php echo $y1 ?>, x2: <?php echo $x2 ?>, y2: <?php echo $y2 ?> },
-                <?php endif; ?>
-                previewWrap: 'previewArea'
-            }
-        )
-    }
-);
-
-</script>
 <div style="float:left;width:70%;">
   <img src="<?php echo Ansel::getImageUrl($image_id, 'screen') ?>" alt="<?php echo htmlspecialchars($image->filename) ?>" id="faceImage" />
 </div>

@@ -2,7 +2,7 @@
 /**
  * Gollem main file manager script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did notcan receive this file, see http://www.horde.org/licenses/gpl.
@@ -221,13 +221,13 @@ try {
                 $list = Gollem::listFolder(Gollem::$backend['dir']);
             }
         } catch (Gollem_Exception $e) {
-            $notification->push(sprintf(_("Cannot create home directory: %s"), $created->getMessage()), 'horde.error');
+            $notification->push(sprintf(_("Cannot create home directory: %s"), $e->getMessage()), 'horde.error');
         }
     }
 }
 
 $numitem = count($list);
-$title = Gollem::$backend['label'];
+$title = Gollem::$backend['name'];
 
 /* Commonly used URLs. */
 $view_url = Horde::url('view.php');
@@ -259,10 +259,7 @@ foreach ($clipboard as $val) {
 }
 
 /* Read the columns to display from the preferences. */
-$sources = json_decode($prefs->getValue('columns'));
-$columns = isset($sources[$backkey])
-    ? $sources[$backkey]
-    : Gollem::$backend['attributes'];
+$columns = Gollem::getColumns($backkey);
 
 /* Prepare the template. */
 $template = $injector->createInstance('Horde_View');
@@ -463,7 +460,7 @@ if (is_array($list) && $numitem && $read_perms) {
             }
 
             // We can always download files.
-            $item['dl'] = $registry->downloadUrl($val['name'], array('dir' => Gollem::$backend['dir'], 'driver' => Gollem::$backend['driver']))->link(array('title' => sprintf(_("Download %s"), $val['name'])));
+            $item['dl'] = $registry->downloadUrl($val['name'], array('dir' => Gollem::$backend['dir'], 'backend' => $GLOBALS['session']->get('gollem', 'backend_key')))->link(array('title' => sprintf(_("Download %s"), $val['name'])));
 
             // Try a view link.
             $url = $view_url->copy()->add(array(

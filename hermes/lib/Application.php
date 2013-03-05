@@ -6,7 +6,7 @@
  *
  * Copyright 2001-2007 Robert E. Coyle <robertecoyle@hotmail.com>
  * Copyright 2010 Alkaloid Networks (http://projects.alkaloid.net/)
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -184,7 +184,10 @@ class Hermes_Application extends Horde_Registry_Application
             ),
             'invoicing' => array(
                 'title' => _("Invoicing")
-            )
+            ),
+            'timeadmin' => array(
+                'title' => _("Time Administration"),
+                'type' => 'boolean')
         );
     }
 

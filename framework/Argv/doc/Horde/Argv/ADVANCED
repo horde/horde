@@ -1,0 +1,397 @@
+=============
+  Horde_Argv
+=============
+
+.. contents:: Contents
+.. section-numbering::
+
+-----------------
+  Advanced Usage
+-----------------
+
+This is reference documentation. If you haven't read the `Basic Usage`_ tutorial document yet, do so now.
+
+.. _`Basic Usage`: Basic Usage
+
+ Creating and populating the parser
+===================================
+
+There are several ways to populate the parser with options. One way is to pass a list of ``Horde_Argv_Option``s to the ``Horde_Argv_Parser`` constructor:
+
+::
+
+ $parser = new Horde_Argv_Parser(array('optionList' => array(
+     new Horde_Argv_Option(
+         '-f', '--filename',
+         array('action' => 'store', 'type' => 'string', 'dest' => 'filename')),
+     new Horde_Argv_Option(
+         '-q', '--quiet',
+         array('action' => 'store_false', 'dest' => 'verbose'))
+ )));
+
+For long option lists, it's often more convenient/readable to create the list separately:
+
+::
+
+ $option_list = array(
+     new Horde_Argv_Option(
+         '-f', '--filename',
+         array('action' => 'store', 'type' => 'string', 'dest' => 'filename')),
+     // ... 17 other options ...
+     new Horde_Argv_Option(
+         '-q', '--quiet',
+         array('action' => 'store_false', 'dest' => 'verbose'))
+ );
+ $parser = new Horde_Argv_Parser(array('optionList' => $option_list));
+
+Or, you can use the ``addOption()`` method of ``Horde_Argv_Parser`` to add options one at a time:
+
+::
+
+ $parser = new Horde_Argv_Parser();
+ $parser->addOption(
+     '-f', '--filename',
+     array('action' => 'store', 'type' => 'string', 'dest' => 'filename')
+ );
+ $parser->addOption(
+     '-q', '--quiet',
+     array('action' => 'store_false', 'dest' => 'verbose')
+ );
+
+This method makes it easier to track down exceptions raised by the ``Horde_Argv_Option`` constructor, which are common because of the complicated interdependencies among the various keyword arguments -- if you get it wrong, *Horde_Argv* throws an ``InvalidArgumentException``.
+
+``addOption()`` can be called in one of two ways:
+
+* pass it an ``Horde_Argv_Option`` instance
+* pass it any combination of positional and keyword arguments that are acceptable to ``new Horde_Argv_Option()`` (ie., to the ``Horde_Argv_Option`` constructor), and it will create the ``Horde_Argv_Option`` instance for you (shown above)
+ Defining options
+=================
+
+Each ``Horde_Argv_Option`` instance represents a set of synonymous command-line options, ie. options that have the same meaning and effect, but different spellings. You can specify any number of short or long option strings, but you must specify at least one option string.
+
+To define an option with only a short option string:
+
+::
+
+ new Horde_Argv_Option('-f', ...)
+
+And to define an option with only a long option string:
+
+::
+
+ new Horde_Argv_Option('--foo', ...)
+
+The ... represents a set of keyword arguments that define option attributes, i.e. attributes of the ``Horde_Argv_Option`` object. Just which keyword args you must supply for a given ``Horde_Argv_Option`` is fairly complicated (see the various ``_check*()`` methods in the ``Horde_Argv_Option`` class if you don't believe me). If you get it wrong, *Horde_Argv* throws an ``InvalidArgumentException`` explaining your mistake.
+
+The most important attribute of an option is its action, ie. what to do when we encounter this option on the command-line. The possible actions are:
+
+:``store``:       store this option's argument [default]
+:``store_const``: store a constant value
+:``store_true``:  store a ``TRUE`` value
+:``store_false``: store a ``FALSE`` value
+:``append``:      append this option's argument to a list
+:``count``:       increment a counter by one
+:``callback``:    call a specified function
+:``help``:        print a usage message including all options and the
+                  documentation for them
+
+(If you don't supply an action, the default is ``store``. For this action, you may also supply ``type`` and ``dest`` option attributes; see below.)
+
+As you can see, most actions involve storing or updating a value somewhere. *Horde_Argv* always creates an instance of ``Horde_Argv_Values`` (referred to as options) specifically for this purpose. Option arguments (and various other values) are stored as attributes of this object, according to the ``dest`` (destination) option attribute.
+
+For example, when you call
+
+::
+
+ $parser->parseArgs();
+
+one of the first things *Horde_Argv* does is create the options object:
+
+::
+
+ $options = new Horde_Argv_Values();
+
+If one of the options in this parser is defined with
+
+::
+
+ new Horde_Argv_Option('-f', '--file', array('action' => 'store', 'type' => 'string', 'dest' => 'filename'))
+
+and the command-line being parsed includes any of the following:
+
+::
+
+ -ffoo
+ -f foo
+ --file=foo
+ --file foo
+
+then *Horde_Argv*, on seeing the "-f" or "--file" option, will do the equivalent of this:
+
+::
+
+ $options->filename = 'foo';
+
+Clearly, the ``type`` and ``dest`` arguments are almost as important as ``action``. ``action`` is the only attribute that is meaningful for all options, though, so it is the most important.
+
+ Option actions
+===============
+
+The various option actions all have slightly different requirements and effects. Most actions have several relevant option attributes which you may specify to guide *Horde_Argv*'s behaviour; a few have required attributes, which you must specify for any option using that action.
+
+* ``store`` [relevant: ``type``, ``dest``, ``nargs``, ``choices``]
+  The option must be followed by an argument, which is converted to a value according to ``type`` and stored in ``dest``. If ``nargs`` > 1, multiple arguments will be consumed from the command line; all will be converted according to ``type`` and stored to ``dest`` as an array. See the "Option types" section below.
+
+  If ``choices`` is supplied (an array of strings), the ``type`` defaults to ``choice``.
+
+  If ``type`` is not supplied, it defaults to ``string``.
+
+  If ``dest`` is not supplied, *Horde_Argv* derives a destination from the first long option strings (e.g., "--foo-bar" implies "foo_bar"). If there are no long option strings, *Horde_Argv* derives a destination from the first short option string (e.g., "-f" implies "f").
+
+  Example:
+
+::
+
+ $parser->addOption('-f');
+ $parser->addOption('-p', array('type' => 'float', 'nargs' => 3, 'dest' => 'point'));
+
+  Given the following command line:
+
+  ``-f foo.txt -p 1 -3.5 4 -fbar.txt``
+
+  *Horde_Argv* will set
+
+::
+
+ $options->f = 'foo.txt';
+ $options->point = array(1.0, -3.5, 4.0);
+ $options->f = 'bar.txt';
+
+* ``store_const`` [required: ``const``; relevant: ``dest``]
+  The value ``const`` is stored in ``dest``.
+
+  Example:
+
+::
+
+ $parser->addOption('-q', '--quiet', array('action' => 'store_const', 'const' => 0, 'dest' => 'verbose'));
+ $parser->addOption('-v', '--verbose', array('action' => 'store_const', 'const' => 1, 'dest' => 'verbose'));
+ $parser->addOption('--noisy', array('action' => 'store_const', 'const' => 2, 'dest' => 'verbose'));
+
+  If "--noisy" is seen, *Horde_Argv* will set
+
+::
+
+ $options->verbose = 2;
+
+* ``store_true`` [relevant: ``dest``]
+  A special case of ``store_const`` that stores a ``TRUE`` value to ``dest``.
+
+* ``store_false`` [relevant: ``dest``]
+  Like ``store_true``, but stores a ``FALSE`` value.
+
+  Example:
+
+::
+
+ $parser->addOption(null, '--clobber', array('action' => 'store_true', 'dest' => 'clobber'));
+ $parser->addOption(null, '--no-clobber', array('action' => 'store_false', 'dest' => 'clobber'));
+
+* ``append`` [relevant: ``type``, ``dest``, ``nargs``, ``choices``]
+  The option must be followed by an argument, which is appended to the array in ``dest``. If no default value for ``dest`` is supplied, an empty array is automatically created when *Horde_Argv* first encounters this option on the command-line. If ``nargs`` > 1, multiple arguments are consumed, and an array of length ``nargs`` is appended to ``dest``.
+
+  The defaults for ``type`` and ``dest`` are the same as for the ``store`` action.
+
+  Example:
+
+::
+
+ $parser->addOption('-t', '--tracks', array('action' => 'append', 'type' => 'int'));
+
+  If "-t3" is seen on the command-line, *Horde_Argv* does the equivalent of:
+
+::
+
+ $options->tracks = array();
+ $options->tracks[] = intval('3');
+
+  If, a little later on, "--tracks=4" is seen, it does:
+
+::
+
+ $options->tracks[] = intval('4');
+
+* ``count`` [relevant: ``dest``]
+  Increment the integer stored at ``dest``. ``dest`` is set to zero before being incremented the first time (unless you supply a default value).
+
+  Example:
+
+::
+
+ $parser->addOption('-v', array('action' => 'count', 'dest' => 'verbosity'));
+
+  The first time "-v" is seen on the command line, *Horde_Argv* does the equivalent of:
+
+::
+
+ $options->verbosity = 0;
+ $options->verbosity += 1;
+
+  Every subsequent occurrence of "-v" results in
+
+::
+
+ $options->verbosity += 1;
+
+* ``callback`` [required: ``callback``; relevant: ``type``, ``nargs``, ``callback_args``, ``callback_kwargs``]
+  Call the function specified by ``callback``. The signature of this function should be
+
+::
+
+ func(Horde_Argv_Option $option,
+      string $opt,
+      mixed $value,
+      Horde_Argv_Parser $parser,
+      array $args,
+      array $kwargs)
+
+  See Option Callbacks for more detail.
+
+* ``help`` [relevant: none]
+  Prints a complete help message for all the options in the current option parser. The help message is constructed from the ``usage`` string passed to ``Horde_Argv_Parser``'s constructor and the ``help`` string passed to every option.
+
+  If no help string is supplied for an option, it will still be listed in the help message. To omit an option entirely, use the special value ``Horde_Argv_Option::SUPPRESS_HELP``.
+
+  Example:
+
+::
+
+ $parser = new Horde_Argv_Parser();
+ $parser->addOption('-h', '--help',
+                    array('action' => 'help'));
+ $parser->addOption('-v',
+                    array('action' => 'store_true', 'dest' => 'verbose',
+                          'help' => 'Be moderately verbose'));
+ $parser->addOption('--file',
+                    array('dest' => 'filename',
+                          'help' => 'Input file to read data from'));
+ $parser->addOption('--secret',
+                    array('help' => Horde_Argv_Option::SUPPRESS_HELP));
+
+  If *Horde_Argv* sees either "-h" or "--help" on the command line, it will print something like the following help message to stdout (assuming $_SERVER['argv'][0] is "foo.php"):
+
+::
+
+ usage: foo.py [options]
+ 
+ options:
+   -h, --help        Show this help message and exit
+   -v                Be moderately verbose
+   --file=FILENAME   Input file to read data from
+
+  After printing the help message, *Horde_Argv* terminates your process with ``exit(0)``.
+
+* ``version`` [relevant: none]
+  Prints the version number supplied to the ``Horde_Argv_Parser`` to stdout and exits. The version number is actually formatted and printed by the ``printVersion()`` method of ``Horde_Argv_Parser``. Generally only relevant if the version argument is supplied to the ``Horde_Argv_Parser`` constructor.
+
+ Option types
+=============
+
+*Horde_Argv* has six built-in option types: ``string``, ``int``, ``long``, ``choice``, ``float`` and ``complex``. If you need to add new option types, see `Extending Horde_Argv`_.
+
+.. _`Extending Horde_Argv`: Extending Horde_Argv
+
+Arguments to string options are not checked or converted in any way: the text on the command line is stored in the destination (or passed to the callback) as-is.
+
+Integer arguments are passed to ``intval()`` to convert them to PHP integers. If ``intval()`` fails, so will *Horde_Argv*, although with a more useful error message. (Internally, *Horde_Argv* throws ``Horde_Argv_OptionValueException`` from ``Horde_Argv_Option#checkBuiltin()``; ``Horde_Argv_Parser`` catches this exception higher up and terminates your program with a useful error message.)
+
+Likewise, float arguments are passed to ``floatval()`` for conversion, long arguments also to ``intval()``, and complex arguments are not handled yet. Apart from that, they are handled identically to integer arguments.
+
+``choice`` options are a subtype of ``string`` options. The ``choices`` option attribute (an array of strings) defines the set of allowed option arguments. ``Horde_Argv_Option#checkChoice()`` compares user-supplied option arguments against this master list and throws ``Horde_Argv_OptionValueException`` if an invalid string is given.
+
+ Querying and manipulating your option parser
+=============================================
+
+Sometimes, it's useful to poke around your option parser and see what's there. ``Horde_Argv_Parser`` provides a couple of methods to help you out:
+
+:``boolean hasOption(string $opt_str)``:           Given an option string such as
+                                                   "-q" or "--verbose", returns ``true`` if the ``Horde_Argv_Parser`` has an option
+                                                   with that option string.
+:``Horde_Argv_Option getOption(string $opt_str)``: Returns the
+                                                   ``Horde_Argv_Option`` instance that implements the supplied option string, or
+                                                   ``null`` if no options implement it.
+:``removeOption(string $opt_str)``:                If the ``Horde_Argv_Parser``
+                                                   has an option corresponding to ``$opt_str``, that option is removed. If that
+                                                   option provided any other option strings, all of those option strings become
+                                                   invalid. If ``$opt_str`` does not occur in any option belonging to this
+                                                   ``Horde_Argv_Parser``, throws ``InvalidArgumentException``.
+
+ Conflicts between options
+==========================
+
+If you're not careful, it's easy to define conflicting options:
+
+::
+
+ $parser->addOption('-n', '--dry-run', ...);
+ [...]
+ $parser->addOption('-n', '--noisy', ...);
+
+(This is even easier to do if you've defined your own ``Horde_Argv_Parser`` subclass with some standard options.)
+
+Every time you add an option, *Horde_Argv* checks for conflicts with existing options. If it finds any, it invokes the current conflict-handling mechanism. You can set the conflict-handling mechanism either in the constructor:
+
+::
+
+ $parser = new Horde_Argv_Parser(..., array('conflictHandler' => '...'));
+
+or with a separate call:
+
+::
+
+ $parser->setConflictHandler('...');
+
+The available conflict-handling mechanisms are:
+
+:``error`` (default): assume option conflicts are a programming error and throws
+                      ``Horde_Argv_OptionConflictException``
+:``resolve``:         resolve option conflicts intelligently (see below)
+
+Here's an example: first, define an ``Horde_Argv_Parser`` that resolves conflicts intelligently:
+
+::
+
+ $parser = new Horde_Argv_Parser(array('conflictHandler' => 'resolve'));
+
+Now add all of our options:
+
+::
+
+ $parser->addOption('-n', '--dry-run', ..., array('help' => 'original dry-run option'));
+ [...]
+ $parser->addOption('-n', '--noisy', ..., array('help' => 'be noisy'));
+
+At this point, *Horde_Argv* detects that a previously-added option is already using the "-n" option string. Since ``conflictHandler`` is "resolve", it resolves the situation by removing "-n" from the earlier option's list of option strings. Now, "--dry-run" is the only way for the user to activate that option. If the user asks for help, the help message will reflect that, e.g.:
+
+::
+
+ options:
+   --dry-run     original dry-run option
+   [...]
+   -n, --noisy   be noisy
+
+Note that it's possible to whittle away the option strings for a previously-added option until there are none left, and the user has no way of invoking that option from the command-line. In that case, *Horde_Argv* removes that option completely, so it doesn't show up in help text or anywhere else. E.g. if we carry on with our existing ``Horde_Argv_Parser``:
+
+::
+
+ $parser->addOption('--dry-run', ..., array('help' => 'new dry-run option'));
+
+At this point, the first "-n/--dry-run" option is no longer accessible, so *Horde_Argv* removes it. If the user asks for help, they'll get something like this:
+
+::
+
+ options:
+   [...]
+   -n, --noisy   be noisy
+   --dry-run     new dry-run option
+

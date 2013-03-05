@@ -7,14 +7,14 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
 /**
  * Utility functions for dealing with Microsoft ActiveSync's Timezone format.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -27,7 +27,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -392,6 +392,7 @@ class Horde_ActiveSync_Timezone
     static protected function _isNthOcurrenceOfWeekdayInMonth($timestamp, $occurence)
     {
         $original = new Horde_Date($timestamp);
+        $original->setTimezone('UTC');
         if ($occurence == 5) {
             $modified = $original->add(array('mday' => 7));
             return $modified->month > $original->month;

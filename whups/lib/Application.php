@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Whups through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -105,19 +105,25 @@ class Whups_Application extends Horde_Registry_Application
         return $perms;
     }
 
+    public function sidebar($sidebar)
+    {
+        $sidebar->addNewButton(
+            _("_New Ticket"),
+            Horde::url('ticket/create.php'));
+    }
+
     /**
      */
     public function menu($menu)
     {
-        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
-        $menu->add(Horde::url('search.php'), _("_Search"), 'search.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
-        $menu->add(Horde::url('ticket/create.php'), _("_New Ticket"), 'create.png', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'ticket/create' && basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'query.png');
-        $menu->add(Horde::url('reports.php'), _("_Reports"), 'reports.png');
+        $menu->add(Horde::url('mybugs.php'), sprintf(_("_My %s"), $GLOBALS['registry']->get('name')), 'whups-mywhups', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'mybugs' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('search.php'), _("_Search"), 'horde-search', null, null, null, $GLOBALS['prefs']->getValue('whups_default_view') == 'search' && strpos($_SERVER['PHP_SELF'], $GLOBALS['registry']->get('webroot') . '/index.php') !== false ? 'current' : null);
+        $menu->add(Horde::url('query/index.php'), _("_Query Builder"), 'whups-query');
+        $menu->add(Horde::url('reports.php'), _("_Reports"), 'whups-reports');
 
         /* Administration. */
         if ($GLOBALS['registry']->isAdmin(array('permission' => 'whups:admin'))) {
-            $menu->add(Horde::url('admin/'), _("_Admin"), 'admin.png');
+            $menu->add(Horde::url('admin/'), _("_Admin"), 'whups-admin');
         }
     }
 

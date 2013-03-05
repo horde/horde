@@ -42,8 +42,8 @@ $_prefs['columnselect'] = array(
 
 // columns to be displayed
 $_prefs['columns'] = array(
-    // 'value' = json_encode(array())
-    'value' => '["ftp","type","name","download","modified","size","permission","owner","group"]'
+    // 'value' = json_encode(array(array('ftp', 'type', 'name', 'size')))
+    'value' => '[]'
 );
 
 

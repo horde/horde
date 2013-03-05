@@ -1,8 +1,9 @@
 <?php
 /**
- * Maps Kolab_Storage ACL to the Horde permission system.
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Perms
@@ -14,31 +15,25 @@
 /**
  * Maps Kolab_Storage ACL to the Horde permission system.
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
  * @category Horde
  * @package  Perms
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Perms
  */
-class Horde_Perms_Permission_Kolab_AclIterator
-implements IteratorAggregate
+class Horde_Perms_Permission_Kolab_AclIterator implements IteratorAggregate
 {
     /**
      * The ACL elements.
      *
      * @var array
      */
-    private $_acl = array();
+    protected $_acl = array();
 
     /**
      * Constructor.
      *
-     * @param array  $acl     The folder ACL as provided by the driver.
+     * @param array $acl  The folder ACL as provided by the driver.
      */
     public function __construct(array $acl)
     {

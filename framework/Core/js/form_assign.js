@@ -3,7 +3,7 @@
  *
  * Provides the javascript class to accompany the Horde_Form assign field.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -11,73 +11,75 @@
 * @author Jan Schneider <jan@horde.org>
  */
 
-Horde_Form_Assign = {};
+var Horde_Form_Assign = {
 
-Horde_Form_Assign.deselectHeaders = function(form, elt, side)
-{
-    if (side) {
-        document.forms[form].elements[elt + '__right'][0].selected = false;
-    } else {
-        document.forms[form].elements[elt + '__left'][0].selected = false;
-    }
-}
+    deselectHeaders: function(form, elt, side)
+    {
+        document.forms[form].elements[elt + (side ? '__right' : '__left')][0].selected = false;
+    },
 
-Horde_Form_Assign.move = function(form, elt, direction)
-{
-    var left = document.forms[form].elements[elt + '__left'];
-    var right = document.forms[form].elements[elt + '__right'];
+    move: function(form, elt, direction)
+    {
+        var from, i, to,
+            left = document.forms[form].elements[elt + '__left'],
+            right = document.forms[form].elements[elt + '__right'];
 
-    var from, to;
-    if (direction) {
-        from = right;
-        to = left;
-    } else {
-        from = left;
-        to = right;
-    }
+        if (direction) {
+            from = right;
+            to = left;
+        } else {
+            from = left;
+            to = right;
+        }
 
-    for (var i = 0; i < from.length; ++i) {
-        if (from[i].selected) {
-            to[to.length] = new Option(from[i].text, from[i].value);
-            to[to.length - 1].ondblclick = function() {
-                Horde_Form_Assign.move(form, elt, 1 - direction);
+        for (i = 0; i < from.length; ++i) {
+            if (from[i].selected) {
+                to[to.length] = new Option(from[i].text, from[i].value);
+                to[to.length - 1].ondblclick = function() {
+                    Horde_Form_Assign.move(form, elt, 1 - direction);
+                };
+                from[i--] = null;
             }
-            from[i] = null;
-            --i;
         }
+
+        this.setField(form, elt);
+    },
+
+    setField: function(form, elt)
+    {
+        var i,
+            hit = false,
+            left = document.forms[form].elements[elt + '__left'],
+            right = document.forms[form].elements[elt + '__right'],
+            values = '';
+
+        for (i = 0; i < left.options.length; ++i) {
+            if (i === 0 && !left[i].value) {
+                continue;
+            }
+            values += left.options[i].value + '\t';
+            hit = true;
+        }
+
+        if (hit) {
+            values = values.substring(0, values.length - 1);
+            hit = false;
+        }
+
+        values += '\t\t';
+
+        for (i = 0; i < right.options.length; ++i) {
+            if (i === 0 && !right[i].value) {
+                continue;
+            }
+            values += right.options[i].value + '\t';
+            hit = true;
+        }
+
+        if (hit) {
+            values = values.substring(0, values.length - 1);
+        }
+        document.forms[form].elements[elt + '__values'].value = values;
     }
 
-    this.setField(form, elt);
-}
-
-Horde_Form_Assign.setField = function(form, elt)
-{
-    var left = document.forms[form].elements[elt + '__left'];
-    var right = document.forms[form].elements[elt + '__right'];
-
-    var values = '';
-    var hit = false;
-    for (var i = 0; i < left.options.length; ++i) {
-        if (i == 0 && !left[i].value) {
-            continue;
-        }
-        values += left.options[i].value + '\t';
-        hit = true;
-    }
-    if (hit) {
-        values = values.substring(0, values.length - 1);
-    }
-    values += '\t\t';
-    hit = false;
-    for (i = 0; i < right.options.length; ++i) {
-        if (i == 0 && !right[i].value) {
-            continue;
-        }
-        values += right.options[i].value + '\t';
-        hit = true;
-    }
-    if (hit) {
-        values = values.substring(0, values.length - 1);
-    }
-    document.forms[form].elements[elt + '__values'].value = values;
-}
+};

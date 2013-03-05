@@ -2,7 +2,7 @@
 /**
  * This class defines the base IMP status notification types.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,19 +23,19 @@ class IMP_Notification_Event_Status extends Horde_Core_Notification_Event_Status
     {
         switch ($this->type) {
         case 'imp.forward':
-            $img = 'mail_forwarded.png';
+            $img = 'forwarded.png';
             $label = _("Forward");
             break;
 
         case 'imp.redirect':
-            $img = 'mail_forwarded.png';
+            $img = 'forwarded.png';
             $label = _("Redirect");
             break;
 
         case 'imp.reply':
         case 'imp.reply_all':
         case 'imp.reply_list':
-            $img = 'mail_answered.png';
+            $img = 'answered.png';
             $label = _("Reply");
             break;
 

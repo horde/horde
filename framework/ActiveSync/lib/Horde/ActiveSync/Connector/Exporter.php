@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -190,7 +190,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderChange(Horde_ActiveSync_Message_Folder $folder)
     {
-        array_push($this->changed, $folder);
+        $this->changed[] = $folder;
         $this->count++;
     }
 
@@ -201,7 +201,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderDeletion($id)
     {
-        array_push($this->deleted, $id);
+        $this->deleted[] = $id;
         $this->count++;
     }
 

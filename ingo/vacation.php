@@ -2,7 +2,7 @@
 /**
  * Vacation script.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -68,7 +68,7 @@ if ($form->validate($vars)) {
             Ingo::updateScript();
         }
     } catch (Ingo_Exception $e) {
-        $notification->push($result);
+        $notification->push($e);
     }
 
     /* Update the timestamp for the rules. */
@@ -83,7 +83,7 @@ if (!$vacation->getVacationAddresses()) {
     $identity = $injector->getInstance('Horde_Core_Factory_Identity')->create();
     $addresses = implode("\n", $identity->getAll('from_addr'));
     /* Remove empty lines. */
-    $addresses = preg_replace('/\n+/', "\n", $addresses);
+    $addresses = trim(preg_replace('/\n+/', "\n", $addresses));
     if (empty($addresses)) {
         $addresses = $GLOBALS['registry']->getAuth();
     }

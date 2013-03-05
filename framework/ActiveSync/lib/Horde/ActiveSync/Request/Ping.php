@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -102,7 +102,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
     {
         $now = time();
         $this->_logger->info(sprintf(
-            "[%s] Handling PING command received at timestamp: %s.",
+            '[%s] Handling PING command received at timestamp: %s.',
             $this->_procid,
             $now));
 
@@ -113,7 +113,8 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
         $syncCache = new Horde_ActiveSync_SyncCache(
             $this->_stateDriver,
             $this->_device->id,
-            $this->_device->user);
+            $this->_device->user,
+            $this->_logger);
 
         // Build the collection array from anything we have in the cache.
         $collections = array();
@@ -148,7 +149,10 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                     $this->_decoder->getElementEndTag();
 
-                    // Ensure we have a synckey, or force a resync.
+                    // If the client explicitly requests to PING a collection,
+                    // it MUST have been SYNC'd already so ensure we have a
+                    // synckey for it. Otherwise set it to 0 to ensure we tell
+                    // the client it needs to issue a SYNC.
                     $collection['synckey'] = !empty($cache_collections[$collection['id']]['lastsynckey'])
                         ? $cache_collections[$collection['id']]['lastsynckey']
                         : 0;
@@ -156,9 +160,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     $collections[$collection['id']] = $collection;
                 }
 
-                // Set the collections as PINGable.
+                // Since the client is explicitly sending FOLDERS, we reset the
+                // pingable collections in the syncCache in anticipation of
+                // empty PING or empty FOLDERS in future requests.
                 foreach ($cache_collections as $value) {
-                    if (!empty($collections[$value['id']])) {
+                    if (!empty($collections[$value['id']]['synckey'])) {
                         $syncCache->setPingableCollection($value['id']);
                     } else {
                         $syncCache->removePingableCollection($value['id']);
@@ -173,10 +179,13 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
         } elseif (empty($cache_collections)) {
-                // If empty here, we have an empty PING request, but have no
-                // cached sync collections.
+                // We have an empty PING request but have no cached collections.
                 $this->_statusCode = self::STATUS_MISSING;
-        } else {
+        }
+
+        // Populate $collections if we received either an empty PING request or
+        // a PING request with no <FOLDERS> element.
+        if ($this->_statusCode == self::STATUS_NOCHANGES && empty($collections)) {
             // Build the list of PINGable collections from the cache.
             foreach ($cache_collections as $key => $collection) {
                 if ($syncCache->collectionIsPingable($key)) {
@@ -187,13 +196,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                 }
             }
             $this->_logger->debug(sprintf('Reusing PING state: %s', print_r($collections, true)));
-        }
-
-        // Remove any collections that have not yet been synced.
-        foreach ($collections as $id => $collection) {
-            if (!isset($collection['synckey'])) {
-                unset($collections[$id]);
-            }
         }
 
         // If empty here, we have collections requested to be PINGed but have
@@ -244,7 +246,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         // cause the PING to terminate early and hope we have
                         // a SYNC next time it's pinged.
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating: %s",
+                            '[%s] PING terminating: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $syncCache->lastuntil = time();
@@ -254,7 +256,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception_StateGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] State gone, PING terminating and forcing a SYNC: %s",
+                            '[%s] State gone, PING terminating and forcing a SYNC: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_NEEDSYNC;
@@ -265,7 +267,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating unknown error: %s",
+                            '[%s] PING terminating unknown error: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_statusCode = self::STATUS_SERVERERROR;
@@ -277,7 +279,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $sync->init($this->_stateDriver, null, $collection, true);
                     } catch (Horde_ActiveSync_Exception_StaleState $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating and force-clearing device state: %s",
+                            '[%s] PING terminating and force-clearing device state: %s',
                             $this->_procid,
                             $e->getMessage()));
                         $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
@@ -287,7 +289,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         break;
                     } catch (Horde_ActiveSync_Exception_FolderGone $e) {
                         $this->_logger->err(sprintf(
-                            "[%s] PING terminating and forcing a FOLDERSYNC",
+                            '[%s] PING terminating and forcing a FOLDERSYNC',
                             $this->_procid));
                         $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
                         $syncCache->lastuntil = time();
@@ -295,7 +297,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     } catch (Horde_ActiveSync_Exception $e) {
                         // Stop ping if exporter cannot be configured
                         $this->_logger->err(sprintf(
-                            "[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.",
+                            '[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.',
                             $this->_procid,
                             $e->getMessage()));
                         sleep(30);
@@ -307,16 +309,19 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $dataavailable = true;
                         $changes[$collection['id']] = $changecount;
                         $this->_statusCode = self::STATUS_NEEDSYNC;
+                        $syncCache->setPingChangeFlag($collection['id']);
+                        $this->_logger->debug('Setting PingChangeFlag on ' . $collection['id']);
                     }
                 }
 
                 if ($dataavailable) {
                     $this->_logger->debug(sprintf(
-                        "[%s] Changes available!",
+                        '[%s] Changes available!',
                         $this->_procid));
                     break;
                 }
                 sleep($timeout);
+
                 // Need to refresh collection data in case a SYNC was performed
                 // while the PING was still alive. Note that just killing the
                 // PING if a SYNC is detected will cause the device to stop
@@ -367,7 +372,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
 
         // Initialize the state
         $this->_logger->debug(sprintf(
-            "[%s] Initializing state for collection: %s, synckey: %s",
+            '[%s] Initializing state for collection: %s, synckey: %s',
             getmypid(),
             $collection['id'],
             $collection['synckey'])

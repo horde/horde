@@ -12,7 +12,7 @@
  * port - (integer) The port used to connect to the ssh2 server if other than
  *        22.</pre>
  *
- * Copyright 2006-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -647,7 +647,7 @@ class Horde_Vfs_Ssh2 extends Horde_Vfs_Base
         } else {
             $tmpFile = Horde_Util::getTempFile('vfs');
             if (!$this->_recv($this->_getPath($path, $name), $tmpFile)) {
-                throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $orig));
+                throw new Horde_Vfs_Exception(sprintf('Failed to copy from "%s".', $this->_getPath($path, $name)));
             }
 
             clearstatcache();

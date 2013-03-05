@@ -2,7 +2,7 @@
 /**
  * Class representing vTimezones.
  *
- * Copyright 2003-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -62,11 +62,14 @@ class Horde_Icalendar_Vtimezone extends Horde_Icalendar
         $result['to'] = ($t['hour'] * 60 * 60 + $t['minute'] * 60) * ($t['ahead'] ? 1 : -1);
 
         try {
-            $start = getdate($child->getAttribute('DTSTART'));
+            $start = $child->getAttribute('DTSTART');
         } catch (Horde_Icalendar_Exception $e) {
             return array();
         }
-
+        if (!is_int($start)) {
+            return array();
+        }
+        $start = getdate($start);
         if ($start['year'] > $year) {
             return array();
         }

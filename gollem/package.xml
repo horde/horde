@@ -22,22 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-10</date>
- <time>15:14:13</time>
+ <date>2013-02-12</date>
+ <time>15:39:28</time>
  <version>
-  <release>3.0.0RC2</release>
+  <release>3.0.1</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
-* [jan] Change recursive deletion preference to ask by default.
-* [jan] Fix share_id column if using old share backend (Bug #11833).
-* [jan] Show loading layer when changing backends on login form.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -350,7 +347,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -758,13 +755,43 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-12-10</date>
+   <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Pass custom login parameters to VFS backend (Bug #11771).
+* [jan] Fix selecting display columns in preferences (Bug #11851).
+* [jan] Fix automatic login to other than the first backend.
+* [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
 * [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * [jan] Change recursive deletion preference to ask by default.
 * [jan] Fix share_id column if using old share backend (Bug #11833).
 * [jan] Show loading layer when changing backends on login form.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

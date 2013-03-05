@@ -2,7 +2,7 @@
 /**
  * Delegates to the correct view.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -47,11 +47,11 @@ try {
 }
 
 Ansel::initJSVariables();
-
+$page_output->growler = true;
 $page_output->header(array(
-    'title' => $view->getTitle()
+    'title' => $view->getTitle(),
+    'ajax' => true,
 ));
 $notification->notify(array('listeners' => 'status'));
-$view_html = $view->html();
-echo $view_html;
+echo $view->html();
 $page_output->footer();
