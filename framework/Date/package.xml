@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:30:22</time>
+ <date>2013-03-05</date>
+ <time>12:24:19</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -894,7 +894,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix recurring dates on the 5th weekday of a month (Bug #11181).
