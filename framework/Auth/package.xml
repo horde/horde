@@ -23,8 +23,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-29</date>
- <time>12:20:30</time>
+ <date>2013-03-05</date>
+ <time>14:21:34</time>
  <version>
   <release>2.0.4</release>
   <api>2.0.0</api>
@@ -35,7 +35,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Improve documentation.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -833,10 +833,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Improve documentation.
    </notes>
   </release>
  </changelog>
