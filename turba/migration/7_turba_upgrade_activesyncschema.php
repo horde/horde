@@ -21,7 +21,7 @@ require_once __DIR__ . '/../lib/Turba.php';
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Turba
  */
-class TurbaUpgradeUpdateSchema extends Horde_Db_Migration_Base
+class TurbaUpgradeActiveSyncSchema extends Horde_Db_Migration_Base
 {
     /**
      * Upgrade.
