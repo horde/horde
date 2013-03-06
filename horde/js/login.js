@@ -71,11 +71,11 @@ var HordeLogin = {
 
         /* Programtically activate views that require javascript. */
         if (s) {
-            s.down('SELECT option[value=mobile_nojs]').remove();
+            s.down('option[value=mobile_nojs]').remove();
             if (this.pre_sel) {
-                s.down('SELECT').selectedIndex = s.down('SELECT option[value=' + this.pre_sel + ']').index;
+                s.selectedIndex = s.down('option[value=' + this.pre_sel + ']').index;
             }
-            s.show();
+            $('horde_select_view_div').show();
         }
     }
 

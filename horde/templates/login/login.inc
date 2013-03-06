@@ -12,10 +12,10 @@
 <?php if ($val['type'] == 'hidden'): ?>
 <input type="hidden" id="<?php echo $key ?>" name="<?php echo $key ?>" value="<?php echo isset($val['value']) ? htmlspecialchars($val['value']) : '' ?>" />
 <?php elseif ($val['type'] == 'horde_select_view'): ?>
-<div id="horde_select_view" style="display:none">
+<div id="horde_select_view_div" style="display:none">
  <div><?php echo Horde::label('horde_select_view', _("Mode")) ?></div>
  <div>
-  <select id="horde_select_view" name="<?php echo $key ?>">
+  <select id="horde_select_view" name="horde_select_view">
    <option value="auto"><?php echo _("Automatic") ?></option>
    <option value="" disabled="disabled">- - - - - - - - - -</option>
    <option value="basic"><?php echo _("Basic") ?></option>
