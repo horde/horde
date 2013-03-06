@@ -21,14 +21,9 @@
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
- * @property-read boolean $admin  Are IMAP admin features available?
- * @property-read array $admin_params  Admin parameters.
- * @property-read boolean $autocreate_special  Auto-create special mailboxes?
  * @property-read boolean $changed  If true, this object has changed.
+ * @property-read IMP_Imap_Config $config  Backend config settings.
  * @property-read boolean $init  Has the base IMAP object been initialized?
- * @property-read array $innocent_params  Return params used for innocent
- *                                        message reporting.
- * @property-read string $maildomain  Default maildomain.
  * @property-read integer $max_compose_recipients  The maximum number of
  *                                                 recipients to send to per
  *                                                 compose message.
@@ -37,15 +32,8 @@
  *                                                configured timelimit.
  * @property-read integer $max_create_mboxes  The maximum number of mailboxes
  *                                            a user can create.
- * @property-read boolean $quota  Is the quota active?
- * @property-read array $quota_params  Quota parameters.
  * @property-read string $server_key  Server key used to login.
- * @property-read array $smtp_params  SMTP parameters.
- * @property-read array $spam_params  Return params used for spam message
- *                                    reporting.
  * @property-read string $thread_algo  The threading algorithm to use.
- * @property-read array $userspecial_mboxes  The list of user-defined special
- *                                           mailboxes.
  */
 class IMP_Imap implements Serializable
 {
@@ -62,18 +50,18 @@ class IMP_Imap implements Serializable
     const ACCESS_ACL = 10;
 
     /**
-     * Server configuration file.
-     *
-     * @var array
-     */
-    static protected $_config;
-
-    /**
      * Has this object changed?
      *
      * @var boolean
      */
     protected $_changed = false;
+
+    /**
+     * Backend config.
+     *
+     * @var IMP_Imap_Config
+     */
+    protected $_config;
 
     /**
      * Have we logged into server yet?
@@ -108,79 +96,26 @@ class IMP_Imap implements Serializable
     public function __get($key)
     {
         switch ($key) {
-        case 'admin':
-            return ($this->init && $this->_ob->getParam('imp:admin'));
-
-        case 'admin_params':
-            return ((($sc = $this->loadServerConfig($key)) === false) || empty($sc['admin']) || !is_array($sc['admin']))
-                ? array()
-                : $sc['admin'];
-
-        case 'autocreate_special':
-            return ($this->init && $this->_ob->getParam('imp:autocreate_special') && $this->access(self::ACCESS_FOLDERS));
-
         case 'changed':
             return $this->_changed || ($this->_ob && $this->_ob->changed);
 
+        case 'config':
+            return isset($this->_config)
+                ? $this->_config
+                : new Horde_Support_Stub();
+
         case 'init':
             return !is_null($this->_ob);
-
-        case 'innocent_params':
-            return ($this->init && ($p = $this->_ob->getParam('imp:innocent')))
-                ? $p
-                : array();
-
-        case 'maildomain':
-            return ($this->init && ($md = $this->_ob->getParam('imp:maildomain')))
-                ? $md
-                : '';
 
         case 'max_compose_recipients':
         case 'max_compose_timelimit':
         case 'max_create_mboxes':
             return $GLOBALS['injector']->getInstance('Horde_Perms')->getPermissions('imp:' . $this->_getPerm($key), $GLOBALS['registry']->getAuth());
 
-        case 'quota':
-            return (bool) ($this->init && $this->_ob->getParam('imp:quota'));
-
-        case 'quota_params':
-            if (!$this->init ||
-                !($params = $this->_ob->getParam('imp:quota'))) {
-                return array();
-            }
-
-            if (isset($params['password'])) {
-                $secret = $injector->getInstance('Horde_Secret');
-                $params['password'] = $secret->read($secret->getKey(), $params['password']);
-            }
-
-            return $params;
-
         case 'server_key':
             return $this->init
                 ? $this->_ob->getParam('imp:backend')
                 : null;
-
-        case 'smtp_params':
-            if (!$this->init || !($params = $this->_ob->getParam('imp:smtp'))) {
-                return array();
-            }
-
-            if (!empty($params['auth'])) {
-                if (empty($params['username'])) {
-                    $params['username'] = $this->_ob->getParam('username');
-                }
-                if (empty($params['password'])) {
-                    $params['password'] = $this->_ob->getParam('password');
-                }
-            }
-
-            return $params;
-
-        case 'spam_params':
-            return ($this->init && ($p = $this->_ob->getParam('imp:spam')))
-                ? $p
-                : array();
 
         case 'thread_algo':
             if (!$this->init) {
@@ -191,7 +126,7 @@ class IMP_Imap implements Serializable
                 return $thread;
             }
 
-            $thread = $this->_ob->getParam('imp:thread');
+            $thread = $this->config->thread;
             $thread_cap = $this->queryCapability('THREAD');
             if (!in_array($thread, is_array($thread_cap) ? $thread_cap : array())) {
                 $thread = 'ORDEREDSUBJECT';
@@ -201,11 +136,6 @@ class IMP_Imap implements Serializable
             $this->_changed = true;
 
             return $thread;
-
-        case 'userspecial_mboxes':
-            return ($this->init && ($mboxes = $this->_ob->getParam('imp:userspecial_mboxes')))
-                ? $mboxes
-                : array();
         }
     }
 
@@ -218,9 +148,7 @@ class IMP_Imap implements Serializable
      */
     private function _getPerm($perm)
     {
-        return $this->init
-            ? $this->getOb()->getParam('imp:backend') . ':' . $perm
-            : $perm;
+        return ($this->init ? $this->server_key . ':' : '') . $perm;
     }
 
     /**
@@ -262,8 +190,8 @@ class IMP_Imap implements Serializable
     {
         $ob = $this->getOb($mbox);
 
-        return ($ob->getParam('imp:sort_force') ||
-                $ob->queryCapability('SORT'));
+        return ($this->config->sort_force ||
+                $this->getOb($mbox)->queryCapability('SORT'));
     }
 
     /**
@@ -284,61 +212,33 @@ class IMP_Imap implements Serializable
             return $this->_ob;
         }
 
-        if (($sc = $this->loadServerConfig($key)) === false) {
+        if (($config = $this->loadServerConfig($key)) === false) {
             $error = new IMP_Imap_Exception('Could not load server configuration.');
             Horde::log($error);
             throw $error;
         }
 
         $imap_config = array(
-            'capability_ignore' => empty($sc['capability_ignore']) ? array() : $sc['capability_ignore'],
-            'comparator' => empty($sc['comparator']) ? false : $sc['comparator'],
-            'debug' => isset($sc['debug']) ? $sc['debug'] : null,
-            'debug_literal' => !empty($sc['debug_raw']),
+            'cache' => $config->cache_params,
+            'capability_ignore' => $config->capability_ignore,
+            'comparator' => $config->comparator,
+            'debug' => $config->debug,
+            'debug_literal' => $config->debug_raw,
             'encryptKey' => array(__CLASS__, 'getEncryptKey'),
-            'hostspec' => isset($sc['hostspec']) ? $sc['hostspec'] : null,
-            'id' => empty($sc['id']) ? false : $sc['id'],
-            'lang' => empty($sc['lang']) ? false : $sc['lang'],
+            'hostspec' => $config->hostspec,
+            'id' => $config->id,
+            'lang' => $config->lang,
             'password' => $password,
-            'port' => isset($sc['port']) ? $sc['port'] : null,
-            'secure' => isset($sc['secure']) ? $sc['secure'] : false,
-            'timeout' => empty($sc['timeout']) ? null : $sc['timeout'],
+            'port' => $config->port,
+            'secure' => (($secure = $config->secure) ? $secure : false),
+            'timeout' => $config->timeout,
             'username' => $username,
             // IMP specific config
-            'imp:acl' => !empty($sc['acl']),
-            'imp:admin' => !empty($sc['admin']),
-            'imp:autocreate_special' => !empty($sc['autocreate_special']),
-            'imp:backend' => $key,
-            'imp:maildomain' => isset($sc['maildomain']) ? $sc['maildomain'] : null,
-            'imp:namespace' => empty($sc['namespace']) ? null : $sc['namespace'],
-            'imp:smtp' => (!empty($sc['smtp']) && is_array($sc['smtp'])) ? $sc['smtp'] : null,
-            'imp:sort_force' => !empty($sc['sort_force']),
-            'imp:thread' => isset($sc['thread']) ? $sc['thread'] : 'REFERENCES'
+            'imp:backend' => $key
         );
 
-        /* Quota configuration. */
-        if (!empty($sc['quota'])) {
-            if (isset($sc['quota']['password'])) {
-                $secret = $injector->getInstance('Horde_Secret');
-                $sc['quota']['password'] = $secret->write($secret->getKey(), $tmp['params']['password']);
-            }
-            $imap_config['imp:quota'] = $sc['quota'];
-        }
-
-        /* Spam configuration. */
-        if (!empty($sc['spam'])) {
-            foreach (array('innocent', 'spam') as $val) {
-                if (!empty($sc['spam'][$val])) {
-                    $imap_config['imp:' . $val] = $sc['spam'][$val];
-                }
-            }
-        }
-
-        /* Initialize caching. */
-        $imap_config['cache'] = $this->loadCacheConfig(isset($sc['cache']) ? $sc['cache'] : null);
-
         try {
-            $ob = ($sc['protocol'] == 'imap')
+            $ob = ($config->protocol == 'imap')
                 ? new Horde_Imap_Client_Socket($imap_config)
                 : new Horde_Imap_Client_Socket_Pop3($imap_config);
         } catch (Horde_Imap_Client_Exception $e) {
@@ -347,27 +247,17 @@ class IMP_Imap implements Serializable
             throw $error;
         }
 
+        $this->config = $config;
         $this->_ob = $ob;
 
-        switch ($sc['protocol']) {
+        switch ($config->protocol) {
         case 'imap':
             /* Overwrite default special mailbox names. */
-            if (!empty($sc['special_mboxes']) &&
-                is_array($sc['special_mboxes'])) {
-                foreach ($sc['special_mboxes'] as $key => $val) {
-                    switch ($key) {
-                    case IMP_Mailbox::MBOX_USERSPECIAL:
-                        if (is_array($val) && !empty($val)) {
-                            $ob->setParam('imp:userspecial_mboxes', $val);
-                        }
-                        break;
-
-                    default:
-                        $prefs->setValue($key, $val, array(
-                            'nosave' => true
-                        ));
-                        break;
-                    }
+            foreach ($config->special_mboxes as $key => $val) {
+                if ($key != IMP_Mailbox::MBOX_USERSPECIAL) {
+                    $prefs->setValue($key, $val, array(
+                        'nosave' => true
+                    ));
                 }
             }
             break;
@@ -387,39 +277,6 @@ class IMP_Imap implements Serializable
         }
 
         return $ob;
-    }
-
-    /**
-     * Prepare the config parameters necessary to use IMAP caching.
-     *
-     * @param mixed $config  Either true (enable default cache), or a list of
-     *                       cache config parameters (enable default cache and
-     *                       pass these parameters to IMAP object).
-     *
-     * @return array  The configuration array.
-     */
-    public function loadCacheConfig($config)
-    {
-        $ob = empty($config)
-            ? null
-            : $GLOBALS['injector']->getInstance('Horde_Cache');
-
-        if (!$ob) {
-            $ob = new Horde_Cache(
-                new Horde_Cache_Storage_Mock(),
-                array('compress' => true)
-            );
-        }
-
-        if (!is_array($config)) {
-            $config = array();
-        }
-
-        return array(
-            'cacheob' => $ob,
-            'lifetime' => empty($config['lifetime']) ? false : $config['lifetime'],
-            'slicesize' => empty($config['slicesize']) ? false : $config['slicesize'],
-        );
     }
 
     /**
@@ -456,8 +313,7 @@ class IMP_Imap implements Serializable
 
         switch ($right) {
         case self::ACCESS_ACL:
-            return ($this->_ob->getParam('imp:acl') &&
-                    $this->queryCapability('ACL'));
+            return ($this->config->acl && $this->queryCapability('ACL'));
 
         case self::ACCESS_CREATEMBOX:
             return ($this->isImap() &&
@@ -515,7 +371,7 @@ class IMP_Imap implements Serializable
     public function getNamespaceList()
     {
         try {
-            $ns = $this->_ob->getParam('imp:namespace');
+            $ns = $this->config->namespace;
             return $this->getNamespaces(is_null($ns) ? array() : $ns);
         } catch (Horde_Imap_Client_Exception $e) {
             return array();
@@ -783,44 +639,30 @@ class IMP_Imap implements Serializable
      */
     static public function loadServerConfig($server = null)
     {
-        if (isset(self::$_config)) {
-            $servers = self::$_config;
-        } else {
-            try {
-                $servers = Horde::loadConfiguration('backends.php', 'servers', 'imp');
-                if (is_null($servers)) {
-                    return false;
-                }
-            } catch (Horde_Exception $e) {
-                Horde::log($e, 'ERR');
+        try {
+            $s = Horde::loadConfiguration('backends.php', 'servers', 'imp');
+            if (is_null($s)) {
                 return false;
             }
-
-            foreach ($servers as $key => $val) {
-                if (empty($val['disabled'])) {
-                    /* Normalize protocol string. */
-                    $servers[$key]['protocol'] = isset($val['protocol'])
-                        ? ((strcasecmp($val['protocol'], 'pop') === 0) ? 'pop' : 'imap')
-                        : 'imap';
-                } else {
-                    unset($servers[$key]);
-                }
-            }
-            self::$_config = $servers;
-        }
-
-        if (is_null($server)) {
-            return $servers;
-        }
-
-        /* Check for the existence of the server in the config file. */
-        if (empty($servers[$server]) || !is_array($servers[$server])) {
-            $entry = sprintf('Invalid server key "%s" from client [%s]', $server, $_SERVER['REMOTE_ADDR']);
-            Horde::log($entry, 'ERR');
+        } catch (Horde_Exception $e) {
+            Horde::log($e, 'ERR');
             return false;
         }
 
-        return $servers[$server];
+        if (!is_null($server)) {
+            return (isset($s[$server]) && empty($s[$server]['disabled']))
+                ? new IMP_Imap_Config($s[$server])
+                : false;
+        }
+
+        $servers = array();
+        foreach ($s as $key => $val) {
+            if (empty($s[$server]['disabled'])) {
+                $servers[$key] = new IMP_Imap_Config($val);
+            }
+        }
+
+        return $servers;
     }
 
     /* Callback functions used in Horde_Imap_Client_Base. */
@@ -838,6 +680,7 @@ class IMP_Imap implements Serializable
     {
         return serialize(array(
             $this->_ob,
+            $this->config,
             $this->_nsdefault,
             $this->_login
         ));
@@ -849,6 +692,7 @@ class IMP_Imap implements Serializable
     {
         list(
             $this->_ob,
+            $this->config,
             $this->_nsdefault,
             $this->_login
         ) = unserialize($data);

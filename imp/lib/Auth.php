@@ -20,7 +20,6 @@
  *   - file_upload: (integer) If file uploads are allowed, the max size.
  *   - filteravail: (boolean) Can we apply filters manually?
  *   - imap_ob: (IMP_Imap) The IMAP client object.
- *   - maildomain: (string) See 'maildomain' entry in config/backends.php.
  *   - pgp: (array) Cached PGP passhprase values.
  *   - rteavail: (boolean) Is the HTML editor available?
  *   - search: (IMP_Search) The IMP_Search object.
@@ -171,41 +170,22 @@ class IMP_Auth
 
         $server_key = null;
         foreach ($servers as $key => $val) {
-            if (is_null($server_key) && substr($key, 0, 1) != '_') {
+            if (is_null($server_key) && (substr($key, 0, 1) != '_')) {
                 $server_key = $key;
             }
-            if (self::isPreferredServer($val, $key)) {
-                $server_key = $key;
-                break;
+
+            /* Determines if the given mail server is the "preferred" mail
+             * server for this web server. This decision is based on the
+             * global 'SERVER_NAME' and 'HTTP_HOST' server variables and the
+             * contents of the 'preferred' field in the backend's config. */
+            if (($preferred = $val->preferred) &&
+                (in_array($_SERVER['SERVER_NAME'], $preferred) ||
+                 in_array($_SERVER['HTTP_HOST'], $preferred))) {
+                return $key;
             }
         }
 
         return $server_key;
-    }
-
-    /**
-     * Determines if the given mail server is the "preferred" mail server for
-     * this web server.  This decision is based on the global 'SERVER_NAME'
-     * and 'HTTP_HOST' server variables and the contents of the 'preferred'
-     * field in the server's definition.  The 'preferred' field may take a
-     * single value or an array of multiple values.
-     *
-     * @param string $server  A complete server entry from the $servers hash.
-     *
-     * @return boolean  True if this entry is "preferred".
-     */
-    static public function isPreferredServer($server)
-    {
-        if (empty($server['preferred'])) {
-            return false;
-        }
-
-        $preferred = is_array($server['preferred'])
-            ? $server['preferred']
-            : array($server['preferred']);
-
-        return in_array($_SERVER['SERVER_NAME'], $preferred) ||
-               in_array($_SERVER['HTTP_HOST'], $preferred);
     }
 
     /**
@@ -221,7 +201,9 @@ class IMP_Auth
      */
     static protected function _canAutoLogin($server_key = null, $force = false)
     {
-        if (($servers = $GLOBALS['injector']->getInstance('IMP_Imap')->loadServerConfig()) === false) {
+        global $injector, $registry;
+
+        if (($servers = $injector->getInstance('IMP_Imap')->loadServerConfig()) === false) {
             return false;
         }
 
@@ -233,11 +215,11 @@ class IMP_Auth
         }
 
         if ((!empty($auto_server) || $force) &&
-            $GLOBALS['registry']->getAuth() &&
-            !empty($servers[$server_key]['hordeauth'])) {
+            $registry->getAuth() &&
+            !empty($servers[$server_key]->hordeauth)) {
             return array(
-                'userId' => $GLOBALS['registry']->getAuth((strcasecmp($servers[$server_key]['hordeauth'], 'full') == 0) ? null : 'bare'),
-                'password' => $GLOBALS['registry']->getAuthCredential('password'),
+                'userId' => $registry->getAuth((strcasecmp($servers[$server_key]->hordeauth, 'full') == 0) ? null : 'bare'),
+                'password' => $registry->getAuthCredential('password'),
                 'server' => $server_key
             );
         }
@@ -309,13 +291,9 @@ class IMP_Auth
      */
     static public function authenticateCallback()
     {
-        global $browser, $conf, $injector, $prefs, $session;
+        global $browser, $injector, $session;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
-
-        /* Set the maildomain. */
-        $maildomain = $prefs->getValue('mail_domain');
-        $session->set('imp', 'maildomain', $maildomain ? $maildomain : $imp_imap->maildomain);
 
         /* Can't call this until now, since we need prefs to be properly
          * loaded to grab the special mailboxes information. */

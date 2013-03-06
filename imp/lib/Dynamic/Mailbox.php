@@ -47,15 +47,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
         $imp_imap = $injector->getInstance('IMP_Imap');
 
-        $this->view->show_innocent = (bool)$imp_imap->innocent_params;
+        $this->view->show_innocent = !empty($imp_imap->config->innocent_params);
         $this->view->show_search = $imp_imap->access(IMP_Imap::ACCESS_SEARCH);
-        $this->view->show_spam = (bool)$imp_imap->spam_params;
+        $this->view->show_spam = !empty($imp_imap->config->spam_params);
 
         $impSubinfo = new Horde_View(array(
             'templatePath' => IMP_TEMPLATES . '/dynamic'
         ));
         $impSubinfo->addHelper('Text');
-        $impSubinfo->quota = $imp_imap->quota;
+        $impSubinfo->quota = (bool)$imp_imap->config->quota;
 
         $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
         $topbar->search = $this->view->show_search;
@@ -319,10 +319,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             )
         );
 
-        if (!$imp_imap->spam_params) {
+        if (empty($imp_imap->config->spam_params)) {
             unset($context['ctx_message']['spam']);
         }
-        if (!$imp_imap->innocent_params) {
+        if (empty($imp_imap->config->innocent_params)) {
             unset($context['ctx_message']['innocent']);
         }
         if (!$registry->hasMethod('mail/blacklistFrom')) {

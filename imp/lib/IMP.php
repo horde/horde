@@ -355,7 +355,7 @@ class IMP
     {
         $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
         $res = $rfc822->parseAddressList($str, array_merge(array(
-            'default_domain' => $GLOBALS['session']->get('imp', 'maildomain'),
+            'default_domain' => $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain,
             'validate' => false
         ), $opts));
         $res->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
@@ -374,7 +374,7 @@ class IMP
     {
         $ob = new Horde_Mail_Rfc822_Address($str);
         if ($default_domain && is_null($ob->host)) {
-            $ob->host = $GLOBALS['session']->get('imp', 'maildomain');
+            $ob->host = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
         }
         return $ob->bare_address;
     }

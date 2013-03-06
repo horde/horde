@@ -50,11 +50,11 @@ class IMP_Spam
 
         switch ($action) {
         case self::INNOCENT:
-            $config = $injector->getInstance('IMP_Imap')->innocent_params;
+            $config = $injector->getInstance('IMP_Imap')->config->innocent_params;
             break;
 
         case self::SPAM:
-            $config = $injector->getInstance('IMP_Imap')->spam_params;
+            $config = $injector->getInstance('IMP_Imap')->config->spam_params;
             break;
 
         default:

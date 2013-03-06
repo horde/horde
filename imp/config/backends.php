@@ -98,7 +98,7 @@
  *   The following optional parameters are available:
  *     - lifetime: (integer) The lifetime, in seconds, of the cached data.
  *     - slicesize: (integer) The number of messages stored in each cache
- *                    slice.  (The default should be fine for most users.)
+ *                    slice (the default should be fine for most users).
  *
  * quota: (array) Use this if you want to display a user's quota status. Set
  *   to an empty value to disable quota status (DEFAULT).

@@ -232,8 +232,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add information necessary to log replies/forwards when finally
          * sent. */
+        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
         if ($this->_replytype) {
-            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
             try {
                 $indices = $this->getMetadata('indices');
 
@@ -260,7 +260,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         return $base->toString(array(
-            'defserver' => $has_session ? $GLOBALS['session']->get('imp', 'maildomain') : null,
+            'defserver' => $has_session ? $imp_imap->config->maildomain : null,
             'headers' => $draft_headers
         ));
     }
@@ -701,7 +701,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function buildAndSendMessage($body, $header, array $opts = array())
     {
-        global $conf, $injector, $notification, $prefs, $session, $registry;
+        global $conf, $injector, $notification, $prefs, $registry;
 
         /* We need at least one recipient & RFC 2822 requires that no 8-bit
          * characters can be in the address fields. */
@@ -906,8 +906,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             /* Generate the message string. */
+            $imp_imap = $injector->getInstance('IMP_Imap');
             $fcc = $save_msg->toString(array(
-                'defserver' => $session->get('imp', 'maildomain'),
+                'defserver' => $imp_imap->config->maildomain,
                 'headers' => $headers,
                 'stream' => true
             ));
@@ -923,7 +924,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             );
 
             try {
-                $injector->getInstance('IMP_Imap')->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
+                $imp_imap->append($sent_mail, array(array('data' => $fcc, 'flags' => $flags)));
             } catch (IMP_Imap_Exception $e) {
                 $notification->push(sprintf(_("Message sent successfully, but not saved to %s."), $sent_mail->display));
             }

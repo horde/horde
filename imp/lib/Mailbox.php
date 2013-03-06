@@ -451,7 +451,7 @@ class IMP_Mailbox implements Serializable
             return (strcasecmp($this->_mbox, 'INBOX') === 0);
 
         case 'innocent_show':
-            $p = $injector->getInstance('IMP_Imap')->innocent_params;
+            $p = $injector->getInstance('IMP_Imap')->config->innocent_params;
             return (!empty($p) &&
                     ((isset($p['display']) && empty($p['display'])) || $this->spam));
 
@@ -646,7 +646,7 @@ class IMP_Mailbox implements Serializable
             return ($this->_mbox == $special[self::SPECIAL_SPAM]);
 
         case 'spam_show':
-            $p = $injector->getInstance('IMP_Imap')->spam_params;
+            $p = $injector->getInstance('IMP_Imap')->config->spam_params;
             return (!empty($p) && (!empty($p['display']) || !$this->spam));
 
         case 'special':
@@ -1369,7 +1369,7 @@ class IMP_Mailbox implements Serializable
                 self::SPECIAL_USER=> array()
             );
 
-            foreach ($GLOBALS['injector']->getInstance('IMP_Imap')->userspecial_mboxes as $key => $val) {
+            foreach ($GLOBALS['injector']->getInstance('IMP_Imap')->config->user_special_mboxes as $key => $val) {
                 $ob = self::get($key);
                 $ob->display = $val;
                 $sm[self::SPECIAL_USER][strval($key)] = $ob;

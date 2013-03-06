@@ -130,7 +130,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Methods only available if admin config is set for this
          * server/login. */
-        if (!$injector->getInstance('IMP_Imap')->admin) {
+        if (empty($injector->getInstance('IMP_Imap')->config->admin)) {
             $this->auth = array_diff($this->auth, array('add', 'list', 'remove'));
         }
 
@@ -303,15 +303,14 @@ class IMP_Application extends Horde_Registry_Application
         $params = array();
 
         if ($GLOBALS['conf']['server']['server_list'] == 'shown') {
-            $servers = IMP_Imap::loadServerConfig();
             $server_list = array();
             $selected = is_null($this->_oldserver)
                 ? $GLOBALS['injector']->getInstance('Horde_Variables')->get('imp_server_key', IMP_Auth::getAutoLoginServer())
                 : $this->_oldserver;
 
-            foreach ($servers as $key => $val) {
+            foreach (IMP_Imap::loadServerConfig() as $key => $val) {
                 $server_list[$key] = array(
-                    'name' => $val['name'],
+                    'name' => $val->name,
                     'selected' => ($selected == $key)
                 );
             }

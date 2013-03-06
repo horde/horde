@@ -110,13 +110,13 @@ class IMP_Perms
             $bkey = 'backends:' . $key;
 
             $perms[$bkey] = array(
-                'title' => $val['name']
+                'title' => $val->name
             );
 
             foreach ($this->_perms as $key2 => $val2) {
                 if (empty($val2['global']) &&
                     (empty($val2['imaponly']) ||
-                    ($val['protocol'] == 'imap'))) {
+                    ($val->protocol == 'imap'))) {
                     $perms[$bkey . ':' . $key2] = array(
                         'title' => $val2['title'],
                         'type' => $val2['type']

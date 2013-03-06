@@ -40,13 +40,13 @@ case 'backend_perms_force':
         'max_folders' => 'max_create_mboxes'
     );
 
-    $backends = IMP_Imap::loadServerConfig();
+    $backends = array_keys(IMP_Imap::loadServerConfig());
     $perms = $injector->getInstance('Horde_Perms');
 
     $cli->message($cli->bold('Upgrading permissions.'));
 
     if ($values->task == 'backend_perms_force') {
-        foreach (array_keys($backends) as $backend) {
+        foreach ($backends as $backend) {
             try {
                 $perms->removePermission($perms->getPermission('imp:' . $backend), true);
                 $cli->message(sprintf('Force deletion of all "%s" backend permissions.', $backend));
@@ -61,7 +61,7 @@ case 'backend_perms_force':
             if ($perms->exists($pkey)) {
                 $pval = $perms->getPermission($pkey);
 
-                foreach (array_keys($backends) as $backend) {
+                foreach ($backends as $backend) {
                     $parent_perm = 'imp:' . $backend;
                     if (!$perms->exists($parent_perm)) {
                         $perms->addPermission($perms->newPermission($parent_perm));

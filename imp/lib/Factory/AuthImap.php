@@ -43,7 +43,7 @@ class IMP_Factory_AuthImap extends Horde_Core_Factory_Injector
             'userhierarchy' => 'userhierarchy'
         );
 
-        foreach ($injector->getInstance('IMP_Imap')->admin_params as $key => $val) {
+        foreach ($injector->getInstance('IMP_Imap')->config->admin as $key => $val) {
             if (isset($params_map[$key])) {
                 $params[$params_map[$key]] = $val;
             }

@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Move backend configuration parsing/retrieval to IMP_Imap_Config.
 [mms] Spam reporting configuration has been moved to the backends file.
 [mms] Support showing blocked Data URIs in HTML message data.
 [mms] Add the 'mbox_acl' hook.

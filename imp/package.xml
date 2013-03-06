@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-28</date>
+ <date>2013-03-05</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Move backend configuration parsing/retrieval to IMP_Imap_Config.
 * [mms] Spam reporting configuration has been moved to the backends file.
 * [mms] Support showing blocked Data URIs in HTML message data.
 * [mms] Add the &apos;mbox_acl&apos; hook.
@@ -262,6 +263,7 @@
     </dir> <!-- /lib/Flag -->
     <dir name="Imap">
      <file name="Acl.php" role="horde" />
+     <file name="Config.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="PermanentFlags.php" role="horde" />
      <file name="Tree.php" role="horde" />
@@ -1298,7 +1300,7 @@
    <package>
     <name>Horde_Support</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.0.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1570,6 +1572,7 @@
    <install as="imp/lib/Flag/System/Match/Flag.php" name="lib/Flag/System/Match/Flag.php" />
    <install as="imp/lib/Flag/System/Match/Header.php" name="lib/Flag/System/Match/Header.php" />
    <install as="imp/lib/Imap/Acl.php" name="lib/Imap/Acl.php" />
+   <install as="imp/lib/Imap/Config.php" name="lib/Imap/Config.php" />
    <install as="imp/lib/Imap/Exception.php" name="lib/Imap/Exception.php" />
    <install as="imp/lib/Imap/PermanentFlags.php" name="lib/Imap/PermanentFlags.php" />
    <install as="imp/lib/Imap/Tree.php" name="lib/Imap/Tree.php" />

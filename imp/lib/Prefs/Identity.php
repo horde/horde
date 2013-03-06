@@ -169,7 +169,7 @@ class Imp_Prefs_Identity extends Horde_Core_Prefs_Identity
             }
 
             if (!strstr($val, '@')) {
-                $val .= '@' . $GLOBALS['session']->get('imp', 'maildomain');
+                $val .= '@' . $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
             }
 
             $ob = new Horde_Mail_Rfc822_Address($val);
