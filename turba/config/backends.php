@@ -307,6 +307,7 @@ $cfgSources['localsql'] = array(
          'otherPOBox' => 'object_otherpob',
          'otherCity' => 'object_othercity',
          'otherProvince' => 'object_otherprovince',
+         'otherPostalCode' => 'object_otherpostalcode',
          'otherCountry' => 'object_othercountry',
          'otherAddress' => array('fields' => array('otherStreet', 'otherCity',
                                                   'otherProvince',

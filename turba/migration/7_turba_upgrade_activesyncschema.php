@@ -59,7 +59,7 @@ class TurbaUpgradeActiveSyncSchema extends Horde_Db_Migration_Base
             $this->addColumn('turba_objects', 'object_otherprovince', 'string', array('limit' => 255));
         }
         if (!in_array('object_otherpostalcode', $cols)) {
-            $this->addColumn('turba_objects', 'object_otherpostcode', 'string', array('limit' => 10));
+            $this->addColumn('turba_objects', 'object_otherpostalcode', 'string', array('limit' => 10));
         }
         if (!in_array('object_othercountry', $cols)) {
             $this->addColumn('turba_objects', 'object_othercountry', 'string', array('limit' => 255));
