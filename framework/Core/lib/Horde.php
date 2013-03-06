@@ -473,7 +473,9 @@ class Horde
             echo $output;
         }
 
-        self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+        if (!$app == 'horde' && !$config_file = 'conf.php') {
+            self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+        }
 
         if (is_null($var_names)) {
             return;
