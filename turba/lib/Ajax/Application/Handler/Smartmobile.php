@@ -22,6 +22,9 @@ class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applica
      *   - source: (string) UID of source addressbook.
      *
      * @return object  TODO
+     *   - entry: (array)
+     *   - error: (boolean)
+     *   - group: (array)
      */
     public function smartmobileEntry()
     {
@@ -87,6 +90,31 @@ class Turba_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applica
                         'v' => $val3
                     ));
                 }
+            }
+        }
+
+        if ($contact->isGroup()) {
+            $members = $contact->listMembers();
+            $members->reset();
+
+            $url = new Horde_Core_Smartmobile_Url();
+            $url->setAnchor('entry');
+
+            $out->group = array(
+                'l' => _("Group Members"),
+                'm' => array()
+            );
+
+            while ($ob = $members->next()) {
+                $out->group['m'][] = array(
+                    'n' => strlen($name = Turba::formatName($ob))
+                               ? $name
+                               : ('[' . _("No Name") . ']'),
+                    'u' => strval($url->copy()->setRaw(true)->add(array(
+                               'key' => $ob->getValue('__key'),
+                               'source' => $ob->getSource()
+                           )))
+                );
             }
         }
 
