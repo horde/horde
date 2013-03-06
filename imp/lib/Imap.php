@@ -64,20 +64,6 @@ class IMP_Imap implements Serializable
     protected $_config;
 
     /**
-     * Have we logged into server yet?
-     *
-     * @var boolean
-     */
-    protected $_login = false;
-
-    /**
-     * Default namespace.
-     *
-     * @var array
-     */
-    protected $_nsdefault = null;
-
-    /**
      * The Horde_Imap_Client object.
      *
      * @var Horde_Imap_Client
@@ -235,6 +221,8 @@ class IMP_Imap implements Serializable
             'username' => $username,
             // IMP specific config
             'imp:backend' => $key
+            // 'imp:login' - Set in __call()
+            // 'imp:nsdefault' - Set in defaultNamespace()
         );
 
         try {
@@ -420,21 +408,23 @@ class IMP_Imap implements Serializable
      */
     public function defaultNamespace()
     {
-        if (!$this->isImap()) {
+        if (!$this->_ob ||
+            !$this->isImap() ||
+            !$this->_ob->getParam('imp:login')) {
             return null;
         }
 
-        if ($this->_login && !isset($this->_nsdefault)) {
+        if (is_null($ns = $this->_ob->getParam('imp:nsdefault'))) {
             foreach ($this->getNamespaceList() as $val) {
                 if ($val['type'] == Horde_Imap_Client::NS_PERSONAL) {
-                    $this->_nsdefault = $val;
+                    $this->_ob->setParam('imp:nsdefault', $val);
                     $this->_changed = true;
-                    break;
+                    return $val;
                 }
             }
         }
 
-        return $this->_nsdefault;
+        return $ns;
     }
 
     /**
@@ -566,7 +556,7 @@ class IMP_Imap implements Serializable
             break;
 
         case 'login':
-            if (!$this->_login) {
+            if (!$this->_ob->getParam('imp:login')) {
                 /* Check for POP3 UIDL support. */
                 if (!$this->isImap() &&
                     !$this->queryCapability('UIDL')) {
@@ -575,7 +565,8 @@ class IMP_Imap implements Serializable
                     throw $error;
                 }
 
-                $this->_changed = $this->_login = true;
+                $this->_ob->setParam('imp:login', true);
+                $this->_changed = true;
             }
             break;
 
@@ -680,9 +671,7 @@ class IMP_Imap implements Serializable
     {
         return serialize(array(
             $this->_ob,
-            $this->config,
-            $this->_nsdefault,
-            $this->_login
+            $this->config
         ));
     }
 
@@ -692,9 +681,7 @@ class IMP_Imap implements Serializable
     {
         list(
             $this->_ob,
-            $this->config,
-            $this->_nsdefault,
-            $this->_login
+            $this->config
         ) = unserialize($data);
     }
 
