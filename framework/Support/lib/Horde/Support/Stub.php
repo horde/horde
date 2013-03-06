@@ -29,6 +29,16 @@ class Horde_Support_Stub
     }
 
     /**
+     * Ignore setting the requested property.
+     *
+     * @param string $key  The property.
+     * @param mixed $val   The property's value.
+     */
+    public function __set($key, $val)
+    {
+    }
+
+    /**
      * Return null for any requested property.
      *
      * @param string $key  The requested object property.
@@ -38,6 +48,27 @@ class Horde_Support_Stub
     public function __get($key)
     {
         return null;
+    }
+
+    /**
+     * Property existence.
+     *
+     * @param string $key  The requested object property.
+     *
+     * @return boolean  False.
+     */
+    public function __isset($key)
+    {
+        return false;
+    }
+
+    /**
+     * Ignore unsetting a property.
+     *
+     * @param string $key  The requested object property.
+     */
+    public function __unset($key)
+    {
     }
 
     /**
