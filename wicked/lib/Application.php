@@ -18,6 +18,10 @@ if (!defined('WICKED_BASE')) {
     define('WICKED_BASE', __DIR__ . '/..');
 }
 
+/* if (!defined('WICKED_TEMPLATES')) { */
+/*     define('WICKED_TEMPLATES', __DIR__ . '/..'); */
+/* } */
+
 if (!defined('HORDE_BASE')) {
     /* If Horde does not live directly under the app directory, the HORDE_BASE
      * constant should be defined in config/horde.local.php. */
@@ -36,7 +40,7 @@ class Wicked_Application extends Horde_Registry_Application
 {
     /**
      */
-    public $version = 'H5 (2.0-git)';
+    public $version = 'H5 (2.1-git)';
 
     protected function _bootstrap()
     {
@@ -63,6 +67,7 @@ class Wicked_Application extends Horde_Registry_Application
                            'Wiki/Usage' => _("_Usage"),
                            'RecentChanges' => _("_Recent Changes"),
                            'AllPages' => _("_All Pages"));
+
             foreach ($conf['menu']['pages'] as $pagename) {
                 /* Determine who we should say referred us. */
                 $curpage = isset($page) ? $page->pageName() : null;
@@ -79,7 +84,17 @@ class Wicked_Application extends Horde_Registry_Application
                 }
 
                 $url = Wicked::url($pagename)->add('referrer', $referrer);
-                $menu->add($url, $pages[$pagename], str_replace('/', '', $pagename) . '.png', null, null, null, $cellclass);
+                $css_class = sprintf(
+                  "wicked_%s",
+                  strtolower(
+                    str_replace(
+                      ' ',
+                      '_',
+                      str_replace('_', '', $pages[$pagename])
+                    )
+                  )
+                );
+                $menu->add($url, $pages[$pagename], $css_class);
             }
         }
     }
@@ -167,6 +182,26 @@ class Wicked_Application extends Horde_Registry_Application
             'file' => $vars->file,
             'type' => $type
         );
+    }
+
+    public function sidebar($sidebar) {
+
+      global $display_tasklists, $page_output, $prefs;
+
+      $page_output->addScriptFile('scriptaculous/effects.js', 'horde');
+      $page_output->addScriptFile('redbox.js', 'horde');
+      $page_output->addScriptFile('new_article.js');
+
+
+      $perms = $GLOBALS['injector']->getInstance('Horde_Core_Perms');
+      $sidebar->addNewButton(
+        _("_New Task"),
+        Horde::url('task.php')->add('actionID', 'add_task'),
+        array('id' => 'newEventButton')
+      );
+
+      require_once(WICKED_TEMPLATES . '/new_article.inc');
+
     }
 
 }

@@ -173,3 +173,27 @@ span.match {
     font-weight: bold;
     color: red;
 }
+
+.wicked_home {
+    background: url(graphics/WikiHome.png) no-repeat center;
+}
+
+
+.wicked_usage {
+    background: url(graphics/WikiUsage.png) no-repeat center;
+}
+
+.wicked_recent_changes {
+    background: url(graphics/RecentChanges.png) no-repeat center;
+}
+
+.wicked_all_pages {
+    background: url(graphics/AllPages.png) no-repeat center;
+}
+
+.newArticleForm {
+    width: 30em;
+    padding: 1em;
+    background: #ffc;
+    border: 1px solid #ccc;
+}
