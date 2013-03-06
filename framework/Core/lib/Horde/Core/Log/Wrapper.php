@@ -25,29 +25,13 @@
 class Horde_Core_Log_Wrapper
 {
     /**
-     * Log instance.
-     *
-     * @var Horde_Core_Log_Logger
-     */
-    private $instance;
-
-    /**
      * Redirects calls to the logger object.
      */
     public function __call($name, $arguments)
     {
-        if (!isset($instance)) {
-            $instance = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-        }
-
-        return call_user_func_array(array($instance, $name), $arguments);
+        return call_user_func_array(
+            array($GLOBALS['injector']->getInstance('Horde_Log_Logger'), $name),
+            $arguments
+        );
     }
-
-    /**
-     * Nothing is serialized in this class.
-     */
-    public function __sleep()
-    {
-    }
-
 }
