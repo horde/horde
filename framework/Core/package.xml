@@ -28,10 +28,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-27</date>
- <time>01:24:37</time>
+ <date>2013-03-06</date>
+ <time>02:31:37</time>
  <version>
-  <release>2.4.0</release>
+  <release>2.4.2</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -40,10 +40,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Added Horde_Shutdown - global Horde shutdown function handler.
-* [mjr] Horde_Registry::getServiceLink() can now return full URLs.
-* [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
-* [mms] Add Horde_Themes::viewDir().
+* [mjr] Fix authentication issue when using Horde_Session_Null and expiring sessions (Bug #12078).
+* [mjr] Fix logger creation during RPC access (Bug #12094).
+* [mms] Add logging wrapper class to reduce serialized size of factory-created objects.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -469,6 +468,7 @@
       </dir> <!-- /lib/Horde/Core/Imsp -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
+       <file name="Wrapper.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Log -->
       <dir name="LoginTasks">
        <dir name="Backend">
@@ -975,6 +975,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Compress_Fast</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Controller</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1359,12 +1366,6 @@
     <name>Text_LanguageDetect</name>
     <channel>pear.php.net</channel>
    </package>
-   <package>
-    <name>lzf</name>
-    <channel>pecl.php.net</channel>
-    <min>1.5.2</min>
-    <providesextension>lzf</providesextension>
-   </package>
    <extension>
     <name>dom</name>
    </extension>
@@ -1741,6 +1742,7 @@
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
+   <install as="Horde/Core/Log/Wrapper.php" name="lib/Horde/Core/Log/Wrapper.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
    <install as="Horde/Core/LoginTasks/SystemTask/Upgrade.php" name="lib/Horde/Core/LoginTasks/SystemTask/Upgrade.php" />
    <install as="Horde/Core/Mime/Viewer/Syntaxhighlighter.php" name="lib/Horde/Core/Mime/Viewer/Syntaxhighlighter.php" />
@@ -2791,13 +2793,44 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-27</date>
+   <date>2013-03-03</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Always compress cache data, if possible.
+* [mms] Abstract data compression out into Horde_Compress_Fast package.
+* [mjr] Fix fatal error synchronizing an ActiveSync meeting response (Bug #12084).
 * [mms] Added Horde_Shutdown - global Horde shutdown function handler.
 * [mjr] Horde_Registry::getServiceLink() can now return full URLs.
 * [mms] Allow graphics/sounds to be loaded from view-specific theme directories.
 * [mms] Add Horde_Themes::viewDir().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.1</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-04</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.2</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-06</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mjr] Fix authentication issue when using Horde_Session_Null and expiring sessions (Bug #12078).
+* [mjr] Fix logger creation during RPC access (Bug #12094).
+* [mms] Add logging wrapper class to reduce serialized size of factory-created objects.
    </notes>
   </release>
  </changelog>

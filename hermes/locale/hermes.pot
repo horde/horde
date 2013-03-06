@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Hermes H5 (2.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,18 +17,18 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: lib/Hermes.php:321
+#: lib/Hermes.php:317
 #, php-format
 msgid " (%0.2f hours)"
 msgstr ""
 
-#: lib/Hermes.php:323
+#: lib/Hermes.php:319
 #, php-format
 msgid " (%d%%, %0.2f of %0.2f hours)"
 msgstr ""
 
 #: lib/Form/Admin/EditJobTypeStepOne.php:29 lib/Form/JobType/Edit/Step1.php:23
-#: lib/Form/Search.php:90
+#: lib/Form/Search.php:89
 msgid " (DISABLED)"
 msgstr ""
 
@@ -42,12 +42,12 @@ msgstr ""
 msgid "%s Deliverables"
 msgstr ""
 
-#: lib/Ajax.php:81
+#: lib/Ajax.php:84
 #, php-format
 msgid "%s notifications"
 msgstr ""
 
-#: lib/Form/Search.php:74
+#: lib/Form/Search.php:73
 msgid "- - None - -"
 msgstr ""
 
@@ -67,7 +67,7 @@ msgstr ""
 msgid "; Notes: "
 msgstr ""
 
-#: entry.php:77 lib/Driver/Sql.php:123
+#: entry.php:77 lib/Driver/Sql.php:124
 msgid "Access denied; user cannot modify this timeslice."
 msgstr ""
 
@@ -85,7 +85,7 @@ msgid ""
 "entry?"
 msgstr ""
 
-#: lib/Form/Time/Entry.php:83 templates/dynamic/slices.inc:42
+#: lib/Form/Time/Entry.php:83 templates/dynamic/slices.inc:57
 msgid "Additional Notes"
 msgstr ""
 
@@ -93,13 +93,13 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: lib/Form/Deliverable/ClientSelector.php:31 lib/Form/Search.php:72
+#: lib/Form/Deliverable/ClientSelector.php:31 lib/Form/Search.php:71
 #: lib/Form/Time.php:49
 #, php-format
 msgid "An error occurred listing clients: %s"
 msgstr ""
 
-#: lib/Form/Search.php:84 lib/Form/Time.php:31
+#: lib/Form/Search.php:83 lib/Form/Time.php:31
 #, php-format
 msgid "An error occurred listing job types: %s"
 msgstr ""
@@ -113,7 +113,7 @@ msgstr ""
 msgid "Approved By:"
 msgstr ""
 
-#: templates/dynamic/search.inc:97 templates/dynamic/slices.inc:67
+#: templates/dynamic/search.inc:97 templates/dynamic/slices.inc:82
 msgid "Bill"
 msgstr ""
 
@@ -122,8 +122,8 @@ msgid "Bill?"
 msgstr ""
 
 #: templates/dynamic/jobtypes.inc:9 templates/dynamic/search.inc:67
-#: templates/dynamic/sidebar.html.php:31 templates/dynamic/sidebar.html.php:36
-#: templates/dynamic/slices.inc:29
+#: templates/dynamic/sidebar.html.php:34 templates/dynamic/sidebar.html.php:39
+#: templates/dynamic/slices.inc:44
 msgid "Billable"
 msgstr ""
 
@@ -132,28 +132,28 @@ msgid "Billable Hours"
 msgstr ""
 
 #: lib/Form/Admin/AddJobType.php:24 lib/Form/Admin/EditJobTypeStepTwo.php:44
-#: lib/Form/JobType/Add.php:18 lib/Form/Search.php:61
+#: lib/Form/JobType/Add.php:18 lib/Form/Search.php:60
 #: lib/Form/Time/Entry.php:70
 msgid "Billable?"
 msgstr ""
 
-#: lib/Hermes.php:343
+#: lib/Hermes.php:339
 msgid "By Client"
 msgstr ""
 
-#: lib/Hermes.php:345
+#: lib/Hermes.php:341
 msgid "By Cost Object"
 msgstr ""
 
-#: lib/Hermes.php:341
+#: lib/Hermes.php:337
 msgid "By Date"
 msgstr ""
 
-#: lib/Hermes.php:342
+#: lib/Hermes.php:338
 msgid "By Employee"
 msgstr ""
 
-#: lib/Hermes.php:344
+#: lib/Hermes.php:340
 msgid "By Job Type"
 msgstr ""
 
@@ -161,18 +161,18 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: lib/Driver/Sql.php:605
+#: lib/Driver/Sql.php:609
 msgid "Cannot delete deliverable; it has children."
 msgstr ""
 
-#: lib/Driver/Sql.php:616
+#: lib/Driver/Sql.php:620
 msgid "Cannot delete deliverable; there is time entered on it."
 msgstr ""
 
 #: invoicing.php:34 lib/Api.php:52 lib/Form/Admin/EditClientStepTwo.php:36
 #: lib/Form/Deliverable/ClientSelector.php:21 lib/Form/Time/Entry.php:54
 #: templates/dynamic/search.inc:29 templates/dynamic/search.inc:93
-#: templates/dynamic/slices.inc:12 templates/dynamic/slices.inc:63
+#: templates/dynamic/slices.inc:27 templates/dynamic/slices.inc:78
 msgid "Client"
 msgstr ""
 
@@ -180,15 +180,15 @@ msgstr ""
 msgid "Client Name"
 msgstr ""
 
-#: lib/Form/Search.php:33
+#: lib/Form/Search.php:32
 msgid "Clients"
 msgstr ""
 
-#: templates/dynamic/export.inc:27
+#: templates/dynamic/export.inc:28
 msgid "Close"
 msgstr ""
 
-#: templates/dynamic/sidebar.html.php:46
+#: templates/dynamic/sidebar.html.php:49
 msgid "Collapse"
 msgstr ""
 
@@ -196,17 +196,17 @@ msgstr ""
 msgid "Combine same clients in one invoice"
 msgstr ""
 
-#: lib/Form/Export.php:30 templates/dynamic/export.inc:8
+#: lib/Form/Export.php:30 templates/dynamic/export.inc:9
 msgid "Comma-Separated Variable (.csv)"
 msgstr ""
 
 #: invoicing.php:42 lib/Api.php:58 lib/Form/Time/Entry.php:63
 #: templates/dynamic/search.inc:33 templates/dynamic/search.inc:94
-#: templates/dynamic/slices.inc:16 templates/dynamic/slices.inc:64
+#: templates/dynamic/slices.inc:31 templates/dynamic/slices.inc:79
 msgid "Cost Object"
 msgstr ""
 
-#: lib/Form/Search.php:41
+#: lib/Form/Search.php:40
 msgid "Cost Objects"
 msgstr ""
 
@@ -215,8 +215,8 @@ msgid "Create invoice"
 msgstr ""
 
 #: invoicing.php:40 lib/Api.php:43 lib/Form/Time/Entry.php:50
-#: templates/dynamic/search.inc:91 templates/dynamic/slices.inc:20
-#: templates/dynamic/slices.inc:62
+#: templates/dynamic/search.inc:91 templates/dynamic/slices.inc:35
+#: templates/dynamic/slices.inc:77
 msgid "Date"
 msgstr ""
 
@@ -263,7 +263,7 @@ msgstr ""
 
 #: invoicing.php:41 lib/Api.php:72 lib/Form/Deliverable.php:27
 #: lib/Form/Time/Entry.php:82 templates/dynamic/search.inc:96
-#: templates/dynamic/slices.inc:39 templates/dynamic/slices.inc:66
+#: templates/dynamic/slices.inc:54 templates/dynamic/slices.inc:81
 msgid "Description"
 msgstr ""
 
@@ -275,11 +275,11 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: lib/Form/Search.php:48 templates/dynamic/search.inc:44
+#: lib/Form/Search.php:47 templates/dynamic/search.inc:44
 msgid "Do not include entries after"
 msgstr ""
 
-#: lib/Form/Search.php:45 templates/dynamic/search.inc:39
+#: lib/Form/Search.php:44 templates/dynamic/search.inc:39
 msgid "Do not include entries before"
 msgstr ""
 
@@ -325,7 +325,7 @@ msgid "Edit job type, Step 2"
 msgstr ""
 
 #: invoicing.php:35 lib/Api.php:48 templates/dynamic/search.inc:10
-#: templates/dynamic/search.inc:92
+#: templates/dynamic/search.inc:92 templates/dynamic/slices.inc:12
 msgid "Employee"
 msgstr ""
 
@@ -342,7 +342,7 @@ msgstr ""
 msgid "Enabled?"
 msgstr ""
 
-#: lib/Application.php:266
+#: lib/Application.php:269
 msgid "Enter Time"
 msgstr ""
 
@@ -355,7 +355,7 @@ msgstr ""
 msgid "Error deleting deliverable: %s"
 msgstr ""
 
-#: lib/Form/Search.php:117 lib/Hermes.php:276
+#: lib/Form/Search.php:116 lib/Hermes.php:276
 #, php-format
 msgid "Error retrieving cost objects from \"%s\": %s"
 msgstr ""
@@ -365,7 +365,7 @@ msgstr ""
 msgid "Error saving deliverable: %s"
 msgstr ""
 
-#: lib/Driver/Sql.php:300
+#: lib/Driver/Sql.php:304
 #, php-format
 msgid "Error: %s"
 msgstr ""
@@ -374,7 +374,7 @@ msgstr ""
 msgid "Estimated Hours"
 msgstr ""
 
-#: lib/Form/Export.php:48 templates/dynamic/export.inc:26
+#: lib/Form/Export.php:48 templates/dynamic/export.inc:27
 msgid "Export"
 msgstr ""
 
@@ -394,7 +394,7 @@ msgstr ""
 msgid "Exported"
 msgstr ""
 
-#: lib/Form/Search.php:58
+#: lib/Form/Search.php:57
 msgid "Exported?"
 msgstr ""
 
@@ -402,7 +402,7 @@ msgstr ""
 msgid "General Preferences"
 msgstr ""
 
-#: lib/Ajax.php:82
+#: lib/Ajax.php:85
 msgid "Hide Notifications"
 msgstr ""
 
@@ -412,8 +412,8 @@ msgid "Hourly Rate"
 msgstr ""
 
 #: invoicing.php:38 lib/Api.php:60 lib/Form/Time/Entry.php:66
-#: templates/dynamic/search.inc:98 templates/dynamic/slices.inc:25
-#: templates/dynamic/slices.inc:68
+#: templates/dynamic/search.inc:98 templates/dynamic/slices.inc:40
+#: templates/dynamic/slices.inc:83
 msgid "Hours"
 msgstr ""
 
@@ -423,8 +423,8 @@ msgid ""
 "above."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:190 lib/Ajax/Application/Handler.php:249
-#: lib/Ajax/Application/Handler.php:274
+#: lib/Ajax/Application/Handler.php:197 lib/Ajax/Application/Handler.php:256
+#: lib/Ajax/Application/Handler.php:281
 msgid "Invalid timer requested"
 msgstr ""
 
@@ -445,13 +445,13 @@ msgstr ""
 #: lib/Form/Admin/DeleteJobType.php:32
 #: lib/Form/Admin/EditJobTypeStepTwo.php:37 lib/Form/JobType/Add.php:15
 #: lib/Form/Time/Entry.php:60 templates/dynamic/search.inc:23
-#: templates/dynamic/search.inc:95 templates/dynamic/slices.inc:34
-#: templates/dynamic/slices.inc:65
+#: templates/dynamic/search.inc:95 templates/dynamic/slices.inc:49
+#: templates/dynamic/slices.inc:80
 msgid "Job Type"
 msgstr ""
 
-#: lib/Form/Search.php:38 templates/dynamic/jobtypes.inc:2
-#: templates/dynamic/sidebar.html.php:22
+#: lib/Form/Search.php:37 templates/dynamic/jobtypes.inc:2
+#: templates/dynamic/sidebar.html.php:23
 msgid "Job Types"
 msgstr ""
 
@@ -459,7 +459,7 @@ msgstr ""
 msgid "Job type successfully added."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:345
+#: lib/Ajax/Application/Handler.php:352
 msgid "Job type successfully updated."
 msgstr ""
 
@@ -467,11 +467,11 @@ msgstr ""
 msgid "JobType Name"
 msgstr ""
 
-#: lib/Form/Export.php:42 templates/dynamic/export.inc:18
+#: lib/Form/Export.php:42 templates/dynamic/export.inc:19
 msgid "Mark the time as exported?"
 msgstr ""
 
-#: lib/Form/Export.php:31 templates/dynamic/export.inc:9
+#: lib/Form/Export.php:31 templates/dynamic/export.inc:10
 msgid "Microsoft Excel (.xls)"
 msgstr ""
 
@@ -483,15 +483,15 @@ msgstr ""
 msgid "My Time"
 msgstr ""
 
-#: templates/dynamic/sidebar.html.php:46
+#: templates/dynamic/sidebar.html.php:49
 msgid "My Timers"
 msgstr ""
 
-#: time.php:63
+#: templates/dynamic/slices.inc:71 time.php:63
 msgid "My Unsubmitted Time"
 msgstr ""
 
-#: lib/Application.php:197
+#: lib/Application.php:200
 msgid "My _Time"
 msgstr ""
 
@@ -507,7 +507,7 @@ msgstr ""
 msgid "New Time"
 msgstr ""
 
-#: templates/dynamic/sidebar.html.php:45
+#: templates/dynamic/sidebar.html.php:48
 msgid "New Timer"
 msgstr ""
 
@@ -516,17 +516,17 @@ msgid "New Top-level Deliverable"
 msgstr ""
 
 #: invoicing.php:70 lib/Api.php:31 lib/Form/Admin/DeleteJobType.php:28
-#: lib/Form/Export.php:41 lib/Form/Search.php:54 lib/Form/Time/Entry.php:69
-#: templates/dynamic/export.inc:21 templates/dynamic/search.inc:55
+#: lib/Form/Export.php:41 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
+#: templates/dynamic/export.inc:22 templates/dynamic/search.inc:55
 #: templates/dynamic/search.inc:63 templates/dynamic/search.inc:71
 msgid "No"
 msgstr ""
 
-#: lib/Ajax.php:80
+#: lib/Ajax.php:83
 msgid "No Notifications"
 msgstr ""
 
-#: templates/dynamic/search.inc:115 templates/dynamic/slices.inc:84
+#: templates/dynamic/search.inc:115 templates/dynamic/slices.inc:99
 msgid "No Time Slices"
 msgstr ""
 
@@ -543,7 +543,7 @@ msgstr ""
 msgid "No timeslices were selected to submit."
 msgstr ""
 
-#: templates/dynamic/sidebar.html.php:32 templates/dynamic/sidebar.html.php:37
+#: templates/dynamic/sidebar.html.php:35 templates/dynamic/sidebar.html.php:40
 msgid "Non-Billable"
 msgstr ""
 
@@ -560,19 +560,19 @@ msgid ""
 "Only time reviewers with edit permissions can post time for other users."
 msgstr ""
 
-#: lib/Ajax.php:85
+#: lib/Ajax.php:88
 msgid "Please enter correct values in the form first."
 msgstr ""
 
-#: lib/Ajax.php:84
+#: lib/Ajax.php:87
 msgid "Preferences"
 msgstr ""
 
-#: templates/dynamic/slices.inc:57
+#: templates/dynamic/slices.inc:72
 msgid "Quick Filter"
 msgstr ""
 
-#: lib/Form/Export.php:32 templates/dynamic/export.inc:10
+#: lib/Form/Export.php:32 templates/dynamic/export.inc:11
 msgid "QuickBooks (.iif)"
 msgstr ""
 
@@ -585,20 +585,20 @@ msgid "Really delete this job type? This may cause data problems!"
 msgstr ""
 
 #: templates/dynamic/jobtypes.inc:23 templates/dynamic/search.inc:78
-#: templates/dynamic/slices.inc:50
+#: templates/dynamic/slices.inc:65
 msgid "Reset"
 msgstr ""
 
 #: lib/Form/Time/Entry.php:33 templates/dynamic/jobtypes.inc:21
-#: templates/dynamic/slices.inc:48 templates/dynamic/timer.inc:12
+#: templates/dynamic/slices.inc:63 templates/dynamic/timer.inc:12
 msgid "Save"
 msgstr ""
 
-#: templates/dynamic/jobtypes.inc:22 templates/dynamic/slices.inc:49
+#: templates/dynamic/jobtypes.inc:22 templates/dynamic/slices.inc:64
 msgid "Save As New"
 msgstr ""
 
-#: lib/Form/Search.php:64 templates/dynamic/search.inc:5
+#: lib/Form/Search.php:63 templates/dynamic/search.inc:5
 #: templates/dynamic/search.inc:77 templates/dynamic/sidebar.html.php:12
 msgid "Search"
 msgstr ""
@@ -611,7 +611,7 @@ msgstr ""
 msgid "Search Results"
 msgstr ""
 
-#: lib/Application.php:277
+#: lib/Application.php:280
 msgid "Search Time"
 msgstr ""
 
@@ -637,7 +637,7 @@ msgstr ""
 msgid "Select hours to be invoiced"
 msgstr ""
 
-#: lib/Form/Export.php:36 templates/dynamic/export.inc:6
+#: lib/Form/Export.php:36 templates/dynamic/export.inc:7
 msgid "Select the export format"
 msgstr ""
 
@@ -649,7 +649,7 @@ msgstr ""
 msgid "Set preferences on the stop watch timer."
 msgstr ""
 
-#: templates/dynamic/slices.inc:22
+#: templates/dynamic/slices.inc:37
 msgid "Set start date"
 msgstr ""
 
@@ -664,7 +664,7 @@ msgstr ""
 msgid "Show the dynamic view by default, if the browser supports it?"
 msgstr ""
 
-#: lib/Application.php:201 lib/Application.php:290
+#: lib/Application.php:204 lib/Application.php:293
 msgid "Start Watch"
 msgstr ""
 
@@ -688,7 +688,7 @@ msgstr ""
 msgid "Submit Selected Time"
 msgstr ""
 
-#: templates/dynamic/slices.inc:87
+#: templates/dynamic/slices.inc:102
 msgid "Submit Time"
 msgstr ""
 
@@ -696,15 +696,15 @@ msgstr ""
 msgid "Submitted"
 msgstr ""
 
-#: lib/Form/Search.php:55
+#: lib/Form/Search.php:54
 msgid "Submitted?"
 msgstr ""
 
-#: lib/Hermes.php:340
+#: lib/Hermes.php:336
 msgid "Summary"
 msgstr ""
 
-#: lib/Form/Export.php:33 templates/dynamic/export.inc:11
+#: lib/Form/Export.php:33 templates/dynamic/export.inc:12
 msgid "Tab-Separated Variable (.tsv, .txt)"
 msgstr ""
 
@@ -733,7 +733,7 @@ msgstr ""
 msgid "The job type was not deleted."
 msgstr ""
 
-#: lib/Hermes.php:430
+#: lib/Hermes.php:426
 msgid "The requested timer was not found."
 msgstr ""
 
@@ -744,13 +744,23 @@ msgid ""
 "next refresh."
 msgstr ""
 
-#: entry.php:32 lib/Ajax/Application/Handler.php:288
+#: entry.php:32 lib/Ajax/Application/Handler.php:295
 #, php-format
 msgid "The stop watch \"%s\" has been stopped."
 msgstr ""
 
 #: search.php:26 time.php:24
 msgid "The time entry was successfully deleted."
+msgstr ""
+
+#: lib/Ajax/Application/Handler.php:106
+#, php-format
+msgid "The time was successfully entered for %s."
+msgstr ""
+
+#: lib/Ajax/Application/Handler.php:375
+#, php-format
+msgid "The time was successfully updated and saved to the time sheet of %s."
 msgstr ""
 
 #: lib/Form/Admin/EditClientStepOne.php:27
@@ -803,7 +813,7 @@ msgstr ""
 msgid "There was an error storing your timesheet: %s"
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:311 time.php:47
+#: lib/Ajax/Application/Handler.php:318 time.php:47
 #, php-format
 msgid "There was an error submitting your time: %s"
 msgstr ""
@@ -814,6 +824,10 @@ msgstr ""
 
 #: lib/Form/Admin/EditJobTypeStepTwo.php:29
 msgid "This is not a valid job type."
+msgstr ""
+
+#: lib/Application.php:189
+msgid "Time Administration"
 msgstr ""
 
 #: templates/dynamic/slices.inc:5
@@ -828,11 +842,11 @@ msgstr ""
 msgid "Timer Creation"
 msgstr ""
 
-#: templates/dynamic/sidebar.html.php:30
+#: templates/dynamic/sidebar.html.php:33
 msgid "Today"
 msgstr ""
 
-#: invoicing.php:39 templates/dynamic/sidebar.html.php:35
+#: invoicing.php:39 templates/dynamic/sidebar.html.php:38
 msgid "Total"
 msgstr ""
 
@@ -845,11 +859,7 @@ msgstr ""
 msgid "Total Hours for %s"
 msgstr ""
 
-#: templates/dynamic/slices.inc:56
-msgid "Unsubmitted Time"
-msgstr ""
-
-#: templates/dynamic/sidebar.html.php:28
+#: templates/dynamic/sidebar.html.php:31
 msgid "Unsubmitted Time Summary"
 msgstr ""
 
@@ -857,14 +867,14 @@ msgstr ""
 msgid "Update Time"
 msgstr ""
 
-#: entry.php:30 lib/Ajax/Application/Handler.php:284
+#: entry.php:30 lib/Ajax/Application/Handler.php:291
 #, php-format
 msgid "Using the \"%s\" stop watch from %s to %s"
 msgstr ""
 
 #: invoicing.php:70 lib/Api.php:30 lib/Form/Admin/DeleteJobType.php:28
-#: lib/Form/Export.php:40 lib/Form/Search.php:53 lib/Form/Time/Entry.php:69
-#: templates/dynamic/export.inc:20 templates/dynamic/search.inc:54
+#: lib/Form/Export.php:40 lib/Form/Search.php:52 lib/Form/Time/Entry.php:69
+#: templates/dynamic/export.inc:21 templates/dynamic/search.inc:54
 #: templates/dynamic/search.inc:62 templates/dynamic/search.inc:70
 msgid "Yes"
 msgstr ""
@@ -873,39 +883,39 @@ msgstr ""
 msgid "Your time entry was successfully deleted."
 msgstr ""
 
-#: entry.php:60 lib/Ajax/Application/Handler.php:99
+#: entry.php:60 lib/Ajax/Application/Handler.php:101
 msgid "Your time was successfully entered."
 msgstr ""
 
-#: lib/Ajax/Application/Handler.php:315 time.php:44
+#: lib/Ajax/Application/Handler.php:322 time.php:44
 msgid "Your time was successfully submitted."
 msgstr ""
 
-#: entry.php:57 lib/Ajax/Application/Handler.php:363
+#: entry.php:57 lib/Ajax/Application/Handler.php:371
 msgid "Your time was successfully updated."
 msgstr ""
 
-#: lib/Application.php:236
+#: lib/Application.php:239
 msgid "_Admin"
 msgstr ""
 
-#: lib/Application.php:223
+#: lib/Application.php:226
 msgid "_Deliverables"
 msgstr ""
 
-#: lib/Application.php:230
+#: lib/Application.php:233
 msgid "_Invoicing"
 msgstr ""
 
-#: lib/Application.php:249
+#: lib/Application.php:252
 msgid "_New Time"
 msgstr ""
 
-#: lib/Application.php:218
+#: lib/Application.php:221
 msgid "_Search"
 msgstr ""
 
-#: lib/Ajax.php:83
+#: lib/Ajax.php:86
 msgid "more..."
 msgstr ""
 

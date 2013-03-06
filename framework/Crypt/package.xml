@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-15</date>
- <time>14:28:45</time>
+ <date>2013-03-05</date>
+ <time>12:23:42</time>
  <version>
-  <release>2.1.3</release>
+  <release>2.1.4</release>
   <api>1.2.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Change default keyserver to pool.sks-keyservers.net.
-* [jan] Fix finding key ID for an email address on a keyserver (o@immerda.ch).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -877,11 +876,24 @@ Initial release as a PEAR package
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-15</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Change default keyserver to pool.sks-keyservers.net.
 * [jan] Fix finding key ID for an email address on a keyserver (o@immerda.ch).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.4</release>
+    <api>1.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

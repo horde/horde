@@ -1,6 +1,9 @@
 <?php
 /**
- * Glue class for a modular CLI.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Cli_Modular
@@ -11,11 +14,6 @@
 
 /**
  * Glue class for a modular CLI.
- *
- * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Cli_Modular

@@ -76,7 +76,7 @@ class Chora
      */
     static public function fatal($message, $code = null)
     {
-        global $notification, $registry;
+        global $notification, $page_output, $registry;
 
         if (is_a($message, 'Horde_Vcs_Exception')) {
             $message = $message->getMessage();

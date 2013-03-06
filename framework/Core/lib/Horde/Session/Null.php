@@ -47,6 +47,7 @@ class Horde_Session_Null extends Horde_Session
 
         if ($start) {
             $this->start();
+            $this->_start();
         }
     }
 
@@ -58,10 +59,15 @@ class Horde_Session_Null extends Horde_Session
         // but since we don't actually need to write to it, close it at once
         // to avoid session lock issues.
         session_start();
-        $this->_active = true;
         session_write_close();
 
         register_shutdown_function(array($this, 'destroy'));
+    }
+
+    protected function _start()
+    {
+        $this->_active = true;
+        $this->_data[Horde_Session::BEGIN] = time();
     }
 
     /**
@@ -73,6 +79,8 @@ class Horde_Session_Null extends Horde_Session
         }
         session_regenerate_id(true);
         $this->destroy();
+        $this->_start();
+
         return true;
     }
 

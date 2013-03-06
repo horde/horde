@@ -473,7 +473,9 @@ class Horde
             echo $output;
         }
 
-        Horde::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+        if (!$app == 'horde' && !$config_file = 'conf.php') {
+            self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+        }
 
         if (is_null($var_names)) {
             return;
@@ -932,7 +934,7 @@ class Horde
             ? $opts['vars']
             : $GLOBALS['injector']->getInstance('Horde_Variables');
 
-        $url = Horde::selfUrl(
+        $url = self::selfUrl(
             false,
             (!array_key_exists('nocache', $opts) || empty($opts['nocache'])),
             !empty($opts['full']),

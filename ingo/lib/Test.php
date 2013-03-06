@@ -68,7 +68,7 @@ class Ingo_Test extends Horde_Test
     protected $_appList = array(
         'imp' => array(
             'error' => 'IMP can be used to interface ingo with a mailserver.',
-            'version' => '5.0'
+            'version' => '6.0'
         )
     );
 

@@ -60,21 +60,17 @@ class IMP_Test extends Horde_Test
      * @var array
      */
     protected $_appList = array(
-        'gollem' => array(
-            'error' => 'Gollem provides access to local VFS filesystems to attach files.',
-            'version' => '2.0'
-        ),
         'ingo' => array(
             'error' => 'Ingo provides basic mail filtering capabilities to IMP.',
-            'version' => '2.0'
+            'version' => '3.0'
         ),
         'nag' => array(
             'error' => 'Nag allows tasks to be directly created from e-mail data.',
-            'version' => '3.0'
+            'version' => '4.0'
         ),
         'turba' => array(
             'error' => 'Turba provides addressbook/contacts capabilities to IMP.',
-            'version' => '3.0'
+            'version' => '4.0'
         )
     );
 

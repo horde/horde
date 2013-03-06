@@ -236,6 +236,8 @@ var DimpBase = {
         case 'search':
             if (!data) {
                 data = { mailbox: this.view };
+            } else if (data.isJSON()) {
+                data = data.evalJSON(true);
             }
             this.highlightSidebar();
             this.setTitle(DimpCore.text.search);
@@ -561,7 +563,7 @@ var DimpBase = {
                 }
 
                 if (tmp) {
-                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(tmp), view))));
+                    params.set('cache', DimpCore.toUIDString(DimpCore.selectionToRange(this.viewport.createSelection('uid', tmp.evalJSON(true), view))));
                 }
 
                 params = $H({
@@ -3636,7 +3638,7 @@ var DimpBase = {
     /* Onload function. */
     onDomLoad: function()
     {
-        var DM = DimpCore.DMenu, tmp;
+        var DM = DimpCore.DMenu, tmp, tmp2;
 
         /* Register global handlers now. */
         IMP_JS.keydownhandler = this.keydownHandler.bind(this);
@@ -3703,8 +3705,8 @@ var DimpBase = {
         }
 
         if (!tmp.empty()) {
-            tmp = tmp.split(':', 2);
-            this.go(tmp[0], tmp[1]);
+            tmp2 = tmp.indexOf(':');
+            this.go(tmp.substring(0, tmp2), tmp.substring(tmp2 + 1));
         } else if (DimpCore.conf.initial_page) {
             this.go('mbox', DimpCore.conf.initial_page);
         } else {
