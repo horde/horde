@@ -16,11 +16,25 @@
 class Horde
 {
     /**
-     * The access keys already used in this page.
+     * The current buffer level.
+     *
+     * @var integer
+     */
+    static protected $_bufferLevel = 0;
+
+    /**
+     * Has content been sent at the base buffer level?
+     *
+     * @var boolean
+     */
+    static protected $_contentSent = false;
+
+    /**
+     * Whether the hook has already been loaded.
      *
      * @var array
      */
-    static protected $_used = array();
+    static protected $_hooksLoaded = array();
 
     /**
      * The labels already used in this page.
@@ -37,25 +51,11 @@ class Horde
     static protected $_noAccessKey;
 
     /**
-     * Whether the hook has already been loaded.
+     * The access keys already used in this page.
      *
      * @var array
      */
-    static protected $_hooksLoaded = array();
-
-    /**
-     * The current buffer level.
-     *
-     * @var integer
-     */
-    static protected $_bufferLevel = 0;
-
-    /**
-     * Has content been sent at the base buffer level?
-     *
-     * @var boolean
-     */
-    static protected $_contentSent = false;
+    static protected $_used = array();
 
     /**
      * Shortcut to logging method.
