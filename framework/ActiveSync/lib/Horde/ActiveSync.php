@@ -94,6 +94,7 @@ class Horde_ActiveSync
     const SYNC_PARTIAL                          = 'Partial';
     const SYNC_WAIT                             = 'Wait';
     const SYNC_LIMIT                            = 'Limit';
+    // 14
     const SYNC_HEARTBEATINTERVAL                = 'HeartbeatInterval';
     const SYNC_CONVERSATIONMODE                 = 'ConversationMode';
 
@@ -126,6 +127,8 @@ class Horde_ActiveSync
     const AIRSYNCBASE_ISINLINE                  = 'AirSyncBase:IsInline';
     const AIRSYNCBASE_NATIVEBODYTYPE            = 'AirSyncBase:NativeBodyType';
     const AIRSYNCBASE_CONTENTTYPE               = 'AirSyncBase:ContentType';
+
+    // 14.0
     const AIRSYNCBASE_PREVIEW                   = 'AirSyncBase:Preview';
 
     /* Body type prefs */
@@ -172,7 +175,7 @@ class Horde_ActiveSync
     const FOLDER_TYPE_USER_NOTE                 =  17;
     const FOLDER_TYPE_UNKNOWN                   =  18;
     const FOLDER_TYPE_RECIPIENT_CACHE           =  19;
-    const FOLDER_TYPE_DUMMY                     =  '__dummy.Folder.Id__';
+    const FOLDER_TYPE_DUMMY                     =  999999;
 
     /* Origin of changes **/
     const CHANGE_ORIGIN_PIM                     = 0;
@@ -224,6 +227,7 @@ class Horde_ActiveSync
     const FILTERTYPE_1MONTH                     = 5;
     const FILTERTYPE_3MONTHS                    = 6;
     const FILTERTYPE_6MONTHS                    = 7;
+    const FILTERTYPE_INCOMPLETETASKS            = 8;
 
     const PROVISIONING_FORCE                    = true;
     const PROVISIONING_LOOSE                    = 'loose';

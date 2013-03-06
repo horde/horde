@@ -435,7 +435,8 @@ class Horde_ActiveSync_Wbxml
                 0x0a => 'Folder',
                 0x0b => 'ServerEntryId',
                 0x0c => 'FolderType',
-                0x0d => 'MaxFolders'
+                0x0d => 'MaxFolders',
+                0x0e => 'Version',
             ),
             /* PROVISION */
             0xe => array (

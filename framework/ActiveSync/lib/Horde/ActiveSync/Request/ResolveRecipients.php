@@ -45,6 +45,12 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     const TAG_MAXSIZE                = 'ResolveRecipients:MaxSize';
     const TAG_DATA                   = 'ResolveRecipients:Data';
 
+    // 14
+    const TAG_AVAILABILITY           = 'ResolveRecipients:Availability';
+    const TAG_STARTTIME              = 'ResolveRecipients:StartTime';
+    const TAG_ENDTIME                = 'ResolveRecipients:EndTime';
+    const TAG_MERGEDFREEBUSY         = 'ResolveRecipients:MergedFreeBusy';
+
     /* Certificate Retrieval */
     const CERT_RETRIEVAL_NONE        = 1;
     const CERT_RETRIEVAL_FULL        = 2;

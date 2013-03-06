@@ -54,6 +54,12 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
     const ITEMOPERATIONS_USERNAME           = 'ItemOperations:UserName';
     const ITEMOPERATIONS_PASSWORD           = 'ItemOperations:Password';
 
+    // 14.0
+    const ITEMOPERATIONS_MOVE               = 'ItemOperations:Move';
+    const ITEMOPERATIONS_DSTFLDID           = 'ItemOperations:DstFldId';
+    const ITEMOPERATIONS_CONVERSATIONID     = 'ItemOperations:ConversationId';
+    const ITEMOPERATIONS_MOVEALWAYS         = 'ItemOperations:MoveAlways';
+
     /* Status */
     const STATUS_SUCCESS         = 1;
     const STATUS_PROTERR         = 2;

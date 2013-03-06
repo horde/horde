@@ -118,6 +118,24 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_COMPLETETIME      = 'POOMMAIL:CompleteTime';
     const POOMMAIL_DISALLOWNEWTIMEPROPOSAL = 'POOMMAIL:DisallowNewTimeProposal';
 
+    // EAS 14 POOMMAIL2
+    const POOMMAIL2_UMCALLERID            = 'POOMMAIL2:UmCallerId';
+    const POOMMAIL2_UMUSERNOTES           = 'POOMMAIL2:UmUserNotes';
+    const POOMMAIL2_UMATTDURATION         = 'POOMMAIL2:UmAttDuration';
+    const POOMMAIL2_UMATTORDER            = 'POOMMAIL2:UmAttOrder';
+    const POOMMAIL2_CONVERSATIONID        = 'POOMMAIL2:ConversationId';
+    const POOMMAIL2_CONVERSATIONINDEX     = 'POOMMAIL2:ConversationIndex';
+    const POOMMAIL2_LASTVERBEXECUTED      = 'POOMMAIL2:LastVerbExecuted';
+    const POOMMAIL2_LASTVERBEXECUTIONTIME = 'POOMMAIL2:LastVerbExecutionTime';
+    const POOMMAIL2_RECEIVEDASBCC         = 'POOMMAIL2:ReceivedAsBcc';
+    const POOMMAIL2_SENDER                = 'POOMMAIL2:Sender';
+    const POOMMAIL2_CALENDARTYPE          = 'POOMMAIL2:CalendarType';
+    const POOMMAIL2_ISLEAPMONTH           = 'POOMMAIL2:IsLeapMonth';
+    const POOMMAIL2_ACCOUNTID             = 'POOMMAIL2:AccountId';
+    const POOMMAIL2_FIRSTDAYOFWEEK        = 'POOMMAIL2:FirstDayOfWeek';
+    const POOMMAIL2_MEETINGMESSAGETYPE    = 'POOMMAIL2:MeetingMessageType';
+
+
     /* Mail message types */
     const CLASS_NOTE                 = 'IPM.Note';
     const CLASS_MEETING_REQUEST      = 'IPM.Schedule.Meeting.Request';
@@ -238,12 +256,39 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 
             if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
                 $this->_mapping += array(
-                    self::POOMMAIL_COMPLETETIME => array(self::KEY_ATTRIBUTE => 'completetime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
-                    self::POOMMAIL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'datereceived')
+                    self::POOMMAIL2_UMCALLERID            => array(self::KEY_ATTRIBUTE => 'umcallerid'),
+                    self::POOMMAIL2_UMUSERNOTES           => array(self::KEY_ATTRIBUTE => 'umusernotes'),
+                    self::POOMMAIL2_UMATTDURATION         => array(self::KEY_ATTRIBUTE => 'umattduration'),
+                    self::POOMMAIL2_UMATTORDER            => array(self::KEY_ATTRIBUTE => 'umattorder'),
+                    self::POOMMAIL2_CONVERSATIONID        => array(self::KEY_ATTRIBUTE => 'conversationid'),
+                    self::POOMMAIL2_CONVERSATIONINDEX     => array(self::KEY_ATTRIBUTE => 'conversationindex'),
+                    self::POOMMAIL2_LASTVERBEXECUTED      => array(self::KEY_ATTRIBUTE => 'lastverbexecuted'),
+                    self::POOMMAIL2_LASTVERBEXECUTIONTIME => array(self::KEY_ATTRIBUTE => 'lastverbexecutiontime'),
+                    self::POOMMAIL2_RECEIVEDASBCC         => array(self::KEY_ATTRIBUTE => 'receivedasbcc'),
+                    self::POOMMAIL2_SENDER                => array(self::KEY_ATTRIBUTE => 'sender'),
+                    self::POOMMAIL2_CALENDARTYPE          => array(self::KEY_ATTRIBUTE => 'calendartype'),
+                    self::POOMMAIL2_ISLEAPMONTH           => array(self::KEY_ATTRIBUTE => 'isleapmonth'),
+                    self::POOMMAIL2_ACCOUNTID             => array(self::KEY_ATTRIBUTE => 'accountid'),
+                    self::POOMMAIL2_FIRSTDAYOFWEEK        => array(self::KEY_ATTRIBUTE => 'firstdayofweek'),
+                    self::POOMMAIL2_MEETINGMESSAGETYPE    => array(self::KEY_ATTRIBUTE => 'meetingmessagetype')
                 );
+
                 $this->_properties += array(
-                    'completetime' => false,
-                    'disallownewtimeproposal' => false
+                   'umcallerid'            => false,
+                   'umusernotes'           => false,
+                   'umattduration'         => false,
+                   'umattorder'            => false,
+                   'conversationid'        => false,
+                   'conversationindex'     => false,
+                   'lastverbexecuted'      => false,
+                   'lastverbexecutiontime' => false,
+                   'receivedasbcc'         => false,
+                   'sender'                => false,
+                   'calendartype'          => false,
+                   'isleapmonth'           => false,
+                   'accountid'             => false,
+                   'firstdayofweek'        => false,
+                   'meetingmessagetype'    => false
                 );
             }
         }

@@ -65,6 +65,8 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
     const SETTINGS_EMAILADDRESSES           = 'Settings:EmailAddresses';
     const SETTINGS_SMTPADDRESS              = 'Settings:SmtpAddress';
     const SETTINGS_USERAGENT                = 'Settings:UserAgent';
+
+    // 14.0
     const SETTINGS_ENABLEOUTBOUNDSMS        = 'Settings:EnableOutboundSMS';
     const SETTINGS_MOBILEOPERATOR           = 'Settings:MobileOperator';
 
@@ -113,6 +115,7 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
                         $request['get']['oof']['bodytype'] = $bodytype;
                         break;
                     case self::SETTINGS_USERINFORMATION:
+                        // @TODO
                         $request['get']['userinformation'] = array();
                         break;
                     }

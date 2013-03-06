@@ -62,6 +62,8 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     const SEARCH_SUPPORTED           = 'Search:Supported';
     const SEARCH_USERNAME            = 'Search:UserName';
     const SEARCH_PASSWORD            = 'Search:Password';
+
+    // 14
     const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
 
     /** Search Status **/
