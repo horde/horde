@@ -44,6 +44,14 @@ class Horde_Registry
     public $applications = array();
 
     /**
+     * A flag that is set once the basic horde application has been
+     * minimally configured.
+     *
+     * @var boolean
+     */
+    public $hordeInit = false;
+
+    /**
      * The application that called appInit().
      *
      * @var string
@@ -417,6 +425,9 @@ class Horde_Registry
          * call it here (prevents us from duplicating a bunch of code). */
         $this->importConfig('horde');
         $conf = $GLOBALS['conf'];
+
+        /* The basic framework is up and loaded, so set the init flag. */
+        $this->hordeInit = true;
 
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
