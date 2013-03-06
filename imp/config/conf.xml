@@ -2,9 +2,8 @@
 <!-- $Id$ -->
 <configuration>
  <configtab name="user" desc="User Capabilities and Constraints">
-   <configboolean name="allow_view_source" desc="If true, a user will be
-   allowed to view the raw source of a message.">true</configboolean>
-  </configsection>
+  <configboolean name="allow_view_source" desc="If true, a user will be
+  allowed to view the raw source of a message.">true</configboolean>
  </configtab>
 
  <configtab name="server" desc="Server">
