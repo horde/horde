@@ -101,6 +101,8 @@ implements Horde_Pear_Package_Type
                         'conf.php',
                         'CVS/*',
                         'bin/.htaccess',
+                        'composer/*',
+                        'composer.*',
                     ),
                     $this->getRootPath()
                 ),

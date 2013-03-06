@@ -1,0 +1,129 @@
+[
+    {
+        "name": "sabre/vobject",
+        "version": "2.0.6",
+        "version_normalized": "2.0.6.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/evert/sabre-vobject.git",
+            "reference": "2.0.6"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/2.0.6",
+            "reference": "2.0.6",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.1"
+        },
+        "time": "2013-02-17 03:20:46",
+        "bin": [
+            "bin/vobjectvalidate.php"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Sabre\\VObject": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "evert@rooftopsolutions.nl",
+                "homepage": "http://www.rooftopsolutions.nl/",
+                "role": "Developer"
+            }
+        ],
+        "description": "The VObject library for PHP allows you to easily parse and manipulate iCalendar and vCard objects",
+        "homepage": "https://github.com/evert/sabre-vobject",
+        "keywords": [
+            "VObject",
+            "iCalendar",
+            "vCard"
+        ]
+    },
+    {
+        "name": "sabre/dav",
+        "version": "1.8.2",
+        "version_normalized": "1.8.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/evert/SabreDAV",
+            "reference": "1.8.2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.2",
+            "reference": "1.8.2",
+            "shasum": ""
+        },
+        "require": {
+            "ext-ctype": "*",
+            "ext-date": "*",
+            "ext-dom": "*",
+            "ext-iconv": "*",
+            "ext-libxml": "*",
+            "ext-mbstring": "*",
+            "ext-pcre": "*",
+            "ext-simplexml": "*",
+            "ext-spl": "*",
+            "php": ">=5.3.1",
+            "sabre/vobject": "2.0.*"
+        },
+        "provide": {
+            "evert/sabredav": "1.7.*"
+        },
+        "require-dev": {
+            "evert/phpdoc-md": "0.0.*",
+            "phing/phing": "2.4.14",
+            "phpunit/phpunit": "3.7.*"
+        },
+        "suggest": {
+            "ext-apc": "*",
+            "ext-curl": "*",
+            "ext-pdo": "*"
+        },
+        "time": "2013-01-19 17:22:24",
+        "bin": [
+            "bin/sabredav"
+        ],
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Sabre\\DAV": "lib/",
+                "Sabre\\HTTP": "lib/",
+                "Sabre\\DAVACL": "lib/",
+                "Sabre\\CalDAV": "lib/",
+                "Sabre\\CardDAV": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Evert Pot",
+                "email": "evert@rooftopsolutions.nl",
+                "homepage": "http://www.rooftopsolutions.nl/",
+                "role": "Developer"
+            }
+        ],
+        "description": "WebDAV Framework for PHP",
+        "homepage": "http://code.google.com/p/sabredav/",
+        "keywords": [
+            "CalDAV",
+            "CardDAV",
+            "WebDAV",
+            "framework",
+            "iCalendar"
+        ]
+    }
+]
