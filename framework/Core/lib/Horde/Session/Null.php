@@ -25,8 +25,6 @@
  */
 class Horde_Session_Null extends Horde_Session
 {
-    public $begin = null;
-
     /**
      * Constructor.
      */
@@ -64,9 +62,6 @@ class Horde_Session_Null extends Horde_Session
         $this->_data[Horde_Session::BEGIN] = time();
         session_write_close();
 
-        // Set a beginning to pass authentication timeout checks
-        $this->begin = time();
-        
         register_shutdown_function(array($this, 'destroy'));
     }
 
