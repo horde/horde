@@ -208,7 +208,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
             '%pubring ' . $pub_file,
             '%secring ' . $secret_file,
             'Key-Type: DSA',
-            'Key-Length: 1024',
+            'Key-Length: ' . $keylength,
             'Subkey-Type: ELG-E',
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
