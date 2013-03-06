@@ -50,6 +50,13 @@ class IMP_Imap implements Serializable
     const ACCESS_ACL = 10;
 
     /**
+     * Cached backend configuration.
+     *
+     * @var array
+     */
+    static protected $_backends = array();
+
+    /**
      * Has this object changed?
      *
      * @var boolean
@@ -630,30 +637,27 @@ class IMP_Imap implements Serializable
      */
     static public function loadServerConfig($server = null)
     {
-        try {
-            $s = Horde::loadConfiguration('backends.php', 'servers', 'imp');
-            if (is_null($s)) {
+        if (empty(self::$_backends)) {
+            try {
+                $s = Horde::loadConfiguration('backends.php', 'servers', 'imp');
+                if (is_null($s)) {
+                    return false;
+                }
+            } catch (Horde_Exception $e) {
+                Horde::log($e, 'ERR');
                 return false;
             }
-        } catch (Horde_Exception $e) {
-            Horde::log($e, 'ERR');
-            return false;
-        }
 
-        if (!is_null($server)) {
-            return (isset($s[$server]) && empty($s[$server]['disabled']))
-                ? new IMP_Imap_Config($s[$server])
-                : false;
-        }
-
-        $servers = array();
-        foreach ($s as $key => $val) {
-            if (empty($s[$server]['disabled'])) {
-                $servers[$key] = new IMP_Imap_Config($val);
+            foreach ($s as $key => $val) {
+                if (empty($s[$server]['disabled'])) {
+                    self::$_backends[$key] = new IMP_Imap_Config($val);
+                }
             }
         }
 
-        return $servers;
+        return is_null($server)
+            ? self::$_backends
+            : (isset(self::$_backends[$server]) ? self::$_backends[$server] : false);
     }
 
     /* Callback functions used in Horde_Imap_Client_Base. */
