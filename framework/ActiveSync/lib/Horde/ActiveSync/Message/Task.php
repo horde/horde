@@ -81,9 +81,14 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     const POOMTASKS_UTCSTARTDATE   = 'POOMTASKS:UtcStartDate';
     const POOMTASKS_SUBJECT        = 'POOMTASKS:Subject';
     const POOMTASKS_RTF            = 'POOMTASKS:Rtf';
+
     // EAS 12.0
     const POOMTASKS_ORDINALDATE    = 'POOMTASKS:OrdinalDate';
     const POOMTASKS_SUBORDINALDATE = 'POOMTASKS:SubOrdinalDate';
+
+    // EAS 14
+    const POOMTASKS_CALENDARTYPE   = 'POOMTASKS:CalendarType';
+    const POOMTASKS_ISLEAPMONTH    = 'POOMTASKS:IsLeapMonth';
 
     const TASK_COMPLETE_TRUE      = 1;
     const TASK_COMPLETE_FALSE     = 0;
@@ -159,8 +164,8 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         parent::__construct($options);
         if ($this->_version < Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
-                self::POOMTASKS_BODY => array (self::KEY_ATTRIBUTE => 'body'),
-                self::POOMTASKS_RTF  => array (self::KEY_ATTRIBUTE => 'rtf'),
+                self::POOMTASKS_BODY          => array(self::KEY_ATTRIBUTE => 'body'),
+                self::POOMTASKS_RTF           => array(self::KEY_ATTRIBUTE => 'rtf'),
                 self::POOMTASKS_BODYTRUNCATED => array(self::KEY_ATTRIBUTE => 'bodytruncated')
             );
 
@@ -177,6 +182,17 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
             $this->_properties += array(
                 'airsyncbasebody' => false,
             );
+
+            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                $this->_mapping += array(
+                    self::POOMTASKS_CALENDARTYPE => array(self::KEY_ATTRIBUTE => 'calendartype'),
+                    self::POOMTASKS_ISLEAPMONTH  => array(self::KEY_ATTRIBUTE => 'isleapmonth')
+                );
+                $this->_properties += array(
+                    'calendartype' => false,
+                    'isleapmonth' => false
+                );
+            }
         }
     }
 

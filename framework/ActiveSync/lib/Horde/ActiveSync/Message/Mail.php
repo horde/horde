@@ -109,9 +109,14 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_MIMETRUNCATED     = 'POOMMAIL:MIMETruncated';
     const POOMMAIL_MIMESIZE          = 'POOMMAIL:MIMESize';
     const POOMMAIL_INTERNETCPID      = 'POOMMAIL:InternetCPID';
+
     // EAS 12.0
     const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
     const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
+
+    // EAS 14.0
+    const POOMMAIL_COMPLETETIME      = 'POOMMAIL:CompleteTime';
+    const POOMMAIL_DISALLOWNEWTIMEPROPOSAL = 'POOMMAIL:DisallowNewTimeProposal';
 
     /* Mail message types */
     const CLASS_NOTE                 = 'IPM.Note';
@@ -199,7 +204,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        if ($this->_version < 12.0) {
+        if ($this->_version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $this->_mapping += array(
                 self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
                 self::POOMMAIL_BODYTRUNCATED  => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
@@ -214,7 +219,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'body'           => false,
             );
         }
-        if ($this->_version >= 12.0) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
                 Horde_ActiveSync::AIRSYNCBASE_NATIVEBODYTYPE => array(self::KEY_ATTRIBUTE => 'airsyncbasenativebodytype'),
                 Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
@@ -230,6 +235,17 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'contentclass'              => false,
                 'flag'                      => false,
             );
+
+            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                $this->_mapping += array(
+                    self::POOMMAIL_COMPLETETIME => array(self::KEY_ATTRIBUTE => 'completetime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+                    self::POOMMAIL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'datereceived')
+                );
+                $this->_properties += array(
+                    'completetime' => false,
+                    'disallownewtimeproposal' => false
+                );
+            }
         }
     }
 

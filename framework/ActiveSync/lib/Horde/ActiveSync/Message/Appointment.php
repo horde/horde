@@ -75,7 +75,15 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_SUBJECT            = 'POOMCAL:Subject';
     const POOMCAL_STARTTIME          = 'POOMCAL:StartTime';
     const POOMCAL_UID                = 'POOMCAL:UID';
-    const POOMCAL_RESPONSETYPE       = 'POOMCAL:ResponseType';
+
+    // 14.0
+    const POOMCAL_DISALLOWNEWTIMEPROPOSAL = 'POOMCAL:DisallowNewTimeProposal';
+    const POOMCAL_RESPONSEREQUESTED       = 'POOMCAL:ResponseRequested';
+    const POOMCAL_APPOINTMENTREPLYTIME    = 'POOMCAL:AppointmentReplyTime';
+    const POOMCAL_CALENDARTYPE            = 'POOMCAL:CalendarType';
+    const POOMCAL_ISLEAPMONTH             = 'POOMCAL:IsLeapMonth';
+    const POOMCAL_RESPONSETYPE            = 'POOMCAL:ResponseType';
+
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;
@@ -208,6 +216,25 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $this->_properties += array(
                 'airsyncbasebody' => false
             );
+
+            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+                $this->_mapping += array(
+                    self::POOMCAL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'disallownewtimeproposal'),
+                    self::POOMCAL_RESPONSEREQUESTED => array(self::KEY_ATTRIBUTE => 'responserequested'),
+                    self::POOMCAL_APPOINTMENTREPLYTIME => array(self::KEY_ATTRIBUTE => 'appointmentreplytime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+                    self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
+                    self::POOMCAL_CALENDARTYPE => array(self::KEY_ATTRIBUTE => 'calendartype'),
+                    self::POOMCAL_ISLEAPMONTH => array(self::KEY_ATTRIBUTE => 'isleapmonth')
+                );
+                $this->_properties += array(
+                    'disallownewtimeproposal' => false,
+                    'responserequested' => false,
+                    'appointmentreplytime' => false,
+                    'responsetype' => false,
+                    'calendartype' => false,
+                    'isleapmonth' => false
+                );
+           }
         }
     }
 
