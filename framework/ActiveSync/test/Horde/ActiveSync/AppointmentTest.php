@@ -58,7 +58,6 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         fclose($stream);
 
         // TODO
-        $this->markTestSkipped('Failing test');
         $this->assertEquals($fixture, $results);
     }
 
@@ -126,14 +125,11 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $encoder->startTag(Horde_ActiveSync::SYNC_DATA);
         $appt->encodeStream($encoder);
         $encoder->endTag();
-
         $fixture = file_get_contents(__DIR__ . '/fixtures/recurrence.wbxml');
         rewind($stream);
         $results = stream_get_contents($stream);
         fclose($stream);
 
-        // TODO
-        $this->markTestSkipped('Failing test');
         $this->assertEquals($fixture, $results);
     }
 
@@ -222,8 +218,6 @@ class Horde_ActiveSync_AppointmentTest extends Horde_Test_Case
         $results = stream_get_contents($stream);
         fclose($stream);
 
-        // TODO
-        $this->markTestSkipped('Failing test');
         $this->assertEquals($fixture, $results);
     }
 

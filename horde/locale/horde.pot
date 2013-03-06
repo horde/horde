@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Horde 5.0.4-git\n"
+"Project-Id-Version: Horde 5.0.5-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -373,10 +373,6 @@ msgstr ""
 msgid "Application Context"
 msgstr ""
 
-#: util/icon_browser.php:45
-msgid "Application List"
-msgstr ""
-
 #: admin/config/index.php:225
 msgid "Application is ready."
 msgstr ""
@@ -478,11 +474,6 @@ msgstr ""
 
 #: config/nls.php:170
 msgid "Baltic (ISO-8859-13)"
-msgstr ""
-
-#: util/icon_browser.php:34
-#, php-format
-msgid "Base graphics directory \"%s\" not found."
 msgstr ""
 
 #: login.php:230
@@ -1422,7 +1413,7 @@ msgstr ""
 msgid "Humorists"
 msgstr ""
 
-#: util/icon_browser.php:53
+#: util/icon_browser.php:34
 #, php-format
 msgid "Icons for %s"
 msgstr ""
@@ -1906,7 +1897,7 @@ msgstr ""
 msgid "No change."
 msgstr ""
 
-#: util/icon_browser.php:83
+#: util/icon_browser.php:52
 msgid "No icons found."
 msgstr ""
 
@@ -2673,11 +2664,6 @@ msgstr ""
 msgid "Stream"
 msgstr ""
 
-#: util/icon_browser.php:40
-#, php-format
-msgid "Subdirectory \"%s\" not found."
-msgstr ""
-
 #: signup.php:55
 #, php-format
 msgid ""
@@ -2883,11 +2869,6 @@ msgstr ""
 #: services/shares/edit.php:91 services/shares/edit.php:176
 #, php-format
 msgid "The user \"%s\" does not exist."
-msgstr ""
-
-#: util/icon_browser.php:28
-#, php-format
-msgid "Themes directory \"%s\" not found."
 msgstr ""
 
 #: signup.php:41 signup.php:62 admin/signup_confirm.php:76 admin/user.php:85
@@ -3335,47 +3316,47 @@ msgid_plural "You and %d other people like this"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/Api.php:246
+#: lib/Api.php:242
 msgid "You are not allowed to add groups."
 msgstr ""
 
-#: lib/Api.php:363
+#: lib/Api.php:339
 msgid "You are not allowed to add shares."
 msgstr ""
 
-#: lib/Api.php:289 lib/Api.php:312
+#: lib/Api.php:277 lib/Api.php:296
 msgid "You are not allowed to change groups."
 msgstr ""
 
-#: lib/Api.php:444 lib/Api.php:481 lib/Api.php:515 lib/Api.php:540
+#: lib/Api.php:412 lib/Api.php:445 lib/Api.php:475 lib/Api.php:496
 msgid "You are not allowed to change shares."
 msgstr ""
 
-#: lib/Api.php:268
+#: lib/Api.php:260
 msgid "You are not allowed to delete groups."
 msgstr ""
 
-#: lib/Api.php:388
+#: lib/Api.php:360
 msgid "You are not allowed to delete shares."
 msgstr ""
 
-#: lib/Api.php:672
+#: lib/Api.php:624
 msgid "You are not allowed to list groups of shares."
 msgstr ""
 
-#: lib/Api.php:566 lib/Api.php:604
+#: lib/Api.php:518 lib/Api.php:556
 msgid "You are not allowed to list share permissions."
 msgstr ""
 
-#: lib/Api.php:413
+#: lib/Api.php:381
 msgid "You are not allowed to list shares."
 msgstr ""
 
-#: lib/Api.php:335
+#: lib/Api.php:315
 msgid "You are not allowed to list users of groups."
 msgstr ""
 
-#: lib/Api.php:642
+#: lib/Api.php:594
 msgid "You are not allowed to list users of shares."
 msgstr ""
 

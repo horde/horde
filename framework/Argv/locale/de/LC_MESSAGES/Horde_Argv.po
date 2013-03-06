@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Argv\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-02-02 16:17+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2010-10-13 01:27+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,22 +17,22 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde/Argv/Parser.php:495
+#: lib/Horde/Argv/Parser.php:478
 #, php-format
 msgid "%s option does not take a value"
 msgstr "Option %s erwartet kein Argument"
 
-#: lib/Horde/Argv/Parser.php:485 lib/Horde/Argv/Parser.php:537
+#: lib/Horde/Argv/Parser.php:468 lib/Horde/Argv/Parser.php:520
 #, php-format
 msgid "%s option requires %d arguments"
 msgstr "Option %s erwartet %d Argumente"
 
-#: lib/Horde/Argv/Parser.php:483 lib/Horde/Argv/Parser.php:535
+#: lib/Horde/Argv/Parser.php:466 lib/Horde/Argv/Parser.php:518
 #, php-format
 msgid "%s option requires an argument"
 msgstr "Option %s erweitert ein Argument"
 
-#: lib/Horde/Argv/Parser.php:660
+#: lib/Horde/Argv/Parser.php:643
 msgid "Options"
 msgstr "Einstellungen"
 
@@ -44,7 +44,7 @@ msgstr "Aufruf"
 msgid "Usage:"
 msgstr "Aufruf:"
 
-#: lib/Horde/Argv/Parser.php:186
+#: lib/Horde/Argv/Parser.php:169
 msgid "[options]"
 msgstr "[Optionen]"
 
@@ -68,10 +68,10 @@ msgstr "Option %s: ungültiger Ganzzahl-Wert: '%s'"
 msgid "option %s: invalid long integer value: '%s'"
 msgstr "Option %s: ungültiger Lange-Ganzzahl-Wert: '%s'"
 
-#: lib/Horde/Argv/Parser.php:158
+#: lib/Horde/Argv/Parser.php:141
 msgid "show program's version number and exit"
 msgstr "Programmversion anzeigen und abbrechen"
 
-#: lib/Horde/Argv/Parser.php:152
+#: lib/Horde/Argv/Parser.php:135
 msgid "show this help message and exit"
 msgstr "diesen Hilfetext anzeigen und abbrechen"
