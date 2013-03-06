@@ -20,8 +20,8 @@ Horde_Registry::appInit('ingo');
 $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $filters = $ingo_storage->retrieve(Ingo_Storage::ACTION_FILTERS);
 
-/* Load the Ingo_Script:: driver. */
-$ingo_script = $injector->getInstance('Ingo_Script');
+/* Load the Ingo_Script factory. */
+$factory = $injector->getInstance('Ingo_Factory_Script');
 
 /* Get web parameter data. */
 $vars = Horde_Variables::getDefaultVariables();
@@ -129,7 +129,7 @@ case 'apply_filters':
         $notification->push(_("You do not have permission to edit filter rules."), 'horde.error');
         Horde::url('filters.php', true)->redirect();
     }
-    $ingo_script->perform($GLOBALS['session']->get('ingo', 'change'));
+    $factory->perform($GLOBALS['session']->get('ingo', 'change'));
     break;
 }
 
@@ -149,7 +149,7 @@ $view->addHelper('Horde_Core_View_Helper_Label');
 $view->addHelper('FormTag');
 $view->addHelper('Tag');
 
-$view->canapply = $ingo_script->canPerform();
+$view->canapply = $factory->canPerform();
 $view->deleteallowed = $delete_allowed;
 $view->editallowed = $edit_allowed;
 $view->formurl = $filters_url;
@@ -283,7 +283,7 @@ if (count($filter_list)) {
     $view->filter = $display;
 }
 
-if ($ingo_script->hasFeature('on_demand') && $edit_allowed) {
+if ($factory->hasFeature('on_demand') && $edit_allowed) {
     $view->settings = true;
     $view->flags = $prefs->getValue('filter_seen');
     $view->show_filter_msg = $prefs->getValue('show_filter_msg');

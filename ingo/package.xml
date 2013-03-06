@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
+* [jan] Add composite script backends.
 * [jan] Add vacation driver for ISPConfig (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Add composite transport backends.
@@ -1226,6 +1227,7 @@
    <date>2013-01-23</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Add composite script backends.
 * [jan] Add vacation driver for ISPConfig (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Hide unsupported form fields of vacation form (Michael Bunk &lt;mb@computer-leipzig.com&gt;).
 * [jan] Add composite transport backends.

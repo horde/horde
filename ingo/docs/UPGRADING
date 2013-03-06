@@ -35,8 +35,9 @@ Upgrading Ingo From 3.0.x To 3.1.x
 Backend Configuration (backends.php)
 ------------------------------------
 
-The 'transport' setting of backend configuration has been changed from a string
-to an array, to allow different transport backends for different filter rules.
+The 'script' and 'transport' settings of the backend configuration have been
+changed from strings to arrays, to allow different backends for different
+filter rules.
 
 
 API Changes

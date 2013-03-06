@@ -46,7 +46,7 @@ class Ingo_Script_Ispconfig extends Ingo_Script
     {
         $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
 
-        foreach ($filters->getFilterList() as $filter) {
+        foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
             switch ($filter['action']) {
             case Ingo_Storage::ACTION_VACATION:
                 // save for additionalScripts()

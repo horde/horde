@@ -2,6 +2,7 @@
 v3.1.0-git
 ----------
 
+[jan] Add composite script backends.
 [jan] Add vacation driver for ISPConfig (Michael Bunk
       <mb@computer-leipzig.com>).
 [jan] Hide unsupported form fields of vacation form (Michael Bunk

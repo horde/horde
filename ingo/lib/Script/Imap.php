@@ -104,7 +104,7 @@ class Ingo_Script_Imap extends Ingo_Script_Base
             ->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         /* Parse through the rules, one-by-one. */
-        foreach ($filters->getFilterList() as $rule) {
+        foreach ($filters->getFilterList($this->_params['skip']) as $rule) {
             /* Check to make sure this is a valid rule and that the rule is
                not disabled. */
             if (!$this->_validRule($rule['action']) ||

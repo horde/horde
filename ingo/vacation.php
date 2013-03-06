@@ -40,7 +40,8 @@ $form = new Ingo_Form_Vacation(
     $vars,
     '',
     null,
-    $injector->getInstance('Ingo_Script')
+    $injector->getInstance('Ingo_Factory_Script')
+        ->create(Ingo::RULE_VACATION)
         ->availableCategoryFeatures(Ingo_Storage::ACTION_VACATION)
 );
 

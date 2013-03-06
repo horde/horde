@@ -290,7 +290,11 @@ abstract class Ingo_Script_Base
     }
 
     /**
-     * Is the perform() function available?
+     * Is the perform() function available right now?
+     *
+     * This is not a duplication of hasFeature() because drivers might override
+     * this to do real-time checks if on-demand filtering is not only available
+     * theoretically but practically in this very moment.
      *
      * @return boolean  True if perform() is available, false if not.
      */

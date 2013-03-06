@@ -200,13 +200,14 @@ class Ingo
      */
     static public function updateScript()
     {
-        if ($GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file')) {
-            try {
-                /* Generate and activate the script. */
-                self::activateScript(
-                    $GLOBALS['injector']->getInstance('Ingo_Script')->generate());
-            } catch (Ingo_Exception $e) {
-                throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
+        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            if ($script->hasFeature('script_file')) {
+                try {
+                    /* Generate and activate the script. */
+                    self::activateScripts($script->generate());
+                } catch (Ingo_Exception $e) {
+                    throw new Ingo_Exception(sprintf(_("Script not updated: %s"), $e->getMessage()));
+                }
             }
         }
     }

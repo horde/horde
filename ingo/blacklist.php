@@ -23,7 +23,8 @@ if (!in_array(Ingo_Storage::ACTION_BLACKLIST, $session->get('ingo', 'script_cate
     Horde::url('filters.php', true)->redirect();
 }
 
-$ingo_script = $injector->getInstance('Ingo_Script');
+$ingo_script = $injector->getInstance('Ingo_Factory_Script')
+    ->create(Ingo::RULE_BLACKLIST);
 $ingo_storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 $folder = $blacklist_folder = null;
 

@@ -24,15 +24,20 @@
  *            array of strings containing the hostnames to use with this
  *            server.
  *
- * script: (string) The type of script driver this server uses. Options:
+ * script: (array) The type of script drivers this server uses. Different
+ *         drivers can be specified for different filter rules. The following
+ *         rules can be set as keys: Ingo::RULE_FILTER, Ingo::RULE_BLACKLIST,
+ *         Ingo::RULE_WHITELIST, Ingo::RULE_VACATION, Ingo::RULE_FORWARD,
+ *         Ingo::RULE_SPAM, and finally Ingo::RULE_ALL as a catch-all key for
+ *         any rules not further specified.
+ *         'params' is an array containing any additional information that the
+ *         script driver needs. See examples below for further details.
+ *         Valid options for 'driver' are:
  *   - imap:  IMAP client side filtering (POP3 servers NOT supported).
  *   - maildrop:  Maildrop scripts.
  *   - procmail:  Procmail scripts.
  *   - sieve:  Sieve scripts.
  *   - ispconfig:  ISPConfig SOAP Server (only for vacation notices).
- *
- * scriptparams: (array) An array containing any additional information that
- *               the script driver needs. See below for further details.
  *
  * shares: (boolean) Some transport drivers (timsieved, vfs, ispconfig) support
  *         sharing filter rules with other users. Users can then configure
@@ -76,8 +81,12 @@ $backends['imap'] = array(
             'params' => array(),
         ),
     ),
-    'script' => 'imap',
-    'scriptparams' => array(),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'imap',
+            'params' => array(),
+        ),
+    ),
     'shares' => false
 );
 
@@ -121,23 +130,27 @@ $backends['maildrop'] = array(
             )
         ),
     ),
-    'script' => 'maildrop',
-    'scriptparams' => array(
-        // Any arguments passed to the mailbot command. The -N flag (to not
-        // include the original, quoted message content has been added with
-        // Maildrop 2.5.1/Courier 0.65.1.
-        'mailbotargs' => '-N',
-        // What path style does the IMAP server use ['mbox'|'maildir']?
-        'path_style' => 'mbox',
-        // Strip 'INBOX.' from the beginning of folder names in generated
-        // scripts?
-        'strip_inbox' => false,
-        // An array of variables to append to every generated script.
-        // Use if you need to set up specific environment variables.
-        'variables' => array(
-            // Example for the $PATH variable
-            // 'PATH' => '/usr/bin'
-        )
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'maildrop',
+            'params' => array(
+                // Any arguments passed to the mailbot command. The -N flag (to
+                // no include the original, quoted message content has been
+                // added with Maildrop 2.5.1/Courier 0.65.1.
+                'mailbotargs' => '-N',
+                // What path style does the IMAP server use ['mbox'|'maildir']?
+                'path_style' => 'mbox',
+                // Strip 'INBOX.' from the beginning of folder names in
+                // generated scripts?
+                'strip_inbox' => false,
+                // An array of variables to append to every generated script.
+                // Use if you need to set up specific environment variables.
+                'variables' => array(
+                    // Example for the $PATH variable
+                    // 'PATH' => '/usr/bin'
+                )
+            ),
+        ),
     ),
     'shares' => false
 );
@@ -192,28 +205,35 @@ $backends['procmail'] = array(
             )
         ),
     ),
-    'script' => 'procmail',
-    'scriptparams' => array(
-        // What path style does the IMAP server use ['mbox'|'maildir']?
-        'path_style' => 'mbox',
-        // An array of variables to append to every generated script.
-        // Use if you need to set up specific environment variables.
-        'variables' => array(
-            // The $DEFAULT variable. If using Maildir, Ingo will use this
-            // value as the default unless you explicitly configure otherwise.
-            // 'DEFAULT' => '$HOME/Maildir/',
-            // The $DEFAULT variable. If using Maildir, Ingo will use this
-            // value as the default unless you explicitly configure otherwise.
-            // 'MAILDIR' => '$HOME/Maildir',
-            // Example for the $PATH variable
-            // 'PATH' => '/usr/bin',
-            // Example for the $VACATION_DIR variable (used to store vacation files)
-            // 'VACATION_DIR' => '$HOME',
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'procmail',
+            'params' => array(
+                // What path style does the IMAP server use ['mbox'|'maildir']?
+                'path_style' => 'mbox',
+                // An array of variables to append to every generated script.
+                // Use if you need to set up specific environment variables.
+                'variables' => array(
+                    // The $DEFAULT variable. If using Maildir, Ingo will use
+                    // this value as the default unless you explicitly
+                    // configure otherwise.
+                    // 'DEFAULT' => '$HOME/Maildir/',
+                    // The $DEFAULT variable. If using Maildir, Ingo will use
+                    // this value as the default unless you explicitly
+                    // configure otherwise.
+                    // 'MAILDIR' => '$HOME/Maildir',
+                    // Example for the $PATH variable
+                    // 'PATH' => '/usr/bin',
+                    // Example for the $VACATION_DIR variable (used to store
+                    // vacation files)
+                    // 'VACATION_DIR' => '$HOME',
+                ),
+                // If you need procmail to be called from .forward in the
+                // user's home directory, set the file and the content below:
+                // 'forward_file' => '.forward',
+                // 'forward_string' => '"|/usr/local/bin/procmail"',
+            ),
         ),
-        // If you need procmail to be called from .forward in the user's home
-        // directory, set the file and the content below:
-        // 'forward_file' => '.forward',
-        // 'forward_string' => '"|/usr/local/bin/procmail"',
     ),
     'shares' => false
 );
@@ -242,12 +262,17 @@ $backends['sieve'] = array(
             ),
         ),
     ),
-    'script' => 'sieve',
-    'scriptparams' => array(
-        // If using Dovecot or any other Sieve implementation that requires
-        // folder names to be UTF-8 encoded, set this parameter to true.
-        'utf8' => false,
-     ),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'sieve',
+            'params' => array(
+                // If using Dovecot or any other Sieve implementation that
+                // requires folder names to be UTF-8 encoded, set this
+                // parameter to true.
+                'utf8' => false,
+             ),
+        ),
+    ),
     'shares' => false
 );
 
@@ -277,8 +302,12 @@ $backends['sivtest'] = array(
             ),
         ),
     ),
-    'script' => 'sieve',
-    'scriptparams' => array(),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'sieve',
+            'params' => array(),
+        ),
+    ),
     'shares' => false,
 );
 
@@ -328,13 +357,22 @@ $backends['ldapsieve'] = array(
             ),
         ),
     ),
-    'script' => 'sieve',
-    'scriptparams' => array()
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'sieve',
+            'params' => array()
+        ),
+    ),
 );
 
 $backends['ispconfig'] = array(
     'disabled' => true,
-    'transport' => 'ispconfig',
+    'transport' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'ispconfig',
+            'params' => array()
+        ),
+    ),
     // enabling transport_auth() in hooks.php is likely to be required
     'params' => array(
         'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
@@ -343,8 +381,13 @@ $backends['ispconfig'] = array(
         // is "mail user functions" only.
         'soap_user' => 'horde',
         'soap_pass' => 'secret'
+    ),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'ispconfig',
+            'params' => array()
         ),
-    'script' => 'ispconfig',
+    ),
     'scriptparams' => array(),
     'shares' => false
 );

@@ -111,7 +111,7 @@ class Ingo_Script_Maildrop extends Ingo_Script_Base
             }
         }
 
-        foreach ($filters->getFilterList() as $filter) {
+        foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
             switch ($filter['action']) {
             case Ingo_Storage::ACTION_BLACKLIST:
                 $this->generateBlacklist(!empty($filter['disable']));

@@ -1,8 +1,6 @@
 <?php
 /**
- * A Horde_Injector:: based Ingo_Transport factory.
- *
- * PHP version 5
+ * A Horde_Injector based Ingo_Transport factory.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Jan Schneider <jan@horde.org>
@@ -13,7 +11,7 @@
  */
 
 /**
- * A Horde_Injector:: based Ingo_Transport factory.
+ * A Horde_Injector based Ingo_Transport factory.
  *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
@@ -37,7 +35,7 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
      * @return Ingo_Transport  The Ingo_Transport instance.
      * @throws Ingo_Exception
      */
-    public function create($transport)
+    public function create(array $transport)
     {
         global $registry, $session;
 

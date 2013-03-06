@@ -50,20 +50,6 @@ class Ingo_Application extends Horde_Registry_Application
     public $version = 'H5 (3.0.4-git)';
 
     /**
-     */
-    protected function _bootstrap()
-    {
-        /* Add Ingo-specific factories. */
-        $factories = array(
-            'Ingo_Script' => 'Ingo_Factory_Script',
-        );
-
-        foreach ($factories as $key => $val) {
-            $GLOBALS['injector']->bindFactory($key, $val, 'create');
-        }
-    }
-
-    /**
      * Global variables defined:
      *   - all_rulesets
      *   - ingo_shares
@@ -153,8 +139,16 @@ class Ingo_Application extends Horde_Registry_Application
         }
 
         /* Set the list of categories this driver supports. */
-        $ingo_script = $injector->getInstance('Ingo_Script');
-        $session->set('ingo', 'script_categories', array_diff(array_merge($ingo_script->availableActions(), $ingo_script->availableCategories()), $locked));
+        $ingo_scripts = $injector->getInstance('Ingo_Factory_Script')
+            ->createAll();
+        $categories = array();
+        foreach ($ingo_scripts as $ingo_script) {
+            $categories = array_merge($categories,
+                                      $ingo_script->availableActions(),
+                                      $ingo_script->availableCategories());
+        }
+        $session->set('ingo', 'script_categories',
+                      array_diff($categories, $locked));
     }
 
     /**
@@ -199,9 +193,9 @@ class Ingo_Application extends Horde_Registry_Application
             $menu->add(Horde::url('spam.php'), _("S_pam"), 'ingo-spam');
         }
 
-        if ($GLOBALS['injector']->getInstance('Ingo_Script')->hasFeature('script_file') &&
-            (!$GLOBALS['prefs']->isLocked('auto_update') ||
-             !$GLOBALS['prefs']->getValue('auto_update'))) {
+        if ((!$GLOBALS['prefs']->isLocked('auto_update') ||
+             !$GLOBALS['prefs']->getValue('auto_update')) &&
+            $GLOBALS['injector']->getInstance('Ingo_Factory_Script')->hasFeature('script_file')) {
             $menu->add(Horde::url('script.php'), _("_Script"), 'ingo-script');
         }
 
@@ -221,7 +215,10 @@ class Ingo_Application extends Horde_Registry_Application
         global $injector;
 
         $perms = $injector->getInstance('Horde_Core_Perms');
-        $actions = $injector->getInstance('Ingo_Script')->availableActions();
+        $actions = array();
+        foreach ($injector->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            $actions = array_merge($actions, $script->availableActions());
+        }
         $filters = $injector->getInstance('Ingo_Factory_Storage')
             ->create()
             ->retrieve(Ingo_Storage::ACTION_FILTERS)

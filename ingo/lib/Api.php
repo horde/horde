@@ -106,12 +106,11 @@ class Ingo_Api extends Horde_Registry_Api
      */
     public function canApplyFilters()
     {
-        try {
-            return $GLOBALS['injector']->getInstance('Ingo_Script')
-                ->hasFeature('on_demand');
-        } catch (Ingo_Exception $e) {
-            return false;
-        }
+        /* We intentionally check on_demand instead of calling canPerform()
+         * because we only want to check if we can potentially apply filters,
+         * not whether we are able to do this right now. */
+        return $GLOBALS['injector']->getInstance('Ingo_Factory_Script')
+            ->hasFeature('on_demand');
     }
 
     /**
@@ -128,9 +127,11 @@ class Ingo_Api extends Horde_Registry_Api
             $params['mailbox'] = Horde_String::convertCharset(
                 $params['mailbox'], 'UTF-8', 'UTF7-IMAP');
         }
-        $GLOBALS['injector']->getInstance('Ingo_Script')
-            ->setParams($params)
-            ->perform($GLOBALS['session']->get('ingo', 'change'));
+        foreach ($GLOBALS['injector']->getInstance('Ingo_Factory_Script')->createAll() as $script) {
+            $script
+                ->setParams($params)
+                ->perform($GLOBALS['session']->get('ingo', 'change'));
+        }
     }
 
     /**

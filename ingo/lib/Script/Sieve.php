@@ -469,7 +469,7 @@ class Ingo_Script_Sieve extends Ingo_Script_Base
 
         $filters = $this->_params['storage']
              ->retrieve(Ingo_Storage::ACTION_FILTERS);
-        foreach ($filters->getFilterList() as $filter) {
+        foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
             /* Check to make sure this is a valid rule and that the rule
                is not disabled. */
             if (!$this->_validRule($filter['action']) ||
