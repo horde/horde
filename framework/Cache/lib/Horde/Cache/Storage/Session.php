@@ -1,16 +1,24 @@
 <?php
 /**
- * This class provides cache storage in a PHP session.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Cache storage in a PHP session.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_Session extends Horde_Cache_Storage_Base
 {
@@ -25,10 +33,8 @@ class Horde_Cache_Storage_Session extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'session' - (string) Store session data in this entry.
-     *             DEFAULT: 'horde_cache_session'
-     * </pre>
+     *   - session: (string) Store session data in this entry.
+     *              DEFAULT: 'horde_cache_session'
      */
     public function __construct(array $params = array())
     {

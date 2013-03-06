@@ -1,18 +1,26 @@
 <?php
 /**
- * This class provides cache storage in the filesystem.
- *
  * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Anil Madhavapeddy <anil@recoil.org>
- * @author   Chuck Hagenbuch <chuck@horde.org>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Cache storage in the filesystem.
+ *
+ * @author    Anil Madhavapeddy <anil@recoil.org>
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 1999-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
 {
@@ -37,15 +45,13 @@ class Horde_Cache_Storage_File extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'dir' - (string) The base directory to store the cache files in.
-     *         DEFAULT: System default
-     * 'prefix' - (string) The filename prefix to use for the cache files.
-     *            DEFAULT: 'cache_'
-     * 'sub' - (integer) If non-zero, the number of subdirectories to create
-     *         to store the file (i.e. PHP's session.save_path).
-     *         DEFAULT: 0
-     * </pre>
+     *   - dir: (string) The base directory to store the cache files in.
+     *          DEFAULT: System default
+     *   - prefix: (string) The filename prefix to use for the cache files.
+     *             DEFAULT: 'cache_'
+     *   - sub: (integer) If non-zero, the number of subdirectories to create
+     *          to store the file (i.e. PHP's session.save_path).
+     *          DEFAULT: 0
      */
     public function __construct(array $params = array())
     {
