@@ -65,14 +65,17 @@ class Horde
     static public function log($event, $priority = null,
                                array $options = array())
     {
-        /* Chicken/egg: wait until we have basic framework setup before we
-         * start logging. */
-        if (isset($GLOBALS['conf']) && isset($GLOBALS['injector'])) {
-            if (!isset($options['trace'])) {
-                $options['trace'] = 0;
-            }
-            $options['trace'] += 2;
+        if (!isset($options['trace'])) {
+            $options['trace'] = 0;
+        }
+        $options['trace'] += 2;
+
+        /* Chicken/egg: we must wait until we have basic framework setup
+         * before we can start logging. Otherwise, queue entries. */
+        if (Horde_Core_Factory_Logger::available()) {
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
+        } else {
+            Horde_Core_Factory_Logger::queue($event, $priority, $options);
         }
     }
 
@@ -473,9 +476,7 @@ class Horde
             echo $output;
         }
 
-        if (!($app == 'horde' && $config_file == 'conf.php')) {
-            self::log('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
-        }
+        self::log('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
 
         if (is_null($var_names)) {
             return;

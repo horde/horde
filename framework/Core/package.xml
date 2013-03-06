@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Queue log entries issued before framework is initialized and log them once that occurs.
 * [mjr] Fix authentication issue when using Horde_Session_Null and expiring sessions (Bug #12078).
 * [mjr] Fix logger creation during RPC access (Bug #12094).
 * [mms] Add logging wrapper class to reduce serialized size of factory-created objects.
@@ -2828,6 +2829,7 @@
    <date>2013-03-06</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Queue log entries issued before framework is initialized and log them once that occurs.
 * [mjr] Fix authentication issue when using Horde_Session_Null and expiring sessions (Bug #12078).
 * [mjr] Fix logger creation during RPC access (Bug #12094).
 * [mms] Add logging wrapper class to reduce serialized size of factory-created objects.
