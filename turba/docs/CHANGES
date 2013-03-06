@@ -2,6 +2,8 @@
 v4.0.4-git
 ----------
 
+[mjr] Fix ActiveSync global address book searches when using LDAP as backend
+      (Bug #12089).
 
 
 ------
