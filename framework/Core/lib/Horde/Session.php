@@ -51,7 +51,7 @@ class Horde_Session
      *
      * @var boolean
      */
-    private $_active = false;
+    protected $_active = false;
 
     /**
      * Indicate that a new session ID has been generated for this page load.
