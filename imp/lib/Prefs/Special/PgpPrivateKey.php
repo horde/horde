@@ -77,6 +77,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $imp_identity = $injector->getInstance('IMP_Identity');
                 $view->fullname = $imp_identity->getFullname();
                 $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
+                $view->default_keylength = $prefs->getValue('pgp_default_keylength');
 
                 $page_output->addInlineScript(array(
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'

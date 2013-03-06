@@ -389,6 +389,15 @@ $_prefs['pgp_private_key'] = array(
     'value' => ''
 );
 
+// The preselected keylength, when a user creates a new key.
+$_prefs['pgp_default_keylength'] = array(
+    'value' => 2048,
+    'type' => 'enum',
+    'enum' => array(1024,2048,4096),
+    'advanced' => true,
+    'requires' => array('use_pgp')
+);
+
 
 
 // *** S/MIME Preferences ***
