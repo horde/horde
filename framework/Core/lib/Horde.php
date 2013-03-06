@@ -441,7 +441,7 @@ class Horde
                     isset($conf['log']['priority']) &&
                     (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
                     $conf['log']['priority'] = 'INFO';
-                    self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
+                    self::log('Logging priority is using the old PEAR_LOG constant', 'INFO');
                 } else {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
@@ -474,7 +474,7 @@ class Horde
         }
 
         if (!($app == 'horde' && $config_file == 'conf.php')) {
-            self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
+            self::log('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
         }
 
         if (is_null($var_names)) {
@@ -1189,10 +1189,10 @@ class Horde
             $used = array_keys(self::$_used);
             sort($used);
             $remaining = str_replace($used, array(), 'abcdefghijklmnopqrstuvwxyz');
-            self::logMessage('Access key information for ' . $script);
-            self::logMessage('Used labels: ' . implode(',', $labels));
-            self::logMessage('Used keys: ' . implode('', $used));
-            self::logMessage('Free keys: ' . $remaining);
+            self::log('Access key information for ' . $script);
+            self::log('Used labels: ' . implode(',', $labels));
+            self::log('Used keys: ' . implode('', $used));
+            self::log('Free keys: ' . $remaining);
             return;
         }
 
@@ -1343,10 +1343,10 @@ class Horde
         $hook_class = $app . '_Hooks';
         $hook_ob = new $hook_class;
         try {
-            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
+            self::log(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
             return call_user_func_array(array($hook_ob, $hook), $args);
         } catch (Horde_Exception $e) {
-            self::logMessage($e, 'ERR');
+            self::log($e, 'ERR');
             throw $e;
         }
     }

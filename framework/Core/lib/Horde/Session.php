@@ -176,7 +176,7 @@ class Horde_Session
         if (!$this->_readonly &&
             !is_null($this->_relogin) &&
             (($GLOBALS['registry']->getAuth() !== false) !== $this->_relogin)) {
-            Horde::logMessage('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
+            Horde::log('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
             $this->_readonly = true;
         }
     }

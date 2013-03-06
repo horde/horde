@@ -968,7 +968,7 @@ class Horde_Core_Prefs_Ui
                 $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
             } catch (Horde_Exception $e) {
                 $notification->push(Horde_Core_Translation::t("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         } else {
             $identity->setDefault($old_default);

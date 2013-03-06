@@ -185,7 +185,7 @@ class Horde_Core_Topbar
                 } catch (Horde_Exception_PushApp $e) {
                     // Ignore
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
                 break;
 
