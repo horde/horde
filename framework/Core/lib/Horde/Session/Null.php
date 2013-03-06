@@ -61,6 +61,7 @@ class Horde_Session_Null extends Horde_Session
         // to avoid session lock issues.
         session_start();
         $this->_active = true;
+        $this->_data[Horde_Session::BEGIN] = time();
         session_write_close();
 
         // Set a beginning to pass authentication timeout checks

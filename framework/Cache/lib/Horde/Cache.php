@@ -61,10 +61,6 @@ class Horde_Cache
             $storage->setLogger($this->_logger);
         }
 
-        if (!empty($params['compress'])) {
-            unset($params['compress']);
-        }
-
         $this->_params = array_merge($this->_params, $params);
         $this->_storage = $storage;
     }
@@ -100,7 +96,7 @@ class Horde_Cache
     {
         $res = $this->_storage->get($key, $lifetime);
 
-        if (empty($this->_params['compress'])) {
+        if (empty($this->_params['compress']) || ($res === false)) {
             return $res;
         }
 
