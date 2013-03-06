@@ -264,7 +264,8 @@ class IMP_Imap_Config implements Serializable
      */
     public function __isset($name)
     {
-        return !empty($this->_config[$name]);
+        $tmp = $this->$name;
+        return !empty($tmp);
     }
 
     /**
