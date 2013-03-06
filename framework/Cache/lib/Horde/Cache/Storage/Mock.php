@@ -35,6 +35,13 @@ class Horde_Cache_Storage_Mock extends Horde_Cache_Storage_Base
 
     /**
      */
+    public function __sleep()
+    {
+        throw new BadMethodCallException('Cannot serialize this object.');
+    }
+
+    /**
+     */
     public function get($key, $lifetime = 0)
     {
         return isset($this->_cache[$key])

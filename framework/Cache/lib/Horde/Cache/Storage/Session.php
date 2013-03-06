@@ -43,7 +43,13 @@ class Horde_Cache_Storage_Session extends Horde_Cache_Storage_Base
         ), $params);
 
         parent::__construct($params);
+    }
 
+    /**
+     * Do initialization tasks.
+     */
+    protected function _initOb()
+    {
         if (!isset($_SESSION[$this->_params['sess_name']])) {
             $_SESSION[$this->_params['sess_name']] = array();
         }

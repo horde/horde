@@ -52,22 +52,23 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
      *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
      *   - table: (string) The name of the cache table.
      *            DEFAULT: 'horde_cache'
-     *
-     * @throws Horde_Cache_Exception
      */
     public function __construct($params = array())
     {
         if (!isset($params['db'])) {
-            throw new Horde_Cache_Exception('Missing db parameter.');
+            throw new InvalidArgumentException('Missing db parameter.');
         }
-        $this->_db = $params['db'];
-        unset($params['db']);
 
-        $params = array_merge(array(
+        parent::__construct(array_merge(array(
             'table' => 'horde_cache',
-        ), $params);
+        ), $params));
+    }
 
-        parent::__construct($params);
+    /**
+     */
+    protected function _initOb()
+    {
+        $this->_db = $this->_params['db'];
     }
 
     /**

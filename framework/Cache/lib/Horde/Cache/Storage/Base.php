@@ -20,7 +20,7 @@
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Cache
  */
-abstract class Horde_Cache_Storage_Base
+abstract class Horde_Cache_Storage_Base implements Serializable
 {
     /**
      * Logger.
@@ -44,6 +44,14 @@ abstract class Horde_Cache_Storage_Base
     public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
+        $this->_initOb();
+    }
+
+    /**
+     * Do initialization tasks.
+     */
+    protected function _initOb()
+    {
     }
 
     /**
@@ -103,5 +111,25 @@ abstract class Horde_Cache_Storage_Base
      * @throws Horde_Cache_Exception
      */
     abstract public function clear();
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->_params,
+            $this->_logger
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        @list($this->_params, $this->_logger) = @unserialize($data);
+        $this->_initOb();
+    }
 
 }
