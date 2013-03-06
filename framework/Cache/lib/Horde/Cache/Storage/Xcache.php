@@ -1,16 +1,24 @@
 <?php
 /**
- * This class provides cache storage in Xcache.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Duck <duck@obala.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Cache storage in Xcache.
+ *
+ * @author    Duck <duck@obala.net>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage_Base
 {
@@ -18,10 +26,8 @@ class Horde_Cache_Storage_Xcache extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Optional parameters:
-     * <pre>
-     * 'prefix' - (string) The prefix to use for the cache keys.
-     *            DEFAULT: ''
-     * </pre>
+     *   - prefix: (string) The prefix to use for the cache keys.
+     *             DEFAULT: ''
      */
     public function __construct(array $params = array())
     {

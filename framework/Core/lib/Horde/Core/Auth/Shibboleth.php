@@ -31,7 +31,7 @@ class Horde_Core_Auth_Shibboleth extends Horde_Auth_Shibboleth
         // Consider this a session expiration.
         $this->setError(Horde_Auth::REASON_SESSION);
 
-        Horde::logMessage('Shibboleth authentication expired for user ' . $GLOBALS['registry']->getAuth(), 'INFO');
+        Horde::log('Shibboleth authentication expired for user ' . $GLOBALS['registry']->getAuth(), 'INFO');
 
         return false;
     }

@@ -36,7 +36,7 @@ class Horde_Core_Ajax_Application_Handler_Groups extends Horde_Core_Ajax_Applica
                 $result->groups = $groups;
             }
         } catch (Horde_Group_Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
         }
 
         return $result;

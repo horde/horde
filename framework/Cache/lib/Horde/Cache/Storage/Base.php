@@ -1,19 +1,26 @@
 <?php
 /**
- * This class provides the abstract implementation of the cache storage
- * driver.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
-abstract class Horde_Cache_Storage_Base
+
+/**
+ * The abstract implementation of the cache storage driver.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+abstract class Horde_Cache_Storage_Base implements Serializable
 {
     /**
      * Logger.
@@ -37,6 +44,14 @@ abstract class Horde_Cache_Storage_Base
     public function __construct(array $params = array())
     {
         $this->_params = array_merge($this->_params, $params);
+        $this->_initOb();
+    }
+
+    /**
+     * Do initialization tasks.
+     */
+    protected function _initOb()
+    {
     }
 
     /**
@@ -96,5 +111,25 @@ abstract class Horde_Cache_Storage_Base
      * @throws Horde_Cache_Exception
      */
     abstract public function clear();
+
+    /* Serializable methods. */
+
+    /**
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->_params,
+            $this->_logger
+        ));
+    }
+
+    /**
+     */
+    public function unserialize($data)
+    {
+        @list($this->_params, $this->_logger) = @unserialize($data);
+        $this->_initOb();
+    }
 
 }

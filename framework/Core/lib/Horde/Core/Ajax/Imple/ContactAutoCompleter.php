@@ -70,7 +70,7 @@ abstract class Horde_Core_Ajax_Imple_ContactAutoCompleter extends Horde_Core_Aja
                 'count_only' => !empty($opts['count_only'])
             )));
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return new Horde_Mail_Rfc822_List();
         }
 
