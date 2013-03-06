@@ -51,35 +51,35 @@ class Horde_Session
      *
      * @var boolean
      */
-    private $_active = false;
+    protected $_active = false;
 
     /**
      * Indicate that a new session ID has been generated for this page load.
      *
      * @var boolean
      */
-    private $_cleansession = false;
+    protected $_cleansession = false;
 
     /**
      * Pointer to the session data.
      *
      * @var array
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Indicates that session data is read-only.
      *
      * @var boolean
      */
-    private $_readonly = false;
+    protected $_readonly = false;
 
     /**
      * On re-login, indicate whether we were previously authenticated.
      *
      * @var integer
      */
-    private $_relogin = null;
+    protected $_relogin = null;
 
     /**
      * Constructor.

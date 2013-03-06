@@ -54,7 +54,7 @@ class Horde_Core_Factory_Cache extends Horde_Core_Factory_Injector
             $params['lifetime'] = $GLOBALS['conf']['cache']['default_lifetime'];
         }
         $params['compress'] = true;
-        $params['logger'] = $injector->getInstance('Horde_Log_Logger');
+        $params['logger'] = $injector->getInstance('Horde_Core_Log_Wrapper');
 
         switch ($lc_driver) {
         case 'memcache':

@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add support for horde_lz4 for compressing cache data.
+* [mms] Better error-checking when uncompressing cache data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,6 +68,11 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>horde_lz4</name>
+    <channel>pear.horde.org</channel>
+    <providesextension>horde_lz4</providesextension>
+   </package>
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
@@ -236,7 +242,8 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Add support for horde_lz4 for compressing cache data.
+* [mms] Better error-checking when uncompressing cache data.
    </notes>
   </release>
  </changelog>

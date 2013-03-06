@@ -45,7 +45,7 @@ class Turba_Data_Ldif extends Horde_Data_Base
         'workPostalCode', 'workCountry',
         'homePhone', 'workPhone', 'cellPhone',
         'fax', 'title', 'company', 'notes', 'website',
-        'department', 'nickname'#
+        'department', 'nickname'
     );
 
     /**
