@@ -633,14 +633,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Get new synckey if needed. We need a new synckey if there were
-            // any changes (incoming or outgoing) or if this is during the
-            // initial sync pairing of the collection.
+            // any changes (incoming or outgoing), if this is during the
+            // initial sync pairing of the collection, or if we received a
+            // SYNC due to changes found during a PING (since those changes
+            // may be changes to items that never even made it to the PIM in
+            // the first place (See Bug: 12075).
             if ($statusCode == self::STATUS_SUCCESS &&
                 (!empty($collection['importedchanges']) ||
                 !empty($changecount) ||
                 $collection['synckey'] == '0' ||
                 $this->_stateDriver->getSyncKeyCounter($collection['synckey']) == 1 ||
-                !empty($collection['fetchids']))) {
+                !empty($collection['fetchids']) ||
+                $this->_syncCache->hasPingChangeFlag($collection['id']))) {
 
                 // Increment the loop detection counter.
                 ++$counters[$collection['id']][$collection['synckey']];
@@ -812,7 +816,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                         $this->_syncCache->addConfirmedKey($collection['newsynckey']);
                     }
                     $this->_syncCache->updateCollection(
-                        $collection, array('newsynckey' => true, 'unsetChanges' => true)
+                        $collection, array('newsynckey' => true, 'unsetChanges' => true, 'unsetPingChangeFlag' => true)
                     );
                     $this->_syncCache->synckeycounter = $counters;
                 }

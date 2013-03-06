@@ -924,8 +924,8 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
 
         return ($elt &&
                 (($elt['a'] & self::ELT_NOSELECT) ||
-                 (!$this->_showunsub &&
-                  !$this->isSubscribed($elt) &&
+                 (((!$this->_showunsub && !$this->isSubscribed($elt)) ||
+                   $this->isInvisible($elt)) &&
                   $this->hasChildren($elt, true))));
     }
 
@@ -1455,6 +1455,11 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                     $ed['d'][$id],
                     $ed['o'][$id]
                 );
+
+                /* Check for virutal folder change. */
+                if ($this->isVfolder($elt)) {
+                    $ed['c'][$id] = 1;
+                }
                 return;
             }
         } else {
@@ -2179,11 +2184,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
      */
     protected function _activeElt($elt)
     {
-        /* Skip invisible elements. */
-        if ($this->isInvisible($elt)) {
-            return false;
-        }
-
         $c = &$this->_cache['filter'];
 
         /* Skip virtual folders unless told to display them. */
@@ -2197,6 +2197,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 !$this->hasChildren($elt, true)) {
                 return false;
             }
+        } elseif ($this->isInvisible($elt)) {
+            /* Skip invisible elements (do after container check since it may
+             * need to be shown as a container). */
+            return false;
         } elseif (!$this->_showunsub && !$this->isSubscribed($elt)) {
             /* Don't show element if not subscribed. */
             return false;

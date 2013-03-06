@@ -108,6 +108,11 @@ class Horde_View_Topbar extends Horde_View
         if ($this->search) {
             $GLOBALS['injector']->getInstance('Horde_PageOutput')
                 ->addScriptFile('form_ghost.js', 'horde');
+            if (!isset($this->searchParameters)) {
+                $action = new Horde_Url($this->searchAction);
+                $this->searchAction = $action->url;
+                $this->searchParameters = $action->parameters;
+            }
         }
         $this->sidebar = $GLOBALS['page_output']->sidebar;
         return parent::render($name, $locals);

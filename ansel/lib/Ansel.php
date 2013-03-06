@@ -827,7 +827,7 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->add($options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel', true)->add($options);
         $url->url .= 'embed';
 
         return '<script type="text/javascript" src="' . $url .

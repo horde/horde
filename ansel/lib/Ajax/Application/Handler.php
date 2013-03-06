@@ -229,10 +229,11 @@ class Ansel_Ajax_Application_Handler extends Horde_Core_Ajax_Application_Handler
         if (!$gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT)) {
             throw new Ansel_Exception('You are not allowed to edit this photo');
         }
+        $injector->getInstance('Ansel_Faces')->setName($face_id, $name);
 
-        Ansel_Faces::setName($face_id, $name);
-
-        return Horde_Core_Ajax_Response_Raw(Ansel_Faces::getFaceTile($face_id), 'text/html');
+        $results = new stdClass();
+        $results->results = Ansel_Faces::getFaceTile($face_id);
+        return new Horde_Core_Ajax_Response($results);
     }
 
     /**

@@ -29,7 +29,7 @@
     <div class="slideControls">
       <?php echo Horde::fullSrcImg('loading.gif', array('attr' => 'class="imgloading"'));?>
       <?php if (empty($this->hide_slideshow)): ?>
-        <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_play.png', array('attr' => 'alt="' .  _("Play") . '"')), array('style' => "display:none;", 'href' => $this->urls['slideshow'], 'class' => 'ssPlay', 'title=' => _("Start Slideshow"))) ?>
+        <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_play.png', array('attr' => 'alt="' .  _("Play") . '"')), array('style' => "display:none;", 'href' => $this->urls['slideshow'], 'class' => 'ssPlay', 'title' => _("Start Slideshow"))) ?>
       <?php endif; ?>
       <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_prev.png', array('attr' => 'alt="' . _("Previous") . '"')), array('id' => 'PrevLink', 'href' => $this->prev_url));
         echo $this->contentTag('a', Horde::fullSrcImg('slideshow_next.png', array('attr' => 'alt="' . _("Next") . '"')), array('id' => 'NextLink', 'href' => $this->next_url));
@@ -54,7 +54,7 @@
     <div class="slideControls">
       <?php echo Horde::fullSrcImg('loading.gif', array('attr' => 'class="imgloading"'));?>
       <?php if (empty($this->hide_slideshow)): ?>
-        <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_play.png', array('attr' => 'alt="' .  _("Play") . '"')), array('style' => "display:none;", 'href' => $this->urls['slideshow'], 'class' => 'ssPlay', 'title=' => _("Start Slideshow"))) ?>
+        <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_play.png', array('attr' => 'alt="' .  _("Play") . '"')), array('style' => "display:none;", 'href' => $this->urls['slideshow'], 'class' => 'ssPlay', 'title' => _("Start Slideshow"))) ?>
       <?php endif; ?>
       <?php echo $this->contentTag('a', Horde::fullSrcImg('slideshow_prev.png', array('attr' => 'alt="' . _("Previous") . '"')), array('href' => $this->prev_url));
         echo $this->contentTag('a', Horde::fullSrcImg('slideshow_next.png', array('attr' => 'alt="' . _("Next") . '"')), array('href' => $this->next_url));

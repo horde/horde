@@ -3236,7 +3236,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'SETQUOTA',
-            new Horde_Imap_Client_Data_Format_Astring($root),
+            new Horde_Imap_Client_Data_Format_Mailbox($root),
             $limits
         ));
 
@@ -3251,7 +3251,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'GETQUOTA',
-            new Horde_Imap_Client_Data_Format_Astring($root)
+            new Horde_Imap_Client_Data_Format_Mailbox($root)
         ));
 
         $this->_sendLine($cmd);
@@ -3289,7 +3289,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'GETQUOTAROOT',
-            new Horde_Imap_Client_Data_Format_Astring($mailbox)
+            new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
         ));
 
         $this->_sendLine($cmd);

@@ -39,7 +39,8 @@ class Horde_Test
      * @var array
      */
     protected $_supported = array(
-        '5.3'
+        '5.3',
+        '5.4'
     );
 
     /**
@@ -129,7 +130,7 @@ class Horde_Test
         ),
         'lzf' => array(
             'descrip' => 'LZF Compression Support (PECL extension)',
-            'error' => 'If the lzf PECL module is available, Horde can compress some cached data in your session to make your session size smaller (highly recommended).'
+            'error' => 'If the lzf PECL module is available, Horde can perform real-time compression on cached data to reduce session storage load (highly recommended).'
         ),
         'mbstring' => array(
             'descrip' => 'Mbstring Support',

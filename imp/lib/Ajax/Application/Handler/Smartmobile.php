@@ -34,7 +34,7 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
     public function smartmobileAutocomplete()
     {
         $imple = new IMP_Ajax_Imple_ContactAutoCompleter();
-        return array_map('htmlspecialchars', $imple->getAddressList($this->vars->search)->addresses);
+        return array_map('htmlspecialchars', $imple->getAddressList($this->vars->search)->base_addresses);
     }
 
     /**

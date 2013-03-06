@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Ingo H5 (3.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2012-10-30 21:47+0100\n"
 "Last-Translator: Jan Schneider\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -126,7 +126,7 @@ msgstr "Ausgeschlossene Adressen"
 msgid "Body"
 msgstr "Text"
 
-#: lib/Ingo.php:436 rule.php:347
+#: lib/Ingo.php:436 rule.php:343
 msgid "Case Sensitive"
 msgstr "Groß-/Kleinschreibung beachten"
 
@@ -828,7 +828,7 @@ msgstr "Wählen Sie ein Feld aus"
 msgid "Select ruleset to display:"
 msgstr "Filtersatz auswählen:"
 
-#: rule.php:372 templates/blacklist/blacklist.inc:26
+#: rule.php:368 templates/blacklist/blacklist.inc:26
 msgid "Select target folder"
 msgstr "Zielordner auswählen"
 
@@ -970,7 +970,7 @@ msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 "Abwesenheitsnachrichten werden vom aktuellen Filtertreiber nicht unterstützt."
 
-#: rule.php:378
+#: rule.php:374
 msgid "Value"
 msgstr "Wert"
 

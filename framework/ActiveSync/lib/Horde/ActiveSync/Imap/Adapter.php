@@ -1035,14 +1035,18 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // Check for meeting requests and POOMMAIL_FLAG data
-        if ($this->version >= Horde_ActiveSync::VERSION_TWELVE) {
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $eas_message->contentclass = 'urn:content-classes:message';
             if ($mime_part = $imap_message->hasiCalendar()) {
                 $data = $mime_part->getContents();
                 $vCal = new Horde_Icalendar();
                 if ($vCal->parsevCalendar($data, 'VCALENDAR', $mime_part->getCharset())) {
-                    $eas_message->contentclass = 'urn:content-classes:calendarmessage';
-                    switch ($vCal->getAttribute('METHOD')) {
+                    try {
+                        $method = $vCal->getAttribute('METHOD');
+                        $eas_message->contentclass = 'urn:content-classes:calendarmessage';
+                    } catch (Horde_Icalendar_Exception $e) {
+                    }
+                    switch ($method) {
                     case 'REQUEST':
                     case 'PUBLISH':
                         $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
