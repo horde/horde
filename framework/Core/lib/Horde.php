@@ -473,7 +473,7 @@ class Horde
             echo $output;
         }
 
-        if (!$app == 'horde' && !$config_file = 'conf.php') {
+        if (!($app == 'horde' && $config_file == 'conf.php')) {
             self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
         }
 
