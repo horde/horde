@@ -400,6 +400,9 @@ var NagMobile = {
         var form = $('#nag-task-form'),
             data = HordeJquery.formToObject(form);
 
+        if (!data.hasOwnProperty('task_completed')) {
+            data.task_completed = 'off';
+        }
         HordeMobile.doAction('saveTask', data, NagMobile.handleSubmitCallback);
     },
 
