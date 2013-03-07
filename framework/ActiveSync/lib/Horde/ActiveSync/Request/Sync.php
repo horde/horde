@@ -1001,10 +1001,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($collection['fetchids']) {
                 $this->_fetchids = true;
             }
-            if (!$this->_syncCache->collectionExists($collection['id'])) {
-                $this->_logger->debug('Creating new sync_cache entry for: ' . $collection['id']);
-                $this->_syncCache->addCollection($collection);
-            } elseif (!empty($collection['windowsize'])) {
+            if ($this->_syncCache->collectionExists($collection['id']) && !empty($collection['windowsize'])) {
                 $this->_syncCache->updateWindowSize($collection['id'], $collection['windowsize']);
             }
         }
