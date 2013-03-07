@@ -509,6 +509,9 @@ class IMP_Basic_Search extends IMP_Basic_Base
                 $view->return_mailbox_val = sprintf(_("Return to %s"), $default_mailbox->display_html);
             }
             $page_output->topbar = $page_output->sidebar = false;
+            $this->header_params = array(
+                'html_id' => 'search_page'
+            );
         }
 
         $this->title = _("Search");
