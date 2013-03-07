@@ -89,7 +89,8 @@
     <td>
      <select id="generate_keylength" name="generate_keylength">
       <option value="1024">1024</option>
-      <option value="2048">2048</option>
+      <option value="2048" selected>2048</option>
+      <option value="4096">4096</option>
      </select>
     </td>
     <td>
