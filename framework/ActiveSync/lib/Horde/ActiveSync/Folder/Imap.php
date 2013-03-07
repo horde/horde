@@ -259,7 +259,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     {   if (empty($this->_status[self::HIGHESTMODSEQ])) {
             return min(array_keys($this->_messages));
         }
-        return min($this->_message);
+        return min($this->_messages);
     }
 
     /**
