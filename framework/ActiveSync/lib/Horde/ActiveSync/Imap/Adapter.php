@@ -316,7 +316,7 @@ class Horde_ActiveSync_Imap_Adapter
             // Update flags.
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->flags();
-            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['results']));
+            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
             $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 $flags[$uid] = array(
