@@ -144,7 +144,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function updateState()
     {
-        if ($this->_status[self::HIGHESTMODSEQ] == 0 && $this->_status[self::UIDNEXT]) {
+        if (empty($this->_status[self::HIGHESTMODSEQ]) && $this->_status[self::UIDNEXT]) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
