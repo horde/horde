@@ -266,8 +266,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $this->_logger->err($e->getMessage());
             throw new Horde_ActiveSync_Exception($e);
         }
-        $data = unserialize(
-            $columns['sync_data']->binaryToString($results['sync_data']));
+        $data = unserialize($columns['sync_data']->binaryToString($results['sync_data']));
         $pending = unserialize($results['sync_pending']);
 
         if ($type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
@@ -277,6 +276,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
                 $this->_procid,
                 print_r($this->_folder, true)));
         } elseif ($type == Horde_ActiveSync::REQUEST_TYPE_SYNC) {
+            // @TODO: This shouldn't default to an empty folder object,
+            // if we don't have the data, it's an exception.
             $this->_folder = ($data !== false
                 ? $data
                 : ($this->_collection['class'] == Horde_ActiveSync::CLASS_EMAIL

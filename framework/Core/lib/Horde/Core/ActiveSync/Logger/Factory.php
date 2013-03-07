@@ -46,7 +46,7 @@
         }
 
         if (!$logger) {
-            $logger = $GLOBALS['injector']->getInstance('Horde_Log_Logger');
+            $logger = new Horde_Log_Logger(new Horde_Log_Handler_Null());
         }
 
         return $logger;

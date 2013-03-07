@@ -158,7 +158,7 @@ class Horde_Core_Share_Driver
         try {
             $result = $locks->getLocks($this->_share->getShareOb()->getApp(), $shareid, $locktype);
         } catch (Horde_Lock_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             throw new Horde_Exception_Wrapped($e);
         }
 
@@ -168,7 +168,7 @@ class Horde_Core_Share_Driver
             try {
                 $result = $locks->getLocks($this->_share->getShareOb()->getApp() . ':' . $shareid, $item_uid, $locktype);
             } catch (Horde_Lock_Exception $e) {
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
                 throw new Horde_Exception($e->getMessage());
             }
         } else {

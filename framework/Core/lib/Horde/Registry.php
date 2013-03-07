@@ -44,6 +44,14 @@ class Horde_Registry
     public $applications = array();
 
     /**
+     * A flag that is set once the basic horde application has been
+     * minimally configured.
+     *
+     * @var boolean
+     */
+    public $hordeInit = false;
+
+    /**
      * The application that called appInit().
      *
      * @var string
@@ -418,6 +426,9 @@ class Horde_Registry
         $this->importConfig('horde');
         $conf = $GLOBALS['conf'];
 
+        /* The basic framework is up and loaded, so set the init flag. */
+        $this->hordeInit = true;
+
         /* Initialize browser object. */
         $GLOBALS['browser'] = $injector->getInstance('Horde_Browser');
 
@@ -541,7 +552,7 @@ class Horde_Registry
 
         /* Register memory tracker if logging in debug mode. */
         if (function_exists('memory_get_peak_usage')) {
-            Horde::logMessage('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
+            Horde::log('Max memory usage: ' . memory_get_peak_usage(true) . ' bytes', 'DEBUG');
         }
     }
 
@@ -680,7 +691,7 @@ class Horde_Registry
                  file_exists($app['fileroot'] . '/config/conf.xml') &&
                  !file_exists($app['fileroot'] . '/config/conf.php'))) {
                 $app['status'] = 'inactive';
-                Horde::logMessage('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
+                Horde::log('Setting ' . $appName . ' inactive because the fileroot does not exist or the application is not configured yet.', 'DEBUG');
             }
 
             $app['webroot'] = isset($app['webroot'])
@@ -779,7 +790,7 @@ class Horde_Registry
             try {
                 $api = $this->getApiInstance($app, 'api');
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e, 'DEBUG');
+                Horde::log($e, 'DEBUG');
             }
         }
 
@@ -1498,7 +1509,7 @@ class Horde_Registry
                     throw new Horde_Exception_PushApp('User is not authorized for ' . $app, self::AUTH_FAILURE, $app);
                 }
 
-                Horde::logMessage(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
+                Horde::log(sprintf('%s does not have READ permission for %s', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $app), 'DEBUG');
                 throw new Horde_Exception_PushApp(sprintf('%s is not authorized for %s.', $this->getAuth() ? 'User ' . $this->getAuth() : 'Guest user', $this->applications[$app]['name']), self::PERMISSION_DENIED, $app);
             }
         }
@@ -1580,7 +1591,7 @@ class Horde_Registry
 
         /* Hook errors are already logged. */
         if ($error == self::INITCALLBACK_FATAL) {
-            Horde::logMessage($e);
+            Horde::log($e);
         }
 
         $app = $this->getApp();
@@ -1969,7 +1980,7 @@ class Horde_Registry
             ($id = $this->_getCacheId($name))) {
             $result = $GLOBALS['injector']->getInstance('Horde_Cache')->get($id, 86400);
             if ($result !== false) {
-                Horde::logMessage(__CLASS__ . ': retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
+                Horde::log(__CLASS__ . ': retrieved ' . $name . ' with cache ID ' . $id, 'DEBUG');
                 return unserialize($result);
             }
         }
@@ -2024,7 +2035,7 @@ class Horde_Registry
             $GLOBALS['session']->set('horde', 'registry/' . $key, $md5sum);
             $id = $this->_getCacheId($key, $md5sum);
             if ($ob->set($id, $data, 86400)) {
-                Horde::logMessage(__CLASS__ . ': stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
+                Horde::log(__CLASS__ . ': stored ' . $key . ' with cache ID ' . $id, 'DEBUG');
             }
         }
     }
@@ -2147,7 +2158,7 @@ class Horde_Registry
                 ->create($app)
                 ->transparent();
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e);
+            Horde::log($e);
             return false;
         }
     }
@@ -2584,7 +2595,7 @@ class Horde_Registry
                     'args' => array($user)
                 ));
             } catch (Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 $errApps[] = $app;
             }
 
@@ -2592,7 +2603,7 @@ class Horde_Registry
                 $prefs_ob->retrieve($app);
                 $prefs_ob->remove();
             } catch (Horde_Exception $e) {
-                Horde::logMessage($e);
+                Horde::log($e);
                 $errApps[] = $app;
             }
         }

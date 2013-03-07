@@ -85,10 +85,15 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
 
         if ($data) {
-            if (extension_loaded('lzf')) {
-                $data = lzf_decompress($data);
+            if (extension_loaded('horde_lz4')) {
+                $data = @horde_lz4_uncompress($data);
+            } elseif (extension_loaded('lzf')) {
+                $data = @lzf_decompress($data);
             }
-            $this->_cache = @json_decode($data, true);
+
+            if ($data !== false) {
+                $this->_cache = @json_decode($data, true);
+            }
         }
     }
 
@@ -105,7 +110,9 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
         }
 
         $data = json_encode($this->_cache);
-        if (extension_loaded('lzf')) {
+        if (extension_loaded('horde_lz4')) {
+            $data = horde_lz4_compress($data);
+        } elseif (extension_loaded('lzf')) {
             $data = lzf_compress($data);
         }
 
