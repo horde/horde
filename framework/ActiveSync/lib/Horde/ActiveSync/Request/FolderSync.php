@@ -92,8 +92,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Load Folder Sync State
         try {
-            $this->_stateDriver->loadState(
-                array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
+            $this->_stateDriver->loadState(array(), $synckey, Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_KEYMISM;
             $this->_handleError($e);
@@ -101,18 +100,19 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         // Load and validate the Sync Cache if we are 12.1
-        if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $syncCache = new Horde_ActiveSync_SyncCache(
                 $this->_stateDriver,
                 $this->_device->id,
                 $this->_device->user,
                 $this->_logger);
+
             if (count($syncCache->getFolders())) {
                 if (empty($synckey)) {
                     $syncCache->clearFolders();
                 } else {
                     // @TODO: Don't think we need this. I don't think the
-                    // cache can be written without  the class value to begin with
+                    // cache can be written without the class value to begin with
                     foreach ($syncCache->getFolders() as $key => $value) {
                         if (empty($value['class'])) {
                             $syncCache->delete();
@@ -123,10 +123,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
                     }
                 }
             }
-            $this->_logger->debug(sprintf(
-                '[%s] Using syncCache',
-                $this->_procid)
-            );
+            $this->_logger->debug(sprintf('[%s] Using syncCache', $this->_procid));
         } else {
             $syncCache = false;
         }

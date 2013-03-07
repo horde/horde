@@ -45,7 +45,7 @@ class Horde_ActiveSync_Wbxml
     const EXT_I_0             = 0x40;
     const EXT_I_1             = 0x41;
     const EXT_I_2             = 0x42;
-    const PI                  =  0x43;
+    const PI                  = 0x43;
     const LITERAL_C           = 0x44;
     const EXT_T_0             = 0x80;
     const EXT_T_1             = 0x81;

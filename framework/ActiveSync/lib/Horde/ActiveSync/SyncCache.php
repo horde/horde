@@ -502,7 +502,7 @@ class Horde_ActiveSync_SyncCache
 
     /**
      * Validate the collections from the cache and fill in any missing values
-     * from the cache.
+     * from the folder cache.
      *
      * @param array $collections  A reference to an array of collections.
      */
