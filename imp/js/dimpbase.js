@@ -236,7 +236,7 @@ var DimpBase = {
         case 'search':
             if (!data) {
                 data = { mailbox: this.view };
-            } else if (data.isJSON()) {
+            } else if (Object.isString(data) && data.isJSON()) {
                 data = data.evalJSON(true);
             }
             this.highlightSidebar();
