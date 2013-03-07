@@ -97,7 +97,6 @@ case 'ActiveSync':
         exit;
     }
     $params['server'] = $injector->getInstance('Horde_ActiveSyncServer');
-    $params['provisioning'] = $conf['activesync']['securitypolicies']['provisioning'];
     break;
 
 case 'Soap':
