@@ -615,11 +615,11 @@ class Horde_ActiveSync_SyncCache
      *
      * @param string $folder  The folder id to return.
      *
-     * @return array  The folder cache array entry.
+     * @return array|boolean  The folder cache array entry, false if not found.
      */
     public function getFolder($folder)
     {
-        return $this->_data['folders'][$folder];
+        return !empty($this->_data['folders'][$folder]) ? $this->_data['folders'][$folder] : false;
     }
 
     /**
