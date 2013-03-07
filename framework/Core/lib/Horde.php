@@ -16,11 +16,25 @@
 class Horde
 {
     /**
-     * The access keys already used in this page.
+     * The current buffer level.
+     *
+     * @var integer
+     */
+    static protected $_bufferLevel = 0;
+
+    /**
+     * Has content been sent at the base buffer level?
+     *
+     * @var boolean
+     */
+    static protected $_contentSent = false;
+
+    /**
+     * Whether the hook has already been loaded.
      *
      * @var array
      */
-    static protected $_used = array();
+    static protected $_hooksLoaded = array();
 
     /**
      * The labels already used in this page.
@@ -37,25 +51,11 @@ class Horde
     static protected $_noAccessKey;
 
     /**
-     * Whether the hook has already been loaded.
+     * The access keys already used in this page.
      *
      * @var array
      */
-    static protected $_hooksLoaded = array();
-
-    /**
-     * The current buffer level.
-     *
-     * @var integer
-     */
-    static protected $_bufferLevel = 0;
-
-    /**
-     * Has content been sent at the base buffer level?
-     *
-     * @var boolean
-     */
-    static protected $_contentSent = false;
+    static protected $_used = array();
 
     /**
      * Shortcut to logging method.
@@ -65,14 +65,17 @@ class Horde
     static public function log($event, $priority = null,
                                array $options = array())
     {
-        /* Chicken/egg: wait until we have basic framework setup before we
-         * start logging. */
-        if (isset($GLOBALS['conf']) && isset($GLOBALS['injector'])) {
-            if (!isset($options['trace'])) {
-                $options['trace'] = 0;
-            }
-            $options['trace'] += 2;
+        if (!isset($options['trace'])) {
+            $options['trace'] = 0;
+        }
+        $options['trace'] += 2;
+
+        /* Chicken/egg: we must wait until we have basic framework setup
+         * before we can start logging. Otherwise, queue entries. */
+        if (Horde_Core_Factory_Logger::available()) {
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
+        } else {
+            Horde_Core_Factory_Logger::queue($event, $priority, $options);
         }
     }
 
@@ -441,7 +444,7 @@ class Horde
                     isset($conf['log']['priority']) &&
                     (strpos($conf['log']['priority'], 'PEAR_LOG_') !== false)) {
                     $conf['log']['priority'] = 'INFO';
-                    self::logMessage('Logging priority is using the old PEAR_LOG constant', 'INFO');
+                    self::log('Logging priority is using the old PEAR_LOG constant', 'INFO');
                 } else {
                     throw new Horde_Exception(sprintf('Failed to import configuration file "%s": ', $file) . strip_tags($output));
                 }
@@ -473,9 +476,7 @@ class Horde
             echo $output;
         }
 
-        if (!($app == 'horde' && $config_file == 'conf.php')) {
-            self::logMessage('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
-        }
+        self::log('Load config file (' . $config_file . '; app: ' . $app . ')', 'DEBUG');
 
         if (is_null($var_names)) {
             return;
@@ -1189,10 +1190,10 @@ class Horde
             $used = array_keys(self::$_used);
             sort($used);
             $remaining = str_replace($used, array(), 'abcdefghijklmnopqrstuvwxyz');
-            self::logMessage('Access key information for ' . $script);
-            self::logMessage('Used labels: ' . implode(',', $labels));
-            self::logMessage('Used keys: ' . implode('', $used));
-            self::logMessage('Free keys: ' . $remaining);
+            self::log('Access key information for ' . $script);
+            self::log('Used labels: ' . implode(',', $labels));
+            self::log('Used keys: ' . implode('', $used));
+            self::log('Free keys: ' . $remaining);
             return;
         }
 
@@ -1343,10 +1344,10 @@ class Horde
         $hook_class = $app . '_Hooks';
         $hook_ob = new $hook_class;
         try {
-            self::logMessage(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
+            self::log(sprintf('Hook %s in application %s called.', $hook, $app), 'DEBUG');
             return call_user_func_array(array($hook_ob, $hook), $args);
         } catch (Horde_Exception $e) {
-            self::logMessage($e, 'ERR');
+            self::log($e, 'ERR');
             throw $e;
         }
     }

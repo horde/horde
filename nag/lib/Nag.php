@@ -582,7 +582,7 @@ class Nag
      * @throws Horde_Exception_PermissionDenied
      * @throws Nag_Exception
      */
-    static public function updateTasklist(Horde_Share_Object $tasklist, array $info)
+    static public function updateTasklist($tasklist, array $info)
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&
@@ -616,7 +616,7 @@ class Nag
      * @throws Nag_Exception
      * @throws Horde_Exception_PermissionDenied
      */
-    static public function deleteTasklist(Horde_Share_Object $tasklist)
+    static public function deleteTasklist($tasklist)
     {
         if (!$GLOBALS['registry']->getAuth() ||
             ($tasklist->get('owner') != $GLOBALS['registry']->getAuth() &&

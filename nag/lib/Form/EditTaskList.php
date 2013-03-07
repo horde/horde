@@ -29,7 +29,7 @@ class Nag_Form_EditTaskList extends Horde_Form
      * @param array $vars
      * @param Horde_Share_Object $tasklist
      */
-    public function __construct($vars, Horde_Share_Object $tasklist)
+    public function __construct($vars, $tasklist)
     {
         $this->_tasklist = $tasklist;
 

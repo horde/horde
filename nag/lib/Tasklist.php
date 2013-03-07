@@ -17,7 +17,7 @@ class Nag_Tasklist
      *
      * @param Horde_Share_Object_Base  The base share for this tasklist.
      */
-    public function __construct(Horde_Share_Object_Base $share)
+    public function __construct($share)
     {
         $this->_share = $share;
     }

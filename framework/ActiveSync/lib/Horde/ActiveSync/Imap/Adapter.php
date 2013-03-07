@@ -316,7 +316,7 @@ class Horde_ActiveSync_Imap_Adapter
             // Update flags.
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->flags();
-            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['results']));
+            $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
             $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 $flags[$uid] = array(
@@ -849,7 +849,7 @@ class Horde_ActiveSync_Imap_Adapter
         } else {
             $priority = $imap_message->getHeaders()->getValue('Importance');
         }
-        $eas_message->importance = $this->_getEASImportance($importance);
+        $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data and ensure we have something to send.
         $message_body_data = $imap_message->getMessageBodyData($options);

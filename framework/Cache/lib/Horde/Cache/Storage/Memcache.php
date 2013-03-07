@@ -1,19 +1,27 @@
 <?php
 /**
- * This class provides cache storage in a memcache installation.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Duck <duck@obala.net>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
-class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements Serializable
+
+/**
+ * Cache storage on a memcache installation.
+ *
+ * @author    Duck <duck@obala.net>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base
 {
     /**
      * Cache results of expire() calls (since we will get the entire object
@@ -34,13 +42,9 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
      * Construct a new Horde_Cache_Memcache object.
      *
      * @param array $params  Parameter array:
-     * <pre>
-     * 'memcache' - (Horde_Memcache) [REQUIRED] A Horde_Memcache object.
-     * 'prefix' - (string) The prefix to use for the cache keys.
-     *            DEFAULT: ''
-     * </pre>
-     *
-     * @throws InvalidArgumentException
+     *   - memcache: (Horde_Memcache) [REQUIRED] A Horde_Memcache object.
+     *   - prefix: (string) The prefix to use for the cache keys.
+     *             DEFAULT: ''
      */
     public function __construct(array $params = array())
     {
@@ -48,12 +52,16 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
             throw new InvalidArgumentException('Missing memcache object');
         }
 
-        $this->_memcache = $params['memcache'];
-        unset($params['memcache']);
-
         parent::__construct(array_merge(array(
             'prefix' => '',
         ), $params));
+    }
+
+    /**
+     */
+    protected function _initOb()
+    {
+        $this->_memcache = $this->_params['memcache'];
     }
 
     /**
@@ -123,25 +131,6 @@ class Horde_Cache_Storage_Memcache extends Horde_Cache_Storage_Base implements S
     public function clear()
     {
         $this->_memcache->flush();
-    }
-
-    /* Serializable methods. */
-
-    /**
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->_memcache,
-            $this->_params
-        ));
-    }
-
-    /**
-     */
-    public function unserialize($data)
-    {
-        list($this->_memcache, $this->_params) = unserialize($data);
     }
 
 }

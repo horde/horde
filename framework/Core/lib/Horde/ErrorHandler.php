@@ -25,7 +25,7 @@ class Horde_ErrorHandler
         global $registry;
 
         try {
-            Horde::logMessage($error, 'EMERG');
+            Horde::log($error, 'EMERG');
         } catch (Exception $e) {}
 
         if (is_object($error)) {

@@ -41,10 +41,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @param array $params  A hash containing configuration parameters:
      *   - server: (Horde_ActiveSync) The ActiveSync server object.
      *             DEFAULT: none, REQUIRED
-     *   - provisioning: (mixed) Require device provisioning? Takes a
-     *                   Horde_ActiveSync::PROVISIONING_* constant.
-     *                   DEFAULT: Horde_ActiveSync::PROVISIONING_NONE
-     *                   (do not require provisioning).
      */
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
