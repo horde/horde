@@ -1300,6 +1300,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
+            // Ensure we have defaults for these.
+            // @TODO: Move these to sync collection class when implemented.
+            if (empty($collection['mimesupport'])) {
+                $collection['mimesupport'] = Horde_ActiveSync::MIME_SUPPORT_NONE;
+            }
+
             $e = $this->_decoder->peek();
             if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                 $this->_decoder->getElementEndTag();
