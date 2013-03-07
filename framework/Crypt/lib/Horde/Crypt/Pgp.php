@@ -192,7 +192,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
-                                $keylength = 1024, $expire = null)
+                                $keylength = 1024, $expire = null, $key_type = 'RSA', $subkey_type = 'RSA')
     {
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
@@ -207,14 +207,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $input = array(
             '%pubring ' . $pub_file,
             '%secring ' . $secret_file,
-            'Key-Type: DSA',
-            'Key-Length: 1024',
-            'Subkey-Type: ELG-E',
+            'Key-Type: ' . $key_type,
+            'Key-Length: ' . $keylength,
+            'Subkey-Type: ' . $subkey_type,
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
             'Name-Email: ' . $email,
             'Expire-Date: ' . $expire,
-            'Passphrase: ' . $passphrase
+            'Passphrase: ' . $passphrase,
+            'Preferences: AES256 AES192 AES CAST5 3DES SHA256 SHA512 SHA384 SHA224 SHA1 ZLIB BZIP2 ZIP Uncompressed'
         );
         if (!empty($comment)) {
             $input[] = 'Name-Comment: ' . $comment;
