@@ -849,7 +849,7 @@ class Horde_ActiveSync_Imap_Adapter
         } else {
             $priority = $imap_message->getHeaders()->getValue('Importance');
         }
-        $eas_message->importance = $this->_getEASImportance($importance);
+        $eas_message->importance = $this->_getEASImportance($priority);
 
         // Get the body data and ensure we have something to send.
         $message_body_data = $imap_message->getMessageBodyData($options);
