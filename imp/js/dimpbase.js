@@ -245,7 +245,7 @@ var DimpBase = {
                 new Element('IFRAME', {
                     src: HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
                 }).setStyle({
-                    height: document.viewport.getHeight() + 'px'
+                    height: $('horde-page').getHeight() + 'px'
                 })
             );
             break;
