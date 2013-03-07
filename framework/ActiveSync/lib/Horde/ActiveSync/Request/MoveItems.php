@@ -68,7 +68,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
     {
         $this->_logger->info(sprintf(
             '[%s] Handling MoveItems command.',
-            $this->_device_id)
+            $this->_procid)
         );
 
         if (!$this->_decoder->getElementStartTag(self::MOVES)) {
