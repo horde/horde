@@ -425,7 +425,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             !$this->_importedChanges &&
             ($this->_syncCache->wait !== false ||
              $this->_syncCache->hbinterval !== false ||
-             $shortsyncreq === true)) {
+             !empty($shortsyncreq))) {
 
             // Use the same settings as PING for things like sleep() timeout etc...
             $pingSettings = $this->_driver->getHeartbeatConfig();
@@ -528,7 +528,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                 }
 
-                if ($dataavailable) {
+                if (!empty($dataavailable)) {
                     $this->_logger->debug(sprintf(
                         '[%s] Found changes!',
                         $this->_procid)
@@ -568,15 +568,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_logger->debug(sprintf(
                 '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',
                 $dataavailable,
-                $dataimported)
+                $this->_importedChanges)
             );
         }
 
         // See if we can do an empty response
         if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
-            $this->_statusCode == SYNC_STATUS_SUCCESS &&
-            $dataavailable == false &&
-            $dataimported == false &&
+            $this->_statusCode == self::STATUS_SUCCESS &&
+            empty($dataavailable) &&
+            empty($this->_importedChanges) &&
             ($this->_syncCache->wait !== false ||
              $this->_syncCache->hbinterval !== false)) {
 
