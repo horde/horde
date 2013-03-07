@@ -859,14 +859,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         while ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
             // Defaults
             // @TODO: Refactor this into a collection/syncparameters object.
-            $collection = array();
-            $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
-            $collection['clientids'] = array();
-            $collection['fetchids'] = array();
-            $collection['windowsize'] = 100;
-            $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
-            $collection['bodyprefs'] = array();
-            $collection['mimesupport'] = Horde_ActiveSync::MIME_SUPPORT_NONE;
+            $collection                   = array();
+            $collection['truncation']     = Horde_ActiveSync::TRUNCATION_ALL;
+            $collection['clientids']      = array();
+            $collection['fetchids']       = array();
+            $collection['windowsize']     = 100;
+            $collection['conflict']       = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+            $collection['bodyprefs']      = array();
+            $collection['mimesupport']    = Horde_ActiveSync::MIME_SUPPORT_NONE;
+            $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
 
             while (($folder_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
