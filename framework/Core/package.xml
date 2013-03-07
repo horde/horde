@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-06</date>
- <time>02:31:37</time>
+ <date>2013-03-07</date>
+ <time>16:48:55</time>
  <version>
   <release>2.4.2</release>
   <api>2.4.0</api>
@@ -2826,7 +2826,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-06</date>
+   <date>2013-03-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Queue log entries issued before framework is initialized and log them once that occurs.
