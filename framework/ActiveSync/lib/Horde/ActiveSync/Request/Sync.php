@@ -70,6 +70,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected $_syncCache ;
 
     /**
+     * Internal flag to track if we have imported changes. Used to not allow
+     * a looping sync if we have any.
+     *
+     * @var boolean
+     */
+    protected $_importedChanges = false;
+
+    /**
      * Handle the sync request
      *
      * @return boolean
@@ -414,7 +422,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // If this is 12.1, see if we want a looping SYNC.
         if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
-            !$this->_dataimported &&
+            !$this->_importedChanges &&
             ($this->_syncCache->wait !== false ||
              $this->_syncCache->hbinterval !== false ||
              $shortsyncreq === true)) {
