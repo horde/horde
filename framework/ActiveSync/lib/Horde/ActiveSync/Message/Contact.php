@@ -178,6 +178,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     const ALIAS                 = 'POOMCONTACTS_ALIAS';
     const WEIGHEDRANK           = 'POOMCONTACTS_WEIGHEDRANK';
 
+    public $categories = array();
+
     /**
      * Property mapping.
      *
@@ -267,7 +269,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'businessfaxnumber'     => false,
             'businessphonenumber'   => false,
             'carphonenumber'        => false,
-            'categories'            => array(),
             'children'              => array(),
             'companyname'           => false,
             'department'            => false,
