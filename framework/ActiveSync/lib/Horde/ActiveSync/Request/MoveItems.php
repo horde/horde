@@ -137,7 +137,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                     $this->_logger->err($e->getMessage());
                     $status = self::STATUS_SERVER_ERR;
                 }
-                if (!$new_msgid) {
+                if (empty($new_msgid)) {
                     $status = self::STATUS_SERVER_ERR;
                 }
             }
