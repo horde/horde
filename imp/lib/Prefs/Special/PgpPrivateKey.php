@@ -24,7 +24,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $session;
+        global $injector, $page_output, $prefs, $session, $conf;
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
@@ -77,6 +77,9 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $imp_identity = $injector->getInstance('IMP_Identity');
                 $view->fullname = $imp_identity->getFullname();
                 $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
+                if (!empty($conf['pgp']['default_keylength'])) {
+                  $view->default_keylength = $conf['pgp']['default_keylength'];
+                } 
 
                 $page_output->addInlineScript(array(
                     '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
