@@ -784,6 +784,9 @@ class Horde_ActiveSync
             if ($this->_version == 121) {
                 $this->_version = 12.1;
             }
+            if ($this->_version == 141) {
+                $this->_version = 14.1;
+            }
         }
         return $this->_version;
     }
