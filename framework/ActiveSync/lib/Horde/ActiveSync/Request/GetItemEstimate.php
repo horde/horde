@@ -132,7 +132,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
-            if (!empty($collection['class'])) {
+            if (!empty($class)) {
                 $collection['class'] = $class;
             }
             $collection['filtertype'] = $filtertype;
