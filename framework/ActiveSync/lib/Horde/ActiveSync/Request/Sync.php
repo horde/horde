@@ -861,12 +861,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERID) ? Horde_ActiveSync::SYNC_FOLDERID :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE) ? Horde_ActiveSync::SYNC_WINDOWSIZE :
+                   ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_CONVERSATIONMODE) ? Horde_ActiveSync::SYNC_CONVERSATIONMODE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SUPPORTED) ? Horde_ActiveSync::SYNC_SUPPORTED :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DELETESASMOVES) ? Horde_ActiveSync::SYNC_DELETESASMOVES :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_GETCHANGES) ? Horde_ActiveSync::SYNC_GETCHANGES :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_OPTIONS) ? Horde_ActiveSync::SYNC_OPTIONS :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_COMMANDS) ? Horde_ActiveSync::SYNC_COMMANDS :
-                   -1)))))))))) != -1) {
+                   -1))))))))))) != -1) {
 
                 switch ($folder_tag) {
                 case Horde_ActiveSync::SYNC_FOLDERTYPE:
@@ -906,6 +907,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     break;
 
+                case Horde_ActiveSync::SYNC_CONVERSATIONMODE:
+                    // Optional element, but if it's present with an empty value
+                    // it defaults to true.
+                    $collection['conversationmode'] = $this->_decoder->getElementContent();
+                    if ($collection['conversationmode'] !== false && !$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    } elseif ($collection['conversationmode'] === false) {
+                        $collection['conversationmode'] = true;
+                    }
+
+                    break;
+
                 case Horde_ActiveSync::SYNC_SUPPORTED:
                     // Only allowed on initial sync request
                     if ($collection['synckey'] != '0') {
@@ -931,6 +944,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_DELETESASMOVES:
+                    // Optional element, but if it's present with an empty value
+                    // it defaults to true.
                     $collection['deletesasmoves'] = $this->_decoder->getElementContent();
                     if ($collection['deletesasmoves'] !== false && !$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');
@@ -940,6 +955,8 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     break;
 
                 case Horde_ActiveSync::SYNC_GETCHANGES:
+                    // Optional element, but if it's present with an empty value
+                    // it defaults to true. Also, not sent by EAS 14
                     $collection['getchanges'] = $this->_decoder->getElementContent();
                     if ($collection['getchanges'] !== false && !$this->_decoder->getElementEndTag()) {
                         throw new Horde_ActiveSync_Exception('Protocol Error');

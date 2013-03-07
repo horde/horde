@@ -100,6 +100,14 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                         return false;
                     }
                     break;
+                case Horde_ActiveSync::SYNC_CONVERSATIONMODE:
+                    $conversationmode = $this->_decoder->getElementContent();
+                    if ($conversationmode !== false && !$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    } elseif ($conversationmode === false) {
+                        $conversationmode = true;
+                    }
+                    break;
                 case Horde_ActiveSync::SYNC_FILTERTYPE:
                     $filtertype = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
@@ -127,6 +135,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $collection['class'] = $class;
             $collection['filtertype'] = $filtertype;
             $collection['id'] = $collectionid;
+            $collection['conversationmode'] = isset($conversationmode) ? $conversationmode : false;
             $status[$collection['id']] = $cStatus;
             $collections[] = $collection;
         }
