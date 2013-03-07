@@ -303,7 +303,7 @@ var NagMobile = {
                     $('<p>').addClass('ui-li-aside')
                         .text(t.dd)
                 ).append(
-                    $('<p>').text(t.de)
+                    $('<p>').text((t.de ? t.de : ''))
                 )
             ).append(
                 $('<a>').attr({
