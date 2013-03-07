@@ -132,7 +132,9 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
-            $collection['class'] = $class;
+            if (!empty($collection['class'])) {
+                $collection['class'] = $class;
+            }
             $collection['filtertype'] = $filtertype;
             $collection['id'] = $collectionid;
             $collection['conversationmode'] = isset($conversationmode) ? $conversationmode : false;
@@ -163,9 +165,11 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->content($status[$collection['id']]);
             $this->_encoder->endTag();
             $this->_encoder->startTag(self::FOLDER);
-            $this->_encoder->startTag(self::FOLDERTYPE);
-            $this->_encoder->content($collection['class']);
-            $this->_encoder->endTag();
+            if (!empty($collection['class'])) {
+                $this->_encoder->startTag(self::FOLDERTYPE);
+                $this->_encoder->content($collection['class']);
+                $this->_encoder->endTag();
+            }
             $this->_encoder->startTag(self::FOLDERID);
             $this->_encoder->content($collection['id']);
             $this->_encoder->endTag();
