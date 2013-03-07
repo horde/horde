@@ -1428,11 +1428,13 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     }
 
     /**
-     * Return the security policies
+     * Return the security policies.
      *
+     * @param boolean|array $device  The device information sent by EAS 14.1
+     *                               set to false otherwise.
      * @return array  An array of provisionable properties and values.
      */
-    public function getCurrentPolicy()
+    public function getCurrentPolicy($device = false)
     {
         return $this->_getPolicyFromPerms();
     }

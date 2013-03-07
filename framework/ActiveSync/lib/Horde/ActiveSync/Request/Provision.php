@@ -92,6 +92,16 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
             $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
+
+            if ($this->_version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+                $deviceinfo = $this->_handleSettings();
+                if (!$deviceinfo) {
+                    return $this->_globalError(self::STATUS_PROTERROR);
+                }
+            } else {
+                $deviceinfo = false;
+            }
+
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
 
@@ -280,6 +290,43 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         return false;
+    }
+
+    /**
+     * Handle the EAS 14.1 SETTINGS_DEVICEINFORMATION parsing.
+     *
+     * @return boolean|array  An array of received device information or false
+     *                        on any protocol error.
+     */
+    protected function _handleSettings()
+    {
+        // EAS 14.1 REQUIRES SETTINGS_DEVICEINFORMATION in the PROVISION command.
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_DEVICEINFORMATION)) {
+            return false;
+        }
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_SET)) {
+            return false;
+        }
+        $di = array();
+        while (($field = ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MODEL) ? Horde_ActiveSync_Request_Settings::SETTINGS_MODEL :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_IMEI) ? Horde_ActiveSync_Request_Settings::SETTINGS_IMEI :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME) ? Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OS) ? Horde_ActiveSync_Request_Settings::SETTINGS_OS :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE) ? Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER) ? Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT) ? Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR) ? Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS) ? Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS :
+               -1)))))))))) != -1) {
+
+            if (($di[$field] = $this->_decoder->getElementContent()) !== false) {
+                $this->_decoder->getElementEndTag(); // end $field
+            }
+        }
+        $this->_decoder->getElementEndTag();
+        $this->_decoder->getElementEndTag();
+
+        return $di;
     }
 
 }

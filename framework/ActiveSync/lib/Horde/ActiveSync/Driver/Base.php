@@ -514,9 +514,11 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return the security policies.
      *
+     * @param boolean|array $device  The device information sent by EAS 14.1
+     *                               set to false otherwise. @since 3.0
      * @return array  An array of provisionable properties and values.
      */
-    abstract public function getCurrentPolicy();
+    abstract public function getCurrentPolicy($device = false);
 
     /**
      * Return settings from the backend for a SETTINGS request.
