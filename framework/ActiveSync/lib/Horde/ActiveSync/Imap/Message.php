@@ -651,8 +651,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $r = current($this->_envelope->reply_to->addresses);
-        $a = new Horde_Mail_Rfc822_Address($r);
+        $r = $this->_envelope->reply_to->addresses;
+        $a = new Horde_Mail_Rfc822_Address(current($r));
 
         return $a->writeAddress(false);
     }
@@ -667,8 +667,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $from = current($this->_envelope->from->addresses);
-        $a = new Horde_Mail_Rfc822_Address($from);
+        $from = $this->_envelope->from->addresses;
+        $a = new Horde_Mail_Rfc822_Address(current($from));
 
         return $a->writeAddress(false);
     }
