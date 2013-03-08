@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-08</date>
- <time>14:44:22</time>
+ <time>14:52:14</time>
  <version>
-  <release>2.7.2</release>
+  <release>2.7.3</release>
   <api>2.7.0</api>
  </version>
  <stability>
@@ -22,8 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Always return UID information for FETCH queries if cache is active, so we ensure that mappings are updated and any cacheable data can be cached.
-* [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1561,6 +1560,19 @@
    <notes>
 * [mms] Always return UID information for FETCH queries if cache is active, so we ensure that mappings are updated and any cacheable data can be cached.
 * [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.7.3</release>
+    <api>2.7.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
