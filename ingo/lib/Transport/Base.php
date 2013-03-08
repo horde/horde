@@ -45,12 +45,11 @@ abstract class Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script      The filter script.
-     * @param string $scriptname  The script name.
+     * @param array $script  The filter script information.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $scriptname)
+    public function setScriptActive($script)
     {
     }
 

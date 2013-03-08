@@ -257,10 +257,12 @@ abstract class Ingo_Script_Base
                 $scripts[$rule . $name] = array(
                     'transport' => $this->_params['transport'][$rule],
                     'name' => $name,
-                    'script' => ''
+                    'script' => '',
+                    'recipes' => array(),
                 );
             }
             $scripts[$rule . $name]['script'] .= $item['object']->generate() . "\n";
+            $scripts[$rule . $name]['recipes'][] = $item;
         }
         return array_values($scripts);
     }

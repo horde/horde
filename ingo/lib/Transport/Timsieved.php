@@ -100,22 +100,21 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script      The filter script.
-     * @param string $scriptname  The script name.
+     * @param array $script  The filter script information.
      *
-     * @throws Ingo_Excetion
+     * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $scriptname)
+    public function setScriptActive($script)
     {
         $this->_connect();
 
-        if (!strlen($script)) {
-            Ingo_Exception_Pear::catchError($this->_sieve->removeScript($scriptname));
+        if (!strlen($script['script'])) {
+            Ingo_Exception_Pear::catchError($this->_sieve->removeScript($script['name']));
             return;
         }
 
-        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($scriptname, strlen($script)));
-        Ingo_Exception_Pear::catchError($this->_sieve->installScript($scriptname, $script, true));
+        Ingo_Exception_Pear::catchError($this->_sieve->haveSpace($script['name'], strlen($script['script'])));
+        Ingo_Exception_Pear::catchError($this->_sieve->installScript($script['name'], $script['script'], true));
     }
 
     /**

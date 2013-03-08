@@ -189,12 +189,11 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script      The filter script.
-     * @param string $scriptname  The script name.
+     * @param array $script  The filter script information.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $scriptname)
+    public function setScriptActive($script)
     {
         $ldapcn = $this->_connect();
         $values = $this->_getScripts($ldapcn, $userDN);
@@ -202,18 +201,18 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
         $found = false;
         foreach ($values as $i => $value) {
             if (strpos($value, "# Sieve Filter\n") !== false) {
-                if (empty($script)) {
+                if (empty($script['script'])) {
                     unset($values[$i]);
                 } else {
-                    $values[$i] = $script;
+                    $values[$i] = $script['script'];
                 }
                 $found = true;
                 break;
             }
         }
 
-        if (!$found && !empty($script)) {
-            $values[] = $script;
+        if (!$found && !empty($script['script'])) {
+            $values[] = $script['script'];
         }
 
         $replace = array(Horde_String::lower($this->_params['script_attribute']) => $values);

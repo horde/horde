@@ -178,7 +178,7 @@ class Ingo
                 $GLOBALS['injector']
                     ->getInstance('Ingo_Factory_Transport')
                     ->create($script['transport'])
-                  ->setScriptActive($script['script'], $script['name']);
+                  ->setScriptActive($script);
             } catch (Ingo_Exception $e) {
                 $msg = $deactivate
                   ? _("There was an error deactivating the script.")

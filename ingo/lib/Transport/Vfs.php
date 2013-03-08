@@ -39,20 +39,19 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param string $script      The filter script.
-     * @param string $scriptname  The script name.
+     * @param array $script  The filter script information.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $scriptname)
+    public function setScriptActive($script)
     {
         $this->_connect();
 
         try {
-            if (!empty($script)) {
-                $this->_vfs->writeData($this->_params['vfs_path'], $scriptname, $script, true);
-            } elseif ($this->_vfs->exists($this->_params['vfs_path'], $scriptname)) {
-                $this->_vfs->deleteFile($this->_params['vfs_path'], $scriptname);
+            if (!empty($script['script'])) {
+                $this->_vfs->writeData($this->_params['vfs_path'], $script['name'], $script['script'], true);
+            } elseif ($this->_vfs->exists($this->_params['vfs_path'], $script['name'])) {
+                $this->_vfs->deleteFile($this->_params['vfs_path'], $script['name']);
             }
         } catch (Horde_Vfs_Exception $e) {
             throw new Ingo_Exception($e);
@@ -60,8 +59,8 @@ class Ingo_Transport_Vfs extends Ingo_Transport_Base
 
         if (isset($this->_params['file_perms'])) {
             try {
-                if (!empty($script)) {
-                    $this->_vfs->changePermissions($this->_params['vfs_path'], $scriptname, $this->_params['file_perms']);
+                if (!empty($script['script'])) {
+                    $this->_vfs->changePermissions($this->_params['vfs_path'], $script['name'], $this->_params['file_perms']);
                 }
             } catch (Horde_Vfs_Exception $e) {
                 throw new Ingo_Exception($e);
