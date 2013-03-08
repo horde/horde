@@ -177,7 +177,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $id         The folder id this state represents. If empty
      *                           assumed to be a foldersync state.
      *
-     * @throws Horde_ActiveSync_Exception
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_StateGone
      */
     public function loadState(array $collection, $syncKey, $type = null, $id = null)
     {
