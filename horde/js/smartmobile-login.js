@@ -11,4 +11,17 @@ $(document).bind("pageinit", function() {
         $(this).find('input[type="submit"]').button('disable');
         $.mobile.showPageLoadingMsg();
     });
+
+    /* Programatically activate views that require javascript. */
+    var s = $('#horde_select_view');
+    if (s) {
+        s.find('option[value=mobile_nojs]').remove();
+        if (HordeLogin.pre_sel) {
+            s.get(0).selectedIndex = s.find('option[value=' + HordeLogin.pre_sel + ']').index;
+        }
+        s.selectmenu('refresh');
+        $('#horde_select_view_div').show();
+    }
 });
+
+var HordeLogin = {};
