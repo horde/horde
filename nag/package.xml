@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
 * [jan] Include parent tasks in cost object labels.
 * [jan] Only return completed tasks up to a week old as cost objects.
 * [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
@@ -1299,6 +1300,7 @@
    <date>2013-01-10</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
 * [jan] Include parent tasks in cost object labels.
 * [jan] Only return completed tasks up to a week old as cost objects.
 * [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).

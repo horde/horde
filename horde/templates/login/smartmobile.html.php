@@ -24,6 +24,19 @@
       <label for="<?php echo $key ?>"><?php echo $val['label'] ?></label>
       <input id="<?php echo $key ?>" name="<?php echo $key ?>" type="<?php echo $val['type'] ?>" value="<?php echo isset($val['value']) ? $val['value'] : '' ?>" />
      </div>
+<?php elseif ($val['type'] == 'horde_select_view'): ?>
+     <div data-role="fieldcontain">
+      <label for="horde_select_view"><?php echo _("Mode") ?></label>
+      <select id="horde_select_view" name="horde_select_view">
+       <option value="auto"><?php echo _("Automatic") ?></option>
+       <option value="" disabled="disabled">- - - - - - - - - -</option>
+       <option value="basic"><?php echo _("Basic") ?></option>
+       <option value="dynamic"><?php echo _("Dynamic") ?></option>
+       <option value="smartmobile"><?php echo _("Mobile (Smartphone/Tablet)") ?></option>
+       <option value="mobile"><?php echo _("Mobile (Minimal)") ?></option>
+       <option value="mobile_nojs" selected="selected"></option>
+      </select>
+     </div>
 <?php elseif ($val['type'] == 'select'): ?>
      <div data-role="fieldcontain">
       <label for="<?php echo $key ?>"><?php echo $val['label'] ?></label>

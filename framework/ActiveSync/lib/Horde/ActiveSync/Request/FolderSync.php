@@ -318,7 +318,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
 
         // Save the state as well as the known folder cache if we had any
         // changes.
-        if ($exporter->count || $changed) {
+        if ($exporter->count) {
             $this->_stateDriver->setNewSyncKey($newsynckey);
             $this->_stateDriver->save();
         }

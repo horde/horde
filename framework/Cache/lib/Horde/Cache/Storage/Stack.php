@@ -52,7 +52,7 @@ class Horde_Cache_Storage_Stack extends Horde_Cache_Storage_Base
      */
     protected function _initOb()
     {
-        $this->_stack = $params['stack'];
+        $this->_stack = $this->_params['stack'];
     }
 
     /**
