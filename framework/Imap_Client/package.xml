@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Always return UID information for FETCH queries if cache is active, so we ensure that mappings are updated and any cacheable data can be cached.
 * [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
  </notes>
  <contents>
@@ -1558,6 +1559,7 @@
    <date>2013-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Always return UID information for FETCH queries if cache is active, so we ensure that mappings are updated and any cacheable data can be cached.
 * [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
    </notes>
   </release>
