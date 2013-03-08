@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1558,7 +1558,7 @@
    <date>2013-03-04</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
    </notes>
   </release>
  </changelog>
