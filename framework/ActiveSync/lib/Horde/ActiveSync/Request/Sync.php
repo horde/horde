@@ -610,33 +610,36 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return false;
             }
 
-            if (!empty($collection['getchanges']) ||
-                (!isset($collection['getchanges']) && $collection['synckey'] !== '0')) {
+            if ($statusCode == self::STATUS_SUCCESS &&
+                (!empty($collection['getchanges']) ||
+                 (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
 
-                if ($statusCode == self::STATUS_SUCCESS) {
-                    $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                    $sync = $this->_getSyncObject();
-                    try {
-                        $sync->init($this->_stateDriver, $exporter, $collection);
-                    } catch (Horde_ActiveSync_Exception_StaleState $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] Force restting of state for %s: %s',
-                            $this->_procid,
-                            $collection['id'],
-                            $e->getMessage()));
-                        $this->_stateDriver->loadState(
-                            array(),
-                            null,
-                            Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                            $collection['id']);
-                        $statusCode = self::STATUS_KEYMISM;
-                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] FOLDERSYNC required, collection gone.',
-                            $this->_procid));
-                        $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                    }
+                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
+                $sync = $this->_getSyncObject();
+                try {
+                    $sync->init($this->_stateDriver, $exporter, $collection);
                     $changecount = $sync->getChangeCount();
+                } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Force restting of state for %s: %s',
+                        $this->_procid,
+                        $collection['id'],
+                        $e->getMessage()));
+                    $this->_stateDriver->loadState(
+                        array(),
+                        null,
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $collection['id']);
+                    $statusCode = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] SYNCKEY not found. Reset required.', $this->_procid));
+                        $statusCode = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] FOLDERSYNC required, collection gone.',
+                        $this->_procid));
+                    $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 }
             }
 
@@ -775,8 +778,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
 
                 // Send server changes to PIM
-                if (!empty($collection['getchanges']) ||
-                    (!isset($collection['getchanges']) && !empty($collection['synckey']))) {
+                if ($statusCode == self::STATUS_SUCCESS &&
+                    (!empty($collection['getchanges']) ||
+                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
                     if (!empty($collection['windowsize']) && !empty($changecount) && $changecount > $collection['windowsize']) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
