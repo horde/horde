@@ -370,17 +370,16 @@ $backends['ispconfig'] = array(
     'transport' => array(
         Ingo::RULE_ALL => array(
             'driver' => 'ispconfig',
-            'params' => array()
+            // enabling transport_auth() in hooks.php is likely to be required
+            'params' => array(
+                'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
+                // This user must be created in the ISPConfig webinterface
+                // under System -> Remote Users.  The required permissions
+                // ("functions") is "mail user functions" only.
+                'soap_user' => 'horde',
+                'soap_pass' => 'secret'
+            ),
         ),
-    ),
-    // enabling transport_auth() in hooks.php is likely to be required
-    'params' => array(
-        'soap_uri' => 'http://ispconfig-webinterface.example.com:8080/remote/',
-        // This user must be created in the ISPConfig webinterface // under
-        // System -> Remote Users.  The required permissions ("functions")
-        // is "mail user functions" only.
-        'soap_user' => 'horde',
-        'soap_pass' => 'secret'
     ),
     'script' => array(
         Ingo::RULE_ALL => array(

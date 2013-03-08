@@ -9,10 +9,29 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Michael Bunk <mb@computer-leipzig.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Ingo
  */
-class Ingo_Script_Ispconfig extends Ingo_Script
+class Ingo_Script_Ispconfig extends Ingo_Script_Base
 {
+    /**
+     * A list of driver features.
+     *
+     * @var array
+     */
+    protected $_features = array(
+        /* Can tests be case sensitive? */
+        'case_sensitive' => false,
+        /* Does the driver support setting IMAP flags? */
+        'imap_flags' => false,
+        /* Does the driver support the stop-script option? */
+        'stop_script' => false,
+        /* Can this driver perform on demand filtering? */
+        'on_demand' => false,
+        /* Does the driver require a script file to be generated? */
+        'script_file' => true,
+    );
+
     /**
      * The categories of filtering allowed.
      *
@@ -27,50 +46,25 @@ class Ingo_Script_Ispconfig extends Ingo_Script
     );
 
     /**
-     * Does the driver require a script file to be generated?
-     *
-     * We don't generate a script here, but if $_scriptfile isn't true,
-     * we don't get called at all.
-     *
-     * @var boolean
+     * Generates the script to do the filtering specified in the rules.
      */
-    protected $_scriptfile = true;
-
-    /**
-     * Generates the "script"
-     *
-     * @return string  The script.
-     * @throws Ingo_Exception
-     */
-    public function generate()
+    protected function _generate()
     {
-        $filters = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_FILTERS);
+        $filters = $this->_params['storage']
+            ->retrieve(Ingo_Storage::ACTION_FILTERS);
 
         foreach ($filters->getFilterList($this->_params['skip']) as $filter) {
             switch ($filter['action']) {
             case Ingo_Storage::ACTION_VACATION:
-                // save for additionalScripts()
-                $this->_disable = !empty($filter['disable']);
+                $this->_addItem(
+                    Ingo::RULE_VACATION,
+                    new Ingo_Script_Ispconfig_Vacation(
+                        array('vacation' => $this->_params['storage']->retrieve(Ingo_Storage::ACTION_VACATION),
+                              'disable' => !empty($filter['disable']))
+                    )
+                );
                 break;
             }
         }
-
-        return '';
-    }
-
-    /**
-     * Returns any additional scripts that need to be sent to the transport
-     * layer.
-     *
-     * @return array  A list of scripts with script names as keys and script
-     *                code as values.
-     */
-    public function additionalScripts()
-    {
-        $vacation = $GLOBALS['ingo_storage']->retrieve(Ingo_Storage::ACTION_VACATION);
-        return array(
-            'vacation' => $vacation,
-            'disable' => $this->_disable
-        );
     }
 }

@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-23</date>
- <time>18:43:17</time>
+ <date>2013-03-08</date>
+ <time>18:03:21</time>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -113,6 +113,9 @@
       <file name="Live.php" role="horde" />
       <file name="Mock.php" role="horde" />
      </dir> <!-- /lib/Script/Imap -->
+     <dir name="Ispconfig">
+      <file name="Vacation.php" role="horde" />
+     </dir> <!-- /lib/Script/Ispconfig -->
      <dir name="Maildrop">
       <file name="Comment.php" role="horde" />
       <file name="Recipe.php" role="horde" />
@@ -161,6 +164,7 @@
      </dir> <!-- /lib/Script/Sieve -->
      <file name="Base.php" role="horde" />
      <file name="Imap.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
      <file name="Item.php" role="horde" />
      <file name="Maildrop.php" role="horde" />
      <file name="Procmail.php" role="horde" />
@@ -197,6 +201,7 @@
     </dir> <!-- /lib/tests -->
     <dir name="Transport">
      <file name="Base.php" role="horde" />
+     <file name="Ispconfig.php" role="horde" />
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sivtest.php" role="horde" />
@@ -660,6 +665,7 @@
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
+   <install as="ingo/lib/Script/Ispconfig.php" name="lib/Script/Ispconfig.php" />
    <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
    <install as="ingo/lib/Script/Maildrop.php" name="lib/Script/Maildrop.php" />
    <install as="ingo/lib/Script/Procmail.php" name="lib/Script/Procmail.php" />
@@ -668,6 +674,7 @@
    <install as="ingo/lib/Script/Imap/Api.php" name="lib/Script/Imap/Api.php" />
    <install as="ingo/lib/Script/Imap/Live.php" name="lib/Script/Imap/Live.php" />
    <install as="ingo/lib/Script/Imap/Mock.php" name="lib/Script/Imap/Mock.php" />
+   <install as="ingo/lib/Script/Ispconfig/Vacation.php" name="lib/Script/Ispconfig/Vacation.php" />
    <install as="ingo/lib/Script/Maildrop/Comment.php" name="lib/Script/Maildrop/Comment.php" />
    <install as="ingo/lib/Script/Maildrop/Recipe.php" name="lib/Script/Maildrop/Recipe.php" />
    <install as="ingo/lib/Script/Maildrop/Variable.php" name="lib/Script/Maildrop/Variable.php" />
@@ -725,6 +732,7 @@
    <install as="tests/_data/from_spammer" name="lib/tests/_data/from_spammer" />
    <install as="tests/_data/not_from_spammer" name="lib/tests/_data/not_from_spammer" />
    <install as="ingo/lib/Transport/Base.php" name="lib/Transport/Base.php" />
+   <install as="ingo/lib/Transport/Ispconfig.php" name="lib/Transport/Ispconfig.php" />
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
    <install as="ingo/lib/Transport/Null.php" name="lib/Transport/Null.php" />
    <install as="ingo/lib/Transport/Sivtest.php" name="lib/Transport/Sivtest.php" />
@@ -1224,7 +1232,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-23</date>
+   <date>2013-03-08</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add composite script backends.

@@ -8,9 +8,10 @@
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author  Michael Bunk <mb@computer-leipzig.com>
+ * @author  Jan Schneider <jan@horde.org>
  * @package Ingo
  */
-class Ingo_Transport_Ispconfig extends Ingo_Transport
+class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
 {
     /**
      * The SOAP connection
@@ -35,16 +36,27 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
 
 
     /**
-     * Sets up or deactivates vacation notices for a user.
+     * Sets a script running on the backend.
      *
-     * @param string $script     The filter script.
-     * @param array $additional  Any additional scripts that need to uploaded.
+     * @param array $script  The filter script information.
      *
      * @throws Ingo_Exception
      */
-    public function setScriptActive($script, $additional = array())
+    public function setScriptActive($script)
     {
-        $v = $additional['vacation'];
+        $vacation = null;
+        foreach ($script['recipes'] as $recipe) {
+            if ($recipe['rule'] == Ingo::RULE_VACATION) {
+                $vacation = $recipe['object']->vacation;
+                break;
+            } else {
+                throw new Ingo_Exception('The ISPConfig transport driver only supports vacation rules.');
+            }
+        }
+
+        if (!$vacation) {
+            return;
+        }
 
         // Fill mailuser_id and client_id.
         $this->_getUserDetails($this->_params['password']);
@@ -53,10 +65,10 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
             $user = $this->_soap->mail_user_get(
                 $this->_soap_session, $this->_details['mailuser_id']);
 
-            $user['autoresponder'] = $additional['disable'] ? 'n' : 'y';
+            $user['autoresponder'] = $recipe['object']->disable ? 'n' : 'y';
             // UNIX timestamp.
-            $start = $v->getVacationStart();
-            $end = $v->getVacationEnd();
+            $start = $vacation->getVacationStart();
+            $end = $vacation->getVacationEnd();
             if (empty($start)) {
                 $start = time();
             }
@@ -76,7 +88,7 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport
                 'hour' => 23,
                 'minute' => 59);
             // $vacation->getVacationSubject() not supported by ISPConfig
-            $user['autoresponder_text'] = $v->getVacationReason();
+            $user['autoresponder_text'] = $vacation->getVacationReason();
             // otherwise ISPConfig calculates the hash of this hash... braindead
             unset($user['password']);
 
