@@ -144,7 +144,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function updateState()
     {
-        if (empty($this->_status[self::HIGHESTMODSEQ]) && $this->_status[self::UIDNEXT]) {
+        // Not all servers will have MODSEQ, and even though they WILL all have
+        // UIDNEXT, we won't have it until AFTER the first syncKey is generated
+        // so it still might be empty here.
+        if (empty($this->_status[self::HIGHESTMODSEQ]) && !empty($this->_status[self::UIDNEXT])) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
