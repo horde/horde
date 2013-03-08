@@ -99,6 +99,13 @@ abstract class Ingo_Script_Base
     protected $_recipes = array();
 
     /**
+     * Have the recipes been generated yet?
+     *
+     * @var boolean
+     */
+    protected $_generated = false;
+
+    /**
      * Constructor.
      *
      * @param array $params  A hash containing parameters needed.
@@ -230,7 +237,11 @@ abstract class Ingo_Script_Base
      */
     public function generate()
     {
-        $this->_generate();
+        if (!$this->_generated) {
+            $this->_generate();
+            $this->_generated = true;
+        }
+
         $scripts = array();
         foreach ($this->_recipes as $item) {
             $rule = isset($this->_params['transport'][$item['rule']])
