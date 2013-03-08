@@ -42,10 +42,10 @@ class Ingo_Script_Sieve_Require implements Ingo_Script_Item
                 $stringlist .= (empty($stringlist)) ? '"' : ', "';
                 $stringlist .= $require . '"';
             }
-            return 'require [' . $stringlist . '];' . "\n\n";
+            return 'require [' . $stringlist . '];';
         }
         if (count($this->_requires) == 1) {
-            return 'require "' . $this->_requires[0] . '";' . "\n\n";
+            return 'require "' . $this->_requires[0] . '";';
         }
         return '';
     }

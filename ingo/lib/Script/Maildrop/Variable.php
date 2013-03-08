@@ -42,6 +42,6 @@ class Ingo_Script_Maildrop_Variable implements Ingo_Script_Item
      */
     public function generate()
     {
-        return $this->_name . '=' . $this->_value . "\n";
+        return $this->_name . '=' . $this->_value;
     }
 }

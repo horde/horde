@@ -405,10 +405,10 @@ class Ingo_Script_Procmail_Recipe implements Ingo_Script_Item
                 $comment = new Ingo_Script_Procmail_Comment($val);
                 $code .= $comment->generate() . "\n";
             }
-            return $code . "\n";
-        } else {
-            return implode("\n", $text) . "\n";
+            return $code;
         }
+
+        return implode("\n", $text);
     }
 
     /**

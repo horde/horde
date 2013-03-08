@@ -48,11 +48,11 @@ class Ingo_Script_Sieve_Else implements Ingo_Script_Item
             return '';
         }
 
-        $code = 'else' . " { \n";
+        $code = "else {\n";
         foreach ($this->_actions as $action) {
             $code .= '    ' . $action->generate() . "\n";
         }
-        $code .= "} ";
+        $code .= '}';
 
         return $code;
     }

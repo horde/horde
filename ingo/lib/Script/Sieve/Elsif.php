@@ -77,11 +77,11 @@ class Ingo_Script_Sieve_Elsif implements Ingo_Script_Item
      */
     public function generate()
     {
-        $code = 'elsif ' . $this->_test->generate() . " { \n";
+        $code = 'elsif ' . $this->_test->generate() . " {\n";
         foreach ($this->_actions as $action) {
             $code .= '    ' . $action->generate() . "\n";
         }
-        $code .= "} ";
+        $code .= '}';
 
         return $code;
     }

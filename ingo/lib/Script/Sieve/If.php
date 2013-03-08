@@ -129,11 +129,11 @@ class Ingo_Script_Sieve_If implements Ingo_Script_Item
      */
     public function generate()
     {
-        $code = 'if ' . $this->_test->generate() . " { \n";
+        $code = 'if ' . $this->_test->generate() . " {\n";
         foreach ($this->_actions as $action) {
             $code .= '    ' . $action->generate() . "\n";
         }
-        $code .= "} ";
+        $code .= '}';
 
         foreach ($this->_elsifs as $elsif) {
             $code .= $elsif->generate();
@@ -141,7 +141,7 @@ class Ingo_Script_Sieve_If implements Ingo_Script_Item
 
         $code .= $this->_else->generate();
 
-        return $code . "\n";
+        return $code;
     }
 
     /**
