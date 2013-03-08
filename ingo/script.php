@@ -41,7 +41,7 @@ case 'action_activate':
 
 case 'action_deactivate':
     try {
-        Ingo::activateScript('', true);
+        Ingo::activateScripts('', true);
     } catch (Ingo_Exception $e) {
         $notification->push($e);
     }
