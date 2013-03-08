@@ -71,6 +71,8 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         }
 
         $status = array();
+        $gStatus = self::STATUS_SUCCESS;
+
         $collections = array();
         if (!$this->_decoder->getElementStartTag(self::GETITEMESTIMATE) ||
             !$this->_decoder->getElementStartTag(self::FOLDERS)) {
@@ -124,13 +126,25 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             // Build the collection array
             $collection = array();
             $collection['synckey'] = $synckey;
-            if (!empty($class)) {
-                $collection['class'] = $class;
-            }
             $collection['filtertype'] = $filtertype;
             $collection['id'] = $collectionid;
             $status[$collection['id']] = $cStatus;
+            if (!empty($class)) {
+                $collection['class'] = $class;
+            } else {
+                $needCache = true;
+            }
             $collections[] = $collection;
+        }
+
+        if (!empty($needCache)) {
+            $syncCache = new Horde_ActiveSync_SyncCache(
+                $this->_stateDriver,
+                $this->_device->id,
+                $this->_device->user,
+                $this->_logger
+            );
+            $syncCache->validateCollectionsFromCache($collections);
         }
 
         // End Folders
@@ -139,18 +153,35 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
         // End GETITEMESTIMATE
         $this->_decoder->getElementEndTag();
 
+        $results = array();
+        foreach ($collections as $collection) {
+            if ($status[$collection['id']] == self::STATUS_SUCCESS) {
+                try {
+                    $this->_stateDriver->loadState(
+                        $collection,
+                        $collection['synckey'],
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $collection['id']
+                    );
+                    $sync = $this->_getSyncObject();
+                    $sync->init($this->_stateDriver, null, $collection);
+                    $results[$collection['id']] = $sync->getChangeCount();
+                } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                    $this->_logger->err('State Gone. Terminating GETITEMESTIMATE');
+                    $status[$collection['id']] = $gStatus = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err('Unknown error in GETITEMESTIMATE');
+                    $status[$collection['id']] = $gStatus = self::STATUS_KEYMISM;
+                }
+            }
+        }
+
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::GETITEMESTIMATE);
+        $this->_encoder->startTag(self::STATUS);
+        $this->_encoder->content($gStatus);
+        $this->_encoder->endTag();
         foreach ($collections as $collection) {
-            try {
-                $this->_stateDriver->loadState(
-                    $collection,
-                    $collection['synckey'],
-                    Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                    $collection['id']);
-            } catch (Horde_ActiveSync_Exception $e) {
-                $status[$collection['id']] = self::STATUS_KEYMISM;
-            }
             $this->_encoder->startTag(self::RESPONSE);
             $this->_encoder->startTag(self::STATUS);
             $this->_encoder->content($status[$collection['id']]);
@@ -166,9 +197,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $this->_encoder->endTag();
             if ($status[$collection['id']] == self::STATUS_SUCCESS) {
                 $this->_encoder->startTag(self::ESTIMATE);
-                $sync = $this->_getSyncObject();
-                $sync->init($this->_stateDriver, null, $collection);
-                $this->_encoder->content($sync->GetChangeCount());
+                $this->_encoder->content($results[$collection['id']]);
                 $this->_encoder->endTag();
             }
             $this->_encoder->endTag();
