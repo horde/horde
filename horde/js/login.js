@@ -69,7 +69,7 @@ var HordeLogin = {
             $('login-button').focus();
         }
 
-        /* Programtically activate views that require javascript. */
+        /* Programatically activate views that require javascript. */
         if (s) {
             s.down('option[value=mobile_nojs]').remove();
             if (this.pre_sel) {
