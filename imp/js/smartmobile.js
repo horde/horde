@@ -983,8 +983,6 @@ var ImpMobile = {
             opts.mboxto = cmlist.val();
         }
 
-        $('#copymove').dialog('close');
-
         HordeMobile.doAction(
             move ? 'moveMessages' : 'copyMessages',
             $.extend(ImpMobile.addViewportParams({
@@ -1002,6 +1000,8 @@ var ImpMobile = {
             }), {
                 data: { noajax: true }
             });
+        } else {
+            $('#copymove').dialog('close');
         }
     },
 
