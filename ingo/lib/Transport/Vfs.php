@@ -1,6 +1,6 @@
 <?php
 /**
- * Ingo_Transport_Vfs implements an Ingo storage driver using Horde VFS.
+ * Ingo_Transport_Vfs implements an Ingo transport driver using Horde VFS.
  *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
