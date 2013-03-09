@@ -152,6 +152,7 @@ class IMP_Smartmobile
                 'message_1' => _("1 message"),
                 'message_2' => _("%d messages"),
                 'more_msgs' => _("Load More Messages..."),
+                'move_nombox' => _("Must enter a non-empty name for the new destination mailbox."),
                 'new_message' => _("New Message"),
                 'nofrom' => _("Invalid Address"),
                 'nosubject' => _("The message does not have a Subject entered.") . "\n" . _("Send message without a Subject?"),

@@ -978,7 +978,11 @@ var ImpMobile = {
             move = ($('#imp-copymove-action').val() == 'move');
 
         if (cmlist.find(':selected').hasClass('flistCreate')) {
-            opts.newmbox = $('#imp-copymove-new').val();
+            opts.newmbox = $.trim($('#imp-copymove-new').val());
+            if (opts.newmbox == "") {
+                window.alert(IMP.text.move_nombox);
+                return;
+            }
         } else {
             opts.mboxto = cmlist.val();
         }
