@@ -3073,26 +3073,17 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
             'STORE',
             strval($options['ids'])
         ));
-        $ucsince = false;
 
-        if ($modseq = $this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-            /* If CONDSTORE is enabled, we need to verify UNCHANGEDSINCE added
-             * to ensure we get MODSEQ updated information. */
-            $ucsince = empty($options['unchangedsince'])
-                ? $modseq
-                : intval($options['unchangedsince']);
-
-            if ($ucsince) {
-                $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
-                    'UNCHANGEDSINCE',
-                    new Horde_Imap_Client_Data_Format_Number($ucsince)
-                )));
-            }
+        if (!empty($options['unchangedsince'])) {
+            $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
+                'UNCHANGEDSINCE',
+                new Horde_Imap_Client_Data_Format_Number(intval($options['unchangedsince']))
+            )));
+            $silent = false;
         }
 
-        $this->_temp['modified'] = $this->getIdsOb();
-        $silent = (!$ucsince && !$this->_debug->debug);
         $cmds = array();
+        $this->_temp['modified'] = $this->getIdsOb();
 
         if (!empty($options['replace'])) {
             $cmd->add(array(
