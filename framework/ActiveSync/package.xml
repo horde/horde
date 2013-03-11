@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-03</date>
- <time>18:19:54</time>
+ <date>2013-03-11</date>
+ <time>10:26:52</time>
  <version>
   <release>2.3.2</release>
   <api>2.3.0</api>
@@ -1239,7 +1239,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-03</date>
+   <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mjr] Various improvements and code cleanup.
