@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [jan] Fix error handler in some PHP versions (Bug #12103).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2842,7 +2842,7 @@
    <date>2013-03-07</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Fix error handler in some PHP versions (Bug #12103).
    </notes>
   </release>
  </changelog>
