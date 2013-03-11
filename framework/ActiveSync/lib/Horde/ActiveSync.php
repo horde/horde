@@ -548,6 +548,9 @@ class Horde_ActiveSync
         }
         $this->_setLogger($get);
 
+        // Normalize Device Id.
+        $devId = strtoupper($devId);
+
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
