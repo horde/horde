@@ -18,6 +18,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     const APPOINTMENTS_FOLDER_UID = '@Calendar@';
     const CONTACTS_FOLDER_UID     = '@Contacts@';
     const TASKS_FOLDER_UID        = '@Tasks@';
+    const NOTES_FOLDER_UID        = '@Notes@';
 
     const SPECIAL_SENT   = 'sent';
     const SPECIAL_SPAM   = 'spam';
@@ -131,7 +132,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $this->_displayMap = array(
             self::APPOINTMENTS_FOLDER_UID => Horde_ActiveSync_Translation::t('Calendar'),
             self::CONTACTS_FOLDER_UID     => Horde_ActiveSync_Translation::t('Contacts'),
-            self::TASKS_FOLDER_UID        => Horde_ActiveSync_Translation::t('Tasks')
+            self::TASKS_FOLDER_UID        => Horde_ActiveSync_Translation::t('Tasks'),
+            self::NOTES_FOLDER_UID        => Horde_ActiveSync_Translation::t('Notes'),
         );
     }
 
@@ -279,6 +281,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $folders[] = $this->getFolder(self::TASKS_FOLDER_UID);
             }
 
+            if (array_search('notes', $supported) !== false) {
+                $folders[] = $this->getFolder(self::NOTES_FOLDER_UID);
+            }
+
             if (array_search('mail', $supported) !== false) {
                 try {
                     $folders = array_merge($folders, $this->_getMailFolders());
@@ -329,6 +335,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::FOLDER_TYPE_TASK,
                 $this->_displayMap[self::TASKS_FOLDER_UID]);
             break;
+        case self::NOTES_FOLDER_UID:
+            $folder = $this->_buildNonMailFolder(
+                $id,
+                0,
+                Horde_ActiveSync::FOLDER_TYPE_NOTE,
+                $this->_displayMap[self::NOTES_FOLDER_UID]);
         default:
             // Must be a mail folder
             $folders = $this->_getMailFolders();
@@ -362,6 +374,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             return Horde_ActiveSync::FOLDER_TYPE_CONTACT;
         case self::TASKS_FOLDER_UID:
             return Horde_ActiveSync::FOLDER_TYPE_TASK;
+        case self::NOTES_FOLDER_UID:
+            return Horde_ActiveSync::FOLDER_TYPE_NOTE;
         default:
             return Horde_ActiveSync::FOLDER_TYPE_USER_MAIL;
         }
@@ -907,6 +921,14 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_logger->err($e->getMessage());
             }
             break;
+
+        case self::NOTES_FOLDER_UID:
+            try {
+                $this->_connector->notes_delete($ids);
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+            }
+            break;
         default:
             // Must be mail folder
             try {
@@ -943,6 +965,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case self::APPOINTMENTS_FOLDER_UID:
         case self::CONTACTS_FOLDER_UID:
         case self::TASKS_FOLDER_UID:
+        case self::NOTES_FOLDER_UID:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Not supported');
         default:
@@ -1050,6 +1073,32 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
                 try {
                     $this->_connector->tasks_replace($id, $message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+            }
+            break;
+
+        case self::NOTES_FOLDER_UID:
+            if (!$id) {
+                try {
+                    $id = $this->_connector->notes_import($message);
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return false;
+                }
+                $stat = $this->_smartStatMessage($folderid, $id, false);
+                $stat['mod'] = time();
+            } else {
+                if (!empty($device->supported[self::NOTES_FOLDER_UID])) {
+                    $message->setSupported($device->supported[self::NOTES_FOLDER_UID]);
+                }
+                try {
+                    $this->_connector->notes_replace($id, $message);
                 } catch (Horde_Exception $e) {
                     $this->_logger->err($e->getMessage());
                     $this->_endBuffer();
@@ -1818,6 +1867,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $mod = $this->_modCache[$statKey];
         } else {
             try {
+                // @TODO Horde 6 - combine into single getActionTimestamp method
+                // and pass the folderid.
                 switch ($folderid) {
                 case self::APPOINTMENTS_FOLDER_UID:
                     $mod = $this->_connector->calendar_getActionTimestamp($id, 'modify');
@@ -1831,6 +1882,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                     $mod = $this->_connector->tasks_getActionTimestamp($id, 'modify');
                     break;
 
+                case self::NOTES_FOLDER_UID:
+                    $mod = $this->_connector->notes_getActionTimestamp($id, 'modify');
+                    break;
                 default:
                     try {
                         return $this->statMailMessage($folderid, $id);

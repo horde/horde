@@ -441,6 +441,107 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * List all notes in the user's default notepad.
+     *
+     * @return array  An array of note uids.
+     * @since 5.1
+     */
+    public function notes_listUids()
+    {
+        return $this->_registry->notes->listUids();
+    }
+
+    /**
+     * List note lists.
+     *
+     * @return array
+     * @since 5.1
+     */
+    public function tasks_listNoteLists()
+    {
+        return $this->_registry->notes->listTaskLists();
+    }
+
+    /**
+     * Export a single note from the backend.
+     *
+     * @param string $uid     The note uid
+     * @param array $options  Options to pass to the backend exporter.
+     *
+     * @return Horde_ActiveSync_Message_Note  The note message object
+     * @since 5.1
+     */
+    public function notes_export($uid, array $options = array())
+    {
+        return $this->_registry->notes->export($uid, 'activesync', $options);
+    }
+
+    /**
+     * Importa a single note into the backend.
+     *
+     * @param Horde_ActiveSync_Message_Note $message  The note message object
+     *
+     * @return string  The newly added notes's uid.
+     * @since 5.1
+     */
+    public function notes_import(Horde_ActiveSync_Message_Note $message)
+    {
+        return $this->_registry->notes->import($message, 'activesync');
+    }
+
+    /**
+     * Replace an existing task with the provided task.
+     *
+     * @param string $uid  The existing tasks's uid
+     * @param Horde_ActiveSync_Message_Note $message  The task object
+     * @since 5.1
+     */
+    public function notes_replace($uid, Horde_ActiveSync_Message_Note $message)
+    {
+        $this->_registry->tasks->replace($uid, $message, 'activesync');
+    }
+
+    /**
+     * Delete a note from the backend.
+     *
+     * @param string $id  The task's uid
+     * @since 5.1
+     */
+    public function notess_delete($id)
+    {
+        $this->_registry->notes->delete($id);
+    }
+
+    /**
+     * Return the timestamp for the last time $action was performed.
+     *
+     * @param string $uid     The UID of the task we are interested in.
+     * @param string $action  The action we are interested in (add, modify...)
+     *
+     * @return integer
+     * @since 5.1
+     */
+    public function notes_getActionTimestamp($uid, $action)
+    {
+        return $this->_registry->notes->getActionTimestamp($uid, $action);
+    }
+
+    /**
+     * Get a list of note uids that have had $action happen since $from_ts.
+     *
+     * @param string $action    The action to check for (add, modify, delete)
+     * @param integer $from_ts  The timestamp to start checking from
+     * @param integer $to_ts    The ending timestamp
+     *
+     * @return array  An array of note uids
+     * @since 5.1
+     */
+    public function notes_listBy($action, $from_ts, $to_ts)
+    {
+        return $this->_registry->notes->listBy($action, $from_ts, null, $to_ts);
+    }
+
+    /**
      * Return all active api interfaces.
      *
      * @return array  An array of interface names.
