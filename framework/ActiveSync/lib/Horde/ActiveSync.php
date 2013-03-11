@@ -567,9 +567,6 @@ class Horde_ActiveSync
         }
         $this->_setLogger($get);
 
-        // Normalize Device Id.
-        $devId = strtoupper($devId);
-
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
@@ -601,13 +598,16 @@ class Horde_ActiveSync
         }
 
         // Device id is REQUIRED
-        if (is_null($devId)) {
+        if (empty($devId)) {
             if ($cmd == 'Options') {
                 $this->_doOptionsRequest();
                 return true;
             }
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
+
+        // Normalize Device Id.
+        $devId = strtoupper($devId);
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
