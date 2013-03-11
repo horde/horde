@@ -559,6 +559,34 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             break;
+
+        case Horde_ActiveSync::CLASS_NOTES:
+            // Can't use History for first sync
+            if ($from_ts == 0) {
+                try {
+                    $changes['add'] = $this->_connector->notes_listUids();
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            } else {
+                try {
+                    $changes = $this->_connector->getChanges('notes', $from_ts, $to_ts);
+                } catch (Horde_Exception_AuthenticationFailure $e) {
+                    $this->_endBuffer();
+                    throw $e;
+                } catch (Horde_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $this->_endBuffer();
+                    return array();
+                }
+            }
+            break;
+
         case Horde_ActiveSync::CLASS_EMAIL:
             if (empty($this->_imap)) {
                 $this->_endBuffer();
@@ -714,6 +742,20 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::FOLDER_TYPE_TASK:
             try {
                 $message = $this->_connector->tasks_export($id, array(
+                    'protocolversion' => $this->_version,
+                    'truncation' => $collection['truncation'],
+                    'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
+                    'mimesupport' => $collection['mimesupport']));
+            } catch (Horde_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_endBuffer();
+                throw new Horde_ActiveSync_Exception($e->getMessage);
+            }
+            break;
+
+        case Horde_ActiveSync::FOLDER_TYPE_NOTE:
+            try {
+                $message = $this->_connector->notes_export($id, array(
                     'protocolversion' => $this->_version,
                     'truncation' => $collection['truncation'],
                     'bodyprefs' => $this->addDefaultBodyPrefTruncation($collection['bodyprefs']),
