@@ -167,6 +167,7 @@ class Mnemo_Api extends Horde_Registry_Api
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/plain
      *                             text/x-vnote
+     *                             activesync
      * @param string $notepad      (optional) The notepad to save the memo on.
      *
      * @return string  The new UID, or false on failure.
@@ -232,6 +233,10 @@ class Mnemo_Api extends Horde_Registry_Api
                 !empty($note['category']) ? $note['category'] : '');
             break;
 
+        case 'activesync':
+            $category = is_array($content->categories) ? current($content->categories) : '';
+            $noteId = $storage->add($content->subject, $content->body->data, $category);
+
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
         }
@@ -249,6 +254,7 @@ class Mnemo_Api extends Horde_Registry_Api
      *                             <pre>
      *                               'text/plain'
      *                               'text/x-vnote'
+     *                               'activesync'
      *                             </pre>
      * @param array $options       Any additional options to be passed to the
      *                             exporter.
@@ -289,6 +295,9 @@ class Mnemo_Api extends Horde_Registry_Api
             // Create a new vNote.
             $vNote = $storage->toiCalendar($memo, $iCal);
             return $vNote->exportvCalendar();
+
+        case 'activesync':
+            return $storage->toASNote($memo, $options);
         }
 
         throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
@@ -327,11 +336,12 @@ class Mnemo_Api extends Horde_Registry_Api
      * Replace the memo identified by UID with the content represented in
      * the specified contentType.
      *
-     * @param string $uid         Idenfity the memo to replace.
+     * @param string $uid          Idenfity the memo to replace.
      * @param string $content      The content of the memo.
      * @param string $contentType  What format is the data in? Currently supports:
      *                             text/plain
      *                             text/x-vnote
+     *                             activesync
      * @throws Mnemo_Exception
      * @throws Horde_Exception_PermissionDenied
      */
@@ -373,6 +383,12 @@ class Mnemo_Api extends Horde_Registry_Api
                              $note['body'],
                              !empty($note['category']) ? $note['category'] : '');
             break;
+
+        case 'activesync':
+            $category = is_array($content->categories) ? current($content->categories) : '';
+            $storage->modify($memo['memo_id'], $content->subject, $content->body->data, $category);
+            break;
+
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"),$contentType));
         }
