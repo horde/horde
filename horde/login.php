@@ -346,6 +346,7 @@ $loginurl = Horde::url('login.php', false, array(
 ));
 
 $page_output->topbar = $page_output->sidebar = false;
+$page_output->addInlineJsVars($js_code);
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
@@ -402,7 +403,6 @@ if ($browser->isMobile() &&
         $page_output->addScriptFile($val[0], $val[1]);
     }
 
-    $page_output->addInlineJsVars($js_code);
     $page_output->header(array(
         'body_class' => 'modal-form',
         'title' => $title

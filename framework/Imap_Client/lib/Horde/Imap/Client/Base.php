@@ -3574,6 +3574,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($data as $v) {
+            /* It is possible that we received FETCH information that doesn't
+             * contain UID data. This is uncacheable so don't process. */
+            if (!($uid = $v->getUid())) {
+                return;
+            }
+
             $tmp = array();
 
             foreach ($cf as $key => $val) {
@@ -3585,7 +3591,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                     case Horde_Imap_Client::FETCH_FLAGS:
                         if ($highestmodseq) {
-                            $modseq[$v->getUid()] = $v->getModSeq();
+                            $modseq[$uid] = $v->getModSeq();
                             $tmp[$val] = $v->getFlags();
                         }
                         break;
@@ -3614,10 +3620,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             if (!empty($tmp)) {
-                $tocache[$v->getUid()] = $tmp;
+                $tocache[$uid] = $tmp;
             }
 
-            $mapping[$v->getSeq()] = $v->getUid();
+            $mapping[$v->getSeq()] = $uid;
         }
 
         if (!empty($mapping)) {
