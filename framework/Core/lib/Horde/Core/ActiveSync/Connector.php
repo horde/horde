@@ -362,11 +362,6 @@ class Horde_Core_ActiveSync_Connector
         return $this->_registry->tasks->listUids();
     }
 
-    public function tasks_listTaskLists()
-    {
-        return $this->_registry->tasks->listTaskLists();
-    }
-
     /**
      * Export a single task from the backend.
      *
