@@ -502,7 +502,7 @@ class Horde_Core_ActiveSync_Connector
      * @param string $id  The task's uid
      * @since 5.1
      */
-    public function notess_delete($id)
+    public function notes_delete($id)
     {
         $this->_registry->notes->delete($id);
     }
@@ -549,7 +549,7 @@ class Horde_Core_ActiveSync_Connector
         // @TODO: H6, add this check to all apps. BC break to check it now,
         // since we didn't have this feature earlier.
         if ($key = array_search('notes', $apps)) {
-            if (!$this->_registry->hasFeature('activesync', $registry->hasInterface('notes'))) {
+            if (!$this->_registry->hasFeature('activesync', $this->_registry->hasInterface('notes'))) {
                 unset($apps[$key]);
             }
         }
