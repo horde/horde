@@ -694,7 +694,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $devId  The device id to check.
      * @param string $user   The device should be owned by this user.
      *
-     * @return boolean
+     * @return integer  The numer of device entries found for the give devId,
+     *                  user combination. I.e., 0 == no device exists.
      */
     public function deviceExists($devId, $user = null)
     {
