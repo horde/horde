@@ -528,7 +528,7 @@ class Horde_ActiveSync
      * handler.
      *
      * @param string $cmd    The command we are requesting.
-     * @param string $devId  The device id making the request.
+     * @param string $devId  The device id making the request. @deprecated
      *
      * @return string|boolean  false if failed, true if succeeded and response
      *                         content is wbxml, otherwise the
