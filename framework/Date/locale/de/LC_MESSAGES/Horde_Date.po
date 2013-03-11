@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2011-03-15 13:42+0100\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -50,7 +50,7 @@ msgid_plural "%d weeks ago"
 msgstr[0] "vor %d Woche"
 msgstr[1] "vor %d Wochen"
 
-#: lib/Horde/Date/Recurrence.php:212
+#: lib/Horde/Date/Recurrence.php:214
 msgid "Daily"
 msgstr "Täglich"
 
@@ -59,19 +59,19 @@ msgstr "Täglich"
 msgid "Failed to parse time string (%s)"
 msgstr "Zeitformat (%s) nicht erkannt"
 
-#: lib/Horde/Date/Recurrence.php:215
+#: lib/Horde/Date/Recurrence.php:219
 msgid "Monthly"
 msgstr "Monatlich"
 
-#: lib/Horde/Date/Recurrence.php:211
+#: lib/Horde/Date/Recurrence.php:212
 msgid "No recurrence"
 msgstr "Keine Wiederholung"
 
-#: lib/Horde/Date/Recurrence.php:213
+#: lib/Horde/Date/Recurrence.php:216
 msgid "Weekly"
 msgstr "Wöchentlich"
 
-#: lib/Horde/Date/Recurrence.php:218
+#: lib/Horde/Date/Recurrence.php:223
 msgid "Yearly"
 msgstr "Jährlich"
 

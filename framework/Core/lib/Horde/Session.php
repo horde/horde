@@ -51,35 +51,35 @@ class Horde_Session
      *
      * @var boolean
      */
-    private $_active = false;
+    protected $_active = false;
 
     /**
      * Indicate that a new session ID has been generated for this page load.
      *
      * @var boolean
      */
-    private $_cleansession = false;
+    protected $_cleansession = false;
 
     /**
      * Pointer to the session data.
      *
      * @var array
      */
-    private $_data;
+    protected $_data;
 
     /**
      * Indicates that session data is read-only.
      *
      * @var boolean
      */
-    private $_readonly = false;
+    protected $_readonly = false;
 
     /**
      * On re-login, indicate whether we were previously authenticated.
      *
      * @var integer
      */
-    private $_relogin = null;
+    protected $_relogin = null;
 
     /**
      * Constructor.
@@ -176,7 +176,7 @@ class Horde_Session
         if (!$this->_readonly &&
             !is_null($this->_relogin) &&
             (($GLOBALS['registry']->getAuth() !== false) !== $this->_relogin)) {
-            Horde::logMessage('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
+            Horde::log('Previous session attempted to be reopened after authentication status change. All session modifications will be ignored.', 'DEBUG');
             $this->_readonly = true;
         }
     }

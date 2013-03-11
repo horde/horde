@@ -97,7 +97,7 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
                 $injector->getInstance('Horde_Core_Factory_SpellChecker')->create($args, $input)->spellCheck($input)
             );
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return array(
                 'bad' => array(),
                 'suggestions' => array()

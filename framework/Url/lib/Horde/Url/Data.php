@@ -68,14 +68,32 @@ class Horde_Url_Data
     }
 
     /**
+     * Check input to see if it contains RFC 2397 data.
+     *
+     * @since 2.2.0
+     *
+     * @param mixed $data  Input.
+     *
+     * @return boolean  True if the input contains RFC 2397 compliant data.
+     */
+    static public function isData($input)
+    {
+        if (is_object($input)) {
+            return ($input instanceof self);
+        }
+
+        return (is_string($input) && (strpos($input, 'data:') === 0));
+    }
+
+    /**
      * Constructor.
      *
      * @param string $data  An RFC 2397 compliant data string.
      */
     public function __construct($data = null)
     {
-        if (!is_null($data) && (strpos($data, 'data:') === 0)) {
-            $fp = fopen($data, 'r');
+        if (!is_null($data) && self::isData($data)) {
+            $fp = fopen(strval($data), 'r');
             $this->data = stream_get_contents($fp);
             $meta = stream_get_meta_data($fp);
             $this->type = $meta['mediatype'];

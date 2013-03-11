@@ -454,6 +454,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $this->execute($sql);
 
         if (array_key_exists('default', $options)) {
+            $sql = sprintf('UPDATE %s SET %s = %s',
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName),
+                           $this->quote($options['default']));
+            $this->execute($sql);
             $this->changeColumnDefault($tableName, $columnName,
                                        $options['default']);
         }

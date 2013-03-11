@@ -18,10 +18,22 @@ class Horde_Compress_Fast_CompressFastTest extends Horde_Test_Case
     {
         $ob = new Horde_Compress_Fast();
 
-        $this->assertEquals(
-            (extension_loaded('lzf') ? 'Horde_Compress_Fast_Lzf' : 'Horde_Compress_Fast_Null'),
-            $ob->driver
-        );
+        if (extension_loaded('horde_lz4')) {
+            $this->assertEquals(
+                'Horde_Compress_Fast_Lz4',
+                $ob->driver
+            );
+        } elseif (extension_loaded('lzf')) {
+            $this->assertEquals(
+                'Horde_Compress_Fast_Lzf',
+                $ob->driver
+            );
+        } else {
+            $this->assertEquals(
+                'Horde_Compress_Fast_Null',
+                $ob->driver
+            );
+        }
 
         $ob = new Horde_Compress_Fast(array(
             'drivers' => array(
@@ -111,6 +123,52 @@ class Horde_Compress_Fast_CompressFastTest extends Horde_Test_Case
         $this->assertEquals(
             $this->compress_text,
             $ob->decompress(lzf_compress($this->compress_text))
+        );
+
+        try {
+            $ob->decompress(new stdClass);
+            $this->fail('Expected exception.');
+        } catch (Horde_Compress_Fast_Exception $e) {}
+    }
+
+    public function testLz4DriverCompress()
+    {
+        try {
+            $ob = new Horde_Compress_Fast(array(
+                'drivers' => array(
+                    'Horde_Compress_Fast_Lz4'
+                )
+            ));
+        } catch (Horde_Compress_Fast_Exception $e) {
+            $this->markTestSkipped('Horde LZ4 extension not available.');
+        }
+
+        $this->assertEquals(
+            horde_lz4_compress($this->compress_text),
+            $ob->compress($this->compress_text)
+        );
+
+        try {
+            $ob->compress(array());
+            $this->fail('Expected exception.');
+        } catch (Horde_Compress_Fast_Exception $e) {}
+    }
+
+    public function testLz4DriverDecompress()
+    {
+        try {
+            $ob = new Horde_Compress_Fast(array(
+                'drivers' => array(
+                    'Horde_Compress_Fast_Lz4'
+                )
+            ));
+        } catch (Horde_Compress_Fast_Exception $e) {
+            $this->markTestSkipped('Horde LZ4 extension not available.');
+        }
+
+        $this->assertEquals(
+            $this->compress_text,
+            $ob->decompress(horde_lz4_compress($this->compress_text))
         );
 
         try {

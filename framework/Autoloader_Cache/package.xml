@@ -10,10 +10,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>14:13:50</time>
+ <date>2013-03-05</date>
+ <time>14:32:23</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -22,7 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add support for horde_lz4 for compressing cache data.
+* [mms] Better error-checking when uncompressing cache data.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -67,6 +68,11 @@
    </extension>
   </required>
   <optional>
+   <package>
+    <name>horde_lz4</name>
+    <channel>pear.horde.org</channel>
+    <providesextension>horde_lz4</providesextension>
+   </package>
    <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
@@ -220,10 +226,24 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [jan] Improve dependency detection.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add support for horde_lz4 for compressing cache data.
+* [mms] Better error-checking when uncompressing cache data.
    </notes>
   </release>
  </changelog>

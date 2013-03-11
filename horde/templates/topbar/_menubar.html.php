@@ -10,6 +10,9 @@
 <?php if ($this->search): ?>
   <div id="horde-search">
     <form action="<?php echo $this->searchAction ?>" method="get">
+<?php foreach ($this->searchParameters as $name => $value): ?>
+      <input type="hidden" name="<?php echo $this->h($name) ?>" value="<?php echo $this->h($value) ?>" />
+<?php endforeach ?>
 <?php if ($this->searchMenu): ?>
       <div class="horde-fake-input">
         <span id="horde-search-dropdown">

@@ -10,9 +10,9 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-03</date>
+ <date>2013-03-05</date>
  <version>
-  <release>1.0.0</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -21,7 +21,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Initial release of package.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -40,6 +40,7 @@
       <dir name="Fast">
        <file name="Base.php" role="php" />
        <file name="Exception.php" role="php" />
+       <file name="Lz4.php" role="php" />
        <file name="Lzf.php" role="php" />
        <file name="Null.php" role="php" />
       </dir> <!-- /lib/Horde/Compress/Fast -->
@@ -85,12 +86,17 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
-   <extension>
+   <package>
+    <name>horde_lz4</name>
+    <channel>pear.horde.org</channel>
+    <providesextension>horde_lz4</providesextension>
+   </package>
+   <package>
     <name>lzf</name>
     <channel>pecl.php.net</channel>
     <min>1.5.2</min>
     <providesextension>lzf</providesextension>
-   </extension>
+   </package>
   </optional>
  </dependencies>
  <phprelease>
@@ -99,6 +105,7 @@
    <install as="Horde/Compress/Fast.php" name="lib/Horde/Compress/Fast.php" />
    <install as="Horde/Compress/Fast/Base.php" name="lib/Horde/Compress/Fast/Base.php" />
    <install as="Horde/Compress/Fast/Exception.php" name="lib/Horde/Compress/Fast/Exception.php" />
+   <install as="Horde/Compress/Fast/Lz4.php" name="lib/Horde/Compress/Fast/Lz4.php" />
    <install as="Horde/Compress/Fast/Lzf.php" name="lib/Horde/Compress/Fast/Lzf.php" />
    <install as="Horde/Compress/Fast/Null.php" name="lib/Horde/Compress/Fast/Null.php" />
    <install as="Horde/Compress/Fast/AllTests.php" name="test/Horde/Compress/Fast/AllTests.php" />
@@ -121,6 +128,33 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Initial release of package.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Silence decompression warnings.
+* [mms] Add horde_lz4 compression driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

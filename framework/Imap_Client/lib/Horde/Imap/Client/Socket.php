@@ -2416,7 +2416,10 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
         $mbox_ob = $this->_mailboxOb();
-        $sequence = $options['ids']->sequence;
+
+        /* Implicitly add UID command if this is a sequence query BUT caching
+         * is active, so that returned data can always be cached. */
+        $sequence = ($options['ids']->sequence && !$this->_initCache(true));
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
@@ -2647,7 +2650,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         foreach ($this->_fetch as $k => $v) {
-            $results->get($sequence ? $k : $v->getUid())->merge($v);
+            $results->get($options['ids']->sequence ? $k : $v->getUid())->merge($v);
         }
 
         $this->_fetch->clear();
@@ -3236,7 +3239,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'SETQUOTA',
-            new Horde_Imap_Client_Data_Format_Astring($root),
+            new Horde_Imap_Client_Data_Format_Mailbox($root),
             $limits
         ));
 
@@ -3251,7 +3254,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'GETQUOTA',
-            new Horde_Imap_Client_Data_Format_Astring($root)
+            new Horde_Imap_Client_Data_Format_Mailbox($root)
         ));
 
         $this->_sendLine($cmd);
@@ -3289,7 +3292,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
 
         $cmd = $this->_clientCommand(array(
             'GETQUOTAROOT',
-            new Horde_Imap_Client_Data_Format_Astring($mailbox)
+            new Horde_Imap_Client_Data_Format_Mailbox($mailbox)
         ));
 
         $this->_sendLine($cmd);

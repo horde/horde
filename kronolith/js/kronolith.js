@@ -2929,6 +2929,13 @@ KronolithCore = {
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
+        $('kronolithC' + type + 'PUNew', 'kronolithC' + type + 'PGNew').each(function(elm) {
+            if (elm.tagName == 'SELECT') {
+                $A(elm.options).each(function(option) {
+                    option.writeAttribute('disabled', false);
+                });
+            }
+        });
 
         var newCalendar = !calendar;
         if (calendar &&
@@ -3436,10 +3443,10 @@ KronolithCore = {
      * @param what string          Either 'group' or 'user'.
      * @param group string         The group id or user name to insert.
      *                             Defaults to the value of the drop down.
-     * @param notadvanced boolean  Enforces to NOT switch to the advanced
+     * @param stay_basic boolean   Enforces to NOT switch to the advanced
      *                             permissions screen.
      */
-    insertGroupOrUser: function(type, what, id, notadvanced)
+    insertGroupOrUser: function(type, what, id, stay_basic)
     {
         var elm = $(what == 'user' ? 'kronolithC' + type + 'PUNew' : 'kronolithC' + type + 'PGNew');
         if (id) {
@@ -3473,7 +3480,7 @@ KronolithCore = {
             elm.clear();
         }
 
-        if (!notadvanced) {
+        if (!stay_basic) {
             this.activateAdvancedPerms(type);
         }
     },

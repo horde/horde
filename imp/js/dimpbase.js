@@ -236,7 +236,7 @@ var DimpBase = {
         case 'search':
             if (!data) {
                 data = { mailbox: this.view };
-            } else if (data.isJSON()) {
+            } else if (Object.isString(data) && data.isJSON()) {
                 data = data.evalJSON(true);
             }
             this.highlightSidebar();
@@ -245,7 +245,7 @@ var DimpBase = {
                 new Element('IFRAME', {
                     src: HordeCore.addURLParam(DimpCore.conf.URI_SEARCH, data)
                 }).setStyle({
-                    height: document.viewport.getHeight() + 'px'
+                    height: $('horde-page').getHeight() + 'px'
                 })
             );
             break;
@@ -3791,7 +3791,14 @@ var DimpBase = {
     _onResize: function()
     {
         this._sizeFolderlist();
-        this.splitbar.setStyle({ height: document.viewport.getHeight() + 'px' });
+        this.splitbar.setStyle({
+            height: document.viewport.getHeight() + 'px'
+        });
+        if ($('dimpmain_iframe').visible()) {
+            $('dimpmain_iframe').down('IFRAME').setStyle({
+                height: $('horde-page').getHeight() + 'px'
+            })
+        }
     },
 
     /* AJAX exception handling. */

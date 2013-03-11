@@ -1,6 +1,18 @@
 <?php
 /**
- * This class provides cache storage in a SQL databsae.
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Cache storage in a SQL databsae.
  *
  * The table structure for the cache is as follows:
  * <pre>
@@ -17,16 +29,12 @@
  * );
  * </pre>
  *
- * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author   Ben Klang <ben@alkaloid.net>
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @author    Ben Klang <ben@alkaloid.net>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2007-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
 {
@@ -41,27 +49,26 @@ class Horde_Cache_Storage_Sql extends Horde_Cache_Storage_Base
      * Constructor.
      *
      * @param array $params  Parameters:
-     * <pre>
-     * 'db' - (Horde_Db_Adapter) [REQUIRED] The DB instance.
-     * 'table' - (string) The name of the cache table.
-     *           DEFAULT: 'horde_cache'
-     * </pre>
-     *
-     * @throws Horde_Cache_Exception
+     *   - db: (Horde_Db_Adapter) [REQUIRED] The DB instance.
+     *   - table: (string) The name of the cache table.
+     *            DEFAULT: 'horde_cache'
      */
     public function __construct($params = array())
     {
         if (!isset($params['db'])) {
-            throw new Horde_Cache_Exception('Missing db parameter.');
+            throw new InvalidArgumentException('Missing db parameter.');
         }
-        $this->_db = $params['db'];
-        unset($params['db']);
 
-        $params = array_merge(array(
+        parent::__construct(array_merge(array(
             'table' => 'horde_cache',
-        ), $params);
+        ), $params));
+    }
 
-        parent::__construct($params);
+    /**
+     */
+    protected function _initOb()
+    {
+        $this->_db = $this->_params['db'];
     }
 
     /**

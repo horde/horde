@@ -345,7 +345,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Show selection of alternate views. */
         $js_code = array(
-            'ImpLogin.server_key_error' => _("Please choose a mail server.")
+            'HordeLogin.server_key_error' => _("Please choose a mail server.")
         );
 
         return array(

@@ -233,6 +233,7 @@ class Horde_ActiveSync_Imap_Message
             !empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) ||
             ($want_html_text && empty($html_id));
 
+        $want_html_as_plain = false;
         if (!empty($text_id) && $want_plain_text) {
             $text_body_part = $this->_message->getPart($text_id);
             $charset = $text_body_part->getCharset();
@@ -332,7 +333,7 @@ class Horde_ActiveSync_Imap_Message
                     0,
                     $options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]['truncationsize'],
                     $html_charset);
-            } elseif (!empty($want_html_as_plain)) {
+            } elseif ($want_html_as_plain) {
                 $html = Horde_Text_Filter::filter(
                     $html, 'Html2text', array('charset' => $html_charset));
                 if (!empty($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
@@ -651,8 +652,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $r = array_pop($this->_envelope->reply_to->addresses);
-        $a = new Horde_Mail_Rfc822_Address($r);
+        $r = $this->_envelope->reply_to->addresses;
+        $a = new Horde_Mail_Rfc822_Address(current($r));
 
         return $a->writeAddress(false);
     }
@@ -667,8 +668,8 @@ class Horde_ActiveSync_Imap_Message
         if (empty($this->_envelope)) {
             $this->_fetchEnvelope();
         }
-        $from = array_pop($this->_envelope->from->addresses);
-        $a = new Horde_Mail_Rfc822_Address($from);
+        $from = $this->_envelope->from->addresses;
+        $a = new Horde_Mail_Rfc822_Address(current($from));
 
         return $a->writeAddress(false);
     }
