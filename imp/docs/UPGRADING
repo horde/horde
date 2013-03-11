@@ -110,6 +110,8 @@ The following hooks have been added::
 
 The following hooks have been removed::
 
+   dimp_messageview
+   dimp_previewview
    mimp_advanced
    signature
 

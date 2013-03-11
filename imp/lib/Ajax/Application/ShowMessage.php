@@ -322,14 +322,6 @@ class IMP_Ajax_Application_ShowMessage
         $result['save_as'] = $registry->downloadUrl(htmlspecialchars_decode($result['subject']), array_merge(array('actionID' => 'save_message'), $mbox->urlParams($uid)));
 
         if ($preview) {
-            try {
-                $res = Horde::callHook('dimp_previewview', array($result), 'imp');
-                if (!empty($res)) {
-                    $result = $res[0];
-                    $result['js'] = array_merge($result['js'], $res[1]);
-                }
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             /* Need to grab cached inline scripts. */
             Horde::startBuffer();
             $page_output->outputInlineScript(true);
@@ -339,10 +331,6 @@ class IMP_Ajax_Application_ShowMessage
 
             $result['save_as'] = strval($result['save_as']->setRaw(true));
         } else {
-            try {
-                $result = Horde::callHook('dimp_messageview', array($result), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {}
-
             $list_info = $imp_ui->getListInformation($mime_headers);
             if (!empty($list_info['exists'])) {
                 $result['list_info'] = $list_info;
