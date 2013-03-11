@@ -2416,10 +2416,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
         $mbox_ob = $this->_mailboxOb();
-
-        /* Implicitly add UID command if this is a sequence query BUT caching
-         * is active, so that returned data can always be cached. */
-        $sequence = ($options['ids']->sequence && !$this->_initCache(true));
+        $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
          * criteria:
@@ -2650,7 +2647,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         }
 
         foreach ($this->_fetch as $k => $v) {
-            $results->get($options['ids']->sequence ? $k : $v->getUid())->merge($v);
+            $results->get($sequence ? $k : $v->getUid())->merge($v);
         }
 
         $this->_fetch->clear();
