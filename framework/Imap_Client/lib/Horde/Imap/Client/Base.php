@@ -2550,16 +2550,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         /* Build a list of what we still need. */
         $map = array_flip($mbox_ob->map->map);
+        $sequence = $options['ids']->sequence;
         foreach ($ids as $uid) {
             $crit = clone $query;
 
-            if ($options['ids']->sequence) {
+            if ($sequence) {
                 if (!isset($map[$uid])) {
                     continue;
                 }
                 $entry_idx = $map[$uid];
             } else {
                 $entry_idx = $uid;
+                unset($crit[Horde_Imap_Client::FETCH_UID]);
             }
 
             $entry = $ret->get($entry_idx);
@@ -2570,7 +2572,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             $entry->setUid($uid);
-            unset($crit[Horde_Imap_Client::FETCH_UID]);
 
             foreach ($cache_array as $key => $cid) {
                 switch ($key) {
@@ -2643,7 +2644,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($new_query as $val) {
-            $ids_ob = $this->getIdsOb(null, $options['ids']->sequence);
+            $ids_ob = $this->getIdsOb(null, $sequence);
             $ids_ob->duplicates = true;
             $ids_ob->add($val['i']);
             $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
@@ -2663,12 +2664,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $squery->ids($options['ids']);
 
             $cs = $this->search($this->_selected, $squery, array(
-                'sequence' => $options['ids']->sequence
+                'sequence' => $sequence
             ));
 
             foreach ($cs['match'] as $val) {
                 $entry = $ret->get($val);
-                if ($options['ids']->sequence) {
+                if ($sequence) {
                     $entry->setSeq($val);
                 } else {
                     $entry->setUid($val);
