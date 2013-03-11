@@ -41,6 +41,13 @@ The following options were removed::
    $conf['cache']['compress']
    $conf['cachecssparams']['compress']
 
+Hooks (hooks.php)
+-----------------
+
+The following hooks were added::
+
+   ajaxaction_data
+
 
 Upgrading Horde from 5.0 to 5.0.1
 =================================

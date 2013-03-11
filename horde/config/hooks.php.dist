@@ -165,6 +165,17 @@
  *   [throw Horde_Exception] - Fatal error.
  *   [mixed] - The data to send to the browser (will be JSON encoded).
  *
+ * ajaxaction_data
+ * ---------------
+ * This hook is used to alter the data returned from an AJAX action handler.
+ *
+ * Parameters in:
+ *   $action (string): The AJAX action.
+ *   $data (mixed): The AJAX action return data.
+ *
+ * The return value from this hook is as follows:
+ *   [mixed] - The (altered) data to use as the AJAX action return data.
+ *
  *
  * CSS Hooks
  * =========

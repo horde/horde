@@ -1,6 +1,13 @@
 ----------
-v5.0.5-git
+v5.1.0-git
 ----------
+
+[mms] Add 'ajaxaction_data' hook.
+
+
+------
+v5.0.5
+------
 
 [mms] Login screen now hides the mode input if javascript is not available, as
       minimal view is the only supported mode (Request #12093).

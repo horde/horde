@@ -28,10 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:19</time>
+ <date>2013-03-11</date>
  <version>
-  <release>5.0.5</release>
+  <release>5.1.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,8 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
-* [jan] Fix searching from topbar if search URL contains parameters.
+* [mms] Add &apos;ajaxaction_data&apos; hook.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
