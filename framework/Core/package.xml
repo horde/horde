@@ -29,9 +29,9 @@
   <active>yes</active>
  </developer>
  <date>2013-03-11</date>
- <time>19:18:38</time>
+ <time>19:22:24</time>
  <version>
-  <release>2.4.3</release>
+  <release>2.4.4</release>
   <api>2.4.0</api>
  </version>
  <stability>
@@ -40,7 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [jan] Fix error handler in some PHP versions (Bug #12103).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2843,6 +2843,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [jan] Fix error handler in some PHP versions (Bug #12103).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.4.4</release>
+    <api>2.4.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
