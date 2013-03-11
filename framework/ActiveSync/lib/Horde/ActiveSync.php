@@ -547,7 +547,7 @@ class Horde_ActiveSync
      * handler.
      *
      * @param string $cmd    The command we are requesting.
-     * @param string $devId  The device id making the request.
+     * @param string $devId  The device id making the request. @deprecated
      *
      * @return string|boolean  false if failed, true if succeeded and response
      *                         content is wbxml, otherwise the
@@ -566,6 +566,9 @@ class Horde_ActiveSync
             $devId = !empty($get['DeviceId']) ? $get['DeviceId'] : null;
         }
         $this->_setLogger($get);
+
+        // Normalize Device Id.
+        $devId = strtoupper($devId);
 
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
