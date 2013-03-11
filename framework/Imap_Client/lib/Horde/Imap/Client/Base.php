@@ -2455,6 +2455,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *             DEFAULT: false
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
+     *   - nocache: (boolean) If true, will not cache the results (previously
+     *              cached data will still be used to generate results) [since
+     *              2.8.0].
+     *              DEFAULT: false
      *
      * @return Horde_Imap_Client_Fetch_Results  A results object.
      *
@@ -2462,6 +2466,24 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @throws Horde_Imap_Client_Exception_NoSupportExtension
      */
     public function fetch($mailbox, $query, array $options = array())
+    {
+        try {
+            $ret = $this->_fetchWrapper($mailbox, $query, $options);
+            unset($this->_temp['fetch_nocache']);
+            return $ret;
+        } catch (Exception $e) {
+            unset($this->_temp['fetch_nocache']);
+            throw $e;
+        }
+    }
+
+    /**
+     * Wrapper for fetch() to allow internal state to be rest on exception.
+     *
+     * @internal
+     * @see fetch()
+     */
+    private function _fetchWrapper($mailbox, $query, $options)
     {
         $this->login();
 
@@ -2480,6 +2502,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+
+        if (!empty($options['nocache'])) {
+            $this->_temp['fetch_nocache'] = true;
+        }
 
         $cf = $this->_initCache(true)
             ? $this->_cacheFields()
@@ -3552,7 +3578,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _updateCache(Horde_Imap_Client_Fetch_Results $data)
     {
-        if (empty($this->_selected) ||
+        if (!empty($this->_temp['fetch_nocache']) ||
+            empty($this->_selected) ||
             !count($data) ||
             !$this->_initCache(true)) {
             return;
