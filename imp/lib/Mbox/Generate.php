@@ -64,7 +64,8 @@ class IMP_Mbox_Generate
 
             try {
                 $size = $imp_imap->fetch($val, $query, array(
-                    'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
+                    'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true),
+                    'nocache' => true
                 ));
             } catch (IMP_Imap_Exception $e) {
                 continue;
@@ -105,7 +106,8 @@ class IMP_Mbox_Generate
             foreach ($slices as $slice) {
                 try {
                     $res = $imp_imap->fetch($val, $query, array(
-                        'ids' => $slice
+                        'ids' => $slice,
+                        'nocache' => true
                     ));
                 } catch (IMP_Imap_Exception $e) {
                     continue;

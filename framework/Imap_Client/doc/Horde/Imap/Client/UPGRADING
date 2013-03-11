@@ -10,7 +10,15 @@
 
 This lists the API changes between releases of the package.
 
-Upgrading to 2.6.0
+Upgrading to 2.8.0
+==================
+
+  - Horde_Imap_Client_Base
+
+    The 'nocache' option was added to fetch().
+
+
+Upgrading to 2.7.0
 ==================
 
   - Horde_Imap_Client_Ids
