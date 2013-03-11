@@ -436,7 +436,7 @@ class Ingo
         $descrip = '';
 
         foreach ($rule['conditions'] as $key => $val) {
-            $descrip .= sprintf("%s %s \"%s\"", $val['field'], $val['match'], $val['value']);
+            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), _($val['match']), $val['value']);
 
             if (!empty($val['case'])) {
                 $descrip .= ' [' . _("Case Sensitive") . ']';

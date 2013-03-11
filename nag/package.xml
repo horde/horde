@@ -22,8 +22,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-01-10</date>
- <time>14:54:51</time>
+ <date>2013-03-11</date>
+ <time>15:48:19</time>
  <version>
   <release>4.0.3</release>
   <api>4.0.0</api>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
 * [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
 * [jan] Include parent tasks in cost object labels.
 * [jan] Only return completed tasks up to a week old as cost objects.
@@ -408,6 +409,7 @@
     <file name="9_nag_upgrade_recurrence.php" role="horde" />
     <file name="10_nag_upgrade_categoriestotags.php" role="horde" />
     <file name="11_nag_upgrade_smartlists.php" role="horde" />
+    <file name="12_nag_fix_smartlists.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
@@ -907,6 +909,7 @@
    <install as="nag/migration/9_nag_upgrade_recurrence.php" name="migration/9_nag_upgrade_recurrence.php" />
    <install as="nag/migration/10_nag_upgrade_categoriestotags.php" name="migration/10_nag_upgrade_categoriestotags.php" />
    <install as="nag/migration/11_nag_upgrade_smartlists.php" name="migration/11_nag_upgrade_smartlists.php" />
+   <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
@@ -1297,9 +1300,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-10</date>
+   <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
 * [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
 * [jan] Include parent tasks in cost object labels.
 * [jan] Only return completed tasks up to a week old as cost objects.
