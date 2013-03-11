@@ -72,7 +72,8 @@ class Horde
 
         /* Chicken/egg: we must wait until we have basic framework setup
          * before we can start logging. Otherwise, queue entries. */
-        if (Horde_Core_Factory_Logger::available()) {
+        if (isset($GLOBALS['injector']) &&
+            Horde_Core_Factory_Logger::available()) {
             $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
         } else {
             Horde_Core_Factory_Logger::queue($event, $priority, $options);
