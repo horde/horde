@@ -29,7 +29,7 @@
  * @property array categories  The note's categories.
  * @property Horde_Date lastmodified  The note's last modification date.
  */
-class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
+class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
 {
 
     const SUBJECT          = 'Notes:Subject';
