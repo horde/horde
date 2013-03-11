@@ -436,17 +436,6 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
-     * List all notes in the user's default notepad.
-     *
-     * @return array  An array of note uids.
-     * @since 5.1
-     */
-    public function notes_listUids()
-    {
-        return $this->_registry->notes->listUids();
-    }
-
-    /**
      * List note lists.
      *
      * @return array
@@ -455,6 +444,17 @@ class Horde_Core_ActiveSync_Connector
     public function tasks_listNoteLists()
     {
         return $this->_registry->notes->listTaskLists();
+    }
+
+    /**
+     * List all notes in the user's default notepad.
+     *
+     * @return array  An array of note uids.
+     * @since 5.1
+     */
+    public function notes_listUids()
+    {
+        return $this->_registry->notes->listUids();
     }
 
     /**
