@@ -1898,17 +1898,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _search($query, $options)
     {
-        /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
-         * doesn't support it will return BAD. Catch that here and throw
-         * an exception. */
-        if (in_array('CONDSTORE', $options['_query']['exts']) &&
-            !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                Horde_Imap_Client_Exception::MBOXNOMODSEQ
-            );
-        }
-
         $cmd = $this->_clientCommand(empty($options['sequence']) ? 'UID' : null);
 
         $sort_criteria = array(
@@ -2415,7 +2404,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         $t = &$this->_temp;
         $t['fetchcmd'] = array();
         $fetch = new Horde_Imap_Client_Data_Format_List();
-        $mbox_ob = $this->_mailboxOb();
         $sequence = $options['ids']->sequence;
 
         /* Build an IMAP4rev1 compliant FETCH query. We handle the following
@@ -2569,15 +2557,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                  * FETCH item (RFC 4551 [3.3.1]). Don't add to query as it
                  * just creates a longer FETCH command. */
                 if (empty($options['changedsince'])) {
-                    /* RFC 4551 [3.1] - trying to do a FETCH of MODSEQ on a
-                     * mailbox that doesn't support it will return BAD. Catch
-                     * that here and throw an exception. */
-                    if (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-                        throw new Horde_Imap_Client_Exception(
-                            Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                            Horde_Imap_Client_Exception::MBOXNOMODSEQ
-                        );
-                    }
                     $fetch->add('MODSEQ');
                 }
                 break;
@@ -2587,11 +2566,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         /* Add changedsince parameters. */
         if (empty($options['changedsince'])) {
             $fetch_cmd = $fetch;
-        } elseif (!$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                Horde_Imap_Client_Exception::MBOXNOMODSEQ
-            );
         } else {
             /* We might just want the list of UIDs changed since a given
              * modseq. In that case, we don't have any other FETCH attributes,
@@ -3068,13 +3042,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
      */
     protected function _vanished($modseq, Horde_Imap_Client_Ids $ids)
     {
-        if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                Horde_Imap_Client_Exception::MBOXNOMODSEQ
-            );
-        }
-
         $vanished_ob = $this->getIdsOb();
         $this->_temp['vanished'] = $vanished_ob;
 
@@ -3121,14 +3088,6 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
                     new Horde_Imap_Client_Data_Format_Number($ucsince)
                 )));
             }
-        } elseif (!empty($options['unchangedsince'])) {
-            /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
-             * mailbox that doesn't support it will return BAD. Catch that
-             * here and throw an exception. */
-            throw new Horde_Imap_Client_Exception(
-                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
-                Horde_Imap_Client_Exception::MBOXNOMODSEQ
-            );
         }
 
         $this->_temp['modified'] = $this->getIdsOb();

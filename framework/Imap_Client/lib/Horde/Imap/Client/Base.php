@@ -2218,6 +2218,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
         if ($status_res['messages'] ||
             in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) {
+            /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
+             * doesn't support it will return BAD. */
+            if (in_array('CONDSTORE', $options['_query']['exts']) &&
+                !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+               );
+           }
+
             $ret = $this->_search($query, $options);
         } else {
             $ret = array(
@@ -2502,6 +2512,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+        $mbox_ob = $this->_mailboxOb();
 
         if (!empty($options['nocache'])) {
             $this->_temp['fetch_nocache'] = true;
@@ -2516,9 +2527,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query->uid();
         }
 
-        if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ) &&
-            !isset($this->_init['enabled']['CONDSTORE'])) {
-            unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
+        $modseq_check = !empty($options['changedsince']);
+        if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ)) {
+            if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
+            } elseif (empty($options['changedsince'])) {
+                $modseq_check = true;
+            }
+        }
+
+        if ($modseq_check &&
+            !$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            /* RFC 4551 [3.1] - trying to do a MODSEQ FETCH on a mailbox that
+             * doesn't support it will return BAD. */
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Exception::MBOXNOMODSEQ
+            );
         }
 
         /* Determine if caching is available and if anything in $query is
@@ -2571,7 +2596,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
 
         /* Get the cached values. */
-        $mbox_ob = $this->_mailboxOb();
         $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         /* Build a list of what we still need. */
@@ -2763,6 +2787,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if ($qresync) {
+            if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+                );
+            }
+
             return $this->_vanished(max(1, $modseq), $opts['ids']);
         }
 
@@ -2834,9 +2865,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
-        if (!empty($options['unchangedsince']) &&
-            !isset($this->_init['enabled']['CONDSTORE'])) {
-            throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
+        if (!empty($options['unchangedsince'])) {
+            if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
+            }
+
+            /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
+             * mailbox that doesn't support it will return BAD. */
+            if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+                );
+            }
         }
 
         return $this->_store($options);
