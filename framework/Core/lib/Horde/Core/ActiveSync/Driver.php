@@ -341,6 +341,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 0,
                 Horde_ActiveSync::FOLDER_TYPE_NOTE,
                 $this->_displayMap[self::NOTES_FOLDER_UID]);
+                break;
         default:
             // Must be a mail folder
             $folders = $this->_getMailFolders();
