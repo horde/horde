@@ -2163,9 +2163,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      * Return a policy array suitable for transforming into either wbxml or xml
      * to send to the device in the provision response.
      *
+     * @param boolean $deviceinfo  EAS 14.1 DEVICESETTINGS sent with PROVISION.
+     *                             @since 5.1
      * @return array
      */
-    protected function _getPolicyFromPerms()
+    protected function _getPolicyFromPerms($deviceinfo = false)
     {
         $prefix = 'horde:activesync:provisioning:';
         $policy = array();
