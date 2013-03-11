@@ -47,15 +47,6 @@ class Horde_LoginTasks_Task_AdminCheck extends Horde_LoginTasks_Task
             $GLOBALS['notification']->push(_("The test script is currently enabled. For security reasons, disable test scripts when you are done testing (see horde/docs/INSTALL)."), 'horde.warning');
         }
 
-        /* Check that logger configuration is correct. */
-
-        // Ensure Logger object was initialized.
-        $GLOBALS['injector']->getInstance('Horde_Log_Logger');
-
-        if ($error = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Logger')->error) {
-            $GLOBALS['notification']->push($error, 'horde.warning');
-        }
-
         if (!empty($GLOBALS['conf']['sql']['phptype'])) {
             /* Check for outdated DB schemas. */
             $migration = new Horde_Core_Db_Migration();
