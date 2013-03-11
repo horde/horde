@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-03-11</date>
- <time>10:31:56</time>
+ <time>15:46:03</time>
  <version>
   <release>2.3.3</release>
   <api>2.3.0</api>
@@ -79,6 +79,7 @@
        <file name="Folder.php" role="php" />
        <file name="Mail.php" role="php" />
        <file name="MeetingRequest.php" role="php" />
+       <file name="Note.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="Task.php" role="php" />
        <file name="TaskRecurrence.php" role="php" />
@@ -215,6 +216,7 @@
       <file name="phpunit.xml" role="test" />
       <file name="PolicyTest.php" role="test" />
       <file name="Rfc822Test.php" role="test" />
+      <file name="ServerTest.php" role="test" />
       <file name="TimezoneTest.php" role="test" />
       <file name="UtilsTest.php" role="test" />
      </dir> <!-- /test/Horde/ActiveSync -->
@@ -354,6 +356,7 @@
    <install as="Horde/ActiveSync/Message/Folder.php" name="lib/Horde/ActiveSync/Message/Folder.php" />
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
+   <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
@@ -417,6 +420,7 @@
    <install as="Horde/ActiveSync/phpunit.xml" name="test/Horde/ActiveSync/phpunit.xml" />
    <install as="Horde/ActiveSync/PolicyTest.php" name="test/Horde/ActiveSync/PolicyTest.php" />
    <install as="Horde/ActiveSync/Rfc822Test.php" name="test/Horde/ActiveSync/Rfc822Test.php" />
+   <install as="Horde/ActiveSync/ServerTest.php" name="test/Horde/ActiveSync/ServerTest.php" />
    <install as="Horde/ActiveSync/TimezoneTest.php" name="test/Horde/ActiveSync/TimezoneTest.php" />
    <install as="Horde/ActiveSync/UtilsTest.php" name="test/Horde/ActiveSync/UtilsTest.php" />
    <install as="Horde/ActiveSync/fixtures/appointment.wbxml" name="test/Horde/ActiveSync/fixtures/appointment.wbxml" />
