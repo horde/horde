@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-11</date>
- <time>15:46:03</time>
+ <date>2013-03-12</date>
+ <time>11:55:35</time>
  <version>
   <release>2.3.3</release>
   <api>2.3.0</api>
@@ -81,6 +81,8 @@
        <file name="MeetingRequest.php" role="php" />
        <file name="Note.php" role="php" />
        <file name="Recurrence.php" role="php" />
+       <file name="SendMail.php" role="php" />
+       <file name="SendMailSource.php" role="php" />
        <file name="Task.php" role="php" />
        <file name="TaskRecurrence.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Message -->
@@ -358,6 +360,8 @@
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
+   <install as="Horde/ActiveSync/Message/SendMail.php" name="lib/Horde/ActiveSync/Message/SendMail.php" />
+   <install as="Horde/ActiveSync/Message/SendMailSource.php" name="lib/Horde/ActiveSync/Message/SendMailSource.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
    <install as="Horde/ActiveSync/Message/TaskRecurrence.php" name="lib/Horde/ActiveSync/Message/TaskRecurrence.php" />
    <install as="Horde/ActiveSync/Request/Autodiscover.php" name="lib/Horde/ActiveSync/Request/Autodiscover.php" />
@@ -1256,7 +1260,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-03-12</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * 
