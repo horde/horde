@@ -51,7 +51,7 @@ class Passwd_Basic
      */
     public function __construct(Horde_Variables $vars)
     {
-        global $registry;
+        global $conf, $injector, $registry;
 
         if ($conf['user']['change'] === true) {
             $this->_userid = $vars->userid;
