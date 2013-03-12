@@ -38,6 +38,8 @@ class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
     const CATEGORIES       = 'Notes:Categories';
     const CATEGORY         = 'Notes:Category';
 
+    public $categories = array();
+
     /**
      * Property mapping
      *
@@ -58,7 +60,6 @@ class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
      */
     protected $_properties = array(
         'body'         => false,
-        'categories'   => false,
         'lastmodified' => false,
         'messageclass' => false,
         'subject'      => false
