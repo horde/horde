@@ -2,16 +2,16 @@
  Installing Passwd 5.0
 =======================
 
-:Contact: sork@lists.horde.org
+:Contact: dev@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
 
 This document contains instructions for installing the Passwd Password
-Changing Application.
+Changing application on your system.
 
 For information on the capabilities and features of Passwd, see the file
-README_ in the top-level directory of the Passwd distribution.
+README_.
 
 
 Prerequisites
@@ -25,7 +25,7 @@ To function properly, Passwd **requires** the following:
    for web applications written in PHP.  You must install Horde before
    installing Passwd.
 
-   .. Important:: Passwd 5.0 requires version 5.0+ of the Horde Framework -
+   .. Important:: Passwd 5 requires version 5.0+ of the Horde Framework -
                   earlier versions of Horde will **not** work.
 
    .. Important:: Be sure to have completed all of the steps in the
@@ -46,12 +46,12 @@ To function properly, Passwd **requires** the following:
 
    c. Hash support [OPTIONAL]
 
-      Hash support is necessary for the smbldap driver.  See `LDAP
+      Hash support is necessary for the smbldap driver. See `LDAP
       Implementation Information`_ for details.
 
    d. Mcrypt support ``--with-mcrypt`` [OPTIONAL]
 
-      Mcrypt support is necessary for the smbldap driver.  See `LDAP
+      Mcrypt support is necessary for the smbldap driver. See `LDAP
       Implementation Information`_ for details.
 
    e. SOAP support ``--enable-soap`` [OPTIONAL]

@@ -38,29 +38,20 @@ class Passwd_Unit_Factory_DriverTest extends Passwd_TestCase
 
     public function testGetBackendsReturnsResultOfSetBackends()
     {
-        $GLOBALS['injector']    = $this->getInjector();
-        $driverFactory         = new Passwd_Factory_Driver($this->getInjector());
-        $driverFactory->setBackends($this->_backends);
+        $GLOBALS['injector'] = $this->getInjector();
+        $driverFactory = new Passwd_Factory_Driver($this->getInjector());
+        $driverFactory->backends = $this->_backends;
         // The Horde Driver is not the perfect mockup but sufficient for now
-        $this->assertArrayHasKey('hordeauth', $driverFactory->getBackends());
+        $this->assertArrayHasKey('hordeauth', $driverFactory->backends);
     }
 
-    /**
-     * @expectedException Passwd_Exception
-     */
-    public function testGetBackendsThrowsExceptionIfNoBackendIsSet()
-    {
-        $GLOBALS['injector']    = $this->getInjector();
-        $driverFactory         = new Passwd_Factory_Driver($this->getInjector());
-        $driverFactory->getBackends();
-    }
     // This test is currently blocked by a static call
     public function testGettingTheSameDriverTwiceWorks()
     {
         $GLOBALS['injector']    = $this->getInjector();
         $driverFactory         = new Passwd_Factory_Driver($this->getInjector());
         // The Horde Driver is not the perfect mockup but sufficient for now
-        $driverFactory->setBackends($this->_backends);
+        $driverFactory->backends($this->_backends);
         $driver1 = $driverFactory->create('hordeauth');
         $driver2 = $driverFactory->create('hordeauth');
         $this->assertEquals($driver1, $driver2);

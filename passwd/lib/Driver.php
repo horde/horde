@@ -1,16 +1,25 @@
 <?php
 /**
- * Passwd_Driver defines an API for implementing password change systems for
- * Passwd.
- *
  * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * The API for implementing password change systems for Passwd.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 abstract class Passwd_Driver
 {
@@ -52,19 +61,18 @@ abstract class Passwd_Driver
             $plaintext,
             $encrypted,
             $encryption,
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
 
         if ($this->_params['show_encryption']) {
             /* Convert the hashing algorithm in both strings to uppercase. */
-            $encrypted = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
-            $hashed    = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
+            $encrypted = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
+            $hashed = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
         }
 
         if ($encrypted != $hashed) {
             throw new Passwd_Exception(_("Incorrect old password."));
-        }    
+        }
     }
 
     /**
@@ -80,7 +88,8 @@ abstract class Passwd_Driver
             $plaintext,
             '',
             $this->_params['encryption'],
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
     }
 
     /**
@@ -92,5 +101,7 @@ abstract class Passwd_Driver
      *
      * @throws Passwd_Exception
      */
-    abstract public function changePassword($username, $oldpassword, $new_password);
+    abstract public function changePassword($username, $oldpassword,
+                                            $new_password);
+
 }

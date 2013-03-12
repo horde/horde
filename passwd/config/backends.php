@@ -8,144 +8,109 @@
  * If the 'vhosts' setting has been enabled in Horde's configuration, you can
  * use backends-servername.php.
  *
- * There are a number of properties that you can set for each backend:
+ * Properties that can be set for each server:
+ * ===========================================
  *
- * name: This is the plaintext, english name that you want displayed to people
- *       if you are using the drop down server list.  Also displayed on the
- *       main page (input form).
+ * disabled: (boolean) If true, the config entry is disabled.
  *
- * policy: The password policies for this backend. You are responsible for the
- *         sanity checks of these options. Options are:
+ * name: (string) This is the plaintext name displayed if using the server
+ *       list (also displayed on the main page).
  *
- *         minLength:   Minimum length of the password
- *         maxLength:   Maximum length of the password
- *         maxSpace:    Maximum number of white space characters
+ * driver: The driver used to change the password. Valid drivers:
+ *     - expect: Change the password via an expect script.
+ *     - horde: Change the password via the Horde authentication driver.
+ *     - ldap: Change the password on an LDAP server.
+ *     - pine: Change the password in a Pine-encoded file.
+ *     - poppassd: Change the password via a poppassd server.
+ *     - servuftp: Change the password via a servuftp server.
+ *     - smbldap: Change the password on an LDAP server for both LDAP -and-
+ *                Samba auth.
+ *     - smbpasswd: Change the password via the smbpasswd command.
+ *     - sql: Change the password for SQL authentication.
+ *     - vmailmgr: Change the password via a local vmailmgr daemon.
+ *     - vpopmail: Change the password for SQL based vpopmail.
  *
- *         The following are the types of characters required in a password.
- *         Either specific characters, character classes, or both can be
- *         required.  Specific types are:
+ *     - composite: Allows you to chain multiple drivers together (see example
+ *                  below).
  *
- *         minUpper:    Minimum number of uppercase characters
- *         minLower:    Minimum number of lowercase characters
- *         minNumeric:  Minimum number of numeric characters (0-9)
- *         minAlphaNum: Minimum number of alphanumeric characters
- *         minAlpha:    Minimum number of alphabetic characters
- *         minSymbol:   Minimum number of alphabetic characters
+ * policy: (array) The password policies for this backend. You are responsible
+ *   for the sanity checks of these options. Options are:
+ *     - maxLength: (integer) Maximum length of the password.
+ *     - maxSpace: (integer) Maximum number of white space characters.
+ *     - minAlpha: (integer) Minimum number of alphabetic characters.
+ *     - minAlphaNum: (integer) Minimum number of alphanumeric characters.
+ *     - minLength: (integer) Minimum length of the password.
+ *     - minLower: (integer) Minimum number of lowercase characters.
+ *     - minNumeric: (integer) Minimum number of numeric characters (0-9).
+ *     - minSymbol: (integer) Minimum number of alphabetic characters.
+ *     - minUpper: (integer) Minimum number of uppercase characters.
  *
- *         Alternatively (or in addition to), the minimum number of character
- *         classes can be configured by setting the following.  The valid range
- *         is 0 through 4 character classes may be required for a password. The
- *         classes are: 'upper', 'lower', 'number', and 'symbol'.  For example:
- *         A password of 'p@ssw0rd' satisfies three classes ('number', 'lower',
- *         and 'symbol'), while 'passw0rd' only satisfies two classes ('lower'
- *         and 'symbols').
+ *   Alternatively/additionally, the minimum number of character classes can
+ *   be configured by setting 'minClasses'. The valid range is 0 through 4
+ *   character classes may be required for a password. The available classes
+ *   are:
+ *     - lower
+ *     - number
+ *     - symbol
+ *     - upper
  *
- *         minClasses: Minimum number (0 through 4) of character classes.
+ *   For example: a password of 'p@ssw0rd' satisfies three classes ('number',
+ *   'lower', and 'symbol'), while 'passw0rd' only satisfies two classes
+ *   ('lower'and 'symbols').
  *
- * driver: The Passwd driver used to change the password. Valid values are
- *         currently:
+ * no_reset: (boolean) If true, do not reset the authenticated user's
+ *           credentials on success.
  *
- *              horde:      Change the password via the configured horde
- *                          authentication driver
- *              ldap:       Change the password on a ldap server
- *              smbldap:    Change the password on a ldap server for both
- *                          ldap and samba auth
- *              sql:        Change the password for sql authentication
- *                          (exim, pam_mysql, horde)
- *              poppassd:   Change the password via a poppassd server
- *              smbpasswd:  Change the password via the smbpasswd command
- *              expect:     Change the password via an expect script
- *              vmailmgr:   Change the password via a local vmailmgr daemon
- *              vpopmail:   Change the password for sql based vpopmail
- *              servuftp:   Change the password via a servuftp server
- *              pine:       Change the password in a Pine-encoded file
- *              composite:  Allows you to chain multiple drivers together
+ * params: (array) Additional information that a driver needs. See examples
+f *        below for further details.
  *
- * no_reset: Do not reset the authenticated user's credentials on success.
- *
- * params: A params array containing any additional information that the Passwd
- *         driver needs.
- *
- *         The following is a list of supported encryption/hashing methods
- *         supported by Passwd.
- *
- *         1) plain
- *         2) aprmd5
- *         3) crypt or crypt-des
- *         4) crypt-blowfish
- *         5) crypt-md5
- *         6) crypt-sha256
- *         7) crypt-sha512
- *         8) md5-base64
- *         9) md5-hex
- *        10) msad
- *        11) sha or sha1
- *        12) sha256 or ssha256
- *        13) smd5
- *        14) ssha
- *
- *         md5 passwords have caused some problems in the past because there
- *         are different definitions of what is a "md5 password".  Systems
- *         implement them in a different manner.  If you are using OpenLDAP as
- *         your backend or have migrated your passwords from your OS based
- *         passwd file, you will need to use the md5-base64 hashing method.  If
- *         you are using a SQL database or used the PHP md5() method to create
- *         your passwords, you will need to use the md5-hex hashing method.
- *
- * preferred: This is only useful if you want to use the same backend.php file
- *            for different machines: if the Hostname of the Passwd Machine is
+ * preferred: (string) Useful if you want to use the same backend.php file
+ *            for different machines. If the hostname of the Passwd Machine is
  *            identical to one of those in the preferred list, then the
  *            corresponding option in the select box will include SELECTED,
- *            i.e. it is selected per default. Otherwise the first entry in the
- *            list is selected.
- *
- * show_encryption: If you are using the ldap, sql or vpopmail backends you
- *                  have the choice whether or not to store the encryption type
- *                  with the password. If you are using for example an SQL
- *                  based PAM you will most likely not want to store the
- *                  encryption type as it would cause PAM to never match the
- *                  passwords.
+ *            i.e. it is selected per default. Otherwise the first entry in
+ *            the list is selected.
  */
 
 $backends['hordeauth'] = array (
     'disabled' => true,
     'name' => 'Horde Authentication',
-    'preferred' => '',
+    'driver' => 'Horde',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Horde',
 );
 
 $backends['hordesql'] = array (
+    // ENABLED by default
     'disabled' => false,
     'name' => 'Horde SQL Authentication',
-    'preferred' => '',
+    'driver' => 'Sql',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Sql',
     'params' => array_merge(
         $GLOBALS['conf']['sql'],
-        array('table' => 'horde_users',
-              'user_col' => 'user_uid',
-              'pass_col' => 'user_pass',
-              'show_encryption' => false,
-              'encryption' => isset($GLOBALS['conf']['auth']['params']['encryption']) ? $GLOBALS['conf']['auth']['params']['encryption'] : false)
+        array(
+            'table' => 'horde_users',
+            'user_col' => 'user_uid',
+            'pass_col' => 'user_pass',
+            'show_encryption' => false,
+            'encryption' => isset($GLOBALS['conf']['auth']['params']['encryption']) ? $GLOBALS['conf']['auth']['params']['encryption'] : false
+        )
     ),
 );
 
 $backends['poppassd'] = array(
     'disabled' => true,
     'name' => 'Poppassd Server',
-    'preferred' => '',
+    'driver' => 'Poppassd',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Poppassd',
     'params' => array(
         'host' => 'localhost',
         'port' => 106
@@ -155,12 +120,11 @@ $backends['poppassd'] = array(
 $backends['servuftp'] = array(
     'disabled' => true,
     'name' => 'Serv-U FTP Server',
-    'preferred' => '',
+    'driver' => 'Servuftp',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Servuftp',
     'params' => array(
         'host' => 'localhost',
         'port' => 106,
@@ -171,12 +135,11 @@ $backends['servuftp'] = array(
 $backends['expect'] = array(
     'disabled' => true,
     'name' => 'Expect Script',
-    'preferred' => '',
+    'driver' => 'Expect',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Expect',
     'params' => array(
         'program' => '/usr/bin/expect',
         'script' => PASSWD_BASE . '/scripts/passwd-expect',
@@ -187,27 +150,24 @@ $backends['expect'] = array(
 $backends['sudo_expect'] = array(
     'disabled' => true,
     'name' => 'Expect with Sudo Script',
-    'preferred' => '',
+    'driver' => 'Procopen',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Procopen',
     'params' => array(
-        'program' => '/usr/bin/expect '
-            . PASSWD_BASE . '/scripts/passwd_expect -sudo'
+        'program' => '/usr/bin/expect ' . PASSWD_BASE . '/scripts/passwd_expect -sudo'
     ),
 );
 
 $backends['smbpasswd'] = array(
     'disabled' => true,
     'name' => 'Samba Server',
-    'preferred' => '',
+    'driver' => 'Smbpasswd',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Smbpasswd',
     'params' => array(
         'program' => '/usr/bin/smbpasswd',
         'host' => 'localhost'
@@ -218,12 +178,11 @@ $backends['smbpasswd'] = array(
 $backends['ldap'] = array(
     'disabled' => true,
     'name' => 'LDAP Server',
-    'preferred' => '',
+    'driver' => 'Ldap',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Ldap',
     'params' => array(
         'host' => 'localhost',
         'port' => 389,
@@ -251,12 +210,11 @@ $backends['ldap'] = array(
 $backends['ldapadmin'] = array(
     'disabled' => true,
     'name' => 'LDAP Server with Admin Bindings',
-    'preferred' => '',
+    'driver' => 'Ldap',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Ldap',
     'params' => array(
         'host' => 'localhost',
         'port' => 389,
@@ -330,12 +288,11 @@ $backends['smbldap'] = array(
 $backends['sql'] = array (
     'disabled' => true,
     'name' => 'SQL Server',
-    'preferred' => '',
+    'driver' => 'Sql',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Sql',
     'params' => array(
         'phptype' => 'mysql',
         'hostspec' => 'localhost',
@@ -365,9 +322,8 @@ $backends['sql'] = array (
 $backends['mailmgr'] = array(
     'disabled' => true,
     'name' => 'VMailMgr Server',
-    'preferred' => '',
-    'policy' => array(),
     'driver' => 'Vmailmgr',
+    'policy' => array(),
     'params' => array(
         'vmailinc' => '/your/path/to/the/vmail.inc'
     ),
@@ -376,12 +332,11 @@ $backends['mailmgr'] = array(
 $backends['vpopmail'] = array (
     'disabled' => true,
     'name' => 'Vpopmail Server',
-    'preferred' => '',
+    'driver' => 'Vpopmail',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Vpopmail',
     'params' => array(
         'phptype' => 'mysql',
         'hostspec' => 'localhost',
@@ -402,12 +357,11 @@ $backends['vpopmail'] = array (
 $backends['pine'] = array(
     'disabled' => true,
     'name' => 'Pine Password File',
-    'preferred' => '',
+    'driver' => 'Pine',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Pine',
     'no_reset' => true,
     'params' => array(
         // FTP server information.
@@ -425,24 +379,22 @@ $backends['pine'] = array(
 $backends['kolab'] = array(
     'disabled' => true,
     'name' => 'Local Kolab Server',
-    'preferred' => '',
+    'driver' => 'Kolab',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Kolab',
     'params' => array(),
 );
 
 $backends['myscript'] = array(
     'disabled' => true,
     'name' => 'Custom Script',
-    'preferred' => '',
+    'driver' => 'Procopen',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Procopen',
     'params' => array(
         'program' => '/path/to/my/script + myargs'
     ),
@@ -454,17 +406,16 @@ $backends['myscript'] = array(
 // set to the name of the respective form input elements on the html form.  If
 // there are additional form fields that the form requires, define them in the
 // 'fields' array in the form 'formFieldName' => 'formFieldValue'.  The driver
-// attempts to determine the success or failure based on searching the returned
-// html page for the values listed in the 'eval_results' array.
+// attempts to determine the success or failure based on searching the
+// returned html page for the values listed in the 'eval_results' array.
 $backends['http'] = array(
     'disabled' => true,
     'name' => 'HTTP Server',
-    'preferred' => '',
+    'driver' => 'Http',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Http',
     'params' => array(
         'url' => 'http://www.example.com/psoft/servlet/psoft.hsphere.CP',
         'username' => 'mbox',
@@ -486,12 +437,11 @@ $backends['http'] = array(
 $backends['soap'] = array(
     'disabled' => true,
     'name' => 'SOAP Server',
-    'preferred' => '',
+    'driver' => 'Soap',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Soap',
     'params' => array(
         // If this service doesn't have a WSDL, the 'location' and 'uri'
         // parameters below must be specified instead.
@@ -516,13 +466,12 @@ $backends['soap'] = array(
 $backends['postfixadmin'] = array (
     'disabled' => true,
     'name' => 'Postfix Admin server',
-    'preferred' => '',
+    'driver' => 'Sql',
     'policy' => array(
         'minLength' => 6,
         'maxLength' => 20,
         'minNumeric' => 1,
     ),
-    'driver' => 'Sql',
     'params' => array(
         'phptype' => 'mysql',
         'hostspec' => 'localhost',
@@ -559,12 +508,11 @@ $backends['postfixadmin'] = array (
 $backends['composite'] = array(
     'disabled' => true,
     'name' => 'All Services',
-    'preferred' => '',
+    'driver' => 'Composite',
     'policy' => array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'driver' => 'Composite',
     'params' => array('drivers' => array(
         'sql' => array(
             'name' => 'Horde Authentication',
