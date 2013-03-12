@@ -85,4 +85,5 @@ class Passwd_Hooks
 //    {
 //        Horde::logMessage(sprintf('User %s has changed his password.', $user), 'NOTICE');
 //    }
+
 }

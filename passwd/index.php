@@ -1,13 +1,18 @@
 <?php
 /**
+ * Main passwd script.
+ *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @author  Jan Schneider <jan@horde.org>
- * @package Passwd
+ * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 
 require_once __DIR__ . '/lib/Application.php';

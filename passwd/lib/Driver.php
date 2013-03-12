@@ -1,16 +1,25 @@
 <?php
 /**
- * Passwd_Driver defines an API for implementing password change systems for
- * Passwd.
- *
  * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * The API for implementing password change systems for Passwd.
+ *
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 abstract class Passwd_Driver
 {

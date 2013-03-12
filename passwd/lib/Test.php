@@ -3,9 +3,22 @@
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Passwd test configuration.
+ *
+ * @author    Chuck Hagenbuch <chuck@horde.org>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Test extends Horde_Test
 {

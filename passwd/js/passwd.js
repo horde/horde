@@ -1,3 +1,10 @@
+/**
+ * Provides javascript support for the main passwd page.
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ */
+
 document.observe('dom:loaded', function() {
     $('passwd-submit').observe('click', function(e) {
         if (!$F('passwd-oldpassword')) {
@@ -24,5 +31,5 @@ document.observe('dom:loaded', function() {
             e.stop();
             return;
         }
-    }.bindAsEventListener());
+    });
 });

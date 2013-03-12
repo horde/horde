@@ -2,7 +2,7 @@
  Upgrading Passwd
 ==================
 
-:Contact: sork@lists.horde.org
+:Contact: dev@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -29,7 +29,6 @@ Configuration and update anything that's highlighted as outdated.
 Upgrading to Passwd 4.0
 =======================
 
-
 Backend Configuration
 ---------------------
 
@@ -38,7 +37,6 @@ The 'password policy' setting in backends.php has been renamed to 'policy'.
 
 Upgrading to Passwd 3.1
 =======================
-
 
 Application Hooks
 -----------------

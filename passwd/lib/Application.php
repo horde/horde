@@ -1,18 +1,14 @@
 <?php
 /**
- * Passwd application interface.
- *
- * This file brings in all of the dependencies that every Passwd script will
- * need, and sets up objects that all scripts use.
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Eric Rostetter <eric.rostetter@physics.utexas.edu>
- * @author  Ben Klang <ben@alkaloid.net>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 
 if (!defined('PASSWD_BASE')) {
@@ -33,7 +29,21 @@ if (!defined('HORDE_BASE')) {
  * Horde_Registry_Application::). */
 require_once HORDE_BASE . '/lib/core.php';
 
-class Passwd_Application extends Horde_Registry_Application {
+/**
+ * Passwd application API.
+ *
+ * This file defines Horde's core API interface. Other core Horde libraries
+ * can interact with IMP through this API.
+ *
+ * @author    Eric Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author    Ben Klang <ben@alkaloid.net>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+class Passwd_Application extends Horde_Registry_Application
+{
     /**
      * The version of passwd as shown in the admin view
      */
