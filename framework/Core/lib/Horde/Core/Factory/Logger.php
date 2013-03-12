@@ -101,6 +101,7 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
             $priority = defined('Horde_Log::' . $conf['log']['priority'])
                 ? $conf['log']['priority']
                 : 'NOTICE';
+            break;
         }
         $handler->addFilter(constant('Horde_Log::' . $priority));
 
