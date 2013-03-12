@@ -23,6 +23,7 @@
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
 * [mms] Add properties to Sync object to allow retrieval of previous sync state status.
+* [mms] Only do UNCHANGEDSINCE check when storing flags if the user explicitly passes the &apos;unchangedsince&apos; parameter.
 * [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
  </notes>
  <contents>
@@ -1574,6 +1575,7 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Add properties to Sync object to allow retrieval of previous sync state status.
+* [mms] Only do UNCHANGEDSINCE check when storing flags if the user explicitly passes the &apos;unchangedsince&apos; parameter.
 * [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
    </notes>
   </release>

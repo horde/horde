@@ -152,7 +152,7 @@ class IMP_Ajax_Application_ListMessages
                     $imp_imap->sync($mbox, $parsed['token'], array(
                         'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
                     ));
-                } catch (Horde_Imap_Cache_Exception_Sync $e) {
+                } catch (Horde_Imap_Client_Exception_Sync $e) {
                     $uid_expire = true;
                 }
             }
