@@ -17,6 +17,16 @@ Upgrading to 2.8.0
 
     The 'nocache' option was added to fetch().
 
+  - Horde_Imap_Client_Data_Sync
+
+    The following public properties have been added:
+
+      - $highestmodseq
+      - $map (static value)
+      - $messages
+      - $uidnext
+      - $uidvalidity
+
 
 Upgrading to 2.7.0
 ==================

@@ -3942,15 +3942,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
             Horde_Imap_Client::STATUS_UIDVALIDITY
         );
 
-        $out = array(
-            'U' => $status['uidnext'],
-            'V' => $status['uidvalidity']
-        );
-
+        $fields = array('uidnext', 'uidvalidity');
         if (empty($status['highestmodseq'])) {
-            $out['M'] = $status['messages'];
+            $fields[] = 'messages';
         } else {
-            $out['H'] = $status['highestmodseq'];
+            $fields[] = 'highestmodseq';
+        }
+
+        $out = array();
+        $sync_map = array_flip(Horde_Imap_Client_Data_Sync::$map);
+
+        foreach ($fields as $val) {
+            $out[$sync_map[$val]] = $status[$val];
         }
 
         return array_filter($out);

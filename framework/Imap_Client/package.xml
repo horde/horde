@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add properties to Sync object to allow retrieval of previous sync state status.
 * [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
  </notes>
  <contents>
@@ -1572,6 +1573,7 @@
    <date>2013-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add properties to Sync object to allow retrieval of previous sync state status.
 * [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
    </notes>
   </release>

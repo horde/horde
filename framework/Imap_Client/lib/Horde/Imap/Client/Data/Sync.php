@@ -30,11 +30,34 @@
 class Horde_Imap_Client_Data_Sync
 {
     /**
+     * Mappings of status() values to sync keys.
+     *
+     * @since 2.8.0
+     *
+     * @var array
+     */
+    static public $map = array(
+        'H' => 'highestmodseq',
+        'M' => 'messages',
+        'U' => 'uidnext',
+        'V' => 'uidvalidity'
+    );
+
+    /**
      * Are there messages that have had flag changes?
      *
      * @var Horde_Imap_Client_Ids
      */
     public $flags = null;
+
+    /**
+     * The previous value of HIGHESTMODSEQ.
+     *
+     * @since 2.8.0
+     *
+     * @var integer
+     */
+    public $highestmodseq = null;
 
     /**
      * The synchronized mailbox.
@@ -44,11 +67,38 @@ class Horde_Imap_Client_Data_Sync
     public $mailbox;
 
     /**
+     * The previous number of messages in the mailbox.
+     *
+     * @since 2.8.0
+     *
+     * @var integer
+     */
+    public $messages = null;
+
+    /**
      * Are there new messages?
      *
      * @var boolean
      */
     public $newmsgs = null;
+
+    /**
+     * The previous value of UIDNEXT.
+     *
+     * @since 2.8.0
+     *
+     * @var integer
+     */
+    public $uidnext = null;
+
+    /**
+     * The previous value of UIDVALIDITY.
+     *
+     * @since 2.8.0
+     *
+     * @var integer
+     */
+    public $uidvalidity = null;
 
     /**
      * The UIDs of messages that are guaranteed to have vanished. This list is
@@ -96,8 +146,14 @@ class Horde_Imap_Client_Data_Sync
     public function __construct(Horde_Imap_Client_Base $base_ob, $mailbox,
                                 $sync, $curr, $criteria, $ids)
     {
+        foreach (self::$map as $key => $val) {
+            if (isset($sync[$key])) {
+                $this->$val = $sync[$key];
+            }
+        }
+
         /* Check uidvalidity. */
-        if (!isset($sync['V']) || ($curr['V'] != $sync['V'])) {
+        if (!$this->uidvalidity || ($curr['V'] != $this->uidvalidity)) {
             throw new Horde_Imap_Client_Exception_Sync('UIDs in cached mailbox have changed.', Horde_Imap_Client_Exception_Sync::UIDVALIDITY_CHANGED);
         }
 
@@ -114,16 +170,16 @@ class Horde_Imap_Client_Data_Sync
         if ($sync_all ||
             ($criteria & Horde_Imap_Client::SYNC_NEWMSGS) ||
             ($criteria & Horde_Imap_Client::SYNC_NEWMSGSUIDS)) {
-            $this->newmsgs = empty($sync['U'])
+            $this->newmsgs = empty($this->uidnext)
                 ? !empty($curr['U'])
-                : (!empty($curr['U']) && ($curr['U'] > $sync['U']));
+                : (!empty($curr['U']) && ($curr['U'] > $this->uidnext));
 
             if ($this->newmsgs &&
                 ($sync_all ||
                  ($criteria & Horde_Imap_Client::SYNC_NEWMSGSUIDS))) {
-                $new_ids = empty($sync['U'])
+                $new_ids = empty($this->uidnext)
                     ? Horde_Imap_Client_Ids::ALL
-                    : ($sync['U'] . ':' . $curr['U']);
+                    : ($this->uidnext . ':' . $curr['U']);
 
                 $squery = new Horde_Imap_Client_Search_Query();
                 $squery->ids($new_ids);
@@ -134,7 +190,7 @@ class Horde_Imap_Client_Data_Sync
         }
 
         /* Do single status call to get all necessary data. */
-        if (isset($sync['H']) &&
+        if ($this->highestmodseq
             ($sync_all ||
              ($criteria & Horde_Imap_Client::SYNC_FLAGS) ||
              ($criteria & Horde_Imap_Client::SYNC_FLAGSUIDS) ||
@@ -149,20 +205,20 @@ class Horde_Imap_Client_Data_Sync
 
         /* Flag changes. */
         if ($sync_all || ($criteria & Horde_Imap_Client::SYNC_FLAGS)) {
-            $this->flags = isset($sync['H'])
-                ? ($sync['H'] != $curr['H'])
+            $this->flags = $this->highestmodseq
+                ? ($this->highestmodseq != $curr['H'])
                 : true;
         }
 
         if ($sync_all || ($criteria & Horde_Imap_Client::SYNC_FLAGSUIDS)) {
-            if (isset($sync['H'])) {
-                if ($sync['H'] == $status_sync['syncmodseq']) {
+            if ($this->highestmodseq) {
+                if ($this->highestmodseq == $status_sync['syncmodseq']) {
                     $this->_flagsuids = is_null($ids)
                         ? $status_sync['syncflaguids']
                         : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncflaguids']->ids));
                 } else {
                     $squery = new Horde_Imap_Client_Search_Query();
-                    $squery->modseq($sync['H'] + 1);
+                    $squery->modseq($this->highestmodseq + 1);
                     $sres = $base_ob->search($mailbox, $squery, array(
                         'ids' => $ids
                     ));
@@ -178,13 +234,13 @@ class Horde_Imap_Client_Data_Sync
         if ($sync_all ||
             ($criteria & Horde_Imap_Client::SYNC_VANISHED) ||
             ($criteria & Horde_Imap_Client::SYNC_VANISHEDUIDS)) {
-            if (isset($sync['H']) &&
-                ($sync['H'] == $status_sync['syncmodseq'])) {
+            if ($this->highestmodseq &&
+                ($this->highestmodseq == $status_sync['syncmodseq'])) {
                 $vanished = is_null($ids)
                     ? $status_sync['syncvanisheduids']
                     : $base_ob->getIdsOb(array_intersect($ids->ids, $status_sync['syncvanisheduids']->ids));
             } else {
-                $vanished = $base_ob->vanished($mailbox, isset($sync['H']) ? $sync['H'] : 1, array(
+                $vanished = $base_ob->vanished($mailbox, $this->highestmodseq ? $this->highestmodseq : 1, array(
                     'ids' => $ids
                 ));
             }
