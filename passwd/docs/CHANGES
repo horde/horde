@@ -2,6 +2,7 @@
 v5.0-git
 --------
 
+[mms] Http driver now uses Horde_Http_Client.
 [jan] Update French translation (Paul De Vlieger
       <paul.de_vlieger@moniut.univ-bpclermont.fr>).
 [jan] Update Polish translation (Krzysztof Kozera <krzysztof113@o2.pl>).

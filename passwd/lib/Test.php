@@ -64,11 +64,6 @@ class Passwd_Test extends Horde_Test
             'path' => 'Crypt/CHAP.php',
             'error' => 'If you will be using the smbldap driver for password changes, then you must install the PEAR Crypt_CHAP module.',
             'required' => false,
-        ),
-        'HTTP_Request' => array(
-            'path' => 'HTTP/Request.php',
-            'error' => 'If you will be using the http driver for password changes, then you must install the PEAR HTTP_Request module.',
-            'required' => false,
         )
     );
 
