@@ -16,8 +16,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-05</date>
- <time>14:32:23</time>
+ <date>2013-03-11</date>
+ <time>22:19:15</time>
  <version>
   <release>2.0.3</release>
   <api>1.0.0</api>
@@ -246,7 +246,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Additional sanity checking when trying to load from cache.
