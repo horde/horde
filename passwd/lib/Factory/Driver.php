@@ -1,16 +1,24 @@
 <?php
 /**
- * A Horde_Injector based Passwd_Driver factory.
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.php.
  *
- * @author   Ralf Lang <lang@b1-systems.de>
- * @category Horde
- * @license  http://www.horde.org/licenses/gpl.php
- * @package  Passwd
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl.php
+ * @package   Passwd
+ */
+
+/**
+ * A Horde_Injector based Passwd_Driver factory.
+ *
+ * @author    Ralf Lang <lang@b1-systems.de>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl.php
+ * @package   Passwd
  */
 class Passwd_Factory_Driver extends Horde_Core_Factory_Base
 {
@@ -19,7 +27,7 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
      *
      * @var array
      */
-    protected $_backends = array();
+    public $backends;
 
     /**
      * Created Passwd_Driver instances.
@@ -27,6 +35,38 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
      * @var array
      */
     private $_instances = array();
+
+    /**
+     * @throws Passwd_Exception
+     */
+    public function __construct(Horde_Injector $injector)
+    {
+        parent::__construct($injector);
+
+        $allbackends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
+        if (!isset($allbackends) || !is_array($allbackends)) {
+            throw new Passwd_Exception(_("No backends configured in backends.php"));
+        }
+
+        $backends = array();
+        foreach ($allbackends as $name => $backend) {
+            if (empty($backend['disabled'])) {
+                /* Make sure the 'params' entry exists. */
+                if (!isset($backend['params'])) {
+                    $backend['params'] = array();
+                }
+
+                $backends[$name] = $backend;
+            }
+        }
+
+        /* Check for valid backend configuration. */
+        if (empty($backends)) {
+            throw new Passwd_Exception(_("No backend configured for this host"));
+        }
+
+        $this->backends = $backends;
+    }
 
     /**
      * Returns the Passwd_Driver instance.
@@ -38,13 +78,11 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
      * @return Passwd_Driver  The singleton instance.
      * @throws Passwd_Exception
      */
-    public function create($name, $params = array() )
+    public function create($name, $params = array())
     {
-        if (!empty($params['is_subdriver'])) {
-            $backends = array($name => $params);
-        } else {
-            $backends = $this->getBackends();
-        }
+        $backends = empty($params['is_subdriver'])
+            ? $this->backends
+            : array($name => $params);
 
         if (empty($backends[$name])) {
             throw new Passwd_Exception(sprintf(_("The password backend \"%s\" does not exist."), $name));
@@ -149,30 +187,4 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
         return $this->_instances[$name];
     }
 
-    /**
-     * Sets the backends available in this factory.
-     *
-     * @param array $backends  A list of backends in the format of backends.php.
-     *
-     * @return Passwd_Factory_Driver  The object itself for fluid interface.
-     */
-    public function setBackends(array $backends)
-    {
-        $this->_backends = $backends;
-        return $this;
-    }
-
-    /**
-     * Returns the backends available in this factory.
-     *
-     * @return array  A list of backends in the format of backends.php.
-     * @throws Passwd_Exception if no backends have been set.
-     */
-    public function getBackends()
-    {
-        if (empty($this->_backends)) {
-            throw new Passwd_Exception('No backends have been set before getBackends() was called');
-        }
-        return $this->_backends;
-    }
 }
