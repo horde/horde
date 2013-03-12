@@ -124,12 +124,12 @@ Webserver/PHP tuning
   cache-busters used to generate unique URLs when the cached content changes
   do not work 100% reliably across all browsers.
 
-* It is highly recommended to install the lzf PECL module to activate
-  compression for certain Horde data (especially in IMP).  lzf is a tiny
-  module that does real-time compression.  The lzf documentation states that on
-  modern CPUs, compression is as fast as an (unoptimized) memcpy action, making
-  the compression essentially 'free' when compared to uncompressed data.
-  lzf can be installed via PECL (see INSTALL).
+* It is highly recommended to install the horde_lz4 package to activate
+  compression for Horde data.  horde_lz4 is a minimal package that does
+  real-time compression. On modern CPUs, this compression is as fast as an
+  (unoptimized) memcpy action, making the compression essentially 'free' when
+  compared to uncompressed data. horde_lz4 can be installed via PECL (see
+  INSTALL for further details).
 
 .. _`The Zend Performance Suite`: http://www.zend.com/horde.php
 .. _`Alternative PHP Cache`: http://www.php.net/apc

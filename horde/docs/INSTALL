@@ -394,14 +394,15 @@ The following prerequisites are **REQUIRED** for Horde to function properly.
       The imagick extension **must** be compiled against ImageMagick version
       6.2.9 or better, though version 6.5.7 or better is recommended.
 
-   b. lzf
+   b. horde_lz4
 
-      If the lzf module is available, Horde can perform real-time compression
-      on certain data, resulting in reduced storage load on the server.
+      If the horde_lz4 extension is available, Horde can perform real-time
+      compression on data, resulting in reduced storage load on the server for
+      things like cache storage and session data. It is highly recommended.
 
       To install, enter the following at the command prompt::
 
-        pecl install lzf
+        pecl install horde_lz4
 
    c. memcache
 

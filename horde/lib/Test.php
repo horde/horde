@@ -102,6 +102,10 @@ class Horde_Test
             'error' => 'Horde will not run without the hash extension. Don\'t compile PHP with <code>--disable-all/--disable-hash</code>.',
             'fatal' => true
         ),
+        'horde_lz4' => array(
+            'descrip' => 'LZ4 Compression Support (PECL extension)',
+            'error' => 'If the horde_lz4 PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources.'
+        ),
         'iconv' => array(
             'descrip' => 'Iconv Support',
             'error' => 'If you want to take full advantage of Horde\'s localization features and character set support, you will need the iconv extension. Don\t compile PHP with <code>--disable-all/--disable-iconv</code>.'
@@ -130,7 +134,7 @@ class Horde_Test
         ),
         'lzf' => array(
             'descrip' => 'LZF Compression Support (PECL extension)',
-            'error' => 'If the lzf PECL module is available, Horde can perform real-time compression on cached data to reduce session storage load (highly recommended).'
+            'error' => 'If the lzf PECL extension is available, Horde can perform real-time compression on cached data to optimize storage resources. It is recommended to use horde_lz4 instead, as its compression speed is twice as fast as this extension.'
         ),
         'mbstring' => array(
             'descrip' => 'Mbstring Support',
