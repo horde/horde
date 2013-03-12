@@ -65,4 +65,13 @@ class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
         'subject'      => false
     );
 
+    /**
+     * Return this object's folder class
+     *
+     * @return string
+     */
+    public function getClass()
+    {
+        return 'Notes';
+    }
 }
