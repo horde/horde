@@ -62,7 +62,7 @@ class Passwd_Basic
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
-        $this->_backends = $this->_getBackends();
+        $this->_backends = $injector->getInstance('Passwd_Factory_Driver')->backends;
         $this->_vars = $vars;
 
         $this->_init();
@@ -209,7 +209,7 @@ class Passwd_Basic
         }
 
         try {
-            $driver = $injector->getInstance('Passwd_Factory_Driver')->setBackends($this->_backends)->create($backend_key);
+            $driver = $injector->getInstance('Passwd_Factory_Driver')->create($backend_key);
         } catch (Passwd_Exception $e) {
             Horde::log($e);
             $notification->push(_("Password module is not properly configured"), 'horde.error');
@@ -248,38 +248,6 @@ class Passwd_Basic
             $url = new Horde_Url($return_to);
             $url->redirect();
         }
-    }
-
-    /**
-     * @throws Passwd_Exception
-     */
-    private function _getBackends()
-    {
-        $allbackends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
-        if (!isset($allbackends) || !is_array($allbackends)) {
-            throw new Passwd_Exception(_("No backends configured in backends.php"));
-        }
-
-        $backends = array();
-        foreach ($allbackends as $name => $backend) {
-            if (!empty($backend['disabled'])) {
-                continue;
-            }
-
-            /* Make sure the 'params' entry exists. */
-            if (!isset($backend['params'])) {
-                $backend['params'] = array();
-            }
-
-            $backends[$name] = $backend;
-        }
-
-        /* Check for valid backend configuration. */
-        if (empty($backends)) {
-            throw new Passwd_Exception(_("No backend configured for this host"));
-        }
-
-        $this->_backends = $backends;
     }
 
     /**
