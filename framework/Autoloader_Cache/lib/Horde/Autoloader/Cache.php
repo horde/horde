@@ -107,7 +107,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             }
 
             if ($data !== false) {
-                $this->_cache = @json_decode($data, true);
+                $data = @json_decode($data, true);
+                if (is_array($data)) {
+                    $this->_cache = $data;
+                } else {
+                    $this->_cache = array();
+                    $this->_changed = true;
+                }
             }
         }
     }
@@ -158,9 +164,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function mapToPath($className)
     {
-        if (!$this->_cache) {
-            $this->_cache = array();
-        }
         if (!array_key_exists($className, $this->_cache)) {
             $this->_cache[$className] = parent::mapToPath($className);
             $this->_changed = true;

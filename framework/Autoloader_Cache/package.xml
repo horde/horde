@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Additional sanity checking when trying to load from cache.
 * [mms] Add support for horde_lz4 for compressing cache data.
 * [mms] Better error-checking when uncompressing cache data.
  </notes>
@@ -248,6 +249,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Additional sanity checking when trying to load from cache.
 * [mms] Add support for horde_lz4 for compressing cache data.
 * [mms] Better error-checking when uncompressing cache data.
    </notes>
