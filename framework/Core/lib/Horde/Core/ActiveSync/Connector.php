@@ -493,7 +493,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function notes_replace($uid, Horde_ActiveSync_Message_Note $message)
     {
-        $this->_registry->tasks->replace($uid, $message, 'activesync');
+        $this->_registry->notes->replace($uid, $message, 'activesync');
     }
 
     /**
