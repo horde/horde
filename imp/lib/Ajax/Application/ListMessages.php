@@ -155,7 +155,7 @@ class IMP_Ajax_Application_ListMessages
                 try {
                     $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
                     $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
-                } catch (Horde_Imap_Cache_Exception $e) {
+                } catch (Horde_Imap_Client_Exception_Sync $e) {
                     $uid_expire = true;
                 }
             }
