@@ -567,10 +567,12 @@ var DimpBase = {
                 }
 
                 params = $H({
-                    requestid: r_id,
                     viewport: Object.toJSON(params),
                     view: view
                 });
+                if (r_id) {
+                    params.set('requestid', r_id);
+                }
                 HordeCore.addRequestParams(params);
 
                 return params;
