@@ -1,13 +1,28 @@
 <?php
 /**
- * Decorator for Horde_Autoloader that implements caching of class-file-maps.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Autoloader_Cache
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Autoloader_Cache
  */
+
 require_once 'Horde/Autoloader/Default.php';
 
+/**
+ * Decorator for Horde_Autoloader that implements caching of class-file-maps.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Autoloader_Cache
+ */
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
     /* Cache types. */
@@ -24,18 +39,18 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     protected $_cache = array();
 
     /**
-     * THe cache type.
-     *
-     * @var array
-     */
-    protected $_cachetype;
-
-    /**
      * Cache key name.
      *
      * @var string
      */
     protected $_cachekey = 'horde_autoloader_cache';
+
+    /**
+     * The cache type.
+     *
+     * @var array
+     */
+    protected $_cachetype;
 
     /**
      * Has the cache changed since the last save?
@@ -100,8 +115,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     /**
      * Destructor.
      *
-     * Tries all supported cache backends and tries to save the class map to
-     * the cache.
+     * Attempts to save the class map to the cache.
      */
     public function __destruct()
     {
