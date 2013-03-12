@@ -647,6 +647,15 @@ class Horde_ActiveSync_Wbxml
                 0x0E => 'Sender',
                 0x0F => 'CalendarType',
                 0x10 => 'IsLeapMonth',
+            ),
+
+            /* Notes (14.0) */
+            0x17 => array(
+                0x05 => 'Subject',
+                0x06 => 'MessageClass',
+                0x07 => 'LastModifiedDate',
+                0x08 => 'Categories',
+                0x09 => 'Category',
             )
         ),
 
@@ -672,6 +681,7 @@ class Horde_ActiveSync_Wbxml
               0x13 => 'DocumentLibrary',
               0x14 => 'ItemOperations',
               0x16 => 'POOMMAIL2',
+              0x17 => 'Notes',
         )
     );
 
