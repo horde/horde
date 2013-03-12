@@ -71,6 +71,9 @@ class Horde_ActiveSync_Wbxml
     const EN_FLAGS_CONTENT    = 1;
     const EN_FLAGS_ATTRIBUTES = 2;
 
+    /* Valid WBXML Version header value */
+    const WBXML_VERSION       = 0x03;
+
     /**
      * The code page definitions for the wbxml encoder/decoders
      *

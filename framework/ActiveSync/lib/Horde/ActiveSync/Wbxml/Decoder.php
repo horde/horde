@@ -36,16 +36,38 @@
  */
 class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
 {
-    // These seem to only be used in the Const'r, and I can't find any
-    // client code that access these properties...
+    /**
+     * Store the wbxml version value. Used to verify we have a valid wbxml
+     * input stream.
+     *
+     * @todo H6 Make this (and most of the other) properties protected.
+     *
+     * @var integer
+     */
     public $version;
+
     public $publicid;
     public $publicstringid;
     public $charsetid;
     public $stringtable;
 
+    /**
+     * Temporary string buffer
+     *
+     * @var stream
+     */
+    protected $_buffer;
+
+    /**
+     * Flag to indicate we have a valid wbxml input stream
+     *
+     * @var boolean
+     */
+    private $_isWbxml;
+
     private $_attrcp = 0;
     private $_ungetbuffer;
+    private $_readHeader = false;
 
     /**
      * Start reading the wbxml stream, pulling off the initial header and
@@ -53,13 +75,60 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
      */
     public function readWbxmlHeader()
     {
-        $this->version = $this->_getByte();
+        $this->_readHeader = true;
+        $this->_readVersion();
+        if ($this->version != self::WBXML_VERSION) {
+            // Not Wbxml - save the byte we already read.
+            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
+            fwrite($this->_buffer, chr($this->version));
+            $this->_isWbxml = false;
+            return;
+        } else {
+            $this->_isWbxml = true;
+        }
+
         $this->publicid = $this->_getMBUInt();
         if ($this->publicid == 0) {
             $this->publicstringid = $this->_getMBUInt();
         }
         $this->charsetid = $this->_getMBUInt();
         $this->stringtable = $this->_getStringTable();
+    }
+
+    /**
+     * Check that the input stream contains wbxml. Basically looks for a valid
+     * WBXML_VERSION header. self::readWbxmlHeader MUST have been called already.
+     *
+     * @return boolean
+     */
+    public function isWbxml()
+    {
+        if (!$this->_readHeader) {
+            throw new Horde_ActiveSync_Exception('Failed to read WBXML header prior to calling isWbxml()');
+        }
+
+        return $this->_isWbxml;
+    }
+
+    /**
+     * Return the full, raw, input stream. Used for things like SendMail request
+     * where we don't have wbxml to parse. The calling code is responsible for
+     * closing the stream.
+     *
+     * @return resource
+     */
+    public function getFullInputStream()
+    {
+        // Ensure the buffer was created
+        if (!isset($this->_buffer)) {
+            $this->_buffer = fopen('php://temp/maxmemory:2097152', 'r+');
+        }
+        while (!feof($this->_stream)) {
+            fwrite($this->_buffer, fread($this->_stream, 8192));
+        }
+        rewind($this->_buffer);
+
+        return $this->_buffer;
     }
 
     /**
@@ -356,6 +425,18 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             $this->_logger->err('Double unget!');
         }
         $this->_ungetbuffer = $element;
+    }
+
+    /**
+     * Read the Wbxml version header byte, and buffer the input incase we
+     * need the full stream later.
+     */
+    private function _readVersion()
+    {
+        $b = $this->_getByte();
+        if ($b != NULL) {
+            $this->version = $b;
+        }
     }
 
     /**
