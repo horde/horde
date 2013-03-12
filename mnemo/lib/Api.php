@@ -236,6 +236,7 @@ class Mnemo_Api extends Horde_Registry_Api
         case 'activesync':
             $category = is_array($content->categories) ? current($content->categories) : '';
             $noteId = $storage->add($content->subject, $content->body->data, $category);
+            break;
 
         default:
             throw new Mnemo_Exception(sprintf(_("Unsupported Content-Type: %s"), $contentType));
