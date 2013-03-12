@@ -19,6 +19,7 @@
  * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
+ * @since     2.2.0
  *
  * @property-read Horde_Imap_Client_Ids $flagsuids  List of messages with flag
  *                                                  changes.
