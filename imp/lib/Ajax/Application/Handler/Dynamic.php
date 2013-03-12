@@ -494,7 +494,36 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $flags = Horde_Serialize::unserialize($this->vars->flags, Horde_Serialize::JSON);
 
-        if (!$GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add)) {
+        /* Check for non-system flags. If we find any, and the server supports
+         * CONDSTORE, we should make sure that these flags are only updated if
+         * nobody else has altered the flags. */
+        $system_flags = array(
+            Horde_Imap_Client::FLAG_ANSWERED,
+            Horde_Imap_Client::FLAG_DELETED,
+            Horde_Imap_Client::FLAG_DRAFT,
+            Horde_Imap_Client::FLAG_FLAGGED,
+            Horde_Imap_Client::FLAG_RECENT,
+            Horde_Imap_Client::FLAG_SEEN
+        );
+
+        $unchangedsince = null;
+        if (!$this->_base->indices->mailbox->search &&
+            $this->_vars->viewport->cacheid &&
+            array_diff($flags, $system_flags)) {
+            $parsed = $imp_imap->parseCacheId($this->_vars->viewport->cacheid);
+
+            try {
+                $unchangedsince[strval($this->_base->indices->mailbox)] = $imp_imap->sync($this->_base->indices->mailbox, $parsed['token'], array(
+                    'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
+                ))->highestmodseq;
+            } catch (Horde_Imap_Client_Exception_Sync $e) {}
+        }
+
+        $res = $GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add, array(
+            'unchangedsince' => $unchangedsince
+        ));
+
+        if (!$res) {
             $this->_base->checkUidvalidity();
             return false;
         }

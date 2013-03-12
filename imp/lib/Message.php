@@ -625,20 +625,32 @@ class IMP_Message
      * @param IMP_Indices $indices  An indices object.
      * @param boolean $action       If true, set the flag(s), otherwise clear
      *                              the flag(s).
+     * @param array $opts           Additional options:
+     *   - unchangedsince: (array) The unchangedsince value to pass to the
+     *                     IMAP store command. Keys are mailbox names, values
+     *                     are the unchangedsince values to use for that
+     *                     mailbox.
      *
      * @return boolean  True if successful, false if not.
      */
-    public function flag($flags, IMP_Indices $indices, $action = true)
+    public function flag($flags, IMP_Indices $indices, $action = true,
+                         array $opts = array())
     {
+        global $injector, $notification;
+
         if (!count($indices)) {
             return false;
         }
 
+        $opts = array_merge(array(
+            'unchangedsince' => array()
+        ), $opts);
+
         $action_array = $action
             ? array('add' => $flags)
             : array('remove' => $flags);
-        $ajax_queue = $GLOBALS['injector']->getInstance('IMP_Ajax_Queue');
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+        $ajax_queue = $injector->getInstance('IMP_Ajax_Queue');
+        $imp_imap = $injector->getInstance('IMP_Imap');
         $ret = true;
 
         foreach ($indices as $ob) {
@@ -649,14 +661,28 @@ class IMP_Message
 
                 $ob->mbox->uidvalid;
 
-                /* Flag/unflag the messages now. */
-                $imp_imap->store($ob->mbox, array_merge($action_array, array(
-                    'ids' => $imp_imap->getIdsOb($ob->uids)
-                )));
+                $unchangesdince = isset($opts['unchangedsince'][$ob->mbox])
+                    ? $opts['unchangedsince'][$ob->mbox]
+                    : null;
 
-                $ajax_queue->flag(reset($action_array), $action, $ob->mbox->getIndicesOb($ob->uids));
+                /* Flag/unflag the messages now. */
+                $res = $imp_imap->store($ob->mbox, array_merge($action_array, array_filter(array(
+                    'ids' => $imp_imap->getIdsOb($ob->uids),
+                    'unchangedsince' => $unchangedsince
+                ))));
+
+                $flag_change = $ob->mbox->getIndicesOb($ob->uids);
+
+                if ($unchangedsince && count($res)) {
+                    foreach ($res as $val) {
+                        unset($flag_change[$val]);
+                    }
+                    $notification->push(sprintf(_("Flags were not changed for at least one message in the mailbox \"%s\" because the flags were altered by another connection to the mailbox prior to this request. You may redo the flag action if desired; this warning is precautionary to ensure you don't overwrite flag changes."), $ob->mbox->display), 'horde.warning');
+                }
+
+                $ajax_queue->flag(reset($action_array), $action, $flag_change);
             } catch (Exception $e) {
-                $GLOBALS['notification']->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
+                $notification->push(sprintf(_("There was an error flagging messages in the mailbox \"%s\": %s."), $ob->mbox->display, $e->getMessage()), 'horde.error');
                 $ret = false;
             }
         }
