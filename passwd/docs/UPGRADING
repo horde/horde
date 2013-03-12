@@ -40,12 +40,20 @@ The following options have been removed::
 
    no_reset
 
+Hooks Configuration (hooks.php)
+-------------------------------
+
+The 'default_username' hook no longer receives a $user parameter.
+
+The 'userdn' hook has been removed. It can now be configured using the
+'userdn' parameter in the LDAP driver configuration.
+
 
 Upgrading to Passwd 4.0
 =======================
 
-Backend Configuration
----------------------
+Backend Configuration (backends.php)
+------------------------------------
 
 The 'password policy' setting in backends.php has been renamed to 'policy'.
 

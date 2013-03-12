@@ -1,7 +1,18 @@
 <?php
 /**
- * The Passwd_Driver_Procopen class provides a procopen implementation of
- * the passwd system.
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * A procopen implementation of the passwd system.
  *
  * Any script or program can be supplied as the 'program' attribute value of
  * the params argument.  The username, old password and new password are
@@ -9,35 +20,26 @@
  * process are read and combined with the exit status value and returned to
  * the caller if the status code is not 0.
  *
- * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
- *
- * @author  Samuel Nicolary <sam@nicolary.org>
- * @package Passwd
+ * @author    Samuel Nicolary <sam@nicolary.org>
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Procopen extends Passwd_Driver
 {
     /**
-     * Changes the user's password.
-     *
-     * @param string $user     The user for which to change the password.
-     * @param string $oldpass  The old (current) user password.
-     * @param string $newpass  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($user, $oldpass, $newpass)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
-        $descriptorspec = array(
+        $desc = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
-            2 => array('pipe', 'w'));
-
+            2 => array('pipe', 'w')
+        );
         $output = '';
 
-        $process = @proc_open($this->_params['program'], $descriptorspec, $pipes);
+        $process = @proc_open($this->_params['program'], $descr, $pipes);
         if (is_resource($process)) {
             fwrite($pipes[0], "$user\n");
             fwrite($pipes[0], "$oldpass\n");
@@ -62,4 +64,5 @@ class Passwd_Driver_Procopen extends Passwd_Driver
             throw new Passwd_Exception($output);
         }
     }
+
 }

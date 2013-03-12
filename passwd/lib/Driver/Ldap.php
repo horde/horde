@@ -1,19 +1,30 @@
 <?php
 /**
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
  * The LDAP class attempts to change a user's password stored in an LDAP
  * directory service.
  *
- * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
- *
- * See http://www.horde.org/licenses/gpl.php for license information (GPL).
- *
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Tjeerd van der Zee <admin@xar.nl>
- * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
- * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @author  Ralf Lang <lang@b1-systems.de>
- * @author  Jan Schneider <jan@horde.org>
- * @package Passwd
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Mattias Webjörn Eriksson <mattias@webjorn.org>
+ * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Tjeerd van der Zee <admin@xar.nl>
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Ldap extends Passwd_Driver
 {
@@ -32,13 +43,8 @@ class Passwd_Driver_Ldap extends Passwd_Driver
     protected $_userdn;
 
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
-     *
-     * @throws InvalidArgumentException
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         foreach (array('basedn', 'ldap', 'uid') as $val) {
             if (!isset($params[$val])) {
@@ -49,22 +55,22 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         $this->_ldap = $params['ldap'];
         unset($params['ldap']);
 
-        $this->_params = array_merge(
-            array('host' => 'localhost',
-                  'port' => 389,
-                  'encryption' => 'crypt',
-                  'show_encryption' => 'true',
-                  'uid' => 'uid',
-                  'basedn' => '',
-                  'admindn' => '',
-                  'adminpw' => '',
-                  'realm' => '',
-                  'filter' => null,
-                  'tls' => false,
-                  'attribute' => 'userPassword',
-                  'shadowlastchange' => '',
-                  'shadowmin' => ''),
-            $params);
+        parent::__construct(array_merge(array(
+            'host' => 'localhost',
+            'port' => 389,
+            'encryption' => 'crypt',
+            'show_encryption' => 'true',
+            'uid' => 'uid',
+            'basedn' => '',
+            'admindn' => '',
+            'adminpw' => '',
+            'realm' => '',
+            'filter' => null,
+            'tls' => false,
+            'attribute' => 'userPassword',
+            'shadowlastchange' => '',
+            'shadowmin' => ''
+        ), $params));
 
         if (!empty($this->_params['tls']) &&
             empty($this->_params['sslhost'])) {
@@ -87,28 +93,20 @@ class Passwd_Driver_Ldap extends Passwd_Driver
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
             $username .= '@' . $this->_params['realm'];
         }
 
-        // Get the user's dn from hook or fall back to Horde_Ldap::findUserDN.
-        try {
-            $this->_userdn = Horde::callHook('userdn', array($username), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {
+        // Try to get the user's dn from config.
+        if (isset($this->_params['userdn'])) {
+            $this->_userdn = str_replace('%u', $user, $this->_params['userdn']);
+        } else {
             // @todo Fix finding the user DN.
             // $this->_userdn = $this->_ldap->findUserDN($username);
-            // workaround
             $this->_userdn = $this->_params['uid'] . '=' . $username . ',' . $this->_params['basedn'];
         }
 
@@ -129,38 +127,44 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         }
 
         // Get existing user information.
-        $entry = $this->_getUserEntry();
-        if (!$entry) {
-             throw new Passwd_Exception(_("User not found."));
+        try {
+            if (!($entry = $this->_ldap->getEntry($this->_userdn))) {
+                throw new Passwd_Exception(_("User not found."));
+            }
+        } catch (Horde_Ldap_Exception $e) {
+            throw new Passwd_Exception($e);
         }
 
         // Init the shadow policy array.
-        $lookupshadow = array('shadowlastchange' => false,
-                              'shadowmin' => false);
-
-        if (!empty($this->_params['shadowlastchange']) &&
-            $entry->exists($this->_params['shadowlastchange'])) {
-            $lookupshadow['shadowlastchange'] = $entry->getValue($this->_params['shadowlastchange']);            
-        }
-        if (!empty($this->_params['shadowmin']) &&
-            $entry->exists($this->_params['shadowmin'])) {
-            $lookupshadow['shadowmin'] = $entry->getValue($this->_params['shadowmin']);            
+        $lookupshadow = array(
+            'shadowlastchange' => false,
+            'shadowmin' => false
+        );
+        foreach (array_keys($lookupshadow) as $val) {
+            if (!empty($this->_params[$val]) &&
+                $entry->exists($this->_params[$val])) {
+                $lookupshadow[$val] = $entry->getValue($this->_params[$val]);
+            }
         }
 
         // Check if we may change the password.
         if ($lookupshadow['shadowlastchange'] &&
             $lookupshadow['shadowmin'] &&
-            ($lookupshadow['shadowlastchange'] + $lookupshadow['shadowmin'] > (time() / 86400))) {
+            (($lookupshadow['shadowlastchange'] + $lookupshadow['shadowmin']) > (time() / 86400))) {
             throw new Passwd_Exception(_("Minimum password age has not yet expired"));
         }
 
         // Change the user's password and update lastchange.
         try {
-            $entry->replace(array($this->_params['attribute'] => $this->_encryptPassword($new_password)), true);
+            $entry->replace(array(
+                $this->_params['attribute'] => $this->_encryptPassword($new_password)
+            ), true);
 
             if (!empty($this->_params['shadowlastchange']) &&
                 $lookupshadow['shadowlastchange']) {
-                $entry->replace(array($this->_params['shadowlastchange'] => floor(time() / 86400)));
+                $entry->replace(array(
+                    $this->_params['shadowlastchange'] => floor(time() / 86400)
+                ));
             }
 
             $entry->update();
@@ -169,18 +173,4 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         }
     }
 
-    /**
-     * Returns the LDAP entry for the user.
-     *
-     * @return Horde_Ldap_Entry  The user's LDAP entry if it exists.
-     * @throws Passwd_Exception
-     */
-    protected function _getUserEntry()
-    {
-        try {
-            return $this->_ldap->getEntry($this->_userdn);
-        } catch (Horde_Ldap_Exception $e) {
-            throw new Passwd_Exception($e);
-        }
-    }
 }

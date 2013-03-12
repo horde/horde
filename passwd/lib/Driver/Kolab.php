@@ -1,35 +1,40 @@
 <?php
 /**
- * The Kolab class attempts to change a user's password on the designated Kolab
- * backend. Based off the LDAP passwd class.
- *
  * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * The Kolab class attempts to change a user's password on the designated Kolab
+ * backend. Based off the LDAP passwd class.
  *
  * @todo Extend Passwd_Driver_Ldap, inject parameters.
  *
- * @author  Stuart Bingë <skbinge@gmail.com>
- * @package Passwd
+ * @author    Stuart Bingë <skbinge@gmail.com>
+ * @category  Horde
+ * @copyright 2005-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Kolab extends Passwd_Driver
 {
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
+        global $conf;
+
         // Connect to the LDAP server.
         $ds = ldap_connect(
-            $GLOBALS['conf']['kolab']['ldap']['server'],
-            $GLOBALS['conf']['kolab']['ldap']['port']
+            $conf['kolab']['ldap']['server'],
+            $conf['kolab']['ldap']['port']
         );
         if (!$ds) {
             throw new Passwd_Exception(_("Could not connect to LDAP server"));
@@ -38,9 +43,9 @@ class Passwd_Driver_Kolab extends Passwd_Driver
         ldap_set_option($ds, LDAP_OPT_PROTOCOL_VERSION, 3);
 
         // Bind anonymously, or use the phpdn user if available.
-        if (!empty($GLOBALS['conf']['kolab']['ldap']['phpdn'])) {
-            $phpdn = $GLOBALS['conf']['kolab']['ldap']['phpdn'];
-            $phppw = $GLOBALS['conf']['kolab']['ldap']['phppw'];
+        if (!empty($conf['kolab']['ldap']['phpdn'])) {
+            $phpdn = $conf['kolab']['ldap']['phpdn'];
+            $phppw = $conf['kolab']['ldap']['phppw'];
             $result = @ldap_bind($ds, $phpdn, $phppw);
         } else {
             $result = @ldap_bind($ds);
@@ -51,14 +56,14 @@ class Passwd_Driver_Kolab extends Passwd_Driver
 
         // Make sure we're using the full user@domain format.
         if (strstr($username, '@') === false) {
-            $username .= '@' . $GLOBALS['conf']['kolab']['imap']['maildomain'];
+            $username .= '@' . $conf['kolab']['imap']['maildomain'];
         }
 
         // Find the user's DN.
         $result = ldap_search(
             $ds,
-            $GLOBALS['conf']['kolab']['ldap']['basedn'],
-            "mail=$username"
+            $conf['kolab']['ldap']['basedn'],
+            'mail=' . $username
         );
         $entry = ldap_first_entry($ds, $result);
         if ($entry === false) {
@@ -83,4 +88,5 @@ class Passwd_Driver_Kolab extends Passwd_Driver
 
         ldap_unbind($ds);
     }
+
 }

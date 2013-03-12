@@ -203,7 +203,9 @@ $backends['ldap'] = array(
         'encryption' => 'crypt',
         // Whether to enable TLS for this LDAP connection
         // Note: make sure that the host matches cn in the server certificate.
-        'tls' => false
+        'tls' => false,
+        // Determine the user's DN. %u will be replaced by the user's ID.
+        //'userdn' => 'uid=%u,o=example.com'
     ),
 );
 
@@ -274,6 +276,8 @@ $backends['smbldap'] = array(
         // Whether to enable TLS for this LDAP connection
         // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
+        // Determine the user's DN. %u will be replaced by the user's ID.
+        //'userdn' => 'uid=%u,o=example.com'
         // If any of the following attributes are commented out, they
         // won't be set on the LDAP server.
         'lm_attribute' => 'sambaLMPassword',

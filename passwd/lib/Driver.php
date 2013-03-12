@@ -33,9 +33,9 @@ abstract class Passwd_Driver
     /**
      * Constructor.
      *
-     * @param $params   A hash containing connection parameters.
+     * @param $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         $this->_params = $params;
     }
@@ -95,13 +95,31 @@ abstract class Passwd_Driver
     /**
      * Changes the user's password.
      *
-     * @param string $username      The user for which to change the password.
-     * @param string $oldpassword   The old (current) user password.
-     * @param string $new_password  The new user password to set.
+     * @param string $user     The user for which to change the password.
+     * @param string $oldpass  The old (current) user password.
+     * @param string $newpass  The new user password to set.
      *
      * @throws Passwd_Exception
      */
-    abstract public function changePassword($username, $oldpassword,
-                                            $new_password);
+    public function changePassword($user, $oldpass, $newpass)
+    {
+        try {
+            $user = Horde::callHook('username', array($user, $this), 'passwd');
+        } catch (Horde_Exception_HookNotSet $e) {}
+
+        $this->_changePassword($user, $oldpass, $new_pass);
+    }
+
+    /**
+     * Changes the user's password.
+     *
+     * @param string $user     The user for which to change the password
+     *                         (converted to backend username).
+     * @param string $oldpass  The old (current) user password.
+     * @param string $newpass  The new user password to set.
+     *
+     * @throws Passwd_Exception
+     */
+    abstract protected function _changePassword($user, $oldpass, $newpass);
 
 }

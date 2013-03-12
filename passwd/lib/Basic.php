@@ -58,7 +58,7 @@ class Passwd_Basic
             $this->_userid = $vars->get('userid', $this->_userid);
         } else {
             try {
-                $this->_userid = Horde::callHook('default_username', array($this->_userid), 'passwd');
+                $this->_userid = Horde::callHook('default_username', array(), 'passwd');
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -217,14 +217,8 @@ class Passwd_Basic
         }
 
         try {
-            $backend_userid = Horde::callHook('username', array($this->_userid, $driver), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {
-            $backend_userid = $this->_userid;
-        }
-
-        try {
             $driver->changePassword(
-                $backend_userid,
+                $this->_userid,
                 $this->vars->oldpassword,
                 $this->vars->new_password0
             );
@@ -236,7 +230,7 @@ class Passwd_Basic
         $notification->push(sprintf(_("Password changed on %s."), $b_ptr['name']), 'horde.success');
 
         try {
-            Horde::callHook('password_changed', array($backend_userid, $this->vars->oldpassword, $this->vars->new_password0), 'passwd');
+            Horde::callHook('password_changed', array($this->_userid, $this->vars->oldpassword, $this->vars->new_password0), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!empty($b_ptr['logout'])) {

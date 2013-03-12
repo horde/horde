@@ -1,22 +1,32 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
  * The vpopmail class attempts to change a user's password for vpopmail based
  * servers.  It is very similar to the more generic sql driver, and the two
  * should probably be merged into one driver if possible.
  *
- * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
- *
- * @author  Anton Nekhoroshikh <anton@valuehost.ru>
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Ilya Krel <mail@krel.org>
- * @author  Tjeerd van der Zee <admin@xar.nl>
- * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
- * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @author  Ralf Lang <lang@b1-systems.de>
- * @package Passwd
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Mattias Webjörn Eriksson <mattias@webjorn.org>
+ * @author    Ilya Krel <mail@krel.org>
+ * @author    Ralf Lang <lang@b1-systems.de>
+ * @author    Anton Nekhoroshikh <anton@valuehost.ru>
+ * @author    Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author    Tjeerd van der Zee <admin@xar.nl>
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Vpopmail extends Passwd_Driver
 {
@@ -35,51 +45,49 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver
     protected  $_connected = false;
 
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
-     *
-     * @throws Passwd_Exception
      */
     public function __construct($params = array())
     {
-        if (isset($params['db'])) {
-            $this->_db = $params['db'];
-            unset($params['db']);
-        } else {
+        if (!isset($params['db'])) {
             throw new Passwd_Exception('Missing required Horde_Db_Adapter object');
         }
 
+        $this->_db = $params['db'];
+        unset($params['db']);
+
         /* Use defaults from Horde. */
-        $this->_params = array_merge(
+        parent::__construct(array_merge(
             Horde::getDriverConfig('', 'sql'),
-            array('table'            => 'horde_users',
-                  'encryption'       => 'crypt',
-                  'name'             => 'pw_name',
-                  'domain'           => 'pw_domain',
-                  'passwd'           => 'pw_passwd',
-                  'clear_passwd'     => 'pw_clear_passwd',
-                  'use_clear_passwd' => false,
-                  'show_encryption'  => false),
-            $params);
+            array(
+                'clear_passwd' => 'pw_clear_passwd',
+                'domain' => 'pw_domain',
+                'encryption' => 'crypt',
+                'name' => 'pw_name',
+                'passwd' => 'pw_passwd',
+                'show_encryption' => false,
+                'table' => 'horde_users',
+                'use_clear_passwd' => false
+            ),
+            $params
+        ));
     }
 
 
     /**
      * Finds out if a username and password is valid.
      *
-     * @param string $username      The username to check.
-     * @param string $old_password  An old password to check.
+     * @param string $user     The username to check.
+     * @param string $oldpass  An old password to check.
      *
      * @throws Passwd_Exception
      */
-    protected function _lookup($username, $old_password)
+    protected function _lookup($user, $oldpass)
     {
         /* Only split up username if domain is set in backend configuration. */
         if (!empty($this->_params['domain'])) {
-            list($name, $domain) = explode('@', $username);
+            list($name, $domain) = explode('@', $user);
         } else {
-            $name = $username;
+            $name = $user;
         }
 
         /* Build the SQL query. */
@@ -99,41 +107,39 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver
             throw new Passwd_Exception($e);
         }
 
-        if (is_array($result)) {
-            $current_password = $result[$this->_params['passwd']];
-        } else {
+        if (!is_array($result)) {
             throw new Passwd_Exception(_("User not found"));
         }
 
         /* Check the passwords match. */
-        $this->_comparePasswords($current_password, $old_password);
+        $this->_comparePasswords($result[$this->_params['passwd']], $oldpass);
     }
 
     /**
      * Modifies a SQL password record for a user.
      *
-     * @param string $username      The user whose record we will udpate.
-     * @param string $new_password  The new password value to set.
+     * @param string $user     The user whose record we will udpate.
+     * @param string $newpass  The new password value to set.
      *
      * @throws Passwd_Exception
      */
-    protected function _modify($username, $new_password)
+    protected function _modify($user, $newpass)
     {
         /* Only split up username if domain is set in backend. */
         if ($this->_params['domain']) {
-            list($name, $domain) = explode('@', $username);
+            list($name, $domain) = explode('@', $user);
         } else {
-            $name = $username;
+            $name = $user;
         }
 
         /* Encrypt the password. */
-        $clear_password = $new_password;
-        $new_password = $this->_encryptPassword($new_password);
+        $clear_password = $newpass;
+        $newpass = $this->_encryptPassword($newpass);
 
         /* Build the SQL query. */
         $sql = 'UPDATE ' . $this->_params['table'] .
                ' SET ' . $this->_params['passwd'] . ' = ?';
-        $values = array($new_password);
+        $values = array($newpass);
         if ($this->_params['use_clear_passwd']) {
             $sql .= ', ' . $this->_params['clear_passwd'] . ' = ?';
             $values[] = $clear_password;
@@ -154,18 +160,11 @@ class Passwd_Driver_Vpopmail extends Passwd_Driver
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
-        /* Check the current password. */
-        $this->_lookup($username, $old_password);
-        $this->_modify($username, $new_password);
+        $this->_lookup($user, $oldpass);
+        $this->_modify($user, $newpass);
     }
+
 }

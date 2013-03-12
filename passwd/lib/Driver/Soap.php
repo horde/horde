@@ -1,26 +1,30 @@
 <?php
 /**
- * The SOAP driver attempts to change a user's password through a SOAP
- * request.
- *
  * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Jan Schneider <jan@horde.org>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Changes a password through a SOAP request.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Soap extends Passwd_Driver
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
-     *
-     * @throws Passwd_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
         if (!class_exists('SoapClient')) {
             throw new Passwd_Exception('You need the soap PHP extension to use this driver.');
@@ -42,32 +46,28 @@ class Passwd_Driver_Soap extends Passwd_Driver
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function changePassword($user, $oldpass, $newpass)
     {
         $args = array();
         if (($pos = array_search('username', $this->_params['arguments'])) !== false) {
-            $args[$pos] = $username;
+            $args[$pos] = $user;
         }
         if (($pos = array_search('oldpassword', $this->_params['arguments'])) !== false) {
-            $args[$pos] = $old_password;
+            $args[$pos] = $oldpass;
         }
         if (($pos = array_search('newpassword', $this->_params['arguments'])) !== false) {
-            $args[$pos] = $new_password;
+            $args[$pos] = $newpass;
         }
 
-        $client = new SoapClient($this->_params['wsdl'],
-                                 $this->_params['soap_params']);
-        $result = $client->__soapCall($this->_params['method'], $args);
-        if ($result instanceof SoapFault) {
-            throw new Passwd_Exception($result->getMessage(), $result->getCode());
+        $client = new SoapClient(
+            $this->_params['wsdl'],
+            $this->_params['soap_params']
+        );
+        $res = $client->__soapCall($this->_params['method'], $args);
+        if ($res instanceof SoapFault) {
+            throw new Passwd_Exception($res->getMessage(), $res->getCode());
         }
     }
+
 }
