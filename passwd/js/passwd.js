@@ -32,4 +32,6 @@ document.observe('dom:loaded', function() {
             return;
         }
     });
+
+    $('passwd').focusFirstElement();
 });

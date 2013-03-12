@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-12-12</date>
- <time>11:08:53</time>
+ <date>2013-03-12</date>
+ <time>01:55:17</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -81,9 +81,9 @@
     </dir> <!-- /lib/Factory -->
     <file name=".htaccess" role="horde" />
     <file name="Application.php" role="horde" />
+    <file name="Basic.php" role="horde" />
     <file name="Driver.php" role="horde" />
     <file name="Exception.php" role="horde" />
-    <file name="Passwd.php" role="horde" />
     <file name="Test.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
@@ -451,9 +451,9 @@
    <install as="passwd/js/passwd.js" name="js/passwd.js" />
    <install as="passwd/lib/.htaccess" name="lib/.htaccess" />
    <install as="passwd/lib/Application.php" name="lib/Application.php" />
+   <install as="passwd/lib/Basic.php" name="lib/Basic.php" />
    <install as="passwd/lib/Driver.php" name="lib/Driver.php" />
    <install as="passwd/lib/Exception.php" name="lib/Exception.php" />
-   <install as="passwd/lib/Passwd.php" name="lib/Passwd.php" />
    <install as="passwd/lib/Test.php" name="lib/Test.php" />
    <install as="passwd/lib/Driver/Adsi.php" name="lib/Driver/Adsi.php" />
    <install as="passwd/lib/Driver/Composite.php" name="lib/Driver/Composite.php" />
