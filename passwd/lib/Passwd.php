@@ -45,21 +45,7 @@ class Passwd
                 $backend['params'] = array();
             }
 
-            if (!empty($backend['preferred'])) {
-                if (is_array($backend['preferred'])) {
-                    foreach ($backend['preferred'] as $val) {
-                        if (($val == $_SERVER['SERVER_NAME']) ||
-                            ($val == $_SERVER['HTTP_HOST'])) {
-                            $backends[$name] = $backend;
-                        }
-                    }
-                } elseif (($backend['preferred'] == $_SERVER['SERVER_NAME']) ||
-                          ($backend['preferred'] == $_SERVER['HTTP_HOST'])) {
-                    $backends[$name] = $backend;
-                }
-            } else {
-                $backends[$name] = $backend;
-            }
+            $backends[$name] = $backend;
         }
 
         /* Check for valid backend configuration. */
