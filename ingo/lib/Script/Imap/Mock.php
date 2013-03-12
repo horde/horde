@@ -9,6 +9,12 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
+
+/**
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
 class Ingo_Script_Imap_Mock extends Ingo_Script_Imap_Api
 {
     /**

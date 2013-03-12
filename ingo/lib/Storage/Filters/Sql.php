@@ -1,8 +1,5 @@
 <?php
 /**
- * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
- * rule information.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -13,7 +10,18 @@
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters {
+
+/**
+ * Ingo_Storage_Filters_Sql is the object used to hold user-defined filtering
+ * rule information.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+class Ingo_Storage_Filters_Sql extends Ingo_Storage_Filters
+{
 
     /**
      * Handle for the current database connection.

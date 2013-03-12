@@ -1,13 +1,21 @@
 <?php
 /**
- * Ingo_Transport_Sivtest implements the Sieve_Driver api to allow scripts to
- * be installed and set active via the Cyrus sivtest command line utility.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  * Copyright 2004-2007 Liam Hoekenga <liamr@umich.edu>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Liam Hoekenga <liamr@umich.edu>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Transport_Sivtest implements an Ingo transport driver to allow scripts
+ * to be installed and set active via the Cyrus sivtest command line utility.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Liam Hoekenga <liamr@umich.edu>

@@ -1,12 +1,20 @@
 <?php
 /**
- * Ingo_Transport_Timsieved implements the Sieve_Driver api to allow scripts
- * to be installed and set active via a Cyrus timsieved server.
- *
  * Copyright 2003-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Transport_Timsieved implements an Ingo transport driver to allow
+ * scripts to be installed and set active via a Cyrus timsieved server.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
@@ -100,7 +108,9 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param array $script  The filter script information.
+     * @param array $script  The filter script information. Required elements:
+     *                       - 'name': (string) the script name.
+     *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
      */

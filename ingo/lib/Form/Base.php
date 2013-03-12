@@ -1,11 +1,18 @@
 <?php
 /**
- * The base class for all Ingo rule forms.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The base class for all Ingo rule forms.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde

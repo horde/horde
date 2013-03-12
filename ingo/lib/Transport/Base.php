@@ -1,11 +1,19 @@
 <?php
 /**
- * Ingo_Transport defines an API to activate filter scripts on a server.
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Transport defines an API to activate filter scripts on a server.
  *
  * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>

@@ -1,14 +1,20 @@
 <?php
 /**
- * Ingo external API interface.
- *
- * This file defines Ingo's external API interface. Other applications
- * can interact with Ingo through this API.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo external API interface.
+ *
+ * This file defines Ingo's external API interface. Other applications
+ * can interact with Ingo through this API.
  *
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL

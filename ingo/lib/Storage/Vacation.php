@@ -1,12 +1,19 @@
 <?php
 /**
- * Ingo_Storage_Vacation is the object used to hold vacation rule
- * information.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Storage_Vacation is the object used to hold vacation rule
+ * information.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

@@ -1,6 +1,9 @@
 <?php
 /**
- * A Horde_Injector based Ingo_Transport factory.
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (ASL). If you
+ * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Jan Schneider <jan@horde.org>
@@ -12,11 +15,6 @@
 
 /**
  * A Horde_Injector based Ingo_Transport factory.
- *
- * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (ASL). If you
- * did not receive this file, see http://www.horde.org/licenses/apache.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @author   Jan Schneider <jan@horde.org>

@@ -1,12 +1,20 @@
 <?php
 /**
- * Ingo_Transport_Ldap implements the Sieve_Driver api to allow scripts to be
- * installed and set active via an LDAP server.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Transport_Ldap implements an Ingo transport driver to allow scripts to
+ * be installed and set active via an LDAP server.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @author   Jan Schneider <jan@horde.org>
@@ -189,7 +197,8 @@ class Ingo_Transport_Ldap extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param array $script  The filter script information.
+     * @param array $script  The filter script information. Required elements:
+     *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
      */

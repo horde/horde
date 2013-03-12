@@ -1,11 +1,19 @@
 <?php
 /**
- * The Ingo_Script_Imap_Live:: driver.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jason M. Felice <jason.m.felice@gmail.com>
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Imap_Live driver.
  *
  * @author   Jason M. Felice <jason.m.felice@gmail.com>
  * @author   Michael Slusarz <slusarz@horde.org>

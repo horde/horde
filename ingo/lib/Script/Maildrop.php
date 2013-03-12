@@ -1,11 +1,19 @@
 <?php
 /**
- * The Ingo_Script_Maildrop:: class represents a maildrop script generator.
- *
  * Copyright 2005-2007 Matt Weyland <mathias@weyland.ch>
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Matt Weyland <mathias@weyland.ch>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Maildrop class represents a maildrop script generator.
  *
  * @author   Matt Weyland <mathias@weyland.ch>
  * @author   Jan Schneider <jan@horde.org>

@@ -1,12 +1,18 @@
 <?php
 /**
- * The Ingo_Script_Ispconfig class represents an ISPConfig Vacation "script
- * generator".
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author  Michael Bunk <mb@computer-leipzig.com>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Ingo
+ */
+
+/**
+ * The Ingo_Script_Ispconfig class represents an ISPConfig vacation "script
+ * generator".
  *
  * @author  Michael Bunk <mb@computer-leipzig.com>
  * @author  Jan Schneider <jan@horde.org>

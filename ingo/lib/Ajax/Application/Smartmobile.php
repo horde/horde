@@ -1,11 +1,18 @@
 <?php
 /**
- * Defines AJAX actions used in the Ingo smartmobile view.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Defines AJAX actions used in the Ingo smartmobile view.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

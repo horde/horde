@@ -1,11 +1,19 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Action_Notify class represents a notify action.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Paul Wolstenholme <wolstena@sfu.ca>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * The Ingo_Script_Sieve_Action_Notify class represents a notify action.
  *
  * @author   Paul Wolstenholme <wolstena@sfu.ca>
  * @author   Jan Schneider <jan@horde.org>

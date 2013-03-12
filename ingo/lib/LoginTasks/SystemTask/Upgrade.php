@@ -1,11 +1,18 @@
 <?php
 /**
- * Login system task for automated upgrade tasks.
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Login system task for automated upgrade tasks.
  *
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde

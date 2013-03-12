@@ -1,12 +1,20 @@
 <?php
 /**
- * Ingo_Storage_Sql implements the Ingo_Storage API to save Ingo data via
- * Horde's Horde_Db database abstraction layer.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author   Jan Schneider <jan@horde.org>
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
+ */
+
+/**
+ * Ingo_Storage_Sql implements the Ingo_Storage API to save Ingo data via
+ * Horde's Horde_Db database abstraction layer.
  *
  * @author   Jan Schneider <jan@horde.org>
  * @author   Mike Cochrane <mike@graftonhall.co.nz>

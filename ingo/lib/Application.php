@@ -1,10 +1,5 @@
 <?php
 /**
- * Ingo application API.
- *
- * This file defines Horde's core API interface. Other core Horde libraries
- * can interact with Ingo through this API.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -36,6 +31,13 @@ require_once HORDE_BASE . '/lib/core.php';
 
 /**
  * Ingo application API.
+ *
+ * This class defines Horde's core API interface. Other core Horde libraries
+ * can interact with Ingo through this API.
+ *
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Application extends Horde_Registry_Application
 {

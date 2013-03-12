@@ -1,11 +1,20 @@
 <?php
 /**
- * Ingo_Transport_Ispconfig
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
+ *
+ * @author  Michael Bunk <mb@computer-leipzig.com>
+ * @author  Jan Schneider <jan@horde.org>
+ * @package Ingo
+ */
+
+/**
+ * Ingo_Transport_Ispconfig implements an Ingo transport driver to allow
+ * scripts to be installed and set active on an ISPConfig server.
+ *
+ * Ingo_Transport_
  *
  * @author  Michael Bunk <mb@computer-leipzig.com>
  * @author  Jan Schneider <jan@horde.org>
@@ -38,7 +47,8 @@ class Ingo_Transport_Ispconfig extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param array $script  The filter script information.
+     * @param array $script  The filter script information. Required elements:
+     *                       - 'recipes': (array) the filter recipe objects.
      *
      * @throws Ingo_Exception
      */

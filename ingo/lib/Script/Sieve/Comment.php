@@ -1,7 +1,5 @@
 <?php
 /**
- * The Ingo_Script_Sieve_Comment class represents a Sieve comment.
- *
  * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
@@ -14,6 +12,16 @@
  * @package  Ingo
  *
  * @todo    This and Sieve_If should really extends a Sieve_Block eventually.
+ */
+
+/**
+ * The Ingo_Script_Sieve_Comment class represents a Sieve comment.
+ *
+ * @author   Mike Cochrane <mike@graftonhall.co.nz>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/apache ASL
+ * @package  Ingo
  */
 class Ingo_Script_Sieve_Comment implements Ingo_Script_Item
 {
