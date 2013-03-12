@@ -1137,6 +1137,12 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                               'protocolversion' => $this->_version));
                     $appdata->decodeStream($this->_decoder);
                     break;
+                case Horde_ActiveSync::CLASS_NOTES:
+                    $appdata = new Horde_ActiveSync_Message_Note(
+                        array('logger' => $this->_logger,
+                              'protocolversion' => $this->_version));
+                    $appdata->decodeStream($this->_decoder);
+                    break;
                 }
                 if (!$this->_decoder->getElementEndTag()) {
                     // End application data
