@@ -17,18 +17,18 @@
  *       list (also displayed on the main page).
  *
  * driver: The driver used to change the password. Valid drivers:
- *     - expect: Change the password via an expect script.
- *     - horde: Change the password via the Horde authentication driver.
- *     - ldap: Change the password on an LDAP server.
- *     - pine: Change the password in a Pine-encoded file.
- *     - poppassd: Change the password via a poppassd server.
- *     - servuftp: Change the password via a servuftp server.
- *     - smbldap: Change the password on an LDAP server for both LDAP -and-
- *                Samba auth.
- *     - smbpasswd: Change the password via the smbpasswd command.
- *     - sql: Change the password for SQL authentication.
- *     - vmailmgr: Change the password via a local vmailmgr daemon.
- *     - vpopmail: Change the password for SQL based vpopmail.
+ *     - adsi: ADSI COM interface.
+ *     - expect: Expect script.
+ *     - horde: Horde authentication driver.
+ *     - ldap: LDAP server.
+ *     - pine: Pine-encoded file.
+ *     - poppassd: Poppassd server.
+ *     - servuftp: Servuftp server.
+ *     - smbldap: LDAP server for both LDAP -and- Samba auth.
+ *     - smbpasswd: Smbpasswd command.
+ *     - sql: SQL authentication.
+ *     - vmailmgr: Local vmailmgr daemon.
+ *     - vpopmail: SQL based vpopmail.
  *
  *     - composite: Allows you to chain multiple drivers together (see example
  *                  below).
