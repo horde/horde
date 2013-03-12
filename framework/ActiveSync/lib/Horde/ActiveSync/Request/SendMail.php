@@ -48,22 +48,19 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             '[%s] Handling SENDMAIL command.',
             $this->_device->id));
 
-        // All that happens here is that we receive an rfc822 message on stdin
-        // and just forward it to the backend. We provide no output except for
-        // an OK http reply
-        $stream = fopen('php://temp/maxmemory:2097152', 'r+');
-        $input = fopen('php://input', 'r');
-        while (!feof($input)) {
-            fwrite($stream, fread($input, 8192));
-        }
-        fclose($input);
-        try {
-            $result = $this->_driver->sendMail($stream, false, false, false, true);
-            fclose($stream);
-            return $result;
-        } catch (Horde_ActiveSync_Exception $e) {
-            $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
+        // Check for wbxml vs RFC822
+        if (!$this->_decoder->isWbxml()) {
+            $stream = $this->_decoder->getFullInputStream();
+            try {
+                $result = $this->_driver->sendMail($stream, false, false, false, true);
+                fclose($stream);
+                return $result;
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
+            }
+        } else {
+            $this->_logger->err('TODO');
         }
     }
 
