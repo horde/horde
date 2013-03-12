@@ -1,28 +1,29 @@
 <?php
 /**
- * The Http driver attempts to change a user's password via a web based
- * interface and implements the Passwd_Driver API.
- *
  * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @todo Convert to use Horde_Http_Client
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Driver to change a user's password via a web based interface.
  *
- * @author  Michael Rubinsky <mrubinsk@horde.org>
- * @package Passwd
+ * @author    Michael Rubinsky <mrubinsk@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Http extends Passwd_Driver
 {
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
     public function changePassword($username, $old_password, $new_password)
     {
