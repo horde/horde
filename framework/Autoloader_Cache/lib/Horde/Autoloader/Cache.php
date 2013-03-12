@@ -1,13 +1,28 @@
 <?php
 /**
- * Decorator for Horde_Autoloader that implements caching of class-file-maps.
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
- * @author   Jan Schneider <jan@horde.org>
- * @category Horde
- * @package  Autoloader_Cache
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Autoloader_Cache
  */
+
 require_once 'Horde/Autoloader/Default.php';
 
+/**
+ * Decorator for Horde_Autoloader that implements caching of class-file-maps.
+ *
+ * @author    Jan Schneider <jan@horde.org>
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Autoloader_Cache
+ */
 class Horde_Autoloader_Cache extends Horde_Autoloader_Default
 {
     /* Cache types. */
@@ -24,18 +39,18 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     protected $_cache = array();
 
     /**
-     * THe cache type.
-     *
-     * @var array
-     */
-    protected $_cachetype;
-
-    /**
      * Cache key name.
      *
      * @var string
      */
     protected $_cachekey = 'horde_autoloader_cache';
+
+    /**
+     * The cache type.
+     *
+     * @var array
+     */
+    protected $_cachetype;
 
     /**
      * Has the cache changed since the last save?
@@ -92,7 +107,13 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
             }
 
             if ($data !== false) {
-                $this->_cache = @json_decode($data, true);
+                $data = @json_decode($data, true);
+                if (is_array($data)) {
+                    $this->_cache = $data;
+                } else {
+                    $this->_cache = array();
+                    $this->_changed = true;
+                }
             }
         }
     }
@@ -100,8 +121,7 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
     /**
      * Destructor.
      *
-     * Tries all supported cache backends and tries to save the class map to
-     * the cache.
+     * Attempts to save the class map to the cache.
      */
     public function __destruct()
     {
@@ -144,9 +164,6 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function mapToPath($className)
     {
-        if (!$this->_cache) {
-            $this->_cache = array();
-        }
         if (!array_key_exists($className, $this->_cache)) {
             $this->_cache[$className] = parent::mapToPath($className);
             $this->_changed = true;
@@ -162,22 +179,25 @@ class Horde_Autoloader_Cache extends Horde_Autoloader_Default
      */
     public function prune()
     {
-        if (extension_loaded('apc')) {
+        switch ($this->_cachetype) {
+        case self::APC:
             return apc_delete($this->_cachekey);
-        }
-        if (extension_loaded('xcache')) {
+
+        case self::XCACHE:
             return xcache_unset($this->_cachekey);
-        }
-        if (extension_loaded('eaccelerator')) {
+
+        case self::EACCELERATOR:
             /* Undocumented, unknown return value. */
             eaccelerator_rm($this->_cachekey);
             return true;
-        }
-        if ($this->_tempdir) {
+
+        case self::TEMPFILE:
             return unlink($this->_tempdir . '/' . $this->_cachekey);
         }
+
         return false;
     }
+
 }
 
 spl_autoload_unregister(array($__autoloader, 'loadClass'));
