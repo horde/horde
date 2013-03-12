@@ -73,22 +73,6 @@ class Passwd_Test extends Horde_Test
     );
 
     /**
-     * Required configuration files.
-     *
-     * @var array
-     */
-    protected $_fileList = array(
-        'config/conf.php' => null,
-    );
-
-    /**
-     * Inter-Horde application dependencies.
-     *
-     * @var array
-     */
-    protected $_appList = array();
-
-    /**
      * Any application specific tests that need to be done.
      *
      * @return string  HTML output.

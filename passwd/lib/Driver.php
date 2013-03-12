@@ -61,19 +61,18 @@ abstract class Passwd_Driver
             $plaintext,
             $encrypted,
             $encryption,
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
 
         if ($this->_params['show_encryption']) {
             /* Convert the hashing algorithm in both strings to uppercase. */
-            $encrypted = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
-            $hashed    = preg_replace(
-                '/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
+            $encrypted = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $encrypted);
+            $hashed = preg_replace('/^({.*?})/e', "Horde_String::upper('\\1')", $hashed);
         }
 
         if ($encrypted != $hashed) {
             throw new Passwd_Exception(_("Incorrect old password."));
-        }    
+        }
     }
 
     /**
@@ -89,7 +88,8 @@ abstract class Passwd_Driver
             $plaintext,
             '',
             $this->_params['encryption'],
-            $this->_params['show_encryption']);
+            $this->_params['show_encryption']
+        );
     }
 
     /**
@@ -101,5 +101,7 @@ abstract class Passwd_Driver
      *
      * @throws Passwd_Exception
      */
-    abstract public function changePassword($username, $oldpassword, $new_password);
+    abstract public function changePassword($username, $oldpassword,
+                                            $new_password);
+
 }
