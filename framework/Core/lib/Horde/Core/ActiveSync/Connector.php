@@ -629,7 +629,7 @@ class Horde_Core_ActiveSync_Connector
      */
     public function getChanges($collection, $from_ts, $to_ts)
     {
-        if (!in_array($collection, array('calendar', 'contacts', 'tasks'))) {
+        if (!in_array($collection, array('calendar', 'contacts', 'tasks', 'notes'))) {
             throw new InvalidArgumentException('collection must be one of calendar, contacts, or tasks');
         }
         try {
