@@ -19,7 +19,7 @@
  </td>
  <td>
   <input type="text" name="userid" value="<?php echo $this->escape($this->userid) ?>" />
-  <?php echo $this->hordeHelp('passwd', 'passwd-username') ?>
+  <?php echo $this->hordeHelp('passwd', 'username') ?>
  </td>
 </tr>
 <?php endif ?>
@@ -30,7 +30,7 @@
  </td>
  <td>
   <input type="password" id="passwd-oldpassword" name="oldpassword" size="32" />
-  <?php echo $this->hordeHelp('passwd', 'passwd-old-password') ?>
+  <?php echo $this->hordeHelp('passwd', 'old-password') ?>
  </td>
 </tr>
 
@@ -40,7 +40,7 @@
  </td>
  <td>
   <input type="password" id="passwd-newpassword0" name="newpassword0" size="32" />
-  <?php echo $this->hordeHelp('passwd', 'passwd-new-password') ?>
+  <?php echo $this->hordeHelp('passwd', 'new-password') ?>
  </td>
 </tr>
 
@@ -50,7 +50,7 @@
  </td>
  <td>
   <input type="password" id="passwd-newpassword1" name="newpassword1" size="32" />
-  <?php echo $this->hordeHelp('passwd', 'passwd-confirm-password') ?>
+  <?php echo $this->hordeHelp('passwd', 'confirm-password') ?>
  </td>
 </tr>
 
@@ -67,7 +67,7 @@
   </select>
  </td>
  <td class="horde-form-label">
-  <?php echo $this->hordeHelp('passwd', 'passwd-server') ?>
+  <?php echo $this->hordeHelp('passwd', 'server') ?>
  </td>
 </tr>
 <?php endif; ?>
