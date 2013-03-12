@@ -661,8 +661,8 @@ class IMP_Message
 
                 $ob->mbox->uidvalid;
 
-                $unchangesdince = isset($opts['unchangedsince'][$ob->mbox])
-                    ? $opts['unchangedsince'][$ob->mbox]
+                $unchangedsince = isset($opts['unchangedsince'][strval($ob->mbox)])
+                    ? $opts['unchangedsince'][strval($ob->mbox)]
                     : null;
 
                 /* Flag/unflag the messages now. */

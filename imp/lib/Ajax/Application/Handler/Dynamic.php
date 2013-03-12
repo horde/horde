@@ -482,6 +482,8 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      */
     public function flagMessages()
     {
+        global $injector;
+
         if (!$this->vars->flags || !count($this->_base->indices)) {
             return false;
         }
@@ -508,9 +510,10 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
 
         $unchangedsince = null;
         if (!$this->_base->indices->mailbox->search &&
-            $this->_vars->viewport->cacheid &&
+            $this->vars->viewport->cacheid &&
             array_diff($flags, $system_flags)) {
-            $parsed = $imp_imap->parseCacheId($this->_vars->viewport->cacheid);
+            $imp_imap = $GLOBALS['injector']->getInstance('IMP_Imap');
+            $parsed = $imp_imap->parseCacheId($this->vars->viewport->cacheid);
 
             try {
                 $unchangedsince[strval($this->_base->indices->mailbox)] = $imp_imap->sync($this->_base->indices->mailbox, $parsed['token'], array(
@@ -519,7 +522,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
             } catch (Horde_Imap_Client_Exception_Sync $e) {}
         }
 
-        $res = $GLOBALS['injector']->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add, array(
+        $res = $injector->getInstance('IMP_Message')->flag($flags, $this->_base->indices, $this->vars->add, array(
             'unchangedsince' => $unchangedsince
         ));
 
