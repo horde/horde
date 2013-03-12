@@ -47,8 +47,7 @@
  *
  *   Alternatively/additionally, the minimum number of character classes can
  *   be configured by setting 'minClasses'. The valid range is 0 through 4
- *   character classes may be required for a password. The available classes
- *   are:
+ *   character classes may be required for a password. The available classes:
  *     - lower
  *     - number
  *     - symbol
@@ -62,7 +61,7 @@
  *           credentials on success.
  *
  * params: (array) Additional information that a driver needs. See examples
-f *        below for further details.
+ *        below for further details.
  *
  * preferred: (string) Useful if you want to use the same backend.php file
  *            for different machines. If the hostname of the Passwd Machine is
