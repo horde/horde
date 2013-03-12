@@ -18,14 +18,7 @@ class Passwd_Driver_Composite extends Passwd_Driver
      *
      * @var array
      */
-    protected $_drivers = array();
-
-    /**
-     * State of the loaded drivers.
-     *
-     * @var boolean
-     */
-    protected $_loaded = false;
+    protected $_drivers = null;
 
     /**
      * Constructor.
@@ -49,7 +42,7 @@ class Passwd_Driver_Composite extends Passwd_Driver
      */
     protected function _loadDrivers()
     {
-        if ($this->_loaded) {
+        if (!is_null($this->_drivers)) {
             return;
         }
 
@@ -70,8 +63,6 @@ class Passwd_Driver_Composite extends Passwd_Driver
 
             $this->_drivers[$key] = $res;
         }
-
-        $this->_loaded = true;
     }
 
     /**
