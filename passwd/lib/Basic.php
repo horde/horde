@@ -53,10 +53,10 @@ class Passwd_Basic
     {
         global $conf, $injector, $registry;
 
+        $this->_userid = $registry->getAuth();
         if ($conf['user']['change'] === true) {
-            $this->_userid = $vars->userid;
+            $this->_userid = $vars->get('userid', $this->_userid);
         } else {
-            $this->_userid = $registry->getAuth();
             try {
                 $this->_userid = Horde::callHook('default_username', array($this->_userid), 'passwd');
             } catch (Horde_Exception_HookNotSet $e) {}
