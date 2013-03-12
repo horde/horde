@@ -13,7 +13,7 @@ msgstr ""
 "Project-Id-Version: IMP H5 (6.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2013-03-05 10:52+0100\n"
-"PO-Revision-Date: 2013-03-05 11:43+0100\n"
+"PO-Revision-Date: 2013-03-12 14:01+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
 "Language: de\n"
@@ -1346,7 +1346,7 @@ msgstr "Neuen Ordner anlegen"
 
 #: lib/Dynamic/Mailbox.php:269 mailbox.php:636
 msgid "Create New Template"
-msgstr "Neuen Vorlage erstellen"
+msgstr "Neue Vorlage erstellen"
 
 #: lib/Imap/Acl.php:191
 msgid "Create Subfolders/Rename Mailbox"
