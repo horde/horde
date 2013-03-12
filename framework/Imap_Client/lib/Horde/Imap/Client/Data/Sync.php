@@ -190,7 +190,7 @@ class Horde_Imap_Client_Data_Sync
         }
 
         /* Do single status call to get all necessary data. */
-        if ($this->highestmodseq
+        if ($this->highestmodseq &&
             ($sync_all ||
              ($criteria & Horde_Imap_Client::SYNC_FLAGS) ||
              ($criteria & Horde_Imap_Client::SYNC_FLAGSUIDS) ||
