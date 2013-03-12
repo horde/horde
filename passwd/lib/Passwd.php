@@ -22,6 +22,11 @@
  */
 class Passwd
 {
+    /**
+     * @return array  TODO
+     *
+     * @throws Passwd_Exception
+     */
     static public function getBackends()
     {
         $allbackends = Horde::loadConfiguration('backends.php', 'backends', 'passwd');
@@ -74,7 +79,8 @@ class Passwd
      * backend's definition.  The 'preferred' field may take a single value or
      * an array of multiple values.
      *
-     * @param array $backend  A complete backend entry from the $backends hash.
+     * @param array $backend  A complete backend entry from the $backends
+     *                        hash.
      *
      * @return boolean  True if this entry is "preferred".
      */
