@@ -46,7 +46,7 @@ class Horde_ActiveSync_Message_Note extends Horde_ActiveSync_Message_Base
      * @var array
      */
     protected $_mapping = array (
-        Horde_ActiveSync::AIRSYNCBASE_BODY => array(self::KEY_ATTRIBUTE => 'body', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody'),
+        Horde_ActiveSync::AIRSYNCBASE_BODY      => array(self::KEY_ATTRIBUTE => 'body', self::KEY_TYPE => 'Horde_ActiveSync_Message_AirSyncBaseBody'),
         self::CATEGORIES                        => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::CATEGORY),
         self::LASTMODIFIEDDATE                  => array(self::KEY_ATTRIBUTE => 'lastmodified', self::KEY_TYPE => self::TYPE_DATE),
         self::MESSAGECLASS                      => array(self::KEY_ATTRIBUTE => 'messageclass'),
