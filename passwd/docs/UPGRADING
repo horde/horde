@@ -26,6 +26,21 @@ configurations. Log in as an administrator, go to Administration =>
 Configuration and update anything that's highlighted as outdated.
 
 
+Upgrading to Passwd 5.0
+=======================
+
+Backend Configuration (backends.php)
+------------------------------------
+
+The following options have been added::
+
+   logout
+
+The following options have been removed::
+
+   no_reset
+
+
 Upgrading to Passwd 4.0
 =======================
 

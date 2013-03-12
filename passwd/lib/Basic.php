@@ -228,11 +228,6 @@ class Passwd_Basic
                 $this->vars->oldpassword,
                 $this->vars->new_password0
             );
-
-            if (empty($b_ptr['no_reset']) &&
-                ($registry->getAuthCredential('password') == $this->vars->oldpassword)) {
-                $registry->setAuthCredential('password', $this->vars->new_password0);
-            }
         } catch (Exception $e) {
             $notification->push(sprintf(_("Failure in changing password for %s: %s"), $b_ptr['name'], $e->getMessage()), 'horde.error');
             return;
@@ -243,6 +238,10 @@ class Passwd_Basic
         try {
             Horde::callHook('password_changed', array($backend_userid, $this->vars->oldpassword, $this->vars->new_password0), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {}
+
+        if (!empty($b_ptr['logout'])) {
+            $registry->getLogoutUrl()->redirect();
+        }
 
         if ($this->vars->return_to) {
             $url = new Horde_Url($return_to);

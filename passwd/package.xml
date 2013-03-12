@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add option to destroy Horde session after changing password (Bug #11766).
 * [mms] Http driver now uses Horde_Http_Client.
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).

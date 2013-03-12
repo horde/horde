@@ -57,8 +57,10 @@
  *   'lower', and 'symbol'), while 'passw0rd' only satisfies two classes
  *   ('lower'and 'symbols').
  *
- * no_reset: (boolean) If true, do not reset the authenticated user's
- *           credentials on success.
+ * logout: (boolean) If true, this backend changes the password associated
+ *         with at least one Horde application. On a successful password
+ *         change the current session will be destroyed and the page will
+ *         redirect to the login screen.
  *
  * params: (array) Additional information that a driver needs. See examples
  *        below for further details.
@@ -361,7 +363,6 @@ $backends['pine'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'no_reset' => true,
     'params' => array(
         // FTP server information.
         'host' => 'localhost',
