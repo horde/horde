@@ -633,6 +633,25 @@ class Horde_ActiveSync_Wbxml
                 0x15 => 'Password',
             ),
 
+            /* COMPOSEMAIL */
+            0x15 => array(
+                0x05 => 'SendMail',
+                0x06 => 'SmartForward',
+                0x07 => 'SmartReply',
+                0x08 => 'SaveInSentItems',
+                0x09 => 'ReplaceMime',
+                0x0A => 'Type',
+                0x0B => 'Source',
+                0x0C => 'FolderId',
+                0x0D => 'ItemId',
+                0x0E => 'LongId',
+                0x0F => 'InstanceId',
+                0x10 => 'MIME',
+                0x11 => 'ClientId',
+                0x12 => 'Status',
+                0x13 => 'AccountId',
+            ),
+
             /* POOMMAIL2 */
             0x16 => array(
                 0x05 => 'UmCallerId',
@@ -680,6 +699,8 @@ class Horde_ActiveSync_Wbxml
               0x12 => 'Settings',
               0x13 => 'DocumentLibrary',
               0x14 => 'ItemOperations',
+              // EAS 14
+              0x15 => 'ComposeMail',
               0x16 => 'POOMMAIL2',
               0x17 => 'Notes',
         )
