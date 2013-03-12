@@ -46,11 +46,11 @@ class Horde_Test
     /**
      * The module list
      * <pre>
-     * KEY:   module name
+     * KEY:   extension name
      * VALUE: Either the description or an array with the following entries:
      *        descrip: (string) Module description
      *        error: (string) Error message
-     *        fatal: (boolean) Is missing module fatal?
+     *        fatal: (boolean) Is missing extension fatal?
      *        function: (string) Reference to function to run. If function
      *                  returns boolean true, error message will be output.
      *                  If function returns a string, this error message
@@ -77,12 +77,12 @@ class Horde_Test
         ),
         'fileinfo_check' => array(
             'descrip' => 'MIME Magic Support (fileinfo) - Configuration',
-            'error' => 'The fileinfo module could not open the default MIME Magic database location. You will need to manually specify the MIME Magic database location in the config file.',
+            'error' => 'The fileinfo extension could not open the default MIME Magic database location. You will need to manually specify the MIME Magic database location in the config file.',
             'function' => '_checkFileinfo'
         ),
         'ftp' => array(
             'descrip' => 'FTP Support',
-            'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage. Compile PHP with <code>--enable-ftp</code> to ensure the module is active on your server.'
+            'error' => 'FTP support is only required if you want to authenticate against an FTP server, upload your configuration files with FTP, or use an FTP server for file storage. Compile PHP with <code>--enable-ftp</code> to ensure the extension is active on your server.'
         ),
         'gd' => array(
             'descrip' => 'GD Support',
@@ -138,7 +138,7 @@ class Horde_Test
         ),
         'memcache' => array(
             'descrip' => 'memcached Support (memcache) (PECL extension)',
-            'error' => 'The memcache PECL module is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
+            'error' => 'The memcache PECL extension is only needed if you are using a memcached server for caching or sessions. See horde/docs/INSTALL for information on how to install PECL/PHP extensions.'
         ),
         'mysql' => array(
             'descrip' => 'MySQL Support',
@@ -183,7 +183,7 @@ class Horde_Test
         ),
         'zlib' => array(
             'descrip' => 'Zlib Support',
-            'error' => 'The zlib module is highly recommended for use with Horde.  It allows page compression and handling of ZIP and GZ data. Compile PHP with <code>--with-zlib</code> to activate.'
+            'error' => 'The zlib extension is highly recommended for use with Horde.  It allows page compression and handling of ZIP and GZ data. Compile PHP with <code>--with-zlib</code> to activate.'
         )
     );
 
@@ -274,7 +274,7 @@ class Horde_Test
      */
     protected $_pearList = array(
         'Cache' => array(
-            'error' => 'Cache is used by the Services_Weather module on the weather applet/block on the portal page.'
+            'error' => 'Cache is used by the Services_Weather package on the weather applet/block on the portal page.'
         ),
         'File_Fstab' => array(
             'error' => 'Horde requires the File_Fstab package if using the localhost driver for the Accounts block.'
@@ -295,7 +295,7 @@ class Horde_Test
             'error' => 'Services_Weather is used by the METAR weather applet/block on the portal page.'
         ),
         'XML_Serializer' => array(
-            'error' => 'XML_Serializer is used by the Services_Weather module on the weather applet/block on the portal page.'
+            'error' => 'XML_Serializer is used by the Services_Weather package on the weather applet/block on the portal page.'
         )
     );
 
