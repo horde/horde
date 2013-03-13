@@ -1,11 +1,10 @@
 <?php
 /**
- * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ * Copyright 2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
@@ -13,41 +12,31 @@
  */
 
 /**
- * Ingo_Transport defines an API to activate filter scripts on a server.
+ * Ingo_Transport_Sql implements an Ingo transport driver using a SQL database.
  *
- * @author   Mike Cochrane <mike@graftonhall.co.nz>
  * @author   Jan Schneider <jan@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/apache ASL
  * @package  Ingo
  */
-abstract class Ingo_Transport_Base
+class Ingo_Transport_Sql extends Ingo_Transport_Base
 {
     /**
-     * Congifuration parameters.
+     * Database handle.
      *
-     * @var array
+     * @var Horde_Db_Adapter
      */
-    protected $_params = array(
-        'password' => null,
-        'username' => null
-    );
-
-    /**
-     * Whether this driver allows managing other users' rules.
-     *
-     * @var boolean
-     */
-    protected $_supportShares = false;
+    protected $_db;
 
     /**
      * Constructor.
      *
-     * @param array $params  Configuration parameters.
+     * @param array $params  A hash containing driver parameters.
      */
     public function __construct(array $params = array())
     {
-        $this->_params = array_merge($this->_params, $params);
+        $this->_supportShares = true;
+        parent::__construct($params);
     }
 
     /**
@@ -62,17 +51,15 @@ abstract class Ingo_Transport_Base
      */
     public function setScriptActive($script)
     {
-    }
+        $this->_connect();
 
-    /**
-     * Returns whether the driver supports managing other users' rules.
-     *
-     * @return boolean  True if the driver supports shares.
-     */
-    public function supportShares()
-    {
-        return ($this->_supportShares &&
-                $GLOBALS['session']->get('ingo', 'backend/shares'));
+        try {
+            foreach ($script['recipes'] as $recipe) {
+                $this->_db->execute($recipe['object']->generate());
+            }
+        } catch (Horde_Db_Exception $e) {
+            throw new Ingo_Exception($e);
+        }
     }
 
     /**
@@ -84,6 +71,27 @@ abstract class Ingo_Transport_Base
      */
     public function quote($string)
     {
-        return $string;
+        $this->_connect();
+        return $this->_db->quote($string);
+    }
+
+    /**
+     * Connect to the SQL server.
+     *
+     * @throws Ingo_Exception
+     */
+    protected function _connect()
+    {
+        if ($this->_db) {
+            return;
+        }
+
+        try {
+            $this->_db = $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_Db')
+                ->create('ingo', $this->_params);
+        } catch (Horde_Exception $e) {
+            throw new Ingo_Exception($e);
+        }
     }
 }

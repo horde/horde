@@ -33,11 +33,12 @@
  *         'params' is an array containing any additional information that the
  *         script driver needs. See examples below for further details.
  *         Valid options for 'driver' are:
- *   - imap:  IMAP client side filtering (POP3 servers NOT supported).
+ *   - customsql: Custom SQL queries (only for vacation notices).
+ *   - imap:      IMAP client side filtering (POP3 servers NOT supported).
+ *   - ispconfig: ISPConfig SOAP Server (only for vacation notices).
  *   - maildrop:  Maildrop scripts.
  *   - procmail:  Procmail scripts.
- *   - sieve:  Sieve scripts.
- *   - ispconfig:  ISPConfig SOAP Server (only for vacation notices).
+ *   - sieve:     Sieve scripts.
  *
  * shares: (boolean) Some transport drivers (timsieved, vfs, ispconfig) support
  *         sharing filter rules with other users. Users can then configure
@@ -58,12 +59,13 @@
  *            'params' is an array containing any additional information that
  *            the transport class needs. See examples below for further details.
  *            Valid options for 'driver' are:
- *   - ldap:  LDAP server.
- *   - null:  No backend server (i.e. for script drivers, such as 'imap', that
- *            does not use scripts).
- *   - timsieved:  Timsieved (managesieve) server.
- *   - vfs:  Use Horde VFS.
- *   - ispconfig:  ISPConfig SOAP Server (only for vacation notices).
+ *   - ispconfig: ISPConfig SOAP server (only for vacation notices).
+ *   - ldap:      LDAP server.
+ *   - null:      No backend server (i.e. for script drivers, such as 'imap',
+ *                that does not use scripts).
+ *   - sql:       Database server (only for vacation notices).
+ *   - timsieved: Timsieved (managesieve) server.
+ *   - vfs:       Use Horde VFS.
  *
  *   NOTE: By default, the transport driver will use Horde credentials to
  *         authenticate to the backend. If a different username/password is
@@ -365,6 +367,7 @@ $backends['ldapsieve'] = array(
     ),
 );
 
+/* ISPConfig Example */
 $backends['ispconfig'] = array(
     'disabled' => true,
     'transport' => array(
@@ -387,6 +390,26 @@ $backends['ispconfig'] = array(
             'params' => array()
         ),
     ),
-    'scriptparams' => array(),
+    'shares' => false
+);
+
+/* Custom SQL Example */
+$backends['customsql'] = array(
+    'disabled' => true,
+    'transport' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'sql',
+            'params' => $GLOBALS['conf']['sql'],
+        ),
+    ),
+    'script' => array(
+        Ingo::RULE_ALL => array(
+            'driver' => 'customsql',
+            'params' => array(
+                'vacation_unset' => 'UPDATE vacation SET active = 0 WHERE user = %u',
+                'vacation_set' => 'REPLACE INTO vacation (active, subject, message, user) VALUES (1, %s, %m, %u)'
+            ),
+        ),
+    ),
     'shares' => false
 );

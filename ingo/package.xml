@@ -22,8 +22,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-08</date>
- <time>18:03:21</time>
+ <date>2013-03-13</date>
+ <time>13:23:44</time>
  <version>
   <release>3.1.0</release>
   <api>3.0.0</api>
@@ -163,6 +163,7 @@
       <file name="Test.php" role="horde" />
      </dir> <!-- /lib/Script/Sieve -->
      <file name="Base.php" role="horde" />
+     <file name="Customsql.php" role="horde" />
      <file name="Imap.php" role="horde" />
      <file name="Ispconfig.php" role="horde" />
      <file name="Item.php" role="horde" />
@@ -205,6 +206,7 @@
      <file name="Ldap.php" role="horde" />
      <file name="Null.php" role="horde" />
      <file name="Sivtest.php" role="horde" />
+     <file name="Sql.php" role="horde" />
      <file name="Timsieved.php" role="horde" />
      <file name="Vfs.php" role="horde" />
     </dir> <!-- /lib/Transport -->
@@ -664,6 +666,7 @@
    <install as="ingo/lib/Form/Vacation.php" name="lib/Form/Vacation.php" />
    <install as="ingo/lib/LoginTasks/SystemTask/Upgrade.php" name="lib/LoginTasks/SystemTask/Upgrade.php" />
    <install as="ingo/lib/Script/Base.php" name="lib/Script/Base.php" />
+   <install as="ingo/lib/Script/Customsql.php" name="lib/Script/Customsql.php" />
    <install as="ingo/lib/Script/Imap.php" name="lib/Script/Imap.php" />
    <install as="ingo/lib/Script/Ispconfig.php" name="lib/Script/Ispconfig.php" />
    <install as="ingo/lib/Script/Item.php" name="lib/Script/Item.php" />
@@ -736,6 +739,7 @@
    <install as="ingo/lib/Transport/Ldap.php" name="lib/Transport/Ldap.php" />
    <install as="ingo/lib/Transport/Null.php" name="lib/Transport/Null.php" />
    <install as="ingo/lib/Transport/Sivtest.php" name="lib/Transport/Sivtest.php" />
+   <install as="ingo/lib/Transport/Sql.php" name="lib/Transport/Sql.php" />
    <install as="ingo/lib/Transport/Timsieved.php" name="lib/Transport/Timsieved.php" />
    <install as="ingo/lib/Transport/Vfs.php" name="lib/Transport/Vfs.php" />
    <install as="ingo/lib/Ui/VarRenderer/Ingo.php" name="lib/Ui/VarRenderer/Ingo.php" />
@@ -1233,7 +1237,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-08</date>
+   <date>2013-03-13</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
 * [jan] Add composite script backends.
