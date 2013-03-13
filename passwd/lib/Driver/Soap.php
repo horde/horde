@@ -14,7 +14,7 @@
 /**
  * Changes a password through a SOAP request.
  *
- * @author   Jan Schneider <jan@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
  * @category  Horde
  * @copyright 2009-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL

@@ -21,7 +21,7 @@
  *
  * @author    Duck <duck@obala.net>
  * @category  Horde
- * @copyright 2003-2013 Horde LLC
+ * @copyright 2006-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */

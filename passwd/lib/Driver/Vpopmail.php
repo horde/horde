@@ -24,7 +24,7 @@
  * @author    Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
  * @author    Tjeerd van der Zee <admin@xar.nl>
  * @category  Horde
- * @copyright 2000-2013 Horde LLC
+ * @copyright 2002-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   Passwd
  */

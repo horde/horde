@@ -73,7 +73,7 @@
  *            the list is selected.
  */
 
-$backends['hordeauth'] = array (
+$backends['hordeauth'] = array(
     'disabled' => true,
     'name' => 'Horde Authentication',
     'driver' => 'Horde',
@@ -83,7 +83,7 @@ $backends['hordeauth'] = array (
     ),
 );
 
-$backends['hordesql'] = array (
+$backends['hordesql'] = array(
     'disabled' => true,
     'name' => 'Horde SQL Authentication',
     'driver' => 'Sql',
@@ -289,7 +289,7 @@ $backends['smbldap'] = array(
     ),
 );
 
-$backends['sql'] = array (
+$backends['sql'] = array(
     'disabled' => true,
     'name' => 'SQL Server',
     'driver' => 'Sql',
@@ -333,7 +333,7 @@ $backends['mailmgr'] = array(
     ),
 );
 
-$backends['vpopmail'] = array (
+$backends['vpopmail'] = array(
     'disabled' => true,
     'name' => 'Vpopmail Server',
     'driver' => 'Vpopmail',
@@ -466,7 +466,7 @@ $backends['soap'] = array(
 // Set the 'password_policy' section as you wish.
 // In most installations you probably only need to change the
 // hostspec and/or  password fields.
-$backends['postfixadmin'] = array (
+$backends['postfixadmin'] = array(
     'disabled' => true,
     'name' => 'Postfix Admin server',
     'driver' => 'Sql',
@@ -496,7 +496,7 @@ $backends['postfixadmin'] = array (
         //    %p -> gets substituted with the plaintext password
         //    %e -> gets substituted with the encrypted password
         //
-        'query_lookup' => 'SELECT password FROM mailbox WHERE username = %u and active = 1', 
+        'query_lookup' => 'SELECT password FROM mailbox WHERE username = %u and active = 1',
         'query_modify' => 'UPDATE mailbox SET password = %e WHERE username = %u'
     ),
 );
