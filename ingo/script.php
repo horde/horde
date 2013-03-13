@@ -75,7 +75,7 @@ if (empty($scripts)) {
 } else {
     $view->scriptexists = true;
     foreach ($scripts as &$script) {
-        $script['lines'] = preg_split('(\r\n|\n|\r)', $script['script']);
+        $script['lines'] = preg_split('(\r\n|\n|\r)', trim($script['script']));
         $script['width'] = strlen(count($script['lines']));
     }
 }
