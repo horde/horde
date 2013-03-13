@@ -173,15 +173,20 @@ class Ingo_Application extends Horde_Registry_Application
      */
     public function menu($menu)
     {
+        $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
+
+        $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
+
         try {
-            $menu->add(Horde::url('filters.php'), _("Filter _Rules"), 'ingo-rules', null, null, null, basename($_SERVER['PHP_SELF']) == 'index.php' ? 'current' : null);
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist');
-            $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist');
+            if (in_array(Ingo_Storage::ACTION_WHITELIST, $s_categories)) {
+                $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showWhitelist')), _("_Whitelist"), 'ingo-whitelist');
+            }
+            if (in_array(Ingo_Storage::ACTION_BLACKLIST, $s_categories)) {
+                $menu->add(Horde::url($GLOBALS['injector']->getInstance('Horde_Registry')->link('mail/showBlacklist')), _("_Blacklist"), 'ingo-blacklist');
+            }
         } catch (Horde_Exception $e) {
             Horde::logMessage($e, 'ERR');
         }
-
-        $s_categories = $GLOBALS['session']->get('ingo', 'script_categories');
 
         if (in_array(Ingo_Storage::ACTION_VACATION, $s_categories)) {
             $menu->add(Horde::url('vacation.php'), _("_Vacation"), 'ingo-vacation');
