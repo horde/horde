@@ -1,7 +1,7 @@
-<?php if (empty($diffs)): ?>
+<?php if (empty($this->diffs)): ?>
 <p class="notice"><?php echo _("No available configuration data to show differences for.") ?></p>
 <?php else: ?>
-<?php foreach ($diffs as $d): ?>
+<?php foreach ($this->diffs as $d): ?>
 <h1 class="header" id="<?php echo $d['app'] ?>">
  <?php echo $d['app'] ?>
  <small>[ <?php echo $d['toggle_renderer'] ?> ]</small>
