@@ -2,58 +2,65 @@
 /**
  * Test the backend driver factory.
  *
- * PHP version 5
- *
+ * @author     Ralf Lang <lang@b1-systems.de>
  * @category   Horde
+ * @copyright  2013 Horde LLC
+ * @internal
+ * @license    http://www.horde.org/licenses/gpl GPL
  * @package    Passwd
  * @subpackage UnitTests
- * @author     Ralf Lang <lang@b1-systems.de>
- * @link       http://www.horde.org/apps/passwd
  */
 class Passwd_Unit_Factory_DriverTest extends Passwd_TestCase
 {
-
     protected $_backends = array();
 
     public function setUp()
     {
         $this->_backends = array(
-            'hordeauth' => array(
+            'null' => array(
                 'disabled' => false,
-                'name' => 'Horde',
-                'preferred' => false,
-                'policy' => array('minLength' => 6, 'minNumeric' => 1),
-                'driver' => 'Horde',
-                'params' => array()));
+                'name' => 'Null',
+                'driver' => 'Null',
+                'policy' => array(
+                    'minLength' => 6,
+                    'minNumeric' => 1
+                )
+            )
+        );
     }
 
     public function testGettingSubdriversWorks()
     {
-        $driver_factory = new Passwd_Factory_Driver($this->getInjector());
-        $params = array('is_subdriver' => true, 'driver' => 'horde');
-        $driver = $driver_factory->create('Horde', $params);
+        $factory = new Passwd_Factory_Driver($this->getInjector());
+        $factory->backends = array();
+
+        $driver = $factory->create('Null', array(
+            'is_subdriver' => true,
+            'driver' => 'Null'
+        ));
+
         $this->assertInstanceOf('Passwd_Driver', $driver);
     }
-
 
     public function testGetBackendsReturnsResultOfSetBackends()
     {
         $GLOBALS['injector'] = $this->getInjector();
-        $driverFactory = new Passwd_Factory_Driver($this->getInjector());
-        $driverFactory->backends = $this->_backends;
-        // The Horde Driver is not the perfect mockup but sufficient for now
-        $this->assertArrayHasKey('hordeauth', $driverFactory->backends);
+        $factory = new Passwd_Factory_Driver($this->getInjector());
+        $factory->backends = $this->_backends;
+
+        $this->assertArrayHasKey('null', $factory->backends);
     }
 
     // This test is currently blocked by a static call
     public function testGettingTheSameDriverTwiceWorks()
     {
-        $GLOBALS['injector']    = $this->getInjector();
-        $driverFactory         = new Passwd_Factory_Driver($this->getInjector());
-        // The Horde Driver is not the perfect mockup but sufficient for now
-        $driverFactory->backends($this->_backends);
-        $driver1 = $driverFactory->create('hordeauth');
-        $driver2 = $driverFactory->create('hordeauth');
+        $GLOBALS['injector'] = $this->getInjector();
+        $factory = new Passwd_Factory_Driver($this->getInjector());
+        $factory->backends = $this->_backends;
+
+        $driver1 = $factory->create('null');
+        $driver2 = $factory->create('null');
+
         $this->assertEquals($driver1, $driver2);
     }
 
