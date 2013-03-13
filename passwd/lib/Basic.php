@@ -220,7 +220,8 @@ class Passwd_Basic
             $driver->changePassword(
                 $this->_userid,
                 $this->_vars->oldpassword,
-                $this->_vars->new_password0
+                //this is blank $this->_vars->new_password0
+                $this->_vars->newpassword0
             );
         } catch (Exception $e) {
             $notification->push(sprintf(_("Failure in changing password for %s: %s"), $b_ptr['name'], $e->getMessage()), 'horde.error');
