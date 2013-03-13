@@ -128,28 +128,6 @@ class IMP_Hooks
 
 
     /**
-     * AJAX HOOK: Add user-defined AJAX action handlers.
-     *
-     * See horde/config/hooks.php.dist for more information.
-     *
-     * @param string $action         The AJAX action.
-     * @param Horde_Variables $vars  The URL parameters.
-     *
-     * @return mixed  The data to send to the browser (will be JSON encoded).
-     * @throws Horde_Exception
-     */
-//     public function ajaxaction($action, $vars)
-//     {
-//        switch ($action) {
-//        case 'Foo':
-//            return 'bar';
-//        }
-//
-//        throw new Horde_Exception('Unknown action');
-//     }
-
-
-    /**
      * Perform actions on files uploaded for use as compose attachments.
      *
      * This hook is enabled by default.
