@@ -39,6 +39,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [jan] Check all installed PEAR packages when checking for updates.
 * [mms] Add &apos;ajaxaction_data&apos; hook.
  </notes>
  <contents>

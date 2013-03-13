@@ -70,6 +70,17 @@ $a = $registry->listAllApps();
 /* Check for versions if requested. */
 $versions = array();
 if ($vars->check_versions) {
+    $pearConfig = PEAR_Config::singleton();
+    $packageFile = new PEAR_PackageFile($pearConfig);
+    $packages = array();
+    foreach ($pearConfig->getRegistry()->packageInfo(null, null, 'pear.horde.org') as $package) {
+        $packages[$package['name']] = $package['version']['release'];
+    }
+    foreach (glob(__DIR__ . '/../../../framework/*/package.xml') as $packagexml) {
+        $package = $packageFile->fromPackageFile($packagexml, PEAR_VALIDATE_NORMAL);
+        $packages[$package->getName()] = $package->getVersion();
+    }
+
     try {
         $versions = $hconfig->checkVersions();
     } catch (Horde_Exception $e) {
@@ -144,7 +155,7 @@ if (class_exists('Horde_Bundle')) {
             $apps[0]['vstatus'] = Horde::link($versions[Horde_Bundle::NAME]['url'], sprintf(_("Download %s"), Horde_Bundle::FULLNAME), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[Horde_Bundle::NAME]['version']) . '</a> ';
         } else {
             $apps[0]['load'] = $success;
-            $apps[0]['vstatus'] = _("Application is up-to-date.");
+            $apps[0]['vstatus'] = _("Module is up-to-date.");
         }
     }
     $i++;
@@ -185,7 +196,7 @@ foreach ($a as $app) {
                 $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
             } else {
                 $apps[$i]['load'] = $success;
-                $apps[$i]['vstatus'] = _("Application is up-to-date.");
+                $apps[$i]['vstatus'] = _("Module is up-to-date.");
             }
         }
     }
@@ -252,7 +263,7 @@ foreach ($a as $app) {
 }
 
 /* Search for outdated library schemas. */
-foreach ($migration->apps as $app) {
+foreach ($migration->apps as $key => $app) {
     if (in_array($app, $a)) {
         continue;
     }
@@ -263,7 +274,7 @@ foreach ($migration->apps as $app) {
         ->link(array('title' => sprintf(_("Update %s schema"), $app)));
 
     $apps[$i]['sort'] = 'ZZZ' . $app;
-    $apps[$i]['name'] = implode('_', array_map(array('Horde_String', 'ucfirst'), explode('_', $app)));
+    $apps[$i]['name'] = $app;
     $apps[$i]['version'] = '';
 
     /* If a DB backend hasn't been configured (yet), an exception will be
@@ -286,6 +297,46 @@ foreach ($migration->apps as $app) {
         /* Schema is ok. */
         $apps[$i]['db'] = $success;
         $apps[$i]['dbstatus'] = _("DB schema is ready.");
+    }
+
+    if (!empty($versions)) {
+        if (isset($packages[$app])) {
+            $apps[$i]['version'] = $packages[$app];
+        }
+        if (!isset($versions[$app])) {
+            $apps[$i]['load'] = $warning;
+            $apps[$i]['vstatus'] = _("No stable version exists yet.");
+        } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
+            $apps[$i]['load'] = $error;
+            $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
+        } else {
+            $apps[$i]['load'] = $success;
+            $apps[$i]['vstatus'] = _("Module is up-to-date.");
+        }
+    }
+}
+
+if (!empty($versions)) {
+    foreach ($packages as $app => $version) {
+        if (in_array($app, $a) || in_array($app, $migration->apps)) {
+            continue;
+        }
+        $i++;
+
+        $apps[$i]['sort'] = 'ZZZ' . $app;
+        $apps[$i]['name'] = $app;
+        $apps[$i]['version'] = $version;
+
+        if (!isset($versions[$app])) {
+            $apps[$i]['load'] = $warning;
+            $apps[$i]['vstatus'] = _("No stable version exists yet.");
+        } elseif (version_compare(preg_replace('/H\d \((.*)\)/', '$1', $versions[$app]['version']), $apps[$i]['version'], '>')) {
+            $apps[$i]['load'] = $error;
+            $apps[$i]['vstatus'] = Horde::link($versions[$app]['url'], sprintf(_("Download %s"), $app), '', '_blank') . sprintf(_("A newer version (%s) exists."), $versions[$app]['version']) . '</a> ';
+        } else {
+            $apps[$i]['load'] = $success;
+            $apps[$i]['vstatus'] = _("Module is up-to-date.");
+        }
     }
 }
 
