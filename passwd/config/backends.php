@@ -84,8 +84,7 @@ $backends['hordeauth'] = array (
 );
 
 $backends['hordesql'] = array (
-    // ENABLED by default
-    'disabled' => false,
+    'disabled' => true,
     'name' => 'Horde SQL Authentication',
     'driver' => 'Sql',
     'policy' => array(
