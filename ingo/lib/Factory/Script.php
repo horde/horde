@@ -39,7 +39,7 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
 
         $scripts = $GLOBALS['session']
             ->get('ingo', 'backend/script', Horde_Session::TYPE_ARRAY);
-        if (isset($scripts[$rule])) {
+        if ($rule != Ingo::RULE_ALL && isset($scripts[$rule])) {
             $script = $scripts[$rule];
             $skip = array_diff(
                 array(Ingo::RULE_FILTER, Ingo::RULE_BLACKLIST,
@@ -51,7 +51,6 @@ class Ingo_Factory_Script extends Horde_Core_Factory_Base
             $script = $scripts[Ingo::RULE_ALL];
             $skip = array_keys($scripts);
         }
-
         $driver = ucfirst(basename($script['driver']));
         $params = $script['params'];
         $params['skip'] = $skip;
