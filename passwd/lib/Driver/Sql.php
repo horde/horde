@@ -67,14 +67,14 @@ class Passwd_Driver_Sql extends Passwd_Driver
         ), $params));
     }
 
-     /**
-      * Finds out if a username and password is valid.
-      *
-      * @param string $userID   The userID to check.
-      * @param string $oldpass  An old password to check.
+    /**
+     * Finds out if a username and password is valid.
+     *
+     * @param string $userID   The userID to check.
+     * @param string $oldpass  An old password to check.
      *
      * @throws Passwd_Exception
-      */
+     */
     protected function _lookup($user, $oldpass)
     {
         if (!empty($this->_params['query_lookup'])) {

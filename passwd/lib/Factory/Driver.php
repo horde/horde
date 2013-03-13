@@ -162,8 +162,6 @@ class Passwd_Factory_Driver extends Horde_Core_Factory_Base
                 }
                 $backend['params']['soap_params']['encoding'] = 'UTF-8';
                 break;
-
-            /* more to come later as drivers are upgraded to H4 / PHP5 */
             }
 
             try {
