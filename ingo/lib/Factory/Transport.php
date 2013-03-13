@@ -54,15 +54,13 @@ class Ingo_Factory_Transport extends Horde_Core_Factory_Base
         if (!isset($auth['username'])) {
             $auth['username'] = $registry->getAuth('bare');
         }
-
-        /* Sieve configuration only. */
-        if (!isset($auth['euser']) && ($transport['driver'] == 'timsieved')) {
+        if (!isset($auth['euser'])) {
             $auth['euser'] = Ingo::getUser(false);
         }
 
         $class = 'Ingo_Transport_' . ucfirst($transport['driver']);
         if (class_exists($class)) {
-            return new $class(array_merge($transport['params'], $auth));
+            return new $class(array_merge($auth, $transport['params']));
         }
 
         throw new Ingo_Exception(sprintf(_("Unable to load the transport driver \"%s\"."), $class));
