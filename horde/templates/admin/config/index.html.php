@@ -1,4 +1,4 @@
-<form action="<tag:version_action />" style="margin:8px">
+<form action="<?php echo $this->version_action ?>" style="margin:8px">
  <?php echo $this->version_input ?>
  <input type="hidden" value="1" name="check_versions" />
  <input type="submit" value="<?php echo _("Check for newer versions") ?>" />
