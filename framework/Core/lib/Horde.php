@@ -1596,7 +1596,6 @@ class Horde
 
     /**
      * Initialize a HordeMap.
-     *
      */
     static public function initMap(array $params = array())
     {
