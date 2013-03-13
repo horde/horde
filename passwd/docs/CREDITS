@@ -2,12 +2,11 @@
  Passwd Development Team
 =========================
 
-
 Core Developers
 ===============
 
-- Eric Rostetter <eric.rostetter@physics.utexas.edu>
 - Jan Schneider <jan@horde.org>
+- Michael Slusarz <slusarz@horde.org>
 
 
 Driver Developers
@@ -28,6 +27,7 @@ Driver Developers
 - Stuart Bingë <skbinge@gmail.com>
 - Tjeerd van der Zee <admin@xar.nl>
 - Ralf Lang <lang@b1-systems.de>
+
 
 Localization
 ============
@@ -98,6 +98,8 @@ Inactive Developers
 ===================
 
 - Mathieu Clabaut
+- Chuck Hagenbuch <chuck@horde.org>
+- Eric Rostetter <eric.rostetter@physics.utexas.edu>
 
 
 Special thanks

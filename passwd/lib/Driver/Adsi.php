@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
  * The ADSI class changes a user's password on any Windows Machine/NT-Domain
  * using the ADSI COM Interface.
  *
@@ -30,26 +42,17 @@
  * Backend parameters:
  * target = Target Windows machine/domain name (Required)
  *
- * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
- *
- * @author  Luiz R Malheiros <malheiros@gmail.com>
- * @package Passwd
+ * @author    Luiz R Malheiros <malheiros@gmail.com>
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Adsi extends Passwd_Driver
 {
     /**
-     * Changes the user's password.
-     *
-     * @param string $user_name     The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($user_name, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         if (empty($this->_params['target'])) {
             throw new Passwd_Exception(_("Password module is missing target parameter."));
@@ -57,16 +60,18 @@ class Passwd_Driver_Adsi extends Passwd_Driver
 
         $root = new COM('WinNT:');
         $adsi = $root->OpenDSObject(
-            'WinNT://' . $this->_params['target'] . '/' . $user_name . ',user',
-            $this->_params['target'] . '\\' . $user_name,
-            $old_password,
-            1);
+            'WinNT://' . $this->_params['target'] . '/' . $user . ',user',
+            $this->_params['target'] . '\\' . $user,
+            $oldpass,
+            1
+        );
 
         if (!$adsi) {
             throw new Passwd_Exception(_("Access Denied."));
         }
-        if ($result = $adsi->ChangePassword($old_password, $new_password)) {
+        if ($result = $adsi->ChangePassword($oldpass, $newpass)) {
             throw new Passwd_Exception(sprintf(_("ADSI error %s."), $result));
         }
     }
+
 }

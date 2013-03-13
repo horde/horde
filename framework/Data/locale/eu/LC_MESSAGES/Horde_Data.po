@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Data\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-10-18 12:58+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2013-01-16 10:08+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr "Ezin izan da fitxategia ireki."
 
 #: lib/Horde/Data/Csv.php:227
 msgid "Incorrect charset given for the data."
-msgstr ""
+msgstr "Datuak ez dute charset (karaktere kodeketa) zuzena."
 
 #: lib/Horde/Data/Tsv.php:216
 msgid "TSV file"
@@ -34,7 +35,7 @@ msgstr "Fitxategiak ez dauka daturik."
 
 #: lib/Horde/Data/Base.php:343
 msgid "The uploaded data was lost since the previous step."
-msgstr ""
+msgstr "Kargatutako datuak galdu egin dira aurreko hurratsatik hona.."
 
 #: lib/Horde/Data/Csv.php:206 lib/Horde/Data/Tsv.php:222
 msgid "The uploaded file could not be saved."
@@ -48,4 +49,4 @@ msgstr "Errorea gertatu da iCalendar datuak inportatzean."
 msgid ""
 "You didn\\'t map any fields from the imported file to the corresponding "
 "fields."
-msgstr ""
+msgstr "Inportatutako fitxategitik ez duzu inolako eremurik mapeatu."

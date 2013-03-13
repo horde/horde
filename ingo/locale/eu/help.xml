@@ -110,14 +110,14 @@
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
     <heading>Txikiagoa edo berdina da</heading>
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
-    <heading>Equal to</heading>
+    <heading>Berdin</heading>
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
     <heading>Greater than or equal to</heading>
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
     <heading>Hau baino handiagoa da</heading>
     <para>Proba erlazional bat da, zehaztutako balioa eta mezuaren goiburuko balioa zenbaki-mailan konparatuko dituena.</para>
     <heading>Sieve iragazketaren muga</heading>
-    <warn>Sieve zehaztapenak ez ditu onartzen zenbaki negatiboak dituzten konparazioak. Balio negatibo bat sartzen baduzu proba erlazionaletako batean, arazuak ez du behar bezala funtzionatuko.</warn>
+    <warn>Sieve zehaztapenak ez ditu onartzen zenbaki negatiboak dituzten konparazioak. Balio negatibo bat sartzen baduzu proba erlazionaletako batean, arauak ez du behar bezala funtzionatuko.</warn>
   </entry>
   <entry id="rule-name" md5="8faaf71e4bf2f91d943d77f803f9a2d5" state="uptodate">
     <title>Iragazteko araua: Izena</title>
@@ -151,7 +151,7 @@
     <title>Kanpoan: Erantzunik ez</title>
     <para>Ez bidali kanpoan nagoela jakinarazteko mezurik hartzaile hauei. Helbide bakoitza lerro batean sartu behar da.</para>
   </entry>
-  <entry id="vacation-reason" md5="d4da2f3a0d357e00950ec57d984cbcee" state="uptodate">
+  <entry id="vacation-reason" md5="926968164f429e9f9ff5fa73242eae46" state="uptodate">
     <title>Kanpoan: Kanpoan egoteko arrazoia</title>
     <para>Hau da kanpoan zaudela jakinarazteko bidaltzen diren mezuetako testua.</para>
   </entry>
@@ -163,7 +163,7 @@
     <title>Zerrenda zuria</title>
     <para>SARRERAKO ONTZIAn beti ikusi nahi dituzun helbide elektroniko seguruen zerrenda da zerrenda zuria. Helbide bakoitza lerro batean sartu behar da.</para>
   </entry>
-  <entry id="whitelist-addresses" md5="8fe054c1b55e6adc81d1d8525c131637" state="uptodate">
+  <entry id="whitelist-addresses" md5="9ad6cb56e8bc5762112fa95382424608" state="uptodate">
     <title>Zerrenda zuria: Helbideak</title>
     <para>EGITEKO Helbide bakoitza lerro batean sartu behar da.</para>
   </entry>

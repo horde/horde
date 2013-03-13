@@ -252,6 +252,7 @@ class Horde_ActiveSync_Imap_Adapter
             // $modseq sneak in yet (they will be caught on the next PING or
             // SYNC).
             $changes = array();
+            $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;

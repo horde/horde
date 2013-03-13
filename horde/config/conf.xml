@@ -752,7 +752,7 @@
        <value desc="ALERT">ALERT</value>
        <value desc="CRIT">CRIT</value>
        <value desc="ERR">ERR</value>
-       <value desc="WARNING">WARNING</value>
+       <value desc="WARN">WARNING</value>
        <value desc="NOTICE">NOTICE</value>
        <value desc="INFO">INFO</value>
        <value desc="DEBUG">DEBUG</value>

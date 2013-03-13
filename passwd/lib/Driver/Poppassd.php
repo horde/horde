@@ -1,41 +1,51 @@
 <?php
 /**
- * The Poppassd class attempts to change a user's password via a poppassd
- * server.
- *
  * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Changes a password via a poppassd server.
+ *
+ * @author    Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Poppassd extends Passwd_Driver
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_params = array_merge(
-            array('host' => 'localhost',
-                  'port' => 106),
-            $params);
+        parent::__construct(array_merge(array(
+            'host' => 'localhost',
+            'port' => 106
+        ), $params));
     }
 
     /**
      * Connects to the server.
+     *
+     * @throws Passwd_Exception
      */
     protected function _connect()
     {
-        $this->_fp = fsockopen($this->_params['host'],
-                               $this->_params['port'],
-                               $errno,
-                               $errstr,
-                               30);
+        $this->_fp = fsockopen(
+            $this->_params['host'],
+            $this->_params['port'],
+            $errno,
+            $errstr,
+            30
+        );
         if (!$this->_fp) {
             throw new Passwd_Exception($errstr);
         }
@@ -56,11 +66,12 @@ class Passwd_Driver_Poppassd extends Passwd_Driver
 
     /**
      * Parses a response from the server to see what it was.
+     *
+     * @throws Passwd_Exception
      */
     protected function _getPrompt()
     {
-        $prompt = fgets($this->_fp, 4096);
-        if (!$prompt) {
+        if (!($prompt = fgets($this->_fp, 4096))) {
             throw new Passwd_Exception(_("No prompt returned from server."));
         }
 
@@ -70,56 +81,51 @@ class Passwd_Driver_Poppassd extends Passwd_Driver
 
         /* This should probably be a regex match for 2?0 or 3?0, no? */
         $rc = substr($prompt, 0, 3);
-        if ($rc != '200' && $rc != '220' && $rc != '250' && $rc != '300' ) {
+        if (!in_array($rc, array('200', '220', '250', '300'))) {
             throw new Passwd_Exception($prompt);
         }
     }
 
     /**
      * Sends a command to the server.
+     *
+     * @throws Passwd_Exception
      */
     protected function _sendCommand($cmd, $arg)
     {
         $line = $cmd . ' ' . $arg . "\n";
-        $res_fputs = fputs($this->_fp, $line);
-        if (!$res_fputs) {
+        if (!($res_fputs = fputs($this->_fp, $line))) {
             throw new Passwd_Exception(_("Cannot send command to server."));
         }
         $this->_getPrompt();
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         $this->_connect();
 
         try {
-            $this->_sendCommand('user', $username);
+            $this->_sendCommand('user', $user);
         } catch (Passwd_Exception $e) {
             $this->_disconnect();
             throw new Passwd_Exception(_("User not found") . ': ' . $e->getMessage());
         }
 
         try {
-            $this->_sendCommand('pass', $old_password);
+            $this->_sendCommand('pass', $oldpass);
         } catch (Passwd_Exception $e) {
             $this->_disconnect();
             throw new Passwd_Exception(_("Incorrect old password.") . ': ' . $e->getMessage());
         }
 
         try {
-            $this->_sendCommand('newpass', $new_password);
+            $this->_sendCommand('newpass', $newpass);
         } catch (Passwd_Exception $e) {
             $this->_disconnect();
             throw $e;
         }
     }
+
 }

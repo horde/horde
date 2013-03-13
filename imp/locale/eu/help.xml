@@ -1,44 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <help>
+    <entry id="compose-actions" state="uptodate" md5="bf907bcfd67c0226a391d1d5f28c6ba8">
+        <title>Idatzi: Ekintzak</title>
+        <para>
+            "Bidali mezua" aukerak hartzaileari bidaltzen dio mezua. Ziurtatu ekintza honekin bidali nahi duzun mezua ondo dagoela, ezin baita atzera egin.
+        </para>
+        <para>
+            "Gorde zirriborroa" aukerak "Zirriborroak" izeneko karpetan jartzen ditu amaitu gabeko mezuak. Edozein karpeta-zerrendatatik joan daiteke karpeta horretara. Mezua gero amai dezakezu, "Zirriborroak" karpetara joanez. Horretarako, egin klik gordetako mezuan ireki dadin, eta gero, egin klik "Berrekin" aukeran.
+        </para>
+        <tip>
+            Mezua zirriborro gisa gorde aurretik Gaia zehazten badiozu, gero errazago jakin ahal izango duzu zirriborroen karpetako zein mezu idazteari berrekin nahi diozun.
+        </tip>
+        <para>
+            "Utzi mezua" aukera hautatuz gero, laster-leihoa ez den leiho batean idazten ari bazara, idazten ari zaren mezua utzi eta ikusten ari zinen azken karpetara itzuliko zara.
+        </para>
+    </entry>
 
-<entry id="keyboard-navigation" md5="885a83e5ce7c455f8d7d40a17ca901df" state="uptodate">
-    <title>Teklatua: Nabigazioa</title>
-    <para>Teklatua erabil dezakezu postontziko zerrendako mezuen artean mugitzeko, aurreko edo hurrengo mezura joateko mezu bat ikusten ari zaren bitartean, eta postontziko zerrendako orrien artean mugitzeko.</para>
-    <heading>Nabigatu teklatu bidez mezu-zerrendan</heading>
-    <para>Teklatua erabil dezakezu mezu-zerrendako mezuak hautatzeko eta ikusteko. Mezuen artean mugitzeko, erabili Gora eta Behera gezi-teklak, Kontrol (Ktrl) tekla sakatuta daukazula. Orriaren hasieran hasiko zara (bistaratutako azken mezuan) Gora sakatzen baduzu, eta orriaren amaieran (bistaratutako lehen mezuan) Behera sakatzen baduzu.</para>
-    <para>Uneko mezua nabarmenduta agertuko da, sagua gainean jarrita izango bazenu bezala. Postontziko zerrendan gora eta behera mugitzen ari zaren bitartean, Zuriune-barra saka dezakezu mezua hautatzeko edo desautatzeko, eta Itzuli saka dezakezu mezua ikusteko.</para>
-    <para>Alt tekla sakatuta badaukazu Ktrl teklaren ordez mezu-zerrendan nabigatzen ari zarenean, automatikoki hautatu edo desautatuko dira pasatzen ari zaren mezuak.</para>
-    <heading>Mezu-zerrenda: Aurreko/hurrengo orria</heading>
-    <para>Erabili Ezkerrera eta Gora teklak, postontziko mezuen aurreko orrira edo hurrengo orria joateko, hurrenez hurren.</para>
-    <heading>Mezu-bistaratzea: Aurreko/hurrengo mezua</heading>
-    <para>Erabili Ezkerrera eta Gora teklak, aurreko mezura edo hurrengo mezura joateko, hurrenez hurren.</para>
-</entry>
-
-<!--
-<entry id="keyboard-shortcuts">
-    <title>Keyboard: Shortcuts</title>
-    <heading>Using Keyboard Shortcuts</heading>
-</entry>
--->
-
-<entry id="compose-buttons" md5="bd0e2b0eff15d7c5cf7df9b7ef4ac40a" state="uptodate">
-    <title>Mezu-idazketa: Ekintzak</title>
-    <heading>Ekintzak</heading>
-    <para>
-    "Bidali mezua" aukerak hartzaileari bidaltzen dio mezua. Ziurtatu ekintza honekin bidali nahi duzun mezua ondo dagoela, ezin baita atzera egin.
-    </para>
-    <para>
-    "Gorde zirriborroa" aukerak "Zirriborroak" izeneko karpetan jartzen ditu amaitu gabeko mezuak. Karpeta horretara, pantailaren goi-eskuinaldean dagoen goitibeherako koadroko karpetaren bidez joan zaitezke. Mezua gero amai dezakezu, "Zirriborroak" karpetara joanez. Horretarako, egin klik gordetako mezuan ireki dadin, eta gero, egin klik "Berrekin" aukeran. Ziurtatu zirriborroa gorde aurretik mezuaren gaia idatzi duzula, Zirriborroak karpetan errazago identifikatuko baituzu zein mezu ireki nahi duzun.
-    </para>
-    <tip>
-    Zure instalazioaren arabera hobespenak alda ditzakezu, ikusten ari zinen azken karpetara joateko, edo, bestela, mezu bat zirriborro gisa gorde ondoren, mezu berdinera joateko.
-    </tip>
-    <para>
-    "Utzi mezua" aukera hautatuz gero, idazten ari zaren mezua utzi eta ikusten ari zinen azken karpetara itzuliko zara.
-    </para>
-</entry>
-
-<entry id="compose-identity" md5="9841f0cde4bf109a8f637c3e5a2cf8cf" state="uptodate">
+    <entry id="compose-identity" md5="d25ad8c8f3c2c21aaa5ca1e7ae924c2f" state="uptodate">
     <title>Mezu-idazketa: Identitatea</title>
     <heading>Identitatea</heading>
     <para>
@@ -46,15 +24,7 @@
     </para>
 </entry>
 
-<entry id="compose-from" md5="4395043c22323cc80d50709c5d20637e" state="uptodate">
-    <title>Mezu-idazketa: Nork</title>
-    <heading>Nork</heading>
-    <para>
-    Idatzi mezua bidaltzeko erabili nahi duzun helbide elektronikoa.
-    </para>
-</entry>
-
-<entry id="compose-to" md5="31cba17f169572c367aa8014831eb8f8" state="uptodate">
+    <entry id="compose-to" md5="859e22e4635003e5f50d777b60141467" state="uptodate">
     <title>Mezu-idazketa: Nori</title>
     <heading>Nori</heading>
     <para>
@@ -62,7 +32,7 @@
     </para>
 </entry>
 
-<entry id="compose-cc" md5="97571433ab037ef9c4d101a56bf74e25" state="uptodate">
+    <entry id="compose-cc" md5="d85384e61b6a7f58b13eb4af4381d528" state="uptodate">
     <title>Mezu-idazketa: Cc</title>
     <heading>Cc</heading>
     <para>
@@ -73,7 +43,7 @@
     </para>
 </entry>
 
-<entry id="compose-bcc" md5="aa8f9e2d44fdb74def0fa15240ff687b" state="uptodate">
+    <entry id="compose-bcc" md5="2cf1b9bc62e0defff7702bdd5b92c265" state="uptodate">
     <title>Mezu-idazketa: Bcc</title>
     <heading>Bcc</heading>
     <para>
@@ -84,7 +54,7 @@
     </para>
 </entry>
 
-<entry id="compose-subject" md5="0639a8790e306acc9e19b4d1ce342d53" state="uptodate">
+    <entry id="compose-subject" md5="76400c3f7fce3964197b2fb37b305804" state="uptodate">
     <title>Mezu-idazketa: Gaia</title>
     <heading>Gaia</heading>
     <para>
@@ -95,95 +65,33 @@
     </para>
 </entry>
 
-<entry id="compose-charset" md5="c2c878070445af81407da5bfc4083ea3" state="uptodate">
-    <title>Mezu-idazketa: Karaktere-jokoa</title>
-    <heading>Karaktere-jokoa</heading>
-    <para>
-    Bidaltzen den mezuari ezarriko zaion karaktere-jokoa hautatzen du.
-    </para>
-</entry>
+    <entry id="compose-spellcheck" state="uptodate" md5="caf852dff957650ca90e0f082dd589ee">
+        <title>Idatzi: Ortografia-egiaztapena</title>
+        <warn>
+            Ekintza hau beharbada ez da erabilgarri egongo, administratzaileak desgaitu badu.
+        </warn>
+        <para>
+            Egin klik "Ortografia-egiaztapena" aukeran, ortografia zuzentzeko. Gaizki idatzitako hitzak gorriz markatu eta azpimarratu egingo dira, eta hitz horien gainean klik eginez gero iradokitako ordezpenen zerrenda bat bistaratuko da. Egin klik ordezpen-hitz baten gainean jatorrizko mezuan ordezteko, edo beste edozein lekutan laster-leihoa ixteko. Ortografia-egiaztapenarekin amaitutakoan, egin klik "Berrekin edizioari" botoian mezua editatzen jarraitzeko.
+        </para>
+    </entry>
 
-<entry id="compose-options" md5="5f1d50a733c8b7e46aecece28822ff70" state="uptodate">
-    <title>Mezu-idazketa: Aukerak</title>
-    <heading>Aukerak</heading>
-    <para>
-    Aukera hauek mezua prestatzen lagunduko dizute.
-    </para>
-    <para>
-    Egin klik "Ortografia-egiaztapena" aukeran, ortografia zuzentzeko.
-    </para>
-    <para>
-    Egin klik "Eranskinak" aukeran orriaren beheko aldera joateko, eta mezuari fitxategiak itsasteko.
-    </para>
-    <para>
-    Bidalitako mezuak gordetzea gaitu badu administratzaileak, "Gorde kopia hemen: sent-mail" aukeraren ondoko kontrol-laukia aktiba dezakezu, bidaliko duzun mezuaren kopia gordetzeko. Helburuko karpeta lehenetsitakoa izango da, edo, bestela, "Aukerak-&gt;Informazio pertsonala-&gt;Identitateak" aukeran horretarako hautatutakoa. Administratzaileak bidalitako mezuentzako helburua hautatu badu, aukera honen beheko aldean dagoen goitibeherako karpeta bat aukeratu ahal izango duzu.
-    </para>
-    <para>
-    Bidali dituzun mezu garrantzitsuen kopiak gordetzea erabilgarria izan daiteke, zer eztabaidatu den jakiteko. Nolanahi ere, ezaugarri hau "aktibatuta" izan dezakezu zure Identitatean, "Aukerak-&gt;Informazio pertsonala-&gt;Gorde bidalitako mezuak?" aukerara joanez. Aukeretan, hainbat mantentze-ataza konfigura ditzakezu, aldiro-aldiro karpetak husten joateko edo izena aldatzeko.
-    </para>
-    <warn>
-    Hobe da mezu guztiak ez gordetzea; bestela, arazoak izan ditzakezu biltegiratze-kuotarekin, erraz agor baitaiteke, batez ere eranskin handiak bidaltzen dituzunean. Biltegiratze-kuota betea duen postontzi batean ezin da mezu berririk jaso.
-    </warn>
-</entry>
+    <entry id="compose-sentmail" state="uptodate" md5="1296b510cd32ec0886b983eca924fc0e">
+        <title>Idatzi: Gorde bidalitako mezuak</title>
+        <warn>
+            Ekintza hau beharbada ez da erabilgarri egongo, administratzaileak desgaitu badu.
+        </warn>
+        <para>
+            Bidalitako mezuaren kopia bat gordetzeko, aktibatu "Gorde" kontrol-laukia. Helburuko postontzia "Aukerak-&gt;Informazio pertsonala-&gt;Identitateak" aukeran hautatutako postontzia izango da. Zure administratzaileak beharbada onartuko du bidaltzen den postarako beste leku bat hautatzea aukera honen ondoko goitibeherako zerrenda baten bidez.
+        </para>
+        <para>
+            Bidali dituzun mezu garrantzitsuen kopiak gordetzea erabilgarria izan daiteke, zer eztabaidatu den jakiteko. Eginbide hau lehenespenez hauta daiteke "Aukerak-&gt;Informazio pertsonala-&gt;Gorde bidalitako mezuak?" aukerara joanez. Aukeretan, hainbat mantentze-ataza konfigura ditzakezu, bidalitako mezuen postontziak aldiro-aldiro husten joateko edo postontzi horien izenak aldatzeko.
+        </para>
+        <tip>
+            Hobe da mezu guztiak ez gordetzea; bestela, arazoak izan ditzakezu biltegiratze-kuotarekin, erraz agor baitaiteke, batez ere eranskin handiak bidaltzen dituzunean. Biltegiratze-kuota betea duen postontzi batean ezin da mezu berririk jaso.
+        </tip>
+    </entry>
 
-<entry id="compose-attachments" md5="c61d86cfad0842f122278366bb2804b0" state="uptodate">
-    <title>Mezu-idazketa: Gehitu eranskinak</title>
-    <heading>Gehitu eranskinak</heading>
-    <para>
-    Mezuan fitxategiak erants ditzakezu, zure arakatzaileak fitxategiak kargatzea onartzen badu. Fitxategi bat baino gehiago karga ditzakezu aldi berean.
-    </para>
-    <para>1. urratsa: Mezu honetan erantsi nahi duzun fitxategiaren bide-izena eta izena idatzi, edo egin klik "Arakatzailea" botoian eta hautatu erantsi nahi duzun fitxategia. Fitxategiaren bide-izena eta izena Eranskin-koadroan agertuko dira orain. Arakatzaileak JavaScript onartzen badu, kargatzeko sarrera gehigarri bat ere ikusiko duzu, beste fitxategi batzuk kargatzeko aldi berean.
-    </para>
-    <para>2. urratsa: Erabaki fitxategia nola ikusi nahi duzun, eranskin gisa edo mezuaren barnean. Hartzailearen mezuak irakurtzen dituen softwareak mota honetako fitxategien barne-bistaratzea maneiatzeko gai izan behar du; bestela, zati hori eranskin gisa ikusiko da.
-    </para>
-    <para>
-    Eranskinaren azalpena aldatu nahi ez baduzu, edo hartzaileari mezuaren barnean bistaratu behar zaiola zehaztu nahi ez baduzu, amaitu duzu. Eranskinak kargatu egingo dira mezua bidaltzen duzunean. Azalpena edo eranskin-antolaera aldatu nahi baduzu, "Eguneratu" botoian klik egin dezakezu eranskinak berehala kargatzeko, eta eranskinetan egindako aldaketak gordetzeko.
-    </para>
-
-    <tip>
-    Fitxategia handia denean eta/edo Interneteko konexioa motel dabilenean, denbora dezente beharko da fitxategia kargatzeko eta mezuari eransteko. Itxaron eta ez egin klik esteketan edo botoietan, fitxategia kargatzeko zain zaudenean.
-    </tip>
-</entry>
-
-<entry id="compose-current-attachments" md5="1dac09e0dba4d062ec6a4f82718956b7" state="uptodate">
-    <title>Mezu-idazketa: Uneko eranskinak</title>
-    <heading>Uneko eranskinak</heading>
-    <para>
-    Mezuari itsatsitako fitxategien zerrenda bistaratzen du atal honek.
-    </para>
-    <heading>Ezabatu erantsitako fitxategiak</heading>
-    <para>
-    Erantsitako fitxategi bat ezabatzeko:
-    </para>
-    <para>
-    1. urratsa: Aktibatu ezabatu nahi dituzun fitxategi-izenen ondoan dagoen kontrol-botoia.
-    </para>
-    <para>
-    2. urratsa: Egin klik Uneko eranskinen gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
-    </para>
-    <heading>Aldatu eranskinen antolamendua</heading>
-    <para>
-    Eranskinen antolamendua aldatzeko:
-    </para>
-    <para>
-    1. urratsa: Aldatu eranskin bakoitzaren antolaera - hautatu "barnean" edo "eranskin gisa" - nahi duzun aukera.
-    </para>
-    <para>
-    2. urratsa: Egin klik Uneko eranskinen atalaren gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
-    </para>
-    <heading>Aldatu eranskinaren azalpena</heading>
-    <para>
-    Eranskinen azalpenak aldatzeko (hartzaileek eranskinen azalpen gisa ikusiko dituzten testuak dira):
-    </para>
-    <para>
-    1. urratsa: Idatzi azalpen bat Azalpenaren eremuan.
-    </para>
-    <para>
-    2. urratsa: Egin klik Uneko eranskinen atalaren gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
-    </para>
-</entry>
-
-<entry id="compose-priority" md5="b023367c36de3ce1567d27ccaa45640c" state="uptodate">
+    <entry id="compose-priority" md5="d2ef446bfe2c72c95ed4f4d092058de8" state="uptodate">
     <title>Mezu-idazketa: Lehentasuna</title>
     <heading>Lehentasuna</heading>
     <para>
@@ -191,99 +99,7 @@
     </para>
 </entry>
 
-<entry id="compose-save-attachments" md5="eee31308484dc59cb84d8b7de3e8465a" state="uptodate">
-    <title>Mezu-idazketa: Gorde eranskinak</title>
-    <para>
-    Mezua bidalitako mezuen karpetan gordetakoan, eranskinak mezuarekin batera gordeko diren ala ez zehazten du. "Bai" aukeratuz gero, eranskinaren datuak gorde egingo dira. "Ez" aukeratuz gero, eranskinaren datuak kendu egingo dira mezutik, hartzaile guztiei bidali ondoren. "Ez" aukeratuz gero, gordetako mezuen eranskinak (handiak izan daitezke) kendu egingo dira. Diskoan leku gehiago izango duzu horrela.
-    </para>
-</entry>
-
-<entry id="compose-link-attachments" md5="63b3841c95aed31b5372f0fa770ee382" state="uptodate">
-    <title>Mezu-idazketa: Estekatu eranskinak</title>
-    <para>
-    Mezuaren eranskinak bidalitako mezuaren zati gisa bidaliko diren ala eranskin horiek zerbitzari lokal batean gordeko diren zehazten du.  Eranskinak estekatuak badira, mezuaren hartzaileak web-esteka bat izango du, eta esteka horretatik eranskinak deskargatu ahal izango ditu.  Estekatutako eranskinen abantaila hauxe da: bidalitako mezuen tamaina ikaragarri gutxitzen dela.  Eranskinak estekatzeak duen desabantaila, berriz, hauxe: eranskinen edukia agian ez dela eskuragarri egongo etorkizunean, eranskineko datuak mezu elektronikoan ez badira gordetzen.
-    </para>
-</entry>
-
-<entry id="folder-options" md5="08ee3e450a82431727763b9db082ec08" state="uptodate">
-    <title>Karpetak: Karpeta-ekintzak</title>
-    <para>
-      Ezkerreko zutabeko botoiak erabiliz hauta ditzakezu karpetak. Hori egindakoan, hautatu karpetan egin nahi duzun ekintza ezkerreko koadroan.
-    </para>
-    <heading>Sortu</heading>
-    <para>
-      Sortu karpeta berri bat, posible bada. Karpeta bat sortzeko oinarrizko mailan, hautatu 'Sortu' ezkerreko zutabean karpetarik hautatu gabe, Azpikarpeta bat sortzeko lehendik dagoen beste karpeta batean, hautatu karpeta ezkerreko zutabean eta hautatu 'Sortu'.
-    </para>
-    <heading>Aldatu izena</heading>
-    <para>
-      Aldatu izena karpeta bati. Izena aldatzeko, hautatu izena aldatu nahi diezun karpetak ezkerreko zutabean eta egin klik 'Aldatu izena' aukeran. Izena aldatzean, automatikoki izena aldatuko zaie azpikarpeta guztiei.
-    </para>
-    <heading>Ezabatu</heading>
-    <para>
-      Ezabatu karpeta bat eta karpetaren barneko mezu guztiak. Ezabatzeko, aldatu ezabatu nahi dituzun karpetak ezkerreko zutabean eta egin klik 'Ezabatu' aukeran. Umeak dituen karpeta bat ezabatzean, azpikarpetak ez dira automatikoki ezabatuko. Ume horiek kentzeko, ezkerreko zutabean eskuz hautatu behar dituzu ezabatu nahi dituzun karpeta guztiak.
-    </para>
-    <heading>Hustu</heading>
-    <para>
-       Karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Hustu' aukeran.
-    </para>
-    <heading>Borratu betiko</heading>
-    <para>
-       Ezabatutako gisa markatutako karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpeta ezkerreko zutabean eta egin klik 'Borratu betiko' aukeran. Aukera hau erabiltzeko ezinbestekoa da zakarrontzirik ez erabiltzea.
-    </para>
-    <heading>Harpidetu/Harpidetza kendu</heading>
-    <para>
-      Karpeta bat harpidetutako gisa edo harpidetza kendutako gisa markatzen du. Karpeta bat harpidetzen denean, goitibeherako karpeta-zerrenda guztietan agertzen da. Aukera horiek agertzeko ezinbestekoa da IMAP karpeta-harpidetzak erabiltzea.
-    </para>
-    <para>
-      Harpidetzeko, hautatu ezabatzeko karpetak ezkerreko zutabean eta egin klik 'Harpidetu' aukeran. Harpidetza kentzeko, aldatu karpetak ezkerreko zutabean eta egin klik 'Kendu harpidetza' aukeran.
-    </para>
-    <heading>Begiratu mezu berririk dagoen/Ez begiratu mezu berririk dagoen</heading>
-    <para>
-      Mezu berririk dagoen begiratzeko markatzen du karpeta bat karpeta-nabigazioan eta alboko barran (aktibatuta badago).
-    </para>
-    <para>
-       Marka hau ezartzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Begiratu mezu berririk dagoen'. Marka hau kentzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Ez begiratu mezu berririk dagoen'.
-    </para>
-    <heading>Markatu mezu guztiak Ikusitako/Ikusi gabeko gisa</heading>
-    <para>
-       Karpeta bateko mezu guztiak ikusitako gisa markatzeko, hautatu karpeta ezkerreko zutabean eta hautatu 'Markatu mezu guztiak ikusitako gisa'. Karpeta bateko mezu guztiak ikusi gabeko gisa markatzeko, hautatu karpeta ezkerreko zutabean eta hautatu 'Markatu mezu guztiak ikusi gabeko gisa'.
-    </para>
-    <heading>Deskargatu</heading>
-    <para>
-       Karpeta bateko fitxategi guztiak deskargatzeko fitxategi bakar batean (mbox formatuko fitxategi batean), hautatu karpeta ezkerreko zutabean eta egin klik 'Deskargatu' botoian. Fitxategia ZIP formatu konprimatuan deskargatzeko, hautatu 'Deskargatu [.zip formatua]'.
-    </para>
-    <heading>Inportatu mezuak</heading>
-    <para>
-      Aukera honek mbox edo eml fitxategiak aukeratu duzun karpetara inportatzen ditu. Aukeratu mezuak inportatzeko karpeta bat ezkerreko zutabean, eta ondoren hautatu aukera hau. Zein mbox edo eml fitxategi inportatu nahi duzun zehazteko orri batera joango zara.
-    </para>
-    <heading>Berreraiki karpeta-zuhaitza</heading>
-    <para>
-      Berreraiki karpeta-zuhaitzaren irudikapen grafikoa, posta-zerbitzarian berriro kontsulta eginez. Normalean ez zenuke hori egin behar, ez bazara ari aldi berean posta-zerbitzaria atzitzen beste posta-bezero batekin eta posta-bezero horrek aldaketak egin baditu karpeta-egituran.
-    </para>
-
-    <heading>Erakutsi/Ezkutatu harpidetu gabeak</heading>
-    <para>
-    IMAP karpetako harpidetzak erabiltzen badituzu, erakutsi/ezkutatu harpidetu gabeko karpetak. Karpeta bat harpidetzeko/harpidetza kentzeko, hautatu karpeta-izenaren ondoan dagoen kontrol-laukia eta erabili goitibeherako Karpeta-ekintza menuko Harpidetu/Harpidetza kendu aukera.
-    </para>
-    <heading>Zabaldu denak</heading>
-    <para>
-    Karpeta-sarrera guztiak zabaltzen ditu.
-    </para>
-    <heading>Tolestu denak</heading>
-    <para>
-    Karpeta-sarrera guztiak zabaltzen ditu
-    </para>
-</entry>
-
-<entry id="filters" md5="5ef60786767e638fbf5ba8fc5bd5d9d2" state="uptodate">
-    <title>Iragazkiak: Aplikatu</title>
-    <heading>Aplikatu iragazki-arauak</heading>
-    <para>
-    Egin klik postontziaren ikuspegiko SARRERAKO ONTZIA izenaren ondoan dagoen "Aplikatu iragazkiak" ikonoan, mezu guztiak iragazteko zehaztutako arauen arabera.
-    </para>
-</entry>
-
-<entry id="filter-edit-rules" md5="5baa5708ac9449e797f967313a9e1a27" state="uptodate">
+    <entry id="filter-edit-rules" md5="ed0e2cd7f4dfb9fe50a98c564a76f0ad" state="uptodate">
     <title>Iragazkiak: Editatu iragazki-arauak</title>
     <heading>Editatu iragazki-arauak</heading>
     <para>
@@ -291,7 +107,7 @@
     </para>
 </entry>
 
-<entry id="filter-edit-blacklist" md5="80ff7803c66599c7035f7f8811d218cc" state="uptodate">
+    <entry id="filter-edit-blacklist" md5="25c5c6cf045c70960dc95c9813ec1171" state="uptodate">
     <title>Iragazkiak: Editatu zerrenda beltza</title>
     <heading>Editatu zerrenda beltza</heading>
     <para>
@@ -299,7 +115,7 @@
     </para>
 </entry>
 
-<entry id="filter-edit-whitelist" md5="330c3a8fad198c7afe855c101c63cd0f" state="uptodate">
+    <entry id="filter-edit-whitelist" md5="213c6258253919088a3cbc76495473b5" state="uptodate">
     <title>Iragazkiak: Editatu zerrenda zuria</title>
     <heading>Editatu zerrenda zuria</heading>
     <para>
@@ -307,7 +123,7 @@
     </para>
 </entry>
 
-<entry id="filter-on-login" md5="37d9297d1cca46435e36b6e38e45dcdb" state="uptodate">
+    <entry id="filter-on-login" md5="939a9996c1313264175ffa6ee48a1bc2" state="uptodate">
     <title>Iragazkiak: Aplikatu iragazkia saioa hastean</title>
     <heading>Iragazki-arauak aplikatu saioa hastean?</heading>
     <para>
@@ -315,7 +131,7 @@
     </para>
 </entry>
 
-<entry id="filter-on-display" md5="f5afc305402ef52bad108933f3f33291" state="uptodate">
+    <entry id="filter-on-display" md5="9c6208b9b6f9df77c60778c565f897a7" state="uptodate">
     <title>Iragazkiak: Aplikatu iragazkia freskatzean</title>
     <heading>Aplikatu iragazki-arauak SARRERAKO ONTZIA bistaratzen den bakoitzean?</heading>
     <para>
@@ -323,7 +139,7 @@
     </para>
 </entry>
 
-<entry id="filter-any-mailbox" md5="71c51e83909f9d0bd440d220772ee3c6" state="uptodate">
+    <entry id="filter-any-mailbox" md5="c89004a1ef14f8a875ebf02f25727934" state="uptodate">
     <title>Iragazkiak: Aplikatu iragazkia edozein postontzitan</title>
     <heading>Onartu iragazki-arauak edozein postontzitan aplikatzea?</heading>
     <para>
@@ -331,7 +147,7 @@
     </para>
 </entry>
 
-<entry id="pgp-compose-attach-pubkey" md5="2550f39bd071650d6e4ebeba1af76e25" state="uptodate">
+    <entry id="pgp-compose-attach-pubkey" md5="a3ea551d25b0e4f9e131ca1415153def" state="uptodate">
     <title>PGP: Erantsi gako publikoa</title>
     <heading>Erantsi gako publikoa</heading>
     <para>
@@ -339,7 +155,7 @@
     </para>
 </entry>
 
-<entry id="pgp-option-scan-body" md5="6baaada0d46dc1ab0941087f235f359b" state="uptodate">
+    <entry id="pgp-option-scan-body" md5="2ea8b36f6d77ea92258afd8e1950b839" state="uptodate">
     <title>PGP: Eskaneatu testu-gorputzak</title>
     <heading>Eskaneatu testu-gorputzak</heading>
     <para>
@@ -347,7 +163,7 @@
     </para>
 </entry>
 
-<entry id="pgp-option-reply-pubkey" md5="9eeec8178d39bd61ecbd74d175179587" state="uptodate">
+    <entry id="pgp-option-reply-pubkey" md5="758623ecc4eabd8f0e0a9057e2b3a71e" state="uptodate">
     <title>PGP: Balidatu PGP gako publikoak erantzutean</title>
     <heading>Balidatu PGP gako publikoak erantzutean</heading>
     <para>
@@ -355,7 +171,7 @@
     </para>
 </entry>
 
-<entry id="compose-options-encrypt" md5="78ff9bd91687efb91d2798ca0458b5cb" state="uptodate">
+    <entry id="compose-options-encrypt" md5="9ded3c9c3d1d0e938ea6f649c68065d3" state="uptodate">
     <title>Mezu-idazketa: Enkriptatze-aukerak</title>
     <heading>Enkriptatzerik ez</heading>
     <para>
@@ -395,7 +211,7 @@
     </para>
 </entry>
 
-<entry id="pgp-overview" md5="24b5138b4b53f73b5f2f2739e4c1858d" state="uptodate">
+    <entry id="pgp-overview" md5="70c98866d308d4eb29ac844d04262b92" state="uptodate">
     <title>PGP: Ikuspegi orokorra</title>
     <heading>Zer da PGP?</heading>
     <para>
@@ -407,7 +223,7 @@
     </para>
 </entry>
 
-<entry id="pgp-option-attach-pubkey" md5="561ce43370ac4afbcc3f9818c8fbc2f6" state="uptodate">
+    <entry id="pgp-option-attach-pubkey" md5="a4d42b8f3b2b36cd874ab35b727c1218" state="uptodate">
     <title>PGP: Aukerak - Erantsi gako publikoa</title>
     <heading>Aukerak - Erantsi gako publikoa</heading>
     <para>
@@ -415,7 +231,7 @@
     </para>
 </entry>
 
-<entry id="pgp-manage-pubkey" md5="b289ea5824b7f69f35c0751497f4e1c3" state="uptodate">
+    <entry id="pgp-manage-pubkey" md5="45c1f3ce9577aca2ae83cfcafea6bc40" state="uptodate">
     <title>PGP: Kudeatu gako publikoak</title>
     <heading>Ikuspegi orokorra</heading>
     <para>
@@ -435,7 +251,7 @@
     </para>
 </entry>
 
-<entry id="pgp-import-pubkey" md5="6ee1130b46e9ff1ca9ad3a3a47e7b382" state="uptodate">
+    <entry id="pgp-import-pubkey" md5="252988480aa775fdff90728cf05c7bce" state="uptodate">
     <title>PGP: Kudeatu gako publikoak - Inportatu</title>
     <heading>Inportatu gako publikoak</heading>
     <para>
@@ -443,7 +259,7 @@
     </para>
 </entry>
 
-<entry id="pgp-overview-personalkey" md5="220af2b74a58f430efd72d6d6b1f993f" state="uptodate">
+    <entry id="pgp-overview-personalkey" md5="914fb8925e606a642a4144457c950555" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak</title>
     <heading>Ikuspegi orokorra</heading>
     <para>
@@ -459,7 +275,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-public" md5="3c844d4ff8fdda3e0d446b47a63117e0" state="uptodate">
+    <entry id="pgp-personalkey-public" md5="f73a254f5784c51f3020f8ca11e454cc" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Gako publikoa</title>
     <heading>Ikusi</heading>
     <para>
@@ -471,7 +287,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-private" md5="1851b67a1aeef1242fc3a2b94af75c03" state="uptodate">
+    <entry id="pgp-personalkey-private" md5="350d3c221c933754ee0bc245668e3a56" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Gako pribatua</title>
     <heading>Idatzi pasaesaldia</heading>
     <para>
@@ -491,7 +307,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-delete" md5="dbd8cbe6bce71c4fb592dd1b3b27b7ce" state="uptodate">
+    <entry id="pgp-personalkey-delete" md5="a86d88b21db235fc2a80563b3d6b0610" state="uptodate">
     <title>PGP: Kudeatu gako pertsonalak - Ezabatu</title>
     <heading>Ezabatu gako pertsonalak</heading>
     <para>
@@ -499,7 +315,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-name" md5="748cb124b7ff52820792e278037a8c27" state="uptodate">
+    <entry id="pgp-personalkey-create-name" md5="8e73624f29d8951b9c3f7c2190694460" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Izena</title>
     <heading>Izena</heading>
     <para>
@@ -507,7 +323,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-comment" md5="e666eb9f0ee4b49fe04f74fc18db8640" state="uptodate">
+    <entry id="pgp-personalkey-create-comment" md5="7308d506140e37cc582c16354c5f2f20" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Iruzkina</title>
     <heading>Iruzkina</heading>
     <para>
@@ -515,7 +331,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-email" md5="c729f70fdb3a73cbb7ba5ef5888e3092" state="uptodate">
+    <entry id="pgp-personalkey-create-email" md5="cfa8ef72051883978adce74e149049fe" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Helbide elektronikoa</title>
     <heading>Helbide elektronikoa</heading>
     <para>
@@ -523,7 +339,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-keylength" md5="24ca641c63fb5ff310a39ee0d3b1ee55" state="uptodate">
+    <entry id="pgp-personalkey-create-keylength" md5="de4811dcbcab2ccc900bcf311b62ccee" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Gako-luzera</title>
     <heading>Gako-luzera</heading>
     <para>
@@ -531,7 +347,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-passphrase" md5="2fb9372970bf33f51e988ba39dbd7193" state="uptodate">
+    <entry id="pgp-personalkey-create-passphrase" md5="47522ad328d8e1a0a1e68291780e4bd9" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Pasaesaldia</title>
     <heading>Pasaesaldia</heading>
     <para>
@@ -539,7 +355,7 @@
     </para>
 </entry>
 
-<entry id="pgp-personalkey-create-actions" md5="0f8234935b964c83533b4ec4c15eb712" state="uptodate">
+    <entry id="pgp-personalkey-create-actions" md5="4c03caeab8a56878399334062df1b543" state="uptodate">
     <title>PGP: Sortu gako pertsonala - Ekintzak</title>
     <heading>Sortu gakoak</heading>
     <para>
@@ -551,7 +367,7 @@
     </para>
 </entry>
 
-<entry id="smime-overview" md5="d3c752b1345fb2eccfe575c07461963f" state="uptodate">
+    <entry id="smime-overview" md5="06bc9544a439ca416ebed22df8e6102a" state="uptodate">
     <title>S/MIME: Ikuspegi orokorra</title>
     <heading>Zer da S/MIME?</heading>
     <para>
@@ -563,7 +379,7 @@
     </para>
 </entry>
 
-<entry id="smime-overview-personalkey" md5="9f4f36ae72cb4abc731067d338be3b98" state="uptodate">
+    <entry id="smime-overview-personalkey" md5="f396c6349cd59218a9f0408878ced995" state="uptodate">
     <title>S/MIME: Gako pertsonalak</title>
     <heading>Ikuspegi orokorra</heading>
     <para>
@@ -571,7 +387,7 @@
     </para>
 </entry>
 
-<entry id="smime-import-personal-certs" md5="cf0ed2e3e24d30dedf8cfef2c2645759" state="uptodate">
+    <entry id="smime-import-personal-certs" md5="edd106f8ca1e841d9a65a345553f33fd" state="uptodate">
     <title>S/MIME: Inportatu ziurtagiri pertsonalak</title>
     <heading>Inportatu ziurtagiri pertsonalak</heading>
     <para>
@@ -579,7 +395,7 @@
     </para>
 </entry>
 
-<entry id="smime-delete-personal-certs" md5="018bb6b61a7e416892de288ad1c880f4" state="uptodate">
+    <entry id="smime-delete-personal-certs" md5="9a0eb4a3c27d77f0a58be91ac83a86c2" state="uptodate">
     <title>S/MIME: Ezabatu ziurtagiri pertsonalak</title>
     <heading>Ezabatu ziurtagiri pertsonalak</heading>
     <para>
@@ -587,7 +403,7 @@
     </para>
 </entry>
 
-<entry id="smime-manage-pubkey" md5="8b6c63684d3d73b3d084025a78fe7e88" state="uptodate">
+    <entry id="smime-manage-pubkey" md5="263a47e866aae1e361c1b9cf0b29f62e" state="uptodate">
     <title>S/MIME: Kudeatu gako publikoak</title>
     <heading>S/MIME: Kudeatu gako publikoak</heading>
     <para>
@@ -607,7 +423,7 @@
     </para>
 </entry>
 
-<entry id="printing" md5="f233c11b6b4a6bedeb68f1d5a2a976db" state="uptodate">
+    <entry id="printing" md5="8f38316f520b5c60c0311c97f9472144" state="uptodate">
     <title>Inprimatu</title>
     <heading>Inprimatu mezu bat</heading>
     <para>
@@ -615,7 +431,7 @@
     </para>
 </entry>
 
-<entry id="sorting" md5="18cdeac38027fe5c42bab693f2a4260a" state="uptodate">
+    <entry id="sorting" md5="3f793fe1cdb63cedeb0c1f4011f604ec" state="uptodate">
     <title>Ordena eta haria</title>
     <heading>Ordenatu sarrerak</heading>
     <para>
@@ -627,70 +443,70 @@
     </para>
 </entry>
 
-<entry id="prefs-rename_sentmail_monthly" md5="767b05efbb4370c32783ea4dc1808f91" state="uptodate">
+    <entry id="prefs-rename_sentmail_monthly" md5="3561414016ac45e716230f9dbb870b5e" state="uptodate">
     <title>Hobespenak: Aldatu izena bidalitako mezuen karpetari hilero</title>
     <para>
     Hautatu hobespen hau, bidalitako mezuen karpetari izena aldatu nahi badiozu hilabete bakoitzaren hasieran. Karpetaren izena aldatuko da (urtea eta hilabetea dituen izen batekin) eta bidalitako mezuen karpeta berri bat sortuko da.
     </para>
 </entry>
 
-<entry id="prefs-delete_sentmail_monthly_keep" md5="041cf1a5b14058dbfd680f5af2c0fd52" state="uptodate">
+    <entry id="prefs-delete_sentmail_monthly_keep" md5="b3d5879b419675c61c41cb84eb246dc7" state="uptodate">
     <title>Hobespenak: Ezabatu bidalitako mezuen karpeta hilero</title>
     <para>
     Aukera hau hautatuz gero, bidalitako mezuen karpeta zaharrak ezabatuko dira hilabete kopuru jakin bat iragan ondoren.  Hilabete kopuru hori baino gehiago duen edozein karpeta ezabatu egingo da.  Erabilgarria izan daiteke, adibidez, kuota edo muga bat badaukazu.
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_interval" md5="6b8d80249b439bb08dbc1a31d00a7286" state="uptodate">
+    <entry id="prefs-purge_sentmail_interval" md5="f854e46a1713f25ac9759771d1a0cb2e" state="uptodate">
     <title>Hobespenak: Betiko borratu bidalitako mezuak</title>
     <para>
     Zein maiztasunekin borratuko dira betiko bidalitako mezuen karpetak?
     </para>
 </entry>
 
-<entry id="prefs-purge_sentmail_keep" md5="07df30a1ca8ef9ff46ca1c7407eb9004" state="uptodate">
+    <entry id="prefs-purge_sentmail_keep" md5="422aed0bbe1fc0fa2363d3b1c0e62f4e" state="uptodate">
     <title>Hobespenak: Betiko borratzen den bidalitako mezuen karpetaren mantentzea</title>
     <para>
     Bidalitako mezuen karpetak borratzen ari bazara, zenbat egun izan behar dituzte mezuek borratzeko?
     </para>
 </entry>
 
-<entry id="prefs-delete_attachments_monthly_keep" md5="79d70b75d5a282bc06366b80311b115b" state="uptodate">
+    <entry id="prefs-delete_attachments_monthly_keep" md5="07dea78c24ed2a97c123d4e5e56fe163" state="uptodate">
     <title>Hobespenak: Ezabatu estekatutako eranskinak hilero</title>
     <para>
     Zure kontu lokala irteerako mezuetan estekatutako eranskinak bidaltzeko konfiguratuta badago, aukera honek betiko borratuko ditu estekatutako eranskin zaharrak hilabete kopuru jakin bat igarotakoan.  Hilabete kopuru hori baino gehiago duen edozein eranskin ezabatu egingo da.  Erabilgarria izan daiteke, adibidez, kuota edo muga bat badaukazu.
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_interval" md5="e805e6311aeae336cfa1cca10bdcfa35" state="uptodate">
+    <entry id="prefs-purge_trash_interval" md5="35f16f19ee3d55284fa759f14ee38291" state="uptodate">
     <title>Hobespenak: Mantentzea: Betiko borratu zakarrontzia</title>
     <para>
     Zein maiztasunekin borratuko da betiko zakarrontziaren karpeta?
     </para>
 </entry>
 
-<entry id="prefs-purge_trash_keep" md5="3cb5a2b5b80b7ac1179ae005f983970e" state="uptodate">
+    <entry id="prefs-purge_trash_keep" md5="8047a69fde4170ea0e5e509f52564b01" state="uptodate">
     <title>Hobespenak: Mantentzea: Betiko borratzen den zakarrontziaren mantentzea</title>
     <para>
     Zakarrontzi-karpeta betiko borratzen baduzu, zenbat egun izan behar dira mezuak betiko borratzeko?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_interval" md5="dacc3d8a1d90ff928fdb72db9ceb76e1" state="uptodate">
+    <entry id="prefs-purge_spam_interval" md5="19701b374e192a0bac07a0095008da43" state="uptodate">
     <title>Hobespenak: Mantentzea: Mezu baztergarriak betiko borratzea</title>
     <para>
     Zein maiztasunekin borratuko da betiko mezu baztergarrien karpeta?
     </para>
 </entry>
 
-<entry id="prefs-purge_spam_keep" md5="f4748aba20cf4a9b6ce92822bd185de6" state="uptodate">
+    <entry id="prefs-purge_spam_keep" md5="13c1810fa63097999db37ddda6659568" state="uptodate">
     <title>Hobespenak: Mantentzea: Betiko borratzen den mezu baztergarrien karpetaren mantentzea</title>
     <para>
     Mezu baztergarrien karpeta betiko borratzen baduzu, zenbat egun igaro behar dira mezuak betiko borratzeko?
     </para>
 </entry>
 
-<entry id="prefs-attrib_text" md5="721a09d7ca028c97e3bd2b38c597fff7" state="uptodate">
+    <entry id="prefs-attrib_text" md5="47088bb3c410e32d916e6e19ea89da66" state="uptodate">
      <title>Hobespenak: Mezu-idazketa: Goiburuaren laburpena</title>
      <para>
      Bidaltzen dituzun erantzunetan komatxo arteko aipamen-testua baino lehenago agertzea nahi duzun esaldia idatz dezakezu hemen.
@@ -713,28 +529,28 @@
 
 </entry>
 
-<entry id="prefs-default_msg_charset" md5="4ef4fb2090e703f6f8e03f39ab96e717" state="uptodate">
+    <entry id="prefs-default_msg_charset" md5="b2a6c49163203f3462784dbf4e391066" state="uptodate">
     <title>Hobespenak: Mezuaren karaktere-joko lehenetsia</title>
     <para>
     Definitu karaktere-jokoari buruzko informazio zehatzik ez duten testu-mezu zatietan ezarri behar den karaktere lehenetsia. RFC 2045ren arabera, karaktere-jokoaren parametrorik ez duten mezuak 'US-ASCII' karaktere-jokoa erabiliz bistaratzen dira. Nolanahi ere, mezu-zerbitzu akastun batzuek testu-mezuak bidal ditzakete bestelako karaktere-joko batzuetan, mezuaren goiburuan parametro egokiak ezarri gabe. Parametro hau karaktere-joko lehenetsian ezartzea komeni da lokalki erabiltzeko. Hautatu "Lehenetsia" MIME lehenespenak erabiltzeko.
     </para>
 </entry>
 
-<entry id="prefs-request_mdn" md5="d1848b54921777465fd46758a2f59ddc" state="uptodate">
+    <entry id="prefs-request_mdn" md5="5155a0b683cd0bbd49606be2b8b42758" state="uptodate">
     <title>Hobespenak: Eskatu irakurragiriak</title>
     <para>
     "Eskatu irakurragiria?" hautatuz gero, mezuaren hartzaileei eskaera bat bidaltzen zaie, hartzaileek mezua ireki dutela jakinarazteko zuri. Hori ez dute bezero guztiek onartzen/ baliatzen.
     </para>
 </entry>
 
-<entry id="prefs-send_mdn" md5="13244cac1f471ef717e8e380e6aed4ab" state="uptodate">
+    <entry id="prefs-send_mdn" md5="3e09a8766616d7e17553a36f2161d09a" state="uptodate">
     <title>Hobespenak: Bidali irakurragiria</title>
     <para>
     "Bidali irakurragiria" aukerak irakurragiria bidaltzen du, mezu bat irakurtzen duzunean bidaltzaileak mezua irakurri duzula jakiteko. Lehenespenez, jakinarazpena bidali nahi duzun galdetuko zaizu.
     </para>
 </entry>
 
-<entry id="prefs-delete_spam_after_report" md5="8d1eb1fb6f3c10802d20630a5f5ad132" state="uptodate">
+    <entry id="prefs-delete_spam_after_report" md5="ff0d7dbc0f05688e9fe7f55e98dfcea1" state="uptodate">
     <title>Hobespenak: Ezabatu mezu baztergarriak sailkatu ondoren</title>
     <para>
     Hiru aukeretako bat egitea hauta dezakezu, mezu bat baztergarri gisa sailkatu ondoren.
@@ -750,41 +566,34 @@
     </para>
 </entry>
 
-<entry id="prefs-move_ham_after_report" md5="4b971b84ed993e6a6fff8d45a50d03c5" state="uptodate">
-    <title>Hobespenak: Lekuz aldatu mezu baztergarriak seguru gisa sailkatu ondoren</title>
-    <para>
-    Bi aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.
-    </para>
-    <para>
-    Lehenengoan, ezer ez egitea erabaki dezakezu - mezua seguru gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
-    </para>
-    <para>
-    Bestela, mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta Sarrerako ontzira eramango da.
-    </para>
-</entry>
+    <entry id="prefs-move_innocent_after_report" state="uptodate" md5="99a33858f784fa3ad393b735f91941d0">
+        <title>Mezua: Hobespenak: Lekuz aldatu mezu baztergarriak seguru gisa sailkatu ondoren</title>
+        <para>
+            Bi aukeretako bat egitea hauta dezakezu, mezu bat baztergarri edo seguru gisa sailkatu ondoren.
+        </para>
+        <para>
+            1. Ez egin ezer. Mezua seguru gisa sailkatuko da, baina zure postontzian aldatu gabe geratuko da.
+        </para>
+        <para>
+            2. Mezu bat seguru gisa sailkatzen denean, uneko postontzitik ezabatu eta Sarrerako ontzira eramango da.
+        </para>
+    </entry>
 
-<entry id="prefs-image_replacement" md5="f518db9fb16b91e44b4a39b8d3bdcb8a" state="uptodate">
+    <entry id="prefs-image_replacement" md5="de99f0ad2e7cd7367524ddcbf07dc4d6" state="uptodate">
     <title>Hobespenak: Irudiak ordeztea</title>
     <para>
     Barnean bistaratzen diren mezuetan, irudi-etiketa guztiak blokeatu egin behar dira irudi horiek ikustea erabakitzen duzun arte? Kontuan izan, eranskin bat bistaratzen ari bazara, irudiak beti ikusiko direla.
     </para>
 </entry>
 
-<entry id="prefs-image_addrbook" md5="0110ec5a179c32ae36cbda1d10000c5f" state="uptodate">
-    <title>Hobespenak: Irudiak ordeztea/Helbide-liburua erakustea</title>
-    <para>
-    Mezuen barneko irudiak blokeatuta edukiz gero, automatikoki bistaratuko dira bidaltzailea zure helbide-liburuan badago?
-    </para>
-</entry>
-
-<entry id="prefs-mailbox_start" md5="62fcc38a15f54dae7eb8bdafa93ed341" state="uptodate">
+    <entry id="prefs-mailbox_start" md5="4eb9c594c460e83c1cd413b2c46c718b" state="uptodate">
     <title>Hobespenak: Postontziaren hasierako orria</title>
     <para>
     Postontzian lehen aldiz sartzen zarenean postontziaren aurrebistan zein orri bistaratuko den zehazten du.
     </para>
 </entry>
 
-<entry id="prefs-save_attachments" md5="d61dfb1fd20829a48af8d04402f857cb" state="uptodate">
+    <entry id="prefs-save_attachments" md5="1b2c33ade5d2967f2f532999fefd94ec" state="uptodate">
     <title>Hobespenak: Gorde bidalitako mezuetako eranskinak</title>
     <para>
     Idatzitako mezu bat bidalitako mezuen karpetan gordez gero, zehaztu erantsitako datu guztiak gorde behar diren ala ez. Aukera hauek daude erabilgarri:
@@ -796,18 +605,291 @@
      <para>* "Inoiz ez gorde eranskinak" - INOIZ ez da galdetuko mezuak idazteko pantailan eranskinak gorde behar diren ala ez, eta eranskinak ez dira INOIZ gordeko mezuarekin batera.</para>
 </entry>
 
-<entry id="virtual_inbox" md5="a91e01732bb8129cbc6a7f5c6dca3ab3" state="uptodate">
+    <entry id="virtual_inbox" md5="bf6db3e373a0592cd285ee6e94adb1fb" state="uptodate">
     <title>Karpetak: Sarrerako ontzi birtuala</title>
     <para>
     Postontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago berri gisa markatutako mezuak postontzi guztietan bilatzeko beharrik.  Hala, une horretan harpidetutako postontzietan automatikoki bilatzen dira mezu berriak eta emaitzak postontzi bakarrean bistaratzen dira.
     </para>
 </entry>
 
-<entry id="virtual_trash" md5="b83f73ed56dff0addcbd4702e5a21a3d" state="uptodate">
+    <entry id="virtual_trash" md5="3674e4fce2260d4a738bcee3272fa1b8" state="uptodate">
     <title>Karpetak: Zakarrontzi birtuala</title>
     <para>
     Zakarrontzi birtuala gordetako bilaketa bat da, eta horrela, ez dago beste Zakarrontzi-karpeta bereizi bat izateko beharrik.  Mezuak zakarrontzi-karpeta zentralizatu batera eraman beharrean, mezuak dauden uneko karpetan ezabatu gisa markatzen dira. 'Erakutsi ezabatutako mezuak' aukera desaktibatzen denean, mezuak ez dira postontziaren aurrebistan agertuko.  Erabiltzaileak Zakarrontzi birtualean klik egiten duenean, *guztiak* aukerarekin, ezabatzeko markatutako mezuak postontzi guztietan bilatzen dira, eta mezuak postontzi bakarrean bistaratzen dira.
     </para>
 </entry>
 
+    <view id="basic">
+        <entry id="mailbox-keyboard" state="uptodate" md5="8cce3b6be2b37cf7a3126ae9e638f950">
+            <title>Postontzia: Teklatuko lasterbideak</title>
+            <para>
+                Teklatua erabil dezakezu postontziko mezuak hautatzeko eta ikusteko. Mezuen artean mugitzeko, erabili <css class="iconImg keyupImg"/> eta <css class="iconImg keydownImg"/> teklak, <css class="kbd">Ktrl</css> tekla sakatuta daukazula. Orriaren hasieran hasiko zara (bistaratutako azken mezuan) <css class="iconImg keyupImg"/> sakatzen baduzu, eta orriaren amaieran (bistaratutako lehen mezuan) <css class="iconImg keydownImg"/> sakatzen baduzu.
+            </para>
+            <para>
+                Uneko mezua nabarmenduta agertuko da, sagua gainean jarrita izango bazenu bezala. Postontziko zerrendan gora eta behera mugitzen ari zaren bitartean, <css class="kbd">Zuriune-barra</css> saka dezakezu mezua hautatzeko edo desautatzeko, eta <css class="kbd">Sartu</css> saka dezakezu mezua ikusteko.
+            </para>
+            <para>
+                <css class="kbd">Alt</css> tekla sakatuta badaukazu <css class="kbd">Ktrl</css> teklaren ordez mezu-zerrendan nabigatzen ari zarenean, automatikoki hautatu edo desautatuko dira pasatzen ari zaren mezuak.
+            </para>
+            <para>
+                Erabili <css class="iconImg keyleftImg"/> eta <css class="iconImg keyrightImg"/> teklak, postontziko mezuen aurreko orrira edo hurrengo orria joateko.
+            </para>
+        </entry>
+
+        <entry id="message-keyboard" state="uptodate" md5="cba7bd946ce1207f05c6dd28ee64073b">
+            <title>Mezua: Aurreko/Hurrengo mezua</title>
+            <para>
+                Erabili teklatuko <css class="iconImg keyleftImg"/> eta <css class="iconImg keyrightImg"/> teklak aurreko mezura edo hurrengo mezura joateko.
+            </para>
+        </entry>
+
+        <entry id="compose-attachments" state="uptodate" md5="5d29f2809f557efa25759e642c901369">
+            <title>Idatzi: Eranskinak gehitzea</title>
+            <para>
+                Fitxategiak erants diezazkiokezu mezuari, arakatzaileak fitxategiak kargatzea onartzen badu.
+            </para>
+            <para>
+                Egin klik "Arakatu" botoian, eta hautatu erantsi beharreko fitxategia. Beste karga-sarrera bat agertuko da, mezu batean onartzen den eranskin kopurua gainditu ez baduzu, eranskin gehiago kargatu ahal izateko.
+            </para>
+            <para>
+                Azalpena aldatu nahi baduzu, "Eguneratu" botoian klik egin dezakezu eranskinak berehala kargatzeko, eta eranskinetan egindako aldaketak gordetzeko.
+            </para>
+            <tip>
+                Fitxategia handia denean eta/edo Interneteko konexioa motel dabilenean, denbora dezente beharko da fitxategia kargatzeko eta mezuari eransteko.
+            </tip>
+        </entry>
+
+        <entry id="compose-current-attachments" state="uptodate" md5="cdaa6aa03ea535e85bb496bdc9a90351">
+            <title>Idatzi: Uneko eranskinak</title>
+            <heading>Uneko eranskinak</heading>
+            <para>
+                Mezuari itsatsitako fitxategien zerrenda bistaratzen du atal honek.
+            </para>
+            <heading>Ezabatu eranskinak</heading>
+            <para>
+                Erantsitako fitxategi bat ezabatzeko:
+            </para>
+            <para>
+                1. urratsa: Aktibatu ezabatu nahi dituzun fitxategi-izenen ondoan dagoen kontrol-botoia.
+            </para>
+            <para>
+                2. urratsa: Egin klik Uneko eranskinen gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
+            </para>
+            <heading>Aldatu eranskinaren azalpena</heading>
+            <para>
+                Eranskinen azalpenak aldatzeko (hartzaileek eranskinen azalpen gisa ikusiko dituzten testuak dira):
+            </para>
+            <para>
+                1. urratsa: Idatzi azalpen bat Azalpenaren eremuan.
+            </para>
+            <para>
+                2. urratsa: Egin klik Uneko eranskinen gaineko "Eguneratu" botoian aldaketak berehala ikusteko, edo aldaketak automatikoki gauzatuko dira mezua bidaltzean.
+            </para>
+        </entry>
+
+        <entry id="compose-link-attachments" state="uptodate" md5="9e301c5f70eb89e4e91cf5deab82ff64">
+            <title>Idatzi: Estekatu eranskinak</title>
+            <para>
+                Mezuaren eranskinak bidalitako mezuaren zati gisa bidaliko diren edo eranskin horiek zerbitzari lokal batean gordeko diren zehazten du.  Eranskinak estekatuak badira, mezuaren hartzaileak web-esteka bat izango du eta esteka horretatik eranskinak deskargatu ahal izango ditu.
+            </para>
+            <para>
+                Estekatutako eranskinen abantaila hauxe da, bereziki fitxategi handien kasuan: bidalitako mezuen tamaina ikaragarri gutxitzen dela.  Eranskinak estekatzeak duen desabantaila, berriz, hauxe: eranskinen edukia agian ez dela eskuragarri egongo etorkizunean, eranskineko datuak mezu elektronikoan ez badira gordetzen.
+            </para>
+        </entry>
+
+        <entry id="folders" state="uptodate" md5="013062bdc2d23e8879bc97137adf90a8">
+            <title>Karpetak</title>
+            <para>
+                Ezkerreko zutabeko botoiak erabiliz hauta ditzakezu karpetak. Hori egindakoan, hautatu karpetan egin nahi duzun ekintza ezkerreko koadroan.
+            </para>
+        </entry>
+
+        <entry id="folders-create" state="uptodate" md5="0cdec687f538673ccd19190af40765f2">
+            <title>Karpetak: Sortu</title>
+            <para>
+                Sortu karpeta berri bat, posible bada. Karpeta bat sortzeko oinarrizko mailan, hautatu 'Sortu' ezkerreko zutabean karpetarik hautatu gabe, Azpikarpeta bat sortzeko lehendik dagoen beste karpeta batean, hautatu karpeta ezkerreko zutabean eta hautatu 'Sortu'.
+            </para>
+        </entry>
+
+        <entry id="folders-rename" state="uptodate" md5="ee878e110f141c5380b86e605a5d619d">
+            <title>Karpetak: Aldatu izena</title>
+            <para>
+                Aldatu karpeta baten izena. Izena aldatzeko, aldatu izena aldatu nahi diezun karpetak ezkerreko zutabean eta egin klik 'Aldatu izena' aukeran. Izena aldatzean, automatikoki izena aldatuko zaie azpikarpeta guztiei.
+            </para>
+        </entry>
+
+        <entry id="folders-delete" state="uptodate" md5="cfeb4fb5e1c194a16c370fc3d28c22cd">
+            <title>Karpetak: Ezabatu</title>
+            <para>
+                Ezabatu karpeta bat eta karpetaren barneko mezu guztiak. Ezabatzeko, aldatu ezabatu nahi dituzun karpetak ezkerreko zutabean eta egin klik 'Ezabatu' aukeran. Umeak dituen karpeta bat ezabatzean, azpikarpetak ez dira automatikoki ezabatuko. Ume horiek kentzeko, ezkerreko zutabean eskuz hautatu behar dituzu ezabatu nahi dituzun karpeta guztiak.
+            </para>
+        </entry>
+
+        <entry id="folders-empty" state="uptodate" md5="40aa6e04eea1deaafbebbf10b0253b64">
+            <title>Karpetak: Hustu</title>
+            <para>
+                Karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Hustu' aukeran.
+            </para>
+        </entry>
+
+        <entry id="folders-purge" state="uptodate" md5="ff4eec60c5f3fccac8efbdb5befd2453">
+            <title>Karpetak: Borratu betiko</title>
+            <para>
+                Ezabatutako gisa markatutako karpeta bateko mezu guztiak ezabatzeko, baina karpeta bera ezabatu gabe, hautatu karpetak ezkerreko zutabean eta egin klik 'Borratu betiko' aukeran. Aukera hau erabiltzeko ezinbestekoa da zakarrontzirik ez erabiltzea.
+            </para>
+        </entry>
+
+        <entry id="folders-subscribe" state="uptodate" md5="f6deebeac842b011decafe6d6fd7e28e">
+            <title>Karpetak: Harpidetu/Kendu harpidetza</title>
+            <para>
+                Karpeta bat harpidetutako edo harpidetza kendutako gisa markatzen du. Karpeta bat harpidetzen denean, goitibeherako karpeta-zerrenda guztietan agertzen da. Aukera horiek agertzeko ezinbestekoa da IMAP karpeta-harpidetzak erabiltzea.
+            </para>
+            <para>
+                Harpidetzeko, hautatu karpetak ezkerreko zutabean eta egin klik 'Harpidetu' aukeran. Harpidetza kentzeko, hautatu karpetak ezkerreko zutabean eta egin klik 'Kendu harpidetza' aukeran.
+            </para>
+        </entry>
+
+        <entry id="folders-newmail" state="uptodate" md5="968bf7baad520a2d2bdb59926f649d9b">
+            <title>Karpetak: Begiratu mezu berririk dagoen/Ez begiratu mezu berririk dagoen</title>
+            <warn>
+                Ekintza hau beharbada ez da erabilgarri egongo, administratzaileak desgaitu badu.
+            </warn>
+            <para>
+                Mezurik dagoen begiratzeko markatzen du karpeta Karpeta-nabigatzailean eta alboko barran.
+            </para>
+            <para>
+                Marka hau ezartzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Begiratu mezu berririk dagoen'. Marka hau kentzeko, hautatu karpetak ezkerreko zutabean eta hautatu 'Ez begiratu mezu berririk dagoen'.
+            </para>
+        </entry>
+
+        <entry id="folders-markseen" state="uptodate" md5="559380c98d187db02af27d3405a36f9c">
+            <title>Karpetak: Markatu mezu guztiak Ikusitako/Ikusi gabeko gisa</title>
+            <para>
+                Karpeta bateko mezu guztiak ikusitako gisa markatzeko, hautatu ezkerreko zutabeko karpetak eta hautatu 'Markatu mezu guztiak ikusitako gisa'. Karpeta bateko mezu guztiak ikusi gabeko gisa markatzeko, hautatu ezkerreko zutabeko karpetak eta hautatu 'Markatu mezu guztiak ikusi gabeko gisa'.
+            </para>
+        </entry>
+
+        <entry id="folders-download" state="uptodate" md5="ca1b4a5affef2ab24994112bd286587b">
+            <title>Karpetak: Deskargatu</title>
+            <para>
+                Karpeta bateko fitxategi guztiak deskargatzeko fitxategi bakar batean (mbox formatuko fitxategi batean), hautatu karpeta ezkerreko zutabean eta egin klik 'Deskargatu' botoian. Fitxategia ZIP formatu konprimatuan deskargatzeko, hautatu 'Deskargatu [.zip formatua]'.
+            </para>
+        </entry>
+
+        <entry id="folders-import" state="uptodate" md5="60df93f93185f35846b212b6149578c3">
+            <title>Karpetak: Inportatu mezuak</title>
+            <para>
+                Aukera honek .mbox edo .eml fitxategiak aukeratu duzun karpetara inportatzen ditu. Aukeratu mezuak inportatzeko karpeta bat ezkerreko zutabean, eta ondoren hautatu aukera hau. Zein mbox edo eml fitxategi inportatu nahi duzun zehazteko orri batera joango zara.
+            </para>
+        </entry>
+
+        <entry id="folders-rebuild" state="uptodate" md5="4d10b81eafbe1658dddd5ee45bd35e20">
+            <title>Karpetak: Berreraiki karpeta-zuhaitza</title>
+            <para>
+                Berreraiki karpeta-zuhaitzaren irudikapen grafikoa, posta-zerbitzarian berriro kontsulta eginez. Normalean ez zenuke hori egin behar, ez bazara ari aldi berean posta-zerbitzaria atzitzen beste posta-bezero batekin eta posta-bezero horrek aldaketak egin baditu karpeta-egituran.
+            </para>
+        </entry>
+
+        <entry id="folders-showsub" state="uptodate" md5="20b82145260d1e1fc4ad4f93cf9037cf">
+            <title>Karpetak: Erakutsi/Ezkutatu harpidetu gabeak</title>
+            <para>
+                IMAP karpetako harpidetzak erabiltzen badituzu, erakutsi/ezkutatu harpidetu gabeko karpetak. Karpeta bat harpidetzeko/harpidetza kentzeko, hautatu karpeta-izenaren ondoan dagoen kontrol-laukia eta erabili goitibeherako Karpeta-ekintza menuko Harpidetu/Harpidetza kendu aukera.
+            </para>
+        </entry>
+
+        <entry id="folders-expandall" state="uptodate" md5="2f092b6f14cf3cf7d2e63cd5cfd5e416">
+            <heading>Karpetak: Zabaldu denak</heading>
+            <para>
+                Zabaldu karpeta-sarrera guztiak.
+            </para>
+        </entry>
+
+        <entry id="folders-collapseall" state="uptodate" md5="5bfe9c7029027dc384e08c4c608285d0">
+            <heading>Karpetak: Tolestu denak</heading>
+            <para>
+                Zabaldu karpeta-sarrera guztiak.
+            </para>
+        </entry>
+
+        <entry id="filter-apply" state="uptodate" md5="10b30835208f15d76b973498c3e199e6">
+            <title>Iragazkiak: Aplikatu arauak</title>
+            <para>
+                Egin klik postontziaren ikuspegiko 'Sarrerako ontzia' izenaren ondoan dagoen "Aplikatu iragazkiak" ikonoan, mezu guztiak iragazteko zehaztutako arauen arabera.
+            </para>
+        </entry>
+    </view>
+
+    <view id="dynamic">
+        <entry id="compose-attachments" state="uptodate" md5="bbde99a27e8a94bdf1e8f4b8faedd12d">
+            <title>Idatzi: Eranskinak gehitzea</title>
+            <para>
+                Fitxategiak erants diezazkiokezu mezuari, arakatzaileak fitxategiak kargatzea onartzen badu.
+            </para>
+            <para>
+                Egin klik "Arakatu" botoian, eta hautatu erantsi beharreko fitxategia. Beste karga-sarrera bat agertuko da, mezu batean onartzen den eranskin kopurua gainditu ez baduzu, eranskin gehiago kargatu ahal izateko.
+            </para>
+            <tip>
+                Fitxategia handia denean eta/edo Interneteko konexioa motel dabilenean, denbora dezente beharko da fitxategia kargatzeko eta mezuari eransteko.
+            </tip>
+        </entry>
+
+        <entry id="compose-current-attachments" state="uptodate" md5="62a9a2bcb0cb4ad18ccc95c48a8c7ef5">
+            <title>Idatzi: Uneko eranskinak</title>
+            <heading>Eranskinak ikustea</heading>
+            <para>
+                Eranskinaren fitxategi-izena klik egiteko modukoa bada, eranskinaren datuak arakatzailean ikusi ahal izango dituzu. Egin klik eranskinaren izenaren gainean eranskinaren edukiak laster-leiho batean ikusteko.
+            </para>
+            <heading>Ezabatu eranskinak</heading>
+            <para>
+                Eranskin bat ezabatzeko, egin klik ezabatu nahi duzun eranskinaren izenaren ondoko "Kendu" botoian
+            </para>
+        </entry>
+
+        <entry id="mailbox" state="uptodate" md5="ef690e1219cfd1cfc2429790202f881a">
+            <title>Postontzia</title>
+            <para>
+                Mezu baten aurrebista ikusteko, hautatu mezua mezuen zerrendan.
+            </para>
+            <para>
+                Mezu baten gainean eskuineko botoiarekin klik eginez gero, erabilgarri dauden ekintzak erakusten dira.
+            </para>
+            <warn>
+                Opera-k ez du onartzen eskuineko klik bidezko ekintzarik.  Eskuineko botoiarekin klik egin beharrean, egin klik ezkerreko botoiarekin + <css class="kbd">Maius</css> + <css class="kbd">Ktrl</css> eta erabilgarri dauden ekintzak bistaratuko dira.
+            </warn>
+            <para>
+                Hainbat mezu hautatzeko hautapen berean, egin klik mezuan <css class="kbd">Ktrl</css> tekla sakatuta daukazula.  Hainbat mezu hautatzeko, egin klik bitarteko lehen mezuan, " "nabigatu bitarteko azken mezura, eta egin klik azken mezuan <css class="kbd">Maius</css> tekla sakatuta daukazula."
+            </para>
+        </entry>
+
+        <entry id="mailbox-keyboard" state="uptodate" md5="658ffd53ea2c3b2ae06f99faeb8afab6">
+            <title>Postontzia: Teklatuko lasterbideak</title>
+            <para>
+                Laster-tekla hauek daude erabilgarri:
+            </para>
+            <para>
+                <css class="iconImg keyupImg"/> / <css class="iconImg keydownImg"/> : Joan gora/behera mezuen zerrendan.
+            </para>
+            <para>
+                <css class="kbd">OrrGor</css> / <css class="kbd">OrrBeh</css>: Joan orri bat gora/orri bat behera mezuen zerrendan.
+            </para>
+            <para>
+                <css class="kbd">Alt</css> + <css class="kbd">OrrGor</css> / <css class="kbd">OrrBeh</css>: Korritu gora/behera aurrebista bistaratutako mezuan zehar.
+            </para>
+            <para>
+                <css class="kbd">Hasi</css> / <css class="kbd">Amai</css>: Joan mezu-zerrendaren hasierara/bukaerara.
+            </para>
+            <para>
+                <css class="kbd">Ezab</css>: Ezabatu hautatuta dauden mezuak. <css class="kbd">Maius</css> + <css class="kbd">Ezab</css> teklak sakatuz gero, mezu hau ezabatuko da, eta hurrengo mezura joango da, mezu bakar bat bakarrik hautatzen bada.
+            </para>
+            <para>
+                <css class="kbd">Maius</css> + <css class="kbd">N</css>: Joan ikusi gabeko hurrengo mezura (bilaketa-postontziak ez direnetan bakarrik).
+            </para>
+            <para>
+                <css class="kbd">Sartu</css>: Ireki mezua laster-leiho batean.
+            </para>
+            <para>
+                <css class="kbd">Ktrl</css> + <css class="kbd">A</css>: Hautatu uneko postontziko mezu guztiak.
+            </para>
+        </entry>
+    </view>
 </help>

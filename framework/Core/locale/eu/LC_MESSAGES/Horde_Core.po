@@ -7,34 +7,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Core\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-12-14 10:58+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2013-03-13 08:47+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/Horde.php:1343
+#: lib/Horde.php:1239
 #, php-format
 msgid " (Accesskey %s)"
-msgstr " (%s tekla)"
+msgstr " (%s laster-tekla)"
 
-#: lib/Horde/Registry.php:1247 lib/Horde/Registry.php:1937
-#, fuzzy, php-format
+#: lib/Horde/Registry.php:1263 lib/Horde/Registry.php:1953
+#, php-format
 msgid "\"%s\" is not configured in the Horde Registry."
-msgstr "ACL ez dago konfiguratuta zerbitzari honetarako."
+msgstr "\"%s\" ez dago konfiguratuta Horde erregistroan."
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:121
-#, fuzzy, php-format
+#, php-format
 msgid "%d contact was successfully added to your address book."
 msgid_plural "%d contacts were successfully added to your address book."
-msgstr[0] "%s behar bezala gehitu da helbide-liburuan."
-msgstr[1] "%s behar bezala gehitu da helbide-liburuan."
+msgstr[0] "Kontaktu %d ongi gehitu da helbide-liburuan."
+msgstr[1] "%d kontaktu ongi gehitu dira helbide-liburuan."
 
 #: lib/Horde/Core/Auth/Application.php:650
-#, fuzzy, php-format
+#, php-format
 msgid "%d day until your password expires."
 msgid_plural "%d days until your password expires."
 msgstr[0] "%d egun falta pasahitza iraungitzeko."
@@ -46,38 +47,37 @@ msgid "-- select --"
 msgstr "-- hautatu --"
 
 #: lib/Horde/Core/Notification/Event/Status.php:73
-#: lib/Horde/PageOutput.php:739
+#: lib/Horde/PageOutput.php:746
 msgid "1 day"
 msgstr "1 egun"
 
 #: lib/Horde/Core/Notification/Event/Status.php:71
-#: lib/Horde/PageOutput.php:737
+#: lib/Horde/PageOutput.php:744
 msgid "1 hour"
 msgstr "1 ordu"
 
 #: lib/Horde/Core/Notification/Event/Status.php:70
-#: lib/Horde/PageOutput.php:736
+#: lib/Horde/PageOutput.php:743
 msgid "15 minutes"
 msgstr "15 minutu"
 
 #: lib/Horde/Core/Notification/Event/Status.php:69
-#: lib/Horde/PageOutput.php:735
+#: lib/Horde/PageOutput.php:742
 msgid "5 minutes"
 msgstr "5 minutu"
 
 #: lib/Horde/Core/Notification/Event/Status.php:72
-#: lib/Horde/PageOutput.php:738
+#: lib/Horde/PageOutput.php:745
 msgid "6 hours"
 msgstr "6 ordu"
 
 #: lib/Horde/Core/Ui/Pager.php:75
-#, fuzzy
 msgid "<Previous"
-msgstr "Aurrekoa"
+msgstr "<Aurrekoa"
 
 #: lib/Horde/ErrorHandler.php:81
 msgid "A fatal error has occurred"
-msgstr ""
+msgstr "Errore larria gertatu da"
 
 #: lib/Horde/Core/Prefs/Identity.php:63
 #, php-format
@@ -86,12 +86,16 @@ msgid ""
 "address. The new email address is activated as soon as you confirm this "
 "message."
 msgstr ""
+"\"%s\" helbidera mezu bat bidali da zure benetako helbidea den egiatatzeko. "
+"Mezu hori berretsi bezain laster helbide berria aktibatuko da."
 
 #: lib/Horde/Core/Auth/Signup/Base.php:83
 #, php-format
 msgid ""
 "A new account for the user \"%s\" has been requested through the signup form."
 msgstr ""
+" \"%s\" erabiltzaileak kontu berria eskatu du alta emateko formularioaren "
+"bidez."
 
 #: lib/Horde/Core/Script/Package/Popup.php:25
 msgid ""
@@ -101,48 +105,42 @@ msgstr ""
 "blokeatzeko konfiguratu duzu arakatzailea."
 
 #: lib/Horde/Core/Auth/Signup/Base.php:91
-#, fuzzy, php-format
+#, php-format
 msgid "Account signup request for \"%s\""
-msgstr "Ziur zaude \"%s\" erregistratzeko eskaera kendu nahi duzula?"
+msgstr "Kontu berri baten eskaera \"%s\"(r)entzat"
 
 #: lib/Horde/Core/Perms/Ui.php:201 lib/Horde/Core/Ui/VarRenderer/Html.php:627
 msgid "Add"
 msgstr "Gehitu"
 
 #: lib/Horde/Core/Perms/Ui.php:134
-#, fuzzy
 msgid "Add Child Permission"
-msgstr "Editatu baimenak"
+msgstr "Gehitu semearen baimenak"
 
 #: lib/Horde/Core/Perms/Ui.php:101
-#, fuzzy
 msgid "Add New Permission"
-msgstr "Baimena"
+msgstr "Gehitu baimen berria"
 
 #: lib/Horde/Core/Perms/Ui.php:78
-#, fuzzy
 msgid "Add Permission"
-msgstr "Baimena"
+msgstr "Gehitu baimena"
 
 #: lib/Horde/Core/Perms/Ui.php:200
-#, fuzzy, php-format
+#, php-format
 msgid "Add a child permission to \"%s\""
-msgstr "Editatu \"%s\"(r)en baimenak"
+msgstr "Gehitu \"%s\"(r)i beherakako baimena"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:92
-#, fuzzy
 msgid "Add source"
-msgstr "Gehitu baliabidea"
+msgstr "Gehitu iturria"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:404
-#, fuzzy
 msgid "Add to address book:"
-msgstr "Gehitu helbide-liburuan"
+msgstr "Gehitu helbide-liburuan:"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:419
-#, fuzzy
 msgid "Add to my address book"
-msgstr "Gehitu %s helbide-liburuan"
+msgstr "Gehitu nire helbide-liburuan"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:227
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:291
@@ -153,10 +151,12 @@ msgstr "Helbidea"
 msgid "Address Book"
 msgstr "Helbide-liburua"
 
-#: lib/Horde/Registry.php:282
+#: lib/Horde/Registry.php:293
 msgid ""
 "Admin authentication requested, but no admin users defined in configuration."
 msgstr ""
+"Beharrezkoa da admin bezala autentikatzea, baina ez dago admin bezalako "
+"erabiltzailerik ezarrita."
 
 #: lib/Horde/Core/Topbar.php:104
 msgid "Administration"
@@ -175,14 +175,12 @@ msgid "All Authenticated Users"
 msgstr "Erabiltzaile autentifikatu guztiak"
 
 #: lib/Horde/Core/Perms.php:121 lib/Horde/Core/Perms/Ui.php:106
-#, fuzzy
 msgid "All Permissions"
-msgstr "Baimenak"
+msgstr "Baimen guztiak"
 
 #: lib/Horde/Core/Prefs/Ui.php:310 lib/Horde/Core/Prefs/Ui.php:323
-#, fuzzy
 msgid "An illegal value was specified."
-msgstr "Gako baliogabea zehaztu da."
+msgstr "Balio ilegala zehaztu da."
 
 #: lib/Horde/Core/Smartmobile/View/Helper.php:54
 msgid "Applications"
@@ -190,27 +188,25 @@ msgstr "Aplikazioak"
 
 #: lib/Horde/Core/Auth/Signup/Base.php:85
 msgid "Approve the account:"
-msgstr ""
+msgstr "Kontua onartu:"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:131
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:438
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:488
 msgid "April"
-msgstr ""
+msgstr "apirila"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:135
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:442
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:492
-#, fuzzy
 msgid "August"
-msgstr "haizetsu"
+msgstr "abuztua"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:198
-#, fuzzy
 msgid "Available address books:"
-msgstr "Helbide-liburua ez da baliozkoa: %s"
+msgstr "Helbide-liburu erabilgarriak:"
 
-#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:672
+#: lib/Horde/Core/Smartmobile/View/Helper.php:46 lib/Horde/PageOutput.php:677
 msgid "Back"
 msgstr "Atzera"
 
@@ -219,9 +215,9 @@ msgid "Birthday"
 msgstr "Urtebetetzea"
 
 #: lib/Horde/Core/Block/Collection.php:392
-#, fuzzy, php-format
+#, php-format
 msgid "Block \"%s\" of application \"%s\" not found."
-msgstr "Irudien oinarrizko \"%s\" direktorioa ez da aurkitu."
+msgstr " \"%s\" blokea,  \"%s\" aplikazioan ez da aurkitu."
 
 #: lib/Horde/Core/ActiveSync/Driver.php:124
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:531
@@ -234,33 +230,29 @@ msgid "Cancel"
 msgstr "Utzi"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:317
-#, fuzzy
 msgid "Cell Phone"
-msgstr "Telefonoa (autoa)"
+msgstr "Telefono mugikorra"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:45
 #: lib/Horde/Core/Auth/Signup/Form.php:59
-#, fuzzy
 msgid "Choose a password"
-msgstr "Pasahitz berria"
+msgstr "Idatzi pasahitz bat"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:42
 #: lib/Horde/Core/Auth/Signup/Form.php:58
-#, fuzzy
 msgid "Choose a username"
-msgstr "Idatzi erabiltzaile-izen bat."
+msgstr "Idatzi erabiltzaile-izen bat"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:192
-#, fuzzy
 msgid "Choose the order of address books to search when expanding addresses."
-msgstr "Aukeratu helbideak gehitzeko erabiliko den helbide-liburua:"
+msgstr ""
+"Aukeratu helbide-liburuen ordena helbideak zabaltzerakoan bilaketak egiteko."
 
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:58
-#, fuzzy
 msgid "Click to add caption..."
-msgstr "Egin klik testua gehitzeko..."
+msgstr "Egin klik izenburua gehitzeko..."
 
-#: lib/Horde/PageOutput.php:673
+#: lib/Horde/PageOutput.php:678
 msgid "Close"
 msgstr "Itxi"
 
@@ -274,9 +266,8 @@ msgid "Company"
 msgstr "Enpresa"
 
 #: lib/Horde/Core/Prefs/Identity.php:54
-#, fuzzy
 msgid "Confirm new email address"
-msgstr "Ordezko helbide elektronikoa"
+msgstr "Baieztatu helbide elektroniko berria"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:125
 msgid "Contacts"
@@ -288,9 +279,8 @@ msgid "Could not save the backup configuration file %s."
 msgstr "Ezin izan da gorde babeskopiaren konfigurazioaren %s fitxategia."
 
 #: lib/Horde/Core/Perms/Ui.php:298
-#, fuzzy
 msgid "Creator Permissions"
-msgstr "Gonbidatu-baimenak"
+msgstr "Sortzailearen baimenak"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:499
 msgid "DD"
@@ -299,32 +289,30 @@ msgstr "EE"
 #: lib/Horde/Core/Ui/JsCalendar.php:139
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:446
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:496
-#, fuzzy
 msgid "December"
-msgstr "Kideak"
+msgstr "abendua"
 
 #: lib/Horde/Core/Perms/Ui.php:498 lib/Horde/Core/Perms/Ui.php:516
 msgid "Delete"
 msgstr "Ezabatu"
 
 #: lib/Horde/Core/Perms/Ui.php:82 lib/Horde/Core/Perms/Ui.php:142
-#, fuzzy
 msgid "Delete Permission"
-msgstr "Gonbidatu-baimenak"
+msgstr "Ezabatu baimena"
 
 #: lib/Horde/Core/Perms/Ui.php:497
-#, fuzzy, php-format
+#, php-format
 msgid "Delete permissions for \"%s\""
-msgstr "Editatu \"%s\"(r)en baimenak"
+msgstr "Ezabatu \"%s\"(r)en baimenak"
 
 #: lib/Horde/Core/Perms/Ui.php:500
 #, php-format
 msgid "Delete permissions for \"%s\" and any sub-permissions?"
-msgstr ""
+msgstr "Ezabatu baimenak eta azpi-baimenak  \"%s\"(r)entzat?"
 
 #: lib/Horde/Core/Auth/Signup/Base.php:87
 msgid "Deny the account:"
-msgstr ""
+msgstr "Kontua ezeztatu:"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:370
 msgid "Department"
@@ -335,40 +323,34 @@ msgid "Details"
 msgstr "Xehetasunak"
 
 #: lib/Horde/ErrorHandler.php:107
-#, fuzzy
 msgid "Details have been logged for the administrator."
-msgstr ""
-"Errorea Twitter-era konektatzean: %s  Administratzailearentzako xehetasunak "
-"erregistratu dira."
+msgstr "Administratzailearentzako xehetasunak erregistratu dira."
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1164
-#, fuzzy, php-format
+#, php-format
 msgid "Dial %s"
-msgstr " %s arte"
+msgstr " %s deitu"
 
 #: lib/Horde/Core/Notification/Event/Status.php:68
 msgid "Dismiss"
-msgstr ""
+msgstr "Baztertu"
 
 #: lib/Horde/Core/Perms/Ui.php:498
-#, fuzzy
 msgid "Do not delete"
-msgstr "Gertaera ezabatu da:"
+msgstr "Ez ezabatu"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:206
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:270
-#, fuzzy
 msgid "Domestic Address"
-msgstr "Helbidea (etxea)"
+msgstr "Etxeko helbidea"
 
 #: lib/Horde/Core/Block/Layout.php:107 lib/Horde/Core/Block/Layout.php:108
 msgid "Edit"
 msgstr "Editatu"
 
 #: lib/Horde/Core/Perms/Ui.php:81 lib/Horde/Core/Perms/Ui.php:140
-#, fuzzy
 msgid "Edit Permission"
-msgstr "Editatu baimenak"
+msgstr "Editatu baimena"
 
 #: lib/Horde/Core/Perms/Ui.php:431
 #, php-format
@@ -376,21 +358,16 @@ msgid "Edit permissions for \"%s\""
 msgstr "Editatu \"%s\"(r)en baimenak"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:353
-#, fuzzy
 msgid "Email"
-msgstr ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"Helbide elektronikoa\n"
-"#-#-#-#-#  turba.po (turba)  #-#-#-#-#\n"
-"helb.el."
+msgstr "Helbide elektronikoa"
 
 #: lib/Horde/Core/Prefs/Identity.php:87
 msgid "Email addresses to confirm not found."
-msgstr ""
+msgstr "Berresteko posta elektroniko helbidea ez da aurkitu."
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:316
 msgid "Emoticons"
-msgstr ""
+msgstr "Emotikonoak"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:1208
 msgid "End forwarded message"
@@ -399,14 +376,14 @@ msgstr "Amaitu birbidalitako mezua"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:963
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:974
 msgid "Enter the letters below:"
-msgstr ""
+msgstr "Idatzi ondorengo hizkiak:"
 
 #: lib/Horde/Core/Block/Layout/View.php:124
 #: lib/Horde/Core/Notification/Event/Status.php:94
 msgid "Error"
 msgstr "Errorea"
 
-#: lib/Horde/PageOutput.php:729
+#: lib/Horde/PageOutput.php:736
 msgid "Error when communicating with the server."
 msgstr "Errorea zerbitzariarekin komunikatzean."
 
@@ -422,15 +399,15 @@ msgstr "Faxa"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:436
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:486
 msgid "February"
-msgstr ""
+msgstr "otsaila"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:256
 msgid "Fix ratio"
-msgstr ""
+msgstr "Erlazio finkoa"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:231
 msgid "Flip"
-msgstr ""
+msgstr "Alderantzikatu"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:1206
 msgid "Forwarded message"
@@ -454,13 +431,12 @@ msgid "Global Preferences"
 msgstr "Hobespen globalak"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1307
-#, fuzzy
 msgid "Google Maps"
-msgstr "Google bilaketa"
+msgstr "Google mapak"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:237
 msgid "Grayscale"
-msgstr ""
+msgstr "Gris eskala"
 
 #: lib/Horde/Core/Perms/Ui.php:372
 msgid "Groups"
@@ -470,9 +446,13 @@ msgstr "Taldeak"
 msgid "Guest Permissions"
 msgstr "Gonbidatu-baimenak"
 
-#: lib/Horde/Core/Topbar.php:172 lib/Horde/Help.php:243 lib/Horde/Help.php:244
+#: lib/Horde/Core/Topbar.php:172 lib/Horde/Help.php:253 lib/Horde/Help.php:254
 msgid "Help"
 msgstr "Laguntza"
+
+#: lib/Horde/Help.php:58
+msgid "Help file not found."
+msgstr "Laguntza fitxategia ez da aurkitu."
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:198
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:262
@@ -483,7 +463,7 @@ msgstr "Helbidea (etxea)"
 msgid "Home Phone"
 msgstr "Telefonoa (etxea)"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1800
+#: lib/Horde/Core/ActiveSync/Driver.php:1804
 msgid "Inbox"
 msgstr "Sarrerako ontzia"
 
@@ -497,38 +477,35 @@ msgstr "Barnean"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:210
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:274
-#, fuzzy
 msgid "International Address"
-msgstr "Ordezko helbide elektronikoa"
+msgstr "Nazioarteko helbidea"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:752
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:26
-#, fuzzy
 msgid "Invert selection"
-msgstr "Data-hautapena"
+msgstr "Hautapena alderantzikatu"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:128
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:435
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:485
-#, fuzzy
 msgid "January"
-msgstr "Eskuz"
+msgstr "urtarrila"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:134
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:441
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:491
 msgid "July"
-msgstr ""
+msgstr "uztaila"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:133
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:440
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:490
 msgid "June"
-msgstr ""
+msgstr "ekaina"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:264
 msgid "Keep original?"
-msgstr ""
+msgstr "Jatorrizkoa gorde?"
 
 #: lib/Horde/Core/Smartmobile/View/Helper.php:66
 msgid "Log out"
@@ -542,30 +519,27 @@ msgstr "HH"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1233
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1282
 msgid "MapQuest map"
-msgstr ""
+msgstr "MapQuest mapa"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:130
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:437
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:487
-#, fuzzy
 msgid "March"
-msgstr "Bilatu"
+msgstr "martxoa"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:132
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:439
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:489
-#, fuzzy
 msgid "May"
-msgstr "Eguna"
+msgstr "maiatza"
 
 #: lib/Horde/Core/Notification/Event/Status.php:99
 msgid "Message"
 msgstr "Mezua"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:234
-#, fuzzy
 msgid "Mirror"
-msgstr "Errorea"
+msgstr "Ispilua"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:93
 msgid "Mo"
@@ -576,81 +550,72 @@ msgid "Monday"
 msgstr "Astelehena"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:566
-#, fuzzy
 msgid "Move Down"
-msgstr "Eraman araua behera"
+msgstr "Behera mugitu"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:570
-#, fuzzy
 msgid "Move Left"
-msgstr "Lekuz aldatu"
+msgstr "Ezkerrera mugitu"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:574
-#, fuzzy
 msgid "Move Right"
-msgstr "Askatasun negatiboa"
+msgstr "Eskumara mugitu"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:562
-#, fuzzy
 msgid "Move Up"
-msgstr "Eraman araua gora"
+msgstr "Gora mugitu"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:97
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:605
-#, fuzzy
 msgid "Move down"
-msgstr "Eraman araua behera"
+msgstr "Behera mugitu"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:96
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:604
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:605
-#, fuzzy
 msgid "Move up"
-msgstr "Eraman araua gora"
+msgstr "Gora mugitu"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1202
 msgid "Multimap UK map"
-msgstr ""
+msgstr "Multimap UK mapa"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:147
 msgid "Name"
 msgstr "Izena"
 
 #: lib/Horde/Core/Ui/Pager.php:118
-#, fuzzy
 msgid "Next>"
-msgstr "Hurrengoa"
+msgstr "Hurrengoa>"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
 msgid "No"
 msgstr "Ez"
 
-#: lib/Horde/PageOutput.php:745
+#: lib/Horde/PageOutput.php:752
 msgid "No Alerts"
 msgstr "Ez dago alertarik"
 
 #: lib/Horde/Core/Factory/Twitter.php:17
 msgid "No OAuth Key or Secret found for the Twitter API"
-msgstr ""
+msgstr "Twitter APIrentzako OAuth Key edo Secret delakorik ez da aurkitu"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:548
 msgid "No Sound"
 msgstr "Soinurik ez"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:230
-#, fuzzy
 msgid "No address book selected."
-msgstr "Ez da helbide-libururik zehaztu"
+msgstr "Ez da helbide-libururik hautatu."
 
 #: lib/Horde/Core/Perms/Ui.php:209
-#, fuzzy
 msgid "No children can be added to this permission."
-msgstr "Ez daukazu baimenik partekatze-baimenak zerrendatzeko."
+msgstr "Baimen honi ezin zaio ondorengorik gehitu."
 
-#: lib/Horde.php:669
-#, fuzzy, php-format
+#: lib/Horde.php:565
+#, php-format
 msgid "No configuration information specified for %s."
-msgstr "Zehaztu duzun autentifikazio-informazioa ez da onartu."
+msgstr "%s(r)entzat ez da konfigurazio argibiderik zehaztu."
 
 #: lib/Horde/Core/ActiveSync/Driver.php:1236
 msgid "No message body text"
@@ -666,11 +631,11 @@ msgstr "Ez da baliozko helbide elektronikorik aurkitu"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1098
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1115
 msgid "No values"
-msgstr ""
+msgstr "Baliorik gabe"
 
 #: lib/Horde/Registry.php:252
 msgid "Not an admin"
-msgstr ""
+msgstr "Ez da admin"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:376
 msgid "Notes"
@@ -679,63 +644,51 @@ msgstr "Oharrak"
 #: lib/Horde/Core/Ui/JsCalendar.php:138
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:445
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:495
-#, fuzzy
 msgid "November"
-msgstr "Kideak"
+msgstr "azaroa"
 
 #: lib/Horde/Core/Script/Package/Dialog.php:26
 msgid "OK"
 msgstr "Ados"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:945
-#, fuzzy
 msgid "Object"
-msgstr "Gaia"
+msgstr "Objektua"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:137
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:444
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:494
 msgid "October"
-msgstr ""
+msgstr "azaroa"
 
 #: lib/Horde/Core/Ajax/Imple/InPlaceEditor.php:59
 msgid "Ok"
 msgstr "Ados"
 
 #: lib/Horde/Core/ActiveSync/Connector.php:500
-#, fuzzy
 msgid "Out Of Office"
-msgstr "Bulegoa"
+msgstr "Bulegotik kanpo"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:218
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:282
-#, fuzzy
 msgid "Parcel Address"
-msgstr "Helbide elektronikoa"
+msgstr "Partzela helbidea"
 
 #: lib/Horde/Core/Perms/Ui.php:209
 msgid "Permission"
 msgstr "Baimena"
 
-#: lib/Horde/Registry.php:293
-#, fuzzy
+#: lib/Horde/Registry.php:304
 msgid "Permission denied."
-msgstr ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"Baimena ukatu da\n"
-"#-#-#-#-#  mnemo.po (mnemo)  #-#-#-#-#\n"
-"Baimena ukatuta\n"
-"#-#-#-#-#  turba.po (turba)  #-#-#-#-#\n"
-"Baimena ukatuta"
+msgstr "Baimena ukatu da."
 
 #: lib/Horde/Core/Perms/Ui.php:214 lib/Horde/Core/Perms/Ui.php:224
 msgid "Permissions"
 msgstr "Baimenak"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:320
-#, fuzzy
 msgid "Phone"
-msgstr "Telefonoa (autoa)"
+msgstr "Telefonoa"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:166
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:174
@@ -745,13 +698,12 @@ msgstr "Argazkia"
 
 #: lib/Horde/Core/Alarm/Handler/Notify.php:74
 msgid "Play a sound?"
-msgstr ""
+msgstr "Soinua jo?"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:214
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:278
-#, fuzzy
 msgid "Postal Address"
-msgstr "Nori helbidea"
+msgstr "Helbidea"
 
 #: lib/Horde/Core/Topbar.php:123
 msgid "Preferences"
@@ -764,11 +716,10 @@ msgstr "Hobespenak: %s"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:222
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:286
-#, fuzzy
 msgid "Preferred Address"
-msgstr "Iturriaren helbidea"
+msgstr "Helbide hobetsia"
 
-#: lib/Horde/Core/Ui/VarRenderer/Html.php:1524
+#: lib/Horde/Core/Ui/VarRenderer/Html.php:1531
 msgid "Preview"
 msgstr "Aurrebista"
 
@@ -777,19 +728,17 @@ msgid "Problem"
 msgstr "Arazoa"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:1229
-#, fuzzy
 msgid "Quoted"
-msgstr "Kuota"
+msgstr "Aipatuta"
 
 #: lib/Horde/Core/ActiveSync/Driver.php:1229
-#, fuzzy, php-format
+#, php-format
 msgid "Quoting %s"
-msgstr "%f erabiltzaileak idatzi du:"
+msgstr "%s aipatzen"
 
 #: lib/Horde/Core/Block/Layout.php:117
-#, fuzzy
 msgid "Really delete this block?"
-msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
+msgstr "Ziur zaude bloke hau ezabatu nahi duzula?"
 
 #: lib/Horde/Core/Block/Layout.php:114 lib/Horde/Core/Block/Layout.php:118
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:201
@@ -798,14 +747,13 @@ msgid "Remove"
 msgstr "Kendu"
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:93
-#, fuzzy
 msgid "Remove source"
-msgstr "Baliabidea"
+msgstr "Ezabatu iturria"
 
-#: lib/Horde.php:678
-#, fuzzy, php-format
+#: lib/Horde.php:574
+#, php-format
 msgid "Required \"%s\" not specified in %s configuration."
-msgstr "Ez da \"%s\" elementurik aurkitu modulu-konfigurazioan."
+msgstr "Ez da zehaztu beharrezkoa den  \"%s\" %s(r)en konfigurazioan."
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:219
 msgid "Reset"
@@ -817,16 +765,15 @@ msgstr "Funtzioa"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:225
 msgid "Rotate 180"
-msgstr ""
+msgstr "Biratu 180"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:222
 msgid "Rotate Left"
-msgstr ""
+msgstr "Biratu ezkerrera"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:228
-#, fuzzy
 msgid "Rotate Right"
-msgstr "Askatasun negatiboa"
+msgstr "Biratu eskumara"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:98
 msgid "Sa"
@@ -838,76 +785,67 @@ msgstr "larunbata"
 
 #: lib/Horde/Registry.php:204
 msgid "Script must be run from the command line"
-msgstr ""
+msgstr "Scripta komando lerrotik abiarazi behar da"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:531
-#, fuzzy
 msgid "Select a date"
-msgstr "Hautatu erabiltzailea"
+msgstr "Aukeratu data bat"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:750
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:24
-#, fuzzy
 msgid "Select all"
 msgstr "Hautatu denak"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:945
-#, fuzzy
 msgid "Select an object"
-msgstr "Hautatu erabiltzailea"
+msgstr "Aukeratu objektu bat"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:751
 #: lib/Horde/Core/Ui/VarRenderer/TablesetHtml.php:25
-#, fuzzy
 msgid "Select none"
 msgstr "Ez hautatu bat ere"
 
 #: lib/Horde/Core/Prefs/Ui.php:823
 msgid "Select the identity you want to change:"
-msgstr ""
+msgstr "Aukeratu aldatu nahi duzun identitatea:"
 
-#: lib/Horde/PageOutput.php:734
-#, fuzzy
+#: lib/Horde/PageOutput.php:741
 msgid "Select..."
-msgstr "hautatu..."
+msgstr "Hautatu..."
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:193
-#, fuzzy
 msgid "Selected address books:"
-msgstr "Hautatutako helbidea liburua, \"%s\"."
+msgstr "Hautatutako helbide liburuak:"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1180
-#, fuzzy
 msgid "Send SMS"
-msgstr "Bidali"
+msgstr "Bidali SMSa"
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1795
+#: lib/Horde/Core/ActiveSync/Driver.php:1799
 msgid "Sent"
 msgstr "Bidalitakoak"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:136
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:443
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:493
-#, fuzzy
 msgid "September"
-msgstr "Kideak"
+msgstr "iraila"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:537
 msgid "Shrink"
-msgstr ""
+msgstr "Uzkurtu"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:31
 msgid "Sign up"
-msgstr ""
+msgstr "Altan eman"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:29
 msgid "Sign up for an account"
-msgstr ""
+msgstr "Altan eman kontu berria"
 
 #: lib/Horde/Core/Notification/Event/Status.php:76
-#, fuzzy
 msgid "Snooze..."
-msgstr "gehiago..."
+msgstr "Iratzargailua..."
 
 #: lib/Horde/Core/Ui/JsCalendar.php:92
 msgid "Su"
@@ -940,55 +878,59 @@ msgid "Th"
 msgstr "Og"
 
 #: lib/Horde/Core/Factory/History.php:12
-#, fuzzy
 msgid "The History system is disabled."
-msgstr "Erabiltzaileak zerrendatzea desgaituta dago."
+msgstr "Historia sistema desgaituta dago."
 
-#: lib/Horde/PageOutput.php:730
+#: lib/Horde/PageOutput.php:737
 msgid "The connection to the server has been restored."
 msgstr "Zerbitzarirako konexioa berrezarri da."
 
 #: lib/Horde/Core/Prefs/Identity.php:112
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "The email address %s has been added to your identities. You can close this "
 "window now."
-msgstr "\"%s\" helbidea zerrenda zurian gehitu da."
+msgstr ""
+"%s posta helbidea zure identitateetara gehitu da. Leiho hau itxi dezakezu."
 
-#: lib/Horde.php:452
-#, fuzzy
+#: lib/Horde.php:348
 msgid "The encryption features require a secure web connection."
-msgstr "PGP gako-bikote pertsonalaren euskarriak web-konexio segurua behar du."
+msgstr "Zifraketak web-konexio segurua behar du."
 
-#: lib/Horde.php:679
-#, fuzzy, php-format
+#: lib/Horde.php:575
+#, php-format
 msgid "The file %s should contain a %s setting."
-msgstr "Ezin izan da %s fitxategia erantsi."
+msgstr "%s fitxategiak %s aukera izan beharko luke."
 
-#: lib/Horde.php:670
-#, fuzzy, php-format
+#: lib/Horde.php:566
+#, php-format
 msgid "The file %s should contain some %s settings."
-msgstr "Ezin izan da %s fitxategia erantsi."
+msgstr "%s fitxategiak %s moduko hainbat aukera izan beharko lituzke."
 
-#: lib/Horde/Registry.php:2582
-#, fuzzy, php-format
+#: lib/Horde/Registry.php:2598
+#, php-format
 msgid "The following applications encountered errors removing user data: %s"
-msgstr "Baliabide honek zure eskaera ezetsi du: %s"
+msgstr ""
+"Ondorengo aplikazioek akatsak aurkitu dituzte erbiltzailearen datuak "
+"ezabatzean: %s"
 
 #: lib/Horde/ErrorHandler.php:99
 msgid ""
 "The full error message is logged in Horde's log file, and is shown below "
 "only to administrators. Non-administrative users will not see error details."
 msgstr ""
+"Errore mezua osorik Hordeko log fitxategian gordeko da eta behean "
+"administrariek ere ikus dezakete. Administrariak ez diren erabiltzaileek ez "
+"dute zehaztapenik ikusiko."
 
 #: lib/Horde/Core/Prefs/Ui.php:910
-#, fuzzy, php-format
+#, php-format
 msgid "The identity \"%s\" has been deleted."
-msgstr "\"%s\" fitxategia ezabatu da."
+msgstr "\"%s\" identitatea ezabatu da."
 
 #: lib/Horde/Core/Prefs/Ui.php:958
 msgid "The new from address can't be verified, try again later: "
-msgstr ""
+msgstr "Bidaltzeko helbide berria ezin da egiaztatu, saiatu zaitez berriro:"
 
 #: lib/Horde/Core/Factory/Prefs.php:200
 #, php-format
@@ -996,23 +938,27 @@ msgid ""
 "The preference \"%s\" could not be saved because its data exceeds the "
 "maximum allowable size"
 msgstr ""
+"\"%s\" hobespena ezin da gorde baimendutako gehienezko kopurua gainditzen "
+"duelako tamainan"
 
 #: lib/Horde/Core/Factory/Prefs.php:172
 msgid ""
 "The preferences backend is currently unavailable and your preferences have "
 "not been loaded. You may continue to use the system with default preferences."
 msgstr ""
+"Hobespenak ez dira kargatu hobespenen euskarria ez dagoelako momentu honetan "
+"erabilgarri. Aurrera jarraituz gero sistemak lehenetsitako hobespenak "
+"erabiliko dituzu."
 
 #: lib/Horde/Core/Prefs/Identity.php:78 lib/Horde/Core/Prefs/Identity.php:84
-#, fuzzy
 msgid "There are no email addresses to confirm."
-msgstr "Ez dago helbiderik esportatzeko."
+msgstr "Ez dago helbide elektronikorik berresteko."
 
 #: lib/Horde/Core/Prefs/Ui.php:455
 msgid "There are no preferences available for this application."
-msgstr ""
+msgstr "Aplikazio honen hobespenak ez daude erabilgarri."
 
-#: lib/Horde/PageOutput.php:731
+#: lib/Horde/PageOutput.php:738
 msgid ""
 "There has been no contact with the server for several minutes. The server "
 "may be temporarily unavailable or network problems may be interrupting your "
@@ -1024,36 +970,32 @@ msgstr ""
 "berrezarri arte. "
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:116
-#, fuzzy
 msgid "There was an error importing the contact data:"
-msgstr "Errorea gertatu da datuak inportatzean: %s"
+msgstr "Errorea gertatu da kontaktuen datuak inportatzean: "
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:102
-#, fuzzy
 msgid "There was an error reading the contact data."
-msgstr "Errorea gertatu da kontaktu hau ezabatzean: %s"
+msgstr "Errorea gertatu da kontaktuen datuak irakurtzean: "
 
 #: lib/Horde/Core/Prefs/Ui.php:371
 msgid "There were errors encountered while updating your preferences."
-msgstr ""
+msgstr "Hobespenak eguneratzerakoan erroreak aurkitu dira."
 
-#: lib/Horde/PageOutput.php:744
-#, fuzzy
+#: lib/Horde/PageOutput.php:751
 msgid "This is the notification log."
-msgstr "Jakinarazpen-erregistroa da"
+msgstr "Jakinarazpen-erregistroa da."
 
-#: lib/Horde/Registry.php:466
-#, fuzzy
+#: lib/Horde/Registry.php:482
 msgid "This system is currently deactivated."
-msgstr "Zereginen euskarri-modulua ez dago erabilgarri une honetan."
+msgstr "Sistema ez dago erabilgarri une honetan."
 
 #: lib/Horde/Core/Prefs/Ui.php:335
 msgid "This value must be a number."
-msgstr ""
+msgstr "Baloreak zenbaki bat izan behar du."
 
 #: lib/Horde/Core/Prefs/Ui.php:337
 msgid "This value must be non-zero."
-msgstr ""
+msgstr "Baloreak ezin du zero izan."
 
 #: lib/Horde/Core/Ui/JsCalendar.php:114
 msgid "Thursday"
@@ -1064,7 +1006,6 @@ msgid "Title"
 msgstr "Izenburua"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:723
-#, fuzzy
 msgid ""
 "To select multiple items, hold down the Control (PC) or Command (Mac) key "
 "while clicking."
@@ -1072,7 +1013,7 @@ msgstr ""
 "Hainbat eremu hautatzeko, sakatu Ktrl (PC) edo Komandoa (Mac) tekla klik "
 "egiten duzun bitartean."
 
-#: lib/Horde/Core/ActiveSync/Driver.php:1790
+#: lib/Horde/Core/ActiveSync/Driver.php:1794
 msgid "Trash"
 msgstr "Zakarrontzia"
 
@@ -1086,7 +1027,6 @@ msgstr "Asteartea"
 
 #: lib/Horde/Core/Auth/Signup/Form.php:45
 #: lib/Horde/Core/Auth/Signup/Form.php:59
-#, fuzzy
 msgid "Type your password twice to confirm"
 msgstr "idatzi pasahitza bitan berresteko"
 
@@ -1103,37 +1043,30 @@ msgid "Upload"
 msgstr "Kargatu"
 
 #: lib/Horde/Core/Auth/Signup/Sql.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "User \"%s\" does not exist."
 msgstr "\"%s\" erabiltzailea ez dago."
 
 #: lib/Horde/Core/Prefs/Ui.php:635
-#, fuzzy
 msgid "User Preferences"
-msgstr "Beste hobespen batzuk"
+msgstr "Erabiltzailearen hobespenak"
 
 #: lib/Horde/Core/Auth/Signup/Base.php:116
-#, fuzzy, php-format
+#, php-format
 msgid "Username \"%s\" already exists."
 msgstr "\"%s\" erabiltzailea badago lehendik."
 
 #: lib/Horde/Core/Notification/Event/Status.php:109
-#, fuzzy
 msgid "Warning"
-msgstr ""
-"#-#-#-#-#  compendium.po (horde)  #-#-#-#-#\n"
-"Abisua\n"
-"#-#-#-#-#  horde.po (horde)  #-#-#-#-#\n"
-"Kontuz"
+msgstr "Kontuz"
 
 #: lib/Horde/Core/Ui/JsCalendar.php:95
 msgid "We"
 msgstr "Az"
 
 #: lib/Horde/Core/Factory/Weather.php:16
-#, fuzzy
 msgid "Weather support not configured."
-msgstr "Datu-baserako sarbidea ez dago konfiguratuta."
+msgstr "Eguraldirako modulua ez dago konfiguratuta."
 
 #: lib/Horde/Core/Ui/JsCalendar.php:113
 msgid "Wednesday"
@@ -1141,7 +1074,7 @@ msgstr "Asteazkena"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1209
 msgid "Whereis Australia map"
-msgstr ""
+msgstr "Whereis Australia mapa"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:202
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:266
@@ -1155,35 +1088,37 @@ msgstr "Telefonoa (lantokia)"
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:447
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:503
 msgid "YYYY"
-msgstr ""
+msgstr "UUUU"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1253
 msgid "Yahoo! map"
-msgstr ""
+msgstr "Yahoo! mapa"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:1052
 msgid "Yes"
 msgstr "Bai"
 
 #: lib/Horde/Core/Block/Layout/Manager.php:221
-#, fuzzy, php-format
+#, php-format
 msgid "You are not allowed to create more than %d block."
 msgid_plural "You are not allowed to create more than %d blocks."
-msgstr[0] "Ez daukazu baimenik %d ohar baino gehiago sortzeko."
-msgstr[1] "Ez daukazu baimenik %d ohar baino gehiago sortzeko."
+msgstr[0] "Ez daukazu baimenik %d bloke baino gehiago sortzeko."
+msgstr[1] "Ez daukazu baimenik %d bloke baino gehiago sortzeko."
 
-#: lib/Horde/Registry.php:2549
-#, fuzzy
+#: lib/Horde/Registry.php:2565
 msgid "You are not allowed to remove user data."
-msgstr "Ez daukazu baimenik karpetak sortzeko."
+msgstr "Ez daukazu baimenik erabiltzaileen datuak ezabatzeko."
 
 #: lib/Horde/Core/Auth/Application.php:728
 msgid ""
 "You are using an old, unsupported version of Internet Explorer. You must use "
 "the minimal view until you upgrade your browser."
 msgstr ""
+"Internet Explorer nabigatzailearen bertsio zaharra erabiltzen ari zara. "
+"Nabigatzailea eguneratu bitartean bista minimalista erabili behar izango "
+"duzu."
 
-#: lib/Horde/PageOutput.php:732
+#: lib/Horde/PageOutput.php:739
 #, php-format
 msgid "You can snooze it for %s or %s dismiss %s it entirely"
 msgstr "Geroko utz dezakezu (%s), edo %s baztertu %s guztiz"
@@ -1199,94 +1134,92 @@ msgid ""
 "\n"
 "If you don't know what this message means, you can delete it."
 msgstr ""
+"You have requested to add the email address \"%s\" to the list of your "
+"personal email addresses.\n"
+"\n"
+"Go to the following link to confirm that this is really your address:\n"
+"%s\n"
+"\n"
+"If you don't know what this message means, you can delete it."
 
 #: lib/Horde/Core/Factory/Vfs.php:72
-#, fuzzy
 msgid "You must configure a VFS backend."
-msgstr "Karpetak VFS euskarri-modulu baten barnean sortu behar dira."
+msgstr "VFS euskarri bat konfiguratu behar duzu."
 
 #: lib/Horde/Core/Prefs/Ui/Widgets.php:396
-#, fuzzy, php-format
+#, php-format
 msgid "You must provide a setting for \"%s\"."
-msgstr "Izen bat eman behar duzu helbide-liburu birtualentzat."
+msgstr "\"%s\"(r)entzat ezarpen bat eman behar duzu."
 
-#: lib/Horde/Core/Auth/Application.php:714
-#, fuzzy
+#: lib/Horde/Core/Auth/Application.php:695
 msgid "Your browser does not support javascript. Using minimal view instead."
-msgstr "Arakatzaileak ez du eginbide hori onartzen."
+msgstr ""
+"Zure nabigatzaileak ez du Javascript ulertzen. Bista minimalista erabiliko "
+"da."
 
-#: lib/Horde/Core/Auth/Application.php:699
-#: lib/Horde/Core/Auth/Application.php:707
-#, fuzzy
+#: lib/Horde/Core/Auth/Application.php:703
+msgid ""
+"Your browser does not support the dynamic view. Using basic view instead."
+msgstr ""
+"Zure nabigatzaileak ez du bista dinamikoa ulertzen. Oinarrizko bista "
+"erabiliko da."
+
+#: lib/Horde/Core/Auth/Application.php:706
+#: lib/Horde/Core/Auth/Application.php:714
 msgid ""
 "Your browser does not support the dynamic view. Using minimal view instead."
 msgstr ""
-"Zure arakatzailea zaharregia da modu dinamikoa bistaratzeko. Erabili modu "
-"tradizionala."
-
-#: lib/Horde/Core/Auth/Application.php:696
-#, fuzzy
-msgid ""
-"Your browser does not support the dynamic view. Using traditional view "
-"instead."
-msgstr ""
-"Zure arakatzailea zaharregia da modu dinamikoa bistaratzeko. Erabili modu "
-"tradizionala."
+"Zure nabigatzaileak ez du bista dinamikoa ulertzen. Bista minimalista "
+"erabiliko da."
 
 #: lib/Horde/Core/Prefs/Ui.php:926
-#, fuzzy
 msgid "Your default identity has been changed."
-msgstr "Saio-hasiera blokeatu egin da."
+msgstr "Identitate lehenetsia aldatu egin da."
 
 #: lib/Horde/Core/Prefs/Ui.php:822
-#, fuzzy
 msgid "Your default identity:"
-msgstr "Zeregin-zerrenda lehenetsia:"
+msgstr "Identitate lehenetsia:"
 
 #: lib/Horde/Core/Prefs/Ui.php:381
 msgid "Your preferences have been updated for the duration of this session."
-msgstr ""
+msgstr "Hobespenak eguneratu dira saio honetarako."
 
 #: lib/Horde/Core/Prefs/Ui.php:383
-#, fuzzy
 msgid "Your preferences have been updated."
-msgstr "Konfiguratu mugikorretarako ikuspegiaren hobespenak."
+msgstr "Zure hobespenak eguneratu egin dira."
 
 #: lib/Horde/Core/Text/Filter/Highlightquotes.php:52
-#, fuzzy
 msgid "[Hide Quoted Text]"
-msgstr "[Trunkatutako testua]"
+msgstr "[Ezkutatu aipatutako testua]"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:141
-#, fuzzy
 msgid "[No Label]"
-msgstr "Etiketa"
+msgstr "[Etiketa gabe]"
 
 #: lib/Horde/Core/Text/Filter/Highlightquotes.php:51
 #, php-format
 msgid "[Show Quoted Text - %d lines]"
-msgstr ""
+msgstr "[Erakutsi aipatutako testua - %d lerro]"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:249
-#, fuzzy
 msgid "h:"
-msgstr "Nor:"
+msgstr "h:"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:391
 msgid "hh"
-msgstr ""
+msgstr "oo"
 
-#: lib/Horde/PageOutput.php:674
+#: lib/Horde/PageOutput.php:679
 msgid "loading"
 msgstr "kargatzen"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:402
 msgid "mm"
-msgstr ""
+msgstr "mm"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:419
 msgid "ss"
-msgstr ""
+msgstr "ss"
 
 #: lib/Horde/Core/Mime/Viewer/Vcard.php:98
 msgid "vCard"
@@ -1294,20 +1227,4 @@ msgstr "vCard"
 
 #: lib/Horde/Core/Ui/VarRenderer/Html.php:241
 msgid "w:"
-msgstr ""
-
-#: ibon horde 4ko frameworkean egon behar duten kateak
-msgid "_Preferences"
-msgstr "_Hobespenak"
-
-#: ibon horde 4ko frameworkean egon behar duten kateak
-msgid "Log in"
-msgstr "Saioa hasi"
-
-#: ibon horde 4ko frameworkean egon behar duten kateak
-msgid "_Log in"
-msgstr "_Hasi saioa"
-
-#: ibon horde 4ko frameworkean egon behar duten kateak
-msgid "_Log out"
-msgstr "_Itxi saioa"
+msgstr "w:"
