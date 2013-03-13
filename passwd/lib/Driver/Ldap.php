@@ -98,7 +98,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
     {
         // Append realm as username@realm if 'realm' parameter is set.
         if (!empty($this->_params['realm'])) {
-            $username .= '@' . $this->_params['realm'];
+            $user .= '@' . $this->_params['realm'];
         }
 
         // Try to get the user's dn from config.
@@ -107,7 +107,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         } else {
             // @todo Fix finding the user DN.
             // $this->_userdn = $this->_ldap->findUserDN($username);
-            $this->_userdn = $this->_params['uid'] . '=' . $username . ',' . $this->_params['basedn'];
+            $this->_userdn = $this->_params['uid'] . '=' . $user . ',' . $this->_params['basedn'];
         }
 
         try {
