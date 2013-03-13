@@ -277,8 +277,6 @@ abstract class Ingo_Script_Base
 
     /**
      * Generates the scripts to do the filtering specified in the rules.
-     *
-     * @return array  The scripts.
      */
     protected function _generate()
     {

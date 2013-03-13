@@ -108,8 +108,9 @@ class Ingo_Transport_Timsieved extends Ingo_Transport_Base
     /**
      * Sets a script running on the backend.
      *
-     * @param array $script  The filter script information. Required elements:
+     * @param array $script  The filter script information. Passed elements:
      *                       - 'name': (string) the script name.
+     *                       - 'recipes': (array) the filter recipe objects.
      *                       - 'script': (string) the filter script.
      *
      * @throws Ingo_Exception
