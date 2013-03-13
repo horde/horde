@@ -107,7 +107,7 @@ abstract class Passwd_Driver
             $user = Horde::callHook('username', array($user, $this), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        $this->_changePassword($user, $oldpass, $new_pass);
+        $this->_changePassword($user, $oldpass, $newpass);
     }
 
     /**

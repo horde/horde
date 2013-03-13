@@ -112,7 +112,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
 
         try {
             // Check the old password by binding as the userdn.
-            $this->_ldap->bind($this->_userdn, $old_password);
+            $this->_ldap->bind($this->_userdn, $oldpass);
         } catch (Horde_Ldap_Exception $e) {
             throw new Passwd_Exception($e);
         }
@@ -157,7 +157,7 @@ class Passwd_Driver_Ldap extends Passwd_Driver
         // Change the user's password and update lastchange.
         try {
             $entry->replace(array(
-                $this->_params['attribute'] => $this->_encryptPassword($new_password)
+                $this->_params['attribute'] => $this->_encryptPassword($newpass)
             ), true);
 
             if (!empty($this->_params['shadowlastchange']) &&

@@ -80,7 +80,7 @@ class Passwd_Driver_Kolab extends Passwd_Driver
 
         // And finally change the password.
         $new_details['userPassword'] = '{sha}' .
-            base64_encode(pack('H*', sha1($new_password)));
+            base64_encode(pack('H*', sha1($newpass)));
 
         if (!ldap_mod_replace($ds, $userdn, $new_details)) {
             throw new Passwd_Exception(ldap_error($ds));
