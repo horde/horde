@@ -64,6 +64,7 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         if (!extension_loaded('memcache')) {
             self::$reason = 'No memcache extension';
             return;
@@ -86,7 +87,6 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
                 $storage
             )
         ));
-        parent::setUpBeforeClass();
     }
 
     public function setUp()
