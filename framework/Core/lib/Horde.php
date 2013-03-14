@@ -203,84 +203,6 @@ class Horde
     }
 
     /**
-     * Returns a response object with added notification information.
-     *
-     * @param mixed $data      The 'response' data.
-     * @param boolean $notify  If true, adds notification info to object.
-     *
-     * @return object  The Horde JSON response.  It has the following
-     *                 properties:
-     *   - msgs: (array) [OPTIONAL] List of notification messages.
-     *   - response: (mixed) The response data for the request.
-     */
-    static public function prepareResponse($data = null, $notify = false)
-    {
-        $response = new stdClass();
-        $response->response = $data;
-
-        if ($notify) {
-            $stack = $GLOBALS['notification']->notify(array('listeners' => 'status', 'raw' => true));
-            if (!empty($stack)) {
-                $response->msgs = $stack;
-            }
-        }
-
-        return $response;
-    }
-
-    /**
-     * Send response data to browser.
-     *
-     * @param mixed $data  The data to serialize and send to the browser.
-     * @param string $ct   The content-type to send the data with.  Either
-     *                     'json', 'js-json', 'html', 'plain', and 'xml'.
-     */
-    static public function sendHTTPResponse($data, $ct)
-    {
-        // Output headers and encoded response.
-        switch ($ct) {
-        case 'json':
-        case 'js-json':
-            /* JSON responses are a structured object which always
-             * includes the response in a member named 'response', and an
-             * additional array of messages in 'msgs' which may be updates
-             * for the server or notification messages.
-             *
-             * Make sure no null bytes sneak into the JSON output stream.
-             * Null bytes cause IE to stop reading from the input stream,
-             * causing malformed JSON data and a failed request.  These
-             * bytes don't seem to break any other browser, but might as
-             * well remove them anyway.
-             *
-             * Finally, add prototypejs security delimiters to returned
-             * JSON. */
-            $s_data = str_replace("\00", '', self::escapeJson($data));
-
-            if ($ct == 'json') {
-                header('Content-Type: application/json');
-                echo $s_data;
-            } else {
-                header('Content-Type: text/html; charset=UTF-8');
-                echo htmlspecialchars($s_data);
-            }
-            break;
-
-        case 'html':
-        case 'plain':
-        case 'xml':
-            $s_data = is_string($data) ? $data : $data->response;
-            header('Content-Type: text/' . $ct . '; charset=UTF-8');
-            echo $s_data;
-            break;
-
-        default:
-            echo $data;
-        }
-
-        exit;
-    }
-
-    /**
      * Do necessary escaping to output JSON.
      *
      * @param mixed $data     The data to JSON-ify.
@@ -951,138 +873,6 @@ class Horde
     }
 
     /**
-     * Constructs a correctly-pathed tag to an image.
-     *
-     * @param mixed $src   The image file (either a string or a
-     *                     Horde_Themes_Image object).
-     * @param string $alt  Text describing the image.
-     * @param mixed $attr  Any additional attributes for the image tag. Can
-     *                     be a pre-built string or an array of key/value
-     *                     pairs that will be assembled and html-encoded.
-     *
-     * @return string  The full image tag.
-     */
-    static public function img($src, $alt = '', $attr = '')
-    {
-        /* If browser does not support images, simply return the ALT text. */
-        if (!$GLOBALS['browser']->hasFeature('images')) {
-            return htmlspecialchars($alt);
-        }
-
-        /* If no directory has been specified, get it from the registry. */
-        if (!($src instanceof Horde_Themes_Image) && (substr($src, 0, 1) != '/')) {
-            $src = Horde_Themes::img($src);
-        }
-
-        /* Build all of the tag attributes. */
-        $attributes = array('alt' => $alt);
-        if (is_array($attr)) {
-            $attributes = array_merge($attributes, $attr);
-        }
-
-        $img = '<img';
-        foreach ($attributes as $attribute => $value) {
-            $img .= ' ' . $attribute . '="' . @htmlspecialchars($value) . '"';
-        }
-
-        /* If the user supplied a pre-built string of attributes, add that. */
-        if (is_string($attr) && !empty($attr)) {
-            $img .= ' ' . $attr;
-        }
-
-        /* Return the closed image tag. */
-        return $img . ' src="' . (empty($GLOBALS['conf']['nobase64_img']) ? self::base64ImgData($src) : $src) . '" />';
-    }
-
-    /**
-     * Same as img(), but returns a full source url for the image.
-     * Useful for when the image may be part of embedded Horde content on an
-     * external site.
-     *
-     * @see img()
-     */
-    static public function fullSrcImg($src, $options = array())
-    {
-        /* If browser does not support images, simply return the ALT text. */
-        if (!$GLOBALS['browser']->hasFeature('images')) {
-            return '';
-        }
-
-        /* If no directory has been specified, get it from the registry. */
-        if (!($src instanceof Horde_Themes_Image) && (substr($src, 0, 1) != '/')) {
-            $src = Horde_Themes::img($src, $options);
-        }
-
-        /* If we can send as data, no need to get the full path */
-        if (!empty($GLOBALS['conf']['nobase64_img'])) {
-            $src = self::base64ImgData($src);
-        }
-        if (substr($src, 0, 10) != 'data:image') {
-            $src = self::url($src, true, array('append_session' => -1));
-        }
-
-        $img = '<img';
-        if (!empty($options['attr'])) {
-            /* Build all of the tag attributes. */
-            if (is_array($options['attr'])) {
-                foreach ($options['attr'] as $attribute => $value) {
-                    $img .= ' ' . $attribute . '="' . htmlspecialchars($value) . '"';
-                }
-            }
-
-            /* If the user supplied a pre-built string of attributes, add
-             * that. */
-            if (is_string($options['attr'])) {
-                $img .= ' ' . $options['attr'];
-            }
-        }
-
-        /* Return the closed image tag. */
-        return $img . ' src="' . $src . '" />';
-    }
-
-    /**
-     * Generate RFC 2397-compliant image data strings.
-     *
-     * @param mixed $in       URI or Horde_Themes_Image object containing
-     *                        image data.
-     * @param integer $limit  Sets a hard size limit for image data; if
-     *                        exceeded, will not string encode.
-     *
-     * @return string  The string to use in the image 'src' attribute; either
-     *                 the image data if the browser supports, or the URI
-     *                 if not.
-     */
-    static public function base64ImgData($in, $limit = null)
-    {
-        $dataurl = $GLOBALS['browser']->hasFeature('dataurl');
-        if (!$dataurl) {
-            return $in;
-        }
-
-        if (!is_null($limit) &&
-            (is_bool($dataurl) || ($limit < $dataurl))) {
-            $dataurl = $limit;
-        }
-
-        /* Only encode image files if they are below the dataurl limit. */
-        if (!($in instanceof Horde_Themes_Image)) {
-            $in = Horde_Themes_Image::fromUri($in);
-        }
-        if (!file_exists($in->fs)) {
-            return $in->uri;
-        }
-
-        /* Delete approx. 50 chars from the limit to account for the various
-         * data/base64 header text.  Multiply by 0.75 to determine the
-         * base64 encoded size. */
-        return (($dataurl === true) ||
-                (filesize($in->fs) <= (($dataurl * 0.75) - 50)))
-            ? strval(Horde_Url_Data::create(Horde_Mime_Magic::extToMime(substr($in->uri, strrpos($in->uri, '.') + 1)), file_get_contents($in->fs)))
-            : $in->uri;
-    }
-
-    /**
      * Determines the location of the system temporary directory. If a specific
      * configuration cannot be found, it defaults to /tmp.
      *
@@ -1596,7 +1386,6 @@ class Horde
 
     /**
      * Initialize a HordeMap.
-     *
      */
     static public function initMap(array $params = array())
     {
@@ -1659,6 +1448,82 @@ class Horde
         $page_output->addInlineScript(array(
             'HordeMap.initialize(' . Horde_Serialize::serialize($params, HORDE_SERIALIZE::JSON) . ');'
         ));
+    }
+
+    /* Deprecated methods. */
+
+    /**
+     * @deprecated
+     */
+    static public function prepareResponse($data = null, $notify = false)
+    {
+        return Horde_Deprecated::prepareResponse($data, $notify);
+    }
+
+    /**
+     * @deprecated
+     */
+    static public function sendHTTPResponse($data, $ct)
+    {
+        Horde_Deprecated::sendHTTPResponse($data, $ct);
+    }
+
+    /**
+     * Constructs a correctly-pathed tag to an image.
+     *
+     * @deprecated  Use Horde_Themes_Image::tag()
+     *
+     * @param mixed $src   The image file (either a string or a
+     *                     Horde_Themes_Image object).
+     * @param string $alt  Text describing the image.
+     * @param mixed $attr  Any additional attributes for the image tag. Can
+     *                     be a pre-built string or an array of key/value
+     *                     pairs that will be assembled and html-encoded.
+     *
+     * @return string  The full image tag.
+     */
+    static public function img($src, $alt = '', $attr = '')
+    {
+        return Horde_Themes_Image::tag($src, array(
+            'alt' => $alt,
+            'attr' => $attr
+        ));
+    }
+
+    /**
+     * Same as img(), but returns a full source url for the image.
+     * Useful for when the image may be part of embedded Horde content on an
+     * external site.
+     *
+     * @deprecated  Use Horde_Themes_Image::tag()
+     * @see img()
+     */
+    static public function fullSrcImg($src, array $opts = array())
+    {
+        return Horde_Themes_Image::tag($src, array_filter(array(
+            'attr' => isset($opts['attr']) ? $opts['attr'] : null,
+            'fullsrc' => true,
+            'imgopts' => $opts
+        )));
+    }
+
+    /**
+     * Generate RFC 2397-compliant image data strings.
+     *
+     * @deprecated  Use Horde_Themes_Image::base64ImgData()
+     *
+     * @param mixed $in       URI or Horde_Themes_Image object containing
+     *                        image data.
+     * @param integer $limit  Sets a hard size limit for image data; if
+     *                        exceeded, will not string encode.
+     *
+     * @return string  The string to use in the image 'src' attribute; either
+     *                 the image data if the browser supports, or the URI
+     *                 if not.
+     */
+    static public function base64ImgData($in, $limit = null)
+    {
+        return Horde_Themes_Image::base64ImgData($in, $limit);
     }
 
 }

@@ -58,7 +58,7 @@ class Passwd_Basic
             $this->_userid = $vars->get('userid', $this->_userid);
         } else {
             try {
-                $this->_userid = Horde::callHook('default_username', array($this->_userid), 'passwd');
+                $this->_userid = Horde::callHook('default_username', array(), 'passwd');
             } catch (Horde_Exception_HookNotSet $e) {}
         }
 
@@ -80,7 +80,7 @@ class Passwd_Basic
     public function status()
     {
         Horde::startBuffer();
-        IMP::status();
+        $GLOBALS['notification']->notify(array('listeners' => array('status')));
         return Horde::endBuffer();
     }
 
@@ -91,12 +91,12 @@ class Passwd_Basic
         global $conf, $page_output;
 
         // Get the backend details.
-        $backend_key = $this->vars->backend_key;
+        $backend_key = $this->_vars->backend;
         if (!isset($this->_backends[$backend_key])) {
             $backend_key = null;
         }
 
-        if ($backend_key && $this->vars->submit) {
+        if ($backend_key && $this->_vars->submit) {
             $this->_changePassword($backend_key);
         }
 
@@ -120,7 +120,7 @@ class Passwd_Basic
         $view->addHelper('Tag');
 
         $view->formInput = Horde_Util::formInput();
-        $view->url = $this->vars->return_to;
+        $view->url = $this->_vars->return_to;
         $view->userid = $this->_userid;
         $view->userChange = $conf['user']['change'];
         $view->showlist = ($conf['backend']['backend_list'] == 'shown');
@@ -165,26 +165,26 @@ class Passwd_Basic
         }
 
         // We must be passed the old (current) password.
-        if (!isset($this->vars->oldpassword)) {
+        if (!isset($this->_vars->oldpassword)) {
             $notification->push(_("You must give your current password"), 'horde.warning');
             return;
         }
 
-        if (!isset($this->vars->newpassword0)) {
+        if (!isset($this->_vars->newpassword0)) {
             $notification->push(_("You must give your new password"), 'horde.warning');
             return;
         }
-        if (!isset($this->vars->newpassword1)) {
+        if (!isset($this->_vars->newpassword1)) {
             $notification->push(_("You must verify your new password"), 'horde.warning');
             return;
         }
 
-        if ($this->vars->new_password0 != $this->vars->new_password1) {
+        if ($this->_vars->new_password0 != $this->_vars->new_password1) {
             $notification->push(_("Your new passwords didn't match"), 'horde.warning');
             return;
         }
 
-        if ($this->vars->new_password0 == $this->vars->oldpassword) {
+        if ($this->_vars->new_password0 == $this->_vars->oldpassword) {
             $notification->push(_("Your new password must be different from your current password"), 'horde.warning');
             return;
         }
@@ -192,7 +192,7 @@ class Passwd_Basic
         $b_ptr = $this->_backends[$backend_key];
 
         try {
-            Horde_Auth::checkPasswordPolicy($this->vars->new_password0, isset($b_ptr['policy']) ? $b_ptr['policy'] : array());
+            Horde_Auth::checkPasswordPolicy($this->_vars->new_password0, isset($b_ptr['policy']) ? $b_ptr['policy'] : array());
         } catch (Horde_Auth_Exception $e) {
             $notification->push($e, 'horde.warning');
             return;
@@ -201,7 +201,7 @@ class Passwd_Basic
         // Do some simple strength tests, if enabled in the config file.
         if (!empty($conf['password']['strengthtests'])) {
             try {
-                Horde_Auth::checkPasswordSimilarity($this->vars->new_password0, array($this->_userid, $this->vars->oldpassword));
+                Horde_Auth::checkPasswordSimilarity($this->_vars->new_password0, array($this->_userid, $this->_vars->oldpassword));
             } catch (Horde_Auth_Exception $e) {
                 $notification->push($e, 'horde.warning');
                 return;
@@ -217,22 +217,11 @@ class Passwd_Basic
         }
 
         try {
-            $backend_userid = Horde::callHook('username', array($this->_userid, $driver), 'passwd');
-        } catch (Horde_Exception_HookNotSet $e) {
-            $backend_userid = $this->_userid;
-        }
-
-        try {
             $driver->changePassword(
-                $backend_userid,
-                $this->vars->oldpassword,
-                $this->vars->new_password0
+                $this->_userid,
+                $this->_vars->oldpassword,
+                $this->_vars->new_password0
             );
-
-            if (empty($b_ptr['no_reset']) &&
-                ($registry->getAuthCredential('password') == $this->vars->oldpassword)) {
-                $registry->setAuthCredential('password', $this->vars->new_password0);
-            }
         } catch (Exception $e) {
             $notification->push(sprintf(_("Failure in changing password for %s: %s"), $b_ptr['name'], $e->getMessage()), 'horde.error');
             return;
@@ -241,10 +230,17 @@ class Passwd_Basic
         $notification->push(sprintf(_("Password changed on %s."), $b_ptr['name']), 'horde.success');
 
         try {
-            Horde::callHook('password_changed', array($backend_userid, $this->vars->oldpassword, $this->vars->new_password0), 'passwd');
+            Horde::callHook('password_changed', array($this->_userid, $this->_vars->oldpassword, $this->_vars->new_password0), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {}
 
-        if ($this->vars->return_to) {
+        if (!empty($b_ptr['logout'])) {
+            $registry->getLogoutUrl(array(
+                'msg' => _("Your password has been succesfully changed. You need to re-login to the system with your new password."),
+                'reason' => Horde_Auth::REASON_MESSAGE
+            ))->redirect();
+        }
+
+        if ($this->_vars->return_to) {
             $url = new Horde_Url($return_to);
             $url->redirect();
         }

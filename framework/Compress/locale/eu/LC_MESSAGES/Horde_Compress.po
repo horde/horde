@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-10-18 12:42+0100\n"
+"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"PO-Revision-Date: 2013-01-16 09:31+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -33,11 +34,11 @@ msgstr "Fitxategiaren formatua ez da baliozkoa"
 
 #: lib/Horde/Compress/Zip.php:100
 msgid "This server can't compress zip files."
-msgstr ""
+msgstr "Zerbitzari honek ezin ditu zip fitxategiak konprimatu."
 
 #: lib/Horde/Compress/Gzip.php:42
 msgid "This server can't uncompress gzip files."
-msgstr ""
+msgstr "Zerbitzari honek ezin ditu gzip fitxategiak deskonprimatu."
 
 #: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
 #: lib/Horde/Compress/Tar.php:76

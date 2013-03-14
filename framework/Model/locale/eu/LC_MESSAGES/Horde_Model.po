@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Model\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-10-19 13:03+0100\n"
+"POT-Creation-Date: 2012-07-19 18:34+0200\n"
+"PO-Revision-Date: 2013-01-16 14:00+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,19 +29,16 @@ msgid " (in %s days)"
 msgstr ""
 
 #: lib/Horde/Core/Form/Type/Date.php:50
-#, fuzzy
 msgid " (today)"
-msgstr "Gaur"
+msgstr "(gaur)"
 
 #: lib/Horde/Core/Form/Type/Date.php:52
-#, fuzzy
 msgid " (tomorrow)"
-msgstr "Bihar"
+msgstr "(bihar)"
 
 #: lib/Horde/Core/Form/Type/Date.php:48
-#, fuzzy
 msgid " (yesterday)"
-msgstr "Atzo"
+msgstr "(atzo)"
 
 #: lib/Horde/Core/Form/Type/Email.php:88
 #, fuzzy, php-format
@@ -70,14 +68,13 @@ msgstr "Gehitu Cc"
 #: lib/Horde/Form/VarRenderer/Xhtml.php:283
 #: lib/Horde/Form/VarRenderer/Xhtml.php:322
 msgid "April"
-msgstr ""
+msgstr "apirila"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:440
 #: lib/Horde/Form/VarRenderer/Xhtml.php:287
 #: lib/Horde/Form/VarRenderer/Xhtml.php:326
-#, fuzzy
 msgid "August"
-msgstr "haizetsu"
+msgstr "abuztua"
 
 #: www/test.php:59
 #, fuzzy
@@ -86,7 +83,7 @@ msgstr "Hautatu eremua"
 
 #: www/test.php:39
 msgid "Boolean"
-msgstr ""
+msgstr "Boolearra"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:490
 msgid "Calendar"
@@ -109,7 +106,7 @@ msgstr "Kolore-hautatzailea"
 
 #: www/test.php:53
 msgid "Credit Card"
-msgstr ""
+msgstr "Kreditu txartela"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:331
 msgid "DD"
@@ -118,38 +115,26 @@ msgstr "EE"
 #: lib/Horde/Core/Form/daterendererchanges.php:444
 #: lib/Horde/Form/VarRenderer/Xhtml.php:291
 #: lib/Horde/Form/VarRenderer/Xhtml.php:330
-#, fuzzy
 msgid "December"
-msgstr "Kideak"
+msgstr "abendua"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1103
 #: lib/Horde/Form/VarRenderer/Xhtml.php:914
-#, fuzzy, php-format
+#, php-format
 msgid "Dial %s"
-msgstr " %s arte"
+msgstr " %s deitu"
 
 #: www/test.php:51
-#, fuzzy
 msgid "Email"
-msgstr ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"Helbide elektronikoa\n"
-"#-#-#-#-#  turba.po (turba)  #-#-#-#-#\n"
-"helb.el."
+msgstr "Helbide elektronikoa"
 
 #: lib/Horde/Core/Form/Type/EmailConfirm.php:15
-#, fuzzy
 msgid "Email addresses must match."
-msgstr "Pasahitzek bat etorri behar dute."
+msgstr "Helbide helektronikoek bat etorri behar dute."
 
 #: www/test.php:52
-#, fuzzy
 msgid "Email2"
-msgstr ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"Helbide elektronikoa\n"
-"#-#-#-#-#  turba.po (turba)  #-#-#-#-#\n"
-"helb.el."
+msgstr "2. Helbide elektronikoa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:314
 #: lib/Horde/Form/VarRenderer/Xhtml.php:182
@@ -167,7 +152,7 @@ msgstr ""
 #: lib/Horde/Form/VarRenderer/Xhtml.php:281
 #: lib/Horde/Form/VarRenderer/Xhtml.php:320
 msgid "February"
-msgstr ""
+msgstr "otsaila"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:254
 msgid "Fix ratio"
@@ -179,9 +164,8 @@ msgstr ""
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1248
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1019
-#, fuzzy
 msgid "Google Maps"
-msgstr "Google bilaketa"
+msgstr "Google Mapak"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:235
 msgid "Grayscale"
@@ -202,7 +186,7 @@ msgstr ""
 
 #: www/test.php:40
 msgid "Integer"
-msgstr ""
+msgstr "Osokoa"
 
 #: lib/Horde/Core/Form/Type/Enum.php:37
 #: lib/Horde/Core/Form/Type/MultiEnum.php:28
@@ -220,25 +204,24 @@ msgstr "Data-hautapena"
 #: lib/Horde/Core/Form/daterendererchanges.php:433
 #: lib/Horde/Form/VarRenderer/Xhtml.php:280
 #: lib/Horde/Form/VarRenderer/Xhtml.php:319
-#, fuzzy
 msgid "January"
-msgstr "Eskuz"
+msgstr "urtarrila"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:439
 #: lib/Horde/Form/VarRenderer/Xhtml.php:286
 #: lib/Horde/Form/VarRenderer/Xhtml.php:325
 msgid "July"
-msgstr ""
+msgstr "uztaila"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:438
 #: lib/Horde/Form/VarRenderer/Xhtml.php:285
 #: lib/Horde/Form/VarRenderer/Xhtml.php:324
 msgid "June"
-msgstr ""
+msgstr "ekaina"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:262
 msgid "Keep original?"
-msgstr ""
+msgstr "Jatorrizkoa gorde?"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:432
 #: lib/Horde/Form/VarRenderer/Xhtml.php:279
@@ -248,28 +231,26 @@ msgstr "HH"
 
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1044
 msgid "Map24 map"
-msgstr ""
+msgstr "Map24 mapa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1174
 #: lib/Horde/Core/Form/daterendererchanges.php:1223
 #: lib/Horde/Form/VarRenderer/Xhtml.php:975
 #: lib/Horde/Form/VarRenderer/Xhtml.php:1059
 msgid "MapQuest map"
-msgstr ""
+msgstr "MapQuest mapa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:435
 #: lib/Horde/Form/VarRenderer/Xhtml.php:282
 #: lib/Horde/Form/VarRenderer/Xhtml.php:321
-#, fuzzy
 msgid "March"
-msgstr "Bilatu"
+msgstr "martxoa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:437
 #: lib/Horde/Form/VarRenderer/Xhtml.php:284
 #: lib/Horde/Form/VarRenderer/Xhtml.php:323
-#, fuzzy
 msgid "May"
-msgstr "Eguna"
+msgstr "maiatza"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:232
 #, fuzzy
@@ -294,7 +275,7 @@ msgstr "Eraman araua gora"
 #: lib/Horde/Core/Form/daterendererchanges.php:1143
 #: lib/Horde/Form/VarRenderer/Xhtml.php:946
 msgid "Multimap UK map"
-msgstr ""
+msgstr "Multimap UK mapa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1008
 #: lib/Horde/Form/VarRenderer/Xhtml.php:847 www/test.php:37
@@ -314,14 +295,13 @@ msgstr "Soinurik ez"
 #: lib/Horde/Form/VarRenderer/Xhtml.php:876
 #: lib/Horde/Form/VarRenderer/Xhtml.php:893
 msgid "No values"
-msgstr ""
+msgstr "Balorerik gabe"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:443
 #: lib/Horde/Form/VarRenderer/Xhtml.php:290
 #: lib/Horde/Form/VarRenderer/Xhtml.php:329
-#, fuzzy
 msgid "November"
-msgstr "Kideak"
+msgstr "azaroa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:900
 #: lib/Horde/Form/VarRenderer/Xhtml.php:759
@@ -331,13 +311,13 @@ msgstr "Gaia"
 
 #: www/test.php:56
 msgid "Octal"
-msgstr ""
+msgstr "Oktala"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:442
 #: lib/Horde/Form/VarRenderer/Xhtml.php:289
 #: lib/Horde/Form/VarRenderer/Xhtml.php:328
 msgid "October"
-msgstr ""
+msgstr "urria"
 
 #: lib/Horde/Core/Form/Type/EmailConfirm.php:31
 #, fuzzy
@@ -413,7 +393,6 @@ msgstr "Hautatu erabiltzailea"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:711
 #: lib/Horde/Form/VarRenderer/Xhtml.php:561
-#, fuzzy
 msgid "Select all"
 msgstr "Hautatu denak"
 
@@ -425,37 +404,31 @@ msgstr "Hautatu erabiltzailea"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:712
 #: lib/Horde/Form/VarRenderer/Xhtml.php:562
-#, fuzzy
 msgid "Select none"
 msgstr "Ez hautatu bat ere"
 
 #: www/test.php:24
-#, fuzzy
 msgid "Select something"
-msgstr "Ez hautatu bat ere"
+msgstr "Zerbait hautatu"
 
 #: www/test.php:50
-#, fuzzy
 msgid "Select something2"
-msgstr "Ez hautatu bat ere"
+msgstr "Zerbait hautatu2"
 
 #: www/test.php:35
-#, fuzzy
 msgid "Select:"
-msgstr "Hautatu denak"
+msgstr "Hautatu:"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1119
 #: lib/Horde/Form/VarRenderer/Xhtml.php:930
-#, fuzzy
 msgid "Send SMS"
-msgstr "Bidali"
+msgstr "Bidali SMSa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:441
 #: lib/Horde/Form/VarRenderer/Xhtml.php:288
 #: lib/Horde/Form/VarRenderer/Xhtml.php:327
-#, fuzzy
 msgid "September"
-msgstr "Kideak"
+msgstr "iraila"
 
 #: www/test.php:38
 #, fuzzy
@@ -543,18 +516,18 @@ msgstr ""
 #: lib/Horde/Core/Form/daterendererchanges.php:1150
 #: lib/Horde/Form/VarRenderer/Xhtml.php:952
 msgid "Whereis Australia map"
-msgstr ""
+msgstr "Whereis Australia mapa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:445
 #: lib/Horde/Form/VarRenderer/Xhtml.php:292
 #: lib/Horde/Form/VarRenderer/Xhtml.php:335
 msgid "YYYY"
-msgstr ""
+msgstr "UUUU"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1194
 #: lib/Horde/Form/VarRenderer/Xhtml.php:999
 msgid "Yahoo! map"
-msgstr ""
+msgstr "Yahoo! mapa"
 
 #: lib/Horde/Core/Form/daterendererchanges.php:1008
 #: lib/Horde/Form/VarRenderer/Xhtml.php:847 www/test.php:36
