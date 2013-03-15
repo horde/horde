@@ -995,6 +995,18 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // Preview?
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
+            $eas_message->airsyncbasebody->preview = Horde_String::substr(
+                $message_body_data['plain']['body'],
+                0,
+                $options['bodyprefs']['preview'],
+                $message_body_data['plain']['charset']);
+            $eas_message->airsyncbasebody->preview = $this->_validateUtf8(
+                $eas_message->airsyncbasebody->preview,
+                $message_body_data['plain']['charset']);
+        }
+
         // Check for special message types.
         $part = $imap_message->getStructure();
         if ($part->getType() == 'multipart/report') {
