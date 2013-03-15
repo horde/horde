@@ -36,22 +36,6 @@
  */
 class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
 {
-    const COMPOSEMAIL_SENDMAIL        = 'ComposeMail:SendMail';
-    const COMPOSEMAIL_SMARTFORWARD    = 'ComposeMail:SmartForward';
-    const COMPOSEMAIL_SMARTREPLY      = 'ComposeMail:SmartReply';
-    const COMPOSEMAIL_SAVEINSENTITEMS = 'ComposeMail:SaveInSentItems';
-    const COMPOSEMAIL_REPLACEMIME     = 'ComposeMail:ReplaceMime';
-    const COMPOSEMAIL_TYPE            = 'ComposeMail:Type';
-    const COMPOSEMAIL_SOURCE          = 'ComposeMail:Source';
-    const COMPOSEMAIL_FOLDERID        = 'ComposeMail:FolderId';
-    const COMPOSEMAIL_ITEMID          = 'ComposeMail:ItemId';
-    const COMPOSEMAIL_LONGID          = 'ComposeMail:LongId';
-    const COMPOSEMAIL_INSTANCEID      = 'ComposeMail:InstanceId';
-    const COMPOSEMAIL_MIME            = 'ComposeMail:MIME';
-    const COMPOSEMAIL_CLIENTID        = 'ComposeMail:ClientId';
-    const COMPOSEMAIL_STATUS          = 'ComposeMail:Status';
-    const COMPOSEMAIL_ACCOUNTID       = 'ComposeMail:AccountId';
-
     /**
      * Handle the request
      *
@@ -84,13 +68,13 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
 
             $sendmail = $smartreply = $smartforward = false;
             switch ($e[Horde_ActiveSync_Wbxml::EN_TAG]) {
-            case self::COMPOSEMAIL_SENDMAIL:
+            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL:
                 $sendmail = true;
                 break;
-            case self::COMPOSEMAIL_SMARTREPLY:
+            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY:
                 $smartreply = true;
                 break;
-            case self::COMPOSEMAIL_SMARTFORWARD:
+            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD:
                 $smartforward = true;
             }
 
