@@ -1,11 +1,26 @@
 <?php
 /**
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL-2). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl.
+ *
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
+ */
+
+/**
  * Horde external API interface.
  *
  * This file defines Horde's external API interface. Other
  * applications can interact with Horde through this API.
  *
- * @package Horde
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 class Horde_Api extends Horde_Registry_Api
 {
@@ -13,11 +28,9 @@ class Horde_Api extends Horde_Registry_Api
      * Returns a list of adminstrative links.
      *
      * @return array  Keys are link labels, values are array with these keys:
-     * <pre>
-     * 'link' - (string) Registry encoded link to page.
-     * 'name' - (string) Gettext label for page.
-     * 'icon' - (string) Graphic for page.
-     * </pre>
+     *   - icon: (string) Graphic for page.
+     *   - link: (string) Registry encoded link to page.
+     *   - name: (string) Gettext label for page.
      */
     public function admin_list()
     {
@@ -183,8 +196,8 @@ class Horde_Api extends Horde_Registry_Api
     }
 
     /**
-     * Sets a preference to the specified value, if the preference is allowed to
-     * be modified.
+     * Sets a preference to the specified value, if the preference is allowed
+     * to be modified.
      *
      * @param string $app   The application of the preference to modify.
      * @param string $pref  The name of the preference to modify.
@@ -302,7 +315,8 @@ class Horde_Api extends Horde_Registry_Api
     }
 
     /**
-     * Returns a list of users that are part of this group (and only this group)
+     * Returns a list of users that are part of this group (and only this
+     * group).
      *
      * @param mixed $group  The group ID.
      *
@@ -325,7 +339,7 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Adds a share to the shares system.
      *
-     * @param string $scope   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $shareTitle  The share's human readable title.
@@ -401,7 +415,8 @@ class Horde_Api extends Horde_Registry_Api
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $userName    The user's name.
-     * @param array $permissions  A list of permissions (show, read, edit, delete).
+     * @param array $permissions  A list of permissions (show, read, edit,
+     *                            delete).
      *
      * @throws Horde_Exception
      */
@@ -542,7 +557,7 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns an array of all group permissions on a share.
      *
-     * @param string $scope   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
      * @param string $groupName   The group's name.
@@ -580,10 +595,11 @@ class Horde_Api extends Horde_Registry_Api
     /**
      * Returns a list of users which have have certain permissions on a share.
      *
-     * @param string $scope   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
-     * @param array $permissions  A list of permissions (show, read, edit, delete).
+     * @param array $permissions  A list of permissions (show, read, edit,
+     *                            delete).
      *
      * @return array  List of users with the specified permissions.
      * @throws Horde_Exception
@@ -608,12 +624,14 @@ class Horde_Api extends Horde_Registry_Api
     }
 
     /**
-     * Returns a list of groups which have have certain permissions on a share.
+     * Returns a list of groups which have have certain permissions on a
+     * share.
      *
-     * @param string $scope   The name of the share root, e.g. the
+     * @param string $scope       The name of the share root, e.g. the
      *                            application that the share belongs to.
      * @param string $shareName   The share's name.
-     * @param array $permissions  A list of permissions (show, read, edit, delete).
+     * @param array $permissions  A list of permissions (show, read, edit,
+     *                            delete).
      *
      * @return array  List of groups with the specified permissions.
      * @throws Horde_Exception

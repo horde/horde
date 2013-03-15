@@ -527,7 +527,7 @@ class Ansel
             $owner = $gallery->get('owner');
         }
 
-        if (!empty($image_id)) {
+        if (!empty($image_id) && empty($actionID)) {
             $image = $ansel_storage->getImage($image_id);
             if (empty($gallery)) {
                 $gallery = $ansel_storage->getGallery($image->gallery);

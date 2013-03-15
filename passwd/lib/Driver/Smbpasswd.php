@@ -1,14 +1,24 @@
 <?php
 /**
- * The smbpassd class attempts to change a user's password on a samba server.
- *
  * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Rene Lund Jensen <Rene@lundjensen.net>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Changes a password on a samba server.
+ *
+ * @author    Rene Lund Jensen <Rene@lundjensen.net>
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Smbpasswd extends Passwd_Driver
 {
@@ -20,15 +30,13 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
     protected $_fp;
 
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $this->_params = array_merge(array('host' => 'localhost',
-                                           'program' => '/usr/bin/smbpasswd'),
-                                     $params);
+        parent::__construct(array_merge(array(
+            'host' => 'localhost',
+            'program' => '/usr/bin/smbpasswd'
+        ), $params));
     }
 
     /**
@@ -46,13 +54,15 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
             throw new Passwd_Exception(_("Passwd is not properly configured."));
         }
 
-        $cmd = sprintf('%s -r %s -s -U "%s" > %s 2>&1',
-                       $this->_params['program'],
-                       $this->_params['host'],
-                       $user,
-                       $tmpfile);
-        $this->_fp = @popen($cmd, 'w');
-        if (!$this->_fp) {
+        $cmd = sprintf(
+            '%s -r %s -s -U "%s" > %s 2>&1',
+            $this->_params['program'],
+            $this->_params['host'],
+            $user,
+            $tmpfile
+        );
+
+        if (!($this->_fp = @popen($cmd, 'w'))) {
             throw new Passwd_Exception(_("Could not open pipe to smbpasswd."));
         }
     }
@@ -81,15 +91,8 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         // Clean up user name in case evil characters are in it.
         $user = escapeshellcmd($username);
@@ -97,9 +100,9 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
         $tmpfile = Horde::getTempFile('smbpasswd');
 
         $this->_connect($user, $tmpfile);
-        $this->_sendCommand($old_password);
-        $this->_sendCommand($new_password);
-        $this->_sendCommand($new_password);
+        $this->_sendCommand($oldpass);
+        $this->_sendCommand($newpass);
+        $this->_sendCommand($newpass);
         $this->_disconnect();
 
         $res = file($tmpfile);
@@ -107,4 +110,5 @@ class Passwd_Driver_Smbpasswd extends Passwd_Driver
             throw new Passwd_Exception(strrchr(trim($res[count($res) - 2]), ':'));
         }
     }
+
 }
