@@ -36,7 +36,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_SendMail
 {
     /**
      * Handle request
@@ -45,6 +45,10 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Bas
      */
     protected function _handle()
     {
+        if ($this->_decoder->isWbxml()) {
+            return $this->_handleWbxmlRequest();
+        }
+
         $rfc822 = file_get_contents('php://input');
         $get = $this->_activeSync->getGetVars();
         if (empty($get['ItemId'])) {

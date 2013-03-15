@@ -1197,21 +1197,52 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     /**
      * Sends the email represented by the rfc822 string received by the PIM.
      *
-     * @param mixed $rfc822     The rfc822 mime message, a string or stream
-     *                          resource.
-     * @param integer $forward  The UID of the message, if forwarding.
-     * @param integer $reply    The UID of the message if replying.
-     * @param string $parent    The collection id of parent message if
-     *                          forwarding/replying.
-     * @param boolean $save     Save in sent messages.
+     * @param mixed $rfc822             The rfc822 mime message, a string or
+     *                                  stream resource.
+     * @param integer|boolean $forward  The UID of the message, if forwarding or
+     *                                  true if forwarding and EAS >= 14.0
+     * @param integer|boolean $reply    The UID of the message if replying or
+     *                                  true if replying and EAS >= 14.0
+     * @param string $parent            The collection id of parent message if
+     *                                  forwarding/replying.
+     * @param boolean $save             Save in sent messages.
+     * @param Horde_ActiveSync_Message_SendMail $message  The entire message
+     *                          object for EAS 14+ requests.
+     * @todo H6 - Either make this take an options array or break it into two
+     *            separate methods - one for EAS < 14 and one for EAS > 14.
      *
      * @return boolean
      * @throws Horde_ActiveSync_Exception
      */
     public function sendMail(
-        $rfc822, $forward = null, $reply = null, $parent = null, $save = true)
+        $rfc822, $forward = false, $reply = false, $parent = false, $save = true,
+        Horde_ActiveSync_Message_SendMail $message = null)
     {
-        $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+        if (empty($rfc822) && !empty($message)) {
+            // Get the raw message from the message object.
+            $raw_message = new Horde_ActiveSync_Rfc822($message->mime);
+
+            // Parse out any smart reply or forward requests.
+            if ($forward) {
+                $forward = $message->source->itemid;
+                $parent = $message->source->folderid;
+            } elseif ($reply) {
+                $reply = $message->source->itemid;
+                $parent = $message->source->folderid;
+            }
+
+            // Override the $save value since it's sent as part of the message
+            // object in EAS 14+
+            $save = $message->saveinsent;
+
+            // Did we edit the smart text? @TODO: Still need to research what
+            // the difference is between this and just pretending it was a
+            // plain SENDMAIL request.
+            // $replace = $message->replacemime;
+        } else {
+            $raw_message = new Horde_ActiveSync_Rfc822($rfc822);
+        }
+
         $headers = $raw_message->getHeaders();
 
         // Add From, but only if needed.
