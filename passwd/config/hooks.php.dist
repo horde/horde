@@ -13,33 +13,19 @@
 class Passwd_Hooks
 {
     /**
-     * Username hook.
+     * Username -> backend userid mapping hook.
      *
-     * @param string $userid  The username.
-     * @param TODO $driver    TODO
+     * @param string $userid         The username as input by user.
+     * @param Passwd_Driver $driver  The driver object.
      *
-     * @return string  TODO
+     * @return string  The username in the backend.
      */
 //    public function username($userid, $driver)
 //    {
-//        // Example #1: Translate what the user enters, in the username box,
+//        // Example: Translate what the user enters, in the username box,
 //        // into what the backend expects.
-//        return $userid . '@example.com';
-//
-//
-//        // Example #2: Return a different $userid based on the driver type.
-//        // Uses the composite driver.
-//        if ($driver instanceof Passwd_Driver_http) {
+//        if ($driver instanceof Passwd_Driver_Http) {
 //            return $userid . '@example.com';
-//        }
-//
-//        if ($driver instanceof Passwd_Driver_composite) {
-//            foreach ($driver->_params['drivers'] as $backend => $config) {
-//                if ($backend == 'http') {
-//                    $driver->_params['drivers']['http']['params']['be_username'] = $userid . '@example.com';
-//                    break;
-//                }
-//            }
 //        }
 //
 //        return $userid;
@@ -49,41 +35,27 @@ class Passwd_Hooks
     /**
      * Default username hook.
      *
-     * @param string $userid  The username.
-     *
-     * @return string  TODO
+     * @return string  Return the username to use in the form.
      */
-//    public function default_username($userid)
+//    public function default_username()
 //    {
-//        // Example: Set the username the passwd module sees when resetting
-//        // passwords based on userid and realm.  The default is to take a
-//        // username of user@domain.tld and change it to user.  If we want to
-//        // leave it untouched, enable the hook and use this function.
-//        return $userid;
+//        // Example: This is the default value if this hook is not defined.
+//        return $GLOBALS['registry']->getAuth();
 //    }
 
 
     /**
-     * Userdn hook.
+     * Hook called after the password has changed. If the password change
+     * affects the current Horde session, this has NOT yet been handled by
+     * the calling code.
      *
-     * @param string $authid  The authenticated username.
-     *
-     * @return string  TODO
+     * @param string $user     The user ID.
+     * @param string $oldpass  The old password.
+     * @param string $newpass  The new password.
      */
-//    public function userdn($authid)
+//    public function password_changed($user, $oldpass, $newpass)
 //    {
-//        // Example: Provide LDAP server with a userdn so that you do not have
-//        // to perform anonymous binds.
-//        return 'uid=' . $authid . ',o=example.com';
-//    }
-
-
-    /**
-     * TODO
-     */
-//    public function password_changed($user, $oldpassword, $newpassword)
-//    {
-//        Horde::logMessage(sprintf('User %s has changed his password.', $user), 'NOTICE');
+//        Horde::log(sprintf('User %s has changed his password.', $user), 'NOTICE');
 //    }
 
 }

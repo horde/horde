@@ -11,13 +11,13 @@
   <active>yes</active>
  </lead>
  <lead>
-  <name>Chuck Hagenbuch</name>
-  <user>chuck</user>
-  <email>chuck@horde.org</email>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
  <date>2013-03-12</date>
- <time>01:55:17</time>
+ <time>21:03:47</time>
  <version>
   <release>5.0.0</release>
   <api>5.0.0</api>
@@ -28,6 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add option to destroy Horde session after changing password (Bug #11766).
 * [mms] Http driver now uses Horde_Http_Client.
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Update Polish translation (Krzysztof Kozera &lt;krzysztof113@o2.pl&gt;).
@@ -65,6 +66,7 @@
      <file name="Http.php" role="horde" />
      <file name="Kolab.php" role="horde" />
      <file name="Ldap.php" role="horde" />
+     <file name="Null.php" role="horde" />
      <file name="Pine.php" role="horde" />
      <file name="Poppassd.php" role="horde" />
      <file name="Procopen.php" role="horde" />
@@ -471,6 +473,7 @@
    <install as="passwd/lib/Driver/Http.php" name="lib/Driver/Http.php" />
    <install as="passwd/lib/Driver/Kolab.php" name="lib/Driver/Kolab.php" />
    <install as="passwd/lib/Driver/Ldap.php" name="lib/Driver/Ldap.php" />
+   <install as="passwd/lib/Driver/Null.php" name="lib/Driver/Null.php" />
    <install as="passwd/lib/Driver/Pine.php" name="lib/Driver/Pine.php" />
    <install as="passwd/lib/Driver/Poppassd.php" name="lib/Driver/Poppassd.php" />
    <install as="passwd/lib/Driver/Procopen.php" name="lib/Driver/Procopen.php" />

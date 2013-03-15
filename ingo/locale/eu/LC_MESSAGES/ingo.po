@@ -5,24 +5,29 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ingo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-15 14:40+0200\n"
-"PO-Revision-Date: 2012-12-11 14:55+0100\n"
-"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2013-02-25 12:59+0100\n"
+"Last-Translator: Edurne <edurne@uzei.com>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-Language: Basque\n"
 
-#: filters.php:228
+#: lib/Ingo.php:443
 msgid " and"
 msgstr " eta"
 
-#: filters.php:228
+#: lib/Ingo.php:444
 msgid " or"
 msgstr " edo"
+
+#: lib/Ingo.php:167
+#, php-format
+msgid "%s The driver said: %s"
+msgstr "%s Kontrolatzaileak hau esan du: %s"
 
 #: templates/blacklist/blacklist.inc:16
 msgid "Action for blacklisted addresses:"
@@ -32,7 +37,7 @@ msgstr "Zerrenda beltzeko helbideen ekintza:"
 msgid "Activate Script"
 msgstr "Aktibatu scripta"
 
-#: lib/Transport/Ldap.php:222
+#: lib/Transport/Ldap.php:226
 #, php-format
 msgid "Activating the script for \"%s\" failed: (%d) %s"
 msgstr "Huts egin du \"%s\"(r)en scripta aktibatzean: (%d) %s"
@@ -41,47 +46,47 @@ msgstr "Huts egin du \"%s\"(r)en scripta aktibatzean: (%d) %s"
 msgid "Additional Settings"
 msgstr "Beste ezarpen batzuk"
 
-#: forward.php:38
+#: lib/Form/Forward.php:23
 msgid "Address(es) to forward to:"
 msgstr "Mezua birbidaltzeko helbideak:"
 
-#: vacation.php:48
+#: lib/Form/Vacation.php:47
 msgid "Addresses to not send responses to:"
 msgstr "Erantzunik ez bidaltzeko helbideak:"
 
-#: vacation.php:45
+#: lib/Form/Vacation.php:44
 msgid "Advanced Settings"
 msgstr "Ezarpen aurreratuak"
 
-#: templates/rule/header.inc:31
+#: templates/rule/header.inc:37
 msgid "All of the following"
 msgstr "Ondoko guztiarekin"
 
-#: lib/Application.php:96
+#: lib/Application.php:166
 msgid "Allow Rules"
 msgstr "Onartu arauak"
 
-#: templates/rule/footer.inc:34
+#: templates/rule/footer.inc:37
 msgid "Answered"
 msgstr "Erantzunda"
 
-#: templates/rule/header.inc:32
+#: templates/rule/header.inc:38
 msgid "Any of the following"
 msgstr "Ondoko guztietako edozeinekin"
 
-#: templates/filters/footer.inc:8
+#: templates/filters/footer.inc:5
 msgid "Apply Filters"
 msgstr "Aplikatu iragazkiak"
 
-#: filters.php:256
+#: filters.php:239
 msgid "Are you sure you want to delete this rule?"
 msgstr "Ziur zaude arau hau ezabatu nahi duzula?"
 
-#: config/prefs.php:24
+#: config/prefs.php:28
 msgid "Automatically activate the script after each change?"
 msgstr "Automatikoki aktibatu scripta aldaketa bakoitzaren ondoren?"
 
-#: vacation.php:36
+#: lib/Form/Vacation.php:35
 msgid "Basic Settings"
 msgstr "Oinarrizko ezarpenak"
 
@@ -89,30 +94,30 @@ msgstr "Oinarrizko ezarpenak"
 msgid "Bcc"
 msgstr "Bcc"
 
-#: lib/Storage.php:310
+#: lib/Storage.php:255
 msgid "Begins with"
 msgstr "Honela hasten da"
 
-#: lib/Transport/Ldap.php:110
+#: lib/Transport/Ldap.php:114
 #, php-format
 msgid "Bind failed: (%s) %s"
 msgstr "Loturak huts egin du: (%s) %s"
 
-#: filters.php:179 lib/Block/Overview.php:84 lib/Block/Overview.php:87
+#: filters.php:189 lib/Block/Overview.php:94 lib/Smartmobile.php:78
 #: templates/blacklist/blacklist.inc:6
 msgid "Blacklist"
 msgstr "Zerrenda beltza"
 
-#: blacklist.php:91
+#: blacklist.php:95
 msgid "Blacklist Edit"
 msgstr "Editatu zerrenda beltza"
 
-#: blacklist.php:19
+#: blacklist.php:22
 msgid "Blacklist is not supported in the current filtering driver."
 msgstr "Uneko iragazte-kontrolatzaileak ez du zerrenda beltzik onartzen."
 
-#: lib/Script/Maildrop.php:198 lib/Script/Procmail.php:240
-#: lib/Script/Sieve.php:281
+#: lib/Script/Maildrop.php:200 lib/Script/Procmail.php:242
+#: lib/Script/Sieve.php:283
 msgid "Blacklisted Addresses"
 msgstr "Zerrenda beltzeko helbideak"
 
@@ -120,7 +125,7 @@ msgstr "Zerrenda beltzeko helbideak"
 msgid "Body"
 msgstr "Gorputza"
 
-#: filters.php:225 rule.php:336
+#: lib/Ingo.php:438 rule.php:347
 msgid "Case Sensitive"
 msgstr "Maiuskula/minuskula"
 
@@ -128,38 +133,38 @@ msgstr "Maiuskula/minuskula"
 msgid "Cc"
 msgstr "Cc"
 
-#: blacklist.php:63 forward.php:49 rule.php:156 spam.php:88 vacation.php:71
-#: whitelist.php:32
+#: blacklist.php:57 forward.php:47 rule.php:175 spam.php:83 vacation.php:55
+#: whitelist.php:37
 msgid "Changes saved."
 msgstr "Aldaketak gorde dira."
 
-#: lib/Transport/Ldap.php:74
+#: lib/Transport/Ldap.php:78
 msgid "Connection failure"
 msgstr "Konexioak huts egin du"
 
-#: lib/Storage.php:306
+#: lib/Storage.php:251
 msgid "Contains"
 msgstr "Hau dauka"
 
-#: filters.php:266 filters.php:267
+#: filters.php:249 filters.php:250
 #, php-format
 msgid "Copy %s"
 msgstr "Kopiatu %s"
 
-#: lib/Storage/Filters.php:194 lib/Storage/Filters/Sql.php:222
+#: lib/Storage/Filters.php:198 lib/Storage/Filters/Sql.php:228
 #, php-format
 msgid "Copy of %s"
 msgstr "Kopia - %s"
 
-#: lib/Ingo.php:166
+#: lib/Ingo.php:108
 msgid "Could not validate IMAP mailbox."
 msgstr "Ezin izan da IMAP postontzia balidatu."
 
-#: lib/Ingo.php:120
+#: lib/Ingo.php:61
 msgid "Create new folder"
 msgstr "Sortu karpeta berria"
 
-#: lib/Script/Maildrop/Comment.php:35 lib/Script/Procmail/Comment.php:35
+#: lib/Script/Maildrop/Comment.php:37 lib/Script/Procmail/Comment.php:37
 msgid "DISABLED: "
 msgstr "DESGAITUTA: "
 
@@ -167,7 +172,7 @@ msgstr "DESGAITUTA: "
 msgid "Deactivate Script"
 msgstr "Desaktibatu scripta"
 
-#: filters.php:256 filters.php:257
+#: filters.php:239 filters.php:240
 #, php-format
 msgid "Delete %s"
 msgstr "Ezabatu %s"
@@ -176,50 +181,54 @@ msgstr "Ezabatu %s"
 msgid "Delete Condition"
 msgstr "Ezabatu baldintza"
 
-#: lib/Storage.php:254
+#: lib/Storage.php:201
 msgid "Delete message completely"
 msgstr "Ezabatu mezua erabat"
 
-#: templates/rule/footer.inc:36
+#: templates/rule/footer.inc:40
 msgid "Deleted"
 msgstr "Ezabatuta"
 
-#: lib/Storage.php:242
+#: lib/Storage.php:189
 msgid "Deliver into my Inbox"
 msgstr "Banatu sarrerako ontzian"
 
-#: lib/Storage.php:268
+#: lib/Storage.php:215
 msgid "Deliver into my Inbox and copy to..."
 msgstr "Banatu sarrerako ontzian eta kopiatu hemen..."
 
-#: lib/Storage.php:263
+#: lib/Storage.php:210
 msgid "Deliver into my Inbox and redirect to..."
 msgstr "Banatu sarrerako ontzian eta birbideratu hona..."
 
-#: lib/Storage.php:248
+#: lib/Storage.php:195
 msgid "Deliver to folder..."
 msgstr "Banatu karpetan..."
+
+#: templates/smartmobile/rule.html.php:8
+msgid "Description"
+msgstr "Azalpena"
 
 #: config/fields.php:88
 msgid "Destination (To, Cc, Bcc, etc.)"
 msgstr "Helburua (Nori,Cc,Bcc,etab.)"
 
-#: filters.php:284 filters.php:285
+#: filters.php:267 filters.php:268
 #, php-format
 msgid "Disable %s"
 msgstr "Desgaitu %s "
 
-#: forward.php:88 spam.php:132 templates/blacklist/blacklist.inc:9
-#: templates/rule/header.inc:13 templates/whitelist/whitelist.inc:8
-#: vacation.php:137
+#: forward.php:79 spam.php:120 templates/blacklist/blacklist.inc:9
+#: templates/rule/header.inc:14 templates/whitelist/whitelist.inc:9
+#: vacation.php:114
 msgid "Disabled"
 msgstr "Desgaituta"
 
-#: templates/filters/settings.inc:15
+#: templates/filters/settings.inc:14
 msgid "Display detailed notification when each filter is applied?"
 msgstr "Jakinarazpen xehea bistaratu iragazki bakoitza aplikatzen denean?"
 
-#: vacation.php:50
+#: lib/Form/Vacation.php:49
 msgid "Do not send responses to bulk or list messages?"
 msgstr "Ez erantzun mezu baztergarriei edo masiboei?"
 
@@ -227,86 +236,86 @@ msgstr "Ez erantzun mezu baztergarriei edo masiboei?"
 msgid "Do this:"
 msgstr "Egin hau:"
 
-#: lib/Storage.php:311
+#: lib/Storage.php:256
 msgid "Doesn't begin with"
 msgstr "Ez da honela hasten"
 
-#: lib/Storage.php:307
+#: lib/Storage.php:252
 msgid "Doesn't contain"
 msgstr "Ez dauka"
 
-#: lib/Storage.php:313
+#: lib/Storage.php:258
 msgid "Doesn't end with"
 msgstr "Ez da honela amaitzen"
 
-#: lib/Storage.php:315
+#: lib/Storage.php:260
 msgid "Doesn't exist"
 msgstr "Ez dago"
 
-#: lib/Storage.php:318
+#: lib/Storage.php:263
 msgid "Doesn't match (with placeholders)"
 msgstr "Ez dator bat (leku-markekin)"
 
-#: lib/Block/Overview.php:52 lib/Block/Overview.php:61
-#: lib/Block/Overview.php:76 lib/Block/Overview.php:86
-#: lib/Block/Overview.php:96 templates/filters/header.inc:11
+#: lib/Block/Overview.php:56 lib/Block/Overview.php:67
+#: lib/Block/Overview.php:82 lib/Block/Overview.php:93
+#: lib/Block/Overview.php:104 templates/filters/header.inc:12
 msgid "Edit"
 msgstr "Editatu"
 
-#: filters.php:246 filters.php:248 filters.php:252
+#: filters.php:229 filters.php:231 filters.php:235
 #, php-format
 msgid "Edit %s"
 msgstr "Editatu %s"
 
-#: filters.php:294 filters.php:295
+#: filters.php:277 filters.php:278
 #, php-format
 msgid "Enable %s"
 msgstr "Gaitu %s"
 
-#: templates/filters/header.inc:13
+#: templates/filters/header.inc:14
 msgid "Enabled"
 msgstr "Gaituta"
 
-#: vacation.php:40
+#: lib/Form/Vacation.php:38
 msgid "End of vacation:"
 msgstr "Oporren amaiera:"
 
-#: lib/Storage.php:312
+#: lib/Storage.php:257
 msgid "Ends with"
 msgstr "Honela amaitzen da"
 
-#: lib/Storage.php:323
+#: lib/Storage.php:268
 msgid "Equal to"
 msgstr "Berdin"
 
-#: lib/Transport/Ldap.php:133 lib/Transport/Ldap.php:145
-#: lib/Transport/Ldap.php:154 lib/Transport/Ldap.php:164
+#: lib/Transport/Ldap.php:137 lib/Transport/Ldap.php:149
+#: lib/Transport/Ldap.php:158 lib/Transport/Ldap.php:168
 #, php-format
 msgid "Error retrieving current script: (%d) %s"
 msgstr "Errorea uneko scripta eskuratzean: (%d) %s"
 
-#: templates/filters/header.inc:5
+#: templates/filters/header.inc:6
 msgid "Existing Rules"
 msgstr "Lehendik dauden arauak"
 
-#: lib/Storage.php:314
+#: lib/Storage.php:259
 msgid "Exists"
 msgstr "Badago"
 
-#: lib/Transport/Ldap.php:139
+#: lib/Transport/Ldap.php:143
 #, php-format
 msgid "Expected 1 object, got %d."
 msgstr "Objektu 1 espero zen, %d lortu dira."
 
-#: lib/Transport/Sivtest.php:146
+#: lib/Transport/Sivtest.php:147
 msgid "Failed to read from socket: "
 msgstr "Huts egin du socket-etik irakurtzean: "
 
-#: lib/Transport/Sivtest.php:141
+#: lib/Transport/Sivtest.php:142
 msgid "Failed to write to socket: "
 msgstr "Huts egin du socket-ean idaztean: "
 
-#: lib/Transport/Sivtest.php:136
+#: lib/Transport/Sivtest.php:137
 msgid "Failed to write to socket: (connection lost!)"
 msgstr "Huts egin du socket-ean idaztean: (konexioa galdu da!)"
 
@@ -314,60 +323,60 @@ msgstr "Huts egin du socket-ean idaztean: (konexioa galdu da!)"
 msgid "Field"
 msgstr "Eremua"
 
-#: templates/filters/settings.inc:22
+#: templates/filters/settings.inc:20
 msgid "Filter All Messages"
 msgstr "Iragazi mezu guztiak"
 
-#: templates/filters/settings.inc:24
+#: templates/filters/settings.inc:22
 msgid "Filter Only Seen Messages"
 msgstr "Iragazi ikusitako mezuak bakarrik"
 
-#: templates/filters/settings.inc:23
+#: templates/filters/settings.inc:21
 msgid "Filter Only Unseen Messages"
 msgstr "Iragazi ikusi gabeko mezuak bakarrik"
 
-#: templates/filters/settings.inc:20
+#: templates/filters/settings.inc:18
 msgid "Filter Options"
 msgstr "Iragazteko aukerak"
 
-#: templates/rule/header.inc:12
+#: templates/rule/header.inc:13
 msgid "Filter Rule"
 msgstr "Iragazteko araua"
 
-#: filters.php:137
+#: filters.php:147
 msgid "Filter Rules"
 msgstr "Iragazteko arauak"
 
-#: script.php:52
+#: script.php:60
 msgid "Filter Script Display"
 msgstr "Iragazteko scripta bistaratzea"
 
-#: lib/Application.php:111
+#: lib/Application.php:181
 msgid "Filter _Rules"
 msgstr "Iragazteko _arauak"
 
-#: lib/Script/Imap.php:337
+#: lib/Script/Imap.php:330
 #, php-format
 msgid "Filter activity: %s message(s) have been copied to the folder \"%s\"."
 msgstr "Iragazkiaren jarduera: %s mezu kopiatu dira \"%s\" karpetan."
 
-#: lib/Script/Imap.php:315
+#: lib/Script/Imap.php:308
 #, php-format
 msgid "Filter activity: %s message(s) have been deleted."
 msgstr "Iragazkiaren jarduera: %s mezu ezabatu dira."
 
-#: lib/Script/Imap.php:290
+#: lib/Script/Imap.php:283
 #, php-format
 msgid "Filter activity: %s message(s) have been moved to the folder \"%s\"."
 msgstr "Iragazkiaren jarduera: %s mezu eraman dira \"%s\" karpetara."
 
-#: lib/Script/Imap.php:190
+#: lib/Script/Imap.php:183
 #, php-format
 msgid "Filter activity: %s message(s) that matched the blacklist were deleted."
 msgstr ""
 "Iragazkiaren jarduera: zerrenda beltzarekin bat zetozen %s mezu ezabatu dira."
 
-#: lib/Script/Imap.php:330
+#: lib/Script/Imap.php:323
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been copied to the "
@@ -376,12 +385,12 @@ msgstr ""
 "Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua \"%3$s\" karpetan "
 "kopiatu da."
 
-#: lib/Script/Imap.php:309
+#: lib/Script/Imap.php:302
 #, php-format
 msgid "Filter activity: The message \"%s\" from \"%s\" has been deleted."
 msgstr "Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua ezabatu egin da."
 
-#: lib/Script/Imap.php:283
+#: lib/Script/Imap.php:276
 #, php-format
 msgid ""
 "Filter activity: The message \"%s\" from \"%s\" has been moved to the folder "
@@ -390,41 +399,41 @@ msgstr ""
 "Iragazkiaren jarduera: \"%2$s\"(r)en \"%1$s\" mezua \"%3$s\" karpetara "
 "eraman da."
 
-#: rule.php:204
+#: rule.php:214
 msgid "Filter not found."
 msgstr "Iragazkia ez da aurkitu."
 
-#: templates/rule/footer.inc:32
+#: templates/rule/footer.inc:34
 msgid "Flagged For Followup"
 msgstr "Segimendurako markatuta"
 
-#: spam.php:67
+#: lib/Form/Spam.php:31
 msgid "Folder to receive spam:"
 msgstr "Mezu baztergarriak jasotzeko karpeta:"
 
-#: templates/rule/header.inc:29
+#: templates/rule/header.inc:31
 msgid "For an incoming message that matches:"
 msgstr "Honekin bat datorren iritsitako mezu bakoitza:"
 
-#: filters.php:197 forward.php:86 lib/Block/Overview.php:60
-#: lib/Block/Overview.php:62
+#: filters.php:207 forward.php:77 lib/Block/Overview.php:68
+#: lib/Smartmobile.php:93
 msgid "Forward"
 msgstr "Birbidali"
 
-#: lib/Script/Sieve.php:234
+#: lib/Script/Sieve.php:236
 msgid "Forward Keep Action"
 msgstr "Birbidali mantentze-ekintza"
 
-#: forward.php:18
+#: forward.php:21
 msgid "Forward is not supported in the current filtering driver."
 msgstr "Uneko iragazte-kontrolatzaileak ez du birbidaltzerik onartzen."
 
-#: lib/Script/Maildrop.php:247 lib/Script/Procmail.php:319
-#: lib/Script/Sieve.php:244
+#: lib/Script/Maildrop.php:249 lib/Script/Procmail.php:321
+#: lib/Script/Sieve.php:246
 msgid "Forwards"
 msgstr "Birbidalketak"
 
-#: forward.php:93
+#: forward.php:86
 msgid "Forwards Edit"
 msgstr "Editatu birbidalketak"
 
@@ -432,54 +441,58 @@ msgstr "Editatu birbidalketak"
 msgid "From"
 msgstr "Nork"
 
-#: lib/Script/Sieve/Action/Notify.php:39
+#: lib/Script/Sieve/Action/Notify.php:43
 msgid "From:"
 msgstr "Nork:"
 
-#: lib/Script/Sieve.php:131
-msgid "Generated by Ingo (http://www.horde.org/ingo/)"
-msgstr "Ingo-k sortua (http://www.horde.org/ingo/)"
+#: lib/Script/Sieve.php:133
+msgid "Generated by Ingo"
+msgstr "Ingo-k sortua"
 
-#: lib/Storage.php:321
+#: lib/Storage.php:266
 msgid "Greater than"
 msgstr "Hau baino handiagoa da"
 
-#: lib/Storage.php:322
+#: lib/Storage.php:267
 msgid "Greater than or equal to"
 msgstr "Hau baino handiagoa edo berdina da"
 
-#: rule.php:34
+#: lib/Ajax/Application/Smartmobile.php:35 rule.php:37
 msgid "Individual rules are not supported in the current filtering driver."
 msgstr "Uneko iragazte-kontrolatzaileak ez du arau indibidualik onartzen."
 
-#: lib/Script/Sieve/Action/Fileinto.php:48
+#: lib/Script/Sieve/Action/Fileinto.php:52
 msgid "Inexistant mailbox specified for message delivery."
 msgstr "Mezua banatzeko zehaztutako postontzia ez dago."
 
-#: lib/Storage.php:308
+#: lib/Storage.php:253
 msgid "Is"
 msgstr "Hau da"
 
-#: lib/Storage.php:309
+#: lib/Storage.php:254
 msgid "Isn't"
 msgstr "Ez da hau"
 
-#: forward.php:36
+#: lib/Form/Forward.php:21
 msgid "Keep a copy of messages in this account?"
 msgstr "Mezuen kopia bat gorde kontu honetan?"
 
-#: lib/Transport/Ldap.php:22
+#: lib/Transport/Ldap.php:26
 msgid ""
 "LDAP support is required but the LDAP module is not available or not loaded."
 msgstr ""
 "LDAP euskarria behar da, baina LDAP modulua ez dago erabilgarri edo ez da "
 "kargatu."
 
-#: lib/Storage.php:319
+#: templates/smartmobile/rule.html.php:6
+msgid "Label"
+msgstr "Etiketa"
+
+#: lib/Storage.php:264
 msgid "Less than"
 msgstr "Hau baino txikiagoa da"
 
-#: lib/Storage.php:320
+#: lib/Storage.php:265
 msgid "Less than or equal to"
 msgstr "Txikiagoa edo berdina da"
 
@@ -487,11 +500,11 @@ msgstr "Txikiagoa edo berdina da"
 msgid "List-ID"
 msgstr "Zerrenda IDa"
 
-#: templates/blacklist/blacklist.inc:19
+#: templates/blacklist/blacklist.inc:23
 msgid "Mar_k message as deleted"
 msgstr "_Markatu mezua ezabatutako gisa"
 
-#: templates/rule/footer.inc:25
+#: templates/rule/footer.inc:26
 msgid "Mark message as:"
 msgstr "Markatu mezua honela:"
 
@@ -499,15 +512,15 @@ msgstr "Markatu mezua honela:"
 msgid "Match type"
 msgstr "Parekatze mota"
 
-#: lib/Storage.php:317
+#: lib/Storage.php:262
 msgid "Matches (with placeholders)"
 msgstr "Bat dator (leku-markekin)"
 
-#: lib/Application.php:100
+#: lib/Application.php:170
 msgid "Maximum Number of Rules"
 msgstr "Arauen gehieneko kopurua"
 
-#: lib/Storage/Blacklist.php:33
+#: lib/Storage/Blacklist.php:38
 #, php-format
 msgid ""
 "Maximum number of blacklisted addresses exceeded (Total addresses: %s, "
@@ -517,7 +530,7 @@ msgstr ""
 "guztira: %s, Gehieneko kopurua: %s).  Ezin izan da helbide berririk gehitu "
 "zerrenda beltzean."
 
-#: lib/Storage/Whitelist.php:37
+#: lib/Storage/Whitelist.php:42
 #, php-format
 msgid ""
 "Maximum number of whitelisted addresses exceeded (Total addresses: %s, "
@@ -527,7 +540,7 @@ msgstr ""
 "%s, Gehieneko kopurua: %s).  Ezin izan da helbide berririk gehitu zerrenda "
 "zurian."
 
-#: spam.php:64
+#: lib/Form/Spam.php:28
 msgid ""
 "Messages with a likely spam score greater than or equal to this number will "
 "be treated as spam."
@@ -535,53 +548,61 @@ msgstr ""
 "Baztergarri izateko probabilitatea kopuru hau baino handiagoa bada, mezua "
 "baztergarritzat joko da."
 
-#: lib/Script/Sieve/Action/Notify.php:53
+#: lib/Script/Sieve/Action/Notify.php:57
 msgid "Missing address to notify"
 msgstr "Jakinarazpena bidali beharreko helbidea falta da"
 
-#: lib/Script/Sieve/Action/Redirect.php:42
+#: lib/Script/Sieve/Action/Redirect.php:46
 msgid "Missing address to redirect message to"
 msgstr "Mezua birbideratu beharreko helbidea falta da"
 
-#: lib/Script/Sieve/Action/Reject.php:44
+#: lib/Script/Sieve/Action/Reject.php:48
 msgid "Missing reason for reject"
 msgstr "Ezesteko arrazoia falta da"
 
-#: lib/Script/Sieve/Action/Vacation.php:137
+#: lib/Script/Sieve/Action/Vacation.php:141
 msgid "Missing reason in vacation."
 msgstr "Oporretan egoteko arrazoia falta da."
 
-#: templates/filters/header.inc:15
+#: smartmobile.php:22
+msgid "Mobile"
+msgstr "Mugikorra"
+
+#: templates/filters/header.inc:16
 msgid "Move"
 msgstr "Aldatu"
 
-#: filters.php:161 filters.php:279
+#: filters.php:171 filters.php:262
 msgid "Move Rule Down"
 msgstr "Eraman araua behera"
 
-#: filters.php:162 filters.php:276
+#: filters.php:172 filters.php:259
 msgid "Move Rule Up"
 msgstr "Eraman araua gora"
 
-#: vacation.php:46
+#: lib/Form/Vacation.php:45
 msgid "My email addresses:"
 msgstr "Nire helbide elektronikoak:"
 
-#: lib/Storage/Filters.php:90 templates/filters/filter-none.inc:3
-#: templates/filters/footer.inc:6
+#: lib/Application.php:234 lib/Storage/Filters.php:94
+#: templates/filters/filter-none.inc:3
 msgid "New Rule"
 msgstr "Arau berria"
 
-#: lib/Ingo.php:317
+#: lib/Ingo.php:248
 #, php-format
 msgid "No \"%s\" element found in backend configuration."
 msgstr "Ez da \"%s\" elementurik aurkitu modulu-konfigurazioan."
 
-#: lib/Ingo.php:309
+#: lib/Smartmobile.php:128
+msgid "No Description"
+msgstr "Ez dago azalpenik"
+
+#: lib/Ingo.php:240
 msgid "No backend configured for this host"
 msgstr "Ez da euskarri-modulurik konfiguratu ostalari honentzat"
 
-#: lib/Ingo.php:282
+#: lib/Ingo.php:213
 msgid "No backends configured in backends.php"
 msgstr "Ez dago euskarri-modulurik konfiguratuta backends.php-n"
 
@@ -590,32 +611,36 @@ msgstr "Ez dago euskarri-modulurik konfiguratuta backends.php-n"
 msgid "No filters. Click \"%s\" to create a new filter."
 msgstr "Iragazkirik ez. Hautatu \"%s\" iragazki berri bat sortzeko."
 
-#: lib/Script/Sieve/Test/Exists.php:36 lib/Script/Sieve/Test/Header.php:71
-#: lib/Script/Sieve/Test/Relational.php:93
+#: lib/Script/Sieve/Test/Exists.php:40 lib/Script/Sieve/Test/Header.php:75
+#: lib/Script/Sieve/Test/Relational.php:97
 msgid "No headers specified"
 msgstr "Ez da goibururik zehaztu"
 
-#: script.php:69
+#: templates/smartmobile/rules.html.php:7
+msgid "No rules"
+msgstr "Ez dago araurik"
+
+#: script.php:76
 msgid "No script generated."
 msgstr "Ez da scriptik sortu."
 
-#: lib/Script/Sieve/Test/Body.php:67 lib/Script/Sieve/Test/Header.php:87
+#: lib/Script/Sieve/Test/Body.php:71 lib/Script/Sieve/Test/Header.php:91
 msgid "No strings specified"
 msgstr "Ez da katerik zehaztu"
 
-#: lib/Storage.php:324
+#: lib/Storage.php:269
 msgid "Not equal to"
 msgstr "Desberdina"
 
-#: lib/Storage.php:284
+#: lib/Storage.php:231
 msgid "Notify email address..."
 msgstr "Jakinarazi helbide elektronikoa..."
 
-#: vacation.php:52
+#: lib/Form/Vacation.php:51
 msgid "Number of days between vacation replies:"
 msgstr "Oporretan zaudeneko erantzunen arteko egun kopurua:"
 
-#: lib/Storage.php:278
+#: lib/Storage.php:225
 msgid "Only flag the message"
 msgstr "Jarri marka mezuari bakarrik"
 
@@ -623,7 +648,7 @@ msgstr "Jarri marka mezuari bakarrik"
 msgid "Other Preferences"
 msgstr "Beste hobespen batzuk"
 
-#: lib/Block/Overview.php:18
+#: lib/Block/Overview.php:23
 msgid "Overview"
 msgstr "Ikuspegi orokorra"
 
@@ -631,11 +656,11 @@ msgstr "Ikuspegi orokorra"
 msgid "Participant (From, To, etc.)"
 msgstr "Parte-hartzailea (Nork,Nori,etab.)"
 
-#: lib/Storage/Sql.php:307
+#: lib/Storage/Sql.php:283
 msgid "Permission Denied"
 msgstr "Baimena ukatu da"
 
-#: lib/Ingo.php:135
+#: lib/Ingo.php:76
 msgid "Please enter the name of the new folder:"
 msgstr "Idatzi karpeta berriaren izena:"
 
@@ -643,7 +668,7 @@ msgstr "Idatzi karpeta berriaren izena:"
 msgid "Preferences about script updating."
 msgstr "Scriptak eguneratzeari buruzko hobespenak."
 
-#: vacation.php:43
+#: lib/Form/Vacation.php:41
 msgid "Reason:"
 msgstr "Arrazoia:"
 
@@ -651,19 +676,19 @@ msgstr "Arrazoia:"
 msgid "Received"
 msgstr "Jasotze-data"
 
-#: lib/Storage.php:259
+#: lib/Storage.php:206
 msgid "Redirect to..."
 msgstr "Birbideratu hona..."
 
-#: lib/Storage.php:316
+#: lib/Storage.php:261
 msgid "Regular expression"
 msgstr "Adierazpen erregularra"
 
-#: lib/Storage.php:274
+#: lib/Storage.php:221
 msgid "Reject with reason..."
 msgstr "Ezetsi arrazoiarekin..."
 
-#: lib/Storage.php:366
+#: lib/Storage.php:311
 msgid ""
 "Removing user data is not supported with the current filter storage backend."
 msgstr ""
@@ -678,82 +703,89 @@ msgstr "Honek berriro bidalia"
 msgid "Resent-To"
 msgstr "Bidali berriro honi"
 
-#: templates/rule/footer.inc:61
+#: templates/rule/footer.inc:65
 msgid "Return to Filters List"
 msgstr "Itzuli iragazkien zerrendara"
 
-#: forward.php:30 forward.php:77 spam.php:56 spam.php:119
-#: templates/blacklist/blacklist.inc:41 templates/whitelist/whitelist.inc:24
-#: vacation.php:30 vacation.php:102
+#: forward.php:34 lib/Form/Base.php:30 spam.php:60
+#: templates/blacklist/blacklist.inc:49 templates/whitelist/whitelist.inc:30
+#: vacation.php:34
 msgid "Return to Rules List"
 msgstr "Itzuli arauen zerrendara"
 
-#: templates/filters/header.inc:12
+#: templates/filters/header.inc:13
 msgid "Rule"
 msgstr "Araua"
 
-#: filters.php:79
+#: filters.php:83
 #, php-format
 msgid "Rule \"%s\" copied."
 msgstr "\"%s\" araua kopiatu da."
 
-#: filters.php:56
+#: filters.php:60
 #, php-format
 msgid "Rule \"%s\" deleted."
 msgstr "\"%s\" araua ezabatu da."
 
-#: filters.php:95
+#: filters.php:99
 #, php-format
 msgid "Rule \"%s\" disabled."
 msgstr "\"%s\" araua desgaitu da."
 
-#: filters.php:101
+#: filters.php:105
 #, php-format
 msgid "Rule \"%s\" enabled."
 msgstr "\"%s\"  araua gaitu da."
 
-#: forward.php:58 spam.php:97 vacation.php:80
+#: forward.php:56 spam.php:92 vacation.php:64
 msgid "Rule Disabled"
 msgstr "Araua desgaitu da"
 
-#: forward.php:53 spam.php:92 vacation.php:75
+#: forward.php:51 spam.php:87 vacation.php:59
 msgid "Rule Enabled"
 msgstr "Araua gaitu da"
 
-#: templates/rule/header.inc:20
+#: templates/rule/header.inc:21
 msgid "Rule Name:"
 msgstr "Arauaren izena:"
 
-#: lib/Script/Sieve/Action/Notify.php:41
+#: lib/Ajax/Application/Smartmobile.php:41
+msgid "Rule not found."
+msgstr "Ez da araurik aurkitu."
+
+#: lib/Script/Sieve/Action/Notify.php:45
 msgid "Rule:"
 msgstr "Araua:"
 
-#: lib/Transport/Ldap.php:87
+#: templates/smartmobile/rule.html.php:2
+#: templates/smartmobile/rules.html.php:2
+msgid "Rules"
+msgstr "Arauak"
+
+#: lib/Transport/Ldap.php:91
 #, php-format
 msgid "STARTTLS failed: (%s) %s"
 msgstr "STARTTLSek huts egin du: (%s) %s"
 
-#: lib/Application.php:129
+#: lib/Application.php:199
 msgid "S_pam"
 msgstr "Baz_tergarria"
 
-#: forward.php:40 spam.php:71 templates/blacklist/blacklist.inc:40
-#: templates/rule/footer.inc:60 templates/whitelist/whitelist.inc:23
-#: vacation.php:54
+#: lib/Form/Base.php:24 lib/Form/Forward.php:25 lib/Form/Spam.php:35
+#: lib/Form/Vacation.php:53 templates/blacklist/blacklist.inc:48
+#: templates/rule/footer.inc:64 templates/whitelist/whitelist.inc:29
 msgid "Save"
 msgstr "Gorde"
 
-#: templates/filters/settings.inc:31
+#: templates/filters/settings.inc:28
 msgid "Save Settings"
 msgstr "Gorde ezarpenak"
 
-#: forward.php:55 forward.php:73 spam.php:94 spam.php:115 vacation.php:77
-#: vacation.php:98
+#: forward.php:53 lib/Form/Base.php:28 spam.php:89 vacation.php:61
 msgid "Save and Disable"
 msgstr "Gorde eta desgaitu"
 
-#: forward.php:50 forward.php:75 spam.php:89 spam.php:117 vacation.php:72
-#: vacation.php:100
+#: forward.php:48 lib/Form/Base.php:26 spam.php:84 vacation.php:56
 msgid "Save and Enable"
 msgstr "Gorde eta gaitu"
 
@@ -765,39 +797,40 @@ msgstr "Scripta"
 msgid "Script Updating"
 msgstr "Scripta eguneratzea"
 
-#: lib/Ingo.php:262
-msgid "Script not updated."
-msgstr "Scripta ez da eguneratu."
+#: lib/Ingo.php:193
+#, php-format
+msgid "Script not updated: %s"
+msgstr "Scripta ez da eguneratu.%s"
 
-#: lib/Ingo.php:232
+#: lib/Ingo.php:172
 msgid "Script successfully activated."
 msgstr "Scripta behar bezala aktibatu da."
 
-#: lib/Ingo.php:231
+#: lib/Ingo.php:171
 msgid "Script successfully deactivated."
 msgstr "Scripta ondo desaktibatu da."
 
-#: templates/rule/footer.inc:30
+#: templates/rule/footer.inc:31
 msgid "Seen"
 msgstr "Ikusita"
 
-#: rule.php:233
+#: rule.php:244
 msgid "Select a field"
 msgstr "Hautatu eremua"
 
-#: templates/menu/menu.html:6 templates/menu/menu.html:8
+#: templates/menu/menu.html:5 templates/menu/menu.html:7
 msgid "Select ruleset to display:"
 msgstr "Hautatu arau multzoa bistaratzeko:"
 
-#: rule.php:361 templates/blacklist/blacklist.inc:22
+#: rule.php:372 templates/blacklist/blacklist.inc:26
 msgid "Select target folder"
 msgstr "Hautatu helburu-karpeta"
 
-#: lib/Ingo.php:116
+#: lib/Ingo.php:57
 msgid "Select target folder:"
 msgstr "Hautatu helburu-karpeta:"
 
-#: rule.php:270
+#: rule.php:281
 msgid "Self-Defined Header"
 msgstr "Erabiltzaileak definitutako goiburua"
 
@@ -805,7 +838,7 @@ msgstr "Erabiltzaileak definitutako goiburua"
 msgid "Sender"
 msgstr "Bidaltzailea"
 
-#: filters.php:119
+#: filters.php:127
 msgid "Settings successfully updated."
 msgstr "Ezarpenak behar bezala eguneratu dira."
 
@@ -817,7 +850,7 @@ msgstr "Erakutsi script aktiboa"
 msgid "Show Current Script"
 msgstr "Erakutsi uneko scripta"
 
-#: spam.php:45
+#: spam.php:48
 msgid "Simple spam filtering is not supported in the current filtering driver."
 msgstr ""
 "Uneko iragazte-kontrolatzaileak ez du onartzen mezu baztergarrien iragazki "
@@ -831,24 +864,24 @@ msgstr "Tamaina"
 msgid "Source (From, Reply-to, etc.)"
 msgstr "Iturburua (Nork,Erantzun honi,etab.)"
 
-#: filters.php:203 lib/Block/Overview.php:94 lib/Block/Overview.php:97
-#: lib/Script/Maildrop.php:304 lib/Script/Sieve.php:442
+#: filters.php:213 lib/Block/Overview.php:105 lib/Script/Maildrop.php:308
+#: lib/Script/Sieve.php:444 lib/Smartmobile.php:98
 msgid "Spam Filter"
 msgstr "Mezu baztergarrien iragazkia"
 
-#: spam.php:130 spam.php:137
+#: spam.php:118 spam.php:128
 msgid "Spam Filtering"
 msgstr "Mezu baztergarrien iragazkia"
 
-#: spam.php:64
+#: lib/Form/Spam.php:28
 msgid "Spam Level:"
 msgstr "Baztergarri-maila:"
 
-#: vacation.php:38
+#: lib/Form/Vacation.php:36
 msgid "Start of vacation:"
 msgstr "Oporren hasiera:"
 
-#: templates/rule/footer.inc:50
+#: templates/rule/footer.inc:54
 msgid "Stop checking if this rule matches?"
 msgstr "Egiaztatzeari utzi araua bat badator?"
 
@@ -856,33 +889,29 @@ msgstr "Egiaztatzeari utzi araua bat badator?"
 msgid "Subject"
 msgstr "Gaia"
 
-#: vacation.php:41
+#: lib/Form/Vacation.php:39
 msgid "Subject of vacation message:"
 msgstr "Oporretako mezuaren gaia:"
 
-#: lib/Script/Sieve/Action/Notify.php:40
+#: lib/Script/Sieve/Action/Notify.php:44
 msgid "Subject:"
 msgstr "Gaia:"
 
-#: lib/Api.php:41
+#: lib/Api.php:73
 #, php-format
 msgid "The address \"%s\" has been added to your blacklist."
 msgstr "\"%s\" helbidea zerrenda beltzean gehitu da."
 
-#: lib/Api.php:62
+#: lib/Api.php:95
 #, php-format
 msgid "The address \"%s\" has been added to your whitelist."
 msgstr "\"%s\" helbidea zerrenda zurian gehitu da."
 
-#: lib/Ingo.php:226
-msgid "The driver said: "
-msgstr "Kontrolatzaileak hau esan du: "
-
-#: lib/Ingo.php:225
+#: lib/Ingo.php:166
 msgid "There was an error activating the script."
 msgstr "Errore bat gertatu da scripta aktibatzean."
 
-#: lib/Ingo.php:224
+#: lib/Ingo.php:165
 msgid "There was an error deactivating the script."
 msgstr "Errore bat gertatu da scripta desaktibatzean."
 
@@ -894,53 +923,75 @@ msgstr "Nori"
 msgid "To:"
 msgstr "Pos.:"
 
-#: lib/Script.php:144
+#: lib/Factory/Script.php:72
 #, php-format
-msgid "Unable to load the definition of %s."
-msgstr "Ezin da %s(r)en definizioa kargatu."
+msgid "Unable to load the script driver \"%s\"."
+msgstr "Ezin da \"%s\"(r)en script-kontrolatzailea kargatu."
+
+#: lib/Factory/Storage.php:74
+#, php-format
+msgid "Unable to load the storage driver \"%s\"."
+msgstr "Ezin da \"%s\"(r)en biltegiratze-kontrolatzailea kargatu."
+
+#: lib/Factory/Transport.php:76
+#, php-format
+msgid "Unable to load the transport driver \"%s\"."
+msgstr "Ezin da \"%s\"(r)en garraio-kontrolatzailea kargatu."
 
 #: templates/rule/filter.inc:15
 msgid "User header"
 msgstr "Erabiltzaile-goiburua"
 
-#: filters.php:191 lib/Block/Overview.php:50 lib/Block/Overview.php:53
-#: lib/Script/Maildrop.php:278 lib/Script/Procmail.php:299
-#: lib/Script/Sieve.php:416 vacation.php:135
+#: filters.php:201 lib/Block/Overview.php:57 lib/Script/Maildrop.php:280
+#: lib/Script/Procmail.php:301 lib/Script/Sieve.php:418 lib/Smartmobile.php:88
+#: vacation.php:112
 msgid "Vacation"
 msgstr "Oporrak"
 
-#: vacation.php:142
+#: vacation.php:125
 msgid "Vacation Edit"
 msgstr "Editatu kanpoan zaudeneko mezua"
 
-#: vacation.php:18
+#: lib/Form/Vacation.php:70
+msgid "Vacation end date is prior to start."
+msgstr "Oporraldiaren amaiera-data hasiera baino lehenagokoa da."
+
+#: lib/Form/Vacation.php:74
+msgid "Vacation end date is prior to today."
+msgstr "Oporraldiaren amaiera-data gaurko eguna baino lehenagokoa da."
+
+#: vacation.php:21
 msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 "Uneko iragazte-kontrolatzaileak ez du kanpoan zaudeneko baliabidea onartzen."
 
-#: rule.php:367
+#: rule.php:378
 msgid "Value"
 msgstr "Balioa"
 
-#: templates/whitelist/whitelist.inc:14
+#: templates/smartmobile/rule.html.php:2
+msgid "View Rule"
+msgstr "Ikusi araua"
+
+#: templates/whitelist/whitelist.inc:16
 msgid "Wh_itelist addresses:"
 msgstr "Z_errenda zuriko helbideak:"
 
-#: filters.php:185 lib/Block/Overview.php:74 lib/Block/Overview.php:77
-#: templates/whitelist/whitelist.inc:5
+#: filters.php:195 lib/Block/Overview.php:83 lib/Smartmobile.php:83
+#: templates/whitelist/whitelist.inc:6
 msgid "Whitelist"
 msgstr "Zerrenda zuria"
 
-#: whitelist.php:50
+#: whitelist.php:56
 msgid "Whitelist Edit"
 msgstr "Editatu zerrenda zuria"
 
-#: whitelist.php:20
+#: whitelist.php:25
 msgid "Whitelist is not supported in the current filtering driver."
 msgstr "Uneko iragazte-kontrolatzaileak ez du zerrenda zuririk onartzen."
 
-#: lib/Script/Maildrop.php:225 lib/Script/Procmail.php:267
-#: lib/Script/Sieve.php:341
+#: lib/Script/Maildrop.php:227 lib/Script/Procmail.php:269
+#: lib/Script/Sieve.php:343
 msgid "Whitelisted Addresses"
 msgstr "Zerrenda zuriko helbideak"
 
@@ -960,77 +1011,89 @@ msgstr "X baztergarri-puntuazioa"
 msgid "X-Spam-Status"
 msgstr "X baztergarri-egoera"
 
-#: filters.php:73 rule.php:191
+#: filters.php:77 rule.php:163 rule.php:204
 #, php-format
 msgid "You are not allowed to create more than %d rules."
 msgstr "Ez daukazu baimenik %d arau baino gehiago sortzeko."
 
-#: filters.php:65 rule.php:23
+#: filters.php:69 rule.php:26
 msgid "You are not allowed to create or edit custom rules."
 msgstr "Ez daukazu baimenik arau pertsonalizatuak sortzeko edo editatzeko."
+
+#: lib/Form/Vacation.php:41
+msgid ""
+"You can use placeholders like %NAME% in the vacation message. See the online "
+"help for details."
+msgstr ""
+"%NAME%-ren gisako leku-markak erabil ditzakezu oporretako mezuan. Ikusi "
+"lineako laguntza xehetasun gehiago nahi izanez gero."
 
 #: rule.php:90
 #, php-format
 msgid "You cannot create empty conditions. Please fill in a value for \"%s\"."
 msgstr "Ezin duzu baldintza hutsik sortu. Sartu balio bat honentzat: \"%s\")."
 
-#: filters.php:50 rule.php:168
+#: filters.php:54
 msgid "You do not have permission to delete filter rules."
 msgstr "Ez daukazu baimenik iragazki-arauak ezabatzeko."
 
-#: filters.php:44 filters.php:114 filters.php:124 rule.php:51 rule.php:181
+#: filters.php:48 filters.php:122 filters.php:132 rule.php:148
 msgid "You do not have permission to edit filter rules."
 msgstr "Ez daukazu baimenik iragazki-arauak editatzeko."
 
-#: lib/Script/Sieve/Action/Notify.php:38
+#: lib/Script/Sieve/Action/Notify.php:42
 msgid "You have received a new message"
 msgstr "Mezu berri bat jaso duzu"
 
-#: lib/Script/Imap.php:285 lib/Script/Imap.php:311 lib/Script/Imap.php:332
+#: rule.php:153
+msgid "You need to select at least one field to match."
+msgstr "Eremu bat hautatu behar duzu gutxienez bat etortzeko."
+
+#: lib/Script/Imap.php:278 lib/Script/Imap.php:304 lib/Script/Imap.php:325
 msgid "[No Sender]"
 msgstr "[Bidaltzailerik ez]"
 
-#: lib/Script/Imap.php:284 lib/Script/Imap.php:310 lib/Script/Imap.php:331
+#: lib/Script/Imap.php:277 lib/Script/Imap.php:303 lib/Script/Imap.php:324
 msgid "[No Subject]"
 msgstr "[Gairik ez]"
 
-#: lib/Application.php:113
+#: lib/Application.php:183
 msgid "_Blacklist"
 msgstr "_Zerrenda beltza"
 
-#: templates/blacklist/blacklist.inc:17
+#: templates/blacklist/blacklist.inc:21
 msgid "_Delete message completely"
 msgstr "Ez_abatu mezua erabat"
 
-#: templates/blacklist/blacklist.inc:31
+#: templates/blacklist/blacklist.inc:35
 msgid "_Enter each address on a new line:"
 msgstr "_Sartu helbide bakoitza lerro berri batean:"
 
-#: lib/Application.php:125
+#: lib/Application.php:195
 msgid "_Forward"
 msgstr "_Birbidali"
 
-#: templates/blacklist/blacklist.inc:21
+#: templates/blacklist/blacklist.inc:25
 msgid "_Move message to folder:"
 msgstr "_Eraman mezuak karpeta honetara:"
 
-#: lib/Application.php:139
+#: lib/Application.php:210
 msgid "_Permissions"
 msgstr "_Baimenak"
 
-#: lib/Application.php:135
+#: lib/Application.php:205
 msgid "_Script"
 msgstr "_Scripta"
 
-#: lib/Application.php:121
+#: lib/Application.php:191
 msgid "_Vacation"
 msgstr "_Oporrak"
 
-#: lib/Application.php:112
+#: lib/Application.php:182
 msgid "_Whitelist"
 msgstr "Ze_rrenda zuria"
 
-#: lib/Block/Overview.php:41
+#: lib/Block/Overview.php:45
 msgid "active"
 msgstr "aktibo"
 
@@ -1042,11 +1105,11 @@ msgstr "eta"
 msgid "disabled - click to enable"
 msgstr "desgaituta - egin klik gaitzeko"
 
-#: lib/Block/Overview.php:39
+#: lib/Block/Overview.php:43
 msgid "inactive"
 msgstr "inaktibo"
 
-#: lib/Script/Maildrop.php:133
+#: lib/Script/Maildrop.php:135
 msgid "maildrop script generated by Ingo"
 msgstr "Ingo-k sortutako maildrop scripta"
 
@@ -1054,6 +1117,6 @@ msgstr "Ingo-k sortutako maildrop scripta"
 msgid "or"
 msgstr "edo"
 
-#: lib/Script/Procmail.php:159
+#: lib/Script/Procmail.php:161
 msgid "procmail script generated by Ingo"
 msgstr "Ingo-k sortutako procmail scripta"

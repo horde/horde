@@ -25,15 +25,15 @@ class Passwd_Driver_Http extends Passwd_Driver
 {
     /**
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         // Add the required fields that most web-based forms would use.
         // Then add any fields that were passed in _params['fields'].
         $post_data = array_merge(array(
-            $this->_params['username'] => $username,
-            $this->_params['oldPasswd'] => $old_password,
-            $this->_params['passwd1'] => $new_password,
-            $this->_params['passwd2'] => $new_password
+            $this->_params['username'] => $user,
+            $this->_params['oldPasswd'] => $oldpass,
+            $this->_params['passwd1'] => $newpass,
+            $this->_params['passwd2'] => $newpass
         ), $this->_params['fields']);
 
         // Send the request
@@ -61,4 +61,5 @@ class Passwd_Driver_Http extends Passwd_Driver
             throw new Passwd_Exception(_("Your password could not be changed."));
         }
     }
+
 }

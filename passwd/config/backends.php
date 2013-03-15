@@ -17,18 +17,18 @@
  *       list (also displayed on the main page).
  *
  * driver: The driver used to change the password. Valid drivers:
- *     - expect: Change the password via an expect script.
- *     - horde: Change the password via the Horde authentication driver.
- *     - ldap: Change the password on an LDAP server.
- *     - pine: Change the password in a Pine-encoded file.
- *     - poppassd: Change the password via a poppassd server.
- *     - servuftp: Change the password via a servuftp server.
- *     - smbldap: Change the password on an LDAP server for both LDAP -and-
- *                Samba auth.
- *     - smbpasswd: Change the password via the smbpasswd command.
- *     - sql: Change the password for SQL authentication.
- *     - vmailmgr: Change the password via a local vmailmgr daemon.
- *     - vpopmail: Change the password for SQL based vpopmail.
+ *     - adsi: ADSI COM interface.
+ *     - expect: Expect script.
+ *     - horde: Horde authentication driver.
+ *     - ldap: LDAP server.
+ *     - pine: Pine-encoded file.
+ *     - poppassd: Poppassd server.
+ *     - servuftp: Servuftp server.
+ *     - smbldap: LDAP server for both LDAP -and- Samba auth.
+ *     - smbpasswd: Smbpasswd command.
+ *     - sql: SQL authentication.
+ *     - vmailmgr: Local vmailmgr daemon.
+ *     - vpopmail: SQL based vpopmail.
  *
  *     - composite: Allows you to chain multiple drivers together (see example
  *                  below).
@@ -47,8 +47,7 @@
  *
  *   Alternatively/additionally, the minimum number of character classes can
  *   be configured by setting 'minClasses'. The valid range is 0 through 4
- *   character classes may be required for a password. The available classes
- *   are:
+ *   character classes may be required for a password. The available classes:
  *     - lower
  *     - number
  *     - symbol
@@ -58,11 +57,13 @@
  *   'lower', and 'symbol'), while 'passw0rd' only satisfies two classes
  *   ('lower'and 'symbols').
  *
- * no_reset: (boolean) If true, do not reset the authenticated user's
- *           credentials on success.
+ * logout: (boolean) If true, this backend changes the password associated
+ *         with at least one Horde application. On a successful password
+ *         change the current session will be destroyed and the page will
+ *         redirect to the login screen.
  *
  * params: (array) Additional information that a driver needs. See examples
-f *        below for further details.
+ *        below for further details.
  *
  * preferred: (string) Useful if you want to use the same backend.php file
  *            for different machines. If the hostname of the Passwd Machine is
@@ -72,7 +73,7 @@ f *        below for further details.
  *            the list is selected.
  */
 
-$backends['hordeauth'] = array (
+$backends['hordeauth'] = array(
     'disabled' => true,
     'name' => 'Horde Authentication',
     'driver' => 'Horde',
@@ -82,9 +83,8 @@ $backends['hordeauth'] = array (
     ),
 );
 
-$backends['hordesql'] = array (
-    // ENABLED by default
-    'disabled' => false,
+$backends['hordesql'] = array(
+    'disabled' => true,
     'name' => 'Horde SQL Authentication',
     'driver' => 'Sql',
     'policy' => array(
@@ -202,7 +202,9 @@ $backends['ldap'] = array(
         'encryption' => 'crypt',
         // Whether to enable TLS for this LDAP connection
         // Note: make sure that the host matches cn in the server certificate.
-        'tls' => false
+        'tls' => false,
+        // Determine the user's DN. %u will be replaced by the user's ID.
+        //'userdn' => 'uid=%u,o=example.com'
     ),
 );
 
@@ -273,6 +275,8 @@ $backends['smbldap'] = array(
         // Whether to enable TLS for this LDAP connection
         // Note: make sure that the host matches cn in the server certificate.
         'tls' => false,
+        // Determine the user's DN. %u will be replaced by the user's ID.
+        //'userdn' => 'uid=%u,o=example.com'
         // If any of the following attributes are commented out, they
         // won't be set on the LDAP server.
         'lm_attribute' => 'sambaLMPassword',
@@ -285,7 +289,7 @@ $backends['smbldap'] = array(
     ),
 );
 
-$backends['sql'] = array (
+$backends['sql'] = array(
     'disabled' => true,
     'name' => 'SQL Server',
     'driver' => 'Sql',
@@ -329,7 +333,7 @@ $backends['mailmgr'] = array(
     ),
 );
 
-$backends['vpopmail'] = array (
+$backends['vpopmail'] = array(
     'disabled' => true,
     'name' => 'Vpopmail Server',
     'driver' => 'Vpopmail',
@@ -362,7 +366,6 @@ $backends['pine'] = array(
         'minLength' => 6,
         'minNumeric' => 1,
     ),
-    'no_reset' => true,
     'params' => array(
         // FTP server information.
         'host' => 'localhost',
@@ -463,7 +466,7 @@ $backends['soap'] = array(
 // Set the 'password_policy' section as you wish.
 // In most installations you probably only need to change the
 // hostspec and/or  password fields.
-$backends['postfixadmin'] = array (
+$backends['postfixadmin'] = array(
     'disabled' => true,
     'name' => 'Postfix Admin server',
     'driver' => 'Sql',
@@ -493,7 +496,7 @@ $backends['postfixadmin'] = array (
         //    %p -> gets substituted with the plaintext password
         //    %e -> gets substituted with the encrypted password
         //
-        'query_lookup' => 'SELECT password FROM mailbox WHERE username = %u and active = 1', 
+        'query_lookup' => 'SELECT password FROM mailbox WHERE username = %u and active = 1',
         'query_modify' => 'UPDATE mailbox SET password = %e WHERE username = %u'
     ),
 );

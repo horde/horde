@@ -91,10 +91,19 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
             return new Horde_Core_Log_Logger(new Horde_Log_Handler_Null());
         }
 
-        if (!defined('Horde_Log::' . $conf['log']['priority'])) {
-            $conf['log']['priority'] = 'NOTICE';
+        switch ($conf['log']['priority']) {
+        case 'WARNING':
+            // Bug #12109
+            $priority = 'WARN';
+            break;
+
+        default:
+            $priority = defined('Horde_Log::' . $conf['log']['priority'])
+                ? $conf['log']['priority']
+                : 'NOTICE';
+            break;
         }
-        $handler->addFilter(constant('Horde_Log::' . $conf['log']['priority']));
+        $handler->addFilter(constant('Horde_Log::' . $priority));
 
         try {
             /* Horde_Core_Log_Logger contains code to format the log
