@@ -98,9 +98,22 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     ($option = ($this->_decoder->getElementStartTag(self::TAG_CERTIFICATERETRIEVAL) ? self::TAG_CERTIFICATERETRIEVAL :
                     ($this->_decoder->getElementStartTag(self::TAG_MAXCERTIFICATES) ? self::TAG_MAXCERTIFICATES :
                     ($this->_decoder->getElementStartTag(self::TAG_MAXAMBIGUOUSRECIPIENTS) ? self::TAG_MAXAMBIGUOUSRECIPIENTS :
-                    -1)))) != -1) {
+                    ($this->_decoder->getElementStartTag(self::TAG_AVAILABILITY) ? self::TAG_AVAILABILITY :
+                    -1))))) != -1) {
 
-                    $options[$option] = $this->_decoder->getElementContent();
+                    if ($option == self::TAG_AVAILABILITY) {
+                        while ($status == self::STATUS_SUCCESS &&
+                            $tag = ($this->_decoder->getElementStartTag(self::TAG_STARTTIME) ? self::TAG_STARTTIME :
+                                ($this->_decoder->getElementStartTag(self::TAG_ENDTIME) ? self::TAG_ENDTIME :
+                                -1)) != -1) {
+                            $options[$option] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                $status = self::STATUS_PROTERR;
+                            }
+                        }
+                    } else {
+                        $options[$option] = $this->_decoder->getElementContent();
+                    }
                     if (!$this->_decoder->getElementEndTag()) {
                         $status = self::STATUS_PROTERR;
                     }
@@ -110,7 +123,6 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                 }
             } elseif ($field == self::TAG_TO) {
                 $content = $this->_decoder->getElementContent();
-                $this->_logger->debug($content);
                 $to[] = $content;
                 if (!$this->_decoder->getElementEndTag()) {
                     $status = self::STATUS_PROTERR;
@@ -121,13 +133,17 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
         $results = array();
         foreach ($to as $item) {
             if (isset($options[self::TAG_CERTIFICATERETRIEVAL])) {
+                $driver_opts = array(
+                    'maxcerts' => $options[self::TAG_MAXCERTIFICATES],
+                    'maxambiguous' => $options[self::TAG_MAXAMBIGUOUSRECIPIENTS],
+                    'starttime' => !empty($options[self::TAG_STARTTIME]) ? $options[self::TAG_STARTTIME] : false,
+                    'endtime' => !empty($options[self::TAG_ENDTIME]) ? $options[self::TAG_ENDTIME] : false,
+                );
+
                 $result = $this->_driver->resolveRecipient(
                     'certificate',
                     $item,
-                    array(
-                        'maxcerts' => $options[self::TAG_MAXCERTIFICATES],
-                        'maxambiguous' => $options[self::TAG_MAXAMBIGUOUSRECIPIENTS],
-                    )
+                    $driver_opts
                 );
                 $results[$item] = $result;
             }
