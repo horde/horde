@@ -36,7 +36,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_SendMail
 {
     /**
      * Handle request
@@ -45,6 +45,10 @@ class Horde_ActiveSync_Request_SmartReply extends Horde_ActiveSync_Request_Base
      */
     protected function _handle()
     {
+        if ($this->_decoder->isWbxml()) {
+            return $this->_handleWbxmlRequest();
+        }
+
         // Smart reply should add the original message to the end of the message body
         $rfc822 = file_get_contents('php://input');
         $get = $this->_activeSync->getGetVars();

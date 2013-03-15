@@ -60,31 +60,47 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
                 throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
             }
         } else {
-            // Get the first element and see what type of mail request we have.
-            $e = $this->_decoder->getElement();
-            if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
-                throw new Horde_ActiveSync_Exception('Protocol Error');
-            }
+            return $this->_handleWbxmlRequest();
+        }
+    }
 
-            $sendmail = $smartreply = $smartforward = false;
-            switch ($e[Horde_ActiveSync_Wbxml::EN_TAG]) {
-            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL:
-                $sendmail = true;
-                break;
-            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY:
-                $smartreply = true;
-                break;
-            case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD:
-                $smartforward = true;
-            }
+    /**
+     * Handle EAS 14+ SendMail/SmartReply/SmartForward requests.
+     *
+     * @return boolean
+     * @throws Horde_ActiveSync_Exception, Horde_ActiveSync_Exception_InvalidRequest
+     */
+    protected function _handleWbxmlRequest()
+    {
+        // Get the first element and see what type of mail request we have.
+        $e = $this->_decoder->getElement();
+        if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
+            throw new Horde_ActiveSync_Exception('Protocol Error');
+        }
 
-            if (!$sendmail && !$smartreply && !$smartforward) {
-                throw new Horde_ActiveSync_Exception('Protocol Error. Did not receive sendmail/smartreply/smartforward in wbxml request.');
-            }
+        $sendmail = $smartreply = $smartforward = false;
+        switch ($e[Horde_ActiveSync_Wbxml::EN_TAG]) {
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL:
+            $sendmail = true;
+            break;
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY:
+            $smartreply = true;
+            break;
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD:
+            $smartforward = true;
+        }
+        if (!$sendmail && !$smartreply && !$smartforward) {
+            throw new Horde_ActiveSync_Exception('Protocol Error. Did not receive sendmail/smartreply/smartforward in wbxml request.');
+        }
 
-            $mail = new Horde_ActiveSync_Message_SendMail(array('logger' => $this->_logger, 'protocolversion' => $this->_version));
-            $mail->decodeStream($this->_decoder);
-
+        $mail = new Horde_ActiveSync_Message_SendMail(array('logger' => $this->_logger, 'protocolversion' => $this->_version));
+        $mail->decodeStream($this->_decoder);
+        try {
+            // @TODO fix this ugly method call in H6 when we can break BC.
+            $result = $this->_driver->sendMail(null, $smartforward, $smartreply, null, null, $mail);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_logger->err($e->getMessage());
+            throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
         }
     }
 
