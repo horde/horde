@@ -67,6 +67,31 @@ class Horde_ActiveSync_Message_AirSyncBaseBody extends Horde_ActiveSync_Message_
     );
 
     /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - protocolversion: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $this->_mapping += array(
+                Horde_ActiveSync::AIRSYNCBASE_PREVIEW => array(self::KEY_ATTRIBUTE => 'preview')
+            );
+            $this->_properties += array(
+                'preview' => false
+            );
+        }
+    }
+
+    /**
      * Return the message type.
      *
      * @return string
