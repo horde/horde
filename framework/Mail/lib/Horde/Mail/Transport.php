@@ -171,12 +171,6 @@ abstract class Horde_Mail_Transport
      */
     public function parseRecipients($recipients)
     {
-        // if we're passed an array, assume addresses are valid and
-        // implode them before parsing.
-        if (is_array($recipients)) {
-            $recipients = implode(', ', $recipients);
-        }
-
         // Parse recipients, leaving out all personal info. This is
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
