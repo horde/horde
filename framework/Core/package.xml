@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mjr] Fix sending encrypted emails while locating recipient&apos;s public key via the GAL.
 * [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
 * [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
@@ -2863,6 +2864,7 @@
    <date>2013-03-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mjr] Fix sending encrypted emails while locating recipient&apos;s public key via the GAL.
 * [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
 * [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
