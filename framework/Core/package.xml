@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-11</date>
- <time>19:22:24</time>
+ <date>2013-03-13</date>
+ <time>01:35:19</time>
  <version>
   <release>2.4.4</release>
   <api>2.4.0</api>
@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
+* [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
  </notes>
  <contents>
@@ -625,6 +627,7 @@
       <file name="Sound.php" role="php" />
      </dir> <!-- /lib/Horde/Themes -->
      <file name="Config.php" role="php" />
+     <file name="Deprecated.php" role="php" />
      <file name="ErrorHandler.php" role="php" />
      <file name="Help.php" role="php" />
      <file name="Menu.php" role="php" />
@@ -1175,6 +1178,10 @@
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
+   <package>
+    <name>PEAR</name>
+    <channel>pear.php.net</channel>
+   </package>
    <extension>
     <name>session</name>
    </extension>
@@ -1593,6 +1600,7 @@
    <install as="js/scriptaculous/unittest.js" name="js/scriptaculous/unittest.js" />
    <install as="Horde.php" name="lib/Horde.php" />
    <install as="Horde/Config.php" name="lib/Horde/Config.php" />
+   <install as="Horde/Deprecated.php" name="lib/Horde/Deprecated.php" />
    <install as="Horde/ErrorHandler.php" name="lib/Horde/ErrorHandler.php" />
    <install as="Horde/Help.php" name="lib/Horde/Help.php" />
    <install as="Horde/Menu.php" name="lib/Horde/Menu.php" />
@@ -2852,9 +2860,11 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-11</date>
+   <date>2013-03-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
+* [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
    </notes>
   </release>
