@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
 * [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
 * [mms] Fix edit links for virtual folders in dynamic view (Bug #12072).
@@ -1222,6 +1223,13 @@
    </package>
    <package>
     <name>Horde_SpellChecker</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Stream_Filter</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -2936,6 +2944,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
 * [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
 * [mms] Fix edit links for virtual folders in dynamic view (Bug #12072).

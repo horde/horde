@@ -2,6 +2,7 @@
 v6.0.5
 ------
 
+[mms] Fix verifying signed & encrypted PGP messages (Bug #12100).
 [mms] Update virtual folder name in folder tree when editing the label (Bug
       #12079).
 [mms] Fix links to virtual folders on search preferences page.
