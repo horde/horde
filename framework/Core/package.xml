@@ -31,8 +31,8 @@
  <date>2013-03-13</date>
  <time>01:35:19</time>
  <version>
-  <release>2.4.4</release>
-  <api>2.4.0</api>
+  <release>2.5.0</release>
+  <api>2.5.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -40,6 +40,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Fire before/after events in core AJAX javascript code when processing data returned from the server.
+* [mjr] Fix sending encrypted emails while locating recipient&apos;s public key via the GAL.
 * [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
 * [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).
@@ -2855,14 +2857,16 @@
   </release>
   <release>
    <version>
-    <release>2.4.4</release>
-    <api>2.4.0</api></version>
+    <release>2.5.0</release>
+    <api>2.5.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-03-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Fire before/after events in core AJAX javascript code when processing data returned from the server.
+* [mjr] Fix sending encrypted emails while locating recipient&apos;s public key via the GAL.
 * [jan] Use PEAR package information to retrieve packages names in Horde_Core_Db_Migration.
 * [jan] Get version list from pear.horde.org when checking for updates.
 * [mms] Add support for &apos;ajaxaction_data&apos; hook (won&apos;t be documented in Horde until 5.1+).

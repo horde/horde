@@ -328,7 +328,7 @@ class Horde_Core_ActiveSync_Connector
     {
         $sources = array_keys($this->_registry->contacts->sources());
         foreach ($sources as $source) {
-            $fields[$source] = array('name', 'email', 'alias');
+            $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
         }
         $options = array(
             'matchBegin' => true,
