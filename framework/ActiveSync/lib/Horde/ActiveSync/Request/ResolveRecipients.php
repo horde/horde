@@ -132,16 +132,18 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
 
         $results = array();
         foreach ($to as $item) {
-            if (isset($options[self::TAG_CERTIFICATERETRIEVAL])) {
+            if (isset($options[self::TAG_CERTIFICATERETRIEVAL]) ||
+                isset($options[self::TAG_AVAILABILITY])) {
+
                 $driver_opts = array(
-                    'maxcerts' => $options[self::TAG_MAXCERTIFICATES],
-                    'maxambiguous' => $options[self::TAG_MAXAMBIGUOUSRECIPIENTS],
+                    'maxcerts' => !empty($options[self::TAG_MAXCERTIFICATES]) ? $options[self::TAG_MAXCERTIFICATES] : false,
+                    'maxambiguous' => !empty($options[self::TAG_MAXAMBIGUOUSRECIPIENTS]) ? $options[self::TAG_MAXAMBIGUOUSRECIPIENTS] : false,
                     'starttime' => !empty($options[self::TAG_STARTTIME]) ? $options[self::TAG_STARTTIME] : false,
                     'endtime' => !empty($options[self::TAG_ENDTIME]) ? $options[self::TAG_ENDTIME] : false,
                 );
 
                 $result = $this->_driver->resolveRecipient(
-                    'certificate',
+                    isset($options[self::TAG_CERTIFICATERETRIEVAL]) ? 'certificate' : 'availability',
                     $item,
                     $driver_opts
                 );
