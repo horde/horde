@@ -405,6 +405,10 @@ class Horde_ActiveSync_Wbxml
                 0x13 => 'MaxCertificates',
                 0x14 => 'MaxAmbiguousRecipients',
                 0x15 => 'CertificateCount',
+                0x16 => 'Availability',
+                0x17 => 'StartTime',
+                0x18 => 'EndTime',
+                0x19 => 'MergedFreeBusy',
             ),
             /* VALIDATECERT */
             0xb => array (
