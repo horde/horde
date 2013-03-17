@@ -103,10 +103,10 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
 
                     if ($option == self::TAG_AVAILABILITY) {
                         while ($status == self::STATUS_SUCCESS &&
-                            $tag = ($this->_decoder->getElementStartTag(self::TAG_STARTTIME) ? self::TAG_STARTTIME :
+                            ($tag = ($this->_decoder->getElementStartTag(self::TAG_STARTTIME) ? self::TAG_STARTTIME :
                                 ($this->_decoder->getElementStartTag(self::TAG_ENDTIME) ? self::TAG_ENDTIME :
-                                -1)) != -1) {
-                            $options[$option] = $this->_decoder->getElementContent();
+                                -1))) != -1) {
+                            $options[$tag] = $this->_decoder->getElementContent();
                             if (!$this->_decoder->getElementEndTag()) {
                                 $status = self::STATUS_PROTERR;
                             }
