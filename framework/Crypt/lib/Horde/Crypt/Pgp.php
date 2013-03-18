@@ -180,7 +180,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @param string $comment      The comment to use for the key.
      * @param integer $keylength   The keylength to use for the key.
      * @param integer $expire      The expiration date (UNIX timestamp). No
-     *                             expiration if empty (since 1.1.0).
+     *                             expiration if empty.
      * @param string $key_type     Key type (since 2.2.0).
      * @param string $subkey_type  Subkey type (since 2.2.0).
      *
