@@ -396,9 +396,11 @@ class Horde_ActiveSync_Imap_Message
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
                     $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
+                    $atc->contentid = $mime_part->getContentId();
+                    $atc->isinline = $mime_part->getDisposition() == 'inline';
                 } else {
                     $atc = new Horde_ActiveSync_Message_Attachment();
-                    $atc->attoid = $headers->getValue('content-id');
+                    $atc->attoid = $mime_part->getContentId();
                 }
                 $atc->attsize = $mime_part->getBytes();
                 $atc->attname = $this->_mbox . ':' . $this->_uid . ':' . $id;
@@ -407,7 +409,9 @@ class Horde_ActiveSync_Imap_Message
                     $charset,
                     'UTF-8',
                     true);
-                $atc->attmethod = Horde_ActiveSync_Message_Attachment::ATT_TYPE_NORMAL;
+                $atc->attmethod = in_array($mime_part->getType(), array('message/rfc822', 'message/disposition-notification'))
+                    ? Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_EMBEDDED
+                    : Horde_ActiveSync_Message_AirSyncBaseAttachment::ATT_TYPE_NORMAL;
                 $ret[] = $atc;
             }
         }
