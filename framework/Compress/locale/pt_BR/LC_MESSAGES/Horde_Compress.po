@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Compress\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: 2011-06-11 20:18-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -22,8 +22,8 @@ msgstr ""
 msgid "Invalid RAR data."
 msgstr "Dados RAR inválidos."
 
-#: lib/Horde/Compress/Zip.php:202 lib/Horde/Compress/Zip.php:207
-#: lib/Horde/Compress/Zip.php:234 lib/Horde/Compress/Zip.php:254
+#: lib/Horde/Compress/Zip.php:191 lib/Horde/Compress/Zip.php:196
+#: lib/Horde/Compress/Zip.php:223 lib/Horde/Compress/Zip.php:243
 msgid "Invalid ZIP data"
 msgstr "Dados de CEP inválidos"
 
@@ -32,7 +32,7 @@ msgstr "Dados de CEP inválidos"
 msgid "Invalid file format"
 msgstr "Formato inválido de arquivo"
 
-#: lib/Horde/Compress/Zip.php:100
+#: lib/Horde/Compress/Zip.php:96
 msgid "This server can't compress zip files."
 msgstr "Este servidor não pode compactar arquivos zip."
 
@@ -40,7 +40,7 @@ msgstr "Este servidor não pode compactar arquivos zip."
 msgid "This server can't uncompress gzip files."
 msgstr "Este servidor não pode descompactar arquivos gzip."
 
-#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:79
+#: lib/Horde/Compress/Gzip.php:49 lib/Horde/Compress/Gzip.php:81
 #: lib/Horde/Compress/Tar.php:76
 msgid "Unable to decompress data."
 msgstr "Impossível descomprimir dados."
