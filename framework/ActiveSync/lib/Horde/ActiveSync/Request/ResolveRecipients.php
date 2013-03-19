@@ -71,6 +71,13 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     const STATUS_CERT_NOCERT         = 7;
     const STATUS_LIMIT               = 8;
 
+    /* Availability Status */
+    const STATUS_AVAIL_SUCCESS       = 1;
+    const STATUS_AVAIL_MAXRECIPIENTS = 160;
+    const STATUS_AVAIL_MAXLIST       = 161;
+    const STATUS_AVAIL_TEMPFAILURE   = 162;
+    const STATUS_AVAIL_NOTFOUND      = 163;
+
     /**
      * Handle the request
      *
@@ -102,6 +109,7 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     -1))))) != -1) {
 
                     if ($option == self::TAG_AVAILABILITY) {
+                        $options[self::TAG_AVAILABILITY] = true;
                         while ($status == self::STATUS_SUCCESS &&
                             ($tag = ($this->_decoder->getElementStartTag(self::TAG_STARTTIME) ? self::TAG_STARTTIME :
                                 ($this->_decoder->getElementStartTag(self::TAG_ENDTIME) ? self::TAG_ENDTIME :
@@ -130,26 +138,33 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
             }
         }
 
-        $results = array();
-        foreach ($to as $item) {
-            if (isset($options[self::TAG_CERTIFICATERETRIEVAL]) ||
-                isset($options[self::TAG_AVAILABILITY])) {
+        // Verify max isn't attempted.
+        if (isset($options[self::TAG_AVAILABILITY]) && count($to) > 100) {
+            // Specs say to send this, but it's defined as a child of the
+            // self::TAG_AVAILABILITY response. If we have too many recipients,
+            // we don't check the availability?? Not sure what to do with this.
+            // For now, treat it as a protocol error.
+            //$avail_status = self::STATUS_AVAIL_MAXRECIPIENTS;
+            $status = self::STATUS_PROTERR;
+        }
 
+        $results = array();
+        if ($status == self::STATUS_SUCCESS) {
+            foreach ($to as $item) {
                 $driver_opts = array(
                     'maxcerts' => !empty($options[self::TAG_MAXCERTIFICATES]) ? $options[self::TAG_MAXCERTIFICATES] : false,
                     'maxambiguous' => !empty($options[self::TAG_MAXAMBIGUOUSRECIPIENTS]) ? $options[self::TAG_MAXAMBIGUOUSRECIPIENTS] : false,
-                    'starttime' => !empty($options[self::TAG_STARTTIME]) ? $options[self::TAG_STARTTIME] : false,
-                    'endtime' => !empty($options[self::TAG_ENDTIME]) ? $options[self::TAG_ENDTIME] : false,
+                    'starttime' => !empty($options[self::TAG_STARTTIME]) ? new Horde_Date($options[self::TAG_STARTTIME], 'utc') : false,
+                    'endtime' => !empty($options[self::TAG_ENDTIME]) ? new Horde_Date($options[self::TAG_ENDTIME], 'utc') : false,
                 );
-
-                $result = $this->_driver->resolveRecipient(
+                $results[$item] = $this->_driver->resolveRecipient(
                     isset($options[self::TAG_CERTIFICATERETRIEVAL]) ? 'certificate' : 'availability',
                     $item,
                     $driver_opts
                 );
-                $results[$item] = $result;
             }
         }
+
 
         $this->_encoder->startWBXML();
         $this->_encoder->startTag(self::TAG_RESOLVERECIPIENTS);
@@ -166,10 +181,10 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
             $this->_encoder->endTag();
 
             $this->_encoder->startTag(self::TAG_STATUS);
-            if (count($results[$item]) > 1) {
-                $responseStatus = self::STATUS_RESPONSE_AMBSUGG;
-            } elseif (count($results[$item]) == 0) {
+            if (empty($results[$item])) {
                 $responseStatus = self::STATUS_RESPONSE_NONE;
+            } elseif (count($results[$item]) > 1) {
+                $responseStatus = self::STATUS_RESPONSE_AMBSUGG;
             } else {
                 $responseStatus = self::STATUS_RESPONSE_SUCCESS;
             }
@@ -235,12 +250,24 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     $this->_encoder->endTag();
                 }
 
+                if (isset($options[self::TAG_AVAILABILITY])) {
+                    $this->_encoder->startTag(self::TAG_AVAILABILITY);
+
+                    $this->_encoder->startTag(self::TAG_STATUS);
+                    $this->_encoder->content(empty($value['availability']) ? self::STATUS_AVAIL_NOTFOUND : self::STATUS_AVAIL_SUCCESS);
+                    $this->_encoder->endTag();
+
+                    if (!empty($value['availability'])) {
+                        $this->_encoder->startTag(self::TAG_MERGEDFREEBUSY);
+                        $this->_encoder->content($value['availability']);
+                        $this->_encoder->endTag();
+                    }
+                    $this->_encoder->endTag();
+                }
                 $this->_encoder->endTag(); // end self::TAG_RECIPIENT
             }
-
             $this->_encoder->endTag(); // end self::TAG_RESPONSE
         }
-
         $this->_encoder->endTag(); // end self::TAG_RESOLVERECIPIENTS
 
         return true;
