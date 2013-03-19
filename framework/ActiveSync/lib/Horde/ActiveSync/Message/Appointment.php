@@ -519,6 +519,11 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
             $r->until = $recurrence->getRecurEnd();
         }
 
+        // We don't support non-gregorian calendars.
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $r->calendartype = Horde_ActiveSync_Message_Recurrence::CALENDAR_TYPE_GREGORIAN;
+        }
+
         $this->_properties['recurrence'] = $r;
     }
 
