@@ -317,16 +317,32 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $query  The search string. Ususally an email address.
      * @param array $opts    Any additional options:
-     *   - maxAmbiguous (integer)  The maximum number of ambiguous results. If
-     *                             set to 0, we want only a single, definitive
-     *                             search result. I.e, at least on field MUST
-     *                             match strictly.
-     *                  DEFAULT: NONE
-     * @return array  The search results.
+     *  - maxcerts: (integer)     The maximum number of certificates to return
+     *                             as provided by the client.
+     *  - maxambiguous: (integer) The maximum number of ambiguous results. If
+     *                            set to zero, we MUST have an exact match.
+     *  - starttime: (Horde_Date) The start time for the availability window if
+     *                            requesting AVAILABILITY.
+     *  - endtime: (Horde_Date)   The end of the availability window if
+     *                            requesting AVAILABILITY.
+     *
+     * @return array  The search results, keyed by the $query.
      */
     public function resolveRecipient($query, array $opts = array())
     {
-        $sources = array_keys($this->_registry->contacts->sources());
+        if (!empty($opts['starttime'])) {
+            try {
+                return array($query => $this->_registry->calendar->lookupFreeBusy($query, true));
+            } catch (Horde_Exception $e) {
+                return false; // ?
+            }
+        }
+
+        $gal = $this->contacts_getGal();
+        $sources = array_keys($this->_registry->contacts->sources(false, true));
+        if (!in_array($sources, $gal)) {
+            $sources[] = $gal;
+        }
         foreach ($sources as $source) {
             $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
         }
