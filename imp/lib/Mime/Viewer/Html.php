@@ -380,7 +380,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         case 'style':
             switch (Horde_String::lower($node->getAttribute('type'))) {
             case 'text/css':
-                $this->_imptmp['style'][] = $node->nodeValue;
+                $this->_imptmp['style'][] = str_replace(
+                    array('<!--', '-->'),
+                    '',
+                    $node->nodeValue
+                );
                 $node->parentNode->removeChild($node);
                 break;
             }
