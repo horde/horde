@@ -10,7 +10,7 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-18</date>
+ <date>2013-03-19</date>
  <version>
   <release>1.0.0</release>
   <api>1.0.0</api>
@@ -44,7 +44,7 @@
     <dir name="Sabberworm">
      <dir name="CSS">
       <dir name="CSSList">
-       <file name="AtRule.php" role="php" />
+       <file name="AtRuleBlockList.php" role="php" />
        <file name="CSSBlockList.php" role="php" />
        <file name="CSSList.php" role="php" />
        <file name="Document.php" role="php" />
@@ -55,6 +55,7 @@
        <file name="UnexpectedTokenException.php" role="php" />
       </dir> <!-- /lib/Sabberworm/CSS/Parsing -->
       <dir name="Property">
+       <file name="AtRule.php" role="php" />
        <file name="Charset.php" role="php" />
        <file name="CSSNamespace.php" role="php" />
        <file name="Import.php" role="php" />
@@ -64,6 +65,7 @@
        <file name="Rule.php" role="php" />
       </dir> <!-- /lib/Sabberworm/CSS/Rule -->
       <dir name="RuleSet">
+       <file name="AtRuleSet.php" role="php" />
        <file name="DeclarationBlock.php" role="php" />
        <file name="RuleSet.php" role="php" />
       </dir> <!-- /lib/Sabberworm/CSS/RuleSet -->
@@ -109,18 +111,20 @@
    <install as="Horde/Css/Parser.php" name="lib/Horde/Css/Parser.php" />
    <install as="Sabberworm/CSS/Parser.php" name="lib/Sabberworm/CSS/Parser.php" />
    <install as="Sabberworm/CSS/Settings.php" name="lib/Sabberworm/CSS/Settings.php" />
-   <install as="Sabberworm/CSS/CSSList/AtRule.php" name="lib/Sabberworm/CSS/CSSList/AtRule.php" />
+   <install as="Sabberworm/CSS/CSSList/AtRuleBlockList.php" name="lib/Sabberworm/CSS/CSSList/AtRuleBlockList.php" />
    <install as="Sabberworm/CSS/CSSList/CSSBlockList.php" name="lib/Sabberworm/CSS/CSSList/CSSBlockList.php" />
    <install as="Sabberworm/CSS/CSSList/CSSList.php" name="lib/Sabberworm/CSS/CSSList/CSSList.php" />
    <install as="Sabberworm/CSS/CSSList/Document.php" name="lib/Sabberworm/CSS/CSSList/Document.php" />
    <install as="Sabberworm/CSS/CSSList/KeyFrame.php" name="lib/Sabberworm/CSS/CSSList/KeyFrame.php" />
    <install as="Sabberworm/CSS/CSSList/MediaQuery.php" name="lib/Sabberworm/CSS/CSSList/MediaQuery.php" />
    <install as="Sabberworm/CSS/Parsing/UnexpectedTokenException.php" name="lib/Sabberworm/CSS/Parsing/UnexpectedTokenException.php" />
+   <install as="Sabberworm/CSS/Property/AtRule.php" name="lib/Sabberworm/CSS/Property/AtRule.php" />
    <install as="Sabberworm/CSS/Property/Charset.php" name="lib/Sabberworm/CSS/Property/Charset.php" />
    <install as="Sabberworm/CSS/Property/CSSNamespace.php" name="lib/Sabberworm/CSS/Property/CSSNamespace.php" />
    <install as="Sabberworm/CSS/Property/Import.php" name="lib/Sabberworm/CSS/Property/Import.php" />
    <install as="Sabberworm/CSS/Property/Selector.php" name="lib/Sabberworm/CSS/Property/Selector.php" />
    <install as="Sabberworm/CSS/Rule/Rule.php" name="lib/Sabberworm/CSS/Rule/Rule.php" />
+   <install as="Sabberworm/CSS/RuleSet/AtRuleSet.php" name="lib/Sabberworm/CSS/RuleSet/AtRuleSet.php" />
    <install as="Sabberworm/CSS/RuleSet/DeclarationBlock.php" name="lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" />
    <install as="Sabberworm/CSS/RuleSet/RuleSet.php" name="lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
    <install as="Sabberworm/CSS/Value/Color.php" name="lib/Sabberworm/CSS/Value/Color.php" />
@@ -144,7 +148,7 @@
     <release>stable</release>
     <api>stable</api>
    </stability>
-   <date>2013-03-18</date>
+   <date>2013-03-19</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * First release for Horde 5.
