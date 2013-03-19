@@ -143,7 +143,8 @@ class Horde_ActiveSync_SyncCache
     public function validateCache()
     {
         $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        if ($cache['timestamp'] > $this->_data['timestamp']) {
+        if (($cache['timestamp'] > $this->_data['timestamp']) ||
+            ($cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }
 
