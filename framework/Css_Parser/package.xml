@@ -44,6 +44,7 @@
     <dir name="Sabberworm">
      <dir name="CSS">
       <dir name="CSSList">
+       <file name="AtRule.php" role="php" />
        <file name="CSSBlockList.php" role="php" />
        <file name="CSSList.php" role="php" />
        <file name="Document.php" role="php" />
@@ -63,7 +64,6 @@
        <file name="Rule.php" role="php" />
       </dir> <!-- /lib/Sabberworm/CSS/Rule -->
       <dir name="RuleSet">
-       <file name="AtRule.php" role="php" />
        <file name="DeclarationBlock.php" role="php" />
        <file name="RuleSet.php" role="php" />
       </dir> <!-- /lib/Sabberworm/CSS/RuleSet -->
@@ -109,6 +109,7 @@
    <install as="Horde/Css/Parser.php" name="lib/Horde/Css/Parser.php" />
    <install as="Sabberworm/CSS/Parser.php" name="lib/Sabberworm/CSS/Parser.php" />
    <install as="Sabberworm/CSS/Settings.php" name="lib/Sabberworm/CSS/Settings.php" />
+   <install as="Sabberworm/CSS/CSSList/AtRule.php" name="lib/Sabberworm/CSS/CSSList/AtRule.php" />
    <install as="Sabberworm/CSS/CSSList/CSSBlockList.php" name="lib/Sabberworm/CSS/CSSList/CSSBlockList.php" />
    <install as="Sabberworm/CSS/CSSList/CSSList.php" name="lib/Sabberworm/CSS/CSSList/CSSList.php" />
    <install as="Sabberworm/CSS/CSSList/Document.php" name="lib/Sabberworm/CSS/CSSList/Document.php" />
@@ -120,7 +121,6 @@
    <install as="Sabberworm/CSS/Property/Import.php" name="lib/Sabberworm/CSS/Property/Import.php" />
    <install as="Sabberworm/CSS/Property/Selector.php" name="lib/Sabberworm/CSS/Property/Selector.php" />
    <install as="Sabberworm/CSS/Rule/Rule.php" name="lib/Sabberworm/CSS/Rule/Rule.php" />
-   <install as="Sabberworm/CSS/RuleSet/AtRule.php" name="lib/Sabberworm/CSS/RuleSet/AtRule.php" />
    <install as="Sabberworm/CSS/RuleSet/DeclarationBlock.php" name="lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" />
    <install as="Sabberworm/CSS/RuleSet/RuleSet.php" name="lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
    <install as="Sabberworm/CSS/Value/Color.php" name="lib/Sabberworm/CSS/Value/Color.php" />
