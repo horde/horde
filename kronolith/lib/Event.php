@@ -1738,6 +1738,25 @@ abstract class Kronolith_Event
             }
         }
 
+        // EAS 14
+        if ($options['protocolversion'] > Horde_ActiveSync::VERSION_TWELVEONE) {
+            // We don't track the actual responses we sent to other's invitations.
+            // Set this based on the status flag.
+            switch ($this->status) {
+            case Kronolith::STATUS_TENTATIVE;
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_TENTATIVE;
+                break;
+            case Kronolith::STATUS_UNKNOWN:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_NORESPONSE;
+                break;
+            case Kronolith::STATUS_CONFIRMED:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_ACCEPTED;
+                break;
+            default:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_NONE;
+            }
+        }
+
         return $message;
     }
 
