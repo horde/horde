@@ -33,6 +33,13 @@ class Horde_Core_ActiveSync_Connector
     private $_logger;
 
     /**
+     * Cache the GAL to avoid hitting the contacts API multiple times.
+     *
+     * @var string
+     */
+    protected $_gal;
+
+    /**
      * Const'r
      *
      * @param array $params  Configuration parameters. Requires:
@@ -365,7 +372,10 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_getGal()
     {
-        return $this->_registry->contacts->getGalUid();
+        if (empty($this->_gal)) {
+            $this->_gal = $this->_registry->contacts->getGalUid();
+        }
+        return $this->_gal;
     }
 
     /**
