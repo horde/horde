@@ -457,7 +457,14 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _processDomDocument($doc)
     {
-        $css = new Horde_Css_Parser(implode("\n", $this->_imptmp['style']));
+        try {
+            $css = new Horde_Css_Parser(implode("\n", $this->_imptmp['style']));
+        } catch (Exception $e) {
+            /* If your CSS sucks and we can't parse it, tough cookies.
+             * We are just going to ignore, so your message will probably
+             * look lame. */
+            return;
+        }
         $blocked = clone $css;
 
         /* Go through and remove questionable rules from styles first. */
