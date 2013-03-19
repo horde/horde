@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Horde_Css_Parser</name>
+ <channel>pear.horde.org</channel>
+ <summary>Horde CSS Parser</summary>
+ <description>This package provides access to the Sabberworm CSS Parser from within the Horde framework.</description>
+ <lead>
+  <name>Michael Slusarz</name>
+  <user>slusarz</user>
+  <email>slusarz@horde.org</email>
+  <active>yes</active>
+ </lead>
+ <date>2013-03-18</date>
+ <version>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+ <notes>
+* First release for Horde 5.
+ </notes>
+ <contents>
+  <dir baseinstalldir="/" name="/">
+   <dir name="doc">
+    <dir name="Horde">
+     <dir name="Css">
+      <dir name="Parser">
+       <file name="COPYING" role="doc" />
+       <file name="EXPAT_LICENSE" role="doc" />
+      </dir> <!-- /doc/Horde/Css/Parser -->
+     </dir> <!-- /doc/Horde/Css -->
+    </dir> <!-- /doc/Horde -->
+   </dir> <!-- /doc -->
+   <dir name="lib">
+    <dir name="Horde">
+     <dir name="Css">
+      <file name="Parser.php" role="php" />
+     </dir> <!-- /lib/Horde/Css -->
+    </dir> <!-- /lib/Horde -->
+    <dir name="Sabberworm">
+     <dir name="CSS">
+      <dir name="CSSList">
+       <file name="CSSBlockList.php" role="php" />
+       <file name="CSSList.php" role="php" />
+       <file name="Document.php" role="php" />
+       <file name="KeyFrame.php" role="php" />
+       <file name="MediaQuery.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/CSSList -->
+      <dir name="Parsing">
+       <file name="UnexpectedTokenException.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/Parsing -->
+      <dir name="Property">
+       <file name="Charset.php" role="php" />
+       <file name="CSSNamespace.php" role="php" />
+       <file name="Import.php" role="php" />
+       <file name="Selector.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/Property -->
+      <dir name="Rule">
+       <file name="Rule.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/Rule -->
+      <dir name="RuleSet">
+       <file name="AtRule.php" role="php" />
+       <file name="DeclarationBlock.php" role="php" />
+       <file name="RuleSet.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/RuleSet -->
+      <dir name="Value">
+       <file name="Color.php" role="php" />
+       <file name="CSSFunction.php" role="php" />
+       <file name="PrimitiveValue.php" role="php" />
+       <file name="RuleValueList.php" role="php" />
+       <file name="Size.php" role="php" />
+       <file name="String.php" role="php" />
+       <file name="URL.php" role="php" />
+       <file name="Value.php" role="php" />
+       <file name="ValueList.php" role="php" />
+      </dir> <!-- /lib/Sabberworm/CSS/Value -->
+      <file name="Parser.php" role="php" />
+      <file name="Settings.php" role="php" />
+     </dir> <!-- /lib/Sabberworm/CSS -->
+    </dir> <!-- /lib/Sabberworm -->
+   </dir> <!-- /lib -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.3.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.7.0</min>
+   </pearinstaller>
+   <package>
+    <name>Horde_Core</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="COPYING" name="doc/Horde/Css/Parser/COPYING" />
+   <install as="EXPAT_LICENSE" name="doc/Horde/Css/Parser/EXPAT_LICENSE" />
+   <install as="Horde/Css/Parser.php" name="lib/Horde/Css/Parser.php" />
+   <install as="Sabberworm/CSS/Parser.php" name="lib/Sabberworm/CSS/Parser.php" />
+   <install as="Sabberworm/CSS/Settings.php" name="lib/Sabberworm/CSS/Settings.php" />
+   <install as="Sabberworm/CSS/CSSList/CSSBlockList.php" name="lib/Sabberworm/CSS/CSSList/CSSBlockList.php" />
+   <install as="Sabberworm/CSS/CSSList/CSSList.php" name="lib/Sabberworm/CSS/CSSList/CSSList.php" />
+   <install as="Sabberworm/CSS/CSSList/Document.php" name="lib/Sabberworm/CSS/CSSList/Document.php" />
+   <install as="Sabberworm/CSS/CSSList/KeyFrame.php" name="lib/Sabberworm/CSS/CSSList/KeyFrame.php" />
+   <install as="Sabberworm/CSS/CSSList/MediaQuery.php" name="lib/Sabberworm/CSS/CSSList/MediaQuery.php" />
+   <install as="Sabberworm/CSS/Parsing/UnexpectedTokenException.php" name="lib/Sabberworm/CSS/Parsing/UnexpectedTokenException.php" />
+   <install as="Sabberworm/CSS/Property/Charset.php" name="lib/Sabberworm/CSS/Property/Charset.php" />
+   <install as="Sabberworm/CSS/Property/CSSNamespace.php" name="lib/Sabberworm/CSS/Property/CSSNamespace.php" />
+   <install as="Sabberworm/CSS/Property/Import.php" name="lib/Sabberworm/CSS/Property/Import.php" />
+   <install as="Sabberworm/CSS/Property/Selector.php" name="lib/Sabberworm/CSS/Property/Selector.php" />
+   <install as="Sabberworm/CSS/Rule/Rule.php" name="lib/Sabberworm/CSS/Rule/Rule.php" />
+   <install as="Sabberworm/CSS/RuleSet/AtRule.php" name="lib/Sabberworm/CSS/RuleSet/AtRule.php" />
+   <install as="Sabberworm/CSS/RuleSet/DeclarationBlock.php" name="lib/Sabberworm/CSS/RuleSet/DeclarationBlock.php" />
+   <install as="Sabberworm/CSS/RuleSet/RuleSet.php" name="lib/Sabberworm/CSS/RuleSet/RuleSet.php" />
+   <install as="Sabberworm/CSS/Value/Color.php" name="lib/Sabberworm/CSS/Value/Color.php" />
+   <install as="Sabberworm/CSS/Value/CSSFunction.php" name="lib/Sabberworm/CSS/Value/CSSFunction.php" />
+   <install as="Sabberworm/CSS/Value/PrimitiveValue.php" name="lib/Sabberworm/CSS/Value/PrimitiveValue.php" />
+   <install as="Sabberworm/CSS/Value/RuleValueList.php" name="lib/Sabberworm/CSS/Value/RuleValueList.php" />
+   <install as="Sabberworm/CSS/Value/Size.php" name="lib/Sabberworm/CSS/Value/Size.php" />
+   <install as="Sabberworm/CSS/Value/String.php" name="lib/Sabberworm/CSS/Value/String.php" />
+   <install as="Sabberworm/CSS/Value/URL.php" name="lib/Sabberworm/CSS/Value/URL.php" />
+   <install as="Sabberworm/CSS/Value/Value.php" name="lib/Sabberworm/CSS/Value/Value.php" />
+   <install as="Sabberworm/CSS/Value/ValueList.php" name="lib/Sabberworm/CSS/Value/ValueList.php" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-03-18</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* First release for Horde 5.
+   </notes>
+  </release>
+ </changelog>
+</package>

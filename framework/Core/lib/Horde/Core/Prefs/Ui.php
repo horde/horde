@@ -418,6 +418,8 @@ class Horde_Core_Prefs_Ui
     /**
      * Generate the UI for the preferences interface, either for a
      * specific group, or the group selection interface.
+     *
+     * @throws Horde_Exception
      */
     public function generateUI()
     {
@@ -574,6 +576,9 @@ class Horde_Core_Prefs_Ui
                 case 'rawhtml':
                     $t->set('html', $prefs->getValue($pref));
                     break;
+
+                default:
+                    throw new Horde_Exception(sprintf('Missing or invalid type option for the %s preference.', $pref));
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');

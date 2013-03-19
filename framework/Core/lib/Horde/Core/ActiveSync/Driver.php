@@ -189,6 +189,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function clearAuthentication()
     {
         $this->_connector->clearAuth();
+        // @todo H5 remove is_callable check.
+        if (!empty($this->_imap) && is_callable(array($this->_imap, 'close'))) {
+            $this->_imap->close();
+        }
         $this->_logger->info(sprintf(
             "[%s] User %s logged off",
             $this->_pid,

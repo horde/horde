@@ -34,6 +34,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Fix printing quoted text when viewing a list message.
+* [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
 * [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
 * [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
@@ -1103,6 +1105,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Css_Parser</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Date</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1305,13 +1314,6 @@
    </extension>
   </required>
   <optional>
-   <package>
-    <name>Horde_Text_Filter_Csstidy</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
    <package>
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
@@ -2944,6 +2946,8 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix printing quoted text when viewing a list message.
+* [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
 * [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
 * [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
