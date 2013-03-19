@@ -338,6 +338,8 @@ class Horde_ActiveSync_SyncCache
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
             $this->_data['collections'][$id] = $cache_collection;
         }
+        $this->_logger->debug(sprintf(
+            '[%s] SyncCache collections refreshed.', getmypid()));
     }
 
     /**
