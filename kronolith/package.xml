@@ -22,11 +22,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-19</date>
+ <date>2013-02-20</date>
  <time>00:20:27</time>
  <version>
-  <release>4.1.0</release>
-  <api>4.1.0</api>
+  <release>4.0.5</release>
+  <api>4.0.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,7 +34,10 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
+* [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
+* [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
+* [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
+* [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -2089,38 +2092,6 @@
 * [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
 * [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
 * [mjr] Fix deletion of resource events after deleting resource (Bug #12034).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>4.0.4</release>
-    <api>4.0.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-02-12</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
-   <notes>
-* [jan] Update alarms, resources, and tags when deleting Kolab events (Bug #11988).
-* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
-* [jan] Fix some issues with workweek views if first day of week is Sunday (Bug #11973).
-* [jan] Fix adding holiday calendars if not using English locale (Bug #11961).
-* [jan] More robust date parsing during event importing (Bug #11916).
-* [jan] Always export year numbers with four digits to CSV (Request #11917).
-* [jan] Fix JavaScript error if Nag is not installed.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>4.1.0</release>
-    <api>4.1.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-03-19</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
-   <notes>
-* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
    </notes>
   </release>
  </changelog>

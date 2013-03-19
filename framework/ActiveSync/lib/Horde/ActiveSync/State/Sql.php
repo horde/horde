@@ -415,7 +415,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $type, array $change, $origin = Horde_ActiveSync::CHANGE_ORIGIN_NA,
         $user = null, $clientid = '')
     {
-        $this->_logger->debug('Updating state during ' . $type);
+        $this->_logger->debug(sprintf('[%s] Updating state during %s', $this->_procid, $type));
         if ($origin == Horde_ActiveSync::CHANGE_ORIGIN_PIM) {
             if ($this->_type == Horde_ActiveSync::REQUEST_TYPE_FOLDERSYNC) {
                 foreach ($this->_folder as $fi => $state) {
@@ -560,7 +560,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     {
         $this->_logger->debug(sprintf(
             '[%s] loadDeviceInfo: %s',
-            $devId,
+            $this->_procid,
             $user));
 
         // See if we already have this device, for this user loaded
@@ -622,7 +622,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         // Make sure we have the device entry
         try {
             if (!$this->deviceExists($data->id)) {
-                $this->_logger->debug('[' . $data->id . '] Device entry does not exist, creating it.');
+                $this->_logger->debug(sprintf('[%s] Device entry does not exist for %s creating it.', $this->_procid, $data->id));
                 $query = 'INSERT INTO ' . $this->_syncDeviceTable
                     . ' (device_type, device_agent, device_rwstatus, device_id, device_supported)'
                     . ' VALUES(?, ?, ?, ?, ?)';
@@ -646,7 +646,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             $query = 'SELECT COUNT(*) FROM ' . $this->_syncUsersTable . ' WHERE device_id = ? AND device_user = ?';
             $cnt = $this->_db->selectValue($query, array($data->id, $data->user));
             if (!$cnt) {
-                $this->_logger->debug('[' . $data->id . '] Device entry does not exist for user ' . $data->user . ', creating it.');
+                $this->_logger->debug(sprintf('[%s] Device entry does not exist for device %s and user %s - creating it.', $this->_procid, $data->id, $data->user));
                 $query = 'INSERT INTO ' . $this->_syncUsersTable
                     . ' (device_id, device_user, device_policykey)'
                     . ' VALUES(?, ?, ?)';
@@ -1191,8 +1191,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
         $cache = serialize($cache);
         if ($have) {
             $this->_logger->debug(
-                sprintf('Replacing SYNC_CACHE entry for user %s and device %s: %s',
-                    $user, $devid, $cache));
+                sprintf('[%s] Replacing SYNC_CACHE entry for user %s and device %s: %s',
+                    $this->_procid, $user, $devid, $cache));
             $sql = 'UPDATE ' . $this->_syncCacheTable
                 . ' SET cache_data = ? WHERE cache_devid = ? AND cache_user = ?';
             try {
@@ -1206,8 +1206,8 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         } else {
             $this->_logger->debug(
-                sprintf('Adding new SYNC_CACHE entry for user %s and device %s: %s',
-                    $user, $devid, $cache));
+                sprintf('[%s] Adding new SYNC_CACHE entry for user %s and device %s: %s',
+                    $this->_procid, $user, $devid, $cache));
             $sql = 'INSERT INTO ' . $this->_syncCacheTable
                 . ' (cache_data, cache_devid, cache_user) VALUES (?, ?, ?)';
             try {
