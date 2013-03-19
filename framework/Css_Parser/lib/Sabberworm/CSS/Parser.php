@@ -353,7 +353,7 @@ class Parser {
         $this->consumeWhiteSpace();
         if (is_numeric($this->peek()) ||
             (($this->comes('-') || $this->comes('.')) &&
-             ($peek = $this->peek(1, 1)) &&
+             (($peek = $this->peek(1, 1)) || true) &&
              (($peek == '.') || is_numeric($peek)))) {
             $oValue = $this->parseNumericValue();
         } else if ($this->comes('#') || $this->comes('rgb') || $this->comes('hsl')) {
