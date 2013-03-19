@@ -154,7 +154,6 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
         self::POOMCAL_ATTENDEES      => array (self::KEY_ATTRIBUTE => 'attendees', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attendee', self::KEY_VALUES => self::POOMCAL_ATTENDEE),
         self::POOMCAL_EXCEPTIONS     => array (self::KEY_ATTRIBUTE => 'exceptions', self::KEY_TYPE => 'Horde_ActiveSync_Message_Exception', self::KEY_VALUES => self::POOMCAL_EXCEPTION),
         self::POOMCAL_CATEGORIES     => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMCAL_CATEGORY),
-        //self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
     );
 
     /**
@@ -217,22 +216,18 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                 'airsyncbasebody' => false
             );
 
-            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                 $this->_mapping += array(
                     self::POOMCAL_DISALLOWNEWTIMEPROPOSAL => array(self::KEY_ATTRIBUTE => 'disallownewtimeproposal'),
                     self::POOMCAL_RESPONSEREQUESTED => array(self::KEY_ATTRIBUTE => 'responserequested'),
                     self::POOMCAL_APPOINTMENTREPLYTIME => array(self::KEY_ATTRIBUTE => 'appointmentreplytime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
                     self::POOMCAL_RESPONSETYPE => array(self::KEY_ATTRIBUTE => 'responsetype'),
-                    self::POOMCAL_CALENDARTYPE => array(self::KEY_ATTRIBUTE => 'calendartype'),
-                    self::POOMCAL_ISLEAPMONTH => array(self::KEY_ATTRIBUTE => 'isleapmonth')
                 );
                 $this->_properties += array(
                     'disallownewtimeproposal' => false,
                     'responserequested' => false,
                     'appointmentreplytime' => false,
                     'responsetype' => false,
-                    'calendartype' => false,
-                    'isleapmonth' => false
                 );
            }
         }

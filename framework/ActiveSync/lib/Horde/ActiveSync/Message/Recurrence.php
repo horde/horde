@@ -53,6 +53,19 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
     const TYPE_YEARLY      = 5;
     const TYPE_YEARLYNTH   = 6;
 
+    const CALENDAR_TYPE_DEFAULT                  = 0;
+    const CALENDAR_TYPE_GREGORIAN                = 1;
+    const CALENDAR_TYPE_GREGORIAN_US             = 2;
+    const CALENDAR_TYPE_JAPANESE                 = 3;
+    const CALENDAR_TYPE_TAIWAN                   = 4;
+    const CALENDAR_TYPE_KOREAN                   = 5;
+    const CALENDAR_TYPE_HIJRI                    = 6;
+    const CALENDAR_TYPE_THAI                     = 7;
+    const CALENDAR_TYPE_HEBREW                   = 8;
+    const CALENDAR_TYPE_GREGORIAN_FRENCH         = 9;
+    const CALENDAR_TYPE_GREGORIAN_ARABIC         = 10;
+    const CALENDAR_TYPE_GREGORIAN_TRANSLITERATED = 11;
+
     /**
      * Property mapping.
      *
@@ -84,5 +97,37 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
         'weekofmonth' => false,
         'monthofyear' => false,
     );
+
+    /**
+     * Const'r
+     *
+     * @param array $options  Configuration options for the message:
+     *   - logger: (Horde_Log_Logger)  A logger instance
+     *             DEFAULT: none (No logging).
+     *   - protocolversion: (float)  The version of EAS to support.
+     *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
+     *
+     * @return Horde_ActiveSync_Message_Base
+     */
+    public function __construct(array $options = array())
+    {
+        parent::__construct($options);
+
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $this->_mapping += array(
+                Horde_ActiveSync_Message_Appointment::POOMCAL_CALENDARTYPE => array(self::KEY_ATTRIBUTE => 'calendartype'),
+                Horde_ActiveSync_Message_Appointment::POOMCAL_ISLEAPMONTH => array(self::KEY_ATTRIBUTE => 'isleapmonth'));
+
+            $this->_properties += array(
+                'calendartype' => false,
+                'isleapmonth' => false);
+        }
+    }
+
+
+
+
+
+
 
 }
