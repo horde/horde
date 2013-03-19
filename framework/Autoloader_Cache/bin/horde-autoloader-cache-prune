@@ -17,7 +17,11 @@
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author Jan Schneider <jan@horde.org>
+ * @author    Jan Schneider <jan@horde.org>
+ * @category  Horde
+ * @copyright 2011-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Autoloader_Cache
  */
 
 require_once 'Horde/Autoloader/Cache.php';

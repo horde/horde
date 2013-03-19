@@ -172,6 +172,8 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     const NICKNAME              = 'POOMCONTACTS2:NickName';
     const MMS                   = 'POOMCONTACTS2:MMS';
 
+    public $categories = array();
+
     /**
      * Property mapping.
      *
@@ -261,7 +263,6 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
             'businessfaxnumber'     => false,
             'businessphonenumber'   => false,
             'carphonenumber'        => false,
-            'categories'            => array(),
             'children'              => array(),
             'companyname'           => false,
             'department'            => false,

@@ -1,16 +1,24 @@
 <?php
 /**
- * This class provides a null cache storage driver.
- *
  * Copyright 2006-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Duck <duck@obala.net>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package  Cache
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
+ */
+
+/**
+ * Null cache storage driver.
+ *
+ * @author    Duck <duck@obala.net>
+ * @category  Horde
+ * @copyright 2006-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Cache
  */
 class Horde_Cache_Storage_Null extends Horde_Cache_Storage_Base
 {

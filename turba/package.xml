@@ -1572,5 +1572,18 @@
 * [jan] Fix importing of LDIF data (Bug #11972).
    </notes>
   </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-20</date>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [mjr] Fix ActiveSync global address book searches when using LDAP as backend (Bug #12089).
+   </notes>
+  </release>
  </changelog>
 </package>

@@ -1,28 +1,30 @@
 <?php
 /**
- * The vmailmgr class attempts to change a user's password on a local vmailmgr
- * daemon
- *
  * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Marco Kaiser <bate@php.net>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Changes a password on a local vmailmgr daemon.
+ *
+ * @author    Marco Kaiser <bate@php.net>
+ * @category  Horde
+ * @copyright 2002-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Vmailmgr extends Passwd_Driver
 {
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         if (isset($this->_params['vmailinc']) &&
             is_readable($this->_params['vmailinc'])) {
@@ -31,10 +33,10 @@ class Passwd_Driver_Vmailmgr extends Passwd_Driver
             throw new Passwd_Exception('vmail.inc not found! (' . $this->_params['vmailinc'] . ')');
         }
 
-        list($username, $domain) = explode('@', $username);
-        $returnChange = vchpass($domain, $old_password, $username, $new_password);
+        list($user, $domain) = explode('@', $user);
+        $res = vchpass($domain, $oldpass, $user, $newpass);
 
-        if ($returnChange[0]) {
+        if ($res[0]) {
             throw new Passwd_Exception(_("Incorrect old password."));
         }
     }

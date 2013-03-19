@@ -5,68 +5,71 @@ msgid ""
 msgstr ""
 "Project-Id-Version: mnemo\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-15 14:40+0200\n"
-"PO-Revision-Date: 2012-12-11 15:35+0100\n"
-"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2013-02-25 12:59+0100\n"
+"Last-Translator: Edurne <edurne@uzei.com>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language: eu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Virtaal 0.7.1\n"
 "X-Poedit-Language: Basque\n"
 
-#: templates/memo/memo.inc:53
+#: templates/memo/memo.inc:51
 #, php-format
 msgid "%s characters"
 msgstr "%s karaktere"
 
-#: data.php:195
+#: data.php:159
 #, php-format
 msgid "%s file successfully imported"
 msgstr "%s fitxategi ondo inportatu dira"
 
-#: memo.php:248
+#: memo.php:95
+msgid "Access denied addings notes to this notepad."
+msgstr "Ohar-blok honetan oharrak gehitzeko sarbidea ukatu da."
+
+#: memo.php:260
 msgid "Access denied deleting note."
 msgstr "Oharra ezabatzeko sarbidea ukatu da."
 
-#: memo.php:183 memo.php:186
+#: memo.php:196 memo.php:199
 msgid "Access denied moving the note."
 msgstr "Oharra lekuz aldatzeko sarbidea ukatu da."
 
-#: memo.php:134
-#, php-format
-msgid "Access denied saving note to %s."
-msgstr "Oharra hemen gordetzeko sarbidea ukatu da: %s."
+#: memo.php:147
+msgid "Access denied saving note to this notepad."
+msgstr "Ohar-blok honetan oharra gordetzeko sarbidea ukatu da."
 
-#: lib/Block/Note.php:80
+#: lib/Block/Note.php:91
 #, php-format
 msgid "An error occurred displaying %s"
 msgstr "Errore bat gertatu da %s bistaratzean"
 
-#: lib/Block/Note.php:82
+#: lib/Block/Note.php:93
 msgid "An error occurred displaying the note"
 msgstr "Errore bat gertatu da oharra bistaratzean"
 
-#: config/prefs.php:64
+#: config/prefs.php:58
 msgid "Ascending"
 msgstr "Gorantz"
 
-#: data.php:27 templates/data/import.inc:11
+#: data.php:21 templates/data/import.inc:10
 msgid "CSV"
 msgstr "CSV"
 
-#: lib/Ajax/Imple/EditNote.php:45 lib/Form/DeleteNotepad.php:34
-#: lib/Form/DeleteNotepad.php:40
+#: lib/Form/DeleteNotepad.php:36 lib/Form/DeleteNotepad.php:43
+#: lib/Form/EditNotepad.php:78 lib/Form/EditNotepad.php:95
 msgid "Cancel"
 msgstr "Utzi"
 
-#: data.php:49 templates/view/memo.inc:24
+#: data.php:43 templates/view/memo.inc:24
 msgid "Category"
 msgstr "Kategoria"
 
-#: notepads/index.php:34 templates/notepad_list.php:29
+#: lib/Form/EditNotepad.php:64
 msgid "Change Permissions"
 msgstr "Aldatu baimenak"
 
@@ -78,11 +81,7 @@ msgstr "Aldatu oharrak ordenatzeko eta bistaratzeko hobespenak."
 msgid "Choose your default Notepad."
 msgstr "Aukeratu ohar-blok lehenetsia."
 
-#: lib/Ajax/Imple/EditNote.php:43
-msgid "Click to add text..."
-msgstr "Egin klik testua gehitzeko..."
-
-#: templates/list/header.inc:8
+#: templates/list/header.inc:7
 msgid "Close Search"
 msgstr "Itxi bilaketa"
 
@@ -94,7 +93,7 @@ msgstr "Sortu"
 msgid "Create Notepad"
 msgstr "Sortu ohar-bloka"
 
-#: templates/notepad_list.php:9
+#: lib/Application.php:109
 msgid "Create a new Notepad"
 msgstr "Sortu Ohar-blok berri bat"
 
@@ -102,11 +101,11 @@ msgstr "Sortu Ohar-blok berri bat"
 msgid "Created"
 msgstr "Sortua"
 
-#: templates/list/memo_headers.inc:40
+#: templates/list/memo_headers.inc:24
 msgid "Date"
 msgstr "Data"
 
-#: templates/memo/memo.inc:23 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:52
 msgid "Decrypt"
 msgstr "Desenkriptatu"
 
@@ -114,16 +113,16 @@ msgstr "Desenkriptatu"
 msgid "Default Notepad"
 msgstr "Ohar-blok lehenetsia"
 
-#: config/prefs.php:56
+#: config/prefs.php:50
 msgid "Default sorting criteria:"
 msgstr "Ordenatze-irizpide lehenetsia:"
 
-#: config/prefs.php:67
+#: config/prefs.php:61
 msgid "Default sorting direction:"
 msgstr "Ordenatze-noranzko lehenetsia:"
 
-#: lib/Form/DeleteNotepad.php:34 notepads/index.php:35
-#: templates/notepad_list.php:31 templates/view/memo.inc:15
+#: lib/Form/DeleteNotepad.php:35 lib/Form/EditNotepad.php:77
+#: lib/Form/EditNotepad.php:90 templates/memo/memo.inc:58
 msgid "Delete"
 msgstr "Ezabatu"
 
@@ -140,15 +139,11 @@ msgstr "Ezabatzeko berrespena"
 msgid "Delete button behaviour"
 msgstr "Ezabatu botoiaren portaera."
 
-#: templates/memo/memo.inc:11
-msgid "Delete this note"
-msgstr "Ezabatu ohar hau"
-
-#: config/prefs.php:65
+#: config/prefs.php:59
 msgid "Descending"
 msgstr "Beherantz"
 
-#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:30
+#: lib/Form/CreateNotepad.php:23 lib/Form/EditNotepad.php:53
 msgid "Description"
 msgstr "Azalpena"
 
@@ -156,44 +151,39 @@ msgstr "Azalpena"
 msgid "Display Preferences"
 msgstr "Bistaratzeko hobespenak"
 
-#: config/prefs.php:97
+#: config/prefs.php:99
 msgid "Do you want to confirm deleting entries?"
 msgstr "Sarrerak ezabatzea berretsi nahi duzu?"
-
-#: notepads/index.php:33 templates/notepad_list.php:27
-#: templates/view/memo.inc:12
-msgid "Edit"
-msgstr "Editatu"
 
 #: templates/list/memo_summaries.inc:5
 #, php-format
 msgid "Edit \"%s\""
 msgstr "Editatu \"%s\""
 
-#: lib/Form/EditNotepad.php:26
+#: lib/Form/EditNotepad.php:34
 #, php-format
 msgid "Edit %s"
 msgstr "Editatu %s"
 
-#: lib/Block/Summary.php:91 lib/Block/Summary.php:92
-#: templates/list/memo_headers.inc:30
+#: lib/Block/Summary.php:88 lib/Block/Summary.php:89
+#: templates/list/memo_headers.inc:14
 msgid "Edit Note"
 msgstr "Editatu oharra"
 
-#: templates/list/memo_headers.inc:48
+#: templates/list/memo_headers.inc:32
 msgid "Edit categories and colors"
 msgstr "Editatu kategoriak eta koloreak"
 
-#: memo.php:114 memo.php:146
+#: memo.php:126 memo.php:159
 #, php-format
 msgid "Edit: %s"
 msgstr "Editatu: %s"
 
-#: lib/Block/Summary.php:113 templates/list/memo_summaries.inc:15
+#: lib/Block/Summary.php:106 templates/list/memo_summaries.inc:15
 msgid "Empty Note"
 msgstr "Hustu oharra"
 
-#: lib/Driver.php:85
+#: lib/Driver.php:307
 msgid ""
 "Encryption support has not been configured, please contact your "
 "administrator."
@@ -201,11 +191,11 @@ msgstr ""
 "Enkriptatze-euskarria ez da konfiguratu. Jarri harremanetan "
 "administratzailearekin."
 
-#: templates/data/export.inc:16
+#: templates/data/export.inc:14
 msgid "Export"
 msgstr "Esportatu"
 
-#: templates/data/export.inc:2
+#: templates/data/export.inc:1
 msgid "Export Notes"
 msgstr "Esportatu oharrak"
 
@@ -218,7 +208,7 @@ msgstr "Hobespen orokorrak"
 msgid "Import Notes, Step %d"
 msgstr "Inportatu oharrak, %d. urratsa"
 
-#: data.php:201
+#: data.php:166
 msgid "Import/Export Notes"
 msgstr "Inportatu/esportatu oharrak"
 
@@ -230,56 +220,52 @@ msgstr "Hemen: "
 msgid "Last Modified"
 msgstr "Azken aldaketa"
 
-#: notepads/index.php:39 templates/notepad_list.php:2
-msgid "Manage Notepads"
-msgstr "Kudeatu ohar-blokak"
-
 #: lib/Application.php:56
 msgid "Maximum Number of Notes"
 msgstr "Oharren gehieneko kopurua"
 
-#: data.php:48
+#: data.php:42
 msgid "Memo Text"
 msgstr "Oharraren testua"
 
-#: config/prefs.php:54
+#: config/prefs.php:48
 msgid "Modification Date"
 msgstr "Aldatze-data"
 
-#: templates/list/header.inc:9
+#: templates/list/header.inc:8
 msgid "More Options..."
 msgstr "Aukera gehiago..."
 
-#: lib/Api.php:364
+#: lib/Api.php:367
 msgid "Multiple iCalendar components found; only one vNote is supported."
 msgstr ""
 "iCalendar osagai bat baino gehiago aurkitu dira; vNote bakarra onartzen da."
 
-#: templates/panel.inc:51
-msgid "My Notepads:"
-msgstr "Nire ohar-blokak:"
+#: lib/Application.php:102
+msgid "My Notepads"
+msgstr "Nire ohar-blokak"
 
 #: list.php:29
 msgid "My Notes"
 msgstr "Nire oharrak"
 
-#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:29
+#: lib/Form/CreateNotepad.php:22 lib/Form/EditNotepad.php:39
 msgid "Name"
 msgstr "Izena"
 
-#: lib/Application.php:128 memo.php:92 memo.php:138
+#: lib/Application.php:162 memo.php:103 memo.php:151
 msgid "New Note"
 msgstr "Ohar berria"
 
-#: templates/data/import.inc:34
+#: templates/data/import.inc:36
 msgid "Next"
 msgstr "Hurrengoa"
 
-#: lib/Api.php:208 lib/Api.php:357
+#: lib/Api.php:208 lib/Api.php:360
 msgid "No iCalendar data was found."
 msgstr "Ez da aurkitu iCalendar daturik."
 
-#: lib/Block/Note.php:71
+#: lib/Block/Note.php:82
 msgid "No note loaded"
 msgstr "Ez da kargatu oharrik"
 
@@ -291,59 +277,50 @@ msgstr "Ez dago bat datorren oharrik"
 msgid "No notes match the current criteria."
 msgstr "Ez dago uneko irizpideekin bat datorren oharrik."
 
-#: lib/Block/Summary.php:121
+#: lib/Block/Summary.php:114
 msgid "No notes to display"
 msgstr "Ez dago oharrik bistaratzeko"
 
-#: templates/list/memo_headers.inc:37
+#: templates/list/memo_headers.inc:21
 msgid "No_te"
 msgstr "O_harra"
 
-#: lib/Driver/Kolab.php:109 lib/Driver/Sql.php:80
+#: lib/Driver/Sql.php:103
 msgid "Not Found"
 msgstr "Ez da aurkitu"
 
-#: config/prefs.php:52
+#: config/prefs.php:46
 msgid "Note Category"
 msgstr "Oharraren kategoria"
 
-#: view.php:115
+#: view.php:118
 msgid "Note Details"
 msgstr "Oharraren xehetasunak"
 
-#: config/prefs.php:51
+#: config/prefs.php:45
 msgid "Note Text"
 msgstr "Oharraren testua"
 
-#: templates/memo/memo.inc:53
+#: templates/memo/memo.inc:51
 msgid "Note _Text"
 msgstr "Oha_rraren testua"
 
-#: memo.php:102 memo.php:143 note/pdf.php:52 view.php:52
+#: memo.php:114 memo.php:156 note/pdf.php:52 view.php:52
 msgid "Note not found."
 msgstr "Oharra ez da aurkitu."
 
-#: templates/memo/memo.inc:63
+#: templates/memo/memo.inc:64
 msgid "Note_pad:"
 msgstr "Ohar-b_loka:"
 
-#: config/prefs.php:53 templates/list/memo_headers.inc:33
-#: templates/notepad_list.php:17
+#: config/prefs.php:47 templates/list/memo_headers.inc:17
 msgid "Notepad"
 msgstr "Ohar-bloka"
-
-#: templates/notepad_list.php:14
-msgid "Notepad List"
-msgstr "Ohar-bloken zerrenda"
 
 #: lib/Notepads/Default.php:65
 #, php-format
 msgid "Notepad of %s"
 msgstr "%s(r)en ohar-bloka"
-
-#: templates/panel.inc:33 templates/panel.inc:34
-msgid "Notepads"
-msgstr "Ohar-blokak"
 
 #: lib/Notepads/Kolab.php:38
 msgid "Notes"
@@ -353,16 +330,11 @@ msgstr "Oharrak"
 msgid "Notes Summary"
 msgstr "Oharren laburpena"
 
-#: lib/Ajax/Imple/EditNote.php:46
-msgid "Ok"
-msgstr "Ados"
+#: lib/Form/EditNotepad.php:42
+msgid "Owner"
+msgstr "Jabea"
 
-#: lib/Api.php:73 lib/Api.php:124 lib/Api.php:156 lib/Api.php:187
-#: lib/Api.php:272 lib/Api.php:317 lib/Api.php:340
-msgid "Permission Denied"
-msgstr "Baimena ukatu da"
-
-#: lib/Form/DeleteNotepad.php:47
+#: lib/Form/DeleteNotepad.php:50
 msgid "Permission denied"
 msgstr "Baimena ukatu da"
 
@@ -379,8 +351,8 @@ msgstr ""
 msgid "Really delete this note?"
 msgstr "Ziur zaude ohar hau ezabatu nahi duzula?"
 
-#: lib/Form/EditNotepad.php:32 templates/memo/memo.inc:58
-#: templates/panel.inc:69
+#: lib/Form/EditNotepad.php:76 lib/Form/EditNotepad.php:85
+#: templates/memo/memo.inc:56
 msgid "Save"
 msgstr "Gorde"
 
@@ -388,34 +360,30 @@ msgstr "Gorde"
 msgid "Save as PDF"
 msgstr "Gorde PDF gisa"
 
-#: lib/Application.php:154 search.php:22 templates/list/header.inc:4
+#: lib/Application.php:186 search.php:19 templates/list/header.inc:3
 #: templates/search/search.inc:4 templates/search/search.inc:27
 msgid "Search"
 msgstr "Bilatu"
 
-#: list.php:52 notes/index.php:38
+#: list.php:52 notes/index.php:44
 msgid "Search Results"
 msgstr "Bilaketaren emaitzak"
 
-#: templates/panel.inc:39
-msgid "Search for Notepads:"
-msgstr "Bilatu ohar-blokak:"
-
-#: templates/data/export.inc:9
+#: templates/data/export.inc:7
 msgid "Select the export format:"
 msgstr "Hautatu esportatzeko formatua:"
 
-#: templates/data/import.inc:31
+#: templates/data/import.inc:30
 msgid "Select the file to import:"
 msgstr "Hautatu inportatzeko fitxategia:"
 
-#: templates/data/import.inc:9
+#: templates/data/import.inc:8
 msgid "Select the format of the source file:"
 msgstr "Hautatu iturburu-fitxategiaren formatua:"
 
-#: templates/panel.inc:60
-msgid "Shared Notepads:"
-msgstr "Ohar-blok partekatuak:"
+#: lib/Application.php:115
+msgid "Shared Notepads"
+msgstr "Ohar-blok partekatuak"
 
 #: config/prefs.php:37
 msgid "Should the Notepad be shown in its own column in the List view?"
@@ -433,37 +401,25 @@ msgstr "Erakutsi ohar-blokaren izena?"
 msgid "Show notes from these categories"
 msgstr "Erakutsi kategoria hauetako oharrak"
 
-#: lib/Block/Note.php:34
+#: lib/Block/Note.php:40
 msgid "Show this note"
 msgstr "Erakutsi ohar hau"
 
-#: templates/list/memo_headers.inc:44
-msgid "Sort by Category"
-msgstr "Ordenatu kategoriaren arabera"
-
-#: templates/list/memo_headers.inc:40
-msgid "Sort by Modification Date"
-msgstr "Ordenatu aldatze-dataren arabera"
-
-#: templates/list/memo_headers.inc:37
-msgid "Sort by Note Text"
-msgstr "Ordenatu ohar-testuaren arabera"
-
-#: templates/list/memo_headers.inc:33
-msgid "Sort by Notepad"
-msgstr "Ordenatu ohar-bloken arabera"
-
-#: memo.php:221
+#: memo.php:233
 #, php-format
 msgid "Successfully saved \"%s\"."
 msgstr "Behar bezala gorde da \"%s\"."
 
-#: data.php:190
+#: lib/Form/EditNotepad.php:50
+msgid "System"
+msgstr "Sistema"
+
+#: data.php:154
 #, php-format
 msgid "The %s file didn't contain any notes."
 msgstr "%s fitxategiak ez dauka oharrik."
 
-#: memo.php:243
+#: memo.php:255
 msgid "The note was deleted."
 msgstr "Oharra ezabatu da."
 
@@ -472,47 +428,47 @@ msgstr "Oharra ezabatu da."
 msgid "The notepad \"%s\" has been created."
 msgstr "\"%s\" ohar-bloka sortu da."
 
-#: notepads/delete.php:43
+#: notepads/delete.php:40
 #, php-format
 msgid "The notepad \"%s\" has been deleted."
 msgstr "\"%s\" ohar-bloka ezabatu da."
 
-#: notepads/edit.php:42
+#: notepads/edit.php:43
 #, php-format
 msgid "The notepad \"%s\" has been renamed to \"%s\"."
 msgstr "\"%s\" ohar-blokari izena aldatu zaio: \"%s\"."
 
-#: notepads/edit.php:44
+#: notepads/edit.php:45
 #, php-format
 msgid "The notepad \"%s\" has been saved."
 msgstr "\"%s\" ohar-bloka gorde da."
 
-#: memo.php:136
+#: memo.php:149
 msgid "The passwords don't match."
 msgstr "Pasahitzak ez datoz bat."
 
-#: data.php:193
+#: data.php:157
 #, php-format
 msgid "There was an error importing the data: %s"
 msgstr "Errore bat gertatu da datuak inportatzean: %s"
 
-#: lib/Api.php:202 lib/Api.php:351
+#: lib/Api.php:202 lib/Api.php:354
 msgid "There was an error importing the iCalendar data."
 msgstr "Errore bat gertatu da iCalendar datuak inportatzean."
 
-#: lib/Application.php:202
+#: lib/Application.php:233
 #, php-format
 msgid "There was an error removing notes for %s. Details have been logged."
 msgstr ""
 "Errore bat gertatu da %s(r)en oharrak kentzean. Xehetasunak erregistratu "
 "dira."
 
-#: memo.php:245
+#: memo.php:257
 #, php-format
 msgid "There was an error removing the note: %s"
 msgstr "Errore bat gertatu da oharra kentzean: %s"
 
-#: memo.php:219
+#: memo.php:231
 #, php-format
 msgid "There was an error saving the note: %s"
 msgstr "Errore bat gertatu da oharra gordetzean: %s"
@@ -522,19 +478,15 @@ msgstr "Errore bat gertatu da oharra gordetzean: %s"
 msgid "There was an error viewing this notepad: %s"
 msgstr "Errore bat gertatu da ohar-blok hau ikustean: %s"
 
-#: data.php:74
-msgid "There were no memos to export."
-msgstr "Ez dago oharrik esportatzeko."
-
-#: data.php:106
+#: data.php:70
 msgid "This file format is not supported."
 msgstr "Fitxategi-formatu hau ez da onartzen."
 
-#: memo.php:38 view.php:102
+#: memo.php:38 view.php:103
 msgid "This note cannot be decrypted:"
 msgstr "Ohar hau ezin da desenkriptatu:"
 
-#: memo.php:31 memo.php:41 view.php:97 view.php:105
+#: memo.php:31 memo.php:41 view.php:98 view.php:106
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
@@ -542,72 +494,66 @@ msgstr ""
 "Ohar hau enkriptatuta dago, eta ezin da desenkriptatu web-konexio segururik "
 "gabe"
 
-#: memo.php:28 view.php:94
+#: memo.php:28 view.php:95
 msgid "This note has been encrypted, please provide the password below"
 msgstr "Ohar hau enkriptatuta dago. Sartu pasahitza behean"
 
-#: lib/Api.php:266 lib/Driver/Kolab.php:292 lib/Driver/Sql.php:344
+#: lib/Api.php:269 lib/Driver/Kolab.php:291 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr "Ohar hau enkriptatuta dago."
 
-#: lib/Block/Summary.php:116 lib/Mnemo.php:310 lib/Mnemo.php:311
-#: lib/Mnemo.php:325 lib/Mnemo.php:326 templates/list/memo_summaries.inc:20
-#: templates/view/memo.inc:25
+#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr "Sailkatu gabea"
 
-#: lib/Api.php:235 lib/Api.php:291 lib/Api.php:374
+#: lib/Api.php:236 lib/Api.php:294 lib/Api.php:377
 #, php-format
 msgid "Unsupported Content-Type: %s"
 msgstr "Eduki mota hau ez da onartzen: %s"
 
-#: lib/Block/Note.php:16
+#: lib/Block/Note.php:22
 msgid "View note"
 msgstr "Ikusi oharra"
 
-#: templates/data/import.inc:16
+#: templates/data/import.inc:15
 msgid "Which Notepad should the notes be added to?"
 msgstr "Zein ohar-bloketan gehituko dira oharrak?"
 
-#: notepads/edit.php:31
-msgid "You are not allowed to change this notepad."
-msgstr "Ez daukazu baimenik ohar-blok hau aldatzeko."
-
-#: data.php:40 data.php:127 memo.php:75
+#: data.php:34 data.php:91 memo.php:75
 #, php-format
 msgid "You are not allowed to create more than %d notes."
 msgstr "Ez daukazu baimenik %d ohar baino gehiago sortzeko."
 
-#: notepads/delete.php:29
+#: notepads/delete.php:30
 msgid "You are not allowed to delete this notepad."
 msgstr "Ez daukazu baimenik ohar-blok hau ezabatzeko."
 
-#: lib/Ajax/Imple/EditNote.php:74
+#: notepads/edit.php:32
+msgid "You are not allowed to see this notepad."
+msgstr "Ez daukazu baimenik ohar-blok hau ikusteko."
+
+#: lib/Ajax/Imple/EditNote.php:27
 msgid "You do not have permission to edit this note."
 msgstr "Ez daukazu baimenik ohar hau editatzeko."
 
 #: note/pdf.php:46 view.php:46
-#, php-format
-msgid "You do not have permission to view the notepad %s."
-msgstr "Ez daukazu baimenik %s ohar-bloka ikusteko."
+msgid "You do not have permission to view this notepad."
+msgstr "Ez daukazu baimenik ohar-blok hau bistaratzeko."
 
-#: config/prefs.php:85
+#: config/prefs.php:80
 msgid "Your default notepad:"
 msgstr "Ohar-blok lehenetsia:"
-
-#: templates/panel.inc:46
-msgid "[Manage Notepads]"
-msgstr "[Kudeatu ohar-blokak]"
 
 #: templates/search/search.inc:21
 msgid "_Body"
 msgstr "_Gorputza"
 
-#: templates/list/memo_headers.inc:44
+#: templates/list/memo_headers.inc:28
 msgid "_Category"
 msgstr "_Kategoria"
 
-#: templates/memo/memo.inc:78
+#: templates/memo/memo.inc:79
 msgid "_Category:"
 msgstr "_Kategoria:"
 
@@ -619,7 +565,7 @@ msgstr "E_zabatu"
 msgid "_Edit"
 msgstr "E_ditatu"
 
-#: templates/memo/memo.inc:84
+#: templates/memo/memo.inc:85
 msgid "_Encrypt?"
 msgstr "_Enkriptatu?"
 
@@ -627,7 +573,7 @@ msgstr "_Enkriptatu?"
 msgid "_For: "
 msgstr "_Hau: "
 
-#: lib/Application.php:81
+#: lib/Application.php:75
 msgid "_Import/Export"
 msgstr "_Inportatu/esportatu"
 
@@ -635,23 +581,23 @@ msgstr "_Inportatu/esportatu"
 msgid "_List Notes"
 msgstr "Zerre_ndatu oharrak"
 
-#: lib/Application.php:73
+#: lib/Application.php:91
 msgid "_New Note"
 msgstr "_Ohar berria"
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:50
+#: templates/memo/memo.inc:19 templates/view/memo.inc:50
 msgid "_Password"
 msgstr "_Pasahitza"
 
-#: templates/memo/memo.inc:89
+#: templates/memo/memo.inc:90
 msgid "_Password:"
 msgstr "_Pasahitza:"
 
-#: templates/memo/memo.inc:93
+#: templates/memo/memo.inc:94
 msgid "_Repeat:"
 msgstr "E_rrepikatu:"
 
-#: lib/Application.php:77
+#: lib/Application.php:71
 msgid "_Search"
 msgstr "_Bilatu"
 
@@ -668,15 +614,15 @@ msgstr "- %s"
 msgid "by me"
 msgstr "nik"
 
-#: lib/Application.php:141
+#: lib/Application.php:174
 #, php-format
 msgid "in %s"
 msgstr "hemen: %s"
 
-#: data.php:85 templates/data/export.inc:4
+#: lib/Application.php:267 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr "notes.csv"
 
-#: data.php:28 templates/data/import.inc:12
+#: data.php:22 templates/data/import.inc:11
 msgid "vNote"
 msgstr "vNote"

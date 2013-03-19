@@ -504,7 +504,7 @@ if ($dimp_view) {
     }
     $page_output->topbar = $page_output->sidebar = false;
 }
-IMP::header(_("Search"));
+IMP::header(_("Search"), array('html_id' => 'search_page'));
 IMP::status();
 
 echo $view->render('search');

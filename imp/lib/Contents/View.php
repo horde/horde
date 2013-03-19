@@ -277,13 +277,20 @@ class IMP_Contents_View
                 }
             }
 
-            // Csstidy filter may not be available.
-            try {
-                $css = $page_output->css;
-                if ($style = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($css->loadCssFiles($css->getStylesheets()), 'csstidy', array('ob' => true, 'preserve_css' => false))->filterBySelector($selectors)) {
-                    $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+            $css = $page_output->css;
+            $css_parser = new Horde_Css_Parser($css->loadCssFiles($css->getStylesheets()));
+            $style = '';
+
+            foreach ($css_parser->doc->getContents() as $val) {
+                if (($val instanceof Sabberworm\CSS\RuleSet\DeclarationBlock) &&
+                    array_intersect($selectors, array_map('strval', $val->getSelectors()))) {
+                    $style .= implode('', array_map('strval', $val->getRules()));
                 }
-            } catch (Horde_Exception $e) {}
+            }
+
+            if (strlen($style)) {
+                $elt->setAttribute('style', ($elt->hasAttribute('style') ? rtrim($elt->getAttribute('style'), ' ;') . ';' : '') . $style);
+            }
         }
 
         $elt->removeAttribute('class');

@@ -70,6 +70,14 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected $_syncCache ;
 
     /**
+     * Internal flag to track if we have imported changes. Used to not allow
+     * a looping sync if we have any.
+     *
+     * @var boolean
+     */
+    protected $_importedChanges = false;
+
+    /**
      * Handle the sync request
      *
      * @return boolean
@@ -414,10 +422,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         // If this is 12.1, see if we want a looping SYNC.
         if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
-            !$this->_dataimported &&
+            !$this->_importedChanges &&
             ($this->_syncCache->wait !== false ||
              $this->_syncCache->hbinterval !== false ||
-             $shortsyncreq === true)) {
+             !empty($shortsyncreq))) {
 
             // Use the same settings as PING for things like sleep() timeout etc...
             $pingSettings = $this->_driver->getHeartbeatConfig();
@@ -520,7 +528,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                 }
 
-                if ($dataavailable) {
+                if (!empty($dataavailable)) {
                     $this->_logger->debug(sprintf(
                         '[%s] Found changes!',
                         $this->_procid)
@@ -559,16 +567,17 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $this->_logger->debug(sprintf(
                 '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',
+                $this->_procid,
                 $dataavailable,
-                $dataimported)
+                $this->_importedChanges)
             );
         }
 
         // See if we can do an empty response
         if ($this->_version == Horde_ActiveSync::VERSION_TWELVEONE &&
-            $this->_statusCode == SYNC_STATUS_SUCCESS &&
-            $dataavailable == false &&
-            $dataimported == false &&
+            $this->_statusCode == self::STATUS_SUCCESS &&
+            empty($dataavailable) &&
+            empty($this->_importedChanges) &&
             ($this->_syncCache->wait !== false ||
              $this->_syncCache->hbinterval !== false)) {
 
@@ -602,33 +611,36 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 return false;
             }
 
-            if (!empty($collection['getchanges']) ||
-                (!isset($collection['getchanges']) && $collection['synckey'] !== '0')) {
+            if ($statusCode == self::STATUS_SUCCESS &&
+                (!empty($collection['getchanges']) ||
+                 (!isset($collection['getchanges']) && $collection['synckey'] != '0'))) {
 
-                if ($statusCode == self::STATUS_SUCCESS) {
-                    $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
-                    $sync = $this->_getSyncObject();
-                    try {
-                        $sync->init($this->_stateDriver, $exporter, $collection);
-                    } catch (Horde_ActiveSync_Exception_StaleState $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] Force restting of state for %s: %s',
-                            $this->_procid,
-                            $collection['id'],
-                            $e->getMessage()));
-                        $this->_stateDriver->loadState(
-                            array(),
-                            null,
-                            Horde_ActiveSync::REQUEST_TYPE_SYNC,
-                            $collection['id']);
-                        $statusCode = self::STATUS_KEYMISM;
-                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] FOLDERSYNC required, collection gone.',
-                            $this->_procid));
-                        $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
-                    }
+                $exporter = new Horde_ActiveSync_Connector_Exporter($this->_encoder, $collection['class']);
+                $sync = $this->_getSyncObject();
+                try {
+                    $sync->init($this->_stateDriver, $exporter, $collection);
                     $changecount = $sync->getChangeCount();
+                } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] Force restting of state for %s: %s',
+                        $this->_procid,
+                        $collection['id'],
+                        $e->getMessage()));
+                    $this->_stateDriver->loadState(
+                        array(),
+                        null,
+                        Horde_ActiveSync::REQUEST_TYPE_SYNC,
+                        $collection['id']);
+                    $statusCode = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception_StateGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] SYNCKEY not found. Reset required.', $this->_procid));
+                        $statusCode = self::STATUS_KEYMISM;
+                } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                    $this->_logger->err(sprintf(
+                        '[%s] FOLDERSYNC required, collection gone.',
+                        $this->_procid));
+                    $statusCode = self::STATUS_FOLDERSYNC_REQUIRED;
                 }
             }
 
@@ -767,8 +779,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
 
                 // Send server changes to PIM
-                if (!empty($collection['getchanges']) ||
-                    (!isset($collection['getchanges']) && !empty($collection['synckey']))) {
+                if ($statusCode == self::STATUS_SUCCESS &&
+                    (!empty($collection['getchanges']) ||
+                     (!isset($collection['getchanges']) && !empty($collection['synckey'])))) {
 
                     if (!empty($collection['windowsize']) && !empty($changecount) && $changecount > $collection['windowsize']) {
                         $this->_encoder->startTag(Horde_ActiveSync::SYNC_MOREAVAILABLE, false, true);
@@ -850,12 +863,16 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     {
         while ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDER)) {
             // Defaults
-            $collection = array();
-            $collection['truncation'] = Horde_ActiveSync::TRUNCATION_ALL;
-            $collection['clientids'] = array();
-            $collection['fetchids'] = array();
-            $collection['windowsize'] = 100;
-            $collection['conflict'] = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+            // @TODO: Refactor this into a collection/syncparameters object.
+            $collection                   = array();
+            $collection['truncation']     = Horde_ActiveSync::TRUNCATION_ALL;
+            $collection['clientids']      = array();
+            $collection['fetchids']       = array();
+            $collection['windowsize']     = 100;
+            $collection['conflict']       = Horde_ActiveSync::CONFLICT_OVERWRITE_PIM;
+            $collection['bodyprefs']      = array();
+            $collection['mimesupport']    = Horde_ActiveSync::MIME_SUPPORT_NONE;
+            $collection['mimetruncation'] = Horde_ActiveSync::TRUNCATION_8;
 
             while (($folder_tag = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE) ? Horde_ActiveSync::SYNC_FOLDERTYPE :
                    ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCKEY) ? Horde_ActiveSync::SYNC_SYNCKEY :
@@ -972,10 +989,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($collection['fetchids']) {
                 $this->_fetchids = true;
             }
-            if (!$this->_syncCache->collectionExists($collection['id'])) {
-                $this->_logger->debug('Creating new sync_cache entry for: ' . $collection['id']);
-                $this->_syncCache->addCollection($collection);
-            } elseif (!empty($collection['windowsize'])) {
+            if ($this->_syncCache->collectionExists($collection['id']) && !empty($collection['windowsize'])) {
                 $this->_syncCache->updateWindowSize($collection['id'], $collection['windowsize']);
             }
         }

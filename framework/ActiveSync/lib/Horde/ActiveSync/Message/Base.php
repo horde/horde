@@ -547,12 +547,12 @@ class Horde_ActiveSync_Message_Base
     static private function hex2bin($data)
     {
         $len = strlen($data);
-        $newdata = "";
-
+        $newdata = '';
         for($i = 0;$i < $len;$i += 2)
         {
-            $newdata .= pack("C", hexdec(substr($data, $i, 2)));
+            $newdata .= pack('C', hexdec(substr($data, $i, 2)));
         }
+
         return $newdata;
     }
 

@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Form\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-10-19 10:22+0100\n"
+"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"PO-Revision-Date: 2013-01-16 10:23+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -28,38 +29,34 @@ msgid " (in %s days)"
 msgstr ""
 
 #: lib/Horde/Form/Type.php:2579
-#, fuzzy
 msgid " (today)"
-msgstr "Gaur"
+msgstr "(gaur)"
 
 #: lib/Horde/Form/Type.php:2581
-#, fuzzy
 msgid " (tomorrow)"
-msgstr "Bihar"
+msgstr "(bihar)"
 
 #: lib/Horde/Form/Type.php:2577
-#, fuzzy
 msgid " (yesterday)"
-msgstr "Atzo"
+msgstr "(atzo)"
 
 #: lib/Horde/Form/Type.php:1509
-#, fuzzy, php-format
+#, php-format
 msgid "\"%s\" is not a valid email address."
-msgstr "Helbide elektronikoa ez da baliozkoa."
+msgstr "\"%s\" helbide elektronikoa ez da baliozkoa."
 
 #: lib/Horde/Form/Type.php:2544
-#, fuzzy, php-format
+#, php-format
 msgid "%s is required"
-msgstr "Beharrezkoa"
+msgstr "%s beharrezkoa da"
 
 #: lib/Horde/Form/Type.php:2250 lib/Horde/Form/Type.php:2313
 msgid "-- select --"
 msgstr "-- hautatu --"
 
 #: lib/Horde/Form/Type.php:846 lib/Horde/Form/Type.php:889
-#, fuzzy
 msgid "A temporary directory"
-msgstr "Uneko direktorioa:"
+msgstr "Aldi baterako direktorioa"
 
 #: lib/Horde/Form/Type.php:776
 msgid "Address"
@@ -71,9 +68,8 @@ msgid "Address Link"
 msgstr "Helbide-liburua"
 
 #: lib/Horde/Form/Type.php:1679
-#, fuzzy
 msgid "Allow multiple addresses?"
-msgstr "Nire helbide elektronikoak:"
+msgstr "Helbide elektroniko anitzak baimendu?"
 
 #: lib/Horde/Form/Type.php:3524
 msgid "Assignment columns"
@@ -89,14 +85,12 @@ msgid "Character to split multiple addresses with"
 msgstr "Aurrebistan bistaratzeko karaktereak:"
 
 #: lib/Horde/Form/Type.php:3212
-#, fuzzy
 msgid "Colour selection"
-msgstr "Data-hautapena"
+msgstr "Kolore hautapena"
 
 #: lib/Horde/Form/Type.php:2134
-#, fuzzy
 msgid "Column titles"
-msgstr "Alarma-izenburua"
+msgstr "Zutabeen izenburuak"
 
 #: lib/Horde/Form/Type.php:665
 #, fuzzy
@@ -126,12 +120,10 @@ msgid "Date"
 msgstr "Data"
 
 #: lib/Horde/Form/Type.php:3172
-#, fuzzy
 msgid "Date and time selection"
-msgstr "Data eta ordua:"
+msgstr "Data eta orduaren hautapena"
 
 #: lib/Horde/Form/Type.php:3009
-#, fuzzy
 msgid "Date selection"
 msgstr "Data-hautapena"
 
@@ -335,9 +327,8 @@ msgid "Multiple selection, preserving keys"
 msgstr ""
 
 #: lib/Horde/Form/Type.php:213
-#, fuzzy
 msgid "Number"
-msgstr "BEZ zenbakia"
+msgstr "Zenbakia"
 
 #: lib/Horde/Form/Type.php:671
 #, fuzzy
@@ -378,9 +369,8 @@ msgid "Only one email address is allowed."
 msgstr "Helbide elektroniko ez da baliozkoa: %s."
 
 #: lib/Horde/Form/Type.php:842
-#, fuzzy
 msgid "PGP Key"
-msgstr "Inportatu PGP gakoa"
+msgstr "PGP gakoa"
 
 #: lib/Horde/Form/Type.php:2202
 msgid "Password"
@@ -457,11 +447,11 @@ msgstr ""
 msgid "Required Field"
 msgstr "Beharrezkoa"
 
-#: lib/Horde/Form.php:624
+#: lib/Horde/Form.php:618
 msgid "Required secret is invalid - potentially malicious request."
 msgstr ""
 
-#: lib/Horde/Form.php:360 lib/Horde/Form/Renderer.php:312
+#: lib/Horde/Form.php:354 lib/Horde/Form/Renderer.php:312
 msgid "Reset"
 msgstr "Berrezarri"
 
@@ -476,9 +466,8 @@ msgid "Right values"
 msgstr "Urdin argia"
 
 #: lib/Horde/Form/Type.php:887
-#, fuzzy
 msgid "S/MIME Key"
-msgstr "S/MIME"
+msgstr "S/MIME gakoa"
 
 #: lib/Horde/Form/Type.php:3684
 msgid "SQL statement for value lookups"
@@ -563,7 +552,7 @@ msgstr ""
 msgid "String list returning an array"
 msgstr ""
 
-#: lib/Horde/Form.php:353 lib/Horde/Form/Renderer.php:309
+#: lib/Horde/Form.php:347 lib/Horde/Form/Renderer.php:309
 msgid "Submit"
 msgstr "Bidali"
 
@@ -623,9 +612,8 @@ msgstr ""
 #: lib/Horde/Form/Type.php:3234 lib/Horde/Form/Type.php:3547
 #: lib/Horde/Form/Type.php:3707 lib/Horde/Form/Type.php:3790
 #: lib/Horde/Form/Variable.php:454 lib/Horde/Form/Variable.php:462
-#, fuzzy
 msgid "This field is required."
-msgstr "Karpeta hau irakurtzeko soilik da."
+msgstr "Eremu hau beharrezkoa da."
 
 #: lib/Horde/Form/Type.php:231
 #, fuzzy
@@ -655,7 +643,7 @@ msgid ""
 "'#1234af'."
 msgstr ""
 
-#: lib/Horde/Form.php:621
+#: lib/Horde/Form.php:615
 #, fuzzy
 msgid "This form has already been processed."
 msgstr "Alarma gorde da."
@@ -681,9 +669,8 @@ msgstr ""
 #: lib/Horde/Form/Type.php:2428 lib/Horde/Form/Type.php:2472
 #: lib/Horde/Form/Type.php:2521 lib/Horde/Form/Type.php:3332
 #: lib/Horde/Form/Type/tableset.php:53
-#, fuzzy
 msgid "Values"
-msgstr "Balioa"
+msgstr "Balioak"
 
 #: lib/Horde/Form/Type.php:2295 lib/Horde/Form/Type.php:2371
 msgid "Values to select from"

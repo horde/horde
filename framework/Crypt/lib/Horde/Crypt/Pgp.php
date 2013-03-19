@@ -174,13 +174,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Generates a personal Public/Private keypair combination.
      *
-     * @param string $realname    The name to use for the key.
-     * @param string $email       The email to use for the key.
-     * @param string $passphrase  The passphrase to use for the key.
-     * @param string $comment     The comment to use for the key.
-     * @param integer $keylength  The keylength to use for the key.
-     * @param integer $expire     The expiration date (UNIX timestamp). No
-     *                            expiration if empty (since 1.1.0).
+     * @param string $realname     The name to use for the key.
+     * @param string $email        The email to use for the key.
+     * @param string $passphrase   The passphrase to use for the key.
+     * @param string $comment      The comment to use for the key.
+     * @param integer $keylength   The keylength to use for the key.
+     * @param integer $expire      The expiration date (UNIX timestamp). No
+     *                             expiration if empty.
+     * @param string $key_type     Key type (since 2.2.0).
+     * @param string $subkey_type  Subkey type (since 2.2.0).
      *
      * @return array  An array consisting of:
      * <pre>
@@ -192,7 +194,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
-                                $keylength = 1024, $expire = null)
+                                $keylength = 1024, $expire = null,
+                                $key_type = 'RSA', $subkey_type = 'RSA')
     {
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
@@ -207,14 +210,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $input = array(
             '%pubring ' . $pub_file,
             '%secring ' . $secret_file,
-            'Key-Type: DSA',
-            'Key-Length: 1024',
-            'Subkey-Type: ELG-E',
+            'Key-Type: ' . $key_type,
+            'Key-Length: ' . $keylength,
+            'Subkey-Type: ' . $subkey_type,
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
             'Name-Email: ' . $email,
             'Expire-Date: ' . $expire,
-            'Passphrase: ' . $passphrase
+            'Passphrase: ' . $passphrase,
+            'Preferences: AES256 AES192 AES CAST5 3DES SHA256 SHA512 SHA384 SHA224 SHA1 ZLIB BZIP2 ZIP Uncompressed'
         );
         if (!empty($comment)) {
             $input[] = 'Name-Comment: ' . $comment;

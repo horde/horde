@@ -43,7 +43,7 @@ class Horde_Compress_Fast_Lzf extends Horde_Compress_Fast_Base
     public function decompress($text)
     {
         return strlen($text)
-            ? lzf_decompress($text)
+            ? @lzf_decompress($text)
             : '';
     }
 

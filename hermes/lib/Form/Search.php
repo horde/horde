@@ -151,7 +151,7 @@ class Hermes_Form_Search extends Horde_Form
         }
         $this->getInfo($vars, $info);
         $criteria = array();
-        if ($registry->isAdmin(array('permission' => 'hermes:review'))) {
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:review'))) {
             if (!empty($info['employees'])) {
                 $auth = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Auth')->create();
                 if (!$auth->hasCapability('list')) {

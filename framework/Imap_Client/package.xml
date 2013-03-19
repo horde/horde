@@ -10,11 +10,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-04</date>
- <time>21:55:21</time>
+ <date>2013-03-08</date>
+ <time>14:52:14</time>
  <version>
-  <release>2.7.2</release>
-  <api>2.7.0</api>
+  <release>2.8.0</release>
+  <api>2.8.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,9 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Add properties to Sync object to allow retrieval of previous sync state status.
+* [mms] Only do UNCHANGEDSINCE check when storing flags if the user explicitly passes the &apos;unchangedsince&apos; parameter.
+* [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1555,10 +1557,26 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-04</date>
+   <date>2013-03-08</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Always return UID information for FETCH queries if cache is active, so we ensure that mappings are updated and any cacheable data can be cached.
+* [mms] Don&apos;t cache FETCH data if it does not contain UID information (Bug #12097).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.0</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Add properties to Sync object to allow retrieval of previous sync state status.
+* [mms] Only do UNCHANGEDSINCE check when storing flags if the user explicitly passes the &apos;unchangedsince&apos; parameter.
+* [mms] Add the &apos;nocache&apos; option to Horde_Imap_Client_Base#fetch().
    </notes>
   </release>
  </changelog>

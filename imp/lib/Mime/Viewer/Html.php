@@ -453,48 +453,17 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _processDomDocument($doc)
     {
-        /* Sanitize and optimize style tags. */
-        try {
-            // Csstidy may not be available.
-            $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
-                'ob' => true,
-                'preserve_css' => false
-            ));
-        } catch (Horde_Exception $e) {
-            return;
-        }
+        $css = new Horde_Css_Parser(implode("\n", $this->_imptmp['style']));
+        $blocked = clone $css;
 
-        $blocked = array();
-        foreach ($style->import as $val) {
-            $blocked[] = '@import "' . $val . '";';
-        }
-        $style->import = array();
+        /* Go through and remove questionable rules from styles first. */
+        $css_text = $this->_parseCss($css, false);
 
-        $style_blocked = clone $style;
-        $was_blocked = false;
+        /* Now go through blocked object and do the opposite: only keep the
+         * questionable rules. */
+        $blocked_text = $this->_parseCss($blocked, true);
 
-        foreach ($style->css as $key => $val) {
-            foreach ($val as $key2 => $val2) {
-                foreach ($val2 as $key3 => $val3) {
-                    foreach ($val3['p'] as $val4) {
-                        if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                            $was_blocked = true;
-                            unset($style->css[$key][$key2][$key3]);
-                            break 2;
-                        }
-                    }
-                    unset($style_blocked->css[$key][$key2][$key3]);
-                }
-            }
-        }
-
-        $css_text = $style->print->plain();
-
-        if ($was_blocked) {
-            $blocked[] = $style_blocked->print->plain();
-        }
-
-        if ($css_text || !empty($blocked)) {
+        if (strlen($css_text) || strlen($blocked_text)) {
             /* Gets the HEAD element or creates one if it doesn't exist. */
             $head = $doc->getElementsByTagName('head');
             if ($head->length) {
@@ -515,10 +484,51 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * output - then we simply need to change the type attribute to
          * text/css, and the browser should load the definitions on-demand. */
         if (!empty($blocked)) {
-            $block_elt = $doc->createElement('style', implode('', $blocked));
+            $block_elt = $doc->createElement('style', $blocked_text);
             $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
             $headelt->appendChild($block_elt);
         }
+    }
+
+    /**
+     */
+    protected function _parseCss($css, $blocked)
+    {
+        foreach ($css->doc->getContents() as $val) {
+            if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
+                foreach ($val->getRules() as $val2) {
+                    $item = $val2->getValue();
+
+                    if ($item instanceof Sabberworm\CSS\Value\URL) {
+                        if (!$blocked) {
+                            $val->removeRule($val2);
+                        }
+                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
+                        $components = $item->getListComponents();
+                        foreach ($components as $key3 => $val3) {
+                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
+                                if (!$blocked) {
+                                    unset($components[$key3]);
+                                }
+                            } elseif ($blocked) {
+                                unset($components[$key3]);
+                            }
+                        }
+                        $item->setListComponents($components);
+                    } elseif ($blocked) {
+                        $val->removeRule($val2);
+                    }
+                }
+            } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
+                if (!$blocked) {
+                    $css->doc->remove($val);
+                }
+            } elseif ($blocked) {
+                $css->doc->remove($val);
+            }
+        }
+
+        return $css->compress();
     }
 
     /**

@@ -380,7 +380,7 @@ abstract class Mnemo_Driver
 
         $vnote->setAttribute('UID', $memo['uid']);
         $vnote->setAttribute('BODY', $memo['body']);
-        $vnote->setAttribute('SUMMARY', $this->getMemoDescription($memo['body']));
+        $vnote->setAttribute('SUMMARY', $memo['desc']);
 
         if (!empty($memo['category'])) {
             $vnote->setAttribute('CATEGORIES', $memo['category']);

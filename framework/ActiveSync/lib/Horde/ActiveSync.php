@@ -528,7 +528,7 @@ class Horde_ActiveSync
      * handler.
      *
      * @param string $cmd    The command we are requesting.
-     * @param string $devId  The device id making the request.
+     * @param string $devId  The device id making the request. @deprecated
      *
      * @return string|boolean  false if failed, true if succeeded and response
      *                         content is wbxml, otherwise the
@@ -579,13 +579,16 @@ class Horde_ActiveSync
         }
 
         // Device id is REQUIRED
-        if (is_null($devId)) {
+        if (empty($devId)) {
             if ($cmd == 'Options') {
                 $this->_doOptionsRequest();
                 return true;
             }
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
+
+        // Normalize Device Id.
+        $devId = strtoupper($devId);
 
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
