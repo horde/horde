@@ -331,7 +331,7 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Obtain the Maillog for a given message.
      *
-     * @param string $mid  The message id to obtain the log for.
+     * @param string $mid  The Message-ID to obtain the log for.
      *
      * @return Horde_History_Log  The log object.
      */
@@ -345,7 +345,7 @@ class IMP_Api extends Horde_Registry_Api
      * Log an entry in the Maillog.
      *
      * @param string $action  The action to log.
-     * @param string $mid     The message id.
+     * @param string $mid     The Message-ID.
      * @param string $data    Additional data.
      */
     public function logMaillog($action, $mid, $data = null)
@@ -361,7 +361,7 @@ class IMP_Api extends Horde_Registry_Api
      * @param integer $ts  The timestamp to start searching from. Only entries
      *                     after this timestamp will be returned.
      *
-     * @return array
+     * @return array  An array of Message-IDs that have been changed since $ts.
      */
     public function getMaillogChanges($ts)
     {

@@ -289,7 +289,7 @@ class IMP_Maillog
      *
      * @param integer $ts  Timestamp.
      *
-     * @return array
+     * @return array  An array of changes, keyed by the history guid.
      */
     public function getChanges($ts)
     {
