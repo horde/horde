@@ -187,7 +187,8 @@ implements Horde_Kolab_Storage_Data_Query_History
         } else {
             $last = array('ts' => 0);
             foreach ($log as $entry) {
-                if ($entry['ts'] > $last['ts']) {
+                $action = $entry['action'];
+                if ($entry['ts'] > $last['ts'] && ($action == 'add' || $action == 'modify' || $action == 'delete')) {
                     $last = $entry;
                 }
             }
