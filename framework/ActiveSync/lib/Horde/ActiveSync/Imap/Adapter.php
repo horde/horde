@@ -202,6 +202,10 @@ class Horde_ActiveSync_Imap_Adapter
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
      *
+     *  - timestamp: (integer) Include changes to reply/forward state since this
+     *                         timestamp. If empty, reply/forward state will not
+     *                         be checked.
+     *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
      *
@@ -329,6 +333,26 @@ class Horde_ActiveSync_Imap_Adapter
             }
             $folder->setChanges($search_ret['match']->ids, $flags);
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
+        }
+
+        // Poll for Maillog changes if desired.
+        // @TODO Remove BC is_callable check in H6. While this code would only
+        // be reached if we set EAS 14+ support and THAT is only available in
+        // Horde 5.1 (where the getMaillogChanges method was added), it doesn't
+        // hurt to protect against this here.
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEEN &&
+            !empty($options['timestamp']) && is_callable(array($this->_imap, 'getMaillogChanges'))) {
+
+            $changes = $this->_imap->getMaillogChanges($options['timestamp']);
+            $s_changes = array();
+            foreach ($changes as $mid) {
+                $search_q = new Horde_Imap_Client_Search_Query();
+                $search_q->headerText('Message-ID', $mid);
+                $search_q->ids(new Horde_Imap_Client_Ids($folder->messages()));
+                $results = $imap->search($mbox, $search_q);
+                $s_changes[] = array_pop($results[Horde_Imap_Client::SEARCH_RESULTS_MATCH]->ids);
+            }
+            $folder->setChanges($s_changes);
         }
 
         $folder->setStatus($status);
@@ -1097,6 +1121,31 @@ class Horde_ActiveSync_Imap_Adapter
                 : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
             $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
             $eas_message->flag = $poommail_flag;
+        }
+
+        // EAS 14+
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && is_callable($this->_imap, 'getMaillog')) {
+            $log = $this->_imap->getMaillog($imap_message->getHeaders()->getValue('Message-ID'));
+            foreach ($log as $entry) {
+                if (empty($last) || $last['ts'] < $entry['ts']) {
+                    $last = $entry;
+                }
+            }
+            if (!empty($entry)) {
+                switch ($entry['action']) {
+                case 'reply':
+                case 'reply_list':
+                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                    break;
+                case 'reply_all':
+                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
+                    break;
+                case 'forward':
+                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                }
+                $time = new Horde_Date($entry['ts']);
+                $eas_message->lastverbexecutiontime = $time;
+            }
         }
 
         return $eas_message;

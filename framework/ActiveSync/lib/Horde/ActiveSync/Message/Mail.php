@@ -149,9 +149,15 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const INTERNET_CPID_UTF8         = 65001;
 
     /* Importance */
-    const IMPORTANCE_LOW             = 0;
-    const IMPORTANCE_NORM            = 1;
-    const IMPORTANCE_HIGH            = 2;
+    const IMPORTANCE_LOW     = 0;
+    const IMPORTANCE_NORM    = 1;
+    const IMPORTANCE_HIGH    = 2;
+
+    /* Verbs */
+    const VERB_NONE          = 0;
+    const VERB_REPLY_SENDER  = 1;
+    const VERB_REPLY_ALL     = 2;
+    const VERB_FORWARD       = 3;
 
     /**
      * Property mappings
@@ -254,7 +260,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'flag'                      => false,
             );
 
-            if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                 $this->_mapping += array(
                     self::POOMMAIL2_UMCALLERID            => array(self::KEY_ATTRIBUTE => 'umcallerid'),
                     self::POOMMAIL2_UMUSERNOTES           => array(self::KEY_ATTRIBUTE => 'umusernotes'),
@@ -263,7 +269,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                     self::POOMMAIL2_CONVERSATIONID        => array(self::KEY_ATTRIBUTE => 'conversationid'),
                     self::POOMMAIL2_CONVERSATIONINDEX     => array(self::KEY_ATTRIBUTE => 'conversationindex'),
                     self::POOMMAIL2_LASTVERBEXECUTED      => array(self::KEY_ATTRIBUTE => 'lastverbexecuted'),
-                    self::POOMMAIL2_LASTVERBEXECUTIONTIME => array(self::KEY_ATTRIBUTE => 'lastverbexecutiontime'),
+                    self::POOMMAIL2_LASTVERBEXECUTIONTIME => array(self::KEY_ATTRIBUTE => 'lastverbexecutiontime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
                     self::POOMMAIL2_RECEIVEDASBCC         => array(self::KEY_ATTRIBUTE => 'receivedasbcc'),
                     self::POOMMAIL2_SENDER                => array(self::KEY_ATTRIBUTE => 'sender'),
                     self::POOMMAIL2_CALENDARTYPE          => array(self::KEY_ATTRIBUTE => 'calendartype'),
