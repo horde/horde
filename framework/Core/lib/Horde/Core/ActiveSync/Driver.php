@@ -624,7 +624,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
-                            'protocolversion' => $this->_version));
+                            'protocolversion' => $this->_version,
+                            'timestamp' => $from_ts));
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -661,7 +662,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $results[] = array(
                     'id' => $uid,
                     'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS,
-                    'flags' => $flags[$uid]
+                    'flags' => !empty($flags[$uid]) ? $flags[$uid] : array()
                 );
             }
         } else {

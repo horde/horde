@@ -111,4 +111,31 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         return $this->_specialMailboxlist;
     }
 
+    /**
+     * Obtain a maillog for a given message
+     *
+     */
+    public function getMaillog($mid)
+    {
+        if ($GLOBALS['registry']->hasMethod('getMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
+            return $GLOBALS['registry']->mail->getMaillog($mid);
+        }
+
+        return false;
+    }
+
+    public function logMaillog($action, $mid, $data = null)
+    {
+        if ($GLOBALS['registry']->hasMethod('logMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
+            return $GLOBALS['registry']->mail->logMaillog($action, $mid, $data);
+        }
+    }
+
+    public function getMaillogChanges($ts)
+    {
+        if ($GLOBALS['registry']->hasMethod('getMaillogChanges', $GLOBALS['registry']->hasInterface('mail'))) {
+            return $GLOBALS['registry']->mail->getMaillogChanges($ts);
+        }
+    }
+
 }
