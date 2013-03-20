@@ -7,89 +7,75 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-17 10:52+0200\n"
-"PO-Revision-Date: 2012-10-18 13:01+0100\n"
+"POT-Creation-Date: 2012-07-19 18:35+0200\n"
+"PO-Revision-Date: 2013-01-16 10:16+0100\n"
 "Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
 "Language-Team: i18n@lists.horde.org\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: lib/Horde/Date/Utils.php:105
-#, fuzzy, php-format
+#, php-format
 msgid "%d days ago"
-msgstr "%d egun"
+msgstr "orain dela %d egun"
 
 #: lib/Horde/Date/Utils.php:95
-#, fuzzy, php-format
+#, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
-msgstr[0] ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"%d ordu\n"
-"#-#-#-#-#  nag.po (nag)  #-#-#-#-#\n"
-"%d ordu"
-msgstr[1] ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"%d ordu"
+msgstr[0] "orain dena %d ordu"
+msgstr[1] "orain dena %d ordu"
 
 #: lib/Horde/Date/Utils.php:90
-#, fuzzy, php-format
+#, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
-msgstr[0] ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"%d minutu\n"
-"#-#-#-#-#  nag.po (nag)  #-#-#-#-#\n"
-"%d minutu"
-msgstr[1] ""
-"#-#-#-#-#  kronolith.po (kronolith)  #-#-#-#-#\n"
-"%d minutu"
+msgstr[0] "orain dela %d minutu"
+msgstr[1] "orain dela %d minutu"
 
 #: lib/Horde/Date/Utils.php:85
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "orain dela %d segundu"
+msgstr[1] "orain dela %d segundu"
 
 #: lib/Horde/Date/Utils.php:110
-#, fuzzy, php-format
+#, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
-msgstr[0] "%d aste"
-msgstr[1] "%d aste"
+msgstr[0] "orain dela %d aste"
+msgstr[1] "orain dela %d aste"
 
 #: lib/Horde/Date/Recurrence.php:212
 msgid "Daily"
-msgstr ""
+msgstr "Egunero"
 
 #: lib/Horde/Date.php:251
-#, fuzzy, php-format
+#, php-format
 msgid "Failed to parse time string (%s)"
-msgstr "Huts egin du gehitzean %s --> %s: %s"
+msgstr "Huts egin du ordu-katea (%s) parseatzean"
 
 #: lib/Horde/Date/Recurrence.php:215
-#, fuzzy
 msgid "Monthly"
-msgstr "Hilabetea"
+msgstr "Hilabetero"
 
 #: lib/Horde/Date/Recurrence.php:211
 msgid "No recurrence"
 msgstr "Errepikapenik ez"
 
 #: lib/Horde/Date/Recurrence.php:213
-#, fuzzy
 msgid "Weekly"
-msgstr "Astea"
+msgstr "Astero"
 
 #: lib/Horde/Date/Recurrence.php:218
-#, fuzzy
 msgid "Yearly"
-msgstr "Urtea"
+msgstr "Urtero"
 
 #: lib/Horde/Date/Utils.php:100
-#, fuzzy, php-format
+#, php-format
 msgid "yesterday at %s"
-msgstr "Atzo"
+msgstr "atzo %s(e)tan"

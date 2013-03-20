@@ -145,10 +145,18 @@ if ($logout_reason) {
     $registry->setLanguage($GLOBALS['language']);
 } elseif (Horde_Util::getPost('login_post') ||
           Horde_Util::getPost('login_button')) {
+    $select_view = Horde_Util::getPost('horde_select_view');
+    if ($select_view == 'mobile_nojs') {
+        $nojs = true;
+        $select_view = 'mobile';
+    } else {
+        $nojs = false;
+    }
+
     /* Get the login params from the login screen. */
     $auth_params = array(
         'password' => Horde_Util::getPost('horde_pass'),
-        'mode' => Horde_Util::getPost('horde_select_view')
+        'mode' => $select_view
     );
 
     try {
@@ -161,6 +169,10 @@ if ($logout_reason) {
     if ($auth->authenticate(Horde_Util::getPost('horde_user'), $auth_params)) {
         $entry = sprintf('Login success for %s [%s] to %s.', $registry->getAuth(), $_SERVER['REMOTE_ADDR'], ($vars->app && $is_auth) ? $vars->app : 'horde');
         Horde::logMessage($entry, 'NOTICE');
+
+        if (!$is_auth && $nojs) {
+            $notification->push(_("Javscript is either disabled or not available on your browser. You are restricted to the minimal view."));
+        }
 
         if (!empty($url_in)) {
             /* $horde_login_url is used by horde/index.php to redirect to URL
@@ -214,35 +226,9 @@ $js_files = array(
 );
 
 if (!empty($GLOBALS['conf']['user']['select_view'])) {
-    $view_cookie = $vars->get('horde_select_view', isset($_COOKIE['default_horde_view']) ? $_COOKIE['default_horde_view'] : 'auto');
-
-    $js_code['HordeLogin.pre_sel'] = $view_cookie;
+    $js_code['HordeLogin.pre_sel'] = $vars->get('horde_select_view', isset($_COOKIE['default_horde_view']) ? $_COOKIE['default_horde_view'] : 'auto');
     $loginparams['horde_select_view'] = array(
-        'label' => _("Mode"),
-        'type' => 'select',
-        'value' => array(
-            'auto' => array(
-                'name' => _("Automatic"),
-                'selected' => $view_cookie == 'auto',
-            ),
-            'spacer' => null,
-            'basic' => array(
-                'name' => _("Basic"),
-                'selected' => $view_cookie == 'basic'
-            ),
-            'dynamic' => array(
-                'name' => _("Dynamic"),
-                'hidden' => true,
-            ),
-            'smartmobile' => array(
-                'name' => _("Mobile (Smartphone)"),
-                'hidden' => true,
-            ),
-            'mobile' => array(
-                'name' => _("Mobile (Minimal)"),
-                'selected' => $view_cookie == 'mobile'
-            )
-        )
+        'type' => 'horde_select_view'
     );
 }
 
@@ -360,6 +346,7 @@ $loginurl = Horde::url('login.php', false, array(
 ));
 
 $page_output->topbar = $page_output->sidebar = false;
+$page_output->addInlineJsVars($js_code);
 
 if ($browser->isMobile() &&
     (!isset($conf['user']['force_view']) ||
@@ -416,7 +403,6 @@ if ($browser->isMobile() &&
         $page_output->addScriptFile($val[0], $val[1]);
     }
 
-    $page_output->addInlineJsVars($js_code);
     $page_output->header(array(
         'body_class' => 'modal-form',
         'title' => $title

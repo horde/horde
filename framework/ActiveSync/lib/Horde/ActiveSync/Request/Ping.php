@@ -218,6 +218,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             // Save the timestamps
             $syncCache->lastuntil = $now + $lifetime;
             $syncCache->lasthbsyncstarted = time();
+            $syncCache->save();
 
             while (time() < $syncCache->lastuntil) {
                 // Check the remote wipe status
@@ -232,10 +233,53 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     }
                 }
 
+                if (!$syncCache->validateCache()) {
+                    $this->_logger->debug(sprintf('[%s] Detected another PING process started. Exit and let the newest process handle the PING.', $this->_procid));
+                    return true;
+                }
+
                 foreach ($collections as $collection) {
                     $sync = $this->_getSyncObject();
                     try {
                         $this->_initState($collection);
+                        try {
+                            $sync->init($this->_stateDriver, null, $collection, true);
+                        } catch (Horde_ActiveSync_Exception_StaleState $e) {
+                            $this->_logger->err(sprintf(
+                                '[%s] PING terminating and force-clearing device state: %s',
+                                $this->_procid,
+                                $e->getMessage()));
+                            $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
+                            $changes[$collection['id']] = 1;
+                            $this->_statusCode = self::STATUS_NEEDSYNC;
+                            $syncCache->lastuntil = time();
+                            break;
+                        } catch (Horde_ActiveSync_Exception_FolderGone $e) {
+                            $this->_logger->err(sprintf(
+                                '[%s] PING terminating and forcing a FOLDERSYNC',
+                                $this->_procid));
+                            $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
+                            $syncCache->lastuntil = time();
+                            break;
+                        } catch (Horde_ActiveSync_Exception $e) {
+                            // Stop ping if exporter cannot be configured
+                            $this->_logger->err(sprintf(
+                                '[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.',
+                                $this->_procid,
+                                $e->getMessage()));
+                            sleep(30);
+                            break;
+                        }
+
+                        $changecount = $sync->getChangeCount();
+                        if ($changecount > 0) {
+                            $dataavailable = true;
+                            $changes[$collection['id']] = $changecount;
+                            $this->_statusCode = self::STATUS_NEEDSYNC;
+                            $syncCache->setPingChangeFlag($collection['id']);
+                            $this->_logger->debug('Setting PingChangeFlag on ' . $collection['id']);
+                        }
+
                     } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
                         // I *love* standards that nobody follows. This
                         // really should throw an exception and return a HTTP 400
@@ -275,41 +319,6 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $syncCache->removeCollection($collection['id']);
                         break;
                     }
-                    try {
-                        $sync->init($this->_stateDriver, null, $collection, true);
-                    } catch (Horde_ActiveSync_Exception_StaleState $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] PING terminating and force-clearing device state: %s',
-                            $this->_procid,
-                            $e->getMessage()));
-                        $this->_stateDriver->loadState(array(), null, Horde_ActiveSync::REQUEST_TYPE_SYNC, $collection['id']);
-                        $changes[$collection['id']] = 1;
-                        $this->_statusCode = self::STATUS_NEEDSYNC;
-                        $syncCache->lastuntil = time();
-                        break;
-                    } catch (Horde_ActiveSync_Exception_FolderGone $e) {
-                        $this->_logger->err(sprintf(
-                            '[%s] PING terminating and forcing a FOLDERSYNC',
-                            $this->_procid));
-                        $this->_statusCode = self::STATUS_FOLDERSYNCREQD;
-                        $syncCache->lastuntil = time();
-                        break;
-                    } catch (Horde_ActiveSync_Exception $e) {
-                        // Stop ping if exporter cannot be configured
-                        $this->_logger->err(sprintf(
-                            '[%s] PING error: Exporter can not be configured: %s Waiting 30 seconds before PING is retried.',
-                            $this->_procid,
-                            $e->getMessage()));
-                        sleep(30);
-                        break;
-                    }
-
-                    $changecount = $sync->getChangeCount();
-                    if ($changecount > 0) {
-                        $dataavailable = true;
-                        $changes[$collection['id']] = $changecount;
-                        $this->_statusCode = self::STATUS_NEEDSYNC;
-                    }
                 }
 
                 if ($dataavailable) {
@@ -319,6 +328,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                     break;
                 }
                 sleep($timeout);
+
                 // Need to refresh collection data in case a SYNC was performed
                 // while the PING was still alive. Note that just killing the
                 // PING if a SYNC is detected will cause the device to stop

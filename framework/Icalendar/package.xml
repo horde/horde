@@ -24,10 +24,10 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-01-29</date>
- <time>12:37:39</time>
+ <date>2013-03-05</date>
+ <time>16:29:17</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -1067,7 +1067,20 @@ Lots of improvements, bugfixes and support for more fields and members of the iC
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-01-29</date>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Improve unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

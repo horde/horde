@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
  * The PSPasswd class changes a user's password on any Windows Machine
  * (NT+) using the pspasswd free utility available at Sysinternals
  * website: http://www.sysinternals.com/ntw2k/freeware/pspasswd.shtml
@@ -48,29 +60,25 @@
  * Special thanks to Mark Russinovich (mark@sysinternals.com) for the
  * tool and helping me solve some questions about it.
  *
- * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
- *
- * @author  Luiz R Malheiros (malheiros@gmail.com)
- * @package Passwd
+ * @author    Luiz R Malheiros (malheiros@gmail.com)
+ * @category  Horde
+ * @copyright 2000-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Pspasswd extends Passwd_Driver
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
-     *
-     * @throws Passwd_Exception
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        if (empty($params['server']) || empty($params['bin']) ||
-            empty($params['admusr']) || empty($params['admpwd'])) {
+        if (empty($params['server']) ||
+            empty($params['bin']) ||
+            empty($params['admusr']) ||
+            empty($params['admpwd'])) {
             throw new Passwd_Exception(_("Password module is missing required parameters."));
         }
+
         if (!file_exists($params['bin'])) {
             throw new Passwd_Exception(_("Password module can't find the supplied bin."));
         }
@@ -79,19 +87,12 @@ class Passwd_Driver_Pspasswd extends Passwd_Driver
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $user_name     The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($user_name, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
         $server = $this->_params['server'];
         $chpwd_adm = $this->_params['admusr'];
-        $chpwd_usr = $user_name;
+        $chpwd_usr = $user;
 
         if (!empty($this->_params['domain'])) {
             $chpwd_adm = $this->_params['domain'] . "\\" . $chpwd_adm;
@@ -100,7 +101,7 @@ class Passwd_Driver_Pspasswd extends Passwd_Driver
 
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
-        $cmdline = 'NET USE \\\\' . $server . '\\IPC$ "' . $old_password
+        $cmdline = 'NET USE \\\\' . $server . '\\IPC$ "' . $oldpass
             . '" /USER:' . $chpwd_usr;
         exec($cmdline, $cmdreply, $retval);
 
@@ -110,12 +111,13 @@ class Passwd_Driver_Pspasswd extends Passwd_Driver
 
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
-        $cmdline = $this->_params['bin'] . ' \\\\' . $server . ' -u ' . $chpwd_adm . ' -p ' . $this->_params['admpwd'] . ' ' . $user_name . ' ' . $new_password;
+        $cmdline = $this->_params['bin'] . ' \\\\' . $server . ' -u ' . $chpwd_adm . ' -p ' . $this->_params['admpwd'] . ' ' . $user. ' ' . $newpass;
         exec($cmdline, $cmdreply, $retval);
         exec('NET USE \\\\' . $server . '\\IPC$ /D >NUL 2>NUL');
 
-        if (strpos(implode(' ', $cmdreply), 'Password for ' . $server . '\\' . $user_name . ' successfully changed.') === false) {
+        if (strpos(implode(' ', $cmdreply), 'Password for ' . $server . '\\' . $user. ' successfully changed.') === false) {
             throw new Passwd_Exception(_("Access Denied."));
         }
     }
+
 }

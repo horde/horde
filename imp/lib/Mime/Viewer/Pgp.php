@@ -34,6 +34,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
     /* Metadata constants. */
     const PGP_ARMOR = 'imp-pgp-armor';
     const PGP_SIG = 'imp-pgp-signature';
+    const PGP_SIGN_ENC = 'imp-pgp-signed-encrypted';
     const PGP_CHARSET = 'imp-pgp-charset';
 
     /**
@@ -329,9 +330,21 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                                        $decrypted_data->message;
         }
 
-        return Horde_Mime_Part::parseMessage($decrypted_data->message, array(
+        $new_part = Horde_Mime_Part::parseMessage($decrypted_data->message, array(
             'forcemime' => true
         ));
+
+        if ($new_part->getType() == 'multipart/signed') {
+            $data = new Horde_Stream_Temp();
+            try {
+                $data->add(Horde_Mime_Part::getRawPartText($decrypted_data->message, 'header', '1'));
+                $data->add("\n\n");
+                $data->add(Horde_Mime_Part::getRawPartText($decrypted_data->message, 'body', '1'));
+            } catch (Horde_Mime_Exception $e) {}
+            $new_part->setMetadata(self::PGP_SIGN_ENC, $data->stream);
+        }
+
+        return $new_part;
     }
 
     /**
@@ -415,15 +428,26 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
 
         if ($GLOBALS['prefs']->getValue('pgp_verify') ||
             $GLOBALS['injector']->getInstance('Horde_Variables')->pgp_verify_msg) {
-            $sig_part = $this->getConfigParam('imp_contents')->getMIMEPart($sig_id);
+            $imp_contents = $this->getConfigParam('imp_contents');
+            $sig_part = $imp_contents->getMIMEPart($sig_id);
 
             $status2 = new IMP_Mime_Status();
 
             try {
                 $imp_pgp = $GLOBALS['injector']->getInstance('IMP_Crypt_Pgp');
-                $sig_result = $sig_part->getMetadata(self::PGP_SIG)
-                    ? $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata(self::PGP_CHARSET))
-                    : $imp_pgp->verifySignature($sig_part->replaceEOL($this->getConfigParam('imp_contents')->getBodyPart($signed_id, array('mimeheaders' => true)), Horde_Mime_Part::RFC_EOL), $this->_address, $sig_part->getContents());
+                if ($sig_part->getMetadata(self::PGP_SIG)) {
+                    $sig_result = $imp_pgp->verifySignature($sig_part->getContents(array('canonical' => true)), $this->_address, null, $sig_part->getMetadata(self::PGP_CHARSET));
+                } else {
+                    $stream = $imp_contents->isEmbedded($signed_id)
+                        ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
+                        : $this->getConfigParam('imp_contents')->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
+                    stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
+                    stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
+                        'eol' => Horde_Mime_Part::RFC_EOL
+                    ));
+
+                    $sig_result = $imp_pgp->verifySignature(stream_get_contents($stream, -1, 0), $this->_address, $sig_part->getContents());
+                }
 
                 $status2->action(IMP_Mime_Status::SUCCESS);
                 $sig_text = $sig_result->message;

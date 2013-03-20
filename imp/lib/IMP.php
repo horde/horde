@@ -56,7 +56,7 @@ class IMP
      *
      * @param string $title  The title of the page.
      */
-    static public function header($title)
+    static public function header($title, array $header_params = array())
     {
         global $conf, $injector, $page_output, $registry;
 
@@ -98,9 +98,9 @@ class IMP
             break;
         }
 
-        $GLOBALS['page_output']->header(array(
+        $GLOBALS['page_output']->header(array_merge(array(
             'title' => $title
-        ));
+        ), $header_params));
     }
 
     /**

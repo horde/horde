@@ -1,51 +1,51 @@
 <?php
 /**
- * The Smbldap class attempts to change a user's LDAP password and Samba
- * password stored in an LDAP directory service.
- *
  * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
- * did not receive this file, see http://www.horde.org/licenses/gpl.php.
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
- * @author  Shane Boulter <sboulter@ariasolutions.com>
- * @author  Mike Cochrane <mike@graftonhall.co.nz>
- * @author  Tjeerd van der Zee <admin@xar.nl>
- * @author  Mattias Webjörn Eriksson <mattias@webjorn.org>
- * @author  Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
- * @package Passwd
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
+ */
+
+/**
+ * Changes an LDAP password and Samba password stored in an LDAP directory
+ * service.
+ *
+ * @author    Shane Boulter <sboulter@ariasolutions.com>
+ * @author    Mike Cochrane <mike@graftonhall.co.nz>
+ * @author    Mattias Webjörn Eriksson <mattias@webjorn.org>
+ * @author    Eric Jon Rostetter <eric.rostetter@physics.utexas.edu>
+ * @author    Tjeerd van der Zee <admin@xar.nl>
+ * @category  Horde
+ * @copyright 2004-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/gpl GPL
+ * @package   Passwd
  */
 class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap
 {
     /**
-     * Constructor.
-     *
-     * @param array $params  A hash containing connection parameters.
      */
-    public function __construct($params = array())
+    public function __construct(array $params = array())
     {
-        $params = array_merge(array('lm_attribute' => null,
-                                    'nt_attribute' => null,
-                                    'pw_set_attribute' => null,
-                                    'pw_expire_attribute' => null,
-                                    'pw_expire_time' => null,
-                                    'smb_objectclass' => 'sambaSamAccount'),
-                              $params);
-        parent::__construct($params);
+        parent::__construct(array_merge(array(
+            'lm_attribute' => null,
+            'nt_attribute' => null,
+            'pw_set_attribute' => null,
+            'pw_expire_attribute' => null,
+            'pw_expire_time' => null,
+            'smb_objectclass' => 'sambaSamAccount'
+        ), $params));
     }
 
     /**
-     * Changes the user's password.
-     *
-     * @param string $username      The user for which to change the password.
-     * @param string $old_password  The old (current) user password.
-     * @param string $new_password  The new user password to set.
-     *
-     * @throws Passwd_Exception
      */
-    public function changePassword($username, $old_password, $new_password)
+    protected function _changePassword($user, $oldpass, $newpass)
     {
-        parent::changePassword($username, $old_password, $new_password);
+        parent::_changePassword($user, $oldpass, $newpass);
 
         // Get existing user information.
         $entry = $this->_getUserEntry();
@@ -55,9 +55,8 @@ class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap
             return;
         }
 
-        require_once 'Crypt/CHAP.php';
         $hash = new Crypt_CHAP_MSv2();
-        $hash->password = $new_password;
+        $hash->password = $newpass;
         $lmpasswd = Horde_String::upper(bin2hex($hash->lmPasswordHash()));
         $ntpasswd = Horde_String::upper(bin2hex($hash->ntPasswordHash()));
         $settime = time();
@@ -96,4 +95,5 @@ class Passwd_Driver_Smbldap extends Passwd_Driver_Ldap
             }
         }
     }
+
 }

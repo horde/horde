@@ -32,7 +32,7 @@ class Horde_Imap_Client_Data_Acl extends Horde_Imap_Client_Data_AclCommon implem
     /**
      * Constructor.
      *
-     * @var string $rights  The rights (see RFC 4314 [2.1]).
+     * @param string $rights  The rights (see RFC 4314 [2.1]).
      */
     public function __construct($rights = '')
     {

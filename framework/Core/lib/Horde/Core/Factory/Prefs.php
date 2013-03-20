@@ -172,7 +172,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             $GLOBALS['session']->set('horde', 'no_prefs', true);
             if (isset($GLOBALS['notification'])) {
                 $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
-                Horde::logMessage($e);
+                Horde::log($e);
             }
         }
     }

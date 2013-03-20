@@ -187,6 +187,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function clearAuthentication()
     {
         $this->_connector->clearAuth();
+        // @todo H5 remove is_callable check.
+        if (!empty($this->_imap) && is_callable(array($this->_imap, 'close'))) {
+            $this->_imap->close();
+        }
         $this->_logger->info(sprintf(
             "[%s] User %s logged off",
             $this->_pid,
@@ -1703,7 +1707,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_ACCEPTED:
             $type = new Horde_Itip_Response_Type_Accept($resource);
             break;
-        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DENIED:
+        case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_DECLINED:
             $type = new Horde_Itip_Response_Type_Decline($resource);
             break;
         case Horde_ActiveSync_Request_MeetingResponse::RESPONSE_TENTATIVE:
@@ -2072,6 +2076,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_PHONE => !empty($row['workPhone']) ? $row['workPhone'] : '',
                 Horde_ActiveSync::GAL_MOBILEPHONE => !empty($row['cellPhone']) ? $row['cellPhone'] : '',
                 Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
+                Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
         }
         $this->_endBuffer();

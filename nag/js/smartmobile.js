@@ -303,7 +303,7 @@ var NagMobile = {
                     $('<p>').addClass('ui-li-aside')
                         .text(t.dd)
                 ).append(
-                    $('<p>').text(t.de)
+                    $('<p>').text((t.de ? t.de : ''))
                 )
             ).append(
                 $('<a>').attr({
@@ -400,6 +400,9 @@ var NagMobile = {
         var form = $('#nag-task-form'),
             data = HordeJquery.formToObject(form);
 
+        if (!data.hasOwnProperty('task_completed')) {
+            data.task_completed = 'off';
+        }
         HordeMobile.doAction('saveTask', data, NagMobile.handleSubmitCallback);
     },
 

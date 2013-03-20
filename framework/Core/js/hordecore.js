@@ -6,7 +6,8 @@
  * Events fired:
  *   - HordeCore:ajaxException
  *   - HordeCore:ajaxFailure
- *   - HordeCore:doActionComplete
+ *   - HordeCore:doActionCompleteAfter (since 2.5.0)
+ *   - HordeCore:doActionCompleteBefore (since 2.5.0)
  *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
@@ -74,7 +75,7 @@ var HordeCore = {
         this.initLoading(opts.loading);
 
         ajaxopts.onSuccess = function(t) {
-            this.doActionComplete(t, opts);
+            this.doActionComplete(action, t, opts);
         }.bind(this);
 
         return new Ajax.Request((opts.uri ? opts.uri : this.conf.URI_AJAX) + action, ajaxopts);
@@ -91,7 +92,7 @@ var HordeCore = {
         this.initLoading(opts.loading);
 
         ajaxopts.onSuccess = function(t, o) {
-            this.doActionComplete(t, opts);
+            this.doActionComplete(form, t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
         this.addRequestParams(ajaxopts.parameters);
@@ -141,7 +142,7 @@ var HordeCore = {
             $(document.body).insert(sf);
 
             sf.observe('load', function(sf) {
-                this.doActionComplete({
+                this.doActionComplete(form, {
                     responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
                 }, opts);
             }.bind(this, sf));
@@ -161,9 +162,10 @@ var HordeCore = {
         params.set('token', this.conf.TOKEN);
     },
 
+    // action = Action (string or DOM element if form submission)
     // resp = Ajax.Response object
     // opts = HordeCore options (callback, loading)
-    doActionComplete: function(resp, opts)
+    doActionComplete: function(action, resp, opts)
     {
         this.inAjaxCallback = true;
 
@@ -209,15 +211,27 @@ var HordeCore = {
             });
         }
 
-        if (r.response && Object.isFunction(opts.callback)) {
-            try {
-                opts.callback(r.response, resp);
-            } catch (e) {
-                this.debug('doActionComplete', e);
-            }
-        }
+        if (r.response) {
+            document.fire('HordeCore:doActionCompleteBefore', {
+                action: action,
+                ajaxresp: resp,
+                response: r.response
+            });
 
-        document.fire('HordeCore:doActionComplete');
+            if (Object.isFunction(opts.callback)) {
+                try {
+                    opts.callback(r.response, resp);
+                } catch (e) {
+                    this.debug('doActionComplete', e);
+                }
+            }
+
+            document.fire('HordeCore:doActionCompleteAfter', {
+                action: action,
+                ajaxresp: resp,
+                response: r.response
+            });
+        }
 
         this.notify_handler(r.msgs);
 
@@ -336,6 +350,7 @@ var HordeCore = {
                             alarm: alarm.id,
                             snooze: -1
                         });
+                        this.Growler.ungrowl(growl);
                         this.addRequestParams(ajax_params);
                         new Ajax.Request(this.conf.URI_SNOOZE, {
                             parameters: ajax_params

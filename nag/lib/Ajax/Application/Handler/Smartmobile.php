@@ -149,7 +149,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         }
 
         if ($this->vars->task_completed) {
-            $task['completed'] = true;
+            $task['completed'] = $this->vars->task_completed == 'on' ? true : false;
         }
 
         if ($this->vars->tasklist) {

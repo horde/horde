@@ -301,7 +301,7 @@ class Horde_Core_ActiveSync_Connector
     {
         $gal = $this->contacts_getGal();
         if (!empty($gal)) {
-            $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email'));
+            $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email', 'office'));
             $opts = array(
                 'fields' => $fields,
                 'matchBegin' => true,
@@ -328,7 +328,7 @@ class Horde_Core_ActiveSync_Connector
     {
         $sources = array_keys($this->_registry->contacts->sources());
         foreach ($sources as $source) {
-            $fields[$source] = array('name', 'email', 'alias');
+            $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
         }
         $options = array(
             'matchBegin' => true,

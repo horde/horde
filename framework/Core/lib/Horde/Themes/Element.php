@@ -105,7 +105,7 @@ class Horde_Themes_Element
         try {
             return (string)$this->uri;
         } catch (Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return '';
         }
     }

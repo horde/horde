@@ -10,11 +10,11 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-21</date>
- <time>12:43:00</time>
+ <date>2013-03-11</date>
+ <time>10:31:56</time>
  <version>
-  <release>2.2.2</release>
-  <api>2.2.0</api>
+  <release>2.3.3</release>
+  <api>2.3.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1205,15 +1205,57 @@
   </release>
   <release>
    <version>
-    <release>2.2.2</release>
-    <api>2.2.0</api></version>
+    <release>2.3.0</release>
+    <api>2.3.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-02-21</date>
+   <date>2013-03-01</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Fix updating state when a PING detected changed has been removed before SYNC runs (Bug #12075).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.1</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-03</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix regression introduced in 2.2.1 caused by fix for Bug #12056.
+* [mjr] Fix synchronizing email messages containing ICalendar attachments with no METHOD parameter (Bug #12083).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.2</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Various improvements and code cleanup.
+* [mjr] Some fixes to GETITEMESTIMATE requests.
+* [mjr] Logging improvements.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.3</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
    </notes>
   </release>
  </changelog>

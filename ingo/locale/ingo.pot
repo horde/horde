@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Ingo H5 (3.0.3-git)\n"
+"Project-Id-Version: Ingo H5 (3.0.4-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2013-01-29 11:43+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -126,7 +126,7 @@ msgstr ""
 msgid "Body"
 msgstr ""
 
-#: lib/Ingo.php:436 rule.php:347
+#: lib/Ingo.php:436 rule.php:343
 msgid "Case Sensitive"
 msgstr ""
 
@@ -806,7 +806,7 @@ msgstr ""
 msgid "Select ruleset to display:"
 msgstr ""
 
-#: rule.php:372 templates/blacklist/blacklist.inc:26
+#: rule.php:368 templates/blacklist/blacklist.inc:26
 msgid "Select target folder"
 msgstr ""
 
@@ -946,7 +946,7 @@ msgstr ""
 msgid "Vacation is not supported in the current filtering driver."
 msgstr ""
 
-#: rule.php:378
+#: rule.php:374
 msgid "Value"
 msgstr ""
 

@@ -814,6 +814,10 @@ class Horde_Db_Adapter_Pdo_MysqlTest extends Horde_Test_Case
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()

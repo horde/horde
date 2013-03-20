@@ -66,14 +66,14 @@ var HordeMobile = {
             data: params,
             error: $.noop,
             success: function(d, t, x) {
-                HordeMobile.doActionComplete(d, callback);
+                HordeMobile.doActionComplete(action, d, callback);
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action
         }, opts || {}));
     },
 
-    doActionComplete: function(d, callback)
+    doActionComplete: function(action, d, callback)
     {
         var r = d.response;
 
@@ -94,12 +94,24 @@ var HordeMobile = {
             $(document).trigger('HordeMobile:runTasks', d.tasks);
         }
 
-        if (r && $.isFunction(callback)) {
-            try {
-                callback(r);
-            } catch (e) {
-                HordeMobile.debug('doActionComplete', e);
+        if (r) {
+            $(document).trigger('HordeMobile:doActionCompleteBefore', {
+                action: action,
+                response: r
+            });
+
+            if ($.isFunction(callback)) {
+                try {
+                    callback(r);
+                } catch (e) {
+                    HordeMobile.debug('doActionComplete', e);
+                }
             }
+
+            $(document).trigger('HordeMobile:doActionCompleteAfter', {
+                action: action,
+                response: r
+            });
         }
 
         HordeMobile.inAjaxCallback = false;

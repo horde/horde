@@ -5,33 +5,33 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gollem\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-15 14:40+0200\n"
-"PO-Revision-Date: 2012-12-11 12:56+0100\n"
-"Last-Translator: Ibon Igartua <ibon.igartua@ehu.es>\n"
+"POT-Creation-Date: 2012-10-26 23:07+0200\n"
+"PO-Revision-Date: 2013-02-25 12:04+0100\n"
+"Last-Translator: Edurne <edurne@uzei.com>\n"
 "Language-Team: Euskal Herriko Unibertsitatea <webmaster@ehu.es>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: \n"
 "X-Poedit-Language: Basque\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: manager.php:62
+#: manager.php:65
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" izenaren ordez \"%s\" jarri da"
 
-#: quota.php:50
+#: quota.php:51
 #, php-format
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%% %.2f)"
 
-#: manager.php:558
+#: manager.php:582
 #, php-format
 msgid "%d item"
 msgstr "%d elementu"
 
-#: manager.php:558
+#: manager.php:582
 #, php-format
 msgid "%d items"
 msgstr "%d elementu"
@@ -41,7 +41,7 @@ msgstr "%d elementu"
 msgid "%s successfully saved."
 msgstr "%s behar bezala gorde da."
 
-#: manager.php:177
+#: manager.php:178
 #, php-format
 msgid "%s was successfully pasted."
 msgstr "%s behar bezala itsatsi da."
@@ -49,15 +49,15 @@ msgstr "%s behar bezala itsatsi da."
 #: edit.php:35 edit.php:49
 #, php-format
 msgid "Access denied to %s"
-msgstr "%s(e)rako sarbidea ukatuta"
+msgstr "Honako sarbidea ukatu da: %s"
 
-#: lib/Gollem.php:48 lib/Gollem.php:299 lib/Gollem.php:348 lib/Gollem.php:370
-#: lib/Gollem.php:390
+#: lib/Gollem.php:49 lib/Gollem.php:300 lib/Gollem.php:360 lib/Gollem.php:393
+#: lib/Gollem.php:413
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "\"%s\" karpetarako sarbidea ukatua."
 
-#: templates/manager/manager.html:110
+#: templates/manager/manager.html:69
 msgid "Actions:"
 msgstr "Ekintzak:"
 
@@ -65,7 +65,7 @@ msgstr "Ekintzak:"
 msgid "Add"
 msgstr "Gehitu"
 
-#: templates/manager/manager.html:11
+#: templates/manager/manager.html:9
 msgid "All"
 msgstr "Denak"
 
@@ -77,23 +77,19 @@ msgstr "Ziur zaude jarraitu nahi duzula?"
 msgid "Are you sure?"
 msgstr "Ziur zaude?"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Ascending"
 msgstr "Gorantz"
 
-#: config/prefs.php:97
+#: config/prefs.php:98
 msgid "Ask"
 msgstr "Galdetu"
 
-#: templates/manager/manager.html:5
-msgid "Attributes"
-msgstr "Atributuak"
-
-#: lib/Application.php:139
+#: lib/Application.php:136
 msgid "Backend"
 msgstr "Euskarri-modulua"
 
-#: lib/Application.php:86
+#: lib/Application.php:83
 msgid "Backends"
 msgstr "Euskarri-moduluak"
 
@@ -101,67 +97,67 @@ msgstr "Euskarri-moduluak"
 msgid "Below is the current contents of your clipboard."
 msgstr "Behean dago arbeleko uneko edukia."
 
-#: clipboard.php:24 manager.php:283 selectlist.php:81
+#: clipboard.php:24 manager.php:286 selectlist.php:81
 #: templates/edit/edit.inc:13
 msgid "Cancel"
 msgstr "Utzi"
 
-#: manager.php:82
+#: manager.php:85
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr "Ezin da egin chmod %s: %s"
 
-#: manager.php:152
+#: manager.php:153
 msgid "Cannot copy items onto clipboard."
 msgstr "Ezin dira kopiatu elementuak arbelean."
 
-#: manager.php:223
+#: manager.php:224
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "Ezin da sortu direktorio nagusia: %s"
 
-#: manager.php:154
+#: manager.php:155
 msgid "Cannot cut items onto clipboard."
 msgstr "Ezin dira ebaki elementuak arbelera."
 
-#: manager.php:179
+#: manager.php:180
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr "Ezin da itsatsi \"%s\" (fitxategia arbeletik kendu da): %s"
 
-#: manager.php:309 templates/manager/manager.html:70
+#: manager.php:321 templates/javascript_defs.php:15
 msgid "Change Folder"
 msgstr "Aldatu karpeta"
 
-#: templates/manager/manager.html:112
+#: templates/manager/manager.html:71
 msgid "Change Permissions"
 msgstr "Aldatu baimenak"
 
-#: lib/Gollem.php:592
+#: lib/Gollem.php:653
 msgid "Change Server"
 msgstr "Aldatu zerbitzaria"
 
-#: lib/Application.php:301
+#: lib/Application.php:224
 msgid "Check Quota"
 msgstr "Egiaztatu kuota"
 
-#: manager.php:554
+#: manager.php:578
 msgid "Check _All/None"
 msgstr "Egiaztatu _guztiak/bat ere ez"
 
-#: manager.php:80
+#: manager.php:83
 msgid "Chmod done: "
 msgstr "Chmod eginda: "
 
-#: lib/Application.php:271
+#: lib/Prefs/Special/Columnselect.php:53
 msgid "Choose which columns to display, and in what order:"
 msgstr "Aukeratu zein zutabe bistaratuko diren eta zein ordenatan:"
 
-#: clipboard.php:25 templates/manager/manager.html:131
+#: clipboard.php:25 templates/manager/manager.html:93
 msgid "Clear"
 msgstr "Garbitu"
 
-#: clipboard.php:44 templates/clipboard/clipboard.html:7
+#: clipboard.php:53 templates/clipboard/clipboard.html:7
 msgid "Clipboard"
 msgstr "Arbela"
 
@@ -169,15 +165,15 @@ msgstr "Arbela"
 msgid "Close"
 msgstr "Itxi"
 
-#: lib/Application.php:275
+#: lib/Prefs/Special/Columnselect.php:57
 msgid "Columns that will not be displayed:"
 msgstr "Bistaratuko ez diren zutabeak:"
 
-#: clipboard.php:28 templates/manager/manager.html:115
+#: clipboard.php:28 templates/manager/manager.html:74
 msgid "Copy"
 msgstr "Kopiatu"
 
-#: manager.php:302 templates/manager/manager.html:58
+#: manager.php:314 templates/javascript_defs.php:16
 msgid "Create Folder"
 msgstr "Sortu karpeta"
 
@@ -194,27 +190,27 @@ msgstr ""
 msgid "Current directory:"
 msgstr "Uneko direktorioa:"
 
-#: clipboard.php:27 templates/manager/manager.html:116
+#: clipboard.php:27 templates/manager/manager.html:76
 msgid "Cut"
 msgstr "Ebaki"
 
-#: config/prefs.php:59
+#: config/prefs.php:60
 msgid "Default sorting criteria:"
 msgstr "Ordenatze-irizpide lehenetsia:"
 
-#: config/prefs.php:70
+#: config/prefs.php:71
 msgid "Default sorting direction:"
 msgstr "Ordenatze-noranzko lehenetsia:"
 
-#: templates/manager/manager.html:119
+#: templates/manager/manager.html:80
 msgid "Delete"
 msgstr "Ezabatu"
 
-#: config/prefs.php:99
+#: config/prefs.php:100
 msgid "Delete folders recursively?"
 msgstr "Ezabatu karpetak errekurtsiboki?"
 
-#: config/prefs.php:68
+#: config/prefs.php:69
 msgid "Descending"
 msgstr "Beherantz"
 
@@ -222,7 +218,7 @@ msgstr "Beherantz"
 msgid "Done"
 msgstr "Eginda"
 
-#: manager.php:429
+#: manager.php:450
 #, php-format
 msgid "Download %s"
 msgstr "Deskargatu %s"
@@ -236,15 +232,15 @@ msgstr "ERROREA:"
 msgid "Edit %s"
 msgstr "Editatu %s"
 
-#: templates/manager/manager.html:26
+#: templates/manager/manager.html:24
 msgid "Execute"
 msgstr "Exekutatu"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:202
+#: templates/javascript_defs.php:21 templates/manager/manager.html:168
 msgid "File"
 msgstr "Fitxategia"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File Actions"
 msgstr "Fitxategi-ekintzak"
 
@@ -252,27 +248,27 @@ msgstr "Fitxategi-ekintzak"
 msgid "File Display"
 msgstr "Fitxategi-bistaratzea"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Modification Time"
 msgstr "Fitxategi-aldaketaren ordua"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Name"
 msgstr "Fitxategi-izena"
 
-#: config/prefs.php:57
+#: config/prefs.php:58
 msgid "File Size"
 msgstr "Fitxategi-tamaina"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Type"
 msgstr "Fitxategi mota"
 
-#: config/prefs.php:87
+#: config/prefs.php:88
 msgid "File action settings."
 msgstr "Fitxategi-ekintzaren ezarpenak."
 
-#: manager.php:97
+#: manager.php:100
 msgid "File deleted: "
 msgstr "Ezabatutako fitxategia: "
 
@@ -280,55 +276,51 @@ msgstr "Ezabatutako fitxategia: "
 msgid "File display preferences."
 msgstr "Fitxategiak bistaratzeko hobespenak."
 
-#: manager.php:118
+#: manager.php:121
 #, php-format
 msgid "File received: %s"
 msgstr "Fitxategia jaso da: %s"
 
-#: lib/Api.php:122
+#: lib/Api.php:124
 msgid "Files must be written inside a VFS backend."
 msgstr "Fitxategiak VFS euskarri-modulu baten barnean idatzi behar dira."
 
-#: templates/manager/manager.html:129
+#: templates/manager/manager.html:91
 msgid "Filter"
 msgstr "Iragazkia"
 
-#: templates/manager/manager.html:128
+#: templates/manager/manager.html:90
 msgid "Filter:"
 msgstr "Iragazkia:"
 
-#: manager.php:89
+#: manager.php:92
 msgid "Folder removed: "
 msgstr "Kendutako karpeta: "
 
-#: lib/Api.php:153 lib/Api.php:184
+#: lib/Api.php:157 lib/Api.php:190
 msgid "Folders must be created inside a VFS backend."
 msgstr "Karpetak VFS euskarri-modulu baten barnean sortu behar dira."
 
-#: templates/manager/manager.html:72
-msgid "Go to:"
-msgstr "Joan hona:"
-
-#: manager.php:533 templates/manager/manager.html:10
+#: manager.php:555 templates/manager/manager.html:8
 msgid "Group"
 msgstr "Taldea"
 
-#: lib/Api.php:403
+#: lib/Api.php:413
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Okerreko euskarri-modulua eskatu da: %s"
 
-#: manager.php:146
+#: manager.php:147
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr "Arbelean kopiatutako elementua: %s"
 
-#: manager.php:148
+#: manager.php:149
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr "Arbelean ebakitako elementua: %s"
 
-#: config/prefs.php:77
+#: config/prefs.php:78
 msgid "Items per page"
 msgstr "elementu orriko"
 
@@ -340,23 +332,19 @@ msgstr "Hizkuntza"
 msgid "List folders first?"
 msgstr "Karpetak zerrendatu lehendabizi?"
 
-#: manager.php:503
+#: manager.php:527
 msgid "Modified"
 msgstr "Aldatuta"
 
-#: manager.php:481
+#: manager.php:501
 msgid "Name"
 msgstr "Izena"
 
-#: templates/manager/manager.html:46 templates/manager/manager.html:60
-msgid "Name:"
-msgstr "Izena:"
-
-#: manager.php:47
+#: manager.php:50
 msgid "New folder created: "
 msgstr "Sortutako karpeta berria: "
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "No"
 msgstr "Ez"
 
@@ -364,11 +352,11 @@ msgstr "Ez"
 msgid "No quota found."
 msgstr "Ez da kuotarik aurkitu."
 
-#: manager.php:284
+#: manager.php:287
 msgid "OK"
 msgstr "Ados"
 
-#: manager.php:526 templates/manager/manager.html:9
+#: manager.php:549 templates/manager/manager.html:7
 msgid "Owner"
 msgstr "Jabea"
 
@@ -376,7 +364,7 @@ msgstr "Jabea"
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: manager.php:519
+#: manager.php:543
 msgid "Permission"
 msgstr "Baimena"
 
@@ -385,52 +373,56 @@ msgstr "Baimena"
 msgid "Permission denied to %s: %s"
 msgstr "Baimena ukatu da, %s: %s"
 
-#: manager.php:216
+#: manager.php:217
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Baimena ukatu da karpeta honetarako: \"%s\": %s"
 
-#: lib/Api.php:411
+#: lib/Api.php:421
 msgid "Permission denied to this backend."
 msgstr "Euskarri-modulu honetarako baimena ukatu da."
 
-#: templates/javascript_defs.php:13
+#: templates/javascript_defs.php:22
+msgid "Permissions"
+msgstr "Baimenak"
+
+#: templates/javascript_defs.php:12
 msgid "Please provide your password."
 msgstr "Idatzi pasahitza."
 
-#: templates/javascript_defs.php:12
+#: templates/javascript_defs.php:11
 msgid "Please provide your username."
 msgstr "Idatzi erabiltzaile-izena."
 
-#: templates/javascript_defs.php:16
+#: templates/javascript_defs.php:24
 msgid "Please select an item before this action."
 msgstr "Hautatu elementu bat ekintza honen aurretik."
 
-#: templates/javascript_defs.php:21
+#: templates/javascript_defs.php:25
 msgid "Please specify at least one file to upload."
 msgstr "Zehaztu kargatzeko fitxategi bat gutxienez."
 
-#: quota.php:57 templates/quota/quota.html:2
+#: quota.php:59 templates/quota/quota.html:2
 msgid "Quota Display"
 msgstr "Kuota-bistaratzea"
 
-#: templates/manager/manager.html:14
+#: templates/manager/manager.html:12
 msgid "Read"
 msgstr "Irakurri"
 
-#: manager.php:289
+#: manager.php:292
 msgid "Refresh"
 msgstr "Freskatu"
 
-#: templates/manager/manager.html:44 templates/manager/manager.html:122
+#: templates/javascript_defs.php:23 templates/manager/manager.html:83
 msgid "Rename"
 msgstr "Aldatu izena"
 
-#: lib/Api.php:198
+#: lib/Api.php:206
 msgid "Renaming across backends is not supported."
 msgstr "Ez da onartzen euskarri-moduluen artean izenak aldatzea."
 
-#: lib/Api.php:192
+#: lib/Api.php:198
 msgid "Renaming of backends is not allowed."
 msgstr "Ez da onartzen euskarri-moduluei izena aldatzea."
 
@@ -438,19 +430,19 @@ msgstr "Ez da onartzen euskarri-moduluei izena aldatzea."
 msgid "Reset"
 msgstr "Berrezarri"
 
-#: manager.php:282 templates/edit/edit.inc:11
+#: manager.php:285 templates/edit/edit.inc:11
 msgid "Save"
 msgstr "Gorde"
 
-#: clipboard.php:48 templates/clipboard/clipboard.html:28
+#: clipboard.php:47 templates/clipboard/clipboard.html:28
 msgid "Select All"
 msgstr "Hautatu dena"
 
-#: clipboard.php:49
+#: clipboard.php:48
 msgid "Select None"
 msgstr "Ez hautatu bat ere"
 
-#: lib/Application.php:273
+#: lib/Prefs/Special/Columnselect.php:55
 msgid "Select a backend:"
 msgstr "Hautatu euskarri-modulu bat:"
 
@@ -458,15 +450,23 @@ msgstr "Hautatu euskarri-modulu bat:"
 msgid "Server"
 msgstr "Zerbitzaria"
 
+#: manager.php:305 manager.php:407
+msgid "Share Folder"
+msgstr "Partekatu karpeta"
+
+#: manager.php:407
+msgid "Shared Folder"
+msgstr "Karpeta partekatua"
+
 #: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "Erakutsi dot fitxategiak? "
 
-#: manager.php:511
+#: manager.php:535
 msgid "Size"
 msgstr "Tamaina"
 
-#: lib/Api.php:227
+#: lib/Api.php:235
 msgid "The application folder can not be deleted."
 msgstr "Ezin da ezabatu aplikazioaren karpeta."
 
@@ -478,15 +478,15 @@ msgstr "Elementu hauek karpetak dira:"
 msgid "The following items will be permanently deleted:"
 msgstr "Elementu hauek betiko borratuko dira:"
 
-#: templates/javascript_defs.php:25
+#: templates/javascript_defs.php:28
 msgid "The original opener window has been closed. Exiting."
 msgstr "Jatorrizko hasierako leihoa itxi egin da. Irteten."
 
-#: selectlist.php:176 templates/manager/manager.html:140
+#: selectlist.php:176 templates/manager/manager.html:102
 msgid "There are no files in this folder."
 msgstr "Ez dago fitxategirik karpeta honetan."
 
-#: lib/Application.php:272
+#: lib/Prefs/Special/Columnselect.php:54
 msgid "These columns will display in this order:"
 msgstr "Zutabe hauek ordena honetan bistaratuko dira:"
 
@@ -506,11 +506,11 @@ msgstr ""
 "Elementuak itsasteko arbeletik uneko direktoriora, hautatu fitxategi-"
 "izenaren ondoko koadroa eta egin klik &quot;Itsatsi&quot; botoian."
 
-#: manager.php:473
+#: manager.php:493
 msgid "Type"
 msgstr "Mota"
 
-#: lib/Api.php:407
+#: lib/Api.php:417
 msgid "Unable to create Gollem session"
 msgstr "Ezin da sortu Gollem saioa"
 
@@ -519,54 +519,58 @@ msgstr "Ezin da sortu Gollem saioa"
 msgid "Unable to create backend permission: %s"
 msgstr "Ezin da sortu euskarri-moduluaren baimena: %s"
 
-#: manager.php:99
+#: manager.php:102
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr "Ezin da ezabatu %s fitxategia: %s"
 
-#: manager.php:91
+#: manager.php:94
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr "Ezin da ezabatu %s karpeta: %s"
 
-#: lib/Gollem.php:556 lib/Gollem.php:566
+#: lib/Gollem.php:617 lib/Gollem.php:627
 #, php-format
 msgid "Up to %s"
 msgstr "Honaino: %s"
 
-#: manager.php:298
+#: manager.php:310
 msgid "Upload File(s)"
 msgstr "Kargatu fitxategia(k)"
 
-#: config/prefs.php:14 config/prefs.php:85
+#: config/prefs.php:14 config/prefs.php:86
 msgid "User Interface"
 msgstr "Erabiltzailearen interfazea"
 
-#: manager.php:293
+#: manager.php:296
 msgid "View Clipboard"
 msgstr "Ikusi arbela"
 
-#: templates/manager/manager.html:20
+#: templates/manager/manager.html:18
 msgid "Write"
 msgstr "Idatzi"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Yes"
 msgstr "Bai"
+
+#: share.php:29
+msgid "You are not allowed to share this folder"
+msgstr "Ez duzu karpeta hau partekatzeko baimenik"
 
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
 "Gutxienez euskarri-modulu bat eduki behar duzu definituta baimenak ezartzeko."
 
-#: lib/Gollem.php:590 lib/Gollem.php:593
+#: lib/Gollem.php:651 lib/Gollem.php:654
 msgid "_Change Server"
 msgstr "_Aldatu zerbitzaria"
 
-#: lib/Application.php:288
+#: lib/Application.php:211
 msgid "_My Home"
 msgstr "_Nire direktorio nagusia"
 
-#: lib/Application.php:291
+#: lib/Application.php:214
 msgid "_Permissions"
 msgstr "_Baimenak"

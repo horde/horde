@@ -2,7 +2,7 @@
  Upgrading Passwd
 ==================
 
-:Contact: sork@lists.horde.org
+:Contact: dev@lists.horde.org
 
 .. contents:: Contents
 .. section-numbering::
@@ -26,19 +26,40 @@ configurations. Log in as an administrator, go to Administration =>
 Configuration and update anything that's highlighted as outdated.
 
 
+Upgrading to Passwd 5.0
+=======================
+
+Backend Configuration (backends.php)
+------------------------------------
+
+The following options have been added::
+
+   logout
+
+The following options have been removed::
+
+   no_reset
+
+Hooks Configuration (hooks.php)
+-------------------------------
+
+The 'default_username' hook no longer receives a $user parameter.
+
+The 'userdn' hook has been removed. It can now be configured using the
+'userdn' parameter in the LDAP driver configuration.
+
+
 Upgrading to Passwd 4.0
 =======================
 
-
-Backend Configuration
----------------------
+Backend Configuration (backends.php)
+------------------------------------
 
 The 'password policy' setting in backends.php has been renamed to 'policy'.
 
 
 Upgrading to Passwd 3.1
 =======================
-
 
 Application Hooks
 -----------------
