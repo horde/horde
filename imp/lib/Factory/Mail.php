@@ -58,7 +58,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
             unset($params['debug']);
         }
 
-        $class = $this->_getDriverName($GLOBALS['conf']['mailer']['type'], 'Horde_Mail_Transport');
+        $class = $this->_getDriverName($conf['mailer']['type'], 'Horde_Mail_Transport');
         $ob = new $class($params);
 
         if (isset($this->_debug)) {
