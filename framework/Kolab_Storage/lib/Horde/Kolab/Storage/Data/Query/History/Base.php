@@ -8,6 +8,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -24,6 +25,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -90,10 +92,12 @@ implements Horde_Kolab_Storage_Data_Query_History
         if (empty($prefix))
             return;
 
-        $stamp = $this->data->getStamp();
-        if (isset($params['changes'])) {
+        // check if IMAP uidvalidity changed
+        $is_reset = !empty($params['is_reset']);
+
+        if (isset($params['changes']) && !$is_reset) {
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
-                $this->_updateLog($prefix.$object['uid'], $bid, $stamp);
+                $this->_updateLog($prefix.$object['uid'], $bid);
             }
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object_uid) {
                 // Check if the object is really gone from the folder.
@@ -103,12 +107,12 @@ implements Horde_Kolab_Storage_Data_Query_History
                     continue;
 
                 $this->history->log(
-                    $prefix.$object_uid, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
+                    $prefix.$object_uid, array('action' => 'delete', 'bid' => $bid), true
                 );
             }
         } else {
             foreach ($this->data->getObjectToBackend() as $object => $bid) {
-                $this->_updateLog($prefix.$object, $bid, $stamp);
+                $this->_updateLog($prefix.$object, $bid);
             }
         }
     }
@@ -179,16 +183,16 @@ implements Horde_Kolab_Storage_Data_Query_History
      * @param string                           $object The object ID.
      * @param string                           $bid    The backend ID of
      *                                                 the object.
-     * @param Horde_Kolab_Storage_Folder_Stamp $stamp  The folder stamp.
+     * @param bool                             $force  Force update
      *
      * @return NULL
      */
-    private function _updateLog($object, $bid, $stamp)
+    private function _updateLog($object, $bid, $force=false)
     {
         $log = $this->history->getHistory($object);
         if (count($log) == 0) {
             $this->history->log(
-                $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp), true
+                $object, array('action' => 'add', 'bid' => $bid), true
             );
         } else {
             $last = array('ts' => 0);
@@ -208,14 +212,13 @@ implements Horde_Kolab_Storage_Data_Query_History
             // (a foreign client is sending an update over a slow link)
             if ($last['action'] == 'delete') {
                 $this->history->log(
-                    $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp), true
+                    $object, array('action' => 'add', 'bid' => $bid), true
                 );
             }
 
-            if (!isset($last['bid']) || $last['bid'] != $bid
-                || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
+            if (!isset($last['bid']) || $last['bid'] != $bid || $force) {
                 $this->history->log(
-                    $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp), true
+                    $object, array('action' => 'modify', 'bid' => $bid), true
                 );
             }
         }

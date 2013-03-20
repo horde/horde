@@ -7,6 +7,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -22,6 +23,7 @@
  * @category Kolab
  * @package  Kolab_Storage
  * @author   Gunnar Wrobel <wrobel@pardus.de>
+ * @author   Thomas Jarosch <thomas.jarosch@intra2net.com>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @link     http://pear.horde.org/index.php?package=Kolab_Storage
  */
@@ -248,9 +250,14 @@ extends Horde_Kolab_Storage_Data_Base
         }
 
         $previous = unserialize($this->_data_cache->getStamp());
-        if ($previous === false || $previous->isReset($current)) {
-            $this->_logger->notice(sprintf("Complete folder sync: user: %s, folder: %s, is_reset: %d", $user, $folder_path, $is_reset));
-            $this->_completeSynchronization($current);
+
+        // check if UIDVALIDITY changed
+        $is_reset = false;
+        if ($previous !== false)
+            $is_reset = $previous->isReset($current);
+
+        if ($previous === false || $is_reset) {
+            $this->_completeSynchronization($current, array('is_reset' => $is_reset));
             return;
         }
 
