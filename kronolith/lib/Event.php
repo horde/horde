@@ -1744,16 +1744,16 @@ abstract class Kronolith_Event
             // Set this based on the status flag.
             switch ($this->status) {
             case Kronolith::STATUS_TENTATIVE;
-                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_TENTATIVE;
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_TENTATIVE;
                 break;
-            case Kronolith::STATUS_UNKNOWN:
-                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_NORESPONSE;
+            case Kronolith::STATUS_NONE:
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NORESPONSE;
                 break;
             case Kronolith::STATUS_CONFIRMED:
-                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_ACCEPTED;
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_ACCEPTED;
                 break;
             default:
-                $message->responsetype = Horde_ActiveSync_Message_Appointment::STATUS_NONE;
+                $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
             }
         }
 
