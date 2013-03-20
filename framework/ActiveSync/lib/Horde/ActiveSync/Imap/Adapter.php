@@ -498,7 +498,7 @@ class Horde_ActiveSync_Imap_Adapter
     public function getMessages($folderid, array $messages, array $options = array())
     {
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true));
+        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
         $ret = array();
         if (!empty($options['truncation'])) {
             $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
@@ -604,7 +604,8 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a Horde_ActiveSync_Imap_Message object for the requested uid.
+     * Return a complete Horde_ActiveSync_Imap_Message object for the requested
+     * uid.
      *
      * @param string $mailbox     The mailbox name.
      * @param array|integer $uid  The message uid.
@@ -620,6 +621,9 @@ class Horde_ActiveSync_Imap_Adapter
             $uid = array($uid);
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        // @todo H6 - expand the $options array the same as _getMailMessages()
+        // for now, always retrieve the envelope data as well.
+        $options['envelope'] = true;
         $messages = $this->_getMailMessages($mbox, $uid, $options);
         $res = array();
         foreach ($messages as $id => $message) {
@@ -766,6 +770,8 @@ class Horde_ActiveSync_Imap_Adapter
      *            DEFAULT: true (Fetch message structure).
      *   - flags: (boolean) Fetch messagge flags.
      *            DEFAULT: true (Fetch message flags).
+     *   - envelope: (boolen) Fetch the envelope data.
+     *               DEFAULT: false (Do not fetch envelope). @since 2.4.0
      *
      * @return Horde_Imap_Fetch_Results  The results.
      * @throws Horde_ActiveSync_Exception
@@ -777,7 +783,8 @@ class Horde_ActiveSync_Imap_Adapter
             array(
                 'headers' => false,
                 'structure' => true,
-                'flags' => true),
+                'flags' => true,
+                'envelope' => false),
             $options
         );
 
@@ -788,6 +795,9 @@ class Horde_ActiveSync_Imap_Adapter
         }
         if ($options['flags']) {
             $query->flags();
+        }
+        if ($options['envelope']) {
+            $query->envelope();
         }
         if (!empty($options['headers'])) {
             $query->headerText(array('peek' => true));
