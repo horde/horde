@@ -20,3 +20,5 @@ TODO
 - Move all non-specific constants to single class.
 
 - Extract/Implement a full fledged device object from the state driver.
+
+- Email recurrence related properties for recurring meeting requests.
