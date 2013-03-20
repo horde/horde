@@ -103,6 +103,11 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
   </required>
+  <optional>
+   <extension>
+    <name>mbstring</name>
+   </extension>
+  </optional>
  </dependencies>
  <phprelease>
   <filelist>
