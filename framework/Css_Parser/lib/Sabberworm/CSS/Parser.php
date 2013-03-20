@@ -386,31 +386,21 @@ class Parser {
         }
         $fSize = floatval($sSize);
         $sUnit = null;
-        if ($this->comes('%')) {
-            $sUnit = $this->consume('%');
-        } else if ($this->comes('em')) {
-            $sUnit = $this->consume('em');
-        } else if ($this->comes('ex')) {
-            $sUnit = $this->consume('ex');
-        } else if ($this->comes('px')) {
-            $sUnit = $this->consume('px');
-        } else if ($this->comes('deg')) {
-            $sUnit = $this->consume('deg');
-        } else if ($this->comes('s')) {
-            $sUnit = $this->consume('s');
-        } else if ($this->comes('cm')) {
-            $sUnit = $this->consume('cm');
-        } else if ($this->comes('pt')) {
-            $sUnit = $this->consume('pt');
-        } else if ($this->comes('in')) {
-            $sUnit = $this->consume('in');
-        } else if ($this->comes('pc')) {
-            $sUnit = $this->consume('pc');
-        } else if ($this->comes('cm')) {
-            $sUnit = $this->consume('cm');
-        } else if ($this->comes('mm')) {
-            $sUnit = $this->consume('mm');
+
+        $units = array(
+            '%', 'em', 'ex', 'px', 'deg', 's', 'cm', 'pt', 'in', 'pc', 'cm',
+            'mm',
+            // These are non "size" values, but they are still numeric
+            'deg', 'grad', 'rad', 'turns', 's', 'ms', 'Hz', 'kHz'
+        );
+
+        foreach ($units as $val) {
+            if ($this->comes($val)) {
+                $sUnit = $this->consume($val);
+                break;
+            }
         }
+
         return new Size($fSize, $sUnit, $bForColor);
     }
 
@@ -540,7 +530,7 @@ class Parser {
         $aEnd = is_array($aEnd) ? $aEnd : array($aEnd);
         $iEndPos = null;
         foreach ($aEnd as $sEnd) {
-            $iCurrentEndPos = mb_strpos($this->sText, $sEnd, $this->iCurrentPosition, $this->sCharset);
+            $iCurrentEndPos = $this->strpos($this->sText, $sEnd, $this->iCurrentPosition, $this->sCharset);
             if($iCurrentEndPos === false) {
                 continue;
             }
@@ -571,6 +561,14 @@ class Parser {
             return mb_strlen($text, $this->sCharset);
         } else {
             return strlen($text);
+        }
+    }
+
+    private function strpos($text, $needle, $offset, $charset) {
+        if ($this->oParserSettings->bMultibyteSupport) {
+            return mb_strpos($text, $needle, $offset, $charset);
+        } else {
+            return strpos($text, $needle, $offset);
         }
     }
 
