@@ -44,7 +44,7 @@ class IMP_Factory_Mail extends Horde_Core_Factory_Injector
         if ($conf['mailer']['type'] == 'smtp') {
             $params = array_merge(
                 $params,
-                $injector->getInstance('IMP_Imap')->config->smtp_params
+                $injector->getInstance('IMP_Imap')->config->smtp
             );
         }
 
