@@ -190,8 +190,22 @@ implements Horde_Kolab_Storage_Data_Query_History
                 $action = $entry['action'];
                 if ($entry['ts'] > $last['ts'] && ($action == 'add' || $action == 'modify' || $action == 'delete')) {
                     $last = $entry;
+                } else if ($entry['ts'] == $last['ts'] && $action == 'delete') {
+                    // prefer 'delete' actions over other actions if the timestamp is the same.
+                    // see the logic below.
+                    $last = $entry;
                 }
             }
+
+            // If the last action for this object was 'delete', we issue an 'add'.
+            // Objects can vanish and re-appear using the same object uid.
+            // (a foreign client is sending an update over a slow link)
+            if ($last['action'] == 'delete') {
+                $this->history->log(
+                    $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp), true
+                );
+            }
+
             if (!isset($last['bid']) || $last['bid'] != $bid
                 || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
                 $this->history->log(
