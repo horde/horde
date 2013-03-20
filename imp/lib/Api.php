@@ -328,4 +328,46 @@ class IMP_Api extends Horde_Registry_Api
         return IMP_Mailbox::getSpecialMailboxes();
     }
 
+    /**
+     * Obtain the Maillog for a given message.
+     *
+     * @param string $mid  The message id to obtain the log for.
+     *
+     * @return Horde_History_Log  The log object.
+     */
+    public function getMaillog($mid)
+    {
+        $log = new IMP_Maillog();
+        return $log->getLog($mid);
+    }
+
+    /**
+     * Log an entry in the Maillog.
+     *
+     * @param string $action  The action to log.
+     * @param string $mid     The message id.
+     * @param string $data    Additional data.
+     */
+    public function logMaillog($action, $mid, $data = null)
+    {
+        $log = new IMP_Maillog();
+        $log->log($action, $mid, $data);
+    }
+
+    /**
+     * Returns a list of Message-IDs that have been added to the Maillog since
+     * the specified timestamp.
+     *
+     * @param integer $ts  The timestamp to start searching from. Only entries
+     *                     after this timestamp will be returned.
+     *
+     * @return array
+     */
+    public function getMaillogChanges($ts)
+    {
+        $log = new IMP_Maillog();
+        $changes = $log->getChanges($ts);
+        return preg_replace('/^([^:]*:){2}/', '', array_keys($changes));
+    }
+
 }
