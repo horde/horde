@@ -111,9 +111,42 @@ implements Horde_Kolab_Storage_Data_Query_History
                 );
             }
         } else {
-            foreach ($this->data->getObjectToBackend() as $object => $bid) {
-                $this->_updateLog($prefix.$object, $bid);
-            }
+            // Full sync. Either our timestamp is too old
+            // or the IMAP uidvalidity changed
+            $this->_completeSynchronization($prefix, $is_reset);
+        }
+    }
+
+    /**
+     * Perform a complete synchronization.
+     * Also markes stale history entries as 'deleted'.
+     *
+     * @param string $prefix Horde_History prefix
+     * @param boolean $is_reset Flag to indicate if the UIDVALIDITY changed
+     *
+     * @return NULL
+     */
+    private function _completeSynchronization($prefix, $is_reset)
+    {
+        $seen_objects = array();
+        foreach ($this->data->getObjectToBackend() as $object => $bid) {
+            $full_id = $prefix.$object;
+            $this->_updateLog($full_id, $bid, $is_reset);
+            $seen_objects[$full_id] = true;
+        }
+
+        // cut of last ':'
+        $search_prefix = substr($prefix, 0, -1);
+
+        // clean up history database: Mark stale entries as deleted
+        $all_entries = $this->history->getByTimestamp('>', 0, array(), $search_prefix);
+        foreach ($all_entries as $full_id => $db_id) {
+            if (isset($seen_objects[$full_id]))
+                continue;
+
+            $this->history->log(
+                $full_id, array('action' => 'delete'), true
+            );
         }
     }
 
@@ -191,6 +224,7 @@ implements Horde_Kolab_Storage_Data_Query_History
     {
         $log = $this->history->getHistory($object);
         if (count($log) == 0) {
+            // New, unknown object
             $this->history->log(
                 $object, array('action' => 'add', 'bid' => $bid), true
             );
