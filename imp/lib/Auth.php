@@ -117,10 +117,12 @@ class IMP_Auth
         }
 
         try {
-            return self::authenticate($credentials);
+            self::authenticate($credentials);
         } catch (Horde_Auth_Exception $e) {
             return false;
         }
+
+        return true;
     }
 
     /**
