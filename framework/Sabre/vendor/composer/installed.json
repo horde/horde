@@ -1,23 +1,23 @@
 [
     {
         "name": "sabre/vobject",
-        "version": "2.0.6",
-        "version_normalized": "2.0.6.0",
+        "version": "2.0.7",
+        "version_normalized": "2.0.7.0",
         "source": {
             "type": "git",
             "url": "https://github.com/evert/sabre-vobject.git",
-            "reference": "2.0.6"
+            "reference": "2.0.7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/2.0.6",
-            "reference": "2.0.6",
+            "url": "https://api.github.com/repos/evert/sabre-vobject/zipball/2.0.7",
+            "reference": "2.0.7",
             "shasum": ""
         },
         "require": {
             "php": ">=5.3.1"
         },
-        "time": "2013-02-17 03:20:46",
+        "time": "2013-03-05 12:16:55",
         "bin": [
             "bin/vobjectvalidate.php"
         ],
@@ -50,17 +50,17 @@
     },
     {
         "name": "sabre/dav",
-        "version": "1.8.2",
-        "version_normalized": "1.8.2.0",
+        "version": "1.8.3",
+        "version_normalized": "1.8.3.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/evert/SabreDAV",
-            "reference": "1.8.2"
+            "url": "https://github.com/evert/SabreDAV.git",
+            "reference": "1.8.3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.2",
-            "reference": "1.8.2",
+            "url": "https://api.github.com/repos/evert/SabreDAV/zipball/1.8.3",
+            "reference": "1.8.3",
             "shasum": ""
         },
         "require": {
@@ -80,7 +80,7 @@
             "evert/sabredav": "1.7.*"
         },
         "require-dev": {
-            "evert/phpdoc-md": "0.0.*",
+            "evert/phpdoc-md": ">=0.0.7,<0.1",
             "phing/phing": "2.4.14",
             "phpunit/phpunit": "3.7.*"
         },
@@ -89,7 +89,7 @@
             "ext-curl": "*",
             "ext-pdo": "*"
         },
-        "time": "2013-01-19 17:22:24",
+        "time": "2013-03-01 11:34:58",
         "bin": [
             "bin/sabredav"
         ],
