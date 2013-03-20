@@ -5,7 +5,7 @@
 require_once dirname(__FILE__) . '/Base.php';
 
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -64,6 +64,7 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
 
     public static function setUpBeforeClass()
     {
+        parent::setUpBeforeClass();
         if (!extension_loaded('memcache')) {
             self::$reason = 'No memcache extension';
             return;
@@ -71,10 +72,9 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
         $config = self::getConfig('SESSIONHANDLER_MEMCACHE_TEST_CONFIG',
                                   dirname(__FILE__) . '/..');
         if (!$config || empty($config['sessionhandler']['memcache'])) {
-            self::$reason = 'No memcache configuration';
-            return;
+            $config['sessionhandler']['memcache'] = array();
         }
-        $memcache = new Horde_Memcache($config);
+        $memcache = new Horde_Memcache($config['sessionhandler']['memcache']);
         $memcache->delete('sessionid');
         $memcache->delete('sessionid2');
         $storage = new Horde_SessionHandler_Storage_File(
@@ -87,7 +87,6 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
                 $storage
             )
         ));
-        parent::setUpBeforeClass();
     }
 
     public function setUp()

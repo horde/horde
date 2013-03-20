@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
@@ -688,7 +688,7 @@ class Content_Tagger
      * @param string|array $tags    The tag names to check.
      * @param boolean      $create  If true, create the tag in the tags table.
      *
-     * @return array
+     * @return array  A hash of tag_name => tag_id values.
      */
     protected function _checkTags($tags, $create = true)
     {
@@ -735,7 +735,7 @@ class Content_Tagger
      *
      * @param array $tags  Array of tag names or ids.
      *
-     * @return array  Array of tag ids.
+     * @return array  Hash of tag_name => tag_id values.
      */
     public function ensureTags($tags)
     {

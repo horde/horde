@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -53,9 +53,11 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
     const DSTFLDKEY = 'dstfldid';
 
     /* Status */
-    const STATUS_INVALID_SRC = 1;
-    const STATUS_INVALID_DST = 2;
-    const STATUS_SUCCESS     = 3;
+    const STATUS_INVALID_SRC  = 1;
+    const STATUS_INVALID_DST  = 2;
+    const STATUS_SUCCESS      = 3;
+    const STATUS_SAME_FOLDERS = 4;
+    const STATUS_SERVER_ERR   = 5;
 
     /**
      * Handle request
@@ -65,8 +67,8 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
     protected function _handle()
     {
         $this->_logger->info(sprintf(
-            "[%s] Handling MoveItems command.",
-            $this->_device_id)
+            '[%s] Handling MoveItems command.',
+            $this->_procid)
         );
 
         if (!$this->_decoder->getElementStartTag(self::MOVES)) {
@@ -93,7 +95,7 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
                     break;
                 }
             }
-            array_push($moves, $move);
+            $moves[] = $move;
             if (!$this->_decoder->getElementEndTag()) {
                 throw new Horde_ActiveSync_Exception('Protocol Error');
             }
@@ -117,20 +119,27 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($move[self::SRCMSGKEY]);
             $this->_encoder->endTag();
 
-            $importer = $this->_getImporter();
-            $importer->init($this->_stateDriver, $move[self::SRCFLDKEY]);
-            try {
-                $move_res = $importer->importMessageMove(
-                    array($move[self::SRCMSGKEY]),
-                    $move[self::DSTFLDKEY]);
-                $new_msgid = $move_res[$move[self::SRCMSGKEY]];
-            } catch (Horde_ActiveSync_Exception $e) {
-                $this->_logger->err($e->getMessage());
-                // Right now, we don't know the reason, just use 1.
-                $status = self::STATUS_INVALID_DST;
-            }
-            if (!$new_msgid) {
-                $status = self::STATUS_INVALID_DST;
+            if ($move[self::SRCFLDKEY] == $move[self::DSTFLDKEY]) {
+                $status = self::STATUS_SAME_FOLDERS;
+            } else {
+                $importer = $this->_getImporter();
+                $importer->init($this->_stateDriver, $move[self::SRCFLDKEY]);
+                try {
+                    $move_res = $importer->importMessageMove(
+                        array($move[self::SRCMSGKEY]),
+                        $move[self::DSTFLDKEY]);
+                    if (empty($move_res['results'][$move[self::SRCMSGKEY]])) {
+                        $status = self::STATUS_SERVER_ERR;
+                    } else {
+                        $new_msgid = $move_res['results'][$move[self::SRCMSGKEY]];
+                    }
+                } catch (Horde_ActiveSync_Exception $e) {
+                    $this->_logger->err($e->getMessage());
+                    $status = self::STATUS_SERVER_ERR;
+                }
+                if (empty($new_msgid)) {
+                    $status = self::STATUS_SERVER_ERR;
+                }
             }
 
             // We discard the importer state for now.
@@ -138,9 +147,11 @@ class Horde_ActiveSync_Request_MoveItems extends Horde_ActiveSync_Request_Base
             $this->_encoder->content($status);
             $this->_encoder->endTag();
 
-            $this->_encoder->startTag(self::DSTMSGID);
-            $this->_encoder->content($new_msgid);
-            $this->_encoder->endTag();
+            if ($status == self::STATUS_SUCCESS) {
+                $this->_encoder->startTag(self::DSTMSGID);
+                $this->_encoder->content($new_msgid);
+                $this->_encoder->endTag();
+            }
             $this->_encoder->endTag();
         }
         $this->_encoder->endTag();

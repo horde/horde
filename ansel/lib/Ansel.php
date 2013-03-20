@@ -2,7 +2,7 @@
 /**
  * Ansel Base Class.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -361,7 +361,7 @@ class Ansel
                 $image = $GLOBALS['injector']
                     ->getInstance('Ansel_Storage')
                     ->getImage($imageId);
-            } catch (Ansel_Exception $e) {
+            } catch (Exception $e) {
                 Horde::logMessage($e, 'ERR');
                 return Horde::url((string)Ansel::getErrorImage($view), $full);
             }
@@ -527,7 +527,7 @@ class Ansel
             $owner = $gallery->get('owner');
         }
 
-        if (!empty($image_id)) {
+        if (!empty($image_id) && empty($actionID)) {
             $image = $ansel_storage->getImage($image_id);
             if (empty($gallery)) {
                 $gallery = $ansel_storage->getGallery($image->gallery);
@@ -687,11 +687,15 @@ class Ansel
      */
     static public function getStyleDefinition($style)
     {
+        if ($style instanceof Ansel_Style) {
+            return $style;
+        }
+
         $styles = $GLOBALS['injector']->getInstance('Ansel_Styles');
         if (isset($styles[$style])) {
             return new Ansel_Style($styles[$style]);
         } else {
-            return  new Ansel_Style($styles['ansel_default']);
+            return new Ansel_Style($styles['ansel_default']);
         }
     }
 
@@ -823,7 +827,7 @@ class Ansel
             $domid = $options['container'];
         }
 
-        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel')->add($options);
+        $url = $GLOBALS['registry']->getServiceLink('ajax', 'ansel', true)->add($options);
         $url->url .= 'embed';
 
         return '<script type="text/javascript" src="' . $url .
@@ -875,7 +879,6 @@ class Ansel
                         'app' => 'ansel',
                         'append_session' => -1)));
 
-            // IF
             $code['conf']['maps'] = $GLOBALS['conf']['maps'];
             $code['conf']['pixeluri'] = (string)$GLOBALS['registry']->getServiceLink('pixel', 'ansel');
             $code['conf']['markeruri'] = (string)Horde_Themes::img('photomarker.png');
@@ -888,6 +891,25 @@ class Ansel
                 'var Ansel' => $code
             ));
         }
+    }
+
+    /**
+     * Helper function for displaying Lat/Lng values
+     *
+     * @param float $value  The value to convert.
+     * @param boolean $lat  Is this a latitude value?
+     *
+     * @return string
+     */
+    static public function point2Deg($value, $lat = false)
+    {
+        $letter = $lat ? ($value > 0 ? "N" : "S") : ($value > 0 ? "E" : "W");
+        $value = abs($value);
+        $deg = floor($value);
+        $min = floor(($value - $deg) * 60);
+        $sec = ($value - $deg - $min / 60) * 3600;
+
+        return $deg . "&deg; " . $min . '\' ' . round($sec, 2) . '" ' . $letter;
     }
 
 }

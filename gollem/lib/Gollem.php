@@ -2,7 +2,7 @@
 /**
  * Gollem base library.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -31,6 +31,13 @@ class Gollem
      * @var array
      */
     static public $backend;
+
+    /**
+     * Cache for display columns.
+     *
+     * @var array
+     */
+    static protected $_columns;
 
     /**
      * Changes the current directory of the Gollem session to the supplied
@@ -564,6 +571,29 @@ class Gollem
     static public function verifyDir($dir)
     {
         return Horde_String::substr(Horde_Util::realPath($dir), 0, Horde_String::length(self::$backend['root'])) == self::$backend['root'];
+    }
+
+    /**
+     * Parses the 'columns' preference.
+     *
+     * @return array  The list of columns to be displayed.
+     */
+    static public function getColumns($backend)
+    {
+        if (!isset(self::$_columns)) {
+            self::$_columns = array();
+            $sources = json_decode($GLOBALS['prefs']->getValue('columns'));
+            foreach ($sources as $source) {
+                self::$_columns[array_shift($source)] = $source;
+            }
+        }
+
+        if (empty(self::$_columns[$backend])) {
+            $info = Gollem_Auth::getBackend($backend);
+            self::$_columns[$backend] = $info['attributes'];
+        }
+
+        return self::$_columns[$backend];
     }
 
     /**

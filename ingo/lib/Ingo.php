@@ -2,7 +2,7 @@
 /**
  * Ingo base class.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -231,6 +231,7 @@ class Ingo
                     $backend = $name;
                 }
             }
+            $backends[$name]['id'] = $name;
         }
 
         /* Check for valid backend configuration. */
@@ -238,7 +239,6 @@ class Ingo
             throw new Ingo_Exception(_("No backend configured for this host"));
         }
 
-        $backends[$backend]['id'] = $name;
         $backend = $backends[$backend];
 
         foreach (array('script', 'transport') as $val) {
@@ -426,11 +426,15 @@ class Ingo
      */
     static public function ruleDescription($rule)
     {
+        global $injector;
+
         $condition_size = count($rule['conditions']) - 1;
         $descrip = '';
+        $storage = $injector->getInstance('Ingo_Factory_Storage')->create();
 
         foreach ($rule['conditions'] as $key => $val) {
-            $descrip .= sprintf("%s %s \"%s\"", $val['field'], $val['match'], $val['value']);
+            $info = $storage->getTestInfo($val['match']);
+            $descrip .= sprintf("%s %s \"%s\"", _($val['field']), $info->label, $val['value']);
 
             if (!empty($val['case'])) {
                 $descrip .= ' [' . _("Case Sensitive") . ']';
@@ -444,8 +448,7 @@ class Ingo
             }
         }
 
-        $descrip .= "\n" .
-            $GLOBALS['injector']->getInstance('Ingo_Factory_Storage')->create()->getActionInfo($rule['action'])->label;
+        $descrip .= "\n" . $storage->getActionInfo($rule['action'])->label;
 
         if ($rule['action-value']) {
             $descrip .= ': ' . $rule['action-value'];

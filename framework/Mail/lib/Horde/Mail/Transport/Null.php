@@ -1,7 +1,7 @@
 <?php
 /**
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2010 Phil Kernick
- * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
+ * @copyright 2010-2013 Horde LLC
  * @copyright 2010 Phil Kernick
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -42,8 +42,8 @@
  * @author    Phil Kernick <philk@rotfl.com.au>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
+ * @copyright 2010-2013 Horde LLC
  * @copyright 2010 Phil Kernick
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */

@@ -1,13 +1,13 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Indonesian translation for IMP.
+# Copyright 2004-2013 Horde LLC (http://www.horde.org/)
+# This file is distributed under the same license as the IMP package.
+# Slamin <slamin@unej.ac.id>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: IMP v3.2.2\n"
 "POT-Creation-Date: 2004-01-09 09:37+0700\n"
-"PO-Revision-Date: 2004-01-09 13:56+0700\n"
+"PO-Revision-Date: 2013-01-09 11:41+0100\n"
 "Last-Translator: Slamin <slamin@unej.ac.id>\n"
 "Language-Team: UPT TI UNEJ <uptti@unej.ac.id>\n"
 "MIME-Version: 1.0\n"

@@ -1,13 +1,8 @@
 <?php
 /**
- * Prepare the test setup.
- */
-require_once __DIR__ . '/Base.php';
-
-/**
  * Test the FTP based virtual file system.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -18,7 +13,7 @@ require_once __DIR__ . '/Base.php';
  * @author     Jan Schneider <jan@horde.org>
  * @license    http://www.horde.org/licenses/lgpl21 LGPL 2.1
  */
-class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
+class Horde_Vfs_FtpTest extends Horde_Vfs_TestBase
 {
     protected static $reason;
 
@@ -176,6 +171,8 @@ class Horde_Vfs_FtpTest extends Horde_Vfs_Test_Base
         $config = self::getConfig('VFS_FTP_TEST_CONFIG', __DIR__);
         if ($config && !empty($config['vfs']['ftp'])) {
             self::$vfs = Horde_Vfs::factory('Ftp', $config['vfs']['ftp']);
+        } else {
+            self::$reason = 'No ftp configuration';
         }
     }
 

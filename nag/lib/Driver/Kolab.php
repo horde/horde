@@ -2,7 +2,7 @@
 /**
  * Nag driver classes for the Kolab IMAP server.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -111,12 +111,15 @@ class Nag_Driver_Kolab extends Nag_Driver
             'priority' => $task['priority'],
             'parent' => $task['parent'],
             'alarm' => $task['alarm'],
-            'internaltags' => $task['categories'],
             'completed' => !empty($task['completed']),
             'completed_date' => $task['completed_date'],
             'private' => $task['sensitivity'] != 'public',
             'owner' => $GLOBALS['nag_shares']->getShare($this->_tasklist)->get('owner'),
         );
+
+        if (isset($task['categories'])) {
+            $result['internaltags'] = $task['categories'];
+        }
 
         if (!empty($task['start-date'])) {
             $result['start'] = $task['start-date']->format('U');

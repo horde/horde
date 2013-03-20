@@ -1,7 +1,7 @@
 /**
  * hermes.js - Base Hermes application logic.
  *
- * Copyright 2010 - 2012 Horde LLC (http://www.horde.org)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -22,8 +22,11 @@ HermesCore = {
     slices: [],
     searchSlices: [],
     sortbyfield: 'sortDate',
+    searchSortbyfield: 'sortDate',
     reverseSort: false,
+    searchReverseSort: false,
     sortDir: 'up',
+    searchSortDir: 'up',
     today: null,
     redBoxLoading: false,
     fromSearch: false,
@@ -210,6 +213,21 @@ HermesCore = {
                 e.stop();
                 return;
 
+            case 'hermesSearchListHeader':
+                var el = e.element().identify();
+                if (el == 'sSortDate' ||
+                    el == 'sSortClient' ||
+                    el == 'sSortEmployee' ||
+                    el == 'sSortCostObject' ||
+                    el == 'sSortType' ||
+                    el == 'sSortHours' ||
+                    el == 'sSortBill' ||
+                    el == 'sSortDesc') {
+
+                    this.handleSearchSort(e.element());
+                    e.stop();
+                }
+                return;
             case 'hermesTimeListHeader':
                 var el = e.element().identify();
                 if (el == 'sortDate' ||
@@ -220,7 +238,7 @@ HermesCore = {
                     el == 'sortBill' ||
                     el == 'sortDesc') {
 
-                    this.handleSort(e.element());
+                    this.handleEntrySort(e.element());
                     e.stop();
                 }
                 return;
@@ -261,13 +279,9 @@ HermesCore = {
                 return;
 
             case 'hermesDoExport':
-                var keys = this.getSearchResultKeys(),
-                url = HordeCore.addURLParam(Hermes.conf.URI_EXPORT, {
-                      'f': $F('hermesExportFormat'),
-                      'm': $F('hermesExportMark'),
-                      's': keys.join(',') });
-                HordeCore.redirect(url);
-                e.stop();
+                var keys = this.getSearchResultKeys();
+                $('hermesExportFormS').setValue(keys.join(','));
+                $('hermesExportForm').submit();
                 return;
 
             // Search Form
@@ -417,6 +431,10 @@ HermesCore = {
         $('hermesTimeFormId').setValue(slice.i);
         $('hermesTimeFormBillable').setValue(slice.b == 1);
 
+        if ($('hermesTimeFormEmployee')) {
+            $('hermesTimeFormEmployee').setValue(slice.e);
+        }
+
         // We might be on the search form when we click edit.
         this.fromSearch = (this.view == 'search');
         this.go('time');
@@ -467,11 +485,11 @@ HermesCore = {
      *
      * @return The slice entry from the cache.
      */
-    getSliceFromCache: function(sid, cache = 'time')
+    getSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
@@ -491,9 +509,13 @@ HermesCore = {
      *
      * @param sid    The slice id to replace.
      * @param slice  The slice data to replace it with.
+     * @param cache  The cache to replace the data in (time|search)
      */
-    replaceSliceInCache: function(sid, slice, cache = 'time')
+    replaceSliceInCache: function(sid, slice, cache)
     {
+        if (!cache) {
+            cache = 'time';
+        }
         this.removeSliceFromCache(sid, cache);
         if (cache == 'time') {
             this.slices.push(slice);
@@ -507,11 +529,11 @@ HermesCore = {
      *
      * @param sid  The slice id
      */
-    removeSliceFromCache: function(sid, cache = 'time')
+    removeSliceFromCache: function(sid, cache)
     {
         var s, c;
 
-        if (cache == 'time') {
+        if (!cache || cache == 'time') {
            s = this.slices.length;
            c = this.slices;
         } else if (cache == 'search') {
@@ -681,6 +703,11 @@ HermesCore = {
     saveTimeCallback: function(r)
     {
         $('hermesLoadingTime').hide();
+
+        if (r === true) {
+            // Successfully entered, but not for current user. Don't add to UI.
+            return;
+        }
         this.slices.push(r);
         this.reverseSort = false;
         this.updateView(this.view);
@@ -715,7 +742,13 @@ HermesCore = {
     editTimeCallback: function(sid, r)
     {
         $('hermesLoadingTime').hide();
-        if (this.getSliceFromCache(sid)) {
+
+        if (r === true && this.getSliceFromCache(sid)) {
+            this.removeSliceFromCache(sid);
+            this.reverseSort = false;
+            this.updateView(this.view);
+            this.buildTimeTable();
+        } else if (this.getSliceFromCache(sid)) {
             this.replaceSliceInCache(sid, r);
             this.reverseSort = false;
             this.updateView(this.view);
@@ -1081,37 +1114,37 @@ HermesCore = {
     buildSearchResultsTable: function()
     {
         var t = $('hermesSearchListInternal'),
-            slices;
+            slices, total = 0;
 
         t.update();
-        if (this.reverseSort) {
+        if (this.searchReverseSort) {
             slices = this.searchSlices.reverse();
-            this.sortDir = (this.sortDir == 'up') ? 'down' : 'up';
+            this.searchSortDir = (this.searchSortDir == 'up') ? 'down' : 'up';
         } else {
-            this.sortDir = 'down';
-            switch (this.sortbyfield) {
-            case 'sortDate':
+            this.searchSortDir = 'down';
+            switch (this.searchSortbyfield) {
+            case 'sSortDate':
                 // Date defaults to reverse
-                this.sortDir = 'up';
+                this.searchSortDir = 'up';
                 slices = this.searchSlices.sort(this.sortDate).reverse();
                 break;
-            case 'sortClient':
+            case 'sSortClient':
                slices = this.searchSlices.sort(this.sortClient);
                break;
-            case 'sortCostObject':
+            case 'sSortCostObject':
                 slices = this.searchSlices.sort(this.sortCostObject);
                 break;
-            case 'sortType':
+            case 'sSortType':
                 slices = this.searchSlices.sort(this.sortType);
                 break;
-            case 'sortHours':
-                this.sortDir = 'up';
-                slices = this.searcSlices.sort(this.sortHours).reverse();
+            case 'sSortHours':
+                this.searchSortDir = 'up';
+                slices = this.searchSlices.sort(this.sortHours).reverse();
                 break;
-            case 'sortBill':
+            case 'sSortBill':
                 slices = this.searchSlices.sort(this.sortBill);
                 break;
-            case 'sortDesc':
+            case 'sSortDesc':
                 slices = this.searchSlices.sort(this.sortDesc);
                 break;
             default:
@@ -1123,10 +1156,12 @@ HermesCore = {
         t.hide();
         slices.each(function(slice) {
             t.insert(this.buildSearchRow(slice).toggle());
+            total = total + parseFloat(slice.h);
         }.bind(this));
-        $(this.sortbyfield).up('div').addClassName('sort' + this.sortDir);
+        $(this.searchSortbyfield).up('div').addClassName('sort' + this.searchSortDir);
         t.appear({ duration: this.effectDur, queue: 'end' });
         this.updateTimeSummary();
+        $('hermesSearchSum').update(total);
         $$('input').each(QuickFinder.attachBehavior.bind(QuickFinder));
     },
 
@@ -1212,7 +1247,7 @@ HermesCore = {
         return row;
     },
 
-    handleSort: function(e)
+    handleEntrySort: function(e)
     {
         if (this.sortbyfield == e.identify()) {
             this.reverseSort = true;
@@ -1222,6 +1257,18 @@ HermesCore = {
         this.sortbyfield = e.identify();
         this.updateView(this.view);
         this.buildTimeTable();
+    },
+
+    handleSearchSort: function(e)
+    {
+        if (this.searchSortbyfield == e.identify()) {
+            this.searchReverseSort = true;
+        } else {
+            this.searchReverseSort = false;
+        }
+        this.searchSortbyfield = e.identify();
+        this.updateView(this.view);
+        this.buildSearchResultsTable();
     },
 
     /**
@@ -1296,6 +1343,11 @@ HermesCore = {
     sortDesc: function(a, b)
     {
         return (a.desc < b.desc) ? -1 : (a.desc > b.desc) ? 1 : 0;
+    },
+
+    sortEmployee: function(a, b)
+    {
+        return (a.e < b.e) ? -1 : (a.e > b.e) ? 1 : 0;
     },
 
     /**
@@ -1376,7 +1428,9 @@ HermesCore = {
         $('hermesSearchFormClient').observe('change', HermesCore.clientChangeHandler.bindAsEventListener(HermesCore));
 
         // Handler for the jobtype selection
-        $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        if ($('hermesJobTypeSelect')) {
+            $('hermesJobTypeSelect').observe('change', HermesCore.jobtypeChangeHandler.bindAsEventListener(HermesCore));
+        }
 
         RedBox.onDisplay = function() {
             this.redBoxLoading = false;

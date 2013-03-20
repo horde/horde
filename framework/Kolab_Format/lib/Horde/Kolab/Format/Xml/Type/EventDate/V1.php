@@ -14,7 +14,7 @@
 /**
  * Handles event start and end dates.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did not
  * receive this file, see
@@ -27,7 +27,7 @@
  * @link     http://www.horde.org/libraries/Horde_Kolab_Format
  */
 class Horde_Kolab_Format_Xml_Type_EventDate_V1
-extends Horde_Kolab_Format_Xml_Type_DateTime_V1
+extends Horde_Kolab_Format_Xml_Type_Date_V1
 {
     /**
      * Indicate which value type is expected.

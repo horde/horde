@@ -235,7 +235,7 @@ $_prefs['show_shared_side_by_side'] = array(
 // default calendar
 // Set locked to true if you don't want users to have multiple calendars.
 $_prefs['default_share'] = array(
-    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default calendar:"),
@@ -247,6 +247,9 @@ $_prefs['default_share'] = array(
         $ui->prefs['default_share']['enum'] = $enum;
     },
     'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Kronolith_Factory_Calendars')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_share'));
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_calendars'));
         $haveDefault = false;
         $default = Kronolith::getDefaultCalendar(Horde_Perms::EDIT);

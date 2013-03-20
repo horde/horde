@@ -1,12 +1,26 @@
 <?php
 /**
- * Nag_Search:: Interface for performing task searches.
- *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you did not
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
  *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package Nag
+ */
+/**
+ * Nag_Search:: Interface for performing task searches.
+ *
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file LICENSE for license information (BSD). If you did not
+ * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
  * @package Nag
  */
 class Nag_Search implements Serializable
@@ -41,6 +55,13 @@ class Nag_Search implements Serializable
     protected $_completed;
 
     /**
+     * The tasks lists to search.
+     *
+     * @var array
+     */
+    protected $_tasklists;
+
+    /**
      * Duedate criteria
      *
      * @var array
@@ -69,7 +90,7 @@ class Nag_Search implements Serializable
      *          DEFAULT: No date filters.
      *
      *   - tags: (array) An array of tags to filter on.
-     *   - tasklists: (array) An arary of tasklist ids to filter on.
+     *   - tasklists: (array) An array of tasklist ids to filter on.
      *                DEFAULT: The current display_tasklists value is used.
      *
      * @return Nag_Search
@@ -196,6 +217,11 @@ class Nag_Search implements Serializable
         }
     }
 
+    /**
+     * Serialize method
+     *
+     * @return array  The unserialized data.
+     */
     public function serialize()
     {
         return serialize(array(
@@ -206,6 +232,11 @@ class Nag_Search implements Serializable
             'tags' => $this->_tags));
     }
 
+    /**
+     * Unserialize method
+     *
+     * @param string $data  The serialized data.
+     */
     public function unserialize($data)
     {
         $data = unserialize($data);

@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,12 +30,28 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string attmethod    The attachment method.
+ * @property integer attsize     The attachment size.
+ * @property string displayname  The attachment's display name.
+ * @property string attname      The attachment's name.
+ * @property boolean attremoved  @todo
+ * @property contentid           The Content-Id of the mime part.
+ * @property contentlocation     @todo
+ * @property isinline            Indicates that this part is to be displayed
+ *                               inline.
  */
 class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Message_Base
 {
+
+    /* Attachement types */
+    const ATT_TYPE_NORMAL   = 1;
+    const ATT_TYPE_EMBEDDED = 5;
+    const ATT_TYPE_OLE      = 6;
+
     /**
      * Property mappings
      *
@@ -52,6 +68,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         Horde_ActiveSync::AIRSYNCBASE_DATA              => array (self::KEY_ATTRIBUTE => '_data'),
     );
 
+    /**
+     * Property mapping.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'attmethod'       => false,
         'attsize'         => false,
@@ -64,6 +85,11 @@ class Horde_ActiveSync_Message_AirSyncBaseAttachment extends Horde_ActiveSync_Me
         '_data'           => false
     );
 
+    /**
+     * Return the type of message.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'AirSyncBaseAttachment';

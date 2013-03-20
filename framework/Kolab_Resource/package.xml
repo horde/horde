@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * First alpha release for Horde 4.
 * [jan] Update Latvian translation.
 * [gwr] Extracted package from Kolab_Filter.
@@ -509,6 +510,7 @@
    <date>2011-11-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
 * First alpha release for Horde 4.
 * [jan] Update Latvian translation.
 * [gwr] Extracted package from Kolab_Filter.

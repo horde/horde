@@ -9,8 +9,8 @@ function table_sortCallback(tableId, column, sortDown)
 <table class="horde-table sortable" cellspacing="0">
 <thead>
  <tr>
-  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
   <th id="s_title" class="horde-split-left<?php if ($this->sortby == 'title') echo ' ' . $this->sortdirclass ?>"><?php echo _("Title") ?></th>
+  <th id="s_dt"<?php if ($this->sortby == 'dt') echo ' class="' . $this->sortdirclass . '"' ?>><?php echo _("Added")?></th>
   <th id="s_clicks" class="horde-split-left<?php if ($this->sortby == 'clicks') echo ' ' . $this->sortdirclass ?>" width="1%"><?php echo _("Clicks") ?></th>
   <th width="10%" class="horde-split-left nosort"></th>
  </tr>
@@ -19,16 +19,17 @@ function table_sortCallback(tableId, column, sortDown)
  <?php foreach ($this->bookmarks as $bookmark): ?>
  <tr>
   <td>
-   <?php $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')) ?>
-  </td>
-  <td>
    <div class="trean-bookmarks-title">
-    <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
-    <?php if ($bookmark->http_status == 'error'): ?>
-    <?php echo Horde::img('http/error.png') ?>
-    <?php elseif ($bookmark->http_status): ?>
-    <?php echo Horde::img('http/' . (int)substr($bookmark->http_status, 0, 1) . 'xx.png') ?>
-    <?php endif; ?>
+    <div class="trean-favicon-container">
+     <?php echo Horde::img(Trean::getFavicon($bookmark), '', array('class' => 'trean-favicon')) ?>
+    </div>
+    <?php
+if ($bookmark->http_status == 'error') {
+    echo Horde::img('http/error.png');
+} elseif ($bookmark->http_status) {
+    echo Horde::img('http/' . (int)substr($bookmark->http_status, 0, 1) . 'xx.png');
+}
+    ?>
     <?php echo $this->redirectUrl->add('b', $bookmark->id)->link(array('target' => $this->target)) . $this->h($bookmark->title ? $bookmark->title : $bookmark->url) ?></a>
     <small>
       <?php echo $this->h($bookmark->url) ?>
@@ -43,6 +44,9 @@ function table_sortCallback(tableId, column, sortDown)
      <?php endforeach ?>
     </ul>
    </div>
+  </td>
+  <td class="trean-bookmarks-date">
+   <?php if ($bookmark->dt) { $dt = new Horde_Date($bookmark->dt); echo $dt->strftime($GLOBALS['prefs']->getValue('date_format')); } ?>
   </td>
   <td class="trean-bookmarks-clicks">
    <?php echo $bookmark->clicks ?>

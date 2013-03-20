@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -313,14 +313,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->_debug = empty($this->_params['debug'])
             ? new Horde_Support_Stub()
             : new Horde_Imap_Client_Base_Debug($this->_params['debug']);
-    }
-
-    /**
-     * Destructor.
-     */
-    public function __destruct()
-    {
-        $this->shutdown();
     }
 
     /**
@@ -1591,7 +1583,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
         $mailbox = Horde_Imap_Client_Mailbox::get($mailbox);
         $ret = array();
-        $smailbox = strval($mailbox);
 
         /* Catch flags that are not supported. */
         if (($flags & Horde_Imap_Client::STATUS_HIGHESTMODSEQ) &&
@@ -2038,19 +2029,43 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *    <li>Horde_Imap_Client::SORT_ARRIVAL</li>
      *    <li>Horde_Imap_Client::SORT_CC</li>
      *    <li>Horde_Imap_Client::SORT_DATE</li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYFROM
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to doing client-side sorting.
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to Horde_Imap_Client::SORT_FROM [since 2.4.0].
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYTO
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to doing client-side sorting.
+     *      </li>
+     *     </ul>
+     *    </li>
+     *    <li>Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK
+     *     <ul>
+     *      <li>
+     *       On servers that don't support SORT=DISPLAY, this criteria will
+     *       fallback to Horde_Imap_Client::SORT_TO [since 2.4.0].
+     *      </li>
+     *     </ul>
+     *    </li>
      *    <li>Horde_Imap_Client::SORT_FROM</li>
      *    <li>Horde_Imap_Client::SORT_SEQUENCE</li>
      *    <li>Horde_Imap_Client::SORT_SIZE</li>
      *    <li>Horde_Imap_Client::SORT_SUBJECT</li>
      *    <li>Horde_Imap_Client::SORT_TO</li>
-     *    <li>
-     *     [On servers that support SORT=DISPLAY, these criteria are also
-     *     available:]
-     *     <ul>
-     *      <li>Horde_Imap_Client::SORT_DISPLAYFROM</li>
-     *      <li>Horde_Imap_Client::SORT_DISPLAYTO</li>
-     *     </ul>
-     *    </li>
      *    <li>
      *     [On servers that support SEARCH=FUZZY, this criteria is also
      *     available:]
@@ -2108,6 +2123,26 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if ((($pos = array_search(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) !== false) &&
             !$this->queryCapability('SEARCHRES')) {
             unset($options['results'][$pos]);
+        }
+
+        // Check for SORT-related options.
+        if (!empty($options['sort'])) {
+            $sort = $this->queryCapability('SORT');
+            foreach ($options['sort'] as $key => $val) {
+                switch ($val) {
+                case Horde_Imap_Client::SORT_DISPLAYFROM_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_FROM
+                        : Horde_Imap_Client::SORT_DISPLAYFROM;
+                    break;
+
+                case Horde_Imap_Client::SORT_DISPLAYTO_FALLBACK:
+                    $options['sort'][$key] = (!is_array($sort) || !in_array('DISPLAY', $sort))
+                        ? Horde_Imap_Client::SORT_TO
+                        : Horde_Imap_Client::SORT_DISPLAYTO;
+                    break;
+                }
+            }
         }
 
         // Check for supported charset.
@@ -2183,6 +2218,16 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $status_res = $this->status($this->_selected, Horde_Imap_Client::STATUS_MESSAGES | Horde_Imap_Client::STATUS_HIGHESTMODSEQ);
         if ($status_res['messages'] ||
             in_array(Horde_Imap_Client::SEARCH_RESULTS_SAVE, $options['results'])) {
+            /* RFC 4551 [3.1] - trying to do a MODSEQ SEARCH on a mailbox that
+             * doesn't support it will return BAD. */
+            if (in_array('CONDSTORE', $options['_query']['exts']) &&
+                !$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+               );
+           }
+
             $ret = $this->_search($query, $options);
         } else {
             $ret = array(
@@ -2413,8 +2458,17 @@ abstract class Horde_Imap_Client_Base implements Serializable
      *                   thrown. If valid, this option implicity adds the
      *                   mod-sequence fetch criteria to the fetch command.
      *                   DEFAULT: Mod-sequence values are ignored.
+     *   - exists: (boolean) Ensure that all ids returned exist on the server.
+     *             If false, the list of ids returned in the results object
+     *             is not guaranteed to reflect the current state of the
+     *             remote mailbox.
+     *             DEFAULT: false
      *   - ids: (Horde_Imap_Client_Ids) A list of messages to fetch data from.
      *          DEFAULT: All messages in $mailbox will be fetched.
+     *   - nocache: (boolean) If true, will not cache the results (previously
+     *              cached data will still be used to generate results) [since
+     *              2.8.0].
+     *              DEFAULT: false
      *
      * @return Horde_Imap_Client_Fetch_Results  A results object.
      *
@@ -2423,12 +2477,29 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     public function fetch($mailbox, $query, array $options = array())
     {
+        try {
+            $ret = $this->_fetchWrapper($mailbox, $query, $options);
+            unset($this->_temp['fetch_nocache']);
+            return $ret;
+        } catch (Exception $e) {
+            unset($this->_temp['fetch_nocache']);
+            throw $e;
+        }
+    }
+
+    /**
+     * Wrapper for fetch() to allow internal state to be rest on exception.
+     *
+     * @internal
+     * @see fetch()
+     */
+    private function _fetchWrapper($mailbox, $query, $options)
+    {
         $this->login();
 
         $query = clone $query;
 
         $cache_array = $header_cache = $new_query = array();
-        $res_seq = null;
 
         if (empty($options['ids'])) {
             $options['ids'] = $this->getIdsOb(Horde_Imap_Client_Ids::ALL);
@@ -2441,6 +2512,11 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
+        $mbox_ob = $this->_mailboxOb();
+
+        if (!empty($options['nocache'])) {
+            $this->_temp['fetch_nocache'] = true;
+        }
 
         $cf = $this->_initCache(true)
             ? $this->_cacheFields()
@@ -2451,9 +2527,23 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $query->uid();
         }
 
-        if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ) &&
-            !isset($this->_init['enabled']['CONDSTORE'])) {
-            unset($query[$k]);
+        $modseq_check = !empty($options['changedsince']);
+        if ($query->contains(Horde_Imap_Client::FETCH_MODSEQ)) {
+            if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                unset($query[Horde_Imap_Client::FETCH_MODSEQ]);
+            } elseif (empty($options['changedsince'])) {
+                $modseq_check = true;
+            }
+        }
+
+        if ($modseq_check &&
+            !$mbox_ob->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+            /* RFC 4551 [3.1] - trying to do a MODSEQ FETCH on a mailbox that
+             * doesn't support it will return BAD. */
+            throw new Horde_Imap_Client_Exception(
+                Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                Horde_Imap_Client_Exception::MBOXNOMODSEQ
+            );
         }
 
         /* Determine if caching is available and if anything in $query is
@@ -2503,24 +2593,25 @@ abstract class Horde_Imap_Client_Base implements Serializable
             : clone $ret;
 
         /* Convert special searches to UID lists and create mapping. */
-        $ids = $this->resolveIds($this->_selected, $options['ids'], 1);
+        $ids = $this->resolveIds($this->_selected, $options['ids'], empty($options['exists']) ? 1 : 2);
 
         /* Get the cached values. */
-        $mbox_ob = $this->_mailboxOb();
         $data = $this->_cache->get($this->_selected, $ids->ids, array_values($cache_array), $mbox_ob->getStatus(Horde_Imap_Client::STATUS_UIDVALIDITY));
 
         /* Build a list of what we still need. */
         $map = array_flip($mbox_ob->map->map);
+        $sequence = $options['ids']->sequence;
         foreach ($ids as $uid) {
             $crit = clone $query;
 
-            if ($options['ids']->sequence) {
+            if ($sequence) {
                 if (!isset($map[$uid])) {
                     continue;
                 }
                 $entry_idx = $map[$uid];
             } else {
                 $entry_idx = $uid;
+                unset($crit[Horde_Imap_Client::FETCH_UID]);
             }
 
             $entry = $ret->get($entry_idx);
@@ -2531,7 +2622,6 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             $entry->setUid($uid);
-            unset($crit[Horde_Imap_Client::FETCH_UID]);
 
             foreach ($cache_array as $key => $cid) {
                 switch ($key) {
@@ -2604,7 +2694,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         }
 
         foreach ($new_query as $val) {
-            $ids_ob = $this->getIdsOb(null, $options['ids']->sequence);
+            $ids_ob = $this->getIdsOb(null, $sequence);
             $ids_ob->duplicates = true;
             $ids_ob->add($val['i']);
             $this->_fetch(is_null($cs_ret) ? $ret : $cs_ret, $val['c'], array_merge($options, array(
@@ -2624,12 +2714,12 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $squery->ids($options['ids']);
 
             $cs = $this->search($this->_selected, $squery, array(
-                'sequence' => $options['ids']->sequence
+                'sequence' => $sequence
             ));
 
             foreach ($cs['match'] as $val) {
                 $entry = $ret->get($val);
-                if ($options['ids']->sequence) {
+                if ($sequence) {
                     $entry->setSeq($val);
                 } else {
                     $entry->setUid($val);
@@ -2697,7 +2787,14 @@ abstract class Horde_Imap_Client_Base implements Serializable
         $this->openMailbox($mailbox, Horde_Imap_Client::OPEN_AUTO);
 
         if ($qresync) {
-            return $this->_vanished($modseq, $opts['ids']);
+            if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+                );
+            }
+
+            return $this->_vanished(max(1, $modseq), $opts['ids']);
         }
 
         $ids = $this->resolveIds($mailbox, $opts['ids']);
@@ -2768,9 +2865,19 @@ abstract class Horde_Imap_Client_Base implements Serializable
             throw new Horde_Imap_Client_Exception_NoSupportExtension('SEARCHRES');
         }
 
-        if (!empty($options['unchangedsince']) &&
-            !isset($this->_init['enabled']['CONDSTORE'])) {
-            throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
+        if (!empty($options['unchangedsince'])) {
+            if (!isset($this->_init['enabled']['CONDSTORE'])) {
+                throw new Horde_Imap_Client_Exception_NoSupportExtension('CONDSTORE');
+            }
+
+            /* RFC 4551 [3.1] - trying to do a UNCHANGEDSINCE STORE on a
+             * mailbox that doesn't support it will return BAD. */
+            if (!$this->_mailboxOb()->getStatus(Horde_Imap_Client::STATUS_HIGHESTMODSEQ)) {
+                throw new Horde_Imap_Client_Exception(
+                    Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
+                    Horde_Imap_Client_Exception::MBOXNOMODSEQ
+                );
+            }
         }
 
         return $this->_store($options);
@@ -3512,7 +3619,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      */
     protected function _updateCache(Horde_Imap_Client_Fetch_Results $data)
     {
-        if (empty($this->_selected) ||
+        if (!empty($this->_temp['fetch_nocache']) ||
+            empty($this->_selected) ||
             !count($data) ||
             !$this->_initCache(true)) {
             return;
@@ -3534,7 +3642,13 @@ abstract class Horde_Imap_Client_Base implements Serializable
             $cf = $this->_cacheFields();
         }
 
-        foreach ($data as $k => $v) {
+        foreach ($data as $v) {
+            /* It is possible that we received FETCH information that doesn't
+             * contain UID data. This is uncacheable so don't process. */
+            if (!($uid = $v->getUid())) {
+                return;
+            }
+
             $tmp = array();
 
             foreach ($cf as $key => $val) {
@@ -3546,7 +3660,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
 
                     case Horde_Imap_Client::FETCH_FLAGS:
                         if ($highestmodseq) {
-                            $modseq[$v->getUid()] = $v->getModSeq();
+                            $modseq[$uid] = $v->getModSeq();
                             $tmp[$val] = $v->getFlags();
                         }
                         break;
@@ -3575,10 +3689,10 @@ abstract class Horde_Imap_Client_Base implements Serializable
             }
 
             if (!empty($tmp)) {
-                $tocache[$v->getUid()] = $tmp;
+                $tocache[$uid] = $tmp;
             }
 
-            $mapping[$v->getSeq()] = $v->getUid();
+            $mapping[$v->getSeq()] = $uid;
         }
 
         if (!empty($mapping)) {
@@ -3869,15 +3983,18 @@ abstract class Horde_Imap_Client_Base implements Serializable
             Horde_Imap_Client::STATUS_UIDVALIDITY
         );
 
-        $out = array(
-            'U' => $status['uidnext'],
-            'V' => $status['uidvalidity']
-        );
-
+        $fields = array('uidnext', 'uidvalidity');
         if (empty($status['highestmodseq'])) {
-            $out['M'] = $status['messages'];
+            $fields[] = 'messages';
         } else {
-            $out['H'] = $status['highestmodseq'];
+            $fields[] = 'highestmodseq';
+        }
+
+        $out = array();
+        $sync_map = array_flip(Horde_Imap_Client_Data_Sync::$map);
+
+        foreach ($fields as $val) {
+            $out[$sync_map[$val]] = $status[$val];
         }
 
         return array_filter($out);

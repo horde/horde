@@ -166,7 +166,14 @@ $_prefs['default_dir'] = array(
             $enum[$key] = $info['title'];
         }
         $ui->prefs['default_dir']['enum'] = $enum;
-    }
+    },
+    'on_change' => function() {
+        $source = $GLOBALS['prefs']->getValue('default_dir');
+        $GLOBALS['injector']
+            ->getInstance('Turba_Factory_Driver')
+            ->create($source)
+            ->setDefaultShare($source);
+    },
 );
 
 // preference for holding any preferences-based addressbooks.

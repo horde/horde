@@ -232,7 +232,7 @@ $_prefs['show_completed'] = array(
 // default tasklists
 // Set locked to true if you don't want users to have multiple task lists.
 $_prefs['default_tasklist'] = array(
-    'value' => $GLOBALS['registry']->getAuth() ? $GLOBALS['registry']->getAuth() : 0,
+    'value' => '',
     'type' => 'enum',
     'enum' => array(),
     'desc' => _("Your default task list:"),
@@ -244,6 +244,9 @@ $_prefs['default_tasklist'] = array(
         $ui->prefs['default_tasklist']['enum'] = $enum;
     },
     'on_change' => function() {
+        $GLOBALS['injector']->getInstance('Nag_Factory_Tasklists')
+            ->create()
+            ->setDefaultShare($GLOBALS['prefs']->getValue('default_tasklist'));
         $sync = @unserialize($GLOBALS['prefs']->getValue('sync_lists'));
         $haveDefault = false;
         $default = Nag::getDefaultTasklist(Horde_Perms::EDIT);

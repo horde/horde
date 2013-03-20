@@ -4,7 +4,7 @@
  * everything.
  *
  * Copyright 2004-2007 Andrew Coleman <mercury@appisolutions.net>
- * Copyright 2004-2011 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -33,6 +33,7 @@ class Sesha_Form_Search extends Horde_Form {
                 Sesha::SEARCH_NOTE          => _("Item Note"),
                 Sesha::SEARCH_PROPERTY      => _("Property Value"))));
         $this->addVariable(_("For this value"), 'criteria', 'text', true);
+        $this->addVariable(_("Only exact matches"), 'exact', 'boolean', true, false);
     }
 
 }

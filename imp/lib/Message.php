@@ -1,14 +1,14 @@
 <?php
 /**
  * Copyright 2000-2001 Chris Hyde <chris@jeks.net>
- * Copyright 2000-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2000-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
  * @copyright 2000-2001 Chris Hyde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -24,7 +24,7 @@
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
  * @copyright 2000-2001 Chris Hyde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -296,12 +296,9 @@ class IMP_Message
                 if (!is_null($fetch)) {
                     $msg_ids = array();
                     foreach ($fetch as $v) {
-                        if ($msg_id = $v->getEnvelope()->message_id) {
-                            $msg_ids[] = $msg_id;
-                        }
+                        $msg_ids[] = $v->getEnvelope()->message_id;
                     }
-
-                    $injector->getInstance('IMP_Maillog')->deleteLog($msg_ids);
+                    $injector->getInstance('IMP_Maillog')->deleteLog(array_filter($msg_ids));
                 }
             }
         }
@@ -482,6 +479,8 @@ class IMP_Message
     public function stripPart(IMP_Indices $indices, $partid = null,
                               array $opts = array())
     {
+        global $injector;
+
         list($mbox, $uid) = $indices->getSingle();
         if (!$uid) {
             return;
@@ -493,7 +492,7 @@ class IMP_Message
 
         $uidvalidity = $mbox->uidvalid;
 
-        $contents = $GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($indices);
+        $contents = $injector->getInstance('IMP_Factory_Contents')->create($indices);
         $message = $contents->getMIMEMessage();
         $boundary = trim($message->getContentTypeParameter('boundary'), '"');
 
@@ -502,7 +501,7 @@ class IMP_Message
         $url->uid = $uid;
         $url->uidvalidity = $uidvalidity;
 
-        $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
+        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create();
 
         /* Always add the header to output. */
         $url->section = 'HEADER';
@@ -604,9 +603,11 @@ class IMP_Message
             $opts['mailboxob']->setIndex($indices_ob);
         }
 
-        /* We need to replace the old index in the query string with the
-         * new index. */
-        $_SERVER['QUERY_STRING'] = str_replace($uid, $new_uid, $_SERVER['QUERY_STRING']);
+        /* We need to replace the old index in the URL params. */
+        $vars = $injector->getInstance('Horde_Variables');
+        if (isset($vars->uid)) {
+            $vars->uid = $new_uid;
+        }
 
         return $indices_ob;
     }

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -27,7 +27,7 @@
  * @author    Mike Cochrane <mike@graftonhall.co.nz>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2000-2012 Horde LLC
+ * @copyright 2000-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -215,8 +215,16 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
             'forcemime' => true
         ));
 
-        $hdrs = $this->getConfigParam('imp_contents')->getHeader();
-        $new_part->setMetadata('imp-smime-from', $hdrs->getValue('from'));
+        if ($new_part->getType() == 'multipart/signed') {
+            $hdrs = $this->getConfigParam('imp_contents')->getHeader();
+
+            $data = new Horde_Stream_Temp();
+            $data->add(
+                'From:' . $hdrs->getValue('from') . "\n" .
+                $decrypted_data
+            );
+            $new_part->setMetadata('imp-smime-decrypt', $data);
+        }
 
         return $new_part;
     }
@@ -250,18 +258,9 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         }
 
         $imp_contents = $this->getConfigParam('imp_contents');
-        if ($imp_contents->isEmbedded($base_id)) {
-            $hdrs = new Horde_Mime_Headers();
-            $hdrs->addHeader('From', $this->_mimepart->getMetadata('imp-smime-from'));
-
-            $stream = $this->_mimepart->toString(array(
-                'headers' => $hdrs,
-                'stream' => true
-            ));
-        } else {
-            $stream = $this->_getPartStream($base_id);
-        }
-
+        $stream = $imp_contents->isEmbedded($base_id)
+            ? $this->_mimepart->getMetadata('imp-smime-decrypt')->stream
+            : $this->_getPartStream($base_id);
         $raw_text = $this->_mimepart->replaceEOL($stream, Horde_Mime_Part::RFC_EOL);
 
         $this->_initSmime();
@@ -320,7 +319,7 @@ class IMP_Mime_Viewer_Smime extends Horde_Mime_Viewer_Base
         } else {
             switch ($GLOBALS['registry']->getView()) {
             case Horde_Registry::VIEW_BASIC:
-                $status->addText(Horde::link(IMP::selfUrl()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>');
+                $status->addText(Horde::link(Horde::selfUrlParams()->add('smime_verify_msg', 1)) . _("Click HERE to verify the data.") . '</a>');
                 break;
 
             case Horde_Registry::VIEW_DYNAMIC:

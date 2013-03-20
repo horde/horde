@@ -2,7 +2,7 @@
 /**
  * Common code shared among IMP's various folder UI views.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -57,7 +57,8 @@ class IMP_Ui_Folder
 
             try {
                 $size = $imp_imap->fetch($val, $query, array(
-                    'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true)
+                    'ids' => $imp_imap->getIdsOb(Horde_Imap_Client_Ids::ALL, true),
+                    'nocache' => true
                 ));
             } catch (IMP_Imap_Exception $e) {
                 continue;
@@ -98,7 +99,8 @@ class IMP_Ui_Folder
             foreach ($slices as $slice) {
                 try {
                     $res = $imp_imap->fetch($val, $query, array(
-                        'ids' => $slice
+                        'ids' => $slice,
+                        'nocache' => true
                     ));
                 } catch (IMP_Imap_Exception $e) {
                     continue;

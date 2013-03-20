@@ -4,7 +4,7 @@
  * SQL dialects and quoting.
  *
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -454,6 +454,11 @@ class Horde_Db_Adapter_Postgresql_Schema extends Horde_Db_Adapter_Base_Schema
         $this->execute($sql);
 
         if (array_key_exists('default', $options)) {
+            $sql = sprintf('UPDATE %s SET %s = %s',
+                           $this->quoteTableName($tableName),
+                           $this->quoteColumnName($columnName),
+                           $this->quote($options['default']));
+            $this->execute($sql);
             $this->changeColumnDefault($tableName, $columnName,
                                        $options['default']);
         }

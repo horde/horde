@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -95,6 +95,11 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
     const REMINDER_SET_FALSE      = 0;
     const REMINDER_SET_TRUE       = 1;
 
+    /**
+     * Property mapping
+     *
+     * @var array
+     */
     protected $_mapping = array (
         self::POOMTASKS_COMPLETE      => array (self::KEY_ATTRIBUTE => 'complete'),
         self::POOMTASKS_DATECOMPLETED => array (self::KEY_ATTRIBUTE => 'datecompleted', self::KEY_TYPE => self::TYPE_DATE_DASHES),
@@ -113,6 +118,11 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         self::POOMTASKS_CATEGORIES    => array (self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMTASKS_CATEGORY),
     );
 
+    /**
+     * Property values.
+     *
+     * @var array
+     */
     protected $_properties = array(
         'subject'       => false,
         'importance'    => false,
@@ -333,6 +343,13 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
         return 'Tasks';
     }
 
+    /**
+     * Check if a field should be sent to the device even if it is empty.
+     *
+     * @param string $tag  The field tag.
+     *
+     * @return boolean
+     */
     protected function _checkSendEmpty($tag)
     {
         if ($tag == self::POOMTASKS_BODYTRUNCATED && $this->bodysize > 0) {

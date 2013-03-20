@@ -1,4 +1,4 @@
-<div id="horde-page" style="left:<?php echo $prefs->getValue('sidebar_width') ?>px">
+<div id="horde-page" style="<?php echo ($GLOBALS['registry']->nlsconfig->curr_rtl ? 'right:' : 'left:') . $prefs->getValue('sidebar_width') ?>px">
 
 <div id="kronolithQuickinsert" class="quickAdd" style="display:none">
   <h2><?php echo _("Quick Event Creation") ?></h2>

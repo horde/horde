@@ -507,27 +507,31 @@ class Nag
      * Returns the default tasklist for the current user at the specified
      * permissions level.
      *
-     * @param integer $permission  The permission to require.
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
      *
-     * @return mixed The default tasklist or false if none.
+     * @return string  The default tasklist or null if none.
      */
     static public function getDefaultTasklist($permission = Horde_Perms::SHOW)
     {
-        global $prefs;
-
-        $default_tasklist = $prefs->getValue('default_tasklist');
         $tasklists = self::listTasklists(false, $permission);
 
+        $default_tasklist = $GLOBALS['prefs']->getValue('default_tasklist');
         if (isset($tasklists[$default_tasklist])) {
             return $default_tasklist;
-        } elseif ($prefs->isLocked('default_tasklist')) {
-            return $GLOBALS['registry']->getAuth();
-        } elseif (count($tasklists)) {
-            reset($tasklists);
-            return key($tasklists);
         }
 
-        return false;
+        $default_tasklist = $GLOBALS['injector']
+            ->getInstance('Nag_Factory_Tasklists')
+            ->create()
+            ->getDefaultShare();
+        if (isset($tasklists[$default_tasklist])) {
+            $GLOBALS['prefs']->setValue('default_tasklist', $default_tasklist);
+            return $default_tasklist;
+        }
+
+        reset($tasklists);
+        return key($tasklists);
     }
 
     /**

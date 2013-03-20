@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Horde 3.2-cvs\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-10-26 23:07+0200\n"
-"PO-Revision-Date: 2012-11-15 20:42+0100\n"
+"PO-Revision-Date: 2012-11-30 10:47+0100\n"
 "Last-Translator: Arjen de Korte <build+horde@de-korte.org>\n"
 "Language-Team: Dutch <kde-i18n-doc@kde.org>\n"
 "Language: nl\n"
@@ -155,27 +155,27 @@ msgstr "3 dagen"
 #: templates/prefs/facebook.html:41
 msgid "<tag:app_name /> cannot read information about your Facebook friends."
 msgstr ""
-"<tag:app_name /> kan geen informatie ophalen over uw Facebook vrienden."
+"<tag:app_name />  kan geen informatie ophalen over uw Facebook vrienden."
 
 #: templates/prefs/facebook.html:29
 msgid ""
 "<tag:app_name /> cannot read your stream messages and various other Facebook "
 "data items."
 msgstr ""
-"<tag:app_name /> kan uw gegevensstroom berichten en verschillende andere  "
-"Facebook gegevens niet ophalen."
+"<tag:app_name /> kan geen stream berichten en diverse andere Facebook data "
+"elementen lezen."
 
 #: templates/prefs/facebook.html:17
 msgid ""
 "<tag:app_name /> cannot set your status messages or publish other content to "
 "Facebook."
 msgstr ""
-"<tag:app_name /> kan uw status berichten of  andere gegevens niet opFacebook "
-"plaatsen."
+"<tag:app_name />  kan uw status berichten niet instellen of andere inhoud op "
+"Facebook plaatsen."
 
 #: templates/prefs/twitter.html:9
 msgid "<tag:appname /> can interact with your Twitter account"
-msgstr "<tag:appname /> kan niet samenwerken met uw Twitter account"
+msgstr "<tag:appname /> kan samenwerken met uw Twitter account"
 
 #: admin/activesync.php:33
 msgid ""
@@ -578,7 +578,7 @@ msgstr "Wijzigen"
 
 #: lib/Block/Weather.php:120
 msgid "Change Location"
-msgstr "Wijzig plaats"
+msgstr "Wijzig locatie"
 
 #: services/changepassword.php:26
 msgid "Change Your Password"
@@ -665,7 +665,7 @@ msgstr "Klik om verder te gaan"
 
 #: templates/prefs/syncml.html:13
 msgid "Client Anchor"
-msgstr "Client anker"
+msgstr "ClientAnchor"
 
 #: templates/shares/edit.inc:12
 msgid "Close Window"
@@ -774,8 +774,8 @@ msgid ""
 "Could not find authorization for <tag:appname /> to interact with your "
 "Twitter account"
 msgstr ""
-"Kon autorisatie voor <tag:appname /> niet vinden om samen te werken met "
-"uwTwitter account"
+"Kon geen toestemming voor <tag:appname /> om samen te werken met uw Twitter "
+"account"
 
 #: services/resetpassword.php:100
 msgid ""
@@ -939,7 +939,7 @@ msgstr "Standaard karakterset voor het verzenden van berichten:"
 
 #: config/prefs.php:309
 msgid "Default location to use for location-aware features."
-msgstr "Standaard plaats voor plaats afhankelijke toepassingen."
+msgstr "Standaard locatie voor plaats afhankelijke toepassingen."
 
 #: lib/Block/Fortune.php:40
 msgid "Definitions"
@@ -1218,7 +1218,7 @@ msgstr "Extra groot"
 
 #: templates/admin/config/index.html:102
 msgid "FTP upload of configuration"
-msgstr "FTP upload van configuratie"
+msgstr "FTP overdracht van configuratie"
 
 #: config/prefs.php:661
 msgid "Facebook Integration"
@@ -1234,7 +1234,7 @@ msgstr "Feed"
 
 #: lib/Block/Feed.php:28
 msgid "Feed Address"
-msgstr "Feed URL"
+msgstr "Feed adres"
 
 #: lib/Block/Metar.php:194
 msgid "Feels Like"
@@ -1410,7 +1410,8 @@ msgstr "Hoogte"
 
 #: lib/Block/FbStream.php:75 lib/Block/TwitterTimeline.php:64
 msgid "Height of stream content (width automatically adjusts to block)"
-msgstr "Hoogte van gegevensstroom inhoud (breedte wordt automatisch aangepast)"
+msgstr ""
+"Hoogte van stream inhoud (breedte wordt automatisch aan blok aangepast)"
 
 #: services/help/index.php:79 templates/help/index.inc:4
 msgid "Help"
@@ -1553,7 +1554,7 @@ msgstr "Ongeldig parent recht."
 
 #: config/registry.php:287
 msgid "Inventory"
-msgstr "Voorraad"
+msgstr "Inventaris"
 
 #: config/nls.php:180
 msgid "Japanese (ISO-2022-JP)"
@@ -1683,7 +1684,7 @@ msgstr "Landinstelling en tijd"
 
 #: lib/Block/Metar.php:52 lib/Block/Sunrise.php:23 lib/Block/Weather.php:67
 msgid "Location"
-msgstr "Plaats"
+msgstr "Locatie"
 
 #: templates/admin/user/update.inc:54
 msgid "Lock User"
@@ -1717,11 +1718,11 @@ msgstr "Aanmelding mislukt."
 
 #: templates/prefs/facebook.html:49
 msgid "Login to Facebook and authorize <tag:app_name />"
-msgstr "Aanmelden bij Facebook en autoriseer <tag:app_name />"
+msgstr "Meldt aan bij Facebook en machtig <tag:app_name />"
 
 #: templates/prefs/twitter.html:21
 msgid "Login to Twitter and authorize the <tag:appname /> application"
-msgstr "Aanmelden bij Twitter en autoriseer <tag:appname />"
+msgstr "Meldt aan bij Twitter en machtig de <tag:appname /> applicatie"
 
 #: templates/prefs/facebook.html:9
 msgid "Logout"
@@ -1965,11 +1966,11 @@ msgstr "Geen pictogrammen gevonden"
 
 #: templates/sidebar/_container.html.php:30
 msgid "No items to display"
-msgstr "Geen notities weer te geven"
+msgstr "Niets om weer te geven"
 
 #: lib/Block/Metar.php:100 lib/Block/Sunrise.php:45
 msgid "No location is set."
-msgstr "Er is geen plaats ingesteld."
+msgstr "Er is geen locatie ingesteld."
 
 #: lib/Block/Fortune.php:101
 msgid "No offensive fortunes"
@@ -2089,15 +2090,15 @@ msgstr "Organiseren"
 #: config/prefs.php:555 config/prefs.php:660 config/prefs.php:686
 #: config/prefs.php:711 config/prefs.php:736 config/prefs.php:749
 msgid "Other Information"
-msgstr "Andere informatie"
+msgstr "Overige informatie"
 
 #: templates/login/smartmobile.html.php:22
 msgid "Other Options"
-msgstr "Andere opties"
+msgstr "Overige opties"
 
 #: config/registry.php:177
 msgid "Others"
-msgstr "Anderen"
+msgstr "Overig"
 
 #: templates/shares/edit.inc:33
 msgid "Owner"
@@ -2384,7 +2385,7 @@ msgstr "Verwijder gebruiker: %s"
 
 #: templates/block/twitter_tweet.html.php:34
 msgid "Reply"
-msgstr "Antwoord"
+msgstr "Beantwoorden"
 
 #: admin/activesync.php:140
 msgid "Reprovision All Devices"
@@ -2448,7 +2449,7 @@ msgstr "Retweet"
 #: templates/block/twitter_tweet.html.php:30
 #, php-format
 msgid "Retweeted by %s"
-msgstr "Geretweed door %s"
+msgstr "Geretweet door %s"
 
 #: services/changepassword.php:33
 msgid "Retype new password"
@@ -2637,7 +2638,7 @@ msgid ""
 "Set your startup application, color scheme, page refreshing, and other "
 "display preferences."
 msgstr ""
-"Instellen van uw opstarttoepassing, kleurschema, paginaverversing en andere "
+"Instellen van uw opstarttoepassing, kleurschema, paginaverversing en overige "
 "weergaveopties."
 
 #: lib/Block/Weather.php:136
@@ -2747,11 +2748,11 @@ msgstr "Status"
 
 #: services/facebook/index.php:232
 msgid "Status unable to be set."
-msgstr "Kan status niet instellen."
+msgstr "Status kan niet worden ingesteld."
 
 #: templates/block/twitter-layout.html.php:24
 msgid "Stream"
-msgstr "Gegevensstroom"
+msgstr "Stream"
 
 #: util/icon_browser.php:40
 #, php-format
@@ -2769,7 +2770,7 @@ msgstr ""
 
 #: services/facebook/index.php:138
 msgid "Succesfully connected your Facebook account or updated permissions."
-msgstr "Succesvol aangemeld bij uw Facebook account."
+msgstr "Succesvol verbonden met uw Facebook account of rechten aangepast."
 
 #: templates/admin/sqlshell.html.php:13
 msgid "Success"
@@ -2847,7 +2848,7 @@ msgstr "SyncML"
 
 #: lib/Block/Feed.php:18
 msgid "Syndicated Feed"
-msgstr "Webfeed"
+msgstr "Samengevatte feed"
 
 #: lib/Block/Cloud.php:13
 msgid "Tag Cloud"
@@ -2876,7 +2877,7 @@ msgstr "Kan niet verbinden met Facebook. Probeer het later nog eens."
 
 #: lib/Block/TwitterTimeline.php:98
 msgid "Temporarily unable to contact Twitter. Please try again later."
-msgstr "Kan niet verbinden met Twitter. Probeer het later nog eens."
+msgstr "Kan tijdelijk niet verbinden met Twitter. Probeer het later nog eens."
 
 #: config/nls.php:184
 msgid "Thai (TIS-620)"
@@ -3156,7 +3157,7 @@ msgstr "Niet in staat "
 
 #: services/facebook/index.php:126
 msgid "Unable to validate the request token. Please try your request again."
-msgstr "Kan het verzoek token niet valideren. Probeer het later nog eens."
+msgstr "Kan het verzoek token niet valideren. Probeer het verzoek nogmaals."
 
 #: templates/prefs/end.html:4
 msgid "Undo Changes"
@@ -3224,7 +3225,7 @@ msgstr "Upload"
 
 #: admin/config/index.php:325
 msgid "Uploaded all application configuration files to the server."
-msgstr "Alle toepassing setupbestanden naar de server geüpload."
+msgstr "Alle toepassing setupbestanden naar de server geupload."
 
 #: config/prefs.php:713
 msgid "Use if name/password is different for IMSP server."

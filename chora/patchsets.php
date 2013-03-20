@@ -2,7 +2,7 @@
 /**
  * Patchsets script.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -21,7 +21,7 @@ if (!$GLOBALS['VC']->hasFeature('patchsets')) {
     Chora::url('browsefile', $where)->redirect();
 }
 
-$ps_opts = array();
+$ps_opts = array('timezone' => $prefs->getValue('timezone'));
 if ($where) {
     $ps_opts['file'] = $where;
     if (!isset($title)) {

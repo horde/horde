@@ -22,21 +22,19 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-14</date>
- <time>23:29:13</time>
+ <date>2013-02-12</date>
+ <time>15:39:28</time>
  <version>
-  <release>3.0.0beta2</release>
+  <release>3.0.1</release>
   <api>3.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [jan] Don&apos;t show permissions link if permissions are disabled (Bug #11705).
-* [jan] Use short date format in file listing (Request #11722).
-* [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -269,6 +267,7 @@
    </dir> <!-- /locale -->
    <dir name="migration">
     <file name="1_gollem_base_tables.php" role="horde" />
+    <file name="2_gollem_upgrade_autoincrement.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <file name="clipboard.html.php" role="horde" />
@@ -348,7 +347,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.5</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -567,6 +566,7 @@
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.mo" name="locale/zh_TW/LC_MESSAGES/gollem.mo" />
    <install as="gollem/locale/zh_TW/LC_MESSAGES/gollem.po" name="locale/zh_TW/LC_MESSAGES/gollem.po" />
    <install as="gollem/migration/1_gollem_base_tables.php" name="migration/1_gollem_base_tables.php" />
+   <install as="gollem/migration/2_gollem_upgrade_autoincrement.php" name="migration/2_gollem_upgrade_autoincrement.php" />
    <install as="gollem/templates/clipboard.html.php" name="templates/clipboard.html.php" />
    <install as="gollem/templates/edit.html.php" name="templates/edit.html.php" />
    <install as="gollem/templates/manager.html.php" name="templates/manager.html.php" />
@@ -735,17 +735,63 @@
   </release>
   <release>
    <version>
-    <release>3.0.0beta2</release>
+    <release>3.0.0RC1</release>
     <api>3.0.0</api></version>
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-11-14</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [jan] Don&apos;t show permissions link if permissions are disabled (Bug #11705).
 * [jan] Use short date format in file listing (Request #11722).
 * [jan] Update Dutch translation (Arjen de Korte &lt;build+horde@de-korte.org&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0RC2</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Pass custom login parameters to VFS backend (Bug #11771).
+* [jan] Fix selecting display columns in preferences (Bug #11851).
+* [jan] Fix automatic login to other than the first backend.
+* [jan] Fix downloading if backend key doesn&apos;t match driver name (Bug #11746).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [jan] Change recursive deletion preference to ask by default.
+* [jan] Fix share_id column if using old share backend (Bug #11833).
+* [jan] Show loading layer when changing backends on login form.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.0</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>3.0.1</release>
+    <api>3.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

@@ -3,7 +3,7 @@
  * This class identifies the javascript necessary to output the date.js
  * javascript code to the browser.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -37,9 +37,12 @@ class Horde_Core_Script_Package_Datejs extends Horde_Script_Package
      */
     static public function translateFormat($format)
     {
-        $from = array('%e', '%-d', '%d', '%a', '%A', '%-m', '%m', '%h', '%b', '%B', '%y', '%Y', '%x');
+        $from = array('%e', '%-d', '%d', '%a', '%A', '%-m', '%m', '%h', '%b', '%B', '%y', '%Y');
         $to = array(' d', 'd', 'dd', 'ddd', 'dddd', 'M', 'MM', 'MMM', 'MMM', 'MMMM', 'yy', 'yyyy');
-        $to[] = str_replace($from, $to, Horde_Nls::getLangInfo(D_FMT));
+        if (defined('D_FMT')) {
+            $from[] = '%x';
+            $to[] = str_replace($from, $to, Horde_Nls::getLangInfo(D_FMT));
+        }
         return str_replace($from, $to, $format);
     }
 }

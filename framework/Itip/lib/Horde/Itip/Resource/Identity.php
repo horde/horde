@@ -1,8 +1,9 @@
 <?php
 /**
- * Horde_Prefs_Identity based information provider for an invited resource.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, see http://www.horde.org/licenses/lgpl21 LGPL.
  *
  * @category Horde
  * @package  Itip
@@ -14,43 +15,36 @@
 /**
  * Horde_Prefs_Identity based information provider for an invited resource.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * {@link http://www.horde.org/licenses/lgpl21 LGPL}.
- *
  * @category Horde
  * @package  Itip
  * @author   Gunnar Wrobel <wrobel@pardus.de>
  * @license  http://www.horde.org/licenses/lgpl21 LGPL
  * @link     http://pear.horde.org/index.php?package=Itip
  */
-class Horde_Itip_Resource_Identity
-implements Horde_Itip_Resource
+class Horde_Itip_Resource_Identity implements Horde_Itip_Resource
 {
     /**
      * The identity.
      *
-     * @var IMP_Prefs_Identity
+     * @var Horde_Prefs_Identity
      */
-    private $_identity;
+    protected $_identity;
 
     /**
      * The selected identity for replying.
      *
      * @var string
      */
-    private $_reply_to;
+    protected $_reply_to;
 
     /**
      * Constructor.
      *
-     * @param IMP_Prefs_Identity $identity  The IMP identity of the invited
-     *                                      resource.
-     * @param array              $attendees The attendees of the invitation.
-     * @param string             $reply_to  The selected identity for sending the
-     *                                      reply.
+     * @param Horde_Prefs_Identity $identity  The identity of the invited
+     *                                        resource.
+     * @param array $attendees                The attendees of the invitation.
+     * @param string $reply_to                The selected identity for sending
+     *                                        the reply.
      * @todo Parse mailto using parse_url
      */
     public function __construct($identity, $attendees, $reply_to)
@@ -70,13 +64,13 @@ implements Horde_Itip_Resource
     }
 
     /**
-     * Retrieve the mail address of the resource.
+     * Retrieve the bare email address of the resource. I.e., addr-spec.
      *
      * @return string The mail address.
      */
     public function getMailAddress()
     {
-        return $this->_identity->getFromAddress();
+        return $this->_identity->getFromAddress()->bare_address;
     }
 
     /**
@@ -86,11 +80,7 @@ implements Horde_Itip_Resource
      */
     public function getReplyTo()
     {
-        $original = $this->_identity->getDefault();
-        $this->_identity->setDefault($this->_reply_to);
-        $reply_to = $this->_identity->getValue('replyto_addr');
-        $this->_identity->setDefault($original);
-        return $reply_to;
+        return $this->_identity->getValue('replyto_addr', $this->_reply_to);
     }
 
     /**
@@ -110,11 +100,6 @@ implements Horde_Itip_Resource
      */
     public function getFrom()
     {
-        $cn = $this->getCommonName();
-        if (!empty($cn)) {
-            return sprintf("%s <%s>", $cn, $this->getMailAddress());
-        } else {
-            return $this->getMailAddress();
-        }
+        return (string)$this->_identity->getDefaultFromAddress(true);
     }
 }

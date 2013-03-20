@@ -3,7 +3,7 @@
  *
  * TODO: loadingImg()
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -16,7 +16,7 @@ KronolithCore = {
     // Vars used and defaulting to null/false:
     //   weekSizes, daySizes,
     //   groupLoading, colorPicker, duration, timeMarker, monthDays,
-    //   allDays, eventsWeek
+    //   allDays, eventsWeek, initialized
 
     view: '',
     ecache: $H(),
@@ -106,6 +106,11 @@ KronolithCore = {
 
     go: function(fullloc, data)
     {
+        if (!this.initialized) {
+            this.go.bind(this, fullloc, data).defer();
+            return;
+        }
+
         if (this.viewLoading.size()) {
             this.viewLoading.push([ fullloc, data ]);
             return;
@@ -869,7 +874,7 @@ KronolithCore = {
             date7 = date.clone().add(1).week(),
             today = Date.today(),
             week = this.viewDates(this.date, 'week'),
-            workweek = [ week[0], week[1].clone().add(-2).day() ],
+            workweek = this.viewDates(this.date, 'workweek'),
             dateString, td, tr, i;
 
         // Remove old calendar rows. Maybe we should only rebuild the minical
@@ -2924,6 +2929,13 @@ KronolithCore = {
         $('kronolithCalendarDialog').select('.kronolithCalendarDiv').invoke('hide');
         $('kronolithCalendar' + type + '1').show();
         form.select('.kronolithCalendarContinue').invoke('enable');
+        $('kronolithC' + type + 'PUNew', 'kronolithC' + type + 'PGNew').each(function(elm) {
+            if (elm.tagName == 'SELECT') {
+                $A(elm.options).each(function(option) {
+                    option.writeAttribute('disabled', false);
+                });
+            }
+        });
 
         var newCalendar = !calendar;
         if (calendar &&
@@ -2953,14 +2965,13 @@ KronolithCore = {
             case 'holiday':
                 $('kronolithCalendarholidayDriver').update();
                 $H(Kronolith.conf.calendars.holiday).each(function(calendar) {
-                    calendar = calendar.value;
-                    if (calendar.show) {
+                    if (calendar.value.show) {
                         return;
                     }
                     $('kronolithCalendarholidayDriver').insert(
-                        new Element('option', { value: calendar.name })
-                            .setStyle({ color: calendar.fg, backgroundColor: calendar.bg })
-                            .insert(calendar.name.escapeHTML())
+                        new Element('option', { value: calendar.key })
+                            .setStyle({ color: calendar.value.fg, backgroundColor: calendar.value.bg })
+                            .insert(calendar.value.name.escapeHTML())
                     );
                 });
                 break;
@@ -3432,10 +3443,10 @@ KronolithCore = {
      * @param what string          Either 'group' or 'user'.
      * @param group string         The group id or user name to insert.
      *                             Defaults to the value of the drop down.
-     * @param notadvanced boolean  Enforces to NOT switch to the advanced
+     * @param stay_basic boolean   Enforces to NOT switch to the advanced
      *                             permissions screen.
      */
-    insertGroupOrUser: function(type, what, id, notadvanced)
+    insertGroupOrUser: function(type, what, id, stay_basic)
     {
         var elm = $(what == 'user' ? 'kronolithC' + type + 'PUNew' : 'kronolithC' + type + 'PGNew');
         if (id) {
@@ -3469,7 +3480,7 @@ KronolithCore = {
             elm.clear();
         }
 
-        if (!notadvanced) {
+        if (!stay_basic) {
             this.activateAdvancedPerms(type);
         }
     },
@@ -3681,6 +3692,9 @@ KronolithCore = {
         switch (view) {
         case 'week':
         case 'workweek':
+            if (view == 'workweek') {
+                start.add(1).days();
+            }
             start.moveToBeginOfWeek(view == 'week' ? Kronolith.conf.week_start : 1);
             end.moveToEndOfWeek(Kronolith.conf.week_start);
             if (view == 'workweek') {
@@ -4177,16 +4191,24 @@ KronolithCore = {
                 break;
 
             case 'kronolithEventAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'kronolith', group: 'notification' });
+                HordeCore.redirect(HordeCore.addURLParam(
+                    Kronolith.conf.prefs_url,
+                    {
+                        group: 'notification'
+                    }
+                ));
                 e.stop();
                 break;
 
             case 'kronolithTaskAlarmPrefs':
-                this.closeRedBox();
-                this.go(this.lastLocation);
-                this.go('prefs', { app: 'nag', group: 'notification' });
+                if (Kronolith.conf.tasks.prefs_url) {
+                    HordeCore.redirect(HordeCore.addURLParam(
+                        Kronolith.conf.tasks.prefs_url,
+                        {
+                            group: 'notification'
+                        }
+                    ));
+                }
                 e.stop();
                 break;
 
@@ -5407,7 +5429,9 @@ KronolithCore = {
     quickClose: function()
     {
         $('kronolithQuickinsertQ').value = '';
-        $('kronolithQuicktaskQ').value = '';
+        if ($('kronolithQuicktaskQ')) {
+            $('kronolithQuicktaskQ').value = '';
+        }
         this.closeRedBox();
     },
 
@@ -6512,6 +6536,7 @@ KronolithCore = {
         HordeSidebar.refreshEvents();
         $('kronolithLoadingCalendars').hide();
         $('kronolithMenuCalendars').show();
+        this.initialized = true;
 
         /* Initialize the starting page. */
         if (!location.empty()) {

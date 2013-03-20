@@ -2,7 +2,7 @@
 /**
  * This class provides the API interface to the cache storage drivers.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -45,8 +45,7 @@ class Horde_Cache
      *
      * @param Horde_Cache_Storage $storage  The storage object.
      * @param array $params                 Parameter array:
-     *   - compress: (boolean) Compress data? Requires the 'lzf' PECL
-     *               extension.
+     *   - compress: (boolean) Compress data (if possible)?
      *               DEFAULT: false
      *   - lifetime: (integer) Lifetime of data, in seconds.
      *               DEFAULT: 86400 seconds
@@ -60,10 +59,6 @@ class Horde_Cache
             unset($params['logger']);
 
             $storage->setLogger($this->_logger);
-        }
-
-        if (!empty($params['compress']) && !extension_loaded('lzf')) {
-            unset($params['compress']);
         }
 
         $this->_params = array_merge($this->_params, $params);
@@ -101,10 +96,12 @@ class Horde_Cache
     {
         $res = $this->_storage->get($key, $lifetime);
 
-        return ($this->_params['compress'] && ($res !== false))
-            // lzf_decompress() returns false on error
-            ? @lzf_decompress($res)
-            : $res;
+        if (empty($this->_params['compress']) || ($res === false)) {
+            return $res;
+        }
+
+        $compress = new Horde_Compress_Fast();
+        return $compress->decompress($res);
     }
 
     /**
@@ -119,9 +116,11 @@ class Horde_Cache
      */
     public function set($key, $data, $lifetime = null)
     {
-        if ($this->_params['compress']) {
-            $data = lzf_compress($data);
+        if (!empty($this->_params['compress'])) {
+            $compress = new Horde_Compress_Fast();
+            $data = $compress->compress($data);
         }
+
         $lifetime = is_null($lifetime)
             ? $this->_params['lifetime']
             : $lifetime;

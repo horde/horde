@@ -1,17 +1,12 @@
 /* Global default styles. */
 body {
     direction: rtl;
-    font-family: Tahoma,Koodak,Homa,Nazli,Verdana,Geneva,"DejaVu Sans",Arial,sans-serif;
 }
 
-.header {
+.headerbox {
     text-align: right;
 }
-.header ul {
-    float: left;
-    text-align: left;
-}
-.headerbox {
+.header {
     text-align: right;
 }
 
@@ -21,19 +16,14 @@ td, th {
 }
 
 .sortup, .sortdown {
-    padding-left: 1px;
-    background-position: center right;
-    padding-right: 10px;
+    background-position: right center;
 }
 
 /* Form styles. */
 form[action^="https://"] input[type="submit"] {
-    background-position: 5% center;
-    padding-right: 6px;
-    padding-left: 10%;
-}
-option {
-    padding: 0 3px 0 5px;
+    background-position: 5% center, right top;
+    padding-right: 13px;
+    padding-left: 33px;
 }
 
 /* Styles for email-like messages. */
@@ -49,59 +39,9 @@ option {
 .notices {
     text-align: right;
 }
-.notices li, .notice {
-    padding: 1px 5px 1px 1px;
- }
 .notices img, .notice img {
     margin-right: 0;
     margin-left: .5em;
-}
-
-/* Tab styles. */
-.tabset {
-    float: right;
-}
-.tabset ul {
-    padding-left: 0;
-    padding-right: 8px;
-}
-.tabset li {
-    float: right;
-    margin: -3px 0 0 2px;
-}
-.tabset img {
-    float: right;
-    padding-right: 0;
-    padding-left: 2px;
-}
-
-/* Preferences. */
-#services_prefs .header ul {
-    float: left;
-    text-align: left;
-}
-.prefsOverview div {
-    float: right;
-}
-.prefsOverview div div {
-    padding-left: 0;
-    padding-right: 10px;
-}
-
-/* MIME styles. */
-.download {
-    padding: 2px 0 2px 20px;
-    background-position: center left;
-}
-
-/* Calendar Popup. */
-.hordeCalendarPopup tbody {
-    text-align: left;
-}
-
-/* Redbox styles. */
-#RB_window {
-    text-align: right;
 }
 
 /* Tree styles. */
@@ -148,13 +88,51 @@ span.horde-tree-image-16 {
     background-image: url("graphics/tree/rev-leaf.png");
 }
 
+/* Tab styles. */
+.tabset {
+    float: right;
+}
+.tabset li {
+    float: right;
+    margin-right: 0;
+    margin-left: 3px;
+}
+.tabset img {
+    float: right;
+    padding-right: 0;
+    padding-left: 2px;
+}
+
+/* Preferences. */
+#services_prefs .header ul {
+    float: left;
+    text-align: left;
+}
+.prefsOverview div {
+    float: right;
+}
+.prefsOverview div div {
+    padding-left: 0;
+    padding-right: 10px;
+}
+
+/* Calendar Popup. */
+.hordeCalendarPopup tbody {
+    text-align: left;
+}
+
+/* Redbox styles. */
+#RB_window {
+    text-align: right;
+}
+
 /* Color picker styles. */
 #color-picker .north div {
     float: left;
 }
 #color-picker .south {
-    margin: 32px 0 0 10px;
-    margin: 32px 10px 0 0;
+    margin-right: 10px;
+    margin-left: 0;
 }
 #color-picker .south img {
     left: 0;
@@ -165,7 +143,8 @@ span.horde-tree-image-16 {
     right: -1px;
 }
 #color-picker #color-picker-hex {
-    padding: 5px 7px 4px 0;
+    padding-right: 7px;
+    padding-left: 0;
     float: right;
 }
 #color-picker #color-picker-resize {
@@ -212,4 +191,9 @@ span.horde-tree-image-16 {
 }
 .navrightImg {
     background-image: url("graphics/nav/left.png");
+}
+
+/* Mainpage */
+#horde-page {
+    padding-right: 8px;
 }

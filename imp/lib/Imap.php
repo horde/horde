@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
@@ -153,7 +153,9 @@ class IMP_Imap implements Serializable
 
         if ($protocol == 'pop') {
             /* Turn some options off if we are working with POP3. */
-            $prefs->setValue('save_sent_mail', false);
+            $prefs->setValue('save_sent_mail', false, array(
+                'nosave' => true
+            ));
             $prefs->setLocked('save_sent_mail', true);
             $prefs->setLocked('sent_mail_folder', true);
             $prefs->setLocked('drafts_folder', true);
@@ -450,15 +452,13 @@ class IMP_Imap implements Serializable
     {
         $mailbox = IMP_Mailbox::get($mailbox);
 
-        if (!empty($opts['sort'])) {
+        if (!empty($opts['sort']) && $mailbox->access_sort) {
             /* If doing a from/to search, use display sorting if possible.
              * Although there is a fallback to a PHP-based display sort, for
              * performance reasons only do a display sort if it is supported
              * on the server. */
             $sort_cap = $this->queryCapability('SORT');
-            if (is_array($sort_cap) &&
-                in_array('DISPLAY', $sort_cap) &&
-                $mailbox->access_sort) {
+            if (is_array($sort_cap) && in_array('DISPLAY', $sort_cap)) {
                 $pos = array_search(Horde_Imap_Client::SORT_FROM, $opts['sort']);
                 if ($pos !== false) {
                     $opts['sort'][$pos] = Horde_Imap_Client::SORT_DISPLAYFROM;

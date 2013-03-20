@@ -5,7 +5,7 @@
 require_once dirname(__FILE__) . '/../Base.php';
 
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Jan Schneider <jan@horde.org>
  * @category   Horde
@@ -27,6 +27,8 @@ class Horde_SessionHandler_Storage_Sql_Pdo_PgsqlTest extends Horde_SessionHandle
         if ($config && !empty($config['sessionhandler']['sql']['pdo_pgsql'])) {
             self::$db = new Horde_Db_Adapter_Pdo_Pgsql($config['sessionhandler']['sql']['pdo_pgsql']);
             parent::setUpBeforeClass();
+        } else {
+            self::$reason = 'No pdo_pgsql configuration';
         }
     }
 }

@@ -5,7 +5,7 @@
  * Base URL Parameters:
  *   - page: (string) The current page view.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -28,7 +28,7 @@ if (!class_exists($class)) {
     throw new IMP_Exception('Page not found: ' . $vars->page);
 }
 
-$ob = new $class($vars);
+$ob = new $class($injector->getInstance('Horde_Variables'));
 
 $page_output->header(array(
     'body_class' => 'horde-ajax',

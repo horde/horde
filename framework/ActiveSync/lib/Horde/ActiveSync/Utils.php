@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -19,7 +19,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -43,6 +43,13 @@ class Horde_ActiveSync_Utils
             'CProtVer/CCommand/vLocale/CDevIDLen/H' . ($lenDevID * 2)
                 . 'DevID/CPolKeyLen' . ($lenPolKey == 4 ? '/VPolKey' : '')
                 . '/CDevTypeLen/A' . $lenDevType . 'DevType', $uri);
+
+        // Long integers might overflow on 32bit systems.
+        if ($arr_ret['PolKeyLen'] > 0 && $arr_ret['PolKey'] < 0) {
+            $arr_ret['PolKey'] += pow(2, 32);
+        } elseif ($arr_ret['PolKeyLen'] == 0) {
+            $arr_ret['PolKey'] = 0;
+        }
         $pos = (7 + $lenDevType + $lenPolKey + $lenDevID);
         $uri = substr($uri, $pos);
         while (strlen($uri) > 0) {
@@ -79,10 +86,10 @@ class Horde_ActiveSync_Utils
                 $type = 'unknown' . ord($uri{0});
                 break;
             }
-           $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
-           $arr_ret[$type] = $value['Value'];
-           $pos = 2 + $lenToken;
-           $uri = substr($uri, $pos);
+            $value = unpack('CType/CLength/A' . $lenToken . 'Value', $uri);
+            $arr_ret[$type] = $value['Value'];
+            $pos = 2 + $lenToken;
+            $uri = substr($uri, $pos);
         }
         return $arr_ret;
     }
@@ -113,7 +120,7 @@ class Horde_ActiveSync_Utils
             // bytes 17 - 20 converted to zero
             $hex = array();
             foreach (str_split($goid) as $chr) {
-                $hex[] = sprintf("%02X", ord($chr));
+                $hex[] = sprintf('%02X', ord($chr));
             }
             array_splice($hex, 16, 4, array('00', '00', '00', '00'));
             return implode('', $hex);
@@ -151,7 +158,7 @@ class Horde_ActiveSync_Utils
         // The UID Data:
         $hexuid = '';
         foreach (str_split($uid) as $chr) {
-            $hexuid .= sprintf("%02X", ord($chr));
+            $hexuid .= sprintf('%02X', ord($chr));
         }
 
         // Pack it

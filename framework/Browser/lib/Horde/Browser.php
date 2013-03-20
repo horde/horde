@@ -7,7 +7,7 @@
  *
  * @TODO http://ajaxian.com/archives/parse-user-agent
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -499,7 +499,8 @@ class Horde_Browser
                 $this->_minorVersion = $version[2];
             }
 
-            if (stripos($agent, 'Chrome/') !== false) {
+            if (stripos($agent, 'Chrome/') !== false ||
+                stripos($agent, 'CriOS/') !== false) {
                 // Google Chrome.
                 $this->setFeature('ischrome');
                 $this->setFeature('rte');

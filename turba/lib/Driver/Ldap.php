@@ -2,7 +2,7 @@
 /**
  * Turba directory driver implementation for PHP's LDAP extension.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you did
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -492,8 +492,8 @@ class Turba_Driver_Ldap extends Turba_Driver
     {
         $clause = '';
 
-        foreach ($criteria as $vals) {
-            if (!empty($vals['OR'])) {
+        foreach ($criteria as $key => $vals) {
+            if (!empty($vals['OR']) || $key == 'OR') {
                 $clause .= '(|' . $this->_buildSearchQuery($vals) . ')';
             } elseif (!empty($vals['AND'])) {
                 $clause .= '(&' . $this->_buildSearchQuery($vals) . ')';

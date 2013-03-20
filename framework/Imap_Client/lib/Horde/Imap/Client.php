@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -17,7 +17,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2008-2012 Horde LLC
+ * @copyright 2008-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -71,6 +71,10 @@ class Horde_Imap_Client
     const SORT_SEQUENCE = 12;
     /* Fuzzy sort criteria defined in RFC 6203 */
     const SORT_RELEVANCY = 13;
+    /* @since 2.4.0 */
+    const SORT_DISPLAYFROM_FALLBACK = 14;
+    /* @since 2.4.0 */
+    const SORT_DISPLAYTO_FALLBACK = 15;
 
     /* Search results constants */
     const SEARCH_RESULTS_COUNT = 1;

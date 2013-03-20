@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,7 +30,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -146,43 +146,30 @@ class Horde_ActiveSync_Connector_Exporter
     }
 
     /**
-     * Change a message's READ flag.
+     * Output a POOMMAIL_FLAG change.
      *
-     * @param string $id      The uid
-     * @param integer $flags  The flag
+     * @param integer $id    The IMAP UID of the message.
+     * @param integer $flag  The flag value (1 == FLAG_STATUS_ACTIVE).
      */
-    public function messageReadFlag($id, $flag)
+    public function messageFlag($id, $readFlag = null, $flag = null)
     {
-        // This only applies to mail folders
-        if ($this->_class != Horde_ActiveSync::CLASS_EMAIL) {
-            return;
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
+        $this->_encoder->content($id);
+        $this->_encoder->endTag();
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
+        if (!is_null($readFlag)) {
+            $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ);
+            $this->_encoder->content($readFlag);
+            $this->_encoder->endTag();
         }
-
-        /* Encode and stream */
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-        $this->_encoder->content($id);
-        $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_READ);
-        $this->_encoder->content($flag);
-        $this->_encoder->endTag();
-        $this->_encoder->endTag();
-        $this->_encoder->endTag();
-    }
-
-    public function messageFlag($id, $flag)
-    {
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_MODIFY);
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_SERVERENTRYID);
-        $this->_encoder->content($id);
-        $this->_encoder->endTag();
-        $this->_encoder->startTag(Horde_ActiveSync::SYNC_DATA);
-        $pflag = new Horde_ActiveSync_Message_Flag();
-        $pflag->flagstatus = $flag == 1 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
-        $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_FLAG);
-        $pflag->encodeStream($this->_encoder);
-        $this->_encoder->endTag();
+        if (!is_null($flag)) {
+            $pflag = new Horde_ActiveSync_Message_Flag();
+            $pflag->flagstatus = $flag == 1 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+            $this->_encoder->startTag(Horde_ActiveSync_Message_Mail::POOMMAIL_FLAG);
+            $pflag->encodeStream($this->_encoder);
+            $this->_encoder->endTag();
+        }
         $this->_encoder->endTag();
         $this->_encoder->endTag();
     }
@@ -203,7 +190,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderChange(Horde_ActiveSync_Message_Folder $folder)
     {
-        array_push($this->changed, $folder);
+        $this->changed[] = $folder;
         $this->count++;
     }
 
@@ -214,7 +201,7 @@ class Horde_ActiveSync_Connector_Exporter
      */
     public function folderDeletion($id)
     {
-        array_push($this->deleted, $id);
+        $this->deleted[] = $id;
         $this->count++;
     }
 

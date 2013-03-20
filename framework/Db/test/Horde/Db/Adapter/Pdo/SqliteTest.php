@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -11,6 +11,8 @@
  * @package    Db
  * @subpackage UnitTests
  */
+
+require_once __DIR__ . '/SqliteBase.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -22,11 +24,13 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_SqliteTest extends Horde_Db_Adapter_Pdo_SqliteBase
 {
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+
+        list($this->_conn, $this->_cache) = self::getConnection();
 
         $table = $this->_conn->createTable('unit_tests');
           $table->column('integer_value',   'integer',  array('limit' => 11, 'default' => 0));
@@ -689,6 +693,10 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()
@@ -1277,7 +1285,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInCp1257()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'cp1257'));
+        list($conn,) = self::getConnection(array('charset' => 'cp1257'));
         $table = $conn->createTable('charset_cp1257');
             $table->column('text', 'string');
         $table->end();
@@ -1291,7 +1299,7 @@ class Horde_Db_Adapter_Pdo_SqliteTest extends PHPUnit_Framework_TestCase
 
     public function testInsertAndReadInUtf8()
     {
-        list($conn,) = Horde_Db_AllTests::$connFactory->getConnection(array('charset' => 'utf8'));
+        list($conn,) = self::getConnection(array('charset' => 'utf8'));
         $table = $conn->createTable('charset_utf8');
             $table->column('text', 'string');
         $table->end();

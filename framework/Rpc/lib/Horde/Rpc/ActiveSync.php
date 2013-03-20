@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -34,15 +34,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     protected $_contentType = 'application/vnd.ms-sync.wbxml';
 
     /**
-     * Do we need an authenticated user?
-     *
-     * ActiveSync handles the authentication directly.
-     *
-     * @var boolean
-     */
-    protected $_requireAuthorization = false;
-
-    /**
      * Constructor.
      *
      * @param Horde_Controller_Request_Http  The request object.
@@ -50,10 +41,6 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
      * @param array $params  A hash containing configuration parameters:
      *   - server: (Horde_ActiveSync) The ActiveSync server object.
      *             DEFAULT: none, REQUIRED
-     *   - provisioning: (mixed) Require device provisioning? Takes a
-     *                   Horde_ActiveSync::PROVISIONING_* constant.
-     *                   DEFAULT: Horde_ActiveSync::PROVISIONING_NONE
-     *                   (do not require provisioning).
      */
     public function __construct(Horde_Controller_Request_Http $request, array $params = array())
     {
@@ -153,12 +140,14 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
             try {
                 $ret = $this->_server->handleRequest($this->_get['Cmd'], $this->_get['DeviceId']);
                 if ($ret === false) {
-                    throw new Horde_ActiveSync_Exception('Unknown Error');
+                    throw new Horde_ActiveSync_Exception(sprintf(
+                        'Received FALSE while handling %s command.', $this->_get['Cmd']));
                 } elseif ($ret !== true) {
                     $this->_contentType = $ret;
                 }
             } catch (Horde_ActiveSync_Exception_InvalidRequest $e) {
-               $this->_logger->err('Returning HTTP 400');
+                $this->_logger->err(sprintf(
+                    'Returning HTTP 400 while handling %s command', $this->_get['Cmd']));
                $this->_handleError($e);
                header('HTTP/1.1 400 Invalid Request ' . $e->getMessage());
                exit;
@@ -166,7 +155,8 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
                 $this->_sendAuthenticationFailedHeaders();
                 exit;
             } catch (Horde_Exception $e) {
-                $this->_logger->err('Returning HTTP 500');
+                $this->_logger->err(sprintf(
+                    'Returning HTTP 500 while handling %s command.', $this->_get['Cmd']));
                 $this->_handleError($e);
                 header('HTTP/1.1 500 ' . $e->getMessage());
                 exit;
@@ -176,12 +166,24 @@ class Horde_Rpc_ActiveSync extends Horde_Rpc
     }
 
     /**
+     * Override the authorize method and always return true. The ActiveSync
+     * server classes handld authentication directly since we need complete
+     * control over what responses are sent.
+     *
+     * @return boolean
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
      *
      * @see framework/Rpc/lib/Horde/Horde_Rpc#sendOutput($output)
      */
     public function sendOutput($output)
     {
-        // Unfortunately, even though zpush can stream the data to the client
+        // Unfortunately, even though we can stream the data to the client
         // with a chunked encoding, using chunked encoding also breaks the
         // progress bar on the PDA. So we de-chunk here and just output a
         // content-length header and send it as a 'normal' packet. If the output

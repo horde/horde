@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -53,29 +53,40 @@ abstract class Horde_ActiveSync_Folder_Base
      * @param string $serverid  The serverid of this folder.
      * @param string $class     The collection class.
      * @param array $status     Internal folder state.
-     *
-     * @return Horde_ActiveSync_Folder_Base
      */
     public function __construct(
-        $serverid,
-        $class,
-        array $status = array())
+        $serverid, $class, array $status = array())
     {
         $this->_serverid = $serverid;
         $this->_status = $status;
         $this->_class = $class;
     }
 
+    /**
+     * Return the serverid for this collection.
+     *
+     * @return string  The serverid.
+     */
     public function serverid()
     {
         return $this->_serverid;
     }
 
+    /**
+     * Return the collection class for this collection.
+     *
+     * @return string  The collection class.
+     */
     public function collectionClass()
     {
         return $this->_class;
     }
 
+    /**
+     * Set the status for this collection.
+     *
+     * @param array  A status array.
+     */
     public function setStatus(array $status)
     {
         $this->_status = $status;

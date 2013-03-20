@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -18,7 +18,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -79,7 +79,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
 
-            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON, $this->_mimepart->getCharset()) . ')');
+            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')');
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;
@@ -193,7 +193,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             $this->_processDomDocument($data->dom);
         }
 
-        $data = $data->returnHtml();
+        if ($inline) {
+            $charset = 'UTF-8';
+            $data = $data->returnHtml(array(
+                'charset' => $charset,
+                'metacharset' => true
+            ));
+        } else {
+            $charset = $this->_mimepart->getCharset();
+            $data = $data->returnHtml();
+        }
 
         $status = array();
         if ($this->_phishWarn) {
@@ -214,7 +223,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             // Filter bad language.
             return array(
                 'data' => IMP::filterText($data),
-                'type' => 'text/plain; charset=' . $this->getConfigParam('charset')
+                'type' => 'text/plain; charset=' . $charset
             );
         }
 
@@ -250,7 +259,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         return array(
             'data' => $data,
             'status' => $status,
-            'type' => $this->_mimepart->getType(true)
+            'type' => 'text/html; charset=' . $charset
         );
     }
 
@@ -371,7 +380,11 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         case 'style':
             switch (Horde_String::lower($node->getAttribute('type'))) {
             case 'text/css':
-                $this->_imptmp['style'][] = $node->nodeValue;
+                $this->_imptmp['style'][] = str_replace(
+                    array('<!--', '-->'),
+                    '',
+                    $node->nodeValue
+                );
                 $node->parentNode->removeChild($node);
                 break;
             }
@@ -444,48 +457,24 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _processDomDocument($doc)
     {
-        /* Sanitize and optimize style tags. */
         try {
-            // Csstidy may not be available.
-            $style = $GLOBALS['injector']->getInstance('Horde_Core_Factory_TextFilter')->filter(implode("\n", $this->_imptmp['style']), 'csstidy', array(
-                'ob' => true,
-                'preserve_css' => false
-            ));
-        } catch (Horde_Exception $e) {
+            $css = new Horde_Css_Parser(implode("\n", $this->_imptmp['style']));
+        } catch (Exception $e) {
+            /* If your CSS sucks and we can't parse it, tough cookies.
+             * We are just going to ignore, so your message will probably
+             * look lame. */
             return;
         }
+        $blocked = clone $css;
 
-        $blocked = array();
-        foreach ($style->import as $val) {
-            $blocked[] = '@import "' . $val . '";';
-        }
-        $style->import = array();
+        /* Go through and remove questionable rules from styles first. */
+        $css_text = $this->_parseCss($css, false);
 
-        $style_blocked = clone $style;
-        $was_blocked = false;
+        /* Now go through blocked object and do the opposite: only keep the
+         * questionable rules. */
+        $blocked_text = $this->_parseCss($blocked, true);
 
-        foreach ($style->css as $key => $val) {
-            foreach ($val as $key2 => $val2) {
-                foreach ($val2 as $key3 => $val3) {
-                    foreach ($val3['p'] as $key4 => $val4) {
-                        if (preg_match('/^\s*url\(["\']?.*?["\']?\)/i', $val4)) {
-                            $was_blocked = true;
-                            unset($style->css[$key][$key2]);
-                            break 3;
-                        }
-                    }
-                }
-                unset($style_blocked->css[$key][$key2]);
-            }
-        }
-
-        $css_text = $style->print->plain();
-
-        if ($was_blocked) {
-            $blocked[] = $style_blocked->print->plain();
-        }
-
-        if ($css_text || !empty($blocked)) {
+        if (strlen($css_text) || strlen($blocked_text)) {
             /* Gets the HEAD element or creates one if it doesn't exist. */
             $head = $doc->getElementsByTagName('head');
             if ($head->length) {
@@ -506,10 +495,51 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
          * output - then we simply need to change the type attribute to
          * text/css, and the browser should load the definitions on-demand. */
         if (!empty($blocked)) {
-            $block_elt = $doc->createElement('style', implode('', $blocked));
+            $block_elt = $doc->createElement('style', $blocked_text);
             $block_elt->setAttribute('type', 'text/x-imp-cssblocked');
             $headelt->appendChild($block_elt);
         }
+    }
+
+    /**
+     */
+    protected function _parseCss($css, $blocked)
+    {
+        foreach ($css->doc->getContents() as $val) {
+            if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
+                foreach ($val->getRules() as $val2) {
+                    $item = $val2->getValue();
+
+                    if ($item instanceof Sabberworm\CSS\Value\URL) {
+                        if (!$blocked) {
+                            $val->removeRule($val2);
+                        }
+                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
+                        $components = $item->getListComponents();
+                        foreach ($components as $key3 => $val3) {
+                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
+                                if (!$blocked) {
+                                    unset($components[$key3]);
+                                }
+                            } elseif ($blocked) {
+                                unset($components[$key3]);
+                            }
+                        }
+                        $item->setListComponents($components);
+                    } elseif ($blocked) {
+                        $val->removeRule($val2);
+                    }
+                }
+            } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
+                if (!$blocked) {
+                    $css->doc->remove($val);
+                }
+            } elseif ($blocked) {
+                $css->doc->remove($val);
+            }
+        }
+
+        return $css->compress();
     }
 
     /**

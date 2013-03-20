@@ -2,7 +2,7 @@
 /**
  * Horde Turba driver for the Kolab IMAP Server.
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -847,5 +847,26 @@ class Turba_Driver_Kolab extends Turba_Driver
         return isset($params['default'])
             ? $params['default']
             : false;
+    }
+
+    /**
+     * Runs any actions after setting a new default notepad.
+     *
+     * @param string $share  The default share ID.
+     */
+    public function setDefaultShare($share)
+    {
+           $addressbooks = $GLOBALS['injector']->getInstance('Turba_Shares')
+               ->listShares(
+                   $GLOBALS['registry']->getAuth(),
+                   array('perm' => Horde_Perms::SHOW,
+                         'attributes' => $GLOBALS['registry']->getAuth()));
+           foreach ($addressbooks as $id => $addressbook) {
+               if ($id == $share) {
+                   $addressbook->set('default', true);
+                   $addressbook->save();
+                   break;
+               }
+           }
     }
 }

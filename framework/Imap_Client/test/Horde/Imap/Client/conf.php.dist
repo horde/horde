@@ -1,0 +1,12 @@
+<?php
+// Configuration for the remote IMAP server test.
+$imap_config = array(
+    'username' => '',
+    'password' => '',
+    'hostspec' => '',
+    'port' => '',
+    'secure' => '', // empty, 'ssl', or 'tls'
+    'debug' => null // e.g. 'php://output'
+);
+$test_mbox = 'TestMailboxTest';
+$test_mbox_utf8 = 'TestMailboxTest1è';

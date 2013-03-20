@@ -9,7 +9,7 @@
  *
  *   Created   :   01.10.2007
  *
- *   � Zarafa Deutschland GmbH, www.zarafaserver.de
+ *   © Zarafa Deutschland GmbH, www.zarafaserver.de
  *   This file is distributed under GPL-2.0.
  *   Consult COPYING file for details
  *
@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -31,7 +31,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -122,7 +122,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             $stackelem['attributes'] = $attributes;
             $stackelem['nocontent'] = $output_empty;
             $stackelem['sent'] = false;
-            array_push($this->_stack, $stackelem);
+            $this->_stack[] = $stackelem;
         } else {
             /* Flush the stack if we want to force empty tags */
             $this->_outputStack();
@@ -191,19 +191,19 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
                 return;
             }
         } else {
-            stream_filter_register('horde_null', Horde_Stream_Filter_Null);
-            stream_filter_register('horde_eol', Horde_Stream_Filter_Eol);
+            stream_filter_register('horde_null', 'Horde_Stream_Filter_Null');
+            stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
             $filter_null = stream_filter_prepend($content, 'horde_null', STREAM_FILTER_READ);
             $filter_eol = stream_filter_prepend($content, 'horde_eol', STREAM_FILTER_READ);
         }
         $this->_outputStack();
         $this->_content($content);
-        if (is_resource($content)) {
-            fclose($content);
-        }
         if (isset($filter_null)) {
             stream_filter_remove($filter_eol);
             stream_filter_remove($filter_null);
+        }
+        if (is_resource($content)) {
+            fclose($content);
         }
     }
 
@@ -438,10 +438,18 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         $spaces = str_repeat(' ', count($this->_logStack));
         if ($output_empty) {
-            $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
+            $this->_logger->debug(sprintf(
+                '[%s] O %s <%s/>',
+                $this->_procid,
+                $spaces,
+                $tag));
         } else {
-            array_push($this->_logStack, $tag);
-            $this->_logger->debug(sprintf('O %s <%s>', $spaces, $tag));
+            $this->_logStack[] = $tag;
+            $this->_logger->debug(sprintf(
+                '[%s] O %s <%s>',
+                $this->_procid,
+                $spaces,
+                $tag));
         }
     }
 
@@ -454,7 +462,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     {
         $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
-        $this->_logger->debug(sprintf('O %s <%s/>', $spaces, $tag));
+        $this->_logger->debug(sprintf(
+            '[%s] O %s <%s/>',
+            $this->_procid,
+            $spaces,
+            $tag));
     }
 
     /**
@@ -467,7 +479,11 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
     private function _logContent($content)
     {
         $spaces = str_repeat(' ', count($this->_logStack) + 1);
-        $this->_logger->debug('O ' . $spaces . $content);
+        $this->_logger->debug(sprintf(
+            '[%s] O %s %s',
+            $this->_procid,
+            $spaces,
+            $content));
     }
 
 }

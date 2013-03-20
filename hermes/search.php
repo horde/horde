@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -10,6 +10,10 @@
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('hermes');
+
+if (Hermes::showAjaxView()) {
+    Horde::url('', true)->setAnchor('search')->redirect();
+}
 
 $vars = Horde_Variables::getDefaultVariables();
 $delete = $vars->get('delete');

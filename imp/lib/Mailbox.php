@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2011-2012 Horde LLC
+ * @copyright 2011-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2011-2012 Horde LLC
+ * @copyright 2011-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  *
@@ -161,6 +161,8 @@ class IMP_Mailbox implements Serializable
     const CACHE_HASICONHOOK = 'ih';
     const CACHE_ICONHOOK = 'ic';
     const CACHE_HASLABELHOOK = 'lh';
+    const CACHE_NSDEFAULT = 'nd';
+    const CACHE_NSEMPTY = 'ne';
     const CACHE_READONLYHOOK = 'roh';
     const CACHE_SPECIALMBOXES = 's';
 
@@ -1495,16 +1497,21 @@ class IMP_Mailbox implements Serializable
     static public function prefFrom($mbox)
     {
         $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
-        $def_ns = $imp_imap->defaultNamespace();
-        $empty_ns = $imp_imap->getNamespace('');
+
+        if (!isset(self::$_temp[self::CACHE_NSDEFAULT])) {
+            self::$_temp[self::CACHE_NSDEFAULT] = $imp_imap->defaultNamespace();
+            self::$_temp[self::CACHE_NSEMPTY] = $imp_imap->getNamespace('');
+        }
+
+        $empty_ns = self::$_temp[self::CACHE_NSEMPTY];
 
         if (!is_null($empty_ns) &&
-            strpos($mbox, $empty_ns['delimiter']) === 0) {
+            (strpos($mbox, $empty_ns['delimiter']) === 0)) {
             /* Prefixed with delimiter => from empty namespace. */
             return substr($mbox, strlen($empty_ns['delimiter']));
         } elseif ($imp_imap->getNamespace($mbox, true) === null) {
             /* No namespace prefix => from personal namespace. */
-            return $def_ns['name'] . $mbox;
+            return self::$_temp[self::CACHE_NSDEFAULT]['name'] . $mbox;
         }
 
         return $mbox;

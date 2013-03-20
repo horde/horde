@@ -2,7 +2,7 @@
 /**
  * This class provides the code needed to generate the Horde topbar.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -185,7 +185,7 @@ class Horde_Core_Topbar
                 } catch (Horde_Exception_PushApp $e) {
                     // Ignore
                 } catch (Horde_Exception $e) {
-                    Horde::logMessage($e, 'ERR');
+                    Horde::log($e, 'ERR');
                 }
                 break;
 

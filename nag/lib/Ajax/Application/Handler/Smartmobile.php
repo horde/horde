@@ -2,7 +2,7 @@
 /**
  * Defines AJAX calls used exclusively in the smartmobile view.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -149,7 +149,7 @@ class Nag_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
         }
 
         if ($this->vars->task_completed) {
-            $task['completed'] = true;
+            $task['completed'] = $this->vars->task_completed == 'on' ? true : false;
         }
 
         if ($this->vars->tasklist) {

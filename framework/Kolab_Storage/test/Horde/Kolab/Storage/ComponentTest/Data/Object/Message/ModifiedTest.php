@@ -15,7 +15,7 @@
 /**
  * Tests the modification of existing Kolab mime messages.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -76,8 +76,7 @@ This message is in MIME format.
 
 --=_
 Content-Type: text/plain; charset=utf-8; name="Kolab Groupware Information"
-Content-Disposition: inline; filename="Kolab Groupware Information";
- size=220
+Content-Disposition: inline; filename="Kolab Groupware Information"
 
 This is a Kolab Groupware object. To view this object you will need an email
 client that understands the Kolab Groupware format. For a list of such email

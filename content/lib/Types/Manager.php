@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author   Chuck Hagenbuch <chuck@horde.org>
  * @author   Michael Rubinsky <mrubinsk@horde.org>
@@ -73,10 +73,10 @@ class Content_Types_Manager
 
             // Create any types that didn't already exist
             foreach ($typeName as $type => $typeIndex) {
-                $typeIds[$typeIndex] = $this->_db->insert(
+                $typeIds[$typeIndex] = intval($this->_db->insert(
                     'INSERT INTO ' . $this->_t('types')
                         . ' (type_name) VALUES ('
-                        . $this->_db->quoteString($type) . ')');
+                        . $this->_db->quoteString($type) . ')'));
             }
         } catch (Horde_Db_Exception $e) {
             throw new Content_Exception($e);

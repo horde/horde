@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Mnemo H5 (4.0.1-git)\n"
+"Project-Id-Version: Mnemo H5 (4.0.3-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-11-06 16:40+0100\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -105,7 +105,7 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: templates/memo/memo.inc:21 templates/view/memo.inc:52
+#: templates/memo/memo.inc:21 templates/view/memo.inc:62
 msgid "Decrypt"
 msgstr ""
 
@@ -151,7 +151,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: config/prefs.php:99
+#: config/prefs.php:104
 msgid "Do you want to confirm deleting entries?"
 msgstr ""
 
@@ -214,7 +214,7 @@ msgstr ""
 msgid "In: "
 msgstr ""
 
-#: templates/view/memo.inc:37
+#: templates/view/memo.inc:42
 msgid "Last Modified"
 msgstr ""
 
@@ -290,7 +290,7 @@ msgstr ""
 msgid "Note Category"
 msgstr ""
 
-#: view.php:118
+#: view.php:89
 msgid "Note Details"
 msgstr ""
 
@@ -314,12 +314,12 @@ msgstr ""
 msgid "Notepad"
 msgstr ""
 
-#: lib/Notepads/Default.php:65
+#: lib/Notepads/Default.php:64
 #, php-format
 msgid "Notepad of %s"
 msgstr ""
 
-#: lib/Notepads/Kolab.php:38
+#: lib/Notepads/Kolab.php:58
 msgid "Notes"
 msgstr ""
 
@@ -475,25 +475,25 @@ msgstr ""
 msgid "This file format is not supported."
 msgstr ""
 
-#: memo.php:38 view.php:103
+#: memo.php:38 view.php:74
 msgid "This note cannot be decrypted:"
 msgstr ""
 
-#: memo.php:31 memo.php:41 view.php:98 view.php:106
+#: memo.php:31 memo.php:41 view.php:69 view.php:77
 msgid ""
 "This note has been encrypted, and cannot be decrypted without a secure web "
 "connection"
 msgstr ""
 
-#: memo.php:28 view.php:95
+#: memo.php:28 view.php:66
 msgid "This note has been encrypted, please provide the password below"
 msgstr ""
 
-#: lib/Api.php:269 lib/Driver/Kolab.php:291 lib/Driver/Sql.php:327
+#: lib/Api.php:269 lib/Driver/Kolab.php:296 lib/Driver/Sql.php:327
 msgid "This note has been encrypted."
 msgstr ""
 
-#: lib/Block/Summary.php:109 lib/Mnemo.php:329 lib/Mnemo.php:330
+#: lib/Block/Summary.php:109 lib/Mnemo.php:335 lib/Mnemo.php:336
 #: templates/list/memo_summaries.inc:20 templates/view/memo.inc:25
 msgid "Unfiled"
 msgstr ""
@@ -576,7 +576,7 @@ msgstr ""
 msgid "_New Note"
 msgstr ""
 
-#: templates/memo/memo.inc:19 templates/view/memo.inc:50
+#: templates/memo/memo.inc:19 templates/view/memo.inc:60
 msgid "_Password"
 msgstr ""
 
@@ -596,12 +596,12 @@ msgstr ""
 msgid "_Title"
 msgstr ""
 
-#: view.php:68 view.php:77
+#: lib/Driver/Sql.php:361 lib/Driver/Sql.php:370
 #, php-format
 msgid "by %s"
 msgstr ""
 
-#: view.php:70 view.php:79
+#: lib/Driver/Sql.php:363 lib/Driver/Sql.php:372
 msgid "by me"
 msgstr ""
 
@@ -610,7 +610,7 @@ msgstr ""
 msgid "in %s"
 msgstr ""
 
-#: lib/Application.php:267 templates/data/export.inc:3
+#: lib/Application.php:270 templates/data/export.inc:3
 msgid "notes.csv"
 msgstr ""
 

@@ -6,7 +6,7 @@
  * $uid = (string)new Horde_Support_Guid([$opts = array()]);
  * </code>
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * @category   Horde
  * @package    Support

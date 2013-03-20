@@ -2,7 +2,7 @@
 /**
  * Tests for the Horde_Mime_Headers class.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
@@ -165,6 +165,14 @@ To: recipient2@example.com"
             '',
             $hdrs->getValue('To')
         );
+    }
+
+    public function testMultipleToAddresses()
+    {
+        $msg = file_get_contents(__DIR__ . '/fixtures/multiple_to.txt');
+        $hdrs = Horde_Mime_Headers::parseHeaders($msg);
+
+        $this->assertNotEmpty($hdrs->getValue('To'));
     }
 
 }

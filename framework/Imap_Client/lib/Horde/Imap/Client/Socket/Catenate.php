@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -20,7 +20,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @internal
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
@@ -59,7 +59,7 @@ class Horde_Imap_Client_Socket_Catenate
         $ids_ob = $this->_socket->getIdsOb($url->uid);
 
         // BODY[]
-        if (is_null($section)) {
+        if (is_null($url->section)) {
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->fullText(array(
                 'peek' => true

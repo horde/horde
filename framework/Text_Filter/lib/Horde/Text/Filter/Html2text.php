@@ -11,7 +11,7 @@
  * width - (integer) The wrapping width. Set to 0 to not wrap.
  * </pre>
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -191,7 +191,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
 
                     case 'p':
                         if ($tmp = $this->_node($doc, $child)) {
-                            $out .= "\n" . $tmp . "\n";
+                            if (!strspn(substr($out, -2), "\n")) {
+                                $out .= "\n";
+                            }
+                            $out .= $tmp . "\n";
                         }
                         break;
 
@@ -231,7 +234,10 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                             $flowed->setOptLength($this->_params['width']);
                             $tmp = $flowed->toFlowed(true);
                         }
-                        $out .= "\n\n" . $tmp . "\n";
+                        if (!strspn(substr($out, -1), " \r\n\t")) {
+                            $out .= "\n";
+                        }
+                        $out .= "\n" . rtrim($tmp) . "\n\n";
                         break;
 
                     case 'div':
@@ -246,17 +252,11 @@ class Horde_Text_Filter_Html2text extends Horde_Text_Filter_Base
                         $out .= $this->_node($doc, $child);
                         break;
                     }
-                } elseif ((get_class($child) == 'DOMText') &&
-                          !$child->isWhitespaceInElementContent()) {
+                } elseif ($child instanceof DOMText) {
                     $tmp = $child->textContent;
-                    if ($child->parentNode->tagName == 'body' ||
-                        !$child->previousSibling) {
-                        $tmp = ltrim($tmp);
-                    }
-                    if (!$child->nextSibling) {
-                        $tmp = rtrim($tmp);
-                    }
-                    $out .= $tmp;
+                    $out .= strspn(substr($out, -1), " \r\n\t")
+                        ? ltrim($child->textContent)
+                        : $child->textContent;
                 }
             }
         }

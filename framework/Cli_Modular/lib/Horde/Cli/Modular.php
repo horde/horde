@@ -1,8 +1,9 @@
 <?php
 /**
- * Glue class for a modular CLI.
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Cli_Modular
@@ -13,11 +14,6 @@
 
 /**
  * Glue class for a modular CLI.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category Horde
  * @package  Cli_Modular
@@ -32,30 +28,29 @@ class Horde_Cli_Modular
      *
      * @var array
      */
-    private $_parameters;
+    protected $_parameters;
 
     /**
      * Handler for the list of modules.
      *
      * @var Horde_Cli_Modular_Modules
      */
-    private $_modules;
+    protected $_modules;
 
     /**
      * Module provider.
      *
      * @var Horde_Cli_Modular_ModuleProvider
      */
-    private $_provider;
+    protected $_provider;
 
     /**
      * Constructor.
      *
      * @param array $parameters Options for this instance.
-     * <pre>
      *  - parser
      *    - class:   Class name of the parser that should be used to parse
-     *               command line arguments.
+     *               command line arguments. Defaults to 'Horde_Argv_Parser'.
      *    - usage:   The usage decription shown in the help output of the CLI
      *  - modules:   Determines the handler for modules. Can be one of:
      *               (array)  A parameter array.
@@ -67,7 +62,6 @@ class Horde_Cli_Modular
      *                        See Horde_Cli_Modular_ModuleProvider::__construct()
      *               (string) A class name.
      *               (object) An instance of Horde_Cli_Modular_ModuleProvider
-     * </pre>
      */
     public function __construct(array $parameters = null)
     {
@@ -157,17 +151,17 @@ class Horde_Cli_Modular
      *
      * @return Horde_Cli_Modular_Modules The module handler.
      */
-    private function _createModules()
+    protected function _createModules()
     {
         if (is_array($this->_parameters['modules'])) {
             return new Horde_Cli_Modular_Modules(
                 $this->_parameters['modules']
             );
-        } else if ($this->_parameters['modules'] instanceOf Horde_Cli_Modular_Modules) {
+        } elseif ($this->_parameters['modules'] instanceOf Horde_Cli_Modular_Modules) {
             return $this->_parameters['modules'];
-        } else if (is_string($this->_parameters['modules'])) {
+        } elseif (is_string($this->_parameters['modules'])) {
             return new $this->_parameters['modules']();
-        } else if (empty($this->_parameters['modules'])) {
+        } elseif (empty($this->_parameters['modules'])) {
             throw new Horde_Cli_Modular_Exception(
                 'Missing "modules" parameter!'
             );
@@ -196,17 +190,17 @@ class Horde_Cli_Modular
      *
      * @return Horde_Cli_Modular_ModuleProvider The module provider.
      */
-    private function _createProvider()
+    protected function _createProvider()
     {
         if (is_array($this->_parameters['provider'])) {
             return new Horde_Cli_Modular_ModuleProvider(
                 $this->_parameters['provider']
             );
-        } else if ($this->_parameters['provider'] instanceOf Horde_Cli_Modular_ModuleProvider) {
+        } elseif ($this->_parameters['provider'] instanceOf Horde_Cli_Modular_ModuleProvider) {
             return $this->_parameters['provider'];
-        } else if (is_string($this->_parameters['provider'])) {
+        } elseif (is_string($this->_parameters['provider'])) {
             return new $this->_parameters['provider']();
-        } else if (empty($this->_parameters['provider'])) {
+        } elseif (empty($this->_parameters['provider'])) {
             throw new Horde_Cli_Modular_Exception(
                 'Missing "provider" parameter!'
             );

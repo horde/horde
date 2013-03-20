@@ -1,7 +1,7 @@
 <?PHP
 /**
- * Copyright (c) 2010, Gerd Schaufelberger
- * Copyright (c) 2010-2012 Horde LLC
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
+ * Copyright (c) 2010 Gerd Schaufelberger
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,21 +29,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Horde
- * @copyright  2010 gERD Schaufelberger
- * @copyright  2010-2012 Horde LLC
- * @license    http://www.horde.org/licenses/bsd New BSD License
- * @package    Mail
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @copyright 2010 Gerd Schaufelberger
+ * @license   http://www.horde.org/licenses/bsd New BSD License
+ * @package   Mail
  */
 
 /**
  * SMTP MX implementation.
  *
- * @author    gERD Schaufelberger <gerd@php-tools.net>
+ * @author    Gerd Schaufelberger <gerd@php-tools.net>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010 gERD Schaufelberger
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
+ * @copyright 2010 Gerd Schaufelberger
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */

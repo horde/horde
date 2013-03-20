@@ -2,7 +2,7 @@
 /**
  * Hermes_Slice:: Lightweight wrapper around a single timeslice
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (BSD). If you
  * did not receive this file, see http://www.horde.org/licenses/bsdl.php.
@@ -71,6 +71,16 @@ class Hermes_Slice implements ArrayAccess, IteratorAggregate
         $this->_properties['type'] = Horde_Util::getPost('type');
         $this->_properties['costobject'] = Horde_Util::getPost('costobject');
         $this->_properties['note'] = Horde_Util::getPost('notes');
+
+        // Admin only
+        if ($GLOBALS['registry']->isAdmin(array('permission' => 'hermes:timeadmin'))) {
+            $this->_properties['employee'] = Horde_Util::getPost('employee');
+            if (empty($this->_properties['employee'])) {
+                $this->_properties['employee'] = $GLOBALS['registry']->getAuth();
+            }
+        } else {
+            $this->_properties['employee'] = $GLOBALS['registry']->getAuth();
+        }
     }
 
     /**

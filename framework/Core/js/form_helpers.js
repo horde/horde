@@ -1,7 +1,7 @@
 /**
  * Javascript to add events to form elements
  *
- * Copyright 2004-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2004-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -33,9 +33,9 @@ function addEvent(element, event, code)
         element.addEventListener(event.replace(/on/, ''), code, false);
     } else if (element.attachEvent) {
         element.attachEvent(event, code);
-    } else if (element.onload != null) {
+    } else if (element.onload !== null) {
         var oldEvent = element[event];
-        newCode = Function(e)
+        newCode = function(e)
         {
             oldEvent(e);
             code();
@@ -57,11 +57,9 @@ function addEvent(element, event, code)
  */
 function toNumber(val)
 {
-    if (isNaN(val)) {
-        return 0;
-    } else {
-        return Number(val);
-    }
+    return isNaN(val)
+        ? 0
+        : Number(val);
 }
 
 /**
@@ -143,9 +141,9 @@ function sumFields()
     if (arguments.length > 2) {
         objFrm = arguments[0];
         objTarget = objFrm.elements[arguments[1]];
-        var sum = 0;
+        var i, j, sum = 0;
         if (objTarget) {
-            for (var i = 2; i < arguments.length; ++i) {
+            for (i = 2; i < arguments.length; ++i) {
                 objSrc = objFrm.elements[arguments[i]];
                 if (objSrc) {
                     switch (objSrc.type.toLowerCase()) {
@@ -154,7 +152,7 @@ function sumFields()
                         break;
 
                     case 'select-multiple' :
-                        for (var j = 0; j < objSrc.length; ++j) {
+                        for (j = 0; j < objSrc.length; ++j) {
                             sum += toNumber(objSrc.options[j].value);
                         }
                         break;
@@ -181,7 +179,7 @@ function sumFields()
  */
 function form_setCursorPosition(id, pos)
 {
-    var input = document.getElementById(id);
+    var input = document.getElementById(id), range;
     if (!input) {
         return;
     }
@@ -192,7 +190,7 @@ function form_setCursorPosition(id, pos)
         input.setSelectionRange(pos, pos);
     } else if (input.createTextRange) {
         /* This works in IE. */
-        var range = input.createTextRange();
+        range = input.createTextRange();
         range.collapse(true);
         range.moveStart('character', pos);
         range.moveEnd('character', 0);

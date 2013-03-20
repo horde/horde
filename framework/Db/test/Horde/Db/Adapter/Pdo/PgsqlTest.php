@@ -1,7 +1,7 @@
 <?php
 /**
  * Copyright 2007 Maintainable Software, LLC
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author     Mike Naberezny <mike@maintainable.com>
  * @author     Derek DeVries <derek@maintainable.com>
@@ -11,6 +11,8 @@
  * @package    Db
  * @subpackage UnitTests
  */
+
+require_once __DIR__ . '/PgsqlBase.php';
 
 /**
  * @author     Mike Naberezny <mike@maintainable.com>
@@ -22,11 +24,13 @@
  * @package    Db
  * @subpackage UnitTests
  */
-class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
+class Horde_Db_Adapter_Pdo_PgsqlTest extends Horde_Db_Adapter_Pdo_PgsqlBase
 {
     protected function setUp()
     {
-        list($this->_conn, $this->_cache) = Horde_Db_AllTests::$connFactory->getConnection();
+        parent::setUp();
+
+        list($this->_conn, $this->_cache) = self::getConnection();
 
         // clear out detritus from any previous test runs.
         $this->_dropTestTables();
@@ -702,6 +706,10 @@ class Horde_Db_Adapter_Pdo_PgsqlTest extends PHPUnit_Framework_TestCase
 
         $sql = "SELECT modified_at FROM sports WHERE id = 1";
         $this->assertEquals("2007-01-01", $this->_conn->selectValue($sql));
+
+        $this->_conn->addColumn('sports', 'with_default', 'integer', array('default' => 1));
+        $sql = "SELECT with_default FROM sports WHERE id = 1";
+        $this->assertEquals(1, $this->_conn->selectValue($sql));
     }
 
     public function testRemoveColumn()

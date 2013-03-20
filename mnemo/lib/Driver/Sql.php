@@ -3,7 +3,7 @@
  * Mnemo storage implementation for Horde's Horde_Db database abstraction
  * layer.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -350,8 +350,9 @@ class Mnemo_Driver_Sql extends Mnemo_Driver
             'encrypted' => $encrypted);
 
         try {
+            $userId = $GLOBALS['registry']->getAuth();
             $log = $GLOBALS['injector']->getInstance('Horde_History')
-                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['uid']);
+                ->getHistory('mnemo:' . $row['memo_owner'] . ':' . $row['memo_uid']);
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':

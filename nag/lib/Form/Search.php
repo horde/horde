@@ -52,7 +52,7 @@ class Nag_Form_Search extends Horde_Form
             array('values' => array(
                   Nag::VIEW_ALL => _("All"),
                   Nag::VIEW_COMPLETE => _("Completed"),
-                  Nag::VIEW_FUTURE => _("Incomplete")
+                  Nag::VIEW_INCOMPLETE => _("Incomplete")
             ))
         );
         $v->setDefault(Nag::VIEW_ALL);

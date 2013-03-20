@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2010-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  *
@@ -72,6 +72,13 @@ class Horde_ActiveSync_SyncCache
     protected $_devid;
 
     /**
+     * Logger
+     *
+     * @var Horde_Log_Logger
+     */
+    protected $_logger;
+
+    /**
      * Constructor
      *
      * @param Horde_ActiveSync_State_Base $state  The state driver
@@ -83,12 +90,14 @@ class Horde_ActiveSync_SyncCache
     public function __construct(
         Horde_ActiveSync_State_Base $state,
         $devid,
-        $user)
+        $user,
+        $logger = null)
     {
         $this->_state = $state;
         $this->_devid = $devid;
         $this->_user = $user;
         $this->_data = $state->getSyncCache($devid, $user);
+        $this->_logger = $logger;
     }
 
     public function __get($property)
@@ -96,7 +105,8 @@ class Horde_ActiveSync_SyncCache
         if (!$this->_isValidProperty($property)) {
             throw new InvalidArgumentException($property . ' is not a valid property');
         }
-        return $this->_data[$property];
+
+        return !empty($this->_data[$property]) ? $this->_data[$property] : false;
     }
 
     public function __set($property, $value)
@@ -133,7 +143,8 @@ class Horde_ActiveSync_SyncCache
     public function validateCache()
     {
         $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        if ($cache['timestamp'] > $this->_data['timestamp']) {
+        if (($cache['timestamp'] > $this->_data['timestamp']) ||
+            ($cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }
 
@@ -186,7 +197,7 @@ class Horde_ActiveSync_SyncCache
         $collections = array();
         foreach ($this->_data['collections'] as $key => $value) {
             $collection = $value;
-            if (!$requireKey || ($requireKey && isset($collection['synckey']))) {
+            if (!$requireKey || ($requireKey && !empty($collection['synckey']))) {
                 $collection['id'] = $key;
                 $collections[$key] = $collection;
             }
@@ -269,6 +280,48 @@ class Horde_ActiveSync_SyncCache
     }
 
     /**
+     * Set the ping change flag on a collection. Indicatates that the last
+     * PING was terminated with a change in this collection.
+     *
+     * @param string $collectionid  The collection id.
+     * @throws InvalidArgumentException
+     * @since 2.3.0
+     */
+    public function setPingChangeFlag($collectionid)
+    {
+        if (empty($this->_data['collections'][$collectionid])) {
+            throw new InvalidArgumentException('Collection does not exist.');
+        }
+
+        $this->_data['collections'][$collectionid]['pingchange'] = true;
+    }
+
+    /**
+     * Checks the status of the ping change flag. If true, the last PING request
+     * detected a change in the specified collection.
+     *
+     * @param string $collectionid  The collection id to check.
+     *
+     * @return boolean
+     * @since 2.3.0
+     */
+    public function hasPingChangeFlag($collectionid)
+    {
+        return !empty($this->_data['collections'][$collectionid]['pingchange']);
+    }
+
+    /**
+     * Reset the specified collection's ping change flag.
+     *
+     * @param string  $collectionid  The collectionid to reset.
+     * @since 2.3.0
+     */
+    public function resetPingChangeFlag($collectionid)
+    {
+        $this->_data['collections'][$collectionid]['pingchange'] = false;
+    }
+
+    /**
      * Refresh the cached collections from the state backend.
      *
      */
@@ -286,6 +339,8 @@ class Horde_ActiveSync_SyncCache
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
             $this->_data['collections'][$id] = $cache_collection;
         }
+        $this->_logger->debug(sprintf(
+            '[%s] SyncCache collections refreshed.', getmypid()));
     }
 
     /**
@@ -384,12 +439,14 @@ class Horde_ActiveSync_SyncCache
      *             DEFAULT: false (Do not set the new synckey).
      *  - unsetChanges: (boolean) Unset the GETCHANGES flag in the collection.
      *             DEFAULT: false (Do not unset the GETCHANGES flag).
-     *
+     *  - unsetPingChangeFlag: (boolean) Unset the PINGCHANGES flag in the collection.
+     *             DEFUALT: false (Do not uset the PINGCHANGES flag).
+     *             @since 2.3.0
      */
     public function updateCollection(array $collection, array $options = array())
     {
         $options = array_merge(
-            array('newsynckey' => false, 'unsetChanges' => false),
+            array('newsynckey' => false, 'unsetChanges' => false, 'unsetPingChangeFlag' => false),
             $options
         );
         if (!empty($collection['id'])) {
@@ -433,6 +490,9 @@ class Horde_ActiveSync_SyncCache
             }
             if ($options['unsetChanges']) {
                 unset($this->_data['collections'][$collection['id']]['getchanges']);
+            }
+            if ($options['unsetPingChangeFlag']) {
+                unset($this->_data['collections'][$collection['id']]['pingchange']);
             }
 
         } else {
@@ -558,11 +618,11 @@ class Horde_ActiveSync_SyncCache
      *
      * @param string $folder  The folder id to return.
      *
-     * @return array  The folder cache array entry.
+     * @return array|boolean  The folder cache array entry, false if not found.
      */
     public function getFolder($folder)
     {
-        return $this->_data['folders'][$folder];
+        return !empty($this->_data['folders'][$folder]) ? $this->_data['folders'][$folder] : false;
     }
 
     /**

@@ -2,7 +2,7 @@
 /**
  * Basic view message page.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -23,10 +23,9 @@ function _returnToMailbox($startIndex = null, $actID = null)
 
 require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('imp', array(
-    'impmode' => Horde_Registry::VIEW_BASIC
+    'impmode' => Horde_Registry::VIEW_BASIC,
+    'timezone' => true
 ));
-
-$registry->setTimeZone();
 
 /* We know we are going to be exclusively dealing with this mailbox, so
  * select it on the IMAP server (saves some STATUS calls). Open R/W to clear
@@ -314,7 +313,7 @@ foreach (array('to', 'cc', 'bcc') as $val) {
 /* Process the subject now. */
 if ($subject = $mime_headers->getValue('subject')) {
     $title = sprintf(_("%s: %s"), $page_label, $subject);
-    $shortsub = htmlspecialchars(Horde_String::truncate($subject, 100));
+    $shortsub = Horde_String::truncate($subject, 100);
 } else {
     $shortsub = _("[No Subject]");
     $title = sprintf(_("%s: %s"), $page_label, $shortsub);
@@ -385,8 +384,7 @@ ksort($full_headers);
 /* For the self URL link, we can't trust the index in the query string as it
  * may have changed if we deleted/copied/moved messages. We may need other
  * stuff in the query string, so we need to do an add/remove of 'uid'. */
-$selfURL = Horde::selfUrl(true);
-IMP::$newUrl = $selfURL = IMP::mailbox()->url($selfURL->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $uid, $mailbox)->add('message_token', $message_token);
+$selfURL = IMP::mailbox()->url(Horde::selfUrlParams()->remove(array('actionID', 'mailbox', 'thismailbox', 'uid')), $uid, $mailbox)->add('message_token', $message_token);
 $headersURL = $selfURL->copy()->remove(array('show_all_headers', 'show_list_headers'));
 
 /* Generate previous/next links. */
@@ -840,7 +838,10 @@ if (count($inlineout['atc_parts']) > 2) {
     ));
     if ($prefs->getValue('strip_attachments')) {
         $a_view->strip_all = Horde::widget(array(
-            'url' => Horde::selfUrl(true)->remove(array('actionID'))->add(array('actionID' => 'strip_all', 'message_token' => $message_token)),
+            'url' => Horde::selfUrlParams()->add(array(
+                'actionID' => 'strip_all',
+                'message_token' => $message_token
+            )),
             'class' => 'stripAllAtc',
             'title' => _("Strip All Attachments"),
             'nocheck' => true

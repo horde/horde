@@ -116,6 +116,8 @@ var ImpCompose = {
             // fall through
 
         case 'add_attachment':
+        case 'replyall_revert':
+        case 'replylist_revert':
         case 'save_draft':
         case 'save_template':
             form = $('compose');

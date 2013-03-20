@@ -2,7 +2,7 @@
 /**
  * Explicitly add/edit a face range to an image.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -71,6 +71,31 @@ $page_output->addScriptFile('scriptaculous/dragdrop.js', 'horde');
 $page_output->addScriptFile('cropper.js');
 $page_output->addScriptFile('stripe.js', 'horde');
 
+$script = <<<EOT
+function onEndCrop(coords, dimensions) {
+    $('x1').value = coords.x1;
+    $('y1').value = coords.y1;
+    $('x2').value = coords.x2;
+    $('y2').value = coords.y2;
+}
+
+new Cropper.ImgWithPreview(
+    'faceImage',
+    {
+        minWidth: 50,
+        minHeight: 50,
+        ratioDim: {
+            x: 50,
+            y: 50
+        },
+        onEndCrop: onEndCrop,
+        previewWrap: 'previewArea'
+EOT;
+if ($x1) {
+    $script .= ', onloadCoords: { x1: ' . $x1 . ', y1: ' . $y1 . ', x2: ' . $x2 . ', y2: ' . $y2 . ' }';
+}
+$script .= '});';
+$page_output->addInlineScript($script, 'dom');
 $page_output->addThemeStylesheet('cropper.css');
 
 $page_output->header(array(

@@ -1,7 +1,7 @@
 /**
  * Base smartmobile application logic for Nag.
  *
- * Copyright 2011-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -303,7 +303,7 @@ var NagMobile = {
                     $('<p>').addClass('ui-li-aside')
                         .text(t.dd)
                 ).append(
-                    $('<p>').text(t.de)
+                    $('<p>').text((t.de ? t.de : ''))
                 )
             ).append(
                 $('<a>').attr({
@@ -400,7 +400,9 @@ var NagMobile = {
         var form = $('#nag-task-form'),
             data = HordeJquery.formToObject(form);
 
-        data.tasklist = NagMobile.currentList;
+        if (!data.hasOwnProperty('task_completed')) {
+            data.task_completed = 'off';
+        }
         HordeMobile.doAction('saveTask', data, NagMobile.handleSubmitCallback);
     },
 

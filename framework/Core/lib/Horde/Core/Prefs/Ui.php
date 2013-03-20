@@ -8,7 +8,7 @@
  * Session variables set (stored in 'horde_prefs'):
  * 'advanced' - (boolean) If true, display advanced prefs.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -352,6 +352,7 @@ class Horde_Core_Prefs_Ui
                  * application. */
                 if (isset($this->prefs[$pref]['handler']) &&
                     ($ob = $injector->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
                     $pref_updated = $ob->update($this);
                 }
                 break;
@@ -417,6 +418,8 @@ class Horde_Core_Prefs_Ui
     /**
      * Generate the UI for the preferences interface, either for a
      * specific group, or the group selection interface.
+     *
+     * @throws Horde_Exception
      */
     public function generateUI()
     {
@@ -482,6 +485,7 @@ class Horde_Core_Prefs_Ui
                 if (($this->prefs[$pref]['type'] == 'special') &&
                     isset($this->prefs[$pref]['handler']) &&
                     ($ob = $GLOBALS['injector']->getInstance($this->prefs[$pref]['handler']))) {
+                    $ob->init($this);
                     echo $ob->display($this);
                     continue;
                 }
@@ -572,6 +576,9 @@ class Horde_Core_Prefs_Ui
                 case 'rawhtml':
                     $t->set('html', $prefs->getValue($pref));
                     break;
+
+                default:
+                    throw new Horde_Exception(sprintf('Missing or invalid type option for the %s preference.', $pref));
                 }
 
                 echo $t->fetch(HORDE_TEMPLATES . '/prefs/' . $type . '.html');
@@ -656,7 +663,17 @@ class Horde_Core_Prefs_Ui
             );
         }
         $t->set('apps', $tmp);
-        $t->set('header', htmlspecialchars(($this->app == 'horde') ? Horde_Core_Translation::t("Global Preferences") : sprintf(Horde_Core_Translation::t("Preferences for %s"), $registry->get('name', $this->app))));
+        if ($this->app == 'horde') {
+            $header = Horde_Core_Translation::t("Global Preferences");
+        } else {
+            $header = sprintf(
+                Horde_Core_Translation::t("Preferences for %s"),
+                Horde::url($registry->getInitialPage($this->app))->link()
+                    . htmlspecialchars($registry->get('name', $this->app))
+                    . '</a>'
+            );
+        }
+        $t->set('header', $header);
 
         $t->set('has_advanced', $this->hasAdvancedPrefs());
         if ($GLOBALS['session']->get('horde', 'prefs_advanced')) {
@@ -956,7 +973,7 @@ class Horde_Core_Prefs_Ui
                 $identity->verifyIdentity($id, empty($current_from) ? $new_from : $current_from);
             } catch (Horde_Exception $e) {
                 $notification->push(Horde_Core_Translation::t("The new from address can't be verified, try again later: ") . $e->getMessage(), 'horde.error');
-                Horde::logMessage($e, 'ERR');
+                Horde::log($e, 'ERR');
             }
         } else {
             $identity->setDefault($old_default);

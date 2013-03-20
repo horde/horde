@@ -2,7 +2,7 @@
 /**
  * Registry connector for Horde backend.
  *
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -11,7 +11,7 @@
  * Registry connector for Horde backend. Provides the communication between
  * the Horde Registry on the local machine and the ActiveSync Horde driver.
  *
- * @copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * @copyright 2010-2013 Horde LLC (http://www.horde.org/)
  * @license http://www.horde.org/licenses/lgpl21 LGPL
  * @author  Michael J Rubinsky <mrubinsk@horde.org>
  * @package Core
@@ -299,13 +299,14 @@ class Horde_Core_ActiveSync_Connector
      */
     public function contacts_search($query)
     {
-        if (!empty($GLOBALS['conf']['gal']['addressbook'])) {
-            $fields = array($GLOBALS['conf']['gal']['addressbook'] => array('firstname', 'lastname', 'alias', 'name', 'email'));
+        $gal = $this->contacts_getGal();
+        if (!empty($gal)) {
+            $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email', 'office'));
             $opts = array(
                 'fields' => $fields,
                 'matchBegin' => true,
                 'forceSource' => true,
-                'sources' => array($this->contacts_getGal())
+                'sources' => array($gal)
             );
             return $this->_registry->contacts->search($query, $opts);
         }
@@ -327,7 +328,7 @@ class Horde_Core_ActiveSync_Connector
     {
         $sources = array_keys($this->_registry->contacts->sources());
         foreach ($sources as $source) {
-            $fields[$source] = array('name', 'email', 'alias');
+            $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
         }
         $options = array(
             'matchBegin' => true,

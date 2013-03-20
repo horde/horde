@@ -2,7 +2,7 @@
 /**
  * Kronolith base library.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -366,7 +366,7 @@ class Kronolith
 
             /* Add all recurrences of the event. */
             $next = $event->recurrence->nextRecurrence($next);
-            if ($convert) {
+            if ($next && $convert) {
                 /* Resetting after the nextRecurrence() call, because
                  * we need to test if the next recurrence in the
                  * event's timezone actually matches the interval we
@@ -403,7 +403,7 @@ class Kronolith
                           'hour' => $next->hour,
                           'min' => $next->min,
                           'sec' => $next->sec));
-                if ($convert) {
+                if ($next && $convert) {
                     $next->setTimezone($timezone);
                 }
             }
@@ -1369,31 +1369,33 @@ class Kronolith
      * Returns the default calendar for the current user at the specified
      * permissions level.
      *
-     * @param integer $permission  Horde_Perms constant for permission level required.
+     * @param integer $permission  Horde_Perms constant for permission level
+     *                             required.
      * @param boolean $owner_only  Only consider owner-owned calendars.
      *
-     * @return mixed  The calendar id, or false if none found.
+     * @return string  The calendar id, or null if none.
      */
-    static public function getDefaultCalendar($permission = Horde_Perms::SHOW, $owner_only = false)
+    static public function getDefaultCalendar($permission = Horde_Perms::SHOW,
+                                              $owner_only = false)
     {
-        global $prefs;
-
-        $default_share = $prefs->getValue('default_share');
         $calendars = self::listInternalCalendars($owner_only, $permission);
 
-        if (isset($calendars[$default_share]) ||
-            $prefs->isLocked('default_share')) {
+        $default_share = $GLOBALS['prefs']->getValue('default_share');
+        if (isset($calendars[$default_share])) {
             return $default_share;
-        } elseif (isset($GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]) &&
-                  $GLOBALS['all_calendars'][$GLOBALS['registry']->getAuth()]->hasPermission($permission)) {
-            // This is for older, existing default shares. New default shares
-            // are not named as the username.
-            return $GLOBALS['registry']->getAuth();
-        } elseif (count($calendars)) {
-            return key($calendars);
         }
 
-        return false;
+        $default_share = $GLOBALS['injector']
+            ->getInstance('Kronolith_Factory_Calendars')
+            ->create()
+            ->getDefaultShare();
+        if (isset($calendars[$default_share])) {
+            $GLOBALS['prefs']->setValue('default_share', $default_share);
+            return $default_share;
+        }
+
+        reset($calendars);
+        return key($calendars);
     }
 
     /**

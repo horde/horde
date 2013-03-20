@@ -2,7 +2,7 @@
 /**
  * Horde_Core_TagBrowser:: class provides logic for dealing with tag browsing.
  *
- * Copyright 2011 - 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -148,7 +148,7 @@ abstract class Horde_Core_TagBrowser
     /**
      * Get the total number of resources that match.
      *
-     * @return integer  The count of matching bookmarks.
+     * @return integer  The count of matching resources.
      */
     public function count()
     {

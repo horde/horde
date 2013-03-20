@@ -214,7 +214,8 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
         } else {
             $format = "%b\n%B\n%p\n%x\n%X";
         }
-        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
+        $this->assertEquals(strftime($format, $date->timestamp()),
+                            $date->strftime($format));
     }
 
     public function testStrftimeCs()
@@ -228,7 +229,18 @@ class Horde_Date_DateTest extends PHPUnit_Framework_TestCase
 
         $date = new Horde_Date('2001-02-03 16:05:06');
         $format = nl_langinfo(D_FMT);
-        $this->assertEquals(strftime($format, $date->timestamp()), $date->strftime($format));
+        $this->assertEquals(strftime($format, $date->timestamp()),
+                            $date->strftime($format));
+    }
+
+    public function testStrftimeUnsupported()
+    {
+        setlocale(LC_TIME, 'en_US.UTF-8');
+
+        $date = new Horde_Date('2001-02-03 16:05:06');
+
+        $this->assertEquals(strftime('%a', $date->timestamp()),
+                            $date->strftime('%a'));
     }
 
     public function testSetTimezone()

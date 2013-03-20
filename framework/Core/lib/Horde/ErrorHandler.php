@@ -2,7 +2,7 @@
 /**
  * Provides methods used to handle error reporting.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -25,7 +25,7 @@ class Horde_ErrorHandler
         global $registry;
 
         try {
-            Horde::logMessage($error, 'EMERG');
+            Horde::log($error, 'EMERG');
         } catch (Exception $e) {}
 
         if (is_object($error)) {
@@ -143,6 +143,8 @@ HTML;
             return;
         }
 
+        $options = array();
+
         try {
             switch ($errno) {
             case E_WARNING:
@@ -153,12 +155,17 @@ HTML;
                 $priority = Horde_Log::NOTICE;
                 break;
 
+            case E_STRICT:
+                $options['notracelog'] = true;
+                $priority = Horde_Log::DEBUG;
+                break;
+
             default:
                 $priority = Horde_Log::DEBUG;
                 break;
             }
 
-            Horde::logMessage(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority);
+            Horde::log(new ErrorException('PHP ERROR: ' . $errstr, 0, $errno, $errfile, $errline), $priority, $options);
         } catch (Exception $e) {}
     }
 

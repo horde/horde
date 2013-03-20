@@ -18,7 +18,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -30,12 +30,22 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2011-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2011-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
+ *
+ * @property string contenttype   The content type of the attachment.
+ * @property mixed string|stream  The attachment data.
+ * @property integer total        The total size of the attachment.
+ * @property integer range        @todo
  */
 class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSync_Message_Base
 {
+    /**
+     * Property map
+     *
+     * @var array
+     */
     protected $_mapping = array(
         Horde_ActiveSync::AIRSYNCBASE_CONTENTTYPE => array(self::KEY_ATTRIBUTE => 'contenttype'),
         Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_DATA => array(self::KEY_ATTRIBUTE => 'data'),
@@ -43,6 +53,11 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
         Horde_ActiveSync_Request_ItemOperations::ITEMOPERATIONS_RANGE => array(self::KEY_ATTRIBUTE => 'range')
     );
 
+    /**
+     * Property values
+     *
+     * @var array
+     */
     protected $_properties = array(
         'contenttype' => false,
         'data' => false,
@@ -50,6 +65,11 @@ class Horde_ActiveSync_Message_AirSyncBaseFileAttachment extends Horde_ActiveSyn
         'range' => false
     );
 
+    /**
+     * Return the message type.
+     *
+     * @return string
+     */
     public function getClass()
     {
         return 'AirSyncBaseFileAttachment';

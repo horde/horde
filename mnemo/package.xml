@@ -16,10 +16,10 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-10-30</date>
- <time>22:26:22</time>
+ <date>2013-02-12</date>
+ <time>16:12:35</time>
  <version>
-  <release>4.0.1</release>
+  <release>4.0.4</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* [jan] Use modification and creation dates from backend if available (Request #11591).
-* [jan] Use encoded UIDs as IDs in Kolab driver.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -350,6 +349,7 @@
      </dir> <!-- /test/Mnemo/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Mnemo -->
@@ -681,6 +681,7 @@
    <install as="mnemo/templates/view/memo.inc" name="templates/view/memo.inc" />
    <install as="Mnemo/AllTests.php" name="test/Mnemo/AllTests.php" />
    <install as="Mnemo/Autoload.php" name="test/Mnemo/Autoload.php" />
+   <install as="Mnemo/bootstrap.php" name="test/Mnemo/bootstrap.php" />
    <install as="Mnemo/phpunit.xml" name="test/Mnemo/phpunit.xml" />
    <install as="Mnemo/TestCase.php" name="test/Mnemo/TestCase.php" />
    <install as="Mnemo/Unit/Driver/KolabTest.php" name="test/Mnemo/Unit/Driver/KolabTest.php" />
@@ -946,11 +947,56 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-10-30</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 * [jan] Use modification and creation dates from backend if available (Request #11591).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix importing notepads (Bug #11849).
+* [jan] Use default Kolab folder for default notepad preference.
+* [jan] Mark Kolab folder as default when changing default notepad preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
+* [jan] Fix exporting bodies of encrypted notes (Bug #11960).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.4</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/apache">ASL</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>

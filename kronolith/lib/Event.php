@@ -2,7 +2,7 @@
 /**
  * Kronolith_Event defines a generic API for events.
  *
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -571,7 +571,7 @@ abstract class Kronolith_Event
              * calendars. Otherwise, clear the lock. */
             if ($response == Kronolith::RESPONSE_ACCEPTED) {
                 $add_events[] = $resource;
-            } else {
+            } elseif ($haveLock) {
                 $locks->clearLock($lock[$resource->getId()]);
             }
 
@@ -1078,7 +1078,9 @@ abstract class Kronolith_Event
                           'mday'  => (int)$start['mday']),
                     $tzid);
             }
-        } catch (Horde_Icalendar_Exception $e) {}
+        } catch (Horde_Icalendar_Exception $e) {
+            throw new Kronolith_Exception($e);
+        }
 
         try {
             $end = $vEvent->getAttribute('DTEND');
@@ -1705,6 +1707,8 @@ abstract class Kronolith_Event
 
                 $message->addAttendee($attendee);
             }
+        } else {
+            $message->setMeetingStatus(Horde_ActiveSync_Message_Appointment::MEETING_NOT_MEETING);
         }
 
        // Resources
@@ -1764,17 +1768,19 @@ abstract class Kronolith_Event
         if (!empty($hash['private'])) {
             $this->private = true;
         }
+        $this->start = null;
         if (!empty($hash['start_date'])) {
-            $date = explode('-', $hash['start_date']);
+            $date = array_map('intval', explode('-', $hash['start_date']));
             if (empty($hash['start_time'])) {
                 $time = array(0, 0, 0);
             } else {
-                $time = explode(':', $hash['start_time']);
+                $time = array_map('intval', explode(':', $hash['start_time']));
                 if (count($time) == 2) {
                     $time[2] = 0;
                 }
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $this->start = new Horde_Date(array('year' => $date[0],
                                                     'month' => $date[1],
                                                     'mday' => $date[2],
@@ -1782,7 +1788,8 @@ abstract class Kronolith_Event
                                                     'min' => $time[1],
                                                     'sec' => $time[2]));
             }
-        } else {
+        }
+        if (!isset($this->start)) {
             throw new Kronolith_Exception(_("Events must have a start date."));
         }
         if (empty($hash['duration'])) {
@@ -1803,16 +1810,17 @@ abstract class Kronolith_Event
             $this->end->sec += $hash['duration'];
         }
         if (!empty($hash['end_date'])) {
-            $date = explode('-', $hash['end_date']);
+            $date = array_map('intval', explode('-', $hash['end_date']));
             if (empty($hash['end_time'])) {
                 $time = array(0, 0, 0);
             } else {
-                $time = explode(':', $hash['end_time']);
+                $time = array_map('intval', explode(':', $hash['end_time']));
                 if (count($time) == 2) {
                     $time[2] = 0;
                 }
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $this->end = new Horde_Date(array('year' => $date[0],
                                                   'month' => $date[1],
                                                   'mday' => $date[2],
@@ -1825,12 +1833,13 @@ abstract class Kronolith_Event
             $this->alarm = (int)$hash['alarm'];
         } elseif (!empty($hash['alarm_date']) &&
                   !empty($hash['alarm_time'])) {
-            $date = explode('-', $hash['alarm_date']);
-            $time = explode(':', $hash['alarm_time']);
+            $date = array_map('intval', explode('-', $hash['alarm_date']));
+            $time = array_map('intval', explode(':', $hash['alarm_time']));
             if (count($time) == 2) {
                 $time[2] = 0;
             }
-            if (count($time) == 3 && count($date) == 3) {
+            if (count($time) == 3 && count($date) == 3 &&
+                !empty($date[1]) && !empty($date[2])) {
                 $alarm = new Horde_Date(array('hour'  => $time[0],
                                               'min'   => $time[1],
                                               'sec'   => $time[2],
@@ -1844,8 +1853,10 @@ abstract class Kronolith_Event
             $this->recurrence = new Horde_Date_Recurrence($this->start);
             $this->recurrence->setRecurType($hash['recur_type']);
             if (!empty($hash['recur_end_date'])) {
-                $date = explode('-', $hash['recur_end_date']);
-                $this->recurrence->setRecurEnd(new Horde_Date(array('year' => $date[0], 'month' => $date[1], 'mday' => $date[2])));
+                $date = array_map('intval', explode('-', $hash['recur_end_date']));
+                if (count($date) == 3 && !empty($date[1]) && !empty($date[2])) {
+                    $this->recurrence->setRecurEnd(new Horde_Date(array('year' => $date[0], 'month' => $date[1], 'mday' => $date[2])));
+                }
             }
             if (!empty($hash['recur_interval'])) {
                 $this->recurrence->setRecurInterval($hash['recur_interval']);
@@ -2633,8 +2644,8 @@ abstract class Kronolith_Event
                 // Notification.
                 if (Horde_Util::getFormData('alarm_change_method')) {
                     $types = Horde_Util::getFormData('event_alarms');
+                    $methods = array();
                     if (!empty($types)) {
-                        $methods = array();
                         foreach ($types as $type) {
                             $methods[$type] = array();
                             switch ($type){
@@ -2648,8 +2659,8 @@ abstract class Kronolith_Event
                                 break;
                             }
                         }
-                        $this->methods = $methods;
                     }
+                    $this->methods = $methods;
                 } else {
                     $this->methods = array();
                 }

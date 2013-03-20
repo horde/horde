@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -40,7 +40,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -80,7 +80,8 @@ class IMP_Auth
             $credentials['server'] = self::getAutoLoginServer();
         }
 
-        $imp_imap = $injector->getInstance('IMP_Factory_Imap')->create($credentials['server']);
+        $imp_imap_factory = $injector->getInstance('IMP_Factory_Imap');
+        $imp_imap = $imp_imap_factory->create($credentials['server']);
 
         // Check for valid IMAP Client object.
         if (!$imp_imap->ob) {
@@ -103,6 +104,7 @@ class IMP_Auth
 
         try {
             $imp_imap->login();
+            $imp_imap_factory->defaultID = $credentials['server'];
         } catch (IMP_Imap_Exception $e) {
             self::_log(false, $imp_imap);
             throw $e->authException();

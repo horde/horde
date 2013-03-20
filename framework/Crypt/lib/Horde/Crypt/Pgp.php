@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @author   Michael Slusarz <slusarz@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package  Crypt
+ */
+
+/**
  * Horde_Crypt_Pgp:: provides a framework for Horde applications to interact
  * with the GNU Privacy Guard program ("GnuPG").  GnuPG implements the OpenPGP
  * standard (RFC 2440).
@@ -9,11 +21,7 @@
  * This class has been developed with, and is only guaranteed to work with,
  * Version 1.21 or above of GnuPG.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
+ * @todo     Use Horde_Http_Client for keyserver communication.
  * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
@@ -69,7 +77,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     );
 
     /* The default public PGP keyserver to use. */
-    const KEYSERVER_PUBLIC = 'pgp.mit.edu';
+    const KEYSERVER_PUBLIC = 'pool.sks-keyservers.net';
 
     /* The number of times the keyserver refuses connection before an error is
      * returned. */
@@ -166,13 +174,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     /**
      * Generates a personal Public/Private keypair combination.
      *
-     * @param string $realname    The name to use for the key.
-     * @param string $email       The email to use for the key.
-     * @param string $passphrase  The passphrase to use for the key.
-     * @param string $comment     The comment to use for the key.
-     * @param integer $keylength  The keylength to use for the key.
-     * @param integer $expire     The expiration date (UNIX timestamp). No
-     *                            expiration if empty (since 1.1.0).
+     * @param string $realname     The name to use for the key.
+     * @param string $email        The email to use for the key.
+     * @param string $passphrase   The passphrase to use for the key.
+     * @param string $comment      The comment to use for the key.
+     * @param integer $keylength   The keylength to use for the key.
+     * @param integer $expire      The expiration date (UNIX timestamp). No
+     *                             expiration if empty.
+     * @param string $key_type     Key type (since 2.2.0).
+     * @param string $subkey_type  Subkey type (since 2.2.0).
      *
      * @return array  An array consisting of:
      * <pre>
@@ -184,7 +194,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      * @throws Horde_Crypt_Exception
      */
     public function generateKey($realname, $email, $passphrase, $comment = '',
-                                $keylength = 1024, $expire = null)
+                                $keylength = 1024, $expire = null,
+                                $key_type = 'RSA', $subkey_type = 'RSA')
     {
         /* Create temp files to hold the generated keys. */
         $pub_file = $this->_createTempFile('horde-pgp');
@@ -199,14 +210,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
         $input = array(
             '%pubring ' . $pub_file,
             '%secring ' . $secret_file,
-            'Key-Type: DSA',
-            'Key-Length: 1024',
-            'Subkey-Type: ELG-E',
+            'Key-Type: ' . $key_type,
+            'Key-Length: ' . $keylength,
+            'Subkey-Type: ' . $subkey_type,
             'Subkey-Length: ' . $keylength,
             'Name-Real: ' . $realname,
             'Name-Email: ' . $email,
             'Expire-Date: ' . $expire,
-            'Passphrase: ' . $passphrase
+            'Passphrase: ' . $passphrase,
+            'Preferences: AES256 AES192 AES CAST5 3DES SHA256 SHA512 SHA384 SHA224 SHA1 ZLIB BZIP2 ZIP Uncompressed'
         );
         if (!empty($comment)) {
             $input[] = 'Name-Comment: ' . $comment;
@@ -838,7 +850,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
                     $curid = $line[4];
                     $keyids[$curid] = $line[1];
                 } elseif (!is_null($curid) && substr($line, 0, 4) == 'uid:') {
-                    preg_match("/>([^>]+)>/", $line, $matches);
+                    preg_match("/<([^>]+)>/", $line, $matches);
                     $keyuids[$curid][] = $matches[1];
                 }
             }
@@ -1683,7 +1695,7 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function getPublicKeyFromPrivateKey($data)
     {
-        $keyring = $this->_putInKeyring(array($data), 'private');
+        $this->_putInKeyring(array($data), 'private');
         $fingerprints = $this->getFingerprintsFromKey($data);
         reset($fingerprints);
 

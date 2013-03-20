@@ -92,6 +92,18 @@ $attributes['nickname'] = array(
     'required' => false,
     'params' => array('regex' => '', 'size' => 32, 'maxlength' => 32)
 );
+$attributes['yomifirstname'] = array(
+    'label' => _("Phonetic First Name"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
+$attributes['yomilastname'] = array(
+    'label' => _("Phonetic Last Name"),
+    'type' => 'text',
+    'required' => false,
+    'params' => array('regex' => '', 'size' => 40, 'maxlength' => 255)
+);
 $attributes['birthday'] = array(
     'label' => _("Birthday"),
     'type' => 'monthdayyear',

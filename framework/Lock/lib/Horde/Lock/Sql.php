@@ -19,7 +19,7 @@
  * );
  * </pre>
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you did
  * not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -78,11 +78,13 @@ class Horde_Lock_Sql extends Horde_Lock
     public function getLockInfo($lockid)
     {
         $now = time();
-        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
-               'lock_origin_timestamp, lock_update_timestamp, ' .
-               'lock_expiry_timestamp, lock_type FROM ' . $this->_params['table'] .
-               ' WHERE lock_id = ? AND lock_expiry_timestamp >= ?';
-        $values = array($lockid, $now);
+        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, '
+            . 'lock_origin_timestamp, lock_update_timestamp, '
+            . 'lock_expiry_timestamp, lock_type FROM '
+            . $this->_params['table']
+            . ' WHERE lock_id = ? AND '
+            . '(lock_expiry_timestamp >= ? OR lock_expiry_timestamp = ?)';
+        $values = array($lockid, $now, Horde_Lock::PERMANENT);
 
         try {
             return $this->_db->selectOne($sql, $values);
@@ -100,10 +102,11 @@ class Horde_Lock_Sql extends Horde_Lock
     public function getLocks($scope = null, $principal = null, $type = null)
     {
         $now = time();
-        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, ' .
-               'lock_origin_timestamp, lock_update_timestamp, ' .
-               'lock_expiry_timestamp, lock_type FROM ' .
-               $this->_params['table'] . ' WHERE lock_expiry_timestamp >= ? OR lock_expiry_timestamp = ?';
+        $sql = 'SELECT lock_id, lock_owner, lock_scope, lock_principal, '
+            . 'lock_origin_timestamp, lock_update_timestamp, '
+            . 'lock_expiry_timestamp, lock_type FROM '
+            . $this->_params['table']
+            . ' WHERE (lock_expiry_timestamp >= ? OR lock_expiry_timestamp = ?)';
         $values = array($now, Horde_Lock::PERMANENT);
 
         // Check to see if we need to filter the results
@@ -151,8 +154,8 @@ class Horde_Lock_Sql extends Horde_Lock
 
         $sql = 'UPDATE ' . $this->_params['table'] . ' SET ' .
                'lock_update_timestamp = ?, lock_expiry_timestamp = ? ' .
-               'WHERE lock_id = ?';
-        $values = array($now, $expiration, $lockid);
+               'WHERE lock_id = ? AND lock_expiry_timestamp <> ?';
+        $values = array($now, $expiration, $lockid, Horde_Lock::PERMANENT);
 
         try {
             $this->_db->update($sql, $values);
@@ -172,12 +175,14 @@ class Horde_Lock_Sql extends Horde_Lock
     public function setLock($requestor, $scope, $principal,
                             $lifetime = 1, $type = Horde_Lock::TYPE_SHARED)
     {
-        $oldlocks = $this->getLocks($scope, $principal, Horde_Lock::TYPE_EXCLUSIVE);
+        $oldlocks = $this->getLocks(
+            $scope, $principal,
+            $type == Horde_Lock::TYPE_SHARED ? Horde_Lock::TYPE_EXCLUSIVE : null);
 
         if (count($oldlocks) != 0) {
-            // An exclusive lock exists.  Deny the new request.
+            // A lock exists.  Deny the new request.
             if ($this->_logger) {
-                $this->_logger->log(sprintf('Lock requested for %s denied due to existing exclusive lock.', $principal), 'NOTICE');
+                $this->_logger->log(sprintf('Lock requested for %s denied due to existing lock.', $principal), 'NOTICE');
             }
             return false;
         }

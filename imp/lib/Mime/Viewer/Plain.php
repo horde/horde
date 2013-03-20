@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -17,7 +17,7 @@
  * @author    Anil Madhavapeddy <anil@recoil.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -141,15 +141,18 @@ class IMP_Mime_Viewer_Plain extends Horde_Mime_Viewer_Plain
             } else {
                 $js_blocks = $inline;
                 $show = $prefs->getValue('show_quoteblocks');
-                $hideBlocks = $inline &&
-                    (($show == 'hidden') ||
-                     (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
-                if (!$hideBlocks &&
-                    in_array($show, array('list', 'listthread'))) {
-                    $header = $this->getConfigParam('imp_contents')->getHeader();
-                    $imp_ui = new IMP_Ui_Message();
-                    $list_info = $imp_ui->getListInformation($header);
-                    $hideBlocks = $list_info['exists'];
+                if ($inline) {
+                    $hideBlocks = (($show == 'hidden') ||
+                                   (($show == 'thread') && (basename(Horde::selfUrl()) == 'thread.php')));
+                    if (!$hideBlocks &&
+                        in_array($show, array('list', 'listthread'))) {
+                        $header = $this->getConfigParam('imp_contents')->getHeader();
+                        $imp_ui = new IMP_Ui_Message();
+                        $list_info = $imp_ui->getListInformation($header);
+                        $hideBlocks = $list_info['exists'];
+                    }
+                } else {
+                    $hideBlocks = false;
                 }
             }
 

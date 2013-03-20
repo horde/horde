@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -53,7 +53,7 @@ $storage = $injector->getInstance('Horde_Core_Data_Storage');
 /* Loop through the action handlers. */
 switch ($actionID) {
 case Horde_Data::IMPORT_FILE:
-    $storage->get('target', Horde_Util::getFormData('notepad_target'));
+    $storage->set('target', Horde_Util::getFormData('notepad_target'));
     break;
 }
 

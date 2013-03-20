@@ -2,7 +2,7 @@
 /**
  * Special prefs handling for the 'default_gallerystyle_select' preference.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -12,7 +12,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  Ansel
  */
-class Ansel_Prefs_Special_GalleryStyle implements Horde_Core_Prefs_Ui_Special
+class Ansel_Prefs_Special_GallerySelect implements Horde_Core_Prefs_Ui_Special
 {
     /**
      */

@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 1999-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 1999-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -18,7 +18,7 @@
  * @author    Jon Parise <jon@horde.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1999-2012 Horde LLC
+ * @copyright 1999-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -44,13 +44,6 @@ class IMP
     const IMAP_SORT_DATE = 100;
 
     /**
-     * Storage place for an altered version of the current URL.
-     *
-     * @var string
-     */
-    static public $newUrl = null;
-
-    /**
      * Current mailbox/UID information.
      *
      * @var array
@@ -63,7 +56,7 @@ class IMP
      *
      * @param string $title  The title of the page.
      */
-    static public function header($title)
+    static public function header($title, array $header_params = array())
     {
         global $conf, $injector, $page_output, $registry;
 
@@ -105,9 +98,9 @@ class IMP
             break;
         }
 
-        $GLOBALS['page_output']->header(array(
+        $GLOBALS['page_output']->header(array_merge(array(
             'title' => $title
-        ));
+        ), $header_params));
     }
 
     /**
@@ -231,7 +224,7 @@ class IMP
     static public function getComposeArgs(Horde_Variables $vars)
     {
         $args = array();
-        $fields = array('to', 'cc', 'bcc', 'message', 'body', 'subject');
+        $fields = array('to', 'cc', 'bcc', 'body', 'subject');
 
         foreach ($fields as $val) {
             if (isset($vars->$val)) {
@@ -496,20 +489,6 @@ class IMP
     }
 
     /**
-     * Return a selfURL that has had index/mailbox/actionID information
-     * removed/altered based on an action that has occurred on the present
-     * page.
-     *
-     * @return Horde_Url  The self URL.
-     */
-    static public function selfUrl()
-    {
-        return self::$newUrl
-            ? self::$newUrl->copy()
-            : Horde::selfUrl(true);
-    }
-
-    /**
      * Determine the status of composing.
      *
      * @return boolean  Is compose allowed?
@@ -608,7 +587,7 @@ class IMP
     /**
      * Are appliable filters available?
      *
-     * @return voolean  True if appliable filters are available.
+     * @return boolean  True if appliable filters are available.
      */
     static public function applyFilters()
     {

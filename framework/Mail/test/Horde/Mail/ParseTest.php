@@ -16,6 +16,11 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->rfc822 = new Horde_Mail_Rfc822();
     }
 
+    public function tearDown()
+    {
+        unset($this->rfc822);
+    }
+
     /* Test case for PEAR Mail:: bug #13659 */
     public function testParseBug13659()
     {
@@ -523,6 +528,29 @@ class Horde_Mail_ParseTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             2,
             count($ob2)
+        );
+    }
+
+    public function testDefaultDomain()
+    {
+        $address = 'foo@example2.com';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example2.com',
+            strval($result)
+        );
+
+        $address = 'foo';
+        $result = $this->rfc822->parseAddressList($address, array(
+           'default_domain' => 'example.com'
+        ));
+
+        $this->assertEquals(
+            'foo@example.com',
+            strval($result)
         );
     }
 

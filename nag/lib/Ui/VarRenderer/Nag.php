@@ -21,7 +21,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 {
     protected function _renderVarInput_NagMethod($form, $var, $vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = htmlspecialchars($var->getVarName());
         $varvalue = $var->getValue($vars);
         $on = !empty($varvalue) &&
             (!isset($varvalue['on']) || !empty($varvalue['on']));
@@ -144,7 +144,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
 
     protected function _renderVarInput_NagAlarm($form, $var, $vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = htmlspecialchars($var->getVarName());
         $value = $var->getValue($vars);
         if (!is_array($value)) {
             if ($value) {
@@ -165,7 +165,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
         $options = '';
         foreach ($units as $unit => $label) {
             $options .= '<option value="' . $unit;
-            if ($value['on'] && $value['unit'] == $unit) {
+            if ($value && $value['on'] && $value['unit'] == $unit) {
                 $options .= '" selected="selected';
             }
             $options .= '">' . $label . '</option>';
@@ -196,7 +196,7 @@ class Horde_Core_Ui_VarRenderer_Nag extends Horde_Core_Ui_VarRenderer_Html
      */
     protected function _renderVarInput_NagTags($form, $var, $vars)
     {
-        $varname = @htmlspecialchars($var->getVarName(), ENT_QUOTES, $this->_charset);
+        $varname = htmlspecialchars($var->getVarName());
         $value = $var->getValue($vars);
 
         $html = sprintf('<input id="%s" type="text" name="%s" value="%s" />', $varname, $varname, $value);

@@ -2,7 +2,7 @@
 /**
  * Imple to attach the spellchecker to an HTML element.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -86,33 +86,18 @@ class Horde_Core_Ajax_Imple_SpellChecker extends Horde_Core_Ajax_Imple
     {
         global $conf, $injector, $language;
 
-        $args = Horde::getDriverConfig('spell', null);
-        $input = $vars->get($vars->input);
-
+        $args = array('html' => !empty($vars->html));
         if (isset($vars->locale)) {
             $args['locale'] = $vars->locale;
-        } elseif (empty($args['locale'])) {
-            try {
-                $args['locale'] = $injector->getInstance('Horde_Core_Factory_LanguageDetect')->getLanguageCode($input);
-            } catch (Horde_Exception $e) {}
         }
-
-        if (empty($args['locale']) && isset($language)) {
-            $args['locale'] = $language;
-        }
-
-        /* Add local dictionary words. */
-        try {
-            $result = Horde::loadConfiguration('spelling.php', 'ignore_list', 'horde');
-            $args['localDict'] = $result;
-        } catch (Horde_Exception $e) {}
+        $input = $vars->get($vars->input);
 
         try {
             return new Horde_Core_Ajax_Response_Prototypejs(
-                Horde_SpellChecker::factory($conf['spell']['driver'], $args)->spellCheck($input)
+                $injector->getInstance('Horde_Core_Factory_SpellChecker')->create($args, $input)->spellCheck($input)
             );
         } catch (Horde_Exception $e) {
-            Horde::logMessage($e, 'ERR');
+            Horde::log($e, 'ERR');
             return array(
                 'bad' => array(),
                 'suggestions' => array()

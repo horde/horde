@@ -50,7 +50,7 @@
                     sticky: false
                 }, opts);
 
-                div = $('<div class="' + type.replace('.', '-') + '">').hide();
+                div = $('<div class="' + type.replace('.', '-') + '"></div>').hide();
                 if (opts.raw) {
                     // TODO: This needs some fixing:
                     div.html(msg.replace('<a href=', '<a rel="external" href='));
@@ -67,7 +67,7 @@
                     });
                 }
             });
-        },
+        }
 
     };
 
@@ -78,7 +78,7 @@
         } else if (typeof method === 'object' || !method) {
             return methods.init.apply(this, arguments);
         }
-        $.error('Unknown method')
+        $.error('Unknown method');
     };
 
 })(jQuery);

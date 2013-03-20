@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -38,7 +38,7 @@ require_once HORDE_BASE . '/lib/core.php';
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -66,7 +66,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.0.2-git)';
+    public $version = 'H5 (6.0.5-git)';
 
     /**
      * Server key used in logged out session.
@@ -81,9 +81,10 @@ class IMP_Application extends Horde_Registry_Application
     {
         global $injector;
 
-        if (($e->getCode() == Horde_Registry::AUTH_FAILURE) &&
-            $injector->getInstance('Horde_Variables')->composeCache) {
+        switch ($e->getCode()) {
+        case Horde_Registry::AUTH_FAILURE:
             $injector->getInstance('IMP_Factory_Compose')->create()->sessionExpireDraft($injector->getInstance('Horde_Variables'));
+            break;
         }
     }
 
@@ -344,7 +345,7 @@ class IMP_Application extends Horde_Registry_Application
 
         /* Show selection of alternate views. */
         $js_code = array(
-            'ImpLogin.server_key_error' => _("Please choose a mail server.")
+            'HordeLogin.server_key_error' => _("Please choose a mail server.")
         );
 
         return array(

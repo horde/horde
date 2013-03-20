@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2009-2012 Horde LLC
+ * @copyright 2009-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2009-2012 Horde LLC
+ * @copyright 2009-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -524,16 +524,18 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
 
         foreach ($special_mboxes as $val) {
             if (!$prefs->isDefault($val)) {
-                $old_pref = IMP_Mailbox::getPref($val);
-                $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($old_pref), 'UTF7-IMAP', 'UTF-8'));
-                $prefs->setValue($val, $mbox->pref_to);
+                $old_pref = strval(IMP_Mailbox::getPref($val));
+                if (!Horde_Mime::is8bit($old_pref, 'UTF-8')) {
+                    $mbox = IMP_Mailbox::get(Horde_String::convertCharset($old_pref, 'UTF7-IMAP', 'UTF-8'));
+                    $prefs->setValue($val, $old_pref->$mbox->pref_to);
+                }
             }
         }
 
         $imp_identity = $injector->getInstance('IMP_Identity');
 
         foreach ($imp_identity->getAll('sent_mail_folder') as $key => $val) {
-            if (!is_null($val)) {
+            if (!is_null($val) && !Horde_Mime::is8bit($val, 'UTF-8')) {
                 $mbox = IMP_Mailbox::get(Horde_String::convertCharset(strval($val), 'UTF7-IMAP', 'UTF-8'));
                 $imp_identity->setValue('sent_mail_folder', $mbox, $key);
             }

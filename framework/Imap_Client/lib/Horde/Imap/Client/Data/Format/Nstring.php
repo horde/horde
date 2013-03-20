@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -16,7 +16,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2012 Horde LLC
+ * @copyright 2012-2013 Horde LLC
  * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package   Imap_Client
  */
@@ -59,6 +59,24 @@ class Horde_Imap_Client_Data_Format_Nstring extends Horde_Imap_Client_Data_Forma
         return is_null($this->_data)
             ? false
             : parent::quoted();
+    }
+
+    /**
+     */
+    public function length()
+    {
+        return is_null($this->_data)
+            ? 0
+            : parent::length();
+    }
+
+    /**
+     */
+    public function getStream()
+    {
+        return is_null($this->_data)
+            ? new Horde_Stream_Temp()
+            : parent::length();
     }
 
 }

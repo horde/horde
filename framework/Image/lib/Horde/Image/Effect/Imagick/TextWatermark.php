@@ -2,7 +2,7 @@
 /**
  * Image effect for watermarking images with text for the im driver..
  *
- * Copyright 2007-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2007-2013 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Image
@@ -64,7 +64,7 @@ class Horde_Image_Effect_Imagick_TextWatermark extends Horde_Image_Effect
             $gravity = $v . $h;
         }
         /* Determine font point size */
-        $point = $this->_image->getFontSize($this->_params['fontsize']);
+        $point = Horde_Image::getFontSize($this->_params['fontsize']);
 
         //@TODO:
         throw new Horde_Image_Exception('Not Yet Implemented.');

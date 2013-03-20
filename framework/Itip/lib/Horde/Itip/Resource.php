@@ -1,8 +1,10 @@
 <?php
 /**
- * Provides information about an invited resource.
+ * Copyright 2010 Kolab Systems AG
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
- * PHP version 5
+ * See the enclosed file COPYING for license information (LGPL). If you did
+ * not receive this file, see http://www.horde.org/licenses/lgpl21 LGPL.
  *
  * @category Horde
  * @package  Itip
@@ -13,12 +15,6 @@
 
 /**
  * Provides information about an invited resource.
- *
- * Copyright 2010 Kolab Systems AG
- *
- * See the enclosed file COPYING for license information (LGPL). If you did not
- * receive this file, see
- * {@link http://www.horde.org/licenses/lgpl21 LGPL}.
  *
  * @category Horde
  * @package  Itip

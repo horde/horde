@@ -1,7 +1,7 @@
 /**
  * compose.js - Javascript code used in the DIMP compose view.
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -776,14 +776,16 @@ var DimpCompose = {
         }
 
         // IE 7/8 Bug - can't resize TEXTAREA in the resize event (Bug #10075)
-        if (e && Prototype.Browser.IE) {
+        if (e && Prototype.Browser.IE && !document.addEventListener) {
             this.resizeMsgArea.bind(this).delay(0.1);
             return;
         }
 
-        var cmp = $('composeMessageParent'), mah;
+        var mah,
+            cmp = $('composeMessageParent'),
+            qreply = $('qreply');
 
-        if (!cmp) {
+        if (!cmp || (qreply && !qreply.visible())) {
             return;
         }
 
@@ -1032,11 +1034,11 @@ var DimpCompose = {
     {
         switch (e.memo.elt.readAttribute('id')) {
         case 'ctx_msg_other_rr':
-            $('request_read_receipt').setValue(!$F('request_read_receipt'));
+            $('request_read_receipt').setValue(Number(!Number($F('request_read_receipt'))));
             break;
 
         case 'ctx_msg_other_saveatc':
-            $('save_attachments_select').setValue(!$F('save_attachments_select'));
+            $('save_attachments_select').setValue(Number(!Number($F('save_attachments_select'))));
             break;
         }
     },
@@ -1048,10 +1050,10 @@ var DimpCompose = {
         switch (e.memo) {
         case 'ctx_msg_other':
             if (tmp = $('ctx_msg_other_rr')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), $F('request_read_receipt'));
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('request_read_receipt')));
             }
             if (tmp = $('ctx_msg_other_saveatc')) {
-                DimpCore.toggleCheck(tmp.down('SPAN'), $F('save_attachments_select'));
+                DimpCore.toggleCheck(tmp.down('SPAN'), Number($F('save_attachments_select')));
             }
             break;
         }

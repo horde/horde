@@ -4,7 +4,7 @@
  * configuration of Horde applications, writing conf.php files from
  * conf.xml source files, generating user interfaces, etc.
  *
- * Copyright 2002-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2002-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -92,7 +92,7 @@ class Horde_Config
      *
      * @var string
      */
-    protected $_versionUrl = 'http://www.horde.org/versions.php';
+    protected $_versionUrl = 'http://pear.horde.org/packages.json';
 
     /**
      * Constructor.
@@ -114,23 +114,25 @@ class Horde_Config
      */
     public function checkVersions()
     {
-        if (!Horde_Util::extensionExists('SimpleXML')) {
-            throw new Horde_Exception('SimpleXML not available.');
-        }
-
-        $http = $GLOBALS['injector']->getInstance('Horde_Core_Factory_HttpClient')->create();
-        $response = $http->get($this->_versionUrl);
+        $response = $GLOBALS['injector']
+            ->getInstance('Horde_Core_Factory_HttpClient')
+            ->create()
+            ->get($this->_versionUrl);
         if ($response->code != 200) {
             throw new Horde_Exception('Unexpected response from server.');
         }
+        if (!is_array($result = json_decode($response->getBody(), true))) {
+            throw new Horde_Exception('Unexpected response from server.');
+        }
 
-        $xml = new SimpleXMLElement($response->getBody());
         $versions = array();
 
-        foreach ($xml->stable->application as $app) {
-            $versions[strval($app['name'])] = array(
-                'version' => $app->version,
-                'url' => $app->url
+        foreach ($result as $package) {
+            uksort($package['versions'], 'version_compare');
+            $version = end($package['versions']);
+            $versions[str_replace('pear-horde/', '', $package['name'])] = array(
+                'version' => $version['version'],
+                'url' => 'http://pear.horde.org/'
             );
         }
 

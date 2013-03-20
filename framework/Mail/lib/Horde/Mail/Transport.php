@@ -1,8 +1,7 @@
 <?php
 /**
- * Copyright (c) 1997-2010, Chuck Hagenbuch
+ * Copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * Copyright (c) 2002-2007, Richard Heyes
- * Copyright (c) 2010-2012 Horde LLC
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,9 +30,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  * @category  Horde
- * @copyright 1997-2010 Chuck Hagenbuch
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * @copyright 2002-2007 Richard Heyes
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -45,9 +43,8 @@
  * @author    Richard Heyes <richard@phpguru.org>
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 1997-2010 Chuck Hagenbuch
+ * @copyright 1997-2013 Horde LLC (http://www.horde.org/)
  * @copyright 2002-2007 Richard Heyes
- * @copyright 2010-2012 Horde LLC
  * @license   http://www.horde.org/licenses/bsd New BSD License
  * @package   Mail
  */
@@ -169,26 +166,28 @@ abstract class Horde_Mail_Transport
      * @param mixed  Either a comma-separated list of recipients (RFC822
      *               compliant), or an array of recipients, each RFC822 valid.
      *
-     * @return array  Forward paths (bare addresses).
+     * @return array  Forward paths (bare addresses, IDN encoded).
      * @throws Horde_Mail_Exception
      */
     public function parseRecipients($recipients)
     {
-        // if we're passed an array, assume addresses are valid and
-        // implode them before parsing.
-        if (is_array($recipients)) {
-            $recipients = implode(', ', $recipients);
-        }
-
         // Parse recipients, leaving out all personal info. This is
         // for smtp recipients, etc. All relevant personal information
         // should already be in the headers.
         $rfc822 = new Horde_Mail_Rfc822();
-        $addresses = $rfc822->parseAddressList($recipients, array(
+        $raw = $rfc822->parseAddressList($recipients, array(
             'validate' => true
-        ));
+        ))->raw_addresses;
 
-        return $addresses->bare_addresses;
+        $out = array();
+        foreach ($raw as $val) {
+            $val->personal = null;
+            $out[] = $val->writeAddress(array(
+                'idn' => true
+            ));
+        }
+
+        return $out;
     }
 
     /**

@@ -7,7 +7,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -20,7 +20,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2009-2012 Horde LLC (http://www.horde.org)
+ * @copyright 2009-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -241,7 +241,7 @@ class Horde_ActiveSync
 
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
-    const MAXIMUM_SYNCKEY_COUNT                 = 100;
+    const MAXIMUM_SYNCKEY_COUNT                 = 10;
 
     /**
      * Logger
@@ -528,7 +528,7 @@ class Horde_ActiveSync
      * handler.
      *
      * @param string $cmd    The command we are requesting.
-     * @param string $devId  The device id making the request.
+     * @param string $devId  The device id making the request. @deprecated
      *
      * @return string|boolean  false if failed, true if succeeded and response
      *                         content is wbxml, otherwise the
@@ -567,8 +567,8 @@ class Horde_ActiveSync
         $this->setProvisioning($this->_driver->getProvisioning());
 
         $this->_logger->debug(sprintf(
-            "[%s] %s request received for user %s",
-            $devId,
+            '[%s] %s request received for user %s',
+            getmypid(),
             strtoupper($cmd),
             $this->_driver->getUser())
         );
@@ -579,7 +579,7 @@ class Horde_ActiveSync
         }
 
         // Device id is REQUIRED
-        if (is_null($devId)) {
+        if (empty($devId)) {
             if ($cmd == 'Options') {
                 $this->_doOptionsRequest();
                 return true;
@@ -587,13 +587,16 @@ class Horde_ActiveSync
             throw new Horde_ActiveSync_Exception_InvalidRequest('Device failed to send device id.');
         }
 
+        // Normalize Device Id.
+        $devId = strtoupper($devId);
+
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
 
             // Device might exist, but with a new (additional) user account
             $device = new StdClass();
             if ($this->_state->deviceExists($devId)) {
-                $d = $this->_state->loadDeviceInfo($devId);
+                $device = $this->_state->loadDeviceInfo($devId);
             }
             $device->policykey = 0;
             $device->userAgent = $this->_request->getHeader('User-Agent');
@@ -809,12 +812,12 @@ class Horde_ActiveSync
                 }
 
                 $this->_get = $results;
-                return $results;
             }
         } else {
             $this->_get = $get;
-            return $get;
         }
+
+        return $this->_get;
     }
 
     /**

@@ -17,10 +17,10 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-19</date>
- <time>15:17:01</time>
+ <date>2013-01-09</date>
+ <time>15:54:27</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.3</release>
   <api>1.1.0</api>
  </version>
  <stability>
@@ -310,7 +310,20 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Fix generating cache key for generated URLs (remi@famillecollet.com, Bug #11894).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>1.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
 * 

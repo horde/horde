@@ -1,8 +1,19 @@
 <?php
 /**
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (GPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author  Michael J Rubinsky <mrubinsk@horde.org>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Nag
+ */
+/**
  * Nag_TagBrowser:: class provides logic for dealing with tag browsing.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -14,6 +25,11 @@
  */
 class Nag_TagBrowser extends Horde_Core_TagBrowser
 {
+    /**
+     * Application that the tag browser is for.
+     *
+     * @var string
+     */
     protected $_app = 'nag';
 
     /**
@@ -22,6 +38,14 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
      * @var integer
      */
     protected $_completed = Nag::VIEW_ALL;
+
+    /**
+     * Cache the last tag search to avoid having to retrieve the tags from the
+     * backend twice.
+     *
+     * @var Nag_Task
+     */
+    protected $_tasks;
 
     /**
      * Get breadcrumb style navigation html for choosen tags
@@ -35,29 +59,16 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
     /**
      * Fetch the matching resources that should appear on the current page
      *
+     * @param integer $page     Start page.
+     * @param integer $perpage  Number of tasks per page.
+     *
      * @return Nag_Task  A list of tasks.
      */
     public function getSlice($page = 0, $perpage = null)
     {
         // Refresh the search
         $this->runSearch();
-        $results = array_slice($this->_results, $page * (empty($perpage) ? 0 : $perpage), $perpage);
-
-        $driver = $GLOBALS['injector']
-            ->getInstance('Nag_Factory_Driver')
-            ->create('');
-        $tasks = new Nag_Task();
-        foreach ($results as $id) {
-            try {
-                $tasks->add($driver->getByUID($id));
-            } catch (Nag_Exception $e) {
-                Horde::logMessage(sprintf('Error loading task: %s', $e->getMessage()), 'ERR');
-            } catch (Horde_Exception_NotFound $e) {
-                Horde::logMessage('Task not found: ' . $id, 'ERR');
-            }
-        }
-
-        return $tasks;
+        return $this->_tasks->getSlice($page, $perpage);
     }
 
     /**
@@ -88,6 +99,10 @@ class Nag_TagBrowser extends Horde_Core_TagBrowser
         $tasks = $search->getSlice();
         $tasks->reset();
 
+        // Save the resulting task list.
+        $this->_tasks = $tasks;
+
+        // Must return the UID array since the parent class requires them.
         $ids = array();
         while ($task = $tasks->each()) {
             $ids[] = $task->uid;

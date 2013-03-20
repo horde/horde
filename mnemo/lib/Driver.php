@@ -2,7 +2,7 @@
 /**
  * Mnemo_Driver:: defines an API for implementing storage backends for Mnemo.
  *
- * Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2001-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL). If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -380,7 +380,7 @@ abstract class Mnemo_Driver
 
         $vnote->setAttribute('UID', $memo['uid']);
         $vnote->setAttribute('BODY', $memo['body']);
-        $vnote->setAttribute('SUMMARY', $this->getMemoDescription($memo['body']));
+        $vnote->setAttribute('SUMMARY', $memo['desc']);
 
         if (!empty($memo['category'])) {
             $vnote->setAttribute('CATEGORIES', $memo['category']);

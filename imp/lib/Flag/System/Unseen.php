@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -18,7 +18,7 @@
  *
  * @author    Michael Slusarz <slusarz@horde.org>
  * @category  Horde
- * @copyright 2010-2012 Horde LLC
+ * @copyright 2010-2013 Horde LLC
  * @license   http://www.horde.org/licenses/gpl GPL
  * @package   IMP
  */
@@ -61,8 +61,9 @@ class IMP_Flag_System_Unseen extends IMP_Flag_System_Match_Flag
     }
 
     /**
+     * @param array $data  List of IMAP flags.
      */
-    public function match(array $data)
+    public function match($data)
     {
         return !in_array(Horde_Imap_Client::FLAG_SEEN, $data);
     }

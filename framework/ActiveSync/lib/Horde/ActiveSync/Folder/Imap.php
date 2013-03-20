@@ -9,7 +9,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -22,7 +22,7 @@
  *            Version 2, the distribution of the Horde_ActiveSync module in or
  *            to the United States of America is excluded from the scope of this
  *            license.
- * @copyright 2012 Horde LLC (http://www.horde.org)
+ * @copyright 2012-2013 Horde LLC (http://www.horde.org)
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
@@ -83,12 +83,12 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @param array $messages  An array of message UIDs.
      * @param array $flags     A hash of message read flags, keyed by UID.
      */
-    public function setChanges($messages, $flags = array())
+    public function setChanges(array $messages, array $flags = array())
     {
         foreach ($messages as $uid) {
             if ($uid >= $this->uidnext()) {
                 $this->_added[] = $uid;
-            } elseif ($id >= $this->minuid()) {
+            } elseif ($uid >= $this->minuid()) {
                 if ($this->modseq() > 0) {
                     $this->_changed[] = $uid;
                 } else {
@@ -107,9 +107,11 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     /**
      * Check the validity of various values.
      *
+     * @param array $params  A status array containing status to check.
+     *
      * @throws Horde_ActiveSync_Exception_StaleState
      */
-    public function checkValidity($params = array())
+    public function checkValidity(array $params = array())
     {
         if (!empty($params[self::UIDVALIDITY]) && $this->uidvalidity() != $params[self::UIDVALIDITY]) {
             throw new Horde_ActiveSync_Exception_StaleState('UIDVALIDTY no longer valid');
@@ -142,7 +144,10 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      */
     public function updateState()
     {
-        if ($this->_status[self::HIGHESTMODSEQ] == 0 && $this->_status[self::UIDNEXT]) {
+        // Not all servers will have MODSEQ, and even though they WILL all have
+        // UIDNEXT, we won't have it until AFTER the first syncKey is generated
+        // so it still might be empty here.
+        if (empty($this->_status[self::HIGHESTMODSEQ]) && !empty($this->_status[self::UIDNEXT])) {
             $this->_messages = array_diff(array_keys($this->_messages), $this->_removed);
             foreach ($this->_added as $add) {
                 $this->_messages[] = $add;
@@ -248,11 +253,16 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
         return $this->_removed;
     }
 
+    /**
+     * Return the minimum IMAP UID contained in this folder.
+     *
+     * @return integer  The IMAP UID.
+     */
     public function minuid()
     {   if (empty($this->_status[self::HIGHESTMODSEQ])) {
             return min(array_keys($this->_messages));
         }
-        return min($this->_message);
+        return min($this->_messages);
     }
 
     /**
@@ -296,7 +306,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
     public function __toString()
     {
         return sprintf(
-            "status: %s\nchanged: %s\nadded: %s\nremoved: %s",
+            'status: %s\nchanged: %s\nadded: %s\nremoved: %s',
             join(', ', $this->_status),
             join(', ', $this->_changed),
             join(', ', $this->_added),

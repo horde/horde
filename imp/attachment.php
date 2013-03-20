@@ -19,7 +19,11 @@
 // We do not need to be authenticated to get the file. Most users won't send
 // linked attachments just to other IMP users.
 require_once __DIR__ . '/lib/Application.php';
-Horde_Registry::appInit('imp', array('authentication' => 'none', 'session_control' => 'none'));
+Horde_Registry::appInit('imp', array(
+    'authentication' => 'none',
+    'session_control' => 'none',
+    'timezone' => true
+));
 
 // Lets see if we are even able to send the user an attachment.
 if (!$conf['compose']['link_attachments']) {
@@ -68,21 +72,12 @@ if ($conf['compose']['link_attachments_notify']) {
         try {
             $vfsroot->writeData($full_path, $file_name . '.notify', $id, true);
 
-            /* Load $mail_user's preferences so that we can use their
-             * locale information for the notification message. */
-            $prefs = $injector->getInstance('Horde_Core_Factory_Prefs')->create('horde', array(
-                'cache' => false,
-                'user' => $mail_user
-            ));
-
             $mail_identity = $injector->getInstance('Horde_Core_Factory_Identity')->create($mail_user);
             $mail_address = $mail_identity->getDefaultFromAddress();
 
             /* Ignore missing addresses, which are returned as <>. */
             if (strlen($mail_address) > 2) {
                 $mail_address_full = $mail_identity->getDefaultFromAddress(true);
-                $registry->setTimeZone();
-                $registry->setLanguageEnvironment();
 
                 /* Set up the mail headers and read the log file. */
                 $msg_headers = new Horde_Mime_Headers();
@@ -102,13 +97,14 @@ if ($conf['compose']['link_attachments_notify']) {
                 $msg->setType('text/plain');
                 $msg->setCharset('UTF-8');
 
-                $d_url = new Horde_Url(Horde::selfUrl(true, false, true));
-                $msg->setContents(Horde_String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), $d_url->add('d', $id))));
+                $msg->setContents(Horde_String::wrap(sprintf(_("Your linked attachment has been downloaded by at least one user.\n\nAttachment name: %s\nAttachment date: %s\n\nClick on the following link to permanently delete the attachment:\n%s"), $file_name, date('r', $time_stamp), Horde::selfUrlParams(array('full' => true))->add('d', $id)->setRaw(true))));
 
                 $msg->send($mail_address, $msg_headers,
                            $injector->getInstance('Horde_Mail'));
             }
         } catch (Horde_Vfs_Exception $e) {
+            Horde::log($e, 'ERR');
+        } catch (Horde_Mime_Exception $e) {
             Horde::log($e, 'ERR');
         }
     }

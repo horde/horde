@@ -1,12 +1,12 @@
 # German translation for Chora.
-# Copyright 2001-2012 Horde LLC (http://www.horde.org/)
+# Copyright 2001-2013 Horde LLC (http://www.horde.org/)
 # This file is distributed under the same license as the Chora package.
 # Jan Schneider <jan@horde.org>, 2001-2010.
 msgid ""
 msgstr ""
 "Project-Id-Version: Chora 3.0-git\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2011-02-02 18:08+0100\n"
 "Last-Translator: Jan Schneider <jan@horde.org>\n"
 "Language-Team: German <dev@lists.horde.org>\n"
@@ -34,7 +34,7 @@ msgstr ""
 msgid "%s Revision %s (%s ago)"
 msgstr "%s Version %s (vor %s)"
 
-#: lib/Application.php:170
+#: lib/Application.php:182
 #, php-format
 msgid "%s: Forbidden by server configuration"
 msgstr "%s: Zugriff per Serverkonfiguration verweigert"
@@ -99,7 +99,7 @@ msgstr "Commit"
 msgid "Commit %s"
 msgstr "Commit %s"
 
-#: commit.php:38 patchsets.php:40
+#: commit.php:41 patchsets.php:40
 msgid "Commit Not Found"
 msgstr "Commit nicht gefunden"
 
@@ -217,7 +217,7 @@ msgstr "Geändert"
 msgid "No commit ID given"
 msgstr "Keine Commit-ID angegeben"
 
-#: lib/Application.php:111
+#: lib/Application.php:114
 msgid "No repositories found."
 msgstr "Keine Repositories gefunden."
 
@@ -241,7 +241,7 @@ msgstr "Vorige"
 msgid "Removed"
 msgstr "Entfernt"
 
-#: lib/Application.php:180
+#: lib/Application.php:192
 msgid "Repositories"
 msgstr "Repositories"
 
@@ -294,7 +294,7 @@ msgstr "Quell-Kommentar von %s (Version %s)"
 msgid "Source Branching View for %s"
 msgstr "Branch Ansicht für %s"
 
-#: lib/Application.php:166
+#: lib/Application.php:178
 msgid ""
 "Sourceroot not found. This could be a misconfiguration by the server "
 "administrator, or the server could be having temporary problems. Please try "
@@ -317,7 +317,7 @@ msgstr "Statistik für %s"
 msgid "Tags"
 msgstr "Tags"
 
-#: lib/Application.php:117
+#: lib/Application.php:123
 #, php-format
 msgid "The repository with the slug '%s' was not found"
 msgstr "Repository mit dem Kurznamen '%s' nicht gefunden"
@@ -368,7 +368,7 @@ msgstr "_Autor"
 msgid "_Branches"
 msgstr "_Branches"
 
-#: lib/Application.php:199
+#: lib/Application.php:211
 msgid "_Browse"
 msgstr "_Liste"
 

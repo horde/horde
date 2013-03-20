@@ -14,7 +14,7 @@
 /**
  * A Horde_Injector:: based Horde_Prefs:: factory.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -109,6 +109,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                 $params['db'] = $this->_injector
                     ->getInstance('Horde_Db_Adapter');
                 break;
+
             case 'Horde_Prefs_Storage_KolabImap':
                 if ($GLOBALS['registry']->isAdmin()) {
                     throw new Horde_Exception('The IMAP based Kolab preferences backend is unavailable for system administrators.');
@@ -117,6 +118,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
                     ->getInstance('Horde_Kolab_Storage');
                 $params['logger'] = $opts['logger'];
                 break;
+
             case 'Horde_Prefs_Storage_Imsp':
                 $imspParams = $GLOBALS['conf']['imsp'];
                 $imspParams['username'] = $GLOBALS['registry']->getAuth('bare');
@@ -170,7 +172,7 @@ class Horde_Core_Factory_Prefs extends Horde_Core_Factory_Base
             $GLOBALS['session']->set('horde', 'no_prefs', true);
             if (isset($GLOBALS['notification'])) {
                 $GLOBALS['notification']->push(Horde_Core_Translation::t("The preferences backend is currently unavailable and your preferences have not been loaded. You may continue to use the system with default preferences."));
-                Horde::logMessage($e);
+                Horde::log($e);
             }
         }
     }

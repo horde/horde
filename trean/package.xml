@@ -22,30 +22,33 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2012-11-20</date>
- <time>15:41:38</time>
+ <date>2013-02-12</date>
+ <time>16:26:07</time>
  <version>
-  <release>1.0.0beta2</release>
+  <release>1.0.1</release>
   <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* [jan] Allow to set custom SQL parameters.
-* [jan] Move search box to top menu.
+* [jan] Make Horde_Queue a mandatory dependency.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="app">
     <dir name="controllers">
+     <file name="BrowseByTag.php" role="horde" />
      <file name="DeleteBookmark.php" role="horde" />
      <file name="SaveBookmark.php" role="horde" />
     </dir> <!-- /app/controllers -->
    </dir> <!-- /app -->
    <dir name="bin">
+    <file name="trean-backfill-crawler" role="script" />
+    <file name="trean-backfill-favicons" role="script" />
+    <file name="trean-backfill-remove-utm-params" role="script" />
     <file name="trean-url-checker" role="script" />
    </dir> <!-- /bin -->
    <dir name="config">
@@ -72,6 +75,12 @@
      <file name="Bookmarks.php" role="horde" />
      <file name="Mostclicked.php" role="horde" />
     </dir> <!-- /lib/Block -->
+    <dir name="Queue">
+     <dir name="Task">
+      <file name="Crawl.php" role="horde" />
+      <file name="Favicon.php" role="horde" />
+     </dir> <!-- /lib/Queue/Task -->
+    </dir> <!-- /lib/Queue -->
     <dir name="View">
      <file name="BookmarkList.php" role="horde" />
     </dir> <!-- /lib/View -->
@@ -83,6 +92,7 @@
     <file name="TagBrowser.php" role="horde" />
     <file name="Tagger.php" role="horde" />
     <file name="Trean.php" role="horde" />
+    <file name="Url.php" role="horde" />
    </dir> <!-- /lib -->
    <dir name="locale">
     <dir name="de">
@@ -178,6 +188,7 @@
     <file name="2_trean_upgrade_folders_to_tags_pre.php" role="horde" />
     <file name="3_trean_upgrade_folders_to_tags.php" role="horde" />
     <file name="4_trean_upgrade_folders_to_tags_post.php" role="horde" />
+    <file name="5_trean_add_favicon_url.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="block">
@@ -208,6 +219,7 @@
       </dir> <!-- /themes/default/graphics/protocol -->
       <file name="add.png" role="horde" />
       <file name="favicon.ico" role="horde" />
+      <file name="tag.png" role="horde" />
       <file name="trean.png" role="horde" />
      </dir> <!-- /themes/default/graphics -->
      <file name="screen.css" role="horde" />
@@ -339,6 +351,13 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+    <name>Horde_Queue</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Util</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -395,8 +414,12 @@
    <install as="trean/redirect.php" name="redirect.php" />
    <install as="trean/rss.php" name="rss.php" />
    <install as="trean/search.php" name="search.php" />
+   <install as="trean/app/controllers/BrowseByTag.php" name="app/controllers/BrowseByTag.php" />
    <install as="trean/app/controllers/DeleteBookmark.php" name="app/controllers/DeleteBookmark.php" />
    <install as="trean/app/controllers/SaveBookmark.php" name="app/controllers/SaveBookmark.php" />
+   <install as="trean-backfill-crawler" name="bin/trean-backfill-crawler" />
+   <install as="trean-backfill-favicons" name="bin/trean-backfill-favicons" />
+   <install as="trean-backfill-remove-utm-params" name="bin/trean-backfill-remove-utm-params" />
    <install as="trean-url-checker" name="bin/trean-url-checker" />
    <install as="trean/config/.htaccess" name="config/.htaccess" />
    <install as="trean/config/conf.xml" name="config/conf.xml" />
@@ -415,10 +438,13 @@
    <install as="trean/lib/TagBrowser.php" name="lib/TagBrowser.php" />
    <install as="trean/lib/Tagger.php" name="lib/Tagger.php" />
    <install as="trean/lib/Trean.php" name="lib/Trean.php" />
+   <install as="trean/lib/Url.php" name="lib/Url.php" />
    <install as="trean/lib/Ajax/Application.php" name="lib/Ajax/Application.php" />
    <install as="trean/lib/Ajax/Imple/TagAutoCompleter.php" name="lib/Ajax/Imple/TagAutoCompleter.php" />
    <install as="trean/lib/Block/Bookmarks.php" name="lib/Block/Bookmarks.php" />
    <install as="trean/lib/Block/Mostclicked.php" name="lib/Block/Mostclicked.php" />
+   <install as="trean/lib/Queue/Task/Crawl.php" name="lib/Queue/Task/Crawl.php" />
+   <install as="trean/lib/Queue/Task/Favicon.php" name="lib/Queue/Task/Favicon.php" />
    <install as="trean/lib/View/BookmarkList.php" name="lib/View/BookmarkList.php" />
    <install as="trean/locale/.htaccess" name="locale/.htaccess" />
    <install as="trean/locale/trean.pot" name="locale/trean.pot" />
@@ -457,6 +483,7 @@
    <install as="trean/migration/2_trean_upgrade_folders_to_tags_pre.php" name="migration/2_trean_upgrade_folders_to_tags_pre.php" />
    <install as="trean/migration/3_trean_upgrade_folders_to_tags.php" name="migration/3_trean_upgrade_folders_to_tags.php" />
    <install as="trean/migration/4_trean_upgrade_folders_to_tags_post.php" name="migration/4_trean_upgrade_folders_to_tags_post.php" />
+   <install as="trean/migration/5_trean_add_favicon_url.php" name="migration/5_trean_add_favicon_url.php" />
    <install as="trean/templates/add.html.php" name="templates/add.html.php" />
    <install as="trean/templates/bookmarklet.html.php" name="templates/bookmarklet.html.php" />
    <install as="trean/templates/edit.html.php" name="templates/edit.html.php" />
@@ -467,6 +494,7 @@
    <install as="trean/themes/default/screen.css" name="themes/default/screen.css" />
    <install as="trean/themes/default/graphics/add.png" name="themes/default/graphics/add.png" />
    <install as="trean/themes/default/graphics/favicon.ico" name="themes/default/graphics/favicon.ico" />
+   <install as="trean/themes/default/graphics/tag.png" name="themes/default/graphics/tag.png" />
    <install as="trean/themes/default/graphics/trean.png" name="themes/default/graphics/trean.png" />
    <install as="trean/themes/default/graphics/http/1xx.png" name="themes/default/graphics/http/1xx.png" />
    <install as="trean/themes/default/graphics/http/2xx.png" name="themes/default/graphics/http/2xx.png" />
@@ -502,11 +530,55 @@
    <stability>
     <release>beta</release>
     <api>beta</api></stability>
-   <date>2012-11-20</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [cjh] Add a list of tags to the sidebar.
+* [cjh] Crawl all bookmarks when they are saved or edited for fulltext searching if elasticsearch is available.
+* [cjh] Turn search off by default (Bug #11701).
 * [jan] Allow to set custom SQL parameters.
 * [jan] Move search box to top menu.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [cjh] Strip utm_ parameters from incoming bookmarks, and provide a script to strip them from already-saved bookmarks (Request #10751).
+* [cjh] Implement listTagInfo and searchTags API calls for Trean (Bug #11816).
+* [cjh] Fix fetching, saving, and display of favicons.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.0</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* First stable release for Horde 5.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>1.0.1</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-12</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* [jan] Make Horde_Queue a mandatory dependency.
    </notes>
   </release>
  </changelog>

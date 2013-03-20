@@ -2,7 +2,7 @@
 /**
  * Special prefs handling for the 'searchesmanagement' preference.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -26,11 +26,11 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
     {
         global $injector, $page_output, $prefs, $registry;
 
+        $page_output->addScriptFile('hordecore.js', 'horde');
         $page_output->addScriptFile('searchesprefs.js');
 
         $imp_search = $injector->getInstance('IMP_Search');
-        $fout = $mailboxids = $vout = array();
-        $view_mode = $registry->getView();
+        $fout = $vout = array();
 
         $imp_search->setIteratorFilter(IMP_Search::LIST_VFOLDER | IMP_Search::LIST_DISABLED);
         $vfolder_locked = $prefs->isLocked('vfolder');
@@ -48,13 +48,9 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
             }
 
             $editable = !$vfolder_locked && $imp_search->isVFolder($val, true);
-            $m_url = ($val->enabled && ($view_mode == Horde_Registry::VIEW_BASIC))
-                ? $val->mbox_ob->url('mailbox.php')->link(array('class' => 'vfolderenabled'))
+            $m_url = $val->enabled
+                ? $val->mbox_ob->url('mailbox.php')->link()
                 : null;
-
-            if ($view_mode == Horde_Registry::VIEW_DYNAMIC) {
-                $mailboxids['enable_' . $key] = $val->formid;
-            }
 
             $vout[] = array(
                 'description' => Horde_String::truncate($val->querytext, 200),
@@ -78,10 +74,6 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
 
             $editable = !$filter_locked && $imp_search->isFilter($val, true);
 
-            if ($editable && ($view_mode == Horde_Registry::VIEW_DYNAMIC)) {
-                $mailboxids['enable_' . $key] = $val->formid;
-            }
-
             $fout[] = array(
                 'description' => Horde_String::truncate($val->querytext, 200),
                 'edit' => ($editable ? $imp_search->editUrl($val) : null),
@@ -98,8 +90,7 @@ class IMP_Prefs_Special_Searches implements Horde_Core_Prefs_Ui_Special
         } else {
             $GLOBALS['page_output']->addInlineJsVars(array(
                 'ImpSearchesPrefs.confirm_delete_filter' => _("Are you sure you want to delete this filter?"),
-                'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?"),
-                'ImpSearchesPrefs.mailboxids' => $mailboxids
+                'ImpSearchesPrefs.confirm_delete_vfolder' => _("Are you sure you want to delete this virtual folder?")
             ));
         }
 

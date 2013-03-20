@@ -1,7 +1,7 @@
 /**
  * Base logic for all jQuery Mobile applications.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -60,20 +60,20 @@ var HordeMobile = {
         }
 
         HordeMobile.loading++;
-        $.mobile.showPageLoadingMsg();
+        $.mobile.loading('show');
 
         return $.ajax($.extend({
             data: params,
             error: $.noop,
             success: function(d, t, x) {
-                HordeMobile.doActionComplete(d, callback);
+                HordeMobile.doActionComplete(action, d, callback);
             },
             type: 'post',
-            url: HordeMobile.conf.ajax_url + action,
+            url: HordeMobile.conf.ajax_url + action
         }, opts || {}));
     },
 
-    doActionComplete: function(d, callback)
+    doActionComplete: function(action, d, callback)
     {
         var r = d.response;
 
@@ -94,19 +94,30 @@ var HordeMobile = {
             $(document).trigger('HordeMobile:runTasks', d.tasks);
         }
 
-        if (r && $.isFunction(callback)) {
-            try {
-                callback(r);
-            } catch (e) {
-                HordeMobile.debug('doActionComplete', e);
+        if (r) {
+            $(document).trigger('HordeMobile:doActionCompleteBefore', {
+                action: action,
+                response: r
+            });
+
+            if ($.isFunction(callback)) {
+                try {
+                    callback(r);
+                } catch (e) {
+                    HordeMobile.debug('doActionComplete', e);
+                }
             }
+
+            $(document).trigger('HordeMobile:doActionCompleteAfter', {
+                action: action,
+                response: r
+            });
         }
 
         HordeMobile.inAjaxCallback = false;
 
-        HordeMobile.loading--;
-        if (!HordeMobile.loading) {
-            $.mobile.hidePageLoadingMsg();
+        if (!(--HordeMobile.loading)) {
+            $.mobile.loading('hide');
         }
     },
 

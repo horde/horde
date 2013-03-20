@@ -15,8 +15,8 @@
           <select name="employees[]" id="hermesSearchFormEmployee" multiple="multiple">
           <?php foreach ($userType[1] as $username => $user_label): ?>
             <option value="<?php echo $username ?>"><?php echo htmlspecialchars($user_label) ?></option>
-          </select>
           <?php endforeach ?>
+          </select>
         <?php endif; ?>
         </label>
         <label for="hermesSearchFormJobtype">
@@ -88,14 +88,14 @@
 
   <div id="hermesSearchListHeader">
     <div class="hermesUnselectedSlice hermesTimeListSelect">&nbsp;</div>
-    <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Date")?></a></div>
-    <div class="hermesTimeListEmployee hermesBorderLeft"><a class="widget" id="sortDate"><?php echo _("Employee")?></a></div>
-    <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sortClient"><?php echo _("Client")?></a></div>
-    <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sortCostObject"><?php echo _("Cost Object")?></a></div>
-    <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sortType"><?php echo _("Job Type")?></a></div>
-    <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sortDesc"><?php echo _("Description")?></a></div>
-    <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sortBill"><?php echo _("Bill") ?></a></div>
-    <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sortHours"><?php echo _("Hours")?></a></div>
+    <div class="hermesTimeListDate hermesBorderLeft"><a class="widget" id="sSortDate"><?php echo _("Date")?></a></div>
+    <div class="hermesTimeListEmployee hermesBorderLeft"><a class="widget" id="sSortEmployee"><?php echo _("Employee")?></a></div>
+    <div class="hermesTimeListClient hermesBorderLeft"><a class="widget" id="sSortClient"><?php echo _("Client")?></a></div>
+    <div class="hermesTimeListCostObject hermesBorderLeft"><a class="widget" id="sSortCostObject"><?php echo _("Cost Object")?></a></div>
+    <div class="hermesTimeListType hermesBorderLeft"><a class="widget" id="sSortType"><?php echo _("Job Type")?></a></div>
+    <div class="hermesTimeListDesc hermesBorderLeft"><a class="widget" id="sSortDesc"><?php echo _("Description")?></a></div>
+    <div class="hermesTimeListBill hermesBorderLeft"><a class="widget" id="sSortBill"><?php echo _("Bill") ?></a></div>
+    <div class="hermesTimeListHours hermesBorderLeft"><a class="widget" id="sSortHours"><?php echo _("Hours")?></a></div>
     <div class="hermesTimeSliceOptions">&nbsp;</div>
   </div>
   <div id="hermesSearchListBody">
@@ -113,6 +113,9 @@
     </div>
     <div id="hermesSearchListInternal"></div>
     <div id="hermesSearchListEmpty" style="display:none;"><?php echo _("No Time Slices")?></div>
+    <div class="hermesTimeListRow">
+      <div class="hermesTimeListSumLabel"><?php echo _("Total Hours")?></div><div  id="hermesSearchSum" class="hermesTimeListSum">0</div>
+    </div>
   </div>
   <div id="hermesTimeListControls" class="horde-form-buttons">
     <input id="hermesSearchListSubmit" disabled="disabled" class="horde-button" type="button" value="<?php echo _("Submit")?>" />

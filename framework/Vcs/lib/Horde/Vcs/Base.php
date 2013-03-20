@@ -2,7 +2,7 @@
 /**
  * Version Control generalized library.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -465,10 +465,11 @@ abstract class Horde_Vcs_Base
      * TODO
      *
      * @param array $opts  Options:
-     * <pre>
-     * 'file' - (string) TODO
-     * 'range' - (array) TODO
-     * </pre>
+     * - 'file': (string) The filename to process.
+     *           REQUIRED for this driver.
+     * - 'range': (array) The patchsets to process.
+     *            DEFAULT: None (all patchsets are processed).
+     * - 'timezone': (string) The current timezone.
      *
      * @return Horde_Vcs_Patchset  Patchset object.
      */
@@ -476,7 +477,9 @@ abstract class Horde_Vcs_Base
     {
         $class = 'Horde_Vcs_Patchset_' . $this->_driver;
 
-        if (!is_array($opts)) { $opts = array(); }
+        if (!is_array($opts)) {
+            $opts = array();
+        }
         ksort($opts);
         $cacheId = implode('|', array($class, $this->sourceroot, serialize($opts), $this->_cacheVersion));
 

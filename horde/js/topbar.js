@@ -113,8 +113,10 @@ var HordeTopbar = {
             this.searchGhost = new FormGhost('horde-search-input');
         }
         this.updateDate();
-        new PeriodicalExecuter(this.refreshTopbar.bind(this),
-                               this.conf.refresh);
+        if (this.conf.refresh) {
+            new PeriodicalExecuter(this.refreshTopbar.bind(this),
+                                   this.conf.refresh);
+        }
     }
 }
 

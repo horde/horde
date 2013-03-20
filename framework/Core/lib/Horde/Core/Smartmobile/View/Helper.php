@@ -2,7 +2,7 @@
 /**
  * View helper class for smartmobile pages.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -59,6 +59,7 @@ class Horde_Core_Smartmobile_View_Helper extends Horde_View_Helper_Base
         }
 
         if (!empty($params['logout']) &&
+            $registry->showService('logout') &&
             ($logout = $registry->getServiceLink('logout')->setRaw(false))) {
             $out .= '<a class="smartmobile-logout ui-btn-right" href="' .
                 $logout .

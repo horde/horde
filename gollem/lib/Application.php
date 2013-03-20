@@ -5,7 +5,7 @@
  * This file defines Horde's core API interface. Other core Horde libraries
  * can interact with Horde through this API.
  *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
@@ -50,7 +50,7 @@ class Gollem_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (3.0.0-git)';
+    public $version = 'H5 (3.0.1-git)';
 
     /**
      * Server key used in logged out session.
@@ -141,7 +141,9 @@ class Gollem_Application extends Horde_Registry_Application
 
         return array(
             'js_code' => array(),
-            'js_files' => array(array('login.js', 'gollem')),
+            'js_files' => array(array('login.js', 'gollem'),
+                                array('scriptaculous/effects.js', 'horde'),
+                                array('redbox.js', 'horde')),
             'params' => $params
         );
     }
@@ -159,11 +161,11 @@ class Gollem_Application extends Horde_Registry_Application
     {
         $this->init();
 
-        $this->_addSessVars(Gollem_Auth::authenticate(array(
-            'password' => $credentials['password'],
-            'backend_key' => empty($credentials['backend_key']) ? Gollem_Auth::getPreferredBackend() : $credentials['backend_key'],
-            'userId' => $userId
-        )));
+        if (empty($credentials['backend_key'])) {
+            $credentials['backend_key'] = Gollem_Auth::getPreferredBackend();
+        }
+        $credentials['userId'] = $userId;
+        $this->_addSessVars(Gollem_Auth::authenticate($credentials));
     }
 
     /**
@@ -310,7 +312,9 @@ class Gollem_Application extends Horde_Registry_Application
      */
     public function download(Horde_Variables $vars)
     {
-        $vfs = $GLOBALS['injector']->getInstance('Gollem_Factory_Vfs')->create($vars->driver);
+        $vfs = $GLOBALS['injector']
+            ->getInstance('Gollem_Factory_Vfs')
+            ->create($vars->backend);
         $res = array(
             'data' => is_callable(array($vfs, 'readStream'))
                 ? $vfs->readStream($vars->dir, $vars->filename)

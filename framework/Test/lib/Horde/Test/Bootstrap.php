@@ -2,7 +2,7 @@
 /**
  * Bootstrap code for PHPUnit tests.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -40,13 +40,21 @@ class Horde_Test_Bootstrap
             error_reporting(E_ALL | E_STRICT);
 
             // Set up autoload
+            $base = $dir;
+            while ($base != '/' && basename($base) != 'test') {
+                $base = dirname($base);
+            }
+            if ($base) {
+                set_include_path(
+                    $base . PATH_SEPARATOR . $base . '/../lib' . PATH_SEPARATOR . get_include_path()
+                );
+            }
             require_once 'Horde/Test/Autoload.php';
             Horde_Test_Autoload::init();
         }
 
-        $autoload = $dir . DIRECTORY_SEPARATOR . 'Autoload.php';
-        if (file_exists($autoload)) {
-            require_once $autoload;
+        if (file_exists($dir . '/Autoload.php')) {
+            require_once $dir . '/Autoload.php';
         }
 
         self::$_runonce = true;

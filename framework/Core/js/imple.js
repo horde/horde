@@ -9,7 +9,7 @@
  * [IMPLE NAME]:complete
  * Parameter: response from AJAX endpoint
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -30,7 +30,9 @@ var HordeImple = {
                 params.imple_submit = Object.toJSON(e.element().serialize(true));
             }
             $(id).fire(params.imple + ':do', params);
-            HordeCore.doAction('imple', params, this.impleCallback.bind(this, id));
+            HordeCore.doAction('imple', params, {
+                callback: this.impleCallback.bind(this, id)
+            });
         }
 
         if (e) {
@@ -38,7 +40,7 @@ var HordeImple = {
         }
     },
 
-    impleCallback: function(r, id)
+    impleCallback: function(id, r)
     {
         $(id).fire(this.actions.get(id).imple + ':complete', r);
     },

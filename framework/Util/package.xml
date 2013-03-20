@@ -23,11 +23,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2012-11-19</date>
- <time>18:47:23</time>
+ <date>2013-03-05</date>
+ <time>18:31:49</time>
  <version>
-  <release>2.0.2</release>
-  <api>2.0.0</api>
+  <release>2.2.2</release>
+  <api>2.2.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -543,7 +543,75 @@ Converted to package.xml 2.0 for pear.horde.org
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-19</date>
+   <date>2012-12-20</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Convert Horde_String#validUtf8() from a preg-regex to a string iterator to eliminate PCRE issues relating to stack sizes (Bug #11899).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Fix validating certain strings of UTF-8 data (Bug #11930).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-11</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Added &apos;charset&apos; and &apos;metacharset&apos; parameters to returnHtml().
+* [mms] Added Horde_Domhtml#getCharset() to get best-guess charset of current encoding within the DOM object.
+* [mms] Fix inserting HEAD into HTML document with Horde_Domhtml#getHead() if it doesn&apos;t already exist in the document.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.0</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-02-17</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Can&apos;t add charset directly to HTML document or else DOM will alter document when generating HTML.
+* [mms] Added Horde_Domhtml#getBody().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.1</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [mms] Simplify Horde_Variables iterator.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.2.2</release>
+    <api>2.2.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * 

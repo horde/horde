@@ -2,7 +2,7 @@
 /**
  * The form to manage vacation notices.
  *
- * Copyright 2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2012-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file LICENSE for license information (ASL).  If you
  * did not receive this file, see http://www.horde.org/licenses/apache.
@@ -36,9 +36,9 @@ class Ingo_Form_Vacation extends Ingo_Form_Base
         $this->_start = $this->addVariable(_("Start of vacation:"), 'start', 'monthdayyear', '');
         $this->_start->setHelp('vacation-period');
         $this->_end = $this->addVariable(_("End of vacation:"), 'end', 'monthdayyear', '');
-        $v = $this->addVariable(_("Subject of vacation message:"), 'subject', 'text', false);
+        $v = $this->addVariable(_("Subject of vacation message:"), 'subject', 'text', true);
         $v->setHelp('vacation-subject');
-        $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', false, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
+        $v = $this->addVariable(_("Reason:"), 'reason', 'longtext', true, false, _("You can use placeholders like %NAME% in the vacation message. See the online help for details."), array(10, 40));
         $v->setHelp('vacation-reason');
 
         $this->setSection('advanced', _("Advanced Settings"));

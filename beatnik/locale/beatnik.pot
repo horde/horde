@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Beatnik H5 (1.0-git)\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-10-12 19:05+0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,7 +45,7 @@ msgstr ""
 msgid "AAAA (IPv6 Address)"
 msgstr ""
 
-#: templates/listzones/header.inc:42 templates/view/header.inc:43
+#: templates/listzones/header.inc:33 templates/view/header.inc:36
 msgid "Actions"
 msgstr ""
 
@@ -72,7 +72,7 @@ msgid "Are you sure you want to delete this record?"
 msgstr ""
 
 #: autogenerate.php:24 autogenerate.php:39 lib/Forms/Autogenerate.php:20
-#: templates/listzones/row.inc:14 templates/view/header.inc:23
+#: templates/listzones/row.inc:5 templates/view/header.inc:16
 msgid "Autogenerate"
 msgstr ""
 
@@ -96,7 +96,7 @@ msgstr ""
 msgid "Commit All"
 msgstr ""
 
-#: templates/view/header.inc:11
+#: templates/view/header.inc:4
 msgid "Commit Changes"
 msgstr ""
 
@@ -129,8 +129,8 @@ msgid "Default Time-To-Live for new records."
 msgstr ""
 
 #: delete.php:23 delete.php:47 lib/Forms/DeleteRecord.php:35
-#: templates/listzones/row.inc:16 templates/view/header.inc:25
-#: templates/view/record.inc:16
+#: templates/listzones/row.inc:7 templates/view/header.inc:18
+#: templates/view/record.inc:10
 msgid "Delete"
 msgstr ""
 
@@ -138,7 +138,7 @@ msgstr ""
 msgid "Display Preferences"
 msgstr ""
 
-#: templates/listzones/header.inc:13
+#: templates/listzones/header.inc:4
 msgid "Domain Categories"
 msgstr ""
 
@@ -154,8 +154,8 @@ msgstr ""
 msgid "Driver not found."
 msgstr ""
 
-#: templates/listzones/row.inc:18 templates/view/header.inc:21
-#: templates/view/record.inc:14
+#: templates/listzones/row.inc:9 templates/view/header.inc:14
+#: templates/view/record.inc:8
 msgid "Edit"
 msgstr ""
 
@@ -167,11 +167,11 @@ msgstr ""
 msgid "Edit Record"
 msgstr ""
 
-#: templates/listzones/header.inc:17
+#: templates/listzones/header.inc:8
 msgid "Edit categories and colors"
 msgstr ""
 
-#: templates/listzones/header.inc:16
+#: templates/listzones/header.inc:7
 msgid "Edit domain groups and colors"
 msgstr ""
 
@@ -375,11 +375,11 @@ msgstr ""
 msgid "SRV Weight"
 msgstr ""
 
-#: templates/menu.inc:15
+#: templates/menu.inc:17
 msgid "Select Domain"
 msgstr ""
 
-#: templates/menu.inc:9 templates/menu.inc:16
+#: templates/menu.inc:11 templates/menu.inc:18
 msgid "Select _Domain"
 msgstr ""
 
@@ -429,7 +429,7 @@ msgstr ""
 msgid "Too many domains matched that name.  Contact your administrator."
 msgstr ""
 
-#: lib/Forms/DeleteRecord.php:25 templates/view/header.inc:44
+#: lib/Forms/DeleteRecord.php:25 templates/view/header.inc:37
 msgid "Type"
 msgstr ""
 
@@ -442,7 +442,7 @@ msgstr ""
 msgid "Unable to add record to LDAP. Reason: %s"
 msgstr ""
 
-#: commit.php:48
+#: commit.php:50
 #, php-format
 msgid "Unable to construct valid SOA for %s.  Not incrementing serial."
 msgstr ""
@@ -550,7 +550,7 @@ msgstr ""
 msgid "Zone Serial Number"
 msgstr ""
 
-#: commit.php:46
+#: commit.php:48
 #, php-format
 msgid "Zone serial for %s incremented."
 msgstr ""

@@ -6,11 +6,12 @@
  * Events fired:
  *   - HordeCore:ajaxException
  *   - HordeCore:ajaxFailure
- *   - HordeCore:doActionComplete
+ *   - HordeCore:doActionCompleteAfter (since 2.5.0)
+ *   - HordeCore:doActionCompleteBefore (since 2.5.0)
  *   - HordeCore:runTasks
  *   - HordeCore:showNotifications
  *
- * Copyright 2005-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2005-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
@@ -73,8 +74,8 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t) {
-            this.doActionComplete(t, opts);
+        ajaxopts.onSuccess = function(t) {
+            this.doActionComplete(action, t, opts);
         }.bind(this);
 
         return new Ajax.Request((opts.uri ? opts.uri : this.conf.URI_AJAX) + action, ajaxopts);
@@ -90,8 +91,8 @@ var HordeCore = {
 
         this.initLoading(opts.loading);
 
-        ajaxopts.onComplete = function(t, o) {
-            this.doActionComplete(t, opts);
+        ajaxopts.onSuccess = function(t, o) {
+            this.doActionComplete(form, t, opts);
         }.bind(this);
         ajaxopts.parameters = $H(ajaxopts.parameters || {});
         this.addRequestParams(ajaxopts.parameters);
@@ -134,21 +135,22 @@ var HordeCore = {
         form = $(form);
         opts = opts || {};
 
-        if (this.submit_frame[form.identify()]) {
-            return;
+        var sf, fid = form.identify();
+
+        if (!this.submit_frame[fid]) {
+            sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
+            $(document.body).insert(sf);
+
+            sf.observe('load', function(sf) {
+                this.doActionComplete(form, {
+                    responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
+                }, opts);
+            }.bind(this, sf));
+
+            this.submit_frame[fid] = sf;
         }
 
-        var sf = new Element('IFRAME', { name: 'submit_frame', src: 'javascript:false' }).hide();
-        $(document.body).insert(sf);
-        $(form).writeAttribute('target', 'submit_frame');
-
-        sf.observe('load', function(sf) {
-            this.doActionComplete({
-                responseJSON: (sf.contentDocument || sf.contentWindow.document).body.innerHTML.unescapeHTML().evalJSON(true)
-            }, opts);
-        }.bind(this, sf));
-
-        this.submit_frame[form.identify()] = sf;
+        form.writeAttribute('target', 'submit_frame');
     },
 
     // params: (Hash) URL parameters
@@ -160,9 +162,10 @@ var HordeCore = {
         params.set('token', this.conf.TOKEN);
     },
 
+    // action = Action (string or DOM element if form submission)
     // resp = Ajax.Response object
     // opts = HordeCore options (callback, loading)
-    doActionComplete: function(resp, opts)
+    doActionComplete: function(action, resp, opts)
     {
         this.inAjaxCallback = true;
 
@@ -208,15 +211,27 @@ var HordeCore = {
             });
         }
 
-        if (r.response && Object.isFunction(opts.callback)) {
-            try {
-                opts.callback(r.response, resp);
-            } catch (e) {
-                this.debug('doActionComplete', e);
-            }
-        }
+        if (r.response) {
+            document.fire('HordeCore:doActionCompleteBefore', {
+                action: action,
+                ajaxresp: resp,
+                response: r.response
+            });
 
-        document.fire('HordeCore:doActionComplete');
+            if (Object.isFunction(opts.callback)) {
+                try {
+                    opts.callback(r.response, resp);
+                } catch (e) {
+                    this.debug('doActionComplete', e);
+                }
+            }
+
+            document.fire('HordeCore:doActionCompleteAfter', {
+                action: action,
+                ajaxresp: resp,
+                response: r.response
+            });
+        }
 
         this.notify_handler(r.msgs);
 
@@ -260,6 +275,8 @@ var HordeCore = {
         }
 
         msgs.find(function(m) {
+            var alarm, growl, message, select;
+
             if (!Object.isString(m.message)) {
                 return;
             }
@@ -271,7 +288,7 @@ var HordeCore = {
                 return true;
 
             case 'horde.alarm':
-                var alarm = m.flags.alarm;
+                alarm = m.flags.alarm;
                 // Only show one instance of an alarm growl.
                 if (this.alarms.include(alarm.id)) {
                     break;
@@ -279,7 +296,7 @@ var HordeCore = {
 
                 this.alarms.push(alarm.id);
 
-                var message = alarm.title.escapeHTML();
+                message = alarm.title.escapeHTML();
                 if (alarm.params && alarm.params.notify) {
                     if (alarm.params.notify.url) {
                         message = new Element('A', { href: alarm.params.notify.url }).insert(message);
@@ -295,14 +312,14 @@ var HordeCore = {
                     message.insert(new Element('BR')).insert(alarm.params.notify.subtitle);
                 }
                 if (alarm.user) {
-                    var select = '<select>';
+                    select = '<select>';
                     $H(this.text.snooze_select).each(function(snooze) {
                         select += '<option value="' + snooze.key + '">' + snooze.value + '</option>';
                     });
                     select += '</select>';
                     message.insert('<br /><br />' + this.text.snooze.interpolate({ time: select, dismiss_start: '<input type="button" value="', dismiss_end: '" class="horde-default" />' }));
                 }
-                var growl = this.Growler.growl(message, {
+                growl = this.Growler.growl(message, {
                     className: 'horde-alarm',
                     life: 8,
                     log: false,
@@ -315,11 +332,13 @@ var HordeCore = {
                     message.down('select').observe('change', function(e) {
                         if (e.element().getValue()) {
                             this.Growler.ungrowl(growl);
+                            var ajax_params = $H({
+                                alarm: alarm.id,
+                                snooze: e.element().getValue()
+                            });
+                            this.addRequestParams(ajax_params);
                             new Ajax.Request(this.conf.URI_SNOOZE, {
-                                parameters: {
-                                    alarm: alarm.id,
-                                    snooze: e.element().getValue()
-                                }
+                                parameters: ajax_params
                             });
                         }
                     }.bindAsEventListener(this))
@@ -327,11 +346,14 @@ var HordeCore = {
                         e.stop();
                     });
                     message.down('input[type=button]').observe('click', function(e) {
+                        var ajax_params = $H({
+                            alarm: alarm.id,
+                            snooze: -1
+                        });
+                        this.Growler.ungrowl(growl);
+                        this.addRequestParams(ajax_params);
                         new Ajax.Request(this.conf.URI_SNOOZE, {
-                            parameters: {
-                                alarm: alarm.id,
-                                snooze: -1
-                            }
+                            parameters: ajax_params
                         });
                     }.bindAsEventListener(this));
                 }
@@ -456,18 +478,19 @@ var HordeCore = {
     // params: (object) List of parameters to add to URL
     addURLParam: function(url, params)
     {
-        var q = url.indexOf('?');
-        params = $H(params);
-
-        this.addRequestParams(params);
+        var p = $H(),
+            q = url.indexOf('?');
 
         if (q != -1) {
-            params.update(url.toQueryParams());
+            p = $H(url.toQueryParams());
             url = url.substring(0, q);
         }
 
-        return params.size()
-            ? (url + '?' + params.toQueryString())
+        p.update(params);
+        this.addRequestParams(p);
+
+        return p.size()
+            ? (url + '?' + p.toQueryString())
             : url;
     },
 

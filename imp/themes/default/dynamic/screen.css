@@ -6,6 +6,9 @@
 html {
     overflow-y: hidden;
 }
+#search_page {
+    overflow-y: auto;
+}
 
 /* global */
 input {
@@ -616,6 +619,9 @@ div.dimpActionsMsg #windowclose {
     height: 18px;
     margin-top: -6px;
 }
+.msgwrite #msg_other_options .horde-popdown {
+    height: 16px;
+}
 #noticerow li span.closeImg {
     float: right;
     margin: -1px 0 0;
@@ -953,6 +959,10 @@ span.logoutIcon {
 #ctx_preview_allparts span.iconImg, #msg_all_parts span.iconImg {
     background-image: url("../graphics/attachment.png");
 }
+#ctx_filteropts_applyfilters span.iconImg {
+    background-image: url("../graphics/filters.png");
+}
+
 #ctx_flag span.iconImg.flagUser, #ctx_flag_search span.iconImg.flagUser {
     border: 1px black solid;
     height: 17px;

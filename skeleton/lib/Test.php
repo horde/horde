@@ -1,11 +1,23 @@
 <?php
 /**
- * This class provides the application configuration for the test script.
- *
- * Copyright 2010-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (GPL). If you
  * did not receive this file, see http://www.horde.org/licenses/gpl.
+ *
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
+ */
+
+/**
+ * This class provides the application configuration for the test script.
+ *
+ * @author   Your Name <you@example.com>
+ * @category Horde
+ * @license  http://www.horde.org/licenses/gpl GPL
+ * @package  Skeleton
  */
 class Skeleton_Test extends Horde_Test
 {

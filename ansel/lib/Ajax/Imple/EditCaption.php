@@ -2,7 +2,7 @@
 /**
  * Imple for performing AJAX setting of image captions.
  *
- * Copyright 2008-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2008-2013 Horde LLC (http://www.horde.org/)
  *
  * @author  Michael J. Rubinsky <mrubinsk@horde.org>
  * @package Ansel
@@ -14,16 +14,21 @@ class Ansel_Ajax_Imple_EditCaption extends Horde_Core_Ajax_Imple_InPlaceEditor
     protected function _handleEdit(Horde_Variables $vars)
     {
         $as = $GLOBALS['injector']->getInstance('Ansel_Storage');
-        $image = $as->getImage($vars->id);
+        try {
+            $image = $as->getImage($vars->id);
+        } catch (Horde_Exception $e) {
+            Horde::log($e->message());
+            return '';
+        }
 
         /* Are we requesting the unformatted text? */
-        if ($vars->load) {
+        if ($vars->action == 'load') {
             return $image->caption;
         }
 
         $g = $as->getGallery($image->gallery);
         if ($g->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT)) {
-            $image->caption = $vars->input;
+            $image->caption = $vars->{$vars->input};
             try {
                 $result = $image->save();
             } catch (Ansel_Exception $e) {

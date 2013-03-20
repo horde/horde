@@ -133,6 +133,7 @@ Some inline <a href="http://www.horde.org">link</a>.<br />
 </blockquote>
 
 Line inbetween.
+<br />
 
 <blockquote type="cite">
 <h2>Heading inside quoting</h2>
@@ -167,7 +168,7 @@ Some signature<br /><a target="_blank" href="http://www.example.com">http://www.
 
 <p>Zitat von Jane Doe &lt;jane.doe@example.com&gt;:</p>
   <blockquote type="cite">
-Jan Schneider a écrit&nbsp;:
+Jan Schneider a écrit&nbsp;:<br/>
 
     <blockquote type="cite" cite="mid:20081007135151.190315kzjzymtbhc@neo.wg.de">Zitat von Jane Doe
 <a href="mailto:jane.doe@example.com" class="moz-txt-link-rfc2396E">&lt;jane.doe@example.com&gt;</a>:
@@ -300,6 +301,8 @@ Zitat von John Doe <john.doe@example.com>:
 >
 > Blah, blah.'
 
+
+
 --
 Some signature
 http://www.example.com
@@ -384,7 +387,7 @@ EOT;
     public function testHtml2textQuoting()
     {
         $html = <<<EOT
-<p>Zitat von Roberto Maurizzi &lt;roberto.maurizzi@gmail.com&gt;:</p>
+<p>Zitat von Roberto Maurizzi &lt;foo@example.com&gt;:</p>
   <blockquote type="cite">
     <div class="gmail_quote">
       <blockquote style="border-left: 1px solid #cccccc; margin: 0pt 0pt 0pt 0.8ex; padding-left: 1ex;" class="gmail_quote">
@@ -410,12 +413,12 @@ Do you need professional PHP or Horde consulting?<br /> <a target="_blank" href=
 EOT;
 
         $text = <<<EOT
-Zitat von Roberto Maurizzi <roberto.maurizzi@gmail.com>:
+Zitat von Roberto Maurizzi <foo@example.com>:
 
 >>>> 4) In Turba, I can select a VFS driver to use. Currently it is
 >>>> set to
->>>>  None and turba seems to be working fine. What does Turba use
->>>> the VFS
+>>>> None and turba seems to be working fine. What does Turba use the
+>>>> VFS
 >>>> for?
 >>
 >> You can attach files to contacts with that.

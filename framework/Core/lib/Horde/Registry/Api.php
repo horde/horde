@@ -2,7 +2,7 @@
 /**
  * Default class for application defined API calls.
  *
- * Copyright 2009-2012 Horde LLC (http://www.horde.org/)
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
@@ -32,6 +32,13 @@ class Horde_Registry_Api
      * @var array
      */
     protected $_links = array();
+
+    /**
+     * Cached list of methods.
+     *
+     * @var array
+     */
+    protected $_methods = array();
 
     /**
      * The listing of API calls that do not require permissions checking.
@@ -75,18 +82,18 @@ class Horde_Registry_Api
      */
     final public function methods()
     {
-        $disabled = $this->disabled();
-        $methods = array();
-
-        $reflect = new ReflectionClass($this);
-        foreach ($reflect->getMethods(ReflectionMethod::IS_PUBLIC) as $val) {
-            if (($val->getDeclaringClass()->name != __CLASS__) &&
-                !in_array($val->name, $disabled)) {
-                $methods[] = $val->name;
+        if (empty($this->_methods)) {
+            $disabled = $this->disabled();
+            $reflect = new ReflectionClass($this);
+            foreach ($reflect->getMethods(ReflectionMethod::IS_PUBLIC) as $v) {
+                if (($v->getDeclaringClass()->name != __CLASS__) &&
+                    !in_array($v->name, $disabled)) {
+                    $this->_methods[] = $v->name;
+                }
             }
         }
 
-        return $methods;
+        return $this->_methods;
     }
 
     /**

@@ -45,10 +45,18 @@
     </dir> <!-- /app/controllers -->
    </dir> <!-- /app -->
    <dir name="bin">
-    <file name="nag-convert-datatree-shares-to-sql" role="script" />
-    <file name="nag-convert-sql-shares-to-sqlng" role="script" />
-    <file name="nag-create-missing-add-histories-sql" role="script" />
-    <file name="nag-import-vtodos" role="script" />
+    <file name="nag-convert-datatree-shares-to-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-convert-sql-shares-to-sqlng" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-create-missing-add-histories-sql" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
+    <file name="nag-import-vtodos" role="script">
+     <tasks:replace from="/usr/bin/env php" to="php_bin" type="pear-config" />
+    </file>
    </dir> <!-- /bin -->
    <dir name="config">
     <file name=".htaccess" role="horde" />
@@ -396,6 +404,7 @@
     <file name="9_nag_upgrade_recurrence.php" role="horde" />
     <file name="10_nag_upgrade_categoriestotags.php" role="horde" />
     <file name="11_nag_upgrade_smartlists.php" role="horde" />
+    <file name="12_nag_fix_smartlists.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="tasklists">
     <file name="create.php" role="horde" />
@@ -638,6 +647,13 @@
    </package>
    <package>
     <name>Horde_Prefs</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Routes</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
@@ -891,6 +907,7 @@
    <install as="nag/migration/9_nag_upgrade_recurrence.php" name="migration/9_nag_upgrade_recurrence.php" />
    <install as="nag/migration/10_nag_upgrade_categoriestotags.php" name="migration/10_nag_upgrade_categoriestotags.php" />
    <install as="nag/migration/11_nag_upgrade_smartlists.php" name="migration/11_nag_upgrade_smartlists.php" />
+   <install as="nag/migration/12_nag_fix_smartlists.php" name="migration/12_nag_fix_smartlists.php" />
    <install as="nag/tasklists/create.php" name="tasklists/create.php" />
    <install as="nag/tasklists/delete.php" name="tasklists/delete.php" />
    <install as="nag/tasklists/edit.php" name="tasklists/edit.php" />
@@ -1249,11 +1266,50 @@
    <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use Kolab modification and creation dates in the UI (Bug #11591).
 * [gwr] Ignore empty dates (Bug #11736).
 * [jan] Use encoded UIDs as IDs in Kolab driver.
 * [mjr] Fix support for due/start dates for certain ActiveSync clients (Bug #11693).
 * [jan] Fix importing tasks from iCalendar (Bug #11681).
 * [jan] Fix listing of recurring tasks via timeobjects API.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.2</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-10</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Fix closing the quick task dialog when cancel is pressed (Bug #11848).
+* [mjr] Fix displaying and editing tasks from search results (Bug #11847).
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+* [mjr] Fix incoming task sync with certain combinations of due date values.
+* [mjr] Fix quick task addition without session cookies enabled (Bug #11875, Thomas Jarosch &lt;thomas.jarosch@intra2net.com&gt;).
+* [jan] Fix editing tasks from the merged list view in smartmobile mode (Bug #11840).
+* [jan] Use default Kolab folder for default taks list preference.
+* [jan] Mark Kolab folder as default when changing default task list preference.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>4.0.3</release>
+    <api>4.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-11</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
+* [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
+* [jan] Include parent tasks in cost object labels.
+* [jan] Only return completed tasks up to a week old as cost objects.
+* [mjr] Set correct timezone on incoming ActiveSync tasks (Bug #12053).
+* [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
    </notes>
   </release>
   <release>

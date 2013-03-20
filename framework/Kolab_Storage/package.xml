@@ -11,10 +11,10 @@
   <email>p@rdus.de</email>
   <active>yes</active>
  </lead>
- <date>2012-11-21</date>
- <time>09:19:29</time>
+ <date>2013-03-05</date>
+ <time>16:56:16</time>
  <version>
-  <release>2.0.2</release>
+  <release>2.0.5</release>
   <api>2.0.0</api>
  </version>
  <stability>
@@ -23,9 +23,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [gwr] Add a time based snychronization strategy (Bug #11590).
-* [gwr] Correct cache update after move (Bug #11305).
-* [gwr] Remove deleted objects from the cache (Bug #11674).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1277,12 +1275,51 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2012-11-21</date>
+   <date>2012-11-27</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [gwr] Add a time based snychronization strategy (Bug #11590).
 * [gwr] Correct cache update after move (Bug #11305).
 * [gwr] Remove deleted objects from the cache (Bug #11674).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.3</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-01-09</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Update Basque translation (Ibon Igartua &lt;ibon.igartua@ehu.es&gt;).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.4</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* [jan] Fix unit tests.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>2.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-05</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
