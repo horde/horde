@@ -96,9 +96,7 @@ class IMP_Auth
      *
      * @param Horde_Auth_Application $auth_ob  The authentication object.
      *
-     * @return mixed  If authentication was successful, and no session
-     *                exists, an array of data to add to the session.
-     *                Otherwise returns false.
+     * @return boolean  True on successful transparent authentication.
      */
     static public function transparent($auth_ob)
     {
