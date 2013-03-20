@@ -360,12 +360,7 @@ class IMP_Application extends Horde_Registry_Application
      */
     public function authTransparent($auth_ob)
     {
-        if ($result = IMP_Auth::transparent($auth_ob)) {
-            $this->_addSessVars($result);
-            return true;
-        }
-
-        return false;
+        return IMP_Auth::transparent($auth_ob);
     }
 
     /**
