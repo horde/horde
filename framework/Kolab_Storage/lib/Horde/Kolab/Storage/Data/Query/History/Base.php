@@ -31,6 +31,13 @@ class Horde_Kolab_Storage_Data_Query_History_Base
 implements Horde_Kolab_Storage_Data_Query_History
 {
     /**
+     * The factory for generating additional resources.
+     *
+     * @var Horde_Kolab_Storage_Factory
+     */
+    protected $factory;
+
+    /**
      * The queriable data.
      *
      * @var Horde_Kolab_Storage_Data
@@ -54,7 +61,8 @@ implements Horde_Kolab_Storage_Data_Query_History
                                 $params)
     {
         $this->data = $data;
-        $this->history = $params['factory']->createHistory($data->getAuth());
+        $this->factory = $params['factory'];
+        $this->history = $this->factory->createHistory($data->getAuth());
     }
 
     /**
