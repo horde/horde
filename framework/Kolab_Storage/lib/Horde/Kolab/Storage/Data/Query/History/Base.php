@@ -95,9 +95,15 @@ implements Horde_Kolab_Storage_Data_Query_History
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
                 $this->_updateLog($prefix.$object['uid'], $bid, $stamp);
             }
-            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object) {
+            foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object_uid) {
+                // Check if the object is really gone from the folder.
+                // Otherwise we just deleted a duplicated object or updated the original one.
+                // (An update results in an ADDED + DELETED folder action)
+                if ($this->data->objectIdExists($object_uid) == true)
+                    continue;
+
                 $this->history->log(
-                    $prefix.$object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
+                    $prefix.$object_uid, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
                 );
             }
         } else {
