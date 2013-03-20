@@ -19,7 +19,7 @@
  <date>2013-02-12</date>
  <time>16:12:35</time>
  <version>
-  <release>4.0.4</release>
+  <release>4.1.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Add support for ActiveSync synchronization of notes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -988,7 +988,7 @@
   </release>
   <release>
    <version>
-    <release>4.0.4</release>
+    <release>4.1.0</release>
     <api>4.0.0</api></version>
    <stability>
     <release>stable</release>
@@ -996,7 +996,7 @@
    <date>2013-02-12</date>
    <license uri="http://www.horde.org/licenses/apache">ASL</license>
    <notes>
-* 
+* [mjr] Add support for ActiveSync synchronization of notes.
    </notes>
   </release>
  </changelog>
