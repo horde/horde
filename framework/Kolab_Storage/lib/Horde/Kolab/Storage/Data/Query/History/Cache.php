@@ -57,7 +57,7 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
         if (isset($params['current_sync'])) {
             $this->history->log(
                 __CLASS__ ,
-                array('action' => 'sync', 'ts' => $params['current_sync'])
+                array('action' => 'sync', 'ts' => $params['current_sync']), true
             );
         }
     }
