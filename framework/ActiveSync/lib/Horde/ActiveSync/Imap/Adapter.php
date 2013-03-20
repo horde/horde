@@ -1124,7 +1124,7 @@ class Horde_ActiveSync_Imap_Adapter
         }
 
         // EAS 14+
-        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && is_callable($this->_imap, 'getMaillog')) {
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && is_callable(array($this->_imap, 'getMaillog'))) {
             $log = $this->_imap->getMaillog($imap_message->getHeaders()->getValue('Message-ID'));
             foreach ($log as $entry) {
                 if (empty($last) || $last['ts'] < $entry['ts']) {
