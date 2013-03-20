@@ -229,10 +229,10 @@ class IMP_Imap_Config implements Serializable
         case 'smtp':
             if (!empty($out['auth'])) {
                 if (empty($out['username'])) {
-                    $params['username'] = $injector->getInstance('IMP_Imap')->getParam('username');
+                    $out['username'] = $injector->getInstance('IMP_Imap')->getParam('username');
                 }
-                if (empty($params['password'])) {
-                    $params['password'] = $injector->getInstance('IMP_Imap')->getParam('password');
+                if (empty($out['password'])) {
+                    $out['password'] = $injector->getInstance('IMP_Imap')->getParam('password');
                 }
             }
             break;
