@@ -52,6 +52,13 @@ implements Horde_Kolab_Storage_Data_Query_History
     protected $history;
 
     /**
+     * The precomputed history prefix
+     *
+     * @var string Cached history prefix string
+     */
+    private $_prefix;
+
+    /**
      * Constructor.
      *
      * @param Horde_Kolab_Storage_Data $data   The queriable data.
@@ -77,21 +84,87 @@ implements Horde_Kolab_Storage_Data_Query_History
      */
     public function synchronize($params = array())
     {
+        $prefix = $this->_constructHistoryPrefix();
+        // Abort history update if we can't determine the prefix.
+        // Otherwise we pollute the database with useless entries.
+        if (empty($prefix))
+            return;
+
         $stamp = $this->data->getStamp();
         if (isset($params['changes'])) {
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::ADDED] as $bid => $object) {
-                $this->_updateLog($object['uid'], $bid, $stamp);
+                $this->_updateLog($prefix.$object['uid'], $bid, $stamp);
             }
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object) {
                 $this->history->log(
-                    $object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
+                    $prefix.$object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
                 );
             }
         } else {
             foreach ($this->data->getObjectToBackend() as $object => $bid) {
-                $this->_updateLog($object, $bid, $stamp);
+                $this->_updateLog($prefix.$object, $bid, $stamp);
             }
         }
+    }
+
+    /**
+     * Construct prefix needed for Horde_History entries.
+     *
+     * Horde history entries are prefixed and filtered
+     * by application name and base64 encoded folder name.
+     *
+     * @return string Constructed prefix. Can be empty.
+     */
+    private function _constructHistoryPrefix()
+    {
+        // Check if we already know the full prefix
+        if (!empty($this->_prefix))
+            return $this->_prefix;
+
+        $type = $this->_type2app($this->data->getType());
+        if (empty($type))
+            return '';
+
+        // Determine share name
+        $share_name = '';
+        $folder = $this->data->getPath();
+
+        // TODO: Access global Kolab_Storage object if possible
+        // We probably have to extend the class structure for this.
+        $query = $this->factory->create()->getList()
+                ->getQuery(Horde_Kolab_Storage_List_Tools::QUERY_SHARE);
+
+        $data = $query->getParameters($folder);
+        if (isset($data['share_name']))
+            $share_name = $data['share_name'];
+        else
+            return '';
+
+        $this->_prefix = $type.':'.$share_name.':';
+
+        return $this->_prefix;
+    }
+
+    /**
+     * Map Kolab object type to horde application name.
+     *
+     * @param string $type Kolab object type
+     *
+     * @return string The horde application name. Empty string if unknown
+     */
+    private function _type2app($type)
+    {
+        $mapping = array(
+            'contact' => 'turba',
+            'event' => 'kronolith',
+            'note' => 'mnemo',
+            'task' => 'nag',
+        );
+
+        if (isset($mapping[$type]))
+            return $mapping[$type];
+
+        return '';
     }
 
     /**
