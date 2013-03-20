@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-27</date>
- <time>16:57:08</time>
+ <date>2013-03-20</date>
+ <time>16:05:34</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -297,17 +297,9 @@
         <file name="autoload.php" role="php" />
        </dir> <!-- /vendor/sabre/dav/lib/Sabre -->
       </dir> <!-- /vendor/sabre/dav/lib -->
-      <file name=".gitignore" role="php" />
-      <file name=".travis.yml" role="php" />
-      <file name="build.xml" role="php" />
-      <file name="ChangeLog" role="php" />
       <file name="LICENSE" role="php" />
-      <file name="README.md" role="php" />
      </dir> <!-- /vendor/sabre/dav -->
      <dir name="vobject">
-      <dir name="bin">
-       <file name="vobjectvalidate.php" role="php" />
-      </dir> <!-- /vendor/sabre/vobject/bin -->
       <dir name="lib">
        <dir name="Sabre">
         <dir name="VObject">
@@ -347,55 +339,7 @@
         </dir> <!-- /vendor/sabre/vobject/lib/Sabre/VObject -->
        </dir> <!-- /vendor/sabre/vobject/lib/Sabre -->
       </dir> <!-- /vendor/sabre/vobject/lib -->
-      <dir name="tests">
-       <dir name="Sabre">
-        <dir name="VObject">
-         <dir name="Component">
-          <file name="VAlarmTest.php" role="php" />
-          <file name="VCalendarTest.php" role="php" />
-          <file name="VCardTest.php" role="php" />
-          <file name="VEventTest.php" role="php" />
-          <file name="VFreeBusyTest.php" role="php" />
-          <file name="VJournalTest.php" role="php" />
-          <file name="VTodoTest.php" role="php" />
-         </dir> <!-- /vendor/sabre/vobject/tests/Sabre/VObject/Component -->
-         <dir name="Property">
-          <file name="CompoundTest.php" role="php" />
-          <file name="DateTimeTest.php" role="php" />
-          <file name="MultiDateTimeTest.php" role="php" />
-         </dir> <!-- /vendor/sabre/vobject/tests/Sabre/VObject/Property -->
-         <dir name="Splitter">
-          <file name="ICalendarTest.php" role="php" />
-          <file name="VCardTest.php" role="php" />
-         </dir> <!-- /vendor/sabre/vobject/tests/Sabre/VObject/Splitter -->
-         <file name="ComponentTest.php" role="php" />
-         <file name="DateTimeParserTest.php" role="php" />
-         <file name="ElementListTest.php" role="php" />
-         <file name="EmClientTest.php" role="php" />
-         <file name="FreeBusyGeneratorTest.php" role="php" />
-         <file name="issue153.vcf" role="php" />
-         <file name="Issue153Test.php" role="php" />
-         <file name="Issue154Test.php" role="php" />
-         <file name="ParameterTest.php" role="php" />
-         <file name="PropertyTest.php" role="php" />
-         <file name="ReaderTest.php" role="php" />
-         <file name="RecurrenceIteratorFifthTuesdayProblemTest.php" role="php" />
-         <file name="RecurrenceIteratorInfiniteLoopProblemTest.php" role="php" />
-         <file name="RecurrenceIteratorMinusOneProblemTest.php" role="php" />
-         <file name="RecurrenceIteratorTest.php" role="php" />
-         <file name="StringUtilTest.php" role="php" />
-         <file name="TimeZoneUtilTest.php" role="php" />
-         <file name="VersionTest.php" role="php" />
-        </dir> <!-- /vendor/sabre/vobject/tests/Sabre/VObject -->
-       </dir> <!-- /vendor/sabre/vobject/tests/Sabre -->
-       <file name="bootstrap.php" role="php" />
-       <file name="phpunit.xml" role="php" />
-      </dir> <!-- /vendor/sabre/vobject/tests -->
-      <file name=".gitignore" role="php" />
-      <file name=".travis.yml" role="php" />
-      <file name="ChangeLog" role="php" />
       <file name="LICENSE" role="php" />
-      <file name="README.md" role="php" />
      </dir> <!-- /vendor/sabre/vobject -->
     </dir> <!-- /vendor/sabre -->
     <file name="autoload.php" role="php" />
@@ -432,76 +376,7 @@
    <install as="Sabre/CalDAV/Backend/Horde.php" name="lib/Sabre/CalDAV/Backend/Horde.php" />
    <install as="Sabre/DAV/Auth/Backend/Horde.php" name="lib/Sabre/DAV/Auth/Backend/Horde.php" />
    <install as="autoload.php" name="vendor/autoload.php" />
-   <install as="sabre/dav/.gitignore" name="vendor/sabre/dav/.gitignore" />
-   <install as="sabre/dav/.travis.yml" name="vendor/sabre/dav/.travis.yml" />
-   <install as="sabre/dav/build.xml" name="vendor/sabre/dav/build.xml" />
-   <install as="sabre/dav/ChangeLog" name="vendor/sabre/dav/ChangeLog" />
    <install as="sabre/dav/LICENSE" name="vendor/sabre/dav/LICENSE" />
-   <install as="sabre/dav/README.md" name="vendor/sabre/dav/README.md" />
-   <install as="sabre/dav/bin/googlecode_upload.py" name="vendor/sabre/dav/bin/googlecode_upload.py" />
-   <install as="sabre/dav/bin/migrateto17.php" name="vendor/sabre/dav/bin/migrateto17.php" />
-   <install as="sabre/dav/bin/naturalselection.py" name="vendor/sabre/dav/bin/naturalselection.py" />
-   <install as="sabre/dav/bin/sabredav" name="vendor/sabre/dav/bin/sabredav" />
-   <install as="sabre/dav/bin/sabredav.php" name="vendor/sabre/dav/bin/sabredav.php" />
-   <install as="sabre/dav/docs/caldav-ctag.txt" name="vendor/sabre/dav/docs/caldav-ctag.txt" />
-   <install as="sabre/dav/docs/caldav-notifications.txt" name="vendor/sabre/dav/docs/caldav-notifications.txt" />
-   <install as="sabre/dav/docs/caldav-proxy.txt" name="vendor/sabre/dav/docs/caldav-proxy.txt" />
-   <install as="sabre/dav/docs/caldav-sharing.txt" name="vendor/sabre/dav/docs/caldav-sharing.txt" />
-   <install as="sabre/dav/docs/draft-daboo-carddav-directory-gateway-02.txt" name="vendor/sabre/dav/docs/draft-daboo-carddav-directory-gateway-02.txt" />
-   <install as="sabre/dav/docs/draft-desruisseaux-caldav-sched-10.txt" name="vendor/sabre/dav/docs/draft-desruisseaux-caldav-sched-10.txt" />
-   <install as="sabre/dav/docs/draft-ietf-httpbis-p1-messaging-11.txt" name="vendor/sabre/dav/docs/draft-ietf-httpbis-p1-messaging-11.txt" />
-   <install as="sabre/dav/docs/draft-ietf-httpbis-p4-conditional-11.txt" name="vendor/sabre/dav/docs/draft-ietf-httpbis-p4-conditional-11.txt" />
-   <install as="sabre/dav/docs/draft-ietf-httpbis-p5-range-11.txt" name="vendor/sabre/dav/docs/draft-ietf-httpbis-p5-range-11.txt" />
-   <install as="sabre/dav/docs/draft-ietf-httpbis-p6-cache-11.txt" name="vendor/sabre/dav/docs/draft-ietf-httpbis-p6-cache-11.txt" />
-   <install as="sabre/dav/docs/draft-nottingham-http-new-status-04.txt" name="vendor/sabre/dav/docs/draft-nottingham-http-new-status-04.txt" />
-   <install as="sabre/dav/docs/rfc2425.txt" name="vendor/sabre/dav/docs/rfc2425.txt" />
-   <install as="sabre/dav/docs/rfc2426.txt" name="vendor/sabre/dav/docs/rfc2426.txt" />
-   <install as="sabre/dav/docs/rfc2518.txt" name="vendor/sabre/dav/docs/rfc2518.txt" />
-   <install as="sabre/dav/docs/rfc2616.txt" name="vendor/sabre/dav/docs/rfc2616.txt" />
-   <install as="sabre/dav/docs/rfc2617.txt" name="vendor/sabre/dav/docs/rfc2617.txt" />
-   <install as="sabre/dav/docs/rfc3253.pdf" name="vendor/sabre/dav/docs/rfc3253.pdf" />
-   <install as="sabre/dav/docs/rfc3744.pdf" name="vendor/sabre/dav/docs/rfc3744.pdf" />
-   <install as="sabre/dav/docs/rfc4437.pdf" name="vendor/sabre/dav/docs/rfc4437.pdf" />
-   <install as="sabre/dav/docs/rfc4790.txt" name="vendor/sabre/dav/docs/rfc4790.txt" />
-   <install as="sabre/dav/docs/rfc4791.txt" name="vendor/sabre/dav/docs/rfc4791.txt" />
-   <install as="sabre/dav/docs/rfc4918.pdf" name="vendor/sabre/dav/docs/rfc4918.pdf" />
-   <install as="sabre/dav/docs/rfc5051.txt" name="vendor/sabre/dav/docs/rfc5051.txt" />
-   <install as="sabre/dav/docs/rfc5397.txt" name="vendor/sabre/dav/docs/rfc5397.txt" />
-   <install as="sabre/dav/docs/rfc5545.txt" name="vendor/sabre/dav/docs/rfc5545.txt" />
-   <install as="sabre/dav/docs/rfc5546.txt" name="vendor/sabre/dav/docs/rfc5546.txt" />
-   <install as="sabre/dav/docs/rfc5689.txt" name="vendor/sabre/dav/docs/rfc5689.txt" />
-   <install as="sabre/dav/docs/rfc5785.txt" name="vendor/sabre/dav/docs/rfc5785.txt" />
-   <install as="sabre/dav/docs/rfc5789.txt" name="vendor/sabre/dav/docs/rfc5789.txt" />
-   <install as="sabre/dav/docs/rfc6047.txt" name="vendor/sabre/dav/docs/rfc6047.txt" />
-   <install as="sabre/dav/docs/rfc6321.txt" name="vendor/sabre/dav/docs/rfc6321.txt" />
-   <install as="sabre/dav/docs/rfc6350.txt" name="vendor/sabre/dav/docs/rfc6350.txt" />
-   <install as="sabre/dav/docs/rfc6351.txt" name="vendor/sabre/dav/docs/rfc6351.txt" />
-   <install as="sabre/dav/docs/rfc6352.txt" name="vendor/sabre/dav/docs/rfc6352.txt" />
-   <install as="sabre/dav/examples/addressbookserver.php" name="vendor/sabre/dav/examples/addressbookserver.php" />
-   <install as="sabre/dav/examples/basicauth.php" name="vendor/sabre/dav/examples/basicauth.php" />
-   <install as="sabre/dav/examples/calendarserver.php" name="vendor/sabre/dav/examples/calendarserver.php" />
-   <install as="sabre/dav/examples/digestauth.php" name="vendor/sabre/dav/examples/digestauth.php" />
-   <install as="sabre/dav/examples/fileserver.php" name="vendor/sabre/dav/examples/fileserver.php" />
-   <install as="sabre/dav/examples/groupwareserver.php" name="vendor/sabre/dav/examples/groupwareserver.php" />
-   <install as="sabre/dav/examples/simplefsserver.php" name="vendor/sabre/dav/examples/simplefsserver.php" />
-   <install as="sabre/dav/examples/sql/mysql.addressbook.sql" name="vendor/sabre/dav/examples/sql/mysql.addressbook.sql" />
-   <install as="sabre/dav/examples/sql/mysql.calendars.sql" name="vendor/sabre/dav/examples/sql/mysql.calendars.sql" />
-   <install as="sabre/dav/examples/sql/mysql.locks.sql" name="vendor/sabre/dav/examples/sql/mysql.locks.sql" />
-   <install as="sabre/dav/examples/sql/mysql.principals.sql" name="vendor/sabre/dav/examples/sql/mysql.principals.sql" />
-   <install as="sabre/dav/examples/sql/mysql.users.sql" name="vendor/sabre/dav/examples/sql/mysql.users.sql" />
-   <install as="sabre/dav/examples/sql/pgsql.addressbook.sql" name="vendor/sabre/dav/examples/sql/pgsql.addressbook.sql" />
-   <install as="sabre/dav/examples/sql/pgsql.calendars.sql" name="vendor/sabre/dav/examples/sql/pgsql.calendars.sql" />
-   <install as="sabre/dav/examples/sql/pgsql.locks.sql" name="vendor/sabre/dav/examples/sql/pgsql.locks.sql" />
-   <install as="sabre/dav/examples/sql/pgsql.principals.sql" name="vendor/sabre/dav/examples/sql/pgsql.principals.sql" />
-   <install as="sabre/dav/examples/sql/pgsql.users.sql" name="vendor/sabre/dav/examples/sql/pgsql.users.sql" />
-   <install as="sabre/dav/examples/sql/sqlite.addressbooks.sql" name="vendor/sabre/dav/examples/sql/sqlite.addressbooks.sql" />
-   <install as="sabre/dav/examples/sql/sqlite.calendars.sql" name="vendor/sabre/dav/examples/sql/sqlite.calendars.sql" />
-   <install as="sabre/dav/examples/sql/sqlite.locks.sql" name="vendor/sabre/dav/examples/sql/sqlite.locks.sql" />
-   <install as="sabre/dav/examples/sql/sqlite.principals.sql" name="vendor/sabre/dav/examples/sql/sqlite.principals.sql" />
-   <install as="sabre/dav/examples/sql/sqlite.users.sql" name="vendor/sabre/dav/examples/sql/sqlite.users.sql" />
-   <install as="sabre/dav/examples/webserver/apache2_htaccess.conf" name="vendor/sabre/dav/examples/webserver/apache2_htaccess.conf" />
-   <install as="sabre/dav/examples/webserver/apache2_vhost.conf" name="vendor/sabre/dav/examples/webserver/apache2_vhost.conf" />
-   <install as="sabre/dav/examples/webserver/apache2_vhost_cgi.conf" name="vendor/sabre/dav/examples/webserver/apache2_vhost_cgi.conf" />
    <install as="sabre/dav/lib/Sabre/autoload.php" name="vendor/sabre/dav/lib/Sabre/autoload.php" />
    <install as="sabre/dav/lib/Sabre/CalDAV/Calendar.php" name="vendor/sabre/dav/lib/Sabre/CalDAV/Calendar.php" />
    <install as="sabre/dav/lib/Sabre/CalDAV/CalendarObject.php" name="vendor/sabre/dav/lib/Sabre/CalDAV/CalendarObject.php" />
@@ -681,186 +556,7 @@
    <install as="sabre/dav/lib/Sabre/HTTP/Response.php" name="vendor/sabre/dav/lib/Sabre/HTTP/Response.php" />
    <install as="sabre/dav/lib/Sabre/HTTP/Util.php" name="vendor/sabre/dav/lib/Sabre/HTTP/Util.php" />
    <install as="sabre/dav/lib/Sabre/HTTP/Version.php" name="vendor/sabre/dav/lib/Sabre/HTTP/Version.php" />
-   <install as="sabre/dav/tests/bootstrap.php" name="vendor/sabre/dav/tests/bootstrap.php" />
-   <install as="sabre/dav/tests/phpunit.xml" name="vendor/sabre/dav/tests/phpunit.xml" />
-   <install as="sabre/dav/tests/Sabre/DAVServerTest.php" name="vendor/sabre/dav/tests/Sabre/DAVServerTest.php" />
-   <install as="sabre/dav/tests/Sabre/TestUtil.php" name="vendor/sabre/dav/tests/Sabre/TestUtil.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/CalendarObjectTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/CalendarObjectTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/CalendarQueryParserTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/CalendarQueryParserTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/CalendarQueryVAlarmTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/CalendarQueryVAlarmTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/CalendarQueryValidatorTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/CalendarQueryValidatorTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/CalendarTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/CalendarTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ExpandEventsDoubleEventsTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ExpandEventsDoubleEventsTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ExpandEventsDTSTARTandDTENDbyDayTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ExpandEventsDTSTARTandDTENDbyDayTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ExpandEventsDTSTARTandDTENDTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ExpandEventsDTSTARTandDTENDTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/FreeBusyReportTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/FreeBusyReportTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/FreeBusyRequestTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/FreeBusyRequestTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/GetEventsByTimerangeTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/GetEventsByTimerangeTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ICSExportPluginTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ICSExportPluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue166Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue166Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue172Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue172Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue203Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue203Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue205Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue205Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue211Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue211Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue220Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue220Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Issue228Test.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Issue228Test.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/OutboxPostTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/OutboxPostTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ShareableCalendarTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ShareableCalendarTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/SharedCalendarTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/SharedCalendarTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/SharingPluginTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/SharingPluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/TestUtil.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/TestUtil.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/UserCalendarsSharedCalendarsTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/UserCalendarsSharedCalendarsTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/UserCalendarsTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/UserCalendarsTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/ValidateICalTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/ValidateICalTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/VersionTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/VersionTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Backend/AbstractPDOTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Backend/AbstractPDOTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Backend/AbstractTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Backend/AbstractTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Backend/Mock.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Backend/Mock.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Backend/PDOMySQLTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Backend/PDOMySQLTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Backend/PDOSqliteTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Backend/PDOSqliteTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Notifications/CollectionTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Notifications/CollectionTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Notifications/NodeTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Notifications/NodeTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/InviteReplyTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/InviteReplyTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/InviteTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/InviteTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/SystemStatusTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Notifications/Notification/SystemStatusTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Principal/CollectionTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Principal/CollectionTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Principal/ProxyReadTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Principal/ProxyReadTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Principal/ProxyWriteTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Principal/ProxyWriteTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Principal/UserTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Principal/UserTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/AllowedSharingModesTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/AllowedSharingModesTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/InviteTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/InviteTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/ScheduleCalendarTranspTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/ScheduleCalendarTranspTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/SupportedCalendarComponentSetTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/SupportedCalendarComponentSetTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/SupportedCalendarDataTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/SupportedCalendarDataTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Property/SupportedCollationSetTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Property/SupportedCollationSetTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Schedule/OutboxTest.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Schedule/OutboxTest.php" />
-   <install as="sabre/dav/tests/Sabre/CalDAV/Schedule/IMip/Mock.php" name="vendor/sabre/dav/tests/Sabre/CalDAV/Schedule/IMip/Mock.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/AbstractPluginTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/AbstractPluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/AddressBookQueryParserTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/AddressBookQueryParserTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/AddressBookQueryTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/AddressBookQueryTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/AddressBookRootTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/AddressBookRootTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/AddressBookTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/AddressBookTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/CardTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/CardTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/IDirectoryTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/IDirectoryTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/MultiGetTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/MultiGetTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/SogoStripContentTypeTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/SogoStripContentTypeTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/TestUtil.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/TestUtil.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/UserAddressBooksTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/UserAddressBooksTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/ValidateFilterTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/ValidateFilterTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/ValidateVCardTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/ValidateVCardTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/VCFExportTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/VCFExportTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/VersionTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/VersionTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/Backend/AbstractPDOTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/Backend/AbstractPDOTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/Backend/Mock.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/Backend/Mock.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/Backend/PDOMySQLTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/Backend/PDOMySQLTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/Backend/PDOSqliteTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/Backend/PDOSqliteTest.php" />
-   <install as="sabre/dav/tests/Sabre/CardDAV/Property/SupportedAddressDataTest.php" name="vendor/sabre/dav/tests/Sabre/CardDAV/Property/SupportedAddressDataTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/AbstractServer.php" name="vendor/sabre/dav/tests/Sabre/DAV/AbstractServer.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/BasicNodeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/BasicNodeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ClientMock.php" name="vendor/sabre/dav/tests/Sabre/DAV/ClientMock.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ClientTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ClientTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ExceptionTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ExceptionTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/HTTPPreferParsingTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/HTTPPreferParsingTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Issue33Test.php" name="vendor/sabre/dav/tests/Sabre/DAV/Issue33Test.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ObjectTreeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ObjectTreeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerCopyMoveTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerCopyMoveTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerEventsTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerEventsTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerFinderBlockTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerFinderBlockTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerMKCOLTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerMKCOLTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerPluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerPluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerPreconditionTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerPreconditionTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerPropsTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerPropsTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerRangeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerRangeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerSimpleTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerSimpleTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/ServerUpdatePropertiesTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/ServerUpdatePropertiesTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/SimpleFileTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/SimpleFileTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/StringUtilTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/StringUtilTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/TemporaryFileFilterTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/TemporaryFileFilterTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/TestPlugin.php" name="vendor/sabre/dav/tests/Sabre/DAV/TestPlugin.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/TreeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/TreeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/URLUtilTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/URLUtilTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/UUIDUtilTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/UUIDUtilTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/XMLUtilTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/XMLUtilTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractBasicTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractBasicTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractDigestTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractDigestTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractPDOTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/AbstractPDOTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/ApacheTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/ApacheTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/FileTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/FileTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/Mock.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/Mock.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/PDOMySQLTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/PDOMySQLTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Auth/Backend/PDOSqliteTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Auth/Backend/PDOSqliteTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Browser/GuessContentTypeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Browser/GuessContentTypeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Browser/MapGetToPropFindTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Browser/MapGetToPropFindTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Browser/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Browser/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Exception/PaymentRequiredTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Exception/PaymentRequiredTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/FSExt/FileTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/FSExt/FileTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/FSExt/NodeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/FSExt/NodeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/FSExt/ServerTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/FSExt/ServerTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/GetIfConditionsTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/GetIfConditionsTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/MSWordTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/MSWordTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/Backend/AbstractTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/Backend/AbstractTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/Backend/FileTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/Backend/FileTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/Backend/FSTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/Backend/FSTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/Backend/PDOMySQLTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/Backend/PDOMySQLTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Locks/Backend/PDOTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Locks/Backend/PDOTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Mount/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Mount/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/PartialUpdate/FileMock.php" name="vendor/sabre/dav/tests/Sabre/DAV/PartialUpdate/FileMock.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/PartialUpdate/PluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/PartialUpdate/PluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/GetLastModifiedTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/GetLastModifiedTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/HrefListTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/HrefListTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/HrefTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/HrefTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/ResourceTypeTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/ResourceTypeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/ResponseListTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/ResponseListTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/ResponseTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/ResponseTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Property/SupportedReportSetTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Property/SupportedReportSetTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAV/Tree/FilesystemTest.php" name="vendor/sabre/dav/tests/Sabre/DAV/Tree/FilesystemTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/ACLMethodTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/ACLMethodTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/AllowAccessTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/AllowAccessTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/BlockAccessTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/BlockAccessTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/ExpandPropertiesTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/ExpandPropertiesTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/MockACLNode.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/MockACLNode.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/MockPrincipal.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/MockPrincipal.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PluginAdminTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PluginAdminTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PluginPropertiesTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PluginPropertiesTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PluginUpdatePropertiesTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PluginUpdatePropertiesTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalCollectionTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalCollectionTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalPropertySearchTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalPropertySearchTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalSearchPropertySetTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalSearchPropertySetTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/SimplePluginTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/SimplePluginTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/VersionTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/VersionTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Exception/AceConflictTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Exception/AceConflictTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Exception/NeedPrivilegesExceptionTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Exception/NeedPrivilegesExceptionTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Exception/NoAbstractTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Exception/NoAbstractTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Exception/NotRecognizedPrincipalTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Exception/NotRecognizedPrincipalTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Exception/NotSupportedPrivilegeTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Exception/NotSupportedPrivilegeTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/AbstractPDOTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/AbstractPDOTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/Mock.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/Mock.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/PDOMySQLTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/PDOMySQLTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/PDOSqliteTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/PrincipalBackend/PDOSqliteTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Property/ACLRestrictionsTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Property/ACLRestrictionsTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Property/ACLTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Property/ACLTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Property/CurrentUserPrivilegeSetTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Property/CurrentUserPrivilegeSetTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Property/PrincipalTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Property/PrincipalTest.php" />
-   <install as="sabre/dav/tests/Sabre/DAVACL/Property/SupportedPrivilegeSetTest.php" name="vendor/sabre/dav/tests/Sabre/DAVACL/Property/SupportedPrivilegeSetTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/AWSAuthTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/AWSAuthTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/BasicAuthTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/BasicAuthTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/DigestAuthTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/DigestAuthTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/RequestTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/RequestTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/ResponseMock.php" name="vendor/sabre/dav/tests/Sabre/HTTP/ResponseMock.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/ResponseTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/ResponseTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/UtilTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/UtilTest.php" />
-   <install as="sabre/dav/tests/Sabre/HTTP/VersionTest.php" name="vendor/sabre/dav/tests/Sabre/HTTP/VersionTest.php" />
-   <install as="sabre/vobject/.gitignore" name="vendor/sabre/vobject/.gitignore" />
-   <install as="sabre/vobject/.travis.yml" name="vendor/sabre/vobject/.travis.yml" />
-   <install as="sabre/vobject/ChangeLog" name="vendor/sabre/vobject/ChangeLog" />
    <install as="sabre/vobject/LICENSE" name="vendor/sabre/vobject/LICENSE" />
-   <install as="sabre/vobject/README.md" name="vendor/sabre/vobject/README.md" />
-   <install as="sabre/vobject/bin/vobjectvalidate.php" name="vendor/sabre/vobject/bin/vobjectvalidate.php" />
    <install as="sabre/vobject/lib/Sabre/VObject/Component.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Component.php" />
    <install as="sabre/vobject/lib/Sabre/VObject/DateTimeParser.php" name="vendor/sabre/vobject/lib/Sabre/VObject/DateTimeParser.php" />
    <install as="sabre/vobject/lib/Sabre/VObject/ElementList.php" name="vendor/sabre/vobject/lib/Sabre/VObject/ElementList.php" />
@@ -888,39 +584,7 @@
    <install as="sabre/vobject/lib/Sabre/VObject/Splitter/ICalendar.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Splitter/ICalendar.php" />
    <install as="sabre/vobject/lib/Sabre/VObject/Splitter/SplitterInterface.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Splitter/SplitterInterface.php" />
    <install as="sabre/vobject/lib/Sabre/VObject/Splitter/VCard.php" name="vendor/sabre/vobject/lib/Sabre/VObject/Splitter/VCard.php" />
-   <install as="sabre/vobject/tests/bootstrap.php" name="vendor/sabre/vobject/tests/bootstrap.php" />
-   <install as="sabre/vobject/tests/phpunit.xml" name="vendor/sabre/vobject/tests/phpunit.xml" />
-   <install as="sabre/vobject/tests/Sabre/VObject/ComponentTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/ComponentTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/DateTimeParserTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/DateTimeParserTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/ElementListTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/ElementListTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/EmClientTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/EmClientTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/FreeBusyGeneratorTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/FreeBusyGeneratorTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/issue153.vcf" name="vendor/sabre/vobject/tests/Sabre/VObject/issue153.vcf" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Issue153Test.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Issue153Test.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Issue154Test.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Issue154Test.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/ParameterTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/ParameterTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/PropertyTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/PropertyTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/ReaderTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/ReaderTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorFifthTuesdayProblemTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorFifthTuesdayProblemTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorInfiniteLoopProblemTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorInfiniteLoopProblemTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorMinusOneProblemTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorMinusOneProblemTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/RecurrenceIteratorTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/StringUtilTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/StringUtilTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/TimeZoneUtilTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/TimeZoneUtilTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/VersionTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/VersionTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VAlarmTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VAlarmTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VCalendarTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VCalendarTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VCardTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VCardTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VEventTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VEventTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VFreeBusyTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VFreeBusyTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VJournalTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VJournalTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Component/VTodoTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Component/VTodoTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Property/CompoundTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Property/CompoundTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Property/DateTimeTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Property/DateTimeTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Property/MultiDateTimeTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Property/MultiDateTimeTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Splitter/ICalendarTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Splitter/ICalendarTest.php" />
-   <install as="sabre/vobject/tests/Sabre/VObject/Splitter/VCardTest.php" name="vendor/sabre/vobject/tests/Sabre/VObject/Splitter/VCardTest.php" />
-  </filelist>
+   </filelist>
  </phprelease>
  <changelog>
   <release>
