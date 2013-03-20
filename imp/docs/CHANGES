@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mjr] Expose the Maillog via the public API.
 [mms] Better handling of flag change attempts when browser cached state
       (dynamic/smartmobile view) is different than the server state.
 [mms] Move backend configuration parsing/retrieval to IMP_Imap_Config.
