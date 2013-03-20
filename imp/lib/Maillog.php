@@ -309,7 +309,7 @@ class IMP_Maillog
     {
         return is_array($msgid)
             ? ''
-            : implode('.', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
+            : implode(':', array('imp', str_replace('.', '*', $GLOBALS['registry']->getAuth()), $msgid));
     }
 
 }

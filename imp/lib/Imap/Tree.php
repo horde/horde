@@ -1913,9 +1913,6 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
         if ($elt->vfolder) {
             $ob->v = $elt->editvfolder ? 2 : 1;
         }
-        if (!$this->isSubscribed($elt)) {
-            $ob->un = 1;
-        }
 
         if (!$elt->access_deletembox) {
             $ob->f = 1;
@@ -1931,6 +1928,10 @@ class IMP_Imap_Tree implements ArrayAccess, Countable, Iterator, Serializable
                 $ob->v = 1;
             }
         } else {
+            if (!$this->isSubscribed($elt)) {
+                $ob->un = 1;
+            }
+
             if ($elt->polled) {
                 $ob->po = 1;
             }

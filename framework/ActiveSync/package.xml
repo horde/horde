@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* 
+* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1255,7 +1255,7 @@
    <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
-* 
+* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
    </notes>
   </release>
  </changelog>

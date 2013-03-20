@@ -102,7 +102,7 @@ class Passwd_Basic
 
         // Choose the prefered backend from config/backends.php.
         foreach ($this->_backends as $k => $v) {
-            if (!isset($backend_key) && (substr($key, 0, 1) != '_')) {
+            if (!isset($backend_key) && (substr($k, 0, 1) != '_')) {
                 $backend_key = $k;
             }
             if ($this->_isPreferredBackend($v)) {

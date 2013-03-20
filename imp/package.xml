@@ -1159,7 +1159,18 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+<<<<<<< HEAD
     <name>Horde_Crypt</name>
+=======
+    <name>Horde_Css_Parser</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Date</name>
+>>>>>>> master
     <channel>pear.horde.org</channel>
     <min>2.1.0</min>
     <max>3.0.0alpha1</max>
@@ -1292,11 +1303,19 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+<<<<<<< HEAD
     <name>Horde_Stream</name>
     <channel>pear.horde.org</channel>
     <min>1.0.0</min>
     <max>2.0.0alpha1</max>
     <exclude>2.0.0alpha1</exclude>
+=======
+    <name>Horde_Stream_Filter</name>
+    <channel>pear.horde.org</channel>
+    <min>2.0.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+>>>>>>> master
    </package>
    <package>
     <name>Horde_Support</name>
@@ -1369,6 +1388,7 @@
   </required>
   <optional>
    <package>
+<<<<<<< HEAD
     <name>Horde_History</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -1397,6 +1417,8 @@
     <exclude>3.0.0alpha1</exclude>
    </package>
    <package>
+=======
+>>>>>>> master
     <name>Horde_Vfs</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -3043,6 +3065,9 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Fix printing quoted text when viewing a list message.
+* [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
+* [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
 * [mms] Update virtual folder name in folder tree when editing the label (Bug #12079).
 * [mms] Fix links to virtual folders on search preferences page.
 * [mms] Fix edit links for virtual folders in dynamic view (Bug #12072).
