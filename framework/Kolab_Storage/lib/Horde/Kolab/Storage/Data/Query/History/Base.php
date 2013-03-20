@@ -76,7 +76,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             }
             foreach ($params['changes'][Horde_Kolab_Storage_Folder_Stamp::DELETED] as $bid => $object) {
                 $this->history->log(
-                    $object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp)
+                    $object, array('action' => 'delete', 'bid' => $bid, 'stamp' => $stamp), true
                 );
             }
         } else {
@@ -101,7 +101,7 @@ implements Horde_Kolab_Storage_Data_Query_History
         $log = $this->history->getHistory($object);
         if (count($log) == 0) {
             $this->history->log(
-                $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp)
+                $object, array('action' => 'add', 'bid' => $bid, 'stamp' => $stamp), true
             );
         } else {
             $last = array('ts' => 0);
@@ -113,7 +113,7 @@ implements Horde_Kolab_Storage_Data_Query_History
             if (!isset($last['bid']) || $last['bid'] != $bid
                 || (isset($last['stamp']) && $last['stamp']->isReset($stamp))) {
                 $this->history->log(
-                    $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp)
+                    $object, array('action' => 'modify', 'bid' => $bid, 'stamp' => $stamp), true
                 );
             }
         }
