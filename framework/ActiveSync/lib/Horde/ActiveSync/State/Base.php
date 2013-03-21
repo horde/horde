@@ -85,6 +85,7 @@ abstract class Horde_ActiveSync_State_Base
      *  'user'       - The user associated with the current account.
      *  'supported'  - The SUPPORTED response for the device's collections.
      *  'policykey'  - The device's current POLICYKEY.
+     *  'version'    - The currently requested EAS version.
      *
      * @var StdClass
      */
