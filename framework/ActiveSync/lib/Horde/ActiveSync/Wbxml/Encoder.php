@@ -253,6 +253,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _startTag($tag, $attributes = false, $output_empty = false)
     {
+        $this->_lastWasEmpty = $output_empty;
         $this->_logStartTag($tag, $attributes, $output_empty);
         $mapping = $this->_getMapping($tag);
         if (!$mapping) {
@@ -460,6 +461,10 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _logEndTag()
     {
+        if ($this->_lastWasEmpty) {
+            $this->_lastWasEmpty = false;
+            return;
+        }
         $spaces = str_repeat(' ', count($this->_logStack) - 1);
         $tag = array_pop($this->_logStack);
         $this->_logger->debug(sprintf(
