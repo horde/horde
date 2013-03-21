@@ -795,6 +795,11 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
             throw new Kronolith_Exception($e);
         }
 
+        /* Notify about the deleted event. */
+        if (!$silent) {
+            $this->_handleNotifications($event, 'delete');
+        }
+
         /* Now check for any exceptions that THIS event may have */
         if ($isRecurring) {
             $query = 'SELECT event_id FROM ' . $this->_params['table'] . ' WHERE event_baseid = ? AND calendar_id = ?';
@@ -806,7 +811,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 throw new Kronolith_Exception($e);
             }
             foreach ($result as $id) {
-                $this->deleteEvent($id, $silent);
+                $this->deleteEvent($id, true);
             }
         }
 
