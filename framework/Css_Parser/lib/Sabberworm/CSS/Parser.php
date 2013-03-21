@@ -2,14 +2,15 @@
 
 namespace Sabberworm\CSS;
 
-use Sabberworm\CSS\CSSList\AtRule;
 use Sabberworm\CSS\CSSList\CSSList;
 use Sabberworm\CSS\CSSList\Document;
-use Sabberworm\CSS\CSSList\MediaQuery;
 use Sabberworm\CSS\CSSList\KeyFrame;
+use Sabberworm\CSS\Property\AtRule;
 use Sabberworm\CSS\Property\Import;
 use Sabberworm\CSS\Property\Charset;
 use Sabberworm\CSS\Property\CSSNamespace;
+use Sabberworm\CSS\RuleSet\AtRuleSet;
+use Sabberworm\CSS\CSSList\AtRuleBlockList;
 use Sabberworm\CSS\RuleSet\DeclarationBlock;
 use Sabberworm\CSS\Value\CSSFunction;
 use Sabberworm\CSS\Value\RuleValueList;
@@ -86,14 +87,7 @@ class Parser {
         $this->consume('@');
         $sIdentifier = $this->parseIdentifier();
         $this->consumeWhiteSpace();
-        if ($sIdentifier === 'media') {
-            $oResult = new MediaQuery();
-            $oResult->setQuery(trim($this->consumeUntil('{')));
-            $this->consume('{');
-            $this->consumeWhiteSpace();
-            $this->parseList($oResult);
-            return $oResult;
-        } else if ($sIdentifier === 'import') {
+        if ($sIdentifier === 'import') {
             $oLocation = $this->parseURLValue();
             $this->consumeWhiteSpace();
             $sMediaQuery = null;
@@ -108,7 +102,7 @@ class Parser {
             $this->consume(';');
             $this->setCharset($sCharset->getString());
             return new Charset($sCharset);
-        } else if (preg_match('/^(-\\w+-)?keyframes$/', $sIdentifier) === 1) {
+        } else if (self::identifierIs($sIdentifier, 'keyframes')) {
             $oResult = new KeyFrame();
             $oResult->setVendorKeyFrame($sIdentifier);
             $oResult->setAnimationName(trim($this->consumeUntil('{')));
@@ -133,11 +127,23 @@ class Parser {
             return new CSSNamespace($mUrl, $sPrefix);
         } else {
             //Unknown other at rule (font-face or such)
-            $sIdentifier .= rtrim(' ' . $this->consumeUntil('{'));
+            $sArgs = $this->consumeUntil('{');
             $this->consume('{');
             $this->consumeWhiteSpace();
-            $oAtRule = new AtRule($sIdentifier);
-            $this->parseList($oAtRule);
+            $bUseRuleSet = true;
+            foreach(explode('/', AtRule::BLOCK_RULES) as $sBlockRuleName) {
+                if(self::identifierIs($sIdentifier, $sBlockRuleName)) {
+                    $bUseRuleSet = false;
+                    break;
+                }
+            }
+            if($bUseRuleSet) {
+                $oAtRule = new AtRuleSet($sIdentifier, $sArgs);
+                $this->parseRuleSet($oAtRule);
+            } else {
+                $oAtRule = new AtRuleBlockList($sIdentifier, $sArgs);
+                $this->parseList($oAtRule);
+            }
             return $oAtRule;
         }
     }
@@ -351,10 +357,7 @@ class Parser {
     private function parsePrimitiveValue() {
         $oValue = null;
         $this->consumeWhiteSpace();
-        if (is_numeric($this->peek()) ||
-            (($this->comes('-') || $this->comes('.')) &&
-             (($peek = $this->peek(1, 1)) || true) &&
-             (($peek == '.') || is_numeric($peek)))) {
+        if (is_numeric($this->peek()) || ($this->comes('-.') && is_numeric($this->peek(1, 2))) || (($this->comes('-') || $this->comes('.')) && is_numeric($this->peek(1, 1)))) {
             $oValue = $this->parseNumericValue();
         } else if ($this->comes('#') || $this->comes('rgb') || $this->comes('hsl')) {
             $oValue = $this->parseColorValue();
@@ -383,31 +386,21 @@ class Parser {
         }
         $fSize = floatval($sSize);
         $sUnit = null;
-        if ($this->comes('%')) {
-            $sUnit = $this->consume('%');
-        } else if ($this->comes('em')) {
-            $sUnit = $this->consume('em');
-        } else if ($this->comes('ex')) {
-            $sUnit = $this->consume('ex');
-        } else if ($this->comes('px')) {
-            $sUnit = $this->consume('px');
-        } else if ($this->comes('deg')) {
-            $sUnit = $this->consume('deg');
-        } else if ($this->comes('s')) {
-            $sUnit = $this->consume('s');
-        } else if ($this->comes('cm')) {
-            $sUnit = $this->consume('cm');
-        } else if ($this->comes('pt')) {
-            $sUnit = $this->consume('pt');
-        } else if ($this->comes('in')) {
-            $sUnit = $this->consume('in');
-        } else if ($this->comes('pc')) {
-            $sUnit = $this->consume('pc');
-        } else if ($this->comes('cm')) {
-            $sUnit = $this->consume('cm');
-        } else if ($this->comes('mm')) {
-            $sUnit = $this->consume('mm');
+
+        $units = array(
+            '%', 'em', 'ex', 'px', 'deg', 's', 'cm', 'pt', 'in', 'pc', 'cm',
+            'mm',
+            // These are non "size" values, but they are still numeric
+            'deg', 'grad', 'rad', 'turns', 's', 'ms', 'Hz', 'kHz'
+        );
+
+        foreach ($units as $val) {
+            if ($this->comes($val)) {
+                $sUnit = $this->consume($val);
+                break;
+            }
         }
+
         return new Size($fSize, $sUnit, $bForColor);
     }
 
@@ -452,6 +445,13 @@ class Parser {
             $this->consume(')');
         }
         return $oResult;
+    }
+
+    /**
+    * Tests an identifier for a given value. Since identifiers are all keywords, they can be vendor-prefixed. We need to check for these versions too.
+    */
+    private static function identifierIs($sIdentifier, $sMatch) {
+        return preg_match("/^(-\\w+-)?$sMatch$/", $sIdentifier) === 1;
     }
 
     private function comes($sString, $iOffset = 0) {
@@ -530,7 +530,7 @@ class Parser {
         $aEnd = is_array($aEnd) ? $aEnd : array($aEnd);
         $iEndPos = null;
         foreach ($aEnd as $sEnd) {
-            $iCurrentEndPos = mb_strpos($this->sText, $sEnd, $this->iCurrentPosition, $this->sCharset);
+            $iCurrentEndPos = $this->strpos($this->sText, $sEnd, $this->iCurrentPosition, $this->sCharset);
             if($iCurrentEndPos === false) {
                 continue;
             }
@@ -564,5 +564,12 @@ class Parser {
         }
     }
 
-}
+    private function strpos($text, $needle, $offset, $charset) {
+        if ($this->oParserSettings->bMultibyteSupport) {
+            return mb_strpos($text, $needle, $offset, $charset);
+        } else {
+            return strpos($text, $needle, $offset);
+        }
+    }
 
+}
