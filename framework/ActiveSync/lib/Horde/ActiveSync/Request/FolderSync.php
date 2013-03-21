@@ -100,7 +100,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
         }
 
         // Load and validate the Sync Cache if we are 12.1
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $syncCache = new Horde_ActiveSync_SyncCache(
                 $this->_stateDriver,
                 $this->_device->id,

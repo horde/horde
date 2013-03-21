@@ -113,7 +113,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
         // Start decoding request
         if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_SYNCHRONIZE)) {
-            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 if ($this->_syncCache->countCollections() == 0) {
                     $this->_logger->err(sprintf(
                         '[%s] Empty SYNC request but no SyncCache or SyncCache with no collections.',
@@ -145,7 +145,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
         } else {
             // Non-empty SYNC request. Either < 12.1 or a full reqeust.
-            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 $this->_syncCache->wait = false;
                 $this->_syncCache->hbinterval = false;
             }
@@ -229,7 +229,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             // Fill in missing values from the cache.
-            if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+            if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
                 // Give up in case we don't have a synched hierarchy synckey
                 if (!isset($this->_syncCache->hierarchy)) {
                     $this->_logger->debug('No HIERARCHY SYNCKEY in sync_cache, invalidating.');
@@ -420,7 +420,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         } // End of non-empty SYNC request.
 
         // If this is 12.1, see if we want a looping SYNC.
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
             !$this->_importedChanges &&
             ($this->_syncCache->wait !== false ||
@@ -574,7 +574,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         }
 
         // See if we can do an empty response
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
             empty($dataavailable) &&
             empty($this->_importedChanges) &&
@@ -679,7 +679,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDER);
 
             // Not sent in > 12.0
-            if ($this->_version <= Horde_ActiveSync::VERSION_TWELVE) {
+            if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVE) {
                 $this->_encoder->startTag(Horde_ActiveSync::SYNC_FOLDERTYPE);
                 $this->_encoder->content($collection['class']);
                 $this->_encoder->endTag();
@@ -840,7 +840,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
         $this->_encoder->endTag();
 
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE) {
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             if (!$this->_syncCache->validateCache()) {
                 $this->_logger->err('Changes detected in sync_cache during wait interval, exiting without updating cache.');
                 return true;
@@ -1038,7 +1038,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         }
 
         // Sanity checking, synccahe etc..
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             !isset($collection['class']) &&
             isset($collection['id'])) {
             if (isset($this->_syncCache->folders[$collection['id']]['class'])) {
@@ -1453,7 +1453,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
     protected function _haveSyncableCollections()
     {
         // Ensure we have syncable collections, using the cache if needed.
-        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVEONE &&
+        if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             empty($this->_collections)) {
             $this->_logger->debug('No collections - looking in sync_cache.');
             $found = false;

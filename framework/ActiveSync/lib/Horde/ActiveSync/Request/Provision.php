@@ -92,7 +92,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
             $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
-            if ($this->_version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+            if ($this->_device->version == Horde_ActiveSync::VERSION_FOURTEENONE) {
                 $deviceinfo = $this->_handleSettings();
                 if (!$deviceinfo) {
                     return $this->_globalError(self::STATUS_PROTERROR);
@@ -116,10 +116,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             } else {
                 $policytype = $this->_decoder->getElementContent();
-                if ($this->_version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                if ($this->_device->version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
-                if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
