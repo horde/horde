@@ -233,7 +233,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outputStack()
     {
-        for ($i=0; $i < count($this->_stack); $i++) {
+        for ($i = 0; $i < count($this->_stack); $i++) {
             if (!$this->_stack[$i]['sent']) {
                 $this->_startTag(
                     $this->_stack[$i]['tag'],
