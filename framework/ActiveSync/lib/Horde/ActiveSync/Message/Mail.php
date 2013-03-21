@@ -309,4 +309,21 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         return 'Email';
     }
 
+    /**
+     * Checks to see if we should send an empty value.
+     *
+     * @param string $tag  The tag name
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        switch ($tag) {
+        case self::POOMMAIL_FLAG:
+            return true;
+        }
+
+        return false;
+    }
+
 }

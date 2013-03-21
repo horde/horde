@@ -237,10 +237,29 @@ class Horde_ActiveSync_Sync
                         $this->_exporter->messageDeletion($change['id']);
                         break;
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                        $this->_exporter->messageFlag(
-                            $change['id'],
-                            (isset($change['flags']['read']) ? $change['flags']['read'] : null),
-                            (isset($change['flags']['flagged']) ? $change['flags']['flagged'] : null));
+                        // Handle flag changes separately so we don't have to
+                        // poll the backend for the entire message for no reason.
+                        $message = new Horde_ActiveSync_Message_Mail(array('logger' => $this->_logger, 'protocolversion' => $this->_device->version));
+                        $message->flags = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+                        $message->read = isset($change['flags']['read']) ? $change['flags']['read'] : false;
+                        if (isset($change['flags']['flagged'])) {
+                            $flag = new Horde_ActiveSync_Message_Flag(array('logger' => $this->_logger));
+                            $flag->flagstatus = $change['flags']['flagged'] == 1
+                                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
+                                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+                            $message->flag = $flag;
+                        }
+                        if (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE])) {
+                            $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE];
+                        } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE])) {
+                            $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
+                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE];
+                        } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE])) {
+                            $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE];
+                        }
+                        $this->_exporter->messageChange($change['id'], $message);
                         break;
                     case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                         $this->_exporter->messageMove($change['id'], $change['parent']);
