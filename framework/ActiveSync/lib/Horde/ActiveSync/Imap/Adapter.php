@@ -237,6 +237,7 @@ class Horde_ActiveSync_Imap_Adapter
             $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
         }
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
+        $flags = array();
         if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             $this->_logger->debug('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
@@ -256,7 +257,6 @@ class Horde_ActiveSync_Imap_Adapter
             // $modseq sneak in yet (they will be caught on the next PING or
             // SYNC).
             $changes = array();
-            $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
@@ -264,7 +264,7 @@ class Horde_ActiveSync_Imap_Adapter
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
                     if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : null;
                     }
                 }
             }
@@ -299,7 +299,6 @@ class Horde_ActiveSync_Imap_Adapter
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
                 $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
-                $flags = array();
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
@@ -322,13 +321,12 @@ class Horde_ActiveSync_Imap_Adapter
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->flags();
             $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
-            $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 $flags[$uid] = array(
                     'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                 );
                 if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : null;
                 }
             }
             $folder->setChanges($search_ret['match']->ids, $flags);
@@ -350,12 +348,25 @@ class Horde_ActiveSync_Imap_Adapter
                 $search_q->headerText('Message-ID', $mid);
                 $search_q->ids(new Horde_Imap_Client_Ids($folder->messages()));
                 $results = $imap->search($mbox, $search_q);
-                $s_changes[] = array_pop($results[Horde_Imap_Client::SEARCH_RESULTS_MATCH]->ids);
+                $uid = array_pop($results[Horde_Imap_Client::SEARCH_RESULTS_MATCH]->ids);
+                $s_changes[] = $uid;
+                $last = $this->_getLastVerb($uid);
+                switch ($last['action']) {
+                case 'reply':
+                case 'reply_list':
+                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
+                    break;
+                case 'reply_all':
+                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
+                    break;
+                case 'forward':
+                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
+                }
             }
-            $folder->setChanges($s_changes);
+            $folder->setChanges($s_changes, $flags);
         }
-
         $folder->setStatus($status);
+
         return $folder;
     }
 
