@@ -499,8 +499,12 @@ class Kronolith_Driver_Kolab extends Kronolith_Driver
         }
 
         $this->_data->delete($event->uid);
-
         unset($this->_events_cache[$event->id]);
+
+        /* Notify about the deleted event. */
+        if (!$silent) {
+            $this->_handleNotifications($event, 'delete');
+        }
 
         return $event;
     }

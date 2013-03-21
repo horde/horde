@@ -2,6 +2,7 @@
 v4.0.5-git
 ----------
 
+[jan] Only send update notifications for local calendars.
 [jan] Re-enable users in drop-down list after revoking permissions (Bug
       #12000).
 [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de,
