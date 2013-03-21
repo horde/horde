@@ -662,7 +662,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $results[] = array(
                     'id' => $uid,
                     'type' => Horde_ActiveSync::CHANGE_TYPE_FLAGS,
-                    'flags' => !empty($flags[$uid]) ? $flags[$uid] : array()
+                    'flags' => $flags[$uid]
                 );
             }
         } else {
