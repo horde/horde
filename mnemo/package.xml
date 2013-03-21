@@ -986,18 +986,5 @@
 * [jan] Fix exporting bodies of encrypted notes (Bug #11960).
    </notes>
   </release>
-  <release>
-   <version>
-    <release>4.1.0</release>
-    <api>4.0.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-02-12</date>
-   <license uri="http://www.horde.org/licenses/apache">ASL</license>
-   <notes>
-* [mjr] Add support for ActiveSync synchronization of notes.
-   </notes>
-  </release>
  </changelog>
 </package>
