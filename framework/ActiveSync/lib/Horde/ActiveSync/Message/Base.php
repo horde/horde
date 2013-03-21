@@ -118,13 +118,12 @@ class Horde_ActiveSync_Message_Base
         if (!empty($options['protocolversion'])) {
             $this->_version = $options['protocolversion'];
         }
-
     }
 
     /**
      * Return the EAS version this object supports.
      *
-     * @return float  The EAS version (2.5, 12, or 12.1).
+     * @return float  A Horde_ActiveSync::VERSION_* constant.
      */
     public function getProtocolVersion()
     {
