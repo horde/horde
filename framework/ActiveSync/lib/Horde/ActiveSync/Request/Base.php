@@ -236,7 +236,7 @@ abstract class Horde_ActiveSync_Request_Base
      */
     protected function _getSyncObject()
     {
-        $sync = new Horde_ActiveSync_Sync($this->_driver);
+        $sync = new Horde_ActiveSync_Sync($this->_driver, $this->_device);
         $sync->setLogger($this->_logger);
 
         return $sync;

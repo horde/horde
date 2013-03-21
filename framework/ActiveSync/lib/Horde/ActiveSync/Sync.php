@@ -108,13 +108,23 @@ class Horde_ActiveSync_Sync
     protected $_logger;
 
     /**
+     * Device object.
+     *
+     * @var stdClass
+     */
+    protected $_device;
+
+    /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver_Base $backend  The backend driver
+     * @param Horde_ActiveSync_Driver_Base $backend  The backend driver.
+     * @param stdClass $device                       The device object.
+     *                 @since 2.4.0
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $backend)
+    public function __construct(Horde_ActiveSync_Driver_Base $backend, $device)
     {
         $this->_backend = $backend;
+        $this->_device = $device;
     }
 
     /**
