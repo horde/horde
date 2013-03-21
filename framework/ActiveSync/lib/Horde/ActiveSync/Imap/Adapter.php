@@ -1135,14 +1135,9 @@ class Horde_ActiveSync_Imap_Adapter
 
         // EAS 14+
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && is_callable(array($this->_imap, 'getMaillog'))) {
-            $log = $this->_imap->getMaillog($imap_message->getHeaders()->getValue('Message-ID'));
-            foreach ($log as $entry) {
-                if (empty($last) || $last['ts'] < $entry['ts']) {
-                    $last = $entry;
-                }
-            }
-            if (!empty($entry)) {
-                switch ($entry['action']) {
+            $last = $this->_getLastVerb($imap_message->getHeaders()->getValue('Message-ID'));
+            if (!empty($last)) {
+                switch ($last['action']) {
                 case 'reply':
                 case 'reply_list':
                     $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
@@ -1153,7 +1148,7 @@ class Horde_ActiveSync_Imap_Adapter
                 case 'forward':
                     $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
                 }
-                $time = new Horde_Date($entry['ts']);
+                $time = new Horde_Date($last['ts']);
                 $eas_message->lastverbexecutiontime = $time;
             }
         }
@@ -1324,6 +1319,26 @@ class Horde_ActiveSync_Imap_Adapter
     protected function _stripNon7BitChars($text)
     {
         return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
+    }
+
+    /**
+     * Return the last verb executed for the specified Message-ID.
+     *
+     * @param string $mid  The Message-ID.
+     *
+     * @return array  The most recent history log entry array for $mid.
+     */
+    protected function _getLastVerb($mid)
+    {
+        $log = $this->_imap->getMaillog($mid);
+        $last = array();
+        foreach ($log as $entry) {
+            if (empty($last) || $last['ts'] < $entry['ts']) {
+                $last = $entry;
+            }
+        }
+
+        return $last;
     }
 
 }
