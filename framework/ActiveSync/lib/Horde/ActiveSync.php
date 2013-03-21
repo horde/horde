@@ -213,6 +213,12 @@ class Horde_ActiveSync
     const CHANGE_TYPE_MOVE                      = 'move';
     const CHANGE_TYPE_FOLDERSYNC                = 'foldersync';
 
+    /* Internal flags to indicate change is a change in reply/forward state */
+    const CHANGE_REPLY_STATE                      = '@--reply--@';
+    const CHANGE_REPLYALL_STATE                   = '@--replyall--@';
+    const CHANGE_FORWARD_STATE                    = '@--forward--@';
+
+
     /* Collection Classes */
     const CLASS_EMAIL                           = 'Email';
     const CLASS_CONTACTS                        = 'Contacts';
