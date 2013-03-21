@@ -295,9 +295,16 @@ class Horde_Themes_Css
         foreach ($files as $file) {
             $data = file_get_contents($file['fs']);
             $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
-
-            $css_parser = new Horde_Css_Parser($data);
             $url = array();
+
+            try {
+                $css_parser = new Horde_Css_Parser($data);
+            } catch (Exception $e) {
+                /* If the CSS is broken, log error and output as-is. */
+                Horde::log($e, 'ERR');
+                $out .= $data;
+                continue;
+            }
 
             foreach ($css_parser->doc->getContents() as $val) {
                 if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
