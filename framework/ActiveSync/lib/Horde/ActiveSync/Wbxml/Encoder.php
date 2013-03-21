@@ -120,7 +120,6 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         if (!$output_empty) {
             $stackelem['tag'] = $tag;
             $stackelem['attributes'] = $attributes;
-            $stackelem['nocontent'] = $output_empty;
             $stackelem['sent'] = false;
             $this->_stack[] = $stackelem;
         } else {
@@ -237,8 +236,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
             if (!$this->_stack[$i]['sent']) {
                 $this->_startTag(
                     $this->_stack[$i]['tag'],
-                    $this->_stack[$i]['attributes'],
-                    $this->_stack[$i]['nocontent']);
+                    $this->_stack[$i]['attributes']);
                 $this->_stack[$i]['sent'] = true;
             }
         }
