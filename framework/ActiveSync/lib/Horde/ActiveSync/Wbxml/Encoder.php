@@ -270,7 +270,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         $code = $mapping['code'];
         if (isset($attributes) && is_array($attributes) && count($attributes) > 0) {
             $code |= 0x80;
-        } elseif (!isset($output_empty) || !$output_empty) {
+        } elseif (!$output_empty) {
             $code |= 0x40;
         }
         $this->_outByte($code);
