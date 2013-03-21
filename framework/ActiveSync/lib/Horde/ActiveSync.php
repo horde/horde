@@ -153,6 +153,7 @@ class Horde_ActiveSync
     const POLICYTYPE_WBXML                      = 'MS-EAS-Provisioning-WBXML';
 
     /* Flags */
+    // @TODO: H6 Change this to CHANGE_TYPE_NEW
     const FLAG_NEWMESSAGE                       = 'NewMessage';
 
     /* Folder types */
