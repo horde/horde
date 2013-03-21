@@ -138,8 +138,8 @@ class Horde_ActiveSync_Sync
      */
     public function init(
         Horde_ActiveSync_State_Base $stateDriver,
-        Horde_ActiveSync_Connector_Exporter $exporter,
-        array $collection,
+        Horde_ActiveSync_Connector_Exporter $exporter = null,
+        array $collection = array(),
         $isPing = false)
     {
         $this->_collection = $collection;
