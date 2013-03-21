@@ -1114,34 +1114,23 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_DATA)) {
                 switch ($collection['class']) {
                 case Horde_ActiveSync::CLASS_EMAIL:
-                    $appdata = new Horde_ActiveSync_Message_Mail(
-                        array('logger' => $this->_logger,
-                              'protocolversion' => $this->_device->version)
-                    );
+                    $appdata = Horde_ActiveSync::messageFactory('Mail');
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_CONTACTS:
-                    $appdata = new Horde_ActiveSync_Message_Contact(
-                        array('logger' => $this->_logger,
-                              'protocolversion' => $this->_device->version));
+                    $appdata = Horde_ActiveSync::messageFactory('Contact');
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_CALENDAR:
-                    $appdata = new Horde_ActiveSync_Message_Appointment(
-                        array('logger' => $this->_logger,
-                              'protocolversion' => $this->_device->version));
+                    $appdata = Horde_ActiveSync::messageFactory('Appointment');
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_TASKS:
-                    $appdata = new Horde_ActiveSync_Message_Task(
-                        array('logger' => $this->_logger,
-                              'protocolversion' => $this->_device->version));
+                    $appdata = Horde_ActiveSync::messageFactory('Task');
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_NOTES:
-                    $appdata = new Horde_ActiveSync_Message_Note(
-                        array('logger' => $this->_logger,
-                              'protocolversion' => $this->_device->version));
+                    $appdata = Horde_ActiveSync::messageFactory('Note');
                     $appdata->decodeStream($this->_decoder);
                     break;
                 }

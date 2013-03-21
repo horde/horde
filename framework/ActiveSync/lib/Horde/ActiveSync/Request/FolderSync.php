@@ -165,7 +165,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $importer->init($this->_stateDriver, false);
 
             while (1) {
-                $folder = new Horde_ActiveSync_Message_Folder(array('logger' => $this->_logger));
+                $folder = Horde_ActiveSync::messageFactory('Folder');
                 if (!$folder->decodeStream($this->_decoder)) {
                     break;
                 }

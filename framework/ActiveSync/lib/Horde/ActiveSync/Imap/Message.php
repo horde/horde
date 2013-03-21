@@ -388,11 +388,11 @@ class Horde_ActiveSync_Imap_Message
             if ($this->isAttachment($id, $type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
+                    $atc = Horde_ActiveSync::messageFactory('AirSyncBaseAttachment');
                     $atc->contentid = $mime_part->getContentId();
                     $atc->isinline = $mime_part->getDisposition() == 'inline';
                 } else {
-                    $atc = new Horde_ActiveSync_Message_Attachment();
+                    $atc = Horde_ActiveSync::messageFactory('Attachment');
                     $atc->attoid = $mime_part->getContentId();
                 }
                 $atc->attsize = $mime_part->getBytes();

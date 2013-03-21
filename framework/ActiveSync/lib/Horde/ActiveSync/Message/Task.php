@@ -251,7 +251,7 @@ class Horde_ActiveSync_Message_Task extends Horde_ActiveSync_Message_Base
      */
     public function setRecurrence(Horde_Date_Recurrence $recurrence)
     {
-        $r = new Horde_ActiveSync_Message_TaskRecurrence();
+        $r = Horde_ActiveSync::messageFactory('TaskRecurrence');
 
         // Map the type fields
         switch ($recurrence->recurType) {

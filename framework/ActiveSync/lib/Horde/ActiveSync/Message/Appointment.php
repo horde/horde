@@ -479,7 +479,7 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
      */
     public function setRecurrence(Horde_Date_Recurrence $recurrence)
     {
-        $r = new Horde_ActiveSync_Message_Recurrence();
+        $r = Horde_ActiveSync::messageFactory('Recurrence');
 
         /* Map the type fields */
         switch ($recurrence->recurType) {

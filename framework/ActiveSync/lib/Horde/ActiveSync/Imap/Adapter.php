@@ -858,7 +858,7 @@ class Horde_ActiveSync_Imap_Adapter
             $options['protocolversion'];
 
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
-        $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
+        $eas_message = Horde_ActiveSync::messageFactory('Mail');
 
         // Build To: data (POOMMAIL_TO has a max length of 1024).
         $to = $imap_message->getToAddresses();
@@ -916,7 +916,7 @@ class Horde_ActiveSync_Imap_Adapter
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
-            $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            $airsync_body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
 
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
@@ -1107,7 +1107,7 @@ class Horde_ActiveSync_Imap_Adapter
                     case 'REQUEST':
                     case 'PUBLISH':
                         $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                        $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                        $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
                         $mtg->fromvEvent($vCal);
                         $eas_message->meetingrequest = $mtg;
                         break;
@@ -1124,7 +1124,7 @@ class Horde_ActiveSync_Imap_Adapter
                             case 'TENTATIVE':
                                 $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
                             }
-                            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                            $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
                             $mtg->fromvEvent($vCal);
                             $eas_message->meetingrequest = $mtg;
                         } catch (Horde_ActiveSync_Exception $e) {
@@ -1134,7 +1134,7 @@ class Horde_ActiveSync_Imap_Adapter
                 }
             }
 
-            $poommail_flag = new Horde_ActiveSync_Message_Flag();
+            $poommail_flag = Horde_ActiveSync::messageFactory('Flag');
             $poommail_flag->subject = $imap_message->getSubject();
             $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
                 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
