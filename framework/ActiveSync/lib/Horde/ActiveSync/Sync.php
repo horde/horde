@@ -135,10 +135,12 @@ class Horde_ActiveSync_Sync
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
      * @param boolean $isPing                                This is a PING request.
-     *
      */
     public function init(
-        Horde_ActiveSync_State_Base $stateDriver, $exporter, array $collection, $isPing = false)
+        Horde_ActiveSync_State_Base $stateDriver,
+        Horde_ActiveSync_Connector_Exporter $exporter,
+        array $collection,
+        $isPing = false)
     {
         $this->_collection = $collection;
         $this->_stateDriver = $stateDriver;
@@ -221,7 +223,7 @@ class Horde_ActiveSync_Sync
                         try {
                             $message = $this->_backend->getMessage(
                                 $this->_folderId, $change['id'], $this->_collection);
-                            // copy the flag to the message
+                            // copy the change status flag to the message
                             // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                             $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                             $this->_exporter->messageChange($change['id'], $message);
