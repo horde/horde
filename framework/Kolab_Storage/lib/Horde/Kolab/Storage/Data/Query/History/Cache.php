@@ -44,19 +44,22 @@ extends Horde_Kolab_Storage_Data_Query_History_Base
      */
     public function synchronize($params = array())
     {
+        $timestamp_key = 'Kolab_History_Sync:'.$this->data->getId();
+
         if (isset($params['last_sync']) &&
             ($params['last_sync'] === false ||
-             $params['last_sync'] !== $this->history->getActionTimestamp(__CLASS__ , 'sync'))) {
+             $params['last_sync'] !== $this->history->getActionTimestamp($timestamp_key, 'sync'))) {
             /**
              * Ignore current changeset and do a full synchronization as we are
              * out of sync
              */
             unset($params['changes']);
         }
+        // Sync. Base class takes care of UIDVALIDITY changes.
         parent::synchronize($params);
         if (isset($params['current_sync'])) {
             $this->history->log(
-                __CLASS__ ,
+                $timestamp_key,
                 array('action' => 'sync', 'ts' => $params['current_sync']), true
             );
         }
