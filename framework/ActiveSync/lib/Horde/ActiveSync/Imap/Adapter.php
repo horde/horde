@@ -343,10 +343,12 @@ class Horde_ActiveSync_Imap_Adapter
 
             $changes = $this->_imap->getMaillogChanges($options['timestamp']);
             $s_changes = array();
+
+            $iids = new Horde_Imap_Client_Ids(array_diff($folder->messages(), $folder->removed()));
             foreach ($changes as $mid) {
                 $search_q = new Horde_Imap_Client_Search_Query();
                 $search_q->headerText('Message-ID', $mid);
-                $search_q->ids(new Horde_Imap_Client_Ids($folder->messages()));
+                $search_q->ids($iids);
                 $results = $imap->search($mbox, $search_q);
                 $uid = array_pop($results[Horde_Imap_Client::SEARCH_RESULTS_MATCH]->ids);
                 $s_changes[] = $uid;
