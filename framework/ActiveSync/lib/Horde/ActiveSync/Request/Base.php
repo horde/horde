@@ -207,11 +207,10 @@ abstract class Horde_ActiveSync_Request_Base
      */
     public function handle()
     {
-        $this->_version = $this->_activeSync->getProtocolVersion();
         $this->_logger->info(sprintf(
             'Request being handled for device: %s Supporting protocol version: %s',
             $this->_device->id,
-            $this->_version)
+            $this->_device->version)
         );
 
         try {
