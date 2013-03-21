@@ -73,13 +73,6 @@ abstract class Horde_ActiveSync_Request_Base
     protected $_provisioning;
 
     /**
-     * The ActiveSync Version
-     *
-     * @var float
-     */
-    protected $_version;
-
-    /**
      * Used to track what error code to send back to PIM on failure
      *
      * @var integer
