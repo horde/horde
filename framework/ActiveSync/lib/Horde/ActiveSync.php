@@ -611,6 +611,9 @@ class Horde_ActiveSync
         // Normalize Device Id.
         $devId = strtoupper($devId);
 
+        // EAS Version
+        $version = $this->getProtocolVersion();
+
         // Does device exist AND does the user have an account on the device?
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
 
@@ -629,6 +632,10 @@ class Horde_ActiveSync
         } else {
             $device = $this->_state->loadDeviceInfo($devId, $this->_driver->getUser());
         }
+
+        // Always set the version information instead of caching it, some
+        // clients may allow changing the protocol version.
+        $device->version = $version;
 
         // Don't bother with everything else if all we want are Options
         if ($cmd == 'Options') {
@@ -656,7 +663,6 @@ class Horde_ActiveSync
         // output and be large enough to flush the buffer (e.g., GetAttachement)
         $this->activeSyncHeader();
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
-        $version = $this->getProtocolVersion();
         if (class_exists($class)) {
             $request = new $class($this, $device);
             $request->setLogger($this->_logger);
