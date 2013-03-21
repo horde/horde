@@ -269,8 +269,7 @@ class Horde_ActiveSync
      *
      * @var Horde_Log_Logger
      */
-    protected $_logger;
-
+    static protected $_logger;
 
     /**
      * Provisioning support
@@ -291,7 +290,7 @@ class Horde_ActiveSync
      *
      * @var float
      */
-    protected $_version;
+    static protected $_version;
 
     /**
      * Multipart support?
@@ -363,6 +362,23 @@ class Horde_ActiveSync
     );
 
     /**
+     * Factory method for creating Horde_ActiveSync_Message objects.
+     *
+     * @param string $message  The message type.
+     *
+     * @return Horde_ActiveSync_Message_Base   The concrete message object.
+     */
+    static public function messageFactory($message)
+    {
+        $class = 'Horde_ActiveSync_Message_' . $message;
+        if (!class_exists($class)) {
+            throw new InvalidArgumentException(sprintf('Class %s does not exist.', $class));
+        }
+
+        return new $class(array('logger' => self::$_logger, 'protocolversion' => self::$_version));
+    }
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Driver_Base $driver      The backend driver.
@@ -417,7 +433,7 @@ class Horde_ActiveSync
             $user = !empty($username) ? $username : $user;
         } else {
             // No provided username or Authorization header.
-            $this->_logger->debug('Client did not provide authentication data.');
+            self::$_logger->debug('Client did not provide authentication data.');
             return false;
         }
 
@@ -448,7 +464,7 @@ class Horde_ActiveSync
             }
 
             if (empty($get['User'])) {
-                $this->_logger->err('Missing required parameters.');
+                self::$_logger->err('Missing required parameters.');
                 throw new Horde_ActiveSync_Exception('Your device requested the ActiveSync URL wihtout required parameters.');
             }
         }
@@ -522,11 +538,11 @@ class Horde_ActiveSync
 
     protected function _setLogger(array $options)
     {
-        $this->_logger = $this->_loggerFactory->create($options);
-        $this->_encoder->setLogger($this->_logger);
-        $this->_decoder->setLogger($this->_logger);
-        $this->_driver->setLogger($this->_logger);
-        $this->_state->setLogger($this->_logger);
+        self::$_logger = $this->_loggerFactory->create($options);
+        $this->_encoder->setLogger(self::$_logger);
+        $this->_decoder->setLogger(self::$_logger);
+        $this->_driver->setLogger(self::$_logger);
+        $this->_state->setLogger(self::$_logger);
     }
 
     /**
@@ -578,7 +594,7 @@ class Horde_ActiveSync
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
             $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
-            $request->setLogger($this->_logger);
+            $request->setLogger(self::$_logger);
 
             return $request->handle();
         }
@@ -593,7 +609,7 @@ class Horde_ActiveSync
         // Set provisioning support now that we are authenticated.
         $this->setProvisioning($this->_driver->getProvisioning());
 
-        $this->_logger->debug(sprintf(
+        self::$_logger->debug(sprintf(
             '[%s] %s request received for user %s',
             getmypid(),
             strtoupper($cmd),
@@ -657,7 +673,7 @@ class Horde_ActiveSync
         if ((!empty($headers['ms-asacceptmultipart']) && $headers['ms-asacceptmultipart'] == 'T') ||
             (isset($get['Options']) && ($get['Options'] & 0x02))) {
             $this->_multipart = true;
-            $this->_logger->debug('MULTIPART REQUEST');
+            self::$_logger->debug('MULTIPART REQUEST');
         }
 
         // Support gzip encoding?
@@ -671,7 +687,7 @@ class Horde_ActiveSync
         $class = 'Horde_ActiveSync_Request_' . basename($cmd);
         if (class_exists($class)) {
             $request = new $class($this, $device);
-            $request->setLogger($this->_logger);
+            $request->setLogger(self::$_logger);
             $result = $request->handle();
             $this->_driver->clearAuthentication();
 
@@ -791,21 +807,21 @@ class Horde_ActiveSync
      */
     public function getProtocolVersion()
     {
-        if (isset($this->_version)) {
-            return $this->_version;
+        if (isset(self::$_version)) {
+            return self::$_version;
         }
-        $this->_version = $this->_request->getHeader('MS-ASProtocolVersion');
-        if (empty($this->_version)) {
+        self::$_version = $this->_request->getHeader('MS-ASProtocolVersion');
+        if (empty(self::$_version)) {
             $get = $this->getGetVars();
-            $this->_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
-            if ($this->_version == 121) {
-                $this->_version = 12.1;
+            self::$_version = empty($get['ProtVer']) ? '1.0' : $get['ProtVer'];
+            if (self::$_version == 121) {
+                self::$_version = 12.1;
             }
-            if ($this->_version == 141) {
-                $this->_version = 14.1;
+            if (self::$_version == 141) {
+                self::$_version = 14.1;
             }
         }
-        return $this->_version;
+        return self::$_version;
     }
 
     /**

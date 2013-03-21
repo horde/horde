@@ -239,11 +239,11 @@ class Horde_ActiveSync_Sync
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
                         // Handle flag changes separately so we don't have to
                         // poll the backend for the entire message for no reason.
-                        $message = new Horde_ActiveSync_Message_Mail(array('logger' => $this->_logger, 'protocolversion' => $this->_device->version));
+                        $message = Horde_ActiveSync::messageFactory('Mail');
                         $message->flags = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
                         $message->read = isset($change['flags']['read']) ? $change['flags']['read'] : false;
                         if (isset($change['flags']['flagged'])) {
-                            $flag = new Horde_ActiveSync_Message_Flag(array('logger' => $this->_logger));
+                            $flag = Horde_ActiveSync::messageFactory('Flag');
                             $flag->flagstatus = $change['flags']['flagged'] == 1
                                 ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
                                 : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
