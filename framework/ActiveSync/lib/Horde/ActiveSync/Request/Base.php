@@ -222,13 +222,6 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Implementation method for handling request.
-     *
-     * @return string|boolean  Content-Type of results if not wbxml, or boolean.
-     */
-    abstract protected function _handle();
-
-    /**
      * Simple factory for the Sync object.
      *
      * @return Horde_ActiveSync_Sync
@@ -304,5 +297,12 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_stateDriver->removeState(array('devId' => 'validate'));
         }
     }
+
+    /**
+     * Implementation method for handling request.
+     *
+     * @return string|boolean  Content-Type of results if not wbxml, or boolean.
+     */
+    abstract protected function _handle();
 
 }
