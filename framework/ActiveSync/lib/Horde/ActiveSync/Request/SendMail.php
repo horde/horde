@@ -93,7 +93,7 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             throw new Horde_ActiveSync_Exception('Protocol Error. Did not receive sendmail/smartreply/smartforward in wbxml request.');
         }
 
-        $mail = new Horde_ActiveSync_Message_SendMail(array('logger' => $this->_logger, 'protocolversion' => $this->_version));
+        $mail = new Horde_ActiveSync_Message_SendMail(array('logger' => $this->_logger, 'protocolversion' => $this->_device->version));
         $mail->decodeStream($this->_decoder);
         try {
             // @TODO fix this ugly method call in H6 when we can break BC.

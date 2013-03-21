@@ -230,7 +230,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
             $policyHandler = new Horde_ActiveSync_Policies(
-                $this->_encoder, $this->_version, $this->_driver->getCurrentPolicy($deviceinfo));
+                $this->_encoder, $this->_device->version, $this->_driver->getCurrentPolicy($deviceinfo));
             if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
                 $policyHandler->toXml();
             } else {

@@ -1116,32 +1116,32 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 case Horde_ActiveSync::CLASS_EMAIL:
                     $appdata = new Horde_ActiveSync_Message_Mail(
                         array('logger' => $this->_logger,
-                              'protocolversion' => $this->_version)
+                              'protocolversion' => $this->_device->version)
                     );
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_CONTACTS:
                     $appdata = new Horde_ActiveSync_Message_Contact(
                         array('logger' => $this->_logger,
-                              'protocolversion' => $this->_version));
+                              'protocolversion' => $this->_device->version));
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_CALENDAR:
                     $appdata = new Horde_ActiveSync_Message_Appointment(
                         array('logger' => $this->_logger,
-                              'protocolversion' => $this->_version));
+                              'protocolversion' => $this->_device->version));
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_TASKS:
                     $appdata = new Horde_ActiveSync_Message_Task(
                         array('logger' => $this->_logger,
-                              'protocolversion' => $this->_version));
+                              'protocolversion' => $this->_device->version));
                     $appdata->decodeStream($this->_decoder);
                     break;
                 case Horde_ActiveSync::CLASS_NOTES:
                     $appdata = new Horde_ActiveSync_Message_Note(
                         array('logger' => $this->_logger,
-                              'protocolversion' => $this->_version));
+                              'protocolversion' => $this->_device->version));
                     $appdata->decodeStream($this->_decoder);
                     break;
                 }
