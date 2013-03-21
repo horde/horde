@@ -811,7 +811,7 @@ class Kronolith_Driver_Sql extends Kronolith_Driver
                 throw new Kronolith_Exception($e);
             }
             foreach ($result as $id) {
-                $this->deleteEvent($id, $silent);
+                $this->deleteEvent($id, true);
             }
         }
 
