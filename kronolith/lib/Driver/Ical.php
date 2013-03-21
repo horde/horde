@@ -243,11 +243,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $url = $this->_getUrl();
         list($response, $events) = $this->_request('REPORT', $url, $xml,
-                                          array('Depth' => 1));
+                                                   array('Depth' => 1));
         if (!$events->children('DAV:')->response) {
             return array();
         }
-        if (!($path = $response->getHeader('content-location'))) {
+        if (isset($response['headers']['content-location'])) {
+            $path = $response['headers']['content-location'];
+        } else {
             $parsedUrl = parse_url($url);
             $path = $parsedUrl['path'];
         }
@@ -372,11 +374,15 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 //$recurrenceId = $matches[2];
             }
             $url = trim($this->_getUrl(), '/') . '/' . $eventId;
-            $response = $this->_getClient()->get($url);
-            if ($response->code == 200) {
+            try {
+                $response = $this->_getClient($url)->request('GET');
+            } catch (Horde_Dav_Exception $e) {
+                throw new Kronolith_Exception($e);
+            }
+            if ($response['statusCode'] == 200) {
                 $ical = new Horde_Icalendar();
                 try {
-                    $ical->parsevCalendar($response->getBody());
+                    $ical->parsevCalendar($response['body']);
                 } catch (Horde_Icalendar_Exception $e) {
                     throw new Kronolith_Exception($e);
                 }
@@ -419,9 +425,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     protected function _updateEvent(Kronolith_Event $event)
     {
         $response = $this->_saveEvent($event);
-        if (!in_array($response->code, array(200, 204))) {
+        if (!in_array($response['statusCode'], array(200, 204))) {
             Horde::logMessage(sprintf('Failed to update event on remote calendar: url = "%s", status = %s',
-                                      $response->url, $response->code), 'INFO');
+                                      $response['url'], $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be updated on the remote server."));
         }
         return $event->id;
@@ -446,9 +452,9 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
         }
 
         $response = $this->_saveEvent($event);
-        if (!in_array($response->code, array(200, 201, 204))) {
+        if (!in_array($response['statusCode'], array(200, 201, 204))) {
             Horde::logMessage(sprintf('Failed to create event on remote calendar: status = %s',
-                                      $response->code), 'INFO');
+                                      $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be added to the remote server."));
         }
         return $event->id;
@@ -470,12 +476,17 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $url = trim($this->_getUrl(), '/') . '/' . $event->id;
         try {
-            $response = $this->_getClient()->put($url, $ical->exportvCalendar(), array('Content-Type' => 'text/calendar'));
-        } catch (Horde_Http_Exception $e) {
+            return $this->_getClient($url)
+                ->request(
+                    'PUT',
+                    '',
+                    $ical->exportvCalendar(),
+                    array('Content-Type' => 'text/calendar')
+                );
+        } catch (Horde_Dav_Exception $e) {
             Horde::logMessage($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
-        return $response;
     }
 
     /**
@@ -509,14 +520,14 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         $url = trim($this->_getUrl(), '/') . '/' . $eventId;
         try {
-            $response = $this->_getClient()->delete($url);
-        } catch (Horde_Http_Exception $e) {
+            $response = $this->_getClient($url)->request('DELETE');
+        } catch (Horde_Dav_Exception $e) {
             Horde::logMessage($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
-        if (!in_array($response->code, array(200, 202, 204))) {
+        if (!in_array($response['statusCode'], array(200, 202, 204))) {
             Horde::logMessage(sprintf('Failed to delete event from remote calendar: url = "%s", status = %s',
-                                      $url, $response->code), 'INFO');
+                                      $url, $response['statusCode']), 'INFO');
             throw new Kronolith_Exception(_("The event could not be deleted from the remote server."));
         }
 
@@ -548,9 +559,8 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
         }
 
-        $http = $this->_getClient();
         try {
-            $response = $http->get($url);
+            $response = $this->_getClient($url)->request('GET');
         } catch (Horde_Http_Exception $e) {
             Horde::logMessage($e, 'INFO');
             if ($cache) {
@@ -558,29 +568,27 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             }
             throw new Kronolith_Exception($e);
         }
-        if ($response->code != 200) {
+        if ($response['statusCode'] != 200) {
             Horde::logMessage(sprintf('Failed to retrieve remote calendar: url = "%s", status = %s',
-                                      $url, $response->code), 'INFO');
+                                      $url, $response['statusCode']), 'INFO');
             $error = sprintf(_("Could not open %s."), $url);
-            $body = $response->getBody();
-            if ($body) {
+            if ($response['body']) {
                 $error .= ' ' . _("This is what the server said:")
-                    . ' ' . Horde_String::truncate(strip_tags($body));
+                    . ' ' . Horde_String::truncate(strip_tags($response['body']));
             }
             if ($cache) {
                 $cacheOb->set($signature, serialize($error));
             }
-            throw new Kronolith_Exception($error, $response->code);
+            throw new Kronolith_Exception($error, $response['statusCode']);
         }
 
         /* Log fetch at DEBUG level. */
         Horde::logMessage(sprintf('Retrieved remote calendar for %s: url = "%s"',
                                   $GLOBALS['registry']->getAuth(), $url), 'DEBUG');
 
-        $data = $response->getBody();
         $ical = new Horde_Icalendar();
         try {
-            $ical->parsevCalendar($data);
+            $ical->parsevCalendar($response['body']);
         } catch (Horde_Icalendar_Exception $e) {
             if ($cache) {
                 $cacheOb->set($signature, serialize($e->getMessage()));
@@ -610,73 +618,56 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                 : false;
         }
 
-        $url = $this->_getUrl();
-        $http = $this->_getClient();
+        $client = $this->_getClient($this->_getUrl());
         try {
-            $response = $http->request('OPTIONS', $url);
-        } catch (Horde_Http_Exception $e) {
+            $this->_davSupport = $client->options();
+        } catch (Horde_Dav_Exception $e) {
             Horde::logMessage($e, 'INFO');
             return false;
         }
-        if ($response->code != 200) {
+
+        if (!$this->_davSupport) {
             $this->_davSupport = false;
             return false;
         }
 
-        if ($dav = $response->getHeader('dav')) {
-            /* Check for DAV support. */
-            if (is_array($dav)) {
-                $dav = implode (',', $dav);
-            }
-            $this->_davSupport = preg_split('/,\s*/', $dav);
-            if (!in_array('3', $this->_davSupport)) {
-                Horde::logMessage(sprintf('The remote server at %s doesn\'t support an WebDAV protocol version 3.', $url), 'WARN');
-            }
-            if (!in_array('calendar-access', $this->_davSupport)) {
-                return false;
-            }
-
-            /* Check if this URL is a collection. */
-            $xml = new XMLWriter();
-            $xml->openMemory();
-            $xml->startDocument();
-            $xml->startElement('propfind');
-            $xml->writeAttribute('xmlns', 'DAV:');
-            $xml->startElement('prop');
-            $xml->writeElement('resourcetype');
-            $xml->writeElement('current-user-privilege-set');
-            $xml->endDocument();
-            list(, $properties) = $this->_request('PROPFIND', $url, $xml,
-                                                  array('Depth' => 0));
-            if (!$properties->children('DAV:')->response->propstat->prop->resourcetype->collection) {
-                throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
-            }
-
-            /* Read ACLs. */
-            if ($properties->children('DAV:')->response->propstat->prop->{'current-user-privilege-set'}) {
-                foreach ($properties->children('DAV:')->response->propstat->prop->{'current-user-privilege-set'}->privilege as $privilege) {
-                    if ($privilege->all) {
-                        $this->_permission = Horde_Perms::ALL;
-                        break;
-                    } elseif ($privilege->read) {
-                        /* GET access. */
-                        $this->_permission |= Horde_Perms::SHOW;
-                        $this->_permission |= Horde_Perms::READ;
-                    } elseif ($privilege->write || $privilege->{'write-content'}) {
-                        /* PUT access. */
-                        $this->_permission |= Horde_Perms::EDIT;
-                    } elseif ($privilege->unbind) {
-                        /* DELETE access. */
-                        $this->_permission |= Horde_Perms::DELETE;
-                    }
-                }
-            }
-
-            return true;
+        if (!in_array('3', $this->_davSupport)) {
+            Horde::logMessage(sprintf('The remote server at %s doesn\'t support an WebDAV protocol version 3.', $url), 'WARN');
+        }
+        if (!in_array('calendar-access', $this->_davSupport)) {
+            return false;
         }
 
-        $this->_davSupport = false;
-        return false;
+        /* Check if this URL is a collection. */
+        $properties = $client->propfind(
+            '',
+            array('{DAV:}resourcetype', '{DAV:}current-user-privilege-set')
+        );
+
+        if (!$properties['{DAV:}resourcetype']->is('{DAV:}collection')) {
+            throw new Kronolith_Exception(_("The remote server URL does not point to a CalDAV directory."));
+        }
+
+        /* Read ACLs. */
+        if ($properties['{DAV:}current-user-privilege-set']) {
+            $privileges = $properties['{DAV:}current-user-privilege-set'];
+            if ($privileges->has('{DAV:}read')) {
+                /* GET access. */
+                $this->_permission |= Horde_Perms::SHOW;
+                $this->_permission |= Horde_Perms::READ;
+            }
+            if ($privileges->has('{DAV:}write') ||
+                $privileges->has('{DAV:}write-content')) {
+                /* PUT access. */
+                $this->_permission |= Horde_Perms::EDIT;
+            }
+            if ($privileges->has('{DAV:}unbind')) {
+                /* DELETE access. */
+                $this->_permission |= Horde_Perms::DELETE;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -708,25 +699,24 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
                                 array $headers = array())
     {
         try {
-            $response = $this->_getClient()
+            $response = $this->_getClient($url)
                 ->request($method,
-                          $url,
+                          '',
                           $xml ? $xml->outputMemory() : null,
                           array_merge(array('Cache-Control' => 'no-cache',
                                             'Pragma' => 'no-cache',
                                             'Content-Type' => 'application/xml'),
                                       $headers));
-        } catch (Horde_Http_Exception $e) {
+        } catch (Horde_Dav_Exception $e) {
             Horde::logMessage($e, 'INFO');
             throw new Kronolith_Exception($e);
         }
-        if ($response->code != 207) {
+        if ($response['statusCode'] != 207) {
             throw new Kronolith_Exception(_("Unexpected response from remote server."));
         }
         libxml_use_internal_errors(true);
         try {
-            $body = $response->getBody();
-            $xml = new SimpleXMLElement($body);
+            $xml = new SimpleXMLElement($response['body']);
         } catch (Exception $e) {
             throw new Kronolith_Exception($e);
         }
@@ -753,11 +743,13 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
     }
 
     /**
-     * Returns a configured, cached HTTP client.
+     * Returns a configured, cached DAV client.
      *
-     * @return Horde_Http_Client  A HTTP client.
+     * @param string $uri  The base URI for any requests.
+     *
+     * @return Horde_Dav_Client  A DAV client.
      */
-    protected function _getClient()
+    protected function _getClient($uri)
     {
         $options = array('request.timeout' => isset($this->_params['timeout'])
                                               ? $this->_params['timeout']
@@ -767,9 +759,12 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
             $options['request.password'] = $this->_params['password'];
         }
 
-        $this->_client = $GLOBALS['injector']
-            ->getInstance('Horde_Core_Factory_HttpClient')
-            ->create($options);
+        $this->_client = new Horde_Dav_Client(array(
+            'client' => $GLOBALS['injector']
+                ->getInstance('Horde_Core_Factory_HttpClient')
+                ->create($options),
+            'baseUri' => $uri
+        ));
 
         return $this->_client;
     }

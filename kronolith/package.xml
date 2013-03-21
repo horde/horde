@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [jan] Use Horde_Dav for accessing remote calendars.
 * [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
 * [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
 * [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
@@ -847,6 +848,13 @@
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
+    <name>Horde_Dav</name>
+    <channel>pear.horde.org</channel>
+    <min>1.0.0alpha1</min>
+    <max>2.0.0alpha1</max>
+    <exclude>2.0.0alpha1</exclude>
    </package>
    <package>
     <name>Horde_Exception</name>
@@ -2088,6 +2096,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Use Horde_Dav for accessing remote calendars.
 * [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
 * [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
 * [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
