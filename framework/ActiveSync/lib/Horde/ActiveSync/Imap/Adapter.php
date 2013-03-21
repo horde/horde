@@ -354,13 +354,13 @@ class Horde_ActiveSync_Imap_Adapter
                 switch ($last['action']) {
                 case 'reply':
                 case 'reply_list':
-                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
                     break;
                 case 'reply_all':
-                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
                     break;
                 case 'forward':
-                    $flags[$uid] += array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
                 }
             }
             $folder->setChanges($s_changes, $flags);

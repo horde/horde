@@ -101,7 +101,7 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 }
             }
         }
-        $this->_flags = $flags;
+        $this->_flags += $flags;
     }
 
     /**
