@@ -86,8 +86,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     // 14.1
     const POOMCAL_FIRSTDAYOFWEEK          = 'POOMCAL:FirstDayOfWeek';
-    const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink',
-    const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink'
+    const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink';
+    const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink';
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;

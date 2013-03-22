@@ -181,7 +181,7 @@ class Horde_ActiveSync_Wbxml
                 0x3c => 'Picture',
                 // EAS 14.0
                 0x3d => 'Alias',
-                0x3e -> 'WeightedRank',
+                0x3e => 'WeightedRank',
             ),
             /* POOMMAIL */
             2 => array (
@@ -404,7 +404,7 @@ class Horde_ActiveSync_Wbxml
                 0x21 => 'Rtf',
                 // EAS 12.0
                 0x22 => 'OrdinalDate',
-                0x23 => 'SubOrdinalDate'
+                0x23 => 'SubOrdinalDate',
                 // EAS 14.0
                 0x24 => 'CalendarType',
                 0x25 => 'IsLeapMonth',
@@ -752,7 +752,7 @@ class Horde_ActiveSync_Wbxml
             /* Rights Management (14.1) */
             // Included here to decode without errors.
             // Functionality not implemented.
-            0x18 => arary(
+            0x18 => array(
                 0x05 => 'RightsManagementSupport',
                 0x06 => 'RightsManagementTemplates',
                 0x07 => 'RightsManagementTemplate',
@@ -773,7 +773,7 @@ class Horde_ActiveSync_Wbxml
                 0x16 => 'TemplateDescription',
                 0x17 => 'ContentOwner',
                 0x18 => 'RemoveRightsManagementDistribution'
-            );
+            )
         ),
 
         'namespaces' => array(
