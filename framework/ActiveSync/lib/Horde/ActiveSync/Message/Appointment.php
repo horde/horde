@@ -477,11 +477,17 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Set recurrence information for this appointment
      *
-     * @param Horde_Date_Recurrence $recurrence
+     * @param Horde_Date_Recurrence $recurrence  The recurrence data.
+     * @param integer $fdow                      The first day of the week.
+     *        (A Horde_ActiveSync_Message_Recurrence:: constant).  @since 2.4.0
      */
-    public function setRecurrence(Horde_Date_Recurrence $recurrence)
+    public function setRecurrence(Horde_Date_Recurrence $recurrence, $fdow = null)
     {
         $r = Horde_ActiveSync::messageFactory('Recurrence');
+
+        if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $r->firstdayofweek = $fdow;
+        }
 
         /* Map the type fields */
         switch ($recurrence->recurType) {
