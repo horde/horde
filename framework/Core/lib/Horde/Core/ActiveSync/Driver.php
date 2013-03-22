@@ -1412,6 +1412,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             }
         }
 
+        if ($this->_version > Horde_ActiveSync::VERSION_TWELVEONE &&
+            (!empty($forward) || !empty($reply))) {
+
+            // Sync reply/forward state.
+            $this->_logger->debug(sprintf(
+                'Logging LASTVERBEXECUTED to Maillog: %s, %s, %s',
+                !empty($reply) ? 'reply' : 'forward',
+                $imap_message->getHeaders()->getValue('Message-ID'),
+                $headers->getValue('To')));
+            $this->_connector->mail_logMaillog(
+                !empty($reply) ? 'reply' : 'forward',
+                $imap_message->getHeaders()->getValue('Message-ID'),
+                $headers->getValue('To'));
+        }
+
         return true;
     }
 
