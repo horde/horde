@@ -1491,6 +1491,11 @@ abstract class Kronolith_Event
         /* Categories (Tags) */
         $this->_tags = $message->getCategories();
 
+        // 14.1
+        if ($message->getProtocolVersion() >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $this->url = $message->onlinemeetingexternallink;
+        }
+
         /* Flag that we are initialized */
         $this->initialized = true;
     }
@@ -1756,6 +1761,11 @@ abstract class Kronolith_Event
             default:
                 $message->responsetype = Horde_ActiveSync_Message_Appointment::RESPONSE_NONE;
             }
+        }
+
+        // 14.1
+        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $message->onlinemeetingexternallink = $this->url;
         }
 
         return $message;
