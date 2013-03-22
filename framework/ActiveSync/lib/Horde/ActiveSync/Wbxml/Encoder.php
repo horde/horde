@@ -289,7 +289,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         } else {
             $this->_logContent('[STREAM]');
         }
-        $this->_outByte(Horde_ActiveSync_Wbxml::STR_I);
+        $this->_outByte(self::STR_I);
         $this->_outTermStr($content);
     }
 
@@ -299,7 +299,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _endTag() {
         $this->_logEndTag();
-        $this->_outByte(Horde_ActiveSync_Wbxml::END);
+        $this->_outByte(self::END);
     }
 
     /**
@@ -358,7 +358,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
         // to build a string table before sending the data (but we can't
         // because we're streaming), so we'll just send an END, which just
         // terminates the attribute list with 0 attributes.
-        $this->_outByte(Horde_ActiveSync_Wbxml::END);
+        $this->_outByte(self::END);
     }
 
     /**
@@ -368,7 +368,7 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     private function _outSwitchPage($page)
     {
-        $this->_outByte(Horde_ActiveSync_Wbxml::SWITCH_PAGE);
+        $this->_outByte(self::SWITCH_PAGE);
         $this->_outByte($page);
     }
 

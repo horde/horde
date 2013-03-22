@@ -141,18 +141,18 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         $element = $this->getToken();
 
-        switch ($element[Horde_ActiveSync_Wbxml::EN_TYPE]) {
-        case Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG:
+        switch ($element[self::EN_TYPE]) {
+        case self::EN_TYPE_STARTTAG:
             return $element;
-        case Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG:
+        case self::EN_TYPE_ENDTAG:
             return $element;
-        case Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT:
+        case self::EN_TYPE_CONTENT:
             while (1) {
                 $next = $this->getToken();
                 if ($next == false) {
                     return false;
-                } elseif ($next[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_CONTENT) {
-                    $element[Horde_ActiveSync_Wbxml::EN_CONTENT] .= $next[Horde_ActiveSync_Wbxml::EN_CONTENT];
+                } elseif ($next[self::EN_TYPE] == self::EN_CONTENT) {
+                    $element[self::EN_CONTENT] .= $next[self::EN_CONTENT];
                 } else {
                     $this->_ungetElement($next);
                     break;
@@ -188,8 +188,8 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     {
         $element = $this->getToken();
 
-        if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG &&
-            $element[Horde_ActiveSync_Wbxml::EN_TAG] == $tag) {
+        if ($element[self::EN_TYPE] == self::EN_TYPE_STARTTAG &&
+            $element[self::EN_TAG] == $tag) {
 
             return $element;
         } else {
@@ -207,7 +207,7 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     public function getElementEndTag()
     {
         $element = $this->getToken();
-        if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+        if ($element[self::EN_TYPE] == self::EN_TYPE_ENDTAG) {
             return $element;
         } else {
             $this->_logger->err(sprintf(
@@ -228,8 +228,8 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     public function getElementContent()
     {
         $element = $this->getToken();
-        if ($element[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT) {
-            return $element[Horde_ActiveSync_Wbxml::EN_CONTENT];
+        if ($element[self::EN_TYPE] == self::EN_TYPE_CONTENT) {
+            return $element[self::EN_CONTENT];
         }
         $this->_logger->info('Possible unmatched content (peeking or empty tag?)');
         $this->_ungetElement($element);
@@ -267,24 +267,24 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
     private function _logToken($el)
     {
         $spaces = str_repeat(' ', count($this->_logStack));
-        switch ($el[Horde_ActiveSync_Wbxml::EN_TYPE]) {
-        case Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG:
-            if ($el[Horde_ActiveSync_Wbxml::EN_FLAGS] & Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT) {
+        switch ($el[self::EN_TYPE]) {
+        case self::EN_TYPE_STARTTAG:
+            if ($el[self::EN_FLAGS] & self::EN_FLAGS_CONTENT) {
                 $this->_logger->debug(sprintf(
                     '[%s] I %s<%s>',
                     $this->_procid,
                     $spaces,
-                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
-                $this->_logStack[] = $el[Horde_ActiveSync_Wbxml::EN_TAG];
+                    $el[self::EN_TAG]));
+                $this->_logStack[] = $el[self::EN_TAG];
             } else {
                 $this->_logger->debug(sprintf(
                     '[%s] I %s<%s />',
                     $this->_procid,
                     $spaces,
-                    $el[Horde_ActiveSync_Wbxml::EN_TAG]));
+                    $el[self::EN_TAG]));
             }
             break;
-        case Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG:
+        case self::EN_TYPE_ENDTAG:
             $tag = array_pop($this->_logStack);
             $this->_logger->debug(sprintf(
                 '[%s] I %s</%s>',
@@ -292,12 +292,12 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
                 $spaces,
                 $tag));
             break;
-        case Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT:
+        case self::EN_TYPE_CONTENT:
             $this->_logger->debug(sprintf(
                 '[%s] I %s %s',
                 $this->_procid,
                 $spaces,
-                $el[Horde_ActiveSync_Wbxml::EN_CONTENT]));
+                $el[self::EN_CONTENT]));
             break;
         }
     }
@@ -320,91 +320,91 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             }
 
             switch ($byte) {
-            case Horde_ActiveSync_Wbxml::SWITCH_PAGE:
+            case self::SWITCH_PAGE:
                 $this->_tagcp = $this->_getByte();
                 continue;
 
-            case Horde_ActiveSync_Wbxml::END:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG;
+            case self::END:
+                $element[self::EN_TYPE] = self::EN_TYPE_ENDTAG;
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::ENTITY:
+            case self::ENTITY:
                 $entity = $this->_getMBUInt();
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT;
-                $element[Horde_ActiveSync_Wbxml::EN_CONTENT] = $this->entityToCharset($entity);
+                $element[self::EN_TYPE] = self::EN_TYPE_CONTENT;
+                $element[self::EN_CONTENT] = $this->entityToCharset($entity);
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::STR_I:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT;
-                $element[Horde_ActiveSync_Wbxml::EN_CONTENT] = $this->_getTermStr();
+            case self::STR_I:
+                $element[self::EN_TYPE] = self::EN_TYPE_CONTENT;
+                $element[self::EN_CONTENT] = $this->_getTermStr();
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG;
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
-                $element[Horde_ActiveSync_Wbxml::EN_FLAGS] = 0;
+            case self::LITERAL:
+                $element[self::EN_TYPE] = self::EN_TYPE_STARTTAG;
+                $element[self::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
+                $element[self::EN_FLAGS] = 0;
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::EXT_I_0:
-            case Horde_ActiveSync_Wbxml::EXT_I_1:
-            case Horde_ActiveSync_Wbxml::EXT_I_2:
+            case self::EXT_I_0:
+            case self::EXT_I_1:
+            case self::EXT_I_2:
                 $this->_getTermStr();
                 // Ignore extensions
                 continue;
 
-            case Horde_ActiveSync_Wbxml::PI:
+            case self::PI:
                 // Ignore PI
                 $this->_getAttributes();
                 continue;
 
-            case Horde_ActiveSync_Wbxml::LITERAL_C:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG;
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
-                $element[Horde_ActiveSync_Wbxml::EN_FLAGS] = Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT;
+            case self::LITERAL_C:
+                $element[self::EN_TYPE] = self::EN_TYPE_STARTTAG;
+                $element[self::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
+                $element[self::EN_FLAGS] = self::EN_FLAGS_CONTENT;
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::EXT_T_0:
-            case Horde_ActiveSync_Wbxml::EXT_T_1:
-            case Horde_ActiveSync_Wbxml::EXT_T_2:
+            case self::EXT_T_0:
+            case self::EXT_T_1:
+            case self::EXT_T_2:
                 $this->_getMBUInt();
                 // Ingore extensions;
                 continue;
 
-            case Horde_ActiveSync_Wbxml::STR_T:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT;
-                $element[Horde_ActiveSync_Wbxml::EN_CONTENT] = $this->_getStringTableEntry($this->_getMBUInt());
+            case self::STR_T:
+                $element[self::EN_TYPE] = self::EN_TYPE_CONTENT;
+                $element[self::EN_CONTENT] = $this->_getStringTableEntry($this->_getMBUInt());
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL_A:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG;
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
-                $element[Horde_ActiveSync_Wbxml::EN_ATTRIBUTES] = $this->_getAttributes();
-                $element[Horde_ActiveSync_Wbxml::EN_FLAGS] = Horde_ActiveSync_Wbxml::EN_FLAGS_ATTRIBUTES;
+            case self::LITERAL_A:
+                $element[self::EN_TYPE] = self::EN_TYPE_STARTTAG;
+                $element[self::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
+                $element[self::EN_ATTRIBUTES] = $this->_getAttributes();
+                $element[self::EN_FLAGS] = self::EN_FLAGS_ATTRIBUTES;
                 return $element;
-            case Horde_ActiveSync_Wbxml::EXT_0:
-            case Horde_ActiveSync_Wbxml::EXT_1:
-            case Horde_ActiveSync_Wbxml::EXT_2:
+            case self::EXT_0:
+            case self::EXT_1:
+            case self::EXT_2:
                 continue;
 
-            case Horde_ActiveSync_Wbxml::OPAQUE:
+            case self::OPAQUE:
                 $length = $this->_getMBUInt();
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_CONTENT;
-                $element[Horde_ActiveSync_Wbxml::EN_CONTENT] = $this->_getOpaque($length);
+                $element[self::EN_TYPE] = self::EN_TYPE_CONTENT;
+                $element[self::EN_CONTENT] = $this->_getOpaque($length);
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL_AC:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG;
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
-                $element[Horde_ActiveSync_Wbxml::EN_ATTRIBUTES] = $this->_getAttributes();
-                $element[Horde_ActiveSync_Wbxml::EN_FLAGS] = Horde_ActiveSync_Wbxml::EN_FLAGS_ATTRIBUTES | Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT;
+            case self::LITERAL_AC:
+                $element[self::EN_TYPE] = self::EN_TYPE_STARTTAG;
+                $element[self::EN_TAG] = $this->_getStringTableEntry($this->_getMBUInt());
+                $element[self::EN_ATTRIBUTES] = $this->_getAttributes();
+                $element[self::EN_FLAGS] = self::EN_FLAGS_ATTRIBUTES | self::EN_FLAGS_CONTENT;
                 return $element;
 
             default:
-                $element[Horde_ActiveSync_Wbxml::EN_TYPE] = Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG;
-                $element[Horde_ActiveSync_Wbxml::EN_TAG] = $this->_getMapping($this->_tagcp, $byte & 0x3f);
-                $element[Horde_ActiveSync_Wbxml::EN_FLAGS] = ($byte & 0x80 ? Horde_ActiveSync_Wbxml::EN_FLAGS_ATTRIBUTES : 0) | ($byte & 0x40 ? Horde_ActiveSync_Wbxml::EN_FLAGS_CONTENT : 0);
+                $element[self::EN_TYPE] = self::EN_TYPE_STARTTAG;
+                $element[self::EN_TAG] = $this->_getMapping($this->_tagcp, $byte & 0x3f);
+                $element[self::EN_FLAGS] = ($byte & 0x80 ? self::EN_FLAGS_ATTRIBUTES : 0) | ($byte & 0x40 ? self::EN_FLAGS_CONTENT : 0);
                 if ($byte & 0x80) {
-                    $element[Horde_ActiveSync_Wbxml::EN_ATTRIBUTES] = $this->_getAttributes();
+                    $element[self::EN_ATTRIBUTES] = $this->_getAttributes();
                 }
                 return $element;
             }
@@ -456,67 +456,67 @@ class Horde_ActiveSync_Wbxml_Decoder extends Horde_ActiveSync_Wbxml
             }
 
             switch($byte) {
-            case Horde_ActiveSync_Wbxml::SWITCH_PAGE:
+            case self::SWITCH_PAGE:
                 $this->_attrcp = $this->_getByte();
                 break;
 
-            case Horde_ActiveSync_Wbxml::END:
+            case self::END:
                 if ($attr != '') {
                     $attributes += $this->_splitAttribute($attr);
                 }
                 return $attributes;
 
-            case Horde_ActiveSync_Wbxml::ENTITY:
+            case self::ENTITY:
                 $entity = $this->_getMBUInt();
                 $attr .= $this->entityToCharset($entity);
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::STR_I:
+            case self::STR_I:
                 $attr .= $this->_getTermStr();
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL:
+            case self::LITERAL:
                 if ($attr != '') {
                     $attributes += $this->_splitAttribute($attr);
                 }
                 $attr = $this->_getStringTableEntry($this->_getMBUInt());
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::EXT_I_0:
-            case Horde_ActiveSync_Wbxml::EXT_I_1:
-            case Horde_ActiveSync_Wbxml::EXT_I_2:
+            case self::EXT_I_0:
+            case self::EXT_I_1:
+            case self::EXT_I_2:
                 $this->_getTermStr();
                 continue;
 
-            case Horde_ActiveSync_Wbxml::PI:
-            case Horde_ActiveSync_Wbxml::LITERAL_C:
+            case self::PI:
+            case self::LITERAL_C:
                 // Invalid
                 return false;
 
-            case Horde_ActiveSync_Wbxml::EXT_T_0:
-            case Horde_ActiveSync_Wbxml::EXT_T_1:
-            case Horde_ActiveSync_Wbxml::EXT_T_2:
+            case self::EXT_T_0:
+            case self::EXT_T_1:
+            case self::EXT_T_2:
                 $this->_getMBUInt();
                 continue;
 
-            case Horde_ActiveSync_Wbxml::STR_T:
+            case self::STR_T:
                 $attr .= $this->_getStringTableEntry($this->_getMBUInt());
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL_A:
+            case self::LITERAL_A:
                 return false;
 
-            case Horde_ActiveSync_Wbxml::EXT_0:
-            case Horde_ActiveSync_Wbxml::EXT_1:
-            case Horde_ActiveSync_Wbxml::EXT_2:
+            case self::EXT_0:
+            case self::EXT_1:
+            case self::EXT_2:
                 continue;
 
-            case Horde_ActiveSync_Wbxml::OPAQUE:
+            case self::OPAQUE:
                 $length = $this->_getMBUInt();
                 $attr .= $this->_getOpaque($length);
                 return $element;
 
-            case Horde_ActiveSync_Wbxml::LITERAL_AC:
+            case self::LITERAL_AC:
                 return false;
 
             default:
