@@ -1137,13 +1137,13 @@ class Horde_ActiveSync_Imap_Adapter
                 }
             }
 
-            $poommail_flag = Horde_ActiveSync::messageFactory('Flag');
-            $poommail_flag->subject = $imap_message->getSubject();
-            $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
-                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
-                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
-            $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
-            $eas_message->flag = $poommail_flag;
+            if ($imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)) {
+                $poommail_flag = Horde_ActiveSync::messageFactory('Flag');
+                $poommail_flag->subject = $imap_message->getSubject();
+                $poommail_flag->flagstatus = Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE;
+                $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
+                $eas_message->flag = $poommail_flag;
+            }
         }
 
         // EAS 14+
