@@ -57,6 +57,7 @@ class IMP_Maillog
             case IMP_Compose::FORWARD_ATTACH:
             case IMP_Compose::FORWARD_BODY:
             case IMP_Compose::FORWARD_BOTH:
+            case self::FORWARD:
                 $params = array(
                     'action' => self::FORWARD,
                     'recipients' => $data
@@ -71,6 +72,7 @@ class IMP_Maillog
                 break;
 
             case IMP_Compose::REDIRECT:
+            case self::REDIRECT:
                 $params = array(
                     'action' => self::REDIRECT,
                     'recipients' => $data
@@ -79,18 +81,21 @@ class IMP_Maillog
 
             case IMP_Compose::REPLY:
             case IMP_Compose::REPLY_SENDER:
+            case self::REPLY:
                 $params = array(
                     'action' => self::REPLY
                 );
                 break;
 
             case IMP_Compose::REPLY_ALL:
+            case self::REPLY_ALL:
                 $params = array(
                     'action' => self::REPLY_ALL
                 );
                 break;
 
             case IMP_Compose::REPLY_LIST:
+            case self::REPLY_LIST:
                 $params = array(
                     'action' => self::REPLY_LIST
                 );
