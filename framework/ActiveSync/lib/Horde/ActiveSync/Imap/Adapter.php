@@ -501,7 +501,7 @@ class Horde_ActiveSync_Imap_Adapter
     {
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
         $options = array(
-            'ids' => new Horde_Imap_Client_Ids(array($uid));
+            'ids' => new Horde_Imap_Client_Ids(array($uid))
         );
         switch ($flag) {
         case Horde_ActiveSync::IMAP_FLAG_REPLY:
