@@ -332,44 +332,6 @@ class Horde_ActiveSync_Imap_Adapter
             $folder->setChanges($search_ret['match']->ids, $flags);
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         }
-
-        // Poll for Maillog changes if desired.
-        // @TODO Remove BC is_callable check in H6. While this code would only
-        // be reached if we set EAS 14+ support and THAT is only available in
-        // Horde 5.1 (where the getMaillogChanges method was added), it doesn't
-        // hurt to protect against this here.
-        if ($options['protocolversion'] >= Horde_ActiveSync::VERSION_FOURTEEN &&
-            !empty($options['timestamp']) && is_callable(array($this->_imap, 'getMaillogChanges'))) {
-
-            $changes = $this->_imap->getMaillogChanges($options['timestamp']);
-            $s_changes = array();
-            $iids = new Horde_Imap_Client_Ids(array_diff($folder->messages(), $folder->removed()));
-            $flags = array();
-            foreach ($changes as $mid) {
-                $search_q = new Horde_Imap_Client_Search_Query();
-                $search_q->headerText('Message-ID', $mid);
-                $search_q->ids($iids);
-                $results = $imap->search($mbox, $search_q);
-                $uid = $results['match']->ids;
-                if (!empty($uid)) {
-                    $uid = current($uid);
-                    $s_changes[] = $uid;
-                    $last = $this->_getLastVerb($mid);
-                    switch ($last['action']) {
-                    case 'reply':
-                    case 'reply_list':
-                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
-                        break;
-                    case 'reply_all':
-                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
-                        break;
-                    case 'forward':
-                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
-                    }
-                }
-            }
-            $folder->setChanges($s_changes, $flags);
-        }
         $folder->setStatus($status);
 
         return $folder;
@@ -1146,23 +1108,8 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
-        // EAS 14+
-        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && is_callable(array($this->_imap, 'getMaillog'))) {
-            $last = $this->_getLastVerb($imap_message->getHeaders()->getValue('Message-ID'));
-            if (!empty($last)) {
-                switch ($last['action']) {
-                case 'reply':
-                case 'reply_list':
-                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
-                    break;
-                case 'reply_all':
-                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
-                    break;
-                case 'forward':
-                    $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
-                }
-                $eas_message->lastverbexecutiontime = new Horde_Date($last['ts']);
-            }
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $eas_message->messageid = $imap_message->getHeaders()->getValue('Message-ID');
         }
 
         return $eas_message;
@@ -1331,26 +1278,6 @@ class Horde_ActiveSync_Imap_Adapter
     protected function _stripNon7BitChars($text)
     {
         return preg_replace('/[^\x09\x0A\x0D\x20-\x7E]/', '', $text);
-    }
-
-    /**
-     * Return the last verb executed for the specified Message-ID.
-     *
-     * @param string $mid  The Message-ID.
-     *
-     * @return array  The most recent history log entry array for $mid.
-     */
-    protected function _getLastVerb($mid)
-    {
-        $log = $this->_imap->getMaillog($mid);
-        $last = array();
-        foreach ($log as $entry) {
-            if (empty($last) || $last['ts'] < $entry['ts']) {
-                $last = $entry;
-            }
-        }
-
-        return $last;
     }
 
 }

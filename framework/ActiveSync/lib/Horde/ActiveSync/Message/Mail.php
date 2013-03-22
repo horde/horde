@@ -214,6 +214,15 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     );
 
     /**
+     * The Message-ID. Not streamed to device, needed to determine the reply/
+     * forward state.
+     *
+     * @var string
+     * @since 2.4.0
+     */
+    public $messageid;
+
+    /**
      * Const'r
      *
      * @param array $options  Configuration options for the message:
