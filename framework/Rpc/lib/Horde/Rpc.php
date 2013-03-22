@@ -103,7 +103,7 @@ class Horde_Rpc
      *                  or other response codes/body if auth fails,
      *                  and take care of exiting.
      */
-    function authorize()
+    public function authorize()
     {
         $this->_logger->debug('Horde_Rpc::authorize() starting');
         if (!$this->_requireAuthorization) {
@@ -149,7 +149,7 @@ class Horde_Rpc
      *
      * @return mixed  The input - a string (default), a filehandle, etc.
      */
-    function getInput()
+    public function getInput()
     {
         if (isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
             return $GLOBALS['HTTP_RAW_POST_DATA'];
@@ -159,13 +159,14 @@ class Horde_Rpc
     }
 
     /**
-     * Sends an RPC request to the server and returns the result.
+     * Sends an RPC request to the server implementation and returns the
+     * result.
      *
      * @param string  The raw request string.
      *
-     * @return string  The XML encoded response from the server.
+     * @return string  The response from the server.
      */
-    function getResponse($request)
+    public function getResponse($request)
     {
         return 'not implemented';
     }
@@ -175,7 +176,7 @@ class Horde_Rpc
      *
      * @return string  The MIME Content-Type of the RPC response.
      */
-    function getResponseContentType()
+    public function getResponseContentType()
     {
         return 'text/xml';
     }
@@ -188,7 +189,7 @@ class Horde_Rpc
      *
      * @return void
      */
-    function sendOutput($output)
+    public function sendOutput($output)
     {
         header('Content-Type: ' . $this->getResponseContentType());
         header('Content-length: ' . strlen($output));
@@ -216,7 +217,8 @@ class Horde_Rpc
      * @return mixed  The returned result from the method
      * @throws Horde_Rpc_Exception
      */
-    public static function request($driver, $url, $method, $client, $params = null)
+    public static function request($driver, $url, $method, $client,
+                                   $params = null)
     {
         $driver = Horde_String::ucfirst(basename($driver));
         $class = 'Horde_Rpc_' . $driver;
@@ -248,5 +250,4 @@ class Horde_Rpc
             throw new Horde_Rpc_Exception('Class definition of ' . $class . ' not found.');
         }
     }
-
 }
