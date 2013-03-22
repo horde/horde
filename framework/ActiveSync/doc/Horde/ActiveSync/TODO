@@ -24,3 +24,5 @@ TODO
 - Email recurrence related properties for recurring meeting requests.
 
 - Recipient Information Cache: Sync with Turba's favorites source.
+
+- Email categories - possible to map to custom IMAP Flags?
