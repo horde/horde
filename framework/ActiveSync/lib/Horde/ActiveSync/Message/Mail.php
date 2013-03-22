@@ -183,13 +183,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     );
 
     /**
-     * Read flag.
-     *
-     * @var integer
-     */
-    public $read = false;
-
-    /**
      * Property values.
      *
      * @var array
