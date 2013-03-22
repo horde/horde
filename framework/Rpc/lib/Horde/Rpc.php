@@ -63,14 +63,11 @@ class Horde_Rpc
     protected $_logger;
 
     /**
-     * RPC server constructor.
+     * Constructor.
      *
-     * @param Horde_Controller_Request_Http  The request object
-     *
+     * @param Horde_Controller_Request_Http $request  The request object.
      * @param array $params  A hash containing any additional configuration or
      *                       connection parameters a subclass might need.
-     *
-     * @return Horde_Rpc  An RPC server instance.
      */
     public function __construct($request, $params = array())
     {
