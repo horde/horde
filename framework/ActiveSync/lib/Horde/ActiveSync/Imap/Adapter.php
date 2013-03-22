@@ -343,26 +343,29 @@ class Horde_ActiveSync_Imap_Adapter
 
             $changes = $this->_imap->getMaillogChanges($options['timestamp']);
             $s_changes = array();
-
             $iids = new Horde_Imap_Client_Ids(array_diff($folder->messages(), $folder->removed()));
+            $flags = array();
             foreach ($changes as $mid) {
                 $search_q = new Horde_Imap_Client_Search_Query();
                 $search_q->headerText('Message-ID', $mid);
                 $search_q->ids($iids);
                 $results = $imap->search($mbox, $search_q);
-                $uid = array_pop($results[Horde_Imap_Client::SEARCH_RESULTS_MATCH]->ids);
-                $s_changes[] = $uid;
-                $last = $this->_getLastVerb($uid);
-                switch ($last['action']) {
-                case 'reply':
-                case 'reply_list':
-                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
-                    break;
-                case 'reply_all':
-                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
-                    break;
-                case 'forward':
-                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
+                $uid = $results['match']->ids;
+                if (!empty($uid)) {
+                    $uid = current($uid);
+                    $s_changes[] = $uid;
+                    $last = $this->_getLastVerb($mid);
+                    switch ($last['action']) {
+                    case 'reply':
+                    case 'reply_list':
+                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $last['ts']);
+                        break;
+                    case 'reply_all':
+                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $last['ts']);
+                        break;
+                    case 'forward':
+                        $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $last['ts']);
+                    }
                 }
             }
             $folder->setChanges($s_changes, $flags);
