@@ -1161,8 +1161,7 @@ class Horde_ActiveSync_Imap_Adapter
                 case 'forward':
                     $eas_message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
                 }
-                $time = new Horde_Date($last['ts']);
-                $eas_message->lastverbexecutiontime = $time;
+                $eas_message->lastverbexecutiontime = new Horde_Date($last['ts']);
             }
         }
 
