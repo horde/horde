@@ -2581,18 +2581,22 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
             if ($node->hasAttribute('src') &&
                 !$node->hasAttribute('imp_related_attr')) {
                 /* Attempt to download the image data. */
-                $response = $client->get($node->getAttribute('src'));
-                if ($response->code == 200) {
-                    /* We need to determine the image type. Try getting that
-                     * info from the returned HTTP content-type header.
-                     * TODO: Use Horde_Mime_Magic if this fails (?) */
-                    $part = new Horde_Mime_Part();
-                    $part->setType($response->getHeader('content-type'));
-                    $part->setContents($response->getBody());
-                    $part->setDisposition('attachment');
+                try {
+                    $response = $client->get($node->getAttribute('src'));
+                    if ($response->code == 200) {
+                        /* We need to determine the image type. Try getting
+                         * that info from the returned HTTP content-type
+                         * header.  TODO: Use Horde_Mime_Magic if this fails
+                         * (?) */
+                        $part = new Horde_Mime_Part();
+                        $part->setType($response->getHeader('content-type'));
+                        $part->setContents($response->getBody());
+                        $part->setDisposition('attachment');
 
-                    $this->_addRelatedAttachment($part, $node, 'src');
-                    $downloaded = true;
+                        $this->_addRelatedAttachment($part, $node, 'src');
+                        $downloaded = true;
+                    }
+                } catch (Horde_Http_Exception $e) {
                 }
             }
         }
