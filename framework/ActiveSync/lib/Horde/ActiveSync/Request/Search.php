@@ -247,6 +247,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $store_status = self::STORE_STATUS_PROTERR;
         }
 
+        $search_range = empty($search_range) ? '0-99' : $search_range;
         $search_query['range'] = $search_range;
         switch(strtolower($search_name)) {
         case 'documentlibrary':
