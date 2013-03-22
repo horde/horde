@@ -84,6 +84,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     const POOMCAL_ISLEAPMONTH             = 'POOMCAL:IsLeapMonth';
     const POOMCAL_RESPONSETYPE            = 'POOMCAL:ResponseType';
 
+    // 14.1
+    const POOMCAL_FIRSTDAYOFWEEK          = 'POOMCAL:FirstDayOfWeek';
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;

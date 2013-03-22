@@ -66,6 +66,15 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
     const CALENDAR_TYPE_GREGORIAN_ARABIC         = 10;
     const CALENDAR_TYPE_GREGORIAN_TRANSLITERATED = 11;
 
+    /* FDOW mapping for EAS 14.1 */
+    const FIRSTDAY_SUNDAY            = 0;
+    const FIRSTDAY_MONDAY            = 1;
+    const FIRSTDAY_TUESDAY           = 2;
+    const FIRSTDAY_WEDNESDAY         = 3;
+    const FIRSTDAY_THURSDAY          = 4;
+    const FIRSTDAY_FRIDAY            = 5;
+    const FIRSTDAY_SATURDAY          = 6;
+
     /**
      * Property mapping.
      *
@@ -122,12 +131,14 @@ class Horde_ActiveSync_Message_Recurrence extends Horde_ActiveSync_Message_Base
                 'calendartype' => false,
                 'isleapmonth' => false);
         }
+        if ($this->_version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+            $this->_mapping += array(
+                Horde_ActiveSync_Message_Appointment::POOMCAL_FIRSTDAYOFWEEK => array(self::KEY_ATTRIBUTE => 'firstdayofweek')
+            );
+            $this->_properties += array(
+                'firstdayofweek' => false
+            );
+        }
     }
-
-
-
-
-
-
 
 }
