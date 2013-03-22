@@ -277,17 +277,19 @@ class Horde_ActiveSync_Request_Settings extends Horde_ActiveSync_Request_Base
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->endTag(); // end self::SETTINGS_DEVICEPASSWORD
         }
-        if (isset($request['get']['userinformation'])) {
+        if (isset($request['get']['userinformation']) && isset($result['get']['userinformation'])) {
             $this->_encoder->startTag(self::SETTINGS_USERINFORMATION);
             $this->_encoder->startTag(self::SETTINGS_STATUS);
             $this->_encoder->content($result['get']['userinformation']['status']);
             $this->_encoder->endTag(); // end self::SETTINGS_STATUS
             $this->_encoder->startTag(self::SETTINGS_GET);
             $this->_encoder->startTag(self::SETTINGS_EMAILADDRESSES);
-            foreach($result['get']['userinformation']['emailaddresses'] as $value) {
-                $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
-                $this->_encoder->content($value);
-                $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+            if (!empty($result['get']['userinformation']['emailaddresses'])) {
+                foreach($result['get']['userinformation']['emailaddresses'] as $value) {
+                    $this->_encoder->startTag(self::SETTINGS_SMTPADDRESS);
+                    $this->_encoder->content($value);
+                    $this->_encoder->endTag(); // end self::SETTINGS_SMTPADDRESS
+                }
             }
             $this->_encoder->endTag(); // end self::SETTINGS_EMAILADDRESSES
             $this->_encoder->endTag(); // end self::SETTINGS_GET
