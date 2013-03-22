@@ -16,11 +16,15 @@ class Nag_CompleteTask {
                 $result = array('error' => 'permission denied');
                 $notification->push(_("Access denied completing this task."), 'horde.error');
             } else {
+                $wasCompleted = $task->completed;
                 $task->toggleComplete();
                 $task->save();
                 if ($task->completed) {
                     $result = array('data' => 'complete');
                     $notification->push(sprintf(_("Completed %s."), $task->name), 'horde.success');
+                } elseif (!$wasComplete) {
+                    $result = array('data' => 'incomplete');
+                    $notification->push(sprintf(_("%s is still incomplete."), $task->name), 'horde.success');
                 } else {
                     $result = array('data' => 'incomplete');
                     $notification->push(sprintf(_("%s is now incomplete."), $task->name), 'horde.success');
