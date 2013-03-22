@@ -253,6 +253,9 @@ class Horde_ActiveSync
     const MIME_SUPPORT_SMIME                    = 1;
     const MIME_SUPPORT_ALL                      = 2;
 
+    const IMAP_FLAG_REPLY                       = 'reply';
+    const IMAP_FLAG_FORWARD                     = 'forward';
+
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
     const MAXIMUM_SYNCKEY_COUNT                 = 10;
