@@ -55,6 +55,8 @@ class Horde_ActiveSync_Wbxml_Encoder extends Horde_ActiveSync_Wbxml
      */
     public $multipart;
 
+    protected $_lastWasEmpty = false;
+
     /**
      * Const'r
      *
