@@ -9,24 +9,31 @@ namespace Sabberworm\CSS\Property;
  * • May only appear at the very top of a Document’s contents.
  * • Must not appear more than once.
  */
-class Charset {
+class Charset implements AtRule {
 
-	private $sCharset;
+    private $sCharset;
 
-	public function __construct($sCharset) {
-		$this->sCharset = $sCharset;
-	}
+    public function __construct($sCharset) {
+        $this->sCharset = $sCharset;
+    }
 
-	public function setCharset($sCharset) {
-		$this->sCharset = $sCharset;
-	}
+    public function setCharset($sCharset) {
+        $this->sCharset = $sCharset;
+    }
 
-	public function getCharset() {
-		return $this->sCharset;
-	}
+    public function getCharset() {
+        return $this->sCharset;
+    }
 
-	public function __toString() {
-		return "@charset {$this->sCharset->__toString()};";
-	}
+    public function __toString() {
+        return "@charset {$this->sCharset->__toString()};";
+    }
 
+    public function atRuleName() {
+        return 'charset';
+    }
+
+    public function atRuleArgs() {
+        return $this->sCharset;
+    }
 }

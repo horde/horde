@@ -2787,7 +2787,8 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             switch ($mime_message->getPrimaryType()) {
             case 'multipart':
-                if (($mime_message->getSubType() == 'mixed') &&
+                if (($body_id != '1') &&
+                    ($mime_message->getSubType() == 'mixed') &&
                     !Horde_Mime::isChild('1', $body_id)) {
                     $body_id = null;
                 } else {

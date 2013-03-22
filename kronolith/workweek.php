@@ -13,7 +13,7 @@ require_once __DIR__ . '/lib/Application.php';
 Horde_Registry::appInit('kronolith');
 
 if (Kronolith::showAjaxView()) {
-    Horde::url('', true)->setAnchor('week:' . Kronolith::currentDate()->dateString())->redirect();
+    Horde::url('', true)->setAnchor('workweek:' . Kronolith::currentDate()->dateString())->redirect();
     exit;
 }
 

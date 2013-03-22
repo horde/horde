@@ -32,7 +32,7 @@ class Passwd_Driver_Procopen extends Passwd_Driver
      */
     protected function _changePassword($user, $oldpass, $newpass)
     {
-        $desc = array(
+        $descr = array(
             0 => array('pipe', 'r'),
             1 => array('pipe', 'w'),
             2 => array('pipe', 'w')
