@@ -61,9 +61,9 @@
  * @property Horde_ActiveSync_Message_Flag flag (EAS > 2.5 only).
  *
  * // Internal properties. Not streamed to device.
- * @property string messageid
- * @property boolean answered
- * @property boolean forwarded
+ * @property string messageid @since 2.4.0
+ * @property boolean answered @since 2.4.0
+ * @property boolean forwarded @since 2.4.0
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
@@ -212,15 +212,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     );
 
     /**
-     * The Message-ID. Not streamed to device, needed to determine the reply/
-     * forward state.
-     *
-     * @var string
-     * @since 2.4.0
-     */
-    public $messageid;
-
-    /**
      * Const'r
      *
      * @param array $options  Configuration options for the message:
@@ -300,7 +291,12 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                    'isleapmonth'           => false,
                    'accountid'             => false,
                    'firstdayofweek'        => false,
-                   'meetingmessagetype'    => false
+                   'meetingmessagetype'    => false,
+
+                   // Internal use
+                   'messageid'             => false,
+                   'answered'              => false,
+                   'forwarded'             => false,
                 );
             }
         }

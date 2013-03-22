@@ -1163,6 +1163,8 @@ class Horde_ActiveSync_Imap_Adapter
 
         if ($version >= Horde_ActiveSync::VERSION_FOURTEEN) {
             $eas_message->messageid = $imap_message->getHeaders()->getValue('Message-ID');
+            $eas_message->forwarded = $imap_message->getFlag(Horde_Imap_Client::FLAG_FORWARDED);
+            $eas_message->answered  = $imap_message->getFlag(Horde_Imap_Client::FLAG_ANSWERED);
         }
 
         return $eas_message;
