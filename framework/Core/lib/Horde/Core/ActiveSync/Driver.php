@@ -799,8 +799,8 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $this->_endBuffer();
                 throw $e;
             }
-            $this->_endBuffer();
             if (empty($messages)) {
+                $this->_endBuffer();
                 throw new Horde_Exception_NotFound();
             }
             $msg = current($messages);
@@ -821,8 +821,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
                     }
                     $msg->lastverbexecutiontime = new Horde_Date($last['ts']);
+                } else {
+                    // No maillog found, double check the IMAP flags.
+                    // We favor the Maillog since EAS allows for a complete log
+                    // of actions - and it requires a timestamp.
+                    if ($msg->answered) {
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                        $msg->lastverbexecutiontime = new Horde_Date(time());
+                    } elseif ($msg->forwarded) {
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                        $msg->lastverbexecutiontime = new Horde_Date(time());
+                    }
                 }
             }
+
+            $this->_endBuffer();
 
             // Should we import an iTip response if we have one?
             if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
@@ -839,12 +852,12 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             }
             return $msg;
-            break;
 
         default:
             $this->_endBuffer();
             throw new Horde_ActiveSync_Exception('Unsupported type');
         }
+
         $this->_endBuffer();
 
         return $message;
