@@ -2352,8 +2352,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $return_count = $matches[2] - $matches[1];
         $rows = array_slice($results, $matches[1], $return_count + 1, true);
         $rows = array_pop($rows);
+        $picture_count = 0;
         foreach ($rows as $row) {
-            $return['rows'][] = array(
+            $entry = array(
                 Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
                 Horde_ActiveSync::GAL_DISPLAYNAME => $row['name'],
                 Horde_ActiveSync::GAL_EMAILADDRESS => !empty($row['email']) ? $row['email'] : '',
@@ -2366,6 +2367,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_TITLE => !empty($row['title']) ? $row['title'] : '',
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
+            if ($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE]) {
+                $picure = new Horde_ActiveSync_Message_Picture(array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                if (empty($row['photo'])) {
+                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_NONE;
+                } elseif ($picture_count > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) {
+                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_MAXCOUNT;
+                } elseif (strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
+                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_MAXSIZE;
+                } else {
+                    $picture->data = $row['photo'];
+                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_SUCCESS;
+                }
+                $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
+            }
+            $return['rows'][] = $entry;
         }
         $this->_endBuffer();
 
