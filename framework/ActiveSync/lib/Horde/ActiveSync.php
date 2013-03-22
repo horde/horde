@@ -97,6 +97,7 @@ class Horde_ActiveSync
     // 14
     const SYNC_HEARTBEATINTERVAL                = 'HeartbeatInterval';
     const SYNC_CONVERSATIONMODE                 = 'ConversationMode';
+    const SYNC_MAXITEMS                         = 'MaxItems';
 
     /* Document library */
     const SYNC_DOCUMENTLIBRARY_LINKID           = 'DocumentLibrary:LinkId';

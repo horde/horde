@@ -154,6 +154,17 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                             }
                         }
 
+                        // Only supported for 'RI' searches - which we don't support
+                        // need to parse it though to avoid wbxml errors.
+                        if ($this->_decoder->getELementStartTag(Horde_ActiveSync::SYNC_MAXITEMS)) {
+                            if ($collectionid != 'RI') {
+                                $gStatus = self::STATUS_INVALIDCOL;
+                            }
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+
                         $elm = $this->_decoder->peek();
                         if ($elm[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                             $this->_decoder->getElementEndTag();
