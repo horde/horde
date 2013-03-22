@@ -136,6 +136,60 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testStaleHistoryCleanup()
+    {
+        $data = $this->_getData();
+        $data_query = $data->getQuery(Horde_Kolab_Storage_Data::QUERY_HISTORY);
+
+        $this->history->log(
+            'mnemo:internal_id:stale_entry_uid', array('action' => 'add', 'bid' => '123'), true
+        );
+
+        // Sync history and check for cleanup
+        $data_query->synchronize();
+
+        $this->assertEquals(
+            2,
+            count($this->history->getHistory('mnemo:internal_id:stale_entry_uid'))
+        );
+        $this->assertEquals(
+            array(
+                'mnemo:internal_id:stale_entry_uid' => 4
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'delete'
+                    )
+                )
+            )
+        );
+
+        // Check that other entries are still there
+        $this->assertEquals(
+            array(
+                'mnemo:internal_id:ABC1234' => 1,
+                'mnemo:internal_id:DEF5678' => 2,
+                'mnemo:internal_id:stale_entry_uid' => 3
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'add'
+                    )
+                )
+            )
+        );
+    }
+
     private function _getData()
     {
         return $this->_getFolder()->getData('INBOX/History');
