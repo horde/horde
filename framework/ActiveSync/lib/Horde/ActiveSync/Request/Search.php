@@ -332,7 +332,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
                     $this->_encoder->endTag();
 
-                    if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                    if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
                         !empty($u[Horde_ActiveSync::GAL_PICTURE])) {
                         $this->_encoder->startTag(Horde_ActiveSync::GAL_PICTURE);
                         $u[Horde_ActiveSync::GAL_PICTURE]->encodeStream($this->_encoder);
