@@ -2388,6 +2388,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 } else {
                     $picture->data = $row['photo'];
                     $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_SUCCESS;
+                    ++$picture_count;
                 }
                 $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
             }
