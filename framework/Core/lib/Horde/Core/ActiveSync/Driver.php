@@ -1425,6 +1425,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 !empty($reply) ? 'reply' : 'forward',
                 $imap_message->getHeaders()->getValue('Message-ID'),
                 $headers->getValue('To'));
+            $this->_imap->setImapFlag(
+                $parent,
+                !empty($reply) ? $reply : $forward,
+                !empty($reply) ? Horde_ActiveSync::IMAP_FLAG_REPLY : Horde_ActiveSync::IMAP_FLAG_FORWARD);
         }
 
         return true;
