@@ -202,6 +202,10 @@ class Horde_ActiveSync
     const GAL_HOMEPHONE                         = 'GAL:HomePhone';
     const GAL_MOBILEPHONE                       = 'GAL:MobilePhone';
     const GAL_EMAILADDRESS                      = 'GAL:EmailAddress';
+    // 14.1
+    const GAL_PICTURE                           = 'GAL:Picture';
+    const GAL_STATUS                            = 'GAL:Status';
+    const GAL_DATA                              = 'GAL:Data';
 
     /* Request Type */
     const REQUEST_TYPE_SYNC                     = 'sync';

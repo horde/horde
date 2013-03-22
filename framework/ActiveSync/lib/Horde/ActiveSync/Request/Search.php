@@ -66,6 +66,11 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     // 14
     const SEARCH_CONVERSATIONID      = 'Search:ConversationId';
 
+    // 14.1
+    const SEARCH_PICTURE             = 'Search:Picture';
+    const SEARCH_MAXSIZE             = 'Search:MaxSize';
+    const SEARCH_MAXPICTURES         = 'Search:MaxPictures';
+
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
@@ -168,6 +173,22 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                         $searchschema = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
+                    }
+                }
+                // 14.1 Only
+                if ($this->_decoder->getElementStartTag(self::SEARCH_PICTURE)) {
+                    $search_query[self::SEARCH_PICTURE] = true;
+                    if ($this->_decoder->getElementStartTag(self::SEARCH_MAXSIZE)) {
+                        $search_query[self::SEARCH_MAXSIZE] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            return false;
+                        }
+                    }
+                    if ($this->_decoder->getElementStartTag(self::SEARCH_MAXPICTURES)) {
+                        $search_query[self::SEARCH_MAXPICTURES] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            return false;
+                        }
                     }
                 }
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
@@ -310,8 +331,15 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                     $this->_encoder->content($u[Horde_ActiveSync::GAL_EMAILADDRESS]);
                     $this->_encoder->endTag();
 
-                    $this->_encoder->endTag();//result
+                    if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                        !empty($u[Horde_ActiveSync::GAL_PICTURE])) {
+                        $this->_encoder->startTag(Horde_ActiveSync::GAL_PICTURE);
+                        $u[Horde_ActiveSync::GAL_PICTURE]->encodeStream($this->_encoder);
+                        $this->_encoder->endTag();
+                    }
+
                     $this->_encoder->endTag();//properties
+                    $this->_encoder->endTag();//result
                     break;
                 case 'mailbox':
                     $this->_encoder->startTag(self::SEARCH_RESULT);
