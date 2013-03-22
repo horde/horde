@@ -2330,7 +2330,9 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             'status' => Horde_ActiveSync_Request_Search::STORE_STATUS_SUCCESS
         );
         try {
-            $results = $this->_connector->contacts_search($query['query']);
+            $results = $this->_connector->contacts_search(
+                $query['query'],
+                array('photos' => !emtpy($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])));
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e);
             $this->_endBuffer();
