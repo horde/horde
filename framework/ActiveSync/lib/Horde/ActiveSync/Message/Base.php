@@ -419,9 +419,8 @@ class Horde_ActiveSync_Message_Base
                           // Do not output empty items except for the following:
                           if ($this->_checkSendEmpty($tag)) {
                               $encoder->startTag($tag, $this->$map[self::KEY_ATTRIBUTE], true);
-                          } else {
-                            continue;
                           }
+                          continue;
                     } elseif ($encoder->multipart &&
                               in_array($tag, array(
                                 Horde_ActiveSync::SYNC_DATA,
