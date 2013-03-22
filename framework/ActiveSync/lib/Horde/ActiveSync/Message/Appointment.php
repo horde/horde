@@ -86,6 +86,8 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
 
     // 14.1
     const POOMCAL_FIRSTDAYOFWEEK          = 'POOMCAL:FirstDayOfWeek';
+    const POOMCAL_ONLINECONFLINK          = 'POOMCAL:OnlineMeetingConfLink',
+    const POOMCAL_ONLINEEXTLINK           = 'POOMCAL:OnlineMeetingExternalLink'
 
     /* Sensitivity */
     const SENSITIVITY_NORMAL         = 0;
@@ -230,6 +232,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
                     'responserequested' => false,
                     'appointmentreplytime' => false,
                     'responsetype' => false,
+                );
+           }
+           if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                $this->_mapping += array(
+                    self::POOMCAL_ONLINECONFLINK => array(self::KEY_ATTRIBUTE => 'onlinemeetingconflink'),
+                    self::POOMCAL_ONLINEEXTLINK  => array(self::KEY_ATTRIBUTE => 'onlinemeetingexternallink')
+                );
+                $this->_properties += array(
+                    'onlinemeetingconflink' => false,
+                    'onlinemeetingexternallink' => false
                 );
            }
         }
