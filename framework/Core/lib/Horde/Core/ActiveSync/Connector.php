@@ -644,6 +644,51 @@ class Horde_Core_ActiveSync_Connector
     }
 
     /**
+     * Return a Maillog entry for the specified Message-ID.
+     *
+     * @param string $mid  The Message-ID of the message.
+     *
+     * @return Horde_History_Log|false  The history log or false if not found.
+     */
+    public function mail_getMaillog($mid)
+    {
+        if ($GLOBALS['registry']->hasMethod('getMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
+            return $GLOBALS['registry']->mail->getMaillog($mid);
+        }
+
+        return false;
+    }
+
+    /**
+     * Log a forward/reply action to the maillog.
+     *
+     * @param string $action  The action to log. One of: 'forward', 'reply',
+     *                        'reply_all'.
+     * @param string $mid     The Message-ID to log.
+     * @param array $data     Any additional data to log.
+     */
+    public function mail_logMaillog($action, $mid, array $data = null)
+    {
+        if ($GLOBALS['registry']->hasMethod('logMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
+            $GLOBALS['registry']->mail->logMaillog($action, $mid, $data);
+        }
+    }
+
+    /**
+     * Poll the maillog for changes since the specified timestamp.
+     *
+     * @param integer $ts  The timestamp to check since.
+     *
+     * @return array  An array of Message-IDs that have changed since $ts.
+     */
+    public function mail_getMaillogChanges($ts)
+    {
+        if ($GLOBALS['registry']->hasMethod('getMaillogChanges', $GLOBALS['registry']->hasInterface('mail'))) {
+            return $GLOBALS['registry']->mail->getMaillogChanges($ts);
+        }
+    }
+
+    /**
      * Get all server changes for the specified collection
      *
      * @param string $collection  The collection type (calendar, contacts, tasks)

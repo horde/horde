@@ -620,12 +620,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 }
             } else {
                 try {
+                    // Poll IMAP server for changes.
                     $folder = $this->_imap->getMessageChanges(
                         $folder,
                         array(
                             'sincedate' => (int)$cutoffdate,
                             'protocolversion' => $this->_version,
                             'timestamp' => $from_ts));
+                    // Poll the maillog for reply/forward state changes.
+                    $folder = $this->_getMaillogChanges($folder, $from_ts);
                 } catch (Horde_ActiveSync_Exception_StaleState $e) {
                     $this->_endBuffer();
                     throw $e;
@@ -777,6 +780,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case Horde_ActiveSync::FOLDER_TYPE_WASTEBASKET:
         case Horde_ActiveSync::FOLDER_TYPE_DRAFTS:
         case Horde_ActiveSync::FOLDER_TYPE_USER_MAIL:
+            // Get the message from the IMAP server.
             try {
                 $messages = $this->_imap->getMessages(
                     $folderid,
@@ -800,6 +804,25 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 throw new Horde_Exception_NotFound();
             }
             $msg = current($messages);
+
+            // Check for verb status from the Maillog.
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+                $last = $this->_getLastVerb($msg->messageid);
+                if (!empty($last)) {
+                    switch ($last['action']) {
+                    case 'reply':
+                    case 'reply_list':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                        break;
+                    case 'reply_all':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
+                        break;
+                    case 'forward':
+                        $msg->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                    }
+                    $msg->lastverbexecutiontime = new Horde_Date($last['ts']);
+                }
+            }
 
             // Should we import an iTip response if we have one?
             if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE &&
@@ -1212,7 +1235,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                                  forwarding/replying.
      * @param boolean $save             Save in sent messages.
      * @param Horde_ActiveSync_Message_SendMail $message  The entire message
-     *                          object for EAS 14+ requests.
+     *                          object for EAS 14+ requests. @since 5.1.0
      * @todo H6 - Either make this take an options array or break it into two
      *            separate methods - one for EAS < 14 and one for EAS > 14.
      *
@@ -2481,6 +2504,69 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         $from_addr = $ident->getValue('from_addr');
 
         return $name . ' <' . $from_addr . '>';
+    }
+
+    /**
+     * Get verb changes from the maillog.
+     *
+     * @param Horde_ActiveSync_Folder_Imap $folder  The folder to search.
+     * @param integer $ts                           The timestamp to start from.
+     *
+     * @return Horde_ActiveSync_Folder_Imap  The folder object, with any changes
+     *                                       added accordingly.
+     */
+    protected function _getMaillogChanges(Horde_ActiveSync_Folder_Imap $folder, $ts)
+    {
+        $changes = $this->_connector->mail_getMaillogChanges($ts);
+        $flags = array();
+        $s_changes = array();
+        foreach ($changes as $mid) {
+            try {
+                $uid = $this->_imap->getUidFromMid($mid, $folder);
+            } catch (Horde_Exception_NotFound $e) {
+                continue;
+            }
+            $s_changes[] = $uid;
+            $verb = $this->_getLastVerb($mid);
+            if (!empty($verb)) {
+                switch ($verb['action']) {
+                case 'reply':
+                case 'reply_list':
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLY_STATE => $verb['ts']);
+                    break;
+                case 'reply_all':
+                   $flags[$uid] = array(Horde_ActiveSync::CHANGE_REPLYALL_STATE => $verb['ts']);
+                    break;
+                case 'forward':
+                    $flags[$uid] = array(Horde_ActiveSync::CHANGE_FORWARD_STATE => $verb['ts']);
+                }
+            }
+        }
+        if (!empty($s_changes)) {
+            $folder->setChanges($s_changes, $flags);
+        }
+
+        return $folder;
+    }
+
+    /**
+     * Return the last verb executed for the specified Message-ID.
+     *
+     * @param string $mid  The Message-ID.
+     *
+     * @return array  The most recent history log entry array for $mid.
+     */
+    protected function _getLastVerb($mid)
+    {
+        $log = $this->_connector->mail_getMaillog($mid);
+        $last = array();
+        foreach ($log as $entry) {
+            if (empty($last) || $last['ts'] < $entry['ts']) {
+                $last = $entry;
+            }
+        }
+
+        return $last;
     }
 
 }

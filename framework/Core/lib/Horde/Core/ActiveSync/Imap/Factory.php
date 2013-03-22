@@ -111,47 +111,4 @@ class Horde_Core_ActiveSync_Imap_Factory implements Horde_ActiveSync_Interface_I
         return $this->_specialMailboxlist;
     }
 
-    /**
-     * Obtain the maillog for a given message.
-     *
-     * @param string $mid  The Message-ID of the message.
-     *
-     * @return Horde_History_Log  The history log.
-     */
-    public function getMaillog($mid)
-    {
-        if ($GLOBALS['registry']->hasMethod('getMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
-            return $GLOBALS['registry']->mail->getMaillog($mid);
-        }
-
-        return false;
-    }
-
-    /**
-     * Log a forward/reply action to the maillog.
-     *
-     * @param string $action  The action to log. One of: 'forward', 'reply',
-     *                        'reply_all'.
-     */
-    public function logMaillog($action, $mid, $data = null)
-    {
-        if ($GLOBALS['registry']->hasMethod('logMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
-            $GLOBALS['registry']->mail->logMaillog($action, $mid, $data);
-        }
-    }
-
-    /**
-     * Poll the maillog for changes since the specified timestamp.
-     *
-     * @param integer $ts  The timestamp to check since.
-     *
-     * @return array  An array of Message-IDs that have changed since $ts.
-     */
-    public function getMaillogChanges($ts)
-    {
-        if ($GLOBALS['registry']->hasMethod('getMaillogChanges', $GLOBALS['registry']->hasInterface('mail'))) {
-            return $GLOBALS['registry']->mail->getMaillogChanges($ts);
-        }
-    }
-
 }
