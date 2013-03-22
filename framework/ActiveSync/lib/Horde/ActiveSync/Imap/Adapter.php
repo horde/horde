@@ -515,6 +515,35 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
+     * Set a IMAP message flag.
+     *
+     * @param string $mailbox  The mailbox name.
+     * @param integer $uid     The message UID.
+     * @param string $flag     The flag to set. A Horde_ActiveSync:: constant.
+     *
+     * @throws Horde_ActiveSync_Exception
+     */
+    public function setImapFlag($mailbox, $uid, $flag)
+    {
+        $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        $options = array(
+            'ids' => new Horde_Imap_Client_Ids(array($uid))
+        );
+        switch ($flag) {
+        case Horde_ActiveSync::IMAP_FLAG_REPLY:
+            $options['add'] = array(Horde_Imap_Client::FLAG_ANSWERED);
+            break;
+        case Horde_ActiveSync::IMAP_FLAG_FORWARD:
+            $options['add'] = array(Horde_Imap_Client::FLAG_FORWARDED);
+        }
+        try {
+            $this->_getImapOb()->store($mbox, $options);
+        } catch (Horde_Imap_Client_Exception $e) {
+            throw new Horde_ActiveSync_Exception($e);
+        }
+    }
+
+    /**
      * Set a POOMMAIL_FLAG on a mail message. This method differs from
      * setReadFlag() in that it is passed a Flag object, which contains
      * other data beside the seen status. Used for setting flagged for followup

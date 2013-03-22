@@ -59,6 +59,11 @@
  * @property Horde_ActiveSync_Message_AirSyncBaseAttachments airsyncbaseattachments (EAS > 2.5 only).
  * @property integer contentclass (EAS > 2.5 only).
  * @property Horde_ActiveSync_Message_Flag flag (EAS > 2.5 only).
+ *
+ * // Internal properties. Not streamed to device.
+ * @property string messageid
+ * @property boolean answered
+ * @property boolean forwarded
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
