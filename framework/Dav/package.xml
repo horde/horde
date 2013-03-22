@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-21</date>
- <time>16:00:56</time>
+ <date>2013-03-22</date>
+ <time>18:36:56</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -46,6 +46,7 @@
         <file name="Horde.php" role="php" />
        </dir> <!-- /lib/Horde/Dav/CalDav/Backend -->
       </dir> <!-- /lib/Horde/Dav/CalDav -->
+      <file name="Auth.php" role="php" />
       <file name="Client.php" role="php" />
       <file name="Exception.php" role="php" />
      </dir> <!-- /lib/Horde/Dav -->
@@ -374,6 +375,7 @@
  <phprelease>
   <filelist>
    <install as="LICENSE" name="doc/Horde/Dav/LICENSE" />
+   <install as="Horde/Dav/Auth.php" name="lib/Horde/Dav/Auth.php" />
    <install as="Horde/Dav/Client.php" name="lib/Horde/Dav/Client.php" />
    <install as="Horde/Dav/Exception.php" name="lib/Horde/Dav/Exception.php" />
    <install as="Horde/Dav/Auth/Backend/Horde.php" name="lib/Horde/Dav/Auth/Backend/Horde.php" />
