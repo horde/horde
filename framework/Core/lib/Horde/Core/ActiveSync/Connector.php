@@ -30,7 +30,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @var Horde_Log_Logger
      */
-    private $_logger;
+    protected $_logger;
 
     /**
      * Cache the GAL to avoid hitting the contacts API multiple times.
