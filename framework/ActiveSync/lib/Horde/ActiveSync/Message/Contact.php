@@ -174,9 +174,9 @@ class Horde_ActiveSync_Message_Contact extends Horde_ActiveSync_Message_Base
     const NICKNAME              = 'POOMCONTACTS2:NickName';
     const MMS                   = 'POOMCONTACTS2:MMS';
 
-    /* EAS 14 */
-    const ALIAS                 = 'POOMCONTACTS_ALIAS';
-    const WEIGHEDRANK           = 'POOMCONTACTS_WEIGHEDRANK';
+    /* EAS 14 (Only used in Recipient Information Cache responses) */
+    const ALIAS                 = 'POOMCONTACTS:ALIAS';
+    const WEIGHEDRANK           = 'POOMCONTACTS:WEIGHEDRANK';
 
     public $categories = array();
 
