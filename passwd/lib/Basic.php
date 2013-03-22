@@ -179,12 +179,12 @@ class Passwd_Basic
             return;
         }
 
-        if ($this->_vars->new_password0 != $this->_vars->new_password1) {
+        if ($this->_vars->newpassword0 != $this->_vars->newpassword1) {
             $notification->push(_("Your new passwords didn't match"), 'horde.warning');
             return;
         }
 
-        if ($this->_vars->new_password0 == $this->_vars->oldpassword) {
+        if ($this->_vars->newpassword0 == $this->_vars->oldpassword) {
             $notification->push(_("Your new password must be different from your current password"), 'horde.warning');
             return;
         }
@@ -192,7 +192,7 @@ class Passwd_Basic
         $b_ptr = $this->_backends[$backend_key];
 
         try {
-            Horde_Auth::checkPasswordPolicy($this->_vars->new_password0, isset($b_ptr['policy']) ? $b_ptr['policy'] : array());
+            Horde_Auth::checkPasswordPolicy($this->_vars->newpassword0, isset($b_ptr['policy']) ? $b_ptr['policy'] : array());
         } catch (Horde_Auth_Exception $e) {
             $notification->push($e, 'horde.warning');
             return;
@@ -201,7 +201,7 @@ class Passwd_Basic
         // Do some simple strength tests, if enabled in the config file.
         if (!empty($conf['password']['strengthtests'])) {
             try {
-                Horde_Auth::checkPasswordSimilarity($this->_vars->new_password0, array($this->_userid, $this->_vars->oldpassword));
+                Horde_Auth::checkPasswordSimilarity($this->_vars->newpassword0, array($this->_userid, $this->_vars->oldpassword));
             } catch (Horde_Auth_Exception $e) {
                 $notification->push($e, 'horde.warning');
                 return;
@@ -220,7 +220,7 @@ class Passwd_Basic
             $driver->changePassword(
                 $this->_userid,
                 $this->_vars->oldpassword,
-                $this->_vars->new_password0
+                $this->_vars->newpassword0
             );
         } catch (Exception $e) {
             $notification->push(sprintf(_("Failure in changing password for %s: %s"), $b_ptr['name'], $e->getMessage()), 'horde.error');
@@ -230,7 +230,7 @@ class Passwd_Basic
         $notification->push(sprintf(_("Password changed on %s."), $b_ptr['name']), 'horde.success');
 
         try {
-            Horde::callHook('password_changed', array($this->_userid, $this->_vars->oldpassword, $this->_vars->new_password0), 'passwd');
+            Horde::callHook('password_changed', array($this->_userid, $this->_vars->oldpassword, $this->_vars->newpassword0), 'passwd');
         } catch (Horde_Exception_HookNotSet $e) {}
 
         if (!empty($b_ptr['logout'])) {

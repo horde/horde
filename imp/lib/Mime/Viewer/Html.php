@@ -162,6 +162,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 'cid' => null,
                 'cid_used' => array(),
                 'cssblock' => false,
+                'cssbroken' => false,
                 'filters' => $filters,
                 'img' => $blockimg,
                 'imgblock' => false,
@@ -226,24 +227,36 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             );
         }
 
-        if ($inline && $this->_imptmp['imgblock']) {
-            $tmp = new IMP_Mime_Status(array(
-                _("Images have been blocked in this message part."),
-                Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
-                    'muid' => strval($contents->getIndicesOb())
-                )) . _("Show Images?") . '</a>'
-            ));
-            $tmp->icon('mime/image.png');
-            $status[] = $tmp;
-        } elseif ($inline && $this->_imptmp['cssblock']) {
-            /* This is a bit less intuitive for end users, so hide within
-             * image blocking if possible. */
-            $tmp = new IMP_Mime_Status(array(
-                _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
-            ));
-            $tmp->icon('mime/image.png');
-            $status[] = $tmp;
+        if ($inline) {
+            if ($this->_imptmp['imgblock']) {
+                $tmp = new IMP_Mime_Status(array(
+                    _("Images have been blocked in this message part."),
+                    Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
+                        'mailbox' => $contents->getMailbox()->form_to,
+                        'uid' => $contents->getUid()
+                    )) . _("Show Images?") . '</a>'
+                ));
+                $tmp->icon('mime/image.png');
+                $status[] = $tmp;
+            } elseif ($this->_imptmp['cssblock']) {
+                /* This is a bit less intuitive for end users, so hide within
+                 * image blocking if possible. */
+                $tmp = new IMP_Mime_Status(array(
+                    _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
+                    Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
+                ));
+                $tmp->icon('mime/image.png');
+                $status[] = $tmp;
+            }
+
+            if ($this->_imptmp['cssbroken']) {
+                $tmp = new IMP_Mime_Status(array(
+                    _("This message contains corrupt styling data so the message contents may not appear correctly below."),
+                    $this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
+                ));
+                $tmp->icon('mime/image.png');
+                $status[] = $tmp;
+            }
         }
 
         /* Filter bad language. */
@@ -462,9 +475,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         try {
             $css = new Horde_Css_Parser(implode("\n", $this->_imptmp['style']));
         } catch (Exception $e) {
-            /* If your CSS sucks and we can't parse it, tough cookies.
-             * We are just going to ignore, so your message will probably
-             * look lame. */
+            /* If your CSS sucks and we can't parse it, tough. Ignore it
+             * and inform the user. */
+            $this->_imptmp['cssbroken'] = true;
             return;
         }
         $blocked = clone $css;
