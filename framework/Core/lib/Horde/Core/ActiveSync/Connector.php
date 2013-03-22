@@ -662,15 +662,16 @@ class Horde_Core_ActiveSync_Connector
     /**
      * Log a forward/reply action to the maillog.
      *
-     * @param string $action  The action to log. One of: 'forward', 'reply',
-     *                        'reply_all'.
-     * @param string $mid     The Message-ID to log.
-     * @param array $data     Any additional data to log.
+     * @param string $action      The action to log. One of: 'forward', 'reply',
+     *                            'reply_all'.
+     * @param string $mid         The Message-ID to log.
+     * @param string $recipients  The recipients the mail was forwarded/replied
+     *                            to.
      */
-    public function mail_logMaillog($action, $mid, array $data = null)
+    public function mail_logMaillog($action, $mid, $recipients = null)
     {
         if ($GLOBALS['registry']->hasMethod('logMaillog', $GLOBALS['registry']->hasInterface('mail'))) {
-            $GLOBALS['registry']->mail->logMaillog($action, $mid, $data);
+            $GLOBALS['registry']->mail->logMaillog($action, $mid, $recipients);
         }
     }
 
