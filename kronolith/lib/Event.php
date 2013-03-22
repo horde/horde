@@ -1584,7 +1584,7 @@ abstract class Kronolith_Event
 
         // Recurrence
         if ($this->recurs()) {
-            $message->setRecurrence($this->recurrence);
+            $message->setRecurrence($this->recurrence, $GLOBALS['prefs']->getValue('week_start_monday'));
 
             /* Exceptions are tricky. Exceptions, even those that represent
              * deleted instances of a recurring event, must be added. To do this
