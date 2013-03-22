@@ -101,7 +101,13 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
                 }
             }
         }
-        $this->_flags += $flags;
+        foreach ($flags as $uid => $data) {
+            if (!empty($this->_flags[$uid])) {
+                $this->_flags[$uid] += $data;
+            } else {
+                $this->_flags[$uid] = $data;
+            }
+        }
     }
 
     /**
