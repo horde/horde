@@ -15,6 +15,8 @@
  *
  * @property integer $begin  The timestamp when this session began (0 if
  *                           session is not active).
+ * @property integer $modified  The timestamp when this session was last
+ *                              changed or refreshed.
  */
 class Horde_Session
 {
@@ -100,6 +102,8 @@ class Horde_Session
             return ($this->_active || $this->_relogin)
                 ? $this->_data[self::BEGIN]
                 : 0;
+        case 'modified':
+            return $this->_data[self::MODIFIED];
         }
     }
 
@@ -205,10 +209,15 @@ class Horde_Session
          * saving. If we exceed, force a write of the session and set a
          * new timestamp. Why half the maxlifetime?  It guarantees that if
          * we are accessing the server via a periodic mechanism (think
-         * folder refreshing in IMP) that we will catch this refresh. */
-        if ($curr_time >= $this->_data[self::MODIFIED]) {
-            $this->_data[self::MODIFIED] = intval($curr_time + (ini_get('session.gc_maxlifetime') / 2));
-            $this->sessionHandler->changed = true;
+         * folder refreshing in IMP) that we will catch this refresh. 
+         * We make sure to avoid refreshing a timeouted session. */
+        $last_modify = $this->_data[self::MODIFIED];
+        $timeout = ini_get('session.gc_maxlifetime');
+        if ($curr_time >= $last_modify) {
+            if ($last_modify == 0 || $curr_time <= $last_modify + $timeout) {
+                $this->_data[self::MODIFIED] = intval($curr_time + ($timeout / 2));
+                $this->sessionHandler->changed = true;
+            }
         }
     }
 
