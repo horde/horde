@@ -9,6 +9,10 @@ v4.1.0-git
 v4.0.5
 ------
 
+=======
+[jan] Don't send notifications for all recurrence exceptions when deleting
+      events.
+[jan] Only send update notifications for local calendars.
 [jan] Re-enable users in drop-down list after revoking permissions (Bug
       #12000).
 [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de,

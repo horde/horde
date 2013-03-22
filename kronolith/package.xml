@@ -2085,6 +2085,8 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Don&apos;t send notifications for all recurrence exceptions when deleting events.
+* [jan] Only send update notifications for local calendars.
 * [jan] Re-enable users in drop-down list after revoking permissions (Bug #12000).
 * [jan] Fix exporting events of a certain time span (piper@hrz.uni-marburg.de, Bug #12074).
 * [mjr] Always populate the meetingstatus property in ActiveSync requests  to avoid issues with some versions of iOS (Bug #12056).
@@ -2108,19 +2110,6 @@
 * [jan] More robust date parsing during event importing (Bug #11916).
 * [jan] Always export year numbers with four digits to CSV (Request #11917).
 * [jan] Fix JavaScript error if Nag is not installed.
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>4.1.0</release>
-    <api>4.1.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-03-19</date>
-   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
-   <notes>
-* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
    </notes>
   </release>
  </changelog>
