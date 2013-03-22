@@ -22,3 +22,5 @@ TODO
 - Extract/Implement a full fledged device object from the state driver.
 
 - Email recurrence related properties for recurring meeting requests.
+
+- Recipient Information Cache: Sync with Turba's favorites source.
