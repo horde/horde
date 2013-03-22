@@ -251,13 +251,13 @@ class Horde_ActiveSync_Sync
                         }
                         if (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE])) {
                             $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
-                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE];
+                            $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE]);
                         } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE])) {
                             $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
-                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE];
+                            $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE]);
                         } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE])) {
                             $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
-                            $message->lastverbexecutiontime = $change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE];
+                            $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE]);
                         }
                         $this->_exporter->messageChange($change['id'], $message);
                         break;
