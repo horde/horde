@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-12</date>
- <time>11:55:35</time>
+ <date>2013-03-22</date>
+ <time>14:46:25</time>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -80,6 +80,7 @@
        <file name="Mail.php" role="php" />
        <file name="MeetingRequest.php" role="php" />
        <file name="Note.php" role="php" />
+       <file name="Picture.php" role="php" />
        <file name="Recurrence.php" role="php" />
        <file name="SendMail.php" role="php" />
        <file name="SendMailSource.php" role="php" />
@@ -359,6 +360,7 @@
    <install as="Horde/ActiveSync/Message/Mail.php" name="lib/Horde/ActiveSync/Message/Mail.php" />
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
+   <install as="Horde/ActiveSync/Message/Picture.php" name="lib/Horde/ActiveSync/Message/Picture.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
    <install as="Horde/ActiveSync/Message/SendMail.php" name="lib/Horde/ActiveSync/Message/SendMail.php" />
    <install as="Horde/ActiveSync/Message/SendMailSource.php" name="lib/Horde/ActiveSync/Message/SendMailSource.php" />
@@ -1273,7 +1275,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-12</date>
+   <date>2013-03-22</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
