@@ -259,6 +259,8 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 
             if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
                 $this->_mapping += array(
+                    self::POOMMAIL_CATEGORIES             => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMMAIL_CATEGORY),
+                    self::POOMMAIL_CATEGORY               => array(self::KEY_ATTRIBUTE => 'category'),
                     self::POOMMAIL2_UMCALLERID            => array(self::KEY_ATTRIBUTE => 'umcallerid'),
                     self::POOMMAIL2_UMUSERNOTES           => array(self::KEY_ATTRIBUTE => 'umusernotes'),
                     self::POOMMAIL2_UMATTDURATION         => array(self::KEY_ATTRIBUTE => 'umattduration'),
