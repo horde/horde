@@ -2416,16 +2416,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $picture = new Horde_ActiveSync_Message_GalPicture(
                     array('protocolversion' => $this->_version, 'logger' => $this->_logger));
                 if (empty($row['photo'])) {
-                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_NONE;
+                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_NONE;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
                           $picture_count > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) {
-                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_MAXCOUNT;
+                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXCOUNT;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) &&
                           strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
-                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_MAXSIZE;
+                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXSIZE;
                 } else {
                     $picture->data = $row['photo'];
-                    $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_SUCCESS;
+                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_SUCCESS;
                     ++$picture_count;
                 }
                 $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
