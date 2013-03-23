@@ -339,6 +339,11 @@ class Horde_Core_ActiveSync_Connector
      *                            requesting AVAILABILITY.
      *  - endtime: (Horde_Date)   The end of the availability window if
      *                            requesting AVAILABILITY.
+     *  - maxsize: (integer)      The maximum size of any pictures.
+     *                            DEFAULT: 0 (No limit).
+     *  - maxpictures: (integer)  The maximum count of images to return.
+     *                            DEFAULT: - (No limit).
+     *  - pictures: (boolean)     Return pictures.
      *
      * @return array  The search results, keyed by the $query.
      */
@@ -359,7 +364,10 @@ class Horde_Core_ActiveSync_Connector
         }
         foreach ($sources as $source) {
             $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
+            if (!empty($opts['pictures'])) {
+                $fields[$source]['photo'];
         }
+
         $options = array(
             'matchBegin' => true,
             'sources' => $sources,
