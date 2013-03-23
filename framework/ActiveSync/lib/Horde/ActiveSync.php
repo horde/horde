@@ -266,6 +266,10 @@ class Horde_ActiveSync
     const IMAP_FLAG_REPLY                       = 'reply';
     const IMAP_FLAG_FORWARD                     = 'forward';
 
+    /* Result Type */
+    const RESOLVE_RESULT_GAL                    = 1;
+    const RESOLVE_RESULT_ADDRESSBOOK            = 2;
+
     /* Maximum number of times we can see the same synckey before we call it an
     infinite loop */
     const MAXIMUM_SYNCKEY_COUNT                 = 10;
