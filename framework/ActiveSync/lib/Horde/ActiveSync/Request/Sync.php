@@ -707,7 +707,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             if ($statusCode == self::STATUS_SUCCESS) {
-                if (!empty($collection['clientids']) || count($collection['fetchids']) > 0 || !empty($collection['missing'])) {
+                if (!empty($collection['clientids']) || !empty($collection['fetchids']) || !empty($collection['missing'])) {
                     $this->_encoder->startTag(Horde_ActiveSync::SYNC_REPLIES);
 
                     // Output any errors from missing messages in REMOVE requests.
