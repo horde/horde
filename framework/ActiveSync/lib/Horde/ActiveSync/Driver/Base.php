@@ -642,9 +642,30 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param string $type    The type of recipient request. e.g., 'certificate'
      * @param string $search  The email to resolve.
-     * @param array $options  Any options required to perform the resolution.
+     * @param array $opts     Any options required to perform the resolution.
+     *  - maxcerts: (integer)     The maximum number of certificates to return
+     *                             as provided by the client.
+     *  - maxambiguous: (integer) The maximum number of ambiguous results. If
+     *                            set to zero, we MUST have an exact match.
+     *  - starttime: (Horde_Date) The start time for the availability window if
+     *                            requesting AVAILABILITY.
+     *  - endtime: (Horde_Date)   The end of the availability window if
+     *                            requesting AVAILABILITY.
+     *  - maxsize: (integer)      The maximum size of any pictures.
+     *                            DEFAULT: 0 (No limit).
+     *  - maxpictures: (integer)  The maximum count of images to return.
+     *                            DEFAULT: - (No limit).
+     *  - pictures: (boolean)     Return pictures.
      *
-     * @return array  The results.
+     * @return array  An array of results containing any of the following:
+     *   - type: (string)  The type of result a GAL entry or personal
+     *                     address book entry. A
+     *                     Horde_ActiveSync::RESOLVE_RESULT constant.
+     *   - displayname: (string)   The display name of the contact.
+     *   - emailaddress: (string)  The emailaddress.
+     *   - entries: (array)        An array of certificates.
+     *   - availability: (string)  A EAS style FB string.
+     *   - picture: (Horde_ActiveSync_Message_ResolveRecipientsPicture)
      */
     abstract public function resolveRecipient($type, $search, array $options = array());
 
