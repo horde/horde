@@ -122,6 +122,23 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     } else {
                         $options[$option] = $this->_decoder->getElementContent();
                     }
+
+                    if ($option == self::TAG_PICTURE) {
+                        $options[self::TAG_PICTURE] = true;
+                        if ($this->_decoder->getElementStartTag(self::TAG_MAXSIZE)) {
+                            $options[self::TAG_MAXSIZE] = $this->_decoder->getElementContent();
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $status = self::STATUS_PROTERR;
+                        }
+                        if ($this->_decoder->getElementStartTag(self::TAG_MAXPICTURES)) {
+                            $options[self::TAG_MAXPICTURES] = $this->_decoder->getElementContent();
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                                $status = self::STATUS_PROTERR;
+                        }
+                    }
+
                     if (!$this->_decoder->getElementEndTag()) {
                         $status = self::STATUS_PROTERR;
                     }
@@ -156,6 +173,9 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     'maxambiguous' => !empty($options[self::TAG_MAXAMBIGUOUSRECIPIENTS]) ? $options[self::TAG_MAXAMBIGUOUSRECIPIENTS] : false,
                     'starttime' => !empty($options[self::TAG_STARTTIME]) ? new Horde_Date($options[self::TAG_STARTTIME], 'utc') : false,
                     'endtime' => !empty($options[self::TAG_ENDTIME]) ? new Horde_Date($options[self::TAG_ENDTIME], 'utc') : false,
+                    'pictures' => !empty($options[self::TAG_PICTURE]);
+                    'maxsize' => !empty($options[self::TAG_MAXSIZE]) ? $options[self::TAG_MAXSIZE] : false,
+                    'maxpictures' => !empty($options[self::TAG_MAXPICTURES]) ? $options[self::TAG_MAXPICTURES] : false,
                 );
                 $results[$item] = $this->_driver->resolveRecipient(
                     isset($options[self::TAG_CERTIFICATERETRIEVAL]) ? 'certificate' : 'availability',
@@ -264,6 +284,16 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     }
                     $this->_encoder->endTag();
                 }
+
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE &&
+                    isset($options[self::TAG_PICTURE]) &&
+                    !empty($value['picture'])) {
+
+                    $this->_encoder->startTag(self::TAG_PICTURE);
+                    $value['picture']->encodeStream($this->_encoder);
+                    $this->_encoder->endTag();
+                }
+
                 $this->_encoder->endTag(); // end self::TAG_RECIPIENT
             }
             $this->_encoder->endTag(); // end self::TAG_RESPONSE
