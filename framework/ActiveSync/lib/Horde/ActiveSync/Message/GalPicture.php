@@ -1,6 +1,6 @@
 <?php
 /**
- * Horde_ActiveSync_Message_Picture::
+ * Horde_ActiveSync_Message_GalPicture::
  *
  * @license   http://www.horde.org/licenses/gpl GPLv2
  *            NOTE: According to sec. 8 of the GENERAL PUBLIC LICENSE (GPL),
@@ -25,7 +25,7 @@
  * @package   ActiveSync
  *
  */
-class Horde_ActiveSync_Message_Picture extends Horde_ActiveSync_Message_Base
+class Horde_ActiveSync_Message_GalPicture extends Horde_ActiveSync_Message_Base
 {
     /**
      * Property mapping
