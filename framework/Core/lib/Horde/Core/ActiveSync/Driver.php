@@ -1797,8 +1797,21 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
      *                            requesting AVAILABILITY.
      *  - endtime: (Horde_Date)   The end of the availability window if
      *                            requesting AVAILABILITY.
+     *  - maxsize: (integer)      The maximum size of any pictures.
+     *                            DEFAULT: 0 (No limit).
+     *  - maxpictures: (integer)  The maximum count of images to return.
+     *                            DEFAULT: - (No limit).
+     *  - pictures: (boolean)     Return pictures.
      *
-     * @return array
+     * @return array  An array of results containing any of the following:
+     *   - type: (string)  The type of result a GAL entry or personal
+     *                     address book entry. A
+     *                     Horde_ActiveSync::RESOLVE_RESULT constant.
+     *   - displayname: (string)   The display name of the contact.
+     *   - emailaddress: (string)  The emailaddress.
+     *   - entries: (array)        An array of certificates.
+     *   - availability: (string)  A EAS style FB string.
+     *   - picture: (Horde_ActiveSync_Message_ResolveRecipientsPicture)
      */
     public function resolveRecipient($type, $search, array $opts = array())
     {
@@ -1809,19 +1822,44 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
 
             if (count($results) && isset($results[$search])) {
                 $gal = $this->_connector->contacts_getGal();
+                $picture_count = 0;
                 foreach ($results[$search] as $result) {
-                    $return[] = array(
+                    if (!empty($opts['pictures']) {
+                        $picture = new Horde_ActiveSync_Message_ResolveRecipientsPicture(
+                            array('protocolversion' => $this->_version, 'logger' => $this->_logger));
+                        if (empty($result['photo'])) {
+                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_NONE;
+                        } elseif (!empty($opts['maxpictures']) &&
+                                  $picture_count > $opts['maxpictures']) {
+                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXCOUNT;
+                        } elseif (!empty($opts['maxsize']) &&
+                                  strlen($result['photo']) > $query['maxsize']) {
+                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXSIZE;
+                        } else {
+                            $picture->data = $result['photo'];
+                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_SUCCESS;
+                            ++$picture_count;
+                        }
+                        $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
+                    }
+                    $result = array(
                         'displayname' => $result['name'],
                         'emailaddress' => $result['email'],
                         'entries' => array($this->_mungeCert($result['smimePublicKey'])),
-                        'type' => $result['source'] == $gal ? 1 : 2
+                        'type' => $result['source'] == $gal ? Horde_ActiveSync::RESOLVE_RESULT_GAL : Horde_ActiveSync::RESOLVE_RESULT_ADDRESSBOOK,
+                        'picture' => !empty($picture) ? $picture : null
                     );
+                    $return[] = $result;
                 }
             }
+
         } else {
             $options = array(
                 'maxcerts' => 0,
-                'maxambiguous' => $opts['maxambiguous']
+                'maxambiguous' => $opts['maxambiguous'],
+                'maxsize' => !empty($opts['maxsize']) ? $opts['maxsize'] : null,
+                'maxpictures' => !empty($opts['maxpictures']) ? $opts['maxpictures'] : null,
+                'pictures' => !empty($opts['pictures'])
             );
             $entry = current($this->resolveRecipient('certificate', $search, $options));
             $opts['starttime']->setTimezone(date_default_timezone_get());
