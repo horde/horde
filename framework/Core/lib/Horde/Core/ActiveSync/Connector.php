@@ -302,7 +302,7 @@ class Horde_Core_ActiveSync_Connector
      *
      * @param string $query   The search string.
      * @param array $options  Additional options:
-     *   - photos: (boolean) Include photos in results.
+     *   - pictures: (boolean) Include photos in results.
      *             DEFAULT: false (Do not include photos).
      *
      * @return array  The search results.
@@ -312,7 +312,7 @@ class Horde_Core_ActiveSync_Connector
         $gal = $this->contacts_getGal();
         if (!empty($gal)) {
             $fields = array($gal => array('firstname', 'lastname', 'alias', 'name', 'email', 'office'));
-            if (!empty($options['photos'])) {
+            if (!empty($options['pictures'])) {
                 $fields[$gal][] = 'photo';
             }
             $opts = array(
