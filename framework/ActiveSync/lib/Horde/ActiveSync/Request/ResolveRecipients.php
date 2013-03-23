@@ -173,7 +173,7 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
                     'maxambiguous' => !empty($options[self::TAG_MAXAMBIGUOUSRECIPIENTS]) ? $options[self::TAG_MAXAMBIGUOUSRECIPIENTS] : false,
                     'starttime' => !empty($options[self::TAG_STARTTIME]) ? new Horde_Date($options[self::TAG_STARTTIME], 'utc') : false,
                     'endtime' => !empty($options[self::TAG_ENDTIME]) ? new Horde_Date($options[self::TAG_ENDTIME], 'utc') : false,
-                    'pictures' => !empty($options[self::TAG_PICTURE]);
+                    'pictures' => !empty($options[self::TAG_PICTURE]),
                     'maxsize' => !empty($options[self::TAG_MAXSIZE]) ? $options[self::TAG_MAXSIZE] : false,
                     'maxpictures' => !empty($options[self::TAG_MAXPICTURES]) ? $options[self::TAG_MAXPICTURES] : false,
                 );
