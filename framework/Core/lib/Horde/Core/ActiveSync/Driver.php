@@ -1824,7 +1824,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $gal = $this->_connector->contacts_getGal();
                 $picture_count = 0;
                 foreach ($results[$search] as $result) {
-                    if (!empty($opts['pictures']) {
+                    if (!empty($opts['pictures'])) {
                         $picture = new Horde_ActiveSync_Message_ResolveRecipientsPicture(
                             array('protocolversion' => $this->_version, 'logger' => $this->_logger));
                         if (empty($result['photo'])) {

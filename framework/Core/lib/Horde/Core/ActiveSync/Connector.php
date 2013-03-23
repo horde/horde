@@ -366,6 +366,7 @@ class Horde_Core_ActiveSync_Connector
             $fields[$source] = array('name', 'email', 'alias', 'smimePublicKey');
             if (!empty($opts['pictures'])) {
                 $fields[$source]['photo'];
+            }
         }
 
         $options = array(
