@@ -2375,7 +2375,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 Horde_ActiveSync::GAL_OFFICE => !empty($row['office']) ? $row['office'] : '',
             );
             if (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_PICTURE])) {
-                $picture = new Horde_ActiveSync_Message_Picture(
+                $picture = new Horde_ActiveSync_Message_GalPicture(
                     array('protocolversion' => $this->_version, 'logger' => $this->_logger));
                 if (empty($row['photo'])) {
                     $picture->status = Horde_ActiveSync::GAL_PICTURE_STATUS_NONE;
