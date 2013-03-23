@@ -207,10 +207,10 @@ class Horde_ActiveSync
     const GAL_STATUS                            = 'GAL:Status';
     const GAL_DATA                              = 'GAL:Data';
 
-    const GAL_PICTURE_STATUS_SUCCESS            = 1;
-    const GAL_PICTURE_STATUS_NONE               = 173;
-    const GAL_PICTURE_STATUS_MAXSIZE            = 174;
-    const GAL_PICTURE_STATUS_MAXCOUNT           = 175;
+    const PICTURE_STATUS_SUCCESS            = 1;
+    const PICTURE_STATUS_NONE               = 173;
+    const PICTURE_STATUS_MAXSIZE            = 174;
+    const PICTURE_STATUS_MAXCOUNT           = 175;
 
     /* Request Type */
     const REQUEST_TYPE_SYNC                     = 'sync';
