@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-03-23</date>
- <time>12:21:37</time>
+ <time>18:43:00</time>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -82,6 +82,7 @@
        <file name="MeetingRequest.php" role="php" />
        <file name="Note.php" role="php" />
        <file name="Recurrence.php" role="php" />
+       <file name="ResolveRecipientsPicture.php" role="php" />
        <file name="SendMail.php" role="php" />
        <file name="SendMailSource.php" role="php" />
        <file name="Task.php" role="php" />
@@ -362,6 +363,7 @@
    <install as="Horde/ActiveSync/Message/MeetingRequest.php" name="lib/Horde/ActiveSync/Message/MeetingRequest.php" />
    <install as="Horde/ActiveSync/Message/Note.php" name="lib/Horde/ActiveSync/Message/Note.php" />
    <install as="Horde/ActiveSync/Message/Recurrence.php" name="lib/Horde/ActiveSync/Message/Recurrence.php" />
+   <install as="Horde/ActiveSync/Message/ResolveRecipientsPicture.php" name="lib/Horde/ActiveSync/Message/ResolveRecipientsPicture.php" />
    <install as="Horde/ActiveSync/Message/SendMail.php" name="lib/Horde/ActiveSync/Message/SendMail.php" />
    <install as="Horde/ActiveSync/Message/SendMailSource.php" name="lib/Horde/ActiveSync/Message/SendMailSource.php" />
    <install as="Horde/ActiveSync/Message/Task.php" name="lib/Horde/ActiveSync/Message/Task.php" />
