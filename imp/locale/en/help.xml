@@ -333,13 +333,6 @@
         </para>
     </entry>
 
-    <entry id="pgp-personalkey-create-keylength">
-        <title>PGP: Preferences: Create Personal Key: Keylength</title>
-        <para>
-            The keylength, in bits, of your generated key. The greater the value, the greater the protection (but will take significantly longer to generate). 1024 bits should be sufficient for most users.
-        </para>
-    </entry>
-
     <entry id="pgp-personalkey-create-passphrase">
         <title>PGP: Preferences: Create Personal Key: Passphrase</title>
         <para>

@@ -32,7 +32,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
      */
     public function display(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $page_output, $prefs, $session;
+        global $conf, $injector, $page_output, $prefs, $session;
 
         $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
@@ -86,9 +86,11 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                 $view->fullname = $imp_identity->getFullname();
                 $view->fromaddr = $imp_identity->getFromAddress()->bare_address;
 
-                $page_output->addInlineScript(array(
-                    '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
-                ), true);
+                if (!empty($conf['pgp']['keylength'])) {
+                    $page_output->addInlineScript(array(
+                        '$("create_pgp_key").observe("click", function(e) { if (!window.confirm(' . Horde_Serialize::serialize(_("Key generation may take a long time to complete.  Continue with key generation?"), Horde_Serialize::JSON, 'UTF-8') . ')) { e.stop(); } })'
+                    ), true);
+                }
 
                 if ($session->get('imp', 'file_upload')) {
                     $view->import_pgp_private = true;
@@ -106,12 +108,15 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
      */
     public function update(Horde_Core_Prefs_Ui $ui)
     {
-        global $injector, $notification;
+        global $conf, $injector, $notification;
+
+        $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
 
         if (isset($ui->vars->delete_pgp_privkey)) {
-            $injector->getInstance('IMP_Crypt_Pgp')->deletePersonalKeys();
+            $imp_pgp->deletePersonalKeys();
             $notification->push(_("Personal PGP keys deleted successfully."), 'horde.success');
-        } elseif (isset($ui->vars->create_pgp_key)) {
+        } elseif (isset($ui->vars->create_pgp_key) &&
+                  !empty($conf['pgp']['keylength'])) {
             /* Sanity checking for email address. */
             try {
                 $email = IMP::parseAddressList($ui->vars->generate_email, array(
@@ -139,7 +144,14 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                     : ($ui->vars->generate_expire_date / 1000);
 
                 try {
-                    $injector->getInstance('IMP_Crypt_Pgp')->generatePersonalKeys($ui->vars->generate_realname, $email[0]->bare_address, $ui->vars->generate_passphrase1, $ui->vars->generate_comment, $ui->vars->generate_keylength, $expire_date);
+                    $imp_pgp->generatePersonalKeys(
+                        $ui->vars->generate_realname,
+                        $email[0]->bare_address,
+                        $ui->vars->generate_passphrase1,
+                        $ui->vars->generate_comment,
+                        $conf['pgp']['keylength'],
+                        $expire_date
+                    );
                     $notification->push(_("Personal PGP keypair generated successfully."), 'horde.success');
                 } catch (Exception $e) {
                     $notification->push($e);
@@ -147,14 +159,13 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
             }
         } elseif (isset($ui->vars->send_pgp_key)) {
             try {
-                $imp_pgp = $injector->getInstance('IMP_Crypt_Pgp');
                 $imp_pgp->sendToPublicKeyserver($imp_pgp->getPersonalPublicKey());
                 $notification->push(_("Key successfully sent to the public keyserver."), 'horde.success');
             } catch (Exception $e) {
                 $notification->push($e);
             }
         } elseif (isset($ui->vars->unset_pgp_passphrase)) {
-            $injector->getInstance('IMP_Crypt_Pgp')->unsetPassphrase('personal');
+            $imp_pgp->unsetPassphrase('personal');
             $notification->push(_("PGP passphrase successfully unloaded."), 'horde.success');
         }
 

@@ -75,6 +75,10 @@ configured per-backend in ``config/backends.local.php``::
    $conf['spam']['reporting']
    $conf['spam']['spamfolder']
 
+The following options have been added::
+
+   $conf['pgp']['keylength']
+
 The following options have been removed::
 
    $conf['compose']['link_all_attachments']

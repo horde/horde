@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add PGP keylength configuration option (Request #12099).
 [mjr] Expose the Maillog via the public API.
 [mms] Better handling of flag change attempts when browser cached state
       (dynamic/smartmobile view) is different than the server state.
