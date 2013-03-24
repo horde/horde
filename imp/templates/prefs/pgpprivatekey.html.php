@@ -88,8 +88,9 @@
     </td>
     <td>
      <select id="generate_keylength" name="generate_keylength">
-      <option value="1024">1024</option>
-      <option value="2048">2048</option>
+      <option value="1024"<?php if($this->default_keylength == 1024){echo 'selected';} ?>>1024</option>
+      <option value="2048"<?php if($this->default_keylength == 2048){echo 'selected';} ?>>2048</option>
+      <option value="4096"<?php if($this->default_keylength == 4096){echo 'selected';} ?>>4096</option>
      </select>
     </td>
     <td>
