@@ -231,6 +231,43 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testDuplicateRemoval()
+    {
+        $folder = $this->_getFolderBase(
+            array(
+                'user/test/History' => array(
+                    'a' => array(
+                        '/shared/vendor/kolab/folder-type' => 'note.default',
+                        '/shared/vendor/horde/share-params' => base64_encode(serialize(array('share_name' => 'internal_id')))
+                    ),
+                    'm' => array(
+                        1 => array('file' => __DIR__ . '/../../../../fixtures/note.eml'),
+                        2 => array('file' => __DIR__ . '/../../../../fixtures/note.eml'),
+                    ),
+                )
+            )
+        );
+
+        $data = $folder->getData('INBOX/History');
+        $data_query = $data->getQuery(Horde_Kolab_Storage_Data::QUERY_HISTORY);
+
+        $data_query->synchronize();
+        $data->delete('ABC1234');
+
+        // ensure no 'delete' was issued
+        $this->assertEquals(
+            0,
+            count($this->history->getByTimestamp('>', 0, array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'delete'
+                    )
+                ))
+            )
+        );
+    }
+
     private function _getData()
     {
         return $this->_getFolder()->getData('INBOX/History');
