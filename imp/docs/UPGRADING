@@ -108,7 +108,6 @@ word checking code that previously was provided as an example in the
 
 The following hooks have been added::
 
-   link_attach_vfs
    mbox_acl
    msg_filter
 

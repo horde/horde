@@ -21,12 +21,11 @@
  * @package   IMP
  *
  * @property-read boolean $linked  Should this attachment be linked?
+ * @property-read Horde_Url $link_url  The URL, if the attachment is linked.
+ * @property-read IMP_Compose_Attachment_Storage $storage  The storage object.
  */
 class IMP_Compose_Attachment implements Serializable
 {
-    /* The virtual path to use for VFS data. */
-    const VFS_ATTACH_PATH = '.horde/imp/compose';
-
     /**
      * Attachment ID.
      *
@@ -40,13 +39,6 @@ class IMP_Compose_Attachment implements Serializable
      * @var boolean
      */
     public $related = false;
-
-    /**
-     * The VFS filename.
-     *
-     * @var string
-     */
-    public $vfsname = null;
 
     /**
      * Compose object cache ID.
@@ -63,6 +55,13 @@ class IMP_Compose_Attachment implements Serializable
     protected $_isBuilt = false;
 
     /**
+     * Should this attachment be linked?
+     *
+     * @var boolean
+     */
+    protected $_linked = false;
+
+    /**
      * MIME part object.
      *
      * @var Horde_Mime_Part
@@ -75,6 +74,13 @@ class IMP_Compose_Attachment implements Serializable
      * @var string
      */
     protected $_tmpfile = null;
+
+    /**
+     * The unique identifier for the file.
+     *
+     * @var string
+     */
+    protected $_uuid = null;
 
     /**
      * Constructor.
@@ -96,12 +102,17 @@ class IMP_Compose_Attachment implements Serializable
      */
     public function __get($name)
     {
-        global $conf;
+        global $injector;
 
         switch ($name) {
         case 'linked':
-            return (!empty($conf['compose']['link_attachments']) &&
-                    ($this->_part->getBytes() > intval($conf['compose']['link_attach_threshold'])));
+            return $this->_linked;
+
+        case 'link_url':
+            return $this->storage->link_url;
+
+        case 'storage':
+            return $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, $this->_uuid);
         }
     }
 
@@ -116,25 +127,10 @@ class IMP_Compose_Attachment implements Serializable
     public function getPart($build = false)
     {
         if ($build && !$this->_isBuilt) {
-            if (!is_null($this->_tmpfile)) {
-                $data = fopen($this->_tmpfile, 'r');
-                $stream = true;
-            } else {
-                try {
-                    $vfs = $GLOBALS['injector']->getInstance('IMP_ComposeVfs');
-                    if (method_exists($vfs, 'readStream')) {
-                        $data = $vfs->readStream(self::VFS_ATTACH_PATH, $this->vfsname);
-                        $stream = true;
-                    } else {
-                        $data = $vfs->read(self::VFS_ATTACH_PATH, $this->vfsname);
-                        $stream = false;
-                    }
-                } catch (Horde_Vfs_Exception $e) {
-                    throw new IMP_Compose_Exception($e);
-                }
-            }
-
-            $this->_part->setContents($data, array('stream' => $stream));
+            $data = is_null($this->_tmpfile)
+                ? $this->storage->read()
+                : fopen($this->_tmpfile, 'r');
+            $this->_part->setContents($data, array('stream' => true));
             $this->_isBuilt = true;
         }
 
@@ -148,11 +144,13 @@ class IMP_Compose_Attachment implements Serializable
     {
         $this->_tmpfile = null;
 
-        if (!is_null($this->vfsname)) {
-            try {
-                $GLOBALS['injector']->getInstance('IMP_ComposeVfs')->deleteFile(self::VFS_ATTACH_PATH, $this->vfsname);
-            } catch (Horde_Vfs_Exception $e) {}
-            $this->vfsname = null;
+        if (!is_null($this->_uuid)) {
+            if (!$this->linked) {
+                try {
+                    $this->storage->delete();
+                } catch (Exception $e) {}
+            }
+            $this->_uuid = null;
         }
     }
 
@@ -170,30 +168,13 @@ class IMP_Compose_Attachment implements Serializable
         ));
     }
 
-    /**
-     * Create a linked attachment object from attachment data.
-     *
-     * @return IMP_Compose_LinkedAttachment  Linked attachment object.
-     * @throws IMP_Exception
-     */
-    public function createLinkedAtc()
-    {
-        $ob = new IMP_Compose_LinkedAttachment(
-            $GLOBALS['registry']->getAuth(),
-            strval(new Horde_Support_Uuid())
-        );
-        $ob->save($this);
-
-        return $ob;
-    }
-
     /* Serializable methods. */
 
     /**
      */
     public function serialize()
     {
-        /* Don't store Mime_Part data. Can't use clone here ATTM, since there
+        /* Don't store Mime_Part data. Can't use clone here ATM, since there
          * appears to be a PHP bug. Since this is an object specific to IMP
          * (and we are only using in a certain predictable way), it should
          * be ok to directly alter the MIME part object without any ill
@@ -202,22 +183,23 @@ class IMP_Compose_Attachment implements Serializable
         $this->_isBuilt = false;
 
         if (!is_null($this->_tmpfile)) {
-            try {
-                $this->vfsname = strval(new Horde_Support_Randomid());
-                $GLOBALS['injector']->getInstance('IMP_ComposeVfs')->write(self::VFS_ATTACH_PATH, $this->vfsname, $this->_tmpfile, true);
-            } catch (Horde_Vfs_Exception $e) {
-                throw new IMP_Compose_Exception($e);
-            }
-
+            $this->_uuid = strval(new Horde_Support_Uuid());
+            $atc = $this->storage;
+            $atc->write($this->_tmpfile, $this->getPart());
+            /* Need to save this information now, since it is possible that
+             * storage backends change their linked status based on the data
+             * written to the backend. */
+            $this->_linked = $atc->linked;
             $this->_tmpfile = null;
         }
 
         return serialize(array(
             'c' => $this->_composeCache,
             'i' => $this->id,
+            'l' => $this->_linked,
             'p' => $this->_part,
             'r' => $this->related,
-            'v' => $this->vfsname
+            'u' => $this->_uuid
         ));
     }
 
@@ -229,9 +211,10 @@ class IMP_Compose_Attachment implements Serializable
 
         $this->_composeCache = $data['c'];
         $this->id = $data['i'];
+        $this->_linked = $data['l'];
         $this->_part = $data['p'];
         $this->related = !empty($data['r']);
-        $this->vfsname = $data['v'];
+        $this->_uuid = $data['u'];
     }
 
 }

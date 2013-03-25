@@ -45,13 +45,15 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
             $injector->getInstance('IMP_Prefs_Sort')->gc();
         } catch (Exception $e) {}
 
-        /* Do garbage collection on sentmail entries. */
-        $injector->getInstance('IMP_Sentmail')->gc();
+        /* Only do these tasks as admin, or else they are duplicative across
+         * all users. */
+        if ($registry->isAdmin()) {
+            /* Do garbage collection on sentmail entries. */
+            $injector->getInstance('IMP_Sentmail')->gc();
 
-        /* Do garbage collection on compose VFS data. */
-        try {
-            Horde_Vfs_Gc::gc($injector->getInstance('IMP_ComposeVfs'), IMP_Compose_Attachment::VFS_ATTACH_PATH, 86400);
-        } catch (Horde_Vfs_Exception $e) {}
+            /* Do garbage collection on compose VFS data. */
+            $injector->getInstance('IMP_Factory_ComposeAtc')->create(null, null, 'atc')->gc();
+        }
     }
 
 }

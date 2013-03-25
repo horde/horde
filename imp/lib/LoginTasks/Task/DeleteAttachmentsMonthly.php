@@ -7,6 +7,7 @@
  * @license  http://www.horde.org/licenses/gpl GPL
  * @package  IMP
  */
+
 /**
  * Login tasks module that deletes old linked attachments.
  *
@@ -33,18 +34,15 @@ class IMP_LoginTasks_Task_DeleteAttachmentsMonthly extends Horde_LoginTasks_Task
     }
 
     /**
-     * Purges the old linked attachment folders.
+     * Purges the old linked attachments.
      *
-     * @return boolean  Whether any old attachments were deleted.
+     * @return boolean  True.
      */
     public function execute()
     {
-        try {
-            $link_attach = new IMP_Compose_LinkedAttachment($GLOBALS['registry']->getAuth());
-            return $link_attach->clean();
-        } catch (Horde_Vfs_Exception $e) {
-            return false;
-        }
+        $GLOBALS['injector']->getInstance('IMP_Factory_ComposeAtc')->create(null, null, 'linked')->gc();
+
+        return true;
     }
 
     /**

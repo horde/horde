@@ -2494,7 +2494,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 $r_atc = $this[$node->getAttribute(self::RELATED_ATTR_ID)];
 
                 if ($r_atc->linked) {
-                    $attr = strval($r_atc->createLinkedAtc()->getUrl());
+                    $attr = strval($r_atc->link_url);
                 } else {
                     $related_part = $r_atc->getPart(true);
                     $attr = 'cid:' . $related_part->setContentId();
@@ -2555,7 +2555,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $apart = $val->getPart();
             $name = $apart->getName(true);
             $size = IMP::sizeFormat($apart->getBytes());
-            $url = strval($val->createLinkedAtc()->getUrl()->setRaw(true));
+            $url = strval($val->link_url->setRaw(true));
 
             $body .= "\n" . ++$i . '. ' .
                 $name .' (' . $size . ') [' . $apart->getType() . "]\n" .
