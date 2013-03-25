@@ -831,6 +831,7 @@ var ImpMobile = {
         case 'forward_auto':
             func = 'smartmobileGetForwardData';
             cache = '#imp-compose-cache';
+            params.format = 'text';
             break;
 
         case 'forward_redirect':

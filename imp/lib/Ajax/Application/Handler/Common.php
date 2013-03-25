@@ -314,6 +314,8 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      * See the list of variables needed for checkUidvalidity().
      * Mailbox/indices form parameters needed.  Additional variables used:
      *   - dataonly: (boolean) Only return data information (DEFAULT: false).
+     *   - format: (string) The format to force to ('text' or 'html')
+     *             (DEFAULT: Auto-determined).
      *   - imp_compose: (string) The IMP_Compose cache identifier.
      *   - type: (string) Forward type.
      *
@@ -323,6 +325,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *   - format: (string) Either 'text' or 'html'.
      *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
+     *   - opts: (array) Additional options needed for DimpCompose.fillForm().
      *   - type: (string) The input 'type' value.
      */
     public function getForwardData()
@@ -335,7 +338,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
         try {
             $compose = $this->_base->initCompose();
 
-            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents);
+            $fwd_msg = $compose->compose->forwardMessage($compose->ajax->forward_map[$this->vars->type], $compose->contents, true, array(
+                'format' => $this->vars->format
+            ));
 
             if ($this->vars->dataonly) {
                 $result = $compose->ajax->getBaseResponse();

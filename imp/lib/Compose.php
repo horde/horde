@@ -1900,15 +1900,20 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *                                constant).
      * @param IMP_Contents $contents  An IMP_Contents object.
      * @param boolean $attach         Attach the forwarded message?
+     * @param array $opts             Additional options:
+     *   - format: (string) Force to this format.
+     *             DEFAULT: Auto-determine.
      *
      * @return array  An array with the following keys:
+     *   - attach: (boolean) True if original message was attached.
      *   - body: (string) The text of the body part.
      *   - format: (string) The format of the body message ('html', 'text').
      *   - headers: (array) The list of headers to add to the outgoing message.
      *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
      *   - type: (integer) - The compose type.
      */
-    public function forwardMessage($type, $contents, $attach = true)
+    public function forwardMessage($type, $contents, $attach = true,
+                                   array $opts = array())
     {
         /* The headers of the message. */
         $header = array(
@@ -1960,15 +1965,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $header['subject'] = 'Fwd:';
         }
 
+        $fwd_attach = false;
         if ($attach &&
             in_array($type, array(self::FORWARD_ATTACH, self::FORWARD_BOTH))) {
             try {
                 $this->attachImapMessage(new IMP_Indices($contents));
+                $fwd_attach = true;
             } catch (IMP_Exception $e) {}
         }
 
         if (in_array($type, array(self::FORWARD_BODY, self::FORWARD_BOTH))) {
-            $ret = $this->forwardMessageText($contents);
+            $ret = $this->forwardMessageText($contents, array(
+                'format' => isset($opts['format']) ? $opts['format'] : null
+            ));
             unset($ret['charset']);
         } else {
             $ret = array(
@@ -1978,6 +1987,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         return array_merge(array(
+            'attach' => $fwd_attach,
             'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h),
             'type' => $type

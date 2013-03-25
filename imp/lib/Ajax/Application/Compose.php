@@ -78,6 +78,10 @@ class IMP_Ajax_Application_Compose
         $ob->header = $result['headers'];
         $ob->identity = $result['identity'];
 
+        if ($result['attach']) {
+            $ob->opts->attach = 1;
+        }
+
         if ($search = array_search($result['type'], $this->reply_map)) {
             if ($this->_type == 'reply_auto') {
                 $ob->opts->auto = $search;

@@ -44,9 +44,13 @@ class IMP_Ajax_Application_Handler_Smartmobile extends Horde_Core_Ajax_Applicati
      */
     public function smartmobileGetForwardData()
     {
-        $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+        $result = $this->_base->callAction('getForwardData');
 
-        return $this->_base->callAction('getForwardData');
+        if ($result && $result->opts->attach) {
+            $GLOBALS['notification']->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
+        }
+
+        return $result;
     }
 
     /**
