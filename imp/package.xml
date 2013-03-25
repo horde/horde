@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Use more efficient date sorting algorithm as the default choice.
 * [mms] Fix printing quoted text when viewing a list message.
 * [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
 * [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
@@ -2944,6 +2945,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] Use more efficient date sorting algorithm as the default choice.
 * [mms] Fix printing quoted text when viewing a list message.
 * [mms] Use Horde_Css_Parser package, which is compatible with CSS3 declarations, instead of the unmaintained Horde_Text_Filter_Csstidy code.
 * [mms] Fix verifying signed &amp; encrypted PGP messages (Bug #12100).
