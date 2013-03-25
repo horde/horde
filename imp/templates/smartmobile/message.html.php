@@ -39,8 +39,8 @@
    <h3 class="ui-title">
     <?php echo _("Are you sure you wish to report this message as innocent?") ?>
    </h3>
-   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
-   <a href="#message-innocent-confirm" data-role="button" data-inline="true" data-theme="b">Report</a>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Cancel") ?></a>
+   <a href="#message-innocent-confirm" data-role="button" data-inline="true" data-theme="b"><?php echo _("Report") ?></a>
   </div>
  </div>
 <?php endif; ?>
@@ -54,8 +54,8 @@
    <h3 class="ui-title">
     <?php echo _("Are you sure you wish to report this message as spam?") ?>
    </h3>
-   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c">Cancel</a>
-   <a href="#message-spam-confirm" data-role="button" data-inline="true" data-theme="b">Report</a>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Cancel") ?></a>
+   <a href="#message-spam-confirm" data-role="button" data-inline="true" data-theme="b"><?php echo _("Report") ?></a>
   </div>
  </div>
 <?php endif; ?>
