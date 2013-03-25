@@ -268,6 +268,45 @@ extends Horde_Kolab_Storage_TestCase
         );
     }
 
+    public function testModifyActionOnObjectRecreation()
+    {
+        $data = $this->_getData();
+        $object_data = $data->getObject('ABC1234')->getData();
+
+        $data->delete('ABC1234');
+
+        $this->assertEquals(
+            array(
+                'mnemo:internal_id:ABC1234' => 3
+            ),
+            $this->history->getByTimestamp(
+                '>',
+                time() - 10,
+                array(
+                    array(
+                        'field' => 'action',
+                        'op' => '=',
+                        'value' => 'delete'
+                    )
+                )
+            )
+        );
+
+        // Re-add object. This should result in an 'add' action
+        $data->create($object_data);
+
+        $log = $this->history->getHistory('mnemo:internal_id:ABC1234');
+        $found_add = false;
+        foreach ($log as $entry) {
+            if ($entry['action'] == 'add') {
+                // ensure logged IMAP uid increased on re-add
+                $this->assertEquals(3, $entry['bid']);
+                $found_add = true;
+            }
+        }
+        $this->assertEquals(true, $found_add);
+    }
+
     private function _getData()
     {
         return $this->_getFolder()->getData('INBOX/History');
