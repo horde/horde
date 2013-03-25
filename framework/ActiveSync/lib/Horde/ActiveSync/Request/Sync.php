@@ -490,7 +490,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     $sync = $this->_getSyncObject();
                     try {
-                        $sync->init($this->_stateDriver, null, array(), true);
+                        $sync->init($this->_stateDriver, null, $collection, true);
                     } catch (Horde_ActiveSync_Expcetion_StaleState $e) {
                         $this->_logger->err(sprintf(
                             '[%s] SYNC terminating and force-clearing device state: %s',
