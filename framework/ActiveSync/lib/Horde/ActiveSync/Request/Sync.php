@@ -419,7 +419,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
         } // End of non-empty SYNC request.
 
-        // If this is 12.1, see if we want a looping SYNC.
+        // If this is >= 12.1, see if we want a looping SYNC.
         if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVEONE &&
             $this->_statusCode == self::STATUS_SUCCESS &&
             !$this->_importedChanges &&
@@ -566,7 +566,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
             }
 
             $this->_logger->debug(sprintf(
-                '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',
+                '[%s] Looping Sync complete: DataAvailable: %s, DataImported: %s',
                 $this->_procid,
                 $dataavailable,
                 $this->_importedChanges)
