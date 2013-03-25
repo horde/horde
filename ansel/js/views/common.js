@@ -101,11 +101,17 @@ var AnselGalleryView = {
     {
         $('anselgallery_select_all').observe('click', AnselGalleryView.selectAll);
         $('anselgallery_select_none').observe('click', AnselGalleryView.selectNone);
-        $('anselgallery_download').observe('click', AnselGalleryView.downloadSelected);
-        $('anselgallery_editdates').observe('click', AnselGalleryView.editDates);
-        $('anselgallery_move').observe('click', AnselGalleryView.moveSelected);
-        $('anselgallery_copy').observe('click', AnselGalleryView.copySelected);
-        $('anselgallery_delete').observe('click', AnselGalleryView.deleteSelected);
+        if ($('anselgallery_download')) {
+            $('anselgallery_download').observe('click', AnselGalleryView.downloadSelected);
+        }
+        if (Ansel.has_edit) {
+            $('anselgallery_editdates').observe('click', AnselGalleryView.editDates);
+            $('anselgallery_copy').observe('click', AnselGalleryView.copySelected);
+        }
+        if (Ansel.has_delete) {
+            $('anselgallery_move').observe('click', AnselGalleryView.moveSelected);
+            $('anselgallery_delete').observe('click', AnselGalleryView.deleteSelected);
+        }
     }
 };
 
