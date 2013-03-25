@@ -521,7 +521,7 @@ class Horde_ActiveSync_SyncCache
             if (!isset($values['mimesupport']) && isset($this->_data['collections'][$values['id']]['mimesupport'])) {
                 $collections[$key]['mimesupport'] = $this->_data['collections'][$values['id']]['mimesupport'];
             }
-            if (!isset($values['bodyprefs']) && isset($this->_data['collections'][$values['id']]['bodyprefs'])) {
+            if (empty($values['bodyprefs']) && isset($this->_data['collections'][$values['id']]['bodyprefs'])) {
                 $collections[$key]['bodyprefs'] = $this->_data['collections'][$values['id']]['bodyprefs'];
             }
 
