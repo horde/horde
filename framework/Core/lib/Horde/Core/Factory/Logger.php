@@ -130,14 +130,14 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
     /**
      * Queue log entries to output once the framework is initialized.
      */
-    static public function queue($event, $priority, $options)
+    static public function queue(Horde_Core_Log_Object $ob)
     {
         if (!isset(self::$_queue)) {
             self::$_queue = array();
             register_shutdown_function(array(__CLASS__, 'processQueue'));
         }
 
-        self::$_queue[] = array($event, $priority, $options);
+        self::$_queue[] = $ob;
     }
 
     /**
@@ -154,7 +154,7 @@ class Horde_Core_Factory_Logger extends Horde_Core_Factory_Injector
         }
 
         foreach (self::$_queue as $val) {
-            call_user_func_array(array($logger, 'log'), $val);
+            $logger->logObject($val);
         }
 
         self::$_queue = array();
