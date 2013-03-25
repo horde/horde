@@ -869,6 +869,9 @@ class Horde_ActiveSync
                     break;
                 case 'SP':
                     $results['DeviceType'] = 'SmartPhone';
+                    break;
+                case 'WP':
+                    $results['DeviceType'] = 'WindowsPhone';
                 }
                 $results['Cmd'] = $this->_commandMap[$decoded['Command']];
                 if (isset($decoded['AttachmentName'])) {
