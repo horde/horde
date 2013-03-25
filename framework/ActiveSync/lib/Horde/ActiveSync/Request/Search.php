@@ -230,6 +230,18 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                         return false;
                     }
                 }
+                // EAS 14.1 RIGHTSMANAGEMENT. Value is discarded as it makes no
+                // sense outside an Exchange environment.
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
+                        $rm = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleError($collection);
+                            exit;
+                        }
+                    }
+                }
                 $e = $this->_decoder->peek();
                 if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                     $this->_decoder->getElementEndTag();

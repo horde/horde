@@ -228,6 +228,8 @@ class Horde_ActiveSync
     const CHANGE_REPLYALL_STATE                 = '@--replyall--@';
     const CHANGE_FORWARD_STATE                  = '@--forward--@';
 
+    /* RM */
+    const RM_SUPPORT                            = 'RightsManagement:RightsManagementSupport';
 
     /* Collection Classes */
     const CLASS_EMAIL                           = 'Email';

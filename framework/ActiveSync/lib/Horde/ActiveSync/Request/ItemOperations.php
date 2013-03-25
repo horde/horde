@@ -156,6 +156,14 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                     }
                                 }
                                 break;
+                            case Horde_ActiveSync::RM_SUPPORT:
+                                $thisio['rightsmanagement'] = $this->_decoder->getElementContent();
+                                if (!$this->_decoder->getElementEndTag()) {
+                                    $this->_statusCode = self::STATUS_PROTERROR;
+                                    $this->_handleError($collection);
+                                    exit;
+                                }
+                                break;
                             }
                         }
                     } elseif ($reqtag == self::ITEMOPERATIONS_STORE) {
