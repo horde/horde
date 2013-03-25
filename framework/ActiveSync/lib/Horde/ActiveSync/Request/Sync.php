@@ -1062,7 +1062,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
         } catch (Horde_ActiveSync_Exception_StateGone $e) {
             $this->_logger->err('State not found sending STATUS_KEYMISM');
             $this->_statusCode = self::STATUS_KEYMISM;
-            $this->_handleGlobalSyncError();
+            $this->_handleError($collection);
             return false;
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_statusCode = self::STATUS_SERVERERROR;
