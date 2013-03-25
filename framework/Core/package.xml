@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-13</date>
- <time>01:35:19</time>
+ <date>2013-03-24</date>
+ <time>17:52:44</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -472,6 +472,7 @@
       </dir> <!-- /lib/Horde/Core/Imsp -->
       <dir name="Log">
        <file name="Logger.php" role="php" />
+       <file name="Object.php" role="php" />
        <file name="Wrapper.php" role="php" />
       </dir> <!-- /lib/Horde/Core/Log -->
       <dir name="LoginTasks">
@@ -1752,6 +1753,7 @@
    <install as="Horde/Core/Group/Ldap.php" name="lib/Horde/Core/Group/Ldap.php" />
    <install as="Horde/Core/Imsp/Utils.php" name="lib/Horde/Core/Imsp/Utils.php" />
    <install as="Horde/Core/Log/Logger.php" name="lib/Horde/Core/Log/Logger.php" />
+   <install as="Horde/Core/Log/Object.php" name="lib/Horde/Core/Log/Object.php" />
    <install as="Horde/Core/Log/Wrapper.php" name="lib/Horde/Core/Log/Wrapper.php" />
    <install as="Horde/Core/LoginTasks/Backend/Horde.php" name="lib/Horde/Core/LoginTasks/Backend/Horde.php" />
    <install as="Horde/Core/LoginTasks/SystemTask/Upgrade.php" name="lib/Horde/Core/LoginTasks/SystemTask/Upgrade.php" />
@@ -2864,7 +2866,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-13</date>
+   <date>2013-03-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mjr] Close growler notification when alarms are dismissed (Bug #12122).

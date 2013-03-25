@@ -65,18 +65,18 @@ class Horde
     static public function log($event, $priority = null,
                                array $options = array())
     {
-        if (!isset($options['trace'])) {
-            $options['trace'] = 0;
-        }
-        $options['trace'] += 2;
+        $options['trace'] = isset($options['trace'])
+            ? ($options['trace'] + 1)
+            : 1;
+        $log_ob = new Horde_Core_Log_Object($event, $priority, $options);
 
         /* Chicken/egg: we must wait until we have basic framework setup
          * before we can start logging. Otherwise, queue entries. */
         if (isset($GLOBALS['injector']) &&
             Horde_Core_Factory_Logger::available()) {
-            $GLOBALS['injector']->getInstance('Horde_Log_Logger')->log($event, $priority, $options);
+            $GLOBALS['injector']->getInstance('Horde_Log_Logger')->logObject($log_ob);
         } else {
-            Horde_Core_Factory_Logger::queue($event, $priority, $options);
+            Horde_Core_Factory_Logger::queue($log_ob);
         }
     }
 
@@ -89,10 +89,9 @@ class Horde
     static public function logMessage($event, $priority = null,
                                       array $options = array())
     {
-        if (!isset($options['trace'])) {
-            $options['trace'] = 0;
-        }
-        $options['trace'] += 1;
+        $options['trace'] = isset($options['trace'])
+            ? ($options['trace'] + 1)
+            : 1;
         self::log($event, $priority, $options);
     }
 

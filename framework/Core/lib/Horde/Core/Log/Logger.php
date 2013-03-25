@@ -1,157 +1,64 @@
 <?php
 /**
- * This class extends the base Horde_Log_Logger class to ensure that the log
- * entries are consistently generated across the applications and framework
- * libraries.
- *
  * Copyright 2010-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl21.
  *
- * @author   Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL-2.1
- * @package  Core
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Core
+ */
+
+/**
+ * Output log entries as configured by current Horde framework settings.
+ *
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL-2.1
+ * @package   Core
  */
 class Horde_Core_Log_Logger extends Horde_Log_Logger
 {
     /**
      * Logs a message to the global Horde log backend.
      *
-     * @param mixed $event     Either a string (log string), an array
-     *                         (containing 'level', 'message', and 'timestamp'
-     *                         entries) or an object with a getMessage()
-     *                         method (e.g. PEAR_Error, Exception,
-     *                         ErrorException).
-     * @param mixed $priority  The priority of the message. Integers
-     *                         correspond to Horde_Log constants. String
-     *                         values are auto translated to Horde_Log
-     *                         constants.
-     * @param array $options   Additional options:
-     *   - file: (string) The filename to use in the log message.
-     *   - line: (integer) The file line to use in the log message.
-     *   - notracelog: (boolean) If true, don't output backtrace.
-     *   - trace: (integer) The trace level of the original log location.
+     * @deprecated  Use Horde_Core_Log_Logger#logObject() instead.
+     *
+     * @param mixed $event     See Horde_Core_Log_Object#__construct(). Can
+     *                         also be a Horde_Core_Log_Object object.
+     * @param mixed $priority  See Horde_Core_Log_Object#__construct().
+     * @param array $options   See Horde_Core_Log_Object#__construct().
      */
     public function log($event, $priority = null, array $options = array())
     {
-        /* If an array is passed in, assume that the caller knew what they
-         * were doing and pass it directly to the log backend. */
-        if (is_array($event)) {
-            return parent::log($event, constant('Horde_Log::' . $priority));
+        if (!($event instanceof Horde_Core_Log_Object)) {
+            $options['trace'] = isset($options['trace'])
+                ? ($options['trace'] + 1)
+                : 1;
+            $event = new Horde_Core_Log_Object($event, $priority, $options);
         }
 
-        if ($event instanceof Exception) {
-            if ($event instanceof Horde_Exception) {
-                if ($event->logged) {
-                    return;
-                }
-                $event->logged = true;
-                if ($loglevel = $event->getLogLevel()) {
-                    $priority = $loglevel;
-                }
+        $this->logObject($event);
+    }
+
+    /**
+     * Logs an entry.
+     *
+     * @since 2.5.0
+     *
+     * @param Horde_Core_Log_Object $ob  Log entry object.
+     */
+    public function logObject(Horde_Core_Log_Object $ob)
+    {
+        if (!$ob->logged) {
+            parent::log($ob->toArray());
+            if ($bt = $ob->backtrace) {
+                parent::log(strval($bt), Horde_Log::DEBUG);
             }
-            if (is_null($priority)) {
-                $priority = Horde_Log::ERR;
-            }
-            $text = $event->getMessage();
-            if (!empty($event->details)) {
-                $text .= ' ' . $event->details;
-            }
-            $trace = array(
-                'file' => $event->getFile(),
-                'line' => $event->getLine()
-            );
-        } else {
-            if ($event instanceof PEAR_Error) {
-                if (is_null($priority)) {
-                    $priority = Horde_Log::ERR;
-                }
-                $userinfo = $event->getUserInfo();
-                $text = $event->getMessage();
-                if (!empty($userinfo)) {
-                    if (is_array($userinfo)) {
-                        $userinfo = @implode(', ', $userinfo);
-                    }
-                    $text .= ': ' . $userinfo;
-                }
-            } elseif (is_object($event)) {
-                $text = strval($event);
-                if (!is_string($text)) {
-                    $text = is_callable(array($event, 'getMessage'))
-                        ? $event->getMessage()
-                        : '';
-                }
-            } else {
-                $text = $event;
-            }
-
-            $trace = debug_backtrace();
-            if (isset($options['trace'])) {
-                $frame = $options['trace'] - 1;
-            } elseif (count($trace) > 1 &&
-                      $trace[1]['class'] == 'Horde_Log_Logger' &&
-                      $trace[1]['function'] == '__call') {
-                $frame = 2;
-            } else {
-                $frame = 0;
-            }
-            $trace = $trace[$frame];
-        }
-
-        if (is_null($priority)) {
-            $priority = Horde_Log::INFO;
-        } elseif (is_string($priority)) {
-            $priority = defined('Horde_Log::' . $priority)
-                ? constant('Horde_Log::' . $priority)
-                : Horde_Log::INFO;
-        }
-
-        $file = isset($options['file'])
-            ? $options['file']
-            : $trace['file'];
-        $line = isset($options['line'])
-            ? $options['line']
-            : $trace['line'];
-
-        $app = isset($GLOBALS['registry'])
-            ? $GLOBALS['registry']->getApp()
-            : 'horde';
-
-        $message = ($app ? '[' . $app . '] ' : '') .
-            $text .
-            ' [pid ' . getmypid() . ' on line ' . $line . ' of "' . $file . '"]';
-
-        /* Make sure to log in the system's locale and timezone. */
-        // TODO: Needed?
-        $locale = setlocale(LC_TIME, 0);
-        setlocale(LC_TIME, 'C');
-        $tz = getenv('TZ');
-        @putenv('TZ');
-
-        $eventob = array(
-            'level' => $priority,
-            'message' => $message,
-        );
-
-        if (!empty($GLOBALS['conf']['log']['time_format'])) {
-            $eventob['timestamp'] = date($GLOBALS['conf']['log']['time_format']);
-        }
-
-        parent::log($eventob);
-
-        /* If logging an exception, log the backtrace too. */
-        if (empty($options['notracelog']) &&
-            ($event instanceof Exception) &&
-            class_exists('Horde_Support_Backtrace')) {
-            parent::log((string)new Horde_Support_Backtrace($event), Horde_Log::DEBUG);
-        }
-
-        /* Restore original locale and timezone. */
-        setlocale(LC_TIME, $locale);
-        if ($tz) {
-            @putenv('TZ=' . $tz);
+            $ob->logged = true;
         }
     }
 
