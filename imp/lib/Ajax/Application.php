@@ -379,22 +379,4 @@ class IMP_Ajax_Application extends Horde_Core_Ajax_Application
         $this->queue->poll(array_keys($indices->indices()));
     }
 
-    /**
-     * Explicitly call an action.
-     *
-     * @todo Move to Horde_Core_Ajax_Application
-     *
-     * @param string $action  The action to call.
-     *
-     * @return mixed  The response from the called action.
-     */
-    public function callAction($action)
-    {
-        foreach ($this->_handlers as $ob) {
-            if ($ob->has($action)) {
-                return call_user_func(array($ob, $action));
-            }
-        }
-    }
-
 }
