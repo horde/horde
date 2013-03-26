@@ -35,9 +35,10 @@ function doPrefsUpdate(column, sortDown)
       <?php echo $this->render('list/task_headers'); ?>
       <tbody id="tasks-body">
         <?php while ($task = $this->tasks->each()):
+            $due = $task->due ? $task->getNextDue() : null;
             if (!empty($task->completed)) {
                 $style = 'linedRow closed';
-            } elseif (!empty($task->due) && $task->due < time()) {
+            } elseif ($due && $due->before(time())) {
                 $style = 'linedRow overdue';
             } else {
                 $style = 'linedRow';
@@ -59,6 +60,7 @@ function doPrefsUpdate(column, sortDown)
               'have_edit' => $share->hasPermission($GLOBALS['registry']->getAuth(), Horde_Perms::EDIT),
               'owner' => $owner,
               'task' => $task,
+              'due' => $due,
               'columns' => $this->columns,
               'dynamic_sort' => $this->dynamic_sort &= !$task->hasSubTasks(),
               'dateFormat' => $GLOBALS['prefs']->getValue('date_format')); ?>

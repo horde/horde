@@ -4,60 +4,64 @@ namespace Sabberworm\CSS\Value;
 
 class Size extends PrimitiveValue {
 
-	private $fSize;
-	private $sUnit;
-	private $bIsColorComponent;
+    const ABSOLUTE_SIZE_UNITS = 'px/cm/mm/mozmm/in/pt/pc/vh/vw/vm/vmin/vmax/rem'; //vh/vw/vm(ax)/vmin/rem are absolute insofar as they don’t scale to the immediate parent (only the viewport)
+    const RELATIVE_SIZE_UNITS = '%/em/ex/ch';
+    const NON_SIZE_UNITS = 'deg/grad/rad/s/ms/turns/Hz/kHz';
 
-	public function __construct($fSize, $sUnit = null, $bIsColorComponent = false) {
-		$this->fSize = floatval($fSize);
-		$this->sUnit = $sUnit;
-		$this->bIsColorComponent = $bIsColorComponent;
-	}
+    private $fSize;
+    private $sUnit;
+    private $bIsColorComponent;
 
-	public function setUnit($sUnit) {
-		$this->sUnit = $sUnit;
-	}
+    public function __construct($fSize, $sUnit = null, $bIsColorComponent = false) {
+        $this->fSize = floatval($fSize);
+        $this->sUnit = $sUnit;
+        $this->bIsColorComponent = $bIsColorComponent;
+    }
 
-	public function getUnit() {
-		return $this->sUnit;
-	}
+    public function setUnit($sUnit) {
+        $this->sUnit = $sUnit;
+    }
 
-	public function setSize($fSize) {
-		$this->fSize = floatval($fSize);
-	}
+    public function getUnit() {
+        return $this->sUnit;
+    }
 
-	public function getSize() {
-		return $this->fSize;
-	}
+    public function setSize($fSize) {
+        $this->fSize = floatval($fSize);
+    }
 
-	public function isColorComponent() {
-		return $this->bIsColorComponent;
-	}
+    public function getSize() {
+        return $this->fSize;
+    }
 
-	/**
-	 * Returns whether the number stored in this Size really represents a size (as in a length of something on screen).
-	 * @return false if the unit an angle, a duration, a frequency or the number is a component in a Color object.
-	 */
-	public function isSize() {
-		$aNonSizeUnits = array('deg', 'grad', 'rad', 'turns', 's', 'ms', 'Hz', 'kHz');
-		if (in_array($this->sUnit, $aNonSizeUnits)) {
-			return false;
-		}
-		return !$this->isColorComponent();
-	}
+    public function isColorComponent() {
+        return $this->bIsColorComponent;
+    }
 
-	public function isRelative() {
-		if ($this->sUnit === '%' || $this->sUnit === 'em' || $this->sUnit === 'ex') {
-			return true;
-		}
-		if ($this->sUnit === null && $this->fSize != 0) {
-			return true;
-		}
-		return false;
-	}
+    /**
+     * Returns whether the number stored in this Size really represents a size (as in a length of something on screen).
+     * @return false if the unit an angle, a duration, a frequency or the number is a component in a Color object.
+     */
+    public function isSize() {
+        if (in_array($this->sUnit, explode('/', self::NON_SIZE_UNITS))) {
+            return false;
+        }
+        return !$this->isColorComponent();
+    }
 
-	public function __toString() {
-		return $this->fSize . ($this->sUnit === null ? '' : $this->sUnit);
-	}
+    public function isRelative() {
+        if (in_array($this->sUnit, explode('/', self::RELATIVE_SIZE_UNITS))) {
+            return true;
+        }
+        if ($this->sUnit === null && $this->fSize != 0) {
+            return true;
+        }
+        return false;
+    }
+
+    public function __toString() {
+        $l = localeconv();
+        return str_replace(array($l['decimal_point'], '0.'), '.', $this->fSize) . ($this->sUnit === null ? '' : $this->sUnit);
+    }
 
 }

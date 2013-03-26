@@ -1025,19 +1025,6 @@ class Kronolith_Api extends Horde_Registry_Api
     }
 
     /**
-     * Attempt to lookup the free/busy information for the given email address.
-     *
-     * @param string $email  The email to lookup free/busy information for.
-     * @param boolean $json  Return the data in a simple json format. If false,
-     *                       returns the vCalander object.
-     * @since 4.1.0
-     */
-    public function lookupFreeBusy($email, $json = false)
-    {
-        return Kronolith_FreeBusy::get($email, $json);
-    }
-
-    /**
      * Retrieves a Kronolith_Event object, given an event UID.
      *
      * @param string $uid  The event's UID.

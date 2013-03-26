@@ -350,6 +350,7 @@ var HordeCore = {
                             alarm: alarm.id,
                             snooze: -1
                         });
+                        this.Growler.ungrowl(growl);
                         this.addRequestParams(ajax_params);
                         new Ajax.Request(this.conf.URI_SNOOZE, {
                             parameters: ajax_params

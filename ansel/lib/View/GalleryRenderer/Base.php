@@ -202,6 +202,8 @@ abstract class Ansel_View_GalleryRenderer_Base
                 'Ansel = window.Ansel || {};',
                 'Ansel.galleryview_strings = ' . Horde_Serialize::serialize($strings, Horde_Serialize::JSON),
                 'Ansel.galleryview_urls = ' . Horde_Serialize::serialize($urls, Horde_Serialize::JSON),
+                'Ansel.has_edit = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::EDIT),
+                'Ansel.has_delete = ' . $this->view->gallery->hasPermission($registry->getAuth(), Horde_Perms::DELETE)
             );
             $page_output->addInlineScript($js, true);
         }

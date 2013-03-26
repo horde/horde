@@ -218,6 +218,7 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
             // Save the timestamps
             $syncCache->lastuntil = $now + $lifetime;
             $syncCache->lasthbsyncstarted = time();
+            $syncCache->save();
 
             while (time() < $syncCache->lastuntil) {
                 // Check the remote wipe status
@@ -230,6 +231,11 @@ class Horde_ActiveSync_Request_Ping extends Horde_ActiveSync_Request_Base
                         $syncCache->lastuntil = time();
                         break;
                     }
+                }
+
+                if (!$syncCache->validateCache()) {
+                    $this->_logger->debug(sprintf('[%s] Detected another PING process started. Exit and let the newest process handle the PING.', $this->_procid));
+                    return true;
                 }
 
                 foreach ($collections as $collection) {

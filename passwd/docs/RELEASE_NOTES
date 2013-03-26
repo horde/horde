@@ -10,12 +10,12 @@
  * Horde_Release::FOCUS_MAJORSECURITY - Major security fixes
  * Horde_Release::FOCUS_DOCS - Documentation improvements
  */
-$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MINORBUG, Horde_Release::FOCUS_MINORFEATURE);
+$this->notes['fm']['focus'] = array(Horde_Release::FOCUS_MAJORFEATURE);
 
 /* Mailing list release notes. */
 $this->notes['ml']['changes'] = <<<ML
-The Horde Team is pleased to announce the final release of the Passwd Horde
-password changing application version H4 (4.0.1).
+The Horde Team is pleased to announce the first beta release of the Passwd
+Horde password changing application version H5 (5.0.0).
 
 Passwd provides support for changing passwords via the Horde authentication
 system or various password backends.
@@ -24,19 +24,21 @@ The following password backends have not been tested with Horde 4 at all yet
 and need some testing feedback: Unix expect scripts, the Unix smbpasswd command
 for SMB/CIFS passwords, Kolab, ADSI, Pine, Serv-U FTP, VMailMgr, vpopmail.
 
-The major changes compared to Passwd version H4 (4.0) are:
+The major changes compared to Passwd version H4 are:
     * Updated Japanese translation.
     * Small bugfixes and improvements.
 ML;
 
 /* Freshmeat release notes, not more than 600 characters. */
 $this->notes['fm']['changes'] = <<<FM
-Updated Japanese translation.
-Small bugfixes and improvements.
+Passwd has been rewritten to support the Horde 5 (H5) framework.
+An option has been added to destroy the Horde session after changing a password.
+The HTTP driver now uses the Horde_Http_Client package.
+Updated French and Polish translations.
 FM;
 
 
 $this->notes['name'] = 'Passwd';
 $this->notes['list'] = 'sork';
 $this->notes['fm']['project'] = 'passwd';
-$this->notes['fm']['branch'] = 'Horde 4';
+$this->notes['fm']['branch'] = 'Horde 5';

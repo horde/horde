@@ -143,7 +143,8 @@ class Horde_ActiveSync_SyncCache
     public function validateCache()
     {
         $cache = $this->_state->getSyncCache($this->_devid, $this->_user);
-        if ($cache['timestamp'] > $this->_data['timestamp']) {
+        if (($cache['timestamp'] > $this->_data['timestamp']) ||
+            ($cache['lasthbsyncstarted'] > $this->_data['lasthbsyncstarted'])) {
             return false;
         }
 
@@ -338,6 +339,8 @@ class Horde_ActiveSync_SyncCache
             $cache_collection['synckey'] = $cache_collection['lastsynckey'];
             $this->_data['collections'][$id] = $cache_collection;
         }
+        $this->_logger->debug(sprintf(
+            '[%s] SyncCache collections refreshed.', getmypid()));
     }
 
     /**
