@@ -118,6 +118,11 @@ class IMP_Smartmobile
 
             $this->view->composeCache = $injector->getInstance('IMP_Factory_Compose')->create()->getCacheId();
             $this->view->user = $registry->getAuth();
+
+            $this->view->draft =
+                ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
+                 ($draft = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
+                 !$draft->readonly);
         }
     }
 

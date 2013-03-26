@@ -38,6 +38,9 @@
 
  <div data-role="footer" class="ui-bar" data-position="fixed">
   <a href="#compose-submit"><?php echo _("Send Message") ?></a>
+<?php if ($this->draft): ?>
+  <a href="#compose-draft"><?php echo _("Save Draft") ?></a>
+<?php endif; ?>
   <a href="#compose-cancel"><?php echo _("Cancel") ?></a>
   <a href="#compose-discard" style="display:none"><?php echo _("Discard Draft") ?></a>
  </div>

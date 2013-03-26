@@ -77,9 +77,12 @@ var ImpMobile = {
             e.preventDefault();
             break;
 
+        case 'compose-draft':
         case 'compose-submit':
             ImpMobile.uniqueSubmit(
-                $('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'smartmobileSendMessage'
+                (view == 'compose-draft')
+                    ? 'saveDraft'
+                    : ($('#imp-compose-form').is(':hidden') ? 'redirectMessage' : 'smartmobileSendMessage')
             );
             e.preventDefault();
             break;
