@@ -1257,14 +1257,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                $collection['mimesupport'] = $this->_decoder->getElementContent();
-                if (!$this->_decoder->getElementEndTag()) {
-                    $this->_statusCode = self::STATUS_PROTERROR;
-                    $this->_handleError($collection);
-                    exit;
-                }
-            }
+            $this->_mimeSupport($collection);
 
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMETRUNCATION)) {
                 $collection['mimetruncation'] = $this->_decoder->getElementContent();
@@ -1284,119 +1277,13 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                $body_pref = array();
-                while (1) {
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                        $body_pref['type'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                        $body_pref['truncationsize'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-                        $body_pref['allornone'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
-                        $body_pref['preview'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    $e = $this->_decoder->peek();
-                    if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                        $this->_decoder->getElementEndTag();
-                        if (isset($body_pref['type']) && !isset($collection['bodyprefs']['wanted'])) {
-                            $collection['bodyprefs']['wanted'] = $body_pref['type'];
-                        }
-                        $collection['bodyprefs'][$body_pref['type']] = $body_pref;
-                        break;
-                    }
-                }
-            }
+            // BODYPREFERENCE
+            $this->_bodyPrefs($collection);
 
             // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
-                    $collection['rightsmanagement'] = $this->_decoder->getElementContent();
-                    if (!$this->_decoder->getElementEndTag()) {
-                        $this->_statusCode = self::STATUS_PROTERROR;
-                        $this->_handleError($collection);
-                        exit;
-                    }
-                }
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
-                    $collection['bodypartprefs'] = array();
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                        $collection['bodypartprefs']['type'] = $this->_decoder->getElementContent();
-                        // MS-ASAIRS 2.2.2.22.3 type MUST be BODYPREF_TYPE_HTML
-                        if (!$this->_decoder->getElementEndTag() ||
-                            $collection['bodypartprefs']['type'] != Horde_ActiveSync::BODYPREF_TYPE_HTML) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                        $collection['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
-                        $collection['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
-                        // MS-ASAIRS 2.2.2.1.1 - MUST be ignored if no trunction
-                        // size is set. Note we still must read it if it sent
-                        // so reading the wbxml stream does not break.
-                        if (empty($collection['bodypartprefs']['truncationsize'])) {
-                            unset($collection['bodypartprefs']['allornone']);
-                        }
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
-                        $collection['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
-                        // MS-ASAIRS 2.2.2.18.3 - Max size of preview is 255.
-                        if (!$this->_decoder->getElementEndTag() ||
-                            $collection['bodypartprefs']['preview'] > 255) {
-
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if (!$this->_decoder->getElementEndTag()) {
-                        $this->_statusCode = self::STATUS_PROTERROR;
-                        $this->_handleError($collection);
-                        exit;
-                    }
-                }
+                $this->_rightsManagement($collection);
+                $this->_bodyPartPrefs($collection);
             }
 
             $e = $this->_decoder->peek();

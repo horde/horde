@@ -34,7 +34,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
 {
     /** Search code page **/
     const SEARCH_SEARCH              = 'Search:Search';
@@ -74,6 +74,9 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
     /** Search Status **/
     const SEARCH_STATUS_SUCCESS      = 1;
     const SEARCH_STATUS_ERROR        = 3;
+
+    /** Compat **/
+    const STATUS_PROTERROR           = 3;
 
     /** Store Status **/
     const STORE_STATUS_SUCCESS       = 1;
@@ -132,6 +135,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         }
         $mime = Horde_ActiveSync::MIME_SUPPORT_NONE;
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
+            $searchbodypreference = array();
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
                     $search_query['search_range'] = $this->_decoder->getElementContent();
@@ -191,88 +195,18 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                         }
                     }
                 }
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
-                    $bodypreference=array();
-                    $searchbodypreference = array();
-                    while(1) {
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                            $bodypreference['type'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                return false;
-                            }
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                            $bodypreference['truncationsize'] = $this->_decoder->getElementContent();
-                            if(!$this->_decoder->getElementEndTag())
-                                return false;
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_ALLORNONE)) {
-                            $bodypreference['allornone'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                return false;
-                            }
-                        }
-                        $e = $this->_decoder->peek();
-                        if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
-                            $this->_decoder->getElementEndTag();
-                            if (!isset($searchbodypreference['wanted'])) {
-                                $searchbodypreference['wanted'] = $bodypreference['type'];
-                            }
-                            if (isset($bodypreference['type'])) {
-                                $searchbodypreference[$bodypreference['type']] = $bodypreference;
-                            }
-                            break;
-                        }
-                    }
-                }
-                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
-                    $bodypreference['mimesupport'] = $this->_decoder->getElementContent();
-                    if (!$this->_decoder->getElementEndTag()) {
-                        return false;
-                    }
-                }
+
+                $this->_bodyPrefs($searchbodypreference);
+                $searchbodypreference = $searchbodypreference['bodyprefs'];
+                $this->_mimeSupport($searchbodypreference);
+
                 // EAS 14.1
                 if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
-                    // Rights management (discarded).
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
-                        $rm = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
-                            $this->_statusCode = self::STATUS_PROTERROR;
-                            $this->_handleError($collection);
-                            exit;
-                        }
-                    }
-                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
-                        $search_query['bodypartprefs'] = array();
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
-                            $search_query['bodypartprefs']['type'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                throw new Horde_ActiveSync_Exception('Protocol Error');
-                            }
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
-                            $search_query['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                throw new Horde_ActiveSync_Exception('Protocol Error');
-                            }
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
-                            $search_query['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                throw new Horde_ActiveSync_Exception('Protocol Error');
-                            }
-                        }
-                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
-                            $search_query['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
-                            if (!$this->_decoder->getElementEndTag()) {
-                                throw new Horde_ActiveSync_Exception('Protocol Error');
-                            }
-                        }
-                        if (!$this->_decoder->getElementEndTag()) {
-                            throw new Horde_ActiveSync_Exception('Protocol Error');
-                        }
-                    }
+                    $rm = array();
+                    $this->_rightsManagement($rm);
+                    $this->_bodyPartPrefs($search_query);
                 }
+
                 $e = $this->_decoder->peek();
                 if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
                     $this->_decoder->getElementEndTag();
@@ -482,6 +416,17 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         }
 
         return $query;
+    }
+
+    protected function _handleError(array $data)
+    {
+        $this->_decoder->getElementEndTag(); // end SYNC_ITEMOPERATIONS_ITEMOPERATIONS
+        $this->_encoder->startWBXML($this->_activeSync->multipart);
+        $this->_encoder->startTag(self::ITEMOPERATIONS_ITEMOPERATIONS);
+        $this->_encoder->startTag(self::SEARCH_STATUS);
+        $this->_encoder->content($this->_statusCode);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
 }
