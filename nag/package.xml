@@ -1304,6 +1304,8 @@
    <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Fix default task list in portal block (Bug #12133).
+* [jan] Fix displaying of due dates of recurring events in basic list view.
 * [jan] Update broken rows due to migration bug in PostgreSQL (Bug #12101).
 * [mjr] Fix uncompleting tasks from task view in smartmobile view (Bug #12098, &lt;ctimoteo@sapo.pt&gt;).
 * [jan] Include parent tasks in cost object labels.

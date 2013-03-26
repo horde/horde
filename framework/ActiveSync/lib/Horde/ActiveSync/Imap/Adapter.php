@@ -869,7 +869,6 @@ class Horde_ActiveSync_Imap_Adapter
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
-            $haveData = false;
             $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
 
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
@@ -952,13 +951,11 @@ class Horde_ActiveSync_Imap_Adapter
                     $airsync_body->truncated = '0';
                 }
                 $eas_message->airsyncbasebody = $airsync_body;
-                $haveData = true;
             } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_HTML]) ||
                       isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_RTF])) {
 
                 // Sending non MIME encoded HTML message text.
                 $this->_logger->debug('Sending HTML Message.');
-                $haveData = true;
                 if (empty($message_body_data['html'])) {
                     $airsync_body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
                     $message_body_data['html'] = array(
@@ -978,7 +975,7 @@ class Horde_ActiveSync_Imap_Adapter
                 );
                 $eas_message->airsyncbasebody = $airsync_body;
                 $eas_message->airsyncbaseattachments = $imap_message->getAttachments($version);
-            } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN]) || !$haveData) {
+            } elseif (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_PLAIN])) {
 
                 // Non MIME encoded plaintext
                 $this->_logger->debug('Sending PLAINTEXT Message.');

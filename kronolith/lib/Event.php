@@ -374,6 +374,7 @@ abstract class Kronolith_Event
         try {
             $log = $GLOBALS['injector']->getInstance('Horde_History')
                 ->getHistory('kronolith:' . $this->calendar . ':' . $this->uid);
+            $userId = $GLOBALS['registry']->getAuth();
             foreach ($log as $entry) {
                 switch ($entry['action']) {
                 case 'add':
