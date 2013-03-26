@@ -55,7 +55,7 @@ class IMP_Ajax_Application_ListMessages
         $initial = $args['initial'];
         $is_search = false;
         $mbox = IMP_Mailbox::get($args['mbox']);
-        $sortpref = $mbox->getSort();
+        $sortpref = $mbox->getSort(true);
 
         /* Check for quicksearch request. */
         if (strlen($args['qsearchmbox'])) {

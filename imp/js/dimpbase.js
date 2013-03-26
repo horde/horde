@@ -1121,7 +1121,7 @@ var DimpBase = {
             this.sort(DimpCore.conf.sort.get(this.isThreadSort() ? 'subject' : 'thread').v);
             break;
 
-        case 'ctx_datesort_date':
+        case 'ctx_datesort_msgdate':
         case 'ctx_datesort_sequence':
             tmp = DimpCore.conf.sort.get(id.substring(13)).v;
             if (tmp != this.viewport.getMetaData('sortby')) {
@@ -1382,11 +1382,10 @@ var DimpBase = {
             break;
 
         case 'ctx_datesort':
-            $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
             tmp = this.viewport.getMetaData('sortby');
-            [ 'date', 'sequence' ].find(function(n) {
-                if (DimpCore.conf.sort.get(n).v == tmp) {
-                    $('ctx_datesort_' + n).addClassName('contextSelected');
+            $(ctx_id).descendants().invoke('removeClassName', 'contextSelected').find(function(n) {
+                if (DimpCore.conf.sort.get(n.identify().substring(13)).v == tmp) {
+                    n.addClassName('contextSelected');
                     return true;
                 }
             });
