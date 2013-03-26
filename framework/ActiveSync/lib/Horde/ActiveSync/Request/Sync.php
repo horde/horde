@@ -34,7 +34,7 @@
  * @author    Michael J Rubinsky <mrubinsk@horde.org>
  * @package   ActiveSync
  */
-class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
+class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
 {
     /* Status */
     const STATUS_SUCCESS                = 1;
