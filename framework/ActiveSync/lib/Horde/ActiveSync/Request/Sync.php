@@ -1349,7 +1349,9 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     $collection['bodypartprefs'] = array();
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                         $collection['bodypartprefs']['type'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
+                        // MS-ASAIRS 2.2.2.22.3 type MUST be BODYPREF_TYPE_HTML
+                        if (!$this->_decoder->getElementEndTag() ||
+                            $collection['bodypartprefs']['type'] != Horde_ActiveSync::BODYPREF_TYPE_HTML) {
                             $this->_statusCode = self::STATUS_PROTERROR;
                             $this->_handleError($collection);
                             exit;
@@ -1363,8 +1365,15 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                             exit;
                         }
                     }
+
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
                         $collection['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
+                        // MS-ASAIRS 2.2.2.1.1 - MUST be ignored if no trunction
+                        // size is set. Note we still must read it if it sent
+                        // so reading the wbxml stream does not break.
+                        if (empty($collection['bodypartprefs']['truncationsize'])) {
+                            unset($collection['bodypartprefs']['allornone']);
+                        }
                         if (!$this->_decoder->getElementEndTag()) {
                             $this->_statusCode = self::STATUS_PROTERROR;
                             $this->_handleError($collection);
@@ -1373,7 +1382,10 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                     }
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
                         $collection['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
-                        if (!$this->_decoder->getElementEndTag()) {
+                        // MS-ASAIRS 2.2.2.18.3 - Max size of preview is 255.
+                        if (!$this->_decoder->getElementEndTag() ||
+                            $collection['bodypartprefs']['preview'] > 255) {
+
                             $this->_statusCode = self::STATUS_PROTERROR;
                             $this->_handleError($collection);
                             exit;
