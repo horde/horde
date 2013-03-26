@@ -1586,7 +1586,7 @@ $_prefs['mailbox_start'] = array(
 $_prefs['sortby'] = array(
     // Sort by sequence by default. It is the fastest sort as it is the only
     // sort that can be done without parsing message headers. It sorts
-    // messages by the order they arrived within the mailbox.
+    // messages by the order they were initially processed by the mail server.
     'value' => Horde_Imap_Client::SORT_SEQUENCE,
     'type' => 'enum',
     'enum' => array(
