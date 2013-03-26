@@ -134,43 +134,43 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
         if ($this->_decoder->getElementStartTag(self::SEARCH_OPTIONS)) {
             while(1) {
                 if ($this->_decoder->getElementStartTag(self::SEARCH_RANGE)) {
-                    $search_range = $this->_decoder->getElementContent();
+                    $search_query['search_range'] = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
                         $search_status = self::SEARCH_STATUS_ERROR;
                         $store_status = self::STORE_STATUS_PROTERR;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_DEEPTRAVERSAL)) {
-                    if (!($searchdeeptraversal = $this->_decoder->getElementContent())) {
-                        $search_querydeeptraversal = true;
+                    if (!($search_query['deeptraversal'] = $this->_decoder->getElementContent())) {
+                        $search_query['deeptraversal'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_REBUILDRESULTS)) {
-                    if (!($searchrebuildresults = $this->_decoder->getElementContent())) {
-                        $search_queryrebuildresults = true;
+                    if (!($search_query['rebuildresults'] = $this->_decoder->getElementContent())) {
+                        $search_query['rebuildresults'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_USERNAME)) {
-                    if (!($search_queryusername = $this->_decoder->getElementContent())) {
+                    if (!($search_query['username'] = $this->_decoder->getElementContent())) {
                         return false;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_PASSWORD)) {
-                    if (!($search_querypassword = $this->_decoder->getElementContent()))
+                    if (!($search_query['password'] = $this->_decoder->getElementContent()))
                         return false;
                     else
                         if(!$this->_decoder->getElementEndTag())
                         return false;
                 }
                 if ($this->_decoder->getElementStartTag(self::SEARCH_SCHEMA)) {
-                    if (!($searchschema = $this->_decoder->getElementContent())) {
-                        $searchschema = true;
+                    if (!($search_query['schema'] = $this->_decoder->getElementContent())) {
+                        $search_query['schema'] = true;
                     } elseif (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
@@ -193,6 +193,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                 }
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
                     $bodypreference=array();
+                    $searchbodypreference = array();
                     while(1) {
                         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                             $bodypreference['type'] = $this->_decoder->getElementContent();
@@ -289,15 +290,14 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
             $store_status = self::STORE_STATUS_PROTERR;
         }
 
-        $search_range = empty($search_range) ? '0-99' : $search_range;
-        $search_query['range'] = $search_range;
+        $search_query['range'] = empty($search_query['range']) ? '0-99' : $search_query['range'];
         switch(strtolower($search_name)) {
         case 'documentlibrary':
             // not supported
             break;
         case 'mailbox':
-            $search_query['rebuildresults'] = !empty($search_queryrebuildresults);
-            $search_query['deeptraversal'] =  !empty($search_querydeeptraversal);
+            $search_query['rebuildresults'] = !empty($search_query['rebuildresults']);
+            $search_query['deeptraversal'] =  !empty($search_query['deeptraversal']);
             break;
         }
 
