@@ -245,9 +245,6 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             }
         }
 
-        /* Filter bad language. */
-        $data = IMP::filterText($data);
-
         /* Add used CID information. */
         if ($inline && !empty($this->_imptmp['cid'])) {
             $related_part->setMetadata('related_cids_used', $this->_imptmp['cid_used']);
@@ -267,7 +264,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         parent::_node($doc, $node);
 
         if (empty($this->_imptmp) || !($node instanceof DOMElement)) {
-            /* if (($node instanceof DOMText) && ($node->length > 1)) {} */
+            if (($node instanceof DOMText) && ($node->length > 1)) {
+                /* Filter bad language. */
+                $text = IMP::filterText($node->data);
+                if ($node->data != $text) {
+                    $node->replaceData(0, $node->length, $text);
+                }
+            }
             return;
         }
 
