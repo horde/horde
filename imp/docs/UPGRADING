@@ -156,6 +156,15 @@ a user logs into IMP 6 for the first time)::
    link_attach
 
 
+API Changes
+-----------
+
+These API calls have been added::
+
+   - getMaillog
+   - getMaillogChanges
+   - logMaillog
+
 
 Upgrading IMP From 5.x To 6.x
 =============================

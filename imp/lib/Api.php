@@ -331,6 +331,8 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Obtain the Maillog for a given message.
      *
+     * @since 6.1.0
+     *
      * @param string $mid  The Message-ID to obtain the log for.
      *
      * @return Horde_History_Log  The log object.
@@ -343,6 +345,8 @@ class IMP_Api extends Horde_Registry_Api
 
     /**
      * Log an entry in the Maillog.
+     *
+     * @since 6.1.0
      *
      * @param string $action  The action to log.
      * @param string $mid     The Message-ID.
@@ -357,6 +361,8 @@ class IMP_Api extends Horde_Registry_Api
     /**
      * Returns a list of Message-IDs that have been added to the Maillog since
      * the specified timestamp.
+     *
+     * @since 6.1.0
      *
      * @param integer $ts  The timestamp to start searching from. Only entries
      *                     after this timestamp will be returned.
