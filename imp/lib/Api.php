@@ -339,8 +339,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillog($mid)
     {
-        $log = new IMP_Maillog();
-        return $log->getLog($mid);
+        return ($log = $GLOBALS['injector']->getInstance('IMP_Maillog'))
+            ? $log->getLog($mid)
+            : new Horde_History_Log($mid);
     }
 
     /**
@@ -354,8 +355,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function logMaillog($action, $mid, $data = null)
     {
-        $log = new IMP_Maillog();
-        $log->log($action, $mid, $data);
+        if ($log = $GLOBALS['injector']->getInstance('IMP_Maillog')) {
+            $log->log($action, $mid, $data);
+        }
     }
 
     /**
@@ -371,9 +373,9 @@ class IMP_Api extends Horde_Registry_Api
      */
     public function getMaillogChanges($ts)
     {
-        $log = new IMP_Maillog();
-        $changes = $log->getChanges($ts);
-        return preg_replace('/^([^:]*:){2}/', '', array_keys($changes));
+        return ($log = $GLOBALS['injector']->getInstance('IMP_Maillog'))
+            ? preg_replace('/^([^:]*:){2}/', '', array_keys($log->getChanges($ts)))
+            : array();
     }
 
 }
