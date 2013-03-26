@@ -30,7 +30,8 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
      */
     protected $_versions = array(
         '5.0',
-        '6.0'
+        '6.0',
+        '6.0.5'
     );
 
     /**
@@ -62,6 +63,10 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
             $this->_upgradeSaveAttachments();
             $this->_upgradeStationeryToTemplates();
             $this->_upgradeVirtualFolders6();
+            break;
+
+        case '6.0.5':
+            $this->_fixSortdatePref();
             break;
         }
     }
@@ -630,6 +635,18 @@ class IMP_LoginTasks_SystemTask_Upgrade extends Horde_Core_LoginTasks_SystemTask
                 $val->replace($tmp);
                 $imp_search[$key] = $val;
             }
+        }
+    }
+
+    /**
+     * IMP 6.0.5: Fix incorrect default value of 'sortdate' pref.
+     */
+    protected function _fixSortdatePref()
+    {
+        global $prefs;
+
+        if ($prefs->getValue('sortdate') == Horde_Imap_Client::SORT_ARRIVAL) {
+            $prefs->remove('sortdate');
         }
     }
 
