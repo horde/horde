@@ -1623,11 +1623,11 @@ $_prefs['sortdate'] = array(
     // Use internal IMAP date by default - this is generally the date that a
     // message was first received on the IMAP server and is maintained even
     // if the message moves between mailboxes.
-    'value' => Horde_Imap_Client::SORT_SEQUENCE,
+    'value' => Horde_Imap_Client::SORT_ARRIVAL,
     'advanced' => true,
     'type' => 'enum',
     'enum' => array(
-        Horde_Imap_Client::SORT_SEQUENCE => _("Arrival time on server"),
+        Horde_Imap_Client::SORT_ARRIVAL => _("Arrival time on server"),
         Horde_Imap_Client::SORT_DATE => _("Date in message headers")
     ),
     'desc' => _("Criteria to use when sorting by date:")

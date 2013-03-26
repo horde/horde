@@ -73,7 +73,7 @@ class IMP_Prefs_Sort_Sortpref
                 return ($by = $prefs->getValue('sortby'))
                     ? $by
                     /* Sanity check: make sure we have a sort value. */
-                    : Horde_Imap_Client::SORT_SEQUENCE;
+                    : Horde_Imap_Client::SORT_ARRIVAL;
             }
             return $this->_sortby;
 
