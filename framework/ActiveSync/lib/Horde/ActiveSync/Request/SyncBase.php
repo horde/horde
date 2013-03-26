@@ -145,7 +145,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
         }
     }
 
-    protected function rightsManagement(&$collection)
+    protected function _rightsManagement(&$collection)
     {
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
             $collection['rightsmanagement'] = $this->_decoder->getElementContent();
@@ -157,7 +157,7 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
         }
     }
 
-    protected function mimeSupport(&$collection)
+    protected function _mimeSupport(&$collection)
     {
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT)) {
             $collection['mimesupport'] = $this->_decoder->getElementContent();
