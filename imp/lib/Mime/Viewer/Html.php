@@ -274,7 +274,9 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             return;
         }
 
-        switch (($tag = strtolower($node->tagName))) {
+        $tag = Horde_String::lower($node->tagName);
+
+        switch ($tag) {
         case 'a':
         case 'area':
             /* Convert links to open in new windows. Ignore mailto: links and
@@ -294,7 +296,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                      * Mozilla. */
                     $node->removeAttribute('href');
                 } elseif (!$node->hasAttribute('target') ||
-                          strtolower($node->getAttribute('target')) == '_self') {
+                          Horde_String::lower($node->getAttribute('target')) == '_self') {
                     $node->setAttribute('target', $this->_imptmp['target']);
                 }
             }
@@ -337,7 +339,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
              * linking until requested by the user. */
             $delete_link = true;
 
-            switch (strtolower($node->getAttribute('type'))) {
+            switch (Horde_String::lower($node->getAttribute('type'))) {
             case 'text/css':
                 if ($node->hasAttribute('href')) {
                     $tmp = $node->getAttribute('href');
@@ -362,7 +364,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
             break;
 
         case 'style':
-            switch (strtolower($node->getAttribute('type'))) {
+            switch (Horde_String::lower($node->getAttribute('type'))) {
             case 'text/css':
                 $this->_imptmp['style'][] = str_replace(
                     array('<!--', '-->'),
