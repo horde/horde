@@ -79,7 +79,7 @@ class Nag_Block_Summary extends Horde_Core_Block
             'show_tasklists' => array(
                 'type' => 'multienum',
                 'name' => _("Show tasks from these tasklists"),
-                'default' => array($GLOBALS['registry']->getAuth()),
+                'default' => array(),
                 'values' => $tasklists
             )
         );

@@ -213,10 +213,10 @@ class Horde_Domhtml implements Iterator
      */
     public function returnBody()
     {
-        $body = $this->dom->getElementsByTagName('body')->item(0);
+        $body = $this->getBody();
         $text = '';
 
-        if ($body && $body->hasChildNodes()) {
+        if ($body->hasChildNodes()) {
             foreach ($body->childNodes as $child) {
                 $text .= $this->dom->saveXML($child);
             }
