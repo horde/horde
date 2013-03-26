@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Rename 'compose_attach' hook as 'compose_attachment'.
 [mms] Honor forward_default preference in smartmobile view.
 [mms] Add PGP keylength configuration option (Request #12099).
 [mjr] Expose the Maillog via the public API.

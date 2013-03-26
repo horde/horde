@@ -128,43 +128,21 @@ class IMP_Hooks
 
 
     /**
-     * Perform actions on files uploaded for use as compose attachments.
+     * Perform actions on compose attachments.
      *
-     * This hook is enabled by default.
+     * @param IMP_Compose_Attachment $atc  The attachment object.
      *
-     * @param string $filename  The filename.
-     * @param string $tempfile  The location on the local server of the
-     *                          temporary file that contains the attachment
-     *                          data.
-     * @param string $type      The MIME type as reported by the browser.
-     *
-     * @return string  The MIME type of the file.
      * @throws IMP_Compose_Exception
      */
-     public function compose_attach($filename, $tempfile, $type)
+     public function compose_attachment(IMP_Compose_Attachment $atc)
      {
-        /* Do MIME type determination for compose attachments. */
-
-        /* By default, the MIME type reported by the browser is trusted if it
-         * is something other than the generic octet-stream type. */
-        if ($type == 'application/octet-stream') {
-            /* Try to determine the MIME type from 1) analysis of the file
-             * (if available) and, if that fails, 2) from the extension. We
-             * do it in this order here because, most likely, if a browser
-             * can't identify the type of a file, it is because the file
-             * extension isn't available and/or recognized. */
-            $type = Horde_Mime_Magic::analyzeFile($tempfile, !empty($GLOBALS['conf']['mime']['magic_db']) ? $GLOBALS['conf']['mime']['magic_db'] : null);
-            if (!$type) {
-                $type = Horde_Mime_Magic::filenameToMIME($filename, false);
-            }
-        }
-
 //        // Example: Do a virus scan on the attachment, and reject attachment
 //        // if a virus is found.
 //        // This example uses the open source ClamAV binary (tested with
 //        // v0.96). See: http://www.clamav.net/
 //        $clamscan = '/path/to/clamscan';
-//        exec($clamscan . ' --quiet ' . escapeshellarg($tempfile), $output, $return_var);
+//        exec($clamscan . ' --quiet ' . escapeshellarg($atc->tmpfile), $output, $return_var);
+//
 //        switch ($return_var) {
 //        case 1:
 //            // Virus found.
@@ -175,8 +153,6 @@ class IMP_Hooks
 //            Horde::log('Unknown error when scanning message for virus.', 'INFO');
 //            break;
 //        }
-
-        return $type;
     }
 
 

@@ -41,6 +41,13 @@ class IMP_Compose_Attachment implements Serializable
     public $related = false;
 
     /**
+     * Temporary filename.
+     *
+     * @var string
+     */
+    public $tmpfile = null;
+
+    /**
      * Compose object cache ID.
      *
      * @var string
@@ -69,13 +76,6 @@ class IMP_Compose_Attachment implements Serializable
     protected $_part;
 
     /**
-     * Temporary filename.
-     *
-     * @var string
-     */
-    protected $_tmpfile = null;
-
-    /**
      * The unique identifier for the file.
      *
      * @var string
@@ -95,7 +95,7 @@ class IMP_Compose_Attachment implements Serializable
         $this->id = ++$ob->atcId;
         $this->_composeCache = strval($ob);
         $this->_part = $part;
-        $this->_tmpfile = $tmp_file;
+        $this->tmpfile = $tmp_file;
     }
 
     /**
@@ -127,9 +127,9 @@ class IMP_Compose_Attachment implements Serializable
     public function getPart($build = false)
     {
         if ($build && !$this->_isBuilt) {
-            $data = is_null($this->_tmpfile)
+            $data = is_null($this->tmpfile)
                 ? $this->storage->read()
-                : fopen($this->_tmpfile, 'r');
+                : fopen($this->tmpfile, 'r');
             $this->_part->setContents($data, array('stream' => true));
             $this->_isBuilt = true;
         }
@@ -142,7 +142,7 @@ class IMP_Compose_Attachment implements Serializable
      */
     public function delete()
     {
-        $this->_tmpfile = null;
+        $this->tmpfile = null;
 
         if (!is_null($this->_uuid)) {
             if (!$this->linked) {
@@ -182,15 +182,15 @@ class IMP_Compose_Attachment implements Serializable
         $this->_part->clearContents();
         $this->_isBuilt = false;
 
-        if (!is_null($this->_tmpfile)) {
+        if (!is_null($this->tmpfile)) {
             $this->_uuid = strval(new Horde_Support_Uuid());
             $atc = $this->storage;
-            $atc->write($this->_tmpfile, $this->getPart());
+            $atc->write($this->tmpfile, $this->getPart());
             /* Need to save this information now, since it is possible that
              * storage backends change their linked status based on the data
              * written to the backend. */
             $this->_linked = $atc->linked;
-            $this->_tmpfile = null;
+            $this->tmpfile = null;
         }
 
         return serialize(array(

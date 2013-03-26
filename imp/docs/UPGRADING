@@ -87,24 +87,29 @@ The following options have been removed::
 Hooks (hooks.php)
 -----------------
 
+The 'attach_body_check' hook has been added. This hook handles the attachment
+word checking code that previously was provided as an example in the
+'pre_sent' hook.
+
+The 'compose_attach' hook has been removed and replaced by the
+'compose_attachment' hook. Both hooks are designed for the same purpose;
+however, the arguments have been completely changed so it is safest to
+entirely deprecate usage of the previous hook.
+
 The 'mbox_readonly' hook has been removed. Mailbox permissions can instead be
 controlled via native IMAP ACLs or, alternatively, by the 'mbox_acl' hook.
 
 The 'mbox_special' hook has been removed. Additional special mailboxes can
 now be defined per-backend in ``config/backends.local.php``.
 
-The 'spam_email' hook has been removed. This configuration can now be defined
-per-backend in ``config/backends.local.php``.
-
 The 'mailboxarray' and 'msglist_flags' hooks have been altered to remove the
 second argument ($mode). If the current view mode is needed, it can be
 obtained via a call to $GLOBALS['registry']->getView().
 
-The $html argument to the 'trailer' hook has been added.
+The 'spam_email' hook has been removed. This configuration can now be defined
+per-backend in ``config/backends.local.php``.
 
-The 'attach_body_check' hook has been added. This hook handles the attachment
-word checking code that previously was provided as an example in the
-'pre_sent' hook.
+The $html argument to the 'trailer' hook has been added.
 
 The following hooks have been added::
 

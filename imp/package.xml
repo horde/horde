@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Rename &apos;compose_attach&apos; hook as &apos;compose_attachment&apos;.
 * [mms] Honor forward_default preference in smartmobile view.
 * [mms] Add PGP keylength configuration option (Request #12099).
 * [mjr] Expose the Maillog via the public API.

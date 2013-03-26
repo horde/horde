@@ -2804,11 +2804,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $type = empty($finfo['type'])
                 ? 'application/octet-stream'
                 : $finfo['type'];
-
-            /* User hook to do file scanning/MIME magic determinations. */
-            try {
-                $type = Horde::callHook('compose_attach', array($filename, $atc_file, $type), 'imp');
-            } catch (Horde_Exception_HookNotSet $e) {}
         }
 
         return $this->_addAttachment(
@@ -2890,6 +2885,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 }
             }
         }
+
+        try {
+            Horde::callHook('compose_attachment', array($atc_ob), 'imp');
+        } catch (Horde_Exception_HookNotSet $e) {}
 
         $this->_atc[$atc_ob->id] = $atc_ob;
         $this->changed = 'changed';
