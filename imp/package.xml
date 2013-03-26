@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-05</date>
+ <date>2013-03-25</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -188,6 +188,17 @@
      <file name="Summary.php" role="horde" />
     </dir> <!-- /lib/Block -->
     <dir name="Compose">
+     <dir name="Attachment">
+      <dir name="Linked">
+       <file name="Metadata.php" role="horde" />
+      </dir> <!-- /lib/Compose/Attachment/Linked -->
+      <dir name="Storage">
+       <file name="Vfs.php" role="horde" />
+       <file name="VfsLinked.php" role="horde" />
+      </dir> <!-- /lib/Compose/Attachment/Storage -->
+      <file name="Linked.php" role="horde" />
+      <file name="Storage.php" role="horde" />
+     </dir> <!-- /lib/Compose/Attachment -->
      <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
      <file name="LinkedAttachment.php" role="horde" />
@@ -218,7 +229,7 @@
     <dir name="Factory">
      <file name="AuthImap.php" role="horde" />
      <file name="Compose.php" role="horde" />
-     <file name="ComposeVfs.php" role="horde" />
+     <file name="ComposeAtc.php" role="horde" />
      <file name="Contents.php" role="horde" />
      <file name="Flags.php" role="horde" />
      <file name="Identity.php" role="horde" />
@@ -787,6 +798,7 @@
    <dir name="migration">
     <file name="1_imp_base_tables.php" role="horde" />
     <file name="2_imp_autoincrement_sentmail.php" role="horde" />
+    <file name="3_imp_maillog_update.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="templates">
     <dir name="basic">
@@ -1546,6 +1558,11 @@
    <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
    <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />
    <install as="imp/lib/Compose/View.php" name="lib/Compose/View.php" />
+   <install as="imp/lib/Compose/Attachment/Linked.php" name="lib/Compose/Attachment/Linked.php" />
+   <install as="imp/lib/Compose/Attachment/Storage.php" name="lib/Compose/Attachment/Storage.php" />
+   <install as="imp/lib/Compose/Attachment/Linked/Metadata.php" name="lib/Compose/Attachment/Linked/Metadata.php" />
+   <install as="imp/lib/Compose/Attachment/Storage/Vfs.php" name="lib/Compose/Attachment/Storage/Vfs.php" />
+   <install as="imp/lib/Compose/Attachment/Storage/VfsLinked.php" name="lib/Compose/Attachment/Storage/VfsLinked.php" />
    <install as="imp/lib/Contents/View.php" name="lib/Contents/View.php" />
    <install as="imp/lib/Crypt/Pgp.php" name="lib/Crypt/Pgp.php" />
    <install as="imp/lib/Crypt/Smime.php" name="lib/Crypt/Smime.php" />
@@ -1558,7 +1575,7 @@
    <install as="imp/lib/Dynamic/Helper/Base.php" name="lib/Dynamic/Helper/Base.php" />
    <install as="imp/lib/Factory/AuthImap.php" name="lib/Factory/AuthImap.php" />
    <install as="imp/lib/Factory/Compose.php" name="lib/Factory/Compose.php" />
-   <install as="imp/lib/Factory/ComposeVfs.php" name="lib/Factory/ComposeVfs.php" />
+   <install as="imp/lib/Factory/ComposeAtc.php" name="lib/Factory/ComposeAtc.php" />
    <install as="imp/lib/Factory/Contents.php" name="lib/Factory/Contents.php" />
    <install as="imp/lib/Factory/Flags.php" name="lib/Factory/Flags.php" />
    <install as="imp/lib/Factory/Identity.php" name="lib/Factory/Identity.php" />
@@ -1851,6 +1868,7 @@
    <install as="imp/locale/zh_TW/LC_MESSAGES/imp.po" name="locale/zh_TW/LC_MESSAGES/imp.po" />
    <install as="imp/migration/1_imp_base_tables.php" name="migration/1_imp_base_tables.php" />
    <install as="imp/migration/2_imp_autoincrement_sentmail.php" name="migration/2_imp_autoincrement_sentmail.php" />
+   <install as="imp/migration/3_imp_maillog_update.php" name="migration/3_imp_maillog_update.php" />
    <install as="imp/templates/.htaccess" name="templates/.htaccess" />
    <install as="imp/templates/basic/subinfo.html.php" name="templates/basic/subinfo.html.php" />
    <install as="imp/templates/basic/compose/compose.html.php" name="templates/basic/compose/compose.html.php" />
