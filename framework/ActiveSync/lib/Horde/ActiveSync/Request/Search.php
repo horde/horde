@@ -230,15 +230,45 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_Base
                         return false;
                     }
                 }
-                // EAS 14.1 RIGHTSMANAGEMENT. Value is discarded as it makes no
-                // sense outside an Exchange environment.
+                // EAS 14.1
                 if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
+                    // Rights management (discarded).
                     if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
                         $rm = $this->_decoder->getElementContent();
                         if (!$this->_decoder->getElementEndTag()) {
                             $this->_statusCode = self::STATUS_PROTERROR;
                             $this->_handleError($collection);
                             exit;
+                        }
+                    }
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
+                        $search_query['bodypartprefs'] = array();
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
+                            $search_query['bodypartprefs']['type'] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
+                            $search_query['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
+                            $search_query['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
+                            $search_query['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+                        if (!$this->_decoder->getElementEndTag()) {
+                            throw new Horde_ActiveSync_Exception('Protocol Error');
                         }
                     }
                 }

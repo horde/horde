@@ -1335,10 +1335,50 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
                 }
             }
 
-            // EAS 14.1 RIGHTSMANAGEMENT
+            // EAS 14.1
             if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEENONE) {
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::RM_SUPPORT)) {
                     $collection['rightsmanagement'] = $this->_decoder->getElementContent();
+                    if (!$this->_decoder->getElementEndTag()) {
+                        $this->_statusCode = self::STATUS_PROTERROR;
+                        $this->_handleError($collection);
+                        exit;
+                    }
+                }
+                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
+                    $collection['bodypartprefs'] = array();
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
+                        $collection['bodypartprefs']['type'] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleError($collection);
+                            exit;
+                        }
+                    }
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
+                        $collection['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleError($collection);
+                            exit;
+                        }
+                    }
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
+                        $collection['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleError($collection);
+                            exit;
+                        }
+                    }
+                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
+                        $collection['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
+                        if (!$this->_decoder->getElementEndTag()) {
+                            $this->_statusCode = self::STATUS_PROTERROR;
+                            $this->_handleError($collection);
+                            exit;
+                        }
+                    }
                     if (!$this->_decoder->getElementEndTag()) {
                         $this->_statusCode = self::STATUS_PROTERROR;
                         $this->_handleError($collection);

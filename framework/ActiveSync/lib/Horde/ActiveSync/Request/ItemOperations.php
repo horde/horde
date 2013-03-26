@@ -114,7 +114,8 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                     if ($reqtag == self::ITEMOPERATIONS_OPTIONS) {
                         while (($thisoption = ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_MIMESUPPORT) ? Horde_ActiveSync::SYNC_MIMESUPPORT :
                                ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE :
-                               -1))) != -1) {
+                               ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE) ? Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE :
+                               -1)))) != -1) {
 
                             switch ($thisoption) {
                             case Horde_ActiveSync::SYNC_MIMESUPPORT:
@@ -156,12 +157,42 @@ class Horde_ActiveSync_Request_ItemOperations extends Horde_ActiveSync_Request_B
                                     }
                                 }
                                 break;
+                            case Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE:
+                                if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPARTPREFERENCE)) {
+                                    $thisio['bodypartprefs'] = array();
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
+                                        $thisio['bodypartprefs']['type'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            throw new Horde_ActiveSync_Exception('Protocol Error');
+                                        }
+                                    }
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TRUNCATIONSIZE)) {
+                                        $thisio['bodypartprefs']['truncationsize'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            throw new Horde_ActiveSync_Exception('Protocol Error');
+                                        }
+                                    }
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_AllORNONE)) {
+                                        $thisio['bodypartprefs']['allornone'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            throw new Horde_ActiveSync_Exception('Protocol Error');
+                                        }
+                                    }
+                                    if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_PREVIEW)) {
+                                        $thisio['bodypartprefs']['preview'] = $this->_decoder->getElementContent();
+                                        if (!$this->_decoder->getElementEndTag()) {
+                                            throw new Horde_ActiveSync_Exception('Protocol Error');
+                                        }
+                                    }
+                                    if (!$this->_decoder->getElementEndTag()) {
+                                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                                    }
+                                }
+                                break;
                             case Horde_ActiveSync::RM_SUPPORT:
                                 $thisio['rightsmanagement'] = $this->_decoder->getElementContent();
                                 if (!$this->_decoder->getElementEndTag()) {
-                                    $this->_statusCode = self::STATUS_PROTERROR;
-                                    $this->_handleError($collection);
-                                    exit;
+                                    throw new Horde_ActiveSync_Exception('Protocol Error');
                                 }
                                 break;
                             }
