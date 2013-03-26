@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().
 * [mjr] Close growler notification when alarms are dismissed (Bug #12122).
 * [mms] CSS parsing now uses the CSS3 compatible Horde_Css_Parser package instead of Horde_Text_Filter_Csstidy.
@@ -2870,6 +2871,7 @@
    <date>2013-03-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().
 * [mjr] Close growler notification when alarms are dismissed (Bug #12122).
 * [mms] CSS parsing now uses the CSS3 compatible Horde_Css_Parser package instead of Horde_Text_Filter_Csstidy.
