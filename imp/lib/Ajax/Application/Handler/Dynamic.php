@@ -830,36 +830,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
     }
 
     /**
-     * AJAX action: Auto save a draft message.
-     *
-     * @return object  See _draftAction().
-     */
-    public function autoSaveDraft()
-    {
-        return $this->_draftAction('autoSaveDraft');
-    }
-
-    /**
-     * AJAX action: Save a draft message.
-     *
-     * @return object  See _draftAction().
-     */
-    public function saveDraft()
-    {
-        return $this->_draftAction('saveDraft');
-    }
-
-    /**
-     * AJAX action: Save a template message.
-     *
-     * @return object  See _draftAction().
-     */
-    public function saveTemplate()
-    {
-        return $this->_draftAction('saveTemplate');
-    }
-
-    /**
      * AJAX action: Convert HTML to text (compose data).
      *
      * Variables used:
@@ -1064,77 +1034,6 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         $result->text = $GLOBALS['injector']->getInstance('IMP_Compose_Ui')->convertComposeText($this->vars->text, 'html');
-
-        return $result;
-    }
-
-    /* Protected methods. */
-
-    /**
-     * Save a draft composed message.
-     *
-     * See the list of variables needed for
-     * IMP_Ajax_Application#composeSetup(). Additional variables used:
-     *   - html: (integer) In HTML compose mode?
-     *   - message: (string) The message text.
-     *   - priority: (string) The priority of the message.
-     *   - request_read_receipt: (boolean) Add request read receipt header?
-     *
-     * @param string $action  AJAX action.
-     *
-     * @return object  An object with the following entries:
-     *   - action: (string) The AJAX action string
-     *   - success: (integer) 1 on success, 0 on failure.
-     */
-    protected function _draftAction($action)
-    {
-        try {
-            list($result, $imp_compose, $headers, ) = $this->_base->composeSetup($action);
-        } catch (Horde_Exception $e) {
-            $GLOBALS['notification']->push($e);
-
-            $result = new stdClass;
-            $result->action = $action;
-            $result->success = 0;
-            return $result;
-        }
-
-        $opts = array(
-            'html' => $this->vars->html,
-            'priority' => $this->vars->priority,
-            'readreceipt' => $this->vars->request_read_receipt
-        );
-
-        try {
-            switch ($action) {
-            case 'saveTemplate':
-                $res = $imp_compose->saveTemplate($headers, $this->vars->message, $opts);
-                break;
-
-            default:
-                $res = $imp_compose->saveDraft($headers, $this->vars->message, $opts);
-                break;
-            }
-
-            switch ($action) {
-            case 'autoSaveDraft':
-                $GLOBALS['notification']->push(_("Draft automatically saved."), 'horde.message');
-                break;
-
-            case 'saveDraft':
-                if ($GLOBALS['prefs']->getValue('close_draft')) {
-                    $imp_compose->destroy('save_draft');
-                }
-                // Fall-through
-
-            default:
-                $GLOBALS['notification']->push($res);
-                break;
-            }
-        } catch (IMP_Compose_Exception $e) {
-            $result->success = 0;
-            $GLOBALS['notification']->push($e);
-        }
 
         return $result;
     }

@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-25</date>
+ <date>2013-03-26</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -149,6 +149,7 @@
      <dir name="Application">
       <dir name="Handler">
        <file name="Common.php" role="horde" />
+       <file name="Draft.php" role="horde" />
        <file name="Dynamic.php" role="horde" />
        <file name="ImageUnblock.php" role="horde" />
        <file name="Mboxtoggle.php" role="horde" />
@@ -1528,6 +1529,7 @@
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
+   <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
    <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />
    <install as="imp/lib/Ajax/Application/Handler/Mboxtoggle.php" name="lib/Ajax/Application/Handler/Mboxtoggle.php" />
