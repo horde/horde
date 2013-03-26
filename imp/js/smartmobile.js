@@ -1142,8 +1142,8 @@ var ImpMobile = {
     {
         var v;
 
-        if ((v = d['imp:compose-cacheid'])) {
-            $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v);
+        if ((v = d['imp:compose']) && v.cacheid) {
+            $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
         }
 
         if ((v = d['imp:flag'])) {
