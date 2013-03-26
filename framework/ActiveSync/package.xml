@@ -10,8 +10,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-23</date>
- <time>18:43:00</time>
+ <date>2013-03-26</date>
+ <time>11:06:54</time>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -108,6 +108,7 @@
        <file name="SmartForward.php" role="php" />
        <file name="SmartReply.php" role="php" />
        <file name="Sync.php" role="php" />
+       <file name="SyncBase.php" role="php" />
        <file name="ValidateCert.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Request -->
       <dir name="State">
@@ -387,6 +388,7 @@
    <install as="Horde/ActiveSync/Request/SmartForward.php" name="lib/Horde/ActiveSync/Request/SmartForward.php" />
    <install as="Horde/ActiveSync/Request/SmartReply.php" name="lib/Horde/ActiveSync/Request/SmartReply.php" />
    <install as="Horde/ActiveSync/Request/Sync.php" name="lib/Horde/ActiveSync/Request/Sync.php" />
+   <install as="Horde/ActiveSync/Request/SyncBase.php" name="lib/Horde/ActiveSync/Request/SyncBase.php" />
    <install as="Horde/ActiveSync/Request/ValidateCert.php" name="lib/Horde/ActiveSync/Request/ValidateCert.php" />
    <install as="Horde/ActiveSync/State/Base.php" name="lib/Horde/ActiveSync/State/Base.php" />
    <install as="Horde/ActiveSync/State/Sql.php" name="lib/Horde/ActiveSync/State/Sql.php" />
@@ -1277,7 +1279,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-23</date>
+   <date>2013-03-26</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 *
