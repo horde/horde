@@ -140,40 +140,26 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         if (!$inline || $convert_text) {
             $this->_imptmp = array();
         } else {
-            $filters = array();
-            if ($prefs->getValue('emoticons')) {
-//                $filters['emoticons'] = array(
-//                    'entities' => true
-//                );
-            }
-
-            if ($inline) {
-                $blockimg = !$injector->getInstance('IMP_Images')->showInlineImage($contents) &&
-                            ($registry->getView() != $registry::VIEW_SMARTMOBILE);
-//                $filters['emails'] = array(
-//                    'callback' => array($this, 'emailsCallback')
-//                );
-            } else {
-                $blockimg = false;
-            }
-
             $this->_imptmp = array(
                 'blockimg' => null,
                 'cid' => null,
                 'cid_used' => array(),
                 'cssblock' => false,
                 'cssbroken' => false,
-                'filters' => $filters,
-                'img' => $blockimg,
+                'img' => false,
                 'imgblock' => false,
                 'inline' => $inline,
                 'style' => array(),
                 'target' => strval(new Horde_Support_Randomid())
             );
 
-            /* Image filtering. */
-            if ($blockimg) {
-                $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
+            if ($inline) {
+                /* Image filtering. */
+                if (!$injector->getInstance('IMP_Images')->showInlineImage($contents) &&
+                    ($registry->getView() != $registry::VIEW_SMARTMOBILE)) {
+                    $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
+                    $this->_imptmp['img'] = true;
+                }
             }
         }
 
@@ -275,31 +261,13 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
     }
 
     /**
-     * Process emails text filter callback.
-     *
-     * @param array $args   List of arguments to pass to the compose script.
-     * @param array $extra  Hash of extra, non-standard arguments to pass to
-     *                      compose script.
-     *
-     * @return Horde_Url  The link to the message composition script.
-     */
-    public function emailsCallback($args, $extra)
-    {
-        return IMP::composeLink($args, $extra, true);
-    }
-
-    /**
      */
     protected function _node($doc, $node)
     {
         parent::_node($doc, $node);
 
         if (empty($this->_imptmp) || !($node instanceof DOMElement)) {
-            if (!empty($this->_imptmp['filters']) &&
-                ($node instanceof DOMText) &&
-                ($node->length > 1)) {
-                $node->replaceData(0, $node->length, $this->_textFilter($node->wholeText, array_keys($this->_imptmp['filters']), array_values($this->_imptmp['filters'])));
-            }
+            /* if (($node instanceof DOMText) && ($node->length > 1)) {} */
             return;
         }
 
