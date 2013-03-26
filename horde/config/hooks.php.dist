@@ -216,14 +216,15 @@ class Horde_Hooks
 //
 //            // You will probably need to replace cd= with uid=; this
 //            // syntax is for Netware 5.1 nldap.
-//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context . ' -s ' . $scope . ' cn=' .
+//            $cmd = '/usr/bin/ldapsearch -b ' . $base_context .
+//                ' -s ' . $scope . ' cn=' .
 //                escapeshellcmd($username) .
 //                ' | /usr/bin/grep mail | /usr/bin/awk \'{print $2}\'';
 //            $mails = `$cmd`;
 //            $mail_array = explode("\n", $mails);
 //
 //            // Send back the first email found, not the whole list.
-//            $mail = $mail_array['0'];
+//            $mail = $mail_array[0];
 //
 //            // If no email address is found, then the login name will
 //            // be used.
@@ -334,7 +335,10 @@ class Horde_Hooks
 //        // Example #2: Block access to Horde if the remote host exists in
 //        // the DNSBL. It requires the PEAR Net_DNSBL package.
 //        $dnsbl = new Net_DNSBL();
-//        $dnsbl->setBlacklists(array('sbl-xbl.spamhaus.org', 'bl.spamcop.net'));
+//        $dnsbl->setBlacklists(array(
+//            'sbl-xbl.spamhaus.org',
+//            'bl.spamcop.net'
+//        ));
 //        return !$dnsbl->isListed($_SERVER['REMOTE_ADDR']);
 //
 //
@@ -448,11 +452,11 @@ class Horde_Hooks
 //
 //        if ($toHorde) {
 //            return $userId . '@' . $vdomain;
-//        } else {
-//            return (substr($userId, -strlen($vdomain)) == $vdomain)
-//              ? substr($userId, 0, -strlen($vdomain) - 1)
-//              : $userId;
 //        }
+//
+//        return (substr($userId, -strlen($vdomain)) == $vdomain)
+//            ? substr($userId, 0, -strlen($vdomain) - 1)
+//            : $userId;
 //
 //
 //        // Example #2: Convert username to all lowercase. This might be
@@ -564,8 +568,7 @@ class Horde_Hooks
 //
 //        try {
 //            $extraFields = Horde::callHook('signup_getextra');
-//        } catch (Horde_Exception $e) {
-//        } catch (Horde_Exception_HookNotSet $e) {}
+//        } catch (Horde_Exception $e) {}
 //
 //        $msg  = _("A new signup has been received and is awaiting your approval.") .
 //            "\n\n" .
@@ -602,16 +605,13 @@ class Horde_Hooks
      * Provide any extra fields which need to be filled in when a
      * non-registered user wishes to sign up.
      *
-     * @return array  An array of the following form:
-     * <pre>
-     * $somearray['somefieldname'] = array(...
-     * desc     - Any help text attached to the field
-     * label    - The text that the user will see attached to this field
-     * params   - Any allowed parameter to Horde_Form field types
-     * readonly - (boolean) Whether this editable
-     * required - (boolean) Whether this field is mandatory
-     * type     - Any allowed Horde_Form field type
-     * </pre>
+     * @return array  An array containing the following keys:
+     *   - desc: Any help text attached to the field
+     *   - label: The text that the user will see attached to this field
+     *   - params: Any allowed parameter to Horde_Form field types
+     *   - readonly: (boolean) Whether this editable
+     *   - required: (boolean) Whether this field is mandatory
+     *   - type: Any allowed Horde_Form field type
      */
 //    public function signup_getextra()
 //    {
@@ -791,6 +791,7 @@ class Horde_Hooks
 //        }
 //    }
 
+
     /**
      * ActiveSync hook for determing a Horde username from an email address.
      *
@@ -798,10 +799,11 @@ class Horde_Hooks
      *
      * @return string  The username to use to authenticate to Horde with.
      */
-    // public function activesync_get_autodiscover_username($email)
-    // {
-    //     return substr($email, 0, strpos($email, '@'));
-    // }
+//    public function activesync_get_autodiscover_username($email)
+//    {
+//        return substr($email, 0, strpos($email, '@'));
+//    }
+
 
     /**
      * ActiveSync hook for overriding the XML output. Takes an array of
@@ -814,9 +816,10 @@ class Horde_Hooks
      *
      * @return string  The XML string.
      */
-    // public function activesync_autodiscover_xml(array $params)
-    // {
-    // }
+//    public function activesync_autodiscover_xml(array $params)
+//    {
+//    }
+
 
     /**
      * ActiveSync hook for modifying the various Autodiscover values before
@@ -827,9 +830,9 @@ class Horde_Hooks
      *
      * @return array  The possibly modified array of Autodiscover parameters.
      */
-    // public function activesync_autodiscover_parameters(array $params)
-    // {
-    //     return $params;
-    // }
+//    public function activesync_autodiscover_parameters(array $params)
+//    {
+//        return $params;
+//    }
 
 }

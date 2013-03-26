@@ -15,7 +15,10 @@
  */
 class Horde_Themes_Css
 {
-    /* @since Horde 2.3.0 */
+    /**
+     * @deprecated
+     * @since Horde 2.3.0
+     */
     const CSS_URL_REGEX = '/url\s*\(["\']?(.*?)["\']?\)/i';
 
     /**
@@ -38,13 +41,6 @@ class Horde_Themes_Css
      * @var array
      */
     protected $_cssThemeFiles = array();
-
-    /**
-     * Temp data used in loadCssFiles() callback.
-     *
-     * @var array
-     */
-    protected $_tmp;
 
     /**
      * Adds an external stylesheet to the output.
@@ -291,70 +287,66 @@ class Horde_Themes_Css
      */
     public function loadCssFiles($files)
     {
-        global $browser, $injector;
+        global $browser;
 
-        $this->_tmp = array(
-            'dataurl' => $browser->hasFeature('dataurl')
-        );
+        $dataurl = $browser->hasFeature('dataurl');
         $out = '';
 
         foreach ($files as $file) {
             $data = file_get_contents($file['fs']);
-            $this->_tmp['path'] = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
+            $path = substr($file['uri'], 0, strrpos($file['uri'], '/') + 1);
+            $url = array();
 
             try {
-                $css = $injector->getInstance('Horde_Core_Factory_TextFilter')->filter($data, 'csstidy', array(
-                    'ob' => true
-                ));
+                $css_parser = new Horde_Css_Parser($data);
+            } catch (Exception $e) {
+                /* If the CSS is broken, log error and output as-is. */
+                Horde::log($e, 'ERR');
+                $out .= $data;
+                continue;
+            }
 
-                foreach ($css->tokens as $k => $v) {
-                    if (stripos($v[1], 'url(') !== false) {
-                        $this->_tmp['type'] = $css->tokens[$k - 1][1];
-                        $css->tokens[$k][1] = preg_replace_callback(self::CSS_URL_REGEX, array($this, '_loadCssFilesCallback'), $v[1]);
-                    }
-                }
+            foreach ($css_parser->doc->getContents() as $val) {
+                if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
+                    foreach ($val->getRules('background-') as $val2) {
+                        $item = $val2->getValue();
 
-                foreach ($css->import as $val) {
-                    if (preg_match_all(self::CSS_URL_REGEX, $val, $matches)) {
-                        foreach ($matches[1] as $val2) {
-                            $ob = Horde_Themes_Element::fromUri($this->_tmp['path'] . $val2);
-                            $out .= $this->loadCssFiles(array(array(
-                                'app' => null,
-                                'fs' => $ob->fs,
-                                'uri' => $ob->uri
-                            )));
+                        if ($item instanceof Sabberworm\CSS\Value\URL) {
+                            $url[] = $item;
+                        } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
+                            foreach ($item->getListComponents() as $val3) {
+                                if ($val3 instanceof Sabberworm\CSS\Value\URL) {
+                                    $url[] = $val3;
+                                }
+                            }
                         }
                     }
+                } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
+                    $ob = Horde_Themes_Element::fromUri($path . $val->getLocation());
+                    $out .= $this->loadCssFiles(array(array(
+                        'app' => null,
+                        'fs' => $ob->fs,
+                        'uri' => $ob->uri
+                    )));
+                    $css_parser->doc->remove($val);
                 }
-                $css->import = array();
-
-                $out .= $css->print->plain();
-            } catch (Horde_Exception $e) {
-                $out .= $data;
             }
+
+            foreach ($url as $val) {
+                $url_ob = $val->getURL();
+
+                if ($dataurl) {
+                    /* Limit data to 16 KB in stylesheets. */
+                    $url_ob->setString(Horde::base64ImgData($path . $url_ob->getString(), 16384));
+                } else {
+                    $url_ob->setString($path . $url_ob->getString());
+                }
+            }
+
+            $out .= $css_parser->compress();
         }
 
         return $out;
-    }
-
-    /**
-     * Callback for loadCssFiles() to convert URL data.
-     *
-     * @param array $matches  The list of matches from preg_replace_callback.
-     *
-     * @return string  The converted string.
-     */
-    protected function _loadCssFilesCallback($matches)
-    {
-        $url = $this->_tmp['path'] . $matches[1];
-
-        if ($this->_tmp['dataurl'] &&
-            (stripos(ltrim($this->_tmp['type']), 'background') === 0)) {
-            /* Limit data to 16 KB in stylesheets. */
-            return 'url(' . Horde::base64ImgData($url, 16384) . ')';
-        }
-
-        return 'url(\'' . $url . '\')';
     }
 
 }

@@ -56,12 +56,12 @@
     </ul>
   </td>
   <td><?php echo strlen($task->desc) ? Horde::img('note.png', _("Task Note")) : '&nbsp;' ?></td>
-  <td><?php echo ($task->alarm && $task->due) ?
+  <td><?php echo ($task->alarm && $due) ?
     Horde::img('alarm_small.png', _("Task Alarm")) : '&nbsp;' ?>
   </td>
 <?php if (in_array('due', $columns)): ?>
-  <td class="nowrap" sortval="<?php echo $task->due ? (int)$task->due : PHP_INT_MAX ?>">
-    <?php echo $task->due ? strftime($dateFormat, $task->due) : '&nbsp;' ?>
+  <td class="nowrap" sortval="<?php echo $due ? $due->timestamp() : PHP_INT_MAX ?>">
+    <?php echo $due ? $due->strftime($dateFormat) : '&nbsp;' ?>
   </td>
 <?php endif; if (in_array('start', $columns)): ?>
   <td class="nowrap" sortval="<?php echo $task->start ? (int)$task->start : PHP_INT_MAX ?>">

@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-05-01 14:03+0200\n"
-"PO-Revision-Date: 2011-10-30 20:32-0300\n"
+"POT-Creation-Date: 2013-01-29 11:44+0100\n"
+"PO-Revision-Date: 2013-03-16 10:31-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
 "Language: \n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Generator: KBabel 1.11.4\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: manager.php:62
+#: manager.php:65
 #, php-format
 msgid "\"%s\" renamed to \"%s\""
 msgstr "\"%s\" renomeado para \"%s\""
@@ -29,12 +29,12 @@ msgstr "\"%s\" renomeado para \"%s\""
 msgid "%.2fMB / %.2fMB  (%.2f%%)"
 msgstr "%.2fMB / %.2fMB  (%.2f%%)"
 
-#: manager.php:558
+#: manager.php:594
 #, php-format
 msgid "%d item"
 msgstr "%d item"
 
-#: manager.php:558
+#: manager.php:594
 #, php-format
 msgid "%d items"
 msgstr "%d itens"
@@ -44,7 +44,7 @@ msgstr "%d itens"
 msgid "%s successfully saved."
 msgstr "%s gravado com sucesso."
 
-#: manager.php:177
+#: manager.php:178
 #, php-format
 msgid "%s was successfully pasted."
 msgstr "%s foi colado com sucesso."
@@ -54,134 +54,122 @@ msgstr "%s foi colado com sucesso."
 msgid "Access denied to %s"
 msgstr "Acesso negado a %s"
 
-#: lib/Gollem.php:48 lib/Gollem.php:299 lib/Gollem.php:348 lib/Gollem.php:370
-#: lib/Gollem.php:390
+#: lib/Gollem.php:56 lib/Gollem.php:306 lib/Gollem.php:373 lib/Gollem.php:410
+#: lib/Gollem.php:433
 #, php-format
 msgid "Access denied to folder \"%s\"."
 msgstr "Acesso negado à pasta \"%s\"."
 
-#: templates/manager/manager.html:110
-msgid "Actions:"
-msgstr "Ações:"
-
-#: selectlist.php:79
+#: templates/selectlist.html.php:28
 msgid "Add"
 msgstr "Adicionar"
 
-#: templates/manager/manager.html:11
+#: templates/manager.html.php:9
 msgid "All"
 msgstr "Todos"
 
-#: templates/javascript_defs.php:20
+#: manager.php:610
 msgid "Are you sure you wish to continue?"
 msgstr "Deseja realmente continuar?"
 
-#: templates/javascript_defs.php:18
+#: manager.php:608
 msgid "Are you sure?"
 msgstr "Você tem certeza?"
 
-#: config/prefs.php:67
+#: config/prefs.php:68
 msgid "Ascending"
 msgstr "Ascendente"
 
-#: config/prefs.php:97
+#: config/prefs.php:98
 msgid "Ask"
 msgstr "Perguntar"
 
-#: templates/manager/manager.html:5
-msgid "Attributes"
-msgstr "Atributos"
-
-#: lib/Application.php:139
+#: lib/Application.php:136
 msgid "Backend"
 msgstr "Estrutura"
 
-#: lib/Application.php:86
+#: lib/Application.php:83
 msgid "Backends"
 msgstr "Estruturas"
 
-#: templates/clipboard/clipboard.html:11
+#: templates/clipboard.html.php:12
 msgid "Below is the current contents of your clipboard."
 msgstr "Abaixo está o conteúdo atual da área de transferência."
 
-#: clipboard.php:24 manager.php:283 selectlist.php:81
-#: templates/edit/edit.inc:13
+#: clipboard.php:23 templates/edit.html.php:15
+#: templates/selectlist.html.php:30
 msgid "Cancel"
 msgstr "Cancelar"
 
-#: manager.php:82
+#: manager.php:85
 #, php-format
 msgid "Cannot chmod %s: %s"
 msgstr "Impossível mudar permissões de %s: %s"
 
-#: manager.php:152
+#: manager.php:153
 msgid "Cannot copy items onto clipboard."
 msgstr "Impossível copiar ítens para a área de transferência."
 
-#: manager.php:223
+#: manager.php:224
 #, php-format
 msgid "Cannot create home directory: %s"
 msgstr "Impossível criar diretório pessoal: %s"
 
-#: manager.php:154
+#: manager.php:155
 msgid "Cannot cut items onto clipboard."
 msgstr "Impossível cortar itens da área de transferência."
 
-#: manager.php:179
+#: manager.php:180
 #, php-format
 msgid "Cannot paste \"%s\" (file cleared from clipboard): %s"
 msgstr ""
 "Impossível colar \"%s\" (arquivo excluído da área de transferência): %s"
 
-#: manager.php:309 templates/manager/manager.html:70
+#: manager.php:330 manager.php:605
 msgid "Change Folder"
 msgstr "Mudar Pasta"
 
-#: templates/manager/manager.html:112
+#: templates/manager.html.php:60
 msgid "Change Permissions"
 msgstr "Alterar Permissões"
 
-#: lib/Gollem.php:592
-msgid "Change Server"
-msgstr "Mudar Servidor"
-
-#: lib/Application.php:301
+#: lib/Application.php:244
 msgid "Check Quota"
 msgstr "Verificar Quota"
 
-#: manager.php:554
+#: manager.php:590
 msgid "Check _All/None"
 msgstr "Verific_ar Todos/Nenhum"
 
-#: manager.php:80
+#: manager.php:83
 msgid "Chmod done: "
 msgstr "Alteração de permissões terminada: "
 
-#: lib/Application.php:271
+#: lib/Prefs/Special/Columnselect.php:47
 msgid "Choose which columns to display, and in what order:"
 msgstr "Escolha quais colunas para mostrar, e em qual ordem:"
 
-#: clipboard.php:25 templates/manager/manager.html:131
+#: clipboard.php:24
 msgid "Clear"
 msgstr "Limpar"
 
-#: clipboard.php:44 templates/clipboard/clipboard.html:7
+#: clipboard.php:51 lib/Application.php:227 templates/clipboard.html.php:7
 msgid "Clipboard"
 msgstr "Área de Transferência"
 
-#: quota.php:26
+#: quota.php:25
 msgid "Close"
 msgstr "Fechar"
 
-#: lib/Application.php:275
+#: lib/Prefs/Special/Columnselect.php:51
 msgid "Columns that will not be displayed:"
 msgstr "Colunas que não serão exibidas:"
 
-#: clipboard.php:28 templates/manager/manager.html:115
+#: clipboard.php:27 templates/manager.html.php:63
 msgid "Copy"
 msgstr "Copiar"
 
-#: manager.php:302 templates/manager/manager.html:58
+#: manager.php:318 manager.php:606
 msgid "Create Folder"
 msgstr "Criar Pasta"
 
@@ -194,61 +182,61 @@ msgstr ""
 "Criadas permissões vazias para \"%s\". Você deve explicitamente dar acesso a "
 "esta estrutura agora."
 
-#: templates/clipboard/clipboard.html:21
+#: templates/clipboard.html.php:22
 msgid "Current directory:"
 msgstr "Diretório atual:"
 
-#: clipboard.php:27 templates/manager/manager.html:116
+#: clipboard.php:26 templates/manager.html.php:65
 msgid "Cut"
 msgstr "Cortar"
 
-#: config/prefs.php:59
+#: config/prefs.php:60
 msgid "Default sorting criteria:"
 msgstr "Critério padrão de ordenação:"
 
-#: config/prefs.php:70
+#: config/prefs.php:71
 msgid "Default sorting direction:"
 msgstr "Direção padrão de ordenação:"
 
-#: templates/manager/manager.html:119
+#: templates/manager.html.php:69
 msgid "Delete"
 msgstr "Excluir"
 
-#: config/prefs.php:99
+#: config/prefs.php:100
 msgid "Delete folders recursively?"
 msgstr "Excluir pastas e subpastas?"
 
-#: config/prefs.php:68
+#: config/prefs.php:69
 msgid "Descending"
 msgstr "Descendente"
 
-#: selectlist.php:80
+#: templates/selectlist.html.php:29
 msgid "Done"
 msgstr "Feito"
 
-#: manager.php:429
+#: manager.php:463
 #, php-format
 msgid "Download %s"
 msgstr "Baixar %s"
 
-#: templates/quota/quota.html:7
+#: templates/quota.html.php:7
 msgid "ERROR:"
 msgstr "ERRO:"
 
-#: templates/edit/edit.inc:8
+#: templates/edit.html.php:8
 #, php-format
 msgid "Edit %s"
 msgstr "Editar %s"
 
-#: templates/manager/manager.html:26
+#: templates/manager.html.php:24
 msgid "Execute"
 msgstr "Executar"
 
-#: templates/javascript_defs.php:22 templates/manager/manager.html:201
+#: manager.php:611 templates/manager.html.php:146
 msgid "File"
 msgstr "Arquivo"
 
-#: config/prefs.php:86
+#: config/prefs.php:87
 msgid "File Actions"
 msgstr "Ações de Arquivo"
 
@@ -256,27 +244,27 @@ msgstr "Ações de Arquivo"
 msgid "File Display"
 msgstr "Exibir Arquivo"
 
-#: config/prefs.php:56
+#: config/prefs.php:57
 msgid "File Modification Time"
 msgstr "Data de Modificação do Arquivo"
 
-#: config/prefs.php:55
+#: config/prefs.php:56
 msgid "File Name"
 msgstr "Nome do Arquivo"
 
-#: config/prefs.php:57
+#: config/prefs.php:58
 msgid "File Size"
 msgstr "Tamanho do Arquivo"
 
-#: config/prefs.php:54
+#: config/prefs.php:55
 msgid "File Type"
 msgstr "Tipo do Arquivo"
 
-#: config/prefs.php:87
+#: config/prefs.php:88
 msgid "File action settings."
 msgstr "Ajuste de ações de arquivo."
 
-#: manager.php:97
+#: manager.php:100
 msgid "File deleted: "
 msgstr "Arquivo excluído: "
 
@@ -284,103 +272,83 @@ msgstr "Arquivo excluído: "
 msgid "File display preferences."
 msgstr "Preferências de exibição de arquivo."
 
-#: manager.php:118
+#: manager.php:121
 #, php-format
 msgid "File received: %s"
 msgstr "Arquivo recebido: %s"
 
-#: lib/Api.php:122
+#: lib/Api.php:124
 msgid "Files must be written inside a VFS backend."
 msgstr "Arquivos devem ser gravados em uma estrutura VFS."
 
-#: templates/manager/manager.html:129
+#: manager.php:341
 msgid "Filter"
 msgstr "Filtro"
 
-#: templates/manager/manager.html:128
-msgid "Filter:"
-msgstr "Filtro:"
-
-#: manager.php:89
+#: manager.php:92
 msgid "Folder removed: "
 msgstr "Pasta removida: "
 
-#: lib/Api.php:153 lib/Api.php:184
+#: lib/Api.php:157 lib/Api.php:190
 msgid "Folders must be created inside a VFS backend."
 msgstr "Pastas devem ser criadas em uma estrutura VFS."
 
-#: templates/manager/manager.html:72
-msgid "Go to:"
-msgstr "Ir para:"
-
-#: manager.php:533 templates/manager/manager.html:10
+#: manager.php:568 templates/manager.html.php:8
 msgid "Group"
 msgstr "Grupo"
 
-#: lib/Api.php:403
+#: lib/Api.php:413
 #, php-format
 msgid "Invalid backend requested: %s"
 msgstr "Pedido inválido à estrutura: %s"
 
-#: manager.php:146
+#: manager.php:147
 #, php-format
 msgid "Item copied to clipboard: %s"
 msgstr "Item copiado para a área de transferência: %s"
 
-#: manager.php:148
+#: manager.php:149
 #, php-format
 msgid "Item cut to clipboard: %s"
 msgstr "Item cortado da área de transferência: %s"
 
-#: config/prefs.php:77
+#: config/prefs.php:78
 msgid "Items per page"
 msgstr "Itens por página"
-
-#: templates/login/login.html:67
-msgid "Language"
-msgstr "Idioma"
 
 #: config/prefs.php:34
 msgid "List folders first?"
 msgstr "Listar pastas primeiro?"
 
-#: manager.php:503
+#: manager.php:540
 msgid "Modified"
 msgstr "Modificado"
 
-#: manager.php:481
+#: manager.php:514
 msgid "Name"
 msgstr "Nome"
 
-#: templates/manager/manager.html:46 templates/manager/manager.html:60
-msgid "Name:"
-msgstr "Nome:"
-
-#: manager.php:47
+#: manager.php:50
 msgid "New folder created: "
 msgstr "Nova pasta criada: "
 
-#: config/prefs.php:95
+#: config/prefs.php:96
 msgid "No"
 msgstr "Não"
 
-#: templates/quota/quota.html:12
+#: templates/quota.html.php:12
 msgid "No quota found."
 msgstr "Nenhuma quota encontrada."
 
-#: manager.php:284
-msgid "OK"
-msgstr "OK"
-
-#: manager.php:526 templates/manager/manager.html:9
+#: manager.php:562 templates/manager.html.php:7
 msgid "Owner"
 msgstr "Dono"
 
-#: clipboard.php:26
+#: clipboard.php:25
 msgid "Paste"
 msgstr "Colar"
 
-#: manager.php:519
+#: manager.php:556
 msgid "Permission"
 msgstr "Permissão"
 
@@ -389,112 +357,116 @@ msgstr "Permissão"
 msgid "Permission denied to %s: %s"
 msgstr "Permissão negada para %s: %s"
 
-#: manager.php:216
+#: manager.php:217
 #, php-format
 msgid "Permission denied to folder \"%s\": %s"
 msgstr "Permissão negada para a pasta \"%s\": %s"
 
-#: lib/Api.php:411
+#: lib/Api.php:421
 msgid "Permission denied to this backend."
 msgstr "Permissão negada para essa estrutura."
 
-#: templates/javascript_defs.php:13
-msgid "Please provide your password."
-msgstr "Por favor forneça sua senha."
+#: manager.php:612
+msgid "Permissions"
+msgstr "Permissões"
 
-#: templates/javascript_defs.php:12
-msgid "Please provide your username."
-msgstr "Por favor forneça seu nome de usuário."
-
-#: templates/javascript_defs.php:16
+#: manager.php:614
 msgid "Please select an item before this action."
 msgstr "Por favor selecione um item antes desta ação."
 
-#: templates/javascript_defs.php:21
+#: manager.php:615
 msgid "Please specify at least one file to upload."
 msgstr "Por favor especifique pelo menos um arquivo para enviar."
 
-#: quota.php:57 templates/quota/quota.html:2
+#: quota.php:58 templates/quota.html.php:2
 msgid "Quota Display"
 msgstr "Exibição de Quota"
 
-#: templates/manager/manager.html:14
+#: templates/manager.html.php:12
 msgid "Read"
 msgstr "Ler"
 
-#: manager.php:289
+#: manager.php:287
 msgid "Refresh"
 msgstr "Atualizar"
 
-#: templates/manager/manager.html:44 templates/manager/manager.html:122
+#: manager.php:613 templates/manager.html.php:72
 msgid "Rename"
 msgstr "Renomear"
 
-#: lib/Api.php:198
+#: lib/Api.php:206
 msgid "Renaming across backends is not supported."
 msgstr "Não é possível renomear entre estruturas."
 
-#: lib/Api.php:192
+#: lib/Api.php:198
 msgid "Renaming of backends is not allowed."
 msgstr "Não é permitido renomear estruturas."
 
-#: templates/edit/edit.inc:12
+#: templates/edit.html.php:14
 msgid "Reset"
 msgstr "Limpar"
 
-#: manager.php:282 templates/edit/edit.inc:11
+#: templates/edit.html.php:13
 msgid "Save"
 msgstr "Gravar"
 
-#: clipboard.php:48 templates/clipboard/clipboard.html:28
+#: clipboard.php:46 templates/clipboard.html.php:32
 msgid "Select All"
 msgstr "Selecionar Todas"
 
-#: clipboard.php:49
+#: clipboard.php:47
 msgid "Select None"
 msgstr "Selecionar Nenhum"
 
-#: lib/Application.php:273
+#: lib/Prefs/Special/Columnselect.php:49
 msgid "Select a backend:"
 msgstr "Selecione uma estrutura:"
 
-#: templates/login/login.html:31
-msgid "Server"
-msgstr "Servidor"
+#: manager.php:301 manager.php:420
+msgid "Share Folder"
+msgstr "Compartilhar Pasta"
+
+#: manager.php:420
+msgid "Shared Folder"
+msgstr "Pasta Compartilhada"
 
 #: config/prefs.php:27
 msgid "Show dotfiles?"
 msgstr "Mostrar arquivos ocultos?"
 
-#: manager.php:511
+#: manager.php:548
 msgid "Size"
 msgstr "Tamanho"
 
-#: lib/Api.php:227
+#: lib/Application.php:215
+msgid "Start Folder"
+msgstr "Pasta de Início"
+
+#: lib/Api.php:235
 msgid "The application folder can not be deleted."
 msgstr "A pasta da aplicação não pode ser apagada."
 
-#: templates/javascript_defs.php:19
+#: manager.php:609
 msgid "The following item(s) are folders:"
 msgstr "Os seguintes itens são pastas:"
 
-#: templates/javascript_defs.php:17
+#: manager.php:607
 msgid "The following items will be permanently deleted:"
 msgstr "Os seguintes itens serão excluídos permanentemente: "
 
-#: templates/javascript_defs.php:25
+#: selectlist.php:174
 msgid "The original opener window has been closed. Exiting."
 msgstr "A janela original de abertura foi fechado. Saindo."
 
-#: selectlist.php:176 templates/manager/manager.html:140
+#: templates/manager.html.php:80 templates/selectlist.html.php:15
 msgid "There are no files in this folder."
 msgstr "Não existem arquivos nesta pasta."
 
-#: lib/Application.php:272
+#: lib/Prefs/Special/Columnselect.php:48
 msgid "These columns will display in this order:"
 msgstr "Essas colunas serão exibidas nesta ordem:"
 
-#: templates/clipboard/clipboard.html:17
+#: templates/clipboard.html.php:18
 msgid ""
 "To clear items from the clipboard, check the box next to the filename and "
 "click on &quot;Clear&quot;."
@@ -502,7 +474,7 @@ msgstr ""
 "Para limpar itens da área de transferência, marque a caixa ao lado do "
 "arquivo e clique em &quot;Limpar&quot;."
 
-#: templates/clipboard/clipboard.html:15
+#: templates/clipboard.html.php:16
 msgid ""
 "To paste items from the clipboard to the current directory, check the box "
 "next to the filename and click on &quot;Paste&quot;."
@@ -510,11 +482,11 @@ msgstr ""
 "Para colar itens da área de transferência na pasta atual, marque a caixa ao "
 "lado do arquivo e clique em &quot;Colar&quot;."
 
-#: manager.php:473
+#: manager.php:506
 msgid "Type"
 msgstr "Tipo"
 
-#: lib/Api.php:407
+#: lib/Api.php:417
 msgid "Unable to create Gollem session"
 msgstr "Não é possível criar sessão do Gollem"
 
@@ -523,54 +495,46 @@ msgstr "Não é possível criar sessão do Gollem"
 msgid "Unable to create backend permission: %s"
 msgstr "Não é possível criar permissões da estrutura: %s"
 
-#: manager.php:99
+#: manager.php:102
 #, php-format
 msgid "Unable to delete file %s: %s"
 msgstr "Não é possível apagar o arquivo %s: %s"
 
-#: manager.php:91
+#: manager.php:94
 #, php-format
 msgid "Unable to delete folder %s: %s"
 msgstr "Não é possível apagar a pasta %s: %s"
 
-#: lib/Gollem.php:556 lib/Gollem.php:566
+#: lib/Gollem.php:687 lib/Gollem.php:697
 #, php-format
 msgid "Up to %s"
 msgstr "Até %s"
 
-#: manager.php:298
+#: manager.php:313
 msgid "Upload File(s)"
 msgstr "Enviar Arquivo(s)"
 
-#: config/prefs.php:14 config/prefs.php:85
+#: config/prefs.php:14 config/prefs.php:86
 msgid "User Interface"
 msgstr "Interface do Usuário"
 
-#: manager.php:293
-msgid "View Clipboard"
-msgstr "Ver Área de Transferência"
-
-#: templates/manager/manager.html:20
+#: templates/manager.html.php:18
 msgid "Write"
 msgstr "Gravar"
 
-#: config/prefs.php:96
+#: config/prefs.php:97
 msgid "Yes"
 msgstr "Sim"
+
+#: share.php:29
+msgid "You are not allowed to share this folder"
+msgstr "Você não pode compartilhar esta pasta"
 
 #: permissions.php:20
 msgid "You need at least one backend defined to set permissions."
 msgstr ""
 "Você precisa definir pelo menos uma estrutura para configurar permissões."
 
-#: lib/Gollem.php:590 lib/Gollem.php:593
-msgid "_Change Server"
-msgstr "_Mudar Servidor"
-
-#: lib/Application.php:288
-msgid "_My Home"
-msgstr "_Meu Início"
-
-#: lib/Application.php:291
+#: lib/Application.php:251
 msgid "_Permissions"
 msgstr "_Permissões"

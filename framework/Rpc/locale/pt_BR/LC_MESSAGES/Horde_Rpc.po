@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Rpc\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-03-15 13:27+0100\n"
-"PO-Revision-Date: 2011-06-12 19:48-0300\n"
+"POT-Creation-Date: 2013-03-08 19:47-0300\n"
+"PO-Revision-Date: 2013-03-16 11:07-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: \n"
@@ -35,6 +35,10 @@ msgstr "Nenhum dado XML válido retornado:"
 #: lib/Horde/Rpc/Phpgw.php:132
 msgid "Request couldn't be answered. Returned errorcode: "
 msgstr "Solicitação não pôde ser respondida. Código de erro retornado: "
+
+#: lib/Horde/Rpc/ActiveSync.php:102
+msgid "Trying to access the ActiveSync endpoint from a browser. Not Supported."
+msgstr "Tentando acessar o ponto ActiveSync de um navegador. Não suportado."
 
 #: lib/Horde/Rpc/Webdav.php:417
 #, php-format

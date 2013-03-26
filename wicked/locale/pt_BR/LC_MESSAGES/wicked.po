@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: pt_BR\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2011-10-30 20:30-0200\n"
+"POT-Creation-Date: 2013-01-29 11:43+0100\n"
 "PO-Revision-Date: 2011-10-30 20:35-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: Português brasileiro <i18n@lists.horde.org>\n"
@@ -106,8 +106,7 @@ msgstr "Arquivos Anexados: %s"
 msgid "Attachment Name"
 msgstr "Nome do Anexo"
 
-#: templates/display/standard.inc:80 templates/display/standard.inc:81
-#: templates/display/standard.inc:120
+#: templates/display/standard.inc:81 templates/display/standard.inc:122
 msgid "Attachments"
 msgstr "Anexos"
 
@@ -122,17 +121,9 @@ msgstr "Anexos com espaços não podem ser incorporados em uma página."
 msgid "Author"
 msgstr "Autor"
 
-#: templates/display/standard.inc:107
+#: templates/display/standard.inc:109
 msgid "Ba_ck to"
 msgstr "Retorna_r para"
-
-#: templates/display/standard.inc:107
-msgid "Back to"
-msgstr "Retornar para"
-
-#: templates/display/standard.inc:70
-msgid "Backlinks"
-msgstr "Referenciadores"
 
 #: lib/Page/BackLinks.php:66
 #, php-format
@@ -157,7 +148,7 @@ msgstr "Impossível reverter para uma versão desconhecida."
 msgid "Can't update \"%s\": no such attachment."
 msgstr "Impossível atualizar \"%s\": anexo inexistente."
 
-#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:152
+#: lib/Page/DeletePage.php:95 lib/Page/MergeOrRename.php:161
 #: lib/Page/RevertPage.php:82 templates/edit/create.inc:47
 #: templates/edit/standard.inc:27 templates/display/MergeOrRename.html:62
 msgid "Cancel"
@@ -181,7 +172,7 @@ msgstr "Registro do log de alterações"
 msgid "Change references to this page from:"
 msgstr "Alterar referências para essa página de:"
 
-#: lib/Page/MergeOrRename.php:239
+#: lib/Page/MergeOrRename.php:248
 #, php-format
 msgid "Changed references from %s to %s"
 msgstr "Referências alteradas de %s para %s"
@@ -236,11 +227,6 @@ msgstr "Data"
 msgid "Delete"
 msgstr "Excluir"
 
-#: templates/display/standard.inc:55
-#, php-format
-msgid "Delete %s"
-msgstr "Excluir %s"
-
 #: lib/Page/DeletePage.php:88 lib/Page/DeletePage.php:110
 msgid "Delete Page"
 msgstr "Apagar Página"
@@ -267,7 +253,7 @@ msgstr "Diferenciar De"
 msgid "Diff To"
 msgstr "Diferenciar Para"
 
-#: diff.php:53 templates/diff/diff.inc:2 templates/sync/diff.inc:101
+#: diff.php:54 templates/diff/diff.inc:2 templates/sync/diff.inc:101
 #, php-format
 msgid "Diff for %s between %s and %s"
 msgstr "Diferenciar para %s entre %s e %s"
@@ -290,7 +276,7 @@ msgstr "Exibir Versão %s"
 msgid "Download"
 msgstr "Baixar"
 
-#: templates/display/standard.inc:139
+#: templates/display/standard.inc:141
 msgid "Download this page as:"
 msgstr "Baixar esta página como:"
 
@@ -310,7 +296,7 @@ msgstr "Driver"
 msgid "Edit"
 msgstr "Editar"
 
-#: preview.php:22 templates/display/standard.inc:24
+#: preview.php:23
 #, php-format
 msgid "Edit %s"
 msgstr "Editar %s"
@@ -323,7 +309,7 @@ msgstr "Editar Página"
 msgid "Edit Version"
 msgstr "Editar Versão"
 
-#: templates/history/summary.inc:16
+#: templates/history/summary.inc:18
 #, php-format
 msgid "Edit Version %s"
 msgstr "Editar Versão %s"
@@ -342,7 +328,7 @@ msgstr ""
 "Digite um nome para este arquivo (se vazio, será usado o nome atual do "
 "arquivo)"
 
-#: lib/Page/MergeOrRename.php:233
+#: lib/Page/MergeOrRename.php:242
 #, php-format
 msgid "Error retrieving %s: %s"
 msgstr "Erro ao retornar %s: %s"
@@ -373,7 +359,7 @@ msgstr "Encontrado o mesmo conteúdo no histórico"
 msgid "Guest"
 msgstr "Convidado"
 
-#: templates/display/standard.inc:141
+#: templates/display/standard.inc:143
 msgid "HTML"
 msgstr "HTML"
 
@@ -381,16 +367,11 @@ msgstr "HTML"
 msgid "Hi_story"
 msgstr "Hi_stórico"
 
-#: templates/display/standard.inc:87
-#, php-format
-msgid "History of %s"
-msgstr "Histórico de %s"
-
 #: lib/Page/StandardHistoryPage.php:45
 msgid "History page not found"
 msgstr "Página de histórico não encontrada"
 
-#: history.php:26 templates/history/header.inc:7
+#: history.php:27 templates/history/header.inc:7
 #, php-format
 msgid "History: %s"
 msgstr "Histórico: %s"
@@ -425,7 +406,7 @@ msgstr "Modificado em %s por %s"
 msgid "Last Update"
 msgstr "Última Atualização"
 
-#: templates/display/standard.inc:142
+#: templates/display/standard.inc:144
 msgid "Latex"
 msgstr "Latex"
 
@@ -442,36 +423,27 @@ msgstr "Local"
 msgid "Location"
 msgstr "Local"
 
-#: templates/display/standard.inc:43
-#, php-format
-msgid "Lock %s"
-msgstr "Proteger %s"
-
 #: lib/Page/DeletePage.php:88 lib/Page/RevertPage.php:75
 #: templates/display/title.inc:33 templates/edit/standard.inc:21
 msgid "Locked"
 msgstr "Protegida"
 
-#: templates/display/standard.inc:63
-msgid "Merge/Rename"
-msgstr "Mesclar/Renomear"
-
-#: lib/Page/MergeOrRename.php:137
+#: lib/Page/MergeOrRename.php:146
 #, php-format
 msgid "Merge/Rename: %s"
 msgstr "Mesclar/Renomear: %s"
 
-#: lib/Page/MergeOrRename.php:198
+#: lib/Page/MergeOrRename.php:207
 #, php-format
 msgid "Merged \"%s\" into \"%s\"."
 msgstr "\"%s\" combinada em \"%s\"."
 
-#: lib/Page/MergeOrRename.php:201
+#: lib/Page/MergeOrRename.php:210
 #, php-format
 msgid "Merged \"%s\" into \"%s\". New page: %s\n"
 msgstr "\"%s\" combinada em \"%s\". Nova página: %s\n"
 
-#: lib/Page/MergeOrRename.php:194
+#: lib/Page/MergeOrRename.php:203
 #, php-format
 msgid "Merged from %s"
 msgstr "Combinada de %s"
@@ -506,7 +478,7 @@ msgstr "Novo anexo \"%s\" para a página \"%s\"."
 msgid "New name"
 msgstr "Novo nome"
 
-#: lib/Page/MergeOrRename.php:162
+#: lib/Page/MergeOrRename.php:171
 msgid "New name is the same as old name."
 msgstr "Novo nome é o mesmo que o anterior."
 
@@ -536,7 +508,7 @@ msgstr "Nenhuma página para sincronizar"
 msgid "Page"
 msgstr "Página"
 
-#: lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:193
 #, php-format
 msgid "Page \"%s\" already exists."
 msgstr "Página \"%s\" já existe."
@@ -593,7 +565,7 @@ msgstr "Nome da página não pode ser vazio"
 msgid "Page unlocked"
 msgstr "Página desprotegida"
 
-#: lib/Application.php:59
+#: lib/Application.php:93
 msgid "Pages"
 msgstr "Páginas"
 
@@ -609,7 +581,7 @@ msgstr "Páginas para sincronizar"
 msgid "Password"
 msgstr "Senha"
 
-#: templates/display/standard.inc:103
+#: templates/display/standard.inc:104
 msgid "Permissio_ns"
 msgstr "Permissõ_es"
 
@@ -617,7 +589,7 @@ msgstr "Permissõ_es"
 msgid "Permission denied."
 msgstr "Permissão negada."
 
-#: templates/display/standard.inc:140
+#: templates/display/standard.inc:142
 msgid "Plain Text"
 msgstr "Texto Puro"
 
@@ -664,12 +636,12 @@ msgstr "Remoto"
 msgid "Remove login info"
 msgstr "Remover informação de login"
 
-#: lib/Page/MergeOrRename.php:207
+#: lib/Page/MergeOrRename.php:216
 #, php-format
 msgid "Renamed \"%s\" to \"%s\"."
 msgstr "Renomeada \"%s\" para \"%s\"."
 
-#: lib/Page/MergeOrRename.php:210
+#: lib/Page/MergeOrRename.php:219
 #, php-format
 msgid "Renamed \"%s\" to \"%s\". New page: %s\n"
 msgstr "\"%s\" renomeada para \"%s\". Nova página: %s\n"
@@ -695,7 +667,7 @@ msgstr "Reverter"
 msgid "Revert Page"
 msgstr "Reverter Página"
 
-#: templates/history/summary.inc:26
+#: templates/history/summary.inc:28
 #, php-format
 msgid "Revert to version %s"
 msgstr "Reverter para versão %s"
@@ -721,7 +693,7 @@ msgstr "Gravar"
 msgid "Save login info"
 msgstr "Gravar informação de login"
 
-#: lib/Page/Search.php:195 templates/menu.inc:17
+#: lib/Page/Search.php:195 templates/menu.inc:16
 msgid "Search"
 msgstr "Pesquisar"
 
@@ -738,11 +710,6 @@ msgstr "Selecione o arquivo para anexar:"
 msgid "Select the file to update"
 msgstr "Selecione o arquivo para atualizar"
 
-#: templates/display/standard.inc:102
-#, php-format
-msgid "Set permissions for %s"
-msgstr "Ajustar permissões para %s"
-
 #: templates/sync/list.inc:79
 msgid "Show changes"
 msgstr "Mostrar alterações"
@@ -756,10 +723,6 @@ msgstr "Exibir alterações para %s"
 #, php-format
 msgid "Show version %s"
 msgstr "Exibir versão %s"
-
-#: templates/display/standard.inc:75
-msgid "Similar Pages"
-msgstr "Páginas Similares"
 
 #: lib/Page/LikePages.php:67
 #, php-format
@@ -829,7 +792,7 @@ msgstr "Esta página já está bloquada."
 msgid "There is already an attachment named \"%s\"."
 msgstr "Já existe um anexo chamado \"%s\"."
 
-#: lib/Page/MergeOrRename.php:160 lib/Page/MergeOrRename.php:166
+#: lib/Page/MergeOrRename.php:169 lib/Page/MergeOrRename.php:175
 msgid "This is a required field."
 msgstr "Este é um campo necessário."
 
@@ -842,12 +805,12 @@ msgstr "Esta página não possui um histórico"
 msgid "This page is locked by %s for %d Minutes."
 msgstr "Esta página está bloquada por %s por %d Minutos."
 
-#: lib/Page/MergeOrRename.php:112
+#: lib/Page/MergeOrRename.php:121
 #, php-format
 msgid "This page is referenced from %d other page(s)."
 msgstr "Esta página é referenciada a partir de %d outra(s) página(s)."
 
-#: templates/display/standard.inc:35
+#: templates/display/standard.inc:33
 msgid "Un_lock"
 msgstr "_Desproteger"
 
@@ -859,11 +822,6 @@ msgstr "Impossível criar %s"
 #: lib/Page/StandardPage.php:82
 msgid "Unable to create Wiki/Home. The wiki is not configured."
 msgstr "Impossível criar Wiki/Home. O wiki não está configurado."
-
-#: templates/display/standard.inc:34
-#, php-format
-msgid "Unlock %s"
-msgstr "Desproteger %s"
 
 #: lib/Page.php:239 lib/Page.php:272 lib/Page.php:277 lib/Page.php:368
 #: lib/Page.php:376 lib/Page.php:384 lib/Page.php:392 lib/Page.php:501
@@ -940,8 +898,8 @@ msgstr "Você não pode desproteger esta página"
 msgid "You do not have permission to delete attachments from this page."
 msgstr "Você não tem permissão para apagar anexos dessa página."
 
-#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:175
-#: lib/Page/MergeOrRename.php:188
+#: lib/Page/AttachedFiles.php:221 lib/Page/MergeOrRename.php:184
+#: lib/Page/MergeOrRename.php:197
 #, php-format
 msgid "You do not have permission to edit \"%s\""
 msgstr "Você não tem permissão para editar \"%s\""
@@ -974,39 +932,39 @@ msgstr "Você deve digitar uma descrição de alteração para anexar esse arqui
 msgid "You must provide a change log."
 msgstr "Você deve fornecer um log de alteração."
 
-#: lib/Wicked.php:106
+#: lib/Application.php:65
 msgid "_All Pages"
 msgstr "Todas _As Páginas"
 
-#: templates/display/standard.inc:70
+#: templates/display/standard.inc:69
 msgid "_Backlinks"
 msgstr "_Referenciadores"
 
-#: templates/display/standard.inc:56
+#: templates/display/standard.inc:54
 msgid "_Delete"
 msgstr "E_xcluir"
 
-#: templates/display/standard.inc:25
+#: templates/display/standard.inc:24
 msgid "_Edit"
 msgstr "_Editar"
 
-#: lib/Wicked.php:103
+#: lib/Application.php:62
 msgid "_Home"
 msgstr "_Início"
 
-#: templates/display/standard.inc:44
+#: templates/display/standard.inc:41
 msgid "_Lock"
 msgstr "_Proteger"
 
-#: templates/display/standard.inc:64
+#: templates/display/standard.inc:62
 msgid "_Merge/Rename"
 msgstr "_Mesclar/Renomear"
 
-#: lib/Wicked.php:105
+#: lib/Application.php:64
 msgid "_Recent Changes"
 msgstr "Alterações _Recentes"
 
-#: lib/Wicked.php:104
+#: lib/Application.php:63
 msgid "_Usage"
 msgstr "_Uso"
 
@@ -1018,6 +976,6 @@ msgstr "um convidado"
 msgid "attachment"
 msgstr "anexo"
 
-#: templates/display/standard.inc:143
+#: templates/display/standard.inc:145
 msgid "reStructuredText"
 msgstr "textoReEstruturado"

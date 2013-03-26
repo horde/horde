@@ -567,6 +567,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_Base
 
             $this->_logger->debug(sprintf(
                 '[%s] 12.1 SYNC loop complete: DataAvailable: %s, DataImported: %s',
+                $this->_procid,
                 $dataavailable,
                 $this->_importedChanges)
             );

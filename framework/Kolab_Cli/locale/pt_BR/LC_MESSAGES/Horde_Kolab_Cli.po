@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Horde_Kolab_Cli\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
 "POT-Creation-Date: 2012-01-17 12:38+0100\n"
-"PO-Revision-Date: 2012-03-27 22:39-0300\n"
+"PO-Revision-Date: 2013-03-16 11:06-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
 "Language: pt_BR\n"
@@ -32,6 +32,20 @@ msgid ""
 "\n"
 "\n"
 msgstr ""
+"  conta - Manipula operações no nível da conta (como listar *todos* os "
+"objectos disponíveis do groupware)\n"
+"\n"
+"  - all [TYPE]       : Listar todos os objetos do groupware da conta "
+"(opcionalmente\n"
+"                       limitar para TYPE)\n"
+"  - defects [TYPE]   : Listar todos os defeitos na conta (opcionalmente "
+"limitar para\n"
+"                       TYPE)\n"
+"  - issuelist [TYPE] : Uma breve lista dos problemas com a conta "
+"(opcionalmente\n"
+"                       limitar para TYPE)\n"
+"\n"
+"\n"
 
 #: lib/Horde/Kolab/Cli/Module/Data.php:38
 msgid ""
@@ -130,7 +144,7 @@ msgstr ""
 #: lib/Horde/Kolab/Cli/Module/Format.php:142
 #, php-format
 msgid "%s is no local file!"
-msgstr ""
+msgstr "%s não é arquivo local!"
 
 #: lib/Horde/Kolab/Cli/Module/Account.php:240
 #: lib/Horde/Kolab/Cli/Module/Data.php:235
@@ -154,13 +168,15 @@ msgstr ""
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:131
 msgid "Deactivate caching of the IMAP data."
-msgstr ""
+msgstr "Desativando cache dos dados IMAP."
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:155
 msgid ""
 "Path to the configuration file. Comman line parameters overwrite values from "
 "the configuration file."
 msgstr ""
+"Caminho para o arquivo de configuração. Parâmetros da linha de comando "
+"sobrepõem-se sobre os valores do arquivo de configuração."
 
 #: lib/Horde/Kolab/Cli/Module/Base.php:115
 msgid ""

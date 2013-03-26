@@ -46,4 +46,19 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
         }
     }
 
+    public function testBug12116()
+    {
+        $addr = new Horde_Mail_Rfc822_Address();
+        $addr->personal = 'Aäb';
+        $addr->mailbox = 'test';
+        $addr->host = 'üexample.com';
+
+        $ob = new Horde_Mail_Transport_Mock();
+
+        $this->assertEquals(
+            array('test@xn--example-m2a.com'),
+            $ob->parseRecipients($addr)
+        );
+    }
+
 }

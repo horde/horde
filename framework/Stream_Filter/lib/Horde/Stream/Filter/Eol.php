@@ -1,5 +1,17 @@
 <?php
 /**
+ * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
+ *
+ * See the enclosed file COPYING for license information (LGPL). If you
+ * did not receive this file, see http://www.horde.org/licenses/lgpl21.
+ *
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Stream_Filter
+ */
+
+/**
  * Stream filter class to convert EOL characters.
  *
  * Usage:
@@ -8,19 +20,15 @@
  *                               [ STREAM_FILTER_[READ|WRITE|ALL] ],
  *                               [ $params ]);
  *
- * $params is an arrat that can contain the following:
+ * $params is an array that can contain the following:
  *   - eol: (string) The EOL string to use.
  *          DEFAULT: <CR><LF> ("\r\n")
  *
- * Copyright 2009-2013 Horde LLC (http://www.horde.org/)
- *
- * See the enclosed file COPYING for license information (LGPL). If you
- * did not receive this file, see http://www.horde.org/licenses/lgpl21.
- *
- * @author  Michael Slusarz <slusarz@horde.org>
- * @category Horde
- * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
- * @package Stream_Filter
+ * @author    Michael Slusarz <slusarz@horde.org>
+ * @category  Horde
+ * @copyright 2009-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl21 LGPL 2.1
+ * @package   Stream_Filter
  */
 class Horde_Stream_Filter_Eol extends php_user_filter
 {

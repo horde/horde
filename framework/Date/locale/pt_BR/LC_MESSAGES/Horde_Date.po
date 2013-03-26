@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Horde_Date\n"
 "Report-Msgid-Bugs-To: dev@lists.horde.org\n"
-"POT-Creation-Date: 2012-01-17 12:38+0100\n"
+"POT-Creation-Date: 2013-03-05 10:52+0100\n"
 "PO-Revision-Date: 2011-06-11 20:34-0300\n"
 "Last-Translator: Luis Felipe Marzagao <duli@easylifeproject.org>\n"
 "Language-Team: i18n@lists.horde.org\n"
@@ -17,65 +17,65 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: lib/Horde/Date/Utils.php:105
+#: lib/Horde/Date/Utils.php:109
 #, php-format
 msgid "%d days ago"
 msgstr "%d dias atrás"
 
-#: lib/Horde/Date/Utils.php:95
+#: lib/Horde/Date/Utils.php:99
 #, php-format
 msgid "%d hour ago"
 msgid_plural "%d hours ago"
 msgstr[0] "%d hora atrás"
 msgstr[1] "%d horas atrás"
 
-#: lib/Horde/Date/Utils.php:90
+#: lib/Horde/Date/Utils.php:94
 #, php-format
 msgid "%d minute ago"
 msgid_plural "%d minutes ago"
 msgstr[0] "%d minuto atrás"
 msgstr[1] "%d minutos atrás"
 
-#: lib/Horde/Date/Utils.php:85
+#: lib/Horde/Date/Utils.php:89
 #, php-format
 msgid "%d second ago"
 msgid_plural "%d seconds ago"
 msgstr[0] "%d segundo atrás"
 msgstr[1] "%d segundos atrás"
 
-#: lib/Horde/Date/Utils.php:110
+#: lib/Horde/Date/Utils.php:114
 #, php-format
 msgid "%d week ago"
 msgid_plural "%d weeks ago"
 msgstr[0] "%d semana atrás"
 msgstr[1] "%d semanas atrás"
 
-#: lib/Horde/Date/Recurrence.php:212
+#: lib/Horde/Date/Recurrence.php:214
 msgid "Daily"
 msgstr "Diariamente"
 
-#: lib/Horde/Date.php:252
+#: lib/Horde/Date.php:251
 #, php-format
 msgid "Failed to parse time string (%s)"
 msgstr "Falhou ao processar os cracteres de tempo (%s)"
 
-#: lib/Horde/Date/Recurrence.php:215
+#: lib/Horde/Date/Recurrence.php:219
 msgid "Monthly"
 msgstr "Mensalmente"
 
-#: lib/Horde/Date/Recurrence.php:211
+#: lib/Horde/Date/Recurrence.php:212
 msgid "No recurrence"
 msgstr "Sem repetição"
 
-#: lib/Horde/Date/Recurrence.php:213
+#: lib/Horde/Date/Recurrence.php:216
 msgid "Weekly"
 msgstr "Semanalmente"
 
-#: lib/Horde/Date/Recurrence.php:218
+#: lib/Horde/Date/Recurrence.php:223
 msgid "Yearly"
 msgstr "Anualmente"
 
-#: lib/Horde/Date/Utils.php:100
+#: lib/Horde/Date/Utils.php:104
 #, php-format
 msgid "yesterday at %s"
 msgstr "ontem às %s"

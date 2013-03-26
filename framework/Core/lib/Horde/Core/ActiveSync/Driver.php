@@ -187,6 +187,10 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
     public function clearAuthentication()
     {
         $this->_connector->clearAuth();
+        // @todo H5 remove is_callable check.
+        if (!empty($this->_imap) && is_callable(array($this->_imap, 'close'))) {
+            $this->_imap->close();
+        }
         $this->_logger->info(sprintf(
             "[%s] User %s logged off",
             $this->_pid,
@@ -2056,10 +2060,15 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $this->_pid,
             $count));
 
-        preg_match('/(.*)\-(.*)/', $query['range'], $matches);
-        $return_count = $matches[2] - $matches[1];
-        $rows = array_slice($results, $matches[1], $return_count + 1, true);
-        $rows = array_pop($rows);
+        if (!empty($query['range'])) {
+            preg_match('/(.*)\-(.*)/', $query['range'], $matches);
+            $return_count = $matches[2] - $matches[1];
+            $rows = array_slice($results, $matches[1], $return_count + 1, true);
+            $rows = array_pop($rows);
+        } else {
+            $rows = array_pop($results);
+        }
+
         foreach ($rows as $row) {
             $return['rows'][] = array(
                 Horde_ActiveSync::GAL_ALIAS => !empty($row['alias']) ? $row['alias'] : '',
