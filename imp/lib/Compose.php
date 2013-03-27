@@ -1553,9 +1553,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *         automatically determined value.
      *
      * @return array  An array with the following keys:
-     *   - body: The text of the body part
-     *   - format: The format of the body message
-     *   - headers: The headers of the message to use for the reply
+     *   - body: The text of the body part.
+     *   - format: The format of the body message.
+     *   - headers: The headers of the message to use for the reply.
      *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
      *   - lang: An array of language code (keys)/language name (values) of
