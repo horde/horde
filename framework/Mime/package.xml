@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* 
+* [mms] Round up size output in Horde_Mime_Part#getSize().
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1080,7 +1080,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* 
+* [mms] Round up size output in Horde_Mime_Part#getSize().
    </notes>
   </release>
  </changelog>
