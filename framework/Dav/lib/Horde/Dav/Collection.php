@@ -108,9 +108,9 @@ class Horde_Dav_Collection extends Sabre\DAV\Collection
             return $apps;
         }
 
-        list($base) = explode('/', $this->_path);
+        list($app) = explode('/', $this->_path);
         try {
-            $items = $this->_registry->callByPackage($base, 'browse', array('path' => $this->_path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
+            $items = $this->_registry->callByPackage($app, 'browse', array('path' => $this->_path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
         } catch (Horde_Exception $e) {
             throw new DAV\Exception($e);
         }
