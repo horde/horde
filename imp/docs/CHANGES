@@ -2,6 +2,8 @@
 v6.0.5-git
 ----------
 
+[mms] Switching from HTML to text in dynamic compose view must be a synchronous
+      operation, or else HTML tags may appear in compose window.
 [mms] Fix ability to switch to non-default date sorting algorithm in dynamic
       view (Bug #12139).
 [mms] Fix printing quoted text when viewing a list message.
