@@ -51,6 +51,11 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                 'Horde DAV Server'
             )
         );
+        $this->_server->addPlugin(
+            new DAV\Locks\Plugin(
+                new Horde_Dav_Locks($registry, $injector->getInstance('Horde_Lock'))
+            )
+        );
     }
 
     /**
