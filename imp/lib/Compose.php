@@ -516,7 +516,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         $identity_id = null;
-        if (($fromaddr = IMP::bareAddress($headers->getValue('from')))) {
+        if (($fromaddr = $headers->getValue('from'))) {
             $identity = $injector->getInstance('IMP_Identity');
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
@@ -730,8 +730,13 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $barefrom = IMP::bareAddress($header['from'], true);
         $encrypt = empty($opts['encrypt']) ? 0 : $opts['encrypt'];
+        $imp_imap = $injector->getInstance('IMP_Imap');
+
+        $from = new Horde_Mail_Rfc822_Address($header['from']);
+        if (is_null($from->host)) {
+            $from->host = $imp_imap->config->maildomain;
+        }
 
         /* Prepare the array of messages to send out.  May be more
          * than one if we are encrypting for multiple recipients or
@@ -762,7 +767,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         } else {
             /* Can send in clear-text all at once, or PGP can encrypt
              * multiple addresses in the same message. */
-            $msg_options['from'] = $barefrom;
+            $msg_options['from'] = $from;
             $save_msg = $this->_createMimeMessage($recip['list'], $body, $msg_options);
             $send_msgs[] = array(
                 'base' => $save_msg,
@@ -781,7 +786,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add Reply-To header. */
         if (!empty($header['replyto']) &&
-            ($header['replyto'] != $barefrom)) {
+            ($header['replyto'] != $from->bare_address)) {
             $headers->addHeader('Reply-to', $header['replyto']);
         }
 
@@ -906,7 +911,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
 
             /* Generate the message string. */
-            $imp_imap = $injector->getInstance('IMP_Imap');
             $fcc = $save_msg->toString(array(
                 'defserver' => $imp_imap->config->maildomain,
                 'headers' => $headers,
@@ -1012,8 +1016,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Add Return Receipt Headers. */
         if (!empty($opts['readreceipt'])) {
+            $from = $ob->getOb('from');
+            $from = $from[0];
+            if (is_null($from->host)) {
+                $from->host = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+            }
+
             $mdn = new Horde_Mime_Mdn($ob);
-            $mdn->addMdnRequestHeaders(IMP::bareAddress($ob->getValue('from'), true));
+            $mdn->addMdnRequestHeaders($from);
         }
 
         return $ob;
@@ -1234,8 +1244,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * @param string $body                Message body.
      * @param array $options              Additional options:
      *   - encrypt: (integer) The encryption flag.
-     *   - from: (string) The outgoing from address - only needed for multiple
-     *           PGP encryption.
+     *   - from: (Horde_Mail_Rfc822_Address) The outgoing from address (only
+     *           needed for multiple PGP encryption).
      *   - html: (boolean) Is this a HTML message?
      *   - nofinal: (boolean) This is not a message which will be sent out.
      *   - noattach: (boolean) Don't add attachment information.
@@ -1624,7 +1634,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {
             /* If To/Reply-To and List-Reply address are the same, no need
              * to handle these address separately. */
-            if (IMP::bareAddress($list_info['reply_list']) != IMP::bareAddress($header['to'])) {
+            $reply_list = new Horde_Mail_Rfc822_Address($list_info['reply_list']);
+            if (!$reply_list->match($header['to'])) {
                 $header['to'] = $list_info['reply_list'];
                 $reply_type = self::REPLY_LIST;
             }

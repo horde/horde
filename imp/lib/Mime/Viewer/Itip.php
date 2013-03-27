@@ -315,13 +315,14 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         case 'REPLY':
             $desc = _("%s has replied to the invitation to \"%s\".");
-            $sender = $this->getConfigParam('imp_contents')->getHeader()->getValue('From');
+            $tmp = $this->getConfigParam('imp_contents')->getHeader()->getOb('From');
+            $sender = $sender_ob[0]->bare_address;
             if ($registry->hasMethod('calendar/updateAttendee') &&
                 $this->_autoUpdateReply('auto_update_eventreply', $sender)) {
                 try {
                     $registry->call('calendar/updateAttendee', array(
                         $vevent,
-                        IMP::bareAddress($sender)
+                        $sender
                     ));
                     $notification->push(_("Respondent Status Updated."), 'horde.success');
                 } catch (Horde_Exception $e) {
@@ -642,7 +643,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
     {
         if (!empty($this->_conf[$type])) {
             if (is_array($this->_conf[$type])) {
-                $ob = new Horde_Mail_Rfc822_Address(IMP::bareAddress($sender));
+                $ob = new Horde_Mail_Rfc822_Address($sender);
                 foreach ($this->_conf[$type] as $val) {
                     if ($ob->matchDomain($val)) {
                         return true;

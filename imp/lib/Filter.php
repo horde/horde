@@ -114,18 +114,18 @@ class IMP_Filter
             return false;
         }
 
-        $addr = array();
+        $addr = new Horde_Mail_Rfc822_List();
 
         foreach ($indices as $ob) {
             $ob->mbox->uidvalid;
 
             foreach ($ob->uids as $idx) {
                 /* Get the list of from addresses. */
-                $addr[] = IMP::bareAddress($GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx))->getHeader()->getValue('from'));
+                $addr->add($GLOBALS['injector']->getInstance('IMP_Factory_Contents')->create($ob->mbox->getIndicesOb($idx))->getHeader()->getOb('from'));
             }
         }
 
-        $GLOBALS['registry']->call('mail/' . $reg1, array($addr));
+        $GLOBALS['registry']->call('mail/' . $reg1, array($addr->bare_addresses));
 
         /* Add link to filter management page. */
         if ($link && $GLOBALS['registry']->hasMethod('mail/' . $reg2)) {

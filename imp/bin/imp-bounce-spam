@@ -54,15 +54,15 @@ $data = $cli->readStdin();
 
 /* Who's the spammer? */
 $headers = Horde_Mime_Headers::parseHeaders($data);
-$return_path = IMP::bareAddress($headers->getValue('return-path'));
+$return_path = $headers->getOb('return-path');
 
 /* Who's the target? */
-$delivered_to = IMP::bareAddress($headers->getValue('delivered-to'));
+$delivered_to = $headers->getOb('delivered-to');
 
 /* Read the bounce template and construct the mail */
 $bounce = str_replace(
     array('%TO%', '%TARGET%'),
-    array($return_path, $delivered_to),
+    array($return_path[0]->bare_address, $delivered_to[0]->bare_address),
     file_get_contents($bounce_template)
 );
 

@@ -362,21 +362,4 @@ class IMP
         return $res;
     }
 
-    /**
-     * Shortcut method to get the bare address of an e-mail string.
-     *
-     * @param string $str              The address string.
-     * @param boolean $default_domain  Append default domain, if needed?
-     *
-     * @return string  The bare address.
-     */
-    static public function bareAddress($str, $default_domain = false)
-    {
-        $ob = new Horde_Mail_Rfc822_Address($str);
-        if ($default_domain && is_null($ob->host)) {
-            $ob->host = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
-        }
-        return $ob->bare_address;
-    }
-
 }
