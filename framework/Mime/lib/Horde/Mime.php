@@ -76,6 +76,16 @@ class Horde_Mime
     const EOL = "\r\n";
 
     /**
+     * The list of characters required to be quoted in MIME parameters
+     * (regular expression).
+     *
+     * @since 2.1.0
+     *
+     * @var string
+     */
+    const MIME_PARAM_QUOTED = '/[\x00-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
+
+    /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
      * a RFC 2047-like parameter name and also the correct RFC 2231
      * parameter.  See:
@@ -331,9 +341,6 @@ class Horde_Mime
      * @param array $opts      Additional options:
      *   - charset: (string) The charset to encode to.
      *              DEFAULT: UTF-8
-     *   - escape: (boolean) If true, escape param values as described in
-     *             RFC 2045 [Appendix A].
-     *             DEFAULT: false
      *   - lang: (string) The language to use when encoding.
      *           DEFAULT: None specified
      *
@@ -395,15 +402,17 @@ class Horde_Mime
         }
 
         if (self::$brokenRFC2231 && !isset($output[$name])) {
-            $output = array_merge(array($name => self::encode($val, $charset)), $output);
+            $output = array_merge(array(
+                $name => self::encode($val, $charset)
+            ), $output);
         }
 
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]). */
-        if (!empty($opts['escape'])) {
-            foreach (array_keys($output) as $key) {
-                if (strcspn($output[$key], "\11\40\"(),/:;<=>?@[\\]") != strlen($output[$key])) {
-                    $output[$key] = '"' . addcslashes($output[$key], '\\"') . '"';
-                }
+        /* Escape certain characters in params (See RFC 2045 [Appendix A]).
+         * Must be quoted-string if one of these exists.
+         * Forbidden: SPACE, CTLs, ()<>@,;:\"/[]?= */
+        foreach ($output as $k => $v) {
+            if (preg_match(self::MIME_PARAM_QUOTED, $v)) {
+                $output[$k] = '"' . addcslashes($v, '\\"') . '"';
             }
         }
 

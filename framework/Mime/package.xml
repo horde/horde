@@ -20,8 +20,8 @@
  <date>2013-02-11</date>
  <time>19:32:36</time>
  <version>
-  <release>2.0.5</release>
-  <api>2.0.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -29,6 +29,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
+* [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
 * [mms] Round up size output in Horde_Mime_Part#getSize().
  </notes>
  <contents>
@@ -1072,14 +1074,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>2.0.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
 * [mms] Round up size output in Horde_Mime_Part#getSize().
    </notes>
   </release>

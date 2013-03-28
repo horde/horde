@@ -105,4 +105,12 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(Horde_Mime::isChild('1', '10.0'));
     }
 
+    public function testEncodeParamQuotesQuote()
+    {
+        $this->assertEquals(
+            array('foo' => "\"\x01\""),
+            Horde_Mime::encodeParam('foo', "\x01")
+        );
+    }
+
 }
