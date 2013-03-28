@@ -113,16 +113,7 @@ class Horde_Mime
      */
     static public function is8bit($string, $charset = null)
     {
-        if (empty($charset)) {
-            $charset = 'us-ascii';
-        }
-
-        /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
-         * it needs to be entirely encoded. */
-        return is_string($string) &&
-               ((stristr('iso-2022-jp', $charset) &&
-                (strstr($string, "\x1b\$B"))) ||
-                preg_match('/[\x80-\xff]/', $string));
+        return ($string != Horde_String::convertCharset($string, $charset, 'US-ASCII'));
     }
 
     /**
@@ -135,12 +126,12 @@ class Horde_Mime
      */
     static public function encode($text, $charset = 'UTF-8')
     {
-        $charset = Horde_String::lower($charset);
-        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
-
-        if (!self::is8bit($text, $charset)) {
+        if (!self::is8bit($text, 'UTF-8')) {
             return $text;
         }
+
+        $charset = Horde_String::lower($charset);
+        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
         /* Get the list of elements in the string. */
         $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
@@ -356,8 +347,6 @@ class Horde_Mime
             ? $opts['charset']
             : 'UTF-8';
 
-        $aval = Horde_String::convertCharset($val, 'UTF-8', 'US-ASCII');
-
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
 
@@ -369,8 +358,8 @@ class Horde_Mime
          *     Output as ASCII (most efficient).
          *   - String is in non-ASCII, but doesn't losslessly translate to
          *     ASCII. MUST encode output (duh). */
-        if (empty($opts['lang']) && ($val == $aval)) {
-            $string = $aval;
+        if (empty($opts['lang']) && !self::is8bit($val, 'UTF-8')) {
+            $string = $val;
         } else {
             $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
             $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);

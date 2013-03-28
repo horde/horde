@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
 * [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
 * [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
 * [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
@@ -1083,6 +1084,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
 * [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
 * [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
 * [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
