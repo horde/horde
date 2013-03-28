@@ -288,7 +288,7 @@ class IMP_Contents
             try {
                 if (empty($options['mimeheaders'])) {
                     $this->lastBodyPartDecode = $res->getBodyPartDecode($id);
-                    return $res->getBodyPart($id);
+                    return $res->getBodyPart($id, !empty($options['stream']));
                 } elseif (empty($options['stream'])) {
                     return $res->getMimeHeader($id) . $res->getBodyPart($id);
                 }
