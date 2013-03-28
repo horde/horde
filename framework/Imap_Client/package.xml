@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-03-28</date>
- <time>17:24:04</time>
+ <time>17:27:04</time>
  <version>
-  <release>2.8.1</release>
+  <release>2.8.2</release>
   <api>2.8.0</api>
  </version>
  <stability>
@@ -22,7 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix regression in storing cached flags if not using debug mode.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1588,6 +1588,19 @@
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in storing cached flags if not using debug mode.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.8.2</release>
+    <api>2.8.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-03-28</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
