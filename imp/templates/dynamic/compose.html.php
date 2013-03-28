@@ -88,10 +88,6 @@
     </div>
    </div>
 
-<?php if (strlen($this->title)): ?>
-   <div class="msgwritehdr"><?php echo $this->h($this->title) ?></div>
-<?php endif; ?>
-
    <table>
     <tr>
      <td class="label"><?php echo _("From") ?>:</td>
