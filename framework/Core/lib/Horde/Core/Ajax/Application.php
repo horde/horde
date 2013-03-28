@@ -65,8 +65,7 @@ abstract class Horde_Core_Ajax_Application
      * @param string $app            The application name.
      * @param Horde_Variables $vars  Form/request data.
      * @param string $action         The AJAX action to perform.
-     * @param string $token          If set, checks token against session
-     *                               token (if action requires it).
+     * @param string $token          Session token.
      *
      * @throws Horde_Exception
      */
@@ -84,7 +83,7 @@ abstract class Horde_Core_Ajax_Application
         $ob = $this->_getHandler();
 
         /* Check token. */
-        if (!is_null($token) && $ob && !$ob->external($action)) {
+        if ($ob && !$ob->external($action)) {
             $session->checkToken($token);
         }
 

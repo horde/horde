@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().
@@ -2872,6 +2873,7 @@
    <date>2013-03-24</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
 * [mms] Add Horde_Core_Ajax_Application#callAction().
