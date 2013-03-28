@@ -736,23 +736,7 @@ class Gollem
      */
     static public function stripAPIPath($path)
     {
-        // Strip leading '/'
-        if (substr($path, 0, 1) == '/') {
-            $path = substr($path, 1);
-        }
-        // Remove 'gollem' from path
-        if (substr($path, 0, 6) == 'gollem') {
-            $path = substr($path, 6);
-        }
-        // Remove leading '/'
-        if (substr($path, 0, 1) == '/') {
-            $path = substr($path, 1);
-        }
-        // Remove trailing '/'
-        if (substr($path, -1) == '/') {
-            $path = substr($path, 0, -1);
-        }
-        return $path;
+        return trim(preg_replace('|/?gollem|', '', $path), '/');
     }
 
     /**
