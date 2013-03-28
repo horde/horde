@@ -517,7 +517,10 @@ class Nag_Driver_Sql extends Nag_Driver
 
         $tasks = array();
         foreach ($result as $row) {
-            $tasks[$row['task_id']] = new Nag_Task($this, $this->_buildTask($row));
+            $task = new Nag_Task($this, $this->_buildTask($row));;
+            if ($task->getNextDue()->before($date + $task->alarm * 60)) {
+                $tasks[$row['task_id']] = $task;
+            }
         }
 
         return $tasks;
