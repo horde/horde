@@ -258,7 +258,8 @@ class IMP_Application extends Horde_Registry_Application
     public function sidebar($sidebar)
     {
         if (IMP_Compose::canCompose()) {
-            $sidebar->addNewButton(_("_New Message"), IMP::composeLink());
+            $clink = new IMP_Compose_Link();
+            $sidebar->addNewButton(_("_New Message"), $clink->link());
         }
 
         /* Folders. */
@@ -407,6 +408,7 @@ class IMP_Application extends Horde_Registry_Application
         global $injector, $registry;
 
         if (IMP_Compose::canCompose()) {
+            $clink = new IMP_Compose_Link();
             $tree->addNode(array(
                 'id' => strval($parent) . 'compose',
                 'parent' => $parent,
@@ -414,7 +416,7 @@ class IMP_Application extends Horde_Registry_Application
                 'expanded' => false,
                 'params' => array(
                     'icon' => Horde_Themes::img('compose.png'),
-                    'url' => IMP::composeLink()->setRaw(false)
+                    'url' => $clink->link()->setRaw(false)
                 )
             ));
         }

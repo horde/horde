@@ -258,7 +258,8 @@ class IMP_Message_Ui
                         : htmlspecialchars(strval($ad));
 
                     if ($link) {
-                        $ret = Horde::link(IMP::composeLink(array('to' => strval($ad))), sprintf(_("New Message to %s"), strval($ad))) . htmlspecialchars(strval($ad)) . '</a>';
+                        $clink = new IMP_Compose_Link(array('to' => strval($ad)));
+                        $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ad))) . htmlspecialchars(strval($ad)) . '</a>';
                     }
 
                     /* Append the add address icon to every address if contact
@@ -286,7 +287,8 @@ class IMP_Message_Ui
                     : htmlspecialchars(strval($ob));
 
                 if ($link) {
-                    $ret = Horde::link(IMP::composeLink(array('to' => strval($ob))), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';
+                    $clink = new IMP_Compose_Link(array('to' => strval($ob)));
+                    $ret = Horde::link($clink->link(), sprintf(_("New Message to %s"), strval($ob))) . htmlspecialchars(strval($ob)) . '</a>';
                 }
 
                 /* Append the add address icon to every address if contact

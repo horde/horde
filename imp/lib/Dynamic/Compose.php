@@ -43,11 +43,11 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
         global $injector, $notification, $page_output, $prefs, $session;
 
         /* The headers of the message. */
-        $args = IMP::getComposeArgs($this->vars);
+        $clink = new IMP_Compose_Link($this->vars);
         $header = array();
         foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            if (isset($args[$val])) {
-                $header[$val] = $args[$val];
+            if (isset($clink->args[$val])) {
+                $header[$val] = $clink->args[$val];
             }
         }
 
@@ -207,8 +207,8 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $show_editor = ($prefs->getValue('compose_html') && $session->get('imp', 'rteavail'));
 
             $onload = $compose_ajax->getBaseResponse();
-            $onload->body = isset($args['body'])
-                ? strval($args['body'])
+            $onload->body = isset($clink->args['body'])
+                ? strval($clink->args['body'])
                 : '';
             $onload->header = $header;
             if ($show_editor) {

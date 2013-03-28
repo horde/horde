@@ -231,10 +231,13 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
         /* Add compose actions (Reply, Reply List, Reply All, Forward,
          * Redirect, Edit as New). */
         if (IMP_Compose::canCompose()) {
-            $menu[] = array(_("Reply"), IMP::composeLink(array(), array('a' => 'r') + $compose_params));
+            $clink_ob = new IMP_Compose_Link();
+            $clink = $clink_ob->link()->add($compose_params);
+
+            $menu[] = array(_("Reply"), $clink->add(array('a' => 'r')));
 
             if ($list_info['reply_list']) {
-                $menu[] = array(_("Reply to List"), IMP::composeLink(array(), array('a' => 'rl') + $compose_params));
+                $menu[] = array(_("Reply to List"), $clink->add(array('a' => 'rl')));
             }
 
             $addr_ob = clone($envelope->to);
@@ -242,12 +245,12 @@ class IMP_Minimal_Message extends IMP_Minimal_Base
             $addr_ob->setIteratorFilter(0, $user_identity->getAllFromAddresses());
 
             if (count($addr_ob)) {
-                $menu[] = array(_("Reply All"), IMP::composeLink(array(), array('a' => 'ra') + $compose_params));
+                $menu[] = array(_("Reply All"), $clink->add(array('a' => 'ra')));
             }
 
-            $menu[] = array(_("Forward"), IMP::composeLink(array(), array('a' => 'f') + $compose_params));
-            $menu[] = array(_("Redirect"), IMP::composeLink(array(), array('a' => 'rc') + $compose_params));
-            $menu[] = array(_("Edit as New"), IMP::composeLink(array(), array('a' => 'en') + $compose_params));
+            $menu[] = array(_("Forward"), $clink->add(array('a' => 'f')));
+            $menu[] = array(_("Redirect"), $clink->add(array('a' => 'rc')));
+            $menu[] = array(_("Edit as New"), $clink->add(array('a' => 'en')));
         }
 
         /* Generate previous/next links. */

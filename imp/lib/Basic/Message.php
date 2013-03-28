@@ -578,21 +578,24 @@ class IMP_Basic_Message extends IMP_Basic_Base
         $disable_compose = !IMP_Compose::canCompose();
 
         if (!$disable_compose) {
+            $clink_ob = new IMP_Compose_Link();
+            $clink = $clink_ob->link()->add($compose_params);
+
             $a_view->reply = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'reply_auto') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'reply_auto')),
                 'class' => 'horde-hasmenu',
                 'title' => _("_Reply"),
                 'nocheck' => true
             ));
             $a_view->reply_sender = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'reply') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'reply')),
                 'title' => _("To Sender"),
                 'nocheck' => true
             ));
 
             if ($list_info['reply_list']) {
                 $a_view->reply_list = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array('actionID' => 'reply_list') + $compose_params),
+                    'url' => $clink->add(array('actionID' => 'reply_list')),
                     'title' => _("To _List"),
                     'nocheck' => true
                 ));
@@ -604,7 +607,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
             if (count($addr_ob)) {
                 $a_view->show_reply_all = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array('actionID' => 'reply_all') + $compose_params),
+                    'url' => $clink->add(array('actionID' => 'reply_all')),
                     'title' => _("To _All"),
                     'nocheck' => true
                 ));
@@ -612,37 +615,37 @@ class IMP_Basic_Message extends IMP_Basic_Base
 
             $fwd_locked = $prefs->isLocked('forward_default');
             $a_view->forward = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'forward_auto') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'forward_auto')),
                 'class' => $fwd_locked ? '' : ' horde-hasmenu',
                 'title' => _("Fo_rward"),
                 'nocheck' => true
             ));
             if (!$fwd_locked) {
                 $a_view->forward_attach = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array('actionID' => 'forward_attach') + $compose_params),
+                    'url' => $clink->add(array('actionID' => 'forward_attach')),
                     'title' => _("As Attachment"),
                     'nocheck' => true
                 ));
                 $a_view->forward_body = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array('actionID' => 'forward_body') + $compose_params),
+                    'url' => $clink->add(array('actionID' => 'forward_body')),
                     'title' => _("In Body Text"),
                     'nocheck' => true
                 ));
                 $a_view->forward_both = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array('actionID' => 'forward_both') + $compose_params),
+                    'url' => $clink->add(array('actionID' => 'forward_both')),
                     'title' => _("Attachment and Body Text"),
                     'nocheck' => true
                 ));
             }
 
             $a_view->redirect = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'redirect_compose')),
                 'title' => _("Redirec_t"),
                 'nocheck' => true
             ));
 
             $a_view->editasnew = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'editasnew') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'editasnew')),
                 'title' => _("Edit as New"),
                 'nocheck' => true
             ));
@@ -683,7 +686,7 @@ class IMP_Basic_Message extends IMP_Basic_Base
         if (!$disable_compose &&
             (in_array(Horde_Imap_Client::FLAG_DRAFT, $flags) || $msg_index['m']->drafts)) {
             $a_view->resume = Horde::widget(array(
-                'url' => IMP::composeLink(array(), array('actionID' => 'draft') + $compose_params),
+                'url' => $clink->add(array('actionID' => 'draft')),
                 'title' => _("Resume"),
                 'nocheck' => true
             ));
@@ -714,11 +717,13 @@ class IMP_Basic_Message extends IMP_Basic_Base
             ));
         }
 
-        $a_view->redirect = Horde::widget(array(
-            'url' => IMP::composeLink(array(), array('actionID' => 'redirect_compose') + $compose_params),
-            'title' => _("Redirec_t"),
-            'nocheck' => true
-        ));
+        if (!$disable_compose) {
+            $a_view->redirect = Horde::widget(array(
+                'url' => $clink->add(array('actionID' => 'redirect_compose')),
+                'title' => _("Redirec_t"),
+                'nocheck' => true
+            ));
+        }
 
         $a_view->headers = Horde::widget(array(
             'url' => '#',
@@ -1000,7 +1005,8 @@ class IMP_Basic_Message extends IMP_Basic_Base
              * that appears in a header that we can adequately handle. */
             if (stripos($val->url, 'mailto:') === 0) {
                 $url = substr($val->url, 7);
-                $output = Horde::link(IMP::composeLink($url)) . $url . '</a>';
+                $clink = new IMP_Compose_Link($url);
+                $output = Horde::link($clink->link()) . $url . '</a>';
                 foreach ($val->comments as $val2) {
                     $output .= '&nbsp;(' . $val2 . ')';
                 }

@@ -71,7 +71,11 @@ class IMP_Api extends Horde_Registry_Api
     {
         $links = array();
         foreach ($args as $i => $arg) {
-            $links[$i] = IMP::composeLink($arg, !empty($extra[$i]) ? $extra[$i] : array());
+            $tmp = new IMP_Compose_Link($arg);
+            $links[$i] = $tmp->link();
+            if (!empty($extra[$i])) {
+                $links[$i]->add($extra[$i]);
+            }
         }
         return $links;
     }

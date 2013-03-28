@@ -286,7 +286,8 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
                 if (isset($url['scheme']) && ($url['scheme'] == 'mailto')) {
                     /* We don't include HordePopup in IFRAME, so need to use
                      * 'simple' links. */
-                    $node->setAttribute('href', IMP::composeLink($node->getAttribute('href'), array(), true));
+                    $clink = new IMP_Compose_Link($node->getAttribute('href'));
+                    $node->setAttribute('href', $clink->link(true));
                     $node->removeAttribute('target');
                 } elseif (!empty($this->_imptmp['inline']) &&
                           isset($url['fragment']) &&

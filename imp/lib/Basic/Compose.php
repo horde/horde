@@ -227,13 +227,13 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             break;
 
         case 'mailto_link':
-            $args = IMP::getComposeArgs($this->vars);
-            if (isset($args['body'])) {
-                $msg = $args['body'];
+            $clink = new IMP_Compose_Link($this->vars);
+            if (isset($clink->args['body'])) {
+                $msg = $clink->args['body'];
             }
             foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-                if (isset($args[$val])) {
-                    $header[$val] = $args[$val];
+                if (isset($clink->args[$val])) {
+                    $header[$val] = $clink->args[$val];
                 }
             }
             break;

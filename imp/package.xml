@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-26</date>
+ <date>2013-03-28</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -203,6 +203,7 @@
      </dir> <!-- /lib/Compose/Attachment -->
      <file name="Attachment.php" role="horde" />
      <file name="Exception.php" role="horde" />
+     <file name="Link.php" role="horde" />
      <file name="LinkedAttachment.php" role="horde" />
      <file name="References.php" role="horde" />
      <file name="Ui.php" role="horde" />
@@ -1557,6 +1558,7 @@
    <install as="imp/lib/Block/Summary.php" name="lib/Block/Summary.php" />
    <install as="imp/lib/Compose/Attachment.php" name="lib/Compose/Attachment.php" />
    <install as="imp/lib/Compose/Exception.php" name="lib/Compose/Exception.php" />
+   <install as="imp/lib/Compose/Link.php" name="lib/Compose/Link.php" />
    <install as="imp/lib/Compose/LinkedAttachment.php" name="lib/Compose/LinkedAttachment.php" />
    <install as="imp/lib/Compose/References.php" name="lib/Compose/References.php" />
    <install as="imp/lib/Compose/Ui.php" name="lib/Compose/Ui.php" />

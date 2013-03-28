@@ -633,7 +633,8 @@ $_prefs['composetemplates_new'] = array(
         return !IMP_Mailbox::getPref('composetemplates_mbox');
     },
     'on_init' => function($ui) {
-        $ui->prefs['composetemplates_new']['xurl'] = IMP::composeLink(array(), array(
+        $clink = new IMP_Compose_Link();
+        $ui->prefs['composetemplates_new']['xurl'] = $clink->link()->add(array(
             'actionID' => 'template_new',
             'type' => 'template_new'
         ));

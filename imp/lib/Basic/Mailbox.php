@@ -106,10 +106,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     'template_edit' => 'template_edit'
                 );
 
+                $clink = new IMP_Compose_Link($this->vars);
                 $options = array_merge(array(
                     'actionID' => $compose_actions[$actionID],
                     'muid' => strval($this->indices)
-                ), IMP::getComposeArgs($this->vars));
+                ), $clink->args);
 
                 if ($prefs->getValue('compose_popup')) {
                     $page_output->addInlineScript(array(
@@ -473,6 +474,9 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             return;
         }
 
+        $clink_ob = new IMP_Compose_Link();
+        $clink = $clink_ob->link();
+
         /* Display the navbar and actions if there is at least 1 message in
          * mailbox. */
         if ($pageOb['msgcount']) {
@@ -627,7 +631,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     'title' => _("Edit Template")
                 ));
                 $mboxactions[] = Horde::widget(array(
-                    'url' => IMP::composeLink(array(), array(
+                    'url' => $clink->clone()->add(array(
                         'actionID' => 'template_new'
                     )),
                     'title' => _("Create New Template")
@@ -854,7 +858,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
             /* Generate the target link. */
             if ($mailbox->drafts || $mailbox->templates) {
-                $target = IMP::composeLink(array(), array(
+                $target = $clink->clone()->add(array(
                     'actionID' => ($mailbox->drafts ? 'draft' : 'template'),
                     'buid' => $msg['buid'],
                     'mailbox' => $mailbox
@@ -920,7 +924,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             case 0:
                 $from_tmp = array();
                 foreach ($getfrom['from_list']->base_addresses as $from_ob) {
-                    $from_tmp[] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array(IMP::composeLink(array(), array('actionID' => 'mailto_link', 'to' => strval($from_ob))), sprintf(_("New Message to %s"), $from_ob->label))) . htmlspecialchars($from_ob->label, ENT_QUOTES, 'UTF-8') . '</a>';
+                    $from_tmp[] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array($clink->clone()->add(array('actionID' => 'mailto_link', 'to' => strval($from_ob))), sprintf(_("New Message to %s"), $from_ob->label))) . htmlspecialchars($from_ob->label, ENT_QUOTES, 'UTF-8') . '</a>';
                 }
 
                 if (!empty($from_tmp)) {
