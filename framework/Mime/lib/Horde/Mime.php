@@ -336,9 +336,9 @@ class Horde_Mime
      * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $name     The parameter name.
-     * @param string $val      The parameter value (UTF-8).
-     * @param array $opts      Additional options:
+     * @param string $name  The parameter name.
+     * @param string $val   The parameter value (UTF-8).
+     * @param array $opts   Additional options:
      *   - charset: (string) The charset to encode to.
      *              DEFAULT: UTF-8
      *   - lang: (string) The language to use when encoding.
@@ -423,10 +423,10 @@ class Horde_Mime
      * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $type     Either 'Content-Type' or 'Content-Disposition'
-     *                         (case-insensitive).
-     * @param mixed $data      The text of the header or an array of
-     *                         param name => param values.
+     * @param string $type  Either 'Content-Type' or 'Content-Disposition'
+     *                      (case-insensitive).
+     * @param mixed $data   The text of the header or an array of param name
+     *                      => param values.
      *
      * @return array  An array with the following entries (all strings in
      *                UTF-8):
