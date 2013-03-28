@@ -356,20 +356,27 @@ class Horde_Mime
             ? $opts['charset']
             : 'UTF-8';
 
-        $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
+        $aval = Horde_String::convertCharset($val, 'UTF-8', 'US-ASCII');
 
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
 
-        /* Check to see if value resolves to ASCII. If not, we need to add
-         * charset information. */
-        if ($cval != Horde_String::convertCharset($val, 'UTF-8', 'US-ASCII')) {
+        /* Several possibilities:
+         *   - String is ASCII. Output as ASCII (duh).
+         *   - Language information has been provided. We MUST encode output
+         *     to include this information.
+         *   - String is non-ASCII, but can losslessly translate to ASCII.
+         *     Output as ASCII (most efficient).
+         *   - String is in non-ASCII, but doesn't losslessly translate to
+         *     ASCII. MUST encode output (duh). */
+        if (empty($opts['lang']) && ($val == $aval)) {
+            $string = $aval;
+        } else {
+            $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
             $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
-        } else {
-            $string = $cval;
         }
 
         if (($pre_len + strlen($string)) > 75) {

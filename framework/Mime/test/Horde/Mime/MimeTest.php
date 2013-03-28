@@ -121,12 +121,22 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
     public function testBug12127()
     {
         Horde_Mime::$brokenRFC2231 = true;
+
         $this->assertEquals(
             array(
-                'foo*' => "utf-16le''t%00e%00s%00t%00",
-                'foo' => "\"t\x00e\x00s\x00t\x00\""
+                'foo' => 'test'
             ),
             Horde_Mime::encodeParam('foo', 'test', array(
+                'charset' => 'UTF-16LE'
+            ))
+        );
+
+        $this->assertEquals(
+            array(
+                'foo*' => "utf-16le''%01%01",
+                'foo' => "\"\x01\x01\""
+            ),
+            Horde_Mime::encodeParam('foo', 'ā', array(
                 'charset' => 'UTF-16LE'
             ))
         );
