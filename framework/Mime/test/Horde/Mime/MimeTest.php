@@ -142,4 +142,12 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testNullCharacterInEncodeOutput()
+    {
+        $this->assertEquals(
+            '=?utf-16le?b?AAA=?=',
+            Horde_Mime::encode("\x00", 'UTF-16LE')
+        );
+    }
+
 }

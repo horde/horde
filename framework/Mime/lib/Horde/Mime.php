@@ -83,7 +83,7 @@ class Horde_Mime
      *
      * @var string
      */
-    const MIME_PARAM_QUOTED = '/[\x00-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
+    const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
 
     /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
@@ -126,7 +126,9 @@ class Horde_Mime
      */
     static public function encode($text, $charset = 'UTF-8')
     {
-        if (!self::is8bit($text, 'UTF-8')) {
+        /* The null character is valid US-ASCII, but was removed from the
+         * allowed e-mail header characters in RFC 2822. */
+        if (!self::is8bit($text, 'UTF-8') && (strpos($text, null) === false)) {
             return $text;
         }
 
