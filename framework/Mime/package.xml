@@ -1082,6 +1082,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
 * [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
 * [mms] Round up size output in Horde_Mime_Part#getSize().
    </notes>

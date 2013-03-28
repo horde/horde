@@ -20,6 +20,11 @@
  */
 class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Horde_Mime::$brokenRFC2231 = false;
+    }
+
     public function testUudecode()
     {
         $data = Horde_Mime::uudecode(file_get_contents(__DIR__ . '/fixtures/uudecode.txt'));
@@ -110,6 +115,20 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array('foo' => "\"\x01\""),
             Horde_Mime::encodeParam('foo', "\x01")
+        );
+    }
+
+    public function testBug12127()
+    {
+        Horde_Mime::$brokenRFC2231 = true;
+        $this->assertEquals(
+            array(
+                'foo*' => "utf-16le''t%00e%00s%00t%00",
+                'foo' => "\"t\x00e\x00s\x00t\x00\""
+            ),
+            Horde_Mime::encodeParam('foo', 'test', array(
+                'charset' => 'UTF-16LE'
+            ))
         );
     }
 

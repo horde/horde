@@ -356,18 +356,20 @@ class Horde_Mime
             ? $opts['charset']
             : 'UTF-8';
 
-        $val = Horde_String::convertCharset($val, 'UTF-8', $charset);
+        $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
 
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
 
-        if (self::is8bit($val, $charset)) {
-            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($val);
+        /* Check to see if value resolves to ASCII. If not, we need to add
+         * charset information. */
+        if ($cval != Horde_String::convertCharset($val, 'UTF-8', 'US-ASCII')) {
+            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
         } else {
-            $string = $val;
+            $string = $cval;
         }
 
         if (($pre_len + strlen($string)) > 75) {
