@@ -134,7 +134,7 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(
             array(
                 'foo*' => "utf-16le''%01%01",
-                'foo' => "\"\x01\x01\""
+                'foo' => '"=?utf-16le?b?AQE=?="'
             ),
             Horde_Mime::encodeParam('foo', 'ā', array(
                 'charset' => 'UTF-16LE'
