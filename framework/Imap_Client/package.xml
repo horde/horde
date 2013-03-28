@@ -10,8 +10,8 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-26</date>
- <time>15:27:32</time>
+ <date>2013-03-28</date>
+ <time>17:24:04</time>
  <version>
   <release>2.8.1</release>
   <api>2.8.0</api>
@@ -1584,7 +1584,7 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-26</date>
+   <date>2013-03-28</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
 * [mms] Fix regression in storing cached flags if not using debug mode.
