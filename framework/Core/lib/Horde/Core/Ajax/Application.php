@@ -200,6 +200,24 @@ abstract class Horde_Core_Ajax_Application
     }
 
     /**
+     * Explicitly call an action.
+     *
+     * @since 2.5.0
+     *
+     * @param string $action  The action to call.
+     *
+     * @return mixed  The response from the called action.
+     */
+    public function callAction($action)
+    {
+        foreach ($this->_handlers as $ob) {
+            if ($ob->has($action)) {
+                return call_user_func(array($ob, $action));
+            }
+        }
+    }
+
+    /**
      * Return the Handler for the current action.
      *
      * @return mixed  A Horde_Core_Ajax_Application_Handler object, or null if

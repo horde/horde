@@ -542,7 +542,7 @@ class IMP
         return str_replace(
             array('X', 'Y'),
             array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
-            number_format($number, $decimals, 'X', 'Y')
+            number_format($decimals ? $number : ceil($number), $decimals, 'X', 'Y')
         );
     }
 

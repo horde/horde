@@ -76,6 +76,16 @@ class Horde_Mime
     const EOL = "\r\n";
 
     /**
+     * The list of characters required to be quoted in MIME parameters
+     * (regular expression).
+     *
+     * @since 2.1.0
+     *
+     * @var string
+     */
+    const MIME_PARAM_QUOTED = '/[\x01-\x20\x22\x28\x29\x2c\x2f\x3a-\x40\x5b-\x5d]/';
+
+    /**
      * Attempt to work around non RFC 2231-compliant MUAs by generating both
      * a RFC 2047-like parameter name and also the correct RFC 2231
      * parameter.  See:
@@ -103,16 +113,7 @@ class Horde_Mime
      */
     static public function is8bit($string, $charset = null)
     {
-        if (empty($charset)) {
-            $charset = 'us-ascii';
-        }
-
-        /* ISO-2022-JP is a 7bit charset, but it is an 8bit representation so
-         * it needs to be entirely encoded. */
-        return is_string($string) &&
-               ((stristr('iso-2022-jp', $charset) &&
-                (strstr($string, "\x1b\$B"))) ||
-                preg_match('/[\x80-\xff]/', $string));
+        return ($string != Horde_String::convertCharset($string, $charset, 'US-ASCII'));
     }
 
     /**
@@ -125,12 +126,14 @@ class Horde_Mime
      */
     static public function encode($text, $charset = 'UTF-8')
     {
-        $charset = Horde_String::lower($charset);
-        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
-
-        if (!self::is8bit($text, $charset)) {
+        /* The null character is valid US-ASCII, but was removed from the
+         * allowed e-mail header characters in RFC 2822. */
+        if (!self::is8bit($text, 'UTF-8') && (strpos($text, null) === false)) {
             return $text;
         }
+
+        $charset = Horde_String::lower($charset);
+        $text = Horde_String::convertCharset($text, 'UTF-8', $charset);
 
         /* Get the list of elements in the string. */
         $size = preg_match_all('/([^\s]+)([\s]*)/', $text, $matches, PREG_SET_ORDER);
@@ -326,14 +329,11 @@ class Horde_Mime
      * Encodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $name     The parameter name.
-     * @param string $val      The parameter value (UTF-8).
-     * @param array $opts      Additional options:
+     * @param string $name  The parameter name.
+     * @param string $val   The parameter value (UTF-8).
+     * @param array $opts   Additional options:
      *   - charset: (string) The charset to encode to.
      *              DEFAULT: UTF-8
-     *   - escape: (boolean) If true, escape param values as described in
-     *             RFC 2045 [Appendix A].
-     *             DEFAULT: false
      *   - lang: (string) The language to use when encoding.
      *           DEFAULT: None specified
      *
@@ -349,18 +349,25 @@ class Horde_Mime
             ? $opts['charset']
             : 'UTF-8';
 
-        $val = Horde_String::convertCharset($val, 'UTF-8', $charset);
-
         // 2 = '=', ';'
         $pre_len = strlen($name) + 2;
 
-        if (self::is8bit($val, $charset)) {
-            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($val);
+        /* Several possibilities:
+         *   - String is ASCII. Output as ASCII (duh).
+         *   - Language information has been provided. We MUST encode output
+         *     to include this information.
+         *   - String is non-ASCII, but can losslessly translate to ASCII.
+         *     Output as ASCII (most efficient).
+         *   - String is in non-ASCII, but doesn't losslessly translate to
+         *     ASCII. MUST encode output (duh). */
+        if (empty($opts['lang']) && !self::is8bit($val, 'UTF-8')) {
+            $string = $val;
+        } else {
+            $cval = Horde_String::convertCharset($val, 'UTF-8', $charset);
+            $string = Horde_String::lower($charset) . '\'' . (empty($opts['lang']) ? '' : Horde_String::lower($opts['lang'])) . '\'' . rawurlencode($cval);
             $encode = true;
             /* Account for trailing '*'. */
             ++$pre_len;
-        } else {
-            $string = $val;
         }
 
         if (($pre_len + strlen($string)) > 75) {
@@ -395,15 +402,17 @@ class Horde_Mime
         }
 
         if (self::$brokenRFC2231 && !isset($output[$name])) {
-            $output = array_merge(array($name => self::encode($val, $charset)), $output);
+            $output = array_merge(array(
+                $name => self::encode($val, $charset)
+            ), $output);
         }
 
-        /* Escape certain characters in params (See RFC 2045 [Appendix A]). */
-        if (!empty($opts['escape'])) {
-            foreach (array_keys($output) as $key) {
-                if (strcspn($output[$key], "\11\40\"(),/:;<=>?@[\\]") != strlen($output[$key])) {
-                    $output[$key] = '"' . addcslashes($output[$key], '\\"') . '"';
-                }
+        /* Escape certain characters in params (See RFC 2045 [Appendix A]).
+         * Must be quoted-string if one of these exists.
+         * Forbidden: SPACE, CTLs, ()<>@,;:\"/[]?= */
+        foreach ($output as $k => $v) {
+            if (preg_match(self::MIME_PARAM_QUOTED, $v)) {
+                $output[$k] = '"' . addcslashes($v, '\\"') . '"';
             }
         }
 
@@ -414,10 +423,10 @@ class Horde_Mime
      * Decodes a MIME parameter string pursuant to RFC 2183 & 2231
      * (Content-Type and Content-Disposition headers).
      *
-     * @param string $type     Either 'Content-Type' or 'Content-Disposition'
-     *                         (case-insensitive).
-     * @param mixed $data      The text of the header or an array of
-     *                         param name => param values.
+     * @param string $type  Either 'Content-Type' or 'Content-Disposition'
+     *                      (case-insensitive).
+     * @param mixed $data   The text of the header or an array of param name
+     *                      => param values.
      *
      * @return array  An array with the following entries (all strings in
      *                UTF-8):

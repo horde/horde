@@ -11,6 +11,17 @@
 This lists the API changes between releases of the package.
 
 
+Upgrading to 2.1
+================
+
+  - Horde_Mime
+
+    - encodeParam()
+
+      The 'escape' option has been removed.
+      The MIME_PARAM_QUOTED constant has been added.
+
+
 Upgrading to 2.0
 ================
 
