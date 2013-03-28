@@ -1468,7 +1468,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         return str_replace(
             array('X', 'Y'),
             array($localeinfo['decimal_point'], $localeinfo['thousands_sep']),
-            number_format($bytes / 1024, 0, 'X', 'Y')
+            number_format(ceil($bytes / 1024), 0, 'X', 'Y')
         );
     }
 

@@ -1109,8 +1109,8 @@ var DimpBase = {
             this.sort(DimpCore.conf.sort.get(this.isThreadSort() ? 'subject' : 'thread').v);
             break;
 
+        case 'ctx_datesort_msgarrival':
         case 'ctx_datesort_msgdate':
-        case 'ctx_datesort_sequence':
             tmp = DimpCore.conf.sort.get(id.substring(13)).v;
             if (tmp != this.viewport.getMetaData('sortby')) {
                 this.sort(tmp);

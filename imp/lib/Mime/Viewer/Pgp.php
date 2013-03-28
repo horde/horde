@@ -365,13 +365,13 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
         $status = new IMP_Mime_Status(_("A PGP Public Key is attached to the message."));
         $status->icon('mime/encryption.png', 'PGP');
 
+        $imp_contents = $this->getConfigParam('imp_contents');
         $mime_id = $this->_mimepart->getMimeId();
 
         if ($GLOBALS['prefs']->getValue('use_pgp') &&
             $GLOBALS['prefs']->getValue('add_source') &&
             $GLOBALS['registry']->hasMethod('contacts/addField')) {
             // TODO: Check for key existence.
-            $imp_contents = $this->getConfigParam('imp_contents');
             $imple = $GLOBALS['injector']->getInstance('Horde_Core_Factory_Imple')->create('IMP_Ajax_Imple_ImportEncryptKey', array(
                 'mime_id' => $mime_id,
                 'muid' => strval($imp_contents->getIndicesOb()),
@@ -379,7 +379,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
             ));
             $status->addText(Horde::link('#', '', '', '', '', '', '', array('id' => $imple->getDomId())) . _("Save the key to your address book.") . '</a>');
         }
-        $status->addText($this->getConfigParam('imp_contents')->linkViewJS($this->_mimepart, 'view_attach', _("View key details."), array('params' => array('mode' => IMP_Contents::RENDER_FULL, 'pgp_view_key' => 1))));
+        $status->addText($imp_contents->linkViewJS($this->_mimepart, 'view_attach', _("View key details."), array('params' => array('mode' => IMP_Contents::RENDER_FULL, 'pgp_view_key' => 1))));
 
         return array(
             $mime_id => array(
@@ -440,7 +440,7 @@ class IMP_Mime_Viewer_Pgp extends Horde_Mime_Viewer_Base
                 } else {
                     $stream = $imp_contents->isEmbedded($signed_id)
                         ? $this->_mimepart->getMetadata(self::PGP_SIGN_ENC)
-                        : $this->getConfigParam('imp_contents')->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
+                        : $imp_contents->getBodyPart($signed_id, array('mimeheaders' => true, 'stream' => true));
                     stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
                     stream_filter_append($stream, 'horde_eol', STREAM_FILTER_READ, array(
                         'eol' => Horde_Mime_Part::RFC_EOL

@@ -373,6 +373,7 @@ var DimpCompose = {
                 changed: Number(changed),
                 text: text
             }), {
+                ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, false)
             });
 
