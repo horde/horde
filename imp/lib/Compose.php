@@ -1564,18 +1564,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *         automatically determined value.
      *
      * @return array  An array with the following keys:
-     *   - addr: Array of address lists (to, cc, bcc;
-     *           Horde_Mail_Rfc822_List objects).
-     *   - body: The text of the body part.
-     *   - format: The format of the body message.
-     *   - identity: The identity to use for the reply based on the original
-     *            message's addresses.
-     *   - lang: An array of language code (keys)/language name (values) of
-     *           the original sender's preferred language(s).
-     *   - reply_list_id: List ID label.
-     *   - reply_recip: Number of recipients in reply list.
-     *   - subject: Formatted subject.
-     *   - type: The reply type used (either self::REPLY_ALL,
+     *   - addr: (array) Address lists (to, cc, bcc; Horde_Mail_Rfc822_List
+     *           objects).
+     *   - body: (string) The text of the body part.
+     *   - format: (string) The format of the body message (html, text).
+     *   - identity: (integer) The identity to use for the reply based on the
+     *               original message's addresses.
+     *   - lang: (array) Language code (keys)/language name (values) of the
+     *           original sender's preferred language(s).
+     *   - reply_list_id: (string) List ID label.
+     *   - reply_recip: (integer) Number of recipients in reply list.
+     *   - subject: (string) Formatted subject.
+     *   - type: (integer) The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
     public function replyMessage($type, $contents, array $opts = array())
