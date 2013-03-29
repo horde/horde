@@ -194,7 +194,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 'format' => 'text',
                 'to' => $header['to']
             ));
-            $header = $reply_msg['headers'];
+            $header = IMP_Compose::convertToHeader($reply_msg);
 
             $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
             $this->title = _("Reply");

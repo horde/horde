@@ -108,7 +108,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $compose_opts['title'] = _("Reply to List");
                 break;
             }
-            $compose_opts['title'] .= ': ' . $result['headers']['subject'];
+            $compose_opts['title'] .= ': ' . $result['subject'];
 
             $show_editor = ($result['format'] == 'html');
             break;

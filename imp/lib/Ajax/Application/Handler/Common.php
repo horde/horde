@@ -295,7 +295,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
 
             if ($this->vars->headeronly) {
                 $result = $compose->ajax->getBaseResponse();
-                $result->header = $reply_msg['headers'];
+                $result->header = IMP_Compose::convertToHeader($reply_msg);
             } else {
                 $result = $compose->ajax->getResponse($reply_msg);
             }

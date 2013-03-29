@@ -75,7 +75,7 @@ class IMP_Ajax_Application_Compose
 
         $ob->body = $result['body'];
         $ob->format = $result['format'];
-        $ob->header = $result['headers'];
+        $ob->header = IMP_Compose::convertToHeader($result);
         $ob->identity = $result['identity'];
 
         if ($result['attach']) {

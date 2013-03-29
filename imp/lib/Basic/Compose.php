@@ -303,7 +303,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 'to' => $this->vars->to
             ));
             $msg = $reply_msg['body'];
-            $header = $reply_msg['headers'];
+            $header = IMP_Compose::convertToHeader($reply_msg);
             $format = $reply_msg['format'];
 
             switch ($reply_msg['type']) {
@@ -352,7 +352,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'replyall_revert':
         case 'replylist_revert':
             $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb());
-            $header = $reply_msg['headers'];
+            $header = IMP_Compose::convertToHeader($reply_msg);
             break;
 
         case 'forward_attach':

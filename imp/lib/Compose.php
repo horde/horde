@@ -1207,14 +1207,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      * Cleans up and returns the recipient list. Method designed to parse
      * user entered data; does not encode/validate addresses.
      *
-     * @param array $hdr  An array of MIME headers. Recipients will be
-     *                    extracted from the 'to', 'cc', and 'bcc' entries.
+     * @param array $hdr  An array of MIME headers and/or address list
+     *                    objects. Recipients will be extracted from the 'to',
+     *                    'cc', and 'bcc' entries.
      *
      * @return array  An array with the following entries:
      *   - has_input: (boolean) True if at least one of the headers contains
      *                user input.
      *   - header: (array) Contains the cleaned up 'to', 'cc', and 'bcc'
-     *             header strings.
+     *             address list (Horde_Mail_Rfc822_List objects).
      *   - list: (Horde_Mail_Rfc822_List) Recipient addresses.
      */
     public function recipientList($hdr)
@@ -1225,7 +1226,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         foreach (array('to', 'cc', 'bcc') as $key) {
             if (isset($hdr[$key])) {
                 $obs = IMP::parseAddressList($hdr[$key]);
-                $header[$key] = strval($obs);
+                $header[$key] = $obs;
                 $addrlist->add($obs);
             }
         }
@@ -1563,15 +1564,17 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *         automatically determined value.
      *
      * @return array  An array with the following keys:
+     *   - addr: Array of address lists (to, cc, bcc;
+     *           Horde_Mail_Rfc822_List objects).
      *   - body: The text of the body part.
      *   - format: The format of the body message.
-     *   - headers: The headers of the message to use for the reply.
      *   - identity: The identity to use for the reply based on the original
      *            message's addresses.
      *   - lang: An array of language code (keys)/language name (values) of
      *           the original sender's preferred language(s).
      *   - reply_list_id: List ID label.
      *   - reply_recip: Number of recipients in reply list.
+     *   - subject: Formatted subject.
      *   - type: The reply type used (either self::REPLY_ALL,
      *           self::REPLY_LIST, or self::REPLY_SENDER).
      */
@@ -1579,12 +1582,11 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     {
         global $injector, $language, $prefs;
 
-        /* The headers of the message. */
-        $header = array(
-            'to' => '',
-            'cc' => '',
-            'bcc' => '',
-            'subject' => ''
+        $alist = new Horde_Mail_Rfc822_List();
+        $addr = array(
+            'to' => clone $alist,
+            'cc' => clone $alist,
+            'bcc' => clone $alist
         );
 
         $h = $contents->getHeader();
@@ -1611,18 +1613,20 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $subject = $h->getValue('subject');
-        $header['subject'] = empty($subject)
-            ? 'Re: '
-            : 'Re: ' . strval(new Horde_Imap_Client_Data_BaseSubject($subject, array('keepblob' => true)));
+        $subject = strlen($s = $h->getValue('subject'))
+            ? 'Re: ' . strval(new Horde_Imap_Client_Data_BaseSubject($s, array('keepblob' => true)))
+            : 'Re: ';
 
         $force = false;
         if (in_array($type, array(self::REPLY_AUTO, self::REPLY_SENDER))) {
-            if ((isset($opts['to']) && ($header['to'] = $opts['to'])) ||
-                ($header['to'] = strval($h->getOb('reply-to')))) {
+            if (isset($opts['to'])) {
+                $addr['to']->add($opts['to']);
+                $force = true;
+            } elseif ($tmp = $h->getOb('reply-to')) {
+                $addr['to']->add($tmp);
                 $force = true;
             } else {
-                $header['to'] = strval($h->getOb('from'));
+                $addr['to']->add($h->getOb('from'));
             }
         }
 
@@ -1634,15 +1638,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if (!is_null($list_info) && !empty($list_info['reply_list'])) {
             /* If To/Reply-To and List-Reply address are the same, no need
              * to handle these address separately. */
-            $reply_list = new Horde_Mail_Rfc822_Address($list_info['reply_list']);
-            if (!$reply_list->match($header['to'])) {
-                $header['to'] = $list_info['reply_list'];
+            $rlist = new Horde_Mail_Rfc822_Address($list_info['reply_list']);
+            if (!$rlist->match($addr['to'])) {
+                $addr['to'] = $rlist;
                 $reply_type = self::REPLY_LIST;
             }
         } elseif (in_array($type, array(self::REPLY_ALL, self::REPLY_AUTO))) {
             /* Clear the To field if we are auto-determining addresses. */
             if ($type == self::REPLY_AUTO) {
-                $header['to'] = '';
+                $addr['to'] = clone $alist;
             }
 
             /* Filter out our own address from the addresses we reply to. */
@@ -1654,8 +1658,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * 2) the From address(es) (if it doesn't contain a personal
              * address)
              * 3) all remaining Cc addresses. */
-            $cc_addrs = new Horde_Mail_Rfc822_List();
-            $to_addrs = new Horde_Mail_Rfc822_List();
             $to_fields = array('from', 'reply-to');
 
             foreach (array('reply-to', 'from', 'to', 'cc') as $val) {
@@ -1679,7 +1681,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                             /* Add other non-personal from addresses to the
                              * list of CC addresses. */
                             $ob->setIteratorFilter($ob::BASE_ELEMENTS, $all_addrs);
-                            $cc_addrs->add($ob);
+                            $addr['cc']->add($ob);
                             $all_addrs->add($ob);
                             continue 2;
                         }
@@ -1690,7 +1692,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
                 foreach ($ob as $hdr_ob) {
                     if ($hdr_ob instanceof Horde_Mail_Rfc822_Group) {
-                        $cc_addrs->add($hdr_ob);
+                        $addr['cc']->add($hdr_ob);
                         $all_addrs->add($hdr_ob->addresses);
                     } elseif (($val != 'to') ||
                               is_null($list_info) ||
@@ -1706,12 +1708,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                                 ($to_ob = $h->getOb('from')) &&
                                 !is_null($to_ob[0]->personal) &&
                                 ($hdr_ob->match($to_ob[0]))) {
-                                $to_addrs->add($to_ob);
+                                $addr['to']->add($to_ob);
                             } else {
-                                $to_addrs->add($hdr_ob);
+                                $addr['to']->add($hdr_ob);
                             }
                         } else {
-                            $cc_addrs->add($hdr_ob);
+                            $addr['cc']->add($hdr_ob);
                         }
 
                         $all_addrs->add($hdr_ob);
@@ -1723,19 +1725,21 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * reply to a message that was already replied to by the user,
              * this reply will go to the original recipients (Request
              * #8485).  */
-            if (count($to_addrs)) {
-                $header['to'] = strval($to_addrs);
-            }
-            if (count($cc_addrs)) {
+            if (count($addr['cc'])) {
                 $reply_type = self::REPLY_ALL;
             }
-            $header[empty($header['to']) ? 'to' : 'cc'] = strval($cc_addrs);
+            if (!count($addr['to'])) {
+                $addr['to'] = $addr['cc'];
+                $addr['cc'] = clone $alist;
+            }
 
             /* Build the Bcc: header. */
             if ($bcc = $h->getOb('bcc')) {
                 $bcc->add($identity->getBccAddresses());
                 $bcc->setIteratorFilter(0, $all_addrs);
-                $header['bcc'] = strval($bcc);
+                foreach ($bcc as $val) {
+                    $addr['bcc']->add($val);
+                }
             }
         }
 
@@ -1758,7 +1762,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             switch ($reply_type) {
             case self::REPLY_ALL:
                 try {
-                    $recip_list = $this->recipientList($header);
+                    $recip_list = $this->recipientList($addr);
                     $ret['reply_recip'] = count($recip_list['list']);
                 } catch (IMP_Compose_Exception $e) {
                     $ret['reply_recip'] = 0;
@@ -1794,8 +1798,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         }
 
         return array_merge(array(
-            'headers' => $header,
+            'addr' => $addr,
             'identity' => $match_identity,
+            'subject' => $subject,
             'type' => $reply_type
         ), $ret);
     }
