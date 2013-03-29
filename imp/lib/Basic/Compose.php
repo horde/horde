@@ -267,7 +267,10 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                     $rtemode = ($result['format'] == 'html');
                 }
                 $msg = $result['body'];
-                $header = array_merge($header, $result['headers']);
+                $header = array_merge(
+                    $header,
+                    $this->_convertToHeader($result)
+                );
                 if (!is_null($result['identity']) &&
                     ($result['identity'] != $identity->getDefault()) &&
                     !$prefs->isLocked('default_identity')) {
@@ -303,7 +306,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
                 'to' => $this->vars->to
             ));
             $msg = $reply_msg['body'];
-            $header = IMP_Compose::convertToHeader($reply_msg);
+            $header = $this->_convertToHeader($reply_msg);
             $format = $reply_msg['format'];
 
             switch ($reply_msg['type']) {
@@ -352,7 +355,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         case 'replyall_revert':
         case 'replylist_revert':
             $reply_msg = $imp_compose->replyMessage(IMP_Compose::REPLY_SENDER, $imp_compose->getContentsOb());
-            $header = IMP_Compose::convertToHeader($reply_msg);
+            $header = $this->_convertToHeader($reply_msg);
             break;
 
         case 'forward_attach':
@@ -375,7 +378,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             $fwd_msg = $imp_compose->forwardMessage($fwd_map[$this->vars->actionID], $contents);
             $msg = $fwd_msg['body'];
-            $header = IMP_Compose::convertToHeader($fwd_msg);
+            $header = $this->_convertToHeader($fwd_msg);
             $format = $fwd_msg['format'];
             $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
             $this->title = $fwd_msg['title'];
@@ -1120,6 +1123,30 @@ class IMP_Basic_Compose extends IMP_Basic_Base
         ));
 
         $this->output = $view->render('success');
+    }
+
+    /**
+     * Convert a compose response object to header values.
+     *
+     * @param array $in  Compose response object.
+     *
+     * @return array  Header entry.
+     */
+    protected function _convertToHeader($in)
+    {
+        $out = array();
+
+        if (isset($in['addr'])) {
+            $out['to'] = strval($in['addr']['to']);
+            $out['cc'] = strval($in['addr']['cc']);
+            $out['bcc'] = strval($in['addr']['bcc']);
+        }
+
+        if (isset($in['subject'])) {
+            $out['subject'] = $in['subject'];
+        }
+
+        return $out;
     }
 
 }

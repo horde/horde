@@ -141,7 +141,10 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 }
 
                 $msg = $result['body'];
-                $header = array_merge($header, $result['headers']);
+                $header = array_merge(
+                    $header,
+                    $this->_convertToHeader($result)
+                );
                 if (!is_null($result['identity']) &&
                     ($result['identity'] != $identity->getDefault()) &&
                     !$prefs->isLocked('default_identity')) {
@@ -194,7 +197,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 'format' => 'text',
                 'to' => $header['to']
             ));
-            $header = IMP_Compose::convertToHeader($reply_msg);
+            $header = $this->_convertToHeader($reply_msg);
 
             $notification->push(_("Reply text will be automatically appended to your outgoing message."), 'horde.message');
             $this->title = _("Reply");
@@ -210,7 +213,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             }
 
             $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
-            $header = IMP_Compose::convertToHeader($fwd_msg);
+            $header = $this->_convertToHeader($fwd_msg);
 
             $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
             $this->title = _("Forward");
@@ -506,6 +509,30 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
         $this->vars->type = 'new';
 
         throw new IMP_Exception(_("Could not retrieve message data from the mail server."));
+    }
+
+    /**
+     * Convert a compose response object to header values.
+     *
+     * @param array $in  Compose response object.
+     *
+     * @return array  Header entry.
+     */
+    protected function _convertToHeader($in)
+    {
+        $out = array();
+
+        if (isset($in['addr'])) {
+            $out['to'] = strval($in['addr']['to']);
+            $out['cc'] = strval($in['addr']['cc']);
+            $out['bcc'] = strval($in['addr']['bcc']);
+        }
+
+        if (isset($in['subject'])) {
+            $out['subject'] = $in['subject'];
+        }
+
+        return $out;
     }
 
 }

@@ -359,12 +359,14 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *             DEFAULT: Auto-determine.
      *
      * @return mixed  An array with the following keys:
+     *   - addr: (array) Address lists (to, cc, bcc; Horde_Mail_Rfc822_List
+     *           objects).
      *   - body: (string) The text of the body part.
      *   - format: (string) The format of the body message ('html', 'text').
-     *   - headers: (array) The list of headers to add to the outgoing message.
      *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
      *   - priority: (string) The message priority.
      *   - readreceipt: (boolean) Add return receipt headers?
+     *   - subject: (string) Formatted subject.
      *   - type: (integer) - The compose type.
      *
      * @throws IMP_Compose_Exception
@@ -420,7 +422,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             throw new IMP_Compose_Exception($e);
         }
 
-        $header = array();
         $headers = $contents->getHeader();
         $imp_draft = false;
 
@@ -521,11 +522,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        if ($type != self::EDITASNEW) {
-            $header = array(
-                'to' => strval($headers->getOb('to')),
-                'cc' => strval($headers->getOb('cc')),
-                'bcc' => strval($headers->getOb('bcc'))
+        if ($type == self::EDITASNEW) {
+            $alist = new Horde_Mail_Rfc822_List();
+            $addr = array(
+                'to' => clone $alist,
+                'cc' => clone $alist,
+                'bcc' => clone $alist
+            );
+        } else {
+            $addr = array(
+                'to' => $headers->getOb('to'),
+                'cc' => $headers->getOb('cc'),
+                'bcc' => $headers->getOb('bcc')
             );
 
             if ($val = $headers->getValue('references')) {
@@ -557,20 +565,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             }
         }
 
-        $header['subject'] = $headers->getValue('subject');
-
         $mdn = new Horde_Mime_Mdn($headers);
         $readreceipt = (bool)$mdn->getMdnReturnAddr();
 
         $this->changed = 'changed';
 
         return array(
+            'addr' => $addr,
             'body' => $body,
             'format' => $format,
-            'headers' => $header,
             'identity' => $identity_id,
             'priority' => $injector->getInstance('IMP_Mime_Headers')->getPriority($headers),
             'readreceipt' => $readreceipt,
+            'subject' => $headers->getValue('subject'),
             'type' => $type
         );
     }
