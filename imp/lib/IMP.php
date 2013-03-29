@@ -198,23 +198,37 @@ class IMP
     }
 
     /**
-     * Wrapper around Horde_Mail_Rfc822#parseAddressList().
+     * Wrapper around Horde_Mail_Rfc822#parseAddressList(). Ensures all
+     * addresses have a default mail domain appended.
      *
-     * @param string $str  The address string.
+     * @param mixed $in    The address string or an address list object.
      * @param array $opts  Options to override the default.
      *
      * @return array  See Horde_Mail_Rfc822#parseAddressList().
      *
      * @throws Horde_Mail_Exception
      */
-    static public function parseAddressList($str, array $opts = array())
+    static public function parseAddressList($in, array $opts = array())
     {
-        $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
-        $res = $rfc822->parseAddressList($str, array_merge(array(
-            'default_domain' => $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain,
-            'validate' => false
-        ), $opts));
+        $md = $GLOBALS['injector']->getInstance('IMP_Imap')->config->maildomain;
+
+        if ($in instanceof Horde_Mail_Rfc822_List) {
+            $res = clone $in;
+            foreach ($res->raw_addresses as $val) {
+                if (is_null($val->host)) {
+                    $val->host = $md;
+                 }
+            }
+        } else {
+            $rfc822 = $GLOBALS['injector']->getInstance('Horde_Mail_Rfc822');
+            $res = $rfc822->parseAddressList($in, array_merge(array(
+                'default_domain' => $md,
+                'validate' => false
+            ), $opts));
+        }
+
         $res->setIteratorFilter(Horde_Mail_Rfc822_List::HIDE_GROUPS);
+
         return $res;
     }
 
