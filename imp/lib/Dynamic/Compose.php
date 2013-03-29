@@ -148,7 +148,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 $result = $imp_compose->forwardMessage($compose_ajax->forward_map[$this->vars->type], $contents);
                 $onload = $compose_ajax->getResponse($result);
 
-                $compose_opts['title'] = $result['headers']['title'];
+                $compose_opts['title'] = $result['title'];
                 $show_editor = ($result['format'] == 'html');
             }
 

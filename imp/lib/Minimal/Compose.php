@@ -210,7 +210,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
             }
 
             $fwd_msg = $imp_compose->forwardMessage(IMP_Compose::FORWARD_ATTACH, $imp_contents, false);
-            $header = $fwd_msg['headers'];
+            $header = IMP_Compose::convertToHeader($fwd_msg);
 
             $notification->push(_("Forwarded message will be automatically added to your outgoing message."), 'horde.message');
             $this->title = _("Forward");

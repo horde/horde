@@ -375,10 +375,10 @@ class IMP_Basic_Compose extends IMP_Basic_Base
 
             $fwd_msg = $imp_compose->forwardMessage($fwd_map[$this->vars->actionID], $contents);
             $msg = $fwd_msg['body'];
-            $header = $fwd_msg['headers'];
+            $header = IMP_Compose::convertToHeader($fwd_msg);
             $format = $fwd_msg['format'];
             $rtemode = ($rtemode || (!is_null($rtemode) && ($format == 'html')));
-            $this->title = $header['title'];
+            $this->title = $fwd_msg['title'];
             break;
 
         case 'redirect_compose':

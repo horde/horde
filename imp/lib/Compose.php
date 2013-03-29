@@ -1924,23 +1924,18 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      *   - attach: (boolean) True if original message was attached.
      *   - body: (string) The text of the body part.
      *   - format: (string) The format of the body message ('html', 'text').
-     *   - headers: (array) The list of headers to add to the outgoing message.
      *   - identity: (mixed) See Imp_Prefs_Identity#getMatchingIdentity().
+     *   - subject: (string) Formatted subject.
+     *   - title: (string) Title to use on page.
      *   - type: (integer) - The compose type.
      */
     public function forwardMessage($type, $contents, $attach = true,
                                    array $opts = array())
     {
-        /* The headers of the message. */
-        $header = array(
-            'to' => '',
-            'cc' => '',
-            'bcc' => '',
-            'subject' => ''
-        );
+        global $prefs;
 
         if ($type == self::FORWARD_AUTO) {
-            switch ($GLOBALS['prefs']->getValue('forward_default')) {
+            switch ($prefs->getValue('forward_default')) {
             case 'body':
                 $type = self::FORWARD_BODY;
                 break;
@@ -1951,7 +1946,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
             case 'editasnew':
                 $ret = $this->editAsNew(new IMP_Indices($contents));
-                $ret['headers']['title'] = _("New Message");
+                $ret['title'] = _("New Message");
                 return $ret;
 
             case 'attach':
@@ -1971,14 +1966,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         $this->_replytype = $type;
         $this->changed = 'changed';
 
-        $header['subject'] = $h->getValue('subject');
-        if (!empty($header['subject'])) {
-            $subject = strval(new Horde_Imap_Client_Data_BaseSubject($header['subject'], array('keepblob' => true)));
-            $header['title'] = _("Forward") . ': ' . $subject;
-            $header['subject'] = 'Fwd: ' . $subject;
+        if (strlen($s = $h->getValue('subject'))) {
+            $s = strval(new Horde_Imap_Client_Data_BaseSubject($s, array(
+                'keepblob' => true
+            )));
+            $subject = 'Fwd: ' . $s;
+            $title = _("Forward") . ': ' . $s;
         } else {
-            $header['title'] = _("Forward");
-            $header['subject'] = 'Fwd:';
+            $subject = 'Fwd:';
+            $title = _("Forward");
         }
 
         $fwd_attach = false;
@@ -1998,14 +1994,15 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         } else {
             $ret = array(
                 'body' => '',
-                'format' => $GLOBALS['prefs']->getValue('compose_html') ? 'html' : 'text'
+                'format' => $prefs->getValue('compose_html') ? 'html' : 'text'
             );
         }
 
         return array_merge(array(
             'attach' => $fwd_attach,
-            'headers' => $header,
             'identity' => $this->_getMatchingIdentity($h),
+            'subject' => $subject,
+            'title' => $title,
             'type' => $type
         ), $ret);
     }
