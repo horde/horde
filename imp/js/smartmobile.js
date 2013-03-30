@@ -661,7 +661,8 @@ var ImpMobile = {
 
         $('#message :jqmData(role=content)').show();
 
-        $.mobile.silentScroll(parseInt($('#imp-message-body').position().top, 10) - $('#message > :jqmData(role=header)').height());
+        tmp = $('#imp-message-headers');
+        $.mobile.silentScroll(parseInt(tmp.position().top, 10) + parseInt(tmp.height(), 10) - $('#message > :jqmData(role=header)').height());
 
         $.each($('#imp-message-body IFRAME.htmlMsgData'), function(k, v) {
             IMP_JS.iframeResize($(v));
