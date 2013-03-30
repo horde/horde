@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add HTML image/style blocking to smartmobile view.
 * [mms] Improved autocompleter in smartmobile compose view.
 * [mms] Add saving compose drafts in smartmobile view.
 * [mms] Rename &apos;compose_attach&apos; hook as &apos;compose_attachment&apos;.

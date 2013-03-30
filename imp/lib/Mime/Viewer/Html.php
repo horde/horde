@@ -64,10 +64,12 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _renderInline()
     {
+        global $page_output, $registry;
+
         $data = $this->_IMPrender(true);
 
-        switch ($GLOBALS['registry']->getView()) {
-        case Horde_Registry::VIEW_MINIMAL:
+        switch ($view = $registry->getView()) {
+        case $registry::VIEW_MINIMAL:
             $data['status'] = new IMP_Mime_Status(array(
                 _("This message part contains HTML data, but this data can not be displayed inline."),
                 $this->getConfigParam('imp_contents')->linkView($this->_mimepart, 'view_attach', _("View HTML data in new window."))
@@ -77,9 +79,16 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         default:
             $uid = strval(new Horde_Support_Randomid());
 
-            $GLOBALS['page_output']->addScriptPackage('IMP_Script_Package_Imp');
+            $page_output->addScriptPackage('IMP_Script_Package_Imp');
 
-            $data['js'] = array('IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')');
+            $data['js'] = array(
+                'IMP_JS.iframeInject("' . $uid . '", ' . Horde_Serialize::serialize($data['data'], Horde_Serialize::JSON) . ')'
+            );
+
+            if ($view == $registry::VIEW_SMARTMOBILE) {
+                $data['js'][] = '$("#imp-message-body a[href=\'#unblock-image\']").button()';
+            }
+
             $data['data'] = '<div>' . _("Loading...") . '</div><iframe class="htmlMsgData" id="' . $uid . '" src="javascript:false" frameborder="0" style="display:none"></iframe>';
             $data['type'] = 'text/html; charset=UTF-8';
             break;
@@ -130,9 +139,10 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         global $injector, $prefs, $registry;
 
         $data = $this->_mimepart->getContents();
+        $view = $registry->getView();
 
         $contents = $this->getConfigParam('imp_contents');
-        $convert_text = ($registry->getView() == $registry::VIEW_MINIMAL) ||
+        $convert_text = ($view == $registry::VIEW_MINIMAL) ||
                         $injector->getInstance('Horde_Variables')->convert_text;
 
         /* Don't do IMP DOM processing if in mimp mode or converting to
@@ -155,8 +165,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             if ($inline) {
                 /* Image filtering. */
-                if (!$injector->getInstance('IMP_Images')->showInlineImage($contents) &&
-                    ($registry->getView() != $registry::VIEW_SMARTMOBILE)) {
+                if (!$injector->getInstance('IMP_Images')->showInlineImage($contents)) {
                     $this->_imptmp['blockimg'] = strval(Horde_Themes::img('spacer_red.png'));
                     $this->_imptmp['img'] = true;
                 }
@@ -171,7 +180,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
         /* Sanitize the HTML. */
         $data = $this->_cleanHTML($data, array(
-            'noprefetch' => ($inline && ($registry->getView() != Horde_Registry::VIEW_MINIMAL)),
+            'noprefetch' => ($inline && ($view != Horde_Registry::VIEW_MINIMAL)),
             'phishing' => $inline
         ));
 
@@ -214,34 +223,56 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
         }
 
         if ($inline) {
-            if ($this->_imptmp['imgblock']) {
-                $tmp = new IMP_Mime_Status(array(
-                    _("Images have been blocked in this message part."),
-                    Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
-                        'mailbox' => $contents->getMailbox()->form_to,
-                        'uid' => $contents->getUid()
-                    )) . _("Show Images?") . '</a>'
-                ));
-                $tmp->icon('mime/image.png');
-                $status[] = $tmp;
-            } elseif ($this->_imptmp['cssblock']) {
-                /* This is a bit less intuitive for end users, so hide within
-                 * image blocking if possible. */
-                $tmp = new IMP_Mime_Status(array(
-                    _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
-                    Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
-                ));
-                $tmp->icon('mime/image.png');
-                $status[] = $tmp;
-            }
+            switch ($view) {
+            case $registry::VIEW_SMARTMOBILE:
+                if ($this->_imptmp['imgblock']) {
+                    $tmp_txt = _("Show images...");
+                } elseif ($this->_imptmp['cssblock']) {
+                    $tmp_txt = _("Load message styling...");
+                } else {
+                    $tmp_txt = null;
+                }
 
-            if ($this->_imptmp['cssbroken']) {
-                $tmp = new IMP_Mime_Status(array(
-                    _("This message contains corrupt styling data so the message contents may not appear correctly below."),
-                    $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
-                ));
-                $tmp->icon('mime/image.png');
-                $status[] = $tmp;
+                if (!is_null($tmp_txt)) {
+                    $tmp = new IMP_Mime_Status(array(
+                        '<a href="#unblock-image" data-role="button">' . $tmp_txt . '</a>'
+                    ));
+                    $tmp->views = array($view);
+                    $status[] = $tmp;
+                }
+                break;
+
+            default:
+                if ($this->_imptmp['imgblock']) {
+                   $tmp = new IMP_Mime_Status(array(
+                        _("Images have been blocked in this message part."),
+                        Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
+                            'mailbox' => $contents->getMailbox()->form_to,
+                            'uid' => $contents->getUid()
+                        )) . _("Show Images?") . '</a>'
+                    ));
+                    $tmp->icon('mime/image.png');
+                    $status[] = $tmp;
+                } elseif ($this->_imptmp['cssblock']) {
+                    /* This is a bit less intuitive for end users, so hide
+                     * within image blocking if possible. */
+                    $tmp = new IMP_Mime_Status(array(
+                        _("Message styling has been suppressed in this message part since the style data lives on a remote server."),
+                        Horde::link('#', '', 'unblockImageLink') . _("Load Styling?") . '</a>'
+                    ));
+                    $tmp->icon('mime/image.png');
+                    $status[] = $tmp;
+                }
+
+                if ($this->_imptmp['cssbroken']) {
+                    $tmp = new IMP_Mime_Status(array(
+                        _("This message contains corrupt styling data so the message contents may not appear correctly below."),
+                        $contents->linkViewJS($this->_mimepart, 'view_attach', _("Click to view HTML data in new window; it is possible this will allow you to view the message correctly."))
+                    ));
+                    $tmp->icon('mime/image.png');
+                    $status[] = $tmp;
+                }
+                break;
             }
         }
 

@@ -257,6 +257,12 @@ var ImpMobile = {
             }));
             e.preventDefault();
             break;
+
+        case 'unblock-image':
+            IMP_JS.unblockImages(data.options.link.closest('DIV.mimePartBase').find('IFRAME.htmlMsgData'));
+            data.options.link.remove();
+            e.preventDefault();
+            break;
         }
     },
 
@@ -1373,6 +1379,8 @@ var ImpMobileMbox = {
 
 var IMP_JS = {
 
+    imgs: {},
+
     iframeInject: function(id, data)
     {
         id = $('#' + id);
@@ -1396,6 +1404,57 @@ var IMP_JS = {
             $(id.get(0).contentWindow.document.lastChild).height(),
             $(id.get(0).contentWindow.document.body).height()
         ) + 25);
+    },
+
+    /**
+     * Use DOM manipulation to un-block images.
+     */
+    unblockImages: function(iframe)
+    {
+        var iframeid = iframe.attr('id'),
+            imgload = false,
+            doc = $(iframe[0].contentWindow.document),
+            callback = function() { IMP_JS.imgOnload(iframeid); };
+
+        $.each(doc.find('[htmlimgblocked]'), function(k, v) {
+            v = $(v);
+            var src = v.attr('htmlimgblocked');
+
+            if (v.attr('src')) {
+                v.onload = callback;
+                ++IMP_JS.imgs[iframeid];
+                v.attr('src', src);
+                imgload = true;
+            } else {
+                if (v.attr('background')) {
+                    v.attr('background', src);
+                }
+                if (v.css('background-image')) {
+                    v.css('background-image', 'url(' + src + ')');
+                }
+            }
+        });
+
+        $.each(doc.find('[htmlcssblocked]'), function(k, v) {
+            v = $(v);
+            v.attr('href', v.attr('htmlcssblocked'));
+        });
+
+        $.each(doc.find('STYLE[type="text/x-imp-cssblocked"]'), function(k, v) {
+            v = $(v);
+            v.attr('type', 'text/css');
+        });
+
+        if (!imgload) {
+            this.iframeResize(iframeid);
+        }
+    },
+
+    imgOnload: function(id)
+    {
+        if (!(--this.imgs[id])) {
+            this.iframeResize(id);
+        }
     }
 
 };
