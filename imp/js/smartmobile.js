@@ -1380,8 +1380,6 @@ var ImpMobileMbox = {
 
 var IMP_JS = {
 
-    imgs: {},
-
     iframeInject: function(id, data)
     {
         id = $('#' + id);
@@ -1412,18 +1410,15 @@ var IMP_JS = {
      */
     unblockImages: function(iframe)
     {
-        var iframeid = iframe.attr('id'),
-            imgload = false,
-            doc = $(iframe[0].contentWindow.document),
-            callback = function() { IMP_JS.imgOnload(iframeid); };
+        var doc = $(iframe.get(0).contentWindow.document),
+            imgload = false;
 
         $.each(doc.find('[htmlimgblocked]'), function(k, v) {
             v = $(v);
             var src = v.attr('htmlimgblocked');
 
             if (v.attr('src')) {
-                v.onload = callback;
-                ++IMP_JS.imgs[iframeid];
+                v.one('load', function() { IMP_JS.iframeResize(iframe); });
                 v.attr('src', src);
                 imgload = true;
             } else {
@@ -1447,14 +1442,7 @@ var IMP_JS = {
         });
 
         if (!imgload) {
-            this.iframeResize(iframeid);
-        }
-    },
-
-    imgOnload: function(id)
-    {
-        if (!(--this.imgs[id])) {
-            this.iframeResize(id);
+            IMP_JS.iframeResize(iframe);
         }
     }
 
