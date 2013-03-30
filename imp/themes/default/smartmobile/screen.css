@@ -67,6 +67,12 @@
 #imp-compose-message {
     height: auto;
 }
+#imp-compose-to-suggestions,
+#imp-compose-to-addr,
+#imp-compose-cc-suggestions,
+#imp-compose-cc-addr {
+    margin-left: 22%;
+}
 
 /* Style for HTML data iframe. */
 .htmlMsgData {

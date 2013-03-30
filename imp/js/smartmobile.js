@@ -60,6 +60,7 @@ var ImpMobile = {
 
         switch (view) {
         case 'compose':
+            $('#imp-compose-to-addr,#imp-compose-cc-addr').empty();
             if (!IMP.conf.disable_compose) {
                 $('#imp-compose-cache').val('');
                 ImpMobile.compose(data);
@@ -74,6 +75,12 @@ var ImpMobile = {
                 imp_compose: $('#imp-compose-cache').val()
             });
             ImpMobile.closeCompose();
+            e.preventDefault();
+            break;
+
+        case 'compose-delete-addr':
+            data.options.link.next().remove();
+            data.options.link.remove();
             e.preventDefault();
             break;
 
@@ -815,8 +822,8 @@ var ImpMobile = {
         $('#compose .smartmobile-title').html(IMP.text.new_message);
 
         if (purl.params.to || purl.params.cc) {
-            $('#imp-compose-to').val(purl.params.to);
-            $('#imp-compose-cc').val(purl.params.cc);
+            IMP.addAddress('to', purl.params.to);
+            IMP.addAddress('cc', purl.params.cc);
             HordeMobile.changePage('compose', data);
             return;
         }
@@ -898,8 +905,12 @@ var ImpMobile = {
             $('#imp-compose-identity').selectmenu()
                 .selectmenu('refresh', true);
 
-            $('#imp-compose-to').val(r.addr.to.join(', '));
-            $('#imp-compose-cc').val(r.addr.cc.join(', '));
+            $.each(r.addr.to, function(k, v) {
+                ImpMobile.addAddress('to', v);
+            });
+            $.each(r.addr.cc, function(k, v) {
+                ImpMobile.addAddress('cc', v);
+            });
             $('#imp-compose-subject').val(r.subject);
             $('#imp-compose-message').val(r.body);
 
@@ -907,6 +918,30 @@ var ImpMobile = {
         }
 
         HordeMobile.changePage('compose', data);
+    },
+
+    /**
+     */
+    addAddress: function(f, addr)
+    {
+        if (addr) {
+            var elt = $('#imp-compose-' + f + '-addr');
+            elt.append(
+                $('<a></a>')
+                    .attr('href', '#compose-delete-addr')
+                    .attr('data-role', 'button')
+                    .attr('data-icon', 'delete')
+                    .attr('data-iconpos', 'right')
+                    .text(addr)
+                    .button()
+            );
+            elt.append(
+                $('<input></input>')
+                    .attr('name', f + '[]')
+                    .attr('type', 'hidden')
+                    .val(addr)
+            );
+        }
     },
 
     /**
@@ -1228,7 +1263,8 @@ var ImpMobile = {
             $.each([ 'to', 'cc' ], function(undefined, v) {
                 $('#imp-compose-' + v).autocomplete({
                     callback: function(e) {
-                        $('#imp-compose-' + v).val($.trim($(e.currentTarget).text()));
+                        ImpMobile.addAddress(v, $(e.currentTarget).text());
+                        $('#imp-compose-' + v).val('');
                     },
                     link: '#',
                     minLength: 3,
