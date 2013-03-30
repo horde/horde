@@ -362,12 +362,6 @@ document.observe('HordeCore:showNotifications', function(e) {
     }
 });
 
-/* Catch image blocking actions. Put method call in function so that pages
- * don't load IMP_JS (i.e. compose page) won't break. */
-document.observe('IMP_Ajax_Imple_ImageUnblock:do', function(e) {
-    IMP_JS.unblockImages(e);
-});
-
 /* Disable text selection for everything but compose/message body and FORM
  * inputs. */
 document.observe(Prototype.Browser.IE ? 'selectstart' : 'mousedown', function(e) {
