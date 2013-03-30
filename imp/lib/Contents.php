@@ -1335,10 +1335,12 @@ class IMP_Contents
      */
     public function getInlineOutput(array $options = array())
     {
-        $atc_parts = $display_ids = $js_onload = $wrap_ids = array();
-        $msgtext = array();
+        global $prefs, $registry;
+
+        $atc_parts = $display_ids = $msgtext = $js_onload = $wrap_ids = array();
         $parts_list = $this->getContentTypeMap();
         $text_out = '';
+        $view = $registry->getView();
 
         $contents_mask = isset($options['mask'])
             ? $options['mask']
@@ -1352,7 +1354,7 @@ class IMP_Contents
             : array();
         $show_parts = isset($options['show_parts'])
             ? $options['show_parts']
-            : $GLOBALS['prefs']->getValue('parts_display');
+            : $prefs->getValue('parts_display');
 
         foreach ($parts_list as $mime_id => $mime_type) {
             if (isset($display_ids[$mime_id]) ||
@@ -1415,7 +1417,12 @@ class IMP_Contents
                         if (!is_array($info['status'])) {
                             $info['status'] = array($info['status']);
                         }
-                        $part_text .= implode('', array_map('strval', $info['status']));
+
+                        foreach ($info['status'] as $val) {
+                            if (in_array($view, $val->views)) {
+                                $part_text .= strval($val);
+                            }
+                        }
                     }
 
                     $part_text .= '<div class="mimePartData">' . $info['data'] . '</div>';

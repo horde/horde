@@ -80,9 +80,6 @@
 }
 
 /* MIME part display. */
-.mimeStatusMessage {
-    display: none;
-}
 .mimePartData .fixed {
     font-size: 90%;
 }

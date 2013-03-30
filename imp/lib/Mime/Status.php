@@ -29,6 +29,17 @@ class IMP_Mime_Status
     const WARNING = 3;
 
     /**
+     * Views to display this status in.
+     *
+     * @var array
+     */
+    public $views = array(
+        Horde_Registry::VIEW_BASIC,
+        Horde_Registry::VIEW_DYNAMIC,
+        Horde_Registry::VIEW_MINIMAL
+    );
+
+    /**
      * DOM ID to use for the status block.
      *
      * @var string
