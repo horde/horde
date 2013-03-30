@@ -1385,10 +1385,7 @@ var IMP_JS = {
         id = $('#' + id);
         var d = id.get(0).contentWindow.document;
 
-        id.bind('load', function() {
-            id.unbind('load');
-            IMP_JS.iframeResize(id);
-        });
+        id.one('load', function() { IMP_JS.iframeResize(id); });
 
         d.open();
         d.write(data);
