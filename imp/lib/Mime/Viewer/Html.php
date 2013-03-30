@@ -235,7 +235,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
                 if (!is_null($tmp_txt)) {
                     $tmp = new IMP_Mime_Status(array(
-                        '<a href="#unblock-image" data-role="button">' . $tmp_txt . '</a>'
+                        '<a href="#unblock-image" data-role="button" data-theme="e">' . $tmp_txt . '</a>'
                     ));
                     $tmp->views = array($view);
                     $status[] = $tmp;
