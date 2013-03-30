@@ -898,9 +898,9 @@ var ImpMobile = {
             $('#imp-compose-identity').selectmenu()
                 .selectmenu('refresh', true);
 
-            $('#imp-compose-to').val(r.header.to);
-            $('#imp-compose-cc').val(r.header.cc);
-            $('#imp-compose-subject').val(r.header.subject);
+            $('#imp-compose-to').val(r.addr.to.join(', '));
+            $('#imp-compose-cc').val(r.addr.cc.join(', '));
+            $('#imp-compose-subject').val(r.subject);
             $('#imp-compose-message').val(r.body);
 
             $('#imp-compose-' + (r.opts.focus || 'to').replace(/composeMessage/, 'message'))[0].focus();

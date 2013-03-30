@@ -71,11 +71,10 @@ class IMP_Ajax_Application_Compose
      */
     public function getResponse($result)
     {
-        $ob = $this->getBaseResponse();
+        $ob = $this->getBaseResponse($result);
 
         $ob->body = $result['body'];
         $ob->format = $result['format'];
-        $ob->header = IMP_Compose::convertToHeader($result);
         $ob->identity = $result['identity'];
 
         if ($result['attach']) {
@@ -113,13 +112,21 @@ class IMP_Ajax_Application_Compose
 
     /**
      */
-    public function getBaseResponse()
+    public function getBaseResponse($result)
     {
         $ob = new stdClass;
         $ob->body = '';
-        $ob->header = array();
         $ob->opts = new stdClass;
+        $ob->subject = $result['subject'];
         $ob->type = $this->_type;
+
+        if (isset($result['addr'])) {
+            $ob->addr = array(
+                'to' => array_map('strval', $result['addr']['to']->base_addresses),
+                'cc' => array_map('strval', $result['addr']['cc']->base_addresses),
+                'bcc' => array_map('strval', $result['addr']['bcc']->base_addresses),
+            );
+        }
 
         return $ob;
     }

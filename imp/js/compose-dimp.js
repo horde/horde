@@ -496,7 +496,7 @@ var DimpCompose = {
         this.resizeMsgArea();
     },
 
-    // ob = body, format, header, identity, opts, type
+    // ob = addr, body, format, identity, opts, subject, type
     // ob.opts = auto, focus, fwd_list, noupdate, priority, readreceipt,
     //           reply_lang, reply_recip, reply_list_id, show_editor
     fillForm: function(ob)
@@ -513,20 +513,20 @@ var DimpCompose = {
 
         ob.opts = ob.opts || {};
 
-        $('to').setValue(ob.header.to);
-        if (ob.header.cc) {
+        $('to').setValue(ob.addr.to.join(', '));
+        if (ob.addr.cc.size()) {
             this.toggleCC('cc');
-            $('cc').setValue(ob.header.cc);
+            $('cc').setValue(ob.addr.cc.join(', '));
         }
-        if (ob.header.bcc) {
+        if (ob.addr.bcc.size()) {
             this.toggleCC('bcc');
-            $('bcc').setValue(ob.header.bcc);
+            $('bcc').setValue(ob.addr.cc.join(', '));
         }
 
         $('identity').setValue(ob.identity);
         this.changeIdentity();
 
-        $('subject').setValue(ob.header.subject);
+        $('subject').setValue(ob.subject);
 
         if (DimpCore.conf.priority && ob.opts.priority) {
             this.setPopdownLabel('p', ob.opts.priority);
@@ -649,14 +649,14 @@ var DimpCompose = {
 
     swapToAddressCallback: function(r)
     {
-        if (r.header) {
-            $('to').setValue(r.header.to);
+        if (r.addr) {
+            $('to').setValue(r.addr.to.join(', '));
             [ 'cc', 'bcc' ].each(function(t) {
-                if (r.header[t] || $(t).visible()) {
+                if (r.addr[t].size() || $(t).visible()) {
                     if (!$(t).visible()) {
                         this.toggleCC(t);
                     }
-                    $(t).setValue(r.header.cc);
+                    $(t).setValue(r.addr[t].join(', '));
                 }
             }, this);
         }

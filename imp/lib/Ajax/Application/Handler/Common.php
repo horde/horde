@@ -274,11 +274,12 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
+     *   - addr: (array) List of addresses (to, cc, bcc).
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - opts: (array) Additional options needed for DimpCompose.fillForm().
+     *   - subject: (string) Subject value.
      *   - type: (string) The input 'type' value.
      */
     public function getReplyData()
@@ -293,12 +294,9 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
                 'format' => $this->vars->format
             ));
 
-            if ($this->vars->headeronly) {
-                $result = $compose->ajax->getBaseResponse();
-                $result->header = IMP_Compose::convertToHeader($reply_msg);
-            } else {
-                $result = $compose->ajax->getResponse($reply_msg);
-            }
+            $result = $this->vars->headeronly
+                ? $compose->ajax->getBaseResponse($reply_msg)
+                : $compose->ajax->getResponse($reply_msg);
         } catch (Horde_Exception $e) {
             $GLOBALS['notification']->push($e);
             $this->_base->checkUidvalidity();
@@ -343,7 +341,7 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
             ));
 
             if ($this->vars->dataonly) {
-                $result = $compose->ajax->getBaseResponse();
+                $result = $compose->ajax->getBaseResponse($fwd_msg);
                 $result->body = $fwd_msg['body'];
                 $result->format = $fwd_msg['format'];
             } else {
@@ -395,11 +393,12 @@ class IMP_Ajax_Application_Handler_Common extends Horde_Core_Ajax_Application_Ha
      *
      * @return mixed  False on failure, or an object with the following
      *                entries:
+     *   - addr: (array) List of addresses (to, cc, bcc).
      *   - body: (string) The body text of the message.
      *   - format: (string) Either 'text' or 'html'.
-     *   - header: (array) The headers of the message.
      *   - identity: (integer) The identity ID to use for this message.
      *   - opts: (array) Additional options (atc, priority, readreceipt).
+     *   - subject: (string) Subject value.
      *   - type: (string) The input 'type' value.
      */
     public function getResumeData()
