@@ -80,7 +80,7 @@
 }
 
 /* MIME part display. */
-.mimePartInfo, .mimeStatusMessage {
+.mimeStatusMessage {
     display: none;
 }
 .mimePartData .fixed {

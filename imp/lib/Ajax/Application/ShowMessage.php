@@ -242,13 +242,21 @@ class IMP_Ajax_Application_ShowMessage
         $result['msgtext'] = '';
         $show_parts = $prefs->getValue('parts_display');
 
-        $contents_mask = IMP_Contents::SUMMARY_BYTES |
-            IMP_Contents::SUMMARY_SIZE |
-            IMP_Contents::SUMMARY_ICON |
-            IMP_Contents::SUMMARY_DESCRIP_LINK |
-            IMP_Contents::SUMMARY_DOWNLOAD |
-            IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
-            IMP_Contents::SUMMARY_PRINT_STUB;
+        switch ($registry->getView()) {
+        case $registry::VIEW_SMARTMOBILE:
+            $contents_mask = 0;
+            break;
+
+        default:
+            $contents_mask = IMP_Contents::SUMMARY_BYTES |
+                IMP_Contents::SUMMARY_SIZE |
+                IMP_Contents::SUMMARY_ICON |
+                IMP_Contents::SUMMARY_DESCRIP_LINK |
+                IMP_Contents::SUMMARY_DOWNLOAD |
+                IMP_Contents::SUMMARY_DOWNLOAD_ZIP |
+                IMP_Contents::SUMMARY_PRINT_STUB;
+            break;
+        }
 
         $part_info = $part_info_display = array('icon', 'description', 'size', 'download', 'download_zip');
         $part_info_display[] = 'print';
