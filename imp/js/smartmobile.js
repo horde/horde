@@ -1433,10 +1433,8 @@ var IMP_JS = {
             v.attr('href', v.attr('htmlcssblocked'));
         });
 
-        $.each(doc.find('STYLE[type="text/x-imp-cssblocked"]'), function(k, v) {
-            v = $(v);
-            v.attr('type', 'text/css');
-        });
+        doc.find('STYLE[type="text/x-imp-cssblocked"]')
+            .attr('type', 'text/css');
 
         if (!imgload) {
             IMP_JS.iframeResize(iframe);
