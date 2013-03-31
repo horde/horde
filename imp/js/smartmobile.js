@@ -880,7 +880,7 @@ var ImpMobile = {
                 buid: purl.params.buid,
                 imp_compose: $(cache).val(),
                 type: purl.params.type,
-                view: ImpMobile.mailbox
+                view: purl.params.mbox
             }),
             function(r) { ImpMobile.composeLoaded(r, data); }
         );
