@@ -96,7 +96,9 @@ abstract class Horde_ActiveSync_Request_SyncBase extends Horde_ActiveSync_Reques
     {
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_BODYPREFERENCE)) {
             $body_pref = array();
-            $collection['bodyprefs'] = array();
+            if (empty($collection['bodyprefs'])) {
+                $collection['bodyprefs'] = array();
+            }
             while (1) {
                 if ($this->_decoder->getElementStartTag(Horde_ActiveSync::AIRSYNCBASE_TYPE)) {
                     $body_pref['type'] = $this->_decoder->getElementContent();
