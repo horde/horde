@@ -309,14 +309,18 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     if (isset($v1['bodyprefs'])) {
                         ksort($v1['bodyprefs']);
                         foreach (array_keys($v1['bodyprefs']) as $k) {
-                            ksort($v1['bodyprefs'][$k]);
+                            if (is_array($v1['bodyprefs'])) {
+                                ksort($v1['bodyprefs'][$k]);
+                            }
                         }
                     }
                     ksort($v2);
                     if (isset($v2['bodyprefs'])) {
                         ksort($v2['bodyprefs']);
                         foreach (array_keys($v2['bodyprefs']) as $k) {
-                            ksort($v2['bodyprefs'][$k]);
+                            if (is_array($v2['bodyprefs'])) {
+                                ksort($v2['bodyprefs'][$k]);
+                            }
                         }
                     }
                     if (md5(serialize($v1)) == md5(serialize($v2))) {
