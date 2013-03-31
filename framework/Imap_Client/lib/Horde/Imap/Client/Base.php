@@ -3967,11 +3967,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
      * @param mixed $mailbox  A mailbox. Either a Horde_Imap_Client_Mailbox
      *                        object or a string (UTF-8).
      *
-     * @return array  An array with the following possible keys:
-     *   - H: (integer) HIGHESTMODSEQ value.
-     *   - M: (integer) The number of messages in the mailbox.
-     *   - U: (integer) UIDNEXT value.
-     *   - V: (integer) UIDVALIDITY for the mailbox.
+     * @return array  An array with status data. (This data is not guaranteed
+     *                to have any specific format).
      */
     protected function _syncStatus($mailbox)
     {

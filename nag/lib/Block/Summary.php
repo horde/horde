@@ -103,7 +103,7 @@ class Nag_Block_Summary extends Horde_Core_Block
                     . '</em>';
             }
             foreach ($alarmList as $task) {
-                $differential = $task->due - $now;
+                $differential = $task->getNextDue()->timestamp() - $now;
                 $key = $differential;
                 while (isset($messages[$key])) {
                     $key++;
@@ -153,16 +153,17 @@ class Nag_Block_Summary extends Horde_Core_Block
 
         $tasks->reset();
         while ($task = $tasks->each()) {
+            $due = $task->due ? $task->getNextDue() : null;
+
             // Only print tasks due in the past if the show_overdue flag is on.
-            if (($task->due > 0 &&
-                 $now > $task->due &&
-                 empty($this->_params['show_overdue']))) {
+            if ($due && $due->before($now) &&
+                empty($this->_params['show_overdue'])) {
                 continue;
             }
 
             if ($task->completed) {
                 $style = 'closed';
-            } elseif (!empty($task->due) && $task->due < $now) {
+            } elseif ($due && $due->before($now)) {
                 $style = 'overdue';
             } else {
                 $style = '';
@@ -215,11 +216,10 @@ class Nag_Block_Summary extends Horde_Core_Block
                    ? htmlspecialchars($task->name) : _("[none]"))
                 . '</a>';
 
-            if ($task->due > 0 &&
-                empty($task->completed) &&
+            if ($due && empty($task->completed) &&
                 !empty($this->_params['show_due'])) {
                 $html .= ' ('
-                    . strftime($prefs->getValue('date_format'), $task->due)
+                    . $due->strftime($prefs->getValue('date_format'))
                     . ')';
             }
 

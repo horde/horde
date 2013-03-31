@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
 * [jan] Fix searching from topbar if search URL contains parameters.
  </notes>
@@ -3605,6 +3606,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
    <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
 * [jan] Fix searching from topbar if search URL contains parameters.
    </notes>

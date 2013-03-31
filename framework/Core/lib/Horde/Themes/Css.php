@@ -307,21 +307,7 @@ class Horde_Themes_Css
             }
 
             foreach ($css_parser->doc->getContents() as $val) {
-                if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
-                    foreach ($val->getRules('background-') as $val2) {
-                        $item = $val2->getValue();
-
-                        if ($item instanceof Sabberworm\CSS\Value\URL) {
-                            $url[] = $item;
-                        } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
-                            foreach ($item->getListComponents() as $val3) {
-                                if ($val3 instanceof Sabberworm\CSS\Value\URL) {
-                                    $url[] = $val3;
-                                }
-                            }
-                        }
-                    }
-                } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
+                if ($val instanceof Sabberworm\CSS\Property\Import) {
                     $ob = Horde_Themes_Element::fromUri($path . $val->getLocation());
                     $out .= $this->loadCssFiles(array(array(
                         'app' => null,
@@ -329,6 +315,22 @@ class Horde_Themes_Css
                         'uri' => $ob->uri
                     )));
                     $css_parser->doc->remove($val);
+                }
+            }
+
+            foreach ($css_parser->doc->getAllRuleSets() as $val) {
+                foreach ($val->getRules('background-') as $val2) {
+                    $item = $val2->getValue();
+
+                    if ($item instanceof Sabberworm\CSS\Value\URL) {
+                        $url[] = $item;
+                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
+                        foreach ($item->getListComponents() as $val3) {
+                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
+                                $url[] = $val3;
+                            }
+                        }
+                    }
                 }
             }
 

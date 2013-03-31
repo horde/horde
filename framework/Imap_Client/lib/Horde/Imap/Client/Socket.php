@@ -3075,7 +3075,7 @@ class Horde_Imap_Client_Socket extends Horde_Imap_Client_Base
         ));
 
         if (empty($options['unchangedsince'])) {
-            $silent = !$this->_debug->debug;
+            $silent = !($this->_debug->debug || $this->_initCache(true));
         } else {
             $cmd->add(new Horde_Imap_Client_Data_Format_List(array(
                 'UNCHANGEDSINCE',
