@@ -84,10 +84,11 @@
    only be made by the local administrator. (A pool with insufficient random
    output can cause key generation to timeout before successful generation can
    be completed).">1024
-   <case name="0" desc="Disable generation" />
-   <case name="1024" desc="1024" />
-   <case name="2048" desc="2048" />
-   <case name="4096" desc="4096" />
+     <case name="0" desc="Disable generation" />
+     <case name="1024" desc="1024" />
+     <case name="2048" desc="2048" />
+     <case name="4096" desc="4096" />
+   </configswitch>
   </configsection>
  </configtab>
 
