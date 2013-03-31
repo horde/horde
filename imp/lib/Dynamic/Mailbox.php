@@ -214,12 +214,15 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                     't' => _("Date"),
                     'v' => IMP::IMAP_SORT_DATE
                 ),
+                'msgarrival' => array(
+                    'c' => 'msgDate',
+                    'v' => Horde_Imap_Client::SORT_ARRIVAL
+                ),
                 'msgdate' => array(
                     'c' => 'msgDate',
                     'v' => Horde_Imap_Client::SORT_DATE
                 ),
                 'sequence' => array(
-                    'c' => 'msgDate',
                     'v' => Horde_Imap_Client::SORT_SEQUENCE
                 ),
                 'size' => array(
@@ -245,7 +248,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'collapse' => _("Collapse All")
             ),
             'ctx_datesort' => array(
-                '*sequence' => _("Arrival Time"),
+                '*msgarrival' => _("Arrival Time"),
                 '*msgdate' => _("Message Date")
             ),
             'ctx_flag' => array(),
@@ -267,7 +270,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'date' => _("Date"),
                 'size' => ("Size"),
                 '_sep1' => null,
-                'sequence' => _("Arrival (No Sort)")
+                'sequence' => _("No Sort")
             ),
             'ctx_subjectsort' => array(
                 'thread' => _("Thread Sort"),

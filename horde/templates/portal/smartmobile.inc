@@ -1,6 +1,6 @@
 <div id="portal-page" data-role="page">
  <div data-role="header">
-  <h1><?php echo sprintf(_("Welcome, %s"), $fullname) ?></h1>
+  <h1><?php echo sprintf(_("Welcome, %s"), htmlspecialchars($fullname)) ?></h1>
 <?php if ($registry->showService('logout') && ($logout = $registry->getServiceLink('logout'))): ?>
   <a href="<?php echo $logout->setRaw(false) ?>" data-ajax="false" class="ui-btn-right" data-theme="e" data-icon="delete"><?php echo _("Log out") ?></a>
 <?php endif ?>

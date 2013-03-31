@@ -60,7 +60,7 @@ $query = new Horde_Imap_Client_Search_Query();
 if ($new_mail) {
     $query->flag(Horde_Imap_Client::FLAG_SEEN, false);
 }
-$ids = $mailbox->runSearchQuery($query, Horde_Imap_Client::SORT_SEQUENCE, 1);
+$ids = $mailbox->runSearchQuery($query, Horde_Imap_Client::SORT_ARRIVAL, 1);
 
 if (count($ids)) {
     $imp_ui = new IMP_Ui_Mailbox($mailbox);

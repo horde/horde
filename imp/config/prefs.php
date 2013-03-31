@@ -1508,7 +1508,7 @@ $_prefs['mailbox_start'] = array(
 $_prefs['sortby'] = array(
     // Sort by sequence by default. It is the fastest sort as it is the only
     // sort that can be done without parsing message headers. It sorts
-    // messages by the order they arrived within the mailbox.
+    // messages by the order they were initially processed by the mail server.
     'value' => Horde_Imap_Client::SORT_SEQUENCE,
     'type' => 'enum',
     'enum' => array(
@@ -1543,11 +1543,11 @@ $_prefs['sortdate'] = array(
     // Use internal IMAP date by default - this is generally the date that a
     // message was first received on the IMAP server and is maintained even
     // if the message moves between mailboxes.
-    'value' => Horde_Imap_Client::SORT_SEQUENCE,
+    'value' => Horde_Imap_Client::SORT_ARRIVAL,
     'advanced' => true,
     'type' => 'enum',
     'enum' => array(
-        Horde_Imap_Client::SORT_SEQUENCE => _("Arrival time on server"),
+        Horde_Imap_Client::SORT_ARRIVAL => _("Arrival time on server"),
         Horde_Imap_Client::SORT_DATE => _("Date in message headers")
     ),
     'desc' => _("Criteria to use when sorting by date:")

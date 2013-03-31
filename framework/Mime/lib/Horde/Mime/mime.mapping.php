@@ -11,10 +11,10 @@
  * Any unknown file extensions will automatically be mapped to
  * 'x-extension/<ext>' where <ext> is the unknown file extension.
  *
- * @category Horde
- * @package  Horde_Mime
- *
  * Generated: 09/21/12 15:37:00 by slusarz on bigworm.curecanti.org
+ *
+ * @category Horde
+ * @package  Mime
  */
 $mime_extension_map = array(
     '__MAXPERIOD__' => '1',
