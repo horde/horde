@@ -939,6 +939,7 @@ var ImpMobile = {
                     .attr('data-role', 'button')
                     .attr('data-icon', 'delete')
                     .attr('data-iconpos', 'right')
+                    .attr('data-theme', 'b')
                     .text(addr)
                     .button()
             );
