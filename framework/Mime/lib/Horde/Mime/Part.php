@@ -812,7 +812,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setTransferEncoding($encoding, $options = array())
     {
-        if (empty($options['send']) && !empty($this->_contents)) {
+        if (empty($encoding) ||
+            (empty($options['send']) && !empty($this->_contents))) {
             return;
         }
 

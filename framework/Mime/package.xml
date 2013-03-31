@@ -29,6 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
 * [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
 * [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
 * [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
@@ -1085,6 +1086,7 @@
    <date>2013-02-11</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
 * [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
 * [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
 * [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
