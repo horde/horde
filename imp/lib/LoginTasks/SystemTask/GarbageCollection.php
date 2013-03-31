@@ -34,7 +34,7 @@ class IMP_LoginTasks_SystemTask_GarbageCollection extends Horde_LoginTasks_Syste
      */
     public function execute()
     {
-        global $injector;
+        global $injector, $registry;
 
         /* These require mail server authentication. */
         try {
