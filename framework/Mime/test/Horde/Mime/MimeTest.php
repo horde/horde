@@ -20,6 +20,11 @@
  */
 class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
 {
+    public function setUp()
+    {
+        Horde_Mime::$brokenRFC2231 = false;
+    }
+
     public function testUudecode()
     {
         $data = Horde_Mime::uudecode(file_get_contents(__DIR__ . '/fixtures/uudecode.txt'));
@@ -103,6 +108,46 @@ class Horde_Mime_MimeTest extends PHPUnit_Framework_TestCase
         $this->assertFalse(Horde_Mime::isChild('1', '1'));
         $this->assertFalse(Horde_Mime::isChild('1', '2.1'));
         $this->assertFalse(Horde_Mime::isChild('1', '10.0'));
+    }
+
+    public function testEncodeParamQuotesQuote()
+    {
+        $this->assertEquals(
+            array('foo' => "\"\x01\""),
+            Horde_Mime::encodeParam('foo', "\x01")
+        );
+    }
+
+    public function testBug12127()
+    {
+        Horde_Mime::$brokenRFC2231 = true;
+
+        $this->assertEquals(
+            array(
+                'foo' => 'test'
+            ),
+            Horde_Mime::encodeParam('foo', 'test', array(
+                'charset' => 'UTF-16LE'
+            ))
+        );
+
+        $this->assertEquals(
+            array(
+                'foo*' => "utf-16le''%01%01",
+                'foo' => '"=?utf-16le?b?AQE=?="'
+            ),
+            Horde_Mime::encodeParam('foo', 'ā', array(
+                'charset' => 'UTF-16LE'
+            ))
+        );
+    }
+
+    public function testNullCharacterInEncodeOutput()
+    {
+        $this->assertEquals(
+            '=?utf-16le?b?AAA=?=',
+            Horde_Mime::encode("\x00", 'UTF-16LE')
+        );
     }
 
 }

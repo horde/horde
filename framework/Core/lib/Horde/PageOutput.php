@@ -696,7 +696,6 @@ class Horde_PageOutput
 
             $this->addMetaTag('viewport', 'width=device-width, initial-scale=1', false);
 
-            $view->stylesheetOpts['nocache'] = true;
             $view->stylesheetOpts['subonly'] = true;
 
             $this->addStylesheet(

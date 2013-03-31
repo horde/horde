@@ -370,6 +370,7 @@ var DimpCompose = {
                 imp_compose: $F(this.getCacheElt()),
                 text: text
             }, {
+                ajaxopts: { asynchronous: false },
                 callback: this.setMessageText.bind(this, false)
             });
 
