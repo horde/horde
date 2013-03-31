@@ -83,12 +83,7 @@ class Horde_Mail_Transport_Mail extends Horde_Mail_Transport
     public function send($recipients, array $headers, $body)
     {
         $headers = $this->_sanitizeHeaders($headers);
-
-        // If we're passed an array of recipients, implode it.
-        if (is_array($recipients)) {
-            $recipients = array_map('trim', implode(',', $recipients));
-        }
-
+        $recipients = $this->parseRecipients($recipients);
         $subject = '';
 
         foreach (array_keys($headers) as $hdr) {
