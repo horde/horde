@@ -147,7 +147,7 @@ class Horde_Domhtml implements Iterator
         }
 
         $bodyelt = $this->dom->createElement('body');
-        $this->dom->documentElement->appendChild($body);
+        $this->dom->documentElement->appendChild($bodyelt);
 
         return $bodyelt;
     }
