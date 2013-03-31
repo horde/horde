@@ -223,7 +223,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
             }
 
             if (!$this->_haveSyncableCollections()) {
-                $this->_statusCode = self::STATUS_SERVERERROR;
+                $this->_statusCode = self::STATUS_NOTFOUND;
                 $this->_handleGlobalSyncError();
                 return true;
             }
