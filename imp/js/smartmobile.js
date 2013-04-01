@@ -16,6 +16,9 @@ var ImpMobile = {
     // /* BUID of the currently displayed message. */
     // buid,
     //
+    // /* The current compose type. */
+    // composetype,
+    //
     // /* Has the folders list been loaded? */
     // foldersLoaded,
     //
@@ -836,7 +839,9 @@ var ImpMobile = {
         }
 
         $('#imp-compose-form').show();
-        $('#compose :jqmData(role=footer) a[href$="compose-discard"],#imp-redirect-form').hide();
+        $('#imp-redirect-form').hide();
+
+        ImpMobile.composetype = purl.params.type;
 
         switch (purl.params.type) {
         case 'reply_auto':
@@ -859,10 +864,6 @@ var ImpMobile = {
             break;
 
         case 'resume':
-            $('#compose :jqmData(role=footer) a[href$="compose-discard"]').show();
-            $('#compose-discard').show();
-            // Fall-through
-
         case 'template':
             func = 'getResumeData';
             cache = '#imp-compose-cache';
@@ -925,6 +926,26 @@ var ImpMobile = {
         }
 
         HordeMobile.changePage('compose', data);
+    },
+
+    /**
+     */
+    composeMorePopup: function()
+    {
+        var list = $('#compose-more :jqmData(role=listview)');
+
+        list.children().each(function() {
+            var elt = $(this),
+                id = elt.find('a:first').attr('id');
+
+            switch (id) {
+            case 'imp-compose-discard':
+                $.fn[(ImpMobile.composetype != 'resume') ? 'hide' : 'show'].call(elt);
+                break;
+            }
+        });
+
+        list.listview('refresh');
     },
 
     /**
@@ -1262,6 +1283,10 @@ var ImpMobile = {
             $.mobile.changePage('#message-prev');
         }).on('popupbeforeposition', function() {
             ImpMobile.messageMorePopup();
+        });
+
+        $('#compose').on('popupbeforeposition', function() {
+            ImpMobile.composeMorePopup();
         });
 
         $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
