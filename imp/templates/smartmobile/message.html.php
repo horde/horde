@@ -27,7 +27,37 @@
  </div>
 
  <div data-role="popup" data-history="false" data-theme="a" id="message-more">
-  <ul data-role="listview" data-inset="true"></ul>
+  <ul data-role="listview" data-inset="true">
+<?php if ($this->canCompose): ?>
+   <li data-icon="forward">
+    <a href="#message-forward"><?php echo _("Forward") ?></a>
+   </li>
+   <li data-icon="forward">
+    <a href="#message-redirect"><?php echo _("Redirect") ?></a>
+   </li>
+<?php endif; ?>
+<?php if ($this->canSpam): ?>
+   <li data-icon="alert">
+    <a href="#message-spam" id="imp-message-spam"><?php echo _("Spam") ?></a>
+   </li>
+<?php endif ?>
+<?php if ($this->canInnocent): ?>
+   <li data-icon="check">
+    <a href="#message-innocent" id="imp-message-innocent"><?php echo _("Innocent") ?></a>
+   </li>
+<?php endif ?>
+<?php if ($this->allowFolders): ?>
+   <li data-icon="plus">
+    <a href="#" id="imp-message-copymove" data-rel="dialog"><?php echo _("Copy/Move") ?></a>
+   </li>
+<?php endif; ?>
+   <li data-icon="arrow-l">
+    <a href="#message-prev" id="imp-message-prev"><?php echo _("Previous") ?></a>
+   </li>
+   <li data-icon="arrow-r">
+    <a href="#message-next" id="imp-message-next"><?php echo _("Next") ?></a>
+   </li>
+  </ul>
  </div>
 
 <?php if ($this->canInnocent): ?>
@@ -59,36 +89,4 @@
   </div>
  </div>
 <?php endif; ?>
-
- <ul id="imp-message-more-data" style="display:none">
-<?php if ($this->canCompose): ?>
-  <li data-icon="forward">
-   <a href="#message-forward"><?php echo _("Forward") ?></a>
-  </li>
-  <li data-icon="forward">
-   <a href="#message-redirect"><?php echo _("Redirect") ?></a>
-  </li>
-<?php endif; ?>
-<?php if ($this->canSpam): ?>
-  <li data-icon="alert">
-   <a href="#message-spam" id="imp-message-spam"><?php echo _("Spam") ?></a>
-  </li>
-<?php endif ?>
-<?php if ($this->canInnocent): ?>
-  <li data-icon="check">
-   <a href="#message-innocent" id="imp-message-innocent"><?php echo _("Innocent") ?></a>
-  </li>
-<?php endif ?>
-<?php if ($this->allowFolders): ?>
-  <li data-icon="plus">
-   <a href="#" id="imp-message-copymove" data-rel="dialog"><?php echo _("Copy/Move") ?></a>
-  </li>
-<?php endif; ?>
-  <li data-icon="arrow-l">
-   <a href="#message-prev" id="imp-message-prev"><?php echo _("Previous") ?></a>
-  </li>
-  <li data-icon="arrow-r">
-   <a href="#message-next" id="imp-message-next"><?php echo _("Next") ?></a>
-  </li>
- </ul>
 </div>

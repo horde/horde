@@ -679,14 +679,13 @@ var ImpMobile = {
     messageMorePopup: function()
     {
         var cache = ImpMobile.cache[ImpMobile.mailbox],
-            list = $('#message-more :jqmData(role=listview)').empty(),
+            list = $('#message-more :jqmData(role=listview)'),
             row = cache.rowlist[ImpMobile.rowid];
 
-        $('#imp-message-more-data').children().clone().each(function() {
+        list.children().each(function() {
             var elt = $(this),
                 a = elt.find('a:first'),
-                id = a.attr('id'),
-                skip = false;
+                id = a.attr('id');
 
             if (id) {
                 switch (id) {
@@ -700,25 +699,21 @@ var ImpMobile = {
                     break;
 
                 case 'imp-message-innocent':
-                    skip = !cache.innocent;
+                    $.fn[!cache.innocent ? 'hide' : 'show'].call(elt);
                     break;
 
                 case 'imp-message-next':
-                    skip = (row == cache.maxRow());
+                    $.fn[(row == cache.maxRow()) ? 'hide' : 'show'].call(elt);
                     break;
 
                 case 'imp-message-prev':
-                    skip = (row == 1);
+                    $.fn[(row == 1) ? 'hide' : 'show'].call(elt);
                     break;
 
                 case 'imp-message-spam':
-                    skip = !cache.spam;
+                    $.fn[!cache.spam ? 'hide' : 'show'].call(elt);
                     break;
                 }
-            }
-
-            if (!skip) {
-                list.append(elt.removeAttr('id'));
             }
         });
 
