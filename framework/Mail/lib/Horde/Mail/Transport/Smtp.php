@@ -169,17 +169,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             throw $e;
         }
 
-        /* Since few MTAs are going to allow this header to be forged unless
-         * it's in the MAIL FROM: exchange, we'll use Return-Path instead of
-         * From: if it's set. */
-        foreach (array_keys($headers) as $hdr) {
-            if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $from = $headers[$hdr];
-                break;
-            }
-        }
-
-        if (!strlen($from)) {
+        try {
+            $from = $this->_getFrom($from, $headers);
+        } catch (Horde_Mail_Exception $e) {
             $this->_smtp->rset();
             throw new Horde_Mail_Exception('No From: address has been provided', self::ERROR_FROM);
         }
@@ -189,10 +181,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
         }
 
-        $from_ob = new Horde_Mail_Rfc822_Address($from);
-        $res = $this->_smtp->mailFrom($from_ob->bare_address, ltrim($params));
+        $res = $this->_smtp->mailFrom($from, ltrim($params));
         if ($res instanceof PEAR_Error) {
-            $this->_error("Failed to set sender: $from", $res, self::ERROR_SENDER);
+            $this->_error(sprintf("Failed to set sender: %s", $from), $res, self::ERROR_SENDER);
         }
 
         try {

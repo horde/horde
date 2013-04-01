@@ -95,7 +95,7 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
         }
 
         $headers = $this->_sanitizeHeaders($headers);
-        list(, $text_headers) = $this->prepareHeaders($headers);
+        list($from, $text_headers) = $this->prepareHeaders($headers);
 
         if (is_resource($body)) {
             stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
@@ -107,10 +107,12 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             $body_txt = $this->_normalizeEOL($body);
         }
 
+        $from = $this->_getFrom($from, $headers);
         $recipients = $this->parseRecipients($recipients);
 
         $this->sentMessages[] = array(
             'body' => $body_txt,
+            'from' => $from,
             'headers' => $headers,
             'header_text' => $text_headers,
             'recipients' => $recipients
@@ -120,4 +122,5 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             call_user_func_array($this->_postSendCallback, array($this, $recipients, $headers, $body_txt));
         }
     }
+
 }

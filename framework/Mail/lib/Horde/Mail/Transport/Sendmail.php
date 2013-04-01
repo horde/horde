@@ -92,26 +92,7 @@ class Horde_Mail_Transport_Sendmail extends Horde_Mail_Transport
 
         $headers = $this->_sanitizeHeaders($headers);
         list($from, $text_headers) = $this->prepareHeaders($headers);
-
-        /* Since few MTAs are going to allow this header to be forged
-         * unless it's in the MAIL FROM: exchange, we'll use Return-Path
-         * instead of From: if it's set. */
-        foreach (array_keys($headers) as $hdr) {
-            if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $ob = new Horde_Mail_Rfc822_Address($headers[$hdr]);
-                $from = $ob->bare_address;
-                break;
-            }
-        }
-
-        if (!strlen($from)) {
-            throw new Horde_Mail_Exception('No From address given.');
-        } elseif ((strpos($from, ' ') !== false) ||
-                  (strpos($from, ';') !== false) ||
-                  (strpos($from, '&') !== false) ||
-                  (strpos($from, '`') !== false)) {
-            throw new Horde_Mail_Exception('From address specified with dangerous characters.');
-        }
+        $from = $this->_getFrom($from, $headers);
 
         $mail = @popen($this->_sendmailPath . (empty($this->_sendmailArgs) ? '' : ' ' . $this->_sendmailArgs) . ' -f ' . escapeshellarg($from) . ' -- ' . $recipients, 'w');
         if (!$mail) {

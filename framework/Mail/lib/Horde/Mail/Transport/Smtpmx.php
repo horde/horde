@@ -183,15 +183,9 @@ class Horde_Mail_Transport_Smtpmx extends Horde_Mail_Transport
         // Prepare headers
         list($from, $textHeaders) = $this->prepareHeaders($headers);
 
-        // Use 'Return-Path' if possible
-        foreach (array_keys($headers) as $hdr) {
-            if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $from = $headers['Return-Path'];
-                break;
-            }
-        }
-
-        if (!strlen($from)) {
+        try {
+            $from = $this->_getFrom($from, $headers);
+        } catch (Horde_Mail_Exception $e) {
             $this->_error('no_from');
         }
 
