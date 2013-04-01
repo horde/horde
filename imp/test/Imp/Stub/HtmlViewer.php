@@ -6,7 +6,7 @@
  * did not receive this file, see http://www.horde.org/licenses/gpl.
  *
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
  * @subpackage UnitTests
@@ -18,7 +18,7 @@
  *
  * @author     Michael Slusarz <slusarz@horde.org>
  * @category   Horde
- * @copyright 2010-2013 Horde LLC
+ * @copyright  2010-2013 Horde LLC
  * @ignore
  * @license    http://www.horde.org/licenses/gpl GPL
  * @package    IMP
