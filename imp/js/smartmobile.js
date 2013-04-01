@@ -908,12 +908,15 @@ var ImpMobile = {
             $('#imp-compose-identity').selectmenu()
                 .selectmenu('refresh', true);
 
-            $.each(r.addr.to, function(k, v) {
-                ImpMobile.addAddress('to', v);
-            });
-            $.each(r.addr.cc, function(k, v) {
-                ImpMobile.addAddress('cc', v);
-            });
+            if (r.addr) {
+                $.each(r.addr.to, function(k, v) {
+                    ImpMobile.addAddress('to', v);
+                });
+                $.each(r.addr.cc, function(k, v) {
+                    ImpMobile.addAddress('cc', v);
+                });
+            }
+
             $('#imp-compose-subject').val(r.subject);
             $('#imp-compose-message').val(r.body);
 
