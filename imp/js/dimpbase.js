@@ -1087,6 +1087,10 @@ var DimpBase = {
             HordeCore.Growler.toggleLog();
             break;
 
+        case 'ctx_oa_clear_sort':
+            this.sort(DimpCore.conf.sort.get('sequence').v);
+            break;
+
         case 'ctx_sortopts_date':
         case 'ctx_sortopts_from':
         case 'ctx_sortopts_to':
@@ -1301,6 +1305,10 @@ var DimpBase = {
                     tmp.show();
                     $('ctx_oa_show_deleted').hide();
                 }
+            }
+
+            if ((tmp = $('ctx_oa_clear_sort'))) {
+                [ tmp.up() ].invoke(this.viewport.getMetaData('sortby') == DimpCore.conf.sort.get('sequence').v ? 'hide' : 'show');
             }
             break;
 

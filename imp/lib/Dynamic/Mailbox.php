@@ -403,6 +403,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             '_sub3' => array(
                 '_sep3' => null,
                 'growler_log' => _("Toggle Alerts Log")
+            ),
+            '_sub4' => array(
+                '_sep4' => null,
+                'clear_sort' => _("Clear Sort")
             )
         );
         if ($prefs->getValue('use_trash')) {
