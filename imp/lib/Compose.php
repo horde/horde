@@ -1647,7 +1647,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
              * to handle these address separately. */
             $rlist = new Horde_Mail_Rfc822_Address($list_info['reply_list']);
             if (!$rlist->match($addr['to'])) {
-                $addr['to'] = $rlist;
+                $addr['to'] = clone $alist;
+                $addr['to']->add($rlist);
                 $reply_type = self::REPLY_LIST;
             }
         } elseif (in_array($type, array(self::REPLY_ALL, self::REPLY_AUTO))) {
