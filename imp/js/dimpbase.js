@@ -3662,7 +3662,7 @@ var DimpBase = {
                 type: 'qsearchopts'
             });
 
-            DimpCore.addPopdownButton('button_filter', 'filteropts', {
+            DimpCore.addPopdown('button_filter', 'filteropts', {
                 trigger: true
             });
             DM.addSubMenu('ctx_filteropts_filter', 'ctx_filter');
@@ -3691,8 +3691,8 @@ var DimpBase = {
         }
 
         /* Add popdown menus. */
-        DimpCore.addPopdownButton('button_template', 'template');
-        DimpCore.addPopdownButton('button_other', 'oa', {
+        DimpCore.addPopdown('button_template', 'template');
+        DimpCore.addPopdown('button_other', 'oa', {
             trigger: true
         });
         DimpCore.addPopdown('folderopts_link', 'folderopts', {
@@ -3724,8 +3724,8 @@ var DimpBase = {
         if (DimpCore.conf.disable_compose) {
             $('button_reply', 'button_forward').compact().invoke('up').concat($('button_compose', 'horde-new-link', 'ctx_contacts_new')).compact().invoke('remove');
         } else {
-            DimpCore.addPopdownButton('button_reply', 'reply');
-            DimpCore.addPopdownButton('button_forward', 'forward');
+            DimpCore.addPopdown('button_reply', 'reply');
+            DimpCore.addPopdown('button_forward', 'forward');
         }
 
         new Drop('dropbase', this._mboxDropConfig);

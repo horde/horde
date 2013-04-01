@@ -251,8 +251,8 @@ var DimpMessage = {
             $('reply_link', 'forward_link').compact().invoke('up', 'SPAN').invoke('remove');
             delete DimpCore.context.ctx_contacts['new'];
         } else {
-            DimpCore.addPopdownButton('reply_link', 'reply');
-            DimpCore.addPopdownButton('forward_link', 'forward');
+            DimpCore.addPopdown('reply_link', 'reply');
+            DimpCore.addPopdown('forward_link', 'forward');
             if (!this.reply_list) {
                 delete DimpCore.context.ctx_reply.reply_list;
             }

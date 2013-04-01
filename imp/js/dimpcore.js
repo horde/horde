@@ -90,12 +90,6 @@ var DimpCore = {
         });
     },
 
-    // See addPopdown() for documentation
-    addPopdownButton: function(p, t, o)
-    {
-        this.addPopdown(p, t, o);
-    },
-
     addContextMenu: function(p)
     {
         if (this.DMenu) {
