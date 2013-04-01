@@ -28,6 +28,12 @@ class Imp_Unit_Mime_Viewer_HtmlTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $GLOBALS['browser'] = $this->getMock('Horde_Browser');
+
+        $prefs = $this->getMock('Horde_Prefs', array(), array(), '', false);
+        $prefs->expects($this->any())
+            ->method('getValue')
+            ->will($this->returnValue(false));
+        $GLOBALS['prefs'] = $prefs;
     }
 
     // Test regex for converting links to open in a new window.
