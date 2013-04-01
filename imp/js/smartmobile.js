@@ -16,6 +16,9 @@ var ImpMobile = {
     // /* BUID of the currently displayed message. */
     // buid,
     //
+    // /* The current list of compose attachments. */
+    // composeatc,
+    //
     // /* The current compose type. */
     // composetype,
     //
@@ -69,6 +72,11 @@ var ImpMobile = {
                 ImpMobile.compose(data);
             }
             e.preventDefault();
+            break;
+
+        case 'compose-attach':
+            ImpMobile.composeAttachPrepare();
+            e.preventDefault;
             break;
 
         case 'compose-cancel':
@@ -274,6 +282,12 @@ var ImpMobile = {
     beforeShow: function(e, data)
     {
         switch (HordeMobile.currentPage()) {
+        case 'compose':
+            if (!$('#compose-more ul').children().size()) {
+                $('#compose :jqmData(role=footer) a[href$="compose-more"]').hide();
+            }
+            break;
+
         case 'copymove':
             $('#imp-copymove')[0].reset();
             $('#imp-copymove-action,#imp-copymove-list').selectmenu('refresh', true);
@@ -836,6 +850,7 @@ var ImpMobile = {
         $('#imp-compose-form').show();
         $('#imp-redirect-form').hide();
 
+        ImpMobile.composeatc = [];
         ImpMobile.composetype = purl.params.type;
 
         switch (purl.params.type) {
@@ -944,6 +959,29 @@ var ImpMobile = {
         });
 
         list.listview('refresh');
+    },
+
+    /**
+     */
+    composeAttachPrepare: function()
+    {
+        var list = $('#imp-compose-attach :jqmData(role=listview)').empty();
+
+        $.each(ImpMobile.composeatc, function(k, v) {
+            list.append(
+                $('<li class="imp-compose-atc"></li>').append(
+                    $('<img></img>')
+                        .addClass('ui-li-icon')
+                        .attr('src', v.icon)
+                ).append(
+                    v.name + ' (' + v.size + ')'
+                )
+            );
+        });
+
+        list.listview('refresh');
+
+        $('#imp-compose-attach').popup('open');
     },
 
     /**
@@ -1206,6 +1244,10 @@ var ImpMobile = {
 
         if ((v = d['imp:compose']) && v.cacheid) {
             $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
+        }
+
+        if ((v = d['imp:compose-atc'])) {
+            ImpMobile.composeatc = ImpMobile.composeatc.concat(v);
         }
 
         if ((v = d['imp:flag'])) {

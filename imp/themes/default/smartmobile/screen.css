@@ -64,6 +64,9 @@
 }
 
 /* Compose */
+.imp-compose-atc {
+    margin-bottom: 0;
+}
 #imp-compose-message {
     height: auto;
 }

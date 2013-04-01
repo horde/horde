@@ -41,21 +41,34 @@
  <div data-role="footer" class="ui-bar" data-position="fixed">
   <a href="#compose-submit"><?php echo _("Send Message") ?></a>
   <a href="#compose-cancel"><?php echo _("Cancel") ?></a>
-<?php if ($this->draft): ?>
   <a href="#compose-more" data-rel="popup"><?php echo _("More...") ?></a>
-<?php endif; ?>
  </div>
 
-<?php if ($this->draft): ?>
  <div data-role="popup" data-history="false" data-theme="a" id="compose-more">
   <ul data-role="listview" data-inset="true">
+<?php if ($this->draft): ?>
    <li>
     <a href="#compose-draft"><?php echo _("Save Draft") ?></a>
    </li>
    <li>
     <a href="#compose-discard" id="imp-compose-discard"><?php echo _("Discard Draft") ?></a>
    </li>
+<?php endif; ?>
+<?php if ($this->attach): ?>
+   <li>
+    <a href="#compose-attach"><?php echo _("Attachments...") ?></a>
+   </li>
+<?php endif; ?>
   </ul>
  </div>
-<?php endif; ?>
+
+ <div data-role="popup" data-overlay-theme="a" data-history="false" id="imp-compose-attach">
+  <div data-role="header" class="ui-corner-top">
+   <h1><?php echo _("Attachments") ?></h1>
+  </div>
+  <div data-role="content" class="ui-corner-bottom ui-content">
+   <ul data-role="listview" data-inset="true"></ul>
+   <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Close") ?></a>
+  </div>
+ </div>
 </div>

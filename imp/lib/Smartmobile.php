@@ -87,7 +87,7 @@ class IMP_Smartmobile
      */
     protected function _initPages()
     {
-        global $injector, $registry;
+        global $injector, $registry, $session;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
         if ($this->view->allowFolders = $imp_imap->access(IMP_Imap::ACCESS_FOLDERS)) {
@@ -123,6 +123,11 @@ class IMP_Smartmobile
                 ($imp_imap->access(IMP_Imap::ACCESS_FOLDERS) &&
                  ($draft = IMP_Mailbox::getPref(IMP_Mailbox::MBOX_DRAFTS)) &&
                  !$draft->readonly);
+
+            if (IMP_Compose::canUploadAttachment()) {
+                $this->view->attach = true;
+                $this->view->max_size = $session->get('imp', 'file_upload');
+            }
         }
     }
 
