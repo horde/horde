@@ -22,7 +22,7 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-28</date>
+ <date>2013-04-01</date>
  <version>
   <release>6.1.0</release>
   <api>6.0.0</api>
@@ -33,6 +33,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] Add attachment upload capability to smartmobile compose page.
 * [mms] Add HTML image/style blocking to smartmobile view.
 * [mms] Improved autocompleter in smartmobile compose view.
 * [mms] Add saving compose drafts in smartmobile view.
@@ -152,6 +153,7 @@
      <dir name="Application">
       <dir name="Handler">
        <file name="Common.php" role="horde" />
+       <file name="ComposeAttach.php" role="horde" />
        <file name="Draft.php" role="horde" />
        <file name="Dynamic.php" role="horde" />
        <file name="ImageUnblock.php" role="horde" />
@@ -1533,6 +1535,7 @@
    <install as="imp/lib/Ajax/Application/ListMessages.php" name="lib/Ajax/Application/ListMessages.php" />
    <install as="imp/lib/Ajax/Application/ShowMessage.php" name="lib/Ajax/Application/ShowMessage.php" />
    <install as="imp/lib/Ajax/Application/Handler/Common.php" name="lib/Ajax/Application/Handler/Common.php" />
+   <install as="imp/lib/Ajax/Application/Handler/ComposeAttach.php" name="lib/Ajax/Application/Handler/ComposeAttach.php" />
    <install as="imp/lib/Ajax/Application/Handler/Draft.php" name="lib/Ajax/Application/Handler/Draft.php" />
    <install as="imp/lib/Ajax/Application/Handler/Dynamic.php" name="lib/Ajax/Application/Handler/Dynamic.php" />
    <install as="imp/lib/Ajax/Application/Handler/ImageUnblock.php" name="lib/Ajax/Application/Handler/ImageUnblock.php" />

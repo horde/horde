@@ -62,13 +62,19 @@
   </ul>
  </div>
 
+<?php if ($this->attach): ?>
  <div data-role="popup" data-overlay-theme="a" data-history="false" id="imp-compose-attach">
   <div data-role="header" class="ui-corner-top">
    <h1><?php echo _("Attachments") ?></h1>
   </div>
   <div data-role="content" class="ui-corner-bottom ui-content">
    <ul data-role="listview" data-inset="true"></ul>
+   <form enctype="multipart/form-data" method="post">
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo intval($this->max_size) ?>" />
+    <input type="file" id="imp-compose-attach-upload" name="file_upload"></input>
+   </form>
    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Close") ?></a>
   </div>
  </div>
+<?php endif; ?>
 </div>

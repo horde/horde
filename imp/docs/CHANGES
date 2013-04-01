@@ -2,6 +2,7 @@
 v6.1.0-git
 ----------
 
+[mms] Add attachment upload capability to smartmobile compose page.
 [mms] Add HTML image/style blocking to smartmobile view.
 [mms] Improved autocompleter in smartmobile compose view.
 [mms] Add saving compose drafts in smartmobile view.

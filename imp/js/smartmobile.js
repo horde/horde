@@ -75,8 +75,9 @@ var ImpMobile = {
             break;
 
         case 'compose-attach':
-            ImpMobile.composeAttachPrepare();
-            e.preventDefault;
+            ImpMobile.composeAttachRefresh();
+            $('#imp-compose-attach').popup('open');
+            e.preventDefault();
             break;
 
         case 'compose-cancel':
@@ -963,7 +964,7 @@ var ImpMobile = {
 
     /**
      */
-    composeAttachPrepare: function()
+    composeAttachRefresh: function()
     {
         var list = $('#imp-compose-attach :jqmData(role=listview)').empty();
 
@@ -979,9 +980,7 @@ var ImpMobile = {
             );
         });
 
-        list.listview('refresh');
-
-        $('#imp-compose-attach').popup('open');
+        list.listview('refresh').siblings('FORM')[0].reset();
     },
 
     /**
@@ -1242,8 +1241,11 @@ var ImpMobile = {
     {
         var v;
 
-        if ((v = d['imp:compose']) && v.cacheid) {
-            $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
+        if ((v = d['imp:compose'])) {
+            $.fn[v.atclimit ? 'hide' : 'show'].call($('#imp-compose-attachment-form'));
+            if (v.cacheid) {
+                $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
+            }
         }
 
         if ((v = d['imp:compose-atc'])) {
@@ -1329,6 +1331,15 @@ var ImpMobile = {
             ImpMobile.composeMorePopup();
         });
 
+        $('#imp-compose-attach-upload').on('change', function() {
+            HordeMobile.doAction('addAttachment', {
+                composeCache: $('#imp-compose-cache').val(),
+                json_return: true
+            }, ImpMobile.composeAttachRefresh, {
+                submit: $(this).closest('FORM')
+            });
+        });
+
         $('#imp-message-headers').on('expand', ImpMobile.fullHeaders);
         $('#imp-message-atc').on('expand', ImpMobile.showAttachments);
 
@@ -1362,6 +1373,8 @@ $(ImpMobile.onDocumentReady);
 $(document).on('mobileinit', function() {
     $.mobile.buttonMarkup.hoverDelay = 80;
     $.mobile.defaultPageTransition = 'none';
+    // Remove for jqm 1.3.0
+    $.mobile.textinput.prototype.options.initSelector += ", input[type='file']";
 });
 
 var ImpMobileMbox = {

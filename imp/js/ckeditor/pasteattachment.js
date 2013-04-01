@@ -24,7 +24,8 @@ CKEDITOR.plugins.add('pasteattachment', {
                 composeCache: $F(DimpCompose.getCacheElt()),
                 file_upload: e.target.result,
                 file_upload_dataurl: true,
-                file_upload_filename: n
+                file_upload_filename: n,
+                json_return: true
             }, {
                 callback: attachCallback
             });
@@ -55,7 +56,8 @@ CKEDITOR.plugins.add('pasteattachment', {
                     HordeCore.doAction('addAttachment', {
                         composeCache: $F(DimpCompose.getCacheElt()),
                         file_upload: span.readAttribute('src'),
-                        file_upload_dataurl: true
+                        file_upload_dataurl: true,
+                        json_return: true
                     }, {
                         callback: attachCallback
                     });
