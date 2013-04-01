@@ -522,19 +522,19 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $identity_id = $identity->getMatchingIdentity($fromaddr);
         }
 
-        if ($type == self::EDITASNEW) {
-            $alist = new Horde_Mail_Rfc822_List();
-            $addr = array(
-                'to' => clone $alist,
-                'cc' => clone $alist,
-                'bcc' => clone $alist
-            );
-        } else {
-            $addr = array(
-                'to' => $headers->getOb('to'),
-                'cc' => $headers->getOb('cc'),
-                'bcc' => $headers->getOb('bcc')
-            );
+        $alist = new Horde_Mail_Rfc822_List();
+        $addr = array(
+            'to' => clone $alist,
+            'cc' => clone $alist,
+            'bcc' => clone $alist
+        );
+
+        if ($type != self::EDITASNEW) {
+            foreach (array('to', 'cc', 'bcc') as $val) {
+                if ($tmp = $headers->getOb($val)) {
+                    $addr[$val] = $tmp;
+                }
+            }
 
             if ($val = $headers->getValue('references')) {
                 $ref_ob = new IMP_Compose_References();
