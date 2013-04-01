@@ -88,7 +88,7 @@ class IMP_Ajax_Queue
      *   - icon: (string) Data url string containing icon information.
      *   - name: (string) The attachment name
      *   - num: (integer) The current attachment number
-     *   - size: (string) The size of the attachment in KB
+     *   - size: (string) The size of the attachment
      *   - type: (string) The MIME type of the attachment
      *   - view: (boolean) Link to attachment preivew page
      *
@@ -250,7 +250,7 @@ class IMP_Ajax_Queue
                 'name' => $mime->getName(true),
                 'num' => $val->id,
                 'type' => $mtype,
-                'size' => $mime->getSize(),
+                'size' => IMP::sizeFormat($mime->getBytes()),
                 'url' => strval($val->viewUrl()->setRaw(true)),
                 'view' => intval(!in_array($type, array(IMP_Compose::FORWARD_ATTACH, IMP_Compose::FORWARD_BOTH)) && ($mtype != 'application/octet-stream'))
             );

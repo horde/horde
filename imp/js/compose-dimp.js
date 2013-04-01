@@ -676,7 +676,7 @@ var DimpCompose = {
     //   icon: (string) Data url of icon data
     //   name: (string) Attachment name
     //   num: (integer) Attachment number
-    //   size: (integer) Size, in KB
+    //   size: (string) Size.
     //   type: (string) MIME type
     //   url: (string) Data view URL
     //   view: (boolean) Link to attachment preview page
@@ -701,7 +701,7 @@ var DimpCompose = {
         li.insert(span);
 
         canvas.writeAttribute('title', opts.type);
-        li.insert(' (' + opts.size + ' KB) ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
+        li.insert(' (' + opts.size + ') ').insert(new Element('SPAN', { className: 'button remove' }).insert(DimpCore.text.remove));
         if (opts.view) {
             span.addClassName('attachName');
         }
