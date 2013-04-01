@@ -18,10 +18,11 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
         $recipients = 'Test <test@example.com>';
         $body = "Foo\r\nBar\nBaz\rTest";
         $headers = array(
-            'To: <test2@example.com>',
-            'Subject: Test',
-            'X-Test: Line 1\r\n\tLine 2\n\tLine 3\r\tLine 4',
-            'X-Truncated-Header: ' . $body
+            'To' => '<test2@example.com>',
+            'From' => '<foo@example.com>',
+            'Subject' => 'Test',
+            'X-Test' => 'Line 1\r\n\tLine 2\n\tLine 3\r\tLine 4',
+            'X-Truncated-Header' => $body
         );
 
         $ob->send($recipients, $headers, $body);
@@ -54,11 +55,34 @@ class Horde_Mail_SendTest extends PHPUnit_Framework_TestCase
         $addr->host = 'üexample.com';
 
         $ob = new Horde_Mail_Transport_Mock();
+        $ob->send(
+            array($addr),
+            array(
+                'Return-Path' => $addr
+            ),
+            'Foo'
+        );
 
         $this->assertEquals(
             array('test@xn--example-m2a.com'),
-            $ob->parseRecipients($addr)
+            $ob->sentMessages[0]['recipients']
         );
+
+        $this->assertEquals(
+            'test@xn--example-m2a.com',
+            $ob->sentMessages[0]['from']
+        );
+    }
+
+    public function testMissingFrom()
+    {
+        $ob = new Horde_Mail_Transport_Mock();
+
+        try {
+            $ob->send(array('foo@example.com'), array(), 'Foo');
+            $this->fail('Expected Horde_Mail_Exception.');
+        } catch (Horde_Mail_Exception $e) {
+        }
     }
 
 }

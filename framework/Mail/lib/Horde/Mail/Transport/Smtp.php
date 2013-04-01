@@ -154,27 +154,6 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
     }
 
     /**
-     * Send a message.
-     *
-     * @param mixed $recipients  Either a comma-seperated list of recipients
-     *                           (RFC822 compliant), or an array of
-     *                           recipients, each RFC822 valid. This may
-     *                           contain recipients not specified in the
-     *                           headers, for Bcc:, resending messages, etc.
-     * @param array $headers     The headers to send with the mail, in an
-     *                           associative array, where the array key is the
-     *                           header name (ie, 'Subject'), and the array
-     *                           value is the header value (ie, 'test'). The
-     *                           header produced from those values would be
-     *                           'Subject: test'.
-     *                           If the '_raw' key exists, the value of this
-     *                           key will be used as the exact text for
-     *                           sending the message.
-     * @param mixed $body        The full text of the message body, including
-     *                           any Mime parts, etc. Either a string or a
-     *                           stream resource.
-     *
-     * @throws Horde_Mail_Exception
      */
     public function send($recipients, array $headers, $body)
     {
@@ -190,17 +169,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             throw $e;
         }
 
-        /* Since few MTAs are going to allow this header to be forged unless
-         * it's in the MAIL FROM: exchange, we'll use Return-Path instead of
-         * From: if it's set. */
-        foreach (array_keys($headers) as $hdr) {
-            if (strcasecmp($hdr, 'Return-Path') === 0) {
-                $from = $headers[$hdr];
-                break;
-            }
-        }
-
-        if (!strlen($from)) {
+        try {
+            $from = $this->_getFrom($from, $headers);
+        } catch (Horde_Mail_Exception $e) {
             $this->_smtp->rset();
             throw new Horde_Mail_Exception('No From: address has been provided', self::ERROR_FROM);
         }
@@ -210,10 +181,9 @@ class Horde_Mail_Transport_Smtp extends Horde_Mail_Transport
             $params .= ' ' . $key . (is_null($val) ? '' : '=' . $val);
         }
 
-        $from_ob = new Horde_Mail_Rfc822_Address($from);
-        $res = $this->_smtp->mailFrom($from_ob->bare_address, ltrim($params));
+        $res = $this->_smtp->mailFrom($from, ltrim($params));
         if ($res instanceof PEAR_Error) {
-            $this->_error("Failed to set sender: $from", $res, self::ERROR_SENDER);
+            $this->_error(sprintf("Failed to set sender: %s", $from), $res, self::ERROR_SENDER);
         }
 
         try {
