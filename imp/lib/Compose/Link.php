@@ -30,7 +30,7 @@ class IMP_Compose_Link
     /**
      * @param mixed $in
      */
-    public function __construct($in)
+    public function __construct($in = null)
     {
         $fields = array(
             'to', 'cc', 'bcc', 'message', 'body', 'subject'
