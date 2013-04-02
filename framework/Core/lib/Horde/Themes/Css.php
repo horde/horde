@@ -307,21 +307,7 @@ class Horde_Themes_Css
             }
 
             foreach ($css_parser->doc->getContents() as $val) {
-                if ($val instanceof Sabberworm\CSS\RuleSet\RuleSet) {
-                    foreach ($val->getRules('background-') as $val2) {
-                        $item = $val2->getValue();
-
-                        if ($item instanceof Sabberworm\CSS\Value\URL) {
-                            $url[] = $item;
-                        } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
-                            foreach ($item->getListComponents() as $val3) {
-                                if ($val3 instanceof Sabberworm\CSS\Value\URL) {
-                                    $url[] = $val3;
-                                }
-                            }
-                        }
-                    }
-                } elseif ($val instanceof Sabberworm\CSS\Property\Import) {
+                if ($val instanceof Sabberworm\CSS\Property\Import) {
                     $ob = Horde_Themes_Element::fromUri($path . $val->getLocation());
                     $out .= $this->loadCssFiles(array(array(
                         'app' => null,
@@ -332,14 +318,35 @@ class Horde_Themes_Css
                 }
             }
 
+            foreach ($css_parser->doc->getAllRuleSets() as $val) {
+                foreach ($val->getRules('background-') as $val2) {
+                    $item = $val2->getValue();
+
+                    if ($item instanceof Sabberworm\CSS\Value\URL) {
+                        $url[] = $item;
+                    } elseif ($item instanceof Sabberworm\CSS\Value\RuleValueList) {
+                        foreach ($item->getListComponents() as $val3) {
+                            if ($val3 instanceof Sabberworm\CSS\Value\URL) {
+                                $url[] = $val3;
+                            }
+                        }
+                    }
+                }
+            }
+
             foreach ($url as $val) {
                 $url_ob = $val->getURL();
+                $url_str = $url_ob->getString();
 
                 if ($dataurl) {
-                    /* Limit data to 16 KB in stylesheets. */
-                    $url_ob->setString(Horde::base64ImgData($path . $url_ob->getString(), 16384));
+                    if (Horde_Url_Data::isData($url_str)) {
+                        $url_ob->setString($url_str);
+                    } else {
+                        /* Limit data to 16 KB in stylesheets. */
+                        $url_ob->setString(Horde::base64ImgData($path . $url_str, 16384));
+                    }
                 } else {
-                    $url_ob->setString($path . $url_ob->getString());
+                    $url_ob->setString($path . $url_str);
                 }
             }
 

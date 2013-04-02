@@ -75,7 +75,8 @@ abstract class Nag_Driver
         $this->tasks->reset();
         while ($task = $this->tasks->each()) {
             if ($task->alarm &&
-                ($task->due - ($task->alarm * 60)) <= $date) {
+                ($due = $task->getNextDue()) &&
+                ($due->timestamp() - ($task->alarm * 60)) <= $date) {
                 $alarms[$task_id] = $task;
             }
         }

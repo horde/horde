@@ -8,6 +8,7 @@
  *
  * @author   Michael J. Rubinsky <mrubinsk@horde.org>
  * @author   Jan Schneider <jan@horde.org>
+ * @author   Michael Slusarz <slusarz@horde.org>
  * @category Horde
  * @license  http://www.horde.org/licenses/lgpl21 LGPL 2.1
  * @package  Horde
@@ -46,7 +47,10 @@ var HordeMobile = {
      * @param string action      The AJAX request method.
      * @param object params      The parameter hash for the AJAX request.
      * @param function callback  A callback function for successful request.
-     * @param object opts        Additional options for jQuery.ajax().
+     * @param object opts        Additional options for jQuery.ajax(). Also:
+     *   - submit: (jQuery object) Send action via a submit action (since
+     *             2.5.0). Value is the form element. The 'form.js' plugin
+     *             must be loaded before this can be called.
      *
      * @return jqXHR  jQuery XHR object.
      */
@@ -62,7 +66,7 @@ var HordeMobile = {
         HordeMobile.loading++;
         $.mobile.loading('show');
 
-        return $.ajax($.extend({
+        opts = $.extend({
             data: params,
             error: $.noop,
             success: function(d, t, x) {
@@ -70,7 +74,16 @@ var HordeMobile = {
             },
             type: 'post',
             url: HordeMobile.conf.ajax_url + action
-        }, opts || {}));
+        }, opts || {});
+
+        if (opts.submit) {
+            var tmp = opts.submit, tmp2;
+            delete opts.submit;
+            tmp2 = tmp.ajaxSubmit(opts);
+            return tmp2.data('jqxhr');
+        } else {
+            return $.ajax(opts);
+        }
     },
 
     doActionComplete: function(action, d, callback)
