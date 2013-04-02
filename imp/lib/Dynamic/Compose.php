@@ -42,23 +42,24 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
     {
         global $injector, $notification, $page_output, $prefs, $session;
 
-        /* The headers of the message. */
+        $alist = $injector->getInstance('IMP_Dynamic_AddressList');
         $clink = new IMP_Compose_Link($this->vars);
-        $header = array();
-        foreach (array('to', 'cc', 'bcc', 'subject') as $val) {
-            if (isset($clink->args[$val])) {
-                $header[$val] = $clink->args[$val];
+
+        $addr = array();
+        foreach (array('to', 'cc', 'bcc') as $val) {
+            $var_name = $val . '_json';
+            if (isset($this->vars->$var_name)) {
+                /* Check for JSON encoded information. */
+                $addr[$val] = $alist->parseAddressList($this->vars->$var_name);
+            } elseif (isset($clink->args[$val])) {
+                /* Non-JSON encoded address information. */
+                $addr[$val] = IMP::parseAddressList($clink->args[$val]);
             }
         }
 
-        /* Check for JSON encoded information. */
-        foreach (array('to', 'cc', 'bcc') as $val) {
-            $alist = $injector->getInstance('IMP_Dynamic_AddressList');
-            $var_name = $val . '_json';
-            if (isset($this->vars->$var_name)) {
-                $header[$val] = strval($alist->parseAddressList($this->vars->$var_name));
-            }
-        }
+        $subject = isset($clink->args['subject'])
+            ? $clink->args['subject']
+            : null;
 
         $identity = $injector->getInstance('IMP_Identity');
         if (!$prefs->isLocked('default_identity') &&
@@ -90,7 +91,7 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             }
 
             $result = $imp_compose->replyMessage($compose_ajax->reply_map[$this->vars->type], $contents, array(
-                'to' => isset($header['to']) ? $header['to'] : null
+                'to' => isset($addr['to']) ? $addr['to'] : null
             ));
 
             $onload = $compose_ajax->getResponse($result);
@@ -135,8 +136,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 if ($show_editor) {
                     $onload->format = 'html';
                 }
-
-                $onload->header['subject'] = $subject;
             } else {
                 try {
                     $contents = $this->_getContents();
@@ -191,7 +190,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
                 }
 
                 $onload = $compose_ajax->getResponse($result);
-                $onload->header = array_merge($header, $onload->header);
 
                 $ajax_queue->attachment($imp_compose, $result['type']);
 
@@ -210,7 +208,6 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $onload->body = isset($clink->args['body'])
                 ? strval($clink->args['body'])
                 : '';
-            $onload->header = $header;
             if ($show_editor) {
                 $onload->format = 'html';
             }
@@ -231,6 +228,23 @@ class IMP_Dynamic_Compose extends IMP_Dynamic_Base
             $imp_ui->attachSpellChecker();
         }
 
+        if (isset($onload->addr) || !empty($addr)) {
+            foreach (array('to', 'cc', 'bcc') as $val) {
+                if (!isset($onload->addr[$val])) {
+                    $onload->addr[$val] = array();
+                }
+                if (isset($addr[$val])) {
+                    $onload->addr[$val] = array_merge(
+                        $onload->addr[$val],
+                        array_map('strval', $addr[$val]->base_addresses)
+                    );
+                }
+            }
+        }
+
+        if (!is_null($subject)) {
+            $onload->subject = $subject;
+        }
 
         $page_output->addInlineJsVars(array(
             'DimpCompose.onload_show' => $onload,

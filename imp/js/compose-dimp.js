@@ -513,14 +513,16 @@ var DimpCompose = {
 
         ob.opts = ob.opts || {};
 
-        $('to').setValue(ob.addr.to.join(', '));
-        if (ob.addr.cc.size()) {
-            this.toggleCC('cc');
-            $('cc').setValue(ob.addr.cc.join(', '));
-        }
-        if (ob.addr.bcc.size()) {
-            this.toggleCC('bcc');
-            $('bcc').setValue(ob.addr.cc.join(', '));
+        if (ob.addr) {
+            $('to').setValue(ob.addr.to.join(', '));
+            if (ob.addr.cc.size()) {
+                this.toggleCC('cc');
+                $('cc').setValue(ob.addr.cc.join(', '));
+            }
+            if (ob.addr.bcc.size()) {
+                this.toggleCC('bcc');
+                $('bcc').setValue(ob.addr.cc.join(', '));
+            }
         }
 
         $('identity').setValue(ob.identity);
