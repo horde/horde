@@ -2768,7 +2768,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     public function addAttachmentFromPart($part)
     {
         /* Extract the data from the Horde_Mime_Part. */
-        $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+        $atc_file = Horde::getTempFile('impatt');
         $stream = $part->getContents(array(
             'stream' => true
         ));
@@ -2802,7 +2802,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
         if ($vars->get($field . '_dataurl')) {
             $url_data = new Horde_Url_Data($vars->get($field));
 
-            $atc_file = Horde::getTempFile('impatt', false, '', false, true);
+            $atc_file = Horde::getTempFile('impatt');
             file_put_contents($atc_file, $url_data->data);
 
             $bytes = strlen($url_data->data);
