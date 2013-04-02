@@ -174,7 +174,7 @@ class IMP_Basic_Thread extends IMP_Basic_Base
         case $registry::VIEW_DYNAMIC:
             $page_output->topbar = $page_output->sidebar = false;
             $this->header_params = array(
-                'html_id' => 'dynamic_thread'
+                'html_id' => 'htmlAllowScroll'
             );
             break;
         }

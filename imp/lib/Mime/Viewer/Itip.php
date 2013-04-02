@@ -62,7 +62,9 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
             reset($ret);
             $GLOBALS['page_output']->topbar = $GLOBALS['page_output']->sidebar = false;
             Horde::startBuffer();
-            $GLOBALS['page_output']->header();
+            $GLOBALS['page_output']->header(array(
+                'html_id' => 'htmlAllowScroll'
+            ));
             echo $ret[key($ret)]['data'];
             $GLOBALS['page_output']->footer();
             $ret[key($ret)]['data'] = Horde::endBuffer();

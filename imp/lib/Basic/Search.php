@@ -510,7 +510,7 @@ class IMP_Basic_Search extends IMP_Basic_Base
             }
             $page_output->topbar = $page_output->sidebar = false;
             $this->header_params = array(
-                'html_id' => 'search_page'
+                'html_id' => 'htmlAllowScroll'
             );
         }
 

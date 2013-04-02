@@ -2,7 +2,7 @@
 html {
     overflow-y: hidden;
 }
-#dynamic_thread, #search_page {
+#htmlAllowScroll {
     overflow-y: scroll;
 }
 
