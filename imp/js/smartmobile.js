@@ -779,7 +779,7 @@ var ImpMobile = {
                     }).append(
                         $(v.icon).addClass('ui-li-icon')
                     ).append(
-                        v.description_raw + ' (' + v.size + ')'
+                        document.createTextNode(v.description_raw + ' (' + v.size + ')')
                     )
                 )
             );
