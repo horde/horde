@@ -2,6 +2,8 @@
 v6.0.5-git
 ----------
 
+[mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
+      <geral@jpaulo.eu>).
 [mms] Switching from HTML to text in dynamic compose view must be a synchronous
       operation, or else HTML tags may appear in compose window.
 [mms] Fix ability to switch to non-default date sorting algorithm in dynamic

@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Switching from HTML to text in dynamic compose view must be a synchronous operation, or else HTML tags may appear in compose window.
 * [mms] Fix ability to switch to non-default date sorting algorithm in dynamic view (Bug #12139).
 * [mms] Fix printing quoted text when viewing a list message.
@@ -2946,6 +2947,7 @@
    <date>2013-02-20</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mms] Switching from HTML to text in dynamic compose view must be a synchronous operation, or else HTML tags may appear in compose window.
 * [mms] Fix ability to switch to non-default date sorting algorithm in dynamic view (Bug #12139).
 * [mms] Fix printing quoted text when viewing a list message.
