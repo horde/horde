@@ -2750,11 +2750,10 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
      */
     public function _getMessageTextCallback($id, $attribute, $node)
     {
-        return $this->addRelatedAttachment(
-            $this->addAttachmentFromPart($this->getMetadata('related_contents')->getMIMEPart($id)),
-            $node,
-            $attribute
-        )->viewUrl();
+        $atc = $this->addAttachmentFromPart($this->getMetadata('related_contents')->getMIMEPart($id));
+        $this->addRelatedAttachment($atc, $node, $attribute);
+
+        return $atc->viewUrl();
     }
 
     /**
