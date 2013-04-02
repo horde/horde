@@ -10,8 +10,8 @@
   <email>jan@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-27</date>
- <time>17:21:55</time>
+ <date>2013-04-02</date>
+ <time>16:34:22</time>
  <version>
   <release>1.0.0beta1</release>
   <api>1.0.0</api>
@@ -52,6 +52,7 @@
       <file name="Exception.php" role="php" />
       <file name="File.php" role="php" />
       <file name="Locks.php" role="php" />
+      <file name="Principals.php" role="php" />
      </dir> <!-- /lib/Horde/Dav -->
      </dir> <!-- /lib/Horde -->
     <!-- //lib/Sabre -->
@@ -384,6 +385,7 @@
    <install as="Horde/Dav/Exception.php" name="lib/Horde/Dav/Exception.php" />
    <install as="Horde/Dav/File.php" name="lib/Horde/Dav/File.php" />
    <install as="Horde/Dav/Locks.php" name="lib/Horde/Dav/Locks.php" />
+   <install as="Horde/Dav/Principals.php" name="lib/Horde/Dav/Principals.php" />
    <install as="Horde/Dav/Auth/Backend/Horde.php" name="lib/Horde/Dav/Auth/Backend/Horde.php" />
    <install as="Horde/Dav/CalDav/Backend/Horde.php" name="lib/Horde/Dav/CalDav/Backend/Horde.php" />
    <install as="LICENSE.dav" name="vendor/sabre/dav/LICENSE" />

@@ -12,7 +12,14 @@
  */
 
 use Sabre\DAV;
+use Sabre\DAVACL;
 
+/**
+ * @author   Ben Klang <bklang@horde.org>
+ * @author   Jan Schneider <jan@horde.org>
+ * @category Horde
+ * @package  Rpc
+ */
 class Horde_Rpc_Webdav extends Horde_Rpc
 {
     /**
@@ -38,11 +45,20 @@ class Horde_Rpc_Webdav extends Horde_Rpc
      */
     public function __construct($request, $params = array())
     {
-        global $injector, $registry;
+        global $conf, $injector, $registry;
 
         parent::__construct($request, $params);
 
-        $this->_server = new DAV\Server(new Horde_Dav_Collection($registry));
+        $principals = new DAVACL\PrincipalCollection(
+            new Horde_Dav_Principals(
+                $injector->getInstance('Horde_Core_Factory_Auth')->create(),
+                $injector->getInstance('Horde_Core_Factory_Identity')
+            )
+        );
+        $principals->disableListing = $conf['auth']['list_users'] == 'input';
+        $this->_server = new DAV\Server(
+            new Horde_Dav_Collection($registry, $principals)
+        );
         $this->_server->setBaseUri(
             $registry->get('webroot', 'horde')
             . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/' : '/rpc.php/')

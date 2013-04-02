@@ -11,7 +11,8 @@
  * @package  Dav
  */
 
-use \Sabre\DAV;
+use Sabre\DAV;
+use Sabre\DAVACL;
 
 /**
  * A collection (directory) object.
@@ -21,7 +22,7 @@ use \Sabre\DAV;
  * @license  http://www.horde.org/licenses/bsd BSD
  * @package  Dav
  */
-class Horde_Dav_Collection extends Sabre\DAV\Collection
+class Horde_Dav_Collection extends DAV\Collection
 {
     /**
      * A registry object.
@@ -29,6 +30,13 @@ class Horde_Dav_Collection extends Sabre\DAV\Collection
      * @var Horde_Registry
      */
     protected $_registry;
+
+    /**
+     * A principals collection.
+     *
+     * @var Sabre\DAVACL\PrincipalCollection
+     */
+    protected $_principals;
 
     /**
      * The path to the current collection.
@@ -47,14 +55,20 @@ class Horde_Dav_Collection extends Sabre\DAV\Collection
     /**
      * Constructor.
      *
-     * @param Horde_Registry $registry  A registry object.
-     * @param string $path              The path to this collection.
-     * @param array $item               Collection details.
+     * @param Horde_Registry $registry                      A registry object.
+     * @param Sabre\DAVACL\PrincipalCollection $principals  A principals
+     *                                                      collection.
+     * @param string $path                                  The path to this
+     *                                                      collection.
+     * @param array $item                                   Collection details.
      */
-    public function __construct(Horde_Registry $registry, $path = null,
+    public function __construct(Horde_Registry $registry,
+                                DAVACL\PrincipalCollection $principals,
+                                $path = null,
                                 array $item = array())
     {
         $this->_registry = $registry;
+        $this->_principals = $principals;
         $this->_path = $path;
         $this->_item = $item;
     }
@@ -99,10 +113,12 @@ class Horde_Dav_Collection extends Sabre\DAV\Collection
     public function getChildren()
     {
         if (!$this->_path) {
-            $apps = array();
+            $apps = array($this->_principals);
             foreach ($this->_registry->listApps() as $app) {
                 if ($this->_registry->hasMethod('browse', $app)) {
-                    $apps[] = new Horde_Dav_Collection($this->_registry, $app);
+                    $apps[] = new Horde_Dav_Collection(
+                        $this->_registry, $this->_principals, $app
+                    );
                 }
             }
             return $apps;
@@ -128,7 +144,9 @@ class Horde_Dav_Collection extends Sabre\DAV\Collection
         $list = array();
         foreach ($items as $path => $item) {
             if ($item['browseable']) {
-                $list[] = new Horde_Dav_Collection($this->_registry, $path, $item);
+                $list[] = new Horde_Dav_Collection(
+                    $this->_registry, $this->_principals, $path, $item
+                );
             } else {
                 $list[] = new Horde_Dav_File($this->_registry, $path, $item);
             }
