@@ -743,18 +743,7 @@ var DimpCompose = {
     initAttachList: function()
     {
         var al = $('attach_list'),
-            u = $('upload'),
-            u_parent = u.up();
-
-        if (Prototype.Browser.IE) {
-            // Trick to allow us to clear the file input on IE without
-            // creating a new node.  Need to re-add the event handler however,
-            // as it won't survive this assignment.
-            u.stopObserving();
-            u_parent.innerHTML = u_parent.innerHTML;
             u = $('upload');
-            u.observe('change', this.changeHandler.bindAsEventListener(this));
-        }
 
         u.clear();
 
@@ -942,6 +931,10 @@ var DimpCompose = {
 
         case 'save_sent_mail':
             this.setSaveSentMail($F(e.element()));
+            break;
+
+        case 'compose_upload_add':
+            $('upload').click();
             break;
 
         case 'fwdattachnotice':

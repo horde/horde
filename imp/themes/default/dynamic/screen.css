@@ -633,6 +633,25 @@ div.dimpActionsMsg #windowclose {
     opacity: .75;
 }
 
+#compose_upload_add {
+    color: blue;
+    display: inline-block;
+    font-weight: bold;
+    margin-top: 4px;
+}
+#upload {
+    bottom: 5000px;
+    height: 1%;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    position: absolute;
+    width: 1%;
+}
+.atcrow .horde-popdown {
+    padding-left: 0;
+}
+
 .msgwrite .sendtextarea {
     position: relative;
     overflow: hidden;
@@ -713,7 +732,7 @@ div.dimpActionsMsg #windowclose {
     display: inline-block;
     font-weight: bold;
     overflow: hidden;
-    padding-top: 2px;
+    padding-top: 4px;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     width: 500px;
