@@ -45,6 +45,16 @@ class Horde_Dav_File extends Sabre\DAV\File
     protected $_item;
 
     /**
+     * File size.
+     *
+     * This will only be set if the actual file data is requested, to avoid the
+     * overhead of building the file content only to retrieve the file size.
+     *
+     * @var integer
+     */
+    protected $_size;
+
+    /**
      * Constructor.
      *
      * @param Horde_Registry $registry  A registry object.
@@ -99,7 +109,7 @@ class Horde_Dav_File extends Sabre\DAV\File
     {
         list($base) = explode('/', $this->_path);
         try {
-          $items = $this->_registry->callByPackage($base, 'browse', array('path' => $this->_path));
+            $items = $this->_registry->callByPackage($base, 'browse', array('path' => $this->_path));
         } catch (Horde_Exception_NotFound $e) {
             throw new DAV\Exception\NotFound($this->_path . ' not found');
         } catch (Horde_Exception $e) {
@@ -110,7 +120,10 @@ class Horde_Dav_File extends Sabre\DAV\File
             throw new DAV\Exception\NotFound($this->_path . ' not found');
         }
 
-        return reset($items);
+        $item = reset($items);
+        $this->_size = strlen($item);
+
+        return $item;
     }
 
     /**
@@ -120,9 +133,11 @@ class Horde_Dav_File extends Sabre\DAV\File
      */
     public function getSize()
     {
-        return isset($this->_item['contentlength'])
-            ? $this->_item['contentlength']
-            : null;
+        return isset($this->_size)
+            ? $this->_size
+            : (isset($this->_item['contentlength'])
+                ? $this->_item['contentlength']
+                : null);
     }
 
     /**
