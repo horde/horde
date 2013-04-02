@@ -85,6 +85,13 @@ interface Components_Dependencies
     public function getRunnerCiPrebuild();
 
     /**
+     * Returns the composer handler for a package.
+     *
+     * @return Components_Runner_Composer The composer handler.
+     */
+    public function getRunnerComposer();
+
+    /**
      * Returns the release handler for a package.
      *
      * @return Components_Runner_Release The release handler.

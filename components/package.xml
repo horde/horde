@@ -22,6 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add PHP Composer generator.
 * [mms] Added PHPDCD QC test.
 * [mms] Added PHPLOC QC test.
 * [jan] Fix post-release incrementing of version numbers (Bug #11659).
@@ -867,6 +868,7 @@
    <date>2013-02-13</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add PHP Composer generator.
 * [mms] Added PHPDCD QC test.
 * [mms] Added PHPLOC QC test.
 * [jan] Fix post-release incrementing of version numbers (Bug #11659).
