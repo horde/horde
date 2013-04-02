@@ -722,7 +722,7 @@ $_prefs['forward_default'] = array(
     'advanced' => true,
     // If this preference is locked, the user will not be able to select the
     // forward method.
-    // 'locked' => false,
+    // 'locked' => true,
     'type' => 'enum',
     'enum' => array(
         'attach' => _("As attachment"),
