@@ -67,7 +67,7 @@ if ((!empty($_SERVER['CONTENT_TYPE']) &&
 } elseif ($_SERVER['QUERY_STRING'] && $_SERVER['QUERY_STRING'] == 'phpgw') {
     $serverType = 'Phpgw';
 } else {
-    $serverType = 'Soap';
+    $serverType = 'Webdav';
 }
 
 /* Initialize Horde environment. */
