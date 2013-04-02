@@ -43,6 +43,10 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         parent::__construct($request, $params);
 
         $this->_server = new DAV\Server(new Horde_Dav_Collection($registry));
+        $this->_server->setBaseUri(
+            $registry->get('webroot', 'horde')
+            . ($GLOBALS['conf']['urls']['pretty'] == 'rewrite' ? '/rpc/' : '/rpc.php/')
+        );
         $this->_server->addPlugin(
             new DAV\Auth\Plugin(
                 new Horde_Dav_Auth(
@@ -56,6 +60,7 @@ class Horde_Rpc_Webdav extends Horde_Rpc
                 new Horde_Dav_Locks($registry, $injector->getInstance('Horde_Lock'))
             )
         );
+        $this->_server->addPlugin(new DAV\Browser\Plugin());
     }
 
     /**
