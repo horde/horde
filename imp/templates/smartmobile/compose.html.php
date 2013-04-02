@@ -71,7 +71,10 @@
    <ul data-role="listview" data-inset="true"></ul>
    <form id="imp-compose-attach-form" enctype="multipart/form-data" method="post">
     <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo intval($this->max_size) ?>" />
-    <input type="file" id="imp-compose-attach-upload" name="file_upload"></input>
+    <div id="imp-compose-upload-container">
+     <a data-role="button"><?php echo _("Add Attachment") ?></a>
+     <input type="file" name="file_upload" />
+    </div>
    </form>
    <a href="#" data-role="button" data-inline="true" data-rel="back" data-theme="c"><?php echo _("Close") ?></a>
   </div>

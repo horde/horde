@@ -1331,7 +1331,11 @@ var ImpMobile = {
             ImpMobile.composeMorePopup();
         });
 
-        $('#imp-compose-attach-upload').on('change', function() {
+        $('#imp-compose-upload-container a').on('click', function(e) {
+            $('#imp-compose-upload-container input').trigger('click');
+            e.preventDefault();
+        });
+        $('#imp-compose-upload-container input').on('change', function() {
             HordeMobile.doAction('addAttachment', {
                 composeCache: $('#imp-compose-cache').val(),
                 json_return: true
@@ -1373,8 +1377,6 @@ $(ImpMobile.onDocumentReady);
 $(document).on('mobileinit', function() {
     $.mobile.buttonMarkup.hoverDelay = 80;
     $.mobile.defaultPageTransition = 'none';
-    // Remove for jqm 1.3.0
-    $.mobile.textinput.prototype.options.initSelector += ", input[type='file']";
 });
 
 var ImpMobileMbox = {
