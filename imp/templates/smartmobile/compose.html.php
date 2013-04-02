@@ -69,7 +69,7 @@
   </div>
   <div data-role="content" class="ui-corner-bottom ui-content">
    <ul data-role="listview" data-inset="true"></ul>
-   <form enctype="multipart/form-data" method="post">
+   <form id="imp-compose-attach-form" enctype="multipart/form-data" method="post">
     <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo intval($this->max_size) ?>" />
     <input type="file" id="imp-compose-attach-upload" name="file_upload"></input>
    </form>

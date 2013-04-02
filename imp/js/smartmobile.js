@@ -1242,7 +1242,7 @@ var ImpMobile = {
         var v;
 
         if ((v = d['imp:compose'])) {
-            $.fn[v.atclimit ? 'hide' : 'show'].call($('#imp-compose-attachment-form'));
+            $.fn[v.atclimit ? 'hide' : 'show'].call($('#imp-compose-attach-form'));
             if (v.cacheid) {
                 $($('#imp-redirect-form:visible').length ? '#imp-redirect-cache' : '#imp-compose-cache').val(v.cacheid);
             }
