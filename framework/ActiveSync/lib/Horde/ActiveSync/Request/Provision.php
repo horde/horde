@@ -95,7 +95,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             if ($this->_device->version == Horde_ActiveSync::VERSION_FOURTEENONE) {
                 $deviceinfo = $this->_handleSettings();
                 if (!$deviceinfo) {
-                    return $this->_globalError(self::STATUS_PROTERROR);
+                    $this->_logger->warn('Device reported 14.1 support but did not accept deviceInfo.');
                 }
             } else {
                 $deviceinfo = false;
