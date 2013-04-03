@@ -1828,16 +1828,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                         $picture = new Horde_ActiveSync_Message_ResolveRecipientsPicture(
                             array('protocolversion' => $this->_version, 'logger' => $this->_logger));
                         if (empty($result['photo'])) {
-                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_NONE;
+                            $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
                         } elseif (!empty($opts['maxpictures']) &&
                                   $picture_count > $opts['maxpictures']) {
-                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXCOUNT;
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_LIMIT_REACHED;
                         } elseif (!empty($opts['maxsize']) &&
                                   strlen($result['photo']) > $query['maxsize']) {
-                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXSIZE;
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
                         } else {
                             $picture->data = $result['photo'];
-                            $picture->status = Horde_ActiveSync::PICTURE_STATUS_SUCCESS;
+                            $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
                             ++$picture_count;
                         }
                         $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
@@ -2416,16 +2416,16 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
                 $picture = new Horde_ActiveSync_Message_GalPicture(
                     array('protocolversion' => $this->_version, 'logger' => $this->_logger));
                 if (empty($row['photo'])) {
-                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_NONE;
+                    $picture->status = Horde_ActiveSync_Status::NO_PICTURE;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) &&
                           $picture_count > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXPICTURES]) {
-                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXCOUNT;
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_LIMIT_REACHED;
                 } elseif (!empty($query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) &&
                           strlen($row['photo']) > $query[Horde_ActiveSync_Request_Search::SEARCH_MAXSIZE]) {
-                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_MAXSIZE;
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_TOO_LARGE;
                 } else {
                     $picture->data = $row['photo'];
-                    $picture->status = Horde_ActiveSync::PICTURE_STATUS_SUCCESS;
+                    $picture->status = Horde_ActiveSync_Status::PICTURE_SUCCESS;
                     ++$picture_count;
                 }
                 $entry[Horde_ActiveSync::GAL_PICTURE] = $picture;
