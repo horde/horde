@@ -176,10 +176,9 @@ abstract class Horde_ActiveSync_Request_Base
 
                 // Only send the headers for version < 12.1. Otherwise, the
                 // request object is responsible for outputing the correct
-                // status code.
-                if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVEONE) {
-                    $this->_activeSync->provisioningRequired();
-                } else {
+                // status code
+                $this->_activeSync->provisioningRequired();
+                if ($this->_device->version > Horde_ActiveSync::VERSION_TWELVEONE) {
                     // Read the input stream and discard.
                     while (!feof($this->_decoder->getStream())) {
                         fread($this->_decoder->getStream(), 8192);
