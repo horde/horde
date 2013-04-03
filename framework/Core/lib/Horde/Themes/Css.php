@@ -336,12 +336,17 @@ class Horde_Themes_Css
 
             foreach ($url as $val) {
                 $url_ob = $val->getURL();
+                $url_str = $url_ob->getString();
 
                 if ($dataurl) {
-                    /* Limit data to 16 KB in stylesheets. */
-                    $url_ob->setString(Horde::base64ImgData($path . $url_ob->getString(), 16384));
+                    if (Horde_Url_Data::isData($url_str)) {
+                        $url_ob->setString($url_str);
+                    } else {
+                        /* Limit data to 16 KB in stylesheets. */
+                        $url_ob->setString(Horde::base64ImgData($path . $url_str, 16384));
+                    }
                 } else {
-                    $url_ob->setString($path . $url_ob->getString());
+                    $url_ob->setString($path . $url_str);
                 }
             }
 

@@ -28,8 +28,8 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-24</date>
- <time>17:52:44</time>
+ <date>2013-04-01</date>
+ <time>16:15:15</time>
  <version>
   <release>2.5.0</release>
   <api>2.5.0</api>
@@ -40,6 +40,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
+* [mms] Add ability to submit form data to AJAX action in smartmobile view.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
@@ -120,6 +121,7 @@
      </dir> <!-- /js/jquery.mobile/images -->
      <dir name="plugins">
       <file name="autocomplete.js" role="horde" />
+      <file name="form.js" role="horde" />
       <file name="swipebutton.js" role="horde" />
      </dir> <!-- /js/jquery.mobile/plugins -->
      <file name="jquery.js" role="horde" />
@@ -1493,6 +1495,7 @@
    <install as="js/jquery.mobile/images/icons-36-black.png" name="js/jquery.mobile/images/icons-36-black.png" />
    <install as="js/jquery.mobile/images/icons-36-white.png" name="js/jquery.mobile/images/icons-36-white.png" />
    <install as="js/jquery.mobile/plugins/autocomplete.js" name="js/jquery.mobile/plugins/autocomplete.js" />
+   <install as="js/jquery.mobile/plugins/form.js" name="js/jquery.mobile/plugins/form.js" />
    <install as="js/jquery.mobile/plugins/swipebutton.js" name="js/jquery.mobile/plugins/swipebutton.js" />
    <install as="js/map/bing.js" name="js/map/bing.js" />
    <install as="js/map/cloudmade.js" name="js/map/cloudmade.js" />
@@ -2870,9 +2873,10 @@
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-24</date>
+   <date>2013-04-01</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
+* [mms] Add ability to submit form data to AJAX action in smartmobile view.
 * [mms] SECURITY: Fix token validation of AJAX actions.
 * [mms] Upgrade jQuery Mobile to v1.2.1/jQuery Core to v1.8.3.
 * [mms] Smartmobile view now honors the current CSS caching configuration.
