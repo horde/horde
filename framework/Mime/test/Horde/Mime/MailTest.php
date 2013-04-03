@@ -461,6 +461,7 @@ end
             'charset' => 'ISO-8859-1',
             'Subject' => 'My Subject',
             'To' => 'recipient@example.com',
+            'From' => 'foo@example.com',
             'body' => file_get_contents(__DIR__ . '/fixtures/flowed_msg.txt')));
 
         $dummy = new Horde_Mail_Transport_Mock();
@@ -470,6 +471,7 @@ end
         $this->assertStringMatchesFormat(
 'Subject: My Subject
 To: recipient@example.com
+From: foo@example.com
 Message-ID: <%d.%s@mail.example.com>
 User-Agent: Horde Application Framework 4
 Date: %s, %d %s %d %d:%d:%d %s%d

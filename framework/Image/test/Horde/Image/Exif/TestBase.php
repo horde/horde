@@ -13,12 +13,19 @@ class Horde_Image_Exif_TestBase extends Horde_Test_Case
     /**
      * @var Horde_Image_Exif_Base
      */
-    protected static $_exif;
+    protected static $_exif = null;
 
     /**
      * Cache of retrieved EXIF data
      */
     protected static $_data;
+
+    public function setUp()
+    {
+        if (self::$_exif === null) {
+            $this->markTestSkipped('No exif driver');
+        }
+    }
 
     /**
      * Tests ability to extract EXIF data without errors. Does not test data
