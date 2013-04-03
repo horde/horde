@@ -1656,14 +1656,15 @@ class Horde_Crypt_Pgp extends Horde_Crypt
      */
     public function generateRevocation($key, $email, $passphrase)
     {
-        $keyring = $this->_putInKeyring($key, 'private');
+        $keyring1 = $this->_putInKeyring($key, 'public');
+        $keyring2 = $this->_putInKeyring($key, 'private');
 
         /* Prepare the canned answers. */
         $input = array(
             'y', // Really generate a revocation certificate
             '0', // Refuse to specify a reason
             '',  // Empty comment
-            'y', // Confirm empty comment
+            'y'  // Confirm empty comment
         );
         if (!empty($passphrase)) {
             $input[] = $passphrase;
@@ -1671,7 +1672,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
 
         /* Run through gpg binary. */
         $cmdline = array(
-            $keyring,
+            $keyring1,
+            $keyring2,
             '--command-fd 0',
             '--gen-revoke ' . $email,
         );
