@@ -18,32 +18,13 @@ CKEDITOR.plugins.add('pasteattachment', {
             }
         };
 
-        function frOnload(n, e)
-        {
-            HordeCore.doAction('addAttachment', {
-                composeCache: $F(DimpCompose.getCacheElt()),
-                file_upload: e.target.result,
-                file_upload_dataurl: true,
-                file_upload_filename: n,
-                json_return: true
-            }, {
-                callback: attachCallback
-            });
-        };
-
         editor.on('contentDom', function(e1) {
-            e1.editor.document.on('drop', function (e2) {
-                var f = e2.data.$.dataTransfer, fr;
-
-                if (f && f.files) {
-                    fr = new FileReader();
-
-                    $R(0, f.files.length - 1).each(function(n) {
-                        fr.onload = frOnload.curry(f.files[n].name);
-                        fr.readAsDataURL(f.files[n]);
-                    });
-                }
-
+            e1.editor.document.on('drop', function(e2) {
+                DimpCompose.uploadAttachmentAjax(
+                    e2.data.$.dataTransfer,
+                    { img_tag: 1 },
+                    attachCallback
+                );
                 e2.data.preventDefault();
             });
         });
@@ -56,8 +37,8 @@ CKEDITOR.plugins.add('pasteattachment', {
                     HordeCore.doAction('addAttachment', {
                         composeCache: $F(DimpCompose.getCacheElt()),
                         file_upload: span.readAttribute('src'),
-                        file_upload_dataurl: true,
-                        json_return: true
+                        img_tag: 1,
+                        json_return: 1
                     }, {
                         callback: attachCallback
                     });

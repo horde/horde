@@ -144,7 +144,7 @@
      <td class="label">
       <span class="iconImg attachmentImg"></span>:
      </td>
-     <td>
+     <td id="atctd">
       <span id="upload_limit" style="display:none"><?php echo _("The attachment limit has been reached.") ?></span>
       <span id="upload_wait" style="display:none"></span>
       <span>

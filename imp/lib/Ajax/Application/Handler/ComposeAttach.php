@@ -27,16 +27,15 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
      *
      * Variables used:
      *   - composeCache: (string) The IMP_Compose cache identifier.
-     *   - file_upload_dataurl: (boolean) If true, data is returns data is in
-     *                          a Data URL.
+     *   - img_tag: (boolean) If true, return related image tag.
      *   - json_return: (boolean) If true, returns JSON. Otherwise, JSON-HTML.
      *
      * @return object  False on failure, or an object with the following
      *                 properties:
      *   - action: (string) The action.
      *   - atc_id: (integer) The attachment ID.
-     *   - img: (string) The image tag to replace the data with, if
-     *          'file_upload_dataurl' is set.
+     *   - img: (string) The image tag to replace the data with, if 'img_tag'
+     *          is set.
      *   - success: (integer) 1 on success, 0 on failure.
      */
     public function addAttachment()
@@ -62,7 +61,7 @@ class IMP_Ajax_Application_Handler_ComposeAttach extends Horde_Core_Ajax_Applica
 
                     /* This currently only occurs when pasting/dropping image
                      * into HTML editor. */
-                    if ($this->vars->file_upload_dataurl) {
+                    if ($this->vars->img_tag) {
                         $dom_doc = new DOMDocument();
                         $img = $dom_doc->createElement('img');
                         $img->setAttribute('src', strval($atc_ob->viewUrl()->setRaw(true)));
