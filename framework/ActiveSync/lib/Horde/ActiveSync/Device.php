@@ -61,7 +61,7 @@ class Horde_ActiveSync_Device
     {
         if (strpos($this->userAgent, 'Android') !== false) {
             if (preg_match('@EAS[/-]{0,1}([.0-9]{2,})@', $this->userAgent, $matches)) {
-                return !($matches[1] < 1.2);
+                return $matches[1] > 1.2;
             }
             return false;
         }
