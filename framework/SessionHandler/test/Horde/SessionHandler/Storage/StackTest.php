@@ -65,26 +65,18 @@ class Horde_SessionHandler_Storage_StackTest extends Horde_SessionHandler_Storag
     public static function setUpBeforeClass()
     {
         parent::setUpBeforeClass();
-        if (!extension_loaded('memcache')) {
-            self::$reason = 'No memcache extension';
-            return;
-        }
-        $config = self::getConfig('SESSIONHANDLER_MEMCACHE_TEST_CONFIG',
-                                  dirname(__FILE__) . '/..');
-        if (!$config || empty($config['sessionhandler']['memcache'])) {
-            $config['sessionhandler']['memcache'] = array();
-        }
-        $memcache = new Horde_Memcache($config['sessionhandler']['memcache']);
-        $memcache->delete('sessionid');
-        $memcache->delete('sessionid2');
-        $storage = new Horde_SessionHandler_Storage_File(
-            array('path' => self::$dir));
+
+        $storage1 = new Horde_SessionHandler_Storage_File(array(
+            'path' => self::$dir
+        ));
+        $storage2 = new Horde_SessionHandler_Storage_File(array(
+            'path' => Horde_Util::createTempDir()
+        ));
+
         self::$handler = new Horde_SessionHandler_Storage_Stack(array(
             'stack' => array(
-                new Horde_SessionHandler_Storage_Memcache(array(
-                    'memcache' => $memcache
-                )),
-                $storage
+                $storage1,
+                $storage2
             )
         ));
     }
