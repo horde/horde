@@ -453,7 +453,7 @@ class Horde_ActiveSync
             self::$_logger->debug('Client did not provide authentication data.');
             return false;
         }
-
+        $user = $this->_driver->getUsernameFromEmail($user);
         $pos = strrpos($user, '\\');
         if ($pos !== false) {
             $domain = substr($user, 0, $pos);
