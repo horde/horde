@@ -110,7 +110,7 @@ class IMP_Test extends Horde_Test
             'password' => $vars->passwd,
             'hostspec' => $vars->server,
             'port' => $vars->port,
-            'secure' => $vars->encrypt
+            'secure' => $vars->encrypt ? 'tls' : false
         );
 
         $driver = ($vars->server_type == 'imap')
@@ -126,12 +126,25 @@ class IMP_Test extends Horde_Test
         $ret = '<strong>Attempting to login to the server:</strong> ';
 
         try {
-            $imap_client->login();
+            try {
+                $imap_client->login();
+            } catch (Horde_Imap_Client_Exception $e) {
+                if ($vars->encrypt) {
+                    $imap_client->setParam('secure', 'ssl');
+                    $imap_client->login();
+                } else {
+                    throw $e;
+                }
+            }
         } catch (Horde_Imap_Client_Exception $e) {
             return $this->_errorMsg($e);
         }
 
-        $ret .= '<span style="color:green">SUCCESS</span><p />';
+        $ret .= '<span style="color:green">SUCCESS</span><p />'.
+            '<strong>Secure connection:</strong> <tt>' .
+            (($tmp = $imap_client->getParam('secure')) ? $tmp : 'none') .
+           '</tt><p />';
+
 
         if ($driver == 'Horde_Imap_Client_Socket') {
             $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
