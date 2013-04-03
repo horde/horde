@@ -1592,7 +1592,11 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
         case 'full':
             return $email;
         case 'user':
-            return substr($email, 0, strpos($email, '@'));
+            if (strpos($email, '@') !== false) {
+                return substr($email, 0, strpos($email, '@'));
+            } else {
+                return $email;
+            }
         case 'hook':
             try {
                 return Horde::callHook('activesync_get_autodiscover_username', array($email));

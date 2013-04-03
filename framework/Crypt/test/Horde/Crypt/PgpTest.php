@@ -183,6 +183,8 @@ Version: GnuPG v%d.%d.%d (%s)
 
     public function testGenerateRevocation()
     {
+        $this->markTestSkipped('This is broken in GPG2');
+
         $this->assertStringMatchesFormat(
 '-----BEGIN PGP PUBLIC KEY BLOCK-----
 Version: GnuPG v%d.%d.%d (%s)
