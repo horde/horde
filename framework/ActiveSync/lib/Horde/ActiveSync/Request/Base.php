@@ -171,8 +171,8 @@ abstract class Horde_ActiveSync_Request_Base
 
             // Loose provsioning should allow a blank key
             if ((empty($storedKey) || $storedKey != $sentKey) &&
-               ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
-               ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
+               ($this->_provisioning != Horde_ActiveSync::PROVISIONING_LOOSE ||
+               ($this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
                 // Only send the headers for version < 12.1. Otherwise, the
                 // request object is responsible for outputing the correct
