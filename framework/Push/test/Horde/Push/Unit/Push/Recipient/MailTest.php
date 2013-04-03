@@ -34,7 +34,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->push();
@@ -48,7 +48,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->addContent('BODY')
@@ -60,7 +60,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->addContent('<b>BODY</b>', 'text/html')
@@ -73,7 +73,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->addContent('PLAIN', 'text/plain')
@@ -88,7 +88,7 @@ extends Horde_Push_TestCase
     {
         $push = new Horde_Push();
         $mx = new Horde_Mail_Transport_Mock();
-        $recipient = new Horde_Push_Recipient_Mail($mx, array('test@example.com'), 'from@example.com');
+        $recipient = new Horde_Push_Recipient_Mail($mx, array('from' => 'from@example.com'));
         $push->addRecipient($recipient)
             ->setSummary('E-MAIL')
             ->addContent('JPG', 'image/jpeg')
