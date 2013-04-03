@@ -150,7 +150,7 @@ abstract class Horde_ActiveSync_Request_Base
      *
      * @return boolean
      */
-    public function checkPolicyKey($sentKey)
+    public function checkPolicyKey($sentKey, $requestType = null)
     {
         $this->_logger->debug(sprintf(
             '[%s] Checking policykey for device: %s user: %s',
@@ -174,7 +174,30 @@ abstract class Horde_ActiveSync_Request_Base
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
-                $this->_activeSync->provisioningRequired();
+                // Only send the headers for version < 12.1. Otherwise, the
+                // request object is responsible for outputing the correct
+                // status code.
+                if ($this->_device->version <= Horde_ActiveSync::VERSION_TWELVEONE) {
+                    $this->_activeSync->provisioningRequired();
+                } else {
+                    // Read the input stream and discard.
+                    while (!feof($this->_decoder->getStream())) {
+                        fread($this->_decoder->getStream(), 8192);
+                    }
+                    if (empty($sentKey)) {
+                        $status = Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED;
+                    } else {
+                        $status = Horde_ActiveSync_Status::INVALID_POLICY_KEY;
+                    }
+
+                    $this->_encoder->startWBXML();
+                    $this->_encoder->startTag($requestType);
+                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+                    $this->_encoder->content(Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED);
+                    $this->_encoder->endTag();
+                    $this->_encoder->endTag();
+                }
+
                 return false;
             }
         }

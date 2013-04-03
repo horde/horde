@@ -66,7 +66,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             '[%s] Handling GETITEMESTIMATE command.',
             $this->_device->id)
         );
-        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
+        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), self::GETITEMESTIMATE)) {
             return true;
         }
 

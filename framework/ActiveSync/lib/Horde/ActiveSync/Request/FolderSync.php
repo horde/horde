@@ -62,7 +62,7 @@ class Horde_ActiveSync_Request_FolderSync extends Horde_ActiveSync_Request_Base
             $this->_procid));
 
         // Check policy
-        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
+        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), Horde_ActiveSync::FOLDERHIERARCHY_FOLDERSYNC)) {
             return true;
         }
 
