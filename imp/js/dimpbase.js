@@ -3849,12 +3849,13 @@ document.observe('HordeDialog:onClick', function(e) {
     case 'mbox_import':
         HordeCore.submit(e.element(), {
             callback: function(r) {
+                HordeDialog.close();
                 if (r.action == 'importMailbox') {
                     this.viewport.reload();
                 }
             }.bind(this)
         });
-        HordeDialog.close();
+        e.element().update(DimpCore.text.import_mbox_loading);
         break;
     }
 }.bindAsEventListener(DimpBase));

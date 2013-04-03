@@ -478,6 +478,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'import_mbox' => _("Mbox or .eml file:"),
+            'import_mbox_loading' => _("Importing (this may take some time)..."),
             'listmsg_wait' => _("The server is still generating the message list."),
             'listmsg_timeout' => _("The server was unable to generate the message list."),
             'message_0' => _("No messages"),
