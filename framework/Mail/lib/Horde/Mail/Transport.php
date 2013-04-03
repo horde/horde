@@ -226,4 +226,35 @@ abstract class Horde_Mail_Transport
         ));
     }
 
+    /**
+     * Get the from address.
+     *
+     * @param string $from    From address.
+     * @param array $headers  Headers array.
+     *
+     * @return string  Address object.
+     * @throws Horde_Mail_Exception
+     */
+    protected function _getFrom($from, $headers)
+    {
+        /* Since few MTAs are going to allow this header to be forged unless
+         * it's in the MAIL FROM: exchange, we'll use Return-Path instead of
+         * From: if it's set. */
+        foreach (array_keys($headers) as $hdr) {
+            if (strcasecmp($hdr, 'Return-Path') === 0) {
+                $from = $headers[$hdr];
+                break;
+            }
+        }
+
+        if (!strlen($from)) {
+            throw new Horde_Mail_Exception('No from address provided.');
+        }
+
+        $from = new Horde_Mail_Rfc822_Address($from);
+        $from->personal = null;
+
+        return $from->writeAddress(array('idn' => true));
+    }
+
 }

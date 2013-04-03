@@ -68,8 +68,6 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
     protected $_postSendCallback;
 
     /**
-     * Constructor.
-     *
      * @param array  Optional parameters:
      *   - postSendCallback: (callback) Called after an email would have been
      *                       sent.
@@ -89,27 +87,6 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
     }
 
     /**
-     * Send a message. Silently discards all mail.
-     *
-     * @param mixed $recipients  Either a comma-seperated list of recipients
-     *                           (RFC822 compliant), or an array of
-     *                           recipients, each RFC822 valid. This may
-     *                           contain recipients not specified in the
-     *                           headers, for Bcc:, resending messages, etc.
-     * @param array $headers     The headers to send with the mail, in an
-     *                           associative array, where the array key is the
-     *                           header name (ie, 'Subject'), and the array
-     *                           value is the header value (ie, 'test'). The
-     *                           header produced from those values would be
-     *                           'Subject: test'.
-     *                           If the '_raw' key exists, the value of this
-     *                           key will be used as the exact text for
-     *                           sending the message.
-     * @param mixed $body        The full text of the message body, including
-     *                           any Mime parts, etc. Either a string or a
-     *                           stream resource.
-     *
-     * @throws Horde_Mail_Exception
      */
     public function send($recipients, array $headers, $body)
     {
@@ -118,7 +95,7 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
         }
 
         $headers = $this->_sanitizeHeaders($headers);
-        list(, $text_headers) = $this->prepareHeaders($headers);
+        list($from, $text_headers) = $this->prepareHeaders($headers);
 
         if (is_resource($body)) {
             stream_filter_register('horde_eol', 'Horde_Stream_Filter_Eol');
@@ -130,10 +107,12 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             $body_txt = $this->_normalizeEOL($body);
         }
 
+        $from = $this->_getFrom($from, $headers);
         $recipients = $this->parseRecipients($recipients);
 
         $this->sentMessages[] = array(
             'body' => $body_txt,
+            'from' => $from,
             'headers' => $headers,
             'header_text' => $text_headers,
             'recipients' => $recipients
@@ -143,4 +122,5 @@ class Horde_Mail_Transport_Mock extends Horde_Mail_Transport
             call_user_func_array($this->_postSendCallback, array($this, $recipients, $headers, $body_txt));
         }
     }
+
 }
