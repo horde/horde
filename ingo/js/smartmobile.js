@@ -59,9 +59,9 @@ var IngoMobile = {
             return;
         }
 
-        $('#ingo-rule-label').html(r.label);
+        $('#ingo-rule-label').text(r.label);
         if (r.descrip) {
-            $('#ingo-rule-description').html(r.descrip);
+            $('#ingo-rule-description').text(r.descrip);
         } else {
             $('#ingo-rule-description').text(Ingo.text.no_descrip);
         }
