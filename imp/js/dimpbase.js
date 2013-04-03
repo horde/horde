@@ -2895,7 +2895,6 @@ var DimpBase = {
                     action = 'renameMailbox';
                     params = {
                         old_name: mbox.retrieve('mbox'),
-                        new_parent: mbox.up().hasClassName('mboxlist') ? '' : mbox.up(1).previous().retrieve('mbox'),
                         new_name: val
                     };
                 }

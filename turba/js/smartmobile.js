@@ -66,21 +66,36 @@ var TurbaMobile = {
             return;
         }
 
-        var html = [];
+        var tmp, tmp2,
+            ted = $('#turba-entry-data');
 
         $.each(r.entry, function(k, v) {
-            html.push('<div data-role="collapsible"><h3>' + k + '</h3><div>');
+            tmp = $('<div></div>');
+            tmp2 = $('<div data-role="collapsible"></div>').append(
+                $('<h3></h3>').text(k)
+            ).append(tmp);
+            ted.append(tmp2);
+
             $.each(v, function(k2, v2) {
-                html.push('<div class="turba-entry-label">' + v2.l + '</div>');
+                tmp.append(
+                    $('<div class="turba-entry-label"></div>').text(v2.l)
+                );
                 if (v2.u) {
-                    html.push('<ul data-role="listview" data-inset="true">' +
-                        '<li><a data-ajax="false" href=' + v2.u + '>' + v2.v +
-                        '</a></li></ul>');
+                    tmp.append(
+                        $('<ul data-role="listview" data-inset="true"></ul>').append(
+                            $('<li></li>').append(
+                                $('<a data-ajax="false"></a>')
+                                    .attr('href', v2.u)
+                                    .text(v2.v)
+                            )
+                        )
+                    );
                 } else {
-                    html.push('<div class="turba-entry-value">' + v2.v + '</div>');
+                    tmp.append(
+                        $('<div class="turba-entry-value"></div>').text(v2.v)
+                    );
                 }
             });
-            html.push('</div></div>');
         });
 
         if (r.group) {
