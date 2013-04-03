@@ -171,6 +171,7 @@ abstract class Horde_ActiveSync_Request_Base
 
             // Loose provsioning should allow a blank key
             if ((empty($storedKey) || $storedKey != $sentKey) &&
+                strpos($this->_device->userAgent, 'Microsoft.Outlook') === false &&
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
