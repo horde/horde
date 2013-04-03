@@ -26,10 +26,10 @@ class Horde_Mime_MailTest extends PHPUnit_Framework_TestCase
         setlocale(LC_ALL, 'C');
     }
 
-    static public function functiontearDownAfterClass()
+    static public function tearDownAfterClass()
     {
         unset($_SERVER['SERVER_NAME']);
-
+        setlocale(LC_ALL, '');
     }
 
     public function testConstructor()
