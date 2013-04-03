@@ -1053,7 +1053,8 @@ class Horde_Crypt_Pgp extends Horde_Crypt
     {
         $cmdline = array(
             '--decrypt',
-            '--batch'
+            '--batch',
+            '--passphrase ""'
         );
         $result = $this->_callGpg($cmdline, 'w', $text, true, true, true);
         return strpos($result->stderr, 'gpg: encrypted with 1 passphrase') !== false;
