@@ -117,7 +117,9 @@ class IMP_Ajax_Application_Compose
         $ob = new stdClass;
         $ob->body = '';
         $ob->opts = new stdClass;
-        $ob->subject = $result['subject'];
+        $ob->subject = isset($result['subject'])
+            ? $result['subject']
+            : null;
         $ob->type = $this->_type;
 
         if (isset($result['addr'])) {
