@@ -42,6 +42,11 @@ class Horde_ActiveSync_Device
         return $this->_properties[$property];
     }
 
+    public function __set($property, $value)
+    {
+        $this->_properties[$property] = $value;
+    }
+
     /**
      * Check if we should enforce provisioning on this device.
      *
