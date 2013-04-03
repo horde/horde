@@ -96,7 +96,7 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * The device info
      *
-     * @var stdClass
+     * @var Horde_ActiveSync_Device
      */
     protected $_device;
 
@@ -110,8 +110,8 @@ abstract class Horde_ActiveSync_Request_Base
     /**
      * Const'r
      *
-     * @param Horde_ActiveSync $as                       The ActiveSync server.
-     * @param stdClass $device                           The device descriptor.
+     * @param Horde_ActiveSync $as             The ActiveSync server.
+     * @param Horde_ActiveSync_Device $device  The device descriptor.
      *
      * @return Horde_ActiveSync_Request_Base
      */
@@ -159,7 +159,7 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_driver->getUser()));
 
         // Use looseprovisioning?
-        if (empty($sentKey) && $this->_hasBrokenProvisioning() &&
+        if (empty($sentKey) && !$this->_device->enforceProvisioning() &&
             $this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE) {
             $sentKey = null;
         }
@@ -171,7 +171,6 @@ abstract class Horde_ActiveSync_Request_Base
 
             // Loose provsioning should allow a blank key
             if ((empty($storedKey) || $storedKey != $sentKey) &&
-                strpos($this->_device->userAgent, 'Microsoft.Outlook') === false &&
                ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning === Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 

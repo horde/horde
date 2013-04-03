@@ -490,7 +490,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *                          change to an existing message, null if new.
      * @param Horde_ActiveSync_Message_Base $message
      *                          The activesync message
-     * @param stdClass $device  The device information
+     * @param Horde_ActiveSync_Device $device  The device information
      *
      * @return array|boolean    A stat array if successful, otherwise false.
      */
@@ -602,7 +602,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * Return settings from the backend for a SETTINGS request.
      *
      * @param array $settings   An array of settings to return.
-     * @param stdClass $device  The device to obtain settings for.
+     * @param Horde_ActiveSync_Device $device  The device to obtain settings for.
      *
      * @return array  The requested settings.
      */
@@ -612,7 +612,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * Set backend settings from a SETTINGS request.
      *
      * @param array $settings   The settings to store.
-     * @param stdClass $device  The device to store settings for.
+     * @param Horde_ActiveSync_Device $device  The device to store settings for.
      *
      * @return array  An array of status responses for each set request. e.g.,:
      *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,

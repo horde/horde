@@ -87,7 +87,7 @@ abstract class Horde_ActiveSync_State_Base
      *  'policykey'  - The device's current POLICYKEY.
      *  'version'    - The currently requested EAS version.
      *
-     * @var StdClass
+     * @var Horde_ActiveSync_Device
      */
     protected $_deviceInfo;
 
@@ -514,7 +514,7 @@ abstract class Horde_ActiveSync_State_Base
      * @param object $device
      * @param string $user
      *
-     * @return StdClass
+     * @return Horde_ActiveSync_Device
      */
     abstract public function loadDeviceInfo($device, $user = null);
 

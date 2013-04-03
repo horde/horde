@@ -553,7 +553,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
      * @param string $devId   The device id to obtain
      * @param string $user    The user to retrieve user-specific device info for
      *
-     * @return StdClass The device object
+     * @return Horde_ActiveSync_Device  The device object
      * @throws Horde_ActiveSync_Exception
      */
     public function loadDeviceInfo($devId, $user = null)
@@ -592,7 +592,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             }
         }
 
-        $this->_deviceInfo = new StdClass();
+        $this->_deviceInfo = new Horde_ActiveSync_Device();
         $this->_deviceInfo->rwstatus = $device['device_rwstatus'];
         $this->_deviceInfo->deviceType = $device['device_type'];
         $this->_deviceInfo->userAgent = $device['device_agent'];
@@ -613,7 +613,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
     /**
      * Set new device info
      *
-     * @param StdClass $data  The device information
+     * @param Horde_ActiveSync_Device $data  The device information
      *
      * @throws Horde_ActiveSync_Exception
      */

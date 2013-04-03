@@ -610,7 +610,7 @@ class Horde_ActiveSync
 
         // Autodiscovery handles authentication on it's own.
         if ($cmd == 'Autodiscover') {
-            $request = new Horde_ActiveSync_Request_Autodiscover($this, new stdClass());
+            $request = new Horde_ActiveSync_Request_Autodiscover($this, new Horde_ActiveSync_Device());
             $request->setLogger(self::$_logger);
 
             return $request->handle();
@@ -657,9 +657,10 @@ class Horde_ActiveSync
         if (!empty($devId) && !$this->_state->deviceExists($devId, $this->_driver->getUser())) {
 
             // Device might exist, but with a new (additional) user account
-            $device = new StdClass();
             if ($this->_state->deviceExists($devId)) {
                 $device = $this->_state->loadDeviceInfo($devId);
+            } else {
+                $device = new Horde_ActiveSync_Device();
             }
             $device->policykey = 0;
             $userAgent = $this->_request->getHeader('User-Agent');

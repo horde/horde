@@ -11,7 +11,7 @@
   <active>yes</active>
  </lead>
  <date>2013-04-03</date>
- <time>11:04:39</time>
+ <time>15:02:08</time>
  <version>
   <release>2.4.0</release>
   <api>2.4.0</api>
@@ -119,6 +119,7 @@
        <file name="Decoder.php" role="php" />
        <file name="Encoder.php" role="php" />
       </dir> <!-- /lib/Horde/ActiveSync/Wbxml -->
+      <file name="Device.php" role="php" />
       <file name="Exception.php" role="php" />
       <file name="Policies.php" role="php" />
       <file name="Rfc822.php" role="php" />
@@ -325,6 +326,7 @@
    <install as="TODO" name="doc/Horde/ActiveSync/TODO" />
    <install as="UPGRADING" name="doc/Horde/ActiveSync/UPGRADING" />
    <install as="Horde/ActiveSync.php" name="lib/Horde/ActiveSync.php" />
+   <install as="Horde/ActiveSync/Device.php" name="lib/Horde/ActiveSync/Device.php" />
    <install as="Horde/ActiveSync/Exception.php" name="lib/Horde/ActiveSync/Exception.php" />
    <install as="Horde/ActiveSync/Policies.php" name="lib/Horde/ActiveSync/Policies.php" />
    <install as="Horde/ActiveSync/Rfc822.php" name="lib/Horde/ActiveSync/Rfc822.php" />
