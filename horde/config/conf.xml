@@ -1981,11 +1981,13 @@
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
-      a higher version also includes support for the lower versions as well.">
+      a higher version also includes support for the lower versions as well.">14
       <values>
        <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
        <value desc="Exchange 2007 (EAS 12.0)">12</value>
        <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
+       <value desc="Exchange 2010sp1 (EAS 14.0)">14</value>
+       <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
       </values>
      </configenum>
      <configheader>Autodiscovery</configheader>
