@@ -561,7 +561,7 @@ class Kronolith_Driver_Ical extends Kronolith_Driver
 
         try {
             $response = $this->_getClient($url)->request('GET');
-        } catch (Horde_Http_Exception $e) {
+        } catch (Horde_Dav_Exception $e) {
             Horde::logMessage($e, 'INFO');
             if ($cache) {
                 $cacheOb->set($signature, serialize($e->getMessage()));
