@@ -68,7 +68,7 @@ class Horde_ActiveSync_Policies
         self::POLICY_MAXFAILEDATTEMPTS => '5',
         self::POLICY_CODEFREQ          => '0',
         self::POLICY_MINLENGTH         => '5',
-        self::POLICY_COMPLEXITY        => '2',
+        self::POLICY_COMPLEXITY        => '0',
         //self::POLICY_PWDRECOVERY       => '0',
         //self::POLICY_PWDEXPIRATION     => '0',
         //self::POLICY_PWDHISTORY        => '0',
@@ -210,15 +210,15 @@ class Horde_ActiveSync_Policies
 
         $this->_sendPolicy(self::POLICY_PIN, $policies[self::POLICY_PIN] ? '1' : '0');
         if ($policies[self::POLICY_PIN]) {
-            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY]);
-            $this->_sendPolicy(self::POLICY_MINLENGTH, $policies[self::POLICY_MINLENGTH]);
-            $this->_sendPolicy(self::POLICY_MAXFAILEDATTEMPTS, $policies[self::POLICY_MAXFAILEDATTEMPTS]);
-            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
+            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY], true);
+            $this->_sendPolicy(self::POLICY_MINLENGTH, $policies[self::POLICY_MINLENGTH], true);
+            $this->_sendPolicy(self::POLICY_MAXFAILEDATTEMPTS, $policies[self::POLICY_MAXFAILEDATTEMPTS], true);
+            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0', true);
         }
-        $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION]);
-        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC]);
+        $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION], true);
+        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC], true);
         $this->_sendPolicy(self::POLICY_AEFVALUE, $policies[self::POLICY_AEFVALUE], true);
-        $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE]);
+        $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE], true);
         if ($this->_version > Horde_ActiveSync::VERSION_TWELVE) {
             $this->_sendPolicy(self::POLICY_ALLOW_SDCARD, $policies[self::POLICY_ALLOW_SDCARD], true);
             $this->_sendPolicy(self::POLICY_ALLOW_CAMERA, $policies[self::POLICY_ALLOW_CAMERA], true);
