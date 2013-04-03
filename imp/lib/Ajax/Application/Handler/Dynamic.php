@@ -146,6 +146,7 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
      * Variables used:
      *   - new_name: (string) New mailbox name (child node) (UTF-8).
      *   - new_parent: (string) New parent name (UTF-8; base64url encoded).
+     *                 If not set, uses old parent.
      *   - old_name: (string) Full name of old mailbox (base64url encoded).
      *
      * @return boolean  True on success, false on failure.
@@ -157,12 +158,12 @@ class IMP_Ajax_Application_Handler_Dynamic extends Horde_Core_Ajax_Application_H
         }
 
         try {
+            $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
+
             $new_name = $GLOBALS['injector']->getInstance('IMP_Imap_Tree')->createMailboxName(
-                isset($this->vars->new_parent) ? IMP_Mailbox::formFrom($this->vars->new_parent) : '',
+                isset($this->vars->new_parent) ? IMP_Mailbox::formFrom($this->vars->new_parent) : $old_name->parent,
                 $this->vars->new_name
             );
-
-            $old_name = IMP_Mailbox::formFrom($this->vars->old_name);
 
             if (($old_name != $new_name) && $old_name->rename($new_name)) {
                 $this->_base->queue->setMailboxOpt('switch', $new_name->form_to);
