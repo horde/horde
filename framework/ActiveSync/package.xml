@@ -22,6 +22,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
+* [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
+* [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
 * [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
  </notes>
  <contents>
@@ -1255,6 +1257,8 @@
    <date>2013-03-11</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
+* [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
 * [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
    </notes>
   </release>

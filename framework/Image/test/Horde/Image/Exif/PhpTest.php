@@ -14,4 +14,14 @@ class Horde_Image_Exif_PhpTest extends Horde_Image_Exif_TestBase
     {
         self::$_exif = new Horde_Image_Exif_Php();
     }
+
+    public function setUp()
+    {
+        if (!extension_loaded('exif')) {
+            $this->markTestSkipped('exif extension not available');
+        }
+
+        parent::setUp();
+    }
+
 }
