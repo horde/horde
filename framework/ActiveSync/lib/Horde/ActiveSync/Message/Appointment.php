@@ -700,11 +700,16 @@ class Horde_ActiveSync_Message_Appointment extends Horde_ActiveSync_Message_Base
     /**
      * Get the reminder time.
      *
-     * @return integer  Number of minutes before appointment for notifications.
+     * @return integer|boolean  Number of minutes before appointment for
+     *                          notifications or false if not set.
      */
     public function getReminder()
     {
-        return $this->_getAttribute('reminder');
+        $reminder = $this->_getAttribute('reminder');
+        if ($reminder < 0) {
+            return false;
+        }
+        return $reminder;
     }
 
     /**
