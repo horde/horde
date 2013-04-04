@@ -663,8 +663,7 @@ class Horde_ActiveSync
                 $device = new Horde_ActiveSync_Device();
             }
             $device->policykey = 0;
-            $userAgent = $this->_request->getHeader('User-Agent');
-            $device->userAgent = empty($userAgent) ? 'Unknown' : $userAgent;
+            $device->userAgent = $this->_request->getHeader('User-Agent');
             $device->deviceType = !empty($get['DeviceType']) ? $get['DeviceType'] : '';
             $device->rwstatus = self::RWSTATUS_NA;
             $device->user = $this->_driver->getUser();

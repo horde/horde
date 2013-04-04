@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Fix Horde_Crypt_Pgp#encryptedSymmetrically() rom entering an infinite loop when using GnuPg v2.
+* [mms] Fix Horde_Crypt_Pgp#encryptedSymmetrically() from entering an infinite loop when using GnuPg v2.
 * [mms] Improve security in PGP key generation (Request #12099).
  </notes>
  <contents>
@@ -894,7 +894,7 @@ Initial release as a PEAR package
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
    <notes>
-* [mms] Fix Horde_Crypt_Pgp#encryptedSymmetrically() rom entering an infinite loop when using GnuPg v2.
+* [mms] Fix Horde_Crypt_Pgp#encryptedSymmetrically() from entering an infinite loop when using GnuPg v2.
 * [mms] Improve security in PGP key generation (Request #12099).
    </notes>
   </release>

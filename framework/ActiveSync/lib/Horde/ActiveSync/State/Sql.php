@@ -677,7 +677,7 @@ class Horde_ActiveSync_State_Sql extends Horde_ActiveSync_State_Base
             . ' device_agent = ? WHERE device_id = ?';
         $properties = array(
             serialize($data),
-            $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT],
+            !emtpy($data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT]) ? $data[Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT] : '',
             $deviceId);
         try {
             $this->_db->update($query, $properties);
