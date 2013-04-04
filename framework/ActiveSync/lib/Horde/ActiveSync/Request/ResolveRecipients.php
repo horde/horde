@@ -44,6 +44,8 @@ class Horde_ActiveSync_Request_ResolveRecipients extends Horde_ActiveSync_Reques
     const TAG_CERTIFICATECOUNT       = 'ResolveRecipients:CertificateCount';
     const TAG_MAXSIZE                = 'ResolveRecipients:MaxSize';
     const TAG_DATA                   = 'ResolveRecipients:Data';
+    const TAG_PICTURE                = 'ResolveRecipients:Picture';
+    const TAG_MAXPICTURES            = 'ResolveRecipients:MaxPictures';
 
     // 14
     const TAG_AVAILABILITY           = 'ResolveRecipients:Availability';
