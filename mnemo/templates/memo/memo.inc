@@ -18,7 +18,7 @@ if ($memo_id) {
    <input type="hidden" name="memo" value="<?php echo $memo_id ?>" />
    <?php echo Horde::label('memo_passphrase', _("_Password")) ?>:
    <input type="password" id="memo_passphrase" name="memo_passphrase" />
-   <input type="submit" value="<?php echo _("Decrypt") ?>" />
+   <input class="horde-default" type="submit" value="<?php echo _("Decrypt") ?>" />
   </form>
  </div>
  <script type="text/javascript" >

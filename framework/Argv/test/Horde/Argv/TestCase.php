@@ -10,9 +10,14 @@
 
 class Horde_Argv_TestCase extends PHPUnit_Framework_TestCase
 {
-    public function setUp()
+    static public function setUpBeforeClass()
     {
         setlocale(LC_ALL, 'C');
+    }
+
+    static public function tearDownAfterClass()
+    {
+        setlocale(LC_ALL, '');
     }
 
     public function makeOption()

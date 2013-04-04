@@ -1,15 +1,15 @@
-=============
-  Horde_Argv
-=============
+============
+ Horde_Argv
+============
 
------------------------
-  Extending Horde_Argv
------------------------
+----------------------
+ Extending Horde_Argv
+----------------------
 
 Since the two major controlling factors in how *Horde_Argv* interprets command-line options are the action and type of each option, the most likely direction of extension is to add new actions and new types.
 
- Adding new types
-=================
+Adding new types
+================
 
 To add new types, you need to define your own subclass of the ``Horde_Argv_Option class``. This class has a couple of properties that define *Horde_Argv*'s types: ``$TYPES`` and ``$TYPE_CHECKER``.
 
@@ -70,8 +70,8 @@ Alternately, you can build your own option list and pass it to ``Horde_Argv_Pars
  );
  parser = new Horde_Argv_Parser(array('optionList' => $option_list));
 
- Adding new actions
-===================
+Adding new actions
+==================
 
 Adding new actions is a bit trickier, because you have to understand that *Horde_Argv* has a couple of classifications for actions:
 
@@ -135,11 +135,12 @@ Features of note:
 * ``extend`` both expects a value on the command-line and stores that value somewhere, so it goes in both ``$STORE_ACTIONS`` and ``$TYPED_ACTIONS``
 * ``MyOption::takeAction()`` implements just this one new action, and passes control back to ``Horde_Argv_Option::takeAction()`` for the standard *Horde_Argv* actions
 * ``$values`` is an instance of the ``Horde_Argv_Values`` class, which provides the very useful ``ensureValue()`` method. ``ensureValue()`` is essentially a getter with a safety valve; it is called as
+
   ``$values->ensureValue($attr, $value)``
   If the ``$attr`` property of ``$values`` doesn't exist or is ``null``, then ``ensureValue()`` first sets it to ``$value``, and then returns ``$value``. This is very handy for actions like ``extend``, ``append``, and ``count``, all of which accumulate data in a variable and expect that variable to be of a certain type (an array for the first two, an integer for the latter). Using ``ensureValue()`` means that scripts using your action don't have to worry about setting a default value for the option destinations in question; they can just leave the default as ``null`` and ``ensureValue()`` will take care of getting it right when it's needed.
 
- Other reasons to extend Horde_Argv
-===================================
+Other reasons to extend Horde_Argv
+==================================
 
 Adding new types and new actions are the big, obvious reasons why you might want to extend *Horde_Argv*. I can think of at least two other areas to play with.
 
@@ -149,6 +150,7 @@ If this behaviour bothers you, it shouldn't be too hard to "fix" it. You'll have
 
 1. subclass ``Horde_Argv_Parser`` and override ``parserError()``
 2. subclass ``Horde_Argv_Option`` and override ``takeAction()`` -- you'll need to provide your own handling of the ``help`` action that doesn't call ``exit()``
+
 The second, much more complex, possibility is to override the command-line syntax implemented by *Horde_Argv*. In this case, you'd leave the whole machinery of option actions and types alone, but rewrite the code that processes ``argv``. You'll need to subclass ``Horde_Argv_Parser`` in any case; depending on how radical a rewrite you want, you'll probably need to override one or all of ``parseArgs()``, ``_processLongOpt()``, and ``_processShortOpts()``.
 
 Both of these are left as an exercise for the reader. I have not tried to implement either myself, since I'm quite happy with *Horde_Argv*'s default behaviour (naturally).
