@@ -924,6 +924,7 @@
    <date>2013-02-04</date>
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
+* [jan] Work around broken Text_Wiki header parser.
 * [jan] Add reST renderers for blockquote and emphasis.
    </notes>
   </release>
