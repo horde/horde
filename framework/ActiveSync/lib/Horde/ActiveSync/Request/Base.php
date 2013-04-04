@@ -166,17 +166,24 @@ abstract class Horde_ActiveSync_Request_Base
 
         // Don't attempt if we don't care
         if ($this->_provisioning !== Horde_ActiveSync::PROVISIONING_NONE) {
+            // Get the stored key
             $storedKey = $this->_stateDriver->getPolicyKey($this->_device->id);
             $this->_logger->debug('[' . $this->_device->id . '] Stored key: ' . $storedKey);
 
-            // Loose provsioning should allow a blank key
+            // Did we request a remote wipe?
+            if ($this->_stateDriver->getDeviceRWStatus($this->_device->id) == Horde_ActiveSync::RWSTATUS_PENDING) {
+                $this->_requireProvisionWbxml($requestType, Horde_ActiveSync_Status::REMOTEWIPE_REQUESTED);
+                return false;
+            }
+
+            // Validate the stored key against the device key, honoring
+            // the value of _provisioning.
             if ((empty($storedKey) || $storedKey != $sentKey) &&
                ($this->_provisioning != Horde_ActiveSync::PROVISIONING_LOOSE ||
                ($this->_provisioning == Horde_ActiveSync::PROVISIONING_LOOSE && !is_null($sentKey)))) {
 
-                // Only send the headers for version < 12.1. Otherwise, the
-                // request object is responsible for outputing the correct
-                // status code
+                // We send the headers AND the WBXML if EAS 12.1+ since some
+                // devices report EAS 14.1 but don't accept the WBXML.
                 $this->_activeSync->provisioningRequired();
                 if ($this->_device->version > Horde_ActiveSync::VERSION_TWELVEONE) {
                     // Read the input stream and discard.
@@ -188,20 +195,15 @@ abstract class Horde_ActiveSync_Request_Base
                     } else {
                         $status = Horde_ActiveSync_Status::INVALID_POLICY_KEY;
                     }
-
-                    $this->_encoder->startWBXML();
-                    $this->_encoder->startTag($requestType);
-                    $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
-                    $this->_encoder->content(Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED);
-                    $this->_encoder->endTag();
-                    $this->_encoder->endTag();
+                    $this->_requireProvisionWbxml($requestType, Horde_ActiveSync_Status::DEVICE_NOT_PROVISIONED);
                 }
 
                 return false;
             }
         }
-        $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
 
+        // Either successfully validated, or we didn't care enough to check.
+        $this->_logger->debug('Policykey: ' . $sentKey . ' verified.');
         return true;
     }
 
@@ -277,6 +279,22 @@ abstract class Horde_ActiveSync_Request_Base
             $this->_logger->debug('[' . $this->_device->id . '] Removing state for bogus VALIDATE device.');
             $this->_stateDriver->removeState(array('devId' => 'validate'));
         }
+    }
+
+    /**
+     * Send WBXML to indicate provisioning is required.
+     *
+     * @param string $requestType  The type of request we are handling.
+     * @param integer $status      The reason we need to provision.
+     */
+    protected function _requireProvisionWbxml($requestType, $status)
+    {
+        $this->_encoder->startWBXML();
+        $this->_encoder->startTag($requestType);
+        $this->_encoder->startTag(Horde_ActiveSync::SYNC_STATUS);
+        $this->_encoder->content($status);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
     /**
