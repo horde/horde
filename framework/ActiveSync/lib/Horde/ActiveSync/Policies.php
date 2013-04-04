@@ -148,7 +148,7 @@ class Horde_ActiveSync_Policies
         array $policies = array())
     {
         $this->_encoder = $encoder;
-        if ($version == Horde_ActiveSync::VERSION_TWELVE) {
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
             $this->_defaults = array_merge($this->_defaults, $this->_defaults_twelve);
         }
         if ($version >= Horde_ActiveSync::VERSION_TWELVEONE) {
