@@ -197,7 +197,7 @@ class Horde_ActiveSync_Request_Search extends Horde_ActiveSync_Request_SyncBase
                 }
 
                 $this->_bodyPrefs($searchbodypreference);
-                $searchbodypreference = $searchbodypreference['bodyprefs'];
+                $searchbodypreference = empty($searchbodypreference['bodyprefs']) ? array() : $searchbodypreference['bodyprefs'];
                 $this->_mimeSupport($searchbodypreference);
 
                 // EAS 14.1
