@@ -26,7 +26,7 @@
  * @link     http://www.horde.org/apps/wicked
  * @license  http://www.horde.org/licenses/gpl GNU General Public License, version 2
  */
-class Text_Wiki_Render_Rst_Heading extends Text_Wiki_Render
+class Text_Wiki_Render_Rst_Heading2 extends Text_Wiki_Render
 {
     /**
      * The start options.
