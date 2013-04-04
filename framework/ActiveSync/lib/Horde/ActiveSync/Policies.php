@@ -143,7 +143,7 @@ class Horde_ActiveSync_Policies
      * @param array $policies                          The policy array.
      */
     public function __construct(
-        Horde_ActiveSync_Wbxml_Encoder $encoder,
+        Horde_ActiveSync_Wbxml_Encoder $encoder = null,
         $version = Horde_ActiveSync::VERSION_TWELVEONE,
         array $policies = array())
     {
