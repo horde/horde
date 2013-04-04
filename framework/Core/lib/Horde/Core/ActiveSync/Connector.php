@@ -359,7 +359,7 @@ class Horde_Core_ActiveSync_Connector
 
         $gal = $this->contacts_getGal();
         $sources = array_keys($this->_registry->contacts->sources(false, true));
-        if (!in_array($sources, $gal)) {
+        if (!in_array($gal, $sources)) {
             $sources[] = $gal;
         }
         foreach ($sources as $source) {
