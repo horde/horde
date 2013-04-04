@@ -42,10 +42,11 @@ class Text_Wiki_Render_Rst_List
 
         switch ($type) {
         case 'bullet_list_start':
-        case 'bullet_list_end':
         case 'number_list_start':
-        case 'number_list_end':
             return '';
+        case 'bullet_list_end':
+        case 'number_list_end':
+            return "\n";
         case 'bullet_item_start':
             return str_repeat(' ', ($level - 1) * 2) . '* ';
         case 'number_item_start':
