@@ -2,9 +2,6 @@
 v2.0-git
 --------
 
-[jan] Work around broken Text_Wiki header parser.
-[jan] Add reST renderers for blockquote and emphasis.
-
 
 ------
 v1.0.2
