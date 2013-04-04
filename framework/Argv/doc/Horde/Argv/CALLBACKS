@@ -1,10 +1,10 @@
-=============
-  Horde_Argv
-=============
+============
+ Horde_Argv
+============
 
--------------------
-  Option Callbacks
--------------------
+------------------
+ Option Callbacks
+------------------
 
 When *Horde_Argv*'s built-in actions and types aren't quite enough for your needs, you have two choices: extend *Horde_Argv* or define a callback option. Extending *Horde_Argv* is more general, but overkill for a lot of simple cases. Quite often a simple callback is all you need.
 
@@ -12,8 +12,9 @@ You define a callback in two steps:
 
 * define the option itself using the callback action
 * write the callback; this is a function (or method) that takes at least four arguments, as described below
- Defining a callback option
-===========================
+
+Defining a callback option
+==========================
 
 As always, the easiest way to define a callback option is by using the ``addOption()`` method of your ``Horde_Argv_Parser`` object. The only option attribute you must specify is callback, the function to call:
 
@@ -44,8 +45,8 @@ There are several other option attributes that you can supply when you define an
                       callback
 :``callback_kwargs``: a hash of extra keyword arguments to pass to the callback
 
- How callbacks are called
-=========================
+How callbacks are called
+========================
 
 All callbacks are called as follows:
 
@@ -83,13 +84,13 @@ where
 :``$kwargs``: is a dictionary of arbitrary keyword arguments supplied via
               ``callback_kwargs``.
 
- Error handling
-===============
+Error handling
+==============
 
 The callback function should throw ``Horde_Argv_OptionValueException`` if there are any problems with the option or its argument(s). *Horde_Argv* catches this and terminates the program, printing the error message you supply to stderr. Your message should be clear, concise, accurate, and mention the option at fault. Otherwise, the user will have a hard time figuring out what he did wrong.
 
- Examples part 1: no arguments
-==============================
+Examples part 1: no arguments
+=============================
 
 Here's an example of a callback option that takes no arguments, and simply records that the option was seen:
 
@@ -167,8 +168,8 @@ Of course, you could put any condition in there -- you're not limited to checkin
 
 (The definition of ``is_moon_full()`` is left as an exercise for the reader.)
 
- Examples part 2: fixed arguments
-=================================
+Examples part 2: fixed arguments
+================================
 
 Things get slightly more interesting when you define callback options that take a fixed number of arguments. Specifying that a callback option takes arguments is similar to defining a ``store`` or ``append`` option: if you define ``type``, then the option takes one argument that must be convertible to that type; if you further define ``nargs``, then the option takes ``nargs`` arguments.
 
@@ -189,14 +190,15 @@ Here's an example that just emulates the standard ``store`` action:
 
 Note that *Horde_Argv* takes care of consuming 3 arguments and converting them to integers for you; all you have to do is store them. (Or whatever: obviously you don't need a callback for this example. Use your imagination!)
 
- Examples part 3: variable arguments
-====================================
+Examples part 3: variable arguments
+===================================
 
 Things get hairy when you want an option to take a variable number of arguments. For this case, you must write a callback, as *Horde_Argv* doesn't provide any built-in capabilities for it. And you have to deal with certain intricacies of conventional Unix command-line parsing that *Horde_Argv* normally handles for you. In particular, callbacks have to worry about bare "--" and "-" arguments; the convention is:
 
 * bare "--", if not the argument to some option, causes command-line processing to halt and the "--" itself is lost
 * bare "-" similarly causes command-line processing to halt, but the "-" itself is kept
 * either "--" or "-" can be option arguments
+
 If you want an option that takes a variable number of arguments, there are several subtle, tricky issues to worry about. The exact implementation you choose will be based on which trade-offs you're willing to make for your application (which is why *Horde_Argv* doesn't support this sort of thing directly).
 
 Nevertheless, here's a stab at a callback for an option with variable arguments:

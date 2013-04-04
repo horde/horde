@@ -29,7 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
-* 
+* [jan] Fix documentation formatting.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -827,7 +827,7 @@
    <date>2013-03-05</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
-* 
+* [jan] Fix documentation formatting.
    </notes>
   </release>
  </changelog>
