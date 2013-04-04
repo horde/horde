@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-04-04</date>
- <time>15:32:18</time>
+ <time>15:35:53</time>
  <version>
-  <release>2.0.7</release>
+  <release>2.0.8</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -833,6 +833,19 @@
   <release>
    <version>
     <release>2.0.7</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-04</date>
+   <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
+   <notes>
+* 
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.8</release>
     <api>1.0.0</api></version>
    <stability>
     <release>stable</release>
