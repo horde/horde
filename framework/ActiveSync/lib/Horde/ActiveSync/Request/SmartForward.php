@@ -62,7 +62,20 @@ class Horde_ActiveSync_Request_SmartForward extends Horde_ActiveSync_Request_Sen
             $parent = $get['CollectionId'];
         }
 
-        return $this->_driver->sendMail($rfc822, $orig, false, $parent);
+        try {
+            return $this->_driver->sendMail($rfc822, $orig, false, $parent);
+        } catch (Horde_Exception_NotFound $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_handleError(
+                Horde_ActiveSync_Status::ITEM_NOT_FOUND,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD);
+        } catch (Horde_ActiveSync_Exception $e) {
+            $this->_handleError(
+                Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD);
+        }
+
+        return true;
     }
 
 }
