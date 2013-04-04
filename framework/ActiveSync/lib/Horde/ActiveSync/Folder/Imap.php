@@ -259,9 +259,15 @@ class Horde_ActiveSync_Folder_Imap extends Horde_ActiveSync_Folder_Base implemen
      * @return integer  The IMAP UID.
      */
     public function minuid()
-    {   if (empty($this->_status[self::HIGHESTMODSEQ])) {
+    {
+        if (empty($this->_messages)) {
+            return 0;
+        }
+
+        if (empty($this->_status[self::HIGHESTMODSEQ])) {
             return min(array_keys($this->_messages));
         }
+
         return min($this->_messages);
     }
 
