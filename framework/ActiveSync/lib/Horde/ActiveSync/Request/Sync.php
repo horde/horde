@@ -241,7 +241,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                 // Sanity check. These are not allowed in the same request.
                 if ($this->_syncCache->hbinterval !== false && $this->_syncCache->wait !== false) {
                     $this->_logger->err('Received both HBINTERVAL and WAIT interval in same request. VIOLATION.');
-                    $this->_statusCode = self::STATUS_PROTERROR;
+                    $this->_statusCode = Horde_ActiveSync_Status::INVALID_XML;
                     $this->_handleGlobalSyncError();
                     return true;
                 }
@@ -265,7 +265,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                         null,
                         Horde_ActiveSync::REQUEST_TYPE_SYNC,
                         $collection['id']);
-                    $this->_statusCode = self::STATUS_SERVERERROR;
+                    $this->_statusCode = Horde_ActiveSync_Status::SERVER_ERROR;
                     $this->_handleGlobalSyncError();
                     return true;
                 } elseif (empty($counters[$collection['id']][$collection['synckey']])) {
