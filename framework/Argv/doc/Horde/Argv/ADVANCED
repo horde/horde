@@ -1,20 +1,20 @@
-=============
-  Horde_Argv
-=============
+============
+ Horde_Argv
+============
 
 .. contents:: Contents
 .. section-numbering::
 
------------------
-  Advanced Usage
------------------
+----------------
+ Advanced Usage
+----------------
 
 This is reference documentation. If you haven't read the `Basic Usage`_ tutorial document yet, do so now.
 
 .. _`Basic Usage`: Basic Usage
 
- Creating and populating the parser
-===================================
+Creating and populating the parser
+==================================
 
 There are several ways to populate the parser with options. One way is to pass a list of ``Horde_Argv_Option``s to the ``Horde_Argv_Parser`` constructor:
 
@@ -64,8 +64,9 @@ This method makes it easier to track down exceptions raised by the ``Horde_Argv_
 
 * pass it an ``Horde_Argv_Option`` instance
 * pass it any combination of positional and keyword arguments that are acceptable to ``new Horde_Argv_Option()`` (ie., to the ``Horde_Argv_Option`` constructor), and it will create the ``Horde_Argv_Option`` instance for you (shown above)
- Defining options
-=================
+
+Defining options
+================
 
 Each ``Horde_Argv_Option`` instance represents a set of synonymous command-line options, ie. options that have the same meaning and effect, but different spellings. You can specify any number of short or long option strings, but you must specify at least one option string.
 
@@ -134,12 +135,13 @@ then *Horde_Argv*, on seeing the "-f" or "--file" option, will do the equivalent
 
 Clearly, the ``type`` and ``dest`` arguments are almost as important as ``action``. ``action`` is the only attribute that is meaningful for all options, though, so it is the most important.
 
- Option actions
-===============
+Option actions
+==============
 
 The various option actions all have slightly different requirements and effects. Most actions have several relevant option attributes which you may specify to guide *Horde_Argv*'s behaviour; a few have required attributes, which you must specify for any option using that action.
 
 * ``store`` [relevant: ``type``, ``dest``, ``nargs``, ``choices``]
+
   The option must be followed by an argument, which is converted to a value according to ``type`` and stored in ``dest``. If ``nargs`` > 1, multiple arguments will be consumed from the command line; all will be converted according to ``type`` and stored to ``dest`` as an array. See the "Option types" section below.
 
   If ``choices`` is supplied (an array of strings), the ``type`` defaults to ``choice``.
@@ -168,6 +170,7 @@ The various option actions all have slightly different requirements and effects.
  $options->f = 'bar.txt';
 
 * ``store_const`` [required: ``const``; relevant: ``dest``]
+
   The value ``const`` is stored in ``dest``.
 
   Example:
@@ -185,9 +188,11 @@ The various option actions all have slightly different requirements and effects.
  $options->verbose = 2;
 
 * ``store_true`` [relevant: ``dest``]
+
   A special case of ``store_const`` that stores a ``TRUE`` value to ``dest``.
 
 * ``store_false`` [relevant: ``dest``]
+
   Like ``store_true``, but stores a ``FALSE`` value.
 
   Example:
@@ -198,6 +203,7 @@ The various option actions all have slightly different requirements and effects.
  $parser->addOption(null, '--no-clobber', array('action' => 'store_false', 'dest' => 'clobber'));
 
 * ``append`` [relevant: ``type``, ``dest``, ``nargs``, ``choices``]
+
   The option must be followed by an argument, which is appended to the array in ``dest``. If no default value for ``dest`` is supplied, an empty array is automatically created when *Horde_Argv* first encounters this option on the command-line. If ``nargs`` > 1, multiple arguments are consumed, and an array of length ``nargs`` is appended to ``dest``.
 
   The defaults for ``type`` and ``dest`` are the same as for the ``store`` action.
@@ -222,6 +228,7 @@ The various option actions all have slightly different requirements and effects.
  $options->tracks[] = intval('4');
 
 * ``count`` [relevant: ``dest``]
+
   Increment the integer stored at ``dest``. ``dest`` is set to zero before being incremented the first time (unless you supply a default value).
 
   Example:
@@ -244,6 +251,7 @@ The various option actions all have slightly different requirements and effects.
  $options->verbosity += 1;
 
 * ``callback`` [required: ``callback``; relevant: ``type``, ``nargs``, ``callback_args``, ``callback_kwargs``]
+
   Call the function specified by ``callback``. The signature of this function should be
 
 ::
@@ -258,6 +266,7 @@ The various option actions all have slightly different requirements and effects.
   See Option Callbacks for more detail.
 
 * ``help`` [relevant: none]
+
   Prints a complete help message for all the options in the current option parser. The help message is constructed from the ``usage`` string passed to ``Horde_Argv_Parser``'s constructor and the ``help`` string passed to every option.
 
   If no help string is supplied for an option, it will still be listed in the help message. To omit an option entirely, use the special value ``Horde_Argv_Option::SUPPRESS_HELP``.
@@ -292,10 +301,11 @@ The various option actions all have slightly different requirements and effects.
   After printing the help message, *Horde_Argv* terminates your process with ``exit(0)``.
 
 * ``version`` [relevant: none]
+
   Prints the version number supplied to the ``Horde_Argv_Parser`` to stdout and exits. The version number is actually formatted and printed by the ``printVersion()`` method of ``Horde_Argv_Parser``. Generally only relevant if the version argument is supplied to the ``Horde_Argv_Parser`` constructor.
 
- Option types
-=============
+Option types
+============
 
 *Horde_Argv* has six built-in option types: ``string``, ``int``, ``long``, ``choice``, ``float`` and ``complex``. If you need to add new option types, see `Extending Horde_Argv`_.
 
@@ -309,8 +319,8 @@ Likewise, float arguments are passed to ``floatval()`` for conversion, long argu
 
 ``choice`` options are a subtype of ``string`` options. The ``choices`` option attribute (an array of strings) defines the set of allowed option arguments. ``Horde_Argv_Option#checkChoice()`` compares user-supplied option arguments against this master list and throws ``Horde_Argv_OptionValueException`` if an invalid string is given.
 
- Querying and manipulating your option parser
-=============================================
+Querying and manipulating your option parser
+============================================
 
 Sometimes, it's useful to poke around your option parser and see what's there. ``Horde_Argv_Parser`` provides a couple of methods to help you out:
 
@@ -326,8 +336,8 @@ Sometimes, it's useful to poke around your option parser and see what's there. `
                                                    invalid. If ``$opt_str`` does not occur in any option belonging to this
                                                    ``Horde_Argv_Parser``, throws ``InvalidArgumentException``.
 
- Conflicts between options
-==========================
+Conflicts between options
+=========================
 
 If you're not careful, it's easy to define conflicting options:
 
