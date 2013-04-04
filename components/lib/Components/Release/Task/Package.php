@@ -51,6 +51,13 @@ extends Components_Release_Task_Base
     public function validate($options)
     {
         $errors = array();
+        $testpkg = Horde_Util::getTempFile();
+        $archive = new Archive_Tar($testpkg, 'gz');
+        $archive->addString('a', 'a');
+        $archive->addString('b', 'b');
+        if (strpos(exec('tar tzvf ' . $testpkg . ' 2>&1'), 'lone zero block')) {
+            $errors[] = 'Broken Archive_Tar, upgrade first.';
+        }
         $remote = new Horde_Pear_Remote();
         try {
             $exists = $remote->releaseExists(

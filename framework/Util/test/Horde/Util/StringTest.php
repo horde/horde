@@ -8,6 +8,11 @@
  */
 class Horde_Util_StringTest extends PHPUnit_Framework_TestCase
 {
+    public function tearDown()
+    {
+        setlocale(LC_ALL, '');
+    }
+
     public function testUpper()
     {
         $this->assertEquals(

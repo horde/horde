@@ -1,15 +1,15 @@
-=============
-  Horde_Argv
-=============
+============
+ Horde_Argv
+============
 
 .. contents:: Contents
 .. section-numbering::
 
 *Horde_Argv* is a library for parsing command line arguments with various actions, providing help, grouping options, and more. It is ported from Python's Optik (http://optik.sourceforge.net/).
 
---------------
-  Basic Usage
---------------
+-------------
+ Basic Usage
+-------------
 
 While *Horde_Argv* is quite flexible and powerful, you don't have to jump through hoops or read reams of documentation to get started. This document aims to demonstrate some simple usage patterns that will get you started using *Horde_Argv* in your scripts.
 
@@ -53,10 +53,11 @@ Once all of your options are defined, instruct *Horde_Argv* to parse your progra
 
 * $values is a ``Horde_Argv_Values`` object containing values for all of your options -- e.g. if "--file" takes a single string argument, then $values->file (or $values['file']) will be the filename supplied by the user, or NULL if the user did not supply that option.
 * $args is the list of arguments left over after parsing options.
+
 This tutorial document only covers the four most important option attributes: "action", "type", "dest" (destination), and "help". Of these, "action" is the most fundamental.
 
- Option actions
-===============
+Option actions
+==============
 
 Actions tell *Horde_Argv* what to do when it encounters an option on the command line. There is a fixed set of actions hard-coded into *Horde_Argv*; adding new actions is an advanced topic covered in `Extending Horde_Argv`_. Most actions tell *Horde_Argv* to store a value in some variable -- for example, take a string from the command line and store it in an attribute of options.
 
@@ -64,8 +65,8 @@ Actions tell *Horde_Argv* what to do when it encounters an option on the command
 
 If you don't specify an option action, *Horde_Argv* defaults to "store".
 
- The store action
-*****************
+The store action
+****************
 
 The most common option action is store, which tells *Horde_Argv* to take the next argument (or the remainder of the current argument), ensure that it is of the correct type, and store it to your chosen destination.
 
@@ -116,8 +117,8 @@ If you don't supply a destination, *Horde_Argv* figures out a sensible default f
 
 Adding types is covered in "Extending *Horde_Argv*".
 
- Handling flag (boolean) options
-********************************
+Handling flag (boolean) options
+*******************************
 
 Flag options -- set a variable to TRUE or FALSE when a particular option is seen -- are quite common. *Horde_Argv* supports them with two separate actions, "store_true" and "store_false". For example, you might have a verbose flag that is turned on with "-v" and off with "-q":
 
@@ -130,8 +131,8 @@ Here we have two different options with the same destination, which is perfectly
 
 When *Horde_Argv* sees "-v" on the command line, it sets the verbose attribute of the special "option values" object to a TRUE value; when it sees "-q", it sets verbose to a FALSE value.
 
- Other actions
-**************
+Other actions
+*************
 
 Some other actions supported by *Horde_Argv* are:
 
@@ -145,8 +146,8 @@ These are covered in the `Advanced Usage`_ and `Option Callbacks`_ documents.
 .. _`Advanced Usage`: Advanced Usage
 .. _`Option Callbacks`: Option Callbacks
 
- Default values
-===============
+Default values
+==============
 
 All of the above examples involve setting some variable (the "destination") when certain command-line options are seen. What happens if those options are never seen? Since we didn't supply any defaults, they are all set to NULL. Usually, this is just fine, but sometimes you want more control. To address that need, *Horde_Argv* lets you supply a default value for each destination, which is assigned before the command-line is parsed.
 
@@ -185,8 +186,8 @@ A clearer way to specify default values is the ``setDefaults()`` method of ``Hor
 
 As before, the last value specified for a given option destination is the one that counts. For clarity, try to use one method or the other of setting default values, not both.
 
- Generating help
-================
+Generating help
+===============
 
 There is one more feature that you will use in every script: *Horde_Argv*'s ability to generate help messages. All you have to do is supply a help value for each option. Let's create a new parser and populate it with user-friendly (documented) options:
 
@@ -232,19 +233,21 @@ If *Horde_Argv* encounters either '-h' or '--help' on the command-line, or if yo
 There's a lot going on here to help *Horde_Argv* generate the best possible help message:
 
 * the script defines its own usage message:
+
   ``$usage = 'usage: %prog [options] arg1 arg2';``
   *Horde_Argv* expands "%prog" in the usage string to the name of the current script, i.e. basename($_SERVER['argv'][0]). The expanded string is then printed before the detailed option help.
   If you don't supply a usage string, *Horde_Argv* uses a bland but sensible default: "usage: %prog [options]", which is fine if your script doesn't take any positional arguments.
 
 * every option defines a help string, and doesn't worry about line-wrapping -- *Horde_Argv* takes care of wrapping lines and making the help output look good.
 * options that take a value indicate this fact in their automatically-generated help message, e.g. for the "mode" option:
+
   ``-mMODE, --mode=MODE``
   Here, "MODE" is called the meta-variable: it stands for the argument that the user is expected to supply to -m/--mode. By default, *Horde_Argv* converts the destination variable name to uppercase and uses that for the meta-variable. Sometimes, that's not what you want -- for example, the --filename option explicitly sets $metavar = "FILE", resulting in this automatically-generated option description:
   ``-fFILE, --filename=FILE``
   This is important for more than just saving space, though: the manually written help text uses the meta-variable "FILE", to clue the user in that there's a connection between the formal syntax "-fFILE" and the informal semantic description "write output to FILE". This is a simple but effective way to make your help text a lot clearer and more useful for end users.
 
- Print a version number
-=======================
+Print a version number
+======================
 
 Similar to the brief usage string, *Horde_Argv* can also print a version string for your program. You have to supply the string, as the version argument to ``Horde_Argv_Parser``:
 
@@ -261,15 +264,15 @@ For example, if your script is called "/usr/bin/foo", a user might do:
  $ /usr/bin/foo --version
  foo 1.0
 
- Error-handling
-===============
+Error-handling
+==============
 
 The one thing you need to know for basic usage is how *Horde_Argv* behaves when it encounters an error on the command-line -- e.g. "-n4x" where the "-n" option takes an integer. *Horde_Argv* prints your usage message to stderr, followed by a useful and human-readable error message. Then it terminates with a non-zero exit status by calling ``exit()``.
 
 If you don't like this, subclass ``Horde_Argv_Parser`` and override the ``parserError()`` method. See Extending *Horde_Argv*.
 
- Putting it all together
-========================
+Putting it all together
+=======================
 
 Here's what a *Horde_Argv*-based scripts usually look like:
 
