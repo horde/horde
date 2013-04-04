@@ -144,9 +144,11 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Ensure the PIM's policy key is current.
+     * Ensure the client's policy key is current.
      *
-     * @param string $sentKey  The policykey sent to us by the PIM
+     * @param string $sentKey      The policykey sent to us by the client
+     * @param string $requestType  The type of request we are handling. A
+     *                             Horde_ActiveSync constant.
      *
      * @return boolean
      */
@@ -266,8 +268,6 @@ abstract class Horde_ActiveSync_Request_Base
      * Clean up after initial pairing. Initial pairing can happen either as a
      * result of either a FOLDERSYNC or PROVISION command, depending on the
      * device capabilities.
-     *
-     * @TODO Move this to a device object??
      */
     protected function _cleanUpAfterPairing()
     {
