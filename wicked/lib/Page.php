@@ -411,8 +411,16 @@ class Wicked_Page
          * character. See http://pear.php.net/bugs/bug.php?id=12490. */
         $this->_proc->delim = chr(1);
 
-        if ($output_format == 'Xhtml') {
-            /* Override rules */
+        /* Override rules */
+        $this->_proc->insertRule('Heading2', 'Heading');
+        $this->_proc->deleteRule('Heading');
+        $this->_proc->loadParseObj('Paragraph');
+        $skip = $this->_proc->parseObj['Paragraph']->getConf('skip');
+        $skip[] = 'heading2';
+        $this->_proc->setParseConf('Paragraph', 'skip', $skip);
+
+        switch ($output_format) {
+        case 'Xhtml':
             if ($GLOBALS['conf']['wicked']['format'] != 'Creole') {
                 $this->_proc->insertRule('Code2', 'Code');
                 $this->_proc->deleteRule('Code');
@@ -464,14 +472,26 @@ class Wicked_Page
                                               'css_td' => 'table-cell',
                                               'css_th' => 'table-cell'));
 
-            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Xhtml/', WICKED_BASE . '/lib/Text_Wiki/Render/Xhtml'));
-        } elseif ($output_format == 'Rst') {
+            break;
+
+        case 'Rst':
             require_once dirname(__FILE__) . '/Text_Wiki/Render/Rst.php';
-            $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Render_Rst/', WICKED_BASE . '/lib/Text_Wiki/Render/Rst'));
+            break;
         }
 
-
-        $GLOBALS['injector']->getInstance('Horde_Autoloader')->addClassPathMapper(new Horde_Autoloader_ClassPathMapper_Prefix('/^Text_Wiki_Parse/', WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']));
+        $autoloader = $GLOBALS['injector']->getInstance('Horde_Autoloader');
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki_Render_' . $output_format . '/',
+                WICKED_BASE . '/lib/Text_Wiki/Render/' . $output_format
+            )
+        );
+        $autoloader->addClassPathMapper(
+            new Horde_Autoloader_ClassPathMapper_Prefix(
+                '/^Text_Wiki_Parse/',
+                WICKED_BASE . '/lib/Text_Wiki/Parse/' . $GLOBALS['conf']['wicked']['format']
+            )
+        );
 
         return $this->_proc;
     }

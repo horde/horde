@@ -16,8 +16,8 @@
   <email>chuck@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-04</date>
- <time>17:42:42</time>
+ <date>2013-04-04</date>
+ <time>13:18:29</time>
  <version>
   <release>1.0.3</release>
   <api>1.0.0</api>
@@ -171,6 +171,7 @@
        <file name="Attribute.php" role="horde" />
        <file name="Code2.php" role="horde" />
        <file name="Freelink2.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
        <file name="Wickedblock.php" role="horde" />
@@ -195,6 +196,12 @@
       </dir> <!-- /lib/Text_Wiki/Parse/Tiki -->
      </dir> <!-- /lib/Text_Wiki/Parse -->
      <dir name="Render">
+      <dir name="Latex">
+       <file name="Heading2.php" role="horde" />
+      </dir> <!-- /lib/Text_Wiki/Render/Latex -->
+      <dir name="Plain">
+       <file name="Heading2.php" role="horde" />
+      </dir> <!-- /lib/Text_Wiki/Render/Plain -->
       <dir name="Rst">
        <file name="Blockquote.php" role="horde" />
        <file name="Bold.php" role="horde" />
@@ -202,7 +209,7 @@
        <file name="Deflist.php" role="horde" />
        <file name="Emphasis.php" role="horde" />
        <file name="Freelink.php" role="horde" />
-       <file name="Heading.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Links.php" role="horde" />
        <file name="List.php" role="horde" />
        <file name="Newline.php" role="horde" />
@@ -216,6 +223,7 @@
        <file name="Attribute.php" role="horde" />
        <file name="Code2.php" role="horde" />
        <file name="Freelink2.php" role="horde" />
+       <file name="Heading2.php" role="horde" />
        <file name="Image2.php" role="horde" />
        <file name="Interwiki.php" role="horde" />
        <file name="Registrylink.php" role="horde" />
@@ -374,6 +382,7 @@
      </dir> <!-- /test/Wicked/Unit -->
      <file name="AllTests.php" role="test" />
      <file name="Autoload.php" role="test" />
+     <file name="bootstrap.php" role="test" />
      <file name="phpunit.xml" role="test" />
      <file name="TestCase.php" role="test" />
     </dir> <!-- /test/Wicked -->
@@ -722,6 +731,7 @@
    <install as="wicked/lib/Text_Wiki/Parse/Default/Attribute.php" name="lib/Text_Wiki/Parse/Default/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Code2.php" name="lib/Text_Wiki/Parse/Default/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Freelink2.php" name="lib/Text_Wiki/Parse/Default/Freelink2.php" />
+   <install as="wicked/lib/Text_Wiki/Parse/Default/Heading2.php" name="lib/Text_Wiki/Parse/Default/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Image2.php" name="lib/Text_Wiki/Parse/Default/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Registrylink.php" name="lib/Text_Wiki/Parse/Default/Registrylink.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Default/Wickedblock.php" name="lib/Text_Wiki/Parse/Default/Wickedblock.php" />
@@ -740,13 +750,15 @@
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wickedblock.php" name="lib/Text_Wiki/Parse/Tiki/Wickedblock.php" />
    <install as="wicked/lib/Text_Wiki/Parse/Tiki/Wikilink2.php" name="lib/Text_Wiki/Parse/Tiki/Wikilink2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst.php" name="lib/Text_Wiki/Render/Rst.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Latex/Heading2.php" name="lib/Text_Wiki/Render/Latex/Heading2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Plain/Heading2.php" name="lib/Text_Wiki/Render/Plain/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Blockquote.php" name="lib/Text_Wiki/Render/Rst/Blockquote.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Bold.php" name="lib/Text_Wiki/Render/Rst/Bold.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Code.php" name="lib/Text_Wiki/Render/Rst/Code.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Deflist.php" name="lib/Text_Wiki/Render/Rst/Deflist.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Emphasis.php" name="lib/Text_Wiki/Render/Rst/Emphasis.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Freelink.php" name="lib/Text_Wiki/Render/Rst/Freelink.php" />
-   <install as="wicked/lib/Text_Wiki/Render/Rst/Heading.php" name="lib/Text_Wiki/Render/Rst/Heading.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Rst/Heading2.php" name="lib/Text_Wiki/Render/Rst/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Links.php" name="lib/Text_Wiki/Render/Rst/Links.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/List.php" name="lib/Text_Wiki/Render/Rst/List.php" />
    <install as="wicked/lib/Text_Wiki/Render/Rst/Newline.php" name="lib/Text_Wiki/Render/Rst/Newline.php" />
@@ -758,6 +770,7 @@
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Attribute.php" name="lib/Text_Wiki/Render/Xhtml/Attribute.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Code2.php" name="lib/Text_Wiki/Render/Xhtml/Code2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Freelink2.php" name="lib/Text_Wiki/Render/Xhtml/Freelink2.php" />
+   <install as="wicked/lib/Text_Wiki/Render/Xhtml/Heading2.php" name="lib/Text_Wiki/Render/Xhtml/Heading2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Image2.php" name="lib/Text_Wiki/Render/Xhtml/Image2.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Interwiki.php" name="lib/Text_Wiki/Render/Xhtml/Interwiki.php" />
    <install as="wicked/lib/Text_Wiki/Render/Xhtml/Registrylink.php" name="lib/Text_Wiki/Render/Xhtml/Registrylink.php" />
@@ -827,6 +840,7 @@
    <install as="wicked/templates/sync/list.inc" name="templates/sync/list.inc" />
    <install as="Wicked/AllTests.php" name="test/Wicked/AllTests.php" />
    <install as="Wicked/Autoload.php" name="test/Wicked/Autoload.php" />
+   <install as="Wicked/bootstrap.php" name="test/Wicked/bootstrap.php" />
    <install as="Wicked/phpunit.xml" name="test/Wicked/phpunit.xml" />
    <install as="Wicked/TestCase.php" name="test/Wicked/TestCase.php" />
    <install as="Wicked/fixtures/cli_modular.rst" name="test/Wicked/fixtures/cli_modular.rst" />
