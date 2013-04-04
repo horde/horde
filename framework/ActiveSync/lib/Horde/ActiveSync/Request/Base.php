@@ -261,40 +261,6 @@ abstract class Horde_ActiveSync_Request_Base
     }
 
     /**
-     * Utility function to help determine if a device has broken provisioning.
-     * This is impossible to get 100% right since versions of Android that
-     * are broken and versions that are not both use the same User-Agent string
-     * (Android/0.3 for both 2.1, 2.2 and even 2.3). We err on the side
-     * of device compatibility at the expense of not being able to provision
-     * some non-broken android devices when provisioning is set to
-     * Horde_ActiveSync::PROVISIONING_LOOSE.
-     *
-     * @TODO This should be added to a device object, once we implement
-     * Horde_ActiveSync_Device API.
-     *
-     * @return boolean
-     */
-    protected function _hasBrokenProvisioning()
-    {
-        if (strpos($this->_device->userAgent, 'Android') !== false) {
-            if (preg_match('@EAS[/-]{0,1}([.0-9]{2,})@', $this->_device->userAgent, $matches)) {
-                return ($matches[1] < 1.2);
-            }
-            return true;
-        }
-
-        // WP7 not only doesn't support all EAS 2.5 security poliices, it flat
-        // out refuses to notify the server of a partial acceptance and just
-        // completely fails.
-        if (strpos($this->_device->userAgent, 'MSFT-WP/7') !== false) {
-            return true;
-        }
-
-        // Not an android device - enforce provisioning if needed.
-        return false;
-    }
-
-    /**
      * Clean up after initial pairing. Initial pairing can happen either as a
      * result of either a FOLDERSYNC or PROVISION command, depending on the
      * device capabilities.
