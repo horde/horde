@@ -1319,7 +1319,7 @@ class Horde_Core_ActiveSync_Driver extends Horde_ActiveSync_Driver_Base
             $source_uid = empty($forward) ? $reply : $forward;
             $imap_message = array_pop($this->_imap->getImapMessage($parent, $source_uid, array('headers' => true)));
             if (empty($imap_message)) {
-                return false;
+                throw new Horde_Exception_NotFound('The forwarded/replied message was not found.');
             }
             $base_part = $imap_message->getStructure();
             $plain_id = $base_part->findBody('plain');
