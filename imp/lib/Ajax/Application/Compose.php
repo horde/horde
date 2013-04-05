@@ -77,7 +77,7 @@ class IMP_Ajax_Application_Compose
         $ob->format = $result['format'];
         $ob->identity = $result['identity'];
 
-        if ($result['attach']) {
+        if (!empty($result['attach'])) {
             $ob->opts->attach = 1;
         }
 
