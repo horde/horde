@@ -25,20 +25,6 @@ use Sabre\DAVACL;
 class Horde_Dav_Collection extends DAV\Collection
 {
     /**
-     * A registry object.
-     *
-     * @var Horde_Registry
-     */
-    protected $_registry;
-
-    /**
-     * A principals collection.
-     *
-     * @var Sabre\DAVACL\PrincipalCollection
-     */
-    protected $_principals;
-
-    /**
      * The path to the current collection.
      *
      * @var string
@@ -53,24 +39,49 @@ class Horde_Dav_Collection extends DAV\Collection
     protected $_item;
 
     /**
+     * A registry object.
+     *
+     * @var Horde_Registry
+     */
+    protected $_registry;
+
+    /**
+     * A principals collection.
+     *
+     * @var Sabre\DAVACL\PrincipalCollection
+     */
+    protected $_principals;
+
+    /**
+     * The path to a MIME magic database.
+     *
+     * @var string
+     */
+    protected $_mimedb;
+
+    /**
      * Constructor.
      *
-     * @param Horde_Registry $registry                      A registry object.
-     * @param Sabre\DAVACL\PrincipalCollection $principals  A principals
-     *                                                      collection.
      * @param string $path                                  The path to this
      *                                                      collection.
      * @param array $item                                   Collection details.
+     * @param Horde_Registry $registry                      A registry object.
+     * @param Sabre\DAVACL\PrincipalCollection $principals  A principals
+     *                                                      collection.
+     * @param string $mimedb                                Location of a MIME
+     *                                                      magic database.
      */
-    public function __construct(Horde_Registry $registry,
+    public function __construct($path = null,
+                                array $item = array(),
+                                Horde_Registry $registry,
                                 DAVACL\PrincipalCollection $principals,
-                                $path = null,
-                                array $item = array())
+                                $mimedb)
     {
-        $this->_registry = $registry;
-        $this->_principals = $principals;
         $this->_path = $path;
         $this->_item = $item;
+        $this->_registry = $registry;
+        $this->_principals = $principals;
+        $this->_mimedb = $mimedb;
     }
 
     /**
@@ -117,7 +128,11 @@ class Horde_Dav_Collection extends DAV\Collection
             foreach ($this->_registry->listApps() as $app) {
                 if ($this->_registry->hasMethod('browse', $app)) {
                     $apps[] = new Horde_Dav_Collection(
-                        $this->_registry, $this->_principals, $app
+                        $app,
+                        array(),
+                        $this->_registry,
+                        $this->_principals,
+                        $this->_mimedb
                     );
                 }
             }
@@ -126,7 +141,17 @@ class Horde_Dav_Collection extends DAV\Collection
 
         list($app) = explode('/', $this->_path);
         try {
-            $items = $this->_registry->callByPackage($app, 'browse', array('path' => $this->_path, 'properties' => array('name', 'browseable', 'contenttype', 'contentlength', 'created', 'modified')));
+            $items = $this->_registry->callByPackage(
+                $app,
+                'browse',
+                array(
+                    'path' => $this->_path,
+                    'properties' => array(
+                        'name', 'browseable', 'contenttype', 'contentlength',
+                        'created', 'modified'
+                    )
+                )
+            );
         } catch (Horde_Exception $e) {
             throw new DAV\Exception($e);
         }
@@ -145,12 +170,50 @@ class Horde_Dav_Collection extends DAV\Collection
         foreach ($items as $path => $item) {
             if ($item['browseable']) {
                 $list[] = new Horde_Dav_Collection(
-                    $this->_registry, $this->_principals, $path, $item
+                    $path,
+                    $item,
+                    $this->_registry,
+                    $this->_principals,
+                    $this->_mimedb
                 );
             } else {
                 $list[] = new Horde_Dav_File($this->_registry, $path, $item);
             }
         }
         return $list;
+    }
+
+    /**
+     * Creates a new file in the directory
+     *
+     * @param string $name Name of the file
+     * @param resource|string $data Initial payload
+     * @return null|string
+     */
+    public function createFile($name, $data = null)
+    {
+        list($app) = explode('/', $this->_path);
+        if (is_resource($data)) {
+            $content = new Horde_Stream_Existing(array('stream' => $data));
+            $type = Horde_Mime_Magic::analyzeData(
+                $content->getString(0, 100), $this->_mimedb
+            );
+        } else {
+            $content = $data;
+            $type = Horde_Mime_Magic::analyzeData($content, $this->_mimedb);
+        }
+        if (!$type) {
+            $type = Horde_Mime_Magic::filenameToMime($name);
+        }
+
+        try {
+            $this->_registry->callByPackage(
+                $app,
+                'put',
+                array($this->_path . '/' . $name, $content, $type)
+            );
+        } catch (Horde_Exception $e) {
+            throw new DAV\Exception($e->getMessage(), $e->getCode(), $e);
+        }
     }
 }

@@ -57,7 +57,13 @@ class Horde_Rpc_Webdav extends Horde_Rpc
         );
         $principals->disableListing = $conf['auth']['list_users'] == 'input';
         $this->_server = new DAV\Server(
-            new Horde_Dav_Collection($registry, $principals)
+            new Horde_Dav_Collection(
+                null,
+                array(),
+                $registry,
+                $principals,
+                isset($conf['mime']['magic_db']) ? $conf['mime']['magic_db'] : null
+            )
         );
         $this->_server->setBaseUri(
             $registry->get('webroot', 'horde')
