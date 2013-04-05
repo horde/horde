@@ -43,7 +43,7 @@ class IMP_Ajax_Imple_ImportEncryptKey extends Horde_Core_Ajax_Imple
 
         return array(
             'mime_id' => $this->_params['mime_id'],
-            'muid' => $this->_params['uid'],
+            'muid' => $this->_params['muid'],
             'type' => $this->_params['type']
         );
     }
