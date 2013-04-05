@@ -1,4 +1,9 @@
 <?php
+/**
+ * @category Horde
+ * @internal
+ * @package  Cache
+ */
 class HordeCacheBaseTables extends Horde_Db_Migration_Base
 {
     public function up()
