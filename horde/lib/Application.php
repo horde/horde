@@ -10,7 +10,10 @@
  * See the enclosed file COPYING for license information (LGPL-2). If you
  * did not receive this file, see http://www.horde.org/licenses/lgpl.
  *
- * @package Horde
+ * @category  Horde
+ * @copyright 2010-2013 Horde LLC
+ * @license   http://www.horde.org/licenses/lgpl LGPL-2
+ * @package   Horde
  */
 
 /* Load the Horde Framework core (needed to autoload

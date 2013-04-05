@@ -1894,7 +1894,7 @@ abstract class Horde_Imap_Client_Base implements Serializable
         if (!empty($options['expunge']) && $this->_initCache(true)) {
             /* Make sure mailbox is read-write to expunge. */
             $this->openMailbox($this->_selected, Horde_Imap_Client::OPEN_READWRITE);
-            if ($this->_mode == Horde_Imap_Client::OPEN_READONLY)  {
+            if ($this->_mode == Horde_Imap_Client::OPEN_READONLY) {
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Cannot expunge read-only mailbox."),
                     Horde_Imap_Client_Exception::MAILBOX_READONLY
@@ -2225,8 +2225,8 @@ abstract class Horde_Imap_Client_Base implements Serializable
                 throw new Horde_Imap_Client_Exception(
                     Horde_Imap_Client_Translation::t("Mailbox does not support mod-sequences."),
                     Horde_Imap_Client_Exception::MBOXNOMODSEQ
-               );
-           }
+                );
+            }
 
             $ret = $this->_search($query, $options);
         } else {
