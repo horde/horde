@@ -379,7 +379,7 @@ class IMP_Mailbox_List implements ArrayAccess, Countable, Iterator, Serializable
             $delete_query = new Horde_Imap_Client_Search_Query();
             $delete_query->flag(Horde_Imap_Client::FLAG_DELETED, false);
 
-            if (is_null($query_ob))  {
+            if (is_null($query_ob)) {
                 $query_ob = array(strval($this->_mailbox) => $delete_query);
             } else {
                 foreach ($query_ob as $val) {

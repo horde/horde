@@ -185,7 +185,6 @@ class IMP_Contents
             'peek' => true
         ));
 
-
         return ($res = $this->_fetchData($query))
             ? $res->getBodyText(0, !empty($options['stream']))
             : '';
@@ -1347,7 +1346,7 @@ class IMP_Contents
             : 0;
         $display_mask = isset($options['display_mask'])
             ? $options['display_mask']
-            : IMP_Contents::RENDER_INLINE_AUTO;
+            : self::RENDER_INLINE_AUTO;
         $no_inline_all = !empty($options['no_inline_all']);
         $part_info_display = isset($options['part_info_display'])
             ? $options['part_info_display']
@@ -1381,7 +1380,7 @@ class IMP_Contents
             if (($show_parts == 'atc') &&
                 $this->isAttachment($mime_type) &&
                 (empty($render_part) ||
-                 !($render_mode & IMP_Contents::RENDER_INLINE))) {
+                 !($render_mode & self::RENDER_INLINE))) {
                 $atc_parts[$mime_id] = 1;
             }
 
@@ -1451,7 +1450,7 @@ class IMP_Contents
 
         reset($msgtext);
         while (list($id, $part) = each($msgtext)) {
-            while (count($wrap_ids) &&
+            while (!empty($wrap_ids) &&
                    !Horde_Mime::isChild(end($wrap_ids), $id)) {
                 array_pop($wrap_ids);
                 $text_out .= '</div>';

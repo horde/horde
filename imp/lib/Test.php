@@ -145,7 +145,6 @@ class IMP_Test extends Horde_Test
             (($tmp = $imap_client->getParam('secure')) ? $tmp : 'none') .
            '</tt><p />';
 
-
         if ($driver == 'Horde_Imap_Client_Socket') {
             $ret .= '<strong>The following IMAP server information was discovered from the server:</strong>' .
                 '<blockquote><em>Namespace Information</em><blockquote><pre>';

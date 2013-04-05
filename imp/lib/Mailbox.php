@@ -293,7 +293,7 @@ class IMP_Mailbox implements Serializable
      */
     public function __get($key)
     {
-        global $conf, $injector;
+        global $injector;
 
         switch ($key) {
         case 'abbrev_label':
@@ -497,7 +497,7 @@ class IMP_Mailbox implements Serializable
                 : 0;
 
         case 'list_ob':
-             return $injector->getInstance('IMP_Factory_MailboxList')->create($this);
+            return $injector->getInstance('IMP_Factory_MailboxList')->create($this);
 
         case 'namespace':
             return $injector->getInstance('IMP_Imap_Tree')->isNamespace($this->_mbox);
@@ -509,7 +509,6 @@ class IMP_Mailbox implements Serializable
                 return $this;
             }
             $empty_ns = $imp_imap->getNamespace('');
-
 
             /* If default namespace is empty, or there is no empty namespace,
              * then we can auto-detect namespace from input.
@@ -869,7 +868,7 @@ class IMP_Mailbox implements Serializable
         }
 
         foreach ($to_delete as $val) {
-            if (!$val->access_deletembox_acl)  {
+            if (!$val->access_deletembox_acl) {
                 $notification->push(sprintf(_("The mailbox \"%s\" may not be deleted."), $val->display), 'horde.error');
                 continue;
             }
@@ -1038,7 +1037,7 @@ class IMP_Mailbox implements Serializable
 
         $mbox = $this->search
             ? $this
-            : IMP_Mailbox::get($this->pref_from);
+            : self::get($this->pref_from);
         $sortob = $injector->getInstance('IMP_Imap')->canSort($mbox)
             ? $injector->getInstance('IMP_Prefs_Sort')
             : $injector->getInstance('IMP_Prefs_Sort_None');
@@ -1047,7 +1046,7 @@ class IMP_Mailbox implements Serializable
         $ob->convertSortby();
 
         if ($convert && ($ob->sortby == IMP::IMAP_SORT_DATE)) {
-            $ob->sortby = $GLOBALS['prefs']->getValue('sortdate');
+            $ob->sortby = $prefs->getValue('sortdate');
         }
 
         return $ob;
@@ -1066,7 +1065,7 @@ class IMP_Mailbox implements Serializable
 
         $mbox = $this->search
             ? $this
-            : IMP_Mailbox::get($this->pref_from);
+            : self::get($this->pref_from);
         $sortob = $injector->getInstance('IMP_Imap')->canSort($mbox)
             ? $injector->getInstance('IMP_Prefs_Sort')
             : $injector->getInstance('IMP_Prefs_Sort_None');
@@ -1449,14 +1448,14 @@ class IMP_Mailbox implements Serializable
         $empty_ns = $imp_imap->getNamespace('');
 
         if (($ns = self::get($mbox)->namespace_info) !== null) {
-             if ($ns['name'] == $def_ns['name']) {
-                 /* From personal namespace => strip namespace. */
-                 return substr($mbox, strlen($def_ns['name']));
-             } elseif ($ns['name'] == $empty_ns['name']) {
-                 /* From empty namespace => prefix with delimiter. */
-                 return $empty_ns['delimiter'] . $mbox;
-             }
-         }
+            if ($ns['name'] == $def_ns['name']) {
+                /* From personal namespace => strip namespace. */
+                return substr($mbox, strlen($def_ns['name']));
+            } elseif ($ns['name'] == $empty_ns['name']) {
+                /* From empty namespace => prefix with delimiter. */
+                return $empty_ns['delimiter'] . $mbox;
+            }
+        }
 
         return strval($mbox);
     }

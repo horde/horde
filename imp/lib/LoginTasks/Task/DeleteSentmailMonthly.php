@@ -51,7 +51,7 @@ class IMP_LoginTasks_Task_DeleteSentmailMonthly extends Horde_LoginTasks_Task
 
         $mbox_list = array();
 
-        foreach ($imaptree as $k => $v) {
+        foreach (array_keys($imaptree) as $k) {
             foreach ($sent_mail as $mbox) {
                 if (preg_match('/^' . str_replace('/', '\/', $mbox) . '-([^-]+)-([0-9]{4})$/i', $k, $regs)) {
                     $mbox_list[$k] = is_numeric($regs[1])

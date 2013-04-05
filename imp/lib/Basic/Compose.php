@@ -181,7 +181,7 @@ class IMP_Basic_Compose extends IMP_Basic_Base
             }
 
             /* Add attachments. */
-            for ($i = 1; $i <= count($_FILES); ++$i) {
+            for ($i = 1, $fcount = count($_FILES); $i <= $fcount; ++$i) {
                 if (isset($_FILES['upload_' . $i]) &&
                     strlen($_FILES['upload_' . $i]['name'])) {
                     try {

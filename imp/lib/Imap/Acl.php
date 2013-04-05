@@ -116,7 +116,7 @@ class IMP_Imap_Acl
     public function removeRights(IMP_Mailbox $mbox, $user, $rights)
     {
         $imap = $GLOBALS['injector']->getInstance('IMP_Imap');
-        if (!$imp_imap->access(IMP_Imap::ACCESS_ACL)) {
+        if (!$imap->access(IMP_Imap::ACCESS_ACL)) {
             return;
         }
 

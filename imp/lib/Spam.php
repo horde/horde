@@ -107,7 +107,7 @@ class IMP_Spam
                         $pipes
                     );
                     if (!is_resource($proc)) {
-                        Horde::log(sprintf('Cannot open spam reporting program: %s', $prog), 'ERR');
+                        Horde::log(sprintf('Cannot open spam reporting program: %s', $proc), 'ERR');
                         return 0;
                     }
 

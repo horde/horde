@@ -94,11 +94,11 @@ class IMP_Prefs_Special_Acl implements Horde_Core_Prefs_Ui_Special
                         'on' => $rule[$val],
                         'val' => $val
                     );
-                 }
-                 $cval[] = $entry;
-             }
+                }
+                $cval[] = $entry;
+            }
 
-             $view->curr_acl = $cval;
+            $view->curr_acl = $cval;
         }
 
         if ((bool)$injector->getInstance('IMP_Imap')->config->admin) {

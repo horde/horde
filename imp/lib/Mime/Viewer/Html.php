@@ -136,7 +136,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
      */
     protected function _IMPrender($inline)
     {
-        global $injector, $prefs, $registry;
+        global $injector, $registry;
 
         $data = $this->_mimepart->getContents();
         $view = $registry->getView();
@@ -244,7 +244,7 @@ class IMP_Mime_Viewer_Html extends Horde_Mime_Viewer_Html
 
             default:
                 if ($this->_imptmp['imgblock']) {
-                   $tmp = new IMP_Mime_Status(array(
+                    $tmp = new IMP_Mime_Status(array(
                         _("Images have been blocked in this message part."),
                         Horde::link('#', '', 'unblockImageLink', '', '', '', '', array(
                             'muid' => strval($contents->getIndicesOb())

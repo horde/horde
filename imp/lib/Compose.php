@@ -902,7 +902,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 /* Don't strip any part if this is a text message with both
                  * plaintext and HTML representation. */
                 if ($save_msg->getType() != 'multipart/alternative') {
-                    for ($i = 2;; ++$i) {
+                    for ($i = 2; ; ++$i) {
                         if (!($oldPart = $save_msg->getPart($i))) {
                             break;
                         }
@@ -1299,7 +1299,6 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                 throw IMP_Compose_Exception::createAndLog('DEBUG', sprintf(_("Found the word %s in the message text although there are no files attached to the message. Did you forget to attach a file? (This check will not be performed again for this message.)"), $matches[0]));
             }
         }
-
 
         /* Add signature data. */
         if (isset($options['signature'])) {
@@ -2578,8 +2577,8 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $size = IMP::sizeFormat($apart->getBytes());
             $url = strval($val->link_url->setRaw(true));
 
-            $body .= "\n" . ++$i . '. ' .
-                $name .' (' . $size . ') [' . $apart->getType() . "]\n" .
+            $body .= "\n" . (++$i) . '. ' .
+                $name . ' (' . $size . ') [' . $apart->getType() . "]\n" .
                 sprintf(_("Download link: %s"), $url) . "\n";
 
             if ($html) {

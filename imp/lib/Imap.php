@@ -181,8 +181,6 @@ class IMP_Imap implements Serializable
      */
     public function canSort(IMP_Mailbox $mbox)
     {
-        $ob = $this->getOb($mbox);
-
         return ($this->config->sort_force ||
                 $this->getOb($mbox)->queryCapability('SORT'));
     }
@@ -199,7 +197,7 @@ class IMP_Imap implements Serializable
      */
     public function createImapObject($username, $password, $key)
     {
-        global $injector, $prefs;
+        global $prefs;
 
         if (!is_null($this->_ob)) {
             return $this->_ob;

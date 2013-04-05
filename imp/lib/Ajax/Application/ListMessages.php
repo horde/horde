@@ -47,7 +47,7 @@ class IMP_Ajax_Application_ListMessages
      */
     public function listMessages($args)
     {
-        global $conf, $injector, $notification, $registry;
+        global $injector, $notification, $registry;
 
         $initial = $args['initial'];
         $is_search = false;
@@ -90,7 +90,7 @@ class IMP_Ajax_Application_ListMessages
                             $args['qsearch'],
                             $args['qsearchfield']
                         );
-                    break;
+                        break;
 
                     case 'recip':
                         $c_list[] = new IMP_Search_Element_Recipient(

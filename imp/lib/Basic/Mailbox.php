@@ -135,16 +135,16 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             if (isset($this->vars->targetMbox) &&
                 count($this->indices) &&
                 (!$readonly || $actionID == 'copy_messages')) {
+                $targetMbox = IMP_Mailbox::formFrom($this->vars->targetMbox);
+                if (!empty($this->vars->newMbox) && ($this->vars->newMbox == 1)) {
+                    $targetMbox = IMP_Mailbox::get($this->vars->targetMbox)->namespace_append;
+                    $newMbox = true;
+                } else {
                     $targetMbox = IMP_Mailbox::formFrom($this->vars->targetMbox);
-                    if (!empty($this->vars->newMbox) && ($this->vars->newMbox == 1)) {
-                        $targetMbox = IMP_Mailbox::get($this->vars->targetMbox)->namespace_append;
-                        $newMbox = true;
-                    } else {
-                        $targetMbox = IMP_Mailbox::formFrom($this->vars->targetMbox);
-                        $newMbox = false;
-                    }
-                    $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $this->indices, array('create' => $newMbox));
+                    $newMbox = false;
                 }
+                $injector->getInstance('IMP_Message')->copy($targetMbox, ($actionID == 'move_messages') ? 'move' : 'copy', $this->indices, array('create' => $newMbox));
+            }
             break;
 
         case 'flag_messages':
@@ -169,11 +169,11 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                                 $flag_filter['flag'],
                                 $flag_filter['set']
                             )),
-                        array(
-                            'mboxes' => array($mailbox),
-                            'type' => IMP_Search::CREATE_QUERY
-                        )
-                    );
+                            array(
+                                'mboxes' => array($mailbox),
+                                'type' => IMP_Search::CREATE_QUERY
+                            )
+                        );
                     } catch (InvalidArgumentException $e) {}
                 } else {
                     /* Pre-defined filters. */

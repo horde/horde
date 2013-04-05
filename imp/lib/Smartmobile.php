@@ -139,7 +139,7 @@ class IMP_Smartmobile
      */
     protected function _addBaseVars()
     {
-        global $conf, $injector, $page_output, $prefs;
+        global $injector, $page_output, $prefs;
 
         $imp_imap = $injector->getInstance('IMP_Imap');
 

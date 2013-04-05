@@ -298,7 +298,7 @@ class IMP_Minimal_Compose extends IMP_Minimal_Base
                 } catch (IMP_Compose_Exception $e) {
                     $notification->push($e);
                 }
-            break;
+                break;
 
             case _("Send"):
                 $options = array(

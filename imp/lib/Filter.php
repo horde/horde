@@ -41,7 +41,7 @@ class IMP_Filter
      */
     public function filter($mbox)
     {
-        if (!IMP_Filter::canApplyFilters()) {
+        if (!self::canApplyFilters()) {
             return;
         }
 

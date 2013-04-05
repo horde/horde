@@ -317,7 +317,7 @@ class IMP_Mime_Viewer_Itip extends Horde_Mime_Viewer_Base
 
         case 'REPLY':
             $desc = _("%s has replied to the invitation to \"%s\".");
-            $tmp = $this->getConfigParam('imp_contents')->getHeader()->getOb('From');
+            $sender_ob = $this->getConfigParam('imp_contents')->getHeader()->getOb('From');
             $sender = $sender_ob[0]->bare_address;
             if ($registry->hasMethod('calendar/updateAttendee') &&
                 $this->_autoUpdateReply('auto_update_eventreply', $sender)) {

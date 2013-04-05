@@ -31,7 +31,7 @@ class IMP_Quota_Ui
      */
     public function quota($mailbox = null)
     {
-        global $injector, $session;
+        global $injector;
 
         if (!$injector->getInstance('IMP_Imap')->config->quota) {
             return false;

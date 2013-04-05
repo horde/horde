@@ -135,7 +135,7 @@ class IMP_Prefs_Special_PgpPrivateKey implements Horde_Core_Prefs_Ui_Special
                       empty($ui->vars->generate_passphrase2)) {
                 $notification->push(_("Passphrases cannot be empty"), 'horde.error');
             } elseif ($ui->vars->generate_passphrase1 !== $ui->vars->generate_passphrase2) {
-               $notification->push(_("Passphrases do not match"), 'horde.error');
+                $notification->push(_("Passphrases do not match"), 'horde.error');
             } else {
                 /* Expire date is delivered in UNIX timestamp in
                  * milliseconds, not seconds. */

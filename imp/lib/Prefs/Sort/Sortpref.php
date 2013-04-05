@@ -139,20 +139,20 @@ class IMP_Prefs_Sort_Sortpref
                 }
                 break;
 
-             case Horde_Imap_Client::SORT_FROM:
-                 /* If the preference is to sort by From Address, when we are
-                  * in the Drafts or Sent mailboxes, sort by To Address. */
-                 if ($this->_mbox->special_outgoing) {
-                     $this->_sortby = Horde_Imap_Client::SORT_TO;
-                 }
-                 break;
+            case Horde_Imap_Client::SORT_FROM:
+                /* If the preference is to sort by From Address, when we are
+                 * in the Drafts or Sent mailboxes, sort by To Address. */
+                if ($this->_mbox->special_outgoing) {
+                    $this->_sortby = Horde_Imap_Client::SORT_TO;
+                }
+                break;
 
-              case Horde_Imap_Client::SORT_TO:
-                  if (!$this->_mbox->special_outgoing) {
-                      $this->_sortby = Horde_Imap_Client::SORT_FROM;
-                  }
-                  break;
-              }
+            case Horde_Imap_Client::SORT_TO:
+                if (!$this->_mbox->special_outgoing) {
+                    $this->_sortby = Horde_Imap_Client::SORT_FROM;
+                }
+                break;
+            }
         } else {
             $this->_sortby = Horde_Imap_Client::SORT_SEQUENCE;
         }
