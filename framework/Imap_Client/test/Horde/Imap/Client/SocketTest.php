@@ -175,6 +175,16 @@ class Horde_Imap_Client_SocketTest extends PHPUnit_Framework_TestCase
         );
     }
 
+    public function testNamespaceParsing()
+    {
+        $data = '* NAMESPACE (("" "/")) NIL NIL';
+
+        $this->assertEquals(
+            1,
+            count($this->test_ob->parseNamespace($data))
+        );
+    }
+
     public function testLargeEnvelopeData()
     {
         $test = '* 1 FETCH (ENVELOPE ("Fri, 28 Sep 2012 17:09:32 -0700" {10000}' .
