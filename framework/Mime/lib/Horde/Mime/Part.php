@@ -953,7 +953,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function setContentTypeParameter($label, $data)
     {
-        $this->_contentTypeParams[$label] = $data;
+        $this->_contentTypeParams[Horde_String::lower($label)] = $data;
     }
 
     /**
@@ -964,7 +964,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function clearContentTypeParameter($label)
     {
-        unset($this->_contentTypeParams[$label]);
+        unset($this->_contentTypeParams[Horde_String::lower($label)]);
     }
 
     /**
@@ -977,6 +977,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getContentTypeParameter($label)
     {
+        $label = Horde_String::lower($label);
         return isset($this->_contentTypeParams[$label])
             ? $this->_contentTypeParams[$label]
             : null;
@@ -1996,7 +1997,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
         } else {
             $ob->setType($ctype);
-            $ctype_params = array();
         }
 
         /* Content transfer encoding. */
@@ -2044,8 +2044,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             break;
 
         case 'multipart':
-            if (isset($ctype_params['boundary'])) {
-                $b_find = self::_findBoundary($body, 0, $ctype_params['boundary']);
+            $boundary = $ob->getContentTypeParameter('boundary');
+            if ($boundary !== null) {
+                $b_find = self::_findBoundary($body, 0, $boundary);
                 foreach ($b_find as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
