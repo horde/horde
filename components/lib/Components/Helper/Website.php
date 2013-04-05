@@ -63,6 +63,9 @@ class Components_Helper_Website
         } else {
             $destination = $options['destination'];
         }
+        if (empty($options['html_generator'])) {
+            throw new Components_Exception('"--html-generator" MUST be set for this action!');
+        }
 
         $tmp_dir = Horde_Util::createTempDir();
         $archive = $component->placeArchive(
