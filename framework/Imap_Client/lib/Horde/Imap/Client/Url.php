@@ -188,7 +188,6 @@ class Horde_Imap_Client_Url implements Serializable
             }
         }
 
-
         return $url;
     }
 
