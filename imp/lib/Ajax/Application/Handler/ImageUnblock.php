@@ -33,7 +33,7 @@ class IMP_Ajax_Application_Handler_ImageUnblock extends Horde_Core_Ajax_Applicat
     {
         global $injector, $notification;
 
-        $address = reset($injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars))->getHeader()->getOb('from')->bare_addresses);
+        $address = $injector->getInstance('IMP_Factory_Contents')->create(new IMP_Indices_Mailbox($this->vars))->getHeader()->getOb('from')->bare_addresses[0];
 
         $injector->getInstance('IMP_Prefs_Special_ImageReplacement')->addSafeAddrList($address);
 
