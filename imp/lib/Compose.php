@@ -549,11 +549,12 @@ class IMP_Compose implements ArrayAccess, Countable, Iterator, Serializable
 
             if ($draft_url) {
                 $imap_url = new Horde_Imap_Client_Url(rtrim(ltrim($draft_url, '<'), '>'));
+                $imp_imap = $GLOBALS['injector']->getInstance('IMP_Factory_Imap')->create();
                 $protocol = $imp_imap->pop3 ? 'pop' : 'imap';
 
                 try {
                     if (($imap_url->protocol == $protocol) &&
-                        ($imap_url->username == $injector->getInstance('IMP_Factory_Imap')->create()->getParam('username')) &&
+                        ($imap_url->username == $imp_imap->getParam('username')) &&
                         // Ignore hostspec and port, since these can change
                         // even though the server is the same. UIDVALIDITY
                         // should catch any true server/backend changes.
