@@ -1,0 +1,26 @@
+From ad0e47f5eded2189933680c7a02f342b8d9297c9 Mon Sep 17 00:00:00 2001
+From: Mathieu Parent <math.parent@gmail.com>
+Date: Tue, 18 Dec 2012 21:18:26 +0100
+Subject: [PATCH] Set default horde_dir to /usr/share/horde
+
+Instead of /usr/share/php/www/horde
+---
+ Horde_Role-1.0.1/Horde.xml |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/Horde_Role-1.0.1/Horde.xml b/Horde_Role-1.0.1/Horde.xml
+index d9ad315..04dd0d3 100644
+--- a/Horde_Role-1.0.1/Horde.xml
++++ b/Horde_Role-1.0.1/Horde.xml
+@@ -10,7 +10,7 @@
+  <config_vars>
+   <horde_dir>
+    <type>directory</type>
+-   <default><www_dir/><text>/horde</text></default>
++   <default><text>/usr/share/horde</text></default>
+    <doc>Filesystem directory where the base Horde application is installed</doc>
+    <prompt>Base Horde directory</prompt>
+    <group>File Locations</group>
+-- 
+1.7.10.4
+
