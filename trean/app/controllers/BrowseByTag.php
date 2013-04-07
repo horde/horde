@@ -13,6 +13,12 @@ class Trean_BrowseByTag_Controller extends Horde_Controller_Base
         $page_output = $this->getInjector()->getInstance('Horde_PageOutput');
         $notification = $this->getInjector()->getInstance('Horde_Notification');
 
+        if ($GLOBALS['conf']['content_index']['enabled']) {
+            $topbar = $this->getInjector()->getInstance('Horde_View_Topbar');
+            $topbar->search = true;
+            $topbar->searchAction = Horde::url('search.php');
+        }
+
         Trean::addFeedLink();
         $title = sprintf(_("tagged %s"), $tag);
         $page_output->header(array(

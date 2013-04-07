@@ -2,6 +2,8 @@
 v5.0.5-git
 ----------
 
+[cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
+      installed
 [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado
       <geral@jpaulo.eu>).
 [mms] Login screen now hides the mode input if javascript is not available, as

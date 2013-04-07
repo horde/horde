@@ -20,6 +20,12 @@ if (!$view->hasBookmarks()) {
     exit;
 }
 
+if ($GLOBALS['conf']['content_index']['enabled']) {
+    $topbar = $GLOBALS['injector']->getInstance('Horde_View_Topbar');
+    $topbar->search = true;
+    $topbar->searchAction = Horde::url('search.php');
+}
+
 Trean::addFeedLink();
 $page_output->header(array(
     'title' => _("Browse")

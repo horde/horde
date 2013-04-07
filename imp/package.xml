@@ -3099,6 +3099,7 @@
    <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado &lt;geral@jpaulo.eu&gt;).
+* [mms] Don&apos;t display empty mailbox action for mailboxes when Virtual Trash is active (Bug #12162).
 * [mms] Fix renaming mailboxes in dynamic view.
 * [mms] Switching from HTML to text in dynamic compose view must be a synchronous operation, or else HTML tags may appear in compose window.
 * [mms] Fix ability to switch to non-default date sorting algorithm in dynamic view (Bug #12139).
