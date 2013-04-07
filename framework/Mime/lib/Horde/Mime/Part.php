@@ -1996,7 +1996,6 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             }
         } else {
             $ob->setType($ctype);
-            $ctype_params = array();
         }
 
         /* Content transfer encoding. */
@@ -2044,9 +2043,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             break;
 
         case 'multipart':
-            if (isset($ctype_params['boundary'])) {
-                $b_find = self::_findBoundary($body, 0, $ctype_params['boundary']);
-                foreach ($b_find as $val) {
+            $boundary = $ob->getContentTypeParameter('boundary');
+            if (!is_null($boundary)) {
+                foreach (self::_findBoundary($body, 0, $boundary) as $val) {
                     $subpart = substr($body, $val['start'], $val['length']);
                     list($hdr_pos, $eol) = self::_findHeader($subpart);
                     $ob->addPart(self::_getStructure(substr($subpart, 0, $hdr_pos), substr($subpart, $hdr_pos + $eol), ($ob->getSubType() == 'digest') ? 'message/rfc822' : 'text/plain', true, $level));
