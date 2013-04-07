@@ -82,7 +82,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
             $imp_search['vtrash'] = $vtrash;
         }
 
-        if ($this->_updateSpecialMboxes(IMP_Mailbox::MBOX_TRASH, $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
+        if (!$this->_updateSpecialMboxes(IMP_Mailbox::MBOX_TRASH, $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
             return false;
         }
 
