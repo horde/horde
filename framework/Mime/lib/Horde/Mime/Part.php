@@ -137,9 +137,9 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     /**
      * The content type parameters of this part.
      *
-     * @var array
+     * @var Horde_Support_CaseInsensitiveArray
      */
-    protected $_contentTypeParams = array();
+    protected $_contentTypeParams;
 
     /**
      * The subparts of this part.
@@ -259,6 +259,22 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
     );
 
     /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->_init();
+    }
+
+    /**
+     * Initialization tasks.
+     */
+    protected function _init()
+    {
+        $this->_contentTypeParams = new Horde_Support_CaseInsensitiveArray();
+    }
+
+    /**
      * Function to run on clone.
      */
     public function __clone()
@@ -267,6 +283,8 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         while (list($k, $v) = each($this->_parts)) {
             $this->_parts[$k] = clone $v;
         }
+
+        $this->_contentTypeParams = clone $this->_contentTypeParams;
     }
 
     /**
@@ -990,7 +1008,7 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
      */
     public function getAllContentTypeParameters()
     {
-        return $this->_contentTypeParams;
+        return $this->_contentTypeParams->getArrayCopy();
     }
 
     /**
@@ -2253,7 +2271,15 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
         );
 
         foreach ($this->_serializedVars as $val) {
-            $data[] = $this->$val;
+            switch ($val) {
+            case '_contentTypeParams':
+                $data[] = $this->$val->getArrayCopy();
+                break;
+
+            default:
+                $data[] = $this->$val;
+                break;
+            }
         }
 
         if (!empty($this->_contents)) {
@@ -2279,8 +2305,18 @@ class Horde_Mime_Part implements ArrayAccess, Countable, Serializable
             throw new Exception('Cache version change');
         }
 
+        $this->_init();
+
         foreach ($this->_serializedVars as $key => $val) {
-            $this->$val = $data[$key];
+            switch ($val) {
+            case '_contentTypeParams':
+                $this->$val = new Horde_Support_CaseInsensitiveArray($data[$key]);
+                break;
+
+            default:
+                $this->$val = $data[$key];
+                break;
+            }
         }
 
         // $key now contains the last index of _serializedVars.
