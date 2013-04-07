@@ -48,6 +48,5 @@ var ImpFolderPrefs = {
 
 };
 
-document.observe('dom:loaded', ImpFolderPrefs.onDomLoad.bind(ImpFolderPrefs));
 document.observe('HordeIdentitySelect:change', ImpFolderPrefs.changeIdentity.bindAsEventListener(ImpFolderPrefs));
 document.on('select', '.folderPrefSelect', ImpFolderPrefs.newMboxName.bind(ImpFolderPrefs));
