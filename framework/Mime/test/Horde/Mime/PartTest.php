@@ -333,6 +333,30 @@ C
         );
     }
 
+    // region BUGS
+
+    /**
+     * http://bugs.horde.org/ticket/12161
+     */
+    public function testCanFindAlternateCasedBoundaryParameterForBug12161() {
+        $msg = file_get_contents(__DIR__ . '/fixtures/sample_msg2.txt');
+        $part = Horde_Mime_Part::parseMessage($msg);
+
+        $this->assertEquals(
+            '=_k4kgcwkwggwc',
+            $part->getContentTypeParameter('boundary')
+        );
+
+        $part_1 = $part->getPart(1);
+        $this->assertEquals(
+            'text/plain',
+            $part_1->getType()
+        );
+    }
+
+    // endregion
+
+
     protected function _getTestPart()
     {
         $part = new Horde_Mime_Part();
