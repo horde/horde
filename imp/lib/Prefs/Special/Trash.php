@@ -65,6 +65,7 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
         global $injector, $prefs;
 
         $imp_search = $injector->getInstance('IMP_Search');
+        $curr_vtrash = IMP_Mailbox::getPref('trash_folder')->vtrash;
         $trash = IMP_Mailbox::formFrom($ui->vars->trash);
 
         if (!$prefs->isLocked('vfolder')) {
@@ -73,12 +74,19 @@ class IMP_Prefs_Special_Trash extends IMP_Prefs_Special_SpecialMboxes implements
             $imp_search['vtrash'] = $vtrash;
         }
 
-        if ($this->_updateSpecialMboxes('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
-            $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
-            return true;
+        if (!$this->_updateSpecialMboxes('trash_folder', $trash, $ui->vars->trash_new, Horde_Imap_Client::SPECIALUSE_TRASH, $ui)) {
+            return false;
         }
 
-        return false;
+        $injector->getInstance('IMP_Factory_Imap')->create()->updateFetchIgnore();
+
+        /* Switching to/from Virtual Trash requires us to expire all currently
+         * cached mailbox lists (hide deleted status may have changed). */
+        if ($curr_vtrash || $trash->vtrash) {
+            $injector->getInstance('IMP_Factory_MailboxList')->expireAll();
+        }
+
+        return true;
     }
 
 }
