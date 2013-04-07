@@ -22,11 +22,11 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-03-05</date>
- <time>18:12:44</time>
+ <date>2013-04-07</date>
+ <time>00:13:52</time>
  <version>
-  <release>2.0.5</release>
-  <api>1.2.0</api>
+  <release>2.1.0</release>
+  <api>2.1.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -34,6 +34,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
  <notes>
+* [mms] Add Horde_Support_CaseInsensitiveArray class.
 * [mms] Add missing magic methods to Horde_Support_Stub.
  </notes>
  <contents>
@@ -57,6 +58,7 @@
       </dir> <!-- /lib/Horde/Support/Numerizer -->
       <file name="Array.php" role="php" />
       <file name="Backtrace.php" role="php" />
+      <file name="CaseInsensitiveArray.php" role="php" />
       <file name="CombineStream.php" role="php" />
       <file name="ConsistentHash.php" role="php" />
       <file name="Guid.php" role="php" />
@@ -86,6 +88,7 @@
       <file name="ArrayTest.php" role="test" />
       <file name="BacktraceTest.php" role="test" />
       <file name="bootstrap.php" role="test" />
+      <file name="CaseInsensitiveArrayTest.php" role="test" />
       <file name="CombineStreamTest.php" role="test" />
       <file name="ConsistentHashTest.php" role="test" />
       <file name="GuidTest.php" role="test" />
@@ -142,6 +145,7 @@
    <install as="COPYING" name="doc/Horde/Support/COPYING" />
    <install as="Horde/Support/Array.php" name="lib/Horde/Support/Array.php" />
    <install as="Horde/Support/Backtrace.php" name="lib/Horde/Support/Backtrace.php" />
+   <install as="Horde/Support/CaseInsensitiveArray.php" name="lib/Horde/Support/CaseInsensitiveArray.php" />
    <install as="Horde/Support/CombineStream.php" name="lib/Horde/Support/CombineStream.php" />
    <install as="Horde/Support/ConsistentHash.php" name="lib/Horde/Support/ConsistentHash.php" />
    <install as="Horde/Support/Guid.php" name="lib/Horde/Support/Guid.php" />
@@ -162,6 +166,7 @@
    <install as="Horde/Support/ArrayTest.php" name="test/Horde/Support/ArrayTest.php" />
    <install as="Horde/Support/BacktraceTest.php" name="test/Horde/Support/BacktraceTest.php" />
    <install as="Horde/Support/bootstrap.php" name="test/Horde/Support/bootstrap.php" />
+   <install as="Horde/Support/CaseInsensitiveArrayTest.php" name="test/Horde/Support/CaseInsensitiveArrayTest.php" />
    <install as="Horde/Support/CombineStreamTest.php" name="test/Horde/Support/CombineStreamTest.php" />
    <install as="Horde/Support/ConsistentHashTest.php" name="test/Horde/Support/ConsistentHashTest.php" />
    <install as="Horde/Support/GuidTest.php" name="test/Horde/Support/GuidTest.php" />
@@ -417,14 +422,15 @@
   </release>
   <release>
    <version>
-    <release>2.0.5</release>
-    <api>1.2.0</api></version>
+    <release>2.1.0</release>
+    <api>2.1.0</api></version>
    <stability>
     <release>stable</release>
     <api>stable</api></stability>
-   <date>2013-03-05</date>
+   <date>2013-04-07</date>
    <license uri="http://www.horde.org/licenses/bsd">BSD-2-Clause</license>
    <notes>
+* [mms] Add Horde_Support_CaseInsensitiveArray class.
 * [mms] Add missing magic methods to Horde_Support_Stub.
    </notes>
   </release>
