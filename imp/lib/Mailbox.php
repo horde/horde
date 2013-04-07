@@ -310,7 +310,13 @@ class IMP_Mailbox implements Serializable
                     ($acl[Horde_Imap_Client::ACL_DELETEMSGS])));
 
         case 'access_empty':
-            return ($this->access_deletemsgs && $this->access_expunge);
+            if ($this->access_deletemsgs && $this->access_expunge) {
+                $special = $this->getSpecialMailboxes();
+                return empty($special[self::SPECIAL_TRASH]) ||
+                    !$special[self::SPECIAL_TRASH]->vtrash ||
+                    ($special[self::SPECIAL_TRASH] == $this);
+            }
+            return false;
 
         case 'access_expunge':
             return (!$this->readonly &&
