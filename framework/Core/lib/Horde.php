@@ -1258,7 +1258,7 @@ class Horde
      *   - params: (array) Additional parameters to pass to the URL.
      *             DEFAULT: None
      *   - urlencode: (boolean) URL encode the json string?
-     *                DEFAULT: No
+     *                DEFAULT: false
      *   - width: (integer) The width of the popup window.
      *            DEFAULT: 700 px
      *
