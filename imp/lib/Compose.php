@@ -2451,9 +2451,9 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
 
         /* Find external images, download the image, and add as an
          * attachment. */
-        foreach ($html->dom->getElementsByTagName('img') as $node) {
-            if ($node->hasAttribute('src') &&
-                !$node->hasAttribute(self::RELATED_ATTR)) {
+        $xpath = new DOMXPath($html->dom);
+        foreach ($xpath->query('//img[@src]') as $node) {
+            if (!$node->hasAttribute(self::RELATED_ATTR)) {
                 /* Attempt to download the image data. */
                 try {
                     $response = $client->get($node->getAttribute('src'));
