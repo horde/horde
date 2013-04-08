@@ -148,13 +148,13 @@ EOT;
             $html .= sprintf(_("You can also check your Facebook settings in your %s."), $prefs->add('group', 'facebook')->link() . _("preferences") . '</a>');
             return $html;
         }
-        $html .= '</div>'; // Close the fbgreybox node that wraps the status
+        $html .= '</div>'; // Close the node that wraps the status
 
        // Build the stream feed.
         $html .= '<br /><div id="' . $instance . '_fbcontent" style="height:' . (empty($this->_params['height']) ? 300 : $this->_params['height']) . 'px;overflow-y:auto;overflow-x:hidden;"></div><br />';
         $html .= '<div class="hordeSmGetmore"><input type="button" id="' . $instance . '_getmore" class="horde-button"  value="' . _("Get More") . '"></div>';
 
-        $html .= '</div>'; // fbbody end
+        $html .= '</div>';
 
         return $html;
     }

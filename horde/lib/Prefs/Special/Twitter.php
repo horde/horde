@@ -54,7 +54,7 @@ class Horde_Prefs_Special_Twitter implements Horde_Core_Prefs_Ui_Special
                 throw new Horde_Exception(sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()));
             }
             $session->store($results->secret, false, 'twitter_request_secret');
-            $view->link = Horde::link(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), '', 'button', '', Horde::popupJs(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false), array('urlencode' => true))) . 'Twitter</a>';
+            $view->link = new Horde_Url(Horde::externalUrl($twitter->auth->getUserAuthorizationUrl($results), false));
         } else {
             $view->haveSession = true;
             $view->profile_image_url = $profile->profile_image_url;
