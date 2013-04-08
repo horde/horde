@@ -307,7 +307,6 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     print_r($csk, true))
                 );
                 $this->_logger->err('Some synckeys were not confirmed. Requesting full SYNC');
-                $this->_collections->confirmed_synckeys = array();
                 $this->_collections->save();
                 $this->_statusCode = self::STATUS_REQUEST_INCOMPLETE;
                 $this->_handleGlobalSyncError();
