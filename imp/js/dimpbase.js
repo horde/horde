@@ -2998,7 +2998,8 @@ var DimpBase = {
 
     _handleMboxMouseClick: function(e)
     {
-        var elt = e.element(),
+        var tmp,
+            elt = e.element(),
             li = elt.match('DIV') ? elt : elt.up('DIV.horde-subnavi');
 
         if (!li) {
@@ -3019,7 +3020,11 @@ var DimpBase = {
             case 'special':
             case 'vfolder':
                 e.stop();
-                return this.go('mbox', li.retrieve('mbox'));
+                tmp = li.retrieve('mbox');
+                if (tmp != this.view) {
+                    this.go('mbox', li.retrieve('mbox'));
+                }
+                break;
             }
         }
     },
