@@ -70,7 +70,7 @@ class Horde_Service_Twitter_Auth_Oauth extends Horde_Service_Twitter_Auth
         }
         $token = new Horde_Oauth_Token($params['oauth_token'], $requestSecret);
         try {
-            return $this->oauth->getAccessToken($token);
+            return $this->oauth->getAccessToken($token, array('oauth_verifier' => $requestSecret));
         } catch (Horde_Oauth_Exception $e) {
             throw new Horde_Service_Twitter_Exception($e->getMessage());
         }
