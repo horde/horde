@@ -73,16 +73,22 @@ class Turba_Api extends Horde_Registry_Api
      * Returns a list of available sources.
      *
      * @param boolean $writeable  If true, limits to writeable sources.
+     * @param boolean $sync_only  Only include synchable address books.
      *
      * @return array  An array of the available sources. Keys are source IDs,
      *                values are source titles.
      */
-    public function sources($writeable = false)
+    public function sources($writeable = false, $sync_only = false)
     {
         $out = array();
 
         foreach (Turba::getAddressBooks($writeable ? Horde_Perms::EDIT : Horde_Perms::READ) as $key => $val) {
             $out[$key] = $val['title'];
+        }
+
+        if ($sync_only) {
+            $syncable = unserialize($GLOBALS['prefs']->getValue('sync_books'));
+            $out = array_intersect_key($out, array_flip($syncable));
         }
 
         return $out;
