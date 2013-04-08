@@ -95,7 +95,7 @@ class Horde_Mime_Related implements IteratorAggregate
      * Scan for CID strings in HTML data and replace with data returned from
      * a callback method.
      *
-     * @param string $text        The HTML text.
+     * @param mixed $text         The HTML text (can be Horde_Domhtml object).
      * @param callback $callback  Callback method. Receives three arguments:
      *                            MIME ID, the attribute name containing the
      *                            content ID, and the node object. Expects
@@ -106,7 +106,9 @@ class Horde_Mime_Related implements IteratorAggregate
      */
     public function cidReplace($text, $callback, $charset = 'UTF-8')
     {
-        $dom = new Horde_Domhtml($text, $charset);
+        $dom = ($text instanceof Horde_Domhtml)
+            ? $text
+            : new Horde_Domhtml($text, $charset);
 
         foreach ($dom as $node) {
             if ($node instanceof DOMElement) {
