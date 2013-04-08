@@ -18,9 +18,9 @@
   <active>yes</active>
  </lead>
  <date>2013-04-08</date>
- <time>17:06:34</time>
+ <time>17:08:56</time>
  <version>
-  <release>2.1.0</release>
+  <release>2.1.1</release>
   <api>2.1.0</api>
  </version>
  <stability>
@@ -29,15 +29,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Allow a Horde_Domhtml object to be directly passed in to Horde_Mime_Related#cidReplace().
-* [mms] Content-Type parameters are case-insensitive (Bug #12161).
-* [mms] Sanity checking: ignore empty values for Content-Transfer-Encoding MIME header (Bug #12146).
-* [mms] Null characters are no longer allowed in e-mail headers as of RFC 2822.
-* [mms] More accurate/comprehensive Horde_Mime::is8bit() check (Bug #12127).
-* [mms] Only use non-ASCII in MIME parameters when absolutely necessary.
-* [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
-* [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
-* [mms] Round up size output in Horde_Mime_Part#getSize().
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1099,6 +1091,19 @@
 * [mms] Need to always add charset information to MIME encoded parameters if they are not displayable in pure US-ASCII (Bug #12127).
 * [mms] Correctly quote forbidden characters in MIME parameter data (Bug #12127).
 * [mms] Round up size output in Horde_Mime_Part#getSize().
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.1.1</release>
+    <api>2.1.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
