@@ -631,7 +631,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
                     'title' => _("Edit Template")
                 ));
                 $mboxactions[] = Horde::widget(array(
-                    'url' => $clink->clone()->add(array(
+                    'url' => $clink->copy()->add(array(
                         'actionID' => 'template_new'
                     )),
                     'title' => _("Create New Template")
@@ -858,7 +858,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
 
             /* Generate the target link. */
             if ($mailbox->drafts || $mailbox->templates) {
-                $target = $clink->clone()->add(array(
+                $target = $clink->copy()->add(array(
                     'actionID' => ($mailbox->drafts ? 'draft' : 'template'),
                     'buid' => $msg['buid'],
                     'mailbox' => $mailbox
@@ -924,7 +924,7 @@ class IMP_Basic_Mailbox extends IMP_Basic_Base
             case 0:
                 $from_tmp = array();
                 foreach ($getfrom['from_list']->base_addresses as $from_ob) {
-                    $from_tmp[] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array($clink->clone()->add(array('actionID' => 'mailto_link', 'to' => strval($from_ob))), sprintf(_("New Message to %s"), $from_ob->label))) . htmlspecialchars($from_ob->label, ENT_QUOTES, 'UTF-8') . '</a>';
+                    $from_tmp[] = call_user_func_array(array('Horde', $preview_tooltip ? 'linkTooltip' : 'link'), array($clink->copy()->add(array('actionID' => 'mailto_link', 'to' => strval($from_ob))), sprintf(_("New Message to %s"), $from_ob->label))) . htmlspecialchars($from_ob->label, ENT_QUOTES, 'UTF-8') . '</a>';
                 }
 
                 if (!empty($from_tmp)) {
