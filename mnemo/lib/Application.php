@@ -36,6 +36,12 @@ class Mnemo_Application extends Horde_Registry_Application
 {
     /**
      */
+    public $features = array(
+        'activesync' => true
+    );
+
+    /**
+     */
     public $version = 'H5 (4.0.4-git)';
 
     /**

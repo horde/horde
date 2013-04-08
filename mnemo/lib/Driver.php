@@ -365,6 +365,46 @@ abstract class Mnemo_Driver
     }
 
     /**
+     * Create an AS memo from this task
+     *
+     * @param array $memo  A memo array.
+     * @param array $options
+     *
+     * @return Horde_ActiveSync_Message_Note
+     */
+    public function toASNote($memo, $options = array())
+    {
+        $message = new Horde_ActiveSync_Message_Note(array(
+            'protocolversion' => $options['protocolversion']));
+        $message->subject = $memo['desc'];
+        $bp = $options['bodyprefs'];
+        $body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+        $body->type = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
+        if (isset($bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize'])) {
+            if (Horde_String::length($memo['body']) > $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']) {
+                $body->data = Horde_String::substr($memo['body'], 0, $bp[Horde_ActiveSync::BODYPREF_TYPE_PLAIN]['truncationsize']);
+                $body->truncated = 1;
+            } else {
+                $body->data = $memo['body'];
+            }
+            $body->estimateddatasize = Horde_String::length($memo['body']);
+        }
+        $message->body = $body;
+        if (!empty($memo['category'])) {
+            $message->categories = array($memo['category']);
+        }
+
+        $history = $GLOBALS['injector']->getInstance('Horde_History');
+        $last = $history->getActionTimeStamp('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid'], 'modify');
+        if (empty($last)) {
+            $last = $history->getActionTimeStamp('mnemo:' . $memo['memolist_id'] . ':' . $memo['uid'], 'add');
+        }
+        $message->lastmodified = new Horde_Date($last);
+
+        return $message;
+    }
+
+    /**
      * Export this memo in iCalendar format.
      *
      * @param array  memo      The memo (hash array) to export

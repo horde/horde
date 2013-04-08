@@ -19,7 +19,7 @@
  <date>2013-02-12</date>
  <time>16:12:35</time>
  <version>
-  <release>4.0.4</release>
+  <release>4.1.0</release>
   <api>4.0.0</api>
  </version>
  <stability>
@@ -28,7 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/apache">ASL</license>
  <notes>
-* 
+* [mjr] Add support for ActiveSync synchronization of notes.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -507,6 +507,13 @@
   </required>
   <optional>
    <package>
+    <name>Horde_ActiveSync</name>
+    <channel>pear.horde.org</channel>
+    <min>2.4.0</min>
+    <max>3.0.0alpha1</max>
+    <exclude>3.0.0alpha1</exclude>
+   </package>
+   <package>
     <name>Horde_Cli</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
@@ -984,19 +991,6 @@
 * [jan] Update Slovak translation (Jozef Sudolský &lt;jozef.sudolsky@elbia.sk&gt;).
 * [jan] Update French translation (Paul De Vlieger &lt;paul.de_vlieger@moniut.univ-bpclermont.fr&gt;).
 * [jan] Fix exporting bodies of encrypted notes (Bug #11960).
-   </notes>
-  </release>
-  <release>
-   <version>
-    <release>4.0.4</release>
-    <api>4.0.0</api></version>
-   <stability>
-    <release>stable</release>
-    <api>stable</api></stability>
-   <date>2013-02-12</date>
-   <license uri="http://www.horde.org/licenses/apache">ASL</license>
-   <notes>
-* 
    </notes>
   </release>
  </changelog>
