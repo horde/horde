@@ -17,9 +17,9 @@
   <active>yes</active>
  </lead>
  <date>2013-04-08</date>
- <time>17:00:25</time>
+ <time>17:03:11</time>
  <version>
-  <release>2.0.4</release>
+  <release>2.0.5</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -28,8 +28,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
  <notes>
-* [mms] Make Horde_Compress_Fast a required package (Bug #12166).
-* [mms] Fix serialization of all storage drivers.
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -442,6 +441,19 @@ Initial packaging.
    <notes>
 * [mms] Make Horde_Compress_Fast a required package (Bug #12166).
 * [mms] Fix serialization of all storage drivers.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.0.5</release>
+    <api>1.0.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/lgpl21">LGPL-2.1</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
