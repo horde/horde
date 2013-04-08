@@ -6,9 +6,9 @@ v5.1.0-git
 [mms] Add 'ajaxaction_data' hook.
 
 
-----------
-v5.0.5-git
-----------
+------
+v5.0.5
+------
 
 [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is
       installed

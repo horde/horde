@@ -22,14 +22,14 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-03-19</date>
- <time>00:20:27</time>
+ <date>2013-04-08</date>
+ <time>16:40:58</time>
  <version>
-  <release>4.1.0</release>
+  <release>4.1.0beta1</release>
   <api>4.1.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
@@ -756,6 +756,12 @@
      <file name="screen.css" role="horde" />
      <file name="webkit.css" role="horde" />
     </dir> <!-- /themes/default -->
+    <dir name="webcenter">
+     <dir name="dynamic">
+      <file name="screen.css" role="horde" />
+     </dir> <!-- /themes/webcenter/dynamic -->
+     <file name="screen.css" role="horde" />
+    </dir> <!-- /themes/webcenter -->
     </dir> <!-- /themes -->
    <file name="add.php" role="horde" />
    <file name="attend.php" role="horde" />
@@ -1499,6 +1505,8 @@
    <install as="kronolith/week.php" name="week.php" />
    <install as="kronolith/workweek.php" name="workweek.php" />
    <install as="kronolith/year.php" name="year.php" />
+   <install as="kronolith/themes/webcenter/screen.css" name="themes/webcenter/screen.css" />
+   <install as="kronolith/themes/webcenter/dynamic/screen.css" name="themes/webcenter/dynamic/screen.css" />
   </filelist>
  </phprelease>
  <changelog>
@@ -2110,6 +2118,22 @@
 * [jan] More robust date parsing during event importing (Bug #11916).
 * [jan] Always export year numbers with four digits to CSV (Request #11917).
 * [jan] Fix JavaScript error if Nag is not installed.
+   </notes>
+  </release>
+  <release>
+   <date>2013-04-08</date>
+   <time>16:40:30</time>
+   <version>
+    <release>4.1.0beta1</release>
+    <api>4.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* [mjr] Expose Kronolith_FreeBusy::get() via the external API.
    </notes>
   </release>
  </changelog>

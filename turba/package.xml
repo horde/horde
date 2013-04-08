@@ -28,14 +28,14 @@
   <email>slusarz@horde.org</email>
   <active>yes</active>
  </developer>
- <date>2013-02-20</date>
- <time>00:20:30</time>
+ <date>2013-04-08</date>
+ <time>16:40:20</time>
  <version>
-  <release>4.1.0</release>
+  <release>4.1.0beta1</release>
   <api>4.0.0</api>
  </version>
  <stability>
-  <release>stable</release>
+  <release>beta</release>
   <api>stable</api>
  </stability>
  <license uri="http://www.horde.org/licenses/asl">ASL</license>
@@ -447,6 +447,7 @@
     <file name="4_turba_upgrade_sqlhierarchical.php" role="horde" />
     <file name="5_turba_upgrade_sqlnghierarchical.php" role="horde" />
     <file name="6_turba_upgrade_updateschema.php" role="horde" />
+    <file name="7_turba_upgrade_activesyncschema.php" role="horde" />
    </dir> <!-- /migration -->
    <dir name="scripts">
     <dir name="ldap">
@@ -1002,6 +1003,7 @@
    <install as="turba/migration/4_turba_upgrade_sqlhierarchical.php" name="migration/4_turba_upgrade_sqlhierarchical.php" />
    <install as="turba/migration/5_turba_upgrade_sqlnghierarchical.php" name="migration/5_turba_upgrade_sqlnghierarchical.php" />
    <install as="turba/migration/6_turba_upgrade_updateschema.php" name="migration/6_turba_upgrade_updateschema.php" />
+   <install as="turba/migration/7_turba_upgrade_activesyncschema.php" name="migration/7_turba_upgrade_activesyncschema.php" />
    <install as="scripts/.htaccess" name="scripts/.htaccess" />
    <install as="scripts/Turba.reg" name="scripts/Turba.reg" />
    <install as="scripts/ldap/addou" name="scripts/ldap/addou" />
@@ -1584,6 +1586,24 @@
    <notes>
 * [mms] SECURITY: Fix XSS vulnerability on smartmobile contacts details page (João Machado &lt;geral@jpaulo.eu&gt;).
 * [mjr] Fix ActiveSync global address book searches when using LDAP as backend (Bug #12089).
+   </notes>
+  </release>
+  <release>
+   <date>2013-04-08</date>
+   <time>00:20:30</time>
+   <version>
+    <release>4.1.0beta1</release>
+    <api>4.0.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>stable</api>
+   </stability>
+   <license uri="http://www.horde.org/licenses/asl">ASL</license>
+   <notes>
+* [mms] Add links to group members on smartmobile entry page.
+* [mms] Add group icon to group contacts in smartmobile browse view.
+* [jan] Allow to search all search fields at once in basic searching.
    </notes>
   </release>
  </changelog>
