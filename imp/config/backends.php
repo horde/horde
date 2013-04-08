@@ -227,8 +227,6 @@
  *               in all mailboxes.
  *     - email: (string) The e-mail address to use for reporting.
  *     - email_format: (string) Either 'digest' or 'redirect'.
- *     - program: (string) An external program to report the spam message to.
- *                Messages will be reported to the program via standard input.
  *       - digest: [DEFAULT; RECOMMENDED] Packages the raw data of all
  *                 messages reported by the user in their marking action and
  *                 sends to the reporting e-mail address ('email' option) in a
@@ -237,6 +235,8 @@
  *                   ('email' option). Note that this alters the original
  *                   message's headers and may break embedded spam reporting
  *                   signature information contained in the original message.
+ *     - program: (string) An external program to report the spam message to.
+ *                Messages will be reported to the program via standard input.
  *
  *
  * Properties that only apply to IMAP servers:
