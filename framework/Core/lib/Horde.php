@@ -1422,7 +1422,13 @@ class Horde
                 $params['conf']['apikeys']['cloudmade'] = $conf['api']['cloudmade'];
                 break;
             case 'Mytopo':
-                $params['conf']['apikeys']['mytopo'] = $conf['api']['mytopo'];
+                // Mytopo requires a hash of the *client* IP address and the key.
+                // Note that this also causes Mytopo to break if the client's
+                // IP address presented as an internal address.
+                $params['conf']['apikeys']['mytopo'] = array(
+                    'id' => $conf['api']['mytopo_partnerID'],
+                    'hash' => strtoupper(md5($conf['api']['mytopo'] . $GLOBALS['browser']->getIpAddress()))
+                );
                 break;
             }
         }
