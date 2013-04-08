@@ -27,7 +27,7 @@
 </table>
 
 <p>
- <input type="submit" class="horde-delete" name="deleteall" value="<gettext>Delete All SyncML Data</gettext>" />
+ <input type="submit" class="horde-delete" name="deleteall" value="<?php echo _("Delete All SyncML Data") ?>" />
 </p>
 <?php else: ?>
 <p>
