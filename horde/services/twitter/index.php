@@ -13,6 +13,27 @@
  * @package  Horde
  */
 
+function _outputError($e)
+{
+    global $notification, $page_output;
+
+    Horde::log($e, 'INFO');
+    $body = ($e instanceof Exception) ? $e->getMessage() : $e;
+    if (($errors = json_decode($body, true)) && isset($errors['errors'])) {
+        $errors = $errors['errors'];
+    } else {
+        $errors = array(array('message' => $body));
+    }
+    $notification->push(_("Error connecting to Twitter. Details have been logged for the administrator."), 'horde.error', array('sticky'));
+    foreach ($errors as $error) {
+        $notification->push($error['message'], 'horde.error', array('sticky'));
+    }
+    $page_output->header();
+    $notification->notify(array('listeners' => 'status'));
+    $page_output->footer();
+    exit;
+}
+
 require_once __DIR__ . '/../../lib/Application.php';
 Horde_Registry::appInit('horde');
 
@@ -76,9 +97,7 @@ case 'getPage':
             $stream = Horde_Serialize::unserialize($twitter->statuses->homeTimeline($params), Horde_Serialize::JSON);
         }
     } catch (Horde_Service_Twitter_Exception $e) {
-        //header('HTTP/1.1: 500');
-        echo sprintf(_("Unable to contact Twitter. Please try again later. Error returned: %s"), $e->getMessage());
-        exit;
+        _outputError($e);
     }
     $html = '';
     if (count($stream)) {
@@ -171,20 +190,19 @@ case 'getPage':
     exit;
 }
 
+$page_output->topbar = $page_output->sidebar = false;
+
 /* No requested action, check to see if we have a valid token */
 if (!empty($auth_token)) {
     try {
         $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
     } catch (Horde_Service_Twitter_Exception $e) {}
 } elseif ($r_secret = $session->retrieve('twitter_request_secret')) {
-     /* No existing auth token, maybe we are in the process of getting it? */
+    /* No existing auth token, maybe we are in the process of getting it? */
     try {
         $auth_token = $twitter->auth->getAccessToken($injector->getInstance('Horde_Controller_Request'), Horde_Util::getFormData('oauth_verifier'));
     } catch (Horde_Service_Twitter_Exception $e) {
-        echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-        echo '</form>';
-        $page_output->footer();
-        exit;
+        _outputError($e);
     }
 
     /* Clear the temporary request secret */
@@ -204,19 +222,16 @@ if (!empty($auth_token)) {
         try {
             $profile = Horde_Serialize::unserialize($twitter->account->verifyCredentials(), Horde_Serialize::JSON);
         } catch (Horde_Service_Twitter_Exception $e) {
-            echo '<div class="fberrorbox">' . sprintf(_("Error connecting to Twitter: %s Details have been logged for the administrator."), $e->getMessage()) . '</div>';
-            echo '</form>';
-            $page_output->footer();
-            exit;
+            _outputError($e);
         }
         if (!empty($profile->error)) {
-            echo $profile->error;
-            die;
+            _outputError($profile->error);
         }
         if (!empty($profile)) {
             $page_output->header();
             echo '<script type="text/javascript">window.opener.location.reload(true);window.close();</script>';
             $page_output->footer();
+            exit;
         }
     }
 }
