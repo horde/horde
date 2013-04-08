@@ -420,7 +420,7 @@ class Horde_ActiveSync_Request_Sync extends Horde_ActiveSync_Request_SyncBase
                     $changecount = $sync->getChangeCount();
                     if (($changecount > 0)) {
                         $dataavailable = true;
-                        $collections->setGetChangesFlag($id);
+                        $this->_collections->setGetChangesFlag($id);
                     }
                 }
 
