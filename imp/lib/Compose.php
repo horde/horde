@@ -1396,7 +1396,7 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
             $textpart->setHeaderCharset($this->charset);
 
             if (empty($options['nofinal'])) {
-                $this->_addExternalData($body_html);
+                $this->_cleanHtmlOutput($body_html);
             }
 
             /* Now, all parts referred to in the HTML data have been added
@@ -2433,30 +2433,33 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
     }
 
     /**
-     * Convert external image links into internal links to attachment data.
+     * Clean outgoing HTML (convert external image links into internal links;
+     * remove unexpected data URLs).
      *
      * @param Horde_Domhtml $html  The HTML data.
      */
-    protected function _addExternalData(Horde_Domhtml $html)
+    protected function _cleanHtmlOutput(Horde_Domhtml $html)
     {
         global $conf, $injector;
 
-        /* Return immediately if related conversion is turned off via
-         * configuration. */
-        if (empty($conf['compose']['convert_to_related'])) {
-            return;
-        }
+        $client = empty($conf['compose']['convert_to_related'])
+            ? null
+            : $injector->getInstance('Horde_Core_Factory_HttpClient')->create();
 
-        $client = $injector->getInstance('Horde_Core_Factory_HttpClient')->create();
-
-        /* Find external images, download the image, and add as an
-         * attachment. */
         $xpath = new DOMXPath($html->dom);
-        foreach ($xpath->query('//img[@src]') as $node) {
-            if (!$node->hasAttribute(self::RELATED_ATTR)) {
-                /* Attempt to download the image data. */
+        foreach ($xpath->query('//*[@src]') as $node) {
+            $src = $node->getAttribute('src');
+
+            /* Check for attempts to sneak data URL information into the
+             * output. */
+            if (Horde_Url_Data::isData($src)) {
+                $node->removeAttribute('src');
+            } elseif (!is_null($client) &&
+                      (strcasecmp($node->tagName, 'img') === 0) &&
+                      !$node->hasAttribute(self::RELATED_ATTR)) {
+                /* Attempt to download the image, and add as an attachment. */
                 try {
-                    $response = $client->get($node->getAttribute('src'));
+                    $response = $client->get($src);
                     if ($response->code == 200) {
                         /* We need to determine the image type. Try getting
                          * that info from the returned HTTP content-type
