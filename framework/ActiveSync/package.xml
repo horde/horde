@@ -11,9 +11,9 @@
   <active>yes</active>
  </lead>
  <date>2013-04-08</date>
- <time>12:21:33</time>
+ <time>12:24:20</time>
  <version>
-  <release>2.3.3</release>
+  <release>2.3.4</release>
   <api>2.3.0</api>
  </version>
  <stability>
@@ -22,9 +22,7 @@
  </stability>
  <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
  <notes>
-* [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
-* [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
-* [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
+* 
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1260,6 +1258,19 @@
 * [mjr] Work around broken HTC clients when creating appointments with no reminders (Bug #12155).
 * [mjr] Fix setting User Agent value for certain clients in EAS 12.1 or greater (Bug #12154).
 * [mjr] Properly set disposition and content-id properties when building attachments from multipart/related parts (Bug #12123).
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>2.3.4</release>
+    <api>2.3.0</api></version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api></stability>
+   <date>2013-04-08</date>
+   <license uri="http://www.horde.org/licenses/gpl">GPL-2.0</license>
+   <notes>
+* 
    </notes>
   </release>
  </changelog>
