@@ -399,7 +399,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (isset($v1['bodyprefs'])) {
                 ksort($v1['bodyprefs']);
                 foreach (array_keys($v1['bodyprefs']) as $k) {
-                    if (is_array($v1['bodyprefs'])) {
+                    if (is_array($v1['bodyprefs'][$k])) {
                         ksort($v1['bodyprefs'][$k]);
                     }
                 }
@@ -408,7 +408,7 @@ class Horde_ActiveSync_Collections implements IteratorAggregate
             if (isset($v2['bodyprefs'])) {
                 ksort($v2['bodyprefs']);
                 foreach (array_keys($v2['bodyprefs']) as $k) {
-                    if (is_array($v2['bodyprefs'])) {
+                    if (is_array($v2['bodyprefs'][$k])) {
                         ksort($v2['bodyprefs'][$k]);
                     }
                 }
