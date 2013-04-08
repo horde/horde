@@ -647,7 +647,7 @@ class IMP_Imap implements Serializable
             }
 
             foreach ($s as $key => $val) {
-                if (empty($s[$server]['disabled'])) {
+                if (empty($val['disabled'])) {
                     self::$_backends[$key] = new IMP_Imap_Config($val);
                 }
             }
