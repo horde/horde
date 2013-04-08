@@ -40,7 +40,6 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
      * Handle the request
      *
      * @return boolean
-     * @throws Horde_ActiveSync_Exception
      */
     protected function _handle()
     {
@@ -48,23 +47,95 @@ class Horde_ActiveSync_Request_SendMail extends Horde_ActiveSync_Request_Base
             '[%s] Handling SENDMAIL command.',
             $this->_device->id));
 
-        // All that happens here is that we receive an rfc822 message on stdin
-        // and just forward it to the backend. We provide no output except for
-        // an OK http reply
-        $stream = fopen('php://temp/maxmemory:2097152', 'r+');
-        $input = fopen('php://input', 'r');
-        while (!feof($input)) {
-            fwrite($stream, fread($input, 8192));
+        // Check for wbxml vs RFC822
+        if (!$this->_decoder->isWbxml()) {
+            $stream = $this->_decoder->getFullInputStream();
+            try {
+                $result = $this->_driver->sendMail($stream, false, false, false, true);
+                fclose($stream);
+                return $result;
+            } catch (Horde_ActiveSync_Exception $e) {
+                $this->_logger->err($e->getMessage());
+                $this->_handError(
+                    Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
+                    Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL);
+
+                return true;
+            }
+        } else {
+            return $this->_handleWbxmlRequest();
         }
-        fclose($input);
+    }
+
+    /**
+     * Handle EAS 14+ SendMail/SmartReply/SmartForward requests.
+     *
+     * @return boolean
+     */
+    protected function _handleWbxmlRequest()
+    {
+        // Get the first element and see what type of mail request we have.
+        $e = $this->_decoder->getElement();
+        if ($e[Horde_ActiveSync_Wbxml::EN_TYPE] != Horde_ActiveSync_Wbxml::EN_TYPE_STARTTAG) {
+            $this->_handleError(
+                Horde_ActiveSync_Status::INVALID_WBXML,
+                Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL);
+            return true;
+        }
+
+        $sendmail = $smartreply = $smartforward = false;
+        switch ($e[Horde_ActiveSync_Wbxml::EN_TAG]) {
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL:
+            $sendmail = true;
+            break;
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTREPLY:
+            $smartreply = true;
+            break;
+        case Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SMARTFORWARD:
+            $smartforward = true;
+        }
+
+        if (!$sendmail && !$smartreply && !$smartforward) {
+           return $this->_handleError(
+            Horde_ActiveSync_Status::INVALID_CONTENT,
+            Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_SENDMAIL);
+        }
+
+        $mail = Horde_ActiveSync::messageFactory('SendMail');
+        $mail->decodeStream($this->_decoder);
+
         try {
-            $result = $this->_driver->sendMail($stream, false, false, false, true);
-            fclose($stream);
-            return $result;
+            // @TODO fix this ugly method call in H6 when we can break BC.
+            return $this->_driver->sendMail(null, $smartforward, $smartreply, null, null, $mail);
+        } catch (Horde_Exception_NotFound $e) {
+            $this->_logger->err($e->getMessage());
+            $this->_handleError(
+                Horde_ActiveSync_Status::ITEM_NOT_FOUND,
+                $e[Horde_ActiveSync_Wbxml::EN_TAG]);
         } catch (Horde_ActiveSync_Exception $e) {
             $this->_logger->err($e->getMessage());
-            throw new Horde_ActiveSync_Exception_InvalidRequest($e->getMessage());
+            $this->_handleError(
+                Horde_ActiveSync_Status::MAIL_SUBMISSION_FAILED,
+                $e[Horde_ActiveSync_Wbxml::EN_TAG]);
         }
+
+        return true;
+    }
+
+    /**
+     * Helper to output a global error response.
+     *
+     * @param integer $status  A Horde_ActiveSync_Status:: constant.
+     * @param string $type     The type of response tag.
+     */
+    protected function _handleError($status, $type)
+    {
+        $this->_encoder->startWBXML();
+        $this->_encoder->startTag($type);
+        $this->_encoder->startTag(Horde_ActiveSync_Message_SendMail::COMPOSEMAIL_STATUS);
+        $this->_encoder->content($status);
+        $this->_encoder->endTag();
+        $this->_enocder->endTag();
     }
 
 }

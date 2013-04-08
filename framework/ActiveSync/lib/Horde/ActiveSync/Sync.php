@@ -108,13 +108,23 @@ class Horde_ActiveSync_Sync
     protected $_logger;
 
     /**
+     * Device object.
+     *
+     * @var Horde_ActiveSync_Device
+     */
+    protected $_device;
+
+    /**
      * Const'r
      *
-     * @param Horde_ActiveSync_Driver_Base $backend  The backend driver
+     * @param Horde_ActiveSync_Driver_Base $backend  The backend driver.
+     * @param Horde_ActiveSync_Device $device        The device object.
+     *                 @since 2.4.0
      */
-    public function __construct(Horde_ActiveSync_Driver_Base $backend)
+    public function __construct(Horde_ActiveSync_Driver_Base $backend, $device)
     {
         $this->_backend = $backend;
+        $this->_device = $device;
     }
 
     /**
@@ -125,10 +135,12 @@ class Horde_ActiveSync_Sync
      * @param Horde_ActiveSync_Connector_Exporter $exporter  The exporter object
      * @param array $collection                              Collection data
      * @param boolean $isPing                                This is a PING request.
-     *
      */
     public function init(
-        Horde_ActiveSync_State_Base $stateDriver, $exporter, array $collection, $isPing = false)
+        Horde_ActiveSync_State_Base $stateDriver,
+        Horde_ActiveSync_Connector_Exporter $exporter = null,
+        array $collection = array(),
+        $isPing = false)
     {
         $this->_collection = $collection;
         $this->_stateDriver = $stateDriver;
@@ -211,7 +223,7 @@ class Horde_ActiveSync_Sync
                         try {
                             $message = $this->_backend->getMessage(
                                 $this->_folderId, $change['id'], $this->_collection);
-                            // copy the flag to the message
+                            // copy the change status flag to the message
                             // @TODO: Rename this to ->new or ->status or *anything* other than flags!!
                             $message->flags = (isset($change['flags'])) ? $change['flags'] : 0;
                             $this->_exporter->messageChange($change['id'], $message);
@@ -225,10 +237,31 @@ class Horde_ActiveSync_Sync
                         $this->_exporter->messageDeletion($change['id']);
                         break;
                     case Horde_ActiveSync::CHANGE_TYPE_FLAGS:
-                        $this->_exporter->messageFlag(
-                            $change['id'],
-                            (isset($change['flags']['read']) ? $change['flags']['read'] : null),
-                            (isset($change['flags']['flagged']) ? $change['flags']['flagged'] : null));
+                        // Handle flag changes separately so we don't have to
+                        // poll the backend for the entire message for no reason.
+                        $message = Horde_ActiveSync::messageFactory('Mail');
+                        $message->flags = Horde_ActiveSync::CHANGE_TYPE_CHANGE;
+                        $message->read = isset($change['flags']['read']) ? $change['flags']['read'] : false;
+                        if (isset($change['flags']['flagged']) && $this->_device->version >= Horde_ActiveSync::VERSION_TWELVE) {
+                            $flag = Horde_ActiveSync::messageFactory('Flag');
+                            $flag->flagstatus = $change['flags']['flagged'] == 1
+                                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
+                                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
+                            $message->flag = $flag;
+                        }
+                        if ($this->_device->version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+                            if (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE])) {
+                                $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_SENDER;
+                                $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_REPLY_STATE]);
+                            } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE])) {
+                                $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_REPLY_ALL;
+                                $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_REPLYALL_STATE]);
+                            } elseif (isset($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE])) {
+                                $message->lastverbexecuted = Horde_ActiveSync_Message_Mail::VERB_FORWARD;
+                                $message->lastverbexecutiontime = new Horde_Date($change['flags'][Horde_ActiveSync::CHANGE_FORWARD_STATE]);
+                            }
+                        }
+                        $this->_exporter->messageChange($change['id'], $message);
                         break;
                     case Horde_ActiveSync::CHANGE_TYPE_MOVE:
                         $this->_exporter->messageMove($change['id'], $change['parent']);

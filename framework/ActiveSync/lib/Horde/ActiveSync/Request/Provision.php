@@ -77,7 +77,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             return $this->_globalError(self::STATUS_PROTERROR);
         }
 
-        // Handle android remote wipe
+        // Handle remote wipe status response for Android devices.
         if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                 return $this->_globalError(self::STATUS_PROTERROR);
@@ -92,6 +92,15 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
             $policytype = Horde_ActiveSync::POLICYTYPE_XML;
         } else {
+            if ($this->_device->version == Horde_ActiveSync::VERSION_FOURTEENONE) {
+                $deviceinfo = $this->_handleSettings();
+                if (!$deviceinfo) {
+                    $this->_logger->warn('Device reported 14.1 support but did not accept deviceInfo.');
+                }
+            } else {
+                $deviceinfo = false;
+            }
+
             if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICIES) ||
                 !$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_POLICY)) {
 
@@ -107,10 +116,10 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 }
             } else {
                 $policytype = $this->_decoder->getElementContent();
-                if ($this->_version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
+                if ($this->_device->version < Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_XML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
-                if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
+                if ($this->_device->version >= Horde_ActiveSync::VERSION_TWELVE && $policytype != Horde_ActiveSync::POLICYTYPE_WBXML) {
                     $policyStatus = self::STATUS_POLICYUNKNOWN;
                 }
                 if (!$this->_decoder->getElementEndTag()) {//policytype
@@ -151,7 +160,7 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
                 return $this->_globalError(self::STATUS_PROTERROR);
             }
 
-            // Handle remote wipe for other devices
+            // Handle remote wipe status for other devices
             if ($this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_REMOTEWIPE)) {
                 if (!$this->_decoder->getElementStartTag(Horde_ActiveSync::PROVISION_STATUS)) {
                     return $this->_globalError(self::STATUS_PROTERROR);
@@ -199,12 +208,29 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             $this->_stateDriver->setPolicyKey($this->_device->id, $policykey);
         }
 
+        // If we are phase2 we need to check this here, before the status is
+        // sent. Prevents devices not supporting the required policies from
+        // being able to connect.
+        if ($phase2 && $status == self::STATUS_SUCCESS &&
+            $policyStatus == self::STATUS_SUCCESS &&
+            $this->_provisioning == Horde_ActiveSync::PROVISIONING_FORCE) {
+
+            $policyHandler = new Horde_ActiveSync_Policies(
+                $this->_encoder,
+                $this->_device->version,
+                $this->_driver->getCurrentPolicy($deviceinfo)
+            );
+
+            if (!$policyHandler->validatePolicyVersion()) {
+                $this->_handleVersionMismatch();
+                return true;
+            }
+        }
+
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
         $this->_encoder->content($status);
         $this->_encoder->endTag();
-
-        // Wipe data if status is pending or wiped
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICIES);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICY);
         $this->_encoder->startTag(Horde_ActiveSync::PROVISION_POLICYTYPE);
@@ -220,8 +246,6 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         // Send security policies.
         if ($phase2 && $status == self::STATUS_SUCCESS && $policyStatus == self::STATUS_SUCCESS) {
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_DATA);
-            $policyHandler = new Horde_ActiveSync_Policies(
-                $this->_encoder, $this->_version, $this->_driver->getCurrentPolicy());
             if ($policytype == Horde_ActiveSync::POLICYTYPE_XML) {
                 $policyHandler->toXml();
             } else {
@@ -229,10 +253,15 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
             }
             $this->_encoder->endTag(); //data
         }
+
         $this->_encoder->endTag();     //policy
         $this->_encoder->endTag();     //policies
+
+        // Remote wipe if requested.
         $rwstatus = $this->_stateDriver->getDeviceRWStatus($this->_device->id);
-        if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING || $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+        if ($rwstatus == Horde_ActiveSync::RWSTATUS_PENDING ||
+            $rwstatus == Horde_ActiveSync::RWSTATUS_WIPED) {
+
             $this->_encoder->startTag(Horde_ActiveSync::PROVISION_REMOTEWIPE, false, true);
             $this->_stateDriver->setDeviceRWStatus($this->_device->id, Horde_ActiveSync::RWSTATUS_WIPED);
         }
@@ -280,6 +309,57 @@ class Horde_ActiveSync_Request_Provision extends Horde_ActiveSync_Request_Base
         $this->_encoder->endTag();
 
         return false;
+    }
+
+    /**
+     * Handle the EAS 14.1 SETTINGS_DEVICEINFORMATION parsing.
+     *
+     * @return boolean|array  An array of received device information or false
+     *                        on any protocol error.
+     */
+    protected function _handleSettings()
+    {
+        // EAS 14.1 REQUIRES SETTINGS_DEVICEINFORMATION in the PROVISION command.
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_DEVICEINFORMATION)) {
+            return false;
+        }
+        if (!$this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_SET)) {
+            return false;
+        }
+        $di = array();
+        while (($field = ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MODEL) ? Horde_ActiveSync_Request_Settings::SETTINGS_MODEL :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_IMEI) ? Horde_ActiveSync_Request_Settings::SETTINGS_IMEI :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME) ? Horde_ActiveSync_Request_Settings::SETTINGS_FRIENDLYNAME :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OS) ? Horde_ActiveSync_Request_Settings::SETTINGS_OS :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE) ? Horde_ActiveSync_Request_Settings::SETTINGS_OSLANGUAGE :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER) ? Horde_ActiveSync_Request_Settings::SETTINGS_PHONENUMBER :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT) ? Horde_ActiveSync_Request_Settings::SETTINGS_USERAGENT :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR) ? Horde_ActiveSync_Request_Settings::SETTINGS_MOBILEOPERATOR :
+               ($this->_decoder->getElementStartTag(Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS) ? Horde_ActiveSync_Request_Settings::SETTINGS_ENABLEOUTBOUNDSMS :
+               -1)))))))))) != -1) {
+
+            if (($di[$field] = $this->_decoder->getElementContent()) !== false) {
+                $this->_decoder->getElementEndTag(); // end $field
+            }
+        }
+        $this->_decoder->getElementEndTag();
+        $this->_decoder->getElementEndTag();
+
+        return $di;
+    }
+
+    /**
+     * Output status that indicates device does not support the required
+     * policies.
+     *
+     */
+    protected function _handleVersionMismatch()
+    {
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_PROVISION);
+        $this->_encoder->startTag(Horde_ActiveSync::PROVISION_STATUS);
+        $this->_encoder->content(Horde_ActiveSync_Status::DEVICE_NOT_FULLY_PROVISIONABLE);
+        $this->_encoder->endTag();
+        $this->_encoder->endTag();
     }
 
 }

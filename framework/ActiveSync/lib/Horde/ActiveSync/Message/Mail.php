@@ -59,6 +59,11 @@
  * @property Horde_ActiveSync_Message_AirSyncBaseAttachments airsyncbaseattachments (EAS > 2.5 only).
  * @property integer contentclass (EAS > 2.5 only).
  * @property Horde_ActiveSync_Message_Flag flag (EAS > 2.5 only).
+ *
+ * // Internal properties. Not streamed to device.
+ * @property string messageid @since 2.4.0
+ * @property boolean answered @since 2.4.0
+ * @property boolean forwarded @since 2.4.0
  */
 class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
 {
@@ -109,26 +114,54 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     const POOMMAIL_MIMETRUNCATED     = 'POOMMAIL:MIMETruncated';
     const POOMMAIL_MIMESIZE          = 'POOMMAIL:MIMESize';
     const POOMMAIL_INTERNETCPID      = 'POOMMAIL:InternetCPID';
+
     // EAS 12.0
     const POOMMAIL_CONTENTCLASS      = 'POOMMAIL:ContentClass';
     const POOMMAIL_FLAG              = 'POOMMAIL:Flag';
 
+    // EAS 14.0
+    const POOMMAIL_COMPLETETIME            = 'POOMMAIL:CompleteTime';
+    const POOMMAIL_DISALLOWNEWTIMEPROPOSAL = 'POOMMAIL:DisallowNewTimeProposal';
+
+    // EAS 14 POOMMAIL2
+    const POOMMAIL2_UMCALLERID            = 'POOMMAIL2:UmCallerId';
+    const POOMMAIL2_UMUSERNOTES           = 'POOMMAIL2:UmUserNotes';
+    const POOMMAIL2_UMATTDURATION         = 'POOMMAIL2:UmAttDuration';
+    const POOMMAIL2_UMATTORDER            = 'POOMMAIL2:UmAttOrder';
+    const POOMMAIL2_CONVERSATIONID        = 'POOMMAIL2:ConversationId';
+    const POOMMAIL2_CONVERSATIONINDEX     = 'POOMMAIL2:ConversationIndex';
+    const POOMMAIL2_LASTVERBEXECUTED      = 'POOMMAIL2:LastVerbExecuted';
+    const POOMMAIL2_LASTVERBEXECUTIONTIME = 'POOMMAIL2:LastVerbExecutionTime';
+    const POOMMAIL2_RECEIVEDASBCC         = 'POOMMAIL2:ReceivedAsBcc';
+    const POOMMAIL2_SENDER                = 'POOMMAIL2:Sender';
+    const POOMMAIL2_CALENDARTYPE          = 'POOMMAIL2:CalendarType';
+    const POOMMAIL2_ISLEAPMONTH           = 'POOMMAIL2:IsLeapMonth';
+    const POOMMAIL2_ACCOUNTID             = 'POOMMAIL2:AccountId';
+    const POOMMAIL2_FIRSTDAYOFWEEK        = 'POOMMAIL2:FirstDayOfWeek';
+    const POOMMAIL2_MEETINGMESSAGETYPE    = 'POOMMAIL2:MeetingMessageType';
+
     /* Mail message types */
-    const CLASS_NOTE                 = 'IPM.Note';
-    const CLASS_MEETING_REQUEST      = 'IPM.Schedule.Meeting.Request';
-    const CLASS_MEETING_NOTICE       = 'IPM.Notification.Meeting';
+    const CLASS_NOTE            = 'IPM.Note';
+    const CLASS_MEETING_REQUEST = 'IPM.Schedule.Meeting.Request';
+    const CLASS_MEETING_NOTICE  = 'IPM.Notification.Meeting';
 
     /* Flags */
-    const FLAG_READ_UNSEEN           = 0;
-    const FLAG_READ_SEEN             = 1;
+    const FLAG_READ_UNSEEN   = 0;
+    const FLAG_READ_SEEN     = 1;
 
     /* UTF-8 codepage id. */
-    const INTERNET_CPID_UTF8         = 65001;
+    const INTERNET_CPID_UTF8 = 65001;
 
     /* Importance */
-    const IMPORTANCE_LOW             = 0;
-    const IMPORTANCE_NORM            = 1;
-    const IMPORTANCE_HIGH            = 2;
+    const IMPORTANCE_LOW     = 0;
+    const IMPORTANCE_NORM    = 1;
+    const IMPORTANCE_HIGH    = 2;
+
+    /* Verbs */
+    const VERB_NONE          = 0;
+    const VERB_REPLY_SENDER  = 1;
+    const VERB_REPLY_ALL     = 2;
+    const VERB_FORWARD       = 3;
 
     /**
      * Property mappings
@@ -153,13 +186,6 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
         self::POOMMAIL_REPLY_TO       => array(self::KEY_ATTRIBUTE => 'reply_to'),
         self::POOMMAIL_INTERNETCPID   => array(self::KEY_ATTRIBUTE => 'cpid'),
     );
-
-    /**
-     * Read flag.
-     *
-     * @var integer
-     */
-    public $read = false;
 
     /**
      * Property values.
@@ -191,7 +217,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
      * @param array $options  Configuration options for the message:
      *   - logger: (Horde_Log_Logger)  A logger instance
      *             DEFAULT: none (No logging).
-     *   - version: (float)  The version of EAS to support.
+     *   - protocolversion: (float)  The version of EAS to support.
      *              DEFAULT: Horde_ActiveSync::VERSION_TWOFIVE (2.5)
      *
      * @return Horde_ActiveSync_Message_Base
@@ -199,7 +225,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     public function __construct(array $options = array())
     {
         parent::__construct($options);
-        if ($this->_version < 12.0) {
+        if ($this->_version == Horde_ActiveSync::VERSION_TWOFIVE) {
             $this->_mapping += array(
                 self::POOMMAIL_ATTACHMENTS    => array(self::KEY_ATTRIBUTE => 'attachments', self::KEY_TYPE => 'Horde_ActiveSync_Message_Attachment', self::KEY_VALUES => self::POOMMAIL_ATTACHMENT),
                 self::POOMMAIL_BODYTRUNCATED  => array(self::KEY_ATTRIBUTE => 'bodytruncated'),
@@ -214,7 +240,7 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'body'           => false,
             );
         }
-        if ($this->_version >= 12.0) {
+        if ($this->_version >= Horde_ActiveSync::VERSION_TWELVE) {
             $this->_mapping += array(
                 Horde_ActiveSync::AIRSYNCBASE_NATIVEBODYTYPE => array(self::KEY_ATTRIBUTE => 'airsyncbasenativebodytype'),
                 Horde_ActiveSync::AIRSYNCBASE_BODY           => array(self::KEY_ATTRIBUTE => 'airsyncbasebody', self::KEY_TYPE=> 'Horde_ActiveSync_Message_AirSyncBaseBody'),
@@ -230,6 +256,51 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
                 'contentclass'              => false,
                 'flag'                      => false,
             );
+
+            if ($this->_version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+                $this->_mapping += array(
+                    self::POOMMAIL_CATEGORIES             => array(self::KEY_ATTRIBUTE => 'categories', self::KEY_VALUES => self::POOMMAIL_CATEGORY),
+                    self::POOMMAIL_CATEGORY               => array(self::KEY_ATTRIBUTE => 'category'),
+                    self::POOMMAIL2_UMCALLERID            => array(self::KEY_ATTRIBUTE => 'umcallerid'),
+                    self::POOMMAIL2_UMUSERNOTES           => array(self::KEY_ATTRIBUTE => 'umusernotes'),
+                    self::POOMMAIL2_UMATTDURATION         => array(self::KEY_ATTRIBUTE => 'umattduration'),
+                    self::POOMMAIL2_UMATTORDER            => array(self::KEY_ATTRIBUTE => 'umattorder'),
+                    self::POOMMAIL2_CONVERSATIONID        => array(self::KEY_ATTRIBUTE => 'conversationid'),
+                    self::POOMMAIL2_CONVERSATIONINDEX     => array(self::KEY_ATTRIBUTE => 'conversationindex'),
+                    self::POOMMAIL2_LASTVERBEXECUTED      => array(self::KEY_ATTRIBUTE => 'lastverbexecuted'),
+                    self::POOMMAIL2_LASTVERBEXECUTIONTIME => array(self::KEY_ATTRIBUTE => 'lastverbexecutiontime', self::KEY_TYPE => self::TYPE_DATE_DASHES),
+                    self::POOMMAIL2_RECEIVEDASBCC         => array(self::KEY_ATTRIBUTE => 'receivedasbcc'),
+                    self::POOMMAIL2_SENDER                => array(self::KEY_ATTRIBUTE => 'sender'),
+                    self::POOMMAIL2_CALENDARTYPE          => array(self::KEY_ATTRIBUTE => 'calendartype'),
+                    self::POOMMAIL2_ISLEAPMONTH           => array(self::KEY_ATTRIBUTE => 'isleapmonth'),
+                    self::POOMMAIL2_ACCOUNTID             => array(self::KEY_ATTRIBUTE => 'accountid'),
+                    self::POOMMAIL2_FIRSTDAYOFWEEK        => array(self::KEY_ATTRIBUTE => 'firstdayofweek'),
+                    self::POOMMAIL2_MEETINGMESSAGETYPE    => array(self::KEY_ATTRIBUTE => 'meetingmessagetype')
+                );
+
+                $this->_properties += array(
+                   'umcallerid'            => false,
+                   'umusernotes'           => false,
+                   'umattduration'         => false,
+                   'umattorder'            => false,
+                   'conversationid'        => false,
+                   'conversationindex'     => false,
+                   'lastverbexecuted'      => false,
+                   'lastverbexecutiontime' => false,
+                   'receivedasbcc'         => false,
+                   'sender'                => false,
+                   'calendartype'          => false,
+                   'isleapmonth'           => false,
+                   'accountid'             => false,
+                   'firstdayofweek'        => false,
+                   'meetingmessagetype'    => false,
+
+                   // Internal use
+                   'messageid'             => false,
+                   'answered'              => false,
+                   'forwarded'             => false,
+                );
+            }
         }
     }
 
@@ -241,6 +312,23 @@ class Horde_ActiveSync_Message_Mail extends Horde_ActiveSync_Message_Base
     public function getClass()
     {
         return 'Email';
+    }
+
+    /**
+     * Checks to see if we should send an empty value.
+     *
+     * @param string $tag  The tag name
+     *
+     * @return boolean
+     */
+    protected function _checkSendEmpty($tag)
+    {
+        switch ($tag) {
+        case self::POOMMAIL_FLAG:
+            return true;
+        }
+
+        return false;
     }
 
 }

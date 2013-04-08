@@ -66,7 +66,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             '[%s] Handling GETITEMESTIMATE command.',
             $this->_device->id)
         );
-        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey())) {
+        if (!$this->checkPolicyKey($this->_activeSync->getPolicyKey(), self::GETITEMESTIMATE)) {
             return true;
         }
 
@@ -102,6 +102,14 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                         return false;
                     }
                     break;
+                case Horde_ActiveSync::SYNC_CONVERSATIONMODE:
+                    $conversationmode = $this->_decoder->getElementContent();
+                    if ($conversationmode !== false && !$this->_decoder->getElementEndTag()) {
+                        throw new Horde_ActiveSync_Exception('Protocol Error');
+                    } elseif ($conversationmode === false) {
+                        $conversationmode = true;
+                    }
+                    break;
                 case Horde_ActiveSync::SYNC_FILTERTYPE:
                     $filtertype = $this->_decoder->getElementContent();
                     if (!$this->_decoder->getElementEndTag()) {
@@ -116,6 +124,53 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
                     if (!$this->_decoder->getElementEndTag()) {
                         return false;
                     }
+                    break;
+                case Horde_ActiveSync::SYNC_OPTIONS:
+                    // EAS > 12.1 only.
+                    while (1) {
+                        $firstOption = true;
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FOLDERTYPE)) {
+                            $class = $this->_decoder->getElementContent();
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        } elseif ($firstOption) {
+                            // Default options?
+                        }
+                        $firstOption = false;
+
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_FILTERTYPE)) {
+                            // Set filtertype? self::$decoder->getElementContent());
+                            $filtertype = $this->_decoder->getElementContent();
+                            $this->_logger->debug('Filter Type: ' . $filtertype);
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+                        if ($this->_decoder->getElementStartTag(Horde_ActiveSync::SYNC_WINDOWSIZE)) {
+                            // Setwindowsize ($maxitems = self::$decoder->getElementContent());
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+
+                        // Only supported for 'RI' searches - which we don't support
+                        // need to parse it though to avoid wbxml errors.
+                        if ($this->_decoder->getELementStartTag(Horde_ActiveSync::SYNC_MAXITEMS)) {
+                            if ($collectionid != 'RI') {
+                                $gStatus = self::STATUS_INVALIDCOL;
+                            }
+                            if (!$this->_decoder->getElementEndTag()) {
+                                throw new Horde_ActiveSync_Exception('Protocol Error');
+                            }
+                        }
+
+                        $elm = $this->_decoder->peek();
+                        if ($elm[Horde_ActiveSync_Wbxml::EN_TYPE] == Horde_ActiveSync_Wbxml::EN_TYPE_ENDTAG) {
+                            $this->_decoder->getElementEndTag();
+                            break;
+                        }
+                    }
                 }
             }
             // End the FOLDER element
@@ -128,6 +183,7 @@ class Horde_ActiveSync_Request_GetItemEstimate extends Horde_ActiveSync_Request_
             $collection['synckey'] = $synckey;
             $collection['filtertype'] = $filtertype;
             $collection['id'] = $collectionid;
+            $collection['conversationmode'] = isset($conversationmode) ? $conversationmode : false;
             $status[$collection['id']] = $cStatus;
             if (!empty($class)) {
                 $collection['class'] = $class;

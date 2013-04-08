@@ -90,6 +90,8 @@ class Horde_ActiveSync_Imap_Message
         $this->_flags = $data->getFlags();
         $this->_mbox = $mbox;
         $this->_data = $data;
+        $this->_envelope = $data->getEnvelope();
+
     }
 
     /**
@@ -248,10 +250,6 @@ class Horde_ActiveSync_Imap_Message
         }
 
         $query = new Horde_Imap_Client_Fetch_Query();
-        if (empty($this->_envelope)) {
-            $query->envelope();
-        }
-
         $query_opts = array(
             'decode' => true,
             'peek' => true
@@ -284,11 +282,6 @@ class Horde_ActiveSync_Imap_Message
             throw new Horde_ActiveSync_Exception($e);
         }
         $data = $fetch_ret->first();
-
-        // Save the envelope for later, if we asked for it.
-        if (empty($this->_envelope)) {
-            $this->_envelope = $data->getEnvelope();
-        }
 
         $return = array();
         if (!empty($text_id) && $want_plain_text) {
@@ -395,11 +388,11 @@ class Horde_ActiveSync_Imap_Message
             if ($this->isAttachment($id, $type)) {
                 $mime_part = $this->getMimePart($id, array('nocontents' => true));
                 if ($version > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $atc = new Horde_ActiveSync_Message_AirSyncBaseAttachment();
+                    $atc = Horde_ActiveSync::messageFactory('AirSyncBaseAttachment');
                     $atc->contentid = $mime_part->getContentId();
                     $atc->isinline = $mime_part->getDisposition() == 'inline';
                 } else {
-                    $atc = new Horde_ActiveSync_Message_Attachment();
+                    $atc = Horde_ActiveSync::messageFactory('Attachment');
                     $atc->attoid = $mime_part->getContentId();
                 }
                 $atc->attsize = $mime_part->getBytes();
@@ -618,10 +611,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getToAddresses()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
-
         $to = $this->_envelope->to;
         $dtos = $tos = array();
         foreach ($to->raw_addresses as $e) {
@@ -639,9 +628,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getCc()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
         $cc = new Horde_Mail_Rfc822_List($this->_envelope->cc->addresses);
         return $cc->writeAddress();
     }
@@ -653,9 +639,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getReplyTo()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
         $r = $this->_envelope->reply_to->addresses;
         $a = new Horde_Mail_Rfc822_Address(current($r));
 
@@ -669,9 +652,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getFromAddress()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
         $from = $this->_envelope->from->addresses;
         $a = new Horde_Mail_Rfc822_Address(current($from));
 
@@ -685,10 +665,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getSubject()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
-
         return $this->_envelope->subject;
     }
 
@@ -699,10 +675,6 @@ class Horde_ActiveSync_Imap_Message
      */
     public function getDate()
     {
-        if (empty($this->_envelope)) {
-            $this->_fetchEnvelope();
-        }
-
         return new Horde_Date((string)$this->_envelope->date);
     }
 
@@ -825,27 +797,6 @@ class Horde_ActiveSync_Imap_Message
         return $this->_message->getSubType() == 'signed' ||
                ($this->_message->getType() == 'application/pkcs7-mime' &&
                 $this->_message->getContentTypeParameter('smime-type') == 'signed-data');
-    }
-
-    /**
-     * Ensure that the envelope is available.
-     *
-     * @throws Horde_ActiveSync_Exception
-     */
-    protected function _fetchEnvelope()
-    {
-        $query = new Horde_Imap_Client_Fetch_Query();
-        $query->envelope();
-        try {
-            $fetch_ret = $this->_imap->fetch(
-                $this->_mbox,
-                $query,
-                array('ids' => new Horde_Imap_Client_Ids(array($this->_uid)))
-            );
-        } catch (Horde_Imap_Client_Exception $e) {
-            throw new Horde_ActiveSync_Exception($e);
-        }
-        $this->_envelope = $fetch_ret[$this->_uid]->getEnvelope();
     }
 
 }

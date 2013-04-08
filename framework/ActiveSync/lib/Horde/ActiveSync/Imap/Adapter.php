@@ -202,6 +202,10 @@ class Horde_ActiveSync_Imap_Adapter
      *  - protocolversion: (float)  EAS protocol version to support.
      *                     DEFAULT: none REQUIRED
      *
+     *  - timestamp: (integer) Include changes to reply/forward state since this
+     *                         timestamp. If empty, reply/forward state will not
+     *                         be checked.
+     *
      * @return Horde_ActiveSync_Folder_Imap  The folder object, containing any
      *                                       change instructions for the device.
      *
@@ -233,6 +237,7 @@ class Horde_ActiveSync_Imap_Adapter
             $modseq = $status[Horde_ActiveSync_Folder_Imap::HIGHESTMODSEQ] = 0;
         }
         $this->_logger->debug('IMAP status: ' . print_r($status, true));
+        $flags = array();
         if ($condstore && $folder->modseq() > 0 && $folder->modseq() < $modseq) {
             $this->_logger->debug('CONDSTORE and CHANGES');
             $folder->checkValidity($status);
@@ -252,7 +257,6 @@ class Horde_ActiveSync_Imap_Adapter
             // $modseq sneak in yet (they will be caught on the next PING or
             // SYNC).
             $changes = array();
-            $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 if ($data->getModSeq() <= $modseq) {
                     $changes[] = $uid;
@@ -260,7 +264,7 @@ class Horde_ActiveSync_Imap_Adapter
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                     );
                     if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                        $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : null;
                     }
                 }
             }
@@ -295,7 +299,6 @@ class Horde_ActiveSync_Imap_Adapter
                 $query = new Horde_Imap_Client_Fetch_Query();
                 $query->flags();
                 $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
-                $flags = array();
                 foreach ($fetch_ret as $uid => $data) {
                     $flags[$uid] = array(
                         'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
@@ -318,21 +321,44 @@ class Horde_ActiveSync_Imap_Adapter
             $query = new Horde_Imap_Client_Fetch_Query();
             $query->flags();
             $fetch_ret = $imap->fetch($mbox, $query, array('uids' => $search_ret['match']));
-            $flags = array();
             foreach ($fetch_ret as $uid => $data) {
                 $flags[$uid] = array(
                     'read' => (array_search(Horde_Imap_Client::FLAG_SEEN, $data->getFlags()) !== false) ? 1 : 0
                 );
                 if (($options['protocolversion']) > Horde_ActiveSync::VERSION_TWOFIVE) {
-                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : 0;
+                    $flags[$uid]['flagged'] = (array_search(Horde_Imap_Client::FLAG_FLAGGED, $data->getFlags()) !== false) ? 1 : null;
                 }
             }
             $folder->setChanges($search_ret['match']->ids, $flags);
             $folder->setRemoved($imap->vanished($mbox, null, array('ids' => new Horde_Imap_Client_Ids($folder->messages())))->ids);
         }
-
         $folder->setStatus($status);
+
         return $folder;
+    }
+
+    /**
+     * Return an array of message UIDs from a list of Message-IDs.
+     *
+     * @param string $mid                           The Message-ID
+     * @param Horde_ActiveSync_Folder_Imap $folder  The folder object to search.
+     *
+     * @return integer  The UID
+     * @throws Horde_Exception_NotFound
+     */
+    public function getUidFromMid($mid, Horde_ActiveSync_Folder_Imap $folder)
+    {
+        $iids = new Horde_Imap_Client_Ids(array_diff($folder->messages(), $folder->removed()));
+        $search_q = new Horde_Imap_Client_Search_Query();
+        $search_q->ids($iids);
+        $search_q->headerText('Message-ID', $mid);
+        $mbox = new Horde_Imap_Client_Mailbox($folder->serverid());
+        $results = $this->_getImapOb()->search($mbox, $search_q);
+        $uid = $results['match']->ids;
+        if (!empty($uid)) {
+            return current($uid);
+        }
+        throw new Horde_Exception_NotFound('Message not found.');
     }
 
     /**
@@ -474,7 +500,7 @@ class Horde_ActiveSync_Imap_Adapter
     public function getMessages($folderid, array $messages, array $options = array())
     {
         $mbox = new Horde_Imap_Client_Mailbox($folderid);
-        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true));
+        $results = $this->_getMailMessages($mbox, $messages, array('headers' => true, 'envelope' => true));
         $ret = array();
         if (!empty($options['truncation'])) {
             $options['truncation'] = Horde_ActiveSync::getTruncSize($options['truncation']);
@@ -609,7 +635,8 @@ class Horde_ActiveSync_Imap_Adapter
     }
 
     /**
-     * Return a Horde_ActiveSync_Imap_Message object for the requested uid.
+     * Return a complete Horde_ActiveSync_Imap_Message object for the requested
+     * uid.
      *
      * @param string $mailbox     The mailbox name.
      * @param array|integer $uid  The message uid.
@@ -625,6 +652,9 @@ class Horde_ActiveSync_Imap_Adapter
             $uid = array($uid);
         }
         $mbox = new Horde_Imap_Client_Mailbox($mailbox);
+        // @todo H6 - expand the $options array the same as _getMailMessages()
+        // for now, always retrieve the envelope data as well.
+        $options['envelope'] = true;
         $messages = $this->_getMailMessages($mbox, $uid, $options);
         $res = array();
         foreach ($messages as $id => $message) {
@@ -771,6 +801,8 @@ class Horde_ActiveSync_Imap_Adapter
      *            DEFAULT: true (Fetch message structure).
      *   - flags: (boolean) Fetch messagge flags.
      *            DEFAULT: true (Fetch message flags).
+     *   - envelope: (boolen) Fetch the envelope data.
+     *               DEFAULT: false (Do not fetch envelope). @since 2.4.0
      *
      * @return Horde_Imap_Fetch_Results  The results.
      * @throws Horde_ActiveSync_Exception
@@ -782,7 +814,8 @@ class Horde_ActiveSync_Imap_Adapter
             array(
                 'headers' => false,
                 'structure' => true,
-                'flags' => true),
+                'flags' => true,
+                'envelope' => false),
             $options
         );
 
@@ -793,6 +826,9 @@ class Horde_ActiveSync_Imap_Adapter
         }
         if ($options['flags']) {
             $query->flags();
+        }
+        if ($options['envelope']) {
+            $query->envelope();
         }
         if (!empty($options['headers'])) {
             $query->headerText(array('peek' => true));
@@ -840,7 +876,7 @@ class Horde_ActiveSync_Imap_Adapter
             $options['protocolversion'];
 
         $imap_message = new Horde_ActiveSync_Imap_Message($imap, $mbox, $data);
-        $eas_message = new Horde_ActiveSync_Message_Mail(array('protocolversion' => $version));
+        $eas_message = Horde_ActiveSync::messageFactory('Mail');
 
         // Build To: data (POOMMAIL_TO has a max length of 1024).
         $to = $imap_message->getToAddresses();
@@ -898,7 +934,7 @@ class Horde_ActiveSync_Imap_Adapter
             } else {
                 $eas_message->airsyncbasenativebodytype = Horde_ActiveSync::BODYPREF_TYPE_PLAIN;
             }
-            $airsync_body = new Horde_ActiveSync_Message_AirSyncBaseBody();
+            $airsync_body = Horde_ActiveSync::messageFactory('AirSyncBaseBody');
 
             if (isset($options['bodyprefs'][Horde_ActiveSync::BODYPREF_TYPE_MIME]) &&
                 ($options['mimesupport'] == Horde_ActiveSync::MIME_SUPPORT_ALL ||
@@ -958,7 +994,7 @@ class Horde_ActiveSync_Imap_Adapter
 
                     // Populate the EAS body structure with the MIME data.
                     $airsync_body->data = $base->toString(array(
-                        'headers' => true,
+                        'headers' => $imap_message->getHeaders(),
                         'stream' => true)
                     );
                     $airsync_body->estimateddatasize = $base->getBytes();
@@ -1021,6 +1057,18 @@ class Horde_ActiveSync_Imap_Adapter
             }
         }
 
+        // Preview?
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN && !empty($options['bodyprefs']['preview'])) {
+            $eas_message->airsyncbasebody->preview = Horde_String::substr(
+                $message_body_data['plain']['body'],
+                0,
+                $options['bodyprefs']['preview'],
+                $message_body_data['plain']['charset']);
+            $eas_message->airsyncbasebody->preview = $this->_validateUtf8(
+                $eas_message->airsyncbasebody->preview,
+                $message_body_data['plain']['charset']);
+        }
+
         // Check for special message types.
         $part = $imap_message->getStructure();
         if ($part->getType() == 'multipart/report') {
@@ -1077,7 +1125,7 @@ class Horde_ActiveSync_Imap_Adapter
                     case 'REQUEST':
                     case 'PUBLISH':
                         $eas_message->messageclass = 'IPM.Schedule.Meeting.Request';
-                        $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                        $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
                         $mtg->fromvEvent($vCal);
                         $eas_message->meetingrequest = $mtg;
                         break;
@@ -1094,7 +1142,7 @@ class Horde_ActiveSync_Imap_Adapter
                             case 'TENTATIVE':
                                 $eas_message->messageclass = 'IPM.Schedule.Meeting.Resp.Tent';
                             }
-                            $mtg = new Horde_ActiveSync_Message_MeetingRequest();
+                            $mtg = Horde_ActiveSync::messageFactory('MeetingRequest');
                             $mtg->fromvEvent($vCal);
                             $eas_message->meetingrequest = $mtg;
                         } catch (Horde_ActiveSync_Exception $e) {
@@ -1104,13 +1152,19 @@ class Horde_ActiveSync_Imap_Adapter
                 }
             }
 
-            $poommail_flag = new Horde_ActiveSync_Message_Flag();
-            $poommail_flag->subject = $imap_message->getSubject();
-            $poommail_flag->flagstatus = $imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)
-                ? Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE
-                : Horde_ActiveSync_Message_Flag::FLAG_STATUS_CLEAR;
-            $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
-            $eas_message->flag = $poommail_flag;
+            if ($imap_message->getFlag(Horde_Imap_Client::FLAG_FLAGGED)) {
+                $poommail_flag = Horde_ActiveSync::messageFactory('Flag');
+                $poommail_flag->subject = $imap_message->getSubject();
+                $poommail_flag->flagstatus = Horde_ActiveSync_Message_Flag::FLAG_STATUS_ACTIVE;
+                $poommail_flag->flagtype = Horde_Imap_Client::FLAG_FLAGGED;
+                $eas_message->flag = $poommail_flag;
+            }
+        }
+
+        if ($version >= Horde_ActiveSync::VERSION_FOURTEEN) {
+            $eas_message->messageid = $imap_message->getHeaders()->getValue('Message-ID');
+            $eas_message->forwarded = $imap_message->getFlag(Horde_Imap_Client::FLAG_FORWARDED);
+            $eas_message->answered  = $imap_message->getFlag(Horde_Imap_Client::FLAG_ANSWERED);
         }
 
         return $eas_message;

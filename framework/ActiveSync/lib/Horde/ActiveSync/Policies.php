@@ -68,13 +68,21 @@ class Horde_ActiveSync_Policies
         self::POLICY_MAXFAILEDATTEMPTS => '5',
         self::POLICY_CODEFREQ          => '0',
         self::POLICY_MINLENGTH         => '5',
-        self::POLICY_COMPLEXITY        => '2',
+    );
+
+    /**
+     * Deafaults for 12.0 policies.
+     *
+     * @var array
+     */
+    protected $_defaults_twelve = array(
+        self::POLICY_ATC               => '1',
+        self::POLICY_ENCRYPTION        => '0',
+        self::POLICY_MAXATCSIZE        => '5000000',
+        self::POLICY_COMPLEXITY        => '0',
         //self::POLICY_PWDRECOVERY       => '0',
         //self::POLICY_PWDEXPIRATION     => '0',
         //self::POLICY_PWDHISTORY        => '0',
-        self::POLICY_ENCRYPTION        => '0',
-        self::POLICY_ATC               => '1',
-        self::POLICY_MAXATCSIZE        => '5000000'
     );
 
     /**
@@ -121,6 +129,13 @@ class Horde_ActiveSync_Policies
     protected $_version;
 
     /**
+     * Local cache of all policies to send.
+     *
+     * @var array
+     */
+    protected $_policies = array();
+
+    /**
      * Const'r
      *
      * @param Horde_ActiveSync_Wbxml_Encoder $encoder  The output stream encoder
@@ -128,12 +143,15 @@ class Horde_ActiveSync_Policies
      * @param array $policies                          The policy array.
      */
     public function __construct(
-        Horde_ActiveSync_Wbxml_Encoder $encoder,
+        Horde_ActiveSync_Wbxml_Encoder $encoder = null,
         $version = Horde_ActiveSync::VERSION_TWELVEONE,
         array $policies = array())
     {
         $this->_encoder = $encoder;
-        if ($version > Horde_ActiveSync::VERSION_TWELVE) {
+        if ($version >= Horde_ActiveSync::VERSION_TWELVE) {
+            $this->_defaults = array_merge($this->_defaults, $this->_defaults_twelve);
+        }
+        if ($version >= Horde_ActiveSync::VERSION_TWELVEONE) {
             $this->_defaults = array_merge($this->_defaults, $this->_defaults_twelveone);
         }
 
@@ -149,6 +167,31 @@ class Horde_ActiveSync_Policies
     public function getAvailablePolicies()
     {
         return array_keys($this->_defaults);
+    }
+
+    /**
+     * Determine if the requested policy settings are available for the current
+     * version being used.
+     *
+     * @return boolean  True if policies are available in current version, false
+     *                  otherwise.
+     */
+    public function validatePolicyVersion()
+    {
+        $policies = $this->_getPolicies();
+
+        // Validate the version against the required policies.
+        if ($this->_version < Horde_ActiveSync::VERSION_TWELVEONE) {
+            foreach ($policies as $key => $value) {
+                if (!empty($this->_defaults_twelveone[$key]) &&
+                    $this->_defaults_twelveone[$key] != $value) {
+
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -204,21 +247,21 @@ class Horde_ActiveSync_Policies
             throw new Horde_ActiveSync_Exception('No output stream');
         }
 
-        $policies = array_merge($this->_defaults, $this->_overrides);
+        $policies = $this->_getPolicies();
 
         $this->_encoder->startTag('Provision:EASProvisionDoc');
 
         $this->_sendPolicy(self::POLICY_PIN, $policies[self::POLICY_PIN] ? '1' : '0');
         if ($policies[self::POLICY_PIN]) {
-            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY]);
-            $this->_sendPolicy(self::POLICY_MINLENGTH, $policies[self::POLICY_MINLENGTH]);
-            $this->_sendPolicy(self::POLICY_MAXFAILEDATTEMPTS, $policies[self::POLICY_MAXFAILEDATTEMPTS]);
-            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0');
+            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY], true);
+            $this->_sendPolicy(self::POLICY_MINLENGTH, $policies[self::POLICY_MINLENGTH], true);
+            $this->_sendPolicy(self::POLICY_MAXFAILEDATTEMPTS, $policies[self::POLICY_MAXFAILEDATTEMPTS], true);
+            $this->_sendPolicy(self::POLICY_COMPLEXITY, $policies[self::POLICY_COMPLEXITY] >= 1 ? '1' : '0', true);
         }
-        $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION]);
-        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC]);
+        $this->_sendPolicy(self::POLICY_ENCRYPTION, $policies[self::POLICY_ENCRYPTION], true);
+        $this->_sendPolicy(self::POLICY_ATC, $policies[self::POLICY_ATC], true);
         $this->_sendPolicy(self::POLICY_AEFVALUE, $policies[self::POLICY_AEFVALUE], true);
-        $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE]);
+        $this->_sendPolicy(self::POLICY_MAXATCSIZE, $policies[self::POLICY_MAXATCSIZE], true);
         if ($this->_version > Horde_ActiveSync::VERSION_TWELVE) {
             $this->_sendPolicy(self::POLICY_ALLOW_SDCARD, $policies[self::POLICY_ALLOW_SDCARD], true);
             $this->_sendPolicy(self::POLICY_ALLOW_CAMERA, $policies[self::POLICY_ALLOW_CAMERA], true);
@@ -258,6 +301,15 @@ class Horde_ActiveSync_Policies
         $this->_encoder->startTag('Provision:' . $policy);
         $this->_encoder->content($value);
         $this->_encoder->endTag();
+    }
+
+    protected function _getPolicies()
+    {
+        if (empty($this->_policies)) {
+            $this->_policies = array_merge($this->_defaults, $this->_overrides);
+        }
+
+        return $this->_policies;
     }
 
 }

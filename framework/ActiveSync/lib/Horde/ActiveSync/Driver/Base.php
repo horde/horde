@@ -258,6 +258,84 @@ abstract class Horde_ActiveSync_Driver_Base
     }
 
     /**
+     * Build a EAS style FB string. Essentially, each digit represents 1/2 hour.
+     * The values are as follows:
+     *  0 - Free
+     *  1 - Tentative
+     *  2 - Busy
+     *  3 - OOF
+     *  4 - No data available.
+     *
+     * Though currently we only provide a Free/Busy/Unknown differentiation.
+     *
+     * @param stdClass $fb  The fb information. An object containing:
+     *   - s: The start of the period covered.
+     *   - e: The end of the period covered.
+     *   - b: An array of busy periods.
+     *
+     * @param Horde_Date $start  The start of the period requested by the client.
+     * @param Horde_Date $end    The end of the period requested by the client.
+     *
+     * @return string   The EAS freebusy string.
+     * @since 2.4.0
+     */
+    static public function buildFbString($fb, Horde_Date $start, Horde_Date $end)
+    {
+        if (empty($fb)) {
+            return false;
+        }
+
+        // Calculate total time span.
+        $end_ts = $end->timestamp();
+        $start_ts = $start->timestamp();
+        $sec = $end_ts - $start_ts;
+
+        $fb_start = new Horde_Date($fb->s);
+        $fb_end = new Horde_Date($fb->e);
+
+        // Number of 30 minute periods.
+        $period_cnt = ceil($sec / 1800);
+
+        // Requested range is completely out of the available range.
+        if ($start_ts >= $fb_end->timestamp() || $end_ts < $fb_start->timestamp()) {
+            return str_repeat('4', $period_cnt);
+        }
+
+        // We already know we don't have any busy periods.
+        if (empty($fb->b) && $fb_end->timestamp() <= $end_ts) {
+            return str_repeat('0', $period_cnt);
+        }
+
+        $eas_fb = '';
+        // Move $start to the start of the available data.
+        while ($start_ts < $fb_start->timestamp() && $start_ts <= $end_ts) {
+            $eas_fb .= '4';
+            $start_ts += 1800; // 30 minutes
+        }
+        // The rest is assumed free up to $fb->e
+        while ($start_ts <= $fb_end->timestamp() && $start_ts <= $end_ts) {
+            $eas_fb .= '0';
+            $start_ts += 1800;
+        }
+        // The remainder is also unavailable
+        while ($start_ts <= $end_ts) {
+            $eas_fb .= '4';
+            $start_ts += 1800;
+        }
+
+        // Now put in the busy blocks.
+        while (list($b_start, $b_end) = each($fb->b)) {
+            $offset = $b_start - $start->timestamp();
+            $duration = ceil(($b_end - $b_start) / 1800);
+            if ($offset > 0) {
+                $eas_fb = substr_replace($eas_fb, str_repeat('2', $duration), floor($offset / 1800), $duration);
+            }
+        }
+
+        return $eas_fb;
+    }
+
+    /**
      * Delete a folder on the server.
      *
      * @param string $id  The server's folder id.
@@ -412,7 +490,7 @@ abstract class Horde_ActiveSync_Driver_Base
      *                          change to an existing message, null if new.
      * @param Horde_ActiveSync_Message_Base $message
      *                          The activesync message
-     * @param stdClass $device  The device information
+     * @param Horde_ActiveSync_Device $device  The device information
      *
      * @return array|boolean    A stat array if successful, otherwise false.
      */
@@ -514,15 +592,17 @@ abstract class Horde_ActiveSync_Driver_Base
     /**
      * Return the security policies.
      *
+     * @param boolean|array $device  The device information sent by EAS 14.1
+     *                               set to false otherwise. @since 3.0
      * @return array  An array of provisionable properties and values.
      */
-    abstract public function getCurrentPolicy();
+    abstract public function getCurrentPolicy($device = false);
 
     /**
      * Return settings from the backend for a SETTINGS request.
      *
      * @param array $settings   An array of settings to return.
-     * @param stdClass $device  The device to obtain settings for.
+     * @param Horde_ActiveSync_Device $device  The device to obtain settings for.
      *
      * @return array  The requested settings.
      */
@@ -532,7 +612,7 @@ abstract class Horde_ActiveSync_Driver_Base
      * Set backend settings from a SETTINGS request.
      *
      * @param array $settings   The settings to store.
-     * @param stdClass $device  The device to store settings for.
+     * @param Horde_ActiveSync_Device $device  The device to store settings for.
      *
      * @return array  An array of status responses for each set request. e.g.,:
      *   array('oof' => Horde_ActiveSync_Request_Settings::STATUS_SUCCESS,
@@ -562,9 +642,30 @@ abstract class Horde_ActiveSync_Driver_Base
      *
      * @param string $type    The type of recipient request. e.g., 'certificate'
      * @param string $search  The email to resolve.
-     * @param array $options  Any options required to perform the resolution.
+     * @param array $opts     Any options required to perform the resolution.
+     *  - maxcerts: (integer)     The maximum number of certificates to return
+     *                             as provided by the client.
+     *  - maxambiguous: (integer) The maximum number of ambiguous results. If
+     *                            set to zero, we MUST have an exact match.
+     *  - starttime: (Horde_Date) The start time for the availability window if
+     *                            requesting AVAILABILITY.
+     *  - endtime: (Horde_Date)   The end of the availability window if
+     *                            requesting AVAILABILITY.
+     *  - maxsize: (integer)      The maximum size of any pictures.
+     *                            DEFAULT: 0 (No limit).
+     *  - maxpictures: (integer)  The maximum count of images to return.
+     *                            DEFAULT: - (No limit).
+     *  - pictures: (boolean)     Return pictures.
      *
-     * @return array  The results.
+     * @return array  An array of results containing any of the following:
+     *   - type: (string)  The type of result a GAL entry or personal
+     *                     address book entry. A
+     *                     Horde_ActiveSync::RESOLVE_RESULT constant.
+     *   - displayname: (string)   The display name of the contact.
+     *   - emailaddress: (string)  The emailaddress.
+     *   - entries: (array)        An array of certificates.
+     *   - availability: (string)  A EAS style FB string.
+     *   - picture: (Horde_ActiveSync_Message_ResolveRecipientsPicture)
      */
     abstract public function resolveRecipient($type, $search, array $options = array());
 
