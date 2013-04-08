@@ -1569,7 +1569,7 @@ class IMP_Mailbox implements Serializable
     protected function _getCacheID($date = false)
     {
         $date = $date
-            ? 'D' . date('mdy')
+            ? 'D' . date('z')
             : '';
 
         if ($this->search) {

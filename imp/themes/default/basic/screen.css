@@ -279,26 +279,6 @@ td.msgheader {
     vertical-align: middle;
 }
 
-/* Thread page */
-.threadSummary {
-    margin: 5px 3px;
-}
-.threadSummary div {
-    height: 16px;
-}
-.threadBox {
-    margin: 3px;
-}
-.threadBox div.rowEven {
-    padding: 1px 2px;
-}
-.threadBox span.threadlink {
-    float: right;
-}
-.threadBox .messageBody {
-    border-bottom: 0;
-}
-
 /* Loading graphic */
 td.addressTr span.loadingImg {
     padding: 0 0 0 16px;

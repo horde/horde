@@ -1,6 +1,6 @@
-----------
-v6.0.5-git
-----------
+------
+v6.0.5
+------
 
 [mms] SECURITY: Fix XSS vulnerability on smartmobile message page (João Machado
       <geral@jpaulo.eu>).

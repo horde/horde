@@ -3,9 +3,6 @@
 /**
  * This script clears cache data from a backend.
  *
- * Usage: horde-clear-cache [-f]
- *        -f: Force clearing without prompt.
- *
  * Copyright 2011-2013 Horde LLC (http://www.horde.org/)
  *
  * See the enclosed file COPYING for license information (LGPL-2). If you
@@ -36,29 +33,19 @@ try {
     $cli->fatal($e);
 }
 
-$c = new Console_Getopt();
-$argv = $c->readPHPArgv();
-array_shift($argv);
-$options = $c->getopt2($argv, 'f');
-if ($options instanceof PEAR_Error) {
-    $cli->fatal($options->getMessage());
-}
+$parser = new Horde_Argv_Parser();
+$parser->addOption('-f', array(
+    'action' => 'store_true',
+    'help' => 'Force cleaning without prompt',
+    'dest' => 'force'
+));
+list($values,) = $parser->parseArgs();
 
-$prompt = false;
+$clear = $values->force
+   ? true
+   : ($cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y');
 
-foreach ($options[0] as $val) {
-    switch ($val[0]) {
-    case 'f':
-        $prompt = true;
-        break;
-    }
-}
-
-if (!$prompt) {
-    $prompt = $cli->prompt($cli->red('Are you sure you want to expire all cached data?'), array('y' => 'Yes', 'n' => 'No'), 'n') == 'y';
-}
-
-if ($prompt) {
+if ($clear) {
     try {
         $cache->clear();
         $cli->message('Cache data cleared.', 'cli.success');

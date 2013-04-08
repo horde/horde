@@ -66,7 +66,7 @@ class IMP_Application extends Horde_Registry_Application
 
     /**
      */
-    public $version = 'H5 (6.0.5-git)';
+    public $version = 'H5 (6.1.0-git)';
 
     /**
      * Server key used in logged out session.
@@ -523,7 +523,15 @@ class IMP_Application extends Horde_Registry_Application
                 ? reset($mlist)
                 : $mlist;
 
-            if ($vars->zip) {
+            switch ($vars->type) {
+            case 'mbox':
+                return array(
+                    'data' => $mbox,
+                    'name' => $name . '.mbox',
+                    'type' => 'text/plain; charset=UTF-8'
+                );
+
+            case 'mboxzip':
                 try {
                     $data = Horde_Compress::factory('Zip')->compress(array(
                         array(
@@ -545,12 +553,7 @@ class IMP_Application extends Horde_Registry_Application
                     'type' => 'application/zip'
                 );
             }
-
-            return array(
-                'data' => $mbox,
-                'name' => $name . '.mbox',
-                'type' => 'text/plain; charset=UTF-8'
-            );
+            break;
 
         case 'download_render':
             $view_ob = new IMP_Contents_View(IMP::mailbox(true), IMP::uid());

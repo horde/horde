@@ -52,7 +52,7 @@ function Horde_Form_Sections(instanceName, openSection)
     this._set = function(sectionId)
     {
         var form = document.getElementById(this._instanceName);
-        if (form != null &&
+        if (form !== null &&
             typeof form.__formOpenSection != 'undefined') {
             form.__formOpenSection.value = sectionId;
         }

@@ -144,18 +144,18 @@ class IMP_Ajax_Application_ListMessages
         /* Check for UIDVALIDITY expiration. It is the first element in the
          * cacheid returned from the browser. If it has changed, we need to
          * purge the cached items on the browser. */
-        $parsed = null;
         if ($args['cacheid'] && $args['cache']) {
             $uid_expire = false;
             $parsed = $imp_imap->parseCacheId($args['cacheid']);
 
-            if ($parsed['date'] != date('mdy')) {
+            if ($parsed['date'] != date('z')) {
                 $uid_expire = true;
             } elseif (!$is_search) {
                 try {
-                    $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_UIDVALIDITY);
-                    $uid_expire = ($parsed['uidvalidity'] != $status['uidvalidity']);
-                } catch (Horde_Imap_Client_Exception $e) {
+                    $imp_imap->sync($mbox, $parsed['token'], array(
+                        'criteria' => Horde_Imap_Client::SYNC_UIDVALIDITY
+                    ));
+                } catch (Horde_Imap_Cache_Exception_Sync $e) {
                     $uid_expire = true;
                 }
             }
@@ -165,6 +165,8 @@ class IMP_Ajax_Application_ListMessages
                 $args['initial'] = true;
                 $result->data_reset = $result->metadata_reset = 1;
             }
+        } else {
+            $parsed = null;
         }
 
         /* Mail-specific viewport information. */
@@ -347,27 +349,14 @@ class IMP_Ajax_Application_ListMessages
             }
         }
 
-        /* Check for cached entries marked as changed via CONDSTORE IMAP
-         * extension. If changed, resend the entire entry to update the
-         * browser cache (done below). */
-        if (!empty($cached) &&
-            !$is_search &&
-            !is_null($parsed) &&
-            !empty($parsed['highestmodseq'])) {
-            $status = $imp_imap->status($mbox, Horde_Imap_Client::STATUS_SYNCMODSEQ | Horde_Imap_Client::STATUS_SYNCFLAGUIDS);
-            if ($status['syncmodseq'] == $parsed['highestmodseq']) {
-                /* We have the cached list of sync'd mailbox UIDs. */
-                $changed = array_flip($status['syncflaguids']->ids);
-            } else {
-                $squery = new Horde_Imap_Client_Search_Query();
-                $squery->modseq($parsed['highestmodseq'] + 1);
-                $squery->ids($imp_imap->getIdsOb(array_keys($cached)));
-
-                try {
-                    $res = $imp_imap->search($mbox, $squery);
-                    $changed = array_flip($res['match']->ids);
-                } catch (IMP_Imap_Exception $e) {}
-            }
+        /* Check for cached entries marked as changed. If changed, resend the
+         * entire entry to update the browser cache (done below). */
+        if (!empty($cached) && !$is_search && !is_null($parsed)) {
+            $sync_ob = $imp_imap->sync($mbox, $parsed['token'], array(
+                'criteria' => Horde_Imap_Client::SYNC_FLAGSUIDS,
+                'ids' => $imp_imap->getIdsOb(array_keys($cached))
+            ));
+            $changed = array_flip($sync_ob->flagsuids->ids);
         }
 
         foreach (array_slice($uidlist, $slice_start - 1, $slice_end - $slice_start + 1, true) as $key => $uid) {

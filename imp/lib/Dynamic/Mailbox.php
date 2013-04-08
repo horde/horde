@@ -155,6 +155,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'URI_PORTAL' => strval($registry->getServiceLink('portal')->setRaw(true)),
             'URI_PREFS_IMP' => strval($registry->getServiceLink('prefs', 'imp')->setRaw(true)),
             'URI_SEARCH' => strval(Horde::url('search.php')),
+            'URI_THREAD' => strval(Horde::url('thread.php')),
 
             // IMAP Flags
             'FLAG_DELETED' => Horde_Imap_Client::FLAG_DELETED,
@@ -167,6 +168,10 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
 
             // Other variables
             'acl' => $acl,
+            'download_types' => array(
+                'mbox' => _("Download into a MBOX file"),
+                'mboxzip' => _("Download into a MBOX file (ZIP compressed)")
+            ),
             'filter_any' => intval($prefs->getValue('filter_any_mailbox')),
             'fixed_mboxes' => empty($conf['server']['fixed_folders'])
                 ? array()
@@ -238,7 +243,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 'delete' => _("Delete subfolders"),
                 '_sep2' => null,
                 'search' => _("Search"),
-                'searchsub' => _("Search All Subfolders"),
                 '_sep3' => null,
                 'expand' => _("Expand All"),
                 'collapse' => _("Collapse All")
@@ -372,7 +376,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'unsub' => _("Unsubscribe"),
             '_sep4' => null,
             'search' => _("Search"),
-            'searchsub' => _("Search All Subfolders"),
             '_sub1' => array(
                 '_sep5' => null,
                 'expand' => _("Expand All"),
@@ -385,11 +388,6 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 '_sep7' => null,
                 'acl' => _("Edit ACL")
             )
-        );
-
-        $context['ctx_mbox_exportopts'] = array(
-            '*mbox' => _("Mbox"),
-            '*zip' => _("Zip")
         );
 
         if (!$prefs->getValue('subscribe')) {
@@ -437,7 +435,8 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
         $context['ctx_preview'] = array(
             'save' => _("Save"),
             'viewsource' => _("View Source"),
-            'allparts' => _("All Parts")
+            'allparts' => _("All Parts"),
+            'thread' => _("View Thread")
         );
 
         if (empty($conf['user']['allow_view_source'])) {
@@ -458,15 +457,12 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
                 );
             }
 
-            $context['ctx_qsearchby'] = array(
+            $context['ctx_qsearchopts'] = array(
                 '*all' => _("Entire Message"),
                 '*body' => _("Body"),
                 '*from' => _("From"),
                 '*recip' => _("Recipients (To/Cc/Bcc)"),
-                '*subject' => _("Subject")
-            );
-            $context['ctx_qsearchopts'] = array(
-                '*by' => _("Search By"),
+                '*subject' => _("Subject"),
                 '_sep1' => null,
                 '*advanced' => _("Advanced Search...")
             );
@@ -494,7 +490,7 @@ class IMP_Dynamic_Mailbox extends IMP_Dynamic_Base
             'createsub_prompt' => _("Create subfolder of %s:"),
             'delete_mbox' => _("Permanently delete %s?"),
             'delete_mbox_subfolders' => _("Delete all subfolders of %s?"),
-            'download_mbox' => _("All messages in this mailbox will be downloaded into one MBOX file. This may take some time. Are you sure you want to continue?"),
+            'download_mbox' => _("All messages in this mailbox will be downloaded into the format that you choose. Depending on the size of the mailbox, this action may take awhile."),
             'empty_mbox' => _("Permanently delete all %d messages in %s?"),
             'hidealog' => Horde::highlightAccessKey(_("Hide Alerts _Log"), Horde::getAccessKey(_("Alerts _Log"), true)),
             'import_mbox' => _("Mbox or .eml file:"),

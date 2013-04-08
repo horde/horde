@@ -381,6 +381,17 @@ table.searchesmanagement td.searchdescription {
     font-weight: bold;
 }
 
+/* Thread page */
+.threadSummary {
+    margin: 5px 3px;
+}
+.threadBox {
+    margin: 3px;
+}
+.threadBox span.threadlink {
+    float: right;
+}
+
 /* Inline display (Horde_Mime_Viewer) styles. */
 .mimeStatusMessageTable {
     margin-bottom: 3px;

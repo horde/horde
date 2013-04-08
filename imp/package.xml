@@ -761,9 +761,6 @@
      <dir name="search">
       <file name="search-basic.html.php" role="horde" />
      </dir> <!-- /templates/basic/search -->
-     <dir name="thread">
-      <file name="thread.html.php" role="horde" />
-     </dir> <!-- /templates/basic/thread -->
      <file name="subinfo.html.php" role="horde" />
     </dir> <!-- /templates/basic -->
     <dir name="contacts">
@@ -849,6 +846,9 @@
     <dir name="test">
      <file name="mailserver.inc" role="horde" />
     </dir> <!-- /templates/test -->
+    <dir name="thread">
+     <file name="thread.html.php" role="horde" />
+    </dir> <!-- /templates/thread -->
     <file name=".htaccess" role="horde" />
    </dir> <!-- /templates -->
    <dir name="test">
@@ -1020,6 +1020,7 @@
       <file name="spacer_red.png" role="horde" />
       <file name="spam.png" role="horde" />
       <file name="spellcheck.png" role="horde" />
+      <file name="thread.png" role="horde" />
       <file name="undelete.png" role="horde" />
       <file name="unseen.png" role="horde" />
       <file name="warning.png" role="horde" />
@@ -1104,7 +1105,7 @@
    <package>
     <name>Horde_Crypt</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1160,7 +1161,7 @@
    <package>
     <name>Horde_Imap_Client</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.2.0</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1747,7 +1748,6 @@
    <install as="imp/templates/basic/message/navbar_navigate.html.php" name="templates/basic/message/navbar_navigate.html.php" />
    <install as="imp/templates/basic/message/navbar_top.html.php" name="templates/basic/message/navbar_top.html.php" />
    <install as="imp/templates/basic/search/search-basic.html.php" name="templates/basic/search/search-basic.html.php" />
-   <install as="imp/templates/basic/thread/thread.html.php" name="templates/basic/thread/thread.html.php" />
    <install as="imp/templates/contacts/contacts.html.php" name="templates/contacts/contacts.html.php" />
    <install as="imp/templates/dynamic/compose-base.html.php" name="templates/dynamic/compose-base.html.php" />
    <install as="imp/templates/dynamic/compose.html.php" name="templates/dynamic/compose.html.php" />
@@ -1805,6 +1805,7 @@
    <install as="imp/templates/smartmobile/search.html.php" name="templates/smartmobile/search.html.php" />
    <install as="imp/templates/smime/import_key.html.php" name="templates/smime/import_key.html.php" />
    <install as="imp/templates/test/mailserver.inc" name="templates/test/mailserver.inc" />
+   <install as="imp/templates/thread/thread.html.php" name="templates/thread/thread.html.php" />
    <install as="Imp/AllTests.php" name="test/Imp/AllTests.php" />
    <install as="Imp/Autoload.php" name="test/Imp/Autoload.php" />
    <install as="Imp/bootstrap.php" name="test/Imp/bootstrap.php" />
@@ -1892,6 +1893,7 @@
    <install as="imp/themes/default/graphics/spacer_red.png" name="themes/default/graphics/spacer_red.png" />
    <install as="imp/themes/default/graphics/spam.png" name="themes/default/graphics/spam.png" />
    <install as="imp/themes/default/graphics/spellcheck.png" name="themes/default/graphics/spellcheck.png" />
+   <install as="imp/themes/default/graphics/thread.png" name="themes/default/graphics/thread.png" />
    <install as="imp/themes/default/graphics/undelete.png" name="themes/default/graphics/undelete.png" />
    <install as="imp/themes/default/graphics/unseen.png" name="themes/default/graphics/unseen.png" />
    <install as="imp/themes/default/graphics/warning.png" name="themes/default/graphics/warning.png" />

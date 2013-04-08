@@ -111,7 +111,7 @@ var ContextSensitive = Class.create({
         if (this.current.size()) {
             this.current.splice(idx, this.current.size() - idx).each(function(s) {
                 // Fade-out on final display.
-                if (!immediate && idx == 0) {
+                if (!immediate && idx === 0) {
                     s.fade({ duration: 0.15 });
                 } else {
                     $(s).hide();
@@ -122,7 +122,7 @@ var ContextSensitive = Class.create({
                 $(s).removeClassName('contextHover');
             });
 
-            if (idx == 0) {
+            if (idx === 0) {
                 this.baseelt = null;
             }
         }
@@ -329,7 +329,7 @@ var ContextSensitive = Class.create({
                 : (v.width - w - 2);
         }
 
-        elt.setStyle({ left: x + 'px', top: y + 'px' })
+        elt.setStyle({ left: x + 'px', top: y + 'px' });
 
         if (this.current.size()) {
             elt.show();

@@ -853,7 +853,7 @@ var DimpBase = {
 
     contextOnClick: function(e)
     {
-        var tmp,
+        var tmp, tmp2,
             elt = e.memo.elt,
             id = elt.readAttribute('id'),
             menu = e.memo.trigger;
@@ -904,21 +904,24 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_mbox_exportopts_mbox':
-        case 'ctx_mbox_exportopts_zip':
+        case 'ctx_mbox_export':
             tmp = this.contextMbox(e);
 
             this.viewaction = function(e) {
                 HordeCore.download('', {
                     actionID: 'download_mbox',
                     mbox_list: Object.toJSON([ tmp.retrieve('mbox') ]),
-                    zip: Number(id == 'ctx_mbox_exportopts_zip')
+                    type: e.element().down('[name=download_type]').getValue()
                 });
             };
 
+            tmp2 = new Element('SELECT', { name: 'download_type' });
+            $H(DimpCore.conf.download_types).each(function(d) {
+                tmp2.insert(new Element('OPTION', { value: d.key }).insert(d.value));
+            });
             HordeDialog.display({
+                form: tmp2,
                 form_id: 'dimpbase_confirm',
-                noinput: true,
                 text: DimpCore.text.download_mbox
             });
             break;
@@ -998,12 +1001,9 @@ var DimpBase = {
             break;
 
         case 'ctx_container_search':
-        case 'ctx_container_searchsub':
         case 'ctx_mbox_search':
-        case 'ctx_mbox_searchsub':
             this.go('search', {
-                mailbox: this.contextMbox(e).retrieve('mbox'),
-                subfolder: Number(id.endsWith('searchsub'))
+                mailbox: this.contextMbox(e).retrieve('mbox')
             });
             break;
 
@@ -1136,10 +1136,6 @@ var DimpBase = {
             });
             break;
 
-        case 'ctx_qsearchopts_advanced':
-            this.go('search', tmp);
-            break;
-
         case 'ctx_vcontainer_edit':
             HordeCore.redirect(HordeCore.addURLParam(
                 DimpCore.conf.URI_PREFS_IMP,
@@ -1149,17 +1145,21 @@ var DimpBase = {
             ));
             break;
 
-        case 'ctx_qsearchby_all':
-        case 'ctx_qsearchby_body':
-        case 'ctx_qsearchby_from':
-        case 'ctx_qsearchby_recip':
-        case 'ctx_qsearchby_subject':
-            this._setPref('qsearch_field', id.substring(14));
+        case 'ctx_qsearchopts_all':
+        case 'ctx_qsearchopts_body':
+        case 'ctx_qsearchopts_from':
+        case 'ctx_qsearchopts_recip':
+        case 'ctx_qsearchopts_subject':
+            this._setPref('qsearch_field', id.substring(16));
             this._setQsearchText();
             if (this.isQSearch()) {
                 this.viewswitch = true;
                 this.quicksearchRun();
             }
+            break;
+
+        case 'ctx_qsearchopts_advanced':
+            this.go('search', tmp);
             break;
 
         case 'ctx_filteropts_applyfilters':
@@ -1332,7 +1332,7 @@ var DimpBase = {
             [ $('ctx_sortopts_to') ].invoke(tmp ? 'show' : 'hide');
             break;
 
-        case 'ctx_qsearchby':
+        case 'ctx_qsearchopts':
             $(ctx_id).descendants().invoke('removeClassName', 'contextSelected');
             $(ctx_id + '_' + this._getPref('qsearch_field')).addClassName('contextSelected');
             break;
@@ -1397,6 +1397,7 @@ var DimpBase = {
 
         case 'ctx_preview':
             [ $('ctx_preview_allparts') ].invoke(this.pp.hide_all ? 'hide' : 'show');
+            [ $('ctx_preview_thread') ].invoke(this.viewport.getMetaData('nothread') ? 'hide' : 'show');
             break;
 
         case 'ctx_template':
@@ -2169,7 +2170,7 @@ var DimpBase = {
     /* Set quicksearch text. */
     _setQsearchText: function()
     {
-        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchby['*' + this._getPref('qsearch_field')] + ')');
+        $('horde-search-input').writeAttribute('title', DimpCore.text.search + ' (' + DimpCore.context.ctx_qsearchopts['*' + this._getPref('qsearch_field')] + ')');
         if (HordeTopbar.searchGhost) {
             HordeTopbar.searchGhost.refresh();
         }
@@ -2717,6 +2718,15 @@ var DimpBase = {
             HordeCore.popupWindow(DimpCore.conf.URI_VIEW, {
                 actionID: 'view_source',
                 id: 0,
+                mailbox: this.pp.mbox,
+                uid: this.pp.uid
+            }, {
+                name: this.pp.uid + '|' + this.pp.mbox
+            });
+            break;
+
+        case 'ctx_preview_thread':
+            HordeCore.popupWindow(DimpCore.conf.URI_THREAD, {
                 mailbox: this.pp.mbox,
                 uid: this.pp.uid
             }, {
@@ -3679,7 +3689,6 @@ var DimpBase = {
                 offset: $$('#horde-search .horde-fake-input')[0],
                 type: 'qsearchopts'
             });
-            DM.addSubMenu('ctx_qsearchopts_by', 'ctx_qsearchby');
 
             DimpCore.addPopdownButton('button_filter', 'filteropts', {
                 trigger: true
@@ -3734,7 +3743,6 @@ var DimpBase = {
         DM.addSubMenu('ctx_oa_setflag', 'ctx_flag');
         DM.addSubMenu('ctx_oa_unsetflag', 'ctx_flag');
         DM.addSubMenu('ctx_mbox_setflag', 'ctx_mbox_flag');
-        DM.addSubMenu('ctx_mbox_export', 'ctx_mbox_exportopts');
 
         DimpCore.addPopdown($('msglistHeaderHoriz').down('.msgSubject').identify(), 'subjectsort', {
             insert: 'bottom'

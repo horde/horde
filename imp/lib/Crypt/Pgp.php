@@ -753,6 +753,12 @@ class IMP_Crypt_Pgp extends Horde_Crypt_Pgp
             }
         }
 
+        if (!empty($out['private']) &&
+            empty($out['public']) &&
+            $res = $this->getPublicKeyFromPrivateKey(reset($out['private']))) {
+            $out['public'][] = $res;
+        }
+
         return $out;
     }
 

@@ -8,7 +8,7 @@
 
 <?php if ($this->notsecure): ?>
  <div>
-  <em class="prefsPgpWarning"><?php echo _("PGP Personal Keypair support requires a secure web connection.") ?></em>
+  <em class="prefsPgpWarning"><?php echo _("PGP Personal Key support requires a secure web connection.") ?></em>
  </div>
 <?php elseif ($this->has_key): ?>
  <div>
@@ -138,7 +138,7 @@
   <p>
    <input type="submit" id="create_pgp_key" name="create_pgp_key" class="horde-create" value="<?php echo _("Create Keys") ?>" />
 <?php if ($this->import_pgp_private): ?>
-   <input type="submit" name="save" class="horde-default" id="import_pgp_personal" value="<?php echo _("Import Keypair") ?>" />
+   <input type="submit" name="save" class="horde-default" id="import_pgp_personal" value="<?php echo _("Import Key") ?>" />
 <?php endif; ?>
    <?php echo $this->hordeHelp('imp', 'pgp-personalkey-create-actions') ?>
   </p>

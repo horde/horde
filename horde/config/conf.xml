@@ -1056,8 +1056,6 @@
      </configsection>
     </case>
    </configswitch>
-   <configboolean name="compress" required="false" desc="Compress cached
-   data? Requires the 'lzf' PECL package to be installed">true</configboolean>
    <configswitch name="use_memorycache" required="false" desc="Use a
    separate memory cache driver to store data in memory? If data is not found
    in this driver, we will fall back to accessing the persistent backend. This
@@ -1106,12 +1104,6 @@
      </configswitch>
      <configinteger name="lifetime" desc="Lifetime of the cached files, in
      seconds.">86400</configinteger>
-     <configswitch name="compress" desc="How should we compress the static
-     cached files?">php
-      <case name="none" desc="No compression" />
-      <case name="php" desc="Built-in compressor (Good compression, good
-      speed)" />
-     </configswitch>
     </configsection>
    </case>
   </configswitch>
@@ -1989,11 +1981,13 @@
       </configboolean>
       <configenum name="version" desc="What is the highest version of EAS that
       Horde should support? All versions are backwards compatible so selecting
-      a higher version also includes support for the lower versions as well.">
+      a higher version also includes support for the lower versions as well.">14
       <values>
        <value desc="Exchange 2003 (EAS 2.5)">2.5</value>
        <value desc="Exchange 2007 (EAS 12.0)">12</value>
        <value desc="Exchange 2007sp1 (EAS 12.1)">12.1</value>
+       <value desc="Exchange 2010sp1 (EAS 14.0)">14</value>
+       <value desc="Exchange 2010sp2 (EAS 14.1)">14.1</value>
       </values>
      </configenum>
      <configheader>Autodiscovery</configheader>

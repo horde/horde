@@ -28,10 +28,9 @@
   <email>mrubinsk@horde.org</email>
   <active>yes</active>
  </lead>
- <date>2013-02-20</date>
- <time>00:20:19</time>
+ <date>2013-03-11</date>
  <version>
-  <release>5.0.5</release>
+  <release>5.1.0</release>
   <api>5.0.0</api>
  </version>
  <stability>
@@ -40,10 +39,8 @@
  </stability>
  <license uri="http://www.horde.org/licenses/lgpl">LGPL-2</license>
  <notes>
-* [cjh] Add support for New Relic real-user monitoring (RUM) if New Relic is installed
-* [mms] SECURITY: Fix XSS vulnerability on smartmobile portal page (João Machado &lt;geral@jpaulo.eu&gt;).
-* [mms] Login screen now hides the mode input if javascript is not available, as minimal view is the only supported mode (Request #12093).
-* [jan] Fix searching from topbar if search URL contains parameters.
+* [jan] Check all installed PEAR packages when checking for updates.
+* [mms] Add &apos;ajaxaction_data&apos; hook.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -1624,7 +1621,7 @@
    <package>
     <name>Horde_Core</name>
     <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
+    <min>2.1.8</min>
     <max>3.0.0alpha1</max>
     <exclude>3.0.0alpha1</exclude>
    </package>
@@ -1728,13 +1725,6 @@
    </package>
    <package>
     <name>Horde_Support</name>
-    <channel>pear.horde.org</channel>
-    <min>2.0.0</min>
-    <max>3.0.0alpha1</max>
-    <exclude>3.0.0alpha1</exclude>
-   </package>
-   <package>
-    <name>Horde_Template</name>
     <channel>pear.horde.org</channel>
     <min>2.0.0</min>
     <max>3.0.0alpha1</max>
