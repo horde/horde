@@ -21,3 +21,7 @@ Recommends: ${phppear:Debian-Recommends}
 Breaks: ${phppear:Debian-Breaks}
 Description: ${phppear:summary}
  ${phppear:description}
+ .
+ This package is part of Horde, a web application Framework written in PHP with
+ modules like IMP (webmail), Turba (contacts), Kronolith (calendar), Nag (task
+ list), Gollem (file manager), etc.
