@@ -2467,11 +2467,12 @@ class IMP_Compose implements ArrayAccess, Countable, IteratorAggregate
                         $part->setContents($response->getBody());
                         $part->setDisposition('attachment');
 
-                        $this->_addRelatedAttachment($part, $node, 'src');
+                        $atc = $this->addAttachmentFromPart($part);
+                        $this->addRelatedAttachment($atc, $node, 'src');
+
                         $downloaded = true;
                     }
-                } catch (Horde_Http_Exception $e) {
-                }
+                } catch (Horde_Http_Exception $e) {}
             }
         }
     }
