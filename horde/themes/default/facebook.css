@@ -1,64 +1,8 @@
-/* Default Facebook CSS */
-.fbbody, .fbaction
-{
-    font-family: "lucida grande" ,tahoma,verdana,arial,sans-serif;
-    font-size: 11px;
-    color: #333333;
-}
-/* Default Anchor Style */
-.fbbody a
-{
-    color: #3b5998;
-    outline-style: none;
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.fbaction a, .fbaction input
-{
-    color: #ffffff;
-    outline-style: none;
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: bold;
-}
-
-.fbbody a:hover
-{
-    text-decoration: underline;
-}
-.fbboxfont {
-    font-size: 13px;
-}
 /* Facebook Box Styles */
-.fbgreybox
-{
-    background-color: #f7f7f7;
-    border: 1px solid #cccccc;
-    color: #333333;
-    padding: 10px;
-}
-.fbbluebox
-{
-    background-color: #eceff6;
-    border: 1px solid #d4dae8;
-    color: #333333;
-    padding: 10px;
-}
 .fbinfobox
 {
     background-color: #fff9d7;
     border: 1px solid #e2c822;
-    color: #333333;
-    padding: 10px;
-    font-size: 13px;
-    font-weight: bold;
-}
-.fberrorbox
-{
-    background-color: #ffebe8;
-    border: 1px solid #dd3c10;
     color: #333333;
     padding: 10px;
     font-size: 13px;
@@ -74,49 +18,8 @@
     height: 1px;
     background-color: #d8dfea;
 }
-/* Facebook Tab Style */
-.fbtab
-{
-    padding: 8px;
-    background-color: #d8dfea;
-    color: #3b5998;
-    font-weight: bold;
-    float: left;
-    margin-right: 4px;
-    text-decoration: none;
-}
-.fbtab:hover
-{
-    background-color: #3b5998;
-    color: #ffffff;
-    cursor: hand;
-}
-.fbbutton {
-    background-color:#3B5998;
-    border-color:#D9DFEA #0E1F5B #0E1F5B #D9DFEA;
-    border-style:solid;
-    border-width:1px;
-    color:#FFFFFF;
-    font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-    font-size:11px;
-    padding:2px 15px 3px;
-    cursor: pointer;
-    text-align:center;
-}
-.fbbutton:hover {
-    text-decoration: underline;
-}
-
-.fbbutton:focus, a.fbbutton:hover, a.fbbutton:focus {
-    background: #3B5998;
-}
 
 /* Stream CSS */
-.fbstreampic {
-    display: inline;
-    height: 50px;
-    width: 50px;
-}
 .fbattachment {
     margin: 6px 6px 0 0;
     overflow: hidden;
@@ -133,9 +36,6 @@
     float: left;
     overflow: hidden;
 }
-.fbmediawide {
-    float: none;
-}
 .fbmediaitem {
     float: left;
 }
@@ -147,11 +47,4 @@
 }
 .fbmediaitemsingle {
     padding-right:5px;
-}
-.fbmediaitemmultiple {
-    padding-left: 5px;
-}
-.fbemptystatus {
-    font-style: italic;
-    color: gray;
 }
